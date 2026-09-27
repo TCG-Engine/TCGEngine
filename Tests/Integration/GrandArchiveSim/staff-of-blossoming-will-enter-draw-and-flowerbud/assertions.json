@@ -1,0 +1,151 @@
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "CardID",
+        "value": "4moumzcx9z"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-3",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-5",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "CardID",
+        "value": "yn78t73w1p",
+        "semantic": true,
+        "label": "The Flowerbud token landed on player 2's field (the targeted player), not player 1's -- customDQHandlers[\"4moumzcx9z:0:ActivateAbility-1\"] resolved the target champion pick (theirField-0) to its CONTROLLER and added the token to that player's own field"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 12,
+        "semantic": true,
+        "label": "Deck shrank from 13 to 12: Staff of Blossoming Will's On Enter (enterAbilities[\"4moumzcx9z:0\"]) drew a real card off the top of the deck when it materialized"
+    }
+]

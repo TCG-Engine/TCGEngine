@@ -1,0 +1,17 @@
+{
+    "name": "glimmer-essence-amulet-opponent-turn-phantasia-destroyed-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T18:50:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Glimmer Essence Amulet's trigger (GameLogic.php ~7816-7832, inside the shared DoAllyDestroyed() destroy-event dispatcher) fires when PropertyContains(CardType($destroyedObj->CardID), \"PHANTASIA\") and GetTurnPlayer() != $controller, i.e. destroyed while it is NOT the controller's own turn. A real combat kill is used to reach this rather than a removal spell: Maiden of Shimmering Air (3n4l6aoj4t, PHANTASIA+ALLY, printed LIFE 2) is seeded onto player 1's own field with its LIFE overridden to 1 (potion_animate_life, same technique as the Reaping Legacy/Shred to Ribbons precedents) alongside Glimmer Essence Amulet. Player 1 passes turn 1 (Rule 1.h forbids the true first player from attacking turn 1); on player 2's own turn 1, their Dungeon Guide ALLY (printed POWER 1, seeded awake) declares a real attack against player 1's Maiden, dealing exactly 1 damage -- lethal against the overridden 1 LIFE -- which destroys it via DoAllyDestroyed() DURING PLAYER 2's turn, satisfying 'while it's not your turn' from player 1's perspective. That fires customDQHandlers[\"GlimmerEssenceAmuletChoice\"] (CardDQHandlers.php ~8255): answering YES banishes Glimmer Essence Amulet (moves it from myField to myBanish via OnLeaveField+MZMove) and draws a card. Verified directly against the engine: player 1's hand count goes from 7 (initial_gamestate.txt) to 8 (expected_final_gamestate.txt), and p1Banish-0 is dy4urpjbjm. Verified live: temporarily disabling the Draw($player,1) call inside GlimmerEssenceAmuletChoice made this fixture fail (hand stayed at 7); restoring it made it pass again.",
+    "testedCards": [
+        "dy4urpjbjm"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["dy4urpjbjm"],
+        "mechanics": ["trigger", "condition", "zone-movement", "draw-discard"],
+        "rulesClauses": [
+            "Whenever a phantasia you control is destroyed while it's not your turn, you may banish Glimmer Essence Amulet. If you do, draw a card."
+        ]
+    }
+}

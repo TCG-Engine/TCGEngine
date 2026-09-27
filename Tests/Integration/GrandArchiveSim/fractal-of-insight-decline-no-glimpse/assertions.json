@@ -1,0 +1,116 @@
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "CardID",
+        "value": "rp5k1vt1cn"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "Answering NO to 'Rest_Fractal_of_Insight?' left Fractal of Insight awake (Status stays 2) -- it did not rest itself, unlike the YES branch in fractal-of-insight-rest-glimpse-2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "x7u6wzh973"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "rp5k1vt1cn"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "c9p4lpnvx7"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-4",
+        "property": "CardID",
+        "value": "rp5k1vt1cn"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "rp5k1vt1cn"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "c9p4lpnvx7"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Deck-0",
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Declining leaves the deck's top card as px60u5n1do (the pre-glimpse top card, confirmed via direct probe) -- no MZREARRANGE decision was ever queued because Glimpse(2) never ran, unlike fractal-of-insight-rest-glimpse-2 where the top card changes"
+    }
+]

@@ -1,0 +1,17 @@
+{
+    "name": "shimmering-refraction-phantasia-count-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-27T01:36:17+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Shimmering Refraction (1k2jb8mau1, ACTION/CLERIC) deals X damage to target unit, X = phantasias controlled by the caster. Two Protective Fractal (PHANTASIA) objects are seeded onto the caster's own field so X=2 is a real, non-trivial number (distinguishable from a hypothetical always-1/always-0 stub). Activated from hand (not memory), it deals exactly 2 damage to the opponent's champion. The [Diao Chan Bonus] 'if activated from your memory, draw a card into your memory' clause is deliberately NOT covered here: the only memory-activation mechanism found in this engine (TryGlimmerCast, Custom/GameLogic.php ~20180) is architecturally unrelated (glimmer-counter spending via a champion's Inherited Effect, not a generic 'activate any card from memory' path) -- attempting to activate a card directly from myMemory via the normal FSM click was confirmed to silently no-op (no state change, no error). Whether 'activate a Reaction from memory' is a real, generically-wired mechanic anywhere in this engine, or whether Shimmering Refraction's own bonus clause is unreachable as printed, is an open question flagged for follow-up -- shipping a fixture for that branch would either be untestable or a silent fake-pass, so it is left uncovered rather than faked. This fixture's own memory-count assertion (exactly 2, matching only the reserve-cost payment) doubles as a negative check that the bonus draw does NOT spuriously fire on a hand activation.",
+    "testedCards": [
+        "1k2jb8mau1"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["1k2jb8mau1"],
+        "mechanics": ["targeting", "damage", "condition"],
+        "rulesClauses": [
+            "Deal X damage to target unit, where X is the amount of phantasias you control."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "refracting-missile-fractal-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T18:12:33+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Refracting Missile (6ffqsuo6gb, WATER ACTION, MAGE) deals damage to target unit equal to the amount of Fractal objects controlled plus 1 (GeneratedCode/GeneratedMacroCode.php, cardActivatedAbilities[\"6ffqsuo6gb:0\"]:15988 queues the MZCHOOSE target; customDQHandlers[\"6ffqsuo6gb:0:CardActivated-1\"]:32963 computes damage = count(ZoneSearch(\"myField\", cardSubtypes: [\"FRACTAL\"])) + 1). Hydrating Fractal (LAfJuHgUbm, WATER PHANTASIA, CLERIC/FRACTAL subtypes, no On Enter or passive text) is seeded directly onto the field as the single controlled Fractal object (N=1), so expected damage = 2 -- non-trivial and distinguishable from a hypothetical always-1 stub. WATER element access for playing Refracting Missile itself comes for free from the Spirit of Water (tafqldAGRF) starting champion; this card has no Class Bonus/Diao Chan Bonus gating so no additional champion patch is needed. Reserve cost 3 is paid via 3 myHand-0 picks, then the MZCHOOSE target picks the opponent's champion (theirField-0, a legal CHAMPION target).",
+    "testedCards": [
+        "6ffqsuo6gb"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["6ffqsuo6gb"],
+        "mechanics": ["damage", "targeting", "counter"],
+        "rulesClauses": [
+            "Deal damage to target unit equal to the amount of Fractal objects you control plus 1."
+        ]
+    }
+}

@@ -1,0 +1,69 @@
+[
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "The champion (seeded rested, Status 1) is now awake (Status 2) -- proving the [Diao Chan Bonus] banish ability's 'Wake up your champion' clause (WakeupCard call, activateAbilityAbilities['4864k12no2:0']) ran; independently confirmed by disabling that closure and observing this fixture then fails with Status staying 1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"glimmer\":2}",
+        "semantic": true,
+        "label": "The champion (seeded with Counters drained to []) now has 2 glimmer counters -- proving the same ability's 'Put two glimmer counters on your champion' clause ran"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-6",
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "A genuinely NEW card now occupies the hand slot the Scepter itself was overwritten into and then left (by being played) -- proving Scepter of Fascination's own 'On Enter: Draw a card' fired as a real replayed action (enterAbilities['4864k12no2:0'], Draw($player,1)), not merely baked into a pre-captured snapshot. Independently confirmed by disabling that closure and observing this fixture then fails with the slot staying empty."
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "CardID",
+        "value": "4864k12no2"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    }
+]

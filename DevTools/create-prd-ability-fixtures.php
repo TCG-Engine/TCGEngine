@@ -15635,6 +15635,1504 @@ DECK,
     ],
 ];
 
+
+// --- Fractal of Insight: On Enter -- may rest self; if you do, Glimpse 2 ---
+$fixtures['fractal-of-insight-rest-glimpse-2'] = [
+    'testedCards' => ['rp5k1vt1cn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Fractal of Insight
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Fractal of Insight (rp5k1vt1cn:0, PHANTASIA/MAGE) is played from hand like a normal
+    // permanent (no EffectStack priority pass needed -- same as Tactful Sergeant's ALLY play).
+    // enterAbilities["rp5k1vt1cn:0"] queues a YESNO ("Rest_Fractal_of_Insight?"); answering YES
+    // exhausts it and calls Glimpse(2) (GameLogic.php), which queues an MZREARRANGE decision with
+    // param "Top=<cardIDs>;Bottom=". Submitting that same string verbatim (the no-op default) keeps
+    // the two glimpsed cards on top in their original order -- deck count is unaffected (glimpse
+    // only looks/reorders). Answering YES is the semantic proof: Fractal of Insight's own Status
+    // flips from 2 (awake) to 1 (rested) as the direct result of the "may rest self" choice, and a
+    // real MZREARRANGE decision (glimpse) is only queued because Glimpse(2) actually ran.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00']], // Diao Chan, Enchantress
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rp5k1vt1cn'], // Fractal of Insight, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Fractal of Insight
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // choose to rest Fractal of Insight
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=px60u5n1do', 'chkInput' => [], 'inputText' => ''], // Glimpse 2 MZREARRANGE response: deliberately reorders the two glimpsed cards (bottom the one that was originally on top) rather than submitting the no-op default, so the resulting deck order is observably different from "no Glimpse happened" -- confirmed via direct probe against this deck/seed (top two cards were px60u5n1do, em6eEh9q8y before this decision)
+    ],
+];
+
+// --- Fractal of Insight: On Enter -- decline to rest self, Glimpse does not happen ---
+$fixtures['fractal-of-insight-decline-no-glimpse'] = [
+    'testedCards' => ['rp5k1vt1cn'],
+    'baseFixture' => 'fractal-of-insight-rest-glimpse-2',
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Fractal of Insight
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00']], // Diao Chan, Enchantress
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rp5k1vt1cn'], // Fractal of Insight, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Fractal of Insight
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline to rest Fractal of Insight
+    ],
+];
+
+// --- Unstable Fractal: [Class Bonus] (3), REST, Sacrifice self -- destroy target cheap item ---
+$fixtures['unstable-fractal-class-bonus-destroy-item'] = [
+    'testedCards' => ['2o82fwl22v'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Unstable Fractal
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Unstable Fractal (2o82fwl22v, PHANTASIA/CLERIC) is seeded directly onto the field, already
+    // awake (Status=2) -- its "Hindered" enter-rested flavor is irrelevant to the activated ability
+    // under test, so seeding bypasses it (same shortcut as windrider-vanguard-class-bonus-vigor
+    // seeding pre-rested). The champion is patched to Diao Chan, Enchantress (00xbh8oc00, CLERIC)
+    // so IsClassBonusActive($player, ["CLERIC"]) is true. A Backup Charger (9gv4vm4kj3, REGALIA/
+    // ITEM, memory cost 0) is seeded onto the opponent's field as the "target item with memory
+    // cost 0 or reserve cost 5 or less". Activating via CustomInput "Activate:0"
+    // (DoActivatedAbility -> activateAbilityAbilities["2o82fwl22v:0"]) auto-rests Unstable Fractal
+    // as its [REST] cost (PHANTASIA static-ability auto-rest, GameLogic.php ~line 6982), then
+    // ActivatedAbilityCost's case "2o82fwl22v" (GameLogic.php) further rests it again (no-op,
+    // already rested) and sacrifices it via DoSacrificeFighter -- paying the [REST] + Sacrifice
+    // CARDNAME cost of the printed clause. The "(3)" Class Bonus reserve cost turned out not to be
+    // separately prompted by this activation path (verified live -- no reserve-payment MZCHOOSE is
+    // queued between Activate:0 and the destroy target choice); the hand-count>=3 check lives only
+    // in activateAbilityPrereqs as a legality gate, not as an interactive payment step here.
+    // customDQHandlers["2o82fwl22v:0:ActivateAbility-1"] then destroys the chosen target. Because
+    // the target is a REGALIA card, GraveyardAddReplacement (GameLogic.php) transparently redirects
+    // the MZMove-to-graveyard into the target's controller's Banish zone instead (a real, generic
+    // "Regalia leaves play to Banish, not the Graveyard" engine rule -- confirmed by reading
+    // GraveyardAddReplacement -- not a bug in this ability).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00']], // Diao Chan, Enchantress (CLERIC) -- Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v', 'setProperties' => ['Status' => 2]], // Unstable Fractal, seeded awake
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => '9gv4vm4kj3'], // Backup Charger (REGALIA/ITEM, memory cost 0) -- destroy target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // activate Unstable Fractal's ability
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target the opponent's Backup Charger
+    ],
+];
+
+// --- Unstable Fractal: without Class Bonus (non-CLERIC champion), activation is illegal ---
+$fixtures['unstable-fractal-no-class-bonus-blocked'] = [
+    'testedCards' => ['2o82fwl22v'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Unstable Fractal
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Negative-path companion to unstable-fractal-class-bonus-destroy-item. The champion is left
+    // as the deck's only Lv 0 Material champion (Spirit of Water, tafqldAGRF, class SPIRIT) instead
+    // of being patched to Diao Chan -- so IsClassBonusActive($player, ["CLERIC"]) is false.
+    // activateAbilityAbilities["2o82fwl22v:0"] itself (GeneratedMacroCode.php) opens with
+    // "if(!IsClassBonusActive($player, ["CLERIC"])) return;" -- the CustomInput click is legal (the
+    // engine accepts the button press; confirmed live that this is NOT rejected as an illegal
+    // action, unlike Piquant Shieldbearer's Taunt-target case), but the ability body returns
+    // immediately, so no MZCHOOSE target decision is ever queued and nothing on the board changes.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v', 'setProperties' => ['Status' => 2]], // Unstable Fractal, seeded awake
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => '9gv4vm4kj3'], // Backup Charger -- a legal target exists, isolating Class Bonus as the only blocker
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // attempt to activate without Class Bonus -- silently no-ops
+    ],
+];
+
+// --- Fractal of Refreshment: On Enter -- reveal up to 3 water memory cards, bottom them, draw that many ---
+$fixtures['fractal-of-refreshment-bottom-2-draw-2'] = [
+    'testedCards' => ['cxqf8rr452'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Fractal of Refreshment
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Fractal of Refreshment (cxqf8rr452, PHANTASIA/CLERIC) is played from hand like a normal
+    // permanent (no EffectStack priority pass needed). Paying its 3-reserve cost fires
+    // enterAbilities["cxqf8rr452:0"] (GeneratedMacroCode.php, comment "Memory Refresh"), which finds
+    // WATER-element cards in myMemory and repeatedly offers an MZMAYCHOOSE ("Reveal_and_bottom_a_
+    // water_card?") via customDQHandlers["FractalRefreshPick"] (Custom/GameLogic.php). Two water
+    // cards (x7u6wzh973, Frostbinder Apostle) are seeded into memory alongside one non-water filler
+    // (em6eEh9q8y, Dungeon Guide, NORM element) to prove only water cards are eligible. Choosing
+    // both water cards moves each to the bottom of the deck (MZMove to "myDeck") and increments
+    // fractalRefreshCount; after the 2nd pick, ZoneSearch("myMemory", ["WATER"]) is empty (both
+    // consumed), so the loop short-circuits straight to DrawIntoMemory($player, 2) without a third
+    // decision -- proving "up to three" correctly stops early rather than always asking exactly 3
+    // times. The non-water Dungeon Guide is never offered as a choice at all. Fractal of
+    // Refreshment's own element is WATER (unlike Fractal of Insight/Unstable Fractal, both NORM),
+    // so swapping the champion's CardID to Diao Chan alone is not enough -- Diao Chan's own element
+    // is NORM, so playing a WATER card would silently no-op (confirmed live) without also patching
+    // Subcards to include Spirit of Water (tafqldAGRF, WATER) for permanent element access, same
+    // technique as the water-barrier-prevent-tag precedent.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]], // Diao Chan, Enchantress (CLERIC) + Spirit of Water lineage (WATER unlock)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'x7u6wzh973'], // Frostbinder Apostle (WATER) #1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'x7u6wzh973'], // Frostbinder Apostle (WATER) #2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (NORM) -- not water, must not be offered
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cxqf8rr452'], // Fractal of Refreshment, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Fractal of Refreshment
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // reveal and bottom water card #1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // reveal and bottom water card #2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the 3rd offer (reveal only 2 of the allowed "up to three") -- resolves FractalRefreshPick's remaining=1 and fires DrawIntoMemory(2)
+    ],
+];
+
+// --- Protective Fractal: [REST]: Prevent the next 1 damage to target champion this turn ---
+$fixtures['protective-fractal-rest-prevent-1-damage'] = [
+    'testedCards' => ['1lw9n0wpbh'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Protective Fractal
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Protective Fractal (1lw9n0wpbh, PHANTASIA/CLERIC) is seeded directly onto PLAYER 2's field,
+    // already awake -- its activated [REST] ability has no Class Bonus or element-access gate
+    // (unlike Unstable Fractal/Fractal of Refreshment), so no champion patch is needed at all.
+    // Player 2 (not player 1) is the activating/attacking player throughout, so everything happens
+    // on player 2's own turn -- avoiding Rule 1.h's restriction on the true first player (player 1)
+    // attacking on turn 1 -- and keeping the activation and the damage in the SAME turn, since
+    // "this turn" is the duration of the printed clause (TurnEffects are not persistent across
+    // turn boundaries here, unlike Torpid Fractal's explicitly-registered FROZEN_BY_TORPID).
+    // Any awake Reservable/PHANTASIA card generates a generic "Take_a_fast_action?" MZMAYCHOOSE
+    // opportunity offer for its controller every time priority would otherwise pass (confirmed
+    // live, same family as Fairy Whispers' recurring Opportunity prompt) -- declining it ('-') is
+    // required at each such prompt, and this specific setup needs exactly two declines from player
+    // 2 to let player 1's turn-1 pass fully resolve into player 2's own turn. Once on player 2's
+    // turn, activating Protective Fractal via CustomInput "Activate:0" (DoActivatedAbility ->
+    // activateAbilityAbilities["1lw9n0wpbh:0"], GeneratedMacroCode.php) auto-rests it as its [REST]
+    // cost and queues an MZCHOOSE over all champions; targeting player 1's champion runs
+    // customDQHandlers["1lw9n0wpbh:0:ActivateAbility-1"], which AddTurnEffect(target,
+    // "1lw9n0wpbh"). A Dungeon Guide ALLY on player 2's field has its Counters overridden with
+    // potion_animate_power=3 (ObjectCurrentPower's override, GameLogic.php -- the same technique as
+    // the shred-to-ribbons/reaping-legacy precedents) so its real declared attack against player
+    // 1's champion deals a controlled, non-trivial 3 power before prevention -- the attack needs an
+    // explicit "Choose_attack_target" confirmation step even though the champion is the only legal
+    // target. CombatLogic.php's OnDealDamage (~line 4506-4512) then applies
+    // GetProtectiveFractalPrevention: exactly 1 of the 3 damage is prevented (amount -= 1) and the
+    // "1lw9n0wpbh" TurnEffect is consumed, leaving the champion's final Damage at 2 -- neither the
+    // un-prevented 3 (proving prevention did fire) nor 0 (proving it prevents only 1 point, not the
+    // entire instance). Combat resolved without an explicit Retaliate prompt (this champion has no
+    // Retaliate keyword), so declining the recurring fast-action offer is what actually triggers
+    // damage resolution here, not a separate Retaliate decision.
+    'setup' => [
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => '1lw9n0wpbh', 'setProperties' => ['Status' => 2]], // Protective Fractal, seeded awake onto player 2's field
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Status' => 2, 'Counters' => ['potion_animate_power' => 3]]], // Dungeon Guide ALLY on player 2's field, POWER overridden to 3 -- the attacker
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (true-first-player attack lock)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline fast-action re-offer 1/2 so turn 1 finishes resolving
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline fast-action re-offer 2/2 -- now player 2's own turn begins
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // activate Protective Fractal
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target player 1's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the fast-action re-offer of the now-rested Protective Fractal
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-2!FSM!', 'chkInput' => [], 'inputText' => ''], // Dungeon Guide (3 POWER) declares a real attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // confirm the attack target (player 1's champion, the only legal target)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the fast-action re-offer again -- this is what actually resolves combat damage
+    ],
+];
+
+
+// --- Shimmering Refraction: Deal X damage to target unit, X = phantasias you control ---
+$fixtures['shimmering-refraction-phantasia-count-damage'] = [
+    'testedCards' => ['1k2jb8mau1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Shimmering Refraction
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Shimmering Refraction (1k2jb8mau1, ACTION/CLERIC/SPELL/REACTION, element NORM, FAST speed) is
+    // activated from hand via ActivateCard, going onto the EffectStack like Escharotomy/Water
+    // Barrier -- both players must pass the resulting fast-action opportunity window before it
+    // resolves. Two Protective Fractal cards (1lw9n0wpbh, PHANTASIA) are seeded directly onto my
+    // field (bypassing their own On Enter/activation, irrelevant here) purely to make
+    // ZoneSearch("myField", ["PHANTASIA"]) return a real count of 2. cardActivatedAbilities
+    // ["1k2jb8mau1:0"] (GeneratedMacroCode.php) records activationSourceZone (here "myHand", so
+    // ShimmeringRefractionFromMemory is stored "NO") and queues an MZCHOOSE over ALLY/CHAMPION
+    // units on both fields. customDQHandlers["1k2jb8mau1:0:CardActivated-1"] then computes
+    // $phantasiaCount = count(ZoneSearch("myField", ["PHANTASIA"])) = 2 and calls
+    // DealDamage($player, $mzID, $target, $phantasiaCount) -- dealing exactly 2 damage to the
+    // targeted opponent's champion, a real non-trivial number (not a trivial 0/1) that only makes
+    // sense if the phantasia count was actually read and threaded through. The champion is patched
+    // to Diao Chan, Enchantress (00xbh8oc00) so IsDiaoChanBonus($player) is true -- proving the
+    // [Diao Chan Bonus] draw specifically requires activation FROM MEMORY, not just having the
+    // Diao Chan Bonus active: since this copy is activated from hand (not memory), no memory draw
+    // happens despite the Bonus condition being met.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00']], // Diao Chan, Enchantress -- Diao Chan Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '1lw9n0wpbh'], // Protective Fractal (PHANTASIA) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '1lw9n0wpbh'], // Protective Fractal (PHANTASIA) #2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '1k2jb8mau1'], // Shimmering Refraction, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // activate Shimmering Refraction from hand
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // pass fast action opportunities
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opponent's champion
+    ],
+];
+
+// NOTE: An additional fixture proving [Diao Chan Bonus]'s "activated from memory" draw was
+// attempted (activating Shimmering Refraction directly via mode 10002 FSM on "myMemory-0!FSM!")
+// but the click silently no-ops in this engine -- no state changes at all, no error. The only
+// documented memory-activation path found (TryGlimmerCast, Custom/GameLogic.php ~line 20180)
+// requires spending glimmer counters via a champion's Inherited Effect and is architecturally
+// unrelated to Shimmering Refraction. Left uncovered rather than shipping a fixture that would
+// silently pass without proving anything; see the final report for details.
+
+
+// ---------------------------------------------------------------------------
+// Diao Chan Re:Collection, Idyll Corsage -- wither-counter mechanic fixtures
+// ---------------------------------------------------------------------------
+// Shared deck for the wither-counter batch: Spirit of Water starting champion
+// (patched per-fixture to Diao Chan/Diao Chan Idyll Corsage for [Diao Chan Bonus]/
+// [Class Bonus] CLERIC checks and TERA element access), plus non-FAST-speed filler
+// (Dungeon Guide / Fluffy Shopkeep -- Fairy Whispers is FAST speed and would trigger
+// a recurring Opportunity prompt that must be declined before every action).
+const GA_DIAOCHAN_WITHER_DECK = <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK;
+
+// --- Frostlorn Caress: [Diao Chan Bonus] costs 3 less. Put 4 wither counters on target non-champion object ---
+$fixtures['frostlorn-caress-four-wither-counters'] = [
+    'testedCards' => ['4tqbok1g9w'],
+    'deck' => GA_DIAOCHAN_WITHER_DECK,
+    // activationCostModifierAbilities["4tqbok1g9w:0"] (GeneratedMacroCode.php ~8183) applies -3 to
+    // Frostlorn Caress's printed 5-reserve cost when IsDiaoChanBonus($player) is true. The starting
+    // champion (Spirit of Water) is CardID-patched to Diao Chan, Enchantress (00xbh8oc00) -- the
+    // deck's own level-1 champion -- with Subcards patched to keep Spirit of Water (tafqldAGRF) in
+    // the lineage so WATER stays unlocked (Diao Chan, Enchantress's own element is NORM). This
+    // satisfies IsDiaoChanBonus (ChampionHasInLineage checks "00xbh8oc00" directly) so the net cost
+    // is 5-3=2. Frostlorn Caress itself is seeded directly into hand (the shared deck's Main is
+    // filler-only, so the card under test would never otherwise appear in hand). Since our deck
+    // has zero FAST cards, EffectStackOpportunity's own "no playable fast cards for either player"
+    // fallback (OpportunityLogic.php ~1167, QueueEffectStackOpportunityRound returning false)
+    // resolves the stack immediately with no PASS actions needed -- cardActivatedAbilities
+    // ["4tqbok1g9w:0"] (~15648) fires as soon as the 2nd reserve payment completes, offering an
+    // MZCHOOSE of ALLY objects on either field (only the opponent's seeded Dungeon Guide qualifies);
+    // customDQHandlers["4tqbok1g9w:0:CardActivated-1"] (~32767) calls
+    // AddCounters($player, $chosen, "wither", 4) on whichever is picked.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]], // Diao Chan, Enchantress + kept Spirit of Water lineage for WATER unlock
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4tqbok1g9w'], // Frostlorn Caress, seeded to a known hand slot (myHand-7)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Frostlorn Caress
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2 -- stack auto-resolves (no fast cards), ability fires immediately
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target the opponent's Dungeon Guide
+    ],
+];
+
+// --- Frostnip Pirouette: [Diao Chan Bonus] costs 2 less. Choose any amount of non-champion
+// objects and put a wither counter on each -- proving selective multi-target application ---
+$fixtures['frostnip-pirouette-selective-wither-counters'] = [
+    'testedCards' => ['x79cuuw5vo'],
+    'deck' => GA_DIAOCHAN_WITHER_DECK,
+    // Same [Diao Chan Bonus] champion patch as frostlorn-caress-four-wither-counters (Diao Chan,
+    // Enchantress + kept Spirit of Water lineage). activationCostModifierAbilities["x79cuuw5vo:0"]
+    // (GeneratedMacroCode.php ~9076) applies -2 to the printed 4-reserve cost, net cost 2.
+    // Frostnip Pirouette is seeded directly into hand. cardActivatedAbilities["x79cuuw5vo:0"]
+    // (~23003) offers an MZMULTICHOOSE of every non-champion object on either field (min 0);
+    // customDQHandlers["FrostnipPirouetteWitherLoop"] (Custom/CardDQHandlers.php ~5636) puts a
+    // single wither counter on each object actually selected. Two non-champion objects are seeded
+    // on the opponent's field (Dungeon Guide, Fluffy Shopkeep) and only those two are chosen from
+    // the offered set of three (a third Dungeon Guide is seeded on the player's OWN field and left
+    // unchosen) -- proving the effect applies per-selection, not to every eligible object.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]], // Diao Chan, Enchantress + kept Spirit of Water lineage for WATER unlock
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, chosen target #1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep ALLY, chosen target #2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, eligible but deliberately left UNCHOSEN
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'x79cuuw5vo'], // Frostnip Pirouette, seeded to a known hand slot (myHand-7)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Frostnip Pirouette
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2 -- stack auto-resolves (no fast cards), ability fires immediately
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1&theirField-2', 'chkInput' => [], 'inputText' => ''], // MZMULTICHOOSE: choose only the two opponent objects, leaving myField-1 unchosen
+    ],
+];
+
+// --- Ripples of Atrophy: [Class Bonus] Efficiency (costs LV less). Choose any amount of
+// non-champion objects and put two wither counters on each ---
+$fixtures['ripples-of-atrophy-two-wither-counters'] = [
+    'testedCards' => ['u0yaub9dal'],
+    'deck' => GA_DIAOCHAN_WITHER_DECK,
+    // The starting champion (Spirit of Water) is CardID-patched directly to Diao Chan, Idyll
+    // Corsage (d7l6i5thdy) -- the deck's own level-3 champion. This satisfies IsClassBonusActive
+    // (["CLERIC"]) for the printed "[Class Bonus] Efficiency" clause, and its own element (TERA)
+    // unlocks Ripples of Atrophy's TERA element requirement directly (GetChampionLineage includes
+    // the champion object's own CardID, so no Subcards patch is needed here, unlike the WATER
+    // cards which use a lower-level champion). NOTE (found, not fixed -- genuine engine bug):
+    // CalculateActivationReserveCost's Efficiency block (GrandArchiveSim/Custom/GameLogic.php
+    // ~26015, `if(isset($Efficiency_Cards[$cardID]))`) reduces the cost unconditionally whenever
+    // the card is merely listed in $Efficiency_Cards -- it never calls HasKeyword_Efficiency($obj)
+    // or otherwise checks the card's own 'conditions' (GeneratedKeywordCode.php ~2047-2062, which
+    // DOES gate u0yaub9dal's Efficiency on "Class Bonus"). So today Ripples of Atrophy's cost is
+    // reduced by the champion's level even when the champion is NOT CLERIC. This fixture uses a
+    // CLERIC champion regardless (matching the printed card and the real deck), so it doesn't
+    // depend on the bug, but the bug means this fixture cannot be used to prove the "[Class Bonus]"
+    // gating specifically -- only the wither-counter application (cardActivatedAbilities
+    // ["u0yaub9dal:0"], ~21971) is asserted as semantic here. With champion level 3, net cost is
+    // 6-3=3. Ripples of Atrophy is seeded directly into hand. RipplesOfAtrophyResolve
+    // (Custom/CardDQHandlers.php ~3896) offers an MZMAYCHOOSE loop (repeatedly choose one
+    // non-champion object or decline) rather than a single MZMULTICHOOSE; customDQHandlers
+    // ["RipplesOfAtrophyLoop"] (~3915) adds 2 wither counters per chosen object. One object is
+    // chosen (the opponent's Dungeon Guide) and a second eligible object (the player's own Fluffy
+    // Shopkeep) is deliberately left unchosen by declining the loop's next offer -- proving the
+    // wither counters land only on the object actually selected.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'd7l6i5thdy']], // Diao Chan, Idyll Corsage (CLERIC, level 3, TERA) -- Class Bonus + Efficiency + TERA unlock
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, chosen target
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep ALLY, eligible but deliberately left UNCHOSEN
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'u0yaub9dal'], // Ripples of Atrophy, seeded to a known hand slot (myHand-7)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Ripples of Atrophy
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/3 -- stack auto-resolves (no fast cards), ability fires immediately
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // MZMAYCHOOSE: choose the opponent's Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the loop's next offer (leaves myField-1 unchosen)
+    ],
+];
+
+// --- Season's End: [Diao Chan Bonus] costs 1 less per wither counter on objects on the field.
+// Destroy each object with a wither counter on it -- negative-path proof (clean object survives) ---
+$fixtures['seasons-end-destroy-withered-only'] = [
+    'testedCards' => ['ddggqvxw8f'],
+    'deck' => GA_DIAOCHAN_WITHER_DECK,
+    // Champion patched to Diao Chan, Idyll Corsage (d7l6i5thdy) for IsDiaoChanBonus and TERA
+    // unlock, same as ripples-of-atrophy-two-wither-counters. Two objects are pre-seeded with
+    // wither counters directly via setProperties (Counters: {wither:N}) -- one on each side of the
+    // field, so the destroy isn't scoped to only the caster's own side -- and a third, clean
+    // Dungeon Guide with NO wither counters is seeded onto the caster's own field as the negative-
+    // path control. activationCostModifierAbilities["ddggqvxw8f:0"] (GeneratedMacroCode.php ~8429)
+    // reduces the printed 10-reserve cost by 1 per withered object found via
+    // array_merge(GetField(1), GetField(2)) -- with exactly 2 withered objects seeded, net cost is
+    // 10-2=8. Four extra filler cards are seeded into hand (on top of the natural starting hand)
+    // so the 8-reserve cost can actually be paid in full. cardActivatedAbilities["ddggqvxw8f:0"]
+    // (~17528, "Wither Purge") then iterates both fields and calls DoSacrificeFighter on every
+    // non-champion object with a wither counter -- no player-chosen targeting exists for this
+    // card, so the "only withered objects die" outcome IS the semantic proof (GrandArchiveSimSemanticFixtureGuide.md's
+    // guidance for implicit-targeting negative paths). Both withered objects move to their
+    // owners' graveyards (a real destroy, not just a silent counter/removal), while the clean
+    // Dungeon Guide remains alive on the field untouched. Destroying the opponent's non-token
+    // object also triggers Diao Chan, Idyll Corsage's own passive ("Whenever a non-token object an
+    // opponent controls is destroyed, you may banish it...", DiaoChanIdyllBanish decision) as a
+    // side effect confirming a real destroy event fired; that optional banish offer is declined
+    // (NO) to keep this fixture scoped to Season's End itself.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'd7l6i5thdy']], // Diao Chan, Idyll Corsage (Diao Chan Bonus + TERA unlock)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['wither' => 3]]], // withered Dungeon Guide (opponent's side) -- to be destroyed
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do', 'setProperties' => ['Counters' => ['wither' => 1]]], // withered Fluffy Shopkeep (caster's own side) -- to be destroyed
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // CLEAN Dungeon Guide (caster's own side), no wither counter -- negative-path control, must survive
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // extra filler for the 8-reserve cost
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ddggqvxw8f'], // Season's End, seeded to a known hand slot (myHand-11)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-11!FSM!', 'chkInput' => [], 'inputText' => ''], // play Season's End
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 5/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 6/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 7/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 8/8 -- stack auto-resolves (no fast cards), ability fires immediately
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline Diao Chan, Idyll Corsage's optional banish-on-destroy offer
+    ],
+];
+
+// --- Shriveling Vines: [Class Bonus] Costs 2 less. At the beginning of your end phase, put two
+// wither counters on target non-champion non-token object you don't control ---
+$fixtures['shriveling-vines-end-phase-two-wither-counters'] = [
+    'testedCards' => ['6gt6zkly69'],
+    'deck' => GA_DIAOCHAN_WITHER_DECK,
+    // Champion patched to Diao Chan, Idyll Corsage (d7l6i5thdy) for IsClassBonusActive(["CLERIC"])
+    // (the printed "[Class Bonus] Costs 2 less" clause) and TERA unlock (Shriveling Vines's own
+    // element is TERA). Shriveling Vines's own trigger logic lives in
+    // GrandArchiveSim/Custom/GameLogic.php EndPhase() (~10860, NOT in GeneratedMacroCode.php --
+    // confirmed 0 hits there), so the card is seeded directly onto the field via setup rather than
+    // scripting its own materialize/cast sequence (which is out of scope for this fixture; only
+    // the field-resident end-phase trigger itself is under test). Two valid non-champion non-token
+    // opponent objects are seeded on the opponent's field; a single ending of turn 1
+    // ('myHealth-0!CustomInput!Pass', the standard "reach end phase" idiom used elsewhere in this
+    // file) is enough to trigger EndPhase() for the turn player (player 1) directly -- turn 1 needs
+    // no opponent PASS or materialize-offer decline first, unlike some later-turn end-phase
+    // fixtures. Because more than 1 valid target exists, the engine queues an MZCHOOSE
+    // ("Put_2_wither_counters_on_opponent_object_(Shriveling_Vines)"); choosing one applies
+    // AddCounters($turnPlayer, $validTargets[0], "wither", 2) to it, while the other seeded
+    // opponent object is left untouched -- proving the effect targets exactly the object chosen.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'd7l6i5thdy']], // Diao Chan, Idyll Corsage (Class Bonus CLERIC + TERA unlock)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '6gt6zkly69'], // Shriveling Vines, seeded directly onto the field
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // opponent Dungeon Guide, chosen target
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], // opponent Fluffy Shopkeep, eligible but deliberately left UNCHOSEN
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end turn 1 -> reaches player 1's own end phase, firing Shriveling Vines's trigger
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // choose the opponent's Dungeon Guide as the wither target
+    ],
+];
+
+// --- Hairpin of Transience: [Class Bonus] Banish Hairpin of Transience: Put three wither
+// counters on target non-champion object ---
+$fixtures['hairpin-of-transience-banish-three-wither-counters'] = [
+    'testedCards' => ['xl3tzqhlt1'],
+    'deck' => GA_DIAOCHAN_WITHER_DECK,
+    // Same [Class Bonus] champion patch as frostlorn-caress-four-wither-counters (Diao Chan,
+    // Enchantress + kept Spirit of Water lineage for WATER unlock -- Hairpin's own element is
+    // WATER) -- satisfies activateAbilityPrereqs["xl3tzqhlt1:0"]'s IsClassBonusActive(["CLERIC"])
+    // check (GeneratedMacroCode.php ~7386). Hairpin of Transience is seeded directly onto the
+    // field (it's a REGALIA/ITEM, activated from the field, not cast from hand). Activating it
+    // (mode 10001 CustomInput Activate:0) first pays its cost -- ActivatedAbilityCost's "banish
+    // self" case for xl3tzqhlt1 (Custom/GameLogic.php ~6316) immediately moves it to myBanish --
+    // THEN activateAbilityAbilities["xl3tzqhlt1:0"] (~7368) offers an MZCHOOSE of every
+    // non-champion object on either field (only the opponent's seeded Dungeon Guide qualifies);
+    // customDQHandlers["xl3tzqhlt1:0:ActivateAbility-1"] (~29015) calls
+    // AddCounters($player, $chosen, "wither", 3) on the chosen target. Asserts both the wither
+    // counters on the target AND that Hairpin itself left the field for the banishment zone
+    // (banished, not merely destroyed/discarded).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]], // Diao Chan, Enchantress + kept Spirit of Water lineage for WATER unlock (Class Bonus CLERIC source)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'xl3tzqhlt1'], // Hairpin of Transience, seeded directly onto the field
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // activate Hairpin's Class Bonus ability -- banishes itself as the cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target the opponent's Dungeon Guide
+    ],
+];
+
+
+// =============================================================================
+// Diao Chan Re:Collection, Idyll Corsage starter deck semantic fixtures (batch 5)
+// =============================================================================
+//
+// Shared minimal deck for all fixtures below: Diao Chan, Enchantress (00xbh8oc00,
+// CLERIC, NORM) as the starting champion via the Material section (same convention as
+// "1 Lorraine, Wandering Warrior" elsewhere in this file), Spirit of Water for theme,
+// plus non-FAST-speed-only filler (Dungeon Guide, Fluffy Shopkeep -- Fairy Whispers is
+// avoided because its FAST speed triggers a recurring Opportunity-window MZMAYCHOOSE
+// that would have to be declined before every single subsequent action). Diao Chan,
+// Enchantress is CLERIC, so IsClassBonusActive($player, ["CLERIC"]) is true for all five
+// of these CLERIC cards without any extra setup.
+$diaoChanDeck = <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Purifying Thurible
+# Main
+6 Dungeon Guide
+6 Fluffy Shopkeep
+DECK;
+
+// --- Acquiescing Rejection: Negate opponent activation unless they let you draw two ---
+// (happy path -- controller lets the caster draw two, activation NOT negated)
+$fixtures['acquiescing-rejection-draw-two-not-negated'] = [
+    'testedCards' => ['qwtprd5b5r'],
+    'deck' => $diaoChanDeck,
+    // cardActivatedAbilities["qwtprd5b5r:0"] (GeneratedMacroCode.php) calls
+    // QueueNegateActivation($player, ["excludeController" => $player], "banish", -1,
+    // "NegateActivationDrawChoice") -- the excludeController filter means Acquiescing
+    // Rejection can only ever target an activation it does NOT control, so player 1
+    // activates Escharotomy (CIU4gT14EE, FIRE, reserve 1) as the bait; player 1's own
+    // champion Subcards is patched with Spirit of Fire (LMyKyVC2O9) to unlock FIRE for it.
+    // Player 2 controls Acquiescing Rejection and responds during the resulting fast-
+    // opportunity window (same "take a fast action instead of passing" shape as
+    // incapacitate-negate-action-activation); player 2's champion Subcards is patched with
+    // Spirit of Water (tafqldAGRF) to unlock WATER. Acquiescing Rejection's own reserve
+    // cost is 4, reduced to 3 by its [Class Bonus] (ClassBonusActivateCostReduction,
+    // GameLogic.php ~18626, keyed off IsClassBonusActive($player, ["CLERIC"]) which is true
+    // since Diao Chan, Enchantress is CLERIC). customDQHandlers["NegateActivationDrawChoice"]
+    // (OpportunityLogic.php ~538) asks Escharotomy's controller (player 1) "Let opponent
+    // draw two to prevent negate?" -- answering YES here means Draw($negatingPlayer=2, 2)
+    // runs and NegateCardActivation is skipped entirely, so Escharotomy stays on the effect
+    // stack and resolves normally afterward (its own "Target player cannot recover" MZMODAL
+    // fires, answered the same way as escharotomy-prevents-recover).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['LMyKyVC2O9']]], // Spirit of Fire - unlocks FIRE for Escharotomy (the bait)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'CIU4gT14EE'], // Escharotomy, the target activation
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // Spirit of Water - unlocks WATER for Acquiescing Rejection
+        // The engine's starting-champion selection always picks a level-0 "Spirit" card from
+        // Material (GetStartingChampionChoices, GameLogic.php ~1042) over any level-1 named
+        // champion, so Diao Chan, Enchantress never lands on myField-0 by itself. Diao Chan,
+        // Enchantress (CLERIC) is instead seeded directly onto the field as a second,
+        // independent CHAMPION-type object purely as an IsClassBonusActive($player, ["CLERIC"])
+        // source (same "extra champion seeded onto the field for Class Bonus" technique as the
+        // Nameless Champion/Ciel/Kongming precedents elsewhere in this file) -- it lands at
+        // myField-1 and never interferes with myField-0's own lineage/element resolution.
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '00xbh8oc00'], // Diao Chan, Enchantress (CLERIC) - Class Bonus source
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'qwtprd5b5r'], // Acquiescing Rejection, the negator
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Escharotomy
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1 reserve
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 passes their own opportunity
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 2 takes a fast action instead of passing: Acquiescing Rejection
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/3 (Class Bonus discount already applied)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''], // choose Escharotomy's activation to negate
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // Escharotomy's controller lets player 2 draw two instead of being negated
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'B', 'chkInput' => [], 'inputText' => ''], // Escharotomy resolves normally: "Choose_a_player" modal, pick B (opponent)
+    ],
+];
+
+// NOTE on the negative (negate+banish) path for Acquiescing Rejection: intentionally NOT
+// implemented as a fixture. cardActivatedAbilities["qwtprd5b5r:0"] always defers to
+// customDQHandlers["NegateActivationDrawChoice"] (OpportunityLogic.php ~538), which only
+// stores pendingNegateTarget and queues a YESNO for the target's controller -- it never calls
+// NegateCardActivation synchronously (unlike NegateActivationResolve's payAmount<=0 shortcut).
+// Genuine engine bug found (not fixed -- a happy-path fixture already exercises this card, so
+// fixing was not required to exercise it): customDQHandlers["PostResolutionCheck"]
+// (OpportunityLogic.php ~1212), running synchronously right after Acquiescing Rejection's own
+// resolution in the SAME action-processing chain, sees the target (e.g. Escharotomy) still live
+// on the EffectStack (untouched by the deferred choice) and immediately calls
+// ResolveTopOfEffectStack() (~1520) to resolve it normally -- this happens before the controller's
+// YES/NO answer can possibly be submitted as a separate action. By the time
+// customDQHandlers["NegateActivationDrawResolve"] (~548) later runs (on a NO answer) and calls
+// NegateCardActivation($negatingPlayer, $targetMZ, "banish"), GetZoneObject($targetMZ) already
+// points at an entry ResolveTopOfEffectStack() marked removed, so NegateCardActivation's own
+// null/removed guard makes the call a no-op -- the target always resolves normally and is never
+// actually negated or banished, regardless of the controller's answer. Confirmed by direct replay
+// (dump-zones2.php-style trace): Escharotomy landed in Graveyard (not Banish) and its own "Target
+// player cannot recover" ability's MZMODAL was already queued before the YES/NO was even
+// answered. The same race affects the deferred (afford-to-pay) branch of the default
+// NegateActivationResolve handler used by Glimmering Refusal / Blossoming Denial -- their
+// fixtures below instead exercise the handler's payAmount-insufficient-funds branch, which DOES
+// call NegateCardActivation synchronously (avoiding the race) and is a fully legitimate real-world
+// "they couldn't pay" proof of the same "negate unless pay X" clause.
+
+// --- Glimmering Refusal: Negate target card activation unless controller pays (X phantasias) ---
+$fixtures['glimmering-refusal-negate-banish'] = [
+    'testedCards' => ['fp773yotth'],
+    'deck' => $diaoChanDeck,
+    // cardActivatedAbilities["fp773yotth:0"] counts $player's own PHANTASIA cards on myField
+    // and calls QueueNegateActivation($player, [], "banish", count($phantasias)) -- no
+    // excludeController filter, but player 2 (Glimmering Refusal's controller) still targets
+    // player 1's activation for a real cross-player test. Two PHANTASIA cards (Scorching
+    // Imperilment, aj7pz79wsp) are seeded directly onto player 2's own field so X = 2.
+    // The bait is Mastermind Scheme (9lbewemius, ACTION, NORM, reserve 6 -- no complex
+    // targeting of its own) instead of the usual Escharotomy specifically so player 1's hand
+    // is down to 1 card (7 starting + 1 seeded - 1 played - 6 reserve) by the time Glimmering
+    // Refusal's negate resolves -- CountAvailableReservePayments(player 1) = 1 < 2, so
+    // NegateActivationResolve (OpportunityLogic.php ~388) takes its SYNCHRONOUS
+    // "if(CountAvailableReservePayments($controller) < $payAmount)" branch and calls
+    // NegateCardActivation(..., "banish") immediately, in the same action as the MZCHOOSE
+    // target selection -- no deferred YES/NO round-trip. (A deferred "can afford, then
+    // declines/pays" branch exists too, but it loses a real engine race against
+    // PostResolutionCheck's immediate stack continuation -- see the note above
+    // Glimmering Refusal's fixture for the same issue confirmed on Acquiescing Rejection; the
+    // insufficient-funds branch exercised here is unaffected because it calls
+    // NegateCardActivation synchronously, before that race can occur.)
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9lbewemius'], // Mastermind Scheme, the target activation (NORM, reserve 6, no lineage patch needed)
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // Spirit of Water - unlocks WATER for Glimmering Refusal
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'aj7pz79wsp'], // Scorching Imperilment (PHANTASIA) #1 -- X=2 source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'aj7pz79wsp'], // Scorching Imperilment (PHANTASIA) #2 -- X=2 source
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'fp773yotth'], // Glimmering Refusal, the negator
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Mastermind Scheme
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 5/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 6/6 -- only 1 hand card left afterward
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 passes their own opportunity
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 2 takes a fast action instead of passing: Glimmering Refusal
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2 (no Class Bonus cost reduction on this card)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''], // choose Mastermind Scheme's activation to negate -- player 1 can't afford to pay 2, synchronous negate+banish
+    ],
+];
+
+// --- Blossoming Denial: [Class Bonus] cost reduction, unconditional token summon, real negate ---
+$fixtures['blossoming-denial-cost-reduction-token-negate'] = [
+    'testedCards' => ['1nnpbddblx'],
+    'deck' => $diaoChanDeck,
+    // activationCostModifierAbilities["1nnpbddblx:0"] (GeneratedMacroCode.php ~8125) returns -3
+    // when IsClassBonusActive($player, ["CLERIC"]) (true: Diao Chan, Enchantress is CLERIC)
+    // AND count(GetMemory($opponent)) >= 5 -- player 1's myMemory is seeded with 5 cards so
+    // Blossoming Denial's printed 3-reserve cost drops to 0, observable because NO reserve-
+    // payment actions are needed between playing it and its own MZMAYCHOOSE appearing.
+    // cardActivatedAbilities["1nnpbddblx:0"] (~14982) offers an OPTIONAL MZMAYCHOOSE negate
+    // target via "NegateActivationResolve|default|3", then UNCONDITIONALLY queues
+    // "BlossomingDenialFinal" (block 2, after the negate's block 1) --
+    // customDQHandlers["BlossomingDenialFinal"] (OpportunityLogic.php ~586) always summons two
+    // Flowerbud tokens (yn78t73w1p) onto the opponent's (player 1's) field regardless of the
+    // negate outcome. The bait is Mastermind Scheme (9lbewemius, ACTION, NORM, reserve 6, no
+    // targeting of its own) rather than the usual Escharotomy specifically so its controller
+    // (player 1) is down to only 1 payable hand card -- CountAvailableReservePayments(player 1)
+    // = 1 < 3, so NegateActivationResolve (OpportunityLogic.php ~388) takes its SYNCHRONOUS
+    // "insufficient funds" branch and calls NegateCardActivation(..., "default") immediately, in
+    // the same action as the MZMAYCHOOSE target selection -- no deferred YES/NO round-trip (see
+    // the note above Glimmering Refusal's fixture for why the deferred branch is unusable here:
+    // it loses a real engine race against PostResolutionCheck's immediate stack continuation).
+    // This run therefore proves BOTH the real negate (Mastermind Scheme banished/graveyarded
+    // without its own ability ever firing) and the unconditional token summon in one pass.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9lbewemius'], // Mastermind Scheme, the target activation (NORM, reserve 6, no lineage patch needed)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // memory card 1/5 (cost-reduction condition: opponent has 5+ cards in memory)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // memory card 2/5
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // memory card 3/5
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // memory card 4/5
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // memory card 5/5
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['d7l6i5thdy']]], // Diao Chan, Idyll Corsage (TERA) - unlocks TERA for Blossoming Denial
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '00xbh8oc00'], // Diao Chan, Enchantress (CLERIC) - Class Bonus source (starting-champion selection always picks the level-0 Spirit, so this is seeded as a second field object)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '1nnpbddblx'], // Blossoming Denial
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Mastermind Scheme
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 5/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 6/6 -- only 1 hand card left afterward
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 passes their own opportunity
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 2 takes a fast action instead of passing: Blossoming Denial
+        // No reserve-payment actions here: cost is 0 (3 - 3 Class Bonus discount), straight to
+        // its own MZMAYCHOOSE.
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''], // choose Mastermind Scheme's activation to negate (optional MZMAYCHOOSE) -- player 1 can't afford to pay 3, synchronous negate
+    ],
+];
+
+// --- Chill to the Bone: attacking ally gets -2/-2, or -4/-4 with 2+ phantasias controlled ---
+// (branch A: caster controls 0 phantasias -> -2 POWER / -2 LIFE)
+$fixtures['chill-to-the-bone-low-phantasia-debuff'] = [
+    'testedCards' => ['p00ghqhcpb'],
+    'deck' => $diaoChanDeck,
+    // ChillToTheBoneResolve (GameLogic.php ~18765) reads the DecisionQueueController
+    // "CombatAttacker" variable and does GetZoneObject($attackerMZ) directly on the RAW
+    // "myField-N"/"theirField-N" string that was captured (from the ATTACKER's own perspective)
+    // by StoreCombatAttackerState when the attack was declared -- it never re-expresses that
+    // string relative to whichever player's perspective is ambient when the ability closure
+    // itself runs (unlike e.g. AtmosShieldRedirect/InterceptTargetChosen, which explicitly call
+    // ConvertMzToPlayerPerspective for exactly this "captured from one player's perspective, used
+    // from another's" situation). Confirmed via direct instrumentation: when player 2 casts Chill
+    // to the Bone in response to player 1's attack, $attackerMZ = 'myField-1' is read correctly,
+    // but GetZoneObject('myField-1') then resolves against player 2's OWN field (empty at that
+    // index) because "myField" is only meaningful relative to the ambient $playerID at the
+    // moment it's resolved -- so GetZoneObject returns null and the ability is a silent no-op.
+    // This is a genuine engine bug (GrandArchiveSim/Custom/GameLogic.php ~18765-18770) affecting
+    // Chill to the Bone's primary/intended use case (the DEFENDING player debuffing the
+    // opponent's attacking ally) -- flagged in the final report, NOT fixed here. To still exercise
+    // the card without touching engine code, this fixture instead has the ATTACKER (player 1)
+    // hold and cast Chill to the Bone on their OWN attacking ally: GrantOpportunityWindow grants
+    // the turn player (the attacker) first priority in the post-declaration fast-opportunity
+    // window, so player 1 can respond to their own attack, and $playerID stays 1 throughout,
+    // so "myField-1" resolves correctly. This still fully proves the card's actual debuff math
+    // (0-1 vs 2+ phantasias -> -2/-2 vs -4/-4, consumed unconditionally by the POWER/LIFE switch
+    // statements in GameLogic.php ~12809-12814/~14257-14261) even though it can't exercise the
+    // "opponent responds" framing. Player 1's Dungeon Guide (printed POWER 1 / LIFE 3, seeded
+    // awake) declares a real attack; player 1 controls 0 phantasias here, so the branch under
+    // test is -2 POWER / -2 LIFE -> computed 1-2=-1 / 3-2=1.
+    //
+    // Because player 1 holds a FAST card (Chill to the Bone) for the whole game, EVERY phase
+    // transition (ending turn 1, ending turn 2, the turn-3 materialize offer) independently
+    // grants player 1 a "Take_a_fast_action?" fast-opportunity window with CombatAttacker not
+    // yet live -- each occurrence must be explicitly declined ('-') or it silently swallows the
+    // next scripted action (confirmed empirically: the SAME "myHand-7" choice reappears
+    // identically after every such transition until CombatAttacker is genuinely set). Only the
+    // window that appears immediately after choosing the real attack target (with
+    // CombatAttacker == 'myField-1' confirmed live via direct instrumentation) is the one this
+    // fixture actually takes.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, seeded awake -- the attacker and the debuff target
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // Spirit of Water - unlocks WATER for Chill to the Bone
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'p00ghqhcpb'], // Chill to the Bone
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 1 (1/2)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 1 (2/2)
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 2 (1/2)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 2 (2/2) -- lands on the turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window opened by declining the MAT offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Dungeon Guide declares a real attack
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion -- CombatAttacker='myField-1' is now genuinely live
+        // THIS is the real combat-damage-step fast-opportunity window (CombatAttacker confirmed
+        // live via direct instrumentation at this exact point) -- take it for real.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 1 takes the fast-opportunity action: Chill to the Bone (on their own attacker)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2 -- ChillToTheBoneResolve fires immediately, no further target step
+    ],
+];
+
+// --- Chill to the Bone: branch B -- caster controls 2+ phantasias -> -4 POWER / -4 LIFE instead ---
+$fixtures['chill-to-the-bone-two-phantasia-debuff'] = [
+    'testedCards' => ['p00ghqhcpb'],
+    'deck' => $diaoChanDeck,
+    // Same shape as chill-to-the-bone-low-phantasia-debuff (see its comment for the full
+    // perspective-bug writeup and why player 1 -- the attacker -- holds and casts Chill to the
+    // Bone on their own attacker here too), except player 1 also controls 2 Scorching
+    // Imperilment (PHANTASIA) cards, so the branch under test is -4 POWER / -4 LIFE instead:
+    // Dungeon Guide's printed POWER 1 / LIFE 3 becomes 1-4=-3 / 3-4=-1.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, seeded awake -- the attacker and the debuff target
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // Spirit of Water - unlocks WATER for Chill to the Bone
+        // Core Fractal (8hqHAU0Xj6, TOKEN,PHANTASIA) rather than Scorching Imperilment
+        // (aj7pz79wsp) specifically because Scorching Imperilment has its own "End phase: may
+        // discard to draw" activated ability (GeneratedMacroCode.php "aj7pz79wsp:0") that fires
+        // during the turn-1-end phase transition this fixture needs to walk through, adding an
+        // extra MZMAYCHOOSE that desyncs the rest of the scripted sequence. Core Fractal has zero
+        // dispatch entries of its own.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '8hqHAU0Xj6'], // Core Fractal (PHANTASIA) #1 -- 2+ phantasia branch (caster is player 1 in this fixture)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '8hqHAU0Xj6'], // Core Fractal (PHANTASIA) #2 -- 2+ phantasia branch
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'p00ghqhcpb'], // Chill to the Bone
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 1 (1/2)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 1 (2/2)
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 2 (1/2)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 2 (2/2) -- lands on the turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window opened by declining the MAT offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Dungeon Guide declares a real attack (seeded first, so myField-1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion -- CombatAttacker='myField-1' is now genuinely live
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 1 takes the fast-opportunity action: Chill to the Bone
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2 -- ChillToTheBoneResolve fires immediately
+    ],
+];
+
+// --- Dissuading Halt: target unit's attacks get -3 POWER until end of turn ---
+$fixtures['dissuading-halt-attack-power-reduction'] = [
+    'testedCards' => ['y7wbtbasch'],
+    'deck' => $diaoChanDeck,
+    // cardActivatedAbilities["y7wbtbasch:0"] calls DissuadingHaltStart (CardDQHandlers.php ~32),
+    // which offers an MZCHOOSE of ALLY/CHAMPION/PHANTASIA units on either field and tags the
+    // chosen one with TurnEffect "y7wbtbasch-debuff" (customDQHandlers["DissuadingHaltApply"]).
+    // That TurnEffect is only consumed by the POWER switch in GameLogic.php (~13024) when the
+    // object IS the current "CombatAttacker" -- so Dissuading Halt is played as a FAST response
+    // during player 1's Dungeon Guide's own real attack (same fast-opportunity shape as
+    // Chill to the Bone), targeting that same attacking Dungeon Guide directly (legal since
+    // it's currently on the field, not yet removed).
+    //
+    // Because player 2 holds a FAST card (Dissuading Halt) for the whole game, every phase
+    // transition (ending turn 1, ending turn 2, the turn-3 materialize offer) independently
+    // grants player 2 a "Take_a_fast_action?" window with CombatAttacker not yet live -- each
+    // must be explicitly declined ('-') the same way as chill-to-the-bone-low-phantasia-debuff
+    // (see its comment for the full writeup); confirmed via direct instrumentation that only the
+    // window appearing right after player 1's real attack target is chosen (CombatAttacker
+    // confirmed live) is the real one this fixture takes.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, seeded awake -- the attacker and the debuff target
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // Spirit of Water - unlocks WATER for Dissuading Halt
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'y7wbtbasch'], // Dissuading Halt
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 1 (1/2)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 1 (2/2)
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 2 (1/2)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 2 (2/2) -- lands on the turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline turn-3 MAT offer
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window opened by declining the MAT offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Dungeon Guide declares a real attack
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion -- CombatAttacker='myField-1' is now genuinely live
+        // THIS is the real combat-damage-step fast-opportunity window (CombatAttacker confirmed
+        // live via direct instrumentation at this exact point) -- take it for real.
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 2 takes the fast-opportunity action: Dissuading Halt
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // choose the attacking Dungeon Guide (player 1's myField-1) as the debuff target
+    ],
+];
+
+
+// --- Diao Chan, Dreaming Wish: Inherited -- at end phase, glimmer counters catch up to phantasia count ---
+$fixtures['diao-chan-dreaming-wish-end-phase-glimmer-catchup'] = [
+    'testedCards' => ['pknaxnn0xo'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fluffy Shopkeep
+DECK,
+    // Diao Chan, Dreaming Wish's Inherited Effect (GrandArchiveSim/Custom/GameLogic.php ~11015-
+    // 11030, inside the shared beginning-of-end-phase hook) checks
+    // ChampionHasInLineage($turnPlayer, "pknaxnn0xo"), counts PHANTASIA-type objects the turn
+    // player controls on their own field, and -- only if that count is GREATER than the champion's
+    // current "glimmer" counter count -- calls AddCounters($turnPlayer, $champMZ, "glimmer",
+    // $phantasiaCount - $glimmerCount), i.e. it adds the difference rather than overwriting the
+    // total. The champion's CardID is patched directly to pknaxnn0xo (same patchMzId technique as
+    // the Reaping Legacy/Kongming fixtures, bypassing a scripted real level-up sequence) with an
+    // existing "glimmer" counter of 1 pre-seeded, and 3 non-champion PHANTASIA objects (Unstable
+    // Fractal, NORM/CLERIC) are seeded directly onto the champion's own field. Ending player 1's
+    // turn 1 (myHealth-0!CustomInput!Pass) passes through player 1's own end phase, where the
+    // Inherited Effect fires: phantasiaCount(3) > glimmerCount(1), so 3-1=2 glimmer counters are
+    // added, leaving a final count of 3 (1+2) -- distinguishing "add the difference" from a
+    // hypothetical "set counters to the phantasia count" implementation only insofar as the
+    // starting count was already nonzero and the final total is the sum, not a fresh assignment.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'pknaxnn0xo', 'Counters' => ['glimmer' => 1]]], // Diao Chan, Dreaming Wish, pre-seeded with 1 glimmer counter
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA) #2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA) #3
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1, passing through player 1's own end phase
+    ],
+];
+
+// --- Diao Chan, Idyll Corsage: On Enter wither choice + destroyed-opponent-object banish/Flowerbud ---
+$fixtures['diao-chan-idyll-corsage-enter-wither-and-flowerbud'] = [
+    'testedCards' => ['d7l6i5thdy'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Diao Chan, Idyll Corsage
+# Main
+4 Dungeon Guide
+4 Fluffy Shopkeep
+DECK,
+    // Idyll Corsage's own On Enter (enterAbilities["d7l6i5thdy:0"], GeneratedMacroCode.php ~10759 +
+    // customDQHandlers["d7l6i5thdy:0:Enter-1"] ~29923) is reached via a REAL level-up (same
+    // patchMzId + myMemory-seed technique as kongming-ascetic-vice-enter-empower-and-inherited-draw):
+    // the champion's CardID is patched to Diao Chan, Dreaming Wish (pknaxnn0xo, level 2), which
+    // satisfies CanChampionLevelUpIntoCard's targetLevel===currentLevel+1 gate (GameLogic.php
+    // ~20009-20023, no lineage-name check, just level+1), 3 filler cards are seeded into myMemory to
+    // pay Idyll Corsage's own 3-memory level-up cost, and myMaterial-1 (Idyll Corsage, present in
+    // this deck's own Material list) is chosen as a real main-phase action, actually materializing
+    // her and firing her real On Enter. Player 2 keeps their default Level 0 champion (Spirit of
+    // Fire) and has an Unstable Fractal (PHANTASIA, non-token, non-champion) seeded directly onto
+    // their own field as the On Enter's wither target -- the MZMULTICHOOSE decision (built by
+    // filtering out CHAMPION-type objects from both fields) is answered by selecting it. (An
+    // earlier version of this fixture also seeded a same-turn ally onto player 1's own side to
+    // exercise "any amount" with two targets, but that additionally put a wither counter on our own
+    // permanent, which immediately triggers the engine's separate, unrelated general Wither Upkeep
+    // mechanic -- CardDQHandlers.php's WitherUpkeep()/WitherUpkeepProcess -- an unrelated
+    // decision-queue detour with no bearing on Idyll Corsage's own ability. Testing a single-object
+    // choice avoids that entirely while still proving the choose-and-wither clause.)
+    //
+    // For the "whenever a non-token object an opponent controls is destroyed" clause, a SEPARATE
+    // plain item (ChannelTech Charm S, rR2j9dQRDH, NORM ITEM, non-regalia so Break Apart's "+2 if
+    // it targets a regalia" surcharge doesn't apply; its own On Enter just auto-draws a card into
+    // memory with no interactive decision, unlike Business Card, which was tried first and found to
+    // queue a blocking NAMECARD decision for player 2 the instant it's seeded onto the field via
+    // this fixture-authoring tool's raw zone-seed, silently stalling every subsequent action) is
+    // seeded onto player 2's field and destroyed via
+    // Break Apart (4ns2jbt4hq, NORM ACTION, "Destroy target item or weapon") played from player 1's
+    // hand -- a real non-attack removal spell, sidestepping Rule 1.h's first-player attack lock
+    // entirely. Break Apart's own generated handler calls AllyDestroyed() -> DoAllyDestroyed()
+    // (GeneratedMacroCode.php customDQHandlers["4ns2jbt4hq:0:CardActivated-1"], ZoneAccessors.php
+    // AllyDestroyed()), the shared destroy-event dispatcher that Idyll Corsage's own trigger lives
+    // inside (GameLogic.php ~7976-7996) -- this is deliberately NOT Disenchant ("Destroy target
+    // phantasia"), which was tried first and found to bypass that dispatcher entirely (see the
+    // ENGINE BUG note in this fixture's meta.json notes). Destroying ChannelTech Charm S this way
+    // correctly fires the trigger: player 1 (Idyll Corsage's controller) is offered a YESNO to
+    // banish the destroyed card and give its controller (player 2) a Flowerbud token; answering YES
+    // resolves customDQHandlers["DiaoChanIdyllBanish"] (CardDQHandlers.php ~5386), moving the item
+    // to player 2's banishment and summoning a Flowerbud token (yn78t73w1p, TOKEN,PHANTASIA) onto
+    // player 2's own field.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'pknaxnn0xo']], // Diao Chan, Dreaming Wish (level 2), satisfies the level-2->3 gate
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // pays the 3-memory level-up cost, card 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // card 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // card 3/3
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA), player 2's own -- On Enter wither target
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'rR2j9dQRDH'], // ChannelTech Charm S (plain, non-regalia ITEM), player 2's own -- Break Apart destroy target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4ns2jbt4hq'], // Break Apart, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up into Diao Chan, Idyll Corsage (Material reindexes to 0 once Spirit of Fire is moved to Field by pregame setup), fires On Enter wither choice
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // choose player 2's Unstable Fractal to wither
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Break Apart
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 3-reserve cost, card 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 3-reserve cost, card 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 3-reserve cost, card 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-2', 'chkInput' => [], 'inputText' => ''], // target player 2's ChannelTech Charm S
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // banish the destroyed item and give player 2 a Flowerbud token
+    ],
+];
+
+// --- Glimmer Essence Amulet: whenever a phantasia you control is destroyed on an opponent's turn, banish -> draw ---
+$fixtures['glimmer-essence-amulet-opponent-turn-phantasia-destroyed-draw'] = [
+    'testedCards' => ['dy4urpjbjm'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fluffy Shopkeep
+DECK,
+    // Glimmer Essence Amulet's trigger (GameLogic.php ~7816-7832, inside the shared DoAllyDestroyed()
+    // destroy-event dispatcher) fires when PropertyContains(CardType($destroyedObj->CardID),
+    // "PHANTASIA") and GetTurnPlayer() != $controller (i.e. destroyed while it's not the
+    // controller's own turn). A real combat kill is used to reach this rather than a removal
+    // spell: Maiden of Shimmering Air (3n4l6aoj4t, PHANTASIA+ALLY, printed LIFE 2) is seeded onto
+    // player 1's own field with its LIFE overridden to 1 (potion_animate_life, same technique as
+    // the Reaping Legacy/Shred to Ribbons precedents) alongside Glimmer Essence Amulet. Player 1
+    // passes turn 1 (Rule 1.h forbids the true first player from attacking turn 1); on player 2's
+    // own turn 1, their Dungeon Guide ALLY (printed POWER 1, seeded awake) declares a real attack
+    // against player 1's Maiden, dealing exactly 1 damage -- lethal against the overridden 1 LIFE
+    // -- which destroys it via DoAllyDestroyed() DURING PLAYER 2's turn, satisfying "while it's not
+    // your turn" from player 1's perspective. That fires customDQHandlers["GlimmerEssenceAmuletChoice"]
+    // (CardDQHandlers.php ~8255): answering YES banishes Glimmer Essence Amulet and draws a card.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '3n4l6aoj4t', 'setProperties' => ['Counters' => ['potion_animate_life' => 1]]], // Maiden of Shimmering Air (PHANTASIA,ALLY), LIFE overridden to 1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dy4urpjbjm'], // Glimmer Essence Amulet
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, seeded awake (BridgeAddToZone defaults Status=2) -- attacker
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Dungeon Guide declares a real attack, during player 2's own turn
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target player 1's Maiden of Shimmering Air
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate?
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // banish Glimmer Essence Amulet to draw a card
+    ],
+];
+
+
+// --- Torpid Fractal: On Enter rest target ally (<=2 POWER); stays rested while you control it ---
+// NOTE: this fixture intentionally spans a full extra round (P1 t1 -> P2 t1 -> P1 t2) so player 2's
+// OWN wake-up phase genuinely executes with GetTurnNumber()==2. An earlier version of this fixture
+// stopped right after P1's turn-1 pass, where GetTurnPlayer()==2 but GetTurnNumber() is STILL 1 --
+// EndPhase() (Custom/GameLogic.php ~line 666-669) only increments TurnNumber when turnPlayer wraps
+// back to the first player, so "Turn 1" spans BOTH players' opening turns, and WakeUpPhase()'s own
+// guard ("if($currentTurn === 1) return;", ~line 8088-8089) skips wake-up processing for player 2's
+// first turn too, regardless of Torpid Fractal. That made the old fixture a silent fake-pass: the
+// ally stayed rested for a reason unrelated to Torpid Fractal (nothing ever tries to wake anyone
+// during TurnNumber 1). Confirmed via instrumentation (log line inside the FROZEN_BY_TORPID check
+// never fired under the old sequence) and via break/restore (forcing the opponent-Torpid-Fractal
+// detection loop to always report false still left the OLD fixture passing). This version declines
+// P1's turn-2 MAT-phase materialize offer (mode 100, cardID 'PASS' -- the mid-turn 'myHealth' Pass
+// button refuses while a MZMAYCHOOSE decision is pending, same technique as
+// samaritan-reach-attacking-ally-damage) before ending turn 2, so the wake-up phase immediately
+// after genuinely belongs to player 2 with TurnNumber==2 -- re-instrumented and confirmed the
+// FROZEN_BY_TORPID check now actually runs (currentTurn=2, turnPlayer=2), and re-verified
+// break/restore on THIS version: forcing the detection loop false now correctly fails the fixture
+// (ally wakes to Status=2, TurnEffects clears), and restoring passes again.
+$fixtures['torpid-fractal-enter-rest-stay-frozen'] = [
+    'testedCards' => ['h9u9584zpn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Torpid Fractal
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]],
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'h9u9584zpn'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end P1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end P2 turn 1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline P1's turn-2 MAT-phase materialize offer
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end P1 turn 2 -- should trigger P2's REAL 2nd wake-up phase
+    ],
+];
+
+// --- Diao Chan, Enchantress: On Enter put 2 glimmer counters, via genuine mid-game level-up ---
+// NOTE: this fixture starts from the deck's real level-0 champion (Spirit of Water) and levels up
+// into Diao Chan, Enchantress (level 1) during replay via the material-phase MZMAYCHOOSE, same
+// pattern as arisanna-herbalist-prodigy-on-enter-gather-twice. An earlier version of this fixture
+// seeded Enchantress directly as the ONLY Material card, which -- since she has no printed level-0
+// predecessor -- made GetStartingChampionChoices() fall back to offering her directly as the
+// pregame starting champion. create-prd-ability-fixtures.php's own step 4a resolves that pregame
+// choice (and the real Enter() call it triggers) BEFORE the fixture's initial gamestate is even
+// captured, so her On Enter glimmer counters were already baked into initial_gamestate.txt as
+// static data -- confirmed via instrumentation and break/restore: disabling
+// enterAbilities["00xbh8oc00:0"]'s AddCounters call and re-running the OLD fixture still passed,
+// proving the assertion never actually re-exercised the closure. This version instead lets Spirit
+// of Water resolve normally as the pregame champion, then genuinely levels up into Enchantress
+// as a replayed action -- re-verified: disabling the same AddCounters call now correctly fails
+// this fixture (Counters stay empty), and restoring it passes again.
+$fixtures['diao-chan-enchantress-enter-glimmer'] = [
+    'testedCards' => ['00xbh8oc00'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay the 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up into Diao Chan, Enchantress -- fires her real On Enter
+    ],
+];
+
+// --- Scepter of Fascination: On Enter draw + [Diao Chan Bonus] banish wakes champion, +2 glimmer ---
+// NOTE: an earlier version of this fixture seeded the Scepter directly onto the field via the
+// 'zone' setup primitive. BridgeAddToZone/MZAddZone/AddField/FieldAfterAdd never call Enter() for a
+// raw zone-seed (confirmed by reading ZoneAccessors.php/GameLogic.php -- FieldAfterAdd only has
+// hand-written hooks for a handful of unrelated specific cards). The initial_gamestate.txt this
+// produced already showed the post-draw deck count, meaning the "draw" assertion was checking a
+// pre-baked snapshot, not a replayed effect -- confirmed via break/restore: disabling
+// enterAbilities["4864k12no2:0"]'s Draw() call and re-running the OLD fixture still passed. Fixed
+// using the technique verified working for staff-of-blossoming-will-enter-draw-and-flowerbud:
+// REGALIA cards seeded via 'zone'=>'myHand' get silently redirected to myMaterial by
+// HandAddReplacement (GameLogic.php ~17777) -- confirmed empirically -- so 'patchMzId'=>'myHand-6'
+// overwrites an already-hand-resident filler card's CardID instead (patchMzId never calls
+// AddHand(), bypassing the redirect), then it's played for real via mode 10002 FSM, firing the
+// genuine Enter(). Re-verified break/restore on THIS version for BOTH clauses (On Enter draw and
+// the [Diao Chan Bonus] banish ability): each disabled independently now correctly fails the
+// fixture, and restoring either passes again.
+$fixtures['scepter-of-fascination-enter-draw-and-diao-chan-wake'] = [
+    'testedCards' => ['4864k12no2'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Status' => 1, 'Counters' => []]], // patch the pregame-selected Spirit of Water into Diao Chan, Enchantress directly (not testing HER On Enter here), rested, no glimmer counters
+        ['player' => 1, 'patchMzId' => 'myHand-6', 'setProperties' => ['CardID' => '4864k12no2']], // Scepter of Fascination, overwriting the last opening-hand slot -- patchMzId bypasses HandAddReplacement's REGALIA->myMaterial redirect (same technique as staff-of-blossoming-will-enter-draw-and-flowerbud)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''], // play Scepter of Fascination from hand -- fires its real On Enter draw via DoMaterialize()
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // activate the [Diao Chan Bonus] banish ability
+    ],
+];
+
+// --- Kaleidoscope Barrette: On Enter draw + at recollection phase, empower X = phantasias controlled ---
+// NOTE: an earlier version of this fixture seeded the Barrette directly onto the field via 'zone',
+// which suffers the exact same never-calls-Enter() silent-fake-pass issue as Scepter of Fascination
+// above (confirmed via the same break/restore method: disabling enterAbilities["qktid6zlyt:0"]'s
+// Draw() call and re-running the OLD fixture still passed). The recollection-phase empower half of
+// the OLD fixture was independently confirmed genuine (its own break/restore on the "qktid6zlyt"
+// case in Custom/GameLogic.php correctly fails) -- only the On-Enter draw needed fixing, same
+// patchMzId-into-an-existing-hand-slot technique as Scepter of Fascination.
+$fixtures['kaleidoscope-barrette-enter-draw-and-recollection-empower'] = [
+    'testedCards' => ['qktid6zlyt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fluffy Shopkeep
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'patchMzId' => 'myHand-6', 'setProperties' => ['CardID' => 'qktid6zlyt']], // Kaleidoscope Barrette, overwriting the last opening-hand slot (bypasses HandAddReplacement's REGALIA->myMaterial redirect)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA) #2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''], // play Kaleidoscope Barrette from hand -- fires its real On Enter draw via DoMaterialize()
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 2, advancing into player 1's turn 3 -- recollection phase (and its empower trigger) resolves automatically here
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the turn-3 MAT offer, advancing into MAIN where the recollection phase's EMPOWERED TurnEffects become observable
+    ],
+];
+
+
+// =============================================================================
+// Diao Chan Re:Collection, Idyll Corsage -- batch 5 (Claude Sonnet 5)
+// Shared setup notes: the Material section is just "1 Spirit of Water"
+// (tafqldAGRF, a Level 0 CHAMPION), which the pregame auto-places at myField-0
+// as the sole legal starting-champion choice -- this alone grants natural WATER
+// element access (GetPlayerEnabledElements() walks GetChampionLineage(), which
+// starts from myField-0's own CardID). When a fixture needs TERA element access
+// and/or the "[Diao Chan Bonus]" check (IsDiaoChanBonus() -> ChampionHasInLineage
+// for any of the 3 Diao Chan card IDs), myField-0's Subcards are patched to add
+// Diao Chan, Idyll Corsage (d7l6i5thdy, TERA element, satisfies IsDiaoChanBonus)
+// -- GetChampionLineage() merges Subcards into the lineage array without ever
+// making that card the physical on-field object, so its own "Whenever a
+// non-token object an opponent controls is destroyed..." passive (keyed on
+// literal on-field CardID === "d7l6i5thdy", GrandArchiveSim/Custom/GameLogic.php
+// ~7985) never fires. When a fixture needs "[Class Bonus]" (IsClassBonusActive,
+// which scans literal on-field CHAMPION objects for a class match -- independent
+// of the Subcards-based lineage check), Diao Chan, Enchantress (00xbh8oc00,
+// CLERIC) is physically seeded onto the field as a second CHAMPION object,
+// exactly like the vernal-talisman-preserve-draw precedent.
+// =============================================================================
+
+// --- Refracting Missile: Deal damage to target unit equal to the amount of
+// Fractal objects you control plus 1. ---
+$fixtures['refracting-missile-fractal-damage'] = [
+    'testedCards' => ['6ffqsuo6gb'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Refracting Missile (6ffqsuo6gb, WATER ACTION) reads
+    // count(ZoneSearch("myField", cardSubtypes: ["FRACTAL"])) + 1 as its damage amount
+    // (GeneratedMacroCode.php, customDQHandlers["6ffqsuo6gb:0:CardActivated-1"]:32970-32972).
+    // Hydrating Fractal (LAfJuHgUbm, WATER PHANTASIA, CLERIC/FRACTAL subtypes, no On Enter/
+    // passive text) is seeded directly onto the field as the single controlled Fractal object,
+    // so N=1 and expected damage = 2 -- deliberately non-trivial and distinguishable from a
+    // hypothetical always-1 stub. WATER access for playing Refracting Missile itself comes for
+    // free from the Spirit of Water starting champion (see shared setup notes above); no Subcards
+    // patch is needed since this card has no Class/Diao Chan Bonus gating.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'LAfJuHgUbm'], // Hydrating Fractal -- the 1 controlled Fractal object
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '6ffqsuo6gb'], // Refracting Missile, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
+// --- Eventide Lure: On Enter -- look at top 5, reveal a phantasia into memory,
+// put the rest on the bottom in original relative order. ---
+$fixtures['eventide-lure-look-five-reveal-phantasia'] = [
+    'testedCards' => ['eg771cn2q1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Eventide Lure's On Enter (enterAbilities["eg771cn2q1:0"], GeneratedMacroCode.php:10992)
+    // delegates to hand-authored EventideLureEnter() (Custom/CardDQHandlers.php:8178): moves the
+    // top 5 deck cards to myTempZone, offers an MZMAYCHOOSE over just the PHANTASIA candidates
+    // among them, reveals+moves the chosen one to memory (EventideLureReveal), then
+    // EventideLurePutRestOnBottom() moves every remaining myTempZone card back to myDeck (append
+    // = bottom) in their myTempZone iteration order. The top 5 are stacked deterministically via
+    // 'patchMzId' directly on myDeck-0..4 (already-real deck objects post-shuffle/opening-hand-draw,
+    // patched before any other draw can disturb them) to exactly ONE known phantasia -- Hydrating
+    // Fractal (LAfJuHgUbm, WATER PHANTASIA, no On Enter/passive text, so it does nothing extra when
+    // it later leaves the temp zone) -- at position 2, sandwiched between 4 non-phantasia filler
+    // cards (em6eEh9q8y/px60u5n1do). This proves both halves of the clause: the phantasia specifically
+    // ends in memory, and the 4 non-phantasia cards land on the bottom in their original order.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'eg771cn2q1'], // Eventide Lure, seeded to a known hand slot
+        ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => 'em6eEh9q8y']], // top-5 slot 1: filler
+        ['player' => 1, 'patchMzId' => 'myDeck-1', 'setProperties' => ['CardID' => 'px60u5n1do']], // top-5 slot 2: filler
+        ['player' => 1, 'patchMzId' => 'myDeck-2', 'setProperties' => ['CardID' => 'LAfJuHgUbm']], // top-5 slot 3: the ONE phantasia
+        ['player' => 1, 'patchMzId' => 'myDeck-3', 'setProperties' => ['CardID' => 'em6eEh9q8y']], // top-5 slot 4: filler
+        ['player' => 1, 'patchMzId' => 'myDeck-4', 'setProperties' => ['CardID' => 'px60u5n1do']], // top-5 slot 5: filler
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-2', 'chkInput' => [], 'inputText' => ''], // reveal the phantasia (Hydrating Fractal) into memory
+    ],
+];
+
+// --- Crystalline Mirror: whenever a phantasia enters under your control, glimpse 1;
+// [Class Bonus] Banish CARDNAME: destroy a cheap item (only if you control 3+ phantasias). ---
+$fixtures['crystalline-mirror-glimpse-and-banish-destroy'] = [
+    'testedCards' => ['9agwj4f15j'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Crystalline Mirror's "whenever a phantasia enters the field under your control, glimpse 1"
+    // trigger lives directly in FieldAfterAdd (Custom/GameLogic.php ~8613-8623) -- it fires
+    // synchronously for ANY field-add (setup or real play) as soon as a PHANTASIA-type card lands
+    // on the controller's field while Crystalline Mirror is already there, no Class Bonus needed.
+    // Its "[Class Bonus] Banish CARDNAME: destroy target item..." half is a REST-style
+    // activateAbilityAbilities["9agwj4f15j:0"] gated by activateAbilityPrereqs["9agwj4f15j:0"]
+    // (IsClassBonusActive(CLERIC) && count(phantasias) >= 3); its own "Banish self" cost
+    // (ActivatedAbilityCost's "9agwj4f15j" case, GameLogic.php ~6290) runs BEFORE the ability body,
+    // so Crystalline Mirror is already off the field by the time its own myField ITEM search runs
+    // (can't self-target). myField-0 is patched directly to Diao Chan, Enchantress (00xbh8oc00,
+    // CLERIC) with Subcards=[Spirit of Water] so IsClassBonusActive(CLERIC) is satisfied by a
+    // literal on-field champion match while WATER element access is preserved via lineage
+    // (patchMzId never triggers Enter(), so Diao Chan's own "On Enter: put 2 glimmer counters"
+    // never fires and can't leave a stray decision behind). Two Hydrating Fractals (LAfJuHgUbm,
+    // WATER PHANTASIA, no On Enter/passive text) are seeded onto the field BEFORE Crystalline
+    // Mirror so their own entry doesn't trigger the glimpse (CM isn't present yet); a third is
+    // played from hand AFTER CM is on the field, which is the one real, observable "phantasia
+    // enters while CM is out" event this fixture proves, bringing total controlled phantasias to
+    // 3 -- satisfying the banish ability's own "control 3+ phantasias" activation gate. Beastbond
+    // Ears (JPcFmCpdiF, REGALIA/ITEM, memory cost 0, purely passive "+1 level" text, no activated
+    // ability of its own) is seeded onto the opponent's field as the qualifying cheap-item destroy
+    // target (search covers both myField and theirField items) -- deliberately chosen over an
+    // item with its OWN activated ability (e.g. Grand Crusader's Ring's "Banish: Draw a card"),
+    // since seeding one of those onto the opponent's field opens a real "Take a fast action?"
+    // AbilityOpportunity choice for player 2 (confirmed empirically) that would otherwise need an
+    // extra explicit decline action.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]], // Diao Chan, Enchantress (CLERIC) + Spirit of Water lineage (WATER access)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'LAfJuHgUbm'], // Hydrating Fractal #1 (pre-existing phantasia, before CM)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'LAfJuHgUbm'], // Hydrating Fractal #2 (pre-existing phantasia, before CM)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '9agwj4f15j'], // Crystalline Mirror (seeded awake, after the 2 phantasias)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'LAfJuHgUbm'], // Hydrating Fractal #3, to be played from hand -- the real glimpse-triggering entry
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'JPcFmCpdiF'], // Beastbond Ears (Mem=0 ITEM, no activated ability) -- banish-ability destroy target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/1 for Hydrating Fractal #3
+        // Fractal #3 entering the field while Crystalline Mirror is out triggers the "whenever a
+        // phantasia enters" Glimpse 1 synchronously -- respond to its MZREARRANGE (submitting the
+        // same "Top=...;Bottom=" param verbatim, same technique as idle-thoughts-glimpse-4/
+        // wisdoms-reprise-level3-draw-memory) before anything else can proceed.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=;Bottom=em6eEh9q8y', 'chkInput' => [], 'inputText' => ''], // Glimpse 1 response -- send the glimpsed card to the BOTTOM (observably distinct from a no-op) to prove the trigger actually engaged the deck
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-3!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // Banish Crystalline Mirror to activate (now controls 3 phantasias: myField-1, myField-2, myField-4)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Beastbond Ears to destroy
+    ],
+];
+
+// --- Staff of Blossoming Will: On Enter -- draw a card; [Diao Chan Bonus] (1), [REST]:
+// target player summons a Flowerbud token. ---
+$fixtures['staff-of-blossoming-will-enter-draw-and-flowerbud'] = [
+    'testedCards' => ['4moumzcx9z'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Staff of Blossoming Will is a TERA (advanced element) REGALIA,ITEM card, so myField-0's
+    // Subcards are patched to include Diao Chan, Idyll Corsage (d7l6i5thdy, TERA) -- this grants
+    // TERA element access via lineage AND satisfies IsDiaoChanBonus (IsDiaoChanBonus checks
+    // ChampionHasInLineage for any of the 3 Diao Chan card IDs) in one patch, since patchMzId
+    // never triggers Enter() (so nothing about Idyll Corsage's own On Enter/passive fires).
+    // REGALIA cards can't be seeded directly into myHand via the normal setup zone-add primitive
+    // -- HandAddReplacement (GameLogic.php:17777) unconditionally redirects any card whose
+    // CardType contains REGALIA into myMaterial instead (confirmed empirically), which is where
+    // REGALIA cards are actually meant to live and would only leave via the (turn>=2-only)
+    // Materialize Phase, not a hand FSM click. To exercise the REAL On-Enter-draw as an observable
+    // ACTION (not baked silently into setup -- seeding a card with an $enterAbilities entry
+    // directly onto myField via setup DOES synchronously fire Enter(), confirmed empirically,
+    // which would make the draw invisible as a setup-to-actions delta), myHand-6 (the last opening
+    // hand slot) is patched directly to Staff of Blossoming Will's own CardID via patchMzId --
+    // patchMzId mutates an object already in the hand array, bypassing HandAddReplacement
+    // entirely since it never calls AddHand(). It can then be played for real via a normal mode
+    // 10002 FSM click. enterAbilities["4moumzcx9z:0"] (GeneratedMacroCode.php:9648) is a plain
+    // Draw(player, 1) -- proven by the deck shrinking by 1 and a genuinely new card landing in the
+    // vacated hand slot. activateAbilityPrereqs["4moumzcx9z:0"] (:2047) requires
+    // IsDiaoChanBonus($player), the source object awake (Status==2), and at least 1 CHAMPION on
+    // either field; its ability body (:2035) queues an MZCHOOSE over all CHAMPIONs (both mine and
+    // theirs -- "target player" is represented by picking that player's champion), then
+    // customDQHandlers["4moumzcx9z:0:ActivateAbility-1"] (:27077) resolves it and adds a Flowerbud
+    // token (yn78t73w1p) to the chosen champion's controller's own field. Targeting theirField-0
+    // (the opponent's champion) proves the token lands on the CORRECT (targeted) player's field,
+    // not always the activator's.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['d7l6i5thdy']]], // Diao Chan, Idyll Corsage lineage -- TERA access + Diao Chan Bonus
+        ['player' => 1, 'patchMzId' => 'myHand-6', 'setProperties' => ['CardID' => '4moumzcx9z']], // Staff of Blossoming Will, overwriting the last opening-hand slot (bypasses the REGALIA->myMaterial redirect)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''], // materialize Staff of Blossoming Will for real -- fires its On Enter draw
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // (1), REST: activate the Diao Chan Bonus ability
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay its (1) reserve cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opponent's champion -- their player summons the Flowerbud
+    ],
+];
+
+// --- Bloom: Summer's Glow: [Class Bonus] each opponent sacrifices all Flowerbuds; controller
+// summons chosen Lycoria/Baihua split. ---
+$fixtures['bloom-summers-glow-class-bonus-flowerbud-split'] = [
+    'testedCards' => ['a708z5ethq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Bloom: Summer's Glow is a TERA (advanced element) ACTION card whose entire printed effect is
+    // Class Bonus-gated: cardActivatedAbilities["a708z5ethq:0"] (GeneratedMacroCode.php:16686)
+    // returns immediately if !IsClassBonusActive($player, ["CLERIC"]) with no other baseline
+    // effect, matching the printed text exactly. myField-0 is patched directly to Diao Chan,
+    // Enchantress (00xbh8oc00, CLERIC) with Subcards=[Diao Chan, Idyll Corsage (d7l6i5thdy, TERA)]
+    // -- this makes myField-0 itself a literal on-field CLERIC champion (satisfying
+    // IsClassBonusActive, which scans physical field objects) while granting TERA element access
+    // via lineage; patchMzId never triggers Enter(), so neither champion's own On Enter fires.
+    // Two Flowerbud tokens (yn78t73w1p, CLERIC/FLOWERBUD subtype) are seeded onto the OPPONENT's
+    // field ("each opponent sacrifices all Flowerbuds"). After playing the card and paying its
+    // 2-reserve cost, the ability queues a TWOSIDEDSLIDER (0 to flowerbudCount) plus
+    // customDQHandlers["BloomSummerResolve"] (Custom/CardDQHandlers.php): answering the slider with
+    // "1" (a non-uniform, non-degenerate split -- distinguishable from an always-Lycoria or
+    // always-Baihua stub) sacrifices both Flowerbuds and summons exactly 1 Lycoria + 1 Baihua onto
+    // the opponent's field.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['d7l6i5thdy']]], // Diao Chan, Enchantress (CLERIC, literal field champion for Class Bonus) + Idyll Corsage lineage (TERA access)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'yn78t73w1p'], // Flowerbud token #1 on the opponent's field
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'yn78t73w1p'], // Flowerbud token #2 on the opponent's field
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'a708z5ethq'], // Bloom: Summer's Glow, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '1', 'chkInput' => [], 'inputText' => ''], // TWOSIDEDSLIDER response: 1 Lycoria, 1 Baihua (of 2 total Flowerbuds)
+    ],
+];
+
+// --- Bloom: Winter's Chill: same mechanic as Bloom: Summer's Glow, with Nightshade/Floodbloom
+// tokens instead of Lycoria/Baihua. ---
+$fixtures['bloom-winters-chill-class-bonus-flowerbud-split'] = [
+    'testedCards' => ['b4jvyh23y1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Same shape as bloom-summers-glow-class-bonus-flowerbud-split: cardActivatedAbilities
+    // ["b4jvyh23y1:0"] (GeneratedMacroCode.php:16933) is Class Bonus-gated
+    // (IsClassBonusActive(CLERIC)) with no baseline effect, and customDQHandlers
+    // ["BloomWinterResolve"] (Custom/CardDQHandlers.php) replaces sacrificed Flowerbuds with a
+    // chosen Nightshade/Floodbloom split instead of Lycoria/Baihua. myField-0 is patched the same
+    // way (Diao Chan, Enchantress + Idyll Corsage lineage). Two Flowerbud tokens are seeded onto
+    // the opponent's field, and the TWOSIDEDSLIDER response of "1" again proves a real,
+    // non-degenerate 1/1 split rather than an always-one-type stub.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['d7l6i5thdy']]], // Diao Chan, Enchantress (CLERIC, literal field champion for Class Bonus) + Idyll Corsage lineage (TERA access)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'yn78t73w1p'], // Flowerbud token #1 on the opponent's field
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'yn78t73w1p'], // Flowerbud token #2 on the opponent's field
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'b4jvyh23y1'], // Bloom: Winter's Chill, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '1', 'chkInput' => [], 'inputText' => ''], // TWOSIDEDSLIDER response: 1 Nightshade, 1 Floodbloom (of 2 total Flowerbuds)
+    ],
+];
+
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

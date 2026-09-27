@@ -1,0 +1,90 @@
+[
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\"]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "b4jvyh23y1"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-2",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "CardID",
+        "value": "rzk3mjblse",
+        "semantic": true,
+        "label": "One of the opponent's 2 sacrificed Flowerbuds was replaced by a Nightshade token, per the '1' TWOSIDEDSLIDER response"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "CardID",
+        "value": "4s1kmjeaks",
+        "semantic": true,
+        "label": "The other sacrificed Flowerbud was replaced by a Floodbloom token -- a real, non-degenerate 1 Nightshade / 1 Floodbloom split, not an always-one-type stub"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 4
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Opponent's field has exactly champion + Nightshade + Floodbloom (3 total) -- both Flowerbuds are gone and replaced 1-for-1 by the chosen token types"
+    }
+]

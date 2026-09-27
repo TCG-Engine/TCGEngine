@@ -1,0 +1,18 @@
+{
+    "name": "seasons-end-destroy-withered-only",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T18:30:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "The starting champion (Spirit of Water) is CardID-patched directly to Diao Chan, Idyll Corsage (d7l6i5thdy, the deck's own level-3 champion) for IsDiaoChanBonus and TERA unlock, same technique as ripples-of-atrophy-two-wither-counters. Two objects are pre-seeded with wither counters directly via setProperties (Counters: {wither:N}) on both sides of the field (an opponent Dungeon Guide with wither:3, and the caster's OWN Fluffy Shopkeep with wither:1), plus a third, clean Dungeon Guide with no wither counters on the caster's own field as the negative-path control. activationCostModifierAbilities[\"ddggqvxw8f:0\"] (GeneratedMacroCode.php ~8429) reduces the printed 10-reserve cost by 1 per withered object found via array_merge(GetField(1), GetField(2)) -- with 2 withered objects seeded, net cost is 10-2=8. Four extra filler cards are seeded into hand on top of the natural starting hand so the 8-reserve cost can actually be paid in full. cardActivatedAbilities[\"ddggqvxw8f:0\"] (~17528, comment \"Wither Purge\") iterates both fields and calls DoSacrificeFighter on every non-champion object with a wither counter greater than 0 -- there is no player-chosen targeting for this card, so the \"only withered objects die\" outcome IS the semantic proof, per the guide's negative-path guidance for implicit-targeting effects. Both withered objects move to their owners' graveyards (a real destroy, not a silent counter/removal), while the clean Dungeon Guide remains alive and untouched on the caster's field. Destroying the opponent's non-token object also triggered Diao Chan, Idyll Corsage's own passive (\"Whenever a non-token object an opponent controls is destroyed, you may banish it...\", the DiaoChanIdyllBanish decision) as a side effect confirming a real destroy event fired; that optional banish offer is declined (NO) to keep this fixture scoped to Season's End itself.",
+    "testedCards": [
+        "ddggqvxw8f"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ddggqvxw8f"],
+        "mechanics": ["counter", "targeting", "zone-movement", "cost"],
+        "rulesClauses": [
+            "Destroy each object with a wither counter on it.",
+            "[Diao Chan Bonus] This card costs 1 less for each wither counter on objects on the field."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "unstable-fractal-class-bonus-destroy-item",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Unstable Fractal (2o82fwl22v, PHANTASIA/CLERIC) is seeded directly onto the field, already awake (Status=2) -- its 'Hindered' enter-rested flavor is irrelevant to the activated ability under test, so seeding bypasses it (same shortcut as windrider-vanguard-class-bonus-vigor). The champion is patched to Diao Chan, Enchantress (00xbh8oc00, CLERIC) so IsClassBonusActive($player, ['CLERIC']) is true. A Backup Charger (9gv4vm4kj3, REGALIA/ITEM, memory cost 0) is seeded onto the opponent's field as a legal 'target item with memory cost 0 or reserve cost 5 or less'. Activating via CustomInput 'Activate:0' (DoActivatedAbility -> activateAbilityAbilities['2o82fwl22v:0'], GeneratedMacroCode.php) auto-rests Unstable Fractal as a static-ability [REST] cost, then ActivatedAbilityCost's case '2o82fwl22v' (Custom/GameLogic.php line ~6492) sacrifices it via DoSacrificeFighter, paying the printed '[REST], Sacrifice CARDNAME' cost. Verified live: this activation path does not separately prompt for the '(3)' Class Bonus reserve cost as an interactive payment (no MZCHOOSE for hand cards is queued) -- the hand-count>=3 check in activateAbilityPrereqs is only a legality gate. customDQHandlers['2o82fwl22v:0:ActivateAbility-1'] then destroys the chosen target; because the target is REGALIA, GraveyardAddReplacement (GameLogic.php) transparently redirects the graveyard-bound MZMove into the target's controller's Banish zone instead -- a real, generic 'Regalia leaves play to Banish, not the Graveyard' engine rule, confirmed by reading GraveyardAddReplacement, not a defect in this ability. The companion negative fixture unstable-fractal-no-class-bonus-blocked proves the Class Bonus gate: with a non-CLERIC champion, the identical Activate:0 click is accepted by the engine (not rejected as illegal) but the ability body returns immediately, leaving Unstable Fractal awake and unsacrificed and the target item untouched.",
+    "testedCards": [
+        "2o82fwl22v"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["2o82fwl22v"],
+        "mechanics": ["cost", "condition", "targeting", "zone-movement"],
+        "rulesClauses": [
+            "[Class Bonus] (3), [REST], Sacrifice CARDNAME: As a Spell, destroy target item with memory cost 0 or reserve cost 5 or less."
+        ]
+    }
+}

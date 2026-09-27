@@ -1,0 +1,109 @@
+[
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\"]"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "x7u6wzh973"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-4",
+        "property": "CardID",
+        "value": "c9p4lpnvx7"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "1k2jb8mau1"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "x7u6wzh973"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "1k2jb8mau1"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "Damage dealt equals exactly 2, matching the 2 Protective Fractal (PHANTASIA) objects seeded onto my field -- proving X is read from the real phantasia count, not a fixed or trivial 0/1 value"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"_champDamageThisTurn\":2}"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"DAMAGED_SINCE_LAST_TURN\"]"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Memory holds exactly the 2 cards paid as this activation's reserve cost -- no extra card was drawn into memory, proving the [Diao Chan Bonus] draw did NOT fire even though IsDiaoChanBonus is true, because activationSourceZone was myHand, not myMemory (would be 3 if the bonus incorrectly fired on a hand activation)"
+    }
+]

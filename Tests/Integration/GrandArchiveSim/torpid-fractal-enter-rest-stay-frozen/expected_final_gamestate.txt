@@ -1,0 +1,107 @@
+1
+0
+12
+px60u5n1do
+em6eEh9q8y
+em6eEh9q8y
+x7u6wzh973
+h9u9584zpn
+em6eEh9q8y
+px60u5n1do
+h9u9584zpn
+x7u6wzh973
+h9u9584zpn
+h9u9584zpn
+px60u5n1do
+12
+px60u5n1do
+em6eEh9q8y
+c9p4lpnvx7
+h9u9584zpn
+x7u6wzh973
+x7u6wzh973
+px60u5n1do
+c9p4lpnvx7
+h9u9584zpn
+h9u9584zpn
+px60u5n1do
+px60u5n1do
+0
+0
+0
+0
+0
+0
+8
+em6eEh9q8y
+x7u6wzh973
+px60u5n1do
+x7u6wzh973
+c9p4lpnvx7
+c9p4lpnvx7
+c9p4lpnvx7
+c9p4lpnvx7
+8
+em6eEh9q8y
+c9p4lpnvx7
+h9u9584zpn
+em6eEh9q8y
+x7u6wzh973
+x7u6wzh973
+c9p4lpnvx7
+em6eEh9q8y
+2
+00xbh8oc00 2 1 0 1 - - WyJ0YWZxbGRBR1JGIl0= 1
+h9u9584zpn 2 1 0 1 - - - 4
+2
+tafqldAGRF 2 2 0 2 - - - 2
+em6eEh9q8y 1 2 0 2 FROZEN_BY_TORPID - - 3
+0
+0
+0
+0
+4
+00xbh8oc00
+9gv4vm4kj3
+pv4n1n3gyg
+4864k12no2
+4
+00xbh8oc00
+9gv4vm4kj3
+pv4n1n3gyg
+4864k12no2
+0
+0
+0
+0
+0
+0
+0
+6
+MZMAYCHOOSE myMaterial-0&myMaterial-1&myMaterial-2&myMaterial-3 1  0
+CUSTOM MATERIALIZE 1  0
+CUSTOM EVENTIDE_MATERIAL_CHECK 1  0
+CUSTOM VARUCKAN_MATERIAL_CHECK 1  0
+CUSTOM FRAMEWORK_SIDEARM_MATERIAL_CHECK 1  0
+CUSTOM RECIPROCITY_MATERIAL_CHECK 1  0
+1
+0:Materialize Choice<vname>1<v0>MAT<v0>2<v0><v0>em6eEh9q8y<v1>x7u6wzh973<v1>px60u5n1do<v0><v0><v0>c9p4lpnvx7<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>x7u6wzh973<v1>h9u9584zpn<v1>em6eEh9q8y<v1>px60u5n1do<v1>h9u9584zpn<v1>x7u6wzh973<v1>h9u9584zpn<v1>h9u9584zpn<v1>px60u5n1do<v0>MZMAYCHOOSE<v2>myMaterial-1&myMaterial-2&myMaterial-3<v2>1<v2><v2>0<v1>CUSTOM<v2>MATERIALIZE<v2>1<v2><v2>0<v0>0<v0><v0><v0>00xbh8oc00<v1>9gv4vm4kj3<v1>pv4n1n3gyg<v1>4864k12no2<v0>00xbh8oc00<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>WyJ0YWZxbGRBR1JGIl0=<v2>1<v1>h9u9584zpn<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>4<v0><v0>c9p4lpnvx7<v1>c9p4lpnvx7<v1>c9p4lpnvx7<v1>x7u6wzh973<v0><v0>em6eEh9q8y<v1>c9p4lpnvx7<v1>h9u9584zpn<v1>em6eEh9q8y<v1>x7u6wzh973<v1>x7u6wzh973<v1>c9p4lpnvx7<v1>em6eEh9q8y<v0><v0><v0>px60u5n1do<v1>em6eEh9q8y<v1>c9p4lpnvx7<v1>h9u9584zpn<v1>x7u6wzh973<v1>x7u6wzh973<v1>px60u5n1do<v1>c9p4lpnvx7<v1>h9u9584zpn<v1>h9u9584zpn<v1>px60u5n1do<v1>px60u5n1do<v0><v0>0<v0><v0><v0>00xbh8oc00<v1>9gv4vm4kj3<v1>pv4n1n3gyg<v1>4864k12no2<v0>tafqldAGRF<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v1>em6eEh9q8y<v2>1<v2>2<v2>0<v2>2<v2>FROZEN_BY_TORPID<v2>-<v2>-<v2>3<v0><v0><v0><v0>{"mzID":"theirField-1","isImbued":"NO","amount":1,"ignoreCost":false,"mzIDCardID":"h9u9584zpn","activationSourceZone":"myHand","additionalCostPaid":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","target":"theirField-1"}<v0><v0>{}<v0>4<v0>{"EnterCalls":{"2":1,"1":1},"Enter":{"2":{"em6eEh9q8y":1},"1":{"h9u9584zpn":1}},"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"h9u9584zpn":1}},"ReserveCard":{"1":{"c9p4lpnvx7":3,"x7u6wzh973":1}},"ReserveCardCommitted":{"1":{"c9p4lpnvx7":3,"x7u6wzh973":1}},"ReserveActionCommitted":{"1":{"c9p4lpnvx7":3,"x7u6wzh973":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"h9u9584zpn":1}},"ExhaustCardCalls":{"1":1},"ExhaustCard":{"1":{"em6eEh9q8y":1}},"DrawCalls":{"2":1}}<v0>80<v0>{"cards":{"1":{"c9p4lpnvx7":{"drawn":3,"drawnToMemory":0,"materialized":0,"reserved":3,"discarded":0,"activated":0},"x7u6wzh973":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":1,"discarded":0,"activated":0},"em6eEh9q8y":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"px60u5n1do":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"h9u9584zpn":{"drawn":0,"drawnToMemory":0,"materialized":1,"reserved":0,"discarded":0,"activated":0}},"2":{"em6eEh9q8y":{"drawn":3,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"c9p4lpnvx7":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"h9u9584zpn":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"x7u6wzh973":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[{"seat":1,"turn":1,"cardsPlayed":1,"memorySpent":0,"reserveSpent":4,"damageDealt":0,"damageTaken":0,"healed":0,"level":1,"hp":19},{"seat":2,"turn":1,"cardsPlayed":0,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":0,"hp":15}],"cur":{"1":[],"2":[]},"combatEvents":[]}
+1
+0:Materialize Choice<vname>2<v0>MAT<v0>2<v0><v0>em6eEh9q8y<v1>c9p4lpnvx7<v1>h9u9584zpn<v1>em6eEh9q8y<v1>x7u6wzh973<v1>x7u6wzh973<v1>c9p4lpnvx7<v1>em6eEh9q8y<v0><v0><v0>px60u5n1do<v1>em6eEh9q8y<v1>c9p4lpnvx7<v1>h9u9584zpn<v1>x7u6wzh973<v1>x7u6wzh973<v1>px60u5n1do<v1>c9p4lpnvx7<v1>h9u9584zpn<v1>h9u9584zpn<v1>px60u5n1do<v1>px60u5n1do<v0>MZMAYCHOOSE<v2>myMaterial-0&myMaterial-1&myMaterial-2&myMaterial-3<v2>1<v2><v2>0<v1>CUSTOM<v2>MATERIALIZE<v2>1<v2><v2>0<v0>0<v0><v0><v0>00xbh8oc00<v1>9gv4vm4kj3<v1>pv4n1n3gyg<v1>4864k12no2<v0>tafqldAGRF<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v1>em6eEh9q8y<v2>1<v2>2<v2>0<v2>2<v2>FROZEN_BY_TORPID<v2>-<v2>-<v2>3<v0><v0><v0><v0>em6eEh9q8y<v1>x7u6wzh973<v1>px60u5n1do<v1>x7u6wzh973<v1>c9p4lpnvx7<v1>c9p4lpnvx7<v1>c9p4lpnvx7<v1>c9p4lpnvx7<v0><v0><v0>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>x7u6wzh973<v1>h9u9584zpn<v1>em6eEh9q8y<v1>px60u5n1do<v1>h9u9584zpn<v1>x7u6wzh973<v1>h9u9584zpn<v1>h9u9584zpn<v1>px60u5n1do<v0><v0>0<v0><v0><v0>00xbh8oc00<v1>9gv4vm4kj3<v1>pv4n1n3gyg<v1>4864k12no2<v0>00xbh8oc00<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>WyJ0YWZxbGRBR1JGIl0=<v2>1<v1>h9u9584zpn<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>4<v0><v0><v0><v0>{"mzID":"theirField-1","isImbued":"NO","amount":1,"ignoreCost":false,"mzIDCardID":"h9u9584zpn","activationSourceZone":"myHand","additionalCostPaid":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","target":"theirField-1"}<v0><v0>{}<v0>4<v0>{"EnterCalls":{"2":1,"1":1},"Enter":{"2":{"em6eEh9q8y":1},"1":{"h9u9584zpn":1}},"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"h9u9584zpn":1}},"ReserveCard":{"1":{"c9p4lpnvx7":3,"x7u6wzh973":1}},"ReserveCardCommitted":{"1":{"c9p4lpnvx7":3,"x7u6wzh973":1}},"ReserveActionCommitted":{"1":{"c9p4lpnvx7":3,"x7u6wzh973":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"h9u9584zpn":1}},"ExhaustCardCalls":{"1":1},"ExhaustCard":{"1":{"em6eEh9q8y":1}},"DrawCalls":{"2":1,"1":1}}<v0>80<v0>{"cards":{"1":{"c9p4lpnvx7":{"drawn":4,"drawnToMemory":0,"materialized":0,"reserved":3,"discarded":0,"activated":0},"x7u6wzh973":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":1,"discarded":0,"activated":0},"em6eEh9q8y":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"px60u5n1do":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"h9u9584zpn":{"drawn":0,"drawnToMemory":0,"materialized":1,"reserved":0,"discarded":0,"activated":0}},"2":{"em6eEh9q8y":{"drawn":3,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"c9p4lpnvx7":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"h9u9584zpn":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"x7u6wzh973":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[{"seat":1,"turn":1,"cardsPlayed":1,"memorySpent":0,"reserveSpent":4,"damageDealt":0,"damageTaken":0,"healed":0,"level":1,"hp":19},{"seat":2,"turn":1,"cardsPlayed":0,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":0,"hp":15},{"seat":1,"turn":2,"cardsPlayed":0,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":1,"hp":19}],"cur":{"1":[],"2":[]},"combatEvents":[]}
+
+
+2
+1
+2
+MAT
+
+-
+-
+-
+-
+-
+-
+-
+
+
+-

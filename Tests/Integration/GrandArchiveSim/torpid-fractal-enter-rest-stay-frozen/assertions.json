@@ -1,0 +1,144 @@
+[
+    {
+        "step": 10,
+        "type": "turn_player_is",
+        "value": 2,
+        "semantic": true,
+        "label": "It is genuinely player 2's own turn during round 2 (TurnNumber=2, not still round 1) -- EndPhase() (Custom/GameLogic.php ~line 666-669) only increments TurnNumber when turnPlayer wraps back to the first player, so player 2's FIRST turn is still TurnNumber=1 and WakeUpPhase()'s 'if($currentTurn===1) return' guard skips wake-up processing entirely then, for either player. This fixture drives a full extra round (P1 t1 -> P2 t1 -> P1 t2, declining each MAT-phase materialize offer) specifically so player 2's wake-up-phase code actually executes this time, rather than coincidentally landing on TurnNumber=1 where nothing runs regardless of Torpid Fractal."
+    },
+    {
+        "step": 10,
+        "type": "phase_is",
+        "value": "MAT",
+        "semantic": true,
+        "label": "Player 2's phase has already advanced past WU (Wake Up) into MAT (Materialize) for round 2 -- proving their real wake-up phase ran and completed, not that the game merely stopped before reaching it."
+    },
+    {
+        "step": 10,
+        "type": "decision_queue_empty",
+        "player": 1
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "CardID",
+        "value": "h9u9584zpn"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "x7u6wzh973"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-4",
+        "property": "CardID",
+        "value": "c9p4lpnvx7"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-5",
+        "property": "CardID",
+        "value": "c9p4lpnvx7"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-6",
+        "property": "CardID",
+        "value": "c9p4lpnvx7"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-7",
+        "property": "CardID",
+        "value": "c9p4lpnvx7"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "Player 2's Dungeon Guide is still rested (Status 1) after their own real wake-up phase ran during round 2 -- WakeUpPhase()'s FROZEN_BY_TORPID check (Custom/GameLogic.php ~line 8127-8140) found player 1 still controls a real Torpid Fractal and 'continue'd past this card instead of waking it, exactly matching 'that ally doesn't wake up during its controller's wake up phase as long as you control CARDNAME'"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "TurnEffects",
+        "value": "[\"FROZEN_BY_TORPID\"]",
+        "semantic": true,
+        "label": "The FROZEN_BY_TORPID persistent TurnEffect (registered in $persistentTurnEffects, Custom/GameLogic.php:18138) survived the turn boundary and is still what gates the wake-up skip -- confirmed by independently breaking the FROZEN_BY_TORPID detection loop and observing this fixture then fails with Status flipping to 2 and TurnEffects clearing"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-7",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 8
+    }
+]

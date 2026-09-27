@@ -1,0 +1,46 @@
+[
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "CardID",
+        "value": "xl3tzqhlt1",
+        "semantic": true,
+        "label": "Hairpin of Transience itself was banished (moved to the banishment zone) as its own activation cost, not merely destroyed or discarded"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "{\"wither\":3}",
+        "semantic": true,
+        "label": "Hairpin of Transience's [Class Bonus] ability put exactly 3 wither counters on the target non-champion object"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1
+    }
+]

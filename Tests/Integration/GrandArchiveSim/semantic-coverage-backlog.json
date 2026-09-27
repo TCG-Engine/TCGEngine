@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-26T16:56:36+00:00",
+    "generatedAt": "2026-09-27T22:31:06+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 470,
+        "cardsWithExistingFixtures": 499,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 2020,
+        "cardsNeedingSemanticCoverage": 1991,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -284,26 +284,6 @@
             "priority": 125
         },
         {
-            "cardId": "1nnpbddblx",
-            "name": "Blossoming Denial",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "recover",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
             "cardId": "xd4kv0akqr",
             "name": "Fatestone of Revelations",
             "type": "ITEM",
@@ -319,46 +299,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "4tqbok1g9w",
-            "name": "Frostlorn Caress",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "x79cuuw5vo",
-            "name": "Frostnip Pirouette",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": true,
             "priority": 124
@@ -524,46 +464,6 @@
             "priority": 124
         },
         {
-            "cardId": "4864k12no2",
-            "name": "Scepter of Fascination",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "4moumzcx9z",
-            "name": "Staff of Blossoming Will",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
             "cardId": "0w5xyjuczy",
             "name": "Lavaplume Fatestone",
             "type": "ITEM",
@@ -616,25 +516,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "ddggqvxw8f",
-            "name": "Season's End",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": true,
             "priority": 123
@@ -848,49 +729,6 @@
             "priority": 115
         },
         {
-            "cardId": "9agwj4f15j",
-            "name": "Crystalline Mirror",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "d7l6i5thdy",
-            "name": "Diao Chan, Idyll Corsage",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "n06zlhihka",
             "name": "Ethereal Slime",
             "type": "ALLY",
@@ -997,27 +835,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "xl3tzqhlt1",
-            "name": "Hairpin of Transience",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -1192,26 +1009,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 115
-        },
-        {
-            "cardId": "qwtprd5b5r",
-            "name": "Acquiescing Rejection",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
         },
         {
             "cardId": "uoQGe5xGDQ",
@@ -1554,26 +1351,6 @@
             "priority": 114
         },
         {
-            "cardId": "dy4urpjbjm",
-            "name": "Glimmer Essence Amulet",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "59ipqa91r2",
             "name": "Guo Jia, Blessed Scion",
             "type": "CHAMPION",
@@ -1614,26 +1391,6 @@
             "priority": 114
         },
         {
-            "cardId": "qktid6zlyt",
-            "name": "Kaleidoscope Barrette",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "crv1etn4g3",
             "name": "Ombreux Chevalier",
             "type": "ALLY",
@@ -1669,46 +1426,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "1lw9n0wpbh",
-            "name": "Protective Fractal",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "6ffqsuo6gb",
-            "name": "Refracting Missile",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -1769,26 +1486,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "1k2jb8mau1",
-            "name": "Shimmering Refraction",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -1874,26 +1571,6 @@
             "priority": 114
         },
         {
-            "cardId": "h9u9584zpn",
-            "name": "Torpid Fractal",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "bjlwabipl6",
             "name": "Tristan, Underhanded",
             "type": "CHAMPION",
@@ -1909,26 +1586,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "2o82fwl22v",
-            "name": "Unstable Fractal",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -2049,25 +1706,6 @@
             "priority": 113
         },
         {
-            "cardId": "00xbh8oc00",
-            "name": "Diao Chan, Enchantress",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "aWjXOw4mVK",
             "name": "Dormouse Informant",
             "type": "ALLY",
@@ -2120,44 +1758,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "rp5k1vt1cn",
-            "name": "Fractal of Insight",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "cxqf8rr452",
-            "name": "Fractal of Refreshment",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2410,25 +2010,6 @@
             "priority": 113
         },
         {
-            "cardId": "6gt6zkly69",
-            "name": "Shriveling Vines",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "m3zkl7lpvn",
             "name": "Slime Eruption",
             "type": "ACTION",
@@ -2580,60 +2161,6 @@
             "priority": 112
         },
         {
-            "cardId": "a708z5ethq",
-            "name": "Bloom: Summer's Glow",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "b4jvyh23y1",
-            "name": "Bloom: Winter's Chill",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "p00ghqhcpb",
-            "name": "Chill to the Bone",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "izf4wdsbz9",
             "name": "Companion Fatestone",
             "type": "ITEM",
@@ -2724,24 +2251,6 @@
             "priority": 112
         },
         {
-            "cardId": "eg771cn2q1",
-            "name": "Eventide Lure",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "cXEI5vo6iG",
             "name": "Flawless Spirit of Mordred",
             "type": "CHAMPION",
@@ -2791,24 +2300,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "fp773yotth",
-            "name": "Glimmering Refusal",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -3030,24 +2521,6 @@
             "priority": 112
         },
         {
-            "cardId": "u0yaub9dal",
-            "name": "Ripples of Atrophy",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "nxm05jkjxg",
             "name": "Rousing Rattle Drum",
             "type": "REGALIA,ITEM",
@@ -3261,23 +2734,6 @@
             "priority": 111
         },
         {
-            "cardId": "pknaxnn0xo",
-            "name": "Diao Chan, Dreaming Wish",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "bx25s7kiln",
             "name": "Dissuading Aether",
             "type": "ACTION",
@@ -3290,23 +2746,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "y7wbtbasch",
-            "name": "Dissuading Halt",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -35096,6 +34535,30 @@
             "priority": 145
         },
         {
+            "cardId": "1nnpbddblx",
+            "name": "Blossoming Denial",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "recover",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blossoming-denial-cost-reduction-token-negate"
+            ],
+            "semanticFixtures": [
+                "blossoming-denial-cost-reduction-token-negate"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "0ejcyuvuxn",
             "name": "Corhazi Arsonist",
             "type": "ALLY",
@@ -35215,6 +34678,54 @@
             ],
             "starterDecks": [
                 "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "4tqbok1g9w",
+            "name": "Frostlorn Caress",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "frostlorn-caress-four-wither-counters"
+            ],
+            "semanticFixtures": [
+                "frostlorn-caress-four-wither-counters"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "x79cuuw5vo",
+            "name": "Frostnip Pirouette",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "frostnip-pirouette-selective-wither-counters"
+            ],
+            "semanticFixtures": [
+                "frostnip-pirouette-selective-wither-counters"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 144
@@ -35365,6 +34876,30 @@
             "priority": 144
         },
         {
+            "cardId": "4864k12no2",
+            "name": "Scepter of Fascination",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "scepter-of-fascination-enter-draw-and-diao-chan-wake"
+            ],
+            "semanticFixtures": [
+                "scepter-of-fascination-enter-draw-and-diao-chan-wake"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "6v374coy34",
             "name": "Slay the King",
             "type": "ATTACK",
@@ -35384,6 +34919,30 @@
             ],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "4moumzcx9z",
+            "name": "Staff of Blossoming Will",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "staff-of-blossoming-will-enter-draw-and-flowerbud"
+            ],
+            "semanticFixtures": [
+                "staff-of-blossoming-will-enter-draw-and-flowerbud"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 144
@@ -35813,6 +35372,29 @@
                 "Jin Starter Deck",
                 "Lorraine Starter Deck",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
+            "cardId": "ddggqvxw8f",
+            "name": "Season's End",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "seasons-end-destroy-withered-only"
+            ],
+            "semanticFixtures": [
+                "seasons-end-destroy-withered-only"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 143
@@ -36337,6 +35919,57 @@
             "priority": 135
         },
         {
+            "cardId": "9agwj4f15j",
+            "name": "Crystalline Mirror",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crystalline-mirror-glimpse-and-banish-destroy"
+            ],
+            "semanticFixtures": [
+                "crystalline-mirror-glimpse-and-banish-destroy"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "d7l6i5thdy",
+            "name": "Diao Chan, Idyll Corsage",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "diao-chan-idyll-corsage-enter-wither-and-flowerbud"
+            ],
+            "semanticFixtures": [
+                "diao-chan-idyll-corsage-enter-wither-and-flowerbud"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "UVAb8CmjtL",
             "name": "Dream Fairy",
             "type": "ALLY",
@@ -36587,6 +36220,31 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "xl3tzqhlt1",
+            "name": "Hairpin of Transience",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hairpin-of-transience-banish-three-wither-counters"
+            ],
+            "semanticFixtures": [
+                "hairpin-of-transience-banish-three-wither-counters"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
@@ -37135,6 +36793,30 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 135
+        },
+        {
+            "cardId": "qwtprd5b5r",
+            "name": "Acquiescing Rejection",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "acquiescing-rejection-draw-two-not-negated"
+            ],
+            "semanticFixtures": [
+                "acquiescing-rejection-draw-two-not-negated"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
         },
         {
             "cardId": "NXGaB1dYwL",
@@ -38036,6 +37718,30 @@
             "priority": 134
         },
         {
+            "cardId": "dy4urpjbjm",
+            "name": "Glimmer Essence Amulet",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "glimmer-essence-amulet-opponent-turn-phantasia-destroyed-draw"
+            ],
+            "semanticFixtures": [
+                "glimmer-essence-amulet-opponent-turn-phantasia-destroyed-draw"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "DsiRzt0trX",
             "name": "Hasty Messenger",
             "type": "ALLY",
@@ -38200,6 +37906,30 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "qktid6zlyt",
+            "name": "Kaleidoscope Barrette",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "kaleidoscope-barrette-enter-draw-and-recollection-empower"
+            ],
+            "semanticFixtures": [
+                "kaleidoscope-barrette-enter-draw-and-recollection-empower"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -38609,6 +38339,30 @@
             "priority": 134
         },
         {
+            "cardId": "1lw9n0wpbh",
+            "name": "Protective Fractal",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention"
+            ],
+            "existingFixtures": [
+                "protective-fractal-rest-prevent-1-damage"
+            ],
+            "semanticFixtures": [
+                "protective-fractal-rest-prevent-1-damage"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "j4f15joh30",
             "name": "Quickdraw Piercer",
             "type": "REGALIA,WEAPON",
@@ -38628,6 +38382,30 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "6ffqsuo6gb",
+            "name": "Refracting Missile",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "refracting-missile-fractal-damage"
+            ],
+            "semanticFixtures": [
+                "refracting-missile-fractal-damage"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -38756,6 +38534,30 @@
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter",
                 "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "1k2jb8mau1",
+            "name": "Shimmering Refraction",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shimmering-refraction-phantasia-count-damage"
+            ],
+            "semanticFixtures": [
+                "shimmering-refraction-phantasia-count-damage"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -38981,6 +38783,30 @@
             "priority": 134
         },
         {
+            "cardId": "h9u9584zpn",
+            "name": "Torpid Fractal",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "torpid-fractal-enter-rest-stay-frozen"
+            ],
+            "semanticFixtures": [
+                "torpid-fractal-enter-rest-stay-frozen"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "pi9ftq3sul",
             "name": "Tsunami of Nanyue",
             "type": "ACTION",
@@ -39000,6 +38826,32 @@
             ],
             "starterDecks": [
                 "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "2o82fwl22v",
+            "name": "Unstable Fractal",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "unstable-fractal-class-bonus-destroy-item",
+                "unstable-fractal-no-class-bonus-blocked"
+            ],
+            "semanticFixtures": [
+                "unstable-fractal-class-bonus-destroy-item",
+                "unstable-fractal-no-class-bonus-blocked"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -39614,6 +39466,29 @@
             "priority": 133
         },
         {
+            "cardId": "00xbh8oc00",
+            "name": "Diao Chan, Enchantress",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "diao-chan-enchantress-enter-glimmer"
+            ],
+            "semanticFixtures": [
+                "diao-chan-enchantress-enter-glimmer"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "eSAIP7mx9z",
             "name": "Drawn Blade",
             "type": "REGALIA,WEAPON",
@@ -39796,6 +39671,54 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "rp5k1vt1cn",
+            "name": "Fractal of Insight",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fractal-of-insight-decline-no-glimpse",
+                "fractal-of-insight-rest-glimpse-2"
+            ],
+            "semanticFixtures": [
+                "fractal-of-insight-decline-no-glimpse",
+                "fractal-of-insight-rest-glimpse-2"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "cxqf8rr452",
+            "name": "Fractal of Refreshment",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "fractal-of-refreshment-bottom-2-draw-2"
+            ],
+            "semanticFixtures": [
+                "fractal-of-refreshment-bottom-2-draw-2"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -40839,6 +40762,29 @@
             "priority": 133
         },
         {
+            "cardId": "6gt6zkly69",
+            "name": "Shriveling Vines",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "token"
+            ],
+            "existingFixtures": [
+                "shriveling-vines-end-phase-two-wither-counters"
+            ],
+            "semanticFixtures": [
+                "shriveling-vines-end-phase-two-wither-counters"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "nllCALIXDT",
             "name": "Silvie, With the Pack",
             "type": "CHAMPION",
@@ -41876,6 +41822,50 @@
             "priority": 132
         },
         {
+            "cardId": "a708z5ethq",
+            "name": "Bloom: Summer's Glow",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "token"
+            ],
+            "existingFixtures": [
+                "bloom-summers-glow-class-bonus-flowerbud-split"
+            ],
+            "semanticFixtures": [
+                "bloom-summers-glow-class-bonus-flowerbud-split"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "b4jvyh23y1",
+            "name": "Bloom: Winter's Chill",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "token"
+            ],
+            "existingFixtures": [
+                "bloom-winters-chill-class-bonus-flowerbud-split"
+            ],
+            "semanticFixtures": [
+                "bloom-winters-chill-class-bonus-flowerbud-split"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "PwHub76Fw4",
             "name": "Bolstering Tempest",
             "type": "ACTION",
@@ -41916,6 +41906,30 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "p00ghqhcpb",
+            "name": "Chill to the Bone",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "chill-to-the-bone-low-phantasia-debuff",
+                "chill-to-the-bone-two-phantasia-debuff"
+            ],
+            "semanticFixtures": [
+                "chill-to-the-bone-low-phantasia-debuff",
+                "chill-to-the-bone-two-phantasia-debuff"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -42168,6 +42182,28 @@
             "priority": 132
         },
         {
+            "cardId": "eg771cn2q1",
+            "name": "Eventide Lure",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "eventide-lure-look-five-reveal-phantasia"
+            ],
+            "semanticFixtures": [
+                "eventide-lure-look-five-reveal-phantasia"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "dsAqxMezGb",
             "name": "Favorable Winds",
             "type": "ACTION",
@@ -42255,6 +42291,28 @@
             "starterDecks": [
                 "Silvie Starter Deck",
                 "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "fp773yotth",
+            "name": "Glimmering Refusal",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "glimmering-refusal-negate-banish"
+            ],
+            "semanticFixtures": [
+                "glimmering-refusal-negate-banish"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -42899,6 +42957,28 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "u0yaub9dal",
+            "name": "Ripples of Atrophy",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting"
+            ],
+            "existingFixtures": [
+                "ripples-of-atrophy-two-wither-counters"
+            ],
+            "semanticFixtures": [
+                "ripples-of-atrophy-two-wither-counters"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -44180,6 +44260,48 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "pknaxnn0xo",
+            "name": "Diao Chan, Dreaming Wish",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "diao-chan-dreaming-wish-end-phase-glimmer-catchup"
+            ],
+            "semanticFixtures": [
+                "diao-chan-dreaming-wish-end-phase-glimmer-catchup"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "y7wbtbasch",
+            "name": "Dissuading Halt",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "dissuading-halt-attack-power-reduction"
+            ],
+            "semanticFixtures": [
+                "dissuading-halt-attack-power-reduction"
+            ],
+            "starterDecks": [
+                "Diao Chan Re:Collection, Idyll Corsage"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

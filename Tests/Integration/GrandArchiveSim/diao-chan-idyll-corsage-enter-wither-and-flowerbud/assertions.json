@@ -1,0 +1,43 @@
+[
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "CardID",
+        "value": "d7l6i5thdy"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "CardID",
+        "value": "2o82fwl22v"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "{\"wither\":1}",
+        "semantic": true,
+        "label": "Idyll Corsage's On Enter put a wither counter on the chosen non-champion object (player 2's Unstable Fractal)"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "CardID",
+        "value": "yn78t73w1p",
+        "semantic": true,
+        "label": "Destroying a non-token object player 2 controls (ChannelTech Charm S) and choosing to banish it summoned a Flowerbud token onto player 2's own field, per Idyll Corsage's second clause"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "CardID",
+        "value": "rR2j9dQRDH",
+        "semantic": true,
+        "label": "The destroyed ChannelTech Charm S was banished (not left in the graveyard), matching 'you may banish it'"
+    }
+]
