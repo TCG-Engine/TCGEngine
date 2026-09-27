@@ -172,6 +172,13 @@ while (true) {
       $roster[] = [
         'playerID' => $p->getPlayerID(),
         'seat'     => $p->getSeat(),
+        // ⚠ ACCOUNTS ONLY — null for a guest, NEVER the string "Guest PN". The page builds that label
+        // from the seat number it is already drawing, because the seat a tile SHOWS and the seat's
+        // playerID diverge once anybody has left (ids go 1, 3, 4 and the next joiner is 5 while
+        // sitting on the tile labelled "Seat 4"). Emitting a number from here would print "Guest P5"
+        // under "Seat 4". Same contract as window.SWU_SEAT_USERNAMES, where a missing entry is what
+        // MEANS "not logged in" — putting guests in it would make them look like accounts.
+        'username' => ($p->getUsername() !== '') ? $p->getUsername() : null,
         'team'     => $p->getTeam(),
         'deckOk'   => $p->getDeckOk(),
         'ready'    => $p->getReady(),

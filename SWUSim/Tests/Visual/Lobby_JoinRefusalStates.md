@@ -76,11 +76,32 @@
 #        at a control already on screen, in the voice of a growth prompt. If that sentence ever comes
 #        back, it was not asked for.
 #
+#   F. SEAT NAMES (owner, 2026-09-27) — "add usernames of players; if they are not logged in, label
+#      them as we do in other places 'Guest PN'".
+#      • With the room from the setup above (claudebot1 hosting), each tile's second line reads the
+#        ACCOUNT NAME, not a seat number: "claudebot1 (host)", "claudebot2", "claudebot3".
+#      • Join once more from a PRIVATE window (no account). That tile reads "Guest P4" — and the
+#        number matches the "SEAT 4" label directly above it.
+#      • ⚠ THE GUEST'S NUMBER COMES FROM THE TILE, NOT FROM playerID, AND THEY DIVERGE. To see it:
+#        have claudebot2 Leave, then join twice more as guests. Seats now hold ids 1, 3, 4, 5 while
+#        the tiles still read Seat 1..4 — so the guests must read "Guest P3" and "Guest P4", NOT
+#        "Guest P4"/"Guest P5". A label taken from playerID prints "Guest P4" under "SEAT 3".
+#        (That number is also what they will really be in the game: StartRoom compacts ids in this
+#        same top-to-bottom order.)
+#      • ⚠ SIGN-IN FILLS THE NAME IN PLACE. As the guest, sign in (the chat box is the reason a guest
+#        has to), return to the room link and press Join with the same deck. The SAME tile — same
+#        seat, same position — swaps "Guest PN" for the account name. A second tile appearing instead
+#        is the duplicate-seat bug from 2026-09-26, not this feature.
+#      • A username is HTML-escaped on the way in (the roster writes innerHTML). Nothing to check by
+#        eye unless an account name ever contains markup.
+#
 # AUTOMATED COVERAGE, AND WHAT IT CANNOT SEE
 #   • SWUSim/DevTools/tests/lobby_invite_messages_test.php — which reason the SERVER returns for each
 #     situation (web SAPI; it needs APCu).
-#   • DevTools/ui-harness/swusim-room-join-refusals-xbrowser.mjs — 57 checks in chromium + firefox +
-#     webkit, including the live re-enable in (B).
+#   • SWUSim/DevTools/tests/lobby_seat_names_test.php — the name contract: accounts only, guests carry
+#     NO username, and a guest who signs in gains one on the seat they already hold.
+#   • DevTools/ui-harness/swusim-room-join-refusals-xbrowser.mjs — 90 checks in chromium + firefox +
+#     webkit, including the live re-enable in (B) and the tile/label match in (F).
 #   • Neither reads the page as a person does: whether the sentence and the seat-count icon say the
 #     same thing twice, and whether the spectator line is where the eye lands. That is why (A) and (D)
 #     are here.

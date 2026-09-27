@@ -361,6 +361,11 @@
     LobbyReleaseOtherSeats($rootName, $joiningUserId, $presentedAuthKey, $keep);
   });
 
+  // The joiner's account name, resolved ONCE per request and handed to every seat-creating path
+  // below (two of which run INSIDE LobbyMutate, where I/O is forbidden). A guest resolves to '' with
+  // no DB connection at all.
+  $joiningUsername = _SWULobbyUsernameFor($joiningUserId);
+
   // First check if there's already someone in the queue
   $cacheInfo = apcu_cache_info();
   $matchFound = false;
@@ -444,14 +449,14 @@
       $joinErr = null; $newPlayer = null; $playerID = 0;
       $stored = LobbyMutate($targetKey, function ($lobby) use (
           $isRoom, $resolved, $deckLink, $preconstructedDeck, $joiningUserId, $rootName,
-          $presentedAuthKey, $shareAnonymizedGameplayData, &$joinErr, &$newPlayer, &$playerID) {
+          $presentedAuthKey, $shareAnonymizedGameplayData, $joiningUsername, &$joinErr, &$newPlayer, &$playerID) {
         if ($isRoom && !empty($lobby->gameName))                      { $joinErr = 'started'; return false; }
         // ALREADY IN THIS ROOM? Re-seat them. Checked BEFORE the capacity gate on purpose: you are
         // not a new occupant of a room you are already sitting in, and a full room would otherwise
         // refuse its own player their seat back (reports 1 and 3, 2026-09-26).
         $existing = LobbyFindExistingSeat($lobby, $joiningUserId, $presentedAuthKey);
         if ($existing !== null) {
-          $newPlayer = _SWUReclaimSeat($existing, $isRoom, $resolved, $deckLink, $preconstructedDeck, $joiningUserId);
+          $newPlayer = _SWUReclaimSeat($existing, $isRoom, $resolved, $deckLink, $preconstructedDeck, $joiningUserId, $joiningUsername);
           $playerID  = intval($existing->getPlayerID());
           $lobby->numPlayers = count(array_filter($lobby->players, fn($p) => $p instanceof Player));
           return true;
@@ -467,6 +472,7 @@
         if (!$isRoom && $lobby->numPlayers == $lobby->maxPlayers) $lobby->ready = true;
         $playerID  = _SWUNextPlayerID($lobby);
         $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
+        $newPlayer->setUsername($joiningUsername);
         if ($isRoom) _SWURoomApplyResolvedDeck($newPlayer, $resolved);
         $lobby->players[] = $newPlayer;
         LobbyEnsureFixedSeats($lobby);
@@ -565,6 +571,7 @@
                                 // Team Suns seats move, and host must not move with them.
     $lobby->inviteCode = bin2hex(random_bytes(12));
     $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
+    $newPlayer->setUsername($joiningUsername);
     if (LobbyUsesFixedSeats($lobby)) $newPlayer->setSeat(1);
     // $lobby->isPrivate is already true here, so this is simply "is this sim opted in, and is the
     // format not solo/local" — which for a private lobby is every format a human plays against another.
@@ -690,12 +697,13 @@
               $joinErr = null; $newPlayer = null; $playerID = 0;
               $stored = LobbyMutate($targetKey, function ($lobby) use (
                   $deckLink, $preconstructedDeck, $joiningUserId, $rootName, $publicResolved,
-                  $presentedAuthKey, $shareAnonymizedGameplayData, $swuTestFailAtPairing, $publicIsRoom, &$joinErr, &$newPlayer, &$playerID) {
+                  $presentedAuthKey, $shareAnonymizedGameplayData, $swuTestFailAtPairing, $publicIsRoom,
+                  $joiningUsername, &$joinErr, &$newPlayer, &$playerID) {
                 if (!empty($lobby->gameName) || (($lobby->state ?? '') === 'matched')) { $joinErr = 'full'; return false; }
                 // Already seated here? Re-seat, never append — see the invite path above.
                 $existing = LobbyFindExistingSeat($lobby, $joiningUserId, $presentedAuthKey);
                 if ($existing !== null) {
-                  $newPlayer = _SWUReclaimSeat($existing, $publicIsRoom, $publicResolved, $deckLink, $preconstructedDeck, $joiningUserId);
+                  $newPlayer = _SWUReclaimSeat($existing, $publicIsRoom, $publicResolved, $deckLink, $preconstructedDeck, $joiningUserId, $joiningUsername);
                   $playerID  = intval($existing->getPlayerID());
                   $lobby->numPlayers = count(array_filter($lobby->players, fn($p) => $p instanceof Player));
                   return true;
@@ -714,6 +722,7 @@
                 if (!$publicIsRoom && $lobby->numPlayers == $lobby->maxPlayers) $lobby->ready = true;
                 $playerID  = _SWUNextPlayerID($lobby);
                 $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
+                $newPlayer->setUsername($joiningUsername);
                 if ($publicIsRoom) _SWURoomApplyResolvedDeck($newPlayer, $publicResolved);
                 $lobby->players[] = $newPlayer;
                 if ($swuTestFailAtPairing) {   // local-dev test hook (Task 11)
@@ -823,6 +832,7 @@
       if ($rootName === 'GrandArchiveSim') $lobby->shareAnonymizedGameplayData = $shareAnonymizedGameplayData;
       $lobby->casterMode = $casterMode;
       $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
+      $newPlayer->setUsername($joiningUsername);
       // A public ROOM needs a host, and the creator is it. Identity (hostPlayerID), never "seat 1" —
       // Team Suns reorders seats on every team pick, and StartRoom/KickSeat/AddBot all authenticate
       // against this field. Omitting it left hostPlayerID at 0, which SWUMigrateHostIfNeeded treats as
@@ -895,6 +905,37 @@
     return ['ok' => true, 'leaders' => $leaders, 'base' => $base, 'cards' => $v['identity']['cards']];
   }
 
+  // The account name for a seat, cached on the Player so the poll never has to ask.
+  //
+  // JoinQueue is the ONLY producer: every other endpoint that touches a lobby either creates no
+  // Player (StartRoom, UpdateLobbyDeck, SetTeam) or creates a bot, which has no account. That is why
+  // this lives here rather than in a shared file — one writer, one place to look.
+  //
+  // ⚠ DOES DB I/O, so it is called BEFORE LobbyMutate like every other lookup on this path, never
+  // inside the lock. The per-request static means a join that both creates and reclaims still asks
+  // once, and a guest (userId <= 0) never opens a connection at all.
+  //
+  // Mirrors MatchSeatDisplayNames' lazy connect (Core/Match/Match.php) rather than sharing it: that
+  // one resolves a whole match's seats from a match record, which a lobby does not have yet.
+  function _SWULobbyUsernameFor($userId): string {
+    static $cache = [];
+    $uid = intval($userId);
+    if ($uid <= 0) return '';
+    if (array_key_exists($uid, $cache)) return $cache[$uid];
+    $cache[$uid] = '';
+    $dbPath = __DIR__ . '/../../Database/ConnectionManager.php';
+    $mhPath = __DIR__ . '/../../Core/MatchHistory.php';
+    if (!is_file($dbPath) || !is_file($mhPath)) return '';
+    require_once $dbPath;
+    require_once $mhPath;
+    if (!function_exists('GetLocalMySQLConnection') || !function_exists('MatchHistoryUsername')) return '';
+    $conn = GetLocalMySQLConnection();
+    if (!$conn) return '';
+    $name = MatchHistoryUsername($conn, $uid);
+    $cache[$uid] = ($name === null) ? '' : strval($name);
+    return $cache[$uid];
+  }
+
   // Stamp a resolved deck onto a seat. PURE — safe inside LobbyMutate.
   // ⚠ Every failure path writes EMPTIES through setDeckIdentity(), which is one call so leaders, base
   // and cards can never drift: a seat showing last deck's base under this deck's leaders is worse
@@ -920,11 +961,21 @@
   // ⚠ AN EMPTY SUBMISSION MUST NOT WIPE A GOOD DECK. A rejoin that carries no deck (a bare page
   // reload, a client that only wants its seat back) would otherwise run the resolver on '' and set
   // deckOk=false, un-readying a seat whose deck was fine a second ago.
-  function _SWUReclaimSeat($existing, $isRoom, array $resolved, $deckLink, $preconstructedDeck, $joiningUserId) {
+  function _SWUReclaimSeat($existing, $isRoom, array $resolved, $deckLink, $preconstructedDeck, $joiningUserId, $joiningUsername = '') {
     if (!($existing instanceof Player)) return null;
     // One way only (Player::setUserId): a guest who signs in gains the account; a seat that already
     // has one never changes hands.
-    if ($joiningUserId !== null && intval($joiningUserId) > 0) $existing->setUserId($joiningUserId);
+    //
+    // ⚠ THE NAME FOLLOWS THE ACCOUNT, AND ONLY WHEN THE ACCOUNT ACTUALLY LANDED. setUserId REFUSES
+    // to move a seat that already belongs to someone, so writing the name unconditionally would
+    // relabel that seat with the name of whoever presented the key — the display saying one thing
+    // while the identity says another. This is the path a guest takes when they sign in to chat and
+    // come back to the room, which is the whole reason the name is resolved on a reclaim at all.
+    if ($joiningUserId !== null && intval($joiningUserId) > 0) {
+      if ($existing->setUserId($joiningUserId) && strval($joiningUsername) !== '') {
+        $existing->setUsername($joiningUsername);
+      }
+    }
     if (strval($deckLink) !== '' || strval($preconstructedDeck) !== '') {
       $existing->setDeckLink($deckLink);
       $existing->setPreconstructedDeck($preconstructedDeck);

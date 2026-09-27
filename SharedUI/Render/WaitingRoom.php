@@ -325,8 +325,20 @@ function _WaitingRoomScript(array $cfg): string {
     // No "(you)" here — the green ring on your own tile already says it, and repeating it in text
     // was two signals for one fact. It IS kept in the unassigned holding line below, where there is
     // no tile and therefore no ring to read it from.
-    var who = 'P' + entry.playerID + (entry.isHost ? ' (host)' : '');
-    if (entry.botProfile) who += ' · ' + ((botProfiles[entry.botProfile] || {}).name || 'Bot');
+    // THE NAME, not the seat number — the tile's own label already says "Seat N" right above this.
+    //
+    // ⚠ "Guest PN" IS COMPOSED HERE, from `seatNo` — the number this tile is DRAWING — and never from
+    // entry.playerID. The two diverge as soon as anybody leaves: ids go 1, 3, 4 and the next joiner is
+    // playerID 5 while sitting on the tile labelled "Seat 4", so a playerID would print "Guest P5"
+    // under "Seat 4". seatNo is also the number they will actually hold in the game, because
+    // StartRoom compacts ids in this same order. The server deliberately sends no guest string
+    // (PollLobbyUpdates) — a username there means an ACCOUNT, and guests must stay distinguishable.
+    //
+    // esc() is applied by the caller, which matters here: this is the first user-controlled string
+    // the roster renders.
+    var who = entry.botProfile
+      ? ('P' + entry.playerID + ' · ' + ((botProfiles[entry.botProfile] || {}).name || 'Bot'))
+      : (entry.username || ('Guest P' + seatNo)) + (entry.isHost ? ' (host)' : '');
     // deckOk, ready and away are THREE different facts. A legal deck you are still swapping is not a
     // deck you are ready to play, and a ready deck whose owner has closed their browser is not a
     // player. Away NEVER blocks Start — it is what the host reads before deciding to Remove.
@@ -408,7 +420,9 @@ function _WaitingRoomScript(array $cfg): string {
       var holding = unassigned.length
         ? '<div style="margin-top:4px;font-size:12px;color:#aab6c4;">Not on a team yet: ' +
           unassigned.map(function (r) {
-            return esc('P' + r.playerID + (r.playerID === myPlayerID ? ' (you)' : ''));
+            // No tile means no seat number to build a guest label from, so an unnamed seat stays "PN"
+            // here. It is the one place that number is the only handle anyone has on this player.
+            return esc((r.username || ('P' + r.playerID)) + (r.playerID === myPlayerID ? ' (you)' : ''));
           }).join(', ') + '</div>'
         : '';
 

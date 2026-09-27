@@ -98,10 +98,26 @@ async function buildFullRoom() {
   }
   // The other three join THAT room BY CODE rather than by matchmaking, so the fixture cannot end up
   // spread across two rooms if another one is open in the same format.
+  //
+  // ⚠ TWO ACCOUNTS AND TWO GUESTS, ON DELIBERATELY NON-DENSE playerIDs. Both halves are load-bearing:
+  //
+  //   - Mixed accounts/guests is the only shape that can tell the two label paths apart. With four
+  //     accounts the page looks right even if it never composes "Guest PN"; with four guests it looks
+  //     right even if the username never reaches the tile.
+  //   - The GAP matters even more. A freshly filled room holds ids 1,2,3,4, where playerID and the
+  //     tile's seat number are equal — so a guest label built from the WRONG one of those still reads
+  //     correctly and the assertion guards nothing. Dropping seat 2 and letting the guests land on
+  //     ids 4 and 5 puts "Guest P4" on the tile labelled "Seat 3", which is exactly the bug the
+  //     server-side note warns about. Mutation-checked: swapping seatNo for entry.playerID in
+  //     WaitingRoom.php fails here and passes against a dense room.
   const s = [first];
-  for (let i = 1; i < 4; i++) s.push(await joinByCode(cookies[i], code));
-  if (s.some(x => !x.success)) {
-    console.log(`FAIL :: could not fill the room :: ${JSON.stringify(s.map(x => x.message))}`);
+  for (let i = 1; i < 3; i++) s.push(await joinByCode(cookies[i], code));   // ids 2 and 3
+  await leave(cookies[1], first.lobbyID, s[1]);                            // id 2 leaves → gap
+  s[1] = null;
+  s.push(await joinByCode(undefined, code));                               // guest, id 4, tile Seat 3
+  s.push(await joinByCode(undefined, code));                               // guest, id 5, tile Seat 4
+  if (s.some(x => x && !x.success)) {
+    console.log(`FAIL :: could not fill the room :: ${JSON.stringify(s.map(x => x && x.message))}`);
     process.exit(1);
   }
   const check = await pollRoom(first.lobbyID, first.authKey);
@@ -163,6 +179,37 @@ for (const [name, launcher] of [['chromium', chromium], ['firefox', firefox], ['
       else if (!(await jb.isDisabled())) bad(label, 'the join button is enabled on a full room');
       else ok();
 
+      // ── SEAT NAMES (owner, 2026-09-27) ────────────────────────────────────────────────────────
+      // Three of the four seats are accounts; the fourth joined without logging in, so the page must
+      // compose its label itself. Asserted per TILE, because the guest's number comes from the tile
+      // it is drawn on and NOT from its playerID — the two diverge once anyone has left.
+      const tiles = await p.$$eval('#wr-roster .wr-seat', els => els.map(e => ({
+        label: (e.querySelector('.wr-seat-label') || {}).textContent || '',
+        who:   (e.querySelector('.wr-seat-who') || {}).textContent || '',
+      })));
+      const named = tiles.filter(t => /claudebot/.test(t.who)).length;
+      if (named !== 2) bad(label, `expected 2 account names on the tiles, saw ${named}: ${JSON.stringify(tiles.map(t => t.who.trim()))}`);
+      else ok();
+      // EVERY guest tile: "Guest P<n>" where <n> is the number on its OWN label, not some other
+      // seat's. The fixture's id gap is what gives this teeth — see buildFullRoom.
+      const guestTiles = tiles.filter(t => /Guest P/.test(t.who));
+      if (guestTiles.length !== 2) bad(label, `expected 2 guest tiles, saw ${guestTiles.length}: ${JSON.stringify(tiles.map(t => t.who.trim()))}`);
+      else ok();
+      for (const g of guestTiles) {
+        const onLabel = (g.label.match(/Seat (\d+)/) || [])[1];
+        const onName  = (g.who.match(/Guest P(\d+)/) || [])[1];
+        if (onLabel && onName && onLabel === onName) ok();
+        else bad(label, `guest label "${g.who.trim()}" does not match its tile "${g.label.trim()}"`);
+      }
+      // A bare seat number must no longer be anyone's whole name.
+      const bare = tiles.filter(t => /^P\d+(\s*\(host\))?\s*$/.test(t.who.trim()));
+      if (bare.length) bad(label, `${bare.length} tile(s) still show only a seat number: ${JSON.stringify(bare.map(t => t.who.trim()))}`);
+      else ok();
+      // Exactly one host marker, and it is on a named seat.
+      const hosts = tiles.filter(t => /\(host\)/.test(t.who));
+      if (hosts.length === 1 && /claudebot/.test(hosts[0].who)) ok();
+      else bad(label, `host marker wrong: ${JSON.stringify(hosts.map(t => t.who.trim()))}`);
+
       // The spectator promise, and the escape hatch.
       const left = (await p.textContent('#wr-actions-left') || '');
       if (!/spectator/i.test(left)) bad(label, `no spectator note on a full room: "${left.trim()}"`); else ok();
@@ -174,7 +221,7 @@ for (const [name, launcher] of [['chromium', chromium], ['firefox', firefox], ['
       // Drains seat 2 over HTTP and lets the page's own 1.5s poll notice. No reload: a reload would
       // prove only that a fresh page reads a 3/4 room correctly, which is case A with a different
       // number — the claim under test is that the OPEN page recovers.
-      await leave(cookies[1], lobbyID, seats[1]);
+      await leave(cookies[2], lobbyID, seats[2]);
       let flipped = false;
       try {
         await p.waitForFunction(() => {
@@ -193,7 +240,7 @@ for (const [name, launcher] of [['chromium', chromium], ['firefox', firefox], ['
 
       // The seat STAYS out: case D below starts this same room, and 3 seats is a legal Twin Suns
       // start. Re-queueing that account would also move its single seat back out of this room.
-      seats[1] = null;
+      seats[2] = null;
 
       if (errs.length) bad(label, `page errors: ${errs.slice(0, 2).join(' | ')}`); else ok();
       await ctx.close();

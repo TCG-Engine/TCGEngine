@@ -10,6 +10,11 @@
     private $authKey;
     private $gamePlayerID; // This is the ID used in the game, not the lobby
     private $userId; // account id of the human who created this seat (null for guests/bots)
+    // ⚠ DECLARED, NOT DYNAMIC. Assigning an undeclared property is deprecated in PHP 8.2, and the
+    // notice PRINTS — straight into the JSON body of every lobby endpoint, ahead of the payload, so
+    // json_decode returns null and every caller reads a successful join as a failure with no message.
+    // An unserialized lobby from before this field existed simply has '' here.
+    private $username = ''; // account name for the seat tile; '' for a guest (the page writes "Guest PN")
     private $deckOk = false; // Twin Suns room roster: whether this seat's current deck passed format legality
     private $seat = null;  // Table position 1..4. NULL until a team is picked. Team Suns reassigns
                            // this freely; $playerID must NOT move, because endpoints authenticate on it.
@@ -73,6 +78,19 @@
         $this->userId = ($userId === null) ? null : intval($userId);
         return true;
     }
+
+    // The account name shown on this seat's tile, or '' for a guest.
+    //
+    // ⚠ CACHED, AND RESOLVED WHERE THE SESSION IS — at join, in JoinQueue.php. PollLobbyUpdates runs
+    // every 1.5s for every open page and this value cannot change between polls, so looking it up
+    // there would be a per-seat DB query per client per second for a constant.
+    //
+    // ⚠ ACCOUNTS ONLY. A guest keeps '' and the PAGE composes "Guest PN" from the seat number it is
+    // already drawing. Storing the guest string here would make a guest indistinguishable from an
+    // account to every consumer — the same contract window.SWU_SEAT_USERNAMES carries, where a
+    // missing entry is what MEANS "not logged in".
+    public function getUsername() { return is_string($this->username ?? null) ? $this->username : ''; }
+    public function setUsername($name) { $this->username = ($name === null) ? '' : strval($name); }
 
     public function getGamePlayerID() {
         return $this->gamePlayerID;
