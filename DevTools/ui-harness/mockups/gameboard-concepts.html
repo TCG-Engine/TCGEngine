@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Desktop gameboard &mdash; five concepts</title>
+<!-- MOCKUP, NOT SHIPPED UI. Five STRUCTURES for the desktop board, all in the shipped Petranaki
+     world: same tokens, same .ch/.gl, same type scale, same rationed gold. Only the LAYOUT differs,
+     because the layout is what is being chosen. The empty .home-header is load-bearing —
+     swusim-menu-2.css scopes its ground, mesh and pane tokens to `body:has(.home-header)`. -->
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/tokens.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/components.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-menu-2.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUSim/css/petranaki-glass.css">
+<link rel="stylesheet" href="./gameboard-concepts.css">
+</head><body><div class="home-header"></div>
+<div class="wrap"><section class="sheet"><p class="cap"><b>A &mdash; The Table</b><br>Two playmats meeting at a seam. No panels at all &mdash; cards sit on felt, your piles by your hand, the initiative marker ON the midline. Closest to the physical game; the least &ldquo;software&rdquo; of the five.</p><div class="bd bd--table">
+  <div class="mat mat--them">
+    <div class="mat__hud"><div class="resbadge resbadge--them"><img src="/TCGEngine/Assets/Icons/swusim-resource-badge.webp" alt="Resources"><span><b>6/6</b></span></div><div class="mat__id"><div class="seat"><span class="seat__k">Opponent</span><span class="seat__n">Drixx</span></div><span class="init init--ghost ch">Initiative</span></div><div class="piles"><div class="pile"><div class="pile__stack"><div class="pile__top" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div><span class="pile__k">Discard<b class="pile__n">3</b></span></div><div class="pile"><div class="pile__stack"><div class="pile__top pile__back"><b></b></div></div><span class="pile__k">Deck<b class="pile__n">42</b></span></div></div></div>
+    <div class="mat__play">
+      <div class="lane"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div>
+      <div class="pair"><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_001.webp')"></div><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_026.webp')"></div></div>
+      <div class="lane"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SEC_080.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_033.webp')"></div></div>
+    </div>
+  </div>
+  <div class="seam"><span class="seam__mark ch">Initiative &#183; You</span></div>
+  <div class="mat mat--me">
+    <div class="mat__play">
+      <div class="lane"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div>
+      <div class="pair"><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_020.webp')"></div><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_002.webp')"></div></div>
+      <div class="lane"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_095.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_032.webp')"></div></div>
+    </div>
+    <div class="mat__hud"><div class="resbadge"><img src="/TCGEngine/Assets/Icons/swusim-resource-badge.webp" alt="Resources"><span><b>6/6</b><i>+2</i></span></div><div class="mat__id"><div class="seat"><span class="seat__k">You</span><span class="seat__n">Mariotee</span></div><span class="init ch">Initiative</span></div>
+      <button class="swu2-btn swu2-btn--quiet ch">Keep Initiative</button>
+      <button class="swu2-btn swu2-btn--primary ch">Pass</button><div class="piles"><div class="pile"><div class="pile__stack"><div class="pile__top" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_033.webp')"></div></div><span class="pile__k">Discard<b class="pile__n">2</b></span></div><div class="pile"><div class="pile__stack"><div class="pile__top pile__back"><b></b></div></div><span class="pile__k">Deck<b class="pile__n">38</b></span></div></div></div>
+  </div>
+  <div class="hand"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_095.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_032.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SEC_080.webp')"></div></div>
+  <aside class="side ch gl">
+  <button class="swu2-btn swu2-btn--primary ch" style="height:36px;padding:0 var(--s-4)">Undo</button>
+  <div class="side__row"><span class="lbl">Round</span><b class="num">1</b>
+    <span class="lbl" style="color:var(--gold);margin-inline-start:auto">&#9679; Action</span></div>
+  <span class="lbl">Game Log &amp; Chat</span>
+  <div class="log"><b class="p1">Drixx:</b> gl hf</div>
+  <div class="log">Rebel Trooper attacked for 3</div>
+  <div class="log"><b class="p2">You:</b> good luck</div>
+  <div class="log">Imperial Dark Trooper played</div>
+</aside>
+</div></section>
+<section class="sheet"><p class="cap"><b>B &mdash; The Cockpit</b><br>Seat rails top and bottom, four chamfered instrument plates with live corner brackets. The board reads as a machine you are operating. Most information per pixel; most chrome.</p><div class="bd bd--cockpit">
+  <div class="rail rail--them ch gl"><div class="resbadge resbadge--them"><img src="/TCGEngine/Assets/Icons/swusim-resource-badge.webp" alt="Resources"><span><b>6/6</b></span></div><div class="seat"><span class="seat__k">Opponent</span><span class="seat__n">Drixx</span></div><span class="init init--ghost ch">Initiative</span><div class="rail__end"><div class="piles"><div class="pile"><div class="pile__stack"><div class="pile__top" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div><span class="pile__k">Discard<b class="pile__n">3</b></span></div><div class="pile"><div class="pile__stack"><div class="pile__top pile__back"><b></b></div></div><span class="pile__k">Deck<b class="pile__n">42</b></span></div></div></div></div>
+  <div class="bd__mid">
+    <div class="grid">
+      <div class="plate ch gl plate--space"><div class="corners"><i></i><i></i><i></i><i></i></div><span class="lbl">Space Arena</span><div class="plate__c"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div></div>
+      <div class="spine"><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_001.webp')"></div><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_026.webp')"></div></div>
+      <div class="plate ch gl plate--ground"><div class="corners"><i></i><i></i><i></i><i></i></div><span class="lbl">Ground Arena</span><div class="plate__c"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SEC_080.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_033.webp')"></div></div></div>
+      <div class="plate ch gl plate--space"><div class="corners"><i></i><i></i><i></i><i></i></div><span class="lbl">Space Arena</span><div class="plate__c"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div></div>
+      <div class="spine"><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_020.webp')"></div><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_002.webp')"></div></div>
+      <div class="plate ch gl plate--ground is-live"><div class="corners"><i></i><i></i><i></i><i></i></div><span class="lbl">Ground Arena</span><div class="plate__c"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_095.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_032.webp')"></div></div></div>
+    </div>
+    <aside class="side ch gl">
+  <button class="swu2-btn swu2-btn--primary ch" style="height:36px;padding:0 var(--s-4)">Undo</button>
+  <div class="side__row"><span class="lbl">Round</span><b class="num">1</b>
+    <span class="lbl" style="color:var(--gold);margin-inline-start:auto">&#9679; Action</span></div>
+  <span class="lbl">Game Log &amp; Chat</span>
+  <div class="log"><b class="p1">Drixx:</b> gl hf</div>
+  <div class="log">Rebel Trooper attacked for 3</div>
+  <div class="log"><b class="p2">You:</b> good luck</div>
+  <div class="log">Imperial Dark Trooper played</div>
+</aside>
+  </div>
+  <div class="rail rail--me is-turn ch gl"><div class="resbadge"><img src="/TCGEngine/Assets/Icons/swusim-resource-badge.webp" alt="Resources"><span><b>6/6</b><i>+2</i></span></div><div class="seat"><span class="seat__k">You</span><span class="seat__n">Mariotee</span></div><span class="init ch">Initiative</span>
+    <div class="rail__end"><button class="swu2-btn swu2-btn--quiet ch">Keep Initiative</button>
+    <button class="swu2-btn swu2-btn--primary ch">Pass</button><div class="piles"><div class="pile"><div class="pile__stack"><div class="pile__top" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_033.webp')"></div></div><span class="pile__k">Discard<b class="pile__n">2</b></span></div><div class="pile"><div class="pile__stack"><div class="pile__top pile__back"><b></b></div></div><span class="pile__k">Deck<b class="pile__n">38</b></span></div></div></div></div>
+  <div class="hand"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_095.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_032.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SEC_080.webp')"></div></div>
+</div></section>
+<section class="sheet"><p class="cap"><b>C &mdash; The Spine</b><br>A full-height glass column down the centre carries both leaders, both bases and the turn. Each arena type becomes one continuous vertical lane &mdash; space left, ground right &mdash; so you read the board by COLUMN rather than by half.</p><div class="bd bd--spine">
+  <div class="lanes">
+    <div class="lane2 lane2--space">
+      <span class="lbl">Space</span>
+      <div class="lane2__t"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div><div class="lane2__hr"></div><div class="lane2__m"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div>
+    </div>
+    <div class="col ch gl">
+      <div class="col__seat"><div class="resbadge resbadge--them"><img src="/TCGEngine/Assets/Icons/swusim-resource-badge.webp" alt="Resources"><span><b>6/6</b></span></div><div class="seat"><span class="seat__k">Opponent</span><span class="seat__n">Drixx</span></div><span class="init init--ghost ch">Initiative</span></div>
+      <div class="col__cards"><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_001.webp')"></div><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_026.webp')"></div></div>
+      <div class="col__turn"><span class="lbl">Round</span><b class="num">1</b>
+        <span class="init ch">Initiative</span></div>
+      <div class="col__cards"><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_020.webp')"></div><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_002.webp')"></div></div>
+      <div class="col__seat"><div class="resbadge"><img src="/TCGEngine/Assets/Icons/swusim-resource-badge.webp" alt="Resources"><span><b>6/6</b><i>+2</i></span></div><div class="seat"><span class="seat__k">You</span><span class="seat__n">Mariotee</span></div><span class="init ch">Initiative</span></div>
+      <div class="col__act"><button class="swu2-btn swu2-btn--quiet ch">Keep</button>
+        <button class="swu2-btn swu2-btn--primary ch">Pass</button></div>
+    </div>
+    <div class="lane2 lane2--ground">
+      <span class="lbl">Ground</span>
+      <div class="lane2__t"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SEC_080.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_033.webp')"></div></div><div class="lane2__hr"></div><div class="lane2__m is-live"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_095.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_032.webp')"></div></div>
+    </div>
+  </div>
+  <div class="bd__foot"><div class="piles"><div class="pile"><div class="pile__stack"><div class="pile__top" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_033.webp')"></div></div><span class="pile__k">Discard<b class="pile__n">2</b></span></div><div class="pile"><div class="pile__stack"><div class="pile__top pile__back"><b></b></div></div><span class="pile__k">Deck<b class="pile__n">38</b></span></div></div><div class="hand"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_095.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_032.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SEC_080.webp')"></div></div><div class="piles"><div class="pile"><div class="pile__stack"><div class="pile__top" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div><span class="pile__k">Discard<b class="pile__n">3</b></span></div><div class="pile"><div class="pile__stack"><div class="pile__top pile__back"><b></b></div></div><span class="pile__k">Deck<b class="pile__n">42</b></span></div></div></div>
+  <aside class="side ch gl">
+  <button class="swu2-btn swu2-btn--primary ch" style="height:36px;padding:0 var(--s-4)">Undo</button>
+  <div class="side__row"><span class="lbl">Round</span><b class="num">1</b>
+    <span class="lbl" style="color:var(--gold);margin-inline-start:auto">&#9679; Action</span></div>
+  <span class="lbl">Game Log &amp; Chat</span>
+  <div class="log"><b class="p1">Drixx:</b> gl hf</div>
+  <div class="log">Rebel Trooper attacked for 3</div>
+  <div class="log"><b class="p2">You:</b> good luck</div>
+  <div class="log">Imperial Dark Trooper played</div>
+</aside>
+</div></section>
+<section class="sheet"><p class="cap"><b>D &mdash; The Console</b><br>Asymmetric. One command column on the left owns all of your state and every control; the centre is nothing but board; the opponent gets a thin strip. A strategy-game UI rather than a card table.</p><div class="bd bd--console">
+  <div class="cons ch gl">
+    <span class="lbl">Your Command</span>
+    <div class="resbadge"><img src="/TCGEngine/Assets/Icons/swusim-resource-badge.webp" alt="Resources"><span><b>6/6</b><i>+2</i></span></div>
+    <div class="cons__row"><span class="lbl">Hand</span><b class="num">4</b></div>
+    <div class="piles"><div class="pile"><div class="pile__stack"><div class="pile__top" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_033.webp')"></div></div><span class="pile__k">Discard<b class="pile__n">2</b></span></div><div class="pile"><div class="pile__stack"><div class="pile__top pile__back"><b></b></div></div><span class="pile__k">Deck<b class="pile__n">38</b></span></div></div>
+    <span class="init ch">Initiative</span>
+    <div class="cons__act"><button class="swu2-btn swu2-btn--quiet ch">Keep Initiative</button>
+      <button class="swu2-btn swu2-btn--primary ch">Pass</button></div>
+  </div>
+  <div class="cons__main">
+    <div class="strip ch gl"><div class="seat"><span class="seat__k">Opponent</span><span class="seat__n">Drixx</span></div><span class="init init--ghost ch">Initiative</span><div class="resbadge resbadge--them"><img src="/TCGEngine/Assets/Icons/swusim-resource-badge.webp" alt="Resources"><span><b>6/6</b></span></div>
+      <div class="strip__s"><span class="lbl">Hand</span><b class="num">4</b></div>
+      <div class="strip__s"><span class="lbl">Deck</span><b class="num">42</b></div>
+      <div class="strip__s"><span class="lbl">Discard</span><b class="num">3</b></div></div>
+    <div class="field">
+      <div class="fld fld--them"><span class="lbl">Space</span><div class="fld__c"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div></div>
+      <div class="fld fld--them"><span class="lbl">Ground</span><div class="fld__c"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SEC_080.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_033.webp')"></div></div></div>
+      <div class="mids"><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_001.webp')"></div><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_026.webp')"></div><div class="mids__sep"></div><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_020.webp')"></div><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_002.webp')"></div></div>
+      <div class="fld"><span class="lbl">Space</span><div class="fld__c"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div></div>
+      <div class="fld is-live"><span class="lbl">Ground</span><div class="fld__c"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_095.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_032.webp')"></div></div></div>
+    </div>
+    <div class="hand"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_095.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_032.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SEC_080.webp')"></div></div>
+  </div>
+  <aside class="side ch gl">
+  <button class="swu2-btn swu2-btn--primary ch" style="height:36px;padding:0 var(--s-4)">Undo</button>
+  <div class="side__row"><span class="lbl">Round</span><b class="num">1</b>
+    <span class="lbl" style="color:var(--gold);margin-inline-start:auto">&#9679; Action</span></div>
+  <span class="lbl">Game Log &amp; Chat</span>
+  <div class="log"><b class="p1">Drixx:</b> gl hf</div>
+  <div class="log">Rebel Trooper attacked for 3</div>
+  <div class="log"><b class="p2">You:</b> good luck</div>
+  <div class="log">Imperial Dark Trooper played</div>
+</aside>
+</div></section>
+<section class="sheet"><p class="cap"><b>E &mdash; The Clean Mat</b><br>Chrome almost absent: no plates, no rails. An arena is a hairline and a tinted word. State collapses into two near-transparent edge bars. The art and the cards carry everything.</p><div class="bd bd--clean">
+  <div class="edge edge--top"><div class="seat"><span class="seat__k">Opponent</span><span class="seat__n">Drixx</span></div><span class="init init--ghost ch">Initiative</span><div class="resbadge resbadge--them"><img src="/TCGEngine/Assets/Icons/swusim-resource-badge.webp" alt="Resources"><span><b>6/6</b></span></div>
+    <span class="lbl">Hand <b class="num">4</b></span><span class="lbl">Deck <b class="num">42</b></span>
+    <span class="lbl">Discard <b class="num">3</b></span></div>
+  <div class="open">
+    <div class="zone"><span class="lbl lbl--space">Space</span><div class="zone__c"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div></div>
+    <div class="zone zone--g"><span class="lbl lbl--ground">Ground</span><div class="zone__c"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SEC_080.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_033.webp')"></div></div></div>
+    <div class="axis"><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_001.webp')"></div><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_026.webp')"></div>
+      <span class="axis__i init ch">Initiative</span>
+      <div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_020.webp')"></div><div class="card card--wide" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_002.webp')"></div></div>
+    <div class="zone"><span class="lbl lbl--space">Space</span><div class="zone__c"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div></div></div>
+    <div class="zone zone--g is-live"><span class="lbl lbl--ground">Ground</span><div class="zone__c"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_095.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_032.webp')"></div></div></div>
+  </div>
+  <div class="edge edge--bot"><div class="seat"><span class="seat__k">You</span><span class="seat__n">Mariotee</span></div><span class="init ch">Initiative</span><div class="resbadge"><img src="/TCGEngine/Assets/Icons/swusim-resource-badge.webp" alt="Resources"><span><b>6/6</b><i>+2</i></span></div>
+    <div class="piles"><div class="pile"><div class="pile__stack"><div class="pile__top" style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_033.webp')"></div></div><span class="pile__k">Discard<b class="pile__n">2</b></span></div><div class="pile"><div class="pile__stack"><div class="pile__top pile__back"><b></b></div></div><span class="pile__k">Deck<b class="pile__n">38</b></span></div></div>
+    <button class="swu2-btn swu2-btn--quiet ch">Keep Initiative</button>
+    <button class="swu2-btn swu2-btn--primary ch">Pass</button></div>
+  <div class="hand"><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_095.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_032.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SOR_237.webp')"></div><div class="card " style="background-image:url('/TCGEngine/AppCore/SWU/Images/WebpImages/SEC_080.webp')"></div></div>
+  <aside class="side ch gl">
+  <button class="swu2-btn swu2-btn--primary ch" style="height:36px;padding:0 var(--s-4)">Undo</button>
+  <div class="side__row"><span class="lbl">Round</span><b class="num">1</b>
+    <span class="lbl" style="color:var(--gold);margin-inline-start:auto">&#9679; Action</span></div>
+  <span class="lbl">Game Log &amp; Chat</span>
+  <div class="log"><b class="p1">Drixx:</b> gl hf</div>
+  <div class="log">Rebel Trooper attacked for 3</div>
+  <div class="log"><b class="p2">You:</b> good luck</div>
+  <div class="log">Imperial Dark Trooper played</div>
+</aside>
+</div></section></div>
+</body></html>

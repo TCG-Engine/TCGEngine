@@ -373,6 +373,22 @@
     // created before the index existed). Deliberately still a LOOP: every eligibility `continue`
     // below falls through to the shared "invalid, expired, or already full" response, and rewriting
     // them as a flat condition would change which failure each one reports.
+    // WHY the join was refused, when we can say so without leaking anything.
+    //
+    // Every `continue` below used to fall through to one catch-all line that offered four causes at
+    // once ("invalid, expired, or already full"), so a player could not tell a room that was full from
+    // one that had started from a mistyped link — and only one of those is worth acting on.
+    //
+    // ⚠ THE BLOCK GATE DELIBERATELY LEAVES THIS NULL. Naming full and started specifically means the
+    // remaining generic line is, by elimination, a reliable "you have been blocked here" signal. So a
+    // block is worded exactly like a bad code, which is the one wording a blocked player cannot
+    // distinguish from an honest mistake. Same reasoning for a casterMode mismatch, which a normal
+    // client cannot produce at all.
+    $inviteRefusal = null;
+    $roomFullMessage = function ($lobby) {
+      $n = intval($lobby->numPlayers ?? 0); $max = intval($lobby->maxPlayers ?? 0);
+      return "That room is full ({$n}/{$max}). Nobody else can join until a seat opens.";
+    };
     $inviteKey  = LobbyKeyForInvite($privateInviteCode, $rootName);
     $candidates = $inviteKey !== null ? [['info' => $inviteKey]] : [];
     foreach ($candidates as $entry) {
@@ -394,12 +410,20 @@
       // guard (caster mode, blocks, capacity, already-started) is below and unchanged.
       if (!isset($lobby->inviteCode) || strval($lobby->inviteCode) !== $privateInviteCode) continue;
       if (!empty($lobby->casterMode) !== $casterMode) continue;
-      if (SWUJoinBlockedFromLobby($joiningUserId, $lobby)) continue; // blocked by ANY seat: fall through to generic "invalid/expired/full"
-      if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) continue;
+      if (SWUJoinBlockedFromLobby($joiningUserId, $lobby)) continue; // blocked by ANY seat: stays GENERIC on purpose (see above)
       // A lobby whose match has begun cannot be joined. Was gated on SWUSim + a seat-count
       // predicate; now on the adapter, so it holds for every sim and every private format.
+      //
+      // ⚠ CHECKED BEFORE CAPACITY, AND THE ORDER IS THE MESSAGE. A started room is also a FULL room, so
+      // with these the other way round every late arrival was told the room was full — true, but it
+      // implies waiting will help, and it never will: a started game's seats are fixed. "Already
+      // started" is the reason that tells them what to do instead.
       $joinAdapter = LobbyAdapterFor(strval($lobby->rootName));
-      if ($joinAdapter !== null && $joinAdapter->wantsWaitingRoom($lobby) && !empty($lobby->gameName)) continue;
+      if ($joinAdapter !== null && $joinAdapter->wantsWaitingRoom($lobby) && !empty($lobby->gameName)) {
+        $inviteRefusal = 'That game has already started. You can still watch it as a spectator.';
+        continue;
+      }
+      if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) { $inviteRefusal = $roomFullMessage($lobby); continue; }
 
       // The scan above is a LOOKUP, not a claim: it tells us which key to mutate. Every eligibility
       // condition is re-checked inside the mutation, because the room can fill or start while the
@@ -453,7 +477,11 @@
         return true;
       });
 
-      if ($joinErr !== null) continue;   // full or started: keep the generic "invalid/expired/full"
+      // The room filled or started while this request was resolving its deck. Same two causes as the
+      // pre-lock gates above, so they get the same two messages rather than the catch-all.
+      if ($joinErr === 'started') { $inviteRefusal = 'That game has already started. You can still watch it as a spectator.'; continue; }
+      if ($joinErr === 'full')    { $inviteRefusal = $roomFullMessage($stored ?? $snapshot); continue; }
+      if ($joinErr !== null) continue;
       if ($stored === null) {
         $response->success = false;
         $response->message = "That room is busy right now — try again.";
@@ -504,8 +532,13 @@
       exit;
     }
 
+    // A specific reason if one of the gates above could safely give us one; otherwise the generic line,
+    // which now covers only the causes that genuinely cannot be distinguished FROM THE PLAYER'S SIDE:
+    // a code that names no room, a room whose lobby has expired, a caster-mode mismatch, and a block.
+    // It no longer says "private" — a public Twin Suns room is joinable by link too.
     $response->success = false;
-    $response->message = "Private game invite is invalid, expired, or already full.";
+    $response->message = $inviteRefusal
+      ?? "That room link isn't valid or has expired. Check you copied the whole link, including the code at the end.";
     header('Content-Type: application/json');
     echo json_encode($response);
     exit;

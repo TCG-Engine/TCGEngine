@@ -152,10 +152,17 @@ function SWURoomStartBlockers($lobby, array $leaderSets = []) {
             : "Need {$minSeats} players to start.";
     }
 
+    // ⚠ ONLY A SEATED FORMAT HAS A SEAT NUMBER TO NAME. This read `"Seat " . ($p->getSeat() ?? '?')`,
+    // and getSeat() is null for every Twin Suns player — LobbyUsesFixedSeats() is FaBSim/upf only and
+    // SWURoomAssignTeam only runs in a TEAM format — so in the format this blocker is seen in most, it
+    // printed the literal string "Seat ?" and named nobody. Team Suns and UPF do carry a seat, and
+    // there the number is the whole point, so both wordings are kept.
     foreach ($players as $p) {
-        if (!$p->getDeckOk()) {
-            $blockers[] = "Seat " . ($p->getSeat() ?? '?') . " has an illegal or unreadable deck.";
-        }
+        if ($p->getDeckOk()) continue;
+        $seat = $p->getSeat();
+        $blockers[] = $seat === null
+            ? "A player has an illegal or unreadable deck."
+            : "Seat {$seat} has an illegal or unreadable deck.";
     }
 
     // Everyone must be Ready. Loading a legal deck readies you automatically, so this only blocks when

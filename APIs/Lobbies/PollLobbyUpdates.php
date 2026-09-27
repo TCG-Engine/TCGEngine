@@ -39,7 +39,18 @@ if (($lobbyID === '' || $lobbyID === 'invite') && isset($_POST['inviteCode']) &&
   $found = LobbyKeyForInvite($wantCode, $rootName);
   if ($found !== null) {
     $cand = apcu_fetch($found);
-    if (is_object($cand) && !empty($cand->isPrivate)) $lobbyID = strval($cand->id ?? '');
+    // ⚠ NO isPrivate GATE. It used to read `!empty($cand->isPrivate)`, which meant a PUBLIC Twin Suns
+    // room — the only kind that has a shareable "Copy Link" — never resolved here, and every visitor
+    // following that link was told the invite was invalid or expired whether the room was full, had a
+    // free seat, or had just been created. JoinQueue.php dropped the identical gate deliberately when
+    // the public-room link shipped (see its own note); this was the site that was missed, so the link
+    // died one layer before the capacity check that would have explained it.
+    //
+    // Holding the code is the whole test, and LobbyKeyForInvite has already verified that this lobby's
+    // inviteCode equals the code presented and that its rootName matches. Codes are minted only for
+    // private lobbies and public WAITING ROOMS, never for a plain public queue, so nothing here is
+    // reachable that matchmaking would not already hand this visitor.
+    if (is_object($cand)) $lobbyID = strval($cand->id ?? '');
   }
   if ($lobbyID === '' || $lobbyID === 'invite') {
     // ── The lobby's APCu entry is gone. That is the NORMAL state mid-match, not an error. ──
@@ -72,6 +83,7 @@ if (($lobbyID === '' || $lobbyID === 'invite') && isset($_POST['inviteCode']) &&
         $response->success = false;
         $response->gone    = true;
         $response->message = 'That match has ended.';
+        $response->canRequeue = true;
       } elseif ($inviteSeat > 0 && $inviteGame !== '') {
         // A participant: hand back the same shape the started-lobby path does, so the waiting room's
         // existing `r.started && r.gameName` branch redirects with no client change.
@@ -79,10 +91,18 @@ if (($lobbyID === '' || $lobbyID === 'invite') && isset($_POST['inviteCode']) &&
         $response->started  = true;
         $response->gameName = $inviteGame;
         $response->playerID = $inviteSeat;
+      } elseif ($inviteGame !== '') {
+        // Someone who holds the link but no seat in this match. They are NOT redirected as a player —
+        // that rendered as "not currently authenticated as player N", which reads like a broken game
+        // rather than a closed door — but they are not dead-ended either: they came here to watch this
+        // table, and a spectator needs no seat and no authKey (Core/ViewerIdentity.php, playerID=S).
+        // Owner, 2026-09-26: someone waiting for a seat spectates until one opens.
+        $response->success   = true;
+        $response->started   = true;
+        $response->gameName  = $inviteGame;
+        $response->spectator = true;
+        $response->message   = 'The game started without you — you are watching as a spectator.';
       } else {
-        // Someone who holds the link but no seat in this match. Do NOT redirect them into a game they
-        // cannot authenticate — that renders as "not currently authenticated as player N", which reads
-        // like a broken game rather than a closed door.
         $response->success = false;
         $response->gone    = true;
         $response->message = 'That match is already in progress.';
@@ -92,9 +112,16 @@ if (($lobbyID === '' || $lobbyID === 'invite') && isset($_POST['inviteCode']) &&
       exit;
     }
 
+    // TWO DIFFERENT CAUSES, and the player can act on only one of them. A room that CLOSED was real —
+    // the link was fine and there is nothing to re-copy — whereas a code that never resolved is worth
+    // checking for a truncated paste, which is the single most common way this happens (chat clients
+    // break long URLs). The old message offered both at once and helped with neither.
     $response->success = false;
-    $response->gone    = true;      // the page renders GONE: expired, or a bad code
-    $response->message = 'That invite is invalid or has expired.';
+    $response->gone    = true;
+    $response->message = LobbyInviteWasClosed($wantCode)
+      ? 'That room has closed — everyone left before the game started.'
+      : "That room link isn't valid. Check you copied the whole link, including the code at the end.";
+    $response->canRequeue = true;   // the page offers a way back into matchmaking rather than a wall
     header('Content-Type: application/json');
     echo json_encode($response);
     exit;
@@ -209,7 +236,20 @@ while (true) {
     // who has not joined yet, which is not the same thing and keeps the plain not-seated state.
     // (SetTeam.php draws exactly this distinction in its error copy.)
     $response->removed = ($authKey !== '' && $meRoom === null);
-    if (!empty($lobby->gameName)) { $response->started = true; $response->gameName = $lobby->gameName; }
+    // What the room is, so the page can offer "find another <format> room" without guessing.
+    $response->format = strval($lobby->format ?? '');
+    $response->canRequeue = true;
+    if (!empty($lobby->gameName)) {
+      $response->started  = true;
+      $response->gameName = $lobby->gameName;
+      // ⚠ A VIEWER WITH NO SEAT MUST BE SENT AS A SPECTATOR, NOT AS PLAYER 0. $response->playerID is
+      // set just above only when this authKey holds a seat, so for anyone else the page fell back to
+      // its own myPlayerID — which is 0 before you join — and redirected to NextTurn.php?playerID=0.
+      // NormalizeViewerIdentity rejects 0 outright (viewerID ''), so watching a room you were waiting
+      // in start produced a broken board rather than a spectator view. Reachable today through the
+      // ?lobby=<id> URL, which is what people paste out of the address bar.
+      $response->spectator = ($meRoom === null);
+    }
     header('Content-Type: application/json');
     echo json_encode($response);
     exit;
@@ -272,6 +312,7 @@ while (true) {
     $response->success = false;
     $response->gone    = true;
     $response->message = 'This lobby has ended.';
+    $response->canRequeue = true;
     header('Content-Type: application/json');
     echo json_encode($response);
     exit;

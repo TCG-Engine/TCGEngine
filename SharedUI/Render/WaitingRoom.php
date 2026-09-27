@@ -503,12 +503,60 @@ function _WaitingRoomScript(array $cfg): string {
     };
   }
 
+  // How many seats this room draws. One reader, so "4" in a message can never disagree with the grid.
+  function seatCount(d) { return (d.seatModel && d.seatModel.maxPlayers) || d.maxPlayers || 2; }
+
+  // A way back into matchmaking, so no refusal is a wall. Rendered only when the server says the
+  // format is queueable (`canRequeue`), because a private room has no public queue to fall back to.
+  function requeueButton(d, label) {
+    if (!d || !d.canRequeue) return '';
+    return ' <button id="wr-requeue" type="button" class="btn" style="font-size:12px;">' + esc(label) + '</button>';
+  }
+  function bindRequeue(d) {
+    var b = el('wr-requeue'); if (!b) return;
+    b.onclick = function () { doRequeue(d); };
+  }
+
+  // Queue for a DIFFERENT room in the same format, with the deck already chosen here. Going through
+  // JoinQueue rather than bouncing to the main menu keeps the deck they just picked — being told "that
+  // room is full" and then having to re-pick a deck on another page is the same dead end with extra
+  // steps. The seat they are not sitting in needs no releasing, and LobbyReleaseOtherSeats handles the
+  // case where they were.
+  function doRequeue(d) {
+    var deck = chosenDeck();
+    var msg = el('wr-deck-msg');
+    if (!deck) {
+      if (msg) { msg.style.color = '#ff6b6b'; msg.textContent = 'Pick a deck first, then search for another room.'; }
+      return;
+    }
+    var b = el('wr-requeue'); if (b) { b.disabled = true; b.textContent = 'Searching…'; }
+    post('APIs/Lobbies/JoinQueue.php',
+      'rootName=' + encodeURIComponent(ROOT) + '&format=' + encodeURIComponent(d.format || '') +
+      '&queueType=' + encodeURIComponent((d.seatModel && d.seatModel.queueType) || 'bo1') +
+      '&deckLink=' + encodeURIComponent(deck) + '&preconstructedDeck=&game_type=',
+      function (r) {
+        if (!r.success) {
+          if (b) { b.disabled = false; b.textContent = 'Find another room'; }
+          if (msg) { msg.style.color = '#ff6b6b'; msg.textContent = r.message || 'Could not find another room.'; }
+          return;
+        }
+        navigating = true;
+        if (r.authKey && r.lobbyID) saveKey(r.lobbyID, r.authKey);
+        // A full page load, not an in-place swap: every piece of this page's state (lobbyID, myPlayerID,
+        // inviteCode, lastSig, the poll timer) belongs to the room we are leaving.
+        location.href = r.gameName
+          ? appBase() + 'NextTurn.php?gameName=' + encodeURIComponent(r.gameName) +
+            '&playerID=' + encodeURIComponent(r.playerID || 1) + '&folderPath=' + encodeURIComponent(ROOT)
+          : location.pathname + '?lobby=' + encodeURIComponent(r.lobbyID || '');
+      });
+  }
+
   function renderControls(d, seated) {
     var head = el('wr-head-actions'), left = el('wr-actions-left'), right = el('wr-actions-right');
     if (!head || !left || !right) return;
     var me = (d.roster || []).filter(function (r) { return r.playerID === myPlayerID; })[0];
     var isHost = !!(me && me.isHost);
-    var full = (d.numPlayers || 0) >= ((d.seatModel && d.seatModel.maxPlayers) || d.maxPlayers || 2);
+    var full = (d.numPlayers || 0) >= seatCount(d);
 
     if (!seated) {
       // Nothing to leave yet, Start is not yours, and joining is ALREADY the deck bar's button —
@@ -516,11 +564,29 @@ function _WaitingRoomScript(array $cfg): string {
       // that is where the deck you are joining with is chosen.
       head.innerHTML = '';
       right.innerHTML = '';
-      left.innerHTML = '';
       el('wr-ready-slot').innerHTML = '';   // nothing to ready until you hold a seat
       var jb = el('wr-deck-btn');
       if (jb) jb.disabled = full;
-      el('wr-hint').textContent = full ? 'Lobby is full.' : 'Paste or pick a deck to join this lobby.';
+      // ⚠ A FULL ROOM IS NOT A DEAD END, and this is the whole point of the page staying live. The poll
+      // keeps running, `full` is recomputed on every render, and the button re-enables itself the moment
+      // somebody leaves — so the honest thing to say is that we are waiting, not that the door is shut.
+      // "Lobby is full." was accurate and told them nothing about what to do with that.
+      // ⚠ THE COUNT IS NOT REPEATED HERE. #wr-status draws it beside the people icon immediately to the
+      // left of this sentence, and the blockers line already follows that rule for the same reason:
+      // "4/4  This room is full (4/4)" reads as noise. The COUNT belongs to the icon; this line's job
+      // is what it MEANS and what happens next. (The server's refusal message does name the numbers —
+      // it is shown with no icon beside it.)
+      el('wr-hint').textContent = full
+        ? 'This room is full. Waiting for a seat to open — you will be able to join as soon as one does.'
+        : 'Pick a deck to take a seat.';
+      // The spectator promise, and it is a PROMISE the server keeps: if the host starts before a seat
+      // opens, PollLobbyUpdates answers `spectator` and the poll below sends playerID=S rather than
+      // dropping them (owner, 2026-09-26). Only worth saying while they cannot act.
+      left.innerHTML = '<div style="font-size:12px;color:#aab6c4;">' +
+        (full ? 'You are not seated. If the game starts before a seat opens, you will watch as a spectator.'
+              : 'You are not seated yet.') +
+        '</div>' + requeueButton(d, 'Find another room');
+      bindRequeue(d);
       return;
     }
     var blockers = d.blockers || [];
@@ -549,6 +615,11 @@ function _WaitingRoomScript(array $cfg): string {
       ? '<button id="wr-start" type="button" class="btn wr-btn-start' +
           (canStart ? ' btn-success' : '') + '"' + (canStart ? '' : ' disabled') + '>Start Game</button>'
       : '';
+    // ⚠ THE BLOCKERS SPEAK FOR THEMSELVES — do not append to them. A "share the room link to fill it
+    // faster" nudge was tried here and cut (owner, 2026-09-27): the Copy Link button sits at the top of
+    // this same page, so the line was telling people to use a control they were already looking at, in
+    // the voice of a growth prompt. The seat-count icon and the empty tiles carry "you are early"
+    // without anyone being told to do anything.
     el('wr-hint').textContent = blockers.length
       ? blockers.join('; ')
       : (isHost ? 'Everyone is ready — press Start.' : 'Everyone is ready — waiting for the host.');
@@ -594,20 +665,40 @@ function _WaitingRoomScript(array $cfg): string {
     renderControls(d, seated);
   }
 
-  function renderGone(msg) {
+  // The room cannot be reached. `d` carries the reason's context (canRequeue, format) when the poll
+  // supplied one; a bare call keeps the old behaviour for the callers that have nothing to add.
+  function renderGone(msg, d) {
     setState('gone');
     if (lobbyID) clearKey(lobbyID);
     el('wr-state').innerHTML = '<div style="color:#ff6b6b;">' + esc(msg || 'This lobby has ended.') + '</div>';
     el('wr-invite').innerHTML = '';
     el('wr-roster').innerHTML = '';
-    el('wr-deck').style.display = 'none';
     el('wr-head-actions').innerHTML = '';
     el('wr-actions-right').innerHTML = '';
-    el('wr-actions-left').innerHTML =
-      '<a href="' + appBase() + 'SharedUI/MainMenu.php"><button type="button" class="btn">Back to menu</button></a>';
-    el('wr-hint').textContent = '';
     el('wr-ready-slot').innerHTML = '';
     el('wr-status').style.display = 'none';   // no lobby, so no seat count to report
+    // ⚠ THE DECK PICKER STAYS UP when there is a queue to fall back to, because the way out of this
+    // page is "find me another room" and that needs a deck. Sending them to the main menu to re-pick
+    // the deck they already chose is the same dead end with extra steps. The deck bar's own "Use this
+    // deck" button is hidden: it would post against the room that just told us it is gone.
+    var canRequeue = !!(d && d.canRequeue);
+    var deckBtn = el('wr-deck-btn');
+    if (deckBtn) deckBtn.style.display = canRequeue ? 'none' : '';
+    el('wr-deck').style.display = canRequeue ? '' : 'none';
+    // ⚠ NOT #wr-hint. It lives INSIDE #wr-status, which this function hides two lines down (there is no
+    // lobby left to report a seat count for), so guidance written there is invisible — the first cut
+    // put it there and the screenshot is what caught it. #wr-deck-msg sits directly under the deck bar,
+    // which is where the next action is anyway.
+    el('wr-hint').textContent = '';
+    var goneMsg = el('wr-deck-msg');
+    if (goneMsg) {
+      goneMsg.style.color = '#aab6c4';
+      goneMsg.textContent = canRequeue ? 'Pick a deck and search for another room.' : '';
+    }
+    el('wr-actions-left').innerHTML =
+      '<a href="' + appBase() + 'SharedUI/MainMenu.php"><button type="button" class="btn">Back to menu</button></a>' +
+      requeueButton(d, 'Find another room');
+    bindRequeue(d);
   }
 
   // ── Actions ────────────────────────────────────────────────────────────────────────────────────
@@ -753,7 +844,7 @@ function _WaitingRoomScript(array $cfg): string {
                  '&authKey=' + encodeURIComponent(key);
     post('APIs/Lobbies/PollLobbyUpdates.php', params, function (r) {
       if (navigating) return;
-      if (r.gone) { renderGone(r.message); return; }
+      if (r.gone) { renderGone(r.message, r); return; }
 
       if (r.lobbyID && r.lobbyID !== lobbyID) { lobbyID = r.lobbyID; rewriteUrl(); }
       // ADOPT the room's invite code from the payload. It is only ever read from ?invite= at boot,
@@ -769,14 +860,24 @@ function _WaitingRoomScript(array $cfg): string {
         // pressed Start and everyone watched it happen.
         navigating = true;
         setState('started');
-        el('wr-state').textContent = 'Starting…';
+        // ⚠ A VIEWER WITH NO SEAT IS A SPECTATOR, NOT PLAYER 0. `r.playerID` is sent only for a seat the
+        // server recognised, so anyone watching a room they had not joined fell back to myPlayerID —
+        // which is 0 until you join — and was redirected to NextTurn.php?playerID=0. That is not a seat
+        // and not 'S': NormalizeViewerIdentity returns an empty viewerID for it, so the board came up
+        // broken instead of showing them the game they had been waiting for. The server now says which
+        // of the two this is (`spectator`), because only it knows whether the authKey holds a seat.
+        var spectating = !!r.spectator;
+        el('wr-state').textContent = spectating
+          ? (r.message || 'The game started without you — you are watching as a spectator.')
+          : 'Starting…';
         el('wr-head-actions').innerHTML = '';
         el('wr-actions-left').innerHTML = '';
         el('wr-actions-right').innerHTML = '';
         el('wr-status').style.display = 'none';
-        var seat = r.playerID || myPlayerID;
+        var seat = spectating ? 'S' : (r.playerID || myPlayerID);
         var k = loadKey(lobbyID);
-        if (k && ['1','2','3','4'].indexOf(String(seat)) >= 0) {
+        // Never for a spectator: lastAuthKey names a SEAT for a later rejoin, and they hold none.
+        if (!spectating && k && ['1','2','3','4'].indexOf(String(seat)) >= 0) {
           try { document.cookie = 'lastAuthKey=' + encodeURIComponent(k) + '; max-age=' + (30*24*60*60) + '; path=/; SameSite=Lax'; } catch (e) {}
         }
         location.href = appBase() + 'NextTurn.php?gameName=' + encodeURIComponent(r.gameName) +
