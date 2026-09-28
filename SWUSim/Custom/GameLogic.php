@@ -11344,7 +11344,18 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         // mzID, so "this unit" resolves to A. Reuse the innate/upgrade dispatch helpers.
         case 'SupportOnAttack':    OnAttackFromUpgradeTrigger($player, $cardID, $mzID); break;
         case 'SupportOnAttackEnd': OnAttackEndTrigger($player, $cardID, $mzID);         break;
-        case 'SupportWhenDefeated': OnWhenDefeated($player, $cardID, $mzID);            break;
+        // Support (ASH) lends the supporting unit's When Defeated to the unit it attacked with, so the
+        // ability the host "used" is the SUPPORTING card's. JTL_002 Thrawn re-uses it like any other
+        // granted When Defeated — ruling for this exact leader (03/06/2025, "...How Unfortunate"): "Any
+        // ability whose trigger starts with 'When defeated…' is considered a 'When Defeated' ability."
+        // ⚠ This was the ONE granted-When-Defeated dispatch without the hook, so a lent ability could
+        // never be re-used and the player was never even offered it (reported 2026-09-27, game 1400002).
+        // The granted type here is the generic 'SupportWhenDefeated', NOT $cardID — see
+        // SWUUseWhenDefeatedAbility for why those two have to stay separate.
+        case 'SupportWhenDefeated':
+            OnWhenDefeated($player, $cardID, $mzID);
+            SWUCollectThrawnReuse($player, $cardID, $mzID, 'SupportWhenDefeated');
+            break;
         case 'AdvantageShed':      _SWUResolveAdvantageShed($player, $mzID);            break;
     }
     SWULogNoEffectCheck($noEffectProbe, intval($player), $logSrc);
@@ -13240,7 +13251,15 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
 // + snapshot mzID (the granted handlers don't depend on the now-defeated host being present).
 function SWUUseWhenDefeatedAbility(int $owner, string $cardID, string $mzID, ?string $grantedType = null): void {
     if ($grantedType !== null) {
-        AddTrigger($owner, $grantedType, $grantedType, $mzID);
+        // ⚠ The trigger's CardID is $cardID, NOT $grantedType. For every upgrade-granted ability the two
+        // are the same string (the case label IS the granting card's ID — JTL_073, SHD_104, TS26_52/035,
+        // SEC_039/156, LAW_141/201, ASH_063/134, TWI_218/169/129: all 15 call sites pass
+        // $grantedType = $cardID), so this is byte-identical for them. It stops being the same for a
+        // SUPPORT-lent ability, whose trigger type is the generic 'SupportWhenDefeated' while the card
+        // supplying the ability is the SUPPORTING unit (ASH_050 Morgan Elsbeth lending her When Defeated
+        // to the unit her Support attacked with). Re-arming with the type as the CardID would dispatch
+        // 'SupportWhenDefeated' as a CardID and resolve nothing.
+        AddTrigger($owner, $grantedType, $cardID, $mzID);
         FlushTriggerBag($owner);
         return;
     }
@@ -13369,8 +13388,18 @@ function SWUCollectThrawnReuse(int $owner, string $cardID, string $mzID, ?string
     if (GlobalEffectCount($owner, $guardKey) > 0) return;
     if (_SWUThrawnReuseMode($owner) === null) return;
     AddGlobalEffects($owner, $guardKey);
+    // ⚠ NAME THE ABILITY. "that ability" is unreadable the moment a unit holds two When Defeated
+    // abilities — its own plus one it gained (a Support-lent one, an upgrade's) — because both raise
+    // this same offer and the player has no way to tell them apart (reported 2026-09-27, game 1400002:
+    // Morgan Elsbeth's Support lent her "-2/-2" to an Imperial Door Technician that also heals).
+    // Identified by the card that SUPPLIES the ability, which is exactly how
+    // SWUQueueChooseWhenDefeatedAbility already labels the same choice for JTL_039 Chimaera.
+    // $cardID is that card in both shapes: the host's own for an innate ability, the granting card's
+    // for a granted one. AddDecision normalises the spaces, so this can be written as prose.
+    $abilitySource = CardTitle($cardID);
+    if ($abilitySource === null || $abilitySource === '') $abilitySource = $cardID;   // unknown id: still better than "that"
     DecisionQueueController::AddDecision($owner, "YESNO", "-", 1,
-        tooltip:"Use_that_When_Defeated_ability_again_(Thrawn)?");
+        tooltip:"Use {$abilitySource}'s When Defeated ability again (Thrawn)?");
     DecisionQueueController::AddDecision($owner, "CUSTOM", "THRAWN_REUSE|{$owner}|{$cardID}|{$mzID}|" . ($grantedType ?? ''), 1);
 }
 
