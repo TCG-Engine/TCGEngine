@@ -24267,7 +24267,12 @@ function SWUDeclareGameWinner($winner, $flashMessage = null, string $logReason =
 // State-based game-over: a base sitting at lethal damage ends the game, regardless of HOW it got
 // there (combat, ability, indirect, OR an undo that restored a lethal-but-undeclared state). Runs
 // after every action as a safety net beyond the damage-time check in SWUDealDamageToBase.
-function SWUCheckBaseDefeatState() {
+// $killerBySeat: seat => the player who ELIMINATED it, for the seats this particular call can attribute.
+// Only an effect that knows it just killed a specific base passes anything (SWUDefeatBase); the ordinary
+// post-action sweep passes nothing, because a state-based shrink/HP-reduction defeat genuinely has no
+// damager and CR §12.6.2's heal must not fire for it. Per-SEAT on purpose: one sweep can eliminate more
+// than one seat, and the others still have no attributable eliminator.
+function SWUCheckBaseDefeatState(array $killerBySeat = []) {
     if (SWUGetGameWinner() !== 0) return; // already decided
     $twin = SeatCountForGame() > 2;
     foreach (($twin ? GetLiveSeatsArray() : [1, 2]) as $p) {
@@ -24279,9 +24284,12 @@ function SWUCheckBaseDefeatState() {
         $hp = intval(CardHp($b[0]->CardID));
         if ($hp > 0 && intval($b[0]->Damage ?? 0) >= $hp) {
             if ($twin) {
-                // Twin Suns: a state-based (shrink / HP-reduction) defeat has no damager → no heal.
+                // Twin Suns: a state-based (shrink / HP-reduction) defeat has no damager → no heal, which
+                // is why this defaults to null. But an ABILITY that defeats a named base routes through
+                // this same sweep (SWUDefeatBase, HMW_004's Death Star) and DOES have an eliminator, so it
+                // hands one in — without it, CR §12.6.2's heal was silently skipped (game 1400002).
                 // Don't return — a single sweep can eliminate more than one seat; scoring is deferred.
-                SWUEliminateSeat($p, null);
+                SWUEliminateSeat($p, $killerBySeat[$p] ?? null);
             } else {
                 $winner = ($p === 1) ? 2 : 1;
                 SWUDeclareGameWinner($winner, "GAMEOVER:Player {$p}'s base has been defeated! Player {$winner} wins!", "P{$p}'s base was defeated");
@@ -24317,14 +24325,23 @@ function SWUSkipNextRegroupReady(string $mzID): void {
 // means its controller loses the game (2-player) / is eliminated (Twin Suns). So filling the damage in and
 // running the state-based sweep IS the whole primitive — it reuses every existing loss path rather than
 // adding a second one. Returns false when there is no base to defeat.
-function SWUDefeatBase(int $targetPlayer): bool {
+//
+// ⚠ $killer IS NOT OPTIONAL IN PRACTICE — pass the player whose ability did this. CR §12.6.2 heals the
+// eliminator 5 from their own base, and SWUEliminateSeat only heals when it is handed one. Reusing the
+// state-based sweep is what made this easy to miss: that sweep's whole job is defeats with NO damager, so
+// it defaulted the killer to null and the Death Star's eliminations healed nobody (reported in game
+// 1400002, 4-seat Twin Suns). Passing the target's own seat is still correct and heals nobody — the rule's
+// own carve-out, "if a player eliminates themself through an ability, no player heals damage this way".
+function SWUDefeatBase(int $targetPlayer, ?int $killer = null): bool {
     $b = &GetBase($targetPlayer);
     if (empty($b) || !empty($b[0]->removed)) return false;
     $hp = intval(CardHp($b[0]->CardID));
     if ($hp <= 0) return false;
     $b[0]->Damage = $hp;
     AddGameLogEntry('ABILITY', "Player {$targetPlayer}'s base is defeated!");
-    SWUCheckBaseDefeatState();
+    // Attribute ONLY the seat this effect defeated; anything else the sweep finds is a genuine
+    // state-based defeat with no eliminator.
+    SWUCheckBaseDefeatState($killer !== null ? [$targetPlayer => $killer] : []);
     return true;
 }
 
