@@ -1,0 +1,17 @@
+{
+    "name": "light-the-hunt-buff-two-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Light the Hunt (edjgscy50x, GeneratedMacroCode.php cardActivatedAbilities[\"edjgscy50x:0\"] builds an MZCHOOSE of Animal/Beast allies; customDQHandlers[\"edjgscy50x:0:CardActivated-1\"] applies AddCounters($player, $chosen, \"buff\", 2)): \"Put two buff counters on target Animal or Beast ally you control.\" A Cheerful Slime (ANIMAL) is seeded onto the field as the target; Light the Hunt is LUXEM, so the champion's Subcards are patched with Zander, Blinding Steel's lineage for element access. Verified live: the Slime's Counters go from {} to {\"buff\":2}. Break/restore verified: commenting out the AddCounters() call makes the fixture fail and restoring it passes again. (The separate '[Class Bonus][Element Bonus] whenever you reveal this card from your memory, put a buff counter on an Animal or Beast ally' clause lives under a different dispatch key (revealAbilities[\"edjgscy50x:0\"]) and is not covered by this fixture.)",
+    "testedCards": [
+        "edjgscy50x"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["edjgscy50x"],
+        "mechanics": ["targeting", "counter"],
+        "rulesClauses": [
+            "Put two buff counters on target Animal or Beast ally you control."
+        ]
+    }
+}

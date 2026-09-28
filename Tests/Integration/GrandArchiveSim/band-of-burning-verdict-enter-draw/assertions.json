@@ -1,0 +1,11 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Band of Burning Verdict's On Enter draws a card, reducing the deck from 3 to 2"
+    }
+]

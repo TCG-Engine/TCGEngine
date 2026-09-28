@@ -1,0 +1,17 @@
+{
+    "name": "rousing-rattle-drum-banish-wake-defender",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Rousing Rattle Drum (nxm05jkjxg, GeneratedMacroCode.php activateAbilityAbilities[\"nxm05jkjxg:0\"] finds Animal/Beast allies for which IsUnitDefending() is true; customDQHandlers[\"nxm05jkjxg:0:ActivateAbility-1\"] calls WakeupCard()): \"Banish Rousing Rattle Drum: Wake up target defending Animal or Beast ally.\" A Cheerful Slime (ANIMAL) is seeded rested onto the field, and IsUnitDefending() is satisfied by directly setting the DecisionQueueController CombatTarget/CombatAttackerPlayer variables it reads (GameLogic.php ~21315), simulating this Slime being the current combat's defender, without scripting a full attack-and-block sequence. The Slime is seeded BEFORE Rousing Rattle Drum on the field so its own mzID index (myField-1) stays stable across the Drum's own banish-as-cost (removing a later index does not renumber an earlier one). Verified live: the Rattle Drum moves to the banishment zone as its own cost, and the Slime's Status goes from 1 (rested) to 2 (awake). Break/restore verified: commenting out WakeupCard() makes the fixture fail (Slime stays rested) and restoring it passes again.",
+    "testedCards": [
+        "nxm05jkjxg"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["nxm05jkjxg"],
+        "mechanics": ["targeting", "zone-movement"],
+        "rulesClauses": [
+            "Banish Rousing Rattle Drum: Wake up target defending Animal or Beast ally."
+        ]
+    }
+}

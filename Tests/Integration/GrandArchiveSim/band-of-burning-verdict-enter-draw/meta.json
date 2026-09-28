@@ -1,0 +1,17 @@
+{
+    "name": "band-of-burning-verdict-enter-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Band of Burning Verdict (7mmve2l328, GeneratedMacroCode.php enterAbilities[\"7mmve2l328:0\"]): \"On Enter: Draw a card.\" Materialized for real from hand with a TAMER Guo Jia champion, FIRE element access, and an Animal/Beast ally (Cheerful Slime) already on the field. Verified live: the deck count drops by exactly 1 after materializing. Break/restore verified: commenting out the Draw() call makes the fixture fail and restoring it passes again.\n\nENGINE BUG (found, not fixed): two defects around this card's printed '[Class Bonus] [REST]: Target Animal or Beast ally you control gets +1 POWER and gains true sight until end of turn' clause, which is NOT gated behind [Guo Jia Bonus] or a materialize-time restriction on the actual card text: (1) GeneratedCode/GeneratedMacroCode.php activateCardPrereqs[\"7mmve2l328:0\"] (~128-138) blocks materializing the card from hand AT ALL unless IsClassBonusActive($player,[\"TAMER\"]) is true AND the player already controls an Animal/Beast ally -- neither condition is a printed restriction on playing the card, only on the separate [REST] ability. (2) cardActivatedAbilities[\"7mmve2l328:0\"] (the [REST] buff ability body, ~16236-16243) is queued and resolved AUTOMATICALLY immediately after the card enters the field (confirmed live: after only playing the card and paying no [REST] cost, an MZCHOOSE for the printed buff target appeared unprompted, and answering it applied TRUE_SIGHT + a power-buff turn effect to the targeted ally) -- this activated, costed ability should only fire from an explicit later player activation, not automatically as part of materializing. Recommend removing both the TAMER-class-bonus/Animal-ally play-prereq gate and whatever wiring auto-queues the [REST] ability right after Enter.",
+    "testedCards": [
+        "7mmve2l328"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["7mmve2l328"],
+        "mechanics": ["draw-discard", "trigger"],
+        "rulesClauses": [
+            "On Enter: Draw a card."
+        ]
+    }
+}

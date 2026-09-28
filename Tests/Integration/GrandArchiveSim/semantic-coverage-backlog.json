@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-28T14:50:04+00:00",
+    "generatedAt": "2026-09-28T21:49:39+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 499,
+        "cardsWithExistingFixtures": 524,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1991,
+        "cardsNeedingSemanticCoverage": 1966,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -27,49 +27,6 @@
     },
     "cards": [
         {
-            "cardId": "7mmve2l328",
-            "name": "Band of Burning Verdict",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 135
-        },
-        {
-            "cardId": "al6pqkmgmz",
-            "name": "Fatestone of Heaven",
-            "type": "ITEM",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 135
-        },
-        {
             "cardId": "dPP9I4nVn0",
             "name": "Merlin, Amethyst's Glow",
             "type": "CHAMPION",
@@ -86,27 +43,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 135
-        },
-        {
-            "cardId": "mb3iqw3kc6",
-            "name": "Portentous Tanggu",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": true,
             "priority": 135
@@ -150,48 +86,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "9wxcgpy069",
-            "name": "Expel the Departed",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "o37qtuvlxa",
-            "name": "Fatestone of Unrelenting",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": true,
             "priority": 125
@@ -284,26 +178,6 @@
             "priority": 125
         },
         {
-            "cardId": "xd4kv0akqr",
-            "name": "Fatestone of Revelations",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
             "cardId": "lcb6jhxctx",
             "name": "Gearstride Gloves",
             "type": "REGALIA,ITEM",
@@ -324,26 +198,6 @@
             "priority": 124
         },
         {
-            "cardId": "enxi6tshtu",
-            "name": "Guo Jia, Heaven's Favored",
-            "type": "CHAMPION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
             "cardId": "pgysz2zfji",
             "name": "Leporine Masque",
             "type": "REGALIA,ITEM",
@@ -359,26 +213,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "edjgscy50x",
-            "name": "Light the Hunt",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": true,
             "priority": 124
@@ -462,25 +296,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 124
-        },
-        {
-            "cardId": "0w5xyjuczy",
-            "name": "Lavaplume Fatestone",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
         },
         {
             "cardId": "ejvddohjdu",
@@ -686,27 +501,6 @@
             "priority": 121
         },
         {
-            "cardId": "c53tomoaw3",
-            "name": "Advent of the Shenju",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "qwxvzfkpaj",
             "name": "Betraying Blade",
             "type": "ATTACK",
@@ -748,48 +542,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "6ce5rzrjd9",
-            "name": "Fabled Azurite Fatestone",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "vi1uyifw6s",
-            "name": "Fated Keepsake",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -1211,26 +963,6 @@
             "priority": 114
         },
         {
-            "cardId": "h8n1520m2d",
-            "name": "Craggy Fatestone",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "iPpwkMxDt5",
             "name": "Crystalline Reality",
             "type": "ACTION",
@@ -1351,46 +1083,6 @@
             "priority": 114
         },
         {
-            "cardId": "59ipqa91r2",
-            "name": "Guo Jia, Blessed Scion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "j6dkdoxyqt",
-            "name": "Guo Jia, Chosen Disciple",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "crv1etn4g3",
             "name": "Ombreux Chevalier",
             "type": "ALLY",
@@ -1406,26 +1098,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "cl1mvb9q96",
-            "name": "Peacock of Prosperity",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -1466,26 +1138,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "tdz5of8zuz",
-            "name": "Shatter the Brittle",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -1630,25 +1282,6 @@
             "priority": 113
         },
         {
-            "cardId": "re911j7fo4",
-            "name": "Broken Promises",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "nn48ne8a05",
             "name": "Ciel, Loyal Valet",
             "type": "CHAMPION",
@@ -1763,44 +1396,6 @@
             "priority": 113
         },
         {
-            "cardId": "wsycqp2l90",
-            "name": "Incandescent Reliquary",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "8ofid087a6",
-            "name": "Journey's Beginning",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "s4vxfy51ec",
             "name": "Limitless Slime",
             "type": "ALLY",
@@ -1910,25 +1505,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "ff8jchay4s",
-            "name": "Obscuring Threads",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2161,24 +1737,6 @@
             "priority": 112
         },
         {
-            "cardId": "izf4wdsbz9",
-            "name": "Companion Fatestone",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "ri955ygd5v",
             "name": "Devotion's Price",
             "type": "ACTION",
@@ -2264,24 +1822,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "b0ssellm84",
-            "name": "Foraging Fox",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -2521,24 +2061,6 @@
             "priority": 112
         },
         {
-            "cardId": "nxm05jkjxg",
-            "name": "Rousing Rattle Drum",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "tu7jvjf2gh",
             "name": "Sablier Guard",
             "type": "ALLY",
@@ -2642,24 +2164,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "0v893yn5iq",
-            "name": "Strengthen the Bonds",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -34135,6 +33639,57 @@
             "priority": 11
         },
         {
+            "cardId": "7mmve2l328",
+            "name": "Band of Burning Verdict",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "band-of-burning-verdict-enter-draw"
+            ],
+            "semanticFixtures": [
+                "band-of-burning-verdict-enter-draw"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 155
+        },
+        {
+            "cardId": "al6pqkmgmz",
+            "name": "Fatestone of Heaven",
+            "type": "ITEM",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fatestone-of-heaven-enter-destroy-cheap-object"
+            ],
+            "semanticFixtures": [
+                "fatestone-of-heaven-enter-destroy-cheap-object"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 155
+        },
+        {
             "cardId": "zHhOcG9MfK",
             "name": "Hemoflux Drain",
             "type": "ACTION",
@@ -34157,6 +33712,31 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 155
+        },
+        {
+            "cardId": "mb3iqw3kc6",
+            "name": "Portentous Tanggu",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "portentous-tanggu-enter-quest-counter"
+            ],
+            "semanticFixtures": [
+                "portentous-tanggu-enter-quest-counter"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": false,
             "priority": 155
@@ -34267,6 +33847,56 @@
                 "Lorraine Starter Deck",
                 "Lorraine Pantheon Starter",
                 "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "9wxcgpy069",
+            "name": "Expel the Departed",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "expel-the-departed-destroy-phantasia-draw"
+            ],
+            "semanticFixtures": [
+                "expel-the-departed-destroy-phantasia-draw"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "o37qtuvlxa",
+            "name": "Fatestone of Unrelenting",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "fatestone-of-unrelenting-enter-damage-1"
+            ],
+            "semanticFixtures": [
+                "fatestone-of-unrelenting-enter-damage-1"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": false,
             "priority": 145
@@ -34657,6 +34287,30 @@
             "priority": 144
         },
         {
+            "cardId": "xd4kv0akqr",
+            "name": "Fatestone of Revelations",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fatestone-of-revelations-enter-reveal-two-draw"
+            ],
+            "semanticFixtures": [
+                "fatestone-of-revelations-enter-reveal-two-draw"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "c8wwslgbvr",
             "name": "Flamewreath Call",
             "type": "ACTION",
@@ -34726,6 +34380,54 @@
             ],
             "starterDecks": [
                 "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "enxi6tshtu",
+            "name": "Guo Jia, Heaven's Favored",
+            "type": "CHAMPION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "guo-jia-heavens-favored-enter-recover-3"
+            ],
+            "semanticFixtures": [
+                "guo-jia-heavens-favored-enter-recover-3"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "edjgscy50x",
+            "name": "Light the Hunt",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "light-the-hunt-buff-two-counters"
+            ],
+            "semanticFixtures": [
+                "light-the-hunt-buff-two-counters"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": false,
             "priority": 144
@@ -35232,6 +34934,29 @@
             "priority": 143
         },
         {
+            "cardId": "0w5xyjuczy",
+            "name": "Lavaplume Fatestone",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lavaplume-fatestone-enter-x-unpreventable-damage"
+            ],
+            "semanticFixtures": [
+                "lavaplume-fatestone-enter-x-unpreventable-damage"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "zxB4tzy9iy",
             "name": "Lightweaver's Assault",
             "type": "ACTION",
@@ -35714,6 +35439,31 @@
             "priority": 141
         },
         {
+            "cardId": "c53tomoaw3",
+            "name": "Advent of the Shenju",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "advent-of-the-shenju-reveal-banish-memory-draw"
+            ],
+            "semanticFixtures": [
+                "advent-of-the-shenju-reveal-banish-memory-draw"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "gqyWZXpxl9",
             "name": "Aenean Ward",
             "type": "ACTION",
@@ -36193,6 +35943,56 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "6ce5rzrjd9",
+            "name": "Fabled Azurite Fatestone",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fabled-azurite-fatestone-rest-transform-10-quest"
+            ],
+            "semanticFixtures": [
+                "fabled-azurite-fatestone-rest-transform-10-quest"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "vi1uyifw6s",
+            "name": "Fated Keepsake",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fated-keepsake-enter-draw-and-prevent-damage"
+            ],
+            "semanticFixtures": [
+                "fated-keepsake-enter-draw-and-prevent-damage"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
@@ -37187,6 +36987,30 @@
             "priority": 134
         },
         {
+            "cardId": "h8n1520m2d",
+            "name": "Craggy Fatestone",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "craggy-fatestone-rest-transform-two-buff"
+            ],
+            "semanticFixtures": [
+                "craggy-fatestone-rest-transform-two-buff"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "BqDw4Mei4C",
             "name": "Creative Shock",
             "type": "ACTION",
@@ -37742,6 +37566,54 @@
             "priority": 134
         },
         {
+            "cardId": "59ipqa91r2",
+            "name": "Guo Jia, Blessed Scion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "guo-jia-blessed-scion-enter-quest-or-draw"
+            ],
+            "semanticFixtures": [
+                "guo-jia-blessed-scion-enter-quest-or-draw"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "j6dkdoxyqt",
+            "name": "Guo Jia, Chosen Disciple",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "guo-jia-chosen-disciple-enter-material-fatestone"
+            ],
+            "semanticFixtures": [
+                "guo-jia-chosen-disciple-enter-material-fatestone"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "DsiRzt0trX",
             "name": "Hasty Messenger",
             "type": "ALLY",
@@ -38193,6 +38065,30 @@
             "priority": 134
         },
         {
+            "cardId": "cl1mvb9q96",
+            "name": "Peacock of Prosperity",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "peacock-of-prosperity-reveal-memory-to-field"
+            ],
+            "semanticFixtures": [
+                "peacock-of-prosperity-reveal-memory-to-field"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "qexcwmx2ug",
             "name": "Planar Abyss",
             "type": "ACTION",
@@ -38534,6 +38430,30 @@
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter",
                 "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "tdz5of8zuz",
+            "name": "Shatter the Brittle",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shatter-the-brittle-destroy-draw-memory"
+            ],
+            "semanticFixtures": [
+                "shatter-the-brittle-destroy-draw-memory"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -39160,6 +39080,29 @@
             "starterDecks": [
                 "Silvie Starter Deck",
                 "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "re911j7fo4",
+            "name": "Broken Promises",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "broken-promises-sacrifice-draw-quest"
+            ],
+            "semanticFixtures": [
+                "broken-promises-sacrifice-draw-quest"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -39985,6 +39928,29 @@
             "priority": 133
         },
         {
+            "cardId": "wsycqp2l90",
+            "name": "Incandescent Reliquary",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "incandescent-reliquary-recollection-least-influence-draw"
+            ],
+            "semanticFixtures": [
+                "incandescent-reliquary-recollection-least-influence-draw"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "k71PE3clOI",
             "name": "Inspiring Call",
             "type": "ACTION",
@@ -40029,6 +39995,29 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "8ofid087a6",
+            "name": "Journey's Beginning",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "journeys-beginning-draw-and-quest-counter"
+            ],
+            "semanticFixtures": [
+                "journeys-beginning-draw-and-quest-counter"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -40262,6 +40251,29 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "ff8jchay4s",
+            "name": "Obscuring Threads",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "obscuring-threads-spellshroud"
+            ],
+            "semanticFixtures": [
+                "obscuring-threads-spellshroud"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -41935,6 +41947,28 @@
             "priority": 132
         },
         {
+            "cardId": "izf4wdsbz9",
+            "name": "Companion Fatestone",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "companion-fatestone-enter-buff-self"
+            ],
+            "semanticFixtures": [
+                "companion-fatestone-enter-buff-self"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "qj5bbae3z4",
             "name": "Cosmic Astroscope",
             "type": "REGALIA,ITEM",
@@ -42248,6 +42282,28 @@
             ],
             "starterDecks": [
                 "Rai Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "b0ssellm84",
+            "name": "Foraging Fox",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "foraging-fox-enter-look5-reveal-fatestone"
+            ],
+            "semanticFixtures": [
+                "foraging-fox-enter-look5-reveal-fatestone"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43008,6 +43064,28 @@
             "priority": 132
         },
         {
+            "cardId": "nxm05jkjxg",
+            "name": "Rousing Rattle Drum",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "rousing-rattle-drum-banish-wake-defender"
+            ],
+            "semanticFixtures": [
+                "rousing-rattle-drum-banish-wake-defender"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "v5klryvfq3",
             "name": "Rousing Slam",
             "type": "ATTACK",
@@ -43433,6 +43511,28 @@
             ],
             "starterDecks": [
                 "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "0v893yn5iq",
+            "name": "Strengthen the Bonds",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter"
+            ],
+            "existingFixtures": [
+                "strengthen-the-bonds-buff-two-targets"
+            ],
+            "semanticFixtures": [
+                "strengthen-the-bonds-buff-two-targets"
+            ],
+            "starterDecks": [
+                "Guo Jia Re:Collection, Heaven's Favored"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

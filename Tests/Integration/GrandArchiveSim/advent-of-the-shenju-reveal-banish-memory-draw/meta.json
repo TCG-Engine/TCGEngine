@@ -1,0 +1,17 @@
+{
+    "name": "advent-of-the-shenju-reveal-banish-memory-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Advent of the Shenju (c53tomoaw3, GeneratedMacroCode.php revealAbilities[\"c53tomoaw3:0\"] / customDQHandlers[\"c53tomoaw3:0:Reveal-1\"]): \"[Class Bonus][Element Bonus] Whenever you reveal this card from your memory, you may banish all cards in your memory. Draw a card into your memory for each card banished this way.\" A copy is seeded into memory along with a filler card; Uncover the Plot (targeting yourself) reveals the whole memory zone, firing this reveal trigger. Answering YES to both the outer 'reveal target=self' prompt and Advent of the Shenju's own 'Banish all memory and draw into memory?' YESNO banishes all revealed memory cards and draws one card into memory per card banished. Verified live: all 4 memory cards (Advent of the Shenju itself + 3 Dungeon Guide, since Uncover the Plot's own effect also put cards into memory first) move to the banishment zone, and the deck (2 cards remaining) is fully drawn back into memory. Break/restore verified: commenting out the MZMove()/DrawIntoMemory() calls makes the fixture fail and restoring it passes again.\n\nENGINE BUG (found, not fixed): this card's FIRST printed clause -- '[Guo Jia Bonus] Put target Fatestone card from your banishment onto the field. If that card is a regalia, put five quest counters on your champion.' -- has NO implementation anywhere in GeneratedCode/GeneratedMacroCode.php: there is no cardActivatedAbilities[\"c53tomoaw3:0\"] entry, no activateCardPrereqs, and no other dispatch table registration for it (confirmed by grepping the entire generated file for every occurrence of \"c53tomoaw3\" -- only the reveal-trigger entries exist). Since this card's TYPE is ACTION (its only way to be 'played' from hand for its own primary effect), this means activating Advent of the Shenju from hand currently does nothing for its main printed clause; only the secondary memory-reveal trigger (covered by this fixture) is wired up at all.",
+    "testedCards": [
+        "c53tomoaw3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["c53tomoaw3"],
+        "mechanics": ["zone-movement", "draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus][Element Bonus] Whenever you reveal this card from your memory, you may banish all cards in your memory. Draw a card into your memory for each card banished this way."
+        ]
+    }
+}

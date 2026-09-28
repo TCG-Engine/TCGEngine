@@ -1,0 +1,17 @@
+{
+    "name": "guo-jia-blessed-scion-enter-quest-or-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Guo Jia, Blessed Scion (59ipqa91r2, GeneratedMacroCode.php enterAbilities[\"59ipqa91r2:0\"] / customDQHandlers[\"59ipqa91r2:0:Enter-1\"]): \"On Enter: You may put two quest counters on CARDNAME. If you don't, draw a card.\" The champion is patched directly to Guo Jia, Chosen Disciple (level 1) -- representing already having leveled up once WITHOUT re-testing that card's own On Enter -- so a single REAL level-up (1 -> 2, paid with 2 memory filler cards seeded on the same turn they're needed, since memory returns to hand at turn end) reaches Blessed Scion and fires its genuine On Enter. Verified live: answering YES to \"Put 2 quest counters on Guo Jia?\" sets the champion's Counters to {\"quest\":2}. Break/restore verified: commenting out the AddQuestCounters() call in the YES branch makes the fixture fail and restoring it passes again. (The separate 'Lineage Release -- Negate target activation or trigger that targets a Fatestone or Fatebound object you control' clause is not covered by this fixture.)",
+    "testedCards": [
+        "59ipqa91r2"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["59ipqa91r2"],
+        "mechanics": ["cost", "counter", "draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: You may put two quest counters on CARDNAME. If you don't, draw a card."
+        ]
+    }
+}

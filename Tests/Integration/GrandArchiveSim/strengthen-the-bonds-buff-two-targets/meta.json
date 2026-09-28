@@ -1,0 +1,17 @@
+{
+    "name": "strengthen-the-bonds-buff-two-targets",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Strengthen the Bonds (0v893yn5iq, GeneratedMacroCode.php cardActivatedAbilities[\"0v893yn5iq:0\"] builds the MZMULTICHOOSE target list of FATESTONE/FATEBOUND objects on either field; customDQHandlers[\"0v893yn5iq:0:CardActivated-1\"] applies AddCounters($player, $mzID, \"buff\", 1) to each selected mzID): \"Put a buff counter on up to two target Fatestone or Fatebound objects.\" Two Craggy Fatestone items (ITEM, FATESTONE subtype) are seeded onto the field as the two targets, both selected via a single MZMULTICHOOSE answer (myField-1&myField-2). Verified live: both objects' Counters go from {} to {\"buff\":1}. Break/restore verified: commenting out the AddCounters() call makes the fixture fail (both targets stay uncountered) and restoring it passes again.",
+    "testedCards": [
+        "0v893yn5iq"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["0v893yn5iq"],
+        "mechanics": ["targeting", "counter"],
+        "rulesClauses": [
+            "Put a buff counter on up to two target Fatestone or Fatebound objects."
+        ]
+    }
+}

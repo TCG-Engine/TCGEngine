@@ -1,0 +1,18 @@
+{
+    "name": "fatestone-of-unrelenting-enter-damage-1",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Fatestone of Unrelenting (o37qtuvlxa, GeneratedMacroCode.php enterAbilities[\"o37qtuvlxa:0\"] / customDQHandlers[\"o37qtuvlxa:0:Enter-1\"]): \"Hindered. On Enter: As a Spell, deal 1 damage to target unit.\" Fatestone of Unrelenting is FIRE; the champion's Subcards are patched with Spirit of Fire for element access. Materialized for real from hand, targeting the opponent's champion. Verified live: the card enters the field with Status 1 (rested, matching Hindered) and the opponent's champion takes exactly 1 damage. Break/restore verified: commenting out the DealDamage() call makes the fixture fail (no damage dealt) and restoring it passes again.",
+    "testedCards": [
+        "o37qtuvlxa"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["o37qtuvlxa"],
+        "mechanics": ["status", "targeting", "damage", "trigger"],
+        "rulesClauses": [
+            "Hindered (This object enters the field rested.)",
+            "On Enter: As a Spell, deal 1 damage to target unit."
+        ]
+    }
+}

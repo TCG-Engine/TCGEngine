@@ -1,0 +1,17 @@
+{
+    "name": "lavaplume-fatestone-enter-x-unpreventable-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Lavaplume Fatestone (0w5xyjuczy, GeneratedMacroCode.php enterAbilities[\"0w5xyjuczy:0\"] calls Custom/CardLogic.php's LavaplumeFatestoneEnter(); customDQHandlers[\"LavaplumeFatestoneResolve\"] deals the damage): \"Fast Activation. On Enter: As a Spell, deal X unpreventable damage to target unit, where X is the amount of other Fatestone and/or Fatebound objects you control.\" Two OTHER Craggy Fatestone items are seeded on the field so X=2. Fire element access is granted via Spirit of Fire in Subcards. Materialized for real from hand, targeting the opponent's champion. Verified live: the champion takes exactly 2 damage. Break/restore verified: commenting out the DealUnpreventableDamage() call makes the fixture fail (0 damage) and restoring it passes again.",
+    "testedCards": [
+        "0w5xyjuczy"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["0w5xyjuczy"],
+        "mechanics": ["targeting", "damage", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: As a Spell, deal X unpreventable damage to target unit, where X is the amount of other Fatestone and/or Fatebound objects you control."
+        ]
+    }
+}

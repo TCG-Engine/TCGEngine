@@ -1,0 +1,17 @@
+{
+    "name": "peacock-of-prosperity-reveal-memory-to-field",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Peacock of Prosperity (cl1mvb9q96, GeneratedMacroCode.php revealAbilities[\"cl1mvb9q96:0\"] / customDQHandlers[\"cl1mvb9q96:0:Reveal-1\"]): \"[Class Bonus][Element Bonus] Whenever you reveal this card from your memory, you may put a card named CARDNAME from your memory onto the field. If you do, draw a card into your memory.\" IsElementBonusActive() is an unconditional stub returning true (confirmed elsewhere in this codebase, e.g. corhazi-infiltrator-reveal-memory-to-field's notes), so only the [Class Bonus] TAMER condition needs a real champion match (Guo Jia is TAMER). Two copies of Peacock of Prosperity are seeded into memory; Uncover the Plot (targeting yourself) reveals the whole memory zone, firing the reveal-triggered ability for each copy (QueueRevealTriggeredAbility, GameLogic.php). Answering the first copy's MZMAYCHOOSE with the other copy's mzID moves it onto the field; the second copy's own offer is declined. Verified live: a second Peacock of Prosperity object appears on the field (myField-1). Break/restore verified: commenting out the MZMove()/DrawIntoMemory() calls makes the fixture fail and restoring it passes again.",
+    "testedCards": [
+        "cl1mvb9q96"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["cl1mvb9q96"],
+        "mechanics": ["targeting", "zone-movement", "draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus][Element Bonus] Whenever you reveal this card from your memory, you may put a card named Peacock of Prosperity from your memory onto the field. If you do, draw a card into your memory."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "companion-fatestone-enter-buff-self",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Companion Fatestone (izf4wdsbz9, GeneratedMacroCode.php enterAbilities[\"izf4wdsbz9:0\"] calls Custom/GameLogic.php's CompanionFatestoneEnter(), which builds an MZCHOOSE of itself plus any Fatebound allies; customDQHandlers[\"CompanionFatestoneEnter\"] applies the buff counter to the chosen mzID): \"On Enter: Put a buff counter on Companion Fatestone or a Fatebound ally you control.\" No Fatebound ally is on the field, so the only legal choice is Companion Fatestone itself. Verified live: its Counters go from {} to {\"buff\":1}. Break/restore verified: commenting out the AddCounters() call makes the fixture fail and restoring it passes again. (The separate 'whenever a Fatebound ally you control dies, you may transform CARDNAME' clause is implemented via GameLogic.php's CompanionFatestoneTransform handler but not covered by this fixture.)",
+    "testedCards": [
+        "izf4wdsbz9"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["izf4wdsbz9"],
+        "mechanics": ["targeting", "counter", "trigger"],
+        "rulesClauses": [
+            "On Enter: Put a buff counter on Companion Fatestone or a Fatebound ally you control."
+        ]
+    }
+}

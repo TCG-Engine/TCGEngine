@@ -17175,6 +17175,691 @@ DECK,
 ];
 
 
+// --- Guo Jia Re:Collection, Heaven's Favored starter deck semantic coverage ---
+
+// Journey's Beginning: "Draw a card." + [Guo Jia Bonus] put a quest counter on your champion.
+$fixtures['journeys-beginning-draw-and-quest-counter'] = [
+    'testedCards' => ['8ofid087a6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Journey's Beginning
+16 Dungeon Guide
+DECK,
+    'setup' => [
+        // Patch the starting champion directly into Guo Jia, Chosen Disciple (not testing HER own
+        // On Enter here) so IsGuoJiaBonus() reads true for the [Guo Jia Bonus] clause below.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']],
+    ],
+    'actions' => [
+        // Play Journey's Beginning (verified live at myHand-1 with this deck/seed) and pay its
+        // 3-reserve cost from hand (moves 3 Dungeon Guide into memory). Then pass the resulting
+        // EffectStack opportunity window for both players so the activated ability actually
+        // resolves (GrandArchiveSim/Custom/OpportunityLogic.php) instead of leaving Journey's
+        // Beginning stuck on the stack.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Broken Promises: additional cost sacrifice a Fatestone item/Fatebound ally, draw into memory,
+// [Guo Jia Bonus] put a quest counter on your champion.
+$fixtures['broken-promises-sacrifice-draw-quest'] = [
+    'testedCards' => ['re911j7fo4'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Broken Promises
+6 Dungeon Guide
+DECK,
+    'setup' => [
+        // Patch champion to Guo Jia, Chosen Disciple for [Guo Jia Bonus], keeping Spirit of Fire
+        // in Subcards so CanPlayerUseCardElement() still grants FIRE access for this FIRE card
+        // (a real level-up would preserve Spirit of Fire in the lineage the same way).
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['LMyKyVC2O9']]],
+        // Seed a Fatestone item (Craggy Fatestone) onto the field as the mandatory sacrifice fodder.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Additional cost: sacrifice the seeded Craggy Fatestone.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        // Pay the 1-reserve cost with a Dungeon Guide from hand.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Strengthen the Bonds: put a buff counter on up to two target Fatestone or Fatebound objects.
+$fixtures['strengthen-the-bonds-buff-two-targets'] = [
+    'testedCards' => ['0v893yn5iq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Strengthen the Bonds
+6 Dungeon Guide
+DECK,
+    'setup' => [
+        // Two Fatestone items on the field as the up-to-two targets.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Pay the 2-reserve cost with Dungeon Guide from hand.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZMULTICHOOSE: select both Craggy Fatestones (myField-1 and myField-2) as the up-to-two targets.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1&myField-2', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Expel the Departed: destroy up to one target phantasia; if you control 2+ Fatestone/Fatebound
+// objects, draw a card.
+$fixtures['expel-the-departed-destroy-phantasia-draw'] = [
+    'testedCards' => ['9wxcgpy069'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Expel the Departed
+6 Dungeon Guide
+DECK,
+    'setup' => [
+        // Opponent's phantasia target.
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '2o82fwl22v'],
+        // Two Fatestone items to satisfy the "control 2+ Fatestone/Fatebound objects" draw condition.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Pay the 3-reserve cost (not leveled up, so no [Level 2+] discount).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZMAYCHOOSE: destroy the opponent's Unstable Fractal.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Shatter the Brittle: activate only if you control a Fatestone/Fatebound object; destroy target
+// cheap item/weapon; its controller draws a card into their memory.
+$fixtures['shatter-the-brittle-destroy-draw-memory'] = [
+    'testedCards' => ['tdz5of8zuz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Shatter the Brittle
+6 Dungeon Guide
+DECK,
+    'setup' => [
+        // Craggy Fatestone: satisfies both the activation prereq (a Fatestone object) and doubles
+        // as the destroy target (reserve cost 4 <= 5).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: destroy the Craggy Fatestone.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Obscuring Threads: up to one target Fatestone or Fatebound object gains spellshroud until end
+// of turn.
+$fixtures['obscuring-threads-spellshroud'] = [
+    'testedCards' => ['ff8jchay4s'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Obscuring Threads
+6 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZMAYCHOOSE: target the Craggy Fatestone.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Rousing Rattle Drum: Banish this card: wake up target defending Animal or Beast ally.
+$fixtures['rousing-rattle-drum-banish-wake-defender'] = [
+    'testedCards' => ['nxm05jkjxg'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Cheerful Slime seeded BEFORE Rousing Rattle Drum so its own field index (myField-1) is
+        // stable across the Drum's own banish-as-cost (which removes a LATER index, not this one).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'OUqX2BBcGv', 'setProperties' => ['Status' => 1]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'nxm05jkjxg'],
+        // Simulate the Slime being the current combat's defending unit (IsUnitDefending() reads
+        // these DecisionQueueController variables -- GrandArchiveSim/Custom/GameLogic.php ~21315).
+        // CombatTarget is stored from the ATTACKER's perspective, hence "theirField-1".
+        ['player' => 1, 'dqVariables' => ['CombatTarget' => 'theirField-1', 'CombatAttackerPlayer' => 2]],
+    ],
+    'actions' => [
+        // Activate Rousing Rattle Drum's field ability (banishes itself as its own cost).
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: the only legal target is the defending Cheerful Slime.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Foraging Fox: On Enter, look at top 5, may reveal a Fatestone into memory, rest on bottom.
+$fixtures['foraging-fox-enter-look5-reveal-fatestone'] = [
+    'testedCards' => ['b0ssellm84'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+20 Dungeon Guide
+DECK,
+    'setup' => [
+        // Patch a hand slot into Foraging Fox and a top-of-deck slot into Craggy Fatestone (within
+        // the "top five") so the fixture doesn't depend on shuffle luck for either.
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'b0ssellm84']],
+        ['player' => 1, 'patchMzId' => 'myDeck-2', 'setProperties' => ['CardID' => 'h8n1520m2d']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZMAYCHOOSE: reveal the Craggy Fatestone found among the top five (myTempZone-2).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-2', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE: put the remaining 4 Dungeon Guide on the bottom of the deck (order irrelevant).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Bottom=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,em6eEh9q8y', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Fated Keepsake: On Enter draw a card; [Guo Jia Bonus] prevent all but 6 of 7+ damage to your
+// champion while you control 3+ Fatestone/Fatebound objects.
+$fixtures['fated-keepsake-enter-draw-and-prevent-damage'] = [
+    'testedCards' => ['vi1uyifw6s'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+20 Dungeon Guide
+DECK,
+    'setup' => [
+        // Player 1: Guo Jia champion + 3 Fatestone items + Fated Keepsake in hand (to materialize
+        // for real, proving its own On Enter) + a memory filler to pay its 1-memory cost.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'vi1uyifw6s']],
+        // Player 2: ARCANE lineage unlock + Arcane Blast (deals 11 damage to target champion) plus
+        // enough reserve fuel to cast it on their own turn (11-reserve cost).
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'pn9gQjV3Rb'],
+    ],
+    'actions' => [
+        // Player 1 materializes Fated Keepsake for real (fires its genuine On Enter draw), then
+        // ends their turn so player 2 gets a legal opportunity to cast a sorcery-speed spell.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        // Player 2 casts Arcane Blast (11 damage to target champion) at player 1's champion.
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-12!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Companion Fatestone: On Enter put a buff counter on itself or a Fatebound ally you control.
+$fixtures['companion-fatestone-enter-buff-self'] = [
+    'testedCards' => ['izf4wdsbz9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Companion Fatestone
+10 Dungeon Guide
+DECK,
+    'setup' => [],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: only legal choice is Companion Fatestone itself (no Fatebound allies present).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Craggy Fatestone: [Guo Jia Bonus] [REST]: Transform, only if 2+ buff counters.
+$fixtures['craggy-fatestone-rest-transform-two-buff'] = [
+    'testedCards' => ['h8n1520m2d'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']],
+        // Seed the required 2 buff counters directly (normally accumulated from the card's OWN
+        // separate "whenever an opponent materializes a memory-cost-0 card" trigger, which this
+        // fixture does not exercise -- see the notes in this fixture's meta.json about that
+        // trigger's dispatch).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d', 'setProperties' => ['Counters' => ['buff' => 2]]],
+    ],
+    'actions' => [
+        // Activate the [REST] transform ability. Prereq: IsGuoJiaBonus + 2+ buff counters.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Portentous Tanggu: [Guo Jia Bonus] On Enter: put a quest counter on your champion.
+$fixtures['portentous-tanggu-enter-quest-counter'] = [
+    'testedCards' => ['mb3iqw3kc6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'mb3iqw3kc6']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Fatestone of Heaven: On Enter destroy target non-champion object with memory cost 1 or less, or
+// reserve cost 5 or less.
+$fixtures['fatestone-of-heaven-enter-destroy-cheap-object'] = [
+    'testedCards' => ['al6pqkmgmz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Fatestone of Heaven is LUXEM; patch in Zander, Blinding Steel's lineage for element access.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'al6pqkmgmz']],
+        // Opponent's Fluffy Shopkeep (reserve cost 3 <= 5) is the destroy target.
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'px60u5n1do'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: candidates are itself (myField-1, reserve 3) and the Fluffy Shopkeep
+        // (theirField-1, reserve 3) -- choose the opponent's ally.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Fatestone of Unrelenting: Hindered; On Enter: as a Spell, deal 1 damage to target unit.
+$fixtures['fatestone-of-unrelenting-enter-damage-1'] = [
+    'testedCards' => ['o37qtuvlxa'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['LMyKyVC2O9']]],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'o37qtuvlxa']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: deal the 1 damage to the opponent's champion.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Lavaplume Fatestone: On Enter, as a Spell, deal X unpreventable damage to target unit, X = other
+// Fatestone/Fatebound objects controlled.
+$fixtures['lavaplume-fatestone-enter-x-unpreventable-damage'] = [
+    'testedCards' => ['0w5xyjuczy'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['LMyKyVC2O9']]],
+        // Two OTHER Fatestone items so X = 2.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '0w5xyjuczy']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: deal X (=2) damage to the opponent's champion.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Fatestone of Revelations: On Enter, may reveal two Fatestone/Fatebound cards from hand/memory,
+// draw a card if so.
+$fixtures['fatestone-of-revelations-enter-reveal-two-draw'] = [
+    'testedCards' => ['xd4kv0akqr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Two other Fatestone items in hand to reveal.
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'xd4kv0akqr']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZMAYCHOOSE: reveal the first Craggy Fatestone (myHand-4).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-4', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: reveal the second Craggy Fatestone (myHand-5).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-5', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Band of Burning Verdict: On Enter, draw a card.
+$fixtures['band-of-burning-verdict-enter-draw'] = [
+    'testedCards' => ['7mmve2l328'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // FIRE element access + a Tamer champion + an Animal/Beast ally are all required just to
+        // materialize this card at all -- see this fixture's meta.json ENGINE BUG note.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['LMyKyVC2O9']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'OUqX2BBcGv'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '7mmve2l328']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // See ENGINE BUG note: this MZCHOOSE is the printed [Class Bonus][REST] buff ability firing
+        // automatically as part of materializing, not a genuine player-chosen activation. Answered
+        // here only so the fixture reaches a clean resolved state to assert against.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Light the Hunt: Put two buff counters on target Animal or Beast ally you control.
+$fixtures['light-the-hunt-buff-two-counters'] = [
+    'testedCards' => ['edjgscy50x'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Light the Hunt is LUXEM; patch in Zander, Blinding Steel's lineage for element access.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'OUqX2BBcGv'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'edjgscy50x']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: target the Cheerful Slime (Animal ally).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Peacock of Prosperity: [Class Bonus][Element Bonus] whenever you reveal it from memory, may put
+// a copy from memory onto the field, then draw a card into memory.
+$fixtures['peacock-of-prosperity-reveal-memory-to-field'] = [
+    'testedCards' => ['cl1mvb9q96'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Guo Jia (TAMER, matching Peacock's own class) + LUXEM lineage for Uncover the Plot.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['UAF6Nr7GUE']]],
+        // Two copies of Peacock of Prosperity in memory.
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'cl1mvb9q96'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'cl1mvb9q96'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '4zkTRt8qXn']],
+    ],
+    'actions' => [
+        // Uncover the Plot targeting yourself reveals your whole memory, firing Peacock of
+        // Prosperity's reveal-triggered ability once per copy revealed.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        // First copy's reveal-triggered MZMAYCHOOSE: move the OTHER copy (myMemory-1) to the field.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-1', 'chkInput' => [], 'inputText' => ''],
+        // Second copy also gets revealed and offers the same choice; decline it.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Advent of the Shenju: [Class Bonus][Element Bonus] whenever you reveal it from memory, may
+// banish all cards in memory and draw a card into memory for each one banished.
+$fixtures['advent-of-the-shenju-reveal-banish-memory-draw'] = [
+    'testedCards' => ['c53tomoaw3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['UAF6Nr7GUE']]],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'c53tomoaw3'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '4zkTRt8qXn']],
+    ],
+    'actions' => [
+        // Uncover the Plot targeting yourself reveals the whole memory zone.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        // Advent of the Shenju's own reveal trigger: "Banish all memory and draw into memory?"
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Incandescent Reliquary: At the beginning of your recollection phase, if you have the least
+// influence, draw a card.
+$fixtures['incandescent-reliquary-recollection-least-influence-draw'] = [
+    'testedCards' => ['wsycqp2l90'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Seeded directly onto the field (GameLogic.php's RecollectionPhase() checks CardID on
+        // the turn player's field via a plain switch, not a materialized Enter macro).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'wsycqp2l90'],
+    ],
+    'actions' => [
+        // Reach player 1's own turn-2 recollection phase: P1 ends turn 1, P2 ends their turn.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        // Decline the material-phase champion level-up offer to reach the steady state.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Fabled Azurite Fatestone: [REST]: remove 10 quest counters from champion to wake up and
+// transform.
+$fixtures['fabled-azurite-fatestone-rest-transform-10-quest'] = [
+    'testedCards' => ['6ce5rzrjd9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Counters' => ['quest' => 10]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '6ce5rzrjd9', 'setProperties' => ['Status' => 1]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Guo Jia, Chosen Disciple: On Enter, if you don't control a Fatestone regalia, reveal your
+// material deck and put a Fatestone regalia with the lowest memory cost onto the field.
+$fixtures['guo-jia-chosen-disciple-enter-material-fatestone'] = [
+    'testedCards' => ['j6dkdoxyqt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Guo Jia, Chosen Disciple
+1 Fabled Azurite Fatestone
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Filler card in memory to pay Guo Jia, Chosen Disciple's 1-memory level-up cost.
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        // Real champion level-up (0 -> 1): both players end turn 1 to reach P1's material-phase
+        // MZMAYCHOOSE, then choose the only legal target (Guo Jia, Chosen Disciple).
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the resulting fast-action opportunity window to reach a clean resolved state.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Guo Jia, Blessed Scion: On Enter, you may put two quest counters on CARDNAME; if you don't,
+// draw a card.
+$fixtures['guo-jia-blessed-scion-enter-quest-or-draw'] = [
+    'testedCards' => ['59ipqa91r2'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Guo Jia, Blessed Scion
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion is patched directly to Guo Jia, Chosen Disciple (level 1) -- representing
+        // already having leveled up once, WITHOUT re-testing that card's own On Enter here -- so
+        // a single real level-up (1 -> 2) reaches Guo Jia, Blessed Scion and fires ITS genuine
+        // On Enter. Two filler cards are seeded into memory to pay its 2-memory level-up cost
+        // (memory returns to hand at turn end, so it must be paid on the same turn it's used).
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // "Put 2 quest counters on Guo Jia?" -- answer YES.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Guo Jia, Heaven's Favored: On Enter, you may put three quest counters on CARDNAME; if you
+// don't, recover 3.
+$fixtures['guo-jia-heavens-favored-enter-recover-3'] = [
+    'testedCards' => ['enxi6tshtu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Guo Jia, Heaven's Favored
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion patched directly to Guo Jia, Blessed Scion (level 2) with 5 pre-existing
+        // damage -- representing already having leveled up twice, WITHOUT re-testing that card's
+        // own On Enter -- so a single real level-up (2 -> 3) reaches Guo Jia, Heaven's Favored
+        // and fires ITS genuine On Enter, and the pre-existing damage makes "recover 3" observable.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '59ipqa91r2', 'Damage' => 5]],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // "Put 3 quest counters on Guo Jia?" -- answer NO to take the "recover 3" branch instead.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

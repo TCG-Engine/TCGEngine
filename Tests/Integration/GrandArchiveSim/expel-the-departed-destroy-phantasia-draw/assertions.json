@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "theirGraveyard",
+        "cardID": "2o82fwl22v",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The targeted phantasia (Unstable Fractal) is destroyed into the opponent's graveyard"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Controlling 2+ Fatestone objects drew a card, reducing the deck from 3 to 2"
+    }
+]

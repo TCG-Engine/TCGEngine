@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "theirGraveyard",
+        "cardID": "px60u5n1do",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Fatestone of Heaven destroys the targeted opponent's Fluffy Shopkeep"
+    }
+]

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **499**
+Cards linked to an existing fixture: **524**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1991**
+Implemented cards still needing semantic coverage: **1966**
 
 ## Mechanic groups
 
@@ -26,28 +26,19 @@ Implemented cards still needing semantic coverage: **1991**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Band of Burning Verdict (`7mmve2l328`) | REGALIA,ITEM | 3 | targeting, draw-discard, status, combat, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
-| Fatestone of Heaven (`al6pqkmgmz`) | ITEM | 3 | cost, targeting, zone-movement, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
 | Merlin, Amethyst's Glow (`dPP9I4nVn0`) | CHAMPION | 3 | cost, targeting, draw-discard, counter, trigger | Merlin Re:Collection, Brilliant Vestige | — |
-| Portentous Tanggu (`mb3iqw3kc6`) | REGALIA,ITEM | 3 | draw-discard, zone-movement, counter, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
 | Red Slime (`mttsvbgl6f`) | ALLY | 1 | damage, trigger, condition | Silvie Re:Collection, Slime Sovereign | redslime-ondeath-sweep-stack-order-choice |
 | Converge Reflections (`TBVLLRPiwP`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement, token, condition | Merlin Re:Collection, Brilliant Vestige | — |
-| Expel the Departed (`9wxcgpy069`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement, condition | Guo Jia Re:Collection, Heaven's Favored | — |
-| Fatestone of Unrelenting (`o37qtuvlxa`) | ITEM | 2 | targeting, damage, zone-movement, status, trigger | Guo Jia Re:Collection, Heaven's Favored | — |
 | Poisoned Dagger (`0D6AfZyKXh`) | REGALIA,ITEM | 2 | targeting, damage, zone-movement, status, condition | Tristan Re:Collection, Shadowdancer, Merlin Re:Collection, Brilliant Vestige | — |
 | Slimeshield (`hcpetipurz`) | ACTION | 2 | cost, targeting, damage, prevention, counter, condition | Silvie Re:Collection, Slime Sovereign | — |
 | Storm Slime (`blqryebvwj`) | ALLY | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | Silvie Re:Collection, Slime Sovereign | — |
 | Tristan, Shadowdancer (`he6kd7hocc`) | CHAMPION | 2 | targeting, counter, token, combat, trigger | Tristan Re:Collection, Shadowdancer | — |
-| Fatestone of Revelations (`xd4kv0akqr`) | ITEM | 2 | cost, draw-discard, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
 | Gearstride Gloves (`lcb6jhxctx`) | REGALIA,ITEM | 2 | cost, zone-movement, counter, trigger | Tristan Re:Collection, Shadowdancer | — |
-| Guo Jia, Heaven's Favored (`enxi6tshtu`) | CHAMPION | 2 | cost, recover, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
 | Leporine Masque (`pgysz2zfji`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, counter | Ciel, Mirage's Grave | — |
-| Light the Hunt (`edjgscy50x`) | ACTION | 2 | targeting, zone-movement, counter, trigger | Guo Jia Re:Collection, Heaven's Favored | — |
 | Nocturne's Oblivion (`1a5zdqgydt`) | ACTION | 2 | cost, targeting, zone-movement, condition | Ciel, Mirage's Grave | — |
 | Prismspire Scepter (`mgesApvmwS`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, trigger | Merlin Re:Collection, Brilliant Vestige | — |
 | Protect Her At All Costs (`OzNHncAfFJ`) | ACTION | 2 | cost, targeting, token, combat | Merlin Re:Collection, Brilliant Vestige | — |
 | Ranger Boots (`fbs9qzo3f6`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, status, trigger | Diana, Moonpiercer | — |
-| Lavaplume Fatestone (`0w5xyjuczy`) | ITEM | 2 | targeting, damage, trigger | Guo Jia Re:Collection, Heaven's Favored | — |
 | Lustrous Slime (`ejvddohjdu`) | ALLY | 2 | recover, counter, trigger | Silvie Re:Collection, Slime Sovereign | — |
 | Pleiades, Celestial Genesis (`rsps1qnzfl`) | REGALIA,WEAPON | 2 | token, combat, trigger | Diana, Moonpiercer | — |
 | Shattered Hope (`XOevViFTB3`) | ACTION | 2 | cost, draw-discard, counter | Merlin Re:Collection, Brilliant Vestige | — |
@@ -59,11 +50,8 @@ Implemented cards still needing semantic coverage: **1991**
 | Slime King (`f0ymeslfpw`) | UNIQUE,ALLY | 2 | cost, zone-movement | Silvie Re:Collection, Slime Sovereign | — |
 | Slime Nexus (`emoydelro8`) | REGALIA,ITEM | 2 | cost, zone-movement | Silvie Re:Collection, Slime Sovereign | — |
 | Find the Lost (`jTBNAEedbg`) | ATTACK | 2 | condition | Merlin Re:Collection, Brilliant Vestige | — |
-| Advent of the Shenju (`c53tomoaw3`) | ACTION | 1 | targeting, draw-discard, zone-movement, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
 | Betraying Blade (`qwxvzfkpaj`) | ATTACK | 1 | cost, zone-movement, counter, combat, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
 | Ethereal Slime (`n06zlhihka`) | ALLY | 1 | damage, prevention, draw-discard, zone-movement, counter, status, trigger, condition | Silvie Re:Collection, Slime Sovereign | — |
-| Fabled Azurite Fatestone (`6ce5rzrjd9`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
-| Fated Keepsake (`vi1uyifw6s`) | REGALIA,ITEM | 1 | damage, prevention, draw-discard, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
 | Frostsworn Paladin (`rpOaAjgtue`) | ALLY | 1 | draw-discard, zone-movement, counter, status, combat, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
 | Gildas, Faesworn Monarch (`g99PIuhU0O`) | UNIQUE,ALLY | 1 | cost, targeting, damage, prevention, status, condition | Mordred Re:Collection, Aurelian Regent | — |
 | Luminous Quartz (`40lgjj1yS3`) | REGALIA,WEAPON | 1 | targeting, damage, counter, status, combat, condition | Merlin Re:Collection, Brilliant Vestige | — |
@@ -76,3 +64,15 @@ Implemented cards still needing semantic coverage: **1991**
 | Warrior of the Fae Realm (`eRcqucBKhX`) | ALLY | 1 | draw-discard, zone-movement, status, combat, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
 | Arrow Trap (`uoQGe5xGDQ`) | ACTION | 1 | targeting, zone-movement, counter, condition | Tristan Re:Collection, Shadowdancer | — |
 | Baby Blue Slime (`9ggfiy38t2`) | ALLY | 1 | targeting, damage, prevention, condition | Silvie Re:Collection, Slime Sovereign | — |
+| Baby Gray Slime (`0hsncz1fz2`) | ALLY | 1 | draw-discard, combat, trigger, condition | Silvie Re:Collection, Slime Sovereign | — |
+| Baby Red Slime (`r7oifozaog`) | ALLY | 1 | draw-discard, combat, trigger, condition | Silvie Re:Collection, Slime Sovereign | — |
+| Bauble of Mending (`hLHpI5rHIK`) | REGALIA,ITEM | 1 | targeting, draw-discard, zone-movement, condition | Silvie Re:Collection, Slime Sovereign | — |
+| Charge the Soul (`ra9950o14t`) | ACTION | 1 | cost, targeting, damage, zone-movement | Diana, Moonpiercer | — |
+| Ciel, Mirage's Grave (`zhh43i1eaa`) | CHAMPION | 1 | targeting, damage, counter, trigger | Ciel, Mirage's Grave | — |
+| Conflagrant Sentinel (`puyzn48srd`) | ALLY | 1 | draw-discard, counter, trigger, condition | Ciel, Mirage's Grave | — |
+| Corsair Captain (`4e1gqwah01`) | ALLY | 1 | cost, zone-movement, status, condition | Diana, Moonpiercer | — |
+| Coy Bouclier (`vo1qr9bkme`) | ALLY | 1 | cost, status, combat, condition | Ciel, Mirage's Grave | — |
+| Crystalline Reality (`iPpwkMxDt5`) | ACTION | 1 | targeting, draw-discard, token, condition | Merlin Re:Collection, Brilliant Vestige | — |
+| Diana, Aether Dilettante (`m7f6r8f3y8`) | CHAMPION | 1 | cost, status, trigger, condition | Diana, Moonpiercer | — |
+| Diana, Moonpiercer (`v3vfjtwm7g`) | CHAMPION | 1 | targeting, status, trigger, condition | Diana, Moonpiercer | — |
+| Dredging Streams (`wmt0x5zado`) | ACTION | 1 | cost, targeting, zone-movement, condition | Mordred Re:Collection, Aurelian Regent | — |
