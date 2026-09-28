@@ -156,5 +156,5 @@ WithP2GroundArena: SEC_028:1:0
 - P1>AttackGroundArena:0:theirGroundArena-0
 
 ## EXPECT
-P1DECISIONTOOLTIP:Choose_a_unit
+P1DECISIONTOOLTIP:Give_an_Advantage_token_to_another_unit?
 P1SELECTABLEEXACT:myGroundArena-1&theirGroundArena-0&theirGroundArena-1

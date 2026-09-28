@@ -2174,9 +2174,33 @@ function SWUValidateDecisionAnswer(int $player, string $answer): bool {
 // Flipping the default is safe because every one of the 205 continuations inspects $lastDecision, and
 // SWUDecisionDeclined() treats '-' and 'PASS' identically — so a handler that no-ops on '-' still no-ops.
 // Pass 0 explicitly only if a continuation must genuinely NOT run on a decline.
+// A prompt that only says "Choose a <noun>" tells the player nothing the picker is not already showing:
+// the selectable cards are lit up, so the one thing they need — WHAT HAPPENS if they pick one — is the
+// part that is missing. Callers already write that, as $yesTooltip ("Defeat a unit with 3 or less HP?"),
+// and it was DISCARDED: only $chooseTooltip ever reached AddDecision, at all 305 call sites, so the
+// descriptive half of 169 cards' prompts was dead. Reported 2026-09-27 on ASH_050 Morgan Elsbeth, whose
+// "give a unit -2/-2 for this phase" offer read "Choose a unit".
+//
+// ⚠ DO NOT SWAP UNCONDITIONALLY — it makes most of these prompts WORSE. Of the 148 callers that write
+// both strings, 88 already have a precise prompt and a vaguer question, e.g. LAW_062's "Give +2/+0 to a
+// unit with less power than this unit" would have become "Buff a weaker unit?". So the question replaces
+// the prompt ONLY where the prompt is one of the contentless "Choose a …" forms below — the 60 cases
+// that motivated the report. Measured: unconditional swap moved 43 prompts, this moves 15.
+// A caller whose prompt is generic AND who writes no question is unaffected ($yesTooltip is then ''),
+// and SWUOfferUnitTarget defaults question to prompt, so those two are equal and the branch is a no-op.
+function _SWUPromptIsContentless(string $tip): bool {
+    static $generic = [
+        'Choose_a_unit', 'Choose_a_target', 'Choose_a_ground_unit', 'Choose_a_space_unit',
+        'Choose_an_enemy_unit', 'Choose_a_friendly_unit', 'Choose_a_card', 'Choose_a_base',
+        'Choose_a_unit_or_base',
+    ];
+    return in_array($tip, $generic, true);
+}
+
 function SWUQueueMayChooseTarget(int $player, array $targets, string $yesTooltip, string $chooseTooltip, string $handler, int $block = 1, int $dontSkipOnPass = 1): void {
     if (empty($targets)) return;
-    DecisionQueueController::AddDecision($player, 'MZMAYCHOOSE', implode('&', $targets), $block, $chooseTooltip);
+    $tip = ($yesTooltip !== '' && _SWUPromptIsContentless($chooseTooltip)) ? $yesTooltip : $chooseTooltip;
+    DecisionQueueController::AddDecision($player, 'MZMAYCHOOSE', implode('&', $targets), $block, $tip);
     DecisionQueueController::AddDecision($player, 'CUSTOM', $handler, $block, '', $dontSkipOnPass);
 }
 
@@ -11302,9 +11326,29 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'HMW_215':        Hmw215ReplayEventReaction($player, $mzID);  break;
         case 'SOR_143':     FFFPlayAggressionReaction($player);     break;
         case 'SOR_109':           YularenHealReaction($player);           break;
-        case 'Shielded':
+        case 'Shielded': {
+            // ⚠ RE-RESOLVE BY UID, AND CHECK IDENTITY — NOT JUST "is the slot empty?".
+            // The trigger was bagged on entry with an INDEX ("myGroundArena-N"), and anything that
+            // removes a unit ahead of N compacts the arena underneath it. Bug report #1091 (game
+            // 1400002): HMW_016 Maul deploys with two entry triggers, the controller resolves the When
+            // Deployed FIRST, it plays ASH_050 Morgan Elsbeth back from the discard, her Support attacks
+            // with Maul, Maul dies — Morgan slides from index 1 into index 0 and the still-pending
+            // Shielded trigger handed HER Maul's token.
+            // ⚠ The sibling `case 'Ambush'` below re-resolves only `if (SWUObjGone(...))`, which would NOT
+            // have caught this: the slot is not empty, it holds somebody else. Compare UIDs.
+            // If the unit has left play there is nobody to shield, so it fizzles — Shielded gives a token
+            // to THIS unit or to none at all.
+            $shObj = GetZoneObject($mzID);
+            $shUID = intval($extra[0] ?? 0);
+            if ($shUID > 0 && (SWUObjGone($shObj) || intval($shObj->UniqueID ?? -1) !== $shUID)) {
+                $reMz  = SWUFindMzByUID($shUID);
+                $mzID  = $reMz;                         // null when it is no longer in play
+                $shObj = ($reMz !== null) ? GetZoneObject($reMz) : null;
+            }
+            if ($mzID === null || SWUObjGone($shObj)) break;
             DoGiveShieldToken($player, $mzID);
             break;
+        }
         case 'Ambush':
             // Re-compute valid targets at dispatch time (units may have died between collect and dispatch).
             $ambushObj = GetZoneObject($mzID);
@@ -11313,14 +11357,22 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             // gives the unit a new mzID and marks the cached (space) slot removed, so GetZoneObject($mzID)
             // returns null and Ambush would silently fizzle. Re-resolve by the unit's UID (carried in
             // $extra[0]), mirroring FlushCombatTriggerBag's attacker-UID re-resolution.
-            if (SWUObjGone($ambushObj)) {
-                $ambushUID = intval($extra[0] ?? 0);
-                if ($ambushUID > 0) {
-                    $reMz = SWUFindMzByUID($ambushUID);
-                    if ($reMz !== null) { $mzID = $reMz; $ambushObj = GetZoneObject($mzID); }
-                }
+            // ⚠ A GONE-ONLY GUARD IS NOT ENOUGH. Arena compaction REFILLS the cached slot with a
+            // different unit, and a refilled slot is not "gone" — Ambush then readies and attacks with
+            // SOMEBODY ELSE. Reachable via Support: Piett grants Ambush to cost-6+ Morgan Elsbeth, her
+            // Support attack kills a lower-index friendly, she compacts down, and the token that
+            // friendly leaves behind lands in the slot this trigger still points at. Same defect as
+            // case 'Shielded' above (bug report #1091); pinned by
+            // sor/Piett_AmbushSurvivesIndexShift.md. The check must be one of IDENTITY: is the object at
+            // this mzID still the unit the trigger was bagged for?
+            $ambushUID = intval($extra[0] ?? 0);
+            if ($ambushUID > 0 && (SWUObjGone($ambushObj)
+                    || intval($ambushObj->UniqueID ?? -1) !== $ambushUID)) {
+                $reMz      = SWUFindMzByUID($ambushUID);
+                $mzID      = $reMz;                     // null when it is no longer in play
+                $ambushObj = ($reMz !== null) ? GetZoneObject($reMz) : null;
             }
-            if (SWUObjGone($ambushObj)) break;
+            if ($mzID === null || SWUObjGone($ambushObj)) break;
             $ambushArena    = $ambushObj->Location ?? 'GroundArena';
             $validTargets   = SWUGetAllValidAmbushTargets($player, $ambushObj, $ambushArena); // union all opponents
             if (empty($validTargets)) break;
@@ -11421,7 +11473,10 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
 
     $obj = GetZoneObject($mzID);
     if ($obj !== null && HasKeyword_Shielded($obj)) {
-        AddTrigger($activePlayer, 'Shielded', $cardID, $mzID);
+        // Carry the UID: the mzID is an index and the arena can compact before this resolves (the
+        // controller may order this trigger AFTER a sibling entry trigger that kills this very unit).
+        // The dispatch re-resolves from it — see case 'Shielded'.
+        AddTrigger($activePlayer, 'Shielded', $cardID, $mzID, (string)SWUObjUID($obj, 0));
     }
 
     if ($obj !== null && HasKeyword_Ambush($obj)) {

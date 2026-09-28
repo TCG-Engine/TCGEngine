@@ -25,7 +25,7 @@ WithP2GroundArena: [SOR_095:1:0 SOR_046:1:0]
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
-P1DECISIONTOOLTIP:Choose_a_unit
+P1DECISIONTOOLTIP:Deal_2_damage_to_a_unit?
 P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0&theirGroundArena-1
 
 ---

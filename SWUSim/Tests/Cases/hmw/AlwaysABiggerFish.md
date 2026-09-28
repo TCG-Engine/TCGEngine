@@ -266,7 +266,7 @@ WithP1Hand: [HMW_099 LOF_259]
 - P1>AnswerDecision:EffectStack-0
 
 ## EXPECT
-P1DECISIONTOOLTIP:Choose_a_unit
+P1DECISIONTOOLTIP:Give_a_Shield_to_a_damaged_non-Vehicle_unit?
 P1SELECTABLEEXACT:myGroundArena-0
 
 ---

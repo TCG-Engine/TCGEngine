@@ -55,11 +55,12 @@ WithP2Deck: [SOR_046]
 - P1>PlayHand:0
 - P1>AnswerDecision:P2
 ## EXPECT
-#// ⚠ The tooltip is 'Choose_a_card', NOT the "Discard a card from the opponent's hand?" string the card
-#// passes: SWUQueueMayChooseTarget takes a $yesTooltip AND a $chooseTooltip but only ever forwards the
-#// SECOND to AddDecision, so the first argument is dead at every call site. Asserting the string the card
-#// author wrote would pin a prompt the player never sees.
-P1DECISIONTOOLTIP:Choose_a_card
+#// ⚠ This used to read 'Choose_a_card' — SWUQueueMayChooseTarget took a $yesTooltip AND a $chooseTooltip
+#// and forwarded only the SECOND, so the descriptive string the card author wrote was dead at every call
+#// site. Fixed 2026-09-27 (reported on ASH_050 Morgan Elsbeth's equally contentless "Choose a unit"): a
+#// prompt that is merely "Choose a <noun>" is now replaced by the card's question, so this asserts the
+#// text the player actually sees.
+P1DECISIONTOOLTIP:Discard_a_card_from_the_opponent's_hand?
 P1SELECTABLEEXACT:p2Hand-0
 
 ---
@@ -91,7 +92,7 @@ WithP2Deck: [SOR_046]
 - P3>PlayHand:0
 - P3>AnswerDecision:P2
 ## EXPECT
-P3DECISIONTOOLTIP:Choose_a_card
+P3DECISIONTOOLTIP:Discard_a_card_from_the_opponent's_hand?
 P3SELECTABLEEXACT:p2Hand-0
 
 ---

@@ -25,7 +25,7 @@ WithP2GroundArena: [SOR_046:1:0 SOR_128:1:0]
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
-P1DECISIONTOOLTIP:Choose_a_unit
+P1DECISIONTOOLTIP:Give_a_Weakness_token_to_a_unit?
 P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0&theirGroundArena-1
 
 ---
