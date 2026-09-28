@@ -469,3 +469,74 @@ SEATLIVE:1:false
 #// Untouched: a self-elimination credits its heal to nobody.
 P2BASEDMG:8
 P3BASEDMG:7
+
+---
+
+# RegroupBaseDefeat_EndsTheGameAtTHATRegroupsEnd_NotAnActionPhaseLater
+#// CR §12.7.1: "Once one player is eliminated, the game will end once THE CURRENT PHASE ends. The player
+#// with the most HP remaining on their base at the end of the current phase wins." It says "current phase"
+#// twice and never "action phase" — and §12 has no Regroup Phase subsection at all, so the general rules
+#// carry (§12.1.2 / §11.1.3). The Death Star is the format's one elimination that fires at REGROUP start,
+#// so it is the only card that can tell the two readings apart.
+#//
+#// This pins the boundary in BOTH directions, which is the whole point — an assertion that a winner exists
+#// "eventually" would pass for an engine that waits a full extra action phase:
+#//   • immediately after the elimination, still inside the regroup: NO winner yet.
+#//   • once the regroup actually completes: the winner is declared, at THAT boundary.
+#// P3 is eliminated, P1 heals to 5 damage (CR §12.6.2), P2's base is untouched — so P2 has the most
+#// remaining HP and wins. The heal is deliberately load-bearing on the OUTCOME here, not just on a number.
+#//
+#// ⚠ NOT COVERED BY twinsuns/Phase5.md. Its scoring sections reach the boundary with a bare
+#// `ScorePhaseEnd` after a synthetic `EliminateSeat`, which never runs a real regroup — so the
+#// ActionPhaseStart half of the deferred scoring (the half a regroup elimination depends on) was untested.
+## GIVEN
+CommonSetup: grw/ggk/{myLeader:HMW_004;myLeaderDeployed:true;myResources:9;myBaseDamage:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithSeatOrder: 123
+WithLiveSeats: 123
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:27
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>Pass
+- P1>AnswerDecision:p3Base-0
+#// Finish the regroup. These two ResourcePasses are what carry the game over the boundary into
+#// ActionPhaseStart, where _SWUScoreTwinSunsEndOfPhase() scores the phase that just ended.
+- P1>ResourcePass
+- P2>ResourcePass
+## EXPECT
+SEATLIVE:3:false
+GAMEWINNERS:2
+#// Scoring lives at the TOP of ActionPhaseStart(), so "the action phase never began" shows up as it never
+#// announcing itself: the banner, the initiative flip and SetTurnPlayer all sit below the game-over early-out.
+LOGCOUNT:0:— Action Phase —
+
+---
+
+# RegroupBaseDefeat_NoWinnerYetWhileStillInsideTheRegroup
+#// The other half of the pair above, split out so a regression names WHICH direction broke: the elimination
+#// alone must NOT end the game. §12.7.1 defers to the end of the phase, and §12.7.2 still expects
+#// "at the end of the phase" abilities and "for this phase" expiries to resolve first — so scoring early
+#// would skip them. The game is over one step later; here it must not be.
+## GIVEN
+CommonSetup: grw/ggk/{myLeader:HMW_004;myLeaderDeployed:true;myResources:9;myBaseDamage:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithSeatOrder: 123
+WithLiveSeats: 123
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:27
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>Pass
+- P1>AnswerDecision:p3Base-0
+## EXPECT
+SEATLIVE:3:false
+NOGAMEWINNER
