@@ -2280,6 +2280,48 @@ DECK,
     ],
 ];
 
+// --- Disenchant: destroying a phantasia routes through AllyDestroyed(), firing "whenever
+// destroyed" triggers (regression guard for the GeneratedAbilityOverrides.php fix) ---
+$fixtures['disenchant-destroy-fires-diaochan-trigger'] = [
+    'testedCards' => ['zd83net7x0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Disenchant
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Disenchant's authored ability body (GeneratedCode/GeneratedMacroCode.php,
+    // zd83net7x0:0:CardActivated-1) used to manually OnLeaveField()+MZMove() the target to its
+    // graveyard instead of calling AllyDestroyed(), which silently skipped every "whenever a
+    // permanent is destroyed" trigger. GrandArchiveSim/Custom/GeneratedAbilityOverrides.php now
+    // overrides that handler to call AllyDestroyed() (see that file for why the override lives
+    // there and not in GameLogic.php). Diao Chan, Idyll Corsage is seeded onto the opponent's
+    // field as a canary: her "whenever a non-token object an opponent controls is destroyed, you
+    // may banish it; if you do, that opponent summons a Flowerbud token" ability only fires
+    // through DoAllyDestroyed()'s trigger dispatch, so it directly proves the fix. Disenchant's
+    // element is NORM, so no lineage patch is needed; a plain phantasia (Unstable Fractal) is
+    // seeded onto the caster's own field as the (unrestricted) "target phantasia".
+    'setup' => [
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'd7l6i5thdy'], // Diao Chan, Idyll Corsage - canary "whenever destroyed" trigger, opponent's side
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA) - destroy target, caster's own side
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zd83net7x0'], // Disenchant, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // --- Ruinous Pillars of Qidao: Class Bonus On Enter Empower 2 + draw ---
 $fixtures['ruinous-pillars-of-qidao-enter-empower'] = [
     'testedCards' => ['pmx99jrukm'],
