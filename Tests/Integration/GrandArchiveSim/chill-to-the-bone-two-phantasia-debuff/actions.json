@@ -8,18 +8,10 @@
         "inputText": ""
     },
     {
-        "playerID": 1,
+        "playerID": 2,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "-",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "-",
+        "cardID": "PASS",
         "chkInput": [],
         "inputText": ""
     },
@@ -32,10 +24,10 @@
         "inputText": ""
     },
     {
-        "playerID": 1,
+        "playerID": 2,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "-",
+        "cardID": "PASS",
         "chkInput": [],
         "inputText": ""
     },
@@ -43,23 +35,15 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "-",
+        "cardID": "PASS",
         "chkInput": [],
         "inputText": ""
     },
     {
-        "playerID": 1,
+        "playerID": 2,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "-",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "-",
+        "cardID": "PASS",
         "chkInput": [],
         "inputText": ""
     },
@@ -80,7 +64,7 @@
         "inputText": ""
     },
     {
-        "playerID": 1,
+        "playerID": 2,
         "mode": 100,
         "buttonInput": "",
         "cardID": "myHand-7",
@@ -88,7 +72,7 @@
         "inputText": ""
     },
     {
-        "playerID": 1,
+        "playerID": 2,
         "mode": 100,
         "buttonInput": "",
         "cardID": "myHand-0",
@@ -96,7 +80,7 @@
         "inputText": ""
     },
     {
-        "playerID": 1,
+        "playerID": 2,
         "mode": 100,
         "buttonInput": "",
         "cardID": "myHand-0",

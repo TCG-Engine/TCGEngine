@@ -18766,6 +18766,12 @@ function ChillToTheBoneResolve($player) {
     global $playerID;
     $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
     if($attackerMZ === null || $attackerMZ === "-" || $attackerMZ === "") return;
+    // CombatAttacker is stored from the attacker's own perspective; convert to the
+    // currently resolving player's perspective before looking it up (matches
+    // AtmosShieldRedirect/InterceptTargetChosen in CombatLogic.php).
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
+    if($attackerPlayer <= 0) $attackerPlayer = GetTurnPlayer();
+    $attackerMZ = ConvertMzToPlayerPerspective($attackerMZ, $attackerPlayer);
     $attackerObj = GetZoneObject($attackerMZ);
     if($attackerObj === null || $attackerObj->removed || !PropertyContains(EffectiveCardType($attackerObj), "ALLY")) return;
     $targets = FilterSpellshroudTargets([$attackerMZ]);

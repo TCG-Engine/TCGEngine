@@ -1,143 +1,96 @@
 [
     {
-        "step": 13,
+        "step": 11,
         "type": "decision_queue_empty",
         "player": "all"
     },
     {
-        "step": 13,
-        "type": "card_property_equals",
-        "mzId": "p1Field-0",
-        "property": "TurnEffects",
-        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\"]"
-    },
-    {
-        "step": 13,
+        "step": 11,
         "type": "card_property_equals",
         "mzId": "p1Field-1",
         "property": "Status",
         "value": "1"
     },
     {
-        "step": 13,
+        "step": 11,
         "type": "card_property_equals",
         "mzId": "p1Field-1",
         "property": "TurnEffects",
         "value": "[\"p00ghqhcpb-4\"]",
         "semantic": true,
-        "label": "The attacker is tagged with the HIGH-phantasia debuff variant (p00ghqhcpb-4, not -2) because its caster controlled exactly 2 phantasias, proving the >=2 branch condition actually gates which tag is applied"
+        "label": "The DEFENDING player's Chill to the Bone tags the opponent's attacking ally with the HIGH-phantasia debuff variant (p00ghqhcpb-4, not -2) because the DEFENDER (the caster) controls two phantasias, proving the phantasia count is read from the caster's own field regardless of who the attacker is"
     },
     {
-        "step": 13,
+        "step": 11,
         "type": "computed_power_equals",
         "mzId": "p1Field-1",
         "value": -3,
         "semantic": true,
-        "label": "Dungeon Guide's printed POWER (1) minus 4 = -3, proving the -4 POWER branch actually reduces combat-relevant power (not just -2)"
+        "label": "Dungeon Guide's printed POWER (1) minus 4 = -3, proving the -4 POWER clause actually reduces combat-relevant power when cast by the defender"
     },
     {
-        "step": 13,
+        "step": 11,
         "type": "computed_life_equals",
         "mzId": "p1Field-1",
         "value": -1,
         "semantic": true,
-        "label": "Dungeon Guide's printed LIFE (3) minus 4 = -1, proving the -4 LIFE branch is also applied"
+        "label": "Dungeon Guide's printed LIFE (3) minus 4 = -1, proving the -4 LIFE clause is also applied when cast by the defender"
     },
     {
-        "step": 13,
-        "type": "card_property_equals",
-        "mzId": "p1Field-2",
-        "property": "TurnEffects",
-        "value": "[]"
-    },
-    {
-        "step": 13,
-        "type": "card_property_equals",
-        "mzId": "p1Field-3",
-        "property": "TurnEffects",
-        "value": "[]"
-    },
-    {
-        "step": 13,
-        "type": "card_property_equals",
-        "mzId": "p1Hand-0",
-        "property": "CardID",
-        "value": "px60u5n1do"
-    },
-    {
-        "step": 13,
-        "type": "card_property_equals",
-        "mzId": "p1Graveyard-0",
-        "property": "CardID",
-        "value": "p00ghqhcpb"
-    },
-    {
-        "step": 13,
-        "type": "card_property_equals",
-        "mzId": "p1Graveyard-0",
-        "property": "Counters",
-        "value": "[]"
-    },
-    {
-        "step": 13,
-        "type": "card_property_equals",
-        "mzId": "p1Graveyard-0",
-        "property": "TurnEffects",
-        "value": "[]"
-    },
-    {
-        "step": 13,
-        "type": "card_property_equals",
-        "mzId": "p1Memory-0",
-        "property": "CardID",
-        "value": "em6eEh9q8y"
-    },
-    {
-        "step": 13,
-        "type": "card_property_equals",
-        "mzId": "p1Memory-1",
-        "property": "CardID",
-        "value": "em6eEh9q8y"
-    },
-    {
-        "step": 13,
+        "step": 11,
         "type": "card_property_equals",
         "mzId": "p2Field-0",
         "property": "TurnEffects",
-        "value": "[\"WAS_ATTACKED\"]"
+        "value": "[\"WAS_ATTACKED\",\"vz4kc558yx-ACTION_ACTIVATED\"]"
     },
     {
-        "step": 13,
+        "step": 11,
         "type": "card_property_equals",
-        "mzId": "p2Hand-7",
+        "mzId": "p2Field-1",
         "property": "CardID",
-        "value": "px60u5n1do"
+        "value": "8hqHAU0Xj6"
     },
     {
-        "step": 13,
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "CardID",
+        "value": "8hqHAU0Xj6"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "p00ghqhcpb",
+        "semantic": true,
+        "label": "Chill to the Bone was cast from the DEFENDING player's (player 2's) own hand and ends up in player 2's graveyard, confirming the defender -- not the attacker -- is the one who paid for and resolved the spell"
+    },
+    {
+        "step": 11,
         "type": "zone_count",
         "zone": "myHand",
-        "viewerPlayerID": 1,
+        "viewerPlayerID": 2,
         "value": 6
     },
     {
-        "step": 13,
+        "step": 11,
         "type": "zone_count",
         "zone": "myGraveyard",
-        "viewerPlayerID": 1,
+        "viewerPlayerID": 2,
         "value": 1
     },
     {
-        "step": 13,
+        "step": 11,
         "type": "zone_count",
         "zone": "myMemory",
-        "viewerPlayerID": 1,
+        "viewerPlayerID": 2,
         "value": 2
     },
     {
-        "step": 13,
+        "step": 11,
         "type": "zone_count",
-        "zone": "theirHand",
+        "zone": "myHand",
         "viewerPlayerID": 1,
         "value": 8
     }

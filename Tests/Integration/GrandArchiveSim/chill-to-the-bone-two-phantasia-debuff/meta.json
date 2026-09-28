@@ -1,9 +1,9 @@
 {
     "name": "chill-to-the-bone-two-phantasia-debuff",
     "rootName": "GrandArchiveSim",
-    "createdAt": "2026-09-27T02:05:00+00:00",
+    "createdAt": "2026-09-28T14:16:09+00:00",
     "createdBy": "Claude Sonnet 5",
-    "notes": "Branch B (2+ phantasias controlled by the caster). Same shape and same known engine-perspective-bug workaround as chill-to-the-bone-low-phantasia-debuff (see its meta.json for the full writeup of ChillToTheBoneResolve's GetZoneObject perspective bug in GameLogic.php ~18765-18770, not fixed here since the sibling happy-path fixture already exercises the card) -- player 1 (the attacker) holds and casts Chill to the Bone on their own attacking Dungeon Guide, avoiding the perspective mismatch. Player 1 additionally controls two Core Fractal (8hqHAU0Xj6, TOKEN,PHANTASIA) cards -- Core Fractal specifically rather than the more thematic Scorching Imperilment (aj7pz79wsp) because Scorching Imperilment carries its own 'End phase: may discard to draw' activated ability that fires during this fixture's turn-1-end transition and adds an extra decision that desyncs the scripted action sequence; Core Fractal has no dispatch entries of its own. ChillToTheBoneResolve (GameLogic.php ~18765) counts ZoneSearch('myField', ['PHANTASIA']) = 2 and tags the attacker with 'p00ghqhcpb-4' instead of '-2', consumed by the same POWER/LIFE switch statements as the sibling fixture. Dungeon Guide's printed POWER 1 / LIFE 3 becomes -3 / -1 after the -4/-4 debuff.",
+    "notes": "Branch B (2+ phantasias controlled by the caster), now exercising the card's actual primary use case: the DEFENDING player (player 2) casts Chill to the Bone on the ATTACKING player's (player 1's) attacking ally, mid-combat. Same shape and same fixed engine bug as chill-to-the-bone-low-phantasia-debuff (see its meta.json for the full writeup of ChillToTheBoneResolve's fixed GetZoneObject/ConvertMzToPlayerPerspective perspective handling in GameLogic.php). Player 2 (the defender/caster) additionally controls two Core Fractal (8hqHAU0Xj6, TOKEN,PHANTASIA) cards on their own field -- Core Fractal specifically rather than a more thematic phantasia because it has no dispatch entries of its own that could desync the scripted action sequence. ChillToTheBoneResolve counts ZoneSearch('myField', ['PHANTASIA']) = 2 on the CASTER's (player 2's) own field -- not the attacker's -- and tags the attacker with 'p00ghqhcpb-4' instead of '-2', consumed by the same POWER/LIFE switch statements as the sibling fixture. This also proves the phantasia count is read relative to the caster, independent of the perspective-conversion fix applied to the CombatAttacker lookup. Dungeon Guide's printed POWER 1 / LIFE 3 becomes -3 / -1 after the -4/-4 debuff.",
     "testedCards": [
         "p00ghqhcpb"
     ],
@@ -11,7 +11,8 @@
         "testedCards": ["p00ghqhcpb"],
         "mechanics": ["combat", "status", "condition", "counter"],
         "rulesClauses": [
-            "If you control two or more phantasias, that ally gets -4/-4 instead."
+            "If you control two or more phantasias, that ally gets -4 POWER and -4 LIFE instead.",
+            "Perspective-correctness: the effect resolves correctly when cast by the DEFENDING player (a different player than the attacker), and the phantasia count is read from the caster's (not the attacker's) field."
         ]
     }
 }
