@@ -196,7 +196,11 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                     $tags = SWUBotCardTags($cid);
                     if (in_array('heal', $tags, true) && preg_match('/heal[^.]*from a unit/i', $t) && !preg_match('/base/i', $t)
                         && !array_filter(SWUBotUnits($seat), fn($u) => $u['remaining'] < $u['hp'])) $v -= $W['heal'];
-                    if (in_array('buff', $tags, true) && stripos($t, 'Advantage token') !== false && !SWUBotIsRacing($seat, SWUBotOpponent($seat))) $v -= $W['buff'];
+                    // 'gives-advantage' is the tags-v3 name for this exact clause: v2 folded Advantage into
+                    // `buff`, and keying on `buff` alone silently stopped the deduction the moment the tag split
+                    // (ASH_044 Barriss Offee went from ['buff'] to ['gives-advantage']).
+                    if (array_intersect($tags, ['buff', 'gives-advantage']) && stripos($t, 'Advantage token') !== false
+                        && !SWUBotIsRacing($seat, SWUBotOpponent($seat))) $v -= $W['buff'];
                 }
                 // PROPOSAL 'playsurvivor' (default OFF): prefer a body that SURVIVES the opponent's best attacker.
                 // Control keeps trading fresh units away; a unit that dies to the first swing bought nothing.
@@ -284,13 +288,21 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     }
     // PROPOSAL 'piettcheat' (default OFF): a discounted play-from-hand prompt (Piett's "Play_a_Capital_Ship_unit_(costs_1_less)")
     // plays the card worth most, not the first legal one.
-    if (SWUBotProposalOn('piettcheat') && str_starts_with($tip, 'Play_a_') && str_starts_with($c, 'myHand-')) {
+    // 'piettcheat' (Piett's discounted leader Action) and 'aspectwaiver' (the eight LAW common bases' penalty
+    // waiver) share one problem: a "Play_a_…" prompt otherwise falls through to `0.01 - $index * 1e-6`, the
+    // enumeration-order tiebreak, so the bot spends the unlock on whatever sits lowest in hand. Traced on
+    // Daimyo's Palace: myHand-0 / myHand-4 every time, including the round-5 game that held LAW_044.
+    if ((SWUBotProposalOn('piettcheat') || SWUBotProposalOn('aspectwaiver'))
+        && str_starts_with($tip, 'Play_a_') && str_starts_with($c, 'myHand-')) {
         $o = GetHand($seat)[intval(substr($c, strlen('myHand-')))] ?? null;
         if ($o !== null) return 0.5 + 0.01 * _SWUBotPlayValue($seat, strval($o->CardID ?? ''), $W);
     }
     // Guide: the opening two resources are the resourcing engine's two lowest keep values.
     if ($tip === 'Choose_2_cards_to_resource') return _SWUBotSameSelection($c, SWUBotChooseResourceCards($ctx, 2)) ? 1.0 : -$index * 1e-6;
     if ($effect === 'sacrifice' && $onBoard) {
+        // A token/upgrade COST ("Defeat a friendly token", LAW_019 Alliance Outpost): pay the CHEAPEST one. Without
+        // this every candidate scored null and the first was paid — the Shield on the reported Secretive Sage.
+        if (SWUBotFeatureOn('upgradepicks') && ($uv = _SWUBotUpgradeValue($c)) !== null) return -$uv;
         $v = str_starts_with($c, 'my') ? SWUBotViewForMz($seat, $c) : null;
         return $v === null ? -$index * 1e-6 : -SWUBotSacrificeCost($v);
     }
@@ -312,6 +324,12 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     if ($type === 'TOPDECKSEARCH' && $tip === 'Search_top_cards' && SWUBotFeatureOn('picks')) return _SWUBotSearchScore($seat, $c, $W);
     $hostile = $effect === 'hostile';
     if (($hostile || $effect === 'beneficial') && $onBoard) {
+        // An UPGRADE candidate ("Defeat an upgrade", SEC_163 Outer Rim Constable): whose it is decides the SIGN.
+        // Hostile + enemy, or beneficial + mine, is the good half; the other two are self-harm. A lone friendly
+        // candidate therefore scores below PASS (0), so a "you may" is declined rather than aimed at myself.
+        if (SWUBotFeatureOn('upgradepicks') && ($uv = _SWUBotUpgradeValue($c)) !== null) {
+            return ($hostile === str_starts_with($c, 'their')) ? $uv : -$uv;
+        }
         $s = _SWUBotTargetsScore($seat, $c, $hostile, _SWUBotEffectAmount($tip, strval(($ctx['following'] ?? [])[0] ?? '')), $head, $W);
         // PROPOSAL 'removalready' (default OFF): among enemy targets, prefer a READY one — an exhausted unit cannot
         // attack this round, so removing it saves nothing until the regroup. The same logic as the shipped
@@ -800,6 +818,13 @@ function _SWUBotPlotDeployValue(int $seat, array $W): float {
 // An Action that PLAYS a card from hand (Piett's front side) is worth the best card it plays: a pending choice of
 // hand cards → the best of them; no choice (one legal card auto-resolves) → the cards that left the hand and are now
 // my units (feature 'enablers').
+// Could I already cast this card WITHOUT the action being scored? Proposal 'aspectwaiver' — an action that only
+// lets me do something I could already do has enabled nothing.
+function _SWUBotCardAlreadyPlayable(int $seat, $obj): bool {
+    if (!function_exists('SWUComputePlayCost') || !function_exists('SWUTotalPaymentCapacity')) return false;
+    return intval(SWUComputePlayCost($seat, $obj)) <= SWUTotalPaymentCapacity($seat);
+}
+
 function _SWUBotEnabledPlayValue(int $seat, array $handBefore, array $after, array $W): float {
     $d = $after['decision'] ?? null;
     if ($d !== null) {
@@ -808,15 +833,40 @@ function _SWUBotEnabledPlayValue(int $seat, array $handBefore, array $after, arr
         $best = 0.0;
         foreach ($parts as $p) {
             $o = GetHand($seat)[intval(substr($p, strlen('myHand-')))] ?? null;
-            if ($o !== null) $best = max($best, _SWUBotPlayValue($seat, strval($o->CardID), $W));
+            if ($o === null) continue;
+            // PROPOSAL 'aspectwaiver': only credit a card this action actually UNLOCKS.
+            // ⚠ THIS IS WHY A ONCE-PER-GAME WAIVER GETS BURNED IN ROUND 1. The value is otherwise the best card
+            // the prompt offers whether or not I could already cast it, so LAW_020 Daimyo's Palace scored 0.6 for
+            // "enabling" an on-aspect 2-drop it never needed — above PASS, so it was spent immediately. Traced:
+            // six of eight games burned it in round 1 at capacity 2, and one game reached round 5 holding LAW_044
+            // with the waiver already gone. Reading the cost here is safe: SWUBotLookahead has already RESTORED
+            // the pre-action state, so this is "could I cast it WITHOUT this action?".
+            if (SWUBotProposalOn('aspectwaiver') && _SWUBotCardAlreadyPlayable($seat, $o)) continue;
+            $best = max($best, _SWUBotPlayValue($seat, strval($o->CardID), $W));
         }
+        // Nothing unlocked → the action enables nothing, so it is worth nothing here.
+        if (SWUBotProposalOn('aspectwaiver') && $best <= 0.0) return 0.0;
         return $best + 0.1;
     }
+    // ⚠ THE SAME "did it actually unlock anything?" TEST IS NEEDED HERE. This branch runs when the prompt
+    // AUTO-RESOLVED because there was one legal card — which is the common case for a waiver in the early game,
+    // and exactly the round-1 board that burned it. Without the filter the action is credited for the cheap
+    // on-aspect card it happened to play, which it could have played anyway.
     $gone = $handBefore;
     foreach ((array)($after['hand'] ?? []) as $cid) { $k = array_search($cid, $gone, true); if ($k !== false) unset($gone[$k]); }
     $inPlay = array_map(fn($u) => $u[0], (array)($after['sig']['mine'] ?? []));
+    $alreadyCastable = [];
+    if (SWUBotProposalOn('aspectwaiver')) {
+        foreach (GetHand($seat) as $o) {
+            if ($o !== null && empty($o->removed) && _SWUBotCardAlreadyPlayable($seat, $o)) $alreadyCastable[] = strval($o->CardID ?? '');
+        }
+    }
     $v = 0.0;
-    foreach ($gone as $cid) { if (in_array($cid, $inPlay, true)) $v += _SWUBotPlayValue($seat, $cid, $W); }
+    foreach ($gone as $cid) {
+        if (!in_array($cid, $inPlay, true)) continue;
+        if (in_array($cid, $alreadyCastable, true)) continue;
+        $v += _SWUBotPlayValue($seat, $cid, $W);
+    }
     return $v;
 }
 
@@ -862,6 +912,28 @@ function _SWUBotUniqueCopyHealthy(int $seat, string $cid): bool {
 // What an effect can change, as numbers (Phase 1b part 3). A side's value: each unit's SWUBotUnitValue scaled by the
 // share of its PRINTED HP it has left (so a -2/-2 that leaves a 4/5 at 3 HP counts — the current HP drops with it),
 // 0.8 when exhausted, plus a tenth of its power (a -N/-0 counts a little).
+// An UPGRADE / TOKEN candidate ("myGroundArena-0.u0") → what that attachment is worth, or null when the mzID is not
+// a subcard at all (so callers can fall through to the unit paths unchanged).
+//
+// ⚠ SWUBotViewForMz CANNOT SEE THESE. It resolves with GetZoneObject, which returns null for a ".uN" mzID by design
+// (Core/CoreZoneModifiers.php spells out why: the generic resolver is MZResolveObject, and an un-taught caller gets a
+// clean miss rather than auto-vivifying a bogus key). Without this the whole hostile/sacrifice branch scored null for
+// every upgrade candidate and fell through to the enumeration-order tiebreak — feature 'upgradepicks'.
+//
+// The value is the HOST'S OWN ACCOUNTING, not a new scale: _SWUBotUnitValueV1 already prices a unit's attachments as
+// 1.0 per upgrade plus another 0.5 for a Shield, so a Shield token is 1.5 and any other token 1.0 — the same numbers
+// that decide whether the host is worth killing. A real upgrade CARD is floored at its printed cost instead, because
+// a 3-cost upgrade is worth more than a token and the host's flat +1 undersells it.
+// SOR_T02 / SOR_T01 are the CANONICAL Shield / Experience ids: DoGiveShieldToken and DoGiveExperienceToken always
+// create those two, and every game-logic shield count keys on SOR_T02, so the other sets' printings never reach play.
+function _SWUBotUpgradeValue(string $mz): ?float {
+    if (!function_exists('MZIsSubcardID') || !MZIsSubcardID($mz)) return null;
+    $o = MZResolveObject($mz);
+    if (!is_object($o)) return null;                       // gone, or a host that has left play
+    $cid = strval($o->CardID ?? '');
+    return max(1.0, floatval(intval(CardCost($cid)))) + ($cid === 'SOR_T02' ? 0.5 : 0.0);
+}
+
 function _SWUBotSideValue(int $p): float {
     $v = 0.0;
     foreach (SWUBotUnits($p) as $u) {
@@ -1027,9 +1099,70 @@ function _SWUBotBoardSignature(int $seat): array {
     $opp = SWUBotOpponent($seat);
     $live = fn($z) => count(array_filter($z, fn($o) => $o !== null && empty($o->removed)));
     $units = function ($p) { $o = []; foreach (SWUBotUnits($p) as $v) $o[$v['uid']] = [$v['cardID'], $v['power'], $v['remaining'], $v['ready'], $v['shields'], $v['upgrades']]; ksort($o); return $o; };
+    // ⚠ CREDITS MUST BE IN THE SIGNATURE (feature 'creditvalue'). Without them an Action whose ONLY effect is
+    // "create a Credit token" leaves the signature unchanged, and _SWUBotAbilityValue reads that as "this action
+    // changed nothing" and returns -0.5 — a ramp effect scored as a dud. 'resources' counts the resource ZONE,
+    // which excludes Credit tokens (CR 3.13, see SWUTotalPaymentCapacity).
+    $credits = fn($p) => function_exists('SWUUsableCreditTokenMzIDs') ? count(SWUUsableCreditTokenMzIDs($p)) : 0;
     return ['mine' => $units($seat), 'theirs' => $units($opp), 'bases' => [SWUBaseRemainingHp($seat), SWUBaseRemainingHp($opp)],
             'hands' => [$live(GetHand($seat)), $live(GetHand($opp))], 'resources' => [$live(GetResources($seat)), $live(GetResources($opp))],
+            'credits' => [$credits($seat), $credits($opp)],
             'decks' => [$live(GetDeck($seat)), $live(GetDeck($opp))], 'discards' => [$live(GetDiscard($seat)), $live(GetDiscard($opp))]];
+}
+
+// What N new Credits are worth to $seat RIGHT NOW: the best card in hand they bring from unaffordable to
+// affordable, priced with the ordinary play value and scaled by W['creditRamp']; otherwise a flat ramp value.
+//
+// This is the whole point of the feature — a Credit is not worth a fixed amount, it is worth the thing it buys.
+// On the traced Krennic board (7 capacity, LAW_044 at cost 10) one Credit buys NOTHING and the bot is right to
+// refuse; at 9 capacity the same Credit is the difference between casting a board wipe and not.
+// ⚠ Uses SWUComputePlayCost, so it already accounts for aspect penalties — which is why LAW_044 reads as 10
+// here and not its printed 8. It does NOT know about a base's once-per-game aspect waiver (Daimyo's Palace),
+// so a line that needs the waiver is still invisible; that is the separate "save the unlock" gap.
+function _SWUBotCreditUnlockValue(int $seat, int $credits, array $W): float {
+    if ($credits <= 0) return 0.0;
+    if (!function_exists('SWUTotalPaymentCapacity') || !function_exists('SWUComputePlayCost')) return 0.0;
+    $cap  = SWUTotalPaymentCapacity($seat);
+    $best = 0.0;
+    foreach (GetHand($seat) as $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cost = intval(SWUComputePlayCost($seat, $o));
+        if ($cost <= $cap || $cost > $cap + $credits) continue;   // already affordable, or still out of reach
+        $best = max($best, _SWUBotPlayValue($seat, strval($o->CardID ?? ''), $W));
+    }
+    // ⚠ ZERO WHEN NOTHING IS UNLOCKED, deliberately — no flat "ramp is nice" term. A first version gave one
+    // (0.5 per Credit) and it made the bot pay a unit and an action for a Credit it could not spend: measured over
+    // 24 games vs Ahsoka, base damage dealt fell 7.9 → 5.8 while the win rate stayed 0. A Credit is worth the card
+    // it buys or it is worth nothing.
+    return $best > 0.0 ? ($W['creditRamp'] ?? 0.0) * $best : 0.0;
+}
+
+// Does the card those Credits unlock defeat MY OWN units too? Then the body I pay for the Credit was going to
+// die anyway, so it is not a real cost.
+//
+// This is the insight the traced Krennic board turns on. LAW_044 Single Reactor Ignition is "Defeat ALL units":
+// sacrificing a 3/7 to cast it costs nothing, because the 3/7 is in the blast. Without this the scorer priced the
+// body at its full sacrifice value (4.0, less the 1.0 allowance) and refused — the unlock was worth 1.53 against
+// a 3.0 penalty, so the Action still scored -1.07 and the stack still would not ramp.
+// Uses the tags-v3 friendly-wipe halves, which is exactly what they were split out for.
+function _SWUBotUnlockWipesMyBoard(int $seat, int $credits): bool {
+    if ($credits <= 0 || !function_exists('SWUTotalPaymentCapacity') || !function_exists('SWUComputePlayCost')) return false;
+    $cap = SWUTotalPaymentCapacity($seat);
+    foreach (GetHand($seat) as $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cost = intval(SWUComputePlayCost($seat, $o));
+        if ($cost <= $cap || $cost > $cap + $credits) continue;
+        if (array_intersect(SWUBotCardTags(strval($o->CardID ?? '')), ['damage-wipe-friendly', 'defeat-wipe-friendly'])) return true;
+    }
+    return false;
+}
+
+// How many Credits an Action's own text creates, or 0. Read from the SOURCE text so it is the acting ability
+// that is measured, not the card's other faces.
+function _SWUBotCreditsCreated(string $text): int {
+    if (!preg_match('/create (a|an|\d+|two|three) credit tokens?/i', $text, $m)) return 0;
+    $n = strtolower($m[1]);
+    return match ($n) { 'a', 'an' => 1, 'two' => 2, 'three' => 3, default => max(1, intval($n)) };
 }
 
 // A leader / unit / base Action, judged by applying it with the lookahead (BotLookahead.php):
@@ -1106,7 +1239,29 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
         $lost += $cheapest ?? 0.0;
     }
     $value = $W['ability'];
-    if (SWUBotFeatureOn('enablers')) $value = max($value, _SWUBotEnabledPlayValue($seat, $handBefore, $after, $W));
+    // PROPOSAL 'creditvalue' (default OFF): an Action that RAMPS is worth what the Credit buys. Added to the flat
+    // ability value rather than max()'d with it, because the ramp is IN ADDITION to whatever else the Action does —
+    // and it is what offsets the sacrifice deducted below. Traced refusal before this: -2.6 on the reported board.
+    if (SWUBotProposalOn('creditvalue')) {
+        $n = _SWUBotCreditsCreated(_SWUBotActionSourceText($seat, $action));
+        if ($n > 0) {
+            $value += _SWUBotCreditUnlockValue($seat, $n, $W);
+            // The unlocked card wipes MY board too, so the fodder was already dead — drop the sacrifice penalty.
+            if (_SWUBotUnlockWipesMyBoard($seat, $n)) $lost = min($lost, 0.0);
+        }
+    }
+    if (SWUBotFeatureOn('enablers')) {
+        $enabled = _SWUBotEnabledPlayValue($seat, $handBefore, $after, $W);
+        // PROPOSAL 'aspectwaiver': a base Epic Action whose whole effect is "play a card, ignoring an aspect
+        // penalty" is ONCE PER GAME, so it is worth exactly what it unlocks — with NO flat ability floor. The
+        // floor is what burned it: W['ability'] is 0.40 on any board, which beats PASS, so the waiver was spent in
+        // round 1 in six of eight traced games. Dropping the floor is the whole "save it" mechanism.
+        if (SWUBotProposalOn('aspectwaiver') && SWUBotActionKind($action) === 'base-epic'
+            && preg_match('/ignoring 1 of its/i', strval(CardText(strval((GetBase($seat)[0] ?? null)->CardID ?? ''))))) {
+            return $enabled - max(0.0, $lost - 1.0);
+        }
+        $value = max($value, $enabled);
+    }
     // FEATURE 'buffattack', group p7 (owner report #1052, game 690588): an Action that BUFFS a unit which can still attack
     // this phase is worth what the buff adds to that attack. Flat W['ability'] (0.40) sits BELOW the attack it
     // would improve (W['base'] x power), so the bot attacked with Gungi for 2 and then spent Ahsoka's Action on
