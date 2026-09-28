@@ -11334,8 +11334,10 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             // Deployed FIRST, it plays ASH_050 Morgan Elsbeth back from the discard, her Support attacks
             // with Maul, Maul dies — Morgan slides from index 1 into index 0 and the still-pending
             // Shielded trigger handed HER Maul's token.
-            // ⚠ The sibling `case 'Ambush'` below re-resolves only `if (SWUObjGone(...))`, which would NOT
-            // have caught this: the slot is not empty, it holds somebody else. Compare UIDs.
+            // ⚠ A gone-only re-resolve would NOT have caught this: the slot is not empty, it holds
+            // somebody else. Compare UIDs. The sibling `case 'Ambush'` below carried exactly that
+            // gone-only guard and had the same bug — reachable, and worse (the WRONG UNIT ATTACKED);
+            // fixed 2026-09-28, see sor/Piett_AmbushSurvivesIndexShift.md.
             // If the unit has left play there is nobody to shield, so it fizzles — Shielded gives a token
             // to THIS unit or to none at all.
             $shObj = GetZoneObject($mzID);

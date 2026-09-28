@@ -18,10 +18,12 @@
 #// puts the token on Maul correctly (an earlier attempt in that same game logged "Maul's Shield token
 #// prevented the damage"). Every pre-existing deployed section answers the ordering prompt the other way.
 #//
-#// ⚠ THE FIX MUST NOT BE "re-resolve when the slot is empty". The sibling `case 'Ambush'` re-resolves by
-#// UID only `if (SWUObjGone($ambushObj))` — and here the slot is NOT gone, it holds a DIFFERENT unit, so
-#// that guard would never fire. The check has to be one of IDENTITY: is the object at this mzID still the
-#// unit the trigger was bagged for?
+#// ⚠ THE FIX MUST NOT BE "re-resolve when the slot is empty". Here the slot is NOT gone, it holds a
+#// DIFFERENT unit, so a gone-only guard would never fire. The check has to be one of IDENTITY: is the
+#// object at this mzID still the unit the trigger was bagged for?
+#// The sibling `case 'Ambush'` shipped with exactly that gone-only guard and had the SAME bug — and its
+#// version was worse, because the stranded trigger made the wrong unit ATTACK. Chased down and fixed
+#// 2026-09-28; the repro lives in sor/Piett_AmbushSurvivesIndexShift.md.
 #//
 #// A dead Maul gets no Shield (he is not in play to receive one) — the point is that nobody ELSE does.
 ## GIVEN
