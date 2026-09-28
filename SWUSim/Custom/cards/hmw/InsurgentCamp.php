@@ -7,9 +7,12 @@
 if (!function_exists('Hmw216InsurgentCampReaction')) {
     function Hmw216InsurgentCampReaction(int $player, int $playedUID, int $count): void {
         global $playerID; $playerID = $player;
-        if (SWUFindMzByUID($playedUID) === null) return;
+        $mzPlayed = SWUFindMzByUID($playedUID);
+        if ($mzPlayed === null) return;
         if (_SWUCountBaseUpgrades($player, 'HMW_216') <= 0) return;
-        DecisionQueueController::AddDecision($player, 'YESNO', '-', 1, tooltip: "Defeat_Insurgent_Camp_to_ready_that_unit?");
+        // Name it: "that unit" is the unit whose PLAY triggered this, which the popup hides.
+        DecisionQueueController::AddDecision($player, 'YESNO', SWUPromptHighlightParam($mzPlayed), 1,
+            tooltip: 'Defeat Insurgent Camp to ready ' . SWUPromptUnitLabel($mzPlayed) . '?');
         DecisionQueueController::AddDecision($player, 'CUSTOM', "HMW_216#0|{$playedUID}|{$count}", 1);
     }
 }

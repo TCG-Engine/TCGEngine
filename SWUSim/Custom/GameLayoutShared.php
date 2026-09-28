@@ -1174,6 +1174,37 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     background: var(--accent-strong) !important;
 }
 
+/* ── The YESNO prompt's highlighted target ─────────────────────────────────────
+   A prompt about an already-chosen unit rings that unit on the board, so the player can see WHICH one the
+   question is about (reported 2026-09-28, SEC_010 Dedra Meero: "Deal 2 damage to your own unit?" named
+   nothing, and the popup covers the board). The class is applied by ApplyYesNoDecisionHighlight
+   (Core/UILibraries20260918.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
+   the overlay dim to 15% — a ring under a 50% black wash would not have been visible.
+   ⚠ z-index is DELIBERATELY NOT raised above the overlay (5000). Escaping a full-screen overlay's stacking
+   context depends on every ancestor of the card, and the arenas clip and transform — the lighter dim is
+   what makes this visible, and it cannot be clipped. Keep it that way.
+   The glow is drawn with box-shadow rather than border so it costs no layout: a border would resize the
+   card and shift the whole arena row while the prompt is open.
+   ⚠ TWO BLURRED LAYERS, NO HARD RING — the board's `.has-action` idiom (0 0 14px 3px + 0 0 4px 1px of the
+   accent, see #myBaseSlot.has-action above), scaled up slightly for a card-sized target. The first version
+   here was a crisp `outline: 3px solid` and read as a BORDER, not a selection glow (owner 2026-09-28); the
+   `.swu-home-strip.is-active-turn` note below records the same mistake being made and corrected with a
+   zero-blur `0 0 0 2px` spread, which paints an equally crisp ring. Keep every layer blurred if you retune
+   this — a zero-blur spread is a different visual language from the rest of the board.
+   ⚠ STATIC with a transition, and `rgba(var(--accent-rgb), a)` with NO fallback — both to match the
+   .has-action glows above, which are the board's only other accent glows. A @keyframes pulse and a
+   `var(--accent-rgb, 90,160,255)` fallback were both tried and dropped on 2026-09-28. Each was briefly
+   SUSPECTED of a WebKit-only failure; neither was the cause, and both were dropped for house consistency
+   alone, so do not read a browser bug into their absence. (The actual WebKit oddity was in the probe's
+   reading of one card's computed style, not in the style — see swusim-yesno-prompt-length-xbrowser.mjs.)
+   tokens.css is loaded by NextTurn.php on every board, so the variable is always defined anyway. */
+.yesno-decision-target {
+    border-radius: 5px !important;
+    box-shadow: 0 0 18px 5px rgba(var(--accent-rgb),0.75),
+                0 0 6px 2px rgba(var(--accent-rgb),0.45) !important;
+    transition: box-shadow 0.3s ease !important;
+}
+
 /* ── Mulligan opening-hand preview ─────────────────────────────────────────────
    The mulligan YESNO modal (#yesno-decision-modal) is a fixed full-screen overlay
    that blocks scrolling to the real board, so on mobile the player can't see the

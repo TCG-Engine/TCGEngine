@@ -4953,10 +4953,10 @@ Conversational search (press Enter when the filter bar finds no cards):
       }
 
 function ParseYesNoDecisionPresentation(param) {
-  const presentation = { reviewZone: '', referenceParam: '', yesLabel: 'Yes', noLabel: 'No' };
+  const presentation = { reviewZone: '', referenceParam: '', yesLabel: 'Yes', noLabel: 'No', highlightUID: '' };
   const rawParam = String(param || '');
   const fields = [];
-  const fieldPattern = /(?:^|\|)(review|refs|yes|no):/gi;
+  const fieldPattern = /(?:^|\|)(review|refs|yes|no|hilite):/gi;
   let match;
   while((match = fieldPattern.exec(rawParam)) !== null) {
     fields.push({ key: match[1].toLowerCase(), valueStart: fieldPattern.lastIndex, fieldStart: match.index });
@@ -4973,9 +4973,46 @@ function ParseYesNoDecisionPresentation(param) {
       presentation.yesLabel = value.replace(/_/g, ' ');
     } else if(key === 'no' && value !== '') {
       presentation.noLabel = value.replace(/_/g, ' ');
+    } else if(key === 'hilite' && /^[0-9]+$/.test(value)) {
+      // The UniqueID of the board unit this question is ABOUT (SWUPromptHighlightParam, PHP side).
+      // Digits only — it goes into the same space-delimited decision row as the rest of $param, so
+      // anything laxer here would be accepting input that could not have survived the transport.
+      presentation.highlightUID = value;
     }
   });
   return presentation;
+}
+
+// ── The YESNO prompt's board HIGHLIGHT ────────────────────────────────────────────────────────────
+// A prompt about an already-chosen unit used to be unanswerable: it said "that unit", and the popup's dim
+// covers the board, so there was nothing to look at (reported 2026-09-28 on SEC_010 Dedra Meero). The
+// server now names the unit in the tooltip and passes its UniqueID as "hilite:<uid>"; this rings that unit.
+//
+// ⚠ Lightening the dim is HALF THE FIX, not a cosmetic extra. Pointing at a unit the player still cannot
+// see through a 50% black overlay would fix nothing, which is why the two happen together.
+// The ring needs no teardown of its own on a board re-render: card spans are rebuilt from innerHTML
+// (see the data-mzid/data-uniqueid emission below), so the class cannot outlive the next render. It is
+// still cleared explicitly when the prompt opens and when either button is pressed, for the case where the
+// answer does not trigger a render.
+const YESNO_HIGHLIGHT_CLASS = 'yesno-decision-target';
+
+function ClearYesNoDecisionHighlight() {
+  const prev = document.querySelectorAll('.' + YESNO_HIGHLIGHT_CLASS);
+  for (let i = 0; i < prev.length; i++) prev[i].classList.remove(YESNO_HIGHLIGHT_CLASS);
+}
+
+// Returns true when a unit was actually found and ringed — the caller only lightens the dim on a hit, so a
+// stale UniqueID leaves the normal modal behaviour rather than a bright board with nothing marked on it.
+function ApplyYesNoDecisionHighlight(uniqueID) {
+  ClearYesNoDecisionHighlight();
+  if (!uniqueID) return false;
+  const escaped = String(uniqueID).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  // data-uniqueid is frame-INDEPENDENT, which is why the server sends a UniqueID and not an mzID: this
+  // prompt is usually rendered for the player who did NOT choose the target.
+  const el = document.querySelector("[data-uniqueid='" + escaped + "']");
+  if (!el) return false;
+  el.classList.add(YESNO_HIGHLIGHT_CLASS);
+  return true;
 }
 
 // Show a YES/NO popup for a decision queue entry
@@ -4997,7 +5034,10 @@ function ShowYesNoDecisionPopup(decision, onSubmit) {
   overlay.style.left = '0';
   overlay.style.width = '100vw';
   overlay.style.height = '100vh';
-  overlay.style.background = 'rgba(0,0,0,0.5)';
+  // A highlighted target means the player is being asked to LOOK at the board, so the dim drops from 50%
+  // to 15% — enough to still read as modal, light enough to read the board and see the ring.
+  const highlighted = ApplyYesNoDecisionHighlight(presentation.highlightUID);
+  overlay.style.background = highlighted ? 'rgba(0,0,0,0.15)' : 'rgba(0,0,0,0.5)';
   overlay.style.zIndex = '5000';
   overlay.style.display = 'flex';
   overlay.style.alignItems = 'center';
@@ -5080,6 +5120,7 @@ function ShowYesNoDecisionPopup(decision, onSubmit) {
   yesBtn.style.borderRadius = '5px';
   yesBtn.style.cursor = 'pointer';
   yesBtn.onclick = function() {
+    ClearYesNoDecisionHighlight();
     overlay.remove();
     if (onSubmit) onSubmit('YES');
   };
@@ -5096,6 +5137,7 @@ function ShowYesNoDecisionPopup(decision, onSubmit) {
   noBtn.style.borderRadius = '5px';
   noBtn.style.cursor = 'pointer';
   noBtn.onclick = function() {
+    ClearYesNoDecisionHighlight();
     overlay.remove();
     if (onSubmit) onSubmit('NO');
   };

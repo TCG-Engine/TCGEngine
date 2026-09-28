@@ -1739,6 +1739,36 @@ class SchemaTestRunner {
                 if ($pending === null)
                     $failures[] = "{$line}: expected a pending decision, but none found";
 
+            } elseif (preg_match('/^P(\d+)DECISIONHIGHLIGHT:(.+)$/', $line, $m)) {
+                // The board unit a prompt is pointing AT, asserted by CardID rather than by the raw param.
+                // A prompt about an already-chosen unit carries "hilite:<UniqueID>" so the client can ring it
+                // (SWUPromptHighlightParam / ApplyYesNoDecisionHighlight) — see
+                // SWUSim/Tests/Cases/sec/DedraMeero_NotWastingTime.md. Asserting the CardID keeps the test
+                // readable and stable: a UniqueID is an allocation order, so pinning the literal would make
+                // every section here break the moment a fixture gains a unit.
+                // Expect "-" to assert that NO highlight is sent.
+                $p       = intval($m[1]);
+                $want    = trim($m[2]);
+                $pending = $g->state->pendingDecision($p);
+                if ($pending === null) {
+                    $failures[] = "{$line}: expected a pending decision, but none found";
+                } else {
+                    $param = (string)($pending->Param ?? '');
+                    if ($want === '-') {
+                        if (preg_match('/(?:^|\|)hilite:/', $param))
+                            $failures[] = "{$line}: expected NO highlight, got param '{$param}'";
+                    } elseif (!preg_match('/(?:^|\|)hilite:(\d+)/', $param, $hm)) {
+                        $failures[] = "{$line}: expected a hilite target, got param '{$param}'";
+                    } else {
+                        $mzHi  = SWUFindMzByUID(intval($hm[1]));
+                        $objHi = ($mzHi !== null) ? MZResolveObject($mzHi) : null;
+                        $gotID = is_object($objHi) ? (string)($objHi->CardID ?? '') : '';
+                        if ($gotID !== $want)
+                            $failures[] = "{$line}: expected the highlight to point at {$want}, got "
+                                        . ($gotID !== '' ? $gotID : "UniqueID {$hm[1]} (not on the board)");
+                    }
+                }
+
             } elseif (preg_match('/^P(\d+)DECISIONTOOLTIP:(.+)$/', $line, $m)) {
                 // Exact-match the pending decision's tooltip — lets a test assert an offered pool/amount
                 // that is embedded in the prompt (e.g. "Distribute_up_to_6_Advantage_among_friendly_units")

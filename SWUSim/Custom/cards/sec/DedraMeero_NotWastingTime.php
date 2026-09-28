@@ -38,7 +38,13 @@ $customDQHandlers["SEC_010#0"] = function($player, $parts, $lastDecision) {
     $opp = SWUMzOwner($mz, intval($player));
     if ($opp <= 0 || $opp === intval($player)) { SWUAfterAction(intval($player)); return; }
     $playerID = $opp;   // the unit's controller owns the next decision
-    DecisionQueueController::AddDecision($opp, 'YESNO', '-', 1, tooltip: "Deal_2_damage_to_your_own_unit?");
+    // ⚠ NAME the unit. The caster chose it, so the opponent has no way to know which one is meant, and the
+    // prompt popup covers the board while the question is open (reported 2026-09-28). SWUPromptUnitLabel
+    // adds the live power/HP and any damage, which is what decides whether 2 is lethal.
+    // $o is passed as an OBJECT, not an mzID: $playerID has just been handed to $opp, and the mzID was
+    // captured in the CASTER's frame.
+    DecisionQueueController::AddDecision($opp, 'YESNO', SWUPromptHighlightParam($o), 1,
+        tooltip: 'Deal 2 damage to your ' . SWUPromptUnitLabel($o) . '?');
     DecisionQueueController::AddDecision($opp, 'CUSTOM', "SEC_010#1|" . intval($player) . "|{$uid}", 1);
 };
 

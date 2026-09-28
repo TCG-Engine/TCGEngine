@@ -791,3 +791,65 @@ function SWUDefeatFriendlyTokenByMzID(int $player, string $mz): void {
     SWUDefeatUnit($player, $mz);
 }
 }
+
+// ── PROMPT TARGET LABELS ──────────────────────────────────────────────────────────────────────────
+// A decision prompt that asks about an ALREADY-CHOSEN object must NAME it. Reported 2026-09-28 on SEC_010
+// Dedra Meero: the opponent was asked "Deal 2 damage to your own unit?" with no way to tell WHICH unit,
+// because the prompt popup covers the board — the game state cannot be reviewed while the question is open.
+// So "that unit" / "it" / "your own unit" in a tooltip is a BUG whenever the referent is already fixed.
+// (An unchosen target is different: "deal 2 damage to a unit?" is correct before a pick exists.)
+//
+// Returns the unit's NAME only — "Battlefield Marine".
+// ⚠ NO stats and NO damage, by owner's ruling 2026-09-28. An earlier version appended live power/HP and
+// damage on the theory that "is this lethal" is the real question. The owner's answer is better: HIGHLIGHT
+// the unit on the board (SWUPromptHighlightParam below) and keep the sentence short. The board already
+// shows power/HP/damage badges, so quoting them in the prompt duplicates the board and makes every prompt
+// 2-3x longer — which is what threatened the phone layout in the first place.
+//
+// ⚠ Pass the OBJECT when you already have one. A string is resolved through MZResolveObject (not
+// GetZoneObject, which returns null for a ".uN" subcard by design), and an mzID is FRAME-RELATIVE — a
+// cross-player prompt is built after $playerID has been handed to the other seat, so a string captured in
+// the caster's frame would resolve to the wrong object or to nothing.
+// ⚠ Do NOT hand-roll the space→underscore transport: DecisionQueueController::AddDecision already does it
+// (the tooltip is one field of a space-delimited row). Callers pass plain spaces.
+if (!function_exists('SWUPromptUnitLabel')) {
+function SWUPromptUnitLabel($unit, string $fallback = 'that unit'): string {
+    $o = is_string($unit) ? MZResolveObject($unit) : $unit;
+    if (!is_object($o)) return $fallback;
+    $title = trim((string)CardTitle($o->CardID ?? ''));
+    return $title !== '' ? $title : $fallback;
+}
+}
+
+// The YESNO decision $param that tells the client which board unit to RING while the prompt is open
+// (owner 2026-09-28: "highlight the selected unit on my side, and then prompt just the unit's name").
+// Returns "hilite:<UniqueID>", or "-" when there is nothing to point at.
+//
+// The UniqueID, not an mzID, for two reasons: it is FRAME-INDEPENDENT (the recipient's client renders its
+// own board, and every card span carries data-uniqueid — Core/UILibraries20260918.js), and it is digits.
+// ⚠ That second point is load-bearing: unlike the tooltip, $param is NOT space-guarded by AddDecision (see
+// the note at Core/DecisionQueueController.php:217) because it shares one space-delimited row — a card
+// TITLE in $param would truncate the row. Never put a name here.
+//
+// Parsed by ParseYesNoDecisionPresentation and applied by ShowYesNoDecisionPopup, which also drops the
+// overlay's dim while a highlight is showing — the dim is precisely what stopped the player reading the
+// board, so pointing at a unit the player still cannot see would fix nothing.
+if (!function_exists('SWUPromptHighlightParam')) {
+function SWUPromptHighlightParam($unit): string {
+    $o = is_string($unit) ? MZResolveObject($unit) : $unit;
+    if (!is_object($o)) return '-';
+    $uid = intval($o->UniqueID ?? 0);
+    return $uid > 0 ? "hilite:{$uid}" : '-';
+}
+}
+
+// The same job for a card that is NOT on the board — in a discard pile, a deck, a hand, or already
+// defeated — where there are no live stats to quote. Use this for "Play that unit from your discard for
+// free?" and friends. Six sites hand-rolled `str_replace(' ', '_', CardTitle($id))` before this existed;
+// the underscore step is unnecessary (AddDecision does it) and is deliberately NOT repeated here.
+if (!function_exists('SWUPromptCardName')) {
+function SWUPromptCardName(string $cardID, string $fallback = 'that card'): string {
+    $title = trim((string)CardTitle($cardID));
+    return $title !== '' ? $title : $fallback;
+}
+}

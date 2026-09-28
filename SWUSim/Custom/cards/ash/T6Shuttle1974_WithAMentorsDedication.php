@@ -34,7 +34,9 @@ $customDQHandlers["ASH_109#0"] = function($player, $parts, $lastDecision) {
     // so a unit taken with a control-change effect is judged by who actually controls it now.
     if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1
         && intval($o->Controller ?? 0) === intval($player)) {
-        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "Attack_with_that_unit?");
+        // Name it: "that unit" is the unit chosen in the previous decision, hidden behind the popup.
+        DecisionQueueController::AddDecision($player, "YESNO", SWUPromptHighlightParam($o), 1,
+            tooltip: 'Attack with ' . SWUPromptUnitLabel($o) . '?');
         DecisionQueueController::AddDecision($player, "CUSTOM", "ASH_109#1|{$tuid}", 1);
     } else {
         SWUAfterAction($player);

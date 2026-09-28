@@ -217,3 +217,57 @@ WithP4Base: SOR_021:0
 ## EXPECT
 SEATCOUNT:4
 P3BASEDMG:4
+
+---
+
+# LeaderAction_ThePromptNAMESTheChosenUnit
+#// SEC_010 Dedra Meero — the prompt must NAME the unit the caster chose. Reported 2026-09-28: the opponent
+#// saw only "Deal 2 damage to your own unit?", and because the prompt popup covers the board they could not
+#// review the game state to work out which unit was meant.
+#// NAME ONLY — no stats, no damage (owner 2026-09-28). The board already shows power/HP/damage badges,
+#// and the unit itself is RINGED while the prompt is open (hilite:<UniqueID> in the decision param), so
+#// repeating its stats in the sentence would duplicate the board and lengthen every prompt.
+#// The decision is left PENDING on purpose — answering it would discard the text being asserted.
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:SEC_010;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 2
+WithP1Deck: [SOR_095]
+WithP2GroundArena: SOR_095:1:0
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+P2HASDECISION
+P2DECISIONTOOLTIP:Deal_2_damage_to_your_Battlefield_Marine?
+#// And the prompt POINTS AT it: the decision carries hilite:<UniqueID> so the client rings that unit on
+#// the board and drops the overlay dim to 15%. Without this the name alone still leaves two copies of a
+#// card indistinguishable, and the board unreadable behind the popup.
+P2DECISIONHIGHLIGHT:SOR_095
+
+---
+
+# LeaderAction_ThePromptWordingIgnoresDamage
+#// SEC_010 Dedra Meero — the SAME wording on a DAMAGED unit. Pairs with the section above: the label is
+#// the unit's name and nothing else, so seeding 1 damage must not change the sentence. This is the
+#// negative control for the owner's 2026-09-28 ruling that stats and damage stay OUT of the prompt.
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:SEC_010;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 2
+WithP1Deck: [SOR_095]
+WithP2GroundArena: SOR_095:1:1
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+P2HASDECISION
+P2DECISIONTOOLTIP:Deal_2_damage_to_your_Battlefield_Marine?

@@ -524,11 +524,13 @@ function _SWULaw017FinishDeployed(int $player): void {
 // (its UID is passed via the trigger extra).
 function Ash017Trigger($player, $uid): void {
     global $playerID; $playerID = intval($player);
-    if ($uid <= 0 || SWUFindMzByUID($uid) === null) return;
+    if ($uid <= 0 || ($mzGreef = SWUFindMzByUID($uid)) === null) return;
     // Checked HERE, at resolution: a second Greef trigger bagged while he was ready (two units from one
     // play, or a unit played inside another's When Played) must not offer an exhaust he can no longer pay.
     if (!_SWULeaderReadyUndeployed(intval($player), 'ASH_017')) return;
-    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Greef_to_give_that_unit_an_Advantage_token?");
+    // Name it: "that unit" is the just-played/created unit, hidden behind the prompt popup.
+    DecisionQueueController::AddDecision(intval($player), "YESNO", SWUPromptHighlightParam($mzGreef), 1,
+        tooltip: 'Exhaust Greef to give ' . SWUPromptUnitLabel($mzGreef) . ' an Advantage token?');
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_017#0|{$uid}", 1);
 }
 
@@ -560,7 +562,10 @@ function Ash005Trigger($player, $mzID): void {
     $self = GetZoneObject($mzID);
     if (SWUObjGone($self)) return;   // attacker left play → nothing to heal
     if (intval($self->Damage ?? 0) <= 0) return;            // no damage on it → no benefit, skip the offer
-    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Luke_to_heal_1_from_that_unit?");
+    // Name it: "that unit" is the unit whose attack just ended; its damage is in the label, which is
+    // exactly what decides whether healing 1 is worth exhausting Luke.
+    DecisionQueueController::AddDecision(intval($player), "YESNO", SWUPromptHighlightParam($self), 1,
+        tooltip: 'Exhaust Luke to heal 1 from ' . SWUPromptUnitLabel($self) . '?');
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_005#0|{$mzID}", 1);
 }
 
