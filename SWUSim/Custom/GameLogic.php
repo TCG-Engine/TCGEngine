@@ -12224,8 +12224,17 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
         // batch he was alive for. SWUSimulDefeatBegin/End open a window that freezes the seat counts for
         // the whole effect; outside such a window nothing is cached and each defeat is judged on its own.
         if (!empty($GLOBALS['gSimulDefeatWindow'])) {
-            if (!isset($GLOBALS['gSimulDefeatSidious'])) $GLOBALS['gSimulDefeatSidious'] = $sidiousPerSeat;
-            $sidiousPerSeat = $GLOBALS['gSimulDefeatSidious'];
+            // ⚠ Inside the window take the PRE-EFFECT SNAPSHOT directly — the same source
+            // _SWUSimulObserverCount uses for every other observer — instead of caching this call's
+            // live-scan + add-back. That pair compares mzIDs across FRAMES: $sidiousLiveMz is keyed in each
+            // seat's OWN frame ("myGroundArena-0") while $d0['mzID'] is in the ACTING player's
+            // ("theirGroundArena-0"), so on a cross-seat effect defeat the guard at $sidiousLiveMz never
+            // matches, the add-back fires on top of a live scan that already found him, and the doubled
+            // count gets frozen for the whole wipe. Measured on TWI_078 (P1 wipes P2's Sidious + 2 units):
+            // 6 droids instead of 3. The snapshot is frame-free, so it cannot drift this way.
+            foreach ($sidiousPerSeat as $sp1 => $_ignored) {
+                $sidiousPerSeat[$sp1] = intval($GLOBALS['gSimulDefeatUnits'][$sp1]['TS26_13'] ?? 0);
+            }
         }
     }
     foreach ($leftCards as $d) {

@@ -14,7 +14,14 @@ $customDQHandlers["LOF_039#0"] = function($player, $parts, $lastDecision) {
     UseTheForce(intval($player));
     global $playerID; $playerID = intval($player);
     // Drain loop: re-scan after each defeat (indices shift). No UID snapshot — avoids a UID collision
-    // between a played unit and GIVEN test fixtures. No trigger here heals, so sequential == simultaneous.
+    // between a played unit and GIVEN test fixtures.
+    // ⚠ The defeats ARE simultaneous and sequential is NOT equivalent, which an earlier comment here
+    // claimed: a "when an enemy unit is defeated" observer that qualifies for this wipe itself (ASH_052
+    // Chimaera at 3 or less remaining, SOR_002 Iden Versio, TS26_13 Darth Sidious) is drained out of play
+    // before its co-victims' defeats are collected, and each defeat arrives as its own single-element
+    // batch — so it stops counting partway through its own batch. The window freezes the pre-effect board
+    // the whole wipe is judged against. See SWUSimulDefeatBegin (GameLogic.php).
+    SWUSimulDefeatBegin();
     $changed = true;
     while ($changed) {
         $changed = false;
@@ -32,4 +39,5 @@ $customDQHandlers["LOF_039#0"] = function($player, $parts, $lastDecision) {
             }
         }
     }
+    SWUSimulDefeatEnd();
 };

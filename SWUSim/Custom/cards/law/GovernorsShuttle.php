@@ -36,12 +36,19 @@ if (!function_exists('_SWULaw099Ask')) {
 if (!function_exists('_SWULaw099Defeat')) {
     function _SWULaw099Defeat(int $caster, array $uids): void {
         global $playerID; $playerID = $caster;
+        // Both players' picks are defeated SIMULTANEOUSLY (see the note above), but the loop walks them one
+        // at a time, so each defeat arrives as its own single-element batch. A "when an enemy unit is
+        // defeated" observer that was itself one of the two picks (ASH_052 Chimaera, SOR_002 Iden Versio,
+        // TS26_13 Darth Sidious) is removed before its co-victim's defeat is collected and stops counting.
+        // The window judges the whole pair against the pre-effect board. See SWUSimulDefeatBegin.
+        SWUSimulDefeatBegin();
         foreach ($uids as $uid) {
             $uid = intval($uid);
             if ($uid <= 0) continue;
             $mz = SWUFindMzByUID($uid);
             if ($mz !== null) SWUDefeatUnit($caster, $mz);
         }
+        SWUSimulDefeatEnd();
     }
 }
 
