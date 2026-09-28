@@ -358,6 +358,24 @@ function NegateCardActivation($player, $targetMZ, $destinationMode = "default") 
     return true;
 }
 
+/**
+ * Re-arm PostResolutionCheck for $player after a deferred "negate unless X" decision
+ * (pendingNegateTarget) has just been settled by whichever controller answered it.
+ *
+ * PostResolutionCheck guards itself against running while pendingNegateTarget is set (it
+ * would otherwise resolve the next EffectStack entry before the answer determining that
+ * entry's own fate — negated-and-banished vs. left to resolve normally — has come back from
+ * the OTHER player's queue, which drains independently and is not visible to $player's
+ * ExecuteStaticMethods loop). Once the Resolve/PayChoice handler clears pendingNegateTarget,
+ * it must call this to actually continue $player's EffectStack processing — otherwise it
+ * silently stalls forever, since the guarded-out PostResolutionCheck was already popped and
+ * nothing else re-queues it.
+ */
+function ResumeEffectStackPostResolutionCheck($player) {
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PostResolutionCheck", 200);
+    (new DecisionQueueController())->ExecuteStaticMethods($player, "-");
+}
+
 function QueueNegateActivation($player, $filters = [], $destinationMode = "default", $payAmount = -1, $handler = "NegateActivationResolve") {
     $targets = GetEffectStackActivationTargets($player, $filters);
     if(empty($targets)) return;
@@ -497,6 +515,7 @@ $customDQHandlers["NegateActivationPayChoice"] = function($payingPlayer, $parts,
     DecisionQueueController::ClearVariable("pendingNegateTarget");
     DecisionQueueController::ClearVariable("pendingNegateDestination");
     DecisionQueueController::ClearVariable("pendingNegatePayAmount");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["NegateActivationReserveSelected"] = function($payingPlayer, $parts, $lastDecision) {
@@ -511,6 +530,7 @@ $customDQHandlers["NegateActivationReserveSelected"] = function($payingPlayer, $
     DecisionQueueController::ClearVariable("pendingNegateTarget");
     DecisionQueueController::ClearVariable("pendingNegateDestination");
     DecisionQueueController::ClearVariable("pendingNegatePayAmount");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["NegateActivationTetherChoice"] = function($player, $parts, $lastDecision) {
@@ -533,6 +553,7 @@ $customDQHandlers["NegateActivationTetherResolve"] = function($controller, $part
         NegateCardActivation($negatingPlayer, $targetMZ, "default");
     }
     DecisionQueueController::ClearVariable("pendingNegateTarget");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["NegateActivationDrawChoice"] = function($player, $parts, $lastDecision) {
@@ -554,6 +575,7 @@ $customDQHandlers["NegateActivationDrawResolve"] = function($controller, $parts,
         NegateCardActivation($negatingPlayer, $targetMZ, "banish");
     }
     DecisionQueueController::ClearVariable("pendingNegateTarget");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["NegateActivationSuffocatingChoice"] = function($player, $parts, $lastDecision) {
@@ -581,6 +603,7 @@ $customDQHandlers["NegateActivationSuffocatingResolve"] = function($controller, 
         NegateCardActivation($negatingPlayer, $targetMZ, "default");
     }
     DecisionQueueController::ClearVariable("pendingNegateTarget");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["BlossomingDenialFinal"] = function($player, $parts, $lastDecision) {
@@ -633,6 +656,7 @@ $customDQHandlers["ImperialAccordPayChoice"] = function($payingPlayer, $parts, $
     DecisionQueueController::ClearVariable("pendingNegateTarget");
     DecisionQueueController::ClearVariable("pendingNegateDestination");
     DecisionQueueController::ClearVariable("pendingNegatePayAmount");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["ImperialAccordReserveSelected"] = function($payingPlayer, $parts, $lastDecision) {
@@ -649,6 +673,7 @@ $customDQHandlers["ImperialAccordReserveSelected"] = function($payingPlayer, $pa
     DecisionQueueController::ClearVariable("pendingNegateTarget");
     DecisionQueueController::ClearVariable("pendingNegateDestination");
     DecisionQueueController::ClearVariable("pendingNegatePayAmount");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["ImperialAccordMayBanish"] = function($player, $parts, $lastDecision) {
@@ -1207,9 +1232,22 @@ $customDQHandlers["EffectStackOpponentResponse"] = function($player, $parts, $la
  * If stack is non-empty, grant Opportunity (turn player gets priority first after resolution).
  * If stack is empty, check for a pending Opportunity window (combat/ability) and re-grant it.
  *
- * Uses high block (200) so it runs after any ability decisions (block 1-100).
+ * Uses high block (200) so it runs after any ability decisions queued on THIS SAME player's
+ * queue (block 1-100). That's not enough on its own for a "negate unless X" effect
+ * (NegateActivationDrawChoice/PayChoice/TetherChoice/SuffocatingChoice, ImperialAccordNegate):
+ * those defer the actual YES/NO to the TARGET's controller, which is queued on a different
+ * player's queue and drains independently — invisible to this player's ExecuteStaticMethods
+ * loop, which would otherwise fall straight through to resolving the next EffectStack entry
+ * (deciding the very target's fate the deferred answer was supposed to control) before that
+ * answer ever comes back. So also bail here while pendingNegateTarget is set; the
+ * Resolve/PayChoice handler that eventually clears it calls ResumeEffectStackPostResolutionCheck()
+ * to pick this back up once the target's fate is actually settled.
  */
 $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecision) {
+    $pendingNegateTarget = DecisionQueueController::GetVariable("pendingNegateTarget");
+    if($pendingNegateTarget !== null && $pendingNegateTarget !== "") {
+        return;
+    }
     DecisionQueueController::StoreVariable("isImbued", "NO");
     ClearDamageSourcesDealtThisResolution();
     ReconcileEffectStackSourceZones();
