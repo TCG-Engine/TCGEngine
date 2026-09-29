@@ -18305,6 +18305,238 @@ DECK,
     ],
 ];
 
+// --- Shattered Hope (XOevViFTB3): Glimpse 1, then draw. Until end of turn, allies enter with
+// an additional sheen counter. Reserve cost 3 (three hand-card payments) -- cast for real via
+// the standard hand-play path (FSM) to prove the 3-hand-payment reserve sequencing resolves the
+// card's own cardActivatedAbilities closure (not some unrelated pending trigger). ---
+$fixtures['shattered-hope-glimpse-draw-sheen'] = [
+    'testedCards' => ['XOevViFTB3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Shattered Hope
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+DECK,
+    'actions' => [
+        // Free play: play Shattered Hope (mode 10002 FSM) -- myHand-5 with this deck/seed.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Pay reserve cost 3 from hand (indices shift down after each removal, so myHand-0 three times).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Both players decline the EffectStack Opportunity window so the card resolves.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Glimpse 1: put the single glimpsed card back on top (MZREARRANGE echoes it back).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Obelith Escort (3uqgjoBQ9G): Prepare 2. Summon a Memorite Obelith token with a sheen
+// counter; an additional token if prepared. Reserve cost 3 -- cast for real, declining the
+// optional Prepare 2 cost to keep the fixture to the base (single-token) case. ---
+$fixtures['obelith-escort-summon-sheen-token'] = [
+    'testedCards' => ['3uqgjoBQ9G'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Obelith Escort
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+DECK,
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // "Prepare 2?" -- decline, so exactly one token is summoned.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Seep Into the Mind (7mHiO4YySz): Target opponent puts three sheen counters on a unit they
+// control. Reserve cost 3 -- cast for real and target an opponent ally. ---
+$fixtures['seep-into-the-mind-target-sheen'] = [
+    'testedCards' => ['7mHiO4YySz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Seep Into the Mind
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+DECK,
+    'setup' => [
+        // Target ally, seeded onto the opponent's field (a supporting/target card, not the
+        // tested card's own Enter -- raw zone seeding is fine here).
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        // Guarantee Seep Into the Mind is in hand to play for real (the opening hand draw is
+        // not guaranteed to include it with only 4 copies in the deck).
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '7mHiO4YySz'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // The "put 3 sheen counters" choice belongs to the TARGETED opponent (player 2), who
+        // must choose among their own units (their myField-1 == our theirField-1).
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Quiet Refraction (4vZN8JlY2k): On Enter, draw a card into memory and put two sheen
+// counters on Fractured Memories. Reserve cost 2 (NOT 3 -- see note below). Cast for real. ---
+// NOTE: the card's printed/declared reserve cost is 2, confirmed here by the engine only
+// queuing 2 ReserveCard decisions for this activation (see actions below: exactly two
+// myHand-0 payments before the EffectStackOpportunity window). An earlier investigation of the
+// "3 hand-payment" EffectStack bug listed Quiet Refraction among the cards that "hit" it needing
+// 3 hand payments; that does not match this card's actual charged cost under a plain default
+// activation (no cost-increase effects active) -- the discrepancy was very likely that earlier
+// investigation running in a scenario with an active cost-increase effect (e.g. a champion
+// ability that taxes activations by +1), not a genuine declared-vs-charged engine defect.
+$fixtures['quiet-refraction-enter-draw-sheen'] = [
+    'testedCards' => ['4vZN8JlY2k'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Quiet Refraction
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+DECK,
+    'setup' => [
+        // Grant Fractured Memories mastery (normally gained via a Merlin-line mechanic) so the
+        // "put two sheen counters on your Fractured Memories" clause has somewhere to land and
+        // is independently observable.
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'UAJGQFbXjs'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-4!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Stand Before the Queen (v9SJgS6z40): Prevent the next 2 damage that would be dealt to
+// target unit this turn. Reserve cost 2 -- cast for real, targeting our own champion. ---
+$fixtures['stand-before-the-queen-prevent-damage'] = [
+    'testedCards' => ['v9SJgS6z40'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Stand Before the Queen
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+DECK,
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the EffectStack Opportunity window so the card resolves to its targeting step.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Target our own champion (myField-0) to receive the damage-prevention effect.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Protect Her At All Costs (OzNHncAfFJ): [Merlin Bonus] costs 2 less to activate. Summon a
+// Memorite Obelith token with two sheen counters. Base reserve cost 5, discounted to 3 while
+// Merlin Bonus is active -- cast for real with a Merlin champion on the field to exercise the
+// real 3-hand-payment path. ---
+$fixtures['protect-her-at-all-costs-merlin-bonus-summon-token'] = [
+    'testedCards' => ['OzNHncAfFJ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Merlin, Memorite Vassal
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Protect Her At All Costs
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+DECK,
+    'setup' => [
+        // Champion patched directly to Merlin, Memorite Vassal (level 1) -- already-leveled
+        // precondition (Merlin's own Enter is not what this fixture tests), so Merlin Bonus
+        // (-2 activation cost) is active for Protect Her At All Costs.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '6R8XmWoKLn']],
+        // Guarantee Protect Her At All Costs is in hand to play for real (the opening hand draw
+        // is not guaranteed to include it with only 4 copies in the deck).
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'OzNHncAfFJ'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

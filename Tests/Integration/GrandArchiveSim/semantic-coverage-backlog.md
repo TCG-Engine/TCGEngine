@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **540**
+Cards linked to an existing fixture: **546**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1950**
+Implemented cards still needing semantic coverage: **1944**
 
 ## Mechanic groups
 
@@ -33,11 +33,9 @@ Implemented cards still needing semantic coverage: **1950**
 | Gearstride Gloves (`lcb6jhxctx`) | REGALIA,ITEM | 2 | cost, zone-movement, counter, trigger | Tristan Re:Collection, Shadowdancer | — |
 | Leporine Masque (`pgysz2zfji`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, counter | Ciel, Mirage's Grave | — |
 | Nocturne's Oblivion (`1a5zdqgydt`) | ACTION | 2 | cost, targeting, zone-movement, condition | Ciel, Mirage's Grave | — |
-| Protect Her At All Costs (`OzNHncAfFJ`) | ACTION | 2 | cost, targeting, token, combat | Merlin Re:Collection, Brilliant Vestige | — |
 | Ranger Boots (`fbs9qzo3f6`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, status, trigger | Diana, Moonpiercer | — |
 | Lustrous Slime (`ejvddohjdu`) | ALLY | 2 | recover, counter, trigger | Silvie Re:Collection, Slime Sovereign | — |
 | Pleiades, Celestial Genesis (`rsps1qnzfl`) | REGALIA,WEAPON | 2 | token, combat, trigger | Diana, Moonpiercer | — |
-| Shattered Hope (`XOevViFTB3`) | ACTION | 2 | cost, draw-discard, counter | Merlin Re:Collection, Brilliant Vestige | — |
 | Shifting Mirage (`hmjr33ijq6`) | ACTION | 2 | cost, status, token | Tristan Re:Collection, Shadowdancer | — |
 | Spirit Blade: Terminus (`XsxmnGZxKz`) | ATTACK | 2 | zone-movement, combat, condition | Merlin Re:Collection, Brilliant Vestige | — |
 | Green Slime (`zgcxyky280`) | ALLY | 2 | targeting, trigger | Silvie Re:Collection, Slime Sovereign | — |
@@ -74,5 +72,7 @@ Implemented cards still needing semantic coverage: **1950**
 | Shadeblood Coating (`nd8dy77ikm`) | REGALIA,ITEM | 1 | targeting, zone-movement, counter, combat | Tristan Re:Collection, Shadowdancer | — |
 | Sirocco Operative (`t7ru41pzgg`) | ALLY | 1 | draw-discard, counter, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
 | Snow Fairy (`4s0c9XgLg7`) | ALLY | 1 | targeting, status, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
-| Stand Before the Queen (`v9SJgS6z40`) | ACTION | 1 | targeting, damage, prevention, status | Merlin Re:Collection, Brilliant Vestige | — |
 | Tempered Steel (`vyRjDql0TR`) | ACTION | 1 | cost, targeting, zone-movement, counter | Ciel, Mirage's Grave | — |
+| Tristan, Underhanded (`bjlwabipl6`) | CHAMPION | 1 | zone-movement, counter, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
+| Whimsy's Warden (`cworak5y4y`) | ALLY | 1 | status, combat, trigger, condition | Ciel, Mirage's Grave | — |
+| Baby Green Slime (`cqadnk9iz0`) | ALLY | 1 | targeting, zone-movement, trigger | Silvie Re:Collection, Slime Sovereign | — |

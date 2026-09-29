@@ -1,0 +1,16 @@
+{
+    "name": "quiet-refraction-enter-draw-sheen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T14:46:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4vZN8JlY2k"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["4vZN8JlY2k"],
+        "mechanics": ["draw-discard", "counter", "trigger"],
+        "rulesClauses": [
+            "On Enter: Draw a card into your memory. Put two sheen counters on your Fractured Memories."
+        ]
+    }
+}

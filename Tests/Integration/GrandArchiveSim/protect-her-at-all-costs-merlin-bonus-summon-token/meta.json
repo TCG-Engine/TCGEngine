@@ -1,0 +1,17 @@
+{
+    "name": "protect-her-at-all-costs-merlin-bonus-summon-token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T14:44:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OzNHncAfFJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["OzNHncAfFJ"],
+        "mechanics": ["cost", "targeting", "token", "combat"],
+        "rulesClauses": [
+            "[Merlin Bonus] This card costs 2 less to activate.",
+            "Summon a Memorite Obelith token with two sheen counters on it. You may change the target of an attack to that token."
+        ]
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "obelith-escort-summon-sheen-token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T14:42:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3uqgjoBQ9G"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["3uqgjoBQ9G"],
+        "mechanics": ["cost", "token", "counter", "condition"],
+        "rulesClauses": [
+            "Summon a Memorite Obelith token with a sheen counter on it. If CARDNAME was prepared, summon an additional Memorite Obelith token with a sheen counter on it."
+        ]
+    }
+}

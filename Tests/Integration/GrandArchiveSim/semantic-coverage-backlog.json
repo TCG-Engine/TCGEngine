@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-29T14:15:31+00:00",
+    "generatedAt": "2026-09-29T14:49:27+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 540,
+        "cardsWithExistingFixtures": 546,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1950,
+        "cardsNeedingSemanticCoverage": 1944,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -173,26 +173,6 @@
             "priority": 124
         },
         {
-            "cardId": "OzNHncAfFJ",
-            "name": "Protect Her At All Costs",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "token",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
             "cardId": "fbs9qzo3f6",
             "name": "Ranger Boots",
             "type": "REGALIA,ITEM",
@@ -246,25 +226,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "XOevViFTB3",
-            "name": "Shattered Hope",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": true,
             "priority": 123
@@ -994,26 +955,6 @@
             "priority": 114
         },
         {
-            "cardId": "v9SJgS6z40",
-            "name": "Stand Before the Queen",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "vyRjDql0TR",
             "name": "Tempered Steel",
             "type": "ACTION",
@@ -1283,25 +1224,6 @@
             "priority": 113
         },
         {
-            "cardId": "3uqgjoBQ9G",
-            "name": "Obelith Escort",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "1bxh5xz2uz",
             "name": "Reverse Affliction",
             "type": "ACTION",
@@ -1335,25 +1257,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "7mHiO4YySz",
-            "name": "Seep Into the Mind",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1733,24 +1636,6 @@
             "mechanics": [
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "4vZN8JlY2k",
-            "name": "Quiet Refraction",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -34338,6 +34223,30 @@
             "priority": 144
         },
         {
+            "cardId": "OzNHncAfFJ",
+            "name": "Protect Her At All Costs",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "token",
+                "combat"
+            ],
+            "existingFixtures": [
+                "protect-her-at-all-costs-merlin-bonus-summon-token"
+            ],
+            "semanticFixtures": [
+                "protect-her-at-all-costs-merlin-bonus-summon-token"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "MskPCrbv0L",
             "name": "Samaritan's Reach",
             "type": "ACTION",
@@ -34928,6 +34837,29 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
+            "cardId": "XOevViFTB3",
+            "name": "Shattered Hope",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "shattered-hope-glimpse-draw-sheen"
+            ],
+            "semanticFixtures": [
+                "shattered-hope-glimpse-draw-sheen"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": false,
             "priority": 143
@@ -38467,6 +38399,30 @@
             "priority": 134
         },
         {
+            "cardId": "v9SJgS6z40",
+            "name": "Stand Before the Queen",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "status"
+            ],
+            "existingFixtures": [
+                "stand-before-the-queen-prevent-damage"
+            ],
+            "semanticFixtures": [
+                "stand-before-the-queen-prevent-damage"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "ShQkyQMBCT",
             "name": "Starlit Apothecary",
             "type": "UNIQUE,DOMAIN",
@@ -40188,6 +40144,29 @@
             "priority": 133
         },
         {
+            "cardId": "3uqgjoBQ9G",
+            "name": "Obelith Escort",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "obelith-escort-summon-sheen-token"
+            ],
+            "semanticFixtures": [
+                "obelith-escort-summon-sheen-token"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "ff8jchay4s",
             "name": "Obscuring Threads",
             "type": "ACTION",
@@ -40701,6 +40680,29 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "7mHiO4YySz",
+            "name": "Seep Into the Mind",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "seep-into-the-mind-target-sheen"
+            ],
+            "semanticFixtures": [
+                "seep-into-the-mind-target-sheen"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42967,6 +42969,28 @@
             ],
             "semanticFixtures": [
                 "proto-key-crest-charge3-recover"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "4vZN8JlY2k",
+            "name": "Quiet Refraction",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "quiet-refraction-enter-draw-sheen"
+            ],
+            "semanticFixtures": [
+                "quiet-refraction-enter-draw-sheen"
             ],
             "starterDecks": [
                 "Merlin Re:Collection, Brilliant Vestige"
