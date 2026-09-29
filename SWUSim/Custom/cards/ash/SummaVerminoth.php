@@ -14,8 +14,15 @@ $onAttackAbilities["ASH_083:0"] = function($player, $mzID) {
             if ($u !== null && empty($u->removed) && intval($u->UniqueID ?? -1) !== $selfUID) $uids[] = intval($u->UniqueID);
         }
     }
+    // One simultaneous defeat, walked a unit at a time — so "when an enemy unit is defeated" observers
+    // caught in the wipe (ASH_052 Chimaera, SOR_002 Iden Versio, TS26_13 Darth Sidious) must be judged
+    // against the pre-effect board. Without the window each defeat is its own single-element batch and an
+    // observer removed early stops counting. "All OTHER space units" means the wiper survives while the
+    // observer does not, which is exactly the case a live count gets wrong. See SWUSimulDefeatBegin.
+    SWUSimulDefeatBegin();
     foreach ($uids as $uid) {
         $mz = SWUFindMzByUID($uid);
         if ($mz !== null) SWUDefeatUnit(intval($player), $mz);
     }
+    SWUSimulDefeatEnd();
 };

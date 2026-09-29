@@ -1111,7 +1111,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* The Force token is rendered INSIDE the base card (top-right corner) by the
        core Card() renderer, driven by the base's HasForce virtual — same path as the
-       Epic-Action-Used token. See Core/UILibraries20260918.js. */
+       Epic-Action-Used token. See Core/UILibraries20260928.js. */
 
     /* ── Counter badges below the frame animations ───────────────────────────────
        The shared CreateCountersHTML hardcodes z-index:1100 on every counter badge,
@@ -1180,6 +1180,48 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     #selection-message:has(#inline-multi-confirm) {
         bottom: auto !important;
     }
+
+    /* ── YES/NO prompts sit at the BOTTOM CENTRE OF THE BOARD ──────────────────────
+       Owner 2026-09-28. Dead-centre put the panel on top of the very cards the question is about —
+       including the unit the prompt now RINGS (.yesno-decision-target, GameLayoutShared.php). Bottom
+       anchoring above the hand band is the idiom #selection-message already uses just above.
+       ⚠ Centred on the BOARD, not the viewport: translateX(-50%) centres the panel on itself, and the
+       second term shifts it left by HALF the right-hand chat/log sidebar so the result sits in the middle
+       of the play area. Same correction as the mulligan modal's rule in GameLayoutShared.php.
+       --swu-sidebar-w is 0px below 800px, so narrow screens need no special case, and the 0px fallback
+       covers any context that never defined it.
+       ⚠ position:absolute deliberately takes the panel OUT of the overlay's flex centring; the overlay is
+       position:fixed, so it is the containing block. The overlay keeps its own dim, so the lightened dim
+       that makes the ring visible is unaffected.
+       ⚠ TWO variants are excluded, both because they are a different presentation rather than a prompt
+       about a board unit: the MULLIGAN modal (opening-hand preview, and it has its own centring rule) and
+       the card-REFERENCE modal, which sets an inline width of min(94vw,1120px) for its preview row that a
+       max-width here would squash.
+       Mobile (GameLayoutMobile.php) is untouched: it defines neither var and is a separate layout. */
+    #yesno-decision-modal:not([data-swu-mulligan]):not(.yesno-decision-has-references)
+        > .yesno-decision-panel {
+        position: absolute !important;
+        top: auto !important;
+        left: 50% !important;
+        bottom: calc(var(--swu-hand-band-h) + 12px) !important;
+        transform: translateX(calc(-50% - var(--swu-sidebar-w, 0px) / 2)) !important;
+        max-width: min(720px, calc(100vw - var(--swu-sidebar-w, 0px) - 32px)) !important;
+        box-sizing: border-box !important;
+    }
+
+    /* The top-deck search popup centres on the BOARD too (owner 2026-09-28). Same sidebar correction as
+       the YES/NO panel above, but it keeps its VERTICAL centring: it shows card art at 180px and has no
+       room to sit above the hand band. Its minimise control (Core/UILibraries20260928.js) is what answers
+       "let me read the board first" here, rather than moving it out of the way permanently.
+       The overlay stays flex-centred; only the box is shifted, so nothing about its layout changes. */
+    #topdecksearch-panel > .topdecksearch-box {
+        transform: translateX(calc(-1 * var(--swu-sidebar-w, 0px) / 2)) !important;
+        max-width: min(92vw, calc(100vw - var(--swu-sidebar-w, 0px) - 32px)) !important;
+        box-sizing: border-box !important;
+    }
+    /* Minimised, the pill must not be dimmed by its own overlay or block the board underneath — the
+       overlay's background and pointer-events are cleared in JS; this only keeps the pill clickable. */
+    #topdecksearch-panel.is-minimized > .topdecksearch-box { pointer-events: auto !important; }
     .swu-resource-panel.is-open { display: block; }
     .swu-resource-panel::before {
         content: "RESOURCES"; position: absolute; top: 9px; left: 10px;

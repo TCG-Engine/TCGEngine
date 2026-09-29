@@ -222,11 +222,18 @@ $c = $botCtx('control');
 $check(_SWUBotTooltipEffect($c['tooltip']) === 'sacrifice' && $ids($c['actions']) === ['myGroundArena-0', 'myGroundArena-1'], 'fixture: the sacrifice choice');
 $check(strval(SWUBotFallbackChoose($c)['cardID']) === 'myGroundArena-1', 'the cheap When Defeated unit is the one sacrificed');
 
-// An OPTIONAL sacrifice behind neutral wording: Chimaera (ASH_052) "You may choose a friendly unit and an
-// enemy non-leader unit. If you do, defeat those units." prompts only "Choose_a_friendly_unit". Giving up
-// a 4-cost unit (or the Chimaera itself) is declined; cheap When Defeated fodder is taken. SOR_060 Distant
-// Patroller (2 cost, space, When Defeated: give a Shield) nets 0.5 — between declining (−1) and neutral (0),
-// so the case pins both the −1 PASS and the When Defeated credit.
+// An OPTIONAL sacrifice: Chimaera (ASH_052) "You may choose a friendly unit and an enemy non-leader unit. If
+// you do, defeat those units." Giving up a 4-cost unit (or the Chimaera itself) is declined; cheap When
+// Defeated fodder is taken. SOR_060 Distant Patroller (2 cost, space, When Defeated: give a Shield) nets 0.5 —
+// between declining (−1) and neutral (0), so the case pins both the −1 PASS and the When Defeated credit.
+//
+// ⚠ THIS SECTION NO LONGER COVERS *NEUTRAL* WORDING. It used to: the prompt was the contentless
+// "Choose_a_friendly_unit", which reached BotFallback's `$effect === ''` fallback (~line 262) where the CARD'S
+// printed text decides. The contentless-prompt fix (2026-09-27) replaced it with the card's own question,
+// "Defeat_a_friendly_and_an_enemy_unit?", which _SWUBotTooltipEffect now reads as 'sacrifice' directly — so the
+// behaviour below is pinned through a different path than when it was written, and the neutral-prompt path lost
+// its only live fixture. Re-aimed rather than deleted (owner call 2026-09-28); if that fallback needs coverage
+// again it wants a card whose prompt matches none of the hostile/beneficial/sacrifice wordings.
 $chimaera = function (string $mine, bool $space) {
     return function ($b) use ($mine, $space) {
         $b->MyLeader('SOR_014', false); $b->FillResourcesForPlayer(1, 'SOR_095', 12); $b->WithCardInHandForPlayer(1, 'ASH_052');
@@ -236,7 +243,7 @@ $chimaera = function (string $mine, bool $space) {
 };
 $build($chimaera('SOR_046', false)); $act(1, 10002, 'myHand-0!FSM!');
 $c = $botCtx('control');
-$check($c['tooltip'] === 'Choose_a_friendly_unit' && $c['type'] === 'MZMAYCHOOSE', 'fixture: Chimaera\'s neutral-worded optional pick');
+$check($c['tooltip'] === 'Defeat_a_friendly_and_an_enemy_unit?' && $c['type'] === 'MZMAYCHOOSE', 'fixture: Chimaera\'s optional sacrifice prompt');
 $check(strval(SWUBotFallbackChoose($c)['cardID']) === 'PASS', 'Chimaera: a 4-cost unit is not given up');
 $build($chimaera('SOR_060', true)); $act(1, 10002, 'myHand-0!FSM!');
 $c = $botCtx('control');

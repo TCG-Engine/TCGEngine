@@ -66,7 +66,14 @@ function SWUBotDeckFeatures(array $deck): array {
         } elseif (str_contains($type, 'Event')) $f['events'] += $n;
         elseif (str_contains($type, 'Upgrade')) $f['upgrades'] += $n;
         $isUnit = str_contains($type, 'Unit');
+        // Tags v3 split 'indirect-damage' out of 'burn' (owner ruling 2026-09-28). For the deck's SHAPE the two
+        // are the same axis — reach that does not need a board — so indirect folds back into the burn bucket and
+        // the 0.06 weight is unchanged. De-duplicated first: a card tagged BOTH would otherwise count twice.
+        $shape = [];
         foreach (SWUBotCardTags(strval($id)) as $t) {
+            $shape[$t === 'indirect-damage' ? 'burn' : $t] = true;
+        }
+        foreach (array_keys($shape) as $t) {
             if (!in_array($t, ['removal', 'wipe', 'burn', 'draw'], true)) continue;
             $f[$t] += $n;
             if ($t === 'removal' || $t === 'wipe') $f[$t . ($isUnit ? 'Unit' : 'Event')] += $n;

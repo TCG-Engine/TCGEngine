@@ -29,11 +29,20 @@ $whenPlayedAbilities["LAW_044:0"] = function($player, $mzID = '') {
                 $c = intval($o->Controller ?? 0);
                 if (isset($enemies[$c])) $ctrlOf[$uid] = $c;
             }
+            // "Defeat all units" is ONE simultaneous defeat, but the loop below walks the board a unit at a
+            // time, so each defeat is collected as its own single-element batch. Observers that must fire for
+            // every co-defeated unit — ASH_052 Chimaera's "When an enemy unit is defeated: heal 2", TS26_13
+            // Darth Sidious — are removed partway through their own batch and stop counting. The window
+            // freezes the pre-effect board that the whole batch is judged against (SWUSimulDefeatBegin,
+            // GameLogic.php). SWUAllUnits() enumerates the caster's own side first, so without it the heal
+            // was dropped ENTIRELY: Chimaera died before any enemy defeat was collected.
+            SWUSimulDefeatBegin();
             foreach ($allUids as $uid) {
                 $playerID = intval($player);
                 $mz = SWUFindMzByUID($uid);
                 if ($mz !== null) SWUDefeatUnit(intval($player), $mz);
             }
+            SWUSimulDefeatEnd();
             // Tally per controller — a unit that AVOIDED defeat (LAW_149 immunity) is still in play and
             // must not score, which is why this re-checks by UID rather than trusting the snapshot.
             $perSeat = [];

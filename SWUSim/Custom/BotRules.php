@@ -469,10 +469,35 @@ function _SWUBotIsHSD(string $cid): bool {
 // K1 + K3, as a filter (runs after the style filter, before the rules): drop the plays that would spend a Credit on a
 // card under 7, and hold the leader's sacrifice while a friendly unit can still attack or a Mercenary can still be
 // played with ready resources.
+// Is a mass defeat in hand that the base's aspect waiver has not yet made affordable? Then the waiver is being
+// saved for it. Returns false once the wipe IS castable through the waiver (so T5 can spend it) and false when no
+// wipe is in hand at all.
+function _SWUBotKrennicHoldsWaiverForWipe(int $seat): bool {
+    if (!function_exists('_SWUCommonBaseWaivePenalty')) return false;
+    $cap = SWUTotalPaymentCapacity($seat);
+    $holding = false;
+    foreach (GetHand($seat) as $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cid = strval($o->CardID ?? '');
+        if (!array_intersect(SWUBotCardTags($cid), ['defeat-wipe-enemy', 'damage-wipe-enemy'])) continue;
+        $eff = max(0, intval(SWUComputePlayCost($seat, $o)) - min(_SWUCommonBaseWaivePenalty($seat, $cid), SWUAspectPenalty($seat, $cid)));
+        if ($eff <= $cap) return false;   // castable through the waiver NOW — spend it
+        $holding = true;                  // in hand but not yet affordable — wait
+    }
+    return $holding;
+}
+
 function SWUBotKrennicPlanFilter(array $ctx): array {
-    if (!_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN' || !_SWUBotKrennicPlanOn($ctx)) return $ctx['actions'];
+    if (!_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return $ctx['actions'];
+    // ⚠ THE BANKING HALF IS WHY THE SCRIPT COULD NOT REACH ROUND 5 WITH 2 CREDITS. K1 below is the only thing
+    // that stops a Credit being cashed on a 2-drop, and it sat behind _SWUBotKrennicPlanOn's SPACE gate — so
+    // against ground aggro the bot made ~26 Credits over 12 games and spent ~25 of them immediately, never
+    // holding more than ONE in any round. Capacity at round 5 was 6R + 1C = 7 against a waived SRI cost of 8.
+    // Proposal 'krennicscript' turns the same filter on without the space requirement (owner, 2026-09-28).
+    $script = _SWUBotKrennicScriptApplies($ctx);
+    if (!$script && !_SWUBotKrennicPlanOn($ctx)) return $ctx['actions'];
     $seat = intval($ctx['seat']);
-    $bank = _SWUBotKrennicPlanOn($ctx, 'bank'); $order = _SWUBotKrennicPlanOn($ctx, 'order');
+    $bank = $script || _SWUBotKrennicPlanOn($ctx, 'bank'); $order = $script || _SWUBotKrennicPlanOn($ctx, 'order');
     $ready = SWUResourceCount($seat, true);
     $canAttack = false; $mercPlayable = false;
     foreach ($ctx['actions'] as $a) {
@@ -490,9 +515,112 @@ function SWUBotKrennicPlanFilter(array $ctx): array {
             if ($bank && intval(CardCost($cid)) < SWU_BOT_CREDIT_WORTHY_COST && intval(SWUComputePlayCost($seat, $o)) > $ready) continue;   // K1
         }
         if ($order && $k === 'leader-ability' && ($canAttack || $mercPlayable)) continue;   // K3
+        // ⚠ RESERVE THE ONCE-PER-GAME WAIVER FOR THE WIPE. With banking on, capacity reaches 8 by round 5 — but
+        // the waiver was still being spent in rounds 2 and 4 on some OTHER off-aspect card, so by the time SRI was
+        // affordable at its waived 8 the waiver was gone and it cost 10 again. Traced: Epic Action at rounds
+        // [4,4,2,2,4,4], SRI cast 0 times, despite capacity 8 at round 5.
+        // Held only while a mass defeat is actually IN HAND — with nothing to save it for there is nothing to
+        // reserve, so the waiver stays available for its ordinary use.
+        if ($script && $k === 'base-epic' && _SWUBotKrennicHoldsWaiverForWipe($seat)) continue;
         $out[] = $a;
     }
     return $out;
+}
+
+// ── PROPOSAL 'krennicscript' — the owner's written game plan for Krennic Blue Splash vs an AGGRO deck ──────────
+// Owner, 2026-09-28, after the 0/24 trace vs ahsoka_blue:
+//   T1) play a unit that benefits from sac (like Ant Droid)
+//   T2) play a Sentinel
+//   T3) play any unit that benefits from sac — another Ant Droid or Expendable Merc
+//   T4) keep playing defensively; value trades or removal
+//   T5) after Ahsoka flips, play SRI using 6R + 2C or 7R + 1C
+//
+// ⚠ WHY THE EXISTING 'krennicplan' COULD NEVER DO THIS: _SWUBotKrennicPlanOn ends with
+// `in_array('space', SWUBotDeckFlavours($opp)) || $ships >= 3` — the whole plan is scoped to a SPACE opponent
+// (it was built for the Vader matchup and finishes on Hyperspace Disaster). Against ground go-wide it is inert by
+// design, which is why `@try-krennicplan` changed the sweep by literally nothing.
+// This is the same shape for ANY aggro opponent, finishing on a mass defeat instead of HSD.
+//
+// ⚠ T5's ARITHMETIC IS THE POINT. LAW_044 Single Reactor Ignition is printed 8 but costs 10 here (the deck is
+// Vigilance base + Command/Villainy leader, so Aggression is off-aspect). 6R+2C and 7R+1C are both 8, so the line
+// only exists THROUGH the base's aspect waiver — hence the pairing with 'aspectwaiver', which stops the waiver
+// being burned in round 1 and makes its prompt pick the wipe.
+// T4 is deliberately NOT implemented: "value trades or removal" is what the fallback scorer already does, and a
+// rule that pre-empted it would be replacing a measured scorer with a guess.
+// Does the owner's Krennic script apply to this seat? A Credit-sacrifice leader, still undeployed, facing an
+// AGGRO leader — deliberately with NO space requirement, which is the gate that made 'krennicplan' inert here.
+function _SWUBotKrennicScriptApplies(array $ctx): bool {
+    if (!SWUBotProposalOn('krennicscript')) return false;
+    $seat = intval($ctx['seat']);
+    $leader = GetLeader($seat)[0] ?? null;
+    if ($leader === null || !preg_match('/defeat a friendly unit\]:\s*Create a Credit token/i', strval(CardText(strval($leader->CardID ?? ''))))) return false;
+    return function_exists('SWUBotOpponentIsAggroLeader') && SWUBotOpponentIsAggroLeader($seat);
+}
+
+function SWUBotRuleKrennicScript(array $ctx): ?array {
+    if (!_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN' || !_SWUBotKrennicScriptApplies($ctx)) return null;
+    $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
+
+    $cap = SWUTotalPaymentCapacity($seat);
+    $mine = array_filter(SWUBotUnits($seat), fn($v) => !$v['isLeader']);
+
+    // ── T5 — the finisher, once they have committed. Highest priority: it is the whole plan.
+    // "After Ahsoka flips" = their leader is a deployed unit. A mass defeat is read off the tags-v3 enemy half.
+    $theirLeaderOut = !empty(array_filter(SWUBotUnits($opp), fn($v) => $v['isLeader']));
+    if ($theirLeaderOut) {
+        $wipe = _SWUBotFind($ctx, function ($a) use ($seat, $cap) {
+            if (SWUBotActionKind($a) !== 'play') return false;
+            $o = _SWUBotHandObject($seat, $a);
+            if ($o === null) return false;
+            if (!array_intersect(SWUBotCardTags(strval($o->CardID)), ['defeat-wipe-enemy', 'damage-wipe-enemy'])) return false;
+            return intval(SWUComputePlayCost($seat, $o)) <= $cap;          // castable right now
+        });
+        if ($wipe !== null) return $wipe;
+        // Not castable at full price — the base's aspect waiver is what closes the gap (6R+2C / 7R+1C).
+        $epic = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'base-epic');
+        if ($epic !== null && function_exists('_SWUCommonBaseWaivePenalty')) {
+            foreach (GetHand($seat) as $o) {
+                if ($o === null || !empty($o->removed)) continue;
+                $cid = strval($o->CardID ?? '');
+                if (!array_intersect(SWUBotCardTags($cid), ['defeat-wipe-enemy', 'damage-wipe-enemy'])) continue;
+                $eff = max(0, intval(SWUComputePlayCost($seat, $o)) - min(_SWUCommonBaseWaivePenalty($seat, $cid), SWUAspectPenalty($seat, $cid)));
+                if ($eff <= $cap) return $epic;
+            }
+        }
+    }
+
+    // ── T1 + T3 — two sac bodies on board before anything else. Best fodder rank first (the Mercenary is 0).
+    $fodderOut = count(array_filter($mine, fn($v) => _SWUBotFodderRank($v['cardID'], intval($v['cost'])) !== null));
+    if ($fodderOut < 2) {
+        $best = null; $bestRank = PHP_INT_MAX;
+        foreach ($ctx['actions'] as $a) {
+            if (SWUBotActionKind($a) !== 'play') continue;
+            $o = _SWUBotHandObject($seat, $a);
+            if ($o === null) continue;
+            $cid = strval($o->CardID);
+            $rank = _SWUBotFodderRank($cid, intval(CardCost($cid)));
+            if ($rank === null || intval(SWUComputePlayCost($seat, $o)) > $cap) continue;
+            if ($rank < $bestRank) { $bestRank = $rank; $best = $a; }
+        }
+        if ($best !== null) return $best;
+    }
+
+    // ── T2 — a Sentinel to slow the clock, once there is fodder to feed the leader.
+    if (empty(array_filter($mine, fn($v) => !empty($v['sentinel'])))) {
+        $best = null; $bestCost = PHP_INT_MAX;
+        foreach ($ctx['actions'] as $a) {
+            if (SWUBotActionKind($a) !== 'play') continue;
+            $o = _SWUBotHandObject($seat, $a);
+            if ($o === null) continue;
+            $cid = strval($o->CardID);
+            if (!preg_match('/^Sentinel\b/m', strval(CardText($cid)))) continue;
+            $c = intval(SWUComputePlayCost($seat, $o));
+            if ($c > $cap || $c >= $bestCost) continue;
+            $bestCost = $c; $best = $a;
+        }
+        if ($best !== null) return $best;
+    }
+    return null;   // T4: leave trades and removal to the fallback scorer
 }
 
 // K2 + K1's ramp + K3's Mercenary pick, as a rule.
@@ -676,6 +804,7 @@ function SWUBotRulesAfterFilter(): array {
     return [
         'initiative-for-lethal'    => 'SWUBotRuleInitiativeForLethal',
         'break-lethal'             => 'SWUBotRuleBreakLethal',
+        'krennic-script'           => 'SWUBotRuleKrennicScript',         // proposal 'krennicscript' — the owner's written curve
         'krennic-plan'             => 'SWUBotRuleKrennicPlan',           // proposal 'krennicplan' — inert unless "@try-krennicplan"
         'control-wipe'             => 'SWUBotRuleControlWipe',
         'initiative-for-answer'    => 'SWUBotRuleInitiativeForAnswer',   // proposal 'initiative' — inert unless "@try-initiative"

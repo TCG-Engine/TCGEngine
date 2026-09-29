@@ -77,7 +77,9 @@ function SWURlMoveKey(array $ctx, array $action): string {
                 $cid = strval($o->CardID ?? '');
                 $type = strval(CardType($cid));
                 $cost = _SWURlCost(intval(CardCost($cid)));
-                $tags = SWUBotCardTags($cid); sort($tags);
+                // ⚠ PINNED to the nine v2 tag names. The v3 retag (2026-09-28) added ~25 kinds; embedding them
+                // here would multiply this key space and invalidate every trained policy keyed on it.
+                $tags = SWUBotCardTagsForRlKey($cid); sort($tags);
                 $tagStr = empty($tags) ? '-' : implode('+', $tags);
                 if (str_contains($type, 'Unit')) {
                     preg_match_all('/\b(Sentinel|Ambush|Saboteur|Shielded|Overwhelm)\b/', strval(CardText($cid)), $m);

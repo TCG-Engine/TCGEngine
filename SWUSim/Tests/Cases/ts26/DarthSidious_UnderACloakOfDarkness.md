@@ -332,3 +332,84 @@ WithP2SpaceArena: JTL_T01:1:0
 ## EXPECT
 P2SPACEARENACOUNT:1
 P1GROUNDARENACOUNT:1
+
+---
+
+# MassDefeat_SidiousAmongTheVictims_OneDroidPerUnit
+#// TS26_13 Darth Sidious — "When a non-token unit is defeated: create a Battle Droid token" fires for
+#// FRIENDLY as well as enemy defeats (GameLogic.php's collector: "for ANY non-token unit defeat"), so a
+#// wipe of Sidious's OWN side owes him one droid per unit, himself included.
+#// P1 casts TWI_078 The Invasion of Christophsis choosing P2, whose board is Sidious + two Battlefield
+#// Marines: 3 non-token units defeated -> 3 Battle Droids for P2, and the droids are created after the
+#// UID snapshot so they are not themselves wiped.
+#// ⚠ TWI_078 walks the chosen player's ground arena in index order, so Sidious (index 0) is removed BEFORE
+#// the other two defeats are collected. Each defeat is its own single-element batch, so without a
+#// SWUSimulDefeatBegin/End window he only ever sees the batch he died in and P2 gets ONE droid.
+#// P1 controls nothing, so Exploit 4 auto-skips.
+## GIVEN
+CommonSetup: bbk/ggk/{myResources:15;handCardIds:TWI_078}
+P1OnlyActions: true
+WithP2GroundArena: [TS26_13:1:0 SOR_095:1:0 SOR_095:1:0]
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P2GROUNDARENACOUNT:3
+P2GROUNDARENAUNIT:0:CARDID:TS26_T01
+P2GROUNDARENAUNIT:2:CARDID:TS26_T01
+
+---
+
+# TwinSuns3P_MassDefeat_SidiousAmongTheVictims_OneDroidPerUnit
+#// TS26_13 Darth Sidious — the section above drives TWI_078's TWO-PLAYER branch
+#// (SeatCountForGame() <= 2, an inline ZoneSearch of 'their'). At 3+ seats the card takes a completely
+#// different path: SWUQueueChooseOpponent -> the TWI_078#0 handler, which walks p{n}GroundArena/p{n}SpaceArena
+#// for the ONE chosen opponent. That branch needs its own simultaneous-defeat window and its own guard —
+#// mutating it while only the 2-seat section existed changed NOTHING.
+#// P1 chooses P2, whose board is Sidious + two Battlefield Marines: 3 non-token units defeated -> 3 Battle
+#// Droids for P2. P3 is a bystander and must keep its unit, which is what pins "only the CHOSEN opponent".
+## GIVEN
+CommonSetup3P: bbk/ggk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Resources: 15
+WithP1Hand: TWI_078
+WithP2GroundArena: [TS26_13:1:0 SOR_095:1:0 SOR_095:1:0]
+WithP3GroundArena: SOR_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P2
+## EXPECT
+SEATCOUNT:3
+P2GROUNDARENACOUNT:3
+P2GROUNDARENAUNIT:0:CARDID:TS26_T01
+P2GROUNDARENAUNIT:2:CARDID:TS26_T01
+P3GROUNDARENACOUNT:1
+
+---
+
+# TwinSuns4P_MassDefeat_SidiousAmongTheVictims_OneDroidPerUnit
+#// TS26_13 Darth Sidious — the 4-seat twin of the section above. Four seats is where a count or a fan-out
+#// that silently collapses to "the other seat" separates from a correct per-seat one, so the droid total
+#// and the two untouched bystanders are both asserted.
+#// P1 chooses P2 (Sidious + two Marines -> 3 droids); P3 and P4 keep their units.
+## GIVEN
+CommonSetup4P: bbk/ggk/rrk/bgw
+SkipPreGame: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Resources: 15
+WithP1Hand: TWI_078
+WithP2GroundArena: [TS26_13:1:0 SOR_095:1:0 SOR_095:1:0]
+WithP3GroundArena: SOR_095:1:0
+WithP4GroundArena: SOR_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P2
+## EXPECT
+SEATCOUNT:4
+P2GROUNDARENACOUNT:3
+P2GROUNDARENAUNIT:0:CARDID:TS26_T01
+P2GROUNDARENAUNIT:2:CARDID:TS26_T01
+P3GROUNDARENACOUNT:1
+P4GROUNDARENACOUNT:1

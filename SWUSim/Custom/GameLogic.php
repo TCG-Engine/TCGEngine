@@ -10564,6 +10564,12 @@ function Ash184GiveAdvTrigger($player): void {
 function KallusDrawTrigger($player, int $uid = 0): void {
     global $playerID;
     $playerID = intval($player);
+    // ⚠ NO budget gate here. It looks like the natural place, but it buys nothing and costs correctness:
+    // co-defeats in one batch all DISPATCH before the first offer is answered, so every one of them still
+    // reads an unspent round (a gate here was measured non-load-bearing), while the arm site in
+    // SWUCollectLeavePlayReactions already refuses a spent round for any LATER batch. Worse, resolving the
+    // uid to a live object here would suppress the offer from a Kallus who TRADED — he was in play when the
+    // unique unit was defeated and his trigger is owed. The one real gate is in SOR_115#0, at resolve.
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip:"Agent_Kallus:_draw_a_card?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SOR_115#0|{$uid}", 1);
 }
@@ -11133,7 +11139,9 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             if ($hostMz === null) break;
             $o = GetZoneObject($hostMz);
             if (SWUObjGone($o)) break;
-            DecisionQueueController::AddDecision($player, 'YESNO', '-', 1, tooltip: "Deal_1_damage_to_that_unit?");
+            // Name it: "that unit" is the just-upgraded host, hidden behind the prompt popup.
+            DecisionQueueController::AddDecision($player, 'YESNO', SWUPromptHighlightParam($o), 1,
+                tooltip: 'Deal 1 damage to ' . SWUPromptUnitLabel($o) . '?');
             DecisionQueueController::AddDecision($player, 'CUSTOM', "SHD_133#0|" . intval($mzID), 1);
             break;
         }
@@ -11273,7 +11281,12 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             SWUQueueDefeatUpgrade(intval($player), "Defeat_an_upgrade_costing_2_or_less", may: true, max: 1, filter: 'cost<=2', min: 0);
             break;
         case 'ASH_137':    Ash137ExcessTrigger($player, $mzID, intval($extra[0] ?? 0)); break;   // Wipe Them Out — excess to another unit in the arena
-        case 'SOR_115':        KallusDrawTrigger($player, intval($extra[0] ?? 0)); break;
+        // ⚠ The Kallus UniqueID rides the mzID SLOT, not $extra: FlushTriggerBag drops extraParams (see the
+        // notes at the LAW_141 / played-event arm sites), so the arm site in SWUCollectLeavePlayReactions
+        // passes it as the 4th argument by design. Reading only $extra[0] meant the uid was ALWAYS 0, so
+        // SOR_115#0's `if ($uid > 0) SWUConsumeUse(...)` never ran and "use only once each round" was never
+        // enforced at all — the reported "Agent Kallus triggering multiple times per phase" (2026-09-28).
+        case 'SOR_115':        KallusDrawTrigger($player, intval($extra[0] ?? 0) ?: intval($mzID)); break;
         case 'SOR_013':       CassianDrawTrigger($player);                  break;
         case 'TWI_210': CunningOpponentPlayedReaction($player); break;
         case 'TWI_064': KiAdiMundiDrawReaction($player); break;   // Ki-Adi-Mundi — opponent's 2nd card → may draw 2
@@ -11287,7 +11300,9 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             if ($playedMz === null) break;
             $o = GetZoneObject($playedMz);
             if (SWUObjGone($o)) break;
-            DecisionQueueController::AddDecision($player, 'YESNO', '-', 1, tooltip: "Deal_1_damage_to_it_to_ready_Toro_Calican?");
+            // Name it: "it" is the played Bounty Hunter unit, hidden behind the prompt popup.
+            DecisionQueueController::AddDecision($player, 'YESNO', SWUPromptHighlightParam($o), 1,
+                tooltip: 'Deal 1 damage to ' . SWUPromptUnitLabel($o) . ' to ready Toro Calican?');
             DecisionQueueController::AddDecision($player, 'CUSTOM', "SHD_239#0|" . intval($pp[0] ?? 0) . "|" . $toroUID, 1);
             break;
         }
@@ -11616,11 +11631,14 @@ function SWUCollectTrapFieldReactions(string $enteredMzID): int {
 // a Trap Field is still on their base and the entering unit is still in play.
 function Hmw171TrapFieldReaction(int $player, int $enteredUID, int $count): void {
     global $playerID; $playerID = $player;
-    if (SWUFindMzByUID($enteredUID) === null) return;             // entering unit already gone
+    $mzEntered = SWUFindMzByUID($enteredUID);
+    if ($mzEntered === null) return;                              // entering unit already gone
     $zone = GetBase($player); $base = $zone[0] ?? null;
     if ($base === null || SWUFindUpgradeIndex($base, 'HMW_171') < 0) return;
-    DecisionQueueController::AddDecision($player, 'YESNO', '-', 1,
-        tooltip: "Defeat_Trap_Field_to_deal_3_damage_to_that_unit?");
+    // Name it: "that unit" is the unit that just entered play on the OTHER side, so the base owner is
+    // being asked about something they did not choose, with the popup over the board.
+    DecisionQueueController::AddDecision($player, 'YESNO', SWUPromptHighlightParam($mzEntered), 1,
+        tooltip: 'Defeat Trap Field to deal 3 damage to ' . SWUPromptUnitLabel($mzEntered) . '?');
     DecisionQueueController::AddDecision($player, 'CUSTOM', "HMW_171#0|{$enteredUID}|{$count}", 1);
 }
 
@@ -12224,8 +12242,17 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
         // batch he was alive for. SWUSimulDefeatBegin/End open a window that freezes the seat counts for
         // the whole effect; outside such a window nothing is cached and each defeat is judged on its own.
         if (!empty($GLOBALS['gSimulDefeatWindow'])) {
-            if (!isset($GLOBALS['gSimulDefeatSidious'])) $GLOBALS['gSimulDefeatSidious'] = $sidiousPerSeat;
-            $sidiousPerSeat = $GLOBALS['gSimulDefeatSidious'];
+            // ⚠ Inside the window take the PRE-EFFECT SNAPSHOT directly — the same source
+            // _SWUSimulObserverCount uses for every other observer — instead of caching this call's
+            // live-scan + add-back. That pair compares mzIDs across FRAMES: $sidiousLiveMz is keyed in each
+            // seat's OWN frame ("myGroundArena-0") while $d0['mzID'] is in the ACTING player's
+            // ("theirGroundArena-0"), so on a cross-seat effect defeat the guard at $sidiousLiveMz never
+            // matches, the add-back fires on top of a live scan that already found him, and the doubled
+            // count gets frozen for the whole wipe. Measured on TWI_078 (P1 wipes P2's Sidious + 2 units):
+            // 6 droids instead of 3. The snapshot is frame-free, so it cannot drift this way.
+            foreach ($sidiousPerSeat as $sp1 => $_ignored) {
+                $sidiousPerSeat[$sp1] = intval($GLOBALS['gSimulDefeatUnits'][$sp1]['TS26_13'] ?? 0);
+            }
         }
     }
     foreach ($leftCards as $d) {
@@ -27766,7 +27793,10 @@ function _SWUQueueUseForceReactions(int $player): void {
             DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "Yoda:_deal_damage_to_a_unit_(twice_the_units_you_control)?");
             DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_101#0|{$uid}", 1);
         } elseif ($cid === 'LOF_260') { // The Father — may deal 1 to itself; if so, the Force is with you
-            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "The_Father:_deal_1_to_it_to_regain_the_Force?");
+            // "The Father" already named him, but not his STATE — and 1 damage to a damaged Father can be
+            // lethal, which is the whole decision. The label carries the live power/HP and damage.
+            DecisionQueueController::AddDecision($player, "YESNO", SWUPromptHighlightParam($o), 1,
+                tooltip: 'Deal 1 damage to ' . SWUPromptUnitLabel($o) . ' to regain the Force?');
             DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_260#0|{$uid}", 1);
         }
     }

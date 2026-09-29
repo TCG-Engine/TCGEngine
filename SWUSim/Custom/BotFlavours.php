@@ -76,7 +76,10 @@ function SWUBotDeckFlavours(int $seat): array {
 // A card this deck should not resource while it holds filler (feature 'keep'): its answers (removal, wipe), its
 // reach (burn), and its flavour's key cards — a Capital Ship in a capital-ship deck.
 function SWUBotIsKeyCard(int $seat, string $cardID): bool {
-    if (array_intersect(SWUBotCardTags($cardID), ['removal', 'wipe', 'burn'])) return true;
+    // 'indirect-damage' is listed because tags v3 split it OUT of `burn` (owner ruling 2026-09-28). For "is this
+    // a key card?" the two are the same thing — reach that needs no board — so dropping it here would have
+    // quietly stopped every JTL indirect card counting as key. Caught by bot_flavours_test / bot_resourcing_test.
+    if (array_intersect(SWUBotCardTags($cardID), ['removal', 'wipe', 'burn', 'indirect-damage'])) return true;
     return in_array('capital-ship', SWUBotDeckFlavours($seat), true) && str_contains(strval(CardTrait($cardID) ?? ''), 'Capital Ship');
 }
 

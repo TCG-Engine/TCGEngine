@@ -166,12 +166,51 @@ const SWU_BOT_PART12_FEATURES = ['mgbomb'];
 // Guard: SWUSim/DevTools/tests/bot_midrange_levers_test.php.
 const SWU_BOT_PART13_FEATURES = ['mgkill'];
 
+// Part 14 (2026-09-28): 'upgradepicks' — a decision whose candidates are UPGRADES or TOKENS is scored by what the
+// upgrade is worth and WHOSE it is, not by enumeration order.
+// FOUND in two bot reports that turned out to be ONE root cause: "Bot used Alliance Outpost to defeat shield on
+// Secretive Sage and then gave it another shield", and "Bot defeated its own shield with Outer Rim Constable".
+// An upgrade candidate is a SUBCARD mzID ("myGroundArena-0.u0"). SWUBotViewForMz resolves with GetZoneObject, which
+// returns null for that form BY DESIGN (Core/CoreZoneModifiers.php: "an un-taught caller gets a clean miss instead of
+// silent corruption" — the generic resolver is MZResolveObject). The bot was that un-taught caller, so every upgrade
+// candidate scored null and the scorer fell through to `$s ?? -$index * 1e-6`, the stable-order tiebreak. "my*" is
+// enumerated before "their*", so the first candidate is always the bot's own.
+// ⚠ NOT A TIE-BREAK MISTAKE — IT IS DETERMINISTIC SELF-HARM. Measured before the fix: my Shield 0, the ENEMY's
+// Shield -1.0e-6, PASS 0. The enemy's scored strictly WORST, so the bot destroyed its own Shield every time, and
+// preferred that to declining a "you may".
+// ⚠ SHIPPED ON THE REPORTS, NOT ON A MEASUREMENT, like p7/p9/p10: hitting your own Shield instead of the
+// opponent's is strictly worse, so the floor is "no worse". '@no-p14' is the stack before it.
+// Guard: SWUSim/DevTools/tests/bot_upgradepicks_test.php.
+const SWU_BOT_PART14_FEATURES = ['upgradepicks'];
+
+// Part 15 (2026-09-28): 'tags3' — the V3 CARD TAGS. Owner rulings (27 answers) after reading three real
+// Karabast game logs: tag BOTH leader faces (v2 read $textData only, so 87 leaders' deployed side was
+// invisible), tag the KEYWORDS a card has as well as its effects, and split the coarse tags so each half can
+// be priced on its own — damage(units) / burn(base) / indirect-damage, exhaust-enemy / exhaust-friendly,
+// heal(immediate) / restore(keyword), buff(temporary stats) / gives-experience / gives-shield / gives-weakness,
+// resource-ramp / credit-ramp, mill-self / mill-opponent, gains-the-force / uses-the-force, one
+// create-<token>-token per kind, plus sacrifice, capture, debuff, discount, gives-sentinel, recursion,
+// search-top-deck. Kebab-case throughout.
+// FOUND while analysing those logs: the v2 table was also STALE — 77 cards matched a tag rule and had none,
+// 27 in HMW and 42 in TS26, the two preview sets. HMW_186 Mining Guild Trespasser, which closed all three
+// games, was untagged and therefore priced as a vanilla body.
+// ⚠ '@no-tags3' reads the FROZEN v2 table (CardTags.v2.generated.php), so every arm measured against v2
+// stays reproducible; '@no-tags2' still reads v1.
+// ⚠ NEW TAG KINDS ARE INERT UNTIL WIRED: _SWUBotPlayValue sums $W[$tag] ?? 0.0 and BotDeckStyle filters to
+// removal/wipe/burn/draw, so behaviour moves only through the corrected/re-split tags. RL move keys are
+// PINNED to the nine v2 names by SWUBotCardTagsForRlKey() — otherwise the key space would explode and
+// invalidate every trained policy.
+// Guard: SWUSim/DevTools/tests/bot_card_tags_test.php.
+const SWU_BOT_PART15_FEATURES = ['tags3'];
+
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
                        SWU_BOT_PART7_FEATURES, SWU_BOT_PART8_FEATURES, SWU_BOT_PART9_FEATURES,
                        SWU_BOT_PART10_FEATURES, SWU_BOT_PART11_FEATURES,
-                       SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES);   // part 2, then 3-13
+                       SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
+                       SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES);   // part 2, then 3-15
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -185,6 +224,7 @@ function SWUBotFeatureGroups(): array {
             'p6' => SWU_BOT_PART6_FEATURES, 'p7' => SWU_BOT_PART7_FEATURES, 'p8' => SWU_BOT_PART8_FEATURES,
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
+            'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
@@ -455,6 +495,44 @@ const SWU_BOT_PROPOSALS = [
     'mgkeepdup',       //   the spare-duplicate resource alone (no body exception — that IS the isolation)
     'mgmull',          // ruling 5: the matchup keep test. The bot has NEVER mulliganed; all three traced Luke ASH
                        // openings were mulligans
+    'krennicscript',   // The owner's WRITTEN game plan for Krennic Blue Splash vs aggro (2026-09-28): T1 a sac body,
+                       // T2 a Sentinel, T3 another sac body, T4 trades/removal (left to the fallback), T5 after the
+                       // opponent flips, the mass defeat via 6R+2C / 7R+1C.
+                       // ⚠ 'krennicplan' could never do this: _SWUBotKrennicPlanOn gates on the opponent being a
+                       // SPACE deck (it finishes on Hyperspace Disaster), so it is inert against ground go-wide —
+                       // which is why @try-krennicplan changed the sweep by nothing at all.
+                       // Needs 'aspectwaiver' to be useful: LAW_044 is cost 10 here, and 6R+2C is 8.
+                       // Guard: measured as the 'krennicline' group.
+    'aspectwaiver',    // A base Epic Action that WAIVES AN ASPECT PENALTY is worth the card it UNLOCKS, and its
+                       // prompt picks that card (owner 2026-09-28). The eight LAW common bases print "Play a card
+                       // from your hand, ignoring 1 of its Vigilance/Command/Aggression/Cunning aspect penalties";
+                       // LAW_020 Daimyo's Palace is what makes LAW_044 Single Reactor Ignition castable at 8
+                       // instead of 10 in Krennic Blue Splash.
+                       // TWO defects, both traced over 8 games vs ahsoka_blue:
+                       //   · _SWUBotEnabledPlayValue credited the action for the best card the prompt OFFERS,
+                       //     whether or not it was already castable — so the waiver scored 0.6 for "enabling" an
+                       //     on-aspect 2-drop and was BURNED IN ROUND 1 in six of eight games, at capacity 2.
+                       //     One game reached round 5 holding LAW_044 with the waiver already spent.
+                       //   · the "Play_a_…" prompt fell through to `0.01 - $index * 1e-6`, so the card was chosen
+                       //     by HAND INDEX (myHand-0 / myHand-4 every time) — the same enumeration-order tiebreak
+                       //     as the upgrade-pick bug fixed in p14.
+                       // Valuing it correctly IS the "save it" mechanism: worth ~0 while only cheap on-aspect
+                       // cards are in hand, worth the bomb once the bomb is affordable at the waived cost.
+                       // Pairs with 'creditvalue' — the two are halves of one line and neither gains alone.
+                       // Guard: SWUSim/DevTools/tests/bot_aspectwaiver_test.php.
+    'creditvalue',     // A Credit token is worth the card it BRINGS INTO REACH (owner ruling 2026-09-28). Nothing in
+                       // the value path read Credits at all: _SWUBotBoardSignature tracks units/bases/hand SIZE/
+                       // resource COUNT and never Credits, so "[Exhaust, defeat a friendly unit]: Create a Credit"
+                       // scored W['ability'] - sacrifice with the gain at ZERO. Traced on the Krennic vs Ahsoka
+                       // board: -2.6, and the ramp Action was taken 12 of 78 times (the 12 being the boards where
+                       // LAW_159 Expendable Mercenary was the fodder, already priced at -1.0).
+                       // ⚠ A PROPOSAL, NOT SHIPPED, because it FAILS the owner's bar. Measured 24 games vs
+                       // ahsoka_blue: win rate 0/24 either way, and base damage dealt FELL 7.9 → 6.4. It raises
+                       // Credit-engine use (12/78 → 16/60) but cannot reach the line it exists for — LAW_044 Single
+                       // Reactor Ignition costs 10 unwaived against a max capacity of 6, so the missing half is
+                       // Daimyo's Palace's aspect waiver (the "save the once-per-game unlock" gap), not valuation.
+                       // Measure the two TOGETHER before shipping either.
+                       // Guard: SWUSim/DevTools/tests/bot_creditvalue_test.php.
     'landomill',       // owner 2026-09-23, Lando LAW_018: mill MY deck pre-flip (guaranteed Credit → bombs); once the
                        // leader has flipped and come back, mill THEIRS on a spare resource, or skip it
     'piettcheat',      // owner: "cheat out capital ships" — value a leader's discounted play-from-hand Action
@@ -484,7 +562,13 @@ function SWUBotProposalList(): array {
 // and SHIPPED 2026-09-18 as feature group 'p4', so it is gone from here. Empty until the next candidate set.
 // 'lm3' measured WORSE than shrinkfirst alone (−42, p .061), so the set is retired; shrinkfirst shipped by itself.
 // ('piettplan' = resourcing3 + piettcheat was measured 2026-09-22; with resourcing3 shipped it is '@try-piettcheat'.)
-const SWU_BOT_PROPOSAL_GROUPS = [];
+// 'krennicline' — the two halves of the owner's Krennic Blue Splash line (2026-09-28): bank Credits toward a bomb
+// ('creditvalue') AND spend the base's once-per-game aspect waiver on it rather than on a round-1 2-drop
+// ('aspectwaiver'). Measured ALONE, neither moves the 0/24 vs ahsoka_blue and each costs base damage — which is
+// expected, because the line needs BOTH: LAW_044 Single Reactor Ignition is cost 10 unwaived against a max capacity
+// of 6, so it wants the waiver (10 → 8) and the Credits (6 → 8) at the same time.
+const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue', 'aspectwaiver'],
+                                 'krennicfull' => ['creditvalue', 'aspectwaiver', 'krennicscript']];
 
 // Proposals default OFF: true only when the active variant explicitly enabled it.
 function SWUBotProposalOn(string $name): bool {

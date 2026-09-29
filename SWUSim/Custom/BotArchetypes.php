@@ -58,6 +58,10 @@ function SWUBotWeights(string $style, int $seat): array {
         'exhaust'   => [0.25,  0.30,  0.40,  0.40,  0.40],
         'deploy'    => [1.50,  1.50,  1.50,  1.50,  1.50],
         'ability'   => [0.40,  0.40,  0.40,  0.40,  0.40],
+        // Feature 'creditvalue' (p16): what a RAMP effect is worth. Scales with the archetype because a Credit
+        // buys a turn of setup — worthless to hyper aggro, which wants the board now, and most of all to the
+        // control wing, whose whole plan is a card it cannot yet afford. UNMEASURED starting values.
+        'creditRamp'  => [0.10,  0.15,  0.30,  0.45,  0.55],
         'ready'     => [0.30,  0.30,  0.30,  0.30,  0.30],
         'initiative'=> [0.05,  0.05,  0.05,  0.05,  0.05],
         'attackFirst' => [6.00, 6.00, 6.00, 6.00, 6.00],

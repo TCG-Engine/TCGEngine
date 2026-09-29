@@ -17,10 +17,17 @@ $whenPlayedAbilities["SEC_078:0"] = function($player, $mzID = '') {
                     if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID);
                 }
             }
+            // One simultaneous defeat, walked a unit at a time — so "when an enemy unit is defeated"
+            // observers caught in the wipe (ASH_052 Chimaera, itself a space unit, so ALWAYS a casualty
+            // here; SOR_002 Iden Versio; TS26_13 Darth Sidious) must be judged against the pre-effect
+            // board. Without the window each defeat is its own single-element batch and an observer
+            // removed early stops counting. See SWUSimulDefeatBegin (GameLogic.php).
+            SWUSimulDefeatBegin();
             foreach ($uids as $uid) {
                 $playerID = intval($player);
                 $mz = SWUFindMzByUID($uid);
                 if ($mz !== null) SWUDefeatUnit(intval($player), $mz);
             }
+            SWUSimulDefeatEnd();
             return;
 };

@@ -45,4 +45,7 @@ P1OnlyActions: true
 - P1>AnswerDecision:myGroundArena-0
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:5
-P1DECISIONTOOLTIP:Attack_with_that_unit?
+#// The prompt NAMES the chosen unit (2026-09-28: "that unit" told the player nothing while the popup
+#// covered the board). NAME ONLY — the +2/+2 this ability just granted is visible on the unit's own
+#// badges, and the unit is ringed on the board while the prompt is open, so the sentence stays short.
+P1DECISIONTOOLTIP:Attack_with_Battlefield_Marine?

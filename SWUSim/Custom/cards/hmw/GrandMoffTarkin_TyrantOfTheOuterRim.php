@@ -25,11 +25,9 @@ $customDQHandlers["HMW_004#0"] = function ($player, $parts, $lastDecision) {
     // for an ability whose whole effect is "that player loses the game", is the worst possible place to
     // guess. Choosing your own base is still legal; it just loses you the game.
     $seat = SWUMzOwner((string)$lastDecision, intval($player));
-    // ⚠ PASS THE ELIMINATOR. CR §12.6.2 (Twin Suns): the player who eliminates another heals 5 damage from
-    // their own base. It is a FORMAT rule, not card text — nothing printed on HMW_004 mentions healing —
-    // which is why the omission read as a missing card ability. SWUDefeatBase used to drop straight into the
-    // state-based sweep, whose defeats have no damager by definition, so the heal never fired (game
-    // 1400002). Picking your OWN base still heals nobody: SWUEliminateSeat's $killer !== $seat check is the
-    // rule's own self-elimination carve-out.
+    // ⚠ PASS THE ELIMINATOR. CR §12.6.2: the player who eliminates another heals 5 damage from their own
+    // base — a FORMAT rule, not card text, which is why the omission read as a missing card ability.
+    // SWUDefeatBase used to drop straight into the state-based sweep, whose defeats have no damager by
+    // definition, so the heal never fired (game 1400002). Picking your OWN base still heals nobody.
     if ($seat > 0) SWUDefeatBase($seat, intval($player));
 };

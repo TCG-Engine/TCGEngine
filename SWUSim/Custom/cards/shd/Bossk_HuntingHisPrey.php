@@ -27,8 +27,12 @@ $customDQHandlers["SHD_010#front"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($o)) return;
     $uid = intval($o->UniqueID ?? 0);
     SWUDealDamageToUnit($lastDecision, 1, intval($player));
-    if (SWUFindMzByUID($uid) === null) return;                 // defeated by the 1 → no unit left to buff
-    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip:"Give_it_+1/+0_for_this_phase?");
+    $mzNow = SWUFindMzByUID($uid);
+    if ($mzNow === null) return;                               // defeated by the 1 → no unit left to buff
+    // Name the unit: "it" refers back to a target chosen in the previous decision, which the prompt popup
+    // covers up. Re-resolved by UID rather than reusing $o — the 1 damage above may have compacted the arena.
+    DecisionQueueController::AddDecision(intval($player), "YESNO", SWUPromptHighlightParam($mzNow), 1,
+        tooltip: 'Give ' . SWUPromptUnitLabel($mzNow) . ' +1/+0 for this phase?');
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_010#buff|{$uid}", 1);
 };
 
