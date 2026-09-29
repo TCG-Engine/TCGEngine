@@ -80,7 +80,10 @@ try {
         $seed = trim((string)($_POST['seed'] ?? ''));
         if ($seed === '') $seed = 'run-' . bin2hex(random_bytes(6));
         $samples = filter_var($_POST['samples'] ?? null, FILTER_VALIDATE_INT);
-        if (!preg_match('/^[a-z0-9_]+$/', $opponent) || !preg_match('/^[A-Za-z0-9_-]{1,64}$/', $seed)
+        // ⚠ '-' belongs in the opponent class: fixture names are <leader-title>_<set>_<base-archetype> since
+        // 2026-09-29 and every one of them contains hyphens. Must stay in step with the same class in
+        // SimulationRuntime.php's swuSimulationOpponentPath(), which builds the file path from this id.
+        if (!preg_match('/^[a-z0-9_-]+$/', $opponent) || !preg_match('/^[A-Za-z0-9_-]{1,64}$/', $seed)
             || $samples === false || $samples < 1 || $samples > 20) {
             throw new RuntimeException('Choose an opponent and 1–20 games. If you set a seed, use letters, numbers, hyphens, or underscores.');
         }

@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "name": "STAR WARS DAD Hemlock Yellow",
+    "author": "StarWarsDad"
+  },
+  "leader": {
+    "id": "HMW_003",
+    "count": 1
+  },
+  "secondleader": null,
+  "base": {
+    "id": "HMW_033",
+    "count": 1
+  },
+  "deck": [
+    {
+      "id": "ASH_048",
+      "count": 3
+    },
+    {
+      "id": "HMW_204",
+      "count": 2
+    },
+    {
+      "id": "ASH_194",
+      "count": 2
+    },
+    {
+      "id": "JTL_043",
+      "count": 3
+    },
+    {
+      "id": "LAW_133",
+      "count": 2
+    },
+    {
+      "id": "HMW_062",
+      "count": 2
+    },
+    {
+      "id": "ASH_052",
+      "count": 3
+    },
+    {
+      "id": "JTL_033",
+      "count": 3
+    },
+    {
+      "id": "HMW_100",
+      "count": 2
+    },
+    {
+      "id": "LAW_118",
+      "count": 2
+    },
+    {
+      "id": "SEC_038",
+      "count": 1
+    },
+    {
+      "id": "HMW_197",
+      "count": 3
+    },
+    {
+      "id": "ASH_079",
+      "count": 3
+    },
+    {
+      "id": "LAW_101",
+      "count": 1
+    },
+    {
+      "id": "LAW_097",
+      "count": 3
+    },
+    {
+      "id": "HMW_202",
+      "count": 2
+    },
+    {
+      "id": "HMW_198",
+      "count": 3
+    },
+    {
+      "id": "HMW_055",
+      "count": 3
+    },
+    {
+      "id": "ASH_053",
+      "count": 3
+    },
+    {
+      "id": "LAW_086",
+      "count": 1
+    },
+    {
+      "id": "LOF_070",
+      "count": 2
+    },
+    {
+      "id": "SEC_078",
+      "count": 2
+    }
+  ],
+  "sideboard": [
+    {
+      "id": "HMW_204",
+      "count": 1
+    },
+    {
+      "id": "JTL_041",
+      "count": 1
+    },
+    {
+      "id": "SEC_038",
+      "count": 1
+    },
+    {
+      "id": "LAW_044",
+      "count": 2
+    },
+    {
+      "id": "LAW_101",
+      "count": 1
+    },
+    {
+      "id": "SEC_186",
+      "count": 2
+    },
+    {
+      "id": "LAW_086",
+      "count": 1
+    },
+    {
+      "id": "SEC_078",
+      "count": 1
+    }
+  ]
+}

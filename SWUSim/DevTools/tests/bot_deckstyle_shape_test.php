@@ -14,12 +14,12 @@ $check = function ($ok, $msg, $detail = '') use (&$fails) {
 $deckOf = fn(string $f) => SWUBotDeckFromFixtureText((string)file_get_contents("./SWUSim/Tests/BotFixtures/meta-2026-09/$f.txt"));
 
 // ── features ────────────────────────────────────────────────────────────────────────────────────
-$vader = $deckOf('vader_yellow');
+$vader = $deckOf('darth-vader_jtl_yellow');
 $f = SWUBotDeckFeatures($vader);
 $check($f['n'] >= 45, 'Vader Yellow: the main deck is counted', strval($f['n']));
 $check($f['space'] > $f['units'] * 0.6, 'Vader Yellow: mostly space units', $f['space'] . '/' . $f['units']);
 $check($f['avgCost'] < 3.5, 'Vader Yellow: a low curve', strval($f['avgCost']));
-$krennic = $deckOf('krennic_splash');
+$krennic = $deckOf('director-krennic_law_blue-splash');
 $fc = SWUBotDeckFeatures($krennic);
 $check($fc['removal'] + $fc['wipe'] >= 4, 'Krennic Splash: it carries answers', ($fc['removal'] + $fc['wipe']) . '');
 $check($fc['big'] > $f['big'], 'Krennic Splash holds more 6+ drops than Vader Yellow', $fc['big'] . ' vs ' . $f['big']);
@@ -45,7 +45,7 @@ $check(SWUBotStyleFromScore(2.2)['confidence'] === 'medium', '0.2 from centre is
 // score must rise: this is the one assertion that notices the sign of the burn weight.
 // Swapping the cards out would change the curve too, so the weight itself is switched off instead: same deck, same
 // features, burn priced at nothing. The score must RISE, i.e. burn was pulling it toward aggro.
-$boba = $deckOf('boba_lakecountry');
+$boba = $deckOf('boba-fett_jtl_lake-country');
 $check(SWUBotDeckFeatures($boba)['burn'] >= 10, 'fixture: Boba Lake Country is the burn deck', strval(SWUBotDeckFeatures($boba)['burn']));
 $withBurn = SWUBotDeckShapeScore($boba);
 $GLOBALS['SWUDeckStyleWeightOverride'] = ['burn' => 0.0];
@@ -60,7 +60,7 @@ $check($withoutBurn > $withBurn, 'burn pulls the score toward aggro', "$withBurn
 // ⚠ This is deliberately a two-step guard, not "Maul must come out midrange": how close the scan gets on any one
 // deck is the accuracy bar's job (bot_deckstyle_test.php, leave-one-out over all 23). Maul reads soft control, one
 // step high, and that is counted there.
-$maul = $deckOf('maul_blueforce');
+$maul = $deckOf('darth-maul_lof_blue-force');
 $maulStyle = SWUBotStyleFromScore(SWUBotDeckShapeScore($maul))['style'];
 $check(array_search($maulStyle, SWU_DECKSTYLE_SCALE, true) <= 3, 'Maul Blue Force is not double-shifted into hard control',
     $maulStyle . ' (score ' . SWUBotDeckShapeScore($maul) . ')');
@@ -70,14 +70,21 @@ $check(!str_contains($src, 'SWUBotRacingRank') && !str_contains($src, 'FlavourRa
     'the classifier never calls the piloting rank or the flavour shift');
 
 // ── every fixture classifies without error (smoke) ───────────────────────────────────────────────
+// ⚠ Counted from the GLOB, not against a hardcoded floor. It was `>= 85`, which went red the moment the
+// 2026-09-29 rename merged greef_datavault away and moved krennic_ninin to force-fam/ (86 -> 84) — a number
+// that has to be edited every time a fixture is added or removed tells you nothing about the code. What this
+// smoke test actually means is "every fixture scored", so it asserts exactly that.
+// meta-2026-09-field/ was deleted 2026-09-29, so this is the one fixture dir the classifier covers.
+// weak-2026-09/ is deliberately absent: those decks are built to be bad and are not the field.
+$paths = glob('./SWUSim/Tests/BotFixtures/meta-2026-09/*.txt') ?: [];
 $n = 0;
-foreach (array_merge(glob('./SWUSim/Tests/BotFixtures/meta-2026-09/*.txt') ?: [],
-                     glob('./SWUSim/Tests/BotFixtures/meta-2026-09-field/*.txt') ?: []) as $p) {
+foreach ($paths as $p) {
     $s = SWUBotDeckShapeScore(SWUBotDeckFromFixtureText((string)file_get_contents($p)));
     if (!is_float($s) || $s < 0.0 || $s > 4.0) { $check(false, 'smoke: ' . basename($p) . ' scores on the scale', strval($s)); break; }
     $n++;
 }
-$check($n >= 85, 'every fixture deck scores without error', strval($n));
+$check(count($paths) >= 20, 'the fixture dirs are not empty (the glob resolved)', strval(count($paths)));
+$check($n === count($paths), 'every fixture deck scores without error', $n . '/' . count($paths));
 
 echo $fails === 0 ? "\nALL PASS\n" : "\n$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

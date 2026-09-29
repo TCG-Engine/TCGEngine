@@ -34,7 +34,7 @@ try:
     decks = os.path.join(root, 'decks')
     os.makedirs(decks)
     # Deck names deliberately share no prefix with any style name — the shape that broke the old code.
-    for name, style in (('lando_blue', 'midrange'), ('ahsoka_red', 'softaggro')):
+    for name, style in (('lando-calrissian_law_blue', 'midrange'), ('ahsoka_red', 'softaggro')):
         with open(os.path.join(decks, name + '.txt'), 'w') as f:
             f.write(f"# Style: {style}\n3 ASH_009\n")   # the real fixture header shape
 
@@ -44,10 +44,10 @@ try:
     #   all       — NEW wins 3 of 4 (75%)
     res = os.path.join(root, 'results.tsv')
     with open(res, 'w') as f:
-        f.write(row('lando_blue', 'ahsoka_red', 's1', '1', 1))
-        f.write(row('lando_blue', 'ahsoka_red', 's1', '2', 2))
-        f.write(row('ahsoka_red', 'lando_blue', 's2', '1', 2))
-        f.write(row('ahsoka_red', 'lando_blue', 's2', '2', 2))
+        f.write(row('lando-calrissian_law_blue', 'ahsoka_red', 's1', '1', 1))
+        f.write(row('lando-calrissian_law_blue', 'ahsoka_red', 's1', '2', 2))
+        f.write(row('ahsoka_red', 'lando-calrissian_law_blue', 's2', '1', 2))
+        f.write(row('ahsoka_red', 'lando-calrissian_law_blue', 's2', '2', 2))
 
     out = subprocess.run([sys.executable, SCRIPT, res, decks],
                          capture_output=True, text=True).stdout
@@ -65,7 +65,7 @@ try:
 
     # A deck absent from the fixture dir must be SAID, never silently dropped — that is the whole lesson.
     with open(res, 'a') as f:
-        f.write(row('ghost_deck', 'lando_blue', 's3', '1', 1))
+        f.write(row('ghost_deck', 'lando-calrissian_law_blue', 's3', '1', 1))
     out2 = subprocess.run([sys.executable, SCRIPT, res, decks],
                           capture_output=True, text=True).stdout
     check('ghost_deck' in out2, 'a deck with no fixture is named in the output, not skipped in silence')

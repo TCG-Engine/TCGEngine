@@ -39,7 +39,7 @@ $ACTION = 'myLeader-0!CustomInput!LeaderAbility';
 
 // ── Registry ────────────────────────────────────────────────────────────────────────────────────────────────
 // ⚠ A PROPOSAL, DEFAULT OFF — it FAILS the owner's bar ("raise the weak, never lower the strong"). Measured over
-// 24 games vs ahsoka_blue: 0/24 either way, and base damage dealt FELL 7.9 → 6.4. It does raise Credit-engine use
+// 24 games vs ahsoka-tano_ash_blue: 0/24 either way, and base damage dealt FELL 7.9 → 6.4. It does raise Credit-engine use
 // (12/78 → 16/60), but it cannot reach the line it exists for, because LAW_044 costs 10 unwaived against a max
 // capacity of 6 — the missing half is Daimyo's Palace's aspect waiver, not valuation. Measure them together.
 $check(in_array('creditvalue', SWUBotProposalList(), true), 'creditvalue is a PROPOSAL (default off)');

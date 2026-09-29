@@ -1,0 +1,95 @@
+{
+  "metadata": {
+    "name": "STAR WARS DAD Wicket Green (Splash)",
+    "author": "StarWarsDad"
+  },
+  "leader": {
+    "id": "HMW_014",
+    "count": 1
+  },
+  "secondleader": null,
+  "base": {
+    "id": "LAW_022",
+    "count": 1
+  },
+  "deck": [
+    {
+      "id": "HMW_163",
+      "count": 3
+    },
+    {
+      "id": "LAW_202",
+      "count": 3
+    },
+    {
+      "id": "HMW_045",
+      "count": 3
+    },
+    {
+      "id": "HMW_177",
+      "count": 3
+    },
+    {
+      "id": "ASH_248",
+      "count": 3
+    },
+    {
+      "id": "JTL_106",
+      "count": 3
+    },
+    {
+      "id": "HMW_164",
+      "count": 3
+    },
+    {
+      "id": "HMW_116",
+      "count": 3
+    },
+    {
+      "id": "HMW_115",
+      "count": 3
+    },
+    {
+      "id": "SEC_179",
+      "count": 3
+    },
+    {
+      "id": "ASH_124",
+      "count": 3
+    },
+    {
+      "id": "HMW_255",
+      "count": 3
+    },
+    {
+      "id": "HMW_254",
+      "count": 3
+    },
+    {
+      "id": "HMW_176",
+      "count": 2
+    },
+    {
+      "id": "ASH_034",
+      "count": 3
+    },
+    {
+      "id": "SEC_148",
+      "count": 3
+    },
+    {
+      "id": "HMW_162",
+      "count": 3
+    }
+  ],
+  "sideboard": [
+    {
+      "id": "JTL_203",
+      "count": 1
+    },
+    {
+      "id": "ASH_183",
+      "count": 2
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 #// lands on the ATTACKER (see Support_GrantedOnAttack_LandsOnTheAttacker.md).
 #//
 #// FOUND BY: sweep run 3, retro #1 (2026-09-13): ORDER ASH_203:SupportOnAttack + SEC_204:OnAttack (3×, e.g.
-#//   ahsoka_yellow.greef.s045, round 5, seat 1). Not seen in run 2.
+#//   ahsoka-tano_ash_yellow.greef-karga_ash_data-vault.s045, round 5, seat 1). Not seen in run 2.
 #//
 #// Cards: ASH_203 Mando's N-1 Starfighter 1/3 space (Support; "On Attack: You may exhaust a friendly (non-upgrade)
 #//   leader. If you do, this unit gets +2/+0 for this attack.") · SEC_204 Blue Ace 4/5 space (Ambush; "On Attack:

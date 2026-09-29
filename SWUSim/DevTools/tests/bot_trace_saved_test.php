@@ -18,25 +18,25 @@ $root = sys_get_temp_dir() . '/bottrace_' . getmypid();
 putenv('SWUBOT_TRACE_DIR=' . $root);
 $fix = 'SWUSim/Tests/BotFixtures/meta-2026-09';
 $p = fn($d1, $d2, $c1, $c2, $seed, $fp) => SWUBotTracePathFor($d1, $d2, $c1, $c2, $seed, $fp);
-$base = $p("$fix/krennic_splash.txt", "$fix/ahsoka_blue.txt", 'heuristic-softcontrol', 'heuristic-softaggro', 'kx0001', 1);
+$base = $p("$fix/director-krennic_law_blue-splash.txt", "$fix/ahsoka-tano_ash_blue.txt", 'heuristic-softcontrol', 'heuristic-softaggro', 'kx0001', 1);
 
 $check(strpos($base, $root . '/') === 0, 'SWUBOT_TRACE_DIR relocates the root');
 $check(basename($base) === 'kx0001.fp1.jsonl', "seed and first player name the file — got " . basename($base));
-$check(basename(dirname($base)) === 'krennic_splash__ahsoka_blue__heuristic-softcontrol__heuristic-softaggro',
+$check(basename(dirname($base)) === 'director-krennic_law_blue-splash__ahsoka-tano_ash_blue__heuristic-softcontrol__heuristic-softaggro',
     'the directory names both decks and both profiles — got ' . basename(dirname($base)));
 
 // The collision that actually bit: two ARMS of one seed block. The arm rides the chooser profile, so if the
 // profile were dropped from the path, baseline and @try-creditbank traces of kx0001 would be the same file —
 // and since the harness truncates, the second arm would silently ERASE the first.
-$arm = $p("$fix/krennic_splash.txt", "$fix/ahsoka_blue.txt", 'heuristic-softcontrol@try-creditbank', 'heuristic-softaggro', 'kx0001', 1);
+$arm = $p("$fix/director-krennic_law_blue-splash.txt", "$fix/ahsoka-tano_ash_blue.txt", 'heuristic-softcontrol@try-creditbank', 'heuristic-softaggro', 'kx0001', 1);
 $check($arm !== $base, 'a proposal arm does not collide with its baseline');
 $check(strpos($arm, '@try-creditbank') !== false, 'the variant survives slugging (@ is kept, it IS the arm)');
 // The field run's other collision: one Krennic profile against ten different opponents.
-$check($p("$fix/krennic_splash.txt", "$fix/vader_yellow.txt", 'heuristic-softcontrol', 'heuristic-softaggro', 'kx0001', 1) !== $base,
+$check($p("$fix/director-krennic_law_blue-splash.txt", "$fix/darth-vader_jtl_yellow.txt", 'heuristic-softcontrol', 'heuristic-softaggro', 'kx0001', 1) !== $base,
     'a different opponent deck does not collide');
-$check($p("$fix/krennic_splash.txt", "$fix/ahsoka_blue.txt", 'heuristic-softcontrol', 'heuristic-softaggro', 'kx0001', 2) !== $base,
+$check($p("$fix/director-krennic_law_blue-splash.txt", "$fix/ahsoka-tano_ash_blue.txt", 'heuristic-softcontrol', 'heuristic-softaggro', 'kx0001', 2) !== $base,
     'the other first player does not collide');
-$check($p("$fix/krennic_splash.txt", "$fix/ahsoka_blue.txt", 'heuristic-softcontrol', 'heuristic-softaggro', 'kx0002', 1) !== $base,
+$check($p("$fix/director-krennic_law_blue-splash.txt", "$fix/ahsoka-tano_ash_blue.txt", 'heuristic-softcontrol', 'heuristic-softaggro', 'kx0002', 1) !== $base,
     'a different seed does not collide');
 // A sweep runs WORKERS children at once; every one of them must own its own file.
 $parallel = array_map(fn($s) => $p("$fix/a.txt", "$fix/b.txt", 'heuristic-midrange', 'heuristic-midrange', $s, 1),
@@ -44,8 +44,8 @@ $parallel = array_map(fn($s) => $p("$fix/a.txt", "$fix/b.txt", 'heuristic-midran
 $check(count(array_unique($parallel)) === 6, 'six concurrent sweep seeds get six distinct files');
 
 // A mirror names one deck; deck2 must not become 'builtin' and split the mirror across two dirs.
-$mirror = $p("$fix/krennic_splash.txt", null, 'heuristic-softcontrol', 'heuristic-softcontrol', 's01', 1);
-$check(basename(dirname($mirror)) === 'krennic_splash__krennic_splash__heuristic-softcontrol__heuristic-softcontrol',
+$mirror = $p("$fix/director-krennic_law_blue-splash.txt", null, 'heuristic-softcontrol', 'heuristic-softcontrol', 's01', 1);
+$check(basename(dirname($mirror)) === 'director-krennic_law_blue-splash__director-krennic_law_blue-splash__heuristic-softcontrol__heuristic-softcontrol',
     'deck2 defaults to deck1, as the harness does — got ' . basename(dirname($mirror)));
 // No deck at all (the harness's built-in decks) still yields a usable, non-empty path.
 $none = $p(null, null, 'first-legal', 'first-legal', 'swusimbotselfplay00000000000000', 1);
@@ -66,7 +66,7 @@ $cmd = 'cd /var/www/html/TCGEngine && env -u SWUBOT_TRACE -u SWUBOT_TRACE_BOARD 
      . ' timeout 180 php -d apc.enable_cli=1 -d xdebug.mode=off DevTools/SWUSimBotSelfPlayTest.php'
      . ' --games=1 --seed=tracetest --first-player=1 --memory-only'
      . ' --chooser=heuristic-softcontrol --chooser2=heuristic-softaggro'
-     . ' --deck=' . escapeshellarg("$fix/krennic_splash.txt") . ' --deck2=' . escapeshellarg("$fix/ahsoka_blue.txt")
+     . ' --deck=' . escapeshellarg("$fix/director-krennic_law_blue-splash.txt") . ' --deck2=' . escapeshellarg("$fix/ahsoka-tano_ash_blue.txt")
      . ' 2>&1';
 exec($cmd, $out, $rc);
 $outText = implode("\n", $out);

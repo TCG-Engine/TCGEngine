@@ -3,6 +3,10 @@
 // owner labels or relabels a fixture; the runtime classifier reads only the JSON, never the test folders.
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d xdebug.mode=off SWUSim/DevTools/regen-deck-labels.php
 chdir(dirname(__DIR__, 2));
+// ⚠ The card dictionaries are required for the 'name' field: SWUBotDeckDisplayName() needs CardTitle/
+// CardRarity/CardHp/CardAspect, and it returns '' rather than a half-built label when they are missing —
+// so without this include every deck silently got an EMPTY name. BotDeckStyle.php does not pull them in.
+require_once './SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
 require_once './SWUSim/Custom/BotDeckStyle.php';
 
 const SWU_LABEL_STYLES = ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 'hardcontrol'];
@@ -24,7 +28,11 @@ foreach (glob('./SWUSim/Tests/BotFixtures/meta-2026-09/*.txt') ?: [] as $path) {
         fwrite(STDERR, "REFUSED: " . basename($path) . " has no leader or no deck\n");
         exit(1);
     }
-    $out[] = ['file' => basename($path, '.txt'), 'leader' => $deck['leader'], 'base' => $deck['base'],
+    // 'name' is the Bot Arena display name, derived from the CARD IDs (SWUBotDeckDisplayName,
+    // BotDeckStyle.php) and stored here so the menu never has to un-slug the filename — which cannot
+    // round-trip, because a hyphen is both the word separator and part of names like Obi-Wan Kenobi.
+    $out[] = ['file' => basename($path, '.txt'), 'name' => SWUBotDeckDisplayName($deck['leader'], $deck['base']),
+              'leader' => $deck['leader'], 'base' => $deck['base'],
               'style' => $style, 'cards' => $deck['cards'], 'total' => array_sum($deck['cards'])];
 }
 usort($out, fn($a, $b) => strcmp($a['file'], $b['file']));

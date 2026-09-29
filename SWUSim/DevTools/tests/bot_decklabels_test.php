@@ -1,7 +1,7 @@
 <?php
 // The label registry (SWUSim/Custom/BotDeckLabels.json) is generated from the OWNER-LABELLED fixtures in
 // SWUSim/Tests/BotFixtures/meta-2026-09/ by SWUSim/DevTools/regen-deck-labels.php. The field set
-// (meta-2026-09-field/) is EXCLUDED on purpose: its styles are unreviewed 3-way guesses, and an unreviewed
+// (meta-2026-09-field/, deleted 2026-09-29) was EXCLUDED on purpose: its styles were unreviewed guesses, and an unreviewed
 // label must never trigger the 75% instant label.
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d xdebug.mode=off SWUSim/DevTools/tests/bot_decklabels_test.php
 chdir(dirname(__DIR__, 3));
@@ -38,9 +38,15 @@ foreach ($files as $f) {
     $check(($d['total'] ?? 0) >= 45, "$name has a full main deck", strval($d['total'] ?? 0));
     $check(array_sum($d['cards'] ?? []) === ($d['total'] ?? -1), "$name's counts sum to its total");
 }
-// The field set must NOT be in the registry.
-$fieldNames = array_map(fn($p) => basename($p, '.txt'), glob('./SWUSim/Tests/BotFixtures/meta-2026-09-field/*.txt') ?: []);
-$check(empty(array_intersect($fieldNames, array_keys($byFile))), 'the unreviewed field set is excluded');
+// The registry must hold ONLY the reviewed meta set.
+// ⚠ This used to be "no field basename appears in the registry", which broke on the 2026-09-29 rename:
+// every fixture is now named <leader>_<set>_<base-archetype>, so a field deck and a meta deck that are the
+// SAME DECK now share a basename (luke-skywalker_ash_data-vault is in both dirs, byte-identical). A name
+// collision across directories is therefore no longer evidence of anything. Asserting the registry keys are
+// a SUBSET of the meta dir says what was actually meant, and is immune to that coincidence.
+$metaNames = array_map(fn($p) => basename($p, '.txt'), glob('./SWUSim/Tests/BotFixtures/meta-2026-09/*.txt') ?: []);
+$stray = array_values(array_diff(array_keys($byFile), $metaNames));
+$check(empty($stray), 'the registry holds only reviewed meta-2026-09 fixtures', implode(',', $stray));
 
 echo $fails === 0 ? "\nALL PASS\n" : "\n$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

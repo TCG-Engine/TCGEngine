@@ -107,7 +107,7 @@ for (const [name, launcher] of [['chromium', chromium], ['firefox', firefox], ['
     // Empty the bot slot the way a player does: type in the bot box (which drops the default
     // pre-con), then clear it. Without this the default pre-con still answers and the fallback
     // is never exercised — the first version of this check passed with the fallback DELETED,
-    // because ahsoka_blue and this link happen to share an archetype.
+    // because ahsoka-tano_ash_blue and this link happen to share an archetype.
     await p.fill('#ab-bot-link', 'x');
     await p.dispatchEvent('#ab-bot-link', 'input');
     await p.fill('#ab-bot-link', '');

@@ -33,7 +33,7 @@ showing through means `titleData` did not resolve and the row is lying about its
 
 Two lines per row: name on top, `<leader> / <base> · N cards` under it, with the style tag
 (`SOFT AGGRO`, `HARD CONTROL`, …) right-aligned. ⚠ If the name and the meta collapse onto ONE line with
-no gap — "Ahsoka BlueAhsoka Tano, Trust in the Force" — the row is using the RICH (`.pc__text`-wrapped)
+no gap — "Ahsoka Tano (ASH) BlueAhsoka Tano, Trust in the Force" — the row is using the RICH (`.pc__text`-wrapped)
 markup. `.pc__row` is a grid over its DIRECT children; the plain row needs name/meta/end as three
 tracks, the rich row nests name+meta so the art can sit beside them. They are not one shape with a flag.
 
@@ -266,16 +266,16 @@ disjoint elements and cannot fight.
 
 ## 18. Arenabot — Bot Style follows the bot's deck
 
-Open **Arenabot**. The default bot pre-con (Ahsoka Blue) is checked, so **Bot Style already reads
+Open **Arenabot**. The default bot pre-con (Ahsoka Tano (ASH) Blue) is checked, so **Bot Style already reads
 `Soft Aggro`, not `Midrange`**, and a full-width status line sits under the Start/Cancel row:
 
-> Bot style set to Soft Aggro — matching the Ahsoka Blue pre-con. Change it above for a different matchup.
+> Bot style set to Soft Aggro — matching the Ahsoka Tano (ASH) Blue pre-con. Change it above for a different matchup.
 
 Then, in order:
 
 | do this | Bot Style becomes | the line says |
 |---|---|---|
-| click the **Aurra Red** pre-con | Hard Control | `matching the Aurra Red pre-con` |
+| click the **Aurra Sing (LAW) Red** pre-con | Hard Control | `matching the Aurra Sing (LAW) Red pre-con` |
 | paste a link into **Bot Deck Link** | whatever the classifier answers | `it matches the deck you gave the bot` |
 | clear Bot Deck Link, paste into **Deck Link** | the classifier's answer for *your* deck | `the bot will be playing your deck` |
 | paste nonsense into Bot Deck Link | **unchanged** | unchanged |
@@ -290,7 +290,7 @@ to be told what the row already displays. `swusim-menu2-botstyle.mjs` counts req
 `APIs/SWUBotDeckStyle.php` and fails if a pre-con makes one.
 
 ⚠ **The gate's own trap.** The first version of the own-deck-fallback check passed with the
-fallback *deleted*, because the default pre-con (`ahsoka_blue`) and the fixture link happen to
+fallback *deleted*, because the default pre-con (`ahsoka-tano_ash_blue`) and the fixture link happen to
 share an archetype. Emptying the bot slot through the real UI path, plus a sentinel style the
 answer cannot be, is what makes that check bite. Same family as
 `geometry-assertions-cannot-see-a-screenshot`: a check that cannot distinguish the fix from the

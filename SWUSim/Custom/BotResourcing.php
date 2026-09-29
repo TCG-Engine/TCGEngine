@@ -120,7 +120,7 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
     // Control keeps a hand it can CAST: every card castable within ~2 regroups of the resources it will have
     // after this pick, plus ONE copy of its biggest card (the bomb it builds toward). Everything else goes
     // to resources, the card furthest from castable first. Owner ruling 2026-09-13, replacing v0's "resource
-    // the cheapest": on real control lists (fixture krennic_splash) that resourced every cheap answer and
+    // the cheapest": on real control lists (fixture director-krennic_law_blue-splash) that resourced every cheap answer and
     // left six 8–11-cost cards on 6 resources in round 5, so the deck cast nothing for three rounds.
     $soon = SWUResourceCount($seat) + $n + 2;
     $bombIndex = null; $bombCost = -1;

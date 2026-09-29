@@ -1,0 +1,129 @@
+<?php
+// The fixture naming convention (owner, 2026-09-29): a fixture file is
+//     <leader-title>_<leader-set>_<base-name-or-archetype>
+// and its Bot Arena display name is "Leader Title (SET) Base" — the underscores becoming " (" and ") ".
+//
+// Pinned against the owner's four worked examples, plus the two traps that make this worth a test at all:
+//   • a word-break hyphen and a hyphen INSIDE a name must stay distinguishable. A single '-' is the break, a
+//     DOUBLE '--' is a literal hyphen: "the-mandalorian" -> "The Mandalorian" but "obi--wan-kenobi" ->
+//     "Obi-Wan Kenobi". That escape makes the slug reversible, so the two derivations — from the CARD IDs and
+//     from the FILENAME — can be checked against each other, which is what caught "Jabba the Hutt" coming
+//     back as "Jabba The Hutt". The picker still reads the CARD-derived name; the filename is the cross-check.
+//   • the base half has four rules, and rules 2/3 (LOF 28-HP Force, LAW 27-HP Splash) must be tested BEFORE
+//     rule 4 (30-HP bare colour) — colour alone cannot tell a 30-HP Vigilance common from a 27-HP LAW one.
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d apc.enable_cli=1 -d xdebug.mode=off SWUSim/DevTools/tests/bot_fixture_naming_test.php
+require __DIR__ . '/fixtures/bot_test_bootstrap.php';
+include_once './SWUSim/Custom/BotDeckStyle.php';
+
+// ── the owner's four worked examples, verbatim ───────────────────────────────────────────────────
+// file -> [leaderID, baseID, expected filename, expected display name]
+$examples = [
+    'krennic_splash'    => ['LAW_008', 'LAW_020', 'director-krennic_law_blue-splash',  'Director Krennic (LAW) Blue Splash'],
+    'mando_colossus'    => ['ASH_014', 'JTL_021', 'the-mandalorian_ash_colossus',      'The Mandalorian (ASH) Colossus'],
+    'luke_datavault'    => ['JTL_012', 'JTL_024', 'luke-skywalker_jtl_data-vault',     'Luke Skywalker (JTL) Data Vault'],
+    'lukeash_datavault' => ['ASH_005', 'JTL_024', 'luke-skywalker_ash_data-vault',     'Luke Skywalker (ASH) Data Vault'],
+];
+foreach ($examples as $old => [$lead, $base, $wantFile, $wantName]) {
+    $gotFile = SWUBotFixtureFileName($lead, $base);
+    $gotName = SWUBotDeckDisplayName($lead, $base);
+    $check($gotFile === $wantFile, "{$old}: filename -> {$wantFile}" . ($gotFile === $wantFile ? '' : " (got {$gotFile})"));
+    $check($gotName === $wantName, "{$old}: display  -> {$wantName}" . ($gotName === $wantName ? '' : " (got {$gotName})"));
+}
+
+// ── the hyphen escape: '--' is a LITERAL dash, and the letter after it capitalises ────────────────
+// Owner, 2026-09-29. LOF_008 is Obi-Wan Kenobi, so a single '-' could not tell the word break from the
+// name's own hyphen. The double form makes the slug REVERSIBLE, which is what lets the two derivations
+// (from card ids, and from the filename) be checked against each other below.
+$obi = SWUBotDeckDisplayName('LOF_008', 'LOF_019');
+$check($obi === 'Obi-Wan Kenobi (LOF) Vergence Temple', "internal hyphen and set survive: got '{$obi}'");
+$check(SWUBotFixtureFileName('LOF_008', 'LOF_019') === 'obi--wan-kenobi_lof_vergence-temple',
+    "the literal hyphen is escaped as '--': got '" . SWUBotFixtureFileName('LOF_008', 'LOF_019') . "'");
+$check(SWUBotFixtureUnslug('obi--wan-kenobi') === 'Obi-Wan Kenobi',
+    "unslug: obi--wan-kenobi -> Obi-Wan Kenobi (got '" . SWUBotFixtureUnslug('obi--wan-kenobi') . "')");
+$check(SWUBotFixtureUnslug('the-mandalorian') === 'The Mandalorian',
+    "unslug: a single dash is a word break (got '" . SWUBotFixtureUnslug('the-mandalorian') . "')");
+$check(SWUBotFixtureDisplayNameFromFile('obi--wan-kenobi_lof_vergence-temple') === 'Obi-Wan Kenobi (LOF) Vergence Temple',
+    'the whole filename round-trips to the display name');
+// A three-part name must survive too — Ki-Adi-Mundi is the shape that breaks a naive single-escape.
+$check(SWUBotFixtureSlug('Ki-Adi-Mundi') === 'ki--adi--mundi'
+    && SWUBotFixtureUnslug('ki--adi--mundi') === 'Ki-Adi-Mundi', 'two literal hyphens in one name round-trip');
+// An apostrophe must not become a stray hyphen: LAW_020 is Daimyo's Palace.
+$check(SWUBotFixtureSlug("Daimyo's Palace") === 'daimyos-palace',
+    "apostrophes are dropped, not hyphenated: got '" . SWUBotFixtureSlug("Daimyo's Palace") . "'");
+
+// ── the four base rules, each on a real base from the fixture set ────────────────────────────────
+$rules = [
+    // rule 1 — non-common keeps its printed title
+    ['JTL_024', 'Data Vault',     'rule 1: a RARE base keeps its full name'],
+    ['JTL_021', 'Colossus',       'rule 1: Colossus (rare, 35 HP)'],
+    ['JTL_031', 'Lake Country',   'rule 1: Lake Country (rare, and has NO aspect — must not read as "?")'],
+    ['LAW_019', 'Alliance Outpost','rule 1: a rare below 30 HP is still its own name, not a colour'],
+    // rule 2 — LOF 28-HP common
+    ['LOF_020', 'Blue Force',     'rule 2: LOF 28-HP Vigilance common -> Blue Force'],
+    ['LOF_029', 'Yellow Force',   'rule 2: LOF 28-HP Cunning common -> Yellow Force'],
+    // rule 3 — LAW 27-HP common
+    ['LAW_020', 'Blue Splash',    'rule 3: LAW 27-HP Vigilance common -> Blue Splash'],
+    ['LAW_027', 'Red Splash',     'rule 3: LAW 27-HP Aggression common -> Red Splash'],
+    // rule 4 — 30-HP common is the bare colour
+    ['JTL_019', 'Blue',           'rule 4: 30-HP Vigilance common -> Blue'],
+    ['ASH_026', 'Yellow',         'rule 4: 30-HP Cunning common -> Yellow'],
+    ['ASH_024', 'Red',            'rule 4: 30-HP Aggression common -> Red'],
+];
+foreach ($rules as [$base, $want, $label]) {
+    $got = SWUBotBaseArchetypeName($base);
+    $check($got === $want, "{$label}" . ($got === $want ? '' : " — got '{$got}'"));
+}
+
+// ⚠ Rule ORDER is load-bearing, and this is the section that proves it: LAW_020 (27 HP) and JTL_019 (30 HP)
+// are BOTH Vigilance commons. If the 30-HP rule ran first, or if the set/HP test were dropped, they would
+// both read "Blue" and two fixtures would collide on one filename.
+$check(SWUBotBaseArchetypeName('LAW_020') !== SWUBotBaseArchetypeName('JTL_019'),
+    'a 27-HP LAW Vigilance common and a 30-HP Vigilance common do NOT collapse to the same name');
+
+// ── every fixture in the renamed dirs must produce a UNIQUE name ─────────────────────────────────
+// A collision silently makes one deck unreachable, so this is the invariant that matters most. It is
+// computed from the files on disk, so adding a colliding fixture fails here rather than at rename time.
+// ⚠ There is NO exemption list, deliberately. A deck the convention cannot name uniquely does not get an
+// exemption here — it belongs in a directory that is not renamed. The owner's krennic_ninin is the worked
+// example: a second Director Krennic list on another LAW 27-HP Vigilance base (Coaxium Mine vs Daimyo's
+// Palace), which the convention collapses to the same "Blue Splash", so it lives in force-fam/ instead.
+// meta-2026-09-field/ was deleted 2026-09-29; force-fam/ and weak-2026-09/ are outside the convention by
+// design (attribution, and defect-encoding names, respectively).
+foreach (['meta-2026-09'] as $dir) {
+    $byName = [];
+    foreach (glob("./SWUSim/Tests/BotFixtures/{$dir}/*.txt") ?: [] as $path) {
+        $stem = basename($path, '.txt');
+        $d = SWUBotDeckFromFixtureText((string)file_get_contents($path));
+        $n = SWUBotFixtureFileName(strval($d['leader'] ?? ''), strval($d['base'] ?? ''));
+        $check($n !== '', "{$dir}/{$stem}: resolves to a name");
+        $byName[$n][] = $stem;
+    }
+    $dups = array_filter($byName, fn($v) => count($v) > 1);
+    $msg = [];
+    foreach ($dups as $n => $olds) $msg[] = "{$n} <- " . implode('+', $olds);
+    $check(empty($dups), "{$dir}: all " . count($byName) . " fixtures get unique names"
+        . (empty($dups) ? '' : ' — COLLIDING: ' . implode('; ', $msg)));
+
+    // THE INVARIANT the reversible slug buys: the name derived from the CARD IDs and the name read back
+    // out of the FILENAME must be identical. If they ever diverge, one of the two derivations is wrong and
+    // the picker would disagree with the fixture on disk.
+    $bad = [];
+    foreach ($byName as $newStem => $olds) {
+        $path = "./SWUSim/Tests/BotFixtures/{$dir}/{$olds[0]}.txt";
+        $d = SWUBotDeckFromFixtureText((string)file_get_contents($path));
+        $fromCards = SWUBotDeckDisplayName(strval($d['leader'] ?? ''), strval($d['base'] ?? ''));
+        $fromFile  = SWUBotFixtureDisplayNameFromFile($newStem);
+        if ($fromCards !== $fromFile) $bad[] = "{$newStem}: cards='{$fromCards}' file='{$fromFile}'";
+    }
+    $check(empty($bad), "{$dir}: card-derived and filename-derived display names agree for all "
+        . count($byName) . (empty($bad) ? '' : ' — MISMATCH: ' . implode('; ', array_slice($bad, 0, 4))));
+}
+
+// ⚠ weak-2026-09 is deliberately NOT in that list. Its names encode the DEFECT under test (badcurve,
+// neutralunits, noremoval) and three of them share one leader+base, so the convention would both destroy
+// the only information in the name and collide 3 ways. Asserted so nobody "completes" the rename later.
+$weak = array_map(fn($p) => basename($p, '.txt'), glob('./SWUSim/Tests/BotFixtures/weak-2026-09/*.txt') ?: []);
+$check(in_array('badcurve', $weak, true) && in_array('noremoval', $weak, true),
+    'weak-2026-09 keeps its defect-named fixtures (badcurve, noremoval) — NOT renamed');
+
+bot_test_finish();

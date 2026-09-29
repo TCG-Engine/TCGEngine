@@ -528,7 +528,7 @@ function SWUBotKrennicPlanFilter(array $ctx): array {
 }
 
 // ── PROPOSAL 'krennicscript' — the owner's written game plan for Krennic Blue Splash vs an AGGRO deck ──────────
-// Owner, 2026-09-28, after the 0/24 trace vs ahsoka_blue:
+// Owner, 2026-09-28, after the 0/24 trace vs ahsoka-tano_ash_blue:
 //   T1) play a unit that benefits from sac (like Ant Droid)
 //   T2) play a Sentinel
 //   T3) play any unit that benefits from sac — another Ant Droid or Expendable Merc

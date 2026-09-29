@@ -108,7 +108,7 @@ function SWUBotAggroMaxUnitsPick(array $ctx): ?array {
     // the plotted units plus the leader's own body. It has to be judged here rather than by its score alone,
     // because this guide's weight (4.0 for Aggro) otherwise decides the turn on its own and the deploy is not
     // even a candidate — so the bot plays a 2-drop, spends the Plot budget, and the flip turn produces nothing
-    // (feature 'plotdeploy'; measured on ahsoka_blue, 24 of 42 deploys plotted nothing). Deploying FIRST
+    // (feature 'plotdeploy'; measured on ahsoka-tano_ash_blue, 24 of 42 deploys plotted nothing). Deploying FIRST
     // costs nothing: an Epic Action gates on resources controlled and spends none, so the hand plays that lose
     // this comparison are still affordable afterwards.
     if (SWUBotFeatureOn('plotdeploy')) {

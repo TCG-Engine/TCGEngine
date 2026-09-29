@@ -1,3 +1,17 @@
+# Premier meta archetypes — September 2026 (research record)
+
+⚠ **This was `SWUSim/Tests/BotFixtures/meta-2026-09-field/README.md`. The 61 fixtures it describes were
+DELETED on 2026-09-29** (owner: the only thing reading them was SWUDeck's admin-gated deck simulator, which
+nobody uses; it now reads `meta-2026-09/` alone). The prose is kept because the table below is the ONLY
+TRACKED copy of this data — `docs/superpowers/` is gitignored, so the research it came from does not ship.
+Two notes in here are still live rules, not history: the per-BASE minimum deck size, and the
+`MeleeLinkToJson.php` name-matching bug. Both are flagged inline.
+
+To rebuild any of these fixtures, re-import its melee list with `APIs/MeleeLinkToJson.php` and put the file in
+`meta-2026-09/` under the naming convention in that directory's README.
+
+---
+
 # Field fixtures — Premier, September 2026
 
 Every archetype with **2+ entries** across the twenty melee.gg Premier events in

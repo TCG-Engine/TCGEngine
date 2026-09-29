@@ -533,7 +533,7 @@ const SWU_BOT_PROPOSALS = [
                        // board: -2.6, and the ramp Action was taken 12 of 78 times (the 12 being the boards where
                        // LAW_159 Expendable Mercenary was the fodder, already priced at -1.0).
                        // ⚠ A PROPOSAL, NOT SHIPPED, because it FAILS the owner's bar. Measured 24 games vs
-                       // ahsoka_blue: win rate 0/24 either way, and base damage dealt FELL 7.9 → 6.4. It raises
+                       // ahsoka-tano_ash_blue: win rate 0/24 either way, and base damage dealt FELL 7.9 → 6.4. It raises
                        // Credit-engine use (12/78 → 16/60) but cannot reach the line it exists for — LAW_044 Single
                        // Reactor Ignition costs 10 unwaived against a max capacity of 6, so the missing half is
                        // Daimyo's Palace's aspect waiver (the "save the once-per-game unlock" gap), not valuation.
@@ -590,7 +590,7 @@ function SWUBotProposalList(): array {
 // ('piettplan' = resourcing3 + piettcheat was measured 2026-09-22; with resourcing3 shipped it is '@try-piettcheat'.)
 // 'krennicline' — the two halves of the owner's Krennic Blue Splash line (2026-09-28): bank Credits toward a bomb
 // ('creditvalue') AND spend the base's once-per-game aspect waiver on it rather than on a round-1 2-drop
-// ('aspectwaiver'). Measured ALONE, neither moves the 0/24 vs ahsoka_blue and each costs base damage — which is
+// ('aspectwaiver'). Measured ALONE, neither moves the 0/24 vs ahsoka-tano_ash_blue and each costs base damage — which is
 // expected, because the line needs BOTH: LAW_044 Single Reactor Ignition is cost 10 unwaived against a max capacity
 // of 6, so it wants the waiver (10 → 8) and the Credits (6 → 8) at the same time.
 // ⚠ 'aspectwaiver' was REMOVED from both groups when it shipped as feature p16 (2026-09-29): it is

@@ -17,7 +17,7 @@ DEFAULT_FIXTURES = 'SWUSim/Tests/BotFixtures/meta-2026-09'
 # uses to pick the chooser, so the report and the run always agree on what a deck is.
 #
 # ⚠ This used to be `deckname.split('_')[0]`, compared against the three names ('aggro','normal','control').
-# Real fixtures are called lando_blue, ahsoka_red, piett_red..., so that yielded "lando"/"ahsoka"/"piett",
+# Real fixtures are called lando-calrissian_law_blue, ahsoka_red, admiral-piett_jtl_red-splash..., so that yielded "lando"/"ahsoka"/"piett",
 # nothing ever matched, and the ENTIRE per-style section was skipped in silence — for every run, not just
 # some. The 2026-09-24 kill-weight screen was therefore read as "flat" off the aggregate line alone, while
 # the per-style split (done by hand afterwards) showed midrange +2.2pp at p <= 0.004. The per-style block

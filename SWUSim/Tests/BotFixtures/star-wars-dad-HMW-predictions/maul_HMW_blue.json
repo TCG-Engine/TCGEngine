@@ -1,0 +1,134 @@
+{
+  "metadata": {
+    "name": "STAR WARS DAD Maul Blue 3.0",
+    "author": "StarWarsDad"
+  },
+  "leader": {
+    "id": "HMW_016",
+    "count": 1
+  },
+  "base": {
+    "id": "JTL_020",
+    "count": 1
+  },
+  "deck": [
+    {
+      "id": "HMW_202",
+      "count": 3
+    },
+    {
+      "id": "LOF_242",
+      "count": 3
+    },
+    {
+      "id": "LOF_213",
+      "count": 3
+    },
+    {
+      "id": "ASH_194",
+      "count": 2
+    },
+    {
+      "id": "LAW_237",
+      "count": 2
+    },
+    {
+      "id": "JTL_033",
+      "count": 2
+    },
+    {
+      "id": "HMW_198",
+      "count": 2
+    },
+    {
+      "id": "ASH_052",
+      "count": 3
+    },
+    {
+      "id": "LAW_133",
+      "count": 2
+    },
+    {
+      "id": "ASH_053",
+      "count": 3
+    },
+    {
+      "id": "JTL_043",
+      "count": 3
+    },
+    {
+      "id": "LAW_118",
+      "count": 2
+    },
+    {
+      "id": "LOF_070",
+      "count": 3
+    },
+    {
+      "id": "ASH_048",
+      "count": 3
+    },
+    {
+      "id": "JTL_032",
+      "count": 3
+    },
+    {
+      "id": "ASH_079",
+      "count": 3
+    },
+    {
+      "id": "JTL_041",
+      "count": 1
+    },
+    {
+      "id": "SEC_078",
+      "count": 2
+    },
+    {
+      "id": "HMW_055",
+      "count": 3
+    },
+    {
+      "id": "LOF_057",
+      "count": 3
+    },
+    {
+      "id": "LAW_086",
+      "count": 1
+    },
+    {
+      "id": "HMW_204",
+      "count": 2
+    }
+  ],
+  "sideboard": [
+    {
+      "id": "ASH_078",
+      "count": 2
+    },
+    {
+      "id": "ASH_220",
+      "count": 2
+    },
+    {
+      "id": "JTL_041",
+      "count": 1
+    },
+    {
+      "id": "SEC_078",
+      "count": 1
+    },
+    {
+      "id": "LAW_086",
+      "count": 1
+    },
+    {
+      "id": "SEC_186",
+      "count": 2
+    },
+    {
+      "id": "HMW_204",
+      "count": 1
+    }
+  ]
+}

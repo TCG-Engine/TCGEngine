@@ -102,9 +102,14 @@ function SWUSetupBotPreCons(): array {
         $style = trim((string)($d['style'] ?? ''));
         $out[] = [
             'key'        => trim((string)($d['file'] ?? '')),
-            // "aurra_datavault" -> "Aurra Datavault". Derived, so a deck added to the fixture
-            // set shows up named instead of needing a second hand-written list here.
-            'name'       => ucwords(str_replace('_', ' ', (string)($d['file'] ?? ''))),
+            // The stored 'name' ("Director Krennic (LAW) Blue Splash") is derived from the leader and
+            // base CARD IDs by regen-deck-labels.php (SWUBotDeckDisplayName, BotDeckStyle.php).
+            // ⚠ The ucwords(str_replace('_',' ',…)) fallback is for a JSON written before that field
+            // existed — it is NOT the convention and must not be relied on: it renders the set as "Law"
+            // instead of "(LAW)", and un-slugging a filename cannot round-trip a name like Obi-Wan Kenobi.
+            'name'       => trim((string)($d['name'] ?? '')) !== ''
+                              ? trim((string)($d['name'] ?? ''))
+                              : ucwords(str_replace('_', ' ', (string)($d['file'] ?? ''))),
             'leader'     => $leader,
             'base'       => $base,
             'style'      => $style,

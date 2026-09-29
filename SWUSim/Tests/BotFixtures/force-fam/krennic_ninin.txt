@@ -1,0 +1,64 @@
+# Real-deck self-play fixture — "Krennic Blue Splash by ninin" (Director Krennic, Amidst My Achievement - Coaxium Mine)
+# Source: the OWNER'S OWN LIST, https://swustats.net/deck/VvpMoWqQWdRh (deck 108757)
+#   Fetched 2026-09-29 via APIs/LoadDeck.php?deckID=108757&setId=true. NOT a melee import — this is the list
+#   the owner actually plays, and the reference game is 1431598 ("about how a Game 1 should go").
+#   60 cards. Its 4-card sideboard (Direct Hit, Governor's Shuttle, No Glory, Condemn) is dropped, as for
+#   every fixture here.
+#
+# ⚠ WHY THIS EXISTS, AND WHY krennic_splash.txt IS NOT A SUBSTITUTE.
+#   Measured 2026-09-29: the melee-sourced krennic_splash.txt beats midrange and control (35-63%) but loses
+#   8.2% / 13.0% / 13.8% to the three decks whose units are >50% SPACE, and its win rate tracks the
+#   opponent's space share almost monotonically. The reason is a CURVE, not a count — its cheapest space
+#   unit costs SEVEN:
+#       krennic_splash space curve   7, 7, 7, 8, 8, 11     (0 space units at cost <= 4)
+#       this list's space curve       2, 2, 2, 6, 6, 7, 7, 8, 8
+#   So krennic_splash cannot put a ship in the arena before round ~6 against a deck that fields 4.5 of them
+#   by round 3; it is at 9 base HP by round 5, never reaches the 8 capacity that ASH_053 Pre Vizsla costs
+#   (castable at only 3% of the 1082 decision points where the bot held it, played 0.03/game), and so never
+#   casts the sweep the deck is built around. Every Krennic bot measurement before this date — the 0/24 vs
+#   ahsoka_blue, krennicline, krennicfull, cardvalue, creditbank — was made on that deck, which means
+#   "the bot pilots Krennic badly" and "that list cannot contest space" were completely confounded.
+#
+# The owner's reference line (game 1431598): play JTL_033 Onyx Squadron Brute round 1-2 and trade with their
+#   ships (it heals 2 from a base when defeated, so the trade is not free for them), ramp every round with
+#   Krennic's Action [Exhaust, defeat a friendly unit] -> Credit, spend Credits to land ASH_053 Pre Vizsla
+#   EARLY ("When Played: defeat any number of non-leader units with a total of 6 or less remaining HP.
+#   Create a Mandalorian token for each") which both sweeps the softened ships and builds a board, and hold
+#   JTL_078 Direct Hit ("defeat a non-leader Vehicle unit") for a specific big threat rather than the first
+#   legal target — the owner named Victor Leader and Clone Combat Squadron.
+#
+# Archetype (owner's label): Credit ramp control (soft / midrange control)
+# Style: softcontrol
+# Flavours: credit-ramp, mixed-space
+
+Leader
+1 LAW_008
+
+Base
+1 LAW_021
+
+Deck
+3 ASH_116
+3 ASH_048
+3 ASH_079
+3 ASH_097
+3 JTL_032
+3 LAW_038
+3 LAW_039
+3 LAW_097
+3 LAW_159
+3 LOF_084
+3 SEC_080
+2 ASH_053
+2 SEC_087
+3 JTL_033
+2 ASH_052
+2 JTL_119
+2 LAW_101
+3 LAW_044
+2 JTL_043
+2 LAW_133
+2 SEC_078
+1 JTL_078
+1 SEC_038
+3 LOF_091

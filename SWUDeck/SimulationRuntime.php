@@ -8,9 +8,18 @@ function swuSimulationConfig(): array {
     return is_array($config) ? $config : [];
 }
 
+// The fixture directories the simulator offers as opponents, in order. ONE list, because the two functions
+// below must agree: swuSimulationOpponents() advertises the ids and swuSimulationOpponentPath() resolves
+// them, and a disagreement between them makes an advertised opponent un-pickable. Guarded by
+// SWUSim/DevTools/tests/simulation_opponents_test.php ("every offered opponent RESOLVES").
+// meta-2026-09-field/ was dropped 2026-09-29 — its 61 unreviewed-style decks existed only for this list, and
+// their archetype data now lives in SWUSim/docs/premier-meta-2026-09-archetypes.md. Adding force-fam/ (the
+// creator decks) is a one-line change here, once they should be pickable.
+const SWU_SIMULATION_OPPONENT_GROUPS = ['meta-2026-09'];
+
 function swuSimulationOpponents(): array {
     $result = [];
-    foreach (['meta-2026-09', 'meta-2026-09-field'] as $group) {
+    foreach (SWU_SIMULATION_OPPONENT_GROUPS as $group) {
         foreach (glob(__DIR__ . '/../SWUSim/Tests/BotFixtures/' . $group . '/*.txt') ?: [] as $path) {
             $id = pathinfo($path, PATHINFO_FILENAME);
             if (isset($result[$id])) continue;
@@ -26,8 +35,12 @@ function swuSimulationOpponents(): array {
 }
 
 function swuSimulationOpponentPath(string $id): string {
-    if (!preg_match('/^[a-z0-9_]+$/', $id)) throw new InvalidArgumentException('Choose an available opponent.');
-    foreach (['meta-2026-09', 'meta-2026-09-field'] as $group) {
+    // ⚠ The HYPHEN is required, not cosmetic: fixture filenames became
+    // <leader-title>_<set>_<base-archetype> on 2026-09-29 ("director-krennic_law_blue-splash"), and this
+    // class previously omitted '-', which rejected 82 of the 83 opponents this very file lists — the whole
+    // feature 500'd on every pick. Still no '.' and no '/', so an id cannot escape the fixture directory.
+    if (!preg_match('/^[a-z0-9_-]+$/', $id)) throw new InvalidArgumentException('Choose an available opponent.');
+    foreach (SWU_SIMULATION_OPPONENT_GROUPS as $group) {
         $path = __DIR__ . '/../SWUSim/Tests/BotFixtures/' . $group . '/' . $id . '.txt';
         if (is_file($path)) return $path;
     }

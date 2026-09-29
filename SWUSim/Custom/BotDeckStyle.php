@@ -7,6 +7,111 @@
 // endpoint scored with it, so the fitted weights did not describe what production ran (caught 2026-09-22).
 require_once __DIR__ . '/BotResourcing.php';
 
+// ── Fixture naming (owner convention, 2026-09-29) ────────────────────────────────────────────────
+// A fixture is named  <leader-title>_<leader-set>_<base-name-or-archetype>  and displayed as
+// "Leader Title (SET) Base" — e.g. director-krennic_law_blue-splash -> "Director Krennic (LAW) Blue Splash".
+//
+// ⚠ THE DISPLAY NAME IS DERIVED FROM THE CARD IDs, NEVER FROM THE FILENAME. Un-slugging cannot round-trip:
+// a hyphen is both the word separator AND part of a name, so "the-mandalorian" must become "The Mandalorian"
+// while "obi-wan-kenobi" must stay "Obi-Wan Kenobi", and nothing in the slug distinguishes the two. The
+// previous ucwords(str_replace('_',' ',$file)) also rendered the set as "Law" and lost the parentheses.
+//
+// The base half is the owner's four-rule archetype scheme:
+//   1. a RARE (or otherwise non-common) base keeps its full printed title — "Data Vault", "Colossus".
+//   2. a 28-HP LOF common is "<Colour> Force".
+//   3. a 27-HP LAW common is "<Colour> Splash".
+//   4. a 30-HP common is the bare colour — "Blue".
+// Rules 2 and 3 are checked BEFORE 4 and are keyed on set+HP, because the colour alone cannot tell a
+// 30-HP Vigilance common from a 27-HP Vigilance LAW one. Anything a rule does not cover falls back to the
+// printed title rather than guessing, so a new set cannot silently produce a wrong or colliding name.
+const SWU_BOT_ASPECT_COLOURS = ['Vigilance' => 'Blue', 'Command' => 'Green', 'Aggression' => 'Red',
+                                'Cunning' => 'Yellow', 'Heroism' => 'White', 'Villainy' => 'Black'];
+
+function SWUBotBaseArchetypeName(string $baseID): string {
+    if ($baseID === '' || !function_exists('CardTitle')) return '';
+    $title = strval(CardTitle($baseID));
+    $rarity = function_exists('CardRarity') ? strval(CardRarity($baseID)) : '';
+    if ($rarity !== 'Common') return $title;           // rule 1
+    $hp  = function_exists('CardHp') ? intval(CardHp($baseID)) : 0;
+    $set = strtoupper(explode('_', $baseID)[0]);
+    $colour = '';
+    if (function_exists('CardAspect')) {
+        $asp = CardAspect($baseID);
+        if (is_array($asp)) $asp = strval($asp[0] ?? '');
+        foreach (array_map('trim', explode(',', strval($asp))) as $a) {
+            if (isset(SWU_BOT_ASPECT_COLOURS[$a])) { $colour = SWU_BOT_ASPECT_COLOURS[$a]; break; }
+        }
+    }
+    if ($colour === '') return $title;                  // no aspect to name it by — keep the printed title
+    if ($set === 'LOF' && $hp === 28) return $colour . ' Force';    // rule 2
+    if ($set === 'LAW' && $hp === 27) return $colour . ' Splash';   // rule 3
+    if ($hp === 30) return $colour;                                 // rule 4
+    return $title;
+}
+
+// "Director Krennic (LAW) Blue Splash". Empty string if the ids cannot be resolved, so a caller can fall
+// back rather than render a half-built label.
+function SWUBotDeckDisplayName(string $leaderID, string $baseID): string {
+    if ($leaderID === '' || !function_exists('CardTitle')) return '';
+    $leader = strval(CardTitle($leaderID));
+    if ($leader === '') return '';
+    $set = strtoupper(explode('_', $leaderID)[0]);
+    $arch = SWUBotBaseArchetypeName($baseID);
+    return $arch === '' ? "{$leader} ({$set})" : "{$leader} ({$set}) {$arch}";
+}
+
+// The filename half of the same convention. A single '-' is a word break; a DOUBLE '--' is a literal
+// hyphen that belongs to the name (owner, 2026-09-29), so "Obi-Wan Kenobi" -> "obi--wan-kenobi" and the
+// slug round-trips exactly. Protect the literal hyphens FIRST, or collapsing the other separators eats them.
+const SWU_BOT_SLUG_DASH = "\x01";                       // private placeholder, never appears in a title
+
+function SWUBotFixtureSlug(string $s): string {
+    $s = str_replace("'", '', $s);                      // Daimyo's Palace -> daimyos-palace, not daimyo-s
+    $s = str_replace('-', SWU_BOT_SLUG_DASH, $s);       // keep the name's own hyphens out of the collapse
+    $s = preg_replace('/[^A-Za-z0-9' . SWU_BOT_SLUG_DASH . ']+/', '-', $s);
+    $s = str_replace(SWU_BOT_SLUG_DASH, '--', $s);      // ...then re-emit them as the escaped form
+    return strtolower(trim($s, '-'));
+}
+
+// Lower-case particles, so an un-slugged name matches how the cards are actually printed. Found by the
+// round-trip guard, not by inspection: "Jabba the Hutt" came back as "Jabba The Hutt" and the two
+// derivations disagreed. A particle is only lowered when it is NOT the first word — "The Mandalorian"
+// keeps its capital.
+const SWU_BOT_TITLE_PARTICLES = ['a','an','and','at','of','the','to','in','for','from','with','on','or','nor'];
+
+// The exact inverse: '--' -> a literal hyphen, single '-' -> a space, then capitalise every word AND every
+// letter following a literal hyphen (PHP's ucwords delimiters do the second part), then lower the particles.
+function SWUBotFixtureUnslug(string $slug): string {
+    $s = str_replace('--', SWU_BOT_SLUG_DASH, $slug);
+    $s = str_replace('-', ' ', $s);
+    $s = str_replace(SWU_BOT_SLUG_DASH, '-', $s);
+    $s = ucwords($s, " -");
+    $words = explode(' ', $s);
+    foreach ($words as $i => $w) {
+        if ($i === 0) continue;
+        if (in_array(strtolower($w), SWU_BOT_TITLE_PARTICLES, true)) $words[$i] = strtolower($w);
+    }
+    return implode(' ', $words);
+}
+
+function SWUBotFixtureFileName(string $leaderID, string $baseID): string {
+    if ($leaderID === '' || !function_exists('CardTitle')) return '';
+    $set = strtolower(explode('_', $leaderID)[0]);
+    return SWUBotFixtureSlug(strval(CardTitle($leaderID))) . '_' . $set . '_'
+         . SWUBotFixtureSlug(SWUBotBaseArchetypeName($baseID));
+}
+
+// "director-krennic_law_blue-splash" -> "Director Krennic (LAW) Blue Splash". Because the slug round-trips,
+// this and SWUBotDeckDisplayName() must agree for every fixture — which the guard test asserts both ways.
+// Returns '' for a stem that is not in the convention, so a caller can fall back rather than show a mangle.
+function SWUBotFixtureDisplayNameFromFile(string $stem): string {
+    $parts = explode('_', $stem);
+    if (count($parts) !== 3) return '';
+    [$leader, $set, $base] = $parts;
+    if ($leader === '' || $set === '' || $base === '') return '';
+    return SWUBotFixtureUnslug($leader) . ' (' . strtoupper($set) . ') ' . SWUBotFixtureUnslug($base);
+}
+
 // Parse a BotFixtures deck file: '# ' comments, then the sections Leader / Base / Deck, each line '<count> <CardID>'.
 function SWUBotDeckFromFixtureText(string $text): array {
     $sec = ''; $leader = ''; $base = ''; $cards = [];
