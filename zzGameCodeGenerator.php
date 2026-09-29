@@ -210,6 +210,7 @@ while(!feof($handler)) {
         $headerElement->Link = "";
         $headerElement->Module = "";
         $headerElement->Target = "";
+        $headerElement->Access = "";
         $elementArr = explode(",", $lineValue);
         for($i=0; $i<count($elementArr); ++$i) {
           $elementArr[$i] = trim($elementArr[$i]);
@@ -3391,6 +3392,14 @@ function WriteInitialLayout() {
     fwrite($handler, "echo(\"<div class='flex-item' style='flex-basis: 20px; background-color: #2a2a2a; color: #fff; padding: 0px; display: flex; align-items: left; justify-content: left;'>\");\r\n");
     for ($i = 0; $i < count($headerElements); ++$i) {
       $headerElement = $headerElements[$i];
+      if ($headerElement->Access === "Moderator") {
+        fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountSessionAPI.php';\r\n");
+        if ($rootName === "SWUDeck") {
+          fwrite($handler, "if (IsUserLoggedIn() && CheckLoggedInUserModStrict() === '' && isset(\$assetData['assetOwner']) && (string)\$assetData['assetOwner'] === (string)LoggedInUser()) {\r\n");
+        } else {
+          fwrite($handler, "if (IsUserLoggedIn() && CheckLoggedInUserModStrict() === '') {\r\n");
+        }
+      }
       if($headerElement->Module != "") {
         fwrite($handler, "echo(\"<div style='padding: 3px; margin: 5px;' id='" . $headerElement->Module . "'>\");\r\n");
         switch($headerElement->Module) {
@@ -3464,6 +3473,7 @@ function WriteInitialLayout() {
         fwrite($handler, "echo(\"<span style='vertical-align: middle;'>" . $headerElement->Title . "</span>\");\r\n");
         fwrite($handler, "echo(\"</button>\");\r\n");
       }
+      if ($headerElement->Access === "Moderator") fwrite($handler, "}\r\n");
     }
     fwrite($handler, "echo(\"</div>\");\r\n");
   }

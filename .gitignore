@@ -162,3 +162,4 @@ HellbreakSim/_research/
 # Maintenance-mode flag (zzMaintenanceMode.php). Runtime operational state, per box — its ABSENCE
 # means "normal service", so it must never ship in a deploy and freeze a healthy site.
 */maintenance.json
+SWUDeck/SimulationConfig.local.php

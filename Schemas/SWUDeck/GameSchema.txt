@@ -5,6 +5,7 @@ AssetOwner
 Header: title=Home, icon=/TCGEngine/Assets/Images/blueDiamond.png, link=/TCGEngine/SharedUI/MainMenu.php
 Header: title=Edit, link=/TCGEngine/NextTurn.php?gameName>$gameName&playerID>1&folderPath>SWUDeck
 Header: title=Stats, link=/TCGEngine/SWUDeck/DeckStats.php?gameName>$gameName
+Header: title=Simulate, link=/TCGEngine/SWUDeck/Simulation.php?gameName>$gameName, access=Moderator
 Header: title=Print, link=/TCGEngine/SWUDeck/CreatePDF.php?gameName>$gameName, target=blank
 Header: title=Visibility, module=AssetVisibility, AssetType=1
 Header: title=Versions, module=Versions, Zones=myLeader;myBase;myMainDeck;mySideboard
@@ -15,6 +16,7 @@ ServerInclude: /Custom/DeckValidation.php
 ServerInclude: /Custom/CustomInput.php
 ClientInclude: /TCGEngine/SWUDeck/Custom/Filters3.js
 ClientInclude: /TCGEngine/SWUDeck/Custom/ClientActions.js
+ClientInclude: /TCGEngine/SWUDeck/Custom/SimulationModal.js
 Layout: /Custom/GameLayout.php
 Leader - CardID:string
 Display: Visibility=Self, Mode=All, BindTo=LeaderSlot, Split=None

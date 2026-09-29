@@ -205,6 +205,65 @@ echo(<<<'HTML'
     box-shadow: inset 0 0 12px rgba(var(--accent-rgb),0.08) !important;
   }
 </style>
+<style>
+  .swu-simulation-dialog {
+    width: min(940px, calc(100vw - 32px));
+    height: min(830px, calc(100dvh - 32px));
+    max-width: none;
+    max-height: none;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid rgba(114, 191, 231, .55);
+    border-radius: 14px;
+    background: #091723;
+    color: #e9f4fb;
+    box-shadow: 0 24px 90px rgba(0, 0, 0, .8), 0 0 34px rgba(54, 157, 210, .2);
+  }
+  .swu-simulation-dialog::backdrop { background: rgba(2, 7, 13, .78); backdrop-filter: blur(5px); }
+  .swu-simulation-dialog__bar {
+    box-sizing: border-box;
+    height: 46px;
+    padding: 0 12px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #0e2c42, #081723);
+    border-bottom: 1px solid rgba(114, 191, 231, .3);
+    color: #8dd9ff;
+    font: 700 11px Arial, sans-serif;
+    letter-spacing: .22em;
+  }
+  .swu-simulation-dialog__bar button {
+    width: 34px;
+    height: 34px;
+    padding: 0 !important;
+    border: 1px solid rgba(142, 206, 237, .35) !important;
+    border-radius: 6px !important;
+    background: rgba(255, 255, 255, .05) !important;
+    color: #e9f4fb !important;
+    font: 24px Arial, sans-serif !important;
+    cursor: pointer;
+  }
+  .swu-simulation-dialog__bar button:hover { background: rgba(109, 195, 236, .18) !important; }
+  .swu-simulation-dialog iframe { display: block; width: 100%; height: calc(100% - 46px); border: 0; background: #091723; }
+  .swu-sim-status { display: none; width: 9px; height: 9px; margin-left: 9px; vertical-align: 1px; border-radius: 50%; }
+  .swu-sim-running .swu-sim-status { display: inline-block; border: 2px solid rgba(130, 210, 248, .35); border-top-color: #7bdeff; background: transparent; animation: swu-sim-spin .8s linear infinite; }
+  .swu-sim-done .swu-sim-status { display: inline-block; background: #69e3b8; box-shadow: 0 0 10px rgba(105, 227, 184, .8); }
+  .swu-sim-failed .swu-sim-status { display: inline-block; background: #f29683; box-shadow: 0 0 10px rgba(242, 150, 131, .65); }
+  @keyframes swu-sim-spin { to { transform: rotate(360deg); } }
+  .swu-simulation-info { width: min(410px, calc(100vw - 32px)); max-width: none; padding: 30px; border: 1px solid rgba(114, 191, 231, .55); border-radius: 12px; background: linear-gradient(150deg, #12334a, #081925); color: #e9f4fb; box-shadow: 0 22px 75px rgba(0, 0, 0, .75); font-family: Arial, sans-serif; }
+  .swu-simulation-info::backdrop { background: rgba(2, 7, 13, .68); backdrop-filter: blur(4px); }
+  .swu-simulation-info__icon { display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid #6dc6ec; border-radius: 8px; color: #a6e4ff; font-size: 25px; }
+  .swu-simulation-info h2 { margin: 17px 0 8px; color: #f0f9ff; font-size: 23px; }
+  .swu-simulation-info p { margin: 0 0 21px; color: #acc8d8; font-size: 14px; line-height: 1.55; }
+  .swu-simulation-info button { padding: 10px 21px; border: 1px solid #b5edff; border-radius: 6px; background: #75c7ea; color: #071925; font: 700 13px Arial, sans-serif; cursor: pointer; }
+  .swu-simulation-toast { position: fixed; right: 20px; bottom: 20px; z-index: 5000; display: flex; align-items: center; gap: 17px; max-width: min(420px, calc(100vw - 32px)); padding: 13px 15px; border: 1px solid #6db5d8; border-radius: 8px; background: #102c40; color: #e8f6ff; box-shadow: 0 14px 42px rgba(0, 0, 0, .5); font: 13px Arial, sans-serif; }
+  .swu-simulation-toast button { flex: none; border: 0; background: transparent; color: #8edbff; font: 700 13px Arial, sans-serif; cursor: pointer; }
+  @media (max-width: 600px) {
+    .swu-simulation-dialog { width: 100vw; height: 100dvh; border-radius: 0; border: 0; }
+    .swu-simulation-toast { left: 16px; right: 16px; bottom: 16px; }
+  }
+</style>
 HTML);
 
 // DeckStats.php reuses InitialLayout.php purely for the toolbar chrome (Home/Edit/Stats/…),
