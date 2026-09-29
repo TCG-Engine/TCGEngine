@@ -49,6 +49,13 @@ GrandArchiveSim/Matches
 */TurnController.php
 */Models
 DevTools/rl/artifacts/
+# Per-game bot decision traces. Every self-play run writes one file per game here
+# (DevTools/SWUSimBotSelfPlayTest.php -> SWUBotTracePathFor, SWUSim/BotHeuristic.php). ~60 KB/game with
+# the board snapshot, so a 2,000-game canary is ~120 MB and a 10x500 field run ~600 MB — prune with
+# SWUSim/DevTools/prune-bot-traces.sh. Pattern is */DevTools/traces/, not DevTools/traces/: a pattern
+# containing a slash is anchored to THIS file's directory, so the unanchored form would only have matched a
+# root-level DevTools/traces and left every real trace file untracked-but-visible.
+*/DevTools/traces/
 CardEditor/Assets
 # Scratch fixture dir written by Core/Match framework tests (test_match_core / test_match_flow)
 MatchTestSim/

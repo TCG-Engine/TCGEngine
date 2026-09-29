@@ -70,6 +70,13 @@ function SWUBotWeights(string $style, int $seat): array {
         // PROPOSAL 'mgtrade' (default OFF) turns this on for MIDRANGE only, below. Zero everywhere means
         // SWUBotTargetValue's threat term vanishes for every shipped bot.
         'threat'      => [0.00,  0.00,  0.00,  0.00,  0.00],
+        // HORIZON: expected remaining turns this archetype plays for. Used by the 'cardvalue'
+        // proposal (BotCardValue.php) to turn a card's text into expected base damage. It lives in
+        // the TABLE rather than being threaded through every scorer because it is a per-archetype
+        // constant like every row above, and this function is the one place the racing-rank column
+        // is applied. Values come from two measurements, not taste: the human's Krennic separated
+        // perfectly at round 7 over 15 real games, and control wins ~53% of games reaching round 8.
+        'horizon'     => [3.00,  4.00,  6.00,  8.00,  9.00],
     ];
     $col = SWUBotRacingRank($style, $seat);
     $out = [];

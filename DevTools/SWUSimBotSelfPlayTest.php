@@ -91,6 +91,17 @@
 // seat, rule firings per seat, and the rules that never fired. An `invalid:<rule>` coverage entry — a
 // rule that answered outside the candidate set — fails the sweep.
 //
+// EVERY run also SAVES ITS DECISION TRACE (owner ruling 2026-09-29) — one JSON line per decision with the
+// candidate set, the pick, the layer that answered and a board snapshot, at SWUSim/DevTools/traces/
+// <deck1>__<deck2>__<chooser1>__<chooser2>/<seed>.fp<n>.jsonl (gitignored; ~60 KB/game, so prune with
+// SWUSim/DevTools/prune-bot-traces.sh). The run prints its path as a [TRACE] line.
+// This is ON by default because a metrics line says who WON and only the trace says what the bot was TRYING
+// to do, and a trace that was never written cannot be recovered from a finished run — the 2026-09-28 2000-game
+// canary and the 10x500 field run kept only their SWUBOT_METRICS, so a later "what was the gameplan" question
+// had to be answered by a fresh 200-game run on a DIFFERENT seed block, uncomparable to the measured games.
+// SWUBOT_TRACE=<file> overrides the path (SWUSim/DevTools/rl/sweep_fixtures.sh names its own combo traces),
+// SWUBOT_TRACE_DIR=<dir> relocates the root, SWUBOT_TRACE_BOARD=0 drops the board (~60% of the bytes).
+//
 // --memory-only keeps each headless game's gamestate in its child process's APCu cache during play.
 // A failed game gets one final Gamestate.txt snapshot for diagnosis. Normal games remain durable.
 // --workers=N bounds parallel child processes in a sweep (default 2; use 1 for serial execution).
@@ -327,6 +338,10 @@ function SWUBotTestRunSweep(array $args, $selfPath) {
   echo "[SWEEP] {$games} game(s) — {$seeds} seed(s) x both first players, max-steps={$args['maxSteps']}"
      . " chooser={$args['chooser']}" . ($args['chooser2'] !== null ? " chooser2={$args['chooser2']}" : '')
      . " workers={$workers} memory-only=" . ($args['memoryOnly'] ? 'yes' : 'no') . "\n";
+  // Each child names its own per-game trace under this root; printed once so a sweep says where its
+  // material went without the caller having to know the naming scheme.
+  echo "[SWEEP TRACES] " . dirname(SWUBotTracePathFor($args['deck'], $args['deck2'], strval($args['chooser']),
+    $args['chooser2'] !== null ? strval($args['chooser2']) : strval($args['chooser']), 'SEED', 1)) . "\n";
 
   $passed = 0; $failed = 0; $totalGaps = 0; $gapLines = []; $signals = []; $coverage = []; $metrics = [];
   $running = []; $completed = []; $next = 1;
@@ -474,6 +489,35 @@ function SWUBotTestPrintSweepMetrics(array $metrics) {
 }
 
 if ($args['games'] > 1) exit(SWUBotTestRunSweep($args, __FILE__));
+
+// ── Decision trace: saved for EVERY run ─────────────────────────────────────────────────────────
+// Owner ruling 2026-09-29. A run's own metrics line says who won; only the trace says what the bot was
+// trying to do, and a trace that was never written cannot be recovered from a finished run — the seeds
+// would have to be replayed, which only works if the arm and the deck pair are also still known. So the
+// default is ON and the filename carries all four (SWUBotTracePathFor, SWUSim/BotHeuristic.php).
+//
+// Set here, in the single-game path, NOT in the sweep parent: proc_open() passes null for env, so a
+// child inherits whatever the parent exported, and a parent-set SWUBOT_TRACE would have every worker
+// appending to ONE file. Each child names its own from its own seed.
+//
+// An explicit SWUBOT_TRACE still wins, so SWUSim/DevTools/rl/sweep_fixtures.sh keeps its combo traces.
+// SWUBotTrace() appends, so TRUNCATE here: re-running a seed must replace its trace, not double it.
+$swuBotTracePath = getenv('SWUBOT_TRACE');
+if ($swuBotTracePath === false || $swuBotTracePath === '') {
+  $swuBotTracePath = SWUBotTracePathFor($args['deck'], $args['deck2'], strval($args['chooser']),
+    $args['chooser2'] !== null ? strval($args['chooser2']) : strval($args['chooser']),
+    strval($args['seed']), intval($args['firstPlayer']));
+  if (!is_dir(dirname($swuBotTracePath))) @mkdir(dirname($swuBotTracePath), 0777, true);
+  // The board snapshot is what makes a trace answerable as a POSITION rather than a list of picks; it is
+  // ~60% of the bytes and worth them. SWUBOT_TRACE_BOARD=0 opts out (getenv returns the string "0", which
+  // is falsy, so SWUBotTrace()'s existing check reads that as off).
+  if (getenv('SWUBOT_TRACE_BOARD') === false) putenv('SWUBOT_TRACE_BOARD=1');
+  putenv('SWUBOT_TRACE=' . $swuBotTracePath);
+  // Only the path WE named is truncated. An explicit SWUBOT_TRACE belongs to its caller, which may be
+  // appending several games to one file on purpose.
+  @unlink($swuBotTracePath);
+}
+echo "[TRACE] {$swuBotTracePath}\n";
 
 $checks = [];
 function SWUBotTestCheck(&$checks, $label, $passed, $detail = '') { $checks[] = [$label, $passed, $detail]; }

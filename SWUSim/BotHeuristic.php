@@ -19,6 +19,7 @@ require_once __DIR__ . '/Custom/BotStyles.php';
 require_once __DIR__ . '/Custom/BotResourcing.php';
 require_once __DIR__ . '/Custom/BotGuides.php';
 require_once __DIR__ . '/Custom/BotFallback.php';
+require_once __DIR__ . '/Custom/BotCardValue.php';  // proposal 'cardvalue' — board-aware card valuation
 require_once __DIR__ . '/Custom/BotRules.php';
 require_once __DIR__ . '/Custom/BotLookahead.php';   // the fallback judges Actions by applying them (BotFallback.php)
 require_once __DIR__ . '/Rl/SwuKeys.php';            // RL Phase 3: swu-v1 state and move keys
@@ -214,7 +215,41 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
     return SWUBotTrace($ctx, $all, $pick, 'fallback');
 }
 
-// Debug trace, OFF unless the SWUBOT_TRACE environment variable names a file. Pass it through the container
+// Where a run's trace goes when nobody names a file. DevTools/SWUSimBotSelfPlayTest.php calls these so that
+// EVERY self-play run saves its decision trace (2026-09-29): tracing used to be opt-in per invocation, and the
+// measurement scripts that did not pass SWUBOT_TRACE produced runs whose gameplan could not be reconstructed
+// afterwards — a 2000-game canary and a 10x500 field run kept only their one-line SWUBOT_METRICS, so answering
+// "how often did it play Koska Reeves after a trade" needed a fresh 200-game run on a DIFFERENT seed block,
+// which cannot be cross-referenced against the games whose win rates were measured.
+//
+// The path carries everything that makes a game: both decks, both chooser profiles, the seed and the first
+// player. That is what keeps concurrent sweep workers off each other's files and, critically, keeps two ARMS
+// of the same seed block apart — an arm rides the chooser profile ('heuristic-softcontrol@try-creditbank'),
+// so baseline and proposal traces of seed kx0001 land in different directories instead of interleaving.
+// SWUBOT_TRACE_DIR relocates the root (tests point it at a temp dir).
+function SWUBotTraceDefaultDir(): string {
+    $d = getenv('SWUBOT_TRACE_DIR');
+    return ($d !== false && $d !== '') ? rtrim($d, '/') : __DIR__ . '/DevTools/traces';
+}
+// A path component: a deck's basename without .txt, or a chooser profile. '@' and '+' survive because they
+// carry the variant ('@try-creditbank', '@no-p6'); everything else outside [A-Za-z0-9._-] collapses to '-'.
+function SWUBotTraceSlug(string $s): string {
+    $s = preg_replace('/\.txt$/', '', basename(trim($s)));
+    $s = trim(preg_replace('/[^A-Za-z0-9._@+-]+/', '-', $s), '-');
+    return $s === '' ? 'unnamed' : $s;
+}
+function SWUBotTracePathFor(?string $deck1, ?string $deck2, string $chooser1, string $chooser2,
+                            string $seed, int $firstPlayer): string {
+    // deck2 defaults to deck1 for the same reason the harness does: a mirror is one deck named once.
+    $d1 = SWUBotTraceSlug($deck1 ?? 'builtin');
+    $d2 = SWUBotTraceSlug($deck2 ?? ($deck1 ?? 'builtin'));
+    return SWUBotTraceDefaultDir() . '/' . $d1 . '__' . $d2
+         . '__' . SWUBotTraceSlug($chooser1) . '__' . SWUBotTraceSlug($chooser2)
+         . '/' . SWUBotTraceSlug($seed) . '.fp' . max(1, $firstPlayer) . '.jsonl';
+}
+
+// Debug trace, ON for every self-play run (the harness names the file; see SWUBotTracePathFor above) and
+// otherwise OFF unless the SWUBOT_TRACE environment variable names one. Pass it through the container
 // with `docker exec -e SWUBOT_TRACE=/tmp/trace.jsonl …`. Appends one JSON line per decision the stack answers:
 // round, seat, style, decision, the candidates (hand plays show their card and current play cost), the pick,
 // and the layer that answered. Read-only; changes no behaviour.

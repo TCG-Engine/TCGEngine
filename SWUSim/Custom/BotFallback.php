@@ -88,7 +88,13 @@ function _SWUBotSplitScore(int $seat, string $candidate, array $W, bool $unpreve
 }
 
 // Continuations whose target is HURT (an enemy is the good pick) vs HELPED (a friendly is).
-const SWU_BOT_HOSTILE_CONTINUATIONS    = ['DEFEAT_UNIT', 'DEAL_TARGET', 'BOUNCE_UNIT', 'GIVE_WEAKNESS', 'EXHAUST_UNIT'];
+// ⚠ 'DEAL_UNIT_DAMAGE' was MISSING here until 2026-09-29 (prod bug #1100, game 1402804: the bot used Luke
+// JTL_012's mandatory "deal 1 damage to a unit" Action with no enemy units on board and killed its own
+// Y-Wing). It is the most common continuation in the tree — 141 sites, against 102 across all five that were
+// listed — so the refusal guard in _SWUBotAbilityValue was blind to more call sites than it covered.
+// The target PICKER was never blind: its classifier (below, ~:257) falls back to _SWUBotTooltipEffect(),
+// which reads "Deal_1_damage_to_a_unit" as hostile. Only the ACTIVATION guard had no such fallback.
+const SWU_BOT_HOSTILE_CONTINUATIONS    = ['DEFEAT_UNIT', 'DEAL_TARGET', 'BOUNCE_UNIT', 'GIVE_WEAKNESS', 'EXHAUST_UNIT', 'DEAL_UNIT_DAMAGE'];
 const SWU_BOT_BENEFICIAL_CONTINUATIONS = ['GIVE_EXPERIENCE', 'GIVE_SHIELD', 'GIVE_ADVANTAGE', 'HEAL_TARGET', 'READY_UNIT'];
 
 function _SWUBotContinuationHead(array $ctx): string {
@@ -292,7 +298,9 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     // waiver) share one problem: a "Play_a_…" prompt otherwise falls through to `0.01 - $index * 1e-6`, the
     // enumeration-order tiebreak, so the bot spends the unlock on whatever sits lowest in hand. Traced on
     // Daimyo's Palace: myHand-0 / myHand-4 every time, including the round-5 game that held LAW_044.
-    if ((SWUBotProposalOn('piettcheat') || SWUBotProposalOn('aspectwaiver'))
+    // 'aspectwaiver' is a SHIPPED FEATURE (p16) and default ON, so a "Play_a_..." prompt now always
+    // picks by value rather than by hand index. That index tiebreak is what chose myHand-0 every time.
+    if ((SWUBotProposalOn('piettcheat') || SWUBotFeatureOn('aspectwaiver'))
         && str_starts_with($tip, 'Play_a_') && str_starts_with($c, 'myHand-')) {
         $o = GetHand($seat)[intval(substr($c, strlen('myHand-')))] ?? null;
         if ($o !== null) return 0.5 + 0.01 * _SWUBotPlayValue($seat, strval($o->CardID ?? ''), $W);
@@ -434,7 +442,20 @@ function _SWUBotTargetScore(int $seat, string $mz, bool $hostile, int $amount, s
     $score = $good ? SWUBotUnitValue($v) : -SWUBotUnitValue($v);
     // A hostile effect aimed at MY OWN board is a sacrifice: price it as fodder, not as a loss of printed value
     // (feature 'fodder'), so the unit whose defeat pays me back is the one that goes.
-    if (!$good && $hostile && !$enemy && SWUBotFeatureOn('fodder')) $score = -SWUBotSacrificeCost($v);
+    if (!$good && $hostile && !$enemy && SWUBotFeatureOn('fodder')) {
+        $score = -SWUBotSacrificeCost($v);
+        // ⚠ …but fodder pricing assumes the unit DIES. For a DAMAGE effect that the unit survives it costs only
+        // the damage, so pricing every friendly candidate as a sacrifice made the most-hurt unit look like the
+        // cheapest one — and a 1-damage ping then picked the ship it KILLS over one it would merely chip
+        // (prod bug #1100, game 1402804: Luke JTL_012 shot a 1-HP Y-Wing while a healthy Black One stood next
+        // to it). Mirrors the enemy branch below, on the same chip scale. $amount is 0 for defeat/bounce/
+        // exhaust (_SWUBotEffectAmount), so those keep the pure sacrifice price, which is correct for them.
+        if ($amount > 0 && SWUBotFeatureOn('targeting')) {
+            $absorbed = !str_starts_with($head, 'APPLY_PHASE_DEBUFF') && $v['shields'] > 0;
+            if ($absorbed) $score = -0.1 * SWUBotUnitValue($v);            // a Shield eats it; the shield is the cost
+            elseif ($amount < $v['remaining']) $score = -SWUBotUnitValue($v) * $W['chip'] * $amount / max(1, $v['hp']);
+        }
+    }
     // "If it costs N or less, defeat it": a unit it defeats is a kill; any other gets only the rider (feature 'targeting2').
     if ($hostile && $enemy && SWUBotFeatureOn('targeting2') && ($n = _SWUBotDefeatIfCostAtMost($head)) !== null) {
         return intval($v['cost']) <= $n ? SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0 : 0.1 * SWUBotUnitValue($v);
@@ -665,9 +686,25 @@ function _SWUBotEarlyRemovalAdjust(int $seat, string $cid, float $v, array $W): 
     return $v;
 }
 
-function _SWUBotPlayValue(int $seat, string $cid, array $W): float {
+function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = 'hand'): float {
+    // PROPOSAL 'cardvalue' (default OFF): the whole valuation comes from BotCardValue.php instead — Body +
+    // Effect - SelfCost, read off the board, in expected base damage. It already includes the
+    // `develop x cost` floor and the unitPlay term, so this returns outright rather than adding to the
+    // flat tag sum below; a half-migrated valuation would be two models disagreeing.
+    // ⚠ The bomb-timing and ctxpower terms below still apply on top — they are about WHEN to commit a card
+    // and about board-dependent POWER, neither of which the card model prices.
+    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('cardvalue')) {
+        return SWUBotCardValue($seat, $cid, $fromZone, 'midrange', $W)
+             + _SWUBotBombTimingValue($seat, $cid, $W)
+             + $W['base'] * SWUBotContextSurplus($seat, $cid);
+    }
     $v = $W['develop'] * intval(CardCost($cid));
     foreach (SWUBotCardTags($cid) as $t) $v += ($W[$t] ?? 0.0) * ($t === 'draw' ? SWUBotDrawMultiplier($seat) : 1.0);
+    // PROPOSAL 'creditbank' (default OFF): paying for this card out of BANKED CREDITS is a real cost when
+    // those Credits are part of a line (owner 2026-09-29, #1099: 6R + 2 Credits + the waiver casts SRI).
+    // Zero when nothing is banked, or when no card in hand is reachable with the bank — a Credit that is
+    // part of no plan is still worth nothing to hold.
+    if (SWUBotProposalOn('creditbank')) $v -= _SWUBotCreditSpendCost($seat, $cid, $W);
     if (str_contains(strval(CardType($cid)), 'Unit')) $v += $W['unitPlay'];
     $v += _SWUBotBombTimingValue($seat, $cid, $W);
     // Proposal 'ctxpower': this function prices a unit by its COST, so a card whose power depends on the
@@ -841,11 +878,11 @@ function _SWUBotEnabledPlayValue(int $seat, array $handBefore, array $after, arr
             // six of eight games burned it in round 1 at capacity 2, and one game reached round 5 holding LAW_044
             // with the waiver already gone. Reading the cost here is safe: SWUBotLookahead has already RESTORED
             // the pre-action state, so this is "could I cast it WITHOUT this action?".
-            if (SWUBotProposalOn('aspectwaiver') && _SWUBotCardAlreadyPlayable($seat, $o)) continue;
+            if (SWUBotFeatureOn('aspectwaiver') && _SWUBotCardAlreadyPlayable($seat, $o)) continue;
             $best = max($best, _SWUBotPlayValue($seat, strval($o->CardID), $W));
         }
         // Nothing unlocked → the action enables nothing, so it is worth nothing here.
-        if (SWUBotProposalOn('aspectwaiver') && $best <= 0.0) return 0.0;
+        if (SWUBotFeatureOn('aspectwaiver') && $best <= 0.0) return 0.0;
         return $best + 0.1;
     }
     // ⚠ THE SAME "did it actually unlock anything?" TEST IS NEEDED HERE. This branch runs when the prompt
@@ -856,7 +893,7 @@ function _SWUBotEnabledPlayValue(int $seat, array $handBefore, array $after, arr
     foreach ((array)($after['hand'] ?? []) as $cid) { $k = array_search($cid, $gone, true); if ($k !== false) unset($gone[$k]); }
     $inPlay = array_map(fn($u) => $u[0], (array)($after['sig']['mine'] ?? []));
     $alreadyCastable = [];
-    if (SWUBotProposalOn('aspectwaiver')) {
+    if (SWUBotFeatureOn('aspectwaiver')) {
         foreach (GetHand($seat) as $o) {
             if ($o !== null && empty($o->removed) && _SWUBotCardAlreadyPlayable($seat, $o)) $alreadyCastable[] = strval($o->CardID ?? '');
         }
@@ -1119,6 +1156,101 @@ function _SWUBotBoardSignature(int $seat): array {
 // ⚠ Uses SWUComputePlayCost, so it already accounts for aspect penalties — which is why LAW_044 reads as 10
 // here and not its printed 8. It does NOT know about a base's once-per-game aspect waiver (Daimyo's Palace),
 // so a line that needs the waiver is still invisible; that is the separate "save the unlock" gap.
+// The most Credits a plan may assume. Measured, not chosen: across the owner's 15 games the bank
+// NEVER exceeded 2, and the SRI line needs exactly 2 (6 resources + 2 + the waiver = 8).
+const SWU_BOT_CREDIT_MAX_BANK = 2;
+
+// ── BANKED CREDITS: the engine CLOSES AT DEPLOY ──────────────────────────────────────────────────────────
+// Owner 2026-09-29 (#1099) + their own 15 games of the deck. Krennic's Credit engine is on the LEADER'S
+// FRONT SIDE ONLY — "Action [Exhaust, defeat a friendly unit]: Create a Credit token". The DEPLOYED side is
+// "When Deployed: another friendly unit deals damage equal to its power", with no Credit ability at all.
+// DEPLOYING ENDS BANKING, PERMANENTLY.
+//
+// ⚠ MEASURED IN THE OWNER'S OWN PLAY (SWUSim/BotData, 15 human-piloted Krennic games):
+//   · 29 Credits created BEFORE deploy, 1 after — and that one was a leader DEFEATED AND RETURNED to the
+//     leader zone (game 1401546: deployed round 7, back to undeployed round 8, Credit round 10), i.e. the
+//     front side was available again. Effectively 29/29.
+//   · Peak bank NEVER exceeded 2 — matching the line exactly: 6 resources + 2 Credits + the aspect waiver
+//     casts LAW_044 (8 printed, +2 Aggression waived).
+//   · Deploy landed round 4-6.
+//
+// ⚠ THE FIRST VERSION OF THIS FUNCTION GOT THE ECONOMICS WRONG and measured a null (-0.8pp, 91% of games
+// IDENTICAL). It used a flat 3-turn lookahead with no deadline, no cap, and the same price either side of
+// deploy. All three are wrong: the plan has a HARD DEADLINE (deploy), the bank is worth nothing beyond what
+// the line needs, and credits are REPLACEABLE while the engine is open but finite once it closes.
+
+// The credit plan: what the bank is protecting, how many Credits the line needs, and whether it is still
+// reachable. Returns [planValue, creditsNeeded, reachable].
+function _SWUBotCreditPlan(int $seat, array $W): array {
+    static $depth = 0;
+    if ($depth > 0) return [0.0, 0, false];
+    if (!function_exists('SWUComputePlayCost') || !function_exists('SWUBotLeaderDeployThreshold')) return [0.0, 0, false];
+    $res      = SWUResourceCount($seat);
+    $banked   = function_exists('SWUUsableCreditTokenMzIDs') ? count(SWUUsableCreditTokenMzIDs($seat)) : 0;
+    // ⚠ THE DEPLOY DEADLINE RIDES SWUBotLeaderDeployThreshold, which returns 0 once the leader is DEPLOYED
+    // (or its Epic is spent) — see _SWUBotLeaderThreshold, BotResourcing.php. So post-deploy $deployAt is 0,
+    // which collapses $planRes to today's resources and $makeable to zero all by itself: the engine being
+    // shut is expressed by the threshold, not by a separate flag.
+    // An explicit `$engineOpen` check was written here first and measured NON-LOAD-BEARING in both places
+    // for exactly that reason; it was removed rather than left as decoration. The test pins the property
+    // this now leans on (section G asserts the threshold is 0 once deployed).
+    $deployAt = SWUBotLeaderDeployThreshold($seat);
+    // Resources on the LAST turn before the engine closes. The owner casts on the 6R turn and deploys at 7.
+    $planRes  = max($res, $deployAt - 1);
+    // Credits still creatable: one a turn at most (the Action exhausts), and none once the threshold is 0.
+    $makeable = max(0, $deployAt - $res);
+    $base     = GetBase($seat)[0] ?? null;
+    $waiver   = $base !== null && empty($base->EpicActionUsed)
+                && preg_match('/ignoring 1 of its/i', strval(CardText(strval($base->CardID ?? ''))));
+    $bestVal = 0.0; $bestNeed = 0;
+    $depth++;
+    try {
+        foreach (GetHand($seat) as $o) {
+            if ($o === null || !empty($o->removed)) continue;
+            $cid     = strval($o->CardID ?? '');
+            $actual  = intval(SWUComputePlayCost($seat, $o));
+            $penalty = max(0, $actual - intval(CardCost($cid)));
+            $waived  = $actual - ($waiver ? min(2, $penalty) : 0);   // the waiver removes ONE aspect's penalty
+            // Already affordable with what is in hand RIGHT NOW? Then it is not something being banked FOR —
+            // without this a 4-drop became its own "plan" and protected the very Credit about to buy it.
+            if ($waived <= $res + $banked) continue;
+            $need    = $waived - $planRes;
+            if ($need <= 0) continue;                       // resources alone get there: the bank is not needed
+            // ⚠ CAP the plan at a believable bank. The owner's 15 games never held more than 2 Credits, and
+            // the line needs exactly 2 — each one costs a turn AND a body to the sacrifice. Without this,
+            // "6 resources + 4 Credits" reads as reachable and every expensive card becomes the plan.
+            if ($need > SWU_BOT_CREDIT_MAX_BANK) continue;
+            if ($need > $banked + $makeable) continue;      // unreachable even with everything: not the plan
+            $v = _SWUBotPlayValue($seat, $cid, $W);
+            if ($v > $bestVal) { $bestVal = $v; $bestNeed = $need; }
+        }
+    } finally { $depth--; }
+    if ($bestVal <= 0.0) return [0.0, 0, false];
+    return [($W['creditRamp'] ?? 0.0) * $bestVal, $bestNeed, true];
+}
+
+// What playing $cid costs in BANKED CREDITS. Credits cover only the shortfall the ready resources cannot
+// (mirroring _SWUSpendAltPaymentShortfall), and only the Credits the LINE actually needs are charged for —
+// a surplus beyond the plan is spent first and is free.
+function _SWUBotCreditSpendCost(int $seat, string $cid, array $W): float {
+    if (!function_exists('SWUUsableCreditTokenMzIDs')) return 0.0;
+    $banked = count(SWUUsableCreditTokenMzIDs($seat));
+    if ($banked <= 0) return 0.0;
+    $obj = null;
+    foreach (GetHand($seat) as $h) if (strval($h->CardID ?? '') === $cid) { $obj = $h; break; }
+    if ($obj === null) return 0.0;
+    $cost  = intval(SWUComputePlayCost($seat, $obj));
+    $spend = max(0, min($banked, $cost - SWUResourceCount($seat, true)));
+    if ($spend <= 0) return 0.0;
+    [$plan, $need, $reachable] = _SWUBotCreditPlan($seat, $W);
+    if (!$reachable || $need <= 0) return 0.0;
+    // Spend the SURPLUS first: Credits beyond what the line needs are free (the owner never banks past 2).
+    $surplus    = max(0, $banked - $need);
+    $chargeable = max(0, $spend - $surplus);
+    if ($chargeable <= 0) return 0.0;
+    return $plan * ($chargeable / $need);
+}
+
 function _SWUBotCreditUnlockValue(int $seat, int $credits, array $W): float {
     if ($credits <= 0) return 0.0;
     if (!function_exists('SWUTotalPaymentCapacity') || !function_exists('SWUComputePlayCost')) return 0.0;
@@ -1228,7 +1360,16 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
         $hurts = $head === 'APPLY_PHASE_DEBUFF' || in_array($head, SWU_BOT_HOSTILE_CONTINUATIONS, true);
         $allTheirs = !empty($cands) && count(array_filter($cands, fn($m) => str_starts_with($m, 'their'))) === count($cands);
         $allMine = !empty($cands) && count(array_filter($cands, fn($m) => str_starts_with($m, 'my'))) === count($cands);
-        if (($helps && $allTheirs) || ($hurts && $allMine)) return -0.5;
+        // ⚠ A prompt that DECLARES a friendly target is a designed COST, not a misfire, so all-mine candidates
+        // are the intended state and refusing would disable the card. SHD_028 Doctor Pershing is a unit Action
+        // — "Action [Exhaust, deal 1 damage to a friendly unit]: Draw a card" — whose every candidate is always
+        // mine; adding DEAL_UNIT_DAMAGE to the hostile list above would otherwise have stopped the bot ever
+        // drawing with him. The discriminator is the prompt's own wording: Pershing asks
+        // "Deal_1_damage_to_a_friendly_unit", Luke JTL_012 asks "Deal_1_damage_to_a_unit" and is all-mine only
+        // because the enemy board happens to be empty. Such a cost falls through to the sacrifice/lookahead
+        // pricing below, which weighs it against what the ability actually buys.
+        $declaredFriendly = (bool)preg_match('/\bfriendly\b/i', str_replace('_', ' ', strval($d['tooltip'] ?? '')));
+        if (($helps && $allTheirs) || ($hurts && $allMine && !$declaredFriendly)) return -0.5;
     }
     if ($d !== null && _SWUBotTooltipEffect($d['tooltip']) === 'sacrifice') {
         $cheapest = null;
@@ -1256,7 +1397,7 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
         // penalty" is ONCE PER GAME, so it is worth exactly what it unlocks — with NO flat ability floor. The
         // floor is what burned it: W['ability'] is 0.40 on any board, which beats PASS, so the waiver was spent in
         // round 1 in six of eight traced games. Dropping the floor is the whole "save it" mechanism.
-        if (SWUBotProposalOn('aspectwaiver') && SWUBotActionKind($action) === 'base-epic'
+        if (SWUBotFeatureOn('aspectwaiver') && SWUBotActionKind($action) === 'base-epic'
             && preg_match('/ignoring 1 of its/i', strval(CardText(strval((GetBase($seat)[0] ?? null)->CardID ?? ''))))) {
             return $enabled - max(0.0, $lost - 1.0);
         }

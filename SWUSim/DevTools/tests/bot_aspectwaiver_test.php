@@ -42,11 +42,17 @@ $pickAt = function (string $variant = '') use (&$gameName) {
     $p = SWUBotHeuristicChoose('softcontrol', (array)$legal['actions'], $legal, $variant);
     return $p === null ? null : strval($p['cardID']);
 };
-$ON = ['try:aspectwaiver'];
+// SHIPPED as feature p16 (2026-09-29). The polarity is therefore INVERTED from when this was a
+// proposal: the DEFAULT is now the fixed behaviour, and the reported bug is reproduced with
+// @no-aspectwaiver. $ON is kept as an empty disable-list so the existing calls still read naturally.
+$ON  = [];                  // default = feature on
+$OFF = ['aspectwaiver'];    // @no-aspectwaiver = the traced, reported behaviour
 
 // ── Registry ────────────────────────────────────────────────────────────────────────────────────────────────
-$check(in_array('aspectwaiver', SWUBotProposalList(), true), 'aspectwaiver is a PROPOSAL (default off)');
-$check(SWUBotVariantDisabled('try-aspectwaiver') === ['try:aspectwaiver'], 'switchable as @try-aspectwaiver');
+$check(in_array('aspectwaiver', SWUBotFeatureList(), true), 'aspectwaiver is a SHIPPED FEATURE (default ON)');
+$check(!in_array('aspectwaiver', SWUBotProposalList(), true), 'aspectwaiver is no longer a proposal');
+$check(in_array('aspectwaiver', SWUBotFeatureGroups()['p16'] ?? [], true), 'it is feature group p16');
+$check(SWUBotVariantDisabled('no-aspectwaiver') === ['aspectwaiver'], 'switchable OFF as @no-aspectwaiver');
 
 // The board: Krennic Blue Splash's real leader/base, an exhausted body so no attack competes, and one enemy unit.
 $board = function (int $resources, array $hand) use ($build) {
@@ -87,7 +93,7 @@ $board(2, ['SOR_095', 'JTL_032']);
 $onC = $score($EPIC, $ON);
 $check($onC !== null && $onC < $onB, 'C: with only cheap on-aspect cards the Epic Action is worth far less than in B; got '
     . json_encode([$onC, $onB]));
-$check($score($EPIC) > 0.0, 'C default: the waiver still scores POSITIVE on a 2-drop — this is the round-1 burn');
+$check($score($EPIC, $OFF) > 0.0, 'C default: the waiver still scores POSITIVE on a 2-drop — this is the round-1 burn');
 $check($onC <= 0.0, 'C: the proposal values it at <= 0, because it unlocks nothing; got ' . json_encode($onC));
 $check($pickAt('try-aspectwaiver') !== $EPIC, 'C: and the stack does NOT burn the waiver on a 2-drop');
 
@@ -99,14 +105,42 @@ $ctxD = $botCtx('softcontrol');
 $check(str_starts_with($ctxD['tooltip'], 'Play_a_card_(ignore_1_'), "D fixture: the waiver prompt is up; got '{$ctxD['tooltip']}'");
 $cands = array_map(fn($a) => strval($a['cardID']), $ctxD['actions']);
 $check(count($cands) >= 2, 'D fixture: more than one card is playable at the waived cost; got ' . json_encode($cands));
-$check($pickAt('try-aspectwaiver') === 'myHand-2', 'D: the prompt picks LAW_044 at index 2, not the cheap index-0 card');
-$check($pickAt() === 'myHand-0', 'D default: it picks the lowest index (the traced behaviour)');
+$check($pickAt() === 'myHand-2', 'D: the prompt picks LAW_044 at index 2, not the cheap index-0 card');
+$check($pickAt('no-aspectwaiver') === 'myHand-0', 'D @no-aspectwaiver: it picks the lowest index (the traced behaviour)');
 
 // ── E) A waiver that unlocks nothing is not worth using at all ──────────────────────────────────────────────
 // Every card in hand is already on-aspect and affordable, so the waiver changes nothing about what can be played.
 $board(8, ['SOR_095']);
 $onE = $score($EPIC, $ON);
 $check($onE !== null && $onE <= 0.0, 'E: a waiver with nothing off-aspect to unlock is worth <= 0; got ' . json_encode($onE));
-$check($score($EPIC) > 0.0, 'E default: it is credited 0.6 for "enabling" a card it never enabled');
+$check($score($EPIC, $OFF) > 0.0, 'E @no-aspectwaiver: it is credited 0.6 for "enabling" a card it never enabled');
+
+// ── F) BUG REPORT #1098 (prod, game 1402804) — the exact reported board ─────────────────────────────────────
+// "bot wasted its base epic action to play an in-aspect card." Arenabot, heuristic-softcontrol on seat 2,
+// Krennic Blue Splash + Daimyo's Palace. The game log reads:
+//     P2 used [[LAW_020 Daimyo's Palace]]'s Epic Action   PLAY
+//     P2 played [[LAW_097 Imperial Door Technician]]
+// LAW_097 is Vigilance/Villainy — BOTH on-aspect for a Vigilance base + Command/Villainy leader — so the
+// once-per-game waiver bought nothing, while LAW_044 Single Reactor Ignition (Aggression, +2) sat in hand
+// unplayed all game.
+// ⚠ The hand here is the REPORTED one, and LAW_044 is NOT castable on it: 10 against a capacity of 6. That
+// is what makes this the pure-waste case — the waiver's only available use is on a card that needs no
+// waiver, so the correct score is "worse than doing something else", full stop.
+// Section E above is the synthetic version of this; F is the board a player actually lost value on.
+$board(6, ['ASH_079', 'LAW_044', 'JTL_121']);
+$check(SWUComputePlayCost(1, GetHand(1)[0]) === intval(CardCost('ASH_079')),
+    'F fixture: ASH_079 is on-aspect (no surcharge)');
+$check(SWUComputePlayCost(1, GetHand(1)[1]) === intval(CardCost('LAW_044')) + 2,
+    'F fixture: LAW_044 carries the +2 Aggression surcharge');
+$check(SWUTotalPaymentCapacity(1) < SWUComputePlayCost(1, GetHand(1)[1]) - 2,
+    'F fixture: even WAIVED, LAW_044 is out of reach — so the waiver unlocks nothing at all');
+$epicF = $score($EPIC, $ON);
+$playF = $score('myHand-0!FSM!', $ON);
+$check($epicF !== null && $playF !== null && $epicF < $playF,
+    'F: the waiver scores BELOW just playing the on-aspect card; got ' . json_encode([$epicF, $playF]));
+// The reported behaviour, reproducible with the proposal off — so F cannot pass vacuously.
+$check($score($EPIC, $OFF) > $score('myHand-0!FSM!', $OFF),
+    'F @no-aspectwaiver: the bot prefers BURNING the waiver — bug #1098 as reported; got '
+    . json_encode([$score($EPIC, $OFF), $score('myHand-0!FSM!', $OFF)]));
 
 bot_test_finish();

@@ -204,13 +204,35 @@ const SWU_BOT_PART14_FEATURES = ['upgradepicks'];
 const SWU_BOT_PART15_FEATURES = ['tags3'];
 
 
+// Part 16 (2026-09-29): 'aspectwaiver' — a base Epic Action that WAIVES AN ASPECT PENALTY is worth the card
+// it UNLOCKS, with NO flat ability floor.
+// SHIPPED off BUG REPORT #1098 (prod Arenabot, game 1402804): "bot wasted its base epic action to play an
+// in-aspect card". The log is unambiguous — P2 used Daimyo's Palace's Epic Action and then played LAW_097
+// Imperial Door Technician, which is Vigilance/Villainy and therefore on-aspect for a Vigilance base +
+// Command/Villainy leader, so the once-per-game waiver bought nothing. LAW_044 Single Reactor Ignition
+// (Aggression, +2) sat in hand unplayed.
+// TWO defects, both traced: _SWUBotEnabledPlayValue credited the action for the best card the prompt
+// OFFERS whether or not it was ALREADY CASTABLE, and _SWUBotAbilityValue floors every ability at
+// W['ability'] = 0.40, which beats PASS on any board. Valuing it correctly IS the "save it" mechanism.
+// ⚠ WHY IT SHIPPED DESPITE AN EARLIER "HARMFUL" READING. As a proposal it measured 0/24 wins with base
+// damage 7.9 -> 5.3, and that kept it off. n=24 is far below this matchup's noise floor (+-2 wins per 100;
+// two disjoint 100-game samples of the SAME config gave 9 and 11). Re-measured at n=500 on 2026-09-29:
+//   baseline      35 wins (7.0%)  95 reached R7 (19.0%)  base damage 8.7
+//   aspectwaiver  42 wins (8.4%) 108 reached R7 (21.6%)  base damage 9.0
+// Directionally better on every metric (arrival +2.6pp p=0.31, wins +1.4pp p=0.41) and base damage UP, not
+// down — the 7.9 -> 5.3 was noise. Not significantly better either; it ships on CORRECTNESS, because
+// burning a once-per-game waiver on a card that needs no waiver has zero upside on any board.
+// Guard: SWUSim/DevTools/tests/bot_aspectwaiver_test.php (section F is the reported board).
+const SWU_BOT_PART16_FEATURES = ['aspectwaiver'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
                        SWU_BOT_PART7_FEATURES, SWU_BOT_PART8_FEATURES, SWU_BOT_PART9_FEATURES,
                        SWU_BOT_PART10_FEATURES, SWU_BOT_PART11_FEATURES,
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
-                       SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES);   // part 2, then 3-15
+                       SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
+                       SWU_BOT_PART16_FEATURES);   // part 2, then 3-16
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -225,6 +247,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
@@ -503,23 +526,6 @@ const SWU_BOT_PROPOSALS = [
                        // which is why @try-krennicplan changed the sweep by nothing at all.
                        // Needs 'aspectwaiver' to be useful: LAW_044 is cost 10 here, and 6R+2C is 8.
                        // Guard: measured as the 'krennicline' group.
-    'aspectwaiver',    // A base Epic Action that WAIVES AN ASPECT PENALTY is worth the card it UNLOCKS, and its
-                       // prompt picks that card (owner 2026-09-28). The eight LAW common bases print "Play a card
-                       // from your hand, ignoring 1 of its Vigilance/Command/Aggression/Cunning aspect penalties";
-                       // LAW_020 Daimyo's Palace is what makes LAW_044 Single Reactor Ignition castable at 8
-                       // instead of 10 in Krennic Blue Splash.
-                       // TWO defects, both traced over 8 games vs ahsoka_blue:
-                       //   · _SWUBotEnabledPlayValue credited the action for the best card the prompt OFFERS,
-                       //     whether or not it was already castable — so the waiver scored 0.6 for "enabling" an
-                       //     on-aspect 2-drop and was BURNED IN ROUND 1 in six of eight games, at capacity 2.
-                       //     One game reached round 5 holding LAW_044 with the waiver already spent.
-                       //   · the "Play_a_…" prompt fell through to `0.01 - $index * 1e-6`, so the card was chosen
-                       //     by HAND INDEX (myHand-0 / myHand-4 every time) — the same enumeration-order tiebreak
-                       //     as the upgrade-pick bug fixed in p14.
-                       // Valuing it correctly IS the "save it" mechanism: worth ~0 while only cheap on-aspect
-                       // cards are in hand, worth the bomb once the bomb is affordable at the waived cost.
-                       // Pairs with 'creditvalue' — the two are halves of one line and neither gains alone.
-                       // Guard: SWUSim/DevTools/tests/bot_aspectwaiver_test.php.
     'creditvalue',     // A Credit token is worth the card it BRINGS INTO REACH (owner ruling 2026-09-28). Nothing in
                        // the value path read Credits at all: _SWUBotBoardSignature tracks units/bases/hand SIZE/
                        // resource COUNT and never Credits, so "[Exhaust, defeat a friendly unit]: Create a Credit"
@@ -548,6 +554,26 @@ const SWU_BOT_PROPOSALS = [
     // it 3 times at 4.3 — it buries the card when it is big and plays it when it is small, because the aggro
     // wing resources by `-$cost` and _SWUBotPlayValue prices a unit by COST. Owner 2026-09-24.
     'ctxpower',
+    // CARD VALUE (spec docs/superpowers/specs/2026-09-28-swusim-card-value-design.md, owner chose the
+    // FULL scope with defence in v1, 2026-09-28). Replaces _SWUBotPlayValue's flat tag sum with
+    // Body + Effect - SelfCost in expected-base-damage, read off the BOARD: removal is worth its best
+    // legal target instead of a constant, a wipe is worth what it actually kills, healing is worth ~0
+    // at full HP, and a unit is finally worth the damage it PREVENTS as well as the damage it deals.
+    // ⚠ The `develop x cost` floor is KEPT, not replaced: 'unitvalue' measured -50 doing the opposite.
+    // ⚠ ONE flag for the whole model. A half-migrated valuation is two models disagreeing.
+    // Gate on ROUND-7 ARRIVAL first (a ~30-50% per-game binary), win rate second — win rate on the
+    // canary matchup is ~8% with a +-2/100 noise floor, so it resolves far too slowly to steer on.
+    'cardvalue',
+    // Spending a BANKED Credit is a cost when those Credits are a component of the deck's win condition.
+    // Bug report #1099 (prod, game 1402804): the bot spent its only Credit on a 4-drop whose When Played
+    // bonus could not fire, breaking the owner's line — 6 resources + 2 Credits + Daimyo's Palace's aspect
+    // waiver casts LAW_044 Single Reactor Ignition (8 printed, +2 Aggression waived) on the 6R turn.
+    // ⚠ Needs the WAIVED cost to see the line at all: _SWUBotCreditUnlockValue prices LAW_044 at its
+    // unwaived 10 against current capacity, returns 0, and the whole plan stays invisible. That is why
+    // this is a separate valuation and not a tweak to that helper.
+    // ⚠ Pairs with 'aspectwaiver': banking Credits is pointless if the waiver is burned in round 1, which
+    // is bug #1098 in the SAME game. Measure them together.
+    'creditbank',
     // ('mgkill' was SHIPPED 2026-09-25 as feature group 'p13' — its history is in the feature comment.)
     // ('mgbomb' was SHIPPED 2026-09-24 as feature group 'p12' — its history is in the feature comment.)
 ];
@@ -567,8 +593,15 @@ function SWUBotProposalList(): array {
 // ('aspectwaiver'). Measured ALONE, neither moves the 0/24 vs ahsoka_blue and each costs base damage — which is
 // expected, because the line needs BOTH: LAW_044 Single Reactor Ignition is cost 10 unwaived against a max capacity
 // of 6, so it wants the waiver (10 → 8) and the Credits (6 → 8) at the same time.
-const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue', 'aspectwaiver'],
-                                 'krennicfull' => ['creditvalue', 'aspectwaiver', 'krennicscript']];
+// ⚠ 'aspectwaiver' was REMOVED from both groups when it shipped as feature p16 (2026-09-29): it is
+// always on now, so naming it here would ask for a proposal that no longer exists. The measured
+// history of these groups is therefore PRE-p16 and not reproducible as written.
+const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
+                                 'krennicfull' => ['creditvalue', 'krennicscript'],
+                                 ];
+// ⚠ No 'creditline' group. #1098 + #1099 are one chain, but p16 shipped the waiver half as a FEATURE, so
+// plain @try-creditbank already measures "the Credit half ON TOP OF the waiver fix" — a group would just
+// be a confusing alias for a single proposal.
 
 // Proposals default OFF: true only when the active variant explicitly enabled it.
 function SWUBotProposalOn(string $name): bool {
