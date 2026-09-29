@@ -5627,6 +5627,12 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
     return costLookup[cardID] || 0;
   }
 
+  // ⚠ Lives OUTSIDE render(): render() tears the panel down and rebuilds it on every selection change, so
+  // a flag held inside would reset to expanded the moment the player clicked a card.
+  // Players asked to be able to READ THE BOARD before deciding (owner 2026-09-28), so minimising drops the
+  // dim, lets clicks through to the board, and leaves just the title bar as a pill to restore from.
+  var minimized = false;
+
   function render() {
     var existing = document.getElementById('topdecksearch-panel');
     if (existing) existing.remove();
@@ -5634,14 +5640,57 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
     var overlay = document.createElement('div');
     overlay.id = 'topdecksearch-panel';
     overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.65);z-index:5000;display:flex;align-items:center;justify-content:center;';
+    if (minimized) {
+      overlay.classList.add('is-minimized');   // the same marker #game-over-overlay uses
+      // The overlay is what covers the board; the panel opts back in below.
+      overlay.style.background = 'transparent';
+      overlay.style.pointerEvents = 'none';
+    }
 
     var panel = document.createElement('div');
+    panel.className = 'topdecksearch-box';     // hook for the board-centring rule in GameLayout.php
     panel.style.cssText = "background:#0D1B2A;padding:28px 32px 24px;border-radius:12px;box-shadow:0 0 30px #0009;font-family:'Orbitron',sans-serif;text-align:center;max-width:90vw;";
+    if (minimized) {
+      panel.style.pointerEvents = 'auto';
+      panel.style.padding = '10px 18px';
+      panel.style.borderRadius = '999px';      // reads as a pill, like the rearrange popup's minimised state
+    }
+
+    // Header: the title, plus the minimise/restore control on its right.
+    var header = document.createElement('div');
+    header.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:12px;'
+                         + (minimized ? '' : 'margin-bottom:6px;');
 
     var title = document.createElement('div');
-    title.style.cssText = 'color:#fff;font-size:16px;letter-spacing:2px;margin-bottom:6px;';
+    title.style.cssText = 'color:#fff;font-size:16px;letter-spacing:2px;';
     title.textContent = 'SEARCH THE TOP CARDS';
-    panel.appendChild(title);
+    header.appendChild(title);
+
+    var minBtn = document.createElement('button');
+    minBtn.type = 'button';
+    minBtn.className = 'topdecksearch-minimize-btn';
+    minBtn.textContent = minimized ? '+' : '\u2013';        // + restore / – minimise, as #swuEndGameToggle
+    minBtn.title = minimized ? 'Restore' : 'Minimise (view the board)';
+    minBtn.setAttribute('aria-label', minBtn.title);
+    minBtn.style.cssText = "width:26px;height:26px;padding:0;border-radius:999px;border:1px solid rgba(244,236,219,0.22);"
+                         + "background:rgba(244,236,219,0.08);color:#f4ecdb;font-size:16px;line-height:1;cursor:pointer;"
+                         + "font-family:'Orbitron',sans-serif;flex:0 0 auto;";
+    minBtn.onclick = function(ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      minimized = !minimized;
+      render();
+    };
+    header.appendChild(minBtn);
+    panel.appendChild(header);
+
+    // Minimised: the title bar IS the whole panel. Everything below is skipped rather than hidden, so the
+    // pill cannot inherit the expanded layout's width from a display:none child.
+    if (minimized) {
+      overlay.appendChild(panel);
+      document.body.appendChild(overlay);
+      return;
+    }
 
     var subtitle = document.createElement('div');
     subtitle.style.cssText = 'color:#aaa;font-size:12px;margin-bottom:18px;';

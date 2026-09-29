@@ -1111,7 +1111,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* The Force token is rendered INSIDE the base card (top-right corner) by the
        core Card() renderer, driven by the base's HasForce virtual — same path as the
-       Epic-Action-Used token. See Core/UILibraries20260918.js. */
+       Epic-Action-Used token. See Core/UILibraries20260928.js. */
 
     /* ── Counter badges below the frame animations ───────────────────────────────
        The shared CreateCountersHTML hardcodes z-index:1100 on every counter badge,
@@ -1208,6 +1208,20 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         max-width: min(720px, calc(100vw - var(--swu-sidebar-w, 0px) - 32px)) !important;
         box-sizing: border-box !important;
     }
+
+    /* The top-deck search popup centres on the BOARD too (owner 2026-09-28). Same sidebar correction as
+       the YES/NO panel above, but it keeps its VERTICAL centring: it shows card art at 180px and has no
+       room to sit above the hand band. Its minimise control (Core/UILibraries20260928.js) is what answers
+       "let me read the board first" here, rather than moving it out of the way permanently.
+       The overlay stays flex-centred; only the box is shifted, so nothing about its layout changes. */
+    #topdecksearch-panel > .topdecksearch-box {
+        transform: translateX(calc(-1 * var(--swu-sidebar-w, 0px) / 2)) !important;
+        max-width: min(92vw, calc(100vw - var(--swu-sidebar-w, 0px) - 32px)) !important;
+        box-sizing: border-box !important;
+    }
+    /* Minimised, the pill must not be dimmed by its own overlay or block the board underneath — the
+       overlay's background and pointer-events are cleared in JS; this only keeps the pill clickable. */
+    #topdecksearch-panel.is-minimized > .topdecksearch-box { pointer-events: auto !important; }
     .swu-resource-panel.is-open { display: block; }
     .swu-resource-panel::before {
         content: "RESOURCES"; position: absolute; top: 9px; left: 10px;

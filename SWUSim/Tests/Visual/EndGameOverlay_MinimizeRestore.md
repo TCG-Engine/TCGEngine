@@ -6,7 +6,7 @@
 #
 # WHAT TO LOOK AT
 #   • A control sits at the TOP-RIGHT of the panel: "–" minimise. Click it and the panel collapses to
-#     a small title bar in the BOTTOM-LEFT showing just the result ("YOU WON!") and a "□" restore
+#     a small title bar in the BOTTOM-LEFT showing just the result ("YOU WON!") and a "+" restore
 #     button. Click that and it comes back exactly as it was.
 #   • Minimised, the board underneath must be fully visible and usable — that is the whole point. The
 #     panel is only 80% of the screen precisely so the board stays reachable, but before this there was
@@ -54,7 +54,9 @@
 #
 # VERIFIED 2026-08-20, Chromium + Firefox at 1700x1100:
 #   expanded  1190x880 at (170,110), stats visible, button "–"
-#   minimised  151x33  at (16,1051), stats hidden, title still visible, button "□"
+#   minimised  151x33  at (16,1051), stats hidden, title still visible, button "+"
+#              (the restore glyph was "□" until 2026-09-28; owner asked for "+" on both
+#               minimisable panels, so the top-deck search popup matches it)
 #   restored  1190x880 at (170,110) — identical to expanded, zero page errors.
 # WebKit NOT covered: it does not launch on this machine.
 
