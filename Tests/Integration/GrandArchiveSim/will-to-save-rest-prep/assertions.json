@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "Champion is rested"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1}",
+        "semantic": true,
+        "label": "Champion gains a preparation counter"
+    }
+]

@@ -1,0 +1,17 @@
+{
+    "name": "crystalline-reality-merlin-bonus-prepare-choose-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T22:19:26+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Crystalline Reality (iPpwkMxDt5, GeneratedMacroCode.php cardActivatedAbilities[\"iPpwkMxDt5:0\"] / GameLogic.php CrystallineRealityStart/QueueModes/ResolveModes/ApplyCrystallineRealityMode): \"[Merlin Bonus] Prepare 1. Choose one. If CARDNAME was prepared, choose two instead -- Summon a Memorite Blade token. / Your champion gains true sight until end of turn. / Draw a card into your memory.\" The champion is patched directly to Merlin, Memorite Vassal (Merlin Bonus) with a preparation counter already on them. Playing the card (2 reserve, paid into memory) offers 'Pay Prepare 1?' -- answering YES spends the counter and raises the MZMODAL choice count from 1 to 2; picking modes A (summon) and C (draw into memory) both resolve. Verified live: a Memorite Blade token lands on the field, memory count goes from 2 (the 2 reserve cards) to 3 (plus the drawn card), and the preparation counter is spent. Break/restore verified: commenting out the SummonMemorite() call in ApplyCrystallineRealityMode's case 0 makes the token-existence assertion fail; restoring it passes again.",
+    "testedCards": [
+        "iPpwkMxDt5"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["iPpwkMxDt5"],
+        "mechanics": ["targeting", "draw-discard", "token", "condition"],
+        "rulesClauses": [
+            "[Merlin Bonus] Prepare 1. Choose one. If CARDNAME was prepared, choose two instead -- Summon a Memorite Blade token. Your champion gains true sight until end of turn. Draw a card into your memory."
+        ]
+    }
+}

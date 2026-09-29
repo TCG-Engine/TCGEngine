@@ -17860,6 +17860,200 @@ DECK,
     ],
 ];
 
+// --- Another Beginning (Akf4kIBApN): Materialize a regalia card with memory cost 0 from your material deck ---
+$fixtures['another-beginning-materialize-free-regalia'] = [
+    'testedCards' => ['Akf4kIBApN'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Poisoned Dagger
+# Main
+4 Another Beginning
+10 Dungeon Guide
+DECK,
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Poisoned Dagger (0D6AfZyKXh): [REST], Banish: Deal 1 damage to target unit. Class Bonus: Until
+// end of turn, if that unit were to take damage, it takes that much damage plus 1 instead. ---
+$fixtures['poisoned-dagger-class-bonus-curse'] = [
+    'testedCards' => ['0D6AfZyKXh'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Poisoned Dagger
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion patched directly to Merlin, Memorite Vassal (ASSASSIN class) so IsClassBonusActive(["ASSASSIN"]) is true.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '6R8XmWoKLn']],
+        // Poisoned Dagger's own default template enters with Status=1 (rested), matching its "enters
+        // the field rested" text; explicitly override to Status=2 (ready) so the [REST] cost is payable.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '0D6AfZyKXh', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Undeniable Truth (UaUfw7yFTW): As an additional cost, sacrifice an ally. Draw a card, then put
+// a preparation counter on your champion. ---
+$fixtures['undeniable-truth-sac-draw-prep'] = [
+    'testedCards' => ['UaUfw7yFTW'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Undeniable Truth
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Dormouse Informant (aWjXOw4mVK): On Enter, if your champion has no preparation counters, put one on them. ---
+$fixtures['dormouse-informant-enter-prep'] = [
+    'testedCards' => ['aWjXOw4mVK'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Dormouse Informant
+10 Dungeon Guide
+DECK,
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Will to Save (qUd2uwAPvh): You may rest your champion. If you do, put a preparation counter on them. ---
+$fixtures['will-to-save-rest-prep'] = [
+    'testedCards' => ['qUd2uwAPvh'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Will to Save
+10 Dungeon Guide
+DECK,
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-4!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Return to the Archive (aIbBhTilEN): You may sacrifice a regalia. If you do, recover 2 and draw a card. ---
+$fixtures['return-to-archive-sac-recover-draw'] = [
+    'testedCards' => ['aIbBhTilEN'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Poisoned Dagger
+# Main
+4 Return to the Archive
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 5]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '0D6AfZyKXh'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Overlapping Visages (PYAnl70edq): Each player sacrifices an ally. If at least one non-Distortion
+// ally and at least one Distortion ally were sacrificed this way, you summon a Lost Being token. ---
+$fixtures['overlapping-visages-mixed-sac-summon'] = [
+    'testedCards' => ['PYAnl70edq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Overlapping Visages
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Merlin, Surreal Figment (P8RBSywC30) is a real DISTORTION ally; Dungeon Guide is a plain (non-Distortion) ally.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'P8RBSywC30'],
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Crystalline Reality (iPpwkMxDt5): [Merlin Bonus] Prepare 1. Choose one. If prepared, choose two
+// instead -- Summon a Memorite Blade / true sight / Draw a card into memory. ---
+$fixtures['crystalline-reality-merlin-bonus-prepare-choose-two'] = [
+    'testedCards' => ['iPpwkMxDt5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Crystalline Reality
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion patched directly to Merlin, Memorite Vassal (Merlin Bonus) with a preparation counter
+        // already on them, so the Prepare 1 cost is payable.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '6R8XmWoKLn', 'Counters' => ['preparation' => 1]]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // "Pay Prepare 1?" -- YES.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        // MZMODAL choose 2 of {A: Summon Memorite Blade, B: true sight, C: Draw into memory} -> pick A and C (indices 0,2).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '0,2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

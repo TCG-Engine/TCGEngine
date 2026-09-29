@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **524**
+Cards linked to an existing fixture: **532**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1966**
+Implemented cards still needing semantic coverage: **1958**
 
 ## Mechanic groups
 
@@ -29,7 +29,6 @@ Implemented cards still needing semantic coverage: **1966**
 | Merlin, Amethyst's Glow (`dPP9I4nVn0`) | CHAMPION | 3 | cost, targeting, draw-discard, counter, trigger | Merlin Re:Collection, Brilliant Vestige | — |
 | Red Slime (`mttsvbgl6f`) | ALLY | 1 | damage, trigger, condition | Silvie Re:Collection, Slime Sovereign | redslime-ondeath-sweep-stack-order-choice |
 | Converge Reflections (`TBVLLRPiwP`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement, token, condition | Merlin Re:Collection, Brilliant Vestige | — |
-| Poisoned Dagger (`0D6AfZyKXh`) | REGALIA,ITEM | 2 | targeting, damage, zone-movement, status, condition | Tristan Re:Collection, Shadowdancer, Merlin Re:Collection, Brilliant Vestige | — |
 | Slimeshield (`hcpetipurz`) | ACTION | 2 | cost, targeting, damage, prevention, counter, condition | Silvie Re:Collection, Slime Sovereign | — |
 | Storm Slime (`blqryebvwj`) | ALLY | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | Silvie Re:Collection, Slime Sovereign | — |
 | Tristan, Shadowdancer (`he6kd7hocc`) | CHAMPION | 2 | targeting, counter, token, combat, trigger | Tristan Re:Collection, Shadowdancer | — |
@@ -44,7 +43,6 @@ Implemented cards still needing semantic coverage: **1966**
 | Shattered Hope (`XOevViFTB3`) | ACTION | 2 | cost, draw-discard, counter | Merlin Re:Collection, Brilliant Vestige | — |
 | Shifting Mirage (`hmjr33ijq6`) | ACTION | 2 | cost, status, token | Tristan Re:Collection, Shadowdancer | — |
 | Spirit Blade: Terminus (`XsxmnGZxKz`) | ATTACK | 2 | zone-movement, combat, condition | Merlin Re:Collection, Brilliant Vestige | — |
-| Undeniable Truth (`UaUfw7yFTW`) | ACTION | 2 | cost, draw-discard, counter | Merlin Re:Collection, Brilliant Vestige | — |
 | Green Slime (`zgcxyky280`) | ALLY | 2 | targeting, trigger | Silvie Re:Collection, Slime Sovereign | — |
 | Silvie, Slime Sovereign (`mdwbkuhtjm`) | CHAMPION | 2 | cost, trigger | Silvie Re:Collection, Slime Sovereign | — |
 | Slime King (`f0ymeslfpw`) | UNIQUE,ALLY | 2 | cost, zone-movement | Silvie Re:Collection, Slime Sovereign | — |
@@ -72,7 +70,9 @@ Implemented cards still needing semantic coverage: **1966**
 | Conflagrant Sentinel (`puyzn48srd`) | ALLY | 1 | draw-discard, counter, trigger, condition | Ciel, Mirage's Grave | — |
 | Corsair Captain (`4e1gqwah01`) | ALLY | 1 | cost, zone-movement, status, condition | Diana, Moonpiercer | — |
 | Coy Bouclier (`vo1qr9bkme`) | ALLY | 1 | cost, status, combat, condition | Ciel, Mirage's Grave | — |
-| Crystalline Reality (`iPpwkMxDt5`) | ACTION | 1 | targeting, draw-discard, token, condition | Merlin Re:Collection, Brilliant Vestige | — |
 | Diana, Aether Dilettante (`m7f6r8f3y8`) | CHAMPION | 1 | cost, status, trigger, condition | Diana, Moonpiercer | — |
 | Diana, Moonpiercer (`v3vfjtwm7g`) | CHAMPION | 1 | targeting, status, trigger, condition | Diana, Moonpiercer | — |
 | Dredging Streams (`wmt0x5zado`) | ACTION | 1 | cost, targeting, zone-movement, condition | Mordred Re:Collection, Aurelian Regent | — |
+| Dummy Trainer (`QCUld5Xidm`) | REGALIA,ITEM | 1 | targeting, draw-discard, zone-movement, token | Mordred Re:Collection, Aurelian Regent | — |
+| Forest Cake (`bjx6yo7mm5`) | ITEM | 1 | draw-discard, counter, trigger, condition | Silvie Re:Collection, Slime Sovereign | — |
+| Ombreux Chevalier (`crv1etn4g3`) | ALLY | 1 | zone-movement, counter, trigger, condition | Ciel, Mirage's Grave | — |

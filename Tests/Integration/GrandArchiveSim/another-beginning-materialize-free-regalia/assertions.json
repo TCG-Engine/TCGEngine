@@ -1,0 +1,11 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "cardID": "0D6AfZyKXh",
+        "semantic": true,
+        "label": "Poisoned Dagger (memory cost 0) is materialized onto the field for free"
+    }
+]

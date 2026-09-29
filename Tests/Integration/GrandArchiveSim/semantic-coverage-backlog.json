@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-28T21:49:39+00:00",
+    "generatedAt": "2026-09-29T09:36:30+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 524,
+        "cardsWithExistingFixtures": 532,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1966,
+        "cardsNeedingSemanticCoverage": 1958,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -85,28 +85,6 @@
             "existingFixtures": [],
             "semanticFixtures": [],
             "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "0D6AfZyKXh",
-            "name": "Poisoned Dagger",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer",
                 "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": true,
@@ -383,25 +361,6 @@
                 "zone-movement",
                 "combat",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "UaUfw7yFTW",
-            "name": "Undeniable Truth",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -963,26 +922,6 @@
             "priority": 114
         },
         {
-            "cardId": "iPpwkMxDt5",
-            "name": "Crystalline Reality",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "m7f6r8f3y8",
             "name": "Diana, Aether Dilettante",
             "type": "CHAMPION",
@@ -1339,25 +1278,6 @@
             "priority": 113
         },
         {
-            "cardId": "aWjXOw4mVK",
-            "name": "Dormouse Informant",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "j6er6z99sv",
             "name": "Flamme Sorcel",
             "type": "ACTION",
@@ -1499,25 +1419,6 @@
             "mechanics": [
                 "counter",
                 "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "aIbBhTilEN",
-            "name": "Return to the Archive",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1695,25 +1596,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "qUd2uwAPvh",
-            "name": "Will to Save",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1971,24 +1853,6 @@
             "priority": 112
         },
         {
-            "cardId": "PYAnl70edq",
-            "name": "Overlapping Visages",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "oqDz2jIBZI",
             "name": "Possessed Reaping",
             "type": "ATTACK",
@@ -2185,23 +2049,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 112
-        },
-        {
-            "cardId": "Akf4kIBApN",
-            "name": "Another Beginning",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
         },
         {
             "cardId": "itwys9kf4r",
@@ -34007,6 +33854,32 @@
             "priority": 145
         },
         {
+            "cardId": "0D6AfZyKXh",
+            "name": "Poisoned Dagger",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "poisoned-dagger-class-bonus-curse"
+            ],
+            "semanticFixtures": [
+                "poisoned-dagger-class-bonus-curse"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer",
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
             "cardId": "41t71u4bzz",
             "name": "Polaris, Twinkling Cauldron",
             "type": "REGALIA,ITEM",
@@ -35212,6 +35085,29 @@
             ],
             "starterDecks": [
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
+            "cardId": "UaUfw7yFTW",
+            "name": "Undeniable Truth",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "undeniable-truth-sac-draw-prep"
+            ],
+            "semanticFixtures": [
+                "undeniable-truth-sac-draw-prep"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": false,
             "priority": 143
@@ -37109,6 +37005,30 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "iPpwkMxDt5",
+            "name": "Crystalline Reality",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crystalline-reality-merlin-bonus-prepare-choose-two"
+            ],
+            "semanticFixtures": [
+                "crystalline-reality-merlin-bonus-prepare-choose-two"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -39432,6 +39352,29 @@
             "priority": 133
         },
         {
+            "cardId": "aWjXOw4mVK",
+            "name": "Dormouse Informant",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dormouse-informant-enter-prep"
+            ],
+            "semanticFixtures": [
+                "dormouse-informant-enter-prep"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "eSAIP7mx9z",
             "name": "Drawn Blade",
             "type": "REGALIA,WEAPON",
@@ -40610,6 +40553,29 @@
             "priority": 133
         },
         {
+            "cardId": "aIbBhTilEN",
+            "name": "Return to the Archive",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "return-to-archive-sac-recover-draw"
+            ],
+            "semanticFixtures": [
+                "return-to-archive-sac-recover-draw"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "1BkfdFqCrG",
             "name": "Revitalizing Cleanse",
             "type": "ACTION",
@@ -41464,6 +41430,29 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "qUd2uwAPvh",
+            "name": "Will to Save",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "will-to-save-rest-prep"
+            ],
+            "semanticFixtures": [
+                "will-to-save-rest-prep"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42842,6 +42831,28 @@
             "priority": 132
         },
         {
+            "cardId": "PYAnl70edq",
+            "name": "Overlapping Visages",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "overlapping-visages-mixed-sac-summon"
+            ],
+            "semanticFixtures": [
+                "overlapping-visages-mixed-sac-summon"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "rPpLwLPGaL",
             "name": "Phalanx Captain",
             "type": "ALLY",
@@ -44028,6 +44039,27 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "Akf4kIBApN",
+            "name": "Another Beginning",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "another-beginning-materialize-free-regalia"
+            ],
+            "semanticFixtures": [
+                "another-beginning-materialize-free-regalia"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
