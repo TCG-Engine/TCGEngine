@@ -4649,6 +4649,40 @@ $customDQHandlers["DeclarePrepareCost"] = function($player, $parts, $lastDecisio
 };
 
 /**
+ * Generic follow-up queued by OnCardActivated() for every ATTACK card (see the ATTACK branch
+ * and the queuing site right after the $cardActivatedAbilities[...] dispatch, ~line 5208+),
+ * placed in the decision queue right behind that card's own CardActivated ability macro so it
+ * only runs once any "Pay Prepare N?" decision that macro queued has actually resolved.
+ *
+ * Fixes a real bug: OnCardActivated() used to read the "wasPrepared" DecisionQueueController
+ * variable and tag the intent-zone object with "PREPARED" synchronously, in the SAME function
+ * call that moves the card into myIntent -- but that happens BEFORE the card's own
+ * $cardActivatedAbilities[...] entry (called later in that same function) even queues its
+ * Prepare-cost YES/NO decision, let alone before the player answers it (a deferred decision
+ * only resolves on a LATER request). So the tag was always based on a stale wasPrepared value
+ * left over from whatever unrelated activation last set it -- e.g. Find the Lost (jTBNAEedbg,
+ * "Prepare 1 ... As long as prepared, it has unblockable.") never actually got tagged PREPARED
+ * even when the player genuinely paid the cost. Moving the check to run from here instead --
+ * strictly after the card's own Prepare decision resolves -- fixes it, matching the deferred-
+ * follow-up pattern already used elsewhere for other wasPrepared-dependent effects (see
+ * CrystallineRealityStart/QueueModes and ResolveDelusionalVapors below).
+ *
+ * Also benefits any other ATTACK card that reads the generic "PREPARED" TurnEffect this way
+ * (e.g. Strike from the Mist/DHn9J7gX6g's CombatLogic.php intercept-bypass check, Scorchfire
+ * Assassin's o191zv86la On Attack unblockable check) once/if their own Prepare-cost wiring is
+ * completed.
+ *
+ * Parts: [intentMZ].
+ */
+$customDQHandlers["GA_TagPreparedAttack"] = function($player, $parts, $lastDecision) {
+    $intentMZ = $parts[0] ?? "";
+    if($intentMZ === "") return;
+    if(DecisionQueueController::GetVariable("wasPrepared") === "YES") {
+        AddTurnEffect($intentMZ, "PREPARED");
+    }
+};
+
+/**
  * Slice and Dice (3jg01o26b4): "Prepare 3" additional cost.
  *
  * The CardEditor ability database has no CardActivated row for this card (a data gap --
@@ -5215,6 +5249,10 @@ function OnCardActivated($player, $mzCard) {
     $resolvedActivationEmpowerAmount = 0;
     $resolvedActivationWasEmpowered = "NO";
     $resolvedActivationChargeCount = 0;
+    // Set by the ATTACK branch below when the just-activated card needs its PREPARED TurnEffect
+    // applied AFTER the card's own (possibly deferred) Prepare-cost decision resolves. See the
+    // ATTACK branch for why this can't be checked synchronously.
+    $pendingPreparedTagMZ = null;
     if(is_string($mzCard) && strpos($mzCard, "EffectStack-") === 0) {
         $stackObj = GetZoneObject($mzCard);
         if($stackObj !== null && !$stackObj->removed) {
@@ -5431,13 +5469,25 @@ function OnCardActivated($player, $mzCard) {
         $obj = MZMove($player, $mzCard, "myIntent");
         $obj->Controller = $player;
         IncrementAttackCardActivatedCount($player);
-        // Tag with PREPARED TurnEffect if the Prepare cost was paid
-        $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
-        if($wasPrepared === "YES") {
-            $intentZone = &GetZone("myIntent");
-            $intentIdx = count($intentZone) - 1;
-            AddTurnEffect("myIntent-" . $intentIdx, "PREPARED");
-        }
+        // Defer tagging with the PREPARED TurnEffect (read later by "as long as prepared, it
+        // has unblockable"-style ATTACK cards, e.g. Find the Lost/jTBNAEedbg, Strike from the
+        // Mist/DHn9J7gX6g, Scorchfire Assassin's On Attack check on o191zv86la) until AFTER
+        // this card's own CardActivated ability macro (called below) has had a chance to run.
+        // A Prepare-cost "Pay Prepare N?" decision is a DEFERRED YES/NO the player answers on a
+        // later request -- wasPrepared is only finalized once that decision actually resolves
+        // and its CardActivated-1 custom handler stores wasPrepared="YES" (Core/
+        // DecisionQueueController.php's ExecuteStaticMethods() returns as soon as it hits an
+        // unanswered YESNO, so nothing after AddDecision() in THIS function call has the real
+        // answer yet). Reading wasPrepared synchronously right here -- before
+        // $cardActivatedAbilities[...] below even queues that decision -- was the bug: it
+        // always saw whatever value was left over from a previous, unrelated activation, never
+        // this activation's real answer. Queuing a follow-up CUSTOM decision instead (resolved
+        // strictly after the card's own Prepare decision, since AddDecision() appends same-
+        // block entries in FIFO order) mirrors the pattern used elsewhere for other
+        // wasPrepared-dependent effects that must wait on a deferred decision -- see
+        // CrystallineRealityStart/QueueModes and ResolveDelusionalVapors below.
+        $intentZone = &GetZone("myIntent");
+        $pendingPreparedTagMZ = "myIntent-" . (count($intentZone) - 1);
     }
     // Ephemerate: tag field objects as ephemeral when activated via Ephemerate
     $wasEph = DecisionQueueController::GetVariable("wasEphemerated");
@@ -5455,6 +5505,14 @@ function OnCardActivated($player, $mzCard) {
     DecisionQueueController::CleanupRemovedCards();
     if(isset($cardActivatedAbilities[$obj->CardID . ":0"])) {
         $cardActivatedAbilities[$obj->CardID . ":0"]($player);
+    }
+    // Queue the deferred PREPARED tag (see the ATTACK branch above) only now -- AFTER the card's
+    // own CardActivated ability macro just above has had the chance to queue its "Pay Prepare N?"
+    // decision. AddDecision() appends same-block entries in FIFO order, so this CUSTOM decision
+    // resolves strictly after any such YES/NO the card itself just queued, at which point
+    // wasPrepared correctly reflects THIS activation instead of a stale leftover value.
+    if($pendingPreparedTagMZ !== null) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "GA_TagPreparedAttack|" . $pendingPreparedTagMZ, 1);
     }
 
     // The real gameplay pathway for playing a card from hand (ActivateCard -> DoActivateCard,

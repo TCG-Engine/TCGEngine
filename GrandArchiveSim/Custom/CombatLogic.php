@@ -1203,7 +1203,19 @@ function ClearIntent($player) {
         if($player != $playerID) {
             $intentCard = FlipZonePerspective($intentCards[$i]);
         }
-        MZMove($player, $intentCard, $zone);
+        $movedObj = MZMove($player, $intentCard, $zone);
+        // PREPARED (see OnCardActivated()'s GA_TagPreparedAttack follow-up in GameLogic.php) is
+        // scoped to "while this is an active/declared attack" -- e.g. Find the Lost/jTBNAEedbg's
+        // "As long as CARDNAME was prepared, it has unblockable," Strike from the Mist/DHn9J7gX6g's
+        // "can't be intercepted." It has no meaning once the attack card leaves the intent zone, so
+        // strip it here rather than let it linger indefinitely on the card in its new zone (the
+        // graveyard/banish/material deck).
+        if($movedObj !== null && in_array("PREPARED", $movedObj->TurnEffects ?? [], true)) {
+            $movedObj->TurnEffects = array_values(array_filter(
+                $movedObj->TurnEffects,
+                fn($e) => $e !== "PREPARED"
+            ));
+        }
     }
 }
 

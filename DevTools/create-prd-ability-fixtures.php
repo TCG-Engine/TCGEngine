@@ -12529,6 +12529,64 @@ DECK,
     ],
 ];
 
+// --- Find the Lost: Prepare 1, as long as prepared it has unblockable ---
+$fixtures['find-the-lost-prepare-unblockable'] = [
+    'testedCards' => ['jTBNAEedbg'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Find the Lost's element is NORM (same pattern as thieving-cut-prepare-onhit-draw), so no
+    // lineage patch is needed. ATTACK cards can't be activated by the game's first player on
+    // turn 1 (CanActivateAttackCardNow/IsFirstTurnAttackLocked in GameLogic.php), so player 1
+    // ends turn 1 first and player 2 plays Find the Lost on their own turn 1 instead. Player 2's
+    // champion is pre-seeded with 1 preparation counter directly (normally only reachable via a
+    // separate preparation-counter-granting effect) so its "Prepare 1" additional cost (remove 1
+    // preparation counter as you activate it) can actually be paid.
+    //
+    // This exercises the OnCardActivated()/GameLogic.php fix for the PREPARED-tagging bug: before
+    // the fix, OnCardActivated's ATTACK branch read the "wasPrepared" DecisionQueueController
+    // variable and tagged the just-created myIntent object synchronously, in the same function
+    // call that moves the card there -- before $cardActivatedAbilities["jTBNAEedbg:0"] (called
+    // later in that same function) even queues the "Pay Prepare 1?" YES/NO decision, let alone
+    // before the player answers it. So the PREPARED TurnEffect was never actually applied off a
+    // genuine payment. The fix instead queues a "GA_TagPreparedAttack" follow-up CUSTOM decision
+    // right after the card's own CardActivated macro runs, so it resolves strictly after the
+    // Prepare decision does and reads the correct, just-finalized wasPrepared value. Verified
+    // live: answering YES removes the preparation counter and (post-fix) tags myIntent-0 with
+    // "PREPARED" -- the same TurnEffect CombatLogic.php's AttackBypassesInterceptAndTaunt() reads
+    // to grant unblockable. The fixture stops right after that YES answer (before declaring the
+    // attack target) so the assertion can check the tag directly on the still-live intent object
+    // -- declaring the attack fully resolves combat in the same step (no interceptor on the
+    // default board to require a separate decision), which moves the card out of myIntent
+    // entirely and destroys the very state this fixture is about. Checking the TurnEffect
+    // directly (same precedent as e.g. crystalline-reality-merlin-bonus-prepare-choose-two's
+    // Counters assertion) is the semantic proof, not a further downstream combat simulation.
+    // Break/restore verified: reverting to the old synchronous read makes the TurnEffects
+    // assertion fail (myIntent-0 TurnEffects comes back "[]" instead of '["PREPARED"]');
+    // restoring the fix passes again.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 1]]], // Prepare-ability cost fuel
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'jTBNAEedbg'], // Find the Lost, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // --- Insignia of the Corhazi: (3), REST: put a preparation counter on your champion ---
 $fixtures['insignia-of-corhazi-rest-prepare'] = [
     'testedCards' => ['52u81v4c0z'],

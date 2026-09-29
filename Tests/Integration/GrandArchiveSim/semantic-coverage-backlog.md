@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **546**
+Cards linked to an existing fixture: **547**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1944**
+Implemented cards still needing semantic coverage: **1943**
 
 ## Mechanic groups
 
@@ -42,7 +42,6 @@ Implemented cards still needing semantic coverage: **1944**
 | Silvie, Slime Sovereign (`mdwbkuhtjm`) | CHAMPION | 2 | cost, trigger | Silvie Re:Collection, Slime Sovereign | — |
 | Slime King (`f0ymeslfpw`) | UNIQUE,ALLY | 2 | cost, zone-movement | Silvie Re:Collection, Slime Sovereign | — |
 | Slime Nexus (`emoydelro8`) | REGALIA,ITEM | 2 | cost, zone-movement | Silvie Re:Collection, Slime Sovereign | — |
-| Find the Lost (`jTBNAEedbg`) | ATTACK | 2 | condition | Merlin Re:Collection, Brilliant Vestige | — |
 | Betraying Blade (`qwxvzfkpaj`) | ATTACK | 1 | cost, zone-movement, counter, combat, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
 | Ethereal Slime (`n06zlhihka`) | ALLY | 1 | damage, prevention, draw-discard, zone-movement, counter, status, trigger, condition | Silvie Re:Collection, Slime Sovereign | — |
 | Frostsworn Paladin (`rpOaAjgtue`) | ALLY | 1 | draw-discard, zone-movement, counter, status, combat, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **1944**
 | Tristan, Underhanded (`bjlwabipl6`) | CHAMPION | 1 | zone-movement, counter, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
 | Whimsy's Warden (`cworak5y4y`) | ALLY | 1 | status, combat, trigger, condition | Ciel, Mirage's Grave | — |
 | Baby Green Slime (`cqadnk9iz0`) | ALLY | 1 | targeting, zone-movement, trigger | Silvie Re:Collection, Slime Sovereign | — |
+| Ciel, Loyal Valet (`nn48ne8a05`) | CHAMPION | 1 | zone-movement, counter, trigger | Ciel, Mirage's Grave | — |

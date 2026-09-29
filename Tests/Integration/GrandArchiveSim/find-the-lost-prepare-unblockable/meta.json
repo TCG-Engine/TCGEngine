@@ -1,0 +1,17 @@
+{
+    "name": "find-the-lost-prepare-unblockable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Find the Lost (jTBNAEedbg, ATTACK/ASSASSIN/SWORD): \"Prepare 1. As long as CARDNAME was prepared, it has unblockable.\" Player 2's champion is pre-seeded with 1 preparation counter (normally only reachable via a separate preparation-counter-granting effect) so the optional Prepare 1 additional cost can actually be paid. Playing the card (2 reserve, paid from hand) offers 'Pay Prepare 1?' -- answering YES spends the counter. This exercises a real engine bug fix in GrandArchiveSim/Custom/GameLogic.php's OnCardActivated(): the ATTACK branch used to read the 'wasPrepared' DecisionQueueController variable and tag the just-created myIntent object with the generic PREPARED TurnEffect synchronously, in the very call that moves the card into myIntent -- before $cardActivatedAbilities['jTBNAEedbg:0'] (called later in that same function) even queues the 'Pay Prepare 1?' YES/NO decision, let alone before the player answers it (a YESNO decision only resolves on a later request per Core/DecisionQueueController.php's ExecuteStaticMethods()). So PREPARED was tagged off a stale leftover wasPrepared value, never off a genuine payment for this activation -- 'as long as prepared, it has unblockable' never actually triggered correctly. The fix defers the tag: OnCardActivated now queues a follow-up 'GA_TagPreparedAttack' CUSTOM decision right after the card's own CardActivated macro runs, so it resolves strictly after that card's own Prepare decision (AddDecision appends same-block entries in FIFO order) and reads the correct, just-finalized wasPrepared. Verified live: with the bug, myIntent-0's TurnEffects came back '[]' even after genuinely answering YES and having the preparation counter removed; with the fix, TurnEffects comes back '[\"PREPARED\"]' -- the same TurnEffect CombatLogic.php's AttackBypassesInterceptAndTaunt() reads to grant unblockable (bypassing intercept/taunt). The fixture stops right after the YES answer, before declaring the attack target, so the assertion can observe the tag directly on the still-live intent object -- declaring the attack would fully resolve combat in the same step (no interceptor on the default board) and move the card out of myIntent, destroying the very state under test. Break/restore verified: reverting OnCardActivated's ATTACK branch to the old synchronous wasPrepared read (before $cardActivatedAbilities[...] is called) makes the TurnEffects assertion fail again.",
+    "testedCards": [
+        "jTBNAEedbg"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["jTBNAEedbg"],
+        "mechanics": ["counter", "condition", "combat"],
+        "rulesClauses": [
+            "Prepare 1. As long as Find the Lost was prepared, it has unblockable."
+        ]
+    }
+}

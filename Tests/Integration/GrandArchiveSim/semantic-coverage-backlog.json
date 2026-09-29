@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-29T14:49:27+00:00",
+    "generatedAt": "2026-09-29T23:28:16+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 546,
+        "cardsWithExistingFixtures": 547,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1944,
+        "cardsNeedingSemanticCoverage": 1943,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -339,23 +339,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 122
-        },
-        {
-            "cardId": "jTBNAEedbg",
-            "name": "Find the Lost",
-            "type": "ATTACK",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 121
         },
         {
             "cardId": "qwxvzfkpaj",
@@ -35135,6 +35118,27 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 142
+        },
+        {
+            "cardId": "jTBNAEedbg",
+            "name": "Find the Lost",
+            "type": "ATTACK",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "find-the-lost-prepare-unblockable"
+            ],
+            "semanticFixtures": [
+                "find-the-lost-prepare-unblockable"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 141
         },
         {
             "cardId": "y8fx8G64C9",
