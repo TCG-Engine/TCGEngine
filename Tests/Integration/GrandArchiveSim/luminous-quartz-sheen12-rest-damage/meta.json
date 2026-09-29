@@ -1,0 +1,17 @@
+{
+    "name": "luminous-quartz-sheen12-rest-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T14:10:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "40lgjj1yS3"
+    ],
+    "notes": "Engine bug (flagged, not fixed): customDQHandlers[\"40lgjj1yS3:0:ActivateAbility-1\"] (GeneratedCode/GeneratedMacroCode.php ~27051) calls RemoveCounters($player, $champMZ, ...) but never assigns $champMZ in that handler -- a genuine 'Undefined variable $champMZ' PHP warning fires and the preparation-counter cost is silently never paid, even though the damage still resolves correctly. This fixture documents the card's actual observed behavior. GeneratedMacroCode.php is a generated/gitignored file, so the real fix belongs in the card-ability source data, not a hand-edit.",
+    "semanticCoverage": {
+        "testedCards": ["40lgjj1yS3"],
+        "mechanics": ["targeting", "damage", "counter", "condition"],
+        "rulesClauses": [
+            "[Sheen 12+] REST, Remove a preparation counter from your champion: As a Spell, deal 1+X damage to target unit, where X is the amount of sheen counters on it."
+        ]
+    }
+}

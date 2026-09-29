@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-29T09:36:30+00:00",
+    "generatedAt": "2026-09-29T14:15:31+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 532,
+        "cardsWithExistingFixtures": 540,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1958,
+        "cardsNeedingSemanticCoverage": 1950,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,27 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "dPP9I4nVn0",
-            "name": "Merlin, Amethyst's Glow",
-            "type": "CHAMPION",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 135
-        },
         {
             "cardId": "mttsvbgl6f",
             "name": "Red Slime",
@@ -67,28 +46,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 133
-        },
-        {
-            "cardId": "TBVLLRPiwP",
-            "name": "Converge Reflections",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
         },
         {
             "cardId": "hcpetipurz",
@@ -211,26 +168,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "mgesApvmwS",
-            "name": "Prismspire Scepter",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": true,
             "priority": 124
@@ -546,71 +483,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "40lgjj1yS3",
-            "name": "Luminous Quartz",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter",
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "2TCyILvBYa",
-            "name": "Merlin, Brilliant Vestige",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "6R8XmWoKLn",
-            "name": "Merlin, Memorite Vassal",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -1871,24 +1743,6 @@
             "priority": 112
         },
         {
-            "cardId": "k5wrAxBbF9",
-            "name": "Proto Key Crest",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "4vZN8JlY2k",
             "name": "Quiet Refraction",
             "type": "PHANTASIA",
@@ -2267,23 +2121,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "Y34Imzlr0n",
-            "name": "Shardforged Blade",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -33564,6 +33401,31 @@
             "priority": 155
         },
         {
+            "cardId": "dPP9I4nVn0",
+            "name": "Merlin, Amethyst's Glow",
+            "type": "CHAMPION",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "merlin-amethysts-glow-enter-sheen-target"
+            ],
+            "semanticFixtures": [
+                "merlin-amethysts-glow-enter-sheen-target"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 155
+        },
+        {
             "cardId": "mb3iqw3kc6",
             "name": "Portentous Tanggu",
             "type": "REGALIA,ITEM",
@@ -33666,6 +33528,32 @@
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter",
                 "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "TBVLLRPiwP",
+            "name": "Converge Reflections",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "converge-reflections-destroy-distortion-draw"
+            ],
+            "semanticFixtures": [
+                "converge-reflections-destroy-distortion-draw"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": false,
             "priority": 145
@@ -34421,6 +34309,30 @@
             ],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "mgesApvmwS",
+            "name": "Prismspire Scepter",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "prismspire-scepter-merlin-bonus-enter-sheen-opponent"
+            ],
+            "semanticFixtures": [
+                "prismspire-scepter-merlin-bonus-enter-sheen-opponent"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": false,
             "priority": 144
@@ -36101,6 +36013,32 @@
             "priority": 135
         },
         {
+            "cardId": "40lgjj1yS3",
+            "name": "Luminous Quartz",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter",
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "luminous-quartz-sheen12-rest-damage"
+            ],
+            "semanticFixtures": [
+                "luminous-quartz-sheen12-rest-damage"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "nsdwmxz1vd",
             "name": "Martial Guard",
             "type": "ACTION",
@@ -36122,6 +36060,57 @@
             "starterDecks": [
                 "Ciel, Mirage's Grave",
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "2TCyILvBYa",
+            "name": "Merlin, Brilliant Vestige",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "merlin-brilliant-vestige-sheen8-enter-banish-draw-prep"
+            ],
+            "semanticFixtures": [
+                "merlin-brilliant-vestige-sheen8-enter-banish-draw-prep"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "6R8XmWoKLn",
+            "name": "Merlin, Memorite Vassal",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "merlin-memorite-vassal-enter-mastery-summon-blade"
+            ],
+            "semanticFixtures": [
+                "merlin-memorite-vassal-enter-mastery-summon-blade"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
@@ -42964,6 +42953,28 @@
             "priority": 132
         },
         {
+            "cardId": "k5wrAxBbF9",
+            "name": "Proto Key Crest",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "proto-key-crest-charge3-recover"
+            ],
+            "semanticFixtures": [
+                "proto-key-crest-charge3-recover"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "gPKTJKqvOI",
             "name": "Rai, Spellcrafter",
             "type": "CHAMPION",
@@ -44974,6 +44985,27 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "Y34Imzlr0n",
+            "name": "Shardforged Blade",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "shardforged-blade-materialize-with-memorite-present"
+            ],
+            "semanticFixtures": [
+                "shardforged-blade-materialize-with-memorite-present"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

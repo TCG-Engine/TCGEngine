@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The targeted Enfeebled Dagger was destroyed, leaving only the opponent's champion"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "theirBanish",
+        "viewerPlayerID": 1,
+        "cardID": "idpdon8f0h",
+        "semantic": true,
+        "label": "The destroyed Distortion item left the field"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "cardID": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Because the destroyed object was a Distortion, a card was drawn into memory"
+    }
+]

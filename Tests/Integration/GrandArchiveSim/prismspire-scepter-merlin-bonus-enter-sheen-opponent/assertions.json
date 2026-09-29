@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "cardID": "mgesApvmwS",
+        "semantic": true,
+        "label": "Prismspire Scepter entered the field"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "property": "Counters",
+        "value": "{\"sheen\":2}",
+        "semantic": true,
+        "label": "[Merlin Bonus] On Enter put two sheen counters on the opposing champion"
+    }
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "cardID": "Y34Imzlr0n",
+        "semantic": true,
+        "label": "Shardforged Blade materialized onto the field"
+    },
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "cardID": "nZFkDcvpaY",
+        "semantic": true,
+        "label": "The Memorite Blade was not consumed (default/no-sacrifice payment path)"
+    }
+]

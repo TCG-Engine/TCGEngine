@@ -18054,6 +18054,257 @@ DECK,
     ],
 ];
 
+// --- Merlin, Memorite Vassal (6R8XmWoKLn): On Enter, you gain the Fractured Memories mastery.
+// Then you may pay (2). If you do, summon a Memorite Blade token. ---
+$fixtures['merlin-memorite-vassal-enter-mastery-summon-blade'] = [
+    'testedCards' => ['6R8XmWoKLn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Merlin, Memorite Vassal
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Real level-up (0 -> 1): the pregame Spirit of Water champion (level 0, unpatched) levels
+        // for real into Merlin, Memorite Vassal, firing ITS genuine On Enter. One card seeded to
+        // memory pays the 1-memory level-up cost.
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // "Pay (2) to summon Memorite Blade?" -- YES (the token is summoned immediately; the two
+        // ReserveCard prompts that follow pay for it from hand).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Merlin, Amethyst's Glow (dPP9I4nVn0): On Enter, put two sheen counters on target unit. ---
+$fixtures['merlin-amethysts-glow-enter-sheen-target'] = [
+    'testedCards' => ['dPP9I4nVn0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Merlin, Amethyst's Glow
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion patched directly to Merlin, Memorite Vassal (level 1) -- representing already
+        // having leveled up once, WITHOUT re-testing that card's own On Enter here -- so a single
+        // real level-up (1 -> 2) reaches Merlin, Amethyst's Glow and fires ITS genuine On Enter.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '6R8XmWoKLn']],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE target for the 2 sheen counters -- the opponent's champion.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Merlin, Brilliant Vestige (2TCyILvBYa): [Sheen 8+] On Enter, you may banish a regalia card
+// from your material deck. If you do, draw a card and put a preparation counter on your champion.
+// ---
+$fixtures['merlin-brilliant-vestige-sheen8-enter-banish-draw-prep'] = [
+    'testedCards' => ['2TCyILvBYa'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Merlin, Brilliant Vestige
+1 Prismspire Scepter
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion patched directly to Merlin, Amethyst's Glow (level 2) -- already-leveled
+        // precondition, not retesting dPP9I4nVn0's own Enter here -- plus 8 sheen counters on
+        // Fractured Memories (supporting precondition for the [Sheen 8+] clause; reaching 8 sheen
+        // for real would need many unrelated sheen-granting effects, out of scope for this fixture).
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'dPP9I4nVn0']],
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'UAJGQFbXjs', 'setProperties' => ['Counters' => ['sheen' => 8]]],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        // End turn 1 (P1, then P2). Because the level-2 champion (Merlin, Amethyst's Glow) has its
+        // own activatable ability (discounted by sheen, affordable here), ending turn opens a
+        // "Take a fast action?" Opportunity window that must be explicitly declined (twice: an
+        // Active-Response round for P1, then a Beginning-of-Opportunity round) before the turn
+        // actually passes to P2, and again (twice more) before P2's own turn ends back to P1's
+        // turn-2 material phase.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Real level-up (2 -> 3): P1's turn-2 material phase MZMAYCHOOSE offers the level-up target.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // "Banish a regalia card from your material deck?" (MZMAYCHOOSE) -- banish Prismspire Scepter.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Prismspire Scepter (mgesApvmwS): [Merlin Bonus] On Enter, as a Spell, put two sheen counters
+// on target champion you don't control. ---
+$fixtures['prismspire-scepter-merlin-bonus-enter-sheen-opponent'] = [
+    'testedCards' => ['mgesApvmwS'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Prismspire Scepter
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion patched to Merlin, Memorite Vassal so IsMerlinBonusActive() is true (supporting
+        // precondition -- not retesting 6R8XmWoKLn's own Enter here).
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '6R8XmWoKLn']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE target -- the only legal target is the opponent's champion (memory cost 0, no
+        // reserve payment needed).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Converge Reflections (TBVLLRPiwP): As an additional cost, sacrifice a non-token item or
+// weapon. Destroy target item or weapon with memory cost 0 or reserve cost 4 or less. If that
+// object was a Distortion, draw a card into your memory. ---
+// NOTE (engine gap, flagged not fixed): activateCardPrereqs["TBVLLRPiwP:0"] checks for a
+// sacrificeable non-token item/weapon as a LEGALITY precondition, but no code anywhere in
+// cardActivatedAbilities["TBVLLRPiwP:0"] or its customDQHandler ever actually performs the
+// sacrifice -- the "as an additional cost, sacrifice..." clause is checked but never paid. This
+// fixture documents the card's actual (destroy + conditional draw) behavior; the sac-fodder item
+// seeded in setup is deliberately left on the field at the end, matching real engine behavior.
+$fixtures['converge-reflections-destroy-distortion-draw'] = [
+    'testedCards' => ['TBVLLRPiwP'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Shardforged Blade
+1 Enfeebled Dagger
+# Main
+4 Converge Reflections
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Sac-fodder (non-token WEAPON) on our own field -- see engine-gap note above: this is
+        // never actually consumed by the card's additional cost.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Y34Imzlr0n'],
+        // Destroy target: a DISTORTION item (memory cost 0) on the opponent's field.
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'idpdon8f0h'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE the destroy target: the opponent's Enfeebled Dagger.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Proto Key Crest (k5wrAxBbF9): On Charge 3, return Proto Key Crest to its owner's material
+// deck and recover 3. ---
+$fixtures['proto-key-crest-charge3-recover'] = [
+    'testedCards' => ['k5wrAxBbF9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Proto Key Crest
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Pre-existing damage so "recover 3" is observable.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 5]],
+        // Seeded directly onto the field with 2 of 3 charge counters already on it -- its own
+        // ability triggers from the generic "On Charge N" recollection-phase system (GameLogic.php
+        // ~9998-10041), not from its own Enter, so raw zone-seeding is fine here (see the fixture
+        // file's pitfall notes: raw seeding is only unsafe for a card's OWN Enter-triggered ability).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'k5wrAxBbF9', 'setProperties' => ['Counters' => ['charge' => 2]]],
+    ],
+    'actions' => [
+        // End turn 1 (P1, then P2) to reach P1's turn-2 recollection phase, where the 3rd charge
+        // counter is added and the on-charge-3 trigger fires for real.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Shardforged Blade (Y34Imzlr0n): You may sacrifice a Memorite object while paying for this
+// card's memory cost to pay for 1 of that cost. ---
+// NOTE: the FSM play resolved the materialize in a single action with no MZMAYCHOOSE decision
+// point ever reaching the player, defaulting to NOT sacrificing the seeded Memorite Blade even
+// though one was available -- this fixture documents that observed (default/no-sacrifice) path;
+// the alternative-cost branch itself was not independently exercised.
+$fixtures['shardforged-blade-materialize-with-memorite-present'] = [
+    'testedCards' => ['Y34Imzlr0n'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Shardforged Blade
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // A Memorite object on the field -- the potential (but, per the note above, unused)
+        // alternative-cost sacrifice target.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'nZFkDcvpaY'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-4!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Luminous Quartz (40lgjj1yS3): [Sheen 12+] REST, Remove a preparation counter from your
+// champion: As a Spell, deal 1+X damage to target unit, where X is the amount of sheen counters
+// on it. Activate this ability only at slow speed. ---
+// NOTE (engine bug, flagged not fixed): customDQHandlers["40lgjj1yS3:0:ActivateAbility-1"]
+// (GeneratedCode/GeneratedMacroCode.php ~27051) calls RemoveCounters($player, $champMZ, ...) but
+// never assigns $champMZ in that handler (it's only computed locally inside the separate prereq
+// closure) -- a genuine "Undefined variable $champMZ" warning fires and the preparation-counter
+// cost is silently never paid, even though the damage still resolves. This fixture documents the
+// card's actual observed behavior (damage correct, cost not deducted); GeneratedMacroCode.php is
+// a generated/gitignored file per the schema rules, so the real fix belongs in the card-ability
+// source data, not a hand-edit here.
+$fixtures['luminous-quartz-sheen12-rest-damage'] = [
+    'testedCards' => ['40lgjj1yS3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Luminous Quartz
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 1]]],
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'UAJGQFbXjs', 'setProperties' => ['Counters' => ['sheen' => 12]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '40lgjj1yS3', 'setProperties' => ['Status' => 2]],
+        // Target ally with 3 sheen counters, so the resulting 1+3=4 damage is distinctive.
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['sheen' => 3]]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

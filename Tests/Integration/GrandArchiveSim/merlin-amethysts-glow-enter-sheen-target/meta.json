@@ -1,0 +1,16 @@
+{
+    "name": "merlin-amethysts-glow-enter-sheen-target",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T13:54:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dPP9I4nVn0"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["dPP9I4nVn0"],
+        "mechanics": ["cost", "targeting", "counter", "trigger"],
+        "rulesClauses": [
+            "On Enter: Put two sheen counters on target unit."
+        ]
+    }
+}
