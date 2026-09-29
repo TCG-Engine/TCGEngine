@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **547**
+Cards linked to an existing fixture: **549**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1943**
+Implemented cards still needing semantic coverage: **1941**
 
 ## Mechanic groups
 
@@ -37,7 +37,6 @@ Implemented cards still needing semantic coverage: **1943**
 | Lustrous Slime (`ejvddohjdu`) | ALLY | 2 | recover, counter, trigger | Silvie Re:Collection, Slime Sovereign | — |
 | Pleiades, Celestial Genesis (`rsps1qnzfl`) | REGALIA,WEAPON | 2 | token, combat, trigger | Diana, Moonpiercer | — |
 | Shifting Mirage (`hmjr33ijq6`) | ACTION | 2 | cost, status, token | Tristan Re:Collection, Shadowdancer | — |
-| Spirit Blade: Terminus (`XsxmnGZxKz`) | ATTACK | 2 | zone-movement, combat, condition | Merlin Re:Collection, Brilliant Vestige | — |
 | Green Slime (`zgcxyky280`) | ALLY | 2 | targeting, trigger | Silvie Re:Collection, Slime Sovereign | — |
 | Silvie, Slime Sovereign (`mdwbkuhtjm`) | CHAMPION | 2 | cost, trigger | Silvie Re:Collection, Slime Sovereign | — |
 | Slime King (`f0ymeslfpw`) | UNIQUE,ALLY | 2 | cost, zone-movement | Silvie Re:Collection, Slime Sovereign | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **1943**
 | Whimsy's Warden (`cworak5y4y`) | ALLY | 1 | status, combat, trigger, condition | Ciel, Mirage's Grave | — |
 | Baby Green Slime (`cqadnk9iz0`) | ALLY | 1 | targeting, zone-movement, trigger | Silvie Re:Collection, Slime Sovereign | — |
 | Ciel, Loyal Valet (`nn48ne8a05`) | CHAMPION | 1 | zone-movement, counter, trigger | Ciel, Mirage's Grave | — |
+| Ciel, Omenbringer (`o69ogocemo`) | CHAMPION | 1 | draw-discard, trigger, condition | Ciel, Mirage's Grave | — |

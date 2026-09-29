@@ -18595,6 +18595,101 @@ DECK,
     ],
 ];
 
+// --- Spirit Blade: Terminus (XsxmnGZxKz): Prepare 1. On Hit: If Terminus was prepared, double the
+// sheen counters on Fractured Memories and put Terminus into its owner's memory. ---
+$fixtures['spirit-blade-terminus-onhit-double-sheen-memory'] = [
+    'testedCards' => ['XsxmnGZxKz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Spirit Blade: Terminus
+10 Dungeon Guide
+DECK,
+    // Spirit Blade: Terminus's element is CRUX (an advanced element), so the champion is patched
+    // directly to Merlin, Brilliant Vestige (2TCyILvBYa, itself CRUX) -- an already-leveled
+    // precondition, not retesting that card's own Enter here -- to satisfy the element requirement.
+    // A preparation counter is seeded directly onto the champion so the printed "Prepare 1"
+    // additional cost can actually be paid, and Fractured Memories (UAJGQFbXjs) is seeded into
+    // myMastery with 3 sheen counters -- a nonzero amount below the 4-sheen threshold for
+    // Terminus's own +1 POWER/4-sheen static bonus, so the POWER math stays simple -- for the On
+    // Hit "double the sheen counters" branch to actually double. ATTACK cards can't be activated by
+    // the game's first player on turn 1 (CanActivateAttackCardNow/IsFirstTurnAttackLocked in
+    // GameLogic.php), so player 1 ends turn 1 first and player 2 plays Terminus on their own turn 1
+    // instead (same shape as thieving-cut-prepare-onhit-draw). Answering YES to "Pay Prepare 1?"
+    // removes the preparation counter and stores wasPrepared=YES; the On Hit macro
+    // (onHitAbilities["XsxmnGZxKz:0"] in GeneratedMacroCode.php) reads that variable back and only
+    // then calls AddSheenToMastery()/MZMove()-to-memory -- an attack that was never marked prepared
+    // would do neither (this is the same wasPrepared/PREPARED-tag machinery hardened by the
+    // GA_TagPreparedAttack fix, exercised directly here rather than via the generic PREPARED
+    // TurnEffect since XsxmnGZxKz:0's own On Hit macro reads wasPrepared itself).
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '2TCyILvBYa', 'Counters' => ['preparation' => 1]]],
+        ['player' => 2, 'zone' => 'myMastery', 'cardID' => 'UAJGQFbXjs', 'setProperties' => ['Counters' => ['sheen' => 3]]],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'XsxmnGZxKz'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Possessed Reaping (oqDz2jIBZI): On Ally Kill: Return the killed ally from its owner's
+// graveyard to the field under your control rested. It becomes a Spirit in addition to its other
+// types. ---
+$fixtures['possessed-reaping-onallykill-return-as-spirit'] = [
+    'testedCards' => ['oqDz2jIBZI'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Possessed Reaping
+10 Dungeon Guide
+DECK,
+    // Possessed Reaping's element is CRUX, so the champion is patched directly to Merlin,
+    // Brilliant Vestige (2TCyILvBYa, itself CRUX) -- same precondition technique as
+    // spirit-blade-terminus-onhit-double-sheen-memory -- to satisfy the element requirement. A
+    // Dungeon Guide (1 POWER / 3 LIFE, no counters) is seeded onto the opponent's (player 1's) own
+    // field as a genuinely killable defender: Possessed Reaping's printed POWER (4) exceeds its 3
+    // LIFE, so attacking it for real (not just declaring the attack) actually kills it during
+    // replay -- the "On Ally Kill" trigger (onKillAbilities["oqDz2jIBZI:0"] ->
+    // PossessedReapingOnKill() in GameLogic.php) is dispatched from OnKillTrigger() in
+    // CombatLogic.php only off a genuine combat kill, not merely a declared or blocked attack.
+    // ATTACK cards can't be activated by the game's first player on turn 1
+    // (CanActivateAttackCardNow/IsFirstTurnAttackLocked in GameLogic.php), so player 1 ends turn 1
+    // first and player 2 plays Possessed Reaping on their own turn 1 instead (same shape as
+    // thieving-cut-prepare-onhit-draw). PossessedReapingOnKill() moves the killed Dungeon Guide from
+    // its owner's (player 1's) graveyard onto Possessed Reaping's controller's (player 2's) field,
+    // rested (Status 1), tagged with the SPIRIT subtype in addition to its printed MAGE/HUMAN
+    // subtypes.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '2TCyILvBYa']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'oqDz2jIBZI'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        // Declaring the attack on a non-champion ally target opens a priority window before combat
+        // damage resolves (unlike attacking a champion directly, which resolves synchronously) --
+        // both players must explicitly pass it: player 1 declines the MZMAYCHOOSE prompt offered
+        // over their own about-to-be-attacked Dungeon Guide, then player 2 answers the follow-up
+        // YESNO the same way, after which the decision queue actually empties and combat resolves
+        // (verified live via RunnerPendingDecisionSummary -- confirmed via direct probe against this
+        // exact deck/seed).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

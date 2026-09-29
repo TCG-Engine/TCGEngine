@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-29T23:28:16+00:00",
+    "generatedAt": "2026-09-29T23:46:58+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 547,
+        "cardsWithExistingFixtures": 549,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1943,
+        "cardsNeedingSemanticCoverage": 1941,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -245,25 +245,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "XsxmnGZxKz",
-            "name": "Spirit Blade: Terminus",
-            "type": "ATTACK",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": true,
             "priority": 123
@@ -1606,24 +1587,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "oqDz2jIBZI",
-            "name": "Possessed Reaping",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -34848,6 +34811,29 @@
             "priority": 143
         },
         {
+            "cardId": "XsxmnGZxKz",
+            "name": "Spirit Blade: Terminus",
+            "type": "ATTACK",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "spirit-blade-terminus-onhit-double-sheen-memory"
+            ],
+            "semanticFixtures": [
+                "spirit-blade-terminus-onhit-double-sheen-memory"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "5tlzsmw3rr",
             "name": "Summon Sentinels",
             "type": "ACTION",
@@ -42910,6 +42896,28 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "oqDz2jIBZI",
+            "name": "Possessed Reaping",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "possessed-reaping-onallykill-return-as-spirit"
+            ],
+            "semanticFixtures": [
+                "possessed-reaping-onallykill-return-as-spirit"
+            ],
+            "starterDecks": [
+                "Merlin Re:Collection, Brilliant Vestige"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
