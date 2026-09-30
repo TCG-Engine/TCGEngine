@@ -648,6 +648,18 @@ checkContains('Remove is host-only and never self',  $wrHtml, "iAmHost && entry.
 checkContains('page has a removal banner',           $wrHtml, 'id="wr-removed"');
 checkContains('the banner is driven by r.removed',   $wrHtml, "r.removed ? '' : 'none'");
 
+// ── Kick Host vote — an afk host must not be able to hold a 3+ seat room hostage ────────────────
+checkContains('the Kick Host control exists',        $wrHtml, 'id="wr-hostkick"');
+checkContains('Kick Host posts to VoteKickHost',      $wrHtml, 'APIs/Lobbies/VoteKickHost.php');
+// The button is offered only once the server says the window is open, and never to the host.
+checkContains('Kick Host is gated on hv.open && !isHost', $wrHtml, '(hv.open && !isHost)');
+checkContains('a voter who already voted sees a disabled control', $wrHtml, "(hv.canVote ? '' : ' disabled')");
+// ⚠ THE REGRESSION THIS GUARDS: r.hostVote carries no roster/blockers footprint of its own, so the
+// timer elapsing (or a fellow seat's Yes landing) changes NOTHING else the poll signature reads —
+// without it in the signature, the button would only ever appear on a render some OTHER field's
+// change happened to trigger.
+checkContains('r.hostVote participates in the re-render signature', $wrHtml, 'myPlayerID, !!r.removed, r.hostVote]');
+
 // ⚠ THE REGRESSION GUARD THAT MATTERS. The seat key used to expire on a fixed 15-minute clock from
 // the moment of joining; after that the page polled with no authKey, could not be stamped, and the
 // player was deleted while watching. `ts` must slide on every recognised poll.

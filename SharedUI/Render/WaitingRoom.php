@@ -94,6 +94,10 @@ function _WaitingRoomStyles(): string {
 .wr-pill-away     { color: #8b97a5; }
 .wr-seat-away     { opacity: .62; }
 .wr-kick { margin-left: 6px; font-size: 11px; padding: 1px 6px; line-height: 1.6; }
+/* Warm rather than destructive-red: casting a Yes is not final by itself (it takes 2 of 2 or 2 of
+   3), so this should read as "raise your hand", not "delete". */
+.wr-hostkick { border-color: #d9a441; color: #d9a441; }
+.wr-hostkick:disabled { opacity: .55; }
 .wr-seat-foot { display: flex; align-items: center; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
 /* An EXPLICIT shared height, not align-items:stretch. The input and the button have different
    intrinsic heights (the input carries a 1px border; the button carries none and draws its edge with
@@ -610,9 +614,18 @@ function _WaitingRoomScript(array $cfg): string {
     // (bottom right). Both are always rendered so it is obvious which one belongs to you.
     head.innerHTML  = '<button id="wr-leave" type="button" class="btn">Leave</button>';
     // Ready lives NEXT TO the deck button, not on its own row: loading a deck auto-readies you, so
-    // the two are one thought — "this is my deck, and I'm good to go". #wr-actions-left stays empty
-    // here and is reserved for the GONE state's way out.
-    left.innerHTML = '';
+    // the two are one thought — "this is my deck, and I'm good to go". #wr-actions-left is otherwise
+    // empty, and is where the Kick Host vote lives once its window is open: a host who is present
+    // but not starting the room, in a 3+ human room that has sat unchanged for
+    // SWU_HOSTVOTE_ARM_AFTER, can be voted out by everyone else (same rule as the in-game kick
+    // vote — 2 of 2 at three seats, 2 of 3 at four). The host never sees this button; there is
+    // nobody to remove it FROM if there is no host, so it is host-relative rather than "not you".
+    var hv = d.hostVote || {};
+    left.innerHTML = (hv.open && !isHost)
+      ? '<button id="wr-hostkick" type="button" class="btn wr-hostkick"' + (hv.canVote ? '' : ' disabled') + '>' +
+        esc((hv.youVoted ? 'Voted to remove host' : 'Vote to remove host') + ' (' + hv.yesCount + '/' + hv.needed + ')') +
+        '</button>'
+      : '';
     el('wr-ready-slot').innerHTML =
       '<button id="wr-ready" type="button" class="btn"' + (me && me.deckOk ? '' : ' disabled') + '>' +
       (amReady ? 'Unready' : 'Ready') + '</button>';
@@ -639,6 +652,7 @@ function _WaitingRoomScript(array $cfg): string {
       : (isHost ? 'Everyone is ready — press Start.' : 'Everyone is ready — waiting for the host.');
     el('wr-ready').onclick = function () { doSetReady(!amReady); };
     if (el('wr-start')) el('wr-start').onclick = doStart;   // absent for non-hosts
+    if (el('wr-hostkick')) el('wr-hostkick').onclick = doVoteKickHost;
     el('wr-leave').onclick = doLeave;
   }
 
@@ -811,6 +825,19 @@ function _WaitingRoomScript(array $cfg): string {
       });
   }
 
+  // Cast (or re-affirm) a Yes vote to remove the host. Unlike doSetReady this has no local toggle —
+  // a Yes cannot be retracted (same rule as the in-game kick vote) — so the button just disables
+  // itself optimistically and waits for the next poll's r.hostVote to confirm the real tally.
+  function doVoteKickHost() {
+    var b = el('wr-hostkick'); if (b) b.disabled = true;
+    post('APIs/Lobbies/VoteKickHost.php',
+      'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)),
+      function (r) {
+        if (!r.success) { el('wr-hint').textContent = r.message || 'Could not record your vote.'; if (b) b.disabled = false; }
+        lastSig = '';   // force the next poll to redraw the tally (or the roster, if it carried)
+      });
+  }
+
   // Remove a seat. Host-only and always deliberate: nothing removes a player automatically any more,
   // because the automatic version removed people who were still sitting in the room.
   function bindKicks(host) {
@@ -915,7 +942,11 @@ function _WaitingRoomScript(array $cfg): string {
         el('wr-removed').style.display = r.removed ? '' : 'none';
         // Only the fields the roster renders go into the signature; myPlayerID is in it because
         // the own-seat ring and the Join/Start controls depend on which seat we are.
-        var sig = JSON.stringify([r.roster, r.seatModel, r.botProfiles, r.state, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed]);
+        // ⚠ r.hostVote MUST be here. It has no roster/blockers footprint of its own — the window
+        // opening (or a fellow seat's Yes landing) changes nothing else in this array — so without
+        // it the Kick Host button would only ever appear on a render some OTHER field's change
+        // happened to trigger, rather than live as the timer elapses or votes come in.
+        var sig = JSON.stringify([r.roster, r.seatModel, r.botProfiles, r.state, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed, r.hostVote]);
         if (sig !== lastSig) { lastSig = sig; render(r); }
       }
       pollTimer = setTimeout(poll, POLL_MS);

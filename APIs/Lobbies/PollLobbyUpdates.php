@@ -7,6 +7,7 @@ if (is_file($swuFormatsPath)) require_once $swuFormatsPath;
 require_once "../../Core/HTTPLibraries.php";
 require_once "./Classes/Player.php";
 require_once "./Classes/LobbyAdapter.php";
+require_once "./Classes/HostVote.php";
 require_once "./Classes/LobbyStore.php";
 
 $response = new stdClass();
@@ -155,12 +156,16 @@ while (true) {
     // ⚠ There is still deliberately NO unload beacon. A refresh fires unload, so a beacon would
     // release the seat and destroy the survive-a-refresh property this page exists for.
     $meSeat = null;
-    $lobbyAfter = LobbyMutate($lobbyID, function ($l) use ($authKey, &$meSeat) {
+    $now = time();
+    $lobbyAfter = LobbyMutate($lobbyID, function ($l) use ($authKey, $now, &$meSeat) {
       $meSeat = SWURoomFindPlayerByAuthKey($l, $authKey);
       if ($meSeat !== null) $meSeat->touch();
       $migrated = SWUMigrateHostIfAway($l);
       $assigned = LobbyEnsureFixedSeats($l);
-      return ($meSeat !== null || $migrated || $assigned);   // false = nothing changed, skip the write
+      // Re-arms the Kick Host timer on every join/leave/kick/host-migration for free — this mutate
+      // already runs on every poll, so no other call site needs to know about it.
+      $armed = SWUHostVoteArm($l, $now);
+      return ($meSeat !== null || $migrated || $assigned || $armed);   // false = nothing changed, skip the write
     });
     // A busy or vanished lobby must not blank the roster: fall back to the unlocked read we already
     // have. The heartbeat is idempotent and the next poll is 1.5s away.
@@ -238,6 +243,9 @@ while (true) {
     // where every seat except the host's failed).
     $meRoom = SWURoomFindPlayerByAuthKey($lobby, $authKey);
     if ($meRoom !== null) $response->playerID = $meRoom->getPlayerID();
+    // Kick Host: whether the vote window is open, the live tally, and whether THIS viewer may cast
+    // or has already cast a Yes. A viewer with no seat gets canVote=false for free (playerID 0).
+    $response->hostVote = SWUHostVoteState($lobby, $now, intval($meRoom !== null ? $meRoom->getPlayerID() : 0));
     // Presenting a key the room does not know means this browser HELD a seat and no longer does —
     // the host removed it, or it left from another tab. Say so. Sending no key at all is a viewer
     // who has not joined yet, which is not the same thing and keeps the plain not-seated state.

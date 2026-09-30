@@ -284,8 +284,8 @@ function SWUVotesNeededFor(int $target, ?array $facts = null): int
         ? !empty($facts['team'])
         : (function_exists('SWUIsTeamGame') && SWUIsTeamGame());
     if ($count <= 2) return 1;
-    if ($isTeam) return count($voters);                      // unanimous
-    return min(2, count($voters));                           // Twin Suns: 2 (unanimous at 3 live seats)
+    require_once __DIR__ . '/../../Core/KickVoteThreshold.php';
+    return KickVoteThreshold(count($voters), $isTeam);        // Twin Suns: 2 (unanimous at 3 live seats)
 }
 
 // Only Yes votes from CURRENT legal voters count — a seat that has since been kicked, or the target

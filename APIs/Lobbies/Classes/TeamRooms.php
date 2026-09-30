@@ -237,7 +237,12 @@ if (!defined('SWU_LOBBY_AWAY_AFTER')) define('SWU_LOBBY_AWAY_AFTER', 90);
 // How long the HOST may be away before the room is handed to somebody who is still in it. Longer
 // than the away threshold on purpose: a coffee break should not cost you your own room, but a closed
 // laptop must not leave a room nobody can kick from and nobody can start.
-if (!defined('SWU_LOBBY_HOST_AWAY_AFTER')) define('SWU_LOBBY_HOST_AWAY_AFTER', 300);
+//
+// Matches SWU_HOSTVOTE_ARM_AFTER (HostVote.php) — an away host (browser gone quiet) loses the room
+// silently at the same deadline a present-but-idle one becomes votable by a Kick Host vote. Was
+// 300s; shortened to match (owner, 2026-09-30) so the two remedies for a stalled room agree on how
+// long "too long" is, rather than one being three times more patient than the other.
+if (!defined('SWU_LOBBY_HOST_AWAY_AFTER')) define('SWU_LOBBY_HOST_AWAY_AFTER', 120);
 
 // Has this seat stopped polling? A seat with lastSeen === 0 has never polled — it JUST joined, so it
 // counts as present (same reasoning the reaper used).
