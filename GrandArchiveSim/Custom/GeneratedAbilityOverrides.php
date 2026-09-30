@@ -94,3 +94,52 @@ $customDQHandlers["tdz5of8zuz:0:CardActivated-1"] = function($player, $parts, $l
     AllyDestroyed($player, $chosen);
     DrawIntoMemory($controller, 1);
 };
+
+// Band of Burning Verdict (7mmve2l328, REGALIA/ITEM/TAMER accessory -- CardType() confirms
+// "REGALIA,ITEM", not ally, despite the card's role as Guo Jia-deck support): "On Enter: Draw a
+// card. [Class Bonus] [REST]: Target Animal or Beast ally you control gets +1 POWER and gains true
+// sight until end of turn." Two defects confirmed live and documented in Tests/Integration/
+// GrandArchiveSim/band-of-burning-verdict-enter-draw/meta.json, both from the [REST] ability's
+// condition and body being generated into the WRONG dispatch tables entirely -- the tables that
+// gate/resolve PLAYING this card from hand, not the tables for a field ability of a permanent
+// already on the field:
+//
+// (1) activateCardPrereqs["7mmve2l328:0"] is consulted by CanActivateCard()
+// (GeneratedCode/GeneratedMacroCode.php), the legality gate checked before a card can be
+// materialized from hand at all. The generator wired the [REST] ability's own gating there --
+// requiring IsClassBonusActive($player,["TAMER"]) and an Animal/Beast ally already on the field --
+// so the card could not be played AT ALL without both, even though neither is a printed
+// restriction on playing this ally; both belong only to the separate "[Class Bonus] [REST]:"
+// activated ability. Overridden to unconditionally legal.
+//
+// (2) cardActivatedAbilities["7mmve2l328:0"] is not a "REST-costed activated ability" table -- it's
+// the dictionary OnCardActivated() (Custom/GameLogic.php, ~line 5549) unconditionally invokes
+// immediately after ANY materialize/play of this card resolves (the same table ACTION cards use to
+// resolve their on-play effect, e.g. the Advent of the Shenju/Unity's Gale entries in
+// Custom/GameLogic.php). Because the generator wired the [REST] buff body into this same table, the
+// buff auto-fired on Enter with no REST cost ever paid -- confirmed live: after only playing the
+// card (no activation, no tap), an unprompted MZCHOOSE for the buff target appeared, and answering
+// it applied the power buff + TRUE_SIGHT while the card was still untapped. Overridden to a no-op
+// so materializing the card only runs its real On Enter effect (enterAbilities["7mmve2l328:0"]'s
+// Draw(), untouched by this override).
+//
+// The genuinely correct home for a REST-costed field ability with no reserve cost is
+// $activateAbilityAbilities / $activateAbilityPrereqs, dispatched via ActivateAbility() ->
+// DoActivatedAbility() (which pays the REST cost itself, Custom/GameLogic.php ~line 7085) and
+// reached in real play via the AbilityOpportunity window's "mzID@Activate-N@label" encoded choice
+// (see ResolveOpportunitySelection() in Custom/OpportunityLogic.php) -- exactly the pattern already
+// generated for e.g. Balmshot Nurse (activateAbilityAbilities["jetWcli3ZL:0"]) and hand-authored for
+// Charm of Anticipation (activateAbilityAbilities["vkL2RFh0yM:0"], Custom/GameLogic.php). Registered
+// there (see Custom/GameLogic.php) rather than here, since GeneratedCode/GeneratedMacroCode.php has
+// no activateAbilityAbilities/activateAbilityPrereqs entry for this card at all -- that's a missing
+// addition, not a wrong-entry override, so it follows the Charm of Anticipation/Advent of the
+// Shenju precedent instead (purely additive, nothing to clobber).
+$activateCardPrereqs["7mmve2l328:0"] = function($player, $mzID, $ignoreCost) { // Band of Burning Verdict: playing this ally has no printed restriction
+    return true;
+};
+$cardActivatedAbilities["7mmve2l328:0"] = function($player) { // Band of Burning Verdict: no on-play activated effect
+    // Intentionally empty: see comment above. This card's real On Enter ability
+    // (enterAbilities["7mmve2l328:0"], Draw a card) already runs independently of this table; the
+    // printed [Class Bonus][REST] buff ability lives in $activateAbilityAbilities instead
+    // (Custom/GameLogic.php) and only fires from an explicit later activation.
+};

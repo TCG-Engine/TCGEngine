@@ -4816,6 +4816,54 @@ $customDQHandlers["c53tomoaw3:0:GuoJiaBonus-1"] = function($player, $parts, $las
     }
 };
 
+// Band of Burning Verdict (7mmve2l328, REGALIA/ITEM/TAMER accessory -- CardType() confirms
+// "REGALIA,ITEM", NOT ally, despite the card's role as Guo Jia-deck support): "On Enter: Draw a
+// card. [Class Bonus] [REST]: Target Animal or Beast ally you control gets +1 POWER and gains true
+// sight until end of turn." The generator wired this second clause's condition and body into the
+// wrong dispatch tables entirely (the play-from-hand tables -- see GeneratedAbilityOverrides.php,
+// which overrides that wrong wiring to a no-op/always-legal pair); GeneratedCode/
+// GeneratedMacroCode.php has NO activateAbilityAbilities/activateAbilityPrereqs entry at all for
+// this card, so the genuinely correct field-ability wiring is a missing addition, registered here
+// the same way as Charm of Anticipation (vkL2RFh0yM:0) immediately above -- purely additive,
+// nothing for GeneratedMacroCode.php to clobber on regeneration.
+//
+// Mirrors Charm of Anticipation's shape exactly (same REGALIA/ITEM CardType): the [Class Bonus]
+// condition (IsClassBonusActive($player,["TAMER"])) and the Animal/Beast-ally-exists check are the
+// exact same generated checks that used to wrongly gate PLAYING the card -- relocated here since
+// they are genuinely this ability's own condition, not a restriction on materializing -- checked
+// both in the prereq (consulted by CanActivateAbility(), reached via ActivateAbility()) and,
+// belt-and-suspenders, self-enforced again inside the ability body, matching how Charm of
+// Anticipation's own body redundantly re-checks its Crowd's Favor condition. Note this card is
+// REGALIA/ITEM, not ALLY/CHAMPION/PHANTASIA, so DoActivatedAbility()'s automatic REST-cost Status
+// mutation does not apply to it -- same as every other generated REGALIA/ITEM REST-costed ability
+// in this codebase (e.g. Myopic Lens, activateAbilityAbilities["dZ30oXwi3l:0"]), none of which tap
+// themselves either; this is a pre-existing, separate engine characteristic of ITEM-type REST
+// abilities, not something introduced or left unfixed by this change. The ability body itself
+// (target-select MZCHOOSE + the "7mmve2l328:0:CardActivated-1" follow-up applying the "7mmve2l328"
+// power-buff TurnEffect + TRUE_SIGHT) is copied unchanged from the generator's own (correct)
+// ability content in GeneratedCode/GeneratedMacroCode.php -- only its WIRING was wrong, not its
+// logic -- so the existing generated customDQHandlers["7mmve2l328:0:CardActivated-1"] entry is
+// reused as-is.
+$activateAbilityAbilities["7mmve2l328:0"] = function($player) { //Band of Burning Verdict: [Class Bonus][REST] buff target Animal/Beast ally
+    if(!IsClassBonusActive($player, ["TAMER"])) return;
+    $allies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+    if(empty($allies)) return;
+    $targetStr = implode("&", $allies);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "7mmve2l328:0:CardActivated-1", 1);
+};
+$activateAbilityPrereqs["7mmve2l328:0"] = function($player, $mzID, $abilityIndex) {
+    if(!IsClassBonusActive($player, ["TAMER"])) return false;
+    $allies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+    return !empty($allies);
+};
+// NOTE: $CardActivateAbilityCountData["7mmve2l328"] = 1 is intentionally NOT set here -- that array
+// is wholesale-reassigned by GeneratedCode/GeneratedMacroCode.php, which loads AFTER this file (see
+// GamestateParser.php's include order), so any addition made to it here would be silently clobbered.
+// See the $staticAbilityCount patch in DoActivatedAbility() instead (mirrors the vkL2RFh0yM/Charm of
+// Anticipation precedent immediately above it), which is the one call site that actually needs to
+// know this card has 1 static activated ability.
+
 function ResolveObelithEscort($player) {
     $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
     $field = &GetField($player);
@@ -7068,6 +7116,10 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // gates static-vs-dynamic ability dispatch, since this file is tracked/hand-editable and
     // GeneratedMacroCode.php is not.
     if($cardID === "vkL2RFh0yM" && !$isHandActivatedMacro) $staticAbilityCount = 1;
+    // Band of Burning Verdict (7mmve2l328): same wholesale-array-clobbering problem as
+    // vkL2RFh0yM above -- see its activateAbilityAbilities/activateAbilityPrereqs registration
+    // and this NOTE, just above ResolveObelithEscort() in this file.
+    if($cardID === "7mmve2l328" && !$isHandActivatedMacro) $staticAbilityCount = 1;
     $refractedTwilightCopies = 0;
     if(PropertyContains(CardSubtypes($cardID), "POTION") && $selectedAbilityIndex < $staticAbilityCount) {
         foreach($sourceObject->TurnEffects as $rtIdx => $rtEffect) {

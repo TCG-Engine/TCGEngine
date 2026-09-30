@@ -17679,7 +17679,10 @@ DECK,
     ],
 ];
 
-// Band of Burning Verdict: On Enter, draw a card.
+// Band of Burning Verdict: On Enter, draw a card. (Fixed: see
+// band-of-burning-verdict-play-without-tamer-bonus and band-of-burning-verdict-rest-buff-requires-
+// activation for the two defects that used to live here -- the illegal play-block is gone and the
+// [REST] buff no longer auto-fires, so this fixture now needs only the FSM play action.)
 $fixtures['band-of-burning-verdict-enter-draw'] = [
     'testedCards' => ['7mmve2l328'],
     'deck' => <<<'DECK'
@@ -17689,17 +17692,67 @@ $fixtures['band-of-burning-verdict-enter-draw'] = [
 10 Dungeon Guide
 DECK,
     'setup' => [
-        // FIRE element access + a Tamer champion + an Animal/Beast ally are all required just to
-        // materialize this card at all -- see this fixture's meta.json ENGINE BUG note.
+        // Tamer champion + an Animal/Beast ally are kept here (though no longer required just to
+        // play the card -- see the fix) so this fixture still also covers the On Enter draw in the
+        // presence of a legal REST-ability target, same as before.
         ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['LMyKyVC2O9']]],
         ['player' => 1, 'zone' => 'myField', 'cardID' => 'OUqX2BBcGv'],
         ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '7mmve2l328']],
     ],
     'actions' => [
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
-        // See ENGINE BUG note: this MZCHOOSE is the printed [Class Bonus][REST] buff ability firing
-        // automatically as part of materializing, not a genuine player-chosen activation. Answered
-        // here only so the fixture reaches a clean resolved state to assert against.
+    ],
+];
+
+// Band of Burning Verdict: playing this ally from hand has no printed restriction -- proves the
+// fixed activateCardPrereqs["7mmve2l328:0"] no longer requires the Tamer class bonus or an
+// Animal/Beast ally on the field just to materialize the card. Deliberately NO Tamer champion and
+// NO Animal/Beast ally anywhere in this fixture's setup.
+$fixtures['band-of-burning-verdict-play-without-tamer-bonus'] = [
+    'testedCards' => ['7mmve2l328'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '7mmve2l328']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Band of Burning Verdict: the printed "[Class Bonus] [REST]: Target Animal or Beast ally you
+// control gets +1 POWER and gains true sight until end of turn" must NOT auto-fire on Enter --
+// it only applies after an explicit later activation (paying the REST cost, i.e. tapping the
+// card). Same Tamer-champion + Cheerful Slime setup as band-of-burning-verdict-enter-draw so the
+// ability is legally activatable, but here it is actually activated via the same direct
+// myField!CustomInput!Activate:N click GrandArchiveSim/Custom/CustomInput.php offers for any
+// field permanent's own activated ability when the decision queue is empty (same mechanism used
+// by the charm-of-anticipation-banish-draw fixture for vkL2RFh0yM's activateAbilityAbilities
+// entry).
+$fixtures['band-of-burning-verdict-rest-buff-requires-activation'] = [
+    'testedCards' => ['7mmve2l328'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['LMyKyVC2O9']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'OUqX2BBcGv'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '7mmve2l328']],
+    ],
+    'actions' => [
+        // Materialize Band of Burning Verdict (myField-2). On Enter draws a card; the REST buff
+        // does NOT fire here -- that's the point of this fixture.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Explicitly activate Band of Burning Verdict's own ability index 0 (the [REST] buff).
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: target the Cheerful Slime (Animal ally) with the buff.
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
     ],
 ];

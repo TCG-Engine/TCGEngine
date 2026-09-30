@@ -1,0 +1,45 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Band of Burning Verdict's On Enter draws a card, reducing the deck from 3 to 2"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]",
+        "semantic": true,
+        "label": "Right after materializing, the Cheerful Slime (Animal ally) has NOT been buffed yet -- the [REST] ability has not auto-fired"
+    },
+    {
+        "step": 1,
+        "type": "computed_power_equals",
+        "mzId": "myField-1",
+        "value": 1,
+        "semantic": true,
+        "label": "Cheerful Slime is still at its base 1 POWER right after Band of Burning Verdict enters -- no auto-applied buff"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"7mmve2l328\",\"TRUE_SIGHT\"]",
+        "semantic": true,
+        "label": "After the explicit later activation of Band of Burning Verdict's [REST] ability and choosing Cheerful Slime as the target, it gains the power-buff TurnEffect and TRUE_SIGHT"
+    },
+    {
+        "step": 3,
+        "type": "computed_power_equals",
+        "mzId": "myField-1",
+        "value": 2,
+        "semantic": true,
+        "label": "Cheerful Slime's POWER is now buffed from 1 to 2 by the explicitly-activated [REST] ability"
+    }
+]

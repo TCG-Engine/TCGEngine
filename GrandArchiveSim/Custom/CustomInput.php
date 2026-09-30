@@ -73,9 +73,20 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
         // ability entry for DoActivatedAbility to find -- its $staticAbilityCount comes back 0,
         // misclassifying index 0 as a "dynamic" ability that matches nothing. Route those through
         // ActivateCard instead, same as reserve-cost hand activations.
+        //
+        // Exception: a card whose $activateAbilityAbilities entry for THIS ability index exists --
+        // e.g. Band of Burning Verdict (7mmve2l328:0, Custom/GameLogic.php), which has a real free
+        // REST-costed field ability hand-authored there (its own $CardCardActivatedCount is
+        // generated nonzero for an unrelated, now-neutralized play-time table -- see
+        // Custom/GeneratedAbilityOverrides.php) -- must still be routed to ActivateAbility, or a
+        // genuinely-registered activated ability would be silently misrouted into ActivateCard,
+        // which materializes/moves a field object as if it were being played from the effect stack.
         $targetObj = GetZoneObject($actionCard);
         $targetCardID = $targetObj !== null ? ($targetObj->CardID ?? null) : null;
-        if($targetCardID !== null && function_exists("CardActivateAbilityCount") && function_exists("CardCardActivatedCount")
+        global $activateAbilityAbilities;
+        $hasRealActivateAbilityEntry = $targetCardID !== null && isset($activateAbilityAbilities[$targetCardID . ":" . $abilityIndex]);
+        if($targetCardID !== null && !$hasRealActivateAbilityEntry
+            && function_exists("CardActivateAbilityCount") && function_exists("CardCardActivatedCount")
             && CardActivateAbilityCount($targetCardID) === 0 && CardCardActivatedCount($targetCardID) > 0) {
             ActivateCard($playerID, $actionCard, false);
             break;
