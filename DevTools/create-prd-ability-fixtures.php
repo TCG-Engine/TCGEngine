@@ -17553,6 +17553,59 @@ DECK,
     ],
 ];
 
+// Craggy Fatestone (h8n1520m2d): regression fixture for the FIXED first clause -- "Whenever an
+// opponent materializes a card with memory cost 0, put a buff counter on Craggy Fatestone." This
+// clause carries NO Guo Jia Bonus restriction on the card's own printed text (only the separate
+// second [REST] transform clause above is tagged [Guo Jia Bonus]); it was previously wrongly
+// gated behind IsGuoJiaBonus($opponent) AND only wired into DoMaterialize() (MaterializeLogic.php),
+// which covers exclusively the rare from-material-zone/champion-lineage materialize path -- dead
+// for the overwhelmingly common case of an opponent materializing something from HAND. The fix
+// (a) drops the IsGuoJiaBonus gate on this clause and (b) also calls the same
+// CraggyFatestoneMaterializeTrigger() helper from MoveEffectStackCardToField() (GameLogic.php),
+// the real from-hand-via-effect-stack chokepoint. This fixture proves the from-hand case, with NO
+// Guo Jia Bonus active for either player.
+//
+// Fauna Friend (japulzj7gv, REGALIA,ITEM, reserve=-1/memory=0) is the memory-cost-0 vehicle card.
+// Regalia can never legitimately reach hand via AddHand() (HandAddReplacement redirects any
+// freshly-"added" Regalia CardID straight into the Material zone instead -- confirmed live), so it
+// is seeded to a known hand slot via patchMzId, same convention used throughout this file for
+// hand-seeded test cards; only the vehicle's presence in hand is synthetic, not Craggy Fatestone's
+// buff counter (which is produced by the real ability code, not setProperties).
+//
+// Verified live: P1 declines their material-phase level-up prompt (ends their empty turn 1,
+// landing on P2's own turn 1 MAIN phase with no other pending decisions in this filler deck), then
+// P2 plays Fauna Friend from myHand-0 via ordinary FSM. Memory cost 0 needs no MZCHOOSE/reserve
+// decisions -- it resolves in one action, moving straight to P2's field. Craggy Fatestone's buff
+// counter goes 0 -> 1 as a direct, unconditional result (no Guo Jia Bonus on P1 or P2's champion).
+$fixtures['craggy-fatestone-buff-counter-from-hand-materialize'] = [
+    'testedCards' => ['h8n1520m2d'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Craggy Fatestone on P1's field -- the card under test. Its buff counter is left at the
+        // natural starting value (0); nothing about its own state is seeded.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        // Fauna Friend seeded to P2's myHand-0 (see file-level comment above for why patchMzId,
+        // not a zone-add, is required for a Regalia card to sit in hand).
+        ['player' => 2, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'japulzj7gv']],
+    ],
+    'actions' => [
+        // P1 declines the start-of-turn material-phase level-up prompt. This filler deck has no
+        // other legal action for P1, so the rest of P1's turn auto-resolves and priority lands on
+        // P2's own turn 1 MAIN phase (verified live via RunnerPendingDecisionSummary: turn player
+        // becomes 2, phase MAIN, no pending decisions).
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        // P2 materializes Fauna Friend from hand (myHand-0, still index 0 -- P2's own turn-1 draw
+        // appends to the END of hand). Memory cost 0 resolves in this single FSM action with no
+        // further decisions.
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // Portentous Tanggu: [Guo Jia Bonus] On Enter: put a quest counter on your champion.
 $fixtures['portentous-tanggu-enter-quest-counter'] = [
     'testedCards' => ['mb3iqw3kc6'],

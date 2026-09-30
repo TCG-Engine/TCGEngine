@@ -2,5 +2,8 @@
     "name": "craggy-fatestone-reveal-draw",
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-04-12T01:11:23+02:00",
-    "createdBy": "5"
+    "createdBy": "5",
+    "lastRecordedAt": "2026-09-30T00:00:00+00:00",
+    "lastRecordedBy": "Claude Sonnet 5",
+    "notes": "expected_final_gamestate.txt re-recorded (2026-09-30) after fixing Craggy Fatestone's (h8n1520m2d) buff-counter trigger (see craggy-fatestone-buff-counter-from-hand-materialize). This fixture's Guo Jia-lineage Material deck incidentally includes Craggy Fatestone, and P2's real from-hand materialize of a memory-cost-0 card in this fixture's own action sequence now correctly puts a buff counter on P1's Craggy Fatestone (Counters was '-', now '{\"buff\":1}'), where it previously stayed empty because the trigger was dead for the from-hand path. This card's own ability (Reveal/draw) is unaffected -- the only diff vs. the prior snapshot is Craggy Fatestone's Counters field."
 }

@@ -7486,6 +7486,13 @@ function MoveEffectStackCardToField($player, $mzCard) {
         GATelemetryBumpCard($player, $cardID, 'materialized');
         GATelemetryBumpTurn($player, 'cardsPlayed');
     }
+    // Craggy Fatestone (h8n1520m2d): this is also the real "materialized" chokepoint for the
+    // ordinary from-hand path (the overwhelmingly common case) -- see
+    // CraggyFatestoneMaterializeTrigger()'s doc comment in MaterializeLogic.php for why this call
+    // and DoMaterialize()'s call are mutually exclusive per materialize event.
+    if($obj !== null && $cardID !== "") {
+        CraggyFatestoneMaterializeTrigger($player, CardMemoryCost($obj));
+    }
     return $obj;
 }
 
