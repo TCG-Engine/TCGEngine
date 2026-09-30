@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-30T14:32:02+00:00",
+    "generatedAt": "2026-09-30T14:44:36+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 549,
@@ -33197,10 +33197,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "fatestone-of-heaven-enter-destroy-cheap-object"
+                "fatestone-of-heaven-enter-destroy-cheap-object",
+                "fatestone-of-heaven-enter-destroy-item-fires-diaochan-trigger"
             ],
             "semanticFixtures": [
-                "fatestone-of-heaven-enter-destroy-cheap-object"
+                "fatestone-of-heaven-enter-destroy-cheap-object",
+                "fatestone-of-heaven-enter-destroy-item-fires-diaochan-trigger"
             ],
             "starterDecks": [
                 "Guo Jia Re:Collection, Heaven's Favored"

@@ -17657,6 +17657,51 @@ DECK,
     ],
 ];
 
+// --- Fatestone of Heaven: destroying an ITEM/WEAPON target routes through AllyDestroyed(), firing
+// "whenever destroyed" triggers (regression guard for the customDQHandlers["FatestoneOfHeavenDestroy"]
+// fix in GrandArchiveSim/Custom/CardLogic.php) ---
+$fixtures['fatestone-of-heaven-enter-destroy-item-fires-diaochan-trigger'] = [
+    'testedCards' => ['al6pqkmgmz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    // The fatestone-of-heaven-enter-destroy-cheap-object fixture only exercises the ALLY branch
+    // of customDQHandlers["FatestoneOfHeavenDestroy"] (Custom/CardLogic.php), which already
+    // called AllyDestroyed() correctly. Its non-ALLY/TOKEN branch instead did a raw
+    // OnLeaveField()+MZMove()-to-graveyard, silently skipping every "whenever a permanent is
+    // destroyed" trigger -- the same bypass bug already fixed for other cards via
+    // GrandArchiveSim/Custom/GeneratedAbilityOverrides.php. Diao Chan, Idyll Corsage is seeded
+    // onto the caster's own field as a canary: her "whenever a non-token object an opponent
+    // controls is destroyed, you may banish it; if you do, that opponent summons a Flowerbud
+    // token" ability only fires through DoAllyDestroyed()'s trigger dispatch, so her
+    // banish/Flowerbud payload firing directly proves the fix for an ITEM target (as opposed to
+    // just "it's gone from the field", which the old bypass would also achieve).
+    'setup' => [
+        // Fatestone of Heaven is LUXEM; patch in Zander, Blinding Steel's lineage for element access.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]],
+        // Diao Chan, Idyll Corsage - canary "whenever destroyed" trigger, on the destroyer's own
+        // side (she must be controlled by the opponent of the destroyed object's controller).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'd7l6i5thdy'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'al6pqkmgmz']],
+        // Opponent's Craggy Fatestone (ITEM, reserve cost 4 <= 5) is the destroy target.
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: candidates are itself (myField-2, reserve 3) and the opponent's Craggy
+        // Fatestone (theirField-1, reserve 4) -- choose the opponent's item.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        // Diao Chan's YESNO: banish the destroyed item and give the opponent a Flowerbud token.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // Fatestone of Unrelenting: Hindered; On Enter: as a Spell, deal 1 damage to target unit.
 $fixtures['fatestone-of-unrelenting-enter-damage-1'] = [
     'testedCards' => ['o37qtuvlxa'],

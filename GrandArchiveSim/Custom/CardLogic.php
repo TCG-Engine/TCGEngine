@@ -531,15 +531,16 @@ $customDQHandlers["FatestoneOfHeavenDestroy"] = function($player, $parts, $lastD
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $obj = GetZoneObject($lastDecision);
     if($obj === null || $obj->removed) return;
-    $type = EffectiveCardType($obj);
-    if(PropertyContains($type, "ALLY") || PropertyContains($type, "TOKEN")) {
-        AllyDestroyed($player, $lastDecision);
-    } else {
-        OnLeaveField($player, $lastDecision);
-        $controller = $obj->Controller ?? $player;
-        $dest = $controller == $player ? "myGraveyard" : "theirGraveyard";
-        MZMove($player, $lastDecision, $dest);
-    }
+    // Route every destroy through the shared AllyDestroyed() dispatcher regardless of target
+    // type. AllyDestroyed()/DoAllyDestroyed() (GrandArchiveSim/Custom/GameLogic.php) is not
+    // actually ally-specific -- it's the universal "object destroyed" pipeline (champion-loss
+    // check, Immortality/Link Shield/Renewable/Ephemeral replacement effects, and every
+    // "whenever a permanent is destroyed" trigger, e.g. Diao Chan, Idyll Corsage). A prior
+    // version of this handler only routed ALLY/TOKEN targets through it and fell back to a raw
+    // OnLeaveField()+MZMove() for ITEM/WEAPON targets, silently skipping all of that -- the same
+    // bypass bug already fixed for other cards' destroy effects (see
+    // GrandArchiveSim/Custom/GeneratedAbilityOverrides.php's header comment).
+    AllyDestroyed($player, $lastDecision);
 };
 
 function FatestoneOfHeavenActivated($player, $mzID) {
