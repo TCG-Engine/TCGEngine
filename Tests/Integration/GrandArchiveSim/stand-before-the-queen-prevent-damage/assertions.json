@@ -1,0 +1,29 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Stand Before the Queen resolved off the EffectStack into the graveyard"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myGraveyard-0",
+        "property": "CardID",
+        "value": "v9SJgS6z40",
+        "semantic": true,
+        "label": "The graveyard card is Stand Before the Queen itself, not a stranded/unrelated entry"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"STAND_BEFORE_THE_QUEEN_2\"]",
+        "semantic": true,
+        "label": "The targeted champion carries the prevent-next-2-damage turn effect"
+    }
+]

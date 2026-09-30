@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 12,
+        "semantic": true,
+        "label": "Fated Keepsake's On Enter draws a card, reducing the deck from 13 to 12"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Damage",
+        "value": "6",
+        "semantic": true,
+        "label": "[Guo Jia Bonus] Arcane Blast's 11 damage to the champion is reduced to exactly 6"
+    }
+]

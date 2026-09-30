@@ -5,6 +5,10 @@
 require_once __DIR__ . '/../Core/Match/Hooks.php';
 require_once __DIR__ . '/Custom/DeckImport.php'; // GrandArchiveResolveDeckInput / GAValidateResolvedDeck
 require_once __DIR__ . '/StatsSubmit.php';        // GACaptureCurrentGameDetail / GASubmitMatchResults
+// Loaded here (not from GameLogic.php) because this file is require_once'd by
+// EngineLoadRootRuntime() strictly after GeneratedCode/GeneratedMacroCode.php, so its
+// $customDQHandlers assignments actually take effect. See the file's header comment.
+require_once __DIR__ . '/Custom/GeneratedAbilityOverrides.php';
 
 // Resolve both lobby decks into the per-seat wrapper the framework expects:
 // [seat => ['originalDeck'=>resolvedDeck, 'authKey'=>..., 'userId'=>..., 'deckLink'=>...]].

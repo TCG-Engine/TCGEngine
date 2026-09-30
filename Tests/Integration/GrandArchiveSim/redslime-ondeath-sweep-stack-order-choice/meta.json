@@ -1,0 +1,12 @@
+{
+    "name": "redslime-ondeath-sweep-stack-order-choice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T20:20:44+00:00",
+    "createdBy": "batch-script",
+    "notes": "Regression coverage for the stacking-order-choice fix applying to a generated closure's own self-contained multi-kill effect. Red Slime's On Death ability (allyDestroyedAbilities['mttsvbgl6f:0'], GeneratedCode/GeneratedMacroCode.php) deals damage equal to its own power to all allies -- a synchronous sweep entirely inside one generated closure, not via separate hand-written QueueTriggeredAbility() dispatch calls. Killed here via two casts of Charge the Soul (ra9950o14t) dealing 1 damage each to Red Slime (life 2), then its sweep deals 3 to all remaining allies, chain-killing Golden Pawn (Lewf9sfv9m, life 1, On Death: Draw) and Heavenly Drake (loSCQzxqi1, life 3, On Death: Recover 3) simultaneously. Before the fix, both On Death triggers auto-resolved in a hardcoded order with no player choice. After the fix (ResolveTopOfEffectStack() in Custom/OpportunityLogic.php now wraps its whole trigger-resolution dispatch -- including the generated CardActivated()/Fire*TriggeredAbility calls it makes -- in BeginTriggeredAbilityBatch()/EndTriggeredAbilityBatch()), player 1 is offered an MZCHOOSE (TriggerOrderPickResolve) to pick the order. No GeneratedCode files were touched or regenerated for this fix.",
+    "testedCards": [
+        "mttsvbgl6f",
+        "Lewf9sfv9m",
+        "loSCQzxqi1"
+    ]
+}

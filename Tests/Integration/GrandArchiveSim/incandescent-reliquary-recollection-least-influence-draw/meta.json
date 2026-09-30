@@ -1,0 +1,17 @@
+{
+    "name": "incandescent-reliquary-recollection-least-influence-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Incandescent Reliquary (wsycqp2l90, Custom/GameLogic.php RecollectionPhase() ~9852-9862): \"At the beginning of your recollection phase, if you are the player with the least influence, draw a card.\" Seeded directly onto the field (this check lives in the plain per-turn RecollectionPhase() switch, not a materialized Enter macro, so a raw zone-seed is a faithful vehicle for it). Both players have equal influence (7 cards in hand each, matching real GA rules where a tie counts as \"least\"), so GetInfluence($turnPlayer) <= GetInfluence($otherPlayer) is true. Reached player 1's own turn-2 recollection phase using the established 3-action shortcut (P1 ends turn 1, P2 ends their turn, P1 declines the material-phase level-up offer). Verified live: the card's TurnEffects gains \"wsycqp2l90_DRAW_ANIM\" (the same marker the real Draw() call is paired with) and the deck count drops by an extra card beyond the normal turn-draw. Break/restore verified: commenting out the Draw()/AddTurnEffect() calls makes the fixture fail and restoring it passes again.",
+    "testedCards": [
+        "wsycqp2l90"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["wsycqp2l90"],
+        "mechanics": ["draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, if you are the player with the least influence, draw a card."
+        ]
+    }
+}

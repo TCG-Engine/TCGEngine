@@ -1,0 +1,17 @@
+{
+    "name": "guo-jia-chosen-disciple-enter-material-fatestone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Guo Jia, Chosen Disciple (j6dkdoxyqt, GeneratedMacroCode.php enterAbilities[\"j6dkdoxyqt:0\"]): \"On Enter: If you don't control a Fatestone regalia, reveal all cards in your material deck. Then put a Fatestone regalia card with the lowest memory cost from among them onto the field.\" A REAL champion level-up (0 -> 1) is used, not a patch: both players end turn 1 to reach player 1's material-phase MZMAYCHOOSE, then Guo Jia, Chosen Disciple (the only legal level-up target) is chosen, firing its genuine On Enter. Its material deck contains exactly one Fatestone regalia (Fabled Azurite Fatestone, memory cost 10) after Spirit of Fire (the pregame starting champion) and Guo Jia himself are both consumed from Material into Field. Verified live: Fabled Azurite Fatestone moves from the material deck onto the field. Break/restore verified: commenting out the single-candidate MZMove() call makes the fixture fail and restoring it passes again.",
+    "testedCards": [
+        "j6dkdoxyqt"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["j6dkdoxyqt"],
+        "mechanics": ["cost", "zone-movement", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: If you don't control a Fatestone regalia, reveal all cards in your material deck. Then put a Fatestone regalia card with the lowest memory cost from among them onto the field."
+        ]
+    }
+}

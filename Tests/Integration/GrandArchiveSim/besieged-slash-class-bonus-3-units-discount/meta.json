@@ -1,0 +1,17 @@
+{
+    "name": "besieged-slash-class-bonus-3-units-discount",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T19:37:07+00:00",
+    "createdBy": "Codex",
+    "notes": "Besieged Slash (activationCostModifierAbilities[\"Dkq7QnrGJI:0\"], GeneratedMacroCode.php) costs 2 less (3 -> 1 reserve) when [Class Bonus] is active (player's champion is WARRIOR) AND the opponent controls 3+ ALLY/CHAMPION units. Player 2 is patched to a WARRIOR champion (Lorraine, Wandering Warrior) for the class bonus; player 1 gets 2 extra Dungeon Guide allies seeded onto their field, which combined with their own already-present champion brings their unit count to exactly 3. Same real attack-card-activation shape as heavy-swing-class-bonus-discount: P1 passes turn 1 (Rule 1.h forbids the opening player from activating ATTACK cards turn 1), then P2 activates Besieged Slash on their own turn 1, paying only 1 rep of the reserve decision (not 3) before the mandatory attack-card target selection.",
+    "testedCards": [
+        "Dkq7QnrGJI"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Dkq7QnrGJI"],
+        "mechanics": ["cost", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] As long as an opponent controls three or more units, this card costs 2 less to activate."
+        ]
+    }
+}

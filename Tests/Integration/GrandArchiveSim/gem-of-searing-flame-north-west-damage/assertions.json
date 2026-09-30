@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"theirField-0","property":"Damage","value":"2","semantic":true,"label":"North->West transition deals 2 damage to the opponent's champion (answering NO)"},
+    {"step":3,"type":"card_property_equals","mzId":"myField-0","property":"Damage","value":"0","semantic":true,"label":"Player 1's own champion takes no damage since NO was chosen"},
+    {"step":3,"type":"card_property_equals","mzId":"myMastery-0","property":"Direction","value":"WEST","semantic":true,"label":"Shifting Currents actually changed to West"}
+]

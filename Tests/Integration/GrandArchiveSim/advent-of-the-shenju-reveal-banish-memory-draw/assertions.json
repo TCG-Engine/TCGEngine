@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "c53tomoaw3",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Advent of the Shenju itself is banished as part of 'banish all cards in your memory'"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Drawing a card into memory for each of the 4 banished cards empties the remaining 2-card deck"
+    }
+]

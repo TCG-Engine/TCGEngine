@@ -1,0 +1,17 @@
+{
+    "name": "quietus-blade-class-bonus-empty-material-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Quietus Blade's static [Class Bonus] power bonus (GameLogic.php ~13120, inside ObjectCurrentPower) adds +4 POWER to the weapon itself only while the controller's material deck is completely empty AND [Class Bonus] (WARRIOR) is active; GetTotalAttackPower (CombatLogic.php ~251-272) adds the selected weapon's ObjectCurrentPower into the attack total. The starting champion is patched to Lorraine, Wandering Warrior (WARRIOR) for the class bonus; Quietus Blade (printed 2 POWER) is seeded directly onto the field as an already-equipped weapon (same 'seed weapon straight onto myField' shape as executioners-spear-jin-bonus-on-kill-durability); the remaining material deck is emptied via the emptyZone primitive so the condition is met. Same real attack-declaration shape as executioners-spear-jin-bonus-on-kill-durability: P1 pass, P2 pass, P1 declines the turn-3 MAT offer, then P1's champion (0 printed POWER) attacks, selecting Quietus Blade as the weapon (myField-1) and targeting the opposing champion (theirField-0); P2 declines the Retaliate? MZMAYCHOOSE. Total attack power is Quietus Blade's 2 printed POWER + 4 from the Class Bonus = 6, landing as Damage=6 on the defender (vs. Damage=2 if the Class Bonus bonus never applied).",
+    "testedCards": [
+        "4c7XZeezka"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["4c7XZeezka"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "[Class Bonus] As long as there are no cards in your material deck, CARDNAME gets +4[POWER] and has \"(3), REST: CARDNAME gains spellshroud until end of turn.\""
+        ]
+    }
+}

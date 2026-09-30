@@ -1,0 +1,17 @@
+{
+    "name": "return-to-archive-sac-recover-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T22:19:26+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Return to the Archive (aIbBhTilEN, GeneratedMacroCode.php cardActivatedAbilities[\"aIbBhTilEN:0\"] / customDQHandlers[\"ReturnToArchiveProcess\"]): \"You may sacrifice a regalia. If you do, recover 2 and draw a card.\" A Poisoned Dagger regalia is seeded on the field and the champion is pre-damaged (Damage=5). Playing the card (2 reserve) offers an MZMAYCHOOSE to sacrifice a regalia; choosing it recovers 2 (Damage 5 -> 3) and draws a card. The sacrificed regalia lands in myBanish rather than myGraveyard -- this is GraveyardAddReplacement's generic engine rule (GameLogic.php ~17765: any REGALIA card being added to a graveyard is transparently redirected to banish instead), not specific to this card. Break/restore verified: commenting out the RecoverChampion() call in ReturnToArchiveProcess leaves the champion's Damage at 5 and the fixture fails; restoring it passes again.",
+    "testedCards": [
+        "aIbBhTilEN"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["aIbBhTilEN"],
+        "mechanics": ["recover", "draw-discard", "condition"],
+        "rulesClauses": [
+            "You may sacrifice a regalia. If you do, recover 2 and draw a card."
+        ]
+    }
+}

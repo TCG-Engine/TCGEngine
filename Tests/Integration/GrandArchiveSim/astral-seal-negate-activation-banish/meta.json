@@ -1,0 +1,24 @@
+{
+    "name": "astral-seal-negate-activation-banish",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T20:32:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "e3aebjvwbc"
+    ],
+    "notes": "Engine fix coverage: playCardAbilities[\"e3aebjvwbc:0\"] was unreachable before bf25c65c for the same reason as qtzsekkjn3 (see vainglory-retribution-play-card-trigger).",
+    "semanticCoverage": {
+        "testedCards": [
+            "e3aebjvwbc"
+        ],
+        "mechanics": [
+            "trigger",
+            "targeting",
+            "zone-movement",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "On play, negate target activation and banish it."
+        ]
+    }
+}

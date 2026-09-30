@@ -1,0 +1,17 @@
+{
+    "name": "hairpin-of-transience-banish-three-wither-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T18:50:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Same [Class Bonus] champion patch as frostlorn-caress-four-wither-counters (starting champion CardID-patched to Diao Chan, Enchantress with Subcards patched to keep Spirit of Water in the lineage, so WATER stays unlocked -- Hairpin's own element is WATER). This satisfies activateAbilityPrereqs[\"xl3tzqhlt1:0\"]'s IsClassBonusActive([\"CLERIC\"]) check (GeneratedMacroCode.php ~7386). Hairpin of Transience is seeded directly onto the field (it's a REGALIA/ITEM activated from the field, not cast from hand). Activating it (mode 10001 CustomInput Activate:0) first pays its cost -- ActivatedAbilityCost's \"banish self\" case for xl3tzqhlt1 (Custom/GameLogic.php ~6316) immediately moves it to myBanish, BEFORE the target is even chosen -- then activateAbilityAbilities[\"xl3tzqhlt1:0\"] (~7368) offers an MZCHOOSE of every non-champion object on either field (only the opponent's seeded Dungeon Guide qualifies); customDQHandlers[\"xl3tzqhlt1:0:ActivateAbility-1\"] (~29015) calls AddCounters($player, $chosen, \"wither\", 3) on the chosen target. Both halves of the printed clause are asserted as semantic: the target receives exactly 3 wither counters, AND Hairpin of Transience itself ends up in the banishment zone (not the graveyard/discard), confirming \"Banish Hairpin of Transience\" is a real banish, not merely a destroy.",
+    "testedCards": [
+        "xl3tzqhlt1"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["xl3tzqhlt1"],
+        "mechanics": ["counter", "targeting", "cost", "zone-movement"],
+        "rulesClauses": [
+            "[Class Bonus] Banish Hairpin of Transience: Put three wither counters on target non-champion object."
+        ]
+    }
+}

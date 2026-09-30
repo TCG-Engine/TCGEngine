@@ -1,0 +1,17 @@
+{
+    "name": "fatestone-of-revelations-enter-reveal-two-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Fatestone of Revelations (xd4kv0akqr, GeneratedMacroCode.php enterAbilities[\"xd4kv0akqr:0\"] calls Custom/GameLogic.php's FatestoneOfRevelationsEnter(), a two-step MZMAYCHOOSE-then-MZCHOOSE picking distinct Fatestone/Fatebound cards from hand or memory; customDQHandlers[\"FatestoneOfRevelationsEnterSecond\"] reveals both and draws): \"On Enter: You may reveal two Fatestone and/or Fatebound cards from your hand and/or memory. If you do, draw a card.\" Two other Craggy Fatestone items are seeded into hand. Materialized for real from hand. Verified live: hand size grows by 1 after choosing both Craggy Fatestones as the reveal pair. Break/restore verified: commenting out the final Draw() call makes the fixture fail and restoring it passes again.",
+    "testedCards": [
+        "xd4kv0akqr"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["xd4kv0akqr"],
+        "mechanics": ["targeting", "draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: You may reveal two Fatestone and/or Fatebound cards from your hand and/or memory. If you do, draw a card."
+        ]
+    }
+}

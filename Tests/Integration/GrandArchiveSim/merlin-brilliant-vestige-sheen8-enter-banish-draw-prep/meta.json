@@ -1,0 +1,16 @@
+{
+    "name": "merlin-brilliant-vestige-sheen8-enter-banish-draw-prep",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T13:54:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2TCyILvBYa"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["2TCyILvBYa"],
+        "mechanics": ["targeting", "draw-discard", "zone-movement", "counter", "trigger", "condition"],
+        "rulesClauses": [
+            "[Sheen 8+] On Enter: You may banish a regalia card from your material deck. If you do, draw a card and put a preparation counter on your champion."
+        ]
+    }
+}

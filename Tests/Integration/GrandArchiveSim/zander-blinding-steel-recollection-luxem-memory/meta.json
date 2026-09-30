@@ -1,0 +1,16 @@
+{
+    "name": "zander-blinding-steel-recollection-luxem-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T19:04:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UAF6Nr7GUE"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["UAF6Nr7GUE"],
+        "mechanics": ["unclassified"],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, reveal all cards in your memory. For each luxem element card revealed, each opponent puts a card from their hand into their memory."
+        ]
+    }
+}

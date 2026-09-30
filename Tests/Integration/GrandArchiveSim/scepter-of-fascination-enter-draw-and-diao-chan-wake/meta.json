@@ -1,0 +1,18 @@
+{
+    "name": "scepter-of-fascination-enter-draw-and-diao-chan-wake",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-27T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "REPLACES an earlier version of this fixture (from the parallel Diao Chan batch-4 work) that was a confirmed silent fake-pass: it seeded the Scepter directly onto the field via the 'zone' setup primitive, and the parallel batch's own notes claimed 'its own On Enter draw already fired at seed time' -- but BridgeAddToZone/MZAddZone/AddField/FieldAfterAdd never call Enter() for a raw zone-seed (confirmed by reading ZoneAccessors.php/GameLogic.php; FieldAfterAdd only has hand-written hooks for a handful of unrelated specific cards, no generic on-enter dispatch). Materializing the fixture and checking initial_gamestate.txt directly showed the player's deck was ALREADY at 19 (not 20) in the captured INITIAL state, before any actions replay -- meaning whatever produced that 1-card deficit predates the harness's replay entirely and can't be attributed to the seed. Independently confirmed by disabling enterAbilities['4864k12no2:0']'s Draw() call and re-running the OLD fixture via RunIntegrationTests.php: it still passed, proving the assertion had nothing to do with the actual On Enter closure.\n\nFixed using the same technique verified working for staff-of-blossoming-will-enter-draw-and-flowerbud: REGALIA cards can't be seeded directly into myHand via the normal 'zone' setup primitive either -- HandAddReplacement (GameLogic.php ~17777) unconditionally redirects any card whose CardType contains REGALIA into myMaterial instead (confirmed empirically: a 'zone'=>'myHand' seed of this exact card landed in myMaterial-1, not myHand). Instead, 'patchMzId'=>'myHand-6' (the last opening-hand slot) overwrites an ALREADY-hand-resident filler card's CardID to the Scepter's own ID -- patchMzId mutates an object already in the hand array and never calls AddHand(), bypassing the REGALIA redirect entirely. It's then played for real via a normal mode 10002 FSM click on myHand-6, which fires DoMaterialize() -> the genuine Enter() -> the real enterAbilities['4864k12no2:0'] closure. Diao Chan, Enchantress is patched directly onto the pregame-seeded Spirit of Water champion (patchMzId never calls Enter(), so her own unrelated On Enter never fires here, which is correct since this fixture isn't testing her) and rested with Counters drained to [] so the Scepter's own +2 glimmer is what's observed afterward. The [Diao Chan Bonus] banish ability ($activateAbilityAbilities['4864k12no2:0']:2000, prereq :2009 IsDiaoChanBonus) is exercised via the real activated-ability path (mode 10001 CustomInput 'Activate:0'); its 'Banish CARDNAME' cost is a hand-authored entry in ActivatedAbilityCost()'s cardID switch (GameLogic.php ~6307), so activating it banishes the Scepter automatically before running the ability body (WakeupCard + AddCounters glimmer 2).\n\nIndependently re-verified break/restore on THIS version for BOTH clauses: disabling the On Enter Draw() call makes the fixture fail (hand slot stays empty instead of showing a newly-drawn card); disabling the banish ability's WakeupCard/AddCounters calls makes it fail (champion Status stays 1, Counters stay empty); restoring either passes again.",
+    "testedCards": [
+        "4864k12no2"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["4864k12no2"],
+        "mechanics": ["draw-discard", "trigger", "counter", "status", "cost", "condition"],
+        "rulesClauses": [
+            "On Enter: Draw a card.",
+            "[Diao Chan Bonus] Banish CARDNAME: Wake up your champion. Put two glimmer counters on your champion. (Only if your champion is Diao Chan.)"
+        ]
+    }
+}

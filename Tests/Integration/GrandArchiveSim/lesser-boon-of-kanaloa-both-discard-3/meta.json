@@ -1,0 +1,22 @@
+{
+    "name": "lesser-boon-of-kanaloa-both-discard-3",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T20:43:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "P8sbt2gXkn"
+    ],
+    "notes": "Engine fix coverage: playCardAbilities[\"P8sbt2gXkn:0\"] was unreachable before bf25c65c for the same reason as qtzsekkjn3 (see vainglory-retribution-play-card-trigger).",
+    "semanticCoverage": {
+        "testedCards": [
+            "P8sbt2gXkn"
+        ],
+        "mechanics": [
+            "trigger",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "On play, each player discards 3 cards."
+        ]
+    }
+}

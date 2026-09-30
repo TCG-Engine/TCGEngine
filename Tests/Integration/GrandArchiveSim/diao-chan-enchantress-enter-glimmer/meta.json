@@ -1,0 +1,17 @@
+{
+    "name": "diao-chan-enchantress-enter-glimmer",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T18:15:07+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Diao Chan, Enchantress (00xbh8oc00) is Level 1 with no printed Level 0 predecessor in this fixture's Material list, so GetStartingChampionChoices() (GrandArchiveSim/Custom/GameLogic.php) finds no level-0 champion candidate among the Material cards and falls back to offering her directly as the only starting-champion choice. The framework's own pregame-setup boilerplate (create-prd-ability-fixtures.php step 4a) then selects myMaterial-0 for both players, which drives her through the real PlacePregameStartingChampion -> Enter() pregame flow (GameLogic.php PREGAME_CHOOSE_STARTING_CHAMPION / PREGAME_RESOLVE_STARTING_CHAMPION_ENTER), firing her real On Enter ability (enterAbilities[\"00xbh8oc00:0\"], GeneratedMacroCode.php ~9125: AddCounters($player, $mzID, \"glimmer\", 2)) before the fixture's own initial gamestate is even captured -- verified directly against the raw initial_gamestate.txt (p1Field-0/p2Field-0 both show CardID 00xbh8oc00 with Counters base64-decoding to {\"glimmer\":2}). A single harmless 'end turn 1' action is included even though the semantic outcome is already fully baked into the initial gamestate: DevTools/RunIntegrationTests.php only re-parses a fixture's own initial_gamestate.txt into the live runtime the first time EngineRunAction() actually runs for it, so a zero-action fixture's step-0 assertion would silently evaluate against whatever gamestate an earlier fixture left loaded in the same process. The assertion is therefore checked at step 1 (after that harmless pass, which Diao Chan Enchantress's Level-1 kit has no end-phase hook to disturb).",
+    "testedCards": [
+        "00xbh8oc00"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["00xbh8oc00"],
+        "mechanics": ["counter", "trigger"],
+        "rulesClauses": [
+            "On Enter: Put two glimmer counters on CARDNAME."
+        ]
+    }
+}

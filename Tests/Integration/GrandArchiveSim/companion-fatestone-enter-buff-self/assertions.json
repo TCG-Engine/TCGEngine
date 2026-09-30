@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "Companion Fatestone puts a buff counter on itself when no Fatebound ally is present"
+    }
+]

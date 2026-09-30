@@ -1,0 +1,19 @@
+[
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "semantic": true,
+        "label": "Target player's graveyard shrinks by 2 real banishes (the ability now actually runs)"
+    },
+    {
+        "step": 8,
+        "type": "card_exists",
+        "zone": "p2Banish",
+        "cardID": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Target player's own graveyard card is genuinely banished"
+    }
+]

@@ -1,0 +1,17 @@
+{
+    "name": "vainglory-retribution-play-card-trigger",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T14:40:44+00:00",
+    "createdBy": "batch-script",
+    "notes": "Engine fix coverage: nothing in real gameplay ever called QueuePlayCardTriggeredAbility() before this fix -- the only previous caller, DoPlayCard(), was reachable solely through the generated PlayCard() macro, which nothing invokes. The real 'card resolved off the Effects Stack' chokepoint is OnCardActivated() (GameLogic.php), reached from both DoActivateCard() and the separate StarcallingActivate path; QueuePlayCardTriggeredAbility() is now called there. Confirmed live: all 14 playCardAbilities entries fired zero times across the full 546-fixture suite before the fix (instrumented FirePlayCardTriggeredAbility with logging). This fixture plays Vainglory Retribution (qtzsekkjn3) from hand through the real ActivateCard()->DoActivateCard() path and asserts its on-play trigger actually lands.",
+    "testedCards": [
+        "qtzsekkjn3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qtzsekkjn3"],
+        "mechanics": ["trigger", "status", "zone-movement"],
+        "rulesClauses": [
+            "The next time your champion would take 4 or less combat damage this turn, prevent it. (on-play setup: marks the champion with the pending VAINGLORY_RETRIBUTION_4 prevention budget)"
+        ]
+    }
+}

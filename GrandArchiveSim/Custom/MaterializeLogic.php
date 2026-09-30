@@ -1019,6 +1019,34 @@ $customDQHandlers["FINISHPAYMATERIALIZE"] = function($player, $parts, $lastDecis
     }
 };
 
+/**
+ * Craggy Fatestone (h8n1520m2d): "Whenever an opponent materializes a card with memory cost 0,
+ * put a buff counter on Craggy Fatestone." Printed with no Guo Jia Bonus restriction -- only the
+ * card's own separate [REST] transform ability is tagged [Guo Jia Bonus] (that gate lives on
+ * activateAbilityAbilities/activateAbilityPrereqs["h8n1520m2d:0"] in GeneratedMacroCode.php and
+ * is untouched here). Called from both materialize paths so the trigger fires for real:
+ *  - DoMaterialize() below, for the from-material-zone / champion-lineage path.
+ *  - MoveEffectStackCardToField() (GameLogic.php), for the ordinary from-hand-via-effect-stack
+ *    path, which is the overwhelmingly common case and previously had no equivalent check at all.
+ * Those two paths are mutually exclusive per materialize event (see the telemetry comments at
+ * both call sites), so this can't double-fire for a single materialize.
+ * @param int $player The player who just materialized a card (the trigger checks THEIR opponent's
+ *                     field for Craggy Fatestone, since it fires off an opponent's materialize).
+ * @param int|null $memoryCost The resolved memory cost of the card that was just materialized.
+ */
+function CraggyFatestoneMaterializeTrigger($player, $memoryCost) {
+    if($memoryCost === null || $memoryCost != 0) return;
+    $opponent = ($player == 1) ? 2 : 1;
+    global $playerID;
+    $oppZone = $opponent == $playerID ? "myField" : "theirField";
+    $oppField = GetZone($oppZone);
+    for($ci = 0; $ci < count($oppField); ++$ci) {
+        if(!$oppField[$ci]->removed && $oppField[$ci]->CardID === "h8n1520m2d" && !HasNoAbilities($oppField[$ci])) {
+            AddCounters($opponent, $oppZone . "-" . $ci, "buff", 1);
+        }
+    }
+}
+
 function DoMaterialize($player, $mzCard) {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
@@ -1489,24 +1517,15 @@ function DoMaterialize($player, $mzCard) {
     // Domains tagged with NO_UPKEEP (via Right of Realm) skip this trigger.
     DomainMaterializeSacrifice($player);
 
-    // Craggy Fatestone (h8n1520m2d): [Guo Jia Bonus] whenever opponent materializes a card
-    // with memory cost 0, put a buff counter on Craggy Fatestone
-    {
-        $matMemCost = $resolvedMaterializeMemoryCost;
-        if($matMemCost !== null && $matMemCost == 0) {
-            $opponent = ($player == 1) ? 2 : 1;
-            if(IsGuoJiaBonus($opponent)) {
-                global $playerID;
-                $oppZone = $opponent == $playerID ? "myField" : "theirField";
-                $oppField = GetZone($oppZone);
-                for($ci = 0; $ci < count($oppField); ++$ci) {
-                    if(!$oppField[$ci]->removed && $oppField[$ci]->CardID === "h8n1520m2d" && !HasNoAbilities($oppField[$ci])) {
-                        AddCounters($opponent, $oppZone . "-" . $ci, "buff", 1);
-                    }
-                }
-            }
-        }
-    }
+    // Craggy Fatestone (h8n1520m2d): whenever an opponent materializes a card with memory cost 0,
+    // put a buff counter on Craggy Fatestone. (No Guo Jia Bonus gate on THIS clause -- only the
+    // card's separate second [REST] transform clause is printed as [Guo Jia Bonus]; that gate
+    // lives on activateAbilityAbilities/activateAbilityPrereqs["h8n1520m2d:0"] in
+    // GeneratedMacroCode.php and is untouched by this helper.) Covers the from-material-zone /
+    // champion-lineage path here; MoveEffectStackCardToField() (GameLogic.php) calls the same
+    // helper for the from-hand-via-effect-stack path. The two materialize paths are mutually
+    // exclusive per the telemetry comments on both call sites, so no double-fire guard is needed.
+    CraggyFatestoneMaterializeTrigger($player, $resolvedMaterializeMemoryCost);
 
     // Telemetry: only reached on a successful materialize (every early return above skips it).
     // Covers the from-material-zone / champion-lineage path; MoveEffectStackCardToField()

@@ -133,7 +133,13 @@ function BacklogOfficialStarterCards($path) {
     $cards = [];
     foreach ($decks as $deck) {
         $label = strval($deck['label'] ?? '');
-        if ($label === '' || stripos($label, 'starter') === false) continue;
+        // Every deck in GA_OFFICIAL_DECKS is an official product (Starter, Pantheon
+        // Starter, or Re:Collection) -- the array itself is already scoped correctly,
+        // so no further label-text filtering is needed. A prior version of this
+        // function only matched labels containing "starter", which silently excluded
+        // every Re:Collection deck (and would exclude any future non-"starter"-named
+        // product line too) from starter-deck prioritization and coverage tracking.
+        if ($label === '') continue;
         foreach (preg_split('/\R/', strval($deck['text'] ?? '')) as $line) {
             if (!preg_match('/^\s*\d+\s+(.+?)\s*$/', $line, $matches)) continue;
             $name = trim($matches[1]);

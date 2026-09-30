@@ -1,0 +1,17 @@
+{
+    "name": "elyan-lustre-loyalty-recover-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:41:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2jgiM0p4dt"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["2jgiM0p4dt"],
+        "mechanics": ["recover", "status", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you recover an amount, CARDNAME gets +X POWER until end of turn, where X is that amount.",
+            "Then if X is 4 or more, CARDNAME gains unblockable until end of turn."
+        ]
+    }
+}

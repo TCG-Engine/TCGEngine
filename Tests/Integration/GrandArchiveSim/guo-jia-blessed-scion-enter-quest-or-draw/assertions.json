@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Counters",
+        "value": "{\"quest\":2}",
+        "semantic": true,
+        "label": "Choosing to put quest counters gives Guo Jia, Blessed Scion two quest counters"
+    }
+]

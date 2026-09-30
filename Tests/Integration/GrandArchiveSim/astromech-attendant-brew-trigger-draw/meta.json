@@ -1,0 +1,17 @@
+{
+    "name": "astromech-attendant-brew-trigger-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Astromech Attendant is seeded directly onto the field (its own On Enter Gather-3x isn't the clause under test here -- OnBrew's 'whenever you brew' trigger is). Note: seeding an ALLY via the field-add bridge DOES fire its real enterAbilities macro as a side effect (verified live with a minimal repro) -- with the default champion this satisfies Astromech Attendant's own Class-Bonus-gated On Enter (IsClassBonusActive($player) with no class filter just requires ANY champion), so 3 random herb tokens appear on the field before the brew even happens; this is harmless noise for this fixture (assertions only check hand/memory counts and the brew trigger), but explains why the field has extra objects. The champion is CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, CLERIC) so IsClassBonusActive($player,['CLERIC']) is satisfied for OnBrew's own check (PotionLogic.php ~247). Distilled Water (a NORM Potion, Brew -- One Herb) is seeded to hand along with its Herb ingredient (Blightroot); declaring Brew at materialize time (YES + choosing a herb) calls OnBrew($player), which draws a card into memory because Astromech Attendant is on the field with its Class Bonus active. Astromech Attendant's own presence also offers a fast-action Sacrifice opportunity on the remaining herb tokens; this must be explicitly declined ('-' then PASS/PASS) or Distilled Water is left stuck mid-resolution on the effect stack instead of landing on the field -- verified live: without the decline, Distilled Water never appears in any zone.",
+    "testedCards": [
+        "mloejozihs"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["mloejozihs"],
+        "mechanics": ["draw-discard", "trigger"],
+        "rulesClauses": [
+            "Whenever you brew a Potion, draw a card into your memory."
+        ]
+    }
+}

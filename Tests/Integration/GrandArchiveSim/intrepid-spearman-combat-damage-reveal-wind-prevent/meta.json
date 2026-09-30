@@ -1,0 +1,19 @@
+{
+    "name": "intrepid-spearman-combat-damage-reveal-wind-prevent",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T13:57:22+00:00",
+    "createdBy": "batch-script",
+    "notes": "Effects Stack fixture-coverage gap fill: dealDamageAbilities[\"pal7cpvn96:0\"] (GeneratedCode/GeneratedMacroCode.php) is itself an intentional no-op stub -- the real logic is a synchronous replacement effect inlined in OnDealDamage() (CombatLogic.php), guarded by DecisionQueueController::GetVariable(\"CombatAttacker\") !== null, so it only applies to real combat damage. No prior fixture dealt real combat damage to this card. P2's champion (with a 1-POWER weapon) attacks P1's Intrepid Spearman directly (GetValidAttackTargets() allows attacking an opposing ALLY, not just the champion); the champion is patched to Level 1+ via a level counter, and the sole memory card is WIND element for a deterministic array_rand() reveal.",
+    "testedCards": [
+        "pal7cpvn96"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["pal7cpvn96"],
+        "mechanics": ["damage", "prevention", "condition", "combat"],
+        "rulesClauses": [
+            "[Level 1+] If combat damage would be dealt to Intrepid Spearman, reveal a card at random from your memory.",
+            "If that card is wind element, prevent 3 of that damage.",
+            "Apply this replacement effect only once per turn."
+        ]
+    }
+}

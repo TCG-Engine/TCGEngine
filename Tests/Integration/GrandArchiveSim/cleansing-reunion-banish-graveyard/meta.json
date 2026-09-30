@@ -1,0 +1,17 @@
+{
+    "name": "Cleansing Reunion: target player banishes three cards from their graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T13:43:43+00:00",
+    "createdBy": "Claude",
+    "notes": "Engine bug fix: Cleansing Reunion (xpnjvt9y59) is an ACTION card, but its ability was authored in the CardEditor ability database under the 'Enter' macro (557 other cards correctly use this for a permanent's on-enter trigger, dispatched via $enterAbilities/QueueEnterTriggeredAbility) instead of 'CardActivated' (824 cards; the table OnCardActivated()'s unconditional final dispatch at GameLogic.php ~5365 actually reads from, for every activated card regardless of type). Since an ACTION card never enters the field as a permanent, $enterAbilities['xpnjvt9y59:0'] was simply never invoked -- playing the card normally resolved it straight to the graveyard with the ability silently never running. Root-caused via DevTools/fix-cleansing-reunion-macro-classification.php, which corrects this one card's row (macro_name 'Enter' -> 'CardActivated') through the CardAbilityRepository API; GeneratedMacroCode.php (gitignored) must be regenerated afterward (php zzGameCodeGenerator.php rootName=GrandArchiveSim) for the closure to move into $cardActivatedAbilities. 755 other ACTION cards already used 'CardActivated' correctly, confirming this was a per-card authoring mistake, not a systemic dispatch bug -- no change was made to OnCardActivated() itself, matching the instruction not to special-case ACTION-card dispatch generally. Cleansing Reunion is WIND element (not native to the 'Spirit of Fire' starting champion), so the champion's Subcards are patched with a WIND champion (Spirit of Wind, pNiyaGlIe7) to unlock element access, same technique as deployment-beacon-summon-drone. It also carries Imbue 2, which inserts a YESNO 'reveal reserved cards?' decision before the normal 2-reserve MZCHOOSE payment loop; answered NO here (declining Imbue is out of scope for this fixture). SEPARATE, NOT-YET-FIXED GAP FOUND (out of scope for this fix): the ability's own body computes its first banish-target MZCHOOSE's zone name ($gyZone = $opponent == $playerID ? 'myGraveyard' : 'theirGraveyard') using the CASTER's $playerID at queue time, but the decision is answered later by the opponent under their own $playerID -- so the very first offered choice ('theirGraveyard-N') resolves, when player 2 answers it, against player 1's graveyard instead of player 2's, banishing Cleansing Reunion itself (which is sitting in player 1's graveyard having just resolved) rather than a real graveyard target. The chained re-queue for the 2nd/3rd picks (built while player 2's own $playerID is already active) correctly offers 'myGraveyard-N' and targets player 2's graveyard as intended. This fixture drives the full 3-pick interaction as it actually behaves today (1 misdirected pick + 2 correctly-targeted picks) and asserts only the two graveyard-count/banish facts that are unambiguous proof the dispatch fix works and are unaffected by the separate zone-naming bug, rather than asserting on the misdirected first pick's target.",
+    "testedCards": [
+        "xpnjvt9y59"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["xpnjvt9y59"],
+        "mechanics": ["cost", "targeting", "status", "condition"],
+        "rulesClauses": [
+            "Target player banishes three cards from their graveyard."
+        ]
+    }
+}

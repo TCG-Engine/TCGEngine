@@ -1,0 +1,25 @@
+{
+    "name": "imperial-accord-negate-advanced-element",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T20:35:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1S7Q5fqX5u"
+    ],
+    "notes": "Engine fix coverage: playCardAbilities[\"1S7Q5fqX5u:0\"] was unreachable before bf25c65c for the same reason as qtzsekkjn3 (see vainglory-retribution-play-card-trigger).",
+    "semanticCoverage": {
+        "testedCards": [
+            "1S7Q5fqX5u"
+        ],
+        "mechanics": [
+            "trigger",
+            "targeting",
+            "zone-movement",
+            "cost",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "On play, negate target advanced-element card activation unless its controller pays 6."
+        ]
+    }
+}

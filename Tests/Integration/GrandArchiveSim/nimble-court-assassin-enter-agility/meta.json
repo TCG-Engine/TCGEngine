@@ -1,0 +1,16 @@
+{
+    "name": "nimble-court-assassin-enter-agility",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:13:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i2vPUpbPEl"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["i2vPUpbPEl"],
+        "mechanics": ["zone-movement", "trigger"],
+        "rulesClauses": [
+            "On Enter: You gain agility 3 for this turn."
+        ]
+    }
+}

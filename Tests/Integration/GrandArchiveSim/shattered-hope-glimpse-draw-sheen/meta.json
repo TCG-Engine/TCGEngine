@@ -1,0 +1,17 @@
+{
+    "name": "shattered-hope-glimpse-draw-sheen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T14:42:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "XOevViFTB3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["XOevViFTB3"],
+        "mechanics": ["cost", "draw-discard", "counter", "trigger"],
+        "rulesClauses": [
+            "Glimpse 1, then draw a card.",
+            "Until end of turn, allies enter the field with an additional sheen counter on them."
+        ]
+    }
+}

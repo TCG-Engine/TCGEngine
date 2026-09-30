@@ -1,0 +1,16 @@
+{
+    "name": "venerable-sage-direction-change-buff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:42:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "FwPdj4PkSS"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["FwPdj4PkSS"],
+        "mechanics": ["trigger"],
+        "rulesClauses": [
+            "[Kongming Bonus] Whenever your Shifting Currents change directions, CARDNAME gets +1 POWER and +1 LIFE until end of turn."
+        ]
+    }
+}

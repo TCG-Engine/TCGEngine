@@ -1,0 +1,17 @@
+{
+    "name": "slice-and-dice-prepare-onhit-additional-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T19:44:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3jg01o26b4"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["3jg01o26b4"],
+        "mechanics": ["cost", "combat", "trigger", "condition"],
+        "rulesClauses": [
+            "**Prepare 3**",
+            "**On Hit:** If CARDNAME was **prepared**, you may have the attacker declare an additional attack. If you do, create a copy of CARDNAME in that attacker's intent except it isn't **prepared** and it gets +3 [POWER]."
+        ]
+    }
+}

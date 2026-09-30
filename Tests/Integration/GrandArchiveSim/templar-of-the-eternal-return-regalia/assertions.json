@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "Templar of the Eternal gains a buff counter after returning the chosen regalia."
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"SPELLSHROUD\"]",
+        "semantic": true,
+        "label": "Templar of the Eternal also gains SPELLSHROUD after returning the chosen regalia."
+    }
+]

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "CardID",
+        "value": "40oe1wf79p",
+        "semantic": true,
+        "label": "Craggy Fatestone transforms into Obstinate Cragback"
+    }
+]

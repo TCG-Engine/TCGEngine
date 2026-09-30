@@ -1,0 +1,17 @@
+{
+    "name": "diao-chan-dreaming-wish-end-phase-glimmer-catchup",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T18:20:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Diao Chan, Dreaming Wish's Inherited Effect (GrandArchiveSim/Custom/GameLogic.php ~11015-11030, inside the shared beginning-of-end-phase hook) checks ChampionHasInLineage($turnPlayer, \"pknaxnn0xo\"), counts PHANTASIA-type objects the turn player controls on their own field, and -- only if that count is greater than the champion's current 'glimmer' counter count -- calls AddCounters($turnPlayer, $champMZ, \"glimmer\", $phantasiaCount - $glimmerCount), i.e. adds the difference rather than overwriting the total. The champion's CardID is patched directly to pknaxnn0xo (same patchMzId technique used by the Reaping Legacy/Kongming Ascetic Vice fixtures, bypassing a scripted real level-up sequence) with an existing 'glimmer' counter of 1 pre-seeded, and 3 non-champion PHANTASIA objects (Unstable Fractal, 2o82fwl22v, NORM/CLERIC) are seeded directly onto the champion's own field. Ending player 1's turn 1 (myHealth-0!CustomInput!Pass) passes through player 1's own end phase, where the Inherited Effect fires: phantasiaCount(3) > glimmerCount(1), so 3-1=2 glimmer counters are added, leaving a final count of 3 (1+2) -- verified directly in expected_final_gamestate.txt (pknaxnn0xo's Counters base64-decodes to {\"glimmer\":3}). Starting from a nonzero glimmer count (1, not 0) and confirming the final total is the SUM (1+2=3, matching the phantasia count) rather than a value that could only be explained by re-assignment demonstrates the code's literal AddCounters(..., difference) call, not just a coincidental equality with the phantasia count. Verified live: temporarily replacing the AddCounters call with a no-op made this fixture fail (final glimmer count 1, not 3); restoring the original code made it pass again.",
+    "testedCards": [
+        "pknaxnn0xo"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["pknaxnn0xo"],
+        "mechanics": ["counter", "trigger", "condition"],
+        "rulesClauses": [
+            "Inherited Effect -- At the beginning of your end phase, if the amount of glimmer counters on CARDNAME is less than the amount of phantasias you control, put an amount of glimmer counters on CARDNAME equal to the difference."
+        ]
+    }
+}

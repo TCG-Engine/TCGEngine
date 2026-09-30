@@ -4648,6 +4648,222 @@ $customDQHandlers["DeclarePrepareCost"] = function($player, $parts, $lastDecisio
     }
 };
 
+/**
+ * Generic follow-up queued by OnCardActivated() for every ATTACK card (see the ATTACK branch
+ * and the queuing site right after the $cardActivatedAbilities[...] dispatch, ~line 5208+),
+ * placed in the decision queue right behind that card's own CardActivated ability macro so it
+ * only runs once any "Pay Prepare N?" decision that macro queued has actually resolved.
+ *
+ * Fixes a real bug: OnCardActivated() used to read the "wasPrepared" DecisionQueueController
+ * variable and tag the intent-zone object with "PREPARED" synchronously, in the SAME function
+ * call that moves the card into myIntent -- but that happens BEFORE the card's own
+ * $cardActivatedAbilities[...] entry (called later in that same function) even queues its
+ * Prepare-cost YES/NO decision, let alone before the player answers it (a deferred decision
+ * only resolves on a LATER request). So the tag was always based on a stale wasPrepared value
+ * left over from whatever unrelated activation last set it -- e.g. Find the Lost (jTBNAEedbg,
+ * "Prepare 1 ... As long as prepared, it has unblockable.") never actually got tagged PREPARED
+ * even when the player genuinely paid the cost. Moving the check to run from here instead --
+ * strictly after the card's own Prepare decision resolves -- fixes it, matching the deferred-
+ * follow-up pattern already used elsewhere for other wasPrepared-dependent effects (see
+ * CrystallineRealityStart/QueueModes and ResolveDelusionalVapors below).
+ *
+ * Also benefits any other ATTACK card that reads the generic "PREPARED" TurnEffect this way
+ * (e.g. Strike from the Mist/DHn9J7gX6g's CombatLogic.php intercept-bypass check, Scorchfire
+ * Assassin's o191zv86la On Attack unblockable check) once/if their own Prepare-cost wiring is
+ * completed.
+ *
+ * Parts: [intentMZ].
+ */
+$customDQHandlers["GA_TagPreparedAttack"] = function($player, $parts, $lastDecision) {
+    $intentMZ = $parts[0] ?? "";
+    if($intentMZ === "") return;
+    if(DecisionQueueController::GetVariable("wasPrepared") === "YES") {
+        AddTurnEffect($intentMZ, "PREPARED");
+    }
+};
+
+/**
+ * Slice and Dice (3jg01o26b4): "Prepare 3" additional cost.
+ *
+ * The CardEditor ability database has no CardActivated row for this card (a data gap --
+ * every other Prepare-cost ATTACK card, e.g. Thieving Cut/7t9m4muq2r, has one, generated into
+ * GeneratedCode/GeneratedMacroCode.php's $cardActivatedAbilities). Without it, nothing ever
+ * offers/pays the Prepare 3 cost, so the card's own onHitAbilities["3jg01o26b4:0"] "if prepared"
+ * branch (which checks the generic PREPARED TurnEffect that OnCardActivated() applies whenever
+ * DeclarePrepareCost stores wasPrepared=YES) is permanently unreachable.
+ *
+ * This environment has no reachable CardEditor ability database (no local MySQL, no
+ * CARD_CODE_REMOTE_CONFIG/local connection file) to author the missing row there, so this hand
+ * -written entry fills the same $cardActivatedAbilities["3jg01o26b4:0"] slot the generator would
+ * have populated, using the same generic DeclarePrepareCost mechanism Thieving Cut uses. It is
+ * additive: GeneratedMacroCode.php has no competing entry for this key, so nothing gets clobbered
+ * on regeneration. If the database row is ever authored, this block becomes redundant and should
+ * be removed in favor of the generated entry.
+ */
+$cardActivatedAbilities["3jg01o26b4:0"] = function($player) { //Slice and Dice: Prepare 3
+    DecisionQueueController::StoreVariable("wasPrepared", "NO");
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null || GetCounterCount($champObj, "preparation") < 3) return;
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Pay_Prepare_3?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DeclarePrepareCost|" . $champMZ . "|3", 1);
+};
+
+// --- Hand-authored ability entries for cards with no CardEditor ability database row reachable
+// in this sandbox (same workaround pattern as Cleansing Reunion/Sanctified Paladin/Slice and Dice
+// used elsewhere this project): these populate the same global dispatch tables
+// GeneratedCode/GeneratedMacroCode.php (gitignored, regenerated from that database) would
+// populate. Purely additive -- GeneratedMacroCode.php has no competing entries for any of these
+// keys, so nothing is clobbered on regeneration; these blocks should be removed once the
+// CardEditor ability database rows are authored for real and regenerated through the normal
+// pipeline.
+
+// Charm of Anticipation (vkL2RFh0yM, REGALIA/ITEM): "Banish Charm of Anticipation: Draw a card.
+// Activate this ability only if you have the Crowd's Favor status." Mirrors Grand Crusader's Ring
+// (2gv7DC0KID)'s generated "Banish CARDNAME: Draw a card" activated-ability shape exactly
+// (GeneratedCode/GeneratedMacroCode.php activateAbilityAbilities["2gv7DC0KID:0"]), plus a prereq
+// gating on the Crowd's Favor status (tracked as global effect "gpmJdGYqoC"; see
+// GainCrowdsFavor() below). $activateAbilityPrereqs is only consulted by the dynamic
+// ability-copying paths (Cheshire Cat, Tome of Sacred Lightning) -- DoActivatedAbility()'s own
+// direct-activation path never checks it (its CanActivateAbility() hook has no definition in this
+// codebase), so the condition is also enforced as a guard inside the ability body itself, matching
+// how every other conditional activated ability in this codebase self-enforces its own condition.
+$activateAbilityAbilities["vkL2RFh0yM:0"] = function($player) { //Charm of Anticipation: Banish, Draw a card
+    if(GlobalEffectCount($player, "gpmJdGYqoC") <= 0) return;
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    MZMove($player, $mzID, "myBanish");
+    Draw($player, 1);
+};
+$activateAbilityPrereqs["vkL2RFh0yM:0"] = function($player, $mzID, $abilityIndex) {
+    return GlobalEffectCount($player, "gpmJdGYqoC") > 0;
+};
+// NOTE: $CardActivateAbilityCountData["vkL2RFh0yM"] = 1 is intentionally NOT set here -- that
+// array is wholesale-reassigned by GeneratedCode/GeneratedMacroCode.php, which loads AFTER this
+// file (see GamestateParser.php's include order), so any addition made to it here would be
+// silently clobbered. See the $staticAbilityCount patch in DoActivatedAbility() instead, which is
+// the one call site that actually needs to know this card has 1 static activated ability.
+
+// Unity's Gale (uUWsgLmyTk, ACTION/CLERIC/SPELL/REACTION): "Target ally gets +3LIFE until end of
+// turn. At the beginning of the next end phase, if that ally is damaged and you don't control it,
+// you gain the Crowd's Favor status." ACTION cards resolve their play through
+// $cardActivatedAbilities (OnCardActivated()'s unconditional final dispatch, ~line 5365 below),
+// matching the Cleansing Reunion precedent -- not $enterAbilities, which is only for permanents
+// entering the field. Any ally (either player's field) is a legal target: the delayed clause only
+// makes sense if the target can be an ally the caster doesn't control. The LIFE buff is tagged
+// onto the target as a plain TurnEffect ("uUWsgLmyTk", read in ObjectCurrentHP below) -- like
+// every other "+X LIFE until end of turn" card in this codebase, it needs no manual removal
+// because ExpireEffects() (called from EndPhase()) wipes non-persistent TurnEffects from both
+// fields every end phase by default. The delayed Crowd's Favor check is a separate one-shot
+// marker ("uUWsgLmyTk_CF_<casterPlayer>") tagged onto the same target object and explicitly
+// checked+consumed once in EndPhase() (see block below) before ExpireEffects() would otherwise
+// wipe it, so it fires at the very next end phase regardless of whose turn it is.
+$cardActivatedAbilities["uUWsgLmyTk:0"] = function($player) { //Unity's Gale
+    $targets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]));
+    $targets = FilterSpellshroudTargets($targets);
+    if(empty($targets)) return;
+    $targetStr = implode("&", $targets);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "uUWsgLmyTk:0:Target-1", 1);
+};
+$customDQHandlers["uUWsgLmyTk:0:Target-1"] = function($player, $parts, $lastDecision) {
+    $chosen = $lastDecision;
+    if($chosen === "-" || $chosen === "" || $chosen === null) return;
+    AddTurnEffect($chosen, "uUWsgLmyTk");
+    AddTurnEffect($chosen, "uUWsgLmyTk_CF_" . $player);
+};
+
+// Advent of the Shenju (c53tomoaw3, ACTION/TAMER/FATEBOUND/SPELL): "[Guo Jia Bonus] Put target
+// Fatestone card from your banishment onto the field. If that card is a regalia, put five quest
+// counters on your champion." Confirmed by grepping every "c53tomoaw3" occurrence in
+// GeneratedCode/GeneratedMacroCode.php: only this card's SEPARATE reveal-triggered memory-banish
+// ability (revealAbilities["c53tomoaw3:0"] / customDQHandlers["c53tomoaw3:0:Reveal-1"]) is
+// generated there -- there is no cardActivatedAbilities entry at all for this printed clause, a
+// pure data gap in the CardEditor ability database. ACTION cards resolve their play through
+// $cardActivatedAbilities (OnCardActivated()'s unconditional final dispatch, ~line 5506 above),
+// matching the Unity's Gale (uUWsgLmyTk) precedent just above -- not $enterAbilities, which is
+// only for permanents entering the field. This environment has no reachable CardEditor ability
+// database (no local MySQL, no CARD_CODE_REMOTE_CONFIG/local connection file) to author the
+// missing row there, so this hand-written entry fills the same $cardActivatedAbilities
+// ["c53tomoaw3:0"] slot the generator would have populated -- additive only, since
+// GeneratedMacroCode.php has no competing entry for this key, so nothing is clobbered on
+// regeneration. If the database row is ever authored, this block (and its customDQHandlers
+// ["c53tomoaw3:0:GuoJiaBonus-1"] follow-up) becomes redundant and should be removed in favor of
+// the generated entry.
+//
+// "Fatestone" is a card SUBTYPE (e.g. TAMER,FATESTONE), not a zone, so targeting simply filters
+// the caster's own banishment by that subtype (ZoneSearch cardSubtypes param). "Regalia" is a
+// card TYPE (e.g. REGALIA,ITEM -- see Fabled Azurite/Ruby/Sapphire/Emerald Fatestone), checked the
+// same way every other "is a regalia" condition in this codebase is checked (PropertyContains
+// (EffectiveCardType($obj), "REGALIA"), e.g. Cheshire Cat's dynamic-ability copy check above).
+$cardActivatedAbilities["c53tomoaw3:0"] = function($player) { //Advent of the Shenju: [Guo Jia Bonus] Put target Fatestone from banishment onto field
+    if(!IsGuoJiaBonus($player)) return;
+    $targets = ZoneSearch("myBanish", cardSubtypes: ["FATESTONE"]);
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1,
+        tooltip:"Put_target_Fatestone_card_from_your_banishment_onto_the_field");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "c53tomoaw3:0:GuoJiaBonus-1", 1);
+};
+$customDQHandlers["c53tomoaw3:0:GuoJiaBonus-1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS" || $lastDecision === null) return;
+    $chosenObj = GetZoneObject($lastDecision);
+    if($chosenObj === null) return;
+    $isRegalia = PropertyContains(EffectiveCardType($chosenObj), "REGALIA");
+    $newObj = MZMove($player, $lastDecision, "myField");
+    if($newObj === null) return;
+    if($isRegalia) {
+        AddQuestCounters($player, 5);
+    }
+};
+
+// Band of Burning Verdict (7mmve2l328, REGALIA/ITEM/TAMER accessory -- CardType() confirms
+// "REGALIA,ITEM", NOT ally, despite the card's role as Guo Jia-deck support): "On Enter: Draw a
+// card. [Class Bonus] [REST]: Target Animal or Beast ally you control gets +1 POWER and gains true
+// sight until end of turn." The generator wired this second clause's condition and body into the
+// wrong dispatch tables entirely (the play-from-hand tables -- see GeneratedAbilityOverrides.php,
+// which overrides that wrong wiring to a no-op/always-legal pair); GeneratedCode/
+// GeneratedMacroCode.php has NO activateAbilityAbilities/activateAbilityPrereqs entry at all for
+// this card, so the genuinely correct field-ability wiring is a missing addition, registered here
+// the same way as Charm of Anticipation (vkL2RFh0yM:0) immediately above -- purely additive,
+// nothing for GeneratedMacroCode.php to clobber on regeneration.
+//
+// Mirrors Charm of Anticipation's shape exactly (same REGALIA/ITEM CardType): the [Class Bonus]
+// condition (IsClassBonusActive($player,["TAMER"])) and the Animal/Beast-ally-exists check are the
+// exact same generated checks that used to wrongly gate PLAYING the card -- relocated here since
+// they are genuinely this ability's own condition, not a restriction on materializing -- checked
+// both in the prereq (consulted by CanActivateAbility(), reached via ActivateAbility()) and,
+// belt-and-suspenders, self-enforced again inside the ability body, matching how Charm of
+// Anticipation's own body redundantly re-checks its Crowd's Favor condition. Note this card is
+// REGALIA/ITEM, not ALLY/CHAMPION/PHANTASIA, so DoActivatedAbility()'s automatic REST-cost Status
+// mutation does not apply to it -- same as every other generated REGALIA/ITEM REST-costed ability
+// in this codebase (e.g. Myopic Lens, activateAbilityAbilities["dZ30oXwi3l:0"]), none of which tap
+// themselves either; this is a pre-existing, separate engine characteristic of ITEM-type REST
+// abilities, not something introduced or left unfixed by this change. The ability body itself
+// (target-select MZCHOOSE + the "7mmve2l328:0:CardActivated-1" follow-up applying the "7mmve2l328"
+// power-buff TurnEffect + TRUE_SIGHT) is copied unchanged from the generator's own (correct)
+// ability content in GeneratedCode/GeneratedMacroCode.php -- only its WIRING was wrong, not its
+// logic -- so the existing generated customDQHandlers["7mmve2l328:0:CardActivated-1"] entry is
+// reused as-is.
+$activateAbilityAbilities["7mmve2l328:0"] = function($player) { //Band of Burning Verdict: [Class Bonus][REST] buff target Animal/Beast ally
+    if(!IsClassBonusActive($player, ["TAMER"])) return;
+    $allies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+    if(empty($allies)) return;
+    $targetStr = implode("&", $allies);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "7mmve2l328:0:CardActivated-1", 1);
+};
+$activateAbilityPrereqs["7mmve2l328:0"] = function($player, $mzID, $abilityIndex) {
+    if(!IsClassBonusActive($player, ["TAMER"])) return false;
+    $allies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+    return !empty($allies);
+};
+// NOTE: $CardActivateAbilityCountData["7mmve2l328"] = 1 is intentionally NOT set here -- that array
+// is wholesale-reassigned by GeneratedCode/GeneratedMacroCode.php, which loads AFTER this file (see
+// GamestateParser.php's include order), so any addition made to it here would be silently clobbered.
+// See the $staticAbilityCount patch in DoActivatedAbility() instead (mirrors the vkL2RFh0yM/Charm of
+// Anticipation precedent immediately above it), which is the one call site that actually needs to
+// know this card has 1 static activated ability.
+
 function ResolveObelithEscort($player) {
     $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
     $field = &GetField($player);
@@ -4879,7 +5095,17 @@ function OnBanishTrigger($player, $mzID) {
     $triggerCardID = GetOnBanishTriggerCardID($obj);
     if($triggerCardID === null) return;
     if(isset($onBanishAbilities[$triggerCardID . ":0"])) {
-        $onBanishAbilities[$triggerCardID . ":0"]($player);
+        // $mzID already points at the card's final resting place in banishment (this fires
+        // as an AfterAdd hook, post-move), so it's captured for replay at resolution time --
+        // normalized to $player's own perspective since that's who it'll be replayed as.
+        QueueTriggeredAbility($player, $triggerCardID, "ON_BANISH", ['mzID' => NormalizeMzIDForController($mzID, $player)]);
+    }
+}
+
+function FireOnBanishTriggeredAbility($player, $cardID) {
+    global $onBanishAbilities;
+    if(isset($onBanishAbilities[$cardID . ":0"])) {
+        $onBanishAbilities[$cardID . ":0"]($player);
     }
 }
 
@@ -5114,6 +5340,10 @@ function OnCardActivated($player, $mzCard) {
     $resolvedActivationEmpowerAmount = 0;
     $resolvedActivationWasEmpowered = "NO";
     $resolvedActivationChargeCount = 0;
+    // Set by the ATTACK branch below when the just-activated card needs its PREPARED TurnEffect
+    // applied AFTER the card's own (possibly deferred) Prepare-cost decision resolves. See the
+    // ATTACK branch for why this can't be checked synchronously.
+    $pendingPreparedTagMZ = null;
     if(is_string($mzCard) && strpos($mzCard, "EffectStack-") === 0) {
         $stackObj = GetZoneObject($mzCard);
         if($stackObj !== null && !$stackObj->removed) {
@@ -5266,6 +5496,19 @@ function OnCardActivated($player, $mzCard) {
         // Domains enter the field like allies/regalia â€” they are objects that persist
         $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
+    } else if(PropertyContains($cardType, "LESSER BOON") || PropertyContains($cardType, "GREATER BOON")) {
+        // Boons (e.g. Lesser Boon of Shou, Greater Boon of Shou) enter the field as persistent
+        // objects, same as domains/items -- other logic reads them there directly by CardID
+        // (e.g. the end-phase enlighten-counter check for rSIXf50oBc in the recollection-phase
+        // pass). Without this branch, a Boon's EffectStack entry never matches any case in this
+        // chain and is never moved off the stack, so it's never marked removed: every subsequent
+        // PostResolutionCheck still finds the stack non-empty and calls ResolveTopOfEffectStack()
+        // again, which resolves the same still-live entry through OnCardActivated() again,
+        // re-queuing a fresh PLAY_CARD trigger each time -- an unbounded loop (confirmed live:
+        // 100,000+ re-fires before being killed) for any card whose on-play ability was wired
+        // through QueuePlayCardTriggeredAbility() while its own CardType fell through this chain.
+        $obj = MoveEffectStackCardToField($player, $mzCard);
+        $obj->Controller = $player;
     } else if(PropertyContains($cardType, "ITEM")) {
         global $NonChampionObjectLink_Cards;
         if(isset($NonChampionObjectLink_Cards[$obj->CardID]) && ValidateStoredNonChampionObjectLinkTarget($player) === null) {
@@ -5317,13 +5560,25 @@ function OnCardActivated($player, $mzCard) {
         $obj = MZMove($player, $mzCard, "myIntent");
         $obj->Controller = $player;
         IncrementAttackCardActivatedCount($player);
-        // Tag with PREPARED TurnEffect if the Prepare cost was paid
-        $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
-        if($wasPrepared === "YES") {
-            $intentZone = &GetZone("myIntent");
-            $intentIdx = count($intentZone) - 1;
-            AddTurnEffect("myIntent-" . $intentIdx, "PREPARED");
-        }
+        // Defer tagging with the PREPARED TurnEffect (read later by "as long as prepared, it
+        // has unblockable"-style ATTACK cards, e.g. Find the Lost/jTBNAEedbg, Strike from the
+        // Mist/DHn9J7gX6g, Scorchfire Assassin's On Attack check on o191zv86la) until AFTER
+        // this card's own CardActivated ability macro (called below) has had a chance to run.
+        // A Prepare-cost "Pay Prepare N?" decision is a DEFERRED YES/NO the player answers on a
+        // later request -- wasPrepared is only finalized once that decision actually resolves
+        // and its CardActivated-1 custom handler stores wasPrepared="YES" (Core/
+        // DecisionQueueController.php's ExecuteStaticMethods() returns as soon as it hits an
+        // unanswered YESNO, so nothing after AddDecision() in THIS function call has the real
+        // answer yet). Reading wasPrepared synchronously right here -- before
+        // $cardActivatedAbilities[...] below even queues that decision -- was the bug: it
+        // always saw whatever value was left over from a previous, unrelated activation, never
+        // this activation's real answer. Queuing a follow-up CUSTOM decision instead (resolved
+        // strictly after the card's own Prepare decision, since AddDecision() appends same-
+        // block entries in FIFO order) mirrors the pattern used elsewhere for other
+        // wasPrepared-dependent effects that must wait on a deferred decision -- see
+        // CrystallineRealityStart/QueueModes and ResolveDelusionalVapors below.
+        $intentZone = &GetZone("myIntent");
+        $pendingPreparedTagMZ = "myIntent-" . (count($intentZone) - 1);
     }
     // Ephemerate: tag field objects as ephemeral when activated via Ephemerate
     $wasEph = DecisionQueueController::GetVariable("wasEphemerated");
@@ -5341,6 +5596,23 @@ function OnCardActivated($player, $mzCard) {
     DecisionQueueController::CleanupRemovedCards();
     if(isset($cardActivatedAbilities[$obj->CardID . ":0"])) {
         $cardActivatedAbilities[$obj->CardID . ":0"]($player);
+    }
+    // Queue the deferred PREPARED tag (see the ATTACK branch above) only now -- AFTER the card's
+    // own CardActivated ability macro just above has had the chance to queue its "Pay Prepare N?"
+    // decision. AddDecision() appends same-block entries in FIFO order, so this CUSTOM decision
+    // resolves strictly after any such YES/NO the card itself just queued, at which point
+    // wasPrepared correctly reflects THIS activation instead of a stale leftover value.
+    if($pendingPreparedTagMZ !== null) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "GA_TagPreparedAttack|" . $pendingPreparedTagMZ, 1);
+    }
+
+    // The real gameplay pathway for playing a card from hand (ActivateCard -> DoActivateCard,
+    // and the StarcallingActivate DQ handler) resolves here, in OnCardActivated -- never through
+    // the generated PlayCard()/DoPlayCard() macro, which nothing calls. Queue the PLAY_CARD
+    // trigger for this card's own on-play ability (the $playCardAbilities dispatch table) here,
+    // matching how OnRestCard() queues QueueRestCardTriggeredAbility() at its own real event site.
+    if(!HasNoAbilities($obj)) {
+        QueuePlayCardTriggeredAbility($player, $obj->CardID, $mzCard, false);
     }
 
     $champMZ = FindChampionMZ($player);
@@ -5774,6 +6046,10 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
     if($sourceObject !== null && IsDreamFairyLockedCardID($player, $sourceObject->CardID)) {
         SetFlashMessage("Dream Fairy is preventing that card from being played.");
         return;
+    }
+
+    if($sourceObject !== null) {
+        QueuePlayCardTriggeredAbility($player, $sourceObject->CardID, $mzCard, $ignoreCost);
     }
 
     $dqController = new DecisionQueueController();
@@ -6831,6 +7107,19 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     $activationMacro = DecisionQueueController::GetVariable("activationMacro");
     $isHandActivatedMacro = ($activationMacro === "HandActivatedAbility");
     $staticAbilityCount = $isHandActivatedMacro ? CardHandActivatedAbilityCount($cardID) : CardActivateAbilityCount($cardID);
+    // Charm of Anticipation (vkL2RFh0yM): hand-authored activateAbilityAbilities["vkL2RFh0yM:0"]
+    // entry above has no matching row in $CardActivateAbilityCountData -- that array is a wholesale
+    // literal assignment in GeneratedCode/GeneratedMacroCode.php (gitignored), which is included
+    // AFTER this file (see GamestateParser.php's include order: Custom/GameLogic.php, then
+    // GeneratedCode/GeneratedMacroCode.php), so any addition made to it from here is clobbered by
+    // that later wholesale reassignment. Patched here instead, at the one call site that actually
+    // gates static-vs-dynamic ability dispatch, since this file is tracked/hand-editable and
+    // GeneratedMacroCode.php is not.
+    if($cardID === "vkL2RFh0yM" && !$isHandActivatedMacro) $staticAbilityCount = 1;
+    // Band of Burning Verdict (7mmve2l328): same wholesale-array-clobbering problem as
+    // vkL2RFh0yM above -- see its activateAbilityAbilities/activateAbilityPrereqs registration
+    // and this NOTE, just above ResolveObelithEscort() in this file.
+    if($cardID === "7mmve2l328" && !$isHandActivatedMacro) $staticAbilityCount = 1;
     $refractedTwilightCopies = 0;
     if(PropertyContains(CardSubtypes($cardID), "POTION") && $selectedAbilityIndex < $staticAbilityCount) {
         foreach($sourceObject->TurnEffects as $rtIdx => $rtEffect) {
@@ -7165,7 +7454,9 @@ function OnLeaveField($player, $mzID) {
     DecisionQueueController::CleanupRemovedCards();
     SyncCombatStateToFieldUniqueIDs();
     DecisionQueueController::StoreVariable("mzID", $mzID);
-    if(!HasNoAbilities($obj) && isset($leaveFieldAbilities[$obj->CardID . ":0"])) $leaveFieldAbilities[$obj->CardID . ":0"]($controller);
+    if(!HasNoAbilities($obj) && isset($leaveFieldAbilities[$obj->CardID . ":0"])) {
+        QueueLeaveFieldTriggeredAbility($controller, $obj->CardID, $mzID, $obj->UniqueID ?? null);
+    }
     if($previousMzID === null) DecisionQueueController::ClearVariable("mzID");
     else DecisionQueueController::StoreVariable("mzID", $previousMzID);
 }
@@ -7194,6 +7485,13 @@ function MoveEffectStackCardToField($player, $mzCard) {
     if($cardID !== "" && function_exists('GATelemetryBumpCard')) {
         GATelemetryBumpCard($player, $cardID, 'materialized');
         GATelemetryBumpTurn($player, 'cardsPlayed');
+    }
+    // Craggy Fatestone (h8n1520m2d): this is also the real "materialized" chokepoint for the
+    // ordinary from-hand path (the overwhelmingly common case) -- see
+    // CraggyFatestoneMaterializeTrigger()'s doc comment in MaterializeLogic.php for why this call
+    // and DoMaterialize()'s call are mutually exclusive per materialize event.
+    if($obj !== null && $cardID !== "") {
+        CraggyFatestoneMaterializeTrigger($player, CardMemoryCost($obj));
     }
     return $obj;
 }
@@ -7290,6 +7588,278 @@ function QueueEnterTriggeredAbility($player, $mzID, $copiedCardID = "") {
 }
 
 /**
+ * Queue a card's On Death ("ally destroyed") ability onto the EffectStack rather than firing
+ * it synchronously, so both players get a real Opportunity window before it resolves.
+ * $mzID is the destroyed card's *new* location (it has already been moved to graveyard/
+ * banish/material by the time this is called) -- ability code reads the ambient "mzID"
+ * variable as "the card this trigger is about", so that location is captured here and
+ * replayed by ResolveTopOfEffectStack() right before the deferred closure runs, since the
+ * object may no longer be resolvable from the field by the time this actually fires.
+ * $context can carry additional card-specific snapshot values (e.g. a counter count read
+ * off the object before it left the field) that would otherwise go stale.
+ */
+function QueueAllyDestroyedTriggeredAbility($controller, $cardID, $mzID, $context = []) {
+    global $allyDestroyedAbilities;
+    if(!isset($allyDestroyedAbilities[$cardID . ":0"])) return false;
+    $context['mzID'] = $mzID;
+    return QueueTriggeredAbility($controller, $cardID, "ALLY_DESTROYED", $context);
+}
+
+function FireAllyDestroyedTriggeredAbility($controller, $cardID) {
+    global $allyDestroyedAbilities;
+    if(isset($allyDestroyedAbilities[$cardID . ":0"])) {
+        $allyDestroyedAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
+ * Discard-triggered abilities fire after the discarded card has already left the field
+ * (OnDiscardCard is called post-move), so unlike leave-field triggers there's no stale-mzID
+ * risk from deferring. $abilityIndex is carried in context since a single card can register
+ * more than one discard-triggered ability (CardDiscardCardCount).
+ */
+function QueueDiscardCardTriggeredAbility($controller, $cardID, $abilityIndex, $mzID, $discardedCardID) {
+    global $discardCardAbilities;
+    if(!isset($discardCardAbilities[$cardID . ":" . $abilityIndex])) return false;
+    return QueueTriggeredAbility($controller, $cardID, "DISCARD_CARD", [
+        'mzID' => $mzID,
+        'discardedCardID' => $discardedCardID,
+        'AbilityIndex' => strval($abilityIndex),
+    ]);
+}
+
+function FireDiscardCardTriggeredAbility($controller, $cardID) {
+    global $discardCardAbilities;
+    $abilityIndex = strval(DecisionQueueController::GetVariable("AbilityIndex") ?? "0");
+    if($abilityIndex === "") $abilityIndex = "0";
+    $abilityKey = $cardID . ":" . $abilityIndex;
+    if(isset($discardCardAbilities[$abilityKey])) {
+        $discardCardAbilities[$abilityKey]($controller);
+    }
+}
+
+/**
+ * Reveal-triggered abilities read "revealedMZ"/"revealSourceZone" as ambient context (some of
+ * their own queued follow-up handlers, e.g. LightweaverRevealDmg, read "revealedMZ" again well
+ * after the initial fire) -- both are normalized to the controller's perspective up front so
+ * they stay correct however far deferred resolution replays them.
+ */
+function QueueRevealTriggeredAbility($controller, $cardID, $revealedMZ) {
+    global $revealAbilities;
+    if(!isset($revealAbilities[$cardID . ":0"])) return false;
+    $normalizedMZ = NormalizeMzIDForController($revealedMZ, $controller);
+    $sourceZone = explode("-", $normalizedMZ)[0];
+    return QueueTriggeredAbility($controller, $cardID, "REVEAL_CARD", [
+        'revealedMZ' => $normalizedMZ,
+        'revealSourceZone' => $sourceZone,
+    ]);
+}
+
+function FireRevealTriggeredAbility($controller, $cardID) {
+    global $revealAbilities;
+    if(isset($revealAbilities[$cardID . ":0"])) {
+        $revealAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
+ * Queues this card's PLAY_CARD trigger (the $playCardAbilities dispatch table) onto the
+ * Effects Stack, giving it a proper Opportunity Window instead of firing synchronously.
+ *
+ * The only caller used to be DoPlayCard(), reached solely through the generated PlayCard()
+ * macro -- but nothing in the real gameplay pathway (ActivateCard -> DoActivateCard, or the
+ * StarcallingActivate DQ handler) ever called PlayCard(), so these 14 cards' on-play triggers
+ * (mostly instant-speed negate/interaction effects) silently never fired. The real caller is
+ * now OnCardActivated(), the actual resolution site for every card activation regardless of
+ * how it reached the Effects Stack -- see the QueuePlayCardTriggeredAbility() call there.
+ */
+function QueuePlayCardTriggeredAbility($controller, $cardID, $mzID, $ignoreCost) {
+    global $playCardAbilities;
+    if(!isset($playCardAbilities[$cardID . ":0"])) return false;
+    return QueueTriggeredAbility($controller, $cardID, "PLAY_CARD", [
+        'mzID' => NormalizeMzIDForController($mzID, $controller),
+        'ignoreCost' => $ignoreCost ? "1" : "",
+    ]);
+}
+
+function FirePlayCardTriggeredAbility($controller, $cardID) {
+    global $playCardAbilities;
+    if(isset($playCardAbilities[$cardID . ":0"])) {
+        $playCardAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
+ * Resting only flips Status, never moves a zone, so unlike leave-field triggers there's no
+ * stale-mzID risk from deferring -- the object is still at $mzID whenever this resolves.
+ */
+function QueueRestCardTriggeredAbility($controller, $cardID, $mzID) {
+    global $restCardAbilities;
+    if(!isset($restCardAbilities[$cardID . ":0"])) return false;
+    return QueueTriggeredAbility($controller, $cardID, "REST_CARD", [
+        'mzID' => NormalizeMzIDForController($mzID, $controller),
+    ]);
+}
+
+/**
+ * DealDamage-triggered abilities belong to the damaged card's controller, not the damage's
+ * source ($player can be the opponent). Damage has already been applied by the time this
+ * fires, so there's no stale-mzID risk -- but "source" may be a raw card ID (a non-field
+ * source like a spell) rather than an mzID; NormalizeMzIDForController is a no-op on those
+ * since FlipZonePerspective only rewrites recognized "my"/"their" zone prefixes.
+ */
+function QueueDealDamageTriggeredAbility($controller, $cardID, $source, $target, $amount) {
+    global $dealDamageAbilities;
+    if(!isset($dealDamageAbilities[$cardID . ":0"])) return false;
+    return QueueTriggeredAbility($controller, $cardID, "DEAL_DAMAGE", [
+        'source' => NormalizeMzIDForController($source, $controller),
+        'target' => NormalizeMzIDForController($target, $controller),
+        'amount' => strval($amount),
+    ]);
+}
+
+function FireDealDamageTriggeredAbility($controller, $cardID) {
+    global $dealDamageAbilities;
+    if(isset($dealDamageAbilities[$cardID . ":0"])) {
+        $dealDamageAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+function FireRestCardTriggeredAbility($controller, $cardID) {
+    global $restCardAbilities;
+    if(isset($restCardAbilities[$cardID . ":0"])) {
+        $restCardAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
+ * Leave-field triggers are queued from OnLeaveField() *before* the object actually moves --
+ * every one of its ~59 call sites calls OnLeaveField() first and performs the real
+ * MZMove()/MZRemove() afterward, so $mzID here is still the departing object's pre-move field
+ * position. In the common case (no fast-speed response available to either player) this
+ * resolves synchronously before OnLeaveField() even returns, exactly matching pre-migration
+ * timing byte-for-byte. When a genuine Opportunity Window response defers it, the object may
+ * already have been moved (and marked removed at its old slot) by the time this fires --
+ * several of the generated leaveFieldAbilities closures call GetZoneObject($mzID) expecting to
+ * still find it there (e.g. to read a counter/Damage value off the departing card itself), and
+ * those closures can't be hand-edited to read a snapshot instead (macro-generated from the card
+ * ability DB). $uniqueID is captured into context as "selfUniqueID", which
+ * GetProtectedRemovedCardUniqueIDs() (CombatLogic.php) now also reads for TriggerType
+ * "LEAVE_FIELD" to keep CleanupRemovedCards() from physically splicing that one object out of
+ * its old zone slot for as long as this entry sits unfired on the EffectStack -- so
+ * GetZoneObject($mzID) inside those closures keeps resolving to the same object they'd have
+ * seen firing synchronously, same as before this migration.
+ */
+function QueueLeaveFieldTriggeredAbility($controller, $cardID, $mzID, $uniqueID = null) {
+    global $leaveFieldAbilities;
+    if(!isset($leaveFieldAbilities[$cardID . ":0"])) return false;
+    $context = [
+        'mzID' => NormalizeMzIDForController($mzID, $controller),
+    ];
+    $uniqueID = intval($uniqueID ?? 0);
+    if($uniqueID > 0) $context['selfUniqueID'] = strval($uniqueID);
+    return QueueTriggeredAbility($controller, $cardID, "LEAVE_FIELD", $context);
+}
+
+function FireLeaveFieldTriggeredAbility($controller, $cardID) {
+    global $leaveFieldAbilities;
+    if(isset($leaveFieldAbilities[$cardID . ":0"])) {
+        $leaveFieldAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
+ * "mzID" (this ability's own source reference) is captured into context here because it's a
+ * generic macro parameter reused by every card activation, including any fast-card response
+ * resolved off the EffectStack during the Opportunity Window between when this is queued and when
+ * it fires -- exactly like every other already-migrated trigger type above.
+ *
+ * The mzID string's own POSITION, though, is protected differently than a plain snapshot: this
+ * resolves its current UniqueID and stashes it as "selfUniqueID" in context, which
+ * GetProtectedRemovedCardUniqueIDs() (CombatLogic.php) reads back to keep CleanupRemovedCards()
+ * from physically splicing that ONE object out of its zone for as long as this entry sits
+ * unfired on the EffectStack -- e.g. a weapon whose durability hit 0 moments before this queued,
+ * still readable (removed-flagged, but present) when the closure actually runs. Only that specific
+ * object is protected; every other object's cleanup timing in the same zone is untouched, matching
+ * baseline (pre-migration) behavior exactly (a blanket "defer cleanup for all of combat" version of
+ * this was tried and reverted -- see CombatLogic.php's GetProtectedRemovedCardUniqueIDs() docblock).
+ */
+function QueueAttackTriggeredAbility($controller, $cardID, $mzID, $sourceMZ = null) {
+    global $onAttackAbilities;
+    if(!isset($onAttackAbilities[$cardID . ":0"])) return false;
+    $context = [
+        'mzID' => NormalizeMzIDForController($mzID, $controller),
+        'wasPrepared' => DecisionQueueController::GetVariable("wasPrepared") ?? "NO",
+    ];
+    $selfUniqueID = GetFieldObjectUniqueID($mzID, $controller);
+    if ($selfUniqueID !== null) $context['selfUniqueID'] = strval($selfUniqueID);
+    // OnAttackTrigger deliberately passes the same $mzID (the attacker's) into context for every
+    // branch -- see its own docblock -- so the attacker/intent/weapon candidates aren't otherwise
+    // distinguishable for a stack-order choice. $sourceMZ carries each branch's own real location.
+    $normalizedSourceMZ = $sourceMZ !== null ? NormalizeMzIDForController($sourceMZ, $controller) : null;
+    return QueueTriggeredAbility($controller, $cardID, "ON_ATTACK", $context, $normalizedSourceMZ);
+}
+
+function FireAttackTriggeredAbility($controller, $cardID) {
+    global $onAttackAbilities;
+    if(isset($onAttackAbilities[$cardID . ":0"])) {
+        $onAttackAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+function QueueHitTriggeredAbility($controller, $cardID, $mzID) {
+    global $onHitAbilities;
+    if(!isset($onHitAbilities[$cardID . ":0"])) return false;
+    $context = [
+        'mzID' => NormalizeMzIDForController($mzID, $controller),
+        'wasPrepared' => DecisionQueueController::GetVariable("wasPrepared") ?? "NO",
+        'CombatDamageAmount' => strval(DecisionQueueController::GetVariable("CombatDamageAmount") ?? "0"),
+    ];
+    $selfUniqueID = GetFieldObjectUniqueID($mzID, $controller);
+    if ($selfUniqueID !== null) $context['selfUniqueID'] = strval($selfUniqueID);
+    return QueueTriggeredAbility($controller, $cardID, "ON_HIT", $context);
+}
+
+function FireHitTriggeredAbility($controller, $cardID) {
+    global $onHitAbilities;
+    if(isset($onHitAbilities[$cardID . ":0"])) {
+        $onHitAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
+ * $context snapshots CombatKilledCardID/Power/HP and isImbued because DispatchCombatKillTriggers()
+ * (CombatLogic.php) loops through multiple kill events -- e.g. a multi-target Cleave swing --
+ * reusing the same ambient vars for each. Capturing them here, at queue time inside that loop,
+ * freezes the values for THIS kill event before the next iteration (or an interleaved EffectStack
+ * entry) overwrites them. isImbued in particular would otherwise be clobbered a second way: since
+ * ResolveTopOfEffectStack() also unconditionally recomputes "isImbued" from the stack entry's own
+ * (irrelevant, for a trigger marker) imbued flag before replaying this context -- so this snapshot
+ * has to win, which it does since the generic context-restore loop runs after that recompute.
+ */
+function QueueKillTriggeredAbility($controller, $cardID, $mzID) {
+    global $onKillAbilities;
+    if(!isset($onKillAbilities[$cardID . ":0"])) return false;
+    $context = [
+        'mzID' => NormalizeMzIDForController($mzID, $controller),
+        'isImbued' => DecisionQueueController::GetVariable("isImbued") ?? "NO",
+        'CombatKilledCardID' => strval(DecisionQueueController::GetVariable("CombatKilledCardID") ?? ""),
+        'CombatKilledPower' => strval(DecisionQueueController::GetVariable("CombatKilledPower") ?? ""),
+        'CombatKilledHP' => strval(DecisionQueueController::GetVariable("CombatKilledHP") ?? ""),
+    ];
+    $selfUniqueID = GetFieldObjectUniqueID($mzID, $controller);
+    if ($selfUniqueID !== null) $context['selfUniqueID'] = strval($selfUniqueID);
+    return QueueTriggeredAbility($controller, $cardID, "ON_KILL", $context);
+}
+
+function FireKillTriggeredAbility($controller, $cardID) {
+    global $onKillAbilities;
+    if(isset($onKillAbilities[$cardID . ":0"])) {
+        $onKillAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
  * Signal the end of the game. The loser's opponent becomes the winner.
  * Stores GAMEOVER_WINNER in DQ variables so the client can show the
  * "You Won / You Lost" overlay on the next turn update.
@@ -7301,7 +7871,7 @@ function TriggerGameOver($loserPlayer) {
 }
 
 function DoAllyDestroyed($player, $mzCard) {
-    global $allyDestroyedAbilities, $customDQHandlers;
+    global $customDQHandlers;
     $obj = GetZoneObject($mzCard);
     if($obj === null) return;
     // Lu Bu, Indomitable Titan: Diao Chan replacement applies before any champion-loss handling.
@@ -7322,8 +7892,11 @@ function DoAllyDestroyed($player, $mzCard) {
     $destroyedObj = clone $obj;
     $controller = $destroyedObj->Controller;
     $suppressed = HasNoAbilities($destroyedObj);
+    // Snapshot context the On Death ability closure needs, since it now resolves later
+    // (via QueueAllyDestroyedTriggeredAbility) instead of synchronously right here.
+    $allyDestroyedContext = [];
     if($destroyedObj->CardID === "ejvddohjdu") {
-        DecisionQueueController::StoreVariable("LustrousSlimeBuffCount", strval(GetCounterCount($destroyedObj, "buff")));
+        $allyDestroyedContext['LustrousSlimeBuffCount'] = strval(GetCounterCount($destroyedObj, "buff"));
     }
     if($destroyedObj->CardID === "U5Fns5U7He"
         && !$suppressed
@@ -7356,7 +7929,17 @@ function DoAllyDestroyed($player, $mzCard) {
     }
     $isChampion = PropertyContains(EffectiveCardType($destroyedObj), "CHAMPION");
     $animatedPotionDeath = is_array($destroyedObj->Counters ?? null) && !empty($destroyedObj->Counters["potion_animate"]);
-    MZMove($player, $mzCard, $dest);
+    $movedDestroyedObj = MZMove($player, $mzCard, $dest);
+    // The On Death ability closure reads the ambient "mzID" variable as "the card this is
+    // about" -- capture where it actually landed so that can be replayed at resolution time.
+    // Built from the moved object's own (perspective-independent) Location/mzIndex rather
+    // than the "my"/"their"-relative $dest string, since $dest is only meaningful relative
+    // to whatever the ambient $playerID happened to be right now -- and by the time this
+    // replays, ResolveTopOfEffectStack() will have set $playerID = $controller, at which
+    // point "my" + Location is always the correct label for the controller's own zone.
+    $allyDestroyedMzID = ($movedDestroyedObj !== null)
+        ? "my" . $movedDestroyedObj->Location . "-" . $movedDestroyedObj->mzIndex
+        : "";
     // Champion destruction triggers game over only if controller no longer has any champion.
     // This allows replacement effects that establish a new champion (e.g. Lu Bu replacement)
     // to prevent an incorrect loss from stale destruction paths.
@@ -7381,8 +7964,8 @@ function DoAllyDestroyed($player, $mzCard) {
             $customDQHandlers["AbilityActivated"]($controller, [$destroyedObj->CardID, $ai], null);
         }
     }
-    if(!$suppressed && isset($allyDestroyedAbilities[$destroyedObj->CardID . ":0"])) {
-        $allyDestroyedAbilities[$destroyedObj->CardID . ":0"]($controller);
+    if(!$suppressed) {
+        QueueAllyDestroyedTriggeredAbility($controller, $destroyedObj->CardID, $allyDestroyedMzID, $allyDestroyedContext);
     }
     if(PropertyContains(EffectiveCardType($destroyedObj), "ALLY")) {
         if(PropertyContains(EffectiveCardSubtypes($destroyedObj), "ELYSIAN")) AddGlobalEffects($controller, "ELYSIAN_ALLY_DIED_THIS_TURN");
@@ -7655,6 +8238,14 @@ function DoAllyDestroyed($player, $mzCard) {
 }
 
 function WakeUpPhase() {
+    // Backstop: no explicit removed-card protection should still be "in progress" once a new turn
+    // begins. This guards against any dispatch that isn't wired to
+    // ClearProtectedRemovedCardUniqueIDs() (see ProtectRemovedCardUniqueID() in CombatLogic.php)
+    // so a protected UniqueID can never leak past the turn it started in.
+    if(function_exists("ClearProtectedRemovedCardUniqueIDs")) {
+        ClearProtectedRemovedCardUniqueIDs();
+    }
+
     $currentTurn = intval(GetTurnNumber());
     if($currentTurn === 1) return;
 
@@ -9897,6 +10488,26 @@ function MainPhase() {
 }
 
 /**
+ * The turn player has passed out of the main phase. Grand Archive rules: the game only
+ * proceeds to the end phase once every player has passed Opportunity with an empty
+ * Effects Stack, so the non-turn player must get a chance to act (or pass) here before
+ * the phase actually advances -- mirrors the BeforeRecollectionPhase/BeforeEndOpportunityPhase
+ * pattern used at the other phase boundaries.
+ */
+function RequestMainPhasePass($turnPlayer) {
+    global $playerID;
+    $playerID = $turnPlayer;
+    GrantOpportunityWindow($turnPlayer, "MainPhasePassContinue", null, "MAIN_PASS");
+}
+
+$customDQHandlers["MainPhasePassContinue"] = function($player, $parts, $lastDecision) {
+    global $gCurrentPhase;
+    $gCurrentPhase = "MAIN";
+    AdvanceAndExecute("PASS");
+    AutoAdvanceAndExecute();
+};
+
+/**
  * Suppress an ally: banish it and schedule its return at the beginning of the next end phase.
  * The card is moved to its owner's banishment zone and tagged with a "SUPPRESSED" TurnEffect
  * on the banished card itself so EndPhase can find and return it.
@@ -10464,6 +11075,29 @@ function EndPhase() {
         }
     }
 
+    // Unity's Gale (uUWsgLmyTk): at the beginning of the next end phase, if the targeted ally is
+    // damaged and its caster doesn't control it, the caster gains the Crowd's Favor status. The
+    // marker is tagged directly onto the target object (see cardActivatedAbilities["uUWsgLmyTk:0"]
+    // above) so it survives regardless of whose turn ends next; checked and consumed here, before
+    // ExpireEffects() below would otherwise silently wipe it as a non-persistent TurnEffect.
+    foreach(array_merge(GetField(1), GetField(2)) as $ugObj) {
+        if($ugObj === null || $ugObj->removed || empty($ugObj->TurnEffects)) continue;
+        $ugHasMarker = false;
+        foreach($ugObj->TurnEffects as $ugEffect) {
+            if(strpos($ugEffect, "uUWsgLmyTk_CF_") !== 0) continue;
+            $ugHasMarker = true;
+            $ugCaster = intval(substr($ugEffect, strlen("uUWsgLmyTk_CF_")));
+            if(intval($ugObj->Damage ?? 0) > 0 && intval($ugObj->Controller ?? 0) !== $ugCaster) {
+                GainCrowdsFavor($ugCaster);
+            }
+        }
+        if($ugHasMarker) {
+            $ugObj->TurnEffects = array_values(array_filter($ugObj->TurnEffects, function($e) {
+                return strpos($e, "uUWsgLmyTk_CF_") !== 0;
+            }));
+        }
+    }
+
     // Scorching Imperilment (aj7pz79wsp): At beginning of each player's end phase,
     // that player may discard a card. If they do, they draw a card.
     $hasImperilment = false;
@@ -10850,6 +11484,19 @@ function ObjectCurrentPower($obj) {
             break;
         case "mDN1CI9IEe": // Sealed Blade: [Class Bonus] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) $power += 1;
+            break;
+        case "XDVIiIfKZk": // Reaping Legacy: [Class Bonus] +1 POWER for each Sword regalia weapon card in your banishment
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                $swordCount = 0;
+                foreach(GetBanish($obj->Controller) as $bObj) {
+                    if($bObj === null || $bObj->removed) continue;
+                    if(!PropertyContains(CardType($bObj->CardID), "REGALIA")) continue;
+                    if(!PropertyContains(CardType($bObj->CardID), "WEAPON")) continue;
+                    if(!PropertyContains(CardSubtypes($bObj->CardID), "SWORD")) continue;
+                    $swordCount++;
+                }
+                $power += $swordCount;
+            }
             break;
         case "mt5zs1w6c0": // Mary Ann, Maladroit Maid: +1 POWER per omen with different reserve costs
             {
@@ -13347,6 +13994,10 @@ function ObjectCurrentHP($obj) {
     if(in_array("3h93tgm72l", $obj->TurnEffects ?? [])) {
         $cardLife += 2;
     }
+    // Unity's Gale (uUWsgLmyTk): target ally gets +3 LIFE until end of turn
+    if(in_array("uUWsgLmyTk", $obj->TurnEffects ?? [])) {
+        $cardLife += 3;
+    }
     if(in_array("7QmyDecqkk_LIFE", $obj->TurnEffects ?? [])) {
         $cardLife += 2;
     }
@@ -15234,17 +15885,25 @@ function OnDiscardCard($player, $discardedCardID) {
         return;
     }
 
+    // Batched (BeginTriggeredAbilityBatch()) so, when 2+ of the player's own field cards have a
+    // discard-triggered ability for this same discard event, they choose stacking order instead
+    // of it being hardcoded to field-index order.
+    BeginTriggeredAbilityBatch();
     $field = GetField($player);
     for($i = 0; $i < count($field); ++$i) {
         if($field[$i]->removed || HasNoAbilities($field[$i])) continue;
         $count = CardDiscardCardCount($field[$i]->CardID);
         for($abilityIndex = 0; $abilityIndex < $count; ++$abilityIndex) {
-            $abilityKey = $field[$i]->CardID . ":" . $abilityIndex;
-            if(isset($discardCardAbilities[$abilityKey])) {
-                $discardCardAbilities[$abilityKey]($player);
-            }
+            QueueDiscardCardTriggeredAbility(
+                $player,
+                $field[$i]->CardID,
+                $abilityIndex,
+                NormalizeMzIDForController("myField-" . $i, $player),
+                $discardedCardID
+            );
         }
     }
+    EndTriggeredAbilityBatch();
     DecisionQueueController::ClearVariable("discardedCardID");
 }
 
@@ -15265,11 +15924,7 @@ function DoRevealCard($player, $revealedMZ) {
     $parts = explode("-", $revealedMZ);
     $sourceZone = $parts[0];
     // Fire reveal triggers for this card
-    if(isset($revealAbilities[$CardID . ":0"])) {
-        DecisionQueueController::StoreVariable("revealedMZ", $revealedMZ);
-        DecisionQueueController::StoreVariable("revealSourceZone", $sourceZone);
-        $revealAbilities[$CardID . ":0"]($player);
-    }
+    QueueRevealTriggeredAbility($player, $CardID, $revealedMZ);
     // Striking Illuminance (2lukkhisu5): whenever you reveal a luxem card from memory, +1 POWER
     if(strpos($sourceZone, "Memory") !== false && CardElement($CardID) === "LUXEM") {
         global $playerID;
@@ -18271,6 +18926,12 @@ function ChillToTheBoneResolve($player) {
     global $playerID;
     $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
     if($attackerMZ === null || $attackerMZ === "-" || $attackerMZ === "") return;
+    // CombatAttacker is stored from the attacker's own perspective; convert to the
+    // currently resolving player's perspective before looking it up (matches
+    // AtmosShieldRedirect/InterceptTargetChosen in CombatLogic.php).
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
+    if($attackerPlayer <= 0) $attackerPlayer = GetTurnPlayer();
+    $attackerMZ = ConvertMzToPlayerPerspective($attackerMZ, $attackerPlayer);
     $attackerObj = GetZoneObject($attackerMZ);
     if($attackerObj === null || $attackerObj->removed || !PropertyContains(EffectiveCardType($attackerObj), "ALLY")) return;
     $targets = FilterSpellshroudTargets([$attackerMZ]);
@@ -19180,7 +19841,14 @@ function DestroyObjectSelection($player, $selection) {
         if(($aParts[0] ?? "") !== ($bParts[0] ?? "")) return strcmp($a, $b);
         return intval($bParts[1] ?? 0) <=> intval($aParts[1] ?? 0);
     });
+    // Batched (BeginTriggeredAbilityBatch()) so, if this destroys 2+ objects belonging to the same
+    // controller at once (e.g. a "destroy all" mode), that controller chooses their own abilities'
+    // stacking order instead of it being hardcoded to this method's target-sort order. Groups by
+    // each object's own Controller (read inside DoAllyDestroyed), not $player -- a "destroy all"
+    // can hit both sides, and each affected controller gets their own choice.
+    BeginTriggeredAbilityBatch();
     foreach($targets as $targetMZ) if(GetZoneObject($targetMZ) !== null) DoAllyDestroyed($player, $targetMZ);
+    EndTriggeredAbilityBatch();
 }
 
 function PowerforgedBurstResolve($player, $sourceMZ, $selection, $targetMZ) {
@@ -19848,10 +20516,13 @@ function OnChessmanAllyEntered($player, $mzID) {
 function SummonCheapSwordToken($player, $count = 1) {
     global $playerID;
     for($i = 0; $i < $count; ++$i) {
-        // Summon Cheap Sword token - using generic weapon token
-        MZAddZone($player, "myField", "gfq3j98h8d"); // Placeholder token ID
+        // Summon Cheap Sword token (a40EMvoqYX). FieldAfterAdd's generic "Weapons enter with
+        // durability counters" hook already grants its printed durability automatically; OnEnter
+        // is the standard hook (also used by the Enter() macro wrapper for a normally-played card)
+        // that fires the token's own on-enter ability, if any, and any macro listeners for it.
+        MZAddZone($player, "myField", "a40EMvoqYX");
         $zone = $player == $playerID ? "myField" : "theirField";
-        OnWeaponEntered($player, $zone . "-" . (count(GetZone($zone)) - 1));
+        OnEnter($player, $zone . "-" . (count(GetZone($zone)) - 1));
     }
 }
 
@@ -20740,9 +21411,8 @@ function OnRestCard($player, $mzCard) {
     $obj = &GetZoneObject($mzCard);
     if($obj === null || $obj->removed) return;
     $obj->Status = 1; // Rest the card (Grand Archive terminology for exhaust)
-    global $restCardAbilities;
-    if(!HasNoAbilities($obj) && isset($restCardAbilities[$obj->CardID . ":0"])) {
-        $restCardAbilities[$obj->CardID . ":0"]($player);
+    if(!HasNoAbilities($obj)) {
+        QueueRestCardTriggeredAbility($player, $obj->CardID, $mzCard);
     }
 }
 
@@ -20893,6 +21563,9 @@ function EndCombat($player) {
         DecisionQueueController::ClearVariable("CombatAttackerUniqueID");
     }
     DecisionQueueController::ClearVariable("CombatWeapon");
+    if(function_exists("ClearProtectedRemovedCardUniqueIDs")) {
+        ClearProtectedRemovedCardUniqueIDs();
+    }
 
     // Pop remaining combat decisions (AttackTargetChosen, CleaveAttack,
     // Retaliate, CombatCleanup) from both players' queues.
@@ -22562,7 +23235,15 @@ function BlastshotPumpOnHit($player) {
     $damage = intval(DecisionQueueController::GetVariable("CombatDamageAmount") ?? "0");
     if($damage <= 0 || empty($targets)) return;
     DecisionQueueController::StoreVariable("BlastshotPumpDamage", strval($damage));
-    DecisionQueueController::StoreVariable("BlastshotPumpSource", $weaponMZ);
+    // Store the weapon's CardID, not its mzID: BlastshotPumpChoose needs a real interactive
+    // MZCHOOSE answer, so it can only resolve in a LATER engine action -- by which point
+    // GamestateParser.php's WriteGamestate() has already serialized this weapon out of the field
+    // (it drops ->Removed() objects on every save, regardless of ProtectRemovedCardUniqueID()'s
+    // in-memory protection, which only lasts for the current action). A bare CardID is still a
+    // valid DealDamage() source -- ResolveDamageSourceCardInfo() (GameLogic.php) already treats a
+    // hyphen-free $source string as "just a CardID, no live position", the same fallback used for
+    // a non-field (e.g. spell) damage source.
+    DecisionQueueController::StoreVariable("BlastshotPumpSource", $weaponObj->CardID);
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Choose_additional_unit_for_Blastshot_Pump");
     DecisionQueueController::AddDecision($player, "CUSTOM", "BlastshotPumpChoose", 1);
 }

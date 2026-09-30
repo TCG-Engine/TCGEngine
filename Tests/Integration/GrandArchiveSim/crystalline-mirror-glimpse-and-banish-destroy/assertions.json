@@ -1,0 +1,150 @@
+[
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-3",
+        "property": "CardID",
+        "value": "LAfJuHgUbm",
+        "semantic": true,
+        "label": "The third Hydrating Fractal (played from hand) successfully entered the field while Crystalline Mirror was out, bringing controlled phantasias to 3 -- satisfying the banish ability's own 'control 3+ phantasias' activation gate"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Crystalline Mirror's 'whenever a phantasia enters, glimpse 1' fired: the deck's original top card (em6eEh9q8y) is no longer on top -- it was pulled into the Glimpse and sent to the bottom per this fixture's MZREARRANGE response, proving the trigger actually engaged the deck rather than being a no-op"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myDeck-12",
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "The glimpsed card was moved to the bottom of the deck (last of 13 slots), confirming Glimpse(1) really moved a real card through myTempZone and back via the MZREARRANGE response rather than the deck staying untouched"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-3",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-5",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "CardID",
+        "value": "9agwj4f15j",
+        "semantic": true,
+        "label": "Crystalline Mirror was banished (its own activation cost) to activate the [Class Bonus] ability -- it is no longer on the field"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "CardID",
+        "value": "JPcFmCpdiF",
+        "semantic": true,
+        "label": "Beastbond Ears (memory cost 0 item, a legal target since memory cost 0 or reserve cost <=3) was destroyed by Crystalline Mirror's [Class Bonus] Banish ability -- moved off the opponent's field into their banish zone"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1
+    }
+]

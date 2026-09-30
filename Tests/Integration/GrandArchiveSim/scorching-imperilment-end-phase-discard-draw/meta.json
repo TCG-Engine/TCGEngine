@@ -1,0 +1,16 @@
+{
+    "name": "scorching-imperilment-end-phase-discard-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T18:54:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aj7pz79wsp"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["aj7pz79wsp"],
+        "mechanics": ["cost", "draw-discard", "condition"],
+        "rulesClauses": [
+            "At the beginning of each player's end phase, that player may discard a card. If they do, they draw a card."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "chill-to-the-bone-two-phantasia-debuff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-27T02:05:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Branch B (2+ phantasias controlled by the caster). Same shape and same known engine-perspective-bug workaround as chill-to-the-bone-low-phantasia-debuff (see its meta.json for the full writeup of ChillToTheBoneResolve's GetZoneObject perspective bug in GameLogic.php ~18765-18770, not fixed here since the sibling happy-path fixture already exercises the card) -- player 1 (the attacker) holds and casts Chill to the Bone on their own attacking Dungeon Guide, avoiding the perspective mismatch. Player 1 additionally controls two Core Fractal (8hqHAU0Xj6, TOKEN,PHANTASIA) cards -- Core Fractal specifically rather than the more thematic Scorching Imperilment (aj7pz79wsp) because Scorching Imperilment carries its own 'End phase: may discard to draw' activated ability that fires during this fixture's turn-1-end transition and adds an extra decision that desyncs the scripted action sequence; Core Fractal has no dispatch entries of its own. ChillToTheBoneResolve (GameLogic.php ~18765) counts ZoneSearch('myField', ['PHANTASIA']) = 2 and tags the attacker with 'p00ghqhcpb-4' instead of '-2', consumed by the same POWER/LIFE switch statements as the sibling fixture. Dungeon Guide's printed POWER 1 / LIFE 3 becomes -3 / -1 after the -4/-4 debuff.",
+    "testedCards": [
+        "p00ghqhcpb"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["p00ghqhcpb"],
+        "mechanics": ["combat", "status", "condition", "counter"],
+        "rulesClauses": [
+            "If you control two or more phantasias, that ally gets -4/-4 instead."
+        ]
+    }
+}

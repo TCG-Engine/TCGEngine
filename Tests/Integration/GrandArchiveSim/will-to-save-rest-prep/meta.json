@@ -1,0 +1,17 @@
+{
+    "name": "will-to-save-rest-prep",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T22:19:26+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Will to Save (qUd2uwAPvh, GeneratedMacroCode.php cardActivatedAbilities[\"qUd2uwAPvh:0\"] / customDQHandlers[\"qUd2uwAPvh:0:CardActivated-1\"]): \"You may rest your champion. If you do, put a preparation counter on them.\" Playing the card from hand (1 reserve, paid from hand) offers a YES/NO prompt to rest the champion (who starts unrested, Status=2); answering YES rests the champion (Status becomes 1) and adds a preparation counter. Break/restore verified: commenting out the RestCard() call in CardActivated-1 leaves the champion's Status at 2 and the fixture fails; restoring it passes again.",
+    "testedCards": [
+        "qUd2uwAPvh"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qUd2uwAPvh"],
+        "mechanics": ["zone-movement", "counter", "condition"],
+        "rulesClauses": [
+            "You may rest your champion. If you do, put a preparation counter on them."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "starlit-apothecary-recollection-copy-potion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Starlit Apothecary is seeded directly onto the field. Its recollection trigger is a plain CardID switch-case inside ResolveBeforeRecollectionPhaseStart (GameLogic.php ~25278, the same dispatcher used for Foster/Waterveil Apostle/Domain upkeep) gated on IsArisannaBonusActive($player) -- the champion is CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, in the Arisanna lineage whitelist, GameLogic.php ~24072). A single Herb token (Blightroot) is seeded onto the field as the only Potion/Herb target. Recollection does NOT happen on a player's own first turn -- reaching it requires: P1 ends turn 1 (their own turn cycles through MAIN/BEOP, declining Blightroot's generic Sacrifice fast-opportunity at each phase transition with '-' -- verified live this is offered TWICE, once per phase, and must be declined both times or the interaction stalls); P2 ends their own first turn the same way (also offers P1 the SAME fast-opportunity at each of their phases, needing 2 more declines); THEN it becomes P1's second turn, whose MAT phase materialize offer is declined with PASS, auto-advancing to BREC where Blightroot's fast-opportunity is offered ONE more time (decline again) before Starlit Apothecary's own recollection trigger finally fires, queuing a YESNO on the OPPONENT's decision queue (StarlitApothecaryPayChoice) to pay (4) and prevent the copy. Declining (NO) lets StarlitApothecaryResolveCopy (PotionLogic.php ~512) summon a token copy of the Herb onto the field. Verified live: myField grows from 3 to 4 objects, with a second Blightroot (i0a5uhjxhk) appearing at myField-3.",
+    "testedCards": [
+        "ShQkyQMBCT"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ShQkyQMBCT"],
+        "mechanics": ["cost", "targeting", "token", "condition"],
+        "rulesClauses": [
+            "[Arisanna Bonus] At the beginning of your recollection phase, summon a token copy of target Potion or Herb you control unless an opponent pays (4)."
+        ]
+    }
+}

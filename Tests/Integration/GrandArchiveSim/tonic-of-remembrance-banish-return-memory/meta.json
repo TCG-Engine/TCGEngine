@@ -1,0 +1,17 @@
+{
+    "name": "tonic-of-remembrance-banish-return-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Tonic of Remembrance is seeded directly onto the field (Brewing isn't the clause under test). activateAbilityPrereqs['uqrptjej4m:0'] requires IsClassBonusActive($player,['CLERIC']) -- the champion is CardID-patched to Arisanna, Herbalist Prodigy (b31x97n2jn, CLERIC) to satisfy it. Two known cards (Fluffy Shopkeep, a generic filler card) are seeded into memory; activateAbilityAbilities['uqrptjej4m:0'] offers an MZMULTICHOOSE of up to 3 memory cards (submitted as 'myMemory-0&myMemory-1'), and customDQHandlers['uqrptjej4m:0:ActivateAbility-1'] moves the chosen cards to hand. Verified live: memory goes from 2 to 0 and both cards land in hand (indices 7-8), while Tonic of Remembrance itself is banished.",
+    "testedCards": [
+        "uqrptjej4m"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["uqrptjej4m"],
+        "mechanics": ["zone-movement"],
+        "rulesClauses": [
+            "[Class Bonus] Banish Tonic of Remembrance: Return up to three cards from your memory to your hand."
+        ]
+    }
+}

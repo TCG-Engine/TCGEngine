@@ -1,0 +1,5 @@
+[
+    {"step":2,"type":"card_property_equals","mzId":"myField-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"FwPdj4PkSS\"]","semantic":true,"label":"Any Shifting Currents direction change tags Venerable Sage with its own FwPdj4PkSS TurnEffect"},
+    {"step":2,"type":"computed_power_equals","mzId":"myField-1","value":2,"semantic":true,"label":"1 base POWER + 1 until end of turn"},
+    {"step":2,"type":"computed_life_equals","mzId":"myField-1","value":5,"semantic":true,"label":"4 base LIFE + 1 until end of turn"}
+]

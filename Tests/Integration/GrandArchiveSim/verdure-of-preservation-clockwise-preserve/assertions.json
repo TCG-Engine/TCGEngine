@@ -1,0 +1,5 @@
+[
+    {"step":2,"type":"card_property_equals","mzId":"myField-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"PRESERVE_ANIMATION\"]","semantic":true,"label":"Verdure of Preservation's own clockwise-transition callback tags it with PRESERVE_ANIMATION"},
+    {"step":2,"type":"flash_message_contains","value":"REVEAL:","semantic":true,"label":"Reveals the top deck card as it is preserved into the material deck"},
+    {"step":2,"type":"zone_count","zone":"myMaterial","viewerPlayerID":1,"value":6,"semantic":true,"label":"Material deck gains 2 cards: 1 from Verdure's own clockwise trigger, 1 from Tera Sight's own Preserve keyword"}
+]

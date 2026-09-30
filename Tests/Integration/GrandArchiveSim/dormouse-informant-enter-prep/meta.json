@@ -1,0 +1,17 @@
+{
+    "name": "dormouse-informant-enter-prep",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T22:19:26+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Dormouse Informant (aWjXOw4mVK, GeneratedMacroCode.php enterAbilities[\"aWjXOw4mVK:0\"]): \"On Enter: If your champion has no preparation counters on them, put a preparation counter on them.\" Playing the ally from hand (3 reserve, paid from hand) fires its real On Enter. Verified live: the champion (which starts with no preparation counters) gains one. Break/restore verified: commenting out the counter-assignment line in enterAbilities[\"aWjXOw4mVK:0\"] leaves the champion's Counters empty and the fixture fails; restoring it passes again.",
+    "testedCards": [
+        "aWjXOw4mVK"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["aWjXOw4mVK"],
+        "mechanics": ["counter", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: If your champion has no preparation counters on them, put a preparation counter on them."
+        ]
+    }
+}

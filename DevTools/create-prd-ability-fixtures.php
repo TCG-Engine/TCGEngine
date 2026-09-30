@@ -830,7 +830,7 @@ DECK,
 ];
 
 // --- Deployment Beacon: On Enter summons an Automaton Drone token ---
-// NOTE: Samaritan's Reach was attempted first but abandoned — its effect body
+// NOTE: Samaritan's Reach was attempted first but abandoned here — its effect body
 // (SamaritanReachResolve) reads the CombatAttacker/CombatAttackerPlayer/CombatTarget
 // decision-queue variables, but by the time the ACTION card's effect stack finishes resolving
 // (multiple EffectStackOpportunity/EffectStackActiveResponse/EffectStackOpponentResponse
@@ -838,7 +838,10 @@ DECK,
 // three read back NULL from the final gamestate, and the target's Damage stayed 0), so the
 // ability silently no-opped. Setting them via the setup primitive only works for effects that
 // read the variable immediately upon resolution, not ones buried behind several priority
-// windows — a real attack sequence would be needed to test this card properly. Deployment
+// windows — a real attack sequence was needed to test this card properly, and one was later
+// added for the Kongming Pantheon Starter deck coverage batch: see the
+// samaritan-reach-attacking-ally-damage fixture further down this file, which scripts a genuine
+// mid-combat attack instead of injecting dqVariables directly. Deployment
 // Beacon's WIND element also isn't native to the "Spirit of Fire" starting champion, so — same
 // technique as the advanced-element cards above — the champion's Subcards are patched with a
 // real WIND champion (Spirit of Wind) to unlock element access, even though WIND isn't in
@@ -2274,6 +2277,48 @@ DECK,
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Disenchant: destroying a phantasia routes through AllyDestroyed(), firing "whenever
+// destroyed" triggers (regression guard for the GeneratedAbilityOverrides.php fix) ---
+$fixtures['disenchant-destroy-fires-diaochan-trigger'] = [
+    'testedCards' => ['zd83net7x0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Disenchant
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Disenchant's authored ability body (GeneratedCode/GeneratedMacroCode.php,
+    // zd83net7x0:0:CardActivated-1) used to manually OnLeaveField()+MZMove() the target to its
+    // graveyard instead of calling AllyDestroyed(), which silently skipped every "whenever a
+    // permanent is destroyed" trigger. GrandArchiveSim/Custom/GeneratedAbilityOverrides.php now
+    // overrides that handler to call AllyDestroyed() (see that file for why the override lives
+    // there and not in GameLogic.php). Diao Chan, Idyll Corsage is seeded onto the opponent's
+    // field as a canary: her "whenever a non-token object an opponent controls is destroyed, you
+    // may banish it; if you do, that opponent summons a Flowerbud token" ability only fires
+    // through DoAllyDestroyed()'s trigger dispatch, so it directly proves the fix. Disenchant's
+    // element is NORM, so no lineage patch is needed; a plain phantasia (Unstable Fractal) is
+    // seeded onto the caster's own field as the (unrestricted) "target phantasia".
+    'setup' => [
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'd7l6i5thdy'], // Diao Chan, Idyll Corsage - canary "whenever destroyed" trigger, opponent's side
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA) - destroy target, caster's own side
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zd83net7x0'], // Disenchant, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -11853,6 +11898,7013 @@ DECK,
     ],
 ];
 
+// --- Powered Defender: dealDamageAbilities dispatch coverage (z07nau5sw9) ---
+// Effects Stack fixture-coverage gap fill: dealDamageAbilities["z07nau5sw9:0"] summons a
+// Powercell token (qzzadf9q1v) whenever Powered Defender is dealt damage. No prior fixture
+// deals real (combat or non-combat) damage to this card. WATER element ally, cost 4 reserve,
+// class bonus (Taunt) not needed for this test. Uses a cheap real damage spell -- Charge the
+// Soul (ra9950o14t, NORM element, 1 reserve, "Deal 1 damage to target unit") -- targeting our
+// own ally, which is the simplest real damage-dealing event available (no combat/attack
+// sequence needed, since the dealDamageAbilities dispatch doesn't check isCombat for this
+// card -- unlike pal7cpvn96/Intrepid Spearman's replacement effect).
+$fixtures['powered-defender-dealt-damage-summons-powercell'] = [
+    'testedCards' => ['z07nau5sw9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Powered Defender is seeded directly onto the field (myField-1, awake by default) rather
+    // than played from hand -- setup field-seeding bypasses cost/element checks entirely, so no
+    // WATER element access is needed. Charge the Soul is seeded into hand (myHand-7), then
+    // played by resolving the OpportunityWindowFirstResponse MZMAYCHOOSE with its own mzID
+    // (mode=10002 FSM free-play is a no-op here -- verified live: reports success but never
+    // removes the card from hand). Its 1-reserve cost is
+    // paid with myHand-0, then the resulting MZCHOOSE:myField-0&myField-1&theirField-0 targets
+    // myField-1 (Powered Defender itself). Verified live: this leaves Powered Defender with 1
+    // damage and a genuine qzzadf9q1v Powercell token freshly created at myField-2 -- no
+    // additional PASS actions are needed, the Effects Stack resolves immediately.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'z07nau5sw9'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ra9950o14t'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Intrepid Spearman: dealDamageAbilities dispatch coverage (pal7cpvn96) ---
+// Effects Stack fixture-coverage gap fill: dealDamageAbilities["pal7cpvn96:0"] is itself an
+// intentional no-op stub (its real logic is a synchronous replacement effect inlined in
+// OnDealDamage(), GrandArchiveSim/Custom/CombatLogic.php ~line 4925, guarded by
+// DecisionQueueController::GetVariable("CombatAttacker") !== null -- i.e. it only applies to
+// REAL COMBAT damage, unlike Powered Defender's dispatch-table trigger above). No prior fixture
+// deals real combat damage to this card, so this fixture exercises the replacement effect
+// itself: [Level 1+] once per turn, reveal a random memory card when combat damage would be
+// dealt; if wind element, prevent 3 of that damage.
+//
+// Requires: (1) champion at Level 1+ (PlayerLevel() reads ObjectCurrentLevel(), which adds a
+// "level" counter on top of the card's printed level -- patched directly via setProperties
+// rather than scripting a real level-up), (2) a real attack that deals combat damage to this
+// ally specifically. GetValidAttackTargets() (CombatLogic.php) allows a champion to attack an
+// opposing ALLY directly (ZoneSearch("theirField", ["ALLY","CHAMPION"])), so no
+// intercept/redirect dance is needed -- P2's champion just targets theirField-1 (P1's Intrepid
+// Spearman) directly. P2's champion (Spirit of Fire, 0 base power) needs a weapon to have any
+// attack power; Executioner's Spear (zv6yp6q7zw, printed 1 POWER, no durability requirement --
+// verified live, unlike Tideholder Claymore which requires durability counters to be a legal
+// weapon choice per GetAvailableWeapons()) is seeded onto P2's field. (3) Exactly one memory
+// card, and it must be WIND element, for a deterministic array_rand() reveal -- Vainglory
+// Retribution (qtzsekkjn3, WIND) is reused as the memory card. With 1 combat damage and -3
+// prevention, final Damage clamps to 0 -- verified live: TurnEffects gains the "pal7cpvn96"
+// once-per-turn marker and FlashMessage is set to "REVEAL:qtzsekkjn3" regardless, which is
+// exactly the code path that (per CombatLogic.php) sets TurnEffects *before* the amount<=0
+// early-return, so both survive as independent proof the replacement effect actually ran.
+$fixtures['intrepid-spearman-combat-damage-reveal-wind-prevent'] = [
+    'testedCards' => ['pal7cpvn96'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'pal7cpvn96'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'qtzsekkjn3'], // sole memory card, WIND element
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 1]]], // champion Level 1+
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zv6yp6q7zw'], // Executioner's Spear, 1 POWER
+    ],
+    'actions' => [
+        // P1 has nothing playable this turn (no hand cards seeded) -- a single health-pass ends
+        // the whole turn and hands priority straight to P2's MAIN phase (verified live).
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline P2's own MAT-phase materialize offer
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // P2's champion attacks
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Executioner's Spear as the weapon
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target P1's Intrepid Spearman directly (not the champion)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline Retaliate
+    ],
+];
+
+// --- Vainglory Retribution: playCardAbilities dispatch coverage (qtzsekkjn3) ---
+// Effects Stack fixture-coverage gap fill for the whole $playCardAbilities table: nothing in
+// real gameplay ever called QueuePlayCardTriggeredAbility() before the fix in GameLogic.php's
+// OnCardActivated() (the real "a card just resolved off the Effects Stack" chokepoint, reached
+// from both DoActivateCard() and the separate StarcallingActivate path) -- the only previous
+// caller, DoPlayCard(), was reachable solely through the generated PlayCard() macro, which
+// nothing in the codebase invokes. Confirmed live: all 14 playCardAbilities entries fired zero
+// times across the full 546-fixture suite before the fix (instrumented FirePlayCardTriggeredAbility
+// with logging). This fixture actually plays Vainglory Retribution (qtzsekkjn3, WIND ACTION,
+// reserve cost 4) from hand through the real ActivateCard()->DoActivateCard() path and asserts
+// its on-play effect (playCardAbilities["qtzsekkjn3:0"]: AddTurnEffect(champMZ,
+// "VAINGLORY_RETRIBUTION_4")) actually lands on the champion.
+$fixtures['vainglory-retribution-play-card-trigger'] = [
+    'testedCards' => ['qtzsekkjn3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // PRISMATIC_CODEX_IGNORE_ELEMENT bypasses the WIND element-access check for this one
+    // activation (CanPlayerUseCardElement, GameLogic.php) without scripting a real element
+    // unlock -- self-consuming, matches the card's own real element gate rather than faking it
+    // via a champion Subcards patch. Vainglory Retribution is seeded directly into hand at the
+    // next open slot after the natural 7-card opening hand (myHand-7).
+    'setup' => [
+        ['player' => 1, 'globalEffect' => 'PRISMATIC_CODEX_IGNORE_ELEMENT'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qtzsekkjn3'],
+    ],
+    // Play Vainglory Retribution (mode 10002 FSM free play), pay its 4 reserve cost with four
+    // "choose a card from myHand" MZCHOOSE decisions (always myHand-0 -- each payment removes
+    // that slot and shifts the rest down, so the index is stable across all four), then both
+    // players pass the resulting Effects Stack Opportunity windows -- first for Vainglory
+    // Retribution's own activation entry, then a second time for the PLAY_CARD trigger entry
+    // that QueuePlayCardTriggeredAbility() pushes once the card resolves.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Red Slime stack-order choice: a generated closure's own synchronous multi-kill sweep
+// (mttsvbgl6f:0 On Death, GeneratedCode/GeneratedMacroCode.php) chain-kills 2+ of its own
+// controller's other allies with On Death triggers. ResolveTopOfEffectStack() (hand-written,
+// OpportunityLogic.php) now wraps its whole trigger-resolution dispatch in
+// BeginTriggeredAbilityBatch()/EndTriggeredAbilityBatch() so this case gets the same
+// controller-chooses-stacking-order treatment as OnAttackTrigger/OnHitTrigger/OnKillTrigger.
+$fixtures['redslime-ondeath-sweep-stack-order-choice'] = [
+    'testedCards' => ['mttsvbgl6f'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Killed via two casts of Charge the Soul (ra9950o14t, NORM, 1 reserve, "Deal 1 damage to
+    // target unit") targeting our own Red Slime, rather than combat -- no weapon/retaliate/
+    // combat-cleanup timing to fight, and (per the powered-defender-dealt-damage-summons-
+    // powercell precedent) a single cast resolves immediately with no extra PASS actions needed.
+    'setup' => [
+        // Guo Jia, Chosen Disciple: plain single-class TAMER champion with no special-cased
+        // ObjectCurrentHP/FieldAfterAdd logic (unlike Silvie, Wilds Whisperer, whose "next
+        // Animal/Beast ally enters with a buff counter" passive silently buffed Red Slime's
+        // life from 2 to 3 -- Red Slime is subtyped BEAST -- and made it survive exactly-lethal
+        // damage; verified live via a temporary debug print in OnDealDamage).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'j6dkdoxyqt'], // Guo Jia, Chosen Disciple -- TAMER champion, satisfies Red Slime's Class Bonus
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mttsvbgl6f'], // Red Slime, life 2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Lewf9sfv9m'], // Golden Pawn, life 1 -- On Death: Draw a card
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'loSCQzxqi1'], // Heavenly Drake, life 3 -- On Death: Recover 3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ra9950o14t'], // Charge the Soul #1 -- myHand-7
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ra9950o14t'], // Charge the Soul #2 -- myHand-8
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        // Cast #1: myHand-7, pay 1 reserve with myHand-0, target Red Slime at myField-2
+        // (champion=0, Silvie=1, Red Slime=2, Golden Pawn=3, Heavenly Drake=4).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the Effect Stack Opportunity's "play a fast card in response" offer
+        // (the second Charge the Soul copy, myHand-6) so the first cast resolves first.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Target Red Slime (myField-2) with the first Charge the Soul.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        // Cast #2: second Charge the Soul copy, now at myHand-6 after the first cast + its
+        // reserve-cost payment each removed one card ahead of it. First cast's target-response
+        // (mode=100, myHand-N) worked without FSM because it was answering the still-open
+        // OpportunityWindowFirstResponse MZMAYCHOOSE left over from the P1/P2 health-passes --
+        // once that resolves to a clean MAIN-phase state (decisionQueue=0), a fresh play needs
+        // the normal FSM free-play click instead.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        // The fix under test: Red Slime's death sweep just killed both Golden Pawn and Heavenly
+        // Drake simultaneously, and the controller is now asked to choose their stacking order
+        // (MZCHOOSE:myGraveyard-3&myGraveyard-4 / TriggerOrderPickResolve) instead of them
+        // silently auto-resolving in a hardcoded order. Pick myGraveyard-3 (Golden Pawn) first.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-3', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// ---------------------------------------------------------------------------
+// playCardAbilities dispatch coverage batch: the remaining 13 entries besides
+// qtzsekkjn3 (see vainglory-retribution-play-card-trigger above). Confirmed via
+// FirePlayCardTriggeredAbility instrumentation that NONE of these 13 ever fired
+// across the full pre-fix suite -- the earlier assumption that 12 of 14 already
+// had fixture coverage was wrong; grep hits on these CardIDs in other fixtures'
+// gamestate dumps were decklist/hand noise, not an actual play of the card.
+// ---------------------------------------------------------------------------
+
+$fillerDeck = <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK;
+
+$bigFillerDeck = <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+10 Dungeon Guide
+10 Fairy Whispers
+10 Fluffy Shopkeep
+10 Stocked Outpost
+DECK;
+
+// --- Lesser Boon of Shou: As gained, put an enlighten counter on your champion (rSIXf50oBc) ---
+$fixtures['lesser-boon-of-shou-enlighten-on-play'] = [
+    'testedCards' => ['rSIXf50oBc'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rSIXf50oBc'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Greater Boon of Shou: As gained, draw a card (Zw0T2GmowK) ---
+$fixtures['greater-boon-of-shou-draw-on-play'] = [
+    'testedCards' => ['Zw0T2GmowK'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Zw0T2GmowK'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Cavalier Rescue: target ally gains a turn effect (+3 LIFE until EOT) (75uhspxqme) ---
+$fixtures['cavalier-rescue-target-turn-effect'] = [
+    'testedCards' => ['75uhspxqme'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['TurnEffects' => []]], // Dungeon Guide, target ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '75uhspxqme'],
+    ],
+    // The target MZCHOOSE fires immediately once reserve is paid (negating/targeting something
+    // still mid-resolution doesn't open a fresh Opportunity window) -- see the note on
+    // astral-seal-negate-activation-banish. Answer it as the very next action; a PASS submitted
+    // first would be misapplied against that pending MZCHOOSE and the effect would silently never
+    // land, even though replay still "verifies" against the (also-silently-wrong) recorded state.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Tempest Downfall: deal 3 damage to target ally/champion (4etkr73opc) ---
+$fixtures['tempest-downfall-target-damage'] = [
+    'testedCards' => ['4etkr73opc'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        // A permanent lineage unlock, not PRISMATIC_CODEX_IGNORE_ELEMENT: that self-consuming
+        // bypass is checked (and consumed) TWICE for a single activation -- once by
+        // CanActivateCard()'s own element gate, again by DoActivateCard()'s redundant
+        // CanPlayerUseCardElement($player,$cardID,true,true) call -- so a 1-stack budget is
+        // silently exhausted by the first check and the second always fails, aborting the whole
+        // activation with no decision ever queued and no error.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['TurnEffects' => []]], // Dungeon Guide, target ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4etkr73opc'],
+    ],
+    // The lineage-unlocked activation opens a real Opportunity window (other WIND-eligible filler
+    // copies remain in hand), unlike the "nothing left to offer" fixtures elsewhere in this file --
+    // decline it ('-') so 4etkr73opc itself resolves and its on-play target MZCHOOSE is queued,
+    // then answer that immediately (see astral-seal-negate-activation-banish's note).
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Rebounding Gust: move target ally to its controller's memory (9e0z7hb9id) ---
+$fixtures['rebounding-gust-target-to-memory'] = [
+    'testedCards' => ['9e0z7hb9id'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // opponent's Dungeon Guide, target ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9e0z7hb9id'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sleety Retreat: target Ranger ally/champion becomes distant (j9fkuzgg9i) ---
+$fixtures['sleety-retreat-target-distant'] = [
+    'testedCards' => ['j9fkuzgg9i'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ki6fxxgmue', 'setProperties' => ['TurnEffects' => []]], // Bertha, Spry Howitzer (RANGER ally)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'j9fkuzgg9i'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Enervating Decay: destroy target opposing ally, recover champion its HP (jh9s424gjr) ---
+$fixtures['enervating-decay-target-destroy-recover'] = [
+    'testedCards' => ['jh9s424gjr'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1'], 'Damage' => 5]], // TERA lineage/element unlock + pre-existing damage for the recover assertion
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // opponent's Dungeon Guide, target ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'jh9s424gjr'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Pouvoir Absolu: banish top 10 own deck, add omen counters ([Ciel Bonus]) (OylAWd6Tew) ---
+$fixtures['pouvoir-absolu-banish-top10-omen'] = [
+    'testedCards' => ['OylAWd6Tew'],
+    'deck' => $bigFillerDeck,
+    'setup' => [
+        ['player' => 1, 'globalEffect' => 'PRISMATIC_CODEX_IGNORE_ELEMENT'], // UMBRA unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'AOMXEGeSQk'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'AOMXEGeSQk'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'AOMXEGeSQk'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'AOMXEGeSQk'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'OylAWd6Tew'],
+    ],
+    'actions' => array_merge(
+        [['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-21!FSM!', 'chkInput' => [], 'inputText' => '']],
+        array_fill(0, 13, ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => '']),
+        [
+            ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+            ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+            ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+            ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ]
+    ),
+];
+
+// --- Lesser Boon of Kanaloa: both players discard 3 (P8sbt2gXkn) ---
+$fixtures['lesser-boon-of-kanaloa-both-discard-3'] = [
+    'testedCards' => ['P8sbt2gXkn'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'P8sbt2gXkn'],
+    ],
+    // The on-play trigger (both players discard 3) fires immediately once reserve is paid -- no
+    // Opportunity-window passes needed or possible here. A PASS submitted against the pending
+    // discard MZCHOOSE is treated by DiscardChosenCard as "discard nothing" (it explicitly no-ops
+    // on "-"/""/"PASS"), silently eating one of the six discard rounds per stray PASS -- see the
+    // note on astral-seal-negate-activation-banish for the general pattern.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Lesser Boon of Territories: scavenge 10 for a Domain card (ZpM7gliLxm) ---
+$fixtures['lesser-boon-of-territories-scavenge-domain'] = [
+    'testedCards' => ['ZpM7gliLxm'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Stocked Outpost
+4 Stocked Outpost
+4 Stocked Outpost
+4 Stocked Outpost
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ZpM7gliLxm'],
+    ],
+    // The scavenge choice fires immediately once reserve is paid (see the note on
+    // astral-seal-negate-activation-banish); a PASS against that pending MZCHOOSE is treated by
+    // ScavengeChoose as "decline" and silently skips the scavenge instead of answering it.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Astral Seal: negate target activation, banish it (e3aebjvwbc) ---
+$fixtures['astral-seal-negate-activation-banish'] = [
+    'testedCards' => ['e3aebjvwbc'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        // A real lineage-based unlock (not the self-consuming PRISMATIC_CODEX_IGNORE_ELEMENT
+        // bypass) -- that bypass is consumed once per non-NORM card *considered* while the engine
+        // assembles the opportunity-window candidate list, not just once per card actually played,
+        // so it silently starves out before reaching the real activation in a multi-candidate
+        // window. A permanent lineage unlock has no such budget.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], // ASTRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (NORM ALLY, no element unlock needed), bait activation to negate
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'e3aebjvwbc'],
+    ],
+    // Play Dungeon Guide (materialize, 3 reserve), then in its Opportunity window the engine offers
+    // every fast-eligible hand card at once (MZMAYCHOOSE lists them "&"-joined) -- pick Astral Seal
+    // specifically among the offered candidates. Once Astral Seal's own 3 reserve is paid, its
+    // on-play trigger fires *immediately* off the same call (no further Opportunity-window passes
+    // needed -- negating something still mid-resolution doesn't open a new window) and queues the
+    // MZCHOOSE target choice right there, so it must be answered as the very next action.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Choose EffectStack-0 (Dungeon Guide) to negate/banish, not EffectStack-1 (Astral Seal's
+        // own still-resolving trigger entry, also offered as a technically-legal but wrong target).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Annul Spell: negate target SPELL activation unless controller pays 3 (u817uqlk1j) ---
+$fixtures['annul-spell-negate-spell-activation'] = [
+    'testedCards' => ['u817uqlk1j'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        // Both u817uqlk1j (NORM) and its bait (Charge the Soul, also NORM) need no element unlock.
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ra9950o14t'], // Charge the Soul (NORM SPELL), bait activation to negate
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'u817uqlk1j'],
+    ],
+    // Play Charge the Soul (materialize/activate, 1 reserve), then in its Opportunity window respond
+    // with Annul Spell (myHand-6 at this point). Once Annul Spell's own 3 reserve is paid, its
+    // on-play trigger fires immediately (no further Opportunity-window passes) and queues the
+    // MZCHOOSE target choice, which must be answered as the very next action. Since self-controller
+    // still has exactly 3 reserve-payable cards left (>= payAmount 3), the engine then asks Charge
+    // the Soul's controller (also player 1) whether to pay 3 to prevent the negate -- answer NO so
+    // the negate actually fires.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-6', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Imperial Accord: negate target advanced-element activation unless controller pays 6 (1S7Q5fqX5u) ---
+$fixtures['imperial-accord-negate-advanced-element'] = [
+    'testedCards' => ['1S7Q5fqX5u'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        // Permanent lineage unlocks (see astral-seal-negate-activation-banish's note on why not
+        // PRISMATIC_CODEX_IGNORE_ELEMENT): NEOS for the bait, EXALTED + WATER for Imperial Accord
+        // itself (a dual-element card).
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['n2jnltv5kl', 'KqBosnU7pU', 'tafqldAGRF']]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4n1n3gygoj'], // Neos Sight (NEOS, advanced element), bait activation to negate
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '1S7Q5fqX5u'],
+    ],
+    // Play Neos Sight (free, reserve 0) -- its Opportunity window offers Imperial Accord as a fast
+    // response. Once Imperial Accord's own 2 reserve is paid, its on-play trigger fires immediately
+    // and queues the MZCHOOSE target choice, answered as the very next action. Imperial Accord's
+    // "pay 6 to prevent" check needs the target's controller (self, player 1) to have >= 6
+    // reserve-payable cards; after paying for both cards, far fewer than 6 remain, so the engine
+    // auto-negates with no further YES/NO prompt.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// =============================================================================
+// Zander Pantheon Starter deck semantic fixtures
+// =============================================================================
+
+// --- Thieving Cut: Prepare 1, On Hit draw a card if it was prepared ---
+$fixtures['thieving-cut-prepare-onhit-draw'] = [
+    'testedCards' => ['7t9m4muq2r'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Thieving Cut's element is NORM, so no lineage patch is needed. ATTACK cards can't be
+    // activated by the game's first player on turn 1 (CanActivateAttackCardNow/
+    // IsFirstTurnAttackLocked in GameLogic.php), so player 1 ends turn 1 first and player 2 plays
+    // Thieving Cut on their own turn 1 instead (same turn-cycle shape as
+    // bulwark-sword-class-bonus-attack-cost). Player 2's champion is pre-seeded with 1 preparation
+    // counter directly (normally only reachable via a separate preparation-counter-granting
+    // effect) so its "Prepare 1" additional cost (remove 1 preparation counter as you activate it,
+    // CardActivated macro 7t9m4muq2r:0 in GeneratedMacroCode.php) can actually be paid. Answering
+    // YES stores wasPrepared=YES via DecisionQueueController; the On Hit macro (7t9m4muq2r:0
+    // onHitAbilities) reads that variable back and draws a card only when it is "YES" -- a card
+    // that was never marked prepared would not draw.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 1]]], // Prepare-ability cost fuel
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '7t9m4muq2r'], // Thieving Cut, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Find the Lost: Prepare 1, as long as prepared it has unblockable ---
+$fixtures['find-the-lost-prepare-unblockable'] = [
+    'testedCards' => ['jTBNAEedbg'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Find the Lost's element is NORM (same pattern as thieving-cut-prepare-onhit-draw), so no
+    // lineage patch is needed. ATTACK cards can't be activated by the game's first player on
+    // turn 1 (CanActivateAttackCardNow/IsFirstTurnAttackLocked in GameLogic.php), so player 1
+    // ends turn 1 first and player 2 plays Find the Lost on their own turn 1 instead. Player 2's
+    // champion is pre-seeded with 1 preparation counter directly (normally only reachable via a
+    // separate preparation-counter-granting effect) so its "Prepare 1" additional cost (remove 1
+    // preparation counter as you activate it) can actually be paid.
+    //
+    // This exercises the OnCardActivated()/GameLogic.php fix for the PREPARED-tagging bug: before
+    // the fix, OnCardActivated's ATTACK branch read the "wasPrepared" DecisionQueueController
+    // variable and tagged the just-created myIntent object synchronously, in the same function
+    // call that moves the card there -- before $cardActivatedAbilities["jTBNAEedbg:0"] (called
+    // later in that same function) even queues the "Pay Prepare 1?" YES/NO decision, let alone
+    // before the player answers it. So the PREPARED TurnEffect was never actually applied off a
+    // genuine payment. The fix instead queues a "GA_TagPreparedAttack" follow-up CUSTOM decision
+    // right after the card's own CardActivated macro runs, so it resolves strictly after the
+    // Prepare decision does and reads the correct, just-finalized wasPrepared value. Verified
+    // live: answering YES removes the preparation counter and (post-fix) tags myIntent-0 with
+    // "PREPARED" -- the same TurnEffect CombatLogic.php's AttackBypassesInterceptAndTaunt() reads
+    // to grant unblockable. The fixture stops right after that YES answer (before declaring the
+    // attack target) so the assertion can check the tag directly on the still-live intent object
+    // -- declaring the attack fully resolves combat in the same step (no interceptor on the
+    // default board to require a separate decision), which moves the card out of myIntent
+    // entirely and destroys the very state this fixture is about. Checking the TurnEffect
+    // directly (same precedent as e.g. crystalline-reality-merlin-bonus-prepare-choose-two's
+    // Counters assertion) is the semantic proof, not a further downstream combat simulation.
+    // Break/restore verified: reverting to the old synchronous read makes the TurnEffects
+    // assertion fail (myIntent-0 TurnEffects comes back "[]" instead of '["PREPARED"]');
+    // restoring the fix passes again.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 1]]], // Prepare-ability cost fuel
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'jTBNAEedbg'], // Find the Lost, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Insignia of the Corhazi: (3), REST: put a preparation counter on your champion ---
+$fixtures['insignia-of-corhazi-rest-prepare'] = [
+    'testedCards' => ['52u81v4c0z'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Insignia of the Corhazi is seeded directly onto the field (same pattern as
+    // necklace-of-foresight-banish-glimpse) rather than played from hand, so its materialize flow
+    // is out of scope -- this fixture is only about the always-available "(3), [REST]: put a
+    // preparation counter" activated ability (CardActivated macro 52u81v4c0z:0 in
+    // GeneratedMacroCode.php). Its element is LUXEM, and DoActivateCard()'s
+    // CanPlayerUseCardElement() gate applies to a field item's reserve-cost activated ability the
+    // same as a hand play (verified live -- with the default FIRE/NORM starting champion, the
+    // whole activation silently no-ops before ever reaching MZMove to the EffectStack), so the
+    // starting champion's CardID is patched directly to Zander, Blinding Steel (LUXEM, ASSASSIN).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE']], // Zander, Blinding Steel (LUXEM) - element-requirement precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '52u81v4c0z'], // Insignia of the Corhazi, seeded straight onto the field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Orb of Choking Fumes: Banish -- opponents' cards cost 1 more this turn; Class Bonus draw ---
+$fixtures['orb-of-choking-fumes-banish-cost-cb-draw'] = [
+    'testedCards' => ['llQe0cg4xJ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Orb of Choking Fumes is seeded directly onto the field (materialize flow out of scope, same
+    // as insignia-of-corhazi-rest-prepare). The starting champion's CardID is patched directly to
+    // Zander, Deft Executor (ASSASSIN) so IsClassBonusActive($player, ["ASSASSIN"]) is true for the
+    // ActivateAbility macro's Class Bonus draw clause.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'fc4ic5fmaa']], // Zander, Deft Executor (ASSASSIN) - Class Bonus precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'llQe0cg4xJ'], // Orb of Choking Fumes, seeded straight onto the field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Uncover the Plot: target player reveals memory, draw; Class Bonus +2 preparation ---
+$fixtures['uncover-the-plot-reveal-draw-prepare'] = [
+    'testedCards' => ['4zkTRt8qXn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Uncover the Plot's element is LUXEM, so the starting champion's CardID is patched directly
+    // to Zander, Blinding Steel (LUXEM, ASSASSIN) -- both the element-requirement precondition to
+    // activate it at all and the Class Bonus preparation-counter clause. A filler card is seeded
+    // into the OPPONENT's memory ('theirMemory' with player=>1, i.e. player 2's memory -- setup
+    // zone names are relative to the acting player) so the "target player reveals all cards in
+    // their memory" half has something to reveal, observable via the "REVEAL:<cardID>" flash
+    // message DoRevealCard() sets (GameLogic.php).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE']], // Zander, Blinding Steel (LUXEM, ASSASSIN)
+        ['player' => 1, 'zone' => 'theirMemory', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, seeded into the opponent's (player 2's) memory
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4zkTRt8qXn'], // Uncover the Plot, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Bathe in Light: Recover 4; at the beginning of your next recollection phase, Recover 4 ---
+$fixtures['bathe-in-light-recover-delayed'] = [
+    'testedCards' => ['d9zax2g20h'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Bathe in Light's element is LUXEM; the starting champion's CardID is patched directly to
+    // Zander, Blinding Steel (LUXEM) so it can be legally activated, and its Damage is pre-set to
+    // 10 so the unconditional "Recover 4" is observable as a Damage decrease. The delayed "at your
+    // next recollection phase, Recover 4" half is out of scope (would require advancing a full
+    // turn cycle); the immediate Recover 4 and the BATHE_IN_LIGHT_RECOVER global effect it
+    // schedules (GameLogic.php CardActivated macro) are both directly asserted.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE', 'Damage' => 10]], // Zander, Blinding Steel (LUXEM) + damage precondition
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'd9zax2g20h'], // Bathe in Light, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Cunning Broker: [REST], remove two preparation counters from your champion: Draw a card ---
+$fixtures['cunning-broker-rest-remove-prep-draw'] = [
+    'testedCards' => ['oy34bro89w'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Cunning Broker is seeded directly onto the field (materialize flow out of scope). The
+    // starting champion is pre-seeded with 2 preparation counters so the activated ability's cost
+    // (remove 2 preparation counters from your champion, gated by ActivatedAbilityCost() in
+    // GameLogic.php requiring >= 2) can actually be paid.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 2]]], // Ability cost fuel
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'oy34bro89w'], // Cunning Broker, seeded straight onto the field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Disenchant: Destroy target phantasia ---
+$fixtures['disenchant-destroy-phantasia'] = [
+    'testedCards' => ['zd83net7x0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Disenchant's element is NORM, so no lineage patch is needed. Scorching Imperilment
+    // (aj7pz79wsp, a PHANTASIA card) is seeded onto the opponent's field as the destroy target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'aj7pz79wsp'], // Scorching Imperilment (PHANTASIA), destroy target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zd83net7x0'], // Disenchant, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Nimble Court Assassin: Ambush, Vigor; On Enter you gain agility 3 for this turn ---
+$fixtures['nimble-court-assassin-enter-agility'] = [
+    'testedCards' => ['i2vPUpbPEl'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Nimble Court Assassin's element is EXALTED (an advanced element enabled only while another
+    // advanced element is enabled), so the starting champion's Subcards are patched with a real
+    // TERA champion to unlock element access generically the same way other advanced-element
+    // fixtures do (Exalted enables off ANY other advanced element being enabled).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock (enables Exalted too)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'i2vPUpbPEl'], // Nimble Court Assassin, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sacred Barrier: the next non-combat damage to each ally this turn is prevented by 4 ---
+$fixtures['sacred-barrier-prevent-noncombat'] = [
+    'testedCards' => ['hYDqthNDpB'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Sacred Barrier's element is NORM, so no lineage patch is needed. Cunning Broker (an ALLY
+    // with no On Enter trigger of its own, unlike Fluffy Shopkeep/Dungeon Guide -- verified live
+    // that seeding either of those left a dangling MZMAYCHOOSE/CUSTOM Enter decision in the queue
+    // that blocked every subsequent FSM action) is seeded onto the field as the beneficiary of the
+    // "each ally" clause. Activating a card puts it on the EffectStack behind an Opportunity
+    // window (verified live via a throwaway EffectStack/DQ dump) -- both players must pass their
+    // response window (P1's own MZMAYCHOOSE offering to respond by activating Cunning Broker's
+    // Rest ability, then P2's) before Sacred Barrier actually resolves.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'oy34bro89w'], // Cunning Broker (ALLY, no On Enter trigger)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hYDqthNDpB'], // Sacred Barrier, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Accepted Contract: Put three preparation counters on your champion ---
+$fixtures['accepted-contract-prepare-three'] = [
+    'testedCards' => ['uZCyXDNJ6I'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Accepted Contract's element is NORM, so no lineage patch is needed.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uZCyXDNJ6I'], // Accepted Contract, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Increasing Danger: Draw a card. Each player draws a card into their memory ---
+$fixtures['increasing-danger-draw-memory'] = [
+    'testedCards' => ['7tUvIHeo0i'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Increasing Danger's element is FIRE, matching the starting champion, so no lineage patch is
+    // needed.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '7tUvIHeo0i'], // Increasing Danger, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Shared Fervor: Each player draws a card into their memory. You gain the Crowd's Favor status ---
+$fixtures['shared-fervor-memory-crowds-favor'] = [
+    'testedCards' => ['RnUpMoSb4w'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Shared Fervor's element is NORM, so no lineage patch is needed.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'RnUpMoSb4w'], // Shared Fervor, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Tenderheart Guard: On Enter, each player may discard to draw into memory; gain Crowd's Favor ---
+$fixtures['tenderheart-guard-enter-discard-draw-crowds-favor'] = [
+    'testedCards' => ['0ZWcrEsFHA'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Tenderheart Guard's element is FIRE, matching the starting champion, so no lineage patch is
+    // needed. Both players answer YES to the discard-to-draw-into-memory offer so both halves of
+    // the trigger (TenderheartGuardEnter -> TenderheartGuardDiscard -> TenderheartGuardDrawMemory,
+    // CardDQHandlers.php) are exercised, plus the unconditional GainCrowdsFavor() call.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '0ZWcrEsFHA'], // Tenderheart Guard, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Wandering Glaivier: On Death, each player draws a card ---
+$fixtures['wandering-glaivier-on-death-draw'] = [
+    'testedCards' => ['p6120p3f5d'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Wandering Glaivier's element is FIRE, matching the starting champion, so no lineage patch is
+    // needed. Rule 1.h blocks the game's first player from attacking at all on turn 1 (any attack,
+    // not just ATTACK-type cards -- BeginCombatPhase() in CombatLogic.php), so player 1 ends turn 1
+    // first and player 2 attacks with Wandering Glaivier on their own turn 1 instead (same
+    // turn-cycle shape as thieving-cut-prepare-onhit-draw). It is seeded directly onto player 2's
+    // field, awake, so it can attack immediately. Its 1 Life means any retaliate damage kills it --
+    // but the starting champion's printed POWER is blank/0 (CardPower() returns -1, verified live),
+    // so it is NOT itself a legal retaliator (GetRetaliatorOptions requires POWER > 0). A Dungeon
+    // Guide (1 POWER, no dangling On Enter decision when seeded this way -- verified live, unlike
+    // Fluffy Shopkeep which leaves an unresolved MZMAYCHOOSE/CUSTOM Enter chain in the queue) is
+    // seeded onto player 1's own field instead as the retaliator. Player 1 accepts the
+    // "Retaliate?" MZMAYCHOOSE with it (myField-1 from their perspective), which deals 1 combat
+    // damage back to Wandering Glaivier and destroys it, firing its On Death trigger. Only the
+    // attack's actual TARGET is offered as a retaliator (GetRetaliatorOptions in CombatLogic.php
+    // otherwise only allows specific hardcoded Ambush-style cards to retaliate without being
+    // targeted -- a plain awake/positive-power ally that wasn't the target is NOT offered,
+    // verified live), so Dungeon Guide itself -- not the champion -- is the attack's target.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'p6120p3f5d'], // Wandering Glaivier
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (1 POWER) - attack target and retaliator
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can retaliate
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Wandering Glaivier
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // accept Retaliate with Dungeon Guide
+    ],
+];
+
+// --- Sable Remnant: [Class Bonus] +1 POWER ---
+$fixtures['sable-remnant-class-bonus-power'] = [
+    'testedCards' => ['8n4zw4gq5w'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Sable Remnant's element is NORM, so only the Class Bonus condition needs a precondition:
+    // the starting champion's CardID is patched directly to Zander, Deft Executor (ASSASSIN) so
+    // IsClassBonusActive($player, ["ASSASSIN"]) is true. Sable Remnant's printed POWER is 1
+    // (verified via CardPower()); the computed_power_equals assertion of 2 is only possible if the
+    // static +1 POWER case in GameLogic.php's power-modifier switch actually applied. A single
+    // harmless "end turn 1" action is included even though nothing about ending the turn matters
+    // to this static ability -- RunIntegrationTests.php's step-0 (pre-action) assertion check
+    // never calls ParseGamestate() itself, so with zero actions it reads stale runtime globals
+    // left over from whichever fixture ran immediately before this one in the same process
+    // (verified live: computed_power_equals came back as an unrelated leftover value), while the
+    // step-1 (post-action) check is always evaluated against this fixture's own freshly-parsed
+    // state.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'fc4ic5fmaa']], // Zander, Deft Executor (ASSASSIN)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '8n4zw4gq5w'], // Sable Remnant, seeded straight onto the field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // harmless: ends turn 1
+    ],
+];
+
+// --- Photic Blade: gets +1 POWER for each refinement counter on it ---
+$fixtures['photic-blade-refinement-power'] = [
+    'testedCards' => ['NRBO0nVMdl'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Photic Blade's element is LUXEM, but it is seeded directly onto the field (materialize flow
+    // out of scope, same pattern as necklace-of-foresight-banish-glimpse), so no lineage patch is
+    // needed for this always-on static clause. It is pre-seeded with 2 refinement counters
+    // directly (normally only reachable via its own [Class Bonus] recover-triggered listener,
+    // which is out of scope here). Photic Blade's printed POWER is 3 (verified via CardPower());
+    // the computed_power_equals assertion of 5 is only possible if the +1-per-refinement-counter
+    // static case in GameLogic.php's power-modifier switch actually applied. A single harmless
+    // "end turn 1" action is included so the assertion runs against step 1 (this fixture's own
+    // freshly-parsed state) rather than step 0, which RunIntegrationTests.php evaluates before
+    // ever calling ParseGamestate() for this fixture (verified live -- see
+    // sable-remnant-class-bonus-power's note for the same gotcha).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'NRBO0nVMdl', 'setProperties' => ['Counters' => ['refinement' => 2]]], // Photic Blade, 2 refinement counters
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // harmless: ends turn 1
+    ],
+];
+
+// --- Elyan, Lustre Loyalty: [Class Bonus] whenever you recover, +X POWER (X = amount recovered) ---
+$fixtures['elyan-lustre-loyalty-recover-power'] = [
+    'testedCards' => ['2jgiM0p4dt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Elyan's element is LUXEM; the starting champion's CardID is patched directly to Zander,
+    // Blinding Steel (LUXEM, ASSASSIN) both for its own element-requirement precondition (Bathe in
+    // Light, used to trigger a real recover event, is also LUXEM) and Elyan's own [Class Bonus]
+    // condition. Elyan is seeded directly onto the field. The champion's Damage is pre-set to 10
+    // so Bathe in Light's Recover 4 is a real, observable recover event that fires the recover
+    // listener in GameLogic.php (~line 18437), which both tags Elyan with the
+    // "2jgiM0p4dt_RECOVER_4" TurnEffects entry (+4 POWER, since 4 >= 4 also grants UNBLOCKABLE)
+    // and -- because the recovered amount is >= 4 -- grants unblockable, both asserted below.
+    // Elyan's printed POWER is 2 (verified via CardPower()); computed_power_equals of 6 is only
+    // possible if the +X-per-recover-amount static case actually applied with X=4.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE', 'Damage' => 10]], // Zander, Blinding Steel (LUXEM, ASSASSIN) + damage precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2jgiM0p4dt'], // Elyan, Lustre Loyalty
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'd9zax2g20h'], // Bathe in Light, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Lightveil Agent: whenever you recover, put a buff counter on CARDNAME ---
+$fixtures['lightveil-agent-recover-buff-counter'] = [
+    'testedCards' => ['jcaLgesx0e'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lightveil Agent's element is LUXEM; the starting champion's CardID is patched directly to
+    // Zander, Blinding Steel (LUXEM) so Bathe in Light (also LUXEM) can be legally activated. The
+    // champion's Damage is pre-set to 4 so Bathe in Light's Recover 4 is a real, observable
+    // recover event that fires the unconditional (no Class Bonus needed) recover listener in
+    // GameLogic.php (~line 18447), which puts a buff counter on Lightveil Agent.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE', 'Damage' => 4]], // Zander, Blinding Steel (LUXEM) + damage precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'jcaLgesx0e'], // Lightveil Agent
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'd9zax2g20h'], // Bathe in Light, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Epochal Conqueror: as long as it's attacking a domain, it gets +3 POWER ---
+$fixtures['epochal-conqueror-attack-domain-power'] = [
+    'testedCards' => ['gR3LGjzKPS'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Epochal Conqueror's element is NORM, so no lineage patch is needed. Rule 1.h blocks the
+    // game's first player from attacking on turn 1, so player 1 ends turn 1 and player 2 attacks
+    // with Epochal Conqueror on their own turn 1 instead. Baidi, Oathsworn Palace (a plain DOMAIN
+    // card with only a static ability and no activated ability of its own -- Bedlam Borough's own
+    // "(2), REST: Cascade" activated ability was tried first but kept re-offering itself as a
+    // perpetual Opportunity choice that never actually declined, verified live) is seeded onto the
+    // opponent's field as the attack target; IsSiegeable() recognizes it via its SIEGEABLE
+    // subtype, the actual condition GameLogic.php's power-modifier switch checks (not the DOMAIN
+    // card type itself). Since the +3 POWER only applies transiently while CombatAttacker is set
+    // (cleared again once combat fully resolves within the same action), it is proven indirectly:
+    // the domain's durability drops by 4 (1 printed POWER + 3), not just 1.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'gR3LGjzKPS'], // Epochal Conqueror
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '43rtqovkti', 'setProperties' => ['Counters' => ['durability' => 5]]], // Baidi, Oathsworn Palace (DOMAIN/SIEGEABLE)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Epochal Conqueror
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Baidi, Oathsworn Palace
+    ],
+];
+
+// --- Curved Dagger: [Class Bonus] as long as your champion is attacking an ally, +1 POWER ---
+$fixtures['curved-dagger-class-bonus-attack-ally-power'] = [
+    'testedCards' => ['Q2ugqVm04E'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Curved Dagger's element is NORM. The starting champion's CardID is patched directly to
+    // Zander, Deft Executor (ASSASSIN) for the Class Bonus condition. Rule 1.h blocks the game's
+    // first player from attacking on turn 1, so player 1 ends turn 1 and player 2's champion
+    // attacks (equipped with Curved Dagger) targeting a Dungeon Guide ally on their turn 1
+    // instead. Curved Dagger's printed POWER is 1, and the champion's own printed POWER is blank
+    // (-1, so it contributes nothing) -- since the +1 POWER is only active transiently while
+    // CombatAttacker/CombatTarget are set (cleared again once combat fully resolves within the
+    // same action, so a computed_power_equals snapshot after the fact can't observe it, verified
+    // live), it is instead proven indirectly via the ally taking 2 damage, not just 1. The
+    // defender's "Retaliate?" MZMAYCHOOSE (Dungeon Guide itself, being the target with positive
+    // POWER, is eligible) must be explicitly declined so CombatApplyAttackerDamage actually lands.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'fc4ic5fmaa']], // Zander, Deft Executor (ASSASSIN)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'Q2ugqVm04E', 'setProperties' => ['Counters' => ['durability' => 1]]], // Curved Dagger, usable
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - attack target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Curved Dagger as the weapon
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so CombatApplyAttackerDamage actually lands
+    ],
+];
+
+// --- Piquant Shieldbearer: Taunt forces attackers to target it first while awake ---
+$fixtures['piquant-shieldbearer-taunt-forces-target'] = [
+    'testedCards' => ['Cvvvxlf0hi'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Piquant Shieldbearer's element is NORM, so no lineage patch is needed. Rule 1.h blocks the
+    // game's first player from attacking on turn 1, so player 1 ends turn 1 and player 2 attacks
+    // on their own turn 1 instead. The starting champion's printed POWER is blank/0
+    // (CardPower() returns -1, verified live), so BeginCombatPhase() silently refuses to let it
+    // attack at all with no weapon equipped -- a Dungeon Guide (1 POWER) is seeded onto player 2's
+    // field as the actual attacker instead. Piquant Shieldbearer is seeded onto player 1's field,
+    // awake, so its printed Taunt (parsed generically by HasKeyword_Taunt from the card text,
+    // GeneratedCode/GeneratedKeywordCode.php) applies. GetLegalAttackTargets()/the Taunt filter in
+    // CombatLogic.php (~line 512-525) restricts targeting to awake Taunt units when any exist, so
+    // attempting to target the champion directly is an illegal selection -- rejected here as
+    // negative-path semantic evidence -- and only the Taunt unit itself may then be legally
+    // targeted.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Cvvvxlf0hi'], // Piquant Shieldbearer (Taunt), awake
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (1 POWER) - actual attacker
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Dungeon Guide
+        [
+            'playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => '',
+            'expectFailure' => true, 'semantic' => true, 'label' => 'Cannot target the champion directly while an awake Taunt unit is present',
+        ],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // legal: target the Taunt unit itself
+    ],
+];
+
+// --- Hasty Messenger: On Attack, you may discard a card to draw a card ---
+$fixtures['hasty-messenger-on-attack-discard-draw'] = [
+    'testedCards' => ['DsiRzt0trX'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Hasty Messenger's element is FIRE, matching the starting champion, so no lineage patch is
+    // needed. Rule 1.h blocks the game's first player from attacking on turn 1, so player 1 ends
+    // turn 1 and player 2 attacks with Hasty Messenger on their own turn 1 instead.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'DsiRzt0trX'], // Hasty Messenger
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Hasty Messenger
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // discard a card
+    ],
+];
+
+// --- Zander, Prepared Scout: On Enter, Glimpse 2, put a preparation counter on itself ---
+$fixtures['zander-prepared-scout-enter-glimpse-prepare'] = [
+    'testedCards' => ['T3CIBknts0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Zander, Prepared Scout
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Zander, Prepared Scout is level 1, one level above the default level-0 starting champion
+    // (Spirit of Fire), so no lineage/element patch is needed -- 0->1 is a legal level-up
+    // (CanChampionLevelUpIntoCard() in GameLogic.php requires targetLevel === currentLevel + 1;
+    // same shape as tonoris-lone-mercenary-on-enter-taunt). Its NORM element is always playable.
+    // Champion-swap materialization is only offered through the material-phase MZMAYCHOOSE at the
+    // start of a turn, so both players end their first turn (P1 -> P2) to reach that prompt on
+    // P1's next turn. Its printed cost is 1 memory, paid from a filler card seeded directly into
+    // myMemory. Choosing it completes the swap and its On Enter ability (GeneratedMacroCode.php
+    // enterAbilities["T3CIBknts0:0"]) both Glimpses 2 (resolved via the Top=/Bottom= deck-order
+    // decision) and puts a preparation counter on itself.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay the 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=n8wyfG9hbY,em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''], // Glimpse 2: keep deck order unchanged
+    ],
+];
+
+// --- Imperial Spy: On Kill, put a preparation counter on your champion ---
+$fixtures['imperial-spy-onkill-prepare'] = [
+    'testedCards' => ['l6gt7lh9v2'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Imperial Spy's element is NORM, so no lineage patch is needed. Rule 1.h blocks the game's
+    // first player from attacking on turn 1, so player 1 ends turn 1 and player 2 attacks with
+    // Imperial Spy on their own turn 1 instead. A directly-patched Damage precondition on a
+    // freshly-seeded ally does NOT survive ending the turn -- GA's recollection/end-of-turn
+    // processing clears Damage back to 0 for any object whose Damage was set outside a real
+    // damage event (verified live: a Dungeon Guide seeded with Damage=2 read back as Damage=0
+    // immediately after the very next "end turn" action, before combat ever ran) -- so instead of
+    // pre-damaging a 3-Life ally, Wandering Glaivier (1 Life, from this same Pantheon pool) is
+    // used as the kill target: Imperial Spy's printed 2 POWER is lethal on a single fresh hit with
+    // no precondition needed. The defender's "Retaliate?" MZMAYCHOOSE (Wandering Glaivier, being
+    // the target with positive POWER, is eligible) must be explicitly declined so
+    // CombatApplyAttackerDamage actually lands and kills it, firing Imperial Spy's On Kill trigger.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'l6gt7lh9v2'], // Imperial Spy
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'p6120p3f5d'], // Wandering Glaivier (1 Life) - kill target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Imperial Spy
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Wandering Glaivier
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so CombatApplyAttackerDamage actually lands the kill
+    ],
+];
+
+// --- Corhazi Infiltrator: Whenever you reveal it from memory, may put a copy from memory to field ---
+$fixtures['corhazi-infiltrator-reveal-memory-to-field'] = [
+    'testedCards' => ['VAFTR5taNG'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Corhazi Infiltrator's element is LUXEM; the starting champion's CardID is patched directly
+    // to Zander, Blinding Steel (LUXEM, ASSASSIN) for both its own element requirement and the
+    // Class Bonus condition (Element Bonus is unconditionally true -- IsElementBonusActive() is a
+    // stubbed TODO returning true always, verified via GameLogic.php). Two copies of Corhazi
+    // Infiltrator are seeded into memory; Uncover the Plot (targeting yourself) reveals all of
+    // memory, firing the reveal-triggered ability once per copy revealed (QueueRevealTriggeredAbility
+    // in GameLogic.php). Answering the resulting MZMayChoose moves the OTHER copy from memory onto
+    // the field.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE']], // Zander, Blinding Steel (LUXEM, ASSASSIN)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'VAFTR5taNG'], // Corhazi Infiltrator copy #1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'VAFTR5taNG'], // Corhazi Infiltrator copy #2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4zkTRt8qXn'], // Uncover the Plot, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // target yourself
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // move a copy from memory to field
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the second copy's own reveal-triggered offer
+    ],
+];
+
+// --- Covert Manipulator: [Class Bonus] On Enter, reveal, optionally give opponent Crowd's Favor draw ---
+$fixtures['covert-manipulator-enter-reveal-crowds-favor'] = [
+    'testedCards' => ['A1jfgrWpiN'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Covert Manipulator's element is NORM; the starting champion's CardID is patched directly to
+    // Zander, Deft Executor (ASSASSIN) for the Class Bonus condition.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'fc4ic5fmaa']], // Zander, Deft Executor (ASSASSIN)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'A1jfgrWpiN'], // Covert Manipulator, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // choose an opponent for Crowd's Favor
+    ],
+];
+
+// --- Lurking Assailant: has stealth as long as it's awake ---
+$fixtures['lurking-assailant-stealth-while-awake'] = [
+    'testedCards' => ['uq2r6v374c'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lurking Assailant's element is NORM, so no lineage patch is needed. Rule 1.h blocks the
+    // game's first player from attacking on turn 1, so player 1 ends turn 1 and player 2 attacks
+    // with a Dungeon Guide (1 POWER) on their own turn 1 instead. Lurking Assailant is seeded onto
+    // player 1's field, awake (Status 2) -- its unconditional stealth-while-awake (HasStealth() in
+    // GameLogic.php) is proven negatively: the attacker cannot target it directly (only the
+    // champion is a legal target, since HasTrueSight is false), even though it would otherwise be
+    // a legal attack target like any other awake unit.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'uq2r6v374c'], // Lurking Assailant (stealth while awake)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (1 POWER) - actual attacker
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Dungeon Guide
+        [
+            'playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => '',
+            'expectFailure' => true, 'semantic' => true, 'label' => 'Cannot target a stealthed, awake Lurking Assailant without True Sight',
+        ],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // legal: target the champion instead
+    ],
+];
+
+// --- Extraction Incision: True Sight; [Class Bonus] On Kill, put a preparation counter on your champion ---
+$fixtures['extraction-incision-truesight-onkill-prepare'] = [
+    'testedCards' => ['zthwm68lgo'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Extraction Incision's element is NORM. The starting champion's CardID is patched directly to
+    // Zander, Deft Executor (ASSASSIN) for the Class Bonus condition. Rule 1.h blocks the game's
+    // first player from attacking on turn 1, so player 1 ends turn 1 and player 2 plays Extraction
+    // Incision on their own turn 1 instead. Wandering Glaivier (1 Life) is the kill target --
+    // Extraction Incision's printed 3 POWER is lethal on a single fresh hit with no precondition
+    // needed. The defender's "Retaliate?" MZMAYCHOOSE must be explicitly declined so
+    // CombatApplyAttackerDamage actually lands and kills it, firing the Class Bonus On Kill
+    // trigger.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'fc4ic5fmaa']], // Zander, Deft Executor (ASSASSIN)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'p6120p3f5d'], // Wandering Glaivier (1 Life) - kill target
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'zthwm68lgo'], // Extraction Incision, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Wandering Glaivier
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so CombatApplyAttackerDamage actually lands the kill
+    ],
+];
+
+// --- Corhazi Courier: Stealth; [Class Bonus] On Hit, draw+discard, deal 1 damage if fire discarded ---
+$fixtures['corhazi-courier-onhit-draw-discard-damage'] = [
+    'testedCards' => ['YqQsXwEvv5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Corhazi Courier's [Class Bonus] On Hit ability calls IsClassBonusActive($player) with no
+    // class filter, which is unconditionally true as long as any champion is on the field
+    // (GameLogic.php: $requiredClasses stays null, so the check short-circuits true) -- no class
+    // patch is needed. Rule 1.h blocks the game's first player from attacking on turn 1, so player
+    // 1 ends turn 1 and player 2 attacks with Corhazi Courier on their own turn 1 instead. A second
+    // copy of Corhazi Courier (FIRE element) is seeded into hand as discard fodder so the
+    // "if a fire element card was discarded" branch is reachable, dealing 1 damage to the chosen
+    // unit (the opponent's champion).
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'YqQsXwEvv5'], // Corhazi Courier
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'YqQsXwEvv5'], // second copy (FIRE), discard fodder, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Corhazi Courier
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // discard the second (FIRE) copy
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // choose the opponent's champion to deal 1 damage to
+    ],
+];
+
+// --- Scorching Imperilment: at each end phase, that player may discard a card to draw a card ---
+$fixtures['scorching-imperilment-end-phase-discard-draw'] = [
+    'testedCards' => ['aj7pz79wsp'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Scorching Imperilment's element is FIRE, matching the starting champion, so no lineage patch
+    // is needed. It is seeded directly onto the field (materialize flow, including its own Class
+    // Bonus cost discount, out of scope). Ending player 1's turn 1 (myHealth-0!CustomInput!Pass)
+    // passes through player 1's own end phase, where the unconditional end-phase check in
+    // GameLogic.php (~line 10817) queues the "discard a card to draw a card" MZMAYCHOOSE for the
+    // turn player (player 1) as long as any Scorching Imperilment is on either player's field.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aj7pz79wsp'], // Scorching Imperilment
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1, passing through end phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // discard a card
+    ],
+];
+
+// --- Rending Flames: [Class Bonus] On Attack, may banish 3 fire cards from graveyard for double damage ---
+$fixtures['rending-flames-onattack-banish-double-damage'] = [
+    'testedCards' => ['soO3hjaVfN'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Rending Flames's element is FIRE, but no Zander champion is itself FIRE (all are NORM or
+    // LUXEM, verified via CardElement()), so patching the champion's CardID alone to an ASSASSIN
+    // Zander champion for the Class Bonus condition would lose FIRE access entirely (verified
+    // live: with CardID patched to Zander, Deft Executor alone, the FSM activation silently
+    // no-oped). GetChampionLineage() (GameLogic.php) returns [CardID] merged with Subcards, so the
+    // champion's CardID is patched to Zander, Deft Executor (ASSASSIN) for Class Bonus AND its
+    // Subcards are separately patched to include Corhazi Courier (FIRE) for element access -- both
+    // conditions are independent properties on the same object. Rule 1.h blocks the game's first
+    // player from attacking on turn 1, so player 1 ends turn 1 and player 2 plays Rending Flames on
+    // their own turn 1 instead. Three copies of Corhazi Courier (FIRE element) are seeded directly
+    // into player 2's graveyard to satisfy the "banish three fire element cards from your
+    // graveyard" cost. Rending Flames's printed POWER is 3; doubled damage (6) on the champion is
+    // only possible if the ability's "deals double that damage instead" effect actually applied.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'fc4ic5fmaa', 'Subcards' => ['YqQsXwEvv5']]], // Zander, Deft Executor (ASSASSIN) + FIRE lineage/element unlock
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'YqQsXwEvv5'], // Corhazi Courier (FIRE) #1
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'YqQsXwEvv5'], // Corhazi Courier (FIRE) #2
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'YqQsXwEvv5'], // Corhazi Courier (FIRE) #3
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'soO3hjaVfN'], // Rending Flames, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // banish 3 fire cards for double damage
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0&myGraveyard-1&myGraveyard-2', 'chkInput' => [], 'inputText' => ''], // select all 3 Corhazi Couriers
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so CombatApplyAttackerDamage actually lands
+    ],
+];
+
+// --- Zander, Blinding Steel: at your recollection phase, reveal memory; opponent puts hand cards into memory per luxem revealed ---
+$fixtures['zander-blinding-steel-recollection-luxem-memory'] = [
+    'testedCards' => ['UAF6Nr7GUE'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // The starting champion's CardID is patched directly to Zander, Blinding Steel so
+    // ChampionHasInLineage($turnPlayer, "UAF6Nr7GUE") is true (GameLogic.php ~line 9962) --
+    // testing only the passive recollection-phase trigger, not the real level-up flow. A LUXEM
+    // card is seeded directly into player 1's own memory as the revealed card -- specifically
+    // Corhazi Infiltrator (an ALLY), not a REGALIA card like Insignia of the Corhazi: AddMemory()'s
+    // MemoryAddReplacement() hook (GameLogic.php) silently redirects any REGALIA card added to
+    // memory into the Material zone instead (a real GA rule -- Regalia can't sit in memory), so a
+    // REGALIA seed here would silently land in Material and never be revealed (verified live: the
+    // seeded Insignia ended up counted in myMaterial, and GetMemory(1) read back empty). Both
+    // players end their first two turns (P1 -> P2) to reach player 1's OWN next turn, whose
+    // recollection phase reveals memory and, for each luxem card revealed (1 here), makes the
+    // opponent (player 2) put a card from their hand into their memory
+    // (ZanderBlindingSteelStep/ZanderBlindingSteelMemory in CardDQHandlers.php).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE']], // Zander, Blinding Steel lineage
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'VAFTR5taNG'], // Corhazi Infiltrator (LUXEM ALLY, not REGALIA) - revealed card
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 2, reaching player 1's recollection phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the material-phase champion swap offer
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // opponent puts a hand card into memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Corhazi Infiltrator's own reveal-triggered offer (unrelated to Zander)
+    ],
+];
+
+// ===========================================================================
+// Lorraine Pantheon Starter deck: semantic coverage fixtures
+// ===========================================================================
+const GA_LORRAINE_PANTHEON_DECK = <<<'DECK'
+# Material
+1 Spirit of Wind
+1 Lorraine, Wandering Warrior
+1 Lorraine, Blademaster
+1 Lorraine, Spirit Ruler
+1 Charm of Anticipation
+1 Drawn Blade
+1 Equinox Hour
+1 Safeguard Amulet
+1 Sword of Seeking
+1 Tariff Ring
+1 Prismatic Edge
+1 Quietus Blade
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK;
+
+// --- Dematerialize: Return target regalia to its owner's material deck ---
+$fixtures['dematerialize-return-regalia'] = [
+    'testedCards' => ['b1k0zi5h8a'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Dematerialize (b1k0zi5h8a, WIND) is played straight from hand (seeded at myHand-7, the
+    // starting-hand size for this deck/seed) against a Backup Charger (9gv4vm4kj3, REGALIA)
+    // seeded onto the opponent's field. Its reserve cost (3) is paid from hand
+    // (cardActivatedAbilities["b1k0zi5h8a:0"], GeneratedMacroCode.php), then both players decline
+    // the fast-opportunity response window before its own MZCHOOSE targets the regalia and moves
+    // it to theirMaterial (customDQHandlers["b1k0zi5h8a:0:CardActivated-1"]).
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '9gv4vm4kj3'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'b1k0zi5h8a'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Iridescent Resurgence: return a crux non-champion non-regalia card from GY to memory ---
+$fixtures['iridescent-resurgence-return-to-memory'] = [
+    'testedCards' => ['fK1IQGsUeh'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Iridescent Resurgence (fK1IQGsUeh, CRUX) needs the CRUX element, which the base Spirit of
+    // Wind starting champion doesn't have -- the field-0 champion is CardID-patched directly to
+    // Lorraine, Spirit Ruler (n2TKqNaODR, CRUX) to unlock it (same technique used throughout this
+    // file for advanced-element cards, bypassing a real level-up sequence). Ethereal Slime
+    // (n06zlhihka, CRUX ALLY) is seeded into the graveyard as the target. cardActivatedAbilities
+    // ["fK1IQGsUeh:0"] (GeneratedMacroCode.php) offers only CRUX, non-champion, non-regalia
+    // graveyard/banishment cards as MZCHOOSE targets; its handler moves the chosen card to myMemory.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'n2TKqNaODR']],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'n06zlhihka'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'fK1IQGsUeh'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Halcyon Animus: materialize a regalia card from material deck or banishment ---
+$fixtures['halcyon-animus-materialize-regalia'] = [
+    'testedCards' => ['uvopjFSUj0'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Halcyon Animus (uvopjFSUj0, CRUX) needs CRUX -- champion CardID-patched to Lorraine, Spirit
+    // Ruler (n2TKqNaODR) as above. cardActivatedAbilities["uvopjFSUj0:0"] (GeneratedMacroCode.php)
+    // offers every REGALIA in myMaterial/myBanish as an MZCHOOSE target and routes the choice
+    // through the shared "MATERIALIZE" custom handler; Safeguard Amulet (yj2rJBREH8, 0-memory-cost
+    // REGALIA already in this deck's Material zone) is chosen so no further cost payment is needed,
+    // landing it directly on the field.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'n2TKqNaODR']],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uvopjFSUj0'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-6', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Zephyr: suppress (banish, returns at next end phase) target ally or regalia ---
+$fixtures['zephyr-suppress-ally'] = [
+    'testedCards' => ['idaRe7y3In'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Zephyr (idaRe7y3In, WIND -- native to the base Spirit of Wind champion, no patch needed)
+    // targets a Dungeon Guide (em6eEh9q8y, ALLY) seeded onto the opponent's field.
+    // cardActivatedAbilities["idaRe7y3In:0"] (GeneratedMacroCode.php) offers it as an MZCHOOSE
+    // target and calls SuppressAlly(), which banishes it immediately (and would return it to the
+    // field at the next end phase) -- observable here as the target vanishing from theirField.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'idaRe7y3In'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Wisp's Protection: prevent the next 4+X damage to target unit (X = regalia on field) ---
+$fixtures['wisps-protection-prevent-damage'] = [
+    'testedCards' => ['OmWFVRUr8I'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Wisp's Protection (OmWFVRUr8I, CRUX) needs CRUX -- champion patched to Lorraine, Spirit Ruler
+    // (n2TKqNaODR) as above. A Backup Charger (9gv4vm4kj3, REGALIA) is also seeded onto the
+    // player's own field so X=1, making the prevention amount 5 (distinguishing this from a bare
+    // "prevent 4" effect). cardActivatedAbilities["OmWFVRUr8I:0"] (GeneratedMacroCode.php) offers
+    // an MZCHOOSE of ALLY/CHAMPION targets; targeting the champion itself
+    // (customDQHandlers["OmWFVRUr8I:0:CardActivated-1"]) adds TurnEffect "PREVENT_ALL_5".
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'n2TKqNaODR']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '9gv4vm4kj3'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'OmWFVRUr8I'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Scatter Essence: destroy target phantasia ---
+$fixtures['scatter-essence-destroy-phantasia'] = [
+    'testedCards' => ['zi5h8asbie'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Scatter Essence (zi5h8asbie, WIND -- native, no champion patch needed) targets an Unstable
+    // Fractal (2o82fwl22v, PHANTASIA) seeded onto the opponent's field.
+    // cardActivatedAbilities["zi5h8asbie:0"] (GeneratedMacroCode.php) offers PHANTASIA objects as
+    // MZCHOOSE targets; its handler (customDQHandlers["zi5h8asbie:0:CardActivated-1"]) moves the
+    // chosen target to its owner's graveyard.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '2o82fwl22v'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zi5h8asbie'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Bolstering Tempest: target Human ally gets +3 POWER until end of turn ---
+$fixtures['bolstering-tempest-human-ally-power'] = [
+    'testedCards' => ['PwHub76Fw4'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Bolstering Tempest (PwHub76Fw4, EXALTED) needs the EXALTED element, which auto-unlocks once
+    // any OTHER advanced element is enabled (GameLogic.php, GetPlayerEnabledElements) -- the
+    // champion is CardID-patched to Lorraine, Spirit Ruler (n2TKqNaODR, CRUX) *with* its Subcards
+    // set to the base Spirit of Wind (pNiyaGlIe7) so the real champion-lineage element union
+    // (GetChampionLineage/GetPlayerEnabledElements) grants both CRUX (-> EXALTED) and WIND, rather
+    // than losing WIND the way a bare CardID patch would. A Dungeon Guide (em6eEh9q8y, HUMAN ALLY)
+    // is seeded onto the player's own field as the only legal target.
+    // cardActivatedAbilities["PwHub76Fw4:0"] (GeneratedMacroCode.php) offers HUMAN allies as an
+    // MZMAYCHOOSE target; its handler adds TurnEffect "PwHub76Fw4-POWER-3".
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'n2TKqNaODR', 'Subcards' => ['pNiyaGlIe7']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'PwHub76Fw4'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Veiling Breeze: reveal wind cards from memory to prevent that much champion damage ---
+$fixtures['veiling-breeze-prevent-champion-damage'] = [
+    'testedCards' => ['KoF3AMSlUe'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Veiling Breeze (KoF3AMSlUe, WIND -- native, no patch needed) is played with a Diablerie
+    // (0plqbtjuxz, WIND ACTION) already seeded into memory. cardActivatedAbilities["KoF3AMSlUe:0"]
+    // (GeneratedMacroCode.php) calls VeilingBreezeStart() (CardDQHandlers.php), which offers an
+    // MZMULTICHOOSE of wind cards in memory; revealing the seeded card
+    // (customDQHandlers["VeilingBreezeChoose"]) adds TurnEffect "KoF3AMSlUe-1" (1 = the number of
+    // cards revealed) to the champion.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => '0plqbtjuxz'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'KoF3AMSlUe'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Beacon Knight: whenever regalia enter the field under your control, buff counter ---
+$fixtures['beacon-knight-regalia-enter-buff'] = [
+    'testedCards' => ['sucwQ9or0n'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Beacon Knight (sucwQ9or0n, WARRIOR [Class Bonus]) is seeded directly onto the field alongside
+    // a champion patched to Lorraine, Wandering Warrior (DpHDGaX2Pn) for the class bonus. Both
+    // players then end their first turns (reaching player 1's second turn, when a real Materialize
+    // opportunity is offered) and player 1 materializes Safeguard Amulet (yj2rJBREH8, 0-memory-cost
+    // REGALIA already in this deck's Material zone). The generic field-add hook in GameLogic.php
+    // (~line 8329, "Beacon Knight: whenever one or more regalia enter the field...") then adds a
+    // buff counter to Beacon Knight.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'sucwQ9or0n'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-6', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Templar of the Eternal: (2), Return a regalia -> buff counter + spellshroud ---
+$fixtures['templar-of-the-eternal-return-regalia'] = [
+    'testedCards' => ['peyG8Hfgqt'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Templar of the Eternal (peyG8Hfgqt, WARRIOR [Class Bonus]) and a Backup Charger (9gv4vm4kj3,
+    // REGALIA) are seeded directly onto the field, with the champion patched to Lorraine, Wandering
+    // Warrior (DpHDGaX2Pn) for the class bonus. Its activated ability is triggered via the
+    // CustomInput "Activate:0" click (ActivateAbility -> DoActivatedAbility ->
+    // activateAbilityAbilities["peyG8Hfgqt:0"], GeneratedMacroCode.php), which pays a 2-reserve
+    // cost (Custom/GameLogic.php's ActivatedAbilityCost, case "peyG8Hfgqt") from hand, then calls
+    // TemplarEternalAbility() (Custom/GameLogic.php), offering the Backup Charger as an MZCHOOSE
+    // target; choosing it returns it to material, and adds a buff counter plus SPELLSHROUD to
+    // Templar of the Eternal itself.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'peyG8Hfgqt'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '9gv4vm4kj3'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Drawn Blade: [Class Bonus] On Enter: Draw a card ---
+$fixtures['drawn-blade-class-bonus-draw'] = [
+    'testedCards' => ['eSAIP7mx9z'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Drawn Blade (eSAIP7mx9z, WARRIOR [Class Bonus], 1-memory REGALIA already in this deck's
+    // Material zone at myMaterial-4) is materialized for real: the champion is patched to
+    // Lorraine, Wandering Warrior (DpHDGaX2Pn) for the class bonus, a filler card is seeded into
+    // memory to pay its 1-memory cost, and both players end their first turns to reach a real
+    // Materialize opportunity on player 1's second turn. enterAbilities["eSAIP7mx9z:0"]
+    // (GeneratedMacroCode.php) then draws a card, observable as the hand gaining a card beyond
+    // what materializing alone would produce.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Windrider Vanguard: [Class Bonus] Vigor -- wakes up at the beginning of the end phase ---
+$fixtures['windrider-vanguard-class-bonus-vigor'] = [
+    'testedCards' => ['JEOxGQppTE'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Windrider Vanguard (JEOxGQppTE) is seeded directly onto the field already rested (Status=1),
+    // with the champion patched to Lorraine, Wandering Warrior (DpHDGaX2Pn, WARRIOR) for the class
+    // bonus. Its Vigor is conditional (GeneratedKeywordCode.php's $Vigor_Cards["JEOxGQppTE"] has a
+    // "Class Bonus" condition, checked by HasKeyword_Vigor()), so without WARRIOR active it would
+    // stay rested. Both players end their first turns (a real end-phase transition, not a targeted
+    // ability), and Windrider Vanguard wakes up (Status -> 2) at player 1's own end phase.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'JEOxGQppTE', 'setProperties' => ['Status' => 1]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Slay the King: [Class Bonus] On Attack, may banish a material card ("On Kill: play it") ---
+$fixtures['slay-the-king-banish-material'] = [
+    'testedCards' => ['6v374coy34'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Slay the King (6v374coy34, CRUX ATTACK, WARRIOR [Class Bonus]) needs both CRUX and WARRIOR --
+    // the champion is patched to Lorraine, Spirit Ruler (n2TKqNaODR), which is itself WARRIOR-class
+    // CRUX-element, satisfying both at once. Attacking is locked on turn 1
+    // (CanActivateAttackCardNow), so both players end their first turns to reach player 1's second
+    // turn, materializing Sword of Seeking (Dz8I0eJzaf, 0-memory WARRIOR/SWORD weapon already in
+    // this deck's Material zone) so the champion has a nonzero attack power. Slay the King is then
+    // played as a real attack (reserve cost 2, paid before the attacker/weapon/target declaration,
+    // matching this card's own DQ ordering) against the opponent's champion.
+    // onAttackAbilities["6v374coy34:0"] (GeneratedMacroCode.php) offers a YES/NO to banish a
+    // material-deck card (SlayTheKingOnAttack, Custom/CardDQHandlers.php); answering YES and
+    // choosing myMaterial-0 (Lorraine, Wandering Warrior) banishes it, observable as the card
+    // moving from material to banishment. (The follow-up "On Kill: may play the banished card" is
+    // out of scope -- it requires a full combat kill, not just a hit.)
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'n2TKqNaODR']],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '6v374coy34'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-7', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Savage Attack: Floating Memory pays a champion level-up's memory cost from graveyard ---
+$fixtures['savage-attack-floating-memory'] = [
+    'testedCards' => ['3ewnten2rn'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Savage Attack's entire printed text is the Floating Memory keyword (while paying a memory
+    // cost, you may banish this card from your graveyard to pay for 1 of that cost) -- same test
+    // shape as shieldroid-floating-memory/stalwart-shieldmate-floating-memory/etc: seeded directly
+    // into the graveyard with no myMemory filler, then Lorraine, Wandering Warrior's 1-memory
+    // champion level-up (myMaterial-0, reached via a real Materialize opportunity on player 1's
+    // second turn) is paid entirely from Savage Attack via QueueMaterializeFloatingPaymentChoice
+    // (Custom/MaterializeLogic.php), observable as it moving from graveyard to banishment.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3ewnten2rn'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// ===========================================================================
+// Kongming Pantheon Starter deck: semantic coverage fixtures
+// ===========================================================================
+const GA_KONGMING_BASE_DECK = <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK;
+
+// --- Roots of Tomorrow: reveal top of deck into material preserved, draw into memory ---
+$fixtures['roots-of-tomorrow-preserve-draw'] = [
+    'testedCards' => ['MkhP6iKyLX'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Roots of Tomorrow (reserve 1, TERA) calls RootsOfTomorrowResolve() directly
+    // (GeneratedMacroCode.php cardActivatedAbilities["MkhP6iKyLX:0"]): moves the top deck card into
+    // myMaterial (preserved) then draws a separate card into myMemory. TERA-element access is
+    // unlocked the same way as the other Kongming fixtures (Subcards patched with Kongming, Fel
+    // Eidolon). Distinguishing evidence is the exact zone-count combination -- myDeck down 2 (1
+    // moved to material, 1 drawn to memory), myMaterial up 1, myMemory up 1 -- which nothing else
+    // in this bare fixture would produce.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'MkhP6iKyLX'], // Roots of Tomorrow, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Set Ablaze: deal 4 damage to target ally ---
+$fixtures['set-ablaze-damage-ally'] = [
+    'testedCards' => ['d4z3tj2nu8'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Set Ablaze (reserve 2, FIRE -- native to the Spirit of Fire starting champion, no element
+    // patch needed) deals a flat 4 damage to a chosen ally (GeneratedMacroCode.php
+    // customDQHandlers["d4z3tj2nu8:0:CardActivated-1"]); the [Class Bonus][Level 3+] extra
+    // champion-wide damage is intentionally not exercised (base deck has no MAGE class bonus and
+    // is level 1). A Dungeon Guide ally is seeded onto the opposing field as the target.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'd4z3tj2nu8'], // Set Ablaze, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Petalfall Embrace: each player recovers 8+LV ---
+$fixtures['petalfall-embrace-recover-both'] = [
+    'testedCards' => ['uDWTjGarSL'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Petalfall Embrace (reserve 2, TERA) calls RecoverChampion(1, 8+PlayerLevel(1)) and
+    // RecoverChampion(2, 8+PlayerLevel(2)) directly (GeneratedMacroCode.php
+    // cardActivatedAbilities["uDWTjGarSL:0"]). Both champions are pre-damaged for 9 so the
+    // recovery (8 + level-1 = 9) is fully observable via their post-action Damage property instead
+    // of being capped by a full-health no-op.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1'], 'Damage' => 9]], // TERA lineage/element unlock + pre-damage
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 9]], // pre-damage opponent's champion
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uDWTjGarSL'], // Petalfall Embrace, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Pyretic Prognosis: draw three cards, then discard two cards ---
+$fixtures['pyretic-prognosis-draw-discard'] = [
+    'testedCards' => ['Q5HV9nWS5r'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Pyretic Prognosis (reserve 3, EXALTED -- auto-enabled once another advanced element is
+    // enabled, same Fel Eidolon Subcards patch as the other EXALTED-cost Kongming fixtures) calls
+    // DoDrawCard($player,3) then DiscardCards($player,2) directly (GeneratedMacroCode.php
+    // cardActivatedAbilities["Q5HV9nWS5r:0"]). Net hand change after paying the 3-reserve cost and
+    // drawing 3/discarding 2 is +3-2=+1 relative to the post-cost hand, i.e. starting 7 + seeded 1
+    // - played 1 - 3 reserve + 3 drawn - 2 discarded = 5.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // EXALTED unlock via TERA lineage
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Q5HV9nWS5r'], // Pyretic Prognosis, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Weaken Resistance: next Spell-source damage to target unit this turn gets +LV ---
+$fixtures['weaken-resistance-spell-damage-buff'] = [
+    'testedCards' => ['bb3oeup7oq'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Weaken Resistance (reserve 4, NORM) tags a chosen unit with a "WEAKEN_RES_<LV>" TurnEffect
+    // (GeneratedMacroCode.php customDQHandlers["bb3oeup7oq:0:CardActivated-1"]); CombatLogic.php's
+    // damage pipeline (~line 4985) then adds +LV to the NEXT Spell-source damage dealt to that unit
+    // and consumes the tag. Set Ablaze (also MAGE/SPELL, in this same deck's coverage) is played
+    // immediately afterward at the same target to actually deal that damage: it prints "deal 4
+    // damage", so 5 damage landing (instead of 4) is the distinguishing proof that Weaken
+    // Resistance's own +LV buff fired, not just that Set Ablaze's own base damage happened.
+    // Languid Toadtroll (6 LIFE) is the target instead of a 3-LIFE filler ally so it survives
+    // either way and its exact Damage property (4 vs 5) is directly observable afterward.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'pfavgpsj3r'], // Languid Toadtroll (ALLY, 6 LIFE) target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'bb3oeup7oq'], // Weaken Resistance, seeded to a known hand slot
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'd4z3tj2nu8'], // Set Ablaze, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-3!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Ritai Berserker: +1 POWER while Shifting Currents face North ---
+$fixtures['ritai-berserker-north-power'] = [
+    'testedCards' => ['xrbffkghwt'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Ritai Berserker's static +1 POWER while facing North (GameLogic.php ~11947) is a pure
+    // computed-power check -- no action needed beyond seeding the mastery direction and the ally
+    // itself. 2 base POWER + 1 while facing North = 3.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'xrbffkghwt'], // Ritai Berserker
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Fractal of Mana: [Class Bonus] [REST]: Empower 1 ---
+$fixtures['fractal-of-mana-class-bonus-empower'] = [
+    'testedCards' => ['szeb8zzj86'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Fractal of Mana's [Class Bonus][REST] ability (GeneratedMacroCode.php
+    // activateAbilityAbilities["szeb8zzj86:0"], prereq requires IsClassBonusActive(["CLERIC",
+    // "MAGE"])) calls Empower($player,1,"szeb8zzj86"), tagging the champion's TurnEffects with
+    // ["szeb8zzj86","EMPOWERED","EMPOWER_PLUS_1"] (GameLogic.php). Same two-object MAGE Class
+    // Bonus setup as vernal-talisman-preserve-draw: Subcards patched for lineage, plus a second
+    // physical MAGE champion object on the field for IsClassBonusActive's physical-field scan.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // lineage unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7x2v4tdop1'], // Kongming, Fel Eidolon (MAGE CHAMPION), physically seeded for Class Bonus
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'szeb8zzj86'], // Fractal of Mana
+        ['player' => 1, 'patchMzId' => 'myField-2', 'setProperties' => ['Status' => 2]], // awake
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Minister of Ceremony: [REST] As a Spell, deal 3 damage to target unit, only while facing East ---
+$fixtures['minister-of-ceremony-east-rest-damage'] = [
+    'testedCards' => ['7gz0j8p4sx'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Minister of Ceremony's [REST] ability (GeneratedMacroCode.php
+    // activateAbilityAbilities["7gz0j8p4sx:0"], prereq requires GetShiftingCurrents(player) ===
+    // "EAST" and !HasOpportunity($player) -- i.e. only at slow speed on your own main phase) deals
+    // a flat 3 damage to a chosen unit. Targets its own controller's champion directly.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'EAST']], // Shifting Currents facing East
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7gz0j8p4sx'], // Minister of Ceremony
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Gem of Searing Flame: North->West Shifting Currents transition deals 2 damage to target champion ---
+$fixtures['gem-of-searing-flame-north-west-damage'] = [
+    'testedCards' => ['v1jaidvvz2'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Gem of Searing Flame's North->West transition callback ($shiftingCurrentsTransitions,
+    // GameLogic.php ~20968) queues a YES/NO "deal 2 to your champion? (No=opponent)" choice.
+    // Answering NO deals it to the opponent's champion. Same Fel Eidolon Subcards patch as
+    // taiji-crystal-strategems-south-east-rest-damage/hydroguard-retainer-north-west-draw: it
+    // unlocks TERA (for playing Tera Sight) and grants the champion's own Inherited "may change SC
+    // to an adjacent direction on Spell activation" ability, which fires the transition.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock + Fel Eidolon Inherited trigger
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'v1jaidvvz2'], // Gem of Searing Flame
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight, to trigger the Inherited SC choice on activation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'WEST', 'chkInput' => [], 'inputText' => ''], // choose adjacent direction WEST
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // deal the 2 damage to the opponent's champion
+    ],
+];
+
+// --- Meiren of Verdancy: [Kongming Bonus] East->South Shifting Currents transition, recover 4 ---
+$fixtures['meiren-of-verdancy-east-south-recover'] = [
+    'testedCards' => ['y46R5C190v'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Meiren of Verdancy's East->South transition callback ($shiftingCurrentsTransitions,
+    // GameLogic.php ~20952) recovers 4 LIFE for the champion, but only when IsKongmingBonus() is
+    // true -- the same Fel Eidolon Subcards patch that unlocks the adjacent-direction Inherited
+    // trigger also makes the champion a Kongming lineage member, satisfying both gates at once.
+    // The champion is pre-damaged for 6 so the recovery is observable (not capped by full health).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1'], 'Damage' => 6]], // TERA unlock + Kongming Bonus + pre-damage
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'EAST']], // Shifting Currents facing East
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'y46R5C190v'], // Meiren of Verdancy
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight, to trigger the Inherited SC choice on activation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'SOUTH', 'chkInput' => [], 'inputText' => ''], // choose adjacent direction SOUTH
+    ],
+];
+
+// --- Venerable Sage: [Kongming Bonus] whenever Shifting Currents change, +1 POWER and +1 LIFE until EOT ---
+$fixtures['venerable-sage-direction-change-buff'] = [
+    'testedCards' => ['FwPdj4PkSS'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Venerable Sage's [Kongming Bonus] direction-change trigger (GameLogic.php ~20930, fires on
+    // ANY Shifting Currents direction change, not a specific pair) tags Venerable Sage itself with
+    // an "FwPdj4PkSS" TurnEffect that a separate power/life case statement (GameLogic.php ~12767 /
+    // ~14167) reads to grant +1 POWER and +1 LIFE until end of turn. Same Fel Eidolon lineage patch
+    // as the other transition fixtures.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA unlock + Kongming Bonus + Fel Eidolon Inherited trigger
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'FwPdj4PkSS'], // Venerable Sage
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight, to trigger the Inherited SC choice on activation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EAST', 'chkInput' => [], 'inputText' => ''], // choose adjacent direction EAST
+    ],
+];
+
+// --- Verdure of Preservation: [Kongming Bonus] SC change to next clockwise direction preserves top deck card ---
+$fixtures['verdure-of-preservation-clockwise-preserve'] = [
+    'testedCards' => ['wCAIuvPOAT'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Verdure of Preservation's [Kongming Bonus] clockwise-transition trigger (GameLogic.php
+    // ChangeShiftingCurrents() ~20878-20892; clockwise map NORTH->EAST->SOUTH->WEST->NORTH) calls
+    // PutTopDeckCardIntoMaterialPreserved() only when the new direction is the clockwise-next one
+    // from the old direction AND IsKongmingBonus() is true. Starting at NORTH and choosing EAST
+    // (the clockwise-next direction, also one of NORTH's two adjacent options) satisfies both the
+    // Fel Eidolon Inherited adjacent-direction trigger and the clockwise condition in one action.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA unlock + Kongming Bonus + Fel Eidolon Inherited trigger
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'wCAIuvPOAT'], // Verdure of Preservation
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight, to trigger the Inherited SC choice on activation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EAST', 'chkInput' => [], 'inputText' => ''], // choose adjacent + clockwise-next direction EAST
+    ],
+];
+
+// --- Samaritan's Reach: deal 3 damage to the current attacking ally (fast, played mid-combat) ---
+$fixtures['samaritan-reach-attacking-ally-damage'] = [
+    'testedCards' => ['MskPCrbv0L'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Samaritan's Reach (reserve 3, Fast/Speed=true) calls SamaritanReachResolve() directly
+    // (GeneratedMacroCode.php cardActivatedAbilities["MskPCrbv0L:0"]), which reads the
+    // CombatAttacker decision-queue variable set by a REAL in-progress attack
+    // (CombatLogic.php MarkCombatAttacker/StoreCombatAttackerState) rather than taking a chosen
+    // target -- a prior attempt at this fixture (see abandoned note further up this file) found
+    // that seeding those dqVariables via the 'setup' primitive doesn't survive to resolution, so
+    // this fixture instead scripts a real attack: player 1 passes turn 1 (first-player attack
+    // lock), player 2 declares an attack with Giant Tortoise (an L0RmNaDzhk vanilla ALLY, power 1/
+    // life 6 so it easily survives the 3 damage) against player 1's champion, then during the
+    // pre-damage-step Opportunity window (turn player/attacker gets priority first, per
+    // FinalizeAttackDeclaration -> GrantOpportunityWindow) player 2 passes and player 1 -- who
+    // does not control the attacker -- plays Samaritan's Reach as a fast response instead of
+    // passing. The Crowd's Favor sub-clause ("if that ally is attacking a unit you don't
+    // control") never triggers here since player 1 is both caster and defender of their own
+    // champion (they DO control what's being attacked) -- that half needs a 3+ player pod and is
+    // out of scope; only the "deal 3 damage to the attacking ally" half is covered.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'L0RmNaDzhk'], // Giant Tortoise (vanilla ALLY, power 1 / life 6), the attacker
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'MskPCrbv0L'], // Samaritan's Reach, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1's turn 1 (first-player attack lock)
+        // Fully advancing from player 1's turn 1 to player 2's turn (MAIN phase, TurnPlayer==2)
+        // takes three more explicit passes -- one to close player 1's "play your fast card?"
+        // offer (TryPassFastOpportunityDecision, since they hold Samaritan's Reach), one from
+        // each player to close the BEOP (beginning/end-of-phase) window -- confirmed empirically
+        // by stepping through GetTurnPlayer()/GetCurrentPhase() one action at a time; without all
+        // three, ActionMap()'s "myField" case silently no-ops for player 2 ("Only turn player can
+        // declare attacks") and the FSM click below reports success without ever calling
+        // BeginCombatPhase, which is why an earlier version of this fixture had 0 damage land.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Giant Tortoise declares an attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target player 1's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // turn player/attacker passes the pre-damage Opportunity first
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // player 1 plays Samaritan's Reach instead of passing
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Silver Soldier: Retort 2, Vigor (fixed root-cause parser gap) ---
+// GeneratedKeywordCode.php used to have no entry at all for this card -- HasKeyword_Retort() and
+// HasKeyword_Vigor() both returned false for it, because the generic keyword parser
+// (Data/ProcessKeywordsGA.php) only ever recognized the FIRST bold "**Keyword**" span on a line,
+// and also didn't split a single bold span naming multiple keywords on one comma-separated line
+// ("Retort 2, Vigor"). The same class of gap is called out for other cards in GameLogic.php's own
+// HasTaunt()/HasVigor()/HasRetort() whitelist comments (Neos Elemental, Genbu, Guan Yu, etc).
+// The parser was fixed to scan every bold span on a line (not just the first) and to split a
+// single span's comma-separated keyword list, gated by a "pure keyword line" check so an
+// incidental bolded mid-sentence mention (e.g. "...with **floating memory** from your
+// graveyard...") isn't misread as a real grant. GeneratedKeywordCode.php was regenerated and both
+// keywords are now live for Silver Soldier (verified: HasKeyword_Retort=true value=2,
+// HasKeyword_Vigor=true). This fixture proves both mechanically in one scenario: pre-resting
+// Silver Soldier and ending its controller's turn shows Vigor waking it back up (Status 2) even
+// as turn control passes to the opponent -- which is also what makes it eligible to retaliate at
+// all (GetRetaliatorOptions requires Status==2) -- and then having the opponent attack it and
+// choosing to retaliate shows Retort adding its printed +2 on top of Silver Soldier's base 3
+// POWER (5 damage dealt to the attacker), confirmed via GetRetortValue().
+$fixtures['silver-soldier-retort-vigor'] = [
+    'testedCards' => ['c3C6PjX0Vt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Windslice
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Silver Soldier is seeded directly onto player 1's field, pre-rested (Status 1) to construct
+    // the "Vigor wakes it up" precondition. Giant Tortoise (vanilla ALLY, power 1 / life 6, also
+    // used elsewhere in this file as a plain attacker) is seeded onto player 2's field to attack
+    // it next turn.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'c3C6PjX0Vt'], // Silver Soldier
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 1]], // pre-rest it so Vigor's wake-up is observable
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'L0RmNaDzhk'], // Giant Tortoise, the attacker
+    ],
+    // Verified live via a standalone replay harness (dumping decision-queue contents after each
+    // action) that this exact 4-action sequence is what's needed: after the attack target is
+    // chosen, player 1's very next decision IS the "Retaliate?" MZMAYCHOOSE (single option,
+    // myField-1) -- there is no separate fast-opportunity PASS in front of it for either player
+    // in this deck/scenario (no fast cards in either starting hand), so answering it directly
+    // with the retaliator's own mzID resolves the rest of combat (attacker damage + retaliation
+    // damage + cleanup) in one action. An earlier version of this fixture inserted two PASS
+    // actions here on the assumption the flow would mirror the (unrelated) champion-attack
+    // Samaritan's Reach fixture's extra opportunity passes -- but with nothing pending for player
+    // 2 and no opportunity decision queued ahead of player 1's MZMAYCHOOSE, that second PASS was
+    // instead consumed as declining the MZMAYCHOOSE itself (lastDecision "-"), which skipped
+    // retaliation entirely.
+    'actions' => [
+        // End player 1's turn: triggers Vigor's "wakes up at the beginning of your end phase" on
+        // Silver Soldier even as turn control passes to player 2.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        // Player 2 (now turn player) declares Giant Tortoise's attack against Silver Soldier.
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        // Defender (p1) chooses Silver Soldier as the retaliator, which resolves the whole combat.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Shade Striker (hVvsKqWsMl, printed "Ambush") -- root-cause keyword-parser fix.
+// Ambush (Comprehensive Rules): "This unit may retaliate against attackers while it isn't
+// defending." CombatLogic.php's retaliation-eligibility check (GetRetaliatorOptions, ~line 1095)
+// used to hardcode a short whitelist of CardIDs that got generic-AMBUSH retaliator treatment
+// (jozihslnhz, 0oyxjld8jh, itwys9kf4r, 8tYVFYnK0T, TScoOwz80U) plus a TurnEffect "AMBUSH" check
+// for temporary grants -- Shade Striker's CardID was in neither list. The real root cause: "Ambush"
+// was entirely missing from Data/ProcessKeywordsGA.php's recognized keyword list, so the generic
+// keyword parser never emitted a HasKeyword_Ambush() entry for ANY card, printed or not -- the
+// whitelist was a workaround for that gap, not a card-specific issue. Fixed by adding "Ambush" to
+// the recognized keyword list and regenerating GeneratedKeywordCode.php (confirmed: all five
+// previously-whitelisted cards AND Shade Striker now get a HasKeyword_Ambush() entry from the
+// existing generic parser -- including the comma-separated "Ambush, Retort 2" / "Ambush, Retort 2,
+// Stealth" lines on Guan Yu and Aquaveil Ambusher, already handled by the sibling multi-keyword
+// parser fix). CombatLogic.php's whitelist was replaced with a generic HasAmbush() helper that
+// checks HasKeyword_Ambush() first (covering every printed-Ambush card, including future ones),
+// then falls back to the TurnEffect grant and the two conditional static grants (Gloamspire
+// Mantle, Changban) that were already generic. This fixture proves Shade Striker's Ambush actually
+// lets it retaliate against an attack made on a DIFFERENT ally it controls: player 1 controls
+// Giant Tortoise (the attack's actual target) and Shade Striker (power 2, not itself being
+// attacked); when player 2's Giant Tortoise attacks player 1's Giant Tortoise, the Retaliate
+// MZMAYCHOOSE offers both the actual defender (myField-0) and Shade Striker (myField-1, via
+// Ambush) -- choosing Shade Striker deals its printed 2 POWER to the attacker (instead of Giant
+// Tortoise's 1 POWER) and rests Shade Striker as the cost, while the actually-attacked Giant
+// Tortoise still takes the attacker's combat damage and is untouched by the retaliation cost.
+$fixtures['shade-striker-ambush'] = [
+    'testedCards' => ['hVvsKqWsMl'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Windslice
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Giant Tortoise (vanilla ALLY, power 1 / life 6) is seeded onto player 1's field as the unit
+    // that will actually be attacked (myField-0). Shade Striker (power 2 / life 3, printed Ambush)
+    // is seeded right after it (myField-1) -- ready, not the attack's target -- to prove Ambush
+    // lets a different ready ally retaliate on the defender's behalf. Player 2 gets its own Giant
+    // Tortoise as the attacker.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'L0RmNaDzhk'], // Giant Tortoise, the actual defender/target
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hVvsKqWsMl'], // Shade Striker, the Ambush retaliator
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'L0RmNaDzhk'], // Giant Tortoise, the attacker
+    ],
+    // Verified live via a standalone replay harness (dumping decision-queue contents after each
+    // action): both players' pregame starting champion auto-occupies myField-0, so the seeded
+    // Giant Tortoise/Shade Striker land at myField-1/myField-2 (p1) and myField-1 (p2). After
+    // player 2's attack target is chosen, player 1's very next decision is the "Retaliate?"
+    // MZMAYCHOOSE offering BOTH myField-1 (the actual defender, Giant Tortoise) and myField-2
+    // (Shade Striker, via Ambush) -- there is no separate fast-opportunity PASS in front of it for
+    // either player in this deck/scenario (no fast cards in either starting hand). Answering it
+    // with Shade Striker's own mzID (myField-2) resolves the rest of combat in one action.
+    'actions' => [
+        // End player 1's turn so turn control passes to player 2, who can then declare an attack.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        // Player 2 (now turn player) declares its Giant Tortoise's (myField-1, not the champion at
+        // myField-0) attack against player 1's Giant Tortoise.
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        // Defender (p1) chooses Shade Striker (myField-2), NOT the actual defender, as the retaliator.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// NOTE: Sanctified Paladin (ioLmt0S7op, printed "Foster") is intentionally NOT covered.
+// HasFoster() (GrandArchiveSim/Custom/CardLogic.php ~188) hardcodes the small set of CardIDs that
+// actually receive Foster processing at recollection (unconditional list plus a [Class Bonus]
+// list) -- Sanctified Paladin's CardID (ioLmt0S7op) is present in neither, so it can never become
+// fostered, its own +3/+3/vigor-while-fostered clause never applies, and its On Foster "draw two
+// cards" trigger never fires (confirmed by static inspection of the whitelist; consistent with
+// the sibling Pantheon-deck task's earlier finding). This is the same class of hardcoded-whitelist
+// gap already flagged there as a real, separately-tracked engine bug (out of scope to fix here).
+
+// ---------------------------------------------------------------------------
+// Arisanna Pantheon Starter: remaining semantic-coverage fixtures
+// ---------------------------------------------------------------------------
+const GA_ARISANNA_BASE_DECK = <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK;
+
+// --- Trine Recursion: put target graveyard card into owner's deck third from top ---
+$fixtures['trine-recursion-graveyard-to-deck-third'] = [
+    'testedCards' => ['dwZvL9K0Ke'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Trine Recursion (dwZvL9K0Ke, ASTRA, reserve 1) targets any graveyard card
+    // (cardActivatedAbilities["dwZvL9K0Ke:0"], GeneratedMacroCode.php) and its
+    // customDQHandlers["dwZvL9K0Ke:0:CardActivated-1"] removes the target and splices it into the
+    // OWNER's deck at index min(2, count) -- "third from the top". ASTRA is an advanced element
+    // (CanPlayerMeetCardElementRequirements/GetPlayerEnabledElements, GameLogic.php ~19784) --
+    // without unlocking it the FSM play silently no-ops (success:true, no decision queued, no
+    // state change at all), so the champion is CardID-patched to Arisanna, Astral Zenith
+    // (q3huqj5bba, CLERIC/ASTRA) to unlock ASTRA access (this also satisfies the Arisanna/CLERIC
+    // Class Bonus other Arisanna fixtures need). A single distinguishable card (Fluffy Shopkeep)
+    // is seeded into player 1's own graveyard as the target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - ASTRA/CLERIC/Arisanna-Bonus unlock
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'n8wyfG9hbY'], // Fluffy Shopkeep - graveyard target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'dwZvL9K0Ke'], // Trine Recursion, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Celestial Navigation: Glimpse 5 ---
+$fixtures['celestial-navigation-glimpse-5'] = [
+    'testedCards' => ['QAU8WVUZM0'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Celestial Navigation (QAU8WVUZM0, ASTRA, reserve 2) calls Glimpse($player, 5)
+    // (cardActivatedAbilities["QAU8WVUZM0:0"], GeneratedMacroCode.php). ASTRA is an advanced
+    // element (GameLogic.php ~593/19784) -- without unlocking it, playing the card silently
+    // no-ops (success:true, nothing queued), so the champion is CardID-patched to Arisanna,
+    // Astral Zenith (q3huqj5bba, CLERIC/ASTRA). Glimpse queues an MZREARRANGE decision with the
+    // exact param format 'Top=<cardIDs>;Bottom=<cardIDs>'; the response submitted here is that
+    // same string verbatim (a no-op reorder), which keeps the 5 glimpsed cards on top in their
+    // original order and proves Glimpse 5 actually ran (vs. a no-op or wrong count) via the exact
+    // card-ID sequence. Card IDs are deck-shuffle-dependent for this deck/seed and were confirmed
+    // via a direct probe before being hardcoded.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - ASTRA unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'QAU8WVUZM0'], // Celestial Navigation, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY,px60u5n1do;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Redirect Orbit: shuffle hand/memory cards into deck, then draw that many into memory ---
+$fixtures['redirect-orbit-shuffle-draw'] = [
+    'testedCards' => ['Tst4WbM6O8'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Redirect Orbit (Tst4WbM6O8, ASTRA, reserve 2) calls RedirectOrbitChoose($player, 0)
+    // (cardActivatedAbilities["Tst4WbM6O8:0"], GeneratedMacroCode.php ->
+    // GrandArchiveSim/Custom/CardDQHandlers.php ~4622), which loops an MZMAYCHOOSE over
+    // hand+memory cards; choosing a card shuffles it into the deck and recurses with count+1,
+    // and passing ends the loop with ShuffleZone(myDeck) + DrawIntoMemory($player, count). ASTRA
+    // is an advanced element -- without unlocking it, playing the card silently no-ops, so the
+    // champion is CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, CLERIC/ASTRA). One known
+    // hand card (Fluffy Shopkeep) is chosen, then the loop is passed -- proving both halves (a
+    // card actually leaves hand into the deck, and exactly that many are then drawn into memory,
+    // not hand) via zone counts.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - ASTRA unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Tst4WbM6O8'], // Redirect Orbit, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Refracted Twilight: Banish self -- tag target Potion to copy its next activation twice ---
+$fixtures['refracted-twilight-banish-copy-tag'] = [
+    'testedCards' => ['me0xxw0plq'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Refracted Twilight (me0xxw0plq) is seeded directly onto the field (its own Banish ability
+    // doesn't care how it got there, and Brewing isn't the clause under test). Its
+    // activateAbilityAbilities["me0xxw0plq:0"] (GeneratedMacroCode.php) offers a choice among
+    // ITEM/POTION-subtype field objects; customDQHandlers["me0xxw0plq:0:ActivateAbility-1"] tags
+    // the chosen target with TurnEffect "me0xxw0plq_COPY2" (consumed elsewhere,
+    // GrandArchiveSim/Custom/GameLogic.php ~6873, when that potion is next activated). A second
+    // Potion (Potion of Healing) is seeded onto the field as the only legal target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'me0xxw0plq'], // Refracted Twilight - the activator
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'qtb31x97n2'], // Potion of Healing - only legal target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Convalescent Tonic: Sacrifice self -- bottom up to 2 hand cards, draw that many, Recover 3 ---
+$fixtures['convalescent-tonic-sacrifice-bottom-draw-recover'] = [
+    'testedCards' => ['l8ao8bls6g'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Convalescent Tonic is seeded directly onto the field (its own Sacrifice ability doesn't
+    // care how it got there, and Brewing isn't the clause under test).
+    // activateAbilityAbilities["l8ao8bls6g:0"] (GeneratedMacroCode.php) offers an MZMULTICHOOSE
+    // of up to 2 hand cards; customDQHandlers["l8ao8bls6g:0:ActivateAbility-1"] moves the chosen
+    // cards to the bottom of the deck, draws that many back, then RecoverChampion($player, 3).
+    // The champion is pre-damaged by 5 so Recover 3 leaves 2 damage remaining, distinguishing
+    // "recovered" from "already at full life"; 2 known hand cards are chosen via the "&"-joined
+    // MZMULTICHOOSE response format (same shape as essence-crucible-razorgale-calling).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'l8ao8bls6g'], // Convalescent Tonic - the activator
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 5]], // pre-damage so Recover 3 is observable
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0&myHand-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Aqua Vitae: Sacrifice self -- draw a card, plus an extra if it had 3+ age counters ---
+$fixtures['aqua-vitae-sacrifice-age-counters-double-draw'] = [
+    'testedCards' => ['y5ttkat9hr'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Aqua Vitae is seeded directly onto the field with 3 age counters already on it (its own
+    // Sacrifice ability doesn't care how it got there). ActivatedAbilityCost's "sacrifice self"
+    // dispatch (GameLogic.php ~6454) stores the object's 'age' Counters value into the
+    // "ageCounters" decision-queue variable BEFORE removing it; activateAbilityAbilities
+    // ["y5ttkat9hr:0"] (GeneratedMacroCode.php) reads that variable and draws a second card only
+    // if it was >= 3. Verified live (see the sibling no-bonus fixture) that with 0 age counters
+    // only 1 card is drawn -- proving the age-counter condition actually gates the second draw,
+    // not just "always draws 2".
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'y5ttkat9hr'], // Aqua Vitae - the activator
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Counters' => ['age' => 3]]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Aqua Vitae (negative path): Sacrifice with 0 age counters only draws 1 ---
+$fixtures['aqua-vitae-no-age-bonus-single-draw'] = [
+    'testedCards' => ['y5ttkat9hr'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'y5ttkat9hr'], // Aqua Vitae - the activator, 0 age counters (fresh)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Tonic of Remembrance: [CB] Banish self -- return up to 3 cards from memory to hand ---
+$fixtures['tonic-of-remembrance-banish-return-memory'] = [
+    'testedCards' => ['uqrptjej4m'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Tonic of Remembrance is seeded directly onto the field (Brewing isn't the clause under
+    // test). activateAbilityPrereqs["uqrptjej4m:0"] (GeneratedMacroCode.php) requires
+    // IsClassBonusActive($player, ["CLERIC"]) -- the champion is CardID-patched to Arisanna,
+    // Herbalist Prodigy (b31x97n2jn, CLERIC) to satisfy it. Two known cards are seeded into
+    // memory; activateAbilityAbilities["uqrptjej4m:0"] offers an MZMULTICHOOSE of up to 3 memory
+    // cards, and customDQHandlers["uqrptjej4m:0:ActivateAbility-1"] moves the chosen cards to
+    // hand.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'b31x97n2jn']], // Arisanna, Herbalist Prodigy - CLERIC Class Bonus unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'uqrptjej4m'], // Tonic of Remembrance - the activator
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // Fluffy Shopkeep - memory card 1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'], // memory card 2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0&myMemory-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Mendcall Mercy: target player recovers 3x champion base level; opponent target gains Crowd's Favor ---
+$fixtures['mendcall-mercy-recover-opponent-crowds-favor'] = [
+    'testedCards' => ['2RKjpzEFV6'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Mendcall Mercy (2RKjpzEFV6, NORM, reserve 3) is played from hand;
+    // cardActivatedAbilities["2RKjpzEFV6:0"] (GeneratedMacroCode.php) asks YESNO "Target
+    // yourself?" -- answering NO targets the opponent. customDQHandlers
+    // ["2RKjpzEFV6:0:CardActivated-1"] computes amount = 3 * CardLevel(targetChampion->CardID)
+    // and calls RecoverChampion(targetPlayer, amount), then GainCrowdsFavor($player) only when
+    // the target was the opponent. The opponent's champion is CardID-patched to a level-2
+    // champion (Arisanna, Master Alchemist, ltv5klryvf) and pre-damaged by 8, so amount = 3*2 = 6
+    // is directly observable (Damage 8 -> 2), distinguishing the level-scaled amount from a flat
+    // "always recover some fixed amount" bug.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'ltv5klryvf', 'Damage' => 8]], // opponent champion -> level 2, pre-damaged
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2RKjpzEFV6'], // Mendcall Mercy, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Buoyant Driftguard: On Enter, opponent may gain control; if so, you gain Crowd's Favor ---
+$fixtures['buoyant-driftguard-enter-control-transfer-crowds-favor'] = [
+    'testedCards' => ['TrK2lroxkz'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Buoyant Driftguard (TrK2lroxkz, WATER, reserve 3) is played from hand. WATER is a basic
+    // element that still needs unlocking via champion lineage (GetPlayerEnabledElements only
+    // auto-enables NORM) -- the champion is CardID-patched to Spirit of Water (tafqldAGRF,
+    // WATER, level 0) to unlock it. enterAbilities["TrK2lroxkz:0"] (GeneratedMacroCode.php)
+    // queues a YESNO "Have target opponent gain control of CARDNAME?"; customDQHandlers
+    // ["TrK2lroxkz:0:Enter-1"] answers YES by setting $obj->Controller to the opponent and
+    // calling GainCrowdsFavor($player) for the original (still-owning) controller.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'tafqldAGRF']], // Spirit of Water - WATER unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'TrK2lroxkz'], // Buoyant Driftguard, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Waterveil Apostle: [CB][Memory 4+] at recollection, Gather ---
+$fixtures['waterveil-apostle-recollection-gather'] = [
+    'testedCards' => ['tiymuyv3fp'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Waterveil Apostle (WATER, CLERIC) is seeded directly onto the field. Its recollection
+    // trigger lives in ResolveBeforeRecollectionPhaseStart's plain CardID switch-case
+    // (GameLogic.php ~9552, the same dispatcher used for Foster/Starlit Apothecary/Domain
+    // upkeep), not a materialized Enter macro, so the field object doesn't need to have been
+    // played normally. It requires IsClassBonusActive($turnPlayer,["CLERIC"]) and >= 4 cards in
+    // memory -- the champion is CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, CLERIC)
+    // with Subcards=[Spirit of Water] so CLERIC Class Bonus and WATER lineage-element access are
+    // both satisfied, and 4 filler cards are seeded into memory. Reaching player 1's own
+    // recollection phase uses the established 3-action shortcut (tonoris-genesis-aegis
+    // -recollection-obelisk): P1 ends turn 1, P2 ends their turn (still global turn 1), P1
+    // declines their own MAT-phase materialize offer, auto-advancing into P1's own BREC, where
+    // Gather() (PotionLogic.php ~35) summons a random herb token onto the field.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba', 'Subcards' => ['tafqldAGRF']]], // CLERIC Class Bonus + WATER unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'tiymuyv3fp'], // Waterveil Apostle - the recollection trigger source
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Astromech Attendant: whenever you brew a Potion, draw a card into memory ---
+$fixtures['astromech-attendant-brew-trigger-draw'] = [
+    'testedCards' => ['mloejozihs'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Astromech Attendant is seeded directly onto the field (its own On Enter Gather-3x isn't
+    // the clause under test here -- OnBrew's "whenever you brew" trigger is). The champion is
+    // CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, CLERIC) so
+    // IsClassBonusActive($player,["CLERIC"]) is satisfied (OnBrew, PotionLogic.php ~247).
+    // Distilled Water (a NORM Potion, Brew -- One Herb) is seeded to hand along with its Herb
+    // ingredient (Blightroot) on the field; declaring Brew at materialize time (YES + choosing
+    // the herb) calls OnBrew($player), which -- because Astromech Attendant is on the field with
+    // its Class Bonus active -- draws a card into memory (same setup shape as
+    // distilled-water-brew-sacrifice-draw, but observing the OTHER field object's trigger
+    // instead of Distilled Water's own ability).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - CLERIC Class Bonus unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mloejozihs'], // Astromech Attendant - the trigger source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB token) - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'O1OU62Zx2Y'], // Distilled Water, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        // Astromech Attendant's own presence offers a fast-action Sacrifice opportunity on the
+        // other herb tokens still on the field -- decline it so Distilled Water fully resolves
+        // off the effect stack and onto the field (otherwise the interaction is left mid-resolution).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Lunar Seer: [CB] REST: Glimpse 2 ---
+$fixtures['lunar-seer-rest-glimpse-cb'] = [
+    'testedCards' => ['qjt0ooffy4'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Lunar Seer is seeded directly onto the field (its own On Enter isn't the clause under
+    // test -- the [Class Bonus] REST: Glimpse 2 ability is). The champion is CardID-patched to
+    // Arisanna, Astral Zenith (q3huqj5bba, CLERIC) so IsClassBonusActive($player,["CLERIC"]) is
+    // satisfied (activateAbilityPrereqs["qjt0ooffy4:0"], GeneratedMacroCode.php). Field items
+    // with an activated ability are not clickable via a plain myField-N!FSM! action -- the
+    // ability is offered as a fast-action MZMAYCHOOSE opportunity once the turn player attempts
+    // to pass, answered with the encoded '{mzID}@Activate-{abilityIndex}@{label}' choice string
+    // (same shape as cosmic-astroscope-rest-glimpse). The MZREARRANGE response keeps the
+    // original deck order (a no-op reorder), confirming Glimpse 2 fired and resolved cleanly.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - CLERIC Class Bonus unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'qjt0ooffy4'], // Lunar Seer - the activator
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Rest', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Starlit Apothecary: [Arisanna Bonus] at recollection, summon a token copy of a Potion/Herb unless opponent pays (4) ---
+$fixtures['starlit-apothecary-recollection-copy-potion'] = [
+    'testedCards' => ['ShQkyQMBCT'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Starlit Apothecary is seeded directly onto the field. Its recollection trigger is a plain
+    // CardID switch-case inside ResolveBeforeRecollectionPhaseStart (GameLogic.php ~25278, the
+    // same dispatcher used for Foster/Waterveil Apostle/Domain upkeep) gated on
+    // IsArisannaBonusActive($player) -- the champion is CardID-patched to Arisanna, Astral Zenith
+    // (q3huqj5bba, in the Arisanna lineage whitelist, GameLogic.php ~24072). A single Herb token
+    // (Blightroot -- a plain token with no activatable ability of its own, unlike a real Potion,
+    // which would otherwise intercept the turn-end transition with its own Sacrifice
+    // fast-opportunity) is seeded onto the field as the only Potion/Herb target;
+    // StarlitApothecaryRecollection (PotionLogic.php ~544) sees exactly one target and skips
+    // straight to StarlitApothecaryQueueCopy, which offers the OPPONENT a YESNO to pay (4) and
+    // prevent the copy. Declining (NO) lets StarlitApothecaryResolveCopy summon a token copy of
+    // the Herb onto the field. Reaching player 1's own recollection phase uses the established
+    // 3-action shortcut (tonoris-genesis-aegis-recollection-obelisk / waterveil-apostle
+    // -recollection-gather).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - Arisanna Bonus unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ShQkyQMBCT'], // Starlit Apothecary - the recollection trigger source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB token, no own ability) - the only copy target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        // Recollection fires: Starlit Apothecary offers the opponent a YESNO to pay (4) and
+        // prevent the copy. Decline it so the copy actually resolves.
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Twinstar Tonic: Sacrifice self -- for the rest of the game, may copy starcalled activations ---
+$fixtures['twinstar-tonic-sacrifice-starcall-copy'] = [
+    'testedCards' => ['yBDxSHkT1s'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Twinstar Tonic is seeded directly onto the field (Brewing isn't the clause under test).
+    // activateAbilityAbilities["yBDxSHkT1s:0"] (GeneratedMacroCode.php) just calls
+    // AddGlobalEffects($player, "yBDxSHkT1s") -- a permanent, foreverEffects=true marker
+    // ($foreverEffects["yBDxSHkT1s"]=true, GameLogic.php ~18266). The "for the rest of the game,
+    // may copy that starcalled activation" half (GameLogic.php ~16552, checked every time a
+    // player starcalls) is a downstream consumer of this same flag and is out of scope for this
+    // fixture -- the flag itself, set once and meant to persist permanently, is what this card's
+    // own ability is responsible for, and that's what's asserted.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'yBDxSHkT1s'], // Twinstar Tonic - the activator
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Altruistic Blacksmith: [Class Bonus] On Enter, each player summons a Cheap Sword token,
+// you gain Crowd's Favor ---
+$fixtures['altruistic-blacksmith-summon-cheap-sword'] = [
+    'testedCards' => ['Pd4hj3sveV'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Bug fix under test: Altruistic Blacksmith's On Enter closure (enterAbilities["Pd4hj3sveV:0"],
+    // GeneratedCode/GeneratedMacroCode.php) calls SummonCheapSwordToken() for both players
+    // (GrandArchiveSim/Custom/GameLogic.php ~20210), which previously (a) seeded a placeholder
+    // token ID ("gfq3j98h8d") that does not correspond to any real card, and (b) called
+    // OnWeaponEntered(), a function that was never defined anywhere in the codebase -- triggering
+    // this ability fataled the engine with "Call to undefined function OnWeaponEntered()".
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Pd4hj3sveV'], // Altruistic Blacksmith
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Cleansing Reunion: target player banishes three cards from their graveyard (six if imbued) ---
+$fixtures['cleansing-reunion-banish-graveyard'] = [
+    'testedCards' => ['xpnjvt9y59'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Bug fix under test: Cleansing Reunion is an ACTION card whose ability closure was generated
+    // into $enterAbilities (the ENTER-trigger table, for permanents entering the field) instead of
+    // $cardActivatedAbilities (the table OnCardActivated() dispatches ACTION-card resolution
+    // through). Since it is never a permanent entering the field, its closure was unreachable --
+    // playing it normally was silently a no-op. Cleansing Reunion is WIND element and isn't native
+    // to the "Spirit of Fire" starting champion -- like Deployment Beacon above, the champion's
+    // Subcards are patched with a real WIND champion (Spirit of Wind, pNiyaGlIe7) to unlock element
+    // access via CanPlayerUseCardElement(), or DoActivateCard silently no-ops before ever reaching
+    // reserve payment. The ability's own "target player" is hardcoded to the caster's opponent (no
+    // real MZCHOOSE target choice), so 4 graveyard cards are seeded for player 2 so the 3-card
+    // banish is observable (only 3 of the 4 get banished, proving the banish count and that the
+    // ability now actually runs). This card also carries the Imbue 2 keyword, which inserts a
+    // YESNO "reveal reserved cards?" decision before the ordinary per-card reserve-payment
+    // MZCHOOSE loop; answering NO declines Imbue and pays the plain 2-reserve cost.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'xpnjvt9y59'], // Cleansing Reunion
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Opportunity window: lets the effect stack resolve and reach OnCardActivated's dispatch,
+        // where the now-correctly-classified $cardActivatedAbilities["xpnjvt9y59:0"] closure fires.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // First MZCHOOSE pick: a SEPARATE, pre-existing bug in this card's own ability body (not
+        // part of the dispatch-classification fix under test here) computes this first offer's
+        // zone name ("theirGraveyard-N") relative to the CASTER's $playerID at queue time, but
+        // player 2 answers it with THEIR OWN $playerID active, so it resolves against player 1's
+        // graveyard instead (banishing Cleansing Reunion itself, which is sitting there having just
+        // resolved) rather than player 2's graveyard. See meta.json notes.
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+        // The chained re-queue (CleansingReunionBanish, run under player 2's own $playerID) offers
+        // "myGraveyard-N" correctly relative to player 2 for the remaining picks.
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sanctified Paladin: Foster keyword makes it eligible for the recollection-phase Foster
+// check, firing its onFosterAbilities closure (draw two cards) ---
+$fixtures['sanctified-paladin-foster-draw'] = [
+    'testedCards' => ['ioLmt0S7op'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Bug fix under test: HasFoster() (GrandArchiveSim/Custom/CardLogic.php) gates the Foster
+    // keyword behind a hardcoded per-card-ID whitelist that was missing Sanctified Paladin's ID
+    // (ioLmt0S7op), even though its printed text ("**Foster**<br>...<br>**On Foster:** Draw two
+    // cards.") and its onFosterAbilities closure are both correctly in place. Seed it onto the
+    // field freshly (no FOSTERED TurnEffect, no DAMAGED_SINCE_LAST_TURN) so the recollection-phase
+    // Foster check (GameLogic.php ~9852-9892) sees it transition to newly-fostered for the first
+    // time -- only a genuine wasFostered===false -> true transition fires OnFoster(), matching the
+    // same P1->P2->P1 recollection-phase cycle as weaponsmith-class-bonus-durability /
+    // berserker-plate-recollection-damage-draw (turn 1's recollection early-returns; turn 2 fires
+    // it).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ioLmt0S7op'], // Sanctified Paladin
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+
+// --- Incapacitate: Negate target action card activation ---
+$fixtures['incapacitate-negate-action-activation'] = [
+    'testedCards' => ['szene5o32m'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Incapacitate's activated ability (GeneratedMacroCode.php cardActivatedAbilities
+    // ["szene5o32m:0"]) calls QueueNegateActivation($player, ["types" => ["ACTION"]], "default",
+    // -1) -- negate target ACTION card activation, no pay-to-save (payAmount -1 short-circuits
+    // straight to NegateCardActivation in OpportunityLogic.php). Player 1 activates Escharotomy
+    // (CIU4gT14EE, reserve 1) as an ordinary main-phase ACTION; instead of passing the resulting
+    // opportunity window, player 2 responds with Incapacitate (itself Speed=true / Fast) targeting
+    // Escharotomy's still-pending effect-stack entry. Incapacitate resolves first (LIFO) and is
+    // itself moved off the stack to player 2's graveyard by OnCardActivated's own MZMove before
+    // cardActivatedAbilities runs (GameLogic.php ~5335), so GetEffectStackActivationTargets sees
+    // only Escharotomy as a legal ACTION target -- Escharotomy is negated straight to player 1's
+    // graveyard without ever resolving (its own "target player can't recover" modal never fires).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'CIU4gT14EE'], // Escharotomy, the target activation
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'szene5o32m'], // Incapacitate, the negator
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Escharotomy
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1 reserve
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 passes their own opportunity
+        // Player 2's pending decision here is an MZMAYCHOOSE "Take_a_fast_action?" offering
+        // myHand-7 (Incapacitate) as the only eligible response -- answered by selecting that
+        // mzID directly with mode 100 (NOT the mode 10002 "!FSM!" main-phase-play variant, which
+        // is for the wrong decision entirely and leaves this MZMAYCHOOSE unresolved/loops).
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 2 takes a fast action instead of passing: Incapacitate
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/4
+        // Incapacitate resolves immediately (it was moved off the stack to player 2's graveyard by
+        // OnCardActivated's own MZMove BEFORE cardActivatedAbilities ran), leaving only
+        // Escharotomy's still-pending entry as the sole legal ACTION target for
+        // "Choose_activation_to_negate".
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''], // choose Escharotomy's activation to negate
+    ],
+];
+
+// --- Corhazi Lightblade: [Class Bonus] On Attack: reveal a card from memory at random; if LUXEM, gain Critical 1 ---
+$fixtures['corhazi-lightblade-reveal-luxem-critical'] = [
+    'testedCards' => ['2Ch1Gp3jEL'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Corhazi Lightblade's On Attack ability (onAttackAbilities["2Ch1Gp3jEL:0"],
+    // GeneratedMacroCode.php) reveals a random card from memory and, if it's LUXEM, tags the
+    // attacker's mzID with the CRITICAL_1 TurnEffect. It's controlled by player 2 and declares
+    // its attack on player 2's own first turn (global turn 2) instead of player 1's -- Rule 1.h
+    // only blocks the game's FIRST player from attacking on turn 1 (CombatLogic.php
+    // "$currentTurn == 1 && $turnPlayer == $firstPlayer"), so player 2 can attack immediately
+    // after player 1 ends turn 1, with no recollection phase in between to clear the seeded
+    // memory (RecollectionPhase()/BeforeRecollectionPhase() both early-return while
+    // GetTurnNumber() === 1, and player 2's memory-return-to-hand step only runs at the start of
+    // player 2's OWN turn 2, which is later than this fixture goes). Its memory is seeded with
+    // exactly one card -- Bathe in Light (d9zax2g20h, LUXEM) -- so rand(0, count-1) always reveals
+    // index 0 deterministically, with no dependency on the seeded RNG stream. The generated
+    // "[Class Bonus]" gate here is IsClassBonusActive($player) called with NO required-classes
+    // list (unlike most other Class Bonus macros, which pass e.g. ["TAMER"]), so it only checks
+    // "does this player control any CHAMPION at all" and is always true -- verified live
+    // (classBonus=YES with the deck's default FIRE/NORM starting champion, no ASSASSIN needed).
+    // That looks like a real code-gen gap against the printed "[Class Bonus]" text, but it's a
+    // pre-existing condition-classification issue orthogonal to the reveal/critical logic this
+    // fixture targets, so it's left uncovered/unfixed here.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '2Ch1Gp3jEL'], // Corhazi Lightblade
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'd9zax2g20h'], // Bathe in Light (LUXEM) - sole memory card, deterministic reveal
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1's turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 2 declines their own materialize offer
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Corhazi Lightblade declares an attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target player 1's champion
+    ],
+];
+
+// --- Zander, Deft Executor: On Enter, put 2 preparation counters; may remove 1 to return an
+// Assassin action/attack card from graveyard to hand ---
+$fixtures['zander-deft-executor-enter-prep-return-assassin'] = [
+    'testedCards' => ['fc4ic5fmaa'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Zander, Deft Executor
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Zander, Deft Executor's On Enter ability (enterAbilities["fc4ic5fmaa:0"] plus its
+    // fc4ic5fmaa:0:Enter-1/Enter-2 CUSTOM continuations in GeneratedMacroCode.php) only fires via
+    // a real level-up, not by seeding the champion directly onto the field -- the starting
+    // champion's CardID is patched to Zander, Prepared Scout (T3CIBknts0, level 1, NORM) to
+    // satisfy the level-1->2 gate and element/lineage match, 2 filler cards are seeded into
+    // memory to pay the 2-memory level-up cost, and the deck's Material section carries an extra
+    // "Zander, Deft Executor" entry so it's sitting in the material zone to level up into (the
+    // pregame starting-champion pick consumes Spirit of Fire from myMaterial-0, shifting Zander,
+    // Deft Executor down to myMaterial-0 for the real level-up click). An Assassin ATTACK card
+    // (Slice and Dice, 3jg01o26b4) is seeded into the graveyard as the only legal target for the
+    // "return an Assassin action or attack card from your graveyard to your hand" clause.
+    // Answering YES to "Remove_a_preparation_counter_from_Zander?" drops the preparation counters
+    // from 2 to 1 and searches the graveyard for ASSASSIN ACTION/ATTACK cards
+    // (fc4ic5fmaa:0:Enter-1's CardClasses/CardType filter), finding exactly the seeded card and
+    // moving it to hand once selected.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'T3CIBknts0']], // Zander, Prepared Scout (level 1, NORM) - satisfies level 1->2 gate
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays 2-memory level-up cost, card 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 2/2
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3jg01o26b4'], // Slice and Dice (ASSASSIN ATTACK) - return-from-graveyard target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Zander, Deft Executor -- fires On Enter
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // remove a preparation counter
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // return Slice and Dice from graveyard to hand
+    ],
+];
+
+// --- Dazzling Courtesan: Kindle 3 -- may banish up to 3 fire cards from graveyard to pay its cost ---
+$fixtures['dazzling-courtesan-kindle-banish-fire-gy'] = [
+    'testedCards' => ['znk6g5o8ys'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Dazzling Courtesan is registered in $Kindle_Cards["znk6g5o8ys"] = 3 (GrandArchiveSim/Custom/
+    // GameLogic.php) -- its reserve-3 cost is paid entirely by banishing up to 3 FIRE cards from
+    // the graveyard instead of reserving hand cards (the KindleChoose/KindleProcess CUSTOM DQ
+    // handlers in GameLogic.php). Three copies of Escharotomy (CIU4gT14EE, FIRE) are seeded into
+    // the graveyard so all 3 Kindle payments are available; choosing all three at the repeated
+    // "Kindle: banish fire card from GY to reduce cost?" MZMAYCHOOSE fully pays the cost, so no
+    // ReserveCard (hand-card) payment decisions appear at all and the hand count never drops
+    // below its starting size (only the played card itself leaves hand, via the normal FSM play,
+    // not any reserve payment).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'CIU4gT14EE'], // Escharotomy (FIRE) 1/3
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'CIU4gT14EE'], // 2/3
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'CIU4gT14EE'], // 3/3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'znk6g5o8ys'], // Dazzling Courtesan
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Dazzling Courtesan
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // Kindle: banish fire card 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-1', 'chkInput' => [], 'inputText' => ''], // Kindle: banish fire card 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // Kindle: banish fire card 3/3 -- cost fully paid
+    ],
+];
+
+// --- Besieged Slash: Costs 2 less vs 3+ opposing units [Class Bonus] ---
+$fixtures['besieged-slash-class-bonus-3-units-discount'] = [
+    'testedCards' => ['Dkq7QnrGJI'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Besieged Slash
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Besieged Slash (activationCostModifierAbilities["Dkq7QnrGJI:0"], GeneratedMacroCode.php) costs
+    // 2 less (3 -> 1 reserve) when [Class Bonus] is active (player's champion is WARRIOR) AND the
+    // opponent controls 3+ ALLY/CHAMPION units. Player 2 is patched to a WARRIOR champion (Lorraine,
+    // Wandering Warrior) for the class bonus; player 1 (the opponent, from P2's perspective) gets 2
+    // extra Dungeon Guide allies seeded onto their field, which combined with their own already-
+    // present champion brings their unit count to exactly 3. Same real attack-card-activation shape
+    // as heavy-swing-class-bonus-discount: P1 passes turn 1 (Rule 1.h forbids the opening player from
+    // activating ATTACK cards turn 1), then P2 activates Besieged Slash on their own turn 1, paying
+    // only 1 rep of the reserve decision (not 3) before the mandatory attack-card target selection.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']], // Lorraine, Wandering Warrior (WARRIOR) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY 1/2 (plus P1's own champion = 3 units total)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY 2/2
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'Dkq7QnrGJI'], // Besieged Slash, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/1 (discounted from 3)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target P1's champion
+    ],
+];
+
+// --- Lorraine, Spirit Ruler: On Enter -- put a cheap Sword regalia from banishment onto field w/ +3 durability ---
+$fixtures['lorraine-spirit-ruler-enter-banish-sword-durability'] = [
+    'testedCards' => ['n2TKqNaODR'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Spirit Ruler
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Lorraine, Spirit Ruler's On Enter (enterAbilities["n2TKqNaODR:0"] plus its n2TKqNaODR:0:Enter-1
+    // CUSTOM continuation in GeneratedMacroCode.php) searches the banishment for a Sword regalia card
+    // with memory cost <=1 and puts it onto the field with 3 additional durability counters. The
+    // level-up gate (CanChampionLevelUpIntoCard, GameLogic.php) only checks level number, not the
+    // "Lorraine Lineage" flavor text, so the starting champion is patched directly to Lorraine,
+    // Blademaster (TJTeWcZnsQ, level 2) to satisfy the level 2->3 gate, 3 filler cards are seeded into
+    // memory to pay the 3-memory level-up cost, and the deck's Material section carries an extra
+    // "Lorraine, Spirit Ruler" entry so it's sitting in the material zone to level up into (the
+    // pregame starting-champion pick consumes Spirit of Fire from myMaterial-0, shifting Lorraine,
+    // Spirit Ruler down to myMaterial-0 for the real level-up click). Clarent, Sword of Peace
+    // (m31WVJ9F04, REGALIA/WEAPON, subtypes WARRIOR,SWORD, memory cost 1) is seeded into the
+    // banishment as the sole legal target for the MZMAYCHOOSE.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']], // Lorraine, Blademaster (level 2) - satisfies level 2->3 gate
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays 3-memory level-up cost, card 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 3/3
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (Sword regalia, memory cost 1) - the sole legal On Enter target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Lorraine, Spirit Ruler -- fires On Enter
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myBanish-0', 'chkInput' => [], 'inputText' => ''], // choose Clarent from banishment
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline Clarent's own [Class Bonus] prevent-damage fast action window
+    ],
+];
+
+// --- Quietus Blade: [Class Bonus] while material deck is empty, +4 POWER ---
+$fixtures['quietus-blade-class-bonus-empty-material-power'] = [
+    'testedCards' => ['4c7XZeezka'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Quietus Blade's static [Class Bonus] power bonus (GameLogic.php ~13120, inside
+    // ObjectCurrentPower) adds +4 POWER to the weapon itself only while the controller's material
+    // deck is completely empty AND [Class Bonus] (WARRIOR) is active; GetTotalAttackPower
+    // (CombatLogic.php ~251-272) adds the selected weapon's ObjectCurrentPower into the attack
+    // total. The starting champion is patched to Lorraine, Wandering Warrior (WARRIOR) for the
+    // class bonus; Quietus Blade (printed 2 POWER) is seeded directly onto the field as an
+    // already-equipped weapon (same "seed weapon straight onto myField" shape as
+    // executioners-spear-jin-bonus-on-kill-durability); the remaining material deck (Clarent,
+    // Backup Charger, Purifying Thurible -- Spirit of Fire and Lorraine were already consumed/
+    // patched away) is emptied via the emptyZone primitive so the condition is met. Same real
+    // attack-declaration shape as executioners-spear-jin-bonus-on-kill-durability: P1 pass, P2
+    // pass, P1 declines the turn-3 MAT offer, then P1's champion (0 printed POWER) attacks,
+    // selecting Quietus Blade as the weapon (myField-1) and targeting the opposing champion
+    // (theirField-0); P2 declines the Retaliate? MZMAYCHOOSE. Total attack power is Quietus
+    // Blade's 2 printed POWER + 4 from the Class Bonus = 6, landing as Damage=6 on the defender
+    // (vs. Damage=2 if the Class Bonus bonus never applied).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']], // Lorraine, Wandering Warrior (WARRIOR) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4c7XZeezka'], // Quietus Blade, seeded as an already-equipped weapon
+        ['player' => 1, 'emptyZone' => 'myMaterial', 'destZone' => 'myBanish'], // empty material deck - satisfies the Class Bonus condition
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // champion declares attack
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // select Quietus Blade as the weapon
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate?
+    ],
+];
+
+// --- Shred to Ribbons: [Class Bonus] +3 POWER while attacking an ally with 5+ LIFE ---
+$fixtures['shred-to-ribbons-class-bonus-attack-ally-5-life-power'] = [
+    'testedCards' => ['5j36gn1b2s'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Shred to Ribbons
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Shred to Ribbons's [Class Bonus] (GameLogic.php ~11658, inside the per-CardID POWER switch)
+    // adds +3 POWER to the ATTACK card's intent-loaded power when [Class Bonus] (GUARDIAN or
+    // WARRIOR) is active and the declared combat target is an ALLY with 5+ current LIFE
+    // (ObjectCurrentHP). P2 is patched to a WARRIOR champion (Lorraine, Wandering Warrior) for the
+    // class bonus; a Dungeon Guide ALLY is seeded onto P1's (the opponent's) field with its
+    // Counters overridden to potion_animate_life=5 (same "potion_animate_power" style override as
+    // blistering-insurgent-attack-buff, but for LIFE) since Dungeon Guide's printed LIFE is only 3.
+    // Same real attack-card-activation shape as heavy-swing-class-bonus-discount: P1 passes turn 1
+    // (Rule 1.h forbids the opening player from activating ATTACK cards turn 1), then P2 activates
+    // Shred to Ribbons on their own turn 1, paying its full 3 reserve (no [Class Bonus] cost
+    // discount on this card), then targets the seeded ally (theirField-1, not the champion at
+    // theirField-0) to satisfy the "attacking an ally with 5+ LIFE" condition.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']], // Lorraine, Wandering Warrior (WARRIOR) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['potion_animate_life' => 5]]], // Dungeon Guide ALLY w/ LIFE overridden to 5 - attack target
+        ['player' => 2, 'zone' => 'myIntent', 'cardID' => '5j36gn1b2s', 'setProperties' => ['Controller' => 2, 'Owner' => 2]], // Shred to Ribbons, seeded directly into Intent (bypassing the hand-play reserve/rearrange flow); BridgeAddToZone only auto-sets Controller/Owner for */Field zones, so it's set explicitly here for the [Class Bonus] IsClassBonusActive($obj->Controller, ...) check to resolve the correct player
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // champion declares the real attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target the seeded ally (LIFE 5), not P1's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate?
+    ],
+];
+
+// --- Tactful Sergeant: On Enter -- if your champion has attacked this turn, draw into memory ---
+$fixtures['tactful-sergeant-enter-attacked-draw-memory'] = [
+    'testedCards' => ['7UXGwC7lSO'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+5 Fluffy Shopkeep
+DECK,
+    // Tactful Sergeant's On Enter (enterAbilities["7UXGwC7lSO:0"], GeneratedMacroCode.php) checks
+    // OnAttackCallCount($player) > 0 -- a per-player-per-turn attack counter incremented by any
+    // real attack declaration this turn (OnAttack(), ZoneAccessors.php), not specifically a
+    // champion attack despite the printed text. Tactful Sergeant's own element is WIND, so
+    // by8145w2u2_WIND is added as a global effect (Imperial Seal's basic-element unlock mechanic)
+    // to unlock playing it without a real WIND-lineage champion. Same real attack-declaration
+    // shape as blistering-insurgent-attack-buff: P1 pass, P2 pass, P1 declines the turn-3 MAT
+    // offer, then a Dungeon Guide ALLY (seeded awake onto P1's field) declares a real attack
+    // against the opposing champion, P2 declines Retaliate?, and only then is Tactful Sergeant
+    // played from hand (its own 4-reserve cost) -- proving materializing a card after an already-
+    // resolved attack, later in the same turn, is legal in this engine.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // Spirit of Wind (WIND) lineage patch - unlocks WIND element access permanently (AddGlobalEffects' by8145w2u2_WIND is only "until end of turn" and would expire before Tactful Sergeant is played, several turns later)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, seeded awake (BridgeAddToZone defaults Status=2)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '7UXGwC7lSO'], // Tactful Sergeant, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Dungeon Guide declares a real attack
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate?
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Tactful Sergeant after the attack -- fires On Enter
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/4
+    ],
+];
+
+// --- Strike of Singularity: [Class Bonus] attacking a unit whose controller has an empty hand ->
+// this attack deals double damage ---
+$fixtures['strike-of-singularity-onattack-empty-hand-double-damage'] = [
+    'testedCards' => ['AMv1u54B2s'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Regression fixture for a genuine engine bug: onAttackAbilities["AMv1u54B2s:0"] (GeneratedCode/
+    // GeneratedMacroCode.php) tagged the intent card with "soO3hjaVfN_DOUBLE" -- Rending Flames'
+    // (soO3hjaVfN) own CardID -- instead of its own, apparently copy-pasted from Rending Flames'
+    // implementation. The consumer, AttackHasRendingFlamesDouble() (GrandArchiveSim/Custom/
+    // CombatLogic.php), hardcoded a check for CardID === "soO3hjaVfN" in the intent zone, so Strike
+    // of Singularity's doubling could never fire no matter the game state. Fixed by renaming the
+    // consumer to the generic AttackHasDamageDoubleEffect(), which checks each intent card for a
+    // TurnEffect of the form "{$intentObj->CardID}_DOUBLE" (self-referential, matching every other
+    // card's own closure), and by correcting this card's own AddTurnEffect call to tag itself
+    // ("AMv1u54B2s_DOUBLE"). Verified this doesn't change Rending Flames' own behavior (its tag
+    // already matches its own CardID) via its existing rending-flames-onattack-banish-double-damage
+    // fixture, which still passes.
+    //
+    // Strike of Singularity's element is LUXEM (verified via CardElement()), so the starting
+    // champion's CardID is patched directly to Zander, Blinding Steel (UAF6Nr7GUE) -- LUXEM AND
+    // ASSASSIN on the same printed card (verified via CardElement()/CardClasses()) -- rather than
+    // Zander, Deft Executor (NORM/ASSASSIN, used for the other ASSASSIN-gated Zander Pantheon
+    // fixtures above): patching to a NORM champion left CanPlayerUseCardElement() blocking the LUXEM
+    // card, and the FSM play click silently no-op'd (reported success, changed nothing, same
+    // element-gating trap documented on insignia-of-corhazi-rest-prepare above -- confirmed live by
+    // instrumenting the replay: hand/field/DQ were byte-identical before and after the FSM click
+    // until the champion's element was corrected). Rule 1.h blocks the game's first player from
+    // attacking on turn 1, so player 1 ends turn 1 and player 2 plays Strike of Singularity on their
+    // own turn 1 instead. Player 1's starting hand is fully emptied (via the 'emptyZone' setup
+    // helper -- see its own comment above for why this doesn't script a real hand-depletion
+    // sequence) so their champion satisfies "attacking a unit controlled by a player with no cards
+    // in their hand." Strike of Singularity's printed POWER is 4; doubled damage (8) on the champion
+    // is only possible if the ability's "deals double that damage instead" effect actually applied.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE']], // Zander, Blinding Steel (LUXEM, ASSASSIN) - element + Class Bonus precondition
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myBanish'], // empty defender's hand - "no cards in their hand" precondition
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'AMv1u54B2s'], // Strike of Singularity, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 1/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 2/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 3/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 4/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's (empty-handed) champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so CombatApplyAttackerDamage actually lands
+    ],
+];
+
+// --- Slice and Dice: Prepare 3, On Hit may declare additional attack with +3 POWER copy if prepared ---
+$fixtures['slice-and-dice-prepare-onhit-additional-attack'] = [
+    'testedCards' => ['3jg01o26b4'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Regression fixture for a genuine engine bug: the CardEditor ability database has no
+    // CardActivated row for Slice and Dice at all (unlike every other Prepare-cost ATTACK card,
+    // e.g. Thieving Cut/7t9m4muq2r just above), so nothing ever offered or paid its printed
+    // "Prepare 3" additional cost -- its onHitAbilities["3jg01o26b4:0"] "if prepared" branch
+    // (GeneratedCode/GeneratedMacroCode.php) was therefore permanently unreachable. No database
+    // access (local MySQL or a configured remote CardCodeService) was reachable in the environment
+    // this fix was developed in to author the missing row and regenerate, so the fix instead adds
+    // $cardActivatedAbilities["3jg01o26b4:0"] by hand in GrandArchiveSim/Custom/GameLogic.php,
+    // mirroring Thieving Cut's generated entry exactly (same DeclarePrepareCost/wasPrepared/
+    // PREPARED-TurnEffect mechanism, which is itself hand-written tracked code, not generated).
+    // This is additive and safe: GeneratedMacroCode.php has no competing entry for this key, so
+    // nothing is clobbered on regeneration; if the database row is ever authored, this hand-written
+    // entry becomes redundant and should be removed in favor of the generated one.
+    //
+    // Player 2's champion is pre-seeded with 3 preparation counters directly (same pattern as
+    // thieving-cut-prepare-onhit-draw, scaled to this card's Prepare 3 cost) so the cost can
+    // actually be paid. Answering YES to "Declare additional attack with copy?" is deliberately
+    // NOT exercised here (that path creates a whole second attack instance, out of scope for this
+    // fixture) -- the assertion is that the prompt appears at all, which only happens if the
+    // PREPARED TurnEffect was actually applied.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 3]]], // Prepare-ability cost fuel
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '3jg01o26b4'], // Slice and Dice, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 1/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 2/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // pay Prepare 3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so the hit actually lands
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline the "declare additional attack" offer -- its appearance alone proves PREPARED applied
+    ],
+];
+
+
+// --- Charm of Anticipation: Banish CARDNAME: Draw a card. Activate only if you have Crowd's
+// Favor. Hand-authored ability (see GrandArchiveSim/Custom/GameLogic.php,
+// activateAbilityAbilities["vkL2RFh0yM:0"] -- no CardEditor ability database row was reachable in
+// this sandbox) ---
+$fixtures['charm-of-anticipation-banish-draw'] = [
+    'testedCards' => ['vkL2RFh0yM'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Charm of Anticipation is seeded directly onto player 1's field (myField-1) and player 1 is
+    // granted the Crowd's Favor status (global effect gpmJdGYqoC) via the 'globalEffect' setup
+    // primitive, satisfying the ability's "Activate this ability only if you have the Crowd's
+    // Favor status" prereq. A single CustomInput "Activate:0" click drives
+    // ActivateAbility -> DoActivatedAbility -> activateAbilityAbilities["vkL2RFh0yM:0"], which
+    // banishes Charm of Anticipation and draws a card -- mirroring the Templar of the Eternal
+    // fixture's activation shape exactly.
+    'setup' => [
+        ['player' => 1, 'globalEffect' => 'gpmJdGYqoC'], // Crowd's Favor
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'vkL2RFh0yM'], // Charm of Anticipation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Unity's Gale: Target ally gets +3LIFE until end of turn. At the beginning of the next end
+// phase, if that ally is damaged and you don't control it, you gain the Crowd's Favor status.
+// Hand-authored ability (see GrandArchiveSim/Custom/GameLogic.php,
+// cardActivatedAbilities["uUWsgLmyTk:0"] plus the EndPhase()/ObjectCurrentHP hooks -- no
+// CardEditor ability database row was reachable in this sandbox) ---
+$fixtures['unitys-gale-delayed-crowds-favor'] = [
+    'testedCards' => ['uUWsgLmyTk'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Unity's Gale is WIND element, so the starting champion's Subcards are patched with a real
+    // WIND champion (Spirit of Wind, pNiyaGlIe7) to unlock element access, matching the Cleansing
+    // Reunion/Tactful Sergeant precedent. Player 2's Dungeon Guide is seeded onto their own field
+    // pre-damaged (Damage=2) -- the delayed clause only checks "is damaged" as a state, not how or
+    // when the damage was dealt, so seeding it directly is equivalent to and far simpler than
+    // scripting a real combat step. Player 1 plays Unity's Gale from hand (its own 2-reserve
+    // cost), both players decline the fast-opportunity window, then targets player 2's Dungeon
+    // Guide -- an ally player 1 does not control, satisfying "you don't control it". Player 1 then
+    // ends their turn (a single Pass reaches EndPhase(), per the Rumble Coordinator precedent),
+    // where the hand-authored EndPhase() block finds the marker, confirms Damage>0 and
+    // Controller!=caster, and calls GainCrowdsFavor(1).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Damage' => 2]], // Dungeon Guide, pre-damaged
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uUWsgLmyTk'], // Unity's Gale
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target player 2's Dungeon Guide
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // P1 requests main-phase pass
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P1 declines their own fast-action offer
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P2 declines too -> phase actually advances -> EndPhase()
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Reaping Legacy: [Class Bonus] Reaping Legacy gets +1POWER for each Sword regalia weapon
+// card in your banishment. Hand-authored ability (see GrandArchiveSim/Custom/GameLogic.php,
+// ObjectCurrentPower()'s "Self power modifiers" switch, case "XDVIiIfKZk" -- no CardEditor ability
+// database row was reachable in this sandbox) ---
+$fixtures['reaping-legacy-class-bonus-sword-banishment'] = [
+    'testedCards' => ['XDVIiIfKZk'],
+    // A plain, minimal deck (mirroring shred-to-ribbons-class-bonus-attack-ally-5-life-power)
+    // rather than GA_LORRAINE_PANTHEON_DECK: that deck's richer starting hand leaves extra
+    // fast-speed material live, which turns the post-combat opportunity window into several extra
+    // undetermined decline rounds. Reaping Legacy itself is seeded directly into intent below, so
+    // it doesn't need to be in this deck at all.
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // ATTACK cards can't be freely FSM-activated from hand outside of a real attack declaration
+    // (confirmed empirically -- the click is silently a no-op); Reaping Legacy is instead seeded
+    // directly into player 2's myIntent (Controller/Owner set explicitly, same shortcut as the
+    // shred-to-ribbons-class-bonus-attack-ally-5-life-power fixture), bypassing the hand-play/
+    // reserve flow entirely. Player 2's champion is patched to Lorraine, Wandering Warrior
+    // (DpHDGaX2Pn, WARRIOR) for the [Class Bonus], and two Sword regalia weapon cards (Clarent,
+    // Sword of Peace, m31WVJ9F04) are seeded into player 2's own banishment ("your banishment" =
+    // the attacking player's). Player 1 passes turn 1 (Rule 1.h forbids the true first player from
+    // attacking turn 1), then player 2's champion (0 printed power, bare-handed) declares a real
+    // attack -- same 4-action shape as the Shred to Ribbons precedent (Pass, FSM attack, target,
+    // decline Retaliate?) -- against a Dungeon Guide ALLY seeded onto player 1's field (LIFE
+    // overridden to 4), with Reaping Legacy already loaded in intent: total attack power = 0
+    // (champion) + 3 (printed) + 2 (Class Bonus, one per Sword regalia weapon in banishment) = 5,
+    // dealt as real, observable combat damage -- exactly lethal to the Dungeon Guide (which then
+    // dies and moves to the graveyard) vs. only 3 damage (and survival) if the Class Bonus never
+    // applied.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']], // Lorraine, Wandering Warrior (WARRIOR) -- Class Bonus source
+        // Dungeon Guide's printed LIFE (3) is overridden to 4 (same potion_animate_life trick as
+        // the Shred to Ribbons precedent) so it's lethal ONLY with the +2 Class Bonus applied
+        // (0 champion + 3 printed + 2 bonus = 5 >= 4) and would survive without it (0 + 3 = 3 < 4)
+        // -- isolating the bonus specifically, rather than a target any base attack would also kill.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['potion_animate_life' => 4]]], // Dungeon Guide ALLY, LIFE overridden to 4 -- attack target
+        ['player' => 2, 'zone' => 'myIntent', 'cardID' => 'XDVIiIfKZk', 'setProperties' => ['Controller' => 2, 'Owner' => 2]], // Reaping Legacy, seeded directly into Intent
+        ['player' => 2, 'zone' => 'myBanish', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (REGALIA/WEAPON, SWORD)
+        ['player' => 2, 'zone' => 'myBanish', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (REGALIA/WEAPON, SWORD)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // champion declares the real attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target player 1's Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate?
+    ],
+];
+
+
+// --- Fractal of Insight: On Enter -- may rest self; if you do, Glimpse 2 ---
+$fixtures['fractal-of-insight-rest-glimpse-2'] = [
+    'testedCards' => ['rp5k1vt1cn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Fractal of Insight
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Fractal of Insight (rp5k1vt1cn:0, PHANTASIA/MAGE) is played from hand like a normal
+    // permanent (no EffectStack priority pass needed -- same as Tactful Sergeant's ALLY play).
+    // enterAbilities["rp5k1vt1cn:0"] queues a YESNO ("Rest_Fractal_of_Insight?"); answering YES
+    // exhausts it and calls Glimpse(2) (GameLogic.php), which queues an MZREARRANGE decision with
+    // param "Top=<cardIDs>;Bottom=". Submitting that same string verbatim (the no-op default) keeps
+    // the two glimpsed cards on top in their original order -- deck count is unaffected (glimpse
+    // only looks/reorders). Answering YES is the semantic proof: Fractal of Insight's own Status
+    // flips from 2 (awake) to 1 (rested) as the direct result of the "may rest self" choice, and a
+    // real MZREARRANGE decision (glimpse) is only queued because Glimpse(2) actually ran.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00']], // Diao Chan, Enchantress
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rp5k1vt1cn'], // Fractal of Insight, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Fractal of Insight
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // choose to rest Fractal of Insight
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=px60u5n1do', 'chkInput' => [], 'inputText' => ''], // Glimpse 2 MZREARRANGE response: deliberately reorders the two glimpsed cards (bottom the one that was originally on top) rather than submitting the no-op default, so the resulting deck order is observably different from "no Glimpse happened" -- confirmed via direct probe against this deck/seed (top two cards were px60u5n1do, em6eEh9q8y before this decision)
+    ],
+];
+
+// --- Fractal of Insight: On Enter -- decline to rest self, Glimpse does not happen ---
+$fixtures['fractal-of-insight-decline-no-glimpse'] = [
+    'testedCards' => ['rp5k1vt1cn'],
+    'baseFixture' => 'fractal-of-insight-rest-glimpse-2',
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Fractal of Insight
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00']], // Diao Chan, Enchantress
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rp5k1vt1cn'], // Fractal of Insight, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Fractal of Insight
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline to rest Fractal of Insight
+    ],
+];
+
+// --- Unstable Fractal: [Class Bonus] (3), REST, Sacrifice self -- destroy target cheap item ---
+$fixtures['unstable-fractal-class-bonus-destroy-item'] = [
+    'testedCards' => ['2o82fwl22v'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Unstable Fractal
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Unstable Fractal (2o82fwl22v, PHANTASIA/CLERIC) is seeded directly onto the field, already
+    // awake (Status=2) -- its "Hindered" enter-rested flavor is irrelevant to the activated ability
+    // under test, so seeding bypasses it (same shortcut as windrider-vanguard-class-bonus-vigor
+    // seeding pre-rested). The champion is patched to Diao Chan, Enchantress (00xbh8oc00, CLERIC)
+    // so IsClassBonusActive($player, ["CLERIC"]) is true. A Backup Charger (9gv4vm4kj3, REGALIA/
+    // ITEM, memory cost 0) is seeded onto the opponent's field as the "target item with memory
+    // cost 0 or reserve cost 5 or less". Activating via CustomInput "Activate:0"
+    // (DoActivatedAbility -> activateAbilityAbilities["2o82fwl22v:0"]) auto-rests Unstable Fractal
+    // as its [REST] cost (PHANTASIA static-ability auto-rest, GameLogic.php ~line 6982), then
+    // ActivatedAbilityCost's case "2o82fwl22v" (GameLogic.php) further rests it again (no-op,
+    // already rested) and sacrifices it via DoSacrificeFighter -- paying the [REST] + Sacrifice
+    // CARDNAME cost of the printed clause. The "(3)" Class Bonus reserve cost turned out not to be
+    // separately prompted by this activation path (verified live -- no reserve-payment MZCHOOSE is
+    // queued between Activate:0 and the destroy target choice); the hand-count>=3 check lives only
+    // in activateAbilityPrereqs as a legality gate, not as an interactive payment step here.
+    // customDQHandlers["2o82fwl22v:0:ActivateAbility-1"] then destroys the chosen target. Because
+    // the target is a REGALIA card, GraveyardAddReplacement (GameLogic.php) transparently redirects
+    // the MZMove-to-graveyard into the target's controller's Banish zone instead (a real, generic
+    // "Regalia leaves play to Banish, not the Graveyard" engine rule -- confirmed by reading
+    // GraveyardAddReplacement -- not a bug in this ability).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00']], // Diao Chan, Enchantress (CLERIC) -- Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v', 'setProperties' => ['Status' => 2]], // Unstable Fractal, seeded awake
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => '9gv4vm4kj3'], // Backup Charger (REGALIA/ITEM, memory cost 0) -- destroy target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // activate Unstable Fractal's ability
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target the opponent's Backup Charger
+    ],
+];
+
+// --- Unstable Fractal: without Class Bonus (non-CLERIC champion), activation is illegal ---
+$fixtures['unstable-fractal-no-class-bonus-blocked'] = [
+    'testedCards' => ['2o82fwl22v'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Unstable Fractal
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Negative-path companion to unstable-fractal-class-bonus-destroy-item. The champion is left
+    // as the deck's only Lv 0 Material champion (Spirit of Water, tafqldAGRF, class SPIRIT) instead
+    // of being patched to Diao Chan -- so IsClassBonusActive($player, ["CLERIC"]) is false.
+    // activateAbilityAbilities["2o82fwl22v:0"] itself (GeneratedMacroCode.php) opens with
+    // "if(!IsClassBonusActive($player, ["CLERIC"])) return;" -- the CustomInput click is legal (the
+    // engine accepts the button press; confirmed live that this is NOT rejected as an illegal
+    // action, unlike Piquant Shieldbearer's Taunt-target case), but the ability body returns
+    // immediately, so no MZCHOOSE target decision is ever queued and nothing on the board changes.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v', 'setProperties' => ['Status' => 2]], // Unstable Fractal, seeded awake
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => '9gv4vm4kj3'], // Backup Charger -- a legal target exists, isolating Class Bonus as the only blocker
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // attempt to activate without Class Bonus -- silently no-ops
+    ],
+];
+
+// --- Fractal of Refreshment: On Enter -- reveal up to 3 water memory cards, bottom them, draw that many ---
+$fixtures['fractal-of-refreshment-bottom-2-draw-2'] = [
+    'testedCards' => ['cxqf8rr452'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Fractal of Refreshment
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Fractal of Refreshment (cxqf8rr452, PHANTASIA/CLERIC) is played from hand like a normal
+    // permanent (no EffectStack priority pass needed). Paying its 3-reserve cost fires
+    // enterAbilities["cxqf8rr452:0"] (GeneratedMacroCode.php, comment "Memory Refresh"), which finds
+    // WATER-element cards in myMemory and repeatedly offers an MZMAYCHOOSE ("Reveal_and_bottom_a_
+    // water_card?") via customDQHandlers["FractalRefreshPick"] (Custom/GameLogic.php). Two water
+    // cards (x7u6wzh973, Frostbinder Apostle) are seeded into memory alongside one non-water filler
+    // (em6eEh9q8y, Dungeon Guide, NORM element) to prove only water cards are eligible. Choosing
+    // both water cards moves each to the bottom of the deck (MZMove to "myDeck") and increments
+    // fractalRefreshCount; after the 2nd pick, ZoneSearch("myMemory", ["WATER"]) is empty (both
+    // consumed), so the loop short-circuits straight to DrawIntoMemory($player, 2) without a third
+    // decision -- proving "up to three" correctly stops early rather than always asking exactly 3
+    // times. The non-water Dungeon Guide is never offered as a choice at all. Fractal of
+    // Refreshment's own element is WATER (unlike Fractal of Insight/Unstable Fractal, both NORM),
+    // so swapping the champion's CardID to Diao Chan alone is not enough -- Diao Chan's own element
+    // is NORM, so playing a WATER card would silently no-op (confirmed live) without also patching
+    // Subcards to include Spirit of Water (tafqldAGRF, WATER) for permanent element access, same
+    // technique as the water-barrier-prevent-tag precedent.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]], // Diao Chan, Enchantress (CLERIC) + Spirit of Water lineage (WATER unlock)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'x7u6wzh973'], // Frostbinder Apostle (WATER) #1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'x7u6wzh973'], // Frostbinder Apostle (WATER) #2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (NORM) -- not water, must not be offered
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cxqf8rr452'], // Fractal of Refreshment, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Fractal of Refreshment
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // reveal and bottom water card #1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // reveal and bottom water card #2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the 3rd offer (reveal only 2 of the allowed "up to three") -- resolves FractalRefreshPick's remaining=1 and fires DrawIntoMemory(2)
+    ],
+];
+
+// --- Protective Fractal: [REST]: Prevent the next 1 damage to target champion this turn ---
+$fixtures['protective-fractal-rest-prevent-1-damage'] = [
+    'testedCards' => ['1lw9n0wpbh'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Protective Fractal
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Protective Fractal (1lw9n0wpbh, PHANTASIA/CLERIC) is seeded directly onto PLAYER 2's field,
+    // already awake -- its activated [REST] ability has no Class Bonus or element-access gate
+    // (unlike Unstable Fractal/Fractal of Refreshment), so no champion patch is needed at all.
+    // Player 2 (not player 1) is the activating/attacking player throughout, so everything happens
+    // on player 2's own turn -- avoiding Rule 1.h's restriction on the true first player (player 1)
+    // attacking on turn 1 -- and keeping the activation and the damage in the SAME turn, since
+    // "this turn" is the duration of the printed clause (TurnEffects are not persistent across
+    // turn boundaries here, unlike Torpid Fractal's explicitly-registered FROZEN_BY_TORPID).
+    // Any awake Reservable/PHANTASIA card generates a generic "Take_a_fast_action?" MZMAYCHOOSE
+    // opportunity offer for its controller every time priority would otherwise pass (confirmed
+    // live, same family as Fairy Whispers' recurring Opportunity prompt) -- declining it ('-') is
+    // required at each such prompt, and this specific setup needs exactly two declines from player
+    // 2 to let player 1's turn-1 pass fully resolve into player 2's own turn. Once on player 2's
+    // turn, activating Protective Fractal via CustomInput "Activate:0" (DoActivatedAbility ->
+    // activateAbilityAbilities["1lw9n0wpbh:0"], GeneratedMacroCode.php) auto-rests it as its [REST]
+    // cost and queues an MZCHOOSE over all champions; targeting player 1's champion runs
+    // customDQHandlers["1lw9n0wpbh:0:ActivateAbility-1"], which AddTurnEffect(target,
+    // "1lw9n0wpbh"). A Dungeon Guide ALLY on player 2's field has its Counters overridden with
+    // potion_animate_power=3 (ObjectCurrentPower's override, GameLogic.php -- the same technique as
+    // the shred-to-ribbons/reaping-legacy precedents) so its real declared attack against player
+    // 1's champion deals a controlled, non-trivial 3 power before prevention -- the attack needs an
+    // explicit "Choose_attack_target" confirmation step even though the champion is the only legal
+    // target. CombatLogic.php's OnDealDamage (~line 4506-4512) then applies
+    // GetProtectiveFractalPrevention: exactly 1 of the 3 damage is prevented (amount -= 1) and the
+    // "1lw9n0wpbh" TurnEffect is consumed, leaving the champion's final Damage at 2 -- neither the
+    // un-prevented 3 (proving prevention did fire) nor 0 (proving it prevents only 1 point, not the
+    // entire instance). Combat resolved without an explicit Retaliate prompt (this champion has no
+    // Retaliate keyword), so declining the recurring fast-action offer is what actually triggers
+    // damage resolution here, not a separate Retaliate decision.
+    'setup' => [
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => '1lw9n0wpbh', 'setProperties' => ['Status' => 2]], // Protective Fractal, seeded awake onto player 2's field
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Status' => 2, 'Counters' => ['potion_animate_power' => 3]]], // Dungeon Guide ALLY on player 2's field, POWER overridden to 3 -- the attacker
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (true-first-player attack lock)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline fast-action re-offer 1/2 so turn 1 finishes resolving
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline fast-action re-offer 2/2 -- now player 2's own turn begins
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // activate Protective Fractal
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target player 1's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the fast-action re-offer of the now-rested Protective Fractal
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-2!FSM!', 'chkInput' => [], 'inputText' => ''], // Dungeon Guide (3 POWER) declares a real attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // confirm the attack target (player 1's champion, the only legal target)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the fast-action re-offer again -- this is what actually resolves combat damage
+    ],
+];
+
+
+// --- Shimmering Refraction: Deal X damage to target unit, X = phantasias you control ---
+$fixtures['shimmering-refraction-phantasia-count-damage'] = [
+    'testedCards' => ['1k2jb8mau1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Shimmering Refraction
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Shimmering Refraction (1k2jb8mau1, ACTION/CLERIC/SPELL/REACTION, element NORM, FAST speed) is
+    // activated from hand via ActivateCard, going onto the EffectStack like Escharotomy/Water
+    // Barrier -- both players must pass the resulting fast-action opportunity window before it
+    // resolves. Two Protective Fractal cards (1lw9n0wpbh, PHANTASIA) are seeded directly onto my
+    // field (bypassing their own On Enter/activation, irrelevant here) purely to make
+    // ZoneSearch("myField", ["PHANTASIA"]) return a real count of 2. cardActivatedAbilities
+    // ["1k2jb8mau1:0"] (GeneratedMacroCode.php) records activationSourceZone (here "myHand", so
+    // ShimmeringRefractionFromMemory is stored "NO") and queues an MZCHOOSE over ALLY/CHAMPION
+    // units on both fields. customDQHandlers["1k2jb8mau1:0:CardActivated-1"] then computes
+    // $phantasiaCount = count(ZoneSearch("myField", ["PHANTASIA"])) = 2 and calls
+    // DealDamage($player, $mzID, $target, $phantasiaCount) -- dealing exactly 2 damage to the
+    // targeted opponent's champion, a real non-trivial number (not a trivial 0/1) that only makes
+    // sense if the phantasia count was actually read and threaded through. The champion is patched
+    // to Diao Chan, Enchantress (00xbh8oc00) so IsDiaoChanBonus($player) is true -- proving the
+    // [Diao Chan Bonus] draw specifically requires activation FROM MEMORY, not just having the
+    // Diao Chan Bonus active: since this copy is activated from hand (not memory), no memory draw
+    // happens despite the Bonus condition being met.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00']], // Diao Chan, Enchantress -- Diao Chan Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '1lw9n0wpbh'], // Protective Fractal (PHANTASIA) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '1lw9n0wpbh'], // Protective Fractal (PHANTASIA) #2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '1k2jb8mau1'], // Shimmering Refraction, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // activate Shimmering Refraction from hand
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // pass fast action opportunities
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opponent's champion
+    ],
+];
+
+// NOTE: An additional fixture proving [Diao Chan Bonus]'s "activated from memory" draw was
+// attempted (activating Shimmering Refraction directly via mode 10002 FSM on "myMemory-0!FSM!")
+// but the click silently no-ops in this engine -- no state changes at all, no error. The only
+// documented memory-activation path found (TryGlimmerCast, Custom/GameLogic.php ~line 20180)
+// requires spending glimmer counters via a champion's Inherited Effect and is architecturally
+// unrelated to Shimmering Refraction. Left uncovered rather than shipping a fixture that would
+// silently pass without proving anything; see the final report for details.
+
+
+// ---------------------------------------------------------------------------
+// Diao Chan Re:Collection, Idyll Corsage -- wither-counter mechanic fixtures
+// ---------------------------------------------------------------------------
+// Shared deck for the wither-counter batch: Spirit of Water starting champion
+// (patched per-fixture to Diao Chan/Diao Chan Idyll Corsage for [Diao Chan Bonus]/
+// [Class Bonus] CLERIC checks and TERA element access), plus non-FAST-speed filler
+// (Dungeon Guide / Fluffy Shopkeep -- Fairy Whispers is FAST speed and would trigger
+// a recurring Opportunity prompt that must be declined before every action).
+const GA_DIAOCHAN_WITHER_DECK = <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK;
+
+// --- Frostlorn Caress: [Diao Chan Bonus] costs 3 less. Put 4 wither counters on target non-champion object ---
+$fixtures['frostlorn-caress-four-wither-counters'] = [
+    'testedCards' => ['4tqbok1g9w'],
+    'deck' => GA_DIAOCHAN_WITHER_DECK,
+    // activationCostModifierAbilities["4tqbok1g9w:0"] (GeneratedMacroCode.php ~8183) applies -3 to
+    // Frostlorn Caress's printed 5-reserve cost when IsDiaoChanBonus($player) is true. The starting
+    // champion (Spirit of Water) is CardID-patched to Diao Chan, Enchantress (00xbh8oc00) -- the
+    // deck's own level-1 champion -- with Subcards patched to keep Spirit of Water (tafqldAGRF) in
+    // the lineage so WATER stays unlocked (Diao Chan, Enchantress's own element is NORM). This
+    // satisfies IsDiaoChanBonus (ChampionHasInLineage checks "00xbh8oc00" directly) so the net cost
+    // is 5-3=2. Frostlorn Caress itself is seeded directly into hand (the shared deck's Main is
+    // filler-only, so the card under test would never otherwise appear in hand). Since our deck
+    // has zero FAST cards, EffectStackOpportunity's own "no playable fast cards for either player"
+    // fallback (OpportunityLogic.php ~1167, QueueEffectStackOpportunityRound returning false)
+    // resolves the stack immediately with no PASS actions needed -- cardActivatedAbilities
+    // ["4tqbok1g9w:0"] (~15648) fires as soon as the 2nd reserve payment completes, offering an
+    // MZCHOOSE of ALLY objects on either field (only the opponent's seeded Dungeon Guide qualifies);
+    // customDQHandlers["4tqbok1g9w:0:CardActivated-1"] (~32767) calls
+    // AddCounters($player, $chosen, "wither", 4) on whichever is picked.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]], // Diao Chan, Enchantress + kept Spirit of Water lineage for WATER unlock
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4tqbok1g9w'], // Frostlorn Caress, seeded to a known hand slot (myHand-7)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Frostlorn Caress
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2 -- stack auto-resolves (no fast cards), ability fires immediately
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target the opponent's Dungeon Guide
+    ],
+];
+
+// --- Frostnip Pirouette: [Diao Chan Bonus] costs 2 less. Choose any amount of non-champion
+// objects and put a wither counter on each -- proving selective multi-target application ---
+$fixtures['frostnip-pirouette-selective-wither-counters'] = [
+    'testedCards' => ['x79cuuw5vo'],
+    'deck' => GA_DIAOCHAN_WITHER_DECK,
+    // Same [Diao Chan Bonus] champion patch as frostlorn-caress-four-wither-counters (Diao Chan,
+    // Enchantress + kept Spirit of Water lineage). activationCostModifierAbilities["x79cuuw5vo:0"]
+    // (GeneratedMacroCode.php ~9076) applies -2 to the printed 4-reserve cost, net cost 2.
+    // Frostnip Pirouette is seeded directly into hand. cardActivatedAbilities["x79cuuw5vo:0"]
+    // (~23003) offers an MZMULTICHOOSE of every non-champion object on either field (min 0);
+    // customDQHandlers["FrostnipPirouetteWitherLoop"] (Custom/CardDQHandlers.php ~5636) puts a
+    // single wither counter on each object actually selected. Two non-champion objects are seeded
+    // on the opponent's field (Dungeon Guide, Fluffy Shopkeep) and only those two are chosen from
+    // the offered set of three (a third Dungeon Guide is seeded on the player's OWN field and left
+    // unchosen) -- proving the effect applies per-selection, not to every eligible object.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]], // Diao Chan, Enchantress + kept Spirit of Water lineage for WATER unlock
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, chosen target #1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep ALLY, chosen target #2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, eligible but deliberately left UNCHOSEN
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'x79cuuw5vo'], // Frostnip Pirouette, seeded to a known hand slot (myHand-7)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Frostnip Pirouette
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2 -- stack auto-resolves (no fast cards), ability fires immediately
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1&theirField-2', 'chkInput' => [], 'inputText' => ''], // MZMULTICHOOSE: choose only the two opponent objects, leaving myField-1 unchosen
+    ],
+];
+
+// --- Ripples of Atrophy: [Class Bonus] Efficiency (costs LV less). Choose any amount of
+// non-champion objects and put two wither counters on each ---
+$fixtures['ripples-of-atrophy-two-wither-counters'] = [
+    'testedCards' => ['u0yaub9dal'],
+    'deck' => GA_DIAOCHAN_WITHER_DECK,
+    // The starting champion (Spirit of Water) is CardID-patched directly to Diao Chan, Idyll
+    // Corsage (d7l6i5thdy) -- the deck's own level-3 champion. This satisfies IsClassBonusActive
+    // (["CLERIC"]) for the printed "[Class Bonus] Efficiency" clause, and its own element (TERA)
+    // unlocks Ripples of Atrophy's TERA element requirement directly (GetChampionLineage includes
+    // the champion object's own CardID, so no Subcards patch is needed here, unlike the WATER
+    // cards which use a lower-level champion). NOTE (found, not fixed -- genuine engine bug):
+    // CalculateActivationReserveCost's Efficiency block (GrandArchiveSim/Custom/GameLogic.php
+    // ~26015, `if(isset($Efficiency_Cards[$cardID]))`) reduces the cost unconditionally whenever
+    // the card is merely listed in $Efficiency_Cards -- it never calls HasKeyword_Efficiency($obj)
+    // or otherwise checks the card's own 'conditions' (GeneratedKeywordCode.php ~2047-2062, which
+    // DOES gate u0yaub9dal's Efficiency on "Class Bonus"). So today Ripples of Atrophy's cost is
+    // reduced by the champion's level even when the champion is NOT CLERIC. This fixture uses a
+    // CLERIC champion regardless (matching the printed card and the real deck), so it doesn't
+    // depend on the bug, but the bug means this fixture cannot be used to prove the "[Class Bonus]"
+    // gating specifically -- only the wither-counter application (cardActivatedAbilities
+    // ["u0yaub9dal:0"], ~21971) is asserted as semantic here. With champion level 3, net cost is
+    // 6-3=3. Ripples of Atrophy is seeded directly into hand. RipplesOfAtrophyResolve
+    // (Custom/CardDQHandlers.php ~3896) offers an MZMAYCHOOSE loop (repeatedly choose one
+    // non-champion object or decline) rather than a single MZMULTICHOOSE; customDQHandlers
+    // ["RipplesOfAtrophyLoop"] (~3915) adds 2 wither counters per chosen object. One object is
+    // chosen (the opponent's Dungeon Guide) and a second eligible object (the player's own Fluffy
+    // Shopkeep) is deliberately left unchosen by declining the loop's next offer -- proving the
+    // wither counters land only on the object actually selected.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'd7l6i5thdy']], // Diao Chan, Idyll Corsage (CLERIC, level 3, TERA) -- Class Bonus + Efficiency + TERA unlock
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, chosen target
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep ALLY, eligible but deliberately left UNCHOSEN
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'u0yaub9dal'], // Ripples of Atrophy, seeded to a known hand slot (myHand-7)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Ripples of Atrophy
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/3 -- stack auto-resolves (no fast cards), ability fires immediately
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // MZMAYCHOOSE: choose the opponent's Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the loop's next offer (leaves myField-1 unchosen)
+    ],
+];
+
+// --- Season's End: [Diao Chan Bonus] costs 1 less per wither counter on objects on the field.
+// Destroy each object with a wither counter on it -- negative-path proof (clean object survives) ---
+$fixtures['seasons-end-destroy-withered-only'] = [
+    'testedCards' => ['ddggqvxw8f'],
+    'deck' => GA_DIAOCHAN_WITHER_DECK,
+    // Champion patched to Diao Chan, Idyll Corsage (d7l6i5thdy) for IsDiaoChanBonus and TERA
+    // unlock, same as ripples-of-atrophy-two-wither-counters. Two objects are pre-seeded with
+    // wither counters directly via setProperties (Counters: {wither:N}) -- one on each side of the
+    // field, so the destroy isn't scoped to only the caster's own side -- and a third, clean
+    // Dungeon Guide with NO wither counters is seeded onto the caster's own field as the negative-
+    // path control. activationCostModifierAbilities["ddggqvxw8f:0"] (GeneratedMacroCode.php ~8429)
+    // reduces the printed 10-reserve cost by 1 per withered object found via
+    // array_merge(GetField(1), GetField(2)) -- with exactly 2 withered objects seeded, net cost is
+    // 10-2=8. Four extra filler cards are seeded into hand (on top of the natural starting hand)
+    // so the 8-reserve cost can actually be paid in full. cardActivatedAbilities["ddggqvxw8f:0"]
+    // (~17528, "Wither Purge") then iterates both fields and calls DoSacrificeFighter on every
+    // non-champion object with a wither counter -- no player-chosen targeting exists for this
+    // card, so the "only withered objects die" outcome IS the semantic proof (GrandArchiveSimSemanticFixtureGuide.md's
+    // guidance for implicit-targeting negative paths). Both withered objects move to their
+    // owners' graveyards (a real destroy, not just a silent counter/removal), while the clean
+    // Dungeon Guide remains alive on the field untouched. Destroying the opponent's non-token
+    // object also triggers Diao Chan, Idyll Corsage's own passive ("Whenever a non-token object an
+    // opponent controls is destroyed, you may banish it...", DiaoChanIdyllBanish decision) as a
+    // side effect confirming a real destroy event fired; that optional banish offer is declined
+    // (NO) to keep this fixture scoped to Season's End itself.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'd7l6i5thdy']], // Diao Chan, Idyll Corsage (Diao Chan Bonus + TERA unlock)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['wither' => 3]]], // withered Dungeon Guide (opponent's side) -- to be destroyed
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do', 'setProperties' => ['Counters' => ['wither' => 1]]], // withered Fluffy Shopkeep (caster's own side) -- to be destroyed
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // CLEAN Dungeon Guide (caster's own side), no wither counter -- negative-path control, must survive
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // extra filler for the 8-reserve cost
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ddggqvxw8f'], // Season's End, seeded to a known hand slot (myHand-11)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-11!FSM!', 'chkInput' => [], 'inputText' => ''], // play Season's End
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 5/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 6/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 7/8
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 8/8 -- stack auto-resolves (no fast cards), ability fires immediately
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline Diao Chan, Idyll Corsage's optional banish-on-destroy offer
+    ],
+];
+
+// --- Shriveling Vines: [Class Bonus] Costs 2 less. At the beginning of your end phase, put two
+// wither counters on target non-champion non-token object you don't control ---
+$fixtures['shriveling-vines-end-phase-two-wither-counters'] = [
+    'testedCards' => ['6gt6zkly69'],
+    'deck' => GA_DIAOCHAN_WITHER_DECK,
+    // Champion patched to Diao Chan, Idyll Corsage (d7l6i5thdy) for IsClassBonusActive(["CLERIC"])
+    // (the printed "[Class Bonus] Costs 2 less" clause) and TERA unlock (Shriveling Vines's own
+    // element is TERA). Shriveling Vines's own trigger logic lives in
+    // GrandArchiveSim/Custom/GameLogic.php EndPhase() (~10860, NOT in GeneratedMacroCode.php --
+    // confirmed 0 hits there), so the card is seeded directly onto the field via setup rather than
+    // scripting its own materialize/cast sequence (which is out of scope for this fixture; only
+    // the field-resident end-phase trigger itself is under test). Two valid non-champion non-token
+    // opponent objects are seeded on the opponent's field; a single ending of turn 1
+    // ('myHealth-0!CustomInput!Pass', the standard "reach end phase" idiom used elsewhere in this
+    // file) is enough to trigger EndPhase() for the turn player (player 1) directly -- turn 1 needs
+    // no opponent PASS or materialize-offer decline first, unlike some later-turn end-phase
+    // fixtures. Because more than 1 valid target exists, the engine queues an MZCHOOSE
+    // ("Put_2_wither_counters_on_opponent_object_(Shriveling_Vines)"); choosing one applies
+    // AddCounters($turnPlayer, $validTargets[0], "wither", 2) to it, while the other seeded
+    // opponent object is left untouched -- proving the effect targets exactly the object chosen.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'd7l6i5thdy']], // Diao Chan, Idyll Corsage (Class Bonus CLERIC + TERA unlock)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '6gt6zkly69'], // Shriveling Vines, seeded directly onto the field
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // opponent Dungeon Guide, chosen target
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], // opponent Fluffy Shopkeep, eligible but deliberately left UNCHOSEN
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end turn 1 -> reaches player 1's own end phase, firing Shriveling Vines's trigger
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // choose the opponent's Dungeon Guide as the wither target
+    ],
+];
+
+// --- Hairpin of Transience: [Class Bonus] Banish Hairpin of Transience: Put three wither
+// counters on target non-champion object ---
+$fixtures['hairpin-of-transience-banish-three-wither-counters'] = [
+    'testedCards' => ['xl3tzqhlt1'],
+    'deck' => GA_DIAOCHAN_WITHER_DECK,
+    // Same [Class Bonus] champion patch as frostlorn-caress-four-wither-counters (Diao Chan,
+    // Enchantress + kept Spirit of Water lineage for WATER unlock -- Hairpin's own element is
+    // WATER) -- satisfies activateAbilityPrereqs["xl3tzqhlt1:0"]'s IsClassBonusActive(["CLERIC"])
+    // check (GeneratedMacroCode.php ~7386). Hairpin of Transience is seeded directly onto the
+    // field (it's a REGALIA/ITEM, activated from the field, not cast from hand). Activating it
+    // (mode 10001 CustomInput Activate:0) first pays its cost -- ActivatedAbilityCost's "banish
+    // self" case for xl3tzqhlt1 (Custom/GameLogic.php ~6316) immediately moves it to myBanish --
+    // THEN activateAbilityAbilities["xl3tzqhlt1:0"] (~7368) offers an MZCHOOSE of every
+    // non-champion object on either field (only the opponent's seeded Dungeon Guide qualifies);
+    // customDQHandlers["xl3tzqhlt1:0:ActivateAbility-1"] (~29015) calls
+    // AddCounters($player, $chosen, "wither", 3) on the chosen target. Asserts both the wither
+    // counters on the target AND that Hairpin itself left the field for the banishment zone
+    // (banished, not merely destroyed/discarded).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]], // Diao Chan, Enchantress + kept Spirit of Water lineage for WATER unlock (Class Bonus CLERIC source)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'xl3tzqhlt1'], // Hairpin of Transience, seeded directly onto the field
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // activate Hairpin's Class Bonus ability -- banishes itself as the cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target the opponent's Dungeon Guide
+    ],
+];
+
+
+// =============================================================================
+// Diao Chan Re:Collection, Idyll Corsage starter deck semantic fixtures (batch 5)
+// =============================================================================
+//
+// Shared minimal deck for all fixtures below: Diao Chan, Enchantress (00xbh8oc00,
+// CLERIC, NORM) as the starting champion via the Material section (same convention as
+// "1 Lorraine, Wandering Warrior" elsewhere in this file), Spirit of Water for theme,
+// plus non-FAST-speed-only filler (Dungeon Guide, Fluffy Shopkeep -- Fairy Whispers is
+// avoided because its FAST speed triggers a recurring Opportunity-window MZMAYCHOOSE
+// that would have to be declined before every single subsequent action). Diao Chan,
+// Enchantress is CLERIC, so IsClassBonusActive($player, ["CLERIC"]) is true for all five
+// of these CLERIC cards without any extra setup.
+$diaoChanDeck = <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Purifying Thurible
+# Main
+6 Dungeon Guide
+6 Fluffy Shopkeep
+DECK;
+
+// --- Acquiescing Rejection: Negate opponent activation unless they let you draw two ---
+// (happy path -- controller lets the caster draw two, activation NOT negated)
+$fixtures['acquiescing-rejection-draw-two-not-negated'] = [
+    'testedCards' => ['qwtprd5b5r'],
+    'deck' => $diaoChanDeck,
+    // cardActivatedAbilities["qwtprd5b5r:0"] (GeneratedMacroCode.php) calls
+    // QueueNegateActivation($player, ["excludeController" => $player], "banish", -1,
+    // "NegateActivationDrawChoice") -- the excludeController filter means Acquiescing
+    // Rejection can only ever target an activation it does NOT control, so player 1
+    // activates Escharotomy (CIU4gT14EE, FIRE, reserve 1) as the bait; player 1's own
+    // champion Subcards is patched with Spirit of Fire (LMyKyVC2O9) to unlock FIRE for it.
+    // Player 2 controls Acquiescing Rejection and responds during the resulting fast-
+    // opportunity window (same "take a fast action instead of passing" shape as
+    // incapacitate-negate-action-activation); player 2's champion Subcards is patched with
+    // Spirit of Water (tafqldAGRF) to unlock WATER. Acquiescing Rejection's own reserve
+    // cost is 4, reduced to 3 by its [Class Bonus] (ClassBonusActivateCostReduction,
+    // GameLogic.php ~18626, keyed off IsClassBonusActive($player, ["CLERIC"]) which is true
+    // since Diao Chan, Enchantress is CLERIC). customDQHandlers["NegateActivationDrawChoice"]
+    // (OpportunityLogic.php ~538) asks Escharotomy's controller (player 1) "Let opponent
+    // draw two to prevent negate?" -- answering YES here means Draw($negatingPlayer=2, 2)
+    // runs and NegateCardActivation is skipped entirely, so Escharotomy stays on the effect
+    // stack and resolves normally afterward (its own "Target player cannot recover" MZMODAL
+    // fires, answered the same way as escharotomy-prevents-recover).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['LMyKyVC2O9']]], // Spirit of Fire - unlocks FIRE for Escharotomy (the bait)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'CIU4gT14EE'], // Escharotomy, the target activation
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // Spirit of Water - unlocks WATER for Acquiescing Rejection
+        // The engine's starting-champion selection always picks a level-0 "Spirit" card from
+        // Material (GetStartingChampionChoices, GameLogic.php ~1042) over any level-1 named
+        // champion, so Diao Chan, Enchantress never lands on myField-0 by itself. Diao Chan,
+        // Enchantress (CLERIC) is instead seeded directly onto the field as a second,
+        // independent CHAMPION-type object purely as an IsClassBonusActive($player, ["CLERIC"])
+        // source (same "extra champion seeded onto the field for Class Bonus" technique as the
+        // Nameless Champion/Ciel/Kongming precedents elsewhere in this file) -- it lands at
+        // myField-1 and never interferes with myField-0's own lineage/element resolution.
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '00xbh8oc00'], // Diao Chan, Enchantress (CLERIC) - Class Bonus source
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'qwtprd5b5r'], // Acquiescing Rejection, the negator
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Escharotomy
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1 reserve
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 passes their own opportunity
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 2 takes a fast action instead of passing: Acquiescing Rejection
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/3 (Class Bonus discount already applied)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''], // choose Escharotomy's activation to negate
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // Escharotomy's controller lets player 2 draw two instead of being negated
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'B', 'chkInput' => [], 'inputText' => ''], // Escharotomy resolves normally: "Choose_a_player" modal, pick B (opponent)
+    ],
+];
+
+// NOTE on the negative (negate+banish) path for Acquiescing Rejection: intentionally NOT
+// implemented as a fixture. cardActivatedAbilities["qwtprd5b5r:0"] always defers to
+// customDQHandlers["NegateActivationDrawChoice"] (OpportunityLogic.php ~538), which only
+// stores pendingNegateTarget and queues a YESNO for the target's controller -- it never calls
+// NegateCardActivation synchronously (unlike NegateActivationResolve's payAmount<=0 shortcut).
+// Genuine engine bug found (not fixed -- a happy-path fixture already exercises this card, so
+// fixing was not required to exercise it): customDQHandlers["PostResolutionCheck"]
+// (OpportunityLogic.php ~1212), running synchronously right after Acquiescing Rejection's own
+// resolution in the SAME action-processing chain, sees the target (e.g. Escharotomy) still live
+// on the EffectStack (untouched by the deferred choice) and immediately calls
+// ResolveTopOfEffectStack() (~1520) to resolve it normally -- this happens before the controller's
+// YES/NO answer can possibly be submitted as a separate action. By the time
+// customDQHandlers["NegateActivationDrawResolve"] (~548) later runs (on a NO answer) and calls
+// NegateCardActivation($negatingPlayer, $targetMZ, "banish"), GetZoneObject($targetMZ) already
+// points at an entry ResolveTopOfEffectStack() marked removed, so NegateCardActivation's own
+// null/removed guard makes the call a no-op -- the target always resolves normally and is never
+// actually negated or banished, regardless of the controller's answer. Confirmed by direct replay
+// (dump-zones2.php-style trace): Escharotomy landed in Graveyard (not Banish) and its own "Target
+// player cannot recover" ability's MZMODAL was already queued before the YES/NO was even
+// answered. The same race affects the deferred (afford-to-pay) branch of the default
+// NegateActivationResolve handler used by Glimmering Refusal / Blossoming Denial -- their
+// fixtures below instead exercise the handler's payAmount-insufficient-funds branch, which DOES
+// call NegateCardActivation synchronously (avoiding the race) and is a fully legitimate real-world
+// "they couldn't pay" proof of the same "negate unless pay X" clause.
+
+// --- Glimmering Refusal: Negate target card activation unless controller pays (X phantasias) ---
+$fixtures['glimmering-refusal-negate-banish'] = [
+    'testedCards' => ['fp773yotth'],
+    'deck' => $diaoChanDeck,
+    // cardActivatedAbilities["fp773yotth:0"] counts $player's own PHANTASIA cards on myField
+    // and calls QueueNegateActivation($player, [], "banish", count($phantasias)) -- no
+    // excludeController filter, but player 2 (Glimmering Refusal's controller) still targets
+    // player 1's activation for a real cross-player test. Two PHANTASIA cards (Scorching
+    // Imperilment, aj7pz79wsp) are seeded directly onto player 2's own field so X = 2.
+    // The bait is Mastermind Scheme (9lbewemius, ACTION, NORM, reserve 6 -- no complex
+    // targeting of its own) instead of the usual Escharotomy specifically so player 1's hand
+    // is down to 1 card (7 starting + 1 seeded - 1 played - 6 reserve) by the time Glimmering
+    // Refusal's negate resolves -- CountAvailableReservePayments(player 1) = 1 < 2, so
+    // NegateActivationResolve (OpportunityLogic.php ~388) takes its SYNCHRONOUS
+    // "if(CountAvailableReservePayments($controller) < $payAmount)" branch and calls
+    // NegateCardActivation(..., "banish") immediately, in the same action as the MZCHOOSE
+    // target selection -- no deferred YES/NO round-trip. (A deferred "can afford, then
+    // declines/pays" branch exists too, but it loses a real engine race against
+    // PostResolutionCheck's immediate stack continuation -- see the note above
+    // Glimmering Refusal's fixture for the same issue confirmed on Acquiescing Rejection; the
+    // insufficient-funds branch exercised here is unaffected because it calls
+    // NegateCardActivation synchronously, before that race can occur.)
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9lbewemius'], // Mastermind Scheme, the target activation (NORM, reserve 6, no lineage patch needed)
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // Spirit of Water - unlocks WATER for Glimmering Refusal
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'aj7pz79wsp'], // Scorching Imperilment (PHANTASIA) #1 -- X=2 source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'aj7pz79wsp'], // Scorching Imperilment (PHANTASIA) #2 -- X=2 source
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'fp773yotth'], // Glimmering Refusal, the negator
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Mastermind Scheme
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 5/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 6/6 -- only 1 hand card left afterward
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 passes their own opportunity
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 2 takes a fast action instead of passing: Glimmering Refusal
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2 (no Class Bonus cost reduction on this card)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''], // choose Mastermind Scheme's activation to negate -- player 1 can't afford to pay 2, synchronous negate+banish
+    ],
+];
+
+// --- Blossoming Denial: [Class Bonus] cost reduction, unconditional token summon, real negate ---
+$fixtures['blossoming-denial-cost-reduction-token-negate'] = [
+    'testedCards' => ['1nnpbddblx'],
+    'deck' => $diaoChanDeck,
+    // activationCostModifierAbilities["1nnpbddblx:0"] (GeneratedMacroCode.php ~8125) returns -3
+    // when IsClassBonusActive($player, ["CLERIC"]) (true: Diao Chan, Enchantress is CLERIC)
+    // AND count(GetMemory($opponent)) >= 5 -- player 1's myMemory is seeded with 5 cards so
+    // Blossoming Denial's printed 3-reserve cost drops to 0, observable because NO reserve-
+    // payment actions are needed between playing it and its own MZMAYCHOOSE appearing.
+    // cardActivatedAbilities["1nnpbddblx:0"] (~14982) offers an OPTIONAL MZMAYCHOOSE negate
+    // target via "NegateActivationResolve|default|3", then UNCONDITIONALLY queues
+    // "BlossomingDenialFinal" (block 2, after the negate's block 1) --
+    // customDQHandlers["BlossomingDenialFinal"] (OpportunityLogic.php ~586) always summons two
+    // Flowerbud tokens (yn78t73w1p) onto the opponent's (player 1's) field regardless of the
+    // negate outcome. The bait is Mastermind Scheme (9lbewemius, ACTION, NORM, reserve 6, no
+    // targeting of its own) rather than the usual Escharotomy specifically so its controller
+    // (player 1) is down to only 1 payable hand card -- CountAvailableReservePayments(player 1)
+    // = 1 < 3, so NegateActivationResolve (OpportunityLogic.php ~388) takes its SYNCHRONOUS
+    // "insufficient funds" branch and calls NegateCardActivation(..., "default") immediately, in
+    // the same action as the MZMAYCHOOSE target selection -- no deferred YES/NO round-trip (see
+    // the note above Glimmering Refusal's fixture for why the deferred branch is unusable here:
+    // it loses a real engine race against PostResolutionCheck's immediate stack continuation).
+    // This run therefore proves BOTH the real negate (Mastermind Scheme banished/graveyarded
+    // without its own ability ever firing) and the unconditional token summon in one pass.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9lbewemius'], // Mastermind Scheme, the target activation (NORM, reserve 6, no lineage patch needed)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // memory card 1/5 (cost-reduction condition: opponent has 5+ cards in memory)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // memory card 2/5
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // memory card 3/5
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // memory card 4/5
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // memory card 5/5
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['d7l6i5thdy']]], // Diao Chan, Idyll Corsage (TERA) - unlocks TERA for Blossoming Denial
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '00xbh8oc00'], // Diao Chan, Enchantress (CLERIC) - Class Bonus source (starting-champion selection always picks the level-0 Spirit, so this is seeded as a second field object)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '1nnpbddblx'], // Blossoming Denial
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Mastermind Scheme
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 5/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 6/6 -- only 1 hand card left afterward
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 passes their own opportunity
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 2 takes a fast action instead of passing: Blossoming Denial
+        // No reserve-payment actions here: cost is 0 (3 - 3 Class Bonus discount), straight to
+        // its own MZMAYCHOOSE.
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''], // choose Mastermind Scheme's activation to negate (optional MZMAYCHOOSE) -- player 1 can't afford to pay 3, synchronous negate
+    ],
+];
+
+// --- Chill to the Bone: attacking ally gets -2/-2, or -4/-4 with 2+ phantasias controlled ---
+// (branch A: caster controls 0 phantasias -> -2 POWER / -2 LIFE)
+$fixtures['chill-to-the-bone-low-phantasia-debuff'] = [
+    'testedCards' => ['p00ghqhcpb'],
+    'deck' => $diaoChanDeck,
+    // ChillToTheBoneResolve (GameLogic.php ~18765) reads the DecisionQueueController
+    // "CombatAttacker" variable and does GetZoneObject($attackerMZ) directly on the RAW
+    // "myField-N"/"theirField-N" string that was captured (from the ATTACKER's own perspective)
+    // by StoreCombatAttackerState when the attack was declared -- it never re-expresses that
+    // string relative to whichever player's perspective is ambient when the ability closure
+    // itself runs (unlike e.g. AtmosShieldRedirect/InterceptTargetChosen, which explicitly call
+    // ConvertMzToPlayerPerspective for exactly this "captured from one player's perspective, used
+    // from another's" situation). Confirmed via direct instrumentation: when player 2 casts Chill
+    // to the Bone in response to player 1's attack, $attackerMZ = 'myField-1' is read correctly,
+    // but GetZoneObject('myField-1') then resolves against player 2's OWN field (empty at that
+    // index) because "myField" is only meaningful relative to the ambient $playerID at the
+    // moment it's resolved -- so GetZoneObject returns null and the ability is a silent no-op.
+    // This is a genuine engine bug (GrandArchiveSim/Custom/GameLogic.php ~18765-18770) affecting
+    // Chill to the Bone's primary/intended use case (the DEFENDING player debuffing the
+    // opponent's attacking ally) -- flagged in the final report, NOT fixed here. To still exercise
+    // the card without touching engine code, this fixture instead has the ATTACKER (player 1)
+    // hold and cast Chill to the Bone on their OWN attacking ally: GrantOpportunityWindow grants
+    // the turn player (the attacker) first priority in the post-declaration fast-opportunity
+    // window, so player 1 can respond to their own attack, and $playerID stays 1 throughout,
+    // so "myField-1" resolves correctly. This still fully proves the card's actual debuff math
+    // (0-1 vs 2+ phantasias -> -2/-2 vs -4/-4, consumed unconditionally by the POWER/LIFE switch
+    // statements in GameLogic.php ~12809-12814/~14257-14261) even though it can't exercise the
+    // "opponent responds" framing. Player 1's Dungeon Guide (printed POWER 1 / LIFE 3, seeded
+    // awake) declares a real attack; player 1 controls 0 phantasias here, so the branch under
+    // test is -2 POWER / -2 LIFE -> computed 1-2=-1 / 3-2=1.
+    //
+    // Because player 1 holds a FAST card (Chill to the Bone) for the whole game, EVERY phase
+    // transition (ending turn 1, ending turn 2, the turn-3 materialize offer) independently
+    // grants player 1 a "Take_a_fast_action?" fast-opportunity window with CombatAttacker not
+    // yet live -- each occurrence must be explicitly declined ('-') or it silently swallows the
+    // next scripted action (confirmed empirically: the SAME "myHand-7" choice reappears
+    // identically after every such transition until CombatAttacker is genuinely set). Only the
+    // window that appears immediately after choosing the real attack target (with
+    // CombatAttacker == 'myField-1' confirmed live via direct instrumentation) is the one this
+    // fixture actually takes.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, seeded awake -- the attacker and the debuff target
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // Spirit of Water - unlocks WATER for Chill to the Bone
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'p00ghqhcpb'], // Chill to the Bone
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 1 (1/2)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 1 (2/2)
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 2 (1/2)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 2 (2/2) -- lands on the turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window opened by declining the MAT offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Dungeon Guide declares a real attack
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion -- CombatAttacker='myField-1' is now genuinely live
+        // THIS is the real combat-damage-step fast-opportunity window (CombatAttacker confirmed
+        // live via direct instrumentation at this exact point) -- take it for real.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 1 takes the fast-opportunity action: Chill to the Bone (on their own attacker)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2 -- ChillToTheBoneResolve fires immediately, no further target step
+    ],
+];
+
+// --- Chill to the Bone: branch B -- caster controls 2+ phantasias -> -4 POWER / -4 LIFE instead ---
+$fixtures['chill-to-the-bone-two-phantasia-debuff'] = [
+    'testedCards' => ['p00ghqhcpb'],
+    'deck' => $diaoChanDeck,
+    // Same shape as chill-to-the-bone-low-phantasia-debuff (see its comment for the full
+    // perspective-bug writeup and why player 1 -- the attacker -- holds and casts Chill to the
+    // Bone on their own attacker here too), except player 1 also controls 2 Scorching
+    // Imperilment (PHANTASIA) cards, so the branch under test is -4 POWER / -4 LIFE instead:
+    // Dungeon Guide's printed POWER 1 / LIFE 3 becomes 1-4=-3 / 3-4=-1.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, seeded awake -- the attacker and the debuff target
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // Spirit of Water - unlocks WATER for Chill to the Bone
+        // Core Fractal (8hqHAU0Xj6, TOKEN,PHANTASIA) rather than Scorching Imperilment
+        // (aj7pz79wsp) specifically because Scorching Imperilment has its own "End phase: may
+        // discard to draw" activated ability (GeneratedMacroCode.php "aj7pz79wsp:0") that fires
+        // during the turn-1-end phase transition this fixture needs to walk through, adding an
+        // extra MZMAYCHOOSE that desyncs the rest of the scripted sequence. Core Fractal has zero
+        // dispatch entries of its own.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '8hqHAU0Xj6'], // Core Fractal (PHANTASIA) #1 -- 2+ phantasia branch (caster is player 1 in this fixture)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '8hqHAU0Xj6'], // Core Fractal (PHANTASIA) #2 -- 2+ phantasia branch
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'p00ghqhcpb'], // Chill to the Bone
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 1 (1/2)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 1 (2/2)
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 2 (1/2)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 2 (2/2) -- lands on the turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window opened by declining the MAT offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Dungeon Guide declares a real attack (seeded first, so myField-1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion -- CombatAttacker='myField-1' is now genuinely live
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 1 takes the fast-opportunity action: Chill to the Bone
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2 -- ChillToTheBoneResolve fires immediately
+    ],
+];
+
+// --- Dissuading Halt: target unit's attacks get -3 POWER until end of turn ---
+$fixtures['dissuading-halt-attack-power-reduction'] = [
+    'testedCards' => ['y7wbtbasch'],
+    'deck' => $diaoChanDeck,
+    // cardActivatedAbilities["y7wbtbasch:0"] calls DissuadingHaltStart (CardDQHandlers.php ~32),
+    // which offers an MZCHOOSE of ALLY/CHAMPION/PHANTASIA units on either field and tags the
+    // chosen one with TurnEffect "y7wbtbasch-debuff" (customDQHandlers["DissuadingHaltApply"]).
+    // That TurnEffect is only consumed by the POWER switch in GameLogic.php (~13024) when the
+    // object IS the current "CombatAttacker" -- so Dissuading Halt is played as a FAST response
+    // during player 1's Dungeon Guide's own real attack (same fast-opportunity shape as
+    // Chill to the Bone), targeting that same attacking Dungeon Guide directly (legal since
+    // it's currently on the field, not yet removed).
+    //
+    // Because player 2 holds a FAST card (Dissuading Halt) for the whole game, every phase
+    // transition (ending turn 1, ending turn 2, the turn-3 materialize offer) independently
+    // grants player 2 a "Take_a_fast_action?" window with CombatAttacker not yet live -- each
+    // must be explicitly declined ('-') the same way as chill-to-the-bone-low-phantasia-debuff
+    // (see its comment for the full writeup); confirmed via direct instrumentation that only the
+    // window appearing right after player 1's real attack target is chosen (CombatAttacker
+    // confirmed live) is the real one this fixture takes.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, seeded awake -- the attacker and the debuff target
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // Spirit of Water - unlocks WATER for Dissuading Halt
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'y7wbtbasch'], // Dissuading Halt
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 1 (1/2)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 1 (2/2)
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 2 (1/2)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window from ending turn 2 (2/2) -- lands on the turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline turn-3 MAT offer
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the stray fast-opportunity window opened by declining the MAT offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Dungeon Guide declares a real attack
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion -- CombatAttacker='myField-1' is now genuinely live
+        // THIS is the real combat-damage-step fast-opportunity window (CombatAttacker confirmed
+        // live via direct instrumentation at this exact point) -- take it for real.
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 2 takes the fast-opportunity action: Dissuading Halt
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // choose the attacking Dungeon Guide (player 1's myField-1) as the debuff target
+    ],
+];
+
+
+// --- Diao Chan, Dreaming Wish: Inherited -- at end phase, glimmer counters catch up to phantasia count ---
+$fixtures['diao-chan-dreaming-wish-end-phase-glimmer-catchup'] = [
+    'testedCards' => ['pknaxnn0xo'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fluffy Shopkeep
+DECK,
+    // Diao Chan, Dreaming Wish's Inherited Effect (GrandArchiveSim/Custom/GameLogic.php ~11015-
+    // 11030, inside the shared beginning-of-end-phase hook) checks
+    // ChampionHasInLineage($turnPlayer, "pknaxnn0xo"), counts PHANTASIA-type objects the turn
+    // player controls on their own field, and -- only if that count is GREATER than the champion's
+    // current "glimmer" counter count -- calls AddCounters($turnPlayer, $champMZ, "glimmer",
+    // $phantasiaCount - $glimmerCount), i.e. it adds the difference rather than overwriting the
+    // total. The champion's CardID is patched directly to pknaxnn0xo (same patchMzId technique as
+    // the Reaping Legacy/Kongming fixtures, bypassing a scripted real level-up sequence) with an
+    // existing "glimmer" counter of 1 pre-seeded, and 3 non-champion PHANTASIA objects (Unstable
+    // Fractal, NORM/CLERIC) are seeded directly onto the champion's own field. Ending player 1's
+    // turn 1 (myHealth-0!CustomInput!Pass) passes through player 1's own end phase, where the
+    // Inherited Effect fires: phantasiaCount(3) > glimmerCount(1), so 3-1=2 glimmer counters are
+    // added, leaving a final count of 3 (1+2) -- distinguishing "add the difference" from a
+    // hypothetical "set counters to the phantasia count" implementation only insofar as the
+    // starting count was already nonzero and the final total is the sum, not a fresh assignment.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'pknaxnn0xo', 'Counters' => ['glimmer' => 1]]], // Diao Chan, Dreaming Wish, pre-seeded with 1 glimmer counter
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA) #2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA) #3
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1, passing through player 1's own end phase
+    ],
+];
+
+// --- Diao Chan, Idyll Corsage: On Enter wither choice + destroyed-opponent-object banish/Flowerbud ---
+$fixtures['diao-chan-idyll-corsage-enter-wither-and-flowerbud'] = [
+    'testedCards' => ['d7l6i5thdy'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Diao Chan, Idyll Corsage
+# Main
+4 Dungeon Guide
+4 Fluffy Shopkeep
+DECK,
+    // Idyll Corsage's own On Enter (enterAbilities["d7l6i5thdy:0"], GeneratedMacroCode.php ~10759 +
+    // customDQHandlers["d7l6i5thdy:0:Enter-1"] ~29923) is reached via a REAL level-up (same
+    // patchMzId + myMemory-seed technique as kongming-ascetic-vice-enter-empower-and-inherited-draw):
+    // the champion's CardID is patched to Diao Chan, Dreaming Wish (pknaxnn0xo, level 2), which
+    // satisfies CanChampionLevelUpIntoCard's targetLevel===currentLevel+1 gate (GameLogic.php
+    // ~20009-20023, no lineage-name check, just level+1), 3 filler cards are seeded into myMemory to
+    // pay Idyll Corsage's own 3-memory level-up cost, and myMaterial-1 (Idyll Corsage, present in
+    // this deck's own Material list) is chosen as a real main-phase action, actually materializing
+    // her and firing her real On Enter. Player 2 keeps their default Level 0 champion (Spirit of
+    // Fire) and has an Unstable Fractal (PHANTASIA, non-token, non-champion) seeded directly onto
+    // their own field as the On Enter's wither target -- the MZMULTICHOOSE decision (built by
+    // filtering out CHAMPION-type objects from both fields) is answered by selecting it. (An
+    // earlier version of this fixture also seeded a same-turn ally onto player 1's own side to
+    // exercise "any amount" with two targets, but that additionally put a wither counter on our own
+    // permanent, which immediately triggers the engine's separate, unrelated general Wither Upkeep
+    // mechanic -- CardDQHandlers.php's WitherUpkeep()/WitherUpkeepProcess -- an unrelated
+    // decision-queue detour with no bearing on Idyll Corsage's own ability. Testing a single-object
+    // choice avoids that entirely while still proving the choose-and-wither clause.)
+    //
+    // For the "whenever a non-token object an opponent controls is destroyed" clause, a SEPARATE
+    // plain item (ChannelTech Charm S, rR2j9dQRDH, NORM ITEM, non-regalia so Break Apart's "+2 if
+    // it targets a regalia" surcharge doesn't apply; its own On Enter just auto-draws a card into
+    // memory with no interactive decision, unlike Business Card, which was tried first and found to
+    // queue a blocking NAMECARD decision for player 2 the instant it's seeded onto the field via
+    // this fixture-authoring tool's raw zone-seed, silently stalling every subsequent action) is
+    // seeded onto player 2's field and destroyed via
+    // Break Apart (4ns2jbt4hq, NORM ACTION, "Destroy target item or weapon") played from player 1's
+    // hand -- a real non-attack removal spell, sidestepping Rule 1.h's first-player attack lock
+    // entirely. Break Apart's own generated handler calls AllyDestroyed() -> DoAllyDestroyed()
+    // (GeneratedMacroCode.php customDQHandlers["4ns2jbt4hq:0:CardActivated-1"], ZoneAccessors.php
+    // AllyDestroyed()), the shared destroy-event dispatcher that Idyll Corsage's own trigger lives
+    // inside (GameLogic.php ~7976-7996) -- this is deliberately NOT Disenchant ("Destroy target
+    // phantasia"), which was tried first and found to bypass that dispatcher entirely (see the
+    // ENGINE BUG note in this fixture's meta.json notes). Destroying ChannelTech Charm S this way
+    // correctly fires the trigger: player 1 (Idyll Corsage's controller) is offered a YESNO to
+    // banish the destroyed card and give its controller (player 2) a Flowerbud token; answering YES
+    // resolves customDQHandlers["DiaoChanIdyllBanish"] (CardDQHandlers.php ~5386), moving the item
+    // to player 2's banishment and summoning a Flowerbud token (yn78t73w1p, TOKEN,PHANTASIA) onto
+    // player 2's own field.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'pknaxnn0xo']], // Diao Chan, Dreaming Wish (level 2), satisfies the level-2->3 gate
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // pays the 3-memory level-up cost, card 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // card 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // card 3/3
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA), player 2's own -- On Enter wither target
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'rR2j9dQRDH'], // ChannelTech Charm S (plain, non-regalia ITEM), player 2's own -- Break Apart destroy target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4ns2jbt4hq'], // Break Apart, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up into Diao Chan, Idyll Corsage (Material reindexes to 0 once Spirit of Fire is moved to Field by pregame setup), fires On Enter wither choice
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // choose player 2's Unstable Fractal to wither
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Break Apart
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 3-reserve cost, card 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 3-reserve cost, card 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 3-reserve cost, card 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-2', 'chkInput' => [], 'inputText' => ''], // target player 2's ChannelTech Charm S
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // banish the destroyed item and give player 2 a Flowerbud token
+    ],
+];
+
+// --- Glimmer Essence Amulet: whenever a phantasia you control is destroyed on an opponent's turn, banish -> draw ---
+$fixtures['glimmer-essence-amulet-opponent-turn-phantasia-destroyed-draw'] = [
+    'testedCards' => ['dy4urpjbjm'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fluffy Shopkeep
+DECK,
+    // Glimmer Essence Amulet's trigger (GameLogic.php ~7816-7832, inside the shared DoAllyDestroyed()
+    // destroy-event dispatcher) fires when PropertyContains(CardType($destroyedObj->CardID),
+    // "PHANTASIA") and GetTurnPlayer() != $controller (i.e. destroyed while it's not the
+    // controller's own turn). A real combat kill is used to reach this rather than a removal
+    // spell: Maiden of Shimmering Air (3n4l6aoj4t, PHANTASIA+ALLY, printed LIFE 2) is seeded onto
+    // player 1's own field with its LIFE overridden to 1 (potion_animate_life, same technique as
+    // the Reaping Legacy/Shred to Ribbons precedents) alongside Glimmer Essence Amulet. Player 1
+    // passes turn 1 (Rule 1.h forbids the true first player from attacking turn 1); on player 2's
+    // own turn 1, their Dungeon Guide ALLY (printed POWER 1, seeded awake) declares a real attack
+    // against player 1's Maiden, dealing exactly 1 damage -- lethal against the overridden 1 LIFE
+    // -- which destroys it via DoAllyDestroyed() DURING PLAYER 2's turn, satisfying "while it's not
+    // your turn" from player 1's perspective. That fires customDQHandlers["GlimmerEssenceAmuletChoice"]
+    // (CardDQHandlers.php ~8255): answering YES banishes Glimmer Essence Amulet and draws a card.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '3n4l6aoj4t', 'setProperties' => ['Counters' => ['potion_animate_life' => 1]]], // Maiden of Shimmering Air (PHANTASIA,ALLY), LIFE overridden to 1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dy4urpjbjm'], // Glimmer Essence Amulet
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, seeded awake (BridgeAddToZone defaults Status=2) -- attacker
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Dungeon Guide declares a real attack, during player 2's own turn
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target player 1's Maiden of Shimmering Air
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate?
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // banish Glimmer Essence Amulet to draw a card
+    ],
+];
+
+
+// --- Torpid Fractal: On Enter rest target ally (<=2 POWER); stays rested while you control it ---
+// NOTE: this fixture intentionally spans a full extra round (P1 t1 -> P2 t1 -> P1 t2) so player 2's
+// OWN wake-up phase genuinely executes with GetTurnNumber()==2. An earlier version of this fixture
+// stopped right after P1's turn-1 pass, where GetTurnPlayer()==2 but GetTurnNumber() is STILL 1 --
+// EndPhase() (Custom/GameLogic.php ~line 666-669) only increments TurnNumber when turnPlayer wraps
+// back to the first player, so "Turn 1" spans BOTH players' opening turns, and WakeUpPhase()'s own
+// guard ("if($currentTurn === 1) return;", ~line 8088-8089) skips wake-up processing for player 2's
+// first turn too, regardless of Torpid Fractal. That made the old fixture a silent fake-pass: the
+// ally stayed rested for a reason unrelated to Torpid Fractal (nothing ever tries to wake anyone
+// during TurnNumber 1). Confirmed via instrumentation (log line inside the FROZEN_BY_TORPID check
+// never fired under the old sequence) and via break/restore (forcing the opponent-Torpid-Fractal
+// detection loop to always report false still left the OLD fixture passing). This version declines
+// P1's turn-2 MAT-phase materialize offer (mode 100, cardID 'PASS' -- the mid-turn 'myHealth' Pass
+// button refuses while a MZMAYCHOOSE decision is pending, same technique as
+// samaritan-reach-attacking-ally-damage) before ending turn 2, so the wake-up phase immediately
+// after genuinely belongs to player 2 with TurnNumber==2 -- re-instrumented and confirmed the
+// FROZEN_BY_TORPID check now actually runs (currentTurn=2, turnPlayer=2), and re-verified
+// break/restore on THIS version: forcing the detection loop false now correctly fails the fixture
+// (ally wakes to Status=2, TurnEffects clears), and restoring passes again.
+$fixtures['torpid-fractal-enter-rest-stay-frozen'] = [
+    'testedCards' => ['h9u9584zpn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Torpid Fractal
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]],
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'h9u9584zpn'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end P1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end P2 turn 1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline P1's turn-2 MAT-phase materialize offer
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end P1 turn 2 -- should trigger P2's REAL 2nd wake-up phase
+    ],
+];
+
+// --- Diao Chan, Enchantress: On Enter put 2 glimmer counters, via genuine mid-game level-up ---
+// NOTE: this fixture starts from the deck's real level-0 champion (Spirit of Water) and levels up
+// into Diao Chan, Enchantress (level 1) during replay via the material-phase MZMAYCHOOSE, same
+// pattern as arisanna-herbalist-prodigy-on-enter-gather-twice. An earlier version of this fixture
+// seeded Enchantress directly as the ONLY Material card, which -- since she has no printed level-0
+// predecessor -- made GetStartingChampionChoices() fall back to offering her directly as the
+// pregame starting champion. create-prd-ability-fixtures.php's own step 4a resolves that pregame
+// choice (and the real Enter() call it triggers) BEFORE the fixture's initial gamestate is even
+// captured, so her On Enter glimmer counters were already baked into initial_gamestate.txt as
+// static data -- confirmed via instrumentation and break/restore: disabling
+// enterAbilities["00xbh8oc00:0"]'s AddCounters call and re-running the OLD fixture still passed,
+// proving the assertion never actually re-exercised the closure. This version instead lets Spirit
+// of Water resolve normally as the pregame champion, then genuinely levels up into Enchantress
+// as a replayed action -- re-verified: disabling the same AddCounters call now correctly fails
+// this fixture (Counters stay empty), and restoring it passes again.
+$fixtures['diao-chan-enchantress-enter-glimmer'] = [
+    'testedCards' => ['00xbh8oc00'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay the 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up into Diao Chan, Enchantress -- fires her real On Enter
+    ],
+];
+
+// --- Scepter of Fascination: On Enter draw + [Diao Chan Bonus] banish wakes champion, +2 glimmer ---
+// NOTE: an earlier version of this fixture seeded the Scepter directly onto the field via the
+// 'zone' setup primitive. BridgeAddToZone/MZAddZone/AddField/FieldAfterAdd never call Enter() for a
+// raw zone-seed (confirmed by reading ZoneAccessors.php/GameLogic.php -- FieldAfterAdd only has
+// hand-written hooks for a handful of unrelated specific cards). The initial_gamestate.txt this
+// produced already showed the post-draw deck count, meaning the "draw" assertion was checking a
+// pre-baked snapshot, not a replayed effect -- confirmed via break/restore: disabling
+// enterAbilities["4864k12no2:0"]'s Draw() call and re-running the OLD fixture still passed. Fixed
+// using the technique verified working for staff-of-blossoming-will-enter-draw-and-flowerbud:
+// REGALIA cards seeded via 'zone'=>'myHand' get silently redirected to myMaterial by
+// HandAddReplacement (GameLogic.php ~17777) -- confirmed empirically -- so 'patchMzId'=>'myHand-6'
+// overwrites an already-hand-resident filler card's CardID instead (patchMzId never calls
+// AddHand(), bypassing the redirect), then it's played for real via mode 10002 FSM, firing the
+// genuine Enter(). Re-verified break/restore on THIS version for BOTH clauses (On Enter draw and
+// the [Diao Chan Bonus] banish ability): each disabled independently now correctly fails the
+// fixture, and restoring either passes again.
+$fixtures['scepter-of-fascination-enter-draw-and-diao-chan-wake'] = [
+    'testedCards' => ['4864k12no2'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Status' => 1, 'Counters' => []]], // patch the pregame-selected Spirit of Water into Diao Chan, Enchantress directly (not testing HER On Enter here), rested, no glimmer counters
+        ['player' => 1, 'patchMzId' => 'myHand-6', 'setProperties' => ['CardID' => '4864k12no2']], // Scepter of Fascination, overwriting the last opening-hand slot -- patchMzId bypasses HandAddReplacement's REGALIA->myMaterial redirect (same technique as staff-of-blossoming-will-enter-draw-and-flowerbud)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''], // play Scepter of Fascination from hand -- fires its real On Enter draw via DoMaterialize()
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // activate the [Diao Chan Bonus] banish ability
+    ],
+];
+
+// --- Kaleidoscope Barrette: On Enter draw + at recollection phase, empower X = phantasias controlled ---
+// NOTE: an earlier version of this fixture seeded the Barrette directly onto the field via 'zone',
+// which suffers the exact same never-calls-Enter() silent-fake-pass issue as Scepter of Fascination
+// above (confirmed via the same break/restore method: disabling enterAbilities["qktid6zlyt:0"]'s
+// Draw() call and re-running the OLD fixture still passed). The recollection-phase empower half of
+// the OLD fixture was independently confirmed genuine (its own break/restore on the "qktid6zlyt"
+// case in Custom/GameLogic.php correctly fails) -- only the On-Enter draw needed fixing, same
+// patchMzId-into-an-existing-hand-slot technique as Scepter of Fascination.
+$fixtures['kaleidoscope-barrette-enter-draw-and-recollection-empower'] = [
+    'testedCards' => ['qktid6zlyt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fluffy Shopkeep
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'patchMzId' => 'myHand-6', 'setProperties' => ['CardID' => 'qktid6zlyt']], // Kaleidoscope Barrette, overwriting the last opening-hand slot (bypasses HandAddReplacement's REGALIA->myMaterial redirect)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v'], // Unstable Fractal (PHANTASIA) #2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''], // play Kaleidoscope Barrette from hand -- fires its real On Enter draw via DoMaterialize()
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 2, advancing into player 1's turn 3 -- recollection phase (and its empower trigger) resolves automatically here
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the turn-3 MAT offer, advancing into MAIN where the recollection phase's EMPOWERED TurnEffects become observable
+    ],
+];
+
+
+// =============================================================================
+// Diao Chan Re:Collection, Idyll Corsage -- batch 5 (Claude Sonnet 5)
+// Shared setup notes: the Material section is just "1 Spirit of Water"
+// (tafqldAGRF, a Level 0 CHAMPION), which the pregame auto-places at myField-0
+// as the sole legal starting-champion choice -- this alone grants natural WATER
+// element access (GetPlayerEnabledElements() walks GetChampionLineage(), which
+// starts from myField-0's own CardID). When a fixture needs TERA element access
+// and/or the "[Diao Chan Bonus]" check (IsDiaoChanBonus() -> ChampionHasInLineage
+// for any of the 3 Diao Chan card IDs), myField-0's Subcards are patched to add
+// Diao Chan, Idyll Corsage (d7l6i5thdy, TERA element, satisfies IsDiaoChanBonus)
+// -- GetChampionLineage() merges Subcards into the lineage array without ever
+// making that card the physical on-field object, so its own "Whenever a
+// non-token object an opponent controls is destroyed..." passive (keyed on
+// literal on-field CardID === "d7l6i5thdy", GrandArchiveSim/Custom/GameLogic.php
+// ~7985) never fires. When a fixture needs "[Class Bonus]" (IsClassBonusActive,
+// which scans literal on-field CHAMPION objects for a class match -- independent
+// of the Subcards-based lineage check), Diao Chan, Enchantress (00xbh8oc00,
+// CLERIC) is physically seeded onto the field as a second CHAMPION object,
+// exactly like the vernal-talisman-preserve-draw precedent.
+// =============================================================================
+
+// --- Refracting Missile: Deal damage to target unit equal to the amount of
+// Fractal objects you control plus 1. ---
+$fixtures['refracting-missile-fractal-damage'] = [
+    'testedCards' => ['6ffqsuo6gb'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Refracting Missile (6ffqsuo6gb, WATER ACTION) reads
+    // count(ZoneSearch("myField", cardSubtypes: ["FRACTAL"])) + 1 as its damage amount
+    // (GeneratedMacroCode.php, customDQHandlers["6ffqsuo6gb:0:CardActivated-1"]:32970-32972).
+    // Hydrating Fractal (LAfJuHgUbm, WATER PHANTASIA, CLERIC/FRACTAL subtypes, no On Enter/
+    // passive text) is seeded directly onto the field as the single controlled Fractal object,
+    // so N=1 and expected damage = 2 -- deliberately non-trivial and distinguishable from a
+    // hypothetical always-1 stub. WATER access for playing Refracting Missile itself comes for
+    // free from the Spirit of Water starting champion (see shared setup notes above); no Subcards
+    // patch is needed since this card has no Class/Diao Chan Bonus gating.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'LAfJuHgUbm'], // Hydrating Fractal -- the 1 controlled Fractal object
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '6ffqsuo6gb'], // Refracting Missile, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
+// --- Eventide Lure: On Enter -- look at top 5, reveal a phantasia into memory,
+// put the rest on the bottom in original relative order. ---
+$fixtures['eventide-lure-look-five-reveal-phantasia'] = [
+    'testedCards' => ['eg771cn2q1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Eventide Lure's On Enter (enterAbilities["eg771cn2q1:0"], GeneratedMacroCode.php:10992)
+    // delegates to hand-authored EventideLureEnter() (Custom/CardDQHandlers.php:8178): moves the
+    // top 5 deck cards to myTempZone, offers an MZMAYCHOOSE over just the PHANTASIA candidates
+    // among them, reveals+moves the chosen one to memory (EventideLureReveal), then
+    // EventideLurePutRestOnBottom() moves every remaining myTempZone card back to myDeck (append
+    // = bottom) in their myTempZone iteration order. The top 5 are stacked deterministically via
+    // 'patchMzId' directly on myDeck-0..4 (already-real deck objects post-shuffle/opening-hand-draw,
+    // patched before any other draw can disturb them) to exactly ONE known phantasia -- Hydrating
+    // Fractal (LAfJuHgUbm, WATER PHANTASIA, no On Enter/passive text, so it does nothing extra when
+    // it later leaves the temp zone) -- at position 2, sandwiched between 4 non-phantasia filler
+    // cards (em6eEh9q8y/px60u5n1do). This proves both halves of the clause: the phantasia specifically
+    // ends in memory, and the 4 non-phantasia cards land on the bottom in their original order.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'eg771cn2q1'], // Eventide Lure, seeded to a known hand slot
+        ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => 'em6eEh9q8y']], // top-5 slot 1: filler
+        ['player' => 1, 'patchMzId' => 'myDeck-1', 'setProperties' => ['CardID' => 'px60u5n1do']], // top-5 slot 2: filler
+        ['player' => 1, 'patchMzId' => 'myDeck-2', 'setProperties' => ['CardID' => 'LAfJuHgUbm']], // top-5 slot 3: the ONE phantasia
+        ['player' => 1, 'patchMzId' => 'myDeck-3', 'setProperties' => ['CardID' => 'em6eEh9q8y']], // top-5 slot 4: filler
+        ['player' => 1, 'patchMzId' => 'myDeck-4', 'setProperties' => ['CardID' => 'px60u5n1do']], // top-5 slot 5: filler
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-2', 'chkInput' => [], 'inputText' => ''], // reveal the phantasia (Hydrating Fractal) into memory
+    ],
+];
+
+// --- Crystalline Mirror: whenever a phantasia enters under your control, glimpse 1;
+// [Class Bonus] Banish CARDNAME: destroy a cheap item (only if you control 3+ phantasias). ---
+$fixtures['crystalline-mirror-glimpse-and-banish-destroy'] = [
+    'testedCards' => ['9agwj4f15j'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Crystalline Mirror's "whenever a phantasia enters the field under your control, glimpse 1"
+    // trigger lives directly in FieldAfterAdd (Custom/GameLogic.php ~8613-8623) -- it fires
+    // synchronously for ANY field-add (setup or real play) as soon as a PHANTASIA-type card lands
+    // on the controller's field while Crystalline Mirror is already there, no Class Bonus needed.
+    // Its "[Class Bonus] Banish CARDNAME: destroy target item..." half is a REST-style
+    // activateAbilityAbilities["9agwj4f15j:0"] gated by activateAbilityPrereqs["9agwj4f15j:0"]
+    // (IsClassBonusActive(CLERIC) && count(phantasias) >= 3); its own "Banish self" cost
+    // (ActivatedAbilityCost's "9agwj4f15j" case, GameLogic.php ~6290) runs BEFORE the ability body,
+    // so Crystalline Mirror is already off the field by the time its own myField ITEM search runs
+    // (can't self-target). myField-0 is patched directly to Diao Chan, Enchantress (00xbh8oc00,
+    // CLERIC) with Subcards=[Spirit of Water] so IsClassBonusActive(CLERIC) is satisfied by a
+    // literal on-field champion match while WATER element access is preserved via lineage
+    // (patchMzId never triggers Enter(), so Diao Chan's own "On Enter: put 2 glimmer counters"
+    // never fires and can't leave a stray decision behind). Two Hydrating Fractals (LAfJuHgUbm,
+    // WATER PHANTASIA, no On Enter/passive text) are seeded onto the field BEFORE Crystalline
+    // Mirror so their own entry doesn't trigger the glimpse (CM isn't present yet); a third is
+    // played from hand AFTER CM is on the field, which is the one real, observable "phantasia
+    // enters while CM is out" event this fixture proves, bringing total controlled phantasias to
+    // 3 -- satisfying the banish ability's own "control 3+ phantasias" activation gate. Beastbond
+    // Ears (JPcFmCpdiF, REGALIA/ITEM, memory cost 0, purely passive "+1 level" text, no activated
+    // ability of its own) is seeded onto the opponent's field as the qualifying cheap-item destroy
+    // target (search covers both myField and theirField items) -- deliberately chosen over an
+    // item with its OWN activated ability (e.g. Grand Crusader's Ring's "Banish: Draw a card"),
+    // since seeding one of those onto the opponent's field opens a real "Take a fast action?"
+    // AbilityOpportunity choice for player 2 (confirmed empirically) that would otherwise need an
+    // extra explicit decline action.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]], // Diao Chan, Enchantress (CLERIC) + Spirit of Water lineage (WATER access)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'LAfJuHgUbm'], // Hydrating Fractal #1 (pre-existing phantasia, before CM)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'LAfJuHgUbm'], // Hydrating Fractal #2 (pre-existing phantasia, before CM)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '9agwj4f15j'], // Crystalline Mirror (seeded awake, after the 2 phantasias)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'LAfJuHgUbm'], // Hydrating Fractal #3, to be played from hand -- the real glimpse-triggering entry
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'JPcFmCpdiF'], // Beastbond Ears (Mem=0 ITEM, no activated ability) -- banish-ability destroy target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/1 for Hydrating Fractal #3
+        // Fractal #3 entering the field while Crystalline Mirror is out triggers the "whenever a
+        // phantasia enters" Glimpse 1 synchronously -- respond to its MZREARRANGE (submitting the
+        // same "Top=...;Bottom=" param verbatim, same technique as idle-thoughts-glimpse-4/
+        // wisdoms-reprise-level3-draw-memory) before anything else can proceed.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=;Bottom=em6eEh9q8y', 'chkInput' => [], 'inputText' => ''], // Glimpse 1 response -- send the glimpsed card to the BOTTOM (observably distinct from a no-op) to prove the trigger actually engaged the deck
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-3!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // Banish Crystalline Mirror to activate (now controls 3 phantasias: myField-1, myField-2, myField-4)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Beastbond Ears to destroy
+    ],
+];
+
+// --- Staff of Blossoming Will: On Enter -- draw a card; [Diao Chan Bonus] (1), [REST]:
+// target player summons a Flowerbud token. ---
+$fixtures['staff-of-blossoming-will-enter-draw-and-flowerbud'] = [
+    'testedCards' => ['4moumzcx9z'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Staff of Blossoming Will is a TERA (advanced element) REGALIA,ITEM card, so myField-0's
+    // Subcards are patched to include Diao Chan, Idyll Corsage (d7l6i5thdy, TERA) -- this grants
+    // TERA element access via lineage AND satisfies IsDiaoChanBonus (IsDiaoChanBonus checks
+    // ChampionHasInLineage for any of the 3 Diao Chan card IDs) in one patch, since patchMzId
+    // never triggers Enter() (so nothing about Idyll Corsage's own On Enter/passive fires).
+    // REGALIA cards can't be seeded directly into myHand via the normal setup zone-add primitive
+    // -- HandAddReplacement (GameLogic.php:17777) unconditionally redirects any card whose
+    // CardType contains REGALIA into myMaterial instead (confirmed empirically), which is where
+    // REGALIA cards are actually meant to live and would only leave via the (turn>=2-only)
+    // Materialize Phase, not a hand FSM click. To exercise the REAL On-Enter-draw as an observable
+    // ACTION (not baked silently into setup -- seeding a card with an $enterAbilities entry
+    // directly onto myField via setup DOES synchronously fire Enter(), confirmed empirically,
+    // which would make the draw invisible as a setup-to-actions delta), myHand-6 (the last opening
+    // hand slot) is patched directly to Staff of Blossoming Will's own CardID via patchMzId --
+    // patchMzId mutates an object already in the hand array, bypassing HandAddReplacement
+    // entirely since it never calls AddHand(). It can then be played for real via a normal mode
+    // 10002 FSM click. enterAbilities["4moumzcx9z:0"] (GeneratedMacroCode.php:9648) is a plain
+    // Draw(player, 1) -- proven by the deck shrinking by 1 and a genuinely new card landing in the
+    // vacated hand slot. activateAbilityPrereqs["4moumzcx9z:0"] (:2047) requires
+    // IsDiaoChanBonus($player), the source object awake (Status==2), and at least 1 CHAMPION on
+    // either field; its ability body (:2035) queues an MZCHOOSE over all CHAMPIONs (both mine and
+    // theirs -- "target player" is represented by picking that player's champion), then
+    // customDQHandlers["4moumzcx9z:0:ActivateAbility-1"] (:27077) resolves it and adds a Flowerbud
+    // token (yn78t73w1p) to the chosen champion's controller's own field. Targeting theirField-0
+    // (the opponent's champion) proves the token lands on the CORRECT (targeted) player's field,
+    // not always the activator's.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['d7l6i5thdy']]], // Diao Chan, Idyll Corsage lineage -- TERA access + Diao Chan Bonus
+        ['player' => 1, 'patchMzId' => 'myHand-6', 'setProperties' => ['CardID' => '4moumzcx9z']], // Staff of Blossoming Will, overwriting the last opening-hand slot (bypasses the REGALIA->myMaterial redirect)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''], // materialize Staff of Blossoming Will for real -- fires its On Enter draw
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // (1), REST: activate the Diao Chan Bonus ability
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay its (1) reserve cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opponent's champion -- their player summons the Flowerbud
+    ],
+];
+
+// --- Bloom: Summer's Glow: [Class Bonus] each opponent sacrifices all Flowerbuds; controller
+// summons chosen Lycoria/Baihua split. ---
+$fixtures['bloom-summers-glow-class-bonus-flowerbud-split'] = [
+    'testedCards' => ['a708z5ethq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Bloom: Summer's Glow is a TERA (advanced element) ACTION card whose entire printed effect is
+    // Class Bonus-gated: cardActivatedAbilities["a708z5ethq:0"] (GeneratedMacroCode.php:16686)
+    // returns immediately if !IsClassBonusActive($player, ["CLERIC"]) with no other baseline
+    // effect, matching the printed text exactly. myField-0 is patched directly to Diao Chan,
+    // Enchantress (00xbh8oc00, CLERIC) with Subcards=[Diao Chan, Idyll Corsage (d7l6i5thdy, TERA)]
+    // -- this makes myField-0 itself a literal on-field CLERIC champion (satisfying
+    // IsClassBonusActive, which scans physical field objects) while granting TERA element access
+    // via lineage; patchMzId never triggers Enter(), so neither champion's own On Enter fires.
+    // Two Flowerbud tokens (yn78t73w1p, CLERIC/FLOWERBUD subtype) are seeded onto the OPPONENT's
+    // field ("each opponent sacrifices all Flowerbuds"). After playing the card and paying its
+    // 2-reserve cost, the ability queues a TWOSIDEDSLIDER (0 to flowerbudCount) plus
+    // customDQHandlers["BloomSummerResolve"] (Custom/CardDQHandlers.php): answering the slider with
+    // "1" (a non-uniform, non-degenerate split -- distinguishable from an always-Lycoria or
+    // always-Baihua stub) sacrifices both Flowerbuds and summons exactly 1 Lycoria + 1 Baihua onto
+    // the opponent's field.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['d7l6i5thdy']]], // Diao Chan, Enchantress (CLERIC, literal field champion for Class Bonus) + Idyll Corsage lineage (TERA access)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'yn78t73w1p'], // Flowerbud token #1 on the opponent's field
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'yn78t73w1p'], // Flowerbud token #2 on the opponent's field
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'a708z5ethq'], // Bloom: Summer's Glow, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '1', 'chkInput' => [], 'inputText' => ''], // TWOSIDEDSLIDER response: 1 Lycoria, 1 Baihua (of 2 total Flowerbuds)
+    ],
+];
+
+// --- Bloom: Winter's Chill: same mechanic as Bloom: Summer's Glow, with Nightshade/Floodbloom
+// tokens instead of Lycoria/Baihua. ---
+$fixtures['bloom-winters-chill-class-bonus-flowerbud-split'] = [
+    'testedCards' => ['b4jvyh23y1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Same shape as bloom-summers-glow-class-bonus-flowerbud-split: cardActivatedAbilities
+    // ["b4jvyh23y1:0"] (GeneratedMacroCode.php:16933) is Class Bonus-gated
+    // (IsClassBonusActive(CLERIC)) with no baseline effect, and customDQHandlers
+    // ["BloomWinterResolve"] (Custom/CardDQHandlers.php) replaces sacrificed Flowerbuds with a
+    // chosen Nightshade/Floodbloom split instead of Lycoria/Baihua. myField-0 is patched the same
+    // way (Diao Chan, Enchantress + Idyll Corsage lineage). Two Flowerbud tokens are seeded onto
+    // the opponent's field, and the TWOSIDEDSLIDER response of "1" again proves a real,
+    // non-degenerate 1/1 split rather than an always-one-type stub.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['d7l6i5thdy']]], // Diao Chan, Enchantress (CLERIC, literal field champion for Class Bonus) + Idyll Corsage lineage (TERA access)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'yn78t73w1p'], // Flowerbud token #1 on the opponent's field
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'yn78t73w1p'], // Flowerbud token #2 on the opponent's field
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'b4jvyh23y1'], // Bloom: Winter's Chill, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '1', 'chkInput' => [], 'inputText' => ''], // TWOSIDEDSLIDER response: 1 Nightshade, 1 Floodbloom (of 2 total Flowerbuds)
+    ],
+];
+
+
+// --- Guo Jia Re:Collection, Heaven's Favored starter deck semantic coverage ---
+
+// Journey's Beginning: "Draw a card." + [Guo Jia Bonus] put a quest counter on your champion.
+$fixtures['journeys-beginning-draw-and-quest-counter'] = [
+    'testedCards' => ['8ofid087a6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Journey's Beginning
+16 Dungeon Guide
+DECK,
+    'setup' => [
+        // Patch the starting champion directly into Guo Jia, Chosen Disciple (not testing HER own
+        // On Enter here) so IsGuoJiaBonus() reads true for the [Guo Jia Bonus] clause below.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']],
+    ],
+    'actions' => [
+        // Play Journey's Beginning (verified live at myHand-1 with this deck/seed) and pay its
+        // 3-reserve cost from hand (moves 3 Dungeon Guide into memory). Then pass the resulting
+        // EffectStack opportunity window for both players so the activated ability actually
+        // resolves (GrandArchiveSim/Custom/OpportunityLogic.php) instead of leaving Journey's
+        // Beginning stuck on the stack.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Broken Promises: additional cost sacrifice a Fatestone item/Fatebound ally, draw into memory,
+// [Guo Jia Bonus] put a quest counter on your champion.
+$fixtures['broken-promises-sacrifice-draw-quest'] = [
+    'testedCards' => ['re911j7fo4'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Broken Promises
+6 Dungeon Guide
+DECK,
+    'setup' => [
+        // Patch champion to Guo Jia, Chosen Disciple for [Guo Jia Bonus], keeping Spirit of Fire
+        // in Subcards so CanPlayerUseCardElement() still grants FIRE access for this FIRE card
+        // (a real level-up would preserve Spirit of Fire in the lineage the same way).
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['LMyKyVC2O9']]],
+        // Seed a Fatestone item (Craggy Fatestone) onto the field as the mandatory sacrifice fodder.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Additional cost: sacrifice the seeded Craggy Fatestone.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        // Pay the 1-reserve cost with a Dungeon Guide from hand.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Strengthen the Bonds: put a buff counter on up to two target Fatestone or Fatebound objects.
+$fixtures['strengthen-the-bonds-buff-two-targets'] = [
+    'testedCards' => ['0v893yn5iq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Strengthen the Bonds
+6 Dungeon Guide
+DECK,
+    'setup' => [
+        // Two Fatestone items on the field as the up-to-two targets.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Pay the 2-reserve cost with Dungeon Guide from hand.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZMULTICHOOSE: select both Craggy Fatestones (myField-1 and myField-2) as the up-to-two targets.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1&myField-2', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Expel the Departed: destroy up to one target phantasia; if you control 2+ Fatestone/Fatebound
+// objects, draw a card.
+$fixtures['expel-the-departed-destroy-phantasia-draw'] = [
+    'testedCards' => ['9wxcgpy069'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Expel the Departed
+6 Dungeon Guide
+DECK,
+    'setup' => [
+        // Opponent's phantasia target.
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '2o82fwl22v'],
+        // Two Fatestone items to satisfy the "control 2+ Fatestone/Fatebound objects" draw condition.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Pay the 3-reserve cost (not leveled up, so no [Level 2+] discount).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZMAYCHOOSE: destroy the opponent's Unstable Fractal.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Shatter the Brittle: activate only if you control a Fatestone/Fatebound object; destroy target
+// cheap item/weapon; its controller draws a card into their memory.
+$fixtures['shatter-the-brittle-destroy-draw-memory'] = [
+    'testedCards' => ['tdz5of8zuz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Shatter the Brittle
+6 Dungeon Guide
+DECK,
+    'setup' => [
+        // Craggy Fatestone: satisfies both the activation prereq (a Fatestone object) and doubles
+        // as the destroy target (reserve cost 4 <= 5).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: destroy the Craggy Fatestone.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Obscuring Threads: up to one target Fatestone or Fatebound object gains spellshroud until end
+// of turn.
+$fixtures['obscuring-threads-spellshroud'] = [
+    'testedCards' => ['ff8jchay4s'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Obscuring Threads
+6 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZMAYCHOOSE: target the Craggy Fatestone.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Rousing Rattle Drum: Banish this card: wake up target defending Animal or Beast ally.
+$fixtures['rousing-rattle-drum-banish-wake-defender'] = [
+    'testedCards' => ['nxm05jkjxg'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Cheerful Slime seeded BEFORE Rousing Rattle Drum so its own field index (myField-1) is
+        // stable across the Drum's own banish-as-cost (which removes a LATER index, not this one).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'OUqX2BBcGv', 'setProperties' => ['Status' => 1]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'nxm05jkjxg'],
+        // Simulate the Slime being the current combat's defending unit (IsUnitDefending() reads
+        // these DecisionQueueController variables -- GrandArchiveSim/Custom/GameLogic.php ~21315).
+        // CombatTarget is stored from the ATTACKER's perspective, hence "theirField-1".
+        ['player' => 1, 'dqVariables' => ['CombatTarget' => 'theirField-1', 'CombatAttackerPlayer' => 2]],
+    ],
+    'actions' => [
+        // Activate Rousing Rattle Drum's field ability (banishes itself as its own cost).
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: the only legal target is the defending Cheerful Slime.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Foraging Fox: On Enter, look at top 5, may reveal a Fatestone into memory, rest on bottom.
+$fixtures['foraging-fox-enter-look5-reveal-fatestone'] = [
+    'testedCards' => ['b0ssellm84'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+20 Dungeon Guide
+DECK,
+    'setup' => [
+        // Patch a hand slot into Foraging Fox and a top-of-deck slot into Craggy Fatestone (within
+        // the "top five") so the fixture doesn't depend on shuffle luck for either.
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'b0ssellm84']],
+        ['player' => 1, 'patchMzId' => 'myDeck-2', 'setProperties' => ['CardID' => 'h8n1520m2d']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZMAYCHOOSE: reveal the Craggy Fatestone found among the top five (myTempZone-2).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-2', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE: put the remaining 4 Dungeon Guide on the bottom of the deck (order irrelevant).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Bottom=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,em6eEh9q8y', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Fated Keepsake: On Enter draw a card; [Guo Jia Bonus] prevent all but 6 of 7+ damage to your
+// champion while you control 3+ Fatestone/Fatebound objects.
+$fixtures['fated-keepsake-enter-draw-and-prevent-damage'] = [
+    'testedCards' => ['vi1uyifw6s'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+20 Dungeon Guide
+DECK,
+    'setup' => [
+        // Player 1: Guo Jia champion + 3 Fatestone items + Fated Keepsake in hand (to materialize
+        // for real, proving its own On Enter) + a memory filler to pay its 1-memory cost.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'vi1uyifw6s']],
+        // Player 2: ARCANE lineage unlock + Arcane Blast (deals 11 damage to target champion) plus
+        // enough reserve fuel to cast it on their own turn (11-reserve cost).
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'pn9gQjV3Rb'],
+    ],
+    'actions' => [
+        // Player 1 materializes Fated Keepsake for real (fires its genuine On Enter draw), then
+        // ends their turn so player 2 gets a legal opportunity to cast a sorcery-speed spell.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        // Player 2 casts Arcane Blast (11 damage to target champion) at player 1's champion.
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-12!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Companion Fatestone: On Enter put a buff counter on itself or a Fatebound ally you control.
+$fixtures['companion-fatestone-enter-buff-self'] = [
+    'testedCards' => ['izf4wdsbz9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+4 Companion Fatestone
+10 Dungeon Guide
+DECK,
+    'setup' => [],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: only legal choice is Companion Fatestone itself (no Fatebound allies present).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Craggy Fatestone: [Guo Jia Bonus] [REST]: Transform, only if 2+ buff counters.
+$fixtures['craggy-fatestone-rest-transform-two-buff'] = [
+    'testedCards' => ['h8n1520m2d'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']],
+        // Seed the required 2 buff counters directly (normally accumulated from the card's OWN
+        // separate "whenever an opponent materializes a memory-cost-0 card" trigger, which this
+        // fixture does not exercise -- see the notes in this fixture's meta.json about that
+        // trigger's dispatch).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d', 'setProperties' => ['Counters' => ['buff' => 2]]],
+    ],
+    'actions' => [
+        // Activate the [REST] transform ability. Prereq: IsGuoJiaBonus + 2+ buff counters.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Craggy Fatestone (h8n1520m2d): regression fixture for the FIXED first clause -- "Whenever an
+// opponent materializes a card with memory cost 0, put a buff counter on Craggy Fatestone." This
+// clause carries NO Guo Jia Bonus restriction on the card's own printed text (only the separate
+// second [REST] transform clause above is tagged [Guo Jia Bonus]); it was previously wrongly
+// gated behind IsGuoJiaBonus($opponent) AND only wired into DoMaterialize() (MaterializeLogic.php),
+// which covers exclusively the rare from-material-zone/champion-lineage materialize path -- dead
+// for the overwhelmingly common case of an opponent materializing something from HAND. The fix
+// (a) drops the IsGuoJiaBonus gate on this clause and (b) also calls the same
+// CraggyFatestoneMaterializeTrigger() helper from MoveEffectStackCardToField() (GameLogic.php),
+// the real from-hand-via-effect-stack chokepoint. This fixture proves the from-hand case, with NO
+// Guo Jia Bonus active for either player.
+//
+// Fauna Friend (japulzj7gv, REGALIA,ITEM, reserve=-1/memory=0) is the memory-cost-0 vehicle card.
+// Regalia can never legitimately reach hand via AddHand() (HandAddReplacement redirects any
+// freshly-"added" Regalia CardID straight into the Material zone instead -- confirmed live), so it
+// is seeded to a known hand slot via patchMzId, same convention used throughout this file for
+// hand-seeded test cards; only the vehicle's presence in hand is synthetic, not Craggy Fatestone's
+// buff counter (which is produced by the real ability code, not setProperties).
+//
+// Verified live: P1 declines their material-phase level-up prompt (ends their empty turn 1,
+// landing on P2's own turn 1 MAIN phase with no other pending decisions in this filler deck), then
+// P2 plays Fauna Friend from myHand-0 via ordinary FSM. Memory cost 0 needs no MZCHOOSE/reserve
+// decisions -- it resolves in one action, moving straight to P2's field. Craggy Fatestone's buff
+// counter goes 0 -> 1 as a direct, unconditional result (no Guo Jia Bonus on P1 or P2's champion).
+$fixtures['craggy-fatestone-buff-counter-from-hand-materialize'] = [
+    'testedCards' => ['h8n1520m2d'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Craggy Fatestone on P1's field -- the card under test. Its buff counter is left at the
+        // natural starting value (0); nothing about its own state is seeded.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        // Fauna Friend seeded to P2's myHand-0 (see file-level comment above for why patchMzId,
+        // not a zone-add, is required for a Regalia card to sit in hand).
+        ['player' => 2, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'japulzj7gv']],
+    ],
+    'actions' => [
+        // P1 declines the start-of-turn material-phase level-up prompt. This filler deck has no
+        // other legal action for P1, so the rest of P1's turn auto-resolves and priority lands on
+        // P2's own turn 1 MAIN phase (verified live via RunnerPendingDecisionSummary: turn player
+        // becomes 2, phase MAIN, no pending decisions).
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        // P2 materializes Fauna Friend from hand (myHand-0, still index 0 -- P2's own turn-1 draw
+        // appends to the END of hand). Memory cost 0 resolves in this single FSM action with no
+        // further decisions.
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Portentous Tanggu: [Guo Jia Bonus] On Enter: put a quest counter on your champion.
+$fixtures['portentous-tanggu-enter-quest-counter'] = [
+    'testedCards' => ['mb3iqw3kc6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'mb3iqw3kc6']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Fatestone of Heaven: On Enter destroy target non-champion object with memory cost 1 or less, or
+// reserve cost 5 or less.
+$fixtures['fatestone-of-heaven-enter-destroy-cheap-object'] = [
+    'testedCards' => ['al6pqkmgmz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Fatestone of Heaven is LUXEM; patch in Zander, Blinding Steel's lineage for element access.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'al6pqkmgmz']],
+        // Opponent's Fluffy Shopkeep (reserve cost 3 <= 5) is the destroy target.
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'px60u5n1do'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: candidates are itself (myField-1, reserve 3) and the Fluffy Shopkeep
+        // (theirField-1, reserve 3) -- choose the opponent's ally.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Fatestone of Heaven: destroying an ITEM/WEAPON target routes through AllyDestroyed(), firing
+// "whenever destroyed" triggers (regression guard for the customDQHandlers["FatestoneOfHeavenDestroy"]
+// fix in GrandArchiveSim/Custom/CardLogic.php) ---
+$fixtures['fatestone-of-heaven-enter-destroy-item-fires-diaochan-trigger'] = [
+    'testedCards' => ['al6pqkmgmz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    // The fatestone-of-heaven-enter-destroy-cheap-object fixture only exercises the ALLY branch
+    // of customDQHandlers["FatestoneOfHeavenDestroy"] (Custom/CardLogic.php), which already
+    // called AllyDestroyed() correctly. Its non-ALLY/TOKEN branch instead did a raw
+    // OnLeaveField()+MZMove()-to-graveyard, silently skipping every "whenever a permanent is
+    // destroyed" trigger -- the same bypass bug already fixed for other cards via
+    // GrandArchiveSim/Custom/GeneratedAbilityOverrides.php. Diao Chan, Idyll Corsage is seeded
+    // onto the caster's own field as a canary: her "whenever a non-token object an opponent
+    // controls is destroyed, you may banish it; if you do, that opponent summons a Flowerbud
+    // token" ability only fires through DoAllyDestroyed()'s trigger dispatch, so her
+    // banish/Flowerbud payload firing directly proves the fix for an ITEM target (as opposed to
+    // just "it's gone from the field", which the old bypass would also achieve).
+    'setup' => [
+        // Fatestone of Heaven is LUXEM; patch in Zander, Blinding Steel's lineage for element access.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]],
+        // Diao Chan, Idyll Corsage - canary "whenever destroyed" trigger, on the destroyer's own
+        // side (she must be controlled by the opponent of the destroyed object's controller).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'd7l6i5thdy'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'al6pqkmgmz']],
+        // Opponent's Craggy Fatestone (ITEM, reserve cost 4 <= 5) is the destroy target.
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: candidates are itself (myField-2, reserve 3) and the opponent's Craggy
+        // Fatestone (theirField-1, reserve 4) -- choose the opponent's item.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        // Diao Chan's YESNO: banish the destroyed item and give the opponent a Flowerbud token.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Fatestone of Unrelenting: Hindered; On Enter: as a Spell, deal 1 damage to target unit.
+$fixtures['fatestone-of-unrelenting-enter-damage-1'] = [
+    'testedCards' => ['o37qtuvlxa'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['LMyKyVC2O9']]],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'o37qtuvlxa']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: deal the 1 damage to the opponent's champion.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Lavaplume Fatestone: On Enter, as a Spell, deal X unpreventable damage to target unit, X = other
+// Fatestone/Fatebound objects controlled.
+$fixtures['lavaplume-fatestone-enter-x-unpreventable-damage'] = [
+    'testedCards' => ['0w5xyjuczy'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['LMyKyVC2O9']]],
+        // Two OTHER Fatestone items so X = 2.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '0w5xyjuczy']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: deal X (=2) damage to the opponent's champion.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Fatestone of Revelations: On Enter, may reveal two Fatestone/Fatebound cards from hand/memory,
+// draw a card if so.
+$fixtures['fatestone-of-revelations-enter-reveal-two-draw'] = [
+    'testedCards' => ['xd4kv0akqr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Two other Fatestone items in hand to reveal.
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'xd4kv0akqr']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZMAYCHOOSE: reveal the first Craggy Fatestone (myHand-4).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-4', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: reveal the second Craggy Fatestone (myHand-5).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-5', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Band of Burning Verdict: On Enter, draw a card. (Fixed: see
+// band-of-burning-verdict-play-without-tamer-bonus and band-of-burning-verdict-rest-buff-requires-
+// activation for the two defects that used to live here -- the illegal play-block is gone and the
+// [REST] buff no longer auto-fires, so this fixture now needs only the FSM play action.)
+$fixtures['band-of-burning-verdict-enter-draw'] = [
+    'testedCards' => ['7mmve2l328'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Tamer champion + an Animal/Beast ally are kept here (though no longer required just to
+        // play the card -- see the fix) so this fixture still also covers the On Enter draw in the
+        // presence of a legal REST-ability target, same as before.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['LMyKyVC2O9']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'OUqX2BBcGv'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '7mmve2l328']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Band of Burning Verdict: playing this ally from hand has no printed restriction -- proves the
+// fixed activateCardPrereqs["7mmve2l328:0"] no longer requires the Tamer class bonus or an
+// Animal/Beast ally on the field just to materialize the card. Deliberately NO Tamer champion and
+// NO Animal/Beast ally anywhere in this fixture's setup.
+$fixtures['band-of-burning-verdict-play-without-tamer-bonus'] = [
+    'testedCards' => ['7mmve2l328'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '7mmve2l328']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Band of Burning Verdict: the printed "[Class Bonus] [REST]: Target Animal or Beast ally you
+// control gets +1 POWER and gains true sight until end of turn" must NOT auto-fire on Enter --
+// it only applies after an explicit later activation (paying the REST cost, i.e. tapping the
+// card). Same Tamer-champion + Cheerful Slime setup as band-of-burning-verdict-enter-draw so the
+// ability is legally activatable, but here it is actually activated via the same direct
+// myField!CustomInput!Activate:N click GrandArchiveSim/Custom/CustomInput.php offers for any
+// field permanent's own activated ability when the decision queue is empty (same mechanism used
+// by the charm-of-anticipation-banish-draw fixture for vkL2RFh0yM's activateAbilityAbilities
+// entry).
+$fixtures['band-of-burning-verdict-rest-buff-requires-activation'] = [
+    'testedCards' => ['7mmve2l328'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['LMyKyVC2O9']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'OUqX2BBcGv'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '7mmve2l328']],
+    ],
+    'actions' => [
+        // Materialize Band of Burning Verdict (myField-2). On Enter draws a card; the REST buff
+        // does NOT fire here -- that's the point of this fixture.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Explicitly activate Band of Burning Verdict's own ability index 0 (the [REST] buff).
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: target the Cheerful Slime (Animal ally) with the buff.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Light the Hunt: Put two buff counters on target Animal or Beast ally you control.
+$fixtures['light-the-hunt-buff-two-counters'] = [
+    'testedCards' => ['edjgscy50x'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Light the Hunt is LUXEM; patch in Zander, Blinding Steel's lineage for element access.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'OUqX2BBcGv'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'edjgscy50x']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: target the Cheerful Slime (Animal ally).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Peacock of Prosperity: [Class Bonus][Element Bonus] whenever you reveal it from memory, may put
+// a copy from memory onto the field, then draw a card into memory.
+$fixtures['peacock-of-prosperity-reveal-memory-to-field'] = [
+    'testedCards' => ['cl1mvb9q96'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Guo Jia (TAMER, matching Peacock's own class) + LUXEM lineage for Uncover the Plot.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['UAF6Nr7GUE']]],
+        // Two copies of Peacock of Prosperity in memory.
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'cl1mvb9q96'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'cl1mvb9q96'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '4zkTRt8qXn']],
+    ],
+    'actions' => [
+        // Uncover the Plot targeting yourself reveals your whole memory, firing Peacock of
+        // Prosperity's reveal-triggered ability once per copy revealed.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        // First copy's reveal-triggered MZMAYCHOOSE: move the OTHER copy (myMemory-1) to the field.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-1', 'chkInput' => [], 'inputText' => ''],
+        // Second copy also gets revealed and offers the same choice; decline it.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Advent of the Shenju: [Class Bonus][Element Bonus] whenever you reveal it from memory, may
+// banish all cards in memory and draw a card into memory for each one banished.
+$fixtures['advent-of-the-shenju-reveal-banish-memory-draw'] = [
+    'testedCards' => ['c53tomoaw3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['UAF6Nr7GUE']]],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'c53tomoaw3'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '4zkTRt8qXn']],
+    ],
+    'actions' => [
+        // Uncover the Plot targeting yourself reveals the whole memory zone.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        // Advent of the Shenju's own reveal trigger: "Banish all memory and draw into memory?"
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Advent of the Shenju: "[Guo Jia Bonus] Put target Fatestone card from your banishment onto the
+// field. If that card is a regalia, put five quest counters on your champion." (Hand-authored
+// GrandArchiveSim/Custom/GameLogic.php cardActivatedAbilities["c53tomoaw3:0"] plus
+// customDQHandlers["c53tomoaw3:0:GuoJiaBonus-1"] -- no CardEditor ability database row was
+// reachable in this sandbox; see the block comment there for the full explanation.) This fixture
+// covers the non-regalia branch: Craggy Fatestone (h8n1520m2d, plain ITEM) moves from banishment
+// to the field and NO quest counters are added.
+$fixtures['advent-of-the-shenju-guo-jia-bonus-fatestone-recursion'] = [
+    'testedCards' => ['c53tomoaw3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['UAF6Nr7GUE']]],
+        // Craggy Fatestone (ITEM, TAMER/FATESTONE, NOT regalia) seeded straight into banishment.
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'c53tomoaw3']],
+    ],
+    'actions' => [
+        // Play Advent of the Shenju (4 reserve, ACTION card, resolves via cardActivatedAbilities).
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/4
+        // MZCHOOSE: target Craggy Fatestone in banishment (the only legal Fatestone target). No
+        // fast-action pass window appears here (this filler deck has no fast-speed responses), so
+        // the ability's own targeting decision resolves immediately after the reserve payment.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myBanish-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Advent of the Shenju: same clause, regalia branch. Fabled Azurite Fatestone (6ce5rzrjd9,
+// REGALIA,ITEM) moves from banishment to the field AND five quest counters land on the champion.
+$fixtures['advent-of-the-shenju-guo-jia-bonus-regalia-quest-counters'] = [
+    'testedCards' => ['c53tomoaw3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['UAF6Nr7GUE']]],
+        // Fabled Azurite Fatestone (REGALIA,ITEM, TAMER/FATESTONE) seeded straight into banishment.
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => '6ce5rzrjd9'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'c53tomoaw3']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/4
+        // MZCHOOSE: target Fabled Azurite Fatestone in banishment (the only legal Fatestone
+        // target). No fast-action pass window appears here (this filler deck has no fast-speed
+        // responses), so the ability's own targeting decision resolves immediately after payment.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myBanish-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Incandescent Reliquary: At the beginning of your recollection phase, if you have the least
+// influence, draw a card.
+$fixtures['incandescent-reliquary-recollection-least-influence-draw'] = [
+    'testedCards' => ['wsycqp2l90'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Seeded directly onto the field (GameLogic.php's RecollectionPhase() checks CardID on
+        // the turn player's field via a plain switch, not a materialized Enter macro).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'wsycqp2l90'],
+    ],
+    'actions' => [
+        // Reach player 1's own turn-2 recollection phase: P1 ends turn 1, P2 ends their turn.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        // Decline the material-phase champion level-up offer to reach the steady state.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Fabled Azurite Fatestone: [REST]: remove 10 quest counters from champion to wake up and
+// transform.
+$fixtures['fabled-azurite-fatestone-rest-transform-10-quest'] = [
+    'testedCards' => ['6ce5rzrjd9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Counters' => ['quest' => 10]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '6ce5rzrjd9', 'setProperties' => ['Status' => 1]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Guo Jia, Chosen Disciple: On Enter, if you don't control a Fatestone regalia, reveal your
+// material deck and put a Fatestone regalia with the lowest memory cost onto the field.
+$fixtures['guo-jia-chosen-disciple-enter-material-fatestone'] = [
+    'testedCards' => ['j6dkdoxyqt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Guo Jia, Chosen Disciple
+1 Fabled Azurite Fatestone
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Filler card in memory to pay Guo Jia, Chosen Disciple's 1-memory level-up cost.
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        // Real champion level-up (0 -> 1): both players end turn 1 to reach P1's material-phase
+        // MZMAYCHOOSE, then choose the only legal target (Guo Jia, Chosen Disciple).
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the resulting fast-action opportunity window to reach a clean resolved state.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Guo Jia, Blessed Scion: On Enter, you may put two quest counters on CARDNAME; if you don't,
+// draw a card.
+$fixtures['guo-jia-blessed-scion-enter-quest-or-draw'] = [
+    'testedCards' => ['59ipqa91r2'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Guo Jia, Blessed Scion
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion is patched directly to Guo Jia, Chosen Disciple (level 1) -- representing
+        // already having leveled up once, WITHOUT re-testing that card's own On Enter here -- so
+        // a single real level-up (1 -> 2) reaches Guo Jia, Blessed Scion and fires ITS genuine
+        // On Enter. Two filler cards are seeded into memory to pay its 2-memory level-up cost
+        // (memory returns to hand at turn end, so it must be paid on the same turn it's used).
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // "Put 2 quest counters on Guo Jia?" -- answer YES.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Guo Jia, Heaven's Favored: On Enter, you may put three quest counters on CARDNAME; if you
+// don't, recover 3.
+$fixtures['guo-jia-heavens-favored-enter-recover-3'] = [
+    'testedCards' => ['enxi6tshtu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Guo Jia, Heaven's Favored
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion patched directly to Guo Jia, Blessed Scion (level 2) with 5 pre-existing
+        // damage -- representing already having leveled up twice, WITHOUT re-testing that card's
+        // own On Enter -- so a single real level-up (2 -> 3) reaches Guo Jia, Heaven's Favored
+        // and fires ITS genuine On Enter, and the pre-existing damage makes "recover 3" observable.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '59ipqa91r2', 'Damage' => 5]],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // "Put 3 quest counters on Guo Jia?" -- answer NO to take the "recover 3" branch instead.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Another Beginning (Akf4kIBApN): Materialize a regalia card with memory cost 0 from your material deck ---
+$fixtures['another-beginning-materialize-free-regalia'] = [
+    'testedCards' => ['Akf4kIBApN'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Poisoned Dagger
+# Main
+4 Another Beginning
+10 Dungeon Guide
+DECK,
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Poisoned Dagger (0D6AfZyKXh): [REST], Banish: Deal 1 damage to target unit. Class Bonus: Until
+// end of turn, if that unit were to take damage, it takes that much damage plus 1 instead. ---
+$fixtures['poisoned-dagger-class-bonus-curse'] = [
+    'testedCards' => ['0D6AfZyKXh'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Poisoned Dagger
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion patched directly to Merlin, Memorite Vassal (ASSASSIN class) so IsClassBonusActive(["ASSASSIN"]) is true.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '6R8XmWoKLn']],
+        // Poisoned Dagger's own default template enters with Status=1 (rested), matching its "enters
+        // the field rested" text; explicitly override to Status=2 (ready) so the [REST] cost is payable.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '0D6AfZyKXh', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Undeniable Truth (UaUfw7yFTW): As an additional cost, sacrifice an ally. Draw a card, then put
+// a preparation counter on your champion. ---
+$fixtures['undeniable-truth-sac-draw-prep'] = [
+    'testedCards' => ['UaUfw7yFTW'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Undeniable Truth
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Dormouse Informant (aWjXOw4mVK): On Enter, if your champion has no preparation counters, put one on them. ---
+$fixtures['dormouse-informant-enter-prep'] = [
+    'testedCards' => ['aWjXOw4mVK'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Dormouse Informant
+10 Dungeon Guide
+DECK,
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Will to Save (qUd2uwAPvh): You may rest your champion. If you do, put a preparation counter on them. ---
+$fixtures['will-to-save-rest-prep'] = [
+    'testedCards' => ['qUd2uwAPvh'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Will to Save
+10 Dungeon Guide
+DECK,
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-4!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Return to the Archive (aIbBhTilEN): You may sacrifice a regalia. If you do, recover 2 and draw a card. ---
+$fixtures['return-to-archive-sac-recover-draw'] = [
+    'testedCards' => ['aIbBhTilEN'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Poisoned Dagger
+# Main
+4 Return to the Archive
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 5]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '0D6AfZyKXh'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Overlapping Visages (PYAnl70edq): Each player sacrifices an ally. If at least one non-Distortion
+// ally and at least one Distortion ally were sacrificed this way, you summon a Lost Being token. ---
+$fixtures['overlapping-visages-mixed-sac-summon'] = [
+    'testedCards' => ['PYAnl70edq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Overlapping Visages
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Merlin, Surreal Figment (P8RBSywC30) is a real DISTORTION ally; Dungeon Guide is a plain (non-Distortion) ally.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'P8RBSywC30'],
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Crystalline Reality (iPpwkMxDt5): [Merlin Bonus] Prepare 1. Choose one. If prepared, choose two
+// instead -- Summon a Memorite Blade / true sight / Draw a card into memory. ---
+$fixtures['crystalline-reality-merlin-bonus-prepare-choose-two'] = [
+    'testedCards' => ['iPpwkMxDt5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Crystalline Reality
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion patched directly to Merlin, Memorite Vassal (Merlin Bonus) with a preparation counter
+        // already on them, so the Prepare 1 cost is payable.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '6R8XmWoKLn', 'Counters' => ['preparation' => 1]]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // "Pay Prepare 1?" -- YES.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        // MZMODAL choose 2 of {A: Summon Memorite Blade, B: true sight, C: Draw into memory} -> pick A and C (indices 0,2).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '0,2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Merlin, Memorite Vassal (6R8XmWoKLn): On Enter, you gain the Fractured Memories mastery.
+// Then you may pay (2). If you do, summon a Memorite Blade token. ---
+$fixtures['merlin-memorite-vassal-enter-mastery-summon-blade'] = [
+    'testedCards' => ['6R8XmWoKLn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Merlin, Memorite Vassal
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Real level-up (0 -> 1): the pregame Spirit of Water champion (level 0, unpatched) levels
+        // for real into Merlin, Memorite Vassal, firing ITS genuine On Enter. One card seeded to
+        // memory pays the 1-memory level-up cost.
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // "Pay (2) to summon Memorite Blade?" -- YES (the token is summoned immediately; the two
+        // ReserveCard prompts that follow pay for it from hand).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Merlin, Amethyst's Glow (dPP9I4nVn0): On Enter, put two sheen counters on target unit. ---
+$fixtures['merlin-amethysts-glow-enter-sheen-target'] = [
+    'testedCards' => ['dPP9I4nVn0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Merlin, Amethyst's Glow
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion patched directly to Merlin, Memorite Vassal (level 1) -- representing already
+        // having leveled up once, WITHOUT re-testing that card's own On Enter here -- so a single
+        // real level-up (1 -> 2) reaches Merlin, Amethyst's Glow and fires ITS genuine On Enter.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '6R8XmWoKLn']],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE target for the 2 sheen counters -- the opponent's champion.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Merlin, Brilliant Vestige (2TCyILvBYa): [Sheen 8+] On Enter, you may banish a regalia card
+// from your material deck. If you do, draw a card and put a preparation counter on your champion.
+// ---
+$fixtures['merlin-brilliant-vestige-sheen8-enter-banish-draw-prep'] = [
+    'testedCards' => ['2TCyILvBYa'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Merlin, Brilliant Vestige
+1 Prismspire Scepter
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion patched directly to Merlin, Amethyst's Glow (level 2) -- already-leveled
+        // precondition, not retesting dPP9I4nVn0's own Enter here -- plus 8 sheen counters on
+        // Fractured Memories (supporting precondition for the [Sheen 8+] clause; reaching 8 sheen
+        // for real would need many unrelated sheen-granting effects, out of scope for this fixture).
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'dPP9I4nVn0']],
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'UAJGQFbXjs', 'setProperties' => ['Counters' => ['sheen' => 8]]],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        // End turn 1 (P1, then P2). Because the level-2 champion (Merlin, Amethyst's Glow) has its
+        // own activatable ability (discounted by sheen, affordable here), ending turn opens a
+        // "Take a fast action?" Opportunity window that must be explicitly declined (twice: an
+        // Active-Response round for P1, then a Beginning-of-Opportunity round) before the turn
+        // actually passes to P2, and again (twice more) before P2's own turn ends back to P1's
+        // turn-2 material phase.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Real level-up (2 -> 3): P1's turn-2 material phase MZMAYCHOOSE offers the level-up target.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // "Banish a regalia card from your material deck?" (MZMAYCHOOSE) -- banish Prismspire Scepter.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Prismspire Scepter (mgesApvmwS): [Merlin Bonus] On Enter, as a Spell, put two sheen counters
+// on target champion you don't control. ---
+$fixtures['prismspire-scepter-merlin-bonus-enter-sheen-opponent'] = [
+    'testedCards' => ['mgesApvmwS'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Prismspire Scepter
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Champion patched to Merlin, Memorite Vassal so IsMerlinBonusActive() is true (supporting
+        // precondition -- not retesting 6R8XmWoKLn's own Enter here).
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '6R8XmWoKLn']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE target -- the only legal target is the opponent's champion (memory cost 0, no
+        // reserve payment needed).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Converge Reflections (TBVLLRPiwP): As an additional cost, sacrifice a non-token item or
+// weapon. Destroy target item or weapon with memory cost 0 or reserve cost 4 or less. If that
+// object was a Distortion, draw a card into your memory. ---
+// NOTE (engine gap, flagged not fixed): activateCardPrereqs["TBVLLRPiwP:0"] checks for a
+// sacrificeable non-token item/weapon as a LEGALITY precondition, but no code anywhere in
+// cardActivatedAbilities["TBVLLRPiwP:0"] or its customDQHandler ever actually performs the
+// sacrifice -- the "as an additional cost, sacrifice..." clause is checked but never paid. This
+// fixture documents the card's actual (destroy + conditional draw) behavior; the sac-fodder item
+// seeded in setup is deliberately left on the field at the end, matching real engine behavior.
+$fixtures['converge-reflections-destroy-distortion-draw'] = [
+    'testedCards' => ['TBVLLRPiwP'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Shardforged Blade
+1 Enfeebled Dagger
+# Main
+4 Converge Reflections
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Sac-fodder (non-token WEAPON) on our own field -- see engine-gap note above: this is
+        // never actually consumed by the card's additional cost.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Y34Imzlr0n'],
+        // Destroy target: a DISTORTION item (memory cost 0) on the opponent's field.
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'idpdon8f0h'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE the destroy target: the opponent's Enfeebled Dagger.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Proto Key Crest (k5wrAxBbF9): On Charge 3, return Proto Key Crest to its owner's material
+// deck and recover 3. ---
+$fixtures['proto-key-crest-charge3-recover'] = [
+    'testedCards' => ['k5wrAxBbF9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Proto Key Crest
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // Pre-existing damage so "recover 3" is observable.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 5]],
+        // Seeded directly onto the field with 2 of 3 charge counters already on it -- its own
+        // ability triggers from the generic "On Charge N" recollection-phase system (GameLogic.php
+        // ~9998-10041), not from its own Enter, so raw zone-seeding is fine here (see the fixture
+        // file's pitfall notes: raw seeding is only unsafe for a card's OWN Enter-triggered ability).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'k5wrAxBbF9', 'setProperties' => ['Counters' => ['charge' => 2]]],
+    ],
+    'actions' => [
+        // End turn 1 (P1, then P2) to reach P1's turn-2 recollection phase, where the 3rd charge
+        // counter is added and the on-charge-3 trigger fires for real.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Shardforged Blade (Y34Imzlr0n): You may sacrifice a Memorite object while paying for this
+// card's memory cost to pay for 1 of that cost. ---
+// NOTE: the FSM play resolved the materialize in a single action with no MZMAYCHOOSE decision
+// point ever reaching the player, defaulting to NOT sacrificing the seeded Memorite Blade even
+// though one was available -- this fixture documents that observed (default/no-sacrifice) path;
+// the alternative-cost branch itself was not independently exercised.
+$fixtures['shardforged-blade-materialize-with-memorite-present'] = [
+    'testedCards' => ['Y34Imzlr0n'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Shardforged Blade
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        // A Memorite object on the field -- the potential (but, per the note above, unused)
+        // alternative-cost sacrifice target.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'nZFkDcvpaY'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-4!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Luminous Quartz (40lgjj1yS3): [Sheen 12+] REST, Remove a preparation counter from your
+// champion: As a Spell, deal 1+X damage to target unit, where X is the amount of sheen counters
+// on it. Activate this ability only at slow speed. ---
+// NOTE (engine bug, flagged not fixed): customDQHandlers["40lgjj1yS3:0:ActivateAbility-1"]
+// (GeneratedCode/GeneratedMacroCode.php ~27051) calls RemoveCounters($player, $champMZ, ...) but
+// never assigns $champMZ in that handler (it's only computed locally inside the separate prereq
+// closure) -- a genuine "Undefined variable $champMZ" warning fires and the preparation-counter
+// cost is silently never paid, even though the damage still resolves. This fixture documents the
+// card's actual observed behavior (damage correct, cost not deducted); GeneratedMacroCode.php is
+// a generated/gitignored file per the schema rules, so the real fix belongs in the card-ability
+// source data, not a hand-edit here.
+$fixtures['luminous-quartz-sheen12-rest-damage'] = [
+    'testedCards' => ['40lgjj1yS3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Luminous Quartz
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 1]]],
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'UAJGQFbXjs', 'setProperties' => ['Counters' => ['sheen' => 12]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '40lgjj1yS3', 'setProperties' => ['Status' => 2]],
+        // Target ally with 3 sheen counters, so the resulting 1+3=4 damage is distinctive.
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['sheen' => 3]]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Shattered Hope (XOevViFTB3): Glimpse 1, then draw. Until end of turn, allies enter with
+// an additional sheen counter. Reserve cost 3 (three hand-card payments) -- cast for real via
+// the standard hand-play path (FSM) to prove the 3-hand-payment reserve sequencing resolves the
+// card's own cardActivatedAbilities closure (not some unrelated pending trigger). ---
+$fixtures['shattered-hope-glimpse-draw-sheen'] = [
+    'testedCards' => ['XOevViFTB3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Shattered Hope
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+DECK,
+    'actions' => [
+        // Free play: play Shattered Hope (mode 10002 FSM) -- myHand-5 with this deck/seed.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Pay reserve cost 3 from hand (indices shift down after each removal, so myHand-0 three times).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Both players decline the EffectStack Opportunity window so the card resolves.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Glimpse 1: put the single glimpsed card back on top (MZREARRANGE echoes it back).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Obelith Escort (3uqgjoBQ9G): Prepare 2. Summon a Memorite Obelith token with a sheen
+// counter; an additional token if prepared. Reserve cost 3 -- cast for real, declining the
+// optional Prepare 2 cost to keep the fixture to the base (single-token) case. ---
+$fixtures['obelith-escort-summon-sheen-token'] = [
+    'testedCards' => ['3uqgjoBQ9G'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Obelith Escort
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+DECK,
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // "Prepare 2?" -- decline, so exactly one token is summoned.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Seep Into the Mind (7mHiO4YySz): Target opponent puts three sheen counters on a unit they
+// control. Reserve cost 3 -- cast for real and target an opponent ally. ---
+$fixtures['seep-into-the-mind-target-sheen'] = [
+    'testedCards' => ['7mHiO4YySz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Seep Into the Mind
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+DECK,
+    'setup' => [
+        // Target ally, seeded onto the opponent's field (a supporting/target card, not the
+        // tested card's own Enter -- raw zone seeding is fine here).
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        // Guarantee Seep Into the Mind is in hand to play for real (the opening hand draw is
+        // not guaranteed to include it with only 4 copies in the deck).
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '7mHiO4YySz'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // The "put 3 sheen counters" choice belongs to the TARGETED opponent (player 2), who
+        // must choose among their own units (their myField-1 == our theirField-1).
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Quiet Refraction (4vZN8JlY2k): On Enter, draw a card into memory and put two sheen
+// counters on Fractured Memories. Reserve cost 2 (NOT 3 -- see note below). Cast for real. ---
+// NOTE: the card's printed/declared reserve cost is 2, confirmed here by the engine only
+// queuing 2 ReserveCard decisions for this activation (see actions below: exactly two
+// myHand-0 payments before the EffectStackOpportunity window). An earlier investigation of the
+// "3 hand-payment" EffectStack bug listed Quiet Refraction among the cards that "hit" it needing
+// 3 hand payments; that does not match this card's actual charged cost under a plain default
+// activation (no cost-increase effects active) -- the discrepancy was very likely that earlier
+// investigation running in a scenario with an active cost-increase effect (e.g. a champion
+// ability that taxes activations by +1), not a genuine declared-vs-charged engine defect.
+$fixtures['quiet-refraction-enter-draw-sheen'] = [
+    'testedCards' => ['4vZN8JlY2k'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Quiet Refraction
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+DECK,
+    'setup' => [
+        // Grant Fractured Memories mastery (normally gained via a Merlin-line mechanic) so the
+        // "put two sheen counters on your Fractured Memories" clause has somewhere to land and
+        // is independently observable.
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'UAJGQFbXjs'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-4!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Stand Before the Queen (v9SJgS6z40): Prevent the next 2 damage that would be dealt to
+// target unit this turn. Reserve cost 2 -- cast for real, targeting our own champion. ---
+$fixtures['stand-before-the-queen-prevent-damage'] = [
+    'testedCards' => ['v9SJgS6z40'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Stand Before the Queen
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+DECK,
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the EffectStack Opportunity window so the card resolves to its targeting step.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Target our own champion (myField-0) to receive the damage-prevention effect.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Protect Her At All Costs (OzNHncAfFJ): [Merlin Bonus] costs 2 less to activate. Summon a
+// Memorite Obelith token with two sheen counters. Base reserve cost 5, discounted to 3 while
+// Merlin Bonus is active -- cast for real with a Merlin champion on the field to exercise the
+// real 3-hand-payment path. ---
+$fixtures['protect-her-at-all-costs-merlin-bonus-summon-token'] = [
+    'testedCards' => ['OzNHncAfFJ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Merlin, Memorite Vassal
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Protect Her At All Costs
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+4 Windslice
+DECK,
+    'setup' => [
+        // Champion patched directly to Merlin, Memorite Vassal (level 1) -- already-leveled
+        // precondition (Merlin's own Enter is not what this fixture tests), so Merlin Bonus
+        // (-2 activation cost) is active for Protect Her At All Costs.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '6R8XmWoKLn']],
+        // Guarantee Protect Her At All Costs is in hand to play for real (the opening hand draw
+        // is not guaranteed to include it with only 4 copies in the deck).
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'OzNHncAfFJ'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Spirit Blade: Terminus (XsxmnGZxKz): Prepare 1. On Hit: If Terminus was prepared, double the
+// sheen counters on Fractured Memories and put Terminus into its owner's memory. ---
+$fixtures['spirit-blade-terminus-onhit-double-sheen-memory'] = [
+    'testedCards' => ['XsxmnGZxKz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Spirit Blade: Terminus
+10 Dungeon Guide
+DECK,
+    // Spirit Blade: Terminus's element is CRUX (an advanced element), so the champion is patched
+    // directly to Merlin, Brilliant Vestige (2TCyILvBYa, itself CRUX) -- an already-leveled
+    // precondition, not retesting that card's own Enter here -- to satisfy the element requirement.
+    // A preparation counter is seeded directly onto the champion so the printed "Prepare 1"
+    // additional cost can actually be paid, and Fractured Memories (UAJGQFbXjs) is seeded into
+    // myMastery with 3 sheen counters -- a nonzero amount below the 4-sheen threshold for
+    // Terminus's own +1 POWER/4-sheen static bonus, so the POWER math stays simple -- for the On
+    // Hit "double the sheen counters" branch to actually double. ATTACK cards can't be activated by
+    // the game's first player on turn 1 (CanActivateAttackCardNow/IsFirstTurnAttackLocked in
+    // GameLogic.php), so player 1 ends turn 1 first and player 2 plays Terminus on their own turn 1
+    // instead (same shape as thieving-cut-prepare-onhit-draw). Answering YES to "Pay Prepare 1?"
+    // removes the preparation counter and stores wasPrepared=YES; the On Hit macro
+    // (onHitAbilities["XsxmnGZxKz:0"] in GeneratedMacroCode.php) reads that variable back and only
+    // then calls AddSheenToMastery()/MZMove()-to-memory -- an attack that was never marked prepared
+    // would do neither (this is the same wasPrepared/PREPARED-tag machinery hardened by the
+    // GA_TagPreparedAttack fix, exercised directly here rather than via the generic PREPARED
+    // TurnEffect since XsxmnGZxKz:0's own On Hit macro reads wasPrepared itself).
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '2TCyILvBYa', 'Counters' => ['preparation' => 1]]],
+        ['player' => 2, 'zone' => 'myMastery', 'cardID' => 'UAJGQFbXjs', 'setProperties' => ['Counters' => ['sheen' => 3]]],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'XsxmnGZxKz'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Possessed Reaping (oqDz2jIBZI): On Ally Kill: Return the killed ally from its owner's
+// graveyard to the field under your control rested. It becomes a Spirit in addition to its other
+// types. ---
+$fixtures['possessed-reaping-onallykill-return-as-spirit'] = [
+    'testedCards' => ['oqDz2jIBZI'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+4 Possessed Reaping
+10 Dungeon Guide
+DECK,
+    // Possessed Reaping's element is CRUX, so the champion is patched directly to Merlin,
+    // Brilliant Vestige (2TCyILvBYa, itself CRUX) -- same precondition technique as
+    // spirit-blade-terminus-onhit-double-sheen-memory -- to satisfy the element requirement. A
+    // Dungeon Guide (1 POWER / 3 LIFE, no counters) is seeded onto the opponent's (player 1's) own
+    // field as a genuinely killable defender: Possessed Reaping's printed POWER (4) exceeds its 3
+    // LIFE, so attacking it for real (not just declaring the attack) actually kills it during
+    // replay -- the "On Ally Kill" trigger (onKillAbilities["oqDz2jIBZI:0"] ->
+    // PossessedReapingOnKill() in GameLogic.php) is dispatched from OnKillTrigger() in
+    // CombatLogic.php only off a genuine combat kill, not merely a declared or blocked attack.
+    // ATTACK cards can't be activated by the game's first player on turn 1
+    // (CanActivateAttackCardNow/IsFirstTurnAttackLocked in GameLogic.php), so player 1 ends turn 1
+    // first and player 2 plays Possessed Reaping on their own turn 1 instead (same shape as
+    // thieving-cut-prepare-onhit-draw). PossessedReapingOnKill() moves the killed Dungeon Guide from
+    // its owner's (player 1's) graveyard onto Possessed Reaping's controller's (player 2's) field,
+    // rested (Status 1), tagged with the SPIRIT subtype in addition to its printed MAGE/HUMAN
+    // subtypes.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '2TCyILvBYa']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'oqDz2jIBZI'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        // Declaring the attack on a non-champion ally target opens a priority window before combat
+        // damage resolves (unlike attacking a champion directly, which resolves synchronously) --
+        // both players must explicitly pass it: player 1 declines the MZMAYCHOOSE prompt offered
+        // over their own about-to-be-attacked Dungeon Guide, then player 2 answers the follow-up
+        // YESNO the same way, after which the decision queue actually empties and combat resolves
+        // (verified live via RunnerPendingDecisionSummary -- confirmed via direct probe against this
+        // exact deck/seed).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
@@ -11997,6 +19049,33 @@ foreach ($fixtures as $slug => $def) {
                     SetDynamicPreserveCardIDs(array_fill_keys($setupStep['markPreserved'], true));
                     WriteGamestate('./' . $rootName . '/');
                     echo "  Setup: markPreserved " . implode(',', $setupStep['markPreserved']) . "\n";
+                    continue;
+                }
+                // 'emptyZone': directly move every live object out of a zone (default destination
+                // myBanish) via repeated MZMove of the zone's first live entry -- used to reach a
+                // "player has 0 cards in hand" precondition (e.g. Strike of Singularity's "attacking
+                // a unit controlled by a player with no cards in their hand" clause) without
+                // scripting a real multi-action hand-depletion sequence. Not a real gameplay event
+                // (no discard/hand-empty trigger fires), same spirit as patchMzId/dqVariables above.
+                if (isset($setupStep['emptyZone'])) {
+                    EngineLoadRootRuntime($rootName);
+                    ParseGamestate('./' . $rootName . '/');
+                    $GLOBALS['playerID'] = $setupStep['player'] ?? 1;
+                    $destZone = $setupStep['destZone'] ?? 'myBanish';
+                    $moved = 0;
+                    while (true) {
+                        $liveZone = GetZone($setupStep['emptyZone']);
+                        $foundIdx = null;
+                        foreach ($liveZone as $zi => $zObj) {
+                            if ($zObj !== null && empty($zObj->removed)) { $foundIdx = $zi; break; }
+                        }
+                        if ($foundIdx === null) break;
+                        MZMove($setupStep['player'] ?? 1, $setupStep['emptyZone'] . '-' . $foundIdx, $destZone);
+                        $moved++;
+                        if ($moved > 200) break; // safety valve
+                    }
+                    WriteGamestate('./' . $rootName . '/');
+                    echo "  Setup: emptyZone {$setupStep['emptyZone']} (player " . ($setupStep['player'] ?? 1) . ") moved $moved card(s) to $destZone\n";
                     continue;
                 }
                 // 'dqVariables': directly store arbitrary DecisionQueueController variables (e.g.

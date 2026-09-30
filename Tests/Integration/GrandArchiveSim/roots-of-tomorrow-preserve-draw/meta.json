@@ -1,0 +1,17 @@
+{
+    "name": "roots-of-tomorrow-preserve-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:28:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MkhP6iKyLX"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["MkhP6iKyLX"],
+        "mechanics": ["draw-discard", "zone-movement"],
+        "rulesClauses": [
+            "Reveal the top card of your deck and put it into your material deck preserved.",
+            "Draw a card into your memory."
+        ]
+    }
+}

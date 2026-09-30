@@ -1,0 +1,17 @@
+{
+    "name": "bloom-summers-glow-class-bonus-flowerbud-split",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-27T01:22:57+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Bloom: Summer's Glow (a708z5ethq, TERA ACTION, CLERIC): '[Class Bonus] Each opponent sacrifices all Flowerbuds. For each Flowerbud sacrificed, controller summons your choice of a Lycoria or a Baihua token.' cardActivatedAbilities['a708z5ethq:0'] (GeneratedMacroCode.php:16686) returns immediately if !IsClassBonusActive($player, ['CLERIC']) -- the entire printed effect is Class-Bonus-gated, with no baseline behavior otherwise. myField-0 is patched directly to Diao Chan, Enchantress (00xbh8oc00, CLERIC) with Subcards=[Diao Chan, Idyll Corsage (d7l6i5thdy, TERA)] -- this makes myField-0 itself a literal on-field CLERIC champion (IsClassBonusActive scans physical field objects) while granting TERA element access via lineage for legally playing the card; patchMzId never triggers Enter(), so neither champion's own On Enter fires. Two Flowerbud tokens (yn78t73w1p) are seeded onto the opponent's field. The ability queues a TWOSIDEDSLIDER (0..flowerbudCount) plus customDQHandlers['BloomSummerResolve'] (Custom/CardDQHandlers.php); answering '1' sacrifices both Flowerbuds (moved to the opponent's graveyard) and summons exactly 1 Lycoria (89nl1vcn33) + 1 Baihua (i59eamoov0) onto the opponent's field -- a real, non-degenerate split, not an always-one-type stub.",
+    "testedCards": [
+        "a708z5ethq"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["a708z5ethq"],
+        "mechanics": ["condition", "token", "zone-movement", "cost"],
+        "rulesClauses": [
+            "[Class Bonus] Each opponent sacrifices all Flowerbuds. For each Flowerbud sacrificed this way, their controller summons your choice of a Lycoria or a Baihua token."
+        ]
+    }
+}

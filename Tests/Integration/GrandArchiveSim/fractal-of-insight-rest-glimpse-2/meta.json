@@ -1,0 +1,17 @@
+{
+    "name": "fractal-of-insight-rest-glimpse-2",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Fractal of Insight (rp5k1vt1cn, PHANTASIA/MAGE) is played from hand and enters like a normal permanent -- no EffectStack priority pass is needed (same as Tactful Sergeant's ALLY play), unlike an ACTION/SPELL card such as Escharotomy or Water Barrier, which do require both players to pass a fast-action opportunity window. Paying its 2-reserve cost fires enterAbilities['rp5k1vt1cn:0'] (GeneratedMacroCode.php), which queues a YESNO decision ('Rest_Fractal_of_Insight?'). Answering YES runs customDQHandlers['rp5k1vt1cn:0:Enter-1'], which calls ExhaustCard (Fractal of Insight's own Status flips 2 -> 1) then Glimpse(2) (GameLogic.php). Glimpse queues a real MZREARRANGE decision with the exact param format 'Top=<cardIDs>;Bottom=<cardIDs>' over the deck's actual top two cards -- confirmed via a direct probe against this deck/seed to be px60u5n1do then em6eEh9q8y. Rather than submitting the no-op default (which would keep both cards on top and look identical to 'no glimpse happened'), this fixture deliberately reorders them (bottom px60u5n1do, keep em6eEh9q8y on top), so the resulting deck order is observably different from the pre-glimpse order: the new top card (em6eEh9q8y) and the new last card (px60u5n1do, at index 12 of the still-13-card deck) both prove Glimpse(2) actually ran and its response was applied. The companion fixture fractal-of-insight-decline-no-glimpse answers NO instead: Fractal of Insight stays awake (Status 2) and the deck's top card is untouched (still px60u5n1do), because no Glimpse ever ran -- no MZREARRANGE decision is even queued.",
+    "testedCards": [
+        "rp5k1vt1cn"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["rp5k1vt1cn"],
+        "mechanics": ["cost", "trigger", "condition", "zone-movement"],
+        "rulesClauses": [
+            "On Enter: You may rest CARDNAME. If you do, glimpse 2."
+        ]
+    }
+}

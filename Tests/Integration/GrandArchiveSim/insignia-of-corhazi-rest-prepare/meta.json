@@ -1,0 +1,16 @@
+{
+    "name": "insignia-of-corhazi-rest-prepare",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:13:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "52u81v4c0z"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["52u81v4c0z"],
+        "mechanics": ["draw-discard", "zone-movement", "counter", "trigger"],
+        "rulesClauses": [
+            "(3), [REST]: Put a preparation counter on your champion."
+        ]
+    }
+}

@@ -4,5 +4,15 @@
     "createdAt": "2026-06-01T23:03:16+02:00",
     "createdBy": "5",
     "lastRecordedAt": "2026-06-07T05:09:24+02:00",
-    "lastRecordedBy": "5"
+    "lastRecordedBy": "5",
+    "testedCards": [
+        "3tcs0axa03"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["3tcs0axa03"],
+        "mechanics": ["damage", "prevention", "zone-movement", "counter", "condition"],
+        "rulesClauses": [
+            "If your champion would take damage, you may banish CARDNAME. If you do, prevent 1 of that damage. Put a preparation counter on your champion if damage was prevented this way."
+        ]
+    }
 }

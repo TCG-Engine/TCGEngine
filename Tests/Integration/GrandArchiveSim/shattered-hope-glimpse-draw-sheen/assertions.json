@@ -1,0 +1,47 @@
+[
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Shattered Hope resolved off the EffectStack into the graveyard"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myGraveyard-0",
+        "property": "CardID",
+        "value": "XOevViFTB3",
+        "semantic": true,
+        "label": "The graveyard card is Shattered Hope itself, not a stranded/unrelated entry"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Glimpse 1 then draw a card added a card to memory"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGlobalEffects",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The until-end-of-turn sheen-on-enter global effect was applied"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myGlobalEffects-0",
+        "property": "CardID",
+        "value": "SHATTERED_HOPE_SHEEN",
+        "semantic": true,
+        "label": "The applied global effect is Shattered Hope's own sheen-on-enter effect"
+    }
+]

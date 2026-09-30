@@ -1,0 +1,116 @@
+[
+    {
+        "step": 13,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-3",
+        "property": "CardID",
+        "value": "n8wyfG9hbY"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-4",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "uUWsgLmyTk"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "n8wyfG9hbY"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1GlobalEffects-0",
+        "property": "CardID",
+        "value": "gpmJdGYqoC",
+        "semantic": true,
+        "label": "Player 1 gains the Crowd's Favor status at the next end phase, since the targeted Dungeon Guide (player 2's, pre-damaged) was still damaged and player 1 didn't control it."
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "TurnEffects",
+        "value": "[]",
+        "semantic": true,
+        "label": "The +3 LIFE-until-end-of-turn buff and the one-shot delayed-check marker are both gone after the end phase that consumed/expired them -- proving the delayed check fired exactly once rather than leaking a permanent marker."
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-7",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 8
+    }
+]

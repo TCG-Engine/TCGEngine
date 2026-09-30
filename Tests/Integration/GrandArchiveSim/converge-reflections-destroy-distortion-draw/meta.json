@@ -1,0 +1,17 @@
+{
+    "name": "converge-reflections-destroy-distortion-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T13:54:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TBVLLRPiwP"
+    ],
+    "notes": "Engine gap (flagged, not fixed): activateCardPrereqs[\"TBVLLRPiwP:0\"] checks for a sacrificeable non-token item/weapon as a legality precondition, but no code in cardActivatedAbilities[\"TBVLLRPiwP:0\"] or its customDQHandler ever actually performs the sacrifice -- verified live: the seeded sac-fodder item remains on the field at the end. This fixture documents the card's actual (destroy + conditional draw) behavior.",
+    "semanticCoverage": {
+        "testedCards": ["TBVLLRPiwP"],
+        "mechanics": ["targeting", "draw-discard", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Destroy target item or weapon with memory cost 0 or reserve cost 4 or less. If that object was a Distortion, draw a card into your memory."
+        ]
+    }
+}

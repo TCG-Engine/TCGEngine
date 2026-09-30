@@ -1,0 +1,6 @@
+[
+    {"step":5,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"2o82fwl22v","semantic":true,"label":"Diao Chan's trigger banishes the destroyed phantasia (not left in the graveyard), proving the trigger fired"},
+    {"step":5,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"yn78t73w1p","semantic":true,"label":"Diao Chan's trigger summons a Flowerbud token to the destroyed object's controller"},
+    {"step":5,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Exactly the destroyed phantasia was banished by Diao Chan's trigger"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

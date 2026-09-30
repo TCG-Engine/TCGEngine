@@ -1,0 +1,29 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "CardID",
+        "value": "2TCyILvBYa",
+        "semantic": true,
+        "label": "Champion leveled up for real into Merlin, Brilliant Vestige"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myMaterial",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Prismspire Scepter was banished from the material deck"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1}",
+        "semantic": true,
+        "label": "Banishing the regalia put a preparation counter on the champion"
+    }
+]

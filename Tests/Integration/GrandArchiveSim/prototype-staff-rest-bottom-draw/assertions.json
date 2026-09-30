@@ -1,3 +1,3 @@
 [
-    {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"Putting a hand card on the bottom of the deck draws a card into memory"}
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"Putting a hand card on the bottom of the deck draws a card into memory"}
 ]

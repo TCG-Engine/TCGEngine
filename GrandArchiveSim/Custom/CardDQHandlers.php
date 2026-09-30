@@ -8176,11 +8176,21 @@ function EventideLurePutRestOnBottom($player) {
 }
 
 function EventideLureEnter($player) {
-    $deck = GetDeck($player);
+    $deck = &GetDeck($player);
     $lookCount = min(5, count($deck));
     if($lookCount <= 0) return;
+    // NOTE: a loop of MZMove($player, "myDeck-0", "myTempZone") does NOT work here -- Remove()
+    // (ZoneClasses.php) only sets $obj->removed = true and never splices/reindexes the underlying
+    // array, so "myDeck-0" (a literal array-index lookup, GetZoneObject()) keeps resolving to the
+    // SAME now-removed slot on every iteration after the first, silently no-oping via MZMove's own
+    // "already removed" guard. That left this look-at-the-top-five effect only ever examining the
+    // single actual top card of the deck. Fixed to use array_shift() on the live deck reference
+    // instead, exactly like the proven Glimpse() implementation (GameLogic.php ~15643-15647) uses
+    // for the same "pull N cards off the top into myTempZone" shape.
     for($i = 0; $i < $lookCount; ++$i) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        $topObj = array_shift($deck);
+        if($topObj === null) break;
+        MZAddZone($player, "myTempZone", $topObj->CardID, $topObj);
     }
     $candidates = ZoneSearch("myTempZone", ["PHANTASIA"]);
     if(empty($candidates)) {

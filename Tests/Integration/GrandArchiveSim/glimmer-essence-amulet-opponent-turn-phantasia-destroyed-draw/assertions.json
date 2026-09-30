@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "CardID",
+        "value": "dy4urpjbjm",
+        "semantic": true,
+        "label": "Glimmer Essence Amulet was banished (moved off the field) when its controller chose YES"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Player 1's hand grew from 7 to 8 -- the extra card drawn by Glimmer Essence Amulet's trigger after their own phantasia was destroyed on player 2's turn"
+    }
+]

@@ -1,0 +1,17 @@
+{
+    "name": "ripples-of-atrophy-two-wither-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T18:20:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "The starting champion (Spirit of Water) is CardID-patched directly to Diao Chan, Idyll Corsage (d7l6i5thdy, the deck's own level-3 champion), satisfying IsClassBonusActive([\"CLERIC\"]) and unlocking TERA (its own element) directly via GetChampionLineage. GENUINE ENGINE BUG found but NOT fixed: CalculateActivationReserveCost's Efficiency block (GrandArchiveSim/Custom/GameLogic.php ~26015, `if(isset($Efficiency_Cards[$cardID]))`) reduces the reserve cost by the champion's level unconditionally whenever the card is listed in $Efficiency_Cards -- it never calls HasKeyword_Efficiency($obj) or checks the card's own 'conditions' array (GeneratedKeywordCode.php ~2047-2062, which DOES gate u0yaub9dal's Efficiency on 'Class Bonus'). So today Ripples of Atrophy's cost is reduced by the champion's level even when the champion is not CLERIC -- the printed '[Class Bonus] Efficiency' text is not actually enforced by the cost calculator. This fixture's champion IS CLERIC (matching the printed card and the real deck) so it does not rely on the bug, but the bug means the '[Class Bonus]' gating itself is not proven here -- only the wither-counter application is asserted as semantic. With champion level 3, net cost is 6-3=3. Ripples of Atrophy is seeded directly into hand. RipplesOfAtrophyResolve (Custom/CardDQHandlers.php ~3896) offers an MZMAYCHOOSE loop (repeatedly choose one non-champion object, or decline to stop) rather than a single MZMULTICHOOSE; customDQHandlers[\"RipplesOfAtrophyLoop\"] (~3915) adds 2 wither counters per object actually chosen. The opponent's Dungeon Guide is chosen; the player's own Fluffy Shopkeep (also eligible) is deliberately left unchosen by declining the loop's next offer, proving the wither counters land only on the object actually selected.",
+    "testedCards": [
+        "u0yaub9dal"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["u0yaub9dal"],
+        "mechanics": ["counter", "targeting"],
+        "rulesClauses": [
+            "Choose any amount of non-champion objects and put two wither counters on each."
+        ]
+    }
+}

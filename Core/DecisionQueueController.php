@@ -487,18 +487,36 @@ class DecisionQueueController {
     }
     
     public static function CleanupRemovedCards() {
+        // Optional per-sim hook: a sim can name specific objects (by UniqueID) whose physical
+        // splice below should be skipped this pass -- flagged ->removed as normal, just left in
+        // place a while longer -- because something still needs a stable view of them as a
+        // "removed but not yet purged" phantom. E.g. GrandArchiveSim protects a card destroyed
+        // moments before an on-attack/on-hit/on-kill trigger needs to find it (and whatever
+        // follow-up decisions that trigger queues), without affecting any OTHER object's cleanup
+        // timing. Absent for sims that define no such hook (function_exists is a no-op); an empty
+        // or non-array return is treated as "nothing protected".
+        $protectedUniqueIDs = [];
+        if (function_exists('GetProtectedRemovedCardUniqueIDs')) {
+            $hookResult = GetProtectedRemovedCardUniqueIDs();
+            if (is_array($hookResult)) $protectedUniqueIDs = $hookResult;
+        }
         $allZones = GetAllZones();
         foreach ($allZones as $zoneName) {
             $zone = &GetZone($zoneName);
             if (!is_array($zone)) continue;
-            
-            // Physically remove cards marked as removed (reverse iteration to safely splice)
+
+            // Physically remove cards marked as removed (reverse iteration to safely splice),
+            // except one whose UniqueID is protected -- it keeps its slot, everything else around
+            // it still compacts normally.
             for ($i = count($zone) - 1; $i >= 0; $i--) {
                 if (isset($zone[$i]) && method_exists($zone[$i], 'Removed') && $zone[$i]->Removed()) {
+                    if (!empty($protectedUniqueIDs) && isset($zone[$i]->UniqueID) && in_array(intval($zone[$i]->UniqueID), $protectedUniqueIDs, true)) {
+                        continue;
+                    }
                     array_splice($zone, $i, 1);
                 }
             }
-            
+
             // Rebuild mzIndex values and indexed properties for remaining cards
             for ($i = 0; $i < count($zone); $i++) {
                 if (isset($zone[$i])) {

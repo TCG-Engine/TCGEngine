@@ -1,0 +1,17 @@
+{
+    "name": "dissuading-halt-attack-power-reduction",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-27T02:20:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "cardActivatedAbilities[\"y7wbtbasch:0\"] (GeneratedMacroCode.php ~23323) calls DissuadingHaltStart (Custom/CardDQHandlers.php ~32), which offers an MZCHOOSE of ALLY/CHAMPION/PHANTASIA units on either field and tags the chosen one with TurnEffect \"y7wbtbasch-debuff\" (customDQHandlers[\"DissuadingHaltApply\"], ~40). That TurnEffect only reduces POWER (GameLogic.php ~13024, inside the same block that checks '$obj->GetMzID() === $combatAttacker') while the tagged object IS the currently-live CombatAttacker, so player 2 plays Dissuading Halt as a FAST response during player 1's Dungeon Guide's real attack, targeting that same attacking Dungeon Guide directly. Because player 2 holds a FAST card the whole game, every phase transition (end of turn 1, end of turn 2, the turn-3 materialize offer) independently opens a 'Take_a_fast_action?' window with CombatAttacker not yet live, each requiring an explicit decline (confirmed via direct engine instrumentation, same as chill-to-the-bone-low-phantasia-debuff) -- only the window right after player 1's real attack target is chosen (CombatAttacker='myField-1' confirmed live) is taken for real. Because CombatAttacker is cleared again once this same attack fully concludes (immediately after the debuff MZCHOOSE resolves, in the same action-processing cascade), the -3 POWER modifier is not observable afterward via a plain computed_power_equals check at the final state -- it only ever applied DURING this attack's own damage calculation. The actual combat damage dealt (0 instead of Dungeon Guide's printed POWER of 1, clamped from 1-3=-2) is therefore the only externally observable proof, cross-checked against the baseline undebuffed-attack damage of exactly 1 in tactful-sergeant-enter-attacked-draw-memory's own assertions (same attacker/target shape, no Dissuading Halt in play).",
+    "testedCards": [
+        "y7wbtbasch"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["y7wbtbasch"],
+        "mechanics": ["combat", "status", "targeting", "damage"],
+        "rulesClauses": [
+            "Target unit's attacks get -3 POWER until end of turn."
+        ]
+    }
+}

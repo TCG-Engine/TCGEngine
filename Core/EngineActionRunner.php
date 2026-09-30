@@ -1174,6 +1174,17 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     }
   }
 
+  // Optional per-game hook: this action is now fully processed and the engine is idle again
+  // (whatever cascaded from it -- Opportunity windows, effect-stack resolutions -- has either
+  // finished or is genuinely waiting on a player, not mid-flight). A game that marks specific
+  // objects as temporarily exempt from DecisionQueueController::CleanupRemovedCards() during some
+  // in-progress activity (see GrandArchiveSim's ProtectRemovedCardUniqueID()) uses this as a
+  // backstop point to clear any such marks that should have already been cleared. Absent for games
+  // that define no such hook.
+  if (function_exists('EngineActionSettled')) {
+    EngineActionSettled();
+  }
+
   return $result;
 }
 

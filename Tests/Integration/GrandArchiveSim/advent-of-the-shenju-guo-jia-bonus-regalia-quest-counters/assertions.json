@@ -1,0 +1,36 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "6ce5rzrjd9",
+        "semantic": true,
+        "label": "[Guo Jia Bonus] Fabled Azurite Fatestone is put onto the field from banishment"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "CardID",
+        "value": "6ce5rzrjd9",
+        "semantic": true,
+        "label": "Fabled Azurite Fatestone lands in the newly-created field slot"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "value": 0,
+        "semantic": true,
+        "label": "Fabled Azurite Fatestone leaves the banishment"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Counters",
+        "value": "{\"quest\":5}",
+        "semantic": true,
+        "label": "Fabled Azurite Fatestone is a regalia, so five quest counters are put on the champion"
+    }
+]

@@ -1,0 +1,4 @@
+[
+    {"step":3,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"5joh300z2s","semantic":true,"label":"Gather summons a random herb token onto the field at the beginning of recollection"},
+    {"step":3,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":3,"semantic":true,"label":"The field now holds the champion, Waterveil Apostle itself, and the gathered token"}
+]

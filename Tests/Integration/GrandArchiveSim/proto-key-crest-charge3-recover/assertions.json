@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myMaterial",
+        "viewerPlayerID": 1,
+        "cardID": "k5wrAxBbF9",
+        "semantic": true,
+        "label": "On Charge 3, Proto Key Crest returned to its owner's material deck"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "On Charge 3 recovered 3 (5 damage - 3 recover = 2 remaining)"
+    }
+]

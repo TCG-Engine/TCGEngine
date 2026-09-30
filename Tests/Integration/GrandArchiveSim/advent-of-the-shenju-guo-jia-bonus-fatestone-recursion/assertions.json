@@ -1,0 +1,36 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "h8n1520m2d",
+        "semantic": true,
+        "label": "[Guo Jia Bonus] Craggy Fatestone is put onto the field from banishment"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "CardID",
+        "value": "h8n1520m2d",
+        "semantic": true,
+        "label": "Craggy Fatestone lands in the newly-created field slot"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "value": 0,
+        "semantic": true,
+        "label": "Craggy Fatestone leaves the banishment"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "Craggy Fatestone is not a regalia, so no quest counters are put on the champion"
+    }
+]

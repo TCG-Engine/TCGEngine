@@ -1,0 +1,18 @@
+{
+    "name": "Disenchant's destroy fires \"whenever destroyed\" triggers (Diao Chan, Idyll Corsage)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:48:06+00:00",
+    "createdBy": "batch-script",
+    "notes": "Regression guard for GrandArchiveSim/Custom/GeneratedAbilityOverrides.php: Disenchant's authored ability body (GeneratedCode/GeneratedMacroCode.php, zd83net7x0:0:CardActivated-1) used to manually OnLeaveField()+MZMove() the target to its graveyard instead of calling AllyDestroyed(), silently skipping every \"whenever a permanent is destroyed\" trigger. Diao Chan, Idyll Corsage is seeded onto the opponent's field as a canary: her \"whenever a non-token object an opponent controls is destroyed\" ability only fires through DoAllyDestroyed()'s trigger dispatch, so her Flowerbud-token/banish payload firing directly proves the fix.",
+    "testedCards": [
+        "zd83net7x0"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zd83net7x0"],
+        "mechanics": ["targeting", "zone-movement", "trigger", "condition"],
+        "rulesClauses": [
+            "Destroy target phantasia.",
+            "Diao Chan, Idyll Corsage: whenever a non-token object an opponent controls is destroyed, you may banish it. If you do, that opponent summons a Flowerbud token."
+        ]
+    }
+}

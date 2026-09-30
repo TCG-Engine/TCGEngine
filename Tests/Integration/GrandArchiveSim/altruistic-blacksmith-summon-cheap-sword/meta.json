@@ -1,0 +1,17 @@
+{
+    "name": "Altruistic Blacksmith: [Class Bonus] On Enter, each player summons a Cheap Sword token, you gain Crowd's Favor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T13:24:10+00:00",
+    "createdBy": "Claude",
+    "notes": "Engine bug fix: Altruistic Blacksmith's On Enter closure (enterAbilities['Pd4hj3sveV:0'], GeneratedCode/GeneratedMacroCode.php) calls SummonCheapSwordToken() (GrandArchiveSim/Custom/GameLogic.php ~20210) for both players. Before the fix, that function (a) seeded a placeholder card ID ('gfq3j98h8d') with no corresponding real card instead of the real Cheap Sword token (a40EMvoqYX), and (b) called OnWeaponEntered(), a function never defined anywhere in the codebase -- triggering this ability threw 'Call to undefined function OnWeaponEntered()' and fataled the engine. Fixed by seeding the real a40EMvoqYX token and replacing the undefined call with OnEnter($player, $mzID), the standard hook (also used by the Enter() macro wrapper for a normally-played card) that fires a newly-entered object's own on-enter ability and any macro listeners for it; the token's printed durability counter is already granted automatically by FieldAfterAdd's generic 'Weapons enter with durability counters' hook (GameLogic.php ~8265-8271), unconditionally, for any WEAPON-type object added to a field. Residual finding, out of scope here: that same durability-grant hook computes its target mzID as a *relative* ('myField-N') zone name resolved via the global $playerID rather than the $player parameter it was passed -- when SummonCheapSwordToken mints the opponent's copy (player 2) while the acting player (global $playerID) is still 1, the durability AddCounters call resolves 'myField-N' against player 1's own field instead of player 2's, so the opponent's token gets no durability counter and Altruistic Blacksmith itself (sitting at that same relative index in player 1's field) incorrectly gains one. This is a pre-existing, general cross-player-token-summon defect in the durability-grant hook, not something introduced by or specific to this fix; assertions below deliberately avoid depending on it.",
+    "testedCards": [
+        "Pd4hj3sveV"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Pd4hj3sveV"],
+        "mechanics": ["token", "combat", "trigger"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Each player summons a Cheap Sword token. You gain the Crowd's Favor status."
+        ]
+    }
+}

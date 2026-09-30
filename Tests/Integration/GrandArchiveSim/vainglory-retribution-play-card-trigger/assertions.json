@@ -1,0 +1,19 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"VAINGLORY_RETRIBUTION_4\"]",
+        "semantic": true,
+        "label": "Playing Vainglory Retribution fires its on-play trigger (playCardAbilities[\"qtzsekkjn3:0\"], only reachable via QueuePlayCardTriggeredAbility() from OnCardActivated()) and marks the champion with VAINGLORY_RETRIBUTION_4"
+    },
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "p1Graveyard",
+        "cardID": "qtzsekkjn3",
+        "semantic": true,
+        "label": "Vainglory Retribution itself resolves normally off the Effects Stack into the graveyard (the PLAY_CARD trigger is a separate stack entry, not a replacement for the card's own resolution)"
+    }
+]

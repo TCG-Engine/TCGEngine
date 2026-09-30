@@ -1,0 +1,17 @@
+{
+    "name": "bloom-winters-chill-class-bonus-flowerbud-split",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-27T01:24:03+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Bloom: Winter's Chill (b4jvyh23y1, TERA ACTION, CLERIC): same mechanic as Bloom: Summer's Glow but with Nightshade/Floodbloom tokens. cardActivatedAbilities['b4jvyh23y1:0'] (GeneratedMacroCode.php:16933) returns immediately if !IsClassBonusActive($player, ['CLERIC']) -- entirely Class-Bonus-gated. myField-0 is patched directly to Diao Chan, Enchantress (00xbh8oc00, CLERIC) with Subcards=[Diao Chan, Idyll Corsage (d7l6i5thdy, TERA)], making myField-0 itself a literal on-field CLERIC champion (satisfying IsClassBonusActive) while granting TERA element access for legally playing the card; patchMzId never triggers Enter(). Two Flowerbud tokens (yn78t73w1p) are seeded onto the opponent's field. The ability queues a TWOSIDEDSLIDER plus customDQHandlers['BloomWinterResolve'] (Custom/CardDQHandlers.php); answering '1' sacrifices both Flowerbuds and summons exactly 1 Nightshade (rzk3mjblse) + 1 Floodbloom (4s1kmjeaks) onto the opponent's field -- a real, non-degenerate split, not an always-one-type stub. Reserve cost is 3 (vs Summer's Glow's 2), paid via 3 myHand-0 picks.",
+    "testedCards": [
+        "b4jvyh23y1"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["b4jvyh23y1"],
+        "mechanics": ["condition", "token", "zone-movement", "cost"],
+        "rulesClauses": [
+            "[Class Bonus] Each opponent sacrifices all Flowerbuds. For each Flowerbud sacrificed this way, their controller summons your choice of a Nightshade or a Floodbloom token."
+        ]
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "piquant-shieldbearer-taunt-forces-target",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T18:35:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Cvvvxlf0hi"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Cvvvxlf0hi"],
+        "mechanics": ["status", "combat", "condition"],
+        "rulesClauses": [
+            "Taunt (While awake, this unit must be targeted before other objects you control during your opponents' attack declarations if able.)"
+        ]
+    }
+}

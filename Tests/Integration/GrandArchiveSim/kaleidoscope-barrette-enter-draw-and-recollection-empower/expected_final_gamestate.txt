@@ -1,0 +1,76 @@
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+7
+em6eEh9q8y
+px60u5n1do
+px60u5n1do
+em6eEh9q8y
+px60u5n1do
+em6eEh9q8y
+px60u5n1do
+8
+em6eEh9q8y
+em6eEh9q8y
+px60u5n1do
+em6eEh9q8y
+px60u5n1do
+px60u5n1do
+em6eEh9q8y
+px60u5n1do
+4
+LMyKyVC2O9 2 1 0 1 qktid6zlyt~EMPOWERED~EMPOWER_PLUS_2 - WyI3eDJ2NHRkb3AxIl0= 1
+2o82fwl22v 2 1 0 1 - - - 3
+2o82fwl22v 2 1 0 1 - - - 4
+qktid6zlyt 2 1 0 1 - - - 5
+1
+LMyKyVC2O9 2 2 0 2 - - - 2
+0
+0
+0
+0
+4
+DpHDGaX2Pn
+m31WVJ9F04
+9gv4vm4kj3
+LeyUk5auEP
+4
+DpHDGaX2Pn
+m31WVJ9F04
+9gv4vm4kj3
+LeyUk5auEP
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0:Materialize Choice<vname>1<v0>MAT<v0>2<v0><v0>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v0><v0><v0><v0>MZMAYCHOOSE<v2>myMaterial-0&myMaterial-1&myMaterial-2<v2>1<v2><v2>0<v1>CUSTOM<v2>MATERIALIZE<v2>1<v2><v2>0<v0>0<v0><v0><v0>DpHDGaX2Pn<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0>LMyKyVC2O9<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>WyI3eDJ2NHRkb3AxIl0=<v2>1<v1>2o82fwl22v<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>3<v1>2o82fwl22v<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>4<v1>qktid6zlyt<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>5<v0><v0><v0><v0>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v0><v0><v0><v0><v0>0<v0><v0><v0>DpHDGaX2Pn<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0>LMyKyVC2O9<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v0><v0><v0><v0>{"mzID":"myField-3","isImbued":"NO","amount":1,"ignoreCost":false,"mzIDCardID":"qktid6zlyt","activationSourceZone":"myHand","additionalCostPaid":"NO","EffectStackEnterCardID":"","EffectStackEnterController":""}<v0><v0>{}<v0>5<v0>{"EnterCalls":{"1":3},"Enter":{"1":{"2o82fwl22v":2,"qktid6zlyt":1}},"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"qktid6zlyt":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"qktid6zlyt":1}},"DrawCalls":{"1":1,"2":1}}<v0>56<v0>{"cards":{"1":{"em6eEh9q8y":{"drawn":4,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"px60u5n1do":{"drawn":4,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"qktid6zlyt":{"drawn":0,"drawnToMemory":0,"materialized":1,"reserved":0,"discarded":0,"activated":0}},"2":{"em6eEh9q8y":{"drawn":4,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"px60u5n1do":{"drawn":4,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[{"seat":1,"turn":1,"cardsPlayed":1,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":0,"hp":15},{"seat":2,"turn":1,"cardsPlayed":0,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":0,"hp":15}],"cur":{"1":[],"2":[]},"combatEvents":[]}
+0
+
+
+2
+1
+1
+MAIN
+
+-
+-
+-
+-
+-
+-
+-
+
+
+-

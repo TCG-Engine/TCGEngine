@@ -1,0 +1,20 @@
+[
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "cardID": "duzpl7mqXl",
+        "semantic": true,
+        "label": "A Lost Being token is summoned since a Distortion and a non-Distortion ally were both sacrificed"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "Opponent's sacrificed ally is gone from their field (only their champion remains)"
+    }
+]

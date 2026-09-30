@@ -1,0 +1,24 @@
+{
+    "name": "enervating-decay-target-destroy-recover",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T20:46:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jh9s424gjr"
+    ],
+    "notes": "Engine fix coverage: playCardAbilities[\"jh9s424gjr:0\"] was unreachable before bf25c65c for the same reason as qtzsekkjn3 (see vainglory-retribution-play-card-trigger).",
+    "semanticCoverage": {
+        "testedCards": [
+            "jh9s424gjr"
+        ],
+        "mechanics": [
+            "trigger",
+            "targeting",
+            "damage",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "On play, destroy target opposing ally and recover your champion life equal to its HP."
+        ]
+    }
+}

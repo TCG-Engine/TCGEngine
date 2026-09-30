@@ -1,0 +1,39 @@
+[
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": 2
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "The ability's cost removes both preparation counters from the champion"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-7",
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Draws a card"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8
+    }
+]

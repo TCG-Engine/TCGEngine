@@ -1,0 +1,16 @@
+{
+    "name": "cunning-broker-rest-remove-prep-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:13:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oy34bro89w"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["oy34bro89w"],
+        "mechanics": ["draw-discard", "status"],
+        "rulesClauses": [
+            "[REST], Remove two preparation counters from your champion: Draw a card."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "shardforged-blade-materialize-with-memorite-present",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T14:10:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Y34Imzlr0n"
+    ],
+    "notes": "The FSM play resolved the materialize in a single action with no MZMAYCHOOSE decision point ever reaching the player, defaulting to NOT sacrificing the seeded Memorite Blade even though one was available on the field. This fixture documents that observed (default/no-sacrifice) path; the alternative-cost sacrifice branch itself was not independently exercised.",
+    "semanticCoverage": {
+        "testedCards": ["Y34Imzlr0n"],
+        "mechanics": ["cost", "zone-movement"],
+        "rulesClauses": [
+            "You may sacrifice a Memorite object while paying for this card's memory cost to pay for 1 of that cost."
+        ]
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "name": "chill-to-the-bone-low-phantasia-debuff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-27T01:45:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Branch A (0-1 phantasias controlled by the caster): ChillToTheBoneResolve (GameLogic.php ~18765) reads DecisionQueueController's \"CombatAttacker\" variable (set by StoreCombatAttackerState when player 1's Dungeon Guide declares a real attack) and tags it with TurnEffect \"p00ghqhcpb-2\", consumed unconditionally by the POWER/LIFE switch statements in GameLogic.php (~12809-12814 POWER, ~14257-14261 LIFE). Genuine engine bug found and NOT fixed (a happy-path fixture exists so fixing was not required): ChillToTheBoneResolve calls GetZoneObject($attackerMZ) directly on the raw 'myField-N' string captured from the ATTACKER's own perspective, without re-expressing it relative to the ambient $playerID at the moment the ability closure actually runs (unlike AtmosShieldRedirect/InterceptTargetChosen, which explicitly call ConvertMzToPlayerPerspective for this exact situation) -- confirmed via direct instrumentation that when a DIFFERENT player (the defender) casts Chill to the Bone in response to an opponent's attack, GetZoneObject('myField-1') resolves against the caster's OWN empty field slot instead of the attacker's, silently no-oping the ability. This breaks Chill to the Bone's primary/intended use case (the defending player debuffing the attacker). To still exercise the card without touching engine code, this fixture has the ATTACKER (player 1) hold and cast Chill to the Bone on their OWN attacking ally instead, since GrantOpportunityWindow gives the turn player (the attacker) first priority in the post-declaration fast-opportunity window -- $playerID stays 1 throughout, avoiding the perspective bug, while still fully exercising the actual debuff math. Because player 1 holds a FAST card the whole game, every phase transition (end of turn 1, end of turn 2, the turn-3 materialize offer) independently opens its own 'Take_a_fast_action?' window with CombatAttacker not yet live, each requiring an explicit decline (confirmed empirically via direct engine instrumentation) -- only the window immediately after the real attack target is chosen (CombatAttacker='myField-1' confirmed live) is taken for real. Dungeon Guide's printed POWER 1 / LIFE 3 becomes -1 / 1 after the -2/-2 debuff.",
+    "testedCards": [
+        "p00ghqhcpb"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["p00ghqhcpb"],
+        "mechanics": ["combat", "status", "condition", "counter"],
+        "rulesClauses": [
+            "Target attacking ally gets -2 POWER and -2 LIFE until end of turn.",
+            "If you control two or more phantasias, that ally gets -4/-4 instead. (0-1 phantasia branch only -- see chill-to-the-bone-two-phantasia-debuff for the other branch)"
+        ]
+    }
+}
