@@ -4773,6 +4773,49 @@ $customDQHandlers["uUWsgLmyTk:0:Target-1"] = function($player, $parts, $lastDeci
     AddTurnEffect($chosen, "uUWsgLmyTk_CF_" . $player);
 };
 
+// Advent of the Shenju (c53tomoaw3, ACTION/TAMER/FATEBOUND/SPELL): "[Guo Jia Bonus] Put target
+// Fatestone card from your banishment onto the field. If that card is a regalia, put five quest
+// counters on your champion." Confirmed by grepping every "c53tomoaw3" occurrence in
+// GeneratedCode/GeneratedMacroCode.php: only this card's SEPARATE reveal-triggered memory-banish
+// ability (revealAbilities["c53tomoaw3:0"] / customDQHandlers["c53tomoaw3:0:Reveal-1"]) is
+// generated there -- there is no cardActivatedAbilities entry at all for this printed clause, a
+// pure data gap in the CardEditor ability database. ACTION cards resolve their play through
+// $cardActivatedAbilities (OnCardActivated()'s unconditional final dispatch, ~line 5506 above),
+// matching the Unity's Gale (uUWsgLmyTk) precedent just above -- not $enterAbilities, which is
+// only for permanents entering the field. This environment has no reachable CardEditor ability
+// database (no local MySQL, no CARD_CODE_REMOTE_CONFIG/local connection file) to author the
+// missing row there, so this hand-written entry fills the same $cardActivatedAbilities
+// ["c53tomoaw3:0"] slot the generator would have populated -- additive only, since
+// GeneratedMacroCode.php has no competing entry for this key, so nothing is clobbered on
+// regeneration. If the database row is ever authored, this block (and its customDQHandlers
+// ["c53tomoaw3:0:GuoJiaBonus-1"] follow-up) becomes redundant and should be removed in favor of
+// the generated entry.
+//
+// "Fatestone" is a card SUBTYPE (e.g. TAMER,FATESTONE), not a zone, so targeting simply filters
+// the caster's own banishment by that subtype (ZoneSearch cardSubtypes param). "Regalia" is a
+// card TYPE (e.g. REGALIA,ITEM -- see Fabled Azurite/Ruby/Sapphire/Emerald Fatestone), checked the
+// same way every other "is a regalia" condition in this codebase is checked (PropertyContains
+// (EffectiveCardType($obj), "REGALIA"), e.g. Cheshire Cat's dynamic-ability copy check above).
+$cardActivatedAbilities["c53tomoaw3:0"] = function($player) { //Advent of the Shenju: [Guo Jia Bonus] Put target Fatestone from banishment onto field
+    if(!IsGuoJiaBonus($player)) return;
+    $targets = ZoneSearch("myBanish", cardSubtypes: ["FATESTONE"]);
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1,
+        tooltip:"Put_target_Fatestone_card_from_your_banishment_onto_the_field");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "c53tomoaw3:0:GuoJiaBonus-1", 1);
+};
+$customDQHandlers["c53tomoaw3:0:GuoJiaBonus-1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS" || $lastDecision === null) return;
+    $chosenObj = GetZoneObject($lastDecision);
+    if($chosenObj === null) return;
+    $isRegalia = PropertyContains(EffectiveCardType($chosenObj), "REGALIA");
+    $newObj = MZMove($player, $lastDecision, "myField");
+    if($newObj === null) return;
+    if($isRegalia) {
+        AddQuestCounters($player, 5);
+    }
+};
+
 function ResolveObelithEscort($player) {
     $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
     $field = &GetField($player);

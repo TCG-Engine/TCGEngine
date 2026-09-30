@@ -17787,6 +17787,70 @@ DECK,
     ],
 ];
 
+// Advent of the Shenju: "[Guo Jia Bonus] Put target Fatestone card from your banishment onto the
+// field. If that card is a regalia, put five quest counters on your champion." (Hand-authored
+// GrandArchiveSim/Custom/GameLogic.php cardActivatedAbilities["c53tomoaw3:0"] plus
+// customDQHandlers["c53tomoaw3:0:GuoJiaBonus-1"] -- no CardEditor ability database row was
+// reachable in this sandbox; see the block comment there for the full explanation.) This fixture
+// covers the non-regalia branch: Craggy Fatestone (h8n1520m2d, plain ITEM) moves from banishment
+// to the field and NO quest counters are added.
+$fixtures['advent-of-the-shenju-guo-jia-bonus-fatestone-recursion'] = [
+    'testedCards' => ['c53tomoaw3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['UAF6Nr7GUE']]],
+        // Craggy Fatestone (ITEM, TAMER/FATESTONE, NOT regalia) seeded straight into banishment.
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'h8n1520m2d'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'c53tomoaw3']],
+    ],
+    'actions' => [
+        // Play Advent of the Shenju (4 reserve, ACTION card, resolves via cardActivatedAbilities).
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/4
+        // MZCHOOSE: target Craggy Fatestone in banishment (the only legal Fatestone target). No
+        // fast-action pass window appears here (this filler deck has no fast-speed responses), so
+        // the ability's own targeting decision resolves immediately after the reserve payment.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myBanish-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Advent of the Shenju: same clause, regalia branch. Fabled Azurite Fatestone (6ce5rzrjd9,
+// REGALIA,ITEM) moves from banishment to the field AND five quest counters land on the champion.
+$fixtures['advent-of-the-shenju-guo-jia-bonus-regalia-quest-counters'] = [
+    'testedCards' => ['c53tomoaw3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+10 Dungeon Guide
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['UAF6Nr7GUE']]],
+        // Fabled Azurite Fatestone (REGALIA,ITEM, TAMER/FATESTONE) seeded straight into banishment.
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => '6ce5rzrjd9'],
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'c53tomoaw3']],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/4
+        // MZCHOOSE: target Fabled Azurite Fatestone in banishment (the only legal Fatestone
+        // target). No fast-action pass window appears here (this filler deck has no fast-speed
+        // responses), so the ability's own targeting decision resolves immediately after payment.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myBanish-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // Incandescent Reliquary: At the beginning of your recollection phase, if you have the least
 // influence, draw a card.
 $fixtures['incandescent-reliquary-recollection-least-influence-draw'] = [

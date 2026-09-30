@@ -1,0 +1,18 @@
+{
+    "name": "advent-of-the-shenju-guo-jia-bonus-regalia-quest-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-30T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Advent of the Shenju (c53tomoaw3, ACTION/TAMER/FATEBOUND/SPELL): \"[Guo Jia Bonus] Put target Fatestone card from your banishment onto the field. If that card is a regalia, put five quest counters on your champion.\" Sibling fixture to advent-of-the-shenju-guo-jia-bonus-fatestone-recursion (see that fixture's meta.json for the full generated-file investigation and the hand-authored GrandArchiveSim/Custom/GameLogic.php cardActivatedAbilities[\"c53tomoaw3:0\"] / customDQHandlers[\"c53tomoaw3:0:GuoJiaBonus-1\"] implementation this exercises). This fixture covers the REGALIA branch: with a Guo Jia champion (j6dkdoxyqt) on the field and Fabled Azurite Fatestone (6ce5rzrjd9, REGALIA,ITEM type -- TAMER/FATESTONE subtype) seeded in banishment, the card is played for real from hand (FSM), its 4-reserve cost is paid for real, and the resulting MZCHOOSE is answered by picking the banished Fabled Azurite Fatestone. Verified live: Fabled Azurite Fatestone ends up on the field (myField-1) and leaves the banishment (myBanish count 0), AND the champion's Counters become '{\"quest\":5}' because the moved card's type contains REGALIA (checked via PropertyContains(EffectiveCardType($chosenObj), \"REGALIA\") -- the same pattern every other 'is a regalia' condition in this codebase uses). Break/restore verified two ways: (1) forcing $newObj = null (disabling the MZMove) makes THIS fixture fail with 'Expected card 6ce5rzrjd9 to exist in myField', and restoring passes again; (2) commenting out the AddQuestCounters($player, 5) call inside the 'if($isRegalia)' branch makes THIS fixture fail with \"Expected myField-0.Counters to equal '{\\\"quest\\\":5}', got '[]'\" while the sibling non-regalia fixture stays green -- confirming the regalia check and the quest-counter grant are both actually exercised here and only here.",
+    "testedCards": [
+        "c53tomoaw3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["c53tomoaw3"],
+        "mechanics": ["condition", "targeting", "zone-movement", "counter"],
+        "rulesClauses": [
+            "[Guo Jia Bonus] Put target Fatestone card from your banishment onto the field.",
+            "If that card is a regalia, put five quest counters on your champion."
+        ]
+    }
+}
