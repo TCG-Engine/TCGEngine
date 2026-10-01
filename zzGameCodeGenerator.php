@@ -509,7 +509,7 @@ while(!feof($handler)) {
       default://This is a new zone
         if($zoneObj != null) array_push($zones, $zoneObj);
         $zone = str_replace(' ', '', $line);
-        $zoneArr = explode("-", $zone);
+        $zoneArr = explode("-", $zone, 2);
         $zoneName = $zoneArr[0];
         if ($zoneName === 'DecisionQueue') {
           $hasDecisionQueue = true;
@@ -4984,7 +4984,7 @@ function GenerateMacroCode() {
             $handlerPrefix = $abilityKey . ":" . $macroName;
             // FaB choices keep scalar identity/payment locals across even a flat
             // sequence of awaits. The legacy flat compiler only restores params.
-            $forceAwaitFrame = $rootName === 'FaBSim' && stripos($code, 'await') !== false;
+            $forceAwaitFrame = in_array($rootName, ['FaBSim', 'PokeSim'], true) && stripos($code, 'await') !== false;
             $transformedCode = TransformAwaitCode($code, $handlerPrefix, $name, $continuationHandlers, $macroParams, $forceAwaitFrame);
 
             // Merge generated resume handlers into global collection

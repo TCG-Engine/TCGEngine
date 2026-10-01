@@ -1,0 +1,74 @@
+PokeSim
+Polling
+None
+None
+AssetReflection: PokeSim
+ServerInclude: /Custom/GameLogic.php
+ServerInclude: /Custom/CombatLogic.php
+ServerInclude: /Custom/CardLogic.php
+ServerInclude: /Custom/CustomInput.php
+ServerInclude: /TurnController.php
+ServerInclude: /GeneratedCode/GeneratedMacroCode.php
+Macro: Name=TrainerPlayed(mzID); ChoiceFunction=PokeOnTrainerPlayed; PrereqFunction=PokeGeneratedCanPlayTrainer; SourceParam=mzID; Action={}
+Macro: Name=Attack(mzID,attackIndex); ChoiceFunction=PokeOnAttack; SourceParam=mzID; SelectedIndexParam=attackIndex; Action={}
+Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=PokeOnActivateAbility; PrereqFunction=PokeGeneratedCanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
+Macro: Name=EnergyAttached(mzID,energyID); ChoiceFunction=PokeOnEnergyAttached; SourceParam=mzID; Action={}
+Macro: Name=AttackEffectProtection(subjectObj,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
+Macro: Name=AbilityEffectProtection(subjectObj,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
+Macro: Name=RetreatCostModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
+Macro: Name=AttackDamageModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
+Active - CardID:string, Damage:number=0, Controller:number=0, EnteredTurn:number=0, EvolvedTurn:number=-1, Energy:array[string], Evolutions:array[string], Tool:string="-", Conditions:json, Counters:json, TurnEffects:json
+Display: Visibility=Public, Mode=All
+Bench - CardID:string, Damage:number=0, Controller:number=0, EnteredTurn:number=0, EvolvedTurn:number=-1, Energy:array[string], Evolutions:array[string], Tool:string="-", Conditions:json, Counters:json, TurnEffects:json
+Display: Visibility=Public, Mode=All
+Hand - CardID:string
+Display: Visibility=Self, Mode=All
+Deck - CardID:string
+Display: Visibility=Private, Mode=Single
+Macros: Shuffle
+Discard - CardID:string
+Display: Visibility=Public, Mode=All
+Prizes - CardID:string
+Display: Visibility=Private, Mode=Single
+TempZone - CardID:string
+Display: Visibility=Self, Mode=None
+DecisionQueue - Type:string, Param:string, Block:number=1, Tooltip:string="", DontSkipOnPass:number=0
+Display: Visibility=Self, Mode=None, Display=None
+PlayerTurns - Value:number=0
+Display: Visibility=None, Mode=Value, Display=None
+EnergyUsed - Value:boolean=false
+Display: Visibility=None, Mode=Value, Display=None
+SupporterUsed - Value:boolean=false
+Display: Visibility=None, Mode=Value, Display=None
+RetreatUsed - Value:boolean=false
+Display: Visibility=None, Mode=Value, Display=None
+SetupReady - Value:boolean=false
+Display: Visibility=None, Mode=Value, Display=None
+Mulligans - Value:number=0
+Display: Visibility=None, Mode=Value, Display=None
+PrizeClaims - Value:number=0
+Display: Visibility=None, Mode=Value, Display=None
+Stadium - CardID:string, Controller:number=0
+Display: Visibility=Public, Mode=All, Scope=Global
+TurnPlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+FirstPlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+TurnNumber - Value:number=0
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+CurrentPhase - Value:string="SETUP"
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+PhaseParameters - Value:string="-"
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+Winner - Value:number=0
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+RandomState - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+FlashMessage - Value:string="-"
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+DecisionQueueVariables - Value:string="{}"
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+MacroTurnIndex - Value:string="{}"
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+MacroGameIndex - Value:string="{}"
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None

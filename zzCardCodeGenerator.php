@@ -172,6 +172,16 @@ for($i=0; $i<count($properties); ++$i) {
 
 $cacheFile = "./$rootName/GeneratedCode/cardArrayCache.json";
 
+// TCGdex's REST catalog contains brief records. The adapter imports full GraphQL
+// records and local artwork before this shared generator emits the dictionaries.
+if (($importOptions['sourceAdapter'] ?? '') === 'tcgdex') {
+  require_once __DIR__ . '/PokeSim/Import/TCGdex.php';
+  if ($withPreview || !is_file($cacheFile) || $downloadImportedImages) {
+    PokeTCGdexImport($withPreview, null, $downloadImportedImages);
+  }
+  $withPreview = false; // The adapter has produced the normalized cache.
+}
+
 // Hellbreak's source is an XLSX workbook, not a JSON API. Its dedicated importer normalizes
 // the workbook into this cache and extracts embedded images before the generic generator runs.
 // Never fall back to fetching the OneDrive share URL as JSON: doing so used to replace the
@@ -1910,6 +1920,11 @@ function GetPropertyValue($card, $property)
 {
   global $rootName;
   switch($rootName) {
+    case "PokeSim":
+      $value = $card->$property ?? null;
+      if (is_object($value) || is_array($value)) return json_decode(json_encode($value), true);
+      if ($property === 'energyType' && $card->id === 'me03-088') return 'Special';
+      return $value;
     case "SWUDeck":
       switch($property) {
         case "rarity":

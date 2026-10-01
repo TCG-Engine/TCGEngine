@@ -289,6 +289,7 @@ class DecisionQueueController {
     
     // Count available choices from a zone string (handles both zones and specific cards)
     private function MZCountChoices($zoneStr) {
+        if (trim((string)$zoneStr) === '') return 0;
         $specs = $this->MZParseSpecs($zoneStr);
         $numChoices = 0;
         foreach($specs as $spec) {

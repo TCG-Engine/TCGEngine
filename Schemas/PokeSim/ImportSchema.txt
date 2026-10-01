@@ -1,0 +1,10 @@
+https://api.tcgdex.net/v2/graphql
+https://assets.tcgdex.net/
+webp
+cardArray
+
+
+name,type,localId,set,releaseDate,regulationMark,hp:number,types,stage,evolveFrom,retreat:number,weaknesses:json,resistances:json,attacks:json,abilities:json,effect,trainerType,energyType,suffix,rarity,image,legal:json
+
+sourceAdapter=tcgdex
+downloadImages=false

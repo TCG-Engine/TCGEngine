@@ -30,4 +30,5 @@ return [
     'HellbreakDeck'    => ['db' => 'hellbreaksim',    'site' => false],
     'FaBSim'           => ['db' => 'fabsim',          'site' => true],   // upf.talishar.net
     'FaBDeck'          => ['db' => 'fabsim',          'site' => false],
+    'PokeSim'          => ['db' => 'pokesim',         'site' => true],
 ];

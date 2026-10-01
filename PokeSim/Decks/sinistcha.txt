@@ -1,0 +1,25 @@
+Pokémon: 12
+3 Poltchageist PBL 5
+1 Banette PBL 34
+4 Dhelmise PBL 39
+4 Sinistcha PBL 6
+
+Trainer: 40
+4 Team Rocket's Petrel ASC 207
+1 Brilliant Blender SSP 164
+4 Call Bell SSP 165
+1 Special Red Card CRI 82
+3 Lillie's Determination ASC 192
+4 Night Stretcher ASC 196
+3 Boss's Orders ASC 183
+4 Energy Search POR 72
+4 Ultra Ball ASC 213
+3 Pokégear 3.0 BLK 84
+2 Poké Pad POR 81
+4 Team Rocket's Transceiver ASC 209
+1 Black Belt's Training JTG 144
+2 Energy Retrieval WHT 82
+
+Energy: 8
+4 Telepathic Psychic Energy POR 88
+4 Psychic Energy MEE 5
