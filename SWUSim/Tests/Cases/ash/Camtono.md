@@ -35,7 +35,9 @@ P1GROUNDARENACOUNT:1
 
 # AttackEnd_TopCostsThree_NoOffer
 #// ASH_229 Camtono — only a top card costing 2 or less is playable. With SOR_063 (cost 3) on top, no free
-#// play is offered.
+#// play is offered — but "Look at the top card of your deck" still happens: the player is SHOWN the card
+#// (an @CardID image + OK acknowledgement, the SOR_238 C-3PO whiff pattern). It used to return silently, so
+#// the trigger looked like it never fired (bug #1105, game 1438045: top card TWI_225, cost 3).
 ## GIVEN
 CommonSetup: yyk/yyk
 WithP1GroundArena: SOR_046:1:0
@@ -45,7 +47,11 @@ P1OnlyActions: true
 ## WHEN
 - P1>AttackGroundArena:0:BASE
 ## EXPECT
-P1NODECISION
+P1HASDECISION
+P1DECISIONTOOLTIP:Camtono:_the_top_card_costs_more_than_2_-_it_stays_on_top
+P1OPTIONHAS:@SOR_063
+P1OPTIONHAS:OK
+P1OPTIONNOT:YES
 P1GROUNDARENACOUNT:1
 
 ---
@@ -105,3 +111,24 @@ P1OnlyActions: true
 P1NODECISION
 P1GROUNDARENACOUNT:1
 P2BASEDMG:3
+
+---
+
+# AttackEnd_TopCostsThree_PeekThenStaysOnTop
+#// ASH_229 Camtono — acknowledging the whiff peek changes nothing: the cost-3 SOR_063 stays on top of the
+#// deck, nothing is played, and no decision is left behind.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_229
+WithP1Deck: [SOR_063 SOR_095 SOR_095]
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:OK
+## EXPECT
+P1NODECISION
+P1DECKCOUNT:3
+P1DECKTOPCARD:SOR_063
+P1GROUNDARENACOUNT:1
+P1HANDCOUNT:0

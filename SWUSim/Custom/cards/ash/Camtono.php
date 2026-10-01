@@ -10,7 +10,14 @@ $onAttackEndFromUpgradeAbilities["ASH_229"] = function($player, $hostMzID) {
     $idx = _SWUTopDeckFrontIdx(intval($player));
     if ($idx === -1) return;
     $topID = GetDeck(intval($player))[$idx]->CardID ?? '';
-    if ($topID === '' || intval(CardCost($topID)) > 2) return;   // top card costs more than 2 → no offer
+    if ($topID === '') return;
+    if (intval(CardCost($topID)) > 2) {
+        // Too expensive to play — but "Look at the top card of your deck" still happens, so SHOW it (the
+        // SOR_238 C-3PO whiff pattern). Returning silently made the trigger look like it never fired (#1105).
+        DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "@{$topID}&OK", 1,
+            tooltip: "Camtono:_the_top_card_costs_more_than_2_-_it_stays_on_top");
+        return;
+    }
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
         tooltip: "Play_" . GameLogCardRef($topID) . "_from_the_top_of_your_deck_for_free?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_229#0", 1);

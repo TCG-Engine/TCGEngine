@@ -13880,6 +13880,12 @@ $customDQHandlers["RESOLVE_NEXT_TRIGGER"] = function($player, $parts, $lastDecis
 
     $gTriggerDepth++;
     DispatchTrigger($controller, $triggerType, $cardID, $unitMzID, $extra);
+    // Flush the triggers this ability just collected, exactly as RESOLVE_TRIGGER does. $gPendingTriggers is
+    // in-memory only: if the dispatched ability leaves an INTERACTIVE decision (LAW_173 BT-1's "you may deal
+    // 1" after an Aggression discard), the request ends before any later flush and the bag — LAW_176
+    // Sebulba's Podracer's may-ready — was silently dropped. Queued at the raised depth, so they resolve
+    // after this ability's own decisions (block 1) and before the block-20 resume.
+    FlushTriggerBag($controller);
     $gTriggerDepth--;
 
     $playerID = $savedPID;

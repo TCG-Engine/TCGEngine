@@ -302,3 +302,114 @@ P2GROUNDARENACOUNT:2
 P2GROUNDARENAUNIT:1:CARDID:LAW_176
 P2GROUNDARENAUNIT:1:READY
 P2DISCARDCOUNT:1
+
+---
+
+# SebulbaLeaderActionCost_OffersTheReady
+#// Reported 2026-09-30 (game 1438045). LAW_012 Sebulba's front Action COSTS "[discard a card from your
+#// deck]" — paying that cost is still "you discard a card from your deck", so the exhausted Podracer must
+#// be offered its may-ready. Every other section reaches the discard through a unit's On Attack (BT-1),
+#// where combat flushes the trigger bag; a LEADER ACTION is a different close path. P1 picks BT-1 (index 1)
+#// for Sebulba's Raid 1; the Podracer's offer must then be pending.
+## GIVEN
+CommonSetup: rrk/rrk/{myLeader:LAW_012}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_176:0:0 LAW_173:1:0]
+WithP1Deck: [SOR_046 SOR_095]
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-1
+## EXPECT
+P1DISCARDCOUNT:1
+P1HASDECISION
+P1DECISIONTOOLTIP:Ready_Sebulba's_Podracer?
+
+---
+
+# SebulbaLeaderActionCost_AcceptReadiesThePodracer
+#// Follow-through of the section above: P1 accepts, so the Podracer readies and the round's use is spent.
+## GIVEN
+CommonSetup: rrk/rrk/{myLeader:LAW_012}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_176:0:0 LAW_173:1:0]
+WithP1Deck: [SOR_046 SOR_095]
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:YES
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LAW_176
+P1GROUNDARENAUNIT:0:READY
+P1LEADER:EXHAUSTED
+P1NODECISION
+
+---
+
+# SebulbaLeaderActionCost_ReadyThenTheTurnPassesOnce
+#// The flushed Podracer trigger resolves INSIDE Sebulba's action, before it closes: after the Raid pick and
+#// the accepted ready, the turn passes to P2 exactly once (no P1OnlyActions, so TURNPLAYER is observable).
+## GIVEN
+CommonSetup: rrk/rrk/{myLeader:LAW_012}
+WithActivePlayer: 1
+WithP1GroundArena: [LAW_176:0:0 LAW_173:1:0]
+WithP1Deck: [SOR_046 SOR_095]
+WithP2GroundArena: SOR_095:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:YES
+## EXPECT
+P1GROUNDARENAUNIT:0:READY
+P1NODECISION
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# BT1_AggressionDiscard_DamagePickThenStillOffersTheReady
+#// Reported 2026-09-30 (game 1438045). BT-1 mills an AGGRESSION card (LOF_131 Strikeship), so its On Attack
+#// goes on to "you may deal 1 damage to a ground unit" — a second, interactive decision. Every other BT-1
+#// section mills a non-Aggression card (SOR_046), where BT-1's ability ends at the discard. P1 deals the 1
+#// to P2's LAW_105 Cinta Kaz; the exhausted Podracer's may-ready must still be offered afterwards.
+#// The damage pick is answered on a LATER REQUEST (as live): the pending-trigger bag is in-memory only.
+## GIVEN
+CommonSetup: rrk/rrk/{}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_176:0:0 LAW_173:1:0]
+WithP1Deck: [LOF_131 SOR_095]
+WithP2GroundArena: LAW_105:0:0
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1DISCARDCOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P1HASDECISION
+P1DECISIONTOOLTIP:Ready_Sebulba's_Podracer?
+
+---
+
+# BT1_AggressionDiscard_AcceptReady_AttackCompletesAndTurnPassesOnce
+#// Follow-through across the same request boundary: P1 deals the 1, accepts the ready, and BT-1's attack
+#// still finishes — combat damage to P2's base — with the turn passing to P2 exactly once.
+## GIVEN
+CommonSetup: rrk/rrk/{}
+WithActivePlayer: 1
+WithP1GroundArena: [LAW_176:0:0 LAW_173:1:0]
+WithP1Deck: [LOF_131 SOR_095]
+WithP2GroundArena: LAW_105:0:0
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LAW_176
+P1GROUNDARENAUNIT:0:READY
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P2BASEDMG:2
+P1NODECISION
+TURNPLAYER:2
+NOEXTRAACTION
