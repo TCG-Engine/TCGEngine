@@ -2565,17 +2565,29 @@ function _SWUTs26059Offer(int $player): void {
 // LAW_150 Fulcrum — the wearer grants "+2/+2 to each OTHER friendly Rebel unit." Returns the total
 // +stat for $obj: +2 per OTHER friendly unit wearing LAW_150, but only if $obj is a Rebel (granted
 // Rebel via _SWUUnitHasTrait counts too). Added to both ObjectCurrentPower and ObjectCurrentHP.
-// Count the DISTINCT keywords on $obj (ASH_100 Gallius Rax "2 or more different keywords").
+// Count the DISTINCT keywords on $obj (ASH_100 Gallius Rax "2 or more different keywords", SHD_008 Boba
+// Fett "1 or more keywords", TS26_03 Maul "more different keywords than Experience", HMW Rex). Every
+// keyword the engine knows counts: the set is DERIVED from the generated HasKeyword_X / GetKeyword_X_Value
+// functions, never hand-kept. Two hand-kept lists drifted — this one lacked Coordinate and Fortify (Rex
+// patched Coordinate in by hand), Maul's lacked seven, so Maul did nothing to SHD_032 Lom Pyke (Smuggle).
+function _SWUAllKeywordNames(): array {
+    static $names = null;
+    if ($names === null) {
+        $set = [];
+        foreach (get_defined_functions()['user'] as $fn) {   // PHP lower-cases user function names here
+            if (preg_match('/^haskeyword_([a-z]+)$/', $fn, $m) || preg_match('/^getkeyword_([a-z]+)_value$/', $fn, $m)) $set[$m[1]] = true;
+        }
+        $names = array_keys($set);
+    }
+    return $names;
+}
 function _SWUCountDistinctKeywords($obj): int {
     if ($obj === null) return 0;
     $n = 0;
-    foreach (['Sentinel', 'Ambush', 'Overwhelm', 'Grit', 'Saboteur', 'Shielded', 'Bounty', 'Hidden', 'Smuggle', 'Plot', 'Piloting', 'Support'] as $kw) {
-        $fn = "HasKeyword_{$kw}";
-        if (function_exists($fn) && $fn($obj)) $n++;
-    }
-    foreach (['Raid', 'Restore', 'Exploit'] as $vkw) {
-        $fn = "GetKeyword_{$vkw}_Value";
-        if (function_exists($fn)) { $v = $fn($obj); if ($v !== null && intval($v) > 0) $n++; }
+    foreach (_SWUAllKeywordNames() as $kw) {
+        $has = "HasKeyword_{$kw}"; $val = "GetKeyword_{$kw}_Value";   // function names are case-insensitive
+        if ((function_exists($has) && $has($obj))
+            || (function_exists($val) && intval($val($obj) ?? 0) > 0)) $n++;
     }
     return $n;
 }
@@ -7100,31 +7112,8 @@ function ReadyPhase() {
     // the upgrade: one already ready (CR 5.1.e — it is "not considered to have been readied") and one that
     // couldn't ready (Frozen in Carbonite) were both asked to pay.
     foreach ($readiedAtRegroup as $readied) _SWUQueueReadyTaxes($readied);
-
-    // TWI_068 Foresight — granted "When the regroup phase starts (before drawing cards): Name a card,
-    // then look at the top card of your deck. If it's the named card, you may reveal and draw it."
-    SWUQueueTWI068RegroupTriggers();
-}
-
-// TWI_068 Foresight — queue the name-a-card / peek-top / may-draw for each unit carrying a TWI_068
-// upgrade, at the start of the regroup phase (before the draw step). Model: SWUQueueFalconRegroupTriggers.
-function SWUQueueTWI068RegroupTriggers(): void {
-    global $playerID;
-    $savedPID = $playerID;
-    for ($p = 1; $p <= SeatCountForGame(); $p++) {
-        $playerID = $p;
-        foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
-            foreach (ZoneSearch($zone, ['Unit']) as $mzID) {
-                $obj = GetZoneObject($mzID);
-                if ($obj === null || ($obj->removed ?? false)) continue;
-                if (!_SWUUnitHasUpgrade($obj, 'TWI_068')) continue;
-                if (empty(GetDeck($p))) continue;   // no deck → nothing to peek
-                DecisionQueueController::AddDecision($p, 'NAMECARD', '', 1, 'Name_a_card_(Foresight)');
-                DecisionQueueController::AddDecision($p, 'CUSTOM', 'TWI_068#0', 1);
-            }
-        }
-    }
-    $playerID = $savedPID;
+    // (TWI_068 Foresight is NOT here: "When the regroup phase starts (before drawing cards)" — it is a
+    // regroup-start item in _SWURegroupStartTriggerItems.)
 }
 
 // Queue the SOR_193 Millennium Falcon "ready cards" trigger for every Falcon in
@@ -7317,6 +7306,12 @@ function _SWURegroupStartTriggerItems(): array {
                 if (($up->CardID ?? '') === 'ASH_227') $add($p, 'ASH_227', 'ASH227', 'U' . intval($u->UniqueID ?? 0));
             }
         }
+        foreach ($units as $u) {                                  // TWI_068 Foresight (granted) — per wearer copy
+            if (!empty($u->removed)) continue;
+            foreach (GetUpgradesOnUnit($u) as $up) {
+                if (($up->CardID ?? '') === 'TWI_068') $add($p, 'TWI_068', 'TWI068', 'U' . intval($u->UniqueID ?? 0));
+            }
+        }
         foreach ($units as $u) {                                  // ASH_159 Alphabet Squadron U-Wing
             if (empty($u->removed) && ($u->CardID ?? '') === 'ASH_159') $add($p, 'ASH_159', 'ASH159', 'U' . intval($u->UniqueID ?? 0));
         }
@@ -7362,6 +7357,14 @@ function _SWURegroupStartResolve(string $key, int $p, string $ref): void {
             break;
         case 'TS26023': if ($mz !== null) SWULogWithSource($p, 'TS26_23', fn() => SWUDealDamageToUnit($mz, 4, $p)); break;
         case 'ASH227':  if ($mz !== null) SWULogWithSource($p, 'ASH_227', fn() => DoGiveAdvantageToken($p, $mz)); break;
+        case 'TWI068':
+            // "Name a card, then look at the top card of your deck" — BEFORE the regroup draw (it used to be
+            // queued from the ready step, after both draws). No deck → nothing to look at.
+            if (!empty(GetDeck($p))) {
+                DecisionQueueController::AddDecision($p, 'NAMECARD', '', 1, 'Name_a_card_(Foresight)');
+                DecisionQueueController::AddDecision($p, 'CUSTOM', 'TWI_068#0', 1);
+            }
+            break;
         case 'ASH159':
             SWULogWithSource($p, 'ASH_159', fn() => SWUOfferUnitTarget($p, '', [
                 'continuation' => 'GIVE_ADVANTAGE', 'prompt' => "Give_an_Advantage_token_to_a_unit",

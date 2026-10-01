@@ -405,3 +405,141 @@ P1GROUNDARENAUNIT:0:POWER:2
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P1LEADER:EXHAUSTED
 P1NODECISION
+
+---
+
+# Front_SmuggleIsAKeyword
+#// TS26_03 Maul (front) — "different keywords" means EVERY keyword, not a hand-picked list. SHD_032 Lom Pyke
+#// has exactly one keyword, Smuggle, and no Experience: 1 > 0 fires (+1 Experience, 1 damage). The handler
+#// counted only ten keywords, so Smuggle (with Smuggle, Coordinate, Exploit, Fortify, Piloting, Plot and
+#// Support) read as zero and nothing happened. Reported 2026-09-30: Maul on SHD_032 Lom Pyke gave nothing.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SHD_032:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SHD_032
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Front_CoordinateIsAKeyword
+#// TS26_03 Maul (front) — "different keywords" means EVERY keyword, not a hand-picked list. TWI_106 Coruscant Guard
+#// has exactly one keyword, Coordinate, and no Experience: 1 > 0 fires (+1 Experience, 1 damage). The handler
+#// counted only ten keywords, so Coordinate (with Smuggle, Coordinate, Exploit, Fortify, Piloting, Plot and
+#// Support) read as zero and nothing happened.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: TWI_106:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:TWI_106
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Front_ExploitIsAKeyword
+#// TS26_03 Maul (front) — "different keywords" means EVERY keyword, not a hand-picked list. TWI_233 Hailfire Tank
+#// has exactly one keyword, Exploit, and no Experience: 1 > 0 fires (+1 Experience, 1 damage). The handler
+#// counted only ten keywords, so Exploit (with Smuggle, Coordinate, Exploit, Fortify, Piloting, Plot and
+#// Support) read as zero and nothing happened.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: TWI_233:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:TWI_233
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Front_PilotingIsAKeyword
+#// TS26_03 Maul (front) — "different keywords" means EVERY keyword, not a hand-picked list. JTL_046 Paige Tico
+#// has exactly one keyword, Piloting, and no Experience: 1 > 0 fires (+1 Experience, 1 damage). The handler
+#// counted only ten keywords, so Piloting (with Smuggle, Coordinate, Exploit, Fortify, Piloting, Plot and
+#// Support) read as zero and nothing happened.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: JTL_046:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:JTL_046
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Front_PlotIsAKeyword
+#// TS26_03 Maul (front) — "different keywords" means EVERY keyword, not a hand-picked list. SEC_034 Cad Bane
+#// has exactly one keyword, Plot, and no Experience: 1 > 0 fires (+1 Experience, 1 damage). The handler
+#// counted only ten keywords, so Plot (with Smuggle, Coordinate, Exploit, Fortify, Piloting, Plot and
+#// Support) read as zero and nothing happened.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SEC_034:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SEC_034
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Front_SupportIsAKeyword
+#// TS26_03 Maul (front) — "different keywords" means EVERY keyword, not a hand-picked list. ASH_036 Rukh
+#// has exactly one keyword, Support, and no Experience: 1 > 0 fires (+1 Experience, 1 damage). The handler
+#// counted only ten keywords, so Support (with Smuggle, Coordinate, Exploit, Fortify, Piloting, Plot and
+#// Support) read as zero and nothing happened.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: ASH_036:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:ASH_036
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:1

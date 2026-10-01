@@ -11,10 +11,10 @@ P1Deck: [SOR_046 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 P2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
-- P2>ResourcePass
 - P1>AnswerDecision:Consular Security Force
 - P1>AnswerDecision:YES
+- P1>ResourcePass
+- P2>ResourcePass
 ## EXPECT
 P1HANDCOUNT:3
 P1DECKCOUNT:3
@@ -34,10 +34,10 @@ P1Deck: [SOR_046 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 P2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
-- P2>ResourcePass
 - P1>AnswerDecision:Consular Security Force
 - P1>AnswerDecision:NO
+- P1>ResourcePass
+- P2>ResourcePass
 ## EXPECT
 P1HANDCOUNT:2
 P1DECKCOUNT:4
@@ -56,9 +56,57 @@ P1Deck: [SOR_046 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 P2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 ## WHEN
 - P1>Pass
+- P1>AnswerDecision:Battlefield Marine
 - P1>ResourcePass
 - P2>ResourcePass
-- P1>AnswerDecision:Battlefield Marine
 ## EXPECT
 P1HANDCOUNT:2
 P1DECKCOUNT:4
+
+---
+
+# RegroupStart_NamesBeforeTheRegroupDraw
+#// Reported 2026-09-30: "When the regroup phase starts (BEFORE DRAWING CARDS)". The name-a-card prompt must
+#// be the first thing the regroup phase asks — no regroup draw yet (hand still 0, deck still 6). It was
+#// queued from the regroup READY step instead, so it came after both draws and the resource step, and the
+#// card it peeked was no longer the one that started the phase on top.
+## GIVEN
+CommonSetup: rrk/bbw/{}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:TWI_068
+P1Deck: [SOR_046 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+P2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>Pass
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Name_a_card_(Foresight)
+P1HANDCOUNT:0
+P1DECKCOUNT:6
+
+---
+
+# RegroupStart_PeeksTheCardOnTopBeforeTheDraw
+#// The peek must see the card on top WHEN THE REGROUP PHASE STARTS. SOR_046 starts on top with Battlefield
+#// Marines below: naming it hits, P1 reveals and draws it, THEN the two regroup draws take two Marines —
+#// hand 3 (SOR_046 among them), deck 3. Peeking after the regroup draw (the bug) would find a Marine on top,
+#// miss, and leave hand 2. (The sections above use `P1Deck:`, which a CommonSetup board ignores — they run
+#// on the default deck and cannot tell the two timings apart; `WithP1Deck:` here is applied.)
+## GIVEN
+CommonSetup: rrk/bbw/{}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:TWI_068
+WithP1Deck: [SOR_046 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>Pass
+- P1>AnswerDecision:Consular Security Force
+- P1>AnswerDecision:YES
+- P1>ResourcePass
+- P2>ResourcePass
+## EXPECT
+P1HANDCOUNT:3
+P1DECKCOUNT:3
+P1HANDCARD:0:SOR_046
+P1NODECISION
