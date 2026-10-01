@@ -21631,8 +21631,13 @@ function _SWUActionCloseGate(): bool {
     // is refused. Same code, opposite behaviour, decided by fixture shape. Pin it to the phase instead.
     if (function_exists('GetCurrentPhase') && GetCurrentPhase() !== 'MAIN') return false;
 
-    // (1) nested — the outer frame will close this action.
-    if (intval($GLOBALS['gSWUActionDepth'] ?? 0) > 0) return false;
+    // (1) nested — the outer frame will close this action. Counted, so an outer frame can tell whether the
+    // close it owns was actually refused here (synchronous nested play) or is still to come on its own
+    // (the play deferred its close behind a When Played decision) — see _SWUDiscountPlayCloseAction.
+    if (intval($GLOBALS['gSWUActionDepth'] ?? 0) > 0) {
+        $GLOBALS['gSWUNestedCloseRefusals'] = intval($GLOBALS['gSWUNestedCloseRefusals'] ?? 0) + 1;
+        return false;
+    }
 
     $id = GetSWUVar('SWU_ACTION_ID', '');
     if ($id === '' || $id === '0') return true;           // no action ever opened (setup, tests)

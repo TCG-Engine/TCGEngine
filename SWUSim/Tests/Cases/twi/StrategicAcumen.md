@@ -48,3 +48,27 @@ P1GROUNDARENAUNIT:0:EXHAUSTED
 P1HANDCOUNT:1
 P1RESAVAILABLE:1
 P1NODECISION
+
+---
+
+# GrantedAction_PlaysAUnit_TurnPassesOnce
+#// Bug #1109 family. TWI_120 Strategic Acumen's granted Action plays a unit from hand; it is the ACTION, so
+#// it must end there — the turn passes to P2 once. It stranded the turn (the nested play's own close is
+#// refused and nothing closed the action). No P1OnlyActions, so TURNPLAYER is observable.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:4;handCardIds:SOR_095}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:TWI_120
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+TURNPLAYER:2
+NOEXTRAACTION

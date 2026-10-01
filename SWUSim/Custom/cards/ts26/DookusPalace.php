@@ -5,7 +5,7 @@
 // Epic Action: Play a unit from your hand. It costs 1 resource less for each friendly leader unit.
 
 // TS26_10 Dooku's Palace — Epic Action: play a unit from your hand; it costs 1 less per friendly leader
-// unit. (DISCOUNT_PLAY_FROM_HAND|N owns the after-action.)
+// unit. (DISCOUNT_PLAY_FROM_HAND|N|close owns the after-action — without |close nothing closed it, bug #1109.)
 $baseAbilities["TS26_10"] = function($player) {
     global $playerID; $savedPID = $playerID; $playerID = intval($player);
     $n = 0;
@@ -23,5 +23,5 @@ $baseAbilities["TS26_10"] = function($player) {
     }
     $playerID = $savedPID;
     if (empty($eligible)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget(intval($player), $eligible, "Play_a_unit_from_hand_(-1_per_friendly_leader_unit)", "DISCOUNT_PLAY_FROM_HAND|{$n}");
+    SWUQueueChooseTarget(intval($player), $eligible, "Play_a_unit_from_hand_(-1_per_friendly_leader_unit)", "DISCOUNT_PLAY_FROM_HAND|{$n}|close");
 };

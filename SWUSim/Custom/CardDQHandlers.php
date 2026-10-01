@@ -1744,8 +1744,30 @@ $customDQHandlers["DISCOUNT_PLAY_FROM_HAND"] = function ($player, $parts, $lastD
   // entered as a plain 5/5 having bottomed nothing.
   // SWUBeginPlayCard falls through to SWUContinuePlayAfterExploit synchronously when no picker applies,
   // so the no-additional-cost case is byte-identical to the old behaviour.
+  //
+  // "|close" (bug #1109) — the caller is a unit / base ACTION that played a UNIT, so nothing else will end
+  // the action: the play runs nested and its own close is refused. Close it from a THEN step, which runs
+  // wherever the play actually finishes — right here when synchronous, or at the PLAY_CARD dispatch that
+  // resumes a play deferred behind an additional cost / payment prompt — so it closes exactly once either
+  // way. Without it Alliance Dispatcher / Strategic Acumen / Jedi Consular / Dooku's Palace left the turn
+  // with the acting player (live: a 3-seat P1 was offered claim / blast / plan after Dispatcher → Rex).
+  if (($parts[1] ?? '') === 'close') {
+    $GLOBALS['gSWUDiscountCloseBaseline'] = intval($GLOBALS['gSWUNestedCloseRefusals'] ?? 0);
+    SWUNestedPlayUnit(intval($player), $lastDecision, $discount, ['then' => '_SWUDiscountPlayCloseAction']);
+    return;
+  }
   SWUWithNestedActionFrame(fn() => SWUBeginPlayCard(intval($player), $lastDecision, $discount, unitOnly: true));
 };
+// The "then" step of a "|close" discount play. Close ONLY if the played card's own close was refused as
+// nested during this play — that is the case nothing else will close. When the played unit has an
+// interactive When Played, its close is DEFERRED behind that decision and runs later at depth 0 on its own;
+// closing here too would end the action twice (measured: LAW_092 Two-Faced Troig via Dispatcher). On the
+// deferred-play path this runs in a later request, where both globals start at 0.
+function _SWUDiscountPlayCloseAction(int $player, string $placedMz): void {
+  $refused = intval($GLOBALS['gSWUNestedCloseRefusals'] ?? 0) > intval($GLOBALS['gSWUDiscountCloseBaseline'] ?? 0);
+  $GLOBALS['gSWUDiscountCloseBaseline'] = intval($GLOBALS['gSWUNestedCloseRefusals'] ?? 0);
+  if ($refused) SWUAfterAction($player);
+}
 // Universal: draw $parts[0] cards for the acting player.
 $customDQHandlers["DRAW_CARD"] = function ($player, $parts, $lastDecision) {
   DoDrawCard(intval($player), max(1, intval($parts[0] ?? 1)));

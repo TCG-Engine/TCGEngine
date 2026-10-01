@@ -342,9 +342,15 @@ if (!function_exists('SWUOfferDiscountPlay')) {
         $may         = $opts['may'] ?? false;
         $question    = $opts['question'] ?? $prompt;
         $afterAction = $opts['afterAction'] ?? true;
+        // 'ownsClose' = the caller IS the action and has no play ceremony of its own to end it — a unit /
+        // base Action that plays a UNIT (SOR_093 Alliance Dispatcher, TWI_120 Strategic Acumen, LOF_094 Jedi
+        // Consular, TS26_10 Dooku's Palace). The nested play's own close is refused (it is nested), so the
+        // continuation must close the action itself — see DISCOUNT_PLAY_FROM_HAND. Leave it off for an EVENT
+        // or When Played caller: its play ceremony closes, and a second close would be a double one.
+        $ownsClose   = !empty($opts['ownsClose']);
         // DISCOUNT_PLAY_FROM_HAND is zone-agnostic (it plays $lastDecision's mzID via
         // ActivateCard), so it serves discard plays too.
-        $cont = $opts['continuation'] ?? ('DISCOUNT_PLAY_FROM_HAND|' . $discount);
+        $cont = $opts['continuation'] ?? ('DISCOUNT_PLAY_FROM_HAND|' . $discount . ($ownsClose ? '|close' : ''));
 
         $targets = SWUPlayablesAtDiscount($player, $zone, $types, $discount, $filter);
         if (empty($targets)) { if ($afterAction) SWUAfterAction($player); return; }
