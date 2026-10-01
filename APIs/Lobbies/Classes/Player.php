@@ -30,6 +30,10 @@
                            // replaced deleted people who were still sitting in the room. Removal from a
                            // private room is always a human act (Leave, or the host's Remove control).
                            // Set at JOIN too, so a seat that has not polled yet does not read as away.
+    private $joinedAt = 0;  // Unix ts this seat was CREATED (stamped in the constructor). The host cannot Remove a
+                           // seat during its first SWU_SEAT_KICK_ARM_AFTER seconds (owner, 2026-10-01). NOT
+                           // touch(): a reload or a reclaim keeps the same seat object, so it must not restart the
+                           // clock. 0 = a seat from a lobby serialized before this field existed (removable).
     private $ready = false; // Seat has pressed Ready. CLEARED whenever the seat's deck changes — a
                            // deck swapped after readying is not the deck anyone agreed to.
     private $identityCards = []; // [['id','name','url','kind'], …] — the roster's identity strip, built
@@ -46,6 +50,7 @@
         $this->preconstructedDeck = $preconstructedDeck;
         $this->userId = $userId;
         $this->authKey = bin2hex(random_bytes(16)); // Generate a unique auth key
+        $this->joinedAt = time();
     }
 
     public function getPlayerID() {
@@ -141,6 +146,9 @@
     // LEGAL — a legal deck you are still swapping is not a deck you are ready to play.
     public function getLastSeen() { return intval($this->lastSeen); }
     public function touch($now = null) { $this->lastSeen = ($now === null) ? time() : intval($now); }
+
+    public function getJoinedAt() { return intval($this->joinedAt ?? 0); }
+    public function setJoinedAt($ts) { $this->joinedAt = intval($ts); }
 
     public function getReady() { return !empty($this->ready); }
     public function setReady($v) { $this->ready = (bool)$v; }

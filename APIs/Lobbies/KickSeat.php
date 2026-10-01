@@ -40,6 +40,10 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, $targetID, &$err
 
   foreach (($lobby->players ?? []) as $i => $p) {
     if (!($p instanceof Player) || intval($p->getPlayerID()) !== $targetID) continue;
+    // A seat is protected for its first minute (SWU_SEAT_KICK_ARM_AFTER) — the page disables Remove with a
+    // countdown, and this is the server half, so a stale page or a hand-built request cannot skip it.
+    $wait = SWUSeatKickableIn($p);
+    if ($wait > 0) { $err = 'That player just joined — you can remove them in ' . $wait . 's.'; return false; }
     $removedName = 'P' . $targetID;
     array_splice($lobby->players, $i, 1);
     $lobby->numPlayers = count($lobby->players);

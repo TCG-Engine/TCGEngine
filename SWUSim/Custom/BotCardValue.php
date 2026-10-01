@@ -144,7 +144,7 @@ function _SWUBotCardEffect(int $seat, string $cid, array $tags, array $W, int $H
         $v += $W['kill'] * $bestEnemy;
     }
     // Damage to units: what it actually kills, else chip.
-    if ($has('damage')) {
+    if ($has('damage-enemy-unit')) {   // was 'damage' (retired 2026-10-01)
         $dmg = _SWUBotTextNumber($text, '/deal (\d+) damage/i', 1);
         $v += $W['chip'] * $dmg;
     }
@@ -157,7 +157,7 @@ function _SWUBotCardEffect(int $seat, string $cid, array $tags, array $W, int $H
         foreach ($friendlyVals as $fv) $v -= $W['loss'] * $fv;
     }
     // BURN — damage straight to a base needs no board read; it is already the anchor currency.
-    if ($has('burn') || $has('indirect-damage')) {
+    if ($has('damage-enemy-base') || $has('indirect-damage')) {   // was 'burn' (retired 2026-10-01)
         $v += $W['base'] * _SWUBotTextNumber($text, '/deal (\d+) damage/i', 1);
     }
     // HEAL — worth ~0 at full health, and most when the base is nearly dead.

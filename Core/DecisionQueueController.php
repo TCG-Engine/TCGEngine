@@ -24,16 +24,24 @@ class DecisionQueueController {
     // outlive a parse. GetSeatOrderArray() lives in SWUSim's GameLogic and is NOT loaded by every app
     // that uses this Core class, hence the function_exists guard — a root without it keeps the old
     // 2-seat answer, which is correct for every non-Twin-Suns app.
-    private function SeatCount(): int {
-        if (function_exists('GetLiveSeatsArray')) {
-            $n = count(GetLiveSeatsArray());
-            if ($n >= 2) return $n;
+    // ⚠ SEAT IDS, NOT A COUNT (2026-10-01). This was SeatCount() = count(GetLiveSeatsArray()), and
+    // AllQueuesEmpty() checked seats 1..that count — so the moment a LOWER seat was eliminated the
+    // range missed a live one: live 1,3,4 checked 1..3 and never saw seat 4 (Team Suns plays on after
+    // an elimination), and live 3,4 checked the two dead seats 1..2. EvaluateTransition() then ran the
+    // regroup past seats 3/4's resource prompts — in a finished Twin Suns game, around RGS->...->READY->RGS
+    // forever (found by DevTools/SWUSimTwinSunsSelfPlay.php). Every seat in the SEAT ORDER is checked: an
+    // eliminated seat's queue is emptied on elimination and refuses new decisions, so listing it is free.
+    // SWUSim/DevTools/tests/dq_all_queues_empty_seat_gap_test.php.
+    private function SeatIDs(): array {
+        if (function_exists('GetSeatOrderArray')) {
+            $ids = array_values(array_unique(array_map('intval', GetSeatOrderArray())));
+            if (count($ids) >= 2) return $ids;
         }
         if (function_exists('SeatCountForGame')) {
             $n = SeatCountForGame();
-            if ($n >= 2) return $n;
+            if ($n >= 2) return range(1, $n);
         }
-        return 2;
+        return [1, 2];
     }
     private static $debugMode = false;
     private static $executeDepth = 0;
@@ -66,8 +74,7 @@ class DecisionQueueController {
 
     // Returns true if EVERY seat's queue is empty (2 in a normal game, 3-4 in Twin Suns).
     public function AllQueuesEmpty() {
-        $seats = $this->SeatCount();
-        for($i=1; $i<=$seats; ++$i) {
+        foreach ($this->SeatIDs() as $i) {
             $playerQueue = &GetDecisionQueue($i);
             if(!empty($playerQueue)) {
                 return false;

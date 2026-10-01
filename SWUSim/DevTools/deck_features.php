@@ -28,7 +28,7 @@ foreach ($cards as [$n, $id]) {
         if (str_contains(strval(CardArena($id) ?? ''), 'Space')) $f['space'] += $n;
     } elseif (str_contains($type, 'Event')) $f['events'] += $n;
     elseif (str_contains($type, 'Upgrade')) $f['upgrades'] += $n;
-    foreach (['removal', 'wipe', 'burn', 'draw'] as $t) if (in_array($t, $tags, true)) $f[$t] += $n;
+    foreach (['removal', 'wipe', 'burn', 'draw'] as $t) if (in_array($t === 'burn' ? 'damage-enemy-base' : $t, $tags, true)) $f[$t] += $n;   // 'burn' feature <- damage-enemy-base tag (2026-10-01)
 }
 $f['avgCost'] = $f['n'] ? round($f['costSum'] / $f['n'], 2) : 0;
 echo json_encode($f), "\n";

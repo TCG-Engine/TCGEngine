@@ -70,6 +70,22 @@ function SWUSetupGame($lobby, $opts = []) {
         if (!in_array($botStyle, ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 'hardcontrol', 'aggro', 'normal', 'control'], true)) $botStyle = 'normal';
         DecisionQueueController::StoreVariable('SWUBotProfile', 'heuristic-' . $botStyle);
     }
+    // Room games with BOT SEATS (Twin Suns "Fill Seat with Bot", SWUSim/docs/todo-twinsuns-fill-bot.md): a lobby seat
+    // with a botProfile is driven by the bot. Its GAME seat is its array position, the same mapping the deck loop
+    // below uses, and that position is final here: StartRoom has already compacted and sorted the seats.
+    // Not a game mode (SWUMarkBotSeats): the humans keep the inactivity clock and undo consent.
+    // Every room bot plays Arenabot's Normal stack for now; the lobby profile only chooses its deck.
+    if ($mode === '') {
+        $botSeats = [];
+        $seat = 1;
+        foreach (($lobby->players ?? []) as $p) {
+            if (is_object($p) && method_exists($p, 'getBotProfile') && $p->getBotProfile() !== '') {
+                $botSeats[$seat] = 'heuristic-normal';
+            }
+            ++$seat;
+        }
+        if (!empty($botSeats)) SWUMarkBotSeats($botSeats);
+    }
     // Team rules (2v2). A separate never-cleared flag rather than a value of $mode, because it is
     // orthogonal: SWUGameMode() answers "goldfish/hotseat/normal" and must keep returning '' here.
     // ⚠ Follows the format's CONFIGURATION ('teams' in AppCore/SWU/Formats.php), never the literal id: the old

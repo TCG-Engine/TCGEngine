@@ -145,7 +145,7 @@ function _SWUBotCorrectBridgeAnswers(string $type, string $param, array $actions
     $subcards = [];
     foreach (explode('&', $param) as $spec) {
         $spec = explode(':', $spec)[0];
-        if (preg_match('/^(my|their)[A-Za-z]+-\d+\.u\d+$/', $spec)) $subcards[] = $spec;
+        if (preg_match('/^(my|their|p\d+)[A-Za-z]+-\d+\.u\d+$/', $spec)) $subcards[] = $spec;   // p{n}: 3-4 seats
     }
     if (empty($subcards)) return $actions;
     $out = []; $pass = null; $have = [];

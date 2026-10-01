@@ -1,0 +1,42 @@
+# Real-deck self-play fixture — Greef Karga, Gracious Magistrate - Naval Intelligence HQ
+# Source: melee.gg 441468, #1 of 40 (7-0-2) — the event winner
+#   https://melee.gg/Decklist/View/57cca47a-8549-49cc-bc1f-b4c3004625d4 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   Added 2026-10-01 at the owner's request. Greef Karga (ASH) Red 30HP: 71 of 3,206 decks in the 53-event field, 47.0% game WR. The best-finishing list there.
+#   Every card checked against the melee list by name (50 + 10, 0 mismatches).
+# Archetype (owner's label): Soft aggro
+# Style: softaggro
+# Flavours: go-wide, mixed
+
+Leader
+1 ASH_017
+
+Base
+1 SEC_024
+
+Deck
+3 JTL_203
+3 ASH_040
+3 LAW_078
+2 SEC_148
+2 LAW_223
+2 ASH_208
+2 ASH_161
+3 JTL_147
+3 SEC_204
+3 SEC_215
+3 ASH_171
+3 JTL_221
+3 ASH_222
+3 ASH_253
+2 ASH_159
+2 LOF_192
+3 SEC_179
+3 SEC_233
+2 SEC_176
+
+Sideboard
+3 JTL_235
+2 LAW_191
+2 SEC_163
+2 IBH_052
+1 ASH_161

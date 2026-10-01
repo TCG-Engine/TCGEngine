@@ -4537,7 +4537,7 @@ function _SWUAfterCardsDrawn(int $player, array $drawnMz): void {
     //              ★ USER RULING 2026-09-11: "Rey triggers, but won't resolve til after."
     $mode = GetSWUVar('SWU_DEFER_DRAW', '');
     if ($mode === '' && GetCurrentPhase() === 'MAIN') {
-        [$srcP, $srcC] = SWULogSource();
+        [$srcP, $srcC] = SWULogStoredSource();   // game logic: the stored source, never the log-only override
         if ($srcC !== '') {
             $mode = 'nested';
             SetSWUVar('SWU_DEFER_DRAW', 'nested');
@@ -12334,7 +12334,8 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             if (strpos($dTypeSid, 'Unit') !== false && strpos(strtolower($dTypeSid), 'token') === false) {
                 foreach (GetLiveSeatsArray() as $sp) {
                     $nSid = intval($sidiousPerSeat[$sp] ?? 0);   // batch-aware: see the snapshot above
-                    for ($i = 0; $i < $nSid; $i++) SWUCreateUnitToken($sp, 'TS26_T01');
+                    // Inline observers name THEMSELVES in the log (SWULogInlineSource), not the defeating card.
+                    for ($i = 0; $i < $nSid; $i++) SWULogInlineSource($sp, 'TS26_13', fn() => SWUCreateUnitToken($sp, 'TS26_T01'));
                 }
             }
             // LAW_005 Jyn Erso — track "a friendly Rebel unit was defeated this phase" on the controller.
@@ -12362,7 +12363,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // TWI_001 Nala Se (deployed) — "Each friendly Clone unit gains: When Defeated: Heal 2 damage
             // from your base." Field-presence grant while the controller's TWI_001 leader is deployed.
             if (HasTrait($d['cardID'] ?? '', 'Clone') && _SWULeaderDeployed($controller, 'TWI_001')) {
-                OnHealBase($controller, $controller, 2);
+                SWULogInlineSource($controller, 'TWI_001', fn() => OnHealBase($controller, $controller, 2));
             }
             // TWI_033 Calculating MagnaGuard — "When a friendly unit is defeated: this unit gains Sentinel
             // for this phase." Grant to each in-play TWI_033 the controller has (mandatory, inline).
@@ -12383,7 +12384,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // A proper fix = route board-wipes through a true simultaneous-defeat batch (broad, risky).
             $twins = _SWUCountActiveUnitsWithCardID($controller, 'ASH_127');
             for ($i = 0; $i < $twins; $i++) {
-                OnHealBase($controller, $controller, 1);
+                SWULogInlineSource($controller, 'ASH_127', fn() => OnHealBase($controller, $controller, 1));
             }
             // ASH_128 Bothan-5 (controlled by $controller): "When another friendly non-Vehicle unit is
             // defeated: you may have this unit capture that unit from your discard pile. Once each round."
@@ -12425,7 +12426,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // even when HK-47 itself was defeated in the batch).
             $hk47s = _SWUSimulObserverCount($opp, 'LOF_130', $leftCards);
             for ($i = 0; $i < $hk47s; $i++) {
-                SWUDealDamageToBase(1, $controller);
+                SWULogInlineSource($opp, 'LOF_130', fn() => SWUDealDamageToBase(1, $controller));
             }
             // SOR_002 Iden Versio (deployed leader unit of $opp): "When an enemy unit is defeated:
             // Heal 1 damage from your base." Fires once per defeated enemy unit.
@@ -12446,7 +12447,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
                     if (!empty($pu->removed) || ($pu->CardID ?? '') !== 'SHD_137' || LostAbilities($pu)) continue;
                     if (!SWUHasUseAvailable($pu)) continue;          // once each round — per copy (NumUses)
                     if (intval($pu->Status ?? 0) === 1) continue;   // already ready → no benefit, don't consume
-                    _SWUReadyInline($opp, 'SHD_137', $pu);          // ready it
+                    SWULogInlineSource($opp, 'SHD_137', fn() => _SWUReadyInline($opp, 'SHD_137', $pu));   // ready it
                     SWUConsumeUse($pu);
                     break;
                 }
@@ -12475,7 +12476,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // was defeated, so it still heals — the live-report case is a straight combat TRADE.
             $chimaeras = _SWUSimulObserverCount($opp, 'ASH_052', $leftCards);
             for ($i = 0; $i < $chimaeras; $i++) {
-                OnHealBase($opp, $opp, 2);
+                SWULogInlineSource($opp, 'ASH_052', fn() => OnHealBase($opp, $opp, 2));
             }
             // LAW_053 Dengar (controlled by $opp): "When a unit with the highest cost among enemy units
             // is defeated: create a Credit token. Use only once each round." The defeated unit
@@ -12496,7 +12497,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
                     if (empty($u->removed)) $maxOther = max($maxOther, intval(CardCost($u->CardID ?? '')));
                 }
                 if ($defCost >= $maxOther) {
-                    SWUCreateCreditToken($opp, 1);
+                    SWULogInlineSource($opp, 'LAW_053', fn() => SWUCreateCreditToken($opp, 1));
                     AddGlobalEffects($opp, 'SWU_LAW053_USED');
                 }
             }
@@ -12522,7 +12523,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // attached copy grants its own ability, hence the count.
             // SEC_046 Galen naming the Memorial OR the base switches the granted heal off.
             $memorials = _SWUFortifyBlanked(intval($controller), 'HMW_113') ? 0 : _SWUCountBaseUpgrades($controller, 'HMW_113');
-            for ($i = 0; $i < $memorials; $i++) OnHealBase($controller, $controller, 1);
+            for ($i = 0; $i < $memorials; $i++) SWULogInlineSource($controller, 'HMW_113', fn() => OnHealBase($controller, $controller, 1));
             // SOR_105 General Krell (controlled by $controller): grants "When Defeated: you may draw
             // a card" to each OTHER friendly unit. The leaving unit qualifies if it isn't Krell.
             if (($d['cardID'] ?? '') !== 'SOR_105' && _SWUCountUnitsWithCardID($controller, 'SOR_105') > 0) {
@@ -13650,7 +13651,26 @@ function ProcessGoldfishAutomation(): bool {
         if ($stable) break;
         $madeProgress = true;
     }
+    if (_SWUMoveTurnOffEliminatedSeat()) $madeProgress = true;
     return $madeProgress;
+}
+
+// Twin Suns: a seat ELIMINATED DURING ITS OWN ACTION (TWI_146 Steela Gerrera's "you may deal 2 damage to your
+// base" at 1 HP) loses the rest of that action — elimination empties its decision queue, the action's close
+// included — so nothing ever swapped the turn, and the table waited on a dead seat that can never act (found by
+// DevTools/SWUSimTwinSunsSelfPlay.php, seed ts-19). Runs after every action, once every queue has settled: only
+// then is it certain no part of the action is still going to close it the ordinary way (a swap from here AND
+// from the close would skip the next seat). The dead seat's action was a real one, so the pass streak restarts.
+// core/TwinSuns_EliminatedOnOwnAction_TurnMovesOn.md.
+function _SWUMoveTurnOffEliminatedSeat(): bool {
+    if (SeatCountForGame() <= 2 || SWUGetGameWinner() !== 0) return false;
+    if (GetCurrentPhase() !== 'MAIN') return false;
+    $turn = intval(GetTurnPlayer());
+    if ($turn <= 0 || IsSeatLive($turn) || empty(GetLiveSeatsArray())) return false;
+    if (!(new DecisionQueueController())->AllQueuesEmpty()) return false;
+    SetSWUVar('PASS', '0');
+    SWUSwapTurnPlayer();
+    return true;
 }
 
 // DQ handler: resolve a single trigger from the bag.
@@ -16165,7 +16185,7 @@ function SWUFinishTopDeckSearch(int $player, array $allIDs, $lastDecision, strin
     $savedPID = $playerID; $playerID = $player;
     $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
     if ($revealed === null) {
-        [, $lsSrc] = SWULogSource();
+        [, $lsSrc] = SWULogStoredSource();   // game logic: the stored source, never the log-only override
         $revealed = $lsSrc !== '' && stripos((string)(CardText($lsSrc) ?? ''), 'reveal') !== false;
     }
     $objs = [];
@@ -21856,8 +21876,10 @@ function SWUComputeUndoTarget(string $kind, int $requester = 0): int {
 // bot then owed the move again and replayed it within ~100 ms ("the bot moves too fast for me to roll it back to my
 // action"). Other modes, and a requester with no record of their own, keep the one-step target.
 // SWUSim/Tests/Cases/undo/BotPracticeUndoSkipsTheBotsMoves.md.
+// Room games with bot seats too (SWUBotSeatsActive): the bot replays just as fast there. Walking past ANOTHER human's
+// action on the way down is still gated, because SWUUndoNeedsConsent asks whenever an opponent's record is reverted.
 function _SWUBotPracticeUndoTarget(int $top, int $requester): int {
-    if ($requester <= 0 || SWUGameMode() !== 'botpractice') return $top;
+    if ($requester <= 0 || !SWUBotSeatsActive()) return $top;
     for ($i = $top; $i >= 0; $i--) {
         $line = UndoStackRead($i);
         if ($line === null) break;
@@ -21939,6 +21961,9 @@ function SWUUndoNeedsConsent(int $requesterSeat, int $targetOrdinal, string $kin
     // requests when not private, and MarkUndoRequiresConsent fires on every draw; in a solo mode a
     // request can never be answered, so either path would hang the undo forever.
     if (SWUGameIsPrivate($rootName, $gameName)) return false;
+    // A room game whose every opponent is a bot: nobody could answer the request (bots have no path to the
+    // consent popup), so asking would hang the undo forever — the same reason the solo modes never ask.
+    if (SWUHasBotSeats() && empty(array_diff(OpponentsOf($requesterSeat), GetSWUBotPlayers()))) return false;
     if ($kind === 'phase') return true;
     // The live action's reveal flag hasn't been folded into a record yet — read it directly.
     if (GetSWUVar('UNDO_REQUIRES_CONSENT', 'false') === 'true') return true;
@@ -27631,16 +27656,46 @@ function SetSWUBotPlayers(array $seats): void {
 }
 
 function GetSWUBotPlayers(): array {
-    if (SWUGameMode() !== 'botpractice') return [];
+    if (!SWUBotSeatsActive()) return [];
     $raw = DecisionQueueController::GetVariable('SWUBotPlayers');
     if (!is_string($raw) || $raw === '') return [];
     $seats = [];
     foreach (explode(',', $raw) as $seat) {
         $seat = intval(trim($seat));
-        if ($seat >= 1 && !in_array($seat, $seats, true)) $seats[] = $seat;
+        // An eliminated seat is never driven again (Twin Suns). Arenabot is 2-seat, where LiveSeats is always both.
+        if ($seat >= 1 && !in_array($seat, $seats, true) && IsSeatLive($seat)) $seats[] = $seat;
     }
     sort($seats);
     return $seats;
+}
+
+// Room games with BOT SEATS (Twin Suns "Fill Seat with Bot", SWUSim/docs/todo-twinsuns-fill-bot.md). A never-cleared
+// flag on P1, deliberately SEPARATE from SWU_MODE_BOTPRACTICE: any value of SWUGameMode() switches off the
+// inactivity clock and undo consent for everyone (SWUClockIsActive, SWUIsSoloMode), and the humans in a room game
+// still need both. SWUGameMode() therefore stays '' in these games.
+function SWUHasBotSeats(): bool {
+    return GlobalEffectCount(1, 'SWU_HAS_BOT_SEATS') > 0;
+}
+
+// Does the bot controller drive any seat in this game? Arenabot, or a room game with bot seats.
+function SWUBotSeatsActive(): bool {
+    return SWUGameMode() === 'botpractice' || SWUHasBotSeats();
+}
+
+// The one setter for a room game's bots: [seat => chooser profile]. Called by SWUSetupGame() with the seats as they
+// are AFTER StartRoom's compaction. Each seat keeps its own profile (SWUBotActiveChooserProfile reads
+// SWUBotProfile_<seat> ahead of the game-wide SWUBotProfile), because every bot brings its own deck.
+function SWUMarkBotSeats(array $profilesBySeat): void {
+    $seats = [];
+    foreach ($profilesBySeat as $seat => $profile) {
+        $seat = intval($seat);
+        if ($seat < 1) continue;
+        $seats[] = $seat;
+        DecisionQueueController::StoreVariable('SWUBotProfile_' . $seat, strval($profile));
+    }
+    if (empty($seats)) return;
+    if (!SWUHasBotSeats()) AddGlobalEffects(1, 'SWU_HAS_BOT_SEATS');
+    SetSWUBotPlayers($seats);
 }
 
 // ─── Team Suns (2v2) seat primitives ─────────────────────────────────────────

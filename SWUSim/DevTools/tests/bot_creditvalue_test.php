@@ -56,13 +56,13 @@ $check($W['creditRamp'] > $Wa['creditRamp'], 'ramp is worth more to control than
 // Action is worth the bomb it unlocks even though the only fodder is a 3/7 body.
 // ⚠ SOR_046 Consular Security Force (4 cost, 3/7) has NO "When Defeated", so SWUBotSacrificeCost returns its
 // full unit value — this is deliberately the case the old scorer refused.
-$krennic = function (int $resources, array $hand, string $fodder = 'SOR_046') use ($build) {
-    $build(function ($b) use ($resources, $hand, $fodder) {
+$krennic = function (int $resources, array $hand, string $fodder = 'SOR_046', bool $fodderReady = true) use ($build) {
+    $build(function ($b) use ($resources, $hand, $fodder, $fodderReady) {
         $b->MyLeader('LAW_008', true, false, true);          // ready, undeployed, Epic Action already spent
         $b->MyBase('LAW_020');
         $b->FillResourcesForPlayer(1, 'SOR_095', $resources);
         foreach ($hand as $c) $b->WithCardInHandForPlayer(1, $c);
-        $b->WithGroundUnitForPlayer(1, $fodder, true, 0);
+        $b->WithGroundUnitForPlayer(1, $fodder, $fodderReady, 0);
         $b->WithGroundUnitForPlayer(2, 'SOR_095', true, 0);
     });
 };
@@ -96,10 +96,13 @@ $check($sC !== null && $sC < 0.0, 'C: one Credit that still leaves the bomb unaf
 
 // ── D) The deck's INTENDED fodder is unchanged — this must not regress the 12 takes that already worked ─────
 // LAW_159 Expendable Mercenary resources itself back, so SWUBotSacrificeCost prices it at -1.0 and the Action
-// was already correct here. It must still be taken, with or without the feature.
-$krennic(9, ['SOR_095'], 'LAW_159');
+// was already correct here. It must still be taken, with or without the feature — once it has ATTACKED (exhausted).
+// Feature 'unusedsac' (p18, owner 2026-10-01): a still-READY Mercenary attacks first, then is cashed in.
+$krennic(9, ['SOR_095'], 'LAW_159', false);
 $check($score($ACTION, 'softcontrol', ['try:creditvalue']) > 0.0, 'D: sacrificing Expendable Mercenary is still worth it (nothing to unlock needed)');
 $check($score($ACTION) > 0.0, 'D default (proposal off): and that was already true before it');
+$krennic(9, ['SOR_095'], 'LAW_159', true);
+$check($score($ACTION) < $score($ACTION, 'softcontrol', ['unusedsac']), 'D unusedsac: a READY Mercenary is worth less to sacrifice than after it has attacked');
 
 // ── E) The whole point: the stack actually takes the ramp Action ─────────────────────────────────────────────
 // ⚠ THE FODDER IS EXHAUSTED HERE, deliberately. With a READY 3/7 the stack attacks instead (scored 2.6 against

@@ -3,7 +3,10 @@
 #   https://melee.gg/Decklist/View/ba42bfd1-1070-45e6-b55b-b4bd002da48a — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard in the Sideboard section)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (5 entries).
 # Archetype (owner's label): Aggro — mixed arenas, mostly space
-# Style: softaggro
+#   Relabelled hyper aggro by the owner 2026-10-01 (was softaggro, the default the plain "Aggro" import got at the
+#   five-tier split): an even lower curve than Ninin's hyperaggro HMW list (avg 2.72, 15 one-drops) and no Sentinel,
+#   heal or protection at all — a pure race.
+# Style: hyperaggro
 # Flavours: mixed-space
 
 Leader

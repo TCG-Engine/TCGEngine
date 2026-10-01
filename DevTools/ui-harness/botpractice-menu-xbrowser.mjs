@@ -24,7 +24,7 @@ const OUT = process.env.OUT || '/tmp/arenabot-menu-shots';
 fs.mkdirSync(OUT, { recursive: true });
 const readFixture = (rel) => fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/' + rel, import.meta.url), 'utf8')
   .split('\n').filter(l => !l.startsWith('#')).join('\n').trim();
-const DECK = readFixture('meta-2026-09/darth-vader_jtl_yellow.txt');   // Premier-legal (verified 2026-09-16)
+const DECK = readFixture('ash-meta-2026-09/darth-vader_jtl_yellow.txt');   // Premier-legal (verified 2026-09-16)
 const SOR_DECK = readFixture('premier_deck_a.txt');                 // NOT Premier-legal
 
 const ALL = { chromium, firefox, webkit };
@@ -204,7 +204,7 @@ async function gameCheck(engine, page) {
   page.on('request', r => { if (/ProcessInput\.php\?.*[?&]mode=10017\b/.test(r.url())) r._t0 = Date.now(); });
   page.on('response', async r => {
     const q = r.request();
-    if (q._t0) { let body = {}; try { body = await r.json(); } catch (e) {} steps.push({ ms: Date.now() - q._t0, applied: body.botStepApplied === true }); }
+    if (q._t0) { let body = {}; try { body = await r.json(); } catch (e) {} steps.push({ ms: Date.now() - q._t0, applied: body.botStepApplied === true, stale: body.botStepStale === true, token: /[?&]lastUpdate=\d+/.test(q.url()) }); }
   });
   await page.click('#start-solo-btn');
   const reached = await page.waitForURL(/NextTurn\.php/, { timeout: 30000 }).then(() => true).catch(() => false);
@@ -225,6 +225,10 @@ async function gameCheck(engine, page) {
   }
   await page.screenshot({ path: path.join(OUT, `${engine}-board.png`) });
   ok(engine, 'the bot made at least one move on its own', steps.some(s => s.applied), `${steps.filter(s => s.applied).length} applied of ${steps.length}`);
+  // Write lock + stale token (Core/GameWriteLock.php): every step carries the rendered update, and with a
+  // single browser a step is never stale (a stale one here would mean the token is read wrong).
+  ok(engine, 'every bot step sends its lastUpdate token', steps.length > 0 && steps.every(s => s.token), `${steps.filter(s => s.token).length} of ${steps.length}`);
+  ok(engine, 'no bot step was refused as stale (one browser)', !steps.some(s => s.stale), `${steps.filter(s => s.stale).length} stale`);
 }
 
 for (const [name, launcher] of Object.entries(ENGINES)) {

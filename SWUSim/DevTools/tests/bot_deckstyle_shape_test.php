@@ -11,7 +11,7 @@ $check = function ($ok, $msg, $detail = '') use (&$fails) {
     echo ($ok ? 'PASS' : 'FAIL') . ": $msg" . (!$ok && $detail !== '' ? "  [got: $detail]" : '') . "\n";
     if (!$ok) $fails++;
 };
-$deckOf = fn(string $f) => SWUBotDeckFromFixtureText((string)file_get_contents("./SWUSim/Tests/BotFixtures/meta-2026-09/$f.txt"));
+$deckOf = fn(string $f) => SWUBotDeckFromFixtureText((string)file_get_contents("./SWUSim/Tests/BotFixtures/ash-meta-2026-09/$f.txt"));
 
 // ── features ────────────────────────────────────────────────────────────────────────────────────
 $vader = $deckOf('darth-vader_jtl_yellow');
@@ -76,7 +76,7 @@ $check(!str_contains($src, 'SWUBotRacingRank') && !str_contains($src, 'FlavourRa
 // smoke test actually means is "every fixture scored", so it asserts exactly that.
 // meta-2026-09-field/ was deleted 2026-09-29, so this is the one fixture dir the classifier covers.
 // weak-2026-09/ is deliberately absent: those decks are built to be bad and are not the field.
-$paths = glob('./SWUSim/Tests/BotFixtures/meta-2026-09/*.txt') ?: [];
+$paths = glob('./SWUSim/Tests/BotFixtures/ash-meta-2026-09/*.txt') ?: [];
 $n = 0;
 foreach ($paths as $p) {
     $s = SWUBotDeckShapeScore(SWUBotDeckFromFixtureText((string)file_get_contents($p)));
@@ -85,6 +85,49 @@ foreach ($paths as $p) {
 }
 $check(count($paths) >= 20, 'the fixture dirs are not empty (the glob resolved)', strval(count($paths)));
 $check($n === count($paths), 'every fixture deck scores without error', $n . '/' . count($paths));
+
+// ── THE 2026-10-01 RE-FIT: the scale's ENDS are reachable ─────────────────────────────────────────
+// Before it, the shape scan could not say hyper aggro or hard control at all: the even raw cuts put hyper below
+// -1.5, which no labelled hyper aggro list reached, and hard control overlaps soft control on the score. Fixed by
+// fitted cut points (SWU_DECKSTYLE_WEIGHTS['cuts']) and the event-share rule for hard control. Pinned by LABEL, read
+// from the fixtures, and on the SHAPE scan alone (no 75% label match can supply the answer here).
+$shapeStyle = fn(string $p) => SWUBotStyleFromScore(SWUBotDeckShapeScore(SWUBotDeckFromFixtureText((string)file_get_contents($p))))['style'];
+$labelOf = function (string $p): string {
+    $t = (string)file_get_contents($p);
+    preg_match('/^# DeckStyle:\s*(\S+)/m', $t, $dm); preg_match('/^# Style:\s*(\S+)/m', $t, $m);
+    return strval($dm[1] ?? $m[1] ?? '');
+};
+foreach (['hyperaggro', 'hardcontrol'] as $end) {
+    $miss = []; $k = 0;
+    foreach ($paths as $p) {
+        if ($labelOf($p) !== $end) continue;
+        $k++;
+        if (($got = $shapeStyle($p)) !== $end) $miss[] = basename($p, '.txt') . " -> $got";
+    }
+    $check($k >= 3 && empty($miss), "every $end-labelled ash-meta deck reads $end on shape ($k decks)", implode('; ', $miss));
+}
+// …and hard control comes ONLY from the event share: a high shape score alone stays soft control (the 3.49 cap).
+// Without the cap the two Data Vault soft control lists (Thrawn, Aurra — the highest scores in the set) read hard.
+$tooHard = [];
+foreach ($paths as $p) if ($labelOf($p) === 'softcontrol' && $shapeStyle($p) === 'hardcontrol') $tooHard[] = basename($p, '.txt');
+$check(empty($tooHard), 'no softcontrol-labelled deck reads hardcontrol on shape (hard control needs the event share)', implode('; ', $tooHard));
+// Burn counts linearly: Boba Fett (JTL) Lake Country — 18 burn cards — is hyper aggro (owner 2026-10-01, relabelled
+// from soft aggro: "Boba LC with 18 burn cards should be hyper aggro"). A burn cap would pull it back to soft aggro.
+$lc = './SWUSim/Tests/BotFixtures/ash-meta-2026-09/boba-fett_jtl_lake-country.txt';
+$check($shapeStyle($lc) === 'hyperaggro', 'Boba Fett (JTL) Lake Country (18 burn) reads hyperaggro on shape', $shapeStyle($lc));
+// The two Boba Fett (JTL) lists split by plan, not leader (owner 2026-10-01): Blue — midrange "with slight burn",
+// 66% ships — read HYPER aggro through the leader nudge (Boba was on the aggro-leader list) and the space term, both
+// now gone from the classifier (SWU_DECKSTYLE_NOT_AGGRO_LEADERS; no space term). Ezra Yellow is soft aggro.
+$fx = fn(string $n) => "./SWUSim/Tests/BotFixtures/ash-meta-2026-09/$n.txt";
+$check($shapeStyle($fx('boba-fett_jtl_blue')) === 'midrange', 'Boba Fett (JTL) Blue reads midrange on shape', $shapeStyle($fx('boba-fett_jtl_blue')));
+$check($shapeStyle($fx('ezra-bridger_ash_yellow')) === 'softaggro', 'Ezra Bridger (ASH) Yellow reads softaggro on shape', $shapeStyle($fx('ezra-bridger_ash_yellow')));
+$check(in_array('JTL_009', SWU_BOT_AGGRO_LEADERS, true), 'the BOT\'s aggro-leader list still has Boba Fett (JTL) — the exclusion is classifier-only');
+// Out of sample: the owner-labelled HMW predictions were never used to place the cuts. Both hyper aggro lists —
+// Ninin's Ahsoka (the deck that prompted the re-fit) and Wicket — must read hyper aggro.
+foreach (['ahsoka-tano_ash_yellow', 'wicket_hmw_green-splash'] as $hmw) {
+    $p = "./SWUSim/Tests/BotFixtures/force-fam-HMW-predictions/$hmw.txt";
+    $check($shapeStyle($p) === 'hyperaggro', "HMW holdout: $hmw reads hyperaggro on shape", $shapeStyle($p));
+}
 
 echo $fails === 0 ? "\nALL PASS\n" : "\n$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

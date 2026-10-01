@@ -15,7 +15,7 @@ function swuSimulationConfig(): array {
 // meta-2026-09-field/ was dropped 2026-09-29 — its 61 unreviewed-style decks existed only for this list, and
 // their archetype data now lives in SWUSim/docs/premier-meta-2026-09-archetypes.md. Adding force-fam/ (the
 // creator decks) is a one-line change here, once they should be pickable.
-const SWU_SIMULATION_OPPONENT_GROUPS = ['meta-2026-09'];
+const SWU_SIMULATION_OPPONENT_GROUPS = ['ash-meta-2026-09'];
 
 function swuSimulationOpponents(): array {
     $result = [];

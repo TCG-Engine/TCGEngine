@@ -1,9 +1,17 @@
 # Real-deck self-play fixtures — Premier, September 2026
 
-Twenty-two tournament decklists — the best-finishing list of each archetype the owner labelled, across four
+Twenty-seven tournament decklists — the best-finishing list of each archetype the owner labelled, across four
 melee.gg Premier events: 445115 Sector Open Dallas, and Planetary Qualifiers 437735, 438966 and 439947. All
 four fall after the Cad Bane ASH leader ban and before HMW/IC27. They exist so the heuristic and RL bots can
-be checked against how real decks actually perform.
+be checked against how real decks actually perform. Five were added on 2026-10-01 from the 53-event field below,
+with the owner's labels: `director-krennic_law_blue` (the field's most-played archetype; soft control, like the
+Splash list), `greef-karga_ash_red` (soft aggro), `ezra-bridger_ash_yellow` (hyper aggro), `boba-fett_jtl_blue`
+(space midrange) and `mother-talzin_lof_red-force` (midrange tempo).
+
+**The real-world targets are in `real_matchups.json`** — every fixture pair's match and game record across 53 Premier
+events after the 2026-08-31 Cad Bane suspension (3,239 decks), keyed by fixture filename. Compare bots against
+`gameWinPct`; a `thin` cell has fewer than 10 matches. Rebuilt by `SWUSim/DevTools/rl/melee_archetype_export.php`
++ `real_matchup_matrix.py` from the melee tournaments imported into SWUStats.
 The research behind them (records, matchups, labels) is in `docs/superpowers/research/2026-09-premier-meta/`,
 and the style mapping is in the RL bots spec (`docs/superpowers/specs/2026-09-13-swusim-rl-bots-design.md`,
 "Archetype vocabulary → base style").
@@ -13,7 +21,7 @@ and the style mapping is in the RL bots spec (`docs/superpowers/specs/2026-09-13
 units are >50% space it cannot contest that arena at all and loses 8-14%, while beating midrange and control
 35-63%. That made "the bot pilots Krennic badly" indistinguishable from "that list cannot contest space" in
 every Krennic measurement up to that date. **When a fixture's result looks like a bot defect, check the
-deck's CURVE first.** The owner's own Krennic list, which does contest space, is in `../force-fam/`.
+deck's CURVE first.** The owner's own Krennic list, which does contest space, is in `../force-fam-old/` (`../force-fam/` until 2026-10-01).
 
 Each file header records:
 - the **source** — event, final placement and the melee decklist URL. Lists were converted to SET_NNN by
@@ -93,16 +101,16 @@ tells them apart, because it carries the leader's SET:
 
 They differ by 6 points and play nothing alike, so "Luke DV" unqualified is always ambiguous — say Luke (ASH)
 or Luke (JTL), which is now exactly what the filenames and the picker labels do. The same trap applies to every leader with two printings in this meta (Thrawn, Vader, Leia, Jabba,
-Lando, Ahsoka). ⚠ The gate is now **22 decks** (greef_datavault was merged into greef-karga_ash_data-vault, and the owner's
-krennic_ninin moved to `../force-fam/`, both on 2026-09-29), so a full `strength_test.sh` run is
-22 x 21 x seeds x 2 = **9,240 games** at 10 seeds.
+Lando, Ahsoka). ⚠ The gate is now **27 decks** (greef_datavault was merged into greef-karga_ash_data-vault, and the owner's
+krennic_ninin moved to `../force-fam/` (now `../force-fam-old/`), both on 2026-09-29; Krennic Blue, Greef Red, Ezra Yellow, Boba Blue and Talzin
+Red Force added 2026-10-01), so a full `strength_test.sh` run is 27 x 26 x seeds x 2 = **14,040 games** at 10 seeds.
 
 Run a pairing with each deck on its own style's profile:
 
     docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d apc.enable_cli=1 -d xdebug.mode=off \
       DevTools/SWUSimBotSelfPlayTest.php --games=8 \
-      --deck=SWUSim/Tests/BotFixtures/meta-2026-09/darth-vader_jtl_yellow.txt --chooser=heuristic-hyperaggro \
-      --deck2=SWUSim/Tests/BotFixtures/meta-2026-09/director-krennic_law_blue-splash.txt --chooser2=heuristic-softcontrol
+      --deck=SWUSim/Tests/BotFixtures/ash-meta-2026-09/darth-vader_jtl_yellow.txt --chooser=heuristic-hyperaggro \
+      --deck2=SWUSim/Tests/BotFixtures/ash-meta-2026-09/director-krennic_law_blue-splash.txt --chooser2=heuristic-softcontrol
 
 With deterministic bots, a seed plays the same game whichever seat goes first. To get more distinct games,
 vary the seed and swap which deck sits in seat 1, rather than swapping the first player.

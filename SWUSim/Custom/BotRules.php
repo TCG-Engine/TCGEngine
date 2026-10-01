@@ -29,6 +29,7 @@ function SWUBotRuleSingle(array $ctx): ?array {
 // winning base attack. At the target prompt the attacker is already exhausted, so its power is added back.
 function SWUBotRuleLethalNow(array $ctx): ?array {
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
+    if (SeatCountForGame() > 2) return SWUBotRuleTwinSunsLethal($ctx);
     if (_SWUBotIsFreePlay($ctx)) {
         if (!SWUBotLethalNow($seat, $opp)) return null;
         $best = null; $bestPow = -1;
@@ -96,7 +97,7 @@ function _SWUBotBestLine(array $ctx, callable $read, callable $score, callable $
 // does not read readiness. Works at free play and at the seat's own prompts (a removal's target).
 function SWUBotRuleBreakLethal(array $ctx): ?array {
     if (strval(GetCurrentPhase()) !== 'MAIN' || !function_exists('SWUBotLookaheadBest')) return null;
-    $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
+    $seat = intval($ctx['seat']); $opp = SWUBotMostDangerousOpponent($seat);   // 2 seats: ctx['opp']
     if (SWUBotClock($opp, $seat) !== 1) return null;
     $read  = fn() => ['oppClock' => SWUBotClock($opp, $seat), 'myClock' => SWUBotClock($seat, $opp)];
     $score = fn(array $r) => $r['oppClock'] * 1000 + ($r['oppClock'] - $r['myClock']);
@@ -244,7 +245,7 @@ function SWUBotRuleFreeKill(array $ctx): ?array {
     $best = null; $bestV = -1.0;
     foreach ($ctx['actions'] as $a) {
         $c = strval($a['cardID'] ?? '');
-        if (!str_starts_with($c, 'their') || str_contains($c, 'Base')) continue;
+        if (!SWUBotIsEnemyMz($seat, $c) || str_contains($c, 'Base')) continue;
         $u = SWUBotViewForMz($seat, $c);
         if ($u === null || !$u['ready'] || SWUBotCombatOutcome($att, $u) !== 'kill-survive') continue;
         $val = SWUBotUnitValue($u);
@@ -770,7 +771,7 @@ function SWUBotRuleExhaustReadyEnemies(array $ctx): ?array {
     $keep = []; $readyEnemy = false; $exhaustedEnemy = false;
     foreach ($ctx['actions'] as $a) {
         $c = strval($a['cardID'] ?? '');
-        $v = str_starts_with($c, 'their') ? SWUBotViewForMz($seat, $c) : null;
+        $v = SWUBotIsEnemyMz($seat, $c) ? SWUBotViewForMz($seat, $c) : null;
         if ($v !== null && !$v['ready']) { $exhaustedEnemy = true; continue; }
         if ($v !== null) $readyEnemy = true;
         $keep[] = $a;
@@ -791,13 +792,122 @@ function SWUBotRuleBankCredits(array $ctx): ?array {
     if (SWUPlayerControlsSEC122($seat)) return null;
     $max = intval($p[1]); $cost = intval($p[2]);
     $preyed = false;
-    foreach (SWUBotUnits(intval($ctx['opp'])) as $v) { if (in_array($v['cardID'], SWU_BOT_CREDIT_PREDATORS, true)) { $preyed = true; break; } }
+    foreach (SWUBotEnemyUnits($seat) as $v) { if (in_array($v['cardID'], SWU_BOT_CREDIT_PREDATORS, true)) { $preyed = true; break; } }
     $n = $preyed ? min($max, $cost) : min($max, max(0, $cost - SWUResourceCount($seat, true)));
     return _SWUBotFind($ctx, fn($a) => SWUBotSelectionCount($a) === $n);
 }
 
 function SWUBotRulesBeforeFilter(): array {
-    return ['single' => 'SWUBotRuleSingle', 'lethal-now' => 'SWUBotRuleLethalNow', 'planned-answer' => 'SWUBotRulePlannedAnswer'];
+    return ['single' => 'SWUBotRuleSingle', 'lethal-now' => 'SWUBotRuleLethalNow', 'ts-attack' => 'SWUBotRuleTwinSunsAttack',
+            'planned-answer' => 'SWUBotRulePlannedAnswer'];
+}
+
+// ══ TWIN SUNS (3-4 seats) ATTACK POLICY ══════════════════════════════════════════════════════════════════════════
+// SWUSim/docs/todo-twinsuns-fill-bot.md "Bot policy" (owner decisions 2026-10-01). Every rule here returns null at 2
+// seats, so Arenabot is untouched. In priority order, each read per live opponent:
+//   1. take a base kill only when it WINS (below); never make one that hands someone else the game;
+//   2. a weak attacker (or a Saboteur) breaks a Shield, so the strong units keep their damage for the real hit;
+//   3. otherwise a base attack goes to the HEALTHIEST enemy (the fallback's base tie-break, BotFallback.php).
+
+// Would defeating $victim's base WIN for $seat? Free-for-all (CR 12.6.2, 12.7): the eliminator heals 5, and the game
+// ends at the end of that phase with the highest remaining base HP winning (ties share, CR 12.7.3) — so only if my
+// HP + 5 is at least every OTHER live seat's (owner Decision 1). Team Suns has no HP scoring and ends only when a whole
+// team is gone, so an enemy kill always helps.
+function SWUBotKillWins(int $seat, int $victim): bool {
+    if (function_exists('SWUIsTeamGame') && SWUIsTeamGame()) return SWUIsEnemySeat($seat, $victim);
+    $mine = SWUBaseRemainingHp($seat) + 5;
+    foreach (GetLiveSeatsArray() as $s) {
+        if ($s === $seat || $s === $victim) continue;
+        if (SWUBaseRemainingHp($s) > $mine) return false;
+    }
+    return true;
+}
+
+// Team Suns: does killing $victim wipe its whole team (instant win)? Ranks it first among winning kills.
+function _SWUBotKillWipesTeam(int $victim): bool {
+    if (!function_exists('SWUIsTeamGame') || !SWUIsTeamGame()) return false;
+    foreach (GetLiveSeatsArray() as $s) { if ($s !== $victim && SWUTeamOf($s) === SWUTeamOf($victim)) return false; }
+    return true;
+}
+
+// Free play: commit to a kill that wins, with the strongest attacker that can reach that base. The 3-4 seat
+// replacement for rule 2 (SWUBotRuleLethalNow), whose single-opponent read took the FIRST base it was offered.
+function SWUBotRuleTwinSunsLethal(array $ctx): ?array {
+    $seat = intval($ctx['seat']);
+    if (!_SWUBotIsFreePlay($ctx)) return null;   // the target prompt is SWUBotRuleTwinSunsAttack's
+    $victims = array_values(array_filter(SWUBotOpponents($seat), fn($o) => SWUBotLethalNow($seat, $o) && SWUBotKillWins($seat, $o)));
+    if (empty($victims)) return null;
+    $best = null; $bestPow = -1;
+    foreach ($ctx['actions'] as $a) {
+        if (SWUBotActionKind($a) !== 'attack') continue;
+        $att = SWUBotViewForMz($seat, SWUBotActionMz($a));
+        if ($att === null || empty(array_intersect($victims, SWUBotAttackTargets($seat, $att)['bases'] ?? []))) continue;
+        if ($att['attackPower'] > $bestPow) { $best = $a; $bestPow = $att['attackPower']; }
+    }
+    return $best;
+}
+
+// The target prompt's base candidates: [action, owner seat, remaining HP, does this attack defeat it].
+function _SWUBotTargetBases(array $ctx, array $att): array {
+    $seat = intval($ctx['seat']); $out = [];
+    foreach ($ctx['actions'] as $a) {
+        $c = strval($a['cardID'] ?? '');
+        if (!str_contains($c, 'Base-')) continue;
+        $owner = SWUMzOwner($c, $seat);
+        $hp = SWUBaseRemainingHp($owner);
+        $out[] = [$a, $owner, $hp, $att['attackPower'] >= $hp];
+    }
+    return $out;
+}
+
+// Is $att the weakest of my ready attackers (another, stronger one is still ready)? At the target prompt the attacker
+// is already exhausted, so it is compared with what is still ready.
+function _SWUBotIsWeakAttacker(int $seat, array $att): bool {
+    $stronger = false;
+    foreach (SWUBotUnits($seat) as $v) {
+        if ($v['uid'] === $att['uid'] || !$v['ready']) continue;
+        if ($v['attackPower'] < $att['attackPower']) return false;
+        if ($v['attackPower'] > $att['attackPower']) $stronger = true;
+    }
+    return $stronger;
+}
+
+function SWUBotRuleTwinSunsAttack(array $ctx): ?array {
+    if (SeatCountForGame() <= 2 || ($ctx['tooltip'] ?? '') !== 'Choose_an_attack_target') return null;
+    $seat = intval($ctx['seat']);
+    $attMz = SWUBotAttackerMz($ctx);
+    $att = $attMz !== null ? SWUBotViewForMz($seat, $attMz) : null;
+    if ($att === null) return null;
+    // 1. A kill that wins — in Team Suns, one that wipes a whole team first.
+    $wins = array_values(array_filter(_SWUBotTargetBases($ctx, $att), fn($b) => $b[3] && SWUBotKillWins($seat, $b[1])));
+    if (!empty($wins)) {
+        usort($wins, fn($x, $y) => [_SWUBotKillWipesTeam($y[1]), -$y[2]] <=> [_SWUBotKillWipesTeam($x[1]), -$x[2]]);
+        return $wins[0][0];
+    }
+    // 2. A weak attacker or a Saboteur breaks the most valuable Shield it can reach.
+    if ($att['saboteur'] || _SWUBotIsWeakAttacker($seat, $att)) {
+        $best = null; $bestV = -1.0;
+        foreach ($ctx['actions'] as $a) {
+            $c = strval($a['cardID'] ?? '');
+            if (str_contains($c, 'Base-') || !SWUBotIsEnemyMz($seat, $c)) continue;
+            $v = SWUBotViewForMz($seat, $c);
+            if ($v === null || $v['shields'] <= 0) continue;
+            if (SWUBotUnitValue($v) > $bestV) { $bestV = SWUBotUnitValue($v); $best = $a; }
+        }
+        if ($best !== null) return $best;
+    }
+    return null;   // 3 is a tie-break in the fallback; the style filter drops a kill that would lose (below)
+}
+
+// For SWUBotStyleFilter: at 3-4 seats, the base candidates this attack would DEFEAT without winning — making that
+// kill hands the game to whoever is then highest (owner Decision 1). Never the only option left.
+function SWUBotLosingKillMzs(array $ctx, array $att): array {
+    if (SeatCountForGame() <= 2) return [];
+    $seat = intval($ctx['seat']); $out = [];
+    foreach (_SWUBotTargetBases($ctx, $att) as [$a, $owner, $hp, $kills]) {
+        if ($kills && !SWUBotKillWins($seat, $owner)) $out[] = strval($a['cardID'] ?? '');
+    }
+    return $out;
 }
 
 function SWUBotRulesAfterFilter(): array {

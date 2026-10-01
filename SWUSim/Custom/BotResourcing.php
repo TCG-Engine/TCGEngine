@@ -298,7 +298,9 @@ function _SWUBotWipeLosses(int $seat, string $cid): array {
         foreach (SWUBotUnits($s) as $u) { if (in_array(strval($u['arena']), $arenas, true)) $v += SWUBotUnitValue($u); }
         return $v;
     };
-    return [_SWUBotWipeIsOneSided($cid) ? 0.0 : $sum($seat), $sum(SWUBotOpponent($seat))];
+    $theirs = 0.0;
+    foreach (SWUBotOpponents($seat) as $o) $theirs += $sum($o);   // every live enemy (3-4 seats)
+    return [_SWUBotWipeIsOneSided($cid) ? 0.0 : $sum($seat), $theirs];
 }
 
 // Relevant = it covers EVERY arena the opponent is using. So Hyperspace Disaster answers a pure space board, but
@@ -306,7 +308,8 @@ function _SWUBotWipeLosses(int $seat, string $cid): array {
 // "HSD for space, SRI for mixed or ground aggro". With no enemy unit yet the need is unknown, and every wipe counts
 // as relevant: throwing an answer away before seeing the threat is the mistake being fixed.
 function _SWUBotWipeIsRelevant(int $seat, string $cid): bool {
-    $theirs = _SWUBotUnitArenas(SWUBotOpponent($seat));
+    $theirs = [];
+    foreach (SWUBotOpponents($seat) as $o) $theirs = array_values(array_unique(array_merge($theirs, _SWUBotUnitArenas($o))));
     return empty($theirs) || empty(array_diff($theirs, _SWUBotWipeArenas($cid)));
 }
 
@@ -327,7 +330,7 @@ function _SWUBotProtectedWipe(int $seat, string $style): ?string {
 // "Stabilized enough to not need it": the opponent is at least 3 rounds from killing me — the same threshold
 // rule 5 uses for a wipe that stabilises (SWUBotStabilises).
 function _SWUBotIsStabilized(int $seat): bool {
-    return SWUBotClock(SWUBotOpponent($seat), $seat) >= 3;
+    return SWUBotClock(SWUBotMostDangerousOpponent($seat), $seat) >= 3;
 }
 
 // Rule 10 — the resourcing floor (CR 5.5.1c): resource every regroup until the leader can deploy. A fixed
@@ -412,7 +415,10 @@ const SWU_BOT_AGGRO_LEADERS = ['ASH_009', 'ASH_013', 'ASH_017', 'JTL_004', 'JTL_
                                'SEC_014'];
 
 function SWUBotOpponentIsAggroLeader(int $seat): bool {
-    return in_array(strval((GetLeader(SWUBotOpponent($seat))[0] ?? null)->CardID ?? ''), SWU_BOT_AGGRO_LEADERS, true);
+    foreach (SWUBotOpponents($seat) as $o) {   // any live enemy (3-4 seats)
+        if (in_array(strval((GetLeader($o)[0] ?? null)->CardID ?? ''), SWU_BOT_AGGRO_LEADERS, true)) return true;
+    }
+    return false;
 }
 
 function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array {

@@ -749,7 +749,20 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       $result['recordAction'] = false;
       break;
     case 10017:
-      if (function_exists('ProcessBotControllerStep')) {
+      $expectedUpdate = $options['botStepExpectedUpdate'] ?? null;
+      if ($expectedUpdate !== null && intval($expectedUpdate) !== intval($updateNumber)) {
+        // Stale step: the asking browser rendered an older update, so another browser (or a human)
+        // already moved the game on. No move — its next render asks again with the current token.
+        // See Core/GameWriteLock.php.
+        $result['success'] = true;
+        $result['message'] = 'Bot step skipped: the game has moved on.';
+        $result['writeGamestate'] = false;
+        $result['updateCache'] = false;
+        $result['recordAction'] = false;
+        $result['botStepApplied'] = false;
+        $result['botStepRetryable'] = true;
+        $result['botStepStale'] = true;
+      } else if (function_exists('ProcessBotControllerStep')) {
         $botResult = ProcessBotControllerStep($playerID, $folderPath, $gameName);
         $result['success'] = !empty($botResult['success']);
         $result['message'] = strval($botResult['message'] ?? '');

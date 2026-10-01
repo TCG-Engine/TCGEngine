@@ -12,6 +12,7 @@ include_once './Core/EngineActionRunner.php';
 include_once "./Core/NetworkingLibraries.php";
 include_once "./Core/HTTPLibraries.php";
 include_once "./Core/ViewerIdentity.php";
+include_once "./Core/GameWriteLock.php";
 include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./AccountFiles/AccountDatabaseAPI.php";
 include_once "./Database/ConnectionManager.php";
@@ -149,6 +150,24 @@ if(GetEditAuth() == "AssetOwner") {
 
 global $gameName;
 $gameName = strval($gameName);
+
+// Hold the game's write lock from BEFORE the parse until after the write, so an overlapping request
+// (another seat, or a second browser stepping the bot) waits and then builds on this one's result
+// instead of overwriting it. Spectators never write, so they skip it. `lockWaitMs` can only SHORTEN
+// the wait (the regression test uses it to reach the busy reply quickly).
+$gameWriteLock = true;
+if (!$viewerInfo['isSpectator']) {
+  $lockWaitMs = SIM_GAME_WRITE_LOCK_WAIT_MS;
+  if (isset($_GET['lockWaitMs']) && ctype_digit(strval($_GET['lockWaitMs']))) {
+    $lockWaitMs = min($lockWaitMs, intval($_GET['lockWaitMs']));
+  }
+  $gameWriteLock = SimGameAcquireWriteLock(strval($folderPath), $gameName, $lockWaitMs);
+  if ($gameWriteLock === false) {
+    // Retryable for the bot controller: its client backs off and steps again.
+    ProcessInputReply(false, "The game is busy. Please try again.", ["botStepRetryable" => true]);
+  }
+}
+
 ParseGamestate("./" . $folderPath . "/");
 
 // Inactivity clock (SWUSim): snapshot the progress fingerprint BEFORE the action so the engine's write
@@ -177,7 +196,12 @@ $actionResult = EngineExecuteLoadedAction([
   // SWUSim undo kind ('step' | 'phase'). Params reach us on the QUERY STRING (SubmitEngineInput
   // appends to the URL), so this must come from $_GET — $_POST is never populated on these requests.
   'undoKind' => $_GET["undoKind"] ?? '',
+  // The update the client had rendered when it asked for a bot step (mode 10017). A step whose
+  // token is behind the game is refused as stale: another browser already moved the game on.
+  // Absent (an older cached client) = no check.
+  'botStepExpectedUpdate' => ctype_digit(strval($_GET["lastUpdate"] ?? '')) ? intval($_GET["lastUpdate"]) : null,
 ]);
+SimGameReleaseWriteLock($gameWriteLock);
 
 if (ProcessInputWantsJsonResponse()) {
   $jsonExtra = [
@@ -186,6 +210,7 @@ if (ProcessInputWantsJsonResponse()) {
   if (array_key_exists('botStepApplied', $actionResult)) {
     $jsonExtra["botStepApplied"] = !empty($actionResult['botStepApplied']);
     $jsonExtra["botStepRetryable"] = !empty($actionResult['botStepRetryable']);
+    $jsonExtra["botStepStale"] = !empty($actionResult['botStepStale']);
     $jsonExtra["botController"] = $actionResult['botControllerState'] ?? BuildBotControllerClientState($folderPath, $gameName);
   }
   ProcessInputReply(!empty($actionResult['success']), $actionResult['message'] ?? "", $jsonExtra);

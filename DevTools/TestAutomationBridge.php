@@ -2063,12 +2063,25 @@ function BridgeIsStaticDecision($decision) {
  * queue. Drain those cross-player continuations before self-play asks for its
  * next interactive action.
  */
+// The seats whose decision queues the bridge reads. A root with a seat order (SWUSim: Twin Suns seats 3-4) lists
+// every seat in it; every other root keeps 1-2, unchanged. Hardcoding 1-2 here meant a seat-3/4 prompt was never
+// seen, so the enumerator fell through to the TURN player's free-play actions — every one a no-op for the seat that
+// actually owed the answer (found by DevTools/SWUSimTwinSunsSelfPlay.php; SWUSim/DevTools/tests/twinsuns_bot_seats_test.php).
+function BridgeDecisionSeats(): array {
+  if (function_exists('GetSeatOrderArray')) {
+    $seats = array_values(array_unique(array_map('intval', GetSeatOrderArray())));
+    sort($seats);
+    if (!empty($seats)) return $seats;
+  }
+  return [1, 2];
+}
+
 function BridgeDrainStaticDecisionQueuesLoaded($maxPasses = 32) {
   $dqController = new DecisionQueueController();
   $drainedPasses = 0;
   for ($pass = 0; $pass < max(1, intval($maxPasses)); ++$pass) {
     $progressed = false;
-    for ($player = 1; $player <= 2; ++$player) {
+    foreach (BridgeDecisionSeats() as $player) {
       $decision = $dqController->NextDecision($player);
       if (!BridgeIsStaticDecision($decision)) continue;
       $dqController->ExecuteStaticMethods($player, '-');
@@ -2082,7 +2095,7 @@ function BridgeDrainStaticDecisionQueuesLoaded($maxPasses = 32) {
 
 function BridgeEnumerateLegalActionsLoaded($root, $gameName) {
   $dqController = new DecisionQueueController();
-  for ($player = 1; $player <= 2; ++$player) {
+  foreach (BridgeDecisionSeats() as $player) {
     $decision = $dqController->NextDecision($player);
     if ($decision !== null) {
       return [

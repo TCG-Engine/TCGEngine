@@ -263,7 +263,14 @@ function SWUVoterSeatsFor(int $target, ?array $facts = null): array
     $isTeam = ($facts !== null)
         ? !empty($facts['team'])
         : (function_exists('SWUIsTeamGame') && SWUIsTeamGame());
-    $live = array_values(array_filter($seats, function ($s) use ($target) { return $s !== $target; }));
+    // A bot seat never votes, so counting it would let it block every kick (unanimous at 3 live seats, and the
+    // whole opposing team in Team Suns). Room games with bots: SWUSim/docs/todo-twinsuns-fill-bot.md.
+    $bots = ($facts !== null)
+        ? array_map('intval', $facts['bots'] ?? [])
+        : (function_exists('GetSWUBotPlayers') ? GetSWUBotPlayers() : []);
+    $live = array_values(array_filter($seats, function ($s) use ($target, $bots) {
+        return $s !== $target && !in_array($s, $bots, true);
+    }));
     if ($isTeam) {
         // Seat parity IS the team (1,3 red · 2,4 blue) — computed directly, because SWUTeamOf() consults
         // SWUIsTeamGame() and would degrade to "every seat its own team" on the cheap path.

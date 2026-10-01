@@ -11,7 +11,7 @@ import { readFileSync } from 'fs';
 
 const BASE = process.argv[2] || 'http://localhost:3400/TCGEngine/';
 const MENU = BASE + 'SharedUI/Sites/SWUSim/MainMenu.php';
-const FIX = new URL('../../SWUSim/Tests/BotFixtures/meta-2026-09/', import.meta.url);
+const FIX = new URL('../../SWUSim/Tests/BotFixtures/ash-meta-2026-09/', import.meta.url);
 const deck = (name) => readFileSync(new URL(name + '.txt', FIX), 'utf8');
 const VADER = deck('darth-vader_jtl_yellow');          // labelled hyperaggro
 const KRENNIC = deck('director-krennic_law_blue-splash');    // labelled softcontrol

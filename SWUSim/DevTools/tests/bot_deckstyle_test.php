@@ -11,16 +11,16 @@ $check = function ($ok, $msg, $detail = '') use (&$fails) {
     echo ($ok ? 'PASS' : 'FAIL') . ": $msg" . (!$ok && $detail !== '' ? "  [got: $detail]" : '') . "\n";
     if (!$ok) $fails++;
 };
-$deckOf = fn(string $f) => SWUBotDeckFromFixtureText((string)file_get_contents("./SWUSim/Tests/BotFixtures/meta-2026-09/$f.txt"));
+$deckOf = fn(string $f) => SWUBotDeckFromFixtureText((string)file_get_contents("./SWUSim/Tests/BotFixtures/ash-meta-2026-09/$f.txt"));
 $reg = SWUBotDeckLabelRegistry();
-// The registry is exactly the fixtures in meta-2026-09, so count it from the directory rather than pinning a
+// The registry is exactly the fixtures in ash-meta-2026-09, so count it from the directory rather than pinning a
 // literal. It read 23 until 2026-09-29, when the rename merged greef_datavault into greef and krennic_ninin
 // moved to force-fam/ — a hardcoded count goes red on every roster change and says nothing about the code.
 // The INVARIANT is that the registry and the directory agree; that is what is asserted.
-$metaCount = count(glob('./SWUSim/Tests/BotFixtures/meta-2026-09/*.txt') ?: []);
-$check(count($reg) === $metaCount, 'the registry holds every labelled deck in meta-2026-09',
+$metaCount = count(glob('./SWUSim/Tests/BotFixtures/ash-meta-2026-09/*.txt') ?: []);
+$check(count($reg) === $metaCount, 'the registry holds every labelled deck in ash-meta-2026-09',
     count($reg) . ' registry vs ' . $metaCount . ' fixtures');
-$check($metaCount >= 20, 'meta-2026-09 still has its roster (the glob resolved)', strval($metaCount));
+$check($metaCount >= 20, 'ash-meta-2026-09 still has its roster (the glob resolved)', strval($metaCount));
 
 // ── overlap ─────────────────────────────────────────────────────────────────────────────────────
 $vader = $deckOf('darth-vader_jtl_yellow');

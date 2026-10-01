@@ -1,0 +1,46 @@
+# Self-play fixture — "STAR WARS DAD Maul Blue 3.0" (Maul, Old Master - Shield Generator Complex)
+# Source: a PREDICTED list for the HMW meta by the creator StarWarsDad, from maul_HMW_blue.json (kept alongside).
+#   Converted 2026-10-01. 54 main-deck cards, 10 sideboard.
+#   Base trait: Endor — no card in the deck cares, so the name carries no trait.
+# Author: Star Wars Dad
+# Archetype (owner's label, 2026-10-01): Soft control
+# Style: softcontrol
+
+Leader
+1 HMW_016
+
+Base
+1 JTL_020
+
+Deck
+3 HMW_202
+3 LOF_242
+3 LOF_213
+2 ASH_194
+2 LAW_237
+2 JTL_033
+2 HMW_198
+3 ASH_052
+2 LAW_133
+3 ASH_053
+3 JTL_043
+2 LAW_118
+3 LOF_070
+3 ASH_048
+3 JTL_032
+3 ASH_079
+1 JTL_041
+2 SEC_078
+3 HMW_055
+3 LOF_057
+1 LAW_086
+2 HMW_204
+
+Sideboard
+2 ASH_078
+2 ASH_220
+1 JTL_041
+1 SEC_078
+1 LAW_086
+2 SEC_186
+1 HMW_204

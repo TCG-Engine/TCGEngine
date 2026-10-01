@@ -5,7 +5,7 @@ here too. Created 2026-09-29 with `krennic_ninin.txt` (swustats deck 108757, ref
 
 ## Why this is a separate directory
 
-`meta-2026-09/` answers "how do our bots do against the field", so every deck in it is a tournament result
+`ash-meta-2026-09/` answers "how do our bots do against the field", so every deck in it is a tournament result
 and its fixtures are named for their leader/set/base. This directory answers something different: it is
 material for letting people **play against a creator's actual deck** in Petranaki Arena's Arenabot, with the
 creator's permission. Attribution is part of the point, so the deck's *provenance* matters as much as its
@@ -21,18 +21,18 @@ The Bot Arena deck picker will group fixtures by directory, with a display name 
 
 | directory | category shown to players |
 |---|---|
-| `meta-2026-09` | SWU Competitive Hub Meta September 2026 |
+| `ash-meta-2026-09` | SWU Competitive Hub Meta September 2026 |
 | `force-fam` | Force Fam |
 
 ⚠ **Until that exists, nothing here is selectable in the Bot Arena.**
-`SWUSim/DevTools/regen-deck-labels.php` globs `meta-2026-09/*.txt` ONLY, so these decks are absent from
+`SWUSim/DevTools/regen-deck-labels.php` globs `ash-meta-2026-09/*.txt` ONLY, so these decks are absent from
 `SWUSim/Custom/BotDeckLabels.json` and therefore from the picker. Accepted deliberately (owner, 2026-09-29)
 rather than widening the glob ahead of the category work — a flat picker mixing tournament lists with
 creator decks and no way to tell them apart is worse than the decks being temporarily unavailable.
 
 ## Naming
 
-⚠ **The `meta-2026-09` convention (`<leader-title>_<set>_<base-archetype>`) is NOT sufficient here** and
+⚠ **The `ash-meta-2026-09` convention (`<leader-title>_<set>_<base-archetype>`) is NOT sufficient here** and
 these files are exempt from the 2026-09-29 rename. Two creators on the same archetype would collide, and
 the display name would drop the attribution that is the whole reason the deck is here — `krennic_ninin`
 and the melee `director-krennic_law_blue-splash` already derive the *identical* display name

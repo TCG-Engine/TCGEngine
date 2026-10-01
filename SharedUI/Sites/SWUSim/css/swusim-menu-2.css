@@ -2572,6 +2572,180 @@
     letter-spacing: 0.01em;
   }
 
+  /* ---------- Arenabot: GROUPED pre-cons (owner 2026-10-01) ----------
+     Each group is a BLOCK that opens its own picker dialog over the Arenabot modal. The block is
+     the pre-con row's recipe (same cut, rim, planes and gold "chosen" state), so it reads as a
+     bigger relative of the rows it opens, not a new kind of control. It is a <button>, so
+     button.ch's legacy-reset rules apply at 0-4-1 and the properties set here go through
+     #setup-arenabot (1-1-0) — padding-block in particular, which that reset zeroes. */
+  .pcgroups {
+    display: grid;
+    gap: 5px;
+
+    @media (min-width: 560px) { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); }
+  }
+
+  #setup-arenabot .pcgroup {
+    --cut: 9px;
+    --rim: 1px;
+    --plane: var(--e2);
+    --plane-art: linear-gradient(165deg, rgba(255, 255, 255, 0.045) 0%, transparent 46%);
+    --rim-hi: rgba(196, 214, 238, 0.30);
+    --rim-lo: rgba(120, 142, 172, 0.12);
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 3px var(--s-3);
+    inline-size: 100%;
+    min-block-size: calc(var(--tap) + 16px);
+    padding: 9px 12px;
+    font: inherit;
+    text-align: start;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--ink);
+    cursor: pointer;
+
+    &:hover { --plane: var(--e3); --rim-hi: rgba(214, 230, 250, 0.48); }
+    &:focus-visible { outline: none; --rim: 3px; --rim-hi: var(--gold-hi); --rim-lo: var(--gold); }
+  }
+
+  /* the group holding the chosen deck wears the chosen row's gold */
+  #setup-arenabot .pcgroup--on {
+    --plane: var(--e3);
+    --plane-art: linear-gradient(180deg, color-mix(in oklch, var(--gold) 9%, transparent), transparent 62%);
+    --rim-hi: color-mix(in oklch, var(--gold) 74%, transparent);
+    --rim-lo: var(--edge-strong);
+  }
+
+  .pcgroup__name {
+    grid-column: 1;
+    font-size: var(--t-13);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .pcgroup__meta,
+  .pcgroup__pick {
+    grid-column: 1;
+    font-size: var(--t-12);
+    line-height: 1.35;
+    color: var(--ink-3);
+  }
+
+  .pcgroup__pick {
+    color: var(--ink-2);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &[hidden] { display: none; }
+  }
+
+  .pcgroup__go {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    inline-size: 16px;
+    block-size: 16px;
+    color: var(--ink-3);
+  }
+
+  #setup-arenabot .pcgroup:hover .pcgroup__go { color: var(--ink); }
+
+  /* The picker: a <dialog> NESTED in #setup-arenabot and opened with showModal(), so it is in the
+     top layer above the Arenabot modal. Same frame as .setup (the UA dialog box undone, a fixed
+     centred box that scrolls its own content through flex — never a % height, which resolves in
+     Chromium and not in Firefox or WebKit), narrower, and its well takes the height the
+     Arenabot modal had to ration. */
+  .pcpick {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    max-inline-size: none;
+    max-block-size: none;
+    color: var(--ink);
+    background-color: transparent;
+    overflow: visible;
+  }
+
+  .pcpick[open] {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    inline-size: min(100% - 2 * var(--s-5), 620px);
+    block-size: fit-content;
+    max-block-size: calc(100% - 2 * var(--s-5));
+  }
+
+  .pcpick::backdrop { background-color: oklch(0.11 0.016 253 / 0.55); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pcpick[open] { animation: setup-rise 180ms var(--ease); }
+    .pcpick[open]::backdrop { animation: scrim-in 180ms var(--ease); }
+  }
+
+  /* at phone width, a bottom sheet like .setup, with scrim left above to tap */
+  @media (max-width: 559px) {
+    .pcpick[open] {
+      inline-size: 100%;
+      max-block-size: calc(100% - 30px);
+      margin: auto 0 0;
+    }
+  }
+
+  .pcpick__pane {
+    --cut: 18px;
+    --rim: 2px;
+    --plane: var(--pane-modal);
+    --ink-3: oklch(0.745 0.022 250);   /* the modal's lifted muted ink — see .setup__pane */
+    --plane-art:
+      radial-gradient(118% 56% at 26% 0%, color-mix(in oklch, var(--tint) 16%, transparent), transparent 66%),
+      radial-gradient(112% 62% at 26% 0%, rgba(255, 255, 255, 0.060), transparent 68%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0, transparent 30%, transparent 66%, rgba(0, 0, 0, 0.22) 100%);
+    position: relative;
+    flex: 1 1 auto;
+    min-block-size: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: var(--s-4) 18px 18px;
+
+    @media (min-width: 620px) { padding: var(--s-5); }
+
+    & .setup__kind { padding-inline-end: 56px; }
+    & .note--over { margin-block-start: 4px; }
+    & .arow { margin-block-start: var(--s-3); justify-content: end; }
+  }
+
+  .pcpick__title {
+    padding-inline-end: 56px;
+    font-size: var(--t-24);
+    font-weight: 700;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+    font-variation-settings: "wdth" 112;
+    line-height: 1.08;
+  }
+
+  /* the well shrinks with the box, never past the scroll's own content */
+  .pcpick .pool {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ⚠ #setup-arenabot is in the selector on purpose: the picker is NESTED in that modal, so
+     Arenabot's own cap (`#setup-arenabot .pool__scroll`, 1-1-0 — the leftover-height ration)
+     matched it too and clipped this well to ~3 rows. 1-2-0 takes it back. */
+  #setup-arenabot .pcpick .pool__scroll {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    max-block-size: min(62vh, 560px);
+  }
+
   /* ---------- the designed EMPTY pre-con state ------------
      Ghost rows, then the message: the shape says what will land
      here, the words say why it has not. */

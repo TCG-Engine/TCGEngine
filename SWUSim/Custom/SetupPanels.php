@@ -101,7 +101,10 @@ function SWUSetupBotPreCons(): array {
         if ($leader === '' || $base === '' || !$counts) continue;
         $style = trim((string)($d['style'] ?? ''));
         $out[] = [
-            'key'        => trim((string)($d['file'] ?? '')),
+            // 'key' is unique across groups ("ash-meta-2026-09--darth-vader_jtl_yellow"); a JSON written before
+            // groups existed has only 'file', which was unique while there was one group.
+            'key'        => trim((string)($d['key'] ?? $d['file'] ?? '')),
+            'group'      => trim((string)($d['group'] ?? '')),
             // The stored 'name' ("Director Krennic (LAW) Blue Splash") is derived from the leader and
             // base CARD IDs by regen-deck-labels.php (SWUBotDeckDisplayName, BotDeckStyle.php).
             // ⚠ The ucwords(str_replace('_',' ',…)) fallback is for a JSON written before that field
@@ -117,6 +120,23 @@ function SWUSetupBotPreCons(): array {
             'count'      => array_sum(array_map('intval', $counts)),
             'input'      => _SWUSetupDeckJSON([$leader], $base, $counts),
         ];
+    }
+    return $out;
+}
+
+// The Arenabot pre-cons, GROUPED (owner 2026-10-01): [['id', 'label', 'decks' => [pre-con rows]], …] in the order
+// BotDeckLabels.json lists its groups (regen-deck-labels.php, SWU_PRECON_GROUPS). An empty group is left out. A
+// JSON written before groups existed comes back as ONE unnamed group, so the picker still offers every deck.
+function SWUSetupBotPreConGroups(?array $preCons = null): array {
+    $preCons = $preCons ?? SWUSetupBotPreCons();
+    $raw = @json_decode((string)@file_get_contents(__DIR__ . '/BotDeckLabels.json'), true);
+    $defs = is_array($raw) ? (array)($raw['groups'] ?? []) : [];
+    if (!$defs) return $preCons ? [['id' => '', 'label' => 'Bot Pre-Cons', 'decks' => $preCons]] : [];
+    $out = [];
+    foreach ($defs as $g) {
+        $id = trim((string)($g['id'] ?? ''));
+        $decks = array_values(array_filter($preCons, fn($p) => $p['group'] === $id));
+        if ($id !== '' && $decks) $out[] = ['id' => $id, 'label' => trim((string)($g['label'] ?? $id)), 'decks' => $decks];
     }
     return $out;
 }

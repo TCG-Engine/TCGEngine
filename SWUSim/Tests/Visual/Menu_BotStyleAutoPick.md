@@ -27,7 +27,7 @@ By hand: open the menu, choose Game type "Arenabot", then paste a list into "Bot
 
 ## WHAT TO LOOK AT
 
-1. **The dropdown changes by itself.** Paste the Darth Vader (JTL) Yellow list (`SWUSim/Tests/BotFixtures/meta-2026-09/
+1. **The dropdown changes by itself.** Paste the Darth Vader (JTL) Yellow list (`SWUSim/Tests/BotFixtures/ash-meta-2026-09/
    darth-vader_jtl_yellow.txt`) into the bot deck field and click away: "Bot play style" switches to **Hyper Aggro**.
    Paste `director-krennic_law_blue-splash.txt` instead: it switches to **Soft Control**.
 2. **Your change sticks until the next deck.** Set the dropdown to Hard Control by hand: it stays Hard Control while

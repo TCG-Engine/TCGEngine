@@ -36,8 +36,11 @@ function SWUBotStyleDisplay(string $style): string {
     return SWU_BOT_STYLE_DISPLAY[SWUBotResolveStyle($style)] ?? SWUBotResolveStyle($style);
 }
 
-// Starting values for the fallback scorer (layer 4), indexed by RANK.
-function SWUBotWeights(string $style, int $seat): array {
+// THE PRINTED WEIGHT TABLE, indexed by RANK (hyper, soft aggro, midrange, soft control, hard control). Its tag rows are
+// mirrored in SWUSim/Rl/tag-weights.md (owner, 2026-10-01: the human-readable source of truth) and bot_tagweights_test.php
+// fails if the two ever disagree — change BOTH. SWUBotWeights() below derives the live weights from it (racing shift,
+// probes, levers), so a live weight can differ from the printed one (e.g. midrange `kill` under 'mgkill').
+function SWUBotWeightTable(): array {
     static $T = [
         //              hyper  soft   mid    softc  hardc
         'base'      => [0.60,  0.60,  0.60,  0.60,  0.60],   // FLAT: a point of base damage is 1/30th of a win for everyone
@@ -49,10 +52,36 @@ function SWUBotWeights(string $style, int $seat): array {
         'unitPlay'  => [0.60,  0.40,  0.10,  0.00,  0.00],
         'removal'   => [0.40,  0.50,  0.80,  1.10,  1.40],
         'wipe'      => [0.00,  0.10,  0.40,  1.00,  1.80],
-        'damage'    => [0.35,  0.45,  0.60,  0.70,  0.80],
+        // `damage` RETIRED 2026-10-01 (owner): its weight moved to damage-enemy-unit, which every targeted, power-strike
+        // and spread enemy-damage card now carries. The frozen v1/v2 tag tables still say 'damage' and so get NO damage
+        // weight under @no-tags2/@no-tags3 any more — the owner chose to break those arms rather than keep a shim.
+        'damage-enemy-unit' => [0.35,  0.45,  0.60,  0.70,  0.80],
+        // PER ENEMY UNIT THE SHRINK WOULD KILL (owner: "scales in value the more weak units on their side") — applied in
+        // _SWUBotPlayValue, never in the flat tag sum. One kill = what the card was worth as `damage`.
+        'debuff-all-enemy-units' => [0.35,  0.45,  0.60,  0.70,  0.80],
         'draw'      => [0.20,  0.30,  0.50,  1.00,  1.40],
         'heal'      => [0.05,  0.10,  0.30,  0.50,  0.80],
-        'burn'      => [0.70,  0.80,  0.40,  0.30,  0.30],   // peaks at soft aggro: base damage from CARDS
+        // `burn` RETIRED 2026-10-01 (owner) into damage-enemy-base, weight unchanged: "that works towards the win-con".
+        'damage-enemy-base' => [0.70,  0.80,  0.40,  0.30,  0.30],   // peaks at soft aggro: base damage from CARDS
+        // ── The 2026-10-01 tags, weighted (owner-approved table). Order: hyper, soft aggro, midrange, soft, hard control.
+        // Most sit ON TOP of a tag the same cards already carry, so they are INCREMENTS, never a second full weight:
+        // power-strike and the spreads ride damage-enemy-unit; pump rides grants-attack and (41 of 62) buff.
+        'grants-attack'            => [0.70,  0.60,  0.40,  0.30,  0.20],   // an extra attack is tempo; aggro values it most
+        'pump'                     => [0.15,  0.10,  0.05,  0.05,  0.00],   // small: on top of grants-attack (+ buff)
+        'shoot-first'              => [0.20,  0.20,  0.25,  0.25,  0.25],   // wins trades it would otherwise lose
+        'attack-no-base'           => [-0.40, -0.30, -0.10, 0.00,  0.00],   // can't push base damage — costs aggro
+        'damage-enemy-unit-spread' => [0.10,  0.15,  0.25,  0.35,  0.40],   // several targets: worth more vs wide boards
+        'damage-all-units-spread'  => [0.00,  0.00,  0.00,  0.00,  0.00],   // "as you choose": no drawback; enemy-spread covers it
+        'damage-friendly-unit'     => [-0.20, -0.25, -0.30, -0.35, -0.40],  // a real drawback (self-damage was worth 0)
+        'damage-friendly-base'     => [-0.30, -0.40, -0.50, -0.55, -0.60],  // your base is your life total
+        'heal-friendly-units-spread' => [0.05, 0.10,  0.30,  0.50,  0.80],  // = heal: these cards carry no `heal` tag
+        'heal-friendly-base-spread'  => [0.05, 0.10,  0.30,  0.50,  0.80],  // = heal (Redemption gets both)
+        // BOARD-SCALED in _SWUBotPlayValue, never flat: no friendly unit to strike with -> the card's damage-enemy-unit
+        // value is taken back; a striker that can kill an enemy unit -> + W['kill']. The row exists for the key check.
+        'power-strike'             => [0.00,  0.00,  0.00,  0.00,  0.00],
+        // PER POINT OF LIFE healed by a "When an enemy unit is defeated: Heal N" engine (Chimaera, Iden Versio) — HEAVY
+        // (owner: the lifegain is what makes Chimaera so good). Board-scaled in _SWUBotPlayValue, never flat.
+        'heal-on-enemy-defeat'     => [0.30,  0.40,  0.60,  0.80,  1.00],
         'buff'      => [0.55,  0.50,  0.40,  0.35,  0.30],
         'bounce'    => [0.25,  0.30,  0.50,  0.55,  0.60],
         'exhaust'   => [0.25,  0.30,  0.40,  0.40,  0.40],
@@ -78,6 +107,12 @@ function SWUBotWeights(string $style, int $seat): array {
         // perfectly at round 7 over 15 real games, and control wins ~53% of games reaching round 8.
         'horizon'     => [3.00,  4.00,  6.00,  8.00,  9.00],
     ];
+    return $T;
+}
+
+// Starting values for the fallback scorer (layer 4), indexed by RANK.
+function SWUBotWeights(string $style, int $seat): array {
+    $T = SWUBotWeightTable();
     $col = SWUBotRacingRank($style, $seat);
     $out = [];
     foreach ($T as $k => $v) $out[$k] = $v[$col];

@@ -191,6 +191,9 @@ while (true) {
         // Presence, for display only. An away seat keeps its seat and does NOT block Start — the
         // host reads this and decides whether to use Remove.
         'away'     => SWUSeatIsAway($p),
+        // Seconds until the host may Remove this seat (its first minute is protected — SWUSeatKickableIn). Sent as
+        // a DURATION, not a timestamp, so the page counts down from its own clock and skew cannot matter.
+        'kickableIn' => SWUSeatKickableIn($p),
         // The seat's deck identity, cached at deck-validation time. The lobby table shows it so a
         // within-team leader conflict is visible BEFORE anyone tries to start, and so everyone can see
         // what each seat is bringing and swap decks first. Leaders and bases are public information the
@@ -211,6 +214,10 @@ while (true) {
     $response->isTeamRoom = SWURoomIsTeamLobby($lobby);
     $response->roster = $roster;
     $response->botProfiles = $pollAdapter instanceof LobbyBotAdapter ? $pollAdapter->botProfiles($lobby) : (object)[];
+    // Seconds until the host may add a bot (a public Twin Suns room waits a quiet minute — LobbyBotPolicyAdapter).
+    // A DURATION, like a seat's kickableIn: the page turns it into a local deadline, outside its redraw signature.
+    // Additive: absent for every sim whose adapter has no bot policy.
+    if ($pollAdapter instanceof LobbyBotPolicyAdapter) $response->botAddableIn = $pollAdapter->botAddWaitSeconds($lobby, time());
     $response->blockers = $pollAdapter->startBlockers($lobby);
     // How many seats to DRAW and whether they split into teams — the rendering question, kept
     // separate from the routing one above. Carries queueType for Spec 2's per-match choice.

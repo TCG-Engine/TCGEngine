@@ -10,11 +10,63 @@
 //   • On Attack / On Defense / "while attacking" abilities other than Raid are ignored.
 //   • Overwhelm excess is not counted toward lethal.
 //   • Any card-text route to a Sentinel counts as a route (SWUBotOpponentCanGetSentinel).
-// Bot Practice is 2-seat by spec scope, so "the opponent" is the other seat.
+// Bot Practice is 2-seat, so "the opponent" is the other seat. Twin Suns room bots (3-4 seats,
+// SWUSim/docs/todo-twinsuns-fill-bot.md) generalise it below; at 2 seats every helper returns exactly the old answer.
 
 const SWU_BOT_NO_CLOCK = 99;   // "no reachable damage" — larger than any real clock
 
-function SWUBotOpponent(int $seat): int { return $seat === 1 ? 2 : 1; }
+// Every LIVE enemy seat of $seat: teammates (Team Suns) and eliminated seats excluded. 2 seats: [the other seat].
+function SWUBotOpponents(int $seat): array {
+    if (function_exists('SeatCountForGame') && SeatCountForGame() > 2 && function_exists('OpponentsOf')) {
+        $opps = array_values(array_map('intval', OpponentsOf($seat)));
+        if (!empty($opps)) return $opps;
+    }
+    return [$seat === 1 ? 2 : 1];
+}
+
+// "The" opponent every single-opponent read uses. 2 seats: the other seat (unchanged). 3-4 seats: the live enemy
+// with the MOST remaining base HP — the one the attack policy focuses, and the one standing between this seat and
+// the win (CR 12.7: highest base HP wins). Ties go to the lowest seat, so the choice is deterministic. Never a dead
+// seat: a dead seat's base reads 0, which kept SWUBotLethalNow() permanently true (Deep research B).
+function SWUBotOpponent(int $seat): int {
+    $opps = SWUBotOpponents($seat);
+    if (count($opps) === 1) return $opps[0];
+    $best = $opps[0]; $bestHp = -1;
+    foreach ($opps as $o) {
+        $hp = SWUBaseRemainingHp($o);
+        if ($hp > $bestHp) { $best = $o; $bestHp = $hp; }
+    }
+    return $best;
+}
+
+// Is $mz (in $seat's frame) an ENEMY's? "their…" is the 2-seat frame. Above 2 seats ZoneSearch names every other
+// seat's zone p{n}… (GameLogic.php ZoneSearch), so a "their" prefix test was false for EVERY real enemy there; this
+// reads the owning seat instead. A teammate's p{n} zone is not an enemy (SWUIsEnemySeat).
+function SWUBotIsEnemyMz(int $seat, string $mz): bool {
+    if (str_starts_with($mz, 'their')) return true;
+    if (preg_match('/^p(\d+)/', $mz, $m)) return SWUIsEnemySeat($seat, intval($m[1]));
+    return false;
+}
+
+// The live enemy closest to killing $seat (lowest SWUBotClock on it; ties to the lowest seat). The "am I about to
+// die" reads use it, so a second opponent's lethal is never hidden behind the focus opponent. 2 seats: the opponent.
+function SWUBotMostDangerousOpponent(int $seat): int {
+    $opps = SWUBotOpponents($seat);
+    if (count($opps) === 1) return $opps[0];
+    $best = $opps[0]; $bestClock = PHP_INT_MAX;
+    foreach ($opps as $o) {
+        $c = SWUBotClock($o, $seat);
+        if ($c < $bestClock) { $best = $o; $bestClock = $c; }
+    }
+    return $best;
+}
+
+// Every live enemy's units, in seat order. 2 seats: SWUBotUnits(the opponent), unchanged.
+function SWUBotEnemyUnits(int $seat): array {
+    $out = [];
+    foreach (SWUBotOpponents($seat) as $o) foreach (SWUBotUnits($o) as $v) $out[] = $v;
+    return $out;
+}
 
 // A flat, read-only view of one unit. $arena ('Ground'|'Space') is passed by callers that know it; otherwise
 // it is read from the object's Location (the zone name, e.g. "GroundArena" — ZoneClasses' mzID builder
@@ -323,9 +375,8 @@ function _SWUBotWhenDefeatedPayout(array $v): float {
     }
     $t = $clauses[$cid];
     if ($t === '') return 0.0;
-    $other = SWUBotOpponent(intval($v['controller']));
     $arena = preg_match('/\bspace unit/i', $t) ? 'Space' : (preg_match('/\bground unit/i', $t) ? 'Ground' : '');
-    $theirs = array_values(array_filter(SWUBotUnits($other), fn($u) => $arena === '' || $u['arena'] === $arena));
+    $theirs = array_values(array_filter(SWUBotEnemyUnits(intval($v['controller'])), fn($u) => $arena === '' || $u['arena'] === $arena));
     $pay = 0.0; $hit = false;
     if (preg_match('/\bexhaust (a|an|each|up to \w+)\b[^.]*unit/i', $t)) {
         $hit = true;
@@ -392,6 +443,83 @@ function SWUBotOpponentCanGetSentinel(int $oppSeat): bool {
 // Deliberately a small per-card table, not a text parser. Only two cards in that whole deck pool scale
 // ("for each"), a wrong guess here silently mis-prices a resource pick, and the repo already keeps per-card
 // knowledge per card. Add an arm when a card earns one.
+// "Give each enemy unit -X/-X" (tag debuff-all-enemy-units, owner 2026-10-01): how many enemy units the shrink would
+// KILL right now — remaining HP <= X. A stat reduction ignores Shields, so they are not counted against it. Every
+// opposing seat (_SWUAllEnemyUnits is team-aware), so it is right in Twin Suns. Lawbringer LAW_101 shrinks only the
+// units of ONE chosen aspect, so for "with that aspect" the best aspect is counted, as a player would pick it.
+function SWUBotDebuffAllEnemyKills(int $seat, string $cid): int {
+    if (!function_exists('_SWUAllEnemyUnits') || !preg_match('/-\d+\/-(\d+)/', strval(CardText($cid)), $m)) return 0;
+    $x = intval($m[1]);
+    $byAspect = []; $all = 0;
+    foreach (_SWUAllEnemyUnits($seat) as $u) {
+        if (intval(ObjectCurrentHP($u)) - intval($u->Damage ?? 0) > $x) continue;
+        $all++;
+        foreach (array_filter(array_map('trim', explode(',', strval(CardAspect(strval($u->CardID ?? '')))))) as $a) {
+            $byAspect[$a] = ($byAspect[$a] ?? 0) + 1;
+        }
+    }
+    if (stripos(strval(CardText($cid)), 'with that aspect') !== false) return empty($byAspect) ? 0 : max($byAspect);
+    return $all;
+}
+
+// POWER STRIKE (tag power-strike, owner 2026-10-01): the power the strike would hit for. A card whose striker is ITSELF
+// ("This unit deals damage equal to his power", "equal to this unit's power" — Crosshair, Lang, Latts Razzi, Kelnacca)
+// strikes with its own printed power once played; any other needs a FRIENDLY unit already in play, and is worthless
+// without one. Returns 0 when there is no striker.
+function SWUBotPowerStrikePower(int $seat, string $cid): int {
+    $text = strval(CardText($cid));
+    if (str_contains(strval(CardType($cid)), 'Unit')
+        && preg_match('/\b(?:this unit|he|she|it)\s+deals damage equal to (?:his|her|its)\s+power|equal to this unit\'s power/i', $text)) {
+        return max(0, intval(CardPower($cid)));
+    }
+    $best = 0;
+    foreach (SWUBotUnits($seat) as $u) $best = max($best, intval($u['power']));
+    return $best;
+}
+
+// Can a power strike of $power defeat at least one enemy unit right now (remaining HP <= power)? Team-aware.
+function SWUBotPowerStrikeCanKill(int $seat, int $power): bool {
+    if ($power <= 0 || !function_exists('_SWUAllEnemyUnits')) return false;
+    foreach (_SWUAllEnemyUnits($seat) as $u) {
+        if (intval(ObjectCurrentHP($u)) - intval($u->Damage ?? 0) <= $power) return true;
+    }
+    return false;
+}
+
+// ── HEAL-ON-ENEMY-DEFEAT engines (owner 2026-10-01; tag heal-on-enemy-defeat) ───────────────────────────────────────────
+// "When an enemy unit is defeated: Heal N damage from your base" — Chimaera (2), Iden Versio deployed (1).
+const SWU_BOT_HEAL_HEADROOM = 4;   // life past the base's CURRENT damage, still worth healing (~ one more round of hits)
+
+function SWUBotHealOnDefeatAmount(string $cid): int {
+    return preg_match('/When an enemy unit is defeated:\s*Heal (\d+) damage from your base/i', strval(CardText($cid)), $m) ? intval($m[1]) : 0;
+}
+
+// Life healed per enemy kill by the engines I CONTROL right now (a deployed leader is an arena unit, so it counts).
+function SWUBotHealPerEnemyKill(int $seat): int {
+    $n = 0;
+    foreach (SWUBotUnits($seat) as $v) $n += SWUBotHealOnDefeatAmount($v['cardID']);
+    return $n;
+}
+
+// How much healing is still worth having: the base's damage plus a round of headroom.
+function SWUBotHealCap(int $seat): int {
+    $b = GetBase($seat)[0] ?? null;
+    return intval($b->Damage ?? 0) + SWU_BOT_HEAL_HEADROOM;
+}
+
+// Enemy units this card defeats when played (an estimate, for the heal engines): a removal or paired-defeat card kills one
+// if an enemy non-leader unit exists; an enemy sweep kills every enemy unit; a -X/-X kills what it shrinks to death.
+function SWUBotPlayEnemyKills(int $seat, string $cid): int {
+    $tags = SWUBotCardTags($cid);
+    $enemies = function_exists('_SWUAllEnemyUnits') ? _SWUAllEnemyUnits($seat) : [];
+    if (array_intersect($tags, ['wipe', 'defeat-wipe-enemy', 'damage-wipe-enemy'])) return count($enemies);
+    if (in_array('debuff-all-enemy-units', $tags, true)) return SWUBotDebuffAllEnemyKills($seat, $cid);
+    if (in_array('removal', $tags, true)) {
+        foreach ($enemies as $u) if (!(function_exists('IsLeaderUnit') && IsLeaderUnit($u))) return 1;
+    }
+    return 0;
+}
+
 function SWUBotContextSurplus(int $seat, string $cid): float {
     if (!function_exists('SWUBotProposalOn') || !SWUBotProposalOn('ctxpower')) return 0.0;
     switch ($cid) {

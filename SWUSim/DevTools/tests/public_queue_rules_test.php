@@ -8,7 +8,7 @@ require_once './SWUSim/PublicQueue.php';
 $fails = 0;
 $check = function ($ok, $msg) use (&$fails) { echo ($ok ? 'PASS' : 'FAIL') . ": $msg\n"; if (!$ok) $fails++; };
 $fixture = fn($rel) => trim(implode("\n", array_filter(explode("\n", file_get_contents('./SWUSim/Tests/BotFixtures/' . $rel)), fn($l) => !str_starts_with($l, '#'))));
-$LEGAL = $fixture('meta-2026-09/darth-vader_jtl_yellow.txt');
+$LEGAL = $fixture('ash-meta-2026-09/darth-vader_jtl_yellow.txt');
 $ILLEGAL = $fixture('premier_deck_a.txt');
 
 $check(SWUPublicQueueRefusal('premier') === null, 'premier may queue');

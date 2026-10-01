@@ -21,7 +21,7 @@ from rl_ab import merge_batch_ab, significant_ab
 from collections import Counter
 
 ROOT = '/var/www/html/TCGEngine'
-FIXTURES = 'SWUSim/Tests/BotFixtures/meta-2026-09'
+FIXTURES = 'SWUSim/Tests/BotFixtures/ash-meta-2026-09'
 # Spec Section 4: 1.5x the top of each pairing's expected range.
 CAPS = {('aggro', 'aggro'): 12, ('aggro', 'normal'): 18, ('aggro', 'control'): 24,
         ('normal', 'normal'): 23, ('control', 'normal'): 27, ('control', 'control'): 30}

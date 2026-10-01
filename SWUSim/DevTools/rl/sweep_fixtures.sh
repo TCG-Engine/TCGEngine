@@ -21,12 +21,14 @@
 #   SUPERSET=1                        every deck is folded (--superset);
 #   SUPERSET_DECKS="<deck> [<deck>…]" only the named decks are, WHICHEVER seat they sit in (--superset=1|2), so a
 #                                     deck's own sideboard answers can be measured apart from the opponent's dilution.
+# VARIANT="<variant>" (env) runs BOTH seats on heuristic-<style>@<variant> (e.g. no-p18, no-doomedsac); it is part of
+# the arm stamp, so a variant run can't resume into a plain run's outdir.
 # Give each arm its OWN outdir: the resume check skips any game already on disk, so pointing a superset run at
 # another arm's outdir would silently reuse that arm's results.
 set -u
 cd /var/www/html/TCGEngine
-SEEDS=${1:-100}; WORKERS=${2:-8}; OUT=${3:-/tmp/fixture_sweep}; DIR=${4:-SWUSim/Tests/BotFixtures/meta-2026-09}
-SUPERSET=${SUPERSET:-}; SUPERSET_DECKS=${SUPERSET_DECKS:-}
+SEEDS=${1:-100}; WORKERS=${2:-8}; OUT=${3:-/tmp/fixture_sweep}; DIR=${4:-SWUSim/Tests/BotFixtures/ash-meta-2026-09}
+SUPERSET=${SUPERSET:-}; SUPERSET_DECKS=${SUPERSET_DECKS:-}; VARIANT=${VARIANT:-}
 decks=$(ls "$DIR"/*.txt | xargs -n1 basename | sed 's/\.txt$//')
 if [ -n "$SUPERSET" ] && [ -n "$SUPERSET_DECKS" ]; then echo "[sweep] set SUPERSET or SUPERSET_DECKS, not both" >&2; exit 1; fi
 FOLD=$([ -n "$SUPERSET" ] && echo $decks || echo $SUPERSET_DECKS)
@@ -40,12 +42,13 @@ done
 mkdir -p "$OUT/games" "$OUT/traces" "$OUT/logs"
 # Refuse to mix arms in one outdir: the first run stamps it, a later run with another arm stops.
 ARM=$(if [ -n "$SUPERSET" ]; then echo superset; elif [ -n "$FOLD" ]; then echo "superset:$(echo $FOLD | tr ' ' '\n' | sort | tr '\n' ',' | sed 's/,$//')"; else echo game1; fi)
+[ -n "$VARIANT" ] && ARM="$ARM@$VARIANT"
 if [ -s "$OUT/arm" ] && [ "$(cat "$OUT/arm")" != "$ARM" ]; then
   echo "[sweep] $OUT holds a '$(cat "$OUT/arm")' run; this is '$ARM'. Use a separate outdir." >&2; exit 1
 fi
 echo "$ARM" > "$OUT/arm"
 FOLD=" $FOLD "   # padded, so run_one can match a whole name with a substring test
-export DIR OUT FOLD
+export DIR OUT FOLD VARIANT
 : > "$OUT/jobs.txt"
 for a in $decks; do for b in $decks; do
   [ "$a" = "$b" ] && continue
@@ -70,7 +73,7 @@ run_one() {
   rm -f "$OUT/traces/$key.jsonl"
   out=$(SWUBOT_TRACE="$OUT/traces/$key.jsonl" SWUBOT_TRACE_MODE=combo \
         timeout "${GAME_TIMEOUT:-90}" php -d apc.enable_cli=1 -d xdebug.mode=off -d memory_limit=1G DevTools/SWUSimBotSelfPlayTest.php --games=1 \
-        --seed="$s" --first-player=1 --verbose --chooser="heuristic-$ca" --chooser2="heuristic-$cb" \
+        --seed="$s" --first-player=1 --verbose --chooser="heuristic-$ca${VARIANT:+@$VARIANT}" --chooser2="heuristic-$cb${VARIANT:+@$VARIANT}" \
         --deck="$DIR/$a.txt" --deck2="$DIR/$b.txt" $ss 2>/dev/null)
   g=$(printf '%s\n' "$out" | grep -m1 'game created:' | awk '{print $NF}')
   m=$(printf '%s\n' "$out" | grep -m1 '^SWUBOT_METRICS ')
