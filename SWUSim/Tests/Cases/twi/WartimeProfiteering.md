@@ -50,7 +50,7 @@ WithP3GroundArena: SOR_128:1:0
 - P2>AttackGroundArena:0:P3G0
 - P3>Pass
 - P1>Pass
-- P2>AttackGroundArena:1:P3G1
+- P2>AttackGroundArena:1:P3G0
 - P3>Pass
 - P1>PlayHand:0
 - P1>AnswerDecision:SOR_128

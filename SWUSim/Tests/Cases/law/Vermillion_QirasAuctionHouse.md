@@ -702,3 +702,41 @@ P3CREDITCOUNT:2
 P2CREDITCOUNT:0
 P4CREDITCOUNT:0
 P1CREDITCOUNT:0
+
+---
+
+# ThreeSeats_RevealedRhydonium_PlayedByAnotherSeat_GameDoesNotBrick
+#// Bug #1102 (game 1438045). P3's Vermillion attacks P1's base and reveals LAW_096 Rhydonium Detonation
+#// off P3's OWN deck; P3 hands the free play to P2. P2 plays it, which opens TWO seats' prompts at once:
+#// P2's "return a non-leader unit" walk (the event's own When Played) and P3's "who creates the Credits"
+#// pick (Vermillion's "if they do" — P3 is the ability's controller). P3 names itself for 7 Credits, P2
+#// returns the Vermillion to P3's hand. The only other unit is P1's deployed leader Tobias (LAW_002),
+#// which Rhydonium can neither return nor defeat. The game bricked here: nobody could act.
+#// Correct outcome: Vermillion in P3's hand, 7 Credits for P3, NO seat left holding a decision, and P3's
+#// attack action closed so the turn moves on to P1.
+
+## GIVEN
+CommonSetup3P: bbk/bbk/bbk/{myLeader:LAW_002:1:1}
+SkipPreGame: true
+WithActivePlayer: 3
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP3SpaceArena: LAW_215:1:0
+WithP3Deck: [LAW_096 SOR_095]
+
+## WHEN
+- P3>AttackSpaceArena:0:P1B
+- P3>AnswerDecision:P2
+- P2>AnswerDecision:YES
+- P3>AnswerDecision:P3
+- P2>AnswerDecision:p3SpaceArena-0
+
+## EXPECT
+P3SPACEARENACOUNT:0
+P3HANDCOUNT:1
+P3CREDITCOUNT:7
+P1GROUNDARENACOUNT:1
+P1NODECISION
+P2NODECISION
+P3NODECISION
+TURNPLAYER:1

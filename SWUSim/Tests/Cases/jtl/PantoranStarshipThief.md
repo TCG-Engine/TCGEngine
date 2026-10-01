@@ -136,3 +136,37 @@ P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_083
+
+---
+
+# PlayedViaMazKanata_StillOffersThePayThree
+#// Bug #1104 (game 1438045). JTL_083 is an Underworld unit, so HMW_002 Maz Kanata's Action ("Play a Fringe
+#// or Underworld unit from your hand. It costs 1 less. Give a Weakness token to it.") can play it — and it
+#// is still PLAYED, so its When Played must offer "pay 3 to attach to a Fighter or Transport". Live, the
+#// offer never appeared on this path. 8 resources leaves plenty for the extra 3 after the (aspect-
+#// penalised, Maz-discounted) play, so affordability can't be what hides the offer.
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:HMW_002;myResources:8;handCardIds:JTL_083}
+P1OnlyActions: true
+WithP2SpaceArena: SOR_237:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:theirSpaceArena-0
+
+---
+
+# PlayedFromHand_SameBoardAsMaz_OffersThePayThree
+#// Control for the section above: the identical board (Maz Kanata leader, 8 resources), but JTL_083 is
+#// played normally from hand — the offer appears. Only the play PATH differs between the two.
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:HMW_002;myResources:8;handCardIds:JTL_083}
+P1OnlyActions: true
+WithP2SpaceArena: SOR_237:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:theirSpaceArena-0

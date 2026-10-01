@@ -2035,6 +2035,10 @@ function _SWUAttackEndRequiresSurvival(string $cardID): bool {
 // After-attack: fires unconditionally so handlers can inspect the outcome.
 function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID, array $combatCtx = []): void {
     $attacker = GetZoneObject($attackerMzID);
+    // Advantage tokens: "When attached unit's attack … ends: Defeat THIS upgrade." Only the tokens attached
+    // at THIS moment are shed — mark them now, BEFORE any When-Attack-Ends effect below can give a new one
+    // (ASH_144 Vane's Snub Fighter giving itself a token was wiped by the shed: bug #1103).
+    if ($attacker !== null && !isset($attacker->removed)) _SWUMarkAdvantageForShed($attacker);
     // Expose the attacker's base-combat-damage so an OnAttackEnd-from-upgrade ability (ASH_183) can gate
     // on "dealt combat damage to an opponent's base" (the upgrade dispatch carries no combatCtx).
     SetSWUVar('SWU_LAST_ATTACKER_BASEHIT', strval(intval($combatCtx['baseCombatDmg'] ?? 0)));
@@ -2131,7 +2135,7 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     // power-reading When-Attack-Ends ability (LOF_038 Pong Krell) can resolve first while the tokens still
     // buff power. The shed itself is one bag slot ("defeat 1 / defeat all", auto-all if nothing else is
     // pending) rather than one trigger per token. (Defender side sheds synchronously — see Step3.)
-    if ($attacker !== null && !isset($attacker->removed) && _SWUCountAdvantageSubcards($attacker) > 0) {
+    if ($attacker !== null && !isset($attacker->removed) && _SWUCountAdvantageSubcards($attacker, true) > 0) {
         AddTrigger($activePlayer, 'AdvantageShed', 'ASH_T02', $attackerMzID);
     }
     // ASH_184 Follow Me — "Attack with a unit. After completing the attack, give 3 Advantage tokens to a

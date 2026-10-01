@@ -878,6 +878,34 @@ for($i=0; $i<count($zones); ++$i) {
 fwrite($handler, "  ];\r\n");
 fwrite($handler, "}\r\n\r\n");
 
+// Multi-seat apps only: the zone list CleanupRemovedCards compacts. "my"/"their" name only TWO seats
+// ($playerID and its 1<->2 partner), so a card marked removed in any OTHER seat's zone was never spliced
+// out mid-request and its stale entry kept being offered as a target (SWUSim bug #1102: a bounced seat-3
+// Vermillion offered back to seat 3 by Rhydonium Detonation, bricking the game).
+// ⚠ A SEPARATE function, not a change to GetAllZones: GetAllZones is also the deterministic-RNG hash
+// material (Core/DeterministicRNG.php EngineSnapshotState), so renaming its entries would move every
+// game's shuffle stream. 2-seat apps emit nothing here and keep compacting via GetAllZones.
+if ($maxSeats > 2) {
+  fwrite($handler, "// Every seat's zones, for CleanupRemovedCards (see zzGameCodeGenerator.php).\r\n");
+  fwrite($handler, "function GetAllCompactableZones() {\r\n");
+  fwrite($handler, "  return [\r\n");
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $zoneName = $zone->Name;
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if ($zone->DisplayMode == 'Value') continue;
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "    \"" . $zoneName . "\",\r\n");
+    } else {
+      $seatZones = [];
+      for ($s = 1; $s <= $maxSeats; ++$s) $seatZones[] = "\"p" . $s . $zoneName . "\"";
+      fwrite($handler, "    " . implode(", ", $seatZones) . ",\r\n");
+    }
+  }
+  fwrite($handler, "  ];\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
+
 fwrite($handler, "function MZMove(\$player, \$mzIndex, \$toZone) {\r\n");
 fwrite($handler, "  global \$playerID;\r\n");
 fwrite($handler, "  if(\$player != \$playerID) {\r\n");

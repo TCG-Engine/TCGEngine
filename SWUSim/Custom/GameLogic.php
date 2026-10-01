@@ -377,15 +377,36 @@ function _SWUCountShieldSubcards($obj): int {
 // Count ASH_T02 (Advantage) subcards on a unit. Each gives +1/+0 (its bonus is in power/hpData, NOT
 // upgradePowerData, so the generic upgrade-stat loop doesn't pick it up — applied explicitly in
 // ObjectCurrentPower). Consumed (defeated) when the host's attack OR defense ends.
-function _SWUCountAdvantageSubcards($obj): int {
+// $onlyMarked counts just the tokens _SWUMarkAdvantageForShed flagged when the attack ended.
+function _SWUCountAdvantageSubcards($obj, bool $onlyMarked = false): int {
     if ($obj === null || !is_array($obj->Subcards ?? null)) return 0;
     $count = 0;
     foreach ($obj->Subcards as $sub) {
         $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
         $rem = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
-        if (!$rem && $cid === 'ASH_T02') $count++;
+        if ($rem || $cid !== 'ASH_T02') continue;
+        if ($onlyMarked && !_SWUAdvantageMarkedForShed($sub)) continue;
+        $count++;
     }
     return $count;
+}
+
+// Advantage shed snapshot (bug #1103). "When attached unit's attack … ends: Defeat THIS upgrade" belongs to
+// each token that was attached when the attack ended; a token given by another When-Attack-Ends effect
+// (ASH_144 Vane's Snub Fighter, ASH_184 Follow Me) was not there then and must survive. Tokens carry no
+// identity, so the ones present at that moment are flagged, and the attacker's shed defeats only those.
+// The flag is a subcard field, so it survives the request boundary like GrantTag does.
+function _SWUMarkAdvantageForShed($obj): void {
+    if ($obj === null || !is_array($obj->Subcards ?? null)) return;
+    foreach ($obj->Subcards as $i => $sub) {
+        $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+        if ($cid !== 'ASH_T02') continue;
+        if (is_array($sub)) $obj->Subcards[$i]['ShedOnAttackEnd'] = true;
+        else $sub->ShedOnAttackEnd = true;
+    }
+}
+function _SWUAdvantageMarkedForShed($sub): bool {
+    return is_array($sub) ? !empty($sub['ShedOnAttackEnd']) : !empty($sub->ShedOnAttackEnd);
 }
 
 // SWU power: base power + upgrades (including Experience tokens via stat loop).
@@ -5289,7 +5310,7 @@ function DoGiveTokenUpgrade($player, $targetMZ, string $tokenCardID) {
 // Defeat ALL Advantage tokens (ASH_T02 subcards) on a unit — the token's "When attached unit's attack
 // or defense ends: Defeat this upgrade." Tokens are set aside, not discarded (no WhenDefeated). No-op on
 // a non-unit mzID (e.g. a base target). Returns the number removed.
-function _SWUDefeatAllAdvantageTokens($targetMZ): int {
+function _SWUDefeatAllAdvantageTokens($targetMZ, bool $onlyMarked = false): int {
     $obj = GetZoneObject($targetMZ);
     if (SWUObjGone($obj) || !is_array($obj->Subcards ?? null)) return 0;
     // ASH_149 Eviscerator — "Advantage tokens on friendly units … aren't defeated after combat." Skip the
@@ -5303,7 +5324,7 @@ function _SWUDefeatAllAdvantageTokens($targetMZ): int {
     foreach ($obj->Subcards as $i => $sub) {
         $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
         $rem = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
-        if (!$rem && $cid === 'ASH_T02') {
+        if (!$rem && $cid === 'ASH_T02' && (!$onlyMarked || _SWUAdvantageMarkedForShed($sub))) {
             $subOwner = is_array($sub) ? intval($sub['Owner'] ?? $owner) : intval($sub->Owner ?? $owner);
             $shed[] = $subOwner > 0 ? $subOwner : $owner;
             unset($obj->Subcards[$i]); $removed++;
@@ -5402,7 +5423,7 @@ function _SWUDefeatNamedUpgrade($obj, string $upgradeCardID): bool {
 }
 
 // Defeat ONE Advantage token (ASH_T02 subcard) on a unit. Returns true if one was removed.
-function _SWUDefeatOneAdvantageToken($targetMZ): bool {
+function _SWUDefeatOneAdvantageToken($targetMZ, bool $onlyMarked = false): bool {
     $obj = GetZoneObject($targetMZ);
     if (SWUObjGone($obj) || !is_array($obj->Subcards ?? null)) return false;
     $owner = intval($obj->Owner ?? $obj->Controller ?? 0);
@@ -5410,7 +5431,7 @@ function _SWUDefeatOneAdvantageToken($targetMZ): bool {
     foreach ($obj->Subcards as $i => $sub) {
         $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
         $rem = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
-        if (!$rem && $cid === 'ASH_T02') {
+        if (!$rem && $cid === 'ASH_T02' && (!$onlyMarked || _SWUAdvantageMarkedForShed($sub))) {
             $subOwner = is_array($sub) ? intval($sub['Owner'] ?? $owner) : intval($sub->Owner ?? $owner);
             array_splice($obj->Subcards, $i, 1);
             // Same observer as the defeat-all path — the one-at-a-time branch must not differ from
@@ -14413,11 +14434,11 @@ function _SWUResolveAdvantageShed(int $player, string $mzID): void {
     if (SWUObjGone($unit)) return;
     // ASH_149 Eviscerator — the controller's units don't shed Advantage after combat (skip the picker too).
     if (_SWUControlsCardInPlay(intval($unit->Controller ?? $player), 'ASH_149')) return;
-    $count = _SWUCountAdvantageSubcards($unit);
+    $count = _SWUCountAdvantageSubcards($unit, true);   // only tokens attached when the attack ended (#1103)
     if ($count <= 0) return;
     $otherPending = 0;
     foreach (GetEffectStack() as $e) { if (empty($e->removed ?? false)) $otherPending++; }
-    if ($count === 1 || $otherPending === 0) { _SWUDefeatAllAdvantageTokens($mzID); return; }
+    if ($count === 1 || $otherPending === 0) { _SWUDefeatAllAdvantageTokens($mzID, true); return; }
     DecisionQueueController::AddDecision($player, "OPTIONCHOOSE",
         "Defeat_1_Advantage_token&Defeat_all_Advantage_tokens", 1, "Advantage_tokens:_defeat_one_or_all?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "AdvantageShed#0|{$mzID}", 1);
@@ -14427,14 +14448,14 @@ $customDQHandlers["AdvantageShed#0"] = function($player, $parts, $lastDecision) 
     global $playerID; $playerID = intval($player);
     $mzID = $parts[0] ?? '';
     if ($lastDecision === 'Defeat_all_Advantage_tokens') {
-        _SWUDefeatAllAdvantageTokens($mzID);
+        _SWUDefeatAllAdvantageTokens($mzID, true);
         return;
     }
     // "Defeat 1" (default) — defeat one, then re-enter the bag so any remaining tokens re-order with the
     // still-pending triggers (the block-20 SWU_TRIGGER_RESUME re-offers ordering each round).
-    _SWUDefeatOneAdvantageToken($mzID);
+    _SWUDefeatOneAdvantageToken($mzID, true);
     $unit = GetZoneObject($mzID);
-    if ($unit !== null && empty($unit->removed) && _SWUCountAdvantageSubcards($unit) > 0) {
+    if ($unit !== null && empty($unit->removed) && _SWUCountAdvantageSubcards($unit, true) > 0) {
         AddEffectStack('ASH_T02', intval($player), 'AdvantageShed', $mzID);
     }
 };

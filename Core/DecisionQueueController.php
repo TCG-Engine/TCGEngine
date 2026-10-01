@@ -487,7 +487,9 @@ class DecisionQueueController {
     }
     
     public static function CleanupRemovedCards() {
-        $allZones = GetAllZones();
+        // Multi-seat apps generate GetAllCompactableZones (every seat's zones); GetAllZones only names
+        // my/their — two seats — and must stay as-is because it is also the RNG hash material.
+        $allZones = function_exists('GetAllCompactableZones') ? GetAllCompactableZones() : GetAllZones();
         foreach ($allZones as $zoneName) {
             $zone = &GetZone($zoneName);
             if (!is_array($zone)) continue;

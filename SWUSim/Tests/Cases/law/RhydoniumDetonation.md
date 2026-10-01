@@ -296,3 +296,55 @@ P2GROUNDARENACOUNT:0
 P3GROUNDARENACOUNT:0
 P3HANDCOUNT:1
 P4GROUNDARENACOUNT:0
+
+---
+
+# ThreeSeats_NextSeatsPoolDropsAFarSeatUnitAlreadyReturned
+#// Bug #1102 family (engine). P1 casts; P1 returns P3's SOR_095 (p3GroundArena-0). P2's pool is built
+#// in the SAME request, with $playerID=2, whose "my/their" pair is P2 and P1 — so P3's arena was never
+#// compacted: the returned SOR_095 lingered as a removed entry and was OFFERED AGAIN as p3GroundArena-0,
+#// with P3's real SOR_046 still at the stale index 1. Every seat's zones must be compacted, so P2's pool
+#// is exactly P3's remaining SOR_046, already shifted to index 0.
+
+## GIVEN
+CommonSetup3P: yyk/rrk/rrk/{myResources:9}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: LAW_096
+WithP3GroundArena: [SOR_095:1:0 SOR_046:1:0]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p3GroundArena-0
+
+## EXPECT
+SEATCOUNT:3
+P3HANDCOUNT:1
+P2SELECTABLEEXACT:p3GroundArena-0
+
+---
+
+# ThreeSeats_FarSeatReturns_WalkCompletesAndNobodyIsLeftHolding
+#// Follow-through of the section above: P2 returns P3's SOR_046 too, so P3 has nothing left to save and
+#// the walk goes straight to the mass defeat. Before the fix P3 was then handed a stale "return a unit"
+#// prompt for a unit no longer in play (the game-1438045 brick).
+
+## GIVEN
+CommonSetup3P: yyk/rrk/rrk/{myResources:9}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: LAW_096
+WithP3GroundArena: [SOR_095:1:0 SOR_046:1:0]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p3GroundArena-0
+- P2>AnswerDecision:p3GroundArena-0
+
+## EXPECT
+P3GROUNDARENACOUNT:0
+P3HANDCOUNT:2
+P1NODECISION
+P2NODECISION
+P3NODECISION
+TURNPLAYER:2

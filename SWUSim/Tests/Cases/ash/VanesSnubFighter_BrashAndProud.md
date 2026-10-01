@@ -99,3 +99,39 @@ WithInitiativeClaimed: true
 ## EXPECT
 P1BASEDMG:3
 P1SPACEARENAUNIT:0:ADVANTAGECOUNT:0
+
+---
+
+# SelfAttack_BaseHit_TokenArrivesAfterCombatDamage
+#// Bug #1103 (game 1438045). "A friendly unit" includes the Snub Fighter ITSELF, and the token is a
+#// When-Attack-Ends reward: it arrives AFTER combat damage, so it cannot pump the hit that earned it.
+#// ASH_144 (2 power, no tokens) attacks P2's base → 2 damage, then it holds one Advantage token.
+#// (Every other section uses a DIFFERENT friendly attacker, where an early token changes no damage.)
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1SpaceArena: ASH_144:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+## EXPECT
+P2BASEDMG:2
+P1SPACEARENAUNIT:0:ADVANTAGECOUNT:1
+
+---
+
+# SelfAttack_WithAdvantage_OldTokenSpentNewTokenKept
+#// Bug #1103 — the reported board. ASH_144 already carries an Advantage token (+1 → 3 power) and attacks
+#// P2's base: 3 damage, not 4. Then both When-Attack-Ends effects resolve: the OLD token defeats itself
+#// ("When attached unit's attack … ends: Defeat this upgrade") and the Snub Fighter gives itself a NEW
+#// one — ending the attack with exactly one Advantage token. Live it dealt 4 and ended with NONE: the
+#// new token was attached before damage and then swept by the token's own end-of-attack self-defeat.
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1SpaceArena: ASH_144:1:0
+WithP1SpaceArenaUpgrade: 0:ASH_T02
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+## EXPECT
+P2BASEDMG:3
+P1SPACEARENAUNIT:0:ADVANTAGECOUNT:1
