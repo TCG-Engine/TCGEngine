@@ -7,11 +7,12 @@ $sec = ''; $leader = ''; $base = ''; $cards = [];
 foreach (explode("\n", stream_get_contents(STDIN)) as $l) {
     $l = trim($l);
     if ($l === '' || $l[0] === '#') continue;
-    if ($l === 'Leader' || $l === 'Base' || $l === 'Deck') { $sec = $l; continue; }
+    // 'Sideboard' must be recognised or its cards fall into the else-branch below as main deck.
+    if ($l === 'Leader' || $l === 'Base' || $l === 'Deck' || $l === 'Sideboard') { $sec = $l; continue; }
     if (preg_match('/^(\d+)\s+(\S+)/', $l, $m)) {
         if ($sec === 'Leader') $leader = $m[2];
         elseif ($sec === 'Base') $base = $m[2];
-        else $cards[] = [intval($m[1]), $m[2]];
+        elseif ($sec !== 'Sideboard') $cards[] = [intval($m[1]), $m[2]];
     }
 }
 $f = ['leader' => $leader, 'base' => $base, 'baseHp' => intval(CardHp($base)), 'baseAspect' => strval(CardAspect($base)),

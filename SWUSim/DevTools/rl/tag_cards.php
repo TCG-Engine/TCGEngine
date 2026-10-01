@@ -86,6 +86,27 @@ const SWU_BOT_TAG_PATTERNS = [
     'heal'    => '/\bheal \d+ damage\b/i',
     'buff'    => '/(give [^.]*?\+\d+\/\+\d+|gets? \+\d+\/\+\d+ for this (phase|attack|round))/i',
     'debuff'  => '/(give [^.]*?-\d+\/-0\b|gets? -\d+\/-0\b)/i',
+    // PUMP (owner 2026-10-01): "Attack with a unit. It gets +X/+0 for this attack." — an extra attack AND a
+    // power boost scoped to it, on any card type: events, leader Actions, and units' When Played ("Lieutenant
+    // abilities" colloquially — keyed on the TEXT, never the name, since not every Lieutenant has one).
+    // CONDITIONAL boosts count ("If it's a Rebel unit, it gets +2/+0") — the owner: decks running them meet the
+    // condition. Spans up to three sentences so SHD_145 Headhunting's "…gets +2/+0 for its attack" is reached.
+    // Kept ALONGSIDE `buff`, never instead of it: 41 of these already carry buff and their weights must not move.
+    // Phase-long boosts that merely permit an attack (ASH_109 T-6 Shuttle 1974, +2/+2 for this phase) are buff.
+    'pump'    => '/(\battack with\b[^.]*\.?[^.]*?(?:\.[^.]*?)?\+(?:\d+|X)\/\+0\b[^.]*?for (?:this|its) attack|\battack with\b[^.]*\.\s*for this attack, (?:it|he|she|they) gets \+(?:\d+|X)\/\+0)/i',
+    // GRANTS-ATTACK (owner 2026-10-01): the card's effect gives an attack NOW — events, leader/unit Actions,
+    // When Played, chained "when this unit completes an attack: you may attack with another unit", and upgrades
+    // that attack with the unit they attach to (SHD_223 Snapshot Reflexes, LOF_140, TWI_248, TS26_25). `pump` is
+    // the SUBSET whose attack also gets +X/+0. ⚠ Requires "attack WITH": "this unit may attack units in either
+    // arena" (ASH_037 Red Leader) and "can attack ground units" (SHD_230) are targeting permissions, not attacks.
+    'grants-attack' => '/\battack with\b/i',
+    // SHOOT-FIRST (owner 2026-10-01): deals its combat damage before the defender — player slang, after the
+    // SOR_217 event, for any first-strike ability, whether granted for one attack or printed on the unit.
+    // ⚠ LAW_086 The Stranger is the REVERSE ("have the defending unit deal combat damage before this unit").
+    'shoot-first' => '/deals? (?:its )?combat damage before the (?:defender|defending unit)/i',
+    // The attack this card gives can't hit a base (owner 2026-10-01, for LOF_124 Niman Strike). Scoped to THAT
+    // attack only — "for this phase" (JTL_092, JTL_206) and permanent restrictions (SOR_072, ASH_034) are not it.
+    'attack-no-base' => '/(can[\'’]t attack bases for (?:this|these|the second) attacks?|for this attack, [^.]*?can[\'’]t attack bases)/i',
     'gives-shield'     => '/give [^.]*?shield tokens?/i',
     'gives-experience' => '/give [^.]*?experience tokens?/i',
     'gives-weakness'   => '/give [^.]*?weakness tokens?/i',

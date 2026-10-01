@@ -1,6 +1,6 @@
 # Real-deck self-play fixture — Dedra Meero, Not Wasting Time - Colossus
 # Source: melee.gg 445115, #14 of 180 (6-2-0)
-#   https://melee.gg/Decklist/View/a96724c2-e046-47b0-9c1b-b4bd0041d53e — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   https://melee.gg/Decklist/View/a96724c2-e046-47b0-9c1b-b4bd0041d53e — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard in the Sideboard section)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (11 entries).
 # Archetype (owner's label): Hard control
 # Style: hardcontrol
@@ -34,3 +34,13 @@ Deck
 1 JTL_078
 1 SEC_078
 3 SEC_038
+
+Sideboard
+2 ASH_148
+2 SEC_077
+1 ASH_179
+1 SEC_037
+1 JTL_078
+1 SEC_078
+1 SEC_068
+1 JTL_181

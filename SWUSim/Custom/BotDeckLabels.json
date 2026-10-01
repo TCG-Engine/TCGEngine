@@ -1,5 +1,5 @@
 {
-    "generated": "2026-09-29",
+    "generated": "2026-10-01",
     "decks": [
         {
             "file": "admiral-piett_jtl_blue",
@@ -686,9 +686,10 @@
                 "SEC_078": 2,
                 "JTL_180": 2,
                 "JTL_080": 1,
-                "IBH_104": 1
+                "IBH_104": 1,
+                "LAW_045": 3
             },
-            "total": 62
+            "total": 65
         }
     ]
 }

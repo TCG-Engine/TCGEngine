@@ -91,8 +91,9 @@ P1DECKCOUNT:6
 #// The peek must see the card on top WHEN THE REGROUP PHASE STARTS. SOR_046 starts on top with Battlefield
 #// Marines below: naming it hits, P1 reveals and draws it, THEN the two regroup draws take two Marines —
 #// hand 3 (SOR_046 among them), deck 3. Peeking after the regroup draw (the bug) would find a Marine on top,
-#// miss, and leave hand 2. (The sections above use `P1Deck:`, which a CommonSetup board ignores — they run
-#// on the default deck and cannot tell the two timings apart; `WithP1Deck:` here is applied.)
+#// miss, and leave hand 2. (The sections above use `P1Deck:`, which until 2026-10-01 built count(list) copies
+#// of its FIRST card — they ran on six SOR_046s and could not tell the two timings apart. It is now the literal
+#// deck under SkipPreGame/CommonSetup: core/Framework_PDeckIsLiteral.md.)
 ## GIVEN
 CommonSetup: rrk/bbw/{}
 P1OnlyActions: true

@@ -11,7 +11,7 @@ $customDQHandlers["ASH_016#1"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if ($o !== null && empty($o->removed)) {
         SWUExhaustUnitObj(intval($player), $o, $lastDecision);   // exhaust the cheaper unit
-        SWUConsumeUse(SWUGetLeader(intval($player)));            // consume the once-per-round use
+        SWUConsumeUse(SWUFindLeaderByCardID(intval($player), 'ASH_016'));            // consume the once-per-round use
     }
 };
 

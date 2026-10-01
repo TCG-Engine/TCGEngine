@@ -1,6 +1,6 @@
 # Real-deck self-play fixture — Obi-Wan Kenobi, Courage Makes Heroes - Vergence Temple
 # Source: melee.gg 443170, #1 of 29 (7-1-0) — the event winner
-#   https://melee.gg/Decklist/View/b76bf9cc-f73c-4297-9cc1-b4c3013345b9 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   https://melee.gg/Decklist/View/b76bf9cc-f73c-4297-9cc1-b4c3013345b9 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
 #   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
 #   Its event was pulled on 2026-09-15, so the placement above is now from our own data.
 # Archetype (owner's label): Midrange go-wide Force deck (the list is on Vergence Temple, a blue base)
@@ -38,3 +38,12 @@ Deck
 2 LOF_053
 2 LAW_127
 2 LOF_102
+
+Sideboard
+3 LAW_132
+2 ASH_109
+1 ASH_063
+1 SEC_046
+1 LOF_100
+1 LAW_149
+1 LAW_148

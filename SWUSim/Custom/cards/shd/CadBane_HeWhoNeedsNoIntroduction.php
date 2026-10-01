@@ -41,7 +41,7 @@ if (!function_exists('_SWUShd014OpponentsWithUnits')) {
 if (!function_exists('_SWUShd014Mode')) {
     function _SWUShd014Mode(int $player): ?string {
         if (_SWULeaderDeployed($player, 'SHD_014')) {
-            return SWUHasUseAvailable(SWUGetLeader($player)) ? 'deployed' : null;
+            return SWUHasUseAvailable(SWUFindLeaderByCardID($player, 'SHD_014')) ? 'deployed' : null;
         }
         return _SWULeaderReadyUndeployed($player, 'SHD_014') ? 'front' : null;
     }
@@ -77,7 +77,7 @@ $customDQHandlers["SHD_014#exhaust"] = function($player, $parts, $lastDecision) 
     // Pay ONLY here, on an accepted "you may" with a legal target: a cost taken at offer time would
     // charge the player for declining (the deployed side's once-per-round is the visible half of that).
     if ($mode === 'deployed') {
-        SWUConsumeUse(SWUGetLeader(intval($player)));   // "use this ability only once each round"
+        SWUConsumeUse(SWUFindLeaderByCardID(intval($player), 'SHD_014'));   // "use this ability only once each round" — THIS leader's, either slot
     } else {
         $leaderArr = &GetLeader(intval($player));
         foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'SHD_014' && empty($l->removed)) { $l->Ready = false; SWULogLeaderExhaustCost(intval($player), 'SHD_014'); break; } }  // exhaust the leader (cost)

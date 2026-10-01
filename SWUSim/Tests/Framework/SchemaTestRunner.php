@@ -535,6 +535,13 @@ class SchemaTestRunner {
             $p2HandCount = max(0, $p2Drew - $resourced[2]);
             $p1DeckLeft  = max(0, count($p1Deck) - $p1Drew);
             $p2DeckLeft  = max(0, count($p2Deck) - $p2Drew);
+            // This form fills hand, resources AND deck from the FIRST card (homogeneous deck assumed), so a
+            // mixed list would silently become a one-card deck. Refuse it rather than mislead.
+            foreach ([1 => $p1Deck, 2 => $p2Deck] as $pn => $list) {
+                if (count(array_unique($list)) > 1)
+                    throw new RuntimeException("P{$pn}Deck: lists different cards, but without SkipPreGame it builds "
+                        . "every card from the first one. Use SkipPreGame / CommonSetup (literal deck) or WithP{$pn}Deck:.");
+            }
         }
 
         // WithRound: N — the game's round counter (TurnNumber). CreateGame seeds it at 1 and
@@ -576,8 +583,9 @@ class SchemaTestRunner {
         for ($i = 0; $i < $p1HandCount && $p1Card !== ''; $i++) $b->WithCardInHandForPlayer(1, $p1Card);
         for ($i = 0; $i < $p2HandCount && $p2Card !== ''; $i++) $b->WithCardInHandForPlayer(2, $p2Card);
 
-        for ($i = 0; $i < $p1DeckLeft && $p1Card !== ''; $i++) $b->WithCardInDeckForPlayer(1, $p1Card);
-        for ($i = 0; $i < $p2DeckLeft && $p2Card !== ''; $i++) $b->WithCardInDeckForPlayer(2, $p2Card);
+        // SkipPreGame: the list IS the deck, top first (a mixed list used to become N copies of its first card).
+        for ($i = 0; $i < $p1DeckLeft && $p1Card !== ''; $i++) $b->WithCardInDeckForPlayer(1, $skipPre ? $p1Deck[$i] : $p1Card);
+        for ($i = 0; $i < $p2DeckLeft && $p2Card !== ''; $i++) $b->WithCardInDeckForPlayer(2, $skipPre ? $p2Deck[$i] : $p2Card);
 
         // Arena units from GIVEN directives.
         foreach ($given['WithP1GroundArena'] ?? [] as $spec) {

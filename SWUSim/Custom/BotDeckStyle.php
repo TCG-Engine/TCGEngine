@@ -112,20 +112,34 @@ function SWUBotFixtureDisplayNameFromFile(string $stem): string {
     return SWUBotFixtureUnslug($leader) . ' (' . strtoupper($set) . ') ' . SWUBotFixtureUnslug($base);
 }
 
-// Parse a BotFixtures deck file: '# ' comments, then the sections Leader / Base / Deck, each line '<count> <CardID>'.
+// Parse a BotFixtures deck file: '# ' comments, then the sections Leader / Base / Deck / Sideboard, each line
+// '<count> <CardID>'. `cards` is the MAIN deck only; the sideboard comes back separately.
+// ⚠ 'Sideboard' MUST be a recognised header: without it the section stays 'Deck' and the ten sideboard cards
+// are silently counted as main deck — the deck labels, style classifier and size check would all shift.
 function SWUBotDeckFromFixtureText(string $text): array {
-    $sec = ''; $leader = ''; $base = ''; $cards = [];
+    $sec = ''; $leader = ''; $base = ''; $cards = []; $sideboard = [];
     foreach (preg_split('/\R/', $text) as $line) {
         $line = trim($line);
         if ($line === '' || $line[0] === '#') continue;
-        if ($line === 'Leader' || $line === 'Base' || $line === 'Deck') { $sec = $line; continue; }
+        if ($line === 'Leader' || $line === 'Base' || $line === 'Deck' || $line === 'Sideboard') { $sec = $line; continue; }
         if (!preg_match('/^(\d+)\s+(\S+)/', $line, $m)) continue;
         $n = intval($m[1]); $id = $m[2];
         if ($sec === 'Leader') $leader = $id;
         elseif ($sec === 'Base') $base = $id;
         elseif ($sec === 'Deck') $cards[$id] = ($cards[$id] ?? 0) + $n;
+        elseif ($sec === 'Sideboard') $sideboard[$id] = ($sideboard[$id] ?? 0) + $n;
     }
-    return ['leader' => $leader, 'base' => $base, 'cards' => $cards];
+    return ['leader' => $leader, 'base' => $base, 'cards' => $cards, 'sideboard' => $sideboard];
+}
+
+// SUPERSET research mode (owner 2026-10-01): the fixture's sideboard folded INTO its main deck, so 50 → 60 and
+// a Data Vault 60 → 70. Not a real deck — a probe of whether a matchup swings once sideboard answers exist.
+// Done by renaming the 'Sideboard' header to 'Deck', which the game's own parser (ParseFreeTextDeck) reads as
+// more main deck, so the game loads it through exactly the path a normal fixture takes. Returns null when the
+// text has no Sideboard section, so a caller can refuse rather than silently run a game-1 deck as "superset".
+function SWUBotFixtureSuperset(string $text): ?string {
+    $out = preg_replace('/^Sideboard[ \t]*$/m', 'Deck', $text, -1, $n);
+    return ($n > 0) ? $out : null;
 }
 
 // The five archetypes as a 0-4 scale (SWUSim/Custom/BotArchetypes.php holds the same order).

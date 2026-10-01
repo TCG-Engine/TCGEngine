@@ -1,6 +1,6 @@
 # Real-deck self-play fixture — Luke Skywalker, I Can Save Him - Data Vault
 # Source: melee.gg 438901, #3 of 119 (7-2-0)
-#   https://melee.gg/Decklist/View/1bbe5ddc-8a79-40d9-aa65-b4c3012c8d50 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   https://melee.gg/Decklist/View/1bbe5ddc-8a79-40d9-aa65-b4c3012c8d50 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
 #   Promoted into the CURATED gate set 2026-09-16 at the owner's request: the defensive/heal behaviour class
 #   was otherwise uncovered by the gate set. Previously field-set only (meta-2026-09-field/lukeskywalker_green_datavault.txt).
 # Archetype: Luke (ASH) · Green Data Vault — 35 entries, 91-106-10 (46.4% match win, 95% CI 39.7-53.2) over 207
@@ -51,3 +51,10 @@ Deck
 3 LAW_041
 2 SEC_070
 2 LAW_127
+
+Sideboard
+2 ASH_053
+2 SEC_077
+2 LAW_040
+2 LAW_132
+2 ASH_133

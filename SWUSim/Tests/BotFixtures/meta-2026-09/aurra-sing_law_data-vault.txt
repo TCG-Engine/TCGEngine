@@ -1,6 +1,6 @@
 # Real-deck self-play fixture — Aurra Sing, Assassin - Data Vault
 # Source: melee.gg 439947, #1 of 64 (8-0-1, champion)
-#   https://melee.gg/Decklist/View/d5cc52ab-09bc-4d7c-b8de-b4c3007638b0 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   https://melee.gg/Decklist/View/d5cc52ab-09bc-4d7c-b8de-b4c3007638b0 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
 #   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
 # Archetype (owner's label): Midrange control: softens units up with trades or debuffs and uses Aurra's ability to maximise value trades (e.g. a 2/3/3 hits a 3/4/4, then Aurra's ability finishes it)
 # Style: softcontrol
@@ -41,3 +41,12 @@ Deck
 1 JTL_121
 1 LAW_044
 3 LOF_091
+
+Sideboard
+2 ASH_071
+2 SEC_038
+2 LAW_040
+1 SEC_078
+1 SEC_077
+1 LAW_149
+1 LAW_132

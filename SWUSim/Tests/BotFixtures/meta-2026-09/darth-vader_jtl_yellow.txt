@@ -1,6 +1,6 @@
 # Real-deck self-play fixture — Darth Vader, Victor Squadron Leader - Freetown
 # Source: melee.gg 445115, #2 of 180 (7-1-0)
-#   https://melee.gg/Decklist/View/8b67d9aa-9654-42c3-8a26-b4bd00d518ba — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   https://melee.gg/Decklist/View/8b67d9aa-9654-42c3-8a26-b4bd00d518ba — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard in the Sideboard section)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (29 entries).
 # Archetype (owner's label): Space aggro
 # Style: hyperaggro
@@ -31,4 +31,12 @@ Deck
 3 LAW_217
 1 SEC_195
 2 LOF_091
+1 ASH_199
+
+Sideboard
+2 JTL_235
+2 ASH_192
+2 LAW_066
+2 IBH_052
+1 ASH_194
 1 ASH_199

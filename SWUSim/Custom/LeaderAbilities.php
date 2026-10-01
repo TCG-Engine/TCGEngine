@@ -671,7 +671,7 @@ function Ash013DeployedTrigger($player, $mzID): void {
 function Ash016DeployedTrigger($player, $mzID, $baseDmg): void {
     global $playerID; $playerID = intval($player);
     if ($baseDmg <= 0) return;                                  // no base damage → nothing costs "less than 0"
-    if (!SWUHasUseAvailable(SWUGetLeader(intval($player)))) return;   // once-per-round already spent
+    if (!SWUHasUseAvailable(SWUFindLeaderByCardID(intval($player), 'ASH_016'))) return;   // once-per-round already spent
     $targets = [];
     // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
     // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a

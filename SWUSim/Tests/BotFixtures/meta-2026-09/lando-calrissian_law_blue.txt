@@ -1,6 +1,6 @@
 # Real-deck self-play fixture — Lando Calrissian, Full Sabacc - Fortress of the Great Mothers
 # Source: melee.gg 445115, #12 of 180 (6-2-0)
-#   https://melee.gg/Decklist/View/68d504dd-5a39-4396-a01a-b4bd005ee0fc — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   https://melee.gg/Decklist/View/68d504dd-5a39-4396-a01a-b4bd005ee0fc — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard in the Sideboard section)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (15 entries).
 # Archetype (owner's label): Credit ramp control — tempo soft control, Heroism, early bombs
 # Style: hardcontrol
@@ -41,3 +41,9 @@ Deck
 3 JTL_078
 3 SEC_078
 3 LAW_133
+
+Sideboard
+3 SEC_204
+3 ASH_063
+2 ASH_053
+2 LAW_132

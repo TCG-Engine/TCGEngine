@@ -1,6 +1,6 @@
 # Real-deck self-play fixture — Darth Maul, Sith Revealed - Nightsister Lair
 # Source: melee.gg 445115, #6 of 180 (6-1-1)
-#   https://melee.gg/Decklist/View/db5168bf-9d3f-45af-bced-b4bb012b0928 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   https://melee.gg/Decklist/View/db5168bf-9d3f-45af-bced-b4bb012b0928 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard in the Sideboard section)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (14 entries).
 # Archetype (owner's label): Tempo / midrange (Force)
 # Style: softcontrol
@@ -48,3 +48,11 @@ Deck
 2 JTL_140
 3 JTL_043
 3 SEC_038
+
+Sideboard
+2 LAW_191
+2 JTL_143
+2 SEC_078
+2 SEC_163
+1 JTL_140
+1 ASH_079

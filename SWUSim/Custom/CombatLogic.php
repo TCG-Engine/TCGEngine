@@ -483,7 +483,7 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
                 // skipped here via the gInCombatDamage gate so a combat hit never double-fires.
                 if (empty($GLOBALS['gInCombatDamage']) && intval($damage) > 0
                         && _SWUCountUnitsWithCardID($damager, 'SOR_013') > 0
-                        && SWUHasUseAvailable(SWUGetLeader($damager))) {
+                        && SWUHasUseAvailable(SWUFindLeaderByCardID($damager, 'SOR_013'))) {
                     // ⚠ The round is spent in SOR_013#0 on the accepted YES, not here (USER RULING
                     // 2026-09-07: declining a triggered "you may" never used the ability).
                     AddTrigger($damager, 'SOR_013', 'SOR_013', '');
@@ -1989,7 +1989,7 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // collect time (USER RULING 2026-09-07); cleared at RegroupPhaseStart.
     if (!empty($combatCtx['dealtToBase'])
         && _SWUCountUnitsWithCardID(intval($activePlayer), 'SOR_013') > 0
-        && SWUHasUseAvailable(SWUGetLeader(intval($activePlayer)))) {
+        && SWUHasUseAvailable(SWUFindLeaderByCardID(intval($activePlayer), 'SOR_013'))) {
         AddTrigger($activePlayer, 'SOR_013', 'SOR_013', '');
     }
 }

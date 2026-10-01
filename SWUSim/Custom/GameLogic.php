@@ -10052,7 +10052,13 @@ function FlushTriggerBag($activePlayer): bool {
         DecisionQueueController::AddDecision(
             $trigger['player'],
             "CUSTOM",
-            "RESOLVE_TRIGGER|{$trigger['triggerType']}|{$trigger['cardID']}|{$trigger['mzID']}",
+            // extraParams ride AFTER the mzID, exactly as FlushEntryTriggerBag's EffectStack Params carry them.
+            // They used to be DROPPED here, so a trigger that carries its unit's UID (to survive an index
+            // shift — _SWUEntryTriggerMz, case 'Shielded') lost it whenever a defeat-path flush swept it out
+            // of a staged entry bag (bug report #1110: HMW_043 Vader's rider kills a unit, the When Defeated
+            // flush takes the staged When Played with it, and "this unit" resolved against a refilled slot).
+            "RESOLVE_TRIGGER|{$trigger['triggerType']}|{$trigger['cardID']}|{$trigger['mzID']}"
+                . (($trigger['extraParams'] ?? '') !== '' ? '|' . $trigger['extraParams'] : ''),
             $gTriggerDepth,
             dontSkipOnPass: 1
         );
@@ -11085,6 +11091,22 @@ function JTL073DefeatTrigger($player): void {
         'question'=>"Exhaust_a_unit",'prompt'=>"Choose_a_unit_to_exhaust"]);
 }
 
+// The mzID an entry trigger (When Played / a gained When Played) resolves against. It was bagged as an INDEX,
+// and anything that removes a unit ahead of it compacts the arena — the slot can then hold a DIFFERENT unit,
+// which a gone-only check cannot see (bug report #1110, game 1438045: SEC_193 Thrawn's When Played "readied
+// P1's Mos Espa Watermonger"). Same defect as case 'Shielded' (#1091) and case 'Ambush'. $extra[0] is the
+// unit's UniqueID; when the slot no longer holds that unit, follow the unit to where it is now.
+// ⚠ When the unit has LEFT PLAY its When Played still resolves (last-known information), so the original
+// mzID is kept rather than fizzling the ability — re-resolving only ever moves the trigger onto its own unit.
+function _SWUEntryTriggerMz($mzID, $extra) {
+    $uid = intval($extra[0] ?? 0);
+    if ($uid <= 0) return $mzID;
+    $obj = GetZoneObject($mzID);
+    if (!SWUObjGone($obj) && intval($obj->UniqueID ?? -1) === $uid) return $mzID;
+    $reMz = SWUFindMzByUID($uid);
+    return $reMz ?? $mzID;
+}
+
 function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): void {
     global $playerID;
     $savedPID = $playerID;
@@ -11096,10 +11118,10 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
     // "Had no effect" — see SWULogNoEffectCheck. Probed AFTER the source is set (so setting it is not a change).
     $noEffectProbe = ($logSrc !== '' && SWULogNoEffectEligible((string)$triggerType)) ? SWULogNoEffectProbe() : '';
     switch ($triggerType) {
-        case 'WhenPlayed':          OnWhenPlayed($player, $cardID, $mzID);          break;
+        case 'WhenPlayed':          OnWhenPlayed($player, $cardID, _SWUEntryTriggerMz($mzID, $extra));          break;
         // HMW_048 — a GAINED When Played: the donor's closure runs with HER mzID ("this unit" = her),
         // through OnWhenPlayed so the LOF_197 repeat-arm sees it as a real When Played use.
-        case 'HMW048Gain':          OnWhenPlayed($player, $cardID, $mzID);          break;
+        case 'HMW048Gain':          OnWhenPlayed($player, $cardID, _SWUEntryTriggerMz($mzID, $extra));          break;
         case 'WhenPlayedAsUpgrade': OnWhenPlayedAsUpgrade($player, $cardID, $mzID); break;
         // CR 19 Plot window, ordered against the deploying leader's own trigger (bug #1024). This is
         // the ONLY thing that opens the window now; the deploy's own SWUAfterAction is unreachable
@@ -11488,7 +11510,9 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
     // Played does not fire (the $cardID/hand-source path can't rely on the object's Owner being set).
     if (HasWhenPlayedAbility($cardID) && !_SWUGalenSuppressesCard($activePlayer, $cardID)
         && _SWUWhenPlayedAbilityActive((string)$cardID, intval($activePlayer))) {   // "Coordinate - When Played"
-        AddTrigger($activePlayer, 'WhenPlayed', $cardID, $mzID);
+        // Carry the UID: the mzID is an INDEX and the arena can compact (and refill the slot) before this
+        // resolves — bug report #1110. The dispatch re-resolves from it; see _SWUEntryTriggerMz.
+        AddTrigger($activePlayer, 'WhenPlayed', $cardID, $mzID, (string)SWUObjUID($entO, 0));
     }
 
     // HMW_048 Vernestra Rwoh — the additional cost recorded donor CardIDs (SWUVar: the pick can be
@@ -11506,7 +11530,7 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
             foreach (array_values(array_filter(explode(',', $g048))) as $gcid) {
                 AddTurnEffect($mzID, 'SWU_HMW048_GAIN_' . $gcid);
                 if (isset($whenPlayedAbilities[$gcid . ':0'])) {
-                    AddTrigger($activePlayer, 'HMW048Gain', $gcid, $mzID);
+                    AddTrigger($activePlayer, 'HMW048Gain', $gcid, $mzID, (string)SWUObjUID($entO, 0));
                 }
             }
         }
@@ -13392,7 +13416,7 @@ function SWUQueueChooseWhenDefeatedAbility(int $owner, string $hostCardID, strin
 // Undeployed: may exhaust the (ready) leader. Deployed leader unit: no cost, once each round.
 function _SWUThrawnReuseMode(int $owner): ?string {
     if (_SWULeaderDeployed($owner, 'JTL_002')) {
-        return SWUHasUseAvailable(SWUGetLeader($owner)) ? 'deployed' : null; // once/round via leader NumUses
+        return SWUHasUseAvailable(SWUFindLeaderByCardID($owner, 'JTL_002')) ? 'deployed' : null; // once/round via leader NumUses
     }
     if (_SWULeaderReadyUndeployed($owner, 'JTL_002')) return 'undeployed';
     return null;
@@ -13528,7 +13552,7 @@ function SWUUseOnAttackAbility(int $owner, string $cardID, string $mzID, bool $f
 // Deployed leader unit: no cost, once each round (leader NumUses budget).
 function _SWUEnfysReuseMode(int $owner): ?string {
     if (_SWULeaderDeployed($owner, 'LAW_014')) {
-        return SWUHasUseAvailable(SWUGetLeader($owner)) ? 'deployed' : null;
+        return SWUHasUseAvailable(SWUFindLeaderByCardID($owner, 'LAW_014')) ? 'deployed' : null;
     }
     if (_SWULeaderReadyUndeployed($owner, 'LAW_014') && SWUTotalPaymentCapacity($owner) >= 2) return 'undeployed';
     return null;
@@ -13735,9 +13759,10 @@ $customDQHandlers["RESOLVE_TRIGGER"] = function($player, $parts, $lastDecision) 
     $triggerType = $parts[0] ?? '';
     $cardID      = $parts[1] ?? '';
     $mzID        = $parts[2] ?? '';
+    $extra       = array_slice($parts, 3);   // the trigger's extraParams (see FlushTriggerBag)
 
     $gTriggerDepth++;
-    DispatchTrigger($player, $triggerType, $cardID, $mzID);
+    DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra);
     // Flush any nested triggers the ability closure just collected (e.g. Vader defeating a
     // unit whose When Defeated also triggers). They queue at higher depth, resolving first.
     FlushTriggerBag($player);
@@ -13758,7 +13783,7 @@ $customDQHandlers["THRAWN_REUSE"] = function($player, $parts, $lastDecision) {
     $mode = _SWUThrawnReuseMode($owner);
     if ($mode === null) return;
     if ($mode === 'undeployed') _SWUExhaustUndeployedLeader($owner, 'JTL_002');
-    else SWUConsumeUse(SWUGetLeader($owner)); // deployed: spend the once/round NumUses budget
+    else SWUConsumeUse(SWUFindLeaderByCardID($owner, 'JTL_002')); // deployed: spend the once/round NumUses budget
     SWUUseWhenDefeatedAbility($owner, $cardID, $mzID, $grantedType);
 };
 
@@ -13775,7 +13800,7 @@ $customDQHandlers["ENFYS_REUSE"] = function($player, $parts, $lastDecision) {
     $mode = _SWUEnfysReuseMode($owner);
     if ($mode === null) return;
     if ($mode === 'undeployed') { SWUPayInlineAbilityCost($owner, 2); _SWUExhaustUndeployedLeader($owner, 'LAW_014'); }
-    else SWUConsumeUse(SWUGetLeader($owner)); // deployed: spend the once/round NumUses budget
+    else SWUConsumeUse(SWUFindLeaderByCardID($owner, 'LAW_014')); // deployed: spend the once/round NumUses budget
     SWUUseOnAttackAbility($owner, $cardID, $mzID, $fromUpgrade);
 };
 
@@ -18535,6 +18560,9 @@ function SWUContinuePlayAfterExploit($player, $mzID, $discount) {
 }
 
 // ── Leader: get the non-removed leader card object for a player ────────────
+// ⚠ SLOT 0 ONLY. A seat may hold two leaders (Twin Suns / Leader2), so an ability that reads or spends
+// "THIS leader's" state (e.g. a deployed once-per-round NumUses) must use SWUFindLeaderByCardID — via
+// this helper a slot-2 leader spent the slot-1 leader's round (core/LeaderOncePerRound_SecondSlot.md).
 function SWUGetLeader(int $player): ?object {
     $arr = &GetLeader($player);
     for ($i = 0; $i < count($arr); $i++) {
@@ -19683,7 +19711,7 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             // change, so the hop is usable even with no other ship to hop to — spend 1 and don't hop (a soft
             // pass); Poe stays on his current Vehicle. The dispatcher pays the resource; the handler no-ops on
             // no target (and does NOT consume the once-per-round, since no hop occurred).
-            if (!SWUHasUseAvailable(SWUGetLeader($player))) $ok = false;
+            if (!SWUHasUseAvailable(SWUFindLeaderByCardID($player, 'JTL_013'))) $ok = false;
             // "Attach THIS UPGRADE …" exists only while Poe is attached as a Pilot upgrade. The provider lookup
             // also matches a Poe deployed as a UNIT by his own CardID, which offered "Ability" on the ground and
             // let the click lift him off the ground onto a Vehicle (reported 2026-09-17).

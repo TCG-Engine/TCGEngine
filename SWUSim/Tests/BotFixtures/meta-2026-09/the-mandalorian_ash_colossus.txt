@@ -1,8 +1,10 @@
 # Real-deck self-play fixture — The Mandalorian, We Can't Keep Running - Colossus
 # Source: melee.gg 443438, #1 of 55 (8-1-0) — the event winner
-#   https://melee.gg/Decklist/View/52865694-a4dd-4ad4-8f16-b4c300e1ac71 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   https://melee.gg/Decklist/View/52865694-a4dd-4ad4-8f16-b4c300e1ac71 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
 #   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
 #   Its event was pulled on 2026-09-15, so the placement above is now from our own data.
+#   ⚠ Until 2026-10-01 this list was 62 cards, not 65: the converter dropped all 3 Zeb Orrelios | Spectre Four
+#   (LAW_045) because melee spells it "Orellios". Results from before that date played without them.
 # Archetype (owner's label): Hard control with late-game bombs. Closes with Bo-Katan and Aggressive Negotiations; combo: Hera (ASH) unit + Aggressive Negotiations deals a lot of damage and heals that much — opponents should remove Hera immediately
 # Style: hardcontrol
 # Flavours: hard, combo
@@ -41,4 +43,17 @@ Deck
 2 SEC_078
 2 JTL_180
 1 JTL_080
+1 IBH_104
+3 LAW_045
+
+Sideboard
+1 LAW_191
+1 SEC_048
+1 ASH_052
+1 LAW_208
+1 JTL_078
+1 SEC_078
+1 LOF_147
+1 ASH_053
+1 SEC_255
 1 IBH_104

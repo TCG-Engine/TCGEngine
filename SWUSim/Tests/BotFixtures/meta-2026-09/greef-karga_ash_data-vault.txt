@@ -1,6 +1,6 @@
 # Real-deck self-play fixture — Greef Karga, Gracious Magistrate - Data Vault
 # Source: melee.gg 445115, #9 of 180 (6-2-0)
-#   https://melee.gg/Decklist/View/d76e8a8c-de84-4435-9de3-b4bd00315b45 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   https://melee.gg/Decklist/View/d76e8a8c-de84-4435-9de3-b4bd00315b45 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard in the Sideboard section)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (20 entries).
 # Archetype (owner's label): Go-wide aggro / soft aggro (Support units, action-cheating)
 # Style: softaggro
@@ -35,3 +35,10 @@ Deck
 3 ASH_253
 3 SEC_233
 2 LOF_215
+
+Sideboard
+2 JTL_235
+2 JTL_078
+2 ASH_207
+2 ASH_220
+2 LAW_149

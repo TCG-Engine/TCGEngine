@@ -1,6 +1,6 @@
 # Real-deck self-play fixture — Admiral Piett, Commanding the Armada - Stygeon Spire
 # Source: melee.gg 445115, #39 of 180 (5-3-0)
-#   https://melee.gg/Decklist/View/dfcad855-388e-4770-bcf1-b4bd00d81505 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   https://melee.gg/Decklist/View/dfcad855-388e-4770-bcf1-b4bd00d81505 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard in the Sideboard section)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (8 entries).
 # Archetype (owner's label): Capital Ship midrange
 # Style: midrange
@@ -32,3 +32,10 @@ Deck
 3 JTL_181
 2 JTL_131
 3 LOF_091
+
+Sideboard
+3 LAW_191
+2 JTL_112
+2 SEC_163
+2 JTL_121
+1 ASH_148

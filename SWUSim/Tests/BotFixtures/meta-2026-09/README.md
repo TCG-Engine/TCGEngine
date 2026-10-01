@@ -17,10 +17,17 @@ deck's CURVE first.** The owner's own Krennic list, which does contest space, is
 
 Each file header records:
 - the **source** — event, final placement and the melee decklist URL. Lists were converted to SET_NNN by
-  `APIs/MeleeLinkToJson.php`; sideboards are dropped.
+  `APIs/MeleeLinkToJson.php`.
 - the owner's **archetype label**.
 - the **style**: which heuristic profile, and later which RL base model, plays it.
 - the **flavours**: tags for the flavour profiles, the heuristic nudges on top of a style.
+
+**Every file ends with a `Sideboard` section** (added 2026-10-01, all ten cards, from the same melee list). A
+normal run IGNORES it — the game loads only the main deck, and the label/style/size parsers skip the section.
+It is used by the **superset** research mode, which folds it into the main deck (50 → 60, Data Vault 60 → 70):
+`DevTools/SWUSimBotSelfPlayTest.php --superset`, or `SUPERSET=1 bash SWUSim/DevTools/rl/sweep_fixtures.sh …`
+with its own outdir. A superset deck is not a real deck — it probes whether a matchup swings once the
+sideboard's answers are available, a Bo3 signal a game-1 list cannot give.
 
 ⚠ **Filenames were RENAMED on 2026-09-29** to `<leader-title>_<leader-set>_<base-name-or-archetype>`, which
 the Bot Arena picker shows as "Leader Title (SET) Base" — `director-krennic_law_blue-splash` displays as

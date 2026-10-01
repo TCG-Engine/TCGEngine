@@ -137,6 +137,37 @@ $check($has('SOR_100', 'gives-ambush') && !$has('SOR_100', 'ambush'), 'Wedge GRA
 $check($has('JTL_043', 'take-control'), 'No Glory -> take-control');
 $check($has('SHD_213', 'steal-enemy-resource'), 'DJ "Take control of an enemy resource" -> steal-enemy-resource');
 
+// ── PUMP and ATTACK-NO-BASE (owner 2026-10-01). Pump = "attack with a unit, it gets +X/+0 for this attack".
+// The wording varies more than it looks, and each of these was missed by `buff` or left wholly untagged.
+$check($has('SEC_179', 'pump'), 'Aggressive Negotiations "For this attack, it gets +1/+0 for each card" -> pump (was untagged)');
+$check($has('JTL_156', 'pump'), 'Trench Run "For this attack, it gets +4/+0 and gains…" -> pump (was untagged)');
+$check($has('SOR_220', 'pump') && $has('SOR_220', 'buff'), 'Surprise Strike -> pump, and KEEPS buff so its weight does not move');
+$check($has('SOR_240', 'pump'), 'Fleet Lieutenant "If it\'s a Rebel unit, it gets +2/+0" -> pump: a conditional boost still counts');
+$check($has('IBH_064', 'pump'), 'Hoth Lieutenant, a UNIT\'s When Played attack -> pump');
+$check($has('TWI_011', 'pump'), 'Ahsoka TWI_011, a LEADER Action attack -> pump');
+$check($has('SHD_145', 'pump'), 'Headhunting "…gets +2/+0 for its attack", three sentences after "Attack with" -> pump');
+$check(!$has('ASH_109', 'pump') && $has('ASH_109', 'buff'),
+    'T-6 Shuttle 1974 "+2/+2 for this phase. You may attack" -> buff, NOT pump: the boost is not scoped to the attack');
+$check($has('LOF_124', 'pump') && $has('LOF_124', 'attack-no-base'), 'Niman Strike -> pump + attack-no-base');
+$check($has('LOF_140', 'attack-no-base'), 'Darth Maul\'s Lightsaber "For this attack, he … can\'t attack bases" -> attack-no-base');
+$check(!$has('JTL_092', 'attack-no-base') && !$has('SOR_072', 'attack-no-base'),
+    'a phase-long (Scramble Fighters) or permanent (Entrenched) restriction is not attack-no-base');
+$check(!in_array('pump', SWUBotCardTagsForRlKey('SEC_179'), true), 'pump never reaches an RL key (pinned to v2)');
+
+// GRANTS-ATTACK: the extra attack itself, so `pump` is its subset ("Lieutenant" units carry both).
+$check($has('SOR_240', 'grants-attack') && $has('SOR_240', 'pump'), 'Fleet Lieutenant -> grants-attack AND pump');
+$check($has('SHD_223', 'grants-attack'), 'Snapshot Reflexes, an UPGRADE that attacks with its host -> grants-attack (was untagged)');
+$check($has('TWI_248', 'grants-attack'), 'Ahsoka\'s Padawan Lightsaber "you may attack with a unit" -> grants-attack (was untagged)');
+$check($has('SHD_128', 'grants-attack'), 'Outflank "Attack with 2 units" -> grants-attack (was untagged)');
+$check($has('ASH_109', 'grants-attack') && !$has('ASH_109', 'pump'), 'T-6 Shuttle 1974 grants an attack, but its phase-long +2/+2 is no pump');
+$check(!$has('ASH_037', 'grants-attack'), 'Red Leader "may attack units in either arena" is a targeting PERMISSION, not an attack');
+
+// SHOOT-FIRST: any first-strike, granted or printed.
+$check($has('SOR_217', 'shoot-first') && $has('SOR_217', 'pump'), 'Shoot First -> shoot-first + pump');
+$check($has('SOR_198', 'shoot-first') && !$has('SOR_198', 'grants-attack'), 'Han Solo SOR_198 "While attacking, … before the defender" -> shoot-first, no attack granted');
+$check($has('LAW_219', 'shoot-first'), 'Anakin\'s Podracer "…before the defending unit" -> shoot-first');
+$check(!$has('LAW_086', 'shoot-first'), 'The Stranger lets the DEFENDER strike first - the reverse, not shoot-first');
+
 // ── DERIVED compatibility tags. ~24 sites read `wipe` and `exhaust`, including two per-archetype WEIGHTS that
 // _SWUBotPlayValue sums as $W[$tag] ?? 0.0 - so a missing name silently ZEROES a weight instead of erroring.
 $check($has('ASH_151', 'wipe'), 'wipe is still emitted, derived from BOTH halves being present');
@@ -156,6 +187,7 @@ $check(empty($bad), 'a derived alias is never prefixed (no bounty-exhaust / cost
 // cards; what it really catches is a tag going to ZERO, doubling, appearing, or vanishing.
 const TAG_BASELINE = [
     'ambush' => 87,
+    'attack-no-base' => 11,
     'bounce' => 57,
     'bounty' => 11,
     'bounty-capture' => 1,
@@ -220,6 +252,7 @@ const TAG_BASELINE = [
     'gives-shield' => 74,
     'gives-shielded' => 5,
     'gives-weakness' => 22,
+    'grants-attack' => 108,
     'grit' => 54,
     'heal' => 93,
     'hidden' => 66,
@@ -229,6 +262,7 @@ const TAG_BASELINE = [
     'overwhelm' => 89,
     'piloting' => 38,
     'plot' => 30,
+    'pump' => 62,
     'raid' => 97,
     'recursion' => 37,
     'removal' => 103,
@@ -241,6 +275,7 @@ const TAG_BASELINE = [
     'self-damage' => 34,
     'sentinel' => 116,
     'shielded' => 65,
+    'shoot-first' => 9,
     'smuggle' => 31,
     'steal-enemy-resource' => 1,
     'take-control' => 23,
