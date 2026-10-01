@@ -159,7 +159,7 @@ $swuDir = __DIR__ . '/../SWUSim/';
 function SWUBotTestParseArgs($argv) {
   $args = ['deck' => null, 'deck2' => null, 'maxSteps' => 3000, 'maxRounds' => 0, 'verbose' => false, 'firstPlayer' => 1,
            'seed' => 'swusimbotselfplay00000000000000', 'games' => 1, 'chooser' => 'first-legal', 'chooser2' => null,
-           'memoryOnly' => false, 'workers' => 2, 'superset' => false];
+           'memoryOnly' => false, 'workers' => 2, 'superset' => []];
   foreach (array_slice($argv, 1) as $arg) {
     if (str_starts_with($arg, '--deck=')) $args['deck'] = substr($arg, 7);
     elseif (str_starts_with($arg, '--deck2=')) $args['deck2'] = substr($arg, 8);
@@ -177,7 +177,11 @@ function SWUBotTestParseArgs($argv) {
     elseif ($arg === '--verbose') $args['verbose'] = true;
     elseif ($arg === '--memory-only') $args['memoryOnly'] = true;
     // SUPERSET research mode (owner 2026-10-01): fold each deck's Sideboard section into its main deck.
-    elseif ($arg === '--superset') $args['superset'] = true;
+    // `--superset` folds BOTH seats; `--superset=1` / `--superset=2` folds ONE, so a deck's own sideboard answers
+    // can be measured apart from the opponent's dilution (owner 2026-10-01). Held as the list of folded seats.
+    elseif ($arg === '--superset' || $arg === '--superset=both') $args['superset'] = [1, 2];
+    elseif ($arg === '--superset=1' || $arg === '--superset=2') $args['superset'] = [intval(substr($arg, 11))];
+    elseif (str_starts_with($arg, '--superset=')) { fwrite(STDERR, "--superset takes 1, 2 or both, not '" . substr($arg, 11) . "'\n"); exit(1); }
   }
   return $args;
 }
@@ -210,18 +214,22 @@ $deckText2 = file_get_contents($deckPath2);
 // --superset folds each fixture's Sideboard section into its main deck (SWUBotFixtureSuperset). A deck WITHOUT a
 // sideboard is REFUSED rather than run as-is: a "superset" game that silently played a game-1 list would be
 // indistinguishable from a real one in the results, and would quietly dilute the arm being measured.
+// Only the seats named in $args['superset'] are folded; the other seat plays its game-1 list.
 if ($args['superset']) {
   require_once __DIR__ . '/../SWUSim/Custom/BotDeckStyle.php';
   foreach ([1 => $deckPath1, 2 => $deckPath2] as $i => $p) {
+    if (!in_array($i, $args['superset'], true)) continue;
     $folded = SWUBotFixtureSuperset(${'deckText' . $i});
     if ($folded === null) { fwrite(STDERR, "--superset: $p has no Sideboard section\n"); exit(1); }
     ${'deckText' . $i} = $folded;
   }
 }
 // The trace path carries the ARM (memory: baseline and proposal must never share a file, and the harness
-// TRUNCATES), so a superset game's deck slug gets '+sb' — otherwise it would overwrite the game-1 trace of the
-// same seed. Only the trace NAME changes; the deck actually played is the folded text above.
-$swuBotTraceDeck = fn(?string $d) => ($d !== null && $args['superset']) ? preg_replace('/(\.txt)?$/', '+sb', $d, 1) : $d;
+// TRUNCATES), so a FOLDED seat's deck slug gets '+sb' — otherwise it would overwrite the game-1 trace of the
+// same seed, and the two one-seat arms would overwrite each other. Only the trace NAME changes; the deck actually
+// played is the folded text above.
+$swuBotTraceDeck = fn(?string $d, int $seat) => ($d !== null && in_array($seat, $args['superset'], true))
+  ? preg_replace('/(\.txt)?$/', '+sb', $d, 1) : $d;
 
 // Validated in the PARENT too, before any child is spawned: SWUBotChooseAction() silently falls
 // back to 'first-legal' for an unregistered profile name, so a typo in --chooser= would otherwise
@@ -360,7 +368,7 @@ function SWUBotTestRunSweep(array $args, $selfPath) {
   // Each child names its own per-game trace under this root; printed once so a sweep says where its
   // material went without the caller having to know the naming scheme.
   $swuBotTraceDeck = $GLOBALS['swuBotTraceDeck'];   // defined at top level; this is a function scope
-  echo "[SWEEP TRACES] " . dirname(SWUBotTracePathFor($swuBotTraceDeck($args['deck']), $swuBotTraceDeck($args['deck2']), strval($args['chooser']),
+  echo "[SWEEP TRACES] " . dirname(SWUBotTracePathFor($swuBotTraceDeck($args['deck'], 1), $swuBotTraceDeck($args['deck2'], 2), strval($args['chooser']),
     $args['chooser2'] !== null ? strval($args['chooser2']) : strval($args['chooser']), 'SEED', 1)) . "\n";
 
   $passed = 0; $failed = 0; $totalGaps = 0; $gapLines = []; $signals = []; $coverage = []; $metrics = [];
@@ -380,7 +388,7 @@ function SWUBotTestRunSweep(array $args, $selfPath) {
       if ($args['deck2'] !== null) $cmd[] = '--deck2=' . $args['deck2'];
       if ($args['chooser2'] !== null) $cmd[] = '--chooser2=' . $args['chooser2'];
       if ($args['memoryOnly']) $cmd[] = '--memory-only';
-      if ($args['superset']) $cmd[] = '--superset';
+      if ($args['superset']) $cmd[] = count($args['superset']) === 2 ? '--superset' : '--superset=' . $args['superset'][0];
       $stdoutPath = tempnam(sys_get_temp_dir(), 'swubot-out-');
       $stderrPath = tempnam(sys_get_temp_dir(), 'swubot-err-');
       $process = proc_open($cmd, [0 => ['pipe', 'r'], 1 => ['file', $stdoutPath, 'w'],
@@ -525,7 +533,7 @@ if ($args['games'] > 1) exit(SWUBotTestRunSweep($args, __FILE__));
 // SWUBotTrace() appends, so TRUNCATE here: re-running a seed must replace its trace, not double it.
 $swuBotTracePath = getenv('SWUBOT_TRACE');
 if ($swuBotTracePath === false || $swuBotTracePath === '') {
-  $swuBotTracePath = SWUBotTracePathFor($swuBotTraceDeck($args['deck']), $swuBotTraceDeck($args['deck2']), strval($args['chooser']),
+  $swuBotTracePath = SWUBotTracePathFor($swuBotTraceDeck($args['deck'], 1), $swuBotTraceDeck($args['deck2'], 2), strval($args['chooser']),
     $args['chooser2'] !== null ? strval($args['chooser2']) : strval($args['chooser']),
     strval($args['seed']), intval($args['firstPlayer']));
   if (!is_dir(dirname($swuBotTracePath))) @mkdir(dirname($swuBotTracePath), 0777, true);
@@ -767,8 +775,9 @@ $swuBotMetrics = [
   'chooser'         => [1 => $swuBotChooserProfile, 2 => $swuBotChooserProfile2],
   'capped'          => $capped,
 ];
-// Only a superset game carries the key, so every game-1 metrics line stays byte-identical to before.
-if ($args['superset']) $swuBotMetrics['superset'] = true;
+// Only a superset game carries the key, so every game-1 metrics line stays byte-identical to before. It lists the
+// FOLDED seats ([1,2], [1] or [2]). The 2026-10-01 pilot's lines predate the one-seat arms and say `true` (= both).
+if ($args['superset']) $swuBotMetrics['superset'] = $args['superset'];
 if (!$gameOver && !$capped) SWUBotTestStallDiagnostic($swuDir, $gameName, $stalled ? 'stall' : ($stepError !== '' ? 'error' : 'timeout'));
 
 // ── 2. NO ENUMERATION GAPS ───────────────────────────────────────────────────────────────────────

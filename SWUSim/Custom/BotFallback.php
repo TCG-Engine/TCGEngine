@@ -180,7 +180,12 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                     && _SWUBotEventHadNoEffect($seat, $action, $cid, $W)) return -0.5;
                 // A play whose best line still helps the opponent is held (feature 'nogift'; Bug #1066, Perseverance
                 // with only an enemy unit to heal and shield).
-                if (SWUBotFeatureOn('nogift') && _SWUBotPlayIsGift($seat, $action, $cid, $W)) return -0.5;
+                // An upgrade with an owner-ruled host policy (feature 'hostpolicy'): held when no legal host is one it
+                // may go on; otherwise its side of the table is already decided, so it is not re-judged as a gift (a
+                // Bounty on an enemy unit reads as "+1 upgrade" to the gift read).
+                $policyHosts = SWUBotFeatureOn('hostpolicy') ? _SWUBotPolicyHosts($seat, $cid) : null;
+                if ($policyHosts !== null && empty($policyHosts)) return -0.5;
+                if ($policyHosts === null && SWUBotFeatureOn('nogift') && _SWUBotPlayIsGift($seat, $action, $cid, $W)) return -0.5;
                 $v = _SWUBotPlayValue($seat, $cid, $W);
                 // Play an enabler BEFORE the unit it improves (feature 'enablerfirst').
                 if (SWUBotFeatureOn('enablerfirst')) $v += _SWUBotEnablerFirstBonus($seat, $action, $cid, $W);
@@ -909,9 +914,76 @@ function _SWUBotEnabledPlayValue(int $seat, array $handBefore, array $after, arr
 
 // Where an upgrade goes (feature 'picks'): a helpful upgrade on the strongest friendly attacker (ready first); a
 // harmful one (negative stats, or "attached unit can't / cannot / loses") on the most valuable enemy.
+// Feature 'hostpolicy' (p17). Every attachment is called an "Upgrade", but some are DOWNGRADES — and the board read
+// cannot see most of what makes them one (a Bounty, a lost ability, "can't ready"), so neither the gift check nor the
+// host pick could tell. Owner rulings 2026-10-01 place each listed card; anything unlisted keeps the generic scoring.
+//   enemy      — only on an enemy unit
+//   own        — only on my own unit
+//   own-small  — only on my own unit whose printed stats it raises (LOF_056: printed 5/5 — "doesn't see play")
+//   entrenched — an enemy unit WITHOUT Overwhelm, or my own Sentinel (SOR_072, "the only one so far that is truly mixed")
+//   condemn    — SEC_038: an enemy unit not already Condemned, or MY unit that already is. A second copy's "loses all
+//                other abilities" stops the first copy's ability being gained (official reminder), so on my unit it
+//                cancels the defender's -6/-0 disclose — and on an enemy unit it would cancel my own Condemn.
+const SWU_BOT_UPGRADE_HOST_POLICY = [
+    // Grants a Bounty, or pays the opponent when the unit is defeated.
+    'SHD_221' => 'enemy', 'SHD_068' => 'enemy', 'SHD_071' => 'enemy', 'SHD_123' => 'enemy', 'SHD_125' => 'enemy',
+    'SHD_173' => 'enemy', 'SHD_176' => 'enemy', 'SHD_222' => 'enemy', 'SHD_226' => 'enemy', 'SHD_261' => 'enemy',
+    'LAW_141' => 'enemy',
+    // Strips abilities / stops or taxes readying.
+    'SHD_072' => 'enemy', 'SEC_054' => 'enemy', 'SHD_193' => 'enemy', 'LAW_077' => 'enemy',
+    'JTL_192' => 'enemy', 'ASH_088' => 'enemy',
+    // Negative stats, or damages its host.
+    'TWI_070' => 'enemy', 'LAW_127' => 'enemy', 'ASH_054' => 'enemy', 'ASH_085' => 'enemy', 'ASH_150' => 'enemy',
+    'ASH_198' => 'enemy',   // Nowhere to Hide: "no one ever plays it on their own unit"
+    'SOR_122' => 'enemy',   // Traitorous: its whole value is taking control of an enemy unit
+    // Owner: always on my own unit.
+    'ASH_228' => 'own',     // Preparation — on a unit that just entered play or already attacked (already exhausted)
+    'LOF_139' => 'own', 'JTL_260' => 'own', 'LOF_138' => 'own', 'LAW_225' => 'own',
+    'LOF_056' => 'own-small',
+    'SOR_072' => 'entrenched',
+    'SEC_038' => 'condemn',
+];
+
+// May $upgradeID go on the unit view $v (on $enemy's side)? null = the card has no policy.
+function _SWUBotHostAllowed(string $upgradeID, array $v, bool $enemy): ?bool {
+    $policy = SWU_BOT_UPGRADE_HOST_POLICY[$upgradeID] ?? null;
+    if ($policy === null) return null;
+    switch ($policy) {
+        case 'enemy': return $enemy;
+        case 'own':   return !$enemy;
+        case 'own-small':
+            $p = intval(CardPower($v['cardID'])); $h = intval(CardHp($v['cardID']));
+            return !$enemy && $p <= 5 && $h <= 5 && ($p < 5 || $h < 5);
+        case 'entrenched': return $enemy ? !$v['overwhelm'] : $v['sentinel'];
+        case 'condemn':    return $enemy !== _SWUUnitHasUpgrade($v['obj'], 'SEC_038');
+    }
+    return null;
+}
+
+// The legal hosts for $cid the policy allows, or null when the card has no policy.
+function _SWUBotPolicyHosts(int $seat, string $cid): ?array {
+    if (!isset(SWU_BOT_UPGRADE_HOST_POLICY[$cid])) return null;
+    $out = [];
+    foreach (SWUGetUpgradeValidTargets($seat, $cid) as $mz) {
+        $v = SWUBotViewForMz($seat, $mz);
+        if ($v !== null && _SWUBotHostAllowed($cid, $v, str_starts_with($mz, 'their'))) $out[] = $mz;
+    }
+    return $out;
+}
+
 function _SWUBotAttachScore(int $seat, string $mz, string $upgradeID, array $W): ?float {
     $v = SWUBotViewForMz($seat, $mz);
     if ($v === null) return null;
+    if (SWUBotFeatureOn('hostpolicy') && ($allowed = _SWUBotHostAllowed($upgradeID, $v, str_starts_with($mz, 'their'))) !== null) {
+        if (!$allowed) return -100.0;
+        if (str_starts_with($mz, 'their')) return SWUBotUnitValue($v);          // the bigger enemy, the more it takes
+        if (SWU_BOT_UPGRADE_HOST_POLICY[$upgradeID] === 'own-small')            // the most printed stats gained
+            return 10.0 - intval(CardPower($v['cardID'])) - intval(CardHp($v['cardID']));
+        // "When Played: Exhaust attached unit" (Preparation) costs nothing on a unit that is already exhausted.
+        $exhaustsHost = preg_match('/When Played: Exhaust attached unit/i', strval(CardText($upgradeID))) === 1;
+        return $v['attackPower'] + 0.1 * SWUBotUnitValue($v)
+             + ($exhaustsHost ? ($v['ready'] ? -$W['ready'] : $W['ready']) : ($v['ready'] ? $W['ready'] : 0.0));
+    }
     $harmful = intval(CardUpgradePower($upgradeID)) < 0 || intval(CardUpgradeHp($upgradeID)) < 0
         || preg_match("/attached unit (can't|cannot|loses)/i", strval(CardText($upgradeID)))
         || (SWUBotFeatureOn('targeting2') && preg_match('/loses all (other )?abilities|gets -\d+\/-\d+/i', strval(CardText($upgradeID))));
@@ -1041,7 +1113,11 @@ function _SWUBotGiftRead(int $seat): float {
 // line leaves the opponent better off. Only cards whose text can help a unit are tried (the lookahead is not free).
 function _SWUBotPlayIsGift(int $seat, array $action, string $cid, array $W): bool {
     if (!function_exists('SWUBotLookaheadBest')) return false;
-    if (!preg_match('/\b(heal|give|gives|ready|attach|gets \+)/i', strval(CardText($cid)))) return false;
+    // Every UPGRADE is tried: its benefit is often only its PRINTED stats, which no text matches — LAW_129 Mastery
+    // ("costs 1 resource less to play on a <uq> unit", +3/+3) went on the owner's Huyang when the bot had no unit
+    // left (game 1438045). A debuff upgrade still passes: on an enemy host it lowers the gift read.
+    if (!str_contains(strval(CardType($cid)), 'Upgrade')
+        && !preg_match('/\b(heal|give|gives|ready|attach|gets \+)/i', strval(CardText($cid)))) return false;
     $before = _SWUBotBoardRead($seat);
     $gift0 = _SWUBotGiftRead($seat);
     $line = SWUBotLookaheadBest($seat, $action, function () use ($seat) {

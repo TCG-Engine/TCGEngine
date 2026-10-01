@@ -587,6 +587,7 @@ ALTER TABLE `meleetournament`
 CREATE TABLE `meleetournamentdeck` (
   `deckID` int(11) NOT NULL,
   `tournamentID` int(11) NOT NULL,
+  `sourceID` varchar(64) DEFAULT NULL,
   `rank` int(11) DEFAULT NULL,
   `player` varchar(64) DEFAULT NULL,
   `leader` varchar(16) DEFAULT NULL,

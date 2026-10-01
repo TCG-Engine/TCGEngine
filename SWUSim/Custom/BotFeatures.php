@@ -225,6 +225,18 @@ const SWU_BOT_PART15_FEATURES = ['tags3'];
 // Guard: SWUSim/DevTools/tests/bot_aspectwaiver_test.php (section F is the reported board).
 const SWU_BOT_PART16_FEATURES = ['aspectwaiver'];
 
+// Part 17 (2026-10-01): 'hostpolicy' — every attachment is an "Upgrade", but some are DOWNGRADES. Owner rulings
+// place each listed upgrade on a side of the table (SWU_BOT_UPGRADE_HOST_POLICY, BotFallback.php): Bounty granters
+// and ability/ready/stat suppressors only on an ENEMY unit; Preparation, Battle Fury, Death Star Plans, Sith
+// Holocron and Han's Golden Dice only on my own; Size Matters Not only on my own small unit; Entrenched on an enemy
+// without Overwhelm or my own Sentinel. A listed upgrade with no allowed host is held.
+// SHIPPED on the rulings, not on an A/B (like p9 'nogift'). Two defects it closes: the host pick put Wanted / Death
+// Mark / In Debt to Crimson Dawn / Grav Charge on the bot's OWN unit whenever it had one (the board read sees no
+// Bounty or "can't ready"), and the same-day extension of 'nogift' to every upgrade (LAW_129 Mastery, game
+// 1438045) made every 0/0 downgrade read as a gift on an enemy host, so none was ever played.
+// Guard: SWUSim/DevTools/tests/bot_hostpolicy_test.php.
+const SWU_BOT_PART17_FEATURES = ['hostpolicy'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
@@ -232,7 +244,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART10_FEATURES, SWU_BOT_PART11_FEATURES,
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
-                       SWU_BOT_PART16_FEATURES);   // part 2, then 3-16
+                       SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES);   // part 2, then 3-17
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -247,7 +259,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,

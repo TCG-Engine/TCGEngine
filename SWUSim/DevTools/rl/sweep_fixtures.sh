@@ -17,30 +17,35 @@
 #   Analyse with docs/superpowers/research/2026-09-premier-meta/scripts/compare_all.py.
 # With deterministic bots a seed plays the same game whichever seat goes first, so the first player is fixed
 # at 1 and variety comes from the seed and from swapping which deck sits in seat 1.
-# SUPERSET=1 (env, owner 2026-10-01) plays every deck with its Sideboard section folded into the main deck
-# (--superset). Give it its OWN outdir: the resume check skips any game already on disk, so pointing a superset
-# run at a game-1 outdir would silently reuse the game-1 results.
+# SUPERSET research mode (env, owner 2026-10-01) folds a deck's Sideboard section into its main deck:
+#   SUPERSET=1                        every deck is folded (--superset);
+#   SUPERSET_DECKS="<deck> [<deck>…]" only the named decks are, WHICHEVER seat they sit in (--superset=1|2), so a
+#                                     deck's own sideboard answers can be measured apart from the opponent's dilution.
+# Give each arm its OWN outdir: the resume check skips any game already on disk, so pointing a superset run at
+# another arm's outdir would silently reuse that arm's results.
 set -u
 cd /var/www/html/TCGEngine
 SEEDS=${1:-100}; WORKERS=${2:-8}; OUT=${3:-/tmp/fixture_sweep}; DIR=${4:-SWUSim/Tests/BotFixtures/meta-2026-09}
-SUPERSET=${SUPERSET:-}
+SUPERSET=${SUPERSET:-}; SUPERSET_DECKS=${SUPERSET_DECKS:-}
+decks=$(ls "$DIR"/*.txt | xargs -n1 basename | sed 's/\.txt$//')
+if [ -n "$SUPERSET" ] && [ -n "$SUPERSET_DECKS" ]; then echo "[sweep] set SUPERSET or SUPERSET_DECKS, not both" >&2; exit 1; fi
+FOLD=$([ -n "$SUPERSET" ] && echo $decks || echo $SUPERSET_DECKS)
+for d in $FOLD; do
+  # A typo'd deck name would fold nothing and run a game-1 arm under a superset label.
+  [ -f "$DIR/$d.txt" ] || { echo "[sweep] SUPERSET_DECKS: no $DIR/$d.txt" >&2; exit 1; }
+  # The harness refuses a deck with no Sideboard section, but its stderr is discarded below, so a refusal would
+  # only surface as a "timeout" game. Check every folded deck once, up front, instead.
+  grep -q '^Sideboard[[:space:]]*$' "$DIR/$d.txt" || { echo "[sweep] superset: $d has no Sideboard section" >&2; exit 1; }
+done
 mkdir -p "$OUT/games" "$OUT/traces" "$OUT/logs"
-# Refuse to mix arms in one outdir: the first run stamps it, a later run with the other arm stops.
-ARM=$([ -n "$SUPERSET" ] && echo superset || echo game1)
+# Refuse to mix arms in one outdir: the first run stamps it, a later run with another arm stops.
+ARM=$(if [ -n "$SUPERSET" ]; then echo superset; elif [ -n "$FOLD" ]; then echo "superset:$(echo $FOLD | tr ' ' '\n' | sort | tr '\n' ',' | sed 's/,$//')"; else echo game1; fi)
 if [ -s "$OUT/arm" ] && [ "$(cat "$OUT/arm")" != "$ARM" ]; then
   echo "[sweep] $OUT holds a '$(cat "$OUT/arm")' run; this is '$ARM'. Use a separate outdir." >&2; exit 1
 fi
 echo "$ARM" > "$OUT/arm"
-export DIR OUT SUPERSET
-
-decks=$(ls "$DIR"/*.txt | xargs -n1 basename | sed 's/\.txt$//')
-# The harness refuses a --superset deck with no Sideboard section, but its stderr is discarded below, so a
-# refusal would only surface as a "timeout" game. Check every deck once, up front, instead.
-if [ -n "$SUPERSET" ]; then
-  for d in $decks; do
-    grep -q '^Sideboard[[:space:]]*$' "$DIR/$d.txt" || { echo "[sweep] SUPERSET: $d has no Sideboard section" >&2; exit 1; }
-  done
-fi
+FOLD=" $FOLD "   # padded, so run_one can match a whole name with a substring test
+export DIR OUT FOLD
 : > "$OUT/jobs.txt"
 for a in $decks; do for b in $decks; do
   [ "$a" = "$b" ] && continue
@@ -58,12 +63,15 @@ run_one() {
   # as failureSignal "timeout" and its folder is kept.
   # Retro material (every ~2,000 games the retro mines these for combos no test covers): a COMBO trace of the
   # decisions that mark an interaction (SWUBOT_TRACE_MODE=combo, BotHeuristic.php) and the game log.
-  local key="$a.$b.$s"
+  local key="$a.$b.$s" ss=""
+  # Which SEATS to fold follows from where the folded decks sit in this game.
+  case "$FOLD" in *" $a "*) case "$FOLD" in *" $b "*) ss="--superset" ;; *) ss="--superset=1" ;; esac ;;
+                  *) case "$FOLD" in *" $b "*) ss="--superset=2" ;; esac ;; esac
   rm -f "$OUT/traces/$key.jsonl"
   out=$(SWUBOT_TRACE="$OUT/traces/$key.jsonl" SWUBOT_TRACE_MODE=combo \
         timeout "${GAME_TIMEOUT:-90}" php -d apc.enable_cli=1 -d xdebug.mode=off -d memory_limit=1G DevTools/SWUSimBotSelfPlayTest.php --games=1 \
         --seed="$s" --first-player=1 --verbose --chooser="heuristic-$ca" --chooser2="heuristic-$cb" \
-        --deck="$DIR/$a.txt" --deck2="$DIR/$b.txt" ${SUPERSET:+--superset} 2>/dev/null)
+        --deck="$DIR/$a.txt" --deck2="$DIR/$b.txt" $ss 2>/dev/null)
   g=$(printf '%s\n' "$out" | grep -m1 'game created:' | awk '{print $NF}')
   m=$(printf '%s\n' "$out" | grep -m1 '^SWUBOT_METRICS ')
   r=$(printf '%s\n' "$out" | grep -m1 '^\[RESULT\] ' | php -r '$j = json_decode(substr(stream_get_contents(STDIN), 9), true); if (is_array($j)) { unset($j["coverage"]); echo "[RESULT] " . json_encode($j, JSON_UNESCAPED_SLASHES); }')
