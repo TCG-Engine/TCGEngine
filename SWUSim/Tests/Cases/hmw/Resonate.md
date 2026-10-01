@@ -156,3 +156,44 @@ WithP2GroundArena: SOR_046:1:5
 
 ## EXPECT
 P1BASEDMG:1
+
+---
+
+# SecondLeaderSlot_IsAFriendlyLeader
+#// Bug #1101 family: a seat holding TWO leaders. Leader 1 SOR_016 Thrawn (Imperial/Official) shares
+#// nothing with LAW_050 Honnah (Underworld/Bounty Hunter); Leader 2 HMW_002 Maz Kanata (Underworld)
+#// does. The condition read only the first live leader, so the heal never happened.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:1;myBaseDamage:5;myLeader:SOR_016;myLeader2:HMW_002}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: HMW_098
+WithP1GroundArena: LAW_050:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myBase-0
+
+## EXPECT
+P1BASEDMG:1
+
+---
+
+# SecondLeaderSlot_NoSharedTrait_NoHeal
+#// Control for the section above: same two leaders, but the only unit is SOR_095 Battlefield Marine
+#// (Rebel/Trooper), which shares with neither — no heal, no decision.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:1;myBaseDamage:5;myLeader:SOR_016;myLeader2:HMW_002}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: HMW_098
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1BASEDMG:5
+P1NODECISION

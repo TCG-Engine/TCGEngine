@@ -141,3 +141,43 @@ WithP1Deck: [SOR_095 SOR_095 SOR_095]
 ## EXPECT
 P1HANDCOUNT:2
 P1RESAVAILABLE:0
+
+---
+
+# BothLeaderSlotsRebel_CostsTwo
+#// Bug #1101 family: a seat holding TWO undeployed Rebel leaders — SOR_014 Sabine Wren and SOR_009 Leia
+#// Organa — is two friendly Rebel leaders: cost 4 - 2 = 2. Only the first live leader was counted.
+
+## GIVEN
+CommonSetup: rrw/rrw/{myResources:2;myLeader:SOR_014;myLeader2:SOR_009}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: HMW_173
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:2
+P1DECKCOUNT:1
+P1RESAVAILABLE:0
+
+---
+
+# SecondLeaderSlotRebel_CostsThree
+#// Leader 1 SOR_016 Thrawn is not a Rebel; Leader 2 SOR_014 Sabine is — one friendly Rebel leader, cost 3.
+
+## GIVEN
+CommonSetup: rrw/rrw/{myResources:3;myLeader:SOR_016;myLeader2:SOR_014}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: HMW_173
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:2
+P1RESAVAILABLE:0

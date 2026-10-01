@@ -15,11 +15,8 @@ if (!function_exists('_SWUHmw173RebelCount')) {
         foreach (SWUFriendlyUnitObjects($player) as $u) {
             if (empty($u->removed) && TraitContains($u, 'Rebel')) $n++;
         }
-        foreach (array_merge([$player], SWUTeammatesOf($player)) as $s) {
-            $l = SWUGetLeader(intval($s));
-            if ($l === null) continue;
-            $dep = (($l->Deployed ?? false) === true) || (($l->Deployed ?? '') === 'true');
-            if (!$dep && HasTrait($l->CardID ?? '', 'Rebel')) $n++;
+        foreach (SWUFriendlyUndeployedLeaders($player) as $l) {
+            if (HasTrait($l->CardID ?? '', 'Rebel')) $n++;
         }
         return $n;
     }

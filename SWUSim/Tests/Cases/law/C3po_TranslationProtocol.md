@@ -162,3 +162,141 @@ WithP2GroundArena: LOF_033:1:0
 
 ## EXPECT
 P1SELECTABLEEXACT:myGroundArena-2
+
+---
+
+# SecondLeaderSlot_IsAFriendlyLeader
+#// TWO-LEADER DEPLOY MATRIX (both leaders' traits always count; each cell offers EXACTLY the Thrawn-share
+#// and the Maz-share, never the near-miss Marine and never a leader unit):
+#//   L1 undeployed / L2 undeployed = this section
+#//   L1 deployed   / L2 undeployed = TwoLeaders_L1Deployed_L2Undeployed_BothCount
+#//   L1 deployed   / L2 deployed   = TwoLeaders_BothDeployed_BothCount
+#//   L1 undeployed / L2 deployed   = TwoLeaders_L1Undeployed_L2Deployed_BothCount
+#// Bug #1101 (game 1438045): a seat holding TWO leaders. C-3PO read only the FIRST live leader, so a
+#// unit sharing a Trait with the second one was never offered. Leader 1 SOR_016 Thrawn (Imperial,
+#// Official); Leader 2 HMW_002 Maz Kanata (Underworld). LAW_050 Honnah (Underworld/Bounty Hunter)
+#// shares only with Maz; SEC_080 Imperial Dark Trooper (Imperial/Trooper) shares only with Thrawn;
+#// SOR_095 Battlefield Marine (Rebel/Trooper) shares with neither — the near-miss. Exactly the union
+#// of both leaders' shares is offered.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myLeader:SOR_016; myLeader2:HMW_002}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_152:1:0 LAW_050:1:0 SEC_080:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-1&myGroundArena-2
+
+---
+
+# SecondLeaderSlot_HonnahReceivesTheToken
+#// Resolving the reported pick: Honnah (shares Underworld with Leader 2 Maz Kanata only) gets the token.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myLeader:SOR_016; myLeader2:HMW_002}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_152:1:0 LAW_050:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:LAW_050
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:2:UPGRADECOUNT:0
+
+---
+
+# TeamSuns_TeammatesLeaderIsAFriendlyLeader
+#// "A friendly leader" spans the team (user ruling 2026-08-25, IBH_095). P1's own leader is Thrawn
+#// (Imperial/Official); teammate P3's leader is Maz Kanata (Underworld). Honnah shares only with the
+#// teammate's leader; the Marine shares with nobody.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myLeader:SOR_016}
+P1OnlyActions: true
+WithTeams: true
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP3Leader: HMW_002
+WithP1GroundArena: [LAW_152:1:0 LAW_050:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:p2Base-0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-1
+
+---
+
+# TwoLeaders_L1Deployed_L2Undeployed_BothCount
+#// Two-leader deploy matrix (see SecondLeaderSlot_IsAFriendlyLeader): Leader 1 DEPLOYED (Thrawn unit at ground 4), Leader 2 undeployed in its leader slot.
+#// Leader 1 SOR_016 Thrawn (Imperial/Official), Leader 2 HMW_002 Maz Kanata (Underworld). LAW_050 Honnah
+#// shares only with Maz; SEC_080 Imperial Dark Trooper only with Thrawn; SOR_095 Marine (Rebel/Trooper)
+#// with neither. A deployed leader is a LEADER UNIT: still a friendly leader for the share, never a
+#// recipient — so the offer is exactly Honnah + the Dark Trooper in every cell.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myLeader:SOR_016:1:1; myLeader2:HMW_002}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_152:1:0 LAW_050:1:0 SEC_080:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1LEADER0DEPLOYED:true
+P1LEADER1DEPLOYED:false
+P1GROUNDARENAUNIT:4:CARDID:SOR_016
+P1SELECTABLEEXACT:myGroundArena-1&myGroundArena-2
+
+---
+
+# TwoLeaders_BothDeployed_BothCount
+#// Two-leader deploy matrix (see SecondLeaderSlot_IsAFriendlyLeader): BOTH leaders DEPLOYED (Thrawn unit at ground 4, Maz unit at ground 5) — no leader is left in a leader slot.
+#// Leader 1 SOR_016 Thrawn (Imperial/Official), Leader 2 HMW_002 Maz Kanata (Underworld). LAW_050 Honnah
+#// shares only with Maz; SEC_080 Imperial Dark Trooper only with Thrawn; SOR_095 Marine (Rebel/Trooper)
+#// with neither. A deployed leader is a LEADER UNIT: still a friendly leader for the share, never a
+#// recipient — so the offer is exactly Honnah + the Dark Trooper in every cell.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myLeader:SOR_016:1:1; myLeader2:HMW_002:1:1}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_152:1:0 LAW_050:1:0 SEC_080:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1LEADER0DEPLOYED:true
+P1LEADER1DEPLOYED:true
+P1GROUNDARENAUNIT:4:CARDID:SOR_016
+P1GROUNDARENAUNIT:5:CARDID:HMW_002
+P1SELECTABLEEXACT:myGroundArena-1&myGroundArena-2
+
+---
+
+# TwoLeaders_L1Undeployed_L2Deployed_BothCount
+#// Two-leader deploy matrix (see SecondLeaderSlot_IsAFriendlyLeader): Leader 1 undeployed in its leader slot, Leader 2 DEPLOYED (Maz unit at ground 4).
+#// Leader 1 SOR_016 Thrawn (Imperial/Official), Leader 2 HMW_002 Maz Kanata (Underworld). LAW_050 Honnah
+#// shares only with Maz; SEC_080 Imperial Dark Trooper only with Thrawn; SOR_095 Marine (Rebel/Trooper)
+#// with neither. A deployed leader is a LEADER UNIT: still a friendly leader for the share, never a
+#// recipient — so the offer is exactly Honnah + the Dark Trooper in every cell.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myLeader:SOR_016; myLeader2:HMW_002:1:1}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_152:1:0 LAW_050:1:0 SEC_080:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1LEADER0DEPLOYED:false
+P1LEADER1DEPLOYED:true
+P1GROUNDARENAUNIT:4:CARDID:HMW_002
+P1SELECTABLEEXACT:myGroundArena-1&myGroundArena-2

@@ -7,15 +7,8 @@
 
 if (!function_exists('_SWUHmw098Condition')) {
     function _SWUHmw098Condition(int $player): bool {
-        $seats = array_map('intval', array_merge([$player], SWUTeammatesOf($player)));
-        $leaders = [];
-        foreach ($seats as $s) {
-            $l = SWUGetLeader($s);
-            $dep = $l !== null && ((($l->Deployed ?? false) === true) || (($l->Deployed ?? '') === 'true'));
-            if ($l !== null && !$dep) $leaders[] = $l;
-        }
+        $leaders = SWUFriendlyLeaderObjects($player);
         $units = SWUFriendlyUnitObjects($player);
-        foreach ($units as $u) { if (empty($u->removed) && IsLeaderUnit($u)) $leaders[] = $u; }
         if (empty($leaders)) return false;
         $grantables = ['Rebel', 'Underworld', 'Mandalorian', 'Jedi', 'Force', 'Clone'];
         foreach ($units as $u) {

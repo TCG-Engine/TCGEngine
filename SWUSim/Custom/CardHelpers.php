@@ -279,6 +279,37 @@ if (!function_exists('SWUFriendlyUnitObjects')) {
     }
 }
 
+// "A friendly leader" — every friendly UNDEPLOYED leader in a leader zone, across ALL of a seat's leader
+// slots and the team. ⚠ Not SWUGetLeader: that returns only the FIRST live leader, so a seat holding two
+// leaders (Leader2) had its second one silently ignored (bug #1101, LAW_152 C-3PO in game 1438045).
+// A deployed leader is excluded here because its face is the arena unit — read it from
+// SWUFriendlyLeaderObjects (or from SWUFriendlyUnitObjects + IsLeaderUnit when counting units).
+if (!function_exists('SWUFriendlyUndeployedLeaders')) {
+    function SWUFriendlyUndeployedLeaders(int $player): array {
+        $out = [];
+        foreach (array_merge([$player], SWUTeammatesOf($player)) as $seat) {
+            foreach (GetLeader(intval($seat)) as $l) {
+                if (!empty($l->removed)) continue;
+                if (($l->Deployed ?? false) === true || ($l->Deployed ?? '') === 'true') continue;
+                $out[] = $l;
+            }
+        }
+        return $out;
+    }
+}
+
+// Undeployed friendly leaders + friendly LEADER UNITS in play (deployed leader, leader-Pilot host,
+// ASH_135 Darksaber host — IsLeaderUnit). The object set to read "shares a Trait with a friendly leader" against.
+if (!function_exists('SWUFriendlyLeaderObjects')) {
+    function SWUFriendlyLeaderObjects(int $player): array {
+        $out = SWUFriendlyUndeployedLeaders($player);
+        foreach (SWUFriendlyUnitObjects($player) as $u) {
+            if (empty($u->removed) && IsLeaderUnit($u)) $out[] = $u;
+        }
+        return $out;
+    }
+}
+
 // Shared "play a card at a discount" offer, used by the discount-play family
 // (Alliance Dispatcher, Strategic Acumen, Home One, …). Gathers affordable
 // candidates in $zone of the given $types (optionally passing an extra $filter),
