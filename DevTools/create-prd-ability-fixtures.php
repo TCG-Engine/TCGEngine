@@ -18548,14 +18548,16 @@ DECK,
 // --- Luminous Quartz (40lgjj1yS3): [Sheen 12+] REST, Remove a preparation counter from your
 // champion: As a Spell, deal 1+X damage to target unit, where X is the amount of sheen counters
 // on it. Activate this ability only at slow speed. ---
-// NOTE (engine bug, flagged not fixed): customDQHandlers["40lgjj1yS3:0:ActivateAbility-1"]
-// (GeneratedCode/GeneratedMacroCode.php ~27051) calls RemoveCounters($player, $champMZ, ...) but
-// never assigns $champMZ in that handler (it's only computed locally inside the separate prereq
-// closure) -- a genuine "Undefined variable $champMZ" warning fires and the preparation-counter
-// cost is silently never paid, even though the damage still resolves. This fixture documents the
-// card's actual observed behavior (damage correct, cost not deducted); GeneratedMacroCode.php is
-// a generated/gitignored file per the schema rules, so the real fix belongs in the card-ability
-// source data, not a hand-edit here.
+// NOTE (engine bug, fixed): customDQHandlers["40lgjj1yS3:0:ActivateAbility-1"]
+// (GeneratedCode/GeneratedMacroCode.php ~27053) called RemoveCounters($player, $champMZ, ...) but
+// never assigned $champMZ in that handler (it was only computed locally inside the separate
+// $activateAbilityAbilities/$activateAbilityPrereqs closures) -- a genuine "Undefined variable
+// $champMZ" warning fired and the preparation-counter cost was silently never paid, even though
+// the damage always resolved correctly. Fixed via an override of the same dispatch key in
+// GrandArchiveSim/Custom/GeneratedAbilityOverrides.php that computes $champMZ with
+// FindChampionMZ($player) before calling RemoveCounters(). The champion is seeded with a
+// preparation counter below (patchMzId myField-0) so this fixture can assert the counter is
+// actually removed.
 $fixtures['luminous-quartz-sheen12-rest-damage'] = [
     'testedCards' => ['40lgjj1yS3'],
     'deck' => <<<'DECK'

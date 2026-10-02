@@ -143,3 +143,39 @@ $cardActivatedAbilities["7mmve2l328:0"] = function($player) { // Band of Burning
     // printed [Class Bonus][REST] buff ability lives in $activateAbilityAbilities instead
     // (Custom/GameLogic.php) and only fires from an explicit later activation.
 };
+
+// Luminous Quartz (40lgjj1yS3, Sheen 12+ item ability): "[Sheen 12+] REST, Remove a preparation
+// counter from your champion: As a Spell, deal 1+X damage to target unit, where X is the amount of
+// sheen counters on it." Documented in Tests/Integration/GrandArchiveSim/
+// luminous-quartz-sheen12-rest-damage/meta.json: customDQHandlers["40lgjj1yS3:0:ActivateAbility-1"]
+// (GeneratedCode/GeneratedMacroCode.php ~line 27053) calls RemoveCounters($player, $champMZ,
+// "preparation", 1) but never assigns $champMZ anywhere in that handler's scope -- $champMZ is only
+// computed locally inside the sibling $activateAbilityAbilities["40lgjj1yS3:0"] body and the
+// $activateAbilityPrereqs["40lgjj1yS3:0"] prereq closure (two separate closures/scopes), so the
+// customDQHandlers closure hits a genuine "Undefined variable $champMZ" PHP warning and
+// RemoveCounters() is called with $champMZ === null, which silently no-ops -- the REST cost IS paid
+// ($sourceObj2->Status = 1, correct and preserved below) but the "Remove a preparation counter"
+// cost never is. Confirmed activateAbilityPrereqs["40lgjj1yS3:0"] already correctly computes its
+// own $champMZ via FindChampionMZ($player) and gates activation on
+// GetPrepCounterCount($champObj) >= 1 -- that gate is NOT broken, only this handler's actual
+// removal of the counter. Fixed by computing $champMZ the same way other cards in this codebase
+// reference "your own champion" (FindChampionMZ($player), Custom/CardDQHandlers.php) before the
+// RemoveCounters() call; everything else (REST, target resolution, 1+X damage) is unchanged from
+// the generated body.
+$customDQHandlers["40lgjj1yS3:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) { //Sheen
+    // Retrieve macro parameters
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    $abilityIndex = DecisionQueueController::GetVariable("abilityIndex");
+    DecisionQueueController::StoreVariable("target", $lastDecision);
+    if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+    if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "40lgjj1yS3:0:ActivateAbility-1")) return;
+    $target = $lastDecision;
+    $sourceObj2 = &GetZoneObject($mzID);
+    if($sourceObj2 !== null) $sourceObj2->Status = 1;
+    $champMZ = FindChampionMZ($player);
+    if($champMZ !== null) RemoveCounters($player, $champMZ, "preparation", 1);
+    $targetObj = GetZoneObject($target);
+    if($targetObj === null || $targetObj->removed) return;
+    $damage = 1 + GetCounterCount($targetObj, "sheen");
+    DealDamage($player, $mzID, $target, $damage);
+};

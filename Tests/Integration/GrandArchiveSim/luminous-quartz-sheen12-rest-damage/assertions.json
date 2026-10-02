@@ -10,6 +10,15 @@
     },
     {
         "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "Removes the champion's preparation counter to pay the ability's other cost"
+    },
+    {
+        "step": 2,
         "type": "card_exists",
         "zone": "theirGraveyard",
         "viewerPlayerID": 1,
