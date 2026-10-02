@@ -76,10 +76,13 @@ function SWUBotUnitView($obj, string $arena = ''): array {
     $raid = function_exists('GetKeyword_Raid_Value') ? intval(GetKeyword_Raid_Value($obj) ?? 0) : 0;
     $power = intval(ObjectCurrentPower($obj));
     $hp    = intval(ObjectCurrentHP($obj));
-    $shields = 0; $upgrades = 0;
+    $shields = 0; $upgrades = 0; $downgrades = 0;
     foreach (GetUpgradesOnUnit($obj) as $s) {
         $upgrades++;
         if (strval($s->CardID ?? '') === 'SOR_T02') $shields++;   // Shield token
+        // A Weakness token, a Bounty…: attached, but worse for the unit (SWUBotIsDowngrade, BotFallback.php). Still in
+        // 'upgrades' — that is the raw subcard count the RL features and the debug line read.
+        if (function_exists('SWUBotIsDowngrade') && SWUBotIsDowngrade(strval($s->CardID ?? ''))) $downgrades++;
     }
     if ($arena === '') $arena = (stripos(strval($obj->Location ?? ''), 'Space') !== false) ? 'Space' : 'Ground';
     return [
@@ -91,7 +94,7 @@ function SWUBotUnitView($obj, string $arena = ''): array {
         'ready' => intval($obj->Status ?? 0) === 1,            // Status: 1 = ready, 0 = exhausted
         'sentinel' => (bool)HasKeyword_Sentinel($obj), 'saboteur' => (bool)HasKeyword_Saboteur($obj),
         'overwhelm' => (bool)HasKeyword_Overwhelm($obj), 'grit' => (bool)HasKeyword_Grit($obj),
-        'shields' => $shields, 'upgrades' => $upgrades,
+        'shields' => $shields, 'upgrades' => $upgrades, 'downgrades' => $downgrades,
         'cost' => intval(CardCost(strval($obj->CardID ?? ''))),
         'isLeader' => function_exists('IsLeaderUnit') && IsLeaderUnit($obj),
     ];
@@ -297,12 +300,20 @@ function SWUBotUnitValue(array $v): float {
     return _SWUBotUnitValueV1($v);
 }
 
+// The attachments that ADD to a unit's value: every subcard but its downgrades (feature 'weakness'). A Weakness's -1/-1
+// is already in power/HP; counting it as a premium priced a Weakened unit above a healthy copy.
+function _SWUBotValuedUpgrades(array $v): int {
+    $n = intval($v['upgrades']);
+    if (function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('weakness')) $n -= intval($v['downgrades'] ?? 0);
+    return max(0, $n);
+}
+
 function _SWUBotUnitValueV1(array $v): float {
     $cost = floatval($v['cost']);
     // A token has no printed cost; value it by its body (feature 'targeting', diagnosis 2026-09-14: a TIE token was
     // worth 0, so a ping that could defeat it hit a 4/5 instead).
     if ($cost <= 0 && function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('targeting')) $cost = (floatval($v['power']) + floatval($v['hp'])) / 2.0;
-    return $cost + floatval($v['upgrades']) + 0.5 * floatval($v['shields']);
+    return $cost + floatval(_SWUBotValuedUpgrades($v)) + 0.5 * floatval($v['shields']);
 }
 
 // PROPOSAL 'unitvalue' (default OFF) — THE VALUE ALGORITHM. Owner ruling 2026-09-19: "look at stats first (power
@@ -330,7 +341,7 @@ function _SWUBotUnitStatsValue(array $v): float {
     foreach (['sentinel', 'grit', 'overwhelm', 'saboteur'] as $k) { if (!empty($v[$k])) $val += SWU_BOT_UV_KEYWORDS[$k]; }
     if (intval($v['attackPower']) > intval($v['power'])) $val += SWU_BOT_UV_KEYWORDS['raid'];
     if (isset($v['obj']) && function_exists('HasKeyword_Restore') && HasKeyword_Restore($v['obj'])) $val += SWU_BOT_UV_KEYWORDS['restore'];
-    return $val + SWU_BOT_UV_SHIELD * intval($v['shields']) + SWU_BOT_UV_UPGRADE * max(0, intval($v['upgrades']) - intval($v['shields']));
+    return $val + SWU_BOT_UV_SHIELD * intval($v['shields']) + SWU_BOT_UV_UPGRADE * max(0, _SWUBotValuedUpgrades($v) - intval($v['shields']));
 }
 
 function SWUBotUnitValueV2(array $v): float {

@@ -1889,6 +1889,16 @@ function _SWUNameCardKey(string $value): string {
 // were offered is legal too, because both finalizers put the unaccounted-for remainder back on top.
 // The explode limit of 2 is deliberate: a third '|' section is malformed, and leaving it inside the
 // second half makes it fail the membership check rather than be silently ignored.
+// REVEALARRANGE's Param: "id1,id2,id3" or "id1,id2,id3|MAX" — MAX = how many may be DISCARDED (owner bug report
+// 2026-10-01: LAW_237 Qui-Gon Jinn, "you MAY discard 1 … put the rest back on top in ANY ORDER", never offered the
+// reorder). No "|MAX" = any number (SOR_152 For a Cause I Believe In, unchanged). maxDiscard null = no limit.
+function _SWURevealArrangeSpec(string $param): array {
+    $parts = explode('|', $param, 2);
+    $ids   = array_values(array_filter(explode(',', $parts[0]), fn($v) => $v !== ''));
+    $max   = (isset($parts[1]) && $parts[1] !== '') ? max(0, intval($parts[1])) : null;
+    return ['ids' => $ids, 'maxDiscard' => $max];
+}
+
 function _SWUValidateTwoListPartition(string $param, string $answer): bool {
     $offered = array_values(array_filter(explode(',', $param)));
     $halves  = explode('|', $answer, 2);
@@ -1961,8 +1971,15 @@ function SWUValidateDecisionAnswer(int $player, string $answer): bool {
     // answer naming a card that was never revealed is a SILENT NO-OP that looks green, which is the
     // same false-green shape the MZMULTICHOOSE / SCRY / NAMECARD arms were each added to close.
     // Because the grammar is shared, so is the check — see _SWUValidateTwoListPartition.
-    if ($type === 'SCRY' || $type === 'REVEALARRANGE') {
+    if ($type === 'SCRY') {
         return _SWUValidateTwoListPartition((string)($head->Param ?? ''), $answer);
+    }
+    if ($type === 'REVEALARRANGE') {
+        $spec = _SWURevealArrangeSpec((string)($head->Param ?? ''));
+        if (!_SWUValidateTwoListPartition(implode(',', $spec['ids']), $answer)) return false;
+        // A discard LIMIT ("you may discard 1") is the rule, not a display hint: refuse an answer past it.
+        $discarded = array_filter(explode(',', explode('|', $answer, 2)[1] ?? ''), fn($v) => $v !== '');
+        return $spec['maxDiscard'] === null || count($discarded) <= $spec['maxDiscard'];
     }
     // NAMETRAIT — "Name a Trait." One emitter repo-wide: HMW_108 The First Legion, in the HMW preview
     // set. The Param is the EMPTY STRING, so like NAMECARD there is no offered pool and the check has
@@ -9250,6 +9267,16 @@ function SWUQueueChooseOpponent(int $chooser, string $handler, string $tooltip =
     DecisionQueueController::AddDecision($chooser, "CUSTOM", $handler, 1);
 }
 
+// The post-pick half of SWUOfferDiscardFromAnOpponent (CardHelpers.php): $parts = [optsFn, caster].
+$customDQHandlers["SWU_OPP_DISCARD"] = function($player, $parts, $lastDecision) {
+    $fn     = (string)($parts[0] ?? '');
+    $caster = intval($parts[1] ?? $player);
+    if (strpos($fn, '_SWUOppDiscardOpts_') !== 0 || !function_exists($fn)) return;
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === $caster) return;
+    SWUOfferDiscard($caster, $fn() + ['opp' => $opp]);
+};
+
 // Parse the seat a player-picker chose (the "P{n}" carried in $lastDecision). Returns 0 if unparseable
 // (a declined/blank pick), so callers can no-op. Named for its first use; it reads ANY seat token, so it
 // is also the decoder for an $includeSelf menu where the answer may be the chooser's own seat.
@@ -15792,6 +15819,9 @@ $customDQHandlers["REVEALARRANGE_FINALIZE"] = function($player, $parts, $lastDec
     $sections   = explode('|', (string)$lastDecision);
     $keptIDs    = ($sections[0] ?? '') !== '' ? explode(',', $sections[0]) : [];
     $discardIDs = ($sections[1] ?? '') !== '' ? explode(',', $sections[1]) : [];
+    // $parts[1] = the discard LIMIT when the card has one (LAW_237 Qui-Gon: 1). Enforced here as well as in the
+    // answer validator: a discard past it is not performed, and that card goes back on top (the forgiving tail).
+    if (isset($parts[1]) && $parts[1] !== '') $discardIDs = array_slice($discardIDs, 0, max(0, intval($parts[1])));
 
     foreach ($discardIDs as $id) {
         if (!empty($byID[$id])) { $c = array_shift($byID[$id]); SWUAddToDiscard($player, $c->CardID, 'DECK'); }

@@ -250,6 +250,18 @@ const SWU_BOT_PART17_FEATURES = ['hostpolicy'];
 // it would throw away — attack first, then cash the body in. Guard: SWUSim/DevTools/tests/bot_unusedsac_test.php.
 const SWU_BOT_PART18_FEATURES = ['doomedsac', 'unusedsac'];
 
+// Part 19 (2026-10-01): 'weakness' — Weakness tokens (HMW_T02, -1/-1) are DOWNGRADES, and a Weakness give or spread
+// (Torrent, Ravage, Talzin's Shuttle, Hemlock…) looks for the kill it makes before the body it shrinks. Owner request,
+// after game 1438045 (the bot Torrented its own Sentinel). Three defects it closes:
+//   - the value model counted a Weakness as an upgrade PREMIUM, so a Weakened unit priced above a healthy copy, and
+//     "defeat an upgrade" (SEC_163) took the Weakness off an ENEMY unit;
+//   - a Weakness prompt carried no amount, so the picker never saw the unit its tokens defeat ("clean up") and a Shield
+//     read as stopping it — Weakness is HP reduction, unpreventable;
+//   - a non-lethal token was priced the same on every body, so a spread went by enumeration order, not on the strongest
+//     body (the one whose -1 power matters: "soften up").
+// SHIPPED on the owner's request, not on an A/B. Guard: SWUSim/DevTools/tests/bot_weakness_test.php.
+const SWU_BOT_PART19_FEATURES = ['weakness'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
@@ -258,7 +270,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES);   // part 2, then 3-18
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES);   // part 2, then 3-19
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -273,7 +285,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,

@@ -24,32 +24,33 @@ $customDQHandlers["LAW_237#0"] = function($player, $parts, $lastDecision) {
     SWUAddToDiscard(intval($player), $cardID, 'DECK');
 };
 
-// LAW_237 Qui-Gon Jinn — Sentinel + When Played/On Attack: look at the top 3, you may discard 1, put
-// the rest back on top.
-// ⚠ The peeked cards are STAGED INTO TempZone and the choice is offered over myTempZone-K, never over the
-// deck's own myDeck-K mzIDs. `Deck` is declared `Display: Mode=Single(Stacked), BindTo=DeckSlot`, so a
-// prompt pointing at it renders one stacked pile showing only its COUNT — the player sees a bare number
-// and no cards (live bug report #962). TempZone is `Display: Mode=None`, which is what routes an MZCHOOSE
-// spec to the card-image popup. Guarded by LookPromptOffersTheCARDS_NotTheDeckPile.
+// LAW_237 Qui-Gon Jinn — Sentinel + When Played/On Attack: look at the top 3, you may discard 1, put the rest
+// back on top IN ANY ORDER.
+// ⚠ ONE REVEALARRANGE step with a discard limit of 1 ("ids|1"): each card goes back on top in the order the player
+// clicks, or — at most one — to the discard pile. Bug report 2026-10-01 ("not letting me choose the order to put
+// back on top"): the old flow offered only the optional discard and never the reorder, so the rest stayed in
+// deck order. The panel shows the CARDS (the live bug #962 was a prompt over the stacked deck pile showing a bare
+// count); the limit is enforced by the client panel, the answer validator and REVEALARRANGE_FINALIZE alike.
 // ⚠ Deliberately NOT routed through _topDeckSearchBegin: that funnel applies ASH_084 Arcana Star Map's
 // "search twice that many" doubler, and this is a LOOK, not a search (LookNotDoubledByDeckSearchDoubler).
+// LAW_237#0 above is the PREVIOUS flow's continuation, kept so a game saved mid-prompt still resolves.
 $law237 = function ($player, $mzID) {
   global $playerID;
   $playerID = intval($player);
-  $deck = ZoneSearch("myDeck", null);
-  if (empty($deck))
-    return;
-  $top = array_slice($deck, 0, 3);
-  AddGameLogEntry('REVEAL', 'P' . intval($player) . ' looked at the top ' . count($top) . ' cards of their deck');
-  $temp = &GetTempZone($player);
-  while (count($temp) > 0) array_pop($temp);
-  $tempMZs = [];
-  foreach ($top as $k => $mz) {
-    $o = GetZoneObject($mz);
-    AddTempZone($player, $o->CardID ?? '');
-    $tempMZs[] = "myTempZone-{$k}";
+  DecisionQueueController::CleanupRemovedCards();
+  $deck = GetDeck($player);
+  $ids = [];
+  foreach ($deck as $c) {
+    if (!empty($c->removed)) continue;
+    $ids[] = (string)$c->CardID;
+    if (count($ids) === 3) break;
   }
-  SWUQueueMayChooseTarget(intval($player), $tempMZs, "Discard_1_of_the_top_3_cards?", "Choose_a_card_to_discard", "LAW_237#0");
+  if (empty($ids)) return;
+  AddGameLogEntry('REVEAL', 'P' . intval($player) . ' looked at the top ' . count($ids) . ' cards of their deck');
+  DecisionQueueController::AddDecision($player, "REVEALARRANGE", implode(',', $ids) . '|1', 1,
+      "Discard_up_to_1_then_put_the_rest_back_on_top_in_any_order");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "REVEALARRANGE_FINALIZE|" . count($ids) . "|1", 1);
+  MarkUndoRequiresConsent();
 };
 
 $whenPlayedAbilities["LAW_237:0"] = $law237;

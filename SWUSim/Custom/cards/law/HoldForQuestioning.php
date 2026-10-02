@@ -17,7 +17,10 @@ $customDQHandlers["LAW_217#0"] = function($player, $parts, $lastDecision) {
     if (!$wasReady) return;
     $unitAspects = array_filter(array_map('trim', explode(',', (string)(CardAspect($o->CardID ?? '') ?? ''))));
     if (empty($unitAspects)) return;                          // no aspect to share → nothing to discard
-    SWUOfferDiscard($player, ['from'=>'opp',
+    // "ITS CONTROLLER's hand" — not a choice: the seat that controls the exhausted unit. Without 'opp' the
+    // helper read the legacy single opponent, so in Twin Suns exhausting P3's unit looked at P2's hand.
+    $controller = SWUMzOwner((string)$lastDecision, intval($player));
+    SWUOfferDiscard($player, ['from'=>'opp', 'opp'=>($controller > 0 && $controller !== intval($player) ? $controller : null),
         'filter'=>function($cid) use ($unitAspects) {
             $cardAspects = array_filter(array_map('trim', explode(',', (string)(CardAspect($cid) ?? ''))));
             return !empty(array_intersect($unitAspects, $cardAspects));

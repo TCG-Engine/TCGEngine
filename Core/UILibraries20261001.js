@@ -5506,8 +5506,12 @@ function ShowScryPanel(entry, decisionIndex, onSubmit) {
 // Top/Discard). entry.Param = comma-separated revealed CardIDs (topmost-peeked first).
 // Result format: "topID1,topID2|discardID1,discardID2" (kept top order | discarded).
 function ShowRevealArrangePanel(entry, decisionIndex, onSubmit) {
-  const cardIDs = (entry.Param || '').split(',').map(s => s.trim()).filter(Boolean);
-  const topCards = [];
+  // Param "ids" or "ids|MAX": MAX = how many may be DISCARDED (LAW_237 Qui-Gon Jinn, "you may discard 1"). The
+  // server refuses an answer past it; here Discard simply stops being offered once it is reached.
+  const raParts = (entry.Param || '').split('|');
+  const cardIDs = (raParts[0] || '').split(',').map(s => s.trim()).filter(Boolean);
+  const maxDiscard = (raParts.length > 1 && raParts[1] !== '') ? Math.max(0, parseInt(raParts[1], 10) || 0) : null;
+  const topCards = [];      // in CLICK order: each Top puts that card onto the deck, so the LAST one is the top card
   const discardCards = [];
   let remaining = cardIDs.slice();
   // Shared SWU art corpus — see window.assetImageFolder (NextTurnRender.php); the rootPath form
@@ -5522,7 +5526,9 @@ function ShowRevealArrangePanel(entry, decisionIndex, onSubmit) {
     if (existing) existing.remove();
 
     if (remaining.length === 0) {
-      if (onSubmit) onSubmit(topCards.join(',') + '|' + discardCards.join(','));
+      // Like putting real cards back one at a time (owner 2026-10-02): each Top lands ON the cards already put back,
+      // so the last one clicked is the top card. The answer is top-card-first, hence the reverse.
+      if (onSubmit) onSubmit(topCards.slice().reverse().join(',') + '|' + discardCards.join(','));
       return;
     }
 
@@ -5531,7 +5537,10 @@ function ShowRevealArrangePanel(entry, decisionIndex, onSubmit) {
     overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.65);z-index:5000;display:flex;align-items:center;justify-content:center;';
 
     const panel = document.createElement('div');
-    panel.style.cssText = "background:#0D1B2A;padding:28px 32px 24px;border-radius:12px;box-shadow:0 0 30px #0009;font-family:'Orbitron',sans-serif;text-align:center;";
+    // Capped to the viewport: on a phone (390px) three 200px-tall cards plus padding ran ~470px wide and the outer
+    // cards' buttons were off-screen with no way to scroll to them. The cards below size from the space left.
+    panel.style.cssText = "background:#0D1B2A;padding:28px min(32px, 4vw) 24px;border-radius:12px;box-shadow:0 0 30px #0009;font-family:'Orbitron',sans-serif;text-align:center;"
+                        + "max-width:calc(100vw - 16px);box-sizing:border-box;";
 
     const title = document.createElement('div');
     title.textContent = titleText;
@@ -5539,38 +5548,50 @@ function ShowRevealArrangePanel(entry, decisionIndex, onSubmit) {
     panel.appendChild(title);
 
     const hint = document.createElement('div');
-    const keptSoFar = topCards.length ? ('  •  Kept on top: ' + topCards.length) : '';
-    hint.textContent = 'Click Top to keep a card on your deck (first kept ends up on top)' + keptSoFar;
+    const lastKept = topCards[topCards.length - 1];
+    const keptSoFar = lastKept ? ('  •  Top of deck now: ' + ((typeof Cardtitle === 'function' && Cardtitle(lastKept)) || lastKept)) : '';
+    hint.textContent = 'Click Top to put a card back on top of your deck (the last one you put back is the top card)' + keptSoFar
+      + (maxDiscard !== null ? '  •  Discard up to ' + maxDiscard + (discardCards.length ? ' (' + discardCards.length + ' used)' : '') : '');
     hint.style.cssText = 'color:#9ab;font-size:11px;letter-spacing:1px;margin-bottom:18px;';
     panel.appendChild(hint);
 
     const cardsRow = document.createElement('div');
-    cardsRow.style.cssText = 'display:flex;gap:20px;justify-content:center;';
+    cardsRow.style.cssText = 'display:flex;gap:min(20px, 2vw);justify-content:center;';
+    // Card WIDTH: 200px (this art is near-square, so 200px tall as before), or what N cards side by side allow — the width left after the page
+    // gutter, the panel's padding and the gaps, split N ways, less the 1px borders. Sized by width, not height, so
+    // the fit is exact whatever the art's ratio; the art's own ratio sets the height.
+    const n = remaining.length;
+    const cardW = 'min(200px, calc((100vw - 16px - 8vw - ' + (n - 1) + ' * 2vw) / ' + n + ' - 2px))';
 
-    remaining.forEach(function(cardID) {
+    remaining.forEach(function(cardID, slot) {
       const cardWrap = document.createElement('div');
-      cardWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;';
+      cardWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;width:calc(' + cardW + ' + 2px);';
+      // ⚠ Take THIS copy out by its slot, not every copy by CardID: two copies of one card revealed together
+      // (quite possible in a top 3) used to vanish on one click while only one was recorded, and the other
+      // fell back to the top unordered via REVEALARRANGE_FINALIZE's forgiving tail.
+      const take = function() { remaining = remaining.slice(0, slot).concat(remaining.slice(slot + 1)); };
 
       const img = document.createElement('img');
       img.src = imgBase + resolveCardImageID(cardID) + '.webp'; // preview (mock) cards are stored as mock_<CardID>.webp
-      img.style.cssText = 'height:200px;border-radius:8px;border:1px solid #555;display:block;';
+      img.style.cssText = 'width:' + cardW + ';height:auto;border-radius:8px;border:1px solid #555;display:block;';
       cardWrap.appendChild(img);
 
       const btnRow = document.createElement('div');
-      btnRow.style.cssText = 'display:flex;gap:8px;';
+      btnRow.style.cssText = 'display:flex;flex-wrap:wrap;justify-content:center;gap:8px;';   // narrow card: the two stack
 
       const topBtn = document.createElement('button');
       topBtn.textContent = 'Top';
-      topBtn.style.cssText = "padding:6px 18px;background:#1a4a8a;color:#fff;border:1px solid #4a8adf;border-radius:5px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:13px;";
-      topBtn.onclick = function() { topCards.push(cardID); remaining = remaining.filter(id => id !== cardID); render(); };
+      topBtn.style.cssText = "padding:6px min(18px, 2vw);background:#1a4a8a;color:#fff;border:1px solid #4a8adf;border-radius:5px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:min(13px, 2.8vw);";
+      topBtn.onclick = function() { topCards.push(cardID); take(); render(); };
 
       const discardBtn = document.createElement('button');
       discardBtn.textContent = 'Discard';
-      discardBtn.style.cssText = "padding:6px 14px;background:#6a1f1f;color:#fff;border:1px solid #d05050;border-radius:5px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:13px;";
-      discardBtn.onclick = function() { discardCards.push(cardID); remaining = remaining.filter(id => id !== cardID); render(); };
+      discardBtn.style.cssText = "padding:6px min(14px, 1.5vw);background:#6a1f1f;color:#fff;border:1px solid #d05050;border-radius:5px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:min(13px, 2.8vw);";   // a phone's Discard must not outgrow its card
+      discardBtn.onclick = function() { discardCards.push(cardID); take(); render(); };
 
       btnRow.appendChild(topBtn);
-      btnRow.appendChild(discardBtn);
+      // At the discard limit there is no Discard to offer — every remaining card goes back on top.
+      if (maxDiscard === null || discardCards.length < maxDiscard) btnRow.appendChild(discardBtn);
       cardWrap.appendChild(btnRow);
       cardsRow.appendChild(cardWrap);
     });

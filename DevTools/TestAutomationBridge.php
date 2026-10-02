@@ -1140,7 +1140,12 @@ function BridgeEnumerateDecisionActions($decision, $player) {
         //
         // Found by DevTools/SWUSimBotSelfPlayTest.php: 2 of 24 probe-deck games stalled here.
         {
-          $revealed = array_values(array_filter(explode(',', strval($decision->Param ?? '')), fn($v) => $v !== ''));
+          // Param "ids" or "ids|MAX" — MAX caps the DISCARDED half (LAW_237 Qui-Gon Jinn: "you may discard 1").
+          // Answers past it are refused server-side, so they must never be offered: discard-all (generated
+          // second, below) would otherwise be an illegal first pick for a bot.
+          $raPartsB  = explode('|', strval($decision->Param ?? ''), 2);
+          $revealed  = array_values(array_filter(explode(',', $raPartsB[0]), fn($v) => $v !== ''));
+          $maxDiscard = (isset($raPartsB[1]) && $raPartsB[1] !== '') ? max(0, intval($raPartsB[1])) : null;
           $count    = count($revealed);
           if ($count === 0) {
             $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => '', 'chkInput' => [], 'inputText' => ''];
@@ -1171,6 +1176,7 @@ function BridgeEnumerateDecisionActions($decision, $player) {
               if ($mask & (1 << $i)) $discarded[] = $revealed[$i];
               else                   $kept[] = $revealed[$i];
             }
+            if ($maxDiscard !== null && count($discarded) > $maxDiscard) continue;
             $addAnswer($kept, $discarded);
           }
           foreach (array_keys($answers) as $answer) {

@@ -242,6 +242,13 @@ $checks['REVEALARRANGE allows a real duplicate']     = $validate(1, 'REVEALARRAN
 // it fails membership — deliberately, so it is refused rather than silently dropped.
 $checks['REVEALARRANGE rejects a third section']     = $validate(1, 'REVEALARRANGE', 'A,B,C', 'A|B|C') === false;
 $checks['REVEALARRANGE accepts a decline']           = $validate(1, 'REVEALARRANGE', 'A,B,C', '-') === true;
+// A DISCARD LIMIT — Param "ids|MAX" (LAW_237 Qui-Gon Jinn, "you may discard 1 … put the rest back on top in any
+// order", 2026-10-01). The limit is a RULE, so the validator refuses an answer past it; order stays free.
+$checks['REVEALARRANGE|1 accepts one discard, reordered']  = $validate(1, 'REVEALARRANGE', 'A,B,C|1', 'C,A|B') === true;
+$checks['REVEALARRANGE|1 accepts no discard, reordered']   = $validate(1, 'REVEALARRANGE', 'A,B,C|1', 'C,B,A|') === true;
+$checks['REVEALARRANGE|1 refuses two discards']            = $validate(1, 'REVEALARRANGE', 'A,B,C|1', 'C|A,B') === false;
+$checks['REVEALARRANGE|0 refuses any discard']             = $validate(1, 'REVEALARRANGE', 'A,B|0', 'A|B') === false;
+$checks['REVEALARRANGE|1 still refuses an unrevealed ID']  = $validate(1, 'REVEALARRANGE', 'A,B,C|1', 'A|Z') === false;
 
 // ── NAMETRAIT — validator arm ────────────────────────────────────────────────────────────────────
 // HMW_108 The First Legion is the only emitter repo-wide and it is in the HMW preview set. Param is
@@ -372,6 +379,15 @@ $reveal6      = $enumerateType('REVEALARRANGE', $revealParam6);
 $checks['REVEALARRANGE n=6 hits its cap']        = count($reveal6) === BridgeTopDeckSearchActionCap();
 $checks['REVEALARRANGE n=6 leads with keep-all'] = ($reveal6[0] ?? '') === $revealParam6 . '|';
 $checks['REVEALARRANGE n=6 offers discard-all']  = in_array('|' . $revealParam6, $reveal6, true);
+// With a discard LIMIT the bridge must never offer an answer past it — the validator refuses those, and discard-all
+// (generated second) would otherwise be an illegal pick for a bot. "A,B,C|1": keep-all + each single discard = 4.
+$revealLim = $enumerateType('REVEALARRANGE', 'A,B,C|1');
+$discards  = fn($a) => count(array_filter(explode(',', explode('|', $a, 2)[1] ?? ''), fn($v) => $v !== ''));
+$checks['REVEALARRANGE|1 offers nothing past the limit'] = !empty($revealLim) && max(array_map($discards, $revealLim)) <= 1;
+$checks['REVEALARRANGE|1 offers keep-all + each single discard (4)'] = count($revealLim) === 4;
+$limOk = true;
+foreach ($revealLim as $a) if ($validate(1, 'REVEALARRANGE', 'A,B,C|1', (string)$a) !== true) $limOk = false;
+$checks['REVEALARRANGE|1 offers only answers the validator accepts'] = $limOk;
 
 // ── THE GRAMMAR PIN: run the REAL finalizers and watch where the cards land ──────────────────────
 // This is the only assertion that can tell "top|bottom" from "kept|discarded" apart, and it is the
@@ -406,6 +422,18 @@ $GLOBALS['p1Discard'] = [];
 $customDQHandlers['REVEALARRANGE_FINALIZE'](1, ['3'], 'B,C|A');
 $checks['REVEALARRANGE second half is DISCARDED'] = $idsOf($GLOBALS['p1Discard']) === 'A';
 $checks['REVEALARRANGE kept half is first-on-top'] = $idsOf($GLOBALS['p1Deck']) === 'B,C,D,E';
+// The LIMIT is enforced at resolve time too ($parts[1]): past it, a "discarded" card goes back on top instead.
+$GLOBALS['p1Deck']    = $deckOf(['A', 'B', 'C', 'D']);
+$GLOBALS['p1Discard'] = [];
+$customDQHandlers['REVEALARRANGE_FINALIZE'](1, ['3', '1'], 'C|A,B');
+$checks['REVEALARRANGE_FINALIZE|1 discards only the first']   = $idsOf($GLOBALS['p1Discard']) === 'A';
+$checks['REVEALARRANGE_FINALIZE|1 keeps the excess on top']    = $idsOf($GLOBALS['p1Deck']) === 'B,C,D';
+// …and the reorder is the player's: 'C,B|A' puts C on top, then B — the order Qui-Gon never offered before.
+$GLOBALS['p1Deck']    = $deckOf(['A', 'B', 'C', 'D']);
+$GLOBALS['p1Discard'] = [];
+$customDQHandlers['REVEALARRANGE_FINALIZE'](1, ['3', '1'], 'C,B|A');
+$checks['REVEALARRANGE_FINALIZE|1 puts the kept back in the chosen order'] = $idsOf($GLOBALS['p1Deck']) === 'C,B,D'
+                                                                          && $idsOf($GLOBALS['p1Discard']) === 'A';
 // And the two grammars really do disagree on the same string: 'B,C|A' buries A under SCRY and mills
 // it under REVEALARRANGE. If this ever passes, the finalizers have been unified and the encoders can be.
 $GLOBALS['p1Deck']    = $deckOf(['A', 'B', 'C', 'D', 'E']);

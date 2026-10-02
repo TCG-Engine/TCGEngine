@@ -306,6 +306,8 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     // A Weakness-token split (HMW_071 Ravage) is -1/-1 per token: scored as unpreventable damage, so the tokens go on
     // enemy units and never on mine (owner report 2026-09-15, Bot Practice game 189011 — Ravage defeated its own 0-0-0).
     if ($type === 'MZSPLITASSIGN' && stripos($tip, 'Weakness') !== false && SWUBotFeatureOn('splits')) {
+        // Feature 'weakness': the kill a token makes, then the strongest body it shrinks — not a flat chip per token.
+        if (SWUBotFeatureOn('weakness')) return _SWUBotWeaknessSplitScore($seat, $c, $W);
         return _SWUBotSplitScore($seat, $c, $W, true);
     }
     // "Choose a player" at 3-4 seats ("You&P2&P3", SWUPlayerPickerLabels). The fallback took the first option — "You" —
@@ -375,7 +377,8 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         if (SWUBotFeatureOn('upgradepicks') && ($uv = _SWUBotUpgradeValue($c)) !== null) {
             return ($hostile === SWUBotIsEnemyMz($seat, $c)) ? $uv : -$uv;
         }
-        $s = _SWUBotTargetsScore($seat, $c, $hostile, _SWUBotEffectAmount($tip, strval(($ctx['following'] ?? [])[0] ?? '')), $head, $W);
+        $next = strval(($ctx['following'] ?? [])[0] ?? '');
+        $s = _SWUBotTargetsScore($seat, $c, $hostile, _SWUBotEffectAmount($tip, $next), $head, $W, $hostile ? _SWUBotWeaknessCount($tip, $next) : 0);
         // PROPOSAL 'removalready' (default OFF): among enemy targets, prefer a READY one — an exhausted unit cannot
         // attack this round, so removing it saves nothing until the regroup. The same logic as the shipped
         // 'shrinkfirst' rule (p6), applied to every hostile target choice rather than to one play.
@@ -557,6 +560,9 @@ function _SWUBotTooltipEffect(string $tooltip): string {
     if (preg_match('/\bdefeat (a |an |another )?friendly\b/', $t)) return 'sacrifice';
     // "Give a unit -2/-2" is HOSTILE despite "give" (feature 'targeting'; Talzin debuffed its own units 229 times).
     if (SWUBotFeatureOn('targeting') && preg_match('/-\d+\/-\d+/', $t)) return 'hostile';
+    // So is "Give a Weakness token" (HMW_T02, -1/-1): HMW_100 Torrent's own continuation sends it here rather than via
+    // GIVE_WEAKNESS, and "give" read as beneficial — the bot Torrented its own Sentinel to death (game 1438045).
+    if (SWUBotFeatureOn('targeting') && preg_match('/\bweakness\b/', $t)) return 'hostile';
     if (preg_match('/\b(deal|damage|defeat|exhaust|capture)\b/', $t) || preg_match('/\breturn\b.*\bhand\b/', $t)) return 'hostile';
     if (preg_match('/\b(heal|give|ready|shield|experience|advantage|attach)\b/', $t)) return 'beneficial';
     return '';
@@ -570,6 +576,52 @@ function _SWUBotEffectAmount(string $tip, string $next): int {
     if (preg_match('/-\d+\/-(\d+)/', $tip, $m)) return intval($m[1]);
     $p = explode('|', $next);
     return ($p[0] ?? '') === 'APPLY_PHASE_DEBUFF' ? intval($p[2] ?? 0) : 0;
+}
+
+// How many Weakness tokens a hostile prompt gives its ONE target (feature 'weakness'): "GIVE_WEAKNESS|N" (Talzin's
+// Shuttle), "Give_N_Weakness_tokens…" (Torrent off a Naboo base names its count), any other "…Weakness_token…" = 1.
+// 0 = not a Weakness give. Damage in the same prompt (Inferno Squad's "Deal_1_damage…and_give_a_Weakness_token") stays
+// in _SWUBotEffectAmount: a Shield stops that half, never this one.
+function _SWUBotWeaknessCount(string $tip, string $next): int {
+    if (!SWUBotFeatureOn('weakness')) return 0;
+    $p = explode('|', $next);
+    if (($p[0] ?? '') === 'GIVE_WEAKNESS') return max(1, intval($p[1] ?? 1));
+    if (preg_match('/give_(\d+)_weakness_tokens/i', $tip, $m)) return intval($m[1]);
+    return preg_match('/weakness_token/i', $tip) ? 1 : 0;
+}
+
+// What $weak Weakness tokens (plus $dmg damage a Shield may stop) on the unit view $v are worth to $seat (feature
+// 'weakness'). One scale for a single pick and for each part of a spread, so a spread sums cleanly:
+//   CLEAN UP — the tokens defeat it: an enemy kill is priced as every other targeted kill; my own unit, as a sacrifice.
+//   SOFTEN UP — it survives: each token takes 1 HP and 1 power for the rest of the game; chip-priced (2 points a token),
+//   and scaled by the unit's power so the tokens CONCENTRATE on the strongest body (a token on a 1/5 is worth less than
+//   one on a 3/5).
+function _SWUBotWeaknessScore(int $seat, array $v, bool $enemy, int $dmg, string $head, int $weak, array $W): float {
+    $shieldStopsDamage = !str_starts_with($head, 'APPLY_PHASE_DEBUFF') && $v['shields'] > 0;
+    $loss = $weak + ($shieldStopsDamage ? 0 : $dmg);
+    $kill = SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0;
+    $soften = $W['chip'] * 2 * $weak * (1.0 + 0.1 * max(0, intval($v['power'])))
+            + ($shieldStopsDamage ? 0.0 : SWUBotUnitValue($v) * $W['chip'] * $dmg / max(1, $v['hp']));
+    if ($enemy) {
+        if ($loss >= $v['remaining']) return $kill;
+        if (SWUBotFeatureOn('setup') && !$v['isLeader'] && $v['remaining'] - $loss <= _SWUBotFinisherHP($seat)) return max($soften, 0.8 * $kill);
+        return $soften;
+    }
+    if ($loss >= $v['remaining']) return SWUBotFeatureOn('fodder') ? -SWUBotSacrificeCost($v) : -SWUBotUnitValue($v);
+    return -$soften;
+}
+
+// A Weakness spread ("mz:n,mz:n", MZSPLITASSIGN — HMW_071 Ravage), part by part on _SWUBotWeaknessScore's scale.
+function _SWUBotWeaknessSplitScore(int $seat, string $candidate, array $W): float {
+    $s = 0.0;
+    foreach (explode(',', $candidate) as $pair) {
+        $bits = explode(':', $pair);
+        if (count($bits) < 2 || intval($bits[1]) <= 0) continue;
+        $v = SWUBotViewForMz($seat, trim($bits[0]));
+        if ($v === null) continue;
+        $s += _SWUBotWeaknessScore($seat, $v, SWUBotIsEnemyMz($seat, trim($bits[0])), 0, 'GIVE_WEAKNESS', intval($bits[1]), $W);
+    }
+    return $s;
 }
 
 // "If it costs N or less, defeat it" on the continuation's card (The Tree Remembers): N, else null. Feature 'targeting2'.
@@ -589,12 +641,14 @@ function _SWUBotCardTextEffect(string $cardID): string {
 
 // One on-board pick. An enemy unit hurt by a KNOWN amount: a defeat is worth the whole unit and more; a hit that
 // does not defeat, the share of the unit it removes (feature 'targeting'). A Shield stops damage, not a -N/-N.
-function _SWUBotTargetScore(int $seat, string $mz, bool $hostile, int $amount, string $head, array $W): ?float {
+function _SWUBotTargetScore(int $seat, string $mz, bool $hostile, int $amount, string $head, array $W, int $weak = 0): ?float {
     $enemy = SWUBotIsEnemyMz($seat, $mz);
     $good = $hostile ? $enemy : !$enemy;
     if (str_contains($mz, 'Base-')) return $good ? $W['base'] : -$W['base'];
     $v = SWUBotViewForMz($seat, $mz);
     if ($v === null) return null;
+    // $weak Weakness tokens (feature 'weakness'): HP reduction a Shield does not stop — clean up, else soften up.
+    if ($weak > 0 && $hostile) return _SWUBotWeaknessScore($seat, $v, $enemy, $amount, $head, $weak, $W);
     $score = $good ? SWUBotUnitValue($v) : -SWUBotUnitValue($v);
     // A hostile effect aimed at MY OWN board is a sacrifice: price it as fodder, not as a loss of printed value
     // (feature 'fodder'), so the unit whose defeat pays me back is the one that goes.
@@ -630,11 +684,11 @@ function _SWUBotTargetScore(int $seat, string $mz, bool $hostile, int $amount, s
 }
 
 // A candidate: one pick, or an '&'-joined multi-select scored as the sum of its picks (feature 'targeting').
-function _SWUBotTargetsScore(int $seat, string $candidate, bool $hostile, int $amount, string $head, array $W): ?float {
+function _SWUBotTargetsScore(int $seat, string $candidate, bool $hostile, int $amount, string $head, array $W, int $weak = 0): ?float {
     $parts = (str_contains($candidate, '&') && SWUBotFeatureOn('targeting')) ? explode('&', $candidate) : [$candidate];
     $sum = 0.0;
     foreach ($parts as $p) {
-        $s = _SWUBotTargetScore($seat, $p, $hostile, $amount, $head, $W);
+        $s = _SWUBotTargetScore($seat, $p, $hostile, $amount, $head, $W, $weak);
         if ($s === null) return null;
         $sum += $s;
     }
@@ -1185,6 +1239,13 @@ const SWU_BOT_UPGRADE_HOST_POLICY = [
     'SEC_038' => 'condemn',
 ];
 
+// Is $cid a DOWNGRADE — worse for the unit it is attached to (feature 'weakness', p19)? The Weakness token (HMW_T02,
+// -1/-1) and every enemy-only policy card. Not SOR_122 Traitorous: once attached, its host is MINE, so it is my upgrade.
+function SWUBotIsDowngrade(string $cid): bool {
+    if ($cid === 'HMW_T02') return true;
+    return $cid !== 'SOR_122' && (SWU_BOT_UPGRADE_HOST_POLICY[$cid] ?? '') === 'enemy';
+}
+
 // May $upgradeID go on the unit view $v (on $enemy's side)? null = the card has no policy.
 function _SWUBotHostAllowed(string $upgradeID, array $v, bool $enemy): ?bool {
     $policy = SWU_BOT_UPGRADE_HOST_POLICY[$upgradeID] ?? null;
@@ -1281,7 +1342,10 @@ function _SWUBotUpgradeValue(string $mz): ?float {
     $o = MZResolveObject($mz);
     if (!is_object($o)) return null;                       // gone, or a host that has left play
     $cid = strval($o->CardID ?? '');
-    return max(1.0, floatval(intval(CardCost($cid)))) + ($cid === 'SOR_T02' ? 0.5 : 0.0);
+    $uv = max(1.0, floatval(intval(CardCost($cid)))) + ($cid === 'SOR_T02' ? 0.5 : 0.0);
+    // A downgrade is worth NEGATIVE to its host's side: defeating the Weakness on my unit is the good pick, on theirs
+    // the bad one — every caller's sign flips with it (feature 'weakness').
+    return (SWUBotFeatureOn('weakness') && SWUBotIsDowngrade($cid)) ? -$uv : $uv;
 }
 
 function _SWUBotSideValue(int $p): float {
@@ -1349,7 +1413,9 @@ function _SWUBotGiftRead(int $seat): float {
     $v = 0.0;
     foreach (SWUBotOpponents($seat) as $opp) $v += floatval(SWUBaseRemainingHp($opp));   // every live enemy (3-4 seats)
     foreach (SWUBotEnemyUnits($seat) as $u) {
-        $v += 2.0 + max(0, $u['remaining']) + max(0, $u['power']) + 2.0 * $u['shields'] + $u['upgrades'] + ($u['ready'] ? 1.0 : 0.0);
+        // A downgrade (a Weakness, a Bounty) is not something the opponent gained (feature 'weakness').
+        $ups = $u['upgrades'] - (SWUBotFeatureOn('weakness') ? intval($u['downgrades'] ?? 0) : 0);
+        $v += 2.0 + max(0, $u['remaining']) + max(0, $u['power']) + 2.0 * $u['shields'] + $ups + ($u['ready'] ? 1.0 : 0.0);
     }
     return $v;
 }

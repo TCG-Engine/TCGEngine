@@ -148,3 +148,39 @@ WithP1Hand: LAW_217
 P1HASDECISION
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P1SELECTABLEEXACT:theirHand-0&theirHand-1
+
+---
+
+# TwinSuns4P_LooksAtTheEXHAUSTEDUnitsControllersHand
+#// LAW_217 — "look at ITS CONTROLLER's hand": not a choice, the seat that controls the exhausted unit. Found
+#// 2026-10-01 alongside the Spark of Rebellion report: the discard called SWUOfferDiscard with no seat, so in
+#// Twin Suns exhausting P3's unit looked at the legacy single opponent's hand instead. P2 holds the same
+#// aspect-sharing cards as P3, so the wrong hand would offer them; the pool must be P3's.
+
+## GIVEN
+CommonSetup: yyk/bgw/{myResources:3}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP3GroundArena: SOR_046:1:0
+WithP2Hand: [SOR_237 SEC_080]
+WithP3Hand: [SOR_237 SEC_080]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithP1Hand: LAW_217
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+#// P3's unit is the only enemy unit (the exhaust auto-resolves) and SOR_237 is P3's only card sharing an aspect
+#// with it (the discard auto-resolves); what is left pending is the "look at" popup of P3's hand.
+SEATCOUNT:4
+P3GROUNDARENAUNIT:0:EXHAUSTED
+P3HANDCOUNT:1
+P3DISCARDCOUNT:1
+P2HANDCOUNT:2
+P2DISCARDCOUNT:0
