@@ -1,6 +1,24 @@
 [
     {
-        "step": 5,
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The sacrificed Shardforged Blade left our own field, leaving only our champion"
+    },
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "cardID": "Y34Imzlr0n",
+        "semantic": true,
+        "label": "The sacrificed non-token weapon (additional cost) left the field -- REGALIA-type objects are redirected from graveyard to banish by GraveyardAddReplacement() (Custom/GameLogic.php), same as the destroyed Distortion item below"
+    },
+    {
+        "step": 6,
         "type": "zone_count",
         "zone": "theirField",
         "viewerPlayerID": 1,
@@ -9,7 +27,7 @@
         "label": "The targeted Enfeebled Dagger was destroyed, leaving only the opponent's champion"
     },
     {
-        "step": 5,
+        "step": 6,
         "type": "card_exists",
         "zone": "theirBanish",
         "viewerPlayerID": 1,
@@ -18,7 +36,7 @@
         "label": "The destroyed Distortion item left the field"
     },
     {
-        "step": 5,
+        "step": 6,
         "type": "card_exists",
         "zone": "myMemory",
         "viewerPlayerID": 1,

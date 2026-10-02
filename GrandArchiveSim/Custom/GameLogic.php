@@ -2874,6 +2874,28 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "BlazingThrowCost|" . $reserveCost, 100);
     }
 
+    // 1.3 Declaring Costs — Converge Reflections (TBVLLRPiwP): "As an additional cost to
+    // activate this card, sacrifice a non-token item or weapon you control." Eligibility here
+    // mirrors activateCardPrereqs["TBVLLRPiwP:0"]'s own legality check (GeneratedCode/
+    // GeneratedMacroCode.php ~line 565) so the actual cost payment can never find fewer targets
+    // than the prereq already verified exist.
+    $hasConvergeReflectionsCost = false;
+    if($obj->CardID === "TBVLLRPiwP" && !$ignoreCost) {
+        $myItemsWeapons = array_merge(
+            ZoneSearch("myField", ["ITEM", "REGALIA"]),
+            ZoneSearch("myField", ["WEAPON"])
+        );
+        $eligible = array_values(array_filter($myItemsWeapons, fn($mz) => !IsToken(GetZoneObject($mz)->CardID)));
+        if(empty($eligible)) {
+            SetFlashMessage("Converge Reflections requires a non-token item or weapon to sacrifice.");
+            return;
+        }
+        $hasConvergeReflectionsCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $eligible), 100, tooltip:"Sacrifice_a_non-token_item_or_weapon");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ConvergeReflectionsCost|" . $reserveCost, 100);
+    }
+
     // 1.3 Declaring Costs — Smash with Obelisk (2kkvoqk1l7): mandatory sacrifice of a domain;
     // gets +X POWER where X is the sacrificed domain's reserve cost (bonus applied in the
     // cardActivatedAbilities macro via the "smashObeliskBonus" variable set by SmashWithObeliskSacrifice).
@@ -2929,7 +2951,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -3007,6 +3029,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // When $hasUndeniableTruthCost is true, UndeniableTruthCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasBlazingThrowCost is true, BlazingThrowCost handles sacrifice,
+    // reserve payments, and EffectStackOpportunity.
+    // When $hasConvergeReflectionsCost is true, ConvergeReflectionsCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasSmashObeliskCost is true, SmashWithObeliskSacrifice handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
@@ -3239,6 +3263,26 @@ $customDQHandlers["BlazingThrowCost"] = function($player, $parts, $lastDecision)
     $obj = GetZoneObject($lastDecision);
     if($obj === null || $obj->removed) return;
     if(!PropertyContains(EffectiveCardType($obj), "WEAPON")) return;
+
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    for($i = 0; $i < $baseReserve; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+$customDQHandlers["ConvergeReflectionsCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+
+    $fieldType = EffectiveCardType($obj);
+    $isItemOrWeapon = PropertyContains($fieldType, "ITEM") || PropertyContains($fieldType, "REGALIA") || PropertyContains($fieldType, "WEAPON");
+    if(!$isItemOrWeapon || IsToken($obj->CardID)) return;
 
     DoSacrificeFighter($player, $lastDecision);
     DecisionQueueController::CleanupRemovedCards();

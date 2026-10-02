@@ -18475,14 +18475,19 @@ $fixtures['converge-reflections-destroy-distortion-draw'] = [
 10 Dungeon Guide
 DECK,
     'setup' => [
-        // Sac-fodder (non-token WEAPON) on our own field -- see engine-gap note above: this is
-        // never actually consumed by the card's additional cost.
+        // Sac-fodder (non-token WEAPON) on our own field -- the additional cost's mandatory
+        // sacrifice target (see fix note below: now actually consumed as part of activation).
         ['player' => 1, 'zone' => 'myField', 'cardID' => 'Y34Imzlr0n'],
         // Destroy target: a DISTORTION item (memory cost 0) on the opponent's field.
         ['player' => 1, 'zone' => 'theirField', 'cardID' => 'idpdon8f0h'],
     ],
     'actions' => [
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Additional cost: sacrifice the seeded Shardforged Blade (myField-1). With only one
+        // legal non-token item/weapon on the field this is a trivial choice, but the engine
+        // still issues a real MZCHOOSE decision (matching Broken Promises' shape) that must be
+        // answered explicitly.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],

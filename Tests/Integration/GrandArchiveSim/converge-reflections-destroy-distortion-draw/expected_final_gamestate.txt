@@ -15,7 +15,8 @@ em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
-0
+1
+Y34Imzlr0n ENTERED_THIS_TURN eyJkdXJhYmlsaXR5IjozfQ==
 1
 idpdon8f0h ENTERED_THIS_TURN -
 1
@@ -36,9 +37,8 @@ TBVLLRPiwP
 TBVLLRPiwP
 em6eEh9q8y
 em6eEh9q8y
-2
+1
 tafqldAGRF 2 1 0 1 vz4kc558yx-ACTION_ACTIVATED - - 1
-Y34Imzlr0n 2 1 0 1 ENTERED_THIS_TURN eyJkdXJhYmlsaXR5IjozfQ== - 3
 1
 tafqldAGRF 2 2 0 2 - - - 2
 0
