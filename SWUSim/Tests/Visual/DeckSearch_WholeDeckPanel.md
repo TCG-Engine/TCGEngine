@@ -5,7 +5,7 @@
 # a handful of top cards; given the whole deck it drew ~45 full-size cards in an unbounded box, so its title and its
 # confirm button were off-screen, in raw deck order.
 # Server: SWUSim/Custom/GameLogic.php _topDeckSearchBegin appends segment 6, SCOPE ('deck' | 'top').
-# Client: Core/UILibraries20260928.js ShowTopDeckSearchPanel — a LARGE search (scope 'deck', or > 12 cards).
+# Client: Core/UILibraries20261001.js ShowTopDeckSearchPanel — a LARGE search (scope 'deck', or > 12 cards).
 
 ## HOW TO RUN
     cd DevTools/ui-harness && node swusim-deck-search-panel-xbrowser.mjs      # 3 engines x desktop/phone

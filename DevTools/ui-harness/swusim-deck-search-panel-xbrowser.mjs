@@ -2,7 +2,7 @@
 // Bug report 2026-10-01 (game 1438045): "Search Your Feelings when played gives a terrible UI/UX". The panel was
 // built for a handful of top cards; given the whole deck it drew ~45 cards as 180px art in an unbounded box, so
 // its title and its confirm button were OFF-SCREEN, and the deck came in raw order.
-// Core/UILibraries20260928.js ShowTopDeckSearchPanel + the 'deck' scope segment (SWUSim/Custom/GameLogic.php
+// Core/UILibraries20261001.js ShowTopDeckSearchPanel + the 'deck' scope segment (SWUSim/Custom/GameLogic.php
 // _topDeckSearchBegin). Pinned, Chromium / Firefox / WebKit, desktop 1600x1000 and phone 390x844:
 //   · title "SEARCH YOUR DECK"; the box fits the viewport; title, filter and CONFIRM are on-screen; only the grid scrolls;
 //   · tiles sorted by cost; the filter narrows in place and keeps focus while typing;

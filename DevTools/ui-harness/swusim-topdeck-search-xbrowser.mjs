@@ -5,7 +5,7 @@
 // centred on the VIEWPORT (so the chat/log sidebar pushed it off the board's centre) and covered the board
 // completely, with no way to look at the game state before committing. Two changes:
 //   centring  #topdecksearch-panel > .topdecksearch-box   (SWUSim/Custom/GameLayout.php)
-//   minimise  ShowTopDeckSearchPanel                      (Core/UILibraries20260928.js)
+//   minimise  ShowTopDeckSearchPanel                      (Core/UILibraries20261001.js)
 //
 // WHAT NEEDS A BROWSER:
 //  1. Centred on the PLAY AREA, not the viewport — the sidebar width is read at runtime from

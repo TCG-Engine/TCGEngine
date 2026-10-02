@@ -863,7 +863,7 @@ function SWUPromptUnitLabel($unit, string $fallback = 'that unit'): string {
 // Returns "hilite:<UniqueID>", or "-" when there is nothing to point at.
 //
 // The UniqueID, not an mzID, for two reasons: it is FRAME-INDEPENDENT (the recipient's client renders its
-// own board, and every card span carries data-uniqueid — Core/UILibraries20260928.js), and it is digits.
+// own board, and every card span carries data-uniqueid — Core/UILibraries20261001.js), and it is digits.
 // ⚠ That second point is load-bearing: unlike the tooltip, $param is NOT space-guarded by AddDecision (see
 // the note at Core/DecisionQueueController.php:217) because it shares one space-delimited row — a card
 // TITLE in $param would truncate the row. Never put a name here.
