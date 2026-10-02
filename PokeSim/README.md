@@ -73,8 +73,9 @@ discards to reach four, then seeds recoverable basic Psychic Energy for an
 unpowered attacker or a Dhelmise when a backup is missing. When these resources
 are already available, it thins Call Bell instead. Spare slots after partial HNS
 setup also thin Call Bells. It never treats Special Energy as a recovery target.
-It also prioritizes powered Dhelmise attackers, a Sinistcha evolution line,
-useful Trainer searches, knockouts, and worthwhile switches. It avoids recovering
+After the initial combo, it prioritizes the current Dhelmise and a powered
+replacement on the Bench, useful Trainer searches, knockouts, and worthwhile
+switches. Sinistcha remains a fallback spread attacker. It avoids recovering
 discarded Hide 'n' Sneak Pokémon without a board-building reason. Prize choices
 are uniform; the policy does not inspect hidden opposing identities or deck
 order. This is a deterministic baseline heuristic, not an optimized competitive
@@ -84,6 +85,36 @@ actions. Hotseat remains available through **Match settings → Start hotseat ma
 The CLI also supports `{"command":"bot-step","player":2}` for one chosen action
 and `{"command":"bot-run","player":2}` to advance until player 2 needs the
 human to act. These commands use the same policy and action validation.
+
+### Main menu and bot-versus-bot batches
+
+Click **Main menu** in the table's top bar, or open
+[PokeSim](http://127.0.0.1:3700/PokeSim/). **Resume match** returns to your
+saved playable game. The batch runner uses separate games without changing it.
+
+Choose an even number of games (up to 10,000) and a starting seed, then click
+**Run mirror batch**. Each seed runs twice, with seat 1 going first and then
+second. Both seats use the supplied deck and the current heuristic, each acting
+from its own observation. Starting order is fixed before the initial shuffle,
+so the paired games share initial opening deals while later play can diverge.
+Results include first/second win rates, seat 1's win rate under each order,
+average total turns, incomplete games, and all individual game results in CSV.
+Games reaching 1,500 actions or encountering errors are reported separately,
+never treated as wins or included in the completed-game win-rate denominator.
+Pause finishes the current group of up to ten games; Resume continues at the
+next seed. Results are saved in this browser so refreshing or resuming your
+playable match does not lose the batch. Download the CSV for a portable copy.
+A bot/rules fingerprint
+prevents combining chunks from different policies during a run.
+
+For larger runs without a browser:
+
+```sh
+php DevTools/PokeSim/simulate.php --games=1000 --seed=1 --output=dhelmise-mirror.csv
+```
+
+The CLI prints a JSON summary and optionally creates a CSV; existing output
+files are not overwritten. Exit status 2 means some games did not complete.
 
 The browser endpoints accept only loopback requests and keep games in PHP
 sessions outside the web root. They require a session token for writes and reject
@@ -167,8 +198,9 @@ retreat/payment, switching, weakness/resistance, damage versus damage-counter
 effects, special conditions/checkup, simultaneous knockouts, Prize choices,
 promotion, deck-out and sudden death. Generic Energy matching currently supports
 one energy unit per attached card. Special Energy with other behavior needs
-authored helpers/macros. Tools, Stadium effects and other advanced mechanics
-are not implemented by this initial deck.
+authored helpers/macros. Tools and Stadiums are supported through authored macros, along with field
+passives, attached Energy protection and copied attacks. Other advanced
+mechanics still require their own authored implementations.
 
 All 20 distinct printings in `Decks/sinistcha.txt` have authored implementations.
 The deck has no Shuppet: Banette can be discarded for Hide 'n' Sneak counts, and
@@ -181,7 +213,8 @@ generated dictionaries for future deckbuilding tooling.
 ## Card authoring and regeneration
 
 Schema source is in `Schemas/PokeSim/`. Shared rule helpers are in `Custom/`.
-Versioned card source is `CardCode/DeckAbilities.php`, containing the same macro
+Versioned card source is `CardCode/DeckAbilities.php` and
+`CardCode/LopunnyAbilities.php`, containing the same macro
 code and prerequisites saved by the CardEditor repository. Setup saves it through
 `CardAbilityRepository` with revision checks, then runs the standard generators.
 Interactive effects use supported inline `await` choosers; scalar locals survive
@@ -206,6 +239,8 @@ Runtime gameplay needs generated files, but no database connection.
 php DevTools/PokeSim/tests.php
 php DevTools/PokeSim/smoke.php
 php DevTools/PokeSim/bot-tests.php
+php DevTools/PokeSim/simulation-tests.php
+php DevTools/PokeSim/lopunny-tests.php
 ```
 
 Tests exercise every authored card, legality, persistence across multiple awaits,
@@ -213,3 +248,115 @@ discarded-slot references, evolution, retreat, protection, Prize/promotion and
 deck-out. The smoke script completes three seeded mirror games while serializing
 and restoring state between every action. Its simple action policy is an engine
 exerciser, not a deck-strength evaluator or RL integration.
+
+## Brisbane Lopunny
+
+`Decks/brisbane-lopunny.txt` preserves the supplied 60-card export. Main-menu
+selectors let you play either deck against either heuristic, or simulate any
+pairing with both starting orders. The match settings offer the same choices.
+
+The Brisbane policy uses Fan Call/Poffin to establish Buneary and Dunsparce,
+searches evolution and Energy with Hilda, cycles Run Away Draw, attaches Air
+Balloon for pivots into Gale Thrust, and heals damaged Mega Lopunny with Wally
+before reattaching Energy. It considers Dudunsparce ex against boards with
+several ex, uses Boss for valuable knockouts, and draws with Enriching Energy.
+Both policies read only their own seat observation and legal chooser options.
+
+All 28 distinct entries have supported effects and local artwork. TCGdex has
+no `mee-013` record; the parser explicitly resolves the supplied Psychic Energy
+MEE 13 to equivalent basic Psychic Energy `mee-005`. The original deck export
+is retained. `30C 66` resolves to **`30th-066`**, whose TCGdex record has
+**Memory Helix / Teleportation Burst**, rather than the Restart / Genome Hacking
+Mew ex found in other sets. That printing is implemented as provided by TCGdex.
+Mega ex suffixes missing upstream are normalized from the printed name so
+rule-box restrictions and three-Prize knockouts remain correct.
+
+```sh
+php DevTools/PokeSim/import.php --deck=PokeSim/Decks/brisbane-lopunny.txt
+php DevTools/PokeSim/setup.php
+php DevTools/PokeSim/simulate.php --games=1000 --deck1=brisbane-lopunny --deck2=sinistcha --output=lopunny-vs-dhelmise.csv
+```
+
+JSON Lines reset accepts `deckKey1` / `deckKey2` (`sinistcha` or
+`brisbane-lopunny`) in addition to custom `deck1` / `deck2` export strings.
+Bot selection follows the seat's deck, and snapshots preserve that profile.
+CSV results include both deck keys, seat winner, original starting order and
+rules/policy fingerprint.
+
+Local bot and hotseat matches choose a fresh server-generated seed when the
+optional Shuffle seed field is blank. Match settings show the current seed
+for reproduction. Explicit seeds and batch/CLI simulations remain deterministic.
+
+Damage statistics appear below the live board and in the main menu batch results.
+Each graph uses the player's own turn number. Totals combine damage to opposing
+Active and Bench Pokémon after modifiers, including placed damage counters from
+attacks and abilities. Self-damage, healing and Pokémon Checkup are excluded;
+overkill counts as the full damage dealt. Finished zero-damage turns are retained.
+The current turn is shown as in progress. Original starting order is retained
+through sudden death, with player turn numbers continuing across the tiebreaker.
+
+Completed-game averages can be filtered by deck and show going-first/going-second
+series, sample counts, and damage frequencies for each turn. Unreached turns and
+old results without tracking are excluded. Batch averages use the saved batch;
+live-match averages use the latest 200 completed matches saved in this browser.
+Reloading a completed live match does not count it twice. Browser storage must
+be available to retain these averages. CSV exports include `damageTurns` as JSON.
+Tracking is saved in engine state separately from the bounded match log and
+does not require code generation or a database migration.
+
+The Dhelmise bot benches its first Dhelmise before spending the turn's Energy
+attachment, powers that attacker, and uses Poltchageist's free retreat to bring
+it Active. Recovery prioritizes a missing first Dhelmise before spare Energy.
+Poltchageist receives an opening attachment only after productive search/draw
+routes have been exhausted and no Dhelmise setup is available. This includes
+retreating to a ready Dhelmise even before the four-Hide-'n'-Sneak damage boost.
+The opening report measures Seat 1 going second, since the first player cannot
+attack on their first turn:
+
+```sh
+php DevTools/PokeSim/opening-report.php --games=100 --seed=1 --trace=2 --opponent=brisbane-lopunny
+```
+
+After reaching four HNS, the bot stops searching merely to reach six, recovers
+the next Dhelmise before surplus Energy when the current attacker is powered,
+and commits the replacement and its Energy before a hand shuffle or attack.
+It uses draw to find missing setup rather than holding Lillie in a large hand;
+opening hands where Petrel/Blender cannot supply both missing attacker and
+Energy prefer a draw route. Offered Ultra Ball searches can chain HNS discards
+to four without recovering them from Discard and reducing the existing count.
+Optional Poltchageist stays in hand as discard fodder until the combo is online.
+
+The full-game report measures damage and powered-backup presence specifically
+for Seat 1's Dhelmise deck, across both starting orders. "Established" means
+turns where the four-HNS threshold was reached; backup presence is measured
+immediately before an attack. Results are empirical, not guaranteed rates.
+The UI's All decks view combines both seats and reports average damage, not
+the percentage of successful boosted attacks.
+
+```sh
+php DevTools/PokeSim/dhelmise-report.php --pairs=100 --seed=1 --opponent=brisbane-lopunny
+```
+
+Dhelmise's Boss's Orders policy uses the same public-board prize ranking to
+choose when to play Boss and which target to select. It prioritizes a winning
+knockout, then prizes gained and removal of powered attackers/draw engines.
+It can gust a multi-prize KO even when the current Active is already a one-prize
+KO. It keeps Boss when the Active already gives the final prizes, and takes a
+winning attack before further setup or draw. Attack values weight prize payouts
+using the engine's one/two/three-prize rules, capped at prizes remaining.
+
+Only game-winning gusts override combo, recovery and setup draw. Ordinary
+Boss KOs retain a priority of 90, below the draw needed to power a replacement
+Dhelmise. Speculative two-hit gusts are disabled: a visible damage estimate
+does not guarantee a second attack before the opponent retreats, heals or
+takes a KO. Actual face-down prize choices remain uniform; hidden hand,
+deck and prize identities are not used. Lopunny retains its separate gust policy.
+
+```sh
+php DevTools/PokeSim/prize-plan-tests.php
+```
+
+```sh
+php DevTools/PokeSim/damage-stats-tests.php
+node --test DevTools/tests/pokesim-damage-stats.test.mjs
+```

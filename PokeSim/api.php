@@ -20,9 +20,17 @@ try {
         $body = json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);
         if (!hash_equals($_SESSION['pokeToken'], (string)($body['token'] ?? ''))) throw new InvalidArgumentException('Invalid session token');
         if (($body['command'] ?? '') === 'reset') {
-            $default = file_get_contents(__DIR__.'/Decks/sinistcha.txt');
             $bot = ($body['mode'] ?? 'hotseat') === 'bot';
-            PokeCreateGame(PokeParseDeckText($body['deck1'] ?? $default), PokeParseDeckText($bot ? $default : ($body['deck2'] ?? $default)), (int)($body['seed'] ?? 1), (int)($body['firstPlayer'] ?? 0));
+            $deck1=isset($body['deck1'])?PokeParseDeckText($body['deck1']):PokeNamedDeck($body['deckKey1']??'sinistcha');
+            $deck2=(!$bot&&isset($body['deck2']))?PokeParseDeckText($body['deck2']):PokeNamedDeck($body['deckKey2']??'sinistcha');
+            if (!isset($body['seed']) || $body['seed'] === '') {
+                do { $seed=random_int(1,2147483647); } while ($seed===PokeVar('initialSeed'));
+            } else {
+                $seed=filter_var($body['seed'],FILTER_VALIDATE_INT,['options'=>['min_range'=>1,'max_range'=>2147483647]]);
+                if ($seed===false) throw new InvalidArgumentException('Shuffle seed must be an integer between 1 and 2147483647');
+            }
+            PokeCreateGame($deck1,$deck2,$seed,(int)($body['firstPlayer']??0));
+            $_SESSION['pokeMatchId'] = bin2hex(random_bytes(16));
             $botSeat = $bot ? 2 : 0;
         } else {
             if (!isset($_SESSION['pokeState'])) throw new LogicException('Create a game first');
@@ -36,7 +44,8 @@ try {
     }
     $botMode = !empty($_SESSION['pokeBotSeat']);
     $state = isset($_SESSION['pokeState']) ? PokeObservation($botMode ? 1 : $seat) : null;
-    if ($state !== null) $state += ['mode'=>$botMode ? 'bot' : 'hotseat','botName'=>$botMode ? 'Sinistcha heuristic bot' : null];
+    if ($state !== null) { $_SESSION['pokeMatchId'] ??= bin2hex(random_bytes(16)); $state['matchId'] = $_SESSION['pokeMatchId']; }
+    if ($state !== null) $state += ['mode'=>$botMode ? 'bot' : 'hotseat','botName'=>$botMode ? PokeDeckName(PokeVar('deckKey:2','sinistcha')).' bot' : null];
     echo json_encode(['ok'=>true,'token'=>$_SESSION['pokeToken'],'state'=>$state], JSON_THROW_ON_ERROR);
 } catch (Throwable $error) {
     http_response_code(400); echo json_encode(['ok'=>false,'error'=>$error->getMessage()]);

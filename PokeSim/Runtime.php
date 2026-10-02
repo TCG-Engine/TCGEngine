@@ -12,6 +12,7 @@ require_once __DIR__ . '/ZoneAccessors.php';
 require_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php';
 require_once __DIR__ . '/GamestateParser.php';
 require_once __DIR__ . '/Custom/DeckImport.php';
+require_once __DIR__ . '/Decks/Registry.php';
 
 function PokeStateExport(): array {
     $state = ['currentPlayer' => $GLOBALS['currentPlayer'] ?? 1, 'updateNumber' => $GLOBALS['updateNumber'] ?? 0];

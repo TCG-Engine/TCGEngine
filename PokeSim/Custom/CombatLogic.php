@@ -1,29 +1,38 @@
 <?php
 function PokeEffectProtected($target, $source, string $kind = 'Attack'): bool {
-    if (HasNoAbilities($target) || $target->Controller === $source->Controller) return false;
+    if ($target->Controller === $source->Controller) return false;
     $evaluate = $kind === 'Ability' ? 'EvaluateAbilityEffectProtection' : 'EvaluateAttackEffectProtection';
-    return $evaluate($target->CardID, $target->Controller, $target, $source) > 0;
+    if (!HasNoAbilities($target) && $evaluate($target->CardID, $target->Controller, $target, $source)>0) return true;
+    foreach ($target->Energy as $id) if ($evaluate($id,$target->Controller,$target,$source)>0) return true;
+    return false;
 }
 /** Damage counters are effects; they bypass weakness/resistance and damage boosts. */
 function PokePlaceDamageCounters(string $sourceRef, string $targetRef, int $count, string $kind = 'Attack'): void {
     $source = GetZoneObject($sourceRef); $target = GetZoneObject($targetRef);
     if (!$source || !$target || $target->Removed() || PokeEffectProtected($target, $source, $kind)) return;
+    $stadium=PokeStadium();
+    if ($source->Controller !== $target->Controller && $stadium && EvaluateDamageCounterProtection($stadium->CardID,$target->Controller,$target,$source)>0) return;
     $target->Damage += max(0, $count) * 10;
+    PokeRecordDamage($source->Controller, $target->Controller, max(0, $count) * 10);
 }
-function PokeDealAttackDamage(int $player, string $sourceRef, int $damage): void {
-    $source = GetZoneObject($sourceRef); $targetRef = PokeFirstRef(3 - $player, 'Active');
+function PokeDealAttackDamage(int $player, string $sourceRef, int $damage, bool $ignoreEffects=false, ?string $targetRef=null): void {
+    $source = GetZoneObject($sourceRef); $targetRef ??= PokeFirstRef(3 - $player, 'Active');
     if (!$source || $targetRef === '') return; $target = GetZoneObject($targetRef);
     if ($damage <= 0) return; // Damage boosts do not turn a non-damaging attack into damage.
+    if (!$ignoreEffects && PokeFieldModifier('BenchDamageProtection',3-$player,$target,$source)>0) return;
     $damage += EvaluateAttackDamageModifier($source->CardID, $player, $source, $damage, $source);
     if (PokeVar('blackBelt:' . $player) === GetTurnNumber() && in_array(CardSuffix($target->CardID), ['ex'], true)) $damage += 40;
     $types = explode(',', EffectiveCardElement($source));
-    foreach (CardWeaknesses($target->CardID) ?? [] as $weakness) {
+    $weaknesses=$target->Location==='Active'?(CardWeaknesses($target->CardID)??[]):[];
+    if ($target->Location==='Active' && PokeFieldModifier('DragonPsychicWeakness',$player,$target,$source)>0) $weaknesses=[['type'=>'Psychic','value'=>'×2']];
+    foreach ($weaknesses as $weakness) {
         if (!in_array($weakness['type'], $types, true)) continue;
         $value = $weakness['value'] ?? '×2';
         $damage = str_contains($value, '×') || str_contains($value, 'x') ? $damage * (int)preg_replace('/\D/', '', $value) : $damage + (int)$value;
     }
-    foreach (CardResistances($target->CardID) ?? [] as $resistance) if (in_array($resistance['type'], $types, true)) $damage += (int)($resistance['value'] ?? 0);
+    if ($target->Location==='Active') foreach (CardResistances($target->CardID) ?? [] as $resistance) if (in_array($resistance['type'], $types, true)) $damage += (int)($resistance['value'] ?? 0);
     $target->Damage += max(0, $damage);
+    PokeRecordDamage($player, $target->Controller, max(0, $damage));
     PokeLog('attack-damage', ['player'=>$player,'source'=>$source->CardID,'target'=>$target->CardID,'amount'=>max(0,$damage)]);
 }
 function PokeSetCondition(string $sourceRef, string $targetRef, string $condition, string $kind = 'Attack'): void {
@@ -33,8 +42,8 @@ function PokeSetCondition(string $sourceRef, string $targetRef, string $conditio
     $target->Conditions[$condition] = $condition === 'Poisoned' ? 10 : true;
 }
 function PokePrizeValue(string $id): int {
-    if (CardStage($id) === 'VMAX' || str_contains(CardName($id) ?? '', 'Mega ') && CardSuffix($id) === 'ex') return 3;
-    return in_array(CardSuffix($id), ['ex','EX','GX','V','TAG TEAM-GX'], true) ? (CardSuffix($id) === 'TAG TEAM-GX' ? 3 : 2) : 1;
+    if (CardStage($id) === 'VMAX' || str_starts_with(CardName($id) ?? '', 'Mega ') && PokeHasRuleBox($id)) return 3;
+    return in_array(CardSuffix($id), ['ex','EX','GX','V','TAG TEAM-GX'], true) || str_ends_with(CardName($id)??'',' ex') ? (CardSuffix($id) === 'TAG TEAM-GX' ? 3 : 2) : 1;
 }
 /** Resolve every KO together before evaluating victory or choosing replacements. */
 function PokeResolveKnockouts(): void {
@@ -55,7 +64,9 @@ function PokeResolveKnockouts(): void {
     if ($winCounts[1] || $winCounts[2]) {
         if ($winCounts[1] === $winCounts[2]) {
             $decks = PokeVar('decks'); $seed = GetRandomState();
-            PokeCreateGame($decks[0], $decks[1], $seed, 0, 1); PokeLog('sudden-death'); return;
+            PokeDamageFinishTurn(); $damageTurns = PokeVar('damageTurns', []); $statsFirst = PokeVar('statsFirstPlayer', GetFirstPlayer());
+            PokeCreateGame($decks[0], $decks[1], $seed, 0, 1);
+            PokeSetVar('damageTurns', $damageTurns); PokeSetVar('statsFirstPlayer', $statsFirst); PokeLog('sudden-death'); return;
         }
         $winner = $winCounts[1] > $winCounts[2] ? 1 : 2;
         if (GetPrizeClaims($winner) >= PokeCount($winner,'Prizes')) foreach (PokeObjects($winner,'Prizes') as $i=>$obj) PokeMoveSimple(PokeRef($winner,'Prizes',$i),$winner,'Hand');

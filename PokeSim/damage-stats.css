@@ -1,0 +1,17 @@
+.damage-stats { margin:20px 0; padding:18px; border:1px solid #d6dfd7; border-radius:12px; background:#fafcf9; color:#233e31; }
+.damage-stats h3 { margin:0 0 12px; }
+.damage-stats svg { display:block; width:100%; height:auto; min-width:280px; }
+.damage-stats p { font-size:13px; line-height:1.5; }
+.damage-legend { display:flex; flex-wrap:wrap; gap:18px; font-size:13px; font-weight:bold; }
+.damage-legend > span { display:inline-flex; align-items:center; gap:8px; }
+.damage-legend-swatch { width:24px; border-top:3px solid currentColor; }
+.damage-legend-swatch.dashed { border-top-style:dashed; }
+.damage-table { overflow-x:auto; max-height:320px; }
+.damage-table table { width:100%; border-collapse:collapse; font-size:13px; }
+.damage-table th,.damage-table td { padding:8px; text-align:left; border-bottom:1px solid #d6dfd7; }
+.damage-stats select { max-width:260px; }
+.damage-plot { position:relative; }
+.damage-dot { cursor:pointer; stroke:transparent; stroke-width:10; pointer-events:all; }
+.damage-dot:hover,.damage-dot:focus { stroke:currentColor; stroke-width:2; outline:none; }
+.damage-tooltip { position:absolute; z-index:2; box-sizing:border-box; width:max-content; max-width:min(340px,100%); padding:12px 14px; border:1px solid #d6dfd7; border-radius:8px; background:#1c3227; color:#fafcf9; box-shadow:0 4px 16px #0003; font-size:13px; line-height:1.6; white-space:pre-line; overflow-wrap:anywhere; pointer-events:none; }
+.damage-tooltip[hidden] { display:none; }

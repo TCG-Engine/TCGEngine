@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__.'/LopunnyBot.php';
+require_once __DIR__.'/PrizeLogic.php';
 /** Deck policy over a seat observation. Never reads the opposing hand, deck or Prizes. */
 function PokeBotContext(array $view): array {
     $seat=$view['viewer']; $own=$view['players'][$seat]; $enemy=$view['players'][3-$seat];
@@ -16,10 +18,29 @@ function PokeBotNeedsBlender(array $ctx): bool {
 function PokeBotNeedsDhelmise(array $ctx): bool {
     return PokeBotFieldCount($ctx,['me05-039'])+($ctx['hand']['me05-039']??0)<2;
 }
+function PokeBotNeedsPoweredBackup(array $ctx): bool {
+    return !count(array_filter($ctx['own']['Bench'],fn($c)=>$c['id']==='me05-039'&&count($c['energy'])>0));
+}
+/** Petrel -> Blender cannot also tutor two missing resources with one fifth
+ * discard slot and one Stretcher. Draw before committing the Supporter in
+ * these openings; this uses hand/discard information, never hidden deck IDs.
+ */
+function PokeBotOpeningNeedsDraw(array $ctx): bool {
+    if($ctx['own']['turns']!==1||$ctx['seat']===$ctx['view']['firstPlayer']||$ctx['own']['supporterUsed']||$ctx['hide']>=4)return false;
+    $pokemon=PokeBotFieldCount($ctx,['me05-039'])+($ctx['hand']['me05-039']??0)>0
+        ||isset($ctx['hand']['me03-081'])||isset($ctx['hand']['me02.5-213'])&&count($ctx['own']['Hand'])>=3;
+    $energy=$ctx['energy']>0||count(array_filter($ctx['field'],fn($c)=>$c['id']==='me05-039'&&count($c['energy'])>0))>0
+        ||isset($ctx['hand']['me03-072'])||isset($ctx['hand']['sv10.5w-082']);
+    $missing=(int)!$pokemon+(int)!$energy;
+    $recovery=$ctx['hand']['me02.5-196']??0;
+    if($missing===1)return $recovery===0;
+    if($missing===2)return $recovery<2||!count(array_filter($ctx['own']['Discard'],fn($c)=>in_array($c['id'],['me05-039','mee-005'],true)));
+    return false;
+}
 function PokeBotNeedsEnergyAccess(array $ctx): bool {
     if($ctx['energy']>0)return false;
     if(($ctx['hand']['me05-039']??0)>0)return true;
-    foreach($ctx['field'] as $card)if(!$card['energy'])return true;
+    foreach($ctx['field'] as $card)if($card['id']==='me05-039'&&!$card['energy'])return true;
     return false;
 }
 /** Blender establishes the four-HNS damage threshold, then seeds recovery.
@@ -62,7 +83,9 @@ function PokeBotCard(array $ctx,string $ref): ?array {
 function PokeBotDamage(array $ctx,array $attacker,array $target): int {
     $id=$attacker['id'];
     if(in_array($id,['me05-005','me05-006'],true)) {
-        if(in_array($target['id'],['me05-005','me05-006','me05-034'],true))return 0;
+        if(in_array($target['id'],['me05-005','me05-006','me05-034'],true)&&empty($target['counters']['noAbilities']))return 0;
+        if(in_array('sv05-161',$target['energy'],true))return 0;
+        if(str_contains($target['ref'],'Bench')&&($ctx['view']['stadium']['id']??'')==='me02-085')return 0;
         return $id==='me05-005'?10:($ctx['hide']>=6?40:0);
     }
     $damage=$id==='me05-039'?($ctx['hide']>=4?170:30):80;
@@ -76,13 +99,20 @@ function PokeBotAttackValue(array $ctx,array $card,bool $requireEnergy=true): fl
     if(!empty($card['conditions']['Asleep'])||!empty($card['conditions']['Paralyzed']))return 0;
     $targets=$card['id']==='me05-006'?array_merge($ctx['enemy']['Active'],$ctx['enemy']['Bench']):$ctx['enemy']['Active'];
     $score=0;
-    foreach($targets as $target){$damage=PokeBotDamage($ctx,$card,$target);$score+=min($target['hp']-$target['damage'],$damage);if($damage>0&&$damage>=$target['hp']-$target['damage'])$score+=150;}
+    foreach($targets as $target){$damage=PokeBotDamage($ctx,$card,$target);$score+=min($target['hp']-$target['damage'],$damage);if($damage>0&&$damage>=$target['hp']-$target['damage'])$score+=150*min($ctx['own']['prizeCount'],PokePrizeValue($target['id']));}
     return $score;
 }
 function PokeBotTrainerScore(array $ctx,string $id): float {
-    $needsEnergy=$ctx['energy']===0; $needsBasic=PokeBotFieldCount($ctx,['me05-039'])+($ctx['hand']['me05-039']??0)<2;
+    $needsEnergy=PokeBotNeedsEnergyAccess($ctx); $needsBasic=PokeBotNeedsDhelmise($ctx);
+    $needsSetup=$ctx['hide']<4||$needsBasic||PokeBotNeedsPoweredBackup($ctx);
+    $handHns=($ctx['hand']['me05-005']??0)+($ctx['hand']['me05-006']??0)+($ctx['hand']['me05-034']??0);
+    $canDiscardCombo=min(2,$handHns)>=4-$ctx['hide']||($ctx['hand']['me02.5-213']??0)>=2&&$handHns>=3;
     $supporter=!$ctx['own']['supporterUsed']&&!($ctx['seat']===$ctx['view']['firstPlayer']&&$ctx['own']['turns']===1);
     $findBlender=PokeBotNeedsBlender($ctx);
+    if($findBlender&&PokeBotOpeningNeedsDraw($ctx)){
+        if($id==='me02.5-192')return 290;
+        if(!isset($ctx['hand']['me02.5-192'])&&in_array($id,['sv08-165','sv10.5b-084'],true))return 285;
+    }
     if($findBlender){
         if($id==='me02.5-207')return 270;
         // On the first player's opening turn, finding Petrel still prepares
@@ -97,15 +127,15 @@ function PokeBotTrainerScore(array $ctx,string $id): float {
     }
     return match($id){
         'sv08-164'=>$ctx['hide']<4?300:40,
-        'me02.5-213'=>$ctx['hide']<6?85:($needsBasic?55:-20),
-        'me03-072'=>$needsEnergy&&!$ctx['own']['energyUsed']?80:-20,
-        'me03-081'=>$needsBasic||(!PokeBotFieldCount($ctx,['me05-005','me05-006'])&&!isset($ctx['hand']['me05-005']))?70:($ctx['hide']<6?40:-20),
-        'me02.5-196'=>count(array_filter($ctx['own']['Discard'],fn($c)=>($needsEnergy&&$c['id']==='mee-005')||($needsBasic&&$c['id']==='me05-039')||(!PokeBotFieldCount($ctx,['me05-005','me05-006'])&&$c['id']==='me05-005')))?65:-20,
-        'sv10.5w-082'=>$needsEnergy?65:-20,
+        'me02.5-213'=>$ctx['hide']<4?($canDiscardCombo?150:85):($needsBasic?150:-20),
+        'me03-072'=>$needsEnergy&&!$ctx['own']['energyUsed']?150:-20,
+        'me03-081'=>$needsBasic?150:($ctx['hide']<4?40:-20),
+        'me02.5-196'=>count(array_filter($ctx['own']['Discard'],fn($c)=>($needsEnergy&&$c['id']==='mee-005')||($needsBasic&&$c['id']==='me05-039')))?150:-20,
+        'sv10.5w-082'=>$needsEnergy?150:-20,
         'sv10.5b-084','sv08-165'=>$supporter&&!$ctx['draw']&&!isset($ctx['hand']['me02.5-207'])?75:-20,
         'me02.5-209'=>$supporter&&!$ctx['draw']&&!isset($ctx['hand']['me02.5-207'])?60:-20,
         'me02.5-207'=>!$ctx['draw']?55:($ctx['hide']<4&&!isset($ctx['hand']['sv08-164'])?60:-20),
-        'me02.5-192'=>count($ctx['own']['Hand'])<6||$needsEnergy?50:5,
+        'me02.5-192'=>$needsSetup?120:(count($ctx['own']['Hand'])<6?50:5),
         'me04-082'=>$ctx['enemy']['handCount']>3?70:-20,
         'sv09-144'=>isset($ctx['enemy']['Active'][0])&&CardSuffix($ctx['enemy']['Active'][0]['id'])==='ex'&&isset($ctx['own']['Active'][0])&&count($ctx['own']['Active'][0]['energy'])&&in_array($ctx['own']['Active'][0]['id'],['me05-039','me05-034'],true)?90:-20,
         'me02.5-183'=>PokeBotBossScore($ctx),
@@ -113,11 +143,10 @@ function PokeBotTrainerScore(array $ctx,string $id): float {
     };
 }
 function PokeBotBossScore(array $ctx): float {
-    $active=$ctx['own']['Active'][0]??null;if(!$active||!count($active['energy']))return -20;
-    $current=$ctx['enemy']['Active'][0]??null;
-    if($current&&PokeBotDamage($ctx,$active,$current)>=$current['hp']-$current['damage'])return -20;
-    foreach($ctx['enemy']['Bench'] as $target)if(PokeBotDamage($ctx,$active,$target)>=$target['hp']-$target['damage'])return 90;
-    return -20;
+    $plan=PokeBotBossPlan($ctx);
+    // Only a winning gust overrides combo/recovery/draw. Spending the
+    // Supporter on an ordinary KO must not strand the next Dhelmise.
+    return !$plan?-20:($plan['win']?10000:90);
 }
 function PokeBotActionScore(array $ctx,array $a): float {
     $card=isset($a['source'])?PokeBotCard($ctx,$a['source']):null;
@@ -126,21 +155,37 @@ function PokeBotActionScore(array $ctx,array $a): float {
         case 'setup-active':return $card['id']==='me05-039'?100:80;
         case 'ready':return 0;
         case 'bench':
-            if($card['id']==='me05-039')return PokeBotFieldCount($ctx,['me05-039'])<2?35:-10;
+            // Put the main attacker on the board before committing this turn's
+            // attachment. A Dhelmise still in hand cannot compete as an Energy target.
+            if($card['id']==='me05-039')return PokeBotFieldCount($ctx,['me05-039'])===0?180:(PokeBotFieldCount($ctx,['me05-039'])<2?140:-10);
+            // Do not take HNS fodder out of circulation by benching an optional
+            // Poltchageist line before the four-card combo is established.
+            if($ctx['hide']<4&&PokeBotFieldCount($ctx,['me05-039'])>0)return -10;
             return PokeBotFieldCount($ctx,['me05-005','me05-006'])===0?34:-10;
         case 'evolve':return 40;
         case 'trainer':return PokeBotTrainerScore($ctx,$card['id']);
         case 'attach':
             $active=$ctx['own']['Active'][0]??null;
             $priority=PokeBotAttackValue($ctx,$target,false);
+            if($target['id']==='me05-039'&&!$target['energy'])return 160+$priority/30+($target['ref']===($active['ref']??'')?10:0)+($card['id']==='me03-088'&&PokeBotNeedsDhelmise($ctx)?20:0);
+            // Poltchageist retreats for free. Power it only after all productive
+            // setup/search/draw actions have been exhausted and no Dhelmise needs
+            // this attachment. Its attack is the fallback, not the opening plan.
+            if($target['id']==='me05-005'){
+                if(PokeBotFieldCount($ctx,['me05-039'])===0&&($ctx['hand']['me05-039']??0)===0)return !$target['energy']&&$target['ref']===($active['ref']??'')?2:-10;
+                return -10;
+            }
             if(count($target['energy'])===0)return 45+$priority/30+($target['ref']===($active['ref']??'')?5:0)+($card['id']==='me03-088'&&$target['id']==='me05-039'&&PokeBotFieldCount($ctx,['me05-039'])<2?10:0);
             // Dhelmise may need three units to retreat into an online Sinistcha.
             if($active&&$target['ref']===$active['ref']&&$target['id']==='me05-039'&&count($target['energy'])<3)foreach($ctx['own']['Bench'] as $bench)if(PokeBotAttackValue($ctx,$bench)>PokeBotAttackValue($ctx,$active)+40)return 35;
             return -10;
         case 'retreat':
             $active=$ctx['own']['Active'][0];$gain=PokeBotAttackValue($ctx,$target)-PokeBotAttackValue($ctx,$active);
+            if($active['id']==='me05-005'&&$target['id']==='me05-039'&&PokeBotAttackValue($ctx,$target)>0)return 95;
             return $gain>40?42+$gain/20-count($a['payment'])*3:-20;
-        case 'attack':return 10+PokeBotAttackValue($ctx,$card)/20;
+        case 'attack':
+            if(isset($ctx['enemy']['Active'][0])&&PokeBotPrizeTarget($ctx,$card,$ctx['enemy']['Active'][0])['win'])return 10000;
+            return 10+PokeBotAttackValue($ctx,$card)/20;
         case 'end':return 0;
         default:return -20;
     }
@@ -154,6 +199,20 @@ function PokeBotDiscardScore(array $ctx,string $id): float {
     return 30-PokeBotTrainerScore($ctx,$id)/4;
 }
 function PokeBotSearchScore(array $ctx,string $id): float {
+    if($id==='me02.5-192'&&PokeBotOpeningNeedsDraw($ctx))return 310;
+    // Recovery can offer both Energy and Pokémon. Find the first attacker
+    // before spare Energy or a second copy, then attach to that attacker.
+    if($id==='me05-039'&&PokeBotFieldCount($ctx,['me05-039'])===0&&!isset($ctx['hand'][$id]))return 300;
+    // The first Ultra Ball can search the HNS card needed to pay the next
+    // Ultra Ball. Complete a reachable four-card combo before searching spare
+    // attackers, while always reserving the first Dhelmise above this branch.
+    $handHns=($ctx['hand']['me05-005']??0)+($ctx['hand']['me05-006']??0)+($ctx['hand']['me05-034']??0);
+    if(in_array($id,['me05-005','me05-006','me05-034'],true)&&$ctx['hide']>=2&&$ctx['hide']<4
+        &&str_contains($ctx['view']['decision']['prompt']??'', 'Ultra Ball: search')
+        &&isset($ctx['hand']['me02.5-213'])&&min(2,$handHns+1)>=4-$ctx['hide'])return 240;
+    // With the current attacker powered, find its replacement before piling
+    // Energy into hand. Once the replacement exists, search its attachment.
+    if($id==='me05-039'&&PokeBotNeedsDhelmise($ctx)&&!PokeBotNeedsEnergyAccess($ctx))return 200;
     if($id==='me02.5-207'&&PokeBotNeedsBlender($ctx)&&!isset($ctx['hand'][$id]))return 280;
     if(in_array($id,['mee-005','me03-088'],true))return PokeBotNeedsEnergyAccess($ctx)?180:($ctx['energy']===0?75:5);
     if($id==='sv08-164')return PokeBotNeedsBlender($ctx)?350:0;
@@ -171,7 +230,7 @@ function PokeBotDecision(array $ctx,array $d): string {
         $id=$c['card'];
         if($id===null)return 0; // Prize choices are uniform: never inspect face-down cards.
         if(str_contains($prompt,'discard'))return PokeBotDiscardScore($ctx,$id);
-        if(str_contains($prompt,'Boss')){$target=PokeBotCard($ctx,$c['value']);$active=$ctx['own']['Active'][0];$damage=PokeBotDamage($ctx,$active,$target);return $damage>=($target['hp']-$target['damage'])?200+$damage:$damage;}
+        if(str_contains($prompt,'Boss')){$target=PokeBotCard($ctx,$c['value']);$active=$ctx['own']['Active'][0];$baseline=PokeBotPrizeTarget($ctx,$active,$ctx['enemy']['Active'][0]);return PokeBotBossTargetPlan($ctx,$active,$target,$baseline)['value']??0;}
         if(str_contains($prompt,'new Active')){$target=PokeBotCard($ctx,$c['value']);return PokeBotAttackValue($ctx,$target)+($id==='me05-039'?20:0);}
         if(str_contains($prompt,'Telepathic'))return $id==='me05-039'&&PokeBotFieldCount($ctx,['me05-039'])<2?100:0;
         return PokeBotSearchScore($ctx,$id);
@@ -186,6 +245,7 @@ function PokeBotDecision(array $ctx,array $d): string {
     return $choices[0]['value']??'-';
 }
 function PokeBotChoose(array $view): ?array {
+    if (($view['players'][$view['viewer']]['deckKey']??'')==='brisbane-lopunny') return PokeLopunnyChoose($view);
     $ctx=PokeBotContext($view);$d=$view['decision'];
     if($d)return ['type'=>'decision','player'=>$ctx['seat'],'value'=>PokeBotDecision($ctx,$d)];
     $actions=$view['actions'];if(!$actions)return null;

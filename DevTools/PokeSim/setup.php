@@ -9,7 +9,9 @@ mysqli_query($connection, 'CREATE DATABASE IF NOT EXISTS `pokesim` CHARACTER SET
 mysqli_close($connection);
 require_once 'CardEditor/Database/CardAbilityRepository.php';
 $repository = OpenCardAbilityRepository($rootName);
-foreach (require 'PokeSim/CardCode/DeckAbilities.php' as $id => $abilities) {
+$authored = require 'PokeSim/CardCode/DeckAbilities.php';
+$authored = array_replace($authored, require 'PokeSim/CardCode/LopunnyAbilities.php');
+foreach ($authored as $id => $abilities) {
     $repository->replaceCardAbilities($rootName, $id, $abilities, true, $repository->revisionForCard($rootName, $id));
 }
 $repository->close();

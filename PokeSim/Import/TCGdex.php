@@ -43,6 +43,7 @@ function PokeTCGdexNormalize(array $card): array {
     // Reviewed against the TCGdex card face: POR 088 is Special Energy, despite
     // the current upstream energyType=Normal. Preserve the raw source separately.
     if ($card['id'] === 'me03-088') $card['energyType'] = 'Special';
+    if (str_ends_with($card['name'], ' ex') && empty($card['suffix'])) $card['suffix'] = 'ex';
     if ($card['category'] === 'Energy' && $card['types'] === '' && str_contains($card['name'], 'Psychic')) $card['types'] = 'Psychic';
     return $card;
 }
@@ -52,7 +53,10 @@ function PokeTCGdexImport(bool $refresh = false, ?array $ids = null, bool $image
     $cachePath = "$root/GeneratedCode/cardArrayCache.json";
     $old = is_file($cachePath) ? json_decode(file_get_contents($cachePath), true, 512, JSON_THROW_ON_ERROR) : [];
     $cards = [];
-    foreach ($old['cardArray'] ?? [] as $card) $cards[$card['id']] = $card;
+    foreach ($old['cardArray'] ?? [] as $card) {
+        if (str_ends_with($card['name'], ' ex') && empty($card['suffix'])) $card['suffix']='ex';
+        $cards[$card['id']] = $card;
+    }
     if ($ids !== null) {
         foreach (array_unique($ids) as $id) {
             if (!preg_match('/^[A-Za-z0-9.!%_-]+$/D', $id)) throw new InvalidArgumentException('Unsafe card identifier');

@@ -12,8 +12,9 @@ while (($line = fgets(STDIN)) !== false) {
         if (!in_array($seat,[1,2],true)) throw new InvalidArgumentException('player must be 1 or 2');
         switch ($request['command'] ?? '') {
             case 'reset':
-                $default = file_get_contents(__DIR__.'/Decks/sinistcha.txt');
-                PokeCreateGame(PokeParseDeckText($request['deck1'] ?? $default), PokeParseDeckText($request['deck2'] ?? $default), (int)($request['seed'] ?? 1), (int)($request['firstPlayer'] ?? 0));
+                $deck1=isset($request['deck1'])?PokeParseDeckText($request['deck1']):PokeNamedDeck($request['deckKey1']??'sinistcha');
+                $deck2=isset($request['deck2'])?PokeParseDeckText($request['deck2']):PokeNamedDeck($request['deckKey2']??'sinistcha');
+                PokeCreateGame($deck1,$deck2,(int)($request['seed']??1),(int)($request['firstPlayer']??0));
                 $created = true; break;
             case 'step': if (!$created) throw new LogicException('Send reset first'); PokeApplyAction($request['action']); break;
             case 'bot-step':

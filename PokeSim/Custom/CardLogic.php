@@ -18,12 +18,18 @@ function PokeOnTrainerPlayed($player, $mzID): string {
 }
 function PokeOnAttack($player, $mzID, $attackIndex): string {
     $obj = GetZoneObject($mzID);
-    if (!PokeMacro('Attack', $player, $obj->CardID, $attackIndex, ['mzID' => $mzID, 'attackIndex' => $attackIndex])) {
-        $attack = CardAttacks($obj->CardID)[$attackIndex];
+    $copy = PokeVar('copiedAttack'); PokeSetVar('copiedAttack', null);
+    $attackID = $copy ?? $obj->CardID;
+    if (!PokeMacro('Attack', $player, $attackID, $attackIndex, ['mzID' => $mzID, 'attackIndex' => $attackIndex])) {
+        $attack = CardAttacks($attackID)[$attackIndex];
         PokeDealAttackDamage($player, $mzID, (int)($attack['damage'] ?? 0));
     }
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'PokeFinishAttack', 90, '', 1);
     return 'ATTACKED';
+}
+function PokeOnPokemonBenched($player, $mzID): string {
+    PokeMacro('PokemonBenched', $player, GetZoneObject($mzID)->CardID, 0, ['mzID'=>$mzID]);
+    return 'BENCHED';
 }
 function PokeOnActivateAbility($player, $mzID, $abilityIndex): string {
     PokeMacro('ActivateAbility', $player, GetZoneObject($mzID)->CardID, $abilityIndex, ['mzID' => $mzID, 'abilityIndex' => $abilityIndex]);
@@ -41,14 +47,17 @@ function PokeCardImplemented(string $id): bool {
         if (isset($GLOBALS['attackAbilities'][$id . ':' . $i])) continue;
         if (!empty($attack['effect']) || !preg_match('/^\d+$/D', (string)($attack['damage'] ?? ''))) return false;
     }
-    foreach (CardAbilities($id) ?? [] as $ability) {
+    foreach (CardAbilities($id) ?? [] as $i => $ability) {
         if (($ability['name'] ?? '') === "Hide 'n' Sneak" && isset($GLOBALS['attackEffectProtectionAbilities'][$id . ':0'])) continue;
+        foreach (['activateAbility','pokemonBenched','benchDamageProtection','selfKnockoutAbilityLock','dragonPsychicWeakness','attackCopyAllowed'] as $macro) {
+            if (isset($GLOBALS[$macro.'Abilities'][$id.':'.$i])) continue 2;
+        }
         return false;
     }
     return true;
 }
 function PokeHasRuleBox(string $id): bool {
-    return !empty(CardSuffix($id)) || in_array(CardStage($id), ['VMAX', 'VSTAR', 'V-UNION'], true) || str_starts_with(CardName($id) ?? '', 'Radiant ');
+    return !empty(CardSuffix($id)) || str_ends_with(CardName($id) ?? '', ' ex') || in_array(CardStage($id), ['VMAX', 'VSTAR', 'V-UNION'], true) || str_starts_with(CardName($id) ?? '', 'Radiant ');
 }
 function EffectiveCardType($obj): string { return CardType(is_string($obj) ? $obj : $obj->CardID) ?? ''; }
 function EffectiveCardSubtypes($obj): array { return array_filter([CardStage(is_string($obj) ? $obj : $obj->CardID), CardTrainerType(is_string($obj) ? $obj : $obj->CardID)]); }
@@ -71,13 +80,17 @@ function PokeCandidates(int $player, string $zone, string $filter = 'any'): stri
             'basicEnergy' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal',
             'pokemonOrEnergy' => EffectiveCardType($obj) === 'Pokemon' || (EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal'),
             'basicPsychic' => EffectiveCardType($obj) === 'Pokemon' && CardStage($id) === 'Basic' && in_array('Psychic', explode(',', EffectiveCardElement($obj)), true),
+            'fanCall' => EffectiveCardType($obj) === 'Pokemon' && str_contains(EffectiveCardElement($obj), 'Colorless') && (int)CardHp($id) <= 100,
+            'poffin' => EffectiveCardType($obj) === 'Pokemon' && CardStage($id) === 'Basic' && (int)CardHp($id) <= 70,
+            'evolution' => EffectiveCardType($obj) === 'Pokemon' && CardStage($id) !== 'Basic',
+            'energy' => EffectiveCardType($obj) === 'Energy',
             default => true,
         };
         if ($match) $ids[] = PokeRef($player, $zone, $i);
     }
     return implode('&', $ids);
 }
-function PokeResolveSearch(int $player, string $selected, string $destination = 'Hand', bool $reveal = true): void {
+function PokeResolveSearch(int $player, string $selected, string $destination = 'Hand', bool $reveal = true, bool $shuffle = true): void {
     foreach (explode('&', $selected) as $ref) {
         if ($ref === '' || $ref === '-' || $ref === 'PASS') continue;
         $obj = GetZoneObject($ref);
@@ -85,7 +98,7 @@ function PokeResolveSearch(int $player, string $selected, string $destination = 
         if ($destination === 'Bench') PokePlayBasicFromZone($player, $ref, 'Bench');
         else { if ($reveal) PokeLog('reveal-search', ['player'=>$player, 'card'=>$obj->CardID]); PokeMoveSimple($ref, $player, $destination); }
     }
-    PokeShuffle($player);
+    if ($shuffle) PokeShuffle($player);
 }
 function PokeResolveRecovery(int $player, string $selected): void {
     foreach (explode('&', $selected) as $ref) {
