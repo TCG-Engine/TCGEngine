@@ -43,9 +43,9 @@ foreach (SWU_BOT_ARCHETYPES as $s) $kills[$s] = SWUBotWeights($s, 1)['kill'];
 $check($kills['hyperaggro'] < $kills['softaggro'] && $kills['softaggro'] < $kills['midrange']
     && $kills['midrange'] < $kills['softcontrol'] && $kills['softcontrol'] < $kills['hardcontrol'],
     'kill rises monotonically from hyper aggro to hard control');
-$check(SWUBotWeights('softaggro', 1)['burn'] === 0.80
-    && SWUBotWeights('softaggro', 1)['burn'] > SWUBotWeights('midrange', 1)['burn'],
-    'burn peaks at soft aggro — its plan is base damage from CARDS, which the curve cannot capture');
+$check(SWUBotWeights('softaggro', 1)['damage-enemy-base'] === 0.80
+    && SWUBotWeights('softaggro', 1)['damage-enemy-base'] > SWUBotWeights('midrange', 1)['damage-enemy-base'],
+    'damage-enemy-base (was burn) peaks at soft aggro — its plan is base damage from CARDS, which the curve cannot capture');
 $check(SWUBotWeights('hardcontrol', 1)['wipe'] === 1.80 && SWUBotWeights('hardcontrol', 1)['draw'] === 1.40,
     'hard control tops the answer and card-advantage weights');
 $check(SWUBotWeights('hardcontrol', 1)['loss'] < SWUBotWeights('softcontrol', 1)['loss'],
@@ -82,9 +82,21 @@ $keys = array_keys(SWUBotWeights('midrange', 1));
 foreach (SWU_BOT_ARCHETYPES as $s) {
     $check(array_keys(SWUBotWeights($s, 1)) === $keys, "$s returns the same weight keys as midrange");
 }
-foreach (['base','kill','loss','chip','grit','develop','unitPlay','removal','wipe','damage','draw','heal','burn',
+foreach (['base','kill','loss','chip','grit','develop','unitPlay','removal','wipe','damage-enemy-unit','debuff-all-enemy-units','draw','heal','damage-enemy-base',
+          'grants-attack','pump','shoot-first','attack-no-base','power-strike','damage-enemy-unit-spread','damage-all-units-spread',
+          'damage-friendly-unit','damage-friendly-base','heal-friendly-units-spread','heal-friendly-base-spread',
           'buff','bounce','exhaust','deploy','ability','ready','initiative','attackFirst','maxUnits','stopPass'] as $k) {
     $check(in_array($k, $keys, true), "weight key '$k' exists");
+}
+// `damage` was RETIRED 2026-10-01 — its weight lives under damage-enemy-unit. A stale 'damage' key would be dead weight
+// no card can earn (the tagger no longer emits it), so it must be gone, not merely unused.
+$check(!in_array('damage', $keys, true), "the retired 'damage' weight key is gone");
+$check(!in_array('burn', $keys, true), "the retired 'burn' weight key is gone (now damage-enemy-base)");
+// A DRAWBACK must cost, never pay: the friendly-harm and can't-hit-a-base rows are <= 0 for every style.
+foreach (SWU_BOT_ARCHETYPES as $s) {
+    $w = SWUBotWeights($s, 1);
+    $check($w['damage-friendly-unit'] < 0 && $w['damage-friendly-base'] < 0 && $w['attack-no-base'] <= 0,
+        "$s: friendly damage and attack-no-base are drawbacks (negative or zero)");
 }
 
 // ── Racing is a rank SHIFT, not three hand-coded style swaps ───────────────────────────────────────

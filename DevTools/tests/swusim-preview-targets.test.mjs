@@ -194,7 +194,7 @@ test('a captive does not inflate the upgrade count', () => {
 // showLineageOverflowPopup is shared with GrandArchive's champion lineage, so the selectable entry is
 // strictly additive: it appears only when the payload carries `mzids` AND the host page defines the
 // two hooks. These tests pin both halves of that gate.
-const ui = fs.readFileSync(new URL('../../Core/UILibraries20260928.js', import.meta.url), 'utf8');
+const ui = fs.readFileSync(new URL('../../Core/UILibraries20261001.js', import.meta.url), 'utf8');
 
 function renderPanel({ mzids, selectable }) {
   const a = ui.indexOf('function showLineageOverflowPopup(');

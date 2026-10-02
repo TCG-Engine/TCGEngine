@@ -5,8 +5,13 @@
 
 // SEC_230 Charged with Espionage — disclose succeeded → look at the opponent's hand, discard a unit.
 $customDQHandlers["SEC_230#0"] = function($player, $parts, $lastDecision) {
-    SWUOfferDiscard($player, ['from'=>'opp', 'filter'=>fn($cid)=>stripos(CardType($cid) ?? '', 'unit') !== false, 'prompt'=>"Discard_a_unit_from_the_opponent's_hand"]);
+    SWUOfferDiscardFromAnOpponent(intval($player), '_SWUOppDiscardOpts_SEC_230');   // "AN opponent": the caster picks (Twin Suns)
 };
+
+// The discard options, shared by the play and by the post-pick continuation (SWUOfferDiscardFromAnOpponent).
+function _SWUOppDiscardOpts_SEC_230(): array {
+    return ['from'=>'opp', 'filter'=>fn($cid)=>stripos(CardType($cid) ?? '', 'unit') !== false, 'prompt'=>"Discard_a_unit_from_the_opponent's_hand"];
+}
 
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["SEC_230:0"] = function($player, $mzID = '') {

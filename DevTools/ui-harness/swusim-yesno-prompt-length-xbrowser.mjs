@@ -5,7 +5,7 @@
 // popup's 50% dim covers the board, so the player had no way to tell WHICH unit (reported on SEC_010 Dedra
 // Meero). The owner's fix: name the unit in the prompt — NAME ONLY, no stats — and RING it on the board.
 //   server  SWUPromptUnitLabel + SWUPromptHighlightParam   (SWUSim/Custom/CardHelpers.php)
-//   client  ParseYesNoDecisionPresentation / ApplyYesNoDecisionHighlight (Core/UILibraries20260928.js)
+//   client  ParseYesNoDecisionPresentation / ApplyYesNoDecisionHighlight (Core/UILibraries20261001.js)
 //   css     .yesno-decision-target                          (SWUSim/Custom/GameLayoutShared.php)
 //
 // WHAT NEEDS A BROWSER, and why each assertion exists:

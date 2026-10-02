@@ -1,10 +1,9 @@
-// Regression: the persistent TOUCH preview carries an explicit close (X), and double-sided cards
-// carry a flip to the opposite face.
+// Regression: the persistent TOUCH preview carries an explicit close (X); a LEADER shows BOTH faces.
 //
-// Why the flip exists: SWU leaders are double-sided and the deployed Leader Unit side ships as
-// "<CardID>_back" in the shared art corpus. On a phone there was no way to see it at all.
-// Which cards get the button is decided by an ASSET PROBE (Core/jsInclude.js), not a leader list,
-// so this suite pins BOTH outcomes — a leader offers the flip, an ordinary card must not.
+// SWU leaders are double-sided and the deployed Leader Unit side ships as "<CardID>_back" in the shared
+// art corpus. It used to be reachable on a phone through a flip button; since 2026-10-01 (owner) a leader
+// previews both faces side by side / stacked (Core/jsInclude.js ShowLeaderFacesDetail), so this suite pins:
+// a leader shows the pair with NO flip, and an ordinary card still gets no flip either.
 //
 // The two mechanics most likely to silently break:
 //   * #cardDetail is pointer-events:none on touch, so a control that forgets pointer-events:auto
@@ -69,35 +68,15 @@ await harness(async (check) => {
       check(`${name}: long-pressed a leader`, !!got);
       check(`${name}: preview open`, await previewOpen(page));
       check(`${name}: close button present`, await page.locator(CLOSE).count() === 1);
-      check(`${name}: flip button offered for a leader`, await page.locator(FLIP).count() === 1);
-
-      if (await page.locator(FLIP).count() === 1) {
-        check(`${name}: flip is tappable (pointer-events)`,
-          await page.locator(FLIP).evaluate(el => getComputedStyle(el).pointerEvents) === 'auto');
-        check(`${name}: flip labelled for the unit side`,
-          (await page.locator(FLIP).textContent()).includes('Leader Unit'));
-
-        const front = await previewSrc(page);
-
-        // Arm the click suppressor deterministically first. It is normally armed for 700ms after a
-        // long-press — exactly when the player reaches for this button — and a control that is not
-        // exempt from it renders, highlights, and does nothing. Timing-independent by construction.
-        // ONE gesture only: tap() does emit a click here, so tap-then-click would flip twice and
-        // land back on the front, reading as "broken" when it works.
-        await page.evaluate(() => { window.suppressNextCardDetailClickUntil = Date.now() + 5000; });
-        await page.locator(FLIP).tap();
-        await page.waitForTimeout(800);
-        check(`${name}: preview survives the flip tap`, await previewOpen(page));
-        const back = await previewSrc(page);
-        check(`${name}: flipped to the Leader Unit side`, !!back && /_back\.webp/i.test(back),
-          `${front} -> ${back}`);
-        check(`${name}: label flips back`,
-          (await page.locator(FLIP).textContent()).includes('See Leader side'));
-
-        await page.locator(FLIP).tap();
-        await page.waitForTimeout(800);
-        check(`${name}: flips back to the leader side`, (await previewSrc(page)) === front);
-      }
+      // Owner 2026-10-01: a leader previews BOTH faces at once (Core/jsInclude.js ShowLeaderFacesDetail), so
+      // the flip — this suite's original subject for leaders — is gone: there is no hidden face left to flip to.
+      const faces = await page.evaluate(() => [...document.querySelectorAll('#cardDetail [data-card-detail-pair] img')]
+        .map(i => (i.getAttribute('src') || '').split('/').pop()));
+      check(`${name}: a leader shows BOTH faces`, faces.length === 2 && /_back\.webp/i.test(faces[1]) && !/_back\.webp/i.test(faces[0]),
+        JSON.stringify(faces));
+      check(`${name}: NO flip button on a two-face leader preview`, await page.locator(FLIP).count() === 0);
+      check(`${name}: close is tappable (pointer-events)`,
+        await page.locator(CLOSE).evaluate(el => getComputedStyle(el).pointerEvents) === 'auto');
 
       // Disarm: the suppressor was armed 5s into the future above, and it would otherwise swallow
       // the tab click below — a stray failure that looks nothing like its cause.

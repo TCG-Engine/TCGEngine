@@ -1,0 +1,48 @@
+# Self-play fixture — "Hemlock Red" (Doctor Hemlock, Emotion Has No Place Here - Bioweapons Lab)
+# Source: the HMW-meta list of Force Fam member Ninin (NininTCG), given by the owner 2026-10-01 as JSON.
+#   Converted 2026-10-01. 50 main-deck cards, 10 sideboard.
+#   Base trait: Bioweapons Lab is Naboo, and the deck cares, so the trait is part of its name.
+# Author: Ninin
+# Archetype (owner's label, 2026-10-01): Soft control
+# Style: softcontrol
+# Flavours: tempo
+
+Leader
+1 HMW_003
+
+Base
+1 HMW_027
+
+Deck
+3 JTL_140
+2 JTL_143
+3 LOF_130
+3 LAW_174
+3 ASH_030
+3 ASH_048
+3 ASH_052
+3 ASH_053
+3 HMW_062
+2 LAW_133
+3 LAW_097
+3 LAW_172
+2 LOF_070
+2 ASH_146
+1 HMW_071
+2 LAW_044
+2 JTL_043
+2 JTL_144
+2 SEC_078
+2 HMW_159
+1 HMW_100
+
+Sideboard
+1 LOF_070
+1 JTL_143
+1 LAW_044
+1 JTL_043
+1 SEC_078
+1 SEC_180
+2 SEC_038
+1 HMW_071
+1 HMW_100

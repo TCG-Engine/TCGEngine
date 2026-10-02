@@ -686,6 +686,9 @@ class GameTestAdapter {
      */
     private function _mirrorProductionPostAction(): void {
         SWUFlushDeferredReplacements();
+        // Production's per-action hook (ProcessGoldfishAutomation) ends with this: a Twin Suns seat eliminated during
+        // its own action hands the turn on (core/TwinSuns_EliminatedOnOwnAction_TurnMovesOn.md). No-op otherwise.
+        if (function_exists('_SWUMoveTurnOffEliminatedSeat')) _SWUMoveTurnOffEliminatedSeat();
     }
 
     private function _drainDQ(int $player): void {

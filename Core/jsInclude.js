@@ -274,7 +274,7 @@ function CardDetailControlStyle(extra) {
 // `place` re-centres the preview after a flip, since the two faces can differ in aspect ratio.
 // `token` is the caller's cardDetailRequestToken: the asset probe is async, so without it a slow
 // probe could append a flip button onto a preview the user has since replaced with another card.
-function AddCardDetailControls(el, imgSource, place, token) {
+function AddCardDetailControls(el, imgSource, place, token, closeOnly) {
   var current = function() { return token === cardDetailRequestToken && cardDetailPersistent; };
   var close = document.createElement("button");
   close.type = "button";
@@ -286,6 +286,7 @@ function AddCardDetailControls(el, imgSource, place, token) {
     "font-size:16px; line-height:1; display:flex; align-items:center; justify-content:center; z-index:2;");
   close.addEventListener("click", function(ev) { ev.stopPropagation(); HideCardDetail(true); });
   el.appendChild(close);
+  if (closeOnly) return;   // a two-faced leader preview already shows both sides: nothing to flip
 
   var opposite = CardDetailOppositeFace(imgSource);
   // opposite is built by toggling "_back" on imgSource as a plain string, so if imgSource was already
@@ -336,7 +337,118 @@ function AddCardDetailControls(el, imgSource, place, token) {
   });
 }
 
-function ShowDetail(e, imgSource, avoidEl, requestToken) {
+// ── SWUSim + SWUDeck: a LEADER previews as BOTH faces, side by side ───────────────────────────
+// Owner, 2026-10-01: hovering any leader — in a Leader zone, a deployed Leader unit, a leader attached
+// as a PILOT (ShowSubcardDetail), or SWUDeck's card panel and identity banner — shows the leader side
+// AND the Leader Unit side at once (the approach SWUniversity's CardPreview.tsx takes).
+// The leader is identified from the card dictionary (Cardtype), never by probing: a probe would be a
+// 404 on every non-leader hover. A deployed leader's tile is "<CardID>_back", so either face hovered
+// resolves to the same pair, front first.
+// Orientation is read from the LOADED images, not from a table: the front is landscape, the back is
+// portrait when it is a unit side — but a double-sided leader's back is another landscape leader face
+// (TWI_017 Palpatine -> Darth Sidious). Both faces share their SHORT EDGE so they read at one card
+// scale: the landscape front's height equals the portrait back's width.
+// SWUSim and SWUDeck only — the two apps on the shared SWU art corpus (other apps' leaders are not
+// two-faced like this). SWUDeck's Cardtype normalises a stored FFG UID itself; SWUSim's ids are SET_NNN.
+var CARD_DETAIL_PAIR_MAX_FACE = 400;   // desktop: each face keeps the single-card preview's 400px ceiling
+var CARD_DETAIL_PAIR_GAP = 8;
+
+function CardDetailLeaderFaces(src) {
+  var fp = document.getElementById("folderPath");
+  if (!fp || (fp.value !== "SWUSim" && fp.value !== "SWUDeck") || typeof Cardtype !== "function") return null;
+  var m = /\/([^\/?#]+?)(_back)?\.(webp|png|jpg)(\?|#|$)/i.exec(src || "");
+  if (!m) return null;
+  var id = m[1].replace(/^mock_/, "");
+  if (String(Cardtype(id) || "").indexOf("Leader") === -1) return null;
+  var front = m[2] ? src.replace(/_back(\.[a-z0-9]+)/i, "$1") : src;
+  var back = CardDetailOppositeFace(front);
+  // A localized front may have no localized back: let the i18n layer pick the URL that exists.
+  if (window.SWUCardI18n && typeof window.SWUCardI18n.currentUrl === "function") back = window.SWUCardI18n.currentUrl(back);
+  return back && back !== front ? [front, back] : null;
+}
+
+// Each face's size at a shared short edge `s` (natural sizes in, display sizes out). `exact` skips the
+// pixel rounding — the layout measures sizes PER PIXEL of short edge (s = 1), where rounding 628/450 to 1
+// made every face read as square and the fit came out ~40% too big.
+function CardDetailPairFaceSizes(imgs, s, exact) {
+  var r = exact ? function(x) { return x; } : Math.round;
+  return imgs.map(function(im) {
+    var landscape = im.width > im.height;
+    return landscape ? { width: r(s * im.width / im.height), height: s }
+                     : { width: s, height: r(s * im.height / im.width) };
+  });
+}
+
+// Lay the pair out side by side — or stacked, on a touch screen that is taller than wide — at the
+// largest shared short edge that fits (desktop: the one that puts the LONGEST face side at exactly the single-card
+// 400px ceiling — ~286.6px for SWU's 628x450 art — shrunk only for a narrow window).
+function CardDetailPairLayout(imgs, touch) {
+  var stack = touch && window.innerHeight > window.innerWidth;
+  var availW = touch ? window.innerWidth * CARD_DETAIL_TOUCH_VIEWPORT_W : window.innerWidth - 10;
+  var availH = touch ? window.innerHeight * CARD_DETAIL_TOUCH_VIEWPORT_H : window.innerHeight - 10;
+  var unit = CardDetailPairFaceSizes(imgs, 1, true);   // sizes per 1px of short edge, unrounded
+  var w1 = stack ? Math.max(unit[0].width, unit[1].width) : unit[0].width + unit[1].width;
+  var h1 = stack ? unit[0].height + unit[1].height : Math.max(unit[0].height, unit[1].height);
+  var s = Math.min((availW - CARD_DETAIL_PAIR_GAP) / w1, (availH - CARD_DETAIL_PAIR_GAP) / h1);
+  if (!touch) {
+    // Derived, not a fixed 286: a whole-pixel short edge put a portrait back at 399px, not 400.
+    var longRatio = Math.max.apply(null, imgs.map(function(im) { return Math.max(im.width, im.height) / Math.min(im.width, im.height); }));
+    s = Math.min(s, CARD_DETAIL_PAIR_MAX_FACE / longRatio);
+  }
+  // never upscale past either face's natural short edge — blown-up art reads blurry
+  s = Math.min(s, Math.min(imgs[0].width, imgs[0].height), Math.min(imgs[1].width, imgs[1].height));
+  s = Math.round(s * 100) / 100;   // a fractional short edge; each face's long side is rounded to a whole pixel
+  var sizes = CardDetailPairFaceSizes(imgs, s);
+  var gap = CARD_DETAIL_PAIR_GAP;
+  return { stack: stack, sizes: sizes,
+           width: stack ? Math.max(sizes[0].width, sizes[1].width) : sizes[0].width + gap + sizes[1].width,
+           height: stack ? sizes[0].height + gap + sizes[1].height : Math.max(sizes[0].height, sizes[1].height) };
+}
+
+function ShowLeaderFacesDetail(e, faces, fallbackSource, avoidEl, requestToken) {
+  var el = document.getElementById("cardDetail");
+  var cx = e.clientX, cy = e.clientY;
+  var touch = IsTouchPreviewEvent(e);
+  if (touch) cardDetailPersistent = true;   // claimed now, as in ShowDetail (see there)
+  el.style.display = "none";
+  el.style.zIndex = 100000;
+  var imgs = [new Image(), new Image()], loaded = 0, failed = false, finished = false;
+  var done = function() {
+    if (finished || requestToken !== cardDetailRequestToken) return;
+    // A face with no art (a leader whose back was never scanned): fall back to the ordinary one-card
+    // preview of what was hovered — once, however many of the two loads report in after.
+    if (failed) { finished = true; ShowDetail(e, fallbackSource, avoidEl, requestToken, true); return; }
+    if (++loaded < 2) return;
+    finished = true;
+    var L = CardDetailPairLayout(imgs, touch);
+    el.innerHTML = "<div data-card-detail-pair style='display:flex; flex-direction:" + (L.stack ? "column" : "row") +
+      "; gap:" + CARD_DETAIL_PAIR_GAP + "px; align-items:" + (L.stack ? "center" : "flex-start") + ";'>" +
+      faces.map(function(src, i) {
+        return "<img data-card-face='" + (i ? "back" : "front") + "' style='height:" + L.sizes[i].height + "px; width:" +
+          L.sizes[i].width + "px;' src='" + src + "' />";
+      }).join("") + "</div>";
+    PlaceCardDetail(el, cx, cy, L.width, L.height, avoidEl, touch);
+    if (touch) {
+      el.style.pointerEvents = "none";
+      ShowCardDetailScrim();
+      AddCardDetailControls(el, faces[0], null, requestToken, true);   // a close X; no flip — both faces show
+    }
+    el.style.display = "inline";
+    el.style.opacity = 0;
+    showDetailTimeout = setTimeout(function() {
+      if (requestToken !== cardDetailRequestToken) return;
+      el.style.transition = "opacity 0.5s";
+      el.style.opacity = 1;
+    }, 100);
+  };
+  imgs.forEach(function(im, i) {
+    im.onload = done;
+    im.onerror = function() { failed = true; done(); };
+    im.src = faces[i];
+  });
+}
+
+function ShowDetail(e, imgSource, avoidEl, requestToken, singleFace) {
   if (IsCardDetailSuppressed()) return;
   if (typeof requestToken !== "number") requestToken = ++cardDetailRequestToken;
   TrackCardDetailMouse(e);
@@ -346,6 +458,8 @@ function ShowDetail(e, imgSource, avoidEl, requestToken) {
   imgSource = imgSource.replace("_concat", "");
   imgSource = imgSource.replace("/concat/", "/WebpImages/");
   imgSource = imgSource.replace(".png", ".webp");
+  var leaderFaces = singleFace ? null : CardDetailLeaderFaces(imgSource);
+  if (leaderFaces) { ShowLeaderFacesDetail(e, leaderFaces, originalSource, avoidEl, requestToken); return; }
   var el = document.getElementById("cardDetail");
   var cx = e.clientX, cy = e.clientY; // capture: pointer may move before the image loads
   var touch = IsTouchPreviewEvent(e);
@@ -414,6 +528,10 @@ function ShowSubcardDetail(e, imgEl, options) {
     // Transform concat URL to WebpImages for the popup
     src = src.replace('/concat/', '/WebpImages/');
     src = src.replace('.webp', '.webp'); // Keep as webp
+    // A leader attached as a PILOT renders its "_back" (Leader Unit) face here; preview both faces like
+    // any other leader (owner 2026-10-01). Hover and long-press both come through this function.
+    var pilotFaces = CardDetailLeaderFaces(src);
+    if (pilotFaces) { ShowLeaderFacesDetail(e, pilotFaces, src, null, requestToken); return; }
     var el = document.getElementById('cardDetail');
     // Subcards have no natural dimensions to hand ComputeCardDetailSize (the image is not
     // preloaded here), so feed it the standard SWU portrait ratio: 0.71 wide per 1 tall.
@@ -1191,7 +1309,10 @@ function MaybeRunBotControllerStep() {
 
   window.__botControllerStepInFlight = true;
   window.__botControllerRunRequested = false;
-  SubmitEngineInput(10017, "", {
+  // Every human browser steps the bot. Sending the update this browser rendered lets the server refuse
+  // a step another browser already took (the reply is flagged botStepStale). See Core/GameWriteLock.php.
+  var stepParams = (typeof _lastUpdate === "number" && _lastUpdate > 0) ? "lastUpdate=" + _lastUpdate : "";
+  SubmitEngineInput(10017, stepParams, {
     folderPath: folderPath,
     responseFormat: "json"
   }).then(function(response) {
@@ -1205,6 +1326,11 @@ function MaybeRunBotControllerStep() {
     if (response.botStepApplied === true) {
       window.__botControllerRetryCount = 0;
       if (typeof window.QueueGameUpdate === "function") window.QueueGameUpdate();
+    } else if (response.botStepStale === true && typeof window.QueueGameUpdate === "function") {
+      // The game moved on under this browser. Fetch it; that render asks again with the current
+      // token. No backoff: a stale step says nothing is wrong, only that this view is behind.
+      if (response.botController) SetBotControllerState(response.botController);
+      window.QueueGameUpdate();
     } else {
       if (response.botController) SetBotControllerState(response.botController);
       if ((window.BotController || {}).pendingPlayer) ScheduleBotControllerRetry();

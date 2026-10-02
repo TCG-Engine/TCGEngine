@@ -60,6 +60,11 @@ function SWUBotActiveChooserProfile(int $seat = 0) {
     if ($seat > 0 && $bySeat !== null && strval($bySeat) !== '') return strval($bySeat);
     $forced = $GLOBALS['SWUBotForcedChooserProfile'] ?? null;
     if ($forced !== null && strval($forced) !== '') return strval($forced);
+    // A room game's bot seat carries its own profile (SWUMarkBotSeats).
+    if ($seat > 0 && class_exists('DecisionQueueController')) {
+        $own = DecisionQueueController::GetVariable('SWUBotProfile_' . $seat);
+        if ($own !== null && $own !== '') return strval($own);
+    }
     $value = class_exists('DecisionQueueController')
         ? DecisionQueueController::GetVariable('SWUBotProfile') : null;
     return ($value !== null && $value !== '') ? strval($value) : 'first-legal';

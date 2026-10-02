@@ -39,4 +39,27 @@ $check($stack('normal')[0] === 'myGroundArena-1', 'the buff goes on my own unit,
 // (The prompt lists my units before the enemy's, so first-legal already put the buff on my Spy here; the
 // continuation is now a known beneficial one either way, so the pick no longer depends on that order.)
 
+// C) DEPLOYED Ahsoka's On Attack — "You may give a unit with less power than this unit +2/+0 for this phase" — when
+// the only unit that qualifies is the ENEMY's. Owner 2026-10-01, from Ninin's online games: a human ending the game
+// by attacking with Ahsoka and buffing the opponent's unit is a TAUNT; the bot must never do it. Declined (PASS).
+$build(function ($b) { $b->MyLeader('ASH_009', true, true, true, 'unit'); $b->TheirBase('SOR_020');
+    $b->WithGroundUnitForPlayer(2, 'SOR_095', false); });   // their exhausted Marine (3 < Ahsoka's 5): attacks go to the base
+$attack = null;
+foreach ((array)SWUBotLegalActions($gameName, 1)['actions'] as $a) if (SWUBotActionKind($a) === 'attack') { $attack = $a; break; }
+$check($attack !== null, 'fixture: deployed Ahsoka can attack');
+$prompts = [];
+for ($i = 0; $i < 6 && $attack !== null; $i++) {
+    $legal = SWUBotLegalActions($gameName, 1);
+    if ($i === 0) { $act(1, intval($attack['mode'] ?? 10001), strval($attack['cardID'])); continue; }
+    if (($legal['kind'] ?? '') !== 'decision') break;
+    $tip = strval($legal['decisionTooltip'] ?? '');
+    $pick = SWUBotHeuristicChoose('hyperaggro', (array)$legal['actions'], $legal, '');
+    $prompts[] = [$tip, $ids((array)$legal['actions']), strval($pick['cardID'] ?? 'PASS')];
+    $act(1, intval($pick['mode'] ?? 10001), strval($pick['cardID'] ?? 'PASS'));
+}
+$buff = array_values(array_filter($prompts, fn($p) => in_array('theirGroundArena-0', $p[1], true) && !str_contains($p[0], 'attack_target')));
+$check(count($buff) === 1, 'fixture: the On Attack buff prompt was offered, with their Marine as a candidate; prompts ' . json_encode($prompts));
+$check(!empty($buff) && $buff[0][2] !== 'theirGroundArena-0', 'deployed Ahsoka never buffs the ENEMY unit on attack (got ' . json_encode($buff[0][2] ?? null) . ')');
+$check(intval(ObjectCurrentPower(GetUnitsInArena(2, 'Ground')[0])) === 3, 'and their Marine is still 3 power after the attack');
+
 bot_test_finish();

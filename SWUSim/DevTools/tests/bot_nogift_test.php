@@ -76,4 +76,36 @@ $board(function ($b) {
 $d = $playScore('normal', $play);
 $check($d !== null && $d !== -0.5, "D: playing Shield Drive Outfitter next to an enemy unit is not held; got " . json_encode($d));
 
+// ── E) A STAT-ONLY UPGRADE with only enemy hosts (game 1438045, 2026-10-01) ─────────────────────────────────────
+// The owner killed Arenabot's last unit (Lobot) and the bot played LAW_129 Mastery (+3/+3) on the owner's Huyang.
+// Mastery's text is only its cost reduction — its whole benefit is the PRINTED +3/+3 — so the text pre-filter
+// ("heal|give|ready|attach|gets +") never ran the gift lookahead and the play scored as ordinary development.
+$board(function ($b) {
+    $b->WithCardInHandForPlayer(1, 'LAW_129');
+    $b->WithGroundUnitForPlayer(2, 'ASH_056', true, 0);       // enemy Huyang
+    $b->WithGroundUnitForPlayer(2, 'LAW_039', true, 0);       // enemy Latts Razzi
+});
+$check(in_array($play, $ids($botCtx('normal')['actions']), true), 'fixture E: Mastery is on offer');
+$check($playScore('normal', $play) === -0.5, 'E: +3/+3 on an ENEMY unit (no friendly host) is held (-0.5)');
+$check($stack('normal') !== $play, 'E: the stack does not play it');
+$offE = $playScore('normal', $play, ['nogift']);
+$check($offE !== null && $offE > 0.0, "E @no-nogift: the gift scores positive (the reported mistake); got " . json_encode($offE));
+
+// ── F) CONTROL — the same Mastery with a FRIENDLY host goes on my unit, so it is no gift ───────────────────────
+$board(function ($b) {
+    $b->WithCardInHandForPlayer(1, 'LAW_129');
+    $b->WithGroundUnitForPlayer(1, 'SOR_095', true, 0);       // my Battlefield Marine
+    $b->WithGroundUnitForPlayer(2, 'ASH_056', true, 0);
+});
+$f = $playScore('normal', $play);
+$check($f !== null && $f > 0.0, "F: Mastery with a friendly host is still played; got " . json_encode($f));
+
+// ── G) CONTROL — a DEBUFF upgrade is MEANT for an enemy unit: TWI_070 Perilous Position (-2/-2, exhaust it) ─────
+$board(function ($b) {
+    $b->WithCardInHandForPlayer(1, 'TWI_070');
+    $b->WithGroundUnitForPlayer(2, 'ASH_056', true, 0);
+});
+$g = $playScore('normal', $play);
+$check($g !== null && $g > 0.0, "G: a -2/-2 upgrade on the only (enemy) unit is not held as a gift; got " . json_encode($g));
+
 bot_test_finish();

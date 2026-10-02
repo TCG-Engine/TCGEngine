@@ -123,19 +123,20 @@ function SWUBotComparableGamestateHash($gameName) {
     return hash('sha256', implode("\n", $lines));
 }
 
+// Arenabot, or a room game with bot seats (SWUBotSeatsActive, Custom/GameLogic.php).
 function GameBotControllerMode() {
-    return SWUGameMode() === 'botpractice' ? 'bot' : '';
+    return SWUBotSeatsActive() ? 'bot' : '';
 }
 
 function GetBotControllerPlayers() {
-    if (SWUGameMode() !== 'botpractice') return [];
+    if (!SWUBotSeatsActive()) return [];
     return GetSWUBotPlayers();
 }
 
 // Which seat needs a bot move, or 0. A pending DecisionQueue response always takes priority;
 // otherwise, if the free-play turn player is bot-controlled, that seat is pending.
 function BotControllerPendingPlayerForClient() {
-    if (SWUGameMode() !== 'botpractice') return 0;
+    if (!SWUBotSeatsActive()) return 0;
     // The game is over: the bot owes nothing, so the client stops polling and a stray poll does nothing. Without
     // this the winning action's close passed the turn to the bot seat and the bot played on after the win (owner
     // report 2026-09-14, game 183227). SWUSim/DevTools/tests/bot_practice_game_over_test.php.
@@ -161,7 +162,7 @@ function ProcessBotControllerStep($requestingPlayer = 0, $folderPath = '', $game
     if ($folderPath !== '' && $folderPath !== 'SWUSim') {
         return ['success' => false, 'message' => 'Bot controller does not handle this game.', 'applied' => false];
     }
-    if (SWUGameMode() !== 'botpractice') {
+    if (!SWUBotSeatsActive()) {
         return ['success' => true, 'message' => '', 'applied' => false, 'retryable' => false];
     }
 

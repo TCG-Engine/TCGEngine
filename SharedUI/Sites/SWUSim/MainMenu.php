@@ -502,17 +502,51 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
                     '— Use one of your saved decks or use a pre-con below —'); ?>
           <p class="note note--under">One list, the same one as above &mdash; a saved deck here, or a pre-con below, never both.</p>
         </div>
+            <?php /* GROUPED pre-cons (owner 2026-10-01): one block per group (regen-deck-labels.php,
+                     SWU_PRECON_GROUPS); each opens its own picker dialog ON TOP of this one. The pickers are
+                     NESTED inside #setup-arenabot on purpose: the radios stay where SETUP_DECK_FOR, the
+                     one-deck-per-slot binder, the bot-style auto-pick and the harnesses already look for them
+                     (`#setup-arenabot input[name="ab-precon"]`), and showModal() still lifts each picker into
+                     the top layer above this modal. They carry NO [data-close] / [data-act]: this modal binds
+                     both on every descendant, and a picker's own Done must not close it. */
+                  $_groups = SWUSetupBotPreConGroups($swuSetupBotPre); ?>
             <fieldset class="fs">
               <legend class="lg">Bot Pre-Cons</legend>
-              <p class="note note--over"><?php echo count($swuSetupBotPre); ?> tuned fixtures. Scroll for the rest.</p>
-              <div class="pool ch">
-                <div class="pool__scroll">
-                  <ul class="pcs">
-<?php foreach ($swuSetupBotPre as $_i => $_p)
-      echo SWUSetupPreConRow('ab-precon', 'ab', $_p, false, $_i === 0), "\n"; ?>
-                  </ul>
-                </div>
+              <p class="note note--over"><?php echo count($swuSetupBotPre); ?> tuned decks in <?php echo count($_groups); ?> groups. Pick a group to choose one.</p>
+              <div class="pcgroups">
+<?php foreach ($_groups as $_g):
+      $_gid = 'pcpick-' . preg_replace('/[^A-Za-z0-9_-]+/', '-', $_g['id'] !== '' ? $_g['id'] : 'all'); ?>
+                <button class="pcgroup ch" type="button" data-pcgroup="<?php echo htmlspecialchars($_gid, ENT_QUOTES, 'UTF-8'); ?>" aria-haspopup="dialog">
+                  <span class="pcgroup__name"><?php echo htmlspecialchars($_g['label'], ENT_QUOTES, 'UTF-8'); ?></span>
+                  <span class="pcgroup__meta"><?php echo count($_g['decks']); ?> decks</span>
+                  <span class="pcgroup__pick" data-pcgroup-pick hidden></span>
+                  <svg class="pcgroup__go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+                </button>
+<?php endforeach; ?>
               </div>
+<?php foreach ($_groups as $_g):
+      $_gid = 'pcpick-' . preg_replace('/[^A-Za-z0-9_-]+/', '-', $_g['id'] !== '' ? $_g['id'] : 'all'); ?>
+              <dialog class="pcpick lift" id="<?php echo htmlspecialchars($_gid, ENT_QUOTES, 'UTF-8'); ?>" aria-labelledby="<?php echo htmlspecialchars($_gid, ENT_QUOTES, 'UTF-8'); ?>-t">
+                <div class="pcpick__pane ch gl">
+                  <a class="setup__x ch" href="#" aria-label="Close" data-pcpick-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a>
+                  <p class="setup__kind">Bot Pre-Cons</p>
+                  <h4 class="pcpick__title" id="<?php echo htmlspecialchars($_gid, ENT_QUOTES, 'UTF-8'); ?>-t"><?php echo htmlspecialchars($_g['label'], ENT_QUOTES, 'UTF-8'); ?></h4>
+                  <p class="note note--over"><?php echo count($_g['decks']); ?> decks. Pick one for the bot to play.</p>
+                  <div class="pool ch">
+                    <div class="pool__scroll" tabindex="-1">
+                      <ul class="pcs">
+<?php /* NOTHING is pre-checked (owner 2026-10-01: "we shouldn't auto-pick a deck"). With no pre-con,
+         no bot link and no saved deck, the bot plays the player's own list (JoinQueue.php). */
+      foreach ($_g['decks'] as $_p) echo SWUSetupPreConRow('ab-precon', 'ab', $_p, false, false), "\n"; ?>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="arow">
+                    <button class="swu2-btn swu2-btn--quiet ch" type="button" data-pcpick-close>Done</button>
+                  </div>
+                </div>
+              </dialog>
+<?php endforeach; ?>
             </fieldset>
             <div class="prow">
           <div>
@@ -1883,7 +1917,14 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
        no tabindex is unreachable by keyboard in Chromium and WebKit
        — so this earns the tabindex twice over. */
     var region = dlg.querySelector('.setup__scroll');
-    if (region) region.focus();
+    /* Arenabot starts with NO deck picked (owner 2026-10-01: "we shouldn't auto-pick a deck. it
+       should default to focus on the empty deck input"), so its first move is typing a link: the
+       first EMPTY deck-link box takes focus — the player's own, else the bot's. */
+    var empty = dlg.id === 'setup-arenabot'
+      ? [].slice.call(dlg.querySelectorAll('input[type="url"]')).filter(function (i) { return !String(i.value || '').trim(); })[0]
+      : null;
+    if (empty) empty.focus();
+    else if (region) region.focus();
   }
 
   dialogs.forEach(function (dlg) {
@@ -2947,6 +2988,73 @@ function PICK_SAY(dlg, slot, text) {
     var lab = radio.parentElement && radio.parentElement.querySelector('.pc__name');
     return lab ? (lab.childNodes[0].textContent || '').trim() : 'selected';
   }
+})();
+
+/* ── Arenabot: GROUPED bot pre-cons (owner 2026-10-01) ─────────────────────────
+   Each group block opens its picker — a <dialog> NESTED in #setup-arenabot, shown with showModal()
+   so it sits in the top layer over this modal. The radios inside are the same ab-precon radios as
+   before, so choosing one runs through SETUP_BIND_PICKERS and the bot-style auto-pick unchanged.
+   What this adds:
+     · a pointer pick closes the picker (arrow keys only move the choice; Done / Esc / the backdrop close);
+     · each block says which of ITS decks is chosen, so the choice is visible with the picker shut;
+     · closing Arenabot closes an open picker — a modal left open inside a closed dialog has no box
+       to draw, but would still be the open modal holding the page inert. */
+(function PRECON_GROUPS() {
+  var host = document.getElementById('setup-arenabot');
+  if (!host) return;
+  var blocks = [].slice.call(host.querySelectorAll('button[data-pcgroup]'));
+  if (!blocks.length) return;
+  var pickerOf = function (b) { return document.getElementById(b.getAttribute('data-pcgroup')); };
+
+  function nameOf(radio) {
+    var lab = radio.parentElement && radio.parentElement.querySelector('.pc__name');
+    return lab && lab.childNodes[0] ? (lab.childNodes[0].textContent || '').trim() : '';
+  }
+  // The block whose picker holds the checked pre-con names it; the others say nothing.
+  function summarise() {
+    blocks.forEach(function (b) {
+      var dlg = pickerOf(b), pick = b.querySelector('[data-pcgroup-pick]');
+      if (!dlg || !pick) return;
+      var on = dlg.querySelector('input[name="ab-precon"]:checked');
+      pick.textContent = on ? 'Selected: ' + nameOf(on) : '';
+      pick.hidden = !on;
+      b.classList.toggle('pcgroup--on', !!on);
+    });
+  }
+
+  function close(dlg) { if (dlg && dlg.open) dlg.close(); }
+
+  blocks.forEach(function (b) {
+    var dlg = pickerOf(b);
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    b.addEventListener('click', function () {
+      dlg.showModal();
+      // Land on the chosen deck when it is in this group. Otherwise leave showModal()'s own focus
+      // (the close X): a focused row wears a gold rim much like the CHOSEN one, so focusing the
+      // first deck read as if it were already picked; and the scroll region would be ringed in
+      // gold by WebKit, which rings a script-focused [tabindex].
+      var on = dlg.querySelector('input[name="ab-precon"]:checked');
+      if (on) { on.focus({ preventScroll: true }); on.parentElement.scrollIntoView({ block: 'nearest' }); }
+    });
+    dlg.addEventListener('close', function () { summarise(); if (host.open) b.focus(); });
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg) { close(dlg); return; }                 // the ::backdrop
+      var x = e.target.closest && e.target.closest('[data-pcpick-close]');
+      if (x) { e.preventDefault(); close(dlg); return; }
+      // A POINTER pick closes it: a real click lands on the row's <label>. NOT the radio's click —
+      // arrow-key navigation in a radio group fires one too (Chromium, Firefox), and the picker
+      // would shut on every arrow press. Keyboard users close with Done / Esc. After the change lands.
+      if (e.target.closest && e.target.closest('label.pc__row')) setTimeout(function () { close(dlg); }, 0);
+    });
+  });
+
+  host.addEventListener('close', function () { blocks.forEach(function (b) { close(pickerOf(b)); }); });
+  // Every control that can change the bot's deck (a pick, a saved deck, a typed link) does it on
+  // change/input — the binder clears the radios programmatically, which fires nothing, so re-read after.
+  ['change', 'input'].forEach(function (t) {
+    host.addEventListener(t, function () { setTimeout(summarise, 0); });
+  });
+  summarise();
 })();
 
 /* ── Arenabot: the bot's play style follows the bot's DECK ────────────────────

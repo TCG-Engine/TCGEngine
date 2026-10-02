@@ -11,7 +11,7 @@ side (1 = the NEW stack in seat 1), the SWUBOT_METRICS json, game id.
 Verdict: FAIL when the new stack does worse; PASS when it does at least as well; STRONGER when p < 0.05."""
 import collections, glob, json, math, os, sys
 
-DEFAULT_FIXTURES = 'SWUSim/Tests/BotFixtures/meta-2026-09'
+DEFAULT_FIXTURES = 'SWUSim/Tests/BotFixtures/ash-meta-2026-09'
 
 # Deck name -> style, read from each fixture's "# Style: <style>" header — the same line strength_test.sh
 # uses to pick the chooser, so the report and the run always agree on what a deck is.

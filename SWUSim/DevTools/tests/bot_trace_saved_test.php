@@ -16,7 +16,7 @@ include_once './SWUSim/BotHeuristic.php';
 // ── A. the path is collision-free in every dimension that makes a game ──────────────────────────────
 $root = sys_get_temp_dir() . '/bottrace_' . getmypid();
 putenv('SWUBOT_TRACE_DIR=' . $root);
-$fix = 'SWUSim/Tests/BotFixtures/meta-2026-09';
+$fix = 'SWUSim/Tests/BotFixtures/ash-meta-2026-09';
 $p = fn($d1, $d2, $c1, $c2, $seed, $fp) => SWUBotTracePathFor($d1, $d2, $c1, $c2, $seed, $fp);
 $base = $p("$fix/director-krennic_law_blue-splash.txt", "$fix/ahsoka-tano_ash_blue.txt", 'heuristic-softcontrol', 'heuristic-softaggro', 'kx0001', 1);
 

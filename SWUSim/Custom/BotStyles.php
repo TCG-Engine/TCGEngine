@@ -54,12 +54,18 @@ function SWUBotAttackerMz(array $ctx): ?string {
 // What $att could attack right now: same-arena enemy units and the base, Sentinel-restricted the way the
 // engine restricts them (CR 6.3.2b; Saboteur ignores Sentinel, CR 7.5.10). Used to value an attack at
 // FREE-PLAY time, before the engine has raised the target prompt.
+// 3-4 seats: the UNION over every live enemy, each restricted by its OWN Sentinels (CR 7.11.b: a Sentinel only
+// guards its controller). 'base' = some enemy base is reachable; 'bases' lists which seats' (2 seats: unchanged).
 function SWUBotAttackTargets(int $seat, array $att): array {
-    $opp = SWUBotOpponent($seat);
-    $inArena = array_values(array_filter(SWUBotUnits($opp), fn($v) => $v['arena'] === $att['arena']));
-    $sentinels = array_values(array_filter($inArena, fn($v) => $v['sentinel']));
-    if (!empty($sentinels) && !$att['saboteur']) return ['base' => false, 'units' => $sentinels];
-    return ['base' => true, 'units' => $inArena];
+    $base = false; $units = []; $bases = [];
+    foreach (SWUBotOpponents($seat) as $opp) {
+        $inArena = array_values(array_filter(SWUBotUnits($opp), fn($v) => $v['arena'] === $att['arena']));
+        $sentinels = array_values(array_filter($inArena, fn($v) => $v['sentinel']));
+        if (!empty($sentinels) && !$att['saboteur']) { $units = array_merge($units, $sentinels); continue; }
+        $base = true; $bases[] = $opp;
+        $units = array_merge($units, $inArena);
+    }
+    return ['base' => $base, 'units' => $units, 'bases' => $bases];
 }
 
 // The targets the style rule allows for $att, as [kind, view|null] pairs ('base' or 'unit'). The free-play
@@ -121,13 +127,18 @@ function SWUBotStyleFilter(array $ctx): array {
     foreach (SWUBotAllowedTargets($ctx, $att) as [$k, $u]) {
         if ($k === 'base') $baseAllowed = true; else $allowedUids[$u['uid']] = true;
     }
+    $losing = function_exists('SWUBotLosingKillMzs') ? SWUBotLosingKillMzs($ctx, $att) : [];   // 3-4 seats only
     $keep = [];
     foreach ($acts as $a) {
         $c = strval($a['cardID'] ?? '');
-        if (str_contains($c, 'Base-')) { if ($baseAllowed) $keep[] = $a; continue; }
+        if (str_contains($c, 'Base-')) { if ($baseAllowed && !in_array($c, $losing, true)) $keep[] = $a; continue; }
         $v = SWUBotViewForMz(intval($ctx['seat']), $c);
         if ($v !== null && isset($allowedUids[$v['uid']])) $keep[] = $a;
     }
-    return empty($keep) ? $acts : $keep;   // never empty
+    if (!empty($keep)) return $keep;
+    // Never empty — but the fallback to "everything" still leaves out a losing kill when anything else remains, or
+    // the style's own empty answer would hand that kill straight back.
+    $safe = array_values(array_filter($acts, fn($a) => !in_array(strval($a['cardID'] ?? ''), $losing, true)));
+    return empty($safe) ? $acts : $safe;
 }
 

@@ -2,7 +2,7 @@
 // FLAVOUR REGISTRY (RL bots spec, Section 5 "Flavour profiles"): the owner's flavour tags per ARCHETYPE, keyed by
 // leader + the base ("LEADER|BASE_ID", else "LEADER|Aspect", else "LEADER|*"), so any deck — not only the fixtures — gets its
 // flavours in live play. A deck not listed has none and plays its style alone. Source: the owner's labels (spec,
-// "Archetype vocabulary"), as tagged in SWUSim/Tests/BotFixtures/meta-2026-09/README.md (bot_flavours_test.php
+// "Archetype vocabulary"), as tagged in SWUSim/Tests/BotFixtures/ash-meta-2026-09/README.md (bot_flavours_test.php
 // checks every fixture header against this table).
 require_once __DIR__ . '/../Rl/CardTags.php';
 
@@ -20,6 +20,9 @@ const SWU_BOT_FLAVOURS = [
     'JTL_012|*'         => ['space', 'combo', 'pilot'],  // Luke (JTL)
     'LOF_009|*'         => ['tempo', 'force'],           // Darth Maul
     'LOF_002|*'         => ['tempo', 'force'],           // Mother Talzin
+    // HMW (owner, 2026-10-01): Doctor Hemlock softens the opponent — lowers their stats (Weakness tokens) until their
+    // units can't do anything. Tarfful (HMW_010) deliberately has none yet.
+    'HMW_003|*'         => ['tempo'],                    // Doctor Hemlock (HMW)
     // Second fixture batch (2026-09-15). A label that names a BASE is keyed by the base's CardID (owner: "the flavor
     // profiles should come from the leader/base combo"); one that names a colour, by the aspect.
     'ASH_001|JTL_028'   => ['go-tall', 'upgrades'],      // The Armorer, Nabat Village
@@ -79,7 +82,7 @@ function SWUBotIsKeyCard(int $seat, string $cardID): bool {
     // 'indirect-damage' is listed because tags v3 split it OUT of `burn` (owner ruling 2026-09-28). For "is this
     // a key card?" the two are the same thing — reach that needs no board — so dropping it here would have
     // quietly stopped every JTL indirect card counting as key. Caught by bot_flavours_test / bot_resourcing_test.
-    if (array_intersect(SWUBotCardTags($cardID), ['removal', 'wipe', 'burn', 'indirect-damage'])) return true;
+    if (array_intersect(SWUBotCardTags($cardID), ['removal', 'wipe', 'damage-enemy-base', 'indirect-damage'])) return true;   // tag was 'burn' (retired 2026-10-01)
     return in_array('capital-ship', SWUBotDeckFlavours($seat), true) && str_contains(strval(CardTrait($cardID) ?? ''), 'Capital Ship');
 }
 
@@ -128,7 +131,7 @@ function SWUBotRestrictedRemovalHasTarget(int $seat, string $cardID): bool {
     $t = strval(CardText($cardID));
     $nonLeader = stripos($t, 'non-leader') !== false;
     $arena = stripos($t, 'space unit') !== false ? 'Space' : (stripos($t, 'ground unit') !== false ? 'Ground' : '');
-    foreach (SWUBotUnits(SWUBotOpponent($seat)) as $v) {
+    foreach (SWUBotEnemyUnits($seat) as $v) {   // every live enemy (3-4 seats)
         if ($nonLeader && $v['isLeader']) continue;
         if ($arena !== '' && $v['arena'] !== $arena) continue;
         $val = $kind === 'cost' ? $v['cost'] : ($kind === 'remaining' ? $v['remaining'] : $v['power']);
@@ -161,7 +164,7 @@ const SWU_BOT_LEADER_TARGET_WORTH = 6;
 function SWUBotBestEnemyTargetCost(int $seat, string $cardID = ''): int {
     $leadersOk = $cardID !== '' && stripos(strval(CardText($cardID)), 'non-leader') === false;
     $best = 0;
-    foreach (SWUBotUnits(SWUBotOpponent($seat)) as $v) {
+    foreach (SWUBotEnemyUnits($seat) as $v) {   // every live enemy (3-4 seats)
         if ($v['isLeader']) {
             if ($leadersOk) $best = max($best, SWU_BOT_LEADER_TARGET_WORTH, $v['cost']);
             continue;
@@ -191,7 +194,7 @@ function SWUBotRemovalKills(string $cardID, array $v): bool {
 // else; 2 power is ~8 (~27%).
 const SWU_BOT_THREAT_WORTH = 3;
 function SWUBotShouldHoldBombKiller(int $seat, string $cardID): bool {
-    foreach (SWUBotUnits(SWUBotOpponent($seat)) as $v) {
+    foreach (SWUBotEnemyUnits($seat) as $v) {   // every live enemy (3-4 seats)
         if (!SWUBotRemovalKills($cardID, $v)) continue;
         $cost = $v['isLeader'] ? SWU_BOT_LEADER_TARGET_WORTH : intval($v['cost']);
         if ($cost > SWU_BOT_CHEAP_TARGET_COST) return false;                          // a bomb-worthy target

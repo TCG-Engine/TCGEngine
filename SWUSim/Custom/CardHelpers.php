@@ -682,6 +682,26 @@ if (!function_exists('SWUOfferDiscard')) {
     }
 }
 
+// "Look at AN OPPONENT's hand and discard …" — the caster picks WHICH opponent (Twin Suns). Bug report
+// 2026-10-01: SOR_200 Spark of Rebellion "not letting me pick the player"; five siblings shared the hole
+// (SOR_201, JTL_207, LOF_226, TWI_223, SEC_230), each calling SWUOfferDiscard with no 'opp' — which falls
+// back to the legacy single opponent.
+// $optsFn names a function in the card's own file that returns the SWUOfferDiscard options (filter, prompt…):
+// a filter is a closure and cannot cross the request boundary to the post-pick continuation, so the name is
+// carried instead and the options rebuilt there (SWU_OPP_DISCARD, GameLogic.php). Prefix-checked on the way
+// back. With ONE opponent this is exactly the old call — no picker, no extra queue entry — so Premier is
+// byte-identical. With several, only opponents holding a card are offered (SWUOpponentsWithCards).
+if (!function_exists('SWUOfferDiscardFromAnOpponent')) {
+    function SWUOfferDiscardFromAnOpponent(int $player, string $optsFn): void {
+        if (strpos($optsFn, '_SWUOppDiscardOpts_') !== 0 || !function_exists($optsFn)) return;
+        if (count(OpponentsOf(intval($player))) <= 1) { SWUOfferDiscard(intval($player), $optsFn()); return; }
+        $eligible = SWUOpponentsWithCards(intval($player));
+        if (empty($eligible)) return;
+        SWUQueueChooseOpponent(intval($player), "SWU_OPP_DISCARD|{$optsFn}|" . intval($player),
+            "Choose_an_opponent_whose_hand_to_look_at", $eligible);
+    }
+}
+
 // ─── SWUNestedPlay — play a card as part of ANOTHER card's resolution ────────────────────────────────
 // "Play a unit from your discard pile", "play a card from your hand" and friends, WITHOUT handing the
 // acting player a free extra action.
@@ -863,7 +883,7 @@ function SWUPromptUnitLabel($unit, string $fallback = 'that unit'): string {
 // Returns "hilite:<UniqueID>", or "-" when there is nothing to point at.
 //
 // The UniqueID, not an mzID, for two reasons: it is FRAME-INDEPENDENT (the recipient's client renders its
-// own board, and every card span carries data-uniqueid — Core/UILibraries20260928.js), and it is digits.
+// own board, and every card span carries data-uniqueid — Core/UILibraries20261001.js), and it is digits.
 // ⚠ That second point is load-bearing: unlike the tooltip, $param is NOT space-guarded by AddDecision (see
 // the note at Core/DecisionQueueController.php:217) because it shares one space-delimited row — a card
 // TITLE in $param would truncate the row. Never put a name here.

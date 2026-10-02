@@ -19,6 +19,20 @@ interface LobbyBotAdapter {
     public function configureBot(object $lobby, Player $player, string $profile): void;
 }
 
+// Optional, on top of LobbyBotAdapter: room-bot RULES a sim can opt into (SWUSim Twin Suns rooms,
+// SWUSim/docs/todo-twinsuns-fill-bot.md). A sim without it keeps the plain LobbyBotAdapter behaviour
+// (FaB: bots are added at once, take no deck input, and never give up their seat).
+interface LobbyBotPolicyAdapter {
+    // Seconds until the host may add a bot; 0 = now.
+    public function botAddWaitSeconds(object $lobby, int $now): int;
+    // Is a bot a PLACEHOLDER — does a joining human take a bot's seat when the room is otherwise full?
+    public function botsYieldToHumans(object $lobby): bool;
+    // The deck input a bot of this profile plays. $posted is the host's pasted list (used by a profile that
+    // takes one). '' = the profile has no deck. Validated by validateDeck() BEFORE the room lock, like a
+    // human's, because resolving it may hit the network.
+    public function botDeckInput(object $lobby, string $profile, string $posted): string;
+}
+
 interface LobbyAdapter {
     // ROUTING. True iff this lobby gets a WaitingRoom page: private, and not a local/solo format.
     public function wantsWaitingRoom(object $lobby): bool;

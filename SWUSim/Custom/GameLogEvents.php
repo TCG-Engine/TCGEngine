@@ -31,8 +31,29 @@ function SWULogClearSource(): void {
     if (GetSWUVar('SWU_LOG_LASTPLAY', '') !== '') SetSWUVar('SWU_LOG_LASTPLAY', '');
 }
 
-// [player, cardID] of the ability currently resolving, or [0, ''] when none is.
+// An ability resolving INLINE inside another one: a non-interactive "when an enemy unit is defeated"
+// observer (ASH_052 Chimaera's heal, LOF_130 HK-47's ping, …) runs in the middle of the card that did the
+// defeating, so the stored source still names THAT card — the log read "P2's Single Reactor Ignition healed
+// 2 damage from P1's base" for P1's Chimaera (~650 lines in the 2026-10-01 bot baseline). This names the
+// observer for the effect lines it writes, then restores whatever was there.
+// LOG-ONLY: an in-request override, never stored. Game logic that reads the stored source — the nested-draw
+// deferral and SWUFinishTopDeckSearch's reveal — calls SWULogStoredSource(), so it sees exactly what it saw
+// before and gameplay is unchanged. (Unlike SWULogWithSource below, which SETS the stored source.)
+function SWULogInlineSource(int $player, string $cardID, callable $fn) {
+    $prev = $GLOBALS['gSWULogSrcOverride'] ?? null;
+    $GLOBALS['gSWULogSrcOverride'] = [$player, $cardID];
+    try { return $fn(); } finally { $GLOBALS['gSWULogSrcOverride'] = $prev; }
+}
+
+// [player, cardID] of the ability currently resolving, or [0, ''] when none is. Honours the inline override.
 function SWULogSource(): array {
+    $o = $GLOBALS['gSWULogSrcOverride'] ?? null;
+    if (is_array($o) && intval($o[0]) > 0 && strval($o[1]) !== '') return [intval($o[0]), strval($o[1])];
+    return SWULogStoredSource();
+}
+
+// The STORED source only (no inline override) — for game logic, which must not move with log wording.
+function SWULogStoredSource(): array {
     $v = GetSWUVar('SWU_LOG_SRC', '');
     if ($v === '' || strpos($v, ',') === false) return [0, ''];
     [$p, $c] = explode(',', $v, 2);

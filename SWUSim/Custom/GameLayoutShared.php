@@ -1178,7 +1178,7 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
    A prompt about an already-chosen unit rings that unit on the board, so the player can see WHICH one the
    question is about (reported 2026-09-28, SEC_010 Dedra Meero: "Deal 2 damage to your own unit?" named
    nothing, and the popup covers the board). The class is applied by ApplyYesNoDecisionHighlight
-   (Core/UILibraries20260928.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
+   (Core/UILibraries20261001.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
    the overlay dim to 15% — a ring under a 50% black wash would not have been visible.
    ⚠ z-index is DELIBERATELY NOT raised above the overlay (5000). Escaping a full-screen overlay's stacking
    context depends on every ancestor of the card, and the arenas clip and transform — the lighter dim is
@@ -5931,7 +5931,7 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   // and the player picker. DISPLAY names only: it is not an account (no Block button, not in $swuSeatNames).
   if (function_exists('GetSWUBotPlayers')) {
       foreach (GetSWUBotPlayers() as $swuBotSeat) {
-          if (intval($swuBotSeat) >= 1) $swuSeatDisplayNames[strval(intval($swuBotSeat))] = 'Arenabot';
+          if (intval($swuBotSeat) >= 1) $swuSeatDisplayNames[strval(intval($swuBotSeat))] = SWUBotSeatDisplayName(intval($swuBotSeat));
       }
   }
   // MATCHLESS games (goldfish / hotseat) never create a match record — SWUReadMatchRef returns null

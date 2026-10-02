@@ -6,8 +6,77 @@ require_once __DIR__ . '/../AppCore/SWU/CardImagePath.php';
 require_once __DIR__ . '/../APIs/Lobbies/Classes/LobbyAdapter.php';
 require_once __DIR__ . '/Custom/DeckImport.php';
 require_once __DIR__ . '/../APIs/Lobbies/Classes/TeamRooms.php';
+require_once __DIR__ . '/Custom/SetupPanels.php';   // SWUSetupTwinSunsPreCons
 
-class SWULobbyAdapter implements LobbyAdapter {
+class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAdapter {
+
+    // ── Twin Suns "Fill Seat with Bot" (SWUSim/docs/todo-twinsuns-fill-bot.md) ──────────────────────────────────
+    // A PUBLIC room offers bots only once nobody new has joined for this long (Decision 5); a private room at once.
+    public const BOT_ADD_WAIT_PUBLIC = 60;
+
+    // Free-for-all Twin Suns rooms only. Team Suns is out of scope for v1: the bot would read its teammate as an
+    // opponent, and the room's team/seat picking has no bot path.
+    private function _offersBots(object $lobby): bool {
+        $format = strval($lobby->format ?? '');
+        return $this->wantsWaitingRoom($lobby) && SWUFormatIsRoomFormat($format) && !SWUFormatIsTeamFormat($format);
+    }
+
+    // Profile = where the bot's deck comes from (Decision 3): one of the official Twin Suns pre-cons, or the
+    // host's pasted list. Every room bot plays Arenabot's Normal stack (SWUSim/CreateGame.php).
+    public function botProfiles(object $lobby): array {
+        if (!$this->_offersBots($lobby)) return [];
+        $out = [];
+        // 'deck' tells the waiting room which control to draw: a pre-con row, or the paste box (the "Fill Seat with
+        // Bot" popup). 'cards' = the pre-con's leaders + base in the roster's identity-strip shape, built from the
+        // CardIDs alone — this runs on every 1.5s poll, so no deck is resolved here.
+        foreach (SWUSetupTwinSunsPreCons() as $pc) {
+            $out['precon:' . $pc['key']] = ['name' => 'Arenabot · ' . $pc['name'], 'description' => 'Plays the official ' . $pc['name'] . ' pre-con.',
+                'deck' => 'precon', 'deckName' => $pc['name'],
+                'cards' => $this->_identityCards(['leader' => $pc['leaders'], 'base' => $pc['base']])];
+        }
+        $out['custom'] = ['name' => 'Arenabot · your decklist', 'description' => 'Plays a Twin Suns list you paste.', 'deck' => 'paste'];
+        return $out;
+    }
+
+    // Each bot added to a room takes the NEXT Greek letter, in the order bots are added (owner, 2026-10-01): with several
+    // at one table the log read "Arenabot" for all of them. A letter is never reused — a bot that is removed (or gives
+    // its seat to a human) does not hand its letter back — and after Omega it wraps to Alpha. The name rides the seat's
+    // username into the roster, and SWUSetupGame() carries it into the game (SWUBotSeatDisplayName).
+    public const BOT_NAME_LETTERS = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa',
+        'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega'];
+
+    public function configureBot(object $lobby, Player $player, string $profile): void {
+        if (!isset($this->botProfiles($lobby)[$profile])) throw new InvalidArgumentException('Unknown bot profile.');
+        $next = intval($lobby->swuBotNameIndex ?? 0);
+        $player->setUsername('Arenabot ' . self::BOT_NAME_LETTERS[$next % count(self::BOT_NAME_LETTERS)]);
+        $lobby->swuBotNameIndex = $next + 1;
+        $player->setBotProfile($profile);
+        $player->setReady(true);   // deckOk comes from the deck's validation (LobbyApplyBotDeck)
+    }
+
+    public function botDeckInput(object $lobby, string $profile, string $posted): string {
+        if ($profile === 'custom') return trim($posted);
+        if (strpos($profile, 'precon:') === 0) {
+            $key = substr($profile, 7);
+            foreach (SWUSetupTwinSunsPreCons() as $pc) if ($pc['key'] === $key) return strval($pc['input']);
+        }
+        return '';
+    }
+
+    // Decision 5. The wait runs from the LAST HUMAN join: a bot's own joinedAt never restarts it.
+    public function botAddWaitSeconds(object $lobby, int $now): int {
+        if (!empty($lobby->isPrivate)) return 0;
+        $last = 0;
+        foreach (($lobby->players ?? []) as $p) {
+            if ($p instanceof Player && $p->getBotProfile() === '') $last = max($last, $p->getJoinedAt());
+        }
+        return $last > 0 ? max(0, $last + self::BOT_ADD_WAIT_PUBLIC - $now) : 0;
+    }
+
+    // Decision 6: a bot is a placeholder in every room that offers bots.
+    public function botsYieldToHumans(object $lobby): bool {
+        return $this->_offersBots($lobby);
+    }
 
     // ROUTING: not local/solo, AND (private || a room format).
     //
@@ -165,6 +234,12 @@ class SWULobbyAdapter implements LobbyAdapter {
 
     public function startBlockers(object $lobby): array {
         if (!function_exists('SWURoomStartBlockers')) return [];
-        return SWURoomStartBlockers($lobby, SWURoomLeaderSets($lobby));
+        $errors = SWURoomStartBlockers($lobby, SWURoomLeaderSets($lobby));
+        foreach (($lobby->players ?? []) as $p) {
+            if ($p instanceof Player && $p->getBotProfile() !== '' && !isset($this->botProfiles($lobby)[$p->getBotProfile()])) {
+                $errors[] = 'A bot in this room is no longer available.';
+            }
+        }
+        return $errors;
     }
 }

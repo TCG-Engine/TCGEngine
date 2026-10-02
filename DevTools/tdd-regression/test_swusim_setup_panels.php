@@ -4,7 +4,7 @@
 // Three sources feed the four modals:
 //   saved decks    -> favoritedeck rows (LoadSavedDecks)
 //   Twin Suns      -> SWUSim/Custom/TwinSunsPreCons.json
-//   Arenabot       -> SWUSim/Custom/BotDeckLabels.json + Tests/BotFixtures/meta-2026-09/*.txt
+//   Arenabot       -> SWUSim/Custom/BotDeckLabels.json + Tests/BotFixtures/ash-meta-2026-09/*.txt
 //
 // The load-bearing assertion in here is not "the list has N rows" — it is that every row's
 // `input` string RESOLVES through SWUResolveDeckInput(), the same function the queue uses.

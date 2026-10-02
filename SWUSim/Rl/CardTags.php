@@ -11,8 +11,10 @@ require_once __DIR__ . '/CardTags.generated.php';      // v3 (face-scoped)
 require_once __DIR__ . '/CardTags.v1.generated.php';
 require_once __DIR__ . '/CardTags.v2.generated.php';
 
-// The nine v2 tags. RL move keys are pinned to these — see SWUBotCardTagsForRlKey().
-const SWU_BOT_TAGS_V2_SET = ['removal', 'damage', 'draw', 'buff', 'bounce', 'exhaust', 'heal', 'wipe', 'burn'];
+// The nine RL-key tags — see SWUBotCardTagsForRlKey(). 'damage' became 'damage-enemy-unit' on 2026-10-01 when `damage`
+// was retired: the owner chose to BREAK the RL key space (every trained policy keyed on 'damage') rather than shim it.
+// 'burn' became 'damage-enemy-base' the same day, the same way.
+const SWU_BOT_TAGS_V2_SET = ['removal', 'damage-enemy-unit', 'draw', 'buff', 'bounce', 'exhaust', 'heal', 'wipe', 'damage-enemy-base'];
 
 // Every tag on the card, both faces merged. This is the v2-compatible shape: a flat list of strings, so all
 // the pre-v3 callers (BotFallback's weight sum, BotResourcing, BotGuides, BotFlavours, BotRules,

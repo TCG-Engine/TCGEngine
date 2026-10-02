@@ -19,7 +19,11 @@ $check(SWUBotDeckFlavours(1) === [] && !SWUBotIsKeyCard(1, 'ASH_099'), 'an unlab
 $check(SWUBotIsKeyCard(1, 'JTL_240'), 'burn cards are key in every deck (tags v2)');
 
 // The fixtures' own headers agree with the registry.
-foreach (glob('SWUSim/Tests/BotFixtures/meta-2026-09/*.txt') as $f) {
+// force-fam-HMW-predictions/ too (2026-10-01): its decks carry owner labels, and Hemlock's flavour lives in the registry.
+$fixtureFiles = array_merge(glob('SWUSim/Tests/BotFixtures/ash-meta-2026-09/*.txt') ?: [],
+                            glob('SWUSim/Tests/BotFixtures/force-fam-HMW-predictions/*.txt') ?: []);
+$check(count(glob('SWUSim/Tests/BotFixtures/force-fam-HMW-predictions/*.txt') ?: []) > 0, 'the HMW predictions dir is present (an empty glob would pass vacuously)');
+foreach ($fixtureFiles as $f) {
     $lines = file($f, FILE_IGNORE_NEW_LINES); $sec = ''; $leader = ''; $base = ''; $want = [];
     foreach ($lines as $l) {
         if (preg_match('/^# Flavours:\s*(.*)$/', $l, $m)) $want = array_map('trim', explode(',', $m[1]));

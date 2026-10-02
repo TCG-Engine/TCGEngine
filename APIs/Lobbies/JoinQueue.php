@@ -8,6 +8,7 @@
   require_once __DIR__ . "/Classes/LobbyAdapter.php"; // LobbyAdapterFor — the per-sim lobby seam
   require_once __DIR__ . "/Classes/LobbyStore.php";  // LobbyMutate — the ONE locked lobby write
   require_once __DIR__ . "/Classes/LobbySeatIdentity.php"; // LobbyFindExistingSeat — one human, one seat
+  require_once __DIR__ . "/Classes/LobbyBots.php";  // LobbyHasRoomForHuman / LobbyYieldBotSeatIfFull — bots as placeholders
   require_once __DIR__ . '/../../SWUSim/Mod/DevGate.php';  // SWUBotPracticeAllowed — Bot Practice is admin-only
 
   // Personal deck stats (Feature B): remember who created each seat so the match can attribute W/L.
@@ -428,7 +429,8 @@
         $inviteRefusal = 'That game has already started. You can still watch it as a spectator.';
         continue;
       }
-      if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) { $inviteRefusal = $roomFullMessage($lobby); continue; }
+      // Bots in a Twin Suns room are placeholders (LobbyHasRoomForHuman): a room full only because of them is not full.
+      if (!LobbyHasRoomForHuman($lobby)) { $inviteRefusal = $roomFullMessage($lobby); continue; }
 
       // The scan above is a LOOKUP, not a claim: it tells us which key to mutate. Every eligibility
       // condition is re-checked inside the mutation, because the room can fill or start while the
@@ -461,6 +463,9 @@
           $lobby->numPlayers = count(array_filter($lobby->players, fn($p) => $p instanceof Player));
           return true;
         }
+        // A full room whose bots are placeholders hands the OLDEST bot's seat to this human (Decision 6,
+        // SWUSim/docs/todo-twinsuns-fill-bot.md). No-op for every other room.
+        LobbyYieldBotSeatIfFull($lobby);
         if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) { $joinErr = 'full'; return false; }
         $lobby->numPlayers++;
         if ($rootName === 'GrandArchiveSim') {
@@ -670,7 +675,7 @@
             // (numPlayers drops back below max and the write refreshes the TTL), and without this the next joiner was
             // "paired" into the finished lobby and handed the OLD game's name (found 2026-09-16, public-queues work).
             empty($lobby->gameName) && (($lobby->state ?? '') !== 'matched') &&
-            intval($lobby->numPlayers) < intval($lobby->maxPlayers)
+            LobbyHasRoomForHuman($lobby)   // an empty seat, or a placeholder bot (Twin Suns rooms)
           ) {
               if (SWUJoinBlockedFromLobby($joiningUserId, $lobby)) continue; // blocked by ANY seat, keep scanning
               // Finding nothing is the POINT of the ruling: the scan falls out and the create path
@@ -710,6 +715,7 @@
                 }
                 // Re-checked under the lock: two people can reach a one-seat queue at once, and the
                 // loser must fall through to the next lobby rather than overfill this one.
+                LobbyYieldBotSeatIfFull($lobby);   // Decision 6, as on the invite path
                 if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) { $joinErr = 'full'; return false; }
                 $lobby->numPlayers++;
                 if ($rootName === 'GrandArchiveSim') {

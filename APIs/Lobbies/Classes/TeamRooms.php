@@ -244,6 +244,22 @@ if (!defined('SWU_LOBBY_AWAY_AFTER')) define('SWU_LOBBY_AWAY_AFTER', 90);
 // long "too long" is, rather than one being three times more patient than the other.
 if (!defined('SWU_LOBBY_HOST_AWAY_AFTER')) define('SWU_LOBBY_HOST_AWAY_AFTER', 120);
 
+// How long a newly seated player is protected from the host's Remove control (owner, 2026-10-01: "someone can
+// kick a seat as soon as they join"). Long enough to load a deck and say hello; short against the room's other
+// clocks (away 90s, host migration / Kick Host vote 120s).
+if (!defined('SWU_SEAT_KICK_ARM_AFTER')) define('SWU_SEAT_KICK_ARM_AFTER', 60);
+
+// Seconds until the host may Remove this seat; 0 = now. A BOT seat is exempt (the host added it on purpose), as is
+// a seat with no join time (a lobby from before the rule). KickSeat.php enforces it; the roster sends it as
+// `kickableIn` so the page can count down — computed HERE, so a skewed client clock cannot shorten it.
+function SWUSeatKickableIn($player, ?int $now = null): int {
+    if (!($player instanceof Player)) return 0;
+    if ($player->getBotProfile() !== '') return 0;
+    $joined = $player->getJoinedAt();
+    if ($joined <= 0) return 0;
+    return max(0, $joined + SWU_SEAT_KICK_ARM_AFTER - ($now ?? time()));
+}
+
 // Has this seat stopped polling? A seat with lastSeen === 0 has never polled — it JUST joined, so it
 // counts as present (same reasoning the reaper used).
 function SWUSeatIsAway($player, ?int $now = null, ?int $timeout = null): bool {

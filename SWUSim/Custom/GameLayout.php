@@ -1111,7 +1111,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* The Force token is rendered INSIDE the base card (top-right corner) by the
        core Card() renderer, driven by the base's HasForce virtual — same path as the
-       Epic-Action-Used token. See Core/UILibraries20260928.js. */
+       Epic-Action-Used token. See Core/UILibraries20261001.js. */
 
     /* ── Counter badges below the frame animations ───────────────────────────────
        The shared CreateCountersHTML hardcodes z-index:1100 on every counter badge,
@@ -1211,7 +1211,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* The top-deck search popup centres on the BOARD too (owner 2026-09-28). Same sidebar correction as
        the YES/NO panel above, but it keeps its VERTICAL centring: it shows card art at 180px and has no
-       room to sit above the hand band. Its minimise control (Core/UILibraries20260928.js) is what answers
+       room to sit above the hand band. Its minimise control (Core/UILibraries20261001.js) is what answers
        "let me read the board first" here, rather than moving it out of the way permanently.
        The overlay stays flex-centred; only the box is shifted, so nothing about its layout changes. */
     #topdecksearch-panel > .topdecksearch-box {

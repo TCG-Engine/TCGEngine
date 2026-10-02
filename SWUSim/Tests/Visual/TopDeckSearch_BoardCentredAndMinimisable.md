@@ -10,7 +10,7 @@
 #     committing to a pick. Owner: "people want a way to view the board before making a decision."
 #
 # THE FIX, in two places
-#   Core/UILibraries20260928.js — ShowTopDeckSearchPanel gains a minimise/restore control.
+#   Core/UILibraries20261001.js — ShowTopDeckSearchPanel gains a minimise/restore control.
 #     ⚠ `minimized` lives in the ENCLOSING function, not in render(). render() removes the panel and
 #       rebuilds it on every selection change, so a flag held inside would snap back to expanded the
 #       moment the player clicked a card.

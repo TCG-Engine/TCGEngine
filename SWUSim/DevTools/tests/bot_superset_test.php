@@ -9,9 +9,10 @@ require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/Custom/DeckImport.php';
 include_once './SWUSim/Custom/BotDeckStyle.php';
 
-$files = glob('./SWUSim/Tests/BotFixtures/meta-2026-09/*.txt') ?: [];
-$check(count($files) === count(json_decode((string)file_get_contents('./SWUSim/Custom/BotDeckLabels.json'), true)['decks'] ?? []),
-    'every labelled meta fixture is covered (' . count($files) . ' files)');
+$files = glob('./SWUSim/Tests/BotFixtures/ash-meta-2026-09/*.txt') ?: [];
+$metaLabelled = array_filter(json_decode((string)file_get_contents('./SWUSim/Custom/BotDeckLabels.json'), true)['decks'] ?? [],
+    fn($d) => ($d['group'] ?? 'ash-meta-2026-09') === 'ash-meta-2026-09');
+$check(count($files) === count($metaLabelled), 'every labelled meta fixture is covered (' . count($files) . ' files)');
 
 $noSide = $wrongMain = $sideInGame = $badFold = $refusedOk = [];
 foreach ($files as $path) {
@@ -40,7 +41,7 @@ $check(empty($sideInGame), 'GAME 1: the 10 sideboard cards resolve as sideboard,
 $check(empty($badFold), 'SUPERSET: the folded deck is exactly main + sideboard, same leader/base, empty sideboard: ' . json_encode($badFold));
 
 // Spot-check sizes the owner named: a 50-card list becomes 60, a Data Vault 60 becomes 70.
-$size = fn(string $f) => count(SWUResolveDeckInput(SWUBotFixtureSuperset((string)file_get_contents("./SWUSim/Tests/BotFixtures/meta-2026-09/$f.txt")))['mainDeck']);
+$size = fn(string $f) => count(SWUResolveDeckInput(SWUBotFixtureSuperset((string)file_get_contents("./SWUSim/Tests/BotFixtures/ash-meta-2026-09/$f.txt")))['mainDeck']);
 $check($size('darth-vader_jtl_yellow') === 60, 'Vader yellow 50 + 10 = 60 → ' . $size('darth-vader_jtl_yellow'));
 $check($size('grand-admiral-thrawn_jtl_data-vault') === 70, 'Thrawn Data Vault 60 + 10 = 70 → ' . $size('grand-admiral-thrawn_jtl_data-vault'));
 $check($size('the-mandalorian_ash_colossus') === 75, 'Mando Colossus 65 + 10 = 75 (with the 3 Zebs restored) → ' . $size('the-mandalorian_ash_colossus'));

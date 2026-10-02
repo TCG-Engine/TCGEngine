@@ -172,6 +172,34 @@ function _WaitingRoomStyles(): string {
 .wr-teamcol { flex: 1 1 340px; min-width: 0; }
 .wr-teamhdr { font-weight: bold; margin-bottom: 8px; }
 .wr-teamcol .wr-seat { margin-bottom: 10px; }
+
+/* "Fill Seat with Bot" popup (a sim whose bot profiles carry a deck — SWUSim Twin Suns rooms). Its own wr- classes on
+   purpose: the page's legacy and site stylesheets style bare .modal/.dialog names (see the class-namespace memory). */
+.wr-botdlg-overlay { position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center;
+                     background: rgba(0,0,0,.72); padding: 16px; box-sizing: border-box;
+                     -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.wr-botdlg { width: min(100%, 560px); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); display: flex;
+             flex-direction: column; box-sizing: border-box; color: var(--text, #fff);
+             /* OPAQUE. Site themes use translucent "glass" surfaces (Petranaki: rgba(16,31,48,.72)), and a popup over the
+                roster read the seats through itself. The theme tint is layered over a solid base instead. */
+             background: linear-gradient(var(--surface-raised, #2b2f36), var(--surface-raised, #2b2f36)), #0b1622;
+             border: 1px solid var(--border, #454545); border-radius: var(--radius, 5px); box-shadow: 0 18px 50px rgba(0,0,0,.5); }
+.wr-botdlg-head { padding: 18px 20px 8px; font-weight: bold; font-size: 18px; text-transform: uppercase; letter-spacing: .06em; }
+.wr-botdlg-body { padding: 4px 20px; overflow-y: auto; min-height: 0; }
+.wr-botdlg-opt { display: flex; gap: 10px; align-items: flex-start; padding: 10px; margin: 0 0 8px; cursor: pointer;
+                 border: 1px solid var(--border, #454545); border-radius: var(--radius, 5px); }
+.wr-botdlg-opt:has(input:checked) { border-color: var(--accent, #5aa0ff); }
+.wr-botdlg-opt input[type=radio] { margin-top: 3px; flex: none; }
+.wr-botdlg-optbody { min-width: 0; flex: 1; }
+.wr-botdlg-name { font-weight: bold; }
+.wr-botdlg-cards { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.wr-botdlg-cards .wr-cardwrap { padding: 2px; border-radius: 5px; }
+.wr-botdlg-cards .wr-card { width: 84px; }
+.wr-botdlg-paste { width: 100%; box-sizing: border-box; min-height: 110px; margin-top: 8px; font-size: 16px; /* 16px: no iOS zoom */
+                   background: var(--surface-sunken, #394452); color: var(--text, #fff); border: 1px solid var(--border, #454545);
+                   border-radius: var(--radius, 5px); padding: 8px; resize: vertical; }
+.wr-botdlg-err { color: #ff6b6b; font-size: 13px; min-height: 18px; padding: 4px 20px 0; }
+.wr-botdlg-actions { display: flex; justify-content: flex-end; gap: 10px; padding: 12px 20px 18px; }
 </style>
 CSS;
 }
@@ -267,6 +295,10 @@ function _WaitingRoomScript(array $cfg): string {
   // its card art once a second as the fresh elements repainted. Re-render only when something the
   // roster actually shows has changed.
   var lastSig = '';
+  // A seat's first minute is protected from Remove (SWUSeatKickableIn). The roster sends `kickableIn` (seconds) on
+  // every poll; it becomes a LOCAL deadline here and is kept OUT of the redraw signature — a number that falls every
+  // poll would otherwise redraw the whole roster for a minute. tickKicks() updates the buttons in place.
+  var kickDeadline = {};
 
   function appBase() { var p = location.pathname, i = p.indexOf('/TCGEngine/'); return i >= 0 ? p.slice(0, i + 11) : '/TCGEngine/'; }
   function qs(k) { return new URLSearchParams(location.search).get(k) || ''; }
@@ -340,8 +372,10 @@ function _WaitingRoomScript(array $cfg): string {
     //
     // esc() is applied by the caller, which matters here: this is the first user-controlled string
     // the roster renders.
+    var bp = botProfiles[entry.botProfile] || {};
     var who = entry.botProfile
-      ? ('P' + entry.playerID + ' · ' + ((botProfiles[entry.botProfile] || {}).name || 'Bot'))
+      ? (bp.deck ? (entry.username || 'Arenabot') + ' · ' + (bp.deckName || (bp.deck === 'paste' ? 'your decklist' : bp.name))   // SWUSim: the bot's own name
+                 : ('P' + entry.playerID + ' · ' + (bp.name || 'Bot')))
       : (entry.username || ('Guest P' + seatNo)) + (entry.isHost ? ' (host)' : '');
     // deckOk, ready and away are THREE different facts. A legal deck you are still swapping is not a
     // deck you are ready to play, and a ready deck whose owner has closed their browser is not a
@@ -352,8 +386,11 @@ function _WaitingRoomScript(array $cfg): string {
     var away = entry.away ? '<span class="wr-pill wr-pill-away">AWAY</span>' : '';
     var deck = entry.deckOk ? '<span style="color:#6fcf97;font-size:12px;">deck ✓</span>'
                             : '<span style="color:#ff6b6b;font-size:12px;">deck missing/invalid</span>';
+    var kickWait = kickWaitSecs(entry.playerID);
     var kick = (iAmHost && entry.playerID !== myPlayerID)
-      ? '<button type="button" class="btn wr-kick" data-kick="' + entry.playerID + '">Remove</button>' : '';
+      ? '<button type="button" class="btn wr-kick" data-kick="' + entry.playerID + '"' +
+        (kickWait > 0 ? ' disabled title="A player can be removed one minute after they join"' : '') + '>' +
+        kickLabel(kickWait) + '</button>' : '';
     if (entry.botProfile) deck = '<span style="font-size:12px;">' + esc((botProfiles[entry.botProfile] || {}).description || '') + '</span>';
     return '<div class="wr-seat-label">Seat ' + seatNo + '</div>' +
            '<div class="wr-seat-who">' + esc(who) + kick + '</div>' + strip(entry) +
@@ -457,6 +494,9 @@ function _WaitingRoomScript(array $cfg): string {
     }
     host.innerHTML = '<div class="wr-grid">' + rows.join('') + '</div>';
     bindKicks(host);
+    Array.prototype.forEach.call(host.querySelectorAll('.wr-fill-bot'), function (button) {
+      button.onclick = function () { if (botWaitSecs() <= 0) openFillBotDialog(button.getAttribute('data-bot-seat')); };
+    });
     Array.prototype.forEach.call(host.querySelectorAll('.wr-add-bot'), function (button) {
       button.onclick = function () {
         var profile = button.parentNode.querySelector('select').value;
@@ -472,12 +512,92 @@ function _WaitingRoomScript(array $cfg): string {
     });
   }
 
+  // Does this room's bot carry a deck (SWUSim Twin Suns: a pre-con or a pasted list)? Then an empty seat gets the
+  // "Fill Seat with Bot" button and its popup; otherwise the original profile picker (FaB), unchanged.
+  function botsTakeDecks() {
+    return Object.keys(botProfiles).some(function (id) { return !!(botProfiles[id] && botProfiles[id].deck); });
+  }
+  // A public room waits a quiet minute before bots (the poll's botAddableIn, a duration → a local deadline, kept out
+  // of the redraw signature exactly like a seat's kickableIn).
+  var botAddDeadline = 0;
+  function botWaitSecs() { return botAddDeadline ? Math.max(0, Math.ceil((botAddDeadline - Date.now()) / 1000)) : 0; }
+  function fillLabel(wait) { return wait > 0 ? 'Fill Seat with Bot (' + wait + 's)' : 'Fill Seat with Bot'; }
+  var FILL_WAIT_TITLE = 'In a public room, bots can be added once nobody new has joined for a minute';
+  function tickFill() {
+    Array.prototype.forEach.call(document.querySelectorAll('.wr-fill-bot'), function (b) {
+      var wait = botWaitSecs(), label = fillLabel(wait);
+      if (b.textContent !== label) b.textContent = label;
+      if (b.disabled !== (wait > 0)) b.disabled = wait > 0;
+      if (wait > 0) b.title = FILL_WAIT_TITLE; else b.removeAttribute('title');
+    });
+  }
+  setInterval(tickFill, 1000);
+
   function botPicker(d, seat) {
     var profiles = Object.keys(botProfiles);
     if (!iAmHost || d.state !== 'open' || !profiles.length) return 'Waiting…';
+    if (botsTakeDecks()) {
+      var wait = botWaitSecs();
+      return '<button type="button" class="btn wr-fill-bot" data-bot-seat="' + seat + '"' +
+             (wait > 0 ? ' disabled title="' + FILL_WAIT_TITLE + '"' : '') + '>' + fillLabel(wait) + '</button>';
+    }
     return '<label>Bot <select aria-label="Bot type">' + profiles.map(function (id) {
       return '<option value="' + esc(id) + '">' + esc(botProfiles[id].name) + '</option>';
     }).join('') + '</select></label> <button type="button" class="btn wr-add-bot" data-bot-seat="' + seat + '">Add bot</button>';
+  }
+
+  // The "Fill Seat with Bot" popup (owner Decision 3, SWUSim/docs/todo-twinsuns-fill-bot.md): pick a pre-con, or paste a
+  // list — validated by the server exactly like a human's deck (AddBot.php → validateDeck), so any refusal is shown
+  // here and the popup stays open to fix it. Appended to <body>, so the 1.5s roster redraw never touches it.
+  function openFillBotDialog(seat) {
+    if (document.querySelector('.wr-botdlg-overlay')) return;
+    var ids = Object.keys(botProfiles);
+    var opts = ids.map(function (id, i) {
+      var p = botProfiles[id] || {};
+      var body = '<div class="wr-botdlg-name">' + esc(p.deck === 'paste' ? 'Paste a decklist' : (p.deckName || p.name)) + '</div>' +
+                 '<div style="font-size:13px;opacity:.8;">' + esc(p.description || '') + '</div>';
+      if (p.cards && p.cards.length) body += '<div class="wr-botdlg-cards">' + p.cards.map(thumb).join('') + '</div>';
+      if (p.deck === 'paste') body += '<textarea class="wr-botdlg-paste" placeholder="A swudb link, or the deck JSON / text export" aria-label="Bot decklist"></textarea>';
+      return '<label class="wr-botdlg-opt"><input type="radio" name="wr-botdlg-pick" value="' + esc(id) + '"' + (i === 0 ? ' checked' : '') + '>' +
+             '<div class="wr-botdlg-optbody">' + body + '</div></label>';
+    }).join('');
+    var o = document.createElement('div');
+    o.className = 'wr-botdlg-overlay';
+    o.innerHTML = '<div class="wr-botdlg" role="dialog" aria-modal="true" aria-labelledby="wr-botdlg-title">' +
+      '<div class="wr-botdlg-head" id="wr-botdlg-title">Fill Seat ' + esc(seat) + ' with Bot</div>' +
+      '<div class="wr-botdlg-body">' + opts + '</div>' +
+      '<div class="wr-botdlg-err" role="alert"></div>' +
+      '<div class="wr-botdlg-actions"><button type="button" class="btn wr-botdlg-cancel">Cancel</button>' +
+      '<button type="button" class="btn btn-primary wr-botdlg-add">Add Bot</button></div></div>';
+    var close = function () { o.remove(); document.removeEventListener('keydown', onKey, true); };
+    var onKey = function (e) { if (e.key === 'Escape') { e.preventDefault(); close(); } };
+    var paste = o.querySelector('.wr-botdlg-paste');
+    if (paste) paste.addEventListener('focus', function () {   // typing into the box picks the paste option
+      var r = paste.closest('.wr-botdlg-opt').querySelector('input[type=radio]'); if (r) r.checked = true;
+    });
+    o.querySelector('.wr-botdlg-cancel').onclick = close;
+    o.addEventListener('mousedown', function (e) { if (e.target === o) close(); });
+    o.querySelector('.wr-botdlg-add').onclick = function () {
+      var add = this, err = o.querySelector('.wr-botdlg-err');
+      var picked = o.querySelector('input[name=wr-botdlg-pick]:checked');
+      if (!picked) return;
+      var profile = picked.value;
+      var deck = (botProfiles[profile] || {}).deck === 'paste' && paste ? paste.value.trim() : '';
+      if ((botProfiles[profile] || {}).deck === 'paste' && !deck) { err.textContent = 'Paste a decklist for this bot.'; return; }
+      add.disabled = true; err.textContent = 'Checking the deck…';
+      post('APIs/Lobbies/AddBot.php', 'lobbyID=' + encodeURIComponent(lobbyID) +
+        '&authKey=' + encodeURIComponent(loadKey(lobbyID)) + '&botProfile=' + encodeURIComponent(profile) +
+        '&botDeck=' + encodeURIComponent(deck) + '&seat=' + encodeURIComponent(seat), function (r) {
+          add.disabled = false;
+          if (!r || !r.success) { err.textContent = (r && r.message) || 'Could not add the bot.'; return; }
+          close();
+          lastSig = '';   // the roster just changed
+          if (typeof Toast === 'function') Toast('Bot added to seat ' + seat + '.', { type: 'success' });
+        });
+    };
+    document.addEventListener('keydown', onKey, true);
+    document.body.appendChild(o);
+    o.querySelector('.wr-botdlg-add').focus();
   }
 
   function renderInvite(d) {
@@ -840,15 +960,47 @@ function _WaitingRoomScript(array $cfg): string {
 
   // Remove a seat. Host-only and always deliberate: nothing removes a player automatically any more,
   // because the automatic version removed people who were still sitting in the room.
+  function kickWaitSecs(pid) {
+    var d = kickDeadline[pid];
+    return d ? Math.max(0, Math.ceil((d - Date.now()) / 1000)) : 0;
+  }
+  function kickLabel(wait) { return wait > 0 ? 'Remove (' + wait + 's)' : 'Remove'; }
+  function noteKickDeadlines(roster) {
+    kickDeadline = {};
+    (roster || []).forEach(function (e) {
+      var k = Number(e && e.kickableIn) || 0;
+      if (k > 0) kickDeadline[e.playerID] = Date.now() + k * 1000;
+    });
+  }
+  function rosterForSig(roster) {
+    return (roster || []).map(function (e) {
+      var c = {}; for (var k in e) if (k !== 'kickableIn') c[k] = e[k]; return c;
+    });
+  }
+  // In place, once a second: count down, and enable the button the moment the seat's first minute is up.
+  function tickKicks() {
+    Array.prototype.forEach.call(document.querySelectorAll('.wr-kick'), function (b) {
+      if (b.getAttribute('data-busy')) return;   // a removal request is in flight
+      var wait = kickWaitSecs(b.getAttribute('data-kick'));
+      var label = kickLabel(wait);
+      if (b.textContent !== label) b.textContent = label;
+      if (b.disabled !== (wait > 0)) b.disabled = wait > 0;
+      if (wait > 0) b.title = 'A player can be removed one minute after they join'; else b.removeAttribute('title');
+    });
+  }
+  setInterval(tickKicks, 1000);
+
   function bindKicks(host) {
     Array.prototype.forEach.call(host.querySelectorAll('.wr-kick'), function (b) {
       b.onclick = function () {
-        b.disabled = true;
+        if (kickWaitSecs(b.getAttribute('data-kick')) > 0) return;
+        b.disabled = true; b.setAttribute('data-busy', '1');
         post('APIs/Lobbies/KickSeat.php',
           'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)) +
           '&targetPlayerID=' + encodeURIComponent(b.getAttribute('data-kick')),
           function (r) {
-            if (!r.success) { el('wr-hint').textContent = r.message || 'Could not remove that player.'; b.disabled = false; }
+            b.removeAttribute('data-busy');
+            if (!r.success) { el('wr-hint').textContent = r.message || 'Could not remove that player.'; b.disabled = false; tickKicks(); }
             lastSig = '';   // the roster just changed; force a redraw
           });
       };
@@ -946,7 +1098,10 @@ function _WaitingRoomScript(array $cfg): string {
         // opening (or a fellow seat's Yes landing) changes nothing else in this array — so without
         // it the Kick Host button would only ever appear on a render some OTHER field's change
         // happened to trigger, rather than live as the timer elapses or votes come in.
-        var sig = JSON.stringify([r.roster, r.seatModel, r.botProfiles, r.state, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed, r.hostVote]);
+        noteKickDeadlines(r.roster);
+        var bw = Number(r.botAddableIn) || 0;
+        botAddDeadline = bw > 0 ? Date.now() + bw * 1000 : 0;
+        var sig = JSON.stringify([rosterForSig(r.roster), r.seatModel, r.botProfiles, r.state, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed, r.hostVote]);
         if (sig !== lastSig) { lastSig = sig; render(r); }
       }
       pollTimer = setTimeout(poll, POLL_MS);

@@ -38,6 +38,13 @@ $act(1, 10002, 'myHand-0!FSM!');
 $ctx = $botCtx('control');
 $check($ctx['tooltip'] === 'Choose_upgrade_target' && in_array('theirGroundArena-0', $ids($ctx['actions']), true), 'fixture: Condemn\'s attach prompt offers the enemy Wampa; got ' . $ctx['tooltip'] . ' ' . json_encode($ids($ctx['actions'])));
 $check($stack('control')[0] === 'theirGroundArena-0', 'Condemn ("loses all other abilities") goes on the enemy');
-$check($stack('control', 1, 'no-targeting2')[0] === 'myGroundArena-0', '@no-targeting2: it went on my own Wampa');
+// Since 2026-10-01 Condemn is also on 'hostpolicy''s owner-ruled downgrade list (p17), which sends it to the enemy
+// on its own — so this control switches BOTH off to still isolate what targeting2 does. (A variant names one
+// feature, and SWUBotHeuristicChoose replaces the disabled set with it, so the attach candidates are scored here.)
+SWUBotSetDisabledFeatures(['targeting2', 'hostpolicy']);
+$ctxOff = $botCtx('control'); $bestOff = null; $bestS = null;
+foreach ($ctxOff['actions'] as $i => $a) { $s = SWUBotScoreAction($ctxOff, $a, $i); if ($bestS === null || $s > $bestS) { $bestS = $s; $bestOff = strval($a['cardID']); } }
+SWUBotSetDisabledFeatures([]);
+$check($bestOff === 'myGroundArena-0', '@no-targeting2 (+no-hostpolicy): it went on my own Wampa; got ' . json_encode($bestOff));
 
 bot_test_finish();

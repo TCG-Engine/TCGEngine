@@ -184,7 +184,7 @@ const SWU_BOT_PART13_FEATURES = ['mgkill'];
 const SWU_BOT_PART14_FEATURES = ['upgradepicks'];
 
 // Part 15 (2026-09-28): 'tags3' — the V3 CARD TAGS. Owner rulings (27 answers) after reading three real
-// Karabast game logs: tag BOTH leader faces (v2 read $textData only, so 87 leaders' deployed side was
+// Online game logs: tag BOTH leader faces (v2 read $textData only, so 87 leaders' deployed side was
 // invisible), tag the KEYWORDS a card has as well as its effects, and split the coarse tags so each half can
 // be priced on its own — damage(units) / burn(base) / indirect-damage, exhaust-enemy / exhaust-friendly,
 // heal(immediate) / restore(keyword), buff(temporary stats) / gives-experience / gives-shield / gives-weakness,
@@ -225,6 +225,43 @@ const SWU_BOT_PART15_FEATURES = ['tags3'];
 // Guard: SWUSim/DevTools/tests/bot_aspectwaiver_test.php (section F is the reported board).
 const SWU_BOT_PART16_FEATURES = ['aspectwaiver'];
 
+// Part 17 (2026-10-01): 'hostpolicy' — every attachment is an "Upgrade", but some are DOWNGRADES. Owner rulings
+// place each listed upgrade on a side of the table (SWU_BOT_UPGRADE_HOST_POLICY, BotFallback.php): Bounty granters
+// and ability/ready/stat suppressors only on an ENEMY unit; Preparation, Battle Fury, Death Star Plans, Sith
+// Holocron and Han's Golden Dice only on my own; Size Matters Not only on my own small unit; Entrenched on an enemy
+// without Overwhelm or my own Sentinel. A listed upgrade with no allowed host is held.
+// SHIPPED on the rulings, not on an A/B (like p9 'nogift'). Two defects it closes: the host pick put Wanted / Death
+// Mark / In Debt to Crimson Dawn / Grav Charge on the bot's OWN unit whenever it had one (the board read sees no
+// Bounty or "can't ready"), and the same-day extension of 'nogift' to every upgrade (LAW_129 Mastery, game
+// 1438045) made every 0/0 downgrade read as a gift on an enemy host, so none was ever played.
+// Guard: SWUSim/DevTools/tests/bot_hostpolicy_test.php.
+const SWU_BOT_PART17_FEATURES = ['hostpolicy'];
+
+// Part 18 (2026-10-01): 'doomedsac' — a unit that is going to die anyway is cheap to sacrifice. Owner rulings, from the
+// Karabast Krennic games (the human sent their own deployed Krennic back with Chimaera):
+//   2a a DEPLOYED LEADER is a sacrifice (Chimaera's friendly pick) when it is Condemned (SEC_038 — sending it back
+//      restores its front side) or has 2 or less HP left and the opponent can deal with it — but only when no other
+//      fodder is available, so it is priced above a 2-cost body (SWU_BOT_DOOMED_LEADER_SAC_COST).
+//   2b any other unit with 2 or less HP left that an enemy unit can finish (a high-HP Sentinel on HP-1/HP-2) is cheap
+//      fodder: "the Credit may be more valuable next round", and outvalues the base damage it would have blocked.
+// "Can deal with it" is read from the visible board: an enemy unit in its arena with power >= its remaining HP, and
+// no Shield on it. Shipped on the rulings. Guard: SWUSim/DevTools/tests/bot_doomedsac_test.php.
+// 'unusedsac' (same day, task 3): a sacrifice that can wait (a repeatable Action) charges a still-READY unit for the attack
+// it would throw away — attack first, then cash the body in. Guard: SWUSim/DevTools/tests/bot_unusedsac_test.php.
+const SWU_BOT_PART18_FEATURES = ['doomedsac', 'unusedsac'];
+
+// Part 19 (2026-10-01): 'weakness' — Weakness tokens (HMW_T02, -1/-1) are DOWNGRADES, and a Weakness give or spread
+// (Torrent, Ravage, Talzin's Shuttle, Hemlock…) looks for the kill it makes before the body it shrinks. Owner request,
+// after game 1438045 (the bot Torrented its own Sentinel). Three defects it closes:
+//   - the value model counted a Weakness as an upgrade PREMIUM, so a Weakened unit priced above a healthy copy, and
+//     "defeat an upgrade" (SEC_163) took the Weakness off an ENEMY unit;
+//   - a Weakness prompt carried no amount, so the picker never saw the unit its tokens defeat ("clean up") and a Shield
+//     read as stopping it — Weakness is HP reduction, unpreventable;
+//   - a non-lethal token was priced the same on every body, so a spread went by enumeration order, not on the strongest
+//     body (the one whose -1 power matters: "soften up").
+// SHIPPED on the owner's request, not on an A/B. Guard: SWUSim/DevTools/tests/bot_weakness_test.php.
+const SWU_BOT_PART19_FEATURES = ['weakness'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
@@ -232,7 +269,8 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART10_FEATURES, SWU_BOT_PART11_FEATURES,
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
-                       SWU_BOT_PART16_FEATURES);   // part 2, then 3-16
+                       SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES);   // part 2, then 3-19
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -247,7 +285,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
@@ -361,7 +399,7 @@ const SWU_BOT_WEIGHT_PROBES = [
     // the long game: card advantage, staying alive, building a board, answering threats
     'longgame-up' => ['draw' => 2.0, 'heal' => 2.0, 'develop' => 2.0, 'removal' => 2.0],
     // tempo and reach: damage that closes a game rather than winning a board
-    'tempo-down'  => ['base' => 0.5, 'chip' => 0.5, 'burn' => 0.5, 'damage' => 0.5],
+    'tempo-down'  => ['base' => 0.5, 'chip' => 0.5, 'damage-enemy-base' => 0.5, 'damage-enemy-unit' => 0.5],   // were 'burn' / 'damage' (retired 2026-10-01)
     // THE EMPIRICAL NULL for a multi-arm screen. A true no-op cannot serve: the bots are deterministic and arms share
     // seeds, so it returns zero discordant games and p=1 by construction (measured 2026-09-20, the 'placebo' arm).
     // These nudge ONE weight by ±3% — enough to flip close calls, far too small to be a strategy — so their paired
@@ -373,7 +411,7 @@ const SWU_BOT_WEIGHT_PROBES = [
     'develop-up'  => ['develop' => 2.0],
     // both at once — the full horizon shift
     'horizon'     => ['draw' => 2.0, 'heal' => 2.0, 'develop' => 2.0, 'removal' => 2.0,
-                      'base' => 0.5, 'chip' => 0.5, 'burn' => 0.5, 'damage' => 0.5],
+                      'base' => 0.5, 'chip' => 0.5, 'damage-enemy-base' => 0.5, 'damage-enemy-unit' => 0.5],
     // Is the TRADE PREFERENCE paying for itself? Block 2 of the owner's 100-game human-vs-bot run
     // (2026-09-23): a hardcontrol Luke ASH_005 went 0W/24L into an Ahsoka ASH_009 go-wide deck. Against
     // block 1's midrange arm on the SAME matchup, same human, only the style changed —

@@ -1,0 +1,36 @@
+# Self-play fixture — "STAR WARS DAD Wicket Green (Splash)" (Wicket, Few Greater Battles to Fight - Aldhani Garrison)
+# Source: a PREDICTED list for the HMW meta by the creator StarWarsDad, from wicket_HMW_green-splash.json (kept alongside).
+#   Converted 2026-10-01. 50 main-deck cards, 3 sideboard.
+#   Base trait: Aldhani — no card in the deck cares, so the name carries no trait.
+# Author: Star Wars Dad
+# Archetype (owner's label, 2026-10-01): Hard aggro
+# Style: hyperaggro
+
+Leader
+1 HMW_014
+
+Base
+1 LAW_022
+
+Deck
+3 HMW_163
+3 LAW_202
+3 HMW_045
+3 HMW_177
+3 ASH_248
+3 JTL_106
+3 HMW_164
+3 HMW_116
+3 HMW_115
+3 SEC_179
+3 ASH_124
+3 HMW_255
+3 HMW_254
+2 HMW_176
+3 ASH_034
+3 SEC_148
+3 HMW_162
+
+Sideboard
+1 JTL_203
+2 ASH_183

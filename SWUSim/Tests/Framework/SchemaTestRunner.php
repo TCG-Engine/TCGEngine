@@ -1797,6 +1797,17 @@ class SchemaTestRunner {
                 elseif ($norm($pending->Tooltip ?? '') !== $norm($m[2]))
                     $failures[] = "{$line}: expected tooltip '{$m[2]}', got '" . ($pending->Tooltip ?? '') . "'";
 
+            } elseif (preg_match('/^P(\d+)DECISIONPARAM:(.+)$/', $line, $m)) {
+                // Exact-match the pending decision's Param — for a prompt whose OFFER lives in the Param rather
+                // than in mzIDs (REVEALARRANGE's "ids|MAX", SCRY's peeked list), so a test can pin what was
+                // revealed and any limit (2026-10-01: LAW_237 Qui-Gon's top 3 with a discard limit of 1).
+                $p       = intval($m[1]);
+                $pending = $g->state->pendingDecision($p);
+                if ($pending === null)
+                    $failures[] = "{$line}: expected a pending decision, but none found";
+                elseif ((string)($pending->Param ?? '') !== trim($m[2]))
+                    $failures[] = "{$line}: expected param '" . trim($m[2]) . "', got '" . ($pending->Param ?? '') . "'";
+
             } elseif (preg_match('/^P(\d+)SEARCHPLAYABLE(HAS|NOT):(.+)$/', $line, $m)) {
                 // Assert membership in a pending TOPDECKSEARCH's *playable* set (the matchIDs field —
                 // the cards the UI lets you actually pick/play, distinct from the full revealed set).

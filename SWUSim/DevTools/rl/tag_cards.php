@@ -47,7 +47,8 @@ const SWU_BOT_TAG_TOKENS = ['Credit' => 'create-credit-token', 'Battle Droid' =>
                             'Clone Trooper' => 'create-clone-trooper-token', 'Mandalorian' => 'create-mandalorian-token',
                             'TIE Fighter' => 'create-tie-fighter-token', 'X-Wing' => 'create-x-wing-token'];
 
-const SWU_BOT_TAGS_V2 = ['removal', 'damage', 'draw', 'buff', 'bounce', 'exhaust', 'heal', 'wipe', 'burn'];
+// The RL-key vocabulary (Rl/CardTags.php SWU_BOT_TAGS_V2_SET). 'damage' became 'damage-enemy-unit' 2026-10-01 (owner: break the keys).
+const SWU_BOT_TAGS_V2 = ['removal', 'damage-enemy-unit', 'draw', 'buff', 'bounce', 'exhaust', 'heal', 'wipe', 'damage-enemy-base'];
 
 // MASS effects, matched and REMOVED before anything else so "deal 5 damage to each unit" is not also counted as
 // targeted damage. An UNQUALIFIED "each unit" hits both sides and earns both halves.
@@ -79,8 +80,12 @@ const SWU_BOT_SELF_PATTERNS = [
 
 const SWU_BOT_TAG_PATTERNS = [
     'removal' => '/(\bdefeat (a|an|another|up to \d+|that) (?![^.]*?\bfriendly\b)[^.]*?\bunit|take control of (a|an) [^.]*?unit, then defeat it|give (a|an|another) (non-leader |enemy )?unit -\d+\/-[1-9]\d*|loses all abilities for this phase\. if it costs \d+ or less, defeat it|enemy (non-leader )?unit\. if you do, defeat those units)/i',
-    'damage'  => '/(deal \d+ damage to (a|an|another|each enemy|each|up to|that)[^.]*?\bunits?\b|deal damage (equal to|divided)[^.]*?\bunits?\b|give each enemy unit[^.]*?-\d+\/-[1-9]\d*)/i',
-    'burn'    => '/deal \d+ damage to (a|an|each|that|each enemy|an opponent\'s|each opponent\'s) base/i',
+    // ⚠ `damage` was RETIRED 2026-10-01 (owner): the directional tags below replace it — damage-enemy-unit is the
+    // weighted one. Its "give each enemy unit -X/-Y" alternative became debuff-all-enemy-units, which the scorer
+    // values by how many enemy units the shrink would KILL (owner: "scales the more weak units on their side").
+    'debuff-all-enemy-units' => '/give each enemy unit[^.]*?-\d+\/-[1-9]\d*/i',
+    // `burn` RETIRED 2026-10-01 (owner): the directional name carries it — same pattern, same weight (the win condition).
+    'damage-enemy-base' => '/deal \d+ damage to (a|an|each|that|each enemy|an opponent\'s|each opponent\'s) base/i',
     'indirect-damage' => '/\bindirect damage\b/i',
     'draw'    => '/\bdraw (a|\d+|two|three) cards?\b/i',
     'heal'    => '/\bheal \d+ damage\b/i',
@@ -104,6 +109,43 @@ const SWU_BOT_TAG_PATTERNS = [
     // SOR_217 event, for any first-strike ability, whether granted for one attack or printed on the unit.
     // ⚠ LAW_086 The Stranger is the REVERSE ("have the defending unit deal combat damage before this unit").
     'shoot-first' => '/deals? (?:its )?combat damage before the (?:defender|defending unit)/i',
+    // POWER-STRIKE (owner 2026-10-01; the engine's own name — SOR_107 Command's 'PowerStrike' mode): damage equal to a
+    // unit's POWER, dealt to a unit — Strike True, Overgrowth, Haymaker, Krennic (LAW)'s When Deployed, Crosshair's
+    // Action, the divided forms (Overwhelming Barrage) and the many-unit form (Focus Fire). Both wordings: "deals
+    // damage equal to its power" (the fight form, which `damage` never matched) and "deal damage equal to …'s power".
+    // ⚠ Power only: "equal to its remaining HP" (Protect the Pod, Babu Frik) and "equal to its Raid" (Volley Fire)
+    // are near-misses, not power strikes. Added ALONGSIDE `damage`, never instead of it.
+    'power-strike' => '/\bdeals? damage equal to (?:its|his|her|their|that unit\'s|this unit\'s|attached unit\'s|a friendly unit\'s)[^.]*?\bpower\b[^.]*?\bunits?\b|\bdeals? damage to [^.]*?\bunits? equal to (?:its|this unit\'s|attached unit\'s|that unit\'s)\s+power\b/i',
+    // ── DIRECTIONAL DAMAGE / HEAL (owner 2026-10-01), split like exhaust was. ADDED ALONGSIDE damage / burn /
+    // self-burn / self-damage / heal, which stay exactly as they were (weights and ~20 consumers key on them).
+    // damage-enemy-base / damage-friendly-base / damage-friendly-unit are also DERIVED in SWUBotTagEffects from burn /
+    // self-burn / self-damage, because the self-harm clauses are removed from the text before this table runs.
+    // An UNQUALIFIED "a unit" is an ENEMY unit (owner: "best to damage enemy units"), as for exhaust-enemy-unit.
+    // ⚠ Found by review (2026-10-01): "would deal damage" is PREVENTION (Malakili, Cassian SEC); "When a friendly unit
+    // deals damage to an enemy unit:" is a TRIGGER condition (Jango TWI) — hence the (?<!would ) and the no-colon tail;
+    // the target phrase must not cross "base" (The Invisible Hand: "…to the defending player's base for each unit")
+    // nor be "friendly" BEFORE its own noun ("a ground unit for each friendly exhausted unit" IS enemy damage).
+    // Also: the VERB-LESS second clause "deal 2 damage to a base and 2 damage to an enemy unit" (Mining Guild
+    // Trespasser, Ruthless Raider, Adamant Ewoks), "…to their base or a ground unit" (Krayt Dragon) and Wrecker's
+    // "deal 3 damage to each chosen unit" (each player picks one of THEIR OWN — so it is friendly damage too).
+    'damage-enemy-unit' => '/(?<!\bwould )\bdeals?\s+(?:\d+\s+|X\s+|that much\s+)?damage\b(?:\s+equal to [^.]*?)?\s+to\s+(?!each\b|this unit\b|itself\b)(?:a|an|another|that|the|up to \d+)\b(?:(?!\bfriendly\b|\bbase\b)[^.:])*?\bunits?\b(?!\s*:)|\band\s+\d+\s+damage to (?:a|an|another)\b(?:(?!\bfriendly\b|\bbase\b)[^.:])*?\bunits?\b|\bdamage\b[^.]*?\bbase or (?:a|an)\s+(?:(?!\bfriendly\b)[^.:])*?\bunits?\b|\bdamage to each chosen units?\b/i',
+    // "that much" / X amounts too — SOR_052 Redemption "Deal that much damage to this unit" had NO self-damage tag.
+    // "attached unit" is yours (Twice the Pride). ⚠ "equal to THIS UNIT'S power" is a power strike, not self-damage.
+    'damage-friendly-unit' => '/(?<!\bwould )\bdeals?\s+(?:\d+\s+|X\s+|that much\s+)?damage\b[^.]*?\bto\s+(?:this unit\b(?!\'s)|itself\b|attached unit\b(?!\'s)|(?:a |an |another )?friendly\b[^.]*?\bunit)|\bdamage to each chosen units?\b/i',
+    // SPREAD = damage put on several units: "divided as you choose among …" and "to each of up to N units" (owner:
+    // spread, not targeted). An unqualified divided spread ("among any number of units") is ALSO enemy-spread
+    // (owner: Overwhelming Barrage and Ninth Sister get both); only a friendly-qualified one is not.
+    'damage-enemy-unit-spread' => '/(?:divided as you choose among|damage to each of (?:up to \d+|any number of))\s+(?![^.]{0,20}?\bfriendly\b)[^.]*?\bunits\b/i',
+    'damage-all-units-spread' => '/divided as you choose among\s+(?:any number of\s+)?(?:other\s+|different\s+)?(?:ground\s+|space\s+)?units\b/i',
+    // HEAL SPREAD (owner: Redemption = heal-friendly-units-spread + heal-friendly-base-spread + damage-friendly-unit).
+    // An unqualified "any number of units" is read as FRIENDLY — healing is spent on your own board.
+    'heal-friendly-units-spread' => '/\bheal\b[^.]*?\b(?:total damage|damage)\s+(?:from|among)\s+(?:any number of\s+|among\s+|each of any number of\s+)?(?:other\s+|friendly\s+)?units\b/i',
+    'heal-friendly-base-spread' => '/\bheal\b[^.]*?\b(?:from|among)\b[^.]*?\bbases\b/i',
+    // HEAL-ON-ENEMY-DEFEAT (owner 2026-10-01): a standing engine — "When an enemy unit is defeated: Heal N damage from your
+    // base" (ASH_052 Chimaera 2, SOR_002 Iden Versio deployed 1). Valued PER POINT healed, board-scaled in _SWUBotPlayValue:
+    // the engine card by the kills it can expect, and every OTHER kill while it is in play (Lost and Forgotten heals 5,
+    // not 3, with Chimaera out). Owner: "that is what makes the card so good".
+    'heal-on-enemy-defeat' => '/When an enemy unit is defeated:\s*Heal \d+ damage from your base/i',
     // The attack this card gives can't hit a base (owner 2026-10-01, for LOF_124 Niman Strike). Scoped to THAT
     // attack only — "for this phase" (JTL_092, JTL_206) and permanent restrictions (SOR_072, ASH_034) are not it.
     'attack-no-base' => '/(can[\'’]t attack bases for (?:this|these|the second) attacks?|for this attack, [^.]*?can[\'’]t attack bases)/i',
@@ -196,6 +238,12 @@ function SWUBotTagEffects(string $rest): array {
     foreach (SWU_BOT_TAG_PATTERNS as $tag => $re) {
         if (preg_match($re, $rest)) $tags[] = $tag;
     }
+    // Directional damage derived from the older names whose clauses step 2 removed (owner 2026-10-01). Derived HERE,
+    // per region, so a Smuggle cost that damages your own unit reads cost-damage-friendly-unit, never a payoff.
+    // Spread damage still damages enemy units (owner 2026-10-01): one weighted tag for all of them, never counted twice.
+    if (array_intersect(['damage-enemy-unit-spread', 'damage-all-units-spread'], $tags) && !in_array('damage-enemy-unit', $tags, true)) $tags[] = 'damage-enemy-unit';
+    if (in_array('self-burn', $tags, true))   $tags[] = 'damage-friendly-base';
+    if (in_array('self-damage', $tags, true)) $tags[] = 'damage-friendly-unit';
     // A capture removes a threat as surely as a defeat does (owner ruling 15 of form 1).
     if (in_array('capture', $tags, true) && !in_array('removal', $tags, true)) $tags[] = 'removal';
     // A MASS FRIENDLY DEFEAT IS ALSO A SACRIFICE (owner ruling 6, form 3: "part of me thinks sacrifice might be

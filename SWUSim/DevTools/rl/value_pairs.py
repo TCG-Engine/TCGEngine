@@ -4,7 +4,7 @@ each deck under its own '# Style:' label, seeds v<first>..v<last>. Seeds 'v…' 
     python3 SWUSim/DevTools/rl/value_pairs.py 1 40 > /tmp/value_pairs.tsv
 Output TSV: deckA-path  styleA  deckB-path  styleB  seed"""
 import glob, os, sys
-D = 'SWUSim/Tests/BotFixtures/meta-2026-09'
+D = 'SWUSim/Tests/BotFixtures/ash-meta-2026-09'
 def style(p):
     for line in open(p):
         if line.startswith('# Style:'):

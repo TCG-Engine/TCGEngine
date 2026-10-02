@@ -3,7 +3,9 @@
 #   https://melee.gg/Decklist/View/cba6340b-a26b-4cd3-8dac-b4bc0178bbda — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard in the Sideboard section)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (16 entries).
 # Archetype (owner's label): Burn (soft aggro: indirect + effect damage to the base)
-# Style: softaggro
+#   Relabelled hyper aggro by the owner 2026-10-01: "Boba LC with 18 burn cards should be hyper aggro" — a list
+#   that heavy in burn is racing the base, not playing a less all-in aggro.
+# Style: hyperaggro
 # Flavours: burn
 
 Leader

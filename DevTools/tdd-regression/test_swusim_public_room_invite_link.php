@@ -68,7 +68,7 @@ function fixture($rel) {
 }
 
 $TWINSUNS = fixture('twinsuns_deck_a.txt');
-$PREMIER  = fixture('meta-2026-09/darth-vader_jtl_yellow.txt');
+$PREMIER  = fixture('ash-meta-2026-09/darth-vader_jtl_yellow.txt');
 $bot1 = login('claudebot1');
 $bot2 = login('claudebot2');
 $bot3 = login('claudebot3');

@@ -18,6 +18,9 @@
 #// P1 plays Qui-Gon and takes the discard. Correct end state: exactly one action was used, so it is
 #// P2's turn. TURNPLAYER:1 here means the reported extra action is real.
 
+#// ⚠ ANSWER SHAPE (2026-10-01): Qui-Gon's look is ONE REVEALARRANGE step ("keptTopFirst|discarded", discard
+#//   limit 1) since "put the rest back on top in any order" was implemented — `SOR_046,SEC_080|SOR_095` = discard the top card,
+#//   keep the rest in deck order (what the old `myTempZone-0` answer did).
 ## GIVEN
 CommonSetup: yyk/bbw/{myResources:6}
 WithActivePlayer: 1
@@ -27,7 +30,7 @@ WithP2Deck: [SOR_095 SOR_046 SEC_080]
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:SOR_046,SEC_080|SOR_095
 
 ## EXPECT
 TURNPLAYER:2
@@ -106,7 +109,7 @@ WithP2Deck: [SOR_095 SOR_046 SEC_080]
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:SOR_046,SEC_080|SOR_095
 
 ## EXPECT
 TURNPLAYER:2
@@ -133,7 +136,7 @@ WithP2Deck: [SOR_095 SOR_046 SEC_080]
 ## WHEN
 - P1>PlayHand:0
 - P1>SimulateRequestBoundary
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:SOR_046,SEC_080|SOR_095
 
 ## EXPECT
 TURNPLAYER:2
@@ -160,7 +163,7 @@ WithP1Deck: [SOR_095 SOR_046 SEC_080 SOR_128 SOR_237]
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:SOR_046,SEC_080|SOR_095
 
 ## EXPECT
 SEATCOUNT:4
