@@ -1,0 +1,12 @@
+[
+    {"step":4,"type":"flash_message_contains","value":"Invalid selection","semantic":true,"label":"The engine rejects the never-offered floating payment with an Invalid selection message"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"WI2owxIw0z","semantic":true,"label":"The rejected answer did not complete the level-up: the champion is still Mordred, Flawless Blade"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The never-offered Dungeon Guide (no floating memory) stays in the graveyard"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Graveyard-1","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"The only legal floating card (Striking Tides) is untouched"},
+    {"step":4,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":0,"semantic":true,"label":"Nothing was banished by the rejected answer"},
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"Both memory cards are still unspent"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"XPl2UAO9se","semantic":true,"label":"The floating-payment prompt was still pending: the legal answer completes the level-up into Mordred, Aurelian Regent"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"Striking Tides (the offered attack card) was banished as the floating payment"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The Dungeon Guide (no floating memory) is still in the graveyard"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

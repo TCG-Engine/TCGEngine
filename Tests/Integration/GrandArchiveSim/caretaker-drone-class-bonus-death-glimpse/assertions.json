@@ -1,4 +1,5 @@
 [
-    {"step":6,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"urfp66pv4n","semantic":true,"label":"Caretaker Drone was sacrificed to Undeniable Truth's cost"},
-    {"step":6,"type":"decision_queue_empty","player":"all"}
+    {"step":3,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"Caretaker Drone's On Death Glimpse 4 only looks and reorders -- the 5-card deck is intact once the rearrange is answered with the offered cards"},
+    {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"urfp66pv4n","semantic":true,"label":"Caretaker Drone was sacrificed to Undeniable Truth's cost"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
 ]

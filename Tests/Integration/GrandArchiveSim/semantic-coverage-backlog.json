@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-02T19:09:30+00:00",
+    "generatedAt": "2026-10-02T19:44:30+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 610,
@@ -39862,13 +39862,13 @@
             ],
             "existingFixtures": [
                 "mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup",
-                "mordred-flawless-blade-floating-payment-accepts-non-floating-card",
+                "mordred-flawless-blade-floating-payment-rejects-non-floating-card",
                 "mordred-flawless-blade-non-attack-card-in-graveyard-does-not-float",
                 "mordred-flawless-blade-opponent-blade-makes-my-graveyard-attack-cards-float"
             ],
             "semanticFixtures": [
                 "mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup",
-                "mordred-flawless-blade-floating-payment-accepts-non-floating-card",
+                "mordred-flawless-blade-floating-payment-rejects-non-floating-card",
                 "mordred-flawless-blade-non-attack-card-in-graveyard-does-not-float",
                 "mordred-flawless-blade-opponent-blade-makes-my-graveyard-attack-cards-float"
             ],
@@ -42439,10 +42439,12 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "idle-thoughts-glimpse-4"
+                "idle-thoughts-glimpse-4",
+                "idle-thoughts-glimpse-4-rejects-forged-rearrange"
             ],
             "semanticFixtures": [
-                "idle-thoughts-glimpse-4"
+                "idle-thoughts-glimpse-4",
+                "idle-thoughts-glimpse-4-rejects-forged-rearrange"
             ],
             "starterDecks": [
                 "Ciel, Mirage's Grave",

@@ -3179,7 +3179,7 @@ DECK,
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'ToHand=acmde97dbu;Reveal=acmde97dbu,acmde97dbu,acmde97dbu,acmde97dbu;', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'ToHand=acmde97dbu;Reveal=acmde97dbu,acmde97dbu,acmde97dbu;', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -6304,6 +6304,43 @@ DECK,
     ],
 ];
 
+// --- Idle Thoughts: Glimpse 4 -- a forged MZREARRANGE answer (unoffered / dropped / duplicated cards) is rejected ---
+// Idle Thoughts glimpses 4 ("Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom="). ENGINE BUG (found
+// and FIXED alongside the MZMULTICHOOSE one): GameValidateDecisionAnswer() (Custom/GameLogic.php) skipped
+// MZREARRANGE too, so GlimpseApply rebuilt the deck from whatever card ids the client sent -- unoffered
+// ids silently deleted the four glimpsed cards (the answer's ids matched nothing in the deck), and the
+// apply paths that build cards from ids (new Deck($cid)) could create cards from nothing. The answer must
+// now contain exactly the offered card ids (any arrangement across the offered piles). Three illegal
+// answers are rejected, the prompt stays pending, and a legal reordering still resolves.
+$fixtures['idle-thoughts-glimpse-4-rejects-forged-rearrange'] = [
+    'testedCards' => ['rWhFC8XBaH'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rWhFC8XBaH'], // Idle Thoughts, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1-reserve cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=ZZZZZZZZZZ,ZZZZZZZZZZ,ZZZZZZZZZZ,ZZZZZZZZZZ;Bottom=', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'Card ids that were never glimpsed are rejected'],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'An answer that drops three of the four glimpsed cards is rejected'],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'An answer that duplicates a glimpsed card (five cards for four) is rejected'],
+        // The prompt is still pending: a legal reordering (Fairy Whispers to the front, one Dungeon Guide to the bottom) resolves.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=n8wyfG9hbY,em6eEh9q8y,em6eEh9q8y;Bottom=em6eEh9q8y', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // --- Devoted Bloomweaver: [Class Bonus] On Enter, Empower 2 ---
 $fixtures['devoted-bloomweaver-class-bonus-empower'] = [
     'testedCards' => ['yqm3l6lbns'],
@@ -9115,11 +9152,11 @@ DECK,
     'actions' => [
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Caretaker Drone as the mandatory cost
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        // MZREARRANGE response: keep original order (same no-op default as idle-thoughts-glimpse-4).
+        // MZREARRANGE response (Glimpse 4 On Death): keep original order, answered with exactly the
+        // offered cards (same no-op default as idle-thoughts-glimpse-4). Undeniable Truth's own
+        // reserve payment (myHand-0) follows.
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -10962,7 +10999,7 @@ DECK,
     'actions' => [
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1-reserve cost
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=n8wyfG9hbY,px60u5n1do,n8wyfG9hbY,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -11033,7 +11070,7 @@ DECK,
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         // MZREARRANGE response: this decision only exists because the effective level is 1, not the
         // default 0 -- proof that Rai, Storm Seer's static bonus is applying.
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,n8wyfG9hbY,em6eEh9q8y,px60u5n1do;Bottom=', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -18619,7 +18656,7 @@ DECK,
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         // Glimpse 1: put the single glimpsed card back on top (MZREARRANGE echoes it back).
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=XOevViFTB3;Bottom=', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -22709,17 +22746,17 @@ $fixtures['mordred-flawless-blade-opponent-blade-makes-my-graveyard-attack-cards
     ],
 ];
 
-// --- Mordred, Flawless Blade: the floating-payment choice accepts a card that has NO floating memory (engine bug) ---
+// --- Mordred, Flawless Blade: the floating-payment choice rejects a card that has NO floating memory (engine bug, FIXED) ---
 // Mordred, Flawless Blade (WI2owxIw0z): only attack cards in the graveyard have floating memory, and
-// the floating payment prompt offers just those. ENGINE BUG (found, confirmed live, NOT fixed): the
-// prompt is an MZMULTICHOOSE ("0|1|myGraveyard-1") and GameValidateDecisionAnswer()
-// (Custom/GameLogic.php) only validates MZCHOOSE/MZMAYCHOOSE answers against the candidate pool, so
-// an answer that was never offered is passed straight to the PAYFLOATING handler. Same setup as
-// mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup, but the answer is the
-// Dungeon Guide (myGraveyard-0), which was NOT offered and has no floating memory: the engine banishes
-// it as a floating payment and the level-up completes. The REGRESSION GUARD assertions pin that
-// outcome (rules-correct: the answer is rejected and the prompt stays pending).
-$fixtures['mordred-flawless-blade-floating-payment-accepts-non-floating-card'] = [
+// the floating payment prompt offers just those. The prompt is an MZMULTICHOOSE ("0|1|myGraveyard-1").
+// ENGINE BUG (found and FIXED): GameValidateDecisionAnswer() (Custom/GameLogic.php) used to validate only
+// MZCHOOSE/MZMAYCHOOSE answers against the candidate pool, so an answer that was never offered was
+// passed straight to the PAYFLOATING handler. Same setup as
+// mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup, but the first answer is the
+// Dungeon Guide (myGraveyard-0), which was NOT offered and has no floating memory: it is now rejected
+// (nothing banished, level-up not completed) and the prompt stays pending, so the follow-up legal
+// answer (Striking Tides, myGraveyard-1) completes the level-up.
+$fixtures['mordred-flawless-blade-floating-payment-rejects-non-floating-card'] = [
     'testedCards' => ['WI2owxIw0z'],
     'deck' => $mordredDeck,
     'setup' => [
@@ -22733,7 +22770,8 @@ $fixtures['mordred-flawless-blade-floating-payment-accepts-non-floating-card'] =
         mrdEnd(1), // end player 1 turn 1
         mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
         mrdAns(1, 'myMaterial-3'), // start the level-up into Mordred, Aurelian Regent (memory cost 3)
-        mrdAns(1, 'myGraveyard-0'), // answer with the Dungeon Guide, which was never offered
+        mrdAns(1, 'myGraveyard-0', ['expectFailure' => true, 'semantic' => true, 'label' => 'The Dungeon Guide was never offered (and has no floating memory): answering the floating-payment MZMULTICHOOSE with it is rejected']),
+        mrdAns(1, 'myGraveyard-1'), // the prompt is still pending: the legal floating card (Striking Tides) completes the level-up
     ],
 ];
 

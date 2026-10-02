@@ -1,0 +1,28 @@
+{
+    "name": "idle-thoughts-glimpse-4-rejects-forged-rearrange",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T21:00:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "rWhFC8XBaH"
+    ],
+    "notes": "Idle Thoughts (rWhFC8XBaH): Glimpse 4 offers an MZREARRANGE (\"Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=\"). ENGINE BUG (found and FIXED together with the MZMULTICHOOSE bug, see mordred-flawless-blade-floating-payment-rejects-non-floating-card): GameValidateDecisionAnswer() (Custom/GameLogic.php) only validated MZCHOOSE/MZMAYCHOOSE, so any MZREARRANGE answer reached GlimpseApply. Confirmed live before the fix with a temporary trace + throwaway fixture: answering 'Top=ZZZZZZZZZZ,ZZZZZZZZZZ;Bottom=zzzzzzzzzz' was accepted and the four glimpsed cards vanished from the deck (the unoffered ids matched nothing, so the glimpsed cards were never re-inserted: 5 cards -> 1). Handlers that build cards from ids (IgnitionDrawRearrangeApply and the tempzone path of GlimpseApply use new Deck($cid)) could instead create cards from nothing. Now an answer must use only offered piles and contain exactly the offered multiset of card ids. This fixture submits three illegal answers (unoffered ids / three cards dropped / one card duplicated), all rejected with the prompt still pending, then a legal reordering (n8wyfG9hbY first, one Dungeon Guide to the bottom) that resolves and leaves the 5-card deck intact. The pregame glimpse of Flawless Spirit of Mordred (flawless-spirit-of-mordred-enter-draw-seven-glimpse-four) is the same MZREARRANGE decision type and went through the same hole; its own answers are legal and still pass.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rWhFC8XBaH"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Glimpse N: look at the top N cards of your deck, then put any number of them on the top or bottom of your deck in any order -- no card may be added, removed or duplicated."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "MZREARRANGE (glimpse) answers were never validated: forged card ids were accepted and the glimpsed cards were silently deleted from (or fabricated into) the deck.",
+        "affectedFunction": "Custom/GameLogic.php GameValidateDecisionAnswer() (-> GAValidateRearrangeAnswer)",
+        "fixedIn": "fix(GrandArchiveSim): validate MZMULTICHOOSE and MZREARRANGE decision answers"
+    }
+}

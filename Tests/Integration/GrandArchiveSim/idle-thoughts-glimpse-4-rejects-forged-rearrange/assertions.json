@@ -1,0 +1,11 @@
+[
+    {"step":3,"type":"flash_message_contains","value":"Invalid selection","semantic":true,"label":"The forged rearrange (never-glimpsed card ids) is rejected with Invalid selection"},
+    {"step":3,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"The rejected forged answer did not delete the glimpsed cards: the deck still has all 5 cards"},
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"An answer that drops glimpsed cards is rejected: the deck still has all 5 cards"},
+    {"step":5,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"An answer that duplicates a glimpsed card is rejected: no card was created, the deck still has 5 cards"},
+    {"step":6,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"Glimpse 4 only looks and reorders -- deck count is unchanged after the legal answer"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Deck-0","property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"The legal reordering put Fairy Whispers on top of the deck"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Deck-4","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The legal reordering put a Dungeon Guide on the bottom of the deck"},
+    {"step":6,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Idle Thoughts itself resolves to the graveyard"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

@@ -52,5 +52,14 @@
         "zone": "myMemory",
         "viewerPlayerID": 1,
         "value": 1
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Glimpse 4 only looks and reorders -- answering the rearrange with exactly the offered cards leaves the 5-card deck intact"
     }
 ]

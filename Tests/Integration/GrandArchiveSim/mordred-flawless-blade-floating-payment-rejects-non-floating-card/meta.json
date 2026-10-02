@@ -1,0 +1,31 @@
+{
+    "name": "mordred-flawless-blade-floating-payment-rejects-non-floating-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:23+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "WI2owxIw0z"
+    ],
+    "notes": "Mordred, Flawless Blade (WI2owxIw0z): only attack cards in the graveyard have floating memory, and the floating payment prompt offers just those. The prompt is an MZMULTICHOOSE (\"0|1|myGraveyard-1\"). ENGINE BUG (found and FIXED): GameValidateDecisionAnswer() (Custom/GameLogic.php) used to validate only MZCHOOSE/MZMAYCHOOSE answers against the candidate pool, so an answer that was never offered was passed straight to the PAYFLOATING handler. Same setup as mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup, but the first answer is the Dungeon Guide (myGraveyard-0), which was NOT offered and has no floating memory. It is now rejected (expectFailure, 'Invalid selection', nothing banished, the level-up does not complete) and the prompt stays pending: the follow-up legal answer (Striking Tides, myGraveyard-1) completes the level-up. History: before the fix this fixture was named ...-accepts-non-floating-card and its REGRESSION GUARD assertions pinned the buggy outcome (the Dungeon Guide banished, Striking Tides left in the graveyard, level-up completed).",
+    "semanticCoverage": {
+        "testedCards": [
+            "WI2owxIw0z"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Only a card WITH floating memory may be banished as a floating payment."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "The floating-payment prompt (an MZMULTICHOOSE such as '0|1|myGraveyard-1') was not validated: GameValidateDecisionAnswer() (Custom/GameLogic.php) only checked MZCHOOSE/MZMAYCHOOSE answers against the candidate pool, so an answer that was never offered (a Dungeon Guide with no floating memory) was passed to the PAYFLOATING handler and banished as a floating payment.",
+        "affectedFunction": "Custom/GameLogic.php GameValidateDecisionAnswer() (-> GAValidateMultiChooseAnswer / GAValidateRearrangeAnswer)",
+        "verification": "Root cause confirmed live with a temporary error_log trace (restored afterwards): GameValidateDecisionAnswer logged type=MZMULTICHOOSE param=0|1|myGraveyard-1 answer=myGraveyard-0 and let it through. After the fix the illegal answer is rejected ('Invalid selection.') while the legitimate floating payments (Flawless Blade, Dredging Streams, ...) stay green. Break check: temporarily skipping the MZMULTICHOOSE branch turns this fixture red again (step 4 unexpectedly succeeded).",
+        "fix": "GameValidateDecisionAnswer() now validates MZMULTICHOOSE via GAValidateMultiChooseAnswer(): every '&'-joined mzID must be a distinct offered candidate (GAAnswerMatchesChoiceSpecs, the same matcher MZCHOOSE/MZMAYCHOOSE use), count <= max, and count >= min unless the prompt could not offer min live candidates. PASS / '-' / '' still pass (optional-prompt decline). The same hole let MZREARRANGE (glimpse) answers carry unoffered card ids; it is now validated too via GAValidateRearrangeAnswer() (offered piles only, exactly the offered multiset of card ids).",
+        "fixedIn": "fix(GrandArchiveSim): validate MZMULTICHOOSE and MZREARRANGE decision answers"
+    }
+}

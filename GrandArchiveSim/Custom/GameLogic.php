@@ -16,12 +16,17 @@ include_once __DIR__ . '/MaterializeLogic.php';
 include_once __DIR__ . '/PotionLogic.php';
 include_once __DIR__ . '/CardDQHandlers.php';
 
-// Validate an interactive board-zone answer against the pending decision's
-// candidate pool. The browser restricts clicks to that pool, but an action
-// request is still untrusted: without this check a client could pass any mzID
-// to a CUSTOM continuation and target a champion with an ally-only effect.
-// PASS remains valid for optional MZMAYCHOOSE decisions; mandatory-choice
-// decline behavior is intentionally left unchanged for compatibility.
+// Validate an interactive answer against the pending decision's offered choices.
+// The browser restricts clicks to that pool, but an action request is still untrusted:
+// without this check a client could pass any mzID to a CUSTOM continuation and target a
+// champion with an ally-only effect, banish a never-offered card as a floating payment, or
+// forge a glimpse rearrange that invents or deletes cards.
+//   MZCHOOSE / MZMAYCHOOSE  one mzID that is an offered candidate
+//   MZMULTICHOOSE           "min|max|specs": distinct offered candidates, min <= count <= max
+//   MZREARRANGE             "Pile=ids;Pile=ids": offered piles only, exactly the offered card ids
+// PASS / "-" / "" stay valid for every type (optional-prompt decline, and the engine's
+// auto-decline when no candidate is left); mandatory-choice decline behavior is intentionally
+// left unchanged for compatibility.
 function GameValidateDecisionAnswer(int $player, string $answer): bool {
     if ($answer === 'PASS' || $answer === '-' || $answer === '') return true;
 
@@ -34,9 +39,15 @@ function GameValidateDecisionAnswer(int $player, string $answer): bool {
     }
     if ($head === null) return true;
     $type = strval($head->Type ?? '');
+    if ($type === 'MZMULTICHOOSE') return GAValidateMultiChooseAnswer(strval($head->Param ?? ''), $answer);
+    if ($type === 'MZREARRANGE') return GAValidateRearrangeAnswer(strval($head->Param ?? ''), $answer);
     if ($type !== 'MZCHOOSE' && $type !== 'MZMAYCHOOSE') return true;
+    return GAAnswerMatchesChoiceSpecs(strval($head->Param ?? ''), $answer);
+}
 
-    foreach (explode('&', strval($head->Param ?? '')) as $rawSpec) {
+// Is $answer one of the candidates named by an "&"-delimited spec list ("myHand&myField-1:filter")?
+function GAAnswerMatchesChoiceSpecs(string $specList, string $answer): bool {
+    foreach (explode('&', $specList) as $rawSpec) {
         $spec = explode(':', $rawSpec)[0];
         if ($spec === '') continue;
         // A bare zone spec (for example myHand — a plain zone name and nothing else) permits
@@ -54,6 +65,91 @@ function GameValidateDecisionAnswer(int $player, string $answer): bool {
         if ($answer === $spec) return true;
     }
     return false;
+}
+
+// Number of live objects a spec list currently offers (explicit mzIDs and bare zones).
+function GACountLiveChoiceCandidates(string $specList): int {
+    $count = 0;
+    foreach (explode('&', $specList) as $rawSpec) {
+        $spec = explode(':', $rawSpec)[0];
+        if ($spec === '') continue;
+        if (preg_match('/^(my|their)[A-Za-z]+$/', $spec)) {
+            $zone = GetZone($spec);
+            if (!is_array($zone)) continue;
+            foreach ($zone as $object) {
+                if ($object !== null && empty($object->removed)) ++$count;
+            }
+            continue;
+        }
+        $object = MZResolveObject($spec);
+        if ($object !== null && empty($object->removed)) ++$count;
+    }
+    return $count;
+}
+
+// MZMULTICHOOSE answer: "mz1&mz2&..." against Param "min|max|spec1&spec2&...". Every pick must be
+// a distinct offered candidate, at most max, and at least min unless the prompt could not offer
+// min live candidates (then taking all of them is legal).
+function GAValidateMultiChooseAnswer(string $param, string $answer): bool {
+    $parts = explode('|', $param, 3);
+    if (count($parts) < 3) return true; // not the min|max|specs shape; nothing to check against
+    $specList = $parts[2];
+    $picked = [];
+    foreach (explode('&', $answer) as $mz) {
+        if ($mz === '') continue;
+        if (isset($picked[$mz])) return false;
+        if (!GAAnswerMatchesChoiceSpecs($specList, $mz)) return false;
+        $picked[$mz] = true;
+    }
+    $count = count($picked);
+    $min = is_numeric($parts[0]) ? max(0, intval($parts[0])) : 0;
+    $max = is_numeric($parts[1]) ? max(0, intval($parts[1])) : null;
+    if ($max !== null && $count > $max) return false;
+    if ($max !== null) $min = min($min, $max);
+    if ($count < $min && $count < GACountLiveChoiceCandidates($specList)) return false;
+    return true;
+}
+
+// Split a rearrange string ("Top=a,b;Bottom=c" / "ToHand=;Reveal=x") into [pile => [ids]].
+// Returns null when a pile name repeats. "@select=" metadata and a "Selected=" prefix are skipped.
+function GAParseRearrangePiles(string $value): ?array {
+    $piles = [];
+    foreach (explode(';', $value) as $pileStr) {
+        $pileStr = trim($pileStr);
+        if ($pileStr === '' || str_starts_with($pileStr, '@select=')) continue;
+        $eq = strpos($pileStr, '=');
+        $name = trim($eq === false ? $pileStr : substr($pileStr, 0, $eq));
+        if ($name === 'Selected') continue;
+        if (isset($piles[$name])) return null;
+        $ids = [];
+        if ($eq !== false) {
+            foreach (explode(',', substr($pileStr, $eq + 1)) as $id) {
+                $id = trim($id);
+                if ($id !== '') $ids[] = $id;
+            }
+        }
+        $piles[$name] = $ids;
+    }
+    return $piles;
+}
+
+// MZREARRANGE answer: only offered piles, and every offered card id exactly once (no card
+// invented, none dropped, none duplicated) — the apply handlers rebuild the deck/hand from these
+// ids, so a forged answer would otherwise create cards from nothing or silently delete them.
+function GAValidateRearrangeAnswer(string $param, string $answer): bool {
+    $offered = GAParseRearrangePiles($param);
+    $given = GAParseRearrangePiles($answer);
+    if ($offered === null || $given === null) return false;
+    foreach ($given as $name => $ids) {
+        // An empty pile the prompt never offered carries no cards, so it is harmless; a card in
+        // an unoffered pile is not.
+        if (!array_key_exists($name, $offered) && !empty($ids)) return false;
+    }
+    $offeredIds = array_merge([], ...array_values($offered));
+    $givenIds = array_merge([], ...array_values($given));
+    sort($offeredIds);
+    sort($givenIds);
+    return $offeredIds === $givenIds;
 }
 
 function NormalizeGoldfishPlayers($players) {

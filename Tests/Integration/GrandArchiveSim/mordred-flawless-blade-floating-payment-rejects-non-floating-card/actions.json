@@ -29,6 +29,17 @@
         "buttonInput": "",
         "cardID": "myGraveyard-0",
         "chkInput": [],
+        "inputText": "",
+        "expectFailure": true,
+        "semantic": true,
+        "label": "The Dungeon Guide was never offered (and has no floating memory): answering the floating-payment MZMULTICHOOSE with it is rejected"
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myGraveyard-1",
+        "chkInput": [],
         "inputText": ""
     }
 ]

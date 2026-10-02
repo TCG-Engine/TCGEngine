@@ -43,5 +43,14 @@
         "value": "SHATTERED_HOPE_SHEEN",
         "semantic": true,
         "label": "The applied global effect is Shattered Hope's own sheen-on-enter effect"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Glimpse 1 only looks and reorders (answered with the offered card), then one card is drawn: 9 - 1 = 8 cards left in the deck"
     }
 ]
