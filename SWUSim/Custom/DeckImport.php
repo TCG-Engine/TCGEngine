@@ -35,7 +35,7 @@ function SWUResolveToImplementedPrint($cardID) {
 /**
  * Validate a deck link or paste without fully loading the deck.
  */
-function SWUValidateDeckForQueue($deckLink, $preconstructedDeck = '') {
+function SWUValidateDeckForQueue($deckLink, $preconstructedDeck = '', $formatId = 'premier') {
     $input = trim($deckLink) !== '' ? trim($deckLink) : $preconstructedDeck;
     if ($input === '') {
         return ['success' => false, 'message' => 'No deck provided.'];
@@ -53,12 +53,15 @@ function SWUValidateDeckForQueue($deckLink, $preconstructedDeck = '') {
         return ['success' => false, 'message' => 'Deck is missing a base.'];
     }
 
-    // Structural minimum (base may modify it; same modifiers as ValidateDeck.php).
-    // Format-specific legality (legal sets, banlist, copy limits) is layered on later.
-    $minDeck = 50;
-    $baseModifiers = ['JTL_024' => +10, 'JTL_025' => -5];
-    if (isset($baseModifiers[$resolved['base']])) {
-        $minDeck += $baseModifiers[$resolved['base']];
+    // Deck-size floor comes from the FORMAT (base may modify it). This used to be a hardcoded 50,
+    // which refused every short list in Open / Goldfish / Hotseat / Arenabot — formats that enforce
+    // no deck size at all — and under-checked Twin Suns (80). An unrestricted format has minDeck 0
+    // and no deck-size modifiers. Other legality (sets, banlist, copies) is layered on later.
+    $fmt = SWUGetFormat($formatId) ?? SWUGetFormat('premier');
+    $minDeck = $fmt['minDeck'];
+    $baseCanon = CardIDOverride($resolved['base']);
+    if (isset($fmt['deckSizeModifiers'][$baseCanon])) {
+        $minDeck += $fmt['deckSizeModifiers'][$baseCanon];
     }
     $deckSize = is_array($resolved['mainDeck']) ? count($resolved['mainDeck']) : 0;
     if ($deckSize < $minDeck) {

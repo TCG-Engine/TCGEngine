@@ -31,8 +31,8 @@ https://melee.gg/Decklist/View/a8cf1f9c-221d-4b4a-8dbf-b4c300d076c3 | Lando blue
 
 
 Twin Suns:
-https://swudb.com/deck/kWzBQPfCopFMV|combo control deck. relies on flipping Jabba first, then flipping Qi'ra to deal at least 4 damage to anything already softened
-https://swudb.com/deck/oNDdHLCHkyz|double arena aggro. Kylo on the ground. Vonreg in space.
+https://swustats.net/deck/bCuuzuITERyJ|combo control deck. relies on flipping Jabba first, then flipping Qi'ra to deal at least 4 damage to anything already softened
+https://swustats.net/deck/tKJwemDGbLRf|double arena aggro. Kylo on the ground. Vonreg in space.
 https://swudb.com/deck/UENBLWzTHT|two Cads. tempo aggro
 https://swudb.com/deck/jVTCfqAe|tribal Mandalorian deck
 

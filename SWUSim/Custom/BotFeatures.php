@@ -262,6 +262,25 @@ const SWU_BOT_PART18_FEATURES = ['doomedsac', 'unusedsac'];
 // SHIPPED on the owner's request, not on an A/B. Guard: SWUSim/DevTools/tests/bot_weakness_test.php.
 const SWU_BOT_PART19_FEATURES = ['weakness'];
 
+// Part 20 (2026-10-02): owner rulings from Ninin's Ahsoka Yellow (ASH_009) Karabast games.
+// 'buffspread' — a Support leader's flip turn SPREADS its "+N for this phase" buffs so every one lands on a unit that
+//   still attacks: "+2 Raid from the Naboo ship onto the Supported unit, +2 from Jar Jar to this or another unit, +2
+//   Supported attack buffs someone else (or Ahsoka), then +2 Raid from Ahsoka attacking and another +2 on her own On
+//   Attack" — a +10 turn. Concretely:
+//     · while my Support attack is still pending, a friendly phase buff (SEC_111 Jar Jar's +2/+2 off Plot) goes on the
+//       unit that will MAKE the Support attack, never on the leader: its borrowed "less power than this unit" On Attack
+//       then reaches the leader (a 2-power unit + 2 + the Starship's lent Raid 2 = 6 > Ahsoka's 5);
+//     · the Support attacker is that same planned unit;
+//     · the Supported unit's borrowed buff goes on the leader (she attacks next), else a ready unit;
+//     · an arena with an enemy SENTINEL is where buffs are wasted — attacks there cannot reach the base — so the plan and
+//       every buff go to the clear arena (usually space, where this deck goes wide), the leader included.
+//   Measured on a thin board (one other unit): the bot buffed Ahsoka with Jar Jar, so the Supported attack's +2 had no
+//   attacker left and fell on the just-played, exhausted Jar Jar. Guard: SWUSim/DevTools/tests/bot_buffspread_test.php.
+// 'readyhost' — an upgrade that attacks with its host when played ('grants-attack': JTL_203 Han Solo's Piloting, SOR_215 /
+//   SHD_223 Snapshot Reflexes, SHD_174 Hotshot DL-44) goes on a READY host: an exhausted one cannot attack, so the play's
+//   attack is thrown away. Han piloted an exhausted T-6 Shuttle over a ready Mando's N-1. Guard: bot_readyhost_test.php.
+const SWU_BOT_PART20_FEATURES = ['buffspread', 'readyhost'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
@@ -270,7 +289,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES);   // part 2, then 3-19
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES);   // part 2, then 3-20
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -285,7 +304,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,

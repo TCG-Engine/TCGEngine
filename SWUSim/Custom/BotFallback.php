@@ -369,6 +369,14 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         return $s ?? -$index * 1e-6;
     }
     if ($type === 'TOPDECKSEARCH' && $tip === 'Search_top_cards' && SWUBotFeatureOn('picks')) return _SWUBotSearchScore($seat, $c, $W);
+    // Part 20 'buffspread': a Support leader's flip turn — who makes the Support attack, and where its phase buffs go.
+    if ($onBoard && SWUBotFeatureOn('buffspread')) {
+        if ($head === 'SWUSupportChooseAttacker') {
+            $v = SWUBotViewForMz($seat, $c);
+            return $v === null ? -$index * 1e-6 : _SWUBotSupportAttackerScore($seat, $v);
+        }
+        if ($head === 'APPLY_PHASE_BUFF' && ($s = _SWUBotBuffSpreadScore($ctx, $seat, $c)) !== null) return $s;
+    }
     $hostile = $effect === 'hostile';
     if (($hostile || $effect === 'beneficial') && $onBoard) {
         // An UPGRADE candidate ("Defeat an upgrade", SEC_163 Outer Rim Constable): whose it is decides the SIGN.
@@ -1292,7 +1300,80 @@ function _SWUBotAttachScore(int $seat, string $mz, string $upgradeID, array $W):
         || (SWUBotFeatureOn('targeting2') && preg_match('/loses all (other )?abilities|gets -\d+\/-\d+/i', strval(CardText($upgradeID))));
     if ($harmful) return $enemy ? SWUBotUnitValue($v) : -SWUBotUnitValue($v);
     if ($enemy) return -SWUBotUnitValue($v);
-    return $v['attackPower'] + ($v['ready'] ? $W['ready'] : 0.0) + 0.1 * SWUBotUnitValue($v);
+    // Part 20 'readyhost': "When played: attack with attached unit" — only a READY host can make that attack, worth what
+    // it hits for with the upgrade on. An exhausted host gets nothing from it (JTL_203 Han Solo went on an exhausted T-6).
+    $attack = (SWUBotFeatureOn('readyhost') && $v['ready'] && in_array('grants-attack', SWUBotCardTags($upgradeID), true))
+        ? 1.0 + $v['attackPower'] + max(0, intval(CardUpgradePower($upgradeID))) : 0.0;
+    return $v['attackPower'] + ($v['ready'] ? $W['ready'] : 0.0) + 0.1 * SWUBotUnitValue($v) + $attack;
+}
+
+// ── Part 20 'buffspread' — a Support leader's flip turn (owner rulings 2026-10-02, Ahsoka ASH_009) ──────────────────
+// Arenas where an attack cannot reach a base: some opponent has a Sentinel there (exhausted ones still guard).
+function _SWUBotBlockedArenas(int $seat): array {
+    $out = ['Ground' => false, 'Space' => false];
+    foreach (SWUBotOpponents($seat) as $opp) {
+        foreach (_SWUBotSentinelArenas($opp) as $arena => $has) if ($has) $out[$arena] = true;
+    }
+    return $out;
+}
+
+// My Support attack is still to come: a live Support trigger of mine on the effect stack.
+function _SWUBotSupportPending(int $seat): bool {
+    foreach (GetEffectStack() as $e) {
+        if (empty($e->removed) && strval($e->TriggerType ?? '') === 'Support' && intval($e->Controller ?? 0) === $seat) return true;
+    }
+    return false;
+}
+
+// The unit that should make the Support attack: a ready non-leader unit ("another unit"), in an arena that reaches the
+// base if any does, the strongest attacker there (Raid is lent to whoever it is, so it never changes the pick).
+function _SWUBotSupportPlanUid(int $seat): int {
+    $blocked = _SWUBotBlockedArenas($seat);
+    $best = null; $bestKey = null;
+    foreach (SWUBotUnits($seat) as $v) {
+        if (!$v['ready'] || $v['isLeader']) continue;
+        $key = [$blocked[$v['arena']] ? 0 : 1, $v['attackPower'], $v['remaining'], -$v['uid']];
+        if ($bestKey === null || $key > $bestKey) { $best = $v; $bestKey = $key; }
+    }
+    return $best === null ? 0 : $best['uid'];
+}
+
+function _SWUBotSupportAttackerScore(int $seat, array $v): float {
+    if ($v['uid'] === _SWUBotSupportPlanUid($seat)) return 10.0;
+    return (_SWUBotBlockedArenas($seat)[$v['arena']] ? 0.1 : 1.0) * (1.0 + 0.1 * $v['attackPower']);
+}
+
+// A friendly "+N for this phase" during the flip turn, or null when this is not one (the ordinary scoring decides).
+//  · the Support attack is still pending (Jar Jar's Plot): the planned Support attacker, never the leader;
+//  · the Supported unit's borrowed On Attack (the source is a leader card, the attacker is not a leader): the leader;
+//  · the leader's own On Attack: any ready unit that still attacks.
+// Everywhere: a buff on an exhausted unit (other than the one attacking now) or on a unit in a Sentinel-blocked arena is
+// wasted, so it scores at the bottom of the candidates.
+function _SWUBotBuffSpreadScore(array $ctx, int $seat, string $c): ?float {
+    if (!preg_match('/^(my|p\d+)(GroundArena|SpaceArena)-\d+$/', $c)) return null;
+    $v = SWUBotViewForMz($seat, $c);
+    if ($v === null || intval($v['controller']) !== $seat) return null;
+    $src = strval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[3] ?? '');
+    $pending = _SWUBotSupportPending($seat);
+    // The attacker of an On Attack prompt rides in the combat resume step ("SWU_TRIGGER_RESUME|1|COMBAT|<attacker>|…"):
+    // _SWUBotDecisionAttacker reads only the attack-target / Ambush prompts and returns null here.
+    $att = _SWUBotDecisionAttacker($ctx);
+    foreach ((array)($ctx['following'] ?? []) as $f) {
+        if ($att === null && preg_match('/^SWU_TRIGGER_RESUME\|\d+\|COMBAT\|([^|]+)\|/', strval($f), $m)) $att = SWUBotViewForMz($seat, $m[1]);
+    }
+    $fromLeader = $src !== '' && stripos(strval(CardType($src)), 'Leader') !== false && $att !== null;
+    if (!$pending && !$fromLeader) return null;
+    $blocked = _SWUBotBlockedArenas($seat)[$v['arena']];
+    $attackingNow = $att !== null && $att['uid'] === $v['uid'];
+    if ((!$v['ready'] && !$attackingNow) || $blocked) return 0.001 + 0.0001 * SWUBotUnitValue($v);   // wasted, but no worse than PASS
+    $score = 1.0 + 0.01 * SWUBotUnitValue($v);
+    if ($pending && !$fromLeader) {
+        if ($v['uid'] === _SWUBotSupportPlanUid($seat)) $score += 10.0;
+        elseif ($v['isLeader']) $score = 0.01;                              // the leader gets hers from the Supported attack
+    } elseif (!$att['isLeader'] && $v['isLeader']) {
+        $score += 10.0;                                                      // the Supported unit buffs the leader: she attacks next
+    }
+    return $score;
 }
 
 // A search's pick ("CardID,CardID"; "" = none): the play value of what it takes, a little more per card.

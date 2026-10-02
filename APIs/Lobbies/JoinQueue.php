@@ -1053,7 +1053,7 @@
       }
 
       try {
-        return SWUValidateDeckForQueue($deckLink, $preconstructedDeck);
+        return SWUValidateDeckForQueue($deckLink, $preconstructedDeck, $format);
       } catch (Throwable $e) {
         error_log('SWUSim queue deck validation failed: ' . $e->getMessage());
         return [

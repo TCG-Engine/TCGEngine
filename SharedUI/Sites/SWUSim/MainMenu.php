@@ -3245,9 +3245,13 @@ window.SYNC_ACTIVE_SETUP = function () {
   var poolFmt = poolSel ? String(poolSel.value || '').trim() : '';
   var fmt = (seg && seg.dataset.format) || poolFmt || modeFormat;
   set('swu-format-select', fmt);
-  // The card pool IS the format for the constructed modals; the local modes have none, and
-  // 'premier' is the legacy default the queue expects there.
-  set('swu-cardpool-input', poolFmt || (dlg.id === 'setup-solo' || dlg.id === 'setup-arenabot' ? 'premier' : fmt));
+  // The card pool IS the format for the constructed modals. Arenabot's modal has no pool picker and
+  // plays Open, so ANY list can be practised — Eternal, Twin Suns, a 1-leader deck vs a 2-leader bot
+  // (owner, 2026-10-02). It used to send 'premier', which refused every non-Premier list with an
+  // error pointing at an Open option the modal does not show. The solo modes have no pool; the server
+  // ignores it there and 'premier' is the legacy value.
+  set('swu-cardpool-input', poolFmt || (dlg.id === 'setup-arenabot' ? 'open'
+                                       : dlg.id === 'setup-solo' ? 'premier' : fmt));
 
   // "Best of 1" -> bo1. Anything else falls back to bo1 rather than sending an unknown value.
   var mt = slug(val('select[id$="-match"]'));
