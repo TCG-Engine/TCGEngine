@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"vi1uyifw6s","semantic":true,"label":"Fated Keepsake (TAMER) was banished from the material deck to pay the ability's own cost"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":6,"semantic":true,"label":"Draw a card resolved (5 after playing Ethereal Slime -> 6)"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"buff\":1}","semantic":true,"label":"Ethereal Slime gets a buff counter for the Tamer card banished"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

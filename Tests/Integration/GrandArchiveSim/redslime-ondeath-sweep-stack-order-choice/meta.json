@@ -8,5 +8,12 @@
         "mttsvbgl6f",
         "Lewf9sfv9m",
         "loSCQzxqi1"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": ["mttsvbgl6f", "Lewf9sfv9m", "loSCQzxqi1"],
+        "mechanics": ["damage", "condition", "trigger"],
+        "rulesClauses": [
+            "[Class Bonus] On Death: Deal damage to all allies equal to CARDNAME's power. (Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
 }

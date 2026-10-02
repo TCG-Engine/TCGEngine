@@ -19407,6 +19407,518 @@ DECK,
     ],
 ];
 
+// --- Spirit of Slime: On Enter: Draw seven cards ---
+$fixtures['spirit-of-slime-enter-draw-seven'] = [
+    'testedCards' => ['0xp4xq07vv'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Slime
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Spirit of Slime's On Enter ability (enterAbilities['0xp4xq07vv:0'], GeneratedCode/
+    // GeneratedMacroCode.php) is a plain Draw($player, 7) -- identical text to Spirit of Fire
+    // (used as the Material-section starting champion in every other fixture in this suite) and
+    // to Spirit of Wind (dedicated coverage: spirit-of-wind-enter-draw-seven). It fires
+    // synchronously inside pregame resolution (PREGAME_CHOOSE_STARTING_CHAMPION's unconditional
+    // Enter() call, Custom/GameLogic.php), so simply swapping the deck's sole Material-section
+    // level-0 champion to Spirit of Slime (instead of Spirit of Fire) and letting the harness's
+    // standard pregame-choice step pick the only legal myMaterial-0 option is enough to fire it
+    // for real. A single harmless click on the resulting champion (myField-0) is kept as the
+    // fixture's one action, mirroring spirit-of-wind-enter-draw-seven's shape so this fixture has
+    // its own dedicated post-action gamestate snapshot.
+    'setup' => [],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Storm Slime: On Enter, as a Spell, deal damage to target unit equal to Slime cards banished ---
+$fixtures['storm-slime-enter-damage-equal-banished-slimes'] = [
+    'testedCards' => ['blqryebvwj'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Storm Slime's On Enter ability (enterAbilities['blqryebvwj:0'] ->
+    // customDQHandlers['blqryebvwj:0:Enter-1'], GeneratedCode/GeneratedMacroCode.php) counts Slime
+    // subtype cards currently in the controller's own banishment zone and deals that much damage
+    // to a chosen unit (an MZCHOOSE target prompt whenever more than one legal unit exists -- both
+    // players' champions always count). Two Red Slime copies (mttsvbgl6f, SLIME subtype) are
+    // seeded directly into myBanish as the damage-count fodder (banishment, not graveyard/field, so
+    // no concern about their own On Death trigger). Storm Slime's element is ARCANE, not native to
+    // the 'Spirit of Fire' starting champion, so the champion's Subcards are patched with a real
+    // ARCANE champion (Lorraine, Arclight Saber) purely to unlock element access. Storm Slime is
+    // played for real from hand via FSM so its Enter trigger genuinely fires; the MZCHOOSE targets
+    // player 2's champion (theirField-0).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]], // ARCANE lineage/element unlock
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'mttsvbgl6f'], // Red Slime, banished #1
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'mttsvbgl6f'], // Red Slime, banished #2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'blqryebvwj'], // Storm Slime, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target player 2's champion
+    ],
+];
+
+// --- Lustrous Slime: On Enter, reveal Slime cards from memory for buff counters ---
+$fixtures['lustrous-slime-enter-reveal-buff'] = [
+    'testedCards' => ['ejvddohjdu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lustrous Slime's On Enter ability (enterAbilities['ejvddohjdu:0'] -> LustrousSlimeEnter() ->
+    // LustrousSlimeRevealLoop()/LustrousSlimeApplyReveals(), Custom/CardDQHandlers.php) repeatedly
+    // offers an MZMAYCHOOSE to reveal one not-yet-chosen Slime-subtype card from memory; once no
+    // more eligible candidates remain it applies AddCounters(..., 'buff', revealCount) in one shot.
+    // One Red Slime (mttsvbgl6f, SLIME subtype) is seeded directly into myMemory as the sole reveal
+    // candidate, so after it's chosen the loop's next pass finds zero remaining targets and applies
+    // exactly 1 buff counter with no further decisions. Lustrous Slime's element is LUXEM, not
+    // native to the 'Spirit of Fire' starting champion, so the champion's Subcards are patched with
+    // a real LUXEM champion (Zander, Blinding Steel) purely to unlock element access. Lustrous
+    // Slime is played for real from hand via FSM so its Enter trigger genuinely fires. Only the
+    // Enter clause is covered; the separate On Death "Recover X equal to buff counters" clause
+    // (allyDestroyedAbilities['ejvddohjdu:0']) is a different trigger and out of scope here.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]], // LUXEM lineage/element unlock
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'mttsvbgl6f'], // Red Slime, the sole reveal candidate
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ejvddohjdu'], // Lustrous Slime, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // reveal the seeded Red Slime from memory
+    ],
+];
+
+// --- Ethereal Slime: [Class Bonus] On Enter, may banish a Tamer card from material for draw+buff ---
+$fixtures['ethereal-slime-class-bonus-enter-banish-tamer-draw-buff'] = [
+    'testedCards' => ['n06zlhihka'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Silvie, With the Pack
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Ethereal Slime's [Class Bonus] On Enter ability (enterAbilities['n06zlhihka:0'] ->
+    // customDQHandlers['n06zlhihka:0:Enter-1'], GeneratedCode/GeneratedMacroCode.php) is gated
+    // behind IsClassBonusActive($player, ['TAMER']); it offers an MZMAYCHOOSE among TAMER-subtype
+    // cards in the controller's own Material deck, and banishing one draws a card and puts a buff
+    // counter on Ethereal Slime. The champion's CardID is patched directly to Silvie, With the
+    // Pack (TAMER) for the Class Bonus; its element is CRUX, not native to the starting champion,
+    // so the champion's Subcards are ALSO patched with a real CRUX champion (Lorraine, Crux
+    // Knight) purely to unlock element access -- same "CardID for class, Subcards for element"
+    // layering used elsewhere (e.g. green-slime-class-bonus-on-leave-transfer-buff). Fated
+    // Keepsake (vi1uyifw6s, REGALIA/ITEM, TAMER subtype) is seeded directly into myMaterial as the
+    // banish target (its own ability is not exercised here). Ethereal Slime is played for real
+    // from hand via FSM so its Enter trigger genuinely fires. The separate [Level 5+] "prevent all
+    // non-combat damage" static clause is a computed-effect clause with no stored flag to assert
+    // and is out of scope here.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['NfbZ0nouSQ']]], // Silvie, With the Pack (TAMER Class Bonus) + Lorraine, Crux Knight (CRUX unlock)
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'vi1uyifw6s'], // Fated Keepsake (TAMER) -- banish target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n06zlhihka'], // Ethereal Slime, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''], // banish the seeded Fated Keepsake from material
+    ],
+];
+
+// --- Silvie, Slime Sovereign: champion On Enter -- next Slime ally costs 2 less, enters with 2 extra buff counters ---
+$fixtures['silvie-slime-sovereign-levelup-next-slime-discount-counters'] = [
+    'testedCards' => ['mdwbkuhtjm'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Silvie, Slime Sovereign
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Silvie, Slime Sovereign is level 3, one level above a level-2 champion. Rather than grinding
+    // out two real prior level-ups, the starting champion's CardID is patched directly to Silvie,
+    // With the Pack (nllCALIXDT, level 2, TAMER) -- CanChampionLevelUpIntoCard only checks the
+    // CURRENT champion's own printed CardLevel, not lineage (same technique as
+    // lorraine-arclight-saber-levelup), so this satisfies the "current+1" legality gate for one
+    // real level-up at the start of player 1's second turn. Her On Enter ability
+    // (enterAbilities['mdwbkuhtjm:0'], GeneratedCode/GeneratedMacroCode.php) just calls
+    // AddGlobalEffects($player, 'mdwbkuhtjm'); Custom/GameLogic.php's HandAddToField() reads that
+    // global effect whenever a Slime-subtype ally enters the controller's field, adding 2 extra
+    // buff counters and consuming (removing) the effect, while the SEPARATE
+    // activationCostModifierAbilities['mdwbkuhtjm:0'] entry reads the same global effect's mere
+    // presence to apply a one-time -2 reserve-cost delta to the next Slime ally card activated.
+    // Her 3-memory level-up cost is paid from 3 filler memory-zone cards. Red Slime (mttsvbgl6f,
+    // printed reserve cost 3) is seeded to a known hand slot and played for real via FSM
+    // immediately after the level-up, in the same turn -- only ONE reserve-payment click follows
+    // (not the printed 3), proving the cost actually dropped to 1, and the resulting Red Slime
+    // carries 2 buff counters it has no other way to acquire, proving the "enters with two
+    // additional buff counters" clause. The separate "ignore the elemental requirements of
+    // advanced element Slime cards" static clause is a computed-effect clause with no stored flag
+    // to assert and is out of scope here.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['LMyKyVC2O9']]], // Silvie, With the Pack (level 2, TAMER) - level-up precondition + Spirit of Fire (FIRE unlock, since patching CardID directly erases the real lineage a genuine level-up would carry)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'mttsvbgl6f'], // Red Slime, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // real level-up into Silvie, Slime Sovereign
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // the ONE discounted reserve click (printed cost 3, now 1)
+    ],
+];
+
+// --- Slime's Blessing: choose up to three units, level counter on champions / buff counter on Slime allies ---
+$fixtures['slimes-blessing-level-and-buff-counters'] = [
+    'testedCards' => ['ioxgugw9r9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Slime's Blessing's ability (cardActivatedAbilities['ioxgugw9r9:0'] -> SlimesBlessingStart() ->
+    // SlimesBlessingAskTarget()/SlimesBlessingResolve(), Custom/GameLogic.php) repeatedly offers an
+    // MZMAYCHOOSE among not-yet-chosen units (both players' allies and champions) up to 3 times,
+    // then for each chosen unit applies a 'level' counter if it's a champion or a 'buff' counter if
+    // it's a Slime ally. Red Slime (mttsvbgl6f, ALLY/SLIME) is seeded onto the field as the
+    // buff-counter target; player 1's own champion (myField-0) is chosen as the level-counter
+    // target. Slime's Blessing's element is WIND, not native to the 'Spirit of Fire' starting
+    // champion, so the champion's Subcards are patched with a real WIND champion (Spirit of Wind)
+    // purely to unlock element access. Slime's Blessing is played for real from hand via FSM so its
+    // effect genuinely fires; the third optional pick is declined with PASS. The separate [Class
+    // Bonus] "costs 1 less" discount clause is not reached (default champion has no class bonus)
+    // and is out of scope here.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mttsvbgl6f'], // Red Slime (Slime ally target) -> myField-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ioxgugw9r9'], // Slime's Blessing, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // choose own champion (level counter)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Red Slime (buff counter)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the optional third pick
+    ],
+];
+
+// --- Limitless Slime: [Class Bonus][Level 3+] On Attack, put a buff counter on itself ---
+$fixtures['limitless-slime-class-bonus-level3-on-attack-buff'] = [
+    'testedCards' => ['s4vxfy51ec'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Silvie, Slime Sovereign
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Limitless Slime's ENTIRE testable ability is its [Class Bonus][Level 3+] On Attack trigger
+    // (onAttackAbilities['s4vxfy51ec:0'], GeneratedCode/GeneratedMacroCode.php): gated behind
+    // IsClassBonusActive($player, ['TAMER']) && PlayerLevel($player) >= 3, it puts a buff counter
+    // on itself. The champion's CardID is patched directly to Silvie, Slime Sovereign (mdwbkuhtjm,
+    // level 3, TAMER) to satisfy BOTH the Class Bonus and the level gate in one step; its element
+    // is TERA but Limitless Slime's own element is NORM, so no Subcards lineage patch is needed.
+    // Limitless Slime (s4vxfy51ec) is seeded directly onto the field -- this is fine for proving
+    // its OWN On Attack trigger (a different trigger than Enter, which this card has no printed
+    // clause for at all). It then declares a real attack (via FSM) against player 1's champion so
+    // the On Attack trigger genuinely fires; player 1 ends turn 1 first since ATTACK-adjacent rule
+    // 1.h blocks the first turn's player from attacking (same shape as
+    // baby-red-slime-class-bonus-on-attack-discard-fire-power). The separate [Class Bonus][Level
+    // 1+] Floating Memory and [Class Bonus][Level 2+] +1 POWER/+2 LIFE clauses are static/
+    // computed-effect clauses with no stored counter or flag to assert and are out of scope here.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'mdwbkuhtjm']], // Silvie, Slime Sovereign (level 3, TAMER) - Class Bonus + level precondition
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 's4vxfy51ec'], // Limitless Slime -> myField-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1's turn 1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Limitless Slime declares an attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target player 1's champion
+    ],
+];
+
+// --- Slime King: additional cost (banish 3 differently-elemented Slime allies from graveyard) is dead code ---
+$fixtures['slime-king-additional-cost-never-charged'] = [
+    'testedCards' => ['f0ymeslfpw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // ENGINE BUG (found, confirmed live, NOT fixed): this fixture documents Slime King's printed
+    // mandatory additional cost -- "As an additional cost to activate this card, banish three
+    // Slime ally cards each with different elements from your graveyard" -- CURRENTLY never being
+    // charged at all, even with 3 legal (differently-elemented) Slime allies sitting in the
+    // graveyard. Confirmed live with a standalone debug harness: playing Slime King (f0ymeslfpw)
+    // from hand with Red Slime (FIRE), Storm Slime (ARCANE), and Lustrous Slime (LUXEM) in the
+    // graveyard only ever queues the normal 3x "ReserveCard" reserve-payment decisions -- no
+    // "SlimeKingCostBanish" MZCHOOSE/CUSTOM decision (Custom/GameLogic.php ~4347, a fully-written
+    // and otherwise-correct-looking handler) is EVER queued, and after paying the printed reserve
+    // cost the card materializes successfully onto the field with the graveyard completely
+    // untouched (all 3 Slime allies still there, Banish zone empty).
+    //
+    // Root cause (read directly, not just inferred): Custom/GameLogic.php's cost-declaration
+    // function declares `$hasSlimeKingCost = false;` (~line 2430) alongside dozens of sibling
+    // `$hasXCost` flags for OTHER cards' additional costs (e.g. Furnace Drone's analogous
+    // "$hasFurnaceDroneCost"), but UNLIKE every one of those siblings, grep over the entire file
+    // finds no `$hasSlimeKingCost = true;` assignment anywhere -- there is no
+    // `if($obj->CardID === "f0ymeslfpw" ...) { $hasSlimeKingCost = true; ... }` branch analogous to
+    // Furnace Drone's own (~line 2767) that would actually queue the SlimeKingCostBanish decision
+    // chain. The SlimeKingCostBanish handler itself is fully implemented and looks correct; it is
+    // simply never invoked because nothing ever sets the flag that would trigger it. This looks
+    // like a straightforward omission in the generator/hand-authored cost-declaration wiring (the
+    // legality PREREQ at activateCardPrereqs['f0ymeslfpw:0'], which correctly requires >=3
+    // differently-elemented graveyard Slime allies before the card can be activated AT ALL, was
+    // written and works; only the matching cost-CHARGING branch was never added), not a
+    // fixture-authoring gap. This fixture pins the CURRENT (buggy, too-cheap) observed behavior as
+    // a regression baseline so a future fix is easy to spot (the assertions below will need
+    // updating once Slime King actually charges its printed cost).
+    //
+    // Slime King's element is TERA, not native to the 'Spirit of Fire' starting champion, so the
+    // champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) purely to
+    // unlock element access. The separate [Element Bonus] On Leave "return banished Slimes" clause
+    // (leaveFieldAbilities['f0ymeslfpw:0'] -> SlimeKingLeaveStart()) is consequently unreachable
+    // with nothing ever banished by this card, and is out of scope here.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'ejvddohjdu'], // Lustrous Slime (LUXEM)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'f0ymeslfpw'], // Slime King, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Key Slime Pudding: field-resident Banish ability silently no-ops (same bug class as Baby Blue Slime) ---
+$fixtures['key-slime-pudding-banish-ability-never-fires'] = [
+    'testedCards' => ['4wuq20gvcg'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // ENGINE BUG (found, confirmed live, NOT fixed): this fixture documents Key Slime Pudding's
+    // "Banish CARDNAME: Until end of turn, Slime allies that enter the field under your control
+    // enter with an additional buff counter on them" ability CURRENTLY silently never firing when
+    // clicked on the field, for the same categorization-defect class already documented for Baby
+    // Blue Slime elsewhere in this suite (see the NOTE near the top of this batch). Key Slime
+    // Pudding's ability is registered in $cardActivatedAbilities['4wuq20gvcg:0']
+    // (GeneratedCode/GeneratedMacroCode.php) -- the reserve-cost activate-from-hand/material
+    // dictionary backed by CardCardActivatedCount() -- rather than $activateAbilityAbilities (the
+    // free/repeatable field-ability dictionary backed by CardActivateAbilityCount(), the one
+    // Bauble of Mending's structurally-identical "Banish self: <effect>" ability correctly uses).
+    // Confirmed live with a standalone debug harness, two independent ways: (1)
+    // GetPlayableOpportunityChoices() -- the function that builds the fast-opportunity choice list
+    // a 'myField-N@Activate-0@Banish' click would need to match against -- never includes Key
+    // Slime Pudding's ability at all (it's empty both before and after opening a fast-opportunity
+    // window via Pass), because that builder only surfaces $activateAbilityAbilities-registered
+    // abilities. (2) A direct 'myField-N@Activate-0@Banish' click with the decision queue empty
+    // returns success=YES (no error) but is a complete no-op: Key Slime Pudding stays on the
+    // field (not banished), the Banish zone stays empty, and no '4wuq20gvcg' global effect is ever
+    // set -- CustomInput.php's 'myField' case would route this through ActivateCard() (per the
+    // CardActivateAbilityCount()===0 && CardCardActivatedCount()>0 check documented at the top of
+    // CustomInput.php), the same DoActivateCard()-based pipeline already shown broken for Baby Blue
+    // Slime's REST ability. Confidence: HIGH / directly confirmed live (not just a theory by
+    // analogy) -- both the opportunity-list omission and the no-op field click were independently
+    // reproduced. This fixture pins the CURRENT (buggy, inert) observed behavior as a regression
+    // baseline so a future fix to the generator's $cardActivatedAbilities/$activateAbilityAbilities
+    // categorization is easy to spot (the assertions below will need updating once that's fixed).
+    // Key Slime Pudding is seeded directly onto the field (REGALIA/ITEM cards are redirected out of
+    // hand into the material deck by HandAddReplacement(), so seeding it onto myField directly,
+    // same technique as bauble-of-mending-banish-draw-class-bonus-life, is the correct way to reach
+    // a field-resident REGALIA precondition here).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4wuq20gvcg'], // Key Slime Pudding -> myField-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Slime Totem: Slime allies you control have vigor (wake at the controller's own end phase) ---
+$fixtures['slime-totem-slime-allies-have-vigor'] = [
+    'testedCards' => ['jwanjcy453'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Slime Totem's static ability (HasVigor(), Custom/GameLogic.php ~22070-22080) checks, for any
+    // ALLY/SLIME-subtype object, whether its controller has a live, unsuppressed Slime Totem
+    // (jwanjcy453) anywhere on their own field, and if so grants it Vigor. EndPhase()
+    // (Custom/GameLogic.php ~10730, specifically ~11364-11368) reads HasVigor() for every object on
+    // the TURN PLAYER's field and sets Status=2 (ready) for any that have it -- "Vigor units ready
+    // themselves at end of turn" -- which is the mechanical difference from a normal rested unit
+    // (which would stay rested until the START of its controller's OWN next turn, not the END of
+    // the current one). Red Slime (mttsvbgl6f, ALLY/SLIME) is seeded directly onto the field and
+    // its Status is set to 1 (rested) via setProperties -- a precondition no in-game action
+    // naturally produces at game start, so seeding it directly is the only way to reach it; Slime
+    // Totem itself has no activatable ability of its own to exercise (REGALIA/ITEM with purely
+    // static text), so seeding it directly onto the field (same "can't sit in hand" REGALIA
+    // technique as bauble-of-mending-banish-draw-class-bonus-life) is the correct way to establish
+    // its precondition too. Player 1 ends their own turn 1 (CustomInput Pass) -- confirmed live,
+    // Red Slime's Status flips from 1 (rested) to 2 (ready) as part of player 1's OWN EndPhase()
+    // processing, BEFORE the turn player even changes to player 2, proving the Vigor keyword is
+    // actually granted (a non-Vigor rested ally would stay rested through the opponent's entire
+    // turn, only recovering at the start of its own controller's next turn).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'jwanjcy453'], // Slime Totem -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mttsvbgl6f', 'setProperties' => ['Status' => 1]], // Red Slime, rested -> myField-2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Slime Eruption: declining further banishes loses the damage already earned (same bug class as Slime's Blessing) ---
+$fixtures['slime-eruption-decline-loses-earned-damage'] = [
+    'testedCards' => ['m3zkl7lpvn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // ENGINE BUG (found, confirmed live, NOT fixed): this fixture documents Slime Eruption
+    // CURRENTLY losing ALL earned damage instances the moment the player declines a further
+    // banish offer via PASS -- the same `dontSkipOnPass` omission bug class already pinned twice
+    // elsewhere in this exact batch (slimes-blessing-level-and-buff-counters and, by a different
+    // but related missing-cost-wiring mechanism, slime-king-additional-cost-never-charged).
+    //
+    // Root cause (confirmed live with a standalone debug harness, mirroring the Slime's Blessing
+    // investigation): SlimeEruptionBanishLoop() (Custom/GameLogic.php ~25030) queues a paired
+    // MZMAYCHOOSE + CUSTOM "SlimeEruptionBanishPick" decision (~25048) each time it offers another
+    // graveyard Slime to banish; $customDQHandlers['SlimeEruptionBanishPick'] (~25051) is written
+    // to call SlimeEruptionDamageStep($player, $count) -- which deals 1 damage per card ALREADY
+    // banished -- when `$lastDecision === "PASS"` (the player declining a further banish). But
+    // Core/DecisionQueueController.php's ExecuteStaticMethods() CUSTOM case unconditionally skips
+    // invoking ANY CUSTOM handler when the preceding answer was "PASS" unless that decision was
+    // queued with dontSkipOnPass=1; SlimeEruptionBanishLoop's own AddDecision call for
+    // "SlimeEruptionBanishPick" does NOT pass dontSkipOnPass, so the handler's own PASS-triggered
+    // SlimeEruptionDamageStep() call is dead code whenever the player actually declines.
+    //
+    // Confirmed live: with two Red Slime copies (mttsvbgl6f, FIRE) seeded in the graveyard,
+    // banishing ONE for real (it successfully moves to myBanish) and then declining the SECOND
+    // offer via PASS leaves the decision queue fully drained (AllQueuesEmpty=YES) but the
+    // champion's Damage stays 0 -- the 1 damage earned for the 1 card already banished is silently
+    // lost, and no MZCHOOSE damage-target decision is ever even offered. (If the player instead
+    // banishes every eligible graveyard Slime until none remain, SlimeEruptionBanishLoop's own
+    // `if(empty($choices))` branch at ~25043 calls SlimeEruptionDamageStep() directly, bypassing
+    // the dispatcher's PASS-skip guard entirely -- that path works correctly, same as the
+    // "exactly 3 picks, no decline" path already shown to work for Slime's Blessing.) This fixture
+    // pins the CURRENT (buggy, damage-losing) observed behavior as a regression baseline.
+    //
+    // Slime Eruption's element is FIRE, native to the 'Spirit of Fire' starting champion, so no
+    // Subcards lineage patch is needed. The separate [Class Bonus] Floating Memory clause is a
+    // reusable-elsewhere cost-payment mechanic, not independently re-tested here.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE) #1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE) #2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'm3zkl7lpvn'], // Slime Eruption, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // banish the first Red Slime for real
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the second banish offer
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

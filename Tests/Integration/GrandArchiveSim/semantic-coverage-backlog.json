@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-02T03:05:16+00:00",
+    "generatedAt": "2026-10-02T03:56:04+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 559,
+        "cardsWithExistingFixtures": 570,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1931,
+        "cardsNeedingSemanticCoverage": 1917,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,49 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "mttsvbgl6f",
-            "name": "Red Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [
-                "redslime-ondeath-sweep-stack-order-choice"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 133
-        },
-        {
-            "cardId": "blqryebvwj",
-            "name": "Storm Slime",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
         {
             "cardId": "he6kd7hocc",
             "name": "Tristan, Shadowdancer",
@@ -171,25 +128,6 @@
             "priority": 124
         },
         {
-            "cardId": "ejvddohjdu",
-            "name": "Lustrous Slime",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
             "cardId": "rsps1qnzfl",
             "name": "Pleiades, Celestial Genesis",
             "type": "REGALIA,WEAPON",
@@ -228,42 +166,6 @@
             "priority": 123
         },
         {
-            "cardId": "mdwbkuhtjm",
-            "name": "Silvie, Slime Sovereign",
-            "type": "CHAMPION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
-        },
-        {
-            "cardId": "f0ymeslfpw",
-            "name": "Slime King",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
-        },
-        {
             "cardId": "qwxvzfkpaj",
             "name": "Betraying Blade",
             "type": "ATTACK",
@@ -281,30 +183,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "n06zlhihka",
-            "name": "Ethereal Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -915,25 +793,6 @@
             "priority": 113
         },
         {
-            "cardId": "s4vxfy51ec",
-            "name": "Limitless Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "fm894uc4ij",
             "name": "Manxome Armoire",
             "type": "REGALIA,ITEM",
@@ -1043,44 +902,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "m3zkl7lpvn",
-            "name": "Slime Eruption",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "ioxgugw9r9",
-            "name": "Slime's Blessing",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1324,24 +1145,6 @@
             "priority": 112
         },
         {
-            "cardId": "4wuq20gvcg",
-            "name": "Key Slime Pudding",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "y8BNOi4rwD",
             "name": "Luminescent Slash",
             "type": "ATTACK",
@@ -1481,24 +1284,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "0xp4xq07vv",
-            "name": "Spirit of Slime",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -1795,23 +1580,6 @@
             "priority": 111
         },
         {
-            "cardId": "jwanjcy453",
-            "name": "Slime Totem",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "pc3zpkw43o",
             "name": "Vigil Rempart",
             "type": "ALLY",
@@ -1860,28 +1628,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 50
-        },
-        {
-            "cardId": "Lewf9sfv9m",
-            "name": "Golden Pawn",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "token",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [
-                "redslime-ondeath-sweep-stack-order-choice"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 45
         },
         {
             "cardId": "t0240ykvj0",
@@ -2197,24 +1943,6 @@
                 "trigger"
             ],
             "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "loSCQzxqi1",
-            "name": "Heavenly Drake",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "trigger"
-            ],
-            "existingFixtures": [
-                "redslime-ondeath-sweep-stack-order-choice"
-            ],
             "semanticFixtures": [],
             "starterDecks": [],
             "needsSemanticCoverage": true,
@@ -33568,6 +33296,32 @@
             "priority": 145
         },
         {
+            "cardId": "blqryebvwj",
+            "name": "Storm Slime",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "storm-slime-enter-damage-equal-banished-slimes"
+            ],
+            "semanticFixtures": [
+                "storm-slime-enter-damage-equal-banished-slimes"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
             "cardId": "dW5uyngvJW",
             "name": "Vernal Talisman",
             "type": "REGALIA,ITEM",
@@ -34456,6 +34210,29 @@
             "priority": 143
         },
         {
+            "cardId": "ejvddohjdu",
+            "name": "Lustrous Slime",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lustrous-slime-enter-reveal-buff"
+            ],
+            "semanticFixtures": [
+                "lustrous-slime-enter-reveal-buff"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "fZ08zyFIlz",
             "name": "Magus Initiate",
             "type": "ALLY",
@@ -34939,6 +34716,50 @@
             ],
             "starterDecks": [
                 "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
+        },
+        {
+            "cardId": "mdwbkuhtjm",
+            "name": "Silvie, Slime Sovereign",
+            "type": "CHAMPION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "silvie-slime-sovereign-levelup-next-slime-discount-counters"
+            ],
+            "semanticFixtures": [
+                "silvie-slime-sovereign-levelup-next-slime-discount-counters"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
+        },
+        {
+            "cardId": "f0ymeslfpw",
+            "name": "Slime King",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "slime-king-additional-cost-never-charged"
+            ],
+            "semanticFixtures": [
+                "slime-king-additional-cost-never-charged"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": false,
             "priority": 142
@@ -35483,6 +35304,34 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "n06zlhihka",
+            "name": "Ethereal Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ethereal-slime-class-bonus-enter-banish-tamer-draw-buff"
+            ],
+            "semanticFixtures": [
+                "ethereal-slime-class-bonus-enter-banish-tamer-draw-buff"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
@@ -39957,6 +39806,29 @@
             "priority": 133
         },
         {
+            "cardId": "s4vxfy51ec",
+            "name": "Limitless Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "limitless-slime-class-bonus-level3-on-attack-buff"
+            ],
+            "semanticFixtures": [
+                "limitless-slime-class-bonus-level3-on-attack-buff"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "x9sSpjpP3G",
             "name": "Lorraine, Arclight Saber",
             "type": "CHAMPION",
@@ -40497,6 +40369,29 @@
             "priority": 133
         },
         {
+            "cardId": "mttsvbgl6f",
+            "name": "Red Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "redslime-ondeath-sweep-stack-order-choice"
+            ],
+            "semanticFixtures": [
+                "redslime-ondeath-sweep-stack-order-choice"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "v9ngjjadj4",
             "name": "Regenerate",
             "type": "ACTION",
@@ -40818,6 +40713,52 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "m3zkl7lpvn",
+            "name": "Slime Eruption",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "slime-eruption-decline-loses-earned-damage"
+            ],
+            "semanticFixtures": [
+                "slime-eruption-decline-loses-earned-damage"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "ioxgugw9r9",
+            "name": "Slime's Blessing",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "counter"
+            ],
+            "existingFixtures": [
+                "slimes-blessing-level-and-buff-counters"
+            ],
+            "semanticFixtures": [
+                "slimes-blessing-level-and-buff-counters"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42614,6 +42555,28 @@
             "priority": 132
         },
         {
+            "cardId": "4wuq20gvcg",
+            "name": "Key Slime Pudding",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "key-slime-pudding-banish-ability-never-fires"
+            ],
+            "semanticFixtures": [
+                "key-slime-pudding-banish-ability-never-fires"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "a01pyxwo25",
             "name": "Kongming, Ascetic Vice",
             "type": "CHAMPION",
@@ -43545,6 +43508,28 @@
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter",
                 "Guo Jia Re:Collection, Heaven's Favored"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "0xp4xq07vv",
+            "name": "Spirit of Slime",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-slime-enter-draw-seven"
+            ],
+            "semanticFixtures": [
+                "spirit-of-slime-enter-draw-seven"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -45191,6 +45176,27 @@
             "priority": 131
         },
         {
+            "cardId": "jwanjcy453",
+            "name": "Slime Totem",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "slime-totem-slime-allies-have-vigor"
+            ],
+            "semanticFixtures": [
+                "slime-totem-slime-allies-have-vigor"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "4hbA9FT56L",
             "name": "Song of Nurturing",
             "type": "ACTION",
@@ -45421,6 +45427,30 @@
             ],
             "semanticFixtures": [
                 "enervating-decay-target-destroy-recover"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "Lewf9sfv9m",
+            "name": "Golden Pawn",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "token",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "redslime-ondeath-sweep-stack-order-choice"
+            ],
+            "semanticFixtures": [
+                "redslime-ondeath-sweep-stack-order-choice"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45799,6 +45829,26 @@
             ],
             "semanticFixtures": [
                 "greater-boon-of-shou-draw-on-play"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "loSCQzxqi1",
+            "name": "Heavenly Drake",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "redslime-ondeath-sweep-stack-order-choice"
+            ],
+            "semanticFixtures": [
+                "redslime-ondeath-sweep-stack-order-choice"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

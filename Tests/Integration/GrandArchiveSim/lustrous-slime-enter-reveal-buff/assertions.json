@@ -1,0 +1,4 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"buff\":1}","semantic":true,"label":"Lustrous Slime's On Enter puts exactly 1 buff counter on itself for the 1 Slime card revealed from memory"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,8 @@
+[
+    {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"mttsvbgl6f","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): Red Slime is STILL in the graveyard -- not banished as the printed additional cost requires"},
+    {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"blqryebvwj","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): Storm Slime is STILL in the graveyard -- not banished as the printed additional cost requires"},
+    {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"ejvddohjdu","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): Lustrous Slime is STILL in the graveyard -- not banished as the printed additional cost requires"},
+    {"step":4,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":0,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): nothing was banished -- Slime King materialized paying only its printed reserve cost"},
+    {"step":4,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"f0ymeslfpw","semantic":true,"label":"Slime King is on the field despite its mandatory additional cost never being paid"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **559**
+Cards linked to an existing fixture: **570**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1931**
+Implemented cards still needing semantic coverage: **1917**
 
 ## Mechanic groups
 
@@ -26,20 +26,14 @@ Implemented cards still needing semantic coverage: **1931**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Red Slime (`mttsvbgl6f`) | ALLY | 1 | damage, trigger, condition | Silvie Re:Collection, Slime Sovereign | redslime-ondeath-sweep-stack-order-choice |
-| Storm Slime (`blqryebvwj`) | ALLY | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | Silvie Re:Collection, Slime Sovereign | — |
 | Tristan, Shadowdancer (`he6kd7hocc`) | CHAMPION | 2 | targeting, counter, token, combat, trigger | Tristan Re:Collection, Shadowdancer | — |
 | Gearstride Gloves (`lcb6jhxctx`) | REGALIA,ITEM | 2 | cost, zone-movement, counter, trigger | Tristan Re:Collection, Shadowdancer | — |
 | Leporine Masque (`pgysz2zfji`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, counter | Ciel, Mirage's Grave | — |
 | Nocturne's Oblivion (`1a5zdqgydt`) | ACTION | 2 | cost, targeting, zone-movement, condition | Ciel, Mirage's Grave | — |
 | Ranger Boots (`fbs9qzo3f6`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, status, trigger | Diana, Moonpiercer | — |
-| Lustrous Slime (`ejvddohjdu`) | ALLY | 2 | recover, counter, trigger | Silvie Re:Collection, Slime Sovereign | — |
 | Pleiades, Celestial Genesis (`rsps1qnzfl`) | REGALIA,WEAPON | 2 | token, combat, trigger | Diana, Moonpiercer | — |
 | Shifting Mirage (`hmjr33ijq6`) | ACTION | 2 | cost, status, token | Tristan Re:Collection, Shadowdancer | — |
-| Silvie, Slime Sovereign (`mdwbkuhtjm`) | CHAMPION | 2 | cost, trigger | Silvie Re:Collection, Slime Sovereign | — |
-| Slime King (`f0ymeslfpw`) | UNIQUE,ALLY | 2 | cost, zone-movement | Silvie Re:Collection, Slime Sovereign | — |
 | Betraying Blade (`qwxvzfkpaj`) | ATTACK | 1 | cost, zone-movement, counter, combat, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
-| Ethereal Slime (`n06zlhihka`) | ALLY | 1 | damage, prevention, draw-discard, zone-movement, counter, status, trigger, condition | Silvie Re:Collection, Slime Sovereign | — |
 | Frostsworn Paladin (`rpOaAjgtue`) | ALLY | 1 | draw-discard, zone-movement, counter, status, combat, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
 | Gildas, Faesworn Monarch (`g99PIuhU0O`) | UNIQUE,ALLY | 1 | cost, targeting, damage, prevention, status, condition | Mordred Re:Collection, Aurelian Regent | — |
 | Mordred, Burnished Avenger (`OWCdWq3mXY`) | CHAMPION | 1 | cost, zone-movement, combat, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
@@ -70,9 +64,15 @@ Implemented cards still needing semantic coverage: **1931**
 | Dauntless Assault (`ixIY36Ck37`) | ATTACK | 1 | combat, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
 | Flamme Sorcel (`j6er6z99sv`) | ACTION | 1 | cost, draw-discard, condition | Ciel, Mirage's Grave | — |
 | Foresight Lens (`drnxdiltx3`) | REGALIA,ITEM | 1 | zone-movement, status, condition | Diana, Moonpiercer | — |
-| Limitless Slime (`s4vxfy51ec`) | ALLY | 1 | counter, combat, trigger | Silvie Re:Collection, Slime Sovereign | — |
 | Manxome Armoire (`fm894uc4ij`) | REGALIA,ITEM | 1 | zone-movement, counter, condition | Ciel, Mirage's Grave | — |
 | Mordred, Aurelian Regent (`XPl2UAO9se`) | CHAMPION | 1 | recover, combat, trigger | Mordred Re:Collection, Aurelian Regent | — |
 | Mordred, Fated Luminary (`KqBosnU7pU`) | CHAMPION | 1 | cost, draw-discard, combat | Mordred Re:Collection, Aurelian Regent | — |
 | Mordred, Flawless Blade (`WI2owxIw0z`) | CHAMPION | 1 | cost, zone-movement, combat | Mordred Re:Collection, Aurelian Regent | — |
 | Reverse Affliction (`1bxh5xz2uz`) | ACTION | 1 | zone-movement, counter, condition | Ciel, Mirage's Grave | — |
+| Seeker's Aetherwing (`bf7yzaqes4`) | REGALIA,WEAPON | 1 | targeting, status, combat | Diana, Moonpiercer | — |
+| Striking Tides (`qrxQGA1pc6`) | ATTACK | 1 | zone-movement, combat, condition | Mordred Re:Collection, Aurelian Regent | — |
+| Torch Marshal (`izgiu216l2`) | ALLY | 1 | cost, combat, condition | Ciel, Mirage's Grave | — |
+| Tristan, Hired Blade (`gt7lh9v221`) | CHAMPION | 1 | draw-discard, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
+| Undercurrent Vantage (`xicxo661ly`) | ACTION | 1 | cost, zone-movement, status | Diana, Moonpiercer | — |
+| Aetheric Calibration (`7l9th23niu`) | ACTION | 1 | zone-movement, condition | Diana, Moonpiercer | — |
+| Devotion's Price (`ri955ygd5v`) | ACTION | 1 | cost, draw-discard | Ciel, Mirage's Grave | — |

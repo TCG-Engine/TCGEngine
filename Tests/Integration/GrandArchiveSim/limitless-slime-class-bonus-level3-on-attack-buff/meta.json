@@ -1,0 +1,17 @@
+{
+    "name": "limitless-slime-class-bonus-level3-on-attack-buff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T03:46:39+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Limitless Slime (s4vxfy51ec, ALLY): \"[Class Bonus][Level 1+] Floating Memory. [Class Bonus][Level 2+] CARDNAME gets +1 POWER and +2 LIFE. [Class Bonus][Level 3+] On Attack: Put a buff counter on CARDNAME.\" Its only triggered (non-static) clause, the [Class Bonus][Level 3+] On Attack ability (onAttackAbilities['s4vxfy51ec:0'], GeneratedCode/GeneratedMacroCode.php), is gated behind `IsClassBonusActive($player, ['TAMER']) && PlayerLevel($player) >= 3`. Player 2's champion CardID is patched directly to Silvie, Slime Sovereign (mdwbkuhtjm, level 3, TAMER) to satisfy BOTH the Class Bonus and the level gate in one step; Limitless Slime's own element is NORM so no Subcards lineage patch is needed. Limitless Slime is seeded directly onto player 2's field (myField-1) -- this is fine for proving its OWN On Attack trigger, a different trigger from Enter (which this card has no printed clause for at all). Player 1 ends turn 1 first since rule 1.h blocks the first turn's player from attacking (same shape as baby-red-slime-class-bonus-on-attack-discard-fire-power); player 2 then declares a real attack with Limitless Slime against player 1's champion via FSM, so the On Attack trigger genuinely fires -- confirmed live, its own field position (p2Field-1) ends with Counters {\"buff\":1}. The separate [Class Bonus][Level 1+] Floating Memory and [Class Bonus][Level 2+] +1 POWER/+2 LIFE clauses are static/computed-effect clauses with no stored counter or flag to assert and are out of scope here.",
+    "testedCards": [
+        "s4vxfy51ec"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["s4vxfy51ec"],
+        "mechanics": ["condition", "combat", "trigger", "counter"],
+        "rulesClauses": [
+            "[Class Bonus] [Level 3+] On Attack: Put a buff counter on CARDNAME."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "spirit-of-slime-enter-draw-seven",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T03:33:30+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Spirit of Slime (0xp4xq07vv, CHAMPION): \"On Enter: Draw seven cards. Inherited Effect: Ignore the elemental requirements of basic element Slime cards you activate.\" Its On Enter clause (enterAbilities['0xp4xq07vv:0'], GeneratedCode/GeneratedMacroCode.php) is a plain Draw($player, 7) -- textually identical to Spirit of Fire (the Material-section starting champion used by every other fixture in this suite) and to Spirit of Wind (dedicated coverage already exists: spirit-of-wind-enter-draw-seven). It fires synchronously inside pregame resolution (PREGAME_CHOOSE_STARTING_CHAMPION's unconditional Enter() call, Custom/GameLogic.php), confirmed by this fixture's own deck swapping the sole Material-section level-0 champion to Spirit of Slime -- the harness's standard pregame-choice step then has only myMaterial-0 as a legal choice, resolves it for both players, and the resulting expected_final_gamestate.txt shows both players' hands at exactly 7 cards (not 0), proving the draw fired. This fixture exists to record dedicated semantic coverage against 0xp4xq07vv's own card ID, distinct from Spirit of Fire/Spirit of Wind's coverage of the identical ability text. The one action (a harmless click on the resulting champion, myField-0) only exists to give the fixture its own post-action gamestate snapshot, mirroring spirit-of-wind-enter-draw-seven's shape; the Inherited Effect element-ignore clause is a computed-effect clause with no stored flag to assert and is out of scope here.",
+    "testedCards": [
+        "0xp4xq07vv"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["0xp4xq07vv"],
+        "mechanics": ["trigger", "draw-discard"],
+        "rulesClauses": [
+            "On Enter: Draw seven cards."
+        ]
+    }
+}

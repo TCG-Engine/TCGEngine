@@ -1,0 +1,17 @@
+{
+    "name": "lustrous-slime-enter-reveal-buff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T03:34:50+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Lustrous Slime (ejvddohjdu, ALLY): \"Pride 5, Taunt. On Enter: Reveal any amount of Slime cards from your memory. For each card revealed this way, put a buff counter on CARDNAME. On Death: Recover X, where X is the amount of buff counters that were on CARDNAME.\" The On Enter clause (enterAbilities['ejvddohjdu:0'] -> LustrousSlimeEnter()/LustrousSlimeRevealLoop()/LustrousSlimeApplyReveals(), Custom/CardDQHandlers.php) repeatedly offers an MZMAYCHOOSE among not-yet-chosen Slime-subtype cards in memory; once no eligible candidate remains it applies AddCounters(mzID, 'buff', revealCount) in a single call. One Red Slime (mttsvbgl6f, SLIME subtype) is seeded directly into myMemory as the sole reveal candidate, so after it's chosen the loop's next pass finds zero remaining targets and applies exactly 1 buff counter with no further decisions queued. Lustrous Slime's element is LUXEM, not native to the 'Spirit of Fire' starting champion, so the champion's Subcards are patched with a real LUXEM champion (Zander, Blinding Steel) purely to unlock element access. Lustrous Slime is played for real from hand via FSM so its Enter trigger genuinely fires; its own field position (p1Field-1) ends with Counters {\"buff\":1}, confirmed live. The separate On Death clause (allyDestroyedAbilities['ejvddohjdu:0'], which reads a pre-captured 'LustrousSlimeBuffCount' context variable snapshotted in Custom/GameLogic.php's AllyDestroyed() before the object leaves the field -- a correctly-wired capture, unlike the unrelated Green Slime On-Leave bug documented elsewhere in this suite) is a different trigger and out of scope here.",
+    "testedCards": [
+        "ejvddohjdu"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ejvddohjdu"],
+        "mechanics": ["trigger", "zone-movement", "counter", "condition"],
+        "rulesClauses": [
+            "On Enter: Reveal any amount of Slime cards from your memory. For each card revealed this way, put a buff counter on CARDNAME."
+        ]
+    }
+}

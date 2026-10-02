@@ -1,0 +1,17 @@
+{
+    "name": "ethereal-slime-class-bonus-enter-banish-tamer-draw-buff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T03:35:32+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Ethereal Slime (n06zlhihka, ALLY): \"Pride 3, Stealth, True Sight. [Class Bonus] On Enter: You may banish a Tamer card from your material deck. If you do, draw a card and put a buff counter on CARDNAME. [Level 5+] Prevent all non-combat damage that would be dealt to CARDNAME.\" The [Class Bonus] On Enter clause (enterAbilities['n06zlhihka:0'] -> customDQHandlers['n06zlhihka:0:Enter-1'], GeneratedCode/GeneratedMacroCode.php) is gated behind IsClassBonusActive($player, ['TAMER']); it offers an MZMAYCHOOSE among TAMER-subtype cards in the controller's own Material deck, and banishing one draws a card and puts a buff counter on Ethereal Slime. The champion's CardID is patched directly to Silvie, With the Pack (TAMER) for the Class Bonus, which leaves the deck's own Silvie, With the Pack Material-deck entry (nllCALIXDT, also TAMER subtype) untouched in myMaterial-0 -- confirmed live, the MZMAYCHOOSE offered BOTH myMaterial-0 (nllCALIXDT) and myMaterial-4 (the seeded Fated Keepsake) as legal targets, so the action deliberately picks myMaterial-4 to banish the intended fixture-seeded card unambiguously. The champion's element is CRUX, not native to the starting champion, so its Subcards are ALSO patched with a real CRUX champion (Lorraine, Crux Knight) purely to unlock element access -- same \"CardID for class, Subcards for element\" layering used elsewhere (e.g. green-slime-class-bonus-on-leave-transfer-buff). Fated Keepsake (vi1uyifw6s, REGALIA/ITEM, TAMER subtype) is seeded directly into myMaterial as the banish target (its own ability is not exercised here). Ethereal Slime is played for real from hand via FSM so its Enter trigger genuinely fires; confirmed live: Fated Keepsake ends in myBanish, hand grows from 5 (after paying the 2 reserve cost) to 6 (the draw), and Ethereal Slime's own field position (p1Field-1) carries Counters {\"buff\":1}. The separate [Level 5+] \"prevent all non-combat damage\" static clause is a computed-effect clause with no stored flag to assert and is out of scope here.",
+    "testedCards": [
+        "n06zlhihka"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["n06zlhihka"],
+        "mechanics": ["condition", "trigger", "zone-movement", "draw-discard", "counter"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: You may banish a Tamer card from your material deck. If you do, draw a card and put a buff counter on CARDNAME."
+        ]
+    }
+}
