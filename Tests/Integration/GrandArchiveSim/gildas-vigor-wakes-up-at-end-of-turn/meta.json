@@ -1,0 +1,24 @@
+{
+    "name": "gildas-vigor-wakes-up-at-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:23+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "g99PIuhU0O"
+    ],
+    "notes": "Gildas (g99PIuhU0O): \"Stealth, Vigor\". Vigor (HasVigor -> end-phase wake up in Custom/GameLogic.php) makes the unit ready itself at the end of its controller's turn. Player 1's champion is Mordred, Burnished Avenger; Gildas' [REST] ability is used in the main phase (two reserve payments, the champion is the target) which leaves Gildas rested, then player 1 ends the turn and Gildas is found awake again.",
+    "semanticCoverage": {
+        "testedCards": [
+            "g99PIuhU0O"
+        ],
+        "mechanics": [
+            "status",
+            "cost",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "Vigor: a unit with Vigor wakes up at the end of its controller's turn.",
+            "[REST] cost: using the ability rests Gildas."
+        ]
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "name": "warrior-of-the-fae-realm-banished-sword-activatable-same-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:40+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "eRcqucBKhX"
+    ],
+    "notes": "Warrior of the Fae Realm (eRcqucBKhX): \"you may activate the banished card on a later turn.\" ENGINE BUG (found, confirmed live, NOT fixed): the ActionMap \"myBanish\" branch (Custom/GameLogic.php) only requires the _warriorFaeRealm tag and the Warrior on the field -- it never checks that the card was banished on an EARLIER turn -- so the Striking Tides banished by this very On Enter can be activated right away in the same turn. The REGRESSION GUARD assertions pin the buggy outcome: the activation proceeds (3 further reserve payments), hits player 2's champion for 4 and the card ends in the graveyard. (Player 1 plays this on turn 3 because the first player cannot attack on turn 1.)",
+    "semanticCoverage": {
+        "testedCards": [
+            "eRcqucBKhX"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition",
+            "limit",
+            "combat",
+            "damage"
+        ],
+        "rulesClauses": [
+            "you may activate the banished card on a LATER turn (not the same turn)."
+        ]
+    },
+    "engineBug": {
+        "status": "found-not-fixed",
+        "summary": "The Sword attack banished by the Warrior's own On Enter can be activated immediately in the SAME turn although the text only grants activation 'on a later turn'. The ActionMap 'myBanish' branch (Custom/GameLogic.php) only requires the _warriorFaeRealm turn-effect tag plus a Warrior on the field and never checks that the card was banished on an earlier turn. Confirmed live by the replay: the activation is accepted on the turn of the banish.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myBanish', the '_warriorFaeRealm' branch (tag + Warrior on field only)",
+        "verification": "Root cause confirmed live with a temporary file trace (restored afterwards): the myBanish click on the SAME turn as the banish logged tags=[\"_warriorFaeRealm\"] turn=<same> warriorOnField=Y and proceeded. Break/restore: a per-turn marker (set with the tag, retained at end of turn, and refused on the turn it was set) flipped this guard red (no same-turn damage) and the later-turn guard red too; restored, shasums verified."
+    }
+}

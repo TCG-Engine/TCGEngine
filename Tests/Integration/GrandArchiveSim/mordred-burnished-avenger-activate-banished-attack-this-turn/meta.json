@@ -1,0 +1,26 @@
+{
+    "name": "mordred-burnished-avenger-activate-banished-attack-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:28+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "OWCdWq3mXY"
+    ],
+    "notes": "Mordred, Burnished Avenger (OWCdWq3mXY): \"If you do, you may activate that card this turn.\" After the real level-up and the YES banish (see mordred-burnished-avenger-levelup-enter-banish-top- attack), player 1 activates the banished Striking Tides straight from banishment (the ActionMap \"myBanish\" case recognises the _mordredBurnished tag): it is paid (the first attack card of a turn in which Mordred leveled up costs 2 less, so 1 reserve payment instead of 3), aimed at player 2's champion and deals its printed 4 damage; the card ends in the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "OWCdWq3mXY"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "cost",
+            "combat",
+            "damage"
+        ],
+        "rulesClauses": [
+            "If you do, you may activate that card this turn.",
+            "[Mordred Bonus] Inherited Effect: as long as Mordred has leveled up this turn, the first attack card you activate this turn costs 2 less (printed 3 -> 1 payment)."
+        ]
+    }
+}

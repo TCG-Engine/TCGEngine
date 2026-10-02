@@ -1,0 +1,7 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"XPl2UAO9se","semantic":true,"label":"Mordred leveled up into Aurelian Regent this turn (the level-up moved the champion behind the Dungeon Guide)"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-0","property":"Status","value":"1","semantic":true,"label":"The Dungeon Guide attacked first (it is rested)"},
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"8","semantic":true,"label":"1 (Dungeon Guide, no bonus) + 7 (Mordred: printed 4 + 3) = 8 damage in total"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"2","semantic":true,"label":"Mordred's own attack still had 'On Hit: Recover 3' (5 -> 2)"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,6 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"KqBosnU7pU","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the level-up was refused, the champion is still Fated Luminary"},
+    {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the two memory cards were not spent"},
+    {"step":3,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the attack card was never offered as a floating payment and stays in the graveyard"},
+    {"step":3,"type":"flash_message_contains","value":"Cannot pay costs for the selected material card","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the engine reports it cannot pay the cost although a floating attack card should cover the missing point"}
+]

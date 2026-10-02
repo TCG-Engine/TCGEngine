@@ -1,0 +1,7 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"OWCdWq3mXY","semantic":true,"label":"Player 1's level-up into Mordred, Burnished Avenger completed"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): player 1's Striking Tides was banished as a floating payment although player 1 has no Flawless Blade"},
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): player 1's graveyard is empty"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":9,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the memory card was not spent (rules-correct: it would be banished) and came back to hand with recollection: hand 9 = 7 + 1 draw + 1"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,25 @@
+{
+    "name": "dauntless-assault-mordred-bonus-wakes-up-attacker",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:57+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ixIY36Ck37"
+    ],
+    "notes": "Dauntless Assault (ixIY36Ck37, EXALTED/NORM WARRIOR/SWORD attack, reserve 3, power 4): \"[Mordred Bonus] On Attack: Wake up the attacker.\" Player 1's champion is Mordred, Fated Luminary (the Mordred Bonus holds and its EXALTED element enables this Exalted card). On turn 3 (the first player cannot attack on turn 1) Dauntless Assault is played for real, paid (3) and aimed at player 2's champion: the champion, rested by attacking, is woken up by the On Attack trigger and the attack still deals its printed 4 damage.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ixIY36Ck37"
+        ],
+        "mechanics": [
+            "combat",
+            "trigger",
+            "status",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Mordred Bonus] On Attack: Wake up the attacker.",
+            "The attack itself still deals its printed 4 power."
+        ]
+    }
+}

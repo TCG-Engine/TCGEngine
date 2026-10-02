@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The Dungeon Guide stays in the graveyard"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"No card was moved to hand / activated"},
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"No payment was requested"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

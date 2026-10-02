@@ -1,0 +1,8 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"OWCdWq3mXY","semantic":true,"label":"The real level-up into Mordred, Burnished Avenger completed"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Banish-1","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"The revealed top attack card (Striking Tides) was banished from the deck"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Banish-1","property":"TurnEffects","value":"[\"_mordredBurnished\"]","semantic":true,"label":"The banished card carries the this-turn activation permission"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"Hand 8 = 7 + the turn draw: the banished card was not the one drawn"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"Status","value":"2","semantic":true,"label":"The freshly leveled champion is awake"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

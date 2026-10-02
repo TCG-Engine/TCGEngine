@@ -1,0 +1,24 @@
+{
+    "name": "gildas-another-fairy-ally-makes-ability-free",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:21+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "g99PIuhU0O"
+    ],
+    "notes": "Gildas (g99PIuhU0O): \"As long as you control another Fairy ally, this ability costs (2) less to activate.\" A Warrior of the Fae Realm (a Fairy ally) stands beside Gildas, so activating the ability in the attack's priority window needs NO reserve payment at all: the target prompt comes up immediately, the hand and memory are untouched, and the champion (1 damage attacker, fully absorbed by the prevention) takes no damage.",
+    "semanticCoverage": {
+        "testedCards": [
+            "g99PIuhU0O"
+        ],
+        "mechanics": [
+            "cost",
+            "condition",
+            "prevention",
+            "status"
+        ],
+        "rulesClauses": [
+            "As long as you control another Fairy ally, this ability costs (2) less to activate."
+        ]
+    }
+}

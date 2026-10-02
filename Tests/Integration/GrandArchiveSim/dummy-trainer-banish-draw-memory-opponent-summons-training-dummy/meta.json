@@ -1,0 +1,27 @@
+{
+    "name": "dummy-trainer-banish-draw-memory-opponent-summons-training-dummy",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:45+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "QCUld5Xidm"
+    ],
+    "notes": "Dummy Trainer (QCUld5Xidm, NORM WARRIOR REGALIA/ITEM, memory cost 0): \"(3), Banish CARDNAME: Draw a card into your memory. Then target opponent summons a Training Dummy token.\" It is materialized for real from the material deck in the turn-3 materialize phase, then its ability is activated for real in the main phase (CustomInput Activate:0): the (3) cost is three reserve payments and the card banishes itself as part of the cost; the effect draws one card into player 1's memory and puts a Training Dummy token (a 0 power Warrior Construct ally) on the OPPONENT's field.",
+    "semanticCoverage": {
+        "testedCards": [
+            "QCUld5Xidm"
+        ],
+        "mechanics": [
+            "cost",
+            "draw-discard",
+            "zone-movement",
+            "token",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "(3), Banish Dummy Trainer: the cost is three reserve payments and banishing Dummy Trainer itself.",
+            "Draw a card into your memory.",
+            "Then target opponent summons a Training Dummy token."
+        ]
+    }
+}

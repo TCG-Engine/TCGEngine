@@ -1,0 +1,8 @@
+[
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"XPl2UAO9se","semantic":true,"label":"The real level-up into Mordred, Aurelian Regent completed and a non-luxem card does not delevel it"},
+    {"step":6,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"7","semantic":true,"label":"Striking Tides hit for printed 4 + 3 (the Regent's On Enter bonus) = 7"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"2","semantic":true,"label":"The granted On Hit recovered 3 of Mordred's 5 damage (5 -> 2)"},
+    {"step":6,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"One reserve payment: printed 3 - 2 (first attack after a level-up, inherited from Burnished Avenger)"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-0","property":"Status","value":"1","semantic":true,"label":"The champion attacked and is rested"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

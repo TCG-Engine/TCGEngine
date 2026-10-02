@@ -1,0 +1,29 @@
+{
+    "name": "mordred-fated-luminary-ephemerated-attack-card-is-not-banished",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:18+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "KqBosnU7pU"
+    ],
+    "notes": "Mordred, Fated Luminary (KqBosnU7pU): \"(You may activate cards with ephemerate from your graveyard by paying that cost. Attack cards played this way become ephemeral in the intent.)\" -- an ephemeral object is banished whenever it would leave, so the attack must be banished at the end of combat. ENGINE BUG (found, confirmed live, NOT fixed): the ATTACK branch of the activation resolution (Custom/GameLogic.php, \"Ephemerate: tag field objects as ephemeral\") only tags non-ACTION, non-ATTACK field objects, and ClearIntent() (Custom/CombatLogic.php) sends every intent card to the graveyard (banishing only CURSE_TO_LINEAGE cards and sending Renewable cards to material). Same actions as mordred-fated-luminary-ephemerate-attack-card-from-graveyard: the Striking Tides is back in the GRAVEYARD afterwards (and could be ephemerated again for free value) instead of banished. The REGRESSION GUARD assertions pin that outcome.",
+    "semanticCoverage": {
+        "testedCards": [
+            "KqBosnU7pU"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Attack cards played via Ephemerate become ephemeral in the intent: they are banished at the end of combat instead of returning to the graveyard."
+        ]
+    },
+    "engineBug": {
+        "status": "found-not-fixed",
+        "summary": "An attack card activated through Ephemerate (Mordred, Fated Luminary) is never made ephemeral: it returns to the graveyard after combat instead of being banished. The ATTACK branch of the activation resolution (Custom/GameLogic.php, 'Ephemerate: tag field objects as ephemeral') only tags non-ACTION, non-ATTACK field objects, and ClearIntent() (Custom/CombatLogic.php) sends every intent card to the graveyard (banish only for CURSE_TO_LINEAGE, material for Renewable). Confirmed live: after the attack the Striking Tides is in the graveyard and banishment is empty.",
+        "affectedFunction": "Custom/GameLogic.php activation resolution (ATTACK branch / Ephemerate tagging) + Custom/CombatLogic.php ClearIntent() (no ephemeral handling)",
+        "verification": "Root cause confirmed live with a temporary file trace (restored afterwards): ClearIntent logged card=qrxQGA1pc6 dest=myGraveyard for the ephemerated attack. Break/restore: tagging the intent object EPHEMERAL when wasEphemerated=YES and banishing EPHEMERAL intent cards in ClearIntent() flipped this guard red (the card is banished, graveyard empty); restored, shasums verified."
+    }
+}

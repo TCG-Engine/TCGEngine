@@ -1,0 +1,6 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"WI2owxIw0z","semantic":true,"label":"The level-up into Aurelian Regent (memory cost 3, only 2 memory cards, nothing floating) was refused: the champion is still Flawless Blade"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The Dungeon Guide stays in the graveyard"},
+    {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"Both memory cards were not spent"},
+    {"step":3,"type":"flash_message_contains","value":"Cannot pay costs for the selected material card","semantic":true,"label":"The engine reports the cost cannot be paid"}
+]

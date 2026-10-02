@@ -1,0 +1,24 @@
+{
+    "name": "mordred-burnished-avenger-levelup-enter-banish-top-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:27+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "OWCdWq3mXY"
+    ],
+    "notes": "Mordred, Burnished Avenger (OWCdWq3mXY, CHAMPION level 1, WATER WARRIOR): \"On Enter: Look at the top card of your deck. If it's an attack card, you may banish it. If you do, you may activate that card this turn.\" The starting champion (Spirit of Water, level 0) really levels up in the materialize phase of turn 3 (1 memory card paid), so enterAbilities[\"OWCdWq3mXY:0\"] fires: the seeded top-of-deck Striking Tides (an attack card) is revealed, the YES/NO is answered YES and the card moves from the deck to the banishment zone, tagged with the _mordredBurnished turn effect that lets it be activated from banishment this turn.",
+    "semanticCoverage": {
+        "testedCards": [
+            "OWCdWq3mXY"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: Look at the top card of your deck. If it's an attack card, you may banish it.",
+            "If you do, you may activate that card this turn (the banished card is tagged for activation)."
+        ]
+    }
+}

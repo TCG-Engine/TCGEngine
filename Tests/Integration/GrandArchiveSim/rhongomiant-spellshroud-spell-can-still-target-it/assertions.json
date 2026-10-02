@@ -1,0 +1,6 @@
+[
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"durability\":3,\"_overrides\":{\"type\":\"PHANTASIA\",\"subtypes\":\"CLERIC,FRACTAL\",\"classes\":\"CLERIC\",\"NO_ABILITIES\":true,\"granted_keywords\":[\"Reservable\"],\"FRACTURIZED\":true}}","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the spell targeted Rhongomiant and turned it into a Cleric Fractal phantasia that has lost its abilities (it should have been untargetable by spells)"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"clS3E0HrZL","semantic":true,"label":"The object is still Rhongomiant (the override rewrote its type, not its card)"},
+    {"step":7,"type":"card_property_equals","mzId":"p2Graveyard-0","property":"CardID","value":"cpvn96659y","semantic":true,"label":"Fracturize resolved into player 2's graveyard"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

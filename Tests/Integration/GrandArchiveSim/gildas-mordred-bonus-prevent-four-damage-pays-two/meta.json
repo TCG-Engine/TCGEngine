@@ -1,0 +1,27 @@
+{
+    "name": "gildas-mordred-bonus-prevent-four-damage-pays-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:20+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "g99PIuhU0O"
+    ],
+    "notes": "Gildas, Faesworn Monarch (g99PIuhU0O, UNIQUE ALLY, EXALTED/NORM, Stealth, Vigor): \"[Mordred Bonus] (2), [REST]: Prevent the next 4 damage that would be dealt to target unit this turn. As long as you control another Fairy ally, this ability costs (2) less to activate. (Activate this ability only if your champion is Mordred.)\" Player 1's champion is Mordred, Burnished Avenger (the Mordred Bonus holds) and a Gildas stands on its field. Player 2 attacks player 1's champion with a Dungeon Guide carrying five buff counters (6 power); in the attack's priority window player 1 activates Gildas for real: two reserve payments, the champion is the target, and the activated ability resolves into an IMPERIAL_COUNTERMEASURE_4 effect. The 6 combat damage is reduced by exactly the prevented 4, so the champion takes 2, and Gildas is rested by its [REST] cost.",
+    "semanticCoverage": {
+        "testedCards": [
+            "g99PIuhU0O"
+        ],
+        "mechanics": [
+            "prevention",
+            "cost",
+            "condition",
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "[Mordred Bonus] (2), [REST]: Prevent the next 4 damage that would be dealt to target unit this turn.",
+            "The ability costs exactly (2) when Gildas is the only Fairy ally.",
+            "The [REST] cost leaves Gildas rested."
+        ]
+    }
+}

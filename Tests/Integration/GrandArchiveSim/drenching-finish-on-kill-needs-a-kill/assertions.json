@@ -1,0 +1,7 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-1","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The 3-life Dungeon Guide survived the 2 damage"},
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-1","property":"Damage","value":"2","semantic":true,"label":"The survivor carries the 2 damage"},
+    {"step":8,"type":"zone_count","zone":"myDeck","viewerPlayerID":2,"value":10,"semantic":true,"label":"No mill: the opponent's deck is untouched"},
+    {"step":8,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":10,"semantic":true,"label":"No mill: player 1's deck is untouched"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

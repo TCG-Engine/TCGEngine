@@ -1,0 +1,6 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"4","semantic":true,"label":"The attack card activated FROM THE GRAVEYARD dealt its printed 4 damage"},
+    {"step":8,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"Exactly X = 3 reserve payments (Striking Tides' reserve cost)"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-0","property":"Status","value":"1","semantic":true,"label":"The champion attacked (rested)"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

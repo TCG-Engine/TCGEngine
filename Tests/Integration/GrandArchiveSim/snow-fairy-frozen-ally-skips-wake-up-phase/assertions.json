@@ -1,0 +1,7 @@
+[
+    {"step":10,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"4s0c9XgLg7","semantic":true,"label":"Snow Fairy is still on the field"},
+    {"step":10,"type":"card_property_equals","mzId":"p2Field-1","property":"Status","value":"1","semantic":true,"label":"The Snow Fairy target is STILL rested after its controller's wake up phase"},
+    {"step":10,"type":"card_property_equals","mzId":"p2Field-1","property":"TurnEffects","value":"[\"FROZEN_BY_SNOW_FAIRY\"]","semantic":true,"label":"The freeze persists while Snow Fairy is controlled"},
+    {"step":10,"type":"card_property_equals","mzId":"p2Field-2","property":"Status","value":"2","semantic":true,"label":"Control: the other rested Dungeon Guide DID wake up in the same wake up phase"},
+    {"step":10,"type":"decision_queue_empty","player":"all"}
+]

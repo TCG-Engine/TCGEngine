@@ -1,0 +1,26 @@
+{
+    "name": "rhongomiant-durability-removed-return-memory-card-to-hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:50+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "clS3E0HrZL"
+    ],
+    "notes": "Rhongomiant, Grove's Spire (clS3E0HrZL, durability 3): \"[Mordred Bonus] Whenever a durability counter is removed from CARDNAME, you may return a card from your memory to your hand.\" Player 1's champion is Mordred, Fated Luminary; Rhongomiant is materialized for real (2 seeded memory cards), then a Dungeon Guide is played (its 3 reserve payments put three cards into memory -- the memory zone is otherwise emptied by the recollection phase) and the champion attacks player 2's champion with Rhongomiant (weapon attack): in the damage step a durability counter is removed (3 -> 2) and the trigger offers the memory cards; answering with one returns it to player 1's hand.",
+    "semanticCoverage": {
+        "testedCards": [
+            "clS3E0HrZL"
+        ],
+        "mechanics": [
+            "counter",
+            "trigger",
+            "zone-movement",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Mordred Bonus] Whenever a durability counter is removed from Rhongomiant, you may return a card from your memory to your hand.",
+            "Using the weapon in an attack removes a durability counter (3 -> 2)."
+        ]
+    }
+}

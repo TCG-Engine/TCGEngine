@@ -1,0 +1,7 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"OWCdWq3mXY","semantic":true,"label":"Mordred did not level up this turn"},
+    {"step":8,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"THREE reserve payments: no discount without a level-up this turn"},
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"4","semantic":true,"label":"Striking Tides resolved and dealt its 4 damage"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-0","property":"Status","value":"1","semantic":true,"label":"The champion attacked and is rested"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

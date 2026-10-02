@@ -1,0 +1,22 @@
+{
+    "name": "dauntless-assault-exalted-needs-another-advanced-element",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:33+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ixIY36Ck37"
+    ],
+    "notes": "Dauntless Assault (ixIY36Ck37, EXALTED/NORM): \"(Exalted -- This element is enabled for you as long as you have another advanced element enabled.)\" The champion is the plain Spirit of Water (no advanced element in the lineage): activating Dauntless Assault from hand does nothing -- no payment is requested and the card stays in hand.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ixIY36Ck37"
+        ],
+        "mechanics": [
+            "condition",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Exalted: this element is enabled only as long as you have another advanced element enabled."
+        ]
+    }
+}

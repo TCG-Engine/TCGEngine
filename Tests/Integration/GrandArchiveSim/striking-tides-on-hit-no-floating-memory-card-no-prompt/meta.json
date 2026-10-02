@@ -1,0 +1,24 @@
+{
+    "name": "striking-tides-on-hit-no-floating-memory-card-no-prompt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:01+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qrxQGA1pc6"
+    ],
+    "notes": "Striking Tides (qrxQGA1pc6): the On Hit only offers cards with floating memory. The champion is Mordred, Burnished Avenger (level 1: attack cards do NOT float) and the graveyard holds only a Dungeon Guide: no prompt appears, nothing is banished and the champion stays rested.",
+    "semanticCoverage": {
+        "testedCards": [
+            "qrxQGA1pc6"
+        ],
+        "mechanics": [
+            "combat",
+            "trigger",
+            "condition",
+            "status"
+        ],
+        "rulesClauses": [
+            "On Hit offers only cards WITH floating memory: with none in the graveyard nothing happens."
+        ]
+    }
+}

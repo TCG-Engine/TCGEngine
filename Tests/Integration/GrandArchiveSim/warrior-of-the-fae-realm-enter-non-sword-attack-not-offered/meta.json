@@ -1,0 +1,23 @@
+{
+    "name": "warrior-of-the-fae-realm-enter-non-sword-attack-not-offered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:38+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "eRcqucBKhX"
+    ],
+    "notes": "Warrior of the Fae Realm (eRcqucBKhX): \"banish a Sword attack card from your hand or memory\". The only attack card available is a Pierce the Heavens (a Polearm attack, not a Sword): the On Enter offers nothing, no card is banished and none is drawn into memory.",
+    "semanticCoverage": {
+        "testedCards": [
+            "eRcqucBKhX"
+        ],
+        "mechanics": [
+            "trigger",
+            "condition",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "On Enter: banish a SWORD attack card (a non-Sword attack card is not a legal choice)."
+        ]
+    }
+}

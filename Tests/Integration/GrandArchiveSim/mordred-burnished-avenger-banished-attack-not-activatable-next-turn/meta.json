@@ -1,0 +1,24 @@
+{
+    "name": "mordred-burnished-avenger-banished-attack-not-activatable-next-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "OWCdWq3mXY"
+    ],
+    "notes": "Mordred, Burnished Avenger (OWCdWq3mXY): \"you may activate that card this turn.\" Player 1 banishes the revealed Striking Tides but does not activate it; after both players pass a full turn, trying to activate it from banishment on player 1's next turn is rejected by the engine (the _mordredBurnished tag is a turn effect that expired).",
+    "semanticCoverage": {
+        "testedCards": [
+            "OWCdWq3mXY"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "condition",
+            "limit"
+        ],
+        "rulesClauses": [
+            "If you do, you may activate that card THIS turn (the permission expires at end of turn)."
+        ]
+    }
+}

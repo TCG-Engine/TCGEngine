@@ -1,0 +1,22 @@
+{
+    "name": "gildas-ability-requires-mordred-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:22+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "g99PIuhU0O"
+    ],
+    "notes": "Gildas (g99PIuhU0O): \"[Mordred Bonus] ... (Activate this ability only if your champion is Mordred.)\" (activateAbilityPrereqs[\"g99PIuhU0O:0\"] = IsMordredBonusActive). With the plain Spirit of Water as champion the activation attempt does nothing: no payment is requested, no target prompt appears, Gildas stays awake and no prevention effect is created.",
+    "semanticCoverage": {
+        "testedCards": [
+            "g99PIuhU0O"
+        ],
+        "mechanics": [
+            "condition",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Mordred Bonus] ... (Activate this ability only if your champion is Mordred.)"
+        ]
+    }
+}

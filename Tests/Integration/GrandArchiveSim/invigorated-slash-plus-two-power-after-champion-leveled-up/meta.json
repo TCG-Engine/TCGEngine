@@ -1,0 +1,23 @@
+{
+    "name": "invigorated-slash-plus-two-power-after-champion-leveled-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:07+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "W1g0hNzXAC"
+    ],
+    "notes": "Invigorated Slash (W1g0hNzXAC, NORM WARRIOR/SWORD attack, reserve 2, power 2): \"As long as your champion has leveled up this turn, Invigorated Slash gets +2 POWER.\" The champion is patched to Mordred, Flawless Blade (level 2, lineage without Burnished Avenger so its inherited discount is not involved) and performs a REAL level-up into Mordred, Fated Luminary (3 memory cards) in the turn-3 materialize phase; Invigorated Slash is then played (2 reserve) and hits player 2's champion for 2 + 2 = 4.",
+    "semanticCoverage": {
+        "testedCards": [
+            "W1g0hNzXAC"
+        ],
+        "mechanics": [
+            "condition",
+            "combat",
+            "damage"
+        ],
+        "rulesClauses": [
+            "As long as your champion has leveled up this turn, Invigorated Slash gets +2 POWER."
+        ]
+    }
+}

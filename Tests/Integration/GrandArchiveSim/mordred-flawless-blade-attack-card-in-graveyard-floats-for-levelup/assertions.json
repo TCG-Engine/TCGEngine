@@ -1,0 +1,8 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"XPl2UAO9se","semantic":true,"label":"The level-up into Mordred, Aurelian Regent (memory cost 3, only 2 memory cards) completed"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"The graveyard attack card was banished as the floating payment"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The Dungeon Guide (not an attack card) stayed in the graveyard"},
+    {"step":4,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":3,"semantic":true,"label":"3 banished = the floated attack card + the 2 memory cards"},
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"Memory is empty"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

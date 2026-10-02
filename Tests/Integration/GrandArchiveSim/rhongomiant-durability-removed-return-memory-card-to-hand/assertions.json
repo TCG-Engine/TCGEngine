@@ -1,0 +1,7 @@
+[
+    {"step":12,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"durability\":2}","semantic":true,"label":"The weapon attack removed exactly one durability counter (3 -> 2)"},
+    {"step":12,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"6","semantic":true,"label":"Rhongomiant hit for 2 + 4 (influence 8) = 6"},
+    {"step":12,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"One of the three memory cards was returned to hand"},
+    {"step":12,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":5,"semantic":true,"label":"Hand 5 = 7 + draw - Dungeon Guide - 3 payments + 1 card returned from memory"},
+    {"step":12,"type":"decision_queue_empty","player":"all"}
+]

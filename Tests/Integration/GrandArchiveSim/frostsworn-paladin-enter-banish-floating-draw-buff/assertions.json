@@ -1,0 +1,9 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"rpOaAjgtue","semantic":true,"label":"The Frostsworn Paladin entered the field (played for real, so its On Enter fired)"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"The graveyard attack card (floating memory via Mordred, Flawless Blade) was banished"},
+    {"step":5,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"The banished card left the graveyard"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"buff\":1}","semantic":true,"label":"Exactly one buff counter was put on the Paladin"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":5,"semantic":true,"label":"Hand 5 = 7 starting + 1 seeded - 1 played - 3 reserve payments + 1 card drawn by the On Enter"},
+    {"step":5,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"Exactly the 3 reserve payments went to memory"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

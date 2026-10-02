@@ -1,0 +1,8 @@
+[
+    {"step":8,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":1,"semantic":true,"label":"The Training Dummy was killed"},
+    {"step":8,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":4,"semantic":true,"label":"Player 1's graveyard = Drenching Finish + the three milled cards"},
+    {"step":8,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":7,"semantic":true,"label":"Player 1's deck lost exactly three cards (10 -> 7)"},
+    {"step":8,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":2,"value":0,"semantic":true,"label":"The opponent's graveyard is untouched"},
+    {"step":8,"type":"zone_count","zone":"myDeck","viewerPlayerID":2,"value":10,"semantic":true,"label":"The opponent's deck is untouched"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

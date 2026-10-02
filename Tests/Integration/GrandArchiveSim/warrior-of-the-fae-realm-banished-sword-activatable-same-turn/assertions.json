@@ -1,0 +1,7 @@
+[
+    {"step":13,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"4","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the banished Striking Tides was activated in the SAME turn and dealt 4 damage"},
+    {"step":13,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the same-turn activation completed and the card is in the graveyard"},
+    {"step":13,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":0,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the card left banishment on the turn it was banished"},
+    {"step":13,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"eRcqucBKhX","semantic":true,"label":"The Warrior is on the field"},
+    {"step":13,"type":"decision_queue_empty","player":"all"}
+]

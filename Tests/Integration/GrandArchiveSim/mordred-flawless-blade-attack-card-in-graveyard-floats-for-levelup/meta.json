@@ -1,0 +1,23 @@
+{
+    "name": "mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:20+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "WI2owxIw0z"
+    ],
+    "notes": "Mordred, Flawless Blade (WI2owxIw0z, CHAMPION level 2, NORM): \"Attack cards in your graveyard have floating memory. (While paying for a memory cost, you may banish a card with floating memory from your graveyard to pay for 1 of that cost.)\" The champion IS Mordred, Flawless Blade (the static ability works while it is on the field); the graveyard holds a Dungeon Guide (an ally) and a Striking Tides (an attack card). The REAL level-up into Mordred, Aurelian Regent (memory cost 3, two seeded memory cards) is one point short, which the floating payment makes up: only the attack card is offered (the MZMULTICHOOSE candidates are 'myGraveyard-1'); the Dungeon Guide is not offered, Striking Tides is banished for 1 point and the two memory cards pay the rest.",
+    "semanticCoverage": {
+        "testedCards": [
+            "WI2owxIw0z"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Attack cards in your graveyard have floating memory: one may be banished to pay for 1 of a memory cost."
+        ]
+    }
+}

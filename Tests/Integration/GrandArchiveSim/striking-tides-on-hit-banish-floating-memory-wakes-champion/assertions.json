@@ -1,0 +1,8 @@
+[
+    {"step":11,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"4","semantic":true,"label":"Striking Tides hit for its printed 4"},
+    {"step":11,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"yguf3aw2ct","semantic":true,"label":"The floating-memory attack card (Pierce the Heavens) was banished from the graveyard"},
+    {"step":11,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The Dungeon Guide (no floating memory) was NOT touched"},
+    {"step":11,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":2,"semantic":true,"label":"Graveyard = Dungeon Guide + the resolved Striking Tides"},
+    {"step":11,"type":"card_property_equals","mzId":"p1Field-0","property":"Status","value":"2","semantic":true,"label":"The champion (rested by attacking) was woken up"},
+    {"step":11,"type":"decision_queue_empty","player":"all"}
+]

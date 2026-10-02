@@ -1,0 +1,23 @@
+{
+    "name": "frostsworn-paladin-enter-no-floating-memory-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:16+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "rpOaAjgtue"
+    ],
+    "notes": "Frostsworn Paladin (rpOaAjgtue): the On Enter only offers cards \"with floating memory\". The champion is the plain level-0 Spirit of Water (no floating-memory grants) and the graveyard holds only a Dungeon Guide (an ally with no floating memory): nothing is offered, so no card is drawn, nothing is banished and the Paladin gets no buff counter.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rpOaAjgtue"
+        ],
+        "mechanics": [
+            "trigger",
+            "condition",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "On Enter: You may banish a card WITH floating memory from your graveyard (a card without floating memory is not a legal choice)."
+        ]
+    }
+}

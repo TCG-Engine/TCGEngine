@@ -1,0 +1,25 @@
+{
+    "name": "mordred-aurelian-regent-ally-attack-does-not-use-up-next-attack-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:12+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "XPl2UAO9se"
+    ],
+    "notes": "Mordred, Aurelian Regent (XPl2UAO9se): \"Mordred's next attack this turn gets +3 POWER\". After the real level-up (as in mordred-aurelian-regent-levelup-enter-next-attack-plus-three-and-recover) an awake Dungeon Guide attacks first: it deals only its printed 1 and does not consume the bonus. Mordred's own Striking Tides attack afterwards still gets +3 POWER (7 damage) and \"On Hit: Recover 3\": player 2's champion has taken 1 + 7 = 8 in total and Mordred is down to 2 damage.",
+    "semanticCoverage": {
+        "testedCards": [
+            "XPl2UAO9se"
+        ],
+        "mechanics": [
+            "trigger",
+            "combat",
+            "damage",
+            "recover",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Mordred's next attack gets +3 POWER and gains On Hit: Recover 3 -- an ally's attack is not Mordred's attack and does not use the bonus up."
+        ]
+    }
+}

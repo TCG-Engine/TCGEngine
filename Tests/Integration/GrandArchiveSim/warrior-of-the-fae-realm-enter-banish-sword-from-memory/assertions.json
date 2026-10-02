@@ -1,0 +1,7 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"The Sword attack card was banished from MEMORY"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Banish-0","property":"TurnEffects","value":"[\"_warriorFaeRealm\"]","semantic":true,"label":"The banished card carries the Warrior's activation permission tag"},
+    {"step":5,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":4,"semantic":true,"label":"Memory 4 = 1 seeded - 1 banished + 3 reserve payments + 1 drawn into memory"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":4,"semantic":true,"label":"Hand 4 = 7 + 1 seeded Warrior - Warrior - 3 payments"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,23 @@
+{
+    "name": "mirrordepths-blade-on-banish-decline-keeps-top-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:30+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "efTHWeXscP"
+    ],
+    "notes": "Mirrordepth's Blade (efTHWeXscP): \"You MAY put it into your graveyard.\" Same flow as mirrordepths-blade-on-banish-put-top-card-into-graveyard, but the choice is answered PASS: the top card stays on top of the deck and the graveyard stays empty.",
+    "semanticCoverage": {
+        "testedCards": [
+            "efTHWeXscP"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "You MAY put the top card into your graveyard: declining leaves it on top of the deck."
+        ]
+    }
+}

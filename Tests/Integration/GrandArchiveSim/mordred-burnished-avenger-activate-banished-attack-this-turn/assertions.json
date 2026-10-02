@@ -1,0 +1,7 @@
+[
+    {"step":7,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"4","semantic":true,"label":"The banished Striking Tides was activated from banishment and dealt its printed 4 damage to player 2's champion"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"The activated attack card ended in the graveyard"},
+    {"step":7,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the level-up memory-cost card remains in banishment: the attack card left it"},
+    {"step":7,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"Exactly ONE reserve payment: the first attack card of a level-up turn costs 2 less (3 - 2)"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

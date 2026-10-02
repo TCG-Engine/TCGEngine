@@ -1,0 +1,24 @@
+{
+    "name": "dauntless-assault-no-wake-up-without-mordred-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:58+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ixIY36Ck37"
+    ],
+    "notes": "Dauntless Assault (ixIY36Ck37): the wake up is a \"[Mordred Bonus]\" On Attack. With a non-Mordred champion (Tristan, Shadowdancer, whose UMBRA lineage enables the Exalted element) the same attack deals its 4 damage but the champion remains rested.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ixIY36Ck37"
+        ],
+        "mechanics": [
+            "combat",
+            "trigger",
+            "status",
+            "condition"
+        ],
+        "rulesClauses": [
+            "The wake up is a [Mordred Bonus]: a non-Mordred champion stays rested after attacking."
+        ]
+    }
+}

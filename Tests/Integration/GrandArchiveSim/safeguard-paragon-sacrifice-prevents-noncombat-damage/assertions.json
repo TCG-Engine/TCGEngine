@@ -1,0 +1,9 @@
+[
+    {"step":10,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"apu7wiw3cl","semantic":true,"label":"The Paragon was sacrificed as the cost"},
+    {"step":10,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":2,"semantic":true,"label":"Player 1 controls only its champion and the Dungeon Guide"},
+    {"step":10,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"PREVENT_NONCOMBAT_4\"]","semantic":true,"label":"The champion got the full 4-damage non-combat prevention (unused)"},
+    {"step":10,"type":"card_property_equals","mzId":"p1Field-1","property":"TurnEffects","value":"[\"PREVENT_NONCOMBAT_2\",\"SKIP_WAKEUP\"]","semantic":true,"label":"The Dungeon Guide's shield absorbed Freezing Hail's 2 damage: 4 - 2 = 2 left (SKIP_WAKEUP is Freezing Hail's own rider)"},
+    {"step":10,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"0","semantic":true,"label":"The Dungeon Guide took no damage from Freezing Hail"},
+    {"step":10,"type":"zone_count","zone":"myMemory","viewerPlayerID":2,"value":2,"semantic":true,"label":"Player 2 paid Freezing Hail's 2 reserve cost"},
+    {"step":10,"type":"decision_queue_empty","player":"all"}
+]

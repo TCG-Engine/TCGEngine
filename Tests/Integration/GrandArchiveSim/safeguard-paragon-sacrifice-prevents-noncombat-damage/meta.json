@@ -1,0 +1,25 @@
+{
+    "name": "safeguard-paragon-sacrifice-prevents-noncombat-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:27+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "apu7wiw3cl"
+    ],
+    "notes": "Safeguard Paragon (apu7wiw3cl, NORM CLERIC/WARRIOR ALLY, reserve 3): \"Sacrifice Safeguard Paragon: Prevent the next 4 non-combat damage that would be dealt to each unit you control this turn.\" Player 1 controls a Safeguard Paragon and a Dungeon Guide. On its own turn player 2 plays Freezing Hail (2 damage to target unit) on that Dungeon Guide; in the priority window player 1 sacrifices the Paragon: every unit player 1 controls gets a PREVENT_NONCOMBAT_4 shield, the Paragon goes to the graveyard, and Freezing Hail's 2 damage is fully prevented (the shield keeps the remaining 2).",
+    "semanticCoverage": {
+        "testedCards": [
+            "apu7wiw3cl"
+        ],
+        "mechanics": [
+            "prevention",
+            "damage",
+            "cost",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Sacrifice Safeguard Paragon: the sacrifice is the cost (the Paragon goes to the graveyard).",
+            "Prevent the next 4 non-combat damage that would be dealt to each unit you control this turn (champion and allies)."
+        ]
+    }
+}

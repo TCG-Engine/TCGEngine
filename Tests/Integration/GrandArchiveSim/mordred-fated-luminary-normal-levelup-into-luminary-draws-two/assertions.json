@@ -1,0 +1,6 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"KqBosnU7pU","semantic":true,"label":"Flawless Blade leveled up (an ordinary level 2 -> 3 level-up) into Fated Luminary"},
+    {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":10,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): two cards were drawn (7 + 1 turn draw + 2); the rules-correct hand size is 8 because this was not a same-base-level level-up"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"Status","value":"2","semantic":true,"label":"The freshly leveled champion is awake"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

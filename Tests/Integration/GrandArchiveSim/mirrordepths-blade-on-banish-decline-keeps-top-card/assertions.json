@@ -1,0 +1,6 @@
+[
+    {"step":14,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"efTHWeXscP","semantic":true,"label":"The Blade was banished with its last durability counter"},
+    {"step":14,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"Nothing was put into the graveyard"},
+    {"step":14,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":9,"semantic":true,"label":"The deck is untouched (9 cards)"},
+    {"step":14,"type":"decision_queue_empty","player":"all"}
+]

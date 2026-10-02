@@ -1,0 +1,6 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"apu7wiw3cl","semantic":true,"label":"The Paragon was sacrificed"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"1","semantic":true,"label":"The champion still took the 1 COMBAT damage"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"WAS_ATTACKED\",\"PREVENT_NONCOMBAT_4\",\"DAMAGED_SINCE_LAST_TURN\"]","semantic":true,"label":"The non-combat shield is untouched (still 4)"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

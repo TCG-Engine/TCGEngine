@@ -1,0 +1,8 @@
+[
+    {"step":8,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":1,"semantic":true,"label":"The Training Dummy was killed (only player 2's champion remains)"},
+    {"step":8,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":2,"value":3,"semantic":true,"label":"Exactly three cards were put into the targeted player's (the opponent's) graveyard"},
+    {"step":8,"type":"zone_count","zone":"myDeck","viewerPlayerID":2,"value":7,"semantic":true,"label":"The opponent's deck lost exactly those three cards (10 -> 7)"},
+    {"step":8,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":10,"semantic":true,"label":"Player 1's own deck is untouched"},
+    {"step":8,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Player 1's graveyard holds only the resolved Drenching Finish"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

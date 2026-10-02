@@ -1,0 +1,22 @@
+{
+    "name": "mordred-flawless-blade-non-attack-card-in-graveyard-does-not-float",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:21+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "WI2owxIw0z"
+    ],
+    "notes": "Mordred, Flawless Blade (WI2owxIw0z): only ATTACK cards in the graveyard have floating memory. The champion is Flawless Blade and the graveyard holds only a Dungeon Guide (an ally): the level-up into Aurelian Regent (memory cost 3) is NOT payable by floating -- with only two memory cards the payment is refused (\"Cannot pay costs ... Action undone\"), the champion stays Flawless Blade and the Dungeon Guide stays in the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "WI2owxIw0z"
+        ],
+        "mechanics": [
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Only ATTACK cards in the graveyard have floating memory: a Dungeon Guide cannot make up the missing memory point."
+        ]
+    }
+}

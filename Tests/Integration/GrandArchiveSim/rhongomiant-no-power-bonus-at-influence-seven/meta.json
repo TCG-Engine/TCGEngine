@@ -1,0 +1,22 @@
+{
+    "name": "rhongomiant-no-power-bonus-at-influence-seven",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:48+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "clS3E0HrZL"
+    ],
+    "notes": "Rhongomiant (clS3E0HrZL): the bonus needs influence EIGHT or more. Player 2's hand is emptied and refilled with six cards, so after its turn-2 draw its influence (hand + memory) is exactly 7: the Mordred Bonus is active but the weapon keeps its printed power 2.",
+    "semanticCoverage": {
+        "testedCards": [
+            "clS3E0HrZL"
+        ],
+        "mechanics": [
+            "condition",
+            "combat"
+        ],
+        "rulesClauses": [
+            "The +4 POWER needs influence EIGHT or more (seven is not enough)."
+        ]
+    }
+}

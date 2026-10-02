@@ -1,0 +1,23 @@
+{
+    "name": "drenching-finish-on-kill-needs-a-kill",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:06+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "en3DD836cp"
+    ],
+    "notes": "Drenching Finish (en3DD836cp): \"On Kill\". With the Class Bonus active the attack targets a Dungeon Guide (3 life): the 2 damage does not destroy it, so no prompt appears and no card is milled.",
+    "semanticCoverage": {
+        "testedCards": [
+            "en3DD836cp"
+        ],
+        "mechanics": [
+            "combat",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Kill triggers only if the attack kills the unit."
+        ]
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "name": "warrior-of-the-fae-realm-banished-sword-never-activatable-on-later-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:39+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "eRcqucBKhX"
+    ],
+    "notes": "Warrior of the Fae Realm (eRcqucBKhX): \"As long as you control CARDNAME, you may activate the banished card on a later turn.\" ENGINE BUG (found, confirmed live, NOT fixed): the banished card is tagged with the _warriorFaeRealm turn effect, but the end-of-turn cleanup of the banish zone (Custom/GameLogic.php, \"Clear TurnEffects from the expiring player's banish zone\") keeps only '_seethingIntercession' and strips every other tag, so by the time a \"later turn\" arrives the tag is gone and ActionMap(\"myBanish\") ignores the click. Player 1 plays the Warrior and banishes the Striking Tides, both players pass a turn, and on player 1's next turn clicking the banished card does nothing: no payment is requested and it stays in banishment. The REGRESSION GUARD assertions pin this (a working implementation would start the activation and ask for payment).",
+    "semanticCoverage": {
+        "testedCards": [
+            "eRcqucBKhX"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition",
+            "limit",
+            "cost"
+        ],
+        "rulesClauses": [
+            "As long as you control Warrior of the Fae Realm, you may activate the banished card on a later turn."
+        ]
+    },
+    "engineBug": {
+        "status": "found-not-fixed",
+        "summary": "The banished Sword attack can never be activated on a later turn: the _warriorFaeRealm tag added to the banished card is stripped by the end-of-turn cleanup of the banish zone, so on the next turn the ActionMap 'myBanish' branch ignores the click. Confirmed live: the replayed state shows the tag present after the On Enter and gone after the turn change; the end-of-turn cleanup (Custom/GameLogic.php, 'Clear TurnEffects from the expiring player's banish zone') retains only '_seethingIntercession'.",
+        "affectedFunction": "Custom/GameLogic.php end-of-turn banish-zone TurnEffects cleanup (retains only _seethingIntercession) vs the _warriorFaeRealm tag set by the generated enterAbilities['eRcqucBKhX:0'] handler",
+        "verification": "Root cause confirmed live with a temporary file trace (restored afterwards): the end-of-turn banish cleanup logged effectsBefore=[\"_warriorFaeRealm\"] for the Striking Tides, and the later-turn myBanish click then logged tags=[] with the Warrior on the field. Break/restore: retaining _warriorFaeRealm in that cleanup (together with a per-turn marker for the same-turn bug) flipped both Warrior guard fixtures red; restored, shasums verified."
+    }
+}

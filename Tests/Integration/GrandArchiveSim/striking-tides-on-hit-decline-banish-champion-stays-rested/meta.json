@@ -1,0 +1,25 @@
+{
+    "name": "striking-tides-on-hit-decline-banish-champion-stays-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qrxQGA1pc6"
+    ],
+    "notes": "Striking Tides (qrxQGA1pc6): \"You MAY banish a card with floating memory ... If you do, wake up your champion.\" Same setup as striking-tides-on-hit-banish-floating-memory-wakes-champion; the YES/NO is answered NO: nothing is banished and the champion stays rested after attacking.",
+    "semanticCoverage": {
+        "testedCards": [
+            "qrxQGA1pc6"
+        ],
+        "mechanics": [
+            "combat",
+            "trigger",
+            "zone-movement",
+            "status",
+            "condition"
+        ],
+        "rulesClauses": [
+            "You MAY banish a card with floating memory; if you don't, the champion is not woken up."
+        ]
+    }
+}

@@ -1,0 +1,7 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-0","property":"Status","value":"2","semantic":true,"label":"The champion attacked (and was rested) but the On Attack woke it up again"},
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"4","semantic":true,"label":"Dauntless Assault dealt its printed 4 damage to player 2's champion"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"ixIY36Ck37","semantic":true,"label":"Dauntless Assault resolved into the graveyard"},
+    {"step":8,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"Exactly 3 reserve payments (printed cost 3)"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

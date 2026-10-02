@@ -1,0 +1,23 @@
+{
+    "name": "gildas-stealth-cannot-be-attacked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:24+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "g99PIuhU0O"
+    ],
+    "notes": "Gildas (g99PIuhU0O): \"Stealth (This unit can't be targeted by attacks...)\". Player 2 attacks with a Dungeon Guide; the attack-target prompt lists only player 1's champion, and answering with Gildas is rejected by the engine, so the attack is then aimed at the champion.",
+    "semanticCoverage": {
+        "testedCards": [
+            "g99PIuhU0O"
+        ],
+        "mechanics": [
+            "combat",
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "Stealth: this unit can't be targeted by attacks."
+        ]
+    }
+}

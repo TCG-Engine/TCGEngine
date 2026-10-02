@@ -1,0 +1,23 @@
+{
+    "name": "frostsworn-paladin-intercept-redirects-attack-on-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:17+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "rpOaAjgtue"
+    ],
+    "notes": "Frostsworn Paladin (rpOaAjgtue): \"Intercept (Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally.)\" (HasKeyword_Intercept -> GetAvailableInterceptRedirectTargets in Custom/CombatLogic.php). Player 1 has a Frostsworn Paladin on the field; player 2 (turn 2) attacks player 1's champion with a seeded Dungeon Guide (1 power). The \"Choose_an_interceptor\" prompt offers the Paladin; redirecting moves the attack to it, so the Paladin takes the 1 damage and the champion takes none.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rpOaAjgtue"
+        ],
+        "mechanics": [
+            "combat",
+            "targeting",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Intercept: Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally."
+        ]
+    }
+}

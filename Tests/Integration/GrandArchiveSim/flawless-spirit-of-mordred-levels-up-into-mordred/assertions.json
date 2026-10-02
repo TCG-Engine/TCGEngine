@@ -1,0 +1,8 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"OWCdWq3mXY","semantic":true,"label":"The level-up into Mordred, Burnished Avenger completed"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-0","property":"Subcards","value":"[\"cXEI5vo6iG\"]","semantic":true,"label":"Flawless Spirit of Mordred is now in the lineage"},
+    {"step":5,"type":"zone_count","zone":"myMaterial","viewerPlayerID":1,"value":1,"semantic":true,"label":"One card left the material deck"},
+    {"step":5,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"The memory cost (1) banished the seeded memory card"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-0","property":"CardID","value":"cXEI5vo6iG","semantic":true,"label":"Player 2's champion is still its Flawless Spirit of Mordred (untouched)"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

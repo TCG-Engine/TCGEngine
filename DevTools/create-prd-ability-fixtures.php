@@ -21067,6 +21067,1856 @@ $fixtures['haunting-demise-champion-hit-lineage-curse-recollection-damage'] = [
     ],
 ];
 
+// --- Mordred Re:Collection, Aurelian Regent starter deck: shared Material/Main skeleton ---
+
+// Compact action builders for the Mordred Re:Collection fixtures (each returns one action row).
+function mrdAct($p, $mode, $card, $extra = []) {
+    return array_merge(['playerID' => $p, 'mode' => $mode, 'buttonInput' => '', 'cardID' => $card, 'chkInput' => [], 'inputText' => ''], $extra);
+}
+function mrdPlay($p, $card) { return mrdAct($p, 10002, $card . '!FSM!'); }       // FSM click: play a card / start an attack / materialize
+function mrdAns($p, $card, $extra = []) { return mrdAct($p, 100, $card, $extra); } // answer the pending decision
+function mrdEnd($p) { return mrdAct($p, 10001, 'myHealth-0!CustomInput!Pass'); }  // pass the turn
+function mrdPass($p) { return mrdAns($p, 'PASS'); }
+function mrdPay($p, $n) { $rows = []; for ($i = 0; $i < $n; ++$i) $rows[] = mrdAns($p, 'myHand-0'); return $rows; } // n reserve payments (each banishes the first hand card into memory)
+
+$mordredDeck = <<<'DECK'
+# Material
+1 Spirit of Water
+1 Mordred, Burnished Avenger
+1 Mordred, Flawless Blade
+1 Mordred, Fated Luminary
+1 Mordred, Aurelian Regent
+1 Mirrordepth's Blade
+1 Dummy Trainer
+1 Rhongomiant, Grove's Spire
+# Main
+9 Dungeon Guide
+9 Fluffy Shopkeep
+DECK;
+
+// --- Frostsworn Paladin: On Enter, banishing a floating-memory card from the graveyard draws a card and puts a buff counter on it ---
+// Frostsworn Paladin (rpOaAjgtue, WATER ALLY, reserve 3): "Intercept. On Enter: You may banish a
+// card with floating memory from your graveyard. If you do, draw a card and put a buff counter on
+// Frostsworn Paladin." The champion is patched to Mordred, Flawless Blade (level 2; its static
+// ability gives attack cards in the graveyard floating memory) and a Striking Tides (an attack
+// card) is seeded in the graveyard. The Paladin is played from hand for real (3 reserve payments),
+// so enterAbilities["rpOaAjgtue:0"] fires: the graveyard attack card is offered, banished, a card
+// is drawn and the Paladin gets exactly one buff counter.
+$fixtures['frostsworn-paladin-enter-banish-floating-draw-buff'] = [
+    'testedCards' => ['rpOaAjgtue'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Flawless Blade (level 2): attack cards in the graveyard have floating memory
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (attack card -> floating memory) -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rpOaAjgtue'], // Frostsworn Paladin -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Frostsworn Paladin
+        ...mrdPay(1, 3), // reserve payments 1/3 - 3/3
+        mrdAns(1, 'myGraveyard-0'), // On Enter: banish the floating-memory card from the graveyard
+    ],
+];
+
+// --- Frostsworn Paladin: On Enter is optional -- declining the banish draws nothing and adds no buff counter ---
+// Frostsworn Paladin (rpOaAjgtue): "On Enter: You may banish a card with floating memory from
+// your graveyard. If you do, draw a card and put a buff counter on CARDNAME." Same setup as
+// frostsworn-paladin-enter-banish-floating-draw-buff, but the MZMAYCHOOSE is answered PASS: the
+// graveyard card stays, no card is drawn and no buff counter is placed.
+$fixtures['frostsworn-paladin-enter-decline-banish'] = [
+    'testedCards' => ['rpOaAjgtue'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Flawless Blade (level 2)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (floating memory)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rpOaAjgtue'], // Frostsworn Paladin -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Frostsworn Paladin
+        ...mrdPay(1, 3), // reserve payments
+        mrdPass(1), // decline to banish
+    ],
+];
+
+// --- Frostsworn Paladin: only a card WITH floating memory may be banished -- with none in the graveyard the On Enter has no effect ---
+// Frostsworn Paladin (rpOaAjgtue): the On Enter only offers cards "with floating memory". The
+// champion is the plain level-0 Spirit of Water (no floating-memory grants) and the graveyard
+// holds only a Dungeon Guide (an ally with no floating memory): nothing is offered, so no card is
+// drawn, nothing is banished and the Paladin gets no buff counter.
+$fixtures['frostsworn-paladin-enter-no-floating-memory-card'] = [
+    'testedCards' => ['rpOaAjgtue'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (no floating memory) -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rpOaAjgtue'], // Frostsworn Paladin -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Frostsworn Paladin
+        ...mrdPay(1, 3), // reserve payments
+    ],
+];
+
+// --- Frostsworn Paladin: Intercept -- redirect an attack on your champion to the awake Paladin ---
+// Frostsworn Paladin (rpOaAjgtue): "Intercept (Whenever your champion is attacked while this ally
+// is awake, you may redirect that attack to this ally.)" (HasKeyword_Intercept ->
+// GetAvailableInterceptRedirectTargets in Custom/CombatLogic.php). Player 1 has a Frostsworn Paladin
+// on the field; player 2 (turn 2) attacks player 1's champion with a seeded Dungeon Guide (1
+// power). The "Choose_an_interceptor" prompt offers the Paladin; redirecting moves the attack to
+// it, so the Paladin takes the 1 damage and the champion takes none.
+$fixtures['frostsworn-paladin-intercept-redirects-attack-on-champion'] = [
+    'testedCards' => ['rpOaAjgtue'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'rpOaAjgtue'], // Frostsworn Paladin (awake) -> p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the attacker) -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with Dungeon Guide
+        mrdAns(2, 'theirField-0'), // targeting player 1's champion
+        mrdAns(1, 'myField-1'), // player 1 intercepts with the Paladin
+        mrdAns(1, '-'), // decline retaliation
+    ],
+];
+
+// --- Frostsworn Paladin: Intercept is not offered while the Paladin is rested (only an AWAKE ally may intercept) ---
+// Frostsworn Paladin (rpOaAjgtue): the Intercept only works "while this ally is awake". The
+// Paladin is seeded rested (Status 1); player 2's Dungeon Guide attacks player 1's champion and
+// no interceptor prompt is offered: the champion takes the 1 damage itself.
+$fixtures['frostsworn-paladin-intercept-not-offered-while-rested'] = [
+    'testedCards' => ['rpOaAjgtue'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'rpOaAjgtue', 'setProperties' => ['Status' => 1]], // Frostsworn Paladin, RESTED -> p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the attacker) -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with Dungeon Guide
+        mrdAns(2, 'theirField-0'), // targeting player 1's champion
+    ],
+];
+// --- Gildas, Faesworn Monarch: [Mordred Bonus] (2), [REST]: prevent the next 4 damage to target unit this turn ---
+// Gildas, Faesworn Monarch (g99PIuhU0O, UNIQUE ALLY, EXALTED/NORM, Stealth, Vigor): "[Mordred Bonus]
+// (2), [REST]: Prevent the next 4 damage that would be dealt to target unit this turn. As long as
+// you control another Fairy ally, this ability costs (2) less to activate. (Activate this ability
+// only if your champion is Mordred.)" Player 1's champion is Mordred, Burnished Avenger (the
+// Mordred Bonus holds) and a Gildas stands on its field. Player 2 attacks player 1's champion with
+// a Dungeon Guide carrying five buff counters (6 power); in the attack's priority window player 1
+// activates Gildas for real: two reserve payments, the champion is the target, and the activated
+// ability resolves into an IMPERIAL_COUNTERMEASURE_4 effect. The 6 combat damage is reduced by
+// exactly the prevented 4, so the champion takes 2, and Gildas is rested by its [REST] cost.
+$fixtures['gildas-mordred-bonus-prevent-four-damage-pays-two'] = [
+    'testedCards' => ['g99PIuhU0O'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'OWCdWq3mXY', 'Subcards' => ['tafqldAGRF']]], // Mordred, Burnished Avenger: Mordred Bonus active
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'g99PIuhU0O'], // Gildas, Faesworn Monarch (awake) -> p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['buff' => 5]]], // Dungeon Guide with 5 buff counters (6 power) -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdPass(1), // p1 passes the end-of-main fast window (Gildas' ability keeps windows open)
+        mrdPass(1), // p1 passes the beginning-of-opponent-turn window
+        mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with the buffed Dungeon Guide
+        mrdAns(2, 'theirField-0'), // targeting player 1's champion
+        mrdAns(1, 'myField-1@Activate-0@Prevent'), // player 1 activates Gildas in the priority window
+        ...mrdPay(1, 2), // the (2) cost
+        mrdAns(1, 'myField-0'), // target: the champion
+        mrdPass(1), // p1 passes the first window after the ability
+        mrdPass(1), // p1 passes the second window
+    ],
+];
+
+// --- Gildas, Faesworn Monarch: with another Fairy ally the ability costs (2) less, i.e. nothing ---
+// Gildas (g99PIuhU0O): "As long as you control another Fairy ally, this ability costs (2) less to
+// activate." A Warrior of the Fae Realm (a Fairy ally) stands beside Gildas, so activating the
+// ability in the attack's priority window needs NO reserve payment at all: the target prompt
+// comes up immediately, the hand and memory are untouched, and the champion (1 damage attacker,
+// fully absorbed by the prevention) takes no damage.
+$fixtures['gildas-another-fairy-ally-makes-ability-free'] = [
+    'testedCards' => ['g99PIuhU0O'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'OWCdWq3mXY', 'Subcards' => ['tafqldAGRF']]], // Mordred, Burnished Avenger: Mordred Bonus active
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'g99PIuhU0O'], // Gildas -> p1 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'eRcqucBKhX'], // Warrior of the Fae Realm (a Fairy ally) -> p1 field-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (1 power) -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdPass(1), // p1 passes the end-of-main fast window
+        mrdPass(1), // p1 passes the beginning-of-opponent-turn window
+        mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with Dungeon Guide
+        mrdAns(2, 'theirField-0'), // targeting player 1's champion
+        mrdAns(1, 'myField-1@Activate-0@Prevent'), // player 1 activates Gildas -- no payment is requested
+        mrdAns(1, 'myField-0'), // target: the champion
+        mrdPass(1), // p1 passes the window after the ability
+        mrdPass(1), // p1 passes the second window
+    ],
+];
+
+// --- Gildas, Faesworn Monarch: the ability needs the Mordred Bonus (champion must be Mordred) ---
+// Gildas (g99PIuhU0O): "[Mordred Bonus] ... (Activate this ability only if your champion is
+// Mordred.)" (activateAbilityPrereqs["g99PIuhU0O:0"] = IsMordredBonusActive). With the plain
+// Spirit of Water as champion the activation attempt does nothing: no payment is requested, no
+// target prompt appears, Gildas stays awake and no prevention effect is created.
+$fixtures['gildas-ability-requires-mordred-champion'] = [
+    'testedCards' => ['g99PIuhU0O'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'g99PIuhU0O'], // Gildas -> p1 field-1; the champion is the plain Spirit of Water (no Mordred lineage)
+    ],
+    'actions' => [
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), // try to activate Gildas' ability: nothing happens without the Mordred Bonus
+    ],
+];
+
+// --- Gildas, Faesworn Monarch: Vigor -- a rested Gildas wakes itself up at the end of its controller's turn ---
+// Gildas (g99PIuhU0O): "Stealth, Vigor". Vigor (HasVigor -> end-phase wake up in Custom/GameLogic.php)
+// makes the unit ready itself at the end of its controller's turn. Player 1's champion is Mordred,
+// Burnished Avenger; Gildas' [REST] ability is used in the main phase (two reserve payments, the
+// champion is the target) which leaves Gildas rested, then player 1 ends the turn and Gildas is
+// found awake again.
+$fixtures['gildas-vigor-wakes-up-at-end-of-turn'] = [
+    'testedCards' => ['g99PIuhU0O'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'OWCdWq3mXY', 'Subcards' => ['tafqldAGRF']]], // Mordred, Burnished Avenger: Mordred Bonus active
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'g99PIuhU0O'], // Gildas -> p1 field-1
+    ],
+    'actions' => [
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), // activate Gildas' ability in the main phase
+        ...mrdPay(1, 2), // the (2) cost
+        mrdAns(1, 'myField-0'), // target: the champion
+        mrdPass(1), // p1 passes the window after the ability
+        mrdPass(1), // p1 passes the second window
+        mrdEnd(1), // end player 1 turn 1 -> Vigor wakes Gildas up
+        mrdPass(1), // p1 passes the end-of-main fast window
+        mrdPass(1), // p1 passes the beginning-of-opponent-turn window
+    ],
+];
+
+// --- Gildas, Faesworn Monarch: Stealth -- an attack cannot target it ---
+// Gildas (g99PIuhU0O): "Stealth (This unit can't be targeted by attacks...)". Player 2 attacks
+// with a Dungeon Guide; the attack-target prompt lists only player 1's champion, and answering
+// with Gildas is rejected by the engine, so the attack is then aimed at the champion.
+$fixtures['gildas-stealth-cannot-be-attacked'] = [
+    'testedCards' => ['g99PIuhU0O'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'g99PIuhU0O'], // Gildas (Stealth) -> p1 field-1; the champion is the plain Spirit of Water
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the attacker) -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with Dungeon Guide
+        mrdAns(2, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'A Stealth ally (Gildas) is rejected as an attack target']),
+        mrdAns(2, 'theirField-0'), // the only legal target: player 1's champion
+    ],
+];
+
+// --- Gildas, Faesworn Monarch: a RESTED Gildas can be activated again -- the [REST] cost is never enforced (engine bug) ---
+// Gildas (g99PIuhU0O): "[Mordred Bonus] (2), [REST]: Prevent the next 4 damage ..." -- a [REST]
+// cost can only be paid by an awake unit. ENGINE BUG (found, confirmed live, NOT fixed):
+// activateAbilityPrereqs["g99PIuhU0O:0"] (GeneratedCode/GeneratedMacroCode.php) only checks
+// IsMordredBonusActive() and never that Gildas is awake, and DoActivatedAbility() merely SETS
+// Status = 1 as an implicit REST without checking it first, so the priority window after the first
+// activation still offers 'myField-1@Activate-0@Prevent' and a second activation of the already
+// rested Gildas is accepted: another (2) is paid and a second prevention target is chosen. The
+// REGRESSION GUARD assertions pin the buggy outcome (4 reserve cards paid in total, Gildas
+// rested).
+$fixtures['gildas-rested-ability-reactivation-not-blocked'] = [
+    'testedCards' => ['g99PIuhU0O'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'OWCdWq3mXY', 'Subcards' => ['tafqldAGRF']]], // Mordred, Burnished Avenger: Mordred Bonus active
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'g99PIuhU0O'], // Gildas -> p1 field-1
+    ],
+    'actions' => [
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), // first activation in the main phase
+        ...mrdPay(1, 2), // the (2) cost
+        mrdAns(1, 'myField-0'), // target: the champion
+        mrdAns(1, 'myField-1@Activate-0@Prevent'), // second activation of the now RESTED Gildas, from the priority window
+        ...mrdPay(1, 2), // a second (2) is paid
+        mrdAns(1, 'myField-0'), // target: the champion again
+        mrdPass(1), // p1 passes the window after the ability
+        mrdPass(1), // p1 passes the second window
+    ],
+];
+
+// --- Mordred, Burnished Avenger: On Enter, look at the top card; an attack card may be banished ---
+// Mordred, Burnished Avenger (OWCdWq3mXY, CHAMPION level 1, WATER WARRIOR): "On Enter: Look at the
+// top card of your deck. If it's an attack card, you may banish it. If you do, you may activate
+// that card this turn." The starting champion (Spirit of Water, level 0) really levels up in the
+// materialize phase of turn 3 (1 memory card paid), so enterAbilities["OWCdWq3mXY:0"] fires: the
+// seeded top-of-deck Striking Tides (an attack card) is revealed, the YES/NO is answered YES and
+// the card moves from the deck to the banishment zone, tagged with the _mordredBurnished turn
+// effect that lets it be activated from banishment this turn.
+$fixtures['mordred-burnished-avenger-levelup-enter-banish-top-attack'] = [
+    'testedCards' => ['OWCdWq3mXY'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost (1)
+        ['player' => 1, 'deckTop' => ['qrxQGA1pc6']], // Striking Tides (attack card) is the top card of player 1's deck
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-0'), // level up Spirit of Water into Mordred, Burnished Avenger (real level-up -> On Enter fires)
+        mrdAns(1, 'YES'), // banish the revealed attack card
+    ],
+];
+
+// --- Mordred, Burnished Avenger: the banished attack card may be activated this turn (from banishment) ---
+// Mordred, Burnished Avenger (OWCdWq3mXY): "If you do, you may activate that card this turn." After
+// the real level-up and the YES banish (see mordred-burnished-avenger-levelup-enter-banish-top-
+// attack), player 1 activates the banished Striking Tides straight from banishment (the
+// ActionMap "myBanish" case recognises the _mordredBurnished tag): it is paid (the first attack card
+// of a turn in which Mordred leveled up costs 2 less, so 1 reserve payment instead of 3), aimed at
+// player 2's champion and deals its printed 4 damage; the card ends in the graveyard.
+$fixtures['mordred-burnished-avenger-activate-banished-attack-this-turn'] = [
+    'testedCards' => ['OWCdWq3mXY'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost (1)
+        ['player' => 1, 'deckTop' => ['qrxQGA1pc6']], // Striking Tides is the top card of player 1's deck
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-0'), // level up into Mordred, Burnished Avenger
+        mrdAns(1, 'YES'), // banish the revealed attack card
+        mrdPlay(1, 'myBanish-1'), // activate the banished Striking Tides this turn (banish-0 is the memory-cost card)
+        ...mrdPay(1, 1), // reserve payment (3 - 2)
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Mordred, Burnished Avenger: On Enter does nothing when the top card is not an attack card ---
+// Mordred, Burnished Avenger (OWCdWq3mXY): "If it's an attack card, you may banish it." The top
+// card of the deck is a Dungeon Guide (an ally): the real level-up reveals it but no banish prompt
+// appears, nothing is banished and the card is simply drawn in the draw step.
+$fixtures['mordred-burnished-avenger-levelup-enter-top-card-not-attack'] = [
+    'testedCards' => ['OWCdWq3mXY'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost (1)
+        ['player' => 1, 'deckTop' => ['em6eEh9q8y']], // Dungeon Guide (an ally, not an attack card) is the top card
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-0'), // level up into Mordred, Burnished Avenger (real level-up -> On Enter fires)
+    ],
+];
+
+// --- Mordred, Burnished Avenger: banishing the revealed attack card is optional (declined) ---
+// Mordred, Burnished Avenger (OWCdWq3mXY): "you MAY banish it". The YES/NO is answered NO: the
+// revealed Striking Tides is not banished (so it carries no activation permission) and ends up in
+// player 1's hand through the normal draw step.
+$fixtures['mordred-burnished-avenger-levelup-enter-decline-banish'] = [
+    'testedCards' => ['OWCdWq3mXY'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost (1)
+        ['player' => 1, 'deckTop' => ['qrxQGA1pc6']], // Striking Tides is the top card
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-0'), // level up into Mordred, Burnished Avenger
+        mrdAns(1, 'NO'), // decline to banish the attack card
+    ],
+];
+
+// --- Mordred, Burnished Avenger: the permission to activate the banished attack lasts only THIS turn ---
+// Mordred, Burnished Avenger (OWCdWq3mXY): "you may activate that card this turn." Player 1
+// banishes the revealed Striking Tides but does not activate it; after both players pass a full
+// turn, trying to activate it from banishment on player 1's next turn is rejected by the engine
+// (the _mordredBurnished tag is a turn effect that expired).
+$fixtures['mordred-burnished-avenger-banished-attack-not-activatable-next-turn'] = [
+    'testedCards' => ['OWCdWq3mXY'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost (1)
+        ['player' => 1, 'deckTop' => ['qrxQGA1pc6']], // Striking Tides is the top card
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-0'), // level up into Mordred, Burnished Avenger
+        mrdAns(1, 'YES'), // banish the revealed attack card; it is NOT activated this turn
+        mrdEnd(1), // end player 1 turn 3
+        mrdPass(2), // player 2 declines its materialize offer at the start of turn 4
+        mrdEnd(2), // end player 2 turn 4 -> player 1 turn 5 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myBanish-1'), // try to activate the banished attack card on a later turn: nothing happens
+    ],
+];
+
+// --- Mordred, Burnished Avenger: inherited effect -- after Mordred leveled up this turn the FIRST attack card costs 2 less ---
+// Mordred, Burnished Avenger (OWCdWq3mXY): "[Mordred Bonus] Inherited Effect -- As long as Mordred
+// has leveled up this turn, the first attack card you activate this turn costs 2 less to
+// activate." (CalculateActivationReserveCost: ChampionHasInLineage(OWCdWq3mXY) + the
+// LEVELED_UP_THIS_TURN global effect + no attack card activated yet.) The champion is patched to
+// Burnished Avenger (level 1) and performs a REAL level-up into Mordred, Flawless Blade (2 memory
+// cards): the effect is inherited because Burnished Avenger is in the lineage. Striking Tides
+// (printed reserve 3) is then activated and needs exactly ONE reserve payment.
+$fixtures['mordred-burnished-avenger-inherited-first-attack-costs-two-less'] = [
+    'testedCards' => ['OWCdWq3mXY'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'OWCdWq3mXY', 'Subcards' => ['tafqldAGRF']]], // Mordred, Burnished Avenger (level 1)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 2/2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (attack, printed reserve 3) -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-1'), // real level-up into Mordred, Flawless Blade (the discount is inherited from Burnished Avenger)
+        mrdPlay(1, 'myHand-7'), // activate Striking Tides
+        ...mrdPay(1, 1), // ONE reserve payment: printed 3 - 2
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Mordred, Burnished Avenger: the first-attack discount needs Mordred to have leveled up THIS turn ---
+// Mordred, Burnished Avenger (OWCdWq3mXY): the inherited effect only applies "as long as Mordred
+// has leveled up this turn". Same lineage as mordred-burnished-avenger-inherited-first-attack-
+// costs-two-less but the materialize offer is declined (no level-up this turn): Striking Tides
+// (printed reserve 3) costs its full THREE reserve payments.
+$fixtures['mordred-burnished-avenger-no-discount-without-levelup-this-turn'] = [
+    'testedCards' => ['OWCdWq3mXY'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'OWCdWq3mXY', 'Subcards' => ['tafqldAGRF']]], // Mordred, Burnished Avenger (level 1)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the level-up offer: Mordred does NOT level up this turn
+        mrdPlay(1, 'myHand-7'), // activate Striking Tides
+        ...mrdPay(1, 3), // THREE reserve payments (full printed cost)
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Warrior of the Fae Realm: On Enter, banish a Sword attack card from hand, draw a card into memory ---
+// Warrior of the Fae Realm (eRcqucBKhX, NORM WARRIOR/FAIRY ALLY, reserve 3, Stealth): "On Enter:
+// You may banish a Sword attack card from your hand or memory. If you do, draw a card into your
+// memory. As long as you control CARDNAME, you may activate the banished card on a later turn."
+// A Striking Tides (a Sword attack card) is seeded in hand next to the Warrior, which is played for
+// real (3 reserve payments): the Sword attack in hand is offered, banished (tagged
+// _warriorFaeRealm) and a card is drawn directly into memory (memory 3 payments + 1 = 4, hand
+// unchanged by the draw).
+$fixtures['warrior-of-the-fae-realm-enter-banish-sword-from-hand-draw-memory'] = [
+    'testedCards' => ['eRcqucBKhX'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'eRcqucBKhX'], // Warrior of the Fae Realm -> p1 myHand-7
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (Sword attack) -> p1 myHand-8
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Warrior of the Fae Realm
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'myHand-4'), // On Enter: banish Striking Tides (it shifted to myHand-4 after the play and 3 payments)
+    ],
+];
+
+// --- Warrior of the Fae Realm: a Sword attack card may also be banished from MEMORY ---
+// Warrior of the Fae Realm (eRcqucBKhX): "You may banish a Sword attack card from your hand or
+// memory." A Striking Tides is seeded in player 1's MEMORY (the hand holds no Sword attack): the
+// On Enter offers the memory card, banishes it (tagged _warriorFaeRealm) and draws a card into
+// memory, so memory still holds 4 cards (1 seeded - 1 banished + 3 reserve payments + 1 drawn).
+$fixtures['warrior-of-the-fae-realm-enter-banish-sword-from-memory'] = [
+    'testedCards' => ['eRcqucBKhX'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (Sword attack) in memory -> p1 memory-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'eRcqucBKhX'], // Warrior of the Fae Realm -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Warrior of the Fae Realm
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'myMemory-0'), // On Enter: banish the Sword attack from memory
+    ],
+];
+
+// --- Warrior of the Fae Realm: the On Enter banish is optional (declined) ---
+// Warrior of the Fae Realm (eRcqucBKhX): "You MAY banish a Sword attack card". The MZMAYCHOOSE is
+// answered PASS: the Striking Tides stays in hand, nothing is banished and no card is drawn into
+// memory (memory holds only the 3 reserve payments).
+$fixtures['warrior-of-the-fae-realm-enter-decline-banish'] = [
+    'testedCards' => ['eRcqucBKhX'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'eRcqucBKhX'], // Warrior of the Fae Realm -> p1 myHand-7
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (Sword attack) -> p1 myHand-8
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Warrior of the Fae Realm
+        ...mrdPay(1, 3), // reserve payments
+        mrdPass(1), // decline the optional banish
+    ],
+];
+
+// --- Warrior of the Fae Realm: only a SWORD attack card is a legal choice (a Polearm attack is not offered) ---
+// Warrior of the Fae Realm (eRcqucBKhX): "banish a Sword attack card from your hand or memory". The
+// only attack card available is a Pierce the Heavens (a Polearm attack, not a Sword): the On
+// Enter offers nothing, no card is banished and none is drawn into memory.
+$fixtures['warrior-of-the-fae-realm-enter-non-sword-attack-not-offered'] = [
+    'testedCards' => ['eRcqucBKhX'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'eRcqucBKhX'], // Warrior of the Fae Realm -> p1 myHand-7
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'yguf3aw2ct'], // Pierce the Heavens (Polearm attack, NOT a Sword) -> p1 myHand-8
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Warrior of the Fae Realm
+        ...mrdPay(1, 3), // reserve payments
+    ],
+];
+
+// --- Warrior of the Fae Realm: the banished Sword attack can never be activated on a LATER turn (engine bug) ---
+// Warrior of the Fae Realm (eRcqucBKhX): "As long as you control CARDNAME, you may activate the
+// banished card on a later turn." ENGINE BUG (found, confirmed live, NOT fixed): the banished card
+// is tagged with the _warriorFaeRealm turn effect, but the end-of-turn cleanup of the banish zone
+// (Custom/GameLogic.php, "Clear TurnEffects from the expiring player's banish zone") keeps only
+// '_seethingIntercession' and strips every other tag, so by the time a "later turn" arrives the
+// tag is gone and ActionMap("myBanish") ignores the click. Player 1 plays the Warrior and banishes
+// the Striking Tides, both players pass a turn, and on player 1's next turn clicking the banished
+// card does nothing: no payment is requested and it stays in banishment. The REGRESSION GUARD
+// assertions pin this (a working implementation would start the activation and ask for payment).
+$fixtures['warrior-of-the-fae-realm-banished-sword-never-activatable-on-later-turn'] = [
+    'testedCards' => ['eRcqucBKhX'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'eRcqucBKhX'], // Warrior of the Fae Realm -> p1 myHand-7
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (Sword attack) -> p1 myHand-8
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Warrior of the Fae Realm
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'myHand-4'), // On Enter: banish Striking Tides
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myBanish-0'), // try to activate the banished Striking Tides on a LATER turn: nothing happens
+    ],
+];
+
+// --- Warrior of the Fae Realm: the banished Sword attack CAN be activated on the SAME turn (contrary to "on a later turn") ---
+// Warrior of the Fae Realm (eRcqucBKhX): "you may activate the banished card on a later turn." ENGINE
+// BUG (found, confirmed live, NOT fixed): the ActionMap "myBanish" branch (Custom/GameLogic.php)
+// only requires the _warriorFaeRealm tag and the Warrior on the field -- it never checks that the
+// card was banished on an EARLIER turn -- so the Striking Tides banished by this very On Enter can
+// be activated right away in the same turn. The REGRESSION GUARD assertions pin the buggy outcome:
+// the activation proceeds (3 further reserve payments), hits player 2's champion for 4 and the card
+// ends in the graveyard. (Player 1 plays this on turn 3 because the first player cannot attack on turn 1.)
+$fixtures['warrior-of-the-fae-realm-banished-sword-activatable-same-turn'] = [
+    'testedCards' => ['eRcqucBKhX'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'eRcqucBKhX'], // Warrior of the Fae Realm -> p1 myHand-7
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (Sword attack) -> p1 myHand-8
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1 (the first player may not attack on turn 1)
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // play Warrior of the Fae Realm
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'myHand-4'), // On Enter: banish Striking Tides
+        mrdPlay(1, 'myBanish-0'), // activate the banished Striking Tides in the SAME turn
+        ...mrdPay(1, 3), // 3 further reserve payments
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Warrior of the Fae Realm: Stealth -- an attack cannot target it ---
+// Warrior of the Fae Realm (eRcqucBKhX): "Stealth". Player 2 attacks with a Dungeon Guide; the
+// attack-target prompt lists only player 1's champion and answering with the Warrior is rejected, so
+// the attack is aimed at the champion.
+$fixtures['warrior-of-the-fae-realm-stealth-cannot-be-attacked'] = [
+    'testedCards' => ['eRcqucBKhX'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'eRcqucBKhX'], // Warrior of the Fae Realm (Stealth) -> p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the attacker) -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with Dungeon Guide
+        mrdAns(2, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'A Stealth ally (Warrior of the Fae Realm) is rejected as an attack target']),
+        mrdAns(2, 'theirField-0'), // the only legal target: player 1's champion
+    ],
+];
+
+// --- Dredging Streams: banish target card from a graveyard (your own) ---
+// Dredging Streams (wmt0x5zado, WATER CLERIC SPELL action, reserve 2): "Banish target card from a
+// graveyard." A Dungeon Guide is seeded in each player's graveyard and Dredging Streams is played
+// for real (2 reserve payments); the target prompt (cardActivatedAbilities["wmt0x5zado:0"]) lists
+// the cards of both graveyards, player 1's own is chosen and moves to player 1's banishment.
+$fixtures['dredging-streams-banish-card-from-own-graveyard'] = [
+    'testedCards' => ['wmt0x5zado'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p1 graveyard-0
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p2 graveyard-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'wmt0x5zado'], // Dredging Streams -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Dredging Streams
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'myGraveyard-0'), // target: player 1's own Dungeon Guide
+    ],
+];
+
+// --- Dredging Streams: banish target card from the OPPONENT's graveyard ---
+// Dredging Streams (wmt0x5zado): "Banish target card from a graveyard." -- any graveyard. Same
+// setup as dredging-streams-banish-card-from-own-graveyard, but the opponent's Fluffy Shopkeep
+// is chosen: it is banished into the OPPONENT's banishment (the handler redirects to the
+// graveyard owner's banish zone) and player 1's own graveyard is untouched.
+$fixtures['dredging-streams-banish-card-from-opponent-graveyard'] = [
+    'testedCards' => ['wmt0x5zado'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p1 graveyard-0
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p2 graveyard-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'wmt0x5zado'], // Dredging Streams -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Dredging Streams
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirGraveyard-0'), // target: player 2's Fluffy Shopkeep
+    ],
+];
+
+// --- Dredging Streams: [Level 2+] Floating Memory pays 1 of a champion level-up's memory cost from the graveyard ---
+// Dredging Streams (wmt0x5zado): "[Level 2+] Floating Memory (While paying for a memory cost, you
+// may banish this card from your graveyard to pay for 1 of that cost. Apply this effect only if
+// your champion is level 2 or higher.)" The champion is patched to Mordred, Flawless Blade
+// (level 2) and Dredging Streams is seeded in the graveyard. The real level-up into Mordred,
+// Aurelian Regent (memory cost 3) offers the floating payment (QueueMaterializeFloatingPayment
+// Choice): picking Dredging Streams banishes it for 1 and the remaining 2 are paid from the two
+// seeded memory cards.
+$fixtures['dredging-streams-level-two-floating-memory-pays-levelup'] = [
+    'testedCards' => ['wmt0x5zado'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Flawless Blade (level 2)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'wmt0x5zado'], // Dredging Streams in the graveyard (floating memory source) -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 2/2
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-3'), // start the level-up into Mordred, Aurelian Regent (memory cost 3)
+        mrdAns(1, 'myGraveyard-0'), // float Dredging Streams from the graveyard for 1 of the cost
+    ],
+];
+
+// --- Dredging Streams: Floating Memory is NOT offered below Level 2 ---
+// Dredging Streams (wmt0x5zado): the Floating Memory clause is "[Level 2+]". The champion is
+// Mordred, Burnished Avenger (level 1): the level-up into Mordred, Flawless Blade (memory cost 2)
+// never offers the graveyard Dredging Streams -- both seeded memory cards are banished instead and
+// Dredging Streams stays in the graveyard.
+$fixtures['dredging-streams-floating-memory-not-offered-below-level-two'] = [
+    'testedCards' => ['wmt0x5zado'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'OWCdWq3mXY', 'Subcards' => ['tafqldAGRF']]], // Mordred, Burnished Avenger (level 1)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'wmt0x5zado'], // Dredging Streams in the graveyard -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 2/2
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-1'), // level up into Mordred, Flawless Blade (memory cost 2): no floating prompt appears
+    ],
+];
+
+// --- Dummy Trainer: (3), Banish: draw a card into your memory, then the target opponent summons a Training Dummy ---
+// Dummy Trainer (QCUld5Xidm, NORM WARRIOR REGALIA/ITEM, memory cost 0): "(3), Banish CARDNAME: Draw
+// a card into your memory. Then target opponent summons a Training Dummy token." It is
+// materialized for real from the material deck in the turn-3 materialize phase, then its ability
+// is activated for real in the main phase (CustomInput Activate:0): the (3) cost is three reserve
+// payments and the card banishes itself as part of the cost; the effect draws one card into player
+// 1's memory and puts a Training Dummy token (a 0 power Warrior Construct ally) on the OPPONENT's
+// field.
+$fixtures['dummy-trainer-banish-draw-memory-opponent-summons-training-dummy'] = [
+    'testedCards' => ['QCUld5Xidm'],
+    'deck' => $mordredDeck,
+    'setup' => [],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-5'), // materialize Dummy Trainer (memory cost 0)
+        mrdPass(1), // pass the beginning-of-recollection window: the game moves on to the main phase
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), // activate its ability
+        ...mrdPay(1, 3), // the (3) cost
+    ],
+];
+
+// --- Rhongomiant, Grove's Spire: Spellshroud -- a spell can't target it (printed Spellshroud is not implemented: engine bug) ---
+// Rhongomiant, Grove's Spire (clS3E0HrZL, EXALTED/NORM WARRIOR REGALIA/WEAPON, memory cost 2):
+// "Spellshroud (Objects with spellshroud can't be targeted by spells.)" ENGINE BUG (found,
+// confirmed live, NOT fixed): HasSpellshroud() (Custom/GameLogic.php) only recognises printed
+// Spellshroud for a hard-coded list of card IDs and through HasKeyword_Spellshroud(), which is
+// never generated (function_exists is false) -- clS3E0HrZL is in none of them, so
+// FilterSpellshroudTargets() lets a spell target Rhongomiant. Player 2 plays Fracturize ("Target
+// item or weapon becomes a Cleric Fractal phantasia ... and loses all other abilities") on its own
+// turn: the target prompt offers player 1's Rhongomiant and choosing it succeeds. The REGRESSION
+// GUARD assertions pin the buggy outcome (Rhongomiant turns into a phantasia with no abilities).
+$fixtures['rhongomiant-spellshroud-spell-can-still-target-it'] = [
+    'testedCards' => ['clS3E0HrZL'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'clS3E0HrZL'], // Rhongomiant, Grove's Spire -> p1 field-1
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize (WATER spell) -> p2 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdPass(2), // player 2 passes the end-of-turn window (its fast Fracturize keeps windows open)
+        mrdPass(2), // player 2 passes the beginning-of-turn window
+        mrdPlay(2, 'myHand-7'), // player 2 plays Fracturize
+        ...mrdPay(2, 2), // reserve payments
+        mrdAns(2, 'theirField-1'), // target player 1's Rhongomiant
+    ],
+];
+
+// --- Rhongomiant, Grove's Spire: [Mordred Bonus] +4 POWER while an opponent has influence eight or more ---
+// Rhongomiant, Grove's Spire (clS3E0HrZL, REGALIA/WEAPON, printed power 2): "[Mordred Bonus] As long
+// as an opponent has influence eight or more, CARDNAME gets +4 POWER. (A player's influence is
+// equal to the total amount of cards in their hand and memory.)" Player 1's champion is Mordred,
+// Burnished Avenger and Rhongomiant is materialized for real (2 memory cards) in the turn-3
+// materialize phase; player 2 holds 8 cards in hand (7 + its turn draw), so the weapon's computed
+// power is 2 + 4 = 6.
+$fixtures['rhongomiant-mordred-bonus-plus-four-power-at-influence-eight'] = [
+    'testedCards' => ['clS3E0HrZL'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'KqBosnU7pU', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Fated Luminary (level 3, EXALTED): Mordred Bonus active and the Exalted element enabled (Rhongomiant is an Exalted card)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // materialize memory cost 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // materialize memory cost 2/2
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-6'), // materialize Rhongomiant, Grove's Spire (memory cost 2)
+    ],
+];
+
+// --- Rhongomiant, Grove's Spire: no +4 POWER with only seven cards of influence (boundary) ---
+// Rhongomiant (clS3E0HrZL): the bonus needs influence EIGHT or more. Player 2's hand is emptied and
+// refilled with six cards, so after its turn-2 draw its influence (hand + memory) is exactly 7:
+// the Mordred Bonus is active but the weapon keeps its printed power 2.
+$fixtures['rhongomiant-no-power-bonus-at-influence-seven'] = [
+    'testedCards' => ['clS3E0HrZL'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'KqBosnU7pU', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Fated Luminary (level 3, EXALTED): Mordred Bonus active and the Exalted element enabled (Rhongomiant is an Exalted card)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // materialize memory cost 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // materialize memory cost 2/2
+        ['player' => 2, 'emptyZone' => 'myHand'], // player 2's hand emptied...
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // ...and refilled with six cards (6 + 1 turn draw = influence 7)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-6'), // materialize Rhongomiant, Grove's Spire (memory cost 2)
+    ],
+];
+
+// --- Rhongomiant, Grove's Spire: the +4 POWER needs the Mordred Bonus (champion must be Mordred) ---
+// Rhongomiant (clS3E0HrZL): both clauses are "[Mordred Bonus]". With a non-Mordred champion
+// (Tristan, Shadowdancer, whose UMBRA lineage also enables the Exalted element) the weapon (materialized for real, memory cost 2) keeps its printed power 2 even though
+// player 2 holds 8 cards (influence 8).
+$fixtures['rhongomiant-no-power-bonus-without-mordred-champion'] = [
+    'testedCards' => ['clS3E0HrZL'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'tafqldAGRF']]], // Tristan, Shadowdancer (UMBRA, not a Mordred): an advanced element is enabled, so the Exalted element is too
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // materialize memory cost 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // materialize memory cost 2/2
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-6'), // materialize Rhongomiant, Grove's Spire (memory cost 2)
+    ],
+];
+
+// --- Rhongomiant, Grove's Spire: [Mordred Bonus] whenever a durability counter is removed, you may return a card from memory to hand ---
+// Rhongomiant, Grove's Spire (clS3E0HrZL, durability 3): "[Mordred Bonus] Whenever a durability
+// counter is removed from CARDNAME, you may return a card from your memory to your hand." Player
+// 1's champion is Mordred, Fated Luminary; Rhongomiant is materialized for real (2 seeded memory
+// cards), then a Dungeon Guide is played (its 3 reserve payments put three cards into memory --
+// the memory zone is otherwise emptied by the recollection phase) and the champion attacks player
+// 2's champion with Rhongomiant (weapon attack): in the damage step a durability counter is
+// removed (3 -> 2) and the trigger offers the memory cards; answering with one returns it to
+// player 1's hand.
+$fixtures['rhongomiant-durability-removed-return-memory-card-to-hand'] = [
+    'testedCards' => ['clS3E0HrZL'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'KqBosnU7pU', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Fated Luminary: Mordred Bonus + Exalted
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // materialize memory cost 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // materialize memory cost 2/2
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-6'), // materialize Rhongomiant, Grove's Spire (memory cost 2)
+        mrdPlay(1, 'myHand-0'), // play a Dungeon Guide to put cards into memory (reserve payments)
+        ...mrdPay(1, 3), // reserve payments -> 3 cards in memory
+        mrdAns(1, 'NO'), // decline the Dungeon Guide's On Enter
+        mrdPlay(1, 'myField-0'), // the champion attacks
+        mrdAns(1, 'myField-1'), // with Rhongomiant as the weapon
+        mrdAns(1, 'theirField-0'), // targeting player 2's champion
+        mrdAns(1, 'myMemory-0'), // durability counter removed: return this memory card to hand
+    ],
+];
+
+// --- Rhongomiant, Grove's Spire: returning a card from memory on durability loss is optional (declined) ---
+// Rhongomiant (clS3E0HrZL): "you MAY return a card from your memory to your hand". Same flow as
+// rhongomiant-durability-removed-return-memory-card-to-hand, but the optional choice is answered PASS: the
+// durability counter is still removed (3 -> 2) while all three memory cards stay in memory.
+$fixtures['rhongomiant-durability-removed-decline-memory-return'] = [
+    'testedCards' => ['clS3E0HrZL'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'KqBosnU7pU', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Fated Luminary: Mordred Bonus + Exalted
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // materialize memory cost 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // materialize memory cost 2/2
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-6'), // materialize Rhongomiant, Grove's Spire (memory cost 2)
+        mrdPlay(1, 'myHand-0'), // play a Dungeon Guide to put cards into memory (reserve payments)
+        ...mrdPay(1, 3), // reserve payments -> 3 cards in memory
+        mrdAns(1, 'NO'), // decline the Dungeon Guide's On Enter
+        mrdPlay(1, 'myField-0'), // the champion attacks
+        mrdAns(1, 'myField-1'), // with Rhongomiant as the weapon
+        mrdAns(1, 'theirField-0'), // targeting player 2's champion
+        mrdPass(1), // decline to return a memory card
+    ],
+];
+
+// --- Rhongomiant, Grove's Spire: the durability trigger needs the Mordred Bonus ---
+// Rhongomiant (clS3E0HrZL): the memory-return clause is "[Mordred Bonus]". With a non-Mordred
+// champion (Tristan, Shadowdancer, whose UMBRA lineage enables the Exalted element) the weapon
+// still loses its durability counter in the attack (3 -> 2) but no memory card is offered: all
+// three memory cards stay in memory and the attack finishes with nothing pending.
+$fixtures['rhongomiant-durability-removed-no-return-without-mordred-champion'] = [
+    'testedCards' => ['clS3E0HrZL'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'tafqldAGRF']]], // Tristan, Shadowdancer (UMBRA, not a Mordred)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // materialize memory cost 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // materialize memory cost 2/2
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-6'), // materialize Rhongomiant, Grove's Spire (memory cost 2)
+        mrdPlay(1, 'myHand-0'), // play a Dungeon Guide to put cards into memory (reserve payments)
+        ...mrdPay(1, 3), // reserve payments -> 3 cards in memory
+        mrdAns(1, 'NO'), // decline the Dungeon Guide's On Enter
+        mrdPlay(1, 'myField-0'), // the champion attacks
+        mrdAns(1, 'myField-1'), // with Rhongomiant as the weapon
+        mrdAns(1, 'theirField-0'), // targeting player 2's champion
+    ],
+];
+
+// --- Snow Fairy: On Enter, rest target ally you don't control (it is then frozen) ---
+// Snow Fairy (4s0c9XgLg7, WATER MAGE/FAIRY ALLY, reserve 3, Stealth): "On Enter: Rest target ally
+// you don't control. That ally doesn't wake up during its controller's wake up phase as long as you
+// control CARDNAME." Player 2's Dungeon Guide stands awake on its field; Snow Fairy is played for
+// real (3 reserve payments) and the only legal target (the opposing Dungeon Guide) is chosen: it
+// becomes rested and receives the FROZEN_BY_SNOW_FAIRY turn effect that the wake-up phase honours.
+$fixtures['snow-fairy-enter-rests-target-ally'] = [
+    'testedCards' => ['4s0c9XgLg7'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (awake) -> p2 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4s0c9XgLg7'], // Snow Fairy -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Snow Fairy
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'theirField-1'), // On Enter: rest the opposing Dungeon Guide
+    ],
+];
+
+// --- Snow Fairy: the rested ally does NOT wake up in its controller's wake up phase (a normally rested ally does) ---
+// Snow Fairy (4s0c9XgLg7): "That ally doesn't wake up during its controller's wake up phase as long
+// as you control CARDNAME." Player 2 controls two rested-looking Dungeon Guides after Snow Fairy's On
+// Enter: one was rested by Snow Fairy, the other was simply seeded rested (control). Both players
+// pass through a full round; in player 2's SECOND turn wake up phase the control ally wakes up
+// while the Snow Fairy target stays rested and keeps its freeze.
+$fixtures['snow-fairy-frozen-ally-skips-wake-up-phase'] = [
+    'testedCards' => ['4s0c9XgLg7'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-1 (will be rested by Snow Fairy)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Status' => 1]], // control: a Dungeon Guide that is rested without Snow Fairy -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4s0c9XgLg7'], // Snow Fairy -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Snow Fairy
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'theirField-1'), // On Enter: rest the first opposing Dungeon Guide
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 (the wake up phase is skipped in round 1)
+        mrdPass(1), // player 1 declines the materialize offer of its second turn
+        mrdEnd(1), // end player 1's second turn
+        mrdPass(2), // player 2 declines the materialize offer of its second turn (after ITS wake up phase)
+    ],
+];
+
+// --- Snow Fairy: nothing happens when the opponent controls no ally ---
+// Snow Fairy (4s0c9XgLg7): "Rest target ally you don't control." Player 2 controls only its champion,
+// so there is no legal target: no prompt appears and Snow Fairy simply enters.
+$fixtures['snow-fairy-enter-no-opposing-ally'] = [
+    'testedCards' => ['4s0c9XgLg7'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4s0c9XgLg7'], // Snow Fairy -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Snow Fairy
+        ...mrdPay(1, 3), // reserve payments
+    ],
+];
+
+// --- Snow Fairy: once Snow Fairy has left the field, the ally wakes up normally ---
+// Snow Fairy (4s0c9XgLg7): the freeze lasts only "as long as you control CARDNAME". Player 2 has two
+// Dungeon Guides: A (plain) is rested by Snow Fairy's On Enter, B carries two buff counters (3
+// power). On player 1's next turn Snow Fairy attacks the awake B and dies to its retaliation (3
+// damage vs 2 life). In player 2's following wake up phase A is no longer frozen: the engine drops
+// the FROZEN_BY_SNOW_FAIRY effect and A wakes up normally.
+$fixtures['snow-fairy-ally-wakes-up-after-snow-fairy-leaves'] = [
+    'testedCards' => ['4s0c9XgLg7'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide A (will be rested by Snow Fairy) -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['buff' => 2]]], // Dungeon Guide B with 2 buff counters (3 power), awake -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4s0c9XgLg7'], // Snow Fairy -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Snow Fairy
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'theirField-1'), // On Enter: rest Dungeon Guide A
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2
+        mrdPass(1), // player 1 declines the materialize offer of its second turn
+        mrdPlay(1, 'myField-1'), // Snow Fairy attacks
+        mrdAns(1, 'theirField-2'), // targeting the awake Dungeon Guide B
+        mrdAns(2, 'myField-2'), // player 2 retaliates with Dungeon Guide B: Snow Fairy dies
+        mrdEnd(1), // end player 1's second turn
+        mrdPass(2), // player 2 declines the materialize offer of its second turn (after ITS wake up phase)
+    ],
+];
+
+// --- Snow Fairy: Stealth -- an attack cannot target it ---
+// Snow Fairy (4s0c9XgLg7): "Stealth (This unit can't be targeted by attacks unless permitted by true
+// sight.)" Player 2 attacks with a Dungeon Guide; the attack-target prompt lists only player 1's
+// champion and answering with Snow Fairy is rejected, so the attack is aimed at the champion.
+$fixtures['snow-fairy-stealth-cannot-be-attacked'] = [
+    'testedCards' => ['4s0c9XgLg7'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4s0c9XgLg7'], // Snow Fairy (Stealth) -> p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the attacker) -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with Dungeon Guide
+        mrdAns(2, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'A Stealth ally (Snow Fairy) is rejected as an attack target']),
+        mrdAns(2, 'theirField-0'), // the only legal target: player 1's champion
+    ],
+];
+
+// --- Dauntless Assault: [Mordred Bonus] On Attack: wake up the attacker ---
+// Dauntless Assault (ixIY36Ck37, EXALTED/NORM WARRIOR/SWORD attack, reserve 3, power 4): "[Mordred
+// Bonus] On Attack: Wake up the attacker." Player 1's champion is Mordred, Fated Luminary (the
+// Mordred Bonus holds and its EXALTED element enables this Exalted card). On turn 3 (the first
+// player cannot attack on turn 1) Dauntless Assault is played for real, paid (3) and aimed at
+// player 2's champion: the champion, rested by attacking, is woken up by the On Attack trigger and
+// the attack still deals its printed 4 damage.
+$fixtures['dauntless-assault-mordred-bonus-wakes-up-attacker'] = [
+    'testedCards' => ['ixIY36Ck37'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'KqBosnU7pU', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Fated Luminary: Mordred Bonus + Exalted
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ixIY36Ck37'], // Dauntless Assault -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Dauntless Assault
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Dauntless Assault: without the Mordred Bonus the attacker stays rested ---
+// Dauntless Assault (ixIY36Ck37): the wake up is a "[Mordred Bonus]" On Attack. With a non-Mordred
+// champion (Tristan, Shadowdancer, whose UMBRA lineage enables the Exalted element) the same
+// attack deals its 4 damage but the champion remains rested.
+$fixtures['dauntless-assault-no-wake-up-without-mordred-champion'] = [
+    'testedCards' => ['ixIY36Ck37'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'tafqldAGRF']]], // Tristan, Shadowdancer (UMBRA): Exalted enabled, no Mordred Bonus
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ixIY36Ck37'], // Dauntless Assault -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Dauntless Assault
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Dauntless Assault: its Exalted element needs another advanced element to be enabled ---
+// Dauntless Assault (ixIY36Ck37, EXALTED/NORM): "(Exalted -- This element is enabled for you as long as you
+// have another advanced element enabled.)" The champion is the plain Spirit of Water (no advanced
+// element in the lineage): activating Dauntless Assault from hand does nothing -- no payment is
+// requested and the card stays in hand.
+$fixtures['dauntless-assault-exalted-needs-another-advanced-element'] = [
+    'testedCards' => ['ixIY36Ck37'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ixIY36Ck37'], // Dauntless Assault -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // try to activate Dauntless Assault: Exalted is not enabled
+    ],
+];
+
+// --- Striking Tides: [Mordred Bonus] On Hit, banish a floating-memory card from the graveyard to wake up your champion ---
+// Striking Tides (qrxQGA1pc6, WATER WARRIOR/SWORD attack, reserve 3, power 4): "[Mordred Bonus] On
+// Hit: You may banish a card with floating memory from your graveyard. If you do, wake up your
+// champion." The champion is Mordred, Flawless Blade (level 2: attack cards in the graveyard have
+// floating memory); the graveyard holds a Dungeon Guide (no floating memory) and a Pierce the
+// Heavens (an attack card -> floating memory). Striking Tides is played for real on turn 3, hits
+// player 2's champion for 4, the YES/NO is answered YES, the non-floating Dungeon Guide is rejected
+// as a choice and the Pierce the Heavens is banished: the champion (rested by attacking) wakes up.
+$fixtures['striking-tides-on-hit-banish-floating-memory-wakes-champion'] = [
+    'testedCards' => ['qrxQGA1pc6'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Flawless Blade: Mordred Bonus; attack cards in the graveyard have floating memory
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (no floating memory) -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'yguf3aw2ct'], // Pierce the Heavens (attack card -> floating memory) -> p1 graveyard-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Striking Tides
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+        mrdAns(1, 'YES'), // On Hit: banish a floating-memory card to wake up the champion
+        mrdAns(1, 'myGraveyard-0', ['expectFailure' => true, 'semantic' => true, 'label' => 'A graveyard card WITHOUT floating memory (Dungeon Guide) is rejected as the banish choice']),
+        mrdAns(1, 'myGraveyard-1'), // banish the Pierce the Heavens (floating memory)
+    ],
+];
+
+// --- Striking Tides: the On Hit banish is optional (declined) -- the champion stays rested ---
+// Striking Tides (qrxQGA1pc6): "You MAY banish a card with floating memory ... If you do, wake up
+// your champion." Same setup as striking-tides-on-hit-banish-floating-memory-wakes-champion; the
+// YES/NO is answered NO: nothing is banished and the champion stays rested after attacking.
+$fixtures['striking-tides-on-hit-decline-banish-champion-stays-rested'] = [
+    'testedCards' => ['qrxQGA1pc6'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Flawless Blade
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'yguf3aw2ct'], // Pierce the Heavens (attack card -> floating memory) -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Striking Tides
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+        mrdAns(1, 'NO'), // decline the On Hit banish
+    ],
+];
+
+// --- Striking Tides: no On Hit prompt when the graveyard holds no floating-memory card ---
+// Striking Tides (qrxQGA1pc6): the On Hit only offers cards with floating memory. The champion is
+// Mordred, Burnished Avenger (level 1: attack cards do NOT float) and the graveyard holds only a
+// Dungeon Guide: no prompt appears, nothing is banished and the champion stays rested.
+$fixtures['striking-tides-on-hit-no-floating-memory-card-no-prompt'] = [
+    'testedCards' => ['qrxQGA1pc6'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'OWCdWq3mXY', 'Subcards' => ['tafqldAGRF']]], // Mordred, Burnished Avenger (Mordred Bonus, no floating grant)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'yguf3aw2ct'], // Pierce the Heavens: an attack card but WITHOUT floating memory at level 1 -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Striking Tides
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Striking Tides: the On Hit prompt needs the Mordred Bonus ---
+// Striking Tides (qrxQGA1pc6): the banish/wake clause is a "[Mordred Bonus]". With a non-Mordred
+// champion (the plain Spirit of Water) and a March On (an attack card with printed Floating
+// Memory) in the graveyard, the attack hits for 4 but no prompt appears: the graveyard card stays
+// and the champion stays rested.
+$fixtures['striking-tides-on-hit-requires-mordred-champion'] = [
+    'testedCards' => ['qrxQGA1pc6'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'zuAmYGyCcL'], // March On (attack card with printed Floating Memory) -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Striking Tides
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Drenching Finish: [Class Bonus] On Kill, target player puts the top three cards of their deck into their graveyard (opponent) ---
+// Drenching Finish (en3DD836cp, WATER WARRIOR/SWORD attack, reserve 2, power 2): "[Class Bonus] On
+// Kill: Target player puts the top three cards of their deck into their graveyard." Player 1's
+// champion is Mordred, Burnished Avenger (a WARRIOR, so the Class Bonus holds). On turn 3 Drenching
+// Finish is played for real and aimed at player 2's Training Dummy (2 life): the 2 damage kills it,
+// the On Kill asks for a target player (the champions are offered) and player 2's champion is
+// chosen: exactly three cards move from the top of player 2's deck to player 2's graveyard.
+$fixtures['drenching-finish-class-bonus-on-kill-opponent-mills-three'] = [
+    'testedCards' => ['en3DD836cp'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'OWCdWq3mXY', 'Subcards' => ['tafqldAGRF']]], // Mordred, Burnished Avenger (WARRIOR): Class Bonus active
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'EeFXEYMmF3'], // Training Dummy (2 life) -> p2 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'en3DD836cp'], // Drenching Finish -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Drenching Finish
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1'), // attack the Training Dummy
+        mrdAns(1, 'theirField-0'), // On Kill: target player = player 2 (its champion)
+    ],
+];
+
+// --- Drenching Finish: the On Kill target player can be yourself ---
+// Drenching Finish (en3DD836cp): "Target player puts the top three cards of THEIR deck into their
+// graveyard." Same flow as drenching-finish-class-bonus-on-kill-opponent-mills-three but player 1's
+// own champion is chosen: three cards leave the top of player 1's deck (player 2's deck is
+// untouched).
+$fixtures['drenching-finish-class-bonus-on-kill-self-mills-three'] = [
+    'testedCards' => ['en3DD836cp'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'OWCdWq3mXY', 'Subcards' => ['tafqldAGRF']]], // Mordred, Burnished Avenger (WARRIOR): Class Bonus active
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'EeFXEYMmF3'], // Training Dummy (2 life) -> p2 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'en3DD836cp'], // Drenching Finish -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Drenching Finish
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1'), // attack the Training Dummy
+        mrdAns(1, 'myField-0'), // On Kill: target player = player 1 (its own champion)
+    ],
+];
+
+// --- Drenching Finish: no On Kill prompt without the Class Bonus ---
+// Drenching Finish (en3DD836cp): the On Kill is a "[Class Bonus]". With the plain Spirit of Water
+// (class SPIRIT, not WARRIOR) as champion the Training Dummy still dies but no player is asked
+// for and no card is milled.
+$fixtures['drenching-finish-on-kill-requires-class-bonus'] = [
+    'testedCards' => ['en3DD836cp'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'EeFXEYMmF3'], // Training Dummy (2 life) -> p2 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'en3DD836cp'], // Drenching Finish -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Drenching Finish
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1'), // attack the Training Dummy
+    ],
+];
+
+// --- Drenching Finish: the On Kill needs a KILL -- an attack that leaves the unit alive mills nothing ---
+// Drenching Finish (en3DD836cp): "On Kill". With the Class Bonus active the attack targets a
+// Dungeon Guide (3 life): the 2 damage does not destroy it, so no prompt appears and no card is
+// milled.
+$fixtures['drenching-finish-on-kill-needs-a-kill'] = [
+    'testedCards' => ['en3DD836cp'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'OWCdWq3mXY', 'Subcards' => ['tafqldAGRF']]], // Mordred, Burnished Avenger (WARRIOR): Class Bonus active
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (3 life) -> p2 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'en3DD836cp'], // Drenching Finish -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Drenching Finish
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1'), // attack the Dungeon Guide (survives with 2 damage)
+        mrdAns(2, '-'), // player 2 declines to retaliate
+    ],
+];
+
+// --- Invigorated Slash: +2 POWER as long as your champion has leveled up this turn ---
+// Invigorated Slash (W1g0hNzXAC, NORM WARRIOR/SWORD attack, reserve 2, power 2): "As long as your
+// champion has leveled up this turn, Invigorated Slash gets +2 POWER." The champion is patched to
+// Mordred, Flawless Blade (level 2, lineage without Burnished Avenger so its inherited discount is
+// not involved) and performs a REAL level-up into Mordred, Fated Luminary (3 memory cards) in the
+// turn-3 materialize phase; Invigorated Slash is then played (2 reserve) and hits player 2's
+// champion for 2 + 2 = 4.
+$fixtures['invigorated-slash-plus-two-power-after-champion-leveled-up'] = [
+    'testedCards' => ['W1g0hNzXAC'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['tafqldAGRF']]], // Mordred, Flawless Blade (level 2)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 3/3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'W1g0hNzXAC'], // Invigorated Slash -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-2'), // real level-up into Mordred, Fated Luminary
+        mrdPlay(1, 'myHand-7'), // activate Invigorated Slash
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Invigorated Slash: no bonus when the champion has NOT leveled up this turn ---
+// Invigorated Slash (W1g0hNzXAC): the +2 POWER needs a level-up THIS turn. Same lineage as
+// invigorated-slash-plus-two-power-after-champion-leveled-up, but the materialize offer is declined:
+// the attack deals only its printed 2.
+$fixtures['invigorated-slash-no-bonus-without-levelup'] = [
+    'testedCards' => ['W1g0hNzXAC'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['tafqldAGRF']]], // Mordred, Flawless Blade (level 2)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'W1g0hNzXAC'], // Invigorated Slash -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the level-up offer
+        mrdPlay(1, 'myHand-7'), // activate Invigorated Slash
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Luminescent Slash (and Mordred, Aurelian Regent): a lone Luminescent Slash costs 5 and deals 6; activating a luxem card deleveles Mordred ---
+// Luminescent Slash (y8BNOi4rwD, LUXEM WARRIOR/SWORD attack, reserve 5, power 6): "[Mordred Bonus]
+// This card costs 2 less to activate for each other attack card you've activated this turn.
+// [Mordred Bonus] Luminescent Slash gets +2 POWER for each other attack card you've activated
+// this turn." Mordred, Aurelian Regent (XPl2UAO9se, level 3, LUXEM): "Whenever you activate a luxem
+// element card, delevel Mordred." The champion is patched to Aurelian Regent (lineage Flawless
+// Blade, Burnished Avenger, Spirit of Water). With no other attack card activated this turn
+// Luminescent Slash costs its full FIVE reserve payments and deals 6; activating it (a luxem card)
+// deleveles the champion: Mordred, Aurelian Regent goes back to the material deck and the champion
+// becomes Mordred, Flawless Blade.
+$fixtures['luminescent-slash-lone-attack-full-cost-and-regent-deleveled'] = [
+    'testedCards' => ['y8BNOi4rwD', 'XPl2UAO9se'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'XPl2UAO9se', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Aurelian Regent (level 3, LUXEM)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'y8BNOi4rwD'], // Luminescent Slash -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Luminescent Slash
+        ...mrdPay(1, 5), // FIVE reserve payments (full cost)
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Luminescent Slash: after another attack card it costs 2 less and gets +2 POWER ---
+// Luminescent Slash (y8BNOi4rwD): "[Mordred Bonus] This card costs 2 less to activate for each other
+// attack card you've activated this turn. [Mordred Bonus] +2 POWER for each other attack card you've
+// activated this turn." The champion is Aurelian Regent. Dauntless Assault (its [Mordred Bonus] On
+// Attack wakes the champion up) is activated first (3 reserve, 4 damage); then Luminescent Slash
+// costs 5 - 2 = THREE reserve payments and deals 6 + 2 = 8: player 2's champion has taken 4 + 8 =
+// 12 damage in total.
+$fixtures['luminescent-slash-after-another-attack-costs-two-less-and-gets-plus-two'] = [
+    'testedCards' => ['y8BNOi4rwD'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'XPl2UAO9se', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Aurelian Regent (level 3, LUXEM -> Exalted enabled)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ixIY36Ck37'], // Dauntless Assault -> p1 myHand-7
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'y8BNOi4rwD'], // Luminescent Slash -> p1 myHand-8
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Dauntless Assault first
+        ...mrdPay(1, 3), // reserve payments
+        mrdAns(1, 'theirField-0'), // attack player 2's champion (the On Attack wakes the champion up)
+        mrdPlay(1, 'myHand-4'), // activate Luminescent Slash (it shifted to myHand-4)
+        ...mrdPay(1, 3), // THREE reserve payments: 5 - 2
+        mrdAns(1, 'theirField-0'), // attack player 2's champion again
+    ],
+];
+
+// --- Mordred, Aurelian Regent: On Enter, Mordred's next attack gets +3 POWER and "On Hit: Recover 3" ---
+// Mordred, Aurelian Regent (XPl2UAO9se, CHAMPION level 3, LUXEM): "On Enter: Mordred's next attack
+// this turn gets +3 POWER and gains 'On Hit: Recover 3.' Whenever you activate a luxem element
+// card, delevel Mordred." The champion is patched to Mordred, Flawless Blade (level 2, carrying 5
+// damage) and performs a REAL level-up into Aurelian Regent (3 memory cards), so its On Enter
+// fires. Striking Tides (WATER, not luxem: no delevel) is then activated (1 reserve payment: the
+// first-attack discount inherited from Burnished Avenger after a level-up) and hits player 2's
+// champion for 4 + 3 = 7 while the On Hit recovers 3 of Mordred's damage (5 -> 2).
+$fixtures['mordred-aurelian-regent-levelup-enter-next-attack-plus-three-and-recover'] = [
+    'testedCards' => ['XPl2UAO9se'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF'], 'Damage' => 5]], // Mordred, Flawless Blade (level 2) with 5 damage
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 3/3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (WATER attack, power 4) -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-3'), // real level-up into Mordred, Aurelian Regent (On Enter fires)
+        mrdPlay(1, 'myHand-7'), // activate Striking Tides
+        ...mrdPay(1, 1), // reserve payment (3 - 2)
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Mordred, Aurelian Regent: the bonus is for MORDRED's next attack -- an ally's attack does not use it up ---
+// Mordred, Aurelian Regent (XPl2UAO9se): "Mordred's next attack this turn gets +3 POWER". After the
+// real level-up (as in mordred-aurelian-regent-levelup-enter-next-attack-plus-three-and-recover) an
+// awake Dungeon Guide attacks first: it deals only its printed 1 and does not consume the bonus.
+// Mordred's own Striking Tides attack afterwards still gets +3 POWER (7 damage) and "On Hit:
+// Recover 3": player 2's champion has taken 1 + 7 = 8 in total and Mordred is down to 2 damage.
+$fixtures['mordred-aurelian-regent-ally-attack-does-not-use-up-next-attack-bonus'] = [
+    'testedCards' => ['XPl2UAO9se'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF'], 'Damage' => 5]], // Mordred, Flawless Blade (level 2) with 5 damage
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (awake ally, 1 power) -> p1 field-1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 3/3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-3'), // real level-up into Mordred, Aurelian Regent (On Enter fires)
+        mrdPlay(1, 'myField-0'), // the Dungeon Guide attacks first (the level-up moved the champion behind it, to myField-1)
+        mrdAns(1, 'theirField-0'), // targeting player 2's champion
+        mrdPlay(1, 'myHand-7'), // then Mordred activates Striking Tides
+        ...mrdPay(1, 1), // reserve payment (3 - 2)
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Mordred, Fated Luminary: Mordred can level up into a champion of the SAME base level and draws two cards when he does ---
+// Mordred, Fated Luminary (KqBosnU7pU, CHAMPION level 3, EXALTED/NORM): "Mordred can level up into
+// champions of the same base level. When he does, draw two cards." The champion is patched to Fated
+// Luminary (level 3) and performs a REAL same-level level-up into Mordred, Aurelian Regent (level
+// 3, memory cost 3): the engine offers it (ChampionCanSameLevelUp) and draws two cards -- the
+// hand ends at 10 = 7 + 1 turn draw + 2.
+$fixtures['mordred-fated-luminary-same-level-levelup-draws-two'] = [
+    'testedCards' => ['KqBosnU7pU'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'KqBosnU7pU', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Fated Luminary (level 3)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 3/3
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-3'), // same-level level-up into Mordred, Aurelian Regent
+    ],
+];
+
+// --- Mordred, Fated Luminary: without Fated Luminary in the lineage a level 3 champion cannot level up into another level 3 champion ---
+// Mordred, Fated Luminary (KqBosnU7pU): the same-level level-up exists only "for Mordred" with this
+// lineage card. The champion is Aurelian Regent whose lineage does NOT contain Fated Luminary:
+// choosing Fated Luminary (another level 3 champion) from the material deck is rejected by the
+// engine, the champion stays Aurelian Regent and no card is drawn.
+$fixtures['mordred-fated-luminary-same-level-levelup-needs-luminary-in-lineage'] = [
+    'testedCards' => ['KqBosnU7pU'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'XPl2UAO9se', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Aurelian Regent (level 3, no Fated Luminary in lineage)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 3/3
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'A same-level level-up into Fated Luminary is rejected: Fated Luminary is not in the lineage']),
+        mrdPass(1), // decline the materialize offer
+    ],
+];
+
+// --- Mordred, Fated Luminary: a NORMAL level-up INTO Fated Luminary also draws two cards (engine bug) ---
+// Mordred, Fated Luminary (KqBosnU7pU): "Mordred can level up into champions of the same base
+// level. When he does, draw two cards." -- the cards are drawn only when Mordred uses that same
+// base level level-up. ENGINE BUG (found, confirmed live, NOT fixed): DoMaterialize()
+// (Custom/MaterializeLogic.php, the "Tristan, Shadowreaver (4upufooz13) ... when she levels up,
+// draw 2" block) draws two cards after EVERY champion level-up whose resulting lineage contains
+// Fated Luminary (ChampionHasInLineage(KqBosnU7pU)), without checking that the level-up was a same
+// base level one -- so an ordinary level 2 -> level 3 level-up of Mordred, Flawless Blade INTO
+// Fated Luminary draws two cards too. The REGRESSION GUARD assertions pin the buggy hand size 10
+// (7 + 1 turn draw + 2); the rules-correct value is 8.
+$fixtures['mordred-fated-luminary-normal-levelup-into-luminary-draws-two'] = [
+    'testedCards' => ['KqBosnU7pU'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Flawless Blade (level 2)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 3/3
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-2'), // ordinary level 2 -> level 3 level-up into Mordred, Fated Luminary
+    ],
+];
+
+// --- Mordred, Fated Luminary: attack cards in the graveyard never float for a memory cost once the game state is reloaded (engine bug) ---
+// Mordred, Fated Luminary (KqBosnU7pU): "Attack cards in your graveyard have floating memory and
+// 'Ephemerate -- (X)'." (While paying a memory cost you may banish a card with floating memory from
+// your graveyard to pay for 1 of that cost.) ENGINE BUG (found, confirmed live, NOT fixed):
+// HasFloatingMemory() (Custom/GameLogic.php) grants the Fated Luminary floating memory only when
+// isset($obj->Controller) -- but a graveyard object has no persisted Controller (the Graveyard
+// zone class serializes only CardID; it carries just PlayerID), so every graveyard card parsed back
+// from the game state fails the check. The champion is Fated Luminary, the graveyard holds a
+// Striking Tides (an attack card) and the two seeded memory cards are one short of the memory cost 3
+// of the same-level level-up into Aurelian Regent, which the floating Striking Tides should make up:
+// instead GetMaterializeFloatingChoices() is empty, the payment check fails ("Cannot pay costs for the
+// selected material card. Action undone.") and the champion stays Fated Luminary. The REGRESSION
+// GUARD assertions pin that outcome (the Ephemerate half of the card, which passes the player
+// explicitly, works: see mordred-fated-luminary-ephemerate-attack-card-from-graveyard).
+$fixtures['mordred-fated-luminary-graveyard-attack-card-never-floats-for-memory-cost'] = [
+    'testedCards' => ['KqBosnU7pU'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'KqBosnU7pU', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Fated Luminary (level 3)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (attack card -> should have floating memory) -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 2/2 (one short of the cost 3)
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-3'), // same-level level-up into Mordred, Aurelian Regent (memory cost 3): the payment is refused
+    ],
+];
+
+// --- Mordred, Fated Luminary: Ephemerate -- an attack card in the graveyard can be activated by paying its reserve cost ---
+// Mordred, Fated Luminary (KqBosnU7pU): attack cards in the graveyard have "Ephemerate -- (X)" where
+// X is the card's reserve cost. The graveyard holds a Striking Tides (reserve 3): on turn 3 player 1
+// activates it FROM THE GRAVEYARD (generic Ephemerate path), pays X = 3 and aims it at player
+// 2's champion, which takes its printed 4 damage. (What happens to the card afterwards is pinned in
+// mordred-fated-luminary-ephemerated-attack-card-is-not-banished.)
+$fixtures['mordred-fated-luminary-ephemerate-attack-card-from-graveyard'] = [
+    'testedCards' => ['KqBosnU7pU'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'KqBosnU7pU', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Fated Luminary (level 3)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'qrxQGA1pc6'], // Striking Tides in the graveyard -> p1 graveyard-0
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myGraveyard-0'), // activate Striking Tides from the graveyard via Ephemerate
+        ...mrdPay(1, 3), // the Ephemerate cost (X = reserve cost 3)
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Mordred, Fated Luminary: an attack card activated via Ephemerate returns to the graveyard instead of being banished (engine bug) ---
+// Mordred, Fated Luminary (KqBosnU7pU): "(You may activate cards with ephemerate from your graveyard by
+// paying that cost. Attack cards played this way become ephemeral in the intent.)" -- an ephemeral
+// object is banished whenever it would leave, so the attack must be banished at the end of combat.
+// ENGINE BUG (found, confirmed live, NOT fixed): the ATTACK branch of the activation resolution
+// (Custom/GameLogic.php, "Ephemerate: tag field objects as ephemeral") only tags non-ACTION,
+// non-ATTACK field objects, and ClearIntent() (Custom/CombatLogic.php) sends every intent card to the
+// graveyard (banishing only CURSE_TO_LINEAGE cards and sending Renewable cards to material). Same
+// actions as mordred-fated-luminary-ephemerate-attack-card-from-graveyard: the Striking Tides
+// is back in the GRAVEYARD afterwards (and could be ephemerated again for free value) instead of
+// banished. The REGRESSION GUARD assertions pin that outcome.
+$fixtures['mordred-fated-luminary-ephemerated-attack-card-is-not-banished'] = [
+    'testedCards' => ['KqBosnU7pU'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'KqBosnU7pU', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Fated Luminary (level 3)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'qrxQGA1pc6'], // Striking Tides in the graveyard -> p1 graveyard-0
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myGraveyard-0'), // activate Striking Tides from the graveyard via Ephemerate
+        ...mrdPay(1, 3), // the Ephemerate cost (X = reserve cost 3)
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Mordred, Fated Luminary: only ATTACK cards in the graveyard gain Ephemerate ---
+// Mordred, Fated Luminary (KqBosnU7pU): "Attack cards in your graveyard have ... Ephemerate". A
+// Dungeon Guide (an ally) in the graveyard is not an attack card: clicking it does nothing (no
+// payment is requested, it stays in the graveyard).
+$fixtures['mordred-fated-luminary-non-attack-card-in-graveyard-cannot-ephemerate'] = [
+    'testedCards' => ['KqBosnU7pU'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'KqBosnU7pU', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Fated Luminary (level 3)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (not an attack card) in the graveyard -> p1 graveyard-0
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myGraveyard-0'), // try to activate the Dungeon Guide from the graveyard: nothing happens
+    ],
+];
+
+// --- Mordred, Flawless Blade: attack cards in your graveyard have floating memory (paying part of a champion level-up) ---
+// Mordred, Flawless Blade (WI2owxIw0z, CHAMPION level 2, NORM): "Attack cards in your graveyard have
+// floating memory. (While paying for a memory cost, you may banish a card with floating memory from
+// your graveyard to pay for 1 of that cost.)" The champion IS Mordred, Flawless Blade (the static
+// ability works while it is on the field); the graveyard holds a Dungeon Guide (an ally) and a
+// Striking Tides (an attack card). The REAL level-up into Mordred, Aurelian Regent (memory cost 3, two
+// seeded memory cards) is one point short, which the floating payment makes up: only the attack card
+// is offered (the MZMULTICHOOSE candidates are 'myGraveyard-1'); the Dungeon Guide
+// is not offered, Striking Tides is banished for 1 point and the two memory cards pay the rest.
+$fixtures['mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup'] = [
+    'testedCards' => ['WI2owxIw0z'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Flawless Blade (level 2)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (no floating memory) -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (attack card) -> p1 graveyard-1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 2/2 (one short of the cost 3)
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-3'), // start the level-up into Mordred, Aurelian Regent (memory cost 3)
+        mrdAns(1, 'myGraveyard-1'), // float the Striking Tides for 1 of the cost
+    ],
+];
+
+// --- Mordred, Flawless Blade: a graveyard card that is not an attack card does not float ---
+// Mordred, Flawless Blade (WI2owxIw0z): only ATTACK cards in the graveyard have floating memory. The
+// champion is Flawless Blade and the graveyard holds only a Dungeon Guide (an ally): the level-up
+// into Aurelian Regent (memory cost 3) is NOT payable by floating -- with only two memory cards
+// the payment is refused ("Cannot pay costs ... Action undone"), the champion stays Flawless Blade
+// and the Dungeon Guide stays in the graveyard.
+$fixtures['mordred-flawless-blade-non-attack-card-in-graveyard-does-not-float'] = [
+    'testedCards' => ['WI2owxIw0z'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Flawless Blade (level 2)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (no floating memory) -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 2/2 (one short of the cost 3)
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-3'), // level up into Mordred, Aurelian Regent (memory cost 3): refused, only 2 payable
+    ],
+];
+
+// --- Mordred, Flawless Blade: an OPPONENT's Flawless Blade also makes MY graveyard attack cards float (engine bug) ---
+// Mordred, Flawless Blade (WI2owxIw0z): "Attack cards in YOUR graveyard have floating memory." ENGINE
+// BUG (found, confirmed live, NOT fixed): HasFloatingMemory() (Custom/GameLogic.php) loops over BOTH
+// players' fields and grants floating memory to every attack card in every graveyard as soon as ANY
+// Flawless Blade is on the field, without checking that the Blade's controller is the graveyard's
+// owner. Player 2's champion is Mordred, Flawless Blade; player 1 (plain Spirit of Water, no
+// Flawless Blade) holds a Striking Tides in its graveyard. Player 1's real level-up into
+// Mordred, Burnished Avenger (memory cost 1) is offered a floating payment with that Striking
+// Tides -- answering with it banishes it for the cost and leaves the seeded memory card unspent. The
+// REGRESSION GUARD assertions pin that outcome (rules-correct: no floating prompt, the memory card
+// is banished).
+$fixtures['mordred-flawless-blade-opponent-blade-makes-my-graveyard-attack-cards-float'] = [
+    'testedCards' => ['WI2owxIw0z'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF']]], // PLAYER 2's champion: Mordred, Flawless Blade
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'qrxQGA1pc6'], // Striking Tides in PLAYER 1's graveyard -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory (cost 1 level-up)
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-0'), // player 1 starts the level-up into Mordred, Burnished Avenger (memory cost 1)
+        mrdAns(1, 'myGraveyard-0'), // a floating payment is wrongly offered: float Striking Tides
+    ],
+];
+
+// --- Mordred, Flawless Blade: the floating-payment choice accepts a card that has NO floating memory (engine bug) ---
+// Mordred, Flawless Blade (WI2owxIw0z): only attack cards in the graveyard have floating memory, and
+// the floating payment prompt offers just those. ENGINE BUG (found, confirmed live, NOT fixed): the
+// prompt is an MZMULTICHOOSE ("0|1|myGraveyard-1") and GameValidateDecisionAnswer()
+// (Custom/GameLogic.php) only validates MZCHOOSE/MZMAYCHOOSE answers against the candidate pool, so
+// an answer that was never offered is passed straight to the PAYFLOATING handler. Same setup as
+// mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup, but the answer is the
+// Dungeon Guide (myGraveyard-0), which was NOT offered and has no floating memory: the engine banishes
+// it as a floating payment and the level-up completes. The REGRESSION GUARD assertions pin that
+// outcome (rules-correct: the answer is rejected and the prompt stays pending).
+$fixtures['mordred-flawless-blade-floating-payment-accepts-non-floating-card'] = [
+    'testedCards' => ['WI2owxIw0z'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Flawless Blade (level 2)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (no floating memory, NOT offered) -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (attack card, the only offered choice) -> p1 graveyard-1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 2/2 (one short of the cost 3)
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-3'), // start the level-up into Mordred, Aurelian Regent (memory cost 3)
+        mrdAns(1, 'myGraveyard-0'), // answer with the Dungeon Guide, which was never offered
+    ],
+];
+
+// --- Flawless Spirit of Mordred starter-deck skeleton (the real level 0 champion, whose On Enter fires at game start) ---
+$mordredSpiritDeck = <<<'DECK'
+# Material
+1 Flawless Spirit of Mordred
+1 Mordred, Burnished Avenger
+1 Tristan, Underhanded
+# Main
+6 Dungeon Guide
+6 Fluffy Shopkeep
+6 Fairy Whispers
+DECK;
+
+// --- Flawless Spirit of Mordred: On Enter, draw seven cards, then glimpse 4 (player 2's starting-champion Enter) ---
+// Flawless Spirit of Mordred (cXEI5vo6iG, CHAMPION level 0, WATER SPIRIT): "On Enter: Draw seven
+// cards, then glimpse 4." Both players start with it as their champion, so the enter fires for each at
+// game start. Player 1's Enter (draw 7 + glimpse prompt) is already resolved when the fixture starts;
+// player 2's Enter fires FOR REAL during the replay once player 1 has answered its glimpse (the
+// pregame hand-off in PREGAME_RESOLVE_STARTING_CHAMPION_ENTER): player 2 draws exactly seven cards and
+// is asked to glimpse 4 (arrange the top four cards). Answering with two cards on top and two on the
+// bottom (a Dungeon Guide and a Fairy Whispers on top, two Fairy Whispers at the bottom) reorders
+// player 2's deck accordingly.
+$fixtures['flawless-spirit-of-mordred-enter-draw-seven-glimpse-four'] = [
+    'testedCards' => ['cXEI5vo6iG'],
+    'deck' => $mordredSpiritDeck,
+    'setup' => [],
+    'actions' => [
+        mrdAns(1, 'Top=px60u5n1do,px60u5n1do,em6eEh9q8y,n8wyfG9hbY;Bottom='), // player 1 keeps its glimpsed order -> player 2's champion enters: draw 7, glimpse 4
+        mrdAns(2, 'Top=em6eEh9q8y,n8wyfG9hbY;Bottom=n8wyfG9hbY,n8wyfG9hbY'), // player 2 keeps the Dungeon Guide and one Fairy Whispers on top and puts two Fairy Whispers on the bottom
+    ],
+];
+
+// --- Flawless Spirit of Mordred: can only level up into a "Mordred" champion (a non-Mordred champion is refused) ---
+// Flawless Spirit of Mordred (cXEI5vo6iG): "CARDNAME can only level up into a 'Mordred' champion." The
+// material deck holds Mordred, Burnished Avenger and Tristan, Underhanded (both level 1). After both
+// glimpses are answered and the turns pass, in player 1's turn-3 materialize phase choosing
+// Tristan, Underhanded is refused by the engine (DoMaterialize returns without leveling): the champion
+// stays the Spirit, the material deck keeps both cards and the seeded memory card is not spent (it is
+// returned to hand by recollection).
+$fixtures['flawless-spirit-of-mordred-cannot-level-up-into-non-mordred'] = [
+    'testedCards' => ['cXEI5vo6iG'],
+    'deck' => $mordredSpiritDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost (1)
+    ],
+    'actions' => [
+        mrdAns(1, 'Top=px60u5n1do,px60u5n1do,em6eEh9q8y,n8wyfG9hbY;Bottom='), // player 1 keeps its glimpsed order -> player 2's champion enters
+        mrdAns(2, 'Top=n8wyfG9hbY,n8wyfG9hbY,n8wyfG9hbY,em6eEh9q8y;Bottom='), // player 2 keeps its glimpsed order
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-1'), // try to level up into Tristan, Underhanded: the engine refuses it
+    ],
+];
+
+// --- Flawless Spirit of Mordred: it CAN level up into a "Mordred" champion ---
+// Flawless Spirit of Mordred (cXEI5vo6iG): same setup as flawless-spirit-of-mordred-cannot-level-up-into-
+// non-mordred, but the real level-up goes into Mordred, Burnished Avenger (memory cost 1), which the
+// Spirit's restriction allows: the champion becomes Burnished Avenger with the Spirit in its lineage.
+$fixtures['flawless-spirit-of-mordred-levels-up-into-mordred'] = [
+    'testedCards' => ['cXEI5vo6iG'],
+    'deck' => $mordredSpiritDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost (1)
+    ],
+    'actions' => [
+        mrdAns(1, 'Top=px60u5n1do,px60u5n1do,em6eEh9q8y,n8wyfG9hbY;Bottom='), // player 1 keeps its glimpsed order -> player 2's champion enters
+        mrdAns(2, 'Top=n8wyfG9hbY,n8wyfG9hbY,n8wyfG9hbY,em6eEh9q8y;Bottom='), // player 2 keeps its glimpsed order
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-0'), // level up into Mordred, Burnished Avenger
+    ],
+];
+
+// --- Safeguard Paragon: Sacrifice it to prevent the next 4 non-combat damage to each unit you control this turn ---
+// Safeguard Paragon (apu7wiw3cl, NORM CLERIC/WARRIOR ALLY, reserve 3): "Sacrifice Safeguard Paragon:
+// Prevent the next 4 non-combat damage that would be dealt to each unit you control this turn."
+// Player 1 controls a Safeguard Paragon and a Dungeon Guide. On its own turn player 2 plays Freezing
+// Hail (2 damage to target unit) on that Dungeon Guide; in the priority window player 1 sacrifices
+// the Paragon: every unit player 1 controls gets a PREVENT_NONCOMBAT_4 shield, the Paragon goes to
+// the graveyard, and Freezing Hail's 2 damage is fully prevented (the shield keeps the remaining 2).
+$fixtures['safeguard-paragon-sacrifice-prevents-noncombat-damage'] = [
+    'testedCards' => ['apu7wiw3cl'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'apu7wiw3cl'], // Safeguard Paragon -> p1 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the burn target) -> p1 field-2
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'SrBA7h2a1N'], // Freezing Hail (WATER, 2 damage to target unit) -> p2 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdPass(1), // p1 passes the end-of-main fast window (the Paragon's ability keeps windows open)
+        mrdPass(2), // p2 passes the same window (its fast Freezing Hail keeps windows open)
+        mrdPass(1), // p1 passes the beginning-of-opponent-turn window
+        mrdPass(2), // p2 passes the same window
+        mrdPlay(2, 'myHand-7'), // player 2 plays Freezing Hail
+        ...mrdPay(2, 2), // reserve payments
+        mrdAns(1, 'myField-1@Activate-0@Sacrifice'), // player 1 responds in the effect-stack window: sacrifice Safeguard Paragon
+        mrdAns(2, 'theirField-1'), // Freezing Hail resolves: target player 1's Dungeon Guide (now at field-1: the Paragon left)
+    ],
+];
+
+// --- Safeguard Paragon: the prevention covers NON-combat damage only -- combat damage still goes through ---
+// Safeguard Paragon (apu7wiw3cl): "Prevent the next 4 NON-COMBAT damage". Player 2's Dungeon Guide
+// attacks player 1's champion on player 2's turn; in the attack's priority window player 1 sacrifices
+// the Paragon (every unit gets the PREVENT_NONCOMBAT_4 shield) but the 1 combat damage is not
+// prevented: the champion takes it and keeps the whole shield.
+$fixtures['safeguard-paragon-sacrifice-does-not-prevent-combat-damage'] = [
+    'testedCards' => ['apu7wiw3cl'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'apu7wiw3cl'], // Safeguard Paragon -> p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the attacker, 1 power) -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdPass(1), // p1 passes the end-of-main fast window
+        mrdPass(1), // p1 passes the beginning-of-opponent-turn window
+        mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with Dungeon Guide
+        mrdAns(2, 'theirField-0'), // targeting player 1's champion
+        mrdAns(1, 'myField-1@Activate-0@Sacrifice'), // player 1 sacrifices the Paragon in the priority window
+        mrdPass(1), // p1 passes the window after the ability
+        mrdPass(1), // p1 passes the second window
+    ],
+];
+
+// --- Mirrordepth's Blade: On Banish, look at the top card of your deck; you may put it into your graveyard ---
+// Mirrordepth's Blade (efTHWeXscP, WATER WARRIOR REGALIA/WEAPON SWORD, memory cost 0, power 1, durability
+// 2): "On Banish: Look at the top card of your deck. You may put it into your graveyard." The weapon is
+// materialized for real in the turn-3 materialize phase and used for two weapon attacks: one on
+// turn 3 (durability 2 -> 1, nothing triggers) and one on turn 5 (durability 1 -> 0): a weapon with no
+// durability counters is destroyed, and a regalia card that would go to the graveyard is banished
+// instead, so the On Banish trigger fires: the top card of the deck is offered and answering with it
+// puts that card into the graveyard.
+$fixtures['mirrordepths-blade-on-banish-put-top-card-into-graveyard'] = [
+    'testedCards' => ['efTHWeXscP'],
+    'deck' => $mordredDeck,
+    'setup' => [],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-4'), // materialize Mirrordepth's Blade (memory cost 0)
+        mrdPlay(1, 'myField-0'), // the champion attacks
+        mrdAns(1, 'myField-1'), // with Mirrordepth's Blade as the weapon
+        mrdAns(1, 'theirField-0'), // targeting player 2's champion (durability 2 -> 1)
+        mrdEnd(1), // end player 1 turn 3
+        mrdPass(2), // player 2 declines its materialize offer
+        mrdEnd(2), // end player 2 turn 4 -> player 1 turn 5
+        mrdPass(1), // player 1 declines the materialize offer
+        mrdPlay(1, 'myField-0'), // the champion attacks again
+        mrdAns(1, 'myField-1'), // with Mirrordepth's Blade (its last durability counter)
+        mrdAns(1, 'theirField-0'), // targeting player 2's champion (durability 1 -> 0: destroyed -> banished)
+        mrdAns(1, 'myDeck-0'), // On Banish: put the top card of the deck into the graveyard
+    ],
+];
+
+// --- Mirrordepth's Blade: putting the revealed top card into the graveyard is optional (declined) ---
+// Mirrordepth's Blade (efTHWeXscP): "You MAY put it into your graveyard." Same flow as
+// mirrordepths-blade-on-banish-put-top-card-into-graveyard, but the choice is answered PASS: the top
+// card stays on top of the deck and the graveyard stays empty.
+$fixtures['mirrordepths-blade-on-banish-decline-keeps-top-card'] = [
+    'testedCards' => ['efTHWeXscP'],
+    'deck' => $mordredDeck,
+    'setup' => [],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-4'), // materialize Mirrordepth's Blade (memory cost 0)
+        mrdPlay(1, 'myField-0'), // the champion attacks
+        mrdAns(1, 'myField-1'), // with Mirrordepth's Blade as the weapon
+        mrdAns(1, 'theirField-0'), // targeting player 2's champion (durability 2 -> 1)
+        mrdEnd(1), // end player 1 turn 3
+        mrdPass(2), // player 2 declines its materialize offer
+        mrdEnd(2), // end player 2 turn 4 -> player 1 turn 5
+        mrdPass(1), // player 1 declines the materialize offer
+        mrdPlay(1, 'myField-0'), // the champion attacks again
+        mrdAns(1, 'myField-1'), // with Mirrordepth's Blade (its last durability counter)
+        mrdAns(1, 'theirField-0'), // targeting player 2's champion (durability 1 -> 0: destroyed -> banished)
+        mrdPass(1), // On Banish: decline to put the top card into the graveyard
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
@@ -21211,6 +23061,25 @@ foreach ($fixtures as $slug => $def) {
                     SetDynamicPreserveCardIDs(array_fill_keys($setupStep['markPreserved'], true));
                     WriteGamestate('./' . $rootName . '/');
                     echo "  Setup: markPreserved " . implode(',', $setupStep['markPreserved']) . "\n";
+                    continue;
+                }
+                // 'deckTop': place the listed card IDs on TOP of the player's deck (first listed
+                // card becomes the top card), mirroring PutTempZoneOnTopOfDeck(). BridgeAddToZone
+                // can only append to the BOTTOM of a zone, so this is the only way to make the
+                // card an "On Enter: look at the top card of your deck" effect will reveal a
+                // deliberately chosen one. Setup precondition only; nothing fires.
+                if (isset($setupStep['deckTop'])) {
+                    EngineLoadRootRuntime($rootName);
+                    ParseGamestate('./' . $rootName . '/');
+                    $GLOBALS['playerID'] = $setupStep['player'] ?? 1;
+                    $deckTopZone = &GetDeck($setupStep['player'] ?? 1);
+                    foreach (array_reverse((array)$setupStep['deckTop']) as $topCardID) {
+                        array_unshift($deckTopZone, new Deck($topCardID, 'Deck', $setupStep['player'] ?? 1));
+                    }
+                    for ($di = 0; $di < count($deckTopZone); ++$di) $deckTopZone[$di]->mzIndex = $di;
+                    unset($deckTopZone);
+                    WriteGamestate('./' . $rootName . '/');
+                    echo "  Setup: deckTop " . implode(',', (array)$setupStep['deckTop']) . " (player " . ($setupStep['player'] ?? 1) . ")\n";
                     continue;
                 }
                 // 'emptyZone': directly move every live object out of a zone (default destination

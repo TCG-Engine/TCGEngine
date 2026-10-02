@@ -1,0 +1,23 @@
+{
+    "name": "dredging-streams-level-two-floating-memory-pays-levelup",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:43+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "wmt0x5zado"
+    ],
+    "notes": "Dredging Streams (wmt0x5zado): \"[Level 2+] Floating Memory (While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost. Apply this effect only if your champion is level 2 or higher.)\" The champion is patched to Mordred, Flawless Blade (level 2) and Dredging Streams is seeded in the graveyard. The real level-up into Mordred, Aurelian Regent (memory cost 3) offers the floating payment (QueueMaterializeFloatingPayment Choice): picking Dredging Streams banishes it for 1 and the remaining 2 are paid from the two seeded memory cards.",
+    "semanticCoverage": {
+        "testedCards": [
+            "wmt0x5zado"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 2+] Floating Memory: while paying for a memory cost you may banish this card from your graveyard to pay for 1 of that cost (champion level 2 or higher)."
+        ]
+    }
+}

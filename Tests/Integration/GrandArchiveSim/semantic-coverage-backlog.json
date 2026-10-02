@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-02T18:08:38+00:00",
+    "generatedAt": "2026-10-02T19:09:30+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 591,
+        "cardsWithExistingFixtures": 610,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1896,
+        "cardsNeedingSemanticCoverage": 1877,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -104,94 +104,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 123
-        },
-        {
-            "cardId": "rpOaAjgtue",
-            "name": "Frostsworn Paladin",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "g99PIuhU0O",
-            "name": "Gildas, Faesworn Monarch",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "OWCdWq3mXY",
-            "name": "Mordred, Burnished Avenger",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "eRcqucBKhX",
-            "name": "Warrior of the Fae Realm",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
         },
         {
             "cardId": "9ggfiy38t2",
@@ -354,46 +266,6 @@
             "priority": 114
         },
         {
-            "cardId": "wmt0x5zado",
-            "name": "Dredging Streams",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "QCUld5Xidm",
-            "name": "Dummy Trainer",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "crv1etn4g3",
             "name": "Ombreux Chevalier",
             "type": "ALLY",
@@ -409,46 +281,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "clS3E0HrZL",
-            "name": "Rhongomiant, Grove's Spire",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "4s0c9XgLg7",
-            "name": "Snow Fairy",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -532,25 +364,6 @@
             "priority": 113
         },
         {
-            "cardId": "ixIY36Ck37",
-            "name": "Dauntless Assault",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "j6er6z99sv",
             "name": "Flamme Sorcel",
             "type": "ACTION",
@@ -608,63 +421,6 @@
             "priority": 113
         },
         {
-            "cardId": "XPl2UAO9se",
-            "name": "Mordred, Aurelian Regent",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "KqBosnU7pU",
-            "name": "Mordred, Fated Luminary",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "WI2owxIw0z",
-            "name": "Mordred, Flawless Blade",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "1bxh5xz2uz",
             "name": "Reverse Affliction",
             "type": "ACTION",
@@ -698,25 +454,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "qrxQGA1pc6",
-            "name": "Striking Tides",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -832,24 +569,6 @@
             "priority": 112
         },
         {
-            "cardId": "cXEI5vo6iG",
-            "name": "Flawless Spirit of Mordred",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "6ihv6hbvye",
             "name": "Grande Aiguille",
             "type": "REGALIA,WEAPON",
@@ -886,24 +605,6 @@
             "priority": 112
         },
         {
-            "cardId": "y8BNOi4rwD",
-            "name": "Luminescent Slash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "vm4xg2hedp",
             "name": "Refluxal Ribbon",
             "type": "REGALIA,ITEM",
@@ -935,24 +636,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "apu7wiw3cl",
-            "name": "Safeguard Paragon",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -1028,23 +711,6 @@
             "priority": 111
         },
         {
-            "cardId": "en3DD836cp",
-            "name": "Drenching Finish",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "b0iz7wm7ow",
             "name": "Guided Starlight",
             "type": "ACTION",
@@ -1057,23 +723,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "W1g0hNzXAC",
-            "name": "Invigorated Slash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -1108,23 +757,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "efTHWeXscP",
-            "name": "Mirrordepth's Blade",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -35203,6 +34835,77 @@
             "priority": 135
         },
         {
+            "cardId": "rpOaAjgtue",
+            "name": "Frostsworn Paladin",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "frostsworn-paladin-enter-banish-floating-draw-buff",
+                "frostsworn-paladin-enter-decline-banish",
+                "frostsworn-paladin-enter-no-floating-memory-card",
+                "frostsworn-paladin-intercept-not-offered-while-rested",
+                "frostsworn-paladin-intercept-redirects-attack-on-champion"
+            ],
+            "semanticFixtures": [
+                "frostsworn-paladin-enter-banish-floating-draw-buff",
+                "frostsworn-paladin-enter-decline-banish",
+                "frostsworn-paladin-enter-no-floating-memory-card",
+                "frostsworn-paladin-intercept-not-offered-while-rested",
+                "frostsworn-paladin-intercept-redirects-attack-on-champion"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "g99PIuhU0O",
+            "name": "Gildas, Faesworn Monarch",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gildas-ability-requires-mordred-champion",
+                "gildas-another-fairy-ally-makes-ability-free",
+                "gildas-mordred-bonus-prevent-four-damage-pays-two",
+                "gildas-rested-ability-reactivation-not-blocked",
+                "gildas-stealth-cannot-be-attacked",
+                "gildas-vigor-wakes-up-at-end-of-turn"
+            ],
+            "semanticFixtures": [
+                "gildas-ability-requires-mordred-champion",
+                "gildas-another-fairy-ally-makes-ability-free",
+                "gildas-mordred-bonus-prevent-four-damage-pays-two",
+                "gildas-rested-ability-reactivation-not-blocked",
+                "gildas-stealth-cannot-be-attacked",
+                "gildas-vigor-wakes-up-at-end-of-turn"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "xl3tzqhlt1",
             "name": "Hairpin of Transience",
             "type": "REGALIA,ITEM",
@@ -35481,6 +35184,43 @@
             ],
             "starterDecks": [
                 "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "OWCdWq3mXY",
+            "name": "Mordred, Burnished Avenger",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mordred-burnished-avenger-activate-banished-attack-this-turn",
+                "mordred-burnished-avenger-banished-attack-not-activatable-next-turn",
+                "mordred-burnished-avenger-inherited-first-attack-costs-two-less",
+                "mordred-burnished-avenger-levelup-enter-banish-top-attack",
+                "mordred-burnished-avenger-levelup-enter-decline-banish",
+                "mordred-burnished-avenger-levelup-enter-top-card-not-attack",
+                "mordred-burnished-avenger-no-discount-without-levelup-this-turn"
+            ],
+            "semanticFixtures": [
+                "mordred-burnished-avenger-activate-banished-attack-this-turn",
+                "mordred-burnished-avenger-banished-attack-not-activatable-next-turn",
+                "mordred-burnished-avenger-inherited-first-attack-costs-two-less",
+                "mordred-burnished-avenger-levelup-enter-banish-top-attack",
+                "mordred-burnished-avenger-levelup-enter-decline-banish",
+                "mordred-burnished-avenger-levelup-enter-top-card-not-attack",
+                "mordred-burnished-avenger-no-discount-without-levelup-this-turn"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
@@ -35874,6 +35614,44 @@
             ],
             "starterDecks": [
                 "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "eRcqucBKhX",
+            "name": "Warrior of the Fae Realm",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "warrior-of-the-fae-realm-banished-sword-activatable-same-turn",
+                "warrior-of-the-fae-realm-banished-sword-never-activatable-on-later-turn",
+                "warrior-of-the-fae-realm-enter-banish-sword-from-hand-draw-memory",
+                "warrior-of-the-fae-realm-enter-banish-sword-from-memory",
+                "warrior-of-the-fae-realm-enter-decline-banish",
+                "warrior-of-the-fae-realm-enter-non-sword-attack-not-offered",
+                "warrior-of-the-fae-realm-stealth-cannot-be-attacked"
+            ],
+            "semanticFixtures": [
+                "warrior-of-the-fae-realm-banished-sword-activatable-same-turn",
+                "warrior-of-the-fae-realm-banished-sword-never-activatable-on-later-turn",
+                "warrior-of-the-fae-realm-enter-banish-sword-from-hand-draw-memory",
+                "warrior-of-the-fae-realm-enter-banish-sword-from-memory",
+                "warrior-of-the-fae-realm-enter-decline-banish",
+                "warrior-of-the-fae-realm-enter-non-sword-attack-not-offered",
+                "warrior-of-the-fae-realm-stealth-cannot-be-attacked"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
@@ -36641,6 +36419,60 @@
             ],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "wmt0x5zado",
+            "name": "Dredging Streams",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dredging-streams-banish-card-from-opponent-graveyard",
+                "dredging-streams-banish-card-from-own-graveyard",
+                "dredging-streams-floating-memory-not-offered-below-level-two",
+                "dredging-streams-level-two-floating-memory-pays-levelup"
+            ],
+            "semanticFixtures": [
+                "dredging-streams-banish-card-from-opponent-graveyard",
+                "dredging-streams-banish-card-from-own-graveyard",
+                "dredging-streams-floating-memory-not-offered-below-level-two",
+                "dredging-streams-level-two-floating-memory-pays-levelup"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "QCUld5Xidm",
+            "name": "Dummy Trainer",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "token"
+            ],
+            "existingFixtures": [
+                "dummy-trainer-banish-draw-memory-opponent-summons-training-dummy"
+            ],
+            "semanticFixtures": [
+                "dummy-trainer-banish-draw-memory-opponent-summons-training-dummy"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -37838,6 +37670,42 @@
             "priority": 134
         },
         {
+            "cardId": "clS3E0HrZL",
+            "name": "Rhongomiant, Grove's Spire",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rhongomiant-durability-removed-decline-memory-return",
+                "rhongomiant-durability-removed-no-return-without-mordred-champion",
+                "rhongomiant-durability-removed-return-memory-card-to-hand",
+                "rhongomiant-mordred-bonus-plus-four-power-at-influence-eight",
+                "rhongomiant-no-power-bonus-at-influence-seven",
+                "rhongomiant-no-power-bonus-without-mordred-champion",
+                "rhongomiant-spellshroud-spell-can-still-target-it"
+            ],
+            "semanticFixtures": [
+                "rhongomiant-durability-removed-decline-memory-return",
+                "rhongomiant-durability-removed-no-return-without-mordred-champion",
+                "rhongomiant-durability-removed-return-memory-card-to-hand",
+                "rhongomiant-mordred-bonus-plus-four-power-at-influence-eight",
+                "rhongomiant-no-power-bonus-at-influence-seven",
+                "rhongomiant-no-power-bonus-without-mordred-champion",
+                "rhongomiant-spellshroud-spell-can-still-target-it"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "y6q4goxi8a",
             "name": "Rising Tides",
             "type": "ACTION",
@@ -38059,6 +37927,38 @@
             "starterDecks": [
                 "Silvie Starter Deck",
                 "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "4s0c9XgLg7",
+            "name": "Snow Fairy",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "snow-fairy-ally-wakes-up-after-snow-fairy-leaves",
+                "snow-fairy-enter-no-opposing-ally",
+                "snow-fairy-enter-rests-target-ally",
+                "snow-fairy-frozen-ally-skips-wake-up-phase",
+                "snow-fairy-stealth-cannot-be-attacked"
+            ],
+            "semanticFixtures": [
+                "snow-fairy-ally-wakes-up-after-snow-fairy-leaves",
+                "snow-fairy-enter-no-opposing-ally",
+                "snow-fairy-enter-rests-target-ally",
+                "snow-fairy-frozen-ally-skips-wake-up-phase",
+                "snow-fairy-stealth-cannot-be-attacked"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -38968,6 +38868,33 @@
             "priority": 133
         },
         {
+            "cardId": "ixIY36Ck37",
+            "name": "Dauntless Assault",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dauntless-assault-exalted-needs-another-advanced-element",
+                "dauntless-assault-mordred-bonus-wakes-up-attacker",
+                "dauntless-assault-no-wake-up-without-mordred-champion"
+            ],
+            "semanticFixtures": [
+                "dauntless-assault-exalted-needs-another-advanced-element",
+                "dauntless-assault-mordred-bonus-wakes-up-attacker",
+                "dauntless-assault-no-wake-up-without-mordred-champion"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "qxbdXU7H4Z",
             "name": "Deep Sea Beastbonder",
             "type": "ALLY",
@@ -39856,6 +39783,97 @@
             ],
             "starterDecks": [
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "XPl2UAO9se",
+            "name": "Mordred, Aurelian Regent",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "luminescent-slash-lone-attack-full-cost-and-regent-deleveled",
+                "mordred-aurelian-regent-ally-attack-does-not-use-up-next-attack-bonus",
+                "mordred-aurelian-regent-levelup-enter-next-attack-plus-three-and-recover"
+            ],
+            "semanticFixtures": [
+                "luminescent-slash-lone-attack-full-cost-and-regent-deleveled",
+                "mordred-aurelian-regent-ally-attack-does-not-use-up-next-attack-bonus",
+                "mordred-aurelian-regent-levelup-enter-next-attack-plus-three-and-recover"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "KqBosnU7pU",
+            "name": "Mordred, Fated Luminary",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "combat"
+            ],
+            "existingFixtures": [
+                "mordred-fated-luminary-ephemerate-attack-card-from-graveyard",
+                "mordred-fated-luminary-ephemerated-attack-card-is-not-banished",
+                "mordred-fated-luminary-graveyard-attack-card-never-floats-for-memory-cost",
+                "mordred-fated-luminary-non-attack-card-in-graveyard-cannot-ephemerate",
+                "mordred-fated-luminary-normal-levelup-into-luminary-draws-two",
+                "mordred-fated-luminary-same-level-levelup-draws-two",
+                "mordred-fated-luminary-same-level-levelup-needs-luminary-in-lineage"
+            ],
+            "semanticFixtures": [
+                "mordred-fated-luminary-ephemerate-attack-card-from-graveyard",
+                "mordred-fated-luminary-ephemerated-attack-card-is-not-banished",
+                "mordred-fated-luminary-graveyard-attack-card-never-floats-for-memory-cost",
+                "mordred-fated-luminary-non-attack-card-in-graveyard-cannot-ephemerate",
+                "mordred-fated-luminary-normal-levelup-into-luminary-draws-two",
+                "mordred-fated-luminary-same-level-levelup-draws-two",
+                "mordred-fated-luminary-same-level-levelup-needs-luminary-in-lineage"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "WI2owxIw0z",
+            "name": "Mordred, Flawless Blade",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat"
+            ],
+            "existingFixtures": [
+                "mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup",
+                "mordred-flawless-blade-floating-payment-accepts-non-floating-card",
+                "mordred-flawless-blade-non-attack-card-in-graveyard-does-not-float",
+                "mordred-flawless-blade-opponent-blade-makes-my-graveyard-attack-cards-float"
+            ],
+            "semanticFixtures": [
+                "mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup",
+                "mordred-flawless-blade-floating-payment-accepts-non-floating-card",
+                "mordred-flawless-blade-non-attack-card-in-graveyard-does-not-float",
+                "mordred-flawless-blade-opponent-blade-makes-my-graveyard-attack-cards-float"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -40890,6 +40908,35 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "qrxQGA1pc6",
+            "name": "Striking Tides",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "striking-tides-on-hit-banish-floating-memory-wakes-champion",
+                "striking-tides-on-hit-decline-banish-champion-stays-rested",
+                "striking-tides-on-hit-no-floating-memory-card-no-prompt",
+                "striking-tides-on-hit-requires-mordred-champion"
+            ],
+            "semanticFixtures": [
+                "striking-tides-on-hit-banish-floating-memory-wakes-champion",
+                "striking-tides-on-hit-decline-banish-champion-stays-rested",
+                "striking-tides-on-hit-no-floating-memory-card-no-prompt",
+                "striking-tides-on-hit-requires-mordred-champion"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42150,6 +42197,32 @@
             "priority": 132
         },
         {
+            "cardId": "cXEI5vo6iG",
+            "name": "Flawless Spirit of Mordred",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "flawless-spirit-of-mordred-cannot-level-up-into-non-mordred",
+                "flawless-spirit-of-mordred-enter-draw-seven-glimpse-four",
+                "flawless-spirit-of-mordred-levels-up-into-mordred"
+            ],
+            "semanticFixtures": [
+                "flawless-spirit-of-mordred-cannot-level-up-into-non-mordred",
+                "flawless-spirit-of-mordred-enter-draw-seven-glimpse-four",
+                "flawless-spirit-of-mordred-levels-up-into-mordred"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "b0ssellm84",
             "name": "Foraging Fox",
             "type": "ALLY",
@@ -42613,6 +42686,30 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "y8BNOi4rwD",
+            "name": "Luminescent Slash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat"
+            ],
+            "existingFixtures": [
+                "luminescent-slash-after-another-attack-costs-two-less-and-gets-plus-two",
+                "luminescent-slash-lone-attack-full-cost-and-regent-deleveled"
+            ],
+            "semanticFixtures": [
+                "luminescent-slash-after-another-attack-costs-two-less-and-gets-plus-two",
+                "luminescent-slash-lone-attack-full-cost-and-regent-deleveled"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43218,6 +43315,30 @@
             "starterDecks": [
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "apu7wiw3cl",
+            "name": "Safeguard Paragon",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention"
+            ],
+            "existingFixtures": [
+                "safeguard-paragon-sacrifice-does-not-prevent-combat-damage",
+                "safeguard-paragon-sacrifice-prevents-noncombat-damage"
+            ],
+            "semanticFixtures": [
+                "safeguard-paragon-sacrifice-does-not-prevent-combat-damage",
+                "safeguard-paragon-sacrifice-prevents-noncombat-damage"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -44592,6 +44713,33 @@
             "priority": 131
         },
         {
+            "cardId": "en3DD836cp",
+            "name": "Drenching Finish",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "drenching-finish-class-bonus-on-kill-opponent-mills-three",
+                "drenching-finish-class-bonus-on-kill-self-mills-three",
+                "drenching-finish-on-kill-needs-a-kill",
+                "drenching-finish-on-kill-requires-class-bonus"
+            ],
+            "semanticFixtures": [
+                "drenching-finish-class-bonus-on-kill-opponent-mills-three",
+                "drenching-finish-class-bonus-on-kill-self-mills-three",
+                "drenching-finish-on-kill-needs-a-kill",
+                "drenching-finish-on-kill-requires-class-bonus"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "gR3LGjzKPS",
             "name": "Epochal Conqueror",
             "type": "ALLY",
@@ -44765,6 +44913,29 @@
             "priority": 131
         },
         {
+            "cardId": "W1g0hNzXAC",
+            "name": "Invigorated Slash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "invigorated-slash-no-bonus-without-levelup",
+                "invigorated-slash-plus-two-power-after-champion-leveled-up"
+            ],
+            "semanticFixtures": [
+                "invigorated-slash-no-bonus-without-levelup",
+                "invigorated-slash-plus-two-power-after-champion-leveled-up"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "PLljzdiMmq",
             "name": "Invoke Dominance",
             "type": "ACTION",
@@ -44888,6 +45059,29 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "efTHWeXscP",
+            "name": "Mirrordepth's Blade",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "mirrordepths-blade-on-banish-decline-keeps-top-card",
+                "mirrordepths-blade-on-banish-put-top-card-into-graveyard"
+            ],
+            "semanticFixtures": [
+                "mirrordepths-blade-on-banish-decline-keeps-top-card",
+                "mirrordepths-blade-on-banish-put-top-card-into-graveyard"
+            ],
+            "starterDecks": [
+                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

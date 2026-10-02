@@ -1,0 +1,8 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"XPl2UAO9se","semantic":true,"label":"The same-level level-up Fated Luminary -> Aurelian Regent (both level 3) was accepted"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"Subcards","value":"[\"KqBosnU7pU\",\"WI2owxIw0z\",\"OWCdWq3mXY\",\"tafqldAGRF\"]","semantic":true,"label":"Fated Luminary moved into the lineage"},
+    {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":10,"semantic":true,"label":"Hand 10 = 7 + 1 turn draw + 2 cards drawn by the same-level level-up"},
+    {"step":3,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":3,"semantic":true,"label":"The 3 level-up memory cards were banished"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"Status","value":"2","semantic":true,"label":"The freshly leveled champion is awake"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"XPl2UAO9se","semantic":true,"label":"The champion is still Aurelian Regent: the same-level level-up into Fated Luminary was rejected"},
+    {"step":4,"type":"zone_count","zone":"myMaterial","viewerPlayerID":1,"value":7,"semantic":true,"label":"The material deck is untouched (7 cards)"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":11,"semantic":true,"label":"Hand 11 = 7 + 1 turn draw + 3 memory cards returned by recollection: NO cards drawn by a level-up"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

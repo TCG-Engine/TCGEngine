@@ -1,0 +1,23 @@
+{
+    "name": "frostsworn-paladin-intercept-not-offered-while-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:18+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "rpOaAjgtue"
+    ],
+    "notes": "Frostsworn Paladin (rpOaAjgtue): the Intercept only works \"while this ally is awake\". The Paladin is seeded rested (Status 1); player 2's Dungeon Guide attacks player 1's champion and no interceptor prompt is offered: the champion takes the 1 damage itself.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rpOaAjgtue"
+        ],
+        "mechanics": [
+            "combat",
+            "condition",
+            "status"
+        ],
+        "rulesClauses": [
+            "Intercept works only while this ally is awake: a rested Paladin cannot intercept."
+        ]
+    }
+}

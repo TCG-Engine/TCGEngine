@@ -1,0 +1,24 @@
+{
+    "name": "warrior-of-the-fae-realm-enter-decline-banish",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:37+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "eRcqucBKhX"
+    ],
+    "notes": "Warrior of the Fae Realm (eRcqucBKhX): \"You MAY banish a Sword attack card\". The MZMAYCHOOSE is answered PASS: the Striking Tides stays in hand, nothing is banished and no card is drawn into memory (memory holds only the 3 reserve payments).",
+    "semanticCoverage": {
+        "testedCards": [
+            "eRcqucBKhX"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "draw-discard",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: You MAY banish a Sword attack card (optional); if you don't, nothing is drawn."
+        ]
+    }
+}

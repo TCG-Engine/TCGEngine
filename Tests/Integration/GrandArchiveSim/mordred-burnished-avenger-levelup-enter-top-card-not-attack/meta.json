@@ -1,0 +1,22 @@
+{
+    "name": "mordred-burnished-avenger-levelup-enter-top-card-not-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:29+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "OWCdWq3mXY"
+    ],
+    "notes": "Mordred, Burnished Avenger (OWCdWq3mXY): \"If it's an attack card, you may banish it.\" The top card of the deck is a Dungeon Guide (an ally): the real level-up reveals it but no banish prompt appears, nothing is banished and the card is simply drawn in the draw step.",
+    "semanticCoverage": {
+        "testedCards": [
+            "OWCdWq3mXY"
+        ],
+        "mechanics": [
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If it's an attack card, you may banish it (a non-attack top card has no effect)."
+        ]
+    }
+}

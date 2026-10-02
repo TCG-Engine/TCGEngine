@@ -1,0 +1,6 @@
+[
+    {"step":5,"type":"card_exists","zone":"myHand","cardID":"qrxQGA1pc6","viewerPlayerID":1,"semantic":true,"label":"The declined Striking Tides stays in hand"},
+    {"step":5,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":0,"semantic":true,"label":"Nothing was banished"},
+    {"step":5,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"Memory holds only the 3 reserve payments: no card was drawn into memory"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

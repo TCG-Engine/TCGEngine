@@ -1,0 +1,23 @@
+{
+    "name": "dredging-streams-banish-card-from-opponent-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:42+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "wmt0x5zado"
+    ],
+    "notes": "Dredging Streams (wmt0x5zado): \"Banish target card from a graveyard.\" -- any graveyard. Same setup as dredging-streams-banish-card-from-own-graveyard, but the opponent's Fluffy Shopkeep is chosen: it is banished into the OPPONENT's banishment (the handler redirects to the graveyard owner's banish zone) and player 1's own graveyard is untouched.",
+    "semanticCoverage": {
+        "testedCards": [
+            "wmt0x5zado"
+        ],
+        "mechanics": [
+            "targeting",
+            "zone-movement",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Banish target card from A graveyard -- including the opponent's graveyard (it is banished from there, into its owner's banishment)."
+        ]
+    }
+}
