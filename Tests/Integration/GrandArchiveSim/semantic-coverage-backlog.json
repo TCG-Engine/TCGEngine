@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-02T03:56:04+00:00",
+    "generatedAt": "2026-10-02T18:08:38+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 570,
+        "cardsWithExistingFixtures": 591,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1917,
+        "cardsNeedingSemanticCoverage": 1896,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,47 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "he6kd7hocc",
-            "name": "Tristan, Shadowdancer",
-            "type": "CHAMPION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "token",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "lcb6jhxctx",
-            "name": "Gearstride Gloves",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
         {
             "cardId": "pgysz2zfji",
             "name": "Leporine Masque",
@@ -147,47 +106,6 @@
             "priority": 123
         },
         {
-            "cardId": "hmjr33ijq6",
-            "name": "Shifting Mirage",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "qwxvzfkpaj",
-            "name": "Betraying Blade",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "counter",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "rpOaAjgtue",
             "name": "Frostsworn Paladin",
             "type": "ALLY",
@@ -254,48 +172,6 @@
             "priority": 115
         },
         {
-            "cardId": "10rsagp9m8",
-            "name": "Shadow Resonance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "draw-discard",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "z5exbwdp7q",
-            "name": "Stifling Trap",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "eRcqucBKhX",
             "name": "Warrior of the Fae Realm",
             "type": "ALLY",
@@ -316,26 +192,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 115
-        },
-        {
-            "cardId": "uoQGe5xGDQ",
-            "name": "Arrow Trap",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
         },
         {
             "cardId": "9ggfiy38t2",
@@ -578,46 +434,6 @@
             "priority": 114
         },
         {
-            "cardId": "nd8dy77ikm",
-            "name": "Shadeblood Coating",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "t7ru41pzgg",
-            "name": "Sirocco Operative",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "4s0c9XgLg7",
             "name": "Snow Fairy",
             "type": "ALLY",
@@ -653,26 +469,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "bjlwabipl6",
-            "name": "Tristan, Underhanded",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -945,25 +741,6 @@
             "priority": 113
         },
         {
-            "cardId": "gt7lh9v221",
-            "name": "Tristan, Hired Blade",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "xicxo661ly",
             "name": "Undercurrent Vantage",
             "type": "ACTION",
@@ -1055,24 +832,6 @@
             "priority": 112
         },
         {
-            "cardId": "u25fuv184p",
-            "name": "Dusksoul Stone",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "cXEI5vo6iG",
             "name": "Flawless Spirit of Mordred",
             "type": "CHAMPION",
@@ -1086,24 +845,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "r278evrcdz",
-            "name": "Gloamspire Headhunter",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -1163,42 +904,6 @@
             "priority": 112
         },
         {
-            "cardId": "0dr40tfllk",
-            "name": "Malignant Athame",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "9lbewemius",
-            "name": "Mastermind Scheme",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "vm4xg2hedp",
             "name": "Refluxal Ribbon",
             "type": "REGALIA,ITEM",
@@ -1253,24 +958,6 @@
             "priority": 112
         },
         {
-            "cardId": "o191zv86la",
-            "name": "Shadowstrike",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "e1xj8mqr2o",
             "name": "Sinistre Stab",
             "type": "ATTACK",
@@ -1305,41 +992,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 112
-        },
-        {
-            "cardId": "xt6uaz6a7g",
-            "name": "Surveil the Winds",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "itwys9kf4r",
-            "name": "Cloaked Executioner",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
         },
         {
             "cardId": "nypwwnirjk",
@@ -1393,23 +1045,6 @@
             "priority": 111
         },
         {
-            "cardId": "4hnf1yyx1q",
-            "name": "Grim Foreboding",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "b0iz7wm7ow",
             "name": "Guided Starlight",
             "type": "ACTION",
@@ -1422,23 +1057,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "v0buu5y0ub",
-            "name": "Haunting Demise",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -1541,23 +1159,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "wklzjmwuir",
-            "name": "Shimmercloak Assassin",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -33322,6 +32923,33 @@
             "priority": 145
         },
         {
+            "cardId": "he6kd7hocc",
+            "name": "Tristan, Shadowdancer",
+            "type": "CHAMPION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "token",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "tristan-shadowdancer-levelup-enter-summon-shadows-prep",
+                "tristan-shadowdancer-redirect-attack-to-phantasia"
+            ],
+            "semanticFixtures": [
+                "tristan-shadowdancer-levelup-enter-summon-shadows-prep",
+                "tristan-shadowdancer-redirect-attack-to-phantasia"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
             "cardId": "dW5uyngvJW",
             "name": "Vernal Talisman",
             "type": "REGALIA,ITEM",
@@ -33562,6 +33190,32 @@
             ],
             "starterDecks": [
                 "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "lcb6jhxctx",
+            "name": "Gearstride Gloves",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "gearstride-gloves-banish-requires-level-two",
+                "gearstride-gloves-materialize-prep-banish-reaction-discount"
+            ],
+            "semanticFixtures": [
+                "gearstride-gloves-banish-requires-level-two",
+                "gearstride-gloves-materialize-prep-banish-reaction-discount"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": false,
             "priority": 144
@@ -34424,6 +34078,33 @@
             "priority": 143
         },
         {
+            "cardId": "hmjr33ijq6",
+            "name": "Shifting Mirage",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "token"
+            ],
+            "existingFixtures": [
+                "shifting-mirage-stealth-when-opponent-cannot-pay",
+                "shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines",
+                "shifting-mirage-tristan-bonus-shadow-stealth-opponent-pays"
+            ],
+            "semanticFixtures": [
+                "shifting-mirage-stealth-when-opponent-cannot-pay",
+                "shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines",
+                "shifting-mirage-tristan-bonus-shadow-stealth-opponent-pays"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "XsxmnGZxKz",
             "name": "Spirit Blade: Terminus",
             "type": "ATTACK",
@@ -34999,6 +34680,38 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "qwxvzfkpaj",
+            "name": "Betraying Blade",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "counter",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "betraying-blade-class-bonus-floating-memory-levelup",
+                "betraying-blade-floating-memory-requires-class-bonus",
+                "betraying-blade-on-attack-decline-no-counter",
+                "betraying-blade-on-attack-pay-two-prep-counter"
+            ],
+            "semanticFixtures": [
+                "betraying-blade-class-bonus-floating-memory-levelup",
+                "betraying-blade-floating-memory-requires-class-bonus",
+                "betraying-blade-on-attack-decline-no-counter",
+                "betraying-blade-on-attack-pay-two-prep-counter"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
@@ -35929,6 +35642,33 @@
             "priority": 135
         },
         {
+            "cardId": "10rsagp9m8",
+            "name": "Shadow Resonance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "draw-discard",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shadow-resonance-no-shadow-below-four-preparation",
+                "shadow-resonance-recover-draw-tristan-bonus-shadow-at-four-preparation"
+            ],
+            "semanticFixtures": [
+                "shadow-resonance-no-shadow-below-four-preparation",
+                "shadow-resonance-recover-draw-tristan-bonus-shadow-at-four-preparation"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "qCTini03Bc",
             "name": "Shieldroid",
             "type": "ALLY",
@@ -35979,6 +35719,33 @@
                 "Tonoris Starter Deck",
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "z5exbwdp7q",
+            "name": "Stifling Trap",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "stifling-trap-damage-and-negate-on-enter",
+                "stifling-trap-memory-alternate-cost-never-offered"
+            ],
+            "semanticFixtures": [
+                "stifling-trap-damage-and-negate-on-enter",
+                "stifling-trap-memory-alternate-cost-never-offered"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
@@ -36277,6 +36044,32 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "uoQGe5xGDQ",
+            "name": "Arrow Trap",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "arrow-trap-prepared-destroy-attacking-ally-never-resolves",
+                "arrow-trap-return-attacking-ally-never-resolves"
+            ],
+            "semanticFixtures": [
+                "arrow-trap-prepared-destroy-attacking-ally-never-resolves",
+                "arrow-trap-return-attacking-ally-never-resolves"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -38124,6 +37917,30 @@
             "priority": 134
         },
         {
+            "cardId": "nd8dy77ikm",
+            "name": "Shadeblood Coating",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "combat"
+            ],
+            "existingFixtures": [
+                "shadeblood-coating-banish-grants-on-hit-preparation"
+            ],
+            "semanticFixtures": [
+                "shadeblood-coating-banish-grants-on-hit-preparation"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "tdz5of8zuz",
             "name": "Shatter the Brittle",
             "type": "ACTION",
@@ -38191,6 +38008,32 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "t7ru41pzgg",
+            "name": "Sirocco Operative",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sirocco-operative-enter-class-bonus-draw-memory-and-automaton-prep",
+                "sirocco-operative-enter-without-class-bonus-or-other-automaton"
+            ],
+            "semanticFixtures": [
+                "sirocco-operative-enter-class-bonus-draw-memory-and-automaton-prep",
+                "sirocco-operative-enter-without-class-bonus-or-other-automaton"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -38435,6 +38278,32 @@
             ],
             "starterDecks": [
                 "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "bjlwabipl6",
+            "name": "Tristan, Underhanded",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tristan-underhanded-levelup-enter-agility",
+                "tristan-underhanded-levelup-enter-prep-counter"
+            ],
+            "semanticFixtures": [
+                "tristan-underhanded-levelup-enter-agility",
+                "tristan-underhanded-levelup-enter-prep-counter"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -41226,6 +41095,31 @@
             "priority": 133
         },
         {
+            "cardId": "gt7lh9v221",
+            "name": "Tristan, Hired Blade",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tristan-hired-blade-levelup-enter-draw-one",
+                "tristan-hired-blade-levelup-enter-draw-two"
+            ],
+            "semanticFixtures": [
+                "tristan-hired-blade-levelup-enter-draw-one",
+                "tristan-hired-blade-levelup-enter-draw-two"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "yBDxSHkT1s",
             "name": "Twinstar Tonic",
             "type": "ITEM",
@@ -42139,6 +42033,32 @@
             "priority": 132
         },
         {
+            "cardId": "u25fuv184p",
+            "name": "Dusksoul Stone",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "dusksoul-stone-banish-ability-single-graveyard-stone-stays",
+                "dusksoul-stone-materialize-additional-cost-banish-two-allies",
+                "dusksoul-stone-phantasias-have-spellshroud"
+            ],
+            "semanticFixtures": [
+                "dusksoul-stone-banish-ability-single-graveyard-stone-stays",
+                "dusksoul-stone-materialize-additional-cost-banish-two-allies",
+                "dusksoul-stone-phantasias-have-spellshroud"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "Kc5Bktw0yK",
             "name": "Empowering Harmony",
             "type": "ACTION",
@@ -42336,6 +42256,32 @@
             ],
             "starterDecks": [
                 "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "r278evrcdz",
+            "name": "Gloamspire Headhunter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "gloamspire-headhunter-on-ally-hit-destroys-unless-paid-declined",
+                "gloamspire-headhunter-on-ally-hit-pay-three-saves-ally",
+                "shimmercloak-assassin-and-gloamspire-headhunter-stealth-untargetable-by-attacks"
+            ],
+            "semanticFixtures": [
+                "gloamspire-headhunter-on-ally-hit-destroys-unless-paid-declined",
+                "gloamspire-headhunter-on-ally-hit-pay-three-saves-ally",
+                "shimmercloak-assassin-and-gloamspire-headhunter-stealth-untargetable-by-attacks"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -42667,6 +42613,54 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "0dr40tfllk",
+            "name": "Malignant Athame",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "malignant-athame-on-champion-hit-decline-swap",
+                "malignant-athame-on-champion-hit-swap-hand-memory"
+            ],
+            "semanticFixtures": [
+                "malignant-athame-on-champion-hit-decline-swap",
+                "malignant-athame-on-champion-hit-swap-hand-memory"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "9lbewemius",
+            "name": "Mastermind Scheme",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mastermind-scheme-double-preparation-no-agility-below-eight",
+                "mastermind-scheme-efficiency-double-preparation-agility-at-eight"
+            ],
+            "semanticFixtures": [
+                "mastermind-scheme-double-preparation-no-agility-below-eight",
+                "mastermind-scheme-efficiency-double-preparation-agility-at-eight"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43415,6 +43409,28 @@
             "priority": 132
         },
         {
+            "cardId": "o191zv86la",
+            "name": "Shadowstrike",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shadowstrike-prepare-x-never-wired-base-power-only"
+            ],
+            "semanticFixtures": [
+                "shadowstrike-prepare-x-never-wired-base-power-only"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "qqq8j5fxym",
             "name": "Shard of Empowerment",
             "type": "REGALIA,ITEM",
@@ -43677,6 +43693,30 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "xt6uaz6a7g",
+            "name": "Surveil the Winds",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "surveil-the-winds-class-bonus-fast-activation-draw-prepare",
+                "surveil-the-winds-slow-without-class-bonus"
+            ],
+            "semanticFixtures": [
+                "surveil-the-winds-class-bonus-fast-activation-draw-prepare",
+                "surveil-the-winds-slow-without-class-bonus"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -44377,6 +44417,31 @@
             "priority": 131
         },
         {
+            "cardId": "itwys9kf4r",
+            "name": "Cloaked Executioner",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "cloaked-executioner-ambush-retaliates-for-another-ally",
+                "cloaked-executioner-class-bonus-fast-activation-ally",
+                "cloaked-executioner-slow-without-class-bonus"
+            ],
+            "semanticFixtures": [
+                "cloaked-executioner-ambush-retaliates-for-another-ally",
+                "cloaked-executioner-class-bonus-fast-activation-ally",
+                "cloaked-executioner-slow-without-class-bonus"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "14m4c8ljye",
             "name": "Condensed Supernova",
             "type": "ITEM",
@@ -44593,6 +44658,27 @@
             "priority": 131
         },
         {
+            "cardId": "4hnf1yyx1q",
+            "name": "Grim Foreboding",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token"
+            ],
+            "existingFixtures": [
+                "grim-foreboding-tristan-bonus-shadow-phantasia-power-agility"
+            ],
+            "semanticFixtures": [
+                "grim-foreboding-tristan-bonus-shadow-phantasia-power-agility"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "uvopjFSUj0",
             "name": "Halcyon Animus",
             "type": "ACTION",
@@ -44609,6 +44695,27 @@
             ],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "v0buu5y0ub",
+            "name": "Haunting Demise",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "haunting-demise-champion-hit-lineage-curse-recollection-damage"
+            ],
+            "semanticFixtures": [
+                "haunting-demise-champion-hit-lineage-curse-recollection-damage"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -45105,6 +45212,27 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "wklzjmwuir",
+            "name": "Shimmercloak Assassin",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status"
+            ],
+            "existingFixtures": [
+                "shimmercloak-assassin-and-gloamspire-headhunter-stealth-untargetable-by-attacks"
+            ],
+            "semanticFixtures": [
+                "shimmercloak-assassin-and-gloamspire-headhunter-stealth-untargetable-by-attacks"
+            ],
+            "starterDecks": [
+                "Tristan Re:Collection, Shadowdancer"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

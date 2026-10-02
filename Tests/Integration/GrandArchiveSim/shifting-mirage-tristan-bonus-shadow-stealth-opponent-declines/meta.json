@@ -1,0 +1,39 @@
+{
+    "name": "shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:33+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "hmjr33ijq6"
+    ],
+    "notes": "Shifting Mirage (hmjr33ijq6, UMBRA REACTION action): \"[Class Bonus] This card costs 1 less to activate. Your champion gains stealth until end of turn unless an opponent pays (2). [Tristan Bonus] Summon an Ominous Shadow token.\" Player 1's champion is patched to Tristan, Shadowdancer so UMBRA, the Class Bonus and the Tristan Bonus are all active. The card is played for real; ShiftingMirageResolve() (Custom/GameLogic.php) queues a YES/NO for the opponent (who holds 7+ cards) and, regardless of the answer, summons the Ominous Shadow for the Tristan Bonus. ENGINE BUGS (found, confirmed live, NOT fixed): (1) Double Class-Bonus discount: the card needs only ONE reserve payment although printed 3 minus the Class Bonus should be 2 (two independent discount mechanisms both apply; confirmed by calling ApplyGeneratedReserveLikeCostModifiers / ClassBonusActivateCostReduction / CalculateActivationReserveCost directly on this fixture's initial state: 2 / 1 / 1). (2) Wrong champion gets stealth: when the opponent declines, customDQHandlers[\"ShiftingMiragePay\"] (Custom/CardDQHandlers.php) runs in the OPPONENT's action and AddTurnEffect()s the champion mzID stored earlier relative to player 1 (\"myField-0\"), which resolves to the OPPONENT's champion; confirmed with a temporary error_log trace (handlerPlayer=2 storedChampMZ=myField-0 resolvesTo=pNiyaGlIe7 controller=2), removed afterwards. Both defects are pinned with REGRESSION GUARD assertions.",
+    "semanticCoverage": {
+        "testedCards": [
+            "hmjr33ijq6"
+        ],
+        "mechanics": [
+            "status",
+            "cost",
+            "token",
+            "condition",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate.",
+            "Your champion gains stealth until end of turn unless an opponent pays (2).",
+            "[Tristan Bonus] Summon an Ominous Shadow token."
+        ]
+    },
+    "engineBug": {
+        "status": "found-not-fixed",
+        "summary": "When the opponent declines to pay (2), Shifting Mirage's STEALTH turn effect lands on the OPPONENT's champion instead of the caster's: ShiftingMirageResolve() stores the caster-relative mzID 'myField-0' in DecisionQueueController variable ShiftingMirageChampion, and customDQHandlers['ShiftingMiragePay'] later applies AddTurnEffect() from inside the opponent's own action, where 'myField-0' resolves to the opponent's champion. Confirmed live with a temporary error_log trace (handlerPlayer=2 globalPlayerID=2 storedChampMZ=myField-0 resolvesTo=pNiyaGlIe7 controller=2), removed afterwards.",
+        "affectedFunction": "Custom/GameLogic.php ShiftingMirageResolve() (stores relative mzID) + Custom/CardDQHandlers.php customDQHandlers['ShiftingMiragePay'] (applies it under the opponent's perspective); the YES branch (opponent pays) is unaffected."
+    },
+    "additionalEngineBugs": [
+        {
+            "status": "found-not-fixed",
+            "summary": "Shifting Mirage's printed '[Class Bonus] This card costs 1 less to activate' is applied TWICE: once by the generated activationCostModifierAbilities['hmjr33ijq6:0'] (via ApplyGeneratedReserveLikeCostModifiers) and once more by the hand-maintained ClassBonusActivateCostReduction() table (which still lists hmjr33ijq6). With the Class Bonus active, printed reserve 3 becomes 1 instead of 2. Confirmed live by calling the engine's own cost functions on the fixture's initial state: ApplyGeneratedReserveLikeCostModifiers(...,3,'activate') = 2, ClassBonusActivateCostReduction('hmjr33ijq6') = 1, CalculateActivationReserveCost() = 1.",
+            "affectedFunction": "Custom/GameLogic.php CalculateActivationReserveCost() (~line 26207) applying ClassBonusActivateCostReduction() on top of the generated activationCostModifierAbilities['hmjr33ijq6:0'] discount."
+        }
+    ]
+}

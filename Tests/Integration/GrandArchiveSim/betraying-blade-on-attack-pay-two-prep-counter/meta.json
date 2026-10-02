@@ -1,0 +1,24 @@
+{
+    "name": "betraying-blade-on-attack-pay-two-prep-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:38+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qwxvzfkpaj"
+    ],
+    "notes": "Betraying Blade (qwxvzfkpaj, WIND ATTACK, reserve 2, power 2): \"On Attack: You may pay (2). If you do, put a preparation counter on your champion.\" Player 1 ends turn 1 (first-player attack lock), then player 2 plays Betraying Blade from hand for real (two reserve payments), picks player 1's champion as the target, and the On Attack trigger (onAttackAbilities['qwxvzfkpaj:0'] -> customDQHandlers['qwxvzfkpaj:0:OnAttack-1']) asks player 2 whether to pay (2); player 2 holds 7+ cards. Player 2's champion is the Material-section Spirit of Wind, so WIND needs no lineage patch. Answering YES queues two ReserveCard payments (each moves a hand card to memory) and adds the preparation counter to the attacker's champion; the combat damage (2) still lands on player 1's champion.",
+    "semanticCoverage": {
+        "testedCards": [
+            "qwxvzfkpaj"
+        ],
+        "mechanics": [
+            "trigger",
+            "cost",
+            "counter",
+            "combat"
+        ],
+        "rulesClauses": [
+            "On Attack: You may pay (2). If you do, put a preparation counter on your champion."
+        ]
+    }
+}

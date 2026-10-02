@@ -1,0 +1,24 @@
+{
+    "name": "betraying-blade-on-attack-decline-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:39+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qwxvzfkpaj"
+    ],
+    "notes": "Betraying Blade (qwxvzfkpaj, WIND ATTACK, reserve 2, power 2): \"On Attack: You may pay (2). If you do, put a preparation counter on your champion.\" Player 1 ends turn 1 (first-player attack lock), then player 2 plays Betraying Blade from hand for real (two reserve payments), picks player 1's champion as the target, and the On Attack trigger (onAttackAbilities['qwxvzfkpaj:0'] -> customDQHandlers['qwxvzfkpaj:0:OnAttack-1']) asks player 2 whether to pay (2); player 2 holds 7+ cards. Player 2's champion is the Material-section Spirit of Wind, so WIND needs no lineage patch. Answering NO pays nothing and puts no preparation counter on the champion.",
+    "semanticCoverage": {
+        "testedCards": [
+            "qwxvzfkpaj"
+        ],
+        "mechanics": [
+            "trigger",
+            "cost",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Attack: You may pay (2). (If you do not, nothing is paid and no preparation counter is put on your champion.)"
+        ]
+    }
+}

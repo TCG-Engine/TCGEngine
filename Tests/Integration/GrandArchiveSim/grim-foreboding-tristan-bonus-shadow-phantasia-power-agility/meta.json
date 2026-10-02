@@ -1,0 +1,26 @@
+{
+    "name": "grim-foreboding-tristan-bonus-shadow-phantasia-power-agility",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:24+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4hnf1yyx1q"
+    ],
+    "notes": "Grim Foreboding (4hnf1yyx1q, UMBRA fast action, reserve 3): \"[Tristan Bonus] Summon an Ominous Shadow token. Phantasia allies you control get +1 POWER until end of turn. You gain agility 3 for this turn.\" Tristan, Shadowdancer is patched in (UMBRA + Tristan lineage); an Ominous Shadow (a phantasia, printed power 1) and a vanilla Dungeon Guide (printed power 1) are seeded. Played for real: the ability summons a second Ominous Shadow, adds the 4hnf1yyx1q global effect (which doesAffect phantasia allies only: both Shadows, including the one summoned a moment ago, read 2 POWER while the Dungeon Guide stays at 1) and adds AGILITY_3.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4hnf1yyx1q"
+        ],
+        "mechanics": [
+            "token",
+            "status",
+            "condition",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Tristan Bonus] Summon an Ominous Shadow token.",
+            "Phantasia allies you control get +1 POWER until end of turn.",
+            "You gain agility 3 for this turn."
+        ]
+    }
+}

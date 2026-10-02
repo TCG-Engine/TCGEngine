@@ -1,0 +1,30 @@
+{
+    "name": "tristan-shadowdancer-redirect-attack-to-phantasia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "he6kd7hocc"
+    ],
+    "notes": "Tristan, Shadowdancer (he6kd7hocc): \"Remove two preparation counters from Tristan: Change the target of an attack that targets Tristan to a phantasia ally you control.\" Redirect lives in $activateAbilityAbilities[\"he6kd7hocc:0\"] with a prereq requiring 2+ preparation counters on Tristan, a live combat (CombatTarget/CombatAttackerPlayer) and a phantasia ally. Player 1's champion is patched to Shadowdancer with exactly 2 preparation counters and an Ominous Shadow is seeded; player 2 declares a real attack with a Dungeon Guide on Tristan, player 1 is offered \"myField-0@Activate-0@Redirect\" in the opportunity window, and the handler (customDQHandlers[\"he6kd7hocc:0:ActivateAbility-1\"]) removes the two counters and calls MarkCombatTarget() on the Shadow, so the attack finishes against the Shadow and Tristan takes no damage (Dungeon Guide has 1 POWER, so an unredirected attack would leave Damage 1). ENGINE BUG (found, confirmed live, NOT fixed): the activation also RESTS Tristan -- the printed cost is only \"remove two preparation counters\", but DoActivatedAbility() (Custom/GameLogic.php ~7179) auto-rests every ALLY/CHAMPION/PHANTASIA whose static ability index is below the card's static ability count unless the card id is in the hard-coded $skipAutoRest list, and he6kd7hocc is not in that list. Confirmed with a temporary error_log trace inside that branch (cardID=he6kd7hocc abilityIndex=0 staticAbilityCount=1 skipAutoRest=0 statusBefore=2), removed afterwards. The REGRESSION GUARD assertion pins Tristan's Status at 1 (rested) after the redirect.",
+    "semanticCoverage": {
+        "testedCards": [
+            "he6kd7hocc"
+        ],
+        "mechanics": [
+            "combat",
+            "targeting",
+            "cost",
+            "counter",
+            "status"
+        ],
+        "rulesClauses": [
+            "Remove two preparation counters from Tristan: Change the target of an attack that targets Tristan to a phantasia ally you control."
+        ]
+    },
+    "engineBug": {
+        "status": "found-not-fixed",
+        "summary": "Tristan, Shadowdancer's Redirect (printed cost: only 'Remove two preparation counters from CARDNAME') also RESTS the champion: Custom/GameLogic.php DoActivatedAbility() auto-sets Status=1 as an implicit [REST] cost for every static activated ability of an ALLY/CHAMPION/PHANTASIA unless the card id is in the hard-coded $skipAutoRest list (he6kd7hocc is not). Confirmed live with a temporary error_log trace (cardID=he6kd7hocc abilityIndex=0 staticAbilityCount=1 skipAutoRest=0 statusBefore=2), removed afterwards.",
+        "affectedFunction": "Custom/GameLogic.php DoActivatedAbility() ~line 7178-7182 ($skipAutoRest list / implicit REST for static unit abilities)."
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "gloamspire-headhunter-on-ally-hit-destroys-unless-paid-declined",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:06+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "r278evrcdz"
+    ],
+    "notes": "Gloamspire Headhunter (r278evrcdz, UMBRA ALLY, ASSASSIN/AUTOMATON, Stealth): \"[Class Bonus] On Ally Hit: Destroy the hit ally unless its controller pays (3).\" Player 2's champion is patched to Tristan, Hired Blade (ASSASSIN) for the Class Bonus; a Headhunter is seeded on its field (already on the field, as Stealth and the on-hit trigger need no enter event) and attacks player 1's Dungeon Guide on player 2's turn (player 1 declines retaliation). onHitAbilities['r278evrcdz:0'] -> GloamspireHeadhunterOnHit() asks the HIT ally's controller (player 1, who has 7+ cards) whether to pay (3). ENGINE BUG (found, confirmed live, NOT fixed): answering NO should destroy the hit Dungeon Guide, but the handler resolves its stored attacker-relative target 'theirField-1' under the defender's perspective, which is the Headhunter itself: the Headhunter dies and the Dungeon Guide survives (trace: answer=NO handlerPlayer=1 storedTarget=theirField-1 resolvesTo=r278evrcdz controller=2). Pinned with REGRESSION GUARD assertions.",
+    "semanticCoverage": {
+        "testedCards": [
+            "r278evrcdz"
+        ],
+        "mechanics": [
+            "combat",
+            "condition",
+            "zone-movement",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Ally Hit: Destroy the hit ally unless its controller pays (3)."
+        ]
+    },
+    "engineBug": {
+        "status": "found-not-fixed",
+        "summary": "When the hit ally's controller declines to pay (3), Gloamspire Headhunter destroys ITSELF (the attacker) instead of the hit ally: GloamspireHeadhunterOnHit() stores the combat target as 'theirField-1', relative to the ATTACKER's perspective, and customDQHandlers['GloamspireHeadhunterPay'] later calls DoAllyDestroyed() from inside the DEFENDER's action, where 'theirField-1' resolves to the attacker's own field slot. Confirmed live with a temporary error_log trace (answer=NO handlerPlayer=1 storedTarget=theirField-1 resolvesTo=r278evrcdz controller=2), removed afterwards. The pay-(3) branch never reads the stored target, so it behaves correctly.",
+        "affectedFunction": "Custom/CombatLogic.php GloamspireHeadhunterOnHit() (stores attacker-relative mzID in GloamspireHeadhunterTarget) + Custom/CardDQHandlers.php customDQHandlers['GloamspireHeadhunterPay'] (resolves it under the defender's perspective)."
+    }
+}

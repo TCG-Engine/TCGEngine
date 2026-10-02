@@ -1,0 +1,32 @@
+{
+    "name": "arrow-trap-prepared-destroy-attacking-ally-never-resolves",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:56+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "uoQGe5xGDQ"
+    ],
+    "notes": "Arrow Trap (uoQGe5xGDQ, WIND action, REACTION, reserve 2): \"Prepare 1. Return target attacking ally to its owner's hand. Class Bonus: If Arrow Trap was prepared, destroy that ally instead.\" Player 2 attacks player 1's champion (Tristan, Hired Blade, an ASSASSIN) with a seeded Dungeon Guide; player 1 answers the attack's priority window by playing Arrow Trap from hand (two reserve payments). ENGINE BUGS (found, confirmed live, NOT fixed): (1) the ability resolves CombatAttacker ('myField-1', stored relative to the ATTACKER) from the DEFENDER's perspective where it resolves to nothing, so the attacking ally is never returned or destroyed (temporary error_log trace: player=1 CombatAttacker=myField-1 CombatAttackerPlayer=2 resolvesTo=null); (2) 'Prepare 1' is never queued (no DeclarePrepareCost decision exists in the generated ability), so wasPrepared is always null and the destroy-instead branch is unreachable. This variant gives the champion exactly one preparation counter so a working Prepare 1 would offer to pay it: the prompt never appears and the counter is untouched.",
+    "semanticCoverage": {
+        "testedCards": [
+            "uoQGe5xGDQ"
+        ],
+        "mechanics": [
+            "combat",
+            "targeting",
+            "cost",
+            "counter",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Prepare 1.",
+            "[Class Bonus] If Arrow Trap was prepared, destroy that ally instead."
+        ]
+    },
+    "engineBug": {
+        "status": "found-not-fixed",
+        "summary": "Arrow Trap never affects the attacking ally: $cardActivatedAbilities['uoQGe5xGDQ:0'] reads the combat attacker from DecisionQueueController variable CombatAttacker, which is stored relative to the ATTACKER's perspective ('myField-1' for the attacking player 2), but the card is resolved in the DEFENDER's action where 'myField-1' means the defender's own field. Confirmed live with a temporary error_log trace (player=1 CombatAttacker=myField-1 CombatAttackerPlayer=2 resolvesTo=null) in the ability body, removed afterwards: GetZoneObject() returns null so the closure returns early, the attacker is neither returned nor destroyed (and if the defender had an object at the same index it would be targeted instead). Separately its 'Prepare 1' is never wired: unlike Thieving Cut and others the generated ability queues no DeclarePrepareCost YES/NO, so wasPrepared stays null and the 'if prepared, destroy that ally instead' branch is unreachable (traced: pendingDQ-before=[] and wasPrepared=null).",
+        "affectedFunction": "GeneratedCode/GeneratedMacroCode.php $cardActivatedAbilities['uoQGe5xGDQ:0'] (no ConvertMzToPlayerPerspective on CombatAttacker, no Prepare 1 decision), the generated source being the CardEditor ability row for uoQGe5xGDQ."
+    }
+}

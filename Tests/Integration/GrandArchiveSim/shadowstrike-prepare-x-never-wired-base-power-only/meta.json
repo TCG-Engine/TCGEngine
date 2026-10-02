@@ -1,0 +1,31 @@
+{
+    "name": "shadowstrike-prepare-x-never-wired-base-power-only",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:16+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "o191zv86la"
+    ],
+    "notes": "Shadowstrike (o191zv86la, UMBRA ATTACK, reserve 2, printed power 4): \"Prepare X. X can't be 0. Shadowstrike gets +X POWER. [Class Bonus] If Shadowstrike was prepared, it has unblockable.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) with 3 preparation counters, so any X from 1 to 3 should be offered; Shadowstrike is played for real (two reserve payments) and attacks player 1's champion. ENGINE BUG (found, confirmed live, NOT fixed): no Prepare prompt is ever queued and the attack deals only its printed 4 damage, never consuming a counter: the generated ability set has only onAttackAbilities['o191zv86la:0'] (which merely checks a PREPARED turn effect that nothing sets) and no $cardActivatedAbilities['o191zv86la:0'] to pay Prepare X or add the +X POWER turn effect ('o191zv86la_POWER_<X>', read by ObjectCurrentPower() but never written). Confirmed with a temporary error_log in OnCardActivated() (hasCardActivatedAbilityEntry=0, pendingDQ-before=[]), removed afterwards. Pinned with REGRESSION GUARD assertions.",
+    "semanticCoverage": {
+        "testedCards": [
+            "o191zv86la"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Prepare X. X can't be 0.",
+            "Shadowstrike gets +X POWER.",
+            "[Class Bonus] If Shadowstrike was prepared, it has unblockable."
+        ]
+    },
+    "engineBug": {
+        "status": "found-not-fixed",
+        "summary": "Shadowstrike's 'Prepare X (X can't be 0)' and 'gets +X POWER' are never wired: no Prepare decision is ever queued, no +X POWER effect is ever added, and its '[Class Bonus] If prepared, unblockable' branch is therefore unreachable. Confirmed live with a temporary error_log in OnCardActivated(): cardID=o191zv86la hasCardActivatedAbilityEntry=0 pendingDQ-before=[] (no $cardActivatedAbilities['o191zv86la:0'] exists -- the generated ability set only has onAttackAbilities['o191zv86la:0'], which merely checks the PREPARED turn effect), removed afterwards. CombatLogic.php/GameLogic.php read an 'o191zv86la_POWER_<X>' turn effect that nothing ever writes. The attack always deals only its printed 4 POWER and never costs preparation counters.",
+        "affectedFunction": "GeneratedCode/GeneratedMacroCode.php (missing $cardActivatedAbilities['o191zv86la:0'] Prepare X cost) feeding Custom/GameLogic.php ObjectCurrentPower() ('o191zv86la_POWER_' turn effect) and Custom/CombatLogic.php's PREPARED unblockable check."
+    }
+}

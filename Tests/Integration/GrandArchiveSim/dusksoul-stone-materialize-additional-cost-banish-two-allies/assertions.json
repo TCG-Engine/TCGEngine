@@ -1,0 +1,9 @@
+[
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"u25fuv184p","semantic":true,"label":"Dusksoul Stone entered the field via a real materialize"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"First ally card banished as the additional cost"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Banish-1","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Second ally card banished as the additional cost"},
+    {"step":7,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":2,"semantic":true,"label":"Exactly two cards banished"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"The non-ally Fairy Whispers stays in the graveyard (it could not be chosen)"},
+    {"step":7,"type":"zone_count","zone":"theirGraveyard","viewerPlayerID":1,"value":3,"semantic":true,"label":"The opponent's graveyard was untouched: both cost cards came from a single graveyard"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

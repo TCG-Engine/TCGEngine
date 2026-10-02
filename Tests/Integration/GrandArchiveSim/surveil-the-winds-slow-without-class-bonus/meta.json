@@ -1,0 +1,23 @@
+{
+    "name": "surveil-the-winds-slow-without-class-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:19+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "xt6uaz6a7g"
+    ],
+    "notes": "Surveil the Winds (xt6uaz6a7g): Fast Activation is a [Class Bonus] clause. With the starting champion Spirit of Wind (no Assassin) Surveil is a plain slow action: player 1 is never offered a priority window for it on player 2's turn, and trying to play it from hand during player 2's main phase does nothing (the card stays in hand, no draw, no preparation counter).",
+    "semanticCoverage": {
+        "testedCards": [
+            "xt6uaz6a7g"
+        ],
+        "mechanics": [
+            "condition",
+            "status",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Fast Activation (only with the Class Bonus); otherwise slow speed."
+        ]
+    }
+}

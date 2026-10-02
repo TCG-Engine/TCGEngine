@@ -1,0 +1,7 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"{\"preparation\":1,\"_champDamageThisTurn\":1}","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the preparation counter is still there -- Prepare 1 was never offered or paid"},
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-1","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the attacking Dungeon Guide was neither destroyed nor returned"},
+    {"step":8,"type":"zone_count","zone":"theirGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): nothing was destroyed"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"uoQGe5xGDQ","semantic":true,"label":"Arrow Trap was activated and paid for"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

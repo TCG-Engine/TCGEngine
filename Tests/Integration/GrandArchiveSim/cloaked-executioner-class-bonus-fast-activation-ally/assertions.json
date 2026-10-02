@@ -1,0 +1,6 @@
+[
+    {"step":11,"type":"turn_player_is","value":"2","semantic":true,"label":"It is the OPPONENT's turn: the ally was activated at fast speed outside of player 1's own turn"},
+    {"step":11,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"itwys9kf4r","semantic":true,"label":"Cloaked Executioner entered player 1's field"},
+    {"step":11,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":5,"semantic":true,"label":"Hand: 8 - 1 (played) - 2 (reserve) = 5"},
+    {"step":11,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,25 @@
+{
+    "name": "sirocco-operative-enter-without-class-bonus-or-other-automaton",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "t7ru41pzgg"
+    ],
+    "notes": "Sirocco Operative (t7ru41pzgg): both On Enter clauses are conditional. With the starting champion Spirit of Wind (no Assassin class, so no Class Bonus) and no other Automaton ally, playing Sirocco draws nothing into memory (memory holds only the 3 reserve payments) and puts no preparation counter on the champion.",
+    "semanticCoverage": {
+        "testedCards": [
+            "t7ru41pzgg"
+        ],
+        "mechanics": [
+            "trigger",
+            "condition",
+            "draw-discard",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Draw a card into your memory (only with the Class Bonus).",
+            "On Enter: ... only if you control another Automaton ally."
+        ]
+    }
+}

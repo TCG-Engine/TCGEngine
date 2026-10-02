@@ -1,0 +1,26 @@
+{
+    "name": "haunting-demise-champion-hit-lineage-curse-recollection-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "v0buu5y0ub"
+    ],
+    "notes": "Haunting Demise (v0buu5y0ub, UMBRA ATTACK/CURSE, reserve 1, power 3): \"[Class Bonus] On Champion Hit: Put CARDNAME on the bottom of the hit champion's lineage. Inherited Effect: At the beginning of your recollection phase, deal 1 unpreventable damage to this object.\" Player 2's champion is patched to Tristan, Shadowdancer (ASSASSIN, UMBRA); Haunting Demise is played for real and hits player 1's champion for 3: onHitAbilities['v0buu5y0ub:0'] AddToChampionLineage()s it onto player 1's champion (the Subcards list gains 'v0buu5y0ub'; the physical intent copy is banished by ClearIntent() because of the CURSE_TO_LINEAGE marker, an intentional engine bookkeeping choice per its code comment). When player 1's next turn reaches its recollection phase the inherited curse deals 1 unpreventable damage to player 1's champion (Custom/GameLogic.php ChampionHasInLineage(...'v0buu5y0ub')), taking Damage from 3 to 4.",
+    "semanticCoverage": {
+        "testedCards": [
+            "v0buu5y0ub"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "damage",
+            "condition",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Champion Hit: Put CARDNAME on the bottom of the hit champion's lineage.",
+            "Inherited Effect: At the beginning of your recollection phase, deal 1 unpreventable damage to this object."
+        ]
+    }
+}

@@ -19919,6 +19919,1154 @@ DECK,
     ],
 ];
 
+// --- Tristan Re:Collection, Shadowdancer starter deck: shared Material/Main skeleton ---
+$tristanDeck = <<<'DECK'
+# Material
+1 Spirit of Wind
+1 Tristan, Underhanded
+1 Tristan, Hired Blade
+1 Tristan, Shadowdancer
+1 Gearstride Gloves
+1 Dusksoul Stone
+1 Malignant Athame
+1 Shadeblood Coating
+# Main
+9 Dungeon Guide
+9 Fluffy Shopkeep
+DECK;
+
+// --- Tristan, Underhanded: On Enter, may put a preparation counter on Tristan (YES branch) ---
+// Tristan, Underhanded (bjlwabipl6, CHAMPION, level 1): "On Enter: You may put a preparation
+// counter on Tristan. If you don't, you gain agility 3 for this turn." The starting champion is
+// the Material-section level-0 Spirit of Wind (WIND, so no lineage patch is needed); player 1 ends
+// turn 1, player 2 ends turn 2, and in player 1's materialize phase the real level-up into
+// Tristan, Underhanded is chosen (its 1-point memory cost is paid from one seeded memory card), so
+// enterAbilities["bjlwabipl6:0"] fires for real. It queues a YES/NO; answering YES runs
+// AddPrepCounter() and puts one preparation counter on the new champion, and (unlike the NO
+// branch, see tristan-underhanded-levelup-enter-agility) no AGILITY_3 global effect appears.
+$fixtures['tristan-underhanded-levelup-enter-prep-counter'] = [
+    'testedCards' => ['bjlwabipl6'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost (1)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up Spirit of Wind into Tristan, Underhanded (real level-up, so its On Enter genuinely fires)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // put a preparation counter on Tristan
+    ],
+];
+
+// --- Tristan, Underhanded: On Enter, declining the counter grants agility 3 for the turn (NO branch) ---
+// Tristan, Underhanded (bjlwabipl6): "On Enter: You may put a preparation counter on Tristan. If
+// you don't, you gain agility 3 for this turn." Same real level-up as tristan-underhanded-levelup-
+// enter-prep-counter, but the YES/NO is answered NO: GainAgility($player, 3) adds the AGILITY_3
+// global effect (the beginning-of-end-phase memory-return itself is the shared agility mechanism,
+// already covered by nimble-court-assassin-enter-agility) and no preparation counter is put on
+// Tristan.
+$fixtures['tristan-underhanded-levelup-enter-agility'] = [
+    'testedCards' => ['bjlwabipl6'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost (1)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up Spirit of Wind into Tristan, Underhanded
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline the preparation counter -> gain agility 3
+    ],
+];
+
+// --- Tristan, Hired Blade: On Enter with exactly two preparation counters draws one card ---
+// Tristan, Hired Blade (gt7lh9v221, CHAMPION, level 2): "On Enter: If Hired Blade has two or more
+// preparation counters on her, draw a card. Then if she has four or more preparation counters on
+// her, draw an additional card." The starting champion is patched directly to Tristan, Underhanded
+// (level 1, a legal predecessor; CanChampionLevelUpIntoCard only checks printed level) with 2
+// preparation counters, then player 1 performs a real level-up in the materialize phase, so
+// enterAbilities["gt7lh9v221:0"] fires for real and counts the counters on the champion object
+// that is now Hired Blade. Player 1's hand is 7 at the start of the materialize phase; the normal
+// turn draw adds 1 and the On Enter draw adds the rest, so the final hand size is 9 (compare the
+// 8-card hand after the draw-less Tristan, Underhanded level-up in tristan-underhanded-levelup-
+// enter-prep-counter): two preparation counters satisfy only the first threshold (>= 2): exactly
+// one card is drawn.
+$fixtures['tristan-hired-blade-levelup-enter-draw-one'] = [
+    'testedCards' => ['gt7lh9v221'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'bjlwabipl6', 'Subcards' => ['pNiyaGlIe7'], 'Counters' => ['preparation' => 2]]], // Tristan, Underhanded (level 1) already carrying 2 preparation counters (CardID patch; counters survive the real level-up)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 2/2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-1', 'chkInput' => [], 'inputText' => ''], // level up into Tristan, Hired Blade (real level-up, so its On Enter fires)
+    ],
+];
+
+// --- Tristan, Hired Blade: On Enter with four or more preparation counters draws two cards ---
+// Tristan, Hired Blade (gt7lh9v221, CHAMPION, level 2): "On Enter: If Hired Blade has two or more
+// preparation counters on her, draw a card. Then if she has four or more preparation counters on
+// her, draw an additional card." The starting champion is patched directly to Tristan, Underhanded
+// (level 1, a legal predecessor; CanChampionLevelUpIntoCard only checks printed level) with 4
+// preparation counters, then player 1 performs a real level-up in the materialize phase, so
+// enterAbilities["gt7lh9v221:0"] fires for real and counts the counters on the champion object
+// that is now Hired Blade. Player 1's hand is 7 at the start of the materialize phase; the normal
+// turn draw adds 1 and the On Enter draw adds the rest, so the final hand size is 10 (compare the
+// 8-card hand after the draw-less Tristan, Underhanded level-up in tristan-underhanded-levelup-
+// enter-prep-counter): four preparation counters satisfy both thresholds (>= 2 and >= 4): exactly
+// two cards are drawn.
+$fixtures['tristan-hired-blade-levelup-enter-draw-two'] = [
+    'testedCards' => ['gt7lh9v221'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'bjlwabipl6', 'Subcards' => ['pNiyaGlIe7'], 'Counters' => ['preparation' => 4]]], // Tristan, Underhanded (level 1) already carrying 4 preparation counters (CardID patch; counters survive the real level-up)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 2/2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-1', 'chkInput' => [], 'inputText' => ''], // level up into Tristan, Hired Blade (real level-up, so its On Enter fires)
+    ],
+];
+
+// --- Tristan, Shadowdancer: On Enter, summon two Ominous Shadow tokens and put a preparation counter on Tristan ---
+// Tristan, Shadowdancer (he6kd7hocc, CHAMPION, level 3): "On Enter: Summon two Ominous Shadow
+// tokens and put a preparation counter on Tristan." The starting champion is patched to Tristan,
+// Hired Blade (level 2, the required predecessor), then a real level-up in the materialize phase
+// (3 memory cards paid) fires enterAbilities["he6kd7hocc:0"], which runs MZAddZone() twice for the
+// Ominous Shadow token (gveirpdm44, a phantasia ally) and AddCounters(preparation, 1) on the new
+// champion.
+$fixtures['tristan-shadowdancer-levelup-enter-summon-shadows-prep'] = [
+    'testedCards' => ['he6kd7hocc'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Hired Blade (level 2) -> legal predecessor for the level-3 Shadowdancer
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost 3/3
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-2', 'chkInput' => [], 'inputText' => ''], // level up into Tristan, Shadowdancer (real level-up, so its On Enter fires)
+    ],
+];
+
+// --- Tristan, Shadowdancer: remove two preparation counters to change the target of an attack on Tristan to a phantasia ally ---
+// Tristan, Shadowdancer (he6kd7hocc): "Remove two preparation counters from Tristan: Change the
+// target of an attack that targets Tristan to a phantasia ally you control." Redirect lives in
+// $activateAbilityAbilities["he6kd7hocc:0"] with a prereq requiring 2+ preparation counters on
+// Tristan, a live combat (CombatTarget/CombatAttackerPlayer) and a phantasia ally. Player 1's
+// champion is patched to Shadowdancer with exactly 2 preparation counters and an Ominous Shadow is
+// seeded; player 2 declares a real attack with a Dungeon Guide on Tristan, player 1 is offered
+// "myField-0@Activate-0@Redirect" in the opportunity window, and the handler
+// (customDQHandlers["he6kd7hocc:0:ActivateAbility-1"]) removes the two counters and calls
+// MarkCombatTarget() on the Shadow, so the attack finishes against the Shadow and Tristan takes no
+// damage (Dungeon Guide has 1 POWER, so an unredirected attack would leave Damage 1). ENGINE BUG
+// (found, confirmed live, NOT fixed): the activation also RESTS Tristan -- the printed cost is
+// only "remove two preparation counters", but DoActivatedAbility() (Custom/GameLogic.php ~7179)
+// auto-rests every ALLY/CHAMPION/PHANTASIA whose static ability index is below the card's static
+// ability count unless the card id is in the hard-coded $skipAutoRest list, and he6kd7hocc is not
+// in that list. Confirmed with a temporary error_log trace inside that branch (cardID=he6kd7hocc
+// abilityIndex=0 staticAbilityCount=1 skipAutoRest=0 statusBefore=2), removed afterwards. The
+// REGRESSION GUARD assertion pins Tristan's Status at 1 (rested) after the redirect.
+$fixtures['tristan-shadowdancer-redirect-attack-to-phantasia'] = [
+    'testedCards' => ['he6kd7hocc'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 2]]], // Tristan, Shadowdancer with exactly two preparation counters (the ability cost)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'gveirpdm44'], // Ominous Shadow (phantasia ally) -> p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (power 1 attacker) -> p2 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 attacks with Dungeon Guide
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // targeting player 1's champion, Tristan
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0@Activate-0@Redirect', 'chkInput' => [], 'inputText' => ''], // player 1 answers the opportunity window by activating Redirect
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // redirect the attack to the Ominous Shadow
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline retaliation
+    ],
+];
+
+// --- Gearstride Gloves: On Enter puts a preparation counter on your champion; [Class Bonus][Level 2+] Banish: the next Reaction costs 1 less ---
+// Gearstride Gloves (lcb6jhxctx, REGALIA/ITEM): "On Enter: Put a preparation counter on your
+// champion. [Class Bonus][Level 2+] Banish CARDNAME: The next Reaction card you activate this turn
+// costs 1 less to activate." The champion is patched to Tristan, Hired Blade (level 2, ASSASSIN)
+// so both the Class Bonus and the Level 2+ prereq hold (activateAbilityPrereqs["lcb6jhxctx:0"]).
+// Gloves is materialized for real in the materialize phase (mem 0), firing
+// enterAbilities["lcb6jhxctx:0"] -> AddPrepCounter(); its banish ability then adds the one-shot
+// global effect lcb6jhxctx_REACTION_DISCOUNT, which CalculateActivationReserveCost() consumes for
+// the next REACTION-subtype card. Stifling Trap (a WIND Reaction, printed reserve 2) is activated
+// right after; exactly ONE reserve-payment click is required (a control run without Gloves needs
+// two) and the effect is removed once used. Because player 1 holds a fast card, every phase change
+// opens a priority window, hence the PASS actions.
+$fixtures['gearstride-gloves-materialize-prep-banish-reaction-discount'] = [
+    'testedCards' => ['lcb6jhxctx'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Hired Blade (level 2, ASSASSIN) -> Class Bonus and Level 2+ satisfied
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'z5exbwdp7q'], // Stifling Trap (WIND Reaction, printed reserve 2) -> p1 myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, the Stifling Trap target -> p2 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes the end-of-main fast window (Stifling Trap in hand keeps windows open)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes the beginning-of-opponent-turn window
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window -> materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-3', 'chkInput' => [], 'inputText' => ''], // materialize Gearstride Gloves from the material deck (real materialize, so its On Enter fires)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish-_next_Reaction_costs_1_less', 'chkInput' => [], 'inputText' => ''], // banish Gloves: the next Reaction costs 1 less
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // activate Stifling Trap from the opportunity window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // the ONE reserve payment (printed 2, minus 1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // Stifling Trap target
+    ],
+];
+
+// --- Gearstride Gloves: the Banish ability is not offered below Level 2 ---
+// Gearstride Gloves (lcb6jhxctx): the Banish ability reads "[Class Bonus] [Level 2+]";
+// activateAbilityPrereqs["lcb6jhxctx:0"] requires IsClassBonusActive(ASSASSIN) && PlayerLevel >=
+// 2. Here the champion is Tristan, Underhanded (level 1, ASSASSIN): Gloves still enters and puts
+// its preparation counter, but the opportunity window offers only the Stifling Trap in hand, and
+// answering with the Banish ability string is rejected by the engine. No global discount effect
+// exists afterwards and Gloves stays on the field.
+$fixtures['gearstride-gloves-banish-requires-level-two'] = [
+    'testedCards' => ['lcb6jhxctx'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'bjlwabipl6', 'Subcards' => ['pNiyaGlIe7']]], // Tristan, Underhanded (level 1, ASSASSIN): Class Bonus true but Level 2+ false
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'z5exbwdp7q'], // Stifling Trap (WIND Reaction) -> p1 myHand-7; keeps priority windows open
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes the end-of-main fast window (Stifling Trap in hand keeps windows open)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes the beginning-of-opponent-turn window
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window -> materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-3', 'chkInput' => [], 'inputText' => ''], // materialize Gearstride Gloves
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish-_next_Reaction_costs_1_less', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'The level-gated Banish ability is rejected at Level 1 (Level 2+ required)'],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the window
+    ],
+];
+
+// --- Shifting Mirage: opponent declines to pay (2); [Tristan Bonus] summons an Ominous Shadow ---
+// Shifting Mirage (hmjr33ijq6, UMBRA REACTION action): "[Class Bonus] This card costs 1 less to
+// activate. Your champion gains stealth until end of turn unless an opponent pays (2). [Tristan
+// Bonus] Summon an Ominous Shadow token." Player 1's champion is patched to Tristan, Shadowdancer
+// so UMBRA, the Class Bonus and the Tristan Bonus are all active. The card is played for real;
+// ShiftingMirageResolve() (Custom/GameLogic.php) queues a YES/NO for the opponent (who holds 7+
+// cards) and, regardless of the answer, summons the Ominous Shadow for the Tristan Bonus. ENGINE
+// BUGS (found, confirmed live, NOT fixed): (1) Double Class-Bonus discount: the card needs only
+// ONE reserve payment although printed 3 minus the Class Bonus should be 2 (two independent
+// discount mechanisms both apply; confirmed by calling ApplyGeneratedReserveLikeCostModifiers /
+// ClassBonusActivateCostReduction / CalculateActivationReserveCost directly on this fixture's
+// initial state: 2 / 1 / 1). (2) Wrong champion gets stealth: when the opponent declines,
+// customDQHandlers["ShiftingMiragePay"] (Custom/CardDQHandlers.php) runs in the OPPONENT's action
+// and AddTurnEffect()s the champion mzID stored earlier relative to player 1 ("myField-0"), which
+// resolves to the OPPONENT's champion; confirmed with a temporary error_log trace (handlerPlayer=2
+// storedChampMZ=myField-0 resolvesTo=pNiyaGlIe7 controller=2), removed afterwards. Both defects
+// are pinned with REGRESSION GUARD assertions.
+$fixtures['shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines'] = [
+    'testedCards' => ['hmjr33ijq6'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Shadowdancer (UMBRA/ASSASSIN, Tristan lineage): Class Bonus and Tristan Bonus active
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hmjr33ijq6'], // Shifting Mirage -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Shifting Mirage from hand
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // the ONLY reserve payment (see the double-discount bug)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // the opponent declines to pay (2) to stop the stealth
+    ],
+];
+
+// --- Shifting Mirage: opponent pays (2), so the champion does not gain stealth; [Tristan Bonus] still summons an Ominous Shadow ---
+// Shifting Mirage (hmjr33ijq6): "Your champion gains stealth until end of turn unless an opponent
+// pays (2)." Same setup as shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines, but the
+// opponent answers YES and pays two reserve cards (ReserveCard x2 inside
+// customDQHandlers["ShiftingMiragePay"]): neither champion gains stealth, the opponent's memory
+// grows by exactly 2 cards, and the Tristan Bonus Ominous Shadow is still summoned. The caster's
+// single-payment cost is the double-discount engine bug documented in the sibling fixture (pinned
+// here too, since the same snapshot would change if it were fixed).
+$fixtures['shifting-mirage-tristan-bonus-shadow-stealth-opponent-pays'] = [
+    'testedCards' => ['hmjr33ijq6'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Shadowdancer (UMBRA/ASSASSIN, Tristan lineage): Class Bonus and Tristan Bonus active
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hmjr33ijq6'], // Shifting Mirage -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Shifting Mirage from hand
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // the ONLY reserve payment (see the double-discount bug)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // the opponent pays (2) to stop the stealth
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // opponent payment 1/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // opponent payment 2/2
+    ],
+];
+
+// --- Shifting Mirage: champion gains stealth until end of turn when the opponent cannot pay (2) ---
+// Shifting Mirage (hmjr33ijq6): when the opponent holds fewer than 2 cards ShiftingMirageResolve()
+// skips the YES/NO and applies the stealth turn effect directly while still under player 1's own
+// perspective, so (unlike the declined-payment path documented in shifting-mirage-tristan-bonus-
+// shadow-stealth-opponent-declines) the CASTER's champion correctly gains STEALTH. The opponent's
+// hand is emptied through the generator's emptyZone setup step. The Tristan Bonus Ominous Shadow
+// is summoned as well. The single reserve payment is the double-Class-Bonus-discount engine bug
+// (printed 3 -> 1 instead of 2), pinned with a REGRESSION GUARD.
+$fixtures['shifting-mirage-stealth-when-opponent-cannot-pay'] = [
+    'testedCards' => ['hmjr33ijq6'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Shadowdancer (UMBRA/ASSASSIN, Tristan lineage): Class Bonus and Tristan Bonus active
+        ['player' => 2, 'emptyZone' => 'myHand'], // opponent hand emptied: cannot pay (2)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hmjr33ijq6'], // Shifting Mirage -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Shifting Mirage from hand
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // the ONLY reserve payment (see the double-discount bug)
+    ],
+];
+
+// --- Betraying Blade: On Attack, may pay (2) to put a preparation counter on your champion (paid) ---
+// Betraying Blade (qwxvzfkpaj, WIND ATTACK, reserve 2, power 2): "On Attack: You may pay (2). If
+// you do, put a preparation counter on your champion." Player 1 ends turn 1 (first-player attack
+// lock), then player 2 plays Betraying Blade from hand for real (two reserve payments), picks
+// player 1's champion as the target, and the On Attack trigger (onAttackAbilities['qwxvzfkpaj:0']
+// -> customDQHandlers['qwxvzfkpaj:0:OnAttack-1']) asks player 2 whether to pay (2); player 2 holds
+// 7+ cards. Player 2's champion is the Material-section Spirit of Wind, so WIND needs no lineage
+// patch. Answering YES queues two ReserveCard payments (each moves a hand card to memory) and adds
+// the preparation counter to the attacker's champion; the combat damage (2) still lands on player
+// 1's champion.
+$fixtures['betraying-blade-on-attack-pay-two-prep-counter'] = [
+    'testedCards' => ['qwxvzfkpaj'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'qwxvzfkpaj'], // Betraying Blade (WIND attack) -> p2 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Betraying Blade
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // attack player 1's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // pay (2) for the On Attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // On Attack payment 1/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // On Attack payment 2/2
+    ],
+];
+
+// --- Betraying Blade: the On Attack payment is optional (declined) ---
+// Betraying Blade (qwxvzfkpaj, WIND ATTACK, reserve 2, power 2): "On Attack: You may pay (2). If
+// you do, put a preparation counter on your champion." Player 1 ends turn 1 (first-player attack
+// lock), then player 2 plays Betraying Blade from hand for real (two reserve payments), picks
+// player 1's champion as the target, and the On Attack trigger (onAttackAbilities['qwxvzfkpaj:0']
+// -> customDQHandlers['qwxvzfkpaj:0:OnAttack-1']) asks player 2 whether to pay (2); player 2 holds
+// 7+ cards. Player 2's champion is the Material-section Spirit of Wind, so WIND needs no lineage
+// patch. Answering NO pays nothing and puts no preparation counter on the champion.
+$fixtures['betraying-blade-on-attack-decline-no-counter'] = [
+    'testedCards' => ['qwxvzfkpaj'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'qwxvzfkpaj'], // Betraying Blade (WIND attack) -> p2 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Betraying Blade
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // attack player 1's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline to pay (2)
+    ],
+];
+
+// --- Betraying Blade: [Class Bonus] Floating Memory pays 1 of a champion level-up's memory cost from the graveyard ---
+// Betraying Blade (qwxvzfkpaj): "[Class Bonus] Floating Memory (While paying for a memory cost,
+// you may banish this card from your graveyard to pay for 1 of that cost.)" The champion is
+// patched to Tristan, Underhanded (ASSASSIN) so the Class Bonus holds; Betraying Blade is seeded
+// in the graveyard with one real memory card. The real level-up into Tristan, Hired Blade (memory
+// cost 2) offers the floating payment (QueueMaterializeFloatingPaymentChoice): picking the
+// graveyard card banishes it for 1 and the remaining point is paid by banishing the memory card.
+$fixtures['betraying-blade-class-bonus-floating-memory-levelup'] = [
+    'testedCards' => ['qwxvzfkpaj'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'bjlwabipl6', 'Subcards' => ['pNiyaGlIe7']]], // Tristan, Underhanded (ASSASSIN) -> Class Bonus active; level-up into Hired Blade has memory cost 2
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'qwxvzfkpaj'], // Betraying Blade in the graveyard (floating memory source)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // one real memory card; the second point is floated
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-1', 'chkInput' => [], 'inputText' => ''], // start the level-up into Tristan, Hired Blade (memory cost 2)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // float Betraying Blade from the graveyard for 1 of the cost
+    ],
+];
+
+// --- Betraying Blade: Floating Memory is not offered without the Class Bonus ---
+// Betraying Blade (qwxvzfkpaj): Floating Memory is a [Class Bonus] clause. With the starting
+// champion Spirit of Wind (no Assassin class) the 1-point level-up into Tristan, Underhanded is
+// paid directly from memory without ever offering the graveyard Betraying Blade: the Blade stays
+// in the graveyard and the memory card is the one banished. (The same level-up with an Assassin
+// champion offers the floating payment: see betraying-blade-class-bonus-floating-memory-levelup.)
+$fixtures['betraying-blade-floating-memory-requires-class-bonus'] = [
+    'testedCards' => ['qwxvzfkpaj'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'qwxvzfkpaj'], // Betraying Blade in the graveyard; the champion (Spirit of Wind) is NOT an Assassin
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory card
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up Spirit of Wind into Tristan, Underhanded (memory cost 1): paid straight from memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // answer Underhanded's On Enter (counter)
+    ],
+];
+
+// --- Shadow Resonance: Recover 2, then draw a card; [Tristan Bonus] with  four preparation counters summons an Ominous Shadow ---
+// Shadow Resonance (10rsagp9m8, UMBRA action, reserve 2): "Recover 2, then draw a card. [Tristan
+// Bonus] If your champion has four or more preparation counters on them, summon an Ominous Shadow
+// token." Tristan, Shadowdancer (UMBRA, Tristan lineage) is patched in with 5 damage and 4
+// preparation counters. Played for real: RecoverChampion(2) takes Damage from 5 to 3, Draw(1) adds
+// a card (hand 8 -> 7 after playing it -> 5 after paying 2 -> 6 after the draw), and with exactly
+// 4 counters the Tristan Bonus summons an Ominous Shadow.
+$fixtures['shadow-resonance-recover-draw-tristan-bonus-shadow-at-four-preparation'] = [
+    'testedCards' => ['10rsagp9m8'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7'], 'Damage' => 5, 'Counters' => ['preparation' => 4]]], // Tristan, Shadowdancer with 5 damage and 4 preparation counters
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '10rsagp9m8'], // Shadow Resonance -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Shadow Resonance
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+    ],
+];
+
+// --- Shadow Resonance: Recover 2, then draw a card; [Tristan Bonus] with only three (fewer than) four preparation counters summons nothing ---
+// Shadow Resonance (10rsagp9m8, UMBRA action, reserve 2): "Recover 2, then draw a card. [Tristan
+// Bonus] If your champion has four or more preparation counters on them, summon an Ominous Shadow
+// token." Tristan, Shadowdancer (UMBRA, Tristan lineage) is patched in with 5 damage and 3
+// preparation counters. Played for real: RecoverChampion(2) takes Damage from 5 to 3, Draw(1) adds
+// a card (hand 8 -> 7 after playing it -> 5 after paying 2 -> 6 after the draw), and with only 3
+// counters (below the threshold) no token is summoned.
+$fixtures['shadow-resonance-no-shadow-below-four-preparation'] = [
+    'testedCards' => ['10rsagp9m8'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7'], 'Damage' => 5, 'Counters' => ['preparation' => 3]]], // Tristan, Shadowdancer with 5 damage and 3 preparation counters
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '10rsagp9m8'], // Shadow Resonance -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Shadow Resonance
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+    ],
+];
+
+// --- Stifling Trap: deal 2 damage to target ally, then negate its on enter triggers ---
+// Stifling Trap (z5exbwdp7q, WIND action, REACTION, reserve 2): "Deal 2 damage to target ally,
+// then negate all on enter triggers from that ally." Played for real with two reserve payments (no
+// Class Bonus alternate cost involved); StiflingTrapStart() offers the opposing allies as targets
+// and customDQHandlers['StiflingTrapApply'] deals 2 damage (DealDamage) and tags the target with
+// the NO_ABILITIES turn effect, which is how this engine models negating the ally's on enter
+// triggers: an on enter ability resolves as soon as the ally enters (observed: after passing
+// priority on an ally activation, its On Enter prompt appears immediately with no separate
+// priority window for the trigger), so the card can only be aimed at an ally already on the field
+// and the engine suppresses that ally's abilities for the turn instead. The Class Bonus alternate
+// cost clause is covered by stifling-trap-memory-alternate-cost-never-offered.
+$fixtures['stifling-trap-damage-and-negate-on-enter'] = [
+    'testedCards' => ['z5exbwdp7q'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Hired Blade (ASSASSIN)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'z5exbwdp7q'], // Stifling Trap -> p1 myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the target ally) -> p2 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Stifling Trap (a Reaction may be activated in the main phase)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target the opposing Dungeon Guide
+    ],
+];
+
+// --- Stifling Trap: the [Class Bonus] alternate cost (activate from memory by removing two preparation counters) is never offered ---
+// Stifling Trap (z5exbwdp7q): "[Class Bonus] If it's not your turn, you may remove two preparation
+// counters from your champion to activate this card from your memory without paying its reserve
+// cost." ENGINE GAP (found, confirmed live, NOT fixed): no code path ever offers it. Player 1's
+// champion is Tristan, Hired Blade (ASSASSIN) with exactly 2 preparation counters, Stifling Trap
+// sits in memory, and a Fairy Whispers in hand forces a priority window when player 2 plays a
+// Dungeon Guide on its own turn. The window's choices (traced live with a temporary error_log in
+// GetPlayableOpportunityChoices(), removed afterwards) are exactly ["myHand-7"]:
+// GetPlayableFastCards() (Custom/OpportunityLogic.php) only scans memory for two other hard-coded
+// cards (Diao Chan's Reaction Spells and Lost Promises gN8uFKSip0), and there is no z5exbwdp7q
+// entry anywhere in Custom/ or the generated ability code. Answering the window with 'myMemory-0'
+// is therefore rejected (REGRESSION GUARD, expected rejection); Stifling Trap stays in memory and
+// the preparation counters are untouched.
+$fixtures['stifling-trap-memory-alternate-cost-never-offered'] = [
+    'testedCards' => ['z5exbwdp7q'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 2]]], // Tristan, Hired Blade (ASSASSIN) with 2 preparation counters (the alternate cost)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'z5exbwdp7q'], // Stifling Trap in MEMORY -> p1 myMemory-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Fairy Whispers (fast) forces a priority window at player 1 -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Dungeon Guide (opens a window for player 1)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'REGRESSION GUARD: Stifling Trap in memory is never offered as a priority option even though the Class Bonus alternate cost allows activating it from memory (removing two preparation counters) when it is not your turn'],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes the window
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 2 declines Dungeon Guide's On Enter
+    ],
+];
+
+// --- Arrow Trap: return target attacking ally to its owner's hand (unprepared) -- the ability never resolves (engine bug) ---
+// Arrow Trap (uoQGe5xGDQ, WIND action, REACTION, reserve 2): "Prepare 1. Return target attacking
+// ally to its owner's hand. Class Bonus: If Arrow Trap was prepared, destroy that ally instead."
+// Player 2 attacks player 1's champion (Tristan, Hired Blade, an ASSASSIN) with a seeded Dungeon
+// Guide; player 1 answers the attack's priority window by playing Arrow Trap from hand (two
+// reserve payments). ENGINE BUGS (found, confirmed live, NOT fixed): (1) the ability resolves
+// CombatAttacker ('myField-1', stored relative to the ATTACKER) from the DEFENDER's perspective
+// where it resolves to nothing, so the attacking ally is never returned or destroyed (temporary
+// error_log trace: player=1 CombatAttacker=myField-1 CombatAttackerPlayer=2 resolvesTo=null); (2)
+// 'Prepare 1' is never queued (no DeclarePrepareCost decision exists in the generated ability), so
+// wasPrepared is always null and the destroy-instead branch is unreachable.
+$fixtures['arrow-trap-return-attacking-ally-never-resolves'] = [
+    'testedCards' => ['uoQGe5xGDQ'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Hired Blade (ASSASSIN), no preparation counters
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uoQGe5xGDQ'], // Arrow Trap -> p1 myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (attacker) -> p2 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 attacks with Dungeon Guide
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // targeting player 1's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 1 plays Arrow Trap from the priority window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+    ],
+];
+
+// --- Arrow Trap: Prepare 1 / destroy-if-prepared -- the Prepare cost is never offered and the ability never resolves (engine bug) ---
+// Arrow Trap (uoQGe5xGDQ, WIND action, REACTION, reserve 2): "Prepare 1. Return target attacking
+// ally to its owner's hand. Class Bonus: If Arrow Trap was prepared, destroy that ally instead."
+// Player 2 attacks player 1's champion (Tristan, Hired Blade, an ASSASSIN) with a seeded Dungeon
+// Guide; player 1 answers the attack's priority window by playing Arrow Trap from hand (two
+// reserve payments). ENGINE BUGS (found, confirmed live, NOT fixed): (1) the ability resolves
+// CombatAttacker ('myField-1', stored relative to the ATTACKER) from the DEFENDER's perspective
+// where it resolves to nothing, so the attacking ally is never returned or destroyed (temporary
+// error_log trace: player=1 CombatAttacker=myField-1 CombatAttackerPlayer=2 resolvesTo=null); (2)
+// 'Prepare 1' is never queued (no DeclarePrepareCost decision exists in the generated ability), so
+// wasPrepared is always null and the destroy-instead branch is unreachable. This variant gives the
+// champion exactly one preparation counter so a working Prepare 1 would offer to pay it: the
+// prompt never appears and the counter is untouched.
+$fixtures['arrow-trap-prepared-destroy-attacking-ally-never-resolves'] = [
+    'testedCards' => ['uoQGe5xGDQ'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 1]]], // Tristan, Hired Blade (ASSASSIN) with ONE preparation counter (enough to Prepare 1)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uoQGe5xGDQ'], // Arrow Trap -> p1 myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (attacker) -> p2 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 attacks with Dungeon Guide
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // targeting player 1's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 1 plays Arrow Trap from the priority window (no Prepare 1 prompt appears)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+    ],
+];
+
+// --- Shadeblood Coating: Banish: up to three target units you control gain "On Hit: Put a preparation counter on your champion" until end of turn ---
+// Shadeblood Coating (nd8dy77ikm, UMBRA REGALIA/ACCESSORY, memory 0): "Banish CARDNAME: Up to
+// three target units you control gain 'On Hit: Put a preparation counter on your champion' until
+// end of turn." The champion's Subcards are patched with Tristan, Shadowdancer for UMBRA access;
+// two Dungeon Guides are seeded on player 1's field. Shadeblood is materialized for real in the
+// materialize phase; its banish ability (the opportunity window offers
+// 'myField-3@Activate-0@nd8dy77ikm') asks for up to three targets in a chain of MZMAYCHOOSEs
+// (champion, first Dungeon Guide, then PASS) and tags each with the nd8dy77ikm_ONHIT turn effect,
+// which CombatLogic.php's on-hit processing converts into AddPrepCounter(). Then the CHOSEN
+// Dungeon Guide attacks the opposing champion and its hit puts exactly one preparation counter on
+// player 1's champion; the NON-chosen Dungeon Guide's later hit adds nothing.
+$fixtures['shadeblood-coating-banish-grants-on-hit-preparation'] = [
+    'testedCards' => ['nd8dy77ikm'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc', 'pNiyaGlIe7']]], // UMBRA lineage unlock (Tristan, Shadowdancer)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (chosen: gains On Hit) -> p1 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (control, NOT chosen) -> p1 field-2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-6', 'chkInput' => [], 'inputText' => ''], // materialize Shadeblood Coating
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-3@Activate-0@nd8dy77ikm', 'chkInput' => [], 'inputText' => ''], // banish Shadeblood Coating
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // first unit: the champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // second unit: the first Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the optional third unit
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // the chosen Dungeon Guide attacks
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-2!FSM!', 'chkInput' => [], 'inputText' => ''], // the NON-chosen Dungeon Guide attacks
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion
+    ],
+];
+
+// --- Sirocco Operative: [Class Bonus] On Enter draw a card into memory; On Enter if you control another Automaton ally, put a preparation counter on your champion ---
+// Sirocco Operative (t7ru41pzgg, WIND ALLY, ASSASSIN/AUTOMATON, reserve 3): "[Class Bonus] On
+// Enter: Draw a card into your memory. On Enter: If you control another Automaton ally, put a
+// preparation counter on your champion." The champion is patched to Tristan, Hired Blade
+// (ASSASSIN) for the Class Bonus and a Shimmercloak Assassin (an Automaton) is seeded as the
+// 'other Automaton'. Sirocco is played for real (3 reserve payments), so
+// enterAbilities['t7ru41pzgg:0'] genuinely fires: DrawIntoMemory(1) adds a 4th card to memory and
+// AddPrepCounter() puts one preparation counter on the champion.
+$fixtures['sirocco-operative-enter-class-bonus-draw-memory-and-automaton-prep'] = [
+    'testedCards' => ['t7ru41pzgg'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Hired Blade (ASSASSIN) -> Class Bonus active
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'wklzjmwuir'], // Shimmercloak Assassin (an Automaton ally) = the "another Automaton" -> p1 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 't7ru41pzgg'], // Sirocco Operative -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Sirocco Operative
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 3/3
+    ],
+];
+
+// --- Sirocco Operative: neither On Enter clause applies without the Class Bonus and without another Automaton ally ---
+// Sirocco Operative (t7ru41pzgg): both On Enter clauses are conditional. With the starting
+// champion Spirit of Wind (no Assassin class, so no Class Bonus) and no other Automaton ally,
+// playing Sirocco draws nothing into memory (memory holds only the 3 reserve payments) and puts no
+// preparation counter on the champion.
+$fixtures['sirocco-operative-enter-without-class-bonus-or-other-automaton'] = [
+    'testedCards' => ['t7ru41pzgg'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 't7ru41pzgg'], // Sirocco Operative -> p1 myHand-7 (champion Spirit of Wind is not an Assassin; no other Automaton ally)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Sirocco Operative
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 3/3
+    ],
+];
+
+// --- Dusksoul Stone: as an additional cost to materialize it, banish two ally cards from a single graveyard ---
+// Dusksoul Stone (u25fuv184p, UMBRA REGALIA/BAUBLE, memory 0): "As an additional cost to
+// materialize this card, banish two ally cards from a single graveyard." MaterializeLogic.php's
+// MATERIALIZE decision queues an MZCHOOSE over ally cards in a graveyard that holds at least two
+// of them (here player 1's own graveyard, or player 2's), then a second pick restricted to the
+// same graveyard (DusksoulStoneMaterializeCost / ...Finish). The Stone is materialized for real in
+// the materialize phase (champion Subcards patched with Tristan, Shadowdancer for UMBRA); a non-
+// ally graveyard card (Fairy Whispers) is rejected as a choice, two Dungeon Guide ally cards are
+// banished, and the Stone enters.
+$fixtures['dusksoul-stone-materialize-additional-cost-banish-two-allies'] = [
+    'testedCards' => ['u25fuv184p'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc', 'pNiyaGlIe7']]], // UMBRA lineage unlock (Tristan, Shadowdancer)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ally card) -> p1 gy-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ally card) -> p1 gy-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'n8wyfG9hbY'], // Fairy Whispers (NOT an ally card) -> p1 gy-2
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'n8wyfG9hbY'], // Fairy Whispers -> p2 gy-0
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p2 gy-1
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 gy-2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''], // start materializing Dusksoul Stone (memory cost 0, additional banish cost)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-2', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'Fairy Whispers is not an ally card, so it is not a legal Dusksoul Stone materialize-cost choice'],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // banish ally card 1/2 from my graveyard
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // banish ally card 2/2 from the SAME graveyard
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // pass the window offering the Stone's own ability
+    ],
+];
+
+// --- Dusksoul Stone: Banish CARDNAME: banish up to two cards from a single graveyard (the Banish cost is never paid -- engine bug) ---
+// Dusksoul Stone (u25fuv184p): "Banish CARDNAME: Banish up to two cards from a single graveyard."
+// The Stone is seeded on the field (the REGALIA is seeded directly because only its ability, not
+// its materialize cost, is under test; see dusksoul-stone-materialize-additional-cost-banish-two-
+// allies for the cost). The opportunity window offers 'myField-1@Activate-0@Banish';
+// DusksoulStoneActivated() asks for a first card from either graveyard (an MZMAYCHOOSE) and then a
+// second one restricted to the same graveyard (DusksoulStoneBanishStart/Finish): picking the
+// opponent's Fluffy Shopkeep first makes player 1's own graveyard card an invalid second choice
+// (rejected), and a second opposing card is banished. ENGINE BUG (found, confirmed live, NOT
+// fixed): the 'Banish CARDNAME' cost is never paid -- the Stone itself stays on the field and
+// stays offered in the window. ActivatedAbilityCost() has a hard-coded switch of 'banish self'
+// cards (Shadeblood Coating, Gearstride Gloves, ...) and u25fuv184p is missing; confirmed with a
+// temporary error_log right after ActivatedAbilityCost() (stillOnField=YES, while the same trace
+// for Shadeblood Coating confirms its cost is paid), removed afterwards. Pinned with a REGRESSION
+// GUARD.
+$fixtures['dusksoul-stone-banish-ability-single-graveyard-stone-stays'] = [
+    'testedCards' => ['u25fuv184p'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc', 'pNiyaGlIe7']]], // UMBRA lineage unlock (Tristan, Shadowdancer)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'u25fuv184p'], // Dusksoul Stone -> p1 field-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'n8wyfG9hbY'], // Fairy Whispers -> p1 gy-0
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'n8wyfG9hbY'], // Fairy Whispers -> p2 gy-0
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p2 gy-1
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 gy-2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''], // activate Dusksoul Stone's Banish ability from the priority window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirGraveyard-1', 'chkInput' => [], 'inputText' => ''], // first banish: the opponent's Fluffy Shopkeep
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'The second card must come from the SAME graveyard as the first (the opponent\'s), so my own graveyard card is rejected'],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirGraveyard-1', 'chkInput' => [], 'inputText' => ''], // second banish: the opponent's Dungeon Guide (same graveyard)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // pass the window
+    ],
+];
+
+// --- Dusksoul Stone: phantasias you control have spellshroud (a Spell cannot target Ominous Shadow) ---
+// Dusksoul Stone (u25fuv184p): "Phantasias you control have spellshroud. (Objects with spellshroud
+// can't be targeted by Spells.)" Player 1 controls the Stone and an Ominous Shadow (a phantasia
+// ally); player 2 plays Disenchant ("Destroy target phantasia", a Spell) for real. Disenchant's
+// target list goes through FilterSpellshroudTargets(), which consults HasSpellshroud() (the
+// Stone's static clause in Custom/GameLogic.php), so the Shadow is not a legal target, the ability
+// finds no target and resolves without a prompt: the Shadow survives and the decision queue is
+// empty (without the Stone the same Disenchant would prompt for a target).
+$fixtures['dusksoul-stone-phantasias-have-spellshroud'] = [
+    'testedCards' => ['u25fuv184p'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc', 'pNiyaGlIe7']]], // UMBRA lineage unlock (Tristan, Shadowdancer)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'u25fuv184p'], // Dusksoul Stone -> p1 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'gveirpdm44'], // Ominous Shadow (phantasia) -> p1 field-2
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'zd83net7x0'], // Disenchant (Destroy target phantasia) -> p2 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window (the Stone's ability keeps windows open)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Disenchant
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes priority with Disenchant on the stack
+    ],
+];
+
+// --- Gloamspire Headhunter: [Class Bonus] On Ally Hit, the controller declines to pay (3) -- the attacker is destroyed instead of the hit ally (engine bug) ---
+// Gloamspire Headhunter (r278evrcdz, UMBRA ALLY, ASSASSIN/AUTOMATON, Stealth): "[Class Bonus] On
+// Ally Hit: Destroy the hit ally unless its controller pays (3)." Player 2's champion is patched
+// to Tristan, Hired Blade (ASSASSIN) for the Class Bonus; a Headhunter is seeded on its field
+// (already on the field, as Stealth and the on-hit trigger need no enter event) and attacks player
+// 1's Dungeon Guide on player 2's turn (player 1 declines retaliation).
+// onHitAbilities['r278evrcdz:0'] -> GloamspireHeadhunterOnHit() asks the HIT ally's controller
+// (player 1, who has 7+ cards) whether to pay (3). ENGINE BUG (found, confirmed live, NOT fixed):
+// answering NO should destroy the hit Dungeon Guide, but the handler resolves its stored attacker-
+// relative target 'theirField-1' under the defender's perspective, which is the Headhunter itself:
+// the Headhunter dies and the Dungeon Guide survives (trace: answer=NO handlerPlayer=1
+// storedTarget=theirField-1 resolvesTo=r278evrcdz controller=2). Pinned with REGRESSION GUARD
+// assertions.
+$fixtures['gloamspire-headhunter-on-ally-hit-destroys-unless-paid-declined'] = [
+    'testedCards' => ['r278evrcdz'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7']]], // player 2 champion Tristan, Hired Blade (ASSASSIN) -> Class Bonus active
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'r278evrcdz'], // Gloamspire Headhunter (attacker, power 1) -> p2 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the ally that gets hit, life 3) -> p1 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // the Headhunter attacks
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // targeting player 1's Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 declines to retaliate
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 1 declines to pay (3)
+    ],
+];
+
+// --- Gloamspire Headhunter: [Class Bonus] On Ally Hit, the controller pays (3) and the hit ally survives ---
+// Gloamspire Headhunter (r278evrcdz, UMBRA ALLY, ASSASSIN/AUTOMATON, Stealth): "[Class Bonus] On
+// Ally Hit: Destroy the hit ally unless its controller pays (3)." Player 2's champion is patched
+// to Tristan, Hired Blade (ASSASSIN) for the Class Bonus; a Headhunter is seeded on its field
+// (already on the field, as Stealth and the on-hit trigger need no enter event) and attacks player
+// 1's Dungeon Guide on player 2's turn (player 1 declines retaliation).
+// onHitAbilities['r278evrcdz:0'] -> GloamspireHeadhunterOnHit() asks the HIT ally's controller
+// (player 1, who has 7+ cards) whether to pay (3). Answering YES queues three ReserveCard payments
+// from player 1's hand (cards move to memory) and the hit Dungeon Guide is NOT destroyed.
+$fixtures['gloamspire-headhunter-on-ally-hit-pay-three-saves-ally'] = [
+    'testedCards' => ['r278evrcdz'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7']]], // player 2 champion Tristan, Hired Blade (ASSASSIN) -> Class Bonus active
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'r278evrcdz'], // Gloamspire Headhunter (attacker, power 1) -> p2 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the ally that gets hit, life 3) -> p1 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // the Headhunter attacks
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // targeting player 1's Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 declines to retaliate
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // player 1 pays (3)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // payment 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // payment 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // payment 3/3
+    ],
+];
+
+// --- Shimmercloak Assassin and Gloamspire Headhunter: Stealth (this unit can't be targeted by attacks) ---
+// Shimmercloak Assassin (wklzjmwuir, WIND ALLY) and Gloamspire Headhunter (r278evrcdz, UMBRA ALLY)
+// both print "Stealth (This unit can't be targeted by attacks unless permitted by true sight.)",
+// handled by the generic HasKeyword_Stealth() path of HasStealth(). Both are seeded awake on
+// player 1's field next to a vanilla Dungeon Guide (stealth is a static keyword, so seeding is
+// faithful; their enter/on-hit abilities are covered elsewhere); player 2 declares a real attack
+// with a Dungeon Guide. The target prompt only offers the champion and the vanilla Dungeon Guide:
+// choosing either stealthed ally is rejected by the engine (expected rejection), and the legal
+// Dungeon Guide target takes the hit.
+$fixtures['shimmercloak-assassin-and-gloamspire-headhunter-stealth-untargetable-by-attacks'] = [
+    'testedCards' => ['wklzjmwuir', 'r278evrcdz'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'wklzjmwuir'], // Shimmercloak Assassin (Stealth) -> p1 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'r278evrcdz'], // Gloamspire Headhunter (Stealth) -> p1 field-2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (no stealth; legal target) -> p1 field-3
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (attacker) -> p2 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 declares an attack with its Dungeon Guide
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'Cannot attack a stealthed, awake Shimmercloak Assassin without True Sight'],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-2', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'Cannot attack a stealthed, awake Gloamspire Headhunter without True Sight'],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-3', 'chkInput' => [], 'inputText' => ''], // the legal target: the unstealthed Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 declines to retaliate
+    ],
+];
+
+// --- Malignant Athame: [Class Bonus] On Champion Hit, swap the opponent's hand and memory; with four or more cards in their memory, deal 2 unpreventable damage ---
+// Malignant Athame (0dr40tfllk, UMBRA REGALIA/WEAPON, power 1, durability 2): "[Class Bonus] On
+// Champion Hit: You may have that opponent swap the cards in their hand and memory. Then if there
+// are four or more cards in their memory, deal 2 unpreventable damage to the hit champion." The
+// champion is patched to Tristan, Shadowdancer (ASSASSIN, UMBRA); the Athame is materialized for
+// real in the materialize phase, then the champion attacks with it (champion attack -> choose the
+// Athame as the weapon -> target the opposing champion), so onHitAbilities['0dr40tfllk:0'] ->
+// MalignantAthameOnHit() fires for real and asks YES/NO. The opponent holds 8 cards in hand and 0
+// in memory when hit. Answering YES swaps the opponent's 8-card hand with their empty memory (hand
+// 0, memory 8), and because their memory now holds four or more cards the hit champion takes 2
+// unpreventable damage on top of the 1 combat damage (total Damage 3).
+$fixtures['malignant-athame-on-champion-hit-swap-hand-memory'] = [
+    'testedCards' => ['0dr40tfllk'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Shadowdancer (ASSASSIN, UMBRA) -> Class Bonus active
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-5', 'chkInput' => [], 'inputText' => ''], // materialize Malignant Athame
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // the champion attacks
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose the Athame as the weapon
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // have the opponent swap hand and memory
+    ],
+];
+
+// --- Malignant Athame: declining the swap leaves the opponent's hand and memory alone and deals no extra damage ---
+// Malignant Athame (0dr40tfllk, UMBRA REGALIA/WEAPON, power 1, durability 2): "[Class Bonus] On
+// Champion Hit: You may have that opponent swap the cards in their hand and memory. Then if there
+// are four or more cards in their memory, deal 2 unpreventable damage to the hit champion." The
+// champion is patched to Tristan, Shadowdancer (ASSASSIN, UMBRA); the Athame is materialized for
+// real in the materialize phase, then the champion attacks with it (champion attack -> choose the
+// Athame as the weapon -> target the opposing champion), so onHitAbilities['0dr40tfllk:0'] ->
+// MalignantAthameOnHit() fires for real and asks YES/NO. The opponent holds 8 cards in hand and 0
+// in memory when hit. Answering NO keeps the opponent's 8 cards in hand and 0 in memory, and since
+// memory has fewer than four cards the follow-up 2 unpreventable damage does not happen: only the
+// 1 combat damage lands.
+$fixtures['malignant-athame-on-champion-hit-decline-swap'] = [
+    'testedCards' => ['0dr40tfllk'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Shadowdancer (ASSASSIN, UMBRA) -> Class Bonus active
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-5', 'chkInput' => [], 'inputText' => ''], // materialize Malignant Athame
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // the champion attacks
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose the Athame as the weapon
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline the swap
+    ],
+];
+
+// --- Mastermind Scheme: [Class Bonus] Efficiency; doubling to eight or more preparation counters also grants agility 3 ---
+// Mastermind Scheme (9lbewemius, NORM slow action, printed reserve 6): "[Class Bonus] Efficiency
+// (This card costs LV less to activate.) Double the amount of preparation counters on your
+// champion. Then if there are eight or more preparation counters on your champion, you gain
+// agility 3 for this turn." The champion is patched to Tristan, Hired Blade (level 2, ASSASSIN)
+// with 5 preparation counters. Efficiency makes it cost 6 - 2 = 4 reserve payments (4 cards in
+// memory); the ability doubles the counters to 10 and, being eight or more, adds the AGILITY_3
+// global effect.
+$fixtures['mastermind-scheme-efficiency-double-preparation-agility-at-eight'] = [
+    'testedCards' => ['9lbewemius'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 5]]], // Tristan, Hired Blade (level 2, ASSASSIN) with 5 preparation counters
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9lbewemius'], // Mastermind Scheme (printed reserve 6) -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Mastermind Scheme
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 3/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 4/4
+    ],
+];
+
+// --- Mastermind Scheme: doubling to fewer than eight preparation counters grants no agility ---
+// Mastermind Scheme (9lbewemius, NORM slow action, printed reserve 6): "[Class Bonus] Efficiency
+// (This card costs LV less to activate.) Double the amount of preparation counters on your
+// champion. Then if there are eight or more preparation counters on your champion, you gain
+// agility 3 for this turn." The champion is patched to Tristan, Hired Blade (level 2, ASSASSIN)
+// with 3 preparation counters. Efficiency makes it cost 6 - 2 = 4 reserve payments (4 cards in
+// memory); the ability doubles the counters to 6, which is below eight, so no agility.
+$fixtures['mastermind-scheme-double-preparation-no-agility-below-eight'] = [
+    'testedCards' => ['9lbewemius'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 3]]], // Tristan, Hired Blade (level 2, ASSASSIN) with 3 preparation counters
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9lbewemius'], // Mastermind Scheme (printed reserve 6) -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Mastermind Scheme
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 3/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 4/4
+    ],
+];
+
+// --- Shadowstrike: Prepare X, +X POWER, [Class Bonus] prepared unblockable -- the Prepare X cost is never offered (engine bug) ---
+// Shadowstrike (o191zv86la, UMBRA ATTACK, reserve 2, printed power 4): "Prepare X. X can't be 0.
+// Shadowstrike gets +X POWER. [Class Bonus] If Shadowstrike was prepared, it has unblockable."
+// Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) with 3 preparation counters, so
+// any X from 1 to 3 should be offered; Shadowstrike is played for real (two reserve payments) and
+// attacks player 1's champion. ENGINE BUG (found, confirmed live, NOT fixed): no Prepare prompt is
+// ever queued and the attack deals only its printed 4 damage, never consuming a counter: the
+// generated ability set has only onAttackAbilities['o191zv86la:0'] (which merely checks a PREPARED
+// turn effect that nothing sets) and no $cardActivatedAbilities['o191zv86la:0'] to pay Prepare X
+// or add the +X POWER turn effect ('o191zv86la_POWER_<X>', read by ObjectCurrentPower() but never
+// written). Confirmed with a temporary error_log in OnCardActivated()
+// (hasCardActivatedAbilityEntry=0, pendingDQ-before=[]), removed afterwards. Pinned with
+// REGRESSION GUARD assertions.
+$fixtures['shadowstrike-prepare-x-never-wired-base-power-only'] = [
+    'testedCards' => ['o191zv86la'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 3]]], // player 2 champion Tristan, Shadowdancer (ASSASSIN, UMBRA) with 3 preparation counters
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'o191zv86la'], // Shadowstrike -> p2 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Shadowstrike
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // attack player 1's champion (no Prepare X prompt ever appeared)
+    ],
+];
+
+// --- Surveil the Winds: [Class Bonus] Fast Activation (playable on the opponent's turn); draw a card, then put a preparation counter on your champion ---
+// Surveil the Winds (xt6uaz6a7g, WIND slow action, reserve 2): "[Class Bonus] Fast Activation (You
+// may activate this card at fast speed.) Draw a card, then put a preparation counter on your
+// champion." With an ASSASSIN champion (Tristan, Hired Blade) the card is listed in
+// $cbFastActivationCards (Custom/OpportunityLogic.php), so when player 2 plays a Dungeon Guide on
+// its own turn player 1 is offered Surveil in the priority window and plays it for real (2 reserve
+// payments): Draw(1) then AddPrepCounter(). It resolves before the Dungeon Guide's own On Enter
+// prompt, which player 2 then declines.
+$fixtures['surveil-the-winds-class-bonus-fast-activation-draw-prepare'] = [
+    'testedCards' => ['xt6uaz6a7g'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Hired Blade (ASSASSIN) -> Class Bonus active
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'xt6uaz6a7g'], // Surveil the Winds -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Dungeon Guide (opens a window for player 1)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 1 activates Surveil the Winds at fast speed on the opponent's turn
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 2 declines Dungeon Guide's On Enter
+    ],
+];
+
+// --- Surveil the Winds: without the Class Bonus it is a slow action and cannot be activated on the opponent's turn ---
+// Surveil the Winds (xt6uaz6a7g): Fast Activation is a [Class Bonus] clause. With the starting
+// champion Spirit of Wind (no Assassin) Surveil is a plain slow action: player 1 is never offered
+// a priority window for it on player 2's turn, and trying to play it from hand during player 2's
+// main phase does nothing (the card stays in hand, no draw, no preparation counter).
+$fixtures['surveil-the-winds-slow-without-class-bonus'] = [
+    'testedCards' => ['xt6uaz6a7g'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'xt6uaz6a7g'], // Surveil the Winds -> p1 myHand-7 (champion Spirit of Wind is not an Assassin)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn (no fast cards, so no priority windows)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Dungeon Guide
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 2 declines Dungeon Guide's On Enter
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // player 1 tries to activate the slow Surveil during the opponent's turn -- nothing happens
+    ],
+];
+
+// --- Cloaked Executioner: [Class Bonus] Fast Activation lets this ally be activated on the opponent's turn ---
+// Cloaked Executioner (itwys9kf4r, WIND ALLY, reserve 2, power 2 / life 1): "[Class Bonus] Fast
+// Activation. Ambush." An ally is normally slow; with an ASSASSIN champion it is listed in
+// $cbFastActivationCards (Custom/OpportunityLogic.php), so player 1 is offered it in the priority
+// window after player 2 plays a Dungeon Guide on its own turn and plays it for real (2 reserve
+// payments): it enters player 1's field while it is player 2's turn. Ambush is covered by cloaked-
+// executioner-ambush-retaliates-for-another-ally.
+$fixtures['cloaked-executioner-class-bonus-fast-activation-ally'] = [
+    'testedCards' => ['itwys9kf4r'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Hired Blade (ASSASSIN) -> Class Bonus active
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'itwys9kf4r'], // Cloaked Executioner -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Dungeon Guide (opens a window for player 1)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 1 activates Cloaked Executioner at fast speed on the opponent's turn
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 2 declines Dungeon Guide's On Enter
+    ],
+];
+
+// --- Cloaked Executioner: without the Class Bonus it is a slow ally and cannot be activated on the opponent's turn ---
+// Cloaked Executioner (itwys9kf4r): Fast Activation is a [Class Bonus] clause. With the starting
+// champion Spirit of Wind (no Assassin) it is a plain slow ally, so playing it from hand during
+// player 2's main phase does nothing: it stays in hand and no ally enters.
+$fixtures['cloaked-executioner-slow-without-class-bonus'] = [
+    'testedCards' => ['itwys9kf4r'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'itwys9kf4r'], // Cloaked Executioner -> p1 myHand-7 (champion Spirit of Wind is not an Assassin)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn (no fast cards, so no priority windows)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Dungeon Guide
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 2 declines Dungeon Guide's On Enter
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // player 1 tries to activate the slow Cloaked Executioner during the opponent's turn -- nothing happens
+    ],
+];
+
+// --- Cloaked Executioner: Ambush lets it retaliate against an attacker while it is not the defender ---
+// Cloaked Executioner (itwys9kf4r): "Ambush (This ally may retaliate against attackers while not
+// defending.)" Handled by HasAmbush()/HasKeyword_Ambush() (Custom/CombatLogic.php). Player 1
+// controls a Dungeon Guide (the actual target) and a Cloaked Executioner; player 2 attacks the
+// Dungeon Guide with its own Dungeon Guide (1 POWER). The Retaliate prompt offers the Executioner
+// as well as the defender; choosing the Executioner (2 POWER) rests it and deals its own 2 POWER
+// to the attacker, while the defender still takes the attacker's 1 damage. The Executioner takes
+// no damage because it is not the defender.
+$fixtures['cloaked-executioner-ambush-retaliates-for-another-ally'] = [
+    'testedCards' => ['itwys9kf4r'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the actual defender) -> p1 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'itwys9kf4r'], // Cloaked Executioner (Ambush retaliator, power 2) -> p1 field-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (attacker, power 1) -> p2 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 attacks with Dungeon Guide
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // targeting player 1's Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''], // player 1 retaliates with Cloaked Executioner (via Ambush) instead of the defender
+    ],
+];
+
+// --- Grim Foreboding: [Tristan Bonus] summon an Ominous Shadow; phantasia allies you control get +1 POWER until end of turn; you gain agility 3 ---
+// Grim Foreboding (4hnf1yyx1q, UMBRA fast action, reserve 3): "[Tristan Bonus] Summon an Ominous
+// Shadow token. Phantasia allies you control get +1 POWER until end of turn. You gain agility 3
+// for this turn." Tristan, Shadowdancer is patched in (UMBRA + Tristan lineage); an Ominous Shadow
+// (a phantasia, printed power 1) and a vanilla Dungeon Guide (printed power 1) are seeded. Played
+// for real: the ability summons a second Ominous Shadow, adds the 4hnf1yyx1q global effect (which
+// doesAffect phantasia allies only: both Shadows, including the one summoned a moment ago, read 2
+// POWER while the Dungeon Guide stays at 1) and adds AGILITY_3.
+$fixtures['grim-foreboding-tristan-bonus-shadow-phantasia-power-agility'] = [
+    'testedCards' => ['4hnf1yyx1q'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7']]], // Tristan, Shadowdancer (UMBRA, Tristan lineage)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'gveirpdm44'], // Ominous Shadow (phantasia, printed power 1) -> p1 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (non-phantasia control, printed power 1) -> p1 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4hnf1yyx1q'], // Grim Foreboding -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Grim Foreboding
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 3/3
+    ],
+];
+
+// --- Haunting Demise: [Class Bonus] On Champion Hit, put it on the bottom of the hit champion's lineage; Inherited Effect: 1 unpreventable damage each recollection phase ---
+// Haunting Demise (v0buu5y0ub, UMBRA ATTACK/CURSE, reserve 1, power 3): "[Class Bonus] On Champion
+// Hit: Put CARDNAME on the bottom of the hit champion's lineage. Inherited Effect: At the
+// beginning of your recollection phase, deal 1 unpreventable damage to this object." Player 2's
+// champion is patched to Tristan, Shadowdancer (ASSASSIN, UMBRA); Haunting Demise is played for
+// real and hits player 1's champion for 3: onHitAbilities['v0buu5y0ub:0'] AddToChampionLineage()s
+// it onto player 1's champion (the Subcards list gains 'v0buu5y0ub'; the physical intent copy is
+// banished by ClearIntent() because of the CURSE_TO_LINEAGE marker, an intentional engine
+// bookkeeping choice per its code comment). When player 1's next turn reaches its recollection
+// phase the inherited curse deals 1 unpreventable damage to player 1's champion
+// (Custom/GameLogic.php ChampionHasInLineage(...'v0buu5y0ub')), taking Damage from 3 to 4.
+$fixtures['haunting-demise-champion-hit-lineage-curse-recollection-damage'] = [
+    'testedCards' => ['v0buu5y0ub'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7']]], // player 2 champion Tristan, Shadowdancer (ASSASSIN, UMBRA)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'v0buu5y0ub'], // Haunting Demise -> p2 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Haunting Demise
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment (reserve 1)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // attack player 1's champion
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 2 turn
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the materialize offer at the start of player 1's turn
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
@@ -20148,6 +21296,19 @@ foreach ($fixtures as $slug => $def) {
                 'disableRecording' => true,
             ]);
 
+            if (!empty($action['expectFailure'])) {
+                // A deliberately-illegal action (semantic negative path): the engine must reject
+                // it. Keep it in actions.json (the integration runner re-checks the rejection)
+                // and keep replaying the legal actions that follow.
+                if ($result['success']) {
+                    echo "  [WARN] Action $i was expected to be rejected but succeeded\n";
+                    echo "  Action: " . json_encode($action) . "\n";
+                    break;
+                }
+                $replayedActions[] = $action;
+                echo "  Action $i rejected as expected (mode={$action['mode']}, card={$action['cardID']})\n";
+                continue;
+            }
             if (!$result['success']) {
                 echo "  [WARN] Action $i failed: " . ($result['message'] ?? 'unknown') . "\n";
                 echo "  Action: " . json_encode($action) . "\n";

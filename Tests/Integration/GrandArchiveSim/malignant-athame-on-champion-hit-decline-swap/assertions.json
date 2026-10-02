@@ -1,0 +1,6 @@
+[
+    {"step":7,"type":"zone_count","zone":"theirHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"The opponent keeps all 8 cards in hand"},
+    {"step":7,"type":"zone_count","zone":"theirMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"The opponent's memory stays empty"},
+    {"step":7,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"1","semantic":true,"label":"Only the 1 combat damage: memory has fewer than four cards, so no unpreventable damage"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

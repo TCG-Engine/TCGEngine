@@ -1,0 +1,6 @@
+[
+    {"step":7,"type":"turn_player_is","value":"2","semantic":true,"label":"It is still the opponent's turn"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Hand-7","property":"CardID","value":"itwys9kf4r","semantic":true,"label":"Cloaked Executioner is still in hand"},
+    {"step":7,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the champion is on player 1's field: no ally entered"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

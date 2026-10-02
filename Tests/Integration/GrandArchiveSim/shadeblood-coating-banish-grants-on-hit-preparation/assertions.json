@@ -1,0 +1,11 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-3","property":"CardID","value":"nd8dy77ikm","semantic":true,"label":"Shadeblood Coating entered the field via a real materialize"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"nd8dy77ikm_ONHIT\"]","semantic":true,"label":"The champion (first target) gained the granted On Hit"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-1","property":"TurnEffects","value":"[\"nd8dy77ikm_ONHIT\"]","semantic":true,"label":"The first Dungeon Guide (second target) gained the granted On Hit"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-2","property":"TurnEffects","value":"[]","semantic":true,"label":"The third unit was declined (PASS), so the second Dungeon Guide gained nothing"},
+    {"step":9,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"{\"preparation\":1}","semantic":true,"label":"The chosen Dungeon Guide's hit put exactly one preparation counter on the champion"},
+    {"step":11,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"{\"preparation\":1}","semantic":true,"label":"The non-chosen Dungeon Guide's hit added no further preparation counter"},
+    {"step":11,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"2","semantic":true,"label":"Both Dungeon Guides hit the opposing champion for 1 each (so both hits really landed)"},
+    {"step":11,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"nd8dy77ikm","semantic":true,"label":"Shadeblood Coating was banished as the ability cost"},
+    {"step":11,"type":"decision_queue_empty","player":"all"}
+]

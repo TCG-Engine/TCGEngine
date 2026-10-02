@@ -1,0 +1,26 @@
+{
+    "name": "mastermind-scheme-efficiency-double-preparation-agility-at-eight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:13+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "9lbewemius"
+    ],
+    "notes": "Mastermind Scheme (9lbewemius, NORM slow action, printed reserve 6): \"[Class Bonus] Efficiency (This card costs LV less to activate.) Double the amount of preparation counters on your champion. Then if there are eight or more preparation counters on your champion, you gain agility 3 for this turn.\" The champion is patched to Tristan, Hired Blade (level 2, ASSASSIN) with 5 preparation counters. Efficiency makes it cost 6 - 2 = 4 reserve payments (4 cards in memory); the ability doubles the counters to 10 and, being eight or more, adds the AGILITY_3 global effect.",
+    "semanticCoverage": {
+        "testedCards": [
+            "9lbewemius"
+        ],
+        "mechanics": [
+            "counter",
+            "cost",
+            "condition",
+            "status"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Efficiency: this card costs LV less to activate.",
+            "Double the amount of preparation counters on your champion.",
+            "Then if there are eight or more preparation counters on your champion, you gain agility 3 for this turn."
+        ]
+    }
+}

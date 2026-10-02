@@ -1,0 +1,6 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"gt7lh9v221","semantic":true,"label":"The real level-up into Tristan, Hired Blade completed"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"{\"preparation\":4}","semantic":true,"label":"The preparation counters carry over and are not consumed by the On Enter"},
+    {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":10,"semantic":true,"label":"Hand size 10 = 7 starting cards + 1 normal turn draw + 2 card(s) from the On Enter"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

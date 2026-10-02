@@ -1,0 +1,23 @@
+{
+    "name": "gearstride-gloves-banish-requires-level-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "lcb6jhxctx"
+    ],
+    "notes": "Gearstride Gloves (lcb6jhxctx): the Banish ability reads \"[Class Bonus] [Level 2+]\"; activateAbilityPrereqs[\"lcb6jhxctx:0\"] requires IsClassBonusActive(ASSASSIN) && PlayerLevel >= 2. Here the champion is Tristan, Underhanded (level 1, ASSASSIN): Gloves still enters and puts its preparation counter, but the opportunity window offers only the Stifling Trap in hand, and answering with the Banish ability string is rejected by the engine. No global discount effect exists afterwards and Gloves stays on the field.",
+    "semanticCoverage": {
+        "testedCards": [
+            "lcb6jhxctx"
+        ],
+        "mechanics": [
+            "condition",
+            "cost",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "[Class Bonus][Level 2+] Banish CARDNAME: ... (not available at Level 1)"
+        ]
+    }
+}

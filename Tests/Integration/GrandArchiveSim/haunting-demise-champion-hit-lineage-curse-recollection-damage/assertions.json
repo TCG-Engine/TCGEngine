@@ -1,0 +1,8 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"3","semantic":true,"label":"Haunting Demise hit the champion for its 3 POWER"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"Subcards","value":"[\"v0buu5y0ub\"]","semantic":true,"label":"On Champion Hit, Haunting Demise went onto the bottom of the hit champion's lineage"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"4","semantic":true,"label":"At the beginning of player 1's recollection phase the inherited curse dealt 1 unpreventable damage (3 -> 4)"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-0","property":"Subcards","value":"[\"v0buu5y0ub\"]","semantic":true,"label":"The curse stays in the champion's lineage"},
+    {"step":6,"type":"turn_player_is","value":"1","semantic":true,"label":"It is now player 1's own turn (their recollection phase has happened)"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

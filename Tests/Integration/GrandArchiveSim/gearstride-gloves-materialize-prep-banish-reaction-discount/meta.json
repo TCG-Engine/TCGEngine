@@ -1,0 +1,25 @@
+{
+    "name": "gearstride-gloves-materialize-prep-banish-reaction-discount",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:27+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "lcb6jhxctx"
+    ],
+    "notes": "Gearstride Gloves (lcb6jhxctx, REGALIA/ITEM): \"On Enter: Put a preparation counter on your champion. [Class Bonus][Level 2+] Banish CARDNAME: The next Reaction card you activate this turn costs 1 less to activate.\" The champion is patched to Tristan, Hired Blade (level 2, ASSASSIN) so both the Class Bonus and the Level 2+ prereq hold (activateAbilityPrereqs[\"lcb6jhxctx:0\"]). Gloves is materialized for real in the materialize phase (mem 0), firing enterAbilities[\"lcb6jhxctx:0\"] -> AddPrepCounter(); its banish ability then adds the one-shot global effect lcb6jhxctx_REACTION_DISCOUNT, which CalculateActivationReserveCost() consumes for the next REACTION-subtype card. Stifling Trap (a WIND Reaction, printed reserve 2) is activated right after; exactly ONE reserve-payment click is required (a control run without Gloves needs two) and the effect is removed once used. Because player 1 holds a fast card, every phase change opens a priority window, hence the PASS actions.",
+    "semanticCoverage": {
+        "testedCards": [
+            "lcb6jhxctx"
+        ],
+        "mechanics": [
+            "trigger",
+            "cost",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: Put a preparation counter on your champion.",
+            "[Class Bonus][Level 2+] Banish CARDNAME: The next Reaction card you activate this turn costs 1 less to activate."
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+[
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"lcb6jhxctx","semantic":true,"label":"Gearstride Gloves entered the field via a real materialize"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"{\"preparation\":1}","semantic":true,"label":"On Enter put a preparation counter on the champion"},
+    {"step":8,"type":"card_property_equals","mzId":"p1GlobalEffects-0","property":"CardID","value":"lcb6jhxctx_REACTION_DISCOUNT","semantic":true,"label":"Banishing Gloves creates the one-shot Reaction discount effect"},
+    {"step":11,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"lcb6jhxctx","semantic":true,"label":"Gloves was banished as the cost of its ability"},
+    {"step":10,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"Stifling Trap needed only ONE reserve payment (one card in memory right after the single click): printed 2 minus 1"},
+    {"step":11,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"z5exbwdp7q","semantic":true,"label":"The discounted Reaction (Stifling Trap) resolved"},
+    {"step":11,"type":"card_property_equals","mzId":"p1GlobalEffects-0","property":"CardID","value":"","semantic":true,"label":"The one-shot discount was consumed by that activation"},
+    {"step":11,"type":"card_property_equals","mzId":"p2Field-1","property":"Damage","value":"2","semantic":true,"label":"Stifling Trap dealt its 2 damage, proving the discounted Reaction fully resolved"},
+    {"step":11,"type":"decision_queue_empty","player":"all"}
+]

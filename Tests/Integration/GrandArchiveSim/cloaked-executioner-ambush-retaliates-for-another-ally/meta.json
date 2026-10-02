@@ -1,0 +1,23 @@
+{
+    "name": "cloaked-executioner-ambush-retaliates-for-another-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:23+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "itwys9kf4r"
+    ],
+    "notes": "Cloaked Executioner (itwys9kf4r): \"Ambush (This ally may retaliate against attackers while not defending.)\" Handled by HasAmbush()/HasKeyword_Ambush() (Custom/CombatLogic.php). Player 1 controls a Dungeon Guide (the actual target) and a Cloaked Executioner; player 2 attacks the Dungeon Guide with its own Dungeon Guide (1 POWER). The Retaliate prompt offers the Executioner as well as the defender; choosing the Executioner (2 POWER) rests it and deals its own 2 POWER to the attacker, while the defender still takes the attacker's 1 damage. The Executioner takes no damage because it is not the defender.",
+    "semanticCoverage": {
+        "testedCards": [
+            "itwys9kf4r"
+        ],
+        "mechanics": [
+            "combat",
+            "status",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Ambush: this ally may retaliate against attackers while it is not defending."
+        ]
+    }
+}

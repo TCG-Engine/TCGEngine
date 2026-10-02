@@ -1,0 +1,7 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"qwxvzfkpaj","semantic":true,"label":"Betraying Blade stays in the graveyard: no floating payment was offered without the Class Bonus"},
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Exactly one card remains in the graveyard"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"The 1-point memory cost was paid with the real memory card"},
+    {"step":4,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the memory card was banished"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"bjlwabipl6","semantic":true,"label":"The level-up into Tristan, Underhanded completed"}
+]

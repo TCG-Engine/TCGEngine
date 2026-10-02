@@ -1,0 +1,7 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"uoQGe5xGDQ","semantic":true,"label":"Arrow Trap was activated and paid for (it reached the graveyard)"},
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-1","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the attacking Dungeon Guide is STILL on its controller's field -- it was not returned to hand"},
+    {"step":8,"type":"zone_count","zone":"theirHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the opponent's hand is still 8 (7 + the normal turn draw); a returned Dungeon Guide would make it 9"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"1","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the attack still hit player 1's champion for 1"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

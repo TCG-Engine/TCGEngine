@@ -1,0 +1,26 @@
+{
+    "name": "shimmercloak-assassin-and-gloamspire-headhunter-stealth-untargetable-by-attacks",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:09+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "wklzjmwuir",
+        "r278evrcdz"
+    ],
+    "notes": "Shimmercloak Assassin (wklzjmwuir, WIND ALLY) and Gloamspire Headhunter (r278evrcdz, UMBRA ALLY) both print \"Stealth (This unit can't be targeted by attacks unless permitted by true sight.)\", handled by the generic HasKeyword_Stealth() path of HasStealth(). Both are seeded awake on player 1's field next to a vanilla Dungeon Guide (stealth is a static keyword, so seeding is faithful; their enter/on-hit abilities are covered elsewhere); player 2 declares a real attack with a Dungeon Guide. The target prompt only offers the champion and the vanilla Dungeon Guide: choosing either stealthed ally is rejected by the engine (expected rejection), and the legal Dungeon Guide target takes the hit.",
+    "semanticCoverage": {
+        "testedCards": [
+            "wklzjmwuir",
+            "r278evrcdz"
+        ],
+        "mechanics": [
+            "targeting",
+            "combat",
+            "status"
+        ],
+        "rulesClauses": [
+            "Stealth: this unit cannot be targeted by attacks (Shimmercloak Assassin).",
+            "Stealth: this unit cannot be targeted by attacks (Gloamspire Headhunter)."
+        ]
+    }
+}

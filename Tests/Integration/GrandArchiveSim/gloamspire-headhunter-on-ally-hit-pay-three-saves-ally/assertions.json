@@ -1,0 +1,8 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The hit Dungeon Guide survives because its controller paid (3)"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"1","semantic":true,"label":"It took the Headhunter's 1 POWER of combat damage"},
+    {"step":8,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"Exactly three hand cards were paid into memory"},
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-1","property":"CardID","value":"r278evrcdz","semantic":true,"label":"The Headhunter was not destroyed"},
+    {"step":8,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"Nothing was destroyed"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

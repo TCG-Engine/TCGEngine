@@ -1,0 +1,25 @@
+{
+    "name": "shadow-resonance-recover-draw-tristan-bonus-shadow-at-four-preparation",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:45+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "10rsagp9m8"
+    ],
+    "notes": "Shadow Resonance (10rsagp9m8, UMBRA action, reserve 2): \"Recover 2, then draw a card. [Tristan Bonus] If your champion has four or more preparation counters on them, summon an Ominous Shadow token.\" Tristan, Shadowdancer (UMBRA, Tristan lineage) is patched in with 5 damage and 4 preparation counters. Played for real: RecoverChampion(2) takes Damage from 5 to 3, Draw(1) adds a card (hand 8 -> 7 after playing it -> 5 after paying 2 -> 6 after the draw), and with exactly 4 counters the Tristan Bonus summons an Ominous Shadow.",
+    "semanticCoverage": {
+        "testedCards": [
+            "10rsagp9m8"
+        ],
+        "mechanics": [
+            "recover",
+            "draw-discard",
+            "token",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Recover 2, then draw a card.",
+            "[Tristan Bonus] If your champion has four or more preparation counters, summon an Ominous Shadow token."
+        ]
+    }
+}

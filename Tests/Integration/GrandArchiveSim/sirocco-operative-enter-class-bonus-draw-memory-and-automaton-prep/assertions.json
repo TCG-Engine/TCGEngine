@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-2","property":"CardID","value":"t7ru41pzgg","semantic":true,"label":"Sirocco Operative entered the field"},
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":4,"semantic":true,"label":"Memory holds 4 cards: 3 reserve payments plus the card drawn into memory by the Class Bonus On Enter"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"{\"preparation\":1}","semantic":true,"label":"Another Automaton ally exists, so one preparation counter was put on the champion"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **570**
+Cards linked to an existing fixture: **591**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1917**
+Implemented cards still needing semantic coverage: **1896**
 
 ## Mechanic groups
 
@@ -26,21 +26,14 @@ Implemented cards still needing semantic coverage: **1917**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Tristan, Shadowdancer (`he6kd7hocc`) | CHAMPION | 2 | targeting, counter, token, combat, trigger | Tristan Re:Collection, Shadowdancer | — |
-| Gearstride Gloves (`lcb6jhxctx`) | REGALIA,ITEM | 2 | cost, zone-movement, counter, trigger | Tristan Re:Collection, Shadowdancer | — |
 | Leporine Masque (`pgysz2zfji`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, counter | Ciel, Mirage's Grave | — |
 | Nocturne's Oblivion (`1a5zdqgydt`) | ACTION | 2 | cost, targeting, zone-movement, condition | Ciel, Mirage's Grave | — |
 | Ranger Boots (`fbs9qzo3f6`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, status, trigger | Diana, Moonpiercer | — |
 | Pleiades, Celestial Genesis (`rsps1qnzfl`) | REGALIA,WEAPON | 2 | token, combat, trigger | Diana, Moonpiercer | — |
-| Shifting Mirage (`hmjr33ijq6`) | ACTION | 2 | cost, status, token | Tristan Re:Collection, Shadowdancer | — |
-| Betraying Blade (`qwxvzfkpaj`) | ATTACK | 1 | cost, zone-movement, counter, combat, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
 | Frostsworn Paladin (`rpOaAjgtue`) | ALLY | 1 | draw-discard, zone-movement, counter, status, combat, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
 | Gildas, Faesworn Monarch (`g99PIuhU0O`) | UNIQUE,ALLY | 1 | cost, targeting, damage, prevention, status, condition | Mordred Re:Collection, Aurelian Regent | — |
 | Mordred, Burnished Avenger (`OWCdWq3mXY`) | CHAMPION | 1 | cost, zone-movement, combat, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
-| Shadow Resonance (`10rsagp9m8`) | ACTION | 1 | damage, recover, draw-discard, token, condition | Tristan Re:Collection, Shadowdancer | — |
-| Stifling Trap (`z5exbwdp7q`) | ACTION | 1 | cost, targeting, damage, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
 | Warrior of the Fae Realm (`eRcqucBKhX`) | ALLY | 1 | draw-discard, zone-movement, status, combat, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
-| Arrow Trap (`uoQGe5xGDQ`) | ACTION | 1 | targeting, zone-movement, counter, condition | Tristan Re:Collection, Shadowdancer | — |
 | Baby Blue Slime (`9ggfiy38t2`) | ALLY | 1 | targeting, damage, prevention, condition | Silvie Re:Collection, Slime Sovereign | — |
 | Charge the Soul (`ra9950o14t`) | ACTION | 1 | cost, targeting, damage, zone-movement | Diana, Moonpiercer | — |
 | Ciel, Mirage's Grave (`zhh43i1eaa`) | CHAMPION | 1 | targeting, damage, counter, trigger | Ciel, Mirage's Grave | — |
@@ -53,11 +46,8 @@ Implemented cards still needing semantic coverage: **1917**
 | Dummy Trainer (`QCUld5Xidm`) | REGALIA,ITEM | 1 | targeting, draw-discard, zone-movement, token | Mordred Re:Collection, Aurelian Regent | — |
 | Ombreux Chevalier (`crv1etn4g3`) | ALLY | 1 | zone-movement, counter, trigger, condition | Ciel, Mirage's Grave | — |
 | Rhongomiant, Grove's Spire (`clS3E0HrZL`) | REGALIA,WEAPON | 1 | zone-movement, counter, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
-| Shadeblood Coating (`nd8dy77ikm`) | REGALIA,ITEM | 1 | targeting, zone-movement, counter, combat | Tristan Re:Collection, Shadowdancer | — |
-| Sirocco Operative (`t7ru41pzgg`) | ALLY | 1 | draw-discard, counter, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
 | Snow Fairy (`4s0c9XgLg7`) | ALLY | 1 | targeting, status, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
 | Tempered Steel (`vyRjDql0TR`) | ACTION | 1 | cost, targeting, zone-movement, counter | Ciel, Mirage's Grave | — |
-| Tristan, Underhanded (`bjlwabipl6`) | CHAMPION | 1 | zone-movement, counter, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
 | Whimsy's Warden (`cworak5y4y`) | ALLY | 1 | status, combat, trigger, condition | Ciel, Mirage's Grave | — |
 | Ciel, Loyal Valet (`nn48ne8a05`) | CHAMPION | 1 | zone-movement, counter, trigger | Ciel, Mirage's Grave | — |
 | Ciel, Omenbringer (`o69ogocemo`) | CHAMPION | 1 | draw-discard, trigger, condition | Ciel, Mirage's Grave | — |
@@ -72,7 +62,17 @@ Implemented cards still needing semantic coverage: **1917**
 | Seeker's Aetherwing (`bf7yzaqes4`) | REGALIA,WEAPON | 1 | targeting, status, combat | Diana, Moonpiercer | — |
 | Striking Tides (`qrxQGA1pc6`) | ATTACK | 1 | zone-movement, combat, condition | Mordred Re:Collection, Aurelian Regent | — |
 | Torch Marshal (`izgiu216l2`) | ALLY | 1 | cost, combat, condition | Ciel, Mirage's Grave | — |
-| Tristan, Hired Blade (`gt7lh9v221`) | CHAMPION | 1 | draw-discard, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
 | Undercurrent Vantage (`xicxo661ly`) | ACTION | 1 | cost, zone-movement, status | Diana, Moonpiercer | — |
 | Aetheric Calibration (`7l9th23niu`) | ACTION | 1 | zone-movement, condition | Diana, Moonpiercer | — |
 | Devotion's Price (`ri955ygd5v`) | ACTION | 1 | cost, draw-discard | Ciel, Mirage's Grave | — |
+| Diana, Judgment's Arrow (`wiztyu6o24`) | CHAMPION | 1 | draw-discard, trigger | Diana, Moonpiercer | — |
+| Drown in Aether (`gnfbp3g8iw`) | ACTION | 1 | targeting, status | Diana, Moonpiercer | — |
+| Flawless Spirit of Mordred (`cXEI5vo6iG`) | CHAMPION | 1 | draw-discard, trigger | Mordred Re:Collection, Aurelian Regent | — |
+| Grande Aiguille (`6ihv6hbvye`) | REGALIA,WEAPON | 1 | counter, condition | Ciel, Mirage's Grave | — |
+| Grande Sonnerie (`s4b2mkh1xm`) | REGALIA,WEAPON | 1 | cost, condition | Ciel, Mirage's Grave | — |
+| Luminescent Slash (`y8BNOi4rwD`) | ATTACK | 1 | cost, combat | Mordred Re:Collection, Aurelian Regent | — |
+| Refluxal Ribbon (`vm4xg2hedp`) | REGALIA,ITEM | 1 | targeting, zone-movement | Diana, Moonpiercer | — |
+| Sablier Guard (`tu7jvjf2gh`) | ALLY | 1 | cost, counter | Ciel, Mirage's Grave | — |
+| Safeguard Paragon (`apu7wiw3cl`) | ALLY | 1 | damage, prevention | Mordred Re:Collection, Aurelian Regent | — |
+| Sinistre Stab (`e1xj8mqr2o`) | ATTACK | 1 | combat, condition | Ciel, Mirage's Grave | — |
+| Starbirth (`qxu89i1mrk`) | ACTION | 1 | draw-discard, token | Diana, Moonpiercer | — |

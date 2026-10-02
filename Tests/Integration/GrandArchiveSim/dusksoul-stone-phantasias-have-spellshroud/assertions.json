@@ -1,0 +1,6 @@
+[
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-2","property":"CardID","value":"gveirpdm44","semantic":true,"label":"The Ominous Shadow survived: it could not be targeted by the Disenchant Spell"},
+    {"step":7,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":3,"semantic":true,"label":"Champion, Stone and Shadow all remain"},
+    {"step":7,"type":"card_property_equals","mzId":"p2Graveyard-0","property":"CardID","value":"zd83net7x0","semantic":true,"label":"Disenchant fully resolved (it is in the graveyard) without ever prompting for a target"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

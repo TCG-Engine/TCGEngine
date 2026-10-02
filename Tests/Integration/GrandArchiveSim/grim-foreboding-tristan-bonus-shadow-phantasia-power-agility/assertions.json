@@ -1,0 +1,9 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-3","property":"CardID","value":"gveirpdm44","semantic":true,"label":"[Tristan Bonus] summoned a second Ominous Shadow"},
+    {"step":4,"type":"computed_power_equals","mzId":"p1Field-1","value":2,"semantic":true,"label":"The seeded Ominous Shadow (phantasia) has 1 + 1 = 2 POWER"},
+    {"step":4,"type":"computed_power_equals","mzId":"p1Field-3","value":2,"semantic":true,"label":"The newly summoned Ominous Shadow (phantasia) also has 2 POWER"},
+    {"step":4,"type":"computed_power_equals","mzId":"p1Field-2","value":1,"semantic":true,"label":"The non-phantasia Dungeon Guide is unaffected (1 POWER)"},
+    {"step":4,"type":"card_property_equals","mzId":"p1GlobalEffects-0","property":"CardID","value":"4hnf1yyx1q","semantic":true,"label":"The Grim Foreboding power effect is active for the turn"},
+    {"step":4,"type":"card_property_equals","mzId":"p1GlobalEffects-1","property":"CardID","value":"AGILITY_3","semantic":true,"label":"Agility 3 is gained for this turn"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]
