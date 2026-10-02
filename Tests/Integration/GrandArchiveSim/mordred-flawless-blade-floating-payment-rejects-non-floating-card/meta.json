@@ -26,6 +26,7 @@
         "affectedFunction": "Custom/GameLogic.php GameValidateDecisionAnswer() (-> GAValidateMultiChooseAnswer / GAValidateRearrangeAnswer)",
         "verification": "Root cause confirmed live with a temporary error_log trace (restored afterwards): GameValidateDecisionAnswer logged type=MZMULTICHOOSE param=0|1|myGraveyard-1 answer=myGraveyard-0 and let it through. After the fix the illegal answer is rejected ('Invalid selection.') while the legitimate floating payments (Flawless Blade, Dredging Streams, ...) stay green. Break check: temporarily skipping the MZMULTICHOOSE branch turns this fixture red again (step 4 unexpectedly succeeded).",
         "fix": "GameValidateDecisionAnswer() now validates MZMULTICHOOSE via GAValidateMultiChooseAnswer(): every '&'-joined mzID must be a distinct offered candidate (GAAnswerMatchesChoiceSpecs, the same matcher MZCHOOSE/MZMAYCHOOSE use), count <= max, and count >= min unless the prompt could not offer min live candidates. PASS / '-' / '' still pass (optional-prompt decline). The same hole let MZREARRANGE (glimpse) answers carry unoffered card ids; it is now validated too via GAValidateRearrangeAnswer() (offered piles only, exactly the offered multiset of card ids).",
-        "fixedIn": "fix(GrandArchiveSim): validate MZMULTICHOOSE and MZREARRANGE decision answers"
+        "fixedIn": "fix(GrandArchiveSim): validate MZMULTICHOOSE and MZREARRANGE decision answers",
+        "fixedInCommit": "0719f43d"
     }
 }

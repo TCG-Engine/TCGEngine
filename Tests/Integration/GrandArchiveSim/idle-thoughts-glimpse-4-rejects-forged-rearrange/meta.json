@@ -23,6 +23,7 @@
         "status": "fixed",
         "summary": "MZREARRANGE (glimpse) answers were never validated: forged card ids were accepted and the glimpsed cards were silently deleted from (or fabricated into) the deck.",
         "affectedFunction": "Custom/GameLogic.php GameValidateDecisionAnswer() (-> GAValidateRearrangeAnswer)",
-        "fixedIn": "fix(GrandArchiveSim): validate MZMULTICHOOSE and MZREARRANGE decision answers"
+        "fixedIn": "fix(GrandArchiveSim): validate MZMULTICHOOSE and MZREARRANGE decision answers",
+        "fixedInCommit": "0719f43d"
     }
 }
