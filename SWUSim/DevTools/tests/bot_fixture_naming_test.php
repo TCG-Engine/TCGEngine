@@ -170,11 +170,16 @@ $check(SWUBotFixtureDisplayName($deckOf('# Author: Ninin')) === $plain . ' By Ni
 $check(SWUBotFixtureDisplayName($deckOf('# Author:   ')) === $plain, 'an EMPTY "# Author:" shows no By part');
 $check(SWUBotFixtureDisplayName($deckOf('# Archetype: x')) === $plain, 'a MISSING "# Author:" shows no By part');
 $check($deckOf('# Author: Star Wars Dad')['author'] === 'Star Wars Dad', 'the author keeps its spaces ("Star Wars Dad")');
-// The HMW predictions carry their authors (Ninin's Ahsoka; Star Wars Dad's four).
+// Every creator deck credits its author — a deck added WITHOUT one is the failure this catches (the folder grows:
+// a whole-folder "everyone else is Star Wars Dad" rule broke the day Ninin's second list landed). Known decks are
+// pinned by name.
 $authors = [];
 foreach (glob('./SWUSim/Tests/BotFixtures/force-fam-HMW-predictions/*.txt') ?: [] as $p) $authors[basename($p, '.txt')] = SWUBotDeckFromFixtureText((string)file_get_contents($p))['author'];
-$check(($authors['ahsoka-tano_ash_yellow'] ?? '') === 'Ninin' && count(array_filter($authors, fn($a) => $a === 'Star Wars Dad')) === count($authors) - 1,
-    'force-fam-HMW-predictions authors: ' . json_encode($authors));
+$check(count($authors) >= 5 && !in_array('', $authors, true), 'every force-fam-HMW-predictions deck names its author: ' . json_encode($authors));
+$known = ['ahsoka-tano_ash_yellow' => 'Ninin', 'doctor-hemlock_hmw_red_naboo' => 'Ninin', 'director-krennic_law_blue-splash' => 'Ninin', 'doctor-hemlock_hmw_yellow_naboo' => 'Star Wars Dad',
+          'maul_hmw_blue' => 'Star Wars Dad', 'tarfful_hmw_blue_kashyyyk' => 'Star Wars Dad', 'wicket_hmw_green-splash' => 'Star Wars Dad'];
+$wrong = array_filter($known, fn($a, $f) => ($authors[$f] ?? null) !== $a, ARRAY_FILTER_USE_BOTH);
+$check(empty($wrong), 'each known creator deck credits the right author', json_encode(array_map(fn($f) => $authors[$f] ?? '(missing)', array_keys($wrong))));
 
 // ⚠ weak-2026-09 is deliberately NOT in that list. Its names encode the DEFECT under test (badcurve,
 // neutralunits, noremoval) and three of them share one leader+base, so the convention would both destroy
