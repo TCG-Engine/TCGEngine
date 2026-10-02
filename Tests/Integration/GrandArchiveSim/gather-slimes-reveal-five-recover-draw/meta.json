@@ -1,0 +1,17 @@
+{
+    "name": "gather-slimes-reveal-five-recover-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T04:20:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Gather Slimes (1dfhbt3yna, ACTION): \"Reveal the top five cards of your deck. Recover X where X is the amount of Slime ally cards revealed this way. Put a Slime ally card from among them into your hand and the rest on the bottom of your deck in any order.\" Implemented as cardActivatedAbilities['1dfhbt3yna:0'] -> customDQHandlers['1dfhbt3yna:0:CardActivated-1'] (GeneratedCode/GeneratedMacroCode.php): moves the top 5 deck cards to myTempZone, counts how many are ALLY+SLIME, calls RecoverChampion($player, count), offers an MZCHOOSE among the Slime candidates (if more than one) to pick one for hand, then QueueTempZoneBottomDeckRearrange() queues an MZREARRANGE to bottom-deck the rest.\n\nThe entire Main deck for this fixture is Slime allies (4x each of Red Slime, Green Slime, Baby Blue Slime, Baby Gray Slime), so all 5 revealed cards are GUARANTEED Slime-ally candidates regardless of the deterministic shuffle's exact order -- this avoids needing to predict which specific card lands where, while still proving the real reveal/count/recover/choose/bottom-deck pipeline end to end. Gather Slimes' own element is WATER, not native to the 'Spirit of Fire' starting champion, so the champion's Subcards are patched with a real WATER champion (Nico, Rapture's Embrace) purely to unlock element access; the champion is also pre-damaged by 5 so Recover 5 is observable (distinguishing 'recovered' from 'already at full life'). Gather Slimes is played for real from hand via FSM so its effect genuinely fires; the MZCHOOSE (pick myTempZone-0 for hand) and the resulting MZREARRANGE ('Bottom=0hsncz1fz2,zgcxyky280,zgcxyky280,9ggfiy38t2', echoed back verbatim as a no-op, same technique as cosmic-astroscope-rest-glimpse's Top=/Bottom= response) were determined live via FIXTURE_DEBUG against this exact deck/seed.\n\nVerified live: the champion's computed life returns from 10 (15 printed - 5 damage) to the full printed 15 (Recover 5), and hand count goes from 5 (after FSM play + 2 reserve payment) to 6 (the one chosen Slime ally card).",
+    "testedCards": [
+        "1dfhbt3yna"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["1dfhbt3yna"],
+        "mechanics": ["recover", "zone-movement", "targeting", "draw-discard"],
+        "rulesClauses": [
+            "Reveal the top five cards of your deck. Recover X where X is the amount of Slime ally cards revealed this way. Put a Slime ally card from among them into your hand and the rest on the bottom of your deck in any order."
+        ]
+    }
+}

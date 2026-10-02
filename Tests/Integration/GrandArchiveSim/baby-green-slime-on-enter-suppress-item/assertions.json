@@ -1,0 +1,6 @@
+[
+    {"step":5,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"cqadnk9iz0","semantic":true,"label":"Baby Green Slime materializes onto the field"},
+    {"step":5,"type":"card_property_equals","mzId":"myBanish-0","property":"CardID","value":"hLHpI5rHIK","semantic":true,"label":"Bauble of Mending is banished as the suppression target"},
+    {"step":5,"type":"card_property_equals","mzId":"myBanish-0","property":"TurnEffects","value":"[\"SUPPRESSED\"]","semantic":true,"label":"Bauble of Mending is tagged SUPPRESSED (scheduled to return to the field under its owner's control at the next end phase)"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

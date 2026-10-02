@@ -1,0 +1,17 @@
+{
+    "name": "baby-red-slime-class-bonus-on-attack-discard-fire-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T04:10:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Baby Red Slime (r7oifozaog, ALLY): \"[Class Bonus] On Attack: You may discard a card. If you do, draw a card into your memory. If the discarded card was a fire element card, Baby Red Slime gets +1 POWER until end of turn.\" This card's ENTIRE ability is this one Class Bonus On Attack trigger (onAttackAbilities['r7oifozaog:0'] -> customDQHandlers['r7oifozaog:0:OnAttack-1'], GeneratedCode/GeneratedMacroCode.php): gated behind IsClassBonusActive($player, ['TAMER']), it offers an MZMAYCHOOSE over the whole hand; discarding moves the card to the graveyard, calls DrawIntoMemory($player, 1), and -- only if CardElement() of the discarded card is FIRE -- tags the attacker with its own CardID as a TurnEffects marker, which GameLogic.php's power-computation switch (~13504) reads for +1 POWER.\n\nThe champion's CardID is patched directly to Silvie, With the Pack (TAMER) for the Class Bonus. Baby Red Slime is seeded directly onto the field -- fine for proving its OWN On Attack trigger, a different trigger than Enter. Red Slime (mttsvbgl6f, FIRE) is seeded into hand purely as discard fodder for the fire sub-clause.\n\nCombatLogic.php's BeginCombatPhase() enforces 'only the player who took the opening turn can't attack on turn 1' (~1441-1447), so the attacker had to be player 2 (not player 1, the first player) -- player 1 passes their own turn 1 first, same shape as samaritan-reach-attacking-ally-damage, reaching player 2's turn where Baby Red Slime can legally declare a real attack via FSM against player 1's champion, genuinely dispatching the On Attack trigger.\n\nVerified live: Red Slime lands in player 2's myGraveyard-0, Baby Red Slime's TurnEffects becomes ['r7oifozaog'], and computed power goes from the printed 2 to 3. Break/restore verified: temporarily short-circuiting the closure's `if($isFire) AddTurnEffect(...)` line to `if (false && $isFire) ...` (GeneratedCode/GeneratedMacroCode.php) made the fixture fail with \"Expected myField-1.TurnEffects to equal '[\\\"r7oifozaog\\\"]', got '[]'\"; restoring the line made it pass again.",
+    "testedCards": [
+        "r7oifozaog"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["r7oifozaog"],
+        "mechanics": ["draw-discard", "combat", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may discard a card. If you do, draw a card into your memory. If the discarded card was a fire element card, Baby Red Slime gets +1 POWER until end of turn."
+        ]
+    }
+}

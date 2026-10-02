@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-02T02:22:38+00:00",
+    "generatedAt": "2026-10-02T03:05:16+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 549,
+        "cardsWithExistingFixtures": 559,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1941,
+        "cardsNeedingSemanticCoverage": 1931,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -46,28 +46,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 133
-        },
-        {
-            "cardId": "hcpetipurz",
-            "name": "Slimeshield",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
         },
         {
             "cardId": "blqryebvwj",
@@ -250,24 +228,6 @@
             "priority": 123
         },
         {
-            "cardId": "zgcxyky280",
-            "name": "Green Slime",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
-        },
-        {
             "cardId": "mdwbkuhtjm",
             "name": "Silvie, Slime Sovereign",
             "type": "CHAMPION",
@@ -289,24 +249,6 @@
             "cardId": "f0ymeslfpw",
             "name": "Slime King",
             "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
-        },
-        {
-            "cardId": "emoydelro8",
-            "name": "Slime Nexus",
-            "type": "REGALIA,ITEM",
             "abilityCount": 2,
             "listenerCount": 0,
             "mechanics": [
@@ -476,27 +418,6 @@
             "priority": 115
         },
         {
-            "cardId": "kkbbu08s5r",
-            "name": "Verdant Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "eRcqucBKhX",
             "name": "Warrior of the Fae Realm",
             "type": "ALLY",
@@ -548,66 +469,6 @@
                 "targeting",
                 "damage",
                 "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "0hsncz1fz2",
-            "name": "Baby Gray Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "r7oifozaog",
-            "name": "Baby Red Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "hLHpI5rHIK",
-            "name": "Bauble of Mending",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -799,26 +660,6 @@
             "priority": 114
         },
         {
-            "cardId": "bjx6yo7mm5",
-            "name": "Forest Cake",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "crv1etn4g3",
             "name": "Ombreux Chevalier",
             "type": "ALLY",
@@ -977,25 +818,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 114
-        },
-        {
-            "cardId": "cqadnk9iz0",
-            "name": "Baby Green Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
         },
         {
             "cardId": "nn48ne8a05",
@@ -1443,24 +1265,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Mordred Re:Collection, Aurelian Regent"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "1dfhbt3yna",
-            "name": "Gather Slimes",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -33683,6 +33487,32 @@
             "priority": 145
         },
         {
+            "cardId": "hcpetipurz",
+            "name": "Slimeshield",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "slimeshield-prevent-3-buff-slime"
+            ],
+            "semanticFixtures": [
+                "slimeshield-prevent-3-buff-slime"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
             "cardId": "CgyJxpEgzk",
             "name": "Spirit Blade: Infusion",
             "type": "ACTION",
@@ -35024,6 +34854,30 @@
             "priority": 142
         },
         {
+            "cardId": "zgcxyky280",
+            "name": "Green Slime",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "green-slime-class-bonus-on-leave-transfer-buff",
+                "green-slime-on-enter-two-buff-counters"
+            ],
+            "semanticFixtures": [
+                "green-slime-class-bonus-on-leave-transfer-buff",
+                "green-slime-on-enter-two-buff-counters"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
+        },
+        {
             "cardId": "JxCzS4XJ3V",
             "name": "Guerrilla Advantage",
             "type": "ACTION",
@@ -35085,6 +34939,28 @@
             ],
             "starterDecks": [
                 "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
+        },
+        {
+            "cardId": "emoydelro8",
+            "name": "Slime Nexus",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "slime-nexus-banish-next-slime-ally-discount"
+            ],
+            "semanticFixtures": [
+                "slime-nexus-banish-next-slime-ally-discount"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": false,
             "priority": 142
@@ -36362,6 +36238,31 @@
             "priority": 135
         },
         {
+            "cardId": "kkbbu08s5r",
+            "name": "Verdant Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "verdant-slime-on-enter-no-regalia-two-buff"
+            ],
+            "semanticFixtures": [
+                "verdant-slime-on-enter-no-regalia-two-buff"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "r1o0qtb31x",
             "name": "Worn Gearblade",
             "type": "REGALIA,WEAPON",
@@ -36577,6 +36478,78 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "0hsncz1fz2",
+            "name": "Baby Gray Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "baby-gray-slime-on-enter-reveal-two-slime-draw"
+            ],
+            "semanticFixtures": [
+                "baby-gray-slime-on-enter-reveal-two-slime-draw"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "r7oifozaog",
+            "name": "Baby Red Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "baby-red-slime-class-bonus-on-attack-discard-fire-power"
+            ],
+            "semanticFixtures": [
+                "baby-red-slime-class-bonus-on-attack-discard-fire-power"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "hLHpI5rHIK",
+            "name": "Bauble of Mending",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bauble-of-mending-banish-draw-class-bonus-life"
+            ],
+            "semanticFixtures": [
+                "bauble-of-mending-banish-draw-class-bonus-life"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -37283,6 +37256,30 @@
             ],
             "starterDecks": [
                 "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "bjx6yo7mm5",
+            "name": "Forest Cake",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "forest-cake-on-enter-draw"
+            ],
+            "semanticFixtures": [
+                "forest-cake-on-enter-draw"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -38853,6 +38850,29 @@
             ],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "cqadnk9iz0",
+            "name": "Baby Green Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "baby-green-slime-on-enter-suppress-item"
+            ],
+            "semanticFixtures": [
+                "baby-green-slime-on-enter-suppress-item"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42331,6 +42351,28 @@
             "starterDecks": [
                 "Silvie Starter Deck",
                 "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "1dfhbt3yna",
+            "name": "Gather Slimes",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "gather-slimes-reveal-five-recover-draw"
+            ],
+            "semanticFixtures": [
+                "gather-slimes-reveal-five-recover-draw"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

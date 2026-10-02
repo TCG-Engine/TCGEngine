@@ -1,0 +1,17 @@
+{
+    "name": "slime-nexus-banish-next-slime-ally-discount",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T02:41:47+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Slime Nexus (emoydelro8, REGALIA/ITEM): \"Banish Slime Nexus: The next Slime ally card you activate this turn costs 3 less to activate.\" Its ability is a correctly-categorized $activateAbilityAbilities['emoydelro8:0'] entry (GeneratedCode/GeneratedMacroCode.php), offered through the fast-opportunity MZMAYCHOOSE flow (same mechanism as cosmic-astroscope-rest-glimpse and bauble-of-mending-banish-draw-class-bonus-life). Activating it banishes Slime Nexus (MZMove to myBanish) and calls AddGlobalEffects($player, 'emoydelro8'); the separate $activationCostModifierAbilities['emoydelro8:0'] entry then reads that per-player global effect and applies a one-time, self-consuming -3 reserve-cost delta (the ['delta'=>-3,'consume'=>true,'applied'=>true] shape CalculateActivationReserveCost() reads) to the next Slime ally card activated.\n\nRed Slime (mttsvbgl6f, reserve cost 3) is seeded to a known hand slot (myHand-7) and played for REAL via a plain FSM action immediately after Slime Nexus's banish -- not seeded directly onto the field, so its own materialize-cost path genuinely exercises the discount. Critically, no myHand-N reserve-payment clicks follow the FSM play: if the discount hadn't actually reduced the cost to 0, the engine would be sitting on an unanswered reserve-payment decision and the fixture's own final assertion ('Red Slime exists in myField') would fail, which is exactly what happens in the break test below.\n\nBreak/restore verified live: temporarily adding an unconditional `return 0;` as the first line of $activationCostModifierAbilities['emoydelro8:0'] (GeneratedCode/GeneratedMacroCode.php) made the fixture fail with 'Step 3 assertion failed: Expected card mttsvbgl6f to exist in myField' (the 3-action script no longer pays Red Slime's un-discounted 3-reserve cost, so it never lands on the field); restoring the line made it pass again.",
+    "testedCards": [
+        "emoydelro8"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["emoydelro8"],
+        "mechanics": ["cost", "zone-movement"],
+        "rulesClauses": [
+            "Banish Slime Nexus: The next Slime ally card you activate this turn costs 3 less to activate."
+        ]
+    }
+}

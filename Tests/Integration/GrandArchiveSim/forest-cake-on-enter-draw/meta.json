@@ -1,0 +1,17 @@
+{
+    "name": "forest-cake-on-enter-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T03:20:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Forest Cake (bjx6yo7mm5, ITEM): \"On Enter: Draw a card.\" Implemented as enterAbilities['bjx6yo7mm5:0'] (GeneratedCode/GeneratedMacroCode.php), a plain Draw($player, 1). Its element is NORM, so no champion patch is needed. Played for real from hand via a plain FSM action (mode=10002), paying its 2 reserve cost from existing filler cards in hand, so the Enter trigger genuinely fires per the project's silent-fake-pass rule. Hand count goes 8 (7 base + 1 seeded) -> 7 (FSM removes Forest Cake from hand) -> 5 (pay 2 reserve) -> 6 (On Enter draw) -- confirmed live via FIXTURE_DEBUG zone dumps.\n\nOnly the base Enter clause is covered; the separate [Class Bonus] 'whenever an Animal or Beast ally enters the field under your control, you may sacrifice Forest Cake to put a buff counter on that ally' is a different, reusable-elsewhere replacement/trigger effect and is out of scope for this fixture.",
+    "testedCards": [
+        "bjx6yo7mm5"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["bjx6yo7mm5"],
+        "mechanics": ["trigger", "draw-discard"],
+        "rulesClauses": [
+            "On Enter: Draw a card."
+        ]
+    }
+}

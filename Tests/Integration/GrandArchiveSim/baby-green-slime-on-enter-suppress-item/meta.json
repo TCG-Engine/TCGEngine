@@ -1,0 +1,17 @@
+{
+    "name": "baby-green-slime-on-enter-suppress-item",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T03:40:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Baby Green Slime (cqadnk9iz0, ALLY): \"On Enter: Suppress target item or weapon. (To suppress an object, banish it and return it to the field under its owner's control at the beginning of the next end phase.)\" Implemented as enterAbilities['cqadnk9iz0:0'] -> customDQHandlers['cqadnk9iz0:0:Enter-1'] (GeneratedCode/GeneratedMacroCode.php), which targets any ITEM/WEAPON on either field and calls SuppressAlly($player, $target) (Custom/GameLogic.php ~10561) -- despite its name, this is the shared suppress helper for any object type, not ally-only -- which banishes the target and tags it TurnEffects=['SUPPRESSED'].\n\nBaby Green Slime's element is WIND, not native to the 'Spirit of Fire' starting champion, so the champion's Subcards are patched with a real WIND champion (Spirit of Wind, pNiyaGlIe7) purely to unlock element access (same technique as deployment-beacon-summon-drone / green-slime-on-enter-two-buff-counters). Bauble of Mending (hLHpI5rHIK, ITEM) is seeded onto the field purely as the suppression target -- only its presence as an ITEM matters here, not its own ability. Baby Green Slime is played for real from hand via FSM so its Enter trigger genuinely fires; a mid-resolution ambient opportunity (offering a hand-card response or Bauble of Mending's own Banish ability) is explicitly declined with PASS before the Enter trigger's own MZCHOOSE target prompt appears (same technique as barter-herbs-sacrifice-summon).\n\nVerified live: Bauble of Mending ends up at myBanish-0 with TurnEffects exactly ['SUPPRESSED']. This fixture does not play out to the next end phase to observe the return-to-field half of the effect; only the suppress-and-banish half is asserted. Baby Green Slime's own separate [Class Bonus] Fast Activation is a generically-implemented, reusable-elsewhere mechanic (already listed in Custom/OpportunityLogic.php's $cbFastActivationCards map) and is out of scope here.",
+    "testedCards": [
+        "cqadnk9iz0"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["cqadnk9iz0"],
+        "mechanics": ["targeting", "zone-movement", "trigger"],
+        "rulesClauses": [
+            "On Enter: Suppress target item or weapon."
+        ]
+    }
+}

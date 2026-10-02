@@ -1,0 +1,17 @@
+{
+    "name": "verdant-slime-on-enter-no-regalia-two-buff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T04:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Verdant Slime (kkbbu08s5r, ALLY): \"On Enter: Destroy up to one target regalia with memory cost 0. If you don't, put two buff counters on Verdant Slime.\" Implemented as enterAbilities['kkbbu08s5r:0'] -> customDQHandlers['kkbbu08s5r:0:Enter-1'] (GeneratedCode/GeneratedMacroCode.php): it first searches both fields for a REGALIA with CardCost_memory()==0; with none present it short-circuits straight to AddCounters($player, $mzID, 'buff', 2) with NO decision queued at all (confirmed live via FIXTURE_DEBUG -- no ambient opportunity or MZMAYCHOOSE appears after paying reserve, unlike several of this batch's other Enter triggers that open a mid-resolution response window).\n\nThis fixture exercises exactly that no-target branch: no 0-cost REGALIA is seeded onto either field. Its element is TERA, not native to the 'Spirit of Fire' starting champion, so the champion's Subcards are patched with a real TERA champion (7x2v4tdop1) purely to unlock element access (same technique used throughout this batch). Verdant Slime is played for real from hand via FSM so its Enter trigger genuinely fires.\n\nVerified live: Verdant Slime materializes at myField-1 with Counters={\"buff\":2}. The separate 'destroy a 0-cost regalia instead' branch is a simple, symmetric alternate path (an MZMAYCHOOSE over qualifying regalia, then MZMove to graveyard) and is not independently re-tested here; its own [Class Bonus] Taunt and Pride 5 are generic, reusable-elsewhere keyword/status mechanics also out of scope.",
+    "testedCards": [
+        "kkbbu08s5r"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["kkbbu08s5r"],
+        "mechanics": ["targeting", "zone-movement", "trigger", "condition", "counter"],
+        "rulesClauses": [
+            "On Enter: Destroy up to one target regalia with memory cost 0. If you don't, put two buff counters on Verdant Slime."
+        ]
+    }
+}

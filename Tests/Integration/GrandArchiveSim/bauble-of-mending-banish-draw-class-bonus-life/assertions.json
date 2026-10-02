@@ -1,0 +1,6 @@
+[
+    {"step":3,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"hLHpI5rHIK","semantic":true,"label":"Bauble of Mending paid its own Banish cost and is in the banishment zone"},
+    {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"Draw a card resolved (base hand 7 -> 8)"},
+    {"step":3,"type":"computed_life_equals","mzId":"myField-1","viewerPlayerID":1,"value":3,"semantic":true,"label":"Class Bonus +1 LIFE until end of turn applied to the non-Human target (Red Slime base life 2 -> 3)"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

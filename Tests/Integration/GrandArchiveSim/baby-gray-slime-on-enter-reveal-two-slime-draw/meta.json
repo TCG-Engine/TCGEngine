@@ -1,0 +1,17 @@
+{
+    "name": "baby-gray-slime-on-enter-reveal-two-slime-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T03:30:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Baby Gray Slime (0hsncz1fz2, ALLY): \"On Enter: You may reveal two Slime cards from your hand and/or memory. If you do, draw a card.\" Implemented as enterAbilities['0hsncz1fz2:0'] (GeneratedCode/GeneratedMacroCode.php), which offers an MZMULTICHOOSE of exactly 2 Slime-subtype cards from hand/memory when at least 2 exist; customDQHandlers['0hsncz1fz2:0:Enter-1'] reveals both chosen cards and draws 1 if exactly 2 were picked. Its element is NORM, so no champion patch is needed.\n\nTwo Red Slime copies (mttsvbgl6f, SLIME subtype) are seeded directly into hand purely as reveal fodder -- they are never played, so neither their own element nor reserve cost matters. Baby Gray Slime itself is played for real from hand via a plain FSM action so its Enter trigger genuinely fires. The 2 reserve-payment clicks (myHand-0 x2) consume the lowest-index filler cards, leaving the 2 seeded Red Slime copies intact at myHand-5/myHand-6 -- confirmed live via FIXTURE_DEBUG hand-index tracking -- and the MZMULTICHOOSE decision's own Param echoed back exactly 'myHand-5&myHand-6' as the only 2 legal Slime-subtype choices, which the fixture answers verbatim. Hand count goes 7 (after cost/reveal setup) -> 8 (On Enter draw) -- confirmed live.\n\nOnly the base Enter clause is covered; Baby Gray Slime's separate Intercept keyword is a generically-implemented status/keyword and out of scope here.",
+    "testedCards": [
+        "0hsncz1fz2"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["0hsncz1fz2"],
+        "mechanics": ["trigger", "draw-discard", "targeting", "condition"],
+        "rulesClauses": [
+            "On Enter: You may reveal two Slime cards from your hand and/or memory. If you do, draw a card."
+        ]
+    }
+}

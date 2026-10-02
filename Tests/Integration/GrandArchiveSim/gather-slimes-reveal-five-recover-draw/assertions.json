@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"computed_life_equals","mzId":"myField-0","viewerPlayerID":1,"value":15,"semantic":true,"label":"Recover 5 (all 5 revealed cards were Slime allies) healed the champion's 5 pre-existing damage back to full (Spirit of Fire's printed life 15)"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":6,"semantic":true,"label":"One Slime ally card from the 5 revealed was put into hand (7 base - 1 FSM play - 2 reserve + 1 chosen = 6)"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

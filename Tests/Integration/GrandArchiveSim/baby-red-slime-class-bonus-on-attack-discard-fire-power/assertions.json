@@ -1,0 +1,6 @@
+[
+    {"step":6,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":2,"cardID":"mttsvbgl6f","semantic":true,"label":"Red Slime (FIRE) was genuinely discarded to pay the On Attack cost"},
+    {"step":6,"type":"card_property_equals","mzId":"myField-1","viewerPlayerID":2,"property":"TurnEffects","value":"[\"r7oifozaog\"]","semantic":true,"label":"Baby Red Slime is tagged with its own +1 POWER until-end-of-turn marker because the discarded card was fire element"},
+    {"step":6,"type":"computed_power_equals","mzId":"myField-1","viewerPlayerID":2,"value":3,"semantic":true,"label":"Baby Red Slime's printed power 2 + 1 from the fire-discard bonus = 3"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

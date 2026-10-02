@@ -1,0 +1,6 @@
+[
+    {"step":2,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"emoydelro8","semantic":true,"label":"Slime Nexus paid its own Banish cost and is in the banishment zone"},
+    {"step":3,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"mttsvbgl6f","semantic":true,"label":"Red Slime (reserve cost 3) materializes onto the field"},
+    {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":7,"semantic":true,"label":"No reserve-payment cards were spent playing Red Slime (base 7 + 1 seeded - 1 played, with zero cost clicks needed) -- the -3 discount reduced its 3-reserve cost to 0"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]
