@@ -4,7 +4,7 @@
  */
 function PokeSimulationPolicy(): string {
     $files=[__DIR__.'/HeuristicBot.php',__DIR__.'/PrizeLogic.php',__DIR__.'/LopunnyBot.php',__DIR__.'/../Decks/Registry.php',__DIR__.'/../Decks/brisbane-lopunny.txt',__DIR__.'/../Custom/AttachmentLogic.php',__DIR__.'/../Decks/sinistcha.txt',__DIR__.'/../Custom/GameLogic.php',
-        __DIR__.'/../Custom/CombatLogic.php',__DIR__.'/../Custom/DamageStats.php',__DIR__.'/../Custom/CardLogic.php',__DIR__.'/../GeneratedCode/GeneratedMacroCode.php'];
+        __DIR__.'/../Custom/CombatLogic.php',__DIR__.'/../Custom/DamageStats.php',__DIR__.'/../Custom/OpeningStats.php',__DIR__.'/../Custom/OpeningProfiles.php',__FILE__,__DIR__.'/../Runtime.php',__DIR__.'/../GeneratedCode/GeneratedCardDictionaries.php',__DIR__.'/../Custom/CardLogic.php',__DIR__.'/../GeneratedCode/GeneratedMacroCode.php'];
     return substr(hash('sha256',implode('',array_map('file_get_contents',$files))),0,16);
 }
 function PokeSimulateGame(int $seed,int $firstPlayer,int $maxActions=1500,string $deckKey1='sinistcha',string $deckKey2='sinistcha'): array {
@@ -36,6 +36,7 @@ function PokeSimulateGame(int $seed,int $firstPlayer,int $maxActions=1500,string
     }
     $result['actions']=$steps;
     $result['damageTurns']=PokeVar('damageTurns', []);
+    $result['openingStats']=PokeOpeningResults();
     return $result;
 }
 function PokeSimulatePairs(int $startSeed,int $pairs,int $maxActions=1500,string $deckKey1='sinistcha',string $deckKey2='sinistcha'): array {
@@ -60,5 +61,6 @@ function PokeSimulationSummary(array $rows): array {
         $out['firstWinRate']=$out['firstWins']/$out['completed'];
         $out['secondWinRate']=$out['secondWins']/$out['completed'];
     }
+    $out['openings']=PokeOpeningSummary($rows);
     return $out;
 }

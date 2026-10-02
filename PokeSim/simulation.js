@@ -38,6 +38,7 @@ function render(){
     $('seatCheck').textContent=complete.length?'Seat 1 win rate: '+rate(firstRows.filter(r=>r.winner===1).length,firstRows.length)+' going first ('+firstRows.length+' games) · '+rate(secondRows.filter(r=>r.winner===1).length,secondRows.length)+' going second ('+secondRows.length+' games)':'';
     $('results').replaceChildren();
     PokeDamageStats.averages($('batchDamage'), rows);
+    PokeOpeningStats.render($('batchOpenings'), rows);
     const selectedGame=$('damageGame').value;
     $('damageGame').replaceChildren();
     rows.forEach((row,i)=>{const option=text('option','Game '+(i+1)+' · Seed '+row.seed+' · Seat 1 '+(row.firstPlayer===1?'first':'second'));option.value=i;$('damageGame').append(option);});
@@ -80,12 +81,12 @@ $('clear').onclick=()=>{if(running)return;job=null;save();$('simulationStatus').
 $('download').onclick=()=>{
     if(!job?.rows.length)return;
     const quote=value=>'"'+String(value??'').replaceAll('"','""')+'"';
-    const keys=['seed','deck1','deck2','firstPlayer','winner','winnerOrder','turns','actions','status','reason','damageTurns'];
-    const lines=[keys.concat('policy').map(quote).join(','),...job.rows.map(row=>keys.map(key=>quote(key==='damageTurns'?JSON.stringify(row[key]||[]):row[key])).concat(quote(job.policy)).join(','))];
+    const keys=['seed','deck1','deck2','firstPlayer','winner','winnerOrder','turns','actions','status','reason','damageTurns','openingStats'];
+    const lines=[keys.concat('policy').map(quote).join(','),...job.rows.map(row=>keys.map(key=>quote(['damageTurns','openingStats'].includes(key)?JSON.stringify(row[key]||[]):row[key])).concat(quote(job.policy)).join(','))];
     const url=URL.createObjectURL(new Blob([lines.join('\r\n')+'\r\n'],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');
     a.href=url;a.download='pokesim-'+job.deck1+'-vs-'+job.deck2+'-seed-'+job.seed+'-'+job.rows.length+'-games.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 };
-function renderDamageGame(){const row=job?.rows[Number($('damageGame').value)];PokeDamageStats.match($('batchGameDamage'),row?.damageTurns||[]);}
+function renderDamageGame(){const row=job?.rows[Number($('damageGame').value)];PokeDamageStats.match($('batchGameDamage'),row?.damageTurns||[]);PokeOpeningStats.match($('batchGameOpening'),row);}
 $('damageGame').onchange=renderDamageGame;
 render();
 

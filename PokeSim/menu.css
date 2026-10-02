@@ -11,3 +11,5 @@ body.menu-page{height:auto;min-height:100dvh;overflow:auto}
 @media(max-width:760px){.menu-content{padding:24px 14px}.menu-heading h1{font-size:30px}.mode-grid{grid-template-columns:1fr;gap:10px}.mode-card{padding:17px}.simulation-panel{padding:18px}.simulation-title{font-size:23px}.simulation-panel .section-heading{align-items:flex-start;flex-direction:column}.metrics{grid-template-columns:1fr 1fr}.run-controls input{width:130px}.tag{font-size:8px}.metrics strong{font-size:28px}}
 
 .mode-card>div{flex:1;min-width:0}.mode-card label{display:block;font-size:11px;color:var(--muted);margin:12px 0}.mode-card select{display:block;width:100%;margin-top:6px}.mode-card .menu-button{margin-top:14px;text-align:center;color:var(--lime)}.run-controls select{min-height:39px;max-width:210px;background:#12231b}
+
+#batchGameOpening pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:32rem;overflow:auto;text-align:left} #batchOpenings details{margin:1rem 0} #batchOpenings th{text-align:left}

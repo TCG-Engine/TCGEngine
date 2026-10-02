@@ -360,3 +360,54 @@ php DevTools/PokeSim/prize-plan-tests.php
 php DevTools/PokeSim/damage-stats-tests.php
 node --test DevTools/tests/pokesim-damage-stats.test.mjs
 ```
+
+
+## First eligible attack instrumentation
+
+New batches show **First eligible attack**, grouped by deck and original starting
+order. Both seats are measured: own turn 1 going second, own turn 2 going first.
+Rates distinguish attack declaration, completed attack resolution, the configured
+goal attack, and a resolved goal attack with its readiness condition satisfied.
+Damage and prizes are totals for the eligible turn, including ability damage.
+Games ending before that opportunity are reported separately and included in the
+all-completed denominator. Capped/error games and old results without telemetry
+are excluded from rates; incomplete tracked games have their own count. Win
+conversion compares reached openings with and without a fully enabled goal.
+
+Dhelmise's goal is Vengeful Anchor with four Hide 'n' Sneak discards. Lopunny's
+is Gale Thrust after moving Active that turn. Other decks default to any attack.
+Add deck goals/readiness/milestones in `Custom/OpeningProfiles.php`; legality,
+Energy matching, turn timing, traces and aggregation remain shared.
+
+Misses retain multiple observed blockers: missing attacker, insufficient Energy,
+powered attacker on Bench, unmet goal condition, special condition, an available
+attack left unused, fallback attack, or an attack that failed to resolve. Setup
+snapshots include candidate attack costs/Energy deficits, attacker availability
+in hand/discard, Energy in hand/discard, and spent attachment/Supporter flags.
+These diagnose the played line, not whether some alternative line could succeed.
+The tracker does not search counterfactual action sequences or inspect hidden
+opposing cards, deck order or Prize identities.
+
+Expand **Per-game damage and opening trace** to inspect milestones and actions.
+Traces include both setup turns when going first and up to 160 actions per seat;
+truncation is explicit. The saved seed, deck pair, starting order, exact deck hash
+and rules/bot fingerprint allow replay with the same code and deck versions.
+Snapshots and traces are private serialized state and never added to player
+observations. Existing live saves without tracking remain playable. New live
+matches record telemetry, while its report UI is currently in batch results.
+`openingStats` is an additive JSON field in simulation results and CSV exports.
+No regeneration or database migration is needed. The original specialized
+`opening-report.php` remains available.
+
+```sh
+php DevTools/PokeSim/opening-stats-report.php --games=100 --seed=1 --deck1=sinistcha --deck2=brisbane-lopunny --trace=2
+php DevTools/PokeSim/opening-stats-tests.php
+node --test DevTools/tests/pokesim-opening-stats.test.mjs
+```
+
+Use the same seed/order pairs for comparisons, then validate on an untouched seed
+range and several opponents. Keep bot-policy changes separate from deck changes.
+Counts accompany every rate; conversion is observational rather than causal.
+Paired games share a seed, so treat the seed pair as the unit when estimating
+uncertainty outside the report. Backup readiness and later attack gaps are not
+part of this opening-focused report.

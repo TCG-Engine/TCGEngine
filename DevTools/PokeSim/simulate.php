@@ -14,8 +14,8 @@ try {
     if(isset($options['output'])){
         $file=fopen($options['output'],'x');
         if(!$file)throw new RuntimeException('Cannot create output file (existing files are not overwritten)');
-        fputcsv($file,['seed','deck1','deck2','firstPlayer','winner','winnerOrder','turns','actions','status','reason','damageTurns','policy']);
-        foreach($rows as $row){$row['damageTurns']=json_encode($row['damageTurns'],JSON_THROW_ON_ERROR);fputcsv($file,array_merge(array_values($row),[$policy]));}
+        fputcsv($file,['seed','deck1','deck2','firstPlayer','winner','winnerOrder','turns','actions','status','reason','damageTurns','openingStats','policy']);
+        foreach($rows as $row){foreach(['damageTurns','openingStats'] as $key)$row[$key]=json_encode($row[$key],JSON_THROW_ON_ERROR);fputcsv($file,array_merge(array_values($row),[$policy]));}
         fclose($file);
     }
     echo json_encode(['policy'=>$policy,'startSeed'=>$seed,'summary'=>PokeSimulationSummary($rows)],JSON_PRETTY_PRINT|JSON_THROW_ON_ERROR)."\n";

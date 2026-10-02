@@ -1,8 +1,10 @@
 <?php
 require_once __DIR__ . '/DamageStats.php';
+require_once __DIR__ . '/OpeningStats.php';
 /** Pokémon rules and headless action surface over generated zones and macros. */
 $customDQHandlers = [];
 $customDQHandlers['PokeFinishAttack'] = function($player, $parts, $lastDecision) {
+    PokeOpeningResolved((int)$player);
     PokeResolveKnockouts(); if (GetCurrentPhase() === 'MAIN') PokeSetVar('endAttack', true);
 };
 $customDQHandlers['PokePromote'] = function($player, $parts, $lastDecision) {
@@ -71,6 +73,7 @@ function PokeLog(string $event, array $fields = []): void {
     PokeSetVar('log', array_slice($log, -200));
 }
 function PokeWin(int $player, string $reason): void {
+    PokeOpeningEndGame();
     PokeDamageFinishTurn();
     SetWinner($player); SetCurrentPhase('GAME_OVER');
     foreach ([1,2] as $seat) { $queue = &GetDecisionQueue($seat); $queue = []; }
@@ -90,6 +93,7 @@ function PokeCreateGame(array $deck1, array $deck2, int $seed = 1, int $firstPla
     PokeSetVar('decks', [$deck1, $deck2]); PokeSetVar('prizeCount', $prizeCount);
     PokeSetVar('initialSeed',$seed);
     foreach ([1=>$deck1,2=>$deck2] as $seat=>$deck) PokeSetVar('deckKey:'.$seat,PokeDetectDeck($deck));
+    PokeOpeningInit();
     foreach ([1 => $deck1, 2 => $deck2] as $seat => $deck) {
         foreach ($deck as $entry) for ($i = 0; $i < $entry['count']; ++$i) PokeAdd($seat, 'Deck', $entry['id']);
         PokeShuffle($seat);
@@ -277,6 +281,7 @@ function PokeApplyAction(array $action): void {
         if ($candidate === $incoming) { $legal = true; break; }
     }
     if (!$legal) throw new InvalidArgumentException('Illegal PokeSim action');
+    PokeOpeningAction($action);
     switch ($action['type']) {
         case 'setup-active': PokePlayBasicFromZone($player, $action['source'], 'Active'); break;
         case 'bench': PokePlayBasicFromZone($player, $action['source']); break;
@@ -331,6 +336,7 @@ function PokeAnswerDecision(int $player, string $value): void {
         default: throw new RuntimeException('Unsupported decision type: ' . $decision->Type);
     }
     if ($decision->Type === 'MZMAYCHOOSE' && $value === 'PASS') $value = '-';
+    PokeOpeningAction(['type'=>'decision', 'player'=>$player, 'value'=>$value]);
     $GLOBALS['playerID'] = $player; $controller->PopDecision($player); $controller->ExecuteStaticMethods($player, $value);
     PokeDrain(); $GLOBALS['updateNumber'] = ($GLOBALS['updateNumber'] ?? 0) + 1;
 }
@@ -358,11 +364,12 @@ function PokeDrain(): void {
         foreach ([1,2] as $seat) { $GLOBALS['playerID'] = $seat; (new DecisionQueueController())->ExecuteStaticMethods($seat, '-'); }
         if ((new DecisionQueueController())->AnyQueuePending()) return;
         if (PokeVar('endAttack', false)) { PokeSetVar('endAttack', false); PokeEndTurn(); continue; }
-        PokeCompact(); $GLOBALS['playerID'] = GetTurnPlayer(); return;
+        PokeCompact(); $GLOBALS['playerID'] = GetTurnPlayer(); PokeOpeningObserve(); return;
     }
     throw new RuntimeException('PokeSim decision loop exceeded its bound');
 }
 function PokeEndTurn(): void {
+    PokeOpeningFinishTurn();
     PokeDamageFinishTurn();
     PokeSetVar('blackBelt:' . GetTurnPlayer(), null);
     SetCurrentPhase('CHECKUP'); PokeCheckupPhase(); AutoAdvance();
@@ -378,6 +385,7 @@ function PokeMainPhase(): void {
     AddEnergyUsed($seat, false); AddSupporterUsed($seat, false); AddRetreatUsed($seat, false);
     SetMacroTurnIndex('{}'); PokeDraw($seat, 1);
     PokeLog('turn-start', ['player' => $seat]);
+    PokeOpeningObserve();
 }
 function PokeCheckupPhase(): void {
     foreach ([1,2] as $seat) {

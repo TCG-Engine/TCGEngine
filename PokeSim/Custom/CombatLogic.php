@@ -64,9 +64,10 @@ function PokeResolveKnockouts(): void {
     if ($winCounts[1] || $winCounts[2]) {
         if ($winCounts[1] === $winCounts[2]) {
             $decks = PokeVar('decks'); $seed = GetRandomState();
+            PokeOpeningEndGame(); $openingStats = PokeVar('openingStats', []);
             PokeDamageFinishTurn(); $damageTurns = PokeVar('damageTurns', []); $statsFirst = PokeVar('statsFirstPlayer', GetFirstPlayer());
             PokeCreateGame($decks[0], $decks[1], $seed, 0, 1);
-            PokeSetVar('damageTurns', $damageTurns); PokeSetVar('statsFirstPlayer', $statsFirst); PokeLog('sudden-death'); return;
+            PokeSetVar('openingStats', $openingStats); PokeSetVar('damageTurns', $damageTurns); PokeSetVar('statsFirstPlayer', $statsFirst); PokeLog('sudden-death'); return;
         }
         $winner = $winCounts[1] > $winCounts[2] ? 1 : 2;
         if (GetPrizeClaims($winner) >= PokeCount($winner,'Prizes')) foreach (PokeObjects($winner,'Prizes') as $i=>$obj) PokeMoveSimple(PokeRef($winner,'Prizes',$i),$winner,'Hand');

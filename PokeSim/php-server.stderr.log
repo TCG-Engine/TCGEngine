@@ -146,3 +146,177 @@
 [Fri Oct  2 07:45:05 2026] 127.0.0.1:59055 Closing
 [Fri Oct  2 07:45:05 2026] 127.0.0.1:49637 Closing
 [Fri Oct  2 07:45:05 2026] 127.0.0.1:58223 Closing
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:55381 Accepted
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:55381 [200]: GET /PokeSim/
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:55381 Closing
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:60091 Accepted
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:60091 [200]: GET /PokeSim/local.css?v=1790902425
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:51647 Accepted
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:58416 Accepted
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:61844 Accepted
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:51647 [200]: GET /PokeSim/menu.css?v=1790894614
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:60091 Closing
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:58416 [200]: GET /PokeSim/damage-stats.css?v=1790945082
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:61844 [200]: GET /PokeSim/damage-stats.js?v=1790945081
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:64401 Accepted
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:64401 [200]: GET /PokeSim/simulation.js?v=1790907470
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:51647 Closing
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:58416 Closing
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:61844 Closing
+[Fri Oct  2 08:32:17 2026] 127.0.0.1:64401 Closing
+[Fri Oct  2 08:32:19 2026] 127.0.0.1:51245 Accepted
+[Fri Oct  2 08:32:19 2026] 127.0.0.1:51245 [200]: GET /PokeSim/api.php?player=1
+[Fri Oct  2 08:32:19 2026] 127.0.0.1:51245 Closing
+[Fri Oct  2 08:32:19 2026] 127.0.0.1:51860 Accepted
+[Fri Oct  2 08:32:21 2026] 127.0.0.1:51860 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:21 2026] 127.0.0.1:51860 Closing
+[Fri Oct  2 08:32:21 2026] 127.0.0.1:56726 Accepted
+[Fri Oct  2 08:32:22 2026] 127.0.0.1:56726 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:22 2026] 127.0.0.1:56726 Closing
+[Fri Oct  2 08:32:22 2026] 127.0.0.1:49934 Accepted
+[Fri Oct  2 08:32:24 2026] 127.0.0.1:49934 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:24 2026] 127.0.0.1:49934 Closing
+[Fri Oct  2 08:32:24 2026] 127.0.0.1:52363 Accepted
+[Fri Oct  2 08:32:26 2026] 127.0.0.1:52363 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:26 2026] 127.0.0.1:52363 Closing
+[Fri Oct  2 08:32:26 2026] 127.0.0.1:53674 Accepted
+[Fri Oct  2 08:32:28 2026] 127.0.0.1:53674 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:28 2026] 127.0.0.1:53674 Closing
+[Fri Oct  2 08:32:28 2026] 127.0.0.1:59700 Accepted
+[Fri Oct  2 08:32:30 2026] 127.0.0.1:59700 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:30 2026] 127.0.0.1:59700 Closing
+[Fri Oct  2 08:32:30 2026] 127.0.0.1:65308 Accepted
+[Fri Oct  2 08:32:33 2026] 127.0.0.1:65308 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:33 2026] 127.0.0.1:65308 Closing
+[Fri Oct  2 08:32:33 2026] 127.0.0.1:64187 Accepted
+[Fri Oct  2 08:32:35 2026] 127.0.0.1:64187 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:35 2026] 127.0.0.1:64187 Closing
+[Fri Oct  2 08:32:35 2026] 127.0.0.1:60004 Accepted
+[Fri Oct  2 08:32:37 2026] 127.0.0.1:60004 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:37 2026] 127.0.0.1:60004 Closing
+[Fri Oct  2 08:32:37 2026] 127.0.0.1:52359 Accepted
+[Fri Oct  2 08:32:39 2026] 127.0.0.1:52359 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:39 2026] 127.0.0.1:52359 Closing
+[Fri Oct  2 08:32:52 2026] 127.0.0.1:59530 Accepted
+[Fri Oct  2 08:32:52 2026] 127.0.0.1:59530 [200]: GET /PokeSim/api.php?player=1
+[Fri Oct  2 08:32:52 2026] 127.0.0.1:59530 Closing
+[Fri Oct  2 08:32:52 2026] 127.0.0.1:54588 Accepted
+[Fri Oct  2 08:32:53 2026] 127.0.0.1:54588 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:53 2026] 127.0.0.1:54588 Closing
+[Fri Oct  2 08:32:53 2026] 127.0.0.1:63720 Accepted
+[Fri Oct  2 08:32:55 2026] 127.0.0.1:63720 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:55 2026] 127.0.0.1:63720 Closing
+[Fri Oct  2 08:32:55 2026] 127.0.0.1:53722 Accepted
+[Fri Oct  2 08:32:56 2026] 127.0.0.1:53722 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:56 2026] 127.0.0.1:53722 Closing
+[Fri Oct  2 08:32:56 2026] 127.0.0.1:50795 Accepted
+[Fri Oct  2 08:32:58 2026] 127.0.0.1:50795 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:58 2026] 127.0.0.1:50795 Closing
+[Fri Oct  2 08:32:58 2026] 127.0.0.1:49292 Accepted
+[Fri Oct  2 08:32:59 2026] 127.0.0.1:49292 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:32:59 2026] 127.0.0.1:49292 Closing
+[Fri Oct  2 08:32:59 2026] 127.0.0.1:60476 Accepted
+[Fri Oct  2 08:33:01 2026] 127.0.0.1:60476 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:01 2026] 127.0.0.1:60476 Closing
+[Fri Oct  2 08:33:01 2026] 127.0.0.1:50090 Accepted
+[Fri Oct  2 08:33:04 2026] 127.0.0.1:50090 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:04 2026] 127.0.0.1:50090 Closing
+[Fri Oct  2 08:33:04 2026] 127.0.0.1:57398 Accepted
+[Fri Oct  2 08:33:05 2026] 127.0.0.1:57398 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:05 2026] 127.0.0.1:57398 Closing
+[Fri Oct  2 08:33:05 2026] 127.0.0.1:54394 Accepted
+[Fri Oct  2 08:33:07 2026] 127.0.0.1:54394 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:07 2026] 127.0.0.1:54394 Closing
+[Fri Oct  2 08:33:07 2026] 127.0.0.1:63088 Accepted
+[Fri Oct  2 08:33:10 2026] 127.0.0.1:63088 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:10 2026] 127.0.0.1:63088 Closing
+[Fri Oct  2 08:33:10 2026] 127.0.0.1:53338 Accepted
+[Fri Oct  2 08:33:12 2026] 127.0.0.1:53338 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:12 2026] 127.0.0.1:53338 Closing
+[Fri Oct  2 08:33:12 2026] 127.0.0.1:51276 Accepted
+[Fri Oct  2 08:33:13 2026] 127.0.0.1:51276 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:13 2026] 127.0.0.1:51276 Closing
+[Fri Oct  2 08:33:13 2026] 127.0.0.1:63797 Accepted
+[Fri Oct  2 08:33:15 2026] 127.0.0.1:63797 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:15 2026] 127.0.0.1:63797 Closing
+[Fri Oct  2 08:33:15 2026] 127.0.0.1:58085 Accepted
+[Fri Oct  2 08:33:18 2026] 127.0.0.1:58085 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:18 2026] 127.0.0.1:58085 Closing
+[Fri Oct  2 08:33:18 2026] 127.0.0.1:50814 Accepted
+[Fri Oct  2 08:33:19 2026] 127.0.0.1:50814 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:19 2026] 127.0.0.1:50814 Closing
+[Fri Oct  2 08:33:19 2026] 127.0.0.1:53204 Accepted
+[Fri Oct  2 08:33:21 2026] 127.0.0.1:53204 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:21 2026] 127.0.0.1:53204 Closing
+[Fri Oct  2 08:33:21 2026] 127.0.0.1:62978 Accepted
+[Fri Oct  2 08:33:22 2026] 127.0.0.1:62978 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:22 2026] 127.0.0.1:62978 Closing
+[Fri Oct  2 08:33:22 2026] 127.0.0.1:60815 Accepted
+[Fri Oct  2 08:33:24 2026] 127.0.0.1:60815 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:24 2026] 127.0.0.1:60815 Closing
+[Fri Oct  2 08:33:24 2026] 127.0.0.1:60279 Accepted
+[Fri Oct  2 08:33:26 2026] 127.0.0.1:60279 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:26 2026] 127.0.0.1:60279 Closing
+[Fri Oct  2 08:33:26 2026] 127.0.0.1:60159 Accepted
+[Fri Oct  2 08:33:28 2026] 127.0.0.1:60159 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:28 2026] 127.0.0.1:60159 Closing
+[Fri Oct  2 08:33:28 2026] 127.0.0.1:60270 Accepted
+[Fri Oct  2 08:33:30 2026] 127.0.0.1:60270 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:30 2026] 127.0.0.1:60270 Closing
+[Fri Oct  2 08:33:30 2026] 127.0.0.1:62996 Accepted
+[Fri Oct  2 08:33:32 2026] 127.0.0.1:62996 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:32 2026] 127.0.0.1:62996 Closing
+[Fri Oct  2 08:33:32 2026] 127.0.0.1:60873 Accepted
+[Fri Oct  2 08:33:34 2026] 127.0.0.1:60873 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:34 2026] 127.0.0.1:60873 Closing
+[Fri Oct  2 08:33:34 2026] 127.0.0.1:61215 Accepted
+[Fri Oct  2 08:33:35 2026] 127.0.0.1:61215 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:35 2026] 127.0.0.1:61215 Closing
+[Fri Oct  2 08:33:35 2026] 127.0.0.1:55171 Accepted
+[Fri Oct  2 08:33:37 2026] 127.0.0.1:55171 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:37 2026] 127.0.0.1:55171 Closing
+[Fri Oct  2 08:33:37 2026] 127.0.0.1:51423 Accepted
+[Fri Oct  2 08:33:39 2026] 127.0.0.1:51423 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:39 2026] 127.0.0.1:51423 Closing
+[Fri Oct  2 08:33:39 2026] 127.0.0.1:58090 Accepted
+[Fri Oct  2 08:33:40 2026] 127.0.0.1:58090 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:40 2026] 127.0.0.1:58090 Closing
+[Fri Oct  2 08:33:41 2026] 127.0.0.1:62175 Accepted
+[Fri Oct  2 08:33:42 2026] 127.0.0.1:62175 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:42 2026] 127.0.0.1:62175 Closing
+[Fri Oct  2 08:33:42 2026] 127.0.0.1:49486 Accepted
+[Fri Oct  2 08:33:43 2026] 127.0.0.1:49486 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:43 2026] 127.0.0.1:49486 Closing
+[Fri Oct  2 08:33:43 2026] 127.0.0.1:64699 Accepted
+[Fri Oct  2 08:33:45 2026] 127.0.0.1:64699 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:45 2026] 127.0.0.1:64699 Closing
+[Fri Oct  2 08:33:45 2026] 127.0.0.1:50123 Accepted
+[Fri Oct  2 08:33:46 2026] 127.0.0.1:50123 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:46 2026] 127.0.0.1:50123 Closing
+[Fri Oct  2 08:33:46 2026] 127.0.0.1:65514 Accepted
+[Fri Oct  2 08:33:47 2026] 127.0.0.1:65514 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:47 2026] 127.0.0.1:65514 Closing
+[Fri Oct  2 08:33:47 2026] 127.0.0.1:55206 Accepted
+[Fri Oct  2 08:33:48 2026] 127.0.0.1:55206 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:48 2026] 127.0.0.1:55206 Closing
+[Fri Oct  2 08:33:48 2026] 127.0.0.1:64103 Accepted
+[Fri Oct  2 08:33:49 2026] 127.0.0.1:64103 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:49 2026] 127.0.0.1:64103 Closing
+[Fri Oct  2 08:33:49 2026] 127.0.0.1:52421 Accepted
+[Fri Oct  2 08:33:51 2026] 127.0.0.1:52421 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:51 2026] 127.0.0.1:52421 Closing
+[Fri Oct  2 08:33:51 2026] 127.0.0.1:55763 Accepted
+[Fri Oct  2 08:33:53 2026] 127.0.0.1:55763 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:53 2026] 127.0.0.1:55763 Closing
+[Fri Oct  2 08:33:53 2026] 127.0.0.1:49274 Accepted
+[Fri Oct  2 08:33:54 2026] 127.0.0.1:49274 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:54 2026] 127.0.0.1:49274 Closing
+[Fri Oct  2 08:33:54 2026] 127.0.0.1:61720 Accepted
+[Fri Oct  2 08:33:55 2026] 127.0.0.1:61720 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:55 2026] 127.0.0.1:61720 Closing
+[Fri Oct  2 08:33:55 2026] 127.0.0.1:53094 Accepted
+[Fri Oct  2 08:33:57 2026] 127.0.0.1:53094 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:57 2026] 127.0.0.1:53094 Closing
+[Fri Oct  2 08:33:57 2026] 127.0.0.1:49414 Accepted
+[Fri Oct  2 08:33:58 2026] 127.0.0.1:49414 [200]: POST /PokeSim/simulate.php
+[Fri Oct  2 08:33:58 2026] 127.0.0.1:49414 Closing
