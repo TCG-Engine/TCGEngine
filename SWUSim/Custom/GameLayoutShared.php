@@ -5931,7 +5931,7 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   // and the player picker. DISPLAY names only: it is not an account (no Block button, not in $swuSeatNames).
   if (function_exists('GetSWUBotPlayers')) {
       foreach (GetSWUBotPlayers() as $swuBotSeat) {
-          if (intval($swuBotSeat) >= 1) $swuSeatDisplayNames[strval(intval($swuBotSeat))] = 'Arenabot';
+          if (intval($swuBotSeat) >= 1) $swuSeatDisplayNames[strval(intval($swuBotSeat))] = SWUBotSeatDisplayName(intval($swuBotSeat));
       }
   }
   // MATCHLESS games (goldfish / hotseat) never create a match record — SWUReadMatchRef returns null

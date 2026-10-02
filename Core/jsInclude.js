@@ -337,9 +337,10 @@ function AddCardDetailControls(el, imgSource, place, token, closeOnly) {
   });
 }
 
-// ── SWUSim: a LEADER previews as BOTH faces, side by side ─────────────────────────────────────
-// Owner, 2026-10-01: hovering any leader — in a Leader zone, or a deployed Leader unit — shows the
-// leader side AND the Leader Unit side at once (the approach SWUniversity's CardPreview.tsx takes).
+// ── SWUSim + SWUDeck: a LEADER previews as BOTH faces, side by side ───────────────────────────
+// Owner, 2026-10-01: hovering any leader — in a Leader zone, a deployed Leader unit, a leader attached
+// as a PILOT (ShowSubcardDetail), or SWUDeck's card panel and identity banner — shows the leader side
+// AND the Leader Unit side at once (the approach SWUniversity's CardPreview.tsx takes).
 // The leader is identified from the card dictionary (Cardtype), never by probing: a probe would be a
 // 404 on every non-leader hover. A deployed leader's tile is "<CardID>_back", so either face hovered
 // resolves to the same pair, front first.
@@ -347,13 +348,14 @@ function AddCardDetailControls(el, imgSource, place, token, closeOnly) {
 // portrait when it is a unit side — but a double-sided leader's back is another landscape leader face
 // (TWI_017 Palpatine -> Darth Sidious). Both faces share their SHORT EDGE so they read at one card
 // scale: the landscape front's height equals the portrait back's width.
-// SWUSim only (other apps' leaders are not two-faced like this, and their tiles have no "_back").
-var CARD_DETAIL_PAIR_SHORT_EDGE = 286;   // desktop: a portrait back is then 400px tall, as a single card
+// SWUSim and SWUDeck only — the two apps on the shared SWU art corpus (other apps' leaders are not
+// two-faced like this). SWUDeck's Cardtype normalises a stored FFG UID itself; SWUSim's ids are SET_NNN.
+var CARD_DETAIL_PAIR_MAX_FACE = 400;   // desktop: each face keeps the single-card preview's 400px ceiling
 var CARD_DETAIL_PAIR_GAP = 8;
 
 function CardDetailLeaderFaces(src) {
   var fp = document.getElementById("folderPath");
-  if (!fp || fp.value !== "SWUSim" || typeof Cardtype !== "function") return null;
+  if (!fp || (fp.value !== "SWUSim" && fp.value !== "SWUDeck") || typeof Cardtype !== "function") return null;
   var m = /\/([^\/?#]+?)(_back)?\.(webp|png|jpg)(\?|#|$)/i.exec(src || "");
   if (!m) return null;
   var id = m[1].replace(/^mock_/, "");
@@ -378,7 +380,8 @@ function CardDetailPairFaceSizes(imgs, s, exact) {
 }
 
 // Lay the pair out side by side — or stacked, on a touch screen that is taller than wide — at the
-// largest shared short edge that fits (desktop: the 286px design size, shrunk only for a narrow window).
+// largest shared short edge that fits (desktop: the one that puts the LONGEST face side at exactly the single-card
+// 400px ceiling — ~286.6px for SWU's 628x450 art — shrunk only for a narrow window).
 function CardDetailPairLayout(imgs, touch) {
   var stack = touch && window.innerHeight > window.innerWidth;
   var availW = touch ? window.innerWidth * CARD_DETAIL_TOUCH_VIEWPORT_W : window.innerWidth - 10;
@@ -387,9 +390,14 @@ function CardDetailPairLayout(imgs, touch) {
   var w1 = stack ? Math.max(unit[0].width, unit[1].width) : unit[0].width + unit[1].width;
   var h1 = stack ? unit[0].height + unit[1].height : Math.max(unit[0].height, unit[1].height);
   var s = Math.min((availW - CARD_DETAIL_PAIR_GAP) / w1, (availH - CARD_DETAIL_PAIR_GAP) / h1);
-  if (!touch) s = Math.min(s, CARD_DETAIL_PAIR_SHORT_EDGE);
+  if (!touch) {
+    // Derived, not a fixed 286: a whole-pixel short edge put a portrait back at 399px, not 400.
+    var longRatio = Math.max.apply(null, imgs.map(function(im) { return Math.max(im.width, im.height) / Math.min(im.width, im.height); }));
+    s = Math.min(s, CARD_DETAIL_PAIR_MAX_FACE / longRatio);
+  }
   // never upscale past either face's natural short edge — blown-up art reads blurry
-  s = Math.floor(Math.min(s, Math.min(imgs[0].width, imgs[0].height), Math.min(imgs[1].width, imgs[1].height)));
+  s = Math.min(s, Math.min(imgs[0].width, imgs[0].height), Math.min(imgs[1].width, imgs[1].height));
+  s = Math.round(s * 100) / 100;   // a fractional short edge; each face's long side is rounded to a whole pixel
   var sizes = CardDetailPairFaceSizes(imgs, s);
   var gap = CARD_DETAIL_PAIR_GAP;
   return { stack: stack, sizes: sizes,
@@ -520,6 +528,10 @@ function ShowSubcardDetail(e, imgEl, options) {
     // Transform concat URL to WebpImages for the popup
     src = src.replace('/concat/', '/WebpImages/');
     src = src.replace('.webp', '.webp'); // Keep as webp
+    // A leader attached as a PILOT renders its "_back" (Leader Unit) face here; preview both faces like
+    // any other leader (owner 2026-10-01). Hover and long-press both come through this function.
+    var pilotFaces = CardDetailLeaderFaces(src);
+    if (pilotFaces) { ShowLeaderFacesDetail(e, pilotFaces, src, null, requestToken); return; }
     var el = document.getElementById('cardDetail');
     // Subcards have no natural dimensions to hand ComputeCardDetailSize (the image is not
     // preloaded here), so feed it the standard SWU portrait ratio: 0.71 wide per 1 tall.

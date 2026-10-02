@@ -372,8 +372,10 @@ function _WaitingRoomScript(array $cfg): string {
     //
     // esc() is applied by the caller, which matters here: this is the first user-controlled string
     // the roster renders.
+    var bp = botProfiles[entry.botProfile] || {};
     var who = entry.botProfile
-      ? ('P' + entry.playerID + ' · ' + ((botProfiles[entry.botProfile] || {}).name || 'Bot'))
+      ? (bp.deck ? (entry.username || 'Arenabot') + ' · ' + (bp.deckName || (bp.deck === 'paste' ? 'your decklist' : bp.name))   // SWUSim: the bot's own name
+                 : ('P' + entry.playerID + ' · ' + (bp.name || 'Bot')))
       : (entry.username || ('Guest P' + seatNo)) + (entry.isHost ? ' (host)' : '');
     // deckOk, ready and away are THREE different facts. A legal deck you are still swapping is not a
     // deck you are ready to play, and a ready deck whose owner has closed their browser is not a

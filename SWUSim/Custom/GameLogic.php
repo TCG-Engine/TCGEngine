@@ -15998,8 +15998,14 @@ function _topDeckSearchBegin(int $player, int $n, callable $filter, string $cons
     // filter. SOR_087 Darth Vader's "any number of Villainy units with combined cost 3 or LESS" happily
     // played two cost-2 units for a combined 4.
     DecisionQueueController::StoreVariable("TopDeckConstraint", $constraint);
+    // Segment 6, SCOPE: 'deck' when the search took the WHOLE deck (SOR_042 Search Your Feelings, or a top-N
+    // that reached past the deck), else 'top'. The client cannot tell otherwise, and the two want different
+    // panels: a handful of top cards vs a 40-card deck to find one card in (bug report 2026-10-01, game
+    // 1438045 — the top-N panel drew 45 full-size cards with its title and confirm button off-screen).
+    // Additive: an older client ignores the extra segment.
+    $scope = count($deck) === 0 ? 'deck' : 'top';
     $param = $allIDs . '|' . $matchIDs . '|' . $constraint . '|' . $costMap
-           . '|' . _swuTopDeckWireText($label) . '|' . _swuTopDeckWireText($verb);
+           . '|' . _swuTopDeckWireText($label) . '|' . _swuTopDeckWireText($verb) . '|' . $scope;
     DecisionQueueController::AddDecision($player, "TOPDECKSEARCH", $param, 1, tooltip: "Search_top_cards");
     if (function_exists('SWULogPeek')) SWULogPeek(intval($player), 'searched', array_values(array_filter(explode(',', (string)$allIDs)))); // game log
     // Embed allIDs in the finalize param — survives the HTTP request boundary. dontSkipOnPass: when the search
@@ -27675,6 +27681,14 @@ function GetSWUBotPlayers(): array {
 // still need both. SWUGameMode() therefore stays '' in these games.
 function SWUHasBotSeats(): bool {
     return GlobalEffectCount(1, 'SWU_HAS_BOT_SEATS') > 0;
+}
+
+// A bot seat's display name: the name its room gave it ("Arenabot Gamma" — each bot added to a room takes the next
+// Greek letter, SWULobbyAdapter::configureBot; stored per seat by SWUSetupGame). A bot with no room name (Bot Practice's
+// single Arenabot) stays plain "Arenabot".
+function SWUBotSeatDisplayName(int $seat): string {
+    $name = DecisionQueueController::GetVariable('SWUBotName_' . $seat);
+    return (is_string($name) && $name !== '') ? $name : 'Arenabot';
 }
 
 // Does the bot controller drive any seat in this game? Arenabot, or a room game with bot seats.

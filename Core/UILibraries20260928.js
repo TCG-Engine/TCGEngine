@@ -5617,6 +5617,14 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
   // back into spaces here, exactly as every prompt site does with Tooltip.
   const pickLabel = ((parts[4] || '').replace(/_/g, ' ').trim()) || 'cards';
   const pickVerb  = ((parts[5] || '').replace(/_/g, ' ').trim()) || 'Take';
+  // Segment 6, SCOPE: 'deck' = the search took the WHOLE deck (SOR_042 Search Your Feelings). Bug report
+  // 2026-10-01 (game 1438045): this panel, built for a handful of top cards, drew a 45-card deck as 180px
+  // art in an unbounded box — the title and the confirm button ended up off-screen, and finding one card
+  // meant scanning the deck in raw order. A LARGE search (the whole deck, or more than 12 cards) now gets:
+  // a box capped to the viewport whose card grid is the only part that scrolls, smaller tiles sorted by
+  // cost then name, a name/trait filter, and hover previews. A small top-N search keeps its look.
+  const wholeDeck = (parts[6] || '').trim() === 'deck';
+  const large     = wholeDeck || allIDs.length > 12;
 
   // Shared SWU art corpus — see window.assetImageFolder (NextTurnRender.php); the rootPath form
   // resolves to the deleted ./SWUSim/concat tree and 404s.
@@ -5632,10 +5640,34 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
   // Players asked to be able to READ THE BOARD before deciding (owner 2026-09-28), so minimising drops the
   // dim, lets clicks through to the board, and leaves just the title bar as a pill to restore from.
   var minimized = false;
+  // Large search: the filter text and the grid's scroll position must survive render(), which rebuilds the
+  // panel on every pick — otherwise each click would clear the filter and jump the grid back to the top.
+  var filterText = '';
+  var gridScroll = 0;
+  var rendered = false;   // the scroll is carried between re-renders of THIS panel only, never from a previous search's
+  // Display order. Large: by cost, then name — the deck's own order means nothing to a player hunting for
+  // one card. Small: unchanged (the top-N order is what the card shows). Indices stay into allIDs.
+  var order = allIDs.map(function(_, i) { return i; });
+  if (large) {
+    var titleOf = function(id) { return (typeof Cardtitle === 'function' && Cardtitle(id)) || id; };
+    order.sort(function(a, b) {
+      return (getCardCost(allIDs[a]) - getCardCost(allIDs[b])) || String(titleOf(allIDs[a])).localeCompare(String(titleOf(allIDs[b]))) || (a - b);
+    });
+  }
+  // What the filter matches: name, subtitle, type and traits, from the client card dictionary.
+  function searchTextOf(id) {
+    var f = function(fn) { return (typeof fn === 'function' && fn(id)) || ''; };
+    return [f(window.Cardtitle), f(window.Cardsubtitle), f(window.Cardtype), f(window.Cardtrait)].join(' ').toLowerCase();
+  }
 
   function render() {
     var existing = document.getElementById('topdecksearch-panel');
-    if (existing) existing.remove();
+    if (existing) {
+      var oldGrid = rendered ? existing.querySelector('.topdecksearch-grid') : null;
+      if (oldGrid) gridScroll = oldGrid.scrollTop;
+      existing.remove();
+    }
+    rendered = true;
 
     var overlay = document.createElement('div');
     overlay.id = 'topdecksearch-panel';
@@ -5649,7 +5681,10 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
 
     var panel = document.createElement('div');
     panel.className = 'topdecksearch-box';     // hook for the board-centring rule in GameLayout.php
-    panel.style.cssText = "background:#0D1B2A;padding:28px 32px 24px;border-radius:12px;box-shadow:0 0 30px #0009;font-family:'Orbitron',sans-serif;text-align:center;max-width:90vw;";
+    // Capped to the viewport, as a flex column: header, subtitle and confirm keep their size and the card
+    // grid alone shrinks and scrolls (min-height:0 on it) — so the commit button can never leave the screen.
+    panel.style.cssText = "background:#0D1B2A;padding:28px 32px 24px;border-radius:12px;box-shadow:0 0 30px #0009;font-family:'Orbitron',sans-serif;text-align:center;max-width:90vw;"
+                        + "max-height:calc(100vh - 32px);box-sizing:border-box;display:flex;flex-direction:column;" + (large ? 'width:min(1100px, 90vw);' : '');
     if (minimized) {
       panel.style.pointerEvents = 'auto';
       panel.style.padding = '10px 18px';
@@ -5663,7 +5698,7 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
 
     var title = document.createElement('div');
     title.style.cssText = 'color:#fff;font-size:16px;letter-spacing:2px;';
-    title.textContent = 'SEARCH THE TOP CARDS';
+    title.textContent = wholeDeck ? 'SEARCH YOUR DECK' : 'SEARCH THE TOP CARDS';
     header.appendChild(title);
 
     var minBtn = document.createElement('button');
@@ -5705,10 +5740,33 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
     }
     panel.appendChild(subtitle);
 
-    var cardsRow = document.createElement('div');
-    cardsRow.style.cssText = 'display:flex;gap:16px;justify-content:center;flex-wrap:wrap;';
+    var tiles = [];   // [{wrap, text}] for the in-place filter
+    function applyFilter() {
+      var q = filterText.trim().toLowerCase();
+      tiles.forEach(function(t) { t.wrap.style.display = (!q || t.text.indexOf(q) !== -1) ? '' : 'none'; });
+    }
+    if (large) {
+      subtitle.style.marginBottom = '10px';
+      var filter = document.createElement('input');
+      filter.type = 'search';
+      filter.className = 'topdecksearch-filter';
+      filter.placeholder = 'Filter by name or trait';
+      filter.setAttribute('aria-label', 'Filter cards by name or trait');
+      filter.value = filterText;
+      filter.style.cssText = "align-self:center;width:min(360px,100%);margin:0 0 12px;padding:7px 12px;border-radius:6px;border:1px solid #3a4a5e;"
+                           + "background:#08121d;color:#e8eef5;font:13px/1.2 system-ui,sans-serif;box-sizing:border-box;";
+      // Filters IN PLACE (no render()), so the field keeps focus and caret while typing.
+      filter.oninput = function() { filterText = filter.value; applyFilter(); };
+      panel.appendChild(filter);
+    }
 
-    allIDs.forEach(function(cardID, i) {
+    var cardsRow = document.createElement('div');
+    cardsRow.className = 'topdecksearch-grid';
+    cardsRow.style.cssText = 'display:flex;gap:' + (large ? '10px' : '16px') + ';justify-content:center;flex-wrap:wrap;'
+                           + 'overflow-y:auto;min-height:0;flex:1 1 auto;padding:4px;';
+
+    order.forEach(function(i) {
+      var cardID = allIDs[i];
       var isMatch = matchSet.has(cardID);
       var thisSelected = selectedIndices.has(i);
       var costUsed = isCost ? Array.from(selectedIndices).reduce(function(s, idx) { return s + getCardCost(allIDs[idx]); }, 0) : 0;
@@ -5722,7 +5780,13 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
 
       var img = document.createElement('img');
       img.src = imgBase + resolveCardImageID(cardID) + '.webp'; // preview (mock) cards are stored as mock_<CardID>.webp
-      img.style.cssText = 'height:180px;border-radius:8px;display:block;';
+      img.style.cssText = 'height:' + (large ? '128px' : '180px') + ';border-radius:8px;display:block;';
+      if (large) {
+        // Smaller tiles want the full card on hover — the board's own preview (ShowCardDetail reads the
+        // first IMG inside the element it is given; #cardDetail sits above this overlay).
+        cardWrap.onmouseover = function(ev) { if (typeof ShowCardDetail === 'function') ShowCardDetail(ev, cardWrap); };
+        cardWrap.onmouseout = function() { if (typeof HideCardDetail === 'function') HideCardDetail(); };
+      }
       if (thisSelected) {
         img.style.border = '3px solid #27ae60';
         img.style.boxShadow = '0 0 12px #27ae60aa';
@@ -5757,9 +5821,11 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
 
       cardWrap.appendChild(img);
       cardsRow.appendChild(cardWrap);
+      tiles.push({ wrap: cardWrap, text: searchTextOf(cardID) });
     });
 
     panel.appendChild(cardsRow);
+    applyFilter();
 
     var selCount = selectedIndices.size;
     var confirmBtn = document.createElement('button');
@@ -5768,7 +5834,7 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
     confirmBtn.textContent = selCount > 0
       ? pickVerb + ' ' + selCount + ' card' + (selCount !== 1 ? 's' : '')
       : pickVerb + ' None';
-    confirmBtn.style.cssText = "margin-top:22px;padding:9px 36px;background:#1a5a2a;color:#fff;border:1px solid #3adf7a;border-radius:6px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:1px;";
+    confirmBtn.style.cssText = "align-self:center;flex:0 0 auto;margin-top:" + (large ? '14px' : '22px') + ";padding:9px 36px;background:#1a5a2a;color:#fff;border:1px solid #3adf7a;border-radius:6px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:1px;";
     confirmBtn.onclick = function() {
       var existing2 = document.getElementById('topdecksearch-panel');
       if (existing2) existing2.remove();
@@ -5778,6 +5844,7 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
 
     overlay.appendChild(panel);
     document.body.appendChild(overlay);
+    cardsRow.scrollTop = gridScroll;   // after mounting: a detached element has no scroll range
   }
 
   render();

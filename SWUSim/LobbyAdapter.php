@@ -38,8 +38,18 @@ class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAd
         return $out;
     }
 
+    // Each bot added to a room takes the NEXT Greek letter, in the order bots are added (owner, 2026-10-01): with several
+    // at one table the log read "Arenabot" for all of them. A letter is never reused — a bot that is removed (or gives
+    // its seat to a human) does not hand its letter back — and after Omega it wraps to Alpha. The name rides the seat's
+    // username into the roster, and SWUSetupGame() carries it into the game (SWUBotSeatDisplayName).
+    public const BOT_NAME_LETTERS = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa',
+        'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega'];
+
     public function configureBot(object $lobby, Player $player, string $profile): void {
         if (!isset($this->botProfiles($lobby)[$profile])) throw new InvalidArgumentException('Unknown bot profile.');
+        $next = intval($lobby->swuBotNameIndex ?? 0);
+        $player->setUsername('Arenabot ' . self::BOT_NAME_LETTERS[$next % count(self::BOT_NAME_LETTERS)]);
+        $lobby->swuBotNameIndex = $next + 1;
         $player->setBotProfile($profile);
         $player->setReady(true);   // deckOk comes from the deck's validation (LobbyApplyBotDeck)
     }

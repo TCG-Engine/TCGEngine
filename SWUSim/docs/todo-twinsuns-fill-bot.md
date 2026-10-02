@@ -519,6 +519,17 @@ Team Suns is a follow-up: ~100–150 lines plus team tests.
    the 15th (R10's "never self" guard) is an equivalent mutant, because the pseudo-random pick is always an
    opponent and always outscores "You".
 
+6. ✅ **Bot names (owner, 2026-10-01).** Each bot added to a room takes the NEXT Greek letter, in the order bots are
+   added: "Arenabot Alpha", "Arenabot Beta", …
+   - The room keeps a counter that only ever goes up (`$lobby->swuBotNameIndex`), so a removed bot never hands its
+     letter back.
+   - It covers the full 24-letter alphabet and wraps to Alpha after Omega.
+   - The name lives on the bot seat's `username` and is carried into the game as `SWUBotName_<seat>`, which
+     `SWUBotSeatDisplayName` reads for the board and the game log.
+   - Bot Practice's single bot stays plain "Arenabot".
+   - Tests in `lobby_room_bots_test.php`: order, wrap, no reuse after removal, and the name on the board. 3
+     mutations, all caught.
+
 **All four steps are built.** Before players see it:
 - **Commit and deploy.** The changes touch Core (`ProcessInput`, `EngineActionRunner`,
   `DecisionQueueController`, `jsInclude.js`), so run the blast-radius check.

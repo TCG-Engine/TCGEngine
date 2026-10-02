@@ -41,6 +41,12 @@ function backdate(string $lobbyID, int $secondsAgo, array $only = []): void {
     }
     apcu_store($lobbyID, $l);
 }
+// [playerID => username] — a bot's name ("Arenabot Beta").
+function names(string $lobbyID): array {
+    $l = apcu_fetch($lobbyID); $o = [];
+    foreach (($l->players ?? []) as $p) if ($p instanceof Player && $p->getBotProfile() !== '') $o[intval($p->getPlayerID())] = $p->getUsername();
+    ksort($o); return $o;
+}
 function seats(string $lobbyID): array {   // [playerID => botProfile]
     $l = apcu_fetch($lobbyID); $o = [];
     foreach (($l->players ?? []) as $p) if ($p instanceof Player) $o[intval($p->getPlayerID())] = $p->getBotProfile();
@@ -91,6 +97,8 @@ $l = apcu_fetch($lobby);
 $botOk = count($bots) === 2;
 foreach ($l->players as $p) if ($p->getBotProfile() !== '') $botOk = $botOk && $p->getDeckOk() && $p->getReady() && $p->getDeckLink() !== '' && count($p->getLeaders()) === 2;
 check($botOk, 'each bot seat has a legal deck, two leaders, and is ready');
+// Names go up the Greek alphabet in the order bots are ADDED (owner, 2026-10-01).
+check(array_values(names($lobby)) === ['Arenabot Alpha', 'Arenabot Beta'], 'bots are named in the order added: ' . json_encode(names($lobby)));
 
 // FIFO, made to DISAGREE with seat order: the SECOND bot is backdated to be the older one.
 [$botA, $botB] = $bots;
@@ -145,10 +153,13 @@ if ($pl !== null) {
 $r = $addPub('precon:ts2');
 check(empty($r['success']) && preg_match('/\d+\s*s/', $r['message'] ?? ''), 'public room: no bot in the first 60s, and it says how long: ' . ($r['message'] ?? ''));
 backdate($plobby, 61);
+// The alphabet WRAPS: with the room's counter at its last letter, the next two bots are Omega, then Alpha again.
+$pl2 = apcu_fetch($plobby); $pl2->swuBotNameIndex = 23; apcu_store($plobby, $pl2);
 $r = $addPub('precon:ts2');
 check(!empty($r['success']), 'public room: a bot can be added once 60s have passed since the last human joined: ' . ($r['message'] ?? ''));
 $r = $addPub('precon:ts3');
 check(!empty($r['success']), "adding a bot does not restart the wait (a second bot goes in at once): " . ($r['message'] ?? ''));
+check(array_values(names($plobby)) === ['Arenabot Omega', 'Arenabot Alpha'], 'after Omega the names wrap to Alpha: ' . json_encode(names($plobby)));
 // A human joining restarts the wait.
 $pj = hit($L . 'JoinQueue.php', ['rootName' => 'SWUSim', 'privateInviteCode' => strval($pl->inviteCode ?? ''), 'deckLink' => $deck, 'preconstructedDeck' => '', 'game_type' => ''], jar());
 check(!empty($pj['success']), 'a human joins the public room by its link (host + 2 bots + human = full)');
@@ -175,6 +186,12 @@ $sh = hit($L . 'JoinQueue.php', ['rootName' => 'SWUSim', 'createPrivate' => '1',
 $slobby = $sh['lobbyID']; $sk = $sh['authKey'];
 $sp2 = $join($sh['inviteCode'], jar());
 $r = hit($L . 'AddBot.php', ['lobbyID' => $slobby, 'authKey' => $sk, 'botProfile' => 'precon:ts4'], $jarS);
+// A removed bot does NOT give its letter back: add Alpha, remove it, and the next bot is Beta.
+$alpha = array_key_first(names($slobby));
+$k = hit($L . 'KickSeat.php', ['lobbyID' => $slobby, 'authKey' => $sk, 'targetPlayerID' => $alpha], $jarS);
+check(!empty($k['success']) && names($slobby) === [], 'the host removes the first bot (Arenabot Alpha): ' . json_encode($k));
+$r = hit($L . 'AddBot.php', ['lobbyID' => $slobby, 'authKey' => $sk, 'botProfile' => 'precon:ts4'], $jarS);
+check(array_values(names($slobby)) === ['Arenabot Beta'], 'the next bot is Beta, not a reused Alpha: ' . json_encode(names($slobby)));
 check(!empty($r['success']), 'start fixture: 2 humans + a pre-con bot');
 $st = hit($L . 'StartRoom.php', ['rootName' => 'SWUSim', 'lobbyID' => $slobby, 'playerID' => intval($sh['playerID'] ?? 1), 'authKey' => $sk], $jarS);
 check(!empty($st['success']) && !empty($st['gameName']), 'Start creates the game: ' . ($st['message'] ?? json_encode($st)));
@@ -186,6 +203,13 @@ if (!empty($st['gameName'])) {
     $at = strpos($raw, '{"enabled"');
     if ($at !== false) { $end = strpos($raw, '<~>', $at); $bc = json_decode($end === false ? substr($raw, $at) : substr($raw, $at, $end - $at), true); }
     check(is_array($bc) && !empty($bc['enabled']) && $bc['players'] === [3], 'the game drives seat 3 with the bot: ' . json_encode($bc));
+    // The board names the bot by the name its room gave it (SWUBotSeatDisplayName) — the log and the seat labels read it.
+    $ch = curl_init($B . 'NextTurn.php?' . http_build_query(['gameName' => $st['gameName'], 'playerID' => 1, 'folderPath' => 'SWUSim']));
+    curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => 1, CURLOPT_TIMEOUT => 30, CURLOPT_COOKIEFILE => $jarS,
+                            CURLOPT_HTTPHEADER => ['Cookie: lastAuthKey=' . $sk]]);
+    $page = (string)curl_exec($ch); curl_close($ch);
+    $names = preg_match('/SWU_SEAT_DISPLAY_NAMES\s*=\s*(\{[^;]*\})/', $page, $m) ? json_decode($m[1], true) : null;
+    check(($names['3'] ?? '') === 'Arenabot Beta', 'the game keeps the room\'s name: the seat-3 bot is "Arenabot Beta" on the board: ' . json_encode($names));
 }
 
 echo $FAILS === 0 ? "\nALL PASS\n" : "\n$FAILS FAILED\n";

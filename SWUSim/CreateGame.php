@@ -76,15 +76,17 @@ function SWUSetupGame($lobby, $opts = []) {
     // Not a game mode (SWUMarkBotSeats): the humans keep the inactivity clock and undo consent.
     // Every room bot plays Arenabot's Normal stack for now; the lobby profile only chooses its deck.
     if ($mode === '') {
-        $botSeats = [];
+        $botSeats = []; $botNames = [];
         $seat = 1;
         foreach (($lobby->players ?? []) as $p) {
             if (is_object($p) && method_exists($p, 'getBotProfile') && $p->getBotProfile() !== '') {
                 $botSeats[$seat] = 'heuristic-normal';
+                $botNames[$seat] = method_exists($p, 'getUsername') ? strval($p->getUsername()) : '';   // "Arenabot Gamma"
             }
             ++$seat;
         }
         if (!empty($botSeats)) SWUMarkBotSeats($botSeats);
+        foreach ($botNames as $s => $name) if ($name !== '') DecisionQueueController::StoreVariable('SWUBotName_' . $s, $name);
     }
     // Team rules (2v2). A separate never-cleared flag rather than a value of $mode, because it is
     // orthogonal: SWUGameMode() answers "goldfish/hotseat/normal" and must keep returning '' here.

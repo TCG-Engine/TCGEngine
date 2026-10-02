@@ -6,6 +6,8 @@
 //     (Darth Sidious): orientation cannot be assumed "front landscape, back portrait";
 //   · my DEPLOYED leader unit — ASH_009 Ahsoka Tano, whose tile is "<CardID>_back" (the portrait unit side): the
 //     same pair must come back, FRONT FIRST, whichever face was hovered;
+//   · a leader attached as a PILOT — JTL_001 Asajj Ventress on my Alliance X-Wing: its strip renders the "_back"
+//     face and is previewed by ShowSubcardDetail, a different function from every other card;
 //   · an ordinary unit (SOR_095) — the control: still ONE image, so the pair is not on for everything.
 // Pinned: the two faces share their SHORT EDGE (one card scale — a landscape front's height equals a portrait
 // back's width), sit side by side on desktop and fit the window. The phone (touch long-press) STACKS them and
@@ -29,6 +31,8 @@ const SCHEMA = [
   'WithGamePhase: ActionPhase',
   'WithActivePlayer: 1',
   'WithP2GroundArena: SOR_095:1:0',
+  'WithP1SpaceArena: SOR_237:1:0',
+  'WithP1SpaceArenaPilot: 0:JTL_001',
   '## WHEN',
   '## EXPECT',
 ].join('\n');
@@ -118,7 +122,23 @@ for (const [engine, launcher] of [['chromium', chromium], ['firefox', firefox], 
       await p.screenshot({ path: `${SHOTS}/${engine}-desktop-deployed.png` });
     }
 
-    // 3. control: an ordinary unit stays one image
+    // 3. a leader PILOT — its strip is an <img data-subcard-id> previewed by ShowSubcardDetail
+    const pilot = p.locator('img[data-subcard-id="JTL_001"]').first();
+    if (!(await pilot.count())) bad(n, 'no JTL_001 pilot strip on the X-Wing');
+    else {
+      await p.mouse.move(2, 2); await p.waitForTimeout(150);
+      await pilot.hover({ force: true }); await p.waitForTimeout(1500);
+      const d = await detail(p);
+      want(n, d.open && d.pair && d.imgs.length === 2, `leader pilot: a two-face preview (${JSON.stringify(d.imgs?.map(i => i.src))})`);
+      if (d.imgs?.length === 2) {
+        const [f, k] = d.imgs;
+        want(n, /^JTL_001\.webp/.test(f.src) && /^JTL_001_back\.webp/.test(k.src), `pilot: front first, then back: ${f.src}, ${k.src}`);
+        want(n, Math.abs(Math.min(f.w, f.h) - Math.min(k.w, k.h)) <= 1.5, 'pilot: one card scale');
+      }
+      await p.screenshot({ path: `${SHOTS}/${engine}-desktop-pilot.png` });
+    }
+
+    // 4. control: an ordinary unit stays one image
     const unitSrc = await p.evaluate(() => { const i = [...document.images].find(x => /SOR_095/.test(x.src)); return i ? i.src.split('/').pop().replace(/\..*$/, '') : null; });
     if (!unitSrc || !(await hoverImg(p, unitSrc))) bad(n, 'no SOR_095 unit tile on the board (the control)');
     else {
@@ -155,6 +175,20 @@ for (const [engine, launcher] of [['chromium', chromium], ['firefox', firefox], 
       }
       want(n, d.controls.includes('close') && !d.controls.includes('flip'), `a close X and no flip button: ${JSON.stringify(d.controls)}`);
       await p.screenshot({ path: `${SHOTS}/${engine}-phone-deployed.png` });
+    }
+    // the pilot strip's long-press goes through ShowSubcardDetail, as BeginCardDetailLongPress routes it
+    await p.evaluate(() => { if (typeof HideCardDetail === 'function') HideCardDetail(true); });
+    const pil = await p.evaluate(() => {
+      const img = document.querySelector('img[data-subcard-id="JTL_001"]');
+      if (!img) return false;
+      ShowSubcardDetail({ type: 'touchlongpress', clientX: 195, clientY: 400, target: img }, img, { allowTouch: true, skipDelay: true });
+      return true;
+    });
+    if (!pil) bad(n, 'no JTL_001 pilot strip on the phone board');
+    else {
+      await p.waitForTimeout(1500);
+      const d = await detail(p);
+      want(n, d.open && d.pair && d.imgs.length === 2 && /^JTL_001\.webp/.test(d.imgs[0].src), `touch pilot: the two-face preview (${JSON.stringify(d.imgs?.map(i => i.src))})`);
     }
     want(n, errs.length === 0, `page errors: ${errs.join(' | ')}`);
     await p.close();

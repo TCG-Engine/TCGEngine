@@ -71,7 +71,8 @@ check(preg_match('~function DoTopDeckPlay\([^)]*string \$label,~s', $gl) === 1,
 $fnStart = strpos($gl, 'function _topDeckSearchBegin(');
 check($fnStart !== false, '_topDeckSearchBegin is defined in GameLogic.php');
 $fnBody  = substr($gl, $fnStart, strpos($gl, "\nfunction ", $fnStart + 10) - $fnStart);
-check(preg_match('~\$param = .*_swuTopDeckWireText\(\$label\).*_swuTopDeckWireText\(\$verb\);~s', $fnBody) === 1,
+// [^;]* — further segments may follow the verb (segment 6, the 'deck'/'top' SCOPE, 2026-10-01).
+check(preg_match('~\$param = .*_swuTopDeckWireText\(\$label\).*_swuTopDeckWireText\(\$verb\)[^;]*;~s', $fnBody) === 1,
       'both fields are appended to the decision param, underscored for the space-delimited row');
 
 // A DecisionQueue row is space-delimited and this param is '|'-delimited, so the funnel — not 65 card

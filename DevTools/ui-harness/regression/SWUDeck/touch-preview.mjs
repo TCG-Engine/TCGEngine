@@ -117,14 +117,17 @@ await harness(async (check) => {
       const el = document.getElementById('cardDetail');
       const scrim = document.getElementById('cardDetailScrim');
       const br = el.getBoundingClientRect();
+      // The cap is PER CARD IMAGE: a leader previews two faces side by side (owner 2026-10-01), so the box is
+      // wider than one card while each face still respects the 400px ceiling.
+      const longest = Math.max(0, ...[...el.querySelectorAll('img')].map(i => { const r = i.getBoundingClientRect(); return Math.round(Math.max(r.width, r.height)); }));
       return {
-        w: Math.round(br.width), h: Math.round(br.height),
+        w: Math.round(br.width), h: Math.round(br.height), longest,
         scrimVisible: !!scrim && getComputedStyle(scrim).display !== 'none',
       };
     });
     check('desktop hover preview renders', !!hovered, hovered ? `${hovered.w}x${hovered.h}` : 'none');
     if (hovered) {
-      check('desktop keeps 400px cap', Math.max(hovered.w, hovered.h) === 400, `${hovered.w}x${hovered.h}`);
+      check('desktop keeps 400px cap (per card image)', hovered.longest === 400, `longest face ${hovered.longest}, box ${hovered.w}x${hovered.h}`);
       check('desktop shows NO scrim', !hovered.scrimVisible);
     }
     await dctx.close();

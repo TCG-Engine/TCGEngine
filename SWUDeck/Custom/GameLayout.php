@@ -319,6 +319,16 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
        banner non-interactive. pointer-events:none cascades to the slots and images beneath. */
     pointer-events: none;
   }
+  /* …except the HOVER PREVIEW (owner 2026-10-01: "show the previews when hovering over the splash/fade
+     images when editing the deck"). Only the card links opt back in, for their onmouseover=ShowCardDetail;
+     every CLICK inside the banner is swallowed in the capture phase (guardIdentityBannerClicks, below),
+     so the slots' Remove(myLeader)/Remove(myBase) still can never fire from here. A leader previews both
+     faces (Core/jsInclude.js CardDetailLeaderFaces) — its banner art is the Leader Unit crop, which the
+     preview resolves back to the full card pair. */
+  #swuIdentityBanner a[onmouseover*='ShowCardDetail'] {
+    pointer-events: auto;
+    cursor: default;
+  }
   /* Widths below are the pre-JS defaults; updateIdentityBannerLayout() overrides them inline once
      the leader count is known. They mirror its formula (base = 1/3 accent + half the 36% overlap =
      51.33%; leader = 2/3 + half the overlap = 84.67%) so there's no flash of a different split
@@ -800,6 +810,14 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
   </div>
 </div>
 <script>
+(function guardIdentityBannerClicks(){
+  // The banner's card links take pointer events again for the hover preview (CSS above), so a click would
+  // now reach the slot's engine-wired onclick (Remove(myLeader)). Capture phase on the banner itself runs
+  // before ANY handler below it — the link's, the slot's — and nothing in the banner should act on a click.
+  var banner = document.getElementById('swuIdentityBanner');
+  if (!banner) return;
+  banner.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); }, true);
+})();
 (function(){
   function cardIDFromImage(img){
     if(!img) return '';

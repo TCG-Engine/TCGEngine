@@ -77,10 +77,14 @@ for (const [name, launcher] of ENGINES) {
         window.ShowTopDeckSearchPanel({ Param: param }, 0, () => {});
         const panel = document.getElementById('topdecksearch-panel');
         if (!panel) return null;
-        const divs = panel.querySelectorAll('div > div > div');
+        // By ROLE, not position: since the 2026-09-28 minimise control the header row holds the title AND a
+        // button, so "the first div/button" read the title and the minimise "–". The subtitle is the box's
+        // second child (after the header row); the confirm is its LAST button.
+        const box = panel.querySelector('.topdecksearch-box') || panel.firstElementChild;
+        const buttons = box ? box.querySelectorAll('button') : [];
         return {
-          subtitle: divs[1] ? divs[1].textContent : '(no subtitle)',
-          button: panel.querySelector('button') ? panel.querySelector('button').textContent : '(no button)',
+          subtitle: box && box.children[1] ? box.children[1].textContent : '(no subtitle)',
+          button: buttons.length ? buttons[buttons.length - 1].textContent : '(no button)',
         };
       }, [c.param]);
       if (!got) { ok(name, `${c.card}: panel opens`, false); continue; }
