@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. An attack card activated through Ephemerate (Mordred, Fated Luminary) was never made ephemeral: it returned to the graveyard after combat instead of being banished. The ATTACK branch of the activation resolution only tagged non-ACTION, non-ATTACK field objects, and ClearIntent() sent every intent card to the graveyard. Fix: tag the intent object EPHEMERAL in the ATTACK branch when wasEphemerated=YES; ClearIntent() banishes EPHEMERAL intent cards (and strips the tag from the banished card).",
         "affectedFunction": "Custom/GameLogic.php OnCardActivated() ATTACK branch (Ephemerate tagging) + Custom/CombatLogic.php ClearIntent()",
-        "fixCommit": "TBD"
+        "fixCommit": "ca7ecef4"
     }
 }

@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. An ordinary level 2 -> level 3 level-up of Mordred, Flawless Blade INTO Fated Luminary drew two cards. DoMaterialize() (Custom/MaterializeLogic.php) drew two after EVERY champion level-up whose resulting lineage contained Fated Luminary (or Tristan, Shadowreaver), without checking that the level-up was a same-base-level one. Fix: compute $sameBaseLevelLevelUp (old champion's base level == new champion's base level) before the lineage is rebuilt and require it for the draw-2.",
         "affectedFunction": "Custom/MaterializeLogic.php DoMaterialize(): draw-2 block keyed on ChampionHasInLineage('KqBosnU7pU'/'4upufooz13')",
-        "fixCommit": "TBD"
+        "fixCommit": "ca7ecef4"
     }
 }

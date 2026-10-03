@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. Fated Luminary's floating-memory grant never applied to graveyard cards parsed back from the game state: HasFloatingMemory() granted it only when isset($obj->Controller), but the Graveyard zone class serializes only CardID and carries just PlayerID. Fix: new FloatingMemoryOwner() resolves a graveyard object's owner through PlayerID (field/stack objects keep Controller) and HasFloatingMemory() uses it for the Fated Luminary branch.",
         "affectedFunction": "Custom/GameLogic.php HasFloatingMemory() (Mordred, Fated Luminary branch gated on isset($obj->Controller)); new FloatingMemoryOwner()",
-        "fixCommit": "TBD"
+        "fixCommit": "ca7ecef4"
     }
 }

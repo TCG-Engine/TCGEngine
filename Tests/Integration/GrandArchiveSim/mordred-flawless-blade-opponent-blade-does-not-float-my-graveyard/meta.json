@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. An OPPONENT's Mordred, Flawless Blade made the attack cards in MY graveyard float: HasFloatingMemory() looped over both players' fields and returned true for any attack card as soon as ANY Flawless Blade was on the field. Fix: only the owner's field is searched for the Blade (owner = FloatingMemoryOwner(): graveyard objects -> PlayerID).",
         "affectedFunction": "Custom/GameLogic.php HasFloatingMemory() Mordred (WI2owxIw0z) branch (formerly iterating GetField(1) and GetField(2)); new FloatingMemoryOwner()",
-        "fixCommit": "TBD"
+        "fixCommit": "ca7ecef4"
     }
 }
