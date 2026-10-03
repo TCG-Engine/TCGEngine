@@ -4,7 +4,7 @@
 # container, in parallel.
 #
 #   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 \
-#     bash SWUSim/DevTools/rl/sweep_fixtures.sh <seeds=100> <workers=8> <outdir=/tmp/fixture_sweep> [fixture dir]
+#     bash SWUSim/DevTools/rl/sweep_fixtures.sh <seeds=100> <workers=10> <outdir=/tmp/fixture_sweep> [fixture dir]
 #
 # - Resumable: each game writes $OUT/games/<deck1>.<deck2>.<seed>.tsv; a finished game is skipped on re-run.
 # - Tidy: a game's SWUSim/Games/<id> folder (~320 KB) is deleted once its results are read; a FAILED game's
@@ -27,7 +27,10 @@
 # another arm's outdir would silently reuse that arm's results.
 set -u
 cd /var/www/html/TCGEngine
-SEEDS=${1:-100}; WORKERS=${2:-8}; OUT=${3:-/tmp/fixture_sweep}; DIR=${4:-SWUSim/Tests/BotFixtures/ash-meta-2026-09}
+# 10 workers = the owner's M1 Max (10 cores); measured 2026-10-03, games/min plateaus there (8 → 104, 10 → 133, 16 → 131).
+# opcache.file_cache shares compiled scripts across the one-game processes, which otherwise recompile the engine each
+# time: −13% per game, identical results. Timestamps are still validated (revalidate_freq=0), so an edit is picked up.
+SEEDS=${1:-100}; WORKERS=${2:-10}; OUT=${3:-/tmp/fixture_sweep}; DIR=${4:-SWUSim/Tests/BotFixtures/ash-meta-2026-09}
 SUPERSET=${SUPERSET:-}; SUPERSET_DECKS=${SUPERSET_DECKS:-}; VARIANT=${VARIANT:-}
 decks=$(ls "$DIR"/*.txt | xargs -n1 basename | sed 's/\.txt$//')
 if [ -n "$SUPERSET" ] && [ -n "$SUPERSET_DECKS" ]; then echo "[sweep] set SUPERSET or SUPERSET_DECKS, not both" >&2; exit 1; fi
@@ -39,7 +42,7 @@ for d in $FOLD; do
   # only surface as a "timeout" game. Check every folded deck once, up front, instead.
   grep -q '^Sideboard[[:space:]]*$' "$DIR/$d.txt" || { echo "[sweep] superset: $d has no Sideboard section" >&2; exit 1; }
 done
-mkdir -p "$OUT/games" "$OUT/traces" "$OUT/logs"
+mkdir -p "$OUT/games" "$OUT/traces" "$OUT/logs" /tmp/swusim-opcache   # opcache skips a missing file_cache dir silently
 # Refuse to mix arms in one outdir: the first run stamps it, a later run with another arm stops.
 ARM=$(if [ -n "$SUPERSET" ]; then echo superset; elif [ -n "$FOLD" ]; then echo "superset:$(echo $FOLD | tr ' ' '\n' | sort | tr '\n' ',' | sed 's/,$//')"; else echo game1; fi)
 [ -n "$VARIANT" ] && ARM="$ARM@$VARIANT"
@@ -72,7 +75,7 @@ run_one() {
                   *) case "$FOLD" in *" $b "*) ss="--superset=2" ;; esac ;; esac
   rm -f "$OUT/traces/$key.jsonl"
   out=$(SWUBOT_TRACE="$OUT/traces/$key.jsonl" SWUBOT_TRACE_MODE=combo \
-        timeout "${GAME_TIMEOUT:-90}" php -d apc.enable_cli=1 -d xdebug.mode=off -d memory_limit=1G DevTools/SWUSimBotSelfPlayTest.php --games=1 \
+        timeout "${GAME_TIMEOUT:-90}" php -d apc.enable_cli=1 -d xdebug.mode=off -d memory_limit=1G -d opcache.file_cache=/tmp/swusim-opcache DevTools/SWUSimBotSelfPlayTest.php --games=1 \
         --seed="$s" --first-player=1 --verbose --chooser="heuristic-$ca${VARIANT:+@$VARIANT}" --chooser2="heuristic-$cb${VARIANT:+@$VARIANT}" \
         --deck="$DIR/$a.txt" --deck2="$DIR/$b.txt" $ss 2>/dev/null)
   g=$(printf '%s\n' "$out" | grep -m1 'game created:' | awk '{print $NF}')

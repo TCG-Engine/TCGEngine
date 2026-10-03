@@ -2046,7 +2046,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
               + " onmouseover='event.stopPropagation(); ShowTopCardPeek(event, this);'"
               + " onmouseout='event.stopPropagation(); HideCardDetail();'"
               + " onfocus='ShowTopCardPeek(event, this);' onblur='HideCardDetail();'"
-              + " onclick='event.stopPropagation(); ShowTopCardPeek(event, this);'>"
+              + " onclick='event.stopPropagation(); PinTopCardPeek(event, this);'>"
               + "<svg viewBox='0 0 24 24' aria-hidden='true' focusable='false'>"
               + "<path d='M12 5c-5 0-9 4.5-9 7s4 7 9 7 9-4.5 9-7-4-7-9-7zm0 11.5A4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 0 1 0 9zm0-2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z'/>"
               + "</svg></div>";

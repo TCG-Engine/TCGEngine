@@ -662,6 +662,11 @@ const SWU_BOT_PROPOSALS = [
     'creditbank',
     // ('mgkill' was SHIPPED 2026-09-25 as feature group 'p13' — its history is in the feature comment.)
     // ('mgbomb' was SHIPPED 2026-09-24 as feature group 'p12' — its history is in the feature comment.)
+    // 2026-10-03 — owner ruling (Ahsoka research): a Sentinel kill is worth the base damage it UNLOCKS for my other
+    // ready, non-Saboteur units in that arena (BotFallback.php _SWUBotBreachOpened). Crash a cheap unit into a big
+    // Sentinel, or clear it with a survivor when that opens more; ties go to the survivor. Any buff, any deck.
+    // Spec: docs/superpowers/specs/2026-10-03-swusim-bot-sentinel-breach-design.md. Guard: bot_breach_test.php.
+    'breach',
 ];
 
 

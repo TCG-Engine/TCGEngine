@@ -131,6 +131,21 @@ $boardH = function ($b) use ($plots) { $plots($b);
 $check(($pickFor($picks, $SUPPORT)[0][2] ?? '') === 'ASH_110', 'H: fixture — Ackbar makes the Support attack; got ' . json_encode($pickFor($picks, $SUPPORT)));
 $check(($pickFor($picks, $LEND)[0][2] ?? '') === 'ASH_009', 'H: the borrowed +2 goes on Ahsoka over the more valuable Chewbacca; got ' . json_encode($pickFor($picks, $LEND)));
 
+// I) A SPACE SENTINEL with only ships beside Ahsoka (Luke ASH DV's T-6 Shuttle 1974, ASH_109): every ready "less power"
+// candidate is in the blocked arena, and the just-played Jar Jar is EXHAUSTED. Both read as "wasted" and tied on unit
+// value, so the +2 went on Jar Jar — strictly nothing — over a ready ship that still attacks (a unit, not the base).
+// Found in the 2026-10-03 canary traces (5 of 6 wasted picks with a ready alternative). An exhausted unit is the bottom.
+$boardI = function ($b) use ($plots) { $plots($b);
+    $b->WithSpaceUnitForPlayer(1, 'JTL_095', true); $b->WithSpaceUnitForPlayer(1, 'ASH_201', true);
+    $b->WithSpaceUnitForPlayer(2, 'ASH_109', false); $b->WithGroundUnitForPlayer(2, 'SOR_095', false); };
+[$picks] = $flipTurn($boardI);
+$lend = $pickFor($picks, $LEND);
+$check(!empty($lend), 'I: fixture — the flip turn offers a "less power" buff; got ' . json_encode($picks));
+// Jar Jar and the Naboo Royal Starship (SEC_099) both entered play exhausted off their Plots; the A-Wing has attacked. The
+// Open Circle Ace is the one ready unit left, and both "+2/+0" (the A-Wing's borrowed one and Ahsoka's own) qualify it.
+$check(count($lend) === 2 && empty(array_filter($lend, fn($p) => $p[2] !== 'ASH_201')),
+    'I: both +2/+0 go on the ready Ace, none on an exhausted unit (Jar Jar, the Royal Starship); got ' . json_encode($lend));
+
 // E) Not a flip turn: Jar Jar from hand with no Support pending keeps the ordinary scoring (the rule is inert).
 $build(function ($b) { $b->MyLeader('ASH_009', true, true, true, 'unit'); $b->FillResourcesForPlayer(1, 'SOR_095', 6); $b->WithCardInHandForPlayer(1, 'SEC_111');
     $b->WithGroundUnitForPlayer(1, 'SEC_098', true); $b->WithGroundUnitForPlayer(2, 'SOR_095', true); });

@@ -2907,6 +2907,25 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // A target mzID is seat-tagged server-side as `p{n}<Zone>-{i}`; on the client only the two seats on
     // the CURRENT view render (as `my…`/`their…`). These map an mzID to its owning seat and to the frame
     // the current view would render it in.
+    // ShowZonePopup hook (Core/jsInclude.js). The board repaints `my…`/`their…` from the CURRENT view's seats,
+    // but a popup is fetched from the server by NAME, and the server resolves `their…` to the HOME view's
+    // oppSeat (swuViews[0]) — so in "you vs P3" the discard slot drew P3's top card while tapping it opened
+    // P2's pile (mobile report 2026-10-03, desktop identical). Rename to the seat-tagged zone the home tiles
+    // already open (`p3Discard`) whenever the view's seat differs from the server's.
+    // ⚠ PUBLIC ZONES ONLY — the allowlist below is deliberate; do not add a hidden zone to it.
+    // Unchanged (byte-identical) for 2 seats and for the home view's own opponent, which keeps the
+    // playable-from-popup discard flow on its `theirDiscard-N` ids.
+    var SWU_POPUP_REMAP_PUBLIC = { Discard: 1 };
+    window.SimRemapPopupZone = function (zoneName) {
+        var v = window.swuView, home = (window.swuViews || [])[0];
+        if (!v || !home) return zoneName;
+        var m = /^(my|their)(.+)$/.exec(String(zoneName || ''));
+        if (!m || !SWU_POPUP_REMAP_PUBLIC[m[2]]) return zoneName;
+        var seat = (m[1] === 'their') ? v.oppSeat : v.viewSeat;
+        var serverSeat = (m[1] === 'their') ? home.oppSeat : home.viewSeat;
+        return (seat && seat !== serverSeat) ? ('p' + seat + m[2]) : zoneName;
+    };
+
     function swuSeatOfMzid(mzid) {
         var s = String(mzid || '');
         var pm = s.match(/^p(\d+)/);

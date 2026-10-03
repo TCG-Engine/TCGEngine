@@ -40,18 +40,49 @@ function _SWUBotThreatRemoved(array $att, array $def, array $W): float {
     return $rate * intval($def['attackPower']);
 }
 
+// PROPOSAL 'breach' (@try-breach). The attack power a kill of $def OPENS for $att's other units: their ready, non-Saboteur
+// units in $def's arena (a Saboteur already ignores Sentinel; an exhausted unit cannot attack this round), and only when
+// $def is a Sentinel and its controller has no OTHER Sentinel left there (an exhausted Sentinel still guards).
+// ⚠ One step only: a Shielded Sentinel is not breached by one hit (SWUBotCombatOutcome sees no kill), and pop-then-kill
+// is not planned. The opponent acting between my attacks is not modelled either.
+function _SWUBotBreachOpened(array $att, array $def): int {
+    if (empty($def['sentinel'])) return 0;
+    foreach (SWUBotUnits(intval($def['controller'])) as $u) {
+        if ($u['arena'] === $def['arena'] && $u['sentinel'] && $u['uid'] !== $def['uid']) return 0;
+    }
+    $open = 0;
+    foreach (SWUBotUnits(intval($att['controller'])) as $u) {
+        if ($u['uid'] === $att['uid'] || !$u['ready'] || $u['saboteur'] || $u['arena'] !== $def['arena']) continue;
+        $open += max(0, intval($u['attackPower']));
+    }
+    return $open;
+}
+
+// $v with +$bonus power defeats the ONLY Sentinel some opponent has in $v's arena (so the kill is a breach).
+function _SWUBotCanBreach(array $v, int $bonus): bool {
+    $att = $v; $att['attackPower'] += $bonus; $att['power'] += $bonus;
+    foreach (SWUBotOpponents(intval($v['controller'])) as $opp) {
+        $sents = array_values(array_filter(SWUBotUnits($opp), fn($u) => $u['arena'] === $v['arena'] && $u['sentinel']));
+        if (count($sents) !== 1) continue;
+        $o = SWUBotCombatOutcome($att, $sents[0]);
+        if ($o === 'kill-survive' || $o === 'trade') return true;
+    }
+    return false;
+}
+
 function SWUBotTargetValue(array $att, ?array $def, array $W): float {
     if ($def === null) return $W['base'] * $att['attackPower'];
     $lossF = _SWUBotLossFactor($att);
+    $breach = SWUBotProposalOn('breach') ? $W['base'] * _SWUBotBreachOpened($att, $def) : 0.0;
     switch (SWUBotCombatOutcome($att, $def)) {
         case 'kill-survive':
-            $v = $W['kill'] * SWUBotUnitValue($def) + _SWUBotThreatRemoved($att, $def, $W);
+            $v = $W['kill'] * SWUBotUnitValue($def) + _SWUBotThreatRemoved($att, $def, $W) + $breach;
             // The Overwhelm excess reaches the base — which also makes Aggro prefer the lowest-HP kill.
             if (SWUBotOverwhelmKills($att, $def)) $v += $W['base'] * ($att['attackPower'] - $def['remaining']);
             return $v;
         case 'trade':
             return $W['kill'] * SWUBotUnitValue($def) + _SWUBotThreatRemoved($att, $def, $W)
-                   - $lossF * $W['loss'] * SWUBotUnitValue($att);
+                   - $lossF * $W['loss'] * SWUBotUnitValue($att) + $breach;
         case 'bounce':
             // Guide: pop a Shield with the smallest attacker.
             if ($def['shields'] > 0 && !$att['saboteur']) return $W['chip'] - 0.05 * $att['attackPower'];
@@ -1385,14 +1416,24 @@ function _SWUBotSupportPending(int $seat): bool {
     return false;
 }
 
+// The Raid my deployed leader has (SEC_099 Naboo Royal Starship's Raid 2): Support LENDS it to the Supported unit (owner
+// ruling, "Support lends gained abilities"), so a Support attacker breaches with it. 0 with no leader unit.
+function _SWUBotSupportLentRaid(int $seat): int {
+    $raid = 0;
+    foreach (SWUBotUnits($seat) as $u) if ($u['isLeader']) $raid = max($raid, intval($u['attackPower']) - intval($u['power']));
+    return $raid;
+}
+
 // The unit that should make the Support attack: a ready non-leader unit ("another unit"), in an arena that reaches the
 // base if any does, the strongest attacker there (Raid is lent to whoever it is, so it never changes the pick).
-function _SWUBotSupportPlanUid(int $seat): int {
+function _SWUBotSupportPlanUid(int $seat, int $bonus = 0): int {
     $blocked = _SWUBotBlockedArenas($seat);
     $best = null; $bestKey = null;
     foreach (SWUBotUnits($seat) as $v) {
         if (!$v['ready'] || $v['isLeader']) continue;
-        $key = [$blocked[$v['arena']] ? 0 : 1, $v['attackPower'], $v['remaining'], -$v['uid']];
+        // 'breach' (@try-breach): a Sentinel this unit can defeat with the buff on offer is not a write-off.
+        $clear = !$blocked[$v['arena']] || (SWUBotProposalOn('breach') && _SWUBotCanBreach($v, $bonus + _SWUBotSupportLentRaid($seat)));
+        $key = [$clear ? 1 : 0, $v['attackPower'], $v['remaining'], -$v['uid']];
         if ($bestKey === null || $key > $bestKey) { $best = $v; $bestKey = $key; }
     }
     return $best === null ? 0 : $best['uid'];
@@ -1401,7 +1442,8 @@ function _SWUBotSupportPlanUid(int $seat): int {
 // The Support attacker: the strongest in an arena that reaches the base. After the Plot buffs that is the planned unit —
 // the same order _SWUBotSupportPlanUid uses — so no separate plan check is needed (a mutation of one proved it inert).
 function _SWUBotSupportAttackerScore(int $seat, array $v): float {
-    return (_SWUBotBlockedArenas($seat)[$v['arena']] ? 0.1 : 1.0) * (1.0 + 0.1 * $v['attackPower'] + 0.001 * $v['remaining']);
+    $blocked = _SWUBotBlockedArenas($seat)[$v['arena']] && !(SWUBotProposalOn('breach') && _SWUBotCanBreach($v, _SWUBotSupportLentRaid($seat)));
+    return ($blocked ? 0.1 : 1.0) * (1.0 + 0.1 * $v['attackPower'] + 0.001 * $v['remaining']);
 }
 
 // A friendly "+N for this phase" during the flip turn, or null when this is not one (the ordinary scoring decides).
@@ -1409,8 +1451,10 @@ function _SWUBotSupportAttackerScore(int $seat, array $v): float {
 //    none — a +2/+2 on her still beats passing (an explicit "avoid the leader" was proved inert by mutation and removed);
 //  · the Supported unit's borrowed On Attack (the source is a leader card, the attacker is not a leader): the leader;
 //  · the leader's own On Attack: any ready unit that still attacks.
-// Everywhere: a buff on an exhausted unit (other than the one attacking now) or on a unit in a Sentinel-blocked arena is
-// wasted, so it scores at the bottom of the candidates.
+// Everywhere: a buff on a unit in a Sentinel-blocked arena is wasted for the base race, so it scores near the bottom; one on
+// an exhausted unit (other than the one attacking now) does nothing at all, so it scores below that — a blocked unit still
+// attacks a unit. Tied, the just-played (exhausted) Jar Jar or Royal Starship took the +2 over a ready ship whenever a
+// space Sentinel stood (2026-10-03 canary traces, Ahsoka vs Luke ASH DV).
 function _SWUBotBuffSpreadScore(array $ctx, int $seat, string $c): ?float {
     if (!preg_match('/^(my|p\d+)(GroundArena|SpaceArena)-\d+$/', $c)) return null;
     $v = SWUBotViewForMz($seat, $c);
@@ -1425,12 +1469,16 @@ function _SWUBotBuffSpreadScore(array $ctx, int $seat, string $c): ?float {
     }
     $fromLeader = $src !== '' && stripos(strval(CardType($src)), 'Leader') !== false && $att !== null;
     if (!$pending && !$fromLeader) return null;
-    $blocked = _SWUBotBlockedArenas($seat)[$v['arena']];
+    $amount = intval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[1] ?? 0);   // APPLY_PHASE_BUFF|<amount>|…
+    // While the Support attack is pending (Jar Jar's prompt), the unit that makes it also borrows the leader's Raid.
+    $lent = ($pending && !$fromLeader && !$v['isLeader']) ? _SWUBotSupportLentRaid($seat) : 0;
+    $blocked = _SWUBotBlockedArenas($seat)[$v['arena']] && !(SWUBotProposalOn('breach') && _SWUBotCanBreach($v, $amount + $lent));
     $attackingNow = $att !== null && $att['uid'] === $v['uid'];
-    if ((!$v['ready'] && !$attackingNow) || $blocked) return 0.001 + 0.0001 * SWUBotUnitValue($v);   // wasted, but no worse than PASS
+    if (!$v['ready'] && !$attackingNow) return 0.001 + 0.0001 * SWUBotUnitValue($v);   // expires unused, but no worse than PASS
+    if ($blocked) return 0.01 + 0.0001 * SWUBotUnitValue($v);                        // still attacks — a unit, not the base
     $score = 1.0 + 0.01 * SWUBotUnitValue($v);
     if ($pending && !$fromLeader) {
-        if ($v['uid'] === _SWUBotSupportPlanUid($seat)) $score += 10.0;   // the leader gets hers from the Supported attack
+        if ($v['uid'] === _SWUBotSupportPlanUid($seat, $amount)) $score += 10.0;   // the leader gets hers from the Supported attack
     } elseif (!$att['isLeader'] && $v['isLeader']) {
         $score += 10.0;                                                      // the Supported unit buffs the leader: she attacks next
     }
