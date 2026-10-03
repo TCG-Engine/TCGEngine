@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. A leaveFieldAbilities closure that offers another on-field object as a target addressed it by its pre-departure positional mzID (the departing object still occupies its slot while the closure runs). The departing object is spliced out of the zone before the resulting MZCHOOSE is validated, shifting later indices down, so the captured mzID went stale; MZCountChoices() resolved 0 choices, ExecuteStaticMethods() auto-PASSed the MZCHOOSE, and the paired CUSTOM follow-up was skipped. Fix: Core/DecisionQueueController.php CleanupRemovedCards() invokes optional hook GameOnZoneElementSpliced($zoneName, $index) after each splice; GrandArchiveSim/Custom/GameLogic.php implements it to re-index (and drop the spliced object from) the candidate mzIDs of pending MZCHOOSE/MZMAYCHOOSE/MZMULTICHOOSE decisions in field zones, in each decision owner's perspective. Class-wide: covers any On Leave ability (or other pending field-targeting decision) without touching generated closures.",
         "affectedFunction": "Core/DecisionQueueController.php CleanupRemovedCards() + GrandArchiveSim/Custom/GameLogic.php GameOnZoneElementSpliced()/GAReindexFieldSpecsAfterSplice()",
-        "fixCommit": "(set in follow-up commit)"
+        "fixCommit": "1342f13f"
     }
 }
