@@ -1,8 +1,0 @@
-[
-    {"step":9,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the Striking Tides is still in banishment -- it cannot be activated on the later turn"},
-    {"step":9,"type":"card_property_equals","mzId":"p1Banish-0","property":"TurnEffects","value":"[]","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the _warriorFaeRealm permission tag was stripped at the end of the banishing turn"},
-    {"step":9,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): nothing left banishment"},
-    {"step":9,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): no activation started (no reserve payment requested)"},
-    {"step":9,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"eRcqucBKhX","semantic":true,"label":"The Warrior is still on the field (the permission condition 'as long as you control' holds)"},
-    {"step":9,"type":"decision_queue_empty","player":"all"}
-]

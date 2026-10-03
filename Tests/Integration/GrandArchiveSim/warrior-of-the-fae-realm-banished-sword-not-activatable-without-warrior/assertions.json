@@ -1,0 +1,9 @@
+[
+    {"step":1,"type":"card_property_equals","mzId":"p1Banish-0","property":"TurnEffects","value":"[\"_warriorFaeRealm\",\"_warriorFaeRealmLater\"]","semantic":true,"label":"Setup precondition: the banished Striking Tides already carries both permission tags (a prior turn's banish)"},
+    {"step":1,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Setup precondition: player 1 controls no Warrior (only the champion is on the field)"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"Without a Warrior of the Fae Realm in play the banished Sword attack stays in banishment when clicked on a later turn"},
+    {"step":4,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Exactly one card remains in banishment (nothing left it for activation)"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"The click did not move the card into hand: hand unchanged from before the click"},
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"No reserve payment was requested or made"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

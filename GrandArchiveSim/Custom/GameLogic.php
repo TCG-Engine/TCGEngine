@@ -1824,9 +1824,11 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             // Warrior of the Fae Realm (eRcqucBKhX): activate tagged Sword attacks from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
-                if($bObj !== null && !$bObj->removed && in_array('_warriorFaeRealm', $bObj->TurnEffects ?? [])
-                    && ZoneContainsCardID("myField", "eRcqucBKhX")) {
+                if(WarriorFaeRealmCanActivateBanished($bObj)) {
                     $handObj = MZMove($playerID, $actionCard, "myHand");
+                    if($handObj !== null) {
+                        $handObj->TurnEffects = array_values(array_diff($handObj->TurnEffects ?? [], ['_warriorFaeRealm', '_warriorFaeRealmLater']));
+                    }
                     $hand = &GetHand($playerID);
                     $handIdx = count($hand) - 1;
                     ActivateCard($playerID, "myHand-" . $handIdx, false);
@@ -18001,7 +18003,7 @@ function BanishSelectionMetadata($obj) {
     }
 
     // Warrior of the Fae Realm (eRcqucBKhX): tagged _warriorFaeRealm turn effect + Warrior still on field
-    if ($currentPhase === "MAIN" && in_array('_warriorFaeRealm', $turnEffects) && ZoneContainsCardID("myField", "eRcqucBKhX")) {
+    if ($currentPhase === "MAIN" && WarriorFaeRealmCanActivateBanished($obj)) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
@@ -18075,6 +18077,19 @@ $customDQHandlers["DiscardChosenCard"] = function($player, $parts, $lastDecision
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     DiscardCard($player, $lastDecision);
 };
+
+// Warrior of the Fae Realm (eRcqucBKhX): "As long as you control CARDNAME, you may activate the
+// banished card on a later turn." The On Enter tags the banished card _warriorFaeRealm; the
+// end-of-turn banish cleanup (ExpireEffects) keeps the tag and adds _warriorFaeRealmLater once the
+// banishing turn has ended, so the card is refused on the turn it was banished and offered on every
+// later turn while the Warrior is still on the controller's field ("myField" = the clicking player).
+function WarriorFaeRealmCanActivateBanished($bObj) {
+    if($bObj === null || $bObj->removed) return false;
+    $effects = $bObj->TurnEffects ?? [];
+    return in_array('_warriorFaeRealm', $effects)
+        && in_array('_warriorFaeRealmLater', $effects)
+        && ZoneContainsCardID("myField", "eRcqucBKhX");
+}
 
 function ExpireEffects($isEndTurn=true) {
     $turnPlayer = &GetTurnPlayer();
@@ -18162,6 +18177,16 @@ function ExpireEffects($isEndTurn=true) {
                 if($effect === '_seethingIntercession') {
                     $newBanishEffects[] = $effect;
                 }
+                // Warrior of the Fae Realm (eRcqucBKhX): the banished card stays activatable on
+                // every LATER turn, so the permission tag survives turn cleanup. The first
+                // cleanup after the banish (= the banishing turn ending) also stamps
+                // _warriorFaeRealmLater; the card is refused until that stamp exists.
+                if($effect === '_warriorFaeRealm' || $effect === '_warriorFaeRealmLater') {
+                    $newBanishEffects[] = $effect;
+                }
+            }
+            if(in_array('_warriorFaeRealm', $newBanishEffects) && !in_array('_warriorFaeRealmLater', $newBanishEffects)) {
+                $newBanishEffects[] = '_warriorFaeRealmLater';
             }
             $banishObj->TurnEffects = $newBanishEffects;
         }

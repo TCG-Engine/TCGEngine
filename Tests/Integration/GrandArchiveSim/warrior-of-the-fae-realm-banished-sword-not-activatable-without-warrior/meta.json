@@ -1,0 +1,23 @@
+{
+    "name": "warrior-of-the-fae-realm-banished-sword-not-activatable-without-warrior",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:41:32+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "eRcqucBKhX"
+    ],
+    "notes": "Warrior of the Fae Realm (eRcqucBKhX): \"As long as you control CARDNAME, you may activate the banished card on a later turn.\" Negative case for the 'as long as you control' condition: a Striking Tides is seeded in player 1's banishment already carrying both permission tags (_warriorFaeRealm and the later-turn stamp, i.e. exactly what a prior turn's real banish leaves), but player 1 controls no Warrior of the Fae Realm. On player 1's next turn the click is accepted as a no-op (an FSM click that matches no branch is not rejected, so the refusal is asserted on state): the card stays in banishment, hand and memory unchanged. CAVEAT: the tags are seeded (not produced through real play) so this fixture proves only the Warrior-on-field gate; the tag lifecycle is proven through real play by the two sibling fixtures.",
+    "semanticCoverage": {
+        "testedCards": [
+            "eRcqucBKhX"
+        ],
+        "mechanics": [
+            "condition",
+            "limit",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "As long as you control Warrior of the Fae Realm, you may activate the banished card on a later turn."
+        ]
+    }
+}

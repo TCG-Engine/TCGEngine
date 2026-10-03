@@ -21,15 +21,17 @@ em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
-0
-0
 1
-qrxQGA1pc6
+qrxQGA1pc6 _warriorFaeRealm -
 0
-1
-CHAMP_DEALT_COMBAT_DMG
 0
-2
+0
+0
+0
+5
+em6eEh9q8y
+em6eEh9q8y
+px60u5n1do
 em6eEh9q8y
 px60u5n1do
 8
@@ -42,18 +44,15 @@ px60u5n1do
 px60u5n1do
 em6eEh9q8y
 2
-tafqldAGRF 1 1 0 1 vz4kc558yx-ALLY_ACTIVATED eyJfY2hhbXBDb21iYXREYW1hZ2VEZWFsdFRoaXNUdXJuIjo0fQ== - 1
+tafqldAGRF 2 1 0 1 vz4kc558yx-ALLY_ACTIVATED - - 1
 eRcqucBKhX 2 1 0 1 ENTERED_THIS_TURN - - 3
 1
-tafqldAGRF 2 2 4 2 WAS_ATTACKED~DAMAGED_SINCE_LAST_TURN~CHAMP_DMG_BY_P1 eyJfY2hhbXBEYW1hZ2VUaGlzVHVybiI6NH0= - 2
+tafqldAGRF 2 2 0 2 - - - 2
 0
 0
-7
+4
 em6eEh9q8y
 px60u5n1do
-em6eEh9q8y
-px60u5n1do
-em6eEh9q8y
 em6eEh9q8y
 px60u5n1do
 0

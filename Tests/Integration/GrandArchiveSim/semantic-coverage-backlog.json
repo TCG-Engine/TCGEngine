@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T15:34:05+00:00",
+    "generatedAt": "2026-10-03T15:43:43+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 628,
@@ -35330,8 +35330,9 @@
                 "condition"
             ],
             "existingFixtures": [
-                "warrior-of-the-fae-realm-banished-sword-activatable-same-turn",
-                "warrior-of-the-fae-realm-banished-sword-never-activatable-on-later-turn",
+                "warrior-of-the-fae-realm-banished-sword-activatable-on-later-turn",
+                "warrior-of-the-fae-realm-banished-sword-not-activatable-same-turn",
+                "warrior-of-the-fae-realm-banished-sword-not-activatable-without-warrior",
                 "warrior-of-the-fae-realm-enter-banish-sword-from-hand-draw-memory",
                 "warrior-of-the-fae-realm-enter-banish-sword-from-memory",
                 "warrior-of-the-fae-realm-enter-decline-banish",
@@ -35339,8 +35340,9 @@
                 "warrior-of-the-fae-realm-stealth-cannot-be-attacked"
             ],
             "semanticFixtures": [
-                "warrior-of-the-fae-realm-banished-sword-activatable-same-turn",
-                "warrior-of-the-fae-realm-banished-sword-never-activatable-on-later-turn",
+                "warrior-of-the-fae-realm-banished-sword-activatable-on-later-turn",
+                "warrior-of-the-fae-realm-banished-sword-not-activatable-same-turn",
+                "warrior-of-the-fae-realm-banished-sword-not-activatable-without-warrior",
                 "warrior-of-the-fae-realm-enter-banish-sword-from-hand-draw-memory",
                 "warrior-of-the-fae-realm-enter-banish-sword-from-memory",
                 "warrior-of-the-fae-realm-enter-decline-banish",

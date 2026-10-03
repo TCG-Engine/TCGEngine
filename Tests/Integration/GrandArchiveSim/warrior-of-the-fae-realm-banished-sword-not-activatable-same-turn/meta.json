@@ -1,0 +1,31 @@
+{
+    "name": "warrior-of-the-fae-realm-banished-sword-not-activatable-same-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:41:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "eRcqucBKhX"
+    ],
+    "notes": "Warrior of the Fae Realm (eRcqucBKhX): \"you may activate the banished card on a later turn.\" Player 1 plays the Warrior on turn 2 of the game (their second turn, so the first-turn attack lock cannot be the cause of a refusal) and banishes a Striking Tides; the immediate click on the banished card is accepted by the engine as a no-op (an FSM click that matches no branch does not reject, so the refusal is asserted on state): the card stays banished with only the first-stage tag, no payment is requested or made, nothing resolves and the opposing champion takes no damage. The same click on a later turn starts a real activation in warrior-of-the-fae-realm-banished-sword-activatable-on-later-turn. Replaces warrior-of-the-fae-realm-banished-sword-activatable-same-turn, which pinned the old behavior (same-turn activation proceeded and dealt 4).",
+    "semanticCoverage": {
+        "testedCards": [
+            "eRcqucBKhX"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition",
+            "limit",
+            "timing"
+        ],
+        "rulesClauses": [
+            "As long as you control Warrior of the Fae Realm, you may activate the banished card on a later turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The Sword attack banished by the Warrior's own On Enter could be activated immediately in the SAME turn although the text only grants activation 'on a later turn'. The banished Sword attack tag (_warriorFaeRealm) was stripped by the end-of-turn banish-zone cleanup in Custom/GameLogic.php ExpireEffects() (it retained only _seethingIntercession), and the ActionMap 'myBanish' branch checked only the tag + Warrior on field with no 'banished on an earlier turn' test. Fix: the cleanup retains _warriorFaeRealm and stamps _warriorFaeRealmLater the first time a turn ends after the banish; new WarriorFaeRealmCanActivateBanished() (tag AND later-stamp AND Warrior on the controller's field) gates both the ActionMap click and the green highlight, and the tags are stripped when the card moves to hand.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myBanish' (_warriorFaeRealm branch); ExpireEffects() banish-zone cleanup (later-turn stamp); new WarriorFaeRealmCanActivateBanished()",
+        "verification": "Per-step state dump: after the same-turn click the banish zone, memory, graveyard and champion damage are identical to the pre-click state. Break/restore recorded in the fix commit message.",
+        "fixCommit": "TBD"
+    }
+}

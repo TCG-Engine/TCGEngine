@@ -22281,17 +22281,16 @@ $fixtures['warrior-of-the-fae-realm-enter-non-sword-attack-not-offered'] = [
     ],
 ];
 
-// --- Warrior of the Fae Realm: the banished Sword attack can never be activated on a LATER turn (engine bug) ---
+// --- Warrior of the Fae Realm: the banished Sword attack CAN be activated on a LATER turn ---
 // Warrior of the Fae Realm (eRcqucBKhX): "As long as you control CARDNAME, you may activate the
-// banished card on a later turn." ENGINE BUG (found, confirmed live, NOT fixed): the banished card
-// is tagged with the _warriorFaeRealm turn effect, but the end-of-turn cleanup of the banish zone
-// (Custom/GameLogic.php, "Clear TurnEffects from the expiring player's banish zone") keeps only
-// '_seethingIntercession' and strips every other tag, so by the time a "later turn" arrives the
-// tag is gone and ActionMap("myBanish") ignores the click. Player 1 plays the Warrior and banishes
-// the Striking Tides, both players pass a turn, and on player 1's next turn clicking the banished
-// card does nothing: no payment is requested and it stays in banishment. The REGRESSION GUARD
-// assertions pin this (a working implementation would start the activation and ask for payment).
-$fixtures['warrior-of-the-fae-realm-banished-sword-never-activatable-on-later-turn'] = [
+// banished card on a later turn." Fixed (was ENGINE BUG "never activatable on a later turn": the
+// end-of-turn banish cleanup in Custom/GameLogic.php stripped the _warriorFaeRealm tag). Player 1
+// plays the Warrior on turn 1 and banishes the Striking Tides, both players pass, and on player 1's
+// turn 3 clicking the banished card starts a real activation: 3 reserve payments, an attack on
+// player 2's champion for 4, the card ends in the graveyard. (The first player may not attack on
+// turn 1, so a turn-1 same-turn click would be refused for the wrong reason; the same-turn
+// refusal is pinned separately at turn 3.)
+$fixtures['warrior-of-the-fae-realm-banished-sword-activatable-on-later-turn'] = [
     'testedCards' => ['eRcqucBKhX'],
     'deck' => $mordredDeck,
     'setup' => [
@@ -22305,19 +22304,21 @@ $fixtures['warrior-of-the-fae-realm-banished-sword-never-activatable-on-later-tu
         mrdEnd(1), // end player 1 turn 1
         mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
         mrdPass(1), // decline the materialize offer
-        mrdPlay(1, 'myBanish-0'), // try to activate the banished Striking Tides on a LATER turn: nothing happens
+        mrdPlay(1, 'myBanish-0'), // activate the banished Striking Tides on a LATER turn
+        ...mrdPay(1, 3), // 3 reserve payments (full printed cost)
+        mrdAns(1, 'myField-0', ['expectFailure' => true, 'semantic' => true, 'label' => 'The attack target prompt rejects the attacker\'s own champion']),
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
     ],
 ];
 
-// --- Warrior of the Fae Realm: the banished Sword attack CAN be activated on the SAME turn (contrary to "on a later turn") ---
-// Warrior of the Fae Realm (eRcqucBKhX): "you may activate the banished card on a later turn." ENGINE
-// BUG (found, confirmed live, NOT fixed): the ActionMap "myBanish" branch (Custom/GameLogic.php)
-// only requires the _warriorFaeRealm tag and the Warrior on the field -- it never checks that the
-// card was banished on an EARLIER turn -- so the Striking Tides banished by this very On Enter can
-// be activated right away in the same turn. The REGRESSION GUARD assertions pin the buggy outcome:
-// the activation proceeds (3 further reserve payments), hits player 2's champion for 4 and the card
-// ends in the graveyard. (Player 1 plays this on turn 3 because the first player cannot attack on turn 1.)
-$fixtures['warrior-of-the-fae-realm-banished-sword-activatable-same-turn'] = [
+// --- Warrior of the Fae Realm: the banished Sword attack is REFUSED on the SAME turn ("on a later turn") ---
+// Warrior of the Fae Realm (eRcqucBKhX): "you may activate the banished card on a later turn."
+// Fixed (was ENGINE BUG "activatable on the same turn": the ActionMap "myBanish" branch never checked
+// that the card was banished on an EARLIER turn). Player 1 plays the Warrior on turn 3 (so the
+// first-turn attack lock cannot be the reason for a refusal) and banishes the Striking Tides; the
+// immediate click on the banished card is refused as a no-op (the FSM click itself is accepted by the
+// engine, so the refusal is asserted on state): no payment is requested, it stays banished.
+$fixtures['warrior-of-the-fae-realm-banished-sword-not-activatable-same-turn'] = [
     'testedCards' => ['eRcqucBKhX'],
     'deck' => $mordredDeck,
     'setup' => [
@@ -22331,9 +22332,28 @@ $fixtures['warrior-of-the-fae-realm-banished-sword-activatable-same-turn'] = [
         mrdPlay(1, 'myHand-7'), // play Warrior of the Fae Realm
         ...mrdPay(1, 3), // reserve payments
         mrdAns(1, 'myHand-4'), // On Enter: banish Striking Tides
-        mrdPlay(1, 'myBanish-0'), // activate the banished Striking Tides in the SAME turn
-        ...mrdPay(1, 3), // 3 further reserve payments
-        mrdAns(1, 'theirField-0'), // attack player 2's champion
+        mrdPlay(1, 'myBanish-0'), // click the Sword attack banished THIS turn: the engine accepts the click as a no-op (refusal is asserted on state, not as a rejected action)
+    ],
+];
+
+// --- Warrior of the Fae Realm: later-turn activation needs the Warrior ("as long as you control CARDNAME") ---
+// Warrior of the Fae Realm (eRcqucBKhX): "As long as you control CARDNAME, you may activate the
+// banished card on a later turn." Negative case: a Striking Tides sits in player 1's banishment
+// already carrying the permission tags a prior turn's banish would have left (_warriorFaeRealm +
+// _warriorFaeRealmLater) but player 1 does NOT control a Warrior of the Fae Realm, so on turn 3
+// the click is refused as a no-op (asserted on state). (Seeded tags: this proves only the "as long as you control" gate, the
+// two sibling fixtures prove the tag lifecycle through real play.)
+$fixtures['warrior-of-the-fae-realm-banished-sword-not-activatable-without-warrior'] = [
+    'testedCards' => ['eRcqucBKhX'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'qrxQGA1pc6', 'setProperties' => ['TurnEffects' => ['_warriorFaeRealm', '_warriorFaeRealmLater']]], // Striking Tides in banishment with the permission tags, but no Warrior on the field -> p1 banish-0
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myBanish-0'), // click the banished Sword attack with no Warrior in play: accepted as a no-op (refusal is asserted on state)
     ],
 ];
 
