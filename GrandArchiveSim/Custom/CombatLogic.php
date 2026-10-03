@@ -4873,12 +4873,13 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                     SetFlashMessage('REVEAL:' . implode('|', $revealIDs));
                 }
                 // Move top $revealCount cards from deck to material deck (preserved)
+                // MZMoveTopOfZone, not a loop of MZMove($controller, "myDeck-0", ...) with a $deckZone[0] read: MZMove only
+                // flags the slot removed, so "myDeck-0" (and $deckZone[0]) kept resolving to the same removed slot and only the
+                // first card was ever moved/marked preserved however much damage was prevented.
                 for($ri = 0; $ri < $revealCount; ++$ri) {
-                    $deckZone = GetZone($deckRef);
-                    if(empty($deckZone)) break;
-                    $cardID = $deckZone[0]->CardID;
-                    MZMove($controller, "myDeck-0", "myMaterial");
-                    MarkCardIDPreserved($cardID);
+                    $movedObj = MZMoveTopOfZone($controller, "myDeck", "myMaterial");
+                    if($movedObj === null) break;
+                    MarkCardIDPreserved($movedObj->CardID);
                 }
             }
             return;

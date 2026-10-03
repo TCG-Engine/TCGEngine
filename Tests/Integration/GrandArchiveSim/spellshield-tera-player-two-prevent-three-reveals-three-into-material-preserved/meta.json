@@ -1,0 +1,29 @@
+{
+    "name": "spellshield-tera-player-two-prevent-three-reveals-three-into-material-preserved",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T21:23:53+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "yunjm0of8e"
+    ],
+    "notes": "PLAYER 2 seating (perspective check) for Spellshield: Tera (yunjm0of8e): the same sequence for player 2 (stack under its turn-start draw; player 2 first declines the two opportunity windows player 1's pass opens).",
+    "semanticCoverage": {
+        "testedCards": [
+            "yunjm0of8e"
+        ],
+        "mechanics": [
+            "prevention",
+            "zone-movement",
+            "preserve"
+        ],
+        "rulesClauses": [
+            "The next time damage would be dealt to your champion this turn, prevent that damage. Reveal an amount of cards from the top of your deck equal to the amount of damage prevented this way and put them into your material deck preserved."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The PREVENT_CHAMP_TERA_PRESERVE branch of the damage-prevention code (CombatLogic.php) moved the revealed cards with a loop of MZMove($controller, \"myDeck-0\", \"myMaterial\") and read each card id from $deckZone[0]. Remove() only flags a slot removed (no splice), so \"myDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped: no matter how much damage was prevented only the top card was ever put into the material deck (and the same card id re-marked preserved) -- live repro on HEAD: 3 damage prevented moved 1 card (material 1, deck 16 instead of 3 and 14). Fixed with the new MZMoveTopOfZone() helper, marking each moved card's own id preserved.",
+        "affectedFunction": "Custom/CombatLogic.php damage-prevention PREVENT_CHAMP_TERA_PRESERVE branch",
+        "fixCommit": "TBD"
+    }
+}

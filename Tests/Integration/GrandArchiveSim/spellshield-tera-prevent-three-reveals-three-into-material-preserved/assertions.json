@@ -1,0 +1,11 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"myField-0","viewerPlayerID":1,"property":"Damage","value":"0","semantic":true,"label":"All 3 damage was prevented: the champion has no damage"},
+    {"step":8,"type":"zone_count","zone":"myMaterial","viewerPlayerID":1,"value":3,"semantic":true,"label":"Exactly three cards (damage prevented) were put into the material deck"},
+    {"step":8,"type":"card_exists","zone":"myMaterial","viewerPlayerID":1,"cardID":"em6eEh9q8y","semantic":true,"label":"Top card (Dungeon Guide) went into the material deck"},
+    {"step":8,"type":"card_exists","zone":"myMaterial","viewerPlayerID":1,"cardID":"px60u5n1do","semantic":true,"label":"Second card (Fluffy Shopkeep) went into the material deck"},
+    {"step":8,"type":"card_exists","zone":"myMaterial","viewerPlayerID":1,"cardID":"n8wyfG9hbY","semantic":true,"label":"Third card (Fairy Whispers) went into the material deck"},
+    {"step":8,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":14,"semantic":true,"label":"Deck: 17 minus the three revealed cards (before the fix only one left the deck)"},
+    {"step":8,"type":"card_property_equals","mzId":"myDeck-0","viewerPlayerID":1,"property":"CardID","value":"ra9950o14t","semantic":true,"label":"The fourth card (marker) is the new top card: exactly three were taken"},
+    {"step":8,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":2,"semantic":true,"label":"Spellshield: Tera and Leeching Bolt resolved into the graveyard"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

@@ -27024,6 +27024,39 @@ $fixtures['peer-the-depths-player-two-look-four-opponent-banish-one-rest-bottom'
     ]),
 ];
 
+
+// --- Spellshield: Tera (yunjm0of8e): "The next time damage would be dealt to your champion this turn, prevent that damage. Reveal an
+// amount of cards from the top of your deck equal to the amount of damage prevented this way and put them into your material deck
+// preserved." ---
+// The champion is patched into Kongming, Fel Eidolon (level 3, MAGE, TERA: unlocks the element and makes Leeching Bolt deal LV = 3).
+// Player 1 first activates Spellshield: Tera, then Leeching Bolt (TERA spell: "Deal LV damage to target unit") aimed at its OWN champion,
+// so exactly 3 damage is prevented and exactly 3 cards must be taken off the top of the deck.
+$gaTeraShieldSetup = function(array $top, int $player = 1) use ($gaHand, $gaTop) {
+    return [
+        ['player' => $player, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7x2v4tdop1']], // Kongming, Fel Eidolon (level 3 MAGE/TERA champion)
+        $gaHand('yunjm0of8e', $player), // Spellshield: Tera -> hand-7
+        $gaHand('hs1mzjzexc', $player), // Leeching Bolt -> hand-8
+        $gaTop($top, $player),
+    ];
+};
+$fixtures['spellshield-tera-prevent-three-reveals-three-into-material-preserved'] = [
+    'testedCards' => ['yunjm0of8e'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // top four: Dungeon Guide, Fluffy Shopkeep, Fairy Whispers (the three revealed), Charge the Soul (marker: must stay on top afterwards)
+    'setup' => $gaTeraShieldSetup([$GA_DG, $GA_FS, $GA_FW, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdPass(1)], // Spellshield: Tera resolves (arms the champion)
+        [mrdPlay(1, 'myHand-5')], mrdPay(1, 2), [mrdAns(1, 'myField-0')]), // Leeching Bolt aimed at my own champion (LV 3 damage)
+];
+$fixtures['spellshield-tera-player-two-prevent-three-reveals-three-into-material-preserved'] = [
+    'testedCards' => ['yunjm0of8e'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // PLAYER 2 seating (perspective check): the stack sits under player 2's turn-start draw (a filler Dungeon Guide); player 2 first
+    // declines the two opportunity windows player 1's pass opens
+    'setup' => $gaTeraShieldSetup([$GA_DG, $GA_DG, $GA_FS, $GA_FW, $GA_MARK], 2),
+    'actions' => array_merge([mrdEnd(1), mrdPass(2), mrdPass(2), mrdPlay(2, 'myHand-7')], mrdPay(2, 2), [mrdPass(2)],
+        [mrdPlay(2, 'myHand-5')], mrdPay(2, 2), [mrdAns(2, 'myField-0')]),
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
