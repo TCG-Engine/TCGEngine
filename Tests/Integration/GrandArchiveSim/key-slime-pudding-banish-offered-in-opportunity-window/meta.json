@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. Key Slime Pudding's Banish ability was registered in $cardActivatedAbilities (the play-effect dictionary) with a 0 $CardActivateAbilityCountData row instead of $activateAbilityAbilities, so GetPlayableFastAbilities() never offered it in any opportunity window and a field click was routed through CustomInput's ActivateCard() branch where it silently no-opped. Fix: a real $activateAbilityAbilities[\"4wuq20gvcg:0\"] (sets the global effect), the Banish cost in ActivatedAbilityCost(), ability count/name rows via GAActivateAbilityCountOverrides()/GAApplyActivateAbilityCountOverrides(), and the misfiled $cardActivatedAbilities body neutralized in Custom/GeneratedAbilityOverrides.php.",
         "affectedFunction": "Custom/GameLogic.php ActivatedAbilityCost() + new $activateAbilityAbilities[\"4wuq20gvcg:0\"] + GAActivateAbilityCountOverrides(); Custom/GeneratedAbilityOverrides.php ($cardActivatedAbilities no-op + count rows); Custom/OpportunityLogic.php GetPlayableFastAbilities()",
-        "fixCommit": "TBD"
+        "fixCommit": "1be0cb67"
     }
 }
