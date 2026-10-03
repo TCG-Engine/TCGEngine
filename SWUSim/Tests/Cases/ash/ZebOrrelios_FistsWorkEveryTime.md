@@ -680,3 +680,38 @@ WithP1GroundArenaUpgrade: 0:ASH_085
 P1GROUNDARENAUNIT:0:DAMAGE:4
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2BASEDMG:6
+
+---
+
+# FortifyBaseUpgradeDefeated_ZebTriggers
+#// CR v9.0 7.5.21.c: a Fortify upgrade "can be defeated by abilities that defeat upgrades" — and it is still a friendly
+#// upgrade being defeated. P1's HMW_095 Carbonite Chamber (Fortify, on P1's base) is defeated by P1's own Confiscate;
+#// P1's Zeb deals 1 damage to a base.
+## GIVEN
+CommonSetup: grw/grw/{myResources:4;myhandCardIds:SOR_251}
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_095
+WithP1GroundArena: ASH_161:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P1BASE:UPGRADECOUNT:0
+P2BASEDMG:1
+
+---
+
+# EnemyFortifyBaseUpgradeDefeated_ThatPlayersZebTriggers
+#// The mirror: P1's Confiscate defeats P2's Fortify upgrade (HMW_095 on P2's base). It is P2's friendly upgrade, so
+#// P2's Zeb deals 1 damage to a base — P1's.
+## GIVEN
+CommonSetup: grw/grw/{myResources:4;myhandCardIds:SOR_251}
+P1OnlyActions: true
+WithP2BaseUpgrade: HMW_095
+WithP2GroundArena: ASH_161:1:0
+## WHEN
+- P1>PlayHand:0
+- P2>AnswerDecision:theirBase-0
+## EXPECT
+P2BASE:UPGRADECOUNT:0
+P1BASEDMG:1

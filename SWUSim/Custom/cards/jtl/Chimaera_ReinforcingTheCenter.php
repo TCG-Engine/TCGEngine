@@ -43,6 +43,10 @@ $customDQHandlers["JTL_039#0"] = function($player, $parts, $lastDecision) {
     if (HasWhenDefeatedAbility($obj->CardID)) $options[] = null;
     foreach ($granted as $g) $options[] = $g;
     if (empty($options)) return;
+    // The chosen unit is ALIVE — it was not defeated at all, let alone by combat damage. Say so explicitly, so a
+    // "wasn't defeated by combat damage" check (ASH_028 Paz) cannot read a value left over from an earlier unit
+    // that was defeated in the same slot.
+    SWUSetDefeatedByCombat((string)$lastDecision, false);
     if (count($options) === 1) {
         SWUUseWhenDefeatedAbility(intval($player), $obj->CardID, $lastDecision, $options[0]);
         return;

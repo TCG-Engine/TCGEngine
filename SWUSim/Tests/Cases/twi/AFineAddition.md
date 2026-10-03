@@ -177,3 +177,165 @@ P1HANDCOUNT:0
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:POWER:5
 P1RESAVAILABLE:4
+
+---
+
+# MixedPool_PickTheZoneFirst
+#// TWI_040 A Fine Addition — when the candidates span MORE THAN ONE zone, the player first picks WHICH zone
+#// ("your hand or any player's discard pile"), then the card from that zone alone. A mixed pool could not be
+#// answered in the browser: a discard pile draws only its latest card, so a buried candidate had nothing to
+#// click (Discord 2026-10-03: "doesn't work with other players' discard pile"). One zone at a time is always
+#// pickable. Here SOR_120 is in P1's hand AND P2's discard → the zone menu offers both, nothing else.
+## GIVEN
+CommonSetup: brk/bbw/{myResources:6}
+P1OnlyActions: true
+WithP1Hand: [TWI_040 SOR_120]
+WithP2Discard: SOR_120
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>PlayHand:0
+## EXPECT
+P1HASDECISION
+P1OPTIONHAS:Your_Hand
+P1OPTIONHAS:Opponent's_Discard
+P1OPTIONNOT:Your_Discard
+
+---
+
+# MixedPool_OpponentDiscardChosen_OnlyThatPileOffered
+#// Choosing the opponent's discard narrows the card pick to that pile alone — the hand copy is NOT offered.
+## GIVEN
+CommonSetup: brk/bbw/{myResources:6}
+P1OnlyActions: true
+WithP1Hand: [TWI_040 SOR_120]
+WithP2Discard: SOR_120
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>PlayHand:0
+- P1>AnswerDecision:Opponent's_Discard
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:theirDiscard-0
+
+---
+
+# MixedPool_OpponentDiscardChosen_Plays
+#// …and picking it plays the upgrade from P2's discard: attached to P1's only unit, P1's hand copy untouched.
+## GIVEN
+CommonSetup: brk/bbw/{myResources:6}
+P1OnlyActions: true
+WithP1Hand: [TWI_040 SOR_120]
+WithP2Discard: SOR_120
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>PlayHand:0
+- P1>AnswerDecision:Opponent's_Discard
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirDiscard-0
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1HANDCOUNT:1
+P2DISCARDCOUNT:1
+P1RESAVAILABLE:4
+
+---
+
+# MixedPool_HandChosen_OnlyHandOffered
+#// Choosing the hand narrows the pick to the hand — the discard copy is NOT offered.
+## GIVEN
+CommonSetup: brk/bbw/{myResources:6}
+P1OnlyActions: true
+WithP1Hand: [TWI_040 SOR_120]
+WithP2Discard: SOR_120
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>PlayHand:0
+- P1>AnswerDecision:Your_Hand
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myHand-0
+
+---
+
+# MixedPool_DeclineAfterPickingAZone
+#// The play stays a "may": after choosing a zone the player can still decline the card pick.
+## GIVEN
+CommonSetup: brk/bbw/{myResources:6}
+P1OnlyActions: true
+WithP1Hand: [TWI_040 SOR_120]
+WithP2Discard: SOR_120
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>PlayHand:0
+- P1>AnswerDecision:Your_Hand
+- P1>AnswerDecision:-
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1HANDCOUNT:1
+
+---
+
+# TwinSuns3P_PickWhichOpponentsDiscard
+#// Twin Suns: each opponent's discard is its own zone, named by seat. SOR_120 is in P2's AND P3's discard;
+#// P1 picks P3's pile and plays from it. (A P3 pile off the current view had no UI at all before.)
+## GIVEN
+CommonSetup: brk/bbw/{myResources:6}
+SkipPreGame: true
+WithSeatOrder: 123
+WithLiveSeats: 123
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: TWI_040
+WithP3Base: SOR_021:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+WithP2Discard: SOR_120
+WithP3Discard: SOR_120
+## WHEN
+- P1>AttackGroundArena:0:p2GroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:P3's_Discard
+## EXPECT
+P1SELECTABLEEXACT:p3Discard-0
+
+---
+
+# TwinSuns4P_PickWhichOpponentsDiscard_Plays
+#// The same on four seats (Twin Suns tests need 3P AND 4P): the menu names every opponent pile that holds a
+#// candidate, and the pick plays from P4's discard — P2's and P3's piles are untouched.
+## GIVEN
+CommonSetup: brk/bbw/{myResources:6}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: TWI_040
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+WithP3Discard: SOR_120
+WithP4Discard: SOR_120
+## WHEN
+- P1>AttackGroundArena:0:p2GroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:P4's_Discard
+- P1>AnswerDecision:p4Discard-0
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P3DISCARDCOUNT:1
+P4DISCARDCOUNT:0

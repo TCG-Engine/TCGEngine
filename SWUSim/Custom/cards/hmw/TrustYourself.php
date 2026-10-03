@@ -15,5 +15,5 @@ $whenPlayedAbilities["HMW_101:0"] = function($player, $mzID = '') {
 $customDQHandlers["HMW_101#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (count(GetDeck(intval($player))) === 0) return;
-    DoTopDeckSearch(intval($player), 3, fn($c) => true, 1, 'cards');
+    DoTopDeckSearch(intval($player), 3, fn($c) => true, 1, 'cards', true);   // "for a card" — must take one (CR 8.26.1)
 };

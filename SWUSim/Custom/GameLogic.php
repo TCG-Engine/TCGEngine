@@ -990,6 +990,8 @@ function ObjectCurrentPowerInAttack($obj): int {
     foreach (($obj->TurnEffects ?? []) as $te) {
         if (preg_match('/^SWU_ATK_POWER_(\d+)$/', (string)$te, $m)) $p += intval($m[1]);
     }
+    // Multiplicative last (CR v9.0 8.15.2) — SEC_137 Dryden Vos's "double this unit's power for this attack".
+    if (in_array('SWU_ATK_DOUBLE', $obj->TurnEffects ?? [], true)) return max(0, $p) * 2;
     return max(0, $p);
 }
 
@@ -7751,6 +7753,7 @@ function RegroupPhaseStart(): void {
     }
 
     $isPhaseStatEffect = fn($e) => strpos((string)$e, 'SWU_ATK_POWER_') === false // unconsumed attack bonus (fizzled attack)
+                               && (string)$e !== 'SWU_ATK_DOUBLE'                // unconsumed Dryden double (fizzled attack)
                                && strpos((string)$e, 'SWU_DEF_DEBUFF_') === false // unconsumed Jyn defender debuff (fizzled attack)
                                && strpos((string)$e, 'SWU_PAID_')      === false; // Task 3.1: resources-paid stamp (per-play; WhenPlayed fires same turn)
     for ($p = 1; $p <= SeatCountForGame(); $p++) {
@@ -10085,6 +10088,20 @@ $gSec035DefeatSnapshot = $gSec035DefeatSnapshot ?? [];
 // controller's frame (where the same frame-relative mzID would resolve to a different unit).
 $gAsh195DefeatSnapshot = $gAsh195DefeatSnapshot ?? [];
 $gCombatDefeatByMz = $gCombatDefeatByMz ?? [];   // mzID → bool "defeated by combat damage" (ASH_028/191)
+
+// "Was the unit whose When Defeated is resolving at $mzID defeated by COMBAT damage?" (ASH_028 Paz Vizsla,
+// ASH_191 Shin Hati's Fiend Fighter). Read it through here, never the global directly: the global is set when the
+// defeat is collected but does not survive a request boundary, so the game-state copy (SWUSetDefeatedByCombat)
+// answers a reuse resolved in a later request. Never consume it on read — a reuse in the same action
+// (JTL_002 Thrawn) must see the same answer the first resolution saw.
+function SWUSetDefeatedByCombat(string $mzID, bool $byCombat): void {
+    $GLOBALS['gCombatDefeatByMz'][$mzID] = $byCombat;
+    SetSWUVar('SWU_CDEF_MZ_' . str_replace('-', '_', $mzID), $byCombat ? '1' : '0');
+}
+function SWUDefeatedByCombat(string $mzID): bool {
+    if (isset($GLOBALS['gCombatDefeatByMz'][$mzID])) return !empty($GLOBALS['gCombatDefeatByMz'][$mzID]);
+    return GetSWUVar('SWU_CDEF_MZ_' . str_replace('-', '_', $mzID), '0') === '1';
+}
 
 // Task 1.3 — play-from-hand orchestrator globals.
 // $gPlayGrantedExploit: extra Exploit X granted to the card being played (e.g. by TWI_005).
@@ -13181,6 +13198,11 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
             // sites in SWUCombatDamage), and consume the flag — read by ASH_028/ASH_191 whenDefeated.
             $GLOBALS['gCombatDefeatByMz'][$d['mzID']] = ($defObj !== null
                 && GlobalEffectCount(intval($d['player'] ?? 0), 'SWU_COMBATDEF_' . intval($defObj->UniqueID ?? 0)) > 0);
+            // …and keep it in the GAME STATE too: a When Defeated reused later in the same action (JTL_002 Thrawn's
+            // YES, JTL_169 Shadow Caster) is answered in a LATER request, where the global above is gone. CR v9.0
+            // 7.6.14.d: that reuse resolves with Last Known Information, which includes how the unit was defeated
+            // (CR 8.11.1). Rewritten at every defeat of a unit in this slot, so it is current for this action.
+            SWUSetDefeatedByCombat($d['mzID'], $GLOBALS['gCombatDefeatByMz'][$d['mzID']]);
             if ($defObj !== null) RemoveGlobalEffect(intval($d['player'] ?? 0), 'SWU_COMBATDEF_' . intval($defObj->UniqueID ?? 0));
             // A BLANKED unit has no When Defeated to fire — including ones it GAINED from an upgrade or a
             // phase effect. SEC_038 Condemn ("loses all other abilities" while attacking) is the sharp case:
@@ -16095,8 +16117,10 @@ function _topDeckSearchBegin(int $player, int $n, callable $filter, string $cons
 
 // $label: what the card says may be picked, plural ("Rebel cards", "units", "Plot cards"). The picks are
 // DRAWN to hand, so the verb is always "Take".
-function DoTopDeckSearch(int $player, int $n, callable $filter, int $maxPicks, string $label): void {
-    _topDeckSearchBegin($player, $n, $filter, "count:$maxPicks", "TOPDECKSEARCH_FINALIZE", $label, 'Take');
+// $mustPick: the search has NO attribute ("search … for a card and draw it") — CR v9.0 8.26.1 only lets a search
+// that specifies an attribute come up empty, so the player must take one (constraint "count:N:must").
+function DoTopDeckSearch(int $player, int $n, callable $filter, int $maxPicks, string $label, bool $mustPick = false): void {
+    _topDeckSearchBegin($player, $n, $filter, "count:$maxPicks" . ($mustPick ? ':must' : ''), "TOPDECKSEARCH_FINALIZE", $label, 'Take');
 }
 
 // $label: as above ("Villainy units", "space units", …). The picks are PLAYED for free, so the verb is
@@ -16134,8 +16158,8 @@ function _topDeckResolveFromIDs(array $allIDs, string $lastDecision): array {
         // accept while the budget holds and drop the overflow (it joins `remaining` → bottom of deck).
         $con = (string) DecisionQueueController::GetVariable("TopDeckConstraint");
         DecisionQueueController::StoreVariable("TopDeckConstraint", '');
-        $maxPicks = PHP_INT_MAX; $maxCost = PHP_INT_MAX;
-        if (preg_match('/^count:(\d+)$/', $con, $m))            { $maxPicks = intval($m[1]); }
+        $maxPicks = PHP_INT_MAX; $maxCost = PHP_INT_MAX; $mustPick = false;
+        if (preg_match('/^count:(\d+)(:must)?$/', $con, $m))    { $maxPicks = intval($m[1]); $mustPick = !empty($m[2]); }
         elseif (preg_match('/^cost:(\d+)(?::(\d+))?$/', $con, $m)) {
             $maxCost  = intval($m[1]);
             if (($m[2] ?? '') !== '') $maxPicks = intval($m[2]);
@@ -16150,6 +16174,12 @@ function _topDeckResolveFromIDs(array $allIDs, string $lastDecision): array {
             }
             $chosenIDs = $kept;
         }
+        // CR v9.0 8.26.1: only a search that SPECIFIES AN ATTRIBUTE may "resolve as though no appropriate card
+        // was found" — and that is only possible because the deck is hidden from the opponent. A search "for a
+        // card" (no attribute: SOR_042 Search Your Feelings, "search the top 3 for a card and draw it") must take
+        // one when there is one. The client won't confirm an empty pick; an empty answer anyway (a bot, a stale
+        // client) takes the first card, so the ability always resolves as printed.
+        if ($mustPick && empty($chosenIDs) && !empty($legalIDs)) $chosenIDs = [$legalIDs[0]];
     }
     $usedIndices = [];
     $drawnIDs    = [];

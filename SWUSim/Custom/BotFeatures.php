@@ -298,6 +298,18 @@ const SWU_BOT_PART22_FEATURES = ['powersource'];
 // ("wasted them right away on Onyx Squad Brute"). Guard: SWUSim/DevTools/tests/bot_bigcredit_test.php.
 const SWU_BOT_PART23_FEATURES = ['bigcredit'];
 
+// Part 24 (2026-10-03): 'waiverhold' — a LAW waiver base's once-per-game Epic Action that unlocks NOTHING scores below
+// PASS. It scored exactly 0 (p16 removed the flat floor), which TIED pass, so with the initiative already taken the
+// waiver went by enumeration order and its mandatory play spent a banked Credit on an on-aspect 2-drop (owner report,
+// game 1438045). Guard: SWUSim/DevTools/tests/bot_waiverhold_test.php.
+const SWU_BOT_PART24_FEATURES = ['waiverhold'];
+const SWU_BOT_WAIVER_UNLOCKS_NOTHING = -0.1;
+
+// Part 25 (2026-10-03): 'defeatpick' — an enemy pick under "defeat those units / that unit / them" is a DEFEAT, scored by
+// the unit's value. Chimaera's enemy half was unscored, so it took the first-listed enemy — a 1-cost Han Solo over an
+// 8-cost Pre Vizsla — even when it sacrificed ITSELF for it (owner report, game 1438045). Guard: bot_chimaera_test.php.
+const SWU_BOT_PART25_FEATURES = ['defeatpick'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
@@ -306,7 +318,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES);   // part 2, then 3-23
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES);   // part 2, then 3-25
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -321,7 +333,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,

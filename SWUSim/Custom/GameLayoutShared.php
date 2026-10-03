@@ -2989,6 +2989,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 inlineNormalized.push(spec);                                          // popup handles it
                 return;
             }
+            // ⚠ The same holds for a PILE (a discard — DisplayMode Single): an off-view seat's pile is not on
+            // screen, and even on screen only its latest card is drawn, so there is nothing to badge. Flag it
+            // for the popup (IsMZChooseSpecUndrawnPileCard honours forcePopup). Reported 2026-10-03: TWI_040 A
+            // Fine Addition could take an upgrade from P2's discard (on view) but never from P3's.
+            if (frame === null && typeof window.GetZoneData === 'function'
+                && String((window.GetZoneData(spec.zone) || {}).DisplayMode || '').toLowerCase() === 'single') {
+                inlineNormalized.push(Object.assign({}, spec, { forcePopup: true }));  // seat-tagged; popup draws it
+                return;
+            }
             if (frame === null) { offViewSpecs.push(spec); return; }                 // off-view → badge only
             var suffix = spec.zone.replace(/^p\d+/, '');                             // 'GroundArena' | 'Base' | 'SpaceArena'
             inlineNormalized.push(Object.assign({}, spec, { zone: frame + suffix }));// originalSpec preserved

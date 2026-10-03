@@ -151,3 +151,91 @@ WithP1Force: true
 P1HASFORCE
 P1GROUNDARENACOUNT:0
 P1DISCARDCOUNT:1
+
+---
+
+# NoForce_ShowsTopCard
+#// LOF_188 As I Have Foreseen — "Look at the top card of your deck" happens even without a Force token: the
+#// player is SHOWN the card (an @CardID image + OK acknowledgement, the SOR_238 C-3PO / ASH_229 Camtono whiff
+#// pattern). It used to return silently, so the game log read "had no effect" and the event looked broken
+#// (Discord report: "does not work often, it just stated that there is no effect").
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:1;handCardIds:LOF_188}
+P1OnlyActions: true
+WithP1Deck: SEC_080
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1OPTIONHAS:@SEC_080
+P1OPTIONHAS:OK
+P1OPTIONNOT:YES
+
+---
+
+# Unaffordable_ShowsTopCard_OK
+#// LOF_188 — with the Force but an unaffordable top card (SOR_119 cost 8 − 4 = 4 > 0 ready), the Force is not
+#// offered, but the top card is still SHOWN. Acknowledging leaves it on top and keeps the Force token.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:1;handCardIds:LOF_188}
+P1OnlyActions: true
+WithP1Force: true
+WithP1Deck: SOR_119
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:OK
+
+## EXPECT
+P1NODECISION
+P1HASFORCE
+P1DECKCOUNT:1
+P1DECKTOPCARD:SOR_119
+P1GROUNDARENACOUNT:0
+
+---
+
+# Offer_ShowsTopCard
+#// LOF_188 — when the play IS offered, the prompt must show WHICH card would be played (it used to be a bare
+#// YES/NO naming no card, so the player chose blind).
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:1;handCardIds:LOF_188}
+P1OnlyActions: true
+WithP1Force: true
+WithP1Deck: SEC_080
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1OPTIONHAS:@SEC_080
+P1OPTIONHAS:YES
+P1OPTIONHAS:NO
+
+---
+
+# Unaffordable_ShowsTopCard
+#// LOF_188 — Force held but the top card (SOR_119, 8 − 4 = 4 > 0 ready) is unaffordable: the card is SHOWN
+#// with an OK acknowledgement and no YES (the Force is not offered for a play that can't happen).
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:1;handCardIds:LOF_188}
+P1OnlyActions: true
+WithP1Force: true
+WithP1Deck: SOR_119
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1OPTIONHAS:@SOR_119
+P1OPTIONHAS:OK
+P1OPTIONNOT:YES
+P1HASFORCE

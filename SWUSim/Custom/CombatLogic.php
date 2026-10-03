@@ -3148,6 +3148,13 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         }
         $attacker->TurnEffects = $keptTE;
     }
+    // MULTIPLICATIVE modifiers come LAST (CR v9.0 8.15.2: additive, then subtractive, then multiplicative), after
+    // every addition and subtraction above — SEC_137 Dryden Vos "double this unit's power for this attack".
+    // A value can't go below 0 (CR 8.15.4), so it is the clamped total that doubles. Consumed with the attack.
+    if (is_array($attacker->TurnEffects ?? null) && in_array('SWU_ATK_DOUBLE', $attacker->TurnEffects, true)) {
+        $attackPower = max(0, intval($attackPower)) * 2;
+        $attacker->TurnEffects = array_values(array_filter($attacker->TurnEffects, fn($e) => $e !== 'SWU_ATK_DOUBLE'));
+    }
     // "HAD N power" — the power-at-defeat family (SEC_035 Darth Sion "7+", HMW_109 Tireless Magnaguard
     // "5+"). An attacker's power at the moment it is defeated includes everything folded into its ATTACK
     // power and nothing of that survives to the defeat-collection point: RAID (CR 8.8.c — the bonus lasts

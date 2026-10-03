@@ -149,6 +149,7 @@
       btn.className = 'optchoose-btn btn';
       // DISPLAY is humanised; the SUBMITTED value is always the raw option (see optionDisplayLabel).
       btn.textContent = optionDisplayLabel(opt);
+      btn.setAttribute('data-option', opt);   // the raw submitted value — for tests, never for display
       btn.addEventListener('click', function() {
         submitCallback(opt, decisionIndex);
         HideOptionChooseUI();
@@ -184,8 +185,15 @@
     opt = String(opt).replace(/_/g, ' ');
     if (!window.SWU_SEAT_USERNAMES) return opt;
     const m = /^P(\d+)$/.exec(String(opt));
-    if (!m) return opt;                       // "You", "Opponent", "Ground", … pass through untouched
-    const seat = m[1];
+    if (m) return seatName(m[1]);
+    // A seat-POSSESSIVE label — "P3's Discard" (TWI_040 A Fine Addition's zone menu) — names the seat the
+    // same way.
+    const pm = /^P(\d+)'s (.+)$/.exec(String(opt));
+    if (pm) return seatName(pm[1]) + "'s " + pm[2];
+    return opt;                               // "You", "Opponent", "Ground", … pass through untouched
+  }
+
+  function seatName(seat) {
     const name = window.SWU_SEAT_USERNAMES[seat];
     if (name && String(name).trim() !== '') return String(name);
     const shown = window.SWU_SEAT_DISPLAY_NAMES ? window.SWU_SEAT_DISPLAY_NAMES[seat] : null;

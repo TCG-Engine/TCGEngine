@@ -18,3 +18,24 @@ WithP1Deck: SOR_171
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SHD_245
 P1HANDCOUNT:1
+
+---
+
+# FilteredSearch_MayFindNothing_EvenWithAnUpgradeThere
+#// CR v9.0 8.26.1: a search that SPECIFIES AN ATTRIBUTE ("for an upgrade") may be resolved "as though no appropriate
+#// card was found" — the deck is hidden from the opponent, so they can't tell. SOR_069 is an upgrade in the top 5,
+#// but P1 chooses nothing: no card is drawn. (Contrast SearchYourFeelings::ChooseNone_NotAllowed_StillTakesACard.)
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: SHD_245
+WithP1Deck: SOR_069
+WithP1Deck: SOR_171
+WithP1Deck: SOR_171
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1HANDCOUNT:0
+P1DECKCOUNT:3

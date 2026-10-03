@@ -68,10 +68,13 @@ P1HANDCOUNT:1
 
 ---
 
-# TakeNothing_AllToBottom_NoDraw
-#// ASH_235 Sense Through the Force — the search draw is optional ("Take nothing"/PASS). Declining draws no card
-#// and moves the searched cards to the bottom of the deck. A distinct 6th card (SEC_028) seeded below the top
-#// five becomes the new top, proving the top cards were bottomed. No card drawn → no Advantage rider.
+# TakeNothing_NotAllowed_StillDrawsTheTopCard
+#// ASH_235 Sense Through the Force — "Choose a number, then search the top 5 cards of your deck for a card, reveal
+#// it, and draw it." P1 answers the search with no pick: the top card (SOR_046) is still drawn, the other four go
+#// to the bottom, and the 6th card (SEC_028) becomes the new top.
+#// CR v9.0 8.26.1: only a search that SPECIFIES AN ATTRIBUTE may come up empty (the deck is hidden from the
+#// opponent); "for a card" has none, so declining still takes a card — the first one (owner ruling 2026-10-03).
+#// Before v9 this section asserted that taking nothing was allowed.
 ## GIVEN
 CommonSetup: yyk/yyk/{myResources:2;handCardIds:ASH_235}
 WithP1GroundArena: SOR_049:1:0
@@ -87,10 +90,9 @@ P1OnlyActions: true
 - P1>AnswerDecision:4
 - P1>AnswerDecision:-
 ## EXPECT
-P1HANDCOUNT:0
-P1DECKCOUNT:6
+P1HANDCOUNT:1
+P1DECKCOUNT:5
 P1DECKTOPCARD:SEC_028
-P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0
 
 ---
 

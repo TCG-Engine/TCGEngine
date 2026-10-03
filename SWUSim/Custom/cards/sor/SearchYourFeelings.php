@@ -15,6 +15,6 @@ $whenPlayedAbilities["SOR_042:0"] = function($player, $mzID = '') {
             $playerID = intval($player);
             $deckSize = count(GetDeck(intval($player)));
             if ($deckSize === 0) return;   // empty deck → nothing to search
-            DoTopDeckSearch(intval($player), $deckSize, fn($cid) => true, 1, 'cards');
+            DoTopDeckSearch(intval($player), $deckSize, fn($cid) => true, 1, 'cards', true);   // "for a card" — must take one (CR 8.26.1)
             return;
 };

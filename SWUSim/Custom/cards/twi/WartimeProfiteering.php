@@ -14,6 +14,6 @@ $whenPlayedAbilities["TWI_188:0"] = function($player, $mzID = '') {
             global $playerID; $playerID = intval($player);
             $n = SWUUnitsDefeatedThisPhase();
             if ($n <= 0) return;
-            DoTopDeckSearch(intval($player), $n, fn($c) => true, 1, 'cards');
+            DoTopDeckSearch(intval($player), $n, fn($c) => true, 1, 'cards', true);   // "Draw 1" — mandatory
             return;
 };

@@ -117,3 +117,23 @@ WithP2GroundArena: [SOR_095:1:0 SOR_046:1:0]
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# CreatedBeastToken_IsAThreeThreeCreature
+#// CR v9.0 3.7.17: "A Beast token is a type of token unit. A Beast token is a ground unit with the Creature trait
+#// that has no aspect icons, 3 power, and 3 HP." The token HMW_250 creates is checked against that definition.
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: HMW_250
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:HMW_T03
+P1GROUNDARENAUNIT:1:POWER:3
+P1GROUNDARENAUNIT:1:HP:3
+P1GROUNDARENAUNIT:1:HASTRAIT:Creature

@@ -5628,6 +5628,11 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
   // Optional 3rd segment on a cost constraint = max number of picks (e.g. "cost:7:3" —
   // SOR_104 U-Wing Reinforcement: up to 3 units AND combined cost ≤ 7). 0 = no count cap.
   const maxCountCap = (isCost && constraintParts.length >= 3) ? (parseInt(constraintParts[2], 10) || 0) : 0;
+  // "count:N:must" — a search with NO attribute ("for a card and draw it"). CR v9.0 8.26.1 lets only a search that
+  // specifies an attribute come up empty, so Confirm stays disabled until a card is chosen. Only when there IS a
+  // legal card to take: an empty match set can always confirm. (The server also takes the first card if an
+  // empty answer arrives anyway.)
+  const mustPick    = !isCost && constraintParts[2] === 'must' && matchSet.size > 0;
   // costMap: "CardID:cost,..." — build lookup from 4th param segment.
   const costLookup  = {};
   (parts[3] || '').split(',').forEach(function(pair) {
@@ -5757,7 +5762,8 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
       var costLimits = (maxCountCap > 0 ? 'up to ' + maxCountCap + ', ' : '') + 'combined cost ≤ ' + limitValue;
       subtitle.textContent = 'Select ' + pickLabel + ' (' + costLimits + '). Used: ' + used + '/' + limitValue;
     } else {
-      subtitle.textContent = 'Select ' + pickLabel + ' (up to ' + limitValue + '). Selected: ' + selectedIndices.size + '/' + limitValue;
+      subtitle.textContent = 'Select ' + pickLabel + ' (' + (mustPick ? (limitValue === 1 ? 'choose 1' : 'choose 1 to ' + limitValue) : 'up to ' + limitValue)
+        + '). Selected: ' + selectedIndices.size + '/' + limitValue;
     }
     panel.appendChild(subtitle);
 
@@ -5852,11 +5858,19 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
     var confirmBtn = document.createElement('button');
     // The verb is the caller's, not "Take" — LOF_117 Sifo-Dyas and TWI_201 Aid from the Innocent DISCARD
     // their picks and SOR_087's family PLAYS them, so a fixed "Take N cards" mislabelled the commit.
+    var mustWait = mustPick && selCount === 0;
     confirmBtn.textContent = selCount > 0
       ? pickVerb + ' ' + selCount + ' card' + (selCount !== 1 ? 's' : '')
-      : pickVerb + ' None';
+      : (mustWait ? 'Choose a card' : pickVerb + ' None');
     confirmBtn.style.cssText = "align-self:center;flex:0 0 auto;margin-top:" + (large ? '14px' : '22px') + ";padding:9px 36px;background:#1a5a2a;color:#fff;border:1px solid #3adf7a;border-radius:6px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:1px;";
+    if (mustWait) {
+      confirmBtn.disabled = true;
+      confirmBtn.setAttribute('aria-disabled', 'true');
+      confirmBtn.style.opacity = '0.45';
+      confirmBtn.style.cursor = 'not-allowed';
+    }
     confirmBtn.onclick = function() {
+      if (mustWait) return;
       var existing2 = document.getElementById('topdecksearch-panel');
       if (existing2) existing2.remove();
       if (onSubmit) onSubmit(Array.from(selectedIndices).map(function(idx) { return allIDs[idx]; }).join(','));
@@ -6726,7 +6740,8 @@ function CategorizeMZChooseSpecs(parsedSpecs) {
       continue;
     }
 
-    if (spec.isSpecificCard && (ShouldUseMZChoosePopupForSpec(spec) || popupVisibleSingleZone)) {
+    if (spec.isSpecificCard && (ShouldUseMZChoosePopupForSpec(spec) || popupVisibleSingleZone
+        || IsMZChooseSpecUndrawnPileCard(spec))) {
       popupCards.push(spec);
     } else {
       inlineSpecs.push(spec);
@@ -6761,6 +6776,29 @@ function ShouldPopupVisibleSingleZoneChoice(parsedSpecs) {
   }
 
   return zones.size === 1;
+}
+
+// A specific card in a PILE (DisplayMode Single — e.g. a discard pile) that the board does not draw.
+// PopulateZone's Single branch renders exactly one card of the pile (the first, or the latest under
+// Sort.Reverse / Latest), so any other card in it has no element to click: classed as an inline pick it is
+// a decision with no UI. ShouldPopupVisibleSingleZoneChoice only rescues a pool that is ENTIRELY one pile;
+// add a hand card or a second pile to the pool and the buried card was stranded. Reported 2026-10-03
+// (TWI_040 A Fine Addition: hand + discard pool). The drawn card itself stays an inline pick, as before.
+// `forcePopup` is set by a view layer that knows the pile is not on screen at all (SWUSim Twin Suns
+// off-view seats — see swuTwNormalizeSelection), where even the drawn card cannot be clicked.
+function IsMZChooseSpecUndrawnPileCard(spec) {
+  if (!spec || !spec.isSpecificCard || spec.subIndex != null) return false;
+  if (spec.forcePopup) return true;
+  const zoneData = GetZoneData(spec.zone);
+  if (!zoneData || String(zoneData.DisplayMode || 'All').toLowerCase() !== 'single') return false;
+  const raw = window[spec.zone + 'Data'];
+  const count = (typeof raw === 'string' && raw.trim() !== '') ? raw.trim().split('<|>').length : 0;
+  if (count === 0) return true;   // nothing drawn to click — only the popup can show it
+  // Same rule as PopulateZone's Single branch (ShouldShowLatestInSingleZone — not reachable from here).
+  const showsLast = !!(zoneData.Sort && zoneData.Sort.Reverse)
+    || (Array.isArray(zoneData.DisplayParameters)
+        && zoneData.DisplayParameters.some(p => String(p).trim().toLowerCase() === 'latest'));
+  return spec.specificIndex !== (showsLast ? count - 1 : 0);
 }
 
 function ShouldUseMZChoosePopupForSpec(spec) {

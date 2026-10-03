@@ -658,6 +658,11 @@ function _SWUBotCardTextEffect(string $cardID): string {
     if (preg_match('/deal \d+ damage to (a|an|another|that) (\w+ )?unit|-\d+\/-\d+/i', $text)) return 'hostile';
     // targeting2: "…If it costs N or less, defeat it." / "loses all abilities" are hostile too.
     if (SWUBotFeatureOn('targeting2') && preg_match('/\bdefeat it\b|loses all abilities/i', $text)) return 'hostile';
+    // Part 25 'defeatpick': "…choose a friendly unit and an enemy non-leader unit. If you do, defeat THOSE UNITS" (ASH_052
+    // Chimaera) — the enemy half read as neutral, so every enemy scored the flat 0.01 and the FIRST listed was taken:
+    // a shielded 1-cost Han Solo over an 8-cost Pre Vizsla (owner report 2026-10-03, game 1438045). Reached only for a
+    // prompt the friendly-defeat check above has not already classed as a sacrifice.
+    if (SWUBotFeatureOn('defeatpick') && preg_match('/\bdefeat (those units|that unit|them)\b/i', $text)) return 'hostile';
     return '';
 }
 
@@ -1260,7 +1265,10 @@ function _SWUBotEnabledPlayValue(int $seat, array $handBefore, array $after, arr
     }
     $v = 0.0;
     foreach ($gone as $cid) {
-        if (!in_array($cid, $inPlay, true)) continue;
+        // ⚠ An EVENT is played too: it resolves and goes to the discard, so it is never "in play". Requiring that made
+        // a waiver unlocking an event worth 0 — LAW_044 Single Reactor Ignition, the very card the owner's 6R + 2 Credit
+        // line uses the waiver for (found 2026-10-03 while adding 'waiverhold', which would otherwise have held it).
+        if (!in_array($cid, $inPlay, true) && !(SWUBotFeatureOn('waiverhold') && stripos(strval(CardType($cid)), 'Event') !== false)) continue;
         if (in_array($cid, $alreadyCastable, true)) continue;
         $v += _SWUBotPlayValue($seat, $cid, $W);
     }
@@ -1934,6 +1942,12 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
         // round 1 in six of eight traced games. Dropping the floor is the whole "save it" mechanism.
         if (SWUBotFeatureOn('aspectwaiver') && SWUBotActionKind($action) === 'base-epic'
             && preg_match('/ignoring 1 of its/i', strval(CardText(strval((GetBase($seat)[0] ?? null)->CardID ?? ''))))) {
+            // Part 24 'waiverhold': unlocking NOTHING is a LOSS, not a tie. $enabled is exactly 0 then, which tied PASS
+            // (0) and the waiver went by enumeration order — and its "play a card" prompt is MANDATORY, so it then
+            // forced a play the bot itself scored below PASS (owner report 2026-10-03, game 1438045: with the
+            // initiative gone, Coaxium Mine's waiver was spent on an ON-aspect Director Krennic, paid with the banked
+            // Credit 'bigcredit' had just held). Below PASS and below taking the initiative (0.05).
+            if (SWUBotFeatureOn('waiverhold') && $enabled <= 0.0) return SWU_BOT_WAIVER_UNLOCKS_NOTHING;
             return $enabled - max(0.0, $lost - 1.0);
         }
         $value = max($value, $enabled);

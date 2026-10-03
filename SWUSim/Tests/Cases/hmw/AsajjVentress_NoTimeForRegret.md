@@ -629,3 +629,43 @@ WithP1GroundArenaUpgrade: 0:TWI_169
 ## EXPECT
 P2BASEDMG:5
 P1BASEDMG:4
+
+---
+
+# Front_SwapsAMirroredRaid_OppoGetsRestoreTwo
+#// CR v9.0 8.14.4: "replace" one ability with another = lose the replaced ability and gain the other. LOF_105 Oppo
+#// Rancisis GAINS Raid 2 while another friendly unit (SOR_157 Cantina Braggart) has Raid. Asajj's front action
+#// attacks with Oppo and replaces that gained Raid 2 with Restore 2: Oppo deals his printed 3 to the base and
+#// heals P1's base 2. (Unswapped, the same attack would deal 5 and heal nothing.)
+## GIVEN
+CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:5}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [SOR_157:1:0 LOF_105:1:0]
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-1
+## EXPECT
+P2BASEDMG:3
+P1BASEDMG:3
+P1NODECISION
+
+---
+
+# TwoLeaders_SwapOnAUnitThatLostAllAbilities_NeitherKeyword
+#// CR 8.14.2 / 8.14.4: a unit that "loses all abilities" has none, and can't gain any — so there is no Raid to
+#// replace and no Restore to gain. JTL_018 Kazuda (P1's second leader): "A friendly unit loses all abilities for
+#// this round. Take an extra action after this one." on HMW_039 Mother Talzin (Raid 1); then Asajj's action
+#// attacks with her: 3 damage, no Raid bonus, and NO heal (contrast Front_RaidBecomesRestore, which heals 1).
+## GIVEN
+CommonSetup: brk/ggw/{myLeader:HMW_001; myLeader2:JTL_018; myResources:6; myBaseDamage:5}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: HMW_039:1:0
+## WHEN
+- P1>UseLeaderAbility:1
+- P1>UseLeaderAbility:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P2BASEDMG:3
+P1BASEDMG:5

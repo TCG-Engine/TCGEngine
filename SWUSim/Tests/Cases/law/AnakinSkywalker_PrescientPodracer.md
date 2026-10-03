@@ -188,3 +188,24 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LAW_088
 P1HANDCOUNT:0
 P1BASEDMG:0
+
+---
+
+# ReturnATokenUnit_SetAside_StillHeals
+#// CR v9.0 3.7.3: "If a token would leave play for any reason, set it aside instead (it is still considered to have
+#// left play). This is considered a replacement effect." — and the CR's own example is THIS card: return a token
+#// unit with LAW_088 and "the token is set aside instead of being added to your hand, but you still heal 2 damage
+#// from your base." HMW_T03 (a Beast token) attacks and is returned: it is gone, nothing reaches the hand, base healed.
+## GIVEN
+CommonSetup: byk/bgw/{myBaseDamage:2}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_088:1:0 HMW_T03:1:0]
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:YES
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_088
+P1HANDCOUNT:0
+P1DISCARDCOUNT:0
+P1BASEDMG:0
