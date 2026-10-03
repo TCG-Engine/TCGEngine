@@ -2644,7 +2644,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $hasPiccardaStaticCost = true;
             DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $staticSources), 100, tooltip:"Remove_a_static_counter_to_pay_1?");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "PiccardaStaticCost|" . $reserveCost . "|4", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PiccardaStaticCost|" . $reserveCost . "|4", 100, dontSkipOnPass:1);
         }
     }
 
@@ -4266,7 +4266,7 @@ $customDQHandlers["ArgusReserveChoice"] = function($player, $parts, $lastDecisio
     } else {
         $tooltip = "Banish_Crystal/Eye_of_Argus_to_pay_3_reserve?";
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 100, tooltip:$tooltip);
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ArgusReserveApply", 100);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ArgusReserveApply", 100, dontSkipOnPass:1);
         return;
     }
 
@@ -4289,6 +4289,10 @@ $customDQHandlers["ArgusReserveApply"] = function($player, $parts, $lastDecision
         $canBanish = max(0, $canBanish - 1);
     } else {
         $canBanish = 0;
+        // Reached with lastDecision == "PASS" (the queue site passes dontSkipOnPass): reset it so the
+        // unflagged ReserveCard / EffectStackOpportunity CUSTOMs queued below are not skipped
+        // (same idiom as KindleProcess above).
+        DecisionQueueController::AddDecision($player, "PASSPARAMETER", "-", 100);
     }
 
     DecisionQueueController::StoreVariable("argusReserveRemaining", strval($remaining));
@@ -9712,7 +9716,7 @@ $customDQHandlers["FractalRefreshPick"] = function($player, $parts, $lastDecisio
     }
 
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $waterMemory), 1, tooltip:"Reveal_and_bottom_a_water_card?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "FractalRefreshPick|" . $remaining, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FractalRefreshPick|" . $remaining, 1, dontSkipOnPass:1);
 };
 
 function BeforeRecollectionPhase() {

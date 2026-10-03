@@ -5562,7 +5562,10 @@ $customDQHandlers["WeightOfLookingUpBanish"] = function($player, $parts, $lastDe
 $customDQHandlers["PiccardaStaticCost"] = function($player, $parts, $lastDecision) {
     $reserveCost = max(0, intval($parts[0] ?? 0));
     $remainingStatic = max(0, intval($parts[1] ?? 0));
-    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+    // "up to four": declining (PASS) ends the optional static-counter removal and the rest of the
+    // reserve cost is paid normally -- it must not re-offer the same prompt.
+    $declinedStatic = ($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS");
+    if(!$declinedStatic) {
         $obj = GetZoneObject($lastDecision);
         if($obj !== null && !$obj->removed && intval($obj->Controller ?? 0) === intval($player)
             && GetCounterCount($obj, "static") > 0) {
@@ -5572,7 +5575,7 @@ $customDQHandlers["PiccardaStaticCost"] = function($player, $parts, $lastDecisio
         }
     }
 
-    if($reserveCost > 0 && $remainingStatic > 0) {
+    if(!$declinedStatic && $reserveCost > 0 && $remainingStatic > 0) {
         $staticSources = [];
         foreach(GetField($player) as $fieldObj) {
             if($fieldObj === null || $fieldObj->removed) continue;
@@ -5581,11 +5584,17 @@ $customDQHandlers["PiccardaStaticCost"] = function($player, $parts, $lastDecisio
         }
         if(!empty($staticSources)) {
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $staticSources), 100, tooltip:"Remove_a_static_counter_to_pay_1?");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "PiccardaStaticCost|" . $reserveCost . "|" . $remainingStatic, 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PiccardaStaticCost|" . $reserveCost . "|" . $remainingStatic, 100, dontSkipOnPass:1);
             return;
         }
     }
 
+    // The player declined (lastDecision == "PASS", reachable because the queue sites pass
+    // dontSkipOnPass): reset it so the unflagged ReserveCard / EffectStackOpportunity CUSTOMs queued
+    // below are not skipped (same idiom as KindleProcess).
+    if($lastDecision === "PASS") {
+        DecisionQueueController::AddDecision($player, "PASSPARAMETER", "-", 100);
+    }
     for($i = 0; $i < $reserveCost; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
@@ -7983,7 +7992,7 @@ $customDQHandlers["FoundPowerDiscard1"] = function($player, $parts, $lastDecisio
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $hand), 1,
         tooltip:"Discard_a_card?_(Found_Power_2/2)");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "FoundPowerDiscard2", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FoundPowerDiscard2", 1, dontSkipOnPass:1);
 };
 
 $customDQHandlers["FoundPowerDiscard2"] = function($player, $parts, $lastDecision) {

@@ -1,0 +1,29 @@
+{
+    "name": "fractal-of-refreshment-decline-third-reveal-still-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:50:41+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "cxqf8rr452"
+    ],
+    "notes": "Fractal of Refreshment (cxqf8rr452): \"On Enter: Reveal up to three water element cards from your memory and put them on the bottom of your deck. Draw that many cards into your memory.\" Stopping before three (declining the 'Reveal and bottom a water card?' prompt with PASS) must still draw one card into memory per card already bottomed. Regression: FractalRefreshPick's loop re-queue (Custom/GameLogic.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its decline branch (DrawIntoMemory for the bottomed count) never ran. (fractal-of-refreshment-bottom-2-draw-2 declines with '-', which is not 'PASS' and so bypassed the skip; the real client sends PASS.) The first prompt (queued by the generated ability) needs no flag: declining it with 0 bottomed draws nothing either way. Same setup as fractal-of-refreshment-bottom-2-draw-2 (two WATER Frostbinder Apostles in memory; the champion is patched to Diao Chan (CLERIC) with a Spirit of Water lineage); two cards are bottomed and the third offer is declined with PASS.",
+    "semanticCoverage": {
+        "testedCards": [
+            "cxqf8rr452"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "zone-movement",
+            "bottom-deck"
+        ],
+        "rulesClauses": [
+            "Reveal up to three water element cards from your memory and put them on the bottom of your deck. Draw that many cards into your memory."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. FractalRefreshPick's loop re-queue AddDecision omitted dontSkipOnPass, so declining a further reveal (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its decline branch (DrawIntoMemory for the bottomed count) never ran: two cards were bottomed and nothing was drawn (live repro on HEAD: memory 4 / deck 15 instead of 6 / 13). Fix: dontSkipOnPass:1 on the re-queue.",
+        "affectedFunction": "Custom/GameLogic.php FractalRefreshPick handler's AddDecision(..., \"CUSTOM\", \"FractalRefreshPick|N\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

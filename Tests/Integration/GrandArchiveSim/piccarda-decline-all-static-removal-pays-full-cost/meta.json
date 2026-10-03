@@ -1,0 +1,28 @@
+{
+    "name": "piccarda-decline-all-static-removal-pays-full-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:49:52+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ooGvrzxTmr"
+    ],
+    "notes": "Piccarda, Night Rider (ooGvrzxTmr): \"While paying for this card's reserve cost, you may remove up to four static counters from among objects you control. Each counter removed this way pays for 1 of that cost.\" Declining a 'Remove a static counter to pay 1?' prompt ends the optional removal and the rest of the reserve cost is paid the normal way. Regression: PiccardaStaticCost's queue sites (ActivateCard in Custom/GameLogic.php and the handler's own re-queue in Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and the remaining ReserveCard payments + EffectStackOpportunity were never queued: Piccarda sat on the effect stack with an empty decision queue and could never be paid for (a soft-lock). Fixing the flags alone was not enough: the handler has no explicit decline branch -- on PASS it fell through and RE-OFFERED the same prompt forever, and the unflagged ReserveCard CUSTOMs it queues would be skipped while lastDecision is still 'PASS' -- so the handler now treats PASS/-/empty as 'done removing' (no re-offer) and queues a PASSPARAMETER '-' before the reserve payments. The champion is given an ARCANE Subcards lineage (Piccarda is ARCANE) and 2 static counters; seven filler-able hand cards pay the cost. Here the very first prompt is declined with PASS, so the whole 7 reserve cost is paid from hand and both static counters stay on the champion.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ooGvrzxTmr"
+        ],
+        "mechanics": [
+            "cost",
+            "counter"
+        ],
+        "rulesClauses": [
+            "While paying for this card's reserve cost, you may remove up to four static counters from among objects you control. Each counter removed this way pays for 1 of that cost."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. ActivateCard()'s initial Piccarda AddDecision omitted dontSkipOnPass, so declining the first static-counter prompt (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip PiccardaStaticCost: no reserve payments were queued and Piccarda was stuck on the effect stack with an empty decision queue (live repro on HEAD). Fix: dontSkipOnPass:1 there (plus the handler-side decline handling described in piccarda-decline-further-static-removal-pays-rest-of-cost).",
+        "affectedFunction": "Custom/GameLogic.php ActivateCard() Piccarda AddDecision(..., \"CUSTOM\", \"PiccardaStaticCost|N|4\", 100, dontSkipOnPass:1) + Custom/CardDQHandlers.php PiccardaStaticCost handler (loop AddDecision flag, PASS treated as 'done', PASSPARAMETER reset before the reserve payments)",
+        "fixCommit": "TBD"
+    }
+}

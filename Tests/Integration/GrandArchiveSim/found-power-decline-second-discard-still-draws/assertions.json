@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":6,"semantic":true,"label":"Hand 8 - Found Power - 1 reserve payment - 1 discard + 1 draw = 6: one card drawn for the one card discarded even though the second discard was declined"},
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":2,"semantic":true,"label":"Graveyard holds Found Power and the one discarded card"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

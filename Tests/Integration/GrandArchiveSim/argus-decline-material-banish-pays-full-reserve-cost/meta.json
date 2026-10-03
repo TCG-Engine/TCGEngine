@@ -1,0 +1,29 @@
+{
+    "name": "argus-decline-material-banish-pays-full-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:48:29+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4GFKcHg9NU"
+    ],
+    "notes": "Argus, All-Seeing Giant (4GFKcHg9NU): \"While paying for this card's reserve cost, you may banish one or more cards named Crystal of Argus or Eye of Argus from your material deck. Each card banished this way pays for 3 of that cost.\" Declining the optional banish means the whole reserve cost (10) is paid the normal way. Regression: ArgusReserveChoice queued its paired CUSTOM 'ArgusReserveApply' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and the 10 ReserveCard payments + EffectStackOpportunity were never queued: Argus sat on the effect stack with an empty decision queue and could never be paid for (a soft-lock). Fixing the flag alone was not enough: the decline branch queues unflagged CUSTOM reserve payments that would be skipped while lastDecision is still 'PASS', so it now queues a PASSPARAMETER '-' first (the idiom KindleProcess already uses). Eye of Argus is added to the material deck so the optional banish is offered; the champion gets a LUXEM Subcards lineage so the Exalted element is enabled; four filler cards are added to the hand so all 10 reserve payments can be made from it. The banish is declined and the 10 payments are made.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4GFKcHg9NU"
+        ],
+        "mechanics": [
+            "cost",
+            "banish",
+            "additional-cost"
+        ],
+        "rulesClauses": [
+            "While paying for this card's reserve cost, you may banish one or more cards named Crystal of Argus or Eye of Argus from your material deck. Each card banished this way pays for 3 of that cost."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. ArgusReserveChoice queued the CUSTOM 'ArgusReserveApply' decision without dontSkipOnPass, so declining the optional Eye/Crystal of Argus banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler: the reserve payments and EffectStackOpportunity were never queued and Argus was stuck on the effect stack with an empty decision queue (live repro on HEAD, unpayable soft-lock). Fix: dontSkipOnPass:1 on that AddDecision, plus a PASSPARAMETER '-' queued first in the handler's decline branch so the unflagged reserve-payment CUSTOMs queued after it are not themselves skipped.",
+        "affectedFunction": "Custom/GameLogic.php ArgusReserveChoice handler's AddDecision(..., \"CUSTOM\", \"ArgusReserveApply\", 100, dontSkipOnPass:1) + ArgusReserveApply decline branch (PASSPARAMETER reset)",
+        "fixCommit": "TBD"
+    }
+}

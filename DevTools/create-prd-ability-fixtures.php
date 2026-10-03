@@ -23645,6 +23645,187 @@ DECK,
     ],
 ];
 
+// --- Argus, All-Seeing Giant: declining the material-deck banish still pays the full reserve cost (dontSkipOnPass regression) ---
+$fixtures['argus-decline-material-banish-pays-full-reserve-cost'] = [
+    'testedCards' => ['4GFKcHg9NU'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+1 Eye of Argus
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Argus, All-Seeing Giant (4GFKcHg9NU): "While paying for this card's reserve cost, you may banish one or more cards named Crystal of Argus or Eye of Argus from your material deck. Each card banished this way pays for 3 of that cost." Declining the optional banish means the whole reserve cost (10) is paid the normal way.
+    // Regression: ArgusReserveChoice queued its paired CUSTOM 'ArgusReserveApply' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and the 10 ReserveCard payments + EffectStackOpportunity were never queued: Argus sat on the effect stack with an empty decision queue and could never be paid for (a soft-lock). Fixing the flag alone was not enough: the decline branch queues unflagged CUSTOM reserve payments that would be skipped while lastDecision is still 'PASS', so it now queues a PASSPARAMETER '-' first (the idiom KindleProcess already uses).
+    // Eye of Argus is added to the material deck so the optional banish is offered; the champion gets a LUXEM Subcards lineage so the Exalted element is enabled; four filler cards are added to the hand so all 10 reserve payments can be made from it. The banish is declined and the 10 payments are made.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]], // LUXEM lineage -> enables EXALTED for Argus (EXALTED/NORM)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4GFKcHg9NU'], // Argus, All-Seeing Giant -> myHand-7
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // filler for reserve payments
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // filler
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // filler
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // filler
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline banishing Eye of Argus from the material deck to pay 3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/10
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/10
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/10
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/10
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 5/10
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 6/10
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 7/10
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 8/10
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 9/10
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 10/10
+    ],
+];
+
+// --- Piccarda: declining a further static-counter removal pays the rest of the reserve cost (dontSkipOnPass regression) ---
+$fixtures['piccarda-decline-further-static-removal-pays-rest-of-cost'] = [
+    'testedCards' => ['ooGvrzxTmr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Piccarda, Night Rider (ooGvrzxTmr): "While paying for this card's reserve cost, you may remove up to four static counters from among objects you control. Each counter removed this way pays for 1 of that cost." Declining a 'Remove a static counter to pay 1?' prompt ends the optional removal and the rest of the reserve cost is paid the normal way.
+    // Regression: PiccardaStaticCost's queue sites (ActivateCard in Custom/GameLogic.php and the handler's own re-queue in Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and the remaining ReserveCard payments + EffectStackOpportunity were never queued: Piccarda sat on the effect stack with an empty decision queue and could never be paid for (a soft-lock). Fixing the flags alone was not enough: the handler has no explicit decline branch -- on PASS it fell through and RE-OFFERED the same prompt forever, and the unflagged ReserveCard CUSTOMs it queues would be skipped while lastDecision is still 'PASS' -- so the handler now treats PASS/-/empty as 'done removing' (no re-offer) and queues a PASSPARAMETER '-' before the reserve payments.
+    // The champion is given an ARCANE Subcards lineage (Piccarda is ARCANE) and 2 static counters; seven filler-able hand cards pay the cost. Here one static counter is removed (paying 1), the next offer is declined with PASS, and the remaining 6 of the 7 reserve cost is paid from hand.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G'], 'Counters' => ['static' => 2]]], // Lorraine, Arclight Saber (ARCANE) lineage for ARCANE access; champion carries 2 static counters
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ooGvrzxTmr'], // Piccarda, Night Rider, seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // remove one static counter (pays 1 of 7)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline removing another static counter
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 5/6
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 6/6
+    ],
+];
+
+// --- Piccarda: declining every static-counter removal pays the full reserve cost (dontSkipOnPass regression) ---
+$fixtures['piccarda-decline-all-static-removal-pays-full-cost'] = [
+    'testedCards' => ['ooGvrzxTmr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Piccarda, Night Rider (ooGvrzxTmr): "While paying for this card's reserve cost, you may remove up to four static counters from among objects you control. Each counter removed this way pays for 1 of that cost." Declining a 'Remove a static counter to pay 1?' prompt ends the optional removal and the rest of the reserve cost is paid the normal way.
+    // Regression: PiccardaStaticCost's queue sites (ActivateCard in Custom/GameLogic.php and the handler's own re-queue in Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and the remaining ReserveCard payments + EffectStackOpportunity were never queued: Piccarda sat on the effect stack with an empty decision queue and could never be paid for (a soft-lock). Fixing the flags alone was not enough: the handler has no explicit decline branch -- on PASS it fell through and RE-OFFERED the same prompt forever, and the unflagged ReserveCard CUSTOMs it queues would be skipped while lastDecision is still 'PASS' -- so the handler now treats PASS/-/empty as 'done removing' (no re-offer) and queues a PASSPARAMETER '-' before the reserve payments.
+    // The champion is given an ARCANE Subcards lineage (Piccarda is ARCANE) and 2 static counters; seven filler-able hand cards pay the cost. Here the very first prompt is declined with PASS, so the whole 7 reserve cost is paid from hand and both static counters stay on the champion.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G'], 'Counters' => ['static' => 2]]], // Lorraine, Arclight Saber (ARCANE) lineage for ARCANE access; champion carries 2 static counters
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ooGvrzxTmr'], // Piccarda, Night Rider, seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline removing any static counter
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/7
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/7
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/7
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/7
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 5/7
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 6/7
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 7/7
+    ],
+];
+
+// --- Fractal of Refreshment: declining a further reveal still draws into memory for the cards already bottomed (dontSkipOnPass regression) ---
+$fixtures['fractal-of-refreshment-decline-third-reveal-still-draws'] = [
+    'testedCards' => ['cxqf8rr452'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Diao Chan, Enchantress
+1 Backup Charger
+1 Cleric Robes
+1 Scepter of Fascination
+# Main
+4 Fractal of Refreshment
+4 Dungeon Guide
+4 Fluffy Shopkeep
+4 Frostbinder Apostle
+4 Awakened Deacon
+DECK,
+    // Fractal of Refreshment (cxqf8rr452): "On Enter: Reveal up to three water element cards from your memory and put them on the bottom of your deck. Draw that many cards into your memory." Stopping before three (declining the 'Reveal and bottom a water card?' prompt with PASS) must still draw one card into memory per card already bottomed.
+    // Regression: FractalRefreshPick's loop re-queue (Custom/GameLogic.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its decline branch (DrawIntoMemory for the bottomed count) never ran. (fractal-of-refreshment-bottom-2-draw-2 declines with '-', which is not 'PASS' and so bypassed the skip; the real client sends PASS.) The first prompt (queued by the generated ability) needs no flag: declining it with 0 bottomed draws nothing either way.
+    // Same setup as fractal-of-refreshment-bottom-2-draw-2 (two WATER Frostbinder Apostles in memory; the champion is patched to Diao Chan (CLERIC) with a Spirit of Water lineage); two cards are bottomed and the third offer is declined with PASS.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00', 'Subcards' => ['tafqldAGRF']]], // Diao Chan, Enchantress (CLERIC) + Spirit of Water lineage (WATER unlock)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'x7u6wzh973'], // Frostbinder Apostle (WATER) #1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'x7u6wzh973'], // Frostbinder Apostle (WATER) #2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (NORM) -- not water, must not be offered
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cxqf8rr452'], // Fractal of Refreshment, seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // reveal and bottom water card #1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // reveal and bottom water card #2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the 3rd offer
+    ],
+];
+
+// --- Found Power: declining the second discard still draws for the card already discarded (dontSkipOnPass regression) ---
+$fixtures['found-power-decline-second-discard-still-draws'] = [
+    'testedCards' => ['8pIXnuI1Df'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Found Power (8pIXnuI1Df): "Empower 3. If you control an object named Proto Key Crest, discard up to two cards, then draw that many cards." Stopping after one discard (declining the 'Discard a card? (Found Power 2/2)' prompt with PASS) must still draw one card for the card already discarded.
+    // Regression: FoundPowerDiscard1 queued its paired CUSTOM 'FoundPowerDiscard2' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its draw step (Draw for the discarded count) never ran: the first card was discarded and nothing was drawn.
+    // Proto Key Crest is seeded onto the field (it is only the condition, not the card under test); Found Power itself is activated from hand through real actions. One card is discarded, the second prompt is declined with PASS, one card is drawn.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'k5wrAxBbF9'], // Proto Key Crest (condition for the discard/draw clause)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '8pIXnuI1Df'], // Found Power, seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // discard the first card (Found Power 1/2)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the second discard (Found Power 2/2)
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

@@ -1,0 +1,29 @@
+{
+    "name": "found-power-decline-second-discard-still-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T05:55:29+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "8pIXnuI1Df"
+    ],
+    "notes": "Found Power (8pIXnuI1Df): \"Empower 3. If you control an object named Proto Key Crest, discard up to two cards, then draw that many cards.\" Stopping after one discard (declining the 'Discard a card? (Found Power 2/2)' prompt with PASS) must still draw one card for the card already discarded. Regression: FoundPowerDiscard1 queued its paired CUSTOM 'FoundPowerDiscard2' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its draw step never ran: the first card was discarded and nothing was drawn. Proto Key Crest is seeded onto the field as the condition (not the card under test); Found Power is activated from hand through real actions.",
+    "semanticCoverage": {
+        "testedCards": [
+            "8pIXnuI1Df"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "condition",
+            "empower"
+        ],
+        "rulesClauses": [
+            "If you control an object named Proto Key Crest, discard up to two cards, then draw that many cards."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. FoundPowerDiscard1 queued the CUSTOM 'FoundPowerDiscard2' decision without dontSkipOnPass, so declining the second discard (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and the draw-that-many step never ran: one card was discarded and none drawn. Fix: dontSkipOnPass:1 on that AddDecision.",
+        "affectedFunction": "Custom/CardDQHandlers.php FoundPowerDiscard1 AddDecision(..., \"CUSTOM\", \"FoundPowerDiscard2\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

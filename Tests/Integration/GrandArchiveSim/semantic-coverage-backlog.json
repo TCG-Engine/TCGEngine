@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T04:46:37+00:00",
+    "generatedAt": "2026-10-03T05:58:17+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 620,
+        "cardsWithExistingFixtures": 623,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1867,
+        "cardsNeedingSemanticCoverage": 1864,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -8939,24 +8939,6 @@
             "priority": 14
         },
         {
-            "cardId": "4GFKcHg9NU",
-            "name": "Argus, All-Seeing Giant",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "rn0yetaebj",
             "name": "Arsenal Keeper",
             "type": "ALLY",
@@ -12296,24 +12278,6 @@
                 "zone-movement",
                 "counter",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "ooGvrzxTmr",
-            "name": "Piccarda, Night Rider",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -23400,22 +23364,6 @@
             "mechanics": [
                 "cost",
                 "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "8pIXnuI1Df",
-            "name": "Found Power",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -39045,10 +38993,12 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "fractal-of-refreshment-bottom-2-draw-2"
+                "fractal-of-refreshment-bottom-2-draw-2",
+                "fractal-of-refreshment-decline-third-reveal-still-draws"
             ],
             "semanticFixtures": [
-                "fractal-of-refreshment-bottom-2-draw-2"
+                "fractal-of-refreshment-bottom-2-draw-2",
+                "fractal-of-refreshment-decline-third-reveal-still-draws"
             ],
             "starterDecks": [
                 "Diao Chan Re:Collection, Idyll Corsage"
@@ -46054,6 +46004,28 @@
             "priority": 35
         },
         {
+            "cardId": "4GFKcHg9NU",
+            "name": "Argus, All-Seeing Giant",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "argus-decline-material-banish-pays-full-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "argus-decline-material-banish-pays-full-reserve-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "DNe5dvCNA1",
             "name": "Hoarfrost Hold",
             "type": "PHANTASIA",
@@ -46070,6 +46042,30 @@
             ],
             "semanticFixtures": [
                 "hoarfrost-hold-decline-further-banish-keeps-frost-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "ooGvrzxTmr",
+            "name": "Piccarda, Night Rider",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "piccarda-decline-all-static-removal-pays-full-cost",
+                "piccarda-decline-further-static-removal-pays-rest-of-cost"
+            ],
+            "semanticFixtures": [
+                "piccarda-decline-all-static-removal-pays-full-cost",
+                "piccarda-decline-further-static-removal-pays-rest-of-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46157,6 +46153,26 @@
             ],
             "semanticFixtures": [
                 "ashen-riffle-decline-returns-revealed-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "8pIXnuI1Df",
+            "name": "Found Power",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "found-power-decline-second-discard-still-draws"
+            ],
+            "semanticFixtures": [
+                "found-power-decline-second-discard-still-draws"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
