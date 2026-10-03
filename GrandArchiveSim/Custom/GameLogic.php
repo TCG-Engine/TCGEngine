@@ -2707,7 +2707,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
         if(!empty($herbs)) {
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $herbs), 100, tooltip:"Sacrifice_an_Herb?");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "KindlingFlareSacHerb|$reserveCost", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "KindlingFlareSacHerb|$reserveCost", 100, dontSkipOnPass:1);
         } else {
             for($i = 0; $i < $reserveCost; ++$i) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
@@ -3656,7 +3656,7 @@ function PerilousMendChooseCurse($player, $count) {
     DecisionQueueController::StoreVariable("perilousMendCount", "$count");
     $targetStr = implode("&", $curseTargets);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Put_Curse_on_lineage?_(Perilous_Mend)");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "PerilousMendChooseCurse", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PerilousMendChooseCurse", 1, dontSkipOnPass:1);
 }
 
 function PerilousMendFinalize($player, $count) {
@@ -9471,7 +9471,7 @@ $customDQHandlers["ImmaterialDissolveSelect"] = function($player, $parts, $lastD
                 $targetStr = implode("&", $affordable);
                 DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1,
                     "Destroy_another_token?_(cost_remaining:" . $remaining . ")");
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ImmaterialDissolveSelect", 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ImmaterialDissolveSelect", 1, dontSkipOnPass:1);
                 return;
             }
         }
@@ -24886,7 +24886,7 @@ function AshenRiffleChoose($player, $remainingChoices) {
     }
     $pickNumber = 3 - $remainingChoices;
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $eligible), 1, tooltip:"Banish_a_Suited_non-action_card?_(" . $pickNumber . "_of_2)");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "AshenRiffleChoose|" . $remainingChoices, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AshenRiffleChoose|" . $remainingChoices, 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["AshenRiffleChoose"] = function($player, $parts, $lastDecision) {
@@ -24983,7 +24983,7 @@ $customDQHandlers["HoarfrostHoldChoose"] = function($player, $parts, $lastDecisi
     }
 
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 1, tooltip:"Banish_another_Suited_Spell?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "HoarfrostHoldChoose", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "HoarfrostHoldChoose", 1, dontSkipOnPass:1);
 };
 
 /**

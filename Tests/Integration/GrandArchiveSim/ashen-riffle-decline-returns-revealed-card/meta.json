@@ -1,0 +1,28 @@
+{
+    "name": "ashen-riffle-decline-returns-revealed-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:35:23+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "fjpimrl974"
+    ],
+    "notes": "Ashen Riffle (fjpimrl974): \"Reveal the top four cards of your deck. Banish up to two Suited non-action cards revealed this way and put the rest on the bottom of your deck in any order. ...\" Declining the optional banish must still put the revealed card(s) on the bottom of the deck instead of stranding them. Regression: AshenRiffleChoose() queued its paired CUSTOM 'AshenRiffleChoose|N' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and AshenRiffleCleanup() never ran: the revealed card stayed in the temp zone and the deck stayed one card short (4 instead of 5). A Suited non-action card (Noire, Ace of Spades, an ALLY) is seeded at the top of the deck so the optional banish prompt is offered; Ashen Riffle (FIRE, native to Spirit of Fire) is played from hand and the banish is declined. (Incidental, NOT fixed here: AshenRiffleStart()'s reveal loop calls MZMove($player,'myDeck-0',...) repeatedly, which only moves the first card, so it currently reveals 1 card instead of 4.)",
+    "semanticCoverage": {
+        "testedCards": [
+            "fjpimrl974"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "bottom-deck"
+        ],
+        "rulesClauses": [
+            "Banish up to two Suited non-action cards revealed this way and put the rest on the bottom of your deck in any order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. AshenRiffleChoose() queued its paired CUSTOM 'AshenRiffleChoose|N' decision without dontSkipOnPass, so declining the optional banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler; AshenRiffleCleanup() never ran and the revealed card stayed stranded in the temp zone (live repro on HEAD: deck 4 instead of 5, temp zone holding the card). Fix: dontSkipOnPass:1 on that AddDecision.",
+        "affectedFunction": "Custom/GameLogic.php AshenRiffleChoose() AddDecision(..., \"CUSTOM\", \"AshenRiffleChoose|N\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

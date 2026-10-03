@@ -1,0 +1,4 @@
+[
+    {"step":5,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":13,"semantic":true,"label":"All five looked-at cards go back on the bottom of the deck (8 remaining + 5 = 13)"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

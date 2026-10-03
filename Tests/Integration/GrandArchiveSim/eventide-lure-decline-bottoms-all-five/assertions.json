@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":13,"semantic":true,"label":"All five looked-at cards go back on the bottom of the deck (8 remaining + 5 = 13)"},
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"Declining the reveal puts nothing into memory"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

@@ -276,3 +276,68 @@ $customDQHandlers["ArrowTrapResolve"] = function($player, $parts, $lastDecision)
         MZMove($player, $attackerMZ, $dest);
     }
 };
+
+// ---------------------------------------------------------------------------------------------
+// dontSkipOnPass overrides (decline-tolerant CUSTOM follow-ups queued by generated abilities)
+//
+// Core/DecisionQueueController.php ExecuteStaticMethods() skips a CUSTOM handler outright when the
+// preceding answer was "PASS" (a declined MZMAYCHOOSE) unless the decision was queued with
+// dontSkipOnPass. The generated closures below queue their paired follow-up WITHOUT that flag, but
+// the follow-up handler's own decline branch is required by the card text to still run. Each
+// closure is the generated body verbatim except for dontSkipOnPass:1 on the follow-up AddDecision.
+// ---------------------------------------------------------------------------------------------
+
+// Foraging Fox (b0ssellm84): "On Enter: Look at the top five cards of your deck. You may reveal a
+// Fatestone card from among them and put it into your memory. Put the rest on the bottom of your
+// deck in any order." Declining the reveal must still put all five cards on the bottom; the
+// generated follow-up ("b0ssellm84:0:Enter-1" -> ForagingFoxChooseBottom) was skipped on PASS and
+// stranded the five cards in the temp zone.
+$enterAbilities["b0ssellm84:0"] = function($player) { //Find Fatestone from top five
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $deck = GetDeck($player);
+  $lookCount = min(5, count($deck));
+  if($lookCount <= 0) return;
+  for($i = $lookCount - 1; $i >= 0; --$i) {
+    MZMove($player, "myDeck-" . $i, "myTempZone");
+  }
+  $candidates = ZoneSearch("myTempZone", cardSubtypes: ["FATESTONE"]);
+  if(empty($candidates)) {
+      ForagingFoxChooseBottom($player);
+      return;
+  }
+  $candidateStr = implode("&", $candidates);
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "b0ssellm84:0:Enter-1", 1, dontSkipOnPass:1);
+};
+
+// Malevolent Vow (up6fw61vf1): "Discard up to three cards. Recover 3+X, where X is three times amount
+// of cards discarded this way. Put Malevolent Vow on the bottom of your champion's lineage." Declining
+// ANY of the three optional discards (including the first, i.e. discarding zero cards) must still
+// finish the spell: recover and move the Vow to the lineage. The generated closure queued
+// 'MalevolentVow1' without dontSkipOnPass, so declining the first prompt skipped the handler and the
+// spell did nothing (Vow stranded in the graveyard, no recover).
+$cardActivatedAbilities["up6fw61vf1:0"] = function($player) { //Malevolent Vow
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Discard up to three cards. Recover 3+X where X=3*discardCount. Put on bottom of lineage.
+  DecisionQueueController::StoreVariable("malevolentVowDiscardCount", "0");
+  $hand = ZoneSearch("myHand");
+  if(empty($hand)) {
+      // No cards to discard — recover 3 and put on lineage immediately
+      RecoverChampion($player, 3);
+      $gy = GetZone("myGraveyard");
+      for($gi = count($gy)-1; $gi >= 0; --$gi) {
+          if(!$gy[$gi]->removed && $gy[$gi]->CardID === "up6fw61vf1") {
+              MZRemove($player, "myGraveyard-" . $gi);
+              DecisionQueueController::CleanupRemovedCards();
+              break;
+          }
+      }
+      AddToChampionLineage($player, "up6fw61vf1");
+      return;
+  }
+  $handStr = implode("&", $hand);
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $handStr, 1, tooltip:"Discard_a_card_(Malevolent_Vow_1/3)");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "MalevolentVow1", 1, dontSkipOnPass:1);
+};

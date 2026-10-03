@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T04:21:05+00:00",
+    "generatedAt": "2026-10-03T04:46:37+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 611,
+        "cardsWithExistingFixtures": 620,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1876,
+        "cardsNeedingSemanticCoverage": 1867,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -3678,23 +3678,6 @@
             "priority": 23
         },
         {
-            "cardId": "dcgw05qzza",
-            "name": "Kindling Flare",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "UC9byG4aD5",
             "name": "Lesser Boon of Zerusa",
             "type": "LESSER BOON",
@@ -6764,25 +6747,6 @@
             "priority": 15
         },
         {
-            "cardId": "55d9w9uuvq",
-            "name": "Immaterial Dissolution",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "u6o6eanbrf",
             "name": "Imperial Apprentice",
             "type": "ALLY",
@@ -7234,25 +7198,6 @@
                 "damage",
                 "prevention",
                 "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "A5jpuUlwDd",
-            "name": "Perilous Mend",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "zone-movement",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -11362,24 +11307,6 @@
                 "draw-discard",
                 "status",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "DNe5dvCNA1",
-            "name": "Hoarfrost Hold",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -18029,23 +17956,6 @@
             "priority": 13
         },
         {
-            "cardId": "egbscxwjbq",
-            "name": "Lost in Thought",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "xllhbjr20n",
             "name": "Lu Xun, Pyre Strategist",
             "type": "UNIQUE,ALLY",
@@ -18157,23 +18067,6 @@
                 "targeting",
                 "zone-movement",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "up6fw61vf1",
-            "name": "Malevolent Vow",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -21963,22 +21856,6 @@
             "priority": 12
         },
         {
-            "cardId": "fjpimrl974",
-            "name": "Ashen Riffle",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "xwtkzqxfab",
             "name": "Ashwick Cremator",
             "type": "ALLY",
@@ -25387,22 +25264,6 @@
             "priority": 12
         },
         {
-            "cardId": "BY0E8si926",
-            "name": "Orb of Regret",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "p3nq0ymvdd",
             "name": "Ordinary Bear",
             "type": "ALLY",
@@ -26067,22 +25928,6 @@
             "mechanics": [
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "QvQhg1EOBR",
-            "name": "Sacred Engulfment",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -33491,9 +33336,11 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "lustrous-slime-decline-further-reveal-keeps-counters",
                 "lustrous-slime-enter-reveal-buff"
             ],
             "semanticFixtures": [
+                "lustrous-slime-decline-further-reveal-keeps-counters",
                 "lustrous-slime-enter-reveal-buff"
             ],
             "starterDecks": [
@@ -40769,9 +40616,11 @@
                 "zone-movement"
             ],
             "existingFixtures": [
+                "spirit-blade-dispersion-decline-second-sword-still-splits",
                 "spirit-blade-dispersion-split-damage"
             ],
             "semanticFixtures": [
+                "spirit-blade-dispersion-decline-second-sword-still-splits",
                 "spirit-blade-dispersion-split-damage"
             ],
             "starterDecks": [
@@ -41540,9 +41389,11 @@
                 "token"
             ],
             "existingFixtures": [
+                "assemble-the-ancients-decline-second-domain-still-summons",
                 "assemble-the-ancients-domain-sacrifice-tokens"
             ],
             "semanticFixtures": [
+                "assemble-the-ancients-decline-second-domain-still-summons",
                 "assemble-the-ancients-domain-sacrifice-tokens"
             ],
             "starterDecks": [
@@ -42126,9 +41977,11 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "eventide-lure-decline-bottoms-all-five",
                 "eventide-lure-look-five-reveal-phantasia"
             ],
             "semanticFixtures": [
+                "eventide-lure-decline-bottoms-all-five",
                 "eventide-lure-look-five-reveal-phantasia"
             ],
             "starterDecks": [
@@ -42221,9 +42074,11 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "foraging-fox-decline-bottoms-all-five",
                 "foraging-fox-enter-look5-reveal-fatestone"
             ],
             "semanticFixtures": [
+                "foraging-fox-decline-bottoms-all-five",
                 "foraging-fox-enter-look5-reveal-fatestone"
             ],
             "starterDecks": [
@@ -45278,10 +45133,12 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "recruitment-officer-class-bonus-on-foster-look-top-5"
+                "recruitment-officer-class-bonus-on-foster-look-top-5",
+                "recruitment-officer-decline-returns-looked-at-cards"
             ],
             "semanticFixtures": [
-                "recruitment-officer-class-bonus-on-foster-look-top-5"
+                "recruitment-officer-class-bonus-on-foster-look-top-5",
+                "recruitment-officer-decline-returns-looked-at-cards"
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
@@ -45299,9 +45156,11 @@
                 "draw-discard"
             ],
             "existingFixtures": [
+                "redirect-orbit-decline-still-draws-into-memory",
                 "redirect-orbit-shuffle-draw"
             ],
             "semanticFixtures": [
+                "redirect-orbit-decline-still-draws-into-memory",
                 "redirect-orbit-shuffle-draw"
             ],
             "starterDecks": [
@@ -46058,6 +45917,29 @@
             "priority": 43
         },
         {
+            "cardId": "dcgw05qzza",
+            "name": "Kindling Flare",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "kindling-flare-decline-all-herbs-pays-reserve-cost",
+                "kindling-flare-decline-further-herb-pays-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "kindling-flare-decline-all-herbs-pays-reserve-cost",
+                "kindling-flare-decline-further-herb-pays-reserve-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "rYyOEGB3tD",
             "name": "Turm, Schwartz Rook",
             "type": "UNIQUE,ALLY",
@@ -46102,6 +45984,52 @@
             "priority": 35
         },
         {
+            "cardId": "55d9w9uuvq",
+            "name": "Immaterial Dissolution",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "immaterial-dissolution-decline-further-token-still-destroys"
+            ],
+            "semanticFixtures": [
+                "immaterial-dissolution-decline-further-token-still-destroys"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "A5jpuUlwDd",
+            "name": "Perilous Mend",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "perilous-mend-decline-further-curse-still-recovers"
+            ],
+            "semanticFixtures": [
+                "perilous-mend-decline-further-curse-still-recovers"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "z07nau5sw9",
             "name": "Powered Defender",
             "type": "ALLY",
@@ -46126,6 +46054,28 @@
             "priority": 35
         },
         {
+            "cardId": "DNe5dvCNA1",
+            "name": "Hoarfrost Hold",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "hoarfrost-hold-decline-further-banish-keeps-frost-counters"
+            ],
+            "semanticFixtures": [
+                "hoarfrost-hold-decline-further-banish-keeps-frost-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "pal7cpvn96",
             "name": "Intrepid Spearman",
             "type": "ALLY",
@@ -46145,6 +46095,72 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 33
+        },
+        {
+            "cardId": "egbscxwjbq",
+            "name": "Lost in Thought",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "lost-in-thought-decline-still-draws"
+            ],
+            "semanticFixtures": [
+                "lost-in-thought-decline-still-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "up6fw61vf1",
+            "name": "Malevolent Vow",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "malevolent-vow-decline-first-discard-still-recovers-and-lineages",
+                "malevolent-vow-decline-second-discard-still-recovers",
+                "malevolent-vow-decline-third-discard-still-recovers"
+            ],
+            "semanticFixtures": [
+                "malevolent-vow-decline-first-discard-still-recovers-and-lineages",
+                "malevolent-vow-decline-second-discard-still-recovers",
+                "malevolent-vow-decline-third-discard-still-recovers"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "fjpimrl974",
+            "name": "Ashen Riffle",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ashen-riffle-decline-returns-revealed-card"
+            ],
+            "semanticFixtures": [
+                "ashen-riffle-decline-returns-revealed-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
         },
         {
             "cardId": "Zw0T2GmowK",
@@ -46227,6 +46243,26 @@
             "priority": 32
         },
         {
+            "cardId": "BY0E8si926",
+            "name": "Orb of Regret",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "orb-of-regret-decline-still-draws"
+            ],
+            "semanticFixtures": [
+                "orb-of-regret-decline-still-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "MuCOJRgMdj",
             "name": "Otherworldly Possessions",
             "type": "ACTION",
@@ -46241,6 +46277,26 @@
             ],
             "semanticFixtures": [
                 "otherworldly-possessions-enlighten"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "QvQhg1EOBR",
+            "name": "Sacred Engulfment",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "sacred-engulfment-decline-further-banish-still-empowers"
+            ],
+            "semanticFixtures": [
+                "sacred-engulfment-decline-further-banish-still-empowers"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

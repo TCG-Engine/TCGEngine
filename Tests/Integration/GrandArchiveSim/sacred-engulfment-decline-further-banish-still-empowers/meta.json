@@ -1,0 +1,29 @@
+{
+    "name": "sacred-engulfment-decline-further-banish-still-empowers",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:42:18+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "QvQhg1EOBR"
+    ],
+    "notes": "Sacred Engulfment (QvQhg1EOBR): \"Banish any amount of fire element cards from your graveyard. Then empower 4+X, where X is the amount of fire element cards banished this way.\" Stopping early (declining the 'Banish a fire card from GY?' prompt) must still empower 4+X for the X cards already banished. Regression: SacredEngulfmentBanishLoop() queued its paired CUSTOM 'SacredEngulfmentProcess|N' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (Empower 4+X) never ran: fire cards were banished and the spell gave no Empower at all. Three Red Slimes (FIRE) are seeded in the graveyard; one is banished, the next offer declined with PASS -> empower 4+1 = 5. The champion gets a Subcards patch with a LUXEM champion so the Exalted element (which needs another advanced element in the lineage) is enabled for this EXALTED/FIRE card; the [Class Bonus] cost reduction is not reached (default champion has no class bonus), so the full reserve cost 3 is paid.",
+    "semanticCoverage": {
+        "testedCards": [
+            "QvQhg1EOBR"
+        ],
+        "mechanics": [
+            "empower",
+            "zone-movement",
+            "banish"
+        ],
+        "rulesClauses": [
+            "Banish any amount of fire element cards from your graveyard. Then empower 4+X, where X is the amount of fire element cards banished this way."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. SacredEngulfmentBanishLoop() queued the CUSTOM 'SacredEngulfmentProcess|N' decision without dontSkipOnPass, so declining a further banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (Empower 4+X) never ran: fire cards were banished but no Empower was applied (live repro on HEAD). Fix: dontSkipOnPass:1 on that AddDecision.",
+        "affectedFunction": "Custom/CardDQHandlers.php SacredEngulfmentBanishLoop() AddDecision(..., \"CUSTOM\", \"SacredEngulfmentProcess|N\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

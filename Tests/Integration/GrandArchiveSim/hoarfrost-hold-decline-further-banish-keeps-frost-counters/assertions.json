@@ -1,0 +1,4 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"frost\":1}","semantic":true,"label":"One Suited Spell banished then declined: Hoarfrost Hold gets exactly 1 frost counter"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

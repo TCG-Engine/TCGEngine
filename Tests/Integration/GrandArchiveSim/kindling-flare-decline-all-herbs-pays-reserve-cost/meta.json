@@ -1,0 +1,29 @@
+{
+    "name": "kindling-flare-decline-all-herbs-pays-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:40:58+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "dcgw05qzza"
+    ],
+    "notes": "Kindling Flare (dcgw05qzza): \"As an additional cost to activate this card, sacrifice any amount of Herbs. Deal 1+X damage split among any amount of target units where X is the amount of Herbs sacrificed.\" \"Any amount\" includes zero: declining the very first 'Sacrifice an Herb?' prompt (X = 0) must still go on to pay the reserve cost and resolve for 1 damage. Regression: ActivateCard() (Custom/GameLogic.php) queued the first paired CUSTOM 'KindlingFlareSacHerb|N' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler on PASS, the reserve payments + EffectStackOpportunity were never queued, and the card was stuck on the effect stack with an empty decision queue (soft-lock, cost unpaid). See kindling-flare-decline-further-herb-pays-reserve-cost for the PASSPARAMETER reset the decline branch additionally needs. Two Herb tokens are seeded on the field but none is sacrificed; the 2 reserve cost is paid and the 1 damage (1 + X, X = 0) is assigned to the opposing Dungeon Guide.",
+    "semanticCoverage": {
+        "testedCards": [
+            "dcgw05qzza"
+        ],
+        "mechanics": [
+            "cost",
+            "damage"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice any amount of Herbs.",
+            "Deal 1+X damage split among any amount of target units where X is the amount of Herbs sacrificed."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. ActivateCard()'s initial Kindling Flare additional-cost AddDecision omitted dontSkipOnPass, so declining the first Herb prompt (MZMAYCHOOSE answered PASS, X = 0) made ExecuteStaticMethods() skip KindlingFlareSacHerb: no reserve payments were queued and the card was stuck on the effect stack with an empty queue (live repro on HEAD). Fix: dontSkipOnPass:1 there (and see kindling-flare-decline-further-herb-pays-reserve-cost for the handler-side PASSPARAMETER reset).",
+        "affectedFunction": "Custom/GameLogic.php ActivateCard() Kindling Flare additional-cost AddDecision(..., \"CUSTOM\", \"KindlingFlareSacHerb|N\", 100, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

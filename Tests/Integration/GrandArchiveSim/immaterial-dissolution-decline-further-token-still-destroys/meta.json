@@ -1,0 +1,29 @@
+{
+    "name": "immaterial-dissolution-decline-further-token-still-destroys",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:46:13+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "55d9w9uuvq"
+    ],
+    "notes": "Immaterial Dissolution (55d9w9uuvq): \"Destroy up to three target non-regalia token objects with total reserve cost 4 or less.\" Choosing fewer than three (declining the 'Destroy another token?' prompt) must still destroy the tokens already chosen. Regression: ImmaterialDissolveSelect's loop re-queue (Custom/GameLogic.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (destroy all accumulated targets) never ran: a token was chosen and then nothing was destroyed. (The first prompt, queued by the generated ability, needs no flag: declining it with nothing chosen destroys nothing either way.) Two Herb tokens (Blightroot, Fraysia, reserve cost 1 each) are seeded on the field; the first is chosen, the second declined with PASS.",
+    "semanticCoverage": {
+        "testedCards": [
+            "55d9w9uuvq"
+        ],
+        "mechanics": [
+            "token",
+            "targeting",
+            "kill"
+        ],
+        "rulesClauses": [
+            "Destroy up to three target non-regalia token objects with total reserve cost 4 or less."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. ImmaterialDissolveSelect's loop re-queue AddDecision omitted dontSkipOnPass, so declining a further token (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (destroy all accumulated targets) never ran: a token was chosen and nothing was destroyed (live repro on HEAD). Fix: dontSkipOnPass:1 on the re-queue.",
+        "affectedFunction": "Custom/GameLogic.php ImmaterialDissolveSelect handler's AddDecision(..., \"CUSTOM\", \"ImmaterialDissolveSelect\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

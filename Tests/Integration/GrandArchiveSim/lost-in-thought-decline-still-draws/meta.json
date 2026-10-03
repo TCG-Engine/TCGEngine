@@ -1,0 +1,28 @@
+{
+    "name": "lost-in-thought-decline-still-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:27:56+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "egbscxwjbq"
+    ],
+    "notes": "Lost in Thought (egbscxwjbq): \"You may banish up to X cards with floating memory from your graveyard. Draw a card for each card banished this way.\" Stopping early (declining the 'Banish another floating memory card?' prompt) must still draw one card per card already banished. Regression: LostInThoughtBanish's loop re-queue (Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler on the PASS answer and its PASS branch (Draw for the banished count) never ran. The first prompt (queued by the generated ability) needs no flag: declining with 0 banished draws nothing either way. Two Lost in Thought copies (floating memory) are seeded in the graveyard (the third floating card in the graveyard is the played copy itself); the champion gets Spirit of Water lineage for WATER element access. Lost in Thought is played from hand, one graveyard copy is banished, then the further offer is declined.",
+    "semanticCoverage": {
+        "testedCards": [
+            "egbscxwjbq"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "You may banish up to X cards with floating memory from your graveyard. Draw a card for each card banished this way."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. LostInThoughtBanish's loop re-queue AddDecision omitted dontSkipOnPass, so declining a further banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (Draw one card per card already banished) never ran (live repro on HEAD: hand stayed 7 instead of 8). Fix: dontSkipOnPass:1 on the re-queue.",
+        "affectedFunction": "Custom/CardDQHandlers.php LostInThoughtBanish handler's AddDecision(..., \"CUSTOM\", \"LostInThoughtBanish|N\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

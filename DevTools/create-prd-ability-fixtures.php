@@ -23074,6 +23074,577 @@ $fixtures['mirrordepths-blade-on-banish-decline-keeps-top-card'] = [
     ],
 ];
 
+// --- Orb of Regret: declining a further shuffle still draws for the cards already shuffled (dontSkipOnPass regression) ---
+$fixtures['orb-of-regret-decline-still-draws'] = [
+    'testedCards' => ['BY0E8si926'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Orb of Regret (BY0E8si926): "Banish CARDNAME: Shuffle up to three cards from your hand into your deck, then draw that many cards." Shuffling fewer than three (declining the 'Shuffle another card into deck?' prompt) must still shuffle the deck and draw one card per card already shuffled in.
+    // Regression: OrbOfRegretShuffle's loop re-queue (Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and the draw never happened (hand 6 instead of 7). The first prompt (queued by the generated ability) needs no flag: declining with 0 cards shuffled draws nothing either way.
+    // The Orb is seeded on the field; the player passes priority to open the fast-action window, activates it (banish self), shuffles myHand-0, then declines the second offer.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'BY0E8si926'], // Orb of Regret -> myField-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish_self-_shuffle_up_to_3_from_hand,_draw_that_many', 'chkInput' => [], 'inputText' => ''], // activate Orb of Regret (banish self)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // shuffle one card into the deck
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline shuffling another card
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // pass the fast-action window opened after the ability resolved
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // opponent passes too
+    ],
+];
+
+// --- Lost in Thought: declining a further banish still draws for the cards already banished (dontSkipOnPass regression) ---
+$fixtures['lost-in-thought-decline-still-draws'] = [
+    'testedCards' => ['egbscxwjbq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lost in Thought (egbscxwjbq): "You may banish up to X cards with floating memory from your graveyard. Draw a card for each card banished this way." Stopping early (declining the 'Banish another floating memory card?' prompt) must still draw one card per card already banished.
+    // Regression: LostInThoughtBanish's loop re-queue (Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler on the PASS answer and its PASS branch (Draw for the banished count) never ran. The first prompt (queued by the generated ability) needs no flag: declining with 0 banished draws nothing either way.
+    // Two Lost in Thought copies (floating memory) are seeded in the graveyard (the third floating card in the graveyard is the played copy itself); the champion gets Spirit of Water lineage for WATER element access. Lost in Thought is played from hand, one graveyard copy is banished, then the further offer is declined.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'egbscxwjbq'], // floating memory card #1 -> myGraveyard-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'egbscxwjbq'], // floating memory card #2 -> myGraveyard-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'egbscxwjbq'], // Lost in Thought, seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // banish the first floating memory card
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline banishing another
+    ],
+];
+
+// --- Eventide Lure: declining the reveal still puts the looked-at cards on the bottom of the deck (dontSkipOnPass regression) ---
+$fixtures['eventide-lure-decline-bottoms-all-five'] = [
+    'testedCards' => ['eg771cn2q1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    // Eventide Lure (eg771cn2q1): "On Enter: Look at the top five cards of your deck. You may reveal a phantasia card from among them and put it into your memory. Put the rest on the bottom of your deck in any order." Declining the optional reveal must not strand the five looked-at cards: they all go to the bottom of the deck.
+    // Regression: EventideLureReveal's paired AddDecision (Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS to 'Reveal a phantasia card?' and EventideLurePutRestOnBottom() never ran: the five cards stayed in the temp zone and the deck was left 5 cards short (deck 8 instead of 13).
+    // Same setup as eventide-lure-look-five-reveal-phantasia (one phantasia among the top five), but the reveal is declined.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'eg771cn2q1'], // Eventide Lure -> myHand-7
+        ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => 'em6eEh9q8y']], // top-5 slot 1: filler
+        ['player' => 1, 'patchMzId' => 'myDeck-1', 'setProperties' => ['CardID' => 'px60u5n1do']], // top-5 slot 2: filler
+        ['player' => 1, 'patchMzId' => 'myDeck-2', 'setProperties' => ['CardID' => 'LAfJuHgUbm']], // top-5 slot 3: the ONE phantasia
+        ['player' => 1, 'patchMzId' => 'myDeck-3', 'setProperties' => ['CardID' => 'em6eEh9q8y']], // top-5 slot 4: filler
+        ['player' => 1, 'patchMzId' => 'myDeck-4', 'setProperties' => ['CardID' => 'px60u5n1do']], // top-5 slot 5: filler
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline revealing the phantasia
+    ],
+];
+
+// --- Foraging Fox: declining the Fatestone reveal still puts all five looked-at cards on the bottom (dontSkipOnPass regression) ---
+$fixtures['foraging-fox-decline-bottoms-all-five'] = [
+    'testedCards' => ['b0ssellm84'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+# Main
+20 Dungeon Guide
+DECK,
+    // Foraging Fox (b0ssellm84): "On Enter: Look at the top five cards of your deck. You may reveal a Fatestone card from among them and put it into your memory. Put the rest on the bottom of your deck in any order." Declining the optional reveal must still put the rest -- here all five cards -- on the bottom of the deck.
+    // Regression: the generated enterAbilities closure queued its follow-up ('b0ssellm84:0:Enter-1') without dontSkipOnPass, so ExecuteStaticMethods() skipped it when the player answered PASS and ForagingFoxChooseBottom() never ran: the five cards stayed in the temp zone and the deck was 5 cards short (8 instead of 13). Fixed by overriding the generated closure in Custom/GeneratedAbilityOverrides.php with dontSkipOnPass:1 (the generated file is gitignored).
+    // Same setup as foraging-fox-enter-look5-reveal-fatestone (one Fatestone among the top five), but the reveal is declined and the rearrange prompt answered with the full ordering.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => 'b0ssellm84']], // Foraging Fox in hand slot 0
+        ['player' => 1, 'patchMzId' => 'myDeck-2', 'setProperties' => ['CardID' => 'h8n1520m2d']], // top-5 slot 3: the ONE Fatestone
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline revealing the Fatestone
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Bottom=em6eEh9q8y,em6eEh9q8y,h8n1520m2d,em6eEh9q8y,em6eEh9q8y', 'chkInput' => [], 'inputText' => ''], // order the five cards onto the bottom
+    ],
+];
+
+// --- Ashen Riffle: declining the optional banish still puts the revealed cards back on the bottom of the deck (dontSkipOnPass regression) ---
+$fixtures['ashen-riffle-decline-returns-revealed-card'] = [
+    'testedCards' => ['fjpimrl974'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Ashen Riffle (fjpimrl974): "Reveal the top four cards of your deck. Banish up to two Suited non-action cards revealed this way and put the rest on the bottom of your deck in any order. ..." Declining the optional banish must still put the revealed card(s) on the bottom of the deck instead of stranding them.
+    // Regression: AshenRiffleChoose() queued its paired CUSTOM 'AshenRiffleChoose|N' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and AshenRiffleCleanup() never ran: the revealed card stayed in the temp zone and the deck stayed one card short (4 instead of 5).
+    // A Suited non-action card (Noire, Ace of Spades, an ALLY) is seeded at the top of the deck so the optional banish prompt is offered; Ashen Riffle (FIRE, native to Spirit of Fire) is played from hand and the banish is declined. (Incidental, NOT fixed here: AshenRiffleStart()'s reveal loop calls MZMove($player,'myDeck-0',...) repeatedly, which only moves the first card, so it currently reveals 1 card instead of 4.)
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'fjpimrl974'], // Ashen Riffle -> myHand-7
+        ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => 'wbjc9t8ycp']], // top card: Suited non-action ALLY
+        ['player' => 1, 'patchMzId' => 'myDeck-1', 'setProperties' => ['CardID' => 'wbjc9t8ycp']], // second card: Suited non-action ALLY
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline banishing a Suited card
+    ],
+];
+
+// --- Spirit Blade: Dispersion: declining a further Sword still splits the damage for the swords already banished (dontSkipOnPass regression) ---
+$fixtures['spirit-blade-dispersion-decline-second-sword-still-splits'] = [
+    'testedCards' => ['7Rsid05Cf6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Spirit Blade: Dispersion (7Rsid05Cf6): "Remove all durability counters from any amount of Sword weapons you control, then banish them. Choose any amount of units and deal damage equal to the amount of durability counters removed this way split among them." Stopping after some swords (declining the 'Choose another Sword weapon' prompt) must still split the damage for the counters already removed.
+    // Regression: SpiritBladeChooseSword's loop re-queue (Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (queue the MZSPLITASSIGN damage split for the accumulated durability) never ran: the first sword was banished and its 2 counters removed, but no damage was ever dealt or even offered. The first prompt (queued by SpiritBladeDispersion()) needs no flag: declining with no sword chosen has 0 counters to split either way.
+    // Two Swords (Clarent, Sword of Peace, m31WVJ9F04, durability 2 each) are seeded on the field; the first is chosen, the second declined with PASS, and the 2 damage is assigned to the opposing Dungeon Guide.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'NfbZ0nouSQ']], // champion patched so the WARRIOR spell is activatable (same as spirit-blade-dispersion-split-damage)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04', 'setProperties' => ['Counters' => ['durability' => 2]]], // Sword #1 (durability 2) -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04', 'setProperties' => ['Counters' => ['durability' => 2]]], // Sword #2 (durability 2) -> myField-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '7Rsid05Cf6'], // Spirit Blade: Dispersion -> myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // opposing Dungeon Guide -> theirField-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // pass the fast-action window so the spell resolves
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Sword #1 (2 durability counters removed, banished)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline choosing another Sword
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1:2', 'chkInput' => [], 'inputText' => ''], // assign the 2 damage to the opposing Dungeon Guide
+    ],
+];
+
+// --- Lustrous Slime: declining a further reveal still puts a buff counter per Slime already revealed (dontSkipOnPass regression) ---
+$fixtures['lustrous-slime-decline-further-reveal-keeps-counters'] = [
+    'testedCards' => ['ejvddohjdu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lustrous Slime (ejvddohjdu): "On Enter: Reveal any amount of Slime cards from your memory. For each card revealed this way, put a buff counter on CARDNAME." Stopping early (declining the next 'Reveal a Slime card from memory?' prompt) must still put one buff counter per Slime already revealed.
+    // Regression: LustrousSlimeRevealLoop() queued its paired CUSTOM 'LustrousSlimeReveal|mz' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (LustrousSlimeApplyReveals -> the buff counters) never ran: revealing one Slime then declining another left Lustrous Slime with no counters. (With only one Slime in memory the loop applies the counters itself once no candidate remains, which is why lustrous-slime-enter-reveal-buff never saw this.)
+    // Two Red Slimes are seeded in memory; one is revealed, the second declined with PASS. LUXEM element access via a Subcards patch (same as lustrous-slime-enter-reveal-buff).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]], // LUXEM lineage/element unlock
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'mttsvbgl6f'], // Red Slime #1 (reveal candidate) -> myMemory-0
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'mttsvbgl6f'], // Red Slime #2 (reveal candidate)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ejvddohjdu'], // Lustrous Slime, seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // reveal the first Red Slime from memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline revealing the second Slime
+    ],
+];
+
+// --- Assemble the Ancients: declining a further domain sacrifice still summons the Drones (dontSkipOnPass regression) ---
+$fixtures['assemble-the-ancients-decline-second-domain-still-summons'] = [
+    'testedCards' => ['moi0a5uhjx'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Assemble the Ancients (moi0a5uhjx): "Sacrifice any number of domains then summon that many Automaton Drone tokens. Each of those tokens enters the field rested with an amount of buff counters on it equal to the amount of domains sacrificed this way. Then they gain vigor until end of turn." Sacrificing fewer than all domains (declining the 'Sacrifice a domain?' prompt) must still summon one Drone per domain sacrificed.
+    // Regression: AssembleAncientsSacrifice() queued its paired CUSTOM 'AssembleAncientsSacChoice|N' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (AssembleAncientsFinalize: summon the tokens) never ran: one domain was sacrificed and then the Drone was never summoned.
+    // Two domains (Palatial Concourse) are seeded; one is sacrificed, the second declined with PASS. NEOS element access via a Subcards patch (same as assemble-the-ancients-domain-sacrifice-tokens).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['n2jnltv5kl']]], // NEOS lineage/element unlock (Tonoris, Creation's Will)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'c7wklzjmwu'], // Palatial Concourse (DOMAIN) #1 -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'c7wklzjmwu'], // Palatial Concourse (DOMAIN) #2 -> myField-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'moi0a5uhjx'], // Assemble the Ancients, seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice domain #1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline sacrificing the second domain
+    ],
+];
+
+// --- Redirect Orbit: declining a further shuffle still draws into memory for the cards already shuffled (dontSkipOnPass regression) ---
+$fixtures['redirect-orbit-decline-still-draws-into-memory'] = [
+    'testedCards' => ['Tst4WbM6O8'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Redirect Orbit (Tst4WbM6O8): "Shuffle any amount of cards from your hand and/or memory into your deck. Then draw that many cards into your memory." Stopping early (declining the 'Shuffle a card from hand or memory into deck?' prompt) must still shuffle the deck and draw one card into memory per card already shuffled in.
+    // Regression: RedirectOrbitChoose() queued its paired CUSTOM 'RedirectOrbitStep|N' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (ShuffleZone + DrawIntoMemory for the shuffled count) never ran: a card was shuffled away and nothing was drawn. (redirect-orbit-shuffle-draw answers the prompt with '-', which is not 'PASS' and so bypassed the skip; the real client sends PASS.)
+    // Same setup as redirect-orbit-shuffle-draw (Arisanna, Astral Zenith unlocks ASTRA); one card is shuffled in, then the next offer is declined with PASS.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - ASTRA unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Tst4WbM6O8'], // Redirect Orbit, seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // shuffle one card from hand into the deck
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline shuffling another card
+    ],
+];
+
+// --- Kindling Flare: declining to sacrifice another Herb still pays the reserve cost and resolves (dontSkipOnPass regression) ---
+$fixtures['kindling-flare-decline-further-herb-pays-reserve-cost'] = [
+    'testedCards' => ['dcgw05qzza'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Kindling Flare (dcgw05qzza): "As an additional cost to activate this card, sacrifice any amount of Herbs. Deal 1+X damage split among any amount of target units where X is the amount of Herbs sacrificed." Sacrificing fewer Herbs than are available (declining the 'Sacrifice another Herb?' prompt) ends the additional cost: the reserve cost is then paid and the spell resolves with X = herbs sacrificed.
+    // Regression: KindlingFlareSacHerb's re-queue (and the initial queue in ActivateCard) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (queue the reserve payments + EffectStackOpportunity) never ran: the card sat on the effect stack with an empty decision queue and the activation could never finish (a soft-lock with the cost unpaid). Fixing the flag alone was not enough: the PASS branch then queues unflagged CUSTOM reserve-payment decisions that were themselves skipped while lastDecision was still 'PASS', so the handler's decline branch now queues a PASSPARAMETER '-' first to reset it.
+    // Two Herb tokens (Blightroot, Fraysia) are seeded on the field; one is sacrificed, the second declined with PASS, the 2 reserve cost is paid, and the 2 damage (1 + X, X = 1) is assigned to the opposing Dungeon Guide.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'soporhlq2k'], // Fraysia (HERB) -> myField-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'dcgw05qzza'], // Kindling Flare, seeded to a known hand slot -> myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // opposing Dungeon Guide -> theirField-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice the first Herb
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline sacrificing another Herb
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // pass the fast-action window so the spell resolves
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1:2', 'chkInput' => [], 'inputText' => ''], // assign all 2 damage (1 + X, X = 1) to the opposing Dungeon Guide
+    ],
+];
+
+// --- Kindling Flare: declining to sacrifice any Herb still pays the reserve cost and resolves (dontSkipOnPass regression) ---
+$fixtures['kindling-flare-decline-all-herbs-pays-reserve-cost'] = [
+    'testedCards' => ['dcgw05qzza'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Kindling Flare (dcgw05qzza): "As an additional cost to activate this card, sacrifice any amount of Herbs. Deal 1+X damage split among any amount of target units where X is the amount of Herbs sacrificed." "Any amount" includes zero: declining the very first 'Sacrifice an Herb?' prompt (X = 0) must still go on to pay the reserve cost and resolve for 1 damage.
+    // Regression: ActivateCard() (Custom/GameLogic.php) queued the first paired CUSTOM 'KindlingFlareSacHerb|N' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler on PASS, the reserve payments + EffectStackOpportunity were never queued, and the card was stuck on the effect stack with an empty decision queue (soft-lock, cost unpaid). See kindling-flare-decline-further-herb-pays-reserve-cost for the PASSPARAMETER reset the decline branch additionally needs.
+    // Two Herb tokens are seeded on the field but none is sacrificed; the 2 reserve cost is paid and the 1 damage (1 + X, X = 0) is assigned to the opposing Dungeon Guide.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'soporhlq2k'], // Fraysia (HERB) -> myField-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'dcgw05qzza'], // Kindling Flare, seeded to a known hand slot -> myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // opposing Dungeon Guide -> theirField-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline sacrificing any Herb (X = 0)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // pass the fast-action window so the spell resolves
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1:1', 'chkInput' => [], 'inputText' => ''], // assign the 1 damage (1 + X, X = 0) to the opposing Dungeon Guide
+    ],
+];
+
+// --- Sacred Engulfment: declining a further banish still empowers for the fire cards already banished (dontSkipOnPass regression) ---
+$fixtures['sacred-engulfment-decline-further-banish-still-empowers'] = [
+    'testedCards' => ['QvQhg1EOBR'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Sacred Engulfment (QvQhg1EOBR): "Banish any amount of fire element cards from your graveyard. Then empower 4+X, where X is the amount of fire element cards banished this way." Stopping early (declining the 'Banish a fire card from GY?' prompt) must still empower 4+X for the X cards already banished.
+    // Regression: SacredEngulfmentBanishLoop() queued its paired CUSTOM 'SacredEngulfmentProcess|N' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (Empower 4+X) never ran: fire cards were banished and the spell gave no Empower at all.
+    // Three Red Slimes (FIRE) are seeded in the graveyard; one is banished, the next offer declined with PASS -> empower 4+1 = 5. The champion gets a Subcards patch with a LUXEM champion so the Exalted element (which needs another advanced element in the lineage) is enabled for this EXALTED/FIRE card; the [Class Bonus] cost reduction is not reached (default champion has no class bonus), so the full reserve cost 3 is paid.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]], // LUXEM lineage -> enables EXALTED
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE) #1 -> myGraveyard-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE) #2
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE) #3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'QvQhg1EOBR'], // Sacred Engulfment, seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // banish the first fire card from the graveyard
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline banishing another fire card
+    ],
+];
+
+// --- Hoarfrost Hold: declining a further banish still puts a frost counter per Suited Spell already banished (dontSkipOnPass regression) ---
+$fixtures['hoarfrost-hold-decline-further-banish-keeps-frost-counters'] = [
+    'testedCards' => ['DNe5dvCNA1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Hoarfrost Hold (DNe5dvCNA1): "[Class Bonus] On Enter: Banish any amount of Suited Spell cards from your hand and/or memory. For each card banished this way, put a frost counter on CARDNAME." Stopping early (declining the 'Banish another Suited Spell?' prompt) must still put one frost counter per card already banished.
+    // Regression: HoarfrostHoldChoose's loop re-queue (Custom/GameLogic.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (AddCounters 'frost' for the banished count) never ran: a Suited Spell was banished and Hoarfrost Hold got no frost counter. The first prompt (queued by HoarfrostHoldEnter) needs no flag: declining it with 0 banished adds 0 counters either way.
+    // Two Ashen Riffle (MAGE/SUITED/SPELL) copies are seeded in hand; the champion is patched to Arisanna, Master Alchemist (CLERIC) for the Class Bonus with a Spirit of Water Subcards lineage for WATER element access; one Suited Spell is banished, the next offer declined with PASS.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'ltv5klryvf', 'Subcards' => ['tafqldAGRF']]], // Arisanna, Master Alchemist (CLERIC) for the Class Bonus + Spirit of Water lineage for WATER access
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'fjpimrl974'], // Ashen Riffle (Suited Spell) #1 -> myHand-7
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'fjpimrl974'], // Ashen Riffle (Suited Spell) #2 -> myHand-8
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'DNe5dvCNA1'], // Hoarfrost Hold, seeded to a known hand slot -> myHand-9
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-9!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-5', 'chkInput' => [], 'inputText' => ''], // banish a Suited Spell from hand
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline banishing another Suited Spell
+    ],
+];
+
+// --- Perilous Mend: declining a further Curse still recovers for the Curses already put on the lineage (dontSkipOnPass regression) ---
+$fixtures['perilous-mend-decline-further-curse-still-recovers'] = [
+    'testedCards' => ['A5jpuUlwDd'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Perilous Mend (A5jpuUlwDd): "[Class Bonus] Put any amount of Curse cards from your hand and/or memory on the bottom of your champion's lineage in any order. Recover X, where X is three times the amount of cards put this way. [Class Bonus] If your champion is distant, draw a card." Stopping early (declining the 'Put Curse on lineage?' prompt) must still recover 3 per Curse already put on the lineage.
+    // Regression: PerilousMendChooseCurse() queued its paired CUSTOM 'PerilousMendChooseCurse' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (PerilousMendFinalize: Recover 3*count, draw if distant) never ran: Curses were put on the lineage and the champion was never healed.
+    // The champion is patched to Diana, Keen Huntress (RANGER, for the Class Bonus) with a Diana, Cursebreaker (UMBRA) Subcards lineage for UMBRA element access and 6 damage; two Malevolent Vow (CURSE) cards are seeded in hand; one is put on the lineage, the next offer declined with PASS -> recover 3 (damage 6 -> 3). (Incidental, NOT fixed here: the lineage ends up holding the mzID string 'myHand-6' rather than the Curse card's ID.)
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'e3z4pyx8bd', 'Subcards' => ['o0qtb31x97'], 'Damage' => 6]], // Diana, Keen Huntress (RANGER) for the Class Bonus + Diana, Cursebreaker (UMBRA) lineage; champion has 6 damage
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'up6fw61vf1'], // Malevolent Vow (CURSE) #1 -> myHand-7
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'up6fw61vf1'], // Malevolent Vow (CURSE) #2 -> myHand-8
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'A5jpuUlwDd'], // Perilous Mend, seeded to a known hand slot -> myHand-9
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-9!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-6', 'chkInput' => [], 'inputText' => ''], // put the first Curse on the lineage
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline putting another Curse on the lineage
+    ],
+];
+
+// --- Malevolent Vow: discarding zero cards (declining the first prompt) still recovers 3 and puts the Vow on the lineage (dontSkipOnPass regression) ---
+$fixtures['malevolent-vow-decline-first-discard-still-recovers-and-lineages'] = [
+    'testedCards' => ['up6fw61vf1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Malevolent Vow (up6fw61vf1): "Discard up to three cards. Recover 3+X, where X is three times amount of cards discarded this way. Put Malevolent Vow on the bottom of your champion's lineage." Stopping early at any of the three optional discard prompts (declining with PASS) must still finish the spell: recover 3+3N for the N cards already discarded and put the Vow on the bottom of the champion's lineage.
+    // Regression: the discard prompts' paired CUSTOM decisions ('MalevolentVow1' queued by the generated cardActivatedAbilities closure, 'MalevolentVow2'/'MalevolentVow3' queued by the previous handler in Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and MalevolentVowFinish() never ran. The generated closure is overridden in Custom/GeneratedAbilityOverrides.php (the generated file is gitignored).
+    // The champion is given a Diana, Cursebreaker (UMBRA) Subcards lineage for UMBRA element access and 10 damage. Here the very first prompt is declined (zero cards discarded): Recover 3 and the Vow goes to the lineage.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['o0qtb31x97'], 'Damage' => 10]], // Diana, Cursebreaker (UMBRA) lineage for UMBRA access; champion has 10 damage
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'up6fw61vf1'], // Malevolent Vow (cost 0), seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline discarding any card
+    ],
+];
+
+// --- Malevolent Vow: declining the second discard still recovers 3+3N and puts the Vow on the lineage (dontSkipOnPass regression) ---
+$fixtures['malevolent-vow-decline-second-discard-still-recovers'] = [
+    'testedCards' => ['up6fw61vf1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Malevolent Vow (up6fw61vf1): "Discard up to three cards. Recover 3+X, where X is three times amount of cards discarded this way. Put Malevolent Vow on the bottom of your champion's lineage." Stopping early at any of the three optional discard prompts (declining with PASS) must still finish the spell: recover 3+3N for the N cards already discarded and put the Vow on the bottom of the champion's lineage.
+    // Regression: the discard prompts' paired CUSTOM decisions ('MalevolentVow1' queued by the generated cardActivatedAbilities closure, 'MalevolentVow2'/'MalevolentVow3' queued by the previous handler in Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and MalevolentVowFinish() never ran. The generated closure is overridden in Custom/GeneratedAbilityOverrides.php (the generated file is gitignored).
+    // The champion is given a Diana, Cursebreaker (UMBRA) Subcards lineage for UMBRA element access and 10 damage. Here one card is discarded and the second prompt ('Discard a card (Malevolent Vow 2/3)') is declined: Recover 3+3 = 6.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['o0qtb31x97'], 'Damage' => 10]], // Diana, Cursebreaker (UMBRA) lineage for UMBRA access; champion has 10 damage
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'up6fw61vf1'], // Malevolent Vow (cost 0), seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // discard one card
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline discarding a second card
+    ],
+];
+
+// --- Malevolent Vow: declining the third discard still recovers 3+3N and puts the Vow on the lineage (dontSkipOnPass regression) ---
+$fixtures['malevolent-vow-decline-third-discard-still-recovers'] = [
+    'testedCards' => ['up6fw61vf1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Malevolent Vow (up6fw61vf1): "Discard up to three cards. Recover 3+X, where X is three times amount of cards discarded this way. Put Malevolent Vow on the bottom of your champion's lineage." Stopping early at any of the three optional discard prompts (declining with PASS) must still finish the spell: recover 3+3N for the N cards already discarded and put the Vow on the bottom of the champion's lineage.
+    // Regression: the discard prompts' paired CUSTOM decisions ('MalevolentVow1' queued by the generated cardActivatedAbilities closure, 'MalevolentVow2'/'MalevolentVow3' queued by the previous handler in Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and MalevolentVowFinish() never ran. The generated closure is overridden in Custom/GeneratedAbilityOverrides.php (the generated file is gitignored).
+    // The champion is given a Diana, Cursebreaker (UMBRA) Subcards lineage for UMBRA element access and 10 damage. Here two cards are discarded and the third prompt ('Discard a card (Malevolent Vow 3/3)') is declined: Recover 3+6 = 9.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['o0qtb31x97'], 'Damage' => 10]], // Diana, Cursebreaker (UMBRA) lineage for UMBRA access; champion has 10 damage
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'up6fw61vf1'], // Malevolent Vow (cost 0), seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // discard the first card
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // discard the second card
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline discarding a third card
+    ],
+];
+
+// --- Immaterial Dissolution: declining a further token still destroys the tokens already chosen (dontSkipOnPass regression) ---
+$fixtures['immaterial-dissolution-decline-further-token-still-destroys'] = [
+    'testedCards' => ['55d9w9uuvq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Immaterial Dissolution (55d9w9uuvq): "Destroy up to three target non-regalia token objects with total reserve cost 4 or less." Choosing fewer than three (declining the 'Destroy another token?' prompt) must still destroy the tokens already chosen.
+    // Regression: ImmaterialDissolveSelect's loop re-queue (Custom/GameLogic.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (destroy all accumulated targets) never ran: a token was chosen and then nothing was destroyed. (The first prompt, queued by the generated ability, needs no flag: declining it with nothing chosen destroys nothing either way.)
+    // Two Herb tokens (Blightroot, Fraysia, reserve cost 1 each) are seeded on the field; the first is chosen, the second declined with PASS.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (token) -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'soporhlq2k'], // Fraysia (token) -> myField-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '55d9w9uuvq'], // Immaterial Dissolution, seeded to a known hand slot -> myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 4/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // pass the fast-action window so the spell resolves
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Blightroot as the first token
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline choosing another token
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

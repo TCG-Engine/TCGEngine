@@ -1,0 +1,28 @@
+{
+    "name": "eventide-lure-decline-bottoms-all-five",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:29:02+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "eg771cn2q1"
+    ],
+    "notes": "Eventide Lure (eg771cn2q1): \"On Enter: Look at the top five cards of your deck. You may reveal a phantasia card from among them and put it into your memory. Put the rest on the bottom of your deck in any order.\" Declining the optional reveal must not strand the five looked-at cards: they all go to the bottom of the deck. Regression: EventideLureReveal's paired AddDecision (Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS to 'Reveal a phantasia card?' and EventideLurePutRestOnBottom() never ran: the five cards stayed in the temp zone and the deck was left 5 cards short (deck 8 instead of 13). Same setup as eventide-lure-look-five-reveal-phantasia (one phantasia among the top five), but the reveal is declined.",
+    "semanticCoverage": {
+        "testedCards": [
+            "eg771cn2q1"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "bottom-deck"
+        ],
+        "rulesClauses": [
+            "You may reveal a phantasia card from among them and put it into your memory. Put the rest on the bottom of your deck in any order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. EventideLureReveal's paired AddDecision omitted dontSkipOnPass, so declining the optional reveal (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler; EventideLurePutRestOnBottom() never ran and the five looked-at cards stayed stranded in the temp zone (live repro on HEAD: deck 8 instead of 13). Fix: dontSkipOnPass:1 on that AddDecision.",
+        "affectedFunction": "Custom/CardDQHandlers.php EventideLureOnEnter AddDecision(..., \"CUSTOM\", \"EventideLureReveal\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

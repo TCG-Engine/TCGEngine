@@ -1,0 +1,28 @@
+{
+    "name": "lustrous-slime-decline-further-reveal-keeps-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:37:53+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ejvddohjdu"
+    ],
+    "notes": "Lustrous Slime (ejvddohjdu): \"On Enter: Reveal any amount of Slime cards from your memory. For each card revealed this way, put a buff counter on CARDNAME.\" Stopping early (declining the next 'Reveal a Slime card from memory?' prompt) must still put one buff counter per Slime already revealed. Regression: LustrousSlimeRevealLoop() queued its paired CUSTOM 'LustrousSlimeReveal|mz' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (LustrousSlimeApplyReveals -> the buff counters) never ran: revealing one Slime then declining another left Lustrous Slime with no counters. (With only one Slime in memory the loop applies the counters itself once no candidate remains, which is why lustrous-slime-enter-reveal-buff never saw this.) Two Red Slimes are seeded in memory; one is revealed, the second declined with PASS. LUXEM element access via a Subcards patch (same as lustrous-slime-enter-reveal-buff).",
+    "semanticCoverage": {
+        "testedCards": [
+            "ejvddohjdu"
+        ],
+        "mechanics": [
+            "counter",
+            "reveal"
+        ],
+        "rulesClauses": [
+            "Reveal any amount of Slime cards from your memory. For each card revealed this way, put a buff counter on CARDNAME."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. LustrousSlimeRevealLoop() queued the CUSTOM 'LustrousSlimeReveal|mz' decision without dontSkipOnPass, so declining a further reveal (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (LustrousSlimeApplyReveals -> buff counters) never ran: after revealing one of two Slimes and declining the other, Lustrous Slime had no buff counter (live repro on HEAD). Fix: dontSkipOnPass:1 on that AddDecision.",
+        "affectedFunction": "Custom/CardDQHandlers.php LustrousSlimeRevealLoop() AddDecision(..., \"CUSTOM\", \"LustrousSlimeReveal|mz\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

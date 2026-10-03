@@ -1,0 +1,6 @@
+[
+    {"step":5,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"One card drawn into memory for the one card shuffled in (memory 2 + 1)"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":4,"semantic":true,"label":"Hand shrank by the one card shuffled away"},
+    {"step":5,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"Deck: 5 + 1 shuffled in - 1 drawn into memory = 5"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

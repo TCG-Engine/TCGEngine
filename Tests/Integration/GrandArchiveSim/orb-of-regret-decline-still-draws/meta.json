@@ -1,0 +1,28 @@
+{
+    "name": "orb-of-regret-decline-still-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:26:08+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "BY0E8si926"
+    ],
+    "notes": "Orb of Regret (BY0E8si926): \"Banish CARDNAME: Shuffle up to three cards from your hand into your deck, then draw that many cards.\" Shuffling fewer than three (declining the 'Shuffle another card into deck?' prompt) must still shuffle the deck and draw one card per card already shuffled in. Regression: OrbOfRegretShuffle's loop re-queue (Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and the draw never happened (hand 6 instead of 7). The first prompt (queued by the generated ability) needs no flag: declining with 0 cards shuffled draws nothing either way. The Orb is seeded on the field; the player passes priority to open the fast-action window, activates it (banish self), shuffles myHand-0, then declines the second offer.",
+    "semanticCoverage": {
+        "testedCards": [
+            "BY0E8si926"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Shuffle up to three cards from your hand into your deck, then draw that many cards."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. OrbOfRegretShuffle's loop re-queue AddDecision omitted dontSkipOnPass, so when the player declined to shuffle a further card (MZMAYCHOOSE answered PASS) ExecuteStaticMethods() skipped the handler and its PASS branch (shuffle the deck, draw one card per card already shuffled in) never ran: one card shuffled then PASS left the hand at 6 instead of 7 (live repro on HEAD). Fix: dontSkipOnPass:1 on the re-queue.",
+        "affectedFunction": "Custom/CardDQHandlers.php OrbOfRegretShuffle handler's AddDecision(..., \"CUSTOM\", \"OrbOfRegretShuffle|N\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

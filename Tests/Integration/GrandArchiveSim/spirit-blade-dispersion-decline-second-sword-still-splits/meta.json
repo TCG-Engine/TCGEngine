@@ -1,0 +1,29 @@
+{
+    "name": "spirit-blade-dispersion-decline-second-sword-still-splits",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:37:09+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "7Rsid05Cf6"
+    ],
+    "notes": "Spirit Blade: Dispersion (7Rsid05Cf6): \"Remove all durability counters from any amount of Sword weapons you control, then banish them. Choose any amount of units and deal damage equal to the amount of durability counters removed this way split among them.\" Stopping after some swords (declining the 'Choose another Sword weapon' prompt) must still split the damage for the counters already removed. Regression: SpiritBladeChooseSword's loop re-queue (Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (queue the MZSPLITASSIGN damage split for the accumulated durability) never ran: the first sword was banished and its 2 counters removed, but no damage was ever dealt or even offered. The first prompt (queued by SpiritBladeDispersion()) needs no flag: declining with no sword chosen has 0 counters to split either way. Two Swords (Clarent, Sword of Peace, m31WVJ9F04, durability 2 each) are seeded on the field; the first is chosen, the second declined with PASS, and the 2 damage is assigned to the opposing Dungeon Guide.",
+    "semanticCoverage": {
+        "testedCards": [
+            "7Rsid05Cf6"
+        ],
+        "mechanics": [
+            "damage",
+            "counter",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Remove all durability counters from any amount of Sword weapons you control, then banish them. Choose any amount of units and deal damage equal to the amount of durability counters removed this way split among them."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. SpiritBladeChooseSword's loop re-queue AddDecision omitted dontSkipOnPass, so declining a further Sword (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (queue the MZSPLITASSIGN damage split for the accumulated durability) never ran: the first sword was banished with its counters removed but no damage was dealt or offered (live repro on HEAD). Fix: dontSkipOnPass:1 on the re-queue.",
+        "affectedFunction": "Custom/CardDQHandlers.php SpiritBladeChooseSword handler's AddDecision(..., \"CUSTOM\", \"SpiritBladeChooseSword|N\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

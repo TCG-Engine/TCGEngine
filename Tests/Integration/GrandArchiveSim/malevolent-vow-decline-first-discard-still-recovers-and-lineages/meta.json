@@ -1,0 +1,29 @@
+{
+    "name": "malevolent-vow-decline-first-discard-still-recovers-and-lineages",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:45:05+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "up6fw61vf1"
+    ],
+    "notes": "Malevolent Vow (up6fw61vf1): \"Discard up to three cards. Recover 3+X, where X is three times amount of cards discarded this way. Put Malevolent Vow on the bottom of your champion's lineage.\" Stopping early at any of the three optional discard prompts (declining with PASS) must still finish the spell: recover 3+3N for the N cards already discarded and put the Vow on the bottom of the champion's lineage. Regression: the discard prompts' paired CUSTOM decisions ('MalevolentVow1' queued by the generated cardActivatedAbilities closure, 'MalevolentVow2'/'MalevolentVow3' queued by the previous handler in Custom/CardDQHandlers.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and MalevolentVowFinish() never ran. The generated closure is overridden in Custom/GeneratedAbilityOverrides.php (the generated file is gitignored). The champion is given a Diana, Cursebreaker (UMBRA) Subcards lineage for UMBRA element access and 10 damage. Here the very first prompt is declined (zero cards discarded): Recover 3 and the Vow goes to the lineage.",
+    "semanticCoverage": {
+        "testedCards": [
+            "up6fw61vf1"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "recover",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Discard up to three cards. Recover 3+X, where X is three times amount of cards discarded this way. Put Malevolent Vow on the bottom of your champion's lineage."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated Malevolent Vow closure queued the first discard prompt's CUSTOM 'MalevolentVow1' without dontSkipOnPass, so declining it (MZMAYCHOOSE answered PASS) skipped the handler and MalevolentVowFinish() never ran: the spell did nothing - no recover and the Vow stayed in the graveyard instead of going to the lineage (live repro on HEAD). Fix: override the generated closure in Custom/GeneratedAbilityOverrides.php with dontSkipOnPass:1.",
+        "affectedFunction": "GeneratedCode/GeneratedMacroCode.php cardActivatedAbilities['up6fw61vf1:0'] (generated, gitignored) -> overridden in Custom/GeneratedAbilityOverrides.php",
+        "fixCommit": "TBD"
+    }
+}

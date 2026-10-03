@@ -1,0 +1,29 @@
+{
+    "name": "assemble-the-ancients-decline-second-domain-still-summons",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:39:20+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "moi0a5uhjx"
+    ],
+    "notes": "Assemble the Ancients (moi0a5uhjx): \"Sacrifice any number of domains then summon that many Automaton Drone tokens. Each of those tokens enters the field rested with an amount of buff counters on it equal to the amount of domains sacrificed this way. Then they gain vigor until end of turn.\" Sacrificing fewer than all domains (declining the 'Sacrifice a domain?' prompt) must still summon one Drone per domain sacrificed. Regression: AssembleAncientsSacrifice() queued its paired CUSTOM 'AssembleAncientsSacChoice|N' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (AssembleAncientsFinalize: summon the tokens) never ran: one domain was sacrificed and then the Drone was never summoned. Two domains (Palatial Concourse) are seeded; one is sacrificed, the second declined with PASS. NEOS element access via a Subcards patch (same as assemble-the-ancients-domain-sacrifice-tokens).",
+    "semanticCoverage": {
+        "testedCards": [
+            "moi0a5uhjx"
+        ],
+        "mechanics": [
+            "token",
+            "sacrifice",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Sacrifice any number of domains then summon that many Automaton Drone tokens."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. AssembleAncientsSacrifice() queued the CUSTOM 'AssembleAncientsSacChoice|N' decision without dontSkipOnPass, so declining a further sacrifice (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (AssembleAncientsFinalize: summon the Drone tokens) never ran: a domain was sacrificed but no Drone was summoned (live repro on HEAD). Fix: dontSkipOnPass:1 on that AddDecision.",
+        "affectedFunction": "Custom/CardDQHandlers.php AssembleAncientsSacrifice() AddDecision(..., \"CUSTOM\", \"AssembleAncientsSacChoice|N\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

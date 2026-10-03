@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"egbscxwjbq","semantic":true,"label":"One floating memory card was banished for real"},
+    {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"Hand: 8 - 1 (Lost in Thought played) + 1 drawn for the one card banished; declining the 2nd offer still draws"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,29 @@
+{
+    "name": "perilous-mend-decline-further-curse-still-recovers",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:43:50+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "A5jpuUlwDd"
+    ],
+    "notes": "Perilous Mend (A5jpuUlwDd): \"[Class Bonus] Put any amount of Curse cards from your hand and/or memory on the bottom of your champion's lineage in any order. Recover X, where X is three times the amount of cards put this way. [Class Bonus] If your champion is distant, draw a card.\" Stopping early (declining the 'Put Curse on lineage?' prompt) must still recover 3 per Curse already put on the lineage. Regression: PerilousMendChooseCurse() queued its paired CUSTOM 'PerilousMendChooseCurse' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (PerilousMendFinalize: Recover 3*count, draw if distant) never ran: Curses were put on the lineage and the champion was never healed. The champion is patched to Diana, Keen Huntress (RANGER, for the Class Bonus) with a Diana, Cursebreaker (UMBRA) Subcards lineage for UMBRA element access and 6 damage; two Malevolent Vow (CURSE) cards are seeded in hand; one is put on the lineage, the next offer declined with PASS -> recover 3 (damage 6 -> 3). (Incidental, NOT fixed here: the lineage ends up holding the mzID string 'myHand-6' rather than the Curse card's ID.)",
+    "semanticCoverage": {
+        "testedCards": [
+            "A5jpuUlwDd"
+        ],
+        "mechanics": [
+            "recover",
+            "class-bonus",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Put any amount of Curse cards from your hand and/or memory on the bottom of your champion's lineage in any order. Recover X, where X is three times the amount of cards put this way."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. PerilousMendChooseCurse() queued its paired CUSTOM decision without dontSkipOnPass, so declining a further Curse (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (PerilousMendFinalize: Recover 3*count, draw if distant) never ran: a Curse was put on the lineage but the champion was never recovered (live repro on HEAD: Damage stayed 6). Fix: dontSkipOnPass:1 on that AddDecision (also covers declining the very first prompt, where the Class Bonus 'draw if distant' clause still needs to run).",
+        "affectedFunction": "Custom/GameLogic.php PerilousMendChooseCurse() AddDecision(..., \"CUSTOM\", \"PerilousMendChooseCurse\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "name": "redirect-orbit-decline-still-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:39:51+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "Tst4WbM6O8"
+    ],
+    "notes": "Redirect Orbit (Tst4WbM6O8): \"Shuffle any amount of cards from your hand and/or memory into your deck. Then draw that many cards into your memory.\" Stopping early (declining the 'Shuffle a card from hand or memory into deck?' prompt) must still shuffle the deck and draw one card into memory per card already shuffled in. Regression: RedirectOrbitChoose() queued its paired CUSTOM 'RedirectOrbitStep|N' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (ShuffleZone + DrawIntoMemory for the shuffled count) never ran: a card was shuffled away and nothing was drawn. (redirect-orbit-shuffle-draw answers the prompt with '-', which is not 'PASS' and so bypassed the skip; the real client sends PASS.) Same setup as redirect-orbit-shuffle-draw (Arisanna, Astral Zenith unlocks ASTRA); one card is shuffled in, then the next offer is declined with PASS.",
+    "semanticCoverage": {
+        "testedCards": [
+            "Tst4WbM6O8"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Shuffle any amount of cards from your hand and/or memory into your deck. Then draw that many cards into your memory."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. RedirectOrbitChoose() queued the CUSTOM 'RedirectOrbitStep|N' decision without dontSkipOnPass, so declining a further shuffle (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (ShuffleZone + DrawIntoMemory for the shuffled count) never ran: a card was shuffled away and nothing was drawn into memory (live repro on HEAD). Fix: dontSkipOnPass:1 on that AddDecision.",
+        "affectedFunction": "Custom/CardDQHandlers.php RedirectOrbitChoose() AddDecision(..., \"CUSTOM\", \"RedirectOrbitStep|N\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

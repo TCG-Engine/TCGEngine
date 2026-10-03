@@ -2038,7 +2038,7 @@ function AssembleAncientsSacrifice($player, $count) {
     }
     $domainStr = implode("&", $domains);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $domainStr, 1, "Sacrifice_a_domain?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "AssembleAncientsSacChoice|$count", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AssembleAncientsSacChoice|$count", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["AssembleAncientsSacChoice"] = function($player, $parts, $lastDecision) {
@@ -4309,7 +4309,11 @@ $customDQHandlers["KindlingFlareSacHerb"] = function($player, $parts, $lastDecis
     $herbCount = intval(DecisionQueueController::GetVariable("kindlingHerbCount"));
 
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
-        // Player declined — done sacrificing, queue reserve payments
+        // Player declined — done sacrificing, queue reserve payments.
+        // This branch is reached with lastDecision == "PASS" (the queue site passes dontSkipOnPass),
+        // and ExecuteStaticMethods() would skip every unflagged CUSTOM queued below while that
+        // value is current -- PASSPARAMETER resets it so the reserve payments actually run.
+        DecisionQueueController::AddDecision($player, "PASSPARAMETER", "-", 100);
         for($i = 0; $i < $reserveCost; ++$i) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
         }
@@ -4328,7 +4332,7 @@ $customDQHandlers["KindlingFlareSacHerb"] = function($player, $parts, $lastDecis
     $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
     if(!empty($herbs)) {
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $herbs), 100, tooltip:"Sacrifice_another_Herb?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "KindlingFlareSacHerb|$reserveCost", 100);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "KindlingFlareSacHerb|$reserveCost", 100, dontSkipOnPass:1);
     } else {
         // No more herbs — queue reserve payments
         for($i = 0; $i < $reserveCost; ++$i) {
@@ -4408,7 +4412,7 @@ $customDQHandlers["LostInThoughtBanish"] = function($player, $parts, $lastDecisi
     $floatingGY = ZoneSearch("myGraveyard", floatingMemoryOnly: true);
     if(!empty($floatingGY)) {
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $floatingGY), 1, tooltip:"Banish_another_floating_memory_card?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "LostInThoughtBanish|$banished", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "LostInThoughtBanish|$banished", 1, dontSkipOnPass:1);
     } else {
         // No more — draw for all banished
         if($banished > 0) Draw($player, $banished);
@@ -4616,7 +4620,7 @@ $customDQHandlers["OrbOfRegretShuffle"] = function($player, $parts, $lastDecisio
     }
     $handStr = implode("&", $hand);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $handStr, 1, tooltip:"Shuffle_another_card_into_deck?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "OrbOfRegretShuffle|" . ($iteration + 1), 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "OrbOfRegretShuffle|" . ($iteration + 1), 1, dontSkipOnPass:1);
 };
 
 // ============================================================================
@@ -4635,7 +4639,7 @@ function RedirectOrbitChoose($player, $count) {
     $choiceStr = implode("&", $choices);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choiceStr, 1,
         tooltip:"Shuffle_a_card_from_hand_or_memory_into_deck?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "RedirectOrbitStep|" . $count, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RedirectOrbitStep|" . $count, 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["RedirectOrbitStep"] = function($player, $parts, $lastDecision) {
@@ -6695,7 +6699,7 @@ $customDQHandlers["MalevolentVow1"] = function($player, $parts, $lastDecision) {
         if(!empty($hand)) {
             $handStr = implode("&", $hand);
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $handStr, 1, tooltip:"Discard_a_card_(Malevolent_Vow_2/3)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "MalevolentVow2", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "MalevolentVow2", 1, dontSkipOnPass:1);
             return;
         }
     }
@@ -6712,7 +6716,7 @@ $customDQHandlers["MalevolentVow2"] = function($player, $parts, $lastDecision) {
         if(!empty($hand)) {
             $handStr = implode("&", $hand);
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $handStr, 1, tooltip:"Discard_a_card_(Malevolent_Vow_3/3)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "MalevolentVow3", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "MalevolentVow3", 1, dontSkipOnPass:1);
             return;
         }
     }
@@ -7166,7 +7170,7 @@ function SacredEngulfmentBanishLoop($player, $banishedCount) {
     }
     $fireStr = implode("&", $fireGY);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $fireStr, 1, tooltip:"Banish_a_fire_card_from_GY?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SacredEngulfmentProcess|$banishedCount", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SacredEngulfmentProcess|$banishedCount", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["SacredEngulfmentProcess"] = function($player, $parts, $lastDecision) {
@@ -8039,7 +8043,7 @@ $customDQHandlers["SpiritBladeChooseSword"] = function($player, $parts, $lastDec
     if(!empty($swords)) {
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $swords), 1,
             tooltip:"Choose_another_Sword_weapon_(Spirit_Blade:_Dispersion)");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "SpiritBladeChooseSword|$totalDurability", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SpiritBladeChooseSword|$totalDurability", 1, dontSkipOnPass:1);
     } else {
         // No more swords — proceed to split damage
         if($totalDurability > 0) {
@@ -8203,7 +8207,7 @@ function EventideLureEnter($player) {
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $candidates), 1,
         tooltip:"Reveal_a_phantasia_card_to_put_into_memory?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "EventideLureReveal", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EventideLureReveal", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["EventideLureReveal"] = function($player, $parts, $lastDecision) {
@@ -8240,7 +8244,7 @@ function LustrousSlimeRevealLoop($player, $mzID) {
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1,
         tooltip:"Reveal_a_Slime_card_from_memory?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "LustrousSlimeReveal|$mzID", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LustrousSlimeReveal|$mzID", 1, dontSkipOnPass:1);
 }
 
 function LustrousSlimeEnter($player) {
@@ -8352,7 +8356,7 @@ function RecruitmentOfficerOnFoster($player) {
     $allies = ZoneSearch("myTempZone", ["ALLY"]);
     if(!empty($allies)) {
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $allies), 1, tooltip:"Reveal_an_ally_and_put_into_hand?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "RecruitmentOfficerPick", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "RecruitmentOfficerPick", 1, dontSkipOnPass:1);
     } else {
         RecruitmentOfficerCleanup($player);
     }

@@ -1,0 +1,29 @@
+{
+    "name": "hoarfrost-hold-decline-further-banish-keeps-frost-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:43:07+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "DNe5dvCNA1"
+    ],
+    "notes": "Hoarfrost Hold (DNe5dvCNA1): \"[Class Bonus] On Enter: Banish any amount of Suited Spell cards from your hand and/or memory. For each card banished this way, put a frost counter on CARDNAME.\" Stopping early (declining the 'Banish another Suited Spell?' prompt) must still put one frost counter per card already banished. Regression: HoarfrostHoldChoose's loop re-queue (Custom/GameLogic.php) omitted dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and its PASS branch (AddCounters 'frost' for the banished count) never ran: a Suited Spell was banished and Hoarfrost Hold got no frost counter. The first prompt (queued by HoarfrostHoldEnter) needs no flag: declining it with 0 banished adds 0 counters either way. Two Ashen Riffle (MAGE/SUITED/SPELL) copies are seeded in hand; the champion is patched to Arisanna, Master Alchemist (CLERIC) for the Class Bonus with a Spirit of Water Subcards lineage for WATER element access; one Suited Spell is banished, the next offer declined with PASS.",
+    "semanticCoverage": {
+        "testedCards": [
+            "DNe5dvCNA1"
+        ],
+        "mechanics": [
+            "counter",
+            "zone-movement",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Banish any amount of Suited Spell cards from your hand and/or memory. For each card banished this way, put a frost counter on CARDNAME."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. HoarfrostHoldChoose's loop re-queue AddDecision omitted dontSkipOnPass, so declining a further banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (AddCounters frost = banished count) never ran: a Suited Spell was banished but Hoarfrost Hold stayed at 0 frost counters (live repro on HEAD). Fix: dontSkipOnPass:1 on the re-queue.",
+        "affectedFunction": "Custom/GameLogic.php HoarfrostHoldChoose handler's AddDecision(..., \"CUSTOM\", \"HoarfrostHoldChoose\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}
