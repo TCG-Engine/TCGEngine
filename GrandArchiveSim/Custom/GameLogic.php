@@ -16022,8 +16022,10 @@ function DiviningStreamsResolve($player) {
     $deck = GetDeck($player);
     $n = min(3, count($deck));
     if($n <= 0) return;
+    // MZMoveTopOfZone, not a loop of MZMove($player, "myDeck-0", ...): MZMove only flags the slot removed, so
+    // "myDeck-0" would keep resolving to the same removed slot and only the top card would be looked at.
     for($i = 0; $i < $n; ++$i) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        MZMoveTopOfZone($player, "myDeck", "myTempZone");
     }
     $choices = ZoneSearch("myTempZone");
     if(empty($choices)) return;
@@ -16048,7 +16050,15 @@ $customDQHandlers["DiviningStreamsGrave"] = function($player, $parts, $lastDecis
 
 $customDQHandlers["DiviningStreamsTop"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "" && $lastDecision !== "-" && $lastDecision !== "PASS") {
-        MZMove($player, $lastDecision, "myDeck");
+        // "...one on top of your deck": MZMove(..., "myDeck") appends to the BOTTOM (AddDeck), which put the card the
+        // player chose to keep on top at the bottom of the deck. Put it back on the top instead.
+        $chosenObj = GetZoneObject($lastDecision);
+        if($chosenObj !== null && !$chosenObj->removed) {
+            $deck = &GetDeck($player);
+            array_unshift($deck, new Deck($chosenObj->CardID, 'Deck', $player));
+            for($di = 0; $di < count($deck); ++$di) $deck[$di]->mzIndex = $di;
+            $chosenObj->Remove();
+        }
     }
     $remaining = ZoneSearch("myTempZone");
     if(empty($remaining)) return;

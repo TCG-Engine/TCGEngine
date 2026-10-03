@@ -26835,6 +26835,44 @@ $fixtures['nico-raptures-embrace-player-two-enter-look-two-graveyard-one-bottom-
     ],
 ];
 
+
+// --- Divining Streams (TLqUZgBeg7): "Look at the top three cards of your deck. Put one of them into your graveyard, one on top
+// of your deck, and one on the bottom of your deck." ---
+$gaDivSetup = function(array $top3, int $player = 1) use ($gaHand, $gaTop) { return [$gaHand('TLqUZgBeg7', $player), $gaTop($top3, $player)]; };
+$fixtures['divining-streams-look-three-graveyard-top-bottom'] = [
+    'testedCards' => ['TLqUZgBeg7'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // top three, top to bottom: Dungeon Guide, Fluffy Shopkeep, Fairy Whispers
+    'setup' => $gaDivSetup([$GA_DG, $GA_FS, $GA_FW]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [
+        mrdAns(1, 'myTempZone-2'), // Fairy Whispers (3rd) into the graveyard
+        mrdAns(1, 'myTempZone-1'), // Fluffy Shopkeep onto the top of the deck (Dungeon Guide is then left for the bottom)
+        mrdAns(1, 'Top=;Bottom=' . $GA_DG), // the last card goes to the bottom
+    ]),
+];
+$fixtures['divining-streams-look-three-first-to-graveyard-last-on-top'] = [
+    'testedCards' => ['TLqUZgBeg7'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => $gaDivSetup([$GA_DG, $GA_FS, $GA_FW]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [
+        mrdAns(1, 'myTempZone-0'), // Dungeon Guide (the top card) into the graveyard
+        mrdAns(1, 'myTempZone-1'), // Fairy Whispers (now the 2nd of the two left) onto the top of the deck; Fluffy Shopkeep is left for the bottom
+        mrdAns(1, 'Top=;Bottom=' . $GA_FS),
+    ]),
+];
+$fixtures['divining-streams-player-two-look-three-graveyard-top-bottom'] = [
+    'testedCards' => ['TLqUZgBeg7'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // PLAYER 2 seating (perspective check): the stack sits under player 2's turn-start draw (a filler Dungeon Guide); player 2 first
+    // declines the two opportunity windows player 1's pass opens
+    'setup' => $gaDivSetup([$GA_DG, $GA_DG, $GA_FS, $GA_FW], 2),
+    'actions' => array_merge([mrdEnd(1), mrdPass(2), mrdPass(2), mrdPlay(2, 'myHand-7')], mrdPay(2, 3), [
+        mrdAns(2, 'myTempZone-2'),
+        mrdAns(2, 'myTempZone-1'),
+        mrdAns(2, 'Top=;Bottom=' . $GA_DG),
+    ]),
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

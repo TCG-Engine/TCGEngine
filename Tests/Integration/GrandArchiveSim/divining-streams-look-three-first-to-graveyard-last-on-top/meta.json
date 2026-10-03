@@ -1,0 +1,30 @@
+{
+    "name": "divining-streams-look-three-first-to-graveyard-last-on-top",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T21:11:51+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "TLqUZgBeg7"
+    ],
+    "notes": "Divining Streams (TLqUZgBeg7): same stack, but the TOP card (Dungeon Guide) goes to the graveyard, Fairy Whispers (the last) is put on top of the deck and Fluffy Shopkeep goes to the bottom.",
+    "semanticCoverage": {
+        "testedCards": [
+            "TLqUZgBeg7"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "look-at-top",
+            "bottom-deck",
+            "top-deck"
+        ],
+        "rulesClauses": [
+            "Look at the top three cards of your deck. Put one of them into your graveyard, one on top of your deck, and one on the bottom of your deck."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Two defects. (1) DiviningStreamsResolve() pulled the top three cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped -- only the top card was ever looked at (live repro on HEAD: the graveyard prompt offered the single card myTempZone-0). Fixed with the new MZMoveTopOfZone() helper. (2) The 'put one on top of your deck' step (DiviningStreamsTop) used MZMove(..., \"myDeck\"), which appends to the BOTTOM of the deck (AddDeck), so the card the player chose to keep on top ended up on the bottom and no card was ever put on top (live repro after fixing (1): both remaining cards on the bottom, deck-0 unchanged). Fixed by placing the chosen card at the front of the deck.",
+        "affectedFunction": "Custom/GameLogic.php DiviningStreamsResolve() / DiviningStreamsTop handler",
+        "fixCommit": "TBD"
+    }
+}
