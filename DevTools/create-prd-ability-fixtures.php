@@ -27099,6 +27099,93 @@ $fixtures['paired-minds-player-two-look-ten-reveal-deep-horse-rest-bottom'] = [
     ]),
 ];
 
+
+// --- SignalTech X Ultra (vFvhZeunOc): "[REST]: Look at the top three cards of your deck. You may reveal an ally card from among them and
+// put it into your hand. Put the rest on the bottom of your deck in any order. If a card was put into your hand this way, sacrifice
+// CARDNAME." ---
+// The generated ability reaches ResolveTopDeckOptionalSelection() (GameLogic.php), which put the "rest" on the bottom with a loop of
+// MZMove($player, "myDeck-0", "myDeck") (fixed-index: only one card moved) and, from the follow-up handler, was handed an UNDEFINED
+// $topCount (so nothing at all went to the bottom after a reveal); the follow-up was also skipped on PASS (dontSkipOnPass missing).
+$gaSignalSetup = function(array $top, int $player = 1) use ($gaTop) {
+    return [['player' => $player, 'zone' => 'myField', 'cardID' => 'vFvhZeunOc'], $gaTop($top, $player)]; // SignalTech X Ultra -> field-1
+};
+$fixtures['signaltech-x-ultra-rest-look-three-reveal-ally-rest-bottom-sacrifice'] = [
+    'testedCards' => ['vFvhZeunOc'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // top three, top to bottom: Fairy Whispers (not an ally), Fluffy Shopkeep (ally), Dungeon Guide (ally); then Charge the Soul (marker)
+    'setup' => $gaSignalSetup([$GA_FW, $GA_FS, $GA_DG, $GA_MARK]),
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        mrdAns(1, 'myDeck-2'), // reveal Dungeon Guide (3rd card) into hand
+    ],
+];
+$gaSignalAct = function(int $p) { return mrdAct($p, 10001, 'myField-1!CustomInput!Activate:0'); };
+$fixtures['signaltech-x-ultra-rest-look-three-decline-all-three-bottom-no-sacrifice'] = [
+    'testedCards' => ['vFvhZeunOc'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaSignalSetup([$GA_FW, $GA_FS, $GA_DG, $GA_MARK]),
+    'actions' => [$gaSignalAct(1), mrdPass(1), mrdPass(1)], // "You may reveal": decline; then pass the response window the resolved ability opens
+];
+$fixtures['signaltech-x-ultra-rest-look-three-no-ally-all-three-bottom-no-sacrifice'] = [
+    'testedCards' => ['vFvhZeunOc'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // no ally card among the top three: no prompt, all three to the bottom, SignalTech is not sacrificed
+    'setup' => $gaSignalSetup([$GA_FW, $GA_FW, $GA_FW, $GA_MARK]),
+    'actions' => [$gaSignalAct(1), mrdPass(1)], // pass the response window the resolved ability opens
+];
+$fixtures['signaltech-x-ultra-player-two-rest-look-three-reveal-ally-rest-bottom-sacrifice'] = [
+    'testedCards' => ['vFvhZeunOc'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // PLAYER 2 seating (perspective check): player 1's pass opens a response window in which player 2 activates it (the activation
+    // is offered because the ability is usable at opportunity speed); no draw has happened for player 2 yet
+    'setup' => $gaSignalSetup([$GA_FW, $GA_FS, $GA_DG, $GA_MARK], 2),
+    'actions' => [mrdEnd(1), $gaSignalAct(2), mrdAns(2, 'myDeck-2')],
+];
+
+
+// --- Lucia, Reclaimed Blight (fIQR28QmYg): "[Class Bonus] On Enter: Look at the top six cards of your deck. You may reveal a Spell card from
+// among them and put it into your memory. Put the rest on the bottom of your deck in any order." ---
+// Same ResolveTopDeckOptionalSelection() path as SignalTech X Ultra. The champion is patched into Kongming, Fel Eidolon (MAGE for the Class
+// Bonus, TERA to enable Lucia's EXALTED element).
+$gaLuciaSetup = function(array $top6, int $player = 1) use ($gaHand, $gaTop) {
+    return [
+        ['player' => $player, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7x2v4tdop1']], // Kongming, Fel Eidolon (MAGE, TERA)
+        $gaHand('fIQR28QmYg', $player), // Lucia -> hand-7
+        $gaTop($top6, $player),
+    ];
+};
+$fixtures['lucia-reclaimed-blight-enter-look-six-reveal-deep-spell-to-memory-rest-bottom'] = [
+    'testedCards' => ['fIQR28QmYg'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // top six: DG, FS, Fairy Whispers (SPELL), DG, Fairy Whispers (SPELL), FS; then Charge the Soul (marker)
+    'setup' => $gaLuciaSetup([$GA_DG, $GA_FS, $GA_FW, $GA_DG, $GA_FW, $GA_FS, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'myDeck-4'), // reveal the 5th card (Fairy Whispers) into memory
+    ]),
+];
+$fixtures['lucia-reclaimed-blight-enter-look-six-decline-all-six-bottom'] = [
+    'testedCards' => ['fIQR28QmYg'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaLuciaSetup([$GA_DG, $GA_FS, $GA_FW, $GA_DG, $GA_FW, $GA_FS, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdPass(1)]), // "You may reveal": decline
+];
+$fixtures['lucia-reclaimed-blight-enter-look-six-no-spell-all-six-bottom'] = [
+    'testedCards' => ['fIQR28QmYg'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // no Spell card among the top six: no prompt, all six to the bottom
+    'setup' => $gaLuciaSetup([$GA_DG, $GA_FS, $GA_DG, $GA_FS, $GA_DG, $GA_FS, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2)),
+];
+$fixtures['lucia-reclaimed-blight-player-two-enter-look-six-reveal-deep-spell-to-memory-rest-bottom'] = [
+    'testedCards' => ['fIQR28QmYg'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // PLAYER 2 seating (perspective check): the stack sits under player 2's turn-start draw (a filler Dungeon Guide)
+    'setup' => $gaLuciaSetup([$GA_DG, $GA_DG, $GA_FS, $GA_FW, $GA_DG, $GA_FW, $GA_FS, $GA_MARK], 2),
+    'actions' => array_merge([mrdEnd(1), mrdPlay(2, 'myHand-7')], mrdPay(2, 2), [
+        mrdAns(2, 'myDeck-4'),
+    ]),
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

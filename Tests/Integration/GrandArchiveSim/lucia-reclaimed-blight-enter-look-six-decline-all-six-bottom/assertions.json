@@ -1,0 +1,12 @@
+[
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"Only the two reserve payments are in memory"},
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":20,"semantic":true,"label":"Deck size unchanged"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-0","viewerPlayerID":1,"property":"CardID","value":"ra9950o14t","semantic":true,"label":"The 7th card (marker) is the top card again"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-14","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom slot 1 of 6, original relative order"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-15","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom slot 2 of 6"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-16","viewerPlayerID":1,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"Bottom slot 3 of 6"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-17","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom slot 4 of 6"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-18","viewerPlayerID":1,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"Bottom slot 5 of 6"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-19","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom slot 6 of 6"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

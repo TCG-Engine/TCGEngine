@@ -1,0 +1,29 @@
+{
+    "name": "lucia-reclaimed-blight-enter-look-six-decline-all-six-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T21:30:53+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "fIQR28QmYg"
+    ],
+    "notes": "Lucia, Reclaimed Blight (fIQR28QmYg): declining the optional reveal (PASS) must still put all six looked-at cards on the bottom in their original order. Pre-fix the follow-up was skipped on PASS and the six cards stayed on top.",
+    "semanticCoverage": {
+        "testedCards": [
+            "fIQR28QmYg"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "look-at-top",
+            "bottom-deck"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Look at the top six cards of your deck. You may reveal a Spell card from among them and put it into your memory. Put the rest on the bottom of your deck in any order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Three defects in the generated SignalTech X Ultra / Lucia pair plus the shared ResolveTopDeckOptionalSelection() (GameLogic.php). (1) The helper put the 'rest' on the bottom with a loop of MZMove($player, \"myDeck-0\", \"myDeck\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped: only ONE of the looked-at cards ever went to the bottom (live repro on HEAD, no candidate: only the top card moved to the bottom, the rest stayed on top). Fixed with MZMoveTopOfZone() plus a trailing CleanupRemovedCards(). (2) The generated follow-up handler passed an UNDEFINED $topCount to the helper (the variable only exists in the other closure), so after a reveal the remaining count was 0 and NOTHING at all was put on the bottom (live repro: the Spell taken, the other cards stayed on top of the deck). (3) The follow-up was queued without dontSkipOnPass, so declining the optional reveal (MZMAYCHOOSE answered PASS) skipped it and the looked-at cards were never put on the bottom. (2) and (3) live in generated closures (gitignored), so both closures are overridden in Custom/GeneratedAbilityOverrides.php: the look count is carried in the TopDeckOptionalCount decision-queue variable and the follow-up is queued with dontSkipOnPass:1.",
+        "affectedFunction": "Custom/GameLogic.php ResolveTopDeckOptionalSelection() / Custom/GeneratedAbilityOverrides.php vFvhZeunOc:0 + fIQR28QmYg:0 closures and their follow-up handlers",
+        "fixCommit": "TBD"
+    }
+}

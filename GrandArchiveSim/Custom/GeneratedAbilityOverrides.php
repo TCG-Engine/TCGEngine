@@ -649,3 +649,76 @@ $cardActivatedAbilities["7qjnqww067:0"] = function($player) { //7qjnqww067
   PairedMindsChoose($player);
   DecisionQueueController::AddDecision($player, "CUSTOM", "7qjnqww067:0:CardActivated-1", 1);
 };
+
+// SignalTech X Ultra (vFvhZeunOc): "[REST]: Look at the top three cards of your deck. You may reveal an ally card from among them and
+// put it into your hand. Put the rest on the bottom of your deck in any order. If a card was put into your hand this way, sacrifice
+// CARDNAME." and Lucia, Reclaimed Blight (fIQR28QmYg): "[Class Bonus] On Enter: Look at the top six cards of your deck. You may
+// reveal a Spell card from among them and put it into your memory. Put the rest on the bottom of your deck in any order."
+//
+// Both generated pairs share ResolveTopDeckOptionalSelection() (GameLogic.php), and each had three defects the generated source
+// cannot fix in place: (1) the "rest on the bottom" loop was a fixed-index MZMove($player, "myDeck-0", "myDeck") loop (fixed in
+// GameLogic.php with MZMoveTopOfZone()); (2) the follow-up handler ("...:ActivateAbility-1" / "...:Enter-1") passed an UNDEFINED
+// $topCount (the variable only exists in the other closure), so after a reveal NOTHING was put on the bottom; the count is now
+// carried in the "TopDeckOptionalCount" decision-queue variable; (3) the follow-up was queued without dontSkipOnPass, so declining
+// the optional reveal (MZMAYCHOOSE answered PASS) skipped it and left the looked-at cards on top instead of on the bottom.
+$activateAbilityAbilities["vFvhZeunOc:0"] = function($player) { //Find ally in top three
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $abilityIndex = DecisionQueueController::GetVariable("abilityIndex");
+  $topCount = min(3, count(GetDeck($player)));
+  if($topCount <= 0) return;
+  DecisionQueueController::StoreVariable("TopDeckOptionalCount", strval($topCount));
+  $candidates = [];
+  for($i = 0; $i < $topCount; ++$i) {
+      $deckObj = GetZoneObject("myDeck-" . $i);
+      if($deckObj !== null && PropertyContains(CardType($deckObj->CardID), "ALLY")) $candidates[] = "myDeck-" . $i;
+  }
+  if(empty($candidates)) {
+      ResolveTopDeckOptionalSelection($player, "-", $topCount, "myHand", null);
+      return;
+  }
+  $candidateStr = implode("&", $candidates);
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Reveal_an_ally_and_put_it_into_your_hand?");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "vFvhZeunOc:0:ActivateAbility-1", 1, dontSkipOnPass:1);
+};
+$customDQHandlers["vFvhZeunOc:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) { //Find ally in top three
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $abilityIndex = DecisionQueueController::GetVariable("abilityIndex");
+  DecisionQueueController::StoreVariable("chosen", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "vFvhZeunOc:0:ActivateAbility-1")) return;
+  $chosen = $lastDecision;
+  $topCount = intval(DecisionQueueController::GetVariable("TopDeckOptionalCount"));
+  ResolveTopDeckOptionalSelection($player, $chosen, $topCount, "myHand", $mzID);
+};
+$enterAbilities["fIQR28QmYg:0"] = function($player) { //Find Spell in top six
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  if(!IsClassBonusActive($player, CardClasses("fIQR28QmYg"))) return;
+  $topCount = min(6, count(GetDeck($player)));
+  if($topCount <= 0) return;
+  DecisionQueueController::StoreVariable("TopDeckOptionalCount", strval($topCount));
+  $candidates = [];
+  for($i = 0; $i < $topCount; ++$i) {
+      $deckObj = GetZoneObject("myDeck-" . $i);
+      if($deckObj !== null && PropertyContains(CardSubtypes($deckObj->CardID), "SPELL")) $candidates[] = "myDeck-" . $i;
+  }
+  if(empty($candidates)) {
+      ResolveTopDeckOptionalSelection($player, "-", $topCount, "myMemory", null);
+      return;
+  }
+  $candidateStr = implode("&", $candidates);
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Reveal_a_Spell_and_put_it_into_memory?");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "fIQR28QmYg:0:Enter-1", 1, dontSkipOnPass:1);
+};
+$customDQHandlers["fIQR28QmYg:0:Enter-1"] = function($player, $parts, $lastDecision) { //Find Spell in top six
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DecisionQueueController::StoreVariable("chosen", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "fIQR28QmYg:0:Enter-1")) return;
+  $chosen = $lastDecision;
+  $topCount = intval(DecisionQueueController::GetVariable("TopDeckOptionalCount"));
+  ResolveTopDeckOptionalSelection($player, $chosen, $topCount, "myMemory", null);
+};

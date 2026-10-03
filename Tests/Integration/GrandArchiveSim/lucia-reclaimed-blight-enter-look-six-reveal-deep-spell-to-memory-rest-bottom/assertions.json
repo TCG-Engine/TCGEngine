@@ -1,0 +1,13 @@
+[
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"Two reserve payments plus the revealed Spell"},
+    {"step":4,"type":"card_property_equals","mzId":"myMemory-2","viewerPlayerID":1,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"The revealed Spell card (Fairy Whispers) is in memory"},
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":19,"semantic":true,"label":"Deck: 20 minus the revealed Spell"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-0","viewerPlayerID":1,"property":"CardID","value":"ra9950o14t","semantic":true,"label":"The 7th card (marker) is the new top card: all six looked-at cards left the top"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-14","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom slot 1 of 5, original relative order"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-15","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom slot 2 of 5"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-16","viewerPlayerID":1,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"Bottom slot 3 of 5"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-17","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom slot 4 of 5"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-18","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom slot 5 of 5 (the chosen 5th card is not among them)"},
+    {"step":4,"type":"card_property_equals","mzId":"myField-1","viewerPlayerID":1,"property":"CardID","value":"fIQR28QmYg","semantic":true,"label":"Lucia is on the field"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

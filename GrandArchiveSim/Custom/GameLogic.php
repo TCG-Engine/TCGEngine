@@ -20617,7 +20617,12 @@ function ResolveTopDeckOptionalSelection($player, $chosenMZ, $topCount, $destina
         MZMove($player, $chosenMZ, $destination);
     }
     $remaining = max(0, intval($topCount) - ($chosenFromDeck ? 1 : 0));
-    for($i = 0; $i < $remaining && !empty(GetDeck($player)); ++$i) MZMove($player, "myDeck-0", "myDeck");
+    // MZMoveTopOfZone, not a loop of MZMove($player, "myDeck-0", "myDeck"): MZMove only flags the slot removed, so
+    // "myDeck-0" kept resolving to the same removed slot and only ONE of the looked-at cards ever went to the bottom.
+    for($i = 0; $i < $remaining && !empty(GetDeck($player)); ++$i) MZMoveTopOfZone($player, "myDeck", "myDeck");
+    // Splice the last moved card's removed phantom out of the deck so the deck's top slot is the real top card again for
+    // whatever resolves next in this chain (a stale "myDeck-0" would resolve to the phantom).
+    DecisionQueueController::CleanupRemovedCards();
     if($didChoose && $sacrificeMZ !== null && GetZoneObject($sacrificeMZ) !== null) DoSacrificeFighter($player, $sacrificeMZ);
 }
 
