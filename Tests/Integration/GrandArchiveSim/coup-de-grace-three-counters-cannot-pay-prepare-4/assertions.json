@@ -1,0 +1,45 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":3}",
+        "label": "3 counters < 4: Prepare 4 cannot be paid; counters untouched",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Intent-0",
+        "property": "TurnEffects",
+        "value": "[]",
+        "label": "Not prepared",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "4",
+        "label": "No critical 4 without Prepare: 4 damage",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":3,\"_champCombatDamageDealtThisTurn\":4}",
+        "label": "All 3 counters remain",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "No Prepare prompt or critical offer was ever queued",
+        "semantic": true
+    }
+]

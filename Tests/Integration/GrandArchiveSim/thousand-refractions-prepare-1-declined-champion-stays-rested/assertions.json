@@ -1,0 +1,63 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1}",
+        "label": "Declined: counter remains",
+        "semantic": true
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Intent-0",
+        "property": "TurnEffects",
+        "value": "[]",
+        "label": "Not PREPARED",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Status",
+        "value": "1",
+        "label": "Not prepared: the champion stays rested after the attack",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "1",
+        "label": "1 damage dealt",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "XLbCBxla8K",
+        "label": "Not prepared: Thousand Refractions goes to the graveyard",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "label": "Hand unchanged (not returned)",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "Nothing pending",
+        "semantic": true
+    }
+]

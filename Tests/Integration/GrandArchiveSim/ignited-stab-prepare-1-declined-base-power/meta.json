@@ -1,0 +1,26 @@
+{
+    "name": "ignited-stab-prepare-1-declined-base-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:35+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "GRkBQ1Uvir"
+    ],
+    "notes": "Ignited Stab (GRkBQ1Uvir, FIRE ASSASSIN ATTACK, reserve 1, printed power 2): \"Prepare 1. [Class Bonus] On Attack: If Ignited Stab was prepared, it gets +2 POWER.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with extra lineage cards to unlock the card's element; ATTACK cards cannot be played by the first player on turn 1, so player 1 ends turn 1 and player 2 plays the card with real actions (10002 FSM play, 100 reserve payments / YES-NO answer / attack target). Player 2 declines Prepare 1: counters untouched, not PREPARED, only the printed 2 damage.",
+    "semanticCoverage": {
+        "testedCards": [
+            "GRkBQ1Uvir"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition",
+            "power"
+        ],
+        "rulesClauses": [
+            "Prepare 1.",
+            "[Class Bonus] On Attack: If Ignited Stab was prepared, it gets +2 POWER."
+        ]
+    }
+}

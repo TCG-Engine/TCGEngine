@@ -1,0 +1,24 @@
+{
+    "name": "condemning-evisceration-non-assassin-class-bonus-prepare-not-offered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "r84E55KBLM"
+    ],
+    "notes": "Condemning Evisceration (r84E55KBLM, EXALTED/WATER ASSASSIN ATTACK, reserve 2, printed power 4): \"[Class Bonus] Prepare 1. On Champion Hit: If Condemning Evisceration was prepared, you may banish a card with floating memory from your graveyard. If you do, deal 4 damage to the hit champion.\" Player 2 keeps the deck's default Spirit of Fire champion (class SPIRIT, not an Assassin; lineage patched with WATER+LUXEM so the EXALTED/WATER card is playable) and holds a preparation counter. Because Prepare 1 is itself a [Class Bonus], it is never offered: the attack-target choice follows the last reserve payment, the counter is untouched and the hit deals only 4 with no banish offer.",
+    "semanticCoverage": {
+        "testedCards": [
+            "r84E55KBLM"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Prepare 1."
+        ]
+    }
+}

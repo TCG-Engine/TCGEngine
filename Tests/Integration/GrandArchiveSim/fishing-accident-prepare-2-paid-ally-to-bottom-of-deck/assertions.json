@@ -1,0 +1,54 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":2}",
+        "label": "Prepare 2 is only a pending YES/NO: both counters present",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "[]",
+        "label": "Prepare 2 paid: both counters removed",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "label": "The target ally left player 1's field (only the champion remains)",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 12,
+        "label": "It went into its owner's deck (11 -> 12)",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Deck-11",
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "label": "...at the bottom (last position) of the deck",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "Nothing pending",
+        "semantic": true
+    }
+]

@@ -24997,6 +24997,515 @@ DECK,
 
 
 
+// =============================================================================
+// Fixed-cost "Prepare N" wiring audit (ATTACK / ACTION cards whose Prepare cost was never offered)
+// =============================================================================
+// Shared scaffolding. Player 2 is the Prepare player: its champion is patched to Tristan,
+// Shadowdancer (ASSASSIN, UMBRA, so [Class Bonus] [ASSASSIN] and UMBRA cards are playable) carrying
+// $counters preparation counters, plus $lineage extra champion cards in its lineage (Subcards)
+// to unlock FIRE/WATER/LUXEM/CRUX/EXALTED cards. ATTACK cards cannot be activated by the first
+// player on turn 1, so player 1 ends turn 1 and player 2 plays the card on its own turn.
+$gaPrepareChamp = function(int $counters, array $lineage = []) {
+    return ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => array_merge(['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7'], $lineage), 'Counters' => ['preparation' => $counters]]];
+};
+$gaPrepareDeck = $tristanDeck;
+$gaAct = function(int $playerID, string $cardID, int $mode = 100) {
+    return ['playerID' => $playerID, 'mode' => $mode, 'buttonInput' => '', 'cardID' => $cardID, 'chkInput' => [], 'inputText' => ''];
+};
+// player 1 ends turn 1; player 2 plays the seeded hand card (myHand-7) and pays $reserve reserve cards
+$gaPrepareP2Play = function(int $reserve) use ($gaAct) {
+    $a = [$gaAct(1, 'myHealth-0!CustomInput!Pass', 10001), $gaAct(2, 'myHand-7!FSM!', 10002)];
+    for($i = 0; $i < $reserve; ++$i) $a[] = $gaAct(2, 'myHand-0');
+    return $a;
+};
+// same, for FAST cards: activating a fast card from hand first opens a "Take a fast action?" confirmation (answered with the card itself)
+$gaFastP2Play = function(int $reserve) use ($gaAct) {
+    $a = [$gaAct(1, 'myHealth-0!CustomInput!Pass', 10001), $gaAct(2, 'myHand-7!FSM!', 10002), $gaAct(2, 'myHand-7')];
+    for($i = 0; $i < $reserve; ++$i) $a[] = $gaAct(2, 'myHand-0');
+    return $a;
+};
+$gaLuxemLineage = ['UAF6Nr7GUE']; // Zander, Blinding Steel (LUXEM); EXALTED unlocks automatically alongside an advanced element
+$gaFireLineage = ['LMyKyVC2O9'];   // Spirit of Fire
+$gaWaterLineage = ['tafqldAGRF'];  // Spirit of Water
+$gaCruxLineage = ['2TCyILvBYa'];   // Merlin, Brilliant Vestige (CRUX)
+
+// --- Coup de Grace (5qWWpkgQLl): Prepare 4; [Class Bonus] On Attack: if prepared, critical 4 ---
+$fixtures['coup-de-grace-prepare-4-paid-critical-4-doubles-damage'] = [
+    'testedCards' => ['5qWWpkgQLl'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        $gaPrepareChamp(4),
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '5qWWpkgQLl'], // Coup de Grace -> p2 myHand-7
+    ],
+    'actions' => array_merge($gaPrepareP2Play(4), [
+        $gaAct(2, 'YES'), // pay Prepare 4
+        $gaAct(2, 'theirField-0'), // attack player 1's champion
+        $gaAct(1, 'NO'), // player 1 is offered "Discard 4 to prevent critical?" (critical 4 only exists because Coup de Grace was prepared) and declines
+    ]),
+];
+$fixtures['coup-de-grace-prepare-4-declined-no-critical'] = [
+    'testedCards' => ['5qWWpkgQLl'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        $gaPrepareChamp(4),
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '5qWWpkgQLl'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(4), [
+        $gaAct(2, 'NO'), // decline Prepare 4
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+$fixtures['coup-de-grace-three-counters-cannot-pay-prepare-4'] = [
+    'testedCards' => ['5qWWpkgQLl'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        $gaPrepareChamp(3),
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '5qWWpkgQLl'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(4), [
+        $gaAct(2, 'theirField-0'), // no Prepare prompt: 3 counters < 4
+    ]),
+];
+
+// Same non-Assassin control for the other two cards whose generated rider gated "[Class Bonus]" with
+// IsClassBonusActive($player) and no class list (always true): player 2 keeps the deck's default Spirit
+// of Fire champion (class SPIRIT) with the counters needed to pay Prepare.
+$gaNonAssassinDeck = <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK;
+$fixtures['coup-de-grace-prepare-4-paid-non-assassin-no-critical'] = [
+    'testedCards' => ['5qWWpkgQLl'],
+    'deck' => $gaNonAssassinDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 4]]],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '5qWWpkgQLl'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(4), [
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+$fixtures['thousand-refractions-prepare-1-paid-non-assassin-no-wake-no-return'] = [
+    'testedCards' => ['XLbCBxla8K'],
+    'deck' => $gaNonAssassinDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE'], 'Counters' => ['preparation' => 1]]], // Spirit of Fire + LUXEM lineage (unlocks the LUXEM card)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'XLbCBxla8K'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(0), [
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+
+// --- Ignited Stab (GRkBQ1Uvir): Prepare 1; [Class Bonus] On Attack: if prepared, +2 POWER ---
+$fixtures['ignited-stab-prepare-1-paid-plus-2-power'] = [
+    'testedCards' => ['GRkBQ1Uvir'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        $gaPrepareChamp(2, $gaFireLineage),
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'GRkBQ1Uvir'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(1), [
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+$fixtures['ignited-stab-prepare-1-declined-base-power'] = [
+    'testedCards' => ['GRkBQ1Uvir'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        $gaPrepareChamp(2, $gaFireLineage),
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'GRkBQ1Uvir'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(1), [
+        $gaAct(2, 'NO'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+
+
+// Ignited Stab is FIRE and [Class Bonus] needs an ASSASSIN champion. Player 2 keeps the deck's
+// default Spirit of Fire champion (class SPIRIT, FIRE) -- NOT an Assassin -- with 1 preparation
+// counter: Prepare 1 is still payable (it is not class-gated), but the +2 POWER rider is.
+$fixtures['ignited-stab-prepare-1-paid-non-assassin-no-class-bonus'] = [
+    'testedCards' => ['GRkBQ1Uvir'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 1]]],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'GRkBQ1Uvir'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(1), [
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+
+// --- Thousand Refractions (XLbCBxla8K): Prepare 1; [Class Bonus] On Hit: if prepared, wake up your champion and return it to hand ---
+$fixtures['thousand-refractions-prepare-1-paid-wakes-champion-returns-to-hand'] = [
+    'testedCards' => ['XLbCBxla8K'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        $gaPrepareChamp(1, $gaLuxemLineage),
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'XLbCBxla8K'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(0), [
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+$fixtures['thousand-refractions-prepare-1-declined-champion-stays-rested'] = [
+    'testedCards' => ['XLbCBxla8K'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        $gaPrepareChamp(1, $gaLuxemLineage),
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'XLbCBxla8K'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(0), [
+        $gaAct(2, 'NO'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+
+// --- Final Stroke (ekkjn37cx6): Prepare 3; [Class Bonus] On Champion Hit: if prepared and the hit champion has 20+ damage counters, destroy it ---
+// Player 1's champion is patched to Ciel, Mirage's Grave (30 life) so 5 power + the seeded damage
+// cannot kill it by damage alone: the destruction is Final Stroke's own effect.
+$gaFinalStrokeVictim = function(int $damage) {
+    return ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zhh43i1eaa', 'Damage' => $damage]];
+};
+$fixtures['final-stroke-prepare-3-paid-20-damage-destroys-champion'] = [
+    'testedCards' => ['ekkjn37cx6'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        $gaPrepareChamp(3),
+        $gaFinalStrokeVictim(16), // 16 + 5 = 21 damage counters after the hit
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'ekkjn37cx6'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(4), [
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+$fixtures['final-stroke-prepare-3-paid-under-20-damage-champion-survives'] = [
+    'testedCards' => ['ekkjn37cx6'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        $gaPrepareChamp(3),
+        $gaFinalStrokeVictim(14), // 14 + 5 = 19 damage counters: below the 20 threshold
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'ekkjn37cx6'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(4), [
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+$fixtures['final-stroke-prepare-3-declined-20-damage-champion-survives'] = [
+    'testedCards' => ['ekkjn37cx6'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        $gaPrepareChamp(3),
+        $gaFinalStrokeVictim(16),
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'ekkjn37cx6'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(4), [
+        $gaAct(2, 'NO'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+
+// --- Striking Illuminance (2lukkhisu5): Prepare 2; On Attack: if prepared, reveal all cards in your memory (+1 POWER per luxem card revealed) ---
+// Player 2's memory is seeded with two Bathe in Light (LUXEM) before play; the two reserve
+// payments add two NORM cards, so the reveal covers 4 memory cards of which exactly 2 are luxem.
+$fixtures['striking-illuminance-prepare-2-paid-reveals-memory-plus-2-power'] = [
+    'testedCards' => ['2lukkhisu5'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        $gaPrepareChamp(2, $gaLuxemLineage),
+        ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'd9zax2g20h'], // Bathe in Light (LUXEM)
+        ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'd9zax2g20h'], // Bathe in Light (LUXEM)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '2lukkhisu5'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(2), [
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+$fixtures['striking-illuminance-prepare-2-declined-no-reveal-base-power'] = [
+    'testedCards' => ['2lukkhisu5'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        $gaPrepareChamp(2, $gaLuxemLineage),
+        ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'd9zax2g20h'],
+        ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'd9zax2g20h'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '2lukkhisu5'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(2), [
+        $gaAct(2, 'NO'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+
+// --- Condemning Evisceration (r84E55KBLM): [Class Bonus] Prepare 1; On Champion Hit: if prepared, may banish a floating-memory card from your graveyard; if you do, 4 damage to the hit champion ---
+// Return to the Archive (aIbBhTilEN, Floating Memory) is seeded in player 2's graveyard.
+$gaCondemningSetup = function() use ($gaPrepareChamp, $gaWaterLineage) {
+    return [
+        $gaPrepareChamp(1, array_merge($gaWaterLineage, ['UAF6Nr7GUE'])), // WATER + LUXEM (advanced) lineage unlocks EXALTED
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'aIbBhTilEN'], // Return to the Archive (Floating Memory)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'r84E55KBLM'],
+    ];
+};
+$fixtures['condemning-evisceration-prepare-1-paid-banish-floating-deals-4-more'] = [
+    'testedCards' => ['r84E55KBLM'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaCondemningSetup(),
+    'actions' => array_merge($gaPrepareP2Play(2), [
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+        $gaAct(2, 'myGraveyard-0'), // banish Return to the Archive
+    ]),
+];
+$fixtures['condemning-evisceration-prepare-1-paid-skip-banish-no-extra-damage'] = [
+    'testedCards' => ['r84E55KBLM'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaCondemningSetup(),
+    'actions' => array_merge($gaPrepareP2Play(2), [
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+        $gaAct(2, 'PASS'), // decline the optional banish
+    ]),
+];
+$fixtures['condemning-evisceration-prepare-1-declined-no-banish-offer'] = [
+    'testedCards' => ['r84E55KBLM'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaCondemningSetup(),
+    'actions' => array_merge($gaPrepareP2Play(2), [
+        $gaAct(2, 'NO'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+
+// "[Class Bonus] Prepare 1" is only available while the class bonus is active: player 2 keeps the
+// deck's default Spirit of Fire champion (class SPIRIT) re-lineaged with WATER + LUXEM (unlocking the
+// EXALTED/WATER card) and holds a preparation counter, yet is NEVER offered Prepare 1.
+$fixtures['condemning-evisceration-non-assassin-class-bonus-prepare-not-offered'] = [
+    'testedCards' => ['r84E55KBLM'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF', 'UAF6Nr7GUE'], 'Counters' => ['preparation' => 1]]],
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'aIbBhTilEN'], // Return to the Archive (Floating Memory)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'r84E55KBLM'],
+    ],
+    'actions' => array_merge($gaPrepareP2Play(2), [
+        $gaAct(2, 'theirField-0'), // no Prepare prompt: the class bonus is inactive
+    ]),
+];
+
+// --- Stillshard Strike (TDI5DOrWB5): Prepare 1; On Attack: if prepared, recover 1+X (X = sheen on each defending unit) ---
+// Player 2's champion starts with 6 damage; player 1's champion carries 2 sheen counters, so a
+// prepared attack recovers 1+2 = 3.
+$gaStillshardSetup = function() use ($gaPrepareChamp, $gaWaterLineage) {
+    $champ = $gaPrepareChamp(1, $gaWaterLineage);
+    $champ['setProperties']['Damage'] = 6;
+    return [
+        $champ,
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['sheen' => 2]]],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'TDI5DOrWB5'],
+    ];
+};
+$fixtures['stillshard-strike-prepare-1-paid-recovers-1-plus-sheen'] = [
+    'testedCards' => ['TDI5DOrWB5'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaStillshardSetup(),
+    'actions' => array_merge($gaPrepareP2Play(2), [
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+$fixtures['stillshard-strike-prepare-1-declined-no-recover'] = [
+    'testedCards' => ['TDI5DOrWB5'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaStillshardSetup(),
+    'actions' => array_merge($gaPrepareP2Play(2), [
+        $gaAct(2, 'NO'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+
+// --- Strike from the Mist (DHn9J7gX6g): Prepare 2; [Class Bonus] as long as prepared, it can't be intercepted ---
+$gaMistSetup = function() use ($gaPrepareChamp, $gaWaterLineage) {
+    return [
+        $gaPrepareChamp(2, $gaWaterLineage),
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mHd6LLyMyF'], // Swift Recruit (Intercept ally) -> p1 myField-1
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'DHn9J7gX6g'],
+    ];
+};
+$fixtures['strike-from-the-mist-prepare-2-paid-cannot-be-intercepted'] = [
+    'testedCards' => ['DHn9J7gX6g'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaMistSetup(),
+    'actions' => array_merge($gaPrepareP2Play(2), [
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+$fixtures['strike-from-the-mist-prepare-2-declined-interceptor-offered'] = [
+    'testedCards' => ['DHn9J7gX6g'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaMistSetup(),
+    'actions' => array_merge($gaPrepareP2Play(2), [
+        $gaAct(2, 'NO'),
+        $gaAct(2, 'theirField-0'),
+        $gaAct(1, 'PASS'), // Swift Recruit is offered as an interceptor
+    ]),
+];
+
+
+// --- Soultrace Tessellation (7ePq6I4uZ8, ACTION): Prepare 1; put 3 sheen counters on target unit; if prepared, +1 sheen per three cards in your banishment ---
+$gaSoultraceSetup = function() use ($gaPrepareChamp, $gaCruxLineage) {
+    $s = [$gaPrepareChamp(1, $gaCruxLineage)];
+    for($i = 0; $i < 6; ++$i) $s[] = ['player' => 2, 'zone' => 'myBanish', 'cardID' => 'em6eEh9q8y']; // six banished cards => +2 sheen when prepared
+    $s[] = ['player' => 2, 'zone' => 'myHand', 'cardID' => '7ePq6I4uZ8'];
+    return $s;
+};
+$fixtures['soultrace-tessellation-prepare-1-paid-3-plus-2-sheen'] = [
+    'testedCards' => ['7ePq6I4uZ8'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaSoultraceSetup(),
+    'actions' => array_merge($gaFastP2Play(2), [
+        $gaAct(1, 'PASS'),
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+$fixtures['soultrace-tessellation-prepare-1-declined-3-sheen'] = [
+    'testedCards' => ['7ePq6I4uZ8'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaSoultraceSetup(),
+    'actions' => array_merge($gaFastP2Play(2), [
+        $gaAct(1, 'PASS'),
+        $gaAct(2, 'NO'),
+        $gaAct(2, 'theirField-0'),
+    ]),
+];
+
+
+// --- Exploit Vulnerability (hy83sghwfi, ACTION, fast): Prepare 1; draw a card; if prepared, an Assassin unit you control gains "On Ally Hit: Destroy the hit ally" until end of turn ---
+$gaExploitSetup = function() use ($gaPrepareChamp) {
+    return [
+        $gaPrepareChamp(1),
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'hy83sghwfi'],
+    ];
+};
+$fixtures['exploit-vulnerability-prepare-1-paid-draw-and-assassin-on-ally-hit'] = [
+    'testedCards' => ['hy83sghwfi'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaExploitSetup(),
+    'actions' => array_merge($gaFastP2Play(2), [
+        $gaAct(1, 'PASS'),
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'myField-0'),
+    ]),
+];
+$fixtures['exploit-vulnerability-prepare-1-declined-draw-only'] = [
+    'testedCards' => ['hy83sghwfi'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaExploitSetup(),
+    'actions' => array_merge($gaFastP2Play(2), [
+        $gaAct(1, 'PASS'),
+        $gaAct(2, 'NO'),
+    ]),
+];
+
+// --- Fishing Accident (RRx0KK6g6D, ACTION, fast): Prepare 2; rest target ally; if prepared, put it on the bottom of its owner's deck instead ---
+$gaFishingSetup = function() use ($gaPrepareChamp, $gaWaterLineage) {
+    return [
+        $gaPrepareChamp(2, $gaWaterLineage),
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) -> p1 myField-1
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'RRx0KK6g6D'],
+    ];
+};
+$fixtures['fishing-accident-prepare-2-paid-ally-to-bottom-of-deck'] = [
+    'testedCards' => ['RRx0KK6g6D'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaFishingSetup(),
+    'actions' => array_merge($gaFastP2Play(1), [
+        $gaAct(1, 'PASS'),
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'theirField-1'),
+    ]),
+];
+$fixtures['fishing-accident-prepare-2-declined-ally-rested'] = [
+    'testedCards' => ['RRx0KK6g6D'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaFishingSetup(),
+    'actions' => array_merge($gaFastP2Play(1), [
+        $gaAct(1, 'PASS'),
+        $gaAct(2, 'NO'),
+        $gaAct(2, 'theirField-1'),
+    ]),
+];
+
+// --- Silvergale Monstrosity's Call (lsLd8ADGAe, ACTION): Prepare 2; summon a Memorite Obelith; if prepared, move sheen from your Fractured Memories onto Memorite Obelith allies ---
+$gaSilvergaleSetup = function() use ($gaPrepareChamp, $gaLuxemLineage) {
+    return [
+        $gaPrepareChamp(2, $gaLuxemLineage),
+        ['player' => 2, 'zone' => 'myMastery', 'cardID' => 'UAJGQFbXjs', 'setProperties' => ['Counters' => ['sheen' => 5]]], // Fractured Memories with 5 sheen
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'lsLd8ADGAe'],
+    ];
+};
+$fixtures['silvergale-monstrosity-call-prepare-2-paid-moves-sheen-to-obelith'] = [
+    'testedCards' => ['lsLd8ADGAe'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaSilvergaleSetup(),
+    'actions' => array_merge($gaPrepareP2Play(3), [
+        $gaAct(1, 'PASS'),
+        $gaAct(2, 'YES'),
+    ]),
+];
+$fixtures['silvergale-monstrosity-call-prepare-2-declined-obelith-no-sheen'] = [
+    'testedCards' => ['lsLd8ADGAe'],
+    'deck' => $gaPrepareDeck,
+    'setup' => $gaSilvergaleSetup(),
+    'actions' => array_merge($gaPrepareP2Play(3), [
+        $gaAct(1, 'PASS'),
+        $gaAct(2, 'NO'),
+    ]),
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

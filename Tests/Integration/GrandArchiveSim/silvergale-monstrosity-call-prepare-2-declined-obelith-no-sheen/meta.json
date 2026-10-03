@@ -1,0 +1,26 @@
+{
+    "name": "silvergale-monstrosity-call-prepare-2-declined-obelith-no-sheen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "lsLd8ADGAe"
+    ],
+    "notes": "Silvergale Monstrosity's Call (lsLd8ADGAe, EXALTED/WIND ASSASSIN ACTION, reserve 3): \"Prepare 2. Summon a Memorite Obelith token. If Silvergale Monstrosity's Call was prepared, move any amount of sheen counters from your Fractured Memories onto any amount of allies named Memorite Obelith you control.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with extra lineage cards to unlock the card's element; ATTACK cards cannot be played by the first player on turn 1, so player 1 ends turn 1 and player 2 plays the card with real actions (10002 FSM play, 100 reserve payments / YES-NO answer / attack target). Player 2's mastery holds a Fractured Memories with 5 sheen counters. (The spell is not Fast, so no 'Take a fast action?' confirmation.) 'Any amount' is resolved as the pre-existing generated behaviour did: all the sheen onto the first Memorite Obelith. Player 2 declines Prepare 2: the Obelith is summoned without sheen and the Fractured Memories keep their 5 sheen; counters untouched.",
+    "semanticCoverage": {
+        "testedCards": [
+            "lsLd8ADGAe"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "condition",
+            "summon",
+            "sheen"
+        ],
+        "rulesClauses": [
+            "Prepare 2.",
+            "Summon a Memorite Obelith token."
+        ]
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "name": "soultrace-tessellation-prepare-1-paid-3-plus-2-sheen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "7ePq6I4uZ8"
+    ],
+    "notes": "Soultrace Tessellation (7ePq6I4uZ8, CRUX ASSASSIN ACTION, reserve 2): \"Prepare 1. Put three sheen counters on target unit. If Soultrace Tessellation was prepared, put an additional sheen counter on that unit for every three cards in your banishment.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with the lineage cards needed for the card's element. Player 1 ends turn 1; player 2 activates the card with real actions (10002 FSM play, a 'Take a fast action?' confirmation because the card is Fast, 100 reserve payments, player 1's PASS in the opportunity window, then the YES/NO answer and target choice). Player 2's banishment is seeded with six cards (so a prepared cast adds floor(6/3) = 2 more sheen). Before the fix the card did nothing at all: its text was registered as enterAbilities['7ePq6I4uZ8:0'], which is only dispatched for permanents entering the field, so the action resolved with no target prompt and no sheen (the post-reserve YES/target answers were accepted as silent no-ops). Player 2 pays Prepare 1 and targets player 1's champion: 3 + 2 = 5 sheen counters.",
+    "semanticCoverage": {
+        "testedCards": [
+            "7ePq6I4uZ8"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "condition",
+            "sheen",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Prepare 1.",
+            "Put three sheen counters on target unit.",
+            "If Soultrace Tessellation was prepared, put an additional sheen counter on that unit for every three cards in your banishment."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated ability for this ACTION was registered as enterAbilities['7ePq6I4uZ8:0'] (GeneratedMacroCode.php), which only runs when a permanent enters the field, and no $cardActivatedAbilities['7ePq6I4uZ8:0'] existed: live state dump on HEAD 47028d36 before the fix showed the card going to the graveyard with NO target prompt, NO Prepare prompt (counters untouched) and no sheen on any unit; the later YES / target answers were accepted as silent no-ops. Fix: hand-authored $cardActivatedAbilities['7ePq6I4uZ8:0'] queues the Prepare 1 YES/NO, then an MZCHOOSE over (non-spellshroud) units, then customDQHandlers['GASoultraceTessellationResolve'] adds 3 sheen (+ floor(banishment/3) when prepared).",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php $cardActivatedAbilities['7ePq6I4uZ8:0'] + GASoultraceTessellationResolve",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "soultrace-tessellation-prepare-1-declined-3-sheen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "7ePq6I4uZ8"
+    ],
+    "notes": "Soultrace Tessellation (7ePq6I4uZ8, CRUX ASSASSIN ACTION, reserve 2): \"Prepare 1. Put three sheen counters on target unit. If Soultrace Tessellation was prepared, put an additional sheen counter on that unit for every three cards in your banishment.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with the lineage cards needed for the card's element. Player 1 ends turn 1; player 2 activates the card with real actions (10002 FSM play, a 'Take a fast action?' confirmation because the card is Fast, 100 reserve payments, player 1's PASS in the opportunity window, then the YES/NO answer and target choice). Player 2's banishment is seeded with six cards (so a prepared cast adds floor(6/3) = 2 more sheen). Before the fix the card did nothing at all: its text was registered as enterAbilities['7ePq6I4uZ8:0'], which is only dispatched for permanents entering the field, so the action resolved with no target prompt and no sheen (the post-reserve YES/target answers were accepted as silent no-ops). Player 2 declines Prepare 1: only the base 3 sheen counters, counter untouched.",
+    "semanticCoverage": {
+        "testedCards": [
+            "7ePq6I4uZ8"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "condition",
+            "sheen",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Prepare 1.",
+            "Put three sheen counters on target unit."
+        ]
+    }
+}

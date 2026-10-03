@@ -1,0 +1,63 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":2}",
+        "label": "Prepare 2 is only a pending YES/NO",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Mastery-0",
+        "property": "Counters",
+        "value": "{\"sheen\":5}",
+        "label": "Fractured Memories holds 5 sheen before the move",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "[]",
+        "label": "Prepare 2 paid",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "CardID",
+        "value": "fdnlbJm3hr",
+        "label": "A Memorite Obelith was summoned",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "{\"sheen\":5}",
+        "label": "All 5 sheen counters moved onto the Memorite Obelith",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Mastery-0",
+        "property": "Counters",
+        "value": "[]",
+        "label": "Fractured Memories has no sheen left",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "Nothing pending",
+        "semantic": true
+    }
+]

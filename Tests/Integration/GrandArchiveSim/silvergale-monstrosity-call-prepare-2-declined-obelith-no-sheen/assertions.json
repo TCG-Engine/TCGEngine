@@ -1,0 +1,45 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":2}",
+        "label": "Declined: both counters remain",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "CardID",
+        "value": "fdnlbJm3hr",
+        "label": "A Memorite Obelith was summoned",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "[]",
+        "label": "Not prepared: the Obelith has no sheen",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Mastery-0",
+        "property": "Counters",
+        "value": "{\"sheen\":5}",
+        "label": "Fractured Memories keep all 5 sheen",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "Nothing pending",
+        "semantic": true
+    }
+]

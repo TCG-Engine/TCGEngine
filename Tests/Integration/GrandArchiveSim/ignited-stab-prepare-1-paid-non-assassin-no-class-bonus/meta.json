@@ -1,0 +1,32 @@
+{
+    "name": "ignited-stab-prepare-1-paid-non-assassin-no-class-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:35+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "GRkBQ1Uvir"
+    ],
+    "notes": "Ignited Stab (GRkBQ1Uvir, FIRE ASSASSIN ATTACK, reserve 1, printed power 2): \"Prepare 1. [Class Bonus] On Attack: If Ignited Stab was prepared, it gets +2 POWER.\" Player 2 keeps the deck's default Spirit of Fire champion (class SPIRIT, not an Assassin) with 1 preparation counter: Prepare 1 is not class-gated, so it can be paid (counter spent, card tagged PREPARED), but the +2 POWER is a [Class Bonus] and is NOT applied: 2 damage. The generated onAttack gated this with IsClassBonusActive($player) and no class list (always true for any champion); GAWrapClassBonusGate() now re-gates it on ASSASSIN.",
+    "semanticCoverage": {
+        "testedCards": [
+            "GRkBQ1Uvir"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition",
+            "power"
+        ],
+        "rulesClauses": [
+            "Prepare 1.",
+            "[Class Bonus] On Attack: If Ignited Stab was prepared, it gets +2 POWER."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Second defect behind the Ignited Stab wiring: the generated onAttackAbilities['GRkBQ1Uvir:0'] gated '[Class Bonus]' with IsClassBonusActive($player) called with NO required-classes list, which only checks 'controls any champion' (always true), so a prepared Ignited Stab played by a non-Assassin champion would still have gotten +2 POWER. Fix: GAWrapClassBonusGate($onAttackAbilities, 'GRkBQ1Uvir:0', ['ASSASSIN']) in Custom/GeneratedAbilityOverrides.php (same wrapper re-gates Coup de Grace's critical 4 and Thousand Refractions' wake-up/return).",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php GAWrapClassBonusGate()",
+        "fixCommit": "TBD"
+    }
+}

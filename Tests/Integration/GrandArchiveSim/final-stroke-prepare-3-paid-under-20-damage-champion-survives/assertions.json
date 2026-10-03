@@ -1,0 +1,54 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "[]",
+        "label": "Prepare 3 paid",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Intent-0",
+        "property": "TurnEffects",
+        "value": "[\"PREPARED\"]",
+        "label": "Prepared",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "19",
+        "label": "14 + 5 = 19 damage counters: below the threshold",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "CardID",
+        "value": "zhh43i1eaa",
+        "label": "The champion survives on the field",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "label": "Nothing was destroyed",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "Nothing pending",
+        "semantic": true
+    }
+]

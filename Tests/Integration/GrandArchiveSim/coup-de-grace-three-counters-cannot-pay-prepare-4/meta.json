@@ -1,0 +1,24 @@
+{
+    "name": "coup-de-grace-three-counters-cannot-pay-prepare-4",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:35+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "5qWWpkgQLl"
+    ],
+    "notes": "Coup de Grace (5qWWpkgQLl, NORM ASSASSIN ATTACK, reserve 4, printed power 4): \"Prepare 4. [Class Bonus] On Attack: If Coup de Grace was prepared, it gains critical 4. (If combat damage would be dealt by a source with critical 4, double that damage unless an opponent discards four cards.)\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with extra lineage cards to unlock the card's element; ATTACK cards cannot be played by the first player on turn 1, so player 1 ends turn 1 and player 2 plays the card with real actions (10002 FSM play, 100 reserve payments / YES-NO answer / attack target). The champion holds only 3 preparation counters, fewer than the fixed Prepare 4 cost, so no 'Pay Prepare 4?' prompt is queued at all (the attack-target choice follows the last reserve payment directly); the attack deals 4 with no critical.",
+    "semanticCoverage": {
+        "testedCards": [
+            "5qWWpkgQLl"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Prepare 4."
+        ]
+    }
+}

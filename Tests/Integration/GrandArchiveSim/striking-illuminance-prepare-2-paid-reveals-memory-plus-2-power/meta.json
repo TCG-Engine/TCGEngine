@@ -1,0 +1,34 @@
+{
+    "name": "striking-illuminance-prepare-2-paid-reveals-memory-plus-2-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "2lukkhisu5"
+    ],
+    "notes": "Striking Illuminance (2lukkhisu5, LUXEM ASSASSIN ATTACK, reserve 2, printed power 4): \"Prepare 2. Whenever you reveal a luxem element card from your memory, Striking Illuminance gets +1 POWER. On Attack: If Striking Illuminance was prepared, reveal all cards in your memory.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with extra lineage cards to unlock the card's element; ATTACK cards cannot be played by the first player on turn 1, so player 1 ends turn 1 and player 2 plays the card with real actions (10002 FSM play, 100 reserve payments / YES-NO answer / attack target). Player 2's memory is seeded with two Bathe in Light (LUXEM) before play; the two reserve payments add two NORM cards, so the reveal covers 4 memory cards of which exactly 2 are luxem. Player 2 pays Prepare 2 (both counters) and attacks: all 4 memory cards are revealed on attack, the 2 luxem reveals give +2 POWER, so 4 + 2 = 6 damage. Also fixes AddTurnEffect() de-duplicating the '2lukkhisu5_REVEAL_POWER' marker (it capped the bonus at +1 however many luxem cards were revealed; now stacking, like RANGED_*).",
+    "semanticCoverage": {
+        "testedCards": [
+            "2lukkhisu5"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition",
+            "power",
+            "reveal"
+        ],
+        "rulesClauses": [
+            "Prepare 2.",
+            "Whenever you reveal a luxem element card from your memory, Striking Illuminance gets +1 POWER.",
+            "On Attack: If Striking Illuminance was prepared, reveal all cards in your memory."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED (two defects). (1) The CardEditor ability row for this card never queued the fixed Prepare cost: no $cardActivatedAbilities['2lukkhisu5:0'] entry existed (or, for the Strike from the Mist stub, it was an empty '(engine)' body), so OnCardActivated() queued no 'Pay Prepare N?' decision and wasPrepared was never YES. Live state dump on HEAD 47028d36 before the fix: after the last reserve payment the decision queue went straight to the attack-target / ally-target choice (no YESNO), preparation counters stayed untouched, and answering YES was rejected as 'Invalid selection' (or silently ignored) -- so the card's 'if prepared' rider was unreachable. (2) Even once prepared, the +1 POWER per revealed luxem card never exceeded +1: DoRevealCard() adds one '2lukkhisu5_REVEAL_POWER' TurnEffect per luxem reveal, but AddTurnEffect() de-duplicates identical effect strings (live: damage 5 instead of 6 with two luxem cards in memory), so ObjectCurrentPower()'s per-marker count was capped at 1. Fix: hand-authored $cardActivatedAbilities['2lukkhisu5:0'] (GAQueueFixedPrepare(player, 2)) in Custom/GeneratedAbilityOverrides.php, and '2lukkhisu5_REVEAL_POWER' added to AddTurnEffect()'s stacking effects in Custom/GameLogic.php.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php $cardActivatedAbilities['2lukkhisu5:0'] + Custom/GameLogic.php AddTurnEffect() isStackingEffect",
+        "fixCommit": "TBD"
+    }
+}

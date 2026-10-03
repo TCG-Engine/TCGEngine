@@ -1,0 +1,32 @@
+{
+    "name": "final-stroke-prepare-3-paid-20-damage-destroys-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ekkjn37cx6"
+    ],
+    "notes": "Final Stroke (ekkjn37cx6, UMBRA ASSASSIN ATTACK, reserve 4, printed power 5): \"Prepare 3. [Class Bonus] On Champion Hit: If Final Stroke was prepared and there are twenty or more damage counters on the hit champion, destroy the hit champion.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with extra lineage cards to unlock the card's element; ATTACK cards cannot be played by the first player on turn 1, so player 1 ends turn 1 and player 2 plays the card with real actions (10002 FSM play, 100 reserve payments / YES-NO answer / attack target). Player 1's champion is patched to Ciel, Mirage's Grave (30 life) so the 5 power plus the seeded damage cannot kill it by damage alone: any destruction is Final Stroke's own effect. Player 1's champion starts with 16 damage; player 2 pays Prepare 3 (all 3 counters), the 5 power hit brings it to 21 >= 20 damage counters and the champion is destroyed (it leaves the field for the graveyard) although 21 < 30 life.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ekkjn37cx6"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition",
+            "destroy"
+        ],
+        "rulesClauses": [
+            "Prepare 3.",
+            "[Class Bonus] On Champion Hit: If Final Stroke was prepared and there are twenty or more damage counters on the hit champion, destroy the hit champion."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The CardEditor ability row for this card never queued the fixed Prepare cost: no $cardActivatedAbilities['ekkjn37cx6:0'] entry existed (or, for the Strike from the Mist stub, it was an empty '(engine)' body), so OnCardActivated() queued no 'Pay Prepare N?' decision and wasPrepared was never YES. Live state dump on HEAD 47028d36 before the fix: after the last reserve payment the decision queue went straight to the attack-target / ally-target choice (no YESNO), preparation counters stayed untouched, and answering YES was rejected as 'Invalid selection' (or silently ignored) -- so the card's 'if prepared' rider was unreachable. Fix: hand-authored $cardActivatedAbilities['ekkjn37cx6:0'] (GAQueueFixedPrepare(player, 3)); the generated onHit (reads wasPrepared, 20+ damage counters, destroy) already existed but wasPrepared was never YES.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php $cardActivatedAbilities['ekkjn37cx6:0']",
+        "fixCommit": "TBD"
+    }
+}

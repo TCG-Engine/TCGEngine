@@ -1,0 +1,32 @@
+{
+    "name": "coup-de-grace-prepare-4-paid-non-assassin-no-critical",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "5qWWpkgQLl"
+    ],
+    "notes": "Coup de Grace (5qWWpkgQLl, NORM ASSASSIN ATTACK, reserve 4, printed power 4): \"Prepare 4. [Class Bonus] On Attack: If Coup de Grace was prepared, it gains critical 4.\" Player 2 keeps the deck's default Spirit of Fire champion (class SPIRIT, not an Assassin) with 4 preparation counters: Prepare 4 is payable (counters spent, card tagged PREPARED) but the critical 4 is a [Class Bonus] and is NOT granted: 4 damage (not 8) and no 'Discard 4' offer is made to player 1.",
+    "semanticCoverage": {
+        "testedCards": [
+            "5qWWpkgQLl"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition",
+            "power"
+        ],
+        "rulesClauses": [
+            "Prepare 4.",
+            "[Class Bonus] On Attack: If Coup de Grace was prepared, it gains critical 4."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Second defect behind this card's Prepare wiring: its generated onAttackAbilities['5qWWpkgQLl:0'] (critical 4) gated '[Class Bonus]' with IsClassBonusActive($player) called with NO required-classes list, which only checks 'controls any champion' (always true), so a prepared copy played by a non-Assassin champion would still have gotten the rider. Fix: GAWrapClassBonusGate() in Custom/GeneratedAbilityOverrides.php re-gates it on ASSASSIN (live: the unwrapped rider fired for a Spirit of Fire champion).",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php GAWrapClassBonusGate()",
+        "fixCommit": "TBD"
+    }
+}

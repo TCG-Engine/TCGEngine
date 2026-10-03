@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T19:21:23+00:00",
+    "generatedAt": "2026-10-03T19:43:56+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 638,
+        "cardsWithExistingFixtures": 649,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1849,
+        "cardsNeedingSemanticCoverage": 1838,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -9492,24 +9492,6 @@
             "priority": 14
         },
         {
-            "cardId": "5qWWpkgQLl",
-            "name": "Coup de Grace",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "1vt1cn1tzg",
             "name": "Covenant of Thorns",
             "type": "REGALIA,ITEM",
@@ -11121,24 +11103,6 @@
                 "cost",
                 "zone-movement",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "GRkBQ1Uvir",
-            "name": "Ignited Stab",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -13398,24 +13362,6 @@
             "priority": 14
         },
         {
-            "cardId": "TDI5DOrWB5",
-            "name": "Stillshard Strike",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "Ww12XlYHFA",
             "name": "Stolen Chance",
             "type": "ACTION",
@@ -13694,24 +13640,6 @@
             "mechanics": [
                 "damage",
                 "prevention",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "XLbCBxla8K",
-            "name": "Thousand Refractions",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
                 "combat",
                 "condition"
             ],
@@ -15539,23 +15467,6 @@
             "priority": 13
         },
         {
-            "cardId": "r84E55KBLM",
-            "name": "Condemning Evisceration",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "epwl2vqikh",
             "name": "Conduit of Bloodfire",
             "type": "ALLY",
@@ -16431,40 +16342,6 @@
             "mechanics": [
                 "targeting",
                 "recover",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "ekkjn37cx6",
-            "name": "Final Stroke",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "RRx0KK6g6D",
-            "name": "Fishing Accident",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -19908,23 +19785,6 @@
             "priority": 13
         },
         {
-            "cardId": "7ePq6I4uZ8",
-            "name": "Soultrace Tessellation",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "t3Yb097xpJ",
             "name": "Spalling Cleanse",
             "type": "ACTION",
@@ -20223,23 +20083,6 @@
                 "targeting",
                 "status",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "2lukkhisu5",
-            "name": "Striking Illuminance",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -25900,22 +25743,6 @@
             "priority": 12
         },
         {
-            "cardId": "lsLd8ADGAe",
-            "name": "Silvergale Monstrosity's Call",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "ZENwsneT5Y",
             "name": "Silvergale Obelith's Call",
             "type": "ACTION",
@@ -30824,21 +30651,6 @@
             "priority": 11
         },
         {
-            "cardId": "DHn9J7gX6g",
-            "name": "Strike from the Mist",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "YOk6yLd7M0",
             "name": "Sturdy Droid",
             "type": "ALLY",
@@ -34241,10 +34053,14 @@
                 "condition"
             ],
             "existingFixtures": [
-                "exploit-vulnerability-draw"
+                "exploit-vulnerability-draw",
+                "exploit-vulnerability-prepare-1-declined-draw-only",
+                "exploit-vulnerability-prepare-1-paid-draw-and-assassin-on-ally-hit"
             ],
             "semanticFixtures": [
-                "exploit-vulnerability-draw"
+                "exploit-vulnerability-draw",
+                "exploit-vulnerability-prepare-1-declined-draw-only",
+                "exploit-vulnerability-prepare-1-paid-draw-and-assassin-on-ally-hit"
             ],
             "starterDecks": [
                 "Zander Pantheon Starter",
@@ -46077,6 +45893,34 @@
             "priority": 34
         },
         {
+            "cardId": "5qWWpkgQLl",
+            "name": "Coup de Grace",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "coup-de-grace-prepare-4-declined-no-critical",
+                "coup-de-grace-prepare-4-paid-critical-4-doubles-damage",
+                "coup-de-grace-prepare-4-paid-non-assassin-no-critical",
+                "coup-de-grace-three-counters-cannot-pay-prepare-4"
+            ],
+            "semanticFixtures": [
+                "coup-de-grace-prepare-4-declined-no-critical",
+                "coup-de-grace-prepare-4-paid-critical-4-doubles-damage",
+                "coup-de-grace-prepare-4-paid-non-assassin-no-critical",
+                "coup-de-grace-three-counters-cannot-pay-prepare-4"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "DNe5dvCNA1",
             "name": "Hoarfrost Hold",
             "type": "PHANTASIA",
@@ -46093,6 +45937,32 @@
             ],
             "semanticFixtures": [
                 "hoarfrost-hold-decline-further-banish-keeps-frost-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "GRkBQ1Uvir",
+            "name": "Ignited Stab",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ignited-stab-prepare-1-declined-base-power",
+                "ignited-stab-prepare-1-paid-non-assassin-no-class-bonus",
+                "ignited-stab-prepare-1-paid-plus-2-power"
+            ],
+            "semanticFixtures": [
+                "ignited-stab-prepare-1-declined-base-power",
+                "ignited-stab-prepare-1-paid-non-assassin-no-class-bonus",
+                "ignited-stab-prepare-1-paid-plus-2-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46173,6 +46043,56 @@
             "priority": 34
         },
         {
+            "cardId": "TDI5DOrWB5",
+            "name": "Stillshard Strike",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "stillshard-strike-prepare-1-declined-no-recover",
+                "stillshard-strike-prepare-1-paid-recovers-1-plus-sheen"
+            ],
+            "semanticFixtures": [
+                "stillshard-strike-prepare-1-declined-no-recover",
+                "stillshard-strike-prepare-1-paid-recovers-1-plus-sheen"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "XLbCBxla8K",
+            "name": "Thousand Refractions",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "thousand-refractions-prepare-1-declined-champion-stays-rested",
+                "thousand-refractions-prepare-1-paid-non-assassin-no-wake-no-return",
+                "thousand-refractions-prepare-1-paid-wakes-champion-returns-to-hand"
+            ],
+            "semanticFixtures": [
+                "thousand-refractions-prepare-1-declined-champion-stays-rested",
+                "thousand-refractions-prepare-1-paid-non-assassin-no-wake-no-return",
+                "thousand-refractions-prepare-1-paid-wakes-champion-returns-to-hand"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "ki6fxxgmue",
             "name": "Bertha, Spry Howitzer",
             "type": "UNIQUE,ALLY",
@@ -46188,6 +46108,81 @@
             ],
             "semanticFixtures": [
                 "ignore-cost-free-activation-with-empty-hand-is-not-refused"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "r84E55KBLM",
+            "name": "Condemning Evisceration",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "condemning-evisceration-non-assassin-class-bonus-prepare-not-offered",
+                "condemning-evisceration-prepare-1-declined-no-banish-offer",
+                "condemning-evisceration-prepare-1-paid-banish-floating-deals-4-more",
+                "condemning-evisceration-prepare-1-paid-skip-banish-no-extra-damage"
+            ],
+            "semanticFixtures": [
+                "condemning-evisceration-non-assassin-class-bonus-prepare-not-offered",
+                "condemning-evisceration-prepare-1-declined-no-banish-offer",
+                "condemning-evisceration-prepare-1-paid-banish-floating-deals-4-more",
+                "condemning-evisceration-prepare-1-paid-skip-banish-no-extra-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "ekkjn37cx6",
+            "name": "Final Stroke",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "final-stroke-prepare-3-declined-20-damage-champion-survives",
+                "final-stroke-prepare-3-paid-20-damage-destroys-champion",
+                "final-stroke-prepare-3-paid-under-20-damage-champion-survives"
+            ],
+            "semanticFixtures": [
+                "final-stroke-prepare-3-declined-20-damage-champion-survives",
+                "final-stroke-prepare-3-paid-20-damage-destroys-champion",
+                "final-stroke-prepare-3-paid-under-20-damage-champion-survives"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "RRx0KK6g6D",
+            "name": "Fishing Accident",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fishing-accident-prepare-2-declined-ally-rested",
+                "fishing-accident-prepare-2-paid-ally-to-bottom-of-deck"
+            ],
+            "semanticFixtures": [
+                "fishing-accident-prepare-2-declined-ally-rested",
+                "fishing-accident-prepare-2-paid-ally-to-bottom-of-deck"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46255,6 +46250,52 @@
                 "malevolent-vow-decline-first-discard-still-recovers-and-lineages",
                 "malevolent-vow-decline-second-discard-still-recovers",
                 "malevolent-vow-decline-third-discard-still-recovers"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "7ePq6I4uZ8",
+            "name": "Soultrace Tessellation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "soultrace-tessellation-prepare-1-declined-3-sheen",
+                "soultrace-tessellation-prepare-1-paid-3-plus-2-sheen"
+            ],
+            "semanticFixtures": [
+                "soultrace-tessellation-prepare-1-declined-3-sheen",
+                "soultrace-tessellation-prepare-1-paid-3-plus-2-sheen"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "2lukkhisu5",
+            "name": "Striking Illuminance",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "striking-illuminance-prepare-2-declined-no-reveal-base-power",
+                "striking-illuminance-prepare-2-paid-reveals-memory-plus-2-power"
+            ],
+            "semanticFixtures": [
+                "striking-illuminance-prepare-2-declined-no-reveal-base-power",
+                "striking-illuminance-prepare-2-paid-reveals-memory-plus-2-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46461,6 +46502,28 @@
             "priority": 32
         },
         {
+            "cardId": "lsLd8ADGAe",
+            "name": "Silvergale Monstrosity's Call",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "silvergale-monstrosity-call-prepare-2-declined-obelith-no-sheen",
+                "silvergale-monstrosity-call-prepare-2-paid-moves-sheen-to-obelith"
+            ],
+            "semanticFixtures": [
+                "silvergale-monstrosity-call-prepare-2-declined-obelith-no-sheen",
+                "silvergale-monstrosity-call-prepare-2-paid-moves-sheen-to-obelith"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "ZpM7gliLxm",
             "name": "Lesser Boon of Territories",
             "type": "LESSER BOON",
@@ -46474,6 +46537,27 @@
             ],
             "semanticFixtures": [
                 "lesser-boon-of-territories-scavenge-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "DHn9J7gX6g",
+            "name": "Strike from the Mist",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "strike-from-the-mist-prepare-2-declined-interceptor-offered",
+                "strike-from-the-mist-prepare-2-paid-cannot-be-intercepted"
+            ],
+            "semanticFixtures": [
+                "strike-from-the-mist-prepare-2-declined-interceptor-offered",
+                "strike-from-the-mist-prepare-2-paid-cannot-be-intercepted"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

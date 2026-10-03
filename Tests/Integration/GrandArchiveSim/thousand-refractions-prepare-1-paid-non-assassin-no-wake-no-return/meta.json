@@ -1,0 +1,32 @@
+{
+    "name": "thousand-refractions-prepare-1-paid-non-assassin-no-wake-no-return",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "XLbCBxla8K"
+    ],
+    "notes": "Thousand Refractions (XLbCBxla8K, LUXEM ASSASSIN ATTACK, reserve 0, printed power 1): \"Prepare 1. [Class Bonus] On Hit: If Thousand Refractions was prepared, wake up your champion and return Thousand Refractions to its owner's hand.\" Player 2 keeps the deck's default Spirit of Fire champion (class SPIRIT; lineage patched with a LUXEM champion so the card is playable) with 1 preparation counter: Prepare 1 is payable but the On Hit is a [Class Bonus] and does NOT apply: the champion stays rested and the card goes to the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "XLbCBxla8K"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Prepare 1.",
+            "[Class Bonus] On Hit: If Thousand Refractions was prepared, wake up your champion and return Thousand Refractions to its owner's hand."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Second defect behind this card's Prepare wiring: its generated onHitAbilities['XLbCBxla8K:0'] (wake up + return to hand) gated '[Class Bonus]' with IsClassBonusActive($player) called with NO required-classes list, which only checks 'controls any champion' (always true), so a prepared copy played by a non-Assassin champion would still have gotten the rider. Fix: GAWrapClassBonusGate() in Custom/GeneratedAbilityOverrides.php re-gates it on ASSASSIN (live: the unwrapped rider fired for a Spirit of Fire champion).",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php GAWrapClassBonusGate()",
+        "fixCommit": "TBD"
+    }
+}

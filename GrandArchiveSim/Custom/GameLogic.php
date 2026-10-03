@@ -18439,7 +18439,8 @@ function AddTurnEffect($mzCard, $effectID) {
             }
         }
     }
-    $isStackingEffect = strpos($effectID, "RANGED_") === 0 || $effectID === "qzzadf9q1v-POWER";
+    // Striking Illuminance (2lukkhisu5): one "+1 POWER" marker per luxem card revealed from memory (ObjectCurrentPower counts them), so they must stack.
+    $isStackingEffect = strpos($effectID, "RANGED_") === 0 || $effectID === "qzzadf9q1v-POWER" || $effectID === "2lukkhisu5_REVEAL_POWER";
     if($isStackingEffect || !in_array($effectID, $obj->TurnEffects)) {
         array_push($obj->TurnEffects, $effectID);
     }

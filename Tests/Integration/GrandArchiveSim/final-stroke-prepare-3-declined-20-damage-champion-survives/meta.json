@@ -1,0 +1,25 @@
+{
+    "name": "final-stroke-prepare-3-declined-20-damage-champion-survives",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ekkjn37cx6"
+    ],
+    "notes": "Final Stroke (ekkjn37cx6, UMBRA ASSASSIN ATTACK, reserve 4, printed power 5): \"Prepare 3. [Class Bonus] On Champion Hit: If Final Stroke was prepared and there are twenty or more damage counters on the hit champion, destroy the hit champion.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with extra lineage cards to unlock the card's element; ATTACK cards cannot be played by the first player on turn 1, so player 1 ends turn 1 and player 2 plays the card with real actions (10002 FSM play, 100 reserve payments / YES-NO answer / attack target). Player 1's champion is patched to Ciel, Mirage's Grave (30 life) so the 5 power plus the seeded damage cannot kill it by damage alone: any destruction is Final Stroke's own effect. Player 1's champion starts with 16 damage (21 after the hit) but player 2 DECLINES Prepare 3: not prepared, so the champion is not destroyed, and the 3 counters stay.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ekkjn37cx6"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Prepare 3.",
+            "[Class Bonus] On Champion Hit: If Final Stroke was prepared and there are twenty or more damage counters on the hit champion, destroy the hit champion."
+        ]
+    }
+}

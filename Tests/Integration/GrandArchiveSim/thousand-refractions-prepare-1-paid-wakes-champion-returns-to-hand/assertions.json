@@ -1,0 +1,81 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1}",
+        "label": "Prepare 1 is only a pending YES/NO (counter still present)",
+        "semantic": true
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "[]",
+        "label": "Prepare 1 paid",
+        "semantic": true
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Intent-0",
+        "property": "TurnEffects",
+        "value": "[\"PREPARED\"]",
+        "label": "Tagged PREPARED",
+        "semantic": true
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Status",
+        "value": "1",
+        "label": "The champion is rested while attacking",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Status",
+        "value": "2",
+        "label": "On Hit (prepared): the champion was woken up (Status 2 = awake)",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "1",
+        "label": "1 damage dealt",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "label": "Thousand Refractions did NOT go to the graveyard",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 9,
+        "label": "It was returned to its owner's hand (8 + 1)",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "Nothing pending",
+        "semantic": true
+    }
+]

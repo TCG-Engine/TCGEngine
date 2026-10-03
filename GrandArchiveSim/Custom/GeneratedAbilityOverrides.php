@@ -352,6 +352,168 @@ $customDQHandlers["ShadowstrikePrepareX"] = function($player, $parts, $lastDecis
 };
 
 // ---------------------------------------------------------------------------------------------
+// Fixed-cost "Prepare N" wiring for cards whose CardEditor ability row never queued the Prepare cost
+// ---------------------------------------------------------------------------------------------
+// Prepare N ("You may remove N preparation counters from your champion as you activate this card")
+// is paid through the same three pieces every working Prepare card uses (Thieving Cut 7t9m4muq2r,
+// Slice and Dice 3jg01o26b4, Arrow Trap uoQGe5xGDQ): a $cardActivatedAbilities["<id>:0"] entry that
+// queues a YES/NO "Pay Prepare N?" plus the generic DeclarePrepareCost handler (RemoveCounters +
+// wasPrepared = YES), and, for ATTACK cards, the generic GA_TagPreparedAttack follow-up that
+// OnCardActivated() queues behind that entry so the intent card is tagged PREPARED only after the
+// answer. The cards below had the card's own "if prepared" rider generated (onAttackAbilities /
+// onHitAbilities / enterAbilities, or a CardActivated body that merely READS wasPrepared) but no
+// CardActivated row that ever offers the cost, so wasPrepared was never YES and the rider was dead
+// code (live state dumps in the fixtures' meta.json notes: after paying the reserve cost the
+// decision queue went straight to the attack-target / ally-target choice, preparation counters
+// untouched, and answering YES was rejected as "Invalid selection" or silently ignored).
+// These hand-authored entries fill the same slot the generator would populate (the same additive
+// workaround as Slice and Dice / Shadowstrike); each becomes redundant once a CardEditor database
+// row is authored. Nothing is asked when the champion has fewer than N preparation counters.
+function GAQueueFixedPrepare($player, $n, $classBonusRequiredCardID = null) {
+    DecisionQueueController::StoreVariable("wasPrepared", "NO");
+    // "[Class Bonus] Prepare N" (Condemning Evisceration): the Prepare cost itself only exists while the class bonus is active.
+    if($classBonusRequiredCardID !== null && !IsClassBonusActive($player, explode(",", CardClasses($classBonusRequiredCardID)))) return false;
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return false;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null || GetCounterCount($champObj, "preparation") < $n) return false;
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Pay_Prepare_" . $n . "?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DeclarePrepareCost|" . $champMZ . "|" . $n, 1);
+    return true;
+}
+// ATTACK cards: the riders already exist (onAttackAbilities / onHitAbilities read the PREPARED tag or
+// wasPrepared); only the cost was missing.
+foreach([
+    "5qWWpkgQLl" => 4, // Coup de Grace: Prepare 4
+    "GRkBQ1Uvir" => 1, // Ignited Stab: Prepare 1
+    "XLbCBxla8K" => 1, // Thousand Refractions: Prepare 1
+    "ekkjn37cx6" => 3, // Final Stroke: Prepare 3
+    "2lukkhisu5" => 2, // Striking Illuminance: Prepare 2
+    "TDI5DOrWB5" => 1, // Stillshard Strike: Prepare 1
+    "DHn9J7gX6g" => 2, // Strike from the Mist: Prepare 2 (generated body was a no-op "(engine)" stub; the PREPARED check lives in CombatLogic.php)
+] as $gaPrepareCardID => $gaPrepareN) {
+    $cardActivatedAbilities[$gaPrepareCardID . ":0"] = function($player) use ($gaPrepareN) {
+        GAQueueFixedPrepare($player, $gaPrepareN);
+    };
+}
+$cardActivatedAbilities["r84E55KBLM:0"] = function($player) { // Condemning Evisceration: [Class Bonus] Prepare 1
+    GAQueueFixedPrepare($player, 1, "r84E55KBLM");
+};
+// The generated riders for Coup de Grace / Ignited Stab / Thousand Refractions gate their "[Class Bonus]"
+// with IsClassBonusActive($player) and NO class list, which only checks "controls any champion" and is
+// always true. Re-gate them on the cards' real class (ASSASSIN) so a prepared copy played by a
+// non-Assassin champion gets no rider.
+function GAWrapClassBonusGate(&$abilityTable, $key, $classes) {
+    $original = $abilityTable[$key] ?? null;
+    if($original === null) return;
+    $abilityTable[$key] = function($player) use ($original, $classes) {
+        if(!IsClassBonusActive($player, $classes)) return;
+        $original($player);
+    };
+}
+GAWrapClassBonusGate($onAttackAbilities, "5qWWpkgQLl:0", ["ASSASSIN"]); // Coup de Grace: [Class Bonus] critical 4
+GAWrapClassBonusGate($onAttackAbilities, "GRkBQ1Uvir:0", ["ASSASSIN"]); // Ignited Stab: [Class Bonus] +2 POWER
+GAWrapClassBonusGate($onHitAbilities, "XLbCBxla8K:0", ["ASSASSIN"]);    // Thousand Refractions: [Class Bonus] wake up + return
+
+// Soultrace Tessellation (7ePq6I4uZ8, ACTION): "Prepare 1. Put three sheen counters on target unit. If
+// Soultrace Tessellation was prepared, put an additional sheen counter on that unit for every three
+// cards in your banishment." The generated ability was registered as enterAbilities["7ePq6I4uZ8:0"],
+// which is only dispatched for permanents entering the field -- an ACTION never triggers it, so the card
+// resolved with NO effect at all (no target prompt, no sheen). Registered as a CardActivated entry
+// instead (Prepare cost first, then the target choice, then the sheen resolution).
+$cardActivatedAbilities["7ePq6I4uZ8:0"] = function($player) { // Soultrace Tessellation
+    GAQueueFixedPrepare($player, 1);
+    $units = array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION"]), ZoneSearch("theirField", ["ALLY", "CHAMPION"]));
+    $units = FilterSpellshroudTargets($units);
+    if(empty($units)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $units), 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GASoultraceTessellationResolve", 1, dontSkipOnPass:1);
+};
+$customDQHandlers["GASoultraceTessellationResolve"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS" || $lastDecision === null) return;
+    $target = GetZoneObject($lastDecision);
+    if($target === null || $target->removed) return;
+    $sheen = 3;
+    if(DecisionQueueController::GetVariable("wasPrepared") === "YES") {
+        $sheen += intval(floor(count(ZoneSearch("myBanish")) / 3));
+    }
+    AddCounters($player, $lastDecision, "sheen", $sheen);
+};
+
+// Exploit Vulnerability (hy83sghwfi, ACTION): "Prepare 1. Draw a card. Then if Exploit Vulnerability was
+// prepared, choose an Assassin unit you control and it gains 'On Ally Hit: Destroy the hit ally' until
+// end of turn." The generated body drew and read wasPrepared synchronously (always stale/NO) and never
+// offered the cost. The draw and the prepared branch now run after the Prepare answer.
+$cardActivatedAbilities["hy83sghwfi:0"] = function($player) { // Exploit Vulnerability
+    GAQueueFixedPrepare($player, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GAExploitVulnerabilityResolve", 1, dontSkipOnPass:1);
+};
+$customDQHandlers["GAExploitVulnerabilityResolve"] = function($player, $parts, $lastDecision) {
+    Draw($player, 1);
+    if(DecisionQueueController::GetVariable("wasPrepared") !== "YES") return;
+    $assassins = ZoneSearch("myField", ["ALLY", "CHAMPION"], cardSubtypes: ["ASSASSIN"]);
+    if(empty($assassins)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $assassins), 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GAExploitVulnerabilityGrant", 1, dontSkipOnPass:1);
+};
+$customDQHandlers["GAExploitVulnerabilityGrant"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS" || $lastDecision === null) return;
+    $unit = GetZoneObject($lastDecision);
+    if($unit === null || $unit->removed) return;
+    AddTurnEffect($lastDecision, "EXPLOIT_VULNERABILITY_ON_HIT"); // consumed by CombatLogic.php's On Ally Hit resolution
+};
+
+// Fishing Accident (RRx0KK6g6D, ACTION): "Prepare 2. Rest target ally. If Fishing Accident was prepared,
+// put that ally on the bottom of its owner's deck instead." Same shape as the generated body (target
+// choice, then a CUSTOM that reads wasPrepared) plus the missing Prepare cost, queued first so the answer
+// lands before the target resolves.
+$cardActivatedAbilities["RRx0KK6g6D:0"] = function($player) { // Fishing Accident
+    GAQueueFixedPrepare($player, 2);
+    $allies = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]));
+    if(empty($allies)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allies), 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GAFishingAccidentResolve", 1, dontSkipOnPass:1);
+};
+$customDQHandlers["GAFishingAccidentResolve"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS" || $lastDecision === null) return;
+    $ally = GetZoneObject($lastDecision);
+    if($ally === null || $ally->removed) return;
+    if(DecisionQueueController::GetVariable("wasPrepared") === "YES") {
+        // "its owner's deck" (same owner-relative destination rule as Arrow Trap above); MZMove to a deck appends = bottom.
+        $dest = intval($ally->Owner) === intval($player) ? "myDeck" : "theirDeck";
+        MZMove($player, $lastDecision, $dest);
+        DecisionQueueController::CleanupRemovedCards();
+    } else {
+        RestCard($player, $lastDecision);
+    }
+};
+
+// Silvergale Monstrosity's Call (lsLd8ADGAe, ACTION): "Prepare 2. Summon a Memorite Obelith token. If
+// Silvergale Monstrosity's Call was prepared, move any amount of sheen counters from your Fractured
+// Memories onto any amount of allies named Memorite Obelith you control." The generated body summoned and
+// read wasPrepared synchronously and never offered the cost. Resolution now runs after the Prepare answer.
+// "Any amount" is resolved as the generated body did (all the sheen, onto the first Memorite Obelith you
+// control), but the target is now matched by NAME (Memorite Obelith) instead of any MEMORITE subtype.
+$cardActivatedAbilities["lsLd8ADGAe:0"] = function($player) { // Silvergale Monstrosity's Call
+    GAQueueFixedPrepare($player, 2);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GASilvergaleResolve", 1, dontSkipOnPass:1);
+};
+$customDQHandlers["GASilvergaleResolve"] = function($player, $parts, $lastDecision) {
+    SummonMemorite($player, "fdnlbJm3hr");
+    if(DecisionQueueController::GetVariable("wasPrepared") !== "YES") return;
+    $sheen = GetSheenCount($player);
+    if($sheen <= 0) return;
+    $obelithMZ = null;
+    $field = GetZone("myField");
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "fdnlbJm3hr") { $obelithMZ = "myField-" . $i; break; }
+    }
+    if($obelithMZ === null) return;
+    RemoveSheenFromMastery($player, $sheen);
+    AddCounters($player, $obelithMZ, "sheen", $sheen);
+};
+
+// ---------------------------------------------------------------------------------------------
 // dontSkipOnPass overrides (decline-tolerant CUSTOM follow-ups queued by generated abilities)
 //
 // Core/DecisionQueueController.php ExecuteStaticMethods() skips a CUSTOM handler outright when the

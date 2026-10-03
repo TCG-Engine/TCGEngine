@@ -1,0 +1,45 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":2}",
+        "label": "Declined: both counters remain",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Intent-0",
+        "property": "TurnEffects",
+        "value": "[]",
+        "label": "Declined: not PREPARED",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "2",
+        "label": "Not prepared: printed 2 damage, no +2 POWER",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":2,\"_champCombatDamageDealtThisTurn\":2}",
+        "label": "Both counters remain",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "Nothing pending",
+        "semantic": true
+    }
+]
