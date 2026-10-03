@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED (stacked bug). SlimeKingLeaveChoose() moved the chosen banished Slime to the field and immediately re-ran SlimeKingLeaveStart(), which lists 'myBanish-N' while the moved Slime's slot was still only flagged removed (spliced out afterwards), so the follow-up prompt offered stale/shifted slots. Fix: CleanupRemovedCards() between the MZMove and the re-offer.",
         "affectedFunction": "Custom/GameLogic.php $customDQHandlers['SlimeKingLeaveChoose']",
-        "fixCommit": "TBD"
+        "fixCommit": "6742daaf"
     }
 }

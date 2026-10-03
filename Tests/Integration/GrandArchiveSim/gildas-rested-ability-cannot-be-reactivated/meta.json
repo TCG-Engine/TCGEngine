@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. Gildas' [REST] ability could be activated again while Gildas was already rested: the generated prereq only checked IsMordredBonusActive() and DoActivatedAbility() just sets Status=1 as the implicit REST. Fix: override activateAbilityPrereqs['g99PIuhU0O:0'] in Custom/GeneratedAbilityOverrides.php to require the source to be awake (Status == 2) in addition to the Mordred Bonus.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php $activateAbilityPrereqs['g99PIuhU0O:0'] (overrides the generated prereq)",
-        "fixCommit": "TBD"
+        "fixCommit": "6742daaf"
     }
 }

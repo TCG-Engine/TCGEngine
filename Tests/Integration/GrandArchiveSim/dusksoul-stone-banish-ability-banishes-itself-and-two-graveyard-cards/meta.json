@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. Dusksoul Stone's 'Banish CARDNAME' activation cost was never paid: ActivatedAbilityCost()'s hard-coded 'banish self' switch lacked u25fuv184p, so the Stone stayed on the field after its ability resolved and kept being offered every priority window. Fix: add u25fuv184p to the 'Always banish self' case group. Stacked fix: DusksoulStoneBanishStart() now calls CleanupRemovedCards() before building the second pick's candidate list (it used to list a stale extra slot).",
         "affectedFunction": "Custom/GameLogic.php ActivatedAbilityCost() 'Always banish self' cases + Custom/CardDQHandlers.php DusksoulStoneBanishStart",
-        "fixCommit": "TBD"
+        "fixCommit": "6742daaf"
     }
 }

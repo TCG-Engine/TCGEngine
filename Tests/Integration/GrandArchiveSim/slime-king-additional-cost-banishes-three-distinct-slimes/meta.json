@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. Slime King's mandatory additional cost (banish three Slime allies with different elements from the graveyard) was never charged: DoActivateCard() declared $hasSlimeKingCost=false but nothing ever set it true, so SlimeKingCostBanish was never queued and the card cost only its printed (3). Fix: a CardID-gated branch queues the first pick MZCHOOSE + SlimeKingCostBanish|3|reserve (activation is refused with a flash message when fewer than 3 distinct elements are available; activateCardPrereqs already gated the play the same way). Stacked fix: SlimeKingCostBanish now calls CleanupRemovedCards() after each banish so the next pick's graveyard indices are not off by one.",
         "affectedFunction": "Custom/GameLogic.php DoActivateCard() (new f0ymeslfpw branch after Furnace Drone's) + $customDQHandlers['SlimeKingCostBanish']",
-        "fixCommit": "TBD"
+        "fixCommit": "6742daaf"
     }
 }
