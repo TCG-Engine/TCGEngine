@@ -1,0 +1,30 @@
+{
+    "name": "paired-minds-look-ten-no-horse-all-ten-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T21:26:13+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "7qjnqww067"
+    ],
+    "notes": "Paired Minds, Kindred Souls (7qjnqww067): no Horse ally among the top ten: no prompt is shown and all ten cards go to the bottom in order. Pre-fix only one card went to the bottom and the rest stayed on top.",
+    "semanticCoverage": {
+        "testedCards": [
+            "7qjnqww067"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "look-at-top",
+            "bottom-deck",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Look at the top ten cards of your deck. Reveal a Horse ally card from among them and put it into your hand. Put the rest on the bottom of your deck in any order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Two defects. (1) The generated cardActivatedAbilities[\"7qjnqww067:0\"] body looked at the top ten cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped -- only the top card was ever looked at (live repro on HEAD: the Horse in slot 7 was never offered, no prompt, one card to the bottom, deck 24). The generated file cannot be edited (gitignored), so the closure is overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone(). (2) PairedMindsFinish() put the remaining cards on the bottom with a loop of MZMove($player, \"myTempZone-0\", \"myDeck\"): the same removed-slot problem moved only the first remaining card and left the rest stranded in myTempZone. Fixed with MZMoveTopOfZone().",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[7qjnqww067:0] / Custom/CardDQHandlers.php PairedMindsFinish()",
+        "fixCommit": "TBD"
+    }
+}

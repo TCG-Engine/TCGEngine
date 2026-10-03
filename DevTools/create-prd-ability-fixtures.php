@@ -27057,6 +27057,48 @@ $fixtures['spellshield-tera-player-two-prevent-three-reveals-three-into-material
         [mrdPlay(2, 'myHand-5')], mrdPay(2, 2), [mrdAns(2, 'myField-0')]),
 ];
 
+
+// --- Paired Minds, Kindred Souls (7qjnqww067): "Look at the top ten cards of your deck. Reveal a Horse ally card from among them and put
+// it into your hand. Put the rest on the bottom of your deck in any order." ---
+$GA_HORSE = 'w6ax750524';  // Ordinary Horse (HORSE ally)
+$GA_HORSE2 = 'r5uyjq37zh'; // Caretaker Horse (HORSE ally)
+$gaPairedSetup = function(array $top, int $player = 1) use ($gaHand, $gaTop) { return [$gaHand('7qjnqww067', $player), $gaTop($top, $player)]; };
+$fixtures['paired-minds-look-ten-reveal-deep-horse-rest-bottom'] = [
+    'testedCards' => ['7qjnqww067'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // top ten, top to bottom: DG, FS, FW, DG, FS, FW, Ordinary Horse (7th), DG, FS, FW; then Charge the Soul (marker)
+    'setup' => $gaPairedSetup([$GA_DG, $GA_FS, $GA_FW, $GA_DG, $GA_FS, $GA_FW, $GA_HORSE, $GA_DG, $GA_FS, $GA_FW, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [
+        mrdAns(1, 'myTempZone-6'), // reveal Ordinary Horse (7th of the ten) into hand
+    ]),
+];
+$fixtures['paired-minds-look-ten-two-horses-reveal-second-first-goes-bottom'] = [
+    'testedCards' => ['7qjnqww067'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // two Horse allies: Caretaker Horse (3rd) and Ordinary Horse (8th); the player reveals the 8th, the 3rd goes to the bottom
+    'setup' => $gaPairedSetup([$GA_DG, $GA_FS, $GA_HORSE2, $GA_DG, $GA_FS, $GA_FW, $GA_DG, $GA_HORSE, $GA_FS, $GA_FW, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [
+        mrdAns(1, 'myTempZone-7'), // reveal Ordinary Horse (8th) into hand
+    ]),
+];
+$fixtures['paired-minds-look-ten-no-horse-all-ten-bottom'] = [
+    'testedCards' => ['7qjnqww067'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // no Horse ally among the top ten: no prompt, all ten go to the bottom in order
+    'setup' => $gaPairedSetup([$GA_DG, $GA_FS, $GA_FW, $GA_DG, $GA_FS, $GA_FW, $GA_DG, $GA_FS, $GA_FW, $GA_DG, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3)),
+];
+$fixtures['paired-minds-player-two-look-ten-reveal-deep-horse-rest-bottom'] = [
+    'testedCards' => ['7qjnqww067'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // PLAYER 2 seating (perspective check): the stack sits under player 2's turn-start draw (a filler Dungeon Guide); player 2 first
+    // declines the two opportunity windows player 1's pass opens
+    'setup' => $gaPairedSetup([$GA_DG, $GA_DG, $GA_FS, $GA_FW, $GA_DG, $GA_FS, $GA_FW, $GA_HORSE, $GA_DG, $GA_FS, $GA_FW, $GA_MARK], 2),
+    'actions' => array_merge([mrdEnd(1), mrdPass(2), mrdPass(2), mrdPlay(2, 'myHand-7')], mrdPay(2, 3), [
+        mrdAns(2, 'myTempZone-6'),
+    ]),
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

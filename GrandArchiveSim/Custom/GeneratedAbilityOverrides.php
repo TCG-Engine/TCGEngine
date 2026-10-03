@@ -622,3 +622,30 @@ if(isset($CardActivateAbilityCountData) && is_array($CardActivateAbilityCountDat
         }
     }
 }
+
+// ---------------------------------------------------------------------------------------------
+// Fixed-index MZMove loop overrides (generated ability bodies that moved the top N cards with a loop of
+// MZMove($player, "myDeck-0", ...))
+//
+// Remove() only flags a slot removed (no splice -- the splice happens in
+// DecisionQueueController::CleanupRemovedCards()), so in a loop "myDeck-0" resolves to the SAME removed slot on
+// every iteration after the first and MZMove's own "already removed" guard silently no-ops: only the top card was
+// ever moved (proven by 86027696, Galestream Insight). Each closure below is the generated body verbatim except
+// that the loop uses MZMoveTopOfZone() (GameLogic.php), which compacts the zone when the top slot is a removed
+// phantom and then MZMoves the real top card with full MZMove semantics.
+// ---------------------------------------------------------------------------------------------
+
+// Paired Minds, Kindred Souls (7qjnqww067): "Look at the top ten cards of your deck. Reveal a Horse ally card from
+// among them and put it into your hand. Put the rest on the bottom of your deck in any order."
+$cardActivatedAbilities["7qjnqww067:0"] = function($player) { //7qjnqww067
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $deck = GetZone("myDeck");
+  $count = min(10, count($deck));
+  if($count == 0) return;
+  for($i = 0; $i < $count; ++$i) {
+      MZMoveTopOfZone($player, "myDeck", "myTempZone");
+  }
+  PairedMindsChoose($player);
+  DecisionQueueController::AddDecision($player, "CUSTOM", "7qjnqww067:0:CardActivated-1", 1);
+};

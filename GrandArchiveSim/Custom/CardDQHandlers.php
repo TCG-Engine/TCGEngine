@@ -1591,10 +1591,13 @@ function PairedMindsChoose($player) {
 
 function PairedMindsFinish($player) {
     // Put remaining TempZone cards on bottom of deck
+    // MZMoveTopOfZone, not a loop of MZMove($player, "myTempZone-0", ...): MZMove only flags the slot removed, so
+    // "myTempZone-0" kept resolving to the same removed slot and only the first remaining card went to the bottom
+    // (the rest stayed stranded in myTempZone).
     $tempRemaining = ZoneSearch("myTempZone");
     $n = count($tempRemaining);
     for($i = 0; $i < $n; ++$i) {
-        MZMove($player, "myTempZone-0", "myDeck");
+        MZMoveTopOfZone($player, "myTempZone", "myDeck");
     }
     // [Class Bonus] if unique ally, next Horse ally costs 2 less
     if(IsClassBonusActive($player, ["WARRIOR"])) {
