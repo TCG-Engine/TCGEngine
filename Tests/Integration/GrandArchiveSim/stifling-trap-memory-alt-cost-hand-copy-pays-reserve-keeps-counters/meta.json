@@ -1,0 +1,30 @@
+{
+    "name": "stifling-trap-memory-alt-cost-hand-copy-pays-reserve-keeps-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:52:49+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "z5exbwdp7q"
+    ],
+    "notes": "Stifling Trap (z5exbwdp7q): \"[Class Bonus] If it's not your turn, you may remove two preparation counters from your champion to activate this card from your memory without paying its reserve cost.\" Normal-payment / choose-between-payments case. Player 1's champion is Tristan, Hired Blade (ASSASSIN, so the Class Bonus is active) with exactly 2 preparation counters; player 2 has a seeded Dungeon Guide on its field (the Trap's target) and plays another Dungeon Guide from hand on its own turn, which opens a priority window for player 1. Player 1 holds a Stifling Trap in HAND (myHand-7) AND one in MEMORY (myMemory-0). Once player 2's Dungeon Guide opens the window, player 1's options are both copies (hand: pay reserve 2; memory: the alternate cost). Player 1 chooses the HAND copy: two reserve payments move two hand cards into memory (memory 1 -> 3), the alternate cost is NOT charged (the 2 preparation counters stay), the memory copy stays in memory, and after player 1 passes the follow-up priority round (the memory copy is still an offered option, so the engine keeps asking) the hand copy resolves its 2 damage on the seeded Dungeon Guide. The Class Bonus alternate cost only exists for the copy in MEMORY; the printed reserve cost is the only way to activate the hand copy.",
+    "semanticCoverage": {
+        "testedCards": [
+            "z5exbwdp7q"
+        ],
+        "mechanics": [
+            "cost",
+            "condition",
+            "zone-movement",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If it's not your turn, you may remove two preparation counters from your champion to activate this card from your memory without paying its reserve cost."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Stifling Trap's [Class Bonus] alternate cost (not your turn: remove two preparation counters from your champion to activate it from memory without paying reserve) was never offered. Live evidence on HEAD 3b04c5f3 (pinned by the old stifling-trap-memory-alternate-cost-never-offered fixture, now removed): with Stifling Trap in memory, 2 preparation counters on an ASSASSIN champion and a priority window open on the opponent's turn, the window's queue was exactly MZMAYCHOOSE=myHand-7 (the hand card only), GetPlayableFastCards() only scanned memory for Diao Chan Reaction Spells and Lost Promises (gN8uFKSip0) and nothing referenced z5exbwdp7q, so answering with myMemory-0 was rejected. Fix: Custom/OpportunityLogic.php lists a memory Stifling Trap as a priority option when it is not the player's turn, the class bonus is active and the champion has >= 2 preparation counters (CanUseStiflingTrapMemoryActivation), and TryStiflingTrapMemory() (called first in ResolveOpportunitySelection for a myMemory selection) removes the counters, moves the card to hand and activates it with ignoreCost, activation source zone forced to memory. This fixture covers choosing the normal reserve payment while the alternate payment is also available.",
+        "affectedFunction": "Custom/OpportunityLogic.php GetPlayableFastCards() / ResolveOpportunitySelection() + StiflingTrapAlternateCostPayable() / CanUseStiflingTrapMemoryActivation() / TryStiflingTrapMemory()",
+        "fixCommit": "TBD"
+    }
+}

@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T19:43:56+00:00",
+    "generatedAt": "2026-10-03T19:56:14+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 649,
@@ -34819,11 +34819,21 @@
             ],
             "existingFixtures": [
                 "stifling-trap-damage-and-negate-on-enter",
-                "stifling-trap-memory-alternate-cost-never-offered"
+                "stifling-trap-memory-alt-cost-class-bonus-inactive-not-offered",
+                "stifling-trap-memory-alt-cost-declined-keeps-counters",
+                "stifling-trap-memory-alt-cost-hand-copy-pays-reserve-keeps-counters",
+                "stifling-trap-memory-alt-cost-one-counter-not-offered",
+                "stifling-trap-memory-alt-cost-own-turn-not-offered",
+                "stifling-trap-memory-alt-cost-paid-no-reserve"
             ],
             "semanticFixtures": [
                 "stifling-trap-damage-and-negate-on-enter",
-                "stifling-trap-memory-alternate-cost-never-offered"
+                "stifling-trap-memory-alt-cost-class-bonus-inactive-not-offered",
+                "stifling-trap-memory-alt-cost-declined-keeps-counters",
+                "stifling-trap-memory-alt-cost-hand-copy-pays-reserve-keeps-counters",
+                "stifling-trap-memory-alt-cost-one-counter-not-offered",
+                "stifling-trap-memory-alt-cost-own-turn-not-offered",
+                "stifling-trap-memory-alt-cost-paid-no-reserve"
             ],
             "starterDecks": [
                 "Tristan Re:Collection, Shadowdancer"

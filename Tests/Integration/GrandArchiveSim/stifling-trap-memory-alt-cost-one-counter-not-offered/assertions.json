@@ -1,0 +1,61 @@
+[
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1}",
+        "label": "Only one counter: it was not spent and the card was not activated",
+        "semantic": true
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "z5exbwdp7q",
+        "label": "Only one counter: Stifling Trap is still in memory",
+        "semantic": true
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "label": "Only one counter: memory untouched",
+        "semantic": true
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "label": "Only one counter: nothing was activated",
+        "semantic": true
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "label": "Only one counter: hand untouched (Fairy Whispers still held)",
+        "semantic": true
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "0",
+        "label": "Only one counter: the seeded Dungeon Guide was never targeted",
+        "semantic": true
+    },
+    {
+        "step": 10,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

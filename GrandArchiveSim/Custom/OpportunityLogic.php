@@ -899,6 +899,17 @@ function ResolveOpportunitySelection($player, $selection) {
         return true;
     }
 
+    // A Stifling Trap picked from memory can only ever be the Class Bonus alternate cost (it has no way to
+    // pay reserve from memory); never fall through to the generic reserve-paying ActivateCard() below.
+    if(is_string($selection) && strpos($selection, "myMemory-") === 0) {
+        $memObj = GetZoneObject($selection);
+        if($memObj !== null && empty($memObj->removed) && $memObj->CardID === "z5exbwdp7q") {
+            TryStiflingTrapMemory($player, $selection);
+            ResumeIdleEffectStackIfNeeded();
+            return true;
+        }
+    }
+
     if(TryLostPromisesMemory($player, $selection) || TryGlimmerCast($player, $selection)) {
         ResumeIdleEffectStackIfNeeded();
         return true;
@@ -1126,6 +1137,19 @@ function GetPlayableFastCards($player) {
         }
     }
 
+    // Stifling Trap (z5exbwdp7q): [Class Bonus] if it's not your turn, remove two preparation counters
+    // from your champion to activate it from MEMORY without paying its reserve cost.
+    if($player != $turnPlayer) {
+        $memory = &GetMemory($player);
+        for($mi = 0; $mi < count($memory); ++$mi) {
+            if($memory[$mi] === null || (isset($memory[$mi]->removed) && $memory[$mi]->removed)) continue;
+            $memMzID = "myMemory-" . $mi;
+            if(CanUseStiflingTrapMemoryActivation($player, $memMzID, $memory[$mi])) {
+                $fastCards[] = $memMzID;
+            }
+        }
+    }
+
     $graveyard = GetZone("myGraveyard");
     for($gi = 0; $gi < count($graveyard); ++$gi) {
         $gyObj = $graveyard[$gi];
@@ -1154,6 +1178,57 @@ function GetPlayableFastCards($player) {
 // After a card enters the EffectStack, the player who activated it gets priority
 // first (they can chain more fast cards), then the opponent. Both must pass for
 // the topmost card to resolve.
+
+/**
+ * Stifling Trap (z5exbwdp7q): "[Class Bonus] If it's not your turn, you may remove two preparation
+ * counters from your champion to activate this card from your memory without paying its reserve cost."
+ * The alternate cost only waives the RESERVE cost: element requirement, lockdowns and every other
+ * activation gate still apply (checked here, without side effects, so the counters are never spent on
+ * an activation that would then be refused). Reaction speed is what lets it be used in a priority window.
+ */
+function StiflingTrapAlternateCostPayable($player) {
+    if($player == GetTurnPlayer()) return false;
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+    $classBonus = IsClassBonusActive($player, explode(",", CardClasses("z5exbwdp7q")));
+    $champMZ = $classBonus ? FindChampionMZ($player) : null;
+    $champObj = $champMZ !== null ? GetZoneObject($champMZ) : null;
+    $payable = $champObj !== null && empty($champObj->removed) && GetCounterCount($champObj, "preparation") >= 2;
+    $playerID = $savedPlayerID;
+    return $payable;
+}
+
+function CanUseStiflingTrapMemoryActivation($player, $mzID, $obj) {
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return false;
+    if($obj->CardID !== "z5exbwdp7q") return false;
+    if(!StiflingTrapAlternateCostPayable($player)) return false;
+    if(!CanActivateOpportunityCard($player, $mzID, $obj)) return false;
+    // Pre-announcement gates with ignoreCost (the reserve cost is the part being waived).
+    return !ActivationRefusedBeforeStart($player, $obj, true, true);
+}
+
+/**
+ * Activate Stifling Trap from memory via the Class Bonus alternate cost: remove two preparation counters
+ * from the champion, then move the card to hand and activate it with ignoreCost (same shape as the
+ * Diao Chan glimmer cast; the source zone is forced to memory for "from memory" checks).
+ * Returns true if the activation was initiated.
+ */
+function TryStiflingTrapMemory($player, $mzID) {
+    if(strpos($mzID, "myMemory-") !== 0) return false;
+    $obj = GetZoneObject($mzID);
+    if($obj === null || !empty($obj->removed) || $obj->CardID !== "z5exbwdp7q") return false;
+    if(!CanUseStiflingTrapMemoryActivation($player, $mzID, $obj)) return false;
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return false;
+    RemoveCounters($player, $champMZ, "preparation", 2);
+    DecisionQueueController::StoreVariable("activationSourceZoneOverride", "myMemory");
+    MZMove($player, $mzID, "myHand");
+    $hand = &GetHand($player);
+    $handIdx = count($hand) - 1;
+    ActivateCard($player, "myHand-" . $handIdx, true);
+    return true;
+}
 
 /**
  * Try to activate Lost Promises (gN8uFKSip0) from memory via the banish-6 alternate cost.

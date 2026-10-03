@@ -64,7 +64,7 @@
         "inputText": "",
         "expectFailure": true,
         "semantic": true,
-        "label": "REGRESSION GUARD: Stifling Trap in memory is never offered as a priority option even though the Class Bonus alternate cost allows activating it from memory (removing two preparation counters) when it is not your turn"
+        "label": "Class Bonus inactive (CLERIC champion): the memory Stifling Trap is not an offered option, selecting it is rejected"
     },
     {
         "playerID": 1,

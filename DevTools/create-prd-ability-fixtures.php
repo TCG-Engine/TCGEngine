@@ -21053,7 +21053,7 @@ $fixtures['shadow-resonance-no-shadow-below-four-preparation'] = [
 // priority on an ally activation, its On Enter prompt appears immediately with no separate
 // priority window for the trigger), so the card can only be aimed at an ally already on the field
 // and the engine suppresses that ally's abilities for the turn instead. The Class Bonus alternate
-// cost clause is covered by stifling-trap-memory-alternate-cost-never-offered.
+// cost clause is covered by the stifling-trap-memory-alt-cost-* fixtures.
 $fixtures['stifling-trap-damage-and-negate-on-enter'] = [
     'testedCards' => ['z5exbwdp7q'],
     'deck' => $tristanDeck,
@@ -21070,38 +21070,125 @@ $fixtures['stifling-trap-damage-and-negate-on-enter'] = [
     ],
 ];
 
-// --- Stifling Trap: the [Class Bonus] alternate cost (activate from memory by removing two preparation counters) is never offered ---
+// --- Stifling Trap: [Class Bonus] alternate cost -- activate from memory by removing two preparation counters instead of paying reserve ---
 // Stifling Trap (z5exbwdp7q): "[Class Bonus] If it's not your turn, you may remove two preparation
 // counters from your champion to activate this card from your memory without paying its reserve
-// cost." ENGINE GAP (found, confirmed live, NOT fixed): no code path ever offers it. Player 1's
-// champion is Tristan, Hired Blade (ASSASSIN) with exactly 2 preparation counters, Stifling Trap
-// sits in memory, and a Fairy Whispers in hand forces a priority window when player 2 plays a
-// Dungeon Guide on its own turn. The window's choices (traced live with a temporary error_log in
-// GetPlayableOpportunityChoices(), removed afterwards) are exactly ["myHand-7"]:
-// GetPlayableFastCards() (Custom/OpportunityLogic.php) only scans memory for two other hard-coded
-// cards (Diao Chan's Reaction Spells and Lost Promises gN8uFKSip0), and there is no z5exbwdp7q
-// entry anywhere in Custom/ or the generated ability code. Answering the window with 'myMemory-0'
-// is therefore rejected (REGRESSION GUARD, expected rejection); Stifling Trap stays in memory and
-// the preparation counters are untouched.
-$fixtures['stifling-trap-memory-alternate-cost-never-offered'] = [
+// cost." Previously never offered (the buggy pin was stifling-trap-memory-alternate-cost-never-offered).
+// GetPlayableFastCards() now lists a memory Stifling Trap as a priority option when it is NOT the
+// player's turn, the class bonus is active (the champion is an ASSASSIN) and the champion has >= 2
+// preparation counters; TryStiflingTrapMemory() (Custom/OpportunityLogic.php) removes the counters,
+// moves the card to hand and activates it with ignoreCost (activation source zone forced to memory).
+// The alternate cost only waives the RESERVE cost (element, lockdown etc. still apply).
+// Shared opening for the Stifling Trap memory fixtures: player 1 ends its turn, player 2 plays a
+// Dungeon Guide on its own turn (3 reserve payments) which opens a priority window for player 1.
+$stiflingTrapOpening = [
+    ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn
+];
+$stiflingTrapOpponentPlaysDungeonGuide = [
+    ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Dungeon Guide (opens a window for player 1)
+    ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
+    ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
+    ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
+];
+$stiflingTrapTristan2Prep = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 2]]]; // Tristan, Hired Blade (ASSASSIN) with 2 preparation counters (the alternate cost)
+$stiflingTrapSeedTrapInMemory = ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'z5exbwdp7q']; // Stifling Trap in MEMORY -> p1 myMemory-0
+$stiflingTrapSeedTargetAlly = ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y']; // Dungeon Guide, the Stifling Trap target -> p2 field-1
+$stiflingTrapSeedFairyWhispers = ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY']; // Fairy Whispers (fast) keeps a priority window open at player 1 -> p1 myHand-7
+// With a fast card in hand player 1 gets windows at its own end of turn: end turn, then pass the two windows.
+$stiflingTrapOpeningWithFastCard = [
+    ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn
+    ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+    ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+];
+
+// Alternate cost PAID: the reserve cost is skipped entirely (no reserve payment is ever asked of player 1).
+$fixtures['stifling-trap-memory-alt-cost-paid-no-reserve'] = [
+    'testedCards' => ['z5exbwdp7q'],
+    'deck' => $tristanDeck,
+    'setup' => [$stiflingTrapTristan2Prep, $stiflingTrapSeedTrapInMemory, $stiflingTrapSeedTargetAlly],
+    'actions' => array_merge($stiflingTrapOpening, $stiflingTrapOpponentPlaysDungeonGuide, [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // player 1 activates Stifling Trap FROM MEMORY (alternate cost: remove two preparation counters)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target the opposing seeded Dungeon Guide
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 2 declines the newly played Dungeon Guide's On Enter
+    ]),
+];
+
+// Normal reserve payment AND choosing between the two payments: Stifling Trap sits in hand AND in memory,
+// player 1 has the 2 counters; the window offers both; player 1 picks the HAND copy and pays reserve,
+// so the counters and the memory copy are untouched.
+$fixtures['stifling-trap-memory-alt-cost-hand-copy-pays-reserve-keeps-counters'] = [
+    'testedCards' => ['z5exbwdp7q'],
+    'deck' => $tristanDeck,
+    'setup' => [$stiflingTrapTristan2Prep, $stiflingTrapSeedTrapInMemory, ['player' => 1, 'zone' => 'myHand', 'cardID' => 'z5exbwdp7q'], $stiflingTrapSeedTargetAlly], // second Stifling Trap in HAND -> p1 myHand-7
+    'actions' => array_merge($stiflingTrapOpeningWithFastCard, $stiflingTrapOpponentPlaysDungeonGuide, [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 1 chooses the HAND copy (pays reserve normally)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 keeps priority on its own Stifling Trap (the memory copy is still an offered option) and passes; the opponent has nothing, so it resolves
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target the opposing seeded Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // Stifling Trap resolved; p1 passes priority again on the Dungeon Guide (the memory copy is still an offered option)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 2 declines the newly played Dungeon Guide's On Enter
+    ]),
+];
+
+// DECLINE: the alternate cost is optional ("you may"); passing the window leaves the card and counters alone.
+$fixtures['stifling-trap-memory-alt-cost-declined-keeps-counters'] = [
+    'testedCards' => ['z5exbwdp7q'],
+    'deck' => $tristanDeck,
+    'setup' => [$stiflingTrapTristan2Prep, $stiflingTrapSeedTrapInMemory, $stiflingTrapSeedTargetAlly],
+    'actions' => array_merge($stiflingTrapOpening, $stiflingTrapOpponentPlaysDungeonGuide, [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 declines the window (does not use the alternate cost)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 2 declines the newly played Dungeon Guide's On Enter
+    ]),
+];
+
+// CLASS BONUS INACTIVE: Vanitas, Obliviate Schemer is a CLERIC champion with the WIND element (so the
+// WIND card itself is still activatable) and 2 preparation counters, but the [Class Bonus] (ASSASSIN) is
+// off, so the alternate cost is NOT offered. Fairy Whispers keeps windows open. Expected rejection.
+$fixtures['stifling-trap-memory-alt-cost-class-bonus-inactive-not-offered'] = [
     'testedCards' => ['z5exbwdp7q'],
     'deck' => $tristanDeck,
     'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 2]]], // Tristan, Hired Blade (ASSASSIN) with 2 preparation counters (the alternate cost)
-        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'z5exbwdp7q'], // Stifling Trap in MEMORY -> p1 myMemory-0
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Fairy Whispers (fast) forces a priority window at player 1 -> p1 myHand-7
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'x8bd7ozuj6', 'Subcards' => ['pNiyaGlIe7'], 'Counters' => ['preparation' => 2]]], // Vanitas, Obliviate Schemer (CLERIC, WIND) with 2 preparation counters: Class Bonus (ASSASSIN) inactive
+        $stiflingTrapSeedTrapInMemory,
+        $stiflingTrapSeedFairyWhispers,
+        $stiflingTrapSeedTargetAlly,
     ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
-        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Dungeon Guide (opens a window for player 1)
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 1/3
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 2/3
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve 3/3
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'REGRESSION GUARD: Stifling Trap in memory is never offered as a priority option even though the Class Bonus alternate cost allows activating it from memory (removing two preparation counters) when it is not your turn'],
+    'actions' => array_merge($stiflingTrapOpeningWithFastCard, $stiflingTrapOpponentPlaysDungeonGuide, [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'Class Bonus inactive (CLERIC champion): the memory Stifling Trap is not an offered option, selecting it is rejected'],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes the window
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 2 declines Dungeon Guide's On Enter
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 2 declines the newly played Dungeon Guide's On Enter
+    ]),
+];
+
+// CAN'T AFFORD EITHER: Class Bonus active but only ONE preparation counter (needs two), and no Stifling
+// Trap in hand to pay reserve with. A rejected click may be a no-op, so the assertions pin state.
+$fixtures['stifling-trap-memory-alt-cost-one-counter-not-offered'] = [
+    'testedCards' => ['z5exbwdp7q'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 1]]], // Tristan, Hired Blade (ASSASSIN) with only 1 preparation counter
+        $stiflingTrapSeedTrapInMemory,
+        $stiflingTrapSeedFairyWhispers,
+        $stiflingTrapSeedTargetAlly,
+    ],
+    'actions' => array_merge($stiflingTrapOpeningWithFastCard, $stiflingTrapOpponentPlaysDungeonGuide, [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'Only one preparation counter: the alternate cost is unaffordable, the memory Stifling Trap is not offered and selecting it is rejected'],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes the window
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 2 declines the newly played Dungeon Guide's On Enter
+    ]),
+];
+
+// "IF IT'S NOT YOUR TURN": on player 1's OWN turn (its end-of-turn window) the alternate cost is not offered.
+$fixtures['stifling-trap-memory-alt-cost-own-turn-not-offered'] = [
+    'testedCards' => ['z5exbwdp7q'],
+    'deck' => $tristanDeck,
+    'setup' => [$stiflingTrapTristan2Prep, $stiflingTrapSeedTrapInMemory, $stiflingTrapSeedFairyWhispers],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn -> own end-of-turn window (Fairy Whispers keeps it open)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'It is player 1\'s own turn: the memory Stifling Trap is not an offered option, selecting it is rejected'],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes the window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes the second window
     ],
 ];
 

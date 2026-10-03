@@ -2208,6 +2208,10 @@ function MandatoryActivationCostBlocker($player, $sourceObject) {
 // these from the hand alone, so it leaves them to the activation's own cost prompts (restricting the
 // refusal to cases that are provably unpayable). Keep in sync with the "1.3 Declaring Costs" branches of
 // DoActivateCard; Kindle cards ($Kindle_Cards) are handled separately by ActivationKindleReduction().
+// Stifling Trap (z5exbwdp7q) is deliberately NOT listed: its Class Bonus alternate cost (remove two
+// preparation counters) only exists for the copy in MEMORY and is activated through
+// TryStiflingTrapMemory() (OpportunityLogic.php) with ignoreCost=true, which this gate never refuses;
+// a copy in HAND can only be paid with reserve, so the hand-click gate must still judge it normally.
 function ActivationHasAlternativeReserveCost($cardID) {
     static $alternativeCostCards = [
         '4GFKcHg9NU' => true, // Argus, All-Seeing Giant: banish Crystal/Eye of Argus from material (3 each)

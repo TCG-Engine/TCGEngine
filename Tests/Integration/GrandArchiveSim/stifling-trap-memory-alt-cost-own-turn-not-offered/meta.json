@@ -1,0 +1,22 @@
+{
+    "name": "stifling-trap-memory-alt-cost-own-turn-not-offered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:54:32+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "z5exbwdp7q"
+    ],
+    "notes": "Stifling Trap (z5exbwdp7q): \"[Class Bonus] If it's not your turn, you may remove two preparation counters from your champion to activate this card from your memory without paying its reserve cost.\" \"If it's not your turn\". Player 1 (Tristan, Hired Blade, ASSASSIN, 2 preparation counters, Stifling Trap in memory, Fairy Whispers in hand to open windows) ends its OWN turn; in its own end-of-turn window the offered options are only the hand card (live: MZMAYCHOOSE=myHand-7) and answering with myMemory-0 is rejected -- the alternate cost is not available on the player's own turn. A rejected click can be a no-op, so the state is asserted: counters, memory and graveyard are unchanged.",
+    "semanticCoverage": {
+        "testedCards": [
+            "z5exbwdp7q"
+        ],
+        "mechanics": [
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If it's not your turn, you may remove two preparation counters from your champion to activate this card from your memory without paying its reserve cost."
+        ]
+    }
+}

@@ -1,7 +1,0 @@
-[
-    {"step":10,"type":"card_property_equals","mzId":"p1Memory-0","property":"CardID","value":"z5exbwdp7q","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): Stifling Trap is still in memory -- it could not be activated from there"},
-    {"step":10,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"{\"preparation\":2}","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the two preparation counters were never available as an alternate cost"},
-    {"step":10,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"Nothing was activated"},
-    {"step":10,"type":"card_property_equals","mzId":"p2Field-1","property":"Damage","value":"0","semantic":true,"label":"The opposing Dungeon Guide was never targeted"},
-    {"step":10,"type":"decision_queue_empty","player":"all"}
-]
