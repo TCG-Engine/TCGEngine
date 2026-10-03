@@ -26,6 +26,6 @@
         "summary": "FIXED. The Sword attack banished by the Warrior's own On Enter could be activated immediately in the SAME turn although the text only grants activation 'on a later turn'. The banished Sword attack tag (_warriorFaeRealm) was stripped by the end-of-turn banish-zone cleanup in Custom/GameLogic.php ExpireEffects() (it retained only _seethingIntercession), and the ActionMap 'myBanish' branch checked only the tag + Warrior on field with no 'banished on an earlier turn' test. Fix: the cleanup retains _warriorFaeRealm and stamps _warriorFaeRealmLater the first time a turn ends after the banish; new WarriorFaeRealmCanActivateBanished() (tag AND later-stamp AND Warrior on the controller's field) gates both the ActionMap click and the green highlight, and the tags are stripped when the card moves to hand.",
         "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myBanish' (_warriorFaeRealm branch); ExpireEffects() banish-zone cleanup (later-turn stamp); new WarriorFaeRealmCanActivateBanished()",
         "verification": "Per-step state dump: after the same-turn click the banish zone, memory, graveyard and champion damage are identical to the pre-click state. Break/restore recorded in the fix commit message.",
-        "fixCommit": "TBD"
+        "fixCommit": "205e4aed"
     }
 }

@@ -28,6 +28,6 @@
         "summary": "FIXED. The banished Sword attack could never be activated on a later turn. The banished Sword attack tag (_warriorFaeRealm) was stripped by the end-of-turn banish-zone cleanup in Custom/GameLogic.php ExpireEffects() (it retained only _seethingIntercession), and the ActionMap 'myBanish' branch checked only the tag + Warrior on field with no 'banished on an earlier turn' test. Fix: the cleanup retains _warriorFaeRealm and stamps _warriorFaeRealmLater the first time a turn ends after the banish; new WarriorFaeRealmCanActivateBanished() (tag AND later-stamp AND Warrior on the controller's field) gates both the ActionMap click and the green highlight, and the tags are stripped when the card moves to hand.",
         "affectedFunction": "Custom/GameLogic.php ExpireEffects() banish-zone TurnEffects cleanup; ActionMap() case 'myBanish' (_warriorFaeRealm branch); GetCardHighlight-style tagged green highlight; new WarriorFaeRealmCanActivateBanished()",
         "verification": "Per-step state dump shows banish TurnEffects [\"_warriorFaeRealm\"] at the banish, [\"_warriorFaeRealm\",\"_warriorFaeRealmLater\"] after the turn ends, and the later-turn click starting a real 3-payment activation. Break/restore recorded in the fix commit message.",
-        "fixCommit": "TBD"
+        "fixCommit": "205e4aed"
     }
 }
