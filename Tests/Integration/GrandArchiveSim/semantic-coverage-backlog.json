@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T14:33:40+00:00",
+    "generatedAt": "2026-10-03T14:44:52+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 623,
+        "cardsWithExistingFixtures": 625,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1864,
+        "cardsNeedingSemanticCoverage": 1862,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1581,25 +1581,6 @@
                 "zone-movement",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "cbNF64gCsS",
-            "name": "Furnace Drone",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4297,23 +4278,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "draw-discard",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "XZFXOE9sEV",
-            "name": "Zephyr Assistant",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
                 "counter",
                 "trigger"
             ],
@@ -33846,14 +33810,14 @@
             ],
             "existingFixtures": [
                 "slime-king-additional-cost-banishes-three-distinct-slimes",
+                "slime-king-on-leave-resolves-when-retaliation-declined",
                 "slime-king-on-leave-returns-banished-slimes",
-                "slime-king-on-leave-stranded-when-interceptor-prompt-declined",
                 "slime-king-unplayable-with-only-two-distinct-slime-elements"
             ],
             "semanticFixtures": [
                 "slime-king-additional-cost-banishes-three-distinct-slimes",
+                "slime-king-on-leave-resolves-when-retaliation-declined",
                 "slime-king-on-leave-returns-banished-slimes",
-                "slime-king-on-leave-stranded-when-interceptor-prompt-declined",
                 "slime-king-unplayable-with-only-two-distinct-slime-elements"
             ],
             "starterDecks": [
@@ -45564,6 +45528,29 @@
             "priority": 45
         },
         {
+            "cardId": "cbNF64gCsS",
+            "name": "Furnace Drone",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "furnace-drone-cost-banish-offers-reindexed-graveyard-slots"
+            ],
+            "semanticFixtures": [
+                "furnace-drone-cost-banish-offers-reindexed-graveyard-slots"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "Lewf9sfv9m",
             "name": "Golden Pawn",
             "type": "ALLY",
@@ -45894,6 +45881,27 @@
             "semanticFixtures": [
                 "kindling-flare-decline-all-herbs-pays-reserve-cost",
                 "kindling-flare-decline-further-herb-pays-reserve-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "XZFXOE9sEV",
+            "name": "Zephyr Assistant",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "zephyr-assistant-on-leave-resolves-when-retaliation-declined"
+            ],
+            "semanticFixtures": [
+                "zephyr-assistant-on-leave-resolves-when-retaliation-declined"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

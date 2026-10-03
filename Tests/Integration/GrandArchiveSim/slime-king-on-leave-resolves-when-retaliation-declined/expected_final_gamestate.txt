@@ -11,8 +11,7 @@ px60u5n1do
 n8wyfG9hbY
 em6eEh9q8y
 n8wyfG9hbY
-3
-mttsvbgl6f - eyJfc2xpbWVLaW5nIjoxfQ==
+2
 blqryebvwj - eyJfc2xpbWVLaW5nIjoxfQ==
 ejvddohjdu - eyJfc2xpbWVLaW5nIjoxfQ==
 0
@@ -35,8 +34,9 @@ px60u5n1do
 n8wyfG9hbY
 n8wyfG9hbY
 px60u5n1do
-1
+2
 LMyKyVC2O9 2 1 0 1 - - WyI3eDJ2NHRkb3AxIl0= 1
+mttsvbgl6f 2 1 0 1 ENTERED_THIS_TURN - - 5
 2
 LMyKyVC2O9 2 2 0 2 - - - 2
 em6eEh9q8y 1 2 0 2 - eyJidWZmIjo5fQ== - 3

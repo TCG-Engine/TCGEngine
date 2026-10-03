@@ -87,7 +87,7 @@ function ResumeIdleEffectStackIfNeeded() {
     if($priorityPlayer <= 0) $priorityPlayer = intval(GetTurnPlayer());
     if($priorityPlayer <= 0) return false;
 
-    DecisionQueueController::AddDecision($priorityPlayer, "CUSTOM", "EffectStackOpportunity", 100);
+    DecisionQueueController::AddDecision($priorityPlayer, "CUSTOM", "EffectStackOpportunity", 100, dontSkipOnPass:1);
     $dqController->ExecuteStaticMethods($priorityPlayer, "-");
     return true;
 }
@@ -1397,7 +1397,12 @@ function PushTriggeredAbilityNow($player, $cardID, $triggerType, $context = []) 
     if($stackObj === null) return false;
 
     if(DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES") {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        // dontSkipOnPass:1 is load-bearing. When the push happens from inside a handler that is itself
+        // running in an ExecuteStaticMethods() loop whose $lastDecision is "PASS" (e.g. CombatApplyAttackerDamage
+        // after the defender declined "Retaliate?"), the nested ExecuteStaticMethods() below is a no-op (same
+        // player already executing) and the outer loop would silently SKIP an unflagged EffectStackOpportunity,
+        // stranding the trigger on the EffectStack forever.
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100, dontSkipOnPass:1);
         $dqController = new DecisionQueueController();
         $dqController->ExecuteStaticMethods($player, "-");
     }
@@ -1558,7 +1563,7 @@ function PushOrderedTriggeredAbilities($orderedEntries) {
         if ($stackObj !== null) { $pushed = true; $lastPlayer = $e['player']; }
     }
     if ($pushed && DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES") {
-        DecisionQueueController::AddDecision($lastPlayer, "CUSTOM", "EffectStackOpportunity", 100);
+        DecisionQueueController::AddDecision($lastPlayer, "CUSTOM", "EffectStackOpportunity", 100, dontSkipOnPass:1);
         $dqController = new DecisionQueueController();
         $dqController->ExecuteStaticMethods($lastPlayer, "-");
     }
@@ -1936,7 +1941,7 @@ $customDQHandlers["AbilityOpportunity"] = function($player, $parts, $lastDecisio
     if(!empty($effectStack)) {
         // An activated ability can resolve while another effect is still on the
         // stack. In that case resume the normal stack-priority flow.
-        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100, dontSkipOnPass:1);
         return;
     }
 

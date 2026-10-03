@@ -11,9 +11,12 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "myGraveyard-0",
+        "cardID": "myGraveyard-1",
         "chkInput": [],
-        "inputText": ""
+        "inputText": "",
+        "expectFailure": true,
+        "semantic": true,
+        "label": "The Dungeon Guide (NORM, not fire/Automaton) is rejected as a banish choice"
     },
     {
         "playerID": 1,
@@ -27,7 +30,37 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
+        "cardID": "myGraveyard-3",
+        "chkInput": [],
+        "inputText": "",
+        "expectFailure": true,
+        "semantic": true,
+        "label": "A stale pre-splice slot (gy-3, nonexistent after the first banish) is not a legal second choice"
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
         "cardID": "myGraveyard-0",
+        "chkInput": [],
+        "inputText": "",
+        "expectFailure": true,
+        "semantic": true,
+        "label": "The Dungeon Guide (now gy-0) is still rejected"
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myGraveyard-1",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myGraveyard-1",
         "chkInput": [],
         "inputText": ""
     },
@@ -52,46 +85,6 @@
         "mode": 100,
         "buttonInput": "",
         "cardID": "myHand-0",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 10001,
-        "buttonInput": "",
-        "cardID": "myHealth-0!CustomInput!Pass",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "PASS",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "PASS",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 2,
-        "mode": 10002,
-        "buttonInput": "",
-        "cardID": "myField-1!FSM!",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 2,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "theirField-1",
         "chkInput": [],
         "inputText": ""
     },

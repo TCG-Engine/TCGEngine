@@ -4528,6 +4528,11 @@ $customDQHandlers["FurnaceDroneCostBanish"] = function($player, $parts, $lastDec
     if($lastDecision === "-" || $lastDecision === "") return;
 
     MZMove($player, $lastDecision, "myBanish");
+    // MZMove only flags the graveyard slot removed. Splice it out NOW so the next pick's candidate list
+    // is built against the final graveyard indices -- otherwise the slot is spliced out after the
+    // MZCHOOSE below is queued and every listed "myGraveyard-N" past the banished card is off by one
+    // (a legal fire/Automaton card is rejected, a stale or nonexistent slot is offered).
+    DecisionQueueController::CleanupRemovedCards();
 
     $remaining = $remainingBefore - 1;
     if($remaining > 0) {

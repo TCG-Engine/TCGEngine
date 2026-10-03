@@ -1,0 +1,28 @@
+{
+    "name": "zephyr-assistant-on-leave-resolves-when-retaliation-declined",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:50:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "XZFXOE9sEV"
+    ],
+    "notes": "Zephyr Assistant (XZFXOE9sEV): \"On Leave: Put an enlighten counter on your champion.\" Proves the EffectStack-strand fix is generic (a different defending unit with a LEAVE_FIELD trigger than Slime King). Zephyr Assistant is played for real from hand ((2) reserve paid; its [Class Bonus] On Enter gives the champion the first enlighten counter, asserted as a control), then player 2's 10-power Dungeon Guide attacks it and the defender declines 'Retaliate?' with PASS. The unit dies inside CombatApplyAttackerDamage while the defender's decision loop carries lastDecision == 'PASS'; the On Leave trigger must still resolve (champion ends with two enlighten counters, EffectStack empty). Before the fix the trigger stranded on the EffectStack (Expected EffectStack count 0, got 1). The attacker-side triggers (On Hit / On Kill) were NOT affected: their controller is the attacker, so the nested ExecuteStaticMethods() runs on a different player's loop and is not skipped.",
+    "semanticCoverage": {
+        "testedCards": [
+            "XZFXOE9sEV"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "On Leave: Put an enlighten counter on your champion."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. A trigger controlled by the DEFENDING player (e.g. a defending unit's LEAVE_FIELD trigger) that is pushed from inside CombatApplyAttackerDamage after the defender answered 'Retaliate?' with PASS was left stranded on the EffectStack: PushTriggeredAbilityNow() queued an unflagged CUSTOM EffectStackOpportunity on the defender's queue, its nested ExecuteStaticMethods() is a no-op because that player's decision loop is already executing, and the outer loop still carried lastDecision == 'PASS', so it silently skipped the unflagged CUSTOM. Fix: queue EffectStackOpportunity with dontSkipOnPass:1 (PushTriggeredAbilityNow, PushOrderedTriggeredAbilities, ResumeIdleEffectStackIfNeeded, AbilityOpportunity). NOTE: the earlier diagnosis in this fixture's history blamed the 'Choose an interceptor' prompt; the prompt that was actually being declined is 'Retaliate?' (the attacked unit is Slime King itself; the interceptor prompt is only offered when a champion is attacked).",
+        "affectedFunction": "Custom/OpportunityLogic.php PushTriggeredAbilityNow() (and the other EffectStackOpportunity queue sites in the same file)",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "slime-king-on-leave-resolves-when-retaliation-declined",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:40:24+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "f0ymeslfpw"
+    ],
+    "notes": "Slime King (f0ymeslfpw) On Leave when the defender declines 'Retaliate?' with PASS (renamed from slime-king-on-leave-stranded-when-interceptor-prompt-declined, which pinned the buggy outcome as a REGRESSION GUARD). Same line-up as slime-king-on-leave-returns-banished-slimes (Slime King played for real incl. its banish cost; player 2 attacks it with a 10-power Dungeon Guide) but the defender answers the 'Retaliate?' MZMAYCHOOSE with PASS. Slime King is destroyed and its LEAVE_FIELD trigger is pushed on the EffectStack from inside CombatApplyAttackerDamage; before the fix the EffectStackOpportunity queued by PushTriggeredAbilityNow() was skipped (lastDecision still 'PASS' in the defender's decision loop, CUSTOM not flagged dontSkipOnPass) so the trigger sat on the EffectStack forever and the 'put a banished Slime onto the field?' prompt never appeared. Now the prompt appears: Red Slime is put onto the field, the other two offers are declined, and an entering Slime's On Enter asks for a unit (the opposing champion). Generic fix, not Slime-King-specific: see zephyr-assistant-on-leave-resolves-when-retaliation-declined. Break/restore: with OpportunityLogic.php reverted this fixture fails at its final step with 'Expected EffectStack count 0, got 1'.",
+    "semanticCoverage": {
+        "testedCards": [
+            "f0ymeslfpw"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Element Bonus] On Leave: You may put any number of the Slime ally cards banished by CARDNAME onto the field under your control."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. A trigger controlled by the DEFENDING player (e.g. a defending unit's LEAVE_FIELD trigger) that is pushed from inside CombatApplyAttackerDamage after the defender answered 'Retaliate?' with PASS was left stranded on the EffectStack: PushTriggeredAbilityNow() queued an unflagged CUSTOM EffectStackOpportunity on the defender's queue, its nested ExecuteStaticMethods() is a no-op because that player's decision loop is already executing, and the outer loop still carried lastDecision == 'PASS', so it silently skipped the unflagged CUSTOM. Fix: queue EffectStackOpportunity with dontSkipOnPass:1 (PushTriggeredAbilityNow, PushOrderedTriggeredAbilities, ResumeIdleEffectStackIfNeeded, AbilityOpportunity). NOTE: the earlier diagnosis in this fixture's history blamed the 'Choose an interceptor' prompt; the prompt that was actually being declined is 'Retaliate?' (the attacked unit is Slime King itself; the interceptor prompt is only offered when a champion is attacked).",
+        "affectedFunction": "Custom/OpportunityLogic.php PushTriggeredAbilityNow() (and the other EffectStackOpportunity queue sites in the same file)",
+        "fixCommit": "TBD"
+    }
+}

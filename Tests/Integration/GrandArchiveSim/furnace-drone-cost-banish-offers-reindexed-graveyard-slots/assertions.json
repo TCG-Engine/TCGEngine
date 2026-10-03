@@ -1,0 +1,13 @@
+[
+    {"step":3,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Exactly one card has been banished so far (pick 1 of 3): the Dungeon Guide pick before it was rejected"},
+    {"step":3,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"mttsvbgl6f","semantic":true,"label":"The first banish pick (Red Slime, FIRE) was paid immediately as part of the cost"},
+    {"step":3,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":3,"semantic":true,"label":"The graveyard is re-indexed to [Dungeon Guide, Corhazi Courier, Red Slime] before the next prompt is built"},
+    {"step":6,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"YqQsXwEvv5","semantic":true,"label":"Corhazi Courier (FIRE) was banished at its real post-splice slot gy-1 (rejected before the fix)"},
+    {"step":6,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":2,"semantic":true,"label":"Two cards banished after pick 2 of 3"},
+    {"step":11,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":3,"semantic":true,"label":"Three fire and/or Automaton cards were banished as Furnace Drone's additional cost"},
+    {"step":11,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the non-eligible Dungeon Guide is left in the graveyard"},
+    {"step":11,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"em6eEh9q8y","semantic":true,"label":"The leftover graveyard card is the Dungeon Guide"},
+    {"step":11,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"The printed (3) reserve cost was paid on top of the banish cost"},
+    {"step":11,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"cbNF64gCsS","semantic":true,"label":"Furnace Drone resolved onto the field once both costs were paid"},
+    {"step":11,"type":"decision_queue_empty","player":"all"}
+]

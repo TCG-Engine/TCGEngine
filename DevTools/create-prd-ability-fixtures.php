@@ -19889,15 +19889,16 @@ DECK,
     ],
 ];
 
-// --- Slime King: On Leave trigger is stranded on the EffectStack when the interceptor prompt is declined (engine bug) ---
+// --- Slime King: On Leave resolves when the defender declines the 'Retaliate?' prompt (engine bug FIXED) ---
 // Same line-up as slime-king-on-leave-returns-banished-slimes, but the defending player answers the
-// 'Choose an interceptor' prompt with PASS instead of picking Slime King. Slime King is still
-// destroyed by the 10-power Dungeon Guide, its LEAVE_FIELD trigger is pushed on the EffectStack, but
-// the trigger is never resolved: the EffectStack keeps 1 entry and the 'put a banished Slime onto the
-// field?' prompt never appears, so the three Slimes banished by its cost cannot be returned.
-// ENGINE BUG (found, NOT fixed, outside the cost fix's scope: combat/trigger resolution). The
-// REGRESSION GUARD assertions pin the current (buggy) outcome.
-$fixtures['slime-king-on-leave-stranded-when-interceptor-prompt-declined'] = [
+// 'Retaliate?' MZMAYCHOOSE with PASS instead of picking Slime King. Slime King is still destroyed by
+// the 10-power Dungeon Guide and its LEAVE_FIELD trigger is pushed on the EffectStack. Before the fix
+// the push's EffectStackOpportunity CUSTOM was queued (unflagged) while the defender's decision loop
+// still carried lastDecision == "PASS", so the loop silently skipped it and the trigger sat on the
+// EffectStack forever (no 'put a banished Slime onto the field?' prompt). Fixed in
+// Custom/OpportunityLogic.php (EffectStackOpportunity queued with dontSkipOnPass:1). Generic: see
+// zephyr-assistant-on-leave-resolves-when-retaliation-declined.
+$fixtures['slime-king-on-leave-resolves-when-retaliation-declined'] = [
     'testedCards' => ['f0ymeslfpw'],
     'deck' => <<<'DECK'
 # Material
@@ -19930,7 +19931,92 @@ DECK,
         mrdPass(1), // p1 passes the beginning-of-opponent-turn window
         mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with the buffed Dungeon Guide
         mrdAns(2, 'theirField-1'), // Slime King (Taunt) is the target
-        mrdPass(1), // the interceptor prompt is declined: Slime King dies, its On Leave never resolves
+        mrdPass(1), // decline the 'Retaliate?' prompt: Slime King dies, its On Leave must still resolve
+        mrdAns(1, 'myBanish-0'), // On Leave: put the first banished Slime (Red Slime) onto the field
+        mrdPass(1), // decline the remaining banished Slimes
+        mrdAns(1, 'theirField-0'), // Red Slime's On Enter asks for a unit: the opposing champion
+    ],
+];
+
+// --- Zephyr Assistant: On Leave resolves when the defender declines the 'Retaliate?' prompt (generic, not Slime-King-specific) ---
+// Zephyr Assistant (XZFXOE9sEV, WIND/MAGE ally): "On Leave: Put an enlighten counter on your champion."
+// A DIFFERENT defending unit with a LEAVE_FIELD trigger than Slime King, played for real from hand,
+// then attacked by a 10-power Dungeon Guide; the defender declines 'Retaliate?' (PASS) so the unit
+// dies while the defender's decision loop carries lastDecision == "PASS". The leave trigger must
+// still resolve (champion gains the enlighten counter, EffectStack empty).
+$fixtures['zephyr-assistant-on-leave-resolves-when-retaliation-declined'] = [
+    'testedCards' => ['XZFXOE9sEV'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'XZFXOE9sEV'], // Zephyr Assistant -> hand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['buff' => 9]]], // Dungeon Guide with 9 buff counters (10 power) -> p2 field-1
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Zephyr Assistant
+        ...mrdPay(1, 2), // its printed (2) reserve cost
+        mrdPass(1), // p1 passes the stack-response fast window so the card resolves
+        mrdEnd(1), // end player 1 turn 1
+        mrdPass(1), // p1 passes the end-of-main fast window
+        mrdPass(1), // p1 passes the beginning-of-opponent-turn window
+        mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with the buffed Dungeon Guide
+        mrdAns(2, 'theirField-1'), // Zephyr Assistant is the target
+        mrdPass(1), // p1 passes the before-damage fast window (a fast card is in hand)
+        mrdPass(1), // decline the 'Retaliate?' prompt: Zephyr Assistant dies, its On Leave must still resolve
+    ],
+];
+
+// --- Furnace Drone: the three graveyard banishes are offered against the CURRENT (re-indexed) graveyard ---
+// Furnace Drone (cbNF64gCsS): "As an additional cost to play CARDNAME, banish three fire element and/or
+// Automaton cards from your graveyard." Played for real. The graveyard holds a non-eligible card in the
+// middle so that, after the first banish, every later slot shifts down by one:
+//   gy-0 Red Slime (FIRE), gy-1 Dungeon Guide (NORM, not eligible), gy-2 Corhazi Courier (FIRE), gy-3 Red Slime (FIRE).
+// Banishing gy-0 leaves [Dungeon Guide, Corhazi Courier, Red Slime]. FurnaceDroneCostBanish used to build the
+// next MZCHOOSE before the banished slot was spliced out, so it listed the stale 'myGraveyard-2&myGraveyard-3':
+// the legal Corhazi Courier (now gy-1) was rejected and the nonexistent gy-3 was accepted as a candidate.
+// Now CleanupRemovedCards() runs first, so the offered slots are the real ones.
+$fixtures['furnace-drone-cost-banish-offers-reindexed-graveyard-slots'] = [
+    'testedCards' => ['cbNF64gCsS'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE) -> gy-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (NORM, NOT eligible) -> gy-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'YqQsXwEvv5'], // Corhazi Courier (FIRE) -> gy-2
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // second Red Slime (FIRE) -> gy-3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cbNF64gCsS'], // Furnace Drone -> hand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Furnace Drone: the banish cost is declared first
+        mrdAns(1, 'myGraveyard-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'The Dungeon Guide (NORM, not fire/Automaton) is rejected as a banish choice']),
+        mrdAns(1, 'myGraveyard-0'), // pick 1 of 3: Red Slime -- the graveyard is now [Dungeon Guide, Corhazi Courier, Red Slime]
+        mrdAns(1, 'myGraveyard-3', ['expectFailure' => true, 'semantic' => true, 'label' => 'A stale pre-splice slot (gy-3, nonexistent after the first banish) is not a legal second choice']),
+        mrdAns(1, 'myGraveyard-0', ['expectFailure' => true, 'semantic' => true, 'label' => 'The Dungeon Guide (now gy-0) is still rejected']),
+        mrdAns(1, 'myGraveyard-1'), // pick 2 of 3: Corhazi Courier at its REAL slot (rejected before the fix)
+        mrdAns(1, 'myGraveyard-1'), // pick 3 of 3: the last Red Slime, now the only eligible card (gy-1)
+        ...mrdPay(1, 3), // the printed (3) reserve cost
+        mrdPass(1), // p1 passes the stack-response fast window so Furnace Drone resolves
     ],
 ];
 

@@ -1,0 +1,28 @@
+{
+    "name": "furnace-drone-cost-banish-offers-reindexed-graveyard-slots",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:05:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "cbNF64gCsS"
+    ],
+    "notes": "Furnace Drone (cbNF64gCsS): \"As an additional cost to play CARDNAME, banish three fire element and/or Automaton cards from your graveyard.\" Played for real from hand. Stale-index bug class (same as SlimeKingCostBanish / SlimeKingLeaveChoose / DusksoulStoneBanishStart, commit 6742daaf): MZMove only flags the banished graveyard slot removed and the splice happens later in DecisionQueueController::CleanupRemovedCards(), so FurnaceDroneCostBanish built the next MZCHOOSE against pre-splice indices. Graveyard layout gy-0 Red Slime (FIRE), gy-1 Dungeon Guide (NORM, ineligible), gy-2 Corhazi Courier (FIRE), gy-3 Red Slime (FIRE): after banishing gy-0 the real graveyard is [Dungeon Guide, Corhazi Courier, Red Slime] but the unfixed handler offered 'myGraveyard-2&myGraveyard-3' (a nonexistent slot listed, the legal Courier at gy-1 unlisted/rejected), so picking the Courier at its real slot failed and the cost could not be completed. Fixed by calling CleanupRemovedCards() right after the MZMove. Fixture pins: the Dungeon Guide and the stale gy-3 are rejected (expectFailure), the Courier is accepted at gy-1, the last Red Slime at gy-1, then the (3) reserve is paid and Furnace Drone resolves. Break/restore: with the fix reverted the gy-1 pick is rejected and the fixture fails.",
+    "semanticCoverage": {
+        "testedCards": [
+            "cbNF64gCsS"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "cost"
+        ],
+        "rulesClauses": [
+            "As an additional cost to play CARDNAME, banish three fire element and/or Automaton cards from your graveyard."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED (stale index). FurnaceDroneCostBanish() moved the chosen graveyard card to banish and immediately built the next MZCHOOSE from GetZone('myGraveyard'), but MZMove only flags the slot removed (the splice happens in CleanupRemovedCards()), so the follow-up prompt listed pre-splice slots: every candidate after the banished card was off by one. Fix: CleanupRemovedCards() between the MZMove and the re-offer.",
+        "affectedFunction": "Custom/GameLogic.php $customDQHandlers['FurnaceDroneCostBanish']",
+        "fixCommit": "TBD"
+    }
+}

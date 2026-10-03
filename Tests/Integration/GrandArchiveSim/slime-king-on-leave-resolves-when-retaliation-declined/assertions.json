@@ -1,0 +1,12 @@
+[
+    {"step":7,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":3,"semantic":true,"label":"Slime King banished three Slimes as its cost before it was ever on the field"},
+    {"step":7,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"f0ymeslfpw","semantic":true,"label":"Slime King is on the field before the attack"},
+    {"step":13,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"f0ymeslfpw","semantic":true,"label":"Slime King was destroyed by the 10-power attacker after the defender declined Retaliate?"},
+    {"step":13,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":3,"semantic":true,"label":"The three cost-banished Slimes are still banished: nothing has been offered back yet"},
+    {"step":16,"type":"zone_count","zone":"EffectStack","viewerPlayerID":1,"value":0,"semantic":true,"label":"Slime King's LEAVE_FIELD trigger resolved instead of stranding on the EffectStack"},
+    {"step":16,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":2,"semantic":true,"label":"Only the two declined Slimes are still banished: the On Leave prompt appeared and one Slime was returned"},
+    {"step":16,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"mttsvbgl6f","semantic":true,"label":"Red Slime (the pick) was put onto the field under my control"},
+    {"step":16,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":2,"semantic":true,"label":"Field = champion + the returned Red Slime (Slime King is gone)"},
+    {"step":16,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"f0ymeslfpw","semantic":true,"label":"Slime King itself remains in the graveyard"},
+    {"step":16,"type":"decision_queue_empty","player":"all"}
+]
