@@ -93,15 +93,23 @@ $check(($lend[0][2] ?? '') === 'ASH_009', 'C: the Ace at 2 + 2 + Raid 2 = 6 reac
 
 // D) A GROUND SENTINEL (their Captain Typho, SEC_098): ground attacks cannot reach the base, so the plan and every buff go to
 // space — Ahsoka included. Mine: Obi-Wan (ground 3), Phoenix Squadron A-Wing (space 3), Open Circle Ace (space 2).
+// ⚠ Since p26 'breach' (owner 2026-10-03: "breach overrides p20") this is the line of the stack BEFORE it ('no-breach'):
+// with breach, Obi-Wan (3 + Jar Jar 2 + the lent Raid 2 = 7) kills Typho (5) and opens Ahsoka, so the plan is the ground
+// crash — D2 below. Both lines deal the same base damage on this board.
 $boardD = function ($b) use ($plots) { $plots($b);
     $b->WithGroundUnitForPlayer(1, 'LOF_096', true); $b->WithSpaceUnitForPlayer(1, 'JTL_095', true); $b->WithSpaceUnitForPlayer(1, 'ASH_201', true);
     $b->WithGroundUnitForPlayer(2, 'SEC_098', false); };
-[$picks] = $flipTurn($boardD);
+[$picks, $dmgDOff] = $flipTurn($boardD, 'no-breach');
 $check(($pickFor($picks, $JARJAR)[0][2] ?? '') === 'JTL_095', 'D: Jar Jar buffs the strongest SPACE unit; got ' . json_encode($pickFor($picks, $JARJAR)));
 $check(($pickFor($picks, $SUPPORT)[0][2] ?? '') === 'JTL_095', 'D: the Support attack is made in space; got ' . json_encode($pickFor($picks, $SUPPORT)));
 $groundBuffs = array_filter($pickFor($picks, $LEND), fn($p) => in_array($p[2], ['ASH_009', 'LOF_096'], true));
 $spaceBuffs = array_filter($pickFor($picks, $LEND), fn($p) => in_array($p[2], ['JTL_095', 'ASH_201'], true));
 $check(empty($groundBuffs) && !empty($spaceBuffs), 'D: no buff on a ground unit (Ahsoka included) — they go to space; got ' . json_encode($pickFor($picks, $LEND)));
+// D2) p26 'breach' (the default): Obi-Wan can crash Typho and opens Ahsoka — Jar Jar and the Support attack go on him.
+[$picks, $dmgD] = $flipTurn($boardD);
+$check(($pickFor($picks, $JARJAR)[0][2] ?? '') === 'LOF_096', 'D2: with breach Jar Jar buffs Obi-Wan, who can breach Typho; got ' . json_encode($pickFor($picks, $JARJAR)));
+$check(($pickFor($picks, $SUPPORT)[0][2] ?? '') === 'LOF_096', 'D2: …and Obi-Wan makes the Support attack; got ' . json_encode($pickFor($picks, $SUPPORT)));
+$check($dmgD >= $dmgDOff, "D2: the breach line deals no less than the space line ($dmgD vs $dmgDOff)");
 
 // F) Jar Jar goes on the planned attacker even when it is NOT my most valuable unit: Phoenix Squadron A-Wing (3/2, value 2)
 // over a T-6 Shuttle 1974 (2/6, value 4) — value alone would buff the T-6. The plan reads the power each unit ATTACKS with
@@ -114,12 +122,18 @@ $check(($pickFor($picks, $LEND)[0][2] ?? '') === 'ASH_009', 'F: …so the borrow
 
 // G) The plan looks in the CLEAR arena first: their ground Sentinel blocks my strongest unit (Admiral Ackbar, 6), so Jar
 // Jar goes on the strongest SPACE unit — the A-Wing (3, value 2), not the T-6 Shuttle (2, value 4).
+// ⚠ Since p26 'breach' this is the 'no-breach' line; with breach, Ackbar (6) crashes Typho and opens Ahsoka — G2 below.
 $boardG = function ($b) use ($plots) { $plots($b);
     $b->WithGroundUnitForPlayer(1, 'ASH_110', true); $b->WithSpaceUnitForPlayer(1, 'JTL_095', true); $b->WithSpaceUnitForPlayer(1, 'ASH_109', true);
     $b->WithGroundUnitForPlayer(2, 'SEC_098', false); };
-[$picks] = $flipTurn($boardG);
+[$picks, $dmgGOff] = $flipTurn($boardG, 'no-breach');
 $check(($pickFor($picks, $JARJAR)[0][2] ?? '') === 'JTL_095', 'G: with a ground Sentinel the plan is the strongest SPACE unit; got ' . json_encode($pickFor($picks, $JARJAR)));
 $check(($pickFor($picks, $SUPPORT)[0][2] ?? '') === 'JTL_095', 'G: …and it makes the Support attack, not the blocked Ackbar; got ' . json_encode($pickFor($picks, $SUPPORT)));
+// G2) p26 'breach' (the default): Ackbar can breach Typho and opens Ahsoka — he is the plan.
+[$picks, $dmgG] = $flipTurn($boardG);
+$check(($pickFor($picks, $JARJAR)[0][2] ?? '') === 'ASH_110', 'G2: with breach Jar Jar buffs Ackbar, who can breach Typho; got ' . json_encode($pickFor($picks, $JARJAR)));
+$check(($pickFor($picks, $SUPPORT)[0][2] ?? '') === 'ASH_110', 'G2: …and Ackbar makes the Support attack; got ' . json_encode($pickFor($picks, $SUPPORT)));
+$check($dmgG >= $dmgGOff, "G2: the breach line deals no less than the space line ($dmgG vs $dmgGOff)");
 
 // H) The Supported unit's borrowed +2 goes on Ahsoka even when a more valuable unit qualifies: a Shielded Chewbacca (5/6,
 // value above hers) is ready and below Ackbar's 10. She is the one sure to attack next and use it.
@@ -138,13 +152,21 @@ $check(($pickFor($picks, $LEND)[0][2] ?? '') === 'ASH_009', 'H: the borrowed +2 
 $boardI = function ($b) use ($plots) { $plots($b);
     $b->WithSpaceUnitForPlayer(1, 'JTL_095', true); $b->WithSpaceUnitForPlayer(1, 'ASH_201', true);
     $b->WithSpaceUnitForPlayer(2, 'ASH_109', false); $b->WithGroundUnitForPlayer(2, 'SOR_095', false); };
-[$picks] = $flipTurn($boardI);
+// ⚠ Measured on the stack before p26 ('no-breach'), where space stays a write-off and the tie this section is about exists.
+// With breach the A-Wing (+ Jar Jar + the lent Raid) crashes the T-6 instead — I2 below.
+[$picks] = $flipTurn($boardI, 'no-breach');
 $lend = $pickFor($picks, $LEND);
 $check(!empty($lend), 'I: fixture — the flip turn offers a "less power" buff; got ' . json_encode($picks));
 // Jar Jar and the Naboo Royal Starship (SEC_099) both entered play exhausted off their Plots; the A-Wing has attacked. The
 // Open Circle Ace is the one ready unit left, and both "+2/+0" (the A-Wing's borrowed one and Ahsoka's own) qualify it.
 $check(count($lend) === 2 && empty(array_filter($lend, fn($p) => $p[2] !== 'ASH_201')),
     'I: both +2/+0 go on the ready Ace, none on an exhausted unit (Jar Jar, the Royal Starship); got ' . json_encode($lend));
+
+// I2) p26 'breach' (the default) on board I: whatever the line, no "+N for this phase" lands on an exhausted unit other
+// than Ahsoka attacking now (Jar Jar and the Royal Starship entered play exhausted).
+[$picks] = $flipTurn($boardI);
+$check(empty(array_filter($pickFor($picks, $LEND), fn($p) => in_array($p[2], ['SEC_111', 'SEC_099'], true))),
+    'I2: with breach no +2/+0 goes on an exhausted Jar Jar or Royal Starship; got ' . json_encode($pickFor($picks, $LEND)));
 
 // E) Not a flip turn: Jar Jar from hand with no Support pending keeps the ordinary scoring (the rule is inert).
 $build(function ($b) { $b->MyLeader('ASH_009', true, true, true, 'unit'); $b->FillResourcesForPlayer(1, 'SOR_095', 6); $b->WithCardInHandForPlayer(1, 'SEC_111');

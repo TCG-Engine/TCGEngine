@@ -2,7 +2,7 @@
 // SWUSim/docs/todo-twinsuns-fill-bot.md step 4 (owner Decisions 3 and 5). The server rules are pinned by
 // SWUSim/DevTools/tests/lobby_room_bots_test.php; this checks the page:
 //   • PRIVATE room: every empty seat offers an ENABLED "Fill Seat with Bot"; the popup lists the four pre-cons (with
-//     their card art) and a paste box; it fits the viewport; Escape closes it; an unreadable list is refused INSIDE
+//     their card art, in the pre-con well) and a paste box; it fits the viewport; Escape closes it; an unreadable list is refused INSIDE
 //     the popup, which stays open; a pre-con and a pasted list each fill a seat with an Arenabot.
 //   • PUBLIC room: the button is DISABLED with a "(Ns)" countdown that falls in place.
 // Usage: node swusim-fill-bot-xbrowser.mjs [baseURL]   ENGINES=chromium,firefox,webkit (default all)
@@ -67,8 +67,8 @@ const dialog = (page) => page.evaluate(() => {
   const d = document.querySelector('.wr-botdlg');
   if (!d) return { open: false };
   const r = d.getBoundingClientRect();
-  const imgs = Array.from(d.querySelectorAll('.wr-botdlg-cards img'));
-  return { open: true, opts: d.querySelectorAll('.wr-botdlg-opt').length, paste: !!d.querySelector('.wr-botdlg-paste'),
+  const imgs = Array.from(d.querySelectorAll('.wr-botdlg-pccards img'));
+  return { open: true, opts: d.querySelectorAll('.wr-botdlg-pcrow').length, paste: !!d.querySelector('.wr-botdlg-paste'),
            fits: r.left >= 0 && r.top >= 0 && r.right <= innerWidth + 1 && r.bottom <= innerHeight + 1,
            imgs: imgs.length, loaded: imgs.filter(i => i.complete && i.naturalWidth > 0).length,
            err: (d.parentNode.querySelector('.wr-botdlg-err') || {}).textContent || '', w: Math.round(r.width), h: Math.round(r.height) };
@@ -87,7 +87,7 @@ for (const [engine, launcher] of ENGINES) {
     await host.page.click('.wr-fill-bot');
     await host.page.waitForTimeout(1500);
     let d = await dialog(host.page);
-    ok(engine, 'the popup opens with 4 pre-cons + a paste option', d.open && d.opts === 5 && d.paste, JSON.stringify(d));
+    ok(engine, 'the popup opens with 4 pre-cons + a paste box', d.open && d.opts === 4 && d.paste, JSON.stringify(d));
     ok(engine, 'pre-con card art loads', d.imgs >= 8 && d.loaded === d.imgs, `${d.loaded}/${d.imgs}`);
     ok(engine, 'the popup fits the desktop viewport', d.fits, `${d.w}x${d.h}`);
     await host.page.screenshot({ path: `${SHOTS}/fillbot-${engine}-popup.png` });
@@ -104,7 +104,7 @@ for (const [engine, launcher] of ENGINES) {
     d = await dialog(host.page);
     ok(engine, 'an unreadable list is refused INSIDE the popup (it stays open, with the reason)', d.open && /cannot be used|recogni/i.test(d.err), d.err);
     // A pre-con: the second one.
-    await host.page.locator('.wr-botdlg-opt input[type=radio]').nth(1).check();
+    await host.page.locator('.wr-botdlg-pcrow').nth(1).click();   // also clears the refused paste
     await host.page.click('.wr-botdlg-add');
     await host.page.waitForTimeout(3500);
     ok(engine, 'a pre-con fills the seat and the popup closes', !(await dialog(host.page)).open && (await botSeats(host.page)) === 1);

@@ -107,8 +107,10 @@ $removalBoard = function (string $enemy) use ($build) {
 $removalBoard('SOR_100');
 $check($choose('midrange', '') !== 'myHand-0!FSM!', 'fixture: the shipped bot does not lead with the removal');
 $check($choose('midrange', 'try-mgremoval') === 'myHand-0!FSM!', 'mgremoval: a ready 5-drop is answered before attacking');
-// The same board with a ready 2-drop that hits just as hard is NOT worth the card (Battlefield Marine, 2, 3/3).
-$removalBoard('SOR_095');
+// The same board with a ready 2-drop that hits just as hard is NOT worth the card (Viper Probe Droid, 2, 3/2). The bar
+// is the cost THEY paid (_SWUBotSeatCost for their seat), and with p28 'mgcost' that includes their aspect penalty: the
+// old Battlefield Marine (Command/Heroism) cost this Aggression/Villainy Dedra 6 — over the bar. SOR_228 is Villainy: 2.
+$removalBoard('SOR_228');
 $check($choose('midrange', 'try-mgremoval') !== 'myHand-0!FSM!', 'mgremoval: a 2-cost body is under the bar, card held');
 // Scope: the arm does not reach the other styles (control has its own shipped rule).
 $removalBoard('SOR_100');

@@ -12,9 +12,11 @@ $on = fn(string $p) => SWUBotSetDisabledFeatures(["try:$p"]);
 $off = fn() => SWUBotSetDisabledFeatures([]);
 $rules = SWUBotRulesAfterFilter();
 $quiet = fn($b) => $b->MyLeader('SOR_014', false, false, true);
-$ARMS = ['mullnocast', 'mullcurve', 'mullstyle', 'killfirst', 'blockerfirst', 'tradewhenbehind', 'leaderrisk',
+$ARMS = ['mullnocast', 'mullcurve', 'mullstyle', 'killfirst', 'blockerfirst', 'tradewhenbehind',
          'removalready', 'playsurvivor', 'sentineltiming'];
 foreach ($ARMS as $p) $check(SWUBotVariantDisabled("try-$p") === ["try:$p"], "proposal $p is registered");
+// 'leaderrisk' shipped 2026-10-03 in feature group p28 — ON by default, '@no-leaderrisk' / '@no-p28' turn it off.
+$check(SWUBotVariantDisabled('no-leaderrisk') === ['leaderrisk'] && in_array('leaderrisk', SWUBotFeatureGroups()['p28'], true), 'leaderrisk is a shipped feature, group p28');
 foreach (['jitter-up', 'jitter-down'] as $w) $check(SWUBotVariantDisabled("w-$w") === ["w:$w"], "null probe @w-$w is registered");
 
 // ── the jitter nulls move ONE weight by 3% and nothing else ────────────────────────────────────────
@@ -87,9 +89,9 @@ $att = $mk(); $def = $mk(['controller' => 2, 'power' => 3, 'remaining' => 3]);
 $base = SWUBotTargetValue($att, $def, $W);
 $on('tradewhenbehind'); $behindV = SWUBotTargetValue($att, $def, $W); $off();
 $check($behindV > $base, "tradewhenbehind: an even trade is worth more while behind ($base -> $behindV)");
-$on('leaderrisk'); $ldr = SWUBotTargetValue($mk(['isLeader' => true]), $def, $W); $off();
+$off(); $ldr = SWUBotTargetValue($mk(['isLeader' => true]), $def, $W);   // leaderrisk is ON by default (p28)
 $check($ldr > $base, 'leaderrisk: losing a deployed leader unit costs less (it returns)');
-$off(); $check(SWUBotTargetValue($mk(['isLeader' => true]), $def, $W) == $base, 'leaderrisk is inert by default');
+SWUBotSetDisabledFeatures(['leaderrisk']); $check(SWUBotTargetValue($mk(['isLeader' => true]), $def, $W) == $base, 'leaderrisk is inert under @no-leaderrisk'); $off();
 
 // ── playsurvivor / sentineltiming: the play branch ─────────────────────────────────────────────────
 $playScore = function (string $style, string $prop = '') use ($botCtx, $on, $off) {

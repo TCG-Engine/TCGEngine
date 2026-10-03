@@ -154,10 +154,14 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
         : fn(array $r) => false;
     $qualifies = fn(array $r) => $countGate($r) || $threatGate($r);
     $score = fn(array $r) => $qualifies($r) ? 1000.0 + $r['oppClock'] * 10 + ($byValue ? $r['net'] : -$r['ownLost']) : -1.0;
-    $isWipe = function (array $a) use ($seat) {
+    // Feature 'wipeaware' (p30): a wipe that leaves me in a SHOWN per-unit wipe's lethal range — Pre Vizsla's tokens — is
+    // not this rule's to play (owner's game 1483356 R19); the fallback holds it the same way.
+    $per = SWUBotFeatureOn('wipeaware') ? _SWUBotShownPerUnitWipe($seat) : 0;
+    $isWipe = function (array $a) use ($seat, $per) {
         if (SWUBotActionKind($a) !== 'play') return false;
         $o = _SWUBotHandObject($seat, $a);
-        return $o !== null && in_array('wipe', SWUBotCardTags(strval($o->CardID)), true);
+        if ($o === null || !in_array('wipe', SWUBotCardTags(strval($o->CardID)), true)) return false;
+        return !($per > 0 && _SWUBotPlayEntersWipeRange($seat, $a, $per));
     };
     // Diagnostics (read-only; land in SWUBOT_METRICS coverage). 'wipe:castable' = this rule saw at least one wipe it
     // could play — the rule only ever sees CASTABLE wipes, so a gate that never fires may simply never be reached.

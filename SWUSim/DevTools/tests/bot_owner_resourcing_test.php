@@ -8,7 +8,9 @@ include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/Custom/BotLookahead.php';
 include_once './SWUSim/BotHeuristic.php';
 
-foreach (['resourcing2', 'krennicramp', 'aurathreat'] as $p) $check(SWUBotVariantDisabled("try-$p") === ["try:$p"], "proposal $p is registered");
+foreach (['resourcing2', 'krennicramp'] as $p) $check(SWUBotVariantDisabled("try-$p") === ["try:$p"], "proposal $p is registered");
+// 'aurathreat' shipped 2026-10-03 in feature group p28 — ON by default, '@no-aurathreat' / '@no-p28' turn it off.
+$check(SWUBotVariantDisabled('no-aurathreat') === ['aurathreat'] && in_array('aurathreat', SWUBotFeatureGroups()['p28'], true), 'aurathreat is a shipped feature, group p28');
 
 // The card(s) the control resourcer puts away first, with or without the proposal.
 $resourced = function (int $n, bool $on, bool $opening = false) use ($botCtx) {
@@ -93,10 +95,11 @@ $build(function ($b) use ($vader, $FIVE) { $b->MyLeader('SOR_014', false, false,
 $victor = null; $hauler = null;
 foreach (SWUBotUnits(2) as $u) { if ($u['cardID'] === 'JTL_085') $victor = $u; if ($u['cardID'] === 'JTL_221') $hauler = $u; }
 $check($victor !== null && _SWUBotAuraGrantedPower($victor) === 4, 'Victor Leader grants +1 to each of the other four ships');
-SWUBotSetDisabledFeatures(['try:aurathreat']);
+SWUBotSetDisabledFeatures([]);   // aurathreat ON (shipped, p28)
 $vt = SWUBotUnitBaseThreat(1, $victor); $ht = SWUBotUnitBaseThreat(1, $hauler);
-SWUBotSetDisabledFeatures([]);
 $check($vt > $ht, "aurathreat: Victor Leader ($vt) outranks the AT-Hauler ($ht) as a threat — the owner's 6 vs 5");
-$check(SWUBotUnitBaseThreat(1, $victor) < SWUBotUnitBaseThreat(1, $hauler), 'without the proposal Victor Leader looks like the lesser threat');
+SWUBotSetDisabledFeatures(['aurathreat']);
+$check(SWUBotUnitBaseThreat(1, $victor) < SWUBotUnitBaseThreat(1, $hauler), 'under @no-aurathreat Victor Leader looks like the lesser threat');
+SWUBotSetDisabledFeatures([]);
 
 bot_test_finish();

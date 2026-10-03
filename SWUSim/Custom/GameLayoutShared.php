@@ -629,9 +629,12 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
    content, and on the short mobile tile both arenas duly shrank to 10px — padding and border, no
    cards — while looking fine on the roomy desktop tile. Leaving min-height at its `auto` default
    floors each arena at label + one card row, so the split stays even AND nothing disappears. */
-/* ⚠ GRID, NOT WRAPPING FLEX. The arena fills DOWN then ACROSS: `grid-auto-flow: column` with a fixed
-   row count lays unit 0 above unit 1, then starts a new column — so --swu-mb-rows literally is "how
-   many rows this arena shows", and everything past the visible width is reached by scrolling sideways.
+/* ⚠ GRID, NOT WRAPPING FLEX. The arena fills ACROSS then DOWN (owner request 2026-10-03; it was down-
+   then-across): a fixed row count plus an explicit column count of ceil(units / rows), flowing by ROW,
+   so unit 1 sits right of unit 0. --swu-mb-rows literally is "how many rows this arena shows", and
+   everything past the visible width is reached by scrolling sideways. The column count comes inline from
+   swuMbRowOpen() as --swu-mb-c1 / --swu-mb-c2 (CSS cannot round inside repeat()); which one applies is
+   chosen beside the --swu-mb-rows rules below — keep those two pairs in step.
    ⚠ `flex-flow: column wrap` expresses the same intent and was rejected: a column-wrap flex container
    does not reliably grow its SCROLLABLE width in Gecko/WebKit, so the overflow columns exist but
    cannot be scrolled to — the exact failure this layout must not have. A grid container's scroll width
@@ -657,7 +660,8 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
 .swu-mb-row { display: grid; padding-bottom: calc(var(--swu-mb-unit) * 0.14); flex: 1 1 auto;
     padding-left: calc(var(--swu-mb-unit) * 0.09); padding-right: calc(var(--swu-mb-unit) * 0.09);
     column-gap: calc(var(--swu-mb-unit) * 0.16); row-gap: calc(var(--swu-mb-unit) * 0.16);
-    grid-auto-flow: column; grid-auto-columns: max-content;
+    grid-auto-flow: row; grid-auto-columns: max-content;
+    grid-template-columns: repeat(var(--swu-mb-c1, 1), max-content);   /* --swu-mb-rows: 1 (the :root default) */
     grid-template-rows: repeat(var(--swu-mb-rows, 1), calc(var(--swu-mb-unit) + 6px));
     justify-content: start; align-content: start;
     overflow-x: auto; overflow-y: hidden;
@@ -748,6 +752,9 @@ body.swu-home .swu-mb-base   { --swu-mb-base-w: 66px; }
    enormous window does not produce absurd thumbnails. */
 body.swu-home { --swu-mb-unit: clamp(52px, 7.1vh, 92px); --swu-mb-rows: 2; }
 @media (max-height: 900px) { body.swu-home { --swu-mb-unit: clamp(52px, 11.0vh, 110px); --swu-mb-rows: 1; } }
+/* Column count to match each row count above (left→right fill, see .swu-mb-row). Change one, change both. */
+body.swu-home .swu-mb-row { grid-template-columns: repeat(var(--swu-mb-c2, 1), max-content); }
+@media (max-height: 900px) { body.swu-home .swu-mb-row { grid-template-columns: repeat(var(--swu-mb-c1, 1), max-content); } }
 body.swu-home .swu-mb-basedmg { font-size: 18px; }
 body.swu-home .swu-mb-dmg { font-size: 10px; }
 
@@ -4073,8 +4080,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // repeat what the layout already says. The arenas keep a NON-COLOUR distinction — their
             // fixed vertical ORDER, space above ground, exactly as on the full board — so the silver /
             // sand borders reinforce that reading rather than being the only carrier of it.
-            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--space"><div class="swu-mb-row">' + spaceHtml + '</div></div>' +
-            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--ground"><div class="swu-mb-row">' + groundHtml + '</div></div>';
+            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--space">' + swuMbRowOpen(defeated ? 0 : b.spaceUnits.length) + spaceHtml + '</div></div>' +
+            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--ground">' + swuMbRowOpen(defeated ? 0 : b.groundUnits.length) + groundHtml + '</div></div>';
+    }
+
+    // The arena grid fills LEFT→RIGHT then TOP→BOTTOM, so it needs its column count — ceil(units / rows).
+    // The row count is CSS (--swu-mb-rows: 1 or 2, by window height) and CSS cannot round inside repeat(),
+    // so emit the column count for BOTH row counts; the .swu-mb-row rules beside --swu-mb-rows pick one.
+    function swuMbRowOpen(n) {
+        n = Math.max(1, parseInt(n, 10) || 0);   // repeat(0, …) is invalid — an empty arena still gets one track
+        return '<div class="swu-mb-row" style="--swu-mb-c1:' + n + ';--swu-mb-c2:' + Math.ceil(n / 2) + '">';
     }
 
     // 3-player home view: one mini board per opponent, each a gateway button into that opponent's

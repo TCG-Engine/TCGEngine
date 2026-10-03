@@ -17,8 +17,10 @@ include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/Custom/BotLookahead.php';
 include_once './SWUSim/BotHeuristic.php';
 
-$check(SWUBotVariantDisabled('try-mgbuff') === ['try:mgbuff'], 'proposal mgbuff is registered');
-$ON = ['try:mgbuff'];
+// Shipped 2026-10-03 in feature group p28 — ON by default, '@no-mgbuff' / '@no-p28' turn it off.
+$check(SWUBotVariantDisabled('no-mgbuff') === ['mgbuff'] && in_array('mgbuff', SWUBotFeatureGroups()['p28'], true), 'mgbuff is a shipped feature, group p28');
+$ON = [];
+$OFF = ['mgbuff'];
 $ACT = 'mySpaceArena-0!CustomInput!Activate';
 $score = function (string $id, array $on) use ($botCtx) {
     SWUBotSetDisabledFeatures($on); $ctx = $botCtx('midrange'); $out = null;
@@ -40,15 +42,15 @@ $board = function (string $mine, array $theirs, bool $mineReady = true) use ($bu
 
 // ── 1. the buff turns a non-kill into a kill: Mina 2/4 + 2 = 4 power kills Neel (1/4) ──────────────────────────
 $board('SEC_094', ['ASH_248']);
-$flat = $score($ACT, []);
-$check($flat !== null && abs($flat - 0.4) < 1e-9, 'fixture: the shipped bot scores the Action a flat 0.40 (the gap)', strval($flat));
+$flat = $score($ACT, $OFF);
+$check($flat !== null && abs($flat - 0.4) < 1e-9, 'fixture: @no-mgbuff scores the Action a flat 0.40 (the gap)', strval($flat));
 $on = $score($ACT, $ON);
 $check($on > $flat, 'mgbuff prices the Action above the flat ability value', "$flat -> $on");
 $check($on > $score('myGroundArena-0!FSM!', $ON), 'mgbuff: enabling the kill beats attacking without it',
     $on . ' vs ' . $score('myGroundArena-0!FSM!', $ON));
 SWUBotSetDisabledFeatures($ON);
 $legal = SWUBotLegalActions($gameName, 1);
-$pick = SWUBotHeuristicChoose('midrange', (array)$legal['actions'], $legal, 'try-mgbuff');
+$pick = SWUBotHeuristicChoose('midrange', (array)$legal['actions'], $legal, '');
 SWUBotSetDisabledFeatures([]);
 $check(strval($pick['cardID'] ?? '') === $ACT, 'mgbuff: the bot actually USES the Action (it never did before)', strval($pick['cardID'] ?? ''));
 
@@ -69,6 +71,6 @@ $check($score($ACT, $ON) <= 0.4, 'mgbuff: no ready unit to buff → not promoted
 
 // ── 4. inert by default, and for a leader/ability without a printed buff ───────────────────────────────────────
 $board('SEC_094', ['ASH_248']);
-$check($score($ACT, []) === 0.4, 'mgbuff is inert by default');
+$check($score($ACT, $OFF) === 0.4, 'mgbuff is inert under @no-mgbuff');
 
 bot_test_finish();

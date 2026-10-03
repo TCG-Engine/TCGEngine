@@ -89,7 +89,9 @@ $build(function ($b) { foreach (['SOR_095', 'SOR_046', 'LOF_084', 'SOR_164'] as 
 DecisionQueueController::AddDecision(1, "CUSTOM", "ChooseStartingResource", 50);
 ob_start(); (new DecisionQueueController())->ExecuteStaticMethods(1, '-'); ob_end_clean();
 $check($botCtx('aggro')['tooltip'] === 'Choose_2_cards_to_resource', 'fixture: the opening two-card resource prompt');
-$check($stack('aggro') === ['myHand-1&myHand-3', ['fallback']], 'opening (guide): Aggro resources its two most expensive');
+// p28 'mgcost' (owner 2026-10-03): costs are what THIS seat pays — under the bootstrap leader 2 / 6 / 5 / 4 (the Consular and
+// the Knight are off-aspect, +2), so the two most expensive are now the Consular and the Knight.
+$check($stack('aggro') === ['myHand-1&myHand-2', ['fallback']], 'opening (guide): Aggro resources its two most expensive (seat costs)');
 $check($stack('control')[0] === 'myHand-0&myHand-2', 'opening (guide): Control — every card is castable soon (≤ 4), so the two cheapest go; the bomb and the other 4 stay');
 
 // ── Rule 3 — initiative for lethal next round ────────────────────────────────────────────────────
@@ -334,14 +336,19 @@ $check($stack('aggro', 1, 'no-stop')[0] === 'myHand-1', '@no-stop: Aggro keeps r
 // The point here is that Normal does NOT pass at 6 (its stop is 8). The INDEX moved 1 -> 0 with p12
 // 'mgbomb', which resources the cheapest card rather than the most expensive.
 $check($stack('normal')[0] !== 'PASS', 'Normal at 6 keeps resourcing — its stop is 8');
-$check($stack('normal')[0] === 'myHand-0', '… and p12 makes that pick the cheapest card, not the dearest');
+// p28 'mgcost': the Consular costs this seat 6, so it is no longer an efficient body (3 + 7 < 2 x 6) and loses p11's +100 —
+// the efficient Marines (202) now outrank the bomb (200), and the Consular is the one resourced. '@no-mgcost' keeps myHand-0.
+$check($stack('normal')[0] === 'myHand-1', '… and at its seat cost (6) the Consular is no efficient body: it is the pick');
+$check($stack('normal', 1, 'no-mgcost')[0] === 'myHand-0', '@no-mgcost: p12 makes that pick the cheapest card, not the dearest');
 $build($regroup('SOR_014', 5)); $toRegroup();
 $check($stack('aggro')[0] === 'myHand-1', 'Aggro at 5 still resources');
 $build($regroup('SOR_014', 8)); $toRegroup();
 $check($stack('normal')[0] === 'PASS' && $stack('control')[0] !== 'PASS', 'Normal stops at 8; Control (9) does not');
 $build(function ($b) use ($regroup) { ($regroup('SOR_014', 10))($b); $b->WithCardInDeckForPlayer(1, 'JTL_041'); }); $toRegroup();
 $check(SWUBotResourceStop(1, 'control') === 11 && $stack('control')[0] !== 'PASS', 'an 11-cost card in the deck: Control resources on toward 11');
-$build(function ($b) use ($regroup) { ($regroup('SOR_014', 9))($b); $b->WithCardInDeckForPlayer(1, 'LAW_133'); $b->WithCardInDeckForPlayer(1, 'JTL_043'); }); $toRegroup();
+// A Vigilance/Villainy leader (SOR_002 Iden Versio): with p28 'mgcost' both answers must be on-aspect to cost 6 and 5 —
+// under Sabine they would cost 8 and 9 and not count as cheap answers at all.
+$build(function ($b) use ($regroup) { ($regroup('SOR_002', 9))($b); $b->WithCardInDeckForPlayer(1, 'LAW_133'); $b->WithCardInDeckForPlayer(1, 'JTL_043'); }); $toRegroup();
 $check(SWUBotResourceStop(1, 'control') === 11, 'Lost and Forgotten (6) + No Glory (5) in one round: Control stops at 11');
 $build($regroup('LOF_007', 7)); $toRegroup();
 $check($stack('aggro')[0] === 'myHand-1', 'the floor beats the stop: Avar Kriss (9) at 7 resources keeps resourcing');

@@ -7,7 +7,7 @@ require_once __DIR__ . '/BotFlavours.php';
 // both GUIDES that training learns past; Normal's card choice, stops and mulligans are ultimately learned.
 // Keep value: LOWER = resource it first.
 
-// Keep bonus per point of board-dependent power surplus (proposal 'ctxpower', SWUBotContextSurplus).
+// Keep bonus per point of board-dependent power surplus (feature 'ctxpower' p28, SWUBotContextSurplus).
 const SWU_BOT_CTXPOWER_KEEP = 2.0;
 // Spec: docs/superpowers/specs/2026-09-13-swusim-rl-bots-design.md, Section 2 ("The resourcing engine").
 
@@ -72,7 +72,7 @@ function _SWUBotRedundantUniqueInHand(int $seat, string $cardID, int $index): bo
     return false;
 }
 
-// PROPOSAL 'mgcost' (default OFF, "@try-mgcost") — THE COST THIS SEAT ACTUALLY PAYS.
+// Feature 'mgcost' (p28, shipped 2026-10-03; @no-mgcost) — THE COST THIS SEAT ACTUALLY PAYS.
 // Owner ruling 2026-09-23 (6): "off-aspect cards cost +2 and must be judged at that cost. Chimaera technically
 // costs 9 for Luke (ASH) DV. it would be one of the first to go in an opening hand."
 // The whole resourcing engine reads PRINTED cost — CardCost() — so an off-aspect card is ranked as if the seat
@@ -84,7 +84,7 @@ function _SWUBotRedundantUniqueInHand(int $seat, string $cardID, int $index): bo
 // desync the bot from SWUDeployLeader().
 function _SWUBotSeatCost(int $seat, string $cid): int {
     $c = intval(CardCost($cid));
-    if (!SWUBotProposalOn('mgcost') || !function_exists('SWUAspectPenalty')) return $c;
+    if (!SWUBotFeatureOn('mgcost') || !function_exists('SWUAspectPenalty')) return $c;
     return $c + intval(SWUAspectPenalty($seat, $cid));
 }
 
@@ -162,7 +162,7 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         if (SWUBotFeatureOn('keep') && SWUBotIsKeyCard($seat, $cid)) {
             $keep += ($rank >= 3 && !SWUBotProposalOn('keepequal')) ? 50.0 : 150.0;
         }
-        // PROPOSAL 'ctxpower' (default OFF): a card whose power depends on the board, judged ON the board.
+        // Feature 'ctxpower' (p28, shipped 2026-10-03; @no-ctxpower): a card whose power depends on the board, judged ON the board.
         // The list is sorted ASCENDING and the first entries are resourced, so a positive bonus pulls a card
         // AWAY from the resource pick — it can only ever rescue one, never bury one.
         // 2.0 a point against the aggro wing's `-$cost` means a 4-cost card needs a surplus of 2 before it is

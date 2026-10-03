@@ -1,6 +1,11 @@
 <?php
 
 $debugMode = true;
+// ⚠ GLOBAL FIRST. EngineLoadRootRuntime() includes this file from inside a FUNCTION, so without the declaration the array
+// below is a local, CardHelpers.php (included next) registers into it, and CombatLogic.php's top-level `global
+// $customDQHandlers;` then rebinds the name and drops those handlers — EACH_PLAYER_DEFEAT_PICK / HIDDEN_DISCARD_PICK
+// fataled at resolution. Guard: SWUSim/DevTools/tests/runtime_loader_handlers_test.php.
+global $customDQHandlers;
 $customDQHandlers = [];
 $_computingPowerLifeSwap = false;
 
@@ -497,7 +502,16 @@ function _SWUStatIdentityCount($obj, string $cardID): int {
     return $n;
 }
 
+// A unit's power, floored at 0 (CR 8.15.4: "A value cannot be modified below 0 … treat that value as 0").
 function ObjectCurrentPower($obj) {
+    return max(0, ObjectCurrentPowerRaw($obj));
+}
+
+// The same sum WITHOUT the floor. CR 8.15.4: "any new modifiers applied after a value is treated as 0 will still
+// account for any previous modifiers applied to that value" — so a calculation that ADDS to power afterwards (an
+// attack's Raid and "+N while attacking", ObjectCurrentPowerInAttack) must start from this and floor once at the
+// end. Starting from the floored value lost the −2 on a 0-power Cantina Braggart and let Raid 2 deal 2 (CR example).
+function ObjectCurrentPowerRaw($obj): int {
     $base = intval(CardPower($obj->CardID));
     if ($base < 0) $base = 0;
 
@@ -958,8 +972,8 @@ function ObjectCurrentPower($obj) {
     // SOR_106 Attack Pattern Delta, SOR_216 Disarm, SOR_076 Make an Opening, SOR_054 Jedi Lightsaber.
     $base += SWUTurnEffectStatBonus($obj, 'power');
 
-    // A unit's power can never be reduced below 0 (CR 7.3.5).
-    return max(0, $base);
+    // Unfloored — ObjectCurrentPower() applies the 0 floor (CR 8.15.4).
+    return intval($base);
 }
 
 // Power AS SEEN DURING AN ATTACK — ObjectCurrentPower plus the attack-only bonuses, but only for the
@@ -979,10 +993,10 @@ function ObjectCurrentPower($obj) {
 // bonus into it would change combat damage itself, since CombatLogic adds Raid on top of it.
 // Use this ONLY where a card reads power during an attack.
 function ObjectCurrentPowerInAttack($obj): int {
-    $p = intval(ObjectCurrentPower($obj));
-    if ($obj === null) return $p;
+    if ($obj === null) return 0;
+    $p = intval(ObjectCurrentPowerRaw($obj));   // unfloored: Raid etc. still account for earlier reductions (CR 8.15.4)
     $uid = intval($obj->UniqueID ?? 0);
-    if ($uid <= 0 || $uid !== intval(GetSWUVar('SWU_CURRENT_ATTACKER_UID', '0'))) return $p;
+    if ($uid <= 0 || $uid !== intval(GetSWUVar('SWU_CURRENT_ATTACKER_UID', '0'))) return max(0, $p);
     // Value keywords honour suppression here — the generated GetKeyword_*_Value readers do not gate on
     // LostAbilities themselves (same reasoning as CombatLogic's Raid application).
     $raid = LostAbilities($obj) ? null : GetKeyword_Raid_Value($obj);
@@ -10098,6 +10112,18 @@ function SWUSetDefeatedByCombat(string $mzID, bool $byCombat): void {
     $GLOBALS['gCombatDefeatByMz'][$mzID] = $byCombat;
     SetSWUVar('SWU_CDEF_MZ_' . str_replace('-', '_', $mzID), $byCombat ? '1' : '0');
 }
+// Before using the "When Defeated" ability of a LIVING unit (JTL_039 Chimaera): it was never defeated, so the
+// per-slot defeat information must describe THIS unit as it is now — not a different unit that was defeated in the
+// same slot earlier. The slot-keyed snapshots read by those abilities are "defeated by combat damage"
+// (SWUDefeatedByCombat — ASH_028 Paz, ASH_191) and "power at defeat" (SWU_WDPOWER_MZ_ — JTL_104 Raddus, which dealt
+// a long-gone Raddus's buffed 10 instead of the living one's 8).
+function SWUPrepareLivingWhenDefeatedUse(string $mzID): void {
+    SWUSetDefeatedByCombat($mzID, false);
+    $o = GetZoneObject($mzID);
+    if ($o === null || !empty($o->removed)) return;
+    unset($GLOBALS['gWDPowerSnapshot'][$mzID]);
+    SetSWUVar('SWU_WDPOWER_MZ_' . str_replace('-', '_', $mzID), strval(intval(ObjectCurrentPower($o))));
+}
 function SWUDefeatedByCombat(string $mzID): bool {
     if (isset($GLOBALS['gCombatDefeatByMz'][$mzID])) return !empty($GLOBALS['gCombatDefeatByMz'][$mzID]);
     return GetSWUVar('SWU_CDEF_MZ_' . str_replace('-', '_', $mzID), '0') === '1';
@@ -10880,9 +10906,52 @@ function Ash137ExcessTrigger($player, string $attackerMz, int $excess): void {
     $atk = GetZoneObject($attackerMz);
     $atkUid = SWUObjUID($atk, 0);
     $arena = strpos($attackerMz, 'SpaceArena') !== false ? 'Space' : 'Ground';
+    // Overwhelm attacker: combat HELD the excess (see the spill site). Wipe Them Out is a "may", and not
+    // using it leaves Overwhelm's spill — so the choice is a unit in the arena OR the defending base.
+    $held = GetSWUVar('SWU_ASH137_HELD_' . $atkUid, '');
+    if ($held !== '') {
+        SetSWUVar('SWU_ASH137_HELD_' . $atkUid, '');
+        $h = json_decode($held, true) ?: [];
+        $baseMz = SWUForeignMzID(intval($player), intval($h['baseOwner'] ?? 0), 'Base', 0);
+        $targets = [];
+        foreach (array_merge(ZoneSearch("my{$arena}Arena", AnyUnitFilter), ZoneSearch("their{$arena}Arena", AnyUnitFilter)) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && !SWUObjGone($o) && SWUObjUID($o, 0) !== $atkUid) $targets[] = $mz;
+        }
+        $targets[] = $baseMz;
+        DecisionQueueController::AddDecision(intval($player), 'MZCHOOSE', implode('&', $targets), 1,
+            "Deal_{$excess}_excess_damage_to_a_unit_in_the_same_arena_or_to_the_base_(Overwhelm)");
+        DecisionQueueController::AddDecision(intval($player), 'CUSTOM', "ASH_137_HELD|{$atkUid}|{$excess}|" . base64_encode($held), 1);
+        return;
+    }
     SWUOfferUnitTarget($player, '', ['continuation'=>'DEAL_UNIT_DAMAGE','amount'=>$excess,'may'=>true,'arena'=>$arena,'excludeUID'=>$atkUid,
         'question'=>"Deal_the_excess_damage_to_another_unit?",'prompt'=>"Deal_{$excess}_damage_to_a_unit_in_the_same_arena"]);
 }
+
+// Continuation for the held Overwhelm excess: a unit takes it as Wipe Them Out damage; the base takes it
+// as the Overwhelm spill it would have been, so the "deals combat damage to a base" abilities fire for it.
+$customDQHandlers["ASH_137_HELD"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $atkUid = intval($parts[0] ?? 0);
+    $excess = intval($parts[1] ?? 0);
+    $h = json_decode(base64_decode($parts[2] ?? ''), true) ?: [];
+    $choice = (string)($lastDecision ?? '');
+    if ($excess <= 0 || $choice === '' || $choice === '-' || $choice === 'PASS') return;
+    if (strpos($choice, 'Base') === false) {
+        SWUDealDamageToUnit($choice, $excess, intval($player));
+        return;
+    }
+    $attackerMz = SWUFindMzByUID($atkUid);
+    $attacker = ($attackerMz !== null) ? GetZoneObject($attackerMz) : null;
+    $ctx = ['baseReplay' => true, 'baseCombatDmg' => 0, 'dealtToBase' => false,
+            'attackerUID' => intval($h['attackerUID'] ?? $atkUid), 'attackerCardID' => strval($h['attackerCardID'] ?? ''),
+            'supportGrant' => $h['supportGrant'] ?? null,
+            'jtl177BaseDraw' => !empty($h['jtl177BaseDraw']), 'ash162Discard' => !empty($h['ash162Discard'])];
+    $spilled = _SWUOverwhelmSpillToBase(intval($player), $choice, $attacker, $excess, $ctx);
+    AddGameLogEntry('OVERWHELM', 'Overwhelm: ' . $spilled . ' damage to P' . SWUMzOwner($choice, intval($player)) . '\'s base');
+    SWUCollectCombatHitTriggers(intval($player), $attackerMz ?? '', $choice, $ctx);
+    FlushEntryTriggerBag(intval($player));
+};
 
 function BlizzardExcessTrigger($player, int $excess): void {
     global $playerID;

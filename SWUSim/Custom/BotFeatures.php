@@ -1,8 +1,12 @@
 <?php
-// Per-seat FEATURE SWITCHES for the heuristic stack (RL bots spec, Section 7: "the strength test"). Owner ruling
-// 2026-09-14 — "raise the weak, never lower the strong": every heuristic change must beat the stack it replaces
-// head-to-head. So each change of Phase 1b part 2 is named here and checked with SWUBotFeatureOn() where its
-// behaviour lives, and a chooser profile can switch some of them off:
+// Per-seat FEATURE SWITCHES for the heuristic stack (RL bots spec, Section 7). Each change is named here and checked with
+// SWUBotFeatureOn() where its behaviour lives, so a chooser profile can switch some of them off.
+// ⚠ SHIP/HOLD RULE (owner, 2026-10-03 — replaces 2026-09-14's "every change must beat the stack head-to-head", which the
+// 2026-09-16 fidelity reframe had already retired): a lever that CORRECTS something demonstrably wrong (shown on a test
+// board), measures with no deck significantly hurt (a NULL passes), and has every line under a mutation-checked test ships
+// ON as a feature group. A proposal stays a "@try-" only when it measures HARMFUL or is a judgement call rather than a fix.
+// Owner: "i fear this outdated rule might be hurting potential explorations." The measurement is a SAFETY check.
+// Chooser profiles:
 //   heuristic-<style>            everything on
 //   heuristic-<style>@base       every feature in SWUBotFeatureList() off — the stack before them
 //   heuristic-<style>@no-<name>  only <name> off
@@ -310,6 +314,77 @@ const SWU_BOT_WAIVER_UNLOCKS_NOTHING = -0.1;
 // 8-cost Pre Vizsla — even when it sacrificed ITSELF for it (owner report, game 1438045). Guard: bot_chimaera_test.php.
 const SWU_BOT_PART25_FEATURES = ['defeatpick'];
 
+// Part 26 (2026-10-03): 'breach' — a Sentinel kill is worth the base damage it UNLOCKS: W['base'] x the attack power of my
+// other ready, non-Saboteur units in that arena (BotFallback.php _SWUBotBreachOpened); 0 if another Sentinel of that
+// player remains there or, Twin Suns, another opponent's base is already reachable in that arena. Owner ruling (Ahsoka
+// research): "if the opponent has a high HP sentinel, then try to buff something low-value so that it can crash in and
+// make way for the other units to attack. however, if that sentinel can be cleared with a unit post-buff that survives,
+// take that line if and only if it enables more damage from the other units" — ties go to the survivor (no loss term).
+// buffspread (p20) no longer writes off a Sentinel arena when a unit (+ the buff + the leader's Raid that Support LENDS)
+// can breach it AND the breach opens something. ⚠ W['base'] is FLAT for every style, so this mostly moves AGGRO (control
+// already trades into Sentinels); owner kept the table. One step only: no pop-the-Shield-then-kill plan.
+// MEASURED one-sided on fresh seeds as @try-breach: focus (Ninin's Ahsoka Yellow vs 5 panel decks, 1,000 pairs) 110 games
+// changed, 757 vs 757 wins, discordant 9:9 (p 1.0); safety (Vader Y, Ezra Y, Luke ASH DV, Maul Blue, Mando Colossus, 200
+// pairs each) pooled 5:5, no deck below p .69. A NULL — SHIPPED on the owner's ruling because it does not hurt ("if it
+// doesn't hurt, then let's ship it"), like p7/p9. Its flip-turn board goes 9 -> 14 base damage (bot_breach_test G).
+// Spec: docs/superpowers/specs/2026-10-03-swusim-bot-sentinel-breach-design.md. Guard: SWUSim/DevTools/tests/bot_breach_test.php.
+const SWU_BOT_PART26_FEATURES = ['breach'];
+
+// Part 27 (2026-10-03): 'popkill' — popping a Shield is worth the KILL it sets up: an attack that only pops a unit's ONE
+// Shield ('bounce', or 'die' — the popper still takes the Shield) is credited with the best kill another READY unit of
+// mine in that arena then makes on the unshielded unit (SWUBotTargetValue on the popped copy, so a breach counts). A pop
+// used to be chip − 0.05 × power (≤ 0 for any 3+ power hyperaggro attacker) or a plain loss, so the wrong unit popped (the
+// big one, under rule 8) and the cheap one never did. Research 2026-10-03 (traces of 1,670 games): an upgraded Sentinel
+// walls the bot in 18% of games, nearly all ASH_048 Imperial Armored Commando (Krennic Blue) / LAW_118 Droid Laser Turret
+// (Mando Colossus) — cheap printed Sentinel + Shielded.
+// MEASURED (fresh seeds h001-h050; Vader Y / Ahsoka (Ninin) / Ezra Y vs Mando Colossus + Krennic Blue, 600 pairs): 13 games
+// changed, discordant 2:0 against (p .5) — NEAR-INERT, no deck hurt. 265 of 299 wall-rounds had fewer than 2 ready units in
+// the wall's arena, so the two-step was never on: the gap is BODIES there, not pricing. SHIPPED under the 2026-10-03
+// ship/hold rule (a null correction ships ON; see the header). One step only: two Shields are not credited.
+// Guard: SWUSim/DevTools/tests/bot_popkill_test.php.
+const SWU_BOT_PART27_FEATURES = ['popkill'];
+
+// Part 28 (2026-10-03): FIVE HELD PROPOSALS re-reviewed under the 2026-10-03 ship/hold rule (header) and shipped — each
+// corrects something the stack got wrong, none measured harmful:
+//   aurathreat — a unit's threat/value includes the power its aura GRANTS (Victor Leader: +1 per other ship);
+//   mgcost     — the resourcer judges a card at the cost THIS SEAT pays (printed + aspect penalty: Chimaera is a 9 for Luke);
+//   mgbuff     — a buff-and-attack Action that applies its buff in its own handler is priced by what it adds;
+//   leaderrisk — a deployed LEADER unit that dies RETURNS (exhausted): its loss in a trade costs less;
+//   ctxpower   — a hand card whose power depends on the board is valued ON the board (Clone Combat Squadron).
+// SAFETY SWEEP (fresh seeds k001-k024; each alone, one-sided, on Vader Y / Ezra Y / Luke ASH DV / Maul Blue / Mando Colossus
+// / Krennic Blue vs the 5-deck panel, 1,440 pairs each; base-only : arm-only, games changed):
+//   aurathreat  1:0   13 changed (inert)        mgbuff      3:2   36 changed (Luke only)
+//   leaderrisk  3:2   49 changed                mgcost     25:31 201 changed (Luke 2:6, Mando 23:25)
+//   ctxpower   31:38 316 changed (Ezra 17:9 p .17, Mando 10:20 p .10, Vader 4:9) — no deck hurt at p < 0.05 for any of them.
+// mgcost re-priced 16 pinned resourcing checks (their boards are off-aspect); the owner had them updated to its picks.
+// HELD from the same sweep, owner's decision: 'sentinelpot' (pooled 29:19 AGAINST, p .19; Krennic 12:5 p .14 — a second negative trend after
+// the 2026-09-19 lm3 trio — owner: "hold that one") and 'creditbank' (superseded by p23 'bigcredit'; measured worse vs Ahsoka Blue).
+const SWU_BOT_PART28_FEATURES = ['aurathreat', 'mgcost', 'mgbuff', 'leaderrisk', 'ctxpower'];
+
+// Part 29 (2026-10-03): a card DISCARDED FROM MY OWN HAND is a real cost. From a human pilot's 53 Arenabot games with Darth
+// Vader, Unstoppable (BotData bundle swusim-botdata-20261004-025711, 44 won): ~1.8 leader pings a game, 80 of 82 at UNITS (64%
+// killed), paid with dead cards. The bot on the same list (fixture arenabot-ideas/darth-vader_law_blue-force): ~4.5 pings a
+// game, 715 of 907 at the BASE, paid with hand index 0 — Chimaera 95 times, Anakin 79 — and won 10% of 200 games.
+//   discardpick — an own-hand discard prompt takes the card worth least to KEEP (play value less its aspect penalty);
+//   heropitch   — owner 2026-10-03: an off-aspect Heroism card is "worth more in the discard to activate Anakin fully";
+//   pingvalue   — an Action that costs a discarded card is worth its effect less that card; a "deal N to a unit or base"
+//                 ping is removal (a kill) or a finisher (lethal), never chip on a base;
+//   dumpdamage  — deployed Vader's "discard any number, deal that much": k cards are worth k damage (a kill, lethal, or base
+//                 chip) less their keep; owner: hold the hand while Aggressive Negotiations (+1/+0 per card) is in it;
+//   anvader     — a hand-size attack event (SEC_179 Aggressive Negotiations) is worth the attack it makes, and goes to the
+//                 attacker the hand pays most — deployed Vader, whose On Attack cashes the hand again ("double buffed").
+// Guards: SWUSim/DevTools/tests/bot_discardcost_test.php, bot_anvader_test.php.
+const SWU_BOT_PART29_FEATURES = ['discardpick', 'heropitch', 'pingvalue', 'dumpdamage', 'anvader'];
+
+// Part 30 (2026-10-03): from the owner's 5 Arenabot games with Hemlock Red vs his Krennic Blue Splash (BotData, 1 bot win):
+//   fodderfirst — a paired-defeat card (Chimaera) with no friendly unit in play to give waits for the cheap unit that will be
+//                 its price (1483356 R6, 1483359 R16: Chimaera defeated ITSELF, then 0-0-0 was played the same round);
+//   wipeaware   — once an opponent has cast a "defeat all units, 1 damage per enemy unit" wipe (LAW_044 Single Reactor
+//                 Ignition), a play that leaves as many units as my base has HP is held: 1483356 R19, a second Pre Vizsla
+//                 took the board to 7 units on ~7 HP and the next SRI dealt exactly lethal.
+// Guards: SWUSim/DevTools/tests/bot_fodderfirst_test.php, bot_wipeaware_test.php.
+const SWU_BOT_PART30_FEATURES = ['fodderfirst', 'wipeaware'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
@@ -318,7 +393,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES);   // part 2, then 3-25
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES);   // part 2, then 3-30
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -333,7 +408,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
@@ -534,6 +609,7 @@ const SWU_BOT_PROPOSALS = [
     'initiative',
     // 2026-09-19 loss mining (540 traced control-vs-aggro games; owner rulings on real lost positions):
     'sentinelpot',   // bug: one Sentinel was modelled as blocking its whole arena (BotEvaluator.php)
+                     // 2026-10-03 safety sweep: 29:19 AGAINST (p .19), Krennic 12:5 (p .14) — HELD by the owner ("hold that one").
     'freekill',      // Q1: always take a kill-survive on a READY enemy unit (BotRules.php)
     'holdanswers',   // Q2-D: keep space answers vs a space-heavy board; no value for idle heal/Advantage (Resourcing/Fallback)
     'unitvalue',     // the value algorithm: stats-first, keywords, upgrades, When Defeated in context (BotEvaluator.php)
@@ -559,7 +635,7 @@ const SWU_BOT_PROPOSALS = [
     'killfirst',       // take a kill-and-survive attack before a base attack, within the turn
     'blockerfirst',    // behind on units: play a body before attacking
     'tradewhenbehind', // behind on units: an even trade is worth taking (owner Q10, made conditional)
-    'leaderrisk',      // a deployed LEADER unit that dies returns exhausted — it is not a lost card
+    // ('leaderrisk' was SHIPPED 2026-10-03 in feature group 'p28' — see the Part 28 comment.)
     'removalready',    // spend removal on READY enemies; an exhausted one cannot attack this round
     'playsurvivor',    // prefer units that survive the opponent's best attacker
     'sentineltiming',  // play a Sentinel late in the round, so it guards their turn
@@ -569,7 +645,7 @@ const SWU_BOT_PROPOSALS = [
     // focused block: soft control vs Vader Yellow.
     'resourcing2',     // control-wing resourcing as the owner's ordered tiers (rulings 1-10, confirmed precedence)
     'krennicramp',     // Krennic LAW_008: before the flip, play a cheap unit and sacrifice it to the leader for a Credit
-    'aurathreat',      // a unit's threat/value includes the power its aura grants (Victor Leader: +1 per other ship)
+    // ('aurathreat' was SHIPPED 2026-10-03 in feature group 'p28' — see the Part 28 comment.)
     // 2026-09-22 — resourcing2 was CONFIRMED on Thrawn DV vs Vader (+104/2,000) but FAILED safety: Dedra −142, Piett −46.
     // It read "aggressive" off the BOARD, so a hard-control mirror counted, and it dropped the ruling's exceptions.
     // ('resourcing3', its fix, was SHIPPED 2026-09-22 as feature group 'p8' — its history is in the feature comment.)
@@ -581,8 +657,7 @@ const SWU_BOT_PROPOSALS = [
     // 2026-09-23 — the MIDRANGE rulings (bot-sweeps/2026-09-23_midrange_rulings.md). The ablation found every
     // feature group since p4 changes ZERO games for a midrange seat: they are control-gated or need cards the deck
     // does not have. These are midrange's first rules of its own.
-    'mgbuff',          // a buff-and-attack Action is priced by what it adds, even when the card applies the buff in
-                       // its own handler (the shipped 'buffattack' only reads the generic APPLY_PHASE_BUFF)
+    // ('mgbuff' was SHIPPED 2026-10-03 in feature group 'p28' — see the Part 28 comment.)
     // ⛔ MEASURED HARMFUL 2026-09-24 — DO NOT SHIP, DO NOT RE-SCREEN. Kept only so the result reproduces.
     // Midrange lever screen (8,000 games, FOCUS on the 5 midrange decks): midrange 40.27% against jitter nulls
     // at 41.50 / 41.39 — paired McNemar 97:151 and 110:159, p = 0.0008 and 0.0034, i.e. significantly WORSE
@@ -594,9 +669,7 @@ const SWU_BOT_PROPOSALS = [
     'mgsentinel',      // ruling 2/4: keep Sentinels against aggro (3+ power against anyone else), and play one
                        // ahead of a bigger body against aggro — the only body midrange plays before attacking
     'mgremoval',       // ruling 3: shrinkfirst's shape for midrange, barred on the target's COST (5+), not its power
-    'mgcost',          // ruling 6 + the defect found while asking: the resourcer judges every card at the cost THIS
-                       // SEAT pays (printed + aspect penalty), so Chimaera is a 9-drop for Luke ASH, not a 7.
-                       // ⚠ Reaches EVERY deck with off-aspect cards, not just midrange — needs its own safety check.
+    // ('mgcost' was SHIPPED 2026-10-03 in feature group 'p28' — see the Part 28 comment.)
     // ('mgkeep' SHIPPED 2026-09-23 as feature group 'p11' — its measurements are in the feature comment.) Its two
     // clauses stay as arms: the split found the halves are NOT separable (+4.8 body alone, +0.8 duplicate alone,
     // +8.4 together), and the owner intends to re-measure that on the new bot loop.
@@ -639,7 +712,7 @@ const SWU_BOT_PROPOSALS = [
     // buried JTL_115 Clone Combat Squadron 17 times at an average EFFECTIVE power of 5.9 (peak 9) and played
     // it 3 times at 4.3 — it buries the card when it is big and plays it when it is small, because the aggro
     // wing resources by `-$cost` and _SWUBotPlayValue prices a unit by COST. Owner 2026-09-24.
-    'ctxpower',
+    // ('ctxpower' was SHIPPED 2026-10-03 in feature group 'p28' — see the Part 28 comment.)
     // CARD VALUE (spec docs/superpowers/specs/2026-09-28-swusim-card-value-design.md, owner chose the
     // FULL scope with defence in v1, 2026-09-28). Replaces _SWUBotPlayValue's flat tag sum with
     // Body + Effect - SelfCost in expected-base-damage, read off the BOARD: removal is worth its best
@@ -662,11 +735,8 @@ const SWU_BOT_PROPOSALS = [
     'creditbank',
     // ('mgkill' was SHIPPED 2026-09-25 as feature group 'p13' — its history is in the feature comment.)
     // ('mgbomb' was SHIPPED 2026-09-24 as feature group 'p12' — its history is in the feature comment.)
-    // 2026-10-03 — owner ruling (Ahsoka research): a Sentinel kill is worth the base damage it UNLOCKS for my other
-    // ready, non-Saboteur units in that arena (BotFallback.php _SWUBotBreachOpened). Crash a cheap unit into a big
-    // Sentinel, or clear it with a survivor when that opens more; ties go to the survivor. Any buff, any deck.
-    // Spec: docs/superpowers/specs/2026-10-03-swusim-bot-sentinel-breach-design.md. Guard: bot_breach_test.php.
-    'breach',
+    // ('breach' was SHIPPED 2026-10-03 as feature group 'p26' — its history is in the feature comment.)
+    // ('popkill' was SHIPPED 2026-10-03 as feature group 'p27' — its history is in the feature comment.)
 ];
 
 

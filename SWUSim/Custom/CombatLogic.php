@@ -28,6 +28,20 @@ function _SWUOverwhelmSpillToBase(int $player, string $targetMzID, $attacker, in
     return $overflowAmt;
 }
 
+// ASH_137 Wipe Them Out — is there "another unit in the same arena" (either side, not the attacker, not the
+// defender being defeated) to take the excess? Decides whether an Overwhelm spill is held for the choice.
+function _SWUAsh137HasOtherUnit(string $attackerMzID, int $attackerUID, int $defenderUID): bool {
+    $arena = strpos($attackerMzID, 'SpaceArena') !== false ? 'SpaceArena' : 'GroundArena';
+    foreach (GetLiveSeatsArray() as $seat) {
+        foreach (GetZone(SWUSeatZone(intval($GLOBALS['playerID']), intval($seat), $arena)) as $u) {
+            if (SWUObjGone($u)) continue;
+            $uid = intval($u->UniqueID ?? 0);
+            if ($uid !== $attackerUID && $uid !== $defenderUID) return true;
+        }
+    }
+    return false;
+}
+
 
 // "Deals combat damage before the defender" — the colloquial "Shoot First" ordering. Sources: the
 // SHOOT_FIRST turn-effect marker (SOR_217 Shoot First's grant, SOR_219's conditional grant), SOR_198
@@ -1581,6 +1595,9 @@ function _SWUUnitBaseDamageStamps(int $ctrl, int $uid): int {
     return $n;
 }
 
+// $combatCtx['baseReplay']: called a second time by ASH_137 Wipe Them Out after its held Overwhelm excess
+// went to the base (Ash137HeldExcessResolve). Only the base-hit abilities may fire on that pass; the ones
+// that fire on every attack end were already collected by the real pass and are skipped.
 function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID, array $combatCtx): void {
     $attacker = GetZoneObject($attackerMzID);
     // LAW_007 Boba Fett is a FIELD observer owned by BOBA (not by the attacker): "When a friendly Bounty
@@ -1673,7 +1690,7 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // ASH_016 Shin leader observers, which were moved above this same early-return for the same reason.
     // ⚠ The UNDEPLOYED side stays BELOW: it heals only "that unit", so with the attacker gone it has no
     // legal target and offering it would be a fizzle-only optional.
-    if (_SWULeaderDeployed($activePlayer, 'ASH_005')) {
+    if (_SWULeaderDeployed($activePlayer, 'ASH_005') && empty($combatCtx['baseReplay'])) {
         AddTrigger($activePlayer, 'ASH_005#1', 'ASH_005#1', $attackerMzID);
     }
     // SHD_143 Ruthlessness (granted upgrade) — "When this unit attacks and defeats a unit: Deal 2 damage
@@ -1728,7 +1745,8 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                             // with less power than this unit." (Survival gated at line 665; fires on any attack.)
                             // A defender's parked When-Defeated (e.g. Raddus's "deal damage equal to power")
                             // can still kill it — relay behind those so "survived" is real before offering.
-                if (!_SWUAttackEndCrossPlayerOrderSeam(intval($activePlayer), 'LAW_033', intval($attacker->UniqueID ?? 0), 'LAW_033')) {
+                if (empty($combatCtx['baseReplay'])
+                    && !_SWUAttackEndCrossPlayerOrderSeam(intval($activePlayer), 'LAW_033', intval($attacker->UniqueID ?? 0), 'LAW_033')) {
                     AddTrigger($activePlayer, 'LAW_033', 'LAW_033', $attackerMzID);
                 }
                 break;
@@ -1836,7 +1854,7 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // LAW_088 Anakin Skywalker (field passive) — "When a friendly unit's attack ends: if no other units
     // have attacked this phase, you may return it to its owner's hand. If you do, heal 2 from your base."
     // The attacker survived (gated at line 665). "No other units" = exactly one attack flag this phase.
-    if (_SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_088') > 0) {
+    if (_SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_088') > 0 && empty($combatCtx['baseReplay'])) {
         $attackers = 0;
         foreach (GetLiveSeatsArray() as $ap) {
             foreach (GetGlobalEffects($ap) as $ge) {
@@ -1946,7 +1964,19 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // NOTE: does NOT currently fire when the attacker TRADES (dies in the same combat) — the trigger fires
     // and its MayChoose queues, but the prompt doesn't surface through the combat trigger flush once the
     // attacker is removed (a combat trigger-ordering / index-shift edge). Deferred — see ash.md.
-    if (!empty($combatCtx['ash137Excess']) && intval($combatCtx['excess'] ?? 0) > 0) {
+    if (!empty($combatCtx['ash137Excess']) && empty($combatCtx['baseReplay']) && intval($combatCtx['excess'] ?? 0) > 0) {
+        // Overwhelm excess held back at the spill site: the trigger offers unit-or-base. What the base
+        // branch needs to replay the "deals combat damage to a base" abilities is parked by attacker UID.
+        if (intval($combatCtx['ash137HeldBaseOwner'] ?? 0) > 0) {
+            SetSWUVar('SWU_ASH137_HELD_' . intval($attacker->UniqueID ?? 0), json_encode([
+                'baseOwner'      => intval($combatCtx['ash137HeldBaseOwner']),
+                'attackerUID'    => intval($combatCtx['attackerUID'] ?? 0),
+                'attackerCardID' => strval($combatCtx['attackerCardID'] ?? ''),
+                'supportGrant'   => $combatCtx['supportGrant'] ?? null,
+                'jtl177BaseDraw' => !empty($combatCtx['jtl177BaseDraw']),
+                'ash162Discard'  => !empty($combatCtx['ash162Discard']),
+            ]));
+        }
         AddTrigger($activePlayer, 'ASH_137', 'ASH_137', $attackerMzID, strval(intval($combatCtx['excess'])));
     }
     // ASH_162 Rash Action (granted, this attack) — "When Attack Ends: if this unit dealt combat damage to
@@ -1962,7 +1992,7 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     }
     // ASH_005 Luke Skywalker (undeployed leader) — "When a friendly unit's attack ends: you may exhaust this
     // leader; if you do, heal 1 damage from that unit." Fires for the attacking player's ready, undeployed Luke.
-    if (_SWULeaderReadyUndeployed($activePlayer, 'ASH_005')) {
+    if (_SWULeaderReadyUndeployed($activePlayer, 'ASH_005') && empty($combatCtx['baseReplay'])) {
         AddTrigger($activePlayer, 'ASH_005', 'ASH_005', $attackerMzID);
     }
     // (ASH_013 Ezra + ASH_016 Shin leader-observer hooks moved ABOVE the attacker-survival early-return —
@@ -2996,8 +3026,9 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $target = $found;
     }
 
-    $attackPower = intval(ObjectCurrentPower($attacker));
-    $attackBasePower = $attackPower; // LAW_086: snapshot pre-modifier power to recompute Grit after a defender-first hit
+    // UNFLOORED until every addition and subtraction is in (CR 8.15.4) — floored once below, before multipliers.
+    $attackPower = intval(ObjectCurrentPowerRaw($attacker));
+    $attackBasePower = max(0, $attackPower); // LAW_086: snapshot pre-modifier power to recompute Grit after a defender-first hit
     // Raid: +N power for this attack only (CR 7.6.7). A unit that has lost all abilities (e.g. SEC_038
     // Condemn while attacking, SEC_054) gets no Raid — value keywords honor suppression here, since the
     // generated GetKeyword_*_Value readers don't gate on SWUKeywordSuppressed/LostAbilities themselves.
@@ -3051,11 +3082,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // SEC_033 Sly Moore: "each enemy unit gets -2/-0 while attacking a base this phase." The marker sits
     // on the (enemy) attacker; reduce its power only when the target is a base.
     if (_SWUSlyMooreDebuffs($attacker) && strpos((string)$targetMzID, 'Base') !== false) {
-        $attackPower = max(0, $attackPower - 2);
+        $attackPower -= 2;   // floored once, below (CR 8.15.4)
     }
     // ASH_054 Pointless to Resist (upgrade) — "Attached unit gets -3/-0 while attacking a base."
     if (strpos((string)$targetMzID, 'Base') !== false && _SWUUnitHasUpgrade($attacker, 'ASH_054')) {
-        $attackPower = max(0, $attackPower - 3);
+        $attackPower -= 3;   // floored once, below (CR 8.15.4)
     }
     // SEC_139 Miraj Scintel: "While a friendly unit is attacking a damaged unit, the attacker gains
     // Overwhelm." Field-passive — any friendly attacker, while its controller controls SEC_139.
@@ -3073,21 +3104,21 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // SOR_071 Electrostaff: "While attached unit is defending, the attacker gets -1/-0." If the
     // defender (host of this upgrade) is being attacked, reduce the attacker's power by 1.
     if ($target !== null && empty($target->removed) && _SWUUnitHasUpgrade($target, 'SOR_071')) {
-        $attackPower = max(0, $attackPower - 1);
+        $attackPower -= 1;   // floored once, below (CR 8.15.4)
     }
     // TWI_072 I Have the High Ground: "Each enemy unit gets -4/-0 while attacking that unit this phase."
     // The marker sits on the protected (defending) unit; reduce the attacker's power by 4 vs it.
     if ($target !== null && empty($target->removed)
         && is_array($target->TurnEffects ?? null) && in_array('TWI_072', $target->TurnEffects, true)) {
-        $attackPower = max(0, $attackPower - 4);
+        $attackPower -= 4;   // floored once, below (CR 8.15.4)
     }
     // LAW_108 Lando Calrissian: "While this unit is defending, the attacker gets -1/-0."
     if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'LAW_108') {
-        $attackPower = max(0, $attackPower - 1);
+        $attackPower -= 1;   // floored once, below (CR 8.15.4)
     }
     // JTL_054 Gold Leader: "While this unit is defending, the attacker gets -1/-0."
     if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'JTL_054') {
-        $attackPower = max(0, $attackPower - 1);
+        $attackPower -= 1;   // floored once, below (CR 8.15.4)
     }
     // HMW_251 Blockade Ship: "Enemy ground units get -1/-0 while attacking."
     // A CROSS-ARENA aura: the Blockade Ship sits in SPACE and debuffs the GROUND arena, so the source's
@@ -3105,16 +3136,16 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         foreach (OpponentsOf(intval($attacker->Controller ?? 0)) as $bsOpp) {
             $blockade += _SWUCountActiveUnitsWithCardID(intval($bsOpp), 'HMW_251');
         }
-        if ($blockade > 0) $attackPower = max(0, $attackPower - $blockade);
+        if ($blockade > 0) $attackPower -= $blockade;   // floored once, below (CR 8.15.4)
     }
     // SEC_042 Cassian Andor: "While this unit is defending, the attacker gets -2/-0."
     if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'SEC_042') {
-        $attackPower = max(0, $attackPower - 2);
+        $attackPower -= 2;   // floored once, below (CR 8.15.4)
     }
     // JTL_259 Retrofitted Airspeeder: "While attacking a space unit, this unit gets -1/-0."
     if (_SWUAttackerGrants($attacker, 'JTL_259') && $target !== null && empty($target->removed)
         && strpos((string)$targetMzID, 'SpaceArena') !== false) {
-        $attackPower = max(0, $attackPower - 1);
+        $attackPower -= 1;   // floored once, below (CR 8.15.4)
     }
     // "Deals combat damage before the defender" ordering — the colloquial "Shoot First". Sources:
     // the SHOOT_FIRST marker (SOR_217 Shoot First grant) OR SOR_198 Han Solo's innate deal-first.
@@ -3148,6 +3179,8 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         }
         $attacker->TurnEffects = $keptTE;
     }
+    // One floor, after every addition and subtraction (CR 8.15.4) — Cantina Braggart 0 −2 +Raid 2 attacks for 0.
+    $attackPower = max(0, intval($attackPower));
     // MULTIPLICATIVE modifiers come LAST (CR v9.0 8.15.2: additive, then subtractive, then multiplicative), after
     // every addition and subtraction above — SEC_137 Dryden Vos "double this unit's power for this attack".
     // A value can't go below 0 (CR 8.15.4), so it is the clamped total that doubles. Consumed with the attack.
@@ -3561,7 +3594,16 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             // ASH_150 Deadly Vulnerability — "While attached unit is defending, the attacker loses Overwhelm."
             if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged || $shd138VsBounty || $sec139Overwhelm || $shd007Deployed)
                 && !_SWUUnitHasUpgrade($target, 'ASH_150')) {
-                $_logOverwhelm = _SWUOverwhelmSpillToBase($player, $targetMzID, $attacker, -$defenderHP, $combatCtx);
+                // ASH_137 Wipe Them Out + Overwhelm (user ruling 2026-10-03): the same excess can go to
+                // another unit in the arena OR to the base, so HOLD it here and let the ASH_137 trigger ask.
+                // Only when there is a choice to make (another unit in the arena) and the attacker survives:
+                // a dead attacker's ASH_137 never surfaces (see the arm site), and the spill must not be lost.
+                if (!empty($combatCtx['ash137Excess']) && $attackerHP > 0
+                    && _SWUAsh137HasOtherUnit($attackerMzID, intval($attacker->UniqueID ?? 0), intval($target->UniqueID ?? 0))) {
+                    $combatCtx['ash137HeldBaseOwner'] = SWUMzOwner($targetMzID, $player);
+                } else {
+                    $_logOverwhelm = _SWUOverwhelmSpillToBase($player, $targetMzID, $attacker, -$defenderHP, $combatCtx);
+                }
             }
         }
     }

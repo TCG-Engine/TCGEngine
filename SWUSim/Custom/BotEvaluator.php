@@ -188,10 +188,10 @@ function _SWUBotBasePotentialThroughSentinels(int $seat, int $defSeat, bool $rea
 function SWUBotUnitBaseThreat(int $defSeat, array $v): int {
     $guarded = _SWUBotSentinelArenas($defSeat);
     $own = (!$v['saboteur'] && ($guarded[$v['arena']] ?? false)) ? 0 : intval($v['attackPower']);
-    return $own + ((function_exists('SWUBotProposalOn') && SWUBotProposalOn('aurathreat')) ? _SWUBotAuraGrantedPower($v) : 0);
+    return $own + ((function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('aurathreat')) ? _SWUBotAuraGrantedPower($v) : 0);
 }
 
-// PROPOSAL 'aurathreat' (default OFF) — owner ruling 4 (2026-09-22): a unit's threat includes the damage it GRANTS
+// Feature 'aurathreat' (p28, shipped 2026-10-03; @no-aurathreat) — owner ruling 4 (2026-09-22): a unit's threat includes the damage it GRANTS
 // its allies. Victor Leader ("each other friendly space unit gets +1/+1") with four other ships threatens its own 2
 // plus 4 more — removing it mitigates 6, where the 5/6 Stolen AT-Hauler mitigates 5. Read from printed text:
 // "Each other friendly [space|ground ]unit gets +N/…" × the other friendly units it reaches.
@@ -296,7 +296,7 @@ function SWUBotOverwhelmKills(array $att, array $def): bool {
 function SWUBotUnitValue(array $v): float {
     if (function_exists('SWUBotProposalOn') && (SWUBotProposalOn('unitvalue') || SWUBotProposalOn('unitvalue2'))) return SWUBotUnitValueV2($v);
     // 'aurathreat': what the unit grants its allies is worth removing too — one point of granted power per point.
-    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('aurathreat')) return _SWUBotUnitValueV1($v) + _SWUBotAuraGrantedPower($v);
+    if (function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('aurathreat')) return _SWUBotUnitValueV1($v) + _SWUBotAuraGrantedPower($v);
     return _SWUBotUnitValueV1($v);
 }
 
@@ -441,7 +441,7 @@ function SWUBotOpponentCanGetSentinel(int $oppSeat): bool {
     return false;
 }
 
-// ── CONTEXT VALUE (proposal 'ctxpower', default OFF) ────────────────────────────────────────────────────
+// ── CONTEXT VALUE (feature 'ctxpower', p28) ────────────────────────────────────────────────────
 // What a card in HAND is worth ON THE CURRENT BOARD, over and above its printed stats. Returns the SURPLUS,
 // never the whole value, so every caller stays additive: 0.0 means "printed stats already price this card"
 // and no existing behaviour moves. That is also why an empty board must return exactly 0.0.
@@ -532,7 +532,7 @@ function SWUBotPlayEnemyKills(int $seat, string $cid): int {
 }
 
 function SWUBotContextSurplus(int $seat, string $cid): float {
-    if (!function_exists('SWUBotProposalOn') || !SWUBotProposalOn('ctxpower')) return 0.0;
+    if (!function_exists('SWUBotFeatureOn') || !SWUBotFeatureOn('ctxpower')) return 0.0;
     switch ($cid) {
 
         // JTL_115 Clone Combat Squadron — "This unit gets +1/+1 for each other friendly space unit."

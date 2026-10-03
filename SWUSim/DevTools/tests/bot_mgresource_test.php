@@ -17,7 +17,9 @@ include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/Custom/BotLookahead.php';
 include_once './SWUSim/BotHeuristic.php';
 
-foreach (['mgcost', 'mgkeepbody', 'mgkeepdup', 'mgsentinel'] as $p) $check(SWUBotVariantDisabled("try-$p") === ["try:$p"], "proposal $p is registered");
+// 'mgcost' SHIPPED 2026-10-03 in feature group p28 — ON by default, '@no-mgcost' / '@no-p28' turn it off.
+$check(SWUBotVariantDisabled('no-mgcost') === ['mgcost'] && in_array('mgcost', SWUBotFeatureGroups()['p28'], true), 'mgcost is a shipped feature, group p28');
+foreach (['mgkeepbody', 'mgkeepdup', 'mgsentinel'] as $p) $check(SWUBotVariantDisabled("try-$p") === ["try:$p"], "proposal $p is registered");
 // 'mgkeep' SHIPPED 2026-09-23 as feature group p11 — it is ON by default and '@no-mgkeep' / '@no-p11' turn it off.
 $check(in_array('mgkeep', SWUBotFeatureList(), true) && SWUBotFeatureGroups()['p11'] === ['mgkeep'], 'mgkeep is a shipped feature, group p11');
 $check(SWUBotVariantDisabled('no-mgkeep') === ['mgkeep'] && SWUBotVariantDisabled('try-mgkeep') === null, '@no-mgkeep switches it off; it is no longer a proposal');
@@ -42,8 +44,10 @@ $seat = function (array $hand, string $oppLeader) use ($build) {
 // the new default would silently change what each test means.
 // ⚠ DEBT: those four proposals' measurements are now stale — they need re-screening ON TOP OF p12 before any
 // of them ships. See the OTMTCGE memory `midrange-wants-a-lower-kill-weight`.
-$picks = function (int $n, array $on, string $style = 'midrange') use ($botCtx) {
-    SWUBotSetDisabledFeatures(array_values(array_unique(array_merge(['mgbomb'], $on))));
+// ⚠ …and to the PRE-p28 costs by adding 'mgcost' (shipped 2026-10-03): these fixtures put off-aspect cards in Luke's hand
+// (Tarkin is a 6 for this seat), so the seat cost would move every pick below. The mgcost section opts back in ($withCost).
+$picks = function (int $n, array $on, string $style = 'midrange', bool $withCost = false) use ($botCtx) {
+    SWUBotSetDisabledFeatures(array_values(array_unique(array_merge($withCost ? ['mgbomb'] : ['mgbomb', 'mgcost'], $on))));
     $mz = SWUBotChooseResourceCards($botCtx($style), $n);
     SWUBotSetDisabledFeatures([]);
     return $mz;
@@ -59,9 +63,10 @@ $ids = function (array $mz) { return array_map(fn($m) => strval(GetHand(1)[intva
 // p11 keep is blind to both and this section measures mgcost alone.
 $seat(['SOR_084', 'ASH_080'], $AGGRO);
 $check($ids($picks(1, [])) === ['ASH_080'], 'fixture: on PRINTED cost the 5-drop is the most expensive card');
-$check($ids($picks(1, ['try:mgcost'])) === ['SOR_084'], 'mgcost: the off-aspect card costs +2 and goes first (owner ruling 6)');
-$check(SWUBotProposalOn('mgcost') === false && _SWUBotSeatCost(1, 'ASH_052') === 7, 'mgcost is inert by default');
-SWUBotSetDisabledFeatures(['try:mgcost']);
+$check($ids($picks(1, [], 'midrange', true)) === ['SOR_084'], 'mgcost: the off-aspect card costs +2 and goes first (owner ruling 6)');
+SWUBotSetDisabledFeatures(['mgcost']);
+$check(_SWUBotSeatCost(1, 'ASH_052') === 7, 'mgcost is inert under @no-mgcost');
+SWUBotSetDisabledFeatures([]);   // mgcost ON (shipped, p28)
 $check(_SWUBotSeatCost(1, 'ASH_052') === 9, "mgcost: Chimaera really does cost 9 for this seat — the owner's number");
 $check(_SWUBotSeatCost(1, 'SOR_119') === 8 && _SWUBotSeatCost(1, 'ASH_079') === 4, 'mgcost leaves an on-aspect card alone');
 SWUBotSetDisabledFeatures([]);

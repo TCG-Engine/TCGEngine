@@ -24,10 +24,11 @@ include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/Custom/BotLookahead.php';
 include_once './SWUSim/BotHeuristic.php';
 
-$check(SWUBotVariantDisabled('try-ctxpower') === ['try:ctxpower'], "proposal ctxpower is registered");
+// Shipped 2026-10-03 in feature group p28 — ON by default, '@no-ctxpower' / '@no-p28' turn it off.
+$check(SWUBotVariantDisabled('no-ctxpower') === ['ctxpower'] && in_array('ctxpower', SWUBotFeatureGroups()['p28'], true), 'ctxpower is a shipped feature, group p28');
 
-$ON  = ['try:ctxpower'];
-$OFF = [];
+$ON  = [];
+$OFF = ['ctxpower'];
 
 // ── 1. JTL_115 Clone Combat Squadron: printed 3/3, "+1/+1 for each other friendly space unit" ──────────
 // Vader JTL hyperaggro seat. $space = the friendly space board it is being judged against.
@@ -41,10 +42,10 @@ $board = function (array $space, array $hand = ['JTL_115'], array $theirGround =
         foreach ($theirGround as $c) $b->WithGroundUnitForPlayer(2, $c);
     });
 };
-// ⚠ SWUBotContextSurplus returns 0.0 unless the proposal is ON, so the flag must be set for every direct
+// ⚠ SWUBotContextSurplus returns 0.0 unless the feature is ON, so the flag must be set for every direct
 // call — without it the empty-board and Sentinel assertions below pass for the WRONG reason (0 == 0).
 $surplus = function (string $cid) {
-    SWUBotSetDisabledFeatures(['try:ctxpower']);
+    SWUBotSetDisabledFeatures([]);   // ctxpower ON (shipped, p28)
     $v = SWUBotContextSurplus(1, $cid);
     SWUBotSetDisabledFeatures([]);
     return $v;

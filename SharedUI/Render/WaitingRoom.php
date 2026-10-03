@@ -178,7 +178,7 @@ function _WaitingRoomStyles(): string {
 .wr-botdlg-overlay { position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center;
                      background: rgba(0,0,0,.72); padding: 16px; box-sizing: border-box;
                      -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
-.wr-botdlg { width: min(100%, 560px); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); display: flex;
+.wr-botdlg { width: min(100%, 720px); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); display: flex;
              flex-direction: column; box-sizing: border-box; color: var(--text, #fff);
              /* OPAQUE. Site themes use translucent "glass" surfaces (Petranaki: rgba(16,31,48,.72)), and a popup over the
                 roster read the seats through itself. The theme tint is layered over a solid base instead. */
@@ -186,18 +186,55 @@ function _WaitingRoomStyles(): string {
              border: 1px solid var(--border, #454545); border-radius: var(--radius, 5px); box-shadow: 0 18px 50px rgba(0,0,0,.5); }
 .wr-botdlg-head { padding: 18px 20px 8px; font-weight: bold; font-size: 18px; text-transform: uppercase; letter-spacing: .06em; }
 .wr-botdlg-body { padding: 4px 20px; overflow-y: auto; min-height: 0; }
-.wr-botdlg-opt { display: flex; gap: 10px; align-items: flex-start; padding: 10px; margin: 0 0 8px; cursor: pointer;
-                 border: 1px solid var(--border, #454545); border-radius: var(--radius, 5px); }
-.wr-botdlg-opt:has(input:checked) { border-color: var(--accent, #5aa0ff); }
-.wr-botdlg-opt input[type=radio] { margin-top: 3px; flex: none; }
-.wr-botdlg-optbody { min-width: 0; flex: 1; }
-.wr-botdlg-name { font-weight: bold; }
-.wr-botdlg-cards { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
-.wr-botdlg-cards .wr-cardwrap { padding: 2px; border-radius: 5px; }
-.wr-botdlg-cards .wr-card { width: 84px; }
-.wr-botdlg-paste { width: 100%; box-sizing: border-box; min-height: 110px; margin-top: 8px; font-size: 16px; /* 16px: no iOS zoom */
+/* Three ways to name the bot's deck, top to bottom: a pasted list, a saved deck, a pre-con. Exactly one is chosen at a
+   time — picking in one clears the other two (the main menu's Twin Suns setup follows the same rule). */
+.wr-botdlg-sec { margin: 0 0 14px; }
+.wr-botdlg-lbl { display: block; margin: 0 0 6px; font-size: 12px; font-weight: bold; letter-spacing: .12em;
+                 text-transform: uppercase; opacity: .8; }
+.wr-botdlg-note { margin: -2px 0 6px; font-size: 13px; opacity: .7; }
+.wr-botdlg-paste, .wr-botdlg-saved { width: 100%; box-sizing: border-box; margin: 0; font-size: 16px; /* 16px: no iOS zoom */
                    background: var(--surface-sunken, #394452); color: var(--text, #fff); border: 1px solid var(--border, #454545);
-                   border-radius: var(--radius, 5px); padding: 8px; resize: vertical; }
+                   border-radius: var(--radius, 5px); padding: 8px; }
+.wr-botdlg-paste { min-height: 64px; resize: vertical; }
+.wr-botdlg-saved:disabled { opacity: .6; }
+/* The pre-cons: a SUNKEN WELL of chamfered rows, the main menu's Twin Suns pre-con list (swusim-menu-2.css .pool/.pc__row)
+   rebuilt in wr- classes — that stylesheet is not on this page, and its bare class names would collide here anyway.
+   Each row's rim is the row's own background showing through a 1px inset ::before plane cut to the SAME chamfer, so
+   the diagonal corners get a rim too (a border or inset shadow would leave them bare). */
+.wr-botdlg-well { padding: 5px; background: rgba(4, 8, 13, .62); border: 1px solid rgba(120, 142, 172, .16);
+                  border-radius: 3px; box-shadow: inset 0 2px 8px rgba(0, 0, 0, .45); }
+.wr-botdlg-pcs { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px;
+                 max-height: clamp(150px, 42vh, 320px); overflow: hidden auto; overscroll-behavior: contain; }
+.wr-botdlg-pc { display: grid; min-width: 0; }
+.wr-botdlg-pcin { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden;
+                  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.wr-botdlg-pcrow { --cut: 9px; --plane: #18222e; --rim: rgba(160, 182, 210, .22);
+                   position: relative; isolation: isolate; display: grid; grid-template-columns: auto minmax(0, 1fr);
+                   align-items: center; column-gap: 14px; padding: 8px 12px; cursor: pointer; background: var(--rim);
+                   clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut)); }
+.wr-botdlg-pcrow::before { content: ''; position: absolute; inset: 1px; z-index: -1; background: var(--plane);
+                   clip-path: polygon(calc(var(--cut) - 1px) 0, 100% 0, 100% calc(100% - var(--cut) + 1px),
+                                      calc(100% - var(--cut) + 1px) 100%, 0 100%, 0 calc(var(--cut) - 1px)); }
+.wr-botdlg-pcrow:hover { --plane: #1e2a38; --rim: rgba(190, 210, 236, .42); }
+.wr-botdlg-pcin:checked + .wr-botdlg-pcrow { --plane: #222a2c; --rim: rgba(226, 184, 92, .8); }
+.wr-botdlg-pcin:focus-visible + .wr-botdlg-pcrow { --rim: #f0c96a; outline: none; }
+.wr-botdlg-pccards { display: flex; align-items: center; gap: 3px; }
+.wr-botdlg-pccards .wr-cardwrap { padding: 1px; border-radius: 3px; }
+.wr-botdlg-pccards .wr-card { width: 44px; border-radius: 2px; }
+.wr-botdlg-pccards .wr-cardwrap:last-child { margin-left: 5px; }
+.wr-botdlg-pccards .wr-card-base { width: 36px; }
+.wr-botdlg-pctext { display: grid; gap: 2px; min-width: 0; }
+.wr-botdlg-pcname { font-weight: 600; font-size: 15px; line-height: 1.25; }
+.wr-botdlg-pcmeta { font-size: 13px; line-height: 1.35; opacity: .72; }
+.wr-botdlg-pcmeta b { font-weight: 600; }
+/* Selection is never colour alone: a gold check comes on beside the name too. */
+.wr-botdlg-mark { display: inline-block; width: 15px; height: 15px; margin-left: 7px; vertical-align: -2px;
+                  color: #e2b85c; opacity: 0; transition: opacity 150ms ease; }
+.wr-botdlg-mark svg { width: 100%; height: 100%; display: block; }
+.wr-botdlg-pcin:checked + .wr-botdlg-pcrow .wr-botdlg-mark { opacity: 1; }
+@media (max-width: 480px) {
+  .wr-botdlg-pcrow { grid-template-columns: minmax(0, 1fr); row-gap: 6px; }
+}
 .wr-botdlg-err { color: #ff6b6b; font-size: 13px; min-height: 18px; padding: 4px 20px 0; }
 .wr-botdlg-actions { display: flex; justify-content: flex-end; gap: 10px; padding: 12px 20px 18px; }
 </style>
@@ -546,44 +583,96 @@ function _WaitingRoomScript(array $cfg): string {
     }).join('') + '</select></label> <button type="button" class="btn wr-add-bot" data-bot-seat="' + seat + '">Add bot</button>';
   }
 
-  // The "Fill Seat with Bot" popup (owner Decision 3, SWUSim/docs/todo-twinsuns-fill-bot.md): pick a pre-con, or paste a
-  // list — validated by the server exactly like a human's deck (AddBot.php → validateDeck), so any refusal is shown
-  // here and the popup stays open to fix it. Appended to <body>, so the 1.5s roster redraw never touches it.
+  // The "Fill Seat with Bot" popup (owner Decision 3, SWUSim/docs/todo-twinsuns-fill-bot.md). Top to bottom: paste a
+  // list, pick a saved deck, or pick a pre-con — one at a time, so choosing in one clears the other two. A pasted list
+  // and a saved deck both ride the 'paste' profile; the server validates either exactly like a human's deck
+  // (AddBot.php → validateDeck), so any refusal is shown here and the popup stays open to fix it.
+  // Appended to <body>, so the 1.5s roster redraw never touches it.
+  var BOTDLG_MARK = '<span class="wr-botdlg-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+    ' stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>';
+  // "Leader · Leader / Base · 80 cards · singleton" — the main menu's pre-con meta line, from the profile's cards.
+  function preconMeta(p) {
+    var cards = p.cards || [], names = function (k) {
+      return cards.filter(function (c) { return c.kind === k; }).map(function (c) { return esc(c.name); });
+    };
+    var meta = names('leader').join(' · '), base = names('base');
+    if (base.length) meta += ' / ' + base.join(' · ');
+    if (p.count) meta += ' · <b>' + Number(p.count) + ' cards</b> · singleton';
+    return meta;
+  }
   function openFillBotDialog(seat) {
     if (document.querySelector('.wr-botdlg-overlay')) return;
     var ids = Object.keys(botProfiles);
-    var opts = ids.map(function (id, i) {
-      var p = botProfiles[id] || {};
-      var body = '<div class="wr-botdlg-name">' + esc(p.deck === 'paste' ? 'Paste a decklist' : (p.deckName || p.name)) + '</div>' +
-                 '<div style="font-size:13px;opacity:.8;">' + esc(p.description || '') + '</div>';
-      if (p.cards && p.cards.length) body += '<div class="wr-botdlg-cards">' + p.cards.map(thumb).join('') + '</div>';
-      if (p.deck === 'paste') body += '<textarea class="wr-botdlg-paste" placeholder="A swudb link, or the deck JSON / text export" aria-label="Bot decklist"></textarea>';
-      return '<label class="wr-botdlg-opt"><input type="radio" name="wr-botdlg-pick" value="' + esc(id) + '"' + (i === 0 ? ' checked' : '') + '>' +
-             '<div class="wr-botdlg-optbody">' + body + '</div></label>';
-    }).join('');
+    var pasteId = ids.filter(function (id) { return (botProfiles[id] || {}).deck === 'paste'; })[0] || '';
+    var preIds = ids.filter(function (id) { return (botProfiles[id] || {}).deck === 'precon'; });
+    // The saved decks are the page's own library dropdown (rendered for a signed-in viewer), copied rather than
+    // re-fetched — same options, same data-queue-input chosenDeck() already reads.
+    var libSel = document.querySelector('#wr-deck-library .dl-select');
+    var secs = '';
+    if (pasteId) {
+      secs += '<div class="wr-botdlg-sec"><label class="wr-botdlg-lbl" for="wr-botdlg-paste">Deck link or list</label>' +
+        '<textarea id="wr-botdlg-paste" class="wr-botdlg-paste" spellcheck="false"' +
+        ' placeholder="A swudb link, or the deck JSON / text export"></textarea></div>';
+      if (libSel) {
+        var has = libSel.options.length > 1;
+        secs += '<div class="wr-botdlg-sec"><label class="wr-botdlg-lbl" for="wr-botdlg-saved">Saved Decks</label>' +
+          '<select id="wr-botdlg-saved" class="wr-botdlg-saved"' + (has ? '' : ' disabled') + '>' +
+          (has ? libSel.innerHTML : '<option value="">No saved decks yet</option>') + '</select></div>';
+      }
+    }
+    if (preIds.length) {
+      secs += '<div class="wr-botdlg-sec"><div class="wr-botdlg-lbl" id="wr-botdlg-pclbl">Pre-Cons</div>' +
+        '<div class="wr-botdlg-note">' + preIds.length + ' pre-con' + (preIds.length === 1 ? '' : 's') +
+        ', each a complete Twin Suns deck.</div>' +
+        '<div class="wr-botdlg-well"><ul class="wr-botdlg-pcs" role="radiogroup" aria-labelledby="wr-botdlg-pclbl">' +
+        preIds.map(function (id, i) {
+          var p = botProfiles[id] || {}, rid = 'wr-botdlg-pc-' + i;
+          return '<li class="wr-botdlg-pc"><input class="wr-botdlg-pcin" type="radio" name="wr-botdlg-pick" id="' + rid + '"' +
+            ' value="' + esc(id) + '"' + (i === 0 ? ' checked' : '') + '>' +
+            '<label class="wr-botdlg-pcrow" for="' + rid + '">' +
+            '<span class="wr-botdlg-pccards">' + (p.cards || []).map(thumb).join('') + '</span>' +
+            '<span class="wr-botdlg-pctext"><span class="wr-botdlg-pcname">' + esc(p.deckName || p.name) + BOTDLG_MARK + '</span>' +
+            '<span class="wr-botdlg-pcmeta">' + preconMeta(p) + '</span></span></label></li>';
+        }).join('') + '</ul></div></div>';
+    }
     var o = document.createElement('div');
     o.className = 'wr-botdlg-overlay';
     o.innerHTML = '<div class="wr-botdlg" role="dialog" aria-modal="true" aria-labelledby="wr-botdlg-title">' +
       '<div class="wr-botdlg-head" id="wr-botdlg-title">Fill Seat ' + esc(seat) + ' with Bot</div>' +
-      '<div class="wr-botdlg-body">' + opts + '</div>' +
+      '<div class="wr-botdlg-body">' + secs + '</div>' +
       '<div class="wr-botdlg-err" role="alert"></div>' +
       '<div class="wr-botdlg-actions"><button type="button" class="btn wr-botdlg-cancel">Cancel</button>' +
       '<button type="button" class="btn btn-primary wr-botdlg-add">Add Bot</button></div></div>';
     var close = function () { o.remove(); document.removeEventListener('keydown', onKey, true); };
     var onKey = function (e) { if (e.key === 'Escape') { e.preventDefault(); close(); } };
-    var paste = o.querySelector('.wr-botdlg-paste');
-    if (paste) paste.addEventListener('focus', function () {   // typing into the box picks the paste option
-      var r = paste.closest('.wr-botdlg-opt').querySelector('input[type=radio]'); if (r) r.checked = true;
+    var paste = o.querySelector('.wr-botdlg-paste'), saved = o.querySelector('.wr-botdlg-saved');
+    var radios = o.querySelectorAll('input[name=wr-botdlg-pick]');
+    var clearRadios = function () { Array.prototype.forEach.call(radios, function (r) { r.checked = false; }); };
+    if (paste) paste.addEventListener('input', function () {
+      if (!paste.value.trim()) return;
+      clearRadios(); if (saved) saved.selectedIndex = 0;
+    });
+    if (saved) saved.addEventListener('change', function () {
+      if (saved.selectedIndex <= 0) return;
+      clearRadios(); if (paste) paste.value = '';
+    });
+    Array.prototype.forEach.call(radios, function (r) {
+      r.addEventListener('change', function () { if (paste) paste.value = ''; if (saved) saved.selectedIndex = 0; });
     });
     o.querySelector('.wr-botdlg-cancel').onclick = close;
     o.addEventListener('mousedown', function (e) { if (e.target === o) close(); });
     o.querySelector('.wr-botdlg-add').onclick = function () {
       var add = this, err = o.querySelector('.wr-botdlg-err');
+      var profile = '', deck = '';
+      var typed = paste ? paste.value.trim() : '';
+      var savedOpt = saved && saved.selectedIndex > 0 ? saved.options[saved.selectedIndex] : null;
       var picked = o.querySelector('input[name=wr-botdlg-pick]:checked');
-      if (!picked) return;
-      var profile = picked.value;
-      var deck = (botProfiles[profile] || {}).deck === 'paste' && paste ? paste.value.trim() : '';
-      if ((botProfiles[profile] || {}).deck === 'paste' && !deck) { err.textContent = 'Paste a decklist for this bot.'; return; }
+      if (typed) { profile = pasteId; deck = typed; }
+      else if (savedOpt) { profile = pasteId; deck = savedOpt.getAttribute('data-queue-input') || savedOpt.getAttribute('data-id') || ''; }
+      else if (picked) profile = picked.value;
+      if (!profile || (profile === pasteId && !deck)) {
+        err.textContent = 'Paste a deck, pick a saved deck, or choose a pre-con.'; return;
+      }
       add.disabled = true; err.textContent = 'Checking the deck…';
       post('APIs/Lobbies/AddBot.php', 'lobbyID=' + encodeURIComponent(lobbyID) +
         '&authKey=' + encodeURIComponent(loadKey(lobbyID)) + '&botProfile=' + encodeURIComponent(profile) +
