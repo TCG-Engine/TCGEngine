@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED (stale index). FurnaceDroneCostBanish() moved the chosen graveyard card to banish and immediately built the next MZCHOOSE from GetZone('myGraveyard'), but MZMove only flags the slot removed (the splice happens in CleanupRemovedCards()), so the follow-up prompt listed pre-splice slots: every candidate after the banished card was off by one. Fix: CleanupRemovedCards() between the MZMove and the re-offer.",
         "affectedFunction": "Custom/GameLogic.php $customDQHandlers['FurnaceDroneCostBanish']",
-        "fixCommit": "TBD"
+        "fixCommit": "ff0b8c38"
     }
 }
