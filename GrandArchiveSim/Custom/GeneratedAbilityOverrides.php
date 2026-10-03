@@ -179,3 +179,53 @@ $customDQHandlers["40lgjj1yS3:0:ActivateAbility-1"] = function($player, $parts, 
     $damage = 1 + GetCounterCount($targetObj, "sheen");
     DealDamage($player, $mzID, $target, $damage);
 };
+
+// Turm, Schwartz Rook (rYyOEGB3tD): "[Alice Bonus] On Leave: Put the buff counters that were on
+// CARDNAME on a Pawn ally you control."
+//
+// The generated leaveFieldAbilities closure is fine up to the target prompt (the stale-target-mzID
+// half of this class of bug is fixed engine-side by GameOnZoneElementSpliced(), see
+// Custom/GameLogic.php). But its paired CUSTOM follow-up ("rYyOEGB3tD:0:LeaveField-1") re-reads the
+// DEPARTING Turm through the ambient "mzID" variable via GetZoneObject($mzID) -- long after the
+// leave trigger has finished, Turm has been spliced out of the field and OnLeaveField() has restored
+// "mzID" to whatever it held before, so $leavingObj is null (or the wrong object) and the buff
+// counters are never put on the Pawn even though the player picked one. Same shape as Green Slime's
+// hand-written GreenSlimeTransfer handler: snapshot the count while the departing object is still
+// readable (inside the leave closure) and have the follow-up use the snapshot.
+$leaveFieldAbilities["rYyOEGB3tD:0"] = function($player) { //Move buffs to Pawn
+    // Retrieve macro parameters
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    if(!IsAliceBonusActive($player)) return;
+    $leavingObj = GetZoneObject($mzID);
+    if($leavingObj === null) return;
+    $buffCount = GetCounterCount($leavingObj, "buff");
+    if($buffCount <= 0) return;
+    DecisionQueueController::StoreVariable("TurmBuffCount", strval($buffCount));
+    $pawns = [];
+    $field = GetField($player);
+    foreach($field as $i => $fObj) {
+        if($fObj->removed) continue;
+        if(!PropertyContains(EffectiveCardType($fObj), "ALLY")) continue;
+        if(!PropertyContains(EffectiveCardSubtypes($fObj), "PAWN")) continue;
+        $pawns[] = "myField-" . $i;
+    }
+    if(empty($pawns)) return;
+    $targetStr = implode("&", $pawns);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "rYyOEGB3tD:0:LeaveField-1", 1);
+};
+
+$customDQHandlers["rYyOEGB3tD:0:LeaveField-1"] = function($player, $parts, $lastDecision) { //Move buffs to Pawn
+    // Retrieve macro parameters
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    DecisionQueueController::StoreVariable("chosen", $lastDecision);
+    if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+    if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "rYyOEGB3tD:0:LeaveField-1")) return;
+    $chosen = $lastDecision;
+    if($chosen === "" || $chosen === "-" || $chosen === "PASS") return;
+    $buffCount = intval(DecisionQueueController::GetVariable("TurmBuffCount"));
+    if($buffCount > 0) {
+        AddCounters($player, $chosen, "buff", $buffCount);
+    }
+    DecisionQueueController::ClearVariable("TurmBuffCount");
+};

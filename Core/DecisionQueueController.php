@@ -514,6 +514,13 @@ class DecisionQueueController {
                         continue;
                     }
                     array_splice($zone, $i, 1);
+                    // Optional per-sim hook: every element after $i just shifted down one slot, so
+                    // any positional mzID a sim already handed out for this zone (e.g. a pending
+                    // MZCHOOSE computed while the departing object still occupied its slot) is now
+                    // stale. The sim decides what, if anything, to re-index. Absent for sims that
+                    // define no such hook (function_exists is a no-op), so their behavior is
+                    // byte-identical to before.
+                    if (function_exists('GameOnZoneElementSpliced')) GameOnZoneElementSpliced($zoneName, $i);
                 }
             }
 

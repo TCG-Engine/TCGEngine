@@ -7909,6 +7909,82 @@ function FireLeaveFieldTriggeredAbility($controller, $cardID) {
 }
 
 /**
+ * Per-sim hook called by Core's DecisionQueueController::CleanupRemovedCards() right after it
+ * physically splices element $index out of $zoneName (named relative to the ambient $playerID,
+ * like every other zone name). Re-indexes the field mzIDs inside every PENDING choose-style
+ * decision so they keep pointing at the same objects after the shift.
+ *
+ * Why: a leave-field ability (leaveFieldAbilities closure) runs while the departing object still
+ * occupies its slot -- it has to, its own closure reads the departing object's counters/data via
+ * GetZoneObject($mzID) -- so any OTHER object it offers as a target is addressed by its
+ * pre-departure index (Green Slime: "put its buff counters on target ally you control" queues an
+ * MZCHOOSE over "myField-2" while Green Slime itself is still at myField-1). The departing object
+ * is spliced out strictly afterwards (the caller's MZMove/MZRemove + CleanupRemovedCards(), or,
+ * when the trigger was deferred through an Opportunity window, the CleanupRemovedCards() right
+ * after the entry resolves), shifting every later object down one. Without this the queued
+ * "myField-2" resolves against the shifted field, finds nothing, and ExecuteStaticMethods()
+ * auto-PASSes the decision -- silently skipping the paired CUSTOM follow-up. Patching at the
+ * splice itself (rather than at queue time) is exact whatever the timing: it only ever fires
+ * when slots really shift, and it also covers a protected-but-removed object whose splice is
+ * deferred (GetProtectedRemovedCardUniqueIDs). Generated closures can't be edited to compensate,
+ * and this fixes the whole class (any On Leave ability, or any other pending decision, that
+ * offers another field object) without touching them.
+ *
+ * Scope: field zones only, and only the decision types that carry a candidate mzID list
+ * (MZCHOOSE / MZMAYCHOOSE as the whole Param, MZMULTICHOOSE as its 3rd "min|max|specs" part).
+ * A candidate that WAS the spliced object is dropped (a gone object is not a legal choice -- the
+ * same call MZCountChoices() already makes for removed-flagged ones); if that empties the list
+ * the param keeps a single never-resolvable spec so MZCountChoices() reads 0 and the decision
+ * auto-passes exactly as it would for any other fully-illegal choice. mzID strings stashed in
+ * DQ variables or in CUSTOM decision params are NOT rewritten (handlers that need to find a
+ * departing object later should capture UniqueIDs, as before).
+ */
+function GameOnZoneElementSpliced($zoneName, $index) {
+    global $playerID;
+    if($zoneName !== "myField" && $zoneName !== "theirField") return;
+    $viewer = intval($playerID);
+    if($viewer !== 1 && $viewer !== 2) return;
+    $zoneOwner = ($zoneName === "myField") ? $viewer : ($viewer === 1 ? 2 : 1);
+    for($queuePlayer = 1; $queuePlayer <= 2; ++$queuePlayer) {
+        // Decision params are written in their own player's perspective.
+        $specZone = ($queuePlayer === $zoneOwner) ? "myField" : "theirField";
+        $queue = &GetDecisionQueue($queuePlayer);
+        if(!is_array($queue)) continue;
+        foreach($queue as $decision) {
+            if(!is_object($decision) || !empty($decision->removed)) continue;
+            $type = strval($decision->Type ?? "");
+            if($type === "MZCHOOSE" || $type === "MZMAYCHOOSE") {
+                $decision->Param = GAReindexFieldSpecsAfterSplice(strval($decision->Param ?? ""), $specZone, intval($index));
+            } else if($type === "MZMULTICHOOSE") {
+                $parts = explode("|", strval($decision->Param ?? ""), 3);
+                if(count($parts) < 3) continue;
+                $parts[2] = GAReindexFieldSpecsAfterSplice($parts[2], $specZone, intval($index));
+                $decision->Param = implode("|", $parts);
+            }
+        }
+        unset($decision);
+    }
+}
+
+// Rewrites one "&"-delimited candidate spec list ("myField-1&myField-2:filter&myHand") for the
+// removal of $specZone's slot $removedIndex. See GameOnZoneElementSpliced().
+function GAReindexFieldSpecsAfterSplice($specList, $specZone, $removedIndex) {
+    if($specList === "" || strpos($specList, $specZone . "-") === false) return $specList;
+    $out = [];
+    $dropped = false;
+    foreach(explode("&", $specList) as $spec) {
+        if(preg_match('/^' . preg_quote($specZone, '/') . '-(\d+)((?:\.u\d+)?(?::.*)?)$/', $spec, $m)) {
+            $slot = intval($m[1]);
+            if($slot === $removedIndex) { $dropped = true; continue; }
+            if($slot > $removedIndex) $spec = $specZone . "-" . ($slot - 1) . $m[2];
+        }
+        $out[] = $spec;
+    }
+    if(empty($out) && $dropped) return $specZone . "-999999";
+    return implode("&", $out);
+}
+
+/**
  * "mzID" (this ability's own source reference) is captured into context here because it's a
  * generic macro parameter reused by every card activation, including any fast-card response
  * resolved off the EffectStack during the Opportunity Window between when this is queued and when

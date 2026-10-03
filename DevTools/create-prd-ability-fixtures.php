@@ -19098,6 +19098,13 @@ $fixtures['green-slime-class-bonus-on-leave-transfer-buff'] = [
 4 Fluffy Shopkeep
 4 Windslice
 DECK,
+    // UPDATE -- FIXED: the bug described below was found, and its diagnosis here is OUTDATED. The real
+    // cause was a stale target mzID (Green Slime's closure offers Red Slime as 'myField-2' while Green
+    // Slime still occupies myField-1; the slot is spliced out before the MZCHOOSE is validated). It is
+    // fixed engine-side by GameOnZoneElementSpliced() (GrandArchiveSim/Custom/GameLogic.php, called from
+    // Core CleanupRemovedCards). The fixture now asserts the CORRECT behavior: the On Leave prompt is
+    // presented and the final action picks Red Slime (now myField-1), receiving all 3 buff counters.
+    // See meta.json for the full write-up; the historical text below is kept for context only.
     // ENGINE BUG (found, not fixed): this fixture documents Green Slime's Class Bonus On Leave
     // ability (leaveFieldAbilities['zgcxyky280:0'], GeneratedMacroCode.php) CURRENTLY silently
     // failing to transfer its buff counters, even with Class Bonus active and buff counters
@@ -19159,6 +19166,56 @@ DECK,
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // target Green Slime for destruction
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // On Leave: choose Red Slime -- now myField-1, since Green Slime's slot was spliced out -- as the transfer target
+    ],
+];
+
+// --- Turm, Schwartz Rook: [Alice Bonus] On Leave: put its buff counters on a Pawn ally you control ---
+// Second On Leave card (besides Green Slime) that offers ANOTHER field object as the target via a
+// positional mzID computed while the departing object still occupies its slot; proves the
+// GameOnZoneElementSpliced() re-index fix (GrandArchiveSim/Custom/GameLogic.php) is class-wide and
+// not specific to Green Slime's closure.
+$fixtures['turm-schwartz-rook-alice-bonus-on-leave-buff-transfer'] = [
+    'testedCards' => ['rYyOEGB3tD', 'ls6g7xgwve'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Silvie, With the Pack
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Turm, Schwartz Rook (rYyOEGB3tD, GUARDIAN ROOK ally): "[Alice Bonus] On Leave: Put the buff
+    // counters that were on CARDNAME on a Pawn ally you control." Its leaveFieldAbilities closure
+    // (GeneratedMacroCode.php) queues an MZCHOOSE over every Pawn ally by positional mzID while Turm
+    // itself still occupies myField-1; the Pawn Piece token (Rpr6yCQKU6) at myField-2 is spliced
+    // down to myField-1 once Turm leaves. Same class of bug as Green Slime's fixture
+    // (green-slime-class-bonus-on-leave-transfer-buff).
+    // The champion's CardID is patched to Silvie, With the Pack (base level 2 -> Excoriate costs 1
+    // less) with Spirit of Fire (FIRE unlock) AND Alice, Golden Queen (daip7s9ztd) layered into
+    // Subcards so IsAliceBonusActive() (ChampionHasInLineage) holds -- same "CardID/Subcards
+    // layering" the Green Slime fixture uses. Turm is seeded directly with 3 buff counters (its
+    // own attack trigger that earns them is a separate clause); the leave event is real: Excoriate
+    // (reserve cost 4 or less) is played for real from hand and destroys Turm (reserve cost 3).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['LMyKyVC2O9', 'daip7s9ztd']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'rYyOEGB3tD', 'setProperties' => ['Counters' => ['buff' => 3]]], // Turm -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Rpr6yCQKU6'], // Pawn Piece token, the only Pawn ally -> myField-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ls6g7xgwve'], // Excoriate, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline to respond: Alice's champion has an activatable ability (Shield Chessman allies), so the Opportunity window is offered
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // target Turm for destruction
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // On Leave: choose the Pawn (now myField-1 after Turm's slot is spliced out)
     ],
 ];
 

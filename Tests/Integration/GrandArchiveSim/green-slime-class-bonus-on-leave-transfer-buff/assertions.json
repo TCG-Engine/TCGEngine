@@ -1,5 +1,7 @@
 [
     {"step":5,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"zgcxyky280","semantic":true,"label":"Green Slime is genuinely destroyed (real leave-field event, not seeded)"},
-    {"step":5,"type":"card_property_equals","mzId":"myField-1","property":"Counters","value":"[]","semantic":true,"label":"ENGINE BUG (documented, not fixed): Red Slime -- the only other ally, and the sole legal transfer target -- receives NO buff counters, even though Class Bonus was active and Green Slime held 3 buff counters at the moment it left the field"},
-    {"step":5,"type":"decision_queue_empty","player":"all"}
+    {"step":5,"type":"card_property_equals","mzId":"myField-1","property":"Counters","value":"[]","semantic":true,"label":"On Leave prompt is pending (not auto-passed): Red Slime -- the only other ally, now sitting at myField-1 after Green Slime's slot was spliced out -- has not received the counters yet"},
+    {"step":6,"type":"card_property_equals","mzId":"myField-1","property":"Counters","value":"{\"buff\":3}","semantic":true,"label":"[Class Bonus] On Leave: the 3 buff counters that were on Green Slime are put on the chosen ally (Red Slime)"},
+    {"step":6,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":2,"semantic":true,"label":"Only the champion and Red Slime remain on the field"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
 ]

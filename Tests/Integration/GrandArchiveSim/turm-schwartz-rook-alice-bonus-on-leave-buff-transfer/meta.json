@@ -1,0 +1,24 @@
+{
+    "name": "turm-schwartz-rook-alice-bonus-on-leave-buff-transfer",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T03:48:17+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "rYyOEGB3tD",
+        "ls6g7xgwve"
+    ],
+    "notes": "Turm, Schwartz Rook (rYyOEGB3tD, UNIQUE GUARDIAN ROOK ally): \"[Alice Bonus] On Leave: Put the buff counters that were on Turm on a Pawn ally you control.\" Second On Leave card (besides Green Slime) whose leaveFieldAbilities closure offers ANOTHER field object as the transfer target by positional mzID while the departing object still occupies its slot -- proves the engine-side GameOnZoneElementSpliced() re-index fix (GrandArchiveSim/Custom/GameLogic.php, hooked from Core CleanupRemovedCards) is class-wide. Two defects were stacked for this card: (1) the same stale-target-mzID bug as Green Slime (fixed generically by the splice hook), and (2) the generated CUSTOM follow-up 'rYyOEGB3tD:0:LeaveField-1' re-read the departing Turm via the ambient mzID AFTER Turm had been spliced out, so the counters were never applied even when the player picked the Pawn; fixed in Custom/GeneratedAbilityOverrides.php by snapshotting the buff count (TurmBuffCount) inside the leave closure, exactly like Green Slime's GreenSlimeTransfer. Setup: champion CardID patched to Silvie, With the Pack (base level 2 so Excoriate costs 1 less) with Spirit of Fire (FIRE unlock) and Alice, Golden Queen (daip7s9ztd, makes IsAliceBonusActive true) layered into Subcards. Turm is seeded at myField-1 with 3 buff counters (its attack trigger that earns them is a separate clause); a Pawn Piece token (Rpr6yCQKU6) is seeded at myField-2. The leave event is real: Excoriate (ls6g7xgwve, 'Destroy target ally with reserve cost 4 or less') is played from hand via FSM and destroys Turm. Alice's champion has an activatable ability (Shield Chessman allies), so the Opportunity window is actually offered and is declined with a PASS action before the target is chosen.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rYyOEGB3tD"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] On Leave: Put the buff counters that were on Turm, Schwartz Rook on a Pawn ally you control."
+        ]
+    }
+}
