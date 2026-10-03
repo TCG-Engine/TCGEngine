@@ -23,14 +23,15 @@ em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
 1
-qrxQGA1pc6 - -
+n8wyfG9hbY - -
 0
-0
+1
+qrxQGA1pc6
 0
 1
 LEVELED_UP_THIS_TURN
 0
-9
+8
 em6eEh9q8y
 px60u5n1do
 em6eEh9q8y
@@ -38,7 +39,6 @@ em6eEh9q8y
 em6eEh9q8y
 px60u5n1do
 em6eEh9q8y
-n8wyfG9hbY
 px60u5n1do
 8
 px60u5n1do

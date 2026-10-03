@@ -1,0 +1,23 @@
+{
+    "name": "mordred-flawless-blade-player-two-blade-floats-own-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:54:29+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "WI2owxIw0z"
+    ],
+    "notes": "Mordred, Flawless Blade (WI2owxIw0z): \"Attack cards in your graveyard have floating memory.\" The owner check must work from player 2's seat too (graveyard owner resolved through PlayerID, never a perspective-relative field). Player 2's champion is Mordred, Flawless Blade; player 2's graveyard holds a Striking Tides and its two seeded memory cards are one short of the memory cost 3 of the level-up into Aurelian Regent in player 2's turn-4 materialize phase (its first materialize offer): the REAL level-up is offered the floating payment, Striking Tides is banished for 1 point and the level-up completes.",
+    "semanticCoverage": {
+        "testedCards": [
+            "WI2owxIw0z"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Attack cards in YOUR graveyard have floating memory: works for the Blade controller's own graveyard from either seat."
+        ]
+    }
+}

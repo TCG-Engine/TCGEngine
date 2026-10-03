@@ -1196,6 +1196,10 @@ function ClearIntent($player) {
         if($iObj !== null && in_array("CURSE_TO_LINEAGE", $iObj->TurnEffects)) {
             // Card was put into champion's lineage by OnHit — banish the physical copy
             $zone = "myBanish";
+        } else if($iObj !== null && IsEphemeral($iObj)) {
+            // Ephemeral attack card (activated via Ephemerate, e.g. Mordred, Fated Luminary):
+            // banished instead of leaving the intent for the graveyard.
+            $zone = "myBanish";
         } else if($iObj !== null && isset($Renewable_Cards[$iObj->CardID])) {
             // Renewable: goes to material deck instead of graveyard
             $zone = "myMaterial";
@@ -1214,6 +1218,14 @@ function ClearIntent($player) {
             $movedObj->TurnEffects = array_values(array_filter(
                 $movedObj->TurnEffects,
                 fn($e) => $e !== "PREPARED"
+            ));
+        }
+        // EPHEMERAL has done its job once the card is banished out of the intent; do not let it
+        // linger on the banished card.
+        if($movedObj !== null && in_array("EPHEMERAL", $movedObj->TurnEffects ?? [], true)) {
+            $movedObj->TurnEffects = array_values(array_filter(
+                $movedObj->TurnEffects,
+                fn($e) => $e !== "EPHEMERAL"
             ));
         }
     }

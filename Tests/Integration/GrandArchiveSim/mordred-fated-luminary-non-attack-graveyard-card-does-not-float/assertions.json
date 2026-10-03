@@ -1,0 +1,6 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"KqBosnU7pU","semantic":true,"label":"The level-up was refused, the champion is still Fated Luminary"},
+    {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"The two memory cards were not spent"},
+    {"step":3,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"The Dungeon Guide (not an attack card) stays in the graveyard"},
+    {"step":3,"type":"flash_message_contains","value":"Cannot pay costs for the selected material card","semantic":true,"label":"The engine reports it cannot pay the cost: a non-attack graveyard card does not float"}
+]

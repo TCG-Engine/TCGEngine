@@ -5757,6 +5757,12 @@ function OnCardActivated($player, $mzCard) {
         // CrystallineRealityStart/QueueModes and ResolveDelusionalVapors below.
         $intentZone = &GetZone("myIntent");
         $pendingPreparedTagMZ = "myIntent-" . (count($intentZone) - 1);
+        // Ephemerate (e.g. Mordred, Fated Luminary): "Attack cards played this way become ephemeral
+        // in the intent." Tag the intent object now; ClearIntent() banishes an EPHEMERAL intent card
+        // instead of sending it to the graveyard. (wasEphemerated is cleared just below.)
+        if(DecisionQueueController::GetVariable("wasEphemerated") === "YES") {
+            MakeEphemeral($pendingPreparedTagMZ);
+        }
     }
     // Ephemerate: tag field objects as ephemeral when activated via Ephemerate
     $wasEph = DecisionQueueController::GetVariable("wasEphemerated");
@@ -21872,19 +21878,36 @@ function HasLinkShield($obj) {
     return HasCardKeywordOverride($obj, "LinkShield");
 }
 
+/**
+ * The player a floating-memory card "belongs to" for "cards in YOUR graveyard" statics.
+ * A graveyard object parsed back from the game state has NO Controller (the Graveyard zone class
+ * serializes only CardID; it carries just the owning PlayerID), so a graveyard card must be
+ * resolved through PlayerID. Field/stack objects (e.g. a card being destroyed) use Controller.
+ */
+function FloatingMemoryOwner($obj) {
+    if(isset($obj->PlayerID) && intval($obj->PlayerID) > 0
+       && isset($obj->Location) && strpos($obj->Location, "Graveyard") !== false) {
+        return intval($obj->PlayerID);
+    }
+    if(isset($obj->Controller) && intval($obj->Controller) > 0) return intval($obj->Controller);
+    if(isset($obj->PlayerID) && intval($obj->PlayerID) > 0) return intval($obj->PlayerID);
+    return null;
+}
+
 function HasFloatingMemory($obj) {
     if(IsGraveyardAbilitySuppressed($obj->Controller ?? null, $obj->CardID)) return false;
     if(HasKeyword_FloatingMemory($obj)) return true;
-    if(isset($obj->Controller) && MordredFatedEphemerateApplies($obj->Controller, $obj->CardID)) return true;
-    // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
-    if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
-        for($p = 1; $p <= 2; $p++) {
-            $pField = &GetField($p);
-            foreach($pField as $fCard) {
-                if($fCard === null) continue;
-                if(!$fCard->removed && $fCard->CardID === "WI2owxIw0z") {
-                    return true;
-                }
+    $floatOwner = FloatingMemoryOwner($obj);
+    // Mordred, Fated Luminary (KqBosnU7pU): "Attack cards in YOUR graveyard have floating memory"
+    if($floatOwner !== null && MordredFatedEphemerateApplies($floatOwner, $obj->CardID)) return true;
+    // Mordred, Flawless Blade (WI2owxIw0z): "Attack cards in YOUR graveyard have floating memory"
+    // -- only the Blade's controller's attack cards float, never the opponent's.
+    if($floatOwner !== null && PropertyContains(CardType($obj->CardID), "ATTACK")) {
+        $pField = &GetField($floatOwner);
+        foreach($pField as $fCard) {
+            if($fCard === null) continue;
+            if(!$fCard->removed && $fCard->CardID === "WI2owxIw0z") {
+                return true;
             }
         }
     }

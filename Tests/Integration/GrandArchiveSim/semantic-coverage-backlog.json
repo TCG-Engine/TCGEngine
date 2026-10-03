@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T14:45:20+00:00",
+    "generatedAt": "2026-10-03T14:56:36+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 625,
@@ -39583,20 +39583,24 @@
                 "combat"
             ],
             "existingFixtures": [
+                "mordred-fated-luminary-attack-card-played-from-hand-goes-to-graveyard",
                 "mordred-fated-luminary-ephemerate-attack-card-from-graveyard",
-                "mordred-fated-luminary-ephemerated-attack-card-is-not-banished",
-                "mordred-fated-luminary-graveyard-attack-card-never-floats-for-memory-cost",
+                "mordred-fated-luminary-ephemerated-attack-card-is-banished-after-combat",
+                "mordred-fated-luminary-graveyard-attack-card-floats-for-memory-cost",
                 "mordred-fated-luminary-non-attack-card-in-graveyard-cannot-ephemerate",
-                "mordred-fated-luminary-normal-levelup-into-luminary-draws-two",
+                "mordred-fated-luminary-non-attack-graveyard-card-does-not-float",
+                "mordred-fated-luminary-normal-levelup-into-luminary-draws-nothing",
                 "mordred-fated-luminary-same-level-levelup-draws-two",
                 "mordred-fated-luminary-same-level-levelup-needs-luminary-in-lineage"
             ],
             "semanticFixtures": [
+                "mordred-fated-luminary-attack-card-played-from-hand-goes-to-graveyard",
                 "mordred-fated-luminary-ephemerate-attack-card-from-graveyard",
-                "mordred-fated-luminary-ephemerated-attack-card-is-not-banished",
-                "mordred-fated-luminary-graveyard-attack-card-never-floats-for-memory-cost",
+                "mordred-fated-luminary-ephemerated-attack-card-is-banished-after-combat",
+                "mordred-fated-luminary-graveyard-attack-card-floats-for-memory-cost",
                 "mordred-fated-luminary-non-attack-card-in-graveyard-cannot-ephemerate",
-                "mordred-fated-luminary-normal-levelup-into-luminary-draws-two",
+                "mordred-fated-luminary-non-attack-graveyard-card-does-not-float",
+                "mordred-fated-luminary-normal-levelup-into-luminary-draws-nothing",
                 "mordred-fated-luminary-same-level-levelup-draws-two",
                 "mordred-fated-luminary-same-level-levelup-needs-luminary-in-lineage"
             ],
@@ -39621,13 +39625,15 @@
                 "mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup",
                 "mordred-flawless-blade-floating-payment-rejects-non-floating-card",
                 "mordred-flawless-blade-non-attack-card-in-graveyard-does-not-float",
-                "mordred-flawless-blade-opponent-blade-makes-my-graveyard-attack-cards-float"
+                "mordred-flawless-blade-opponent-blade-does-not-float-my-graveyard",
+                "mordred-flawless-blade-player-two-blade-floats-own-graveyard"
             ],
             "semanticFixtures": [
                 "mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup",
                 "mordred-flawless-blade-floating-payment-rejects-non-floating-card",
                 "mordred-flawless-blade-non-attack-card-in-graveyard-does-not-float",
-                "mordred-flawless-blade-opponent-blade-makes-my-graveyard-attack-cards-float"
+                "mordred-flawless-blade-opponent-blade-does-not-float-my-graveyard",
+                "mordred-flawless-blade-player-two-blade-floats-own-graveyard"
             ],
             "starterDecks": [
                 "Mordred Re:Collection, Aurelian Regent"

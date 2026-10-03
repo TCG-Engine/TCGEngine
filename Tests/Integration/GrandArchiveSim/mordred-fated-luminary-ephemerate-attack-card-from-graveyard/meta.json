@@ -6,7 +6,7 @@
     "testedCards": [
         "KqBosnU7pU"
     ],
-    "notes": "Mordred, Fated Luminary (KqBosnU7pU): attack cards in the graveyard have \"Ephemerate -- (X)\" where X is the card's reserve cost. The graveyard holds a Striking Tides (reserve 3): on turn 3 player 1 activates it FROM THE GRAVEYARD (generic Ephemerate path), pays X = 3 and aims it at player 2's champion, which takes its printed 4 damage. (What happens to the card afterwards is pinned in mordred-fated-luminary-ephemerated-attack-card-is-not-banished.)",
+    "notes": "Mordred, Fated Luminary (KqBosnU7pU): attack cards in the graveyard have \"Ephemerate -- (X)\" where X is the card's reserve cost. The graveyard holds a Striking Tides (reserve 3): on turn 3 player 1 activates it FROM THE GRAVEYARD (generic Ephemerate path), pays X = 3 and aims it at player 2's champion, which takes its printed 4 damage. (What happens to the card afterwards is pinned in mordred-fated-luminary-ephemerated-attack-card-is-banished-after-combat.)",
     "semanticCoverage": {
         "testedCards": [
             "KqBosnU7pU"

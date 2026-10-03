@@ -1,0 +1,29 @@
+{
+    "name": "mordred-fated-luminary-ephemerated-attack-card-is-banished-after-combat",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:51:56+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "KqBosnU7pU"
+    ],
+    "notes": "Mordred, Fated Luminary (KqBosnU7pU): \"(You may activate cards with ephemerate from your graveyard by paying that cost. Attack cards played this way become ephemeral in the intent.)\" -- an ephemeral object is banished whenever it would leave, so the attack is banished at the end of combat. FIXED (was: the Striking Tides came back to the GRAVEYARD afterwards and could be ephemerated again for free value; this fixture used to be ...-is-not-banished and pinned that). Root cause: the ATTACK branch of the activation resolution (Custom/GameLogic.php, 'Ephemerate: tag field objects as ephemeral') only tagged non-ACTION, non-ATTACK field objects, and ClearIntent() (Custom/CombatLogic.php) sent every intent card to the graveyard (banishing only CURSE_TO_LINEAGE cards and sending Renewable cards to material). Fix: the ATTACK branch now tags the intent object EPHEMERAL when wasEphemerated=YES, and ClearIntent() banishes an EPHEMERAL intent card (and strips the tag afterwards). Same actions as mordred-fated-luminary-ephemerate-attack-card-from-graveyard (real FSM activation from the graveyard, X = 3 paid, attack declared, 4 damage): the Striking Tides ends in the BANISH zone and the graveyard is empty.",
+    "semanticCoverage": {
+        "testedCards": [
+            "KqBosnU7pU"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Attack cards played via Ephemerate become ephemeral in the intent: they are banished at the end of combat instead of returning to the graveyard."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. An attack card activated through Ephemerate (Mordred, Fated Luminary) was never made ephemeral: it returned to the graveyard after combat instead of being banished. The ATTACK branch of the activation resolution only tagged non-ACTION, non-ATTACK field objects, and ClearIntent() sent every intent card to the graveyard. Fix: tag the intent object EPHEMERAL in the ATTACK branch when wasEphemerated=YES; ClearIntent() banishes EPHEMERAL intent cards (and strips the tag from the banished card).",
+        "affectedFunction": "Custom/GameLogic.php OnCardActivated() ATTACK branch (Ephemerate tagging) + Custom/CombatLogic.php ClearIntent()",
+        "fixCommit": "TBD"
+    }
+}

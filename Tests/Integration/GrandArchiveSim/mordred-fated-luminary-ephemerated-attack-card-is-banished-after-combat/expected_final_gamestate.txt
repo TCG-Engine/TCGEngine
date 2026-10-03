@@ -22,10 +22,10 @@ em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
-0
-0
 1
-qrxQGA1pc6
+qrxQGA1pc6 - -
+0
+0
 0
 1
 CHAMP_DEALT_COMBAT_DMG

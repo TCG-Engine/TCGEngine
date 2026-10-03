@@ -1,0 +1,29 @@
+{
+    "name": "mordred-flawless-blade-opponent-blade-does-not-float-my-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:52:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "WI2owxIw0z"
+    ],
+    "notes": "Mordred, Flawless Blade (WI2owxIw0z): \"Attack cards in YOUR graveyard have floating memory.\" FIXED (was: an OPPONENT's Flawless Blade made MY graveyard attack cards float; this fixture used to be ...-opponent-blade-makes-my-graveyard-attack-cards-float and pinned the Striking Tides being offered and banished). Root cause: HasFloatingMemory() (Custom/GameLogic.php) looped over BOTH players' fields and granted floating memory to every attack card in every graveyard as soon as ANY Flawless Blade was on the field, without comparing the Blade's controller with the graveyard's owner. Fix: HasFloatingMemory() resolves the card's owner (FloatingMemoryOwner(): graveyard objects -> PlayerID) and only looks for the Flawless Blade on THAT player's field. Player 2's champion is Mordred, Flawless Blade; player 1 (plain Spirit of Water) holds a Striking Tides in its graveyard. Player 1's real level-up into Mordred, Burnished Avenger (memory cost 1) is not offered a floating payment (empty decision queue after the single answer): the seeded memory card is banished for the cost and the Striking Tides stays in the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "WI2owxIw0z"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Attack cards in YOUR graveyard have floating memory (only the Blade's controller's graveyard)."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. An OPPONENT's Mordred, Flawless Blade made the attack cards in MY graveyard float: HasFloatingMemory() looped over both players' fields and returned true for any attack card as soon as ANY Flawless Blade was on the field. Fix: only the owner's field is searched for the Blade (owner = FloatingMemoryOwner(): graveyard objects -> PlayerID).",
+        "affectedFunction": "Custom/GameLogic.php HasFloatingMemory() Mordred (WI2owxIw0z) branch (formerly iterating GetField(1) and GetField(2)); new FloatingMemoryOwner()",
+        "fixCommit": "TBD"
+    }
+}

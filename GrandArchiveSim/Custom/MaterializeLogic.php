@@ -1103,6 +1103,12 @@ function DoMaterialize($player, $mzCard) {
             return;
         }
 
+        // Mordred/Tristan Lineage: "can level up into champions of the SAME base level. When he/she
+        // does, draw two cards." The draw belongs only to that same-base-level level-up, not to an
+        // ordinary level N -> N+1 level-up (even one that lands on Fated Luminary / Shadowreaver).
+        $sameBaseLevelLevelUp = $existingChampionCardID !== null
+            && intval(CardLevel($existingChampionCardID)) === intval(CardLevel($sourceId));
+
         // Snow White, Weiss Queen (5u5m8xblmd): [Level 1+] If a rested champion you
         // don't control would level up, return that card to its owner's material deck instead.
         if($existingChampionIdx >= 0 && intval(CardLevel($existingChampionCardID)) === 2) {
@@ -1241,12 +1247,14 @@ function DoMaterialize($player, $mzCard) {
             }
         }
 
-        // Tristan, Shadowreaver (4upufooz13) — Tristan Lineage: when she levels up, draw 2 cards
-        // The new champion is already on the field; check if the lineage contains Shadowreaver
+        // Tristan, Shadowreaver (4upufooz13) / Mordred, Fated Luminary (KqBosnU7pU) — Lineage:
+        // "can level up into champions of the same base level. When he/she does, draw two cards."
+        // Only a SAME-base-level level-up draws (see $sameBaseLevelLevelUp above).
+        // The new champion is already on the field; check if the lineage contains the lineage card
         $field = &GetField($player);
         for($tli = 0; $tli < count($field); ++$tli) {
             if(!$field[$tli]->removed && PropertyContains(EffectiveCardType($field[$tli]), "CHAMPION") && $field[$tli]->Controller == $player) {
-                if(ChampionHasInLineage($player, "4upufooz13") || ChampionHasInLineage($player, "KqBosnU7pU")) {
+                if($sameBaseLevelLevelUp && (ChampionHasInLineage($player, "4upufooz13") || ChampionHasInLineage($player, "KqBosnU7pU"))) {
                     Draw($player, amount: 2);
                 }
                 break;

@@ -22902,17 +22902,16 @@ $fixtures['mordred-fated-luminary-same-level-levelup-needs-luminary-in-lineage']
     ],
 ];
 
-// --- Mordred, Fated Luminary: a NORMAL level-up INTO Fated Luminary also draws two cards (engine bug) ---
+// --- Mordred, Fated Luminary: a NORMAL level-up INTO Fated Luminary draws nothing (engine bug, FIXED) ---
 // Mordred, Fated Luminary (KqBosnU7pU): "Mordred can level up into champions of the same base
 // level. When he does, draw two cards." -- the cards are drawn only when Mordred uses that same
-// base level level-up. ENGINE BUG (found, confirmed live, NOT fixed): DoMaterialize()
-// (Custom/MaterializeLogic.php, the "Tristan, Shadowreaver (4upufooz13) ... when she levels up,
-// draw 2" block) draws two cards after EVERY champion level-up whose resulting lineage contains
-// Fated Luminary (ChampionHasInLineage(KqBosnU7pU)), without checking that the level-up was a same
-// base level one -- so an ordinary level 2 -> level 3 level-up of Mordred, Flawless Blade INTO
-// Fated Luminary draws two cards too. The REGRESSION GUARD assertions pin the buggy hand size 10
-// (7 + 1 turn draw + 2); the rules-correct value is 8.
-$fixtures['mordred-fated-luminary-normal-levelup-into-luminary-draws-two'] = [
+// base level level-up. FIXED (was: DoMaterialize() in Custom/MaterializeLogic.php drew two cards
+// after EVERY champion level-up whose resulting lineage contained Fated Luminary, without checking
+// that the level-up was a same base level one -- so an ordinary level 2 -> level 3 level-up of
+// Mordred, Flawless Blade INTO Fated Luminary drew two cards too). Now the draw needs the old and
+// new champion to share a base level. The hand is 8 = 7 + 1 turn draw. History: before the fix this
+// fixture was named ...-draws-two and its REGRESSION GUARD assertions pinned the buggy hand size 10.
+$fixtures['mordred-fated-luminary-normal-levelup-into-luminary-draws-nothing'] = [
     'testedCards' => ['KqBosnU7pU'],
     'deck' => $mordredDeck,
     'setup' => [
@@ -22928,21 +22927,20 @@ $fixtures['mordred-fated-luminary-normal-levelup-into-luminary-draws-two'] = [
     ],
 ];
 
-// --- Mordred, Fated Luminary: attack cards in the graveyard never float for a memory cost once the game state is reloaded (engine bug) ---
+// --- Mordred, Fated Luminary: attack cards in the graveyard have floating memory (paying part of a champion level-up) (engine bug, FIXED) ---
 // Mordred, Fated Luminary (KqBosnU7pU): "Attack cards in your graveyard have floating memory and
 // 'Ephemerate -- (X)'." (While paying a memory cost you may banish a card with floating memory from
-// your graveyard to pay for 1 of that cost.) ENGINE BUG (found, confirmed live, NOT fixed):
-// HasFloatingMemory() (Custom/GameLogic.php) grants the Fated Luminary floating memory only when
-// isset($obj->Controller) -- but a graveyard object has no persisted Controller (the Graveyard
-// zone class serializes only CardID; it carries just PlayerID), so every graveyard card parsed back
-// from the game state fails the check. The champion is Fated Luminary, the graveyard holds a
-// Striking Tides (an attack card) and the two seeded memory cards are one short of the memory cost 3
-// of the same-level level-up into Aurelian Regent, which the floating Striking Tides should make up:
-// instead GetMaterializeFloatingChoices() is empty, the payment check fails ("Cannot pay costs for the
-// selected material card. Action undone.") and the champion stays Fated Luminary. The REGRESSION
-// GUARD assertions pin that outcome (the Ephemerate half of the card, which passes the player
-// explicitly, works: see mordred-fated-luminary-ephemerate-attack-card-from-graveyard).
-$fixtures['mordred-fated-luminary-graveyard-attack-card-never-floats-for-memory-cost'] = [
+// your graveyard to pay for 1 of that cost.) FIXED (was: HasFloatingMemory() in Custom/GameLogic.php
+// granted the Fated Luminary floating memory only when isset($obj->Controller) -- but a graveyard
+// object has no persisted Controller (the Graveyard zone class serializes only CardID; it carries
+// just PlayerID), so every graveyard card parsed back from the game state failed the check). The
+// champion is Fated Luminary, the graveyard holds a Striking Tides (an attack card) and the two seeded
+// memory cards are one short of the memory cost 3 of the same-level level-up into Aurelian Regent: the
+// REAL level-up is offered the floating payment, the Striking Tides is banished for 1 point and the
+// level-up completes. History: before the fix this fixture was named
+// ...-never-floats-for-memory-cost and its REGRESSION GUARD assertions pinned the refusal ("Cannot
+// pay costs for the selected material card. Action undone.").
+$fixtures['mordred-fated-luminary-graveyard-attack-card-floats-for-memory-cost'] = [
     'testedCards' => ['KqBosnU7pU'],
     'deck' => $mordredDeck,
     'setup' => [
@@ -22954,7 +22952,30 @@ $fixtures['mordred-fated-luminary-graveyard-attack-card-never-floats-for-memory-
     'actions' => [
         mrdEnd(1), // end player 1 turn 1
         mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
-        mrdAns(1, 'myMaterial-3'), // same-level level-up into Mordred, Aurelian Regent (memory cost 3): the payment is refused
+        mrdAns(1, 'myMaterial-3'), // start the same-level level-up into Mordred, Aurelian Regent (memory cost 3)
+        mrdAns(1, 'myGraveyard-0'), // float the graveyard Striking Tides for 1 of the cost
+    ],
+];
+
+// --- Mordred, Fated Luminary: a graveyard card that is not an attack card does not float ---
+// Mordred, Fated Luminary (KqBosnU7pU): only ATTACK cards in the graveyard have floating memory. The
+// champion is Fated Luminary and the graveyard holds only a Dungeon Guide (an ally): the same-level
+// level-up into Aurelian Regent (memory cost 3) is NOT payable by floating -- with only two memory
+// cards the payment is refused ("Cannot pay costs ... Action undone"), the champion stays Fated
+// Luminary and the Dungeon Guide stays in the graveyard.
+$fixtures['mordred-fated-luminary-non-attack-graveyard-card-does-not-float'] = [
+    'testedCards' => ['KqBosnU7pU'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'KqBosnU7pU', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Fated Luminary (level 3)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (no floating memory) -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 2/2 (one short of the cost 3)
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-3'), // same-level level-up into Mordred, Aurelian Regent (memory cost 3): refused, only 2 payable
     ],
 ];
 
@@ -22981,18 +23002,18 @@ $fixtures['mordred-fated-luminary-ephemerate-attack-card-from-graveyard'] = [
     ],
 ];
 
-// --- Mordred, Fated Luminary: an attack card activated via Ephemerate returns to the graveyard instead of being banished (engine bug) ---
+// --- Mordred, Fated Luminary: an attack card activated via Ephemerate is banished after combat (engine bug, FIXED) ---
 // Mordred, Fated Luminary (KqBosnU7pU): "(You may activate cards with ephemerate from your graveyard by
 // paying that cost. Attack cards played this way become ephemeral in the intent.)" -- an ephemeral
-// object is banished whenever it would leave, so the attack must be banished at the end of combat.
-// ENGINE BUG (found, confirmed live, NOT fixed): the ATTACK branch of the activation resolution
-// (Custom/GameLogic.php, "Ephemerate: tag field objects as ephemeral") only tags non-ACTION,
-// non-ATTACK field objects, and ClearIntent() (Custom/CombatLogic.php) sends every intent card to the
-// graveyard (banishing only CURSE_TO_LINEAGE cards and sending Renewable cards to material). Same
-// actions as mordred-fated-luminary-ephemerate-attack-card-from-graveyard: the Striking Tides
-// is back in the GRAVEYARD afterwards (and could be ephemerated again for free value) instead of
-// banished. The REGRESSION GUARD assertions pin that outcome.
-$fixtures['mordred-fated-luminary-ephemerated-attack-card-is-not-banished'] = [
+// object is banished whenever it would leave, so the attack is banished at the end of combat. FIXED
+// (was: the ATTACK branch of the activation resolution in Custom/GameLogic.php only tagged non-ACTION,
+// non-ATTACK field objects as ephemeral, and ClearIntent() in Custom/CombatLogic.php sent every
+// intent card to the graveyard, so the Striking Tides came back to the GRAVEYARD afterwards and could
+// be ephemerated again for free value). Same actions as
+// mordred-fated-luminary-ephemerate-attack-card-from-graveyard: the Striking Tides is now in the
+// BANISH zone and the graveyard is empty. History: before the fix this fixture was named
+// ...-is-not-banished and its REGRESSION GUARD assertions pinned the graveyard outcome.
+$fixtures['mordred-fated-luminary-ephemerated-attack-card-is-banished-after-combat'] = [
     'testedCards' => ['KqBosnU7pU'],
     'deck' => $mordredDeck,
     'setup' => [
@@ -23005,6 +23026,28 @@ $fixtures['mordred-fated-luminary-ephemerated-attack-card-is-not-banished'] = [
         mrdPass(1), // decline the materialize offer
         mrdPlay(1, 'myGraveyard-0'), // activate Striking Tides from the graveyard via Ephemerate
         ...mrdPay(1, 3), // the Ephemerate cost (X = reserve cost 3)
+        mrdAns(1, 'theirField-0'), // attack player 2's champion
+    ],
+];
+
+// --- Mordred, Fated Luminary: an attack card played normally from HAND still goes to the graveyard ---
+// Mordred, Fated Luminary (KqBosnU7pU): only attack cards played via EPHEMERATE (from the graveyard)
+// become ephemeral. Guard for the ephemeral-intent tagging: a Striking Tides played from the HAND
+// (paying its printed reserve cost 3, hitting player 2's champion for 4) goes to the graveyard after
+// combat -- it is not banished.
+$fixtures['mordred-fated-luminary-attack-card-played-from-hand-goes-to-graveyard'] = [
+    'testedCards' => ['KqBosnU7pU'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'KqBosnU7pU', 'Subcards' => ['WI2owxIw0z', 'OWCdWq3mXY', 'tafqldAGRF']]], // Mordred, Fated Luminary (level 3)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // decline the materialize offer
+        mrdPlay(1, 'myHand-7'), // activate Striking Tides from HAND
+        ...mrdPay(1, 3), // printed reserve cost 3
         mrdAns(1, 'theirField-0'), // attack player 2's champion
     ],
 ];
@@ -23077,18 +23120,18 @@ $fixtures['mordred-flawless-blade-non-attack-card-in-graveyard-does-not-float'] 
     ],
 ];
 
-// --- Mordred, Flawless Blade: an OPPONENT's Flawless Blade also makes MY graveyard attack cards float (engine bug) ---
-// Mordred, Flawless Blade (WI2owxIw0z): "Attack cards in YOUR graveyard have floating memory." ENGINE
-// BUG (found, confirmed live, NOT fixed): HasFloatingMemory() (Custom/GameLogic.php) loops over BOTH
-// players' fields and grants floating memory to every attack card in every graveyard as soon as ANY
-// Flawless Blade is on the field, without checking that the Blade's controller is the graveyard's
-// owner. Player 2's champion is Mordred, Flawless Blade; player 1 (plain Spirit of Water, no
-// Flawless Blade) holds a Striking Tides in its graveyard. Player 1's real level-up into
-// Mordred, Burnished Avenger (memory cost 1) is offered a floating payment with that Striking
-// Tides -- answering with it banishes it for the cost and leaves the seeded memory card unspent. The
-// REGRESSION GUARD assertions pin that outcome (rules-correct: no floating prompt, the memory card
-// is banished).
-$fixtures['mordred-flawless-blade-opponent-blade-makes-my-graveyard-attack-cards-float'] = [
+// --- Mordred, Flawless Blade: an OPPONENT's Flawless Blade does NOT make MY graveyard attack cards float (engine bug, FIXED) ---
+// Mordred, Flawless Blade (WI2owxIw0z): "Attack cards in YOUR graveyard have floating memory." FIXED
+// (was: HasFloatingMemory() in Custom/GameLogic.php looped over BOTH players' fields and granted
+// floating memory to every attack card in every graveyard as soon as ANY Flawless Blade was on the
+// field, without checking that the Blade's controller is the graveyard's owner). Player 2's champion
+// is Mordred, Flawless Blade; player 1 (plain Spirit of Water, no Flawless Blade) holds a Striking
+// Tides in its graveyard. Player 1's real level-up into Mordred, Burnished Avenger (memory cost 1) is
+// NOT offered a floating payment: the seeded memory card is banished for the cost and the Striking
+// Tides stays in player 1's graveyard. History: before the fix this fixture was named
+// ...-makes-my-graveyard-attack-cards-float and its REGRESSION GUARD assertions pinned the Striking
+// Tides being offered and banished.
+$fixtures['mordred-flawless-blade-opponent-blade-does-not-float-my-graveyard'] = [
     'testedCards' => ['WI2owxIw0z'],
     'deck' => $mordredDeck,
     'setup' => [
@@ -23099,8 +23142,33 @@ $fixtures['mordred-flawless-blade-opponent-blade-makes-my-graveyard-attack-cards
     'actions' => [
         mrdEnd(1), // end player 1 turn 1
         mrdEnd(2), // end player 2 turn 2 -> player 1 turn 3 materialize phase
-        mrdAns(1, 'myMaterial-0'), // player 1 starts the level-up into Mordred, Burnished Avenger (memory cost 1)
-        mrdAns(1, 'myGraveyard-0'), // a floating payment is wrongly offered: float Striking Tides
+        mrdAns(1, 'myMaterial-0'), // player 1 levels up into Mordred, Burnished Avenger (memory cost 1): no floating payment is offered, the memory card pays
+    ],
+];
+
+// --- Mordred, Flawless Blade: PLAYER 2's own Flawless Blade floats PLAYER 2's graveyard attack cards ---
+// Mordred, Flawless Blade (WI2owxIw0z): "Attack cards in your graveyard have floating memory." The
+// owner check must work from player 2's seat too (graveyard owner resolved through PlayerID, never
+// a perspective-relative field). Player 2's champion is Mordred, Flawless Blade; player 2's graveyard
+// holds a Striking Tides and its two seeded memory cards are one short of the memory cost 3 of the
+// level-up into Aurelian Regent in player 2's turn-4 materialize phase (its first materialize offer): the floating payment is
+// offered, Striking Tides is banished for 1 point and the level-up completes.
+$fixtures['mordred-flawless-blade-player-two-blade-floats-own-graveyard'] = [
+    'testedCards' => ['WI2owxIw0z'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'WI2owxIw0z', 'Subcards' => ['OWCdWq3mXY', 'tafqldAGRF']]], // PLAYER 2's champion: Mordred, Flawless Blade (level 2)
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'qrxQGA1pc6'], // Striking Tides in PLAYER 2's graveyard -> p2 graveyard-0
+        ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 1/2
+        ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory 2/2 (one short of the cost 3)
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdEnd(2), // end player 2 turn 2 (player 2's first turn has no materialize offer)
+        mrdPass(1), // player 1 declines the materialize offer of its second turn
+        mrdEnd(1), // end player 1's turn 3 -> player 2 turn 4 materialize phase
+        mrdAns(2, 'myMaterial-3'), // player 2 starts the level-up into Mordred, Aurelian Regent (memory cost 3)
+        mrdAns(2, 'myGraveyard-0'), // float player 2's Striking Tides for 1 of the cost
     ],
 ];
 
