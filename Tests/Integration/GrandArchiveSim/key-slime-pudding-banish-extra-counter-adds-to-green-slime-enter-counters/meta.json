@@ -1,0 +1,25 @@
+{
+    "name": "key-slime-pudding-banish-extra-counter-adds-to-green-slime-enter-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:20:40+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "notes": "Key Slime Pudding (4wuq20gvcg, REGALIA/ITEM, memory cost 0): \"Banish CARDNAME: Until end of turn, Slime allies that enter the field under your control enter with an additional buff counter on them.\" Key Slime Pudding is genuinely MATERIALIZED from the material deck at the start of player 1's turn 3 (the setup only adds it to myMaterial); the Slime/ally cards are played from hand with real FSM plays and reserve payments. Stacking boundary: the counter is ADDITIONAL to whatever the Slime enters with. Green Slime (zgcxyky280, WIND Slime) prints \"On Enter: Put two buff counters on CARDNAME\", so after the Banish activation it ends with 2 + 1 = 3 buff counters. (Its WIND element is unlocked by patching Spirit of Wind into the champion lineage; the deck is colorless so no spurious fast-spell windows interrupt the flow.)",
+    "testedCards": [
+        "4wuq20gvcg",
+        "zgcxyky280"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4wuq20gvcg",
+            "zgcxyky280"
+        ],
+        "mechanics": [
+            "counter",
+            "condition",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Until end of turn, Slime allies that enter the field under your control enter with an additional buff counter on them."
+        ]
+    }
+}

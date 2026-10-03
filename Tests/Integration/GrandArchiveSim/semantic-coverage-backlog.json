@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T14:56:58+00:00",
+    "generatedAt": "2026-10-03T15:22:17+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 625,
+        "cardsWithExistingFixtures": 626,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1862,
+        "cardsNeedingSemanticCoverage": 1861,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -104,26 +104,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 123
-        },
-        {
-            "cardId": "9ggfiy38t2",
-            "name": "Baby Blue Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Re:Collection, Slime Sovereign"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
         },
         {
             "cardId": "ra9950o14t",
@@ -33698,11 +33678,13 @@
             ],
             "existingFixtures": [
                 "green-slime-class-bonus-on-leave-transfer-buff",
-                "green-slime-on-enter-two-buff-counters"
+                "green-slime-on-enter-two-buff-counters",
+                "key-slime-pudding-banish-extra-counter-adds-to-green-slime-enter-counters"
             ],
             "semanticFixtures": [
                 "green-slime-class-bonus-on-leave-transfer-buff",
-                "green-slime-on-enter-two-buff-counters"
+                "green-slime-on-enter-two-buff-counters",
+                "key-slime-pudding-banish-extra-counter-adds-to-green-slime-enter-counters"
             ],
             "starterDecks": [
                 "Silvie Re:Collection, Slime Sovereign"
@@ -35651,6 +35633,40 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "9ggfiy38t2",
+            "name": "Baby Blue Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "baby-blue-slime-class-bonus-tamer-champion-plus-one-life",
+                "baby-blue-slime-no-class-bonus-with-non-tamer-champion",
+                "baby-blue-slime-rest-main-phase-targets-only-other-slime-allies-you-control",
+                "baby-blue-slime-rest-needs-another-slime-ally-to-activate",
+                "baby-blue-slime-rest-prevents-next-2-combat-damage-to-other-slime",
+                "baby-blue-slime-rested-cannot-activate-again"
+            ],
+            "semanticFixtures": [
+                "baby-blue-slime-class-bonus-tamer-champion-plus-one-life",
+                "baby-blue-slime-no-class-bonus-with-non-tamer-champion",
+                "baby-blue-slime-rest-main-phase-targets-only-other-slime-allies-you-control",
+                "baby-blue-slime-rest-needs-another-slime-ally-to-activate",
+                "baby-blue-slime-rest-prevents-next-2-combat-damage-to-other-slime",
+                "baby-blue-slime-rested-cannot-activate-again"
+            ],
+            "starterDecks": [
+                "Silvie Re:Collection, Slime Sovereign"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -42359,10 +42375,18 @@
                 "counter"
             ],
             "existingFixtures": [
-                "key-slime-pudding-banish-ability-never-fires"
+                "key-slime-pudding-banish-effect-ends-at-end-of-turn",
+                "key-slime-pudding-banish-extra-counter-adds-to-green-slime-enter-counters",
+                "key-slime-pudding-banish-non-slime-ally-enters-unboosted",
+                "key-slime-pudding-banish-offered-in-opportunity-window",
+                "key-slime-pudding-banish-slime-ally-enters-boosted"
             ],
             "semanticFixtures": [
-                "key-slime-pudding-banish-ability-never-fires"
+                "key-slime-pudding-banish-effect-ends-at-end-of-turn",
+                "key-slime-pudding-banish-extra-counter-adds-to-green-slime-enter-counters",
+                "key-slime-pudding-banish-non-slime-ally-enters-unboosted",
+                "key-slime-pudding-banish-offered-in-opportunity-window",
+                "key-slime-pudding-banish-slime-ally-enters-boosted"
             ],
             "starterDecks": [
                 "Silvie Re:Collection, Slime Sovereign"

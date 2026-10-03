@@ -18954,23 +18954,15 @@ DECK,
 // =============================================================================
 
 // NOTE on Baby Blue Slime (9ggfiy38t2, REST: Prevent the next 2 damage to another target Slime
-// ally): investigated and SKIPPED. Its REST ability is registered in
-// $cardActivatedAbilities["9ggfiy38t2:0"] (GeneratedMacroCode.php) -- the reserve-cost
-// activate-from-hand/material dictionary backed by DoActivateCard() -- rather than
-// $activateAbilityAbilities (the free/repeatable field-ability dictionary Cosmic Astroscope's own
-// REST ability correctly uses). CustomInput.php's "myField" case routes a direct field click to
-// ActivateCard() whenever CardActivateAbilityCount()===0 and CardCardActivatedCount()>0 for the
-// target (the fix documented above for Scale of Souls). But DoActivateCard() (GameLogic.php
-// ~1963) unconditionally does `$obj = MZMove($player, $mzCard, "EffectStack");` and then runs the
-// FULL reserve-cost "announce/pay/materialize" pipeline, as if the already-on-field ally were
-// being activated fresh from hand -- confirmed live: activating this way left Baby Blue Slime
-// back on myField with TurnEffects just ["ENTERED_THIS_TURN"] (a materialize side effect), no
-// PREVENT_ALL_2, and no MZCHOOSE for the "another target Slime ally" decision was ever queued --
-// the cardActivatedAbilities["9ggfiy38t2:0"] closure that would add PREVENT_ALL_2 never ran. This
-// looks like a genuine generator/categorization defect (this card's simple always-available REST
-// ability should have been emitted into $activateAbilityAbilities like Cosmic Astroscope's, not
-// the reserve-cost dictionary), not a fixture-authoring gap -- flagged for separate triage, not
-// fixed here per this task's scope.
+// ally): this card used to be SKIPPED here because its REST ability was registered in
+// $cardActivatedAbilities["9ggfiy38t2:0"] (the play-effect / reserve-cost dictionary) with a 0
+// $CardActivateAbilityCountData row instead of $activateAbilityAbilities, so playing it auto-fired the
+// target prompt without paying REST and the ability could never be activated from the field (field
+// clicks were routed into DoActivateCard(), which treats the on-field ally as a card being played).
+// Fixed (real $activateAbilityAbilities/$activateAbilityPrereqs entries, ability count/name rows, and the
+// misfiled play-table body neutralized -- see Custom/GameLogic.php, Custom/GeneratedAbilityOverrides.php);
+// its full semantic coverage now lives in the baby-blue-slime-* fixtures further below (defined next to
+// the key-slime-pudding-* fixtures, the other card with the same categorization defect).
 
 // --- Bauble of Mending: Banish: Draw a card. [Class Bonus] non-Human ally +1 LIFE ---
 $fixtures['bauble-of-mending-banish-draw-class-bonus-life'] = [
@@ -19350,7 +19342,7 @@ DECK,
     // Slimeshield's ability (cardActivatedAbilities['hcpetipurz:0'] ->
     // customDQHandlers['hcpetipurz:0:CardActivated-1'], GeneratedMacroCode.php) is a plain
     // reserve-cost ACTION card, correctly played through the normal hand-activation pipeline
-    // (unlike the field-resident-ally-ability routing bug documented for Baby Blue Slime above):
+    // (unlike the since-fixed field-resident-ally-ability categorization bug of Baby Blue Slime, see the baby-blue-slime-* fixtures):
     // AddTurnEffect($target, 'PREVENT_ALL_3'), then an extra AddCounters(..., 'buff', 1) only if
     // the target is a Slime ally. Its element is WIND, not native to the 'Spirit of Fire'
     // starting champion, so the champion's Subcards are patched with a real WIND champion
@@ -20052,10 +20044,18 @@ DECK,
     ],
 ];
 
-// --- Key Slime Pudding: field-resident Banish ability silently no-ops (same bug class as Baby Blue Slime) ---
-$fixtures['key-slime-pudding-banish-ability-never-fires'] = [
-    'testedCards' => ['4wuq20gvcg'],
-    'deck' => <<<'DECK'
+// --- Key Slime Pudding: Banish CARDNAME: Slime allies entering under your control this turn get an additional buff counter ---
+// Key Slime Pudding (4wuq20gvcg, REGALIA/ITEM, memory 0): "Banish CARDNAME: Until end of turn, Slime
+// allies that enter the field under your control enter with an additional buff counter on them."
+// History: the generator registered this FIELD ability in $cardActivatedAbilities (the play-effect
+// dictionary) with a 0 $CardActivateAbilityCountData row, so GetPlayableFastAbilities() never offered it
+// and a field click silently no-opped (the former fixture key-slime-pudding-banish-ability-never-fires
+// pinned that). It is now a real $activateAbilityAbilities["4wuq20gvcg:0"] ability whose Banish cost is
+// paid by ActivatedAbilityCost(). In every fixture below Key Slime Pudding is MATERIALIZED FOR REAL from
+// the material deck at the start of player 1's turn 3 (the seed only adds it to myMaterial), the Slime
+// allies are played from hand with real FSM plays + reserve payments, and the ability is activated with
+// real actions (the BREC opportunity window listing, or the main-phase Activate button).
+$kspDeck = <<<'DECK'
 # Material
 1 Spirit of Fire
 1 Clarent, Sword of Peace
@@ -20063,45 +20063,234 @@ $fixtures['key-slime-pudding-banish-ability-never-fires'] = [
 1 Purifying Thurible
 # Main
 4 Dungeon Guide
-4 Fairy Whispers
 4 Fluffy Shopkeep
-4 Windslice
-DECK,
-    // ENGINE BUG (found, confirmed live, NOT fixed): this fixture documents Key Slime Pudding's
-    // "Banish CARDNAME: Until end of turn, Slime allies that enter the field under your control
-    // enter with an additional buff counter on them" ability CURRENTLY silently never firing when
-    // clicked on the field, for the same categorization-defect class already documented for Baby
-    // Blue Slime elsewhere in this suite (see the NOTE near the top of this batch). Key Slime
-    // Pudding's ability is registered in $cardActivatedAbilities['4wuq20gvcg:0']
-    // (GeneratedCode/GeneratedMacroCode.php) -- the reserve-cost activate-from-hand/material
-    // dictionary backed by CardCardActivatedCount() -- rather than $activateAbilityAbilities (the
-    // free/repeatable field-ability dictionary backed by CardActivateAbilityCount(), the one
-    // Bauble of Mending's structurally-identical "Banish self: <effect>" ability correctly uses).
-    // Confirmed live with a standalone debug harness, two independent ways: (1)
-    // GetPlayableOpportunityChoices() -- the function that builds the fast-opportunity choice list
-    // a 'myField-N@Activate-0@Banish' click would need to match against -- never includes Key
-    // Slime Pudding's ability at all (it's empty both before and after opening a fast-opportunity
-    // window via Pass), because that builder only surfaces $activateAbilityAbilities-registered
-    // abilities. (2) A direct 'myField-N@Activate-0@Banish' click with the decision queue empty
-    // returns success=YES (no error) but is a complete no-op: Key Slime Pudding stays on the
-    // field (not banished), the Banish zone stays empty, and no '4wuq20gvcg' global effect is ever
-    // set -- CustomInput.php's 'myField' case would route this through ActivateCard() (per the
-    // CardActivateAbilityCount()===0 && CardCardActivatedCount()>0 check documented at the top of
-    // CustomInput.php), the same DoActivateCard()-based pipeline already shown broken for Baby Blue
-    // Slime's REST ability. Confidence: HIGH / directly confirmed live (not just a theory by
-    // analogy) -- both the opportunity-list omission and the no-op field click were independently
-    // reproduced. This fixture pins the CURRENT (buggy, inert) observed behavior as a regression
-    // baseline so a future fix to the generator's $cardActivatedAbilities/$activateAbilityAbilities
-    // categorization is easy to spot (the assertions below will need updating once that's fixed).
-    // Key Slime Pudding is seeded directly onto the field (REGALIA/ITEM cards are redirected out of
-    // hand into the material deck by HandAddReplacement(), so seeding it onto myField directly,
-    // same technique as bauble-of-mending-banish-draw-class-bonus-life, is the correct way to reach
-    // a field-resident REGALIA precondition here).
+4 Dungeon Guide
+4 Fluffy Shopkeep
+DECK;
+
+// Happy path: after activating in the main phase, a Slime ally that enters gets +1 buff counter.
+$fixtures['key-slime-pudding-banish-slime-ally-enters-boosted'] = [
+    'testedCards' => ['4wuq20gvcg'],
+    'deck' => $kspDeck,
     'setup' => [
-        ['player' => 1, 'zone' => 'myField', 'cardID' => '4wuq20gvcg'], // Key Slime Pudding -> myField-1
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => '4wuq20gvcg'], // Key Slime Pudding -> materialized for real below
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'mttsvbgl6f'],     // Red Slime (plain Slime ally, reserve 3) -> myHand-7
     ],
     'actions' => [
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''],
+        mrdEnd(1),                                      // end player 1's turn 1
+        mrdEnd(2),                                      // end player 2's turn 2 -> player 1's turn 3 material phase
+        mrdAns(1, 'myMaterial-3'),                      // materialize Key Slime Pudding (memory cost 0)
+        mrdPass(1),                                     // decline the BREC opportunity window -> main phase
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), // activate "Banish CARDNAME" from the main phase
+        mrdPlay(1, 'myHand-7'),                         // play Red Slime
+        ...mrdPay(1, 3),                                // its reserve cost
+    ],
+];
+
+// Stacking: "an ADDITIONAL buff counter" -- Green Slime's own On Enter (two buff counters) still happens.
+$fixtures['key-slime-pudding-banish-extra-counter-adds-to-green-slime-enter-counters'] = [
+    'testedCards' => ['4wuq20gvcg'],
+    'deck' => $kspDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // Spirit of Wind lineage: WIND element unlock for Green Slime
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => '4wuq20gvcg'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zgcxyky280'], // Green Slime (WIND Slime: On Enter two buff counters) -> myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1),
+        mrdEnd(2),
+        mrdAns(1, 'myMaterial-3'),
+        mrdPass(1),
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'),
+        mrdPlay(1, 'myHand-7'),
+        ...mrdPay(1, 3),
+    ],
+];
+
+// Negative: a non-Slime ally entering after the activation gets no extra counter.
+$fixtures['key-slime-pudding-banish-non-slime-ally-enters-unboosted'] = [
+    'testedCards' => ['4wuq20gvcg'],
+    'deck' => $kspDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => '4wuq20gvcg'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (Human Mage ally, reserve 3) -> myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1),
+        mrdEnd(2),
+        mrdAns(1, 'myMaterial-3'),
+        mrdPass(1),
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'),
+        mrdPlay(1, 'myHand-7'),
+        ...mrdPay(1, 3),
+        mrdAns(1, 'NO'),                                // decline Dungeon Guide's "you may banish two cards from memory" On Enter
+    ],
+];
+
+// Opportunity-window path: the ability is offered in the opportunity window (the exact "@Activate-0@Banish"
+// choice that used to be missing from GetPlayableOpportunityChoices()) and resolves from there.
+$fixtures['key-slime-pudding-banish-offered-in-opportunity-window'] = [
+    'testedCards' => ['4wuq20gvcg'],
+    'deck' => $kspDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => '4wuq20gvcg'],
+    ],
+    'actions' => [
+        mrdEnd(1),
+        mrdEnd(2),
+        mrdAns(1, 'myMaterial-3'),                       // materialize Key Slime Pudding -> BREC opportunity window lists its Banish ability
+        mrdAns(1, 'myField-1@Activate-0@Banish'),        // choose the listed ability in the window
+    ],
+];
+
+// "Until end of turn": the global effect is gone once the turn ends.
+$fixtures['key-slime-pudding-banish-effect-ends-at-end-of-turn'] = [
+    'testedCards' => ['4wuq20gvcg'],
+    'deck' => $kspDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => '4wuq20gvcg'],
+    ],
+    'actions' => [
+        mrdEnd(1),
+        mrdEnd(2),
+        mrdAns(1, 'myMaterial-3'),
+        mrdPass(1),
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'),
+        mrdEnd(1),                                      // end player 1's turn 3
+    ],
+];
+
+// --- Baby Blue Slime: [Class Bonus] +1 LIFE; [REST]: Prevent the next 2 damage that would be dealt to another target Slime ally you control this turn ---
+// Baby Blue Slime (9ggfiy38t2, WATER ALLY, TAMER/ANIMAL/SLIME, reserve 2, POWER 1 / LIFE 2): "[Class
+// Bonus] CARDNAME gets +1 LIFE. [REST]: Prevent the next 2 damage that would be dealt to another target
+// Slime ally you control this turn."
+// History: the generator registered the REST body in $cardActivatedAbilities (the play-effect
+// dictionary) with a 0 ability count, so playing the ally queued a free target prompt on enter (no REST
+// paid) and the real REST ability could never be activated afterwards (the NOTE that used to stand here
+// SKIPPED the card for that reason). It is now a real $activateAbilityAbilities["9ggfiy38t2:0"] with a
+// prereq (ready + another Slime ally) and the ally auto-rest of DoActivatedAbility() as the [REST] cost.
+// Every fixture below plays Baby Blue Slime for real from hand (WATER unlocked by patching Nico into the
+// champion lineage; the colorless deck keeps fast-spell windows out of the flow). Seeded cards are only
+// the targets/attackers/preconditions.
+
+// Core combat use: Baby Blue Slime is activated in player 2's attack priority window and the prevention absorbs exactly 2 of the 3 combat damage.
+$fixtures['baby-blue-slime-rest-prevents-next-2-combat-damage-to-other-slime'] = [
+    'testedCards' => ['9ggfiy38t2'],
+    'deck' => $kspDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // Nico lineage: WATER element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mttsvbgl6f'],  // Red Slime (LIFE 2, the protected Slime) -> p1 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9ggfiy38t2'],   // Baby Blue Slime -> myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['buff' => 2]]], // Dungeon Guide with 2 buff counters (POWER 3) -> p2 field-1
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'),                                // play Baby Blue Slime
+        ...mrdPay(1, 2),                                        // reserve cost 2
+        mrdEnd(1),                                              // end player 1's turn
+        mrdPass(1),                                             // end-of-main window (Baby Blue Slime's ability is listed)
+        mrdPass(1),                                             // beginning-of-opponent-turn window
+        mrdAct(2, 10002, 'myField-1!FSM!'),                     // player 2 attacks with the 3-power Dungeon Guide
+        mrdAns(2, 'theirField-1'),                              // ... targeting player 1's Red Slime
+        mrdAns(1, 'myField-2@Activate-0@Prevent'),              // player 1 activates Baby Blue Slime in the priority window
+        mrdAns(1, 'myField-1'),                                 // target: Red Slime
+        mrdPass(1),                                             // decline Red Slime's Retaliate
+    ],
+];
+
+// Main-phase activation + target restriction: only ANOTHER Slime ally YOU control is a legal target.
+$fixtures['baby-blue-slime-rest-main-phase-targets-only-other-slime-allies-you-control'] = [
+    'testedCards' => ['9ggfiy38t2'],
+    'deck' => $kspDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mttsvbgl6f'],  // Red Slime (the only legal target) -> p1 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],  // Dungeon Guide (an ally, but not a Slime) -> p1 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9ggfiy38t2'],   // Baby Blue Slime -> myHand-7, enters at p1 field-3
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'mttsvbgl6f'],  // opponent's Red Slime (a Slime ally, but not yours) -> p2 field-1
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'),
+        ...mrdPay(1, 2),
+        mrdAct(1, 10001, 'myField-3!CustomInput!Activate:0'),                                  // activate from the main phase
+        mrdAns(1, 'myField-3', ['expectFailure' => true, 'semantic' => true, 'label' => 'Rejects Baby Blue Slime itself: the target must be ANOTHER Slime ally']),
+        mrdAns(1, 'myField-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'Rejects a non-Slime ally']),
+        mrdAns(1, 'myField-0', ['expectFailure' => true, 'semantic' => true, 'label' => 'Rejects the champion (not a Slime ally)']),
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Rejects the opponent\'s Slime ally: the target must be one YOU control']),
+        mrdAns(1, 'myField-1'),                                                                // the legal target: Red Slime
+    ],
+];
+
+// Negative (condition): with no OTHER Slime ally under your control the ability cannot be activated at all, so [REST] is not paid.
+$fixtures['baby-blue-slime-rest-needs-another-slime-ally-to-activate'] = [
+    'testedCards' => ['9ggfiy38t2'],
+    'deck' => $kspDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],  // Dungeon Guide: an ally, but not a Slime -> p1 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9ggfiy38t2'],   // Baby Blue Slime -> myHand-7, enters at p1 field-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'mttsvbgl6f'],  // opponent's Slime: never a legal target
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'),
+        ...mrdPay(1, 2),
+        mrdAct(1, 10001, 'myField-2!CustomInput!Activate:0'),            // try to activate with no other Slime ally of mine
+    ],
+];
+
+// Negative (cost): [REST] needs an awake ally -- once rested, Baby Blue Slime cannot activate again this turn.
+$fixtures['baby-blue-slime-rested-cannot-activate-again'] = [
+    'testedCards' => ['9ggfiy38t2'],
+    'deck' => $kspDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mttsvbgl6f'],  // Red Slime -> p1 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mttsvbgl6f'],  // second Red Slime -> p1 field-2 (a second legal target exists)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9ggfiy38t2'],   // Baby Blue Slime -> myHand-7, enters at p1 field-3
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'),
+        ...mrdPay(1, 2),
+        mrdAct(1, 10001, 'myField-3!CustomInput!Activate:0'),            // first activation
+        mrdAns(1, 'myField-1'),                                          // protect the first Red Slime
+        mrdAct(1, 10001, 'myField-3!CustomInput!Activate:0'),            // second attempt while rested: nothing happens
+    ],
+];
+
+// Static: [Class Bonus] +1 LIFE applies with a TAMER champion ...
+$fixtures['baby-blue-slime-class-bonus-tamer-champion-plus-one-life'] = [
+    'testedCards' => ['9ggfiy38t2'],
+    'deck' => $kspDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['29lqrve8fz']]], // Silvie, With the Pack (TAMER) + Nico (WATER unlock)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9ggfiy38t2'],  // Baby Blue Slime -> myHand-7, enters at p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['buff' => 1]]], // Dungeon Guide with 1 buff counter (POWER 2) -> p2 field-1
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'),
+        ...mrdPay(1, 2),
+        mrdEnd(1),
+        mrdAct(2, 10002, 'myField-1!FSM!'),                     // player 2 attacks with the 2-power Dungeon Guide
+        mrdAns(2, 'theirField-1'),                              // ... targeting Baby Blue Slime (LIFE 3 with the Class Bonus)
+        mrdPass(1),                                             // decline Baby Blue Slime's Retaliate
+    ],
+];
+
+// ... and does NOT apply when the champion's class does not match (negative).
+$fixtures['baby-blue-slime-no-class-bonus-with-non-tamer-champion'] = [
+    'testedCards' => ['9ggfiy38t2'],
+    'deck' => $kspDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // Spirit of Fire (SPIRIT champion, not TAMER) + Nico lineage for WATER
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9ggfiy38t2'],  // Baby Blue Slime -> myHand-7, enters at p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['buff' => 1]]], // Dungeon Guide with 1 buff counter (POWER 2) -> p2 field-1
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'),
+        ...mrdPay(1, 2),
+        mrdEnd(1),
+        mrdAct(2, 10002, 'myField-1!FSM!'),                     // player 2 attacks with the 2-power Dungeon Guide
+        mrdAns(2, 'theirField-1'),                              // ... targeting Baby Blue Slime (printed LIFE 2, no Class Bonus)
+        mrdPass(1),                                             // decline Baby Blue Slime's Retaliate
     ],
 ];
 
@@ -24132,6 +24321,8 @@ DECK,
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the second discard (Found Power 2/2)
     ],
 ];
+
+
 
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified

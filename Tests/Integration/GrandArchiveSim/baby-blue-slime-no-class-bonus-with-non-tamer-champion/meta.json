@@ -1,0 +1,24 @@
+{
+    "name": "baby-blue-slime-no-class-bonus-with-non-tamer-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:20:42+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "notes": "Baby Blue Slime (9ggfiy38t2, WATER ALLY, TAMER/ANIMAL/SLIME, reserve 2, POWER 1 / LIFE 2): \"[Class Bonus] CARDNAME gets +1 LIFE. [REST]: Prevent the next 2 damage that would be dealt to another target Slime ally you control this turn.\" Baby Blue Slime is played for real from hand (FSM play + 2 reserve payments); WATER is unlocked by patching a Nico lineage into the champion and the deck is colorless so no fast-spell windows interrupt the flow. Negative path: the champion is Spirit of Fire (class SPIRIT, not TAMER), so [Class Bonus] does not apply and Baby Blue Slime keeps its printed LIFE of 2. Proved functionally too: the same 2-power attack (Dungeon Guide with 1 buff counter) now destroys it.",
+    "testedCards": [
+        "9ggfiy38t2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9ggfiy38t2"
+        ],
+        "mechanics": [
+            "condition",
+            "status",
+            "combat",
+            "damage"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 LIFE."
+        ]
+    }
+}

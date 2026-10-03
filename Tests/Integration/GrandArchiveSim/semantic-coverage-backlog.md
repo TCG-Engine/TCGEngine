@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **625**
+Cards linked to an existing fixture: **626**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1862**
+Implemented cards still needing semantic coverage: **1861**
 
 ## Mechanic groups
 
@@ -30,7 +30,6 @@ Implemented cards still needing semantic coverage: **1862**
 | Nocturne's Oblivion (`1a5zdqgydt`) | ACTION | 2 | cost, targeting, zone-movement, condition | Ciel, Mirage's Grave | — |
 | Ranger Boots (`fbs9qzo3f6`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, status, trigger | Diana, Moonpiercer | — |
 | Pleiades, Celestial Genesis (`rsps1qnzfl`) | REGALIA,WEAPON | 2 | token, combat, trigger | Diana, Moonpiercer | — |
-| Baby Blue Slime (`9ggfiy38t2`) | ALLY | 1 | targeting, damage, prevention, condition | Silvie Re:Collection, Slime Sovereign | — |
 | Charge the Soul (`ra9950o14t`) | ACTION | 1 | cost, targeting, damage, zone-movement | Diana, Moonpiercer | — |
 | Ciel, Mirage's Grave (`zhh43i1eaa`) | CHAMPION | 1 | targeting, damage, counter, trigger | Ciel, Mirage's Grave | — |
 | Conflagrant Sentinel (`puyzn48srd`) | ALLY | 1 | draw-discard, counter, trigger, condition | Ciel, Mirage's Grave | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **1862**
 | Baleful Oblation (`oye74ibwo8`) | ACTION | 2 | cost, damage | — | baleful-oblation-ciel-bonus-and-effect |
 | Incarnate Majesty (`7dl5j4lx6x`) | ACTION | 2 | cost, zone-movement | — | incarnate-majesty-banish-spirit |
 | Cardiac Vessel (`5xjzPh6l2M`) | UNIQUE,PHANTASIA | 3 | cost, damage, draw-discard, trigger, condition | — | — |
+| Golden Measure Patisserie (`Bq2kynKJvx`) | UNIQUE,DOMAIN | 3 | cost, targeting, counter, token, trigger | — | — |

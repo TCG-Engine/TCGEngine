@@ -1,0 +1,14 @@
+[
+    {"step":3,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"9ggfiy38t2","semantic":true,"label":"Baby Blue Slime entered the field"},
+    {"step":3,"type":"decision_queue_empty","player":"all","semantic":true,"label":"Playing Baby Blue Slime queues no target prompt: its ability is not a play effect"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-2","property":"Status","value":"2","semantic":true,"label":"Playing it did not rest it (the [REST] cost was not paid)"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\"]","semantic":true,"label":"Red Slime got no prevention from merely playing Baby Blue Slime"},
+    {"step":10,"type":"card_property_equals","mzId":"p1Field-1","property":"TurnEffects","value":"[\"COMBAT_TARGET_MARKER\",\"PREVENT_ALL_2\"]","semantic":true,"label":"Activating shields the chosen Red Slime with exactly \"prevent the next 2 damage\" (alongside the attack's own target marker)"},
+    {"step":10,"type":"card_property_equals","mzId":"p1Field-2","property":"Status","value":"1","semantic":true,"label":"[REST] cost: Baby Blue Slime is rested by the activation"},
+    {"step":11,"type":"computed_power_equals","mzId":"p2Field-1","value":3,"semantic":true,"label":"The attacking Dungeon Guide has 3 power (1 + 2 buff counters)"},
+    {"step":11,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"1","semantic":true,"label":"Red Slime takes 3 - 2 = 1 damage: exactly the next 2 damage was prevented"},
+    {"step":11,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"mttsvbgl6f","semantic":true,"label":"Red Slime survived the 3-power attack"},
+    {"step":11,"type":"card_property_equals","mzId":"p1Field-2","property":"Status","value":"1","semantic":true,"label":"Baby Blue Slime stays rested"},
+    {"step":11,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"Exactly the reserve cost 2 was paid for playing it (memory 2)"},
+    {"step":11,"type":"decision_queue_empty","player":"all","semantic":true,"label":"The combat fully resolved"}
+]

@@ -1,0 +1,29 @@
+{
+    "name": "key-slime-pudding-banish-offered-in-opportunity-window",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:13:39+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "notes": "Key Slime Pudding (4wuq20gvcg, REGALIA/ITEM, memory cost 0): \"Banish CARDNAME: Until end of turn, Slime allies that enter the field under your control enter with an additional buff counter on them.\" Key Slime Pudding is genuinely MATERIALIZED from the material deck at the start of player 1's turn 3 (the setup only adds it to myMaterial); the Slime/ally cards are played from hand with real FSM plays and reserve payments. Formerly key-slime-pudding-banish-ability-never-fires, which pinned the ENGINE BUG: the ability was registered in $cardActivatedAbilities with CardActivateAbilityCount()===0, so GetPlayableFastAbilities() never offered it, and a field click was routed to ActivateCard() where it silently did nothing (success=YES, Pudding stayed on the field, no global effect). Now: right after materializing, the BREC opportunity window lists the \"myField-1@Activate-0@Banish\" choice, choosing it pays the Banish cost (Pudding moves from the field to the banishment zone) and sets the global effect, and the window resolves with nothing pending.",
+    "testedCards": [
+        "4wuq20gvcg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4wuq20gvcg"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Until end of turn, Slime allies that enter the field under your control enter with an additional buff counter on them."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Key Slime Pudding's Banish ability was registered in $cardActivatedAbilities (the play-effect dictionary) with a 0 $CardActivateAbilityCountData row instead of $activateAbilityAbilities, so GetPlayableFastAbilities() never offered it in any opportunity window and a field click was routed through CustomInput's ActivateCard() branch where it silently no-opped. Fix: a real $activateAbilityAbilities[\"4wuq20gvcg:0\"] (sets the global effect), the Banish cost in ActivatedAbilityCost(), ability count/name rows via GAActivateAbilityCountOverrides()/GAApplyActivateAbilityCountOverrides(), and the misfiled $cardActivatedAbilities body neutralized in Custom/GeneratedAbilityOverrides.php.",
+        "affectedFunction": "Custom/GameLogic.php ActivatedAbilityCost() + new $activateAbilityAbilities[\"4wuq20gvcg:0\"] + GAActivateAbilityCountOverrides(); Custom/GeneratedAbilityOverrides.php ($cardActivatedAbilities no-op + count rows); Custom/OpportunityLogic.php GetPlayableFastAbilities()",
+        "fixCommit": "TBD"
+    }
+}

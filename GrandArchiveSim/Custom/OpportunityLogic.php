@@ -802,6 +802,7 @@ function GetPlayableFastAbilities($player) {
             if(isset($Cardistry_Cards[$obj->CardID]) && isset($obj->Counters['cardistry_used'])) continue;
 
             $mzID = $zonePrefix . "-" . $i;
+            GAApplyActivateAbilityCountOverrides();
             $staticAbilityCount = CardActivateAbilityCount($obj->CardID);
             $staticAbilityNames = CardActivateAbilityCountNames($obj->CardID);
 

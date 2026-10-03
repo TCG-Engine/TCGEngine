@@ -1,0 +1,24 @@
+{
+    "name": "baby-blue-slime-rest-main-phase-targets-only-other-slime-allies-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:17:09+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "notes": "Baby Blue Slime (9ggfiy38t2, WATER ALLY, TAMER/ANIMAL/SLIME, reserve 2, POWER 1 / LIFE 2): \"[Class Bonus] CARDNAME gets +1 LIFE. [REST]: Prevent the next 2 damage that would be dealt to another target Slime ally you control this turn.\" Baby Blue Slime is played for real from hand (FSM play + 2 reserve payments); WATER is unlocked by patching a Nico lineage into the champion and the deck is colorless so no fast-spell windows interrupt the flow. FIXED ENGINE BUG context: the REST body used to be registered in $cardActivatedAbilities (the play-effect dictionary) with a 0 ability count, so merely PLAYING Baby Blue Slime queued a free target prompt (no REST paid) and the ability could never be activated later; it is now a real $activateAbilityAbilities[\"9ggfiy38t2:0\"] with a prereq and the ally auto-rest as the [REST] cost. Main-phase activation (mode 10001 Activate:0) and the target restriction \"another target Slime ally you control\": the target prompt rejects Baby Blue Slime itself, a non-Slime ally (Dungeon Guide), the champion, and the opponent's Slime ally (each rejection is an expectFailure step); only the player's own Red Slime is accepted, receives the prevention, and Baby Blue Slime is rested. Nobody else gets a prevention effect.",
+    "testedCards": [
+        "9ggfiy38t2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9ggfiy38t2"
+        ],
+        "mechanics": [
+            "targeting",
+            "prevention",
+            "condition",
+            "status"
+        ],
+        "rulesClauses": [
+            "[REST]: Prevent the next 2 damage that would be dealt to another target Slime ally you control this turn."
+        ]
+    }
+}

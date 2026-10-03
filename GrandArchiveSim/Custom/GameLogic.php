@@ -5042,6 +5042,94 @@ $activateAbilityPrereqs["7mmve2l328:0"] = function($player, $mzID, $abilityIndex
 // Anticipation precedent immediately above it), which is the one call site that actually needs to
 // know this card has 1 static activated ability.
 
+// Key Slime Pudding (4wuq20gvcg, REGALIA/ITEM) and Baby Blue Slime (9ggfiy38t2, ALLY): both cards'
+// printed abilities are FIELD activated abilities, but the generator classified them as
+// $cardActivatedAbilities entries (the dictionary OnCardActivated()/DoActivateCard() use to resolve a
+// card's PLAY effect) instead of $activateAbilityAbilities, and their $CardActivateAbilityCountData
+// rows are 0. Consequences confirmed live:
+//   * Key Slime Pudding: CardActivateAbilityCount()===0 made GetPlayableFastAbilities() omit it from
+//     every opportunity window, and a field click routed through CustomInput's "CardActivateAbilityCount
+//     ===0 && CardCardActivatedCount>0 -> ActivateCard()" branch, which silently no-opped (the Banish
+//     cost was never paid and the global effect never set).
+//   * Baby Blue Slime: its REST ability body sat in the PLAY table, so it auto-fired when the ally was
+//     PLAYED (a free, unrested target prompt on enter) and could never be activated afterwards.
+// The real home is $activateAbilityAbilities / $activateAbilityPrereqs (dispatched via ActivateAbility()
+// -> CanActivateAbility() -> DoActivatedAbility(), which pays [REST] for an ALLY itself), with the
+// per-card ability count/name rows registered by GAApplyActivateAbilityCountOverrides() below (the
+// generated count array is wholesale-reassigned AFTER this file loads, so it cannot be set here at load
+// time; Custom/GeneratedAbilityOverrides.php applies it at load and the helper re-applies it lazily on
+// the render path, which never loads that file) and the two misfiled $cardActivatedAbilities bodies
+// neutralized in Custom/GeneratedAbilityOverrides.php. These entries are additive for the generated
+// dictionaries; if the CardEditor database rows are ever corrected, the regenerated entries (loaded after
+// this file) supersede them.
+//
+// Key Slime Pudding: "Banish CARDNAME: Until end of turn, Slime allies that enter the field under your
+// control enter with an additional buff counter on them." The Banish cost is paid by
+// ActivatedAbilityCost() ("4wuq20gvcg" case) before this body runs; the body only sets the per-player
+// global effect that Enter handling (GameLogic.php, "Key Slime Pudding" block in the field-entry code)
+// reads. Global effects are wiped at end of turn, matching "until end of turn".
+$activateAbilityAbilities["4wuq20gvcg:0"] = function($player) { //Banish: Slime allies enter with an additional buff counter this turn
+    AddGlobalEffects($player, "4wuq20gvcg");
+};
+// Baby Blue Slime: "[REST]: Prevent the next 2 damage that would be dealt to another target Slime ally you
+// control this turn." (The [Class Bonus] +1 LIFE static is handled in ObjectCurrentHP().) The REST cost is
+// the ALLY auto-rest in DoActivatedAbility(), so the prereq requires the ally to be ready (Status 2, the same
+// check the generated REST prereqs such as Balmshot Nurse use) and at least one OTHER Slime ally under the
+// controller's control to target. The prevention itself is a "PREVENT_ALL_2" turn effect on the chosen Slime,
+// the same shape as the generated Animal-prevent ability "JeyOuhr3sj:0"; combat/damage code decrements it as damage
+// is prevented and ExpireEffects() removes it at end of turn.
+function BabyBlueSlimeTargets($player, $mzID) {
+    $slimes = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SLIME"]);
+    $targets = [];
+    foreach($slimes as $slimeMZ) { if($slimeMZ !== $mzID) $targets[] = $slimeMZ; }
+    return $targets;
+}
+$activateAbilityAbilities["9ggfiy38t2:0"] = function($player) { //Prevent: next 2 damage to another target Slime ally
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    $targets = BabyBlueSlimeTargets($player, $mzID);
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "9ggfiy38t2:0:ActivateAbility-1", 1);
+};
+$activateAbilityPrereqs["9ggfiy38t2:0"] = function($player, $mzID, $abilityIndex) {
+    $sourceObject = GetZoneObject($mzID);
+    if($sourceObject === null) return false;
+    if($sourceObject->Status != 2) return false;
+    return !empty(BabyBlueSlimeTargets($player, $mzID));
+};
+$customDQHandlers["9ggfiy38t2:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) { //Prevent
+    if($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS" || $lastDecision === null) return;
+    if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+    if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "9ggfiy38t2:0:ActivateAbility-1")) return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null || $targetObj->removed) return;
+    AddTurnEffect($lastDecision, "PREVENT_ALL_2");
+};
+
+// cardID => ability names of field activated abilities whose generated CardActivateAbilityCount row is 0
+// (see the Key Slime Pudding / Baby Blue Slime note above). Names become the opportunity-window labels
+// ("myField-N@Activate-0@<name>") and the Activate button captions.
+function GAActivateAbilityCountOverrides() {
+    return [
+        "4wuq20gvcg" => ["Banish"],  // Key Slime Pudding
+        "9ggfiy38t2" => ["Prevent"], // Baby Blue Slime
+    ];
+}
+// Lazy, idempotent application to the generated count/name arrays for callers that run without
+// Custom/GeneratedAbilityOverrides.php having been loaded (the NextTurn/GetNextTurn render path loads only
+// GamestateParser.php). Never lowers a count the generator already provides.
+function GAApplyActivateAbilityCountOverrides() {
+    global $CardActivateAbilityCountData, $CardActivateAbilityCountNamesData;
+    if(!is_array($CardActivateAbilityCountData) || !is_array($CardActivateAbilityCountNamesData)) return;
+    foreach(GAActivateAbilityCountOverrides() as $overrideCardID => $overrideNames) {
+        if(($CardActivateAbilityCountData[$overrideCardID] ?? 0) >= count($overrideNames)) continue;
+        $CardActivateAbilityCountData[$overrideCardID] = count($overrideNames);
+        foreach($overrideNames as $overrideIdx => $overrideName) {
+            $CardActivateAbilityCountNamesData[$overrideCardID . ":" . $overrideIdx] = $overrideName;
+        }
+    }
+}
+
 function ResolveObelithEscort($player) {
     $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
     $field = &GetField($player);
@@ -6808,6 +6896,11 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "4wuq20gvcg": // Key Slime Pudding: banish self (leave-field triggers apply, like the other field-leaving costs)
+            OnLeaveField($player, $mzCard);
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
         case "9cy4wipw4k": // Tabula of Salvage â€” banish self
         case "hLHpI5rHIK": // Bauble of Mending â€” banish self
             MZMove($player, $mzCard, "myBanish");
@@ -7283,6 +7376,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     $isCardistry = isset($Cardistry_Cards[$cardID]);
     if($isCardistry && isset($sourceObject->Counters['cardistry_used'])) return;
 
+    GAApplyActivateAbilityCountOverrides();
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
 
@@ -17268,6 +17362,7 @@ function TraitContains($card, $trait) {
 function CardHasAbility($obj) {
     global $debugMode;
     if(HasNoAbilities($obj)) return 0;
+    GAApplyActivateAbilityCountOverrides();
     $location = isset($obj->Location) ? $obj->Location : "";
     $supportsDynamic = ($location === "Field" || $location === "Intent");
     $hasDynamic = $supportsDynamic ? (GetDynamicAbilities($obj) !== "") : false;
@@ -17382,6 +17477,7 @@ function CardHasAbility($obj) {
 function GetActivateAbilityButtonStates($obj) {
     global $playerID;
     if(HasNoAbilities($obj)) return "";
+    GAApplyActivateAbilityCountOverrides();
 
     $location = isset($obj->Location) ? $obj->Location : "";
     $isHandObject = ($location === "Hand");

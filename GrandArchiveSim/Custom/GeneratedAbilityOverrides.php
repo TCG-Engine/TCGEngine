@@ -354,3 +354,35 @@ $activateAbilityPrereqs["g99PIuhU0O:0"] = function($player, $mzID, $abilityIndex
   if($selfObj === null || $selfObj->removed) return false;
   return isset($selfObj->Status) && intval($selfObj->Status) === 2;
 };
+
+// Key Slime Pudding (4wuq20gvcg) and Baby Blue Slime (9ggfiy38t2): both printed abilities are FIELD
+// activated abilities, but the generator filed them under $cardActivatedAbilities (the PLAY-effect
+// dictionary) with a 0 $CardActivateAbilityCountData row. The correct registrations
+// ($activateAbilityAbilities / $activateAbilityPrereqs / the "9ggfiy38t2:0:ActivateAbility-1" handler and
+// the ability count/name rows) live in Custom/GameLogic.php next to Charm of Anticipation / Band of
+// Burning Verdict; this file only (1) neutralizes the misfiled generated PLAY-table bodies and (2)
+// applies the count/name rows on top of the wholesale-reassigned generated arrays.
+//
+// (1) $cardActivatedAbilities["9ggfiy38t2:0"] was the REST "prevent the next 2 damage" body, so playing
+// Baby Blue Slime queued a free target prompt on enter (no REST paid) and the real REST ability never
+// existed. "4wuq20gvcg:0" would banish Key Slime Pudding and set its global effect with no cost check if
+// anything ever dispatched it through ActivateCard()/OnCardActivated(); the field ability now pays its
+// Banish cost in ActivatedAbilityCost(). Neither card has a printed on-play effect, so both are no-ops.
+$cardActivatedAbilities["9ggfiy38t2:0"] = function($player) { // Baby Blue Slime: no on-play effect (REST ability lives in $activateAbilityAbilities)
+};
+$cardActivatedAbilities["4wuq20gvcg:0"] = function($player) { // Key Slime Pudding: no on-play effect (Banish ability lives in $activateAbilityAbilities)
+};
+// (2) Same scope as the generated arrays (this file is included from the same scope that included
+// GeneratedMacroCode.php); guarded so a differently-scoped include can never replace them with a
+// partial array. GAApplyActivateAbilityCountOverrides() (GameLogic.php) re-applies the same table lazily
+// on paths that never load this file (the render path).
+if(isset($CardActivateAbilityCountData) && is_array($CardActivateAbilityCountData)
+    && isset($CardActivateAbilityCountNamesData) && is_array($CardActivateAbilityCountNamesData)) {
+    foreach(GAActivateAbilityCountOverrides() as $gaOverrideCardID => $gaOverrideNames) {
+        if(($CardActivateAbilityCountData[$gaOverrideCardID] ?? 0) >= count($gaOverrideNames)) continue;
+        $CardActivateAbilityCountData[$gaOverrideCardID] = count($gaOverrideNames);
+        foreach($gaOverrideNames as $gaOverrideIdx => $gaOverrideName) {
+            $CardActivateAbilityCountNamesData[$gaOverrideCardID . ":" . $gaOverrideIdx] = $gaOverrideName;
+        }
+    }
+}

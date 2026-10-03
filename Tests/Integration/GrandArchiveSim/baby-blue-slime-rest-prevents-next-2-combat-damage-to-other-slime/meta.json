@@ -1,0 +1,31 @@
+{
+    "name": "baby-blue-slime-rest-prevents-next-2-combat-damage-to-other-slime",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:17:08+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "notes": "Baby Blue Slime (9ggfiy38t2, WATER ALLY, TAMER/ANIMAL/SLIME, reserve 2, POWER 1 / LIFE 2): \"[Class Bonus] CARDNAME gets +1 LIFE. [REST]: Prevent the next 2 damage that would be dealt to another target Slime ally you control this turn.\" Baby Blue Slime is played for real from hand (FSM play + 2 reserve payments); WATER is unlocked by patching a Nico lineage into the champion and the deck is colorless so no fast-spell windows interrupt the flow. FIXED ENGINE BUG context: the REST body used to be registered in $cardActivatedAbilities (the play-effect dictionary) with a 0 ability count, so merely PLAYING Baby Blue Slime queued a free target prompt (no REST paid) and the ability could never be activated later; it is now a real $activateAbilityAbilities[\"9ggfiy38t2:0\"] with a prereq and the ally auto-rest as the [REST] cost. Core use: after playing it (no on-enter prompt appears, nothing is rested or shielded), player 1 ends the turn and player 2 attacks Red Slime (LIFE 2) with a Dungeon Guide carrying two buff counters (POWER 3). In the attack priority window the \"@Activate-0@Prevent\" choice is listed for Baby Blue Slime; activating it rests Baby Blue Slime and shields Red Slime, so the 3 combat damage is reduced by exactly the prevented 2: Red Slime takes 1 and survives (unprevented it would have taken 3 and died).",
+    "testedCards": [
+        "9ggfiy38t2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9ggfiy38t2"
+        ],
+        "mechanics": [
+            "prevention",
+            "damage",
+            "targeting",
+            "status",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[REST]: Prevent the next 2 damage that would be dealt to another target Slime ally you control this turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Baby Blue Slime's [REST] ability was registered in $cardActivatedAbilities (the play-effect dictionary) with a 0 $CardActivateAbilityCountData row instead of $activateAbilityAbilities: playing the ally auto-fired the 'prevent the next 2 damage' target prompt on enter without paying [REST], and the ability could never be activated from the field afterwards (the old CustomInput routing sent it through ActivateCard()). Fix: a real $activateAbilityAbilities[\"9ggfiy38t2:0\"] + $activateAbilityPrereqs (ready + another Slime ally under your control) + \"9ggfiy38t2:0:ActivateAbility-1\" handler, ability count/name rows via GAActivateAbilityCountOverrides()/GAApplyActivateAbilityCountOverrides(), and the misfiled $cardActivatedAbilities body neutralized in Custom/GeneratedAbilityOverrides.php.",
+        "affectedFunction": "Custom/GameLogic.php new $activateAbilityAbilities/$activateAbilityPrereqs[\"9ggfiy38t2:0\"] + GAActivateAbilityCountOverrides(); Custom/GeneratedAbilityOverrides.php ($cardActivatedAbilities no-op + count rows); Custom/OpportunityLogic.php GetPlayableFastAbilities()",
+        "fixCommit": "TBD"
+    }
+}
