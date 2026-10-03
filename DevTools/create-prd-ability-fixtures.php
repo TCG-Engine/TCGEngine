@@ -26663,6 +26663,55 @@ $fixtures['bygone-days-p1-controlled-ally-after-bygone-days-slot-shifts-on-sacri
         ]),
 ];
 
+
+// =====================================================================================================================
+// Fixed-index move-loop sweep (Remove()/MZMove only FLAG a slot removed; the splice happens in CleanupRemovedCards()).
+// A loop of MZMove($player, "myDeck-0", ...) therefore re-resolved the SAME removed slot after the first iteration and
+// MZMove's "already removed" guard silently no-oped, so only the top card was ever moved (see 86027696, Galestream).
+// ---------------------------------------------------------------------------------------------------------------------
+$gaSweepDeck = function(string $champion) {
+    return "# Material\n1 $champion\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n";
+};
+// Seed row helpers: deckTop places the listed card IDs on top of the player's deck (first listed = top card).
+$gaTop = function(array $ids, int $player = 1) { return ['player' => $player, 'deckTop' => $ids]; };
+$gaHand = function(string $cardID, int $player = 1) { return ['player' => $player, 'zone' => 'myHand', 'cardID' => $cardID]; };
+$GA_DG = 'em6eEh9q8y';   // Dungeon Guide (ally)
+$GA_FS = 'px60u5n1do';   // Fluffy Shopkeep (ally)
+
+// --- Lure the Abyss (gqh3mw478q): "Reveal the top four cards of your deck. Put all Specter cards from among them into
+// your graveyard and the rest on the bottom of your deck in any order." ---
+$gaLureSpecterA = 'zyEMI5XNHt'; // Mourning Veilbound (SPECTER ally)
+$gaLureSpecterB = 'PiZqM1q9ly'; // Night Barker (SPECTER ally)
+$fixtures['lure-the-abyss-reveal-four-specters-to-graveyard-rest-bottom'] = [
+    'testedCards' => ['gqh3mw478q'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // top four, top to bottom: Dungeon Guide, Mourning Veilbound (SPECTER), Fluffy Shopkeep, Night Barker (SPECTER)
+    'setup' => [$gaHand('gqh3mw478q'), $gaTop([$GA_DG, $gaLureSpecterA, $GA_FS, $gaLureSpecterB])],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2)),
+];
+$fixtures['lure-the-abyss-reveal-four-no-specter-all-four-bottom'] = [
+    'testedCards' => ['gqh3mw478q'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // none of the top four is a Specter: all four go to the bottom (before the fix only the top card moved)
+    'setup' => [$gaHand('gqh3mw478q'), $gaTop([$GA_DG, $GA_FS, $GA_DG, $GA_FS])],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2)),
+];
+$fixtures['lure-the-abyss-reveal-four-all-specters-all-to-graveyard'] = [
+    'testedCards' => ['gqh3mw478q'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [$gaHand('gqh3mw478q'), $gaTop([$gaLureSpecterA, $gaLureSpecterB, $gaLureSpecterA, $gaLureSpecterB])],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2)),
+];
+$fixtures['lure-the-abyss-player-two-reveal-four-specters-to-graveyard-rest-bottom'] = [
+    'testedCards' => ['gqh3mw478q'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // PLAYER 2 seating (perspective check): the stack sits under player 2's turn-start draw (a filler Dungeon Guide)
+    'setup' => [$gaHand('gqh3mw478q', 2), $gaTop([$GA_DG, $GA_DG, $gaLureSpecterA, $GA_FS, $gaLureSpecterB], 2)],
+    // player 2 holds a castable spell when player 1 passes, so two opportunity windows (end of main, beginning of end phase)
+    // prompt it before its own turn starts: decline both
+    'actions' => array_merge([mrdEnd(1), mrdPass(2), mrdPass(2), mrdPlay(2, 'myHand-7')], mrdPay(2, 2)),
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

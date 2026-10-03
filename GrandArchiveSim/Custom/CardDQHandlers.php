@@ -4521,9 +4521,11 @@ function LureTheAbyssExecute($player) {
     $deck = &GetDeck($player);
     if(empty($deck)) return;
     $count = min(4, count($deck));
-    // Move top N cards to TempZone for reveal
+    // Move top N cards to TempZone for reveal. MZMoveTopOfZone, not a loop of MZMove($player, "myDeck-0", ...):
+    // MZMove only flags the slot removed, so "myDeck-0" would keep resolving to the same removed slot and only
+    // the first card would ever be revealed.
     for($i = 0; $i < $count; $i++) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        MZMoveTopOfZone($player, "myDeck", "myTempZone");
     }
     // Now separate Specters from non-Specters
     $tempCards = ZoneSearch("myTempZone");

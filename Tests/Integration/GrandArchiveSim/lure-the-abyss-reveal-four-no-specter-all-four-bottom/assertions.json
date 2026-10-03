@@ -1,0 +1,10 @@
+[
+    {"step":3,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the spell itself is in the graveyard (no Specter was revealed)"},
+    {"step":3,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"No revealed card is left stranded in the temp zone"},
+    {"step":3,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":17,"semantic":true,"label":"All four revealed cards are back in the deck"},
+    {"step":3,"type":"card_property_equals","mzId":"myDeck-13","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Revealed card #1 on the bottom, original relative order"},
+    {"step":3,"type":"card_property_equals","mzId":"myDeck-14","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Revealed card #2 on the bottom, original relative order"},
+    {"step":3,"type":"card_property_equals","mzId":"myDeck-15","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Revealed card #3 on the bottom, original relative order"},
+    {"step":3,"type":"card_property_equals","mzId":"myDeck-16","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Revealed card #4 on the very bottom, original relative order"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

@@ -8000,6 +8000,30 @@ function MZRemove($player, $mzID) {
     $obj->Remove();
 }
 
+// Moves the TOP live card of a zone (the deck by default) to $toZone, and is safe to call in a loop.
+//
+// Why this exists: Remove() (ZoneClasses.php) and therefore MZMove() only FLAG a slot removed; the physical
+// splice happens in DecisionQueueController::CleanupRemovedCards(). A loop of
+// MZMove($player, "myDeck-0", "myTempZone") N times resolves "myDeck-0" to the SAME already-removed slot on every
+// iteration after the first, and MZMove's own "already removed" guard silently no-ops -- only the top card was ever
+// moved (proven by 86027696, Galestream Insight). When the top slot is a removed phantom (left by the previous
+// iteration, or by an earlier Draw/mill in the same handler) this compacts the zones first, so "-0" is always the
+// real top card. Full MZMove semantics (zone-change hooks, _sourceZone, owner handling) are preserved because the
+// move itself still goes through MZMove().
+// $zoneRef is relative to $player exactly like MZMove()'s source argument ("myDeck", "theirDeck", "myTempZone", ...).
+function MZMoveTopOfZone($player, $zoneRef, $toZone) {
+    global $playerID;
+    $viewerRef = ($player != $playerID) ? FlipZonePerspective($zoneRef) : $zoneRef;
+    $zone = GetZone($viewerRef);
+    if(!is_array($zone) || count($zone) == 0) return null;
+    if($zone[0] !== null && !empty($zone[0]->removed)) {
+        DecisionQueueController::CleanupRemovedCards();
+        $zone = GetZone($viewerRef);
+        if(!is_array($zone) || count($zone) == 0) return null;
+    }
+    return MZMove($player, $zoneRef . "-0", $toZone);
+}
+
 function MoveEffectStackCardToField($player, $mzCard) {
     $stackObj = GetZoneObject($mzCard);
     $cardID = $stackObj !== null ? $stackObj->CardID : "";
