@@ -8378,8 +8378,10 @@ function RecruitmentOfficerOnFoster($player) {
     $deck = &GetDeck($player);
     $n = min(5, count($deck));
     if($n == 0) return;
+    // MZMoveTopOfZone, not a loop of MZMove($player, "myDeck-0", ...): MZMove only flags the slot removed, so
+    // "myDeck-0" would keep resolving to the same removed slot and only the top card would be looked at.
     for($i = 0; $i < $n; ++$i) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        MZMoveTopOfZone($player, "myDeck", "myTempZone");
     }
     $allies = ZoneSearch("myTempZone", ["ALLY"]);
     if(!empty($allies)) {

@@ -1,0 +1,30 @@
+{
+    "name": "recruitment-officer-foster-look-five-no-ally-all-five-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T21:08:09+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "1x97n2jnlt"
+    ],
+    "notes": "Recruitment Officer (1x97n2jnlt): no ally among the top five (five Fairy Whispers): no prompt is shown and all five go to the bottom of the deck. Pre-fix only the top card went to the bottom.",
+    "semanticCoverage": {
+        "testedCards": [
+            "1x97n2jnlt"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "look-at-top",
+            "bottom-deck",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "On Foster: Look at the top five cards of your deck. You may reveal an ally card from among them and put it into your hand. Put the rest of the cards on the bottom of your deck in any order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. RecruitmentOfficerOnFoster() pulled the top five cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"). Remove() only flags a slot removed (no splice), so \"myDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped: only the top card was ever looked at (live repro on HEAD: with the only allies in slots 2-5 the prompt never appeared and the top card alone went to the bottom). Fixed with the new MZMoveTopOfZone() helper. The two earlier fixtures recruitment-officer-class-bonus-on-foster-look-top-5 and recruitment-officer-decline-returns-looked-at-cards relied on shuffle seed 1 putting an ally on top and so pinned the single-card look (the second one's meta even recorded the loop as 'incidental, NOT fixed'); both were replaced by the deterministic recruitment-officer-foster-look-five-* fixtures. dontSkipOnPass on the pick handler was already fixed in 1ea25c27.",
+        "affectedFunction": "Custom/CardDQHandlers.php RecruitmentOfficerOnFoster()",
+        "fixCommit": "TBD"
+    }
+}

@@ -17,17 +17,17 @@
     },
     {
         "playerID": 1,
-        "mode": 100,
+        "mode": 10001,
         "buttonInput": "",
-        "cardID": "PASS",
+        "cardID": "myHealth-0!CustomInput!Pass",
         "chkInput": [],
         "inputText": ""
     },
     {
-        "playerID": 1,
+        "playerID": 2,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "myTempZone-0",
+        "cardID": "myTempZone-4",
         "chkInput": [],
         "inputText": ""
     }

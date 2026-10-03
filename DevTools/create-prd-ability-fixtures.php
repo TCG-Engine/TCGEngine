@@ -7915,40 +7915,9 @@ DECK,
     ],
 ];
 
-// --- Recruitment Officer: [Class Bonus] Foster; On Foster: look top 5, may take an ally ---
-$fixtures['recruitment-officer-class-bonus-on-foster-look-top-5'] = [
-    'testedCards' => ['1x97n2jnlt'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Recruitment Officer
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Recruitment Officer's Foster is [Class Bonus]-gated (HasFoster's $fosterCBCards table,
-    // CardLogic.php), so a GUARDIAN champion (Tonoris, Lone Mercenary) is seeded for the bonus.
-    // Same 3-action approach as novice-mechanist-on-foster-summon-drone to reach player 1's own
-    // recollection phase, where Foster processing (and this card's On Foster trigger) runs.
-    // Deck-shuffle seed 1 (not the usual default 42) is used so the revealed top 5 of the deck
-    // actually contains an ally card, exercising the "may reveal an ally" branch instead of the
-    // no-op "no ally found" one.
-    'setup' => [
-        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zb14m4c8lj'], // Tonoris, Lone Mercenary (GUARDIAN champion) - Class Bonus source
-        ['player' => 1, 'zone' => 'myField', 'cardID' => '1x97n2jnlt'], // Recruitment Officer
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
-        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends player 2's turn (still global turn 1)
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline player 1's own MAT-phase materialize offer -> reaches BREC/Foster processing
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-0', 'chkInput' => [], 'inputText' => ''], // reveal the ally found in the top 5 and put it into hand
-    ],
-];
+// (The old 'recruitment-officer-class-bonus-on-foster-look-top-5' fixture was replaced by the deterministic
+// 'recruitment-officer-foster-look-five-*' fixtures below: it relied on shuffle seed 1 putting an ally on top and so pinned the
+// single-card look bug.)
 
 // --- Imperial Recruit: Foster; gets +1 POWER as long as it's fostered ---
 $fixtures['imperial-recruit-fostered-power'] = [
@@ -26780,6 +26749,53 @@ $fixtures['ignition-draw-player-two-look-six-banish-two-aethercharge-rest-bottom
         mrdAns(2, 'myTempZone-2'),
         mrdAns(2, 'Top=;Bottom=' . $GA_FS . ',' . $GA_DG . ',' . $GA_DG . ',' . $GA_FS),
     ]),
+];
+
+
+// --- Recruitment Officer (1x97n2jnlt): "[Class Bonus] Foster. On Foster: Look at the top five cards of your deck. You may
+// reveal an ally card from among them and put it into your hand. Put the rest of the cards on the bottom of your deck in
+// any order." ---
+$GA_FW = 'n8wyfG9hbY'; // Fairy Whispers (SPELL, not an ally)
+$gaRecruitSetup = function(array $top5, int $player = 1) use ($gaTop) {
+    return [
+        ['player' => $player, 'zone' => 'myField', 'cardID' => 'zb14m4c8lj'], // Tonoris, Lone Mercenary (GUARDIAN champion) -- Class Bonus source
+        ['player' => $player, 'zone' => 'myField', 'cardID' => '1x97n2jnlt'], // Recruitment Officer
+        $gaTop($top5, $player),
+    ];
+};
+// player 1 ends turn 1, player 2 ends its turn -> player 1's recollection phase: Foster processing queues the On Foster prompt
+// (the deck has no level-1 champion in its material, so there is no materialize offer to decline first)
+$gaRecruitToFoster = [mrdEnd(1), mrdEnd(2)];
+$fixtures['recruitment-officer-foster-look-five-reveal-deep-ally-rest-bottom'] = [
+    'testedCards' => ['1x97n2jnlt'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // top five, top to bottom: Fairy Whispers, Dungeon Guide (ally), Fluffy Shopkeep (ally), Fairy Whispers, Dungeon Guide (ally)
+    'setup' => $gaRecruitSetup([$GA_FW, $GA_DG, $GA_FS, $GA_FW, $GA_DG]),
+    'actions' => array_merge($gaRecruitToFoster, [
+        mrdAns(1, 'myTempZone-4'), // reveal the 5th card (Dungeon Guide) into hand
+    ]),
+];
+$fixtures['recruitment-officer-foster-look-five-decline-bottoms-all-five'] = [
+    'testedCards' => ['1x97n2jnlt'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaRecruitSetup([$GA_FW, $GA_DG, $GA_FS, $GA_FW, $GA_DG]),
+    'actions' => array_merge($gaRecruitToFoster, [mrdPass(1)]), // "You may reveal": decline
+];
+$fixtures['recruitment-officer-foster-look-five-no-ally-all-five-bottom'] = [
+    'testedCards' => ['1x97n2jnlt'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // no ally among the top five: no prompt, all five go to the bottom
+    'setup' => $gaRecruitSetup([$GA_FW, $GA_FW, $GA_FW, $GA_FW, $GA_FW]),
+    'actions' => $gaRecruitToFoster,
+];
+$fixtures['recruitment-officer-player-two-foster-look-five-reveal-deep-ally-rest-bottom'] = [
+    'testedCards' => ['1x97n2jnlt'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // PLAYER 2 seating (perspective check): player 2's first turn has no Foster processing; its SECOND recollection phase runs
+    // the prompt. The stack sits under player 2's first-turn draw (a filler Dungeon Guide); its second draw happens after
+    // recollection.
+    'setup' => $gaRecruitSetup([$GA_DG, $GA_FW, $GA_DG, $GA_FS, $GA_FW, $GA_DG], 2),
+    'actions' => [mrdEnd(1), mrdEnd(2), mrdEnd(1), mrdAns(2, 'myTempZone-4')],
 ];
 
 // ---------------------------------------------------------------------------

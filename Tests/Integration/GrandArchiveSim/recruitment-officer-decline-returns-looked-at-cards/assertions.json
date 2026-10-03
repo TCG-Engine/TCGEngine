@@ -1,6 +1,0 @@
-[
-    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"Declining the reveal puts no ally into hand (hand stays at 8 after the recollection draw)"},
-    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":8,"semantic":true,"label":"Every looked-at card goes back on the bottom of the deck (deck count unchanged at 8; none lost in the temp zone)"},
-    {"step":4,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"No looked-at card is left stranded in the temp zone"},
-    {"step":4,"type":"decision_queue_empty","player":"all"}
-]
