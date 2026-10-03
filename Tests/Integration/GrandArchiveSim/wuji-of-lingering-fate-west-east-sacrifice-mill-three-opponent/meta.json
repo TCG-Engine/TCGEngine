@@ -1,0 +1,30 @@
+{
+    "name": "wuji-of-lingering-fate-west-east-sacrifice-mill-three-opponent",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T21:18:22+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "9cef7aknvn"
+    ],
+    "notes": "Wuji of Lingering Fate (9cef7aknvn): same trigger but player 1 answers NO to 'mill yourself?' so the OPPONENT mills three. Player 2's top four: Dungeon Guide, Fluffy Shopkeep, Fairy Whispers (milled), Charge the Soul (marker: drawn by player 2 at the start of its turn, proving exactly three were milled). Player 1's deck is untouched.",
+    "semanticCoverage": {
+        "testedCards": [
+            "9cef7aknvn"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "mill",
+            "trigger",
+            "shifting-currents"
+        ],
+        "rulesClauses": [
+            "Whenever your Shifting Currents change from facing West to East, you may sacrifice Wuji of Lingering Fate. If you do, target player puts the top three cards of their deck into their graveyard."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The WujiMill handler milled with a loop of MZMove($target, \"myDeck-0\", \"myGraveyard\"). Remove() only flags a slot removed (no splice), so \"myDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped: only the top card was ever milled (live repro on HEAD: graveyard held Wuji + 1 milled card, deck 15 instead of 14). Fixed by calling the engine's MillCards() helper (distinct slots, honours the Purging Tempest / Sasha banish redirects) for the chosen player.",
+        "affectedFunction": "Custom/CardDQHandlers.php WujiMill handler",
+        "fixCommit": "TBD"
+    }
+}

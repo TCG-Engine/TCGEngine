@@ -1,0 +1,11 @@
+[
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":4,"semantic":true,"label":"Wuji (sacrificed) plus exactly three milled cards"},
+    {"step":4,"type":"card_property_equals","mzId":"myGraveyard-0","viewerPlayerID":1,"property":"CardID","value":"9cef7aknvn","semantic":true,"label":"Wuji of Lingering Fate was sacrificed into the graveyard"},
+    {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"em6eEh9q8y","semantic":true,"label":"Top card (Dungeon Guide) was milled"},
+    {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"px60u5n1do","semantic":true,"label":"Second card (Fluffy Shopkeep) was milled"},
+    {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"n8wyfG9hbY","semantic":true,"label":"Third card (Fairy Whispers) was milled"},
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":14,"semantic":true,"label":"Deck: 17 minus the three milled cards"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-0","viewerPlayerID":1,"property":"CardID","value":"ra9950o14t","semantic":true,"label":"The fourth card (marker) is the new top card: exactly three were milled"},
+    {"step":4,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Wuji left the field (only the champion remains)"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,10 @@
+[
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Player 1 graveyard holds only the sacrificed Wuji"},
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":13,"semantic":true,"label":"Player 1 deck is untouched"},
+    {"step":4,"type":"zone_count","zone":"theirGraveyard","viewerPlayerID":1,"value":3,"semantic":true,"label":"Exactly three cards were milled from the OPPONENT"},
+    {"step":4,"type":"card_exists","zone":"theirGraveyard","viewerPlayerID":1,"cardID":"em6eEh9q8y","semantic":true,"label":"Opponent top card milled"},
+    {"step":4,"type":"card_exists","zone":"theirGraveyard","viewerPlayerID":1,"cardID":"px60u5n1do","semantic":true,"label":"Opponent second card milled"},
+    {"step":4,"type":"card_exists","zone":"theirGraveyard","viewerPlayerID":1,"cardID":"n8wyfG9hbY","semantic":true,"label":"Opponent third card milled"},
+    {"step":4,"type":"card_property_equals","mzId":"theirHand-7","viewerPlayerID":1,"property":"CardID","value":"ra9950o14t","semantic":true,"label":"The 4th card (marker) is what the opponent drew next: exactly three were milled"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

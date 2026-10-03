@@ -26938,6 +26938,49 @@ $fixtures['ashen-riffle-player-two-reveal-four-banish-two-suited-rest-bottom'] =
     ]),
 ];
 
+
+// --- Wuji of Lingering Fate (9cef7aknvn): "Whenever your Shifting Currents change from facing West to East, you may sacrifice CARDNAME.
+// If you do, target player puts the top three cards of their deck into their graveyard." ---
+// Shifting Currents faces West; the controller's champion is patched into Kongming's lineage (Fel Eidolon), whose Shifting Currents mastery
+// lets the controller change it to ANY direction at the beginning of the end phase: passing the turn and choosing East fires W->E.
+$gaWujiSetup = function(int $player = 1, array $topSelf = [], array $topOpp = []) use ($gaTop) {
+    $rows = [
+        ['player' => $player, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // Kongming lineage (Kongming Bonus: end-phase direction change)
+        ['player' => $player, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'WEST']],
+        ['player' => $player, 'zone' => 'myField', 'cardID' => '9cef7aknvn'], // Wuji of Lingering Fate -> field-1
+    ];
+    if ($topSelf) $rows[] = $gaTop($topSelf, $player);
+    if ($topOpp) $rows[] = $gaTop($topOpp, $player == 1 ? 2 : 1);
+    return $rows;
+};
+$GA_MARK = 'ra9950o14t'; // Charge the Soul: a distinctive marker card placed just BELOW the cards a mill/look effect must take
+$fixtures['wuji-of-lingering-fate-west-east-sacrifice-mill-three-self'] = [
+    'testedCards' => ['9cef7aknvn'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // top four: Dungeon Guide, Fluffy Shopkeep, Fairy Whispers (the three milled), Charge the Soul (marker: must stay on top afterwards)
+    'setup' => $gaWujiSetup(1, [$GA_DG, $GA_FS, $GA_FW, $GA_MARK]),
+    'actions' => [mrdEnd(1), mrdAns(1, 'EAST'), mrdAns(1, 'YES'), mrdAns(1, 'YES')], // end turn, SC West->East, sacrifice Wuji, mill myself
+];
+$fixtures['wuji-of-lingering-fate-west-east-sacrifice-mill-three-opponent'] = [
+    'testedCards' => ['9cef7aknvn'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => $gaWujiSetup(1, [], [$GA_DG, $GA_FS, $GA_FW, $GA_MARK]),
+    'actions' => [mrdEnd(1), mrdAns(1, 'EAST'), mrdAns(1, 'YES'), mrdAns(1, 'NO')], // ... mill the OPPONENT instead
+];
+$fixtures['wuji-of-lingering-fate-west-east-decline-sacrifice-no-mill'] = [
+    'testedCards' => ['9cef7aknvn'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => $gaWujiSetup(1, [$GA_DG, $GA_FS, $GA_FW, $GA_MARK], [$GA_DG, $GA_FS, $GA_FW, $GA_MARK]),
+    'actions' => [mrdEnd(1), mrdAns(1, 'EAST'), mrdAns(1, 'NO')], // "you may sacrifice": decline
+];
+$fixtures['wuji-of-lingering-fate-player-two-west-east-sacrifice-mill-three-self'] = [
+    'testedCards' => ['9cef7aknvn'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // PLAYER 2 seating (perspective check): player 2 controls Wuji and ends its own turn; the stack sits under its turn-start draw
+    'setup' => $gaWujiSetup(2, [$GA_DG, $GA_DG, $GA_FS, $GA_FW, $GA_MARK]),
+    'actions' => [mrdEnd(1), mrdEnd(2), mrdAns(2, 'EAST'), mrdAns(2, 'YES'), mrdAns(2, 'YES')],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

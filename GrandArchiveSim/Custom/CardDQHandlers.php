@@ -1323,11 +1323,12 @@ $customDQHandlers["WujiSacrifice"] = function($player, $params, $lastDecision) {
 };
 
 $customDQHandlers["WujiMill"] = function($player, $params, $lastDecision) {
-    $target = ($lastDecision === "YES") ? $player : (($player == 1) ? 2 : 1);
-    $deck = &GetDeck($target);
-    for($i = 0; $i < 3 && count($deck) > 0; ++$i) {
-        MZMove($target, "myDeck-0", "myGraveyard");
-    }
+    // "Target player puts the top three cards of their deck into their graveyard." A loop of
+    // MZMove($target, "myDeck-0", "myGraveyard") only ever moved the top card (Remove() just flags the slot removed, so
+    // "myDeck-0" re-resolved to the same removed slot); MillCards() is the engine's mill helper (mills distinct slots,
+    // honours Purging Tempest / Sasha banish redirects).
+    if($lastDecision === "YES") MillCards($player, "myDeck", "myGraveyard", 3);
+    else MillCards($player, "theirDeck", "theirGraveyard", 3);
 };
 
 $customDQHandlers["RuinousPillarsDestroy"] = function($player, $params, $lastDecision) {
