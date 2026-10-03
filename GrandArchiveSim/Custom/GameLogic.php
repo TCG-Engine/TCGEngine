@@ -21256,7 +21256,7 @@ function SlimesBlessingAskTarget($player) {
     $pickNumber = count($chosen) + 1;
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $available), 1,
         tooltip:"Choose_up_to_three_units_(" . $pickNumber . "_of_3)");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SlimesBlessingChoose", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SlimesBlessingChoose", 1, dontSkipOnPass:1);
 }
 
 function SlimesBlessingResolve($player) {
@@ -25220,7 +25220,7 @@ function SlimeEruptionBanishLoop($player) {
         return;
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 1, tooltip:"Banish_a_Slime_from_graveyard?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SlimeEruptionBanishPick", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SlimeEruptionBanishPick", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["SlimeEruptionBanishPick"] = function($player, $parts, $lastDecision) {

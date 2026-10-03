@@ -19732,9 +19732,13 @@ DECK,
     // target. Slime's Blessing's element is WIND, not native to the 'Spirit of Fire' starting
     // champion, so the champion's Subcards are patched with a real WIND champion (Spirit of Wind)
     // purely to unlock element access. Slime's Blessing is played for real from hand via FSM so its
-    // effect genuinely fires; the third optional pick is declined with PASS. The separate [Class
-    // Bonus] "costs 1 less" discount clause is not reached (default champion has no class bonus)
-    // and is out of scope here.
+    // effect genuinely fires; the third optional pick is declined with PASS ("up to three" - the
+    // player may stop early) and the two counters earned by picks 1-2 must still be applied.
+    // Regression history: SlimesBlessingAskTarget() used to queue the paired CUSTOM
+    // 'SlimesBlessingChoose' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the
+    // handler on the decline and silently lost both counters (fixed: dontSkipOnPass:1). The separate
+    // [Class Bonus] "costs 1 less" discount clause is not reached (default champion has no class
+    // bonus) and is out of scope here.
     'setup' => [
         ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
         ['player' => 1, 'zone' => 'myField', 'cardID' => 'mttsvbgl6f'], // Red Slime (Slime ally target) -> myField-1
@@ -19953,8 +19957,8 @@ DECK,
     ],
 ];
 
-// --- Slime Eruption: declining further banishes loses the damage already earned (same bug class as Slime's Blessing) ---
-$fixtures['slime-eruption-decline-loses-earned-damage'] = [
+// --- Slime Eruption: declining further banishes still deals the damage already earned (dontSkipOnPass regression) ---
+$fixtures['slime-eruption-decline-keeps-earned-damage'] = [
     'testedCards' => ['m3zkl7lpvn'],
     'deck' => <<<'DECK'
 # Material
@@ -19968,38 +19972,22 @@ $fixtures['slime-eruption-decline-loses-earned-damage'] = [
 4 Fluffy Shopkeep
 4 Windslice
 DECK,
-    // ENGINE BUG (found, confirmed live, NOT fixed): this fixture documents Slime Eruption
-    // CURRENTLY losing ALL earned damage instances the moment the player declines a further
-    // banish offer via PASS -- the same `dontSkipOnPass` omission bug class already pinned twice
-    // elsewhere in this exact batch (slimes-blessing-level-and-buff-counters and, by a different
-    // but related missing-cost-wiring mechanism, slime-king-additional-cost-never-charged).
+    // Slime Eruption: "You may banish any amount of fire element Slime ally cards and up to two
+    // non-fire element Slime ally cards from your graveyard. For each card banished this way, choose
+    // a unit and deal 1 damage to it." Declining a further banish offer must stop the banishing but
+    // still deal the damage earned for every card already banished.
     //
-    // Root cause (confirmed live with a standalone debug harness, mirroring the Slime's Blessing
-    // investigation): SlimeEruptionBanishLoop() (Custom/GameLogic.php ~25030) queues a paired
-    // MZMAYCHOOSE + CUSTOM "SlimeEruptionBanishPick" decision (~25048) each time it offers another
-    // graveyard Slime to banish; $customDQHandlers['SlimeEruptionBanishPick'] (~25051) is written
-    // to call SlimeEruptionDamageStep($player, $count) -- which deals 1 damage per card ALREADY
-    // banished -- when `$lastDecision === "PASS"` (the player declining a further banish). But
-    // Core/DecisionQueueController.php's ExecuteStaticMethods() CUSTOM case unconditionally skips
-    // invoking ANY CUSTOM handler when the preceding answer was "PASS" unless that decision was
-    // queued with dontSkipOnPass=1; SlimeEruptionBanishLoop's own AddDecision call for
-    // "SlimeEruptionBanishPick" does NOT pass dontSkipOnPass, so the handler's own PASS-triggered
-    // SlimeEruptionDamageStep() call is dead code whenever the player actually declines.
+    // Regression history (FIXED, same class as Slime's Blessing): SlimeEruptionBanishLoop() queued the
+    // paired CUSTOM 'SlimeEruptionBanishPick' decision without dontSkipOnPass, and Core's
+    // ExecuteStaticMethods() skips a CUSTOM handler outright when the preceding answer was "PASS"
+    // unless the decision carries dontSkipOnPass -- so the handler's own PASS branch
+    // (SlimeEruptionDamageStep with the banished count) was dead code and declining lost ALL earned
+    // damage. The AddDecision call now passes dontSkipOnPass:1.
     //
-    // Confirmed live: with two Red Slime copies (mttsvbgl6f, FIRE) seeded in the graveyard,
-    // banishing ONE for real (it successfully moves to myBanish) and then declining the SECOND
-    // offer via PASS leaves the decision queue fully drained (AllQueuesEmpty=YES) but the
-    // champion's Damage stays 0 -- the 1 damage earned for the 1 card already banished is silently
-    // lost, and no MZCHOOSE damage-target decision is ever even offered. (If the player instead
-    // banishes every eligible graveyard Slime until none remain, SlimeEruptionBanishLoop's own
-    // `if(empty($choices))` branch at ~25043 calls SlimeEruptionDamageStep() directly, bypassing
-    // the dispatcher's PASS-skip guard entirely -- that path works correctly, same as the
-    // "exactly 3 picks, no decline" path already shown to work for Slime's Blessing.) This fixture
-    // pins the CURRENT (buggy, damage-losing) observed behavior as a regression baseline.
-    //
-    // Slime Eruption's element is FIRE, native to the 'Spirit of Fire' starting champion, so no
-    // Subcards lineage patch is needed. The separate [Class Bonus] Floating Memory clause is a
-    // reusable-elsewhere cost-payment mechanic, not independently re-tested here.
+    // Two Red Slimes (mttsvbgl6f, FIRE) sit in the graveyard; banish one for real, decline the second
+    // offer via PASS, then choose the opposing champion for the 1 earned damage. Slime Eruption's
+    // element is FIRE, native to 'Spirit of Fire', so no Subcards lineage patch is needed. The
+    // separate [Class Bonus] Floating Memory clause is not independently re-tested here.
     'setup' => [
         ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE) #1
         ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE) #2
@@ -20010,6 +19998,7 @@ DECK,
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // banish the first Red Slime for real
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the second banish offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // the 1 damage earned for the 1 banished card: choose the opposing champion
     ],
 ];
 

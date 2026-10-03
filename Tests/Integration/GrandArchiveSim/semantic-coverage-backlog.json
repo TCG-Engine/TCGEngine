@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T04:11:54+00:00",
+    "generatedAt": "2026-10-03T04:21:05+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 611,
@@ -40604,10 +40604,10 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "slime-eruption-decline-loses-earned-damage"
+                "slime-eruption-decline-keeps-earned-damage"
             ],
             "semanticFixtures": [
-                "slime-eruption-decline-loses-earned-damage"
+                "slime-eruption-decline-keeps-earned-damage"
             ],
             "starterDecks": [
                 "Silvie Re:Collection, Slime Sovereign"

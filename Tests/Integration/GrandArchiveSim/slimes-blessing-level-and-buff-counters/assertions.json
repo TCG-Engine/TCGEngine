@@ -1,5 +1,5 @@
 [
-    {"step":7,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"[]","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the chosen champion's level counter from picks 1-2 is lost once the player declines pick 3 via PASS"},
-    {"step":7,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"[]","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the chosen Slime ally's buff counter from picks 1-2 is lost once the player declines pick 3 via PASS"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"{\"level\":1}","semantic":true,"label":"Declining the 3rd pick still applies the level counter to the chosen champion (pick 1)"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"buff\":1}","semantic":true,"label":"Declining the 3rd pick still applies the buff counter to the chosen Slime ally (pick 2)"},
     {"step":7,"type":"decision_queue_empty","player":"all"}
 ]

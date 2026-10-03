@@ -1,0 +1,30 @@
+{
+    "name": "slime-eruption-decline-keeps-earned-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T03:55:16+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Slime Eruption (m3zkl7lpvn, ACTION): \"You may banish any amount of fire element Slime ally cards and up to two non-fire element Slime ally cards from your graveyard. For each card banished this way, choose a unit and deal 1 damage to it. [Class Bonus] Floating Memory.\" Correct behavior on declining a further banish offer: the banishing simply stops and the card still resolves its 'for each card banished' damage for every card already banished. FIXED (was: the player's PASS on the 'Banish a Slime from graveyard?' prompt silently dropped ALL earned damage). Root cause: SlimeEruptionBanishLoop() queued the paired CUSTOM 'SlimeEruptionBanishPick' decision without dontSkipOnPass, and Core/DecisionQueueController.php ExecuteStaticMethods() skips a CUSTOM handler outright when the preceding answer was 'PASS' unless the decision carries dontSkipOnPass, so the handler's own PASS branch (SlimeEruptionDamageStep with the banished count) was dead code on the decline path. Fix: the AddDecision call now passes dontSkipOnPass:1. Fixture: two Red Slimes (mttsvbgl6f, FIRE) in the graveyard; banish one for real, decline the second offer with PASS, then choose the opposing champion for the 1 earned damage. Slime Eruption is FIRE, native to Spirit of Fire, so no Subcards patch is needed. (If every eligible Slime is banished the loop calls the damage step directly, bypassing the PASS skip - that exhaustion path always worked.) The separate [Class Bonus] Floating Memory clause is not independently re-tested here.",
+    "testedCards": [
+        "m3zkl7lpvn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "m3zkl7lpvn"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "damage",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "You may banish any amount of fire element Slime ally cards and up to two non-fire element Slime ally cards from your graveyard. For each card banished this way, choose a unit and deal 1 damage to it."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. SlimeEruptionBanishLoop() queued the CUSTOM 'SlimeEruptionBanishPick' decision without dontSkipOnPass, so when the player declined a further banish offer (MZMAYCHOOSE answered PASS) ExecuteStaticMethods() skipped the handler and the 1 damage per already-banished card was never dealt (live trace on HEAD: handler never invoked on PASS, champion Damage stayed 0, queue empty). Fix: pass dontSkipOnPass:1 on that AddDecision call; the handler's existing PASS branch then runs SlimeEruptionDamageStep($player, banishedCount).",
+        "affectedFunction": "Custom/GameLogic.php SlimeEruptionBanishLoop() AddDecision(..., \"CUSTOM\", \"SlimeEruptionBanishPick\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}
