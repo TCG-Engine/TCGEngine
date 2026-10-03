@@ -1,0 +1,10 @@
+[
+    {"step":9,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":2,"value":1,"semantic":true,"label":"The Theurgist stays dead in player 2 graveyard (the opponent sacrificed an ally, so it does not return)"},
+    {"step":9,"type":"card_property_equals","mzId":"myGraveyard-0","viewerPlayerID":2,"property":"CardID","value":"vkqzk1jik7","semantic":true,"label":"The card in the controller graveyard is the Shackled Theurgist"},
+    {"step":9,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":2,"semantic":true,"label":"player 2 controller's field: champion + its own Dungeon Guide (untouched)"},
+    {"step":9,"type":"card_property_equals","mzId":"myField-1","viewerPlayerID":2,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"player 2 controller's own Dungeon Guide was NOT the sacrificed ally"},
+    {"step":9,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":2,"semantic":true,"label":"The opponent (player 1) sacrificed its OWN ally: its graveyard holds Drenching Finish + the Fluffy Shopkeep"},
+    {"step":9,"type":"card_property_equals","mzId":"myGraveyard-1","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"The sacrificed card is the opponent's Fluffy Shopkeep"},
+    {"step":9,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"The opponent field is just its champion after the sacrifice"},
+    {"step":9,"type":"decision_queue_empty","player":"all"}
+]

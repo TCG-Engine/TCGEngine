@@ -3986,19 +3986,32 @@ $customDQHandlers["PhantasmagoriaEndPhase"] = function($player, $parts, $lastDec
 };
 
 // Shackled Theurgist (vkqzk1jik7): On Death DQ handlers
+//
+// PERSPECTIVE: the generated On Death closure (allyDestroyedAbilities["vkqzk1jik7:0"]) bakes "myField"/"theirField"
+// zone names into this handler's pipe params, but they are expressed relative to the ambient $playerID of the
+// moment the TRIGGER resolves (ResolveTopOfEffectStack() sets $playerID to the Theurgist's controller), while this
+// handler runs inside the OPPONENT's own YES/NO answer ($playerID == the opponent). Resolved as-is the names point at
+// the wrong player's zones -- the opponent was offered the Theurgist CONTROLLER's allies to sacrifice, and a "No"
+// moved a card out of the answerer's own graveyard onto the controller's field instead of returning the Theurgist.
+// Only the controller's player NUMBER (params[0], perspective-free) is trusted; every zone name is rebuilt here
+// relative to the ambient $playerID at read time. params[1..2] are ignored (kept only so already-queued decisions
+// from older saves/the unmodified generated closure still parse).
+function ShackledTheurgistFieldZone($owner) {
+    global $playerID;
+    return intval($owner) === intval($playerID) ? "myField" : "theirField";
+}
+
 $customDQHandlers["ShackledTheurgistChoice"] = function($player, $params, $lastDecision) {
     $controller = intval($params[0]);
-    $controllerFieldZone = $params[1];
-    $oppFieldZone = $params[2];
     if($lastDecision === "YES") {
-        $allies = ZoneSearch($oppFieldZone, ["ALLY"]);
+        $allies = ZoneSearch(ShackledTheurgistFieldZone($player), ["ALLY"]);
         if(!empty($allies)) {
             $allyStr = implode("&", $allies);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyStr, 1, tooltip:"Choose_an_ally_to_sacrifice");
             DecisionQueueController::AddDecision($player, "CUSTOM", "ShackledTheurgistSacrifice", 1);
         }
     } else {
-        ShackledTheurgistReturn($controller, $controllerFieldZone);
+        ShackledTheurgistReturn($controller, ShackledTheurgistFieldZone($controller));
     }
 };
 
@@ -18592,18 +18605,20 @@ function TokenCeaseBeforeAdd(...$args) {
 /**
  * Return Shackled Theurgist from graveyard/banish to the field with +2 LIFE and ephemeral.
  */
-function ShackledTheurgistReturn($player, $fieldZone) {
+function ShackledTheurgistReturn($player, $fieldZone = null) {
+    // $fieldZone is accepted for backward compatibility but ignored: it was a "myField"/"theirField" name relative to
+    // an unknown ambient $playerID. MZMove() takes its arguments from $player's own perspective ("my*" == $player's
+    // zones; it flips them itself when $player is not the ambient $playerID), while GetZoneObject()/AddTurnEffect()
+    // need the ambient viewer's perspective -- so build the two names separately, from $player's absolute zone arrays.
     global $playerID;
-    $gyZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
-    $bnZone = $player == $playerID ? "myBanish" : "theirBanish";
-    foreach([$gyZone, $bnZone] as $zone) {
-        $contents = GetZone($zone);
+    $viewerField = intval($player) === intval($playerID) ? "myField" : "theirField";
+    foreach(["Graveyard", "Banish"] as $zoneKind) {
+        $contents = $zoneKind === "Graveyard" ? GetGraveyard($player) : GetBanish($player);
         for($i = count($contents) - 1; $i >= 0; $i--) {
             if(!$contents[$i]->removed && $contents[$i]->CardID === "vkqzk1jik7") {
-                MZMove($player, $zone . "-" . $i, $fieldZone);
+                MZMove($player, "my" . $zoneKind . "-" . $i, "myField");
                 $field = &GetField($player);
-                $newIdx = count($field) - 1;
-                $newMZ = $fieldZone . "-" . $newIdx;
+                $newMZ = $viewerField . "-" . (count($field) - 1);
                 AddTurnEffect($newMZ, "vkqzk1jik7_LIFE");
                 MakeEphemeral($newMZ);
                 return;

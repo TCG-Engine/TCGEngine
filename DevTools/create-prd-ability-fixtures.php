@@ -26534,6 +26534,63 @@ $fixtures['galestream-insight-look-six-no-spell-bottoms-all-six'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4)),
 ];
 
+// --- Shackled Theurgist (vkqzk1jik7): "On Death: Target opponent may sacrifice an ally. If they don't, return Shackled
+// Theurgist to the field. It gets +2 LIFE until end of turn and becomes ephemeral." ---
+// The Theurgist is killed for real by Drenching Finish (2 power vs the Theurgist's 2 life); the On Death trigger goes on the
+// effect stack and the opponent of its controller is asked "Sacrifice an ally?".
+$gaTheurgistDeck = <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK;
+// Seating helper: $ctrl controls the Theurgist (field-1) and the OTHER player ($opp) kills it with Drenching Finish. The
+// controller also has its own Dungeon Guide ally (field-2) -- the opponent must never be offered THAT ally to sacrifice.
+// $oppAlly: whether the opponent (the killer) has a Dungeon Guide ally of its own (-> the "Sacrifice an ally?" prompt exists).
+$gaTheurgistSetup = function(int $ctrl, bool $oppAlly = true) {
+    $opp = $ctrl == 1 ? 2 : 1;
+    $rows = [
+        ['player' => $ctrl, 'zone' => 'myField', 'cardID' => 'vkqzk1jik7'], // Shackled Theurgist -> controller field-1
+        ['player' => $ctrl, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // controller's own Dungeon Guide ally -> field-2 (must NOT be offered for sacrifice)
+    ];
+    if ($oppAlly) $rows[] = ['player' => $opp, 'zone' => 'myField', 'cardID' => 'px60u5n1do']; // opponent's Fluffy Shopkeep ally -> opponent field-1 (the only legal sacrifice)
+    $rows[] = ['player' => $opp, 'zone' => 'myHand', 'cardID' => 'en3DD836cp']; // Drenching Finish -> opponent myHand-7
+    return $rows;
+};
+// Opening actions: the killer ($opp) plays Drenching Finish for real, pays 2 reserve and attacks the Theurgist (field-1 of the other side).
+$gaTheurgistKill = function(int $ctrl) {
+    $opp = $ctrl == 1 ? 2 : 1;
+    $lead = $opp == 1 ? [mrdEnd(1), mrdEnd(2)] : [mrdEnd(1)]; // player 1 attacks on its turn 3, player 2 on its turn 2
+    return array_merge($lead, [mrdPlay($opp, 'myHand-7')], mrdPay($opp, 2), [mrdAns($opp, 'theirField-1')]);
+};
+foreach ([2, 1] as $gaTheurgistCtrl) {
+    $gaTheurgistOpp = $gaTheurgistCtrl == 1 ? 2 : 1;
+    $gaTheurgistTag = 'p' . $gaTheurgistCtrl . '-controlled';
+    $fixtures["shackled-theurgist-$gaTheurgistTag-opponent-declines-sacrifice-returns-ephemeral"] = [
+        'testedCards' => ['vkqzk1jik7'],
+        'deck' => $gaTheurgistDeck,
+        'setup' => $gaTheurgistSetup($gaTheurgistCtrl),
+        'actions' => array_merge($gaTheurgistKill($gaTheurgistCtrl), [mrdAns($gaTheurgistOpp, 'NO')]),
+    ];
+    $fixtures["shackled-theurgist-$gaTheurgistTag-opponent-sacrifices-own-ally-stays-dead"] = [
+        'testedCards' => ['vkqzk1jik7'],
+        'deck' => $gaTheurgistDeck,
+        'setup' => $gaTheurgistSetup($gaTheurgistCtrl),
+        'actions' => array_merge($gaTheurgistKill($gaTheurgistCtrl), [
+            mrdAns($gaTheurgistOpp, 'YES'),
+            mrdAns($gaTheurgistOpp, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => "The controller's own Dungeon Guide was never offered: the opponent can only sacrifice ITS OWN ally"]),
+            mrdAns($gaTheurgistOpp, 'myField-1'), // sacrifice the opponent's own Fluffy Shopkeep
+        ]),
+    ];
+    $fixtures["shackled-theurgist-$gaTheurgistTag-opponent-has-no-ally-returns-ephemeral"] = [
+        'testedCards' => ['vkqzk1jik7'],
+        'deck' => $gaTheurgistDeck,
+        'setup' => $gaTheurgistSetup($gaTheurgistCtrl, false),
+        'actions' => $gaTheurgistKill($gaTheurgistCtrl),
+    ];
+}
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

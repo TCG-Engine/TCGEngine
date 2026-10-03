@@ -1,0 +1,25 @@
+{
+    "name": "shackled-theurgist-p1-controlled-opponent-has-no-ally-returns-ephemeral",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:36:47+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "vkqzk1jik7"
+    ],
+    "notes": "Shackled Theurgist (vkqzk1jik7, UMBRA CLERIC ally, 0 power / 2 life): \"On Death: Target opponent may sacrifice an ally. If they don't, return Shackled Theurgist to the field. It gets +2 LIFE until end of turn and becomes ephemeral.\" PIN fixture (not a bug): the Theurgist is controlled by PLAYER 1 and killed for real by the opposing player's Drenching Finish while the opponent controls NO ally, so there is nothing to sacrifice and the generated On Death closure calls ShackledTheurgistReturn() synchronously with the ambient playerID == the controller. This path passed on HEAD before the perspective fix (diagnosed: the stale-perspective defect only exists on the YES/NO path, whose handlers run as the opponent); it pins that the Theurgist returns ephemeral with +2 LIFE (computed life 4, power 4) from the controller's graveyard in this seating.",
+    "semanticCoverage": {
+        "testedCards": [
+            "vkqzk1jik7"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "status",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Target opponent may sacrifice an ally. (the opponent controls no ally, so nothing to sacrifice)",
+            "If they don't, return Shackled Theurgist to the field. It gets +2 LIFE until end of turn and becomes ephemeral."
+        ]
+    }
+}
