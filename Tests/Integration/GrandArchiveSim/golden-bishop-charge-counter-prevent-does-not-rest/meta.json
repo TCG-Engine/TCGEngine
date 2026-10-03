@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. Golden Bishop's activated ability (printed cost: Remove a charge counter from CARDNAME; no [REST]) also RESTED the unit: DoActivatedAbility() sets Status=1 as the implicit [REST] cost unless the card id is in $skipAutoRest. Fix: add s4oelWMRJE to $skipAutoRest (same fix as Tristan, Shadowdancer's Redirect). Trace before the fix: cardID=s4oelWMRJE idx=0 static=1 skip=0 before=2, and the per-step dump showed Status 1 after the activation.",
         "affectedFunction": "Custom/GameLogic.php DoActivatedAbility() $skipAutoRest list / implicit REST for static unit abilities",
-        "fixCommit": "TBD"
+        "fixCommit": "ba2bf2cc"
     }
 }
