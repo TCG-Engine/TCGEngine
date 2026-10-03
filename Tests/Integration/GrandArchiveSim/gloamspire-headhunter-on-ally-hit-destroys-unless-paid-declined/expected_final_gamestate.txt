@@ -25,9 +25,9 @@ px60u5n1do
 em6eEh9q8y
 0
 0
-0
 1
-r278evrcdz
+em6eEh9q8y
+0
 0
 0
 7
@@ -47,11 +47,11 @@ px60u5n1do
 em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
-2
-pNiyaGlIe7 2 1 0 1 - - - 1
-em6eEh9q8y 2 1 1 1 DAMAGED_SINCE_LAST_TURN - - 4
 1
+pNiyaGlIe7 2 1 0 1 - - - 1
+2
 gt7lh9v221 2 2 0 2 - - WyJiamx3YWJpcGw2IiwicE5peWFHbEllNyJd 2
+r278evrcdz 1 2 0 2 - - - 3
 0
 0
 0

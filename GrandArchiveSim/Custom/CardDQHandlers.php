@@ -3868,12 +3868,15 @@ $customDQHandlers["ShiftingMiragePay"] = function($player, $parts, $lastDecision
         ReserveCard($player);
         return;
     }
+    // Stored relative to the paying opponent (this handler's $player), not the caster.
     $champMZ = DecisionQueueController::GetVariable("ShiftingMirageChampion");
-    if(!empty($champMZ)) AddTurnEffect($champMZ, "STEALTH");
+    if(!empty($champMZ)) AddTurnEffect(NormalizeMZForPlayerPerspective($player, $champMZ), "STEALTH");
 };
 
 $customDQHandlers["GloamspireHeadhunterPay"] = function($player, $parts, $lastDecision) {
+    // Stored relative to the hit ally's controller (this handler's $player), not the attacker.
     $target = DecisionQueueController::GetVariable("GloamspireHeadhunterTarget");
+    if(!empty($target)) $target = NormalizeMZForPlayerPerspective($player, $target);
     if($lastDecision === "YES") {
         if(count(GetHand($player)) < 3) {
             if(!empty($target)) {
@@ -4020,7 +4023,8 @@ $customDQHandlers["StandBeforeTheQueenPay"] = function($player, $parts, $lastDec
         ReserveCard($player);
         return;
     }
-    if(!empty($target)) AddTurnEffect($target, "STEALTH");
+    // Stored relative to the paying opponent (this handler's $player), not the ambient player at store time.
+    if(!empty($target)) AddTurnEffect(NormalizeMZForPlayerPerspective($player, $target), "STEALTH");
 };
 
 $customDQHandlers["BlastshotPumpChoose"] = function($player, $parts, $lastDecision) {

@@ -1,0 +1,7 @@
+[
+    {"step":11,"type":"card_property_equals","mzId":"p1Field-1","property":"TurnEffects","value":"[\"STAND_BEFORE_THE_QUEEN_1\",\"STEALTH\"]","semantic":true,"label":"[Sheen 8+] The opponent declined to pay (2): the PROTECTED unit (player 1's Dungeon Guide) gained STEALTH after the first damage was prevented (2 -> 1 prevention left)"},
+    {"step":11,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"0","semantic":true,"label":"The attack's damage was prevented: the protected Dungeon Guide took 0"},
+    {"step":11,"type":"card_property_equals","mzId":"p2Field-1","property":"TurnEffects","value":"[]","semantic":true,"label":"STEALTH did NOT land on the paying opponent's own Dungeon Guide at the same slot"},
+    {"step":11,"type":"zone_count","zone":"myMemory","viewerPlayerID":2,"value":0,"semantic":true,"label":"Declining cost the opponent nothing: no card moved into their memory"},
+    {"step":11,"type":"decision_queue_empty","player":"all"}
+]

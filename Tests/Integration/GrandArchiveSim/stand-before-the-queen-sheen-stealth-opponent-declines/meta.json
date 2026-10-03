@@ -1,0 +1,26 @@
+{
+    "name": "stand-before-the-queen-sheen-stealth-opponent-declines",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T04:09:41+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "v9SJgS6z40"
+    ],
+    "notes": "Stand Before the Queen (v9SJgS6z40): \"Prevent the next 2 damage that would be dealt to target unit this turn. [Sheen 8+] The first time damage is prevented this way, the unit gains stealth until end of turn unless an opponent pays (2).\" Player 1 holds a Fractured Memories mastery seeded with 8 sheen counters and a Stand Before the Queen in hand (water-element deck, no other fast cards). Player 2 attacks player 1's Dungeon Guide with its own Dungeon Guide; in the attack's priority window player 1 casts Stand Before the Queen for real targeting their attacked Dungeon Guide, declines to retaliate, and the attack's 1 damage is prevented. Player 2 (the unit's opponent, 7+ cards) is asked whether to pay (2) and declines; STEALTH must land on the PROTECTED unit (player 1's Dungeon Guide), not on the same slot of the paying opponent's own field. The target mzID is now stored relative to the paying opponent (NormalizeMzIDForController) like Shifting Mirage's champion; this scenario also passes without that hardening (damage prevention fires under the damage source's perspective, which is the paying opponent here), so it is correct-path coverage for the card rather than a regression guard for the perspective hardening.",
+    "semanticCoverage": {
+        "testedCards": [
+            "v9SJgS6z40"
+        ],
+        "mechanics": [
+            "prevention",
+            "status",
+            "condition",
+            "cost",
+            "combat"
+        ],
+        "rulesClauses": [
+            "Prevent the next 2 damage that would be dealt to target unit this turn.",
+            "[Sheen 8+] The first time damage is prevented this way, the unit gains stealth until end of turn unless an opponent pays (2)."
+        ]
+    }
+}

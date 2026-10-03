@@ -20256,16 +20256,17 @@ $fixtures['gearstride-gloves-banish-requires-level-two'] = [
 // so UMBRA, the Class Bonus and the Tristan Bonus are all active. The card is played for real;
 // ShiftingMirageResolve() (Custom/GameLogic.php) queues a YES/NO for the opponent (who holds 7+
 // cards) and, regardless of the answer, summons the Ominous Shadow for the Tristan Bonus. ENGINE
-// BUGS (found, confirmed live, NOT fixed): (1) Double Class-Bonus discount: the card needs only
+// BUGS: (1) (found, confirmed live, NOT fixed) Double Class-Bonus discount: the card needs only
 // ONE reserve payment although printed 3 minus the Class Bonus should be 2 (two independent
 // discount mechanisms both apply; confirmed by calling ApplyGeneratedReserveLikeCostModifiers /
 // ClassBonusActivateCostReduction / CalculateActivationReserveCost directly on this fixture's
-// initial state: 2 / 1 / 1). (2) Wrong champion gets stealth: when the opponent declines,
-// customDQHandlers["ShiftingMiragePay"] (Custom/CardDQHandlers.php) runs in the OPPONENT's action
-// and AddTurnEffect()s the champion mzID stored earlier relative to player 1 ("myField-0"), which
-// resolves to the OPPONENT's champion; confirmed with a temporary error_log trace (handlerPlayer=2
-// storedChampMZ=myField-0 resolvesTo=pNiyaGlIe7 controller=2), removed afterwards. Both defects
-// are pinned with REGRESSION GUARD assertions.
+// initial state: 2 / 1 / 1). (2) (FIXED) Stealth used to land on the wrong champion: when the
+// opponent declines, customDQHandlers["ShiftingMiragePay"] (Custom/CardDQHandlers.php) runs in the
+// OPPONENT's action, but the champion mzID was stored relative to player 1 ("myField-0"), which
+// resolves to the OPPONENT's champion there (trace: handlerPlayer=2 storedChampMZ=myField-0
+// resolvesTo=pNiyaGlIe7 controller=2). ShiftingMirageResolve() now stores it relative to the
+// opponent via NormalizeMzIDForController(), so the CASTER's champion gains STEALTH. Defect (1) is
+// still pinned with a REGRESSION GUARD assertion.
 $fixtures['shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines'] = [
     'testedCards' => ['hmjr33ijq6'],
     'deck' => $tristanDeck,
@@ -20307,8 +20308,9 @@ $fixtures['shifting-mirage-tristan-bonus-shadow-stealth-opponent-pays'] = [
 // --- Shifting Mirage: champion gains stealth until end of turn when the opponent cannot pay (2) ---
 // Shifting Mirage (hmjr33ijq6): when the opponent holds fewer than 2 cards ShiftingMirageResolve()
 // skips the YES/NO and applies the stealth turn effect directly while still under player 1's own
-// perspective, so (unlike the declined-payment path documented in shifting-mirage-tristan-bonus-
-// shadow-stealth-opponent-declines) the CASTER's champion correctly gains STEALTH. The opponent's
+// perspective, so the CASTER's champion gains STEALTH (the declined-payment path, which resolves
+// it inside the opponent's action, is covered by shifting-mirage-tristan-bonus-shadow-stealth-
+// opponent-declines). The opponent's
 // hand is emptied through the generator's emptyZone setup step. The Tristan Bonus Ominous Shadow
 // is summoned as well. The single reserve payment is the double-Class-Bonus-discount engine bug
 // (printed 3 -> 1 instead of 2), pinned with a REGRESSION GUARD.
@@ -20526,18 +20528,18 @@ $fixtures['stifling-trap-memory-alternate-cost-never-offered'] = [
     ],
 ];
 
-// --- Arrow Trap: return target attacking ally to its owner's hand (unprepared) -- the ability never resolves (engine bug) ---
+// --- Arrow Trap: return target attacking ally to its owner's hand (unprepared, no preparation counter to pay) ---
 // Arrow Trap (uoQGe5xGDQ, WIND action, REACTION, reserve 2): "Prepare 1. Return target attacking
 // ally to its owner's hand. Class Bonus: If Arrow Trap was prepared, destroy that ally instead."
-// Player 2 attacks player 1's champion (Tristan, Hired Blade, an ASSASSIN) with a seeded Dungeon
-// Guide; player 1 answers the attack's priority window by playing Arrow Trap from hand (two
-// reserve payments). ENGINE BUGS (found, confirmed live, NOT fixed): (1) the ability resolves
-// CombatAttacker ('myField-1', stored relative to the ATTACKER) from the DEFENDER's perspective
-// where it resolves to nothing, so the attacking ally is never returned or destroyed (temporary
-// error_log trace: player=1 CombatAttacker=myField-1 CombatAttackerPlayer=2 resolvesTo=null); (2)
-// 'Prepare 1' is never queued (no DeclarePrepareCost decision exists in the generated ability), so
-// wasPrepared is always null and the destroy-instead branch is unreachable.
-$fixtures['arrow-trap-return-attacking-ally-never-resolves'] = [
+// Player 2 attacks player 1's champion (Tristan, Hired Blade, an ASSASSIN, no preparation
+// counters so Prepare 1 is not offered) with a seeded Dungeon Guide; player 1 answers the attack's
+// priority window by playing Arrow Trap from hand (two reserve payments). The ability resolves
+// ArrowTrapResolve -> GetCombatAttackerMZ() (CombatAttacker is stored relative to the ATTACKER,
+// 'myField-1' for player 2, and re-localized to the defender through CombatAttackerPlayer) and
+// returns the attacking Dungeon Guide to its OWNER's (player 2's) hand; the attack is over, so the
+// champion takes no damage. (Previously the raw 'myField-1' was resolved from the defender's
+// perspective, found nothing, and the attacker was never returned -- fixed.)
+$fixtures['arrow-trap-return-attacking-ally-unprepared'] = [
     'testedCards' => ['uoQGe5xGDQ'],
     'deck' => $tristanDeck,
     'setup' => [
@@ -20557,20 +20559,16 @@ $fixtures['arrow-trap-return-attacking-ally-never-resolves'] = [
     ],
 ];
 
-// --- Arrow Trap: Prepare 1 / destroy-if-prepared -- the Prepare cost is never offered and the ability never resolves (engine bug) ---
+// --- Arrow Trap: Prepare 1 paid -> [Class Bonus] destroy the attacking ally instead of returning it ---
 // Arrow Trap (uoQGe5xGDQ, WIND action, REACTION, reserve 2): "Prepare 1. Return target attacking
 // ally to its owner's hand. Class Bonus: If Arrow Trap was prepared, destroy that ally instead."
-// Player 2 attacks player 1's champion (Tristan, Hired Blade, an ASSASSIN) with a seeded Dungeon
-// Guide; player 1 answers the attack's priority window by playing Arrow Trap from hand (two
-// reserve payments). ENGINE BUGS (found, confirmed live, NOT fixed): (1) the ability resolves
-// CombatAttacker ('myField-1', stored relative to the ATTACKER) from the DEFENDER's perspective
-// where it resolves to nothing, so the attacking ally is never returned or destroyed (temporary
-// error_log trace: player=1 CombatAttacker=myField-1 CombatAttackerPlayer=2 resolvesTo=null); (2)
-// 'Prepare 1' is never queued (no DeclarePrepareCost decision exists in the generated ability), so
-// wasPrepared is always null and the destroy-instead branch is unreachable. This variant gives the
-// champion exactly one preparation counter so a working Prepare 1 would offer to pay it: the
-// prompt never appears and the counter is untouched.
-$fixtures['arrow-trap-prepared-destroy-attacking-ally-never-resolves'] = [
+// Same attack as arrow-trap-return-attacking-ally-unprepared, but the champion (Tristan, Hired
+// Blade, an ASSASSIN so the Class Bonus is active) holds exactly one preparation counter. The
+// ability now queues the optional 'Pay Prepare 1?' YES/NO (generic DeclarePrepareCost) before
+// resolving; player 1 answers YES, the counter is removed, and the attacking Dungeon Guide is
+// DESTROYED (goes to its owner's graveyard) rather than returned to hand. (Previously the Prepare
+// 1 prompt was never queued and the attacker was never affected -- both fixed.)
+$fixtures['arrow-trap-prepared-destroy-attacking-ally'] = [
     'testedCards' => ['uoQGe5xGDQ'],
     'deck' => $tristanDeck,
     'setup' => [
@@ -20584,9 +20582,85 @@ $fixtures['arrow-trap-prepared-destroy-attacking-ally-never-resolves'] = [
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
         ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 attacks with Dungeon Guide
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // targeting player 1's champion
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 1 plays Arrow Trap from the priority window (no Prepare 1 prompt appears)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 1 plays Arrow Trap from the priority window
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // pay Prepare 1 (remove the preparation counter)
+    ],
+];
+
+// --- Arrow Trap: Prepare 1 offered but declined -> the attacking ally is returned to hand, not destroyed ---
+// Arrow Trap (uoQGe5xGDQ): same setup as arrow-trap-prepared-destroy-attacking-ally (champion has
+// one preparation counter, Class Bonus active), but player 1 answers NO to 'Pay Prepare 1?'. Arrow
+// Trap is then NOT prepared, so the Class Bonus "destroy instead" does not apply: the attacking
+// Dungeon Guide returns to its owner's hand and the preparation counter is kept.
+$fixtures['arrow-trap-prepare-declined-returns-attacking-ally'] = [
+    'testedCards' => ['uoQGe5xGDQ'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 1]]], // Tristan, Hired Blade (ASSASSIN) with ONE preparation counter
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uoQGe5xGDQ'], // Arrow Trap -> p1 myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (attacker) -> p2 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes a window
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 attacks with Dungeon Guide
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // targeting player 1's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 1 plays Arrow Trap from the priority window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline Prepare 1
+    ],
+];
+
+// --- Stand Before the Queen (v9SJgS6z40): [Sheen 8+] first prevented damage grants stealth unless an opponent pays (2); opponent declines ---
+// Stand Before the Queen: "Prevent the next 2 damage that would be dealt to target unit this turn.
+// [Sheen 8+] The first time damage is prevented this way, the unit gains stealth until end of turn
+// unless an opponent pays (2)." (CombatLogic.php damage-prevention + customDQHandlers
+// ["StandBeforeTheQueenPay"].) Player 1 holds a Fractured Memories mastery seeded with 8 sheen
+// counters and a Stand Before the Queen in hand (water-element deck, no other fast cards). Player 2
+// attacks player 1's Dungeon Guide with its own Dungeon Guide; in the attack's priority window
+// player 1 casts Stand Before the Queen for real targeting their attacked Dungeon Guide, declines to
+// retaliate, and the attack's 1 damage is prevented. Player 2 (the unit's opponent, 7+ cards) is
+// asked whether to pay (2) and declines. The STEALTH must land on the PROTECTED unit (player 1's
+// Dungeon Guide), not on the same slot of the paying opponent's own field. NOTE: the target mzID is
+// now stored relative to the paying opponent (NormalizeMzIDForController) like Shifting Mirage's
+// champion, but this scenario also passes WITHOUT that hardening (the prevention fires under the
+// damage source's perspective, which is the paying opponent here), so it is correct-path coverage,
+// not a regression guard for the perspective fix.
+$fixtures['stand-before-the-queen-sheen-stealth-opponent-declines'] = [
+    'testedCards' => ['v9SJgS6z40'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+15 Dungeon Guide
+15 Fairy Whispers
+15 Fluffy Shopkeep
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'UAJGQFbXjs', 'setProperties' => ['Counters' => ['sheen' => 8]]], // Fractured Memories with 8 sheen
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the protected unit) -> p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (attacker) -> p2 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'v9SJgS6z40'], // Stand Before the Queen -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes its window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes its window
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // p2 attacks with its Dungeon Guide
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // targeting player 1's Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // p1 casts Stand Before the Queen in the attack window
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // p1 targets its own (attacked) Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 declines to retaliate
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // p2 declines to pay (2)
     ],
 ];
 
@@ -20763,19 +20837,18 @@ $fixtures['dusksoul-stone-phantasias-have-spellshroud'] = [
     ],
 ];
 
-// --- Gloamspire Headhunter: [Class Bonus] On Ally Hit, the controller declines to pay (3) -- the attacker is destroyed instead of the hit ally (engine bug) ---
+// --- Gloamspire Headhunter: [Class Bonus] On Ally Hit, the controller declines to pay (3) -- the hit ally is destroyed ---
 // Gloamspire Headhunter (r278evrcdz, UMBRA ALLY, ASSASSIN/AUTOMATON, Stealth): "[Class Bonus] On
 // Ally Hit: Destroy the hit ally unless its controller pays (3)." Player 2's champion is patched
 // to Tristan, Hired Blade (ASSASSIN) for the Class Bonus; a Headhunter is seeded on its field
 // (already on the field, as Stealth and the on-hit trigger need no enter event) and attacks player
 // 1's Dungeon Guide on player 2's turn (player 1 declines retaliation).
 // onHitAbilities['r278evrcdz:0'] -> GloamspireHeadhunterOnHit() asks the HIT ally's controller
-// (player 1, who has 7+ cards) whether to pay (3). ENGINE BUG (found, confirmed live, NOT fixed):
-// answering NO should destroy the hit Dungeon Guide, but the handler resolves its stored attacker-
-// relative target 'theirField-1' under the defender's perspective, which is the Headhunter itself:
-// the Headhunter dies and the Dungeon Guide survives (trace: answer=NO handlerPlayer=1
-// storedTarget=theirField-1 resolvesTo=r278evrcdz controller=2). Pinned with REGRESSION GUARD
-// assertions.
+// (player 1, who has 7+ cards) whether to pay (3). Answering NO destroys the hit Dungeon Guide:
+// the combat target is stored attacker-relative ('theirField-1'), so GloamspireHeadhunterOnHit()
+// re-expresses it relative to the hit ally's controller (NormalizeMzIDForController) before the
+// handler resolves it inside that player's action. (Previously it resolved to the Headhunter
+// itself, so the attacker died and the Dungeon Guide survived -- fixed.)
 $fixtures['gloamspire-headhunter-on-ally-hit-destroys-unless-paid-declined'] = [
     'testedCards' => ['r278evrcdz'],
     'deck' => $tristanDeck,

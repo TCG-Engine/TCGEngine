@@ -23424,7 +23424,10 @@ function ShiftingMirageResolve($player) {
     if($champMZ !== null) {
         $opponent = ($player == 1) ? 2 : 1;
         if(count(GetHand($opponent)) >= 2) {
-            DecisionQueueController::StoreVariable("ShiftingMirageChampion", $champMZ);
+            // $champMZ is relative to the caster (ambient $playerID); the "ShiftingMiragePay" handler
+            // runs inside the OPPONENT's action, so store it relative to the opponent (see the
+            // stored-mzID convention above NormalizeMzIDForController() in OpportunityLogic.php).
+            DecisionQueueController::StoreVariable("ShiftingMirageChampion", NormalizeMzIDForController($champMZ, $opponent));
             DecisionQueueController::AddDecision($opponent, "YESNO", "-", 1, tooltip:"Pay_2_to_prevent_stealth?");
             DecisionQueueController::AddDecision($opponent, "CUSTOM", "ShiftingMiragePay", 1);
         } else {

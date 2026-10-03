@@ -229,3 +229,50 @@ $customDQHandlers["rYyOEGB3tD:0:LeaveField-1"] = function($player, $parts, $last
     }
     DecisionQueueController::ClearVariable("TurmBuffCount");
 };
+
+// Arrow Trap (uoQGe5xGDQ): "Prepare 1 (You may remove a preparation counter from your champion as
+// you activate this card.) Return target attacking ally to its owner's hand. [Class Bonus] If
+// Arrow Trap was prepared, destroy that ally instead."
+//
+// The generated $cardActivatedAbilities["uoQGe5xGDQ:0"] had two defects, both fixed here:
+//  (1) It read the raw CombatAttacker variable, which is stored relative to the ATTACKER
+//      ("myField-1" for attacking player 2), but Arrow Trap resolves in the DEFENDER's action where
+//      "myField-1" is the defender's own field -- so the attacker resolved to nothing (or to an
+//      unrelated defender object) and was never returned/destroyed. GetCombatAttackerMZ()
+//      re-localizes it through CombatAttackerPlayer (see the stored-mzID convention above
+//      NormalizeMzIDForController() in Custom/OpportunityLogic.php).
+//  (2) "Prepare 1" was never queued (no DeclarePrepareCost decision), so wasPrepared was never
+//      YES and the destroy-instead branch was unreachable. Now wired exactly like Thieving Cut
+//      (7t9m4muq2r:0): optional YES/NO when the champion has a preparation counter, then the
+//      return/destroy resolves in a follow-up CUSTOM step so it only runs after that answer.
+$cardActivatedAbilities["uoQGe5xGDQ:0"] = function($player) { //Return attacking ally; CB if prepared destroy instead
+    DecisionQueueController::StoreVariable("wasPrepared", "NO");
+    if(!IsCombatActive()) return;
+    $champMZ = FindChampionMZ($player);
+    $champObj = $champMZ !== null ? GetZoneObject($champMZ) : null;
+    if($champObj !== null && GetCounterCount($champObj, "preparation") >= 1) {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Pay_Prepare_1?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DeclarePrepareCost|" . $champMZ . "|1", 1);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ArrowTrapResolve", 1);
+};
+
+$customDQHandlers["ArrowTrapResolve"] = function($player, $parts, $lastDecision) {
+    if(!IsCombatActive()) return;
+    $attackerMZ = GetCombatAttackerMZ();
+    if($attackerMZ === null) return;
+    // Express it relative to $player (the ability's controller) for the $player-relative helpers below.
+    $attackerMZ = NormalizeMzIDForController($attackerMZ, $player);
+    $attackerObj = GetZoneObject($attackerMZ);
+    if($attackerObj === null || $attackerObj->removed) return;
+    if(!PropertyContains(EffectiveCardType($attackerObj), "ALLY")) return;
+    $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
+    if($wasPrepared === "YES" && IsClassBonusActive($player, explode(",", CardClasses("uoQGe5xGDQ")))) {
+        DoAllyDestroyed($player, $attackerMZ);
+        DecisionQueueController::CleanupRemovedCards();
+    } else {
+        // "its owner's hand" (same destination rule as the other return-to-hand effects).
+        $dest = intval($attackerObj->Owner) === intval($player) ? "myHand" : "theirHand";
+        MZMove($player, $attackerMZ, $dest);
+    }
+};

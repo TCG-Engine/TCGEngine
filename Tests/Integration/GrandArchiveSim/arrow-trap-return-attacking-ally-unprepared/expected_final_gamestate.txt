@@ -36,7 +36,7 @@ px60u5n1do
 em6eEh9q8y
 px60u5n1do
 em6eEh9q8y
-8
+9
 em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
@@ -45,11 +45,11 @@ px60u5n1do
 em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
+em6eEh9q8y
 1
-gt7lh9v221 2 1 1 1 WAS_ATTACKED~vz4kc558yx-ACTION_ACTIVATED~DAMAGED_SINCE_LAST_TURN eyJfY2hhbXBEYW1hZ2VUaGlzVHVybiI6MX0= WyJiamx3YWJpcGw2IiwicE5peWFHbEllNyJd 1
-2
+gt7lh9v221 2 1 0 1 WAS_ATTACKED~vz4kc558yx-ACTION_ACTIVATED - WyJiamx3YWJpcGw2IiwicE5peWFHbEllNyJd 1
+1
 pNiyaGlIe7 2 2 0 2 - - - 2
-em6eEh9q8y 1 2 0 2 - - - 3
 0
 0
 2

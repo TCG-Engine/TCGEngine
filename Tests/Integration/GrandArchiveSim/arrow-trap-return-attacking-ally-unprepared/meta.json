@@ -1,0 +1,29 @@
+{
+    "name": "arrow-trap-return-attacking-ally-unprepared",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:55+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "uoQGe5xGDQ"
+    ],
+    "notes": "Arrow Trap (uoQGe5xGDQ, WIND action, REACTION, reserve 2): \"Prepare 1. Return target attacking ally to its owner's hand. Class Bonus: If Arrow Trap was prepared, destroy that ally instead.\" Player 2 attacks player 1's champion (Tristan, Hired Blade, an ASSASSIN, no preparation counters so Prepare 1 is not offered) with a seeded Dungeon Guide; player 1 answers the attack's priority window by playing Arrow Trap from hand (two reserve payments). ArrowTrapResolve reads the attacker through GetCombatAttackerMZ() (CombatAttacker is stored relative to the ATTACKER and re-localized to the defender via CombatAttackerPlayer) and returns the attacking Dungeon Guide to its OWNER's (player 2's) hand; the attack is over, so the champion takes no damage. (Previously the raw 'myField-1' was resolved from the defender's perspective, found nothing, and the attacker was never returned -- fixed; see engineBug.)",
+    "semanticCoverage": {
+        "testedCards": [
+            "uoQGe5xGDQ"
+        ],
+        "mechanics": [
+            "combat",
+            "targeting",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Return target attacking ally to its owner's hand."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED (both defects). (1) $cardActivatedAbilities['uoQGe5xGDQ:0'] read the raw CombatAttacker variable, which is stored relative to the ATTACKER ('myField-1' for attacking player 2), but Arrow Trap resolves in the DEFENDER's action where 'myField-1' is the defender's own field (live trace on HEAD before the fix: player=1 CombatAttacker=myField-1 CombatAttackerPlayer=2 resolvesTo=null), so the attacker was never returned or destroyed (and an unrelated defender object at the same index would have been targeted). (2) 'Prepare 1' was never queued (no DeclarePrepareCost decision; pendingDQ-before=[] and wasPrepared=null), so the 'if prepared, destroy that ally instead' branch was unreachable. Fix: GeneratedAbilityOverrides.php overrides the generated entry with a Thieving-Cut-style optional 'Pay Prepare 1?' YES/NO (generic DeclarePrepareCost) followed by customDQHandlers['ArrowTrapResolve'], which reads the attacker through GetCombatAttackerMZ() (re-localized via CombatAttackerPlayer), returns it to its OWNER's hand, or destroys it via DoAllyDestroyed() when prepared and the Class Bonus is active.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php $cardActivatedAbilities['uoQGe5xGDQ:0'] + customDQHandlers['ArrowTrapResolve'] (overrides the generated GeneratedMacroCode.php entry, whose source is the CardEditor ability row for uoQGe5xGDQ)"
+    }
+}

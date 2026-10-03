@@ -6,7 +6,7 @@
     "testedCards": [
         "hmjr33ijq6"
     ],
-    "notes": "Shifting Mirage (hmjr33ijq6): when the opponent holds fewer than 2 cards ShiftingMirageResolve() skips the YES/NO and applies the stealth turn effect directly while still under player 1's own perspective, so (unlike the declined-payment path documented in shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines) the CASTER's champion correctly gains STEALTH. The opponent's hand is emptied through the generator's emptyZone setup step. The Tristan Bonus Ominous Shadow is summoned as well. The single reserve payment is the double-Class-Bonus-discount engine bug (printed 3 -> 1 instead of 2), pinned with a REGRESSION GUARD.",
+    "notes": "Shifting Mirage (hmjr33ijq6): when the opponent holds fewer than 2 cards ShiftingMirageResolve() skips the YES/NO and applies the stealth turn effect directly while still under player 1's own perspective, so the CASTER's champion gains STEALTH (the declined-payment path, which resolves it inside the opponent's action, is covered by shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines). The opponent's hand is emptied through the generator's emptyZone setup step. The Tristan Bonus Ominous Shadow is summoned as well. The single reserve payment is the double-Class-Bonus-discount engine bug (printed 3 -> 1 instead of 2), pinned with a REGRESSION GUARD.",
     "semanticCoverage": {
         "testedCards": [
             "hmjr33ijq6"

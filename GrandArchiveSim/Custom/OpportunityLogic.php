@@ -1310,6 +1310,24 @@ function NormalizeMzIDForController($mzID, $controller) {
     return (intval($controller) === intval($playerID)) ? $mzID : FlipZonePerspective($mzID);
 }
 
+/*
+ * CONVENTION for an mzID parked in a DecisionQueueController variable (or any other stored
+ * context) that a DIFFERENT player's decision handler will read later -- e.g. "unless an
+ * opponent pays (N)" cards, where the stored object belongs to the caster/attacker but the
+ * handler runs inside the opponent's own action (ambient $playerID == the handler's $player):
+ *   - STORE it expressed relative to the player whose handler will read it:
+ *         StoreVariable("X", NormalizeMzIDForController($mzRelativeToAmbient, $handlerPlayer));
+ *     (so "myField-0" written by the caster becomes "theirField-0" for the opponent's handler).
+ *   - READ it back through NormalizeMZForPlayerPerspective($player, $stored) (GameLogic.php), which
+ *     is a no-op when the handler's $player is the ambient $playerID and flips otherwise.
+ * Never store a raw "myX-N"/"theirX-N" and resolve it unconverted in another player's handler:
+ * it silently points at the wrong object (Shifting Mirage's stealth landed on the opponent's
+ * champion; Gloamspire Headhunter destroyed itself instead of the hit ally). Combat's own
+ * CombatAttacker/CombatTarget/CombatWeapon variables follow the attacker-relative variant of the
+ * same idea: read them through GetCombatAttackerMZ()/GetCombatTargetMZ(), which re-localize via
+ * CombatAttackerPlayer.
+ */
+
 /**
  * Generic helper to queue a triggered ability onto the EffectStack instead of firing it
  * synchronously. This is the shared primitive for moving a trigger type off the old

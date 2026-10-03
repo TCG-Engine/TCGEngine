@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-02T19:44:30+00:00",
+    "generatedAt": "2026-10-03T04:11:54+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 610,
+        "cardsWithExistingFixtures": 611,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1877,
+        "cardsNeedingSemanticCoverage": 1876,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -4963,22 +4963,6 @@
             "mechanics": [
                 "targeting",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "rYyOEGB3tD",
-            "name": "Turm, Schwartz Rook",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -35839,12 +35823,14 @@
                 "condition"
             ],
             "existingFixtures": [
-                "arrow-trap-prepared-destroy-attacking-ally-never-resolves",
-                "arrow-trap-return-attacking-ally-never-resolves"
+                "arrow-trap-prepare-declined-returns-attacking-ally",
+                "arrow-trap-prepared-destroy-attacking-ally",
+                "arrow-trap-return-attacking-ally-unprepared"
             ],
             "semanticFixtures": [
-                "arrow-trap-prepared-destroy-attacking-ally-never-resolves",
-                "arrow-trap-return-attacking-ally-never-resolves"
+                "arrow-trap-prepare-declined-returns-attacking-ally",
+                "arrow-trap-prepared-destroy-attacking-ally",
+                "arrow-trap-return-attacking-ally-unprepared"
             ],
             "starterDecks": [
                 "Tristan Re:Collection, Shadowdancer"
@@ -38002,10 +37988,12 @@
                 "status"
             ],
             "existingFixtures": [
-                "stand-before-the-queen-prevent-damage"
+                "stand-before-the-queen-prevent-damage",
+                "stand-before-the-queen-sheen-stealth-opponent-declines"
             ],
             "semanticFixtures": [
-                "stand-before-the-queen-prevent-damage"
+                "stand-before-the-queen-prevent-damage",
+                "stand-before-the-queen-sheen-stealth-opponent-declines"
             ],
             "starterDecks": [
                 "Merlin Re:Collection, Brilliant Vestige"
@@ -46068,6 +46056,26 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 43
+        },
+        {
+            "cardId": "rYyOEGB3tD",
+            "name": "Turm, Schwartz Rook",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "turm-schwartz-rook-alice-bonus-on-leave-buff-transfer"
+            ],
+            "semanticFixtures": [
+                "turm-schwartz-rook-alice-bonus-on-leave-buff-transfer"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
         },
         {
             "cardId": "ts9VdtFtk1",

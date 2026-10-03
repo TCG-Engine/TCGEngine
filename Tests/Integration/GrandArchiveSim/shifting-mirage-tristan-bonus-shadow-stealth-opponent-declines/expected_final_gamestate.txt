@@ -47,10 +47,10 @@ px60u5n1do
 em6eEh9q8y
 em6eEh9q8y
 2
-he6kd7hocc 2 1 0 1 vz4kc558yx-ACTION_ACTIVATED - WyJndDdsaDl2MjIxIiwiYmpsd2FiaXBsNiIsInBOaXlhR2xJZTciXQ== 1
+he6kd7hocc 2 1 0 1 vz4kc558yx-ACTION_ACTIVATED~STEALTH - WyJndDdsaDl2MjIxIiwiYmpsd2FiaXBsNiIsInBOaXlhR2xJZTciXQ== 1
 gveirpdm44 2 1 0 1 ENTERED_THIS_TURN - - 3
 1
-pNiyaGlIe7 2 2 0 2 STEALTH - - 2
+pNiyaGlIe7 2 2 0 2 - - - 2
 0
 0
 1

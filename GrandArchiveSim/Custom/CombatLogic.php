@@ -5131,7 +5131,10 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                 ));
                 $opponent = (($targetObj->Controller ?? $player) == 1) ? 2 : 1;
                 if(count(GetHand($opponent)) >= 2) {
-                    DecisionQueueController::StoreVariable("StandBeforeTheQueenTarget", $targetObj->GetMzID());
+                    // GetMzID() is relative to the ambient player; the pay handler runs inside the
+                    // OPPONENT's action, so store it relative to them (stored-mzID convention:
+                    // OpportunityLogic.php, above NormalizeMzIDForController()).
+                    DecisionQueueController::StoreVariable("StandBeforeTheQueenTarget", NormalizeMzIDForController($targetObj->GetMzID(), $opponent));
                     DecisionQueueController::AddDecision($opponent, "YESNO", "-", 1, tooltip:"Pay_2_to_prevent_stealth?");
                     DecisionQueueController::AddDecision($opponent, "CUSTOM", "StandBeforeTheQueenPay", 1);
                 } else {
@@ -5592,13 +5595,17 @@ $customDQHandlers["SliceAndDiceNewAttack"] = function($player, $parts, $lastDeci
 
 function GloamspireHeadhunterOnHit($player) {
     if(!IsClassBonusActive($player, ["ASSASSIN"])) return;
-    $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
-    if($hitTarget === null || $hitTarget === "-" || $hitTarget === "") return;
+    // CombatTarget is stored relative to the attacker; GetCombatTargetMZ() re-localizes it to the
+    // ambient perspective.
+    $hitTarget = GetCombatTargetMZ();
+    if($hitTarget === null) return;
     $targetObj = GetZoneObject($hitTarget);
     if($targetObj === null || $targetObj->removed || !PropertyContains(EffectiveCardType($targetObj), "ALLY")) return;
     $targetController = $targetObj->Controller;
     if(count(GetHand($targetController)) >= 3) {
-        DecisionQueueController::StoreVariable("GloamspireHeadhunterTarget", $hitTarget);
+        // The pay/destroy handler runs inside the hit ally's controller's action, so store the
+        // target relative to that player (stored-mzID convention: OpportunityLogic.php).
+        DecisionQueueController::StoreVariable("GloamspireHeadhunterTarget", NormalizeMzIDForController($hitTarget, $targetController));
         DecisionQueueController::AddDecision($targetController, "YESNO", "-", 1, tooltip:"Pay_3_to_save_the_hit_ally?");
         DecisionQueueController::AddDecision($targetController, "CUSTOM", "GloamspireHeadhunterPay", 1);
         return;

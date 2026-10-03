@@ -1,0 +1,26 @@
+{
+    "name": "arrow-trap-prepare-declined-returns-attacking-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:55+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "uoQGe5xGDQ"
+    ],
+    "notes": "Arrow Trap (uoQGe5xGDQ): same setup as arrow-trap-prepared-destroy-attacking-ally (champion has one preparation counter, Class Bonus active), but player 1 answers NO to 'Pay Prepare 1?'. Arrow Trap is then NOT prepared, so the Class Bonus 'destroy instead' does not apply: the attacking Dungeon Guide returns to its owner's hand and the preparation counter is kept. Added with the CombatAttacker perspective fix as the correct-path counterpart to the prepared/destroy fixture.",
+    "semanticCoverage": {
+        "testedCards": [
+            "uoQGe5xGDQ"
+        ],
+        "mechanics": [
+            "combat",
+            "cost",
+            "counter",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Prepare 1 is optional: declining it leaves Arrow Trap unprepared.",
+            "Return target attacking ally to its owner's hand (when not prepared)."
+        ]
+    }
+}
