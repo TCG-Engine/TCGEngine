@@ -26712,6 +26712,76 @@ $fixtures['lure-the-abyss-player-two-reveal-four-specters-to-graveyard-rest-bott
     'actions' => array_merge([mrdEnd(1), mrdPass(2), mrdPass(2), mrdPlay(2, 'myHand-7')], mrdPay(2, 2)),
 ];
 
+
+// --- Ignition Draw (RhSPMn8Lix): "Look at the top six cards of your deck. Banish up to two Aethercharge cards from among
+// them and put the rest on the bottom of your deck in any order. Until end of turn, you may activate the banished cards." ---
+$gaIgnAeA = 'ra9950o14t'; // Charge the Soul (AETHERCHARGE spell)
+$gaIgnAeB = '0w5bp5nuae'; // Prudent Nock (AETHERCHARGE spell)
+$gaIgnAeC = '7l9th23niu'; // Aetheric Calibration (AETHERCHARGE spell)
+$gaIgnSetup = function(array $top6, int $player = 1) use ($gaHand, $gaTop) { return [$gaHand('RhSPMn8Lix', $player), $gaTop($top6, $player)]; };
+$fixtures['ignition-draw-look-six-banish-two-aethercharge-rest-bottom'] = [
+    'testedCards' => ['RhSPMn8Lix'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // top six: Dungeon Guide, Charge the Soul (AE), Fluffy Shopkeep, Prudent Nock (AE), Dungeon Guide, Fluffy Shopkeep
+    'setup' => $gaIgnSetup([$GA_DG, $gaIgnAeA, $GA_FS, $gaIgnAeB, $GA_DG, $GA_FS]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [
+        mrdAns(1, 'myTempZone-1'), // banish Charge the Soul (2nd of the six)
+        mrdAns(1, 'myTempZone-2'), // banish Prudent Nock (4th of the six; now 3rd after Charge the Soul left the temp zone)
+        mrdAns(1, 'Top=;Bottom=' . $GA_FS . ',' . $GA_FS . ',' . $GA_DG . ',' . $GA_DG), // the other four to the bottom, chosen order
+    ]),
+];
+$fixtures['ignition-draw-look-six-deep-aethercharge-offered'] = [
+    'testedCards' => ['RhSPMn8Lix'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // the ONLY Aethercharge is the sixth card from the top: it can only be offered if all six were looked at
+    'setup' => $gaIgnSetup([$GA_DG, $GA_FS, $GA_DG, $GA_FS, $GA_DG, $gaIgnAeA]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [
+        mrdAns(1, 'myTempZone-5'), // banish Charge the Soul (6th of the six)
+        mrdAns(1, 'Top=;Bottom=' . $GA_DG . ',' . $GA_FS . ',' . $GA_DG . ',' . $GA_FS . ',' . $GA_DG),
+    ]),
+];
+$fixtures['ignition-draw-look-six-decline-bottoms-all-six'] = [
+    'testedCards' => ['RhSPMn8Lix'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaIgnSetup([$GA_DG, $gaIgnAeA, $GA_FS, $gaIgnAeB, $GA_DG, $GA_FS]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [
+        mrdPass(1), // "up to two": banish none
+        mrdAns(1, 'Top=;Bottom=' . $gaIgnAeB . ',' . $GA_FS . ',' . $GA_DG . ',' . $gaIgnAeA . ',' . $GA_FS . ',' . $GA_DG), // all six to the bottom, chosen order
+    ]),
+];
+$fixtures['ignition-draw-look-six-banish-one-then-decline-second'] = [
+    'testedCards' => ['RhSPMn8Lix'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaIgnSetup([$GA_DG, $gaIgnAeA, $GA_FS, $gaIgnAeB, $GA_DG, $GA_FS]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [
+        mrdAns(1, 'myTempZone-1'), // banish Charge the Soul
+        mrdPass(1),                // decline the second banish: Prudent Nock stays among the cards put on the bottom
+        mrdAns(1, 'Top=;Bottom=' . $GA_DG . ',' . $GA_FS . ',' . $gaIgnAeB . ',' . $GA_DG . ',' . $GA_FS),
+    ]),
+];
+$fixtures['ignition-draw-look-six-three-aethercharge-banish-capped-at-two'] = [
+    'testedCards' => ['RhSPMn8Lix'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // three Aethercharges (slots 0, 2, 4): "up to two" -> the third is never offered and goes to the bottom
+    'setup' => $gaIgnSetup([$gaIgnAeA, $GA_DG, $gaIgnAeB, $GA_FS, $gaIgnAeC, $GA_DG]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [
+        mrdAns(1, 'myTempZone-0'), // banish Charge the Soul
+        mrdAns(1, 'myTempZone-1'), // banish Prudent Nock (now the 2nd card: Dungeon Guide, Prudent Nock, ...)
+        mrdAns(1, 'Top=;Bottom=' . $gaIgnAeC . ',' . $GA_DG . ',' . $GA_FS . ',' . $GA_DG),
+    ]),
+];
+$fixtures['ignition-draw-player-two-look-six-banish-two-aethercharge-rest-bottom'] = [
+    'testedCards' => ['RhSPMn8Lix'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // PLAYER 2 seating (perspective check): the stack sits under player 2's turn-start draw (a filler Dungeon Guide)
+    'setup' => $gaIgnSetup([$GA_DG, $GA_DG, $gaIgnAeA, $GA_FS, $gaIgnAeB, $GA_DG, $GA_FS], 2),
+    'actions' => array_merge([mrdEnd(1), mrdPass(2), mrdPass(2), mrdPlay(2, 'myHand-7')], mrdPay(2, 3), [
+        mrdAns(2, 'myTempZone-1'),
+        mrdAns(2, 'myTempZone-2'),
+        mrdAns(2, 'Top=;Bottom=' . $GA_FS . ',' . $GA_DG . ',' . $GA_DG . ',' . $GA_FS),
+    ]),
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

@@ -7592,8 +7592,10 @@ function IgnitionDrawStart($player) {
     $deck = &GetDeck($player);
     $n = min(6, count($deck));
     if($n == 0) return;
+    // MZMoveTopOfZone, not a loop of MZMove($player, "myDeck-0", ...): MZMove only flags the slot removed, so
+    // "myDeck-0" would keep resolving to the same removed slot and only the top card would be looked at.
     for($i = 0; $i < $n; $i++) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        MZMoveTopOfZone($player, "myDeck", "myTempZone");
     }
     DecisionQueueController::StoreVariable("IgnitionDraw_BanishCount", "0");
     DecisionQueueController::StoreVariable("IgnitionDraw_TotalRevealed", strval($n));
@@ -7619,7 +7621,8 @@ function IgnitionDrawChooseStep($player) {
     }
     $targetStr = implode("&", $aethercharges);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, "Banish_an_Aethercharge_card?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "IgnitionDrawBanishChoice", 1);
+    // dontSkipOnPass: declining ("up to two") must still run the handler so the looked-at cards go to the bottom
+    DecisionQueueController::AddDecision($player, "CUSTOM", "IgnitionDrawBanishChoice", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["IgnitionDrawBanishChoice"] = function($player, $parts, $lastDecision) {
@@ -7640,6 +7643,10 @@ $customDQHandlers["IgnitionDrawBanishChoice"] = function($player, $parts, $lastD
     }
     $count = intval(DecisionQueueController::GetVariable("IgnitionDraw_BanishCount") ?? "0");
     DecisionQueueController::StoreVariable("IgnitionDraw_BanishCount", strval($count + 1));
+    // Splice the banished card out of myTempZone before re-offering the rest: without this the next prompt lists
+    // stale "myTempZone-N" slots (the banished card's slot is still occupied by its removed phantom, so every
+    // later index is one too high once the zone is cleaned up and the prompt banishes the WRONG card).
+    DecisionQueueController::CleanupRemovedCards();
     IgnitionDrawChooseStep($player);
 };
 
