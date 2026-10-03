@@ -1,0 +1,31 @@
+{
+    "name": "peer-the-depths-banish-top-card-keeps-order-of-the-rest",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T21:20:38+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "6JMwc6cpRm"
+    ],
+    "notes": "Peer the Depths (6JMwc6cpRm): banishing the opponent's TOP card (Dungeon Guide) of Dungeon Guide, Fluffy Shopkeep, Fairy Whispers, Charge the Soul leaves the other three on the bottom of their deck in the chosen (original) order.",
+    "semanticCoverage": {
+        "testedCards": [
+            "6JMwc6cpRm"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "look-at-top",
+            "bottom-deck",
+            "banish",
+            "opponent-deck"
+        ],
+        "rulesClauses": [
+            "Look at the top four cards of that player's deck and banish a card from among them. Put the rest on the bottom of their deck in any order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. PeerTheDepthsResolve() pulled the opponent's top four cards with a loop of MZMove($player, \"theirDeck-0\", \"myTempZone\"). Remove() only flags a slot removed (no splice), so \"theirDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped: only the top card of the opponent's deck was ever looked at (live repro on HEAD: the banish prompt offered the single card myTempZone-0). Fixed with the new MZMoveTopOfZone() helper (it flips the zone perspective for $player != the viewer exactly like MZMove).",
+        "affectedFunction": "Custom/GameLogic.php PeerTheDepthsResolve()",
+        "fixCommit": "TBD"
+    }
+}

@@ -26981,6 +26981,49 @@ $fixtures['wuji-of-lingering-fate-player-two-west-east-sacrifice-mill-three-self
     'actions' => [mrdEnd(1), mrdEnd(2), mrdAns(2, 'EAST'), mrdAns(2, 'YES'), mrdAns(2, 'YES')],
 ];
 
+
+// --- Peer the Depths (6JMwc6cpRm): "Activate this card only during your recollection phase. Target opponent skips their next draw
+// phase. Look at the top four cards of that player's deck and banish a card from among them. Put the rest on the bottom of their
+// deck in any order. Until the end of that player's next turn, they may activate the banished card, ignoring its elemental
+// requirements." ---
+$gaPeerSetup = function(array $oppTop4, int $player = 1) use ($gaHand, $gaTop) {
+    return [$gaHand('6JMwc6cpRm', $player), $gaTop($oppTop4, $player == 1 ? 2 : 1)];
+};
+$fixtures['peer-the-depths-look-four-opponent-banish-one-rest-bottom'] = [
+    'testedCards' => ['6JMwc6cpRm'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // opponent's top four, top to bottom: Dungeon Guide, Fluffy Shopkeep, Fairy Whispers, Charge the Soul
+    // (player 2's turn-2 draw takes a filler Dungeon Guide off the top first)
+    'setup' => $gaPeerSetup([$GA_DG, $GA_DG, $GA_FS, $GA_FW, $GA_MARK]),
+    // player 1's recollection phase opens a response window: activate Peer the Depths from it, pay 2 reserve
+    'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdAns(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'myTempZone-2'), // banish Fairy Whispers (3rd of the opponent's top four)
+        mrdAns(1, 'Top=;Bottom=' . $GA_MARK . ',' . $GA_FS . ',' . $GA_DG), // the other three onto the bottom of THEIR deck, chosen order
+    ]),
+];
+$fixtures['peer-the-depths-banish-top-card-keeps-order-of-the-rest'] = [
+    'testedCards' => ['6JMwc6cpRm'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => $gaPeerSetup([$GA_DG, $GA_DG, $GA_FS, $GA_FW, $GA_MARK]),
+    'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdAns(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'myTempZone-0'), // banish Dungeon Guide (the opponent's top card)
+        mrdAns(1, 'Top=;Bottom=' . $GA_FS . ',' . $GA_FW . ',' . $GA_MARK), // rest to the bottom in the original order
+    ]),
+];
+$fixtures['peer-the-depths-player-two-look-four-opponent-banish-one-rest-bottom'] = [
+    'testedCards' => ['6JMwc6cpRm'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // PLAYER 2 seating (perspective check): player 2 casts it in ITS recollection phase against player 1's deck; the four cards sit
+    // under player 1's turn-3 draw (a filler Dungeon Guide)
+    'setup' => $gaPeerSetup([$GA_DG, $GA_DG, $GA_FS, $GA_FW, $GA_MARK], 2),
+    // player 1's turn-3 recollection window also prompts player 2 (second response): decline it; then player 1 passes and player 2's OWN
+    // turn-4 recollection window opens
+    'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdPass(2), mrdEnd(1), mrdAns(2, 'myHand-7')], mrdPay(2, 2), [
+        mrdAns(2, 'myTempZone-2'), // banish Fairy Whispers
+        mrdAns(2, 'Top=;Bottom=' . $GA_MARK . ',' . $GA_FS . ',' . $GA_DG),
+    ]),
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

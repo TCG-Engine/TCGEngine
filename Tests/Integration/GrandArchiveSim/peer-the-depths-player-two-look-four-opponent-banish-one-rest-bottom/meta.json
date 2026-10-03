@@ -1,0 +1,31 @@
+{
+    "name": "peer-the-depths-player-two-look-four-opponent-banish-one-rest-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T21:21:10+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "6JMwc6cpRm"
+    ],
+    "notes": "PLAYER 2 seating (perspective check) for Peer the Depths (6JMwc6cpRm): player 2 declines player 1's recollection response window, passes the turn back and casts it in its OWN turn-4 recollection window against player 1's deck (stack under player 1's turn-3 draw). Fairy Whispers is banished from player 1's deck; the other three go to the bottom of player 1's deck.",
+    "semanticCoverage": {
+        "testedCards": [
+            "6JMwc6cpRm"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "look-at-top",
+            "bottom-deck",
+            "banish",
+            "opponent-deck"
+        ],
+        "rulesClauses": [
+            "Look at the top four cards of that player's deck and banish a card from among them. Put the rest on the bottom of their deck in any order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. PeerTheDepthsResolve() pulled the opponent's top four cards with a loop of MZMove($player, \"theirDeck-0\", \"myTempZone\"). Remove() only flags a slot removed (no splice), so \"theirDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped: only the top card of the opponent's deck was ever looked at (live repro on HEAD: the banish prompt offered the single card myTempZone-0). Fixed with the new MZMoveTopOfZone() helper (it flips the zone perspective for $player != the viewer exactly like MZMove).",
+        "affectedFunction": "Custom/GameLogic.php PeerTheDepthsResolve()",
+        "fixCommit": "TBD"
+    }
+}

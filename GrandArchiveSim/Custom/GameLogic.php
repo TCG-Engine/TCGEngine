@@ -20118,8 +20118,10 @@ function PeerTheDepthsResolve($player) {
     $count = min(4, count($deck));
     if($count <= 0) return;
     ClearMyTempZoneCards($player);
+    // MZMoveTopOfZone, not a loop of MZMove($player, "theirDeck-0", ...): MZMove only flags the slot removed, so
+    // "theirDeck-0" would keep resolving to the same removed slot and only the top card would be looked at.
     for($i=0;$i<$count;++$i) {
-        $moved = MZMove($player, "theirDeck-0", "myTempZone");
+        $moved = MZMoveTopOfZone($player, "theirDeck", "myTempZone");
         if($moved !== null) { $moved->Owner = $opponent; $moved->Controller = $opponent; }
     }
     $targets = ZoneSearch("myTempZone", forPlayer:$player);
