@@ -23106,17 +23106,23 @@ $fixtures['dummy-trainer-banish-draw-memory-opponent-summons-training-dummy'] = 
     ],
 ];
 
-// --- Rhongomiant, Grove's Spire: Spellshroud -- a spell can't target it (printed Spellshroud is not implemented: engine bug) ---
+// --- Rhongomiant, Grove's Spire: printed Spellshroud ("Objects with spellshroud can't be targeted by spells.") ---
 // Rhongomiant, Grove's Spire (clS3E0HrZL, EXALTED/NORM WARRIOR REGALIA/WEAPON, memory cost 2):
-// "Spellshroud (Objects with spellshroud can't be targeted by spells.)" ENGINE BUG (found,
-// confirmed live, NOT fixed): HasSpellshroud() (Custom/GameLogic.php) only recognises printed
-// Spellshroud for a hard-coded list of card IDs and through HasKeyword_Spellshroud(), which is
-// never generated (function_exists is false) -- clS3E0HrZL is in none of them, so
-// FilterSpellshroudTargets() lets a spell target Rhongomiant. Player 2 plays Fracturize ("Target
-// item or weapon becomes a Cleric Fractal phantasia ... and loses all other abilities") on its own
-// turn: the target prompt offers player 1's Rhongomiant and choosing it succeeds. The REGRESSION
-// GUARD assertions pin the buggy outcome (Rhongomiant turns into a phantasia with no abilities).
-$fixtures['rhongomiant-spellshroud-spell-can-still-target-it'] = [
+// "Spellshroud (Objects with spellshroud can't be targeted by spells.)" followed by two
+// [Mordred Bonus] clauses -- the Spellshroud is the card's first, UNCONDITIONAL keyword. It used to
+// be unimplemented: HasSpellshroud() (Custom/GameLogic.php) only recognised printed Spellshroud for
+// a hard-coded list of card IDs and through HasKeyword_Spellshroud(), which is never generated
+// (function_exists is false), and clS3E0HrZL was in neither, so FilterSpellshroudTargets() let a
+// spell target it (fixed: HasSpellshroud() now returns true for clS3E0HrZL; the formerly pinned
+// fixture rhongomiant-spellshroud-spell-can-still-target-it is now ...-opponent-spell-finds-no-target).
+// Rules wording (.claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords > Spellshroud): "This
+// can't be targeted by spells" -- ANY spell, the holder's controller's own included (the rule has no
+// "opponent's" qualifier); non-targeting effects are unaffected.
+//
+// 1) Player 2 plays Fracturize ("Target item or weapon becomes a Cleric Fractal phantasia ...") on
+// its own turn while Rhongomiant is the only item/weapon on the board: the spell finds no legal
+// target, resolves without a prompt and Rhongomiant is untouched.
+$fixtures['rhongomiant-spellshroud-opponent-spell-finds-no-target'] = [
     'testedCards' => ['clS3E0HrZL'],
     'deck' => $mordredDeck,
     'setup' => [
@@ -23129,7 +23135,109 @@ $fixtures['rhongomiant-spellshroud-spell-can-still-target-it'] = [
         mrdPass(2), // player 2 passes the beginning-of-turn window
         mrdPlay(2, 'myHand-7'), // player 2 plays Fracturize
         ...mrdPay(2, 2), // reserve payments
-        mrdAns(2, 'theirField-1'), // target player 1's Rhongomiant
+    ],
+];
+
+// 2) Same, but player 1 also controls a Mirrordepth's Blade (another weapon). Fracturize's target
+// prompt offers ONLY the Blade (theirField-2); answering with Rhongomiant (theirField-1) is refused
+// (expectFailure), and the legal Blade answer then resolves: the Blade becomes a phantasia while
+// Rhongomiant keeps its card type and abilities.
+$fixtures['rhongomiant-spellshroud-opponent-spell-offered-only-other-weapon'] = [
+    'testedCards' => ['clS3E0HrZL'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'clS3E0HrZL'], // Rhongomiant, Grove's Spire -> p1 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade (the only legal Fracturize target) -> p1 field-2
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p2 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdPass(2), // end-of-turn window
+        mrdPass(2), // beginning-of-turn window
+        mrdPlay(2, 'myHand-7'), // player 2 plays Fracturize
+        ...mrdPay(2, 2), // reserve payments -> the target prompt (Blade only)
+        mrdAns(2, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Rhongomiant (Spellshroud) is not a legal target for the opposing Fracturize']),
+        mrdAns(2, 'theirField-2'), // the Mirrordepth's Blade is the legal target
+    ],
+];
+
+// 3) Own spells are blocked too (literal rules reading: Spellshroud stops ALL spells). Player 1 plays
+// its own Fracturize on its own turn with Rhongomiant and a Mirrordepth's Blade on its field: only
+// the Blade is offered, targeting Rhongomiant (myField-1) is refused.
+$fixtures['rhongomiant-spellshroud-own-spell-cannot-target-it'] = [
+    'testedCards' => ['clS3E0HrZL'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'clS3E0HrZL'], // Rhongomiant -> p1 field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade -> p1 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays its own Fracturize
+        ...mrdPay(1, 2), // reserve payments -> the target prompt (Blade only)
+        mrdAns(1, 'myField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Spellshroud also stops the controller\'s own spell from targeting Rhongomiant']),
+        mrdAns(1, 'myField-2'), // the Mirrordepth's Blade is the legal target
+    ],
+];
+
+// 4) A NON-targeting spell still affects the holder. Player 2's champion is patched with a TERA
+// lineage (Kongming, Fel Eidolon) so Heartsong Reclamation (TERA action: "Destroy all regalia you
+// don't control.") can be played for real; it never targets, so Rhongomiant is destroyed into its
+// owner's graveyard despite Spellshroud.
+$fixtures['rhongomiant-spellshroud-non-targeting-spell-still-destroys-it'] = [
+    'testedCards' => ['clS3E0HrZL'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock for player 2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'clS3E0HrZL'], // Rhongomiant -> p1 field-1
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'd253WtyIXr'], // Heartsong Reclamation -> p2 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdPass(2), // end-of-turn window
+        mrdPass(2), // beginning-of-turn window
+        mrdPlay(2, 'myHand-7'), // player 2 plays Heartsong Reclamation
+        ...mrdPay(2, 8), // its 8 reserve payments; the last one resolves the spell (no response window opens)
+    ],
+];
+
+// 5) Boundary: the Spellshroud is NOT gated by the [Mordred Bonus]. Player 1's champion is patched to
+// Tristan, Shadowdancer (not a Mordred), so both Mordred clauses are off, yet the opposing
+// Fracturize still finds no legal target.
+$fixtures['rhongomiant-spellshroud-holds-without-mordred-champion'] = [
+    'testedCards' => ['clS3E0HrZL'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'tafqldAGRF']]], // Tristan, Shadowdancer (UMBRA, not a Mordred)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'clS3E0HrZL'], // Rhongomiant -> p1 field-1
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p2 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdPass(2), // end-of-turn window
+        mrdPass(2), // beginning-of-turn window
+        mrdPlay(2, 'myHand-7'), // player 2 plays Fracturize
+        ...mrdPay(2, 2), // reserve payments
+    ],
+];
+
+// 6) Boundary: Spellshroud is an ability, so a Rhongomiant that has lost all abilities (the
+// NO_ABILITIES override, seeded here as setup state) loses it and is targetable again: the opposing
+// Fracturize's prompt offers theirField-1 and choosing it succeeds.
+$fixtures['rhongomiant-spellshroud-lost-abilities-is-targetable'] = [
+    'testedCards' => ['clS3E0HrZL'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'clS3E0HrZL', 'setProperties' => ['Counters' => ['durability' => 3, '_overrides' => ['NO_ABILITIES' => true]]]], // Rhongomiant that has lost all abilities -> p1 field-1
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p2 myHand-7
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn 1
+        mrdPass(2), // end-of-turn window
+        mrdPass(2), // beginning-of-turn window
+        mrdPlay(2, 'myHand-7'), // player 2 plays Fracturize
+        ...mrdPay(2, 2), // reserve payments -> the target prompt (Rhongomiant, now targetable)
+        mrdAns(2, 'theirField-1'), // target the ability-less Rhongomiant
     ],
 ];
 

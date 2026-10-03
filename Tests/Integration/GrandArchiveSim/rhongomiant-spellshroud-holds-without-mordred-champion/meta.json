@@ -1,0 +1,29 @@
+{
+    "name": "rhongomiant-spellshroud-holds-without-mordred-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:01:58+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "clS3E0HrZL"
+    ],
+    "notes": "Rhongomiant, Grove's Spire (clS3E0HrZL, EXALTED/NORM WARRIOR REGALIA/WEAPON): \"Spellshroud (Objects with spellshroud can't be targeted by spells.)\" -- the first, unconditional keyword; only its two [Mordred Bonus] clauses are conditional. Condition boundary: Spellshroud is not a [Mordred Bonus]. With player 1's champion patched to Tristan, Shadowdancer (not a Mordred) the opposing Fracturize still finds no legal target.",
+    "semanticCoverage": {
+        "testedCards": [
+            "clS3E0HrZL"
+        ],
+        "mechanics": [
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Spellshroud: objects with spellshroud can't be targeted by spells.",
+            "The Spellshroud is unconditional; only the two later clauses are [Mordred Bonus]."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Rhongomiant's printed Spellshroud was not implemented: a spell could target it. HasSpellshroud() (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and HasKeyword_Spellshroud(), which is never generated (function_exists is false), and clS3E0HrZL was in neither, so FilterSpellshroudTargets() kept Rhongomiant in the target list. Evidence on HEAD a1f72a1c (pinned by the old rhongomiant-spellshroud-spell-can-still-target-it fixture, now removed): player 2's Fracturize target prompt was 'MZCHOOSE:theirField-1' (player 1's Rhongomiant) and choosing it replaced the weapon with a Cleric Fractal phantasia override. Fix: HasSpellshroud() returns true for clS3E0HrZL (after the HasNoAbilities / NO_SPELLSHROUD gates).",
+        "affectedFunction": "Custom/GameLogic.php HasSpellshroud() (no entry for clS3E0HrZL; no generated HasKeyword_Spellshroud table)",
+        "fixCommit": "TBD"
+    }
+}

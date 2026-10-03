@@ -1,0 +1,45 @@
+[
+    {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myHand-7!FSM!",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myField-1",
+        "chkInput": [],
+        "inputText": "",
+        "expectFailure": true,
+        "semantic": true,
+        "label": "Spellshroud also stops the controller's own spell from targeting Rhongomiant"
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myField-2",
+        "chkInput": [],
+        "inputText": ""
+    }
+]

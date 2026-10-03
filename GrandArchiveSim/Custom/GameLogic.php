@@ -23175,6 +23175,9 @@ function HasSpellshroud($obj) {
     if($obj->CardID === "k8bwlx70qj" || $obj->CardID === "u73yv2nbvj") return true;
     if(MaryAnnOmensHaveKeyword($obj, "Spellshroud")) return true;
     if(in_array("NO_SPELLSHROUD", $obj->TurnEffects ?? [])) return false;
+    // Rhongomiant, Grove's Spire (clS3E0HrZL): printed, unconditional Spellshroud (the first keyword on the
+    // card; only its [Mordred Bonus] clauses are conditional). The generated keyword table has no Spellshroud.
+    if($obj->CardID === "clS3E0HrZL") return true;
     if(function_exists('HasKeyword_Spellshroud') && HasKeyword_Spellshroud($obj)) return true;
     if(in_array("SPELLSHROUD", $obj->TurnEffects)) return true;
     if(in_array("SPELLSHROUD_NEXT_TURN", $obj->TurnEffects)) return true;

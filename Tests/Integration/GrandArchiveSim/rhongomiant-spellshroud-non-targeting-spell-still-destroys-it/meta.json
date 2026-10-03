@@ -1,0 +1,22 @@
+{
+    "name": "rhongomiant-spellshroud-non-targeting-spell-still-destroys-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:02:28+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "clS3E0HrZL"
+    ],
+    "notes": "Rhongomiant, Grove's Spire (clS3E0HrZL, EXALTED/NORM WARRIOR REGALIA/WEAPON): \"Spellshroud (Objects with spellshroud can't be targeted by spells.)\" -- the first, unconditional keyword; only its two [Mordred Bonus] clauses are conditional. Spellshroud only stops targeting. Player 2 (champion patched with a TERA lineage so the TERA card is playable) plays Heartsong Reclamation (\"Destroy all regalia you don't control\", no target) for real (8 reserve payments): Rhongomiant is destroyed (ends in player 1's banishment) despite Spellshroud.",
+    "semanticCoverage": {
+        "testedCards": [
+            "clS3E0HrZL"
+        ],
+        "mechanics": [
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "Spellshroud only prevents being targeted by spells; effects that do not target still affect the object."
+        ]
+    }
+}

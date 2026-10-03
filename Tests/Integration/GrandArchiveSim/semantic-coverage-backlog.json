@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T19:56:14+00:00",
+    "generatedAt": "2026-10-03T20:03:46+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 649,
@@ -37087,7 +37087,12 @@
                 "rhongomiant-mordred-bonus-plus-four-power-at-influence-eight",
                 "rhongomiant-no-power-bonus-at-influence-seven",
                 "rhongomiant-no-power-bonus-without-mordred-champion",
-                "rhongomiant-spellshroud-spell-can-still-target-it"
+                "rhongomiant-spellshroud-holds-without-mordred-champion",
+                "rhongomiant-spellshroud-lost-abilities-is-targetable",
+                "rhongomiant-spellshroud-non-targeting-spell-still-destroys-it",
+                "rhongomiant-spellshroud-opponent-spell-finds-no-target",
+                "rhongomiant-spellshroud-opponent-spell-offered-only-other-weapon",
+                "rhongomiant-spellshroud-own-spell-cannot-target-it"
             ],
             "semanticFixtures": [
                 "rhongomiant-durability-removed-decline-memory-return",
@@ -37096,7 +37101,12 @@
                 "rhongomiant-mordred-bonus-plus-four-power-at-influence-eight",
                 "rhongomiant-no-power-bonus-at-influence-seven",
                 "rhongomiant-no-power-bonus-without-mordred-champion",
-                "rhongomiant-spellshroud-spell-can-still-target-it"
+                "rhongomiant-spellshroud-holds-without-mordred-champion",
+                "rhongomiant-spellshroud-lost-abilities-is-targetable",
+                "rhongomiant-spellshroud-non-targeting-spell-still-destroys-it",
+                "rhongomiant-spellshroud-opponent-spell-finds-no-target",
+                "rhongomiant-spellshroud-opponent-spell-offered-only-other-weapon",
+                "rhongomiant-spellshroud-own-spell-cannot-target-it"
             ],
             "starterDecks": [
                 "Mordred Re:Collection, Aurelian Regent"
