@@ -24,6 +24,6 @@
         "summary": "FIXED. The ActionMap 'myBanish'/'theirBanish' cases saved an undo snapshot at the top of the case on every click, including refused ones and clicks on cards with no activation permission, overwriting the snapshot taken by the previous real action. Fix: the snapshot is taken inside ActivateBanishedCard() only after the activation has been validated, immediately before anything moves.",
         "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myBanish'/'theirBanish'; ActivateBanishedCard()",
         "verification": "Dumping myVersions-0 per step: before the fix the step-6 snapshot differs from the step-5 one (it holds the post-play state); after the fix both are identical.",
-        "fixCommit": "TBD"
+        "fixCommit": "54ef7f71"
     }
 }

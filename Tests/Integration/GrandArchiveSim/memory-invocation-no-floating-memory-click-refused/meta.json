@@ -24,6 +24,6 @@
         "summary": "FIXED. Mandatory additional costs whose legality check lived inside DoActivateCard AFTER the card had been moved onto the effect stack (Memory Invocation, Broken Promises, Devotion's Price, Unmake Duality, Primordial Ritual, Undeniable Truth, Converge Reflections, Smash with Obelisk, Slime King, Powercell/Overlord) refused with a flash message and a bare return, leaving the card announced on the effect stack forever. Fix: the checks moved into the pre-announcement gate (MandatoryActivationCostBlocker, called from ActivationBlockedBeforeAnnounce), so a refused activation never moves the card; the old post-announce checks remain only as unreachable defence.",
         "affectedFunction": "Custom/GameLogic.php DoActivateCard() post-announce additional-cost returns; ActivationBlockedBeforeAnnounce(); new MandatoryActivationCostBlocker()",
         "verification": "Per-step state dump: before the fix EffectStack = [io7maIjC4u] with hand 3 and the flash message set; after the fix the card stays in hand.",
-        "fixCommit": "TBD"
+        "fixCommit": "54ef7f71"
     }
 }

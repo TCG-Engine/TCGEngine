@@ -24,6 +24,6 @@
         "summary": "FIXED (see memory-invocation-no-floating-memory-click-refused): the additional-cost legality check ran after the card was announced.",
         "affectedFunction": "Custom/GameLogic.php DoActivateCard(); ActivationBlockedBeforeAnnounce(); MandatoryActivationCostBlocker()",
         "verification": "Per-step state dump: before the fix EffectStack = [re911j7fo4], hand 2; after the fix the card stays in hand.",
-        "fixCommit": "TBD"
+        "fixCommit": "54ef7f71"
     }
 }

@@ -24,6 +24,6 @@
         "summary": "FIXED (see memory-invocation-no-floating-memory-click-refused). Additionally the old post-announce check counted the just-announced card as still in hand (ZoneSearch returns the removed-but-unspliced slot), so a hand of one other card passed the 'two cards to discard' test and produced a discard prompt over a stale index.",
         "affectedFunction": "Custom/GameLogic.php DoActivateCard(); MandatoryActivationCostBlocker()",
         "verification": "Per-step state dump: before the fix EffectStack = [ri955ygd5v] with DQ MZCHOOSE:myHand-0&myHand-1 over a one-card hand; after the fix the card stays in hand and nothing is queued.",
-        "fixCommit": "TBD"
+        "fixCommit": "54ef7f71"
     }
 }

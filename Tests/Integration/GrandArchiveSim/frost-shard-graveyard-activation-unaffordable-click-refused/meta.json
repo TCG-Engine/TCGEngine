@@ -26,6 +26,6 @@
         "summary": "FIXED. The ActionMap 'myGraveyard' branches that activate a graveyard card (Frost Shard, Three Visits) moved it into hand and activated it without checking the activation could begin or be paid for; an unaffordable click left the card on the effect stack. Fix: the branches use ActivateBanishedCard() (validate first, then move); the generic ephemerate branch runs the pre-announcement gates and activate prerequisites before the card leaves the graveyard.",
         "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myGraveyard'",
         "verification": "Per-step state dump: before the fix EffectStack = [jnsl7ddcgw], graveyard 1 -> 0, hand 0; after the fix the card stays in the graveyard.",
-        "fixCommit": "TBD"
+        "fixCommit": "54ef7f71"
     }
 }

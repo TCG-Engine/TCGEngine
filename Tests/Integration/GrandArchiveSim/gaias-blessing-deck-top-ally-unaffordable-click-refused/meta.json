@@ -24,6 +24,6 @@
         "summary": "FIXED. The ActionMap 'myDeck' (Gaia's Blessing) branch moved the deck-top card into hand and activated it without checking the activation could begin or be paid for; an unaffordable click left the card on the effect stack. Fix: the branch uses ActivateBanishedCard() (validate first, then move), the same helper the banishment permissions use.",
         "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myDeck'",
         "verification": "Per-step state dump: before the fix EffectStack = [px60u5n1do], deck 12 -> 11, hand 0; after the fix the card stays on top of the deck.",
-        "fixCommit": "TBD"
+        "fixCommit": "54ef7f71"
     }
 }

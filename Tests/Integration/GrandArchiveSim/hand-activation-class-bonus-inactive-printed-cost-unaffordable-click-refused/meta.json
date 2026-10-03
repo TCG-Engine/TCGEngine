@@ -25,6 +25,6 @@
         "summary": "FIXED. Clicking a hand card whose reserve cost the player cannot pay was never gated by affordability: DoActivateCard() moved the card onto the effect stack and queued one payment prompt per reserve point, and once the hand ran out of payers the decision queue emptied and the card sat on the effect stack forever (never resolving, never reaching the graveyard). The ActionMap 'myHand' click also overwrote the undo snapshot on every click, refused or not. Fix: new ActivationRefusedBeforeStart() runs the pre-announcement gates (ActivationBlockedBeforeAnnounce), the activate prerequisites and a reserve-affordability check on the CLICKED card before anything moves, and DoActivateCard() applies the same affordability gate (skipped for ignoreCost activations and for cards with an alternative reserve payment) as a backstop; a refused click changes no state and shows a flash message.",
         "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myHand'; DoActivateCard(); new ActivationRefusedBeforeStart(), ActivationAffordabilityRefused()",
         "verification": "Per-step state dump: before the fix the refused click moves the card out of hand onto the effect stack (hand count drops, EffectStack 1) and queues reserve-payment prompts the hand cannot satisfy; after the fix hand/memory/effect stack are identical to the previous step.",
-        "fixCommit": "TBD"
+        "fixCommit": "54ef7f71"
     }
 }
