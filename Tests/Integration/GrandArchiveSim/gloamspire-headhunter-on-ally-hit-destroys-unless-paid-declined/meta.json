@@ -24,6 +24,7 @@
     "engineBug": {
         "status": "fixed",
         "summary": "FIXED. When the hit ally's controller declined to pay (3), Gloamspire Headhunter destroyed ITSELF (the attacker) instead of the hit ally: GloamspireHeadhunterOnHit() stored the combat target as 'theirField-1', relative to the ATTACKER's perspective, and customDQHandlers['GloamspireHeadhunterPay'] later called DoAllyDestroyed() from inside the DEFENDER's action, where 'theirField-1' resolves to the attacker's own field slot (live trace on HEAD before the fix: answer=NO handlerPlayer=1 storedTarget=theirField-1 resolvesTo=r278evrcdz controller=2). Fix: GloamspireHeadhunterOnHit() reads the target through GetCombatTargetMZ() and stores it relative to the hit ally's controller via NormalizeMzIDForController(); the handler reads it back through NormalizeMZForPlayerPerspective($player, ...) (the stored-mzID convention documented above NormalizeMzIDForController() in Custom/OpportunityLogic.php). The pay-(3) branch never read the stored target in the common case, so it was and is correct.",
-        "affectedFunction": "Custom/CombatLogic.php GloamspireHeadhunterOnHit() + Custom/CardDQHandlers.php customDQHandlers['GloamspireHeadhunterPay']"
+        "affectedFunction": "Custom/CombatLogic.php GloamspireHeadhunterOnHit() + Custom/CardDQHandlers.php customDQHandlers['GloamspireHeadhunterPay']",
+        "fixCommit": "3e5be10d"
     }
 }

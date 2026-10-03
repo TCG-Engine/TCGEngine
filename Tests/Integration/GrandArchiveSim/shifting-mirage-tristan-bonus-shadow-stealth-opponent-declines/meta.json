@@ -27,7 +27,8 @@
     "engineBug": {
         "status": "fixed",
         "summary": "FIXED. When the opponent declines to pay (2), Shifting Mirage's STEALTH used to land on the OPPONENT's champion: ShiftingMirageResolve() stored the caster-relative mzID 'myField-0' in DecisionQueueController variable ShiftingMirageChampion, and customDQHandlers['ShiftingMiragePay'] later applied AddTurnEffect() from inside the opponent's own action, where 'myField-0' resolves to the opponent's champion (live trace on HEAD before the fix: handlerPlayer=2 globalPlayerID=2 storedChampMZ=myField-0 resolvesTo=pNiyaGlIe7 controller=2). Fix: the champion mzID is now stored relative to the opponent via NormalizeMzIDForController() and read back through NormalizeMZForPlayerPerspective($player, ...) in the handler (the stored-mzID convention documented above NormalizeMzIDForController() in Custom/OpportunityLogic.php). The YES branch (opponent pays) never read the stored value. The separate double Class-Bonus discount defect (see the sibling shifting-mirage-tristan-bonus-shadow-stealth-opponent-pays fixture) is NOT part of this fix and is still pinned.",
-        "affectedFunction": "Custom/GameLogic.php ShiftingMirageResolve() + Custom/CardDQHandlers.php customDQHandlers['ShiftingMiragePay']"
+        "affectedFunction": "Custom/GameLogic.php ShiftingMirageResolve() + Custom/CardDQHandlers.php customDQHandlers['ShiftingMiragePay']",
+        "fixCommit": "3e5be10d"
     },
     "additionalEngineBugs": [
         {
