@@ -20518,9 +20518,10 @@ $fixtures['tristan-shadowdancer-levelup-enter-summon-shadows-prep'] = [
     ],
 ];
 
-// --- Tristan, Shadowdancer: remove two preparation counters to change the target of an attack on Tristan to a phantasia ally ---
+// --- Tristan, Shadowdancer: remove two preparation counters to change the target of an attack on Tristan to a phantasia ally; Redirect does NOT rest Tristan ---
 // Tristan, Shadowdancer (he6kd7hocc): "Remove two preparation counters from Tristan: Change the
-// target of an attack that targets Tristan to a phantasia ally you control." Redirect lives in
+// target of an attack that targets Tristan to a phantasia ally you control." The printed cost is
+// ONLY "remove two preparation counters" -- there is no [REST] in it. Redirect lives in
 // $activateAbilityAbilities["he6kd7hocc:0"] with a prereq requiring 2+ preparation counters on
 // Tristan, a live combat (CombatTarget/CombatAttackerPlayer) and a phantasia ally. Player 1's
 // champion is patched to Shadowdancer with exactly 2 preparation counters and an Ominous Shadow is
@@ -20528,15 +20529,15 @@ $fixtures['tristan-shadowdancer-levelup-enter-summon-shadows-prep'] = [
 // "myField-0@Activate-0@Redirect" in the opportunity window, and the handler
 // (customDQHandlers["he6kd7hocc:0:ActivateAbility-1"]) removes the two counters and calls
 // MarkCombatTarget() on the Shadow, so the attack finishes against the Shadow and Tristan takes no
-// damage (Dungeon Guide has 1 POWER, so an unredirected attack would leave Damage 1). ENGINE BUG
-// (found, confirmed live, NOT fixed): the activation also RESTS Tristan -- the printed cost is
-// only "remove two preparation counters", but DoActivatedAbility() (Custom/GameLogic.php ~7179)
-// auto-rests every ALLY/CHAMPION/PHANTASIA whose static ability index is below the card's static
-// ability count unless the card id is in the hard-coded $skipAutoRest list, and he6kd7hocc is not
-// in that list. Confirmed with a temporary error_log trace inside that branch (cardID=he6kd7hocc
-// abilityIndex=0 staticAbilityCount=1 skipAutoRest=0 statusBefore=2), removed afterwards. The
-// REGRESSION GUARD assertion pins Tristan's Status at 1 (rested) after the redirect.
-$fixtures['tristan-shadowdancer-redirect-attack-to-phantasia'] = [
+// damage (Dungeon Guide has 1 POWER, so an unredirected attack would leave Damage 1).
+// ENGINE BUG (FIXED; this fixture used to be named
+// tristan-shadowdancer-redirect-attack-to-phantasia and its REGRESSION GUARD assertion pinned
+// Tristan's Status at 1): DoActivatedAbility() (Custom/GameLogic.php) sets Status = 1 as the
+// implicit [REST] cost of every static ability of an ALLY/CHAMPION/PHANTASIA unless the card id is
+// in the hard-coded $skipAutoRest list, and he6kd7hocc was not in that list, so Redirect also
+// rested Tristan (trace: cardID=he6kd7hocc idx=0 static=1 skip=0 before=2). he6kd7hocc is now in
+// the list; Tristan stays awake (Status 2) after the redirect.
+$fixtures['tristan-shadowdancer-redirect-does-not-rest-champion'] = [
     'testedCards' => ['he6kd7hocc'],
     'deck' => $tristanDeck,
     'setup' => [
@@ -20551,6 +20552,96 @@ $fixtures['tristan-shadowdancer-redirect-attack-to-phantasia'] = [
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0@Activate-0@Redirect', 'chkInput' => [], 'inputText' => ''], // player 1 answers the opportunity window by activating Redirect
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // redirect the attack to the Ominous Shadow
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline retaliation
+    ],
+];
+
+// --- Tristan, Shadowdancer: Redirect has no [REST] cost, so an already RESTED Tristan can still redirect (and stays rested) ---
+// Tristan, Shadowdancer (he6kd7hocc): the printed cost is only "remove two preparation counters".
+// Companion of tristan-shadowdancer-redirect-does-not-rest-champion: here Tristan is patched to
+// Status 1 (rested) with exactly two preparation counters. Because Redirect has no [REST] in its
+// cost, the opportunity window still offers it and the redirect resolves; Tristan is neither woken
+// nor re-rested (Status stays 1). The Dungeon Guide (1 POWER) hits the Ominous Shadow instead.
+$fixtures['tristan-shadowdancer-redirect-usable-while-rested'] = [
+    'testedCards' => ['he6kd7hocc'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 2], 'Status' => 1]], // RESTED Tristan, Shadowdancer with exactly two preparation counters
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'gveirpdm44'], // Ominous Shadow (phantasia ally) -> p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (power 1 attacker) -> p2 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 attacks with Dungeon Guide
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // targeting player 1's champion, Tristan
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0@Activate-0@Redirect', 'chkInput' => [], 'inputText' => ''], // the rested Tristan is still offered Redirect
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // redirect the attack to the Ominous Shadow
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline retaliation
+    ],
+];
+
+// --- Tristan, Shadowdancer: Redirect is refused with only one preparation counter (cost not payable) ---
+// Tristan, Shadowdancer (he6kd7hocc): "Remove two preparation counters from Tristan: ..." --
+// activateAbilityPrereqs["he6kd7hocc:0"] requires GetPrepCounterCount() >= 2. With a single
+// counter Redirect is not offered at all: no priority window opens for player 1 after the attack
+// target is chosen (with TWO counters, see the sibling fixtures, the window opens with
+// 'myField-0@Activate-0@Redirect'), so the attack resolves immediately against Tristan (1 damage),
+// the single counter stays, and the Ominous Shadow is untouched.
+$fixtures['tristan-shadowdancer-redirect-refused-with-one-preparation-counter'] = [
+    'testedCards' => ['he6kd7hocc'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 1]]], // Tristan, Shadowdancer with only ONE preparation counter
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'gveirpdm44'], // Ominous Shadow (phantasia ally) -> p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (power 1 attacker) -> p2 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 attacks with Dungeon Guide
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // targeting player 1's champion, Tristan
+    ],
+];
+
+// --- Golden Bishop: "Remove a charge counter from Golden Bishop: Prevent the next 2 damage ..." has no [REST], so Golden Bishop stays awake ---
+// Golden Bishop (s4oelWMRJE, ALLY, Chessman): "Remove a charge counter from CARDNAME: Prevent the
+// next 2 damage that would be dealt to target Chessman unit you control this turn." The printed
+// cost is only the counter. Same implicit-REST bug as Tristan, Shadowdancer's Redirect (FIXED:
+// DoActivatedAbility() in Custom/GameLogic.php set Status = 1 for every static ally ability whose
+// card id was not in $skipAutoRest; s4oelWMRJE is now in that list). Golden Bishop is seeded awake
+// on the field with one charge counter; the ability is activated for real from the main phase, the
+// only legal Chessman target (Golden Bishop itself) is chosen, the counter is spent, the
+// GOLDEN_BISHOP_PREVENT_2 turn effect lands on the target and the Bishop stays awake (Status 2).
+$fixtures['golden-bishop-charge-counter-prevent-does-not-rest'] = [
+    'testedCards' => ['s4oelWMRJE'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 's4oelWMRJE', 'setProperties' => ['Counters' => ['charge' => 1]]], // Golden Bishop with one charge counter (the ability cost) -> p1 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // activate the charge-counter ability
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // target: Golden Bishop (the only Chessman unit)
+    ],
+];
+
+// --- Corhazi Outlook: "[Class Bonus] Remove a preparation counter from your champion: ..." has no [REST], so Corhazi Outlook stays awake ---
+// Corhazi Outlook (rw8qq1uwq8, ALLY): "[Class Bonus] Remove a preparation counter from your
+// champion: Opponents can't activate cards this turn. Glimpse 1. Activate this ability only during
+// your turn." The printed cost is only the counter. Same implicit-REST bug as Tristan,
+// Shadowdancer's Redirect (FIXED: DoActivatedAbility() in Custom/GameLogic.php set Status = 1 for
+// every static ally ability whose card id was not in $skipAutoRest; rw8qq1uwq8 is now in that
+// list). The champion is patched to Tristan, Hired Blade (ASSASSIN, one preparation counter) so the
+// Class Bonus and the cost are satisfied; Corhazi Outlook is seeded awake on the field and the
+// ability is activated for real from the main phase. The counter is spent, the Glimpse 1 prompt is
+// answered (the looked-at card stays on top) and Corhazi Outlook stays awake (Status 2).
+$fixtures['corhazi-outlook-prep-counter-glimpse-does-not-rest'] = [
+    'testedCards' => ['rw8qq1uwq8'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 1]]], // Tristan, Hired Blade (ASSASSIN) with one preparation counter: Class Bonus active, cost payable
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'rw8qq1uwq8'], // Corhazi Outlook -> p1 field-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // activate Corhazi Outlook from the main phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''], // Glimpse 1: keep the looked-at card on top
     ],
 ];
 

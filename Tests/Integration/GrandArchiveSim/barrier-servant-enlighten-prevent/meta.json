@@ -3,15 +3,28 @@
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-08-30T04:00:00+00:00",
     "createdBy": "Codex",
-    "notes": "Barrier Servant's element is NORM, so no lineage patch is needed. The starting champion's Counters are patched with 2 enlighten counters directly (normally only reachable via a separate enlighten-granting effect) so the ability's cost (remove 2 enlighten counters from your champion) can actually be paid. Only the always-available 'prevent next damage to self' half is covered; Intercept is a combat-redirect passive and is out of scope.",
+    "notes": "Barrier Servant's element is NORM, so no lineage patch is needed. The starting champion's Counters are patched with 2 enlighten counters directly (normally only reachable via a separate enlighten-granting effect) so the ability's cost (remove 2 enlighten counters from your champion) can actually be paid. Only the always-available 'prevent next damage to self' half is covered; Intercept is a combat-redirect passive and is out of scope. FIXED implicit-REST bug: this ability's printed cost (Remove two enlighten counters from your champion) has no [REST], but DoActivatedAbility() (Custom/GameLogic.php) set Status=1 as an implicit [REST] for every static ability of an ALLY/CHAMPION/PHANTASIA not in the hard-coded $skipAutoRest list (trace: cardID=xW6SZSlJX6 idx=0 static=1 before=2). The old expected_final_gamestate.txt silently pinned the rested state (Status 1); xW6SZSlJX6 is now in $skipAutoRest and the unit stays awake (Status 2), asserted explicitly.",
     "testedCards": [
         "xW6SZSlJX6"
     ],
     "semanticCoverage": {
-        "testedCards": ["xW6SZSlJX6"],
-        "mechanics": ["damage", "prevention", "status", "counter"],
+        "testedCards": [
+            "xW6SZSlJX6"
+        ],
+        "mechanics": [
+            "damage",
+            "prevention",
+            "status",
+            "counter"
+        ],
         "rulesClauses": [
             "Remove two enlighten counters from your champion: The next time damage would be dealt to CARDNAME this turn, prevent that damage."
         ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Barrier Servant's activated ability (printed cost: Remove two enlighten counters from your champion; no [REST]) also RESTED the unit: DoActivatedAbility() sets Status=1 as the implicit [REST] cost unless the card id is in $skipAutoRest. Fix: add xW6SZSlJX6 to $skipAutoRest (same fix as Tristan, Shadowdancer's Redirect).",
+        "affectedFunction": "Custom/GameLogic.php DoActivatedAbility() $skipAutoRest list / implicit REST for static unit abilities",
+        "fixCommit": "TBD"
     }
 }

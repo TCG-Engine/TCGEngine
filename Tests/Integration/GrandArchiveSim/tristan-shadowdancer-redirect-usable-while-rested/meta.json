@@ -1,0 +1,25 @@
+{
+    "name": "tristan-shadowdancer-redirect-usable-while-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:37:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "he6kd7hocc"
+    ],
+    "notes": "Tristan, Shadowdancer (he6kd7hocc): \"Remove two preparation counters from Tristan: Change the target of an attack that targets Tristan to a phantasia ally you control.\" The printed cost has no [REST], so an already RESTED Tristan (patched to Status 1 with exactly 2 preparation counters) must still be offered Redirect and may use it, and it must neither wake nor re-rest him. Companion of tristan-shadowdancer-redirect-does-not-rest-champion (the fix for the implicit-REST bug: he6kd7hocc added to the $skipAutoRest list in Custom/GameLogic.php DoActivatedAbility()). Same real attack flow: the opportunity window offers \"myField-0@Activate-0@Redirect\", the Shadow is chosen, the Dungeon Guide (1 POWER) hits the Shadow. Per-step dump confirms Tristan is Status 1 at every step and the window really opened at step 3.",
+    "semanticCoverage": {
+        "testedCards": [
+            "he6kd7hocc"
+        ],
+        "mechanics": [
+            "combat",
+            "targeting",
+            "cost",
+            "counter",
+            "status"
+        ],
+        "rulesClauses": [
+            "Remove two preparation counters from Tristan: Change the target of an attack that targets Tristan to a phantasia ally you control. (no [REST] in the cost: usable while rested)"
+        ]
+    }
+}

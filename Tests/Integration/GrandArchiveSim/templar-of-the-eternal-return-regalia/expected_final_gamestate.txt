@@ -34,7 +34,7 @@ em6eEh9q8y
 n8wyfG9hbY
 2
 DpHDGaX2Pn 2 1 0 1 - - - 1
-peyG8Hfgqt 1 1 0 1 ENTERED_THIS_TURN~SPELLSHROUD eyJidWZmIjoxfQ== - 3
+peyG8Hfgqt 2 1 0 1 ENTERED_THIS_TURN~SPELLSHROUD eyJidWZmIjoxfQ== - 3
 1
 pNiyaGlIe7 2 2 0 2 - - - 2
 0

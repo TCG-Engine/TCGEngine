@@ -7634,7 +7634,16 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
             }
         }
     }
-    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq", "4yqL9xtzVi", "dPP9I4nVn0", "k8bwlx70qj", "u73yv2nbvj", "yicNKtzC3H", "GhxADim7Kf", "4FtNBFaOJp"]);
+    // Static activated abilities whose printed cost has NO [REST]: the implicit REST below must not be
+    // paid for them. Each id is pinned by an integration fixture asserting the unit stays awake:
+    //   he6kd7hocc Tristan, Shadowdancer  (Remove two preparation counters from CARDNAME)
+    //   0ejcyuvuxn Corhazi Arsonist       (Remove a preparation counter from your champion)
+    //   xW6SZSlJX6 Barrier Servant        (Remove two enlighten counters from your champion)
+    //   peyG8Hfgqt Templar of the Eternal ([Class Bonus] (2), Return a regalia you control ...)
+    //   s4oelWMRJE Golden Bishop          (Remove a charge counter from CARDNAME)
+    //   rw8qq1uwq8 Corhazi Outlook        ([Class Bonus] Remove a preparation counter from your champion)
+    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq", "4yqL9xtzVi", "dPP9I4nVn0", "k8bwlx70qj", "u73yv2nbvj", "yicNKtzC3H", "GhxADim7Kf", "4FtNBFaOJp",
+        "he6kd7hocc", "0ejcyuvuxn", "xW6SZSlJX6", "peyG8Hfgqt", "s4oelWMRJE", "rw8qq1uwq8"]);
     if($selectedAbilityIndex < $staticAbilityCount && !$isCardistry && !$skipAutoRest
         && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
         $sourceObject->Status = 1;

@@ -1,0 +1,30 @@
+{
+    "name": "golden-bishop-charge-counter-prevent-does-not-rest",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:40:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s4oelWMRJE"
+    ],
+    "notes": "Golden Bishop (s4oelWMRJE): \"Remove a charge counter from Golden Bishop: Prevent the next 2 damage that would be dealt to target Chessman unit you control this turn.\" The printed cost has NO [REST]. FIXED implicit-REST bug (same root cause as Tristan, Shadowdancer's Redirect): DoActivatedAbility() (Custom/GameLogic.php) set Status=1 as an implicit [REST] for every static ALLY/CHAMPION/PHANTASIA ability not in the hard-coded $skipAutoRest list; s4oelWMRJE was missing (before the fix the per-step dump showed Golden Bishop Status 1 right after the activation). Golden Bishop is seeded awake with one charge counter; the ability is activated for real from the main phase (CustomInput Activate:0), the only Chessman unit (itself) is chosen. Asserted: counter spent, Status 2 awake, GOLDEN_BISHOP_PREVENT_2 on the target.",
+    "semanticCoverage": {
+        "testedCards": [
+            "s4oelWMRJE"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "status",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "Remove a charge counter from Golden Bishop: Prevent the next 2 damage that would be dealt to target Chessman unit you control this turn. (no [REST] in the cost: Golden Bishop stays awake)"
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Golden Bishop's activated ability (printed cost: Remove a charge counter from CARDNAME; no [REST]) also RESTED the unit: DoActivatedAbility() sets Status=1 as the implicit [REST] cost unless the card id is in $skipAutoRest. Fix: add s4oelWMRJE to $skipAutoRest (same fix as Tristan, Shadowdancer's Redirect). Trace before the fix: cardID=s4oelWMRJE idx=0 static=1 skip=0 before=2, and the per-step dump showed Status 1 after the activation.",
+        "affectedFunction": "Custom/GameLogic.php DoActivatedAbility() $skipAutoRest list / implicit REST for static unit abilities",
+        "fixCommit": "TBD"
+    }
+}

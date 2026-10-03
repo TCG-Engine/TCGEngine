@@ -1,0 +1,31 @@
+{
+    "name": "corhazi-outlook-prep-counter-glimpse-does-not-rest",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:40:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rw8qq1uwq8"
+    ],
+    "notes": "Corhazi Outlook (rw8qq1uwq8): \"[Class Bonus] Remove a preparation counter from your champion: Opponents can't activate cards this turn. Glimpse 1. Activate this ability only during your turn.\" The printed cost has NO [REST]. FIXED implicit-REST bug (same root cause as Tristan, Shadowdancer's Redirect): DoActivatedAbility() (Custom/GameLogic.php) set Status=1 as an implicit [REST] for every static ALLY/CHAMPION/PHANTASIA ability not in the hard-coded $skipAutoRest list; rw8qq1uwq8 was missing (before the fix the per-step dump showed Corhazi Outlook Status 1 right after the activation). The champion is patched to Tristan, Hired Blade (ASSASSIN, one preparation counter) for the Class Bonus and the cost; the ability is activated for real from the main phase and the Glimpse 1 prompt answered. Asserted: counter spent, Status 2 awake before/after Glimpse, deck size unchanged. The 'opponents can't activate cards' lockdown global effect is not separately asserted. Note: seeding Corhazi Outlook onto the field fires its On Enter, which adds a preparation counter, so the champion starts the actions with 2 counters (patched 1 + 1 from On Enter) and ends with 1.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rw8qq1uwq8"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "status",
+            "glimpse",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Remove a preparation counter from your champion: Opponents can't activate cards this turn. Glimpse 1. (no [REST] in the cost: Corhazi Outlook stays awake)"
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Corhazi Outlook's activated ability (printed cost: [Class Bonus] Remove a preparation counter from your champion; no [REST]) also RESTED the unit: DoActivatedAbility() sets Status=1 as the implicit [REST] cost unless the card id is in $skipAutoRest. Fix: add rw8qq1uwq8 to $skipAutoRest (same fix as Tristan, Shadowdancer's Redirect). Trace before the fix: cardID=rw8qq1uwq8 idx=0 static=1 skip=0 before=2, and the per-step dump showed Status 1 after the activation.",
+        "affectedFunction": "Custom/GameLogic.php DoActivatedAbility() $skipAutoRest list / implicit REST for static unit abilities",
+        "fixCommit": "TBD"
+    }
+}

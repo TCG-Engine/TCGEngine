@@ -1,0 +1,31 @@
+{
+    "name": "tristan-shadowdancer-redirect-does-not-rest-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:37:35+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "he6kd7hocc"
+    ],
+    "notes": "Tristan, Shadowdancer (he6kd7hocc): \"Remove two preparation counters from Tristan: Change the target of an attack that targets Tristan to a phantasia ally you control.\" The printed cost has NO [REST]. FIXED (was: Redirect also rested Tristan; this fixture used to be named tristan-shadowdancer-redirect-attack-to-phantasia and its REGRESSION GUARD assertion pinned Status 1 after the redirect). Root cause: DoActivatedAbility() (Custom/GameLogic.php) sets Status = 1 as the implicit [REST] cost for every static ability of an ALLY/CHAMPION/PHANTASIA unless the card id is in the hard-coded $skipAutoRest list; he6kd7hocc was missing (trace: cardID=he6kd7hocc idx=0 static=1 skip=0 before=2). Fix: he6kd7hocc added to $skipAutoRest. Setup: player 1's champion is patched to Shadowdancer with exactly 2 preparation counters and an Ominous Shadow is seeded; player 2 declares a real attack with a Dungeon Guide (1 POWER) on Tristan, player 1 is offered \"myField-0@Activate-0@Redirect\" in the opportunity window, the handler (customDQHandlers[\"he6kd7hocc:0:ActivateAbility-1\"]) removes the counters and MarkCombatTarget()s the Shadow. Asserted: Tristan awake (Status 2) after the activation, counters spent, attack redirected, Tristan undamaged. Per-step dump confirms Tristan is Status 2 at every step.",
+    "semanticCoverage": {
+        "testedCards": [
+            "he6kd7hocc"
+        ],
+        "mechanics": [
+            "combat",
+            "targeting",
+            "cost",
+            "counter",
+            "status"
+        ],
+        "rulesClauses": [
+            "Remove two preparation counters from Tristan: Change the target of an attack that targets Tristan to a phantasia ally you control. (no [REST] in the cost: Tristan stays awake)"
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Tristan, Shadowdancer's Redirect (printed cost: only 'Remove two preparation counters from CARDNAME', no [REST]) also RESTED the champion: Custom/GameLogic.php DoActivatedAbility() sets Status=1 as the implicit [REST] cost of every static ability of an ALLY/CHAMPION/PHANTASIA unless the card id is in the hard-coded $skipAutoRest list, and he6kd7hocc was not in it (trace: cardID=he6kd7hocc idx=0 static=1 skip=0 before=2). Fix: add he6kd7hocc (and the other proven non-[REST] unit abilities 0ejcyuvuxn, xW6SZSlJX6, peyG8Hfgqt) to $skipAutoRest.",
+        "affectedFunction": "Custom/GameLogic.php DoActivatedAbility() $skipAutoRest list / implicit REST for static unit abilities",
+        "fixCommit": "TBD"
+    }
+}

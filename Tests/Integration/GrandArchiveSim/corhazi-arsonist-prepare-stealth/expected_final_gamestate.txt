@@ -41,7 +41,7 @@ n8wyfG9hbY
 n8wyfG9hbY
 2
 LMyKyVC2O9 2 1 0 1 vz4kc558yx-ALLY_ACTIVATED - - 1
-0ejcyuvuxn 1 1 0 1 ENTERED_THIS_TURN~STEALTH - - 3
+0ejcyuvuxn 2 1 0 1 ENTERED_THIS_TURN~STEALTH - - 3
 1
 LMyKyVC2O9 2 2 0 2 - - - 2
 0

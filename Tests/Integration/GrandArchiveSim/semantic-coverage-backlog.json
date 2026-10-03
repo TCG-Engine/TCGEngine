@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T16:28:58+00:00",
+    "generatedAt": "2026-10-03T19:13:40+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 636,
+        "cardsWithExistingFixtures": 638,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1851,
+        "cardsNeedingSemanticCoverage": 1849,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -4292,22 +4292,6 @@
             "priority": 22
         },
         {
-            "cardId": "rw8qq1uwq8",
-            "name": "Corhazi Outlook",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "s714OWbqi2",
             "name": "Cutthroat Operative",
             "type": "ALLY",
@@ -6314,26 +6298,6 @@
                 "damage",
                 "recover",
                 "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "s4oelWMRJE",
-            "name": "Golden Bishop",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "counter",
                 "combat",
                 "condition"
             ],
@@ -32110,11 +32074,15 @@
             ],
             "existingFixtures": [
                 "tristan-shadowdancer-levelup-enter-summon-shadows-prep",
-                "tristan-shadowdancer-redirect-attack-to-phantasia"
+                "tristan-shadowdancer-redirect-does-not-rest-champion",
+                "tristan-shadowdancer-redirect-refused-with-one-preparation-counter",
+                "tristan-shadowdancer-redirect-usable-while-rested"
             ],
             "semanticFixtures": [
                 "tristan-shadowdancer-levelup-enter-summon-shadows-prep",
-                "tristan-shadowdancer-redirect-attack-to-phantasia"
+                "tristan-shadowdancer-redirect-does-not-rest-champion",
+                "tristan-shadowdancer-redirect-refused-with-one-preparation-counter",
+                "tristan-shadowdancer-redirect-usable-while-rested"
             ],
             "starterDecks": [
                 "Tristan Re:Collection, Shadowdancer"
@@ -45852,6 +45820,26 @@
             "priority": 43
         },
         {
+            "cardId": "rw8qq1uwq8",
+            "name": "Corhazi Outlook",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "corhazi-outlook-prep-counter-glimpse-does-not-rest"
+            ],
+            "semanticFixtures": [
+                "corhazi-outlook-prep-counter-glimpse-does-not-rest"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "cnqsm3n9yv",
             "name": "Turbo Charge",
             "type": "ACTION",
@@ -45959,6 +45947,30 @@
             "semanticFixtures": [
                 "frost-shard-graveyard-activation-affordable-still-activates",
                 "frost-shard-graveyard-activation-unaffordable-click-refused"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "s4oelWMRJE",
+            "name": "Golden Bishop",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "counter",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "golden-bishop-charge-counter-prevent-does-not-rest"
+            ],
+            "semanticFixtures": [
+                "golden-bishop-charge-counter-prevent-does-not-rest"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
