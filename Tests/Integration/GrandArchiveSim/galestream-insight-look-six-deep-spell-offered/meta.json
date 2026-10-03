@@ -1,0 +1,29 @@
+{
+    "name": "galestream-insight-look-six-deep-spell-offered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:31:37+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "usa6qyq3ka"
+    ],
+    "notes": "Galestream Insight (usa6qyq3ka): the ONLY Spell among the stacked top six is the sixth card (Refracting Missile), so it can be offered and put into memory only if all six cards were looked at.",
+    "semanticCoverage": {
+        "testedCards": [
+            "usa6qyq3ka"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "bottom-deck",
+            "look-at-top"
+        ],
+        "rulesClauses": [
+            "Look at the top SIX cards of your deck. (the only Spell is the sixth card from the top)",
+            "You may reveal a Spell card from among them and put it into your memory."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. GalestreamInsightResolve() pulled the top six cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"). Remove() only flags a slot removed (no splice), so \"myDeck-0\" resolved to the SAME removed slot every iteration after the first and MZMove's \"already removed\" guard silently no-oped: only the top card was looked at (live repro on HEAD: Spell candidates deeper in the top six never offered, deck stayed 13). Fix: pull the six cards with array_shift() on the live deck (same shape as EventideLureEnter/Glimpse). Second defect found while proving it: GalestreamInsightReveal was queued without dontSkipOnPass, so declining the optional reveal skipped the handler and stranded the six looked-at cards in myTempZone (deck 7 instead of 13); fixed with dontSkipOnPass:1.",
+        "affectedFunction": "Custom/CardDQHandlers.php GalestreamInsightResolve() / AddDecision(..., \"CUSTOM\", \"GalestreamInsightReveal\", 1, dontSkipOnPass:1)"
+    }
+}

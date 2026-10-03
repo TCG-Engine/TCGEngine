@@ -3948,11 +3948,18 @@ function GalestreamInsightPutRestOnBottom($player) {
 }
 
 function GalestreamInsightResolve($player) {
-    $deck = GetDeck($player);
+    $deck = &GetDeck($player);
     $lookCount = min(6, count($deck));
     if($lookCount <= 0) return;
+    // A loop of MZMove($player, "myDeck-0", "myTempZone") does NOT work: Remove() only flags the slot
+    // removed (no splice), so "myDeck-0" resolves to the same removed slot every iteration after the
+    // first and MZMove's "already removed" guard silently no-ops -- only the top card was ever looked
+    // at. Pull the cards off the live deck with array_shift() instead (same shape as EventideLureEnter
+    // and Glimpse()).
     for($i = 0; $i < $lookCount; ++$i) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        $topObj = array_shift($deck);
+        if($topObj === null) break;
+        MZAddZone($player, "myTempZone", $topObj->CardID, $topObj);
     }
     $candidates = ZoneSearch("myTempZone", cardSubtypes: ["SPELL"]);
     if(empty($candidates)) {
@@ -3961,7 +3968,7 @@ function GalestreamInsightResolve($player) {
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $candidates), 1,
         tooltip:"Reveal_a_Spell_card_to_put_into_memory?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "GalestreamInsightReveal", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GalestreamInsightReveal", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["GalestreamInsightReveal"] = function($player, $parts, $lastDecision) {

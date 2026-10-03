@@ -1,0 +1,13 @@
+[
+    {"step":5,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"All six looked-at cards left myTempZone (none was put into memory)"},
+    {"step":5,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":13,"semantic":true,"label":"Deck size after the effect: 13 minus (1 if a spell went to memory) -- all six looked-at cards were taken off the top and the unchosen ones put back"},
+    {"step":5,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":4},
+    {"step":5,"type":"card_property_equals","mzId":"myGraveyard-0","viewerPlayerID":1,"property":"CardID","value":"usa6qyq3ka"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-7","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom-of-deck slot 1 of 6 holds the looked-at card in its original relative order"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-8","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom-of-deck slot 2 of 6 holds the looked-at card in its original relative order"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-9","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom-of-deck slot 3 of 6 holds the looked-at card in its original relative order"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-10","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom-of-deck slot 4 of 6 holds the looked-at card in its original relative order"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-11","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom-of-deck slot 5 of 6 holds the looked-at card in its original relative order"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-12","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom-of-deck slot 6 of 6 holds the looked-at card in its original relative order"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

@@ -26473,6 +26473,67 @@ $fixtures['silvergale-monstrosity-call-prepare-2-declined-obelith-no-sheen'] = [
     ]),
 ];
 
+// --- Galestream Insight (usa6qyq3ka): "Look at the top six cards of your deck. You may reveal a Spell card from
+// among them and put it into your memory. Put the rest on the bottom of your deck in any order." ---
+// Pre-fix engine bug: GalestreamInsightResolve() pulled the six cards with a loop of MZMove($player, "myDeck-0",
+// "myTempZone"). Remove() only flags the slot removed (no splice), so every iteration after the first resolved
+// "myDeck-0" to the same already-removed slot and MZMove's own "already removed" guard silently no-oped: only the
+// top card was ever looked at, and the spells deeper in the top six were never offered.
+$gaGalestreamDeck = <<<'DECK'
+# Material
+1 Spirit of Wind
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK;
+$gaGalestreamSetup = function(array $top6, int $player = 1, int $skip = 0) {
+    $rows = [['player' => $player, 'zone' => 'myHand', 'cardID' => 'usa6qyq3ka']]; // Galestream Insight -> myHand-7
+    // $skip: deck slots to leave alone (player 2's turn-start draw takes myDeck-0 before the activation)
+    foreach ($top6 as $i => $cardID) $rows[] = ['player' => $player, 'patchMzId' => 'myDeck-' . ($i + $skip), 'setProperties' => ['CardID' => $cardID]];
+    return $rows;
+};
+$fixtures['galestream-insight-look-six-reveal-spell-rest-bottom'] = [
+    'testedCards' => ['usa6qyq3ka'],
+    'deck' => $gaGalestreamDeck,
+    // top six, top to bottom: Dungeon Guide, Fluffy Shopkeep, Fairy Whispers (SPELL), Dungeon Guide, Refracting Missile (SPELL), Fluffy Shopkeep
+    'setup' => $gaGalestreamSetup(['em6eEh9q8y', 'px60u5n1do', 'n8wyfG9hbY', 'em6eEh9q8y', '6ffqsuo6gb', 'px60u5n1do']),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4), [
+        mrdAns(1, 'myTempZone-2'), // reveal Fairy Whispers (the first spell, 3rd of the six) into memory
+    ]),
+];
+$fixtures['galestream-insight-look-six-deep-spell-offered'] = [
+    'testedCards' => ['usa6qyq3ka'],
+    'deck' => $gaGalestreamDeck,
+    // the ONLY spell is the sixth card from the top (Refracting Missile): it can only be offered if all six were looked at
+    'setup' => $gaGalestreamSetup(['em6eEh9q8y', 'px60u5n1do', 'em6eEh9q8y', 'px60u5n1do', 'em6eEh9q8y', '6ffqsuo6gb']),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4), [
+        mrdAns(1, 'myTempZone-5'), // reveal Refracting Missile (6th card) into memory
+    ]),
+];
+$fixtures['galestream-insight-look-six-decline-bottoms-all-six'] = [
+    'testedCards' => ['usa6qyq3ka'],
+    'deck' => $gaGalestreamDeck,
+    'setup' => $gaGalestreamSetup(['em6eEh9q8y', 'px60u5n1do', 'n8wyfG9hbY', 'em6eEh9q8y', '6ffqsuo6gb', 'px60u5n1do']),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4), [
+        mrdPass(1), // decline revealing a spell
+    ]),
+];
+$fixtures['galestream-insight-player-two-look-six-reveal-spell-rest-bottom'] = [
+    'testedCards' => ['usa6qyq3ka'],
+    'deck' => $gaGalestreamDeck,
+    // PLAYER 2 seating (perspective check): the same top-six stack sits under player 2's turn-start draw (deck slots 1..6)
+    'setup' => $gaGalestreamSetup(['em6eEh9q8y', 'px60u5n1do', 'n8wyfG9hbY', 'em6eEh9q8y', '6ffqsuo6gb', 'px60u5n1do'], 2, 1),
+    'actions' => array_merge([mrdEnd(1), mrdPlay(2, 'myHand-7')], mrdPay(2, 4), [
+        mrdAns(2, 'myTempZone-2'), // reveal Fairy Whispers into player 2's memory
+    ]),
+];
+$fixtures['galestream-insight-look-six-no-spell-bottoms-all-six'] = [
+    'testedCards' => ['usa6qyq3ka'],
+    'deck' => $gaGalestreamDeck,
+    'setup' => $gaGalestreamSetup(['em6eEh9q8y', 'px60u5n1do', 'em6eEh9q8y', 'px60u5n1do', 'em6eEh9q8y', 'px60u5n1do']),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4)),
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
