@@ -1,0 +1,30 @@
+{
+    "name": "gildas-rested-ability-cannot-be-reactivated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:23:08+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "g99PIuhU0O"
+    ],
+    "notes": "Gildas, Faesworn Monarch (g99PIuhU0O): \"[Mordred Bonus] (2), [REST]: Prevent the next 4 damage ...\" -- a [REST] cost can only be paid by an awake unit. FIXED (was: a rested Gildas could be activated again, paying another (2); this fixture used to be gildas-rested-ability-reactivation-not-blocked and pinned that). Root cause: the generated activateAbilityPrereqs['g99PIuhU0O:0'] only checked IsMordredBonusActive() and DoActivatedAbility() merely SETS Status = 1 as the implicit REST without checking it was awake, so the rested Gildas was still offered/accepted. Fix: Custom/GeneratedAbilityOverrides.php (loaded after the generated code, which is gitignored) overrides the prereq to also require Status == 2 (awake). CanActivateAbility() is the single gate for the opportunity-window listing (GetPlayableFastAbilities), the main-phase 'Activate' click and the UI enabled-state, so the rested Gildas is neither offered nor activatable. Fixture: first activation from the main phase works (2 reserve cards paid, champion targeted, Gildas rested); a second attempt via the priority-window encoding 'myField-1@Activate-0@Prevent' and a third via the main-phase CustomInput are both ignored by the engine with no payment/target prompt (no window is open at that moment, so the runner cannot show an explicit rejection; the unchanged memory/hand counts and empty queue are the proof -- the pre-fix run paid another (2) here).",
+    "semanticCoverage": {
+        "testedCards": [
+            "g99PIuhU0O"
+        ],
+        "mechanics": [
+            "cost",
+            "status",
+            "condition",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "[REST] cost: a unit can only pay [REST] if it is awake (an already rested Gildas must not be activatable again)."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Gildas' [REST] ability could be activated again while Gildas was already rested: the generated prereq only checked IsMordredBonusActive() and DoActivatedAbility() just sets Status=1 as the implicit REST. Fix: override activateAbilityPrereqs['g99PIuhU0O:0'] in Custom/GeneratedAbilityOverrides.php to require the source to be awake (Status == 2) in addition to the Mordred Bonus.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php $activateAbilityPrereqs['g99PIuhU0O:0'] (overrides the generated prereq)",
+        "fixCommit": "TBD"
+    }
+}

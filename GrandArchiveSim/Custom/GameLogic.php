@@ -2877,6 +2877,30 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // 1.3 Declaring Costs - Slime King (f0ymeslfpw): mandatory banish of three Slime ally cards with
+    // different elements from the graveyard (SlimeKingCostBanish chains the three picks, then reserve).
+    // activateCardPrereqs already refuses the play unless 3 distinct elements are available.
+    if($obj->CardID === "f0ymeslfpw" && !$ignoreCost) {
+        $eligible = [];
+        $distinctElements = [];
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if($gy[$gi]->removed) continue;
+            if(!PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) continue;
+            if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SLIME")) continue;
+            $eligible[] = "myGraveyard-" . $gi;
+            $distinctElements[CardElement($gy[$gi]->CardID)] = true;
+        }
+        if(count($distinctElements) < 3) {
+            SetFlashMessage("Slime King requires 3 Slime allies with different elements in your graveyard.");
+            return;
+        }
+        $hasSlimeKingCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $eligible), 100, tooltip:"Banish_a_Slime_ally_with_a_new_element_(1_of_3)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SlimeKingCostBanish|3|" . $reserveCost, 100);
+    }
+
     // 1.3 Declaring Costs â€” Devotion's Price (ri955ygd5v): mandatory discard two cards
     $hasDevotionsPriceCost = false;
     if($obj->CardID === "ri955ygd5v" && !$ignoreCost) {
@@ -4460,6 +4484,11 @@ $customDQHandlers["SlimeKingCostBanish"] = function($player, $parts, $lastDecisi
         if(!is_array($banishedObj->Counters)) $banishedObj->Counters = [];
         $banishedObj->Counters['_slimeKing'] = 1;
     }
+    // MZMove only flags the graveyard slot removed. Splice it out NOW so the next pick's candidate
+    // list is built against the final graveyard indices -- otherwise the removed slot is spliced out
+    // after the MZCHOOSE below is queued and every listed "myGraveyard-N" is off by one (a
+    // duplicate-element Slime could then be chosen, and a legal one rejected).
+    DecisionQueueController::CleanupRemovedCards();
 
     $usedElements[] = $chosenElement;
     $remaining = $remainingBefore - 1;
@@ -6613,6 +6642,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "df594Qoszn": // Apotheosis Rite â€” banish self
         case "z1vdxi74wa": // Synth Disrupter â€” banish self
         case "bHGUNMFLg9": // Wind Resonance Bauble â€” banish self
+        case "u25fuv184p": // Dusksoul Stone - Banish CARDNAME
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -24857,6 +24887,9 @@ function SlimeKingLeaveStart($player) {
 $customDQHandlers["SlimeKingLeaveChoose"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     MZMove($player, $lastDecision, "myField");
+    // Splice the moved Slime out of the banishment zone before re-offering the rest, or the next
+    // prompt lists stale "myBanish-N" slots (the slot just vacated, shifted indices).
+    DecisionQueueController::CleanupRemovedCards();
     SlimeKingLeaveStart($player);
 };
 

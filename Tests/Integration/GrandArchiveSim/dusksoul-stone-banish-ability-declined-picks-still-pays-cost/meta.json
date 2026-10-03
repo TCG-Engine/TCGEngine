@@ -1,0 +1,23 @@
+{
+    "name": "dusksoul-stone-banish-ability-declined-picks-still-pays-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:22:17+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "u25fuv184p"
+    ],
+    "notes": "Dusksoul Stone (u25fuv184p): \"Banish CARDNAME: Banish up to two cards from a single graveyard.\" 'Up to two' includes zero. The Banish CARDNAME cost is paid when the ability is activated, before any graveyard card is chosen, so declining the first optional pick (PASS) leaves both graveyards untouched while the Stone is already in the banishment zone (and gone from the field). Edge-case complement of dusksoul-stone-banish-ability-banishes-itself-and-two-graveyard-cards: the cost does not depend on the effect resolving.",
+    "semanticCoverage": {
+        "testedCards": [
+            "u25fuv184p"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Banish up to two cards from a single graveyard."
+        ]
+    }
+}

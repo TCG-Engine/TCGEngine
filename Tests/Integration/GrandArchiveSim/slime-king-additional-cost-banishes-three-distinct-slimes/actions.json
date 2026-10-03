@@ -1,25 +1,9 @@
 [
     {
         "playerID": 1,
-        "mode": 10001,
+        "mode": 10002,
         "buttonInput": "",
-        "cardID": "myHealth-0!CustomInput!Pass",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "myField-1@Activate-0@Banish",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "theirGraveyard-1",
+        "cardID": "myHand-7!FSM!",
         "chkInput": [],
         "inputText": ""
     },
@@ -29,16 +13,24 @@
         "buttonInput": "",
         "cardID": "myGraveyard-0",
         "chkInput": [],
-        "inputText": "",
-        "expectFailure": true,
-        "semantic": true,
-        "label": "The second card must come from the SAME graveyard as the first (the opponent's), so my own graveyard card is rejected"
+        "inputText": ""
     },
     {
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "theirGraveyard-1",
+        "cardID": "myGraveyard-2",
+        "chkInput": [],
+        "inputText": "",
+        "expectFailure": true,
+        "semantic": true,
+        "label": "The second Red Slime (now graveyard slot 2) repeats the FIRE element, so it is not a legal second banish choice"
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myGraveyard-0",
         "chkInput": [],
         "inputText": ""
     },
@@ -46,7 +38,31 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "PASS",
+        "cardID": "myGraveyard-0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-0",
         "chkInput": [],
         "inputText": ""
     }

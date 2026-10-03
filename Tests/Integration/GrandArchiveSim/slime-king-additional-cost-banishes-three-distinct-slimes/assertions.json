@@ -1,0 +1,19 @@
+[
+    {"step":2,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"mttsvbgl6f","semantic":true,"label":"The first banish pick (Red Slime, FIRE) is paid immediately as part of the cost, before any reserve card"},
+    {"step":2,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Exactly one Slime has been banished so far (pick 1 of 3)"},
+    {"step":2,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Slime King is not on the field yet: the cost is still being paid (only the champion is there)"},
+    {"step":2,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"No reserve card has been paid yet: the banish cost is declared first"},
+    {"step":8,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":3,"semantic":true,"label":"Three Slime allies were banished as Slime King's additional cost"},
+    {"step":8,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"mttsvbgl6f","semantic":true,"label":"Red Slime (FIRE) was banished"},
+    {"step":8,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"blqryebvwj","semantic":true,"label":"Storm Slime (ARCANE) was banished"},
+    {"step":8,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"ejvddohjdu","semantic":true,"label":"Lustrous Slime (LUXEM) was banished"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Banish-0","property":"Counters","value":"{\"_slimeKing\":1}","semantic":true,"label":"Each banished Slime is tagged as banished by Slime King (for its On Leave clause)"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Banish-1","property":"Counters","value":"{\"_slimeKing\":1}","semantic":true,"label":"Each banished Slime is tagged as banished by Slime King (for its On Leave clause)"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Banish-2","property":"Counters","value":"{\"_slimeKing\":1}","semantic":true,"label":"Each banished Slime is tagged as banished by Slime King (for its On Leave clause)"},
+    {"step":8,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the duplicate-element second Red Slime is left in the graveyard (it could not be a legal pick)"},
+    {"step":8,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"mttsvbgl6f","semantic":true,"label":"The leftover graveyard card is the duplicate Red Slime"},
+    {"step":8,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"The printed (3) reserve cost was paid on top of the banish cost"},
+    {"step":8,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":4,"semantic":true,"label":"Hand 4 = 8 - Slime King played - 3 reserve payments"},
+    {"step":8,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"f0ymeslfpw","semantic":true,"label":"Slime King resolved onto the field once both costs were paid"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

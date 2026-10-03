@@ -3986,6 +3986,9 @@ $customDQHandlers["DusksoulStoneBanishStart"] = function($player, $parts, $lastD
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $gyRef = strpos($lastDecision, "theirGraveyard-") === 0 ? "theirGraveyard" : "myGraveyard";
     MZMove($player, $lastDecision, "myBanish");
+    // Splice the banished slot out now: ZoneSearch() below must see the final graveyard indices, or the
+    // second MZMAYCHOOSE lists a stale slot (the removed card's) and every later "-N" is off by one.
+    DecisionQueueController::CleanupRemovedCards();
     $remaining = ZoneSearch($gyRef);
     if(empty($remaining)) return;
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $remaining), 1,

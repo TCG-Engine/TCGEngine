@@ -1,0 +1,29 @@
+{
+    "name": "slime-king-on-leave-returns-banished-slimes",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:29:09+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "f0ymeslfpw"
+    ],
+    "notes": "Slime King (f0ymeslfpw): \"[Element Bonus] On Leave: You may put any number of the Slime ally cards banished by CARDNAME onto the field under your control.\" Previously unreachable: nothing was ever banished BY Slime King because its cost was never charged (see slime-king-additional-cost-banishes-three-distinct-slimes). Slime King is played for real (three Slimes banished as its cost, (3) paid, each banished Slime tagged with a _slimeKing counter); player 2 then attacks it with a 10-power Dungeon Guide (Taunt makes Slime King the only legal target). Player 1 answers the 'Choose an interceptor' prompt with Slime King (the engine lists the attacked unit itself as the only candidate), Slime King is destroyed and its On Leave offers the banished Slimes one at a time: Red Slime and Storm Slime are put onto the field, the third offer (Lustrous Slime) is declined with PASS and it stays banished. An entering Slime's On Enter then asks for a unit (the opposing champion). STACKED BUG fixed while building this: SlimeKingLeaveChoose re-offered the remaining banished Slimes without first splicing the just-moved Slime out of the banishment zone, so the second prompt listed stale 'myBanish-N' slots (slot 0 rejected as invalid, indices shifted); it now calls CleanupRemovedCards() before SlimeKingLeaveStart(). NOTE: the same line-up with PASS at the interceptor prompt never resolves the On Leave at all -- see slime-king-on-leave-stranded-when-interceptor-prompt-declined.",
+    "semanticCoverage": {
+        "testedCards": [
+            "f0ymeslfpw"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Element Bonus] On Leave: You may put any number of the Slime ally cards banished by CARDNAME onto the field under your control."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED (stacked bug). SlimeKingLeaveChoose() moved the chosen banished Slime to the field and immediately re-ran SlimeKingLeaveStart(), which lists 'myBanish-N' while the moved Slime's slot was still only flagged removed (spliced out afterwards), so the follow-up prompt offered stale/shifted slots. Fix: CleanupRemovedCards() between the MZMove and the re-offer.",
+        "affectedFunction": "Custom/GameLogic.php $customDQHandlers['SlimeKingLeaveChoose']",
+        "fixCommit": "TBD"
+    }
+}

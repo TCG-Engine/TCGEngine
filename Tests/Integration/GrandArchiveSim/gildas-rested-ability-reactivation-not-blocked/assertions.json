@@ -1,6 +1,0 @@
-[
-    {"step":10,"type":"card_property_equals","mzId":"p1Field-1","property":"Status","value":"1","semantic":true,"label":"Gildas is rested"},
-    {"step":10,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":4,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): four reserve cards were paid -- the already rested Gildas was activated a second time for another (2)"},
-    {"step":10,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":3,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): hand 3 = 7 - 4 reserve payments (two activations of a [REST] ability)"},
-    {"step":10,"type":"decision_queue_empty","player":"all"}
-]

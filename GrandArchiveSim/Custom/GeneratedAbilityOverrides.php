@@ -341,3 +341,16 @@ $cardActivatedAbilities["up6fw61vf1:0"] = function($player) { //Malevolent Vow
   DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $handStr, 1, tooltip:"Discard_a_card_(Malevolent_Vow_1/3)");
   DecisionQueueController::AddDecision($player, "CUSTOM", "MalevolentVow1", 1, dontSkipOnPass:1);
 };
+
+// Gildas, Faesworn Monarch (g99PIuhU0O): "[Mordred Bonus] (2), [REST]: Prevent the next 4 damage ..."
+// A [REST] cost can only be paid by an awake unit. The generated prereq only checked
+// IsMordredBonusActive(), and DoActivatedAbility() merely SETS Status = 1 as the implicit REST, so an
+// already-rested Gildas was still offered (and accepted) for activation again, paying another (2).
+// CanActivateAbility() is the single gate for both the opportunity-window listing and execution, so
+// requiring Status == 2 (awake) here makes the second activation neither offered nor accepted.
+$activateAbilityPrereqs["g99PIuhU0O:0"] = function($player, $mzID, $abilityIndex) { //Prevent prereq
+  if(!IsMordredBonusActive($player)) return false;
+  $selfObj = GetZoneObject($mzID);
+  if($selfObj === null || $selfObj->removed) return false;
+  return isset($selfObj->Status) && intval($selfObj->Status) === 2;
+};

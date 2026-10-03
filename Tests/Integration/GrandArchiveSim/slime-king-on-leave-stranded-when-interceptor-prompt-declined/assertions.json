@@ -1,0 +1,7 @@
+[
+    {"step":13,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":3,"semantic":true,"label":"Slime King banished three Slimes as its cost"},
+    {"step":13,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"f0ymeslfpw","semantic":true,"label":"Slime King was destroyed by the 10-power attacker (it is in the graveyard)"},
+    {"step":13,"type":"zone_count","zone":"EffectStack","viewerPlayerID":1,"value":1,"semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): Slime King's LEAVE_FIELD trigger is still sitting unresolved on the EffectStack"},
+    {"step":13,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the champion is on the field: no banished Slime was offered back (the On Leave prompt never appeared)"},
+    {"step":13,"type":"decision_queue_empty","player":"all"}
+]

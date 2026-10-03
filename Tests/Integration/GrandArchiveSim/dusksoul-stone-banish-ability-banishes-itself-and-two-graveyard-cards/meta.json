@@ -1,0 +1,30 @@
+{
+    "name": "dusksoul-stone-banish-ability-banishes-itself-and-two-graveyard-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:32:04+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "u25fuv184p"
+    ],
+    "notes": "Dusksoul Stone (u25fuv184p): \"Banish CARDNAME: Banish up to two cards from a single graveyard.\" The Stone is seeded on the field (only its ability, not its materialize cost, is under test; see dusksoul-stone-materialize-additional-cost-banish-two-allies for the cost). The opportunity window offers 'myField-1@Activate-0@Banish'; DusksoulStoneActivated() asks for a first card from either graveyard (an MZMAYCHOOSE) and then a second one restricted to the same graveyard (DusksoulStoneBanishStart/Finish): picking the opponent's Fluffy Shopkeep first makes player 1's own graveyard card an invalid second choice (rejected), the stale third slot of the pre-banish opposing graveyard is rejected too, and the opponent's Dungeon Guide is banished second. FIXED (was: the 'Banish CARDNAME' cost was never paid -- the Stone stayed on the field and stayed offered; this fixture used to be dusksoul-stone-banish-ability-single-graveyard-stone-stays and pinned that). Root cause: ActivatedAbilityCost() has a hard-coded switch of 'banish self' cards (Shadeblood Coating, Gearstride Gloves, ...) and u25fuv184p was missing, so DoActivatedAbility() never moved the Stone. Fix: u25fuv184p joins the 'Always banish self' case group, so the Stone is moved to the banishment zone at activation (before the opponent gets priority). Verified: the Stone is in the banishment zone with the two banished graveyard cards (3 cards), only the champion remains on the field. STACKED BUG fixed too: DusksoulStoneBanishStart() listed the second pick right after MZMove had only flagged the first card removed, so the MZMAYCHOOSE offered a stale slot (the pre-fix run listed theirGraveyard-0&1&2 for a graveyard holding only two cards, and accepted the nonexistent slot 2); it now calls CleanupRemovedCards() first (the queue now reads theirGraveyard-0&1) -- the 'theirGraveyard-2' expected rejection pins that. No priority window re-opens after the ability resolves, so a repeat activation cannot be driven; the Stone being gone from the field is the proof it cannot be offered again.",
+    "semanticCoverage": {
+        "testedCards": [
+            "u25fuv184p"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Banish up to two cards from a single graveyard."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Dusksoul Stone's 'Banish CARDNAME' activation cost was never paid: ActivatedAbilityCost()'s hard-coded 'banish self' switch lacked u25fuv184p, so the Stone stayed on the field after its ability resolved and kept being offered every priority window. Fix: add u25fuv184p to the 'Always banish self' case group. Stacked fix: DusksoulStoneBanishStart() now calls CleanupRemovedCards() before building the second pick's candidate list (it used to list a stale extra slot).",
+        "affectedFunction": "Custom/GameLogic.php ActivatedAbilityCost() 'Always banish self' cases + Custom/CardDQHandlers.php DusksoulStoneBanishStart",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,13 @@
+[
+    {"step":7,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":3,"semantic":true,"label":"Slime King banished three Slimes as its cost before it was ever on the field"},
+    {"step":7,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"f0ymeslfpw","semantic":true,"label":"Slime King is on the field before the attack"},
+    {"step":12,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":3,"semantic":true,"label":"Control: the three cost-banished Slimes are still banished when Slime King takes the lethal hit"},
+    {"step":13,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"f0ymeslfpw","semantic":true,"label":"Slime King was destroyed (it is in the graveyard); its On Leave offers the banished Slimes"},
+    {"step":17,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the declined third Slime is still banished: two were returned"},
+    {"step":17,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"ejvddohjdu","semantic":true,"label":"Lustrous Slime (declined) stays in the banishment zone"},
+    {"step":17,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"mttsvbgl6f","semantic":true,"label":"Red Slime (first pick) was put onto the field under my control"},
+    {"step":17,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"blqryebvwj","semantic":true,"label":"Storm Slime (second pick) was put onto the field under my control"},
+    {"step":17,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":3,"semantic":true,"label":"Field = champion + the two returned Slimes (Slime King is gone)"},
+    {"step":17,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"f0ymeslfpw","semantic":true,"label":"Slime King itself remains in the graveyard"},
+    {"step":17,"type":"decision_queue_empty","player":"all"}
+]

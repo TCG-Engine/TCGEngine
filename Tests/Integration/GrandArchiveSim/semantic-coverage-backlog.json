@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T05:58:17+00:00",
+    "generatedAt": "2026-10-03T14:32:55+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 623,
@@ -33845,10 +33845,16 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "slime-king-additional-cost-never-charged"
+                "slime-king-additional-cost-banishes-three-distinct-slimes",
+                "slime-king-on-leave-returns-banished-slimes",
+                "slime-king-on-leave-stranded-when-interceptor-prompt-declined",
+                "slime-king-unplayable-with-only-two-distinct-slime-elements"
             ],
             "semanticFixtures": [
-                "slime-king-additional-cost-never-charged"
+                "slime-king-additional-cost-banishes-three-distinct-slimes",
+                "slime-king-on-leave-returns-banished-slimes",
+                "slime-king-on-leave-stranded-when-interceptor-prompt-declined",
+                "slime-king-unplayable-with-only-two-distinct-slime-elements"
             ],
             "starterDecks": [
                 "Silvie Re:Collection, Slime Sovereign"
@@ -34664,17 +34670,19 @@
             ],
             "existingFixtures": [
                 "gildas-ability-requires-mordred-champion",
+                "gildas-ability-usable-again-after-waking-up",
                 "gildas-another-fairy-ally-makes-ability-free",
                 "gildas-mordred-bonus-prevent-four-damage-pays-two",
-                "gildas-rested-ability-reactivation-not-blocked",
+                "gildas-rested-ability-cannot-be-reactivated",
                 "gildas-stealth-cannot-be-attacked",
                 "gildas-vigor-wakes-up-at-end-of-turn"
             ],
             "semanticFixtures": [
                 "gildas-ability-requires-mordred-champion",
+                "gildas-ability-usable-again-after-waking-up",
                 "gildas-another-fairy-ally-makes-ability-free",
                 "gildas-mordred-bonus-prevent-four-damage-pays-two",
-                "gildas-rested-ability-reactivation-not-blocked",
+                "gildas-rested-ability-cannot-be-reactivated",
                 "gildas-stealth-cannot-be-attacked",
                 "gildas-vigor-wakes-up-at-end-of-turn"
             ],
@@ -41879,12 +41887,14 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "dusksoul-stone-banish-ability-single-graveyard-stone-stays",
+                "dusksoul-stone-banish-ability-banishes-itself-and-two-graveyard-cards",
+                "dusksoul-stone-banish-ability-declined-picks-still-pays-cost",
                 "dusksoul-stone-materialize-additional-cost-banish-two-allies",
                 "dusksoul-stone-phantasias-have-spellshroud"
             ],
             "semanticFixtures": [
-                "dusksoul-stone-banish-ability-single-graveyard-stone-stays",
+                "dusksoul-stone-banish-ability-banishes-itself-and-two-graveyard-cards",
+                "dusksoul-stone-banish-ability-declined-picks-still-pays-cost",
                 "dusksoul-stone-materialize-additional-cost-banish-two-allies",
                 "dusksoul-stone-phantasias-have-spellshroud"
             ],

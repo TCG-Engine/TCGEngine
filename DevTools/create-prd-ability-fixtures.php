@@ -19798,8 +19798,18 @@ DECK,
     ],
 ];
 
-// --- Slime King: additional cost (banish 3 differently-elemented Slime allies from graveyard) is dead code ---
-$fixtures['slime-king-additional-cost-never-charged'] = [
+// --- Slime King: additional cost -- banish three Slime allies with different elements from the graveyard ---
+// Slime King (f0ymeslfpw, UNIQUE,ALLY): "As an additional cost to activate this card, banish three
+// Slime ally cards each with different elements from your graveyard. Pride 4, Taunt. [Element
+// Bonus] On Leave: ..." FIXED (was: the mandatory cost was never charged, $hasSlimeKingCost never
+// set true in DoActivateCard's cost declaration). Slime King's element is TERA, not native to the
+// 'Spirit of Fire' starting champion, so the champion's Subcards are patched with a real TERA
+// champion (Kongming, Fel Eidolon) purely to unlock element access.
+// Fixture: the graveyard holds Red Slime (FIRE), Storm Slime (ARCANE), Lustrous Slime (LUXEM) and a
+// SECOND Red Slime (a duplicate FIRE element). Slime King is played for real (10002 FSM); the three
+// banish picks are answered one by one (the duplicate-element Red Slime is rejected once Red is
+// used), then the printed 3 reserve cost is paid.
+$fixtures['slime-king-additional-cost-banishes-three-distinct-slimes'] = [
     'testedCards' => ['f0ymeslfpw'],
     'deck' => <<<'DECK'
 # Material
@@ -19813,52 +19823,146 @@ $fixtures['slime-king-additional-cost-never-charged'] = [
 4 Fluffy Shopkeep
 4 Windslice
 DECK,
-    // ENGINE BUG (found, confirmed live, NOT fixed): this fixture documents Slime King's printed
-    // mandatory additional cost -- "As an additional cost to activate this card, banish three
-    // Slime ally cards each with different elements from your graveyard" -- CURRENTLY never being
-    // charged at all, even with 3 legal (differently-elemented) Slime allies sitting in the
-    // graveyard. Confirmed live with a standalone debug harness: playing Slime King (f0ymeslfpw)
-    // from hand with Red Slime (FIRE), Storm Slime (ARCANE), and Lustrous Slime (LUXEM) in the
-    // graveyard only ever queues the normal 3x "ReserveCard" reserve-payment decisions -- no
-    // "SlimeKingCostBanish" MZCHOOSE/CUSTOM decision (Custom/GameLogic.php ~4347, a fully-written
-    // and otherwise-correct-looking handler) is EVER queued, and after paying the printed reserve
-    // cost the card materializes successfully onto the field with the graveyard completely
-    // untouched (all 3 Slime allies still there, Banish zone empty).
-    //
-    // Root cause (read directly, not just inferred): Custom/GameLogic.php's cost-declaration
-    // function declares `$hasSlimeKingCost = false;` (~line 2430) alongside dozens of sibling
-    // `$hasXCost` flags for OTHER cards' additional costs (e.g. Furnace Drone's analogous
-    // "$hasFurnaceDroneCost"), but UNLIKE every one of those siblings, grep over the entire file
-    // finds no `$hasSlimeKingCost = true;` assignment anywhere -- there is no
-    // `if($obj->CardID === "f0ymeslfpw" ...) { $hasSlimeKingCost = true; ... }` branch analogous to
-    // Furnace Drone's own (~line 2767) that would actually queue the SlimeKingCostBanish decision
-    // chain. The SlimeKingCostBanish handler itself is fully implemented and looks correct; it is
-    // simply never invoked because nothing ever sets the flag that would trigger it. This looks
-    // like a straightforward omission in the generator/hand-authored cost-declaration wiring (the
-    // legality PREREQ at activateCardPrereqs['f0ymeslfpw:0'], which correctly requires >=3
-    // differently-elemented graveyard Slime allies before the card can be activated AT ALL, was
-    // written and works; only the matching cost-CHARGING branch was never added), not a
-    // fixture-authoring gap. This fixture pins the CURRENT (buggy, too-cheap) observed behavior as
-    // a regression baseline so a future fix is easy to spot (the assertions below will need
-    // updating once Slime King actually charges its printed cost).
-    //
-    // Slime King's element is TERA, not native to the 'Spirit of Fire' starting champion, so the
-    // champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) purely to
-    // unlock element access. The separate [Element Bonus] On Leave "return banished Slimes" clause
-    // (leaveFieldAbilities['f0ymeslfpw:0'] -> SlimeKingLeaveStart()) is consequently unreachable
-    // with nothing ever banished by this card, and is out of scope here.
     'setup' => [
         ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
-        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE)
-        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE)
-        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'ejvddohjdu'], // Lustrous Slime (LUXEM)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE) -> gy-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE) -> gy-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'ejvddohjdu'], // Lustrous Slime (LUXEM) -> gy-2
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // second Red Slime (duplicate FIRE) -> gy-3
         ['player' => 1, 'zone' => 'myHand', 'cardID' => 'f0ymeslfpw'], // Slime King, seeded to a known hand slot
     ],
     'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        mrdPlay(1, 'myHand-7'), // play Slime King: the banish cost is declared first
+        mrdAns(1, 'myGraveyard-0'), // pick 1 of 3: Red Slime (FIRE)
+        mrdAns(1, 'myGraveyard-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'The second Red Slime (now graveyard slot 2) repeats the FIRE element, so it is not a legal second banish choice']),
+        mrdAns(1, 'myGraveyard-0'), // pick 2 of 3: Storm Slime (ARCANE) -- the graveyard is already re-indexed after the first banish
+        mrdAns(1, 'myGraveyard-0'), // pick 3 of 3: Lustrous Slime (LUXEM)
+        ...mrdPay(1, 3), // the printed (3) reserve cost
+    ],
+];
+
+// --- Slime King: [Element Bonus] On Leave -- put the Slimes it banished as its cost back onto the field ---
+// Slime King (f0ymeslfpw): "[Element Bonus] On Leave: You may put any number of the Slime ally
+// cards banished by CARDNAME onto the field under your control." Before the cost fix nothing was ever
+// banished BY Slime King, so this clause could never do anything. Slime King is played for real
+// (three Slimes banished as the additional cost, (3) paid); player 2 then attacks it with a buffed
+// Dungeon Guide (Taunt forces the attack onto Slime King), it is destroyed, and its On Leave offers
+// the three banished Slimes one at a time: two are put onto the field and the offer is then declined.
+$fixtures['slime-king-on-leave-returns-banished-slimes'] = [
+    'testedCards' => ['f0ymeslfpw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock (Element Bonus active)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'ejvddohjdu'], // Lustrous Slime (LUXEM)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'f0ymeslfpw'], // Slime King -> hand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['buff' => 9]]], // Dungeon Guide with 9 buff counters (10 power) -> p2 field-1
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Slime King: banish cost first
+        mrdAns(1, 'myGraveyard-0'), // pick 1 of 3
+        mrdAns(1, 'myGraveyard-0'), // pick 2 of 3
+        mrdAns(1, 'myGraveyard-0'), // pick 3 of 3
+        ...mrdPay(1, 3), // the printed (3) reserve cost
+        mrdEnd(1), // end player 1 turn 1
+        mrdPass(1), // p1 passes the end-of-main fast window
+        mrdPass(1), // p1 passes the beginning-of-opponent-turn window
+        mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with the buffed Dungeon Guide
+        mrdAns(2, 'theirField-1'), // Slime King (Taunt) is the target
+        mrdAns(1, 'myField-1'), // the interceptor prompt: Slime King takes the hit (it is the only candidate)
+        mrdAns(1, 'myBanish-0'), // On Leave: put the first banished Slime (Red Slime) onto the field
+        mrdAns(1, 'myBanish-0'), // On Leave: put the next one (Storm Slime) onto the field
+        mrdPass(1), // decline the third banished Slime (Lustrous Slime stays banished)
+        mrdAns(1, 'theirField-0'), // an entering Slime's On Enter asks for a unit: the opposing champion
+    ],
+];
+
+// --- Slime King: On Leave trigger is stranded on the EffectStack when the interceptor prompt is declined (engine bug) ---
+// Same line-up as slime-king-on-leave-returns-banished-slimes, but the defending player answers the
+// 'Choose an interceptor' prompt with PASS instead of picking Slime King. Slime King is still
+// destroyed by the 10-power Dungeon Guide, its LEAVE_FIELD trigger is pushed on the EffectStack, but
+// the trigger is never resolved: the EffectStack keeps 1 entry and the 'put a banished Slime onto the
+// field?' prompt never appears, so the three Slimes banished by its cost cannot be returned.
+// ENGINE BUG (found, NOT fixed, outside the cost fix's scope: combat/trigger resolution). The
+// REGRESSION GUARD assertions pin the current (buggy) outcome.
+$fixtures['slime-king-on-leave-stranded-when-interceptor-prompt-declined'] = [
+    'testedCards' => ['f0ymeslfpw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock (Element Bonus active)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'ejvddohjdu'], // Lustrous Slime (LUXEM)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'f0ymeslfpw'], // Slime King -> hand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['buff' => 9]]], // Dungeon Guide with 9 buff counters (10 power) -> p2 field-1
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // play Slime King: banish cost first
+        mrdAns(1, 'myGraveyard-0'), // pick 1 of 3
+        mrdAns(1, 'myGraveyard-0'), // pick 2 of 3
+        mrdAns(1, 'myGraveyard-0'), // pick 3 of 3
+        ...mrdPay(1, 3), // the printed (3) reserve cost
+        mrdEnd(1), // end player 1 turn 1
+        mrdPass(1), // p1 passes the end-of-main fast window
+        mrdPass(1), // p1 passes the beginning-of-opponent-turn window
+        mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with the buffed Dungeon Guide
+        mrdAns(2, 'theirField-1'), // Slime King (Taunt) is the target
+        mrdPass(1), // the interceptor prompt is declined: Slime King dies, its On Leave never resolves
+    ],
+];
+
+// --- Slime King: cannot be played without three Slime allies with DIFFERENT elements in the graveyard ---
+// Slime King (f0ymeslfpw): the mandatory banish-three-different-elements cost must be payable. The
+// graveyard holds three Slime allies but only two distinct elements (two Red Slimes + Storm Slime),
+// so the activation is refused up front (nothing banished, no reserve paid, Slime King stays in
+// hand). Control: the same attempt with the third element present is covered by
+// slime-king-additional-cost-banishes-three-distinct-slimes.
+$fixtures['slime-king-unplayable-with-only-two-distinct-slime-elements'] = [
+    'testedCards' => ['f0ymeslfpw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // second Red Slime (FIRE)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'f0ymeslfpw'], // Slime King -> hand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'),
     ],
 ];
 
@@ -20762,7 +20866,7 @@ $fixtures['dusksoul-stone-materialize-additional-cost-banish-two-allies'] = [
     ],
 ];
 
-// --- Dusksoul Stone: Banish CARDNAME: banish up to two cards from a single graveyard (the Banish cost is never paid -- engine bug) ---
+// --- Dusksoul Stone: Banish CARDNAME: banish up to two cards from a single graveyard (the Banish cost IS paid) ---
 // Dusksoul Stone (u25fuv184p): "Banish CARDNAME: Banish up to two cards from a single graveyard."
 // The Stone is seeded on the field (the REGALIA is seeded directly because only its ability, not
 // its materialize cost, is under test; see dusksoul-stone-materialize-additional-cost-banish-two-
@@ -20770,14 +20874,11 @@ $fixtures['dusksoul-stone-materialize-additional-cost-banish-two-allies'] = [
 // DusksoulStoneActivated() asks for a first card from either graveyard (an MZMAYCHOOSE) and then a
 // second one restricted to the same graveyard (DusksoulStoneBanishStart/Finish): picking the
 // opponent's Fluffy Shopkeep first makes player 1's own graveyard card an invalid second choice
-// (rejected), and a second opposing card is banished. ENGINE BUG (found, confirmed live, NOT
-// fixed): the 'Banish CARDNAME' cost is never paid -- the Stone itself stays on the field and
-// stays offered in the window. ActivatedAbilityCost() has a hard-coded switch of 'banish self'
-// cards (Shadeblood Coating, Gearstride Gloves, ...) and u25fuv184p is missing; confirmed with a
-// temporary error_log right after ActivatedAbilityCost() (stillOnField=YES, while the same trace
-// for Shadeblood Coating confirms its cost is paid), removed afterwards. Pinned with a REGRESSION
-// GUARD.
-$fixtures['dusksoul-stone-banish-ability-single-graveyard-stone-stays'] = [
+// (rejected), and a second opposing card is banished. FIXED (was: the 'Banish CARDNAME' cost was
+// never paid -- the Stone itself stayed on the field and stayed offered in the window):
+// ActivatedAbilityCost()'s 'banish self' switch now has a u25fuv184p entry, so the Stone leaves the
+// field for the banishment zone at activation (it can no longer be offered or activated again).
+$fixtures['dusksoul-stone-banish-ability-banishes-itself-and-two-graveyard-cards'] = [
     'testedCards' => ['u25fuv184p'],
     'deck' => $tristanDeck,
     'setup' => [
@@ -20793,8 +20894,29 @@ $fixtures['dusksoul-stone-banish-ability-single-graveyard-stone-stays'] = [
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''], // activate Dusksoul Stone's Banish ability from the priority window
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirGraveyard-1', 'chkInput' => [], 'inputText' => ''], // first banish: the opponent's Fluffy Shopkeep
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'The second card must come from the SAME graveyard as the first (the opponent\'s), so my own graveyard card is rejected'],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirGraveyard-2', 'chkInput' => [], 'inputText' => '', 'expectFailure' => true, 'semantic' => true, 'label' => 'Only two opposing graveyard cards remain (slots 0 and 1): the stale third slot of the pre-banish graveyard is not a legal pick'],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirGraveyard-1', 'chkInput' => [], 'inputText' => ''], // second banish: the opponent's Dungeon Guide (same graveyard)
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // pass the window
+    ],
+];
+
+// --- Dusksoul Stone: declining both graveyard picks still pays the Banish CARDNAME cost ---
+// Dusksoul Stone (u25fuv184p): "Banish CARDNAME: Banish up to two cards from a single graveyard."
+// "Up to two" includes zero: the cost (banishing the Stone) is paid when the ability is activated,
+// before any graveyard card is chosen, so declining the first optional pick (PASS) leaves every
+// graveyard untouched but the Stone is already in the banishment zone.
+$fixtures['dusksoul-stone-banish-ability-declined-picks-still-pays-cost'] = [
+    'testedCards' => ['u25fuv184p'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc', 'pNiyaGlIe7']]], // UMBRA lineage unlock (Tristan, Shadowdancer)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'u25fuv184p'], // Dusksoul Stone -> p1 field-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'n8wyfG9hbY'], // Fairy Whispers -> p1 gy-0
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p2 gy-0
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''], // activate Dusksoul Stone's Banish ability
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline to banish any graveyard card
     ],
 ];
 
@@ -21471,17 +21593,17 @@ $fixtures['gildas-stealth-cannot-be-attacked'] = [
     ],
 ];
 
-// --- Gildas, Faesworn Monarch: a RESTED Gildas can be activated again -- the [REST] cost is never enforced (engine bug) ---
+// --- Gildas, Faesworn Monarch: a RESTED Gildas cannot be activated again (the [REST] cost needs an awake unit) ---
 // Gildas (g99PIuhU0O): "[Mordred Bonus] (2), [REST]: Prevent the next 4 damage ..." -- a [REST]
-// cost can only be paid by an awake unit. ENGINE BUG (found, confirmed live, NOT fixed):
-// activateAbilityPrereqs["g99PIuhU0O:0"] (GeneratedCode/GeneratedMacroCode.php) only checks
-// IsMordredBonusActive() and never that Gildas is awake, and DoActivatedAbility() merely SETS
-// Status = 1 as an implicit REST without checking it first, so the priority window after the first
-// activation still offers 'myField-1@Activate-0@Prevent' and a second activation of the already
-// rested Gildas is accepted: another (2) is paid and a second prevention target is chosen. The
-// REGRESSION GUARD assertions pin the buggy outcome (4 reserve cards paid in total, Gildas
-// rested).
-$fixtures['gildas-rested-ability-reactivation-not-blocked'] = [
+// cost can only be paid by an awake unit. FIXED (was: the generated prereq only checked
+// IsMordredBonusActive() and DoActivatedAbility() merely SET Status = 1 as an implicit REST, so the
+// priority window after the first activation still offered 'myField-1@Activate-0@Prevent' and a
+// second activation of the already rested Gildas was accepted, paying another (2)). The override
+// $activateAbilityPrereqs['g99PIuhU0O:0'] (Custom/GeneratedAbilityOverrides.php) now also requires
+// Gildas to be awake, so the rested Gildas is neither offered in the window nor activatable from
+// the main phase. The first activation works and rests it (2 reserve cards paid, once); both later
+// attempts are no-ops (no payment prompt, no target prompt, hand/memory unchanged).
+$fixtures['gildas-rested-ability-cannot-be-reactivated'] = [
     'testedCards' => ['g99PIuhU0O'],
     'deck' => $mordredDeck,
     'setup' => [
@@ -21492,10 +21614,41 @@ $fixtures['gildas-rested-ability-reactivation-not-blocked'] = [
         mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), // first activation in the main phase
         ...mrdPay(1, 2), // the (2) cost
         mrdAns(1, 'myField-0'), // target: the champion
-        mrdAns(1, 'myField-1@Activate-0@Prevent'), // second activation of the now RESTED Gildas, from the priority window
-        ...mrdPay(1, 2), // a second (2) is paid
-        mrdAns(1, 'myField-0'), // target: the champion again
+        mrdAns(1, 'myField-1@Activate-0@Prevent'), // second activation attempt through the priority-window encoding while Gildas is RESTED: ignored, no (2) is charged
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), // third attempt from the main phase while Gildas is still rested: ignored too
+    ],
+];
+
+// --- Gildas, Faesworn Monarch: once awake again (Vigor) the ability can be activated a second time ---
+// Gildas (g99PIuhU0O): "Stealth, Vigor" + "[Mordred Bonus] (2), [REST]: Prevent the next 4 damage
+// ...". Control for the rested-reactivation fix: the awake requirement must not lock the ability
+// out for good. Gildas is used in the main phase (two reserve cards paid, Gildas rested), player 1
+// ends the turn and Vigor wakes Gildas up; player 2 then attacks the champion and in the attack's
+// priority window the AWAKE Gildas is offered and activated again (a second (2) is paid, Gildas
+// rests again).
+$fixtures['gildas-ability-usable-again-after-waking-up'] = [
+    'testedCards' => ['g99PIuhU0O'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'OWCdWq3mXY', 'Subcards' => ['tafqldAGRF']]], // Mordred, Burnished Avenger: Mordred Bonus active
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'g99PIuhU0O'], // Gildas -> p1 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['buff' => 5]]], // Dungeon Guide with 5 buff counters (6 power) -> p2 field-1
+    ],
+    'actions' => [
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), // first activation in the main phase
+        ...mrdPay(1, 2), // the (2) cost
+        mrdAns(1, 'myField-0'), // target: the champion
         mrdPass(1), // p1 passes the window after the ability
+        mrdPass(1), // p1 passes the second window
+        mrdEnd(1), // end player 1 turn 1 -> Vigor wakes Gildas up
+        mrdPass(1), // p1 passes the end-of-main fast window
+        mrdPass(1), // p1 passes the beginning-of-opponent-turn window
+        mrdAct(2, 10002, 'myField-1!FSM!'), // player 2 attacks with the buffed Dungeon Guide
+        mrdAns(2, 'theirField-0'), // targeting player 1's champion
+        mrdAns(1, 'myField-1@Activate-0@Prevent'), // the awake Gildas is offered and activated a second time
+        ...mrdPay(1, 2), // the second (2) cost
+        mrdAns(1, 'myField-0'), // target: the champion
+        mrdPass(1), // p1 passes the first window after the ability
         mrdPass(1), // p1 passes the second window
     ],
 ];

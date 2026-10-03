@@ -1,0 +1,28 @@
+{
+    "name": "slime-king-on-leave-stranded-when-interceptor-prompt-declined",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:29:58+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "f0ymeslfpw"
+    ],
+    "notes": "Slime King (f0ymeslfpw) On Leave -- ENGINE BUG (found, confirmed live, NOT fixed; combat/trigger resolution, outside the costs-never-charged scope). Same line-up as slime-king-on-leave-returns-banished-slimes (Slime King paid for real incl. its banish cost, player 2 attacks it with a 10-power Dungeon Guide) but the defender answers the 'Choose an interceptor' MZMAYCHOOSE with PASS. Slime King is destroyed (it lands in the graveyard) and OnLeaveField() pushes its LEAVE_FIELD trigger onto the EffectStack via PushTriggeredAbilityNow(), but the trigger is never resolved: the EffectStack still holds that 1 entry afterwards, no decision is pending, and the 'put a banished Slime onto the field?' prompt never appears, so the three Slimes banished by its cost can never be returned. When the same prompt is answered with the interceptor instead (Slime King itself) the trigger does resolve. Likely cause (not verified): the follow-up EffectStackOpportunity decision queued by PushTriggeredAbilityNow() is dropped/skipped on the PASS path of the interceptor decision (same family as the dontSkipOnPass omissions) -- needs a dedicated investigation in Custom/CombatLogic.php / Custom/OpportunityLogic.php; very likely not specific to Slime King (any LEAVE_FIELD/On Leave trigger of the defending unit in this spot), but only Slime King was reproduced. The REGRESSION GUARD assertions pin the buggy outcome (EffectStack count 1).",
+    "semanticCoverage": {
+        "testedCards": [
+            "f0ymeslfpw"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Element Bonus] On Leave: You may put any number of the Slime ally cards banished by CARDNAME onto the field under your control."
+        ]
+    },
+    "engineBug": {
+        "status": "found-not-fixed",
+        "summary": "A LEAVE_FIELD trigger pushed during combat damage is left stranded on the EffectStack (never resolved, no prompt) when the defending player answers the 'Choose an interceptor' MZMAYCHOOSE with PASS; it resolves normally when an interceptor is chosen. Reproduced with Slime King's On Leave (EffectStack count stays 1, banished Slimes never offered back).",
+        "affectedFunction": "Custom/OpportunityLogic.php PushTriggeredAbilityNow() / EffectStackOpportunity scheduling vs Custom/CombatLogic.php interceptor decision (InterceptTargetChosen / FinalizeAttackDeclaration) -- root cause not yet pinned down",
+        "verification": "Confirmed live: OnLeaveField called for f0ymeslfpw during DealDamage->AllyDestroyed, PushTriggeredAbilityNow logged the push with ResolvingEffectStack empty, the FireLeaveFieldTriggeredAbility/SlimeKingLeaveStart closure never ran, and a zone_count assertion on EffectStack read 1 after the PASS."
+    }
+}

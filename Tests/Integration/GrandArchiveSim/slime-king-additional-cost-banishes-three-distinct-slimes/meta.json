@@ -1,0 +1,29 @@
+{
+    "name": "slime-king-additional-cost-banishes-three-distinct-slimes",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:20:52+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "f0ymeslfpw"
+    ],
+    "notes": "Slime King (f0ymeslfpw, UNIQUE,ALLY): \"As an additional cost to activate this card, banish three Slime ally cards each with different elements from your graveyard. Pride 4, Taunt. [Element Bonus] On Leave: You may put any number of the Slime ally cards banished by CARDNAME onto the field under your control.\" FIXED (was: the mandatory additional cost was never charged -- Slime King materialized paying only its printed (3) with the graveyard untouched; this fixture used to be slime-king-additional-cost-never-charged and pinned that buggy outcome). Root cause: Custom/GameLogic.php DoActivateCard()'s cost declaration declared `$hasSlimeKingCost = false;` among its sibling $hasXCost flags but no `if($obj->CardID === \"f0ymeslfpw\" ...)` branch ever set it true, so the fully-written SlimeKingCostBanish handler chain was never queued. Fix: a Furnace-Drone-style branch (right after it) queues the first MZCHOOSE over every Slime ally in the graveyard plus the 'SlimeKingCostBanish|3|<reserve>' CUSTOM step. STACKED BUG fixed with it: SlimeKingCostBanish built each later pick's candidate list right after MZMove had only FLAGGED the banished slot removed; CleanupRemovedCards() then spliced the slot out after the MZCHOOSE was queued, so every listed 'myGraveyard-N' was off by one (a duplicate-element Slime was selectable, which the handler then silently swallowed, aborting the whole cost with no reserve ever paid). The handler now calls CleanupRemovedCards() before computing the next list. Fixture: graveyard = Red Slime (FIRE), Storm Slime (ARCANE), Lustrous Slime (LUXEM) and a SECOND Red Slime (duplicate FIRE). Slime King is played for real (10002 FSM): pick 1 = Red Slime; the duplicate Red Slime is then rejected for real (it is at graveyard slot 2 after the re-index); picks 2 and 3 take Storm and Lustrous; then the printed (3) is paid. Verified: 3 Slimes in the banishment zone (each tagged _slimeKing for its On Leave), the duplicate Red Slime left in the graveyard, memory 3, Slime King on the field. Slime King is TERA, not native to Spirit of Fire, so the champion's Subcards are patched with Kongming, Fel Eidolon for element access. Like the sibling additional-cost branches the new branch is skipped when ignoreCost is set.",
+    "semanticCoverage": {
+        "testedCards": [
+            "f0ymeslfpw"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, banish three Slime ally cards each with different elements from your graveyard."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Slime King's mandatory additional cost (banish three Slime allies with different elements from the graveyard) was never charged: DoActivateCard() declared $hasSlimeKingCost=false but nothing ever set it true, so SlimeKingCostBanish was never queued and the card cost only its printed (3). Fix: a CardID-gated branch queues the first pick MZCHOOSE + SlimeKingCostBanish|3|reserve (activation is refused with a flash message when fewer than 3 distinct elements are available; activateCardPrereqs already gated the play the same way). Stacked fix: SlimeKingCostBanish now calls CleanupRemovedCards() after each banish so the next pick's graveyard indices are not off by one.",
+        "affectedFunction": "Custom/GameLogic.php DoActivateCard() (new f0ymeslfpw branch after Furnace Drone's) + $customDQHandlers['SlimeKingCostBanish']",
+        "fixCommit": "TBD"
+    }
+}
