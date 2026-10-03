@@ -1,0 +1,29 @@
+{
+    "name": "broken-promises-no-fatestone-or-fatebound-click-refused",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:21:30+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "re911j7fo4"
+    ],
+    "notes": "Broken Promises (re911j7fo4, FIRE skill, reserve 1) requires sacrificing a Fatestone item or Fatebound ally as an additional cost; the field holds only the champion (patched to a FIRE champion so the element is usable). Reserve 1 is affordable, so only the additional-cost gate refuses. Before the fix the card was announced onto the effect stack before that check refused it, stranding it there.",
+    "semanticCoverage": {
+        "testedCards": [
+            "re911j7fo4"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate Broken Promises, sacrifice a Fatestone item or Fatebound ally."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED (see memory-invocation-no-floating-memory-click-refused): the additional-cost legality check ran after the card was announced.",
+        "affectedFunction": "Custom/GameLogic.php DoActivateCard(); ActivationBlockedBeforeAnnounce(); MandatoryActivationCostBlocker()",
+        "verification": "Per-step state dump: before the fix EffectStack = [re911j7fo4], hand 2; after the fix the card stays in hand.",
+        "fixCommit": "TBD"
+    }
+}

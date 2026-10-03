@@ -1,0 +1,66 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myHand-0",
+        "property": "CardID",
+        "value": "ri955ygd5v",
+        "semantic": true,
+        "label": "The refused click leaves the Devotion's Price in hand (it is not moved onto the effect stack)"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Hand unchanged: no payment was taken and nothing left hand"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Memory unchanged: nothing was reserved"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "EffectStack",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was put on the effect stack for the unpayable activation"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true,
+        "label": "No reserve-payment prompts were queued for the refused activation"
+    },
+    {
+        "step": 1,
+        "type": "flash_message_contains",
+        "value": "Devotion's Price requires two cards to discard",
+        "semantic": true,
+        "label": "The refusal reason names the unpayable discard cost"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 7
+    }
+]

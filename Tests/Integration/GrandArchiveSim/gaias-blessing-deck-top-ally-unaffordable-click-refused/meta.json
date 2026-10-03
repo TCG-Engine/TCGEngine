@@ -1,0 +1,29 @@
+{
+    "name": "gaias-blessing-deck-top-ally-unaffordable-click-refused",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:21:32+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ymhDYTPfi1"
+    ],
+    "notes": "Gaia's Blessing (ymhDYTPfi1) lets its controller activate an Animal/Beast ally from the top of their deck. The top card is a Fluffy Shopkeep (reserve 3) and the hand is empty, so it cannot be paid for. The click is accepted as a no-op; the refusal is asserted on state. Before the fix the ActionMap 'myDeck' branch moved the Fluffy Shopkeep out of the deck and into hand, announced it and left it on the effect stack with no payer (the non-hand, non-banishment variant of the same stranding bug).",
+    "semanticCoverage": {
+        "testedCards": [
+            "ymhDYTPfi1"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "You may activate the top card of your deck if it is an Animal or Beast ally."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The ActionMap 'myDeck' (Gaia's Blessing) branch moved the deck-top card into hand and activated it without checking the activation could begin or be paid for; an unaffordable click left the card on the effect stack. Fix: the branch uses ActivateBanishedCard() (validate first, then move), the same helper the banishment permissions use.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myDeck'",
+        "verification": "Per-step state dump: before the fix EffectStack = [px60u5n1do], deck 12 -> 11, hand 0; after the fix the card stays on top of the deck.",
+        "fixCommit": "TBD"
+    }
+}

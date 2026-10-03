@@ -1,0 +1,59 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "The refused click leaves the Fluffy Shopkeep on top of the deck"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 12,
+        "semantic": true,
+        "label": "The deck is unchanged: the card was not pulled into hand"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Hand still empty: the card was not moved there"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "EffectStack",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was put on the effect stack for the unpayable activation"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true,
+        "label": "No payment prompts were queued"
+    },
+    {
+        "step": 1,
+        "type": "flash_message_contains",
+        "value": "not enough cards to pay its reserve cost",
+        "semantic": true,
+        "label": "The refusal reason is the unaffordable reserve cost"
+    }
+]

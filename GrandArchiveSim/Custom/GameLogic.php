@@ -1377,6 +1377,9 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                 $handObj = GetZoneObject($actionCard);
                 if($handObj !== null && !CanActivateAttackCardNow($playerID, $handObj->CardID, true)) break;
                 if(function_exists("CanActivateCard") && !CanActivateCard($playerID, $actionCard, false)) break;
+                // Refuse BEFORE anything moves or the undo snapshot is overwritten when the activation cannot
+                // begin or be paid for (pre-announcement gates, mandatory additional costs, reserve cost).
+                if($handObj !== null && ActivationRefusedBeforeStart($playerID, $handObj, false)) break;
                 SaveUndoVersion($playerID);
                 ActivateCard($playerID, $actionCard, false);
                 return "PLAY";
@@ -1427,25 +1430,21 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                 // Three Visits (w7o3agvvnc): [CB] activate from GY, banish on resolve
                 if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "w7o3agvvnc") {
                     if(IsClassBonusActive($playerID, ["CLERIC", "MAGE"]) && CanPayRestChampionCost($playerID)) {
-                        MZMove($playerID, $actionCard, "myHand");
-                        $hand = &GetHand($playerID);
-                        $handIdx = count($hand) - 1;
-                            DecisionQueueController::StoreVariable("threeVisitsActivationSource", "GY");
-                        ActivateCard($playerID, "myHand-" . $handIdx, false);
-                            DecisionQueueController::ClearVariable("threeVisitsActivationSource");
-                        return "PLAY";
+                        if(ActivateBanishedCard($playerID, $actionCard, [
+                            'vars' => ['threeVisitsActivationSource' => 'GY'],
+                            'clearVars' => ['threeVisitsActivationSource'],
+                        ])) return "PLAY";
                     }
                 }
                 if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "jnsl7ddcgw") {
                     if(IsClassBonusActive($playerID, ["MAGE"]) &&
                        GlobalEffectCount($playerID, "LEVELED_UP_THIS_TURN") > 0) {
-                        $handObj = MZMove($playerID, $actionCard, "myHand");
-                        $hand = &GetHand($playerID);
-                        $handIdx = count($hand) - 1;
-                        global $gyActivatedCardID;
-                        $gyActivatedCardID = "jnsl7ddcgw";
-                        ActivateCard($playerID, "myHand-" . $handIdx, false);
-                        return "PLAY";
+                        if(ActivateBanishedCard($playerID, $actionCard, [
+                            'afterMove' => function($handObj) {
+                                global $gyActivatedCardID;
+                                $gyActivatedCardID = "jnsl7ddcgw";
+                            },
+                        ])) return "PLAY";
                     }
                 }
                 // Sword Saint of Everflame (lpy7ie4v8n): [CB:Warrior] (2), banish from GY â†’ fire weapon/ally +2 POWER
@@ -1563,7 +1562,12 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             }
             // Generic Ephemerate: activate card from graveyard by paying ephemerate cost
             $gyObj = GetZoneObject($actionCard);
-            if($gyObj !== null && !$gyObj->removed && CanPayEphemerate($playerID, $gyObj->CardID)) {
+            if($gyObj !== null && !$gyObj->removed && CanPayEphemerate($playerID, $gyObj->CardID)
+                // The ephemerate reserve cost and extra cost were just verified by CanPayEphemerate; the
+                // remaining pre-announcement gates and activate prerequisites are checked HERE, before the
+                // card leaves the graveyard (otherwise a refused activation strands it in hand).
+                && !ActivationBlockedBeforeAnnounce($playerID, $gyObj, false, false, false)
+                && (!function_exists("CanActivateCard") || CanActivateCard($playerID, $actionCard, false))) {
                 global $ephemerateCards;
                 $config = $ephemerateCards[$gyObj->CardID] ?? [];
                 $cost = GetEphemerateCost($playerID, $gyObj->CardID);
@@ -1624,9 +1628,9 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             }
             break;
         case "myBanish":
-            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
-                SaveUndoVersion($playerID);
-            }
+            // (No SaveUndoVersion here: ActivateBanishedCard() saves the undo snapshot once an activation is
+            // known to proceed, so a refused click or a click on a card with no permission leaves the
+            // snapshot taken by the previous real action intact.)
             // Every branch below activates a banished card through ActivateBanishedCard(), which
             // validates the activation (the same pre-announcement gates DoActivateCard enforces, the
             // activate prerequisites and affordability) BEFORE moving the card or paying any
@@ -1685,8 +1689,7 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             if($playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if($bObj !== null && !$bObj->removed && GetCounterCount($bObj, "_seiryuuBanished") > 0) {
-                    SaveUndoVersion($playerID);
-                    if(ActivateBanishedCard($playerID, $actionCard)) return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard, ['saveUndoAnyPhase' => true])) return "PLAY";
                 }
             }
             // Kongming, Erudite Strategist (0i139x5eub): may play banished card if SC faces matching direction
@@ -1799,9 +1802,7 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             }
             break;
         case "theirBanish":
-            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
-                SaveUndoVersion($playerID);
-            }
+            // (Undo snapshot: saved by ActivateBanishedCard() only once the activation is known to proceed.)
             // Tristan, Shadowreaver (4upufooz13): play opponent cards banished by Shadowreaver.
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
@@ -1822,11 +1823,8 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                 $mObj = GetZoneObject($actionCard);
                 if($mObj !== null && !$mObj->removed && $mObj->CardID === "imdj3c7oh0"
                     && GetShiftingCurrents($playerID) === "WEST") {
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    return "PLAY";
+                    // Validates (gates, prerequisites, reserve cost) BEFORE moving the card out of the material deck.
+                    if(ActivateBanishedCard($playerID, $actionCard)) return "PLAY";
                 }
             }
             // Polaris, Twinkling Cauldron (41t71u4bzz): [Arisanna Bonus] may activate from material deck
@@ -2001,12 +1999,8 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                             $deckCardSubtypes = CardSubtypes($deckObj->CardID);
                             if(PropertyContains($deckCardType, "ALLY") &&
                                (PropertyContains($deckCardSubtypes, "ANIMAL") || PropertyContains($deckCardSubtypes, "BEAST"))) {
-                                SaveUndoVersion($playerID);
-                                $handObj = MZMove($playerID, $actionCard, "myHand");
-                                $hand = &GetHand($playerID);
-                                $handIdx = count($hand) - 1;
-                                ActivateCard($playerID, "myHand-" . $handIdx, false);
-                                return "PLAY";
+                                // Validates (gates, prerequisites, reserve cost) BEFORE moving the card out of the deck.
+                                if(ActivateBanishedCard($playerID, $actionCard)) return "PLAY";
                             }
                         }
                     }
@@ -2025,6 +2019,11 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
 // tags/variables that differ between the real activation and the pre-check).
 function ActivationBlockedBeforeAnnounce($player, $sourceObject, $ignoreCost, $ignoreElementRequirement, $consume = true) {
     $cardID = $sourceObject->CardID;
+    // Corhazi Outlook lockdown (opponent's effect): blocks every activation.
+    $lockdownOpponent = ($player == 1) ? 2 : 1;
+    if(GlobalEffectCount($lockdownOpponent, "rw8qq1uwq8-lockdown") > 0) {
+        return true;
+    }
     if(IsFacetLockedName($player, $cardID)) {
         return true;
     }
@@ -2107,18 +2106,199 @@ function ActivationBlockedBeforeAnnounce($player, $sourceObject, $ignoreCost, $i
     if($cardID === "w7o3agvvnc" && !$ignoreCost && !CanPayRestChampionCost($player)) {
         return true;
     }
-    if($cardID === "iohZMWh5v5" && !$ignoreCost) {
-        $blazingThrowWeapons = ZoneSearch("myField", ["WEAPON"]);
-        if(empty($blazingThrowWeapons)) {
-            SetFlashMessage("Blazing Throw requires a weapon to sacrifice.");
+    // Mandatory additional costs that must be payable BEFORE the card is announced (moved onto the
+    // effect stack). DoActivateCard used to discover these AFTER announcing and bare-return, which
+    // left the card stranded on the effect stack.
+    if(!$ignoreCost) {
+        $costBlocker = MandatoryActivationCostBlocker($player, $sourceObject);
+        if($costBlocker !== null) {
+            SetFlashMessage($costBlocker);
             return true;
         }
     }
     return false;
 }
 
-// Activate a card that sits in a banishment zone ("you may activate it from banishment" permissions:
-// Warrior of the Fae Realm, Recursive Confidant, Mordred Burnished Avenger, Seething Intercession, ...).
+// Hand cards that could pay for (or be discarded by) an activation of $sourceObject: every live hand
+// card except the activated card itself when it still sits in hand (it is moved onto the effect
+// stack before any cost is paid, so it can never pay for itself).
+function ActivationHandCardsExcludingSource($player, $sourceObject) {
+    $count = 0;
+    foreach(GetHand($player) as $handObj) {
+        if($handObj === null || !empty($handObj->removed)) continue;
+        ++$count;
+    }
+    if($sourceObject !== null && ($sourceObject->Location ?? "") === "Hand" && empty($sourceObject->removed)) --$count;
+    return max(0, $count);
+}
+
+// The mandatory additional activation costs that DoActivateCard declares after the card is announced
+// and that are impossible to pay in the current board state. Returns the refusal message, or null when
+// the card has no such cost or the cost can be paid. Mirrors (and must stay in sync with) the
+// "1.3 Declaring Costs" branches in DoActivateCard; checking here keeps a refused activation from
+// ever moving the card.
+function MandatoryActivationCostBlocker($player, $sourceObject) {
+    $cardID = $sourceObject->CardID;
+    switch($cardID) {
+        case "cnqsm3n9yv": // Turbo Charge: sacrifice a Powercell
+        case "dlx7mdk0xh": // Atmos Armor Type-Hermes: sacrifice a Powercell
+            if(empty(ZoneSearch("myField", cardSubtypes: ["POWERCELL"]))) return CardName($cardID) . " requires a Powercell to sacrifice.";
+            break;
+        case "io7maIjC4u": // Memory Invocation: banish a floating memory card from the graveyard
+            $gy = GetZone("myGraveyard");
+            for($gi = 0; $gi < count($gy); ++$gi) {
+                if(!$gy[$gi]->removed && HasFloatingMemory($gy[$gi])) return null;
+            }
+            return "Memory Invocation requires a floating memory card in your graveyard.";
+        case "sl7ddcgw05": // Overlord Mk III: sacrifice four Powercells
+            if(count(ZoneSearch("myField", cardSubtypes: ["POWERCELL"])) < 4) return "Overlord Mk III requires four Powercells to sacrifice.";
+            break;
+        case "f0ymeslfpw": // Slime King: banish three Slime allies with different elements from the graveyard
+            $distinctElements = [];
+            $gy = GetZone("myGraveyard");
+            for($gi = 0; $gi < count($gy); ++$gi) {
+                if($gy[$gi]->removed) continue;
+                if(!PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) continue;
+                if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SLIME")) continue;
+                $distinctElements[CardElement($gy[$gi]->CardID)] = true;
+            }
+            if(count($distinctElements) < 3) return "Slime King requires 3 Slime allies with different elements in your graveyard.";
+            break;
+        case "ri955ygd5v": // Devotion's Price: discard two cards
+            if(ActivationHandCardsExcludingSource($player, $sourceObject) < 2) return "Devotion's Price requires two cards to discard.";
+            break;
+        case "uWLKGJz1GY": // Unmake Duality: sacrifice a divine relic regalia
+            if(empty(GetDivineRelicRegaliaChoices($player))) return "Unmake Duality requires a divine relic regalia to sacrifice.";
+            break;
+        case "re911j7fo4": // Broken Promises: sacrifice a Fatestone item or Fatebound ally
+            $field = GetZone("myField");
+            for($fi = 0; $fi < count($field); ++$fi) {
+                if($field[$fi]->removed) continue;
+                $fieldType = EffectiveCardType($field[$fi]);
+                $fieldSubtypes = EffectiveCardSubtypes($field[$fi]);
+                if((PropertyContains($fieldType, "ITEM") && PropertyContains($fieldSubtypes, "FATESTONE"))
+                    || (PropertyContains($fieldType, "ALLY") && PropertyContains($fieldSubtypes, "FATEBOUND"))) return null;
+            }
+            return "Broken Promises requires a Fatestone item or Fatebound ally to sacrifice.";
+        case "4mcnqsm3n9": // Primordial Ritual: sacrifice an ally
+            if(empty(ZoneSearch("myField", ["ALLY"]))) return "Primordial Ritual requires an ally to sacrifice.";
+            break;
+        case "UaUfw7yFTW": // Undeniable Truth: sacrifice an ally
+            if(empty(ZoneSearch("myField", ["ALLY"]))) return "Undeniable Truth requires an ally to sacrifice.";
+            break;
+        case "iohZMWh5v5": // Blazing Throw: sacrifice a weapon
+            if(empty(ZoneSearch("myField", ["WEAPON"]))) return "Blazing Throw requires a weapon to sacrifice.";
+            break;
+        case "TBVLLRPiwP": // Converge Reflections: sacrifice a non-token item or weapon
+            $itemsWeapons = array_merge(ZoneSearch("myField", ["ITEM", "REGALIA"]), ZoneSearch("myField", ["WEAPON"]));
+            foreach($itemsWeapons as $mz) {
+                if(!IsToken(GetZoneObject($mz)->CardID)) return null;
+            }
+            return "Converge Reflections requires a non-token item or weapon to sacrifice.";
+        case "2kkvoqk1l7": // Smash with Obelisk: sacrifice a domain
+            if(empty(ZoneSearch("myField", ["DOMAIN"]))) return "Smash with Obelisk requires a domain you control to sacrifice.";
+            break;
+    }
+    return null;
+}
+
+// Cards that DoActivateCard lets the player pay for WITHOUT sending reserve cards from hand (alternative
+// or partial reserve payments: banish graveyard/material cards, sacrifice allies/herbs/tokens, quest or
+// static counters, rest Fatestones, a free-with-penalty mode ...). The affordability refusal cannot judge
+// these from the hand alone, so it leaves them to the activation's own cost prompts (restricting the
+// refusal to cases that are provably unpayable). Keep in sync with the "1.3 Declaring Costs" branches of
+// DoActivateCard; Kindle cards ($Kindle_Cards) are handled separately by ActivationKindleReduction().
+function ActivationHasAlternativeReserveCost($cardID) {
+    static $alternativeCostCards = [
+        '4GFKcHg9NU' => true, // Argus, All-Seeing Giant: banish Crystal/Eye of Argus from material (3 each)
+        'vxzsjRxMIn' => true, // Zena: banish Harmony/Melody cards from graveyard (2 each)
+        'dcgw05qzza' => true, // Kindling Flare: sacrifice herbs
+        '4qc47amgpp' => true, // Verita: banish Suited allies from graveyard instead of paying reserve
+        'AxHzxEHBHZ' => true, // Edelstein: banish Suited spells from graveyard instead of paying reserve
+        'irt72g89zc' => true, // Brusque Neige: sacrifice an ally instead of paying reserve
+        'cri23mf3vs' => true, // Refabrication: sacrifice two tokens instead of paying reserve
+        '9rbziyasag' => true, // Clash of Fates: remove a quest counter instead of paying reserve
+        'nhk5d19n82' => true, // Winds of Destiny: rest two Fatestones instead of paying reserve
+        'jjGLZKfRn5' => true, // Avatar of Suzaku: remove quest counters toward the reserve cost
+        'o6gb0op3nq' => true, // Resolute Stand: [Level 2+] activate without paying reserve
+        'ooGvrzxTmr' => true, // Piccarda: remove a static counter to pay 1
+        'y4PZCiE26a' => true, // Coronation Ceremony: the unique-ally target choice makes it cost 2 less
+    ];
+    return isset($alternativeCostCards[$cardID]);
+}
+
+// How many reserve points Kindle can pay for: up to N fire cards banished from the graveyard (the
+// class-bonus requirement is deliberately ignored here -- over-estimating only makes the refusal
+// more permissive).
+function ActivationKindleReduction($cardID) {
+    global $Kindle_Cards;
+    if(!isset($Kindle_Cards[$cardID])) return 0;
+    $fireCards = 0;
+    foreach(GetZone("myGraveyard") as $gyObj) {
+        if($gyObj !== null && empty($gyObj->removed) && CardElement($gyObj->CardID) === "FIRE") ++$fireCards;
+    }
+    return min(intval($Kindle_Cards[$cardID]), $fireCards);
+}
+
+// Hand cards a card's mandatory additional cost discards ON TOP of its reserve cost (Devotion's Price).
+function ActivationExtraHandCardCost($cardID) {
+    return $cardID === "ri955ygd5v" ? 2 : 0;
+}
+
+// True when $obj's reserve cost provably cannot be paid, so the activation must be refused before the
+// card moves (setting the flash message). Uses the ACTUAL calculated reserve cost
+// (CalculateActivationReserveCost: class-bonus / efficiency / global discounts and surcharges), counts
+// the hand without the activated card itself plus ready reservable field objects as payment sources,
+// and never refuses an ignoreCost activation or a card with an alternative reserve payment.
+// $sourceZone is the zone the activation will be logged as coming from (modifiers such as Seething
+// Intercession's discount read the activating card's _sourceZone, which only exists once announced).
+function ActivationAffordabilityRefused($player, $obj, $ignoreCost, $sourceZone = null) {
+    if($ignoreCost || $obj === null || !isset($obj->CardID)) return false;
+    if(ActivationHasAlternativeReserveCost($obj->CardID)) return false;
+    $preview = clone $obj;
+    if($sourceZone !== null && $sourceZone !== "") $preview->_sourceZone = $sourceZone;
+    $excludedMzID = null;
+    if(isset($obj->Location) && $obj->Location === "Hand" && isset($obj->mzIndex)) {
+        $excludedMzID = SelectionMetadataMzID($obj);
+    }
+    $needed = PreviewActivateReserveCost($player, $preview) + ActivationExtraHandCardCost($obj->CardID) - ActivationKindleReduction($obj->CardID);
+    if(CountAvailableReservePayments($player, $excludedMzID) >= $needed) return false;
+    if(CanAffordAlternativeActivationCost($player, $obj)) return false;
+    SetFlashMessage("Cannot activate " . CardName($obj->CardID) . ": not enough cards to pay its reserve cost.");
+    return true;
+}
+
+// Whether the activation of $sourceObject ignores its element requirement through a tag or a pending
+// variable -- a non-consuming mirror of the computation at the top of DoActivateCard.
+function ActivationIgnoreElementPreview($sourceObject) {
+    if($sourceObject->CardID === "pn9gQjV3Rb" && GetCounterCount($sourceObject, "_seiryuuBanished") > 0) return true;
+    if(in_array("_devisedConspiracy", $sourceObject->TurnEffects ?? [])) return true;
+    return DecisionQueueController::GetVariable("peerDepthsIgnoreElement") === "YES"
+        || DecisionQueueController::GetVariable("shadowreaverIgnoreElement") === "YES";
+}
+
+// Would DoActivateCard refuse to begin this activation of $obj (a card that is about to be activated
+// from its current zone)? Side-effect free apart from the flash message (restored when $keepFlash):
+// runs the pre-announcement gates, the generated activate prerequisites and the reserve-affordability
+// check WITHOUT moving anything or consuming one-shot effects. ActionMap's hand click uses it so a
+// refused click leaves the whole game state (including the undo snapshot) untouched; the bot uses it
+// to avoid offering clicks that would be refused.
+function ActivationRefusedBeforeStart($player, $obj, $ignoreCost = false, $keepFlash = false) {
+    if($obj === null || !isset($obj->CardID) || !empty($obj->removed)) return true;
+    $existingFlash = $keepFlash ? GetFlashMessage() : null;
+    $refused = false;
+    if(ActivationBlockedBeforeAnnounce($player, $obj, $ignoreCost, ActivationIgnoreElementPreview($obj), false)) {
+        $refused = true;
+    } else if(ActivationAffordabilityRefused($player, $obj, $ignoreCost, isset($obj->Location) ? "my" . $obj->Location : null)) {
+        $refused = true;
+    }
+    if($keepFlash) SetFlashMessage($existingFlash);
+    return $refused;
+}
+
+// Activate a card that sits outside the hand (banishment: "you may activate it from banishment"
+// permissions -- Warrior of the Fae Realm, Recursive Confidant, Mordred Burnished Avenger, Seething
+// Intercession, ...; also the material deck, the deck top and the graveyard).
 // The engine can only activate cards from hand, so the card is moved into hand first -- which used to
 // happen BEFORE anything checked that the activation could begin, so a refused activation (first-turn
 // attack lock, unusable element, failed link/prereq gate, reserve cost that cannot be paid) stranded
@@ -2126,15 +2306,18 @@ function ActivationBlockedBeforeAnnounce($player, $sourceObject, $ignoreCost, $i
 // already paid. This helper validates FIRST and only then commits:
 //   1. ActivationBlockedBeforeAnnounce() -- the very gates DoActivateCard enforces (no side effects)
 //   2. CanActivateCard() -- the generated activate prerequisites (legal target / resource exists, ...)
-//   3. CanAffordCardActivation() -- the reserve cost can be paid (skipped when 'freeReserve')
+//   3. ActivationAffordabilityRefused() -- the reserve cost can be paid (skipped when 'freeReserve')
+//   4. the undo snapshot is saved (turn player in MAIN, or 'saveUndoAnyPhase') -- only now, so a refused
+//      click never overwrites the snapshot taken by the previous real action.
 // A refused click returns false and changes NO state (card, tags, hand, memory, counters, variables
-// all untouched; only the flash message explains why).
+// and the undo snapshot all untouched; only the flash message explains why).
 // $opts: 'ignoreElement' (bool: element requirements are ignored), 'freeReserve' (bool: the reserve cost
-//   is waived), 'vars' (DQ variables stored once the activation is known legal), 'clearVars' (DQ
-//   variables cleared after ActivateCard returns), 'beforeMove' (callable($mzCard): costs paid on the
-//   banished card, e.g. removing a counter), 'afterMove' (callable($handObj): strip permission tags /
-//   pay additional costs on the hand copy), 'afterActivate' (callable($handObj): only when the card
-//   was announced on the effect stack). Returns true when the activation began.
+//   is waived), 'saveUndoAnyPhase' (bool: save the undo snapshot in any phase), 'vars' (DQ variables
+//   stored once the activation is known legal), 'clearVars' (DQ variables cleared after ActivateCard
+//   returns), 'beforeMove' (callable($mzCard): costs paid on the banished card, e.g. removing a
+//   counter), 'afterMove' (callable($handObj): strip permission tags / pay additional costs on the hand
+//   copy), 'afterActivate' (callable($handObj): only when the card was announced on the effect stack).
+//   Returns true when the activation began.
 function ActivateBanishedCard($player, $mzCard, $opts = []) {
     $bObj = GetZoneObject($mzCard);
     if($bObj === null || $bObj->removed) return false;
@@ -2144,12 +2327,16 @@ function ActivateBanishedCard($player, $mzCard, $opts = []) {
         || ($bObj->CardID === "pn9gQjV3Rb" && GetCounterCount($bObj, "_seiryuuBanished") > 0);
     if(ActivationBlockedBeforeAnnounce($player, $bObj, false, $ignoreElement, false)) return false;
     if(function_exists("CanActivateCard") && !CanActivateCard($player, $mzCard, false)) return false;
-    if(empty($opts['freeReserve']) && !CanAffordCardActivation($player, $bObj)) {
-        SetFlashMessage("Cannot activate " . CardName($bObj->CardID) . ": not enough cards to pay its reserve cost.");
-        return false;
-    }
+    // The activation is logged as coming from the override zone when one is given, else (after the card
+    // has been moved into hand) from the hand -- exactly what DoActivateCard records.
+    $activationZone = ($opts['vars']['activationSourceZoneOverride'] ?? "myHand");
+    if(ActivationAffordabilityRefused($player, $bObj, !empty($opts['freeReserve']), $activationZone)) return false;
 
     // The activation is legal: commit.
+    $turnPlayer = &GetTurnPlayer();
+    if($player == $turnPlayer && (GetCurrentPhase() == "MAIN" || !empty($opts['saveUndoAnyPhase']))) {
+        SaveUndoVersion($player);
+    }
     foreach(($opts['vars'] ?? []) as $varName => $varValue) {
         DecisionQueueController::StoreVariable($varName, $varValue);
     }
@@ -2222,6 +2409,15 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // effect stack) lives in ActivationBlockedBeforeAnnounce so ActivateBanishedCard() can run the exact
     // same checks without moving anything.
     if(ActivationBlockedBeforeAnnounce($player, $sourceObject, $ignoreCost, $ignoreElementRequirement, true)) {
+        return;
+    }
+    // A reserve cost that provably cannot be paid refuses the activation here, before the card is
+    // announced: the card would otherwise sit on the effect stack with payment prompts nobody can
+    // answer (the decision queue empties and the card is never resolved). ignoreCost activations and
+    // cards with an alternative reserve payment are never refused (see ActivationAffordabilityRefused).
+    $affordabilityZone = DecisionQueueController::GetVariable("activationSourceZoneOverride");
+    if($affordabilityZone === null || $affordabilityZone === "") $affordabilityZone = strtok($mzCard, "-");
+    if(ActivationAffordabilityRefused($player, $sourceObject, $ignoreCost, $affordabilityZone)) {
         return;
     }
 
@@ -2623,6 +2819,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // NOTE: every mandatory-cost branch below that refuses with `return` once the card has been announced
+    // (Powercell / Memory Invocation / Overlord / Slime King / Devotion's Price / Unmake Duality / Broken
+    // Promises / Primordial Ritual / Undeniable Truth / Blazing Throw / Converge Reflections / Smash with
+    // Obelisk) is now guarded by MandatoryActivationCostBlocker() in ActivationBlockedBeforeAnnounce(), which
+    // refuses BEFORE the card moves. These inner checks are unreachable defence-in-depth: if one of them
+    // ever fired, the announced card would be stranded on the effect stack, so keep the two in sync.
     // 1.3 Declaring Costs - Turbo Charge / Atmos Armor Type-Hermes: sacrifice a Powercell
     if(($obj->CardID === "cnqsm3n9yv" || $obj->CardID === "dlx7mdk0xh") && !$ignoreCost) {
         $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);

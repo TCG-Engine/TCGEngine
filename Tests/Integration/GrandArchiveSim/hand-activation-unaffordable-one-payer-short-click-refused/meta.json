@@ -1,0 +1,30 @@
+{
+    "name": "hand-activation-unaffordable-one-payer-short-click-refused",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:21:24+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "em6eEh9q8y"
+    ],
+    "notes": "Dungeon Guide (reserve 3) with only TWO other hand cards and THREE memory cards. Reserve cost is paid from the hand (the activated card cannot pay for itself) and memory is not a payment source, so the activation is one payer short. The FSM click is accepted as a no-op; the refusal is asserted on state (card still in hand, hand 3, memory 3, effect stack empty, no prompts). Before the fix the card moved onto the effect stack, two payments were taken and the third prompt could never be answered.",
+    "semanticCoverage": {
+        "testedCards": [
+            "em6eEh9q8y"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "A card whose reserve cost cannot be paid cannot be activated (the activation is illegal and changes nothing).",
+            "Reserve cost is paid by sending cards from your hand to memory; memory cards cannot pay it."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Clicking a hand card whose reserve cost the player cannot pay was never gated by affordability: DoActivateCard() moved the card onto the effect stack and queued one payment prompt per reserve point, and once the hand ran out of payers the decision queue emptied and the card sat on the effect stack forever (never resolving, never reaching the graveyard). The ActionMap 'myHand' click also overwrote the undo snapshot on every click, refused or not. Fix: new ActivationRefusedBeforeStart() runs the pre-announcement gates (ActivationBlockedBeforeAnnounce), the activate prerequisites and a reserve-affordability check on the CLICKED card before anything moves, and DoActivateCard() applies the same affordability gate (skipped for ignoreCost activations and for cards with an alternative reserve payment) as a backstop; a refused click changes no state and shows a flash message.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myHand'; DoActivateCard(); new ActivationRefusedBeforeStart(), ActivationAffordabilityRefused()",
+        "verification": "Per-step state dump: before the fix the refused click moves the card out of hand onto the effect stack (hand count drops, EffectStack 1) and queues reserve-payment prompts the hand cannot satisfy; after the fix hand/memory/effect stack are identical to the previous step.",
+        "fixCommit": "TBD"
+    }
+}

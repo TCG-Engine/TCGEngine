@@ -1,0 +1,24 @@
+{
+    "name": "ignore-cost-free-activation-with-empty-hand-is-not-refused",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:21:28+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ki6fxxgmue",
+        "sesw2ugmnm"
+    ],
+    "notes": "ignoreCost path: Bertha, Spry Howitzer (ki6fxxgmue) is played for real with a Level 2 RANGER champion (patched to Diana, Deadly Duelist); her On Enter looks at the top 5 cards and activates Backstep (reserve 2) without paying its costs. The three payments for Bertha empty the hand, so a plain activation of Backstep would be unaffordable: the affordability gate must be skipped for ignoreCost activations. Backstep resolves (target: the champion) and ends in the graveyard with memory unchanged.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ki6fxxgmue",
+            "sesw2ugmnm"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Activate a Ranger action card with reserve cost 2 or less from among them without paying its costs."
+        ]
+    }
+}

@@ -185,6 +185,11 @@ function GABotLegalActions($gameName, $player) {
     foreach ($hand as $i => $obj) {
         if ($obj === null || !empty($obj->removed)) continue;
         if (function_exists('CanActivateCardForSelection') && CanActivateCardForSelection($player, $obj, false)) {
+            // The engine refuses a hand click it cannot start or pay for (ActionMap -> ActivationRefusedBeforeStart:
+            // pre-announcement gates, mandatory additional costs, unaffordable reserve cost). Offering such a
+            // click would only produce a no-op the controller then has to exclude and retry, so skip it here
+            // (the flash message the check sets is preserved).
+            if (function_exists('ActivationRefusedBeforeStart') && ActivationRefusedBeforeStart($player, $obj, false, true)) continue;
             $actions[] = ['playerID' => $player, 'mode' => 10002, 'cardID' => "myHand-$i!FSM!"];
         }
     }

@@ -1,0 +1,32 @@
+{
+    "name": "hand-activation-unaffordable-leftover-after-real-play-click-refused",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:21:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "em6eEh9q8y",
+        "px60u5n1do"
+    ],
+    "notes": "The reported repro with real actions: a Dungeon Guide is played from a 5-card hand (step 1) and paid with the three cards after it (steps 2-4; the optional On Enter is declined at step 5), leaving the Fluffy Shopkeep as the only card in hand. Clicking it (reserve 3, no payer left) is accepted as a no-op and refused on state: the card stays in hand, memory/effect stack unchanged, no prompts. Clicking it a second time (step 7) lets the engine re-load the saved state, and the undo snapshot (myVersions-0, taken when the Guide was played) is byte-identical to the one before the refused clicks (a refused click that saved a snapshot would have replaced it, but right after the saving click myVersions-0 still shows the stale removed slot, hence the extra step). Before the fix step 6 moved the Fluffy Shopkeep onto the effect stack with an empty decision queue (stranded forever) and overwrote the undo snapshot.",
+    "semanticCoverage": {
+        "testedCards": [
+            "em6eEh9q8y",
+            "px60u5n1do"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "A card whose reserve cost cannot be paid cannot be activated (the activation is illegal and changes nothing).",
+            "Reserve cost is paid by sending cards from your hand to memory; memory cards cannot pay it."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Clicking a hand card whose reserve cost the player cannot pay was never gated by affordability: DoActivateCard() moved the card onto the effect stack and queued one payment prompt per reserve point, and once the hand ran out of payers the decision queue emptied and the card sat on the effect stack forever (never resolving, never reaching the graveyard). The ActionMap 'myHand' click also overwrote the undo snapshot on every click, refused or not. Fix: new ActivationRefusedBeforeStart() runs the pre-announcement gates (ActivationBlockedBeforeAnnounce), the activate prerequisites and a reserve-affordability check on the CLICKED card before anything moves, and DoActivateCard() applies the same affordability gate (skipped for ignoreCost activations and for cards with an alternative reserve payment) as a backstop; a refused click changes no state and shows a flash message.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myHand'; DoActivateCard(); new ActivationRefusedBeforeStart(), ActivationAffordabilityRefused()",
+        "verification": "Per-step state dump: before the fix the refused click moves the card out of hand onto the effect stack (hand count drops, EffectStack 1) and queues reserve-payment prompts the hand cannot satisfy; after the fix hand/memory/effect stack are identical to the previous step.",
+        "fixCommit": "TBD"
+    }
+}

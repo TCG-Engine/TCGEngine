@@ -1,0 +1,29 @@
+{
+    "name": "banish-activation-refused-click-keeps-undo-snapshot",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:21:34+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "5Xfg69S1XX"
+    ],
+    "notes": "Undo snapshot: the ActionMap 'myBanish' branch called SaveUndoVersion() on every click, including refused ones, so a refused click overwrote the undo snapshot with the CURRENT state (making Undo a no-op instead of rolling back the last real action). Dungeon Guide is played for real (steps 1-5; the hand click saves the snapshot), then the banished Striking Tides (tagged _seethingIntercession, seeded) is clicked on turn 1, where the opening player may not activate attacks (step 6) and once more (step 7). The second click matters for observability: right after a saving action myVersions-0 still shows the stale removed slot, so only after the engine re-loads the state does it show the live snapshot. myVersions-0 is asserted byte-identical to the step-5 snapshot at step 7. Before the fix step 6 replaced the snapshot with the post-play state.",
+    "semanticCoverage": {
+        "testedCards": [
+            "5Xfg69S1XX"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Attack cards cannot be activated by the opening player on turn 1."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The ActionMap 'myBanish'/'theirBanish' cases saved an undo snapshot at the top of the case on every click, including refused ones and clicks on cards with no activation permission, overwriting the snapshot taken by the previous real action. Fix: the snapshot is taken inside ActivateBanishedCard() only after the activation has been validated, immediately before anything moves.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myBanish'/'theirBanish'; ActivateBanishedCard()",
+        "verification": "Dumping myVersions-0 per step: before the fix the step-6 snapshot differs from the step-5 one (it holds the post-play state); after the fix both are identical.",
+        "fixCommit": "TBD"
+    }
+}

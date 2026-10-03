@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **629**
+Cards linked to an existing fixture: **636**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1858**
+Implemented cards still needing semantic coverage: **1851**
 
 ## Mechanic groups
 
@@ -50,7 +50,6 @@ Implemented cards still needing semantic coverage: **1858**
 | Torch Marshal (`izgiu216l2`) | ALLY | 1 | cost, combat, condition | Ciel, Mirage's Grave | — |
 | Undercurrent Vantage (`xicxo661ly`) | ACTION | 1 | cost, zone-movement, status | Diana, Moonpiercer | — |
 | Aetheric Calibration (`7l9th23niu`) | ACTION | 1 | zone-movement, condition | Diana, Moonpiercer | — |
-| Devotion's Price (`ri955ygd5v`) | ACTION | 1 | cost, draw-discard | Ciel, Mirage's Grave | — |
 | Diana, Judgment's Arrow (`wiztyu6o24`) | CHAMPION | 1 | draw-discard, trigger | Diana, Moonpiercer | — |
 | Drown in Aether (`gnfbp3g8iw`) | ACTION | 1 | targeting, status | Diana, Moonpiercer | — |
 | Grande Aiguille (`6ihv6hbvye`) | REGALIA,WEAPON | 1 | counter, condition | Ciel, Mirage's Grave | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **1858**
 | Incarnate Majesty (`7dl5j4lx6x`) | ACTION | 2 | cost, zone-movement | — | incarnate-majesty-banish-spirit |
 | Cardiac Vessel (`5xjzPh6l2M`) | UNIQUE,PHANTASIA | 3 | cost, damage, draw-discard, trigger, condition | — | — |
 | Golden Measure Patisserie (`Bq2kynKJvx`) | UNIQUE,DOMAIN | 3 | cost, targeting, counter, token, trigger | — | — |
+| Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |

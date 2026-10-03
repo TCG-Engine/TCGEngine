@@ -1,0 +1,29 @@
+{
+    "name": "devotions-price-cannot-discard-two-click-refused",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:21:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ri955ygd5v"
+    ],
+    "notes": "Devotion's Price (ri955ygd5v, UMBRA spell, reserve 2) has the mandatory additional cost 'discard two cards'. Only ONE other card is in hand, so it cannot be paid. The old post-announce check counted the card that had just been moved onto the effect stack (a stale removed slot) and let the activation continue into a discard prompt listing two slots for a one-card hand; the card sat on the effect stack. Now refused before anything moves.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ri955ygd5v"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate Devotion's Price, discard two cards."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED (see memory-invocation-no-floating-memory-click-refused). Additionally the old post-announce check counted the just-announced card as still in hand (ZoneSearch returns the removed-but-unspliced slot), so a hand of one other card passed the 'two cards to discard' test and produced a discard prompt over a stale index.",
+        "affectedFunction": "Custom/GameLogic.php DoActivateCard(); MandatoryActivationCostBlocker()",
+        "verification": "Per-step state dump: before the fix EffectStack = [ri955ygd5v] with DQ MZCHOOSE:myHand-0&myHand-1 over a one-card hand; after the fix the card stays in hand and nothing is queued.",
+        "fixCommit": "TBD"
+    }
+}

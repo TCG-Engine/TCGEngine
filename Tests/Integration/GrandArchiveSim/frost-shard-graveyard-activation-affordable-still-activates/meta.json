@@ -1,0 +1,23 @@
+{
+    "name": "frost-shard-graveyard-activation-affordable-still-activates",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:27:32+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "jnsl7ddcgw"
+    ],
+    "notes": "Positive pin: the same graveyard activation of Frost Shard with two payers in hand activates for two reserve payments, deals its 2 damage to the opposing champion and is banished as it resolves.",
+    "semanticCoverage": {
+        "testedCards": [
+            "jnsl7ddcgw"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "damage"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If you leveled up this turn, you may activate Frost Shard from your graveyard; banish it as it resolves."
+        ]
+    }
+}

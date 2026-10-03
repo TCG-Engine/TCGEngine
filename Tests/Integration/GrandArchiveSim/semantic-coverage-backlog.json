@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T15:59:16+00:00",
+    "generatedAt": "2026-10-03T16:28:58+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 629,
+        "cardsWithExistingFixtures": 636,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1858,
+        "cardsNeedingSemanticCoverage": 1851,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -490,24 +490,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "ri955ygd5v",
-            "name": "Devotion's Price",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -4828,22 +4810,6 @@
             "priority": 22
         },
         {
-            "cardId": "cnqsm3n9yv",
-            "name": "Turbo Charge",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "f8urrqtjot",
             "name": "Turbulent Bullet",
             "type": "REGALIA,ITEM",
@@ -6222,26 +6188,6 @@
             "priority": 15
         },
         {
-            "cardId": "px60u5n1do",
-            "name": "Fluffy Shopkeep",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "7lr2jiu66i",
             "name": "Forged Scalemail",
             "type": "REGALIA,ITEM",
@@ -6312,25 +6258,6 @@
                 "zone-movement",
                 "counter",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "jnsl7ddcgw",
-            "name": "Frost Shard",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -11599,24 +11526,6 @@
             "priority": 14
         },
         {
-            "cardId": "yhu0djqlp8",
-            "name": "Lead with Force",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "gwve1d47o7",
             "name": "Lena, Dorumegia's Herald",
             "type": "UNIQUE,ALLY",
@@ -14910,23 +14819,6 @@
                 "targeting",
                 "zone-movement",
                 "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "ki6fxxgmue",
-            "name": "Bertha, Spry Howitzer",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -23444,22 +23336,6 @@
             "mechanics": [
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "ymhDYTPfi1",
-            "name": "Gaia's Blessing",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -36211,10 +36087,18 @@
                 "condition"
             ],
             "existingFixtures": [
-                "dungeon-guide-enter-banish-memory-levelup"
+                "dungeon-guide-enter-banish-memory-levelup",
+                "hand-activation-exactly-affordable-still-activates",
+                "hand-activation-unaffordable-leftover-after-real-play-click-refused",
+                "hand-activation-unaffordable-no-payers-click-refused",
+                "hand-activation-unaffordable-one-payer-short-click-refused"
             ],
             "semanticFixtures": [
-                "dungeon-guide-enter-banish-memory-levelup"
+                "dungeon-guide-enter-banish-memory-levelup",
+                "hand-activation-exactly-affordable-still-activates",
+                "hand-activation-unaffordable-leftover-after-real-play-click-refused",
+                "hand-activation-unaffordable-no-payers-click-refused",
+                "hand-activation-unaffordable-one-payer-short-click-refused"
             ],
             "starterDecks": [
                 "Lorraine Starter Deck (Prelude)",
@@ -38230,10 +38114,12 @@
                 "status"
             ],
             "existingFixtures": [
-                "backstep-distant-draw"
+                "backstep-distant-draw",
+                "ignore-cost-free-activation-with-empty-hand-is-not-refused"
             ],
             "semanticFixtures": [
-                "backstep-distant-draw"
+                "backstep-distant-draw",
+                "ignore-cost-free-activation-with-empty-hand-is-not-refused"
             ],
             "starterDecks": [
                 "Diana, Moonpiercer",
@@ -38324,9 +38210,11 @@
                 "counter"
             ],
             "existingFixtures": [
+                "broken-promises-no-fatestone-or-fatebound-click-refused",
                 "broken-promises-sacrifice-draw-quest"
             ],
             "semanticFixtures": [
+                "broken-promises-no-fatestone-or-fatebound-click-refused",
                 "broken-promises-sacrifice-draw-quest"
             ],
             "starterDecks": [
@@ -39455,10 +39343,12 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "memory-invocation-draw"
+                "memory-invocation-draw",
+                "memory-invocation-no-floating-memory-click-refused"
             ],
             "semanticFixtures": [
-                "memory-invocation-draw"
+                "memory-invocation-draw",
+                "memory-invocation-no-floating-memory-click-refused"
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
@@ -41762,6 +41652,28 @@
             ],
             "starterDecks": [
                 "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "ri955ygd5v",
+            "name": "Devotion's Price",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "devotions-price-cannot-discard-two-click-refused"
+            ],
+            "semanticFixtures": [
+                "devotions-price-cannot-discard-two-click-refused"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -45940,6 +45852,26 @@
             "priority": 43
         },
         {
+            "cardId": "cnqsm3n9yv",
+            "name": "Turbo Charge",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "turbo-charge-no-powercell-click-refused"
+            ],
+            "semanticFixtures": [
+                "turbo-charge-no-powercell-click-refused"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "rYyOEGB3tD",
             "name": "Turm, Schwartz Rook",
             "type": "UNIQUE,ALLY",
@@ -45978,6 +45910,55 @@
             ],
             "semanticFixtures": [
                 "divine-comedy-once-per-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "px60u5n1do",
+            "name": "Fluffy Shopkeep",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hand-activation-unaffordable-leftover-after-real-play-click-refused"
+            ],
+            "semanticFixtures": [
+                "hand-activation-unaffordable-leftover-after-real-play-click-refused"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "jnsl7ddcgw",
+            "name": "Frost Shard",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "frost-shard-graveyard-activation-affordable-still-activates",
+                "frost-shard-graveyard-activation-unaffordable-click-refused"
+            ],
+            "semanticFixtures": [
+                "frost-shard-graveyard-activation-affordable-still-activates",
+                "frost-shard-graveyard-activation-unaffordable-click-refused"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46098,6 +46079,30 @@
             "priority": 34
         },
         {
+            "cardId": "yhu0djqlp8",
+            "name": "Lead with Force",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hand-activation-class-bonus-discount-affordable-at-discounted-cost",
+                "hand-activation-class-bonus-inactive-printed-cost-unaffordable-click-refused"
+            ],
+            "semanticFixtures": [
+                "hand-activation-class-bonus-discount-affordable-at-discounted-cost",
+                "hand-activation-class-bonus-inactive-printed-cost-unaffordable-click-refused"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "ooGvrzxTmr",
             "name": "Piccarda, Night Rider",
             "type": "UNIQUE,ALLY",
@@ -46134,16 +46139,39 @@
                 "condition"
             ],
             "existingFixtures": [
+                "banish-activation-refused-click-keeps-undo-snapshot",
                 "seething-intercession-banished-attack-activatable-when-legal-costs-two-damage",
                 "seething-intercession-banished-attack-first-turn-click-refused-no-self-damage"
             ],
             "semanticFixtures": [
+                "banish-activation-refused-click-keeps-undo-snapshot",
                 "seething-intercession-banished-attack-activatable-when-legal-costs-two-damage",
                 "seething-intercession-banished-attack-first-turn-click-refused-no-self-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 34
+        },
+        {
+            "cardId": "ki6fxxgmue",
+            "name": "Bertha, Spry Howitzer",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "ignore-cost-free-activation-with-empty-hand-is-not-refused"
+            ],
+            "semanticFixtures": [
+                "ignore-cost-free-activation-with-empty-hand-is-not-refused"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
         },
         {
             "cardId": "pal7cpvn96",
@@ -46247,6 +46275,26 @@
             ],
             "semanticFixtures": [
                 "found-power-decline-second-discard-still-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "ymhDYTPfi1",
+            "name": "Gaia's Blessing",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "gaias-blessing-deck-top-ally-unaffordable-click-refused"
+            ],
+            "semanticFixtures": [
+                "gaias-blessing-deck-top-ally-unaffordable-click-refused"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

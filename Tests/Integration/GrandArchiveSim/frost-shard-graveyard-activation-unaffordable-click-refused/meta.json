@@ -1,0 +1,31 @@
+{
+    "name": "frost-shard-graveyard-activation-unaffordable-click-refused",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:27:22+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "jnsl7ddcgw"
+    ],
+    "notes": "Frost Shard (jnsl7ddcgw, WATER MAGE spell, reserve 2) may be activated from the graveyard on a turn the champion leveled up (flag seeded; the champion is patched to a MAGE champion with the Spirit of Water in its lineage). The hand is empty, so the reserve cost cannot be paid. The click is accepted as a no-op; the refusal is asserted on state. Before the fix the ActionMap 'myGraveyard' branch moved the card out of the graveyard into hand, announced it and left it on the effect stack with 2 payment prompts and no payer.",
+    "semanticCoverage": {
+        "testedCards": [
+            "jnsl7ddcgw"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If you leveled up this turn, you may activate Frost Shard from your graveyard.",
+            "A card whose reserve cost cannot be paid cannot be activated (the activation is illegal and changes nothing)."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The ActionMap 'myGraveyard' branches that activate a graveyard card (Frost Shard, Three Visits) moved it into hand and activated it without checking the activation could begin or be paid for; an unaffordable click left the card on the effect stack. Fix: the branches use ActivateBanishedCard() (validate first, then move); the generic ephemerate branch runs the pre-announcement gates and activate prerequisites before the card leaves the graveyard.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myGraveyard'",
+        "verification": "Per-step state dump: before the fix EffectStack = [jnsl7ddcgw], graveyard 1 -> 0, hand 0; after the fix the card stays in the graveyard.",
+        "fixCommit": "TBD"
+    }
+}

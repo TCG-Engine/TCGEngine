@@ -22455,6 +22455,303 @@ $fixtures['seething-intercession-banished-attack-activatable-when-legal-costs-tw
     ],
 ];
 
+// ===========================================================================
+// Hand activation that cannot begin or be paid for is refused BEFORE anything moves
+// ===========================================================================
+// ENGINE BUG (fixed, same class as the banishment fix 67eceea9): clicking a hand card whose reserve
+// cost the player cannot pay was never gated by affordability. DoActivateCard() moved the card onto
+// the effect stack and queued one payment prompt per reserve point; once the hand ran out of
+// payers the decision queue emptied and the card sat on the effect stack forever (never resolving,
+// never reaching the graveyard). Mandatory additional costs whose own check lived AFTER the card was
+// announced (Memory Invocation, Broken Promises, Devotion's Price, ...) stranded the card the same way
+// when refused. The hand click now refuses first: card still in hand, hand/memory unchanged, nothing
+// on the effect stack, no payment prompt, no undo snapshot overwritten, flash message gives the reason.
+// Reserve payment sources are the hand (minus the activated card) plus ready reservable field objects;
+// memory cards are not a payment source.
+
+// Dungeon Guide (em6eEh9q8y, NORM ally, reserve 3) alone in an otherwise empty hand: zero payers.
+$fixtures['hand-activation-unaffordable-no-payers-click-refused'] = [
+    'testedCards' => ['em6eEh9q8y'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'], // start from an empty hand (7 cards -> graveyard)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (reserve 3) -> p1 myHand-0
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: click the Dungeon Guide with nothing to pay with: accepted as a no-op, refusal asserted on state
+    ],
+];
+
+// Dungeon Guide with two other hand cards (reserve 3) and THREE memory cards: one payer short, and the
+// memory cards must not count as payers.
+$fixtures['hand-activation-unaffordable-one-payer-short-click-refused'] = [
+    'testedCards' => ['em6eEh9q8y'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (reserve 3) -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p1 myHand-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p1 myHand-2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // three memory cards: NOT a payment source
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: click the Dungeon Guide (2 payers for reserve 3): accepted as a no-op, refusal asserted on state
+    ],
+];
+
+// The reported "pays a few reserve cards, then stuck" repro, driven with real actions: a Dungeon Guide
+// is played for real (3 payments; the 4 seeded Guides/Fluffy leave ONE card in hand) and the leftover
+// card, whose reserve cost 3 can no longer be paid, is clicked. The refused click must also leave the
+// undo snapshot taken when the Dungeon Guide was played untouched.
+$fixtures['hand-activation-unaffordable-leftover-after-real-play-click-refused'] = [
+    'testedCards' => ['em6eEh9q8y', 'px60u5n1do'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep (the leftover) -> p1 myHand-4
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: play a Dungeon Guide
+        ...mrdPay(1, 3), // 2-4: reserve payments -> the Fluffy Shopkeep is the only card left in hand
+        mrdAns(1, 'NO'), // 5: decline the Dungeon Guide's optional On Enter
+        mrdPlay(1, 'myHand-0'), // 6: click the Fluffy Shopkeep (reserve 3, no payer left): accepted as a no-op, refusal asserted on state
+        mrdPlay(1, 'myHand-0'), // 7: click it again (the engine re-reads the saved state between actions, so the undo snapshot is observable here)
+    ],
+];
+
+// Positive pin: the same card with EXACTLY enough payers (3 other hand cards for reserve 3) still activates.
+$fixtures['hand-activation-exactly-affordable-still-activates'] = [
+    'testedCards' => ['em6eEh9q8y'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (reserve 3) -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: play the Dungeon Guide
+        ...mrdPay(1, 3), // 2-4: reserve payments (every other hand card goes to memory)
+        mrdAns(1, 'NO'), // 5: decline the Dungeon Guide's optional On Enter
+    ],
+];
+
+// Cost modifiers: the affordability check uses the ACTUAL calculated reserve cost, not the printed one.
+// Lead with Force (yhu0djqlp8, TAMER skill, printed reserve 3, [Class Bonus] costs 1 less). The champion is
+// patched to a MAGE/TAMER Nameless Champion so the Class Bonus is active: with only TWO other hand cards
+// the printed cost 3 is unaffordable but the discounted cost 2 is exactly affordable.
+$fixtures['hand-activation-class-bonus-discount-affordable-at-discounted-cost'] = [
+    'testedCards' => ['yhu0djqlp8'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'K7jYO9IibV', 'Subcards' => ['tafqldAGRF']]], // Nameless Champion (MAGE, TAMER): Class Bonus active for TAMER cards
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'yhu0djqlp8'], // Lead with Force (printed reserve 3, discounted 2) -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: play Lead with Force (discounted reserve 2, two payers)
+        ...mrdPay(1, 2), // 2-3: the two reserve payments
+        mrdPass(1), // 4: pass the fast-action opportunity
+    ],
+];
+
+// The same hand WITHOUT the Class Bonus: the printed cost 3 applies and is not affordable -> refused.
+$fixtures['hand-activation-class-bonus-inactive-printed-cost-unaffordable-click-refused'] = [
+    'testedCards' => ['yhu0djqlp8'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'yhu0djqlp8'], // Lead with Force (printed reserve 3; the Spirit of Water champion has no TAMER Class Bonus) -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: click Lead with Force (reserve 3, two payers): accepted as a no-op, refusal asserted on state
+    ],
+];
+
+// ignoreCost activation: the affordability gate is skipped. Bertha, Spry Howitzer (ki6fxxgmue): "[Class Bonus][Level 2+]
+// On Enter: look at the top 5 cards of your deck; you may activate a Ranger action with reserve cost 2 or less from among
+// them without paying its costs." Bertha is played for real (3 payments empty the hand), then Backstep (reserve 2) is
+// activated for free with ZERO cards left in hand -- a plain activation would be unaffordable.
+$fixtures['ignore-cost-free-activation-with-empty-hand-is-not-refused'] = [
+    'testedCards' => ['ki6fxxgmue', 'sesw2ugmnm'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7ozuj68m69', 'Subcards' => ['tafqldAGRF']]], // Diana, Deadly Duelist (level 2 RANGER): Class Bonus + Level 2+
+        ['player' => 1, 'deckTop' => ['sesw2ugmnm']], // Backstep (Ranger action, reserve 2) on top of the deck
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ki6fxxgmue'], // Bertha, Spry Howitzer -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: play Bertha
+        ...mrdPay(1, 3), // 2-4: reserve payments (hand is now empty)
+        mrdAns(1, 'myTempZone-4'), // 5: On Enter: activate Backstep (the former top card of the deck) for free
+        mrdAns(1, 'Bottom=px60u5n1do,px60u5n1do,px60u5n1do,em6eEh9q8y'), // 6: keep the default order of the other four cards on the bottom of the deck; Backstep is then activated without paying its cost
+        mrdAns(1, 'myField-0'), // 7: Backstep's target: your champion
+    ],
+];
+
+// Mandatory additional cost whose legality was only checked AFTER the card was announced. Memory Invocation (io7maIjC4u,
+// WATER spell, reserve 3): "As an additional cost, banish a card with floating memory from your graveyard." With no such
+// card in the graveyard the old code announced the card (moved it onto the effect stack), then refused and returned,
+// stranding it. Three payers are in hand so the reserve cost itself is affordable.
+$fixtures['memory-invocation-no-floating-memory-click-refused'] = [
+    'testedCards' => ['io7maIjC4u'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myBanish'], // empty hand (7 cards -> banishment, so the graveyard holds no floating-memory card)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'io7maIjC4u'], // Memory Invocation -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: click Memory Invocation with no floating-memory card in the graveyard: accepted as a no-op, refusal asserted on state
+    ],
+];
+
+// Broken Promises (re911j7fo4, FIRE skill, reserve 1): "As an additional cost, sacrifice a Fatestone item or Fatebound ally."
+// Nothing of the kind is on the field. The champion is patched to a FIRE champion so the element is usable.
+$fixtures['broken-promises-no-fatestone-or-fatebound-click-refused'] = [
+    'testedCards' => ['re911j7fo4'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '8eyeqhc37y', 'Subcards' => ['tafqldAGRF']]], // Polkhawk, Boisterous Riot (FIRE)
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 're911j7fo4'], // Broken Promises -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: click Broken Promises with no Fatestone item / Fatebound ally to sacrifice: accepted as a no-op, refusal asserted on state
+    ],
+];
+
+// Devotion's Price (ri955ygd5v, UMBRA spell, reserve 2): "As an additional cost, discard two cards." With one other card in
+// hand the additional cost cannot be paid. The champion is patched to an UMBRA champion so the element is usable.
+$fixtures['devotions-price-cannot-discard-two-click-refused'] = [
+    'testedCards' => ['ri955ygd5v'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'iq4d5vettc', 'Subcards' => ['tafqldAGRF']]], // Diana, Duskstalker (UMBRA)
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ri955ygd5v'], // Devotion's Price -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // the only other card
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: click Devotion's Price with one other card in hand: accepted as a no-op, refusal asserted on state
+    ],
+];
+
+// Turbo Charge (cnqsm3n9yv, CLERIC skill, reserve 3): "As an additional cost, sacrifice a Powercell." No Powercell on the
+// field. This one is ALREADY refused before the card moves (its generated activate prerequisite is consulted by the hand
+// click) -- the fixture pins that the Powercell cards were never stranded by the dead post-announce check.
+$fixtures['turbo-charge-no-powercell-click-refused'] = [
+    'testedCards' => ['cnqsm3n9yv'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cnqsm3n9yv'], // Turbo Charge -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: click Turbo Charge with no Powercell to sacrifice: accepted as a no-op, refusal asserted on state
+    ],
+];
+
+// Non-hand source: Gaia's Blessing (ymhDYTPfi1): "you may activate the top card of your deck if it is an Animal or Beast
+// ally." The top card is a Fluffy Shopkeep (reserve 3) and the hand is empty: the click used to move the card from the
+// deck into hand, announce it and leave it stranded on the effect stack; it must now be refused with the card still on
+// top of the deck.
+$fixtures['gaias-blessing-deck-top-ally-unaffordable-click-refused'] = [
+    'testedCards' => ['ymhDYTPfi1'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ymhDYTPfi1'], // Gaia's Blessing on the field -> p1 myField-1
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'deckTop' => ['px60u5n1do']], // Fluffy Shopkeep (Animal ally, reserve 3) on top of the deck
+    ],
+    'actions' => [
+        mrdPlay(1, 'myDeck-0'), // 1: click the top card of the deck with an empty hand: accepted as a no-op, refusal asserted on state
+    ],
+];
+
+// Non-hand source (graveyard): Frost Shard (jnsl7ddcgw, WATER MAGE spell, reserve 2): "[Class Bonus] If you leveled up this
+// turn, you may activate Frost Shard from your graveyard; banish it as it resolves." The champion is patched to a MAGE champion
+// (with the Spirit of Water in its lineage for the WATER element) and the "leveled up this turn" flag is seeded. With an empty
+// hand the reserve cost 2 cannot be paid: the click used to move the card out of the graveyard into hand, announce it and leave
+// it stranded on the effect stack; it must now be refused with the card still in the graveyard.
+$fixtures['frost-shard-graveyard-activation-unaffordable-click-refused'] = [
+    'testedCards' => ['jnsl7ddcgw'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'K7jYO9IibV', 'Subcards' => ['tafqldAGRF']]], // Nameless Champion (MAGE, TAMER) with Spirit of Water in its lineage
+        ['player' => 1, 'globalEffect' => 'LEVELED_UP_THIS_TURN'], // "you leveled up this turn" (the real trigger is a level-up; seeded)
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myBanish'], // empty hand (7 cards -> banishment)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'jnsl7ddcgw'], // Frost Shard -> p1 graveyard-0
+    ],
+    'actions' => [
+        mrdPlay(1, 'myGraveyard-0'), // 1: click Frost Shard in the graveyard with an empty hand: accepted as a no-op, refusal asserted on state
+    ],
+];
+
+// Positive pin for the same graveyard activation with two payers in hand: it is activated (2 payments) and resolves.
+$fixtures['frost-shard-graveyard-activation-affordable-still-activates'] = [
+    'testedCards' => ['jnsl7ddcgw'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'K7jYO9IibV', 'Subcards' => ['tafqldAGRF']]],
+        ['player' => 1, 'globalEffect' => 'LEVELED_UP_THIS_TURN'],
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myBanish'],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'jnsl7ddcgw'], // Frost Shard -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+    ],
+    'actions' => [
+        mrdPlay(1, 'myGraveyard-0'), // 1: activate Frost Shard from the graveyard
+        ...mrdPay(1, 2), // 2-3: reserve payments
+        mrdAns(1, 'theirField-0'), // 4: Frost Shard's target: the opposing champion
+    ],
+];
+
+// Undo snapshot: a REFUSED banishment click must not overwrite the undo snapshot. A Striking Tides tagged
+// _seethingIntercession sits in banishment; Dungeon Guide is played for real (the hand click saves the undo snapshot), then
+// the banished attack is clicked on turn 1 (first-turn attack lock: refused). The snapshot must be unchanged.
+$fixtures['banish-activation-refused-click-keeps-undo-snapshot'] = [
+    'testedCards' => ['5Xfg69S1XX'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'qrxQGA1pc6', 'setProperties' => ['TurnEffects' => ['_seethingIntercession']]], // Striking Tides banished by Seething Intercession -> p1 banish-0 (tag seeded)
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: play the Dungeon Guide (saves the undo snapshot)
+        ...mrdPay(1, 3), // 2-4: reserve payments
+        mrdAns(1, 'NO'), // 5: decline the optional On Enter
+        mrdPlay(1, 'myBanish-0'), // 6: click the banished attack on turn 1 (opening-player attack lock): accepted as a no-op, refusal asserted on state
+        mrdPlay(1, 'myBanish-0'), // 7: click it again (the engine re-reads the saved state between actions, so the undo snapshot is observable here)
+    ],
+];
+
 // --- Warrior of the Fae Realm: Stealth -- an attack cannot target it ---
 // Warrior of the Fae Realm (eRcqucBKhX): "Stealth". Player 2 attacks with a Dungeon Guide; the
 // attack-target prompt lists only player 1's champion and answering with the Warrior is rejected, so
