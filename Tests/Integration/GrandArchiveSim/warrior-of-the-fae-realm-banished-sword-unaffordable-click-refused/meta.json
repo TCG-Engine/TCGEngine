@@ -26,6 +26,6 @@
         "summary": "FIXED. The ActionMap 'myBanish' (and 'theirBanish') branches that let a player activate a tagged banished card moved it into hand and tore down its permission BEFORE confirming that the activation could begin. When the activation was then refused (first-turn attack lock, element requirement, link/prereq gate) or could not be paid for, the card was stranded in hand or on the effect stack, its permission tag was lost, and pre-activation side effects (Seething Intercession / Desperate Cavalier 2 unpreventable damage, Shattering Discharge charge counter, Limitless Defiance champion wake-up) had already happened. Fix: new shared ActivateBanishedCard() validates first through the same gates DoActivateCard uses (new ActivationBlockedBeforeAnnounce(), now also called by DoActivateCard) plus CanActivateCard prereqs and CanAffordCardActivation, and only then moves/activates; a refused click changes no state.",
         "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myBanish'/'theirBanish' move-to-hand-then-ActivateCard branches; DoActivateCard() pre-announce gates; new ActivationBlockedBeforeAnnounce(), ActivateBanishedCard()",
         "verification": "Per-step state dump: before the fix the step-14 click moves the Striking Tides from banishment onto the effect stack with 3 pending ReserveCard decisions and 1 hand card; after the fix banish/hand/memory/effect stack are identical to step 13. Break/restore recorded in the fix commit message.",
-        "fixCommit": "TBD"
+        "fixCommit": "67eceea9"
     }
 }
