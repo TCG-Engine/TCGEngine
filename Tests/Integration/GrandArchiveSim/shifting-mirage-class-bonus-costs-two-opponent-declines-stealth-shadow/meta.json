@@ -28,7 +28,7 @@
         "status": "fixed",
         "summary": "FIXED. Shifting Mirage's printed '[Class Bonus] This card costs 1 less to activate' was applied TWICE: once by the generated activationCostModifierAbilities['hmjr33ijq6:0'] (via ApplyGeneratedReserveLikeCostModifiers) and once more by the hand-maintained ClassBonusActivateCostReduction() table in Custom/GameLogic.php (which still listed hmjr33ijq6). With the Class Bonus active, printed reserve 3 became 1 instead of 2 (live probe on the old fixture's initial state: ApplyGeneratedReserveLikeCostModifiers(...,3,'activate') = 2, ClassBonusActivateCostReduction('hmjr33ijq6') = 1, CalculateActivationReserveCost() = 1). Fix: the three cards that already carry a generated '[Class Bonus] -1' activation modifier (hmjr33ijq6 Shifting Mirage, n0esog2898 Bolster Ranks, gn1b2sbrq9 Echoic Guard) were removed from the ClassBonusActivateCostReduction() table so the generated modifier is the single source of the discount; the exact cost (2 with the Class Bonus, 3 without) is now pinned. A sweep of all 65 table entries found no other card double-discounted (Galestream Insight usa6qyq3ka correctly keeps its table entry because its generated modifier is only the separate [Memory 4+] discount).",
         "affectedFunction": "Custom/GameLogic.php ClassBonusActivateCostReduction() table (entries for hmjr33ijq6, n0esog2898, gn1b2sbrq9 removed) consumed by CalculateActivationReserveCost()",
-        "fixCommit": "TBD"
+        "fixCommit": "c29a3de5"
     },
     "additionalEngineBugs": [
         {
