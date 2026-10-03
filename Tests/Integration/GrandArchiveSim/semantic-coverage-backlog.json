@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T15:43:43+00:00",
+    "generatedAt": "2026-10-03T15:59:16+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 628,
+        "cardsWithExistingFixtures": 629,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1859,
+        "cardsNeedingSemanticCoverage": 1858,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -12976,24 +12976,6 @@
                 "cost",
                 "targeting",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "5Xfg69S1XX",
-            "name": "Seething Intercession",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -34901,6 +34883,7 @@
             "existingFixtures": [
                 "mordred-burnished-avenger-activate-banished-attack-this-turn",
                 "mordred-burnished-avenger-banished-attack-not-activatable-next-turn",
+                "mordred-burnished-avenger-banished-off-element-attack-click-refused",
                 "mordred-burnished-avenger-inherited-first-attack-costs-two-less",
                 "mordred-burnished-avenger-levelup-enter-banish-top-attack",
                 "mordred-burnished-avenger-levelup-enter-decline-banish",
@@ -34910,6 +34893,7 @@
             "semanticFixtures": [
                 "mordred-burnished-avenger-activate-banished-attack-this-turn",
                 "mordred-burnished-avenger-banished-attack-not-activatable-next-turn",
+                "mordred-burnished-avenger-banished-off-element-attack-click-refused",
                 "mordred-burnished-avenger-inherited-first-attack-costs-two-less",
                 "mordred-burnished-avenger-levelup-enter-banish-top-attack",
                 "mordred-burnished-avenger-levelup-enter-decline-banish",
@@ -35333,6 +35317,7 @@
                 "warrior-of-the-fae-realm-banished-sword-activatable-on-later-turn",
                 "warrior-of-the-fae-realm-banished-sword-not-activatable-same-turn",
                 "warrior-of-the-fae-realm-banished-sword-not-activatable-without-warrior",
+                "warrior-of-the-fae-realm-banished-sword-unaffordable-click-refused",
                 "warrior-of-the-fae-realm-enter-banish-sword-from-hand-draw-memory",
                 "warrior-of-the-fae-realm-enter-banish-sword-from-memory",
                 "warrior-of-the-fae-realm-enter-decline-banish",
@@ -35343,6 +35328,7 @@
                 "warrior-of-the-fae-realm-banished-sword-activatable-on-later-turn",
                 "warrior-of-the-fae-realm-banished-sword-not-activatable-same-turn",
                 "warrior-of-the-fae-realm-banished-sword-not-activatable-without-warrior",
+                "warrior-of-the-fae-realm-banished-sword-unaffordable-click-refused",
                 "warrior-of-the-fae-realm-enter-banish-sword-from-hand-draw-memory",
                 "warrior-of-the-fae-realm-enter-banish-sword-from-memory",
                 "warrior-of-the-fae-realm-enter-decline-banish",
@@ -46130,6 +46116,30 @@
             "semanticFixtures": [
                 "piccarda-decline-all-static-removal-pays-full-cost",
                 "piccarda-decline-further-static-removal-pays-rest-of-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "5Xfg69S1XX",
+            "name": "Seething Intercession",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "seething-intercession-banished-attack-activatable-when-legal-costs-two-damage",
+                "seething-intercession-banished-attack-first-turn-click-refused-no-self-damage"
+            ],
+            "semanticFixtures": [
+                "seething-intercession-banished-attack-activatable-when-legal-costs-two-damage",
+                "seething-intercession-banished-attack-first-turn-click-refused-no-self-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

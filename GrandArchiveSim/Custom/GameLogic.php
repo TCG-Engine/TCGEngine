@@ -1627,17 +1627,21 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 SaveUndoVersion($playerID);
             }
+            // Every branch below activates a banished card through ActivateBanishedCard(), which
+            // validates the activation (the same pre-announcement gates DoActivateCard enforces, the
+            // activate prerequisites and affordability) BEFORE moving the card or paying any
+            // pre-activation cost. A refused click leaves the card in banishment with its permission
+            // tag intact and falls through (nothing changes). Each branch only supplies what is
+            // specific to its permission: variables, tag stripping, and pre-activation side effects.
             $peerObj = GetZoneObject($actionCard);
             if($playerID == $turnPlayer && $peerObj !== null && !$peerObj->removed && in_array("PEER_DEPTHS_PLAYABLE", $peerObj->TurnEffects ?? [], true)) {
-                DecisionQueueController::StoreVariable("activationSourceZoneOverride", "myBanish");
-                DecisionQueueController::StoreVariable("peerDepthsIgnoreElement", "YES");
-                $handObj = MZMove($playerID, $actionCard, "myHand");
-                if($handObj !== null) {
-                    $handObj->TurnEffects = array_values(array_filter($handObj->TurnEffects ?? [], fn($e) => $e !== "PEER_DEPTHS_PLAYABLE" && $e !== "PEER_DEPTHS_EXPIRES_END_PHASE"));
-                }
-                $hand = &GetHand($playerID);
-                ActivateCard($playerID, "myHand-" . (count($hand)-1), false);
-                return "PLAY";
+                if(ActivateBanishedCard($playerID, $actionCard, [
+                    'ignoreElement' => true,
+                    'vars' => ['activationSourceZoneOverride' => 'myBanish', 'peerDepthsIgnoreElement' => 'YES'],
+                    'afterMove' => function($handObj) {
+                        $handObj->TurnEffects = array_values(array_filter($handObj->TurnEffects ?? [], fn($e) => $e !== "PEER_DEPTHS_PLAYABLE" && $e !== "PEER_DEPTHS_EXPIRES_END_PHASE"));
+                    },
+                ])) return "PLAY";
             }
             // Naia, Diviner of Fortunes (jdmthh88rx): activate spell from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
@@ -1653,12 +1657,7 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                         }
                     }
                     if($naiaOnField) {
-                        // Move to hand and activate normally
-                        $handObj = MZMove($playerID, $actionCard, "myHand");
-                        $hand = &GetHand($playerID);
-                        $handIdx = count($hand) - 1;
-                        ActivateCard($playerID, "myHand-" . $handIdx, false);
-                        return "PLAY";
+                        if(ActivateBanishedCard($playerID, $actionCard)) return "PLAY";
                     }
                 }
             }
@@ -1668,23 +1667,18 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                 // Three Visits (w7o3agvvnc): [CB] activate from banishment, put on bottom on resolve
                 if($bObj !== null && !$bObj->removed && $bObj->CardID === "w7o3agvvnc") {
                     if(IsClassBonusActive($playerID, ["CLERIC", "MAGE"]) && CanPayRestChampionCost($playerID)) {
-                        MZMove($playerID, $actionCard, "myHand");
-                        $hand = &GetHand($playerID);
-                        $handIdx = count($hand) - 1;
-                            DecisionQueueController::StoreVariable("threeVisitsActivationSource", "BANISH");
-                        ActivateCard($playerID, "myHand-" . $handIdx, false);
-                            DecisionQueueController::ClearVariable("threeVisitsActivationSource");
-                        return "PLAY";
+                        if(ActivateBanishedCard($playerID, $actionCard, [
+                            'vars' => ['threeVisitsActivationSource' => 'BANISH'],
+                            'clearVars' => ['threeVisitsActivationSource'],
+                        ])) return "PLAY";
                     }
                 }
                 if($bObj !== null && !$bObj->removed && $bObj->CardID === "uutqo9hm33"
                     && GetCounterCount($bObj, "charge") > 0) {
-                    RemoveCounters($playerID, $actionCard, "charge", 1);
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard, [
+                        // The charge counter is only spent once the activation is known to be legal.
+                        'beforeMove' => function($mz) use ($playerID) { RemoveCounters($playerID, $mz, "charge", 1); },
+                    ])) return "PLAY";
                 }
             }
             // Seiryuu, Azure Dragon (tf5f2n38g0): activate Arcane Blast from banishment (generated by On Attack)
@@ -1692,11 +1686,7 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                 $bObj = GetZoneObject($actionCard);
                 if($bObj !== null && !$bObj->removed && GetCounterCount($bObj, "_seiryuuBanished") > 0) {
                     SaveUndoVersion($playerID);
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard)) return "PLAY";
                 }
             }
             // Kongming, Erudite Strategist (0i139x5eub): may play banished card if SC faces matching direction
@@ -1705,11 +1695,8 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                 if($bObj !== null && !$bObj->removed && is_array($bObj->TurnEffects)) {
                     foreach(["NORTH", "EAST", "SOUTH", "WEST"] as $d) {
                         if(in_array("KONGMING_" . $d, $bObj->TurnEffects) && GetShiftingCurrents($playerID) === $d) {
-                            $handObj = MZMove($playerID, $actionCard, "myHand");
-                            $hand = &GetHand($playerID);
-                            $handIdx = count($hand) - 1;
-                            ActivateCard($playerID, "myHand-" . $handIdx, false);
-                            return "PLAY";
+                            if(ActivateBanishedCard($playerID, $actionCard)) return "PLAY";
+                            break;
                         }
                     }
                 }
@@ -1718,68 +1705,55 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if($bObj !== null && !$bObj->removed && in_array('_ignitionDraw', $bObj->TurnEffects ?? [])) {
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard)) return "PLAY";
                 }
             }
             // Mordred, Burnished Avenger (OWCdWq3mXY): activate tagged attack card from banishment this turn
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if($bObj !== null && !$bObj->removed && in_array('_mordredBurnished', $bObj->TurnEffects ?? [])) {
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard)) return "PLAY";
                 }
             }
             // Desperate Cavalier (slmer06rku): tagged banished cards may be activated for 2 self-damage.
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if($bObj !== null && !$bObj->removed && in_array('_desperateCavalier', $bObj->TurnEffects ?? [])) {
-                    MZMove($playerID, $actionCard, "myHand");
-                    $champMZ = FindChampionMZ($playerID);
-                    if($champMZ !== null) {
-                        DealUnpreventableDamage($playerID, $actionCard, $champMZ, 2);
-                    }
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard, [
+                        // The 2 unpreventable damage is an additional cost: only paid for a legal activation.
+                        'afterMove' => function($handObj) use ($playerID, $actionCard) {
+                            $champMZ = FindChampionMZ($playerID);
+                            if($champMZ !== null) {
+                                DealUnpreventableDamage($playerID, $actionCard, $champMZ, 2);
+                            }
+                        },
+                    ])) return "PLAY";
                 }
             }
             // Seething Intercession (5Xfg69S1XX): tagged banished cards may be activated for 2 self-damage.
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if($bObj !== null && !$bObj->removed && in_array('_seethingIntercession', $bObj->TurnEffects ?? [])) {
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    if($handObj !== null) {
-                        $handObj->TurnEffects = array_values(array_diff($handObj->TurnEffects ?? [], ['_seethingIntercession']));
-                    }
-                    $champMZ = FindChampionMZ($playerID);
-                    if($champMZ !== null) {
-                        DealUnpreventableDamage($playerID, $actionCard, $champMZ, 2);
-                    }
-                    DecisionQueueController::StoreVariable("activationSourceZoneOverride", "myBanish");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard, [
+                        'vars' => ['activationSourceZoneOverride' => 'myBanish'],
+                        'afterMove' => function($handObj) use ($playerID, $actionCard) {
+                            $handObj->TurnEffects = array_values(array_diff($handObj->TurnEffects ?? [], ['_seethingIntercession']));
+                            $champMZ = FindChampionMZ($playerID);
+                            if($champMZ !== null) {
+                                DealUnpreventableDamage($playerID, $actionCard, $champMZ, 2);
+                            }
+                        },
+                    ])) return "PLAY";
                 }
             }
             // Devised Conspiracy (dih0LPaigc): tagged banished cards may be played ignoring elemental requirements.
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if($bObj !== null && !$bObj->removed && in_array('_devisedConspiracy', $bObj->TurnEffects ?? [])) {
-                    DecisionQueueController::StoreVariable("activationSourceZoneOverride", "myBanish");
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard, [
+                        'ignoreElement' => true,
+                        'vars' => ['activationSourceZoneOverride' => 'myBanish'],
+                    ])) return "PLAY";
                 }
             }
             // Limitless Defiance (9gRhhR0bGR): tagged Warrior action/attack cards may be activated
@@ -1787,52 +1761,40 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if($bObj !== null && !$bObj->removed && in_array('_limitlessDefiance', $bObj->TurnEffects ?? [])) {
-                    DecisionQueueController::StoreVariable("activationSourceZoneOverride", "myBanish");
-                    DecisionQueueController::StoreVariable("limitlessDefianceFreeReserve", "YES");
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    $champMZ = FindChampionMZ($playerID);
-                    if($champMZ !== null) WakeupCard($playerID, $champMZ);
-                    DecisionQueueController::ClearVariable("limitlessDefianceFreeReserve");
-                    return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard, [
+                        'freeReserve' => true,
+                        'vars' => ['activationSourceZoneOverride' => 'myBanish', 'limitlessDefianceFreeReserve' => 'YES'],
+                        'clearVars' => ['limitlessDefianceFreeReserve'],
+                        'afterActivate' => function($handObj) use ($playerID) {
+                            $champMZ = FindChampionMZ($playerID);
+                            if($champMZ !== null) WakeupCard($playerID, $champMZ);
+                        },
+                    ])) return "PLAY";
                 }
             }
             // Recursive Confidant (KfC8fwcF2T): activate tagged Warrior attack from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if($bObj !== null && !$bObj->removed && in_array('_recursiveConfidant', $bObj->TurnEffects ?? [])) {
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard)) return "PLAY";
                 }
             }
             // Ashen Riffle (fjpimrl974): activate tagged Suited non-action cards from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if($bObj !== null && !$bObj->removed && in_array('_ashenRiffle', $bObj->TurnEffects ?? [])) {
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard)) return "PLAY";
                 }
             }
             // Warrior of the Fae Realm (eRcqucBKhX): activate tagged Sword attacks from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if(WarriorFaeRealmCanActivateBanished($bObj)) {
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    if($handObj !== null) {
-                        $handObj->TurnEffects = array_values(array_diff($handObj->TurnEffects ?? [], ['_warriorFaeRealm', '_warriorFaeRealmLater']));
-                    }
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard, [
+                        'afterMove' => function($handObj) {
+                            $handObj->TurnEffects = array_values(array_diff($handObj->TurnEffects ?? [], ['_warriorFaeRealm', '_warriorFaeRealmLater']));
+                        },
+                    ])) return "PLAY";
                 }
             }
             break;
@@ -1844,13 +1806,10 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if(ShadowreaverCanPlayBanishedCard($playerID, $bObj)) {
-                    DecisionQueueController::StoreVariable("activationSourceZoneOverride", "theirBanish");
-                    DecisionQueueController::StoreVariable("shadowreaverIgnoreElement", "YES");
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
-                    return "PLAY";
+                    if(ActivateBanishedCard($playerID, $actionCard, [
+                        'ignoreElement' => true,
+                        'vars' => ['activationSourceZoneOverride' => 'theirBanish', 'shadowreaverIgnoreElement' => 'YES'],
+                    ])) return "PLAY";
                 }
             }
             break;
@@ -2058,6 +2017,155 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
     return "";
 }
 
+// Pre-announcement legality gates of an activation (DoActivateCard). Returns true when the activation
+// is REFUSED. With $consume=false the check has no side effects other than SetFlashMessage (it never
+// consumes one-shot bypass effects), so callers that must not disturb state on refusal -- the
+// ActionMap "activate from banishment" clicks -- can ask "would DoActivateCard refuse this?" before
+// moving the card anywhere. $ignoreElementRequirement is computed by the caller (it depends on
+// tags/variables that differ between the real activation and the pre-check).
+function ActivationBlockedBeforeAnnounce($player, $sourceObject, $ignoreCost, $ignoreElementRequirement, $consume = true) {
+    $cardID = $sourceObject->CardID;
+    if(IsFacetLockedName($player, $cardID)) {
+        return true;
+    }
+    if(IsDreamFairyLockedCardID($player, $cardID)) {
+        SetFlashMessage("Dream Fairy is preventing that card from being played.");
+        return true;
+    }
+
+    // Attack cards cannot be activated by the opening player on turn 1.
+    if(!CanActivateAttackCardNow($player, $cardID, true)) {
+        return true;
+    }
+
+    // Blessed Clergy (a3pmmloejo): restrict to 2 card plays during next turn
+    if(GlobalEffectCount($player, "a3pmmloejo-restrict") > 0) {
+        if(CardActivatedCallCount($player) >= 2) {
+            return true; // Already played 2 cards this turn
+        }
+    }
+
+    // Invoke Dominance (PLljzdiMmq): can't activate non-ally cards this turn
+    if(GlobalEffectCount($player, "PLljzdiMmq_NO_NONALLY") > 0) {
+        $cardType = CardType($cardID);
+        if(!PropertyContains($cardType, "ALLY")) {
+            return true;
+        }
+    }
+
+    // 1.5 Ally Link pre-check: if the card has Ally Link, there must be at least
+    // one ally on the field to link to. If not, the activation is illegal.
+    global $AllyLink_Cards;
+    if(isset($AllyLink_Cards[$cardID]) && empty(GetAllyLinkTargets($player))) return true; // No valid Link target
+
+    global $ChampionLink_Cards;
+    if(isset($ChampionLink_Cards[$cardID]) && empty(ZoneSearch("myField", ["CHAMPION"]))) return true; // No valid Link target
+
+    global $UnitLink_Cards;
+    if(isset($UnitLink_Cards[$cardID])) {
+        $unitTargets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("myField", ["CHAMPION"]));
+        if(empty($unitTargets)) return true; // No valid Link target
+    }
+
+    global $NonChampionObjectLink_Cards;
+    if(isset($NonChampionObjectLink_Cards[$cardID]) && empty(GetNonChampionObjectLinkTargets($player))) return true;
+
+    // Nightmare Coil (3fe3c97s71): only while your champion is distant, and only during recollection.
+    // The recollection opportunity window is open while the phase code is "BREC" (BeforeRecollection) --
+    // "REC" (RecollectionPhase()) resolves synchronously with no player-facing window.
+    if($cardID === "3fe3c97s71") {
+        if(GetCurrentPhase() !== "BREC") return true;
+        $champMZ = FindChampionMZ($player);
+        if($champMZ === null) return true;
+        $champObj = GetZoneObject($champMZ);
+        if($champObj === null || !IsDistant($champObj)) return true;
+    }
+
+    // Weapon Link pre-check: Sheath of Faceted Lapis (0cnn1eh85y) requires a Warrior weapon on field
+    // Fang of Dragon's Breath (iebo5fu381) requires a Polearm weapon on field
+    global $WeaponLink_Cards;
+    if(isset($WeaponLink_Cards[$cardID]) && empty(GetWeaponLinkTargets($player, $cardID))) return true; // No valid weapon
+
+    // Command pre-check: COMMAND subtype attack needs a matching ally on field
+    if(PropertyContains(CardSubtypes($cardID), "COMMAND")) {
+        if(PropertyContains(CardSubtypes($cardID), "CHESSMAN")) {
+            $commandAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]);
+        } else if(PropertyContains(CardSubtypes($cardID), "AUTOMATON")) {
+            $commandAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["AUTOMATON"]);
+        } else {
+            $commandAllies = [];
+        }
+        if(empty($commandAllies)) return true; // No ally to command
+    }
+
+    if(!$ignoreElementRequirement && !CanPlayerUseCardElement($player, $cardID, $consume, true)) {
+        return true;
+    }
+    if(GlobalEffectCount($player, "DIVINE_COMEDY_EVEN_LOCK") > 0 && intval(CardCost_reserve($cardID)) % 2 === 0) return true;
+
+    // Three Visits (w7o3agvvnc): mandatory additional cost -- rest your champion.
+    if($cardID === "w7o3agvvnc" && !$ignoreCost && !CanPayRestChampionCost($player)) {
+        return true;
+    }
+    if($cardID === "iohZMWh5v5" && !$ignoreCost) {
+        $blazingThrowWeapons = ZoneSearch("myField", ["WEAPON"]);
+        if(empty($blazingThrowWeapons)) {
+            SetFlashMessage("Blazing Throw requires a weapon to sacrifice.");
+            return true;
+        }
+    }
+    return false;
+}
+
+// Activate a card that sits in a banishment zone ("you may activate it from banishment" permissions:
+// Warrior of the Fae Realm, Recursive Confidant, Mordred Burnished Avenger, Seething Intercession, ...).
+// The engine can only activate cards from hand, so the card is moved into hand first -- which used to
+// happen BEFORE anything checked that the activation could begin, so a refused activation (first-turn
+// attack lock, unusable element, failed link/prereq gate, reserve cost that cannot be paid) stranded
+// the card in hand, lost its permission tag and left pre-activation costs (self-damage, counters)
+// already paid. This helper validates FIRST and only then commits:
+//   1. ActivationBlockedBeforeAnnounce() -- the very gates DoActivateCard enforces (no side effects)
+//   2. CanActivateCard() -- the generated activate prerequisites (legal target / resource exists, ...)
+//   3. CanAffordCardActivation() -- the reserve cost can be paid (skipped when 'freeReserve')
+// A refused click returns false and changes NO state (card, tags, hand, memory, counters, variables
+// all untouched; only the flash message explains why).
+// $opts: 'ignoreElement' (bool: element requirements are ignored), 'freeReserve' (bool: the reserve cost
+//   is waived), 'vars' (DQ variables stored once the activation is known legal), 'clearVars' (DQ
+//   variables cleared after ActivateCard returns), 'beforeMove' (callable($mzCard): costs paid on the
+//   banished card, e.g. removing a counter), 'afterMove' (callable($handObj): strip permission tags /
+//   pay additional costs on the hand copy), 'afterActivate' (callable($handObj): only when the card
+//   was announced on the effect stack). Returns true when the activation began.
+function ActivateBanishedCard($player, $mzCard, $opts = []) {
+    $bObj = GetZoneObject($mzCard);
+    if($bObj === null || $bObj->removed) return false;
+
+    $ignoreElement = !empty($opts['ignoreElement'])
+        || in_array("_devisedConspiracy", $bObj->TurnEffects ?? [])
+        || ($bObj->CardID === "pn9gQjV3Rb" && GetCounterCount($bObj, "_seiryuuBanished") > 0);
+    if(ActivationBlockedBeforeAnnounce($player, $bObj, false, $ignoreElement, false)) return false;
+    if(function_exists("CanActivateCard") && !CanActivateCard($player, $mzCard, false)) return false;
+    if(empty($opts['freeReserve']) && !CanAffordCardActivation($player, $bObj)) {
+        SetFlashMessage("Cannot activate " . CardName($bObj->CardID) . ": not enough cards to pay its reserve cost.");
+        return false;
+    }
+
+    // The activation is legal: commit.
+    foreach(($opts['vars'] ?? []) as $varName => $varValue) {
+        DecisionQueueController::StoreVariable($varName, $varValue);
+    }
+    if(isset($opts['beforeMove'])) $opts['beforeMove']($mzCard);
+    $handObj = MZMove($player, $mzCard, "myHand");
+    if($handObj !== null && isset($opts['afterMove'])) $opts['afterMove']($handObj);
+    $hand = &GetHand($player);
+    $handIdx = count($hand) - 1;
+    ActivateCard($player, "myHand-" . $handIdx, false);
+    foreach(($opts['clearVars'] ?? []) as $varName) {
+        DecisionQueueController::ClearVariable($varName);
+    }
+    if($handObj !== null && $handObj->removed && isset($opts['afterActivate'])) $opts['afterActivate']($handObj);
+    return true;
+}
+
 function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // Check if opponent has Corhazi Outlook lockdown effect
     $opponent = ($player == 1) ? 2 : 1;
@@ -2083,92 +2191,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::StoreVariable("wasBrewed", "NO");
     }
 
-    if(IsFacetLockedName($player, $sourceObject->CardID)) {
-        return;
-    }
-    if(IsDreamFairyLockedCardID($player, $sourceObject->CardID)) {
-        SetFlashMessage("Dream Fairy is preventing that card from being played.");
-        return;
-    }
-
-    // Attack cards cannot be activated by the opening player on turn 1.
-    if(!CanActivateAttackCardNow($player, $sourceObject->CardID, true)) {
-        return;
-    }
-
-    // Blessed Clergy (a3pmmloejo): restrict to 2 card plays during next turn
-    if(GlobalEffectCount($player, "a3pmmloejo-restrict") > 0) {
-        if(CardActivatedCallCount($player) >= 2) {
-            return; // Already played 2 cards this turn
-        }
-    }
-
-    // Invoke Dominance (PLljzdiMmq): can't activate non-ally cards this turn
-    if(GlobalEffectCount($player, "PLljzdiMmq_NO_NONALLY") > 0) {
-        $cardType = CardType($sourceObject->CardID);
-        if(!PropertyContains($cardType, "ALLY")) {
-            return;
-        }
-    }
-
-    // 1.5 Ally Link pre-check: if the card has Ally Link, there must be at least
-    // one ally on the field to link to. If not, the activation is illegal.
-    global $AllyLink_Cards;
+    // Link-style flags are reused below when the link targets are declared (pure lookups).
+    global $AllyLink_Cards, $ChampionLink_Cards, $UnitLink_Cards, $NonChampionObjectLink_Cards, $WeaponLink_Cards;
     $hasAllyLink = isset($AllyLink_Cards[$sourceObject->CardID]);
-    if($hasAllyLink) {
-        $allyTargets = GetAllyLinkTargets($player);
-        if(empty($allyTargets)) return; // No valid Link target â€” block activation
-    }
-
-    global $ChampionLink_Cards;
     $hasChampionLink = isset($ChampionLink_Cards[$sourceObject->CardID]);
-    if($hasChampionLink) {
-        $championTargets = ZoneSearch("myField", ["CHAMPION"]);
-        if(empty($championTargets)) return; // No valid Link target â€” block activation
-    }
-
-    global $UnitLink_Cards;
     $hasUnitLink = isset($UnitLink_Cards[$sourceObject->CardID]);
-    if($hasUnitLink) {
-        $unitTargets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("myField", ["CHAMPION"]));
-        if(empty($unitTargets)) return; // No valid Link target â€” block activation
-    }
-
-    global $NonChampionObjectLink_Cards;
     $hasNonChampionObjectLink = isset($NonChampionObjectLink_Cards[$sourceObject->CardID]);
-    if($hasNonChampionObjectLink && empty(GetNonChampionObjectLinkTargets($player))) return;
-
-    // Nightmare Coil (3fe3c97s71): only while your champion is distant, and only during recollection.
-    // The recollection opportunity window is open while the phase code is "BREC" (BeforeRecollection) --
-    // "REC" (RecollectionPhase()) resolves synchronously with no player-facing window.
-    if($sourceObject->CardID === "3fe3c97s71") {
-        if(GetCurrentPhase() !== "BREC") return;
-        $champMZ = FindChampionMZ($player);
-        if($champMZ === null) return;
-        $champObj = GetZoneObject($champMZ);
-        if($champObj === null || !IsDistant($champObj)) return;
-    }
-
-    // Weapon Link pre-check: Sheath of Faceted Lapis (0cnn1eh85y) requires a Warrior weapon on field
-    // Fang of Dragon's Breath (iebo5fu381) requires a Polearm weapon on field
-    global $WeaponLink_Cards;
     $hasWeaponLink = isset($WeaponLink_Cards[$sourceObject->CardID]);
-    if($hasWeaponLink) {
-        $weaponTargets = GetWeaponLinkTargets($player, $sourceObject->CardID);
-        if(empty($weaponTargets)) return; // No valid weapon â€” block activation
-    }
-
-    // Command pre-check: COMMAND subtype attack needs a matching ally on field
-    if(PropertyContains(CardSubtypes($sourceObject->CardID), "COMMAND")) {
-        if(PropertyContains(CardSubtypes($sourceObject->CardID), "CHESSMAN")) {
-            $commandAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]);
-        } else if(PropertyContains(CardSubtypes($sourceObject->CardID), "AUTOMATON")) {
-            $commandAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["AUTOMATON"]);
-        } else {
-            $commandAllies = [];
-        }
-        if(empty($commandAllies)) return; // No ally to command â€” block activation
-    }
 
     $ignoreElementRequirement = (
         $sourceObject->CardID === "pn9gQjV3Rb" &&
@@ -2188,21 +2217,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($shadowreaverIgnoreElement !== null && $shadowreaverIgnoreElement !== "") {
         DecisionQueueController::ClearVariable("shadowreaverIgnoreElement");
     }
-    if(!$ignoreElementRequirement && !CanPlayerUseCardElement($player, $sourceObject->CardID, true, true)) {
-        return;
-    }
-    if(GlobalEffectCount($player, "DIVINE_COMEDY_EVEN_LOCK") > 0 && intval(CardCost_reserve($sourceObject->CardID)) % 2 === 0) return;
 
-    // Three Visits (w7o3agvvnc): mandatory additional cost â€” rest your champion.
-    if($sourceObject->CardID === "w7o3agvvnc" && !$ignoreCost && !CanPayRestChampionCost($player)) {
+    // Every legality gate that can refuse the activation BEFORE the card is announced (moved to the
+    // effect stack) lives in ActivationBlockedBeforeAnnounce so ActivateBanishedCard() can run the exact
+    // same checks without moving anything.
+    if(ActivationBlockedBeforeAnnounce($player, $sourceObject, $ignoreCost, $ignoreElementRequirement, true)) {
         return;
-    }
-    if($sourceObject->CardID === "iohZMWh5v5" && !$ignoreCost) {
-        $blazingThrowWeapons = ZoneSearch("myField", ["WEAPON"]);
-        if(empty($blazingThrowWeapons)) {
-            SetFlashMessage("Blazing Throw requires a weapon to sacrifice.");
-            return;
-        }
     }
 
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.

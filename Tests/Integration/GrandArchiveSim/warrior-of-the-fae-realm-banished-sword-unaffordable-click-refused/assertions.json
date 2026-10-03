@@ -1,0 +1,14 @@
+[
+    {"step":13,"type":"card_property_equals","mzId":"p1Banish-0","property":"TurnEffects","value":"[\"_warriorFaeRealm\",\"_warriorFaeRealmLater\"]","semantic":true,"label":"Precondition: the banished Striking Tides carries both Warrior permission tags (produced by the real On Enter + a turn change)"},
+    {"step":13,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":1,"semantic":true,"label":"Precondition: player 1 has only ONE card in hand after spending the rest on a Dungeon Guide"},
+    {"step":13,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3},
+    {"step":13,"type":"zone_count","zone":"EffectStack","viewerPlayerID":1,"value":0},
+    {"step":14,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"The unaffordable click leaves the Striking Tides in banishment (it is not moved to hand or onto the stack)"},
+    {"step":14,"type":"card_property_equals","mzId":"p1Banish-0","property":"TurnEffects","value":"[\"_warriorFaeRealm\",\"_warriorFaeRealmLater\"]","semantic":true,"label":"The banish permission tags are intact after the refused click, so the player can still activate it once they can pay"},
+    {"step":14,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1},
+    {"step":14,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":1,"semantic":true,"label":"Hand unchanged: no extra card appeared in hand"},
+    {"step":14,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3},
+    {"step":14,"type":"zone_count","zone":"EffectStack","viewerPlayerID":1,"value":0,"semantic":true,"label":"Nothing was put on the effect stack for the unpayable activation"},
+    {"step":14,"type":"decision_queue_empty","player":"all","semantic":true,"label":"No reserve-payment prompts were queued for the refused activation"},
+    {"step":14,"type":"flash_message_contains","value":"not enough cards to pay its reserve cost","semantic":true,"label":"The refusal reason shown to the player is the unaffordable reserve cost"}
+]

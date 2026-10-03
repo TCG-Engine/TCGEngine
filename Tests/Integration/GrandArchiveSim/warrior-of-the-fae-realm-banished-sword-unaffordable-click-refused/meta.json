@@ -1,0 +1,31 @@
+{
+    "name": "warrior-of-the-fae-realm-banished-sword-unaffordable-click-refused",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:54:34+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "eRcqucBKhX"
+    ],
+    "notes": "Warrior of the Fae Realm (eRcqucBKhX): \"As long as you control CARDNAME, you may activate the banished card on a later turn.\" Real play: the Warrior is played on turn 1 (3 payments) and banishes a Striking Tides from memory (step 5); on turn 3 player 1 plays a Dungeon Guide (steps 9-13), leaving ONE card in hand, then clicks the banished Striking Tides (cost 3). The click is accepted by the engine as a no-op (an FSM click is not rejected), so the refusal is asserted on state: the card stays in banishment with both permission tags, hand/memory/effect stack are unchanged and no payment prompt is queued. Before the fix the card left banishment, sat on the effect stack and 3 payment prompts were queued with 1 card to pay with. CAVEAT: the same unaffordable click from HAND is not gated by the engine (separate, unfixed).",
+    "semanticCoverage": {
+        "testedCards": [
+            "eRcqucBKhX"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you control Warrior of the Fae Realm, you may activate the banished card on a later turn.",
+            "A card whose reserve cost cannot be paid cannot be activated (the activation is illegal and changes nothing)."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The ActionMap 'myBanish' (and 'theirBanish') branches that let a player activate a tagged banished card moved it into hand and tore down its permission BEFORE confirming that the activation could begin. When the activation was then refused (first-turn attack lock, element requirement, link/prereq gate) or could not be paid for, the card was stranded in hand or on the effect stack, its permission tag was lost, and pre-activation side effects (Seething Intercession / Desperate Cavalier 2 unpreventable damage, Shattering Discharge charge counter, Limitless Defiance champion wake-up) had already happened. Fix: new shared ActivateBanishedCard() validates first through the same gates DoActivateCard uses (new ActivationBlockedBeforeAnnounce(), now also called by DoActivateCard) plus CanActivateCard prereqs and CanAffordCardActivation, and only then moves/activates; a refused click changes no state.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myBanish'/'theirBanish' move-to-hand-then-ActivateCard branches; DoActivateCard() pre-announce gates; new ActivationBlockedBeforeAnnounce(), ActivateBanishedCard()",
+        "verification": "Per-step state dump: before the fix the step-14 click moves the Striking Tides from banishment onto the effect stack with 3 pending ReserveCard decisions and 1 hand card; after the fix banish/hand/memory/effect stack are identical to step 13. Break/restore recorded in the fix commit message.",
+        "fixCommit": "TBD"
+    }
+}

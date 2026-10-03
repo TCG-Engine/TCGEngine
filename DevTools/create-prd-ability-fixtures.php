@@ -22357,6 +22357,104 @@ $fixtures['warrior-of-the-fae-realm-banished-sword-not-activatable-without-warri
     ],
 ];
 
+// --- Banishment activation: a click that cannot be PAID for is refused without consuming the permission ---
+// Warrior of the Fae Realm (eRcqucBKhX): "As long as you control CARDNAME, you may activate the
+// banished card on a later turn." ENGINE BUG (fixed): the ActionMap "myBanish" branches moved the
+// clicked card into hand BEFORE checking that the activation could begin, so an unaffordable click
+// stranded the card (stack / hand) and consumed the banish permission. Player 1's hand is emptied,
+// then holds the Warrior, a Striking Tides (Sword attack) and three Dungeon Guides. The Warrior is
+// played for real (3 payments; the Striking Tides, paid into memory, is banished from memory by the
+// On Enter). On turn 3 player 1 spends the rest of the hand on a Dungeon Guide (3 payments), leaving
+// ONE card in hand, then clicks the banished Striking Tides (cost 3): the click must be refused as
+// unaffordable -- the card stays in banishment with both permission tags, hand/memory/effect stack
+// unchanged, no payment prompt queued.
+$fixtures['warrior-of-the-fae-realm-banished-sword-unaffordable-click-refused'] = [
+    'testedCards' => ['eRcqucBKhX'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'], // start from an empty hand (7 cards -> graveyard)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'eRcqucBKhX'], // Warrior of the Fae Realm -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qrxQGA1pc6'], // Striking Tides (Sword attack) -> p1 myHand-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p1 myHand-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p1 myHand-3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p1 myHand-4
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: play Warrior of the Fae Realm
+        ...mrdPay(1, 3), // 2-4: reserve payments (the first hand card, Striking Tides, is paid into memory)
+        mrdAns(1, 'myMemory-0'), // 5: On Enter: banish Striking Tides from memory
+        mrdEnd(1), // 6: end player 1 turn 1
+        mrdEnd(2), // 7: end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdPass(1), // 8: decline the materialize offer
+        mrdPlay(1, 'myHand-0'), // 9: play a Dungeon Guide
+        ...mrdPay(1, 3), // 10-12: reserve payments -> one card left in hand
+        mrdAns(1, 'NO'), // 13: decline Dungeon Guide's optional On Enter
+        mrdPlay(1, 'myBanish-0'), // 14: click the banished Striking Tides (cost 3, only 1 card in hand): accepted as a no-op, refusal asserted on state
+    ],
+];
+
+// --- Banishment activation: a click blocked by the element requirement is refused without consuming the permission ---
+// Mordred, Burnished Avenger (OWCdWq3mXY): "you may activate that card this turn." ENGINE BUG (fixed):
+// the "myBanish" branch moved the clicked card into hand before the activation's own legality gates
+// ran, so a banished attack card the champion cannot use (here the FIRE Emberslash, while Mordred
+// only enables WATER) was silently converted into a hand card and lost its permission. Real level-up
+// banishes the Emberslash from the top of the deck; the click must be refused (card stays in
+// banishment tagged _mordredBurnished, hand/memory/stack unchanged).
+$fixtures['mordred-burnished-avenger-banished-off-element-attack-click-refused'] = [
+    'testedCards' => ['OWCdWq3mXY'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // level-up memory cost (1)
+        ['player' => 1, 'deckTop' => ['0xylS3OcNa']], // Emberslash (a FIRE Warrior attack card) is the top card of player 1's deck
+    ],
+    'actions' => [
+        mrdEnd(1), // 1: end player 1 turn 1
+        mrdEnd(2), // 2: end player 2 turn 2 -> player 1 turn 3 materialize phase
+        mrdAns(1, 'myMaterial-0'), // 3: level up into Mordred, Burnished Avenger (On Enter fires)
+        mrdAns(1, 'YES'), // 4: banish the revealed Emberslash (tagged _mordredBurnished)
+        mrdPlay(1, 'myBanish-1'), // 5: click the banished FIRE attack card (banish-0 is the memory-cost card): accepted as a no-op, refusal asserted on state
+    ],
+];
+
+// --- Banishment activation: a click blocked by the first-turn attack lock does not cost 2 damage or the permission ---
+// Seething Intercession (5Xfg69S1XX): "you may activate [the banished cards]. As an additional cost to
+// activate each of those cards, deal 2 unpreventable damage to your champion." ENGINE BUG (fixed): the
+// "myBanish" branch dealt the 2 damage and moved the card into hand BEFORE the activation's gates ran;
+// an attack card clicked on the opening player's turn 1 ("Attack cards cannot be activated by the
+// opening player on turn 1") was refused AFTER the champion had already taken 2 damage and the
+// permission tag was stripped. A Striking Tides tagged _seethingIntercession is seeded in banishment
+// (the tag is seeded, not produced by playing Seething Intercession -- caveat), and player 1 clicks it
+// on turn 1: no damage, card still banished with its tag, hand unchanged.
+$fixtures['seething-intercession-banished-attack-first-turn-click-refused-no-self-damage'] = [
+    'testedCards' => ['5Xfg69S1XX'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'qrxQGA1pc6', 'setProperties' => ['TurnEffects' => ['_seethingIntercession']]], // Striking Tides banished by Seething Intercession -> p1 banish-0
+    ],
+    'actions' => [
+        mrdPlay(1, 'myBanish-0'), // 1: click the banished attack card on turn 1 (the opening player may not activate attacks): accepted as a no-op, refusal asserted on state
+    ],
+];
+
+// --- Banishment activation (positive pin): the same banished attack IS activatable when legal, and the 2 damage is paid ---
+// Seething Intercession (5Xfg69S1XX): the same seeded Striking Tides, but on player 2's turn 2 (no
+// first-turn attack lock): the click starts the activation -- 2 unpreventable damage to player 2's
+// champion, 3 reserve payments, an attack on player 1's champion for 4. Pins that the validate-first
+// refusal does not over-refuse a legal banish activation.
+$fixtures['seething-intercession-banished-attack-activatable-when-legal-costs-two-damage'] = [
+    'testedCards' => ['5Xfg69S1XX'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myBanish', 'cardID' => 'qrxQGA1pc6', 'setProperties' => ['TurnEffects' => ['_seethingIntercession']]], // Striking Tides banished by Seething Intercession -> p2 banish-0
+    ],
+    'actions' => [
+        mrdEnd(1), // 1: end player 1 turn 1
+        mrdPlay(2, 'myBanish-0'), // 2: player 2 activates the banished Striking Tides on turn 2
+        ...mrdPay(2, 3), // 3-5: reserve payments
+        mrdAns(2, 'theirField-0'), // 6: attack player 1's champion
+    ],
+];
+
 // --- Warrior of the Fae Realm: Stealth -- an attack cannot target it ---
 // Warrior of the Fae Realm (eRcqucBKhX): "Stealth". Player 2 attacks with a Dungeon Guide; the
 // attack-target prompt lists only player 1's champion and answering with the Warrior is rejected, so

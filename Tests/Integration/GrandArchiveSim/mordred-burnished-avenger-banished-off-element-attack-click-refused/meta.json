@@ -1,0 +1,30 @@
+{
+    "name": "mordred-burnished-avenger-banished-off-element-attack-click-refused",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:54:35+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "OWCdWq3mXY"
+    ],
+    "notes": "Mordred, Burnished Avenger (OWCdWq3mXY): \"If you do, you may activate that card this turn.\" Real play: level up banishes the top-of-deck FIRE Emberslash (tagged _mordredBurnished, step 4); player 1's champion enables only WATER, so the activation is illegal (elemental requirement). The click at step 5 is accepted as a no-op, so the refusal is asserted on state: the card stays in banishment with its tag, hand/memory/effect stack unchanged. Before the fix the card was moved into hand (hand 9, banish count 1) with no activation.",
+    "semanticCoverage": {
+        "testedCards": [
+            "OWCdWq3mXY"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you do, you may activate that card this turn.",
+            "A card whose element requirement is not met cannot be activated."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The ActionMap 'myBanish' (and 'theirBanish') branches that let a player activate a tagged banished card moved it into hand and tore down its permission BEFORE confirming that the activation could begin. When the activation was then refused (first-turn attack lock, element requirement, link/prereq gate) or could not be paid for, the card was stranded in hand or on the effect stack, its permission tag was lost, and pre-activation side effects (Seething Intercession / Desperate Cavalier 2 unpreventable damage, Shattering Discharge charge counter, Limitless Defiance champion wake-up) had already happened. Fix: new shared ActivateBanishedCard() validates first through the same gates DoActivateCard uses (new ActivationBlockedBeforeAnnounce(), now also called by DoActivateCard) plus CanActivateCard prereqs and CanAffordCardActivation, and only then moves/activates; a refused click changes no state.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myBanish'/'theirBanish' move-to-hand-then-ActivateCard branches; DoActivateCard() pre-announce gates; new ActivationBlockedBeforeAnnounce(), ActivateBanishedCard()",
+        "verification": "Per-step state dump: before the fix the step-5 click moves 0xylS3OcNa from banish-1 into hand (hand 8 -> 9); after the fix banish/hand are identical to step 4. Break/restore recorded in the fix commit message.",
+        "fixCommit": "TBD"
+    }
+}

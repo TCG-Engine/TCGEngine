@@ -1,0 +1,32 @@
+{
+    "name": "seething-intercession-banished-attack-first-turn-click-refused-no-self-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:54:35+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "5Xfg69S1XX"
+    ],
+    "notes": "Seething Intercession (5Xfg69S1XX): \"you may activate them. As an additional cost to activate each of those cards, deal 2 unpreventable damage to your champion.\" A Striking Tides tagged _seethingIntercession is seeded in banishment (CAVEAT: the tag is seeded, not produced by playing Seething Intercession) and player 1 clicks it on turn 1, where the opening player may not activate attack cards. The click is accepted as a no-op; refusal asserted on state. Before the fix the champion took 2 damage, the card moved into hand and the tag was stripped.",
+    "semanticCoverage": {
+        "testedCards": [
+            "5Xfg69S1XX"
+        ],
+        "mechanics": [
+            "cost",
+            "damage",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate each of those cards, deal 2 unpreventable damage to your champion.",
+            "Attack cards cannot be activated by the opening player on turn 1."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The ActionMap 'myBanish' (and 'theirBanish') branches that let a player activate a tagged banished card moved it into hand and tore down its permission BEFORE confirming that the activation could begin. When the activation was then refused (first-turn attack lock, element requirement, link/prereq gate) or could not be paid for, the card was stranded in hand or on the effect stack, its permission tag was lost, and pre-activation side effects (Seething Intercession / Desperate Cavalier 2 unpreventable damage, Shattering Discharge charge counter, Limitless Defiance champion wake-up) had already happened. Fix: new shared ActivateBanishedCard() validates first through the same gates DoActivateCard uses (new ActivationBlockedBeforeAnnounce(), now also called by DoActivateCard) plus CanActivateCard prereqs and CanAffordCardActivation, and only then moves/activates; a refused click changes no state.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myBanish'/'theirBanish' move-to-hand-then-ActivateCard branches; DoActivateCard() pre-announce gates; new ActivationBlockedBeforeAnnounce(), ActivateBanishedCard()",
+        "verification": "Per-step state dump: before the fix the click leaves champion Damage 2, the card in hand (hand 8), banish empty and the tag stripped; after the fix all are identical to step 0. Break/restore recorded in the fix commit message.",
+        "fixCommit": "TBD"
+    }
+}

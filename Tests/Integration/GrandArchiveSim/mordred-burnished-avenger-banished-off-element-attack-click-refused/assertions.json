@@ -1,0 +1,13 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Banish-1","property":"CardID","value":"0xylS3OcNa","semantic":true,"label":"Precondition: the real level-up On Enter banished the FIRE Emberslash"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Banish-1","property":"TurnEffects","value":"[\"_mordredBurnished\"]","semantic":true,"label":"Precondition: it carries the _mordredBurnished permission tag"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8},
+    {"step":5,"type":"card_property_equals","mzId":"p1Banish-1","property":"CardID","value":"0xylS3OcNa","semantic":true,"label":"A banished attack card the champion cannot use (FIRE, Mordred enables only WATER) stays in banishment when clicked"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Banish-1","property":"TurnEffects","value":"[\"_mordredBurnished\"]","semantic":true,"label":"The permission tag is intact after the refused click"},
+    {"step":5,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":2},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"Hand unchanged: the refused click did not convert the banished card into a hand card"},
+    {"step":5,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0},
+    {"step":5,"type":"zone_count","zone":"EffectStack","viewerPlayerID":1,"value":0},
+    {"step":5,"type":"decision_queue_empty","player":"all","semantic":true,"label":"No payment prompt was started"},
+    {"step":5,"type":"flash_message_contains","value":"Element not enabled","semantic":true,"label":"The refusal reason shown to the player is the unusable element"}
+]
