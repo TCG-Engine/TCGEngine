@@ -162,6 +162,23 @@ function _SWUBotCorrectBridgeAnswers(string $type, string $param, array $actions
     return $out;
 }
 
+// "Name a card": the bridge offers only the seat's OWN titles, but nine of the ten emitters target an OPPONENT
+// (BotNameCard.php). Their titles — what they have shown, plus the meta for their leader — are appended after the
+// bridge's own titles and before the decline, so a chooser that takes the first candidate behaves exactly as before.
+function _SWUBotNameCardPool(array $actions, int $seat): array {
+    if (!function_exists('SWUBotOpponentNameCandidates')) require_once __DIR__ . '/Custom/BotNameCard.php';
+    $have = []; $decline = []; $out = [];
+    foreach ($actions as $a) {
+        $c = strval($a['cardID'] ?? '');
+        if ($c === '-') { $decline[] = $a; continue; }
+        $have[$c] = true; $out[] = $a;
+    }
+    foreach (SWUBotOpponentNameCandidates($seat) as $t) {
+        if (!isset($have[$t])) $out[] = ['playerID' => $seat, 'mode' => 100, 'buttonInput' => '', 'cardID' => $t, 'chkInput' => [], 'inputText' => ''];
+    }
+    return array_merge($out, $decline);
+}
+
 function SWUBotLegalActions($gameName, $seat) {
     $seat = intval($seat);
     $decisionSeat = SWUBotPendingDecisionSeat();
@@ -177,6 +194,7 @@ function SWUBotLegalActions($gameName, $seat) {
         $legal = BridgeEnumerateLegalActionsLoaded('SWUSim', strval($gameName));
         $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
         $actions = _SWUBotCorrectBridgeAnswers(strval($legal['decisionType'] ?? ''), strval($legal['decisionParam'] ?? ''), $actions, $seat);
+        if (strval($legal['decisionType'] ?? '') === 'NAMECARD') $actions = _SWUBotNameCardPool($actions, $seat);
         if (empty($actions)) {
             $front = null;
             foreach (GetDecisionQueue($seat) as $entry) {

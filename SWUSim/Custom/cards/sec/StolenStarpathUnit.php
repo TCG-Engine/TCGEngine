@@ -19,6 +19,9 @@ $customDQHandlers["SEC_210#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $named = trim($lastDecision);
     $opp   = SWUCurrentDefendingSeat(intval($player));  // "the defending player" is DETERMINED by the attack, never OtherPlayer()/GetOpponent()
+    // ⚠ ACTUALLY REVEAL THE HAND (found 2026-10-02): "The defending player reveals their hand" was counted SILENTLY —
+    // never shown or logged, the same miss SEC_260 Inspector's Shuttle had. Same fix: log it and put it on screen.
+    if ($opp > 0 && $opp !== intval($player)) { SWULookAtOpponentHand(intval($player), null, $opp); SWUQueueShowOpponentHand(intval($player), $opp); }
     $count = 0;
     foreach (GetHand($opp) as $c) {
         if (!empty($c->removed)) continue;

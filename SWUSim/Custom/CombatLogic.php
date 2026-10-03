@@ -581,6 +581,30 @@ function SWUReturnLeaderToZone(int $ownerPlayer, string $unitMzID): void {
 // OWN CardID is NOT a leader — i.e. a Vehicle carrying a leader-pilot upgrade (IsPilot=true
 // subcard whose CardID has CardType containing 'Leader'). The subcard is removed from Subcards
 // and the owning player's leader-zone entry is reset (Deployed=false/DeployedUniqueID=0/Ready=false/Damage=0).
+// A LEADER UPGRADE (a leader deployed as a Pilot) is defeated: flip it back to its owner's leader zone,
+// exhausted (CR 3.4.5) — a leader never goes to a discard — and announce it as an upgrade defeat, because it
+// IS one: "When a friendly upgrade is defeated" (ASH_161 Zeb) and the ASH_039 phase flag must see it. Every
+// way a leader upgrade leaves goes through here: defeated directly (Confiscate), its host leaving play (CR
+// 1.5.5.d, simultaneously), and an ability that would move it to an out-of-play zone or change its control
+// (CR v9.0 3.4.6: "defeated instead … a replacement effect" — Bamboozle, ASH_042 Jabba, any "return an
+// upgrade"). Before this each route reset the leader record itself and none announced the defeat.
+function SWUDefeatLeaderUpgradeToZone(int $owner, int $controller, string $cardID, $host): void {
+    global $playerID;
+    $saved = $playerID;
+    $playerID = $owner;
+    // Twin Suns: return the specific leader this pilot is (pilots carry DeployedUniqueID 0, so match by CardID).
+    $ldr = SWUFindLeaderByCardID($owner, $cardID);
+    if ($ldr === null) $ldr = SWUGetLeaderByIndex($owner, 0);
+    if ($ldr !== null) {
+        $ldr->Deployed         = false;
+        $ldr->DeployedUniqueID = 0;
+        $ldr->Ready            = false;
+        $ldr->Damage           = 0;
+    }
+    $playerID = $saved;
+    _SWUOnUpgradeDefeated($controller > 0 ? $controller : $owner, $cardID, $host, $owner);
+}
+
 function SWUReturnLeaderPilotSubcards($host, int $ownerPlayer): void {
     if ($host === null || empty($host->Subcards) || !is_array($host->Subcards)) return;
     global $playerID;
@@ -593,19 +617,10 @@ function SWUReturnLeaderPilotSubcards($host, int $ownerPlayer): void {
         // A leader card can only be a subcard via Piloting, so a (non-captive) leader subcard is
         // always a leader-pilot — recognize it by its leader CardType regardless of the IsPilot flag.
         if (!$isRemoved && !$isCaptive && strpos(CardType($subCardID) ?? '', 'Leader') !== false) {
-            // Return this leader to the leader zone — find the owning player from the subcard.
+            // The host is leaving play, so this leader upgrade is defeated with it (CR 1.5.5.d) and goes home.
             $subOwner = is_array($sub) ? intval($sub['Owner'] ?? $ownerPlayer) : intval($sub->Owner ?? $ownerPlayer);
-            $playerID = $subOwner;
-            // Twin Suns: return the specific leader this pilot subcard is (a pilot has DeployedUniqueID 0,
-            // so match by CardID — leader CardIDs are unique per seat). Fall back to first live.
-            $ldr = SWUFindLeaderByCardID($subOwner, $subCardID);
-            if ($ldr === null) $ldr = SWUGetLeaderByIndex($subOwner, 0);
-            if ($ldr !== null) {
-                $ldr->Deployed        = false;
-                $ldr->DeployedUniqueID = 0;
-                $ldr->Ready           = false;
-                $ldr->Damage          = 0;
-            }
+            $subCtrl  = is_array($sub) ? intval($sub['Controller'] ?? $subOwner) : intval($sub->Controller ?? $subOwner);
+            SWUDefeatLeaderUpgradeToZone($subOwner, $subCtrl, $subCardID, $host);
             // Do NOT add to $newSubcards — the subcard is removed from the host.
             continue;
         }
@@ -625,28 +640,30 @@ function SWUReturnLeaderPilotSubcards($host, int $ownerPlayer): void {
 // read off the still-attached subcard later) because this sweep does not remove subcards from the host.
 const SWU_SELF_HANDLED_DEFEAT_SUBCARDS = ['JTL_094'];
 
-// Discard a leaving-play host's remaining (non-leader, non-captive) upgrade/pilot subcards to their
-// OWNER's discard. CR: when a unit leaves play its upgrades are defeated, and a defeated card always
-// goes to ITS OWN owner's discard — control is never "stolen" into another player's discard. Token
-// upgrades are set aside (removed from game), not discarded. Call AFTER SWURescueCaptivesOf (captives
-// already released) and SWUReturnLeaderPilotSubcards (leader-pilots already returned to the leader
-// zone). Does NOT clear Subcards: later collection passes (JTL_073 grant) still read the array.
-// TWI_069 Roger Roger — "When Defeated: Attach this upgrade to a friendly Battle Droid token." Re-attach
-// the upgrade to a friendly Battle Droid token (TWI_T01) OTHER than the one leaving play. Returns true if
-// re-attached (the caller then skips the normal discard); false if there is no eligible token.
-function _SWURogerRogerReattach(int $controller, int $owner, int $excludeUID): bool {
-    foreach (array_merge(GetGroundArena($controller), GetSpaceArena($controller)) as $u) {
-        if (SWUObjGone($u)) continue;
-        if (($u->CardID ?? '') !== 'TWI_T01') continue;
-        if (intval($u->UniqueID ?? 0) === $excludeUID) continue;
-        if (!is_array($u->Subcards ?? null)) $u->Subcards = [];
-        $u->Subcards[] = (object)['CardID' => 'TWI_069', 'Owner' => $owner, 'Controller' => $controller,
-            'TurnEffects' => [], 'IsPilot' => false, 'IsCaptive' => false];
-        return true;
-    }
-    return false;
+// THE "a unit is leaving play — defeat its upgrades" sequence (CR 9.3; CR 8.34.1 for capture). Every route a
+// unit leaves play by calls this: defeat (incl. the combat and deployed-leader paths), bounce, capture (by a
+// unit or a base), a token ceasing, and "its owner puts it on the top or bottom of their deck". Each of those
+// used to carry its OWN copy of the upgrade loop, and the copies drifted: bounce/capture/to-deck skipped the
+// observers for token upgrades, capture and to-deck never returned a leader pilot or deferred JTL_094, and
+// to-deck fired no upgrade-defeated observers at all. Any upgrade's own When Defeated (Roger Roger, Blade of
+// Talzin) is only as reachable as the path that defeats it, so there is one path.
+//   1. a leader pilot returns to its leader zone (it never goes to a discard)
+//   2. JTL_094 Luke's "would be defeated → may move to the ground arena instead" is deferred to action end
+//   3. every other upgrade is defeated — non-tokens to their OWNER's discard, tokens set aside — and its
+//      upgrade-defeated observers and own When Defeated fire (_SWUOnUpgradeDefeated)
+// Captives are NOT handled here: each route rescues them at its own point (SWURescueCaptivesOf).
+function SWUDefeatUpgradesOfLeavingUnit($host, int $owner): void {
+    if ($host === null) return;
+    SWUReturnLeaderPilotSubcards($host, $owner);
+    _SWUDeferPilotDefeatReplacements($host);
+    SWUDiscardHostSubcards($host);
 }
 
+// Step 3 of SWUDefeatUpgradesOfLeavingUnit — call that, not this. Discards a leaving-play host's remaining
+// (non-leader, non-captive) upgrade/pilot subcards to their OWNER's discard. CR: when a unit leaves play its
+// upgrades are defeated, and a defeated card always goes to ITS OWN owner's discard — control is never
+// "stolen" into another player's discard. Token upgrades are set aside (removed from game), not discarded.
+// Does NOT clear Subcards: later collection passes (JTL_073 grant) still read the array.
 function SWUDiscardHostSubcards($host): void {
     if ($host === null || empty($host->Subcards) || !is_array($host->Subcards)) return;
     global $playerID;
@@ -663,12 +680,6 @@ function SWUDiscardHostSubcards($host): void {
         // same Shield consumed by damage DID fire (SWUPreventWithShield). One rule, opposite answers.
         $subIsToken = strpos(strtolower(CardType($subCardID) ?? ''), 'token') !== false;
         $subOwner = is_array($sub) ? intval($sub['Owner'] ?? $savedPID) : intval($sub->Owner ?? $savedPID);
-        // TWI_069 Roger Roger — re-attach to a friendly Battle Droid token instead of discarding (if any).
-        if ($subCardID === 'TWI_069') {
-            $rrCtrl = is_array($sub) ? intval($sub['Controller'] ?? 0) : intval($sub->Controller ?? 0);
-            if ($rrCtrl <= 0) $rrCtrl = intval($host->Controller ?? $subOwner);
-            if (_SWURogerRogerReattach($rrCtrl, $subOwner, intval($host->UniqueID ?? 0))) continue;
-        }
         if (!$subIsToken) SWUAddToDiscard($subOwner, $subCardID, 'PLAY');   // tokens are set aside, not discarded
         // "A friendly upgrade was defeated" observers (ASH_039 flag, ASH_055 return, ASH_161 deal 1) — this
         // is the host-defeated path (parallel to SWUDefeatUpgrade / _SWUDefeatAllUpgradesOn). Fires for
@@ -816,7 +827,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
         // SWUDiscardHostSubcards() call further down, so an upgrade on a defeated deployed leader simply
         // CEASED TO EXIST: it was in no discard pile and in no arena. Runs BEFORE the return-to-zone,
         // which removes $obj (and which rescues CAPTIVES — those are skipped here by design).
-        SWUDiscardHostSubcards($obj);
+        SWUDefeatUpgradesOfLeavingUnit($obj, $owner);
         SWUReturnLeaderToZone($owner, $unitMzID);
         DecisionQueueController::CleanupRemovedCards();
         $playerID = $savedPID;
@@ -837,9 +848,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     // CR 8.34.4: rescue any captives guarded by this unit before it leaves play.
     SWURescueCaptivesOf($obj);
     // If the host carries a leader-pilot upgrade, return that leader to zone before discarding.
-    SWUReturnLeaderPilotSubcards($obj, $owner);
-    _SWUDeferPilotDefeatReplacements($obj); // JTL_094: a pilot upgrade that "may instead move to ground"
-    SWUDiscardHostSubcards($obj);           // remaining upgrades/pilots → each owner's discard
+    SWUDefeatUpgradesOfLeavingUnit($obj, $owner);   // CR 9.3 — leader pilots home, JTL_094 deferred, the rest defeated
     $obj->removed = true;
     // Pass $obj so SWUAddToDiscard can revert a TWI_116 Clone copy's CardID to the real card (it leaves
     // play as Clone, not as the card it copied).
@@ -1021,19 +1030,11 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
         return true;
     }
 
-    // Leader-pilot subcard (IsPilot + CardID is a leader): return to the leader zone instead of discard.
+    // Leader-pilot subcard (IsPilot + CardID is a leader): defeated → back to the leader zone, never a discard.
+    // A BOUNCE ($bounce, e.g. Bamboozle) can't take a leader upgrade to hand: CR v9.0 3.4.6 defeats it instead
+    // (a replacement effect), so both paths are the same defeat, and both announce it as an upgrade defeat.
     if ($foundIsPilot && strpos(CardType($foundCardID) ?? '', 'Leader') !== false) {
-        $playerID = $foundOwner;
-        // Twin Suns: return the specific leader this pilot upgrade is (match by CardID; pilots carry
-        // DeployedUniqueID 0). Fall back to first live for single-leader.
-        $ldr = SWUFindLeaderByCardID($foundOwner, $foundCardID);
-        if ($ldr === null) $ldr = SWUGetLeaderByIndex($foundOwner, 0);
-        if ($ldr !== null) {
-            $ldr->Deployed        = false;
-            $ldr->DeployedUniqueID = 0;
-            $ldr->Ready           = false;
-            $ldr->Damage          = 0;
-        }
+        SWUDefeatLeaderUpgradeToZone(intval($foundOwner), intval($foundCtrl), (string)$foundCardID, $host);
     // Tokens are set aside (removed from game); non-tokens go to owner's discard or hand. Either way a
     // non-bounced upgrade is DEFEATED, so the observers fire for both — see the token branch below.
     } elseif (strpos(strtolower(CardType($foundCardID) ?? ''), 'token') !== false) {
@@ -1043,11 +1044,6 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
     } else {
         if ($bounce) {
             AddHand($foundOwner, CardID: $foundCardID);
-        } elseif ($foundCardID === 'TWI_069'
-                && _SWURogerRogerReattach(intval($foundCtrl) > 0 ? intval($foundCtrl) : intval($foundOwner),
-                       intval($foundOwner), intval($host->UniqueID ?? 0))) {
-            // TWI_069 Roger Roger — When Defeated: re-attach to a friendly Battle Droid token instead of
-            // discarding (a directly-defeated upgrade, host survives). No discard / defeated-observer.
         } else {
             SWUAddToDiscard($foundOwner, $foundCardID, 'PLAY');
             // "A friendly upgrade was defeated" observers (ASH_039 flag, ASH_055 return, ASH_161 deal 1).
@@ -3474,9 +3470,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                     // CR 8.34.4: rescue any captives guarded by the attacker before it leaves play.
                     SWURescueCaptivesOf($atkObj);
                     // If the host carries a leader-pilot upgrade, return that leader to zone before discarding.
-                    SWUReturnLeaderPilotSubcards($atkObj, $atkOwner);
-                    _SWUDeferPilotDefeatReplacements($atkObj); // JTL_094 pilot-upgrade defeat-replacement
-                    SWUDiscardHostSubcards($atkObj);           // remaining upgrades/pilots → each owner's discard
+                    SWUDefeatUpgradesOfLeavingUnit($atkObj, $atkOwner);   // CR 9.3 — leader pilots home, JTL_094 deferred, the rest defeated
                     // Unit slides to its OWNER's discard. Tokens CEASE rather than being discarded,
                     // so they get no slide. Perspective is the unit's own controller.
                     if (!_SWUCardCeasesOnLeavePlay($atkObj->CardID ?? '')) {
@@ -3533,9 +3527,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                     $pendingCaptiveRescues = SWUDetachCaptivesOf($defObj);
                     $pendingCaptiveHost    = $defObj;
                     // If the host carries a leader-pilot upgrade, return that leader to zone before discarding.
-                    SWUReturnLeaderPilotSubcards($defObj, $defOwner);
-                    _SWUDeferPilotDefeatReplacements($defObj); // JTL_094 pilot-upgrade defeat-replacement
-                    SWUDiscardHostSubcards($defObj);           // remaining upgrades/pilots → each owner's discard
+                    SWUDefeatUpgradesOfLeavingUnit($defObj, $defOwner);   // CR 9.3 — leader pilots home, JTL_094 deferred, the rest defeated
                     // Unit slides to its OWNER's discard. Tokens CEASE rather than being discarded,
                     // so they get no slide. Perspective is the unit's own controller.
                     if (!_SWUCardCeasesOnLeavePlay($defObj->CardID ?? '')) {
@@ -3575,9 +3567,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 SWUReturnLeaderToZone($rOwner, $redirectMz);
             } else {
                 SWURescueCaptivesOf($rObj);
-                SWUReturnLeaderPilotSubcards($rObj, $rOwner);
-                _SWUDeferPilotDefeatReplacements($rObj);
-                SWUDiscardHostSubcards($rObj);
+                SWUDefeatUpgradesOfLeavingUnit($rObj, $rOwner);   // CR 9.3 — leader pilots home, JTL_094 deferred, the rest defeated
                 // Unit slides to its OWNER's discard (tokens cease, so no slide).
                 if (!_SWUCardCeasesOnLeavePlay($rObj->CardID ?? '')) {
                     SWUQueueZoneMoveAnim($redirectMz, 'myDiscard-0', intval($rObj->Controller ?? $player),
@@ -4405,9 +4395,7 @@ function _SWUMaulCombatDefeat($obj, string $mzID, int $player, bool $isAttacker,
     } else {
         $hasSecondChance = _SWUUnitHasUpgrade($obj, 'SHD_053');
         SWURescueCaptivesOf($obj);
-        SWUReturnLeaderPilotSubcards($obj, $owner);
-        _SWUDeferPilotDefeatReplacements($obj);
-        SWUDiscardHostSubcards($obj);
+        SWUDefeatUpgradesOfLeavingUnit($obj, $owner);   // CR 9.3 — leader pilots home, JTL_094 deferred, the rest defeated
         // Unit slides to its OWNER's discard (tokens cease, so no slide).
         if (!_SWUCardCeasesOnLeavePlay($obj->CardID ?? '')) {
             SWUQueueZoneMoveAnim($mzID, 'myDiscard-0', intval($obj->Controller ?? $owner),

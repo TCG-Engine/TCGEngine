@@ -288,6 +288,8 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     // p{n}: another seat's zone at 3-4 seats (ZoneSearch). Missing it here sent every Twin Suns enemy target past the
     // hostile/beneficial scoring to the flat first-legal value below (SWUSim/docs/todo-twinsuns-fill-bot.md, research A).
     $onBoard = (bool)preg_match('/^(my|their|p\d+)(GroundArena|SpaceArena|Base)-/', $c);
+    // Part 21 'namecard': "Name a card" — the opponent's likeliest / most impactful card (BotNameCard.php).
+    if ($type === 'NAMECARD' && SWUBotFeatureOn('namecard')) return SWUBotNameCardScore($seat, $c, (array)($ctx['following'] ?? []));
     // "Defeat a friendly unit" as a cost: declining is worth giving up 1 point of unit value, so a MAY
     // sacrifice takes only a token, a cheap unit, or one whose When Defeated pays it back.
     if ($c === 'PASS') {
@@ -1338,13 +1340,15 @@ function _SWUBotSupportPlanUid(int $seat): int {
     return $best === null ? 0 : $best['uid'];
 }
 
+// The Support attacker: the strongest in an arena that reaches the base. After the Plot buffs that is the planned unit —
+// the same order _SWUBotSupportPlanUid uses — so no separate plan check is needed (a mutation of one proved it inert).
 function _SWUBotSupportAttackerScore(int $seat, array $v): float {
-    if ($v['uid'] === _SWUBotSupportPlanUid($seat)) return 10.0;
-    return (_SWUBotBlockedArenas($seat)[$v['arena']] ? 0.1 : 1.0) * (1.0 + 0.1 * $v['attackPower']);
+    return (_SWUBotBlockedArenas($seat)[$v['arena']] ? 0.1 : 1.0) * (1.0 + 0.1 * $v['attackPower'] + 0.001 * $v['remaining']);
 }
 
 // A friendly "+N for this phase" during the flip turn, or null when this is not one (the ordinary scoring decides).
-//  · the Support attack is still pending (Jar Jar's Plot): the planned Support attacker, never the leader;
+//  · the Support attack is still pending (Jar Jar's Plot): the planned Support attacker. The leader only when there is
+//    none — a +2/+2 on her still beats passing (an explicit "avoid the leader" was proved inert by mutation and removed);
 //  · the Supported unit's borrowed On Attack (the source is a leader card, the attacker is not a leader): the leader;
 //  · the leader's own On Attack: any ready unit that still attacks.
 // Everywhere: a buff on an exhausted unit (other than the one attacking now) or on a unit in a Sentinel-blocked arena is
@@ -1368,8 +1372,7 @@ function _SWUBotBuffSpreadScore(array $ctx, int $seat, string $c): ?float {
     if ((!$v['ready'] && !$attackingNow) || $blocked) return 0.001 + 0.0001 * SWUBotUnitValue($v);   // wasted, but no worse than PASS
     $score = 1.0 + 0.01 * SWUBotUnitValue($v);
     if ($pending && !$fromLeader) {
-        if ($v['uid'] === _SWUBotSupportPlanUid($seat)) $score += 10.0;
-        elseif ($v['isLeader']) $score = 0.01;                              // the leader gets hers from the Supported attack
+        if ($v['uid'] === _SWUBotSupportPlanUid($seat)) $score += 10.0;   // the leader gets hers from the Supported attack
     } elseif (!$att['isLeader'] && $v['isLeader']) {
         $score += 10.0;                                                      // the Supported unit buffs the leader: she attacks next
     }

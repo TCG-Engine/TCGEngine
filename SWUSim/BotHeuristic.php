@@ -18,6 +18,7 @@ require_once __DIR__ . '/Custom/BotFlavours.php';
 require_once __DIR__ . '/Custom/BotStyles.php';
 require_once __DIR__ . '/Custom/BotResourcing.php';
 require_once __DIR__ . '/Custom/BotGuides.php';
+require_once __DIR__ . '/Custom/BotNameCard.php';
 require_once __DIR__ . '/Custom/BotFallback.php';
 require_once __DIR__ . '/Custom/BotCardValue.php';  // proposal 'cardvalue' — board-aware card valuation
 require_once __DIR__ . '/Custom/BotRules.php';

@@ -1747,6 +1747,18 @@ class SchemaTestRunner {
                 if ($pending === null)
                     $failures[] = "{$line}: expected a pending decision, but none found";
 
+            } elseif (preg_match('/^P(\d+)DECISIONTYPE:(\w+)$/', $line, $m)) {
+                // The pending decision's TYPE — e.g. MZCHOOSE (mandatory) vs MZMAYCHOOSE (declinable). The
+                // only way to pin "you must choose one": a decline answer to a mandatory choice is refused by
+                // the harness before it runs, so it cannot be written as a WHEN line, and the candidate set
+                // (SELECTABLEEXACT) is identical for both types.
+                $p       = intval($m[1]);
+                $pending = $g->state->pendingDecision($p);
+                if ($pending === null)
+                    $failures[] = "{$line}: expected a pending {$m[2]} decision, but none found";
+                elseif (($pending->Type ?? '') !== $m[2])
+                    $failures[] = "{$line}: expected decision type {$m[2]}, got " . ($pending->Type ?? '?');
+
             } elseif (preg_match('/^P(\d+)DECISIONHIGHLIGHT:(.+)$/', $line, $m)) {
                 // The board unit a prompt is pointing AT, asserted by CardID rather than by the raw param.
                 // A prompt about an already-chosen unit carries "hilite:<UniqueID>" so the client can ring it

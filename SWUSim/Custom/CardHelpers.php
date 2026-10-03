@@ -910,3 +910,15 @@ function SWUPromptCardName(string $cardID, string $fallback = 'that card'): stri
     return $title !== '' ? $title : $fallback;
 }
 }
+
+// Is this a Battle Droid TOKEN, in ANY printing? Twin Suns prints its own (TS26_T01: same title, traits and
+// stats as TWI_T01), so a card that names "a Battle Droid token" must match by title + token type, never by
+// one CardID. Matching 'TWI_T01' alone silently skipped every TS26 droid (bug #1117, Roger Roger).
+if (!function_exists('SWUIsBattleDroidToken')) {
+    function SWUIsBattleDroidToken(string $cardID): bool {
+        if ($cardID === '') return false;
+        if (strval(CardTitle($cardID)) !== 'Battle Droid') return false;
+        return strpos(strtolower(strval(CardType($cardID))), 'token') !== false;
+    }
+}
+

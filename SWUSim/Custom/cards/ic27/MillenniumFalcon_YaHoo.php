@@ -13,16 +13,19 @@
 // replay is gated on "if it's returned to YOUR hand". They diverge whenever you control a unit the
 // opponent owns — then it goes to their hand and you get no replay.
 
-// Friendly units this can return: cost 3 or less, both arenas. Deployed leaders are excluded — they
-// cannot be returned to hand at all (SWUBounceUnit refuses), so offering one would be an unresolvable
-// choice. The Falcon itself costs 4, so it never appears here.
+// Friendly units this can return: cost 3 or less, both arenas. The text says "a friendly unit", not
+// "non-leader", so a unit MADE a leader (Pilot leader, The Darksaber) is eligible — CR v9.0 3.4.7 lets it
+// move to an out-of-play zone; its upgrades are defeated as it leaves (a leader pilot goes home). A REAL
+// deployed leader (printed type Leader) is still left out here: SWUBounceUnit refuses it today, and CR 3.4.6
+// ("defeated instead") is the next task. The Falcon itself costs 4, so it never appears here.
 function Ic27158EligibleReturns(int $player): array {
     global $playerID; $playerID = intval($player);
     $out = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if (SWUObjGone($o)) continue;
+            if (strpos(CardType($o->CardID ?? '') ?? '', 'Leader') !== false) continue;   // real leader: see above
             if (intval(CardCost($o->CardID ?? '')) <= 3) $out[] = $mz;
         }
     }

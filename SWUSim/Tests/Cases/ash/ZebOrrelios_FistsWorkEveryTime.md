@@ -535,3 +535,66 @@ WithP2Deck: [SOR_063 SOR_063]
 P2GROUNDARENAUNIT:1:UPGRADECOUNT:0
 P1BASEDMG:1
 P2BASEDMG:0
+
+---
+
+# LeaderPilotReturnedByBamboozle_DefeatedInstead_ZebTriggers
+#// CR 3.4.6 (v9): a leader UPGRADE that would move to an out-of-play zone "is defeated instead". P2's Bamboozle
+#// returns each upgrade on P1's SEC_214 (a ground Vehicle), which carries P1's Pilot leader JTL_012 Luke: Luke is
+#// DEFEATED (back to the leader zone), so a friendly upgrade was defeated — P1's Zeb deals 1 damage to a base.
+#// ⚠ FIXTURE: myLeaderDeployedPilot attaches to the FIRST GROUND unit, so the host is listed before Zeb.
+## GIVEN
+CommonSetup: gyw/yyw/{myLeader:JTL_012;myLeaderDeployedPilot:true;theirResources:2}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1GroundArena: [SEC_214:1:0 ASH_161:1:0]
+WithP2Hand: SOR_199
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P1LEADER:NOTDEPLOYED
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2BASEDMG:1
+
+---
+
+# LeaderPilotDefeatedByConfiscate_ZebTriggers
+#// A leader upgrade defeated DIRECTLY (SOR_251 Confiscate, "Defeat an upgrade") is a friendly upgrade being
+#// defeated (CR 1.5.5.d / 3.4.5): P1's Zeb deals 1 damage to a base. Kazuda (JTL_018) is the only upgrade, so it
+#// auto-targets. (Not Luke JTL_012 — he can't be defeated by enemy abilities, so Confiscate rightly fails on him.)
+## GIVEN
+CommonSetup: gyw/yyw/{myLeader:JTL_018;myLeaderDeployedPilot:true;theirResources:1}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1GroundArena: [SEC_214:1:0 ASH_161:1:0]
+WithP2Hand: SOR_251
+## WHEN
+- P2>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P1LEADER:NOTDEPLOYED
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2BASEDMG:1
+
+---
+
+# PilotedHostDefeated_LeaderUpgradeDefeated_ZebTriggers
+#// CR 1.5.5.d: when a unit leaves play its upgrades are defeated simultaneously — a leader PILOT included (it goes
+#// to its leader zone rather than a discard, CR 3.4.5). P1's SEC_214 (1/4, +4/+5 from Pilot Luke = 5/9, 6 damage
+#// already) attacks P2's SOR_046 (3 power) and dies; Zeb deals 1 damage for the defeated leader upgrade.
+## GIVEN
+CommonSetup: gyw/yyw/{myLeader:JTL_012;myLeaderDeployedPilot:true}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [SEC_214:1:6 ASH_161:1:0]
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P1LEADER:NOTDEPLOYED
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:ASH_161
+P2BASEDMG:1

@@ -38,9 +38,9 @@ $flipTurn = function (callable $board, string $variant = '') use (&$gameName, $a
     };
     $act(1, 10001, 'myLeader-0!CustomInput!DeployLeader:Unit');
     $drain();
-    $act(2, 10001, 'myHealth-0!CustomInput!Pass');
-    for ($i = 0; $i < 8; $i++) {   // the bot's remaining actions: attacks until it passes
-        $legal = SWUBotLegalActions($gameName, 1);
+    for ($i = 0; $i < 12; $i++) {   // the bot's remaining actions: attacks until it passes. The opponent passes each time
+        $legal = SWUBotLegalActions($gameName, 1);   // it is up (an action of mine gives them another).
+        if (($legal['kind'] ?? '') === 'waiting-on-other-seat') { $act(2, 10001, 'myHealth-0!CustomInput!Pass'); continue; }
         if (($legal['kind'] ?? '') === 'decision') { $drain(); continue; }
         $p = SWUBotHeuristicChoose('hyperaggro', (array)$legal['actions'], $legal, $variant);
         $id = strval($p['cardID'] ?? '');
@@ -54,8 +54,11 @@ $pickFor = fn($picks, $tip) => array_values(array_filter($picks, fn($p) => $p[0]
 $JARJAR = 'Give_another_friendly_unit_+2/+2?';
 $SUPPORT = 'Choose_a_unit_to_attack_with';
 $LEND = 'Give_+2/+0_to_a_unit_with_less_power_than_this_unit';
+// ⚠ The opponent gets resources, as in a real game: with none, rule 3 'initiative-for-lethal' reads "they cannot get a
+// Sentinel" and takes the initiative mid-turn instead of attacking with Ahsoka — a separate question, not this rule's.
 $plots = function ($b) { $b->MyLeader('ASH_009'); $b->FillResourcesForPlayer(1, 'SOR_095', 4);
-    $b->WithControlledResourceForPlayer(1, 'SEC_099', 1); $b->WithControlledResourceForPlayer(1, 'SEC_111', 1); };
+    $b->WithControlledResourceForPlayer(1, 'SEC_099', 1); $b->WithControlledResourceForPlayer(1, 'SEC_111', 1);
+    $b->FillResourcesForPlayer(2, 'SOR_095', 3); };
 
 // A) THE +10 TURN. Typho (4) and Obi-Wan (3) beside Ahsoka (5): printed power 12, and five +2s that all land on attackers —
 // Typho: Jar Jar +2 and the lent Raid 2 → 8, and his borrowed buff → Ahsoka; Ahsoka: +2 and Raid 2 → 9, her buff → Obi-Wan
@@ -99,6 +102,34 @@ $check(($pickFor($picks, $SUPPORT)[0][2] ?? '') === 'JTL_095', 'D: the Support a
 $groundBuffs = array_filter($pickFor($picks, $LEND), fn($p) => in_array($p[2], ['ASH_009', 'LOF_096'], true));
 $spaceBuffs = array_filter($pickFor($picks, $LEND), fn($p) => in_array($p[2], ['JTL_095', 'ASH_201'], true));
 $check(empty($groundBuffs) && !empty($spaceBuffs), 'D: no buff on a ground unit (Ahsoka included) — they go to space; got ' . json_encode($pickFor($picks, $LEND)));
+
+// F) Jar Jar goes on the planned attacker even when it is NOT my most valuable unit: Phoenix Squadron A-Wing (3/2, value 2)
+// over a T-6 Shuttle 1974 (2/6, value 4) — value alone would buff the T-6. The plan reads the power each unit ATTACKS with
+// (a first draft used a Tribubble Bongo Sub as the "weaker" unit: it has Raid 3, attacks for 4, and was rightly picked).
+$boardF = function ($b) use ($plots) { $plots($b);
+    $b->WithSpaceUnitForPlayer(1, 'ASH_109', true); $b->WithSpaceUnitForPlayer(1, 'JTL_095', true); $b->WithGroundUnitForPlayer(2, 'SOR_095', false); };
+[$picks] = $flipTurn($boardF);
+$check(($pickFor($picks, $JARJAR)[0][2] ?? '') === 'JTL_095', 'F: Jar Jar buffs the strongest attacker (A-Wing), not the most valuable unit (T-6); got ' . json_encode($pickFor($picks, $JARJAR)));
+$check(($pickFor($picks, $LEND)[0][2] ?? '') === 'ASH_009', 'F: …so the borrowed +2 reaches Ahsoka; got ' . json_encode($pickFor($picks, $LEND)));
+
+// G) The plan looks in the CLEAR arena first: their ground Sentinel blocks my strongest unit (Admiral Ackbar, 6), so Jar
+// Jar goes on the strongest SPACE unit — the A-Wing (3, value 2), not the T-6 Shuttle (2, value 4).
+$boardG = function ($b) use ($plots) { $plots($b);
+    $b->WithGroundUnitForPlayer(1, 'ASH_110', true); $b->WithSpaceUnitForPlayer(1, 'JTL_095', true); $b->WithSpaceUnitForPlayer(1, 'ASH_109', true);
+    $b->WithGroundUnitForPlayer(2, 'SEC_098', false); };
+[$picks] = $flipTurn($boardG);
+$check(($pickFor($picks, $JARJAR)[0][2] ?? '') === 'JTL_095', 'G: with a ground Sentinel the plan is the strongest SPACE unit; got ' . json_encode($pickFor($picks, $JARJAR)));
+$check(($pickFor($picks, $SUPPORT)[0][2] ?? '') === 'JTL_095', 'G: …and it makes the Support attack, not the blocked Ackbar; got ' . json_encode($pickFor($picks, $SUPPORT)));
+
+// H) The Supported unit's borrowed +2 goes on Ahsoka even when a more valuable unit qualifies: a Shielded Chewbacca (5/6,
+// value above hers) is ready and below Ackbar's 10. She is the one sure to attack next and use it.
+$boardH = function ($b) use ($plots) { $plots($b);
+    $b->WithGroundUnitForPlayer(1, 'ASH_110', true); $b->WithGroundUnitForPlayer(1, 'JTL_103', true);
+    $b->WithUpgradesOnGroundUnitForPlayer(1, 1, [GameStateBuilder::Upgrade('SOR_T02', 1)]);
+    $b->WithGroundUnitForPlayer(2, 'SOR_095', false); };
+[$picks] = $flipTurn($boardH);
+$check(($pickFor($picks, $SUPPORT)[0][2] ?? '') === 'ASH_110', 'H: fixture — Ackbar makes the Support attack; got ' . json_encode($pickFor($picks, $SUPPORT)));
+$check(($pickFor($picks, $LEND)[0][2] ?? '') === 'ASH_009', 'H: the borrowed +2 goes on Ahsoka over the more valuable Chewbacca; got ' . json_encode($pickFor($picks, $LEND)));
 
 // E) Not a flip turn: Jar Jar from hand with no Support pending keeps the ordinary scoring (the rule is inert).
 $build(function ($b) { $b->MyLeader('ASH_009', true, true, true, 'unit'); $b->FillResourcesForPlayer(1, 'SOR_095', 6); $b->WithCardInHandForPlayer(1, 'SEC_111');

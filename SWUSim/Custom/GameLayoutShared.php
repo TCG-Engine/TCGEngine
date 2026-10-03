@@ -103,6 +103,18 @@
     box-shadow: 0 0 8px 3px var(--accent-strong, #f0c040), inset 0 0 4px var(--accent-strong, #f0c040);
     border-radius: 4px;
 }
+/* The same glow inside the discard POPUP (count bubble / Twin Suns discard chip) — the only place a
+   playable card that is not on top of its pile is rendered. On the IMAGE, not the wrapper span: the
+   popup stretches each span to its grid cell, so a span glow draws a box around empty space, while the
+   image carries the card's own rounded corners. Without this rule the class was applied and invisible.
+   The GOLD of the pile's own .has-action glow, not --accent-strong: that token is a pale theme accent
+   (grey-blue in the default theme) which read as a faint white halo, and the pile the player just
+   clicked glows gold — so the card it is glowing for should too. */
+#popupContainer .discard-playable img:not(.counter-image-icon) {
+    box-shadow: 0 0 14px 4px rgba(240,192,64,0.85), 0 0 3px 2px rgba(240,192,64,0.95);
+    border-radius: 8px;
+}
+#popupContainer .discard-playable { cursor: pointer; }
 #myDiscardSlot.has-action,
 #theirDiscardSlot.has-action {
     box-shadow: 0 0 14px 3px rgba(240,192,64,0.70), 0 0 4px 1px rgba(240,192,64,0.40);
@@ -2458,11 +2470,62 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         }
     }
 
+    // Clicking the PILE opens the full discard viewer (owner, 2026-10-02: players did not realise the
+    // only way in was the small count bubble). Runs after handleDiscardClick, so a glowing playable TOP
+    // card still plays in one click (that handler preventDefault()s when it acts). Stands aside for
+    // anything that owns the click: an active target selection, a selectable card, or a CHOOSEZONE
+    // binding on the pile — those listeners sit below this capture-phase one and would never fire.
+    // Covers the count bubble too, and stopPropagation keeps the bubble's own toggle from shutting the
+    // viewer this just opened. The card's default CardClick → FSM is a no-op for a discard card
+    // (ActionMap has no discard case), so nothing is lost by not letting it through.
+    function openDiscardPileFromSlot(e, zone) {
+        if (e.defaultPrevented) return;
+        if (window.SelectionMode && window.SelectionMode.active) return;
+        var slot = e.currentTarget;
+        var t = e.target;
+        if (t && t.closest && (t.closest('.selectable-card') || t.closest('.choosezone-selectable'))) return;
+        if (slot.classList.contains('choosezone-selectable') || slot.querySelector('.choosezone-selectable')
+            || (slot.closest && slot.closest('.choosezone-selectable'))) return;
+        if (!slot.querySelector('[data-mzid]')) return;              // empty pile: nothing to show
+        if (typeof ShowZonePopup !== 'function') return;
+        e.stopPropagation();
+        e.preventDefault();
+        ShowZonePopup(zone);
+    }
+
     function setupDiscardClick() {
         var mySlot = document.getElementById('myDiscardSlot');
-        if (mySlot) mySlot.addEventListener('click', function(e) { handleDiscardClick(e, 'mine'); }, true);
+        if (mySlot) mySlot.addEventListener('click', function(e) {
+            handleDiscardClick(e, 'mine');
+            openDiscardPileFromSlot(e, 'myDiscard');
+        }, true);
         var theirSlot = document.getElementById('theirDiscardSlot');
-        if (theirSlot) theirSlot.addEventListener('click', function(e) { handleDiscardClick(e, 'opp'); }, true);
+        if (theirSlot) theirSlot.addEventListener('click', function(e) {
+            handleDiscardClick(e, 'opp');
+            openDiscardPileFromSlot(e, 'theirDiscard');
+        }, true);
+        // The discard POPUP (count bubble / Twin Suns discard chip). A discard slot is
+        // Mode=Single(Latest) and renders only its TOP card, so a playable card anywhere else in the
+        // pile exists ONLY in the popup. With the click bound to the slots alone, that card fell
+        // through to the generic CardClick → FSM and nothing happened — the permission silently worked
+        // only while the card happened to be on top (game 1438045: Stolen AT-Hauler under a
+        // Sheathipede). CAPTURE phase so this runs before the card's inline CardClick; the owner is
+        // read off the card's own zone, so one listener serves every pile.
+        var popups = document.getElementById('popupContainer');
+        if (popups) {
+            popups.addEventListener('click', function(e) {
+                var card = e.target && e.target.closest ? e.target.closest('.discard-playable[data-mzid]') : null;
+                if (!card) return;
+                var mine = /^myDiscard-/.test(card.getAttribute('data-mzid') || '');
+                handleDiscardClick(e, mine ? 'mine' : 'opp');
+                if (typeof ClosePopup === 'function') ClosePopup();   // the pile is about to change
+            }, true);
+            // The popup is built asynchronously (fetch → innerHTML), after the last glow pass ran.
+            if (typeof MutationObserver === 'function') {
+                new MutationObserver(function() { refreshDiscardCardGlows(); })
+                    .observe(popups, { childList: true });
+            }
+        }
     }
 
     // Clicking a unit that has an available Action (glowing .unit-action) is ambiguous:
@@ -4363,6 +4426,30 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 var el = (entry.owner ? document.getElementById('p' + entry.owner + 'Discard-' + entry.idx) : null)
                       || document.getElementById('theirDiscard-' + entry.idx);
                 if (el) el.classList.add('discard-playable');
+            });
+        }
+        // The same cards inside an open discard POPUP — the only place a playable card that is not on
+        // top of its pile is rendered (see setupDiscardClick). Matched by data-mzid, never by id: the
+        // top card's id exists in BOTH the slot and the popup, so getElementById finds the slot copy.
+        var popups = document.getElementById('popupContainer');
+        if (popups) {
+            popups.querySelectorAll('.discard-playable').forEach(function(el) {
+                el.classList.remove('discard-playable');
+            });
+            var mark = function(mzid) {
+                popups.querySelectorAll('[data-mzid="' + mzid + '"]').forEach(function(el) {
+                    el.classList.add('discard-playable');
+                });
+            };
+            (d.playableDiscards || []).forEach(function(entry) { mark('myDiscard-' + entry.idx); });
+            // An opponent entry names its pile's seat. A Twin Suns seat popup is p{n}Discard; the
+            // theirDiscard popup is the opponent currently in view, so it only takes that seat's entries
+            // (2-player has no view seat and keeps the one opponent).
+            var viewOpp = window.swuView && window.swuView.oppSeat ? parseInt(window.swuView.oppSeat, 10) : 0;
+            (d.opponentPlayableDiscards || []).forEach(function(entry) {
+                var owner = parseInt(entry.owner, 10) || 0;
+                if (owner) mark('p' + owner + 'Discard-' + entry.idx);
+                if (!owner || !viewOpp || owner === viewOpp) mark('theirDiscard-' + entry.idx);
             });
         }
     }
