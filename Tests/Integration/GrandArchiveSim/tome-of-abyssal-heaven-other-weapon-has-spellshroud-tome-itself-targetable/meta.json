@@ -21,8 +21,8 @@
     },
     "engineBug": {
         "status": "fixed",
-        "summary": "FIXED. Tome of Abyssal Heaven's static \"Other objects you control have spellshroud.\" was not implemented anywhere (no clause in HasSpellshroud()). Evidence on HEAD 48faaae9 (this fixture, run against the unfixed Custom/GameLogic.php): player 1's spell target prompt was 'MZCHOOSE:theirField-1&theirField-2' -- the other object was offered. Fix: HasSpellshroud() returns true for any field object whose controller controls an ability-bearing Tome (excluding the Tome itself), after the HasNoAbilities / NO_SPELLSHROUD gates.",
+        "summary": "FIXED. Tome of Abyssal Heaven's static \"Other objects you control have spellshroud.\" was not implemented anywhere (no clause in HasSpellshroud()). Evidence on HEAD 48faaae9 (this fixture, run against the unfixed Custom/GameLogic.php): player 1's spell target prompt was 'MZCHOOSE:theirField-1&theirField-2' -- the other object was offered. Fix: HasSpellshroud() returns true for any field object whose controller controls an ability-bearing Tome (excluding the Tome itself), after the HasNoAbilities / NO_SPELLSHROUD gates. Break/restore: reverting Custom/GameLogic.php to HEAD~1 (48faaae9) fails this fixture (Step 4 unexpectedly succeeded; this fixture requires rejection); restoring the fix (shasum 0ae48c678ba109f3cbd835f3b409cbd37d44a11c) passes. Full-suite revert: 22 of the 28 new fixtures fail (1011/1033), the 6 negative controls / pins pass either way. Mutation check: dropping the '$tomeObj !== $obj' self-exclusion fails only this fixture (the Tome would shroud itself); dropping the HasNoAbilities($tomeObj) gate fails only tome-of-abyssal-heaven-lost-abilities-grants-nothing (1032/1033 each).",
         "affectedFunction": "Custom/GameLogic.php HasSpellshroud() (no entry for igmC01eEZn; no generated HasKeyword_Spellshroud table)",
-        "fixCommit": "TBD"
+        "fixCommit": "4965e054"
     }
 }
