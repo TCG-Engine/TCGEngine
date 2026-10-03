@@ -26798,6 +26798,43 @@ $fixtures['recruitment-officer-player-two-foster-look-five-reveal-deep-ally-rest
     'actions' => [mrdEnd(1), mrdEnd(2), mrdEnd(1), mrdAns(2, 'myTempZone-4')],
 ];
 
+
+// --- Nico, Rapture's Embrace (29lqrve8fz): "On Enter: If there's another water element card in CARDNAME's lineage, look at the top
+// two cards of your deck. Put one of those cards into your graveyard and the other on the bottom of your deck." ---
+// Nico (level 1) is leveled up into from Spirit of Water (a WATER card, so the lineage condition holds): player 1's third global
+// turn offers the materialize prompt, and the 1-memory level-up cost is paid from a memory card seeded as fuel.
+$gaNicoDeck = "# Material\n1 Spirit of Water\n1 Nico, Rapture's Embrace\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n";
+$gaNicoSetup = function(array $top, int $player = 1) use ($gaTop, $GA_FW) {
+    return [['player' => $player, 'zone' => 'myMemory', 'cardID' => $GA_FW], $gaTop($top, $player)]; // memory card pays the level-up's 1-memory cost
+};
+$fixtures['nico-raptures-embrace-enter-look-two-graveyard-one-bottom-other'] = [
+    'testedCards' => ['29lqrve8fz'],
+    'deck' => $gaNicoDeck,
+    // top two: Dungeon Guide, Fluffy Shopkeep
+    'setup' => $gaNicoSetup([$GA_DG, $GA_FS]),
+    'actions' => [mrdEnd(1), mrdEnd(2), mrdAns(1, 'myMaterial-0'), // level up into Nico
+        mrdAns(1, 'myTempZone-1'), // put Fluffy Shopkeep (the 2nd card) into the graveyard; Dungeon Guide goes to the bottom
+    ],
+];
+$fixtures['nico-raptures-embrace-enter-look-two-graveyard-first-bottom-second'] = [
+    'testedCards' => ['29lqrve8fz'],
+    'deck' => $gaNicoDeck,
+    'setup' => $gaNicoSetup([$GA_DG, $GA_FS]),
+    'actions' => [mrdEnd(1), mrdEnd(2), mrdAns(1, 'myMaterial-0'),
+        mrdAns(1, 'myTempZone-0'), // put Dungeon Guide (the top card) into the graveyard; Fluffy Shopkeep goes to the bottom
+    ],
+];
+$fixtures['nico-raptures-embrace-player-two-enter-look-two-graveyard-one-bottom-other'] = [
+    'testedCards' => ['29lqrve8fz'],
+    'deck' => $gaNicoDeck,
+    // PLAYER 2 seating (perspective check): player 2's second turn (global turn 4) offers the level-up; the two looked-at cards sit
+    // under player 2's turn-2 draw (a filler Dungeon Guide). Player 1 declines its own turn-3 materialize offer first.
+    'setup' => $gaNicoSetup([$GA_DG, $GA_DG, $GA_FS], 2),
+    'actions' => [mrdEnd(1), mrdEnd(2), mrdPass(1), mrdEnd(1), mrdAns(2, 'myMaterial-0'),
+        mrdAns(2, 'myTempZone-1'), // Fluffy Shopkeep into player 2's graveyard; Dungeon Guide to the bottom of player 2's deck
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

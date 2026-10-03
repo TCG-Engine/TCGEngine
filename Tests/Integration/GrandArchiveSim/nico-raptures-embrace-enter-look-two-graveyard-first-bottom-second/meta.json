@@ -1,0 +1,31 @@
+{
+    "name": "nico-raptures-embrace-enter-look-two-graveyard-first-bottom-second",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T21:09:59+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "29lqrve8fz"
+    ],
+    "notes": "Nico, Rapture's Embrace (29lqrve8fz): same stack as the sibling fixture but the player puts the TOP card (Dungeon Guide) into the graveyard; Fluffy Shopkeep, the 2nd card, goes to the bottom of the deck.",
+    "semanticCoverage": {
+        "testedCards": [
+            "29lqrve8fz"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "look-at-top",
+            "bottom-deck",
+            "trigger",
+            "level-up"
+        ],
+        "rulesClauses": [
+            "On Enter: If there's another water element card in Nico's lineage, look at the top two cards of your deck. Put one of those cards into your graveyard and the other on the bottom of your deck."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. NicoRapturesEmbraceEnter() pulled the top two cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"). Remove() only flags a slot removed (no splice), so the second iteration re-resolved the SAME removed slot and MZMove's \"already removed\" guard silently no-oped: only the top card was ever looked at, so the 'only one card' branch fired and put the top card straight into the graveyard with no choice and nothing on the bottom (live repro on HEAD: no prompt, Dungeon Guide in the graveyard, Fluffy Shopkeep never moved). Fixed with the new MZMoveTopOfZone() helper.",
+        "affectedFunction": "Custom/CardDQHandlers.php NicoRapturesEmbraceEnter()",
+        "fixCommit": "TBD"
+    }
+}
