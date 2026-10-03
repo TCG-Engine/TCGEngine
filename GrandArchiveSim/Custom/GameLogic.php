@@ -19138,12 +19138,19 @@ function IsElementBonusActive($player, $cardID) {
 
 // Lookup for cards with "[Class Bonus] This card costs N less to activate"
 // Returns the flat discount amount (0 if card has no class bonus cost reduction)
+//
+// DO NOT list a card here if the generated code already gives it its Class Bonus discount through
+// $activationCostModifierAbilities[...] (applied first by ApplyGeneratedReserveLikeCostModifiers()
+// in CalculateActivationReserveCost()): the discount would be applied TWICE. Shifting Mirage
+// (hmjr33ijq6), Bolster Ranks (n0esog2898) and Echoic Guard (gn1b2sbrq9) used to be listed here AND
+// carried a generated "[Class Bonus] -1" activation modifier, so printed 3 became 1 instead of 2.
+// (Galestream Insight usa6qyq3ka stays: its generated modifier is only the separate [Memory 4+]
+// discount, so this table supplies its [Class Bonus] discount.)
 function ClassBonusActivateCostReduction($cardID) {
     static $reductions = [
         'qwtprd5b5r' => 1,
         'ioxgugw9r9' => 1,
         '4gdubtwij9' => 1,
-        'hmjr33ijq6' => 1,
         'ej4mcnqsm3' => 1,
         'xi74wa4x7e' => 1,
         'yhu0djqlp8' => 1,
@@ -19166,8 +19173,6 @@ function ClassBonusActivateCostReduction($cardID) {
         '67duh1cy3g' => 1,
         'btjuxztaug' => 1,
         '99sx6q3p6i' => 1,
-        'n0esog2898' => 1,
-        'gn1b2sbrq9' => 1,
         'zc7wxgur23' => 1,
         'pc0y3xneg7' => 1,
         '8qgr2drym1' => 1,

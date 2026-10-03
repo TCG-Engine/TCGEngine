@@ -1,0 +1,41 @@
+{
+    "name": "shifting-mirage-class-bonus-costs-two-opponent-declines-stealth-shadow",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:28:49+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "hmjr33ijq6"
+    ],
+    "notes": "Shifting Mirage (hmjr33ijq6, UMBRA REACTION action, printed reserve 3): \"[Class Bonus] This card costs 1 less to activate. Your champion gains stealth until end of turn unless an opponent pays (2). [Tristan Bonus] Summon an Ominous Shadow token.\" Player 1's champion is patched to Tristan, Shadowdancer so UMBRA, the Class Bonus and the Tristan Bonus are all active. The card is played for real and needs exactly TWO reserve payments (3 - 1): after the first payment it has not resolved (graveyard empty, memory 1), after the second it resolves (memory 2, hand 8 - 1 played - 2 paid = 5). The opponent (7 cards in hand) then declines the (2) payment, so the CASTER's champion gains STEALTH, the opponent's champion gains nothing, and the Tristan Bonus Ominous Shadow is summoned. Replaces shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines, which pinned the double Class-Bonus discount (one payment) as a REGRESSION GUARD.",
+    "semanticCoverage": {
+        "testedCards": [
+            "hmjr33ijq6"
+        ],
+        "mechanics": [
+            "status",
+            "cost",
+            "token",
+            "condition",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate.",
+            "Your champion gains stealth until end of turn unless an opponent pays (2).",
+            "[Tristan Bonus] Summon an Ominous Shadow token."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Shifting Mirage's printed '[Class Bonus] This card costs 1 less to activate' was applied TWICE: once by the generated activationCostModifierAbilities['hmjr33ijq6:0'] (via ApplyGeneratedReserveLikeCostModifiers) and once more by the hand-maintained ClassBonusActivateCostReduction() table in Custom/GameLogic.php (which still listed hmjr33ijq6). With the Class Bonus active, printed reserve 3 became 1 instead of 2 (live probe on the old fixture's initial state: ApplyGeneratedReserveLikeCostModifiers(...,3,'activate') = 2, ClassBonusActivateCostReduction('hmjr33ijq6') = 1, CalculateActivationReserveCost() = 1). Fix: the three cards that already carry a generated '[Class Bonus] -1' activation modifier (hmjr33ijq6 Shifting Mirage, n0esog2898 Bolster Ranks, gn1b2sbrq9 Echoic Guard) were removed from the ClassBonusActivateCostReduction() table so the generated modifier is the single source of the discount; the exact cost (2 with the Class Bonus, 3 without) is now pinned. A sweep of all 65 table entries found no other card double-discounted (Galestream Insight usa6qyq3ka correctly keeps its table entry because its generated modifier is only the separate [Memory 4+] discount).",
+        "affectedFunction": "Custom/GameLogic.php ClassBonusActivateCostReduction() table (entries for hmjr33ijq6, n0esog2898, gn1b2sbrq9 removed) consumed by CalculateActivationReserveCost()",
+        "fixCommit": "TBD"
+    },
+    "additionalEngineBugs": [
+        {
+            "status": "fixed",
+            "summary": "FIXED. When the opponent declines to pay (2), Shifting Mirage's STEALTH used to land on the OPPONENT's champion: ShiftingMirageResolve() stored the caster-relative mzID 'myField-0' in DecisionQueueController variable ShiftingMirageChampion, and customDQHandlers['ShiftingMiragePay'] later applied AddTurnEffect() from inside the opponent's own action, where 'myField-0' resolves to the opponent's champion (live trace before the fix: handlerPlayer=2 globalPlayerID=2 storedChampMZ=myField-0 resolvesTo=pNiyaGlIe7 controller=2). Fix: the champion mzID is now stored relative to the opponent via NormalizeMzIDForController() and read back through NormalizeMZForPlayerPerspective($player, ...) in the handler (the stored-mzID convention documented above NormalizeMzIDForController() in Custom/OpportunityLogic.php). The YES branch (opponent pays) never read the stored value.",
+            "affectedFunction": "Custom/GameLogic.php ShiftingMirageResolve() + Custom/CardDQHandlers.php customDQHandlers['ShiftingMiragePay']",
+            "fixCommit": "3e5be10d"
+        }
+    ]
+}

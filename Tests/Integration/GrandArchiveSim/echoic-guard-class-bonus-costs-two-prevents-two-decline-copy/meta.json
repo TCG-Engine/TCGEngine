@@ -1,0 +1,32 @@
+{
+    "name": "echoic-guard-class-bonus-costs-two-prevents-two-decline-copy",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:31:41+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "gn1b2sbrq9"
+    ],
+    "notes": "Echoic Guard (gn1b2sbrq9, NEOS/GUARDIAN ACTION, printed reserve 3): \"[Class Bonus] This card costs 1 less to activate. Prevent the next 2 damage that would be dealt to target ally this turn. Then you may pay (X) where X is that ally's reserve cost. If you do, summon a token copy of that ally.\" Same double-Class-Bonus-discount engine bug as Shifting Mirage (generated activationCostModifierAbilities['gn1b2sbrq9:0'] AND the ClassBonusActivateCostReduction() table). The champion is Tonoris, Creation's Will (NEOS + GUARDIAN); a Dungeon Guide (reserve 3) is the target. Exactly TWO reserve payments pay for the card (unresolved after one, resolved after two), the target gets the PREVENT_ALL_2 effect, and the optional (X) copy payment is declined (no token copy, memory stays 2).",
+    "semanticCoverage": {
+        "testedCards": [
+            "gn1b2sbrq9"
+        ],
+        "mechanics": [
+            "cost",
+            "prevention",
+            "targeting",
+            "token"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate.",
+            "Prevent the next 2 damage that would be dealt to target ally this turn.",
+            "Then you may pay (X) ... summon a token copy of that ally. (declined)"
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Echoic Guard' printed '[Class Bonus] This card costs 1 less to activate' was applied TWICE: once by the generated activationCostModifierAbilities['gn1b2sbrq9:0'] (via ApplyGeneratedReserveLikeCostModifiers) and once more by the hand-maintained ClassBonusActivateCostReduction() table in Custom/GameLogic.php (which still listed gn1b2sbrq9). With the Class Bonus active, printed reserve 3 became 1 instead of 2 (same defect first confirmed live on Shifting Mirage; swept from the table: this card measured with=1 expected 2). Fix: the three cards that already carry a generated '[Class Bonus] -1' activation modifier (hmjr33ijq6 Shifting Mirage, gn1b2sbrq9 Echoic Guard, gn1b2sbrq9 Echoic Guard) were removed from the ClassBonusActivateCostReduction() table so the generated modifier is the single source of the discount; the exact cost (2 with the Class Bonus, 3 without) is now pinned. A sweep of all 65 table entries found no other card double-discounted (Galestream Insight usa6qyq3ka correctly keeps its table entry because its generated modifier is only the separate [Memory 4+] discount).",
+        "affectedFunction": "Custom/GameLogic.php ClassBonusActivateCostReduction() table (entries for hmjr33ijq6, n0esog2898, gn1b2sbrq9 removed) consumed by CalculateActivationReserveCost()",
+        "fixCommit": "TBD"
+    }
+}

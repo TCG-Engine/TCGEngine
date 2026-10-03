@@ -1,0 +1,9 @@
+[
+    {"step":2,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"After ONE payment Bolster Ranks has NOT resolved: printed 3 minus a single Class Bonus discount is 2, not 1"},
+    {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"Exactly TWO reserve cards were paid: printed 3 minus the one [Class Bonus] discount"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"n0esog2898","semantic":true,"label":"Bolster Ranks resolved only after the second payment"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":5,"semantic":true,"label":"Hand 8 - the played card - 2 reserve payments = 5"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"mu6gvnta6q","semantic":true,"label":"Summoned an Automaton Drone token"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"buff\":1}","semantic":true,"label":"The Drone has exactly one buff counter"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

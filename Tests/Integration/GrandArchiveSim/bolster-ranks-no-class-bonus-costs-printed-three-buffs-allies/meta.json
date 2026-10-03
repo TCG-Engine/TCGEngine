@@ -1,0 +1,24 @@
+{
+    "name": "bolster-ranks-no-class-bonus-costs-printed-three-buffs-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:32:12+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "n0esog2898"
+    ],
+    "notes": "Bolster Ranks (n0esog2898, printed reserve 3): negative case. The champion is the level-0 Spirit of Wind (class SPIRIT, not GUARDIAN) carrying a Tonoris, Creation's Will lineage card so the NEOS card is playable, but the Class Bonus is inactive: all THREE reserve cards are paid (still unresolved after two, resolved after the third: memory 3, hand 4). A Dungeon Guide is the only ally; the NO mode puts exactly one buff counter on it and summons no Drone.",
+    "semanticCoverage": {
+        "testedCards": [
+            "n0esog2898"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate. (inactive: no discount)",
+            "Choose one - Put a buff counter on each ally you control."
+        ]
+    }
+}

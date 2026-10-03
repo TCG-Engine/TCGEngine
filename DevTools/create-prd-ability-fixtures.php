@@ -20617,25 +20617,23 @@ $fixtures['gearstride-gloves-banish-requires-level-two'] = [
     ],
 ];
 
-// --- Shifting Mirage: opponent declines to pay (2); [Tristan Bonus] summons an Ominous Shadow ---
-// Shifting Mirage (hmjr33ijq6, UMBRA REACTION action): "[Class Bonus] This card costs 1 less to
-// activate. Your champion gains stealth until end of turn unless an opponent pays (2). [Tristan
-// Bonus] Summon an Ominous Shadow token." Player 1's champion is patched to Tristan, Shadowdancer
-// so UMBRA, the Class Bonus and the Tristan Bonus are all active. The card is played for real;
-// ShiftingMirageResolve() (Custom/GameLogic.php) queues a YES/NO for the opponent (who holds 7+
-// cards) and, regardless of the answer, summons the Ominous Shadow for the Tristan Bonus. ENGINE
-// BUGS: (1) (found, confirmed live, NOT fixed) Double Class-Bonus discount: the card needs only
-// ONE reserve payment although printed 3 minus the Class Bonus should be 2 (two independent
-// discount mechanisms both apply; confirmed by calling ApplyGeneratedReserveLikeCostModifiers /
-// ClassBonusActivateCostReduction / CalculateActivationReserveCost directly on this fixture's
-// initial state: 2 / 1 / 1). (2) (FIXED) Stealth used to land on the wrong champion: when the
-// opponent declines, customDQHandlers["ShiftingMiragePay"] (Custom/CardDQHandlers.php) runs in the
-// OPPONENT's action, but the champion mzID was stored relative to player 1 ("myField-0"), which
-// resolves to the OPPONENT's champion there (trace: handlerPlayer=2 storedChampMZ=myField-0
-// resolvesTo=pNiyaGlIe7 controller=2). ShiftingMirageResolve() now stores it relative to the
-// opponent via NormalizeMzIDForController(), so the CASTER's champion gains STEALTH. Defect (1) is
-// still pinned with a REGRESSION GUARD assertion.
-$fixtures['shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines'] = [
+// --- Shifting Mirage: [Class Bonus] makes it cost exactly 2 (printed 3 - 1); opponent declines to pay (2); [Tristan Bonus] summons an Ominous Shadow ---
+// Shifting Mirage (hmjr33ijq6, UMBRA REACTION action, printed reserve 3): "[Class Bonus] This card
+// costs 1 less to activate. Your champion gains stealth until end of turn unless an opponent pays
+// (2). [Tristan Bonus] Summon an Ominous Shadow token." Player 1's champion is patched to Tristan,
+// Shadowdancer so UMBRA, the Class Bonus and the Tristan Bonus are all active. The card is played
+// for real; with the Class Bonus it needs exactly TWO reserve payments (3 - 1 = 2) -- the third
+// would be rejected as a hand-count change, so the assertions pin memory = 2 and hand = 5 (8 - the
+// played card - 2 paid). ShiftingMirageResolve() (Custom/GameLogic.php) then queues a YES/NO for
+// the opponent (who holds 7+ cards) and, regardless of the answer, summons the Ominous Shadow for
+// the Tristan Bonus. ENGINE BUGS (both FIXED): (1) the Class Bonus discount used to be applied
+// TWICE (the generated activationCostModifierAbilities['hmjr33ijq6:0'] AND the hand-maintained
+// ClassBonusActivateCostReduction() table), so the card cost 1 instead of 2 -- the table entry was
+// removed. (2) Stealth used to land on the wrong champion when the opponent declines
+// (customDQHandlers["ShiftingMiragePay"] runs in the OPPONENT's action but the champion mzID was
+// stored relative to player 1): ShiftingMirageResolve() now stores it relative to the opponent via
+// NormalizeMzIDForController(), so the CASTER's champion gains STEALTH.
+$fixtures['shifting-mirage-class-bonus-costs-two-opponent-declines-stealth-shadow'] = [
     'testedCards' => ['hmjr33ijq6'],
     'deck' => $tristanDeck,
     'setup' => [
@@ -20644,20 +20642,20 @@ $fixtures['shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines'] = [
     ],
     'actions' => [
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Shifting Mirage from hand
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // the ONLY reserve payment (see the double-discount bug)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2 (printed 3 minus the single Class Bonus discount)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // the opponent declines to pay (2) to stop the stealth
     ],
 ];
 
 // --- Shifting Mirage: opponent pays (2), so the champion does not gain stealth; [Tristan Bonus] still summons an Ominous Shadow ---
 // Shifting Mirage (hmjr33ijq6): "Your champion gains stealth until end of turn unless an opponent
-// pays (2)." Same setup as shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines, but the
-// opponent answers YES and pays two reserve cards (ReserveCard x2 inside
-// customDQHandlers["ShiftingMiragePay"]): neither champion gains stealth, the opponent's memory
-// grows by exactly 2 cards, and the Tristan Bonus Ominous Shadow is still summoned. The caster's
-// single-payment cost is the double-discount engine bug documented in the sibling fixture (pinned
-// here too, since the same snapshot would change if it were fixed).
-$fixtures['shifting-mirage-tristan-bonus-shadow-stealth-opponent-pays'] = [
+// pays (2)." Same setup as shifting-mirage-class-bonus-costs-two-opponent-declines-stealth-shadow
+// (caster pays exactly 2 with the Class Bonus), but the opponent answers YES and pays two reserve
+// cards (ReserveCard x2 inside customDQHandlers["ShiftingMiragePay"]): neither champion gains
+// stealth, the opponent's memory grows by exactly 2 cards, and the Tristan Bonus Ominous Shadow is
+// still summoned.
+$fixtures['shifting-mirage-class-bonus-costs-two-opponent-pays-no-stealth-shadow'] = [
     'testedCards' => ['hmjr33ijq6'],
     'deck' => $tristanDeck,
     'setup' => [
@@ -20666,7 +20664,8 @@ $fixtures['shifting-mirage-tristan-bonus-shadow-stealth-opponent-pays'] = [
     ],
     'actions' => [
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Shifting Mirage from hand
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // the ONLY reserve payment (see the double-discount bug)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // the opponent pays (2) to stop the stealth
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // opponent payment 1/2
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // opponent payment 2/2
@@ -20677,12 +20676,11 @@ $fixtures['shifting-mirage-tristan-bonus-shadow-stealth-opponent-pays'] = [
 // Shifting Mirage (hmjr33ijq6): when the opponent holds fewer than 2 cards ShiftingMirageResolve()
 // skips the YES/NO and applies the stealth turn effect directly while still under player 1's own
 // perspective, so the CASTER's champion gains STEALTH (the declined-payment path, which resolves
-// it inside the opponent's action, is covered by shifting-mirage-tristan-bonus-shadow-stealth-
-// opponent-declines). The opponent's
-// hand is emptied through the generator's emptyZone setup step. The Tristan Bonus Ominous Shadow
-// is summoned as well. The single reserve payment is the double-Class-Bonus-discount engine bug
-// (printed 3 -> 1 instead of 2), pinned with a REGRESSION GUARD.
-$fixtures['shifting-mirage-stealth-when-opponent-cannot-pay'] = [
+// it inside the opponent's action, is covered by shifting-mirage-class-bonus-costs-two-opponent-
+// declines-stealth-shadow). The opponent's hand is emptied through the generator's emptyZone setup
+// step. The Tristan Bonus Ominous Shadow is summoned as well. The caster pays exactly 2 reserve
+// cards (printed 3 minus the one Class Bonus discount).
+$fixtures['shifting-mirage-class-bonus-costs-two-opponent-cannot-pay-stealth'] = [
     'testedCards' => ['hmjr33ijq6'],
     'deck' => $tristanDeck,
     'setup' => [
@@ -20692,7 +20690,127 @@ $fixtures['shifting-mirage-stealth-when-opponent-cannot-pay'] = [
     ],
     'actions' => [
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Shifting Mirage from hand
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // the ONLY reserve payment (see the double-discount bug)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+    ],
+];
+
+// --- Shifting Mirage: negative case -- WITHOUT the Class Bonus it costs its full printed 3 ---
+// Shifting Mirage (hmjr33ijq6, printed reserve 3): "[Class Bonus] This card costs 1 less to
+// activate." The champion is patched to Diana, Duskstalker (UMBRA so the card is playable, but class
+// RANGER, not ASSASSIN, and no Tristan lineage), so neither the Class Bonus discount nor the
+// [Tristan Bonus] Ominous Shadow applies: the caster must pay all THREE reserve cards (memory 3,
+// hand 8 - 1 - 3 = 4), the opponent declines the (2) payment and Diana gains STEALTH, and no token
+// is summoned.
+$fixtures['shifting-mirage-no-class-bonus-costs-printed-three'] = [
+    'testedCards' => ['hmjr33ijq6'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'iq4d5vettc', 'Subcards' => ['pNiyaGlIe7']]], // Diana, Duskstalker (UMBRA, class RANGER - NOT ASSASSIN): UMBRA enabled so the card is playable, Class Bonus and Tristan Bonus inactive
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hmjr33ijq6'], // Shifting Mirage -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Shifting Mirage from hand
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 3/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // the opponent declines to pay (2)
+    ],
+];
+
+// --- Bolster Ranks: [Class Bonus] makes it cost exactly 2 (printed 3 - 1); summons a Drone with a buff counter ---
+// Bolster Ranks (n0esog2898, GUARDIAN ACTION, printed reserve 3): "[Class Bonus] This card costs 1
+// less to activate. Choose one -- Summon an Automaton Drone token with a buff counter on it; or put
+// a buff counter on each ally you control." Same double-Class-Bonus-discount engine bug as Shifting
+// Mirage (generated activationCostModifierAbilities['n0esog2898:0'] AND the hand-maintained
+// ClassBonusActivateCostReduction() table both applied it, so the card cost 1 instead of 2). The
+// champion is patched to Tonoris, Creation's Will (NEOS + GUARDIAN) so the NEOS element and the Class Bonus are active; the card
+// is played for real and needs exactly TWO reserve payments, then the YES branch summons a Drone
+// with exactly one buff counter.
+$fixtures['bolster-ranks-class-bonus-costs-two-summons-buffed-drone'] = [
+    'testedCards' => ['n0esog2898'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'n2jnltv5kl', 'Subcards' => ['yevpmu6gvn', 'zb14m4c8lj', 'pNiyaGlIe7']]], // Tonoris, Creation's Will (NEOS/GUARDIAN, Tonoris lineage): enables the NEOS element and the Class Bonus
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n0esog2898'], // Bolster Ranks -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Bolster Ranks from hand
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2 (printed 3 minus the single Class Bonus discount)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // mode: summon an Automaton Drone token with a buff counter
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline Tonoris, Creation's Will's own optional Drone replacement prompt
+    ],
+];
+
+// --- Bolster Ranks: negative case -- WITHOUT the Class Bonus it costs its full printed 3; buffs each ally ---
+// Bolster Ranks (n0esog2898, printed reserve 3): the champion is the level-0 Spirit of Wind (class
+// SPIRIT, not GUARDIAN) carrying a Tonoris, Creation's Will lineage card, so the NEOS card is
+// playable but the Class Bonus is inactive and no discount applies: all THREE reserve cards are paid. A Dungeon Guide is
+// seeded as the only ally and the NO mode puts exactly one buff counter on it (no Drone is summoned).
+$fixtures['bolster-ranks-no-class-bonus-costs-printed-three-buffs-allies'] = [
+    'testedCards' => ['n0esog2898'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'pNiyaGlIe7', 'Subcards' => ['n2jnltv5kl']]], // Spirit of Wind (class SPIRIT, NOT GUARDIAN) with a Tonoris, Creation's Will lineage card: NEOS is enabled (card playable) but the Class Bonus is inactive
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ally) -> p1 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n0esog2898'], // Bolster Ranks -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Bolster Ranks from hand
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // mode: put a buff counter on each ally you control
+    ],
+];
+
+// --- Echoic Guard: [Class Bonus] makes it cost exactly 2 (printed 3 - 1); prevents the next 2 damage to the target ally ---
+// Echoic Guard (gn1b2sbrq9, GUARDIAN ACTION, printed reserve 3): "[Class Bonus] This card costs 1
+// less to activate. Prevent the next 2 damage that would be dealt to target ally this turn. Then you
+// may pay (X) where X is that ally's reserve cost. If you do, summon a token copy of that ally."
+// Same double-Class-Bonus-discount engine bug as Shifting Mirage (generated
+// activationCostModifierAbilities['gn1b2sbrq9:0'] AND the ClassBonusActivateCostReduction() table).
+// The champion is Tonoris, Creation's Will (NEOS + GUARDIAN); a Dungeon Guide (reserve 3) is the target.
+// Exactly TWO reserve payments pay for the card, the target gets the PREVENT_ALL_2 effect, and the
+// optional (X) copy payment is declined (no token copy, no further memory growth).
+$fixtures['echoic-guard-class-bonus-costs-two-prevents-two-decline-copy'] = [
+    'testedCards' => ['gn1b2sbrq9'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'n2jnltv5kl', 'Subcards' => ['yevpmu6gvn', 'zb14m4c8lj', 'pNiyaGlIe7']]], // Tonoris, Creation's Will (NEOS/GUARDIAN, Tonoris lineage): enables the NEOS element and the Class Bonus
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (reserve 3 ally, the target) -> p1 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'gn1b2sbrq9'], // Echoic Guard -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Echoic Guard from hand
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2 (printed 3 minus the single Class Bonus discount)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // target: the Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline paying (X) for the token copy
+    ],
+];
+
+// --- Echoic Guard: negative case -- WITHOUT the Class Bonus it costs its full printed 3 ---
+// Echoic Guard (gn1b2sbrq9, printed reserve 3): the champion is the level-0 Spirit of Wind (class
+// SPIRIT, not GUARDIAN) carrying a Tonoris, Creation's Will lineage card, so the NEOS card is
+// playable but the Class Bonus is inactive and no discount applies: all THREE reserve cards are paid before the target
+// prompt; the Dungeon Guide still gets the PREVENT_ALL_2 effect and the copy payment is declined.
+$fixtures['echoic-guard-no-class-bonus-costs-printed-three'] = [
+    'testedCards' => ['gn1b2sbrq9'],
+    'deck' => $tristanDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'pNiyaGlIe7', 'Subcards' => ['n2jnltv5kl']]], // Spirit of Wind (class SPIRIT, NOT GUARDIAN) with a Tonoris, Creation's Will lineage card: NEOS is enabled (card playable) but the Class Bonus is inactive
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (reserve 3 ally, the target) -> p1 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'gn1b2sbrq9'], // Echoic Guard -> p1 myHand-7
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Echoic Guard from hand
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 3/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // target: the Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline paying (X) for the token copy
     ],
 ];
 

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T15:22:58+00:00",
+    "generatedAt": "2026-10-03T15:34:05+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 626,
+        "cardsWithExistingFixtures": 628,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1861,
+        "cardsNeedingSemanticCoverage": 1859,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1529,26 +1529,6 @@
             "priority": 25
         },
         {
-            "cardId": "gn1b2sbrq9",
-            "name": "Echoic Guard",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "X7rh3Yi26A",
             "name": "Endura, Reimagined",
             "type": "REGALIA,ITEM",
@@ -1960,24 +1940,6 @@
                 "zone-movement",
                 "counter",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "n0esog2898",
-            "name": "Bolster Ranks",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "counter",
-                "token"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -33444,14 +33406,16 @@
                 "token"
             ],
             "existingFixtures": [
-                "shifting-mirage-stealth-when-opponent-cannot-pay",
-                "shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines",
-                "shifting-mirage-tristan-bonus-shadow-stealth-opponent-pays"
+                "shifting-mirage-class-bonus-costs-two-opponent-cannot-pay-stealth",
+                "shifting-mirage-class-bonus-costs-two-opponent-declines-stealth-shadow",
+                "shifting-mirage-class-bonus-costs-two-opponent-pays-no-stealth-shadow",
+                "shifting-mirage-no-class-bonus-costs-printed-three"
             ],
             "semanticFixtures": [
-                "shifting-mirage-stealth-when-opponent-cannot-pay",
-                "shifting-mirage-tristan-bonus-shadow-stealth-opponent-declines",
-                "shifting-mirage-tristan-bonus-shadow-stealth-opponent-pays"
+                "shifting-mirage-class-bonus-costs-two-opponent-cannot-pay-stealth",
+                "shifting-mirage-class-bonus-costs-two-opponent-declines-stealth-shadow",
+                "shifting-mirage-class-bonus-costs-two-opponent-pays-no-stealth-shadow",
+                "shifting-mirage-no-class-bonus-costs-printed-three"
             ],
             "starterDecks": [
                 "Tristan Re:Collection, Shadowdancer"
@@ -45535,6 +45499,32 @@
             "priority": 131
         },
         {
+            "cardId": "gn1b2sbrq9",
+            "name": "Echoic Guard",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "echoic-guard-class-bonus-costs-two-prevents-two-decline-copy",
+                "echoic-guard-no-class-bonus-costs-printed-three"
+            ],
+            "semanticFixtures": [
+                "echoic-guard-class-bonus-costs-two-prevents-two-decline-copy",
+                "echoic-guard-no-class-bonus-costs-printed-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "jh9s424gjr",
             "name": "Enervating Decay",
             "type": "ACTION",
@@ -45621,6 +45611,30 @@
             ],
             "semanticFixtures": [
                 "astral-seal-negate-activation-banish"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "n0esog2898",
+            "name": "Bolster Ranks",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "counter",
+                "token"
+            ],
+            "existingFixtures": [
+                "bolster-ranks-class-bonus-costs-two-summons-buffed-drone",
+                "bolster-ranks-no-class-bonus-costs-printed-three-buffs-allies"
+            ],
+            "semanticFixtures": [
+                "bolster-ranks-class-bonus-costs-two-summons-buffed-drone",
+                "bolster-ranks-no-class-bonus-costs-printed-three-buffs-allies"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

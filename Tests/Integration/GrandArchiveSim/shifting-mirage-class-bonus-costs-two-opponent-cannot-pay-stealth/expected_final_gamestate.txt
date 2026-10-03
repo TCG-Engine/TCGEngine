@@ -38,8 +38,7 @@ hmjr33ijq6
 0
 0
 0
-6
-em6eEh9q8y
+5
 px60u5n1do
 px60u5n1do
 em6eEh9q8y
@@ -53,8 +52,9 @@ gveirpdm44 2 1 0 1 ENTERED_THIS_TURN - - 3
 pNiyaGlIe7 2 2 0 2 - - - 2
 0
 0
-1
+2
 px60u5n1do
+em6eEh9q8y
 0
 7
 bjlwabipl6
