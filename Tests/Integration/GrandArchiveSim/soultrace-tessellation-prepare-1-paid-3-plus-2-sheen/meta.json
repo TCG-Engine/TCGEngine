@@ -28,6 +28,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated ability for this ACTION was registered as enterAbilities['7ePq6I4uZ8:0'] (GeneratedMacroCode.php), which only runs when a permanent enters the field, and no $cardActivatedAbilities['7ePq6I4uZ8:0'] existed: live state dump on HEAD 47028d36 before the fix showed the card going to the graveyard with NO target prompt, NO Prepare prompt (counters untouched) and no sheen on any unit; the later YES / target answers were accepted as silent no-ops. Fix: hand-authored $cardActivatedAbilities['7ePq6I4uZ8:0'] queues the Prepare 1 YES/NO, then an MZCHOOSE over (non-spellshroud) units, then customDQHandlers['GASoultraceTessellationResolve'] adds 3 sheen (+ floor(banishment/3) when prepared).",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php $cardActivatedAbilities['7ePq6I4uZ8:0'] + GASoultraceTessellationResolve",
-        "fixCommit": "TBD"
+        "fixCommit": "c18e2f0d"
     }
 }

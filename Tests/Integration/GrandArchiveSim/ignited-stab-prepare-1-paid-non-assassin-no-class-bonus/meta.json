@@ -27,6 +27,6 @@
         "status": "fixed",
         "summary": "FIXED. Second defect behind the Ignited Stab wiring: the generated onAttackAbilities['GRkBQ1Uvir:0'] gated '[Class Bonus]' with IsClassBonusActive($player) called with NO required-classes list, which only checks 'controls any champion' (always true), so a prepared Ignited Stab played by a non-Assassin champion would still have gotten +2 POWER. Fix: GAWrapClassBonusGate($onAttackAbilities, 'GRkBQ1Uvir:0', ['ASSASSIN']) in Custom/GeneratedAbilityOverrides.php (same wrapper re-gates Coup de Grace's critical 4 and Thousand Refractions' wake-up/return).",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php GAWrapClassBonusGate()",
-        "fixCommit": "TBD"
+        "fixCommit": "c18e2f0d"
     }
 }

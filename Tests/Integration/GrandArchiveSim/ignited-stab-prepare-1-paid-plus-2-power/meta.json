@@ -27,6 +27,6 @@
         "status": "fixed",
         "summary": "FIXED. The CardEditor ability row for this card never queued the fixed Prepare cost: no $cardActivatedAbilities['GRkBQ1Uvir:0'] entry existed (or, for the Strike from the Mist stub, it was an empty '(engine)' body), so OnCardActivated() queued no 'Pay Prepare N?' decision and wasPrepared was never YES. Live state dump on HEAD 47028d36 before the fix: after the last reserve payment the decision queue went straight to the attack-target / ally-target choice (no YESNO), preparation counters stayed untouched, and answering YES was rejected as 'Invalid selection' (or silently ignored) -- so the card's 'if prepared' rider was unreachable. Fix: hand-authored $cardActivatedAbilities['GRkBQ1Uvir:0'] (GAQueueFixedPrepare(player, 1)); the generated onAttackAbilities['GRkBQ1Uvir:0'] (+2 POWER via the GRkBQ1Uvir_POWER effect that ObjectCurrentPower reads) was already correct but unreachable.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php $cardActivatedAbilities['GRkBQ1Uvir:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "c18e2f0d"
     }
 }
