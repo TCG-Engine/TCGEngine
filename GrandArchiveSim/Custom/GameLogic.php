@@ -19868,25 +19868,54 @@ function ResolveBygoneDaysCascade($player, $mzID) {
     if($step === 1) { RecoverChampion($player, 2); return; }
     if($step === 2) { RecoverChampion($player, 1); return; }
     if($step < 3) return;
+    // "Each player chooses an ally they control": every MZCHOOSE option list is built in the perspective of the
+    // player who will ANSWER it (forPlayer: flips the results into that player's own coordinate space). The
+    // opponent's list used to be searched as "theirField" relative to $player and handed to the opponent
+    // unflipped, so the opponent was offered the TURN player's field slots instead of their own allies (and
+    // could never return one).
+    $opponent = $player == 1 ? 2 : 1;
     $myAllies = ZoneSearch("myField", ["ALLY"], forPlayer:$player);
-    $theirAllies = ZoneSearch("theirField", ["ALLY"], forPlayer:$player);
+    $theirAllies = ZoneSearch("myField", ["ALLY"], forPlayer:$opponent);
     if(!empty($myAllies)) {
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $myAllies), 1, tooltip:"Choose_an_ally_to_return_to_memory");
         DecisionQueueController::AddDecision($player, "CUSTOM", "BygoneDaysReturn", 1);
     }
-    $opponent = $player == 1 ? 2 : 1;
     if(!empty($theirAllies)) {
         DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", $theirAllies), 1, tooltip:"Choose_an_ally_to_return_to_memory");
         DecisionQueueController::AddDecision($opponent, "CUSTOM", "BygoneDaysReturn", 1);
     }
-    DoSacrificeFighter($player, $mzID);
+    // "...returns it to its owner's memory. Sacrifice CARDNAME." Sacrifice AFTER the choices, in printed order and --
+    // more importantly -- so Bygone Days' own slot is not flagged removed while the MZCHOOSE option lists above are
+    // still pending: the removed slot is spliced out of the field before the answer is processed, which left every
+    // ally listed after Bygone Days on the field one slot off (the chosen "myField-N" then pointed past the end of the
+    // field and the ally was silently not returned). Bygone Days is found again by UniqueID since returning an ally
+    // shifts slots as well.
+    $bygoneUID = GetFieldObjectUniqueID($mzID, $player);
+    if($bygoneUID !== null) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BygoneDaysSacrifice|" . $bygoneUID, 1, dontSkipOnPass:1);
+    }
 }
+
+$customDQHandlers["BygoneDaysSacrifice"] = function($player, $parts, $lastDecision) {
+    // The ally returned to memory moments ago is only flagged removed (the physical splice is deferred to
+    // CleanupRemovedCards()), and DoAllyDestroyed() splices mid-way: a "myField-N" resolved BEFORE that splice would
+    // point one slot off by the time DoAllyDestroyed() moves it. Splice now, then resolve Bygone Days by UniqueID.
+    DecisionQueueController::CleanupRemovedCards();
+    $viewerMZ = FindFieldMzByUniqueID($parts[0] ?? 0);
+    if($viewerMZ === "") return;
+    DoSacrificeFighter($player, NormalizeMZForPlayerPerspective($player, $viewerMZ));
+};
 
 $customDQHandlers["BygoneDaysReturn"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS") return;
-    $obj = GetZoneObject($lastDecision);
+    // $lastDecision is in the answering $player's own perspective. "Returns it to its OWNER's memory": the chosen
+    // ally is controlled by $player but may be owned by the other player (control-change effects), so the destination is
+    // "myMemory"/"theirMemory" relative to $player -- and MZMove() takes both of its zone arguments from the same
+    // ($player) perspective (it flips them itself when $player is not the ambient viewer). Passing the OWNER as the
+    // MZMove player with a chooser-relative source id flipped the source onto the wrong object.
+    $obj = GetZoneObjectForPlayerPerspective($player, $lastDecision);
     if($obj === null || $obj->removed || !PropertyContains(EffectiveCardType($obj), "ALLY")) return;
-    MZMove($obj->Owner, $lastDecision, "myMemory");
+    MZMove($player, $lastDecision, intval($obj->Owner) === intval($player) ? "myMemory" : "theirMemory");
 };
 
 function CardiacVesselEnter($player, $mzID) {

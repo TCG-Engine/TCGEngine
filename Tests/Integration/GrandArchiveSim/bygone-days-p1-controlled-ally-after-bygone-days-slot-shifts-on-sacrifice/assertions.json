@@ -1,0 +1,7 @@
+[
+    {"step":14,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"The Fluffy Shopkeep that entered AFTER Bygone Days was returned to the controller memory despite Bygone Days' own slot being freed"},
+    {"step":14,"type":"card_property_equals","mzId":"myMemory-0","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"...it is the Fluffy Shopkeep"},
+    {"step":14,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Controller field is just the champion"},
+    {"step":14,"type":"card_property_equals","mzId":"myGraveyard-0","viewerPlayerID":1,"property":"CardID","value":"wXNDSNQ2x2","semantic":true,"label":"Bygone Days was sacrificed"},
+    {"step":14,"type":"decision_queue_empty","player":"all"}
+]

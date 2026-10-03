@@ -26591,6 +26591,78 @@ foreach ([2, 1] as $gaTheurgistCtrl) {
     ];
 }
 
+// --- Bygone Days (wXNDSNQ2x2): "At the beginning of your recollection phase, cascade -- 1: Recover 2. 2: Recover 1.
+// 3: Each player chooses an ally they control and returns it to its owner's memory. Sacrifice CARDNAME." ---
+// The phantasia is played for real; its cascade then triggers on the controller's 1st/2nd/3rd recollection phase.
+$gaBygoneDeck = <<<'DECK'
+# Material
+1 Spirit of Water
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK;
+// $ctrl controls Bygone Days (played for real). Setup: controller champion damaged 5; controller ally = Dungeon Guide (field-1),
+// opponent allies = Fluffy Shopkeep (field-1) + Dungeon Guide (field-2).
+$gaBygoneSetup = function(int $ctrl) {
+    $opp = $ctrl == 1 ? 2 : 1;
+    return [
+        ['player' => $ctrl, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 5]], // controller champion damaged 5 (Recover 2 -> 3, Recover 1 -> 2)
+        ['player' => $ctrl, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // controller Dungeon Guide -> field-1
+        ['player' => $opp, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], // opponent Fluffy Shopkeep -> field-1
+        ['player' => $opp, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // opponent Dungeon Guide -> field-2
+        ['player' => $ctrl, 'zone' => 'myHand', 'cardID' => 'wXNDSNQ2x2'], // Bygone Days -> controller myHand-7
+    ];
+};
+// Actions to reach the controller's Nth recollection phase after playing the card: play + 2 reserve, then pass turns.
+$gaBygoneToCascade = function(int $ctrl, int $n) {
+    $rows = $ctrl == 1 ? [mrdPlay(1, 'myHand-7')] : [mrdEnd(1), mrdPlay(2, 'myHand-7')];
+    $rows = array_merge($rows, mrdPay($ctrl, 2));
+    for ($i = 0; $i < $n; ++$i) {
+        $rows[] = mrdEnd($ctrl);
+        $rows[] = mrdEnd($ctrl == 1 ? 2 : 1);
+    }
+    return $rows;
+};
+foreach ([1, 2] as $gaBygoneCtrl) {
+    $gaBygoneOpp = $gaBygoneCtrl == 1 ? 2 : 1;
+    $fixtures["bygone-days-p$gaBygoneCtrl-controlled-cascade-recovers-then-each-player-returns-ally"] = [
+        'testedCards' => ['wXNDSNQ2x2'],
+        'deck' => $gaBygoneDeck,
+        'setup' => $gaBygoneSetup($gaBygoneCtrl),
+        'actions' => array_merge($gaBygoneToCascade($gaBygoneCtrl, 3), [
+            mrdAns($gaBygoneCtrl, 'myField-1'), // the controller returns its own Dungeon Guide to its memory
+            mrdAns($gaBygoneOpp, 'myField-0', ['expectFailure' => true, 'semantic' => true, 'label' => "The opponent's champion is not an ally (and was never offered): it cannot be chosen"]),
+            // the opponent returns one of ITS OWN two allies (player 1 as opponent: its 2nd ally, player 2 as opponent: its 1st)
+            mrdAns($gaBygoneOpp, $gaBygoneOpp == 2 ? 'myField-2' : 'myField-1'),
+        ]),
+    ];
+}
+// Ownership: the controller controls an ally OWNED by the opponent. "Returns it to its OWNER's memory": it goes to the OPPONENT's memory.
+$fixtures['bygone-days-p1-controlled-returns-opponent-owned-ally-to-owner-memory'] = [
+    'testedCards' => ['wXNDSNQ2x2'],
+    'deck' => $gaBygoneDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Owner' => 2]], // Dungeon Guide controlled by player 1 but OWNED by player 2 -> p1 field-1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'wXNDSNQ2x2'], // Bygone Days -> p1 myHand-7
+    ],
+    'actions' => array_merge($gaBygoneToCascade(1, 3), [
+        mrdAns(1, 'myField-1'), // player 1 chooses the ally it controls (owned by player 2)
+    ]),
+];
+// Slot order: the controller's ally sits AFTER Bygone Days on the field, so sacrificing Bygone Days shifts it down a slot.
+$fixtures['bygone-days-p1-controlled-ally-after-bygone-days-slot-shifts-on-sacrifice'] = [
+    'testedCards' => ['wXNDSNQ2x2'],
+    'deck' => $gaBygoneDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p1 myHand-7
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'wXNDSNQ2x2'], // Bygone Days -> p1 myHand-8
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-8')], mrdPay(1, 2), [mrdPlay(1, 'myHand-5')], mrdPay(1, 3),
+        [mrdEnd(1), mrdEnd(2), mrdEnd(1), mrdEnd(2), mrdEnd(1), mrdEnd(2),
+         mrdAns(1, 'myField-2'), // the Fluffy Shopkeep entered AFTER Bygone Days (field-2); Bygone Days is sacrificed first so it ends up at field-1
+        ]),
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

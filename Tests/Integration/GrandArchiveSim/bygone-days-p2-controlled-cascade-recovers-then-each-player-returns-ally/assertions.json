@@ -1,0 +1,14 @@
+[
+    {"step":6,"type":"card_property_equals","mzId":"myField-0","viewerPlayerID":2,"property":"Damage","value":"3","semantic":true,"label":"Cascade 1 (the controller's first recollection phase): Recover 2 healed the controller champion from 5 damage to 3"},
+    {"step":8,"type":"card_property_equals","mzId":"myField-0","viewerPlayerID":2,"property":"Damage","value":"2","semantic":true,"label":"Cascade 2 (second recollection phase): Recover 1 healed the champion from 3 damage to 2"},
+    {"step":13,"type":"zone_count","zone":"myMemory","viewerPlayerID":2,"value":1,"semantic":true,"label":"The controller returned its own ally to ITS memory (exactly one card in memory)"},
+    {"step":13,"type":"card_property_equals","mzId":"myMemory-0","viewerPlayerID":2,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"...and that card is the controller's Dungeon Guide"},
+    {"step":13,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":1,"semantic":true,"label":"Bygone Days sacrificed itself after the choices: controller field is just the champion"},
+    {"step":13,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":2,"value":1,"semantic":true,"label":"Bygone Days is in the controller graveyard"},
+    {"step":13,"type":"card_property_equals","mzId":"myGraveyard-0","viewerPlayerID":2,"property":"CardID","value":"wXNDSNQ2x2","semantic":true,"label":"...as the only card there"},
+    {"step":13,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"The OPPONENT chose and returned one of ITS OWN allies to ITS memory (exactly one card in the opponent's memory)"},
+    {"step":13,"type":"card_property_equals","mzId":"myMemory-0","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"...the ally the opponent picked (not the controller's ally)"},
+    {"step":13,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":2,"semantic":true,"label":"The opponent field now holds its champion and exactly the one ally it did not choose"},
+    {"step":13,"type":"card_property_equals","mzId":"myField-1","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"...the ally the opponent kept"},
+    {"step":13,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,32 @@
+{
+    "name": "bygone-days-p2-controlled-cascade-recovers-then-each-player-returns-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:43:50+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "wXNDSNQ2x2"
+    ],
+    "notes": "Bygone Days (wXNDSNQ2x2, CLERIC phantasia) is controlled by PLAYER 2 and played for real; its cascade triggers on the controller's 1st/2nd/3rd recollection phase (Recover 2, Recover 1, then each player chooses an ally they control and returns it to its owner's memory, sacrificing Bygone Days). The controller has one Dungeon Guide; the opponent has a Fluffy Shopkeep (field-1) and a Dungeon Guide (field-2). Pre-fix, ResolveBygoneDaysCascade searched the opponent's allies as 'theirField' relative to the turn player and queued that unflipped list on the OPPONENT's own decision, so the opponent was offered the turn player's field slots (its own allies were refused as 'Invalid selection') and could never return an ally.",
+    "semanticCoverage": {
+        "testedCards": [
+            "wXNDSNQ2x2"
+        ],
+        "mechanics": [
+            "cascade",
+            "recover",
+            "zone-movement",
+            "targeting",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, cascade -- 1: Recover 2.",
+            "2: Recover 1.",
+            "3: Each player chooses an ally they control and returns it to its owner's memory. Sacrifice Bygone Days."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. ResolveBygoneDaysCascade (cascade 3) had three defects. (1) PERSPECTIVE: the opponent's ally list was ZoneSearch(\"theirField\", forPlayer:$player), a list in the TURN PLAYER's coordinate space, queued on the OPPONENT's own MZCHOOSE: the opponent was offered the turn player's field slots, their own allies were refused ('Invalid selection') and no ally of theirs could ever be returned. Fix: build each list in the answering player's own perspective (forPlayer:$opponent, 'myField'). (2) OWNERSHIP: BygoneDaysReturn called MZMove($obj->Owner, <chooser-relative mzID>, 'myMemory'); with Owner != chooser the source id was flipped onto the wrong slot and the destination to the wrong memory. Fix: MZMove from the chooser's perspective to myMemory/theirMemory by ownership. (3) SLOT ORDER: Bygone Days was sacrificed immediately, before the option lists were answered; its removed slot was spliced out first, so an ally listed AFTER Bygone Days on the field was one slot off and silently not returned. Fix: sacrifice after the choices (printed order) via BygoneDaysSacrifice, resolved by UniqueID after splicing removed cards.",
+        "affectedFunction": "Custom/GameLogic.php ResolveBygoneDaysCascade / BygoneDaysReturn / BygoneDaysSacrifice"
+    }
+}
