@@ -1,7 +1,0 @@
-[
-    {"step":5,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"4","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): the attack deals only its printed 4 POWER; with Prepare X (X >= 1) it would deal 4 + X"},
-    {"step":5,"type":"card_property_equals","mzId":"p2Field-0","property":"Counters","value":"{\"preparation\":3,\"_champCombatDamageDealtThisTurn\":4}","semantic":true,"label":"REGRESSION GUARD (buggy, pinned as-is): all 3 preparation counters are still there -- Prepare X was never offered or paid"},
-    {"step":5,"type":"card_property_equals","mzId":"p2Graveyard-0","property":"CardID","value":"o191zv86la","semantic":true,"label":"Shadowstrike was played, attacked and resolved"},
-    {"step":5,"type":"zone_count","zone":"theirMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"Only the 2 reserve payments reached memory"},
-    {"step":5,"type":"decision_queue_empty","player":"all"}
-]

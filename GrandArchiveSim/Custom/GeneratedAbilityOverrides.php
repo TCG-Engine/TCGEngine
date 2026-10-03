@@ -277,6 +277,80 @@ $customDQHandlers["ArrowTrapResolve"] = function($player, $parts, $lastDecision)
     }
 };
 
+// Shadowstrike (o191zv86la, UMBRA ATTACK): "Prepare X. X can't be 0. Shadowstrike gets +X POWER.
+// [Class Bonus] If Shadowstrike was prepared, it has unblockable."
+//
+// The CardEditor ability database has no CardActivated row for this card (the generated ability set
+// only holds onAttackAbilities["o191zv86la:0"], which merely checks the PREPARED TurnEffect), so
+// nothing ever offered/paid Prepare X or added the +X POWER effect that ObjectCurrentPower()
+// (GameLogic.php) already reads as the "o191zv86la_POWER_<X>" TurnEffect. This hand-written entry
+// fills the same $cardActivatedAbilities slot the generator would populate (additive: no competing
+// generated key; remove it if the database row is ever authored).
+//
+// Prepare is an optional cost ("you may remove X preparation counters from your champion as you
+// activate this card"), so the chain is YES/NO first; on YES a NUMBERCHOOSE offers X = 1..counters
+// ("X can't be 0" is the range floor; declining is the only way to not pay). Nothing is asked when
+// the champion has no preparation counter. Paying removes X counters, stores wasPrepared = YES
+// (read by the generic GA_TagPreparedAttack follow-up, which tags the intent card PREPARED for the
+// [Class Bonus] unblockable branch in onAttackAbilities["o191zv86la:0"] / CombatLogic.php) and puts
+// the "o191zv86la_POWER_<X>" TurnEffect on this Shadowstrike's intent object. The follow-up steps
+// are queued at block 0 so they run immediately after the YES/NO, ahead of the block-1
+// GA_TagPreparedAttack that OnCardActivated() queues behind this macro.
+function ShadowstrikeFindIntentMZ($player) {
+    $intent = GetZone("myIntent");
+    for($i = count($intent) - 1; $i >= 0; --$i) {
+        if(!$intent[$i]->removed && $intent[$i]->CardID === "o191zv86la") return "myIntent-" . $i;
+    }
+    return null;
+}
+function ShadowstrikePreparationCounters($player) {
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return 0;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null) return 0;
+    return GetCounterCount($champObj, "preparation");
+}
+function ShadowstrikeAskX($player, $champMZ, $intentMZ, $max) {
+    DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "1|" . $max, 0, tooltip:"Choose_X_for_Prepare_X_(Shadowstrike_gets_+X_POWER)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ShadowstrikePrepareX|" . $champMZ . "|" . $intentMZ, 0, dontSkipOnPass:1);
+}
+$cardActivatedAbilities["o191zv86la:0"] = function($player) { //Shadowstrike: Prepare X, +X POWER
+    DecisionQueueController::StoreVariable("wasPrepared", "NO");
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return;
+    if(ShadowstrikePreparationCounters($player) < 1) return;
+    $intentMZ = ShadowstrikeFindIntentMZ($player);
+    if($intentMZ === null) return;
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Pay_Prepare_X?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ShadowstrikePrepareAsk|" . $champMZ . "|" . $intentMZ, 1, dontSkipOnPass:1);
+};
+$customDQHandlers["ShadowstrikePrepareAsk"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return; // declined: not prepared, +0 POWER
+    $max = ShadowstrikePreparationCounters($player);
+    if($max < 1) return;
+    ShadowstrikeAskX($player, $parts[0], $parts[1], $max);
+};
+$customDQHandlers["ShadowstrikePrepareX"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || $lastDecision === "-" || $lastDecision === "" || $lastDecision === null) return; // no X chosen: not prepared
+    $champMZ = $parts[0];
+    $intentMZ = $parts[1];
+    $max = ShadowstrikePreparationCounters($player);
+    if($max < 1) return;
+    $x = intval($lastDecision);
+    if(!is_numeric($lastDecision) || $x < 1 || $x > $max) { // "X can't be 0"; can't pay more counters than the champion has
+        ShadowstrikeAskX($player, $champMZ, $intentMZ, $max);
+        return;
+    }
+    $intentObj = GetZoneObject($intentMZ);
+    if($intentObj === null || $intentObj->removed || $intentObj->CardID !== "o191zv86la") {
+        $intentMZ = ShadowstrikeFindIntentMZ($player);
+        if($intentMZ === null) return;
+    }
+    RemoveCounters($player, $champMZ, "preparation", $x);
+    DecisionQueueController::StoreVariable("wasPrepared", "YES");
+    AddTurnEffect($intentMZ, "o191zv86la_POWER_" . $x);
+};
+
 // ---------------------------------------------------------------------------------------------
 // dontSkipOnPass overrides (decline-tolerant CUSTOM follow-ups queued by generated abilities)
 //

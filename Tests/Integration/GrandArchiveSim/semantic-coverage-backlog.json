@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T19:13:40+00:00",
+    "generatedAt": "2026-10-03T19:21:23+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 638,
@@ -43171,10 +43171,18 @@
                 "condition"
             ],
             "existingFixtures": [
-                "shadowstrike-prepare-x-never-wired-base-power-only"
+                "shadowstrike-no-preparation-counters-no-prepare-prompt",
+                "shadowstrike-prepare-x-1-power-plus-1-unblockable",
+                "shadowstrike-prepare-x-3-power-plus-3-unblockable",
+                "shadowstrike-prepare-x-declined-base-power-blockable",
+                "shadowstrike-prepare-x-zero-refused-then-x-2"
             ],
             "semanticFixtures": [
-                "shadowstrike-prepare-x-never-wired-base-power-only"
+                "shadowstrike-no-preparation-counters-no-prepare-prompt",
+                "shadowstrike-prepare-x-1-power-plus-1-unblockable",
+                "shadowstrike-prepare-x-3-power-plus-3-unblockable",
+                "shadowstrike-prepare-x-declined-base-power-blockable",
+                "shadowstrike-prepare-x-zero-refused-then-x-2"
             ],
             "starterDecks": [
                 "Tristan Re:Collection, Shadowdancer"

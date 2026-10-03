@@ -1,0 +1,33 @@
+{
+    "name": "shadowstrike-prepare-x-3-power-plus-3-unblockable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:18:39+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "o191zv86la"
+    ],
+    "notes": "Shadowstrike (o191zv86la, UMBRA ATTACK, reserve 2, printed power 4): \"Prepare X. X can't be 0. Shadowstrike gets +X POWER. [Class Bonus] If Shadowstrike was prepared, it has unblockable.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA); player 1 controls a Swift Recruit (Intercept) so blockability is observable. Shadowstrike is played for real (10002 FSM play + two reserve payments, 100 answers) and attacks player 1's champion. Champion has 3 preparation counters; player 2 pays Prepare X with X=3 (the maximum). FIXED (was: shadowstrike-prepare-x-never-wired-base-power-only, whose REGRESSION GUARD pinned 4 damage and 3 untouched counters because no Prepare prompt was ever queued; this fixture replaces it). Asserted: counters 3 -> 0, computed POWER 4+3=7, TurnEffects [o191zv86la_POWER_3, PREPARED], 7 damage to the champion, and the Intercept ally is never offered the attack (unblockable, decision queues empty after the attack step). Fixed in Custom/GeneratedAbilityOverrides.php: a hand-authored $cardActivatedAbilities['o191zv86la:0'] queues a YES/NO 'Pay Prepare X?' then (on YES) a NUMBERCHOOSE for X in 1..preparation counters, removes X counters, sets wasPrepared=YES (GA_TagPreparedAttack then tags the intent PREPARED) and adds the 'o191zv86la_POWER_<X>' TurnEffect that ObjectCurrentPower() already read.",
+    "semanticCoverage": {
+        "testedCards": [
+            "o191zv86la"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition",
+            "power"
+        ],
+        "rulesClauses": [
+            "Prepare X. X can't be 0.",
+            "Shadowstrike gets +X POWER.",
+            "[Class Bonus] If Shadowstrike was prepared, it has unblockable."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Shadowstrike's 'Prepare X (X can't be 0)' and 'gets +X POWER' were never wired: the generated ability set only had onAttackAbilities['o191zv86la:0'] and no $cardActivatedAbilities['o191zv86la:0'], so OnCardActivated() (confirmed live with a temporary error_log: hasCardActivatedAbilityEntry=0, pendingDQ-before=[]) queued no Prepare decision, no 'o191zv86la_POWER_<X>' effect (read by ObjectCurrentPower() but never written) was added, the PREPARED tag was never set and the [Class Bonus] unblockable branch was unreachable. The attack always dealt only its printed 4 and never cost preparation counters. Fix: hand-authored $cardActivatedAbilities['o191zv86la:0'] + ShadowstrikePrepareAsk/ShadowstrikePrepareX handlers in Custom/GeneratedAbilityOverrides.php (YES/NO, NUMBERCHOOSE 1..counters, RemoveCounters, wasPrepared=YES, +X POWER TurnEffect).",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php $cardActivatedAbilities['o191zv86la:0'] (new) feeding Custom/GameLogic.php OnCardActivated() / ObjectCurrentPower() / GA_TagPreparedAttack and Custom/CombatLogic.php's PREPARED unblockable check.",
+        "fixCommit": "TBD"
+    }
+}

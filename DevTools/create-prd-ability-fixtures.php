@@ -21621,33 +21621,82 @@ $fixtures['mastermind-scheme-double-preparation-no-agility-below-eight'] = [
     ],
 ];
 
-// --- Shadowstrike: Prepare X, +X POWER, [Class Bonus] prepared unblockable -- the Prepare X cost is never offered (engine bug) ---
+// --- Shadowstrike: Prepare X (optional, X >= 1), +X POWER, [Class Bonus] prepared => unblockable ---
 // Shadowstrike (o191zv86la, UMBRA ATTACK, reserve 2, printed power 4): "Prepare X. X can't be 0.
 // Shadowstrike gets +X POWER. [Class Bonus] If Shadowstrike was prepared, it has unblockable."
-// Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) with 3 preparation counters, so
-// any X from 1 to 3 should be offered; Shadowstrike is played for real (two reserve payments) and
-// attacks player 1's champion. ENGINE BUG (found, confirmed live, NOT fixed): no Prepare prompt is
-// ever queued and the attack deals only its printed 4 damage, never consuming a counter: the
-// generated ability set has only onAttackAbilities['o191zv86la:0'] (which merely checks a PREPARED
-// turn effect that nothing sets) and no $cardActivatedAbilities['o191zv86la:0'] to pay Prepare X
-// or add the +X POWER turn effect ('o191zv86la_POWER_<X>', read by ObjectCurrentPower() but never
-// written). Confirmed with a temporary error_log in OnCardActivated()
-// (hasCardActivatedAbilityEntry=0, pendingDQ-before=[]), removed afterwards. Pinned with
-// REGRESSION GUARD assertions.
-$fixtures['shadowstrike-prepare-x-never-wired-base-power-only'] = [
+// Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA); Player 1 controls a Swift
+// Recruit (Intercept ally) so unblockability is observable (an interceptor prompt is queued for
+// player 1 exactly when the attack is blockable). Shadowstrike is always played for real (two
+// reserve payments) and attacks player 1's champion.
+// Engine bug fixed here (was pinned as 'shadowstrike-prepare-x-never-wired-base-power-only'): the
+// generated ability set had only onAttackAbilities['o191zv86la:0'] and no
+// $cardActivatedAbilities['o191zv86la:0'], so no Prepare prompt was ever queued, the attack always
+// dealt only its printed 4 and never consumed a preparation counter, and the unblockable branch was
+// unreachable. Now Custom/GeneratedAbilityOverrides.php queues YES/NO "Pay Prepare X?" and then a
+// NUMBERCHOOSE for X (1..counters), removes X counters and adds the o191zv86la_POWER_<X> effect.
+$shadowstrikeActions = [
+    ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
+    ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Shadowstrike
+    ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
+    ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
+];
+$shadowstrikeSetup = function(int $counters) {
+    return [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => $counters]]], // Tristan, Shadowdancer (ASSASSIN, UMBRA) with $counters preparation counters
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'o191zv86la'], // Shadowstrike -> p2 myHand-7
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mHd6LLyMyF'], // Swift Recruit (Intercept ally) -> p1 myField-1
+    ];
+};
+$fixtures['shadowstrike-prepare-x-3-power-plus-3-unblockable'] = [
     'testedCards' => ['o191zv86la'],
     'deck' => $tristanDeck,
-    'setup' => [
-        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => ['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7'], 'Counters' => ['preparation' => 3]]], // player 2 champion Tristan, Shadowdancer (ASSASSIN, UMBRA) with 3 preparation counters
-        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'o191zv86la'], // Shadowstrike -> p2 myHand-7
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1 turn 1
-        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // player 2 plays Shadowstrike
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 1/2
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve payment 2/2
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // attack player 1's champion (no Prepare X prompt ever appeared)
-    ],
+    'setup' => $shadowstrikeSetup(3),
+    'actions' => array_merge($shadowstrikeActions, [
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // pay Prepare X
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '3', 'chkInput' => [], 'inputText' => ''], // X = 3 (all counters)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // attack player 1's champion (unblockable: no interceptor prompt)
+    ]),
+];
+$fixtures['shadowstrike-prepare-x-1-power-plus-1-unblockable'] = [
+    'testedCards' => ['o191zv86la'],
+    'deck' => $tristanDeck,
+    'setup' => $shadowstrikeSetup(3),
+    'actions' => array_merge($shadowstrikeActions, [
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // pay Prepare X
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '1', 'chkInput' => [], 'inputText' => ''], // X = 1 (2 counters stay)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // attack player 1's champion
+    ]),
+];
+$fixtures['shadowstrike-prepare-x-zero-refused-then-x-2'] = [
+    'testedCards' => ['o191zv86la'],
+    'deck' => $tristanDeck,
+    'setup' => $shadowstrikeSetup(3),
+    'actions' => array_merge($shadowstrikeActions, [
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // pay Prepare X
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '0', 'chkInput' => [], 'inputText' => ''], // X = 0 is illegal: the X prompt is asked again
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '9', 'chkInput' => [], 'inputText' => ''], // X = 9 > 3 counters is illegal: asked again
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '2', 'chkInput' => [], 'inputText' => ''], // X = 2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // attack player 1's champion
+    ]),
+];
+$fixtures['shadowstrike-prepare-x-declined-base-power-blockable'] = [
+    'testedCards' => ['o191zv86la'],
+    'deck' => $tristanDeck,
+    'setup' => $shadowstrikeSetup(3),
+    'actions' => array_merge($shadowstrikeActions, [
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline Prepare X
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // attack player 1's champion (not prepared: blockable)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 is offered Swift Recruit as an interceptor (attack is blockable) and declines
+    ]),
+];
+$fixtures['shadowstrike-no-preparation-counters-no-prepare-prompt'] = [
+    'testedCards' => ['o191zv86la'],
+    'deck' => $tristanDeck,
+    'setup' => $shadowstrikeSetup(0),
+    'actions' => array_merge($shadowstrikeActions, [
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // attack directly: no Prepare prompt without a counter
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 is offered Swift Recruit as an interceptor (not prepared: blockable) and declines
+    ]),
 ];
 
 // --- Surveil the Winds: [Class Bonus] Fast Activation (playable on the opponent's turn); draw a card, then put a preparation counter on your champion ---

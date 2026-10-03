@@ -35,6 +35,22 @@
         "playerID": 2,
         "mode": 100,
         "buttonInput": "",
+        "cardID": "YES",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "3",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
         "cardID": "theirField-0",
         "chkInput": [],
         "inputText": ""
