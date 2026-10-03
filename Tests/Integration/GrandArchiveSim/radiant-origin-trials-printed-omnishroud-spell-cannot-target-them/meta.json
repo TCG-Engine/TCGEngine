@@ -1,0 +1,40 @@
+{
+    "name": "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:18:55+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "T5ZEoIRdZr",
+        "XSgcay9ZB7",
+        "yT32RI6pqt",
+        "dOPqsWYMCQ",
+        "tp7eVOsAHU",
+        "zS0TJ97QSV",
+        "lqILsIDHNc"
+    ],
+    "notes": "Radiant Origin of Assassin/Cleric/Guardian/Mage/Ranger/Tamer/Warrior: printed Omnishroud -- an opposing spell cannot target it. Radiant Origin of Assassin/Cleric/Guardian/Mage/Ranger/Tamer/Warrior (T5ZEoIRdZr, XSgcay9ZB7, yT32RI6pqt, dOPqsWYMCQ, tp7eVOsAHU, zS0TJ97QSV, lqILsIDHNc, PHANTASIA): \"Omnishroud\". Omnishroud means \"This can't be targeted by activations, materializations, or triggered abilities\" (comprehensive rules, Keywords > Omnishroud 1); a spell is a card activation, so an Omnishroud object can't be targeted by spells -- Spellshroud and Omnishroud are redundant with each other (Omnishroud 3a). The engine already applied that to the OMNISHROUD turn effect and Argus, All-Seeing Giant, but printed Omnishroud on these cards was never recognised: HasSpellshroud() only knew a hard-coded card-ID list. Player 2 controls the holders plus a Ominous Shadow; player 1 plays Disenchant (\"Destroy target phantasia\", a Spell): the target prompt offers ONLY the Ominous Shadow, answering with each holder is refused (expectFailure) and the legal answer then resolves.",
+    "semanticCoverage": {
+        "testedCards": [
+            "T5ZEoIRdZr",
+            "XSgcay9ZB7",
+            "yT32RI6pqt",
+            "dOPqsWYMCQ",
+            "tp7eVOsAHU",
+            "zS0TJ97QSV",
+            "lqILsIDHNc"
+        ],
+        "mechanics": [
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "Omnishroud: this can't be targeted by activations, materializations, or triggered abilities (so not by spells)."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Radiant Origin of Assassin/Cleric/Guardian/Mage/Ranger/Tamer/Warrior's printed Omnishroud was not implemented: a spell could target it. HasSpellshroud() (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword, so function_exists is false), and T5ZEoIRdZr, XSgcay9ZB7, yT32RI6pqt, dOPqsWYMCQ, tp7eVOsAHU, zS0TJ97QSV, lqILsIDHNc was in neither. Evidence on HEAD 48faaae9 (this fixture, run against the unfixed Custom/GameLogic.php): player 1's spell target prompt was 'MZCHOOSE:theirField-1&theirField-2&theirField-3&theirField-4&theirField-5&theirField-6&theirField-7&theirField-8' -- every holder was offered, and the first refused answer was accepted ('Step 4 unexpectedly succeeded'). Fix: HasSpellshroud() returns true for the printed-Omnishroud card IDs (a spell is an activation, which Omnishroud forbids targeting) after the HasNoAbilities / NO_SPELLSHROUD gates.",
+        "affectedFunction": "Custom/GameLogic.php HasSpellshroud() (no entry for T5ZEoIRdZr, XSgcay9ZB7, yT32RI6pqt, dOPqsWYMCQ, tp7eVOsAHU, zS0TJ97QSV, lqILsIDHNc; no generated HasKeyword_Spellshroud table)",
+        "fixCommit": "TBD"
+    }
+}

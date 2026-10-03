@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-2","property":"Counters","value":"{\"durability\":2,\"_overrides\":{\"type\":\"PHANTASIA\",\"subtypes\":\"CLERIC,FRACTAL\",\"classes\":\"CLERIC\",\"NO_ABILITIES\":true,\"granted_keywords\":[\"Reservable\"],\"FRACTURIZED\":true}}","semantic":true,"label":"BOUNDARY: a Tome that lost all abilities grants nothing -- the Blade was offered and became a Cleric Fractal phantasia"},
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-1","property":"Counters","value":"{\"_overrides\":{\"NO_ABILITIES\":true}}","semantic":true,"label":"The ability-less Tome itself was not the chosen target"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"cpvn96659y","semantic":true,"label":"Fracturize resolved into player 1's graveyard"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

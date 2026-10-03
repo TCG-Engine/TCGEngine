@@ -1,0 +1,28 @@
+{
+    "name": "seekers-rifle-class-bonus-spellshroud-ranger-champion-spell-cannot-target-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:18:56+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "3gygojwk0p"
+    ],
+    "notes": "Seeker's Rifle: [Class Bonus] Spellshroud -- active (Class Bonus met: player 2's champion is a Ranger (Diana, Keen Huntress)). Seeker's Rifle (3gygojwk0p, REGALIA,WEAPON): \"[Class Bonus] Spellshroud\" (a conditional printed Spellshroud: the keyword only applies while the controller's champion class matches). HasSpellshroud() had no entry for it (hard-coded ID list only), so a spell could always target it. Fixed: HasSpellshroud() returns true for it when IsClassBonusActive() holds for its controller. Condition: Class Bonus met: player 2's champion is a Ranger (Diana, Keen Huntress). Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize (\"Target item or weapon becomes a Cleric Fractal phantasia ...\", a Spell): the target prompt offers ONLY the Mirrordepth's Blade, the holder answer is refused (expectFailure) and the legal answer resolves.",
+    "semanticCoverage": {
+        "testedCards": [
+            "3gygojwk0p"
+        ],
+        "mechanics": [
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Spellshroud: while the champion's class matches, the object can't be targeted by spells."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Seeker's Rifle's conditional printed [Class Bonus] Spellshroud was not implemented: a spell could target it. HasSpellshroud() (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword, so function_exists is false), and 3gygojwk0p was in neither. Evidence on HEAD 48faaae9 (this fixture, run against the unfixed Custom/GameLogic.php): player 1's spell target prompt was 'MZCHOOSE:theirField-1&theirField-2' -- every holder was offered, and the first refused answer was accepted ('Step 4 unexpectedly succeeded'). Fix: HasSpellshroud() returns true for 3gygojwk0p while IsClassBonusActive() holds for its controller (a Ranger champion), after the HasNoAbilities / NO_SPELLSHROUD gates.",
+        "affectedFunction": "Custom/GameLogic.php HasSpellshroud() (no entry for 3gygojwk0p; no generated HasKeyword_Spellshroud table)",
+        "fixCommit": "TBD"
+    }
+}

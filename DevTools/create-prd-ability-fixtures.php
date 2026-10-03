@@ -23241,6 +23241,778 @@ $fixtures['rhongomiant-spellshroud-lost-abilities-is-targetable'] = [
     ],
 ];
 
+// ===========================================================================
+// Printed-Spellshroud sweep: cards whose printed text gives them Spellshroud (or Omnishroud) but which
+// HasSpellshroud() (Custom/GameLogic.php) did not recognise. Every fixture below has an opposing (player 1)
+// targeted Spell aimed at a field of player 2 that holds the card under test plus one ordinary legal
+// target, so a refused answer on the holder is meaningful. Spells used: Liturgy of Corruption (ally),
+// Fracturize (item or weapon), Disenchant (phantasia).
+// ===========================================================================
+
+// --- Aethercloak Sentinel: printed Spellshroud -- an opposing spell cannot target it ---
+// Aethercloak Sentinel (1mvv1f83ls, ALLY): "Ranged 4, Spellshroud, Taunt" -- the Spellshroud is the card's
+// own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords >
+// Spellshroud 1: "This can't be targeted by spells"). It was never implemented: HasSpellshroud()
+// (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and
+// HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword,
+// so function_exists is false); 1mvv1f83ls was in neither, so FilterSpellshroudTargets() kept the card in the
+// target list. Fixed: it is now in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities /
+// NO_SPELLSHROUD gates).
+// Player 2 controls the holder plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff counter
+// on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with the
+// holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['aethercloak-sentinel-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['1mvv1f83ls'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '1mvv1f83ls'], // Aethercloak Sentinel -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Aethercloak Sentinel (1mvv1f83ls) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-2'), // the Dungeon Guide is the legal target
+    ],
+];
+
+// --- Atmos Armor Type-Hermes: printed Spellshroud -- an opposing spell cannot target it ---
+// Atmos Armor Type-Hermes (dlx7mdk0xh, UNIQUE,ALLY): "Spellshroud (Units with spellshroud can't be targeted by
+// Spells.)" -- the Spellshroud is the card's own, UNCONDITIONAL keyword (rules:
+// .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords > Spellshroud 1: "This can't be targeted by
+// spells"). It was never implemented: HasSpellshroud() (Custom/GameLogic.php) recognised printed Spellshroud
+// only through a hard-coded card-ID list and HasKeyword_Spellshroud(), which is never generated
+// (Data/ProcessKeywordsGA.php has no Spellshroud keyword, so function_exists is false); dlx7mdk0xh was in
+// neither, so FilterSpellshroudTargets() kept the card in the target list. Fixed: it is now in
+// HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities / NO_SPELLSHROUD gates).
+// Player 2 controls the holder plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff counter
+// on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with the
+// holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['atmos-armor-type-hermes-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['dlx7mdk0xh'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'dlx7mdk0xh'], // Atmos Armor Type-Hermes -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Atmos Armor Type-Hermes (dlx7mdk0xh) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-2'), // the Dungeon Guide is the legal target
+    ],
+];
+
+// --- Briar, Schwartz King: printed Spellshroud -- an opposing spell cannot target it ---
+// Briar, Schwartz King (r1zd9ys1qc, UNIQUE,ALLY): "Hindered, Spellshroud, Stealth" -- the Spellshroud is the
+// card's own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords >
+// Spellshroud 1: "This can't be targeted by spells"). It was never implemented: HasSpellshroud()
+// (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and
+// HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword,
+// so function_exists is false); r1zd9ys1qc was in neither, so FilterSpellshroudTargets() kept the card in the
+// target list. Fixed: it is now in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities /
+// NO_SPELLSHROUD gates).
+// Player 2 controls the holder plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff counter
+// on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with the
+// holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['briar-schwartz-king-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['r1zd9ys1qc'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'r1zd9ys1qc'], // Briar, Schwartz King -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Briar, Schwartz King (r1zd9ys1qc) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-2'), // the Dungeon Guide is the legal target
+    ],
+];
+
+// --- Byakko, White Tiger: printed Spellshroud -- an opposing spell cannot target it ---
+// Byakko, White Tiger (kkkcxq93ul, mhilppwfgx, ALLY): "Spellshroud, Vigor" -- the Spellshroud is the card's
+// own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords >
+// Spellshroud 1: "This can't be targeted by spells"). It was never implemented: HasSpellshroud()
+// (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and
+// HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword,
+// so function_exists is false); these IDs were in neither, so FilterSpellshroudTargets() kept the card in the
+// target list. Fixed: they are now in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities /
+// NO_SPELLSHROUD gates).
+// Player 2 controls the holders plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff
+// counter on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with
+// each holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['byakko-white-tiger-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['kkkcxq93ul', 'mhilppwfgx'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'kkkcxq93ul'], // Byakko, White Tiger -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'mhilppwfgx'], // Byakko, White Tiger -> p2 field-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Byakko, White Tiger (kkkcxq93ul) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'Byakko, White Tiger (mhilppwfgx) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-3'), // the Dungeon Guide is the legal target
+    ],
+];
+
+// --- Heavenly Drake: printed Spellshroud -- an opposing spell cannot target it ---
+// Heavenly Drake (jej8y91lkg, loSCQzxqi1, ALLY): "Spellshroud (Units with spellshroud can't be targeted by
+// Spells.)" -- the Spellshroud is the card's own, UNCONDITIONAL keyword (rules:
+// .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords > Spellshroud 1: "This can't be targeted by
+// spells"). It was never implemented: HasSpellshroud() (Custom/GameLogic.php) recognised printed Spellshroud
+// only through a hard-coded card-ID list and HasKeyword_Spellshroud(), which is never generated
+// (Data/ProcessKeywordsGA.php has no Spellshroud keyword, so function_exists is false); these IDs were in
+// neither, so FilterSpellshroudTargets() kept the card in the target list. Fixed: they are now in
+// HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities / NO_SPELLSHROUD gates).
+// Player 2 controls the holders plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff
+// counter on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with
+// each holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['heavenly-drake-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['jej8y91lkg', 'loSCQzxqi1'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'jej8y91lkg'], // Heavenly Drake -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'loSCQzxqi1'], // Heavenly Drake -> p2 field-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Heavenly Drake (jej8y91lkg) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'Heavenly Drake (loSCQzxqi1) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-3'), // the Dungeon Guide is the legal target
+    ],
+];
+
+// --- Kraal, Stonescale Tyrant: printed Spellshroud -- an opposing spell cannot target it ---
+// Kraal, Stonescale Tyrant (572j3oda2h, UNIQUE,ALLY): "Intercept, Spellshroud, True Sight, Vigor" -- the
+// Spellshroud is the card's own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-
+// rules.md, Keywords > Spellshroud 1: "This can't be targeted by spells"). It was never implemented:
+// HasSpellshroud() (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID
+// list and HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud
+// keyword, so function_exists is false); 572j3oda2h was in neither, so FilterSpellshroudTargets() kept the
+// card in the target list. Fixed: it is now in HasSpellshroud()'s printed-Spellshroud table (after the
+// HasNoAbilities / NO_SPELLSHROUD gates).
+// Player 2 controls the holder plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff counter
+// on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with the
+// holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['kraal-stonescale-tyrant-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['572j3oda2h'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '572j3oda2h'], // Kraal, Stonescale Tyrant -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Kraal, Stonescale Tyrant (572j3oda2h) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-2'), // the Dungeon Guide is the legal target
+    ],
+];
+
+// --- Obstinate Cragback: printed Spellshroud -- an opposing spell cannot target it ---
+// Obstinate Cragback (40oe1wf79p, WZKo8sYPxS, ALLY): "Spellshroud (Units with spellshroud can't be targeted by
+// Spells.)" -- the Spellshroud is the card's own, UNCONDITIONAL keyword (rules:
+// .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords > Spellshroud 1: "This can't be targeted by
+// spells"). It was never implemented: HasSpellshroud() (Custom/GameLogic.php) recognised printed Spellshroud
+// only through a hard-coded card-ID list and HasKeyword_Spellshroud(), which is never generated
+// (Data/ProcessKeywordsGA.php has no Spellshroud keyword, so function_exists is false); these IDs were in
+// neither, so FilterSpellshroudTargets() kept the card in the target list. Fixed: they are now in
+// HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities / NO_SPELLSHROUD gates).
+// Player 2 controls the holders plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff
+// counter on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with
+// each holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['obstinate-cragback-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['40oe1wf79p', 'WZKo8sYPxS'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '40oe1wf79p'], // Obstinate Cragback -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'WZKo8sYPxS'], // Obstinate Cragback -> p2 field-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Obstinate Cragback (40oe1wf79p) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'Obstinate Cragback (WZKo8sYPxS) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-3'), // the Dungeon Guide is the legal target
+    ],
+];
+
+// --- Seiryuu, Azure Dragon: printed Spellshroud -- an opposing spell cannot target it ---
+// Seiryuu, Azure Dragon (fcfxhkqda6, GKKYGv6t3R, ALLY): "Spellshroud, Taunt" -- the Spellshroud is the card's
+// own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords >
+// Spellshroud 1: "This can't be targeted by spells"). It was never implemented: HasSpellshroud()
+// (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and
+// HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword,
+// so function_exists is false); these IDs were in neither, so FilterSpellshroudTargets() kept the card in the
+// target list. Fixed: they are now in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities /
+// NO_SPELLSHROUD gates).
+// Player 2 controls the holders plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff
+// counter on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with
+// each holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['seiryuu-azure-dragon-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['fcfxhkqda6', 'GKKYGv6t3R'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'fcfxhkqda6'], // Seiryuu, Azure Dragon -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'GKKYGv6t3R'], // Seiryuu, Azure Dragon -> p2 field-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Seiryuu, Azure Dragon (fcfxhkqda6) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'Seiryuu, Azure Dragon (GKKYGv6t3R) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-3'), // the Dungeon Guide is the legal target
+    ],
+];
+
+// --- Suzaku, Vermillion Phoenix: printed Spellshroud -- an opposing spell cannot target it ---
+// Suzaku, Vermillion Phoenix (42mdt7ge5d, h57jayq7l2, ALLY): "Spellshroud" -- the Spellshroud is the card's
+// own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords >
+// Spellshroud 1: "This can't be targeted by spells"). It was never implemented: HasSpellshroud()
+// (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and
+// HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword,
+// so function_exists is false); these IDs were in neither, so FilterSpellshroudTargets() kept the card in the
+// target list. Fixed: they are now in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities /
+// NO_SPELLSHROUD gates).
+// Player 2 controls the holders plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff
+// counter on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with
+// each holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['suzaku-vermillion-phoenix-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['42mdt7ge5d', 'h57jayq7l2'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '42mdt7ge5d'], // Suzaku, Vermillion Phoenix -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'h57jayq7l2'], // Suzaku, Vermillion Phoenix -> p2 field-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Suzaku, Vermillion Phoenix (42mdt7ge5d) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'Suzaku, Vermillion Phoenix (h57jayq7l2) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-3'), // the Dungeon Guide is the legal target
+    ],
+];
+
+// --- Aquamirage Whisper: printed Spellshroud -- an opposing spell cannot target it ---
+// Aquamirage Whisper (3n5x9fbkn0, REGALIA,WEAPON): "Spellshroud (This object can't be targeted by Spells.)" --
+// the Spellshroud is the card's own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-
+// rules.md, Keywords > Spellshroud 1: "This can't be targeted by spells"). It was never implemented:
+// HasSpellshroud() (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID
+// list and HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud
+// keyword, so function_exists is false); 3n5x9fbkn0 was in neither, so FilterSpellshroudTargets() kept the
+// card in the target list. Fixed: it is now in HasSpellshroud()'s printed-Spellshroud table (after the
+// HasNoAbilities / NO_SPELLSHROUD gates).
+// Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon
+// becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade,
+// answering with the holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['aquamirage-whisper-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['3n5x9fbkn0'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '3n5x9fbkn0'], // Aquamirage Whisper -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Fracturize
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Aquamirage Whisper (3n5x9fbkn0) has spellshroud: not a legal target for the opposing Fracturize']), // refused
+        mrdAns(1, 'theirField-2'), // the Mirrordepth's Blade is the legal target
+    ],
+];
+
+// --- Excalibur, Reflected Edge: printed Spellshroud -- an opposing spell cannot target it ---
+// Excalibur, Reflected Edge (u1a1s4ys44, UNIQUE,WEAPON): "True Sight, Spellshroud" -- the Spellshroud is the
+// card's own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords >
+// Spellshroud 1: "This can't be targeted by spells"). It was never implemented: HasSpellshroud()
+// (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and
+// HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword,
+// so function_exists is false); u1a1s4ys44 was in neither, so FilterSpellshroudTargets() kept the card in the
+// target list. Fixed: it is now in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities /
+// NO_SPELLSHROUD gates).
+// Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon
+// becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade,
+// answering with the holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['excalibur-reflected-edge-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['u1a1s4ys44'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'u1a1s4ys44'], // Excalibur, Reflected Edge -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Fracturize
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Excalibur, Reflected Edge (u1a1s4ys44) has spellshroud: not a legal target for the opposing Fracturize']), // refused
+        mrdAns(1, 'theirField-2'), // the Mirrordepth's Blade is the legal target
+    ],
+];
+
+// --- Fabled Emerald Fatestone: printed Spellshroud -- an opposing spell cannot target it ---
+// Fabled Emerald Fatestone (jz7odeqku4, REGALIA,ITEM): "Immortality, Spellshroud" -- the Spellshroud is the
+// card's own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords >
+// Spellshroud 1: "This can't be targeted by spells"). It was never implemented: HasSpellshroud()
+// (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and
+// HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword,
+// so function_exists is false); jz7odeqku4 was in neither, so FilterSpellshroudTargets() kept the card in the
+// target list. Fixed: it is now in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities /
+// NO_SPELLSHROUD gates).
+// Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon
+// becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade,
+// answering with the holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['fabled-emerald-fatestone-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['jz7odeqku4'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'jz7odeqku4'], // Fabled Emerald Fatestone -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Fracturize
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Fabled Emerald Fatestone (jz7odeqku4) has spellshroud: not a legal target for the opposing Fracturize']), // refused
+        mrdAns(1, 'theirField-2'), // the Mirrordepth's Blade is the legal target
+    ],
+];
+
+// --- Fabled Ruby Fatestone: printed Spellshroud -- an opposing spell cannot target it ---
+// Fabled Ruby Fatestone (mzf5dmpqbc, REGALIA,ITEM): "Immortality, Spellshroud" -- the Spellshroud is the
+// card's own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords >
+// Spellshroud 1: "This can't be targeted by spells"). It was never implemented: HasSpellshroud()
+// (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and
+// HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword,
+// so function_exists is false); mzf5dmpqbc was in neither, so FilterSpellshroudTargets() kept the card in the
+// target list. Fixed: it is now in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities /
+// NO_SPELLSHROUD gates).
+// Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon
+// becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade,
+// answering with the holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['mzf5dmpqbc'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'mzf5dmpqbc'], // Fabled Ruby Fatestone -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Fracturize
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Fabled Ruby Fatestone (mzf5dmpqbc) has spellshroud: not a legal target for the opposing Fracturize']), // refused
+        mrdAns(1, 'theirField-2'), // the Mirrordepth's Blade is the legal target
+    ],
+];
+
+// --- Fabled Sapphire Fatestone: printed Spellshroud -- an opposing spell cannot target it ---
+// Fabled Sapphire Fatestone (vzmnt0orxj, REGALIA,ITEM): "Immortality, Spellshroud" -- the Spellshroud is the
+// card's own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords >
+// Spellshroud 1: "This can't be targeted by spells"). It was never implemented: HasSpellshroud()
+// (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and
+// HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword,
+// so function_exists is false); vzmnt0orxj was in neither, so FilterSpellshroudTargets() kept the card in the
+// target list. Fixed: it is now in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities /
+// NO_SPELLSHROUD gates).
+// Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon
+// becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade,
+// answering with the holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['fabled-sapphire-fatestone-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['vzmnt0orxj'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'vzmnt0orxj'], // Fabled Sapphire Fatestone -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Fracturize
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Fabled Sapphire Fatestone (vzmnt0orxj) has spellshroud: not a legal target for the opposing Fracturize']), // refused
+        mrdAns(1, 'theirField-2'), // the Mirrordepth's Blade is the legal target
+    ],
+];
+
+// --- Supernova Divination: printed Spellshroud -- an opposing spell cannot target it ---
+// Supernova Divination (qhBecpDUO9, UNIQUE,PHANTASIA): "Spellshroud" -- the Spellshroud is the card's own,
+// UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords > Spellshroud 1:
+// "This can't be targeted by spells"). It was never implemented: HasSpellshroud() (Custom/GameLogic.php)
+// recognised printed Spellshroud only through a hard-coded card-ID list and HasKeyword_Spellshroud(), which is
+// never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword, so function_exists is false);
+// qhBecpDUO9 was in neither, so FilterSpellshroudTargets() kept the card in the target list. Fixed: it is now
+// in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities / NO_SPELLSHROUD gates).
+// Player 2 controls the holder plus a Ominous Shadow; player 1 plays Disenchant ("Destroy target phantasia", a
+// Spell): the target prompt offers ONLY the Ominous Shadow, answering with the holder is refused
+// (expectFailure) and the legal answer then resolves.
+$fixtures['supernova-divination-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['qhBecpDUO9'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'qhBecpDUO9'], // Supernova Divination -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'gveirpdm44'], // Ominous Shadow -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zd83net7x0'], // Disenchant -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Disenchant
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Supernova Divination (qhBecpDUO9) has spellshroud: not a legal target for the opposing Disenchant']), // refused
+        mrdAns(1, 'theirField-2'), // the Ominous Shadow is the legal target
+    ],
+];
+
+// --- Xukong, Shifted Fates: printed Spellshroud -- an opposing spell cannot target it ---
+// Xukong, Shifted Fates (Epmh7VncaR, UNIQUE,PHANTASIA): "Spellshroud" -- the Spellshroud is the card's own,
+// UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords > Spellshroud 1:
+// "This can't be targeted by spells"). It was never implemented: HasSpellshroud() (Custom/GameLogic.php)
+// recognised printed Spellshroud only through a hard-coded card-ID list and HasKeyword_Spellshroud(), which is
+// never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword, so function_exists is false);
+// Epmh7VncaR was in neither, so FilterSpellshroudTargets() kept the card in the target list. Fixed: it is now
+// in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities / NO_SPELLSHROUD gates).
+// Player 2 controls the holder plus a Ominous Shadow; player 1 plays Disenchant ("Destroy target phantasia", a
+// Spell): the target prompt offers ONLY the Ominous Shadow, answering with the holder is refused
+// (expectFailure) and the legal answer then resolves.
+$fixtures['xukong-shifted-fates-printed-spellshroud-spell-cannot-target-it'] = [
+    'testedCards' => ['Epmh7VncaR'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'Epmh7VncaR'], // Xukong, Shifted Fates -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'gveirpdm44'], // Ominous Shadow -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zd83net7x0'], // Disenchant -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Disenchant
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Xukong, Shifted Fates (Epmh7VncaR) has spellshroud: not a legal target for the opposing Disenchant']), // refused
+        mrdAns(1, 'theirField-2'), // the Ominous Shadow is the legal target
+    ],
+];
+
+// --- The Looking Glass: printed Omnishroud -- an opposing spell cannot target it ---
+// The Looking Glass (fln04uv297, REGALIA,ITEM): "Divine Relic, Omnishroud". Omnishroud means "This can't be
+// targeted by activations, materializations, or triggered abilities" (comprehensive rules, Keywords >
+// Omnishroud 1); a spell is a card activation, so an Omnishroud object can't be targeted by spells --
+// Spellshroud and Omnishroud are redundant with each other (Omnishroud 3a). The engine already applied that to
+// the OMNISHROUD turn effect and Argus, All-Seeing Giant, but printed Omnishroud on these cards was never
+// recognised: HasSpellshroud() only knew a hard-coded card-ID list.
+// Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon
+// becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade,
+// answering with the holder is refused (expectFailure) and the legal answer then resolves.
+$fixtures['the-looking-glass-printed-omnishroud-spell-cannot-target-it'] = [
+    'testedCards' => ['fln04uv297'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'fln04uv297'], // The Looking Glass -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Fracturize
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'The Looking Glass (fln04uv297) has spellshroud: not a legal target for the opposing Fracturize']), // refused
+        mrdAns(1, 'theirField-2'), // the Mirrordepth's Blade is the legal target
+    ],
+];
+
+// --- Pantheon Barrier: printed Omnishroud -- an opposing spell cannot target it ---
+// Pantheon Barrier (WyNvyDHFdB, TOKEN,PHANTASIA,DOMAIN): "Omnishroud". Omnishroud means "This can't be
+// targeted by activations, materializations, or triggered abilities" (comprehensive rules, Keywords >
+// Omnishroud 1); a spell is a card activation, so an Omnishroud object can't be targeted by spells --
+// Spellshroud and Omnishroud are redundant with each other (Omnishroud 3a). The engine already applied that to
+// the OMNISHROUD turn effect and Argus, All-Seeing Giant, but printed Omnishroud on these cards was never
+// recognised: HasSpellshroud() only knew a hard-coded card-ID list.
+// Player 2 controls the holder plus a Ominous Shadow; player 1 plays Disenchant ("Destroy target phantasia", a
+// Spell): the target prompt offers ONLY the Ominous Shadow, answering with the holder is refused
+// (expectFailure) and the legal answer then resolves.
+$fixtures['pantheon-barrier-printed-omnishroud-spell-cannot-target-it'] = [
+    'testedCards' => ['WyNvyDHFdB'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'WyNvyDHFdB'], // Pantheon Barrier -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'gveirpdm44'], // Ominous Shadow -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zd83net7x0'], // Disenchant -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Disenchant
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Pantheon Barrier (WyNvyDHFdB) has spellshroud: not a legal target for the opposing Disenchant']), // refused
+        mrdAns(1, 'theirField-2'), // the Ominous Shadow is the legal target
+    ],
+];
+
+// --- Radiant Origin of Assassin/Cleric/Guardian/Mage/Ranger/Tamer/Warrior: printed Omnishroud -- an opposing
+// spell cannot target it ---
+// Radiant Origin of Assassin/Cleric/Guardian/Mage/Ranger/Tamer/Warrior (T5ZEoIRdZr, XSgcay9ZB7, yT32RI6pqt,
+// dOPqsWYMCQ, tp7eVOsAHU, zS0TJ97QSV, lqILsIDHNc, PHANTASIA): "Omnishroud". Omnishroud means "This can't be
+// targeted by activations, materializations, or triggered abilities" (comprehensive rules, Keywords >
+// Omnishroud 1); a spell is a card activation, so an Omnishroud object can't be targeted by spells --
+// Spellshroud and Omnishroud are redundant with each other (Omnishroud 3a). The engine already applied that to
+// the OMNISHROUD turn effect and Argus, All-Seeing Giant, but printed Omnishroud on these cards was never
+// recognised: HasSpellshroud() only knew a hard-coded card-ID list.
+// Player 2 controls the holders plus a Ominous Shadow; player 1 plays Disenchant ("Destroy target phantasia",
+// a Spell): the target prompt offers ONLY the Ominous Shadow, answering with each holder is refused
+// (expectFailure) and the legal answer then resolves.
+$fixtures['radiant-origin-trials-printed-omnishroud-spell-cannot-target-them'] = [
+    'testedCards' => ['T5ZEoIRdZr', 'XSgcay9ZB7', 'yT32RI6pqt', 'dOPqsWYMCQ', 'tp7eVOsAHU', 'zS0TJ97QSV', 'lqILsIDHNc'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'T5ZEoIRdZr'], // Radiant Origin of Assassin -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'XSgcay9ZB7'], // Radiant Origin of Cleric -> p2 field-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'yT32RI6pqt'], // Radiant Origin of Guardian -> p2 field-3
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'dOPqsWYMCQ'], // Radiant Origin of Mage -> p2 field-4
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'tp7eVOsAHU'], // Radiant Origin of Ranger -> p2 field-5
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zS0TJ97QSV'], // Radiant Origin of Tamer -> p2 field-6
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'lqILsIDHNc'], // Radiant Origin of Warrior -> p2 field-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'gveirpdm44'], // Ominous Shadow -> p2 field-8
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zd83net7x0'], // Disenchant -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Disenchant
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Radiant Origin of Assassin (T5ZEoIRdZr) has spellshroud: not a legal target for the opposing Disenchant']), // refused
+        mrdAns(1, 'theirField-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'Radiant Origin of Cleric (XSgcay9ZB7) has spellshroud: not a legal target for the opposing Disenchant']), // refused
+        mrdAns(1, 'theirField-3', ['expectFailure' => true, 'semantic' => true, 'label' => 'Radiant Origin of Guardian (yT32RI6pqt) has spellshroud: not a legal target for the opposing Disenchant']), // refused
+        mrdAns(1, 'theirField-4', ['expectFailure' => true, 'semantic' => true, 'label' => 'Radiant Origin of Mage (dOPqsWYMCQ) has spellshroud: not a legal target for the opposing Disenchant']), // refused
+        mrdAns(1, 'theirField-5', ['expectFailure' => true, 'semantic' => true, 'label' => 'Radiant Origin of Ranger (tp7eVOsAHU) has spellshroud: not a legal target for the opposing Disenchant']), // refused
+        mrdAns(1, 'theirField-6', ['expectFailure' => true, 'semantic' => true, 'label' => 'Radiant Origin of Tamer (zS0TJ97QSV) has spellshroud: not a legal target for the opposing Disenchant']), // refused
+        mrdAns(1, 'theirField-7', ['expectFailure' => true, 'semantic' => true, 'label' => 'Radiant Origin of Warrior (lqILsIDHNc) has spellshroud: not a legal target for the opposing Disenchant']), // refused
+        mrdAns(1, 'theirField-8'), // the Ominous Shadow is the legal target
+    ],
+];
+
+// --- Seeker's Rifle: [Class Bonus] Spellshroud -- active (Class Bonus met: player 2's champion is a Ranger
+// (Diana, Keen Huntress)) ---
+// Seeker's Rifle (3gygojwk0p, REGALIA,WEAPON): "[Class Bonus] Spellshroud" (a conditional printed Spellshroud:
+// the keyword only applies while the controller's champion class matches). HasSpellshroud() had no entry for
+// it (hard-coded ID list only), so a spell could always target it. Fixed: HasSpellshroud() returns true for it
+// when IsClassBonusActive() holds for its controller.
+// Condition: Class Bonus met: player 2's champion is a Ranger (Diana, Keen Huntress). Player 2 controls the
+// holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon becomes a Cleric
+// Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade, the holder answer
+// is refused (expectFailure) and the legal answer resolves.
+$fixtures['seekers-rifle-class-bonus-spellshroud-ranger-champion-spell-cannot-target-it'] = [
+    'testedCards' => ['3gygojwk0p'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'e3z4pyx8bd']], // player 2 champion -> Diana, Keen Huntress (level 1 RANGER)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '3gygojwk0p'], // Seeker's Rifle -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Fracturize
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Seeker\'s Rifle (3gygojwk0p) has spellshroud: not a legal target for the opposing Fracturize']), // refused
+        mrdAns(1, 'theirField-2'), // the Mirrordepth's Blade is the legal target
+    ],
+];
+
+// --- Seeker's Rifle: [Class Bonus] Spellshroud -- negative control (Class Bonus NOT met: player 2's champion
+// is an Assassin (Tristan, Underhanded), not a Ranger) ---
+// Seeker's Rifle (3gygojwk0p): "[Class Bonus] Spellshroud". Negative control for the Class Bonus gate: Class
+// Bonus NOT met: player 2's champion is an Assassin (Tristan, Underhanded), not a Ranger, so the holder has NO
+// Spellshroud and the opposing Fracturize offers it: both the holder and the Mirrordepth's Blade are legal
+// targets and answering with the holder resolves on it.
+$fixtures['seekers-rifle-class-bonus-spellshroud-non-ranger-champion-spell-can-target-it'] = [
+    'testedCards' => ['3gygojwk0p'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'bjlwabipl6']], // player 2 champion -> Tristan, Underhanded (level 1 ASSASSIN)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '3gygojwk0p'], // Seeker's Rifle -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Fracturize
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1'), // the holder is a legal target while the Class Bonus is off
+    ],
+];
+
+// --- Piccarda, Night Rider: [Class Bonus] Spellshroud -- already implemented, pinned (Class Bonus met: player
+// 2's champion is an Assassin (Tristan, Underhanded); Piccarda is Assassin/Warrior) ---
+// Piccarda, Night Rider (ooGvrzxTmr, UNIQUE,ALLY): "[Class Bonus] Spellshroud, Stealth" (conditional printed
+// Spellshroud). Already handled before the printed-Spellshroud sweep: HasCardKeywordOverride()'s ooGvrzxTmr
+// entry ("ClassBonusSpellshroud") plus the [Class Bonus] check in HasSpellshroud() -- the sweep fix leaves it
+// untouched, this fixture pins it (it passes on HEAD without the fix).
+// Condition: Class Bonus met: player 2's champion is an Assassin (Tristan, Underhanded); Piccarda is
+// Assassin/Warrior. Player 2 controls the holder plus a Dungeon Guide; player 1 plays Liturgy of Corruption
+// ("Put a buff counter on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide,
+// the holder answer is refused (expectFailure) and the legal answer resolves.
+$fixtures['piccarda-night-rider-class-bonus-spellshroud-assassin-champion-spell-cannot-target-her'] = [
+    'testedCards' => ['ooGvrzxTmr'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'bjlwabipl6']], // player 2 champion -> Tristan, Underhanded (level 1 ASSASSIN)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'ooGvrzxTmr'], // Piccarda, Night Rider -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Piccarda, Night Rider (ooGvrzxTmr) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-2'), // the Dungeon Guide is the legal target
+    ],
+];
+
+// --- Piccarda, Night Rider: [Class Bonus] Spellshroud -- negative control (Class Bonus NOT met: player 2's
+// champion is a Ranger (Diana, Keen Huntress); Piccarda is Assassin/Warrior) ---
+// Piccarda, Night Rider (ooGvrzxTmr): "[Class Bonus] Spellshroud, Stealth". Negative control for the Class
+// Bonus gate: Class Bonus NOT met: player 2's champion is a Ranger (Diana, Keen Huntress); Piccarda is
+// Assassin/Warrior, so the holder has NO Spellshroud and the opposing Liturgy of Corruption offers it: both
+// the holder and the Dungeon Guide are legal targets and answering with the holder resolves on it.
+$fixtures['piccarda-night-rider-class-bonus-spellshroud-ranger-champion-spell-can-target-her'] = [
+    'testedCards' => ['ooGvrzxTmr'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'e3z4pyx8bd']], // player 2 champion -> Diana, Keen Huntress (level 1 RANGER)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'ooGvrzxTmr'], // Piccarda, Night Rider -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1'), // the holder is a legal target while the Class Bonus is off
+    ],
+];
+
+// --- Tome of Abyssal Heaven: "Other objects you control have spellshroud" -- shrouds the other weapon, not
+// itself ---
+// Tome of Abyssal Heaven (igmC01eEZn, REGALIA/ITEM): "Other objects you control have spellshroud." -- an
+// unconditional static grant; it was not implemented anywhere (no HasSpellshroud() clause). Fixed:
+// HasSpellshroud() returns true for any field object whose controller controls an ability-bearing Tome (other
+// than the Tome itself).
+// Player 2 controls the Tome and a Mirrordepth's Blade; player 1 plays Fracturize: the target prompt offers
+// ONLY the Tome (theirField-1) -- the Blade (theirField-2) is shrouded and answering with it is refused -- and
+// the Tome, which only grants spellshroud to OTHER objects, is a legal target and becomes a phantasia.
+$fixtures['tome-of-abyssal-heaven-other-weapon-has-spellshroud-tome-itself-targetable'] = [
+    'testedCards' => ['igmC01eEZn'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'igmC01eEZn'], // Tome of Abyssal Heaven -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Fracturize
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-2', ['expectFailure' => true, 'semantic' => true, 'label' => "Mirrordepth's Blade is shrouded by the Tome (other objects you control have spellshroud)"]), // refused
+        mrdAns(1, 'theirField-1'), // the Tome itself is a legal target
+    ],
+];
+
+// --- Tome of Abyssal Heaven: other allies you control have spellshroud (a spell finds no target) ---
+// Tome of Abyssal Heaven (igmC01eEZn): "Other objects you control have spellshroud." Player 2 controls the
+// Tome and a Dungeon Guide (an ordinary ally); player 1 plays Liturgy of Corruption ("Put a buff counter on
+// target ally ..."). The Dungeon Guide is shrouded by the Tome, so the spell finds no legal target, resolves
+// without a prompt, and the Guide gets no buff counter (without the Tome the same spell would prompt for a
+// target).
+$fixtures['tome-of-abyssal-heaven-other-ally-has-spellshroud-spell-finds-no-target'] = [
+    'testedCards' => ['igmC01eEZn'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'igmC01eEZn'], // Tome of Abyssal Heaven -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+    ],
+];
+
+// --- Tome of Abyssal Heaven: a Tome that lost all abilities grants no spellshroud ---
+// Tome of Abyssal Heaven (igmC01eEZn): "Other objects you control have spellshroud." Boundary: the static
+// grant is an ability, so a Tome that has lost all abilities (NO_ABILITIES override, seeded as setup state --
+// only indirect proof of the real loses-all-abilities path) grants nothing: player 1's Fracturize offers the
+// Mirrordepth's Blade and choosing it succeeds.
+$fixtures['tome-of-abyssal-heaven-lost-abilities-grants-nothing'] = [
+    'testedCards' => ['igmC01eEZn'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'igmC01eEZn', 'setProperties' => ['Counters' => ['_overrides' => ['NO_ABILITIES' => true]]]], // Tome of Abyssal Heaven (lost all abilities) -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Fracturize
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-2'), // the Blade is targetable: the ability-less Tome grants nothing
+    ],
+];
+
+// --- Genbu, Black Tortoise (both printings) and Seiryuu, Azure Dragon (tf5f2n38g0): regression pin -- the
+// pre-existing Spellshroud holders still block spells ---
+// Genbu, Black Tortoise (both printings) and Seiryuu, Azure Dragon (tf5f2n38g0) (k8bwlx70qj, u73yv2nbvj,
+// tf5f2n38g0): "**Spellshroud**, **Taunt**" -- these are in HasSpellshroud()'s hard-coded ID list
+// (Custom/GameLogic.php), unchanged by the printed-Spellshroud sweep fix; this fixture pins that their
+// behaviour is identical:
+// player 2 controls the holder(s) plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff
+// counter on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, each holder
+// answer is refused (expectFailure) and the legal answer resolves.
+$fixtures['genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells'] = [
+    'testedCards' => ['k8bwlx70qj', 'u73yv2nbvj', 'tf5f2n38g0'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'k8bwlx70qj'], // Genbu, Black Tortoise -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'u73yv2nbvj'], // Genbu, Black Tortoise -> p2 field-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'tf5f2n38g0'], // Seiryuu, Azure Dragon -> p2 field-3
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 field-4
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BZMKfFZ22T'], // Liturgy of Corruption -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Liturgy of Corruption
+        ...mrdPay(1, 2), // reserve payments
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Genbu, Black Tortoise (k8bwlx70qj) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'Genbu, Black Tortoise (u73yv2nbvj) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-3', ['expectFailure' => true, 'semantic' => true, 'label' => 'Seiryuu, Azure Dragon (tf5f2n38g0) has spellshroud: not a legal target for the opposing Liturgy of Corruption']), // refused
+        mrdAns(1, 'theirField-4'), // the Dungeon Guide is the legal target
+    ],
+];
+
+// --- Fabled Azurite Fatestone: regression pin -- the pre-existing Spellshroud holder still blocks spells ---
+// Fabled Azurite Fatestone (6ce5rzrjd9): "**Immortality**, **Spellshroud**" -- these are in HasSpellshroud()'s
+// hard-coded ID list (Custom/GameLogic.php), unchanged by the printed-Spellshroud sweep fix; this fixture pins
+// that their behaviour is identical:
+// player 2 controls the holder(s) plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or
+// weapon becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's
+// Blade, each holder answer is refused (expectFailure) and the legal answer resolves.
+$fixtures['fabled-azurite-fatestone-existing-spellshroud-still-blocks-spells'] = [
+    'testedCards' => ['6ce5rzrjd9'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '6ce5rzrjd9'], // Fabled Azurite Fatestone -> p2 field-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'efTHWeXscP'], // Mirrordepth's Blade -> p2 field-2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cpvn96659y'], // Fracturize -> p1 myHand-7
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-7'), // player 1 plays Fracturize
+        ...mrdPay(1, 2), // reserve payments
+        mrdPass(2), // player 2 passes priority with Fracturize on the stack (Azurite's [REST] ability keeps a response window open)
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Fabled Azurite Fatestone (6ce5rzrjd9) has spellshroud: not a legal target for the opposing Fracturize']), // refused
+        mrdAns(1, 'theirField-2'), // the Mirrordepth's Blade is the legal target
+    ],
+];
+
 // --- Rhongomiant, Grove's Spire: [Mordred Bonus] +4 POWER while an opponent has influence eight or more ---
 // Rhongomiant, Grove's Spire (clS3E0HrZL, REGALIA/WEAPON, printed power 2): "[Mordred Bonus] As long
 // as an opponent has influence eight or more, CARDNAME gets +4 POWER. (A player's influence is

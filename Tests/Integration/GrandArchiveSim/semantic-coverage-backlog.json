@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T20:03:46+00:00",
+    "generatedAt": "2026-10-03T20:24:32+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 649,
+        "cardsWithExistingFixtures": 678,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1838,
+        "cardsNeedingSemanticCoverage": 1809,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -976,24 +976,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 35
-        },
-        {
-            "cardId": "jz7odeqku4",
-            "name": "Fabled Emerald Fatestone",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 34
         },
         {
             "cardId": "WZJxZMBAir",
@@ -2173,24 +2155,6 @@
                 "cost",
                 "targeting",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "vzmnt0orxj",
-            "name": "Fabled Sapphire Fatestone",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -4906,21 +4870,6 @@
             "priority": 21
         },
         {
-            "cardId": "dlx7mdk0xh",
-            "name": "Atmos Armor Type-Hermes",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 21
-        },
-        {
             "cardId": "DKoSnhjX18",
             "name": "Chance, Seven of Spades",
             "type": "UNIQUE,ALLY",
@@ -7437,63 +7386,6 @@
                 "cost",
                 "targeting",
                 "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "fcfxhkqda6",
-            "name": "Seiryuu, Azure Dragon",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "GKKYGv6t3R",
-            "name": "Seiryuu, Azure Dragon",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "tf5f2n38g0",
-            "name": "Seiryuu, Azure Dragon",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -10104,24 +9996,6 @@
             "priority": 14
         },
         {
-            "cardId": "mzf5dmpqbc",
-            "name": "Fabled Ruby Fatestone",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "snXzdCvSHL",
             "name": "Facet the Forgotten",
             "type": "UNIQUE,PHANTASIA",
@@ -11382,24 +11256,6 @@
             "priority": 14
         },
         {
-            "cardId": "572j3oda2h",
-            "name": "Kraal, Stonescale Tyrant",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "8sugly4wif",
             "name": "Krustallan Patrol",
             "type": "ALLY",
@@ -12156,60 +12012,6 @@
             "priority": 14
         },
         {
-            "cardId": "yT32RI6pqt",
-            "name": "Radiant Origin of Guardian",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "tp7eVOsAHU",
-            "name": "Radiant Origin of Ranger",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "zS0TJ97QSV",
-            "name": "Radiant Origin of Tamer",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "RO2CcBrILQ",
             "name": "Radiant Repudiation",
             "type": "ACTION",
@@ -12794,24 +12596,6 @@
             "mechanics": [
                 "targeting",
                 "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "3gygojwk0p",
-            "name": "Seeker's Rifle",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
                 "status",
                 "condition"
             ],
@@ -13478,24 +13262,6 @@
             "mechanics": [
                 "recover",
                 "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "qhBecpDUO9",
-            "name": "Supernova Divination",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "counter",
                 "trigger",
                 "condition"
             ],
@@ -14370,23 +14136,6 @@
             "mechanics": [
                 "targeting",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "1mvv1f83ls",
-            "name": "Aethercloak Sentinel",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -16241,23 +15990,6 @@
                 "targeting",
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "u1a1s4ys44",
-            "name": "Excalibur, Reflected Edge",
-            "type": "UNIQUE,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "token"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -18289,23 +18021,6 @@
             "priority": 13
         },
         {
-            "cardId": "WyNvyDHFdB",
-            "name": "Pantheon Barrier",
-            "type": "TOKEN,PHANTASIA,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "HLcmZLe7Xr",
             "name": "Pearled Prayer",
             "type": "ACTION",
@@ -18773,40 +18488,6 @@
             "mechanics": [
                 "damage",
                 "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "dOPqsWYMCQ",
-            "name": "Radiant Origin of Mage",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "lqILsIDHNc",
-            "name": "Radiant Origin of Warrior",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -23487,22 +23168,6 @@
             "priority": 12
         },
         {
-            "cardId": "jej8y91lkg",
-            "name": "Heavenly Drake",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "tkdky3sxao",
             "name": "Heavenly Guide",
             "type": "ALLY",
@@ -26255,38 +25920,6 @@
             "priority": 12
         },
         {
-            "cardId": "42mdt7ge5d",
-            "name": "Suzaku, Vermillion Phoenix",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "h57jayq7l2",
-            "name": "Suzaku, Vermillion Phoenix",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "zcvq77mdgd",
             "name": "Sword of Shadows",
             "type": "REGALIA,WEAPON",
@@ -27771,51 +27404,6 @@
             "priority": 11
         },
         {
-            "cardId": "r1zd9ys1qc",
-            "name": "Briar, Schwartz King",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "kkkcxq93ul",
-            "name": "Byakko, White Tiger",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "mhilppwfgx",
-            "name": "Byakko, White Tiger",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "wXNDSNQ2x2",
             "name": "Bygone Days",
             "type": "PHANTASIA",
@@ -29031,36 +28619,6 @@
             "priority": 11
         },
         {
-            "cardId": "k8bwlx70qj",
-            "name": "Genbu, Black Tortoise",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "u73yv2nbvj",
-            "name": "Genbu, Black Tortoise",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "JAs9SmLqUS",
             "name": "Gildas, Chronicler of Aesa",
             "type": "UNIQUE,ALLY",
@@ -30081,36 +29639,6 @@
             "priority": 11
         },
         {
-            "cardId": "40oe1wf79p",
-            "name": "Obstinate Cragback",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "WZKo8sYPxS",
-            "name": "Obstinate Cragback",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "deO56qXfbP",
             "name": "Off With Her Head",
             "type": "ATTACK",
@@ -30744,21 +30272,6 @@
             "cardId": "HWFWO0TB8l",
             "name": "Tempest Silverback",
             "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "fln04uv297",
-            "name": "The Looking Glass",
-            "type": "REGALIA,ITEM",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -34108,9 +33621,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "fabled-azurite-fatestone-existing-spellshroud-still-blocks-spells",
                 "fabled-azurite-fatestone-rest-transform-10-quest"
             ],
             "semanticFixtures": [
+                "fabled-azurite-fatestone-existing-spellshroud-still-blocks-spells",
                 "fabled-azurite-fatestone-rest-transform-10-quest"
             ],
             "starterDecks": [
@@ -37777,10 +37292,12 @@
                 "combat"
             ],
             "existingFixtures": [
-                "aquamirage-damage-prevention"
+                "aquamirage-damage-prevention",
+                "aquamirage-whisper-printed-spellshroud-spell-cannot-target-it"
             ],
             "semanticFixtures": [
-                "aquamirage-damage-prevention"
+                "aquamirage-damage-prevention",
+                "aquamirage-whisper-printed-spellshroud-spell-cannot-target-it"
             ],
             "starterDecks": [
                 "Diana, Moonpiercer"
@@ -45211,6 +44728,28 @@
             "priority": 131
         },
         {
+            "cardId": "jz7odeqku4",
+            "name": "Fabled Emerald Fatestone",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fabled-emerald-fatestone-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "fabled-emerald-fatestone-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 54
+        },
+        {
             "cardId": "gn1b2sbrq9",
             "name": "Echoic Guard",
             "type": "ACTION",
@@ -45393,6 +44932,28 @@
             "semanticFixtures": [
                 "crackling-incineration",
                 "crackling-incineration-reject-champion-target"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "vzmnt0orxj",
+            "name": "Fabled Sapphire Fatestone",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fabled-sapphire-fatestone-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "fabled-sapphire-fatestone-printed-spellshroud-spell-cannot-target-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45724,6 +45285,25 @@
             "priority": 42
         },
         {
+            "cardId": "dlx7mdk0xh",
+            "name": "Atmos Armor Type-Hermes",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "atmos-armor-type-hermes-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "atmos-armor-type-hermes-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 41
+        },
+        {
             "cardId": "ts9VdtFtk1",
             "name": "Divine Comedy",
             "type": "MASTERY",
@@ -45891,6 +45471,75 @@
             "priority": 35
         },
         {
+            "cardId": "fcfxhkqda6",
+            "name": "Seiryuu, Azure Dragon",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "seiryuu-azure-dragon-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "seiryuu-azure-dragon-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "GKKYGv6t3R",
+            "name": "Seiryuu, Azure Dragon",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "seiryuu-azure-dragon-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "seiryuu-azure-dragon-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "tf5f2n38g0",
+            "name": "Seiryuu, Azure Dragon",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "semanticFixtures": [
+                "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "4GFKcHg9NU",
             "name": "Argus, All-Seeing Giant",
             "type": "UNIQUE,ALLY",
@@ -45935,6 +45584,28 @@
                 "coup-de-grace-prepare-4-paid-critical-4-doubles-damage",
                 "coup-de-grace-prepare-4-paid-non-assassin-no-critical",
                 "coup-de-grace-three-counters-cannot-pay-prepare-4"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "mzf5dmpqbc",
+            "name": "Fabled Ruby Fatestone",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45989,6 +45660,28 @@
             "priority": 34
         },
         {
+            "cardId": "572j3oda2h",
+            "name": "Kraal, Stonescale Tyrant",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "kraal-stonescale-tyrant-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "kraal-stonescale-tyrant-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "yhu0djqlp8",
             "name": "Lead with Force",
             "type": "ACTION",
@@ -46026,11 +45719,105 @@
             ],
             "existingFixtures": [
                 "piccarda-decline-all-static-removal-pays-full-cost",
-                "piccarda-decline-further-static-removal-pays-rest-of-cost"
+                "piccarda-decline-further-static-removal-pays-rest-of-cost",
+                "piccarda-night-rider-class-bonus-spellshroud-assassin-champion-spell-cannot-target-her",
+                "piccarda-night-rider-class-bonus-spellshroud-ranger-champion-spell-can-target-her"
             ],
             "semanticFixtures": [
                 "piccarda-decline-all-static-removal-pays-full-cost",
-                "piccarda-decline-further-static-removal-pays-rest-of-cost"
+                "piccarda-decline-further-static-removal-pays-rest-of-cost",
+                "piccarda-night-rider-class-bonus-spellshroud-assassin-champion-spell-cannot-target-her",
+                "piccarda-night-rider-class-bonus-spellshroud-ranger-champion-spell-can-target-her"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "yT32RI6pqt",
+            "name": "Radiant Origin of Guardian",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
+            ],
+            "semanticFixtures": [
+                "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "tp7eVOsAHU",
+            "name": "Radiant Origin of Ranger",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
+            ],
+            "semanticFixtures": [
+                "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "zS0TJ97QSV",
+            "name": "Radiant Origin of Tamer",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
+            ],
+            "semanticFixtures": [
+                "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "3gygojwk0p",
+            "name": "Seeker's Rifle",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "seekers-rifle-class-bonus-spellshroud-non-ranger-champion-spell-can-target-it",
+                "seekers-rifle-class-bonus-spellshroud-ranger-champion-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "seekers-rifle-class-bonus-spellshroud-non-ranger-champion-spell-can-target-it",
+                "seekers-rifle-class-bonus-spellshroud-ranger-champion-spell-cannot-target-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46087,6 +45874,28 @@
             "priority": 34
         },
         {
+            "cardId": "qhBecpDUO9",
+            "name": "Supernova Divination",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "supernova-divination-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "supernova-divination-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "XLbCBxla8K",
             "name": "Thousand Refractions",
             "type": "ATTACK",
@@ -46111,6 +45920,27 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 34
+        },
+        {
+            "cardId": "1mvv1f83ls",
+            "name": "Aethercloak Sentinel",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "aethercloak-sentinel-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "aethercloak-sentinel-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
         },
         {
             "cardId": "ki6fxxgmue",
@@ -46155,6 +45985,27 @@
                 "condemning-evisceration-prepare-1-declined-no-banish-offer",
                 "condemning-evisceration-prepare-1-paid-banish-floating-deals-4-more",
                 "condemning-evisceration-prepare-1-paid-skip-banish-no-extra-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "u1a1s4ys44",
+            "name": "Excalibur, Reflected Edge",
+            "type": "UNIQUE,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "token"
+            ],
+            "existingFixtures": [
+                "excalibur-reflected-edge-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "excalibur-reflected-edge-printed-spellshroud-spell-cannot-target-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46270,6 +46121,69 @@
                 "malevolent-vow-decline-first-discard-still-recovers-and-lineages",
                 "malevolent-vow-decline-second-discard-still-recovers",
                 "malevolent-vow-decline-third-discard-still-recovers"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "WyNvyDHFdB",
+            "name": "Pantheon Barrier",
+            "type": "TOKEN,PHANTASIA,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pantheon-barrier-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "pantheon-barrier-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "dOPqsWYMCQ",
+            "name": "Radiant Origin of Mage",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
+            ],
+            "semanticFixtures": [
+                "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "lqILsIDHNc",
+            "name": "Radiant Origin of Warrior",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
+            ],
+            "semanticFixtures": [
+                "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46402,6 +46316,26 @@
             "priority": 32
         },
         {
+            "cardId": "jej8y91lkg",
+            "name": "Heavenly Drake",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "heavenly-drake-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "heavenly-drake-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "loSCQzxqi1",
             "name": "Heavenly Drake",
             "type": "ALLY",
@@ -46412,9 +46346,11 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "heavenly-drake-printed-spellshroud-spell-cannot-target-it",
                 "redslime-ondeath-sweep-stack-order-choice"
             ],
             "semanticFixtures": [
+                "heavenly-drake-printed-spellshroud-spell-cannot-target-it",
                 "redslime-ondeath-sweep-stack-order-choice"
             ],
             "starterDecks": [],
@@ -46544,6 +46480,141 @@
             "priority": 32
         },
         {
+            "cardId": "42mdt7ge5d",
+            "name": "Suzaku, Vermillion Phoenix",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "suzaku-vermillion-phoenix-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "suzaku-vermillion-phoenix-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "h57jayq7l2",
+            "name": "Suzaku, Vermillion Phoenix",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "suzaku-vermillion-phoenix-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "suzaku-vermillion-phoenix-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "r1zd9ys1qc",
+            "name": "Briar, Schwartz King",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status"
+            ],
+            "existingFixtures": [
+                "briar-schwartz-king-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "briar-schwartz-king-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "kkkcxq93ul",
+            "name": "Byakko, White Tiger",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "byakko-white-tiger-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "byakko-white-tiger-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "mhilppwfgx",
+            "name": "Byakko, White Tiger",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "byakko-white-tiger-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "byakko-white-tiger-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "k8bwlx70qj",
+            "name": "Genbu, Black Tortoise",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "semanticFixtures": [
+                "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "u73yv2nbvj",
+            "name": "Genbu, Black Tortoise",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "semanticFixtures": [
+                "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "ZpM7gliLxm",
             "name": "Lesser Boon of Territories",
             "type": "LESSER BOON",
@@ -46557,6 +46628,44 @@
             ],
             "semanticFixtures": [
                 "lesser-boon-of-territories-scavenge-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "40oe1wf79p",
+            "name": "Obstinate Cragback",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "obstinate-cragback-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "obstinate-cragback-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "WZKo8sYPxS",
+            "name": "Obstinate Cragback",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "obstinate-cragback-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "obstinate-cragback-printed-spellshroud-spell-cannot-target-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46578,6 +46687,25 @@
             "semanticFixtures": [
                 "strike-from-the-mist-prepare-2-declined-interceptor-offered",
                 "strike-from-the-mist-prepare-2-paid-cannot-be-intercepted"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "fln04uv297",
+            "name": "The Looking Glass",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "the-looking-glass-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "the-looking-glass-printed-omnishroud-spell-cannot-target-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

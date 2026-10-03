@@ -1,0 +1,28 @@
+{
+    "name": "kraal-stonescale-tyrant-printed-spellshroud-spell-cannot-target-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:18:47+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "572j3oda2h"
+    ],
+    "notes": "Kraal, Stonescale Tyrant: printed Spellshroud -- an opposing spell cannot target it. Kraal, Stonescale Tyrant (572j3oda2h, UNIQUE,ALLY): \"Intercept, Spellshroud, True Sight, Vigor\" -- the Spellshroud is the card's own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords > Spellshroud 1: \"This can't be targeted by spells\"). It was never implemented: HasSpellshroud() (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword, so function_exists is false); 572j3oda2h was in neither, so FilterSpellshroudTargets() kept the card in the target list. Fixed: it is now in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities / NO_SPELLSHROUD gates). Player 2 controls the holder plus a Dungeon Guide; player 1 plays Liturgy of Corruption (\"Put a buff counter on target ally ...\", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with the holder is refused (expectFailure) and the legal answer then resolves.",
+    "semanticCoverage": {
+        "testedCards": [
+            "572j3oda2h"
+        ],
+        "mechanics": [
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "Spellshroud: objects with spellshroud can't be targeted by spells."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Kraal, Stonescale Tyrant's printed Spellshroud was not implemented: a spell could target it. HasSpellshroud() (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword, so function_exists is false), and 572j3oda2h was in neither. Evidence on HEAD 48faaae9 (this fixture, run against the unfixed Custom/GameLogic.php): player 1's spell target prompt was 'MZCHOOSE:theirField-1&theirField-2' -- every holder was offered, and the first refused answer was accepted ('Step 4 unexpectedly succeeded'). Fix: HasSpellshroud() returns true for the printed-Spellshroud card IDs (static table after the HasNoAbilities / NO_SPELLSHROUD gates).",
+        "affectedFunction": "Custom/GameLogic.php HasSpellshroud() (no entry for 572j3oda2h; no generated HasKeyword_Spellshroud table)",
+        "fixCommit": "TBD"
+    }
+}

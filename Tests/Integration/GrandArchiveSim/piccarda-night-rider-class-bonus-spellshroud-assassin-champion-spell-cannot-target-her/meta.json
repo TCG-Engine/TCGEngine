@@ -1,0 +1,22 @@
+{
+    "name": "piccarda-night-rider-class-bonus-spellshroud-assassin-champion-spell-cannot-target-her",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:18:57+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ooGvrzxTmr"
+    ],
+    "notes": "Piccarda, Night Rider: [Class Bonus] Spellshroud -- already implemented, pinned (Class Bonus met: player 2's champion is an Assassin (Tristan, Underhanded); Piccarda is Assassin/Warrior). Piccarda, Night Rider (ooGvrzxTmr, UNIQUE,ALLY): \"[Class Bonus] Spellshroud, Stealth\" (conditional printed Spellshroud). Already handled before the printed-Spellshroud sweep: HasCardKeywordOverride()'s ooGvrzxTmr entry (\"ClassBonusSpellshroud\") plus the [Class Bonus] check in HasSpellshroud() -- the sweep fix leaves it untouched, this fixture pins it (it passes on HEAD without the fix). Condition: Class Bonus met: player 2's champion is an Assassin (Tristan, Underhanded); Piccarda is Assassin/Warrior. Player 2 controls the holder plus a Dungeon Guide; player 1 plays Liturgy of Corruption (\"Put a buff counter on target ally ...\", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, the holder answer is refused (expectFailure) and the legal answer resolves.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ooGvrzxTmr"
+        ],
+        "mechanics": [
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Spellshroud: while the champion's class matches, the object can't be targeted by spells."
+        ]
+    }
+}

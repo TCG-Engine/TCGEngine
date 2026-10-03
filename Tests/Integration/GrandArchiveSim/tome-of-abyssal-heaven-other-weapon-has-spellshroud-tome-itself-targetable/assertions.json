@@ -1,0 +1,8 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-2","property":"Counters","value":"{\"durability\":2}","semantic":true,"label":"The refused answer left Mirrordepth's Blade untouched: the Tome gives it spellshroud"},
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-1","property":"Counters","value":"[]","semantic":true,"label":"The refused answer did not touch the Tome either (prompt still pending)"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-1","property":"Counters","value":"{\"_overrides\":{\"type\":\"PHANTASIA\",\"subtypes\":\"CLERIC,FRACTAL\",\"classes\":\"CLERIC\",\"NO_ABILITIES\":true,\"granted_keywords\":[\"Reservable\"],\"FRACTURIZED\":true}}","semantic":true,"label":"The Tome itself is a legal target (it grants spellshroud to OTHER objects only) and became a Cleric Fractal phantasia"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-2","property":"Counters","value":"{\"durability\":2}","semantic":true,"label":"Mirrordepth's Blade is still unaffected"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"cpvn96659y","semantic":true,"label":"Fracturize resolved into player 1's graveyard"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,28 @@
+{
+    "name": "tome-of-abyssal-heaven-other-ally-has-spellshroud-spell-finds-no-target",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:18:59+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "igmC01eEZn"
+    ],
+    "notes": "Tome of Abyssal Heaven: other allies you control have spellshroud (a spell finds no target). Tome of Abyssal Heaven (igmC01eEZn): \"Other objects you control have spellshroud.\" Player 2 controls the Tome and a Dungeon Guide (an ordinary ally); player 1 plays Liturgy of Corruption (\"Put a buff counter on target ally ...\"). The Dungeon Guide is shrouded by the Tome, so the spell finds no legal target, resolves without a prompt, and the Guide gets no buff counter (without the Tome the same spell would prompt for a target).",
+    "semanticCoverage": {
+        "testedCards": [
+            "igmC01eEZn"
+        ],
+        "mechanics": [
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "Tome of Abyssal Heaven: other objects you control have spellshroud, so a spell finds no legal ally target."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Tome of Abyssal Heaven's static \"Other objects you control have spellshroud.\" was not implemented anywhere (no clause in HasSpellshroud()). Evidence on HEAD 48faaae9 (this fixture, run against the unfixed Custom/GameLogic.php): Liturgy of Corruption's target prompt was 'MZCHOOSE:theirField-2' -- the Dungeon Guide was offered although it is an 'other object' of the Tome's controller. Fix: HasSpellshroud() returns true for any field object whose controller controls an ability-bearing Tome (excluding the Tome itself), after the HasNoAbilities / NO_SPELLSHROUD gates.",
+        "affectedFunction": "Custom/GameLogic.php HasSpellshroud() (no entry for igmC01eEZn; no generated HasKeyword_Spellshroud table)",
+        "fixCommit": "TBD"
+    }
+}

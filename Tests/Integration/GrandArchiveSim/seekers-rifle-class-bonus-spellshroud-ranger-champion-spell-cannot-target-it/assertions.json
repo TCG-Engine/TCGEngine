@@ -1,0 +1,8 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-1","property":"Counters","value":"{\"durability\":2}","semantic":true,"label":"The refused answers left Seeker's Rifle (3gygojwk0p) untouched: Spellshroud stops the opposing Fracturize from targeting it"},
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-2","property":"Counters","value":"{\"durability\":2}","semantic":true,"label":"The refused answers did not apply Fracturize to the Mirrordepth's Blade either (prompt still pending)"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-1","property":"Counters","value":"{\"durability\":2}","semantic":true,"label":"Seeker's Rifle (3gygojwk0p) is unaffected by the resolved Fracturize"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-2","property":"Counters","value":"{\"durability\":2,\"_overrides\":{\"type\":\"PHANTASIA\",\"subtypes\":\"CLERIC,FRACTAL\",\"classes\":\"CLERIC\",\"NO_ABILITIES\":true,\"granted_keywords\":[\"Reservable\"],\"FRACTURIZED\":true}}","semantic":true,"label":"The only legal target, Mirrordepth's Blade, became a Cleric Fractal phantasia (Fracturize override)"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"cpvn96659y","semantic":true,"label":"Fracturize resolved into player 1's graveyard"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

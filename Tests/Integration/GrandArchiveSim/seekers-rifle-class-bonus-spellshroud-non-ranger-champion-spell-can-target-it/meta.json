@@ -1,0 +1,22 @@
+{
+    "name": "seekers-rifle-class-bonus-spellshroud-non-ranger-champion-spell-can-target-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:18:56+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "3gygojwk0p"
+    ],
+    "notes": "Seeker's Rifle: [Class Bonus] Spellshroud -- negative control (Class Bonus NOT met: player 2's champion is an Assassin (Tristan, Underhanded), not a Ranger). Seeker's Rifle (3gygojwk0p): \"[Class Bonus] Spellshroud\". Negative control for the Class Bonus gate: Class Bonus NOT met: player 2's champion is an Assassin (Tristan, Underhanded), not a Ranger, so the holder has NO Spellshroud and the opposing Fracturize offers it: both the holder and the Mirrordepth's Blade are legal targets and answering with the holder resolves on it.",
+    "semanticCoverage": {
+        "testedCards": [
+            "3gygojwk0p"
+        ],
+        "mechanics": [
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Spellshroud applies only while the champion's class matches; otherwise the object can be targeted by spells."
+        ]
+    }
+}

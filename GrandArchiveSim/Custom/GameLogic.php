@@ -23178,6 +23178,35 @@ function HasSpellshroud($obj) {
     // Rhongomiant, Grove's Spire (clS3E0HrZL): printed, unconditional Spellshroud (the first keyword on the
     // card; only its [Mordred Bonus] clauses are conditional). The generated keyword table has no Spellshroud.
     if($obj->CardID === "clS3E0HrZL") return true;
+    // Printed, UNCONDITIONAL Spellshroud (the keyword is the card's own first line, no [Class Bonus]/level/while gate),
+    // plus printed Omnishroud ("can't be targeted by activations, materializations, or triggers" -- a spell is an
+    // activation, so these can't be targeted by spells either; same treatment the OMNISHROUD turn effect and Argus get).
+    // Data/ProcessKeywordsGA.php has no Spellshroud entry, so HasKeyword_Spellshroud() is never generated and every
+    // printed holder needs an entry here (the gates above still apply: lost abilities / NO_SPELLSHROUD turn off these).
+    static $printedSpellshroudIDs = [
+        "3n5x9fbkn0" => true, // Aquamirage Whisper
+        "1mvv1f83ls" => true, // Aethercloak Sentinel
+        "dlx7mdk0xh" => true, // Atmos Armor Type-Hermes
+        "r1zd9ys1qc" => true, // Briar, Schwartz King
+        "kkkcxq93ul" => true, "mhilppwfgx" => true, // Byakko, White Tiger (2 printings)
+        "u1a1s4ys44" => true, // Excalibur, Reflected Edge
+        "jz7odeqku4" => true, "mzf5dmpqbc" => true, "vzmnt0orxj" => true, // Fabled Emerald / Ruby / Sapphire Fatestone
+        "jej8y91lkg" => true, "loSCQzxqi1" => true, // Heavenly Drake (2 printings)
+        "572j3oda2h" => true, // Kraal, Stonescale Tyrant
+        "40oe1wf79p" => true, "WZKo8sYPxS" => true, // Obstinate Cragback (2 printings)
+        "fcfxhkqda6" => true, "GKKYGv6t3R" => true, // Seiryuu, Azure Dragon (other printings; tf5f2n38g0 is handled above)
+        "qhBecpDUO9" => true, // Supernova Divination
+        "42mdt7ge5d" => true, "h57jayq7l2" => true, // Suzaku, Vermillion Phoenix (2 printings)
+        "Epmh7VncaR" => true, // Xukong, Shifted Fates
+        // printed Omnishroud
+        "fln04uv297" => true, // The Looking Glass
+        "WyNvyDHFdB" => true, // Pantheon Barrier
+        "T5ZEoIRdZr" => true, "XSgcay9ZB7" => true, "yT32RI6pqt" => true, "dOPqsWYMCQ" => true,
+        "tp7eVOsAHU" => true, "zS0TJ97QSV" => true, "lqILsIDHNc" => true, // Radiant Origin of Assassin/Cleric/Guardian/Mage/Ranger/Tamer/Warrior
+    ];
+    if(isset($printedSpellshroudIDs[$obj->CardID])) return true;
+    // Seeker's Rifle (3gygojwk0p): [Class Bonus] Spellshroud (Ranger weapon, like Seeker's Aetherwing)
+    if($obj->CardID === "3gygojwk0p" && isset($obj->Controller) && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     if(function_exists('HasKeyword_Spellshroud') && HasKeyword_Spellshroud($obj)) return true;
     if(in_array("SPELLSHROUD", $obj->TurnEffects)) return true;
     if(in_array("SPELLSHROUD_NEXT_TURN", $obj->TurnEffects)) return true;
@@ -23247,6 +23276,16 @@ function HasSpellshroud($obj) {
         $vcField = GetZone($vcZone);
         foreach($vcField as $vcObj) {
             if($vcObj !== null && !$vcObj->removed && $vcObj->CardID === "wqpsErSeFn" && !HasNoAbilities($vcObj)) {
+                return true;
+            }
+        }
+    }
+    // Tome of Abyssal Heaven (igmC01eEZn): "Other objects you control have spellshroud." (unconditional static grant;
+    // the Tome itself is not covered, a Tome that lost its abilities grants nothing)
+    if(isset($obj->Controller)) {
+        foreach(GetField($obj->Controller) as $tomeObj) {
+            if($tomeObj !== null && !$tomeObj->removed && $tomeObj->CardID === "igmC01eEZn" && $tomeObj !== $obj
+                && !HasNoAbilities($tomeObj)) {
                 return true;
             }
         }

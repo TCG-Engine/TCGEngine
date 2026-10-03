@@ -1,0 +1,28 @@
+{
+    "name": "excalibur-reflected-edge-printed-spellshroud-spell-cannot-target-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:18:50+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "u1a1s4ys44"
+    ],
+    "notes": "Excalibur, Reflected Edge: printed Spellshroud -- an opposing spell cannot target it. Excalibur, Reflected Edge (u1a1s4ys44, UNIQUE,WEAPON): \"True Sight, Spellshroud\" -- the Spellshroud is the card's own, UNCONDITIONAL keyword (rules: .claude/GrandArchiveSim/refs/comprehensive-rules.md, Keywords > Spellshroud 1: \"This can't be targeted by spells\"). It was never implemented: HasSpellshroud() (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword, so function_exists is false); u1a1s4ys44 was in neither, so FilterSpellshroudTargets() kept the card in the target list. Fixed: it is now in HasSpellshroud()'s printed-Spellshroud table (after the HasNoAbilities / NO_SPELLSHROUD gates). Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize (\"Target item or weapon becomes a Cleric Fractal phantasia ...\", a Spell): the target prompt offers ONLY the Mirrordepth's Blade, answering with the holder is refused (expectFailure) and the legal answer then resolves.",
+    "semanticCoverage": {
+        "testedCards": [
+            "u1a1s4ys44"
+        ],
+        "mechanics": [
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "Spellshroud: objects with spellshroud can't be targeted by spells."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Excalibur, Reflected Edge's printed Spellshroud was not implemented: a spell could target it. HasSpellshroud() (Custom/GameLogic.php) recognised printed Spellshroud only through a hard-coded card-ID list and HasKeyword_Spellshroud(), which is never generated (Data/ProcessKeywordsGA.php has no Spellshroud keyword, so function_exists is false), and u1a1s4ys44 was in neither. Evidence on HEAD 48faaae9 (this fixture, run against the unfixed Custom/GameLogic.php): player 1's spell target prompt was 'MZCHOOSE:theirField-1&theirField-2' -- every holder was offered, and the first refused answer was accepted ('Step 4 unexpectedly succeeded'). Fix: HasSpellshroud() returns true for the printed-Spellshroud card IDs (static table after the HasNoAbilities / NO_SPELLSHROUD gates).",
+        "affectedFunction": "Custom/GameLogic.php HasSpellshroud() (no entry for u1a1s4ys44; no generated HasKeyword_Spellshroud table)",
+        "fixCommit": "TBD"
+    }
+}

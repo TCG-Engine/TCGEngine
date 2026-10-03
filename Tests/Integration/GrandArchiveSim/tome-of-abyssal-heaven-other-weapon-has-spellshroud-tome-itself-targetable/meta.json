@@ -1,0 +1,28 @@
+{
+    "name": "tome-of-abyssal-heaven-other-weapon-has-spellshroud-tome-itself-targetable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:18:58+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "igmC01eEZn"
+    ],
+    "notes": "Tome of Abyssal Heaven: \"Other objects you control have spellshroud\" -- shrouds the other weapon, not itself. Tome of Abyssal Heaven (igmC01eEZn, REGALIA/ITEM): \"Other objects you control have spellshroud.\" -- an unconditional static grant; it was not implemented anywhere (no HasSpellshroud() clause). Fixed: HasSpellshroud() returns true for any field object whose controller controls an ability-bearing Tome (other than the Tome itself). Player 2 controls the Tome and a Mirrordepth's Blade; player 1 plays Fracturize: the target prompt offers ONLY the Tome (theirField-1) -- the Blade (theirField-2) is shrouded and answering with it is refused -- and the Tome, which only grants spellshroud to OTHER objects, is a legal target and becomes a phantasia.",
+    "semanticCoverage": {
+        "testedCards": [
+            "igmC01eEZn"
+        ],
+        "mechanics": [
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "Tome of Abyssal Heaven: other objects you control have spellshroud (the Tome itself does not)."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Tome of Abyssal Heaven's static \"Other objects you control have spellshroud.\" was not implemented anywhere (no clause in HasSpellshroud()). Evidence on HEAD 48faaae9 (this fixture, run against the unfixed Custom/GameLogic.php): player 1's spell target prompt was 'MZCHOOSE:theirField-1&theirField-2' -- the other object was offered. Fix: HasSpellshroud() returns true for any field object whose controller controls an ability-bearing Tome (excluding the Tome itself), after the HasNoAbilities / NO_SPELLSHROUD gates.",
+        "affectedFunction": "Custom/GameLogic.php HasSpellshroud() (no entry for igmC01eEZn; no generated HasKeyword_Spellshroud table)",
+        "fixCommit": "TBD"
+    }
+}
