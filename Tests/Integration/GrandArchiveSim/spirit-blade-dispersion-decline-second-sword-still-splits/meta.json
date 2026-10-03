@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. SpiritBladeChooseSword's loop re-queue AddDecision omitted dontSkipOnPass, so declining a further Sword (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (queue the MZSPLITASSIGN damage split for the accumulated durability) never ran: the first sword was banished with its counters removed but no damage was dealt or offered (live repro on HEAD). Fix: dontSkipOnPass:1 on the re-queue.",
         "affectedFunction": "Custom/CardDQHandlers.php SpiritBladeChooseSword handler's AddDecision(..., \"CUSTOM\", \"SpiritBladeChooseSword|N\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

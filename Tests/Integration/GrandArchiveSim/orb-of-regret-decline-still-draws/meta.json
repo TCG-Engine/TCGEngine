@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. OrbOfRegretShuffle's loop re-queue AddDecision omitted dontSkipOnPass, so when the player declined to shuffle a further card (MZMAYCHOOSE answered PASS) ExecuteStaticMethods() skipped the handler and its PASS branch (shuffle the deck, draw one card per card already shuffled in) never ran: one card shuffled then PASS left the hand at 6 instead of 7 (live repro on HEAD). Fix: dontSkipOnPass:1 on the re-queue.",
         "affectedFunction": "Custom/CardDQHandlers.php OrbOfRegretShuffle handler's AddDecision(..., \"CUSTOM\", \"OrbOfRegretShuffle|N\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

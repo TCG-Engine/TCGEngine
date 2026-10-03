@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated Malevolent Vow closure queued the first discard prompt's CUSTOM 'MalevolentVow1' without dontSkipOnPass, so declining it (MZMAYCHOOSE answered PASS) skipped the handler and MalevolentVowFinish() never ran: the spell did nothing - no recover and the Vow stayed in the graveyard instead of going to the lineage (live repro on HEAD). Fix: override the generated closure in Custom/GeneratedAbilityOverrides.php with dontSkipOnPass:1.",
         "affectedFunction": "GeneratedCode/GeneratedMacroCode.php cardActivatedAbilities['up6fw61vf1:0'] (generated, gitignored) -> overridden in Custom/GeneratedAbilityOverrides.php",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

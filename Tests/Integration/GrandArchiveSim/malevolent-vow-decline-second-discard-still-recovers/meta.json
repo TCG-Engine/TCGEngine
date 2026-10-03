@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. MalevolentVow1's re-queue of 'MalevolentVow2' omitted dontSkipOnPass, so declining the second discard (MZMAYCHOOSE answered PASS) skipped the handler and MalevolentVowFinish() never ran: one card was discarded but no recover happened and the Vow stayed in the graveyard (live repro on HEAD). Fix: dontSkipOnPass:1 on that AddDecision.",
         "affectedFunction": "Custom/CardDQHandlers.php MalevolentVow1 handler's AddDecision(..., \"CUSTOM\", \"MalevolentVow2\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

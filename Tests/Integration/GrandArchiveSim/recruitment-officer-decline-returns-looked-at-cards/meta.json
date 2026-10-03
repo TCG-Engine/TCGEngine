@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. RecruitmentOfficerOnFoster() queued the CUSTOM 'RecruitmentOfficerPick' decision without dontSkipOnPass, so declining the optional reveal (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler; RecruitmentOfficerCleanup() never ran and the looked-at card stayed stranded in the temp zone (deck 7 instead of 8). Fix: dontSkipOnPass:1 on that AddDecision.",
         "affectedFunction": "Custom/CardDQHandlers.php RecruitmentOfficerOnFoster AddDecision(..., \"CUSTOM\", \"RecruitmentOfficerPick\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

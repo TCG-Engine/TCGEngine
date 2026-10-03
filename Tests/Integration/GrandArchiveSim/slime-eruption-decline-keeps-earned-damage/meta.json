@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. SlimeEruptionBanishLoop() queued the CUSTOM 'SlimeEruptionBanishPick' decision without dontSkipOnPass, so when the player declined a further banish offer (MZMAYCHOOSE answered PASS) ExecuteStaticMethods() skipped the handler and the 1 damage per already-banished card was never dealt (live trace on HEAD: handler never invoked on PASS, champion Damage stayed 0, queue empty). Fix: pass dontSkipOnPass:1 on that AddDecision call; the handler's existing PASS branch then runs SlimeEruptionDamageStep($player, banishedCount).",
         "affectedFunction": "Custom/GameLogic.php SlimeEruptionBanishLoop() AddDecision(..., \"CUSTOM\", \"SlimeEruptionBanishPick\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "07f62cfa"
     }
 }

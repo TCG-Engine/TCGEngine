@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. SlimesBlessingAskTarget() queued the CUSTOM 'SlimesBlessingChoose' decision without dontSkipOnPass, so when the player declined before picking three units (MZMAYCHOOSE answered PASS) ExecuteStaticMethods() skipped the handler and SlimesBlessingResolve() never applied the level/buff counters for the already-chosen units (live trace on HEAD: after picks myField-0, myField-1 and a PASS, the handler was never invoked, both Counters stayed [] and the queue drained). Fix: pass dontSkipOnPass:1 on that AddDecision call so the handler's existing PASS branch runs SlimesBlessingResolve().",
         "affectedFunction": "Custom/GameLogic.php SlimesBlessingAskTarget() AddDecision(..., \"CUSTOM\", \"SlimesBlessingChoose\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "07f62cfa"
     }
 }

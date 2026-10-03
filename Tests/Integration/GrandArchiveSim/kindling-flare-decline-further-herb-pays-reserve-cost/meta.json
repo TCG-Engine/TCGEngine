@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. KindlingFlareSacHerb's re-queue and ActivateCard's initial queue omitted dontSkipOnPass, so declining a further Herb sacrifice (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (queue the reserve payments + EffectStackOpportunity) never ran: the card was stuck on the effect stack with an empty decision queue and the cost unpaid (live repro on HEAD). Fix: dontSkipOnPass:1 on both AddDecision sites, plus a PASSPARAMETER '-' queued first in the decline branch so the unflagged reserve-payment CUSTOMs queued after it are not themselves skipped while lastDecision is still 'PASS'.",
         "affectedFunction": "Custom/GameLogic.php ActivateCard() Kindling Flare additional-cost AddDecision + Custom/CardDQHandlers.php KindlingFlareSacHerb handler (loop AddDecision flag + PASSPARAMETER reset in the decline branch)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

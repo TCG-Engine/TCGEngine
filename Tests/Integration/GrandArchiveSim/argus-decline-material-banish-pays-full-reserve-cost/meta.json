@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. ArgusReserveChoice queued the CUSTOM 'ArgusReserveApply' decision without dontSkipOnPass, so declining the optional Eye/Crystal of Argus banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler: the reserve payments and EffectStackOpportunity were never queued and Argus was stuck on the effect stack with an empty decision queue (live repro on HEAD, unpayable soft-lock). Fix: dontSkipOnPass:1 on that AddDecision, plus a PASSPARAMETER '-' queued first in the handler's decline branch so the unflagged reserve-payment CUSTOMs queued after it are not themselves skipped.",
         "affectedFunction": "Custom/GameLogic.php ArgusReserveChoice handler's AddDecision(..., \"CUSTOM\", \"ArgusReserveApply\", 100, dontSkipOnPass:1) + ArgusReserveApply decline branch (PASSPARAMETER reset)",
-        "fixCommit": "TBD"
+        "fixCommit": "259c038d"
     }
 }

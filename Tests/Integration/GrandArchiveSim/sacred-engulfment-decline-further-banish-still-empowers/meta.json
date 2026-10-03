@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. SacredEngulfmentBanishLoop() queued the CUSTOM 'SacredEngulfmentProcess|N' decision without dontSkipOnPass, so declining a further banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (Empower 4+X) never ran: fire cards were banished but no Empower was applied (live repro on HEAD). Fix: dontSkipOnPass:1 on that AddDecision.",
         "affectedFunction": "Custom/CardDQHandlers.php SacredEngulfmentBanishLoop() AddDecision(..., \"CUSTOM\", \"SacredEngulfmentProcess|N\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

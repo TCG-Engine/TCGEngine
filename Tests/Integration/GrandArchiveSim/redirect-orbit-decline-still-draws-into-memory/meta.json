@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. RedirectOrbitChoose() queued the CUSTOM 'RedirectOrbitStep|N' decision without dontSkipOnPass, so declining a further shuffle (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (ShuffleZone + DrawIntoMemory for the shuffled count) never ran: a card was shuffled away and nothing was drawn into memory (live repro on HEAD). Fix: dontSkipOnPass:1 on that AddDecision.",
         "affectedFunction": "Custom/CardDQHandlers.php RedirectOrbitChoose() AddDecision(..., \"CUSTOM\", \"RedirectOrbitStep|N\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

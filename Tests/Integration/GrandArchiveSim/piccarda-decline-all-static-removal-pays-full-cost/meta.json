@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. ActivateCard()'s initial Piccarda AddDecision omitted dontSkipOnPass, so declining the first static-counter prompt (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip PiccardaStaticCost: no reserve payments were queued and Piccarda was stuck on the effect stack with an empty decision queue (live repro on HEAD). Fix: dontSkipOnPass:1 there (plus the handler-side decline handling described in piccarda-decline-further-static-removal-pays-rest-of-cost).",
         "affectedFunction": "Custom/GameLogic.php ActivateCard() Piccarda AddDecision(..., \"CUSTOM\", \"PiccardaStaticCost|N|4\", 100, dontSkipOnPass:1) + Custom/CardDQHandlers.php PiccardaStaticCost handler (loop AddDecision flag, PASS treated as 'done', PASSPARAMETER reset before the reserve payments)",
-        "fixCommit": "TBD"
+        "fixCommit": "259c038d"
     }
 }

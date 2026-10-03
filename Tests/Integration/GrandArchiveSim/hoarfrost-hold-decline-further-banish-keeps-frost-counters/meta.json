@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. HoarfrostHoldChoose's loop re-queue AddDecision omitted dontSkipOnPass, so declining a further banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (AddCounters frost = banished count) never ran: a Suited Spell was banished but Hoarfrost Hold stayed at 0 frost counters (live repro on HEAD). Fix: dontSkipOnPass:1 on the re-queue.",
         "affectedFunction": "Custom/GameLogic.php HoarfrostHoldChoose handler's AddDecision(..., \"CUSTOM\", \"HoarfrostHoldChoose\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

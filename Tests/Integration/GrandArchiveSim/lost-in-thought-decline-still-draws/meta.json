@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. LostInThoughtBanish's loop re-queue AddDecision omitted dontSkipOnPass, so declining a further banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (Draw one card per card already banished) never ran (live repro on HEAD: hand stayed 7 instead of 8). Fix: dontSkipOnPass:1 on the re-queue.",
         "affectedFunction": "Custom/CardDQHandlers.php LostInThoughtBanish handler's AddDecision(..., \"CUSTOM\", \"LostInThoughtBanish|N\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

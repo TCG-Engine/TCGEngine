@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. LustrousSlimeRevealLoop() queued the CUSTOM 'LustrousSlimeReveal|mz' decision without dontSkipOnPass, so declining a further reveal (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (LustrousSlimeApplyReveals -> buff counters) never ran: after revealing one of two Slimes and declining the other, Lustrous Slime had no buff counter (live repro on HEAD). Fix: dontSkipOnPass:1 on that AddDecision.",
         "affectedFunction": "Custom/CardDQHandlers.php LustrousSlimeRevealLoop() AddDecision(..., \"CUSTOM\", \"LustrousSlimeReveal|mz\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

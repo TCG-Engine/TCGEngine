@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. ActivateCard()'s initial Kindling Flare additional-cost AddDecision omitted dontSkipOnPass, so declining the first Herb prompt (MZMAYCHOOSE answered PASS, X = 0) made ExecuteStaticMethods() skip KindlingFlareSacHerb: no reserve payments were queued and the card was stuck on the effect stack with an empty queue (live repro on HEAD). Fix: dontSkipOnPass:1 there (and see kindling-flare-decline-further-herb-pays-reserve-cost for the handler-side PASSPARAMETER reset).",
         "affectedFunction": "Custom/GameLogic.php ActivateCard() Kindling Flare additional-cost AddDecision(..., \"CUSTOM\", \"KindlingFlareSacHerb|N\", 100, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

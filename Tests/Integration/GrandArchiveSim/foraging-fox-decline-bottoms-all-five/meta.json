@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated enterAbilities closure for Foraging Fox queued its follow-up CUSTOM ('b0ssellm84:0:Enter-1') without dontSkipOnPass, so declining the optional Fatestone reveal (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip it; ForagingFoxChooseBottom() never ran and the five looked-at cards stayed stranded in the temp zone (live repro on HEAD: temp zone 5 cards, deck 8 instead of 13, no rearrange prompt). Fix: override the generated closure in Custom/GeneratedAbilityOverrides.php with dontSkipOnPass:1 on the follow-up.",
         "affectedFunction": "GeneratedCode/GeneratedMacroCode.php enterAbilities['b0ssellm84:0'] (generated, gitignored) -> overridden in Custom/GeneratedAbilityOverrides.php",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

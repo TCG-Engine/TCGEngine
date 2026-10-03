@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. PiccardaStaticCost's re-queue omitted dontSkipOnPass and the handler had no decline branch: declining a further static-counter removal (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler, so the remaining reserve payments were never queued and Piccarda was stuck on the effect stack with an empty decision queue (live repro on HEAD, unpayable soft-lock). Fix: dontSkipOnPass:1 on both queue sites; the handler now treats PASS as 'done removing' (instead of re-offering the prompt) and queues a PASSPARAMETER '-' before the reserve payments.",
         "affectedFunction": "Custom/GameLogic.php ActivateCard() Piccarda AddDecision(..., \"CUSTOM\", \"PiccardaStaticCost|N|4\", 100, dontSkipOnPass:1) + Custom/CardDQHandlers.php PiccardaStaticCost handler (loop AddDecision flag, PASS treated as 'done', PASSPARAMETER reset before the reserve payments)",
-        "fixCommit": "TBD"
+        "fixCommit": "259c038d"
     }
 }

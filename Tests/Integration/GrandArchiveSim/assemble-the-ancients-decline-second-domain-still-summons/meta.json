@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. AssembleAncientsSacrifice() queued the CUSTOM 'AssembleAncientsSacChoice|N' decision without dontSkipOnPass, so declining a further sacrifice (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (AssembleAncientsFinalize: summon the Drone tokens) never ran: a domain was sacrificed but no Drone was summoned (live repro on HEAD). Fix: dontSkipOnPass:1 on that AddDecision.",
         "affectedFunction": "Custom/CardDQHandlers.php AssembleAncientsSacrifice() AddDecision(..., \"CUSTOM\", \"AssembleAncientsSacChoice|N\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

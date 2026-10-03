@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. AshenRiffleChoose() queued its paired CUSTOM 'AshenRiffleChoose|N' decision without dontSkipOnPass, so declining the optional banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler; AshenRiffleCleanup() never ran and the revealed card stayed stranded in the temp zone (live repro on HEAD: deck 4 instead of 5, temp zone holding the card). Fix: dontSkipOnPass:1 on that AddDecision.",
         "affectedFunction": "Custom/GameLogic.php AshenRiffleChoose() AddDecision(..., \"CUSTOM\", \"AshenRiffleChoose|N\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. FractalRefreshPick's loop re-queue AddDecision omitted dontSkipOnPass, so declining a further reveal (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its decline branch (DrawIntoMemory for the bottomed count) never ran: two cards were bottomed and nothing was drawn (live repro on HEAD: memory 4 / deck 15 instead of 6 / 13). Fix: dontSkipOnPass:1 on the re-queue.",
         "affectedFunction": "Custom/GameLogic.php FractalRefreshPick handler's AddDecision(..., \"CUSTOM\", \"FractalRefreshPick|N\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "259c038d"
     }
 }

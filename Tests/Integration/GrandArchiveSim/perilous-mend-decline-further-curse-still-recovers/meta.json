@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. PerilousMendChooseCurse() queued its paired CUSTOM decision without dontSkipOnPass, so declining a further Curse (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (PerilousMendFinalize: Recover 3*count, draw if distant) never ran: a Curse was put on the lineage but the champion was never recovered (live repro on HEAD: Damage stayed 6). Fix: dontSkipOnPass:1 on that AddDecision (also covers declining the very first prompt, where the Class Bonus 'draw if distant' clause still needs to run).",
         "affectedFunction": "Custom/GameLogic.php PerilousMendChooseCurse() AddDecision(..., \"CUSTOM\", \"PerilousMendChooseCurse\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }

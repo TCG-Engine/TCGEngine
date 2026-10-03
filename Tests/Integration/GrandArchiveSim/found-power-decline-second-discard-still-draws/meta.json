@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. FoundPowerDiscard1 queued the CUSTOM 'FoundPowerDiscard2' decision without dontSkipOnPass, so declining the second discard (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and the draw-that-many step never ran: one card was discarded and none drawn. Fix: dontSkipOnPass:1 on that AddDecision.",
         "affectedFunction": "Custom/CardDQHandlers.php FoundPowerDiscard1 AddDecision(..., \"CUSTOM\", \"FoundPowerDiscard2\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "259c038d"
     }
 }

@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. EventideLureReveal's paired AddDecision omitted dontSkipOnPass, so declining the optional reveal (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler; EventideLurePutRestOnBottom() never ran and the five looked-at cards stayed stranded in the temp zone (live repro on HEAD: deck 8 instead of 13). Fix: dontSkipOnPass:1 on that AddDecision.",
         "affectedFunction": "Custom/CardDQHandlers.php EventideLureOnEnter AddDecision(..., \"CUSTOM\", \"EventideLureReveal\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "1ea25c27"
     }
 }
