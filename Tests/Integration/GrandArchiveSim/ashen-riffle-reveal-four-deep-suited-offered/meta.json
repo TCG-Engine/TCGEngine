@@ -1,0 +1,30 @@
+{
+    "name": "ashen-riffle-reveal-four-deep-suited-offered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T21:13:28+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "fjpimrl974"
+    ],
+    "notes": "Ashen Riffle (fjpimrl974): the ONLY eligible card (Four of Spades) is the fourth from the top, so it can only be offered if all four cards were revealed. The other three go to the bottom in order.",
+    "semanticCoverage": {
+        "testedCards": [
+            "fjpimrl974"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "look-at-top",
+            "bottom-deck",
+            "banish"
+        ],
+        "rulesClauses": [
+            "Reveal the top four cards of your deck. Banish up to two Suited non-action cards revealed this way and put the rest on the bottom of your deck in any order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Two defects. (1) AshenRiffleStart() revealed the top four cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped -- only the top card was ever revealed (live repro on HEAD: the Suited cards in slots 2-4 stayed on top of the deck, never offered, and only the top card went to the bottom). Fixed with the new MZMoveTopOfZone() helper. (2) After banishing the first Suited card, AshenRiffleChoose built the second prompt before the banished card's slot was spliced out of myTempZone, so the prompt listed stale myTempZone-N slots (the banished card's removed phantom shifts every later index by one once the zone is cleaned up): fixed by CleanupRemovedCards() before re-offering. The dontSkipOnPass on the pick handler was already fixed in 1ea25c27.",
+        "affectedFunction": "Custom/GameLogic.php AshenRiffleStart() / AshenRiffleChoose handler",
+        "fixCommit": "TBD"
+    }
+}

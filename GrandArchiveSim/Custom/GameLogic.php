@@ -25407,8 +25407,10 @@ function AshenRiffleStart($player) {
     $deck = &GetDeck($player);
     $n = min(4, count($deck));
     if($n == 0) return;
+    // MZMoveTopOfZone, not a loop of MZMove($player, "myDeck-0", ...): MZMove only flags the slot removed, so
+    // "myDeck-0" would keep resolving to the same removed slot and only the top card would be revealed.
     for($i = 0; $i < $n; ++$i) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        MZMoveTopOfZone($player, "myDeck", "myTempZone");
     }
     AshenRiffleChoose($player, 2);
 }
@@ -25446,6 +25448,10 @@ $customDQHandlers["AshenRiffleChoose"] = function($player, $parts, $lastDecision
     if($banishedObj !== null) {
         $banishedObj->AddTurnEffects('_ashenRiffle');
     }
+    // Splice the banished card out of myTempZone before re-offering the rest, or the second prompt lists stale
+    // "myTempZone-N" slots (the banished card's removed phantom still occupies its slot, so every later index is one
+    // too high once the zone is cleaned up and the prompt would banish the WRONG card).
+    DecisionQueueController::CleanupRemovedCards();
     AshenRiffleChoose($player, $remainingChoices - 1);
 };
 

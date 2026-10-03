@@ -1,6 +1,0 @@
-[
-    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"The revealed card goes back on the bottom of the deck (deck count back to 5)"},
-    {"step":4,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"No revealed card is left stranded in the temp zone"},
-    {"step":4,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":0,"semantic":true,"label":"Declining banishes nothing"},
-    {"step":4,"type":"decision_queue_empty","player":"all"}
-]

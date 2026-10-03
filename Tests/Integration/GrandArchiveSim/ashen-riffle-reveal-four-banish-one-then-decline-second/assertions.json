@@ -1,0 +1,12 @@
+[
+    {"step":5,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only Ashen Riffle itself is in the graveyard"},
+    {"step":5,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Exactly the chosen Suited non-action cards are banished (1)"},
+    {"step":5,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"No revealed card is left stranded in the temp zone"},
+    {"step":5,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":16,"semantic":true,"label":"Deck size: 17 minus the banished cards"},
+    {"step":5,"type":"card_property_equals","mzId":"myBanish-0","viewerPlayerID":1,"property":"CardID","value":"e8ygl32jef","semantic":true,"label":"Banished card #1 is the chosen Suited non-action card"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-13","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom-of-deck slot 1 of 3 holds the unbanished revealed card in its original relative order"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-14","viewerPlayerID":1,"property":"CardID","value":"uxhmucm8si","semantic":true,"label":"Bottom-of-deck slot 2 of 3 holds the unbanished revealed card in its original relative order"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-15","viewerPlayerID":1,"property":"CardID","value":"o09csnorqv","semantic":true,"label":"Bottom-of-deck slot 3 of 3 holds the unbanished revealed card in its original relative order"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":5,"semantic":true,"label":"Hand after playing Ashen Riffle and paying 2 reserve"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

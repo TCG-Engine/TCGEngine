@@ -25295,8 +25295,9 @@ DECK,
     ],
 ];
 
-// --- Ashen Riffle: declining the optional banish still puts the revealed cards back on the bottom of the deck (dontSkipOnPass regression) ---
-$fixtures['ashen-riffle-decline-returns-revealed-card'] = [
+// --- Ashen Riffle: declining the optional banish still puts ALL FOUR revealed cards back on the bottom of the deck (dontSkipOnPass regression;
+// renamed from ashen-riffle-decline-returns-revealed-card, whose snapshot pinned the single-card reveal of the fixed-index loop bug) ---
+$fixtures['ashen-riffle-small-deck-decline-returns-all-four-revealed-cards'] = [
     'testedCards' => ['fjpimrl974'],
     'deck' => <<<'DECK'
 # Material
@@ -25312,7 +25313,7 @@ $fixtures['ashen-riffle-decline-returns-revealed-card'] = [
 DECK,
     // Ashen Riffle (fjpimrl974): "Reveal the top four cards of your deck. Banish up to two Suited non-action cards revealed this way and put the rest on the bottom of your deck in any order. ..." Declining the optional banish must still put the revealed card(s) on the bottom of the deck instead of stranding them.
     // Regression: AshenRiffleChoose() queued its paired CUSTOM 'AshenRiffleChoose|N' decision without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler when the player answered PASS and AshenRiffleCleanup() never ran: the revealed card stayed in the temp zone and the deck stayed one card short (4 instead of 5).
-    // A Suited non-action card (Noire, Ace of Spades, an ALLY) is seeded at the top of the deck so the optional banish prompt is offered; Ashen Riffle (FIRE, native to Spirit of Fire) is played from hand and the banish is declined. (Incidental, NOT fixed here: AshenRiffleStart()'s reveal loop calls MZMove($player,'myDeck-0',...) repeatedly, which only moves the first card, so it currently reveals 1 card instead of 4.)
+    // A Suited non-action card (Noire, Ace of Spades, an ALLY) is seeded at the top of the deck so the optional banish prompt is offered; Ashen Riffle (FIRE, native to Spirit of Fire) is played from hand and the banish is declined. The deck holds only five cards, so the four revealed cards go to the bottom BEHIND the one unrevealed card (which stays on top).
     'setup' => [
         ['player' => 1, 'zone' => 'myHand', 'cardID' => 'fjpimrl974'], // Ashen Riffle -> myHand-7
         ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => 'wbjc9t8ycp']], // top card: Suited non-action ALLY
@@ -26870,6 +26871,70 @@ $fixtures['divining-streams-player-two-look-three-graveyard-top-bottom'] = [
         mrdAns(2, 'myTempZone-2'),
         mrdAns(2, 'myTempZone-1'),
         mrdAns(2, 'Top=;Bottom=' . $GA_DG),
+    ]),
+];
+
+
+// --- Ashen Riffle (fjpimrl974): "Reveal the top four cards of your deck. Banish up to two Suited non-action cards revealed this way
+// and put the rest on the bottom of your deck in any order. For as long as those cards remain banished, you may activate them." ---
+$gaRiffS2 = 'e8ygl32jef'; // Two of Spades (SUITED ally)
+$gaRiffS3 = 'o09csnorqv'; // Three of Spades (SUITED ally)
+$gaRiffS4 = '8bolq2y5qp'; // Four of Spades (SUITED ally)
+$gaRiffAct = 'uxhmucm8si'; // Suited Trickery (SUITED ACTION: not eligible)
+$gaRiffSetup = function(array $top4, int $player = 1) use ($gaHand, $gaTop) { return [$gaHand('fjpimrl974', $player), $gaTop($top4, $player)]; };
+$fixtures['ashen-riffle-reveal-four-banish-two-suited-rest-bottom'] = [
+    'testedCards' => ['fjpimrl974'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // top four, top to bottom: Dungeon Guide, Two of Spades (eligible), Suited Trickery (suited ACTION: not eligible), Three of Spades (eligible)
+    'setup' => $gaRiffSetup([$GA_DG, $gaRiffS2, $gaRiffAct, $gaRiffS3]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'myTempZone-1'), // banish Two of Spades
+        mrdAns(1, 'myTempZone-2'), // banish Three of Spades (now the 3rd card: Dungeon Guide, Suited Trickery, Three of Spades)
+    ]),
+];
+$fixtures['ashen-riffle-reveal-four-deep-suited-offered'] = [
+    'testedCards' => ['fjpimrl974'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // the ONLY eligible card is the fourth from the top: it can only be offered if all four were revealed
+    'setup' => $gaRiffSetup([$GA_DG, $GA_FS, $GA_DG, $gaRiffS4]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'myTempZone-3'), // banish Four of Spades (4th card)
+    ]),
+];
+$fixtures['ashen-riffle-reveal-four-decline-bottoms-all-four'] = [
+    'testedCards' => ['fjpimrl974'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaRiffSetup([$GA_DG, $gaRiffS2, $gaRiffAct, $gaRiffS3]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdPass(1)]), // "up to two": banish none
+];
+$fixtures['ashen-riffle-reveal-four-banish-one-then-decline-second'] = [
+    'testedCards' => ['fjpimrl974'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaRiffSetup([$GA_DG, $gaRiffS2, $gaRiffAct, $gaRiffS3]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'myTempZone-1'), // banish Two of Spades
+        mrdPass(1),                // decline the second banish: Three of Spades goes to the bottom with the rest
+    ]),
+];
+$fixtures['ashen-riffle-reveal-four-three-eligible-banish-capped-at-two'] = [
+    'testedCards' => ['fjpimrl974'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // three eligible cards (slots 0, 1, 2): "up to two" -> the third (Four of Spades) is never offered and goes to the bottom
+    'setup' => $gaRiffSetup([$gaRiffS2, $gaRiffS3, $gaRiffS4, $GA_DG]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'myTempZone-0'), // banish Two of Spades
+        mrdAns(1, 'myTempZone-0'), // banish Three of Spades (now the top of the three left)
+    ]),
+];
+$fixtures['ashen-riffle-player-two-reveal-four-banish-two-suited-rest-bottom'] = [
+    'testedCards' => ['fjpimrl974'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // PLAYER 2 seating (perspective check): the stack sits under player 2's turn-start draw (a filler Dungeon Guide); player 2 first
+    // declines the two opportunity windows player 1's pass opens
+    'setup' => $gaRiffSetup([$GA_DG, $GA_DG, $gaRiffS2, $gaRiffAct, $gaRiffS3], 2),
+    'actions' => array_merge([mrdEnd(1), mrdPass(2), mrdPass(2), mrdPlay(2, 'myHand-7')], mrdPay(2, 2), [
+        mrdAns(2, 'myTempZone-1'),
+        mrdAns(2, 'myTempZone-2'),
     ]),
 ];
 
