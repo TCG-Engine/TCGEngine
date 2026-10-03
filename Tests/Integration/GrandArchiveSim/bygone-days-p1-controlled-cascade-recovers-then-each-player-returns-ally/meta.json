@@ -27,6 +27,7 @@
     "engineBug": {
         "status": "fixed",
         "summary": "FIXED. ResolveBygoneDaysCascade (cascade 3) had three defects. (1) PERSPECTIVE: the opponent's ally list was ZoneSearch(\"theirField\", forPlayer:$player), a list in the TURN PLAYER's coordinate space, queued on the OPPONENT's own MZCHOOSE: the opponent was offered the turn player's field slots, their own allies were refused ('Invalid selection') and no ally of theirs could ever be returned. Fix: build each list in the answering player's own perspective (forPlayer:$opponent, 'myField'). (2) OWNERSHIP: BygoneDaysReturn called MZMove($obj->Owner, <chooser-relative mzID>, 'myMemory'); with Owner != chooser the source id was flipped onto the wrong slot and the destination to the wrong memory. Fix: MZMove from the chooser's perspective to myMemory/theirMemory by ownership. (3) SLOT ORDER: Bygone Days was sacrificed immediately, before the option lists were answered; its removed slot was spliced out first, so an ally listed AFTER Bygone Days on the field was one slot off and silently not returned. Fix: sacrifice after the choices (printed order) via BygoneDaysSacrifice, resolved by UniqueID after splicing removed cards.",
-        "affectedFunction": "Custom/GameLogic.php ResolveBygoneDaysCascade / BygoneDaysReturn / BygoneDaysSacrifice"
+        "affectedFunction": "Custom/GameLogic.php ResolveBygoneDaysCascade / BygoneDaysReturn / BygoneDaysSacrifice",
+        "fixCommit": "94bc0a15"
     }
 }

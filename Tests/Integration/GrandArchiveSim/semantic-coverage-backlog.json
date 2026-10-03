@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T20:24:32+00:00",
+    "generatedAt": "2026-10-03T20:46:49+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 678,
+        "cardsWithExistingFixtures": 681,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1809,
+        "cardsNeedingSemanticCoverage": 1806,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -4413,22 +4413,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "usa6qyq3ka",
-            "name": "Galestream Insight",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
                 "zone-movement"
             ],
             "existingFixtures": [],
@@ -12614,24 +12598,6 @@
             "mechanics": [
                 "targeting",
                 "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "vkqzk1jik7",
-            "name": "Shackled Theurgist",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
                 "trigger",
                 "condition"
             ],
@@ -27396,21 +27362,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "wXNDSNQ2x2",
-            "name": "Bygone Days",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -45245,6 +45196,34 @@
             "priority": 42
         },
         {
+            "cardId": "usa6qyq3ka",
+            "name": "Galestream Insight",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "galestream-insight-look-six-decline-bottoms-all-six",
+                "galestream-insight-look-six-deep-spell-offered",
+                "galestream-insight-look-six-no-spell-bottoms-all-six",
+                "galestream-insight-look-six-reveal-spell-rest-bottom",
+                "galestream-insight-player-two-look-six-reveal-spell-rest-bottom"
+            ],
+            "semanticFixtures": [
+                "galestream-insight-look-six-decline-bottoms-all-six",
+                "galestream-insight-look-six-deep-spell-offered",
+                "galestream-insight-look-six-no-spell-bottoms-all-six",
+                "galestream-insight-look-six-reveal-spell-rest-bottom",
+                "galestream-insight-player-two-look-six-reveal-spell-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "cnqsm3n9yv",
             "name": "Turbo Charge",
             "type": "ACTION",
@@ -45844,6 +45823,38 @@
                 "banish-activation-refused-click-keeps-undo-snapshot",
                 "seething-intercession-banished-attack-activatable-when-legal-costs-two-damage",
                 "seething-intercession-banished-attack-first-turn-click-refused-no-self-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "vkqzk1jik7",
+            "name": "Shackled Theurgist",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shackled-theurgist-p1-controlled-opponent-declines-sacrifice-returns-ephemeral",
+                "shackled-theurgist-p1-controlled-opponent-has-no-ally-returns-ephemeral",
+                "shackled-theurgist-p1-controlled-opponent-sacrifices-own-ally-stays-dead",
+                "shackled-theurgist-p2-controlled-opponent-declines-sacrifice-returns-ephemeral",
+                "shackled-theurgist-p2-controlled-opponent-has-no-ally-returns-ephemeral",
+                "shackled-theurgist-p2-controlled-opponent-sacrifices-own-ally-stays-dead"
+            ],
+            "semanticFixtures": [
+                "shackled-theurgist-p1-controlled-opponent-declines-sacrifice-returns-ephemeral",
+                "shackled-theurgist-p1-controlled-opponent-has-no-ally-returns-ephemeral",
+                "shackled-theurgist-p1-controlled-opponent-sacrifices-own-ally-stays-dead",
+                "shackled-theurgist-p2-controlled-opponent-declines-sacrifice-returns-ephemeral",
+                "shackled-theurgist-p2-controlled-opponent-has-no-ally-returns-ephemeral",
+                "shackled-theurgist-p2-controlled-opponent-sacrifices-own-ally-stays-dead"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46571,6 +46582,31 @@
             ],
             "semanticFixtures": [
                 "byakko-white-tiger-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "wXNDSNQ2x2",
+            "name": "Bygone Days",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover"
+            ],
+            "existingFixtures": [
+                "bygone-days-p1-controlled-ally-after-bygone-days-slot-shifts-on-sacrifice",
+                "bygone-days-p1-controlled-cascade-recovers-then-each-player-returns-ally",
+                "bygone-days-p1-controlled-returns-opponent-owned-ally-to-owner-memory",
+                "bygone-days-p2-controlled-cascade-recovers-then-each-player-returns-ally"
+            ],
+            "semanticFixtures": [
+                "bygone-days-p1-controlled-ally-after-bygone-days-slot-shifts-on-sacrifice",
+                "bygone-days-p1-controlled-cascade-recovers-then-each-player-returns-ally",
+                "bygone-days-p1-controlled-returns-opponent-owned-ally-to-owner-memory",
+                "bygone-days-p2-controlled-cascade-recovers-then-each-player-returns-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

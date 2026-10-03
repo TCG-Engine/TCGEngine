@@ -25,6 +25,7 @@
     "engineBug": {
         "status": "fixed",
         "summary": "FIXED. Shackled Theurgist's On Death handlers resolved perspective-relative zone names in the wrong player's frame. The generated closure bakes 'myField'/'theirField' names (relative to the Theurgist's controller, the ambient playerID when the trigger resolves) into the ShackledTheurgistChoice DQ params, but that decision is answered by the OPPONENT (ambient playerID == the opponent). Live repro on HEAD: answering No moved the opponent's own graveyard card (Drenching Finish) onto the controller's field instead of returning the Theurgist (ShackledTheurgistReturn passed viewer-perspective graveyard names to MZMove, which flips them again when player != ambient), and answering Yes offered the CONTROLLER's allies for sacrifice instead of the opponent's own. Fix: only the controller's player number is trusted; zone names are rebuilt at read time relative to the ambient playerID, and ShackledTheurgistReturn() builds the MZMove (controller-perspective) and AddTurnEffect (viewer-perspective) ids separately.",
-        "affectedFunction": "Custom/GameLogic.php ShackledTheurgistChoice / ShackledTheurgistReturn / ShackledTheurgistFieldZone"
+        "affectedFunction": "Custom/GameLogic.php ShackledTheurgistChoice / ShackledTheurgistReturn / ShackledTheurgistFieldZone",
+        "fixCommit": "534bf3a7"
     }
 }
