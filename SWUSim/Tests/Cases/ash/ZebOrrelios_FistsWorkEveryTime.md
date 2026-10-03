@@ -598,3 +598,85 @@ P1LEADER:NOTDEPLOYED
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:ASH_161
 P2BASEDMG:1
+
+---
+
+# Wipe_ZebListedFirst_StillSeesTheOtherUpgradeDefeated
+#// CR 1.5.5.d: an upgrade is defeated SIMULTANEOUSLY with its host leaving play, and a wipe defeats every unit at
+#// once. SOR_043 Superlaser Blast ("Defeat all units") with Zeb at ground 0 and SOR_095 + SOR_120 at ground 1:
+#// SOR_120 is defeated in the same event Zeb leaves play, so Zeb (last known information) still deals 1.
+#// The wipe walks the board one unit at a time, so Zeb is already gone when SOR_095's upgrade is defeated — the
+#// check must use the pre-wipe snapshot (SWUSimulDefeatBegin), not the live board. Board order is the trap.
+## GIVEN
+CommonSetup: bbk/bgw/{myResources:12}
+P1OnlyActions: true
+WithP1GroundArena: ASH_161:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 1:SOR_120
+WithP1Hand: SOR_043
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2BASEDMG:1
+
+---
+
+# Wipe_ZebListedSecond_StillSeesTheOtherUpgradeDefeated
+#// Control for the section above: the same wipe with Zeb AFTER the upgraded unit, so Zeb is still on the board when
+#// SOR_120 is defeated. Both orders must give the same single ping.
+## GIVEN
+CommonSetup: bbk/bgw/{myResources:12}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP1GroundArena: ASH_161:1:0
+WithP1Hand: SOR_043
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2BASEDMG:1
+
+---
+
+# CombatTrade_ZebAndTheHostOfAFriendlyUpgradeDieTogether
+#// Combat damage is simultaneous (CR 1.9.10), so a TRADE defeats both units in the same event. P1 plays SEC_038
+#// Condemn onto P2's LOF_254 Porg (a friendly upgrade on an enemy unit); Zeb, on 1 remaining HP, attacks the Porg
+#// and both die. The friendly Condemn is defeated simultaneously with Zeb leaving play, so Zeb still deals 1.
+#// Combat removes the ATTACKER first, so a live-board check missed it.
+## GIVEN
+CommonSetup: bbk/rrw/{myResources:3;handCardIds:SEC_038}
+P1OnlyActions: true
+WithP1GroundArena: ASH_161:1:6
+WithP2GroundArena: LOF_254:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P2BASEDMG:1
+
+---
+
+# GravChargeDefeatsItself_ZebTriggers
+#// ASH_085 Grav Charge — "When attached unit's attack ends: Deal 4 damage to it and defeat this upgrade." The
+#// upgrade defeating ITSELF is a friendly upgrade being defeated. Zeb (5/7) carries it and attacks P2's base for 5;
+#// at attack end Zeb takes 4 (survives) and Grav Charge is defeated, so Zeb deals 1 more: 6 total.
+## GIVEN
+CommonSetup: bbk/rrw
+P1OnlyActions: true
+WithP1GroundArena: ASH_161:1:0
+WithP1GroundArenaUpgrade: 0:ASH_085
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:4
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2BASEDMG:6

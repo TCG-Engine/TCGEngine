@@ -42,10 +42,10 @@ $whenPlayedAbilities["SOR_174:0"] = function($player, $mzID = '') {
             // Suns seats 3 and 4 holding full hands. OpponentsOf() already filters to live seats, and
             // returns exactly [the other seat] in a 2-player game, so that case is unchanged.
             // Caster LAST so $playerID is left on them (see the note above).
+            // Hidden information — CR v9.0 7.1.a: each player chooses what to keep independently, and every
+            // player's discards happen together once the last has chosen (SWUEachSeatDiscardsSimultaneously).
             $me = intval($player);
-            foreach (OpponentsOf($me) as $opp) {
-                SWUKeepNDiscardRest($opp, 2, "Keep_2_cards_-_discard_the_rest");
-            }
-            SWUKeepNDiscardRest($me, 2, "Keep_2_cards_-_discard_the_rest");
+            SWUEachSeatDiscardsSimultaneously($me, array_merge(OpponentsOf($me), [$me]), 'keep', 2,
+                "Keep_2_cards_-_discard_the_rest");
             return;
 };

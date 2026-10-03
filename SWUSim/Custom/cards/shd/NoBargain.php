@@ -7,9 +7,10 @@
 $whenPlayedAbilities["SHD_244:0"] = function($player, $mzID = '') {
 // No Bargain — "Each opponent discards a card from their hand. Draw a card."
             // Twin Suns (Phase 3): each opponent discards (2-player: the one opponent).
-            foreach (OpponentsOf(intval($player)) as $opp) {
-                SWUDiscardCards(intval($player), 1, $opp);
-            }
+            // "Each opponent discards a card" — hidden information, CR v9.0 7.1.a: every opponent chooses
+            // independently and the picks are discarded together (SWUEachSeatDiscardsSimultaneously).
+            SWUEachSeatDiscardsSimultaneously(intval($player), OpponentsOf(intval($player)), 'discard', 1,
+                "Choose_card_to_discard");
             DoDrawCard(intval($player), 1);
             return;
 };

@@ -336,6 +336,18 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     }
     // Guide: the opening two resources are the resourcing engine's two lowest keep values.
     if ($tip === 'Choose_2_cards_to_resource') return _SWUBotSameSelection($c, SWUBotChooseResourceCards($ctx, 2)) ? 1.0 : -$index * 1e-6;
+    // Part 22 'powersource': a friendly unit picked as the damage SOURCE — "Choose (another) friendly unit to deal damage
+    // equal to its power" (LAW_008 Krennic's When Deployed, SOR_127 Strike True, HMW_114 Breach, ASH_139 Hold Them Off),
+    // "…equal to its Raid" (Volley Fire), "A friendly space unit deals its power…" (Turbolaser Salvo). The tooltip reads
+    // as "deal damage" + a friendly candidate, which the classifier priced as SELF-HARM — the cheapest body won, so the
+    // bot struck with a 0-power Spy token (owner report 2026-10-03, game 1438045). The friendly unit is the one that
+    // DEALS the damage: score it by how much. (Self-harm COSTS — "Defeat another friendly unit to…", "Deal 1 to a
+    // friendly unit…" — do not match and keep their pricing.)
+    if ($onBoard && SWUBotFeatureOn('powersource') && !SWUBotIsEnemyMz($seat, $c)
+        && preg_match('/friendly_(?:space_|ground_)?unit_(?:to_deal|deals)_(?:damage_equal_to_)?its_(power|Raid)/i', $tip, $pm)) {
+        $v = SWUBotViewForMz($seat, $c);
+        if ($v !== null) return 1.0 + (strcasecmp($pm[1], 'Raid') === 0 ? max(0, $v['attackPower'] - $v['power']) : max(0, $v['power'])) - $index * 1e-6;
+    }
     if ($effect === 'sacrifice' && $onBoard) {
         // A token/upgrade COST ("Defeat a friendly token", LAW_019 Alliance Outpost): pay the CHEAPEST one. Without
         // this every candidate scored null and the first was paid — the Shield on the reported Secretive Sage.
@@ -1023,7 +1035,45 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
     // Zero for every card without an arm, and zero on an empty board, so the default-OFF proposal changes
     // nothing until it is switched on.
     $v += $W['base'] * SWUBotContextSurplus($seat, $cid);
+    // Part 23 'bigcredit': a credit-RAMP deck spends a banked Credit only on a big play (owner 2026-10-03, game 1438045:
+    // "krennic didn't bank credits. wasted them right away on Onyx Squad Brute").
+    if (SWUBotFeatureOn('bigcredit') && SWUBotCreditSpendFor($seat, $cid) > 0 && SWUBotBanksCredits($seat) && !SWUBotCreditWorthy($cid)) {
+        $v = min($v, -0.5);
+    }
     return $v;
+}
+
+// ── Part 23 'bigcredit' ───────────────────────────────────────────────────────────────────────────────────────────
+// Owner ruling 2026-10-03: a banked Credit is for a BIG play — a bomb, removal or a wipe — never the shortfall on a cheap
+// body (the round-1 Krennic bot sacrificed a unit for a Credit and spent it at once on a 2-cost Onyx Squadron Brute).
+// Chosen over the two 'creditbank' proposals, which protected a whole 6R line and measured WORSE vs Ahsoka Blue (they
+// pushed plays below PASS everywhere); this one holds only a cheap play that NEEDS the Credit, so the bot still plays
+// every card its resources pay for.
+// Only a credit-RAMP deck banks: 'credit-ramp' without 'tempo' (BotFlavours.php) — Krennic. Lando's Credits are a
+// tempo engine ('credit-ramp' + 'tempo') and keep being spent.
+const SWU_BOT_BIGCREDIT_MIN_COST = 5;
+const SWU_BOT_BIGCREDIT_TAGS = ['removal', 'wipe', 'debuff-all-enemy-units', 'damage-enemy-unit'];
+
+function SWUBotBanksCredits(int $seat): bool {
+    $f = function_exists('SWUBotDeckFlavours') ? SWUBotDeckFlavours($seat) : [];
+    return in_array('credit-ramp', $f, true) && !in_array('tempo', $f, true);
+}
+
+// How many banked Credits playing hand card $cid takes: the shortfall the ready resources cannot cover (the engine
+// spends Credits automatically, and only then — "defeated 1 Credit token to pay 1 less").
+function SWUBotCreditSpendFor(int $seat, string $cid): int {
+    if (!function_exists('SWUUsableCreditTokenMzIDs') || !function_exists('SWUComputePlayCost')) return 0;
+    $banked = count(SWUUsableCreditTokenMzIDs($seat));
+    if ($banked <= 0) return 0;
+    foreach (GetHand($seat) as $h) {
+        if ($h === null || !empty($h->removed) || strval($h->CardID ?? '') !== $cid) continue;
+        return max(0, min($banked, intval(SWUComputePlayCost($seat, $h)) - SWUResourceCount($seat, true)));
+    }
+    return 0;
+}
+
+function SWUBotCreditWorthy(string $cid): bool {
+    return intval(CardCost($cid)) >= SWU_BOT_BIGCREDIT_MIN_COST || !empty(array_intersect(SWUBotCardTags($cid), SWU_BOT_BIGCREDIT_TAGS));
 }
 
 

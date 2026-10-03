@@ -3435,6 +3435,14 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $combatCtx['defenderCardID'] = $target->CardID ?? ''; // for "equal to the defeated unit's cost" (LOF_086)
         $combatCtx['defenderOwner']  = intval($target->Owner ?? 0); // SHD_122 — put the defeated unit into play as a resource under your control
 
+        // Combat damage is simultaneous (CR 1.9.10): when both units die they are defeated in the SAME event, and
+        // their upgrades with them (CR 1.5.5.d). But the code below removes the attacker before the defender, so
+        // an observer checked while a unit's upgrades are being defeated (ASH_161 Zeb, "when a friendly upgrade is
+        // defeated") would not see a co-defeated observer that was removed a moment earlier. Open the same
+        // pre-event snapshot window a wipe uses, for exactly these defeats; it is closed again BEFORE
+        // CollectCombatStep3Triggers, whose leave-play reactions keep their own $defeatedCards batch logic.
+        $combatSimulOpened = empty($GLOBALS['gSimulDefeatWindow']);
+        if ($combatSimulOpened) SWUSimulDefeatBegin();
         // Keep $playerID = $player (attacker's perspective) throughout so that
         // mzIDs like "myGroundArena-0" / "theirGroundArena-0" resolve correctly.
         $atkRep = ($attackerHP <= 0 && !SWUImmuneToHpDefeat($attacker)) ? _SWUUnitDefeatReplacement($attacker) : null;
@@ -3591,6 +3599,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // Step 3: When Defeated + After Attack triggers — must run before CleanupRemovedCards so
     // GetZoneObject can still find defeated units (marked removed=true but still in the array).
     // Cleanup after this point to avoid PHP auto-vivifying null slots in emptied arena arrays.
+    if (!empty($combatSimulOpened)) SWUSimulDefeatEnd();   // opened above, around the combat-damage defeats only
     CollectCombatStep3Triggers($player, $attackerMzID, $targetMzID, $defeatedCards, $combatCtx);
     // Defender's captives now return to play — after the observers above, per the detach/materialize
     // split at the defender-defeat branch.

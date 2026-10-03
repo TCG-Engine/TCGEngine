@@ -922,3 +922,210 @@ if (!function_exists('SWUIsBattleDroidToken')) {
     }
 }
 
+
+// "EACH PLAYER chooses a [non-leader] unit they control. Defeat those units." (LAW_099 Governor's Shuttle,
+// TWI_238 Merciless Contest.) CR v9.0 7.1.a: a choice about OPEN information is made by each player in turn,
+// "then resolve the ability simultaneously" — so one pick per live seat, caster first (SWUSeatsInPlayerOrder),
+// and NOTHING is defeated until every seat has answered. Defeating a pick as soon as it is made let its When
+// Defeated resolve before later seats had chosen (Merciless Contest did exactly that).
+// The walk is a queued chain because each pick is interactive: the remaining seats and the chosen UIDs ride
+// the continuation's Param (a positional mzID goes stale, and an in-memory global is empty across requests).
+// A seat with nothing eligible is skipped silently.
+if (!function_exists('SWUEachPlayerChoosesOwnUnitToDefeat')) {
+    // $autoSingle: a seat with exactly ONE eligible unit has no choice to make, so record it inline instead of
+    // queueing an auto-answer on that seat (what SWUOpponentChoosesOwnUnit always did for Merciless Contest).
+    // Governor's Shuttle keeps its queued single pick (false) — its existing sections answer it explicitly.
+    function SWUEachPlayerChoosesOwnUnitToDefeat(int $caster, bool $nonLeader, string $tooltip, bool $autoSingle = false): void {
+        _SWUEachPlayerDefeatAsk($caster, SWUSeatsInPlayerOrder($caster), [], $nonLeader, $tooltip, $autoSingle);
+    }
+    function _SWUEachPlayerDefeatAsk(int $caster, array $remaining, array $uids, bool $nonLeader, string $tooltip, bool $autoSingle = false): void {
+        global $playerID;
+        while (!empty($remaining)) {
+            $seat = intval(array_shift($remaining));
+            $playerID = $seat;
+            $units = [];
+            if ($nonLeader) {
+                foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+                    foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+                        if (!SWUObjGone(GetZoneObject($mz))) $units[] = $mz;
+                    }
+                }
+            } else {
+                $units = SWUAllUnits('my');          // that seat's OWN units, in its own frame
+            }
+            if (empty($units)) continue;
+            if ($autoSingle && count($units) === 1) {
+                $only = GetZoneObject($units[0]);
+                if (!SWUObjGone($only)) $uids[] = intval($only->UniqueID ?? 0);
+                continue;
+            }
+            SWUQueueChooseTarget($seat, $units, $tooltip,
+                "EACH_PLAYER_DEFEAT_PICK|{$caster}|" . implode(',', $uids) . '|' . implode(',', $remaining)
+                . '|' . ($nonLeader ? '1' : '0') . "|{$tooltip}|" . ($autoSingle ? '1' : '0'));
+            return;                                  // resumes in EACH_PLAYER_DEFEAT_PICK once this seat answers
+        }
+        _SWUEachPlayerDefeatResolve($caster, $uids);
+    }
+    // Defeat every chosen unit BY UID under the caster's frame, all at the same point and inside a
+    // simultaneous-defeat window, so an observer that was itself one of the picks still sees its co-victims.
+    function _SWUEachPlayerDefeatResolve(int $caster, array $uids): void {
+        global $playerID; $playerID = $caster;
+        SWUSimulDefeatBegin();
+        foreach ($uids as $uid) {
+            $uid = intval($uid);
+            if ($uid <= 0) continue;
+            $mz = SWUFindMzByUID($uid);
+            if ($mz !== null) SWUDefeatUnit($caster, $mz);
+        }
+        SWUSimulDefeatEnd();
+    }
+}
+$customDQHandlers["EACH_PLAYER_DEFEAT_PICK"] = function ($player, $parts, $lastDecision) {
+    global $playerID;
+    $caster    = intval($parts[0] ?? $player);
+    $uids      = array_values(array_filter(explode(',', (string)($parts[1] ?? '')), fn($v) => $v !== ''));
+    $remaining = array_values(array_filter(explode(',', (string)($parts[2] ?? '')), fn($v) => $v !== ''));
+    $nonLeader = (($parts[3] ?? '0') === '1');
+    $tooltip   = (string)($parts[4] ?? 'Choose_a_unit_you_control_to_defeat');
+    $autoSingle = (($parts[5] ?? '0') === '1');
+    if (!SWUDecisionDeclined($lastDecision)) {
+        $playerID = intval($player);                 // the mzID was minted in THIS seat's frame
+        $o = GetZoneObject($lastDecision);
+        if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? 0);
+    }
+    _SWUEachPlayerDefeatAsk($caster, $remaining, $uids, $nonLeader, $tooltip, $autoSingle);
+};
+
+// ── "EACH player discards …" — hidden information, chosen independently, discarded together ───────────────────────
+// CR v9.0 7.1.a: "If an ability involves a choice made about hidden information (such as each player discarding a
+// card from their hand), each player makes their choice independently, and then all players resolve the ability
+// simultaneously." Each seat's pick is only RECORDED; nothing leaves any hand until the LAST seat has answered, then
+// every recorded card is discarded at once. Discarding each pick as it was answered let later choosers see earlier
+// discards (and let discard reactions resolve mid-choice).
+// Seats answer on their OWN queues, in any order, possibly in different requests — so the state lives in global
+// effects (it must survive the request boundary): the CASTER holds "SWU_HDISC|<batch>|<pending>|<seat,seat,…>", each
+// seat holds one "SWU_HDISCPICK|<batch>|<CardID>" per card it will discard. Picks are recorded by CardID, not hand
+// position: copies are identical, and the caster's just-played event may still be in (or just leave) the hand.
+//   $mode 'discard' — discard $n cards of the seat's choice (all of them if the hand holds $n or fewer)
+//   $mode 'keep'    — keep $n cards of the seat's choice and discard the rest (nothing if $n or fewer)
+//   $eventCardID    — the event being played, if it is STILL a live card in the caster's hand at this point (LAW_204,
+//                     TWI_177): one copy is excluded from the caster's pool. Pass '' when the event has already left
+//                     the hand (SOR_174, HMW_161) — excluding it then would wrongly hide a real copy.
+if (!function_exists('SWUEachSeatDiscardsSimultaneously')) {
+    function SWUEachSeatDiscardsSimultaneously(int $caster, array $seats, string $mode, int $n, string $tooltip,
+                                               string $eventCardID = ''): void {
+        global $playerID;
+        $saved   = $playerID;
+        // Compact first, so the offered mzIDs are the indices the resolver will see (an event that has already
+        // left the hand lingers as a REMOVED entry until cleanup — SOR_174's does).
+        DecisionQueueController::CleanupRemovedCards();
+        $batch   = NextUniqueID();
+        $pending = 0;
+        $inBatch = [];
+        foreach ($seats as $seat) {
+            $seat = intval($seat);
+            $playerID = $seat;
+            $mzs = _SWUHiddenDiscardPool($seat, ($seat === $caster) ? $eventCardID : '');
+            if (empty($mzs)) continue;
+            $inBatch[] = $seat;
+            if ($mode === 'keep') {
+                if (count($mzs) <= $n) continue;                                   // keeps everything
+                DecisionQueueController::AddDecision($seat, "MZMULTICHOOSE", "{$n}|{$n}|" . implode('&', $mzs), 1, tooltip: $tooltip);
+            } else {
+                if (count($mzs) <= $n) {                                           // no choice: all of them
+                    foreach ($mzs as $mz) AddGlobalEffects($seat, "SWU_HDISCPICK|{$batch}|" . GetZoneObject($mz)->CardID);
+                    continue;
+                }
+                if ($n === 1) DecisionQueueController::AddDecision($seat, "MZCHOOSE", implode('&', $mzs), 1, tooltip: $tooltip);
+                else          DecisionQueueController::AddDecision($seat, "MZMULTICHOOSE", "{$n}|{$n}|" . implode('&', $mzs), 1, tooltip: $tooltip);
+            }
+            DecisionQueueController::AddDecision($seat, "CUSTOM", "HIDDEN_DISCARD_PICK|{$caster}|{$batch}|{$mode}|{$eventCardID}", 1);
+            $pending++;
+        }
+        $playerID = $saved;
+        AddGlobalEffects($caster, "SWU_HDISC|{$batch}|{$pending}|" . implode(',', $inBatch));
+        if ($pending === 0) _SWUHiddenDiscardFinish($caster, $batch);
+    }
+    // $seat's hand as mzIDs in its own frame, minus one copy of the event being played (when given).
+    function _SWUHiddenDiscardPool(int $seat, string $eventCardID): array {
+        $mzs = [];
+        $skipped = ($eventCardID === '');
+        foreach (array_values(ZoneSearch("myHand")) as $mz) {
+            $o = GetZoneObject($mz);
+            if (SWUObjGone($o)) continue;
+            if (!$skipped && ($o->CardID ?? '') === $eventCardID) { $skipped = true; continue; }
+            $mzs[] = $mz;
+        }
+        return $mzs;
+    }
+    function _SWUHiddenDiscardState(int $caster, int $batch): ?array {
+        foreach (GetGlobalEffects($caster) as $e) {
+            $id = strval($e->CardID ?? '');
+            if (!str_starts_with($id, "SWU_HDISC|{$batch}|")) continue;
+            [, , $pending, $seats] = array_pad(explode('|', $id), 4, '');
+            return ['raw' => $id, 'pending' => intval($pending), 'seats' => array_values(array_filter(array_map('intval', explode(',', $seats))))];
+        }
+        return null;
+    }
+    // Everyone has chosen: discard every recorded card, seat by seat, all in this one step.
+    function _SWUHiddenDiscardFinish(int $caster, int $batch): void {
+        global $playerID;
+        $saved = $playerID;
+        $state = _SWUHiddenDiscardState($caster, $batch);
+        if ($state === null) return;
+        RemoveGlobalEffect($caster, $state['raw']);
+        foreach ($state['seats'] as $seat) {
+            $cids = [];
+            foreach (GetGlobalEffects($seat) as $e) {
+                $id = strval($e->CardID ?? '');
+                if (str_starts_with($id, "SWU_HDISCPICK|{$batch}|")) $cids[] = substr($id, strlen("SWU_HDISCPICK|{$batch}|"));
+            }
+            SWUClearGlobalEffectsByPrefix($seat, "SWU_HDISCPICK|{$batch}|");
+            $playerID = $seat;
+            $discarded = 0;
+            $hand = &GetHand($seat);
+            foreach ($cids as $cid) {
+                foreach ($hand as $card) {
+                    if (!empty($card->removed) || ($card->CardID ?? '') !== $cid) continue;
+                    $card->Remove();
+                    SWUAddToDiscard($seat, $cid, 'HAND');   // sets the LAW_179/LAW_076 counters
+                    $discarded++;
+                    break;
+                }
+            }
+            unset($hand);
+            // SEC_016 Padmé "when you discard 1+ cards from your hand" — one collective event per seat.
+            if ($discarded > 0 && function_exists('_SWUSec016React')) _SWUSec016React($seat);
+        }
+        DecisionQueueController::CleanupRemovedCards();
+        $playerID = $saved;
+    }
+}
+$customDQHandlers["HIDDEN_DISCARD_PICK"] = function ($player, $parts, $lastDecision) {
+    global $playerID;
+    $caster = intval($parts[0] ?? 0);
+    $batch  = intval($parts[1] ?? 0);
+    $mode   = (string)($parts[2] ?? 'discard');
+    $event  = (string)($parts[3] ?? '');
+    $seat   = intval($player);
+    $playerID = $seat;                                     // the answer's mzIDs are in THIS seat's frame
+    $chosen = [];
+    foreach (explode('&', (string)$lastDecision) as $mz) {
+        if ($mz === '' || $mz === '-' || $mz === 'PASS') continue;
+        $o = GetZoneObject($mz);
+        if (!SWUObjGone($o)) $chosen[$mz] = $o->CardID;
+    }
+    if ($mode === 'keep') {
+        foreach (_SWUHiddenDiscardPool($seat, ($seat === $caster) ? $event : '') as $mz) {
+            if (!isset($chosen[$mz])) AddGlobalEffects($seat, "SWU_HDISCPICK|{$batch}|" . GetZoneObject($mz)->CardID);
+        }
+    } else {
+        foreach ($chosen as $cid) AddGlobalEffects($seat, "SWU_HDISCPICK|{$batch}|{$cid}");
+    }
+    $state = _SWUHiddenDiscardState($caster, $batch);
+    if ($state === null) return;
+    $left = max(0, $state['pending'] - 1);
+    RemoveGlobalEffect($caster, $state['raw']);
+    AddGlobalEffects($caster, "SWU_HDISC|{$batch}|{$left}|" . implode(',', $state['seats']));
+    if ($left === 0) _SWUHiddenDiscardFinish($caster, $batch);
+};

@@ -5459,7 +5459,10 @@ function _SWUOnUpgradeDefeated(int $controller, string $cardID, $hostObj, int $o
     // The OR-clause covers Zeb's OWN upgrades being defeated as Zeb himself leaves play (combat/ability): the
     // live in-play count has already dropped Zeb, but his ability existed when the upgrade was defeated
     // (CR last-known-information), so it still fires — once per own upgrade.
-    if (_SWUControlsCardInPlay($controller, 'ASH_161')
+    // CR 1.5.5.d: the upgrade is defeated SIMULTANEOUSLY with its host leaving play, so a Zeb leaving play in the
+    // same event (a wipe, a combat trade) still sees it (last known information). Inside a SWUSimulDefeatBegin
+    // window _SWUSimulObserverCount answers from the pre-event snapshot; outside one it is the live count.
+    if (_SWUSimulObserverCount($controller, 'ASH_161', []) > 0
         || ($hostObj !== null && ($hostObj->CardID ?? '') === 'ASH_161')) {
         global $playerID; $sp = $playerID; $playerID = $controller;
         SWUOfferBaseTarget($controller, ['continuation'=>'DEAL_BASE_DAMAGE','amount'=>1,'prompt'=>"Deal_1_damage_to_a_base"]);
@@ -5516,6 +5519,10 @@ function _SWUDefeatNamedUpgrade($obj, string $upgradeCardID): bool {
         }
         unset($obj->Subcards[$i]);
         $obj->Subcards = array_values($obj->Subcards);
+        // It IS an upgrade being defeated (ASH_085 Grav Charge defeating itself) — announce it like every other
+        // upgrade-defeat route, or "when a friendly upgrade is defeated" (ASH_161 Zeb) never hears of it.
+        $subCtrl = is_array($sub) ? intval($sub['Controller'] ?? 0) : intval($sub->Controller ?? 0);
+        _SWUOnUpgradeDefeated($subCtrl > 0 ? $subCtrl : intval($obj->Controller ?? $owner), $cid, $obj, $subOwner > 0 ? $subOwner : $owner);
         return true;
     }
     return false;

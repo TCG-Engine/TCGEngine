@@ -3,26 +3,11 @@
 // Every Day, More Lies
 // Text: Each player discards a card from their hand.
 
-// When Played (event) — migrated from OnPlayEvent. Active player first, then opponent (SEC_147
-// each-player-discard pattern). $cardID is hardcoded to this card's literal (the played event still
-// sits in the caster's hand until block 10 and must be excluded).
+// "Each player discards a card from their hand." — hidden information, so CR v9.0 7.1.a: every live seat chooses
+// independently (caster first in the queue order), and the picks are discarded together once the last seat has
+// answered. The just-played event still sits in the caster's hand, so one copy of it is excluded from the
+// caster's pool. See SWUEachSeatDiscardsSimultaneously (CardHelpers.php).
 $whenPlayedAbilities["LAW_204:0"] = function($player, $mzID = '') {
-    global $playerID;
-    // EVERY live seat in player order (caster first) — was the two-seat literal
-    // [caster, OtherPlayer(caster)], so seats 3/4 never discarded.
-    foreach (SWUSeatsInPlayerOrder(intval($player)) as $p) {
-        $playerID = $p;
-        $hand = array_values(ZoneSearch("myHand", null));
-        // The just-played event still sits in the CASTER's hand (discarded at block 10); exclude it.
-        if ($p === intval($player)) {
-            $excluded = false; $filtered = [];
-            foreach ($hand as $mz) {
-                $o = GetZoneObject($mz);
-                if (!$excluded && $o !== null && ($o->CardID ?? '') === 'LAW_204') { $excluded = true; continue; }
-                $filtered[] = $mz;
-            }
-            $hand = $filtered;
-        }
-        if (!empty($hand)) SWUQueueChooseTarget($p, $hand, "Discard_a_card_from_your_hand", "DISCARD_FROM_OWN_HAND|" . $p);
-    }
+    SWUEachSeatDiscardsSimultaneously(intval($player), SWUSeatsInPlayerOrder(intval($player)), 'discard', 1,
+        "Discard_a_card_from_your_hand", 'LAW_204');
 };
