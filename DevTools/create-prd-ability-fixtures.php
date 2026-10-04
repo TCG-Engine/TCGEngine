@@ -27245,6 +27245,25 @@ $fixtures['waterfall-veiler-champion-hit-opponent-mills-four'] = [
     'actions' => [mrdEnd(1), mrdEnd(2), mrdPass(1), mrdPlay(1, 'myField-1'), mrdAns(1, 'theirField-0')], // P1 attacks P2's champion on turn 3 (after declining the materialize offer)
 ];
 
+// --- Dormant Sacrificial Altar (px8jypwc8t): "Sacrifice an Automaton ally and a Human ally: Put the top two cards of your deck into your graveyard." ---
+// Generated body milled with a loop of MZMove($player, "myDeck-0", "myGraveyard"): only the TOP card was ever milled (see 1676ae91 Pure Cytosynth). The Altar,
+// Shieldroid (Automaton) and Coy Bouclier (Human) are seeded on the field; top of the deck: Dungeon Guide, Fluffy Shopkeep (the two milled), Charge the Soul (marker).
+$fixtures['dormant-sacrificial-altar-sacrifice-automaton-and-human-mills-two'] = [
+    'testedCards' => ['px8jypwc8t'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'px8jypwc8t'], // Dormant Sacrificial Altar -> field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'qCTini03Bc'], // Shieldroid (Automaton) -> field-2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'vo1qr9bkme'], // Coy Bouclier (Human) -> field-3
+        $gaTop([$GA_DG, $GA_FS, $GA_MARK], 1),
+    ],
+    'actions' => [
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'),
+        mrdAns(1, 'myField-2'), // sacrifice Shieldroid (the Automaton)
+        mrdAns(1, 'myField-2'), // sacrifice Coy Bouclier (the Human; now at index 2 once Shieldroid is gone)
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

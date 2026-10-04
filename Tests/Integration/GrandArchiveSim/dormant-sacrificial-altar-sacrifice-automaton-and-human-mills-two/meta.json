@@ -1,0 +1,30 @@
+{
+    "name": "dormant-sacrificial-altar-sacrifice-automaton-and-human-mills-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T15:37:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "px8jypwc8t"
+    ],
+    "notes": "Dormant Sacrificial Altar (px8jypwc8t), Shieldroid (Automaton) and Coy Bouclier (Human) seeded on player 1's field. The Altar's ability is activated for real (10001 Activate:0), then the Automaton and the Human are chosen (the Human's index shifts to myField-2 once Shieldroid is spliced out). Top of the deck: Dungeon Guide, Fluffy Shopkeep (the two milled), Charge the Soul (marker: must be the new top card). Pre-fix the generated body milled with a loop of MZMove(myDeck-0), so only ONE card was milled (graveyard 3, deck 14).",
+    "semanticCoverage": {
+        "testedCards": [
+            "px8jypwc8t"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "mill",
+            "sacrifice",
+            "activated-ability"
+        ],
+        "rulesClauses": [
+            "Sacrifice an Automaton ally and a Human ally: Put the top two cards of your deck into your graveyard."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated customDQHandlers[\"px8jypwc8t:0:ActivateAbility-2\"] milled two cards with a loop of MZMove($player, \"myDeck-0\", \"myGraveyard\"). Remove() only flags a slot removed (no splice), so \"myDeck-0\" resolved to the SAME removed slot on the second iteration and MZMove's \"already removed\" guard silently no-oped: only the top card was ever milled (live repro: graveyard 3, deck 14). Overridden in GeneratedAbilityOverrides.php with MillCards().",
+        "affectedFunction": "GeneratedAbilityOverrides.php customDQHandlers[\"px8jypwc8t:0:ActivateAbility-2\"] override (generated body in GeneratedMacroCode.php)",
+        "fixCommit": "TBD"
+    }
+}

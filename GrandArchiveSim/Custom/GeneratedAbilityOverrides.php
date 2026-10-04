@@ -820,3 +820,22 @@ $onHitAbilities["x6jo8zxhl9:0"] = function($player) { //x6jo8zxhl9
   if(!PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) return;
   MillCards($player, "theirDeck", "theirGraveyard", 4);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Dormant Sacrificial Altar (px8jypwc8t): "Sacrifice an Automaton ally and a Human ally: Put the top two cards of your deck into your graveyard." The generated
+// second-sacrifice handler milled with a loop of MZMove($player, "myDeck-0", "myGraveyard"): Remove() only flags a slot removed (no splice), so only ONE card
+// was ever milled. Verbatim body with MillCards() (distinct slots, honours Purging Tempest / Sasha).
+// ---------------------------------------------------------------------------------------------
+$customDQHandlers["px8jypwc8t:0:ActivateAbility-2"] = function($player, $parts, $lastDecision) { //Sacrifice
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $abilityIndex = DecisionQueueController::GetVariable("abilityIndex");
+  DecisionQueueController::StoreVariable("humanTarget", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "px8jypwc8t:0:ActivateAbility-2")) return;
+  $autoTarget = DecisionQueueController::GetVariable("autoTarget");
+  $humanTarget = $lastDecision;
+  DoSacrificeFighter($player, $humanTarget);
+  DecisionQueueController::CleanupRemovedCards();
+  MillCards($player, "myDeck", "myGraveyard", 2);
+};

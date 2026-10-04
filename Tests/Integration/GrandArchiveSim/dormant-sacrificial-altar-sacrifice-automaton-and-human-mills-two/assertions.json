@@ -1,0 +1,71 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "The two sacrificed allies plus exactly two milled cards"
+    },
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "cardID": "qCTini03Bc",
+        "semantic": true,
+        "label": "Shieldroid (the Automaton) was sacrificed"
+    },
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "cardID": "vo1qr9bkme",
+        "semantic": true,
+        "label": "Coy Bouclier (the Human) was sacrificed"
+    },
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "cardID": "px60u5n1do",
+        "semantic": true,
+        "label": "The second card (Fluffy Shopkeep) was milled"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 13,
+        "semantic": true,
+        "label": "Deck: 15 minus the two milled cards"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "ra9950o14t",
+        "semantic": true,
+        "label": "The third card (marker) is the new top card: exactly two were milled"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Only the champion and the Altar remain on the field"
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
