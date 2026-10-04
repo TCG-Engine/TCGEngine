@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-04T17:15:11+00:00",
+    "generatedAt": "2026-10-04T19:58:14+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 717,
+        "cardsWithExistingFixtures": 723,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1770,
+        "cardsNeedingSemanticCoverage": 1764,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -3280,23 +3280,6 @@
                 "cost",
                 "targeting",
                 "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "40xhntos3d",
-            "name": "Ghastly Corrosion",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -7470,25 +7453,6 @@
             "priority": 15
         },
         {
-            "cardId": "rj52215upu",
-            "name": "Swooping Talons",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "c7d7xdy3y9",
             "name": "Sylph's Envelopment",
             "type": "ACTION",
@@ -7673,25 +7637,6 @@
                 "draw-discard",
                 "zone-movement",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "y5koddlyv8",
-            "name": "Undying Dreams",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -18066,23 +18011,6 @@
             "priority": 13
         },
         {
-            "cardId": "0s6solta0h",
-            "name": "Rapid Combustion",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "pjdsfqbgit",
             "name": "Ravenous Pyre",
             "type": "PHANTASIA",
@@ -18143,23 +18071,6 @@
                 "draw-discard",
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "sbalegbscx",
-            "name": "Reduce to Ash",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -19009,23 +18920,6 @@
             "mechanics": [
                 "recover",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "L9yBqoOshh",
-            "name": "Spark Alight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
                 "condition"
             ],
             "existingFixtures": [],
@@ -30311,10 +30205,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "converge-reflections-destroy-distortion-draw"
+                "converge-reflections-destroy-distortion-draw",
+                "converge-reflections-refuses-memory-only-item-destroys-low-reserve-item"
             ],
             "semanticFixtures": [
-                "converge-reflections-destroy-distortion-draw"
+                "converge-reflections-destroy-distortion-draw",
+                "converge-reflections-refuses-memory-only-item-destroys-low-reserve-item"
             ],
             "starterDecks": [
                 "Merlin Re:Collection, Brilliant Vestige"
@@ -36077,10 +35973,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "shatter-the-brittle-destroy-draw-memory"
+                "shatter-the-brittle-destroy-draw-memory",
+                "shatter-the-brittle-refuses-expensive-reserve-only-item-destroys-cheap-one"
             ],
             "semanticFixtures": [
-                "shatter-the-brittle-destroy-draw-memory"
+                "shatter-the-brittle-destroy-draw-memory",
+                "shatter-the-brittle-refuses-expensive-reserve-only-item-destroys-cheap-one"
             ],
             "starterDecks": [
                 "Guo Jia Re:Collection, Heaven's Favored"
@@ -36504,11 +36402,13 @@
             ],
             "existingFixtures": [
                 "unstable-fractal-class-bonus-destroy-item",
-                "unstable-fractal-no-class-bonus-blocked"
+                "unstable-fractal-no-class-bonus-blocked",
+                "unstable-fractal-refuses-memory-only-item-destroys-low-reserve-item"
             ],
             "semanticFixtures": [
                 "unstable-fractal-class-bonus-destroy-item",
-                "unstable-fractal-no-class-bonus-blocked"
+                "unstable-fractal-no-class-bonus-blocked",
+                "unstable-fractal-refuses-memory-only-item-destroys-low-reserve-item"
             ],
             "starterDecks": [
                 "Diao Chan Re:Collection, Idyll Corsage"
@@ -40585,10 +40485,12 @@
                 "damage"
             ],
             "existingFixtures": [
-                "freezing-hail-blue-slime-class-bonus-buff"
+                "freezing-hail-blue-slime-class-bonus-buff",
+                "freezing-hail-refuses-spellshroud-unit-damages-ordinary-ally"
             ],
             "semanticFixtures": [
-                "freezing-hail-blue-slime-class-bonus-buff"
+                "freezing-hail-blue-slime-class-bonus-buff",
+                "freezing-hail-refuses-spellshroud-unit-damages-ordinary-ally"
             ],
             "starterDecks": [
                 "Silvie Starter Deck",
@@ -44623,6 +44525,27 @@
             "priority": 43
         },
         {
+            "cardId": "40xhntos3d",
+            "name": "Ghastly Corrosion",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "ghastly-corrosion-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "semanticFixtures": [
+                "ghastly-corrosion-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "1S7Q5fqX5u",
             "name": "Imperial Accord",
             "type": "ACTION",
@@ -45222,6 +45145,52 @@
             ],
             "semanticFixtures": [
                 "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "rj52215upu",
+            "name": "Swooping Talons",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "swooping-talons-level-two-mode-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "semanticFixtures": [
+                "swooping-talons-level-two-mode-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "y5koddlyv8",
+            "name": "Undying Dreams",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "undying-dreams-refuses-spellshroud-ally-targets-ordinary-ally"
+            ],
+            "semanticFixtures": [
+                "undying-dreams-refuses-spellshroud-ally-targets-ordinary-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46175,6 +46144,48 @@
             "priority": 33
         },
         {
+            "cardId": "0s6solta0h",
+            "name": "Rapid Combustion",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "rapid-combustion-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "semanticFixtures": [
+                "rapid-combustion-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "sbalegbscx",
+            "name": "Reduce to Ash",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "reduce-to-ash-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "semanticFixtures": [
+                "reduce-to-ash-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "7ePq6I4uZ8",
             "name": "Soultrace Tessellation",
             "type": "ACTION",
@@ -46192,6 +46203,27 @@
             "semanticFixtures": [
                 "soultrace-tessellation-prepare-1-declined-3-sheen",
                 "soultrace-tessellation-prepare-1-paid-3-plus-2-sheen"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "L9yBqoOshh",
+            "name": "Spark Alight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "spark-alight-refuses-spellshroud-unit-damages-ordinary-ally"
+            ],
+            "semanticFixtures": [
+                "spark-alight-refuses-spellshroud-unit-damages-ordinary-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

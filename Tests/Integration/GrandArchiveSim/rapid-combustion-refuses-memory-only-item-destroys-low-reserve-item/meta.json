@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated target filter for this card tested \"CardCost_memory($id) == 0 || CardCost_reserve($id) <= N\" for \"memory cost 0 or reserve cost N or less\". The card data uses -1 for \"no such cost\", so every memory-only item/weapon/regalia (memory cost 1+, no reserve cost; 139 cards, e.g. Scepter of Lumina) satisfied \"reserve <= N\" and was offered as a legal target. Overridden in Custom/GeneratedAbilityOverrides.php with ItemLowCostMatches() (Custom/GameLogic.php): explicit memory cost 0, or a real reserve cost (>= 0) of at most N. Same fix as Ghastly Corrosion / Reduce to Ash / Alkahest / Swooping Talons / Smashing Force.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[0s6solta0h:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "918bece1"
     }
 }

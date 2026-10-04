@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated filter for Shatter the Brittle tested \"memory <= 1 || reserve <= 5\" on the raw card data, where -1 means \"no such cost\": every reserve-only item (no memory cost), however expensive -- e.g. Explosive Concoction, reserve 7 -- passed \"memory <= 1\", and every memory-only item passed \"reserve <= 5\", so nearly every item and weapon was a legal target. Overridden in Custom/GeneratedAbilityOverrides.php requiring a real cost (>= 0) on the side being tested.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[tdz5of8zuz:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "1e719bd5"
     }
 }

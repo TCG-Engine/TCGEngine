@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. Swooping Talons' destroy mode (and Smashing Force's destroy step) build their target list in hand-written helpers (SwoopingTalonsMode2, SmashingForceBanish2 in Custom/CardDQHandlers.php) with the same filter as the generated code, \"CardCost_memory($id) == 0 || CardCost_reserve($id) <= 4\". The card data uses -1 for \"no such cost\", so every memory-only item (memory cost 1+, no reserve cost; e.g. Scepter of Lumina) satisfied \"reserve <= 4\" and was offered as a target. Both now use ItemLowCostMatches() (Custom/GameLogic.php), as do the generated closures (overridden in Custom/GeneratedAbilityOverrides.php).",
         "affectedFunction": "Custom/CardDQHandlers.php SwoopingTalonsMode2() / SmashingForceBanish2()",
-        "fixCommit": "TBD"
+        "fixCommit": "918bece1"
     }
 }

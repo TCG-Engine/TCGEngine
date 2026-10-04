@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. Undying Dreams's generated opening body (like ~35 other Spell openers) built its target list without FilterSpellshroudTargets(), so an ally with spellshroud (e.g. Genbu, Black Tortoise) was offered and could be targeted by the Spell. Rather than override each generated closure, OnCardActivated() (Custom/GameLogic.php) now filters the explicit-target choices (MZCHOOSE / MZMAYCHOOSE over field objects) that ANY Spell's opener queues through GASpellshroudFilterNewDecisions(): spellshroud objects are removed, and a choice left with no legal target is dropped with its continuation so the Spell fizzles.",
         "affectedFunction": "Custom/GameLogic.php GASpellshroudFilterNewDecisions() (called from OnCardActivated)",
-        "fixCommit": "TBD"
+        "fixCommit": "da355a73"
     }
 }
