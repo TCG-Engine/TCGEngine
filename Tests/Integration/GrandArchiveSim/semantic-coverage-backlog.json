@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-04T05:35:45+00:00",
+    "generatedAt": "2026-10-04T15:29:43+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 692,
@@ -38902,10 +38902,10 @@
                 "condition"
             ],
             "existingFixtures": [
-                "pure-cytosynth-dante-bonus-empower"
+                "pure-cytosynth-dante-bonus-mills-three-then-empowers"
             ],
             "semanticFixtures": [
-                "pure-cytosynth-dante-bonus-empower"
+                "pure-cytosynth-dante-bonus-mills-three-then-empowers"
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"

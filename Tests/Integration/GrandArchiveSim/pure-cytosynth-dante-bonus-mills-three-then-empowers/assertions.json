@@ -1,0 +1,63 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Seeded Spirit of Water plus exactly three milled cards"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "cardID": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Top card (Dungeon Guide) was milled"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "cardID": "n8wyfG9hbY",
+        "semantic": true,
+        "label": "Third card (Fairy Whispers) was milled"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 10,
+        "semantic": true,
+        "label": "Deck: 13 minus the three milled cards"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "ra9950o14t",
+        "semantic": true,
+        "label": "The fourth card (marker) is the new top card: exactly three were milled"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ALLY_ACTIVATED\",\"172utOanGk\",\"EMPOWERED\",\"EMPOWER_PLUS_2\"]",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Empower X = 2: the seeded AND the milled Spirit of Water count (water cards in the graveyard after milling)"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

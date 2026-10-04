@@ -756,3 +756,18 @@ $activateAbilityAbilities["EQZZsiUDyl:0"] = function($player) { //
       MZMoveTopOfZone($player, "myDeck", "myDeck");
   }
 };
+
+// ---------------------------------------------------------------------------------------------
+// Pure Cytosynth (172utOanGk): "[Dante Bonus] On Enter: Put the top three cards of your deck into your graveyard. Then empower X, where X is the
+// amount of water element cards in your graveyard." The generated body milled with a loop of MZMove($player, "myDeck-0", "myGraveyard"): Remove()
+// only flags a slot removed (no splice), so "myDeck-0" re-resolved to the same removed slot and only ONE card was ever milled. Verbatim body with
+// MillCards() (distinct slots, honours the Purging Tempest / Sasha banish redirects; it also cleans up before the water count below).
+// ---------------------------------------------------------------------------------------------
+$enterAbilities["172utOanGk:0"] = function($player) { //Dante Bonus — Mill three, then empower
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  MillCards($player, "myDeck", "myGraveyard", 3);
+  DecisionQueueController::CleanupRemovedCards();
+  $waterCount = count(ZoneSearch("myGraveyard", cardElements: ["WATER"]));
+  Empower($player, $waterCount, "172utOanGk");
+};

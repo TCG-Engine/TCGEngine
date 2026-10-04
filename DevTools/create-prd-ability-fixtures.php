@@ -5034,51 +5034,6 @@ DECK,
     ],
 ];
 
-// --- Pure Cytosynth: [Dante Bonus] On Enter, mill three then empower by water cards milled ---
-$fixtures['pure-cytosynth-dante-bonus-empower'] = [
-    'testedCards' => ['172utOanGk'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Pure Cytosynth
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Pure Cytosynth's On Enter (mill 3, then empower X = water element cards in graveyard) is
-    // gated behind [Dante Bonus] (IsDanteBonusActive: champion name starts with "Dante") and its
-    // element property is "EXALTED,WATER" -- CanPlayerMeetCardElementRequirements always requires
-    // EXALTED specifically (auto-enabled only once another advanced element is enabled) plus at
-    // least one of its other listed elements (WATER here). The starting champion's CardID is
-    // patched directly to Dante, Hemomancer (element EXIA, an advanced element -- satisfies both
-    // the Dante Bonus name check and unlocks EXALTED) and its Subcards are patched with Spirit of
-    // Water (WATER) to unlock the card's other required element. X is computed from ALL water
-    // element cards in the graveyard, not just the 3 milled this turn (verified live via a
-    // temporary debug trace on the generated enterAbility closure -- with an empty graveyard, this
-    // seed/shuffle happens to mill zero water cards, so the ability's own internal
-    // Empower($player, 0, ...) call correctly no-ops per Empower()'s own `if($amount <= 0) return`
-    // guard), so Spirit of Water (a real WATER card) is seeded directly into the graveyard as a
-    // second, independent water source to make the empower amount deterministically non-zero
-    // regardless of what the mill draws.
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '4FtNBFaOJp', 'Subcards' => ['tafqldAGRF']]],
-        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'tafqldAGRF'], // Spirit of Water (WATER), guarantees empower X >= 1
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => '172utOanGk'],
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
 // --- Fulminator, Rising Storm: [Lorraine Bonus] enters with LV-2 static counters ---
 $fixtures['fulminator-rising-storm-lorraine-bonus'] = [
     'testedCards' => ['F1JIgewvFI'],
@@ -27200,6 +27155,36 @@ $fixtures['storm-tyrant-eye-reveal-until-arcane-damage-rest-bottom'] = [
     'setup' => $gaStormEyeSetup([$GA_DG, $GA_FS, $GA_ARCANE, $GA_MARK]),
     'actions' => [$gaStormEyeAct(1)],
 ];
+
+// --- Pure Cytosynth (172utOanGk): "[Dante Bonus] On Enter: Put the top three cards of your deck into your graveyard. Then empower X, where X is the
+// amount of water element cards in your graveyard." Dante Bonus: the champion is patched to Dante, Hemomancer with Spirit of Water in its lineage (unlocks
+// EXALTED + WATER). The generated body milled with a loop of MZMove($player, "myDeck-0", "myGraveyard"); Remove() only flags a slot removed, so only the TOP
+// card was ever milled (see c5ee9fd7 Wuji, 86027696 Galestream). Top four: Dungeon Guide, Spirit of Water (WATER), Fairy Whispers (the three milled), Charge the Soul
+// (marker: must be the new top card). A second Spirit of Water is seeded in the graveyard, so empower X = 2 only if the MILLED water card counts.
+$fixtures['pure-cytosynth-dante-bonus-mills-three-then-empowers'] = [
+    'testedCards' => ['172utOanGk'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Pure Cytosynth
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '4FtNBFaOJp', 'Subcards' => ['tafqldAGRF']]],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'tafqldAGRF'], // Spirit of Water (WATER)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '172utOanGk'],
+        $gaTop([$GA_DG, 'tafqldAGRF', $GA_FW, $GA_MARK], 1), // the second milled card is a WATER card (Spirit of Water): empower X counts it
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1)]),
+];
+
 
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
