@@ -1,0 +1,29 @@
+{
+    "name": "undying-dreams-refuses-spellshroud-ally-targets-ordinary-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T19:54:47+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "y5koddlyv8"
+    ],
+    "notes": "Undying Dreams (y5koddlyv8): of the opposing Genbu (spellshroud) and an ordinary ally only the ordinary ally is selectable. Pre-fix Genbu was offered too.",
+    "semanticCoverage": {
+        "testedCards": [
+            "y5koddlyv8"
+        ],
+        "mechanics": [
+            "targeting",
+            "spellshroud",
+            "buff"
+        ],
+        "rulesClauses": [
+            "Target ally gets +1 POWER and +1 LIFE until end of turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated opening body of Undying Dreams (a Spell) built its ally target list without FilterSpellshroudTargets(), so an ally with spellshroud (e.g. Genbu, Black Tortoise) was offered and could be targeted by it. Overridden in Custom/GeneratedAbilityOverrides.php with the filter. (Bring Down the Mighty, which the earlier backlog also listed, is a Skill, not a Spell, so spellshroud correctly does not apply to it.)",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[y5koddlyv8:0]",
+        "fixCommit": "TBD"
+    }
+}

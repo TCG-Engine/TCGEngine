@@ -1667,3 +1667,22 @@ $cardActivatedAbilities["tdz5of8zuz:0"] = function($player) { //Destroy cheap re
   DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
   DecisionQueueController::AddDecision($player, "CUSTOM", "tdz5of8zuz:0:CardActivated-1", 1);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Undying Dreams (y5koddlyv8, a Spell): "Target ally gets +1 POWER and +1 LIFE until end of turn. ..." The generated target list never applied FilterSpellshroudTargets(), so an ally with spellshroud was a
+// legal target of this Spell. Verbatim body with the spellshroud filter. (Bring Down the Mighty is a Skill, not a Spell, so spellshroud does not apply to it.)
+// ---------------------------------------------------------------------------------------------
+$cardActivatedAbilities["y5koddlyv8:0"] = function($player) { //y5koddlyv8
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Undying Dreams: Target ally gets +1 POWER and +1 LIFE until EOT. If ephemeral, put a buff counter on it.
+  $allies = array_merge(
+      ZoneSearch("myField", ["ALLY"]),
+      ZoneSearch("theirField", ["ALLY"])
+  );
+  $allies = FilterSpellshroudTargets($allies);
+  if(empty($allies)) return;
+  $allyStr = implode("&", $allies);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "y5koddlyv8:0:CardActivated-1", 1);
+};

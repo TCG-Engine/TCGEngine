@@ -27860,6 +27860,23 @@ $fixtures['shatter-the-brittle-refuses-expensive-reserve-only-item-destroys-chea
     ]),
 ];
 
+
+// --- Undying Dreams (y5koddlyv8, a Spell): "Target ally gets +1 POWER and +1 LIFE until end of turn." The generated target list never applied FilterSpellshroudTargets(): an ally with spellshroud was a
+// legal target. Player 2 controls Genbu, Black Tortoise (printed Spellshroud) and an ordinary Dungeon Guide. ---
+$fixtures['undying-dreams-refuses-spellshroud-ally-targets-ordinary-ally'] = [
+    'testedCards' => ['y5koddlyv8'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaHand('y5koddlyv8'), // Undying Dreams -> myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'k8bwlx70qj'], // Genbu, Black Tortoise (spellshroud) -> theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => $GA_DG],       // Dungeon Guide -> theirField-2
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Genbu, Black Tortoise has spellshroud: not a legal target of the Spell Undying Dreams']),
+        mrdAns(1, 'theirField-2'),
+    ]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
