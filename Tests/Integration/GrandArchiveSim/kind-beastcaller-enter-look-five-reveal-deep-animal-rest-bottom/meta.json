@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated enterAbilities[\"k02kvfblwa:0\"] body looked at the top five cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" re-resolved to the SAME removed slot after the first and MZMove's already-removed guard silently no-oped -- only the top card was ever looked at (an Animal or Beast ally deeper in the deck was never offered). The \"may reveal\" follow-up CUSTOM was also added without dontSkipOnPass, so declining (PASS) skipped it and stranded the looked-at card in myTempZone. The generated file cannot be edited (gitignored), so the closure and its handler are overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone(), PutTempZoneOnBottomOfDeck() and dontSkipOnPass:1.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php enterAbilities[k02kvfblwa:0] and customDQHandlers[k02kvfblwa:0:Enter-1]",
-        "fixCommit": "TBD"
+        "fixCommit": "248fdde2"
     }
 }

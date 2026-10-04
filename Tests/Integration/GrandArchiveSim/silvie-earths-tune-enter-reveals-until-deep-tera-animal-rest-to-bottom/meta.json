@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. Same defect as Gaia's Songbird: the generated enterAbilities[\"ZR8tnLruR6:0\"] put the revealed-but-not-taken cards on the bottom with a loop of MZMove($player, \"myDeck-0\", \"myDeck\") -- Remove() only flags a slot removed (no splice), so only ONE of them reached the bottom and the rest stayed on top. Overridden in Custom/GeneratedAbilityOverrides.php (shared with Gaia's Songbird) with MZMoveTopOfZone().",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php enterAbilities[ZR8tnLruR6:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "b9a2d5f6"
     }
 }

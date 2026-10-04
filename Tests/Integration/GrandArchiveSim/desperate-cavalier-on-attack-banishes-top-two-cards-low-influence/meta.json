@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated onAttackAbilities[\"slmer06rku:0\"] body banished the top two cards with a loop of MZMove($player, \"myDeck-0\", \"myBanish\"): Remove() only flags a slot removed (no splice), so on the second pass \"myDeck-0\" re-resolved to the SAME removed slot, MZMove returned null and the loop 'break'-ed -- only ONE card was ever banished (and only that one received the _desperateCavalier 'may activate' tag). The generated file cannot be edited (gitignored), so the closure is overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone().",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php onAttackAbilities[slmer06rku:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "c33a5cc0"
     }
 }

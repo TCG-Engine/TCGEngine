@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-04T16:45:03+00:00",
+    "generatedAt": "2026-10-04T17:15:11+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 704,
+        "cardsWithExistingFixtures": 717,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1783,
+        "cardsNeedingSemanticCoverage": 1770,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -616,24 +616,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "qxu89i1mrk",
-            "name": "Starbirth",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -4478,22 +4460,6 @@
             "priority": 22
         },
         {
-            "cardId": "3bS1Y9OQrF",
-            "name": "Nature's Insight",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "j9hjjvkyyr",
             "name": "Oppressive Presence",
             "type": "ACTION",
@@ -5524,26 +5490,6 @@
                 "prevention",
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "slmer06rku",
-            "name": "Desperate Cavalier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13734,23 +13680,6 @@
             "priority": 13
         },
         {
-            "cardId": "ZSSegCjquB",
-            "name": "Advent of the Stormcaller",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "NHTouMzz3o",
             "name": "Aenean Cryosalvo",
             "type": "ACTION",
@@ -16709,40 +16638,6 @@
             "priority": 13
         },
         {
-            "cardId": "qy34r8gffr",
-            "name": "Kingdom's Divide",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "0i139x5eub",
-            "name": "Kongming, Erudite Strategist",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "6rheGKZGyG",
             "name": "Lacunarity Guide",
             "type": "ALLY",
@@ -17347,23 +17242,6 @@
                 "targeting",
                 "zone-movement",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "jdmthh88rx",
-            "name": "Naia, Diviner of Fortunes",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -19250,23 +19128,6 @@
             "mechanics": [
                 "draw-discard",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "dZ0Y2ILgZW",
-            "name": "Spring Cleaning",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -23177,22 +23038,6 @@
             "priority": 12
         },
         {
-            "cardId": "k02kvfblwa",
-            "name": "Kind Beastcaller",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "racxis1ji8",
             "name": "Landscape Corsair",
             "type": "ALLY",
@@ -25049,22 +24894,6 @@
             "priority": 12
         },
         {
-            "cardId": "ZR8tnLruR6",
-            "name": "Silvie, Earth's Tune",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "GhxADim7Kf",
             "name": "Sinon, Babelia's Companion",
             "type": "UNIQUE,ALLY",
@@ -25729,22 +25558,6 @@
             "mechanics": [
                 "cost",
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "zrBBvgIvt6",
-            "name": "Tide Diviner",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -26915,21 +26728,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "rKKDhaLJ8w",
-            "name": "Blinding Lapse",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -29115,21 +28913,6 @@
         {
             "cardId": "ny1te7hcjm",
             "name": "Natural Order",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "oj0oh7pjoq",
-            "name": "Nature's Appeal",
             "type": "ACTION",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -37763,10 +37546,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "gaias-songbird-class-bonus-enter-reveal-beast"
+                "gaias-songbird-class-bonus-enter-reveal-beast",
+                "gaias-songbird-enter-reveals-until-deep-beast-rest-to-bottom"
             ],
             "semanticFixtures": [
-                "gaias-songbird-class-bonus-enter-reveal-beast"
+                "gaias-songbird-class-bonus-enter-reveal-beast",
+                "gaias-songbird-enter-reveals-until-deep-beast-rest-to-bottom"
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
@@ -42269,6 +42054,28 @@
             "priority": 132
         },
         {
+            "cardId": "qxu89i1mrk",
+            "name": "Starbirth",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "token"
+            ],
+            "existingFixtures": [
+                "starbirth-draws-into-memory-and-summons-astral-shard"
+            ],
+            "semanticFixtures": [
+                "starbirth-draws-into-memory-and-summons-astral-shard"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "wa4x7e22tk",
             "name": "Stream of Consciousness",
             "type": "ACTION",
@@ -44873,11 +44680,13 @@
             "existingFixtures": [
                 "peer-the-depths-banish-top-card-keeps-order-of-the-rest",
                 "peer-the-depths-look-four-opponent-banish-one-rest-bottom",
+                "peer-the-depths-not-offered-to-non-turn-player-in-opponents-recollection",
                 "peer-the-depths-player-two-look-four-opponent-banish-one-rest-bottom"
             ],
             "semanticFixtures": [
                 "peer-the-depths-banish-top-card-keeps-order-of-the-rest",
                 "peer-the-depths-look-four-opponent-banish-one-rest-bottom",
+                "peer-the-depths-not-offered-to-non-turn-player-in-opponents-recollection",
                 "peer-the-depths-player-two-look-four-opponent-banish-one-rest-bottom"
             ],
             "starterDecks": [],
@@ -44948,6 +44757,26 @@
                 "galestream-insight-look-six-no-spell-bottoms-all-six",
                 "galestream-insight-look-six-reveal-spell-rest-bottom",
                 "galestream-insight-player-two-look-six-reveal-spell-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "3bS1Y9OQrF",
+            "name": "Nature's Insight",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "natures-insight-memory-card-cost-three-puts-top-three-into-material"
+            ],
+            "semanticFixtures": [
+                "natures-insight-memory-card-cost-three-puts-top-three-into-material"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45058,6 +44887,30 @@
                 "captain-archer-imbued-look-six-decline-all-six-bottom",
                 "captain-archer-imbued-look-six-no-wind-ally-all-six-bottom",
                 "captain-archer-imbued-look-six-put-deep-wind-ally-distant-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "slmer06rku",
+            "name": "Desperate Cavalier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "desperate-cavalier-on-attack-banishes-top-two-cards-low-influence"
+            ],
+            "semanticFixtures": [
+                "desperate-cavalier-on-attack-banishes-top-two-cards-low-influence"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45914,6 +45767,29 @@
             "priority": 34
         },
         {
+            "cardId": "ZSSegCjquB",
+            "name": "Advent of the Stormcaller",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "advent-of-the-stormcaller-decline-banish-rearranges-all-three-no-damage",
+                "advent-of-the-stormcaller-reveals-three-banishes-two-arcane-damages-two-units-rearranges-rest"
+            ],
+            "semanticFixtures": [
+                "advent-of-the-stormcaller-decline-banish-rearranges-all-three-no-damage",
+                "advent-of-the-stormcaller-reveals-three-banishes-two-arcane-damages-two-units-rearranges-rest"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "1mvv1f83ls",
             "name": "Aethercloak Sentinel",
             "type": "ALLY",
@@ -46073,6 +45949,48 @@
             "priority": 33
         },
         {
+            "cardId": "qy34r8gffr",
+            "name": "Kingdom's Divide",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "kingdoms-divide-choose-card-name-taxes-it-two-more"
+            ],
+            "semanticFixtures": [
+                "kingdoms-divide-choose-card-name-taxes-it-two-more"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "0i139x5eub",
+            "name": "Kongming, Erudite Strategist",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "kongming-erudite-strategist-enter-banishes-four-top-cards"
+            ],
+            "semanticFixtures": [
+                "kongming-erudite-strategist-enter-banishes-four-top-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "egbscxwjbq",
             "name": "Lost in Thought",
             "type": "ACTION",
@@ -46113,6 +46031,29 @@
                 "malevolent-vow-decline-first-discard-still-recovers-and-lineages",
                 "malevolent-vow-decline-second-discard-still-recovers",
                 "malevolent-vow-decline-third-discard-still-recovers"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "jdmthh88rx",
+            "name": "Naia, Diviner of Fortunes",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "naia-enter-banishes-deep-spell-tags-it-and-rest-to-graveyard",
+                "naia-enter-reveals-three-banishes-deep-ally-rest-to-graveyard"
+            ],
+            "semanticFixtures": [
+                "naia-enter-banishes-deep-spell-tags-it-and-rest-to-graveyard",
+                "naia-enter-reveals-three-banishes-deep-ally-rest-to-graveyard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46251,6 +46192,27 @@
             "semanticFixtures": [
                 "soultrace-tessellation-prepare-1-declined-3-sheen",
                 "soultrace-tessellation-prepare-1-paid-3-plus-2-sheen"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "dZ0Y2ILgZW",
+            "name": "Spring Cleaning",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "spring-cleaning-omen-to-graveyard-looks-three-banishes-deep-card-as-omen-rest-bottom"
+            ],
+            "semanticFixtures": [
+                "spring-cleaning-omen-to-graveyard-looks-three-banishes-deep-card-as-omen-rest-bottom"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46436,6 +46398,30 @@
             "priority": 32
         },
         {
+            "cardId": "k02kvfblwa",
+            "name": "Kind Beastcaller",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "kind-beastcaller-enter-look-five-decline-all-five-bottom",
+                "kind-beastcaller-enter-look-five-no-animal-all-five-bottom",
+                "kind-beastcaller-enter-look-five-reveal-deep-animal-rest-bottom"
+            ],
+            "semanticFixtures": [
+                "kind-beastcaller-enter-look-five-decline-all-five-bottom",
+                "kind-beastcaller-enter-look-five-no-animal-all-five-bottom",
+                "kind-beastcaller-enter-look-five-reveal-deep-animal-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "P8sbt2gXkn",
             "name": "Lesser Boon of Kanaloa",
             "type": "LESSER BOON",
@@ -46584,6 +46570,26 @@
             "priority": 32
         },
         {
+            "cardId": "ZR8tnLruR6",
+            "name": "Silvie, Earth's Tune",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "silvie-earths-tune-enter-reveals-until-deep-tera-animal-rest-to-bottom"
+            ],
+            "semanticFixtures": [
+                "silvie-earths-tune-enter-reveals-until-deep-tera-animal-rest-to-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "EQZZsiUDyl",
             "name": "Storm Tyrant's Eye",
             "type": "REGALIA,ITEM",
@@ -46642,6 +46648,47 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 32
+        },
+        {
+            "cardId": "zrBBvgIvt6",
+            "name": "Tide Diviner",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "tide-diviner-enter-level-two-looks-three-takes-deep-card-rest-to-graveyard"
+            ],
+            "semanticFixtures": [
+                "tide-diviner-enter-level-two-looks-three-takes-deep-card-rest-to-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "rKKDhaLJ8w",
+            "name": "Blinding Lapse",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "blinding-lapse-opponent-influence-eight-does-nothing",
+                "blinding-lapse-opponent-influence-nine-hand-to-memory-banishes-three"
+            ],
+            "semanticFixtures": [
+                "blinding-lapse-opponent-influence-eight-does-nothing",
+                "blinding-lapse-opponent-influence-nine-hand-to-memory-banishes-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
         },
         {
             "cardId": "r1zd9ys1qc",
@@ -46825,6 +46872,25 @@
                 "lure-the-abyss-reveal-four-all-specters-all-to-graveyard",
                 "lure-the-abyss-reveal-four-no-specter-all-four-bottom",
                 "lure-the-abyss-reveal-four-specters-to-graveyard-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "oj0oh7pjoq",
+            "name": "Nature's Appeal",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "natures-appeal-level-three-reveals-three-hand-material-and-bottom"
+            ],
+            "semanticFixtures": [
+                "natures-appeal-level-three-reveals-three-hand-material-and-bottom"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

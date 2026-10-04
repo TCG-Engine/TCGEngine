@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "FIXED. Three defects. (1) The generated cardActivatedAbilities[\"ZSSegCjquB:0\"] body revealed the top LV cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"): Remove() only flags a slot removed (no splice), so only the TOP card was ever revealed; overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone(). (2) AdventStormcallerBanishLoop() (Custom/CardDQHandlers.php) re-searched the temp zone with ZoneSearch(), which does not skip slots flagged removed: a card banished on the previous pass was offered again, and picking it banished nothing but still counted toward the 2-damage-per-banished-card total. It now splices removed slots first. (3) The 'may banish' follow-up CUSTOM was added without dontSkipOnPass, so declining (PASS) skipped AdventBanishPick entirely -- no damage phase and no rearrange, stranding the revealed cards in the temp zone. It now runs on PASS (and treats PASS as 'done').",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[ZSSegCjquB:0] / Custom/CardDQHandlers.php AdventStormcallerBanishLoop() and AdventBanishPick",
-        "fixCommit": "TBD"
+        "fixCommit": "9925a99a"
     }
 }

@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated enterAbilities[\"0i139x5eub:0\"] body banished with a loop of MZMove($player, \"myDeck-0\", \"myBanish\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" re-resolved to the SAME removed slot after the first pass; MZMove returned null and the loop 'break'-ed -- only the North card was ever banished (East, South and West never happened, so three of the four 'may play' cards did not exist). The generated file cannot be edited (gitignored), so the closure is overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone().",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php enterAbilities[0i139x5eub:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "90dc0db9"
     }
 }

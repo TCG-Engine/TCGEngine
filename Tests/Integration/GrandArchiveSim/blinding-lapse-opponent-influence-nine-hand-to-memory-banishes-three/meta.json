@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. Three defects. (1) The generated body for Blinding Lapse was registered ONLY in $activateCardAbilities, a table nothing dispatches (an action's effect lives in $cardActivatedAbilities): playing Blinding Lapse paid its cost and then resolved with no effect at all. (2) That body moved the opponent's hand with while(count(GetHand())>0) MZMove($player, \"theirHand-0\", \"theirMemory\"): Remove() only flags a slot removed (no splice), so it would have re-moved the same removed slot forever (an infinite loop). A live $cardActivatedAbilities registration in Custom/GeneratedAbilityOverrides.php now moves the hand with MZMoveTopOfZone(). (3) LiquidAmnesiaBanish() (Custom/CardDQHandlers.php, shared with Liquid Amnesia) re-searched the memory with ZoneSearch(), which does not skip removed slots, so a later 'random' pick could land on the card banished a moment earlier (a no-op) and fewer than the printed number of cards were banished. It now splices removed slots first.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[rKKDhaLJ8w:0] / Custom/CardDQHandlers.php LiquidAmnesiaBanish()",
-        "fixCommit": "TBD"
+        "fixCommit": "e984ddee"
     }
 }

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **704**
+Cards linked to an existing fixture: **717**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1783**
+Implemented cards still needing semantic coverage: **1770**
 
 ## Mechanic groups
 
@@ -57,7 +57,6 @@ Implemented cards still needing semantic coverage: **1783**
 | Refluxal Ribbon (`vm4xg2hedp`) | REGALIA,ITEM | 1 | targeting, zone-movement | Diana, Moonpiercer | — |
 | Sablier Guard (`tu7jvjf2gh`) | ALLY | 1 | cost, counter | Ciel, Mirage's Grave | — |
 | Sinistre Stab (`e1xj8mqr2o`) | ATTACK | 1 | combat, condition | Ciel, Mirage's Grave | — |
-| Starbirth (`qxu89i1mrk`) | ACTION | 1 | draw-discard, token | Diana, Moonpiercer | — |
 | Constellation's Blessing (`nypwwnirjk`) | ACTION | 1 | draw-discard | Diana, Moonpiercer | — |
 | Dissuading Aether (`bx25s7kiln`) | ACTION | 1 | targeting | Diana, Moonpiercer | — |
 | Guided Starlight (`b0iz7wm7ow`) | ACTION | 1 | combat | Diana, Moonpiercer | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **1783**
 | Cardiac Vessel (`5xjzPh6l2M`) | UNIQUE,PHANTASIA | 3 | cost, damage, draw-discard, trigger, condition | — | — |
 | Golden Measure Patisserie (`Bq2kynKJvx`) | UNIQUE,DOMAIN | 3 | cost, targeting, counter, token, trigger | — | — |
 | Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |
+| Stellarion Shift (`ms2x2v4qe3`) | ACTION | 3 | targeting, damage, prevention, draw-discard, zone-movement, status, condition | — | — |

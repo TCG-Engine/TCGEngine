@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated prereq for Peer the Depths (activateCardPrereqs[\"6JMwc6cpRm:0\"]) was just GetCurrentPhase() === \"BREC\": it checked that it is a recollection phase but not WHOSE, so in the turn player's recollection response window the NON-turn player was offered Peer the Depths (decision 'OpportunityWindowSecondResponse' listing it) even though it may be activated only during its controller's own recollection phase. The prereq is overridden in Custom/GeneratedAbilityOverrides.php with the added GetTurnPlayer() == $player check.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php activateCardPrereqs[6JMwc6cpRm:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "40d34e4c"
     }
 }

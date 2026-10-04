@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated opening body for Kingdom's Divide was registered ONLY in $activateCardAbilities, a table nothing dispatches (an action's effect lives in $cardActivatedAbilities): playing the card paid its cost and resolved with no effect (it never asked for a card name, so nothing was taxed even though the follow-up handler, the surcharge and the expiry all exist). Live registrations of the same bodies in Custom/GeneratedAbilityOverrides.php.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[qy34r8gffr:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "97570963"
     }
 }
