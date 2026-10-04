@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated cardActivatedAbilities[\"FnTT1G4OQg:0\"] body called DrawToMemory(), which does not exist in GrandArchiveSim (the engine function is DrawIntoMemory()): every resolution with influence four or less recovered the champion and then died with a fatal 'Call to undefined function DrawToMemory()', leaving the effect unresolved. The generated file cannot be edited (gitignored), so the closure is overridden in Custom/GeneratedAbilityOverrides.php with DrawIntoMemory().",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[FnTT1G4OQg:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "f84a808a"
     }
 }

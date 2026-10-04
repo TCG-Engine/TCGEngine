@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. The HuangZhongDistant handler (Custom/CardDQHandlers.php) called GetController(), which does not exist in GrandArchiveSim: after the three reserve payments were made the ability died with a fatal 'Call to undefined function GetController()', so no Ranger unit became distant and Huang Zhong was never returned to memory. It now reads the controller off the zone object. It also made only Ranger ALLIES distant although the ability says Ranger units (allies and champions): a Ranger champion now becomes distant too.",
         "affectedFunction": "Custom/CardDQHandlers.php customDQHandlers[HuangZhongDistant]",
-        "fixCommit": "TBD"
+        "fixCommit": "47bc1080"
     }
 }

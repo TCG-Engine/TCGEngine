@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. RollingChorusBanishAndDraw() (Custom/GameLogic.php) summed the banished cards' reserve costs with CardReserveCost(), which does not exist in GrandArchiveSim (the dictionary accessor is CardCost_reserve()): after the two graveyard cards were chosen the ability died with a fatal 'Call to undefined function CardReserveCost()' and nothing was banished or drawn. It now uses CardCost_reserve().",
         "affectedFunction": "Custom/GameLogic.php RollingChorusBanishAndDraw()",
-        "fixCommit": "TBD"
+        "fixCommit": "cf999678"
     }
 }

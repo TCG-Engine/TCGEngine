@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. Both generated target handlers of customDQHandlers[\"iqzaNLhqk4:0:CardActivated-1\"/\"-2\"] called DestroyAlly(), which does not exist in GrandArchiveSim (the engine function is DoAllyDestroyed()): choosing the first target died with a fatal 'Call to undefined function DestroyAlly()', so Genuflecting Execution never destroyed anything (and its cost was already spent). The generated file cannot be edited (gitignored), so both handlers are overridden in Custom/GeneratedAbilityOverrides.php with DoAllyDestroyed().",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[iqzaNLhqk4:0:CardActivated-1] and [-2]",
-        "fixCommit": "TBD"
+        "fixCommit": "2b0b8d87"
     }
 }

@@ -2,8 +2,29 @@
     "name": "augustine-cascade-two-destroys-low-cost-item-opponent-summons-core-fractal",
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-10-04T16:43:57+00:00",
-    "createdBy": "batch-script",
+    "createdBy": "Claude Sonnet 5.5",
     "testedCards": [
         "KdlhoQ1evn"
-    ]
+    ],
+    "notes": "Augustine, Votary of Yore (KdlhoQ1evn) at cascade step 2: of Scepter of Lumina (memory 1, no reserve), Explosive Concoction (reserve 7, no memory) and Forest Cake (reserve 2) only Forest Cake is selectable (the other two are refused); it is destroyed and its controller summons a Core Fractal. Pre-fix the ability died with an undefined-function fatal (CardReserveCost).",
+    "semanticCoverage": {
+        "testedCards": [
+            "KdlhoQ1evn"
+        ],
+        "mechanics": [
+            "destroy",
+            "targeting",
+            "cascade",
+            "token-summon"
+        ],
+        "rulesClauses": [
+            "As a Spell, destroy target item or weapon with memory cost 0 or reserve cost 4 or less. If you do, its controller summons a Core Fractal token."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Cascade step 2 reached AugustineStepTwoTargets() (Custom/GameLogic.php), which (1) called CardReserveCost(), a function that does not exist in GrandArchiveSim (fatal 'Call to undefined function' the moment the second cascade step was activated with any item or weapon on the field) and (2) passed a CardID string to CardMemoryCost(), which expects the zone object, so the memory cost always read 0 and EVERY item/weapon qualified. It now uses CardCost_reserve(), passes the object, and only treats an explicitly printed memory cost of 0 as 'memory cost 0' (CardMemoryCost() clamps 'no memory cost' up to 0 as well). The same file's RollingChorusBanishAndDraw() had the same nonexistent CardReserveCost() call.",
+        "affectedFunction": "Custom/GameLogic.php AugustineStepTwoTargets()",
+        "fixCommit": "cf999678"
+    }
 }

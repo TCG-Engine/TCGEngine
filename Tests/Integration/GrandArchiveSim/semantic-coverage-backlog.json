@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-04T15:37:43+00:00",
+    "generatedAt": "2026-10-04T16:45:03+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 696,
+        "cardsWithExistingFixtures": 704,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1791,
+        "cardsNeedingSemanticCoverage": 1783,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -5085,26 +5085,6 @@
             "priority": 15
         },
         {
-            "cardId": "KdlhoQ1evn",
-            "name": "Augustine, Votary of Yore",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "status",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "eDCnvWoGxf",
             "name": "Azrael, Archangel of Materia",
             "type": "UNIQUE,ALLY",
@@ -5271,25 +5251,6 @@
                 "draw-discard",
                 "zone-movement",
                 "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "disqw3d0o5",
-            "name": "Captain Archer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
                 "trigger",
                 "condition"
             ],
@@ -7119,25 +7080,6 @@
             "priority": 15
         },
         {
-            "cardId": "FnTT1G4OQg",
-            "name": "Restoring Embers",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "srkomr8ght",
             "name": "Rippleback Terrapin",
             "type": "ALLY",
@@ -7168,25 +7110,6 @@
                 "status",
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "IZVXDYjcSL",
-            "name": "Rolling Chorus",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -10466,24 +10389,6 @@
             "priority": 14
         },
         {
-            "cardId": "iqzaNLhqk4",
-            "name": "Genuflecting Execution",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "SkAe1hsw5H",
             "name": "Ghosts of Pendragon",
             "type": "ALLY",
@@ -10826,24 +10731,6 @@
             "priority": 14
         },
         {
-            "cardId": "XikXt8WyNp",
-            "name": "Huang Zhong, Unerring Aim",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "chsbalegbs",
             "name": "Impact Hammer",
             "type": "REGALIA,WEAPON",
@@ -11159,24 +11046,6 @@
                 "zone-movement",
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "gwve1d47o7",
-            "name": "Lena, Dorumegia's Herald",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -22131,22 +22000,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "edg616r0za",
-            "name": "Enhance Hearing",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
                 "zone-movement"
             ],
             "existingFixtures": [],
@@ -45160,6 +45013,57 @@
             "priority": 41
         },
         {
+            "cardId": "KdlhoQ1evn",
+            "name": "Augustine, Votary of Yore",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "status",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "augustine-cascade-two-destroys-low-cost-item-opponent-summons-core-fractal"
+            ],
+            "semanticFixtures": [
+                "augustine-cascade-two-destroys-low-cost-item-opponent-summons-core-fractal"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "disqw3d0o5",
+            "name": "Captain Archer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "captain-archer-imbued-look-six-decline-all-six-bottom",
+                "captain-archer-imbued-look-six-no-wind-ally-all-six-bottom",
+                "captain-archer-imbued-look-six-put-deep-wind-ally-distant-rest-bottom"
+            ],
+            "semanticFixtures": [
+                "captain-archer-imbued-look-six-decline-all-six-bottom",
+                "captain-archer-imbued-look-six-no-wind-ally-all-six-bottom",
+                "captain-archer-imbued-look-six-put-deep-wind-ally-distant-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "ts9VdtFtk1",
             "name": "Divine Comedy",
             "type": "MASTERY",
@@ -45352,6 +45256,56 @@
             "priority": 35
         },
         {
+            "cardId": "FnTT1G4OQg",
+            "name": "Restoring Embers",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "restoring-embers-influence-five-recovers-without-drawing",
+                "restoring-embers-influence-four-recovers-and-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "restoring-embers-influence-five-recovers-without-drawing",
+                "restoring-embers-influence-four-recovers-and-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "IZVXDYjcSL",
+            "name": "Rolling Chorus",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rolling-chorus-banish-two-total-reserve-six-does-not-draw",
+                "rolling-chorus-banish-two-total-reserve-twenty-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "rolling-chorus-banish-two-total-reserve-six-does-not-draw",
+                "rolling-chorus-banish-two-total-reserve-twenty-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "fcfxhkqda6",
             "name": "Seiryuu, Azure Dragon",
             "type": "ALLY",
@@ -45522,6 +45476,30 @@
             "priority": 34
         },
         {
+            "cardId": "iqzaNLhqk4",
+            "name": "Genuflecting Execution",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "genuflecting-execution-destroys-one-rested-ally-declines-second",
+                "genuflecting-execution-destroys-two-rested-allies"
+            ],
+            "semanticFixtures": [
+                "genuflecting-execution-destroys-one-rested-ally-declines-second",
+                "genuflecting-execution-destroys-two-rested-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "DNe5dvCNA1",
             "name": "Hoarfrost Hold",
             "type": "PHANTASIA",
@@ -45538,6 +45516,28 @@
             ],
             "semanticFixtures": [
                 "hoarfrost-hold-decline-further-banish-keeps-frost-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "XikXt8WyNp",
+            "name": "Huang Zhong, Unerring Aim",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "huang-zhong-return-to-memory-ranger-units-become-distant"
+            ],
+            "semanticFixtures": [
+                "huang-zhong-return-to-memory-ranger-units-become-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45610,6 +45610,32 @@
             "semanticFixtures": [
                 "hand-activation-class-bonus-discount-affordable-at-discounted-cost",
                 "hand-activation-class-bonus-inactive-printed-cost-unaffordable-click-refused"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "gwve1d47o7",
+            "name": "Lena, Dorumegia's Herald",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lena-rest-look-four-decline-all-four-bottom",
+                "lena-rest-look-four-no-ranger-all-four-bottom",
+                "lena-rest-look-four-reveal-deep-ranger-rest-bottom"
+            ],
+            "semanticFixtures": [
+                "lena-rest-look-four-decline-all-four-bottom",
+                "lena-rest-look-four-no-ranger-all-four-bottom",
+                "lena-rest-look-four-reveal-deep-ranger-rest-bottom"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46280,6 +46306,28 @@
                 "ashen-riffle-reveal-four-deep-suited-offered",
                 "ashen-riffle-reveal-four-three-eligible-banish-capped-at-two",
                 "ashen-riffle-small-deck-decline-returns-all-four-revealed-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "edg616r0za",
+            "name": "Enhance Hearing",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "enhance-hearing-look-three-decline-all-three-bottom",
+                "enhance-hearing-look-three-reveal-deep-wind-rest-bottom"
+            ],
+            "semanticFixtures": [
+                "enhance-hearing-look-three-decline-all-three-bottom",
+                "enhance-hearing-look-three-reveal-deep-wind-rest-bottom"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
