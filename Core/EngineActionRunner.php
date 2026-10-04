@@ -766,8 +766,13 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $botResult = ProcessBotControllerStep($playerID, $folderPath, $gameName);
         $result['success'] = !empty($botResult['success']);
         $result['message'] = strval($botResult['message'] ?? '');
-        $result['writeGamestate'] = !empty($botResult['writeGamestate']);
-        $result['updateCache'] = !empty($botResult['updateCache']);
+        // The bot's move ran through a NESTED EngineExecuteLoadedAction, which already wrote the gamestate, the frame-animation
+        // cache and the update marker. The wrapper must not commit again: echoing the nested flags here published update N+1
+        // with the SAME $frameAnimations, so a browser that polled between the two writes played the bot's attack twice
+        // (owner report 2026-10-04), and GameAfterEngineAction / goldfish automation ran twice.
+        // Guard: SWUSim/DevTools/tests/bot_step_single_update_test.php.
+        $result['writeGamestate'] = false;
+        $result['updateCache'] = false;
         $result['recordAction'] = false;
         $result['botStepApplied'] = !empty($botResult['applied']);
         $result['botStepRetryable'] = !array_key_exists('retryable', $botResult) || !empty($botResult['retryable']);
