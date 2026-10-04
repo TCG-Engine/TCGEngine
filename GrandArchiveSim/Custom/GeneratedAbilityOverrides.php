@@ -1350,3 +1350,38 @@ $cardActivatedAbilities["rKKDhaLJ8w:0"] = function($player) { //Memory collapse
   }
   LiquidAmnesiaBanish($player, "theirMemory", 3);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Starbirth (qxu89i1mrk): "Draw a card into your memory. Then summon an Astral Shard token." The generated body was registered ONLY in $activateCardAbilities, a table nothing dispatches (an action's
+// effect lives in $cardActivatedAbilities), so playing Starbirth paid its cost and resolved with no effect. Live registration of the same body.
+// ---------------------------------------------------------------------------------------------
+$cardActivatedAbilities["qxu89i1mrk:0"] = function($player) { //Draw into memory and summon token
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DrawIntoMemory($player, 1);
+  MZAddZone($player, "myField", "eP07Xxscuq");
+};
+
+// ---------------------------------------------------------------------------------------------
+// Kingdom's Divide (qy34r8gffr): "Choose a card name. Until the beginning of your next turn, cards with the chosen name cost 2 more to activate." The generated opening body (build the list of card
+// names and ask for one) was registered ONLY in the dead $activateCardAbilities table, so playing Kingdom's Divide never asked for a name and nothing was taxed -- although its follow-up handler
+// ("qy34r8gffr:0:ActivateCard-1"), the cost surcharge and the expiry all exist. Live registration of the same body.
+// ---------------------------------------------------------------------------------------------
+$cardActivatedAbilities["qy34r8gffr:0"] = function($player) { //Choose a card name for tax
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $choices = [];
+  $seen = [];
+  foreach(["myMaterial", "myHand", "myMemory", "theirMemory", "myGraveyard", "theirGraveyard", "myBanish", "theirBanish", "myField", "theirField"] as $zoneName) {
+      foreach(ZoneSearch($zoneName) as $choiceMZ) {
+          $choiceObj = GetZoneObject($choiceMZ);
+          if($choiceObj === null || isset($seen[$choiceObj->CardID])) continue;
+          $seen[$choiceObj->CardID] = true;
+          $choices[] = $choiceMZ;
+      }
+  }
+  if(empty($choices)) return;
+  $choiceStr = implode("&", $choices);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $choiceStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "qy34r8gffr:0:ActivateCard-1", 1);
+};

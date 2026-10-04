@@ -1,0 +1,26 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"qy34r8gffr-em6eEh9q8y\"]",
+        "semantic": true,
+        "label": "The champion carries the chosen-name tax tag (Dungeon Guide), read by the activation-cost calculation (after the action-activated marker)"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Seven emptied-hand cards plus Kingdom's Divide itself"
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

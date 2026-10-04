@@ -1,0 +1,28 @@
+{
+    "name": "kingdoms-divide-choose-card-name-taxes-it-two-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T17:10:26+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qy34r8gffr"
+    ],
+    "notes": "Kingdom's Divide (qy34r8gffr): playing it now asks for a card name from the visible zones; choosing Dungeon Guide puts the tax tag on the champion (cards with that name cost 2 more to activate until the caster's next turn). Pre-fix it never asked.",
+    "semanticCoverage": {
+        "testedCards": [
+            "qy34r8gffr"
+        ],
+        "mechanics": [
+            "cost-increase",
+            "choose-card-name"
+        ],
+        "rulesClauses": [
+            "Choose a card name. Until the beginning of your next turn, cards with the chosen name cost 2 more to activate."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated opening body for Kingdom's Divide was registered ONLY in $activateCardAbilities, a table nothing dispatches (an action's effect lives in $cardActivatedAbilities): playing the card paid its cost and resolved with no effect (it never asked for a card name, so nothing was taxed even though the follow-up handler, the surcharge and the expiry all exist). Live registrations of the same bodies in Custom/GeneratedAbilityOverrides.php.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[qy34r8gffr:0]",
+        "fixCommit": "TBD"
+    }
+}

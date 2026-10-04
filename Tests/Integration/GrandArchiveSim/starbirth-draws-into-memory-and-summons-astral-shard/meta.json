@@ -1,0 +1,28 @@
+{
+    "name": "starbirth-draws-into-memory-and-summons-astral-shard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T17:10:07+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qxu89i1mrk"
+    ],
+    "notes": "Starbirth (qxu89i1mrk): draws the top card into memory and summons an Astral Shard token. Pre-fix playing it did nothing.",
+    "semanticCoverage": {
+        "testedCards": [
+            "qxu89i1mrk"
+        ],
+        "mechanics": [
+            "draw-into-memory",
+            "token-summon"
+        ],
+        "rulesClauses": [
+            "Draw a card into your memory. Then summon an Astral Shard token."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated opening body for Starbirth was registered ONLY in $activateCardAbilities, a table nothing dispatches (an action's effect lives in $cardActivatedAbilities): playing the card paid its cost and resolved with no effect (no draw into memory, no Astral Shard). Live registrations of the same bodies in Custom/GeneratedAbilityOverrides.php.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[qxu89i1mrk:0]",
+        "fixCommit": "TBD"
+    }
+}

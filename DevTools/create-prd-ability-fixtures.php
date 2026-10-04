@@ -27732,6 +27732,33 @@ $fixtures['blinding-lapse-opponent-influence-eight-does-nothing'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3)),
 ];
 
+
+// --- Starbirth (qxu89i1mrk): "Draw a card into your memory. Then summon an Astral Shard token." The generated body was registered only in the dead $activateCardAbilities table (nothing dispatches
+// it), so playing Starbirth did nothing. ---
+$fixtures['starbirth-draws-into-memory-and-summons-astral-shard'] = [
+    'testedCards' => ['qxu89i1mrk'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'v3vfjtwm7g']], // Diana, Moonpiercer (level 3, ASTRA): unlocks the ASTRA element
+        $gaHand('qxu89i1mrk'), // Starbirth -> myHand-7
+        $gaTop([$GA_FS, $GA_MARK]), // the card drawn into memory, then a marker
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1)),
+];
+
+// --- Kingdom's Divide (qy34r8gffr): "Choose a card name. Until the beginning of your next turn, cards with the chosen name cost 2 more to activate." The generated opening body was registered only in the
+// dead $activateCardAbilities table, so playing it never asked for a name and nothing was taxed. ---
+$fixtures['kingdoms-divide-choose-card-name-taxes-it-two-more'] = [
+    'testedCards' => ['qy34r8gffr'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        $gaHand($GA_DG), // payer
+        $gaHand('qy34r8gffr'), // Kingdom's Divide -> myHand-1
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-1')], mrdPay(1, 1), [mrdAns(1, 'myMemory-0')]), // choose the card name "Dungeon Guide"
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
