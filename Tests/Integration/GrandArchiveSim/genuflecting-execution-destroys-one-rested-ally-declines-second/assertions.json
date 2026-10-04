@@ -1,0 +1,45 @@
+[
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Champion plus two surviving allies"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "The second rested ally (Fluffy Shopkeep) survived because the player declined the second target"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "It is still rested"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the first chosen rested ally was destroyed"
+    },
+    {
+        "step": 10,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

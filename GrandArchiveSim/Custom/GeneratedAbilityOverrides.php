@@ -981,3 +981,45 @@ $cardActivatedAbilities["FnTT1G4OQg:0"] = function($player) { //FnTT1G4OQg
       DrawIntoMemory($player, 1);
   }
 };
+
+// ---------------------------------------------------------------------------------------------
+// Genuflecting Execution (iqzaNLhqk4): "Destroy up to two target rested allies." Both generated target handlers called DestroyAlly(), which does not exist in
+// GrandArchiveSim (the engine function is DoAllyDestroyed()): a fatal "undefined function" as soon as the first target was chosen, so nothing was ever destroyed.
+// Verbatim handlers with DoAllyDestroyed().
+// ---------------------------------------------------------------------------------------------
+$customDQHandlers["iqzaNLhqk4:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //iqzaNLhqk4
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DecisionQueueController::StoreVariable("chosen1", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "iqzaNLhqk4:0:CardActivated-1")) return;
+  $chosen1 = $lastDecision;
+  if($chosen1 == "-") return;
+  DoAllyDestroyed($player, $chosen1);
+  DecisionQueueController::CleanupRemovedCards();
+  $allAllies2 = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]));
+  $rested2 = [];
+  foreach($allAllies2 as $aMZ2) {
+      $aObj2 = GetZoneObject($aMZ2);
+      if($aObj2 !== null && isset($aObj2->Status) && $aObj2->Status == 1) {
+          $rested2[] = $aMZ2;
+      }
+  }
+  $rested2 = FilterSpellshroudTargets($rested2);
+  if(empty($rested2)) return;
+  $targetStr2 = implode("&", $rested2);
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr2, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "iqzaNLhqk4:0:CardActivated-2", 1);
+};
+
+$customDQHandlers["iqzaNLhqk4:0:CardActivated-2"] = function($player, $parts, $lastDecision) { //iqzaNLhqk4
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DecisionQueueController::StoreVariable("chosen2", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "iqzaNLhqk4:0:CardActivated-2")) return;
+  $chosen1 = DecisionQueueController::GetVariable("chosen1");
+  $chosen2 = $lastDecision;
+  if($chosen2 == "-") return;
+  DoAllyDestroyed($player, $chosen2);
+};

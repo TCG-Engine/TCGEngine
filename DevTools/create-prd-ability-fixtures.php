@@ -27374,6 +27374,34 @@ $fixtures['restoring-embers-influence-five-recovers-without-drawing'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-5')], mrdPay(1, 4)),
 ];
 
+
+// --- Genuflecting Execution (iqzaNLhqk4): "Destroy up to two target rested allies." Both generated target handlers called DestroyAlly(), which does not exist (fatal);
+// the engine function is DoAllyDestroyed(). Cost 7 at champion level 0 (Efficiency). Player 2 controls two RESTED allies and one awake ally. ---
+$gaGenuflectSetup = function() use ($gaHand, $GA_DG, $GA_FS) {
+    $rows = [['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]]]; // any advanced element auto-enables EXALTED
+    for ($i = 0; $i < 7; ++$i) $rows[] = $gaHand($GA_DG); // seven payers (hand-0..6)
+    $rows[] = $gaHand('iqzaNLhqk4'); // Genuflecting Execution -> myHand-7
+    $rows[] = ['player' => 2, 'zone' => 'myField', 'cardID' => $GA_DG]; // theirField-1 (rested below)
+    $rows[] = ['player' => 2, 'zone' => 'myField', 'cardID' => $GA_FS]; // theirField-2 (rested below)
+    $rows[] = ['player' => 2, 'zone' => 'myField', 'cardID' => $GA_DG]; // theirField-3 stays awake
+    $rows[] = ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 1]];
+    $rows[] = ['player' => 2, 'patchMzId' => 'myField-2', 'setProperties' => ['Status' => 1]];
+    return $rows;
+};
+$fixtures['genuflecting-execution-destroys-two-rested-allies'] = [
+    'testedCards' => ['iqzaNLhqk4'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => $gaGenuflectSetup(),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 7), [mrdAns(1, 'theirField-1'), mrdAns(1, 'theirField-1')]), // second target: the next rested ally shifts into slot 1
+];
+$fixtures['genuflecting-execution-destroys-one-rested-ally-declines-second'] = [
+    'testedCards' => ['iqzaNLhqk4'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => $gaGenuflectSetup(),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 7), [mrdAns(1, 'theirField-1'), mrdPass(1)]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

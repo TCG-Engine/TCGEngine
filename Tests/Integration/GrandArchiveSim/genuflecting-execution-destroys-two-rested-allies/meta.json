@@ -1,0 +1,28 @@
+{
+    "name": "genuflecting-execution-destroys-two-rested-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:38:04+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "iqzaNLhqk4"
+    ],
+    "notes": "Genuflecting Execution (iqzaNLhqk4): the opponent controls two rested allies and one awake ally. Both rested allies are destroyed; the awake ally is untouched. Pre-fix choosing the first target died with an undefined-function fatal.",
+    "semanticCoverage": {
+        "testedCards": [
+            "iqzaNLhqk4"
+        ],
+        "mechanics": [
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Destroy up to two target rested allies."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Both generated target handlers of customDQHandlers[\"iqzaNLhqk4:0:CardActivated-1\"/\"-2\"] called DestroyAlly(), which does not exist in GrandArchiveSim (the engine function is DoAllyDestroyed()): choosing the first target died with a fatal 'Call to undefined function DestroyAlly()', so Genuflecting Execution never destroyed anything (and its cost was already spent). The generated file cannot be edited (gitignored), so both handlers are overridden in Custom/GeneratedAbilityOverrides.php with DoAllyDestroyed().",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[iqzaNLhqk4:0:CardActivated-1] and [-2]",
+        "fixCommit": "TBD"
+    }
+}
