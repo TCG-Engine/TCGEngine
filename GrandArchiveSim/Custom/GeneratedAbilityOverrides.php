@@ -1101,3 +1101,24 @@ $customDQHandlers["k02kvfblwa:0:Enter-1"] = function($player, $parts, $lastDecis
   }
   PutTempZoneOnBottomOfDeck($player);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Kongming, Erudite Strategist (0i139x5eub): "Kongming Lineage -- On Enter: Banish the top card of your deck. Until the beginning of your next turn, you may play it as long as your Shifting
+// Currents face North. Repeat this process for East, South, and West." The generated body banished with a loop of MZMove($player, "myDeck-0", "myBanish"): Remove() only flags a slot removed
+// (no splice), so "myDeck-0" re-resolved to the same removed slot, MZMove returned null on the second pass and the loop broke -- only the North card was ever banished (East, South and West
+// never happened). Verbatim body with MZMoveTopOfZone().
+// ---------------------------------------------------------------------------------------------
+$enterAbilities["0i139x5eub:0"] = function($player) { //0i139x5eub
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Banish top card of deck while facing each direction; tag with direction for "may play until next turn"
+  $directions = ["NORTH", "EAST", "SOUTH", "WEST"];
+  foreach($directions as $dir) {
+      $deck = GetZone("myDeck");
+      if(empty($deck)) break;
+      $banishedObj = MZMoveTopOfZone($player, "myDeck", "myBanish");
+      if($banishedObj === null) break;
+      if(!is_array($banishedObj->TurnEffects)) $banishedObj->TurnEffects = [];
+      $banishedObj->TurnEffects[] = "KONGMING_" . $dir;
+  }
+};

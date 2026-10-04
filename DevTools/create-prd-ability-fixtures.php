@@ -27524,6 +27524,34 @@ $fixtures['kind-beastcaller-enter-look-five-no-animal-all-five-bottom'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3)),
 ];
 
+
+// --- Kongming, Erudite Strategist (0i139x5eub): "On Enter: Banish the top card of your deck. Until the beginning of your next turn, you may play it as long as your Shifting Currents face North.
+// Repeat this process for East, South, and West." The generated body banished with a fixed-index MZMove loop: only the North card was ever banished. The champion levels up (level 1 -> 2) from
+// Dante, Prodigal Swain; the 2-memory level-up cost is pre-loaded. ---
+$fixtures['kongming-erudite-strategist-enter-banishes-four-top-cards'] = [
+    'testedCards' => ['0i139x5eub'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Kongming, Erudite Strategist
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'apVtyt48u3']], // Dante, Prodigal Swain (level 1, MAGE) satisfies the level-1 -> 2 gate
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays the 2-memory level-up cost, card 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 2/2
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'deckTop' => [$GA_DG, $GA_FS, $GA_FW, 'bx4k3akqx7', $GA_FS, $GA_MARK]], // the four to banish (top first), a Fluffy Shopkeep (the Kongming lineage's inherited draw takes it), then a Charge the Soul marker
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Erudite Strategist: On Enter
+    ],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

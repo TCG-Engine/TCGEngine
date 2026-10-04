@@ -1,0 +1,84 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Two level-up cost cards plus the four banished top cards"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myBanish-2",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "North card: the original top card"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myBanish-3",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "East card: the second card"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myBanish-4",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "n8wyfG9hbY",
+        "semantic": true,
+        "label": "South card: the third card"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myBanish-5",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "bx4k3akqx7",
+        "semantic": true,
+        "label": "West card: the fourth card"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 14,
+        "semantic": true,
+        "label": "Four banished cards plus the inherited draw (the filler Fluffy Shopkeep) left the deck"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "ra9950o14t",
+        "semantic": true,
+        "label": "The marker is the new top card: exactly four cards were banished"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Hand after the inherited draw"
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

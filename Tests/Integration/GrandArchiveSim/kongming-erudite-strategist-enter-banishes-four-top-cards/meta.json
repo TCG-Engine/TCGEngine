@@ -1,0 +1,29 @@
+{
+    "name": "kongming-erudite-strategist-enter-banishes-four-top-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:51:05+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "0i139x5eub"
+    ],
+    "notes": "Kongming, Erudite Strategist (0i139x5eub) levels up from level 1 and its On Enter banishes the top FOUR cards (North, East, South, West); a marker card sits below them (after a Fluffy Shopkeep the Kongming lineage's inherited draw takes). Pre-fix only the North card was banished. (The KONGMING_<direction> 'may play' tags are not asserted: the scripted level-up lands in a phase where the tags are cleared in the same step.)",
+    "semanticCoverage": {
+        "testedCards": [
+            "0i139x5eub"
+        ],
+        "mechanics": [
+            "banish",
+            "zone-movement",
+            "shifting-currents"
+        ],
+        "rulesClauses": [
+            "On Enter: Banish the top card of your deck. Until the beginning of your next turn, you may play it as long as your Shifting Currents face North. Repeat this process for East, South, and West."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated enterAbilities[\"0i139x5eub:0\"] body banished with a loop of MZMove($player, \"myDeck-0\", \"myBanish\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" re-resolved to the SAME removed slot after the first pass; MZMove returned null and the loop 'break'-ed -- only the North card was ever banished (East, South and West never happened, so three of the four 'may play' cards did not exist). The generated file cannot be edited (gitignored), so the closure is overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone().",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php enterAbilities[0i139x5eub:0]",
+        "fixCommit": "TBD"
+    }
+}
