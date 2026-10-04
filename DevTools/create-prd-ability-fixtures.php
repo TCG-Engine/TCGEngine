@@ -27265,6 +27265,53 @@ $fixtures['dormant-sacrificial-altar-sacrifice-automaton-and-human-mills-two'] =
 ];
 
 // ---------------------------------------------------------------------------
+
+// --- Lena, Dorumegia's Herald (gwve1d47o7): "(4), [REST]: Look at the top four cards of your deck. You may reveal a Ranger ally card from among them and
+// put it into your hand. Put the rest on the bottom of your deck in any order." and Enhance Hearing (edg616r0za): "Look at the top three cards of your
+// deck. You may reveal a wind element card or a Reaction card from among them and put it into your hand. Put the rest on the bottom." The generated bodies
+// looked with a fixed-index MZMove loop (only the top card was ever looked at) and the "may reveal" follow-up was skipped on PASS. ---
+$GA_RANGER = 'bx4k3akqx7'; // Hidden Longbowman (RANGER ally)
+$gaLenaSetup = function(array $top, int $player = 1) use ($gaTop) {
+    return [
+        ['player' => $player, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7ozuj68m69', 'Subcards' => ['tafqldAGRF']]], // Diana, Deadly Duelist (level 2 RANGER): Class Bonus
+        ['player' => $player, 'zone' => 'myField', 'cardID' => 'gwve1d47o7'], // Lena, Dorumegia's Herald -> field-1
+        $gaTop($top, $player),
+    ];
+};
+$gaLenaAct = function(int $p) { return mrdAct($p, 10001, 'myField-1!CustomInput!Activate:0'); };
+$fixtures['lena-rest-look-four-reveal-deep-ranger-rest-bottom'] = [
+    'testedCards' => ['gwve1d47o7'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // top four, top to bottom: DG, FS, FW, Hidden Longbowman (RANGER, 4th); then Charge the Soul (marker: must be the new top card)
+    'setup' => $gaLenaSetup([$GA_DG, $GA_FS, $GA_FW, $GA_RANGER, $GA_MARK]),
+    'actions' => array_merge([$gaLenaAct(1), mrdAns(1, 'myTempZone-3')], mrdPay(1, 4)), // the look resolves before the (4) reserve payments are asked
+];
+$fixtures['lena-rest-look-four-decline-all-four-bottom'] = [
+    'testedCards' => ['gwve1d47o7'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaLenaSetup([$GA_DG, $GA_FS, $GA_FW, $GA_RANGER, $GA_MARK]),
+    'actions' => array_merge([$gaLenaAct(1), mrdPass(1)], mrdPay(1, 4)), // "You may reveal": decline; then pay
+];
+$fixtures['lena-rest-look-four-no-ranger-all-four-bottom'] = [
+    'testedCards' => ['gwve1d47o7'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaLenaSetup([$GA_DG, $GA_FS, $GA_FW, $GA_FW, $GA_MARK]),
+    'actions' => array_merge([$gaLenaAct(1)], mrdPay(1, 4)),
+];
+$fixtures['enhance-hearing-look-three-reveal-deep-wind-rest-bottom'] = [
+    'testedCards' => ['edg616r0za'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    // top three, top to bottom: DG, FS, Fairy Whispers (WIND, 3rd); then Charge the Soul (marker)
+    'setup' => [$gaHand('edg616r0za'), $gaTop([$GA_DG, $GA_FS, $GA_FW, $GA_MARK])],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdAns(1, 'myTempZone-2')]),
+];
+$fixtures['enhance-hearing-look-three-decline-all-three-bottom'] = [
+    'testedCards' => ['edg616r0za'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [$gaHand('edg616r0za'), $gaTop([$GA_DG, $GA_FS, $GA_FW, $GA_MARK])],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1)]), // "You may reveal": decline
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

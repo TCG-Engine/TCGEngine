@@ -839,3 +839,72 @@ $customDQHandlers["px8jypwc8t:0:ActivateAbility-2"] = function($player, $parts, 
   DecisionQueueController::CleanupRemovedCards();
   MillCards($player, "myDeck", "myGraveyard", 2);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Lena, Dorumegia's Herald (gwve1d47o7) and Enhance Hearing (edg616r0za): "Look at the top N cards of your deck. You may reveal a ... card from among them and put it
+// into your hand. Put the rest on the bottom of your deck in any order." The generated bodies looked with a loop of MZMove($player, "myDeck-0", "myTempZone"):
+// Remove() only flags a slot removed (no splice), so "myDeck-0" re-resolved to the same removed slot and only the TOP card was ever looked at. Also the
+// "may reveal" follow-up CUSTOM was skipped on PASS (dontSkipOnPass missing), so declining stranded the looked-at card in the temp zone. Verbatim bodies with
+// MZMoveTopOfZone() and dontSkipOnPass.
+// ---------------------------------------------------------------------------------------------
+$activateAbilityAbilities["gwve1d47o7:0"] = function($player) { //Look
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $abilityIndex = DecisionQueueController::GetVariable("abilityIndex");
+  // Pay reserve cost: (4), or (2) if distant
+  $obj = GetZoneObject($mzID);
+  $baseCost = 4;
+  if($obj !== null && IsDistant($obj)) $baseCost = 2;
+  for($i = 0; $i < $baseCost; ++$i) {
+      DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+  }
+  // Look at top 4
+  $deck = &GetDeck($player);
+  $count = min(4, count($deck));
+  if($count === 0) return;
+  for($i = 0; $i < $count; ++$i) {
+      MZMoveTopOfZone($player, "myDeck", "myTempZone");
+  }
+  // Find Ranger allies
+  $eligible = [];
+  $tempCards = ZoneSearch("myTempZone");
+  foreach($tempCards as $tmz) {
+      $tobj = GetZoneObject($tmz);
+      if($tobj !== null && PropertyContains(CardType($tobj->CardID), "ALLY") && PropertyContains(CardSubtypes($tobj->CardID), "RANGER")) {
+          $eligible[] = $tmz;
+      }
+  }
+  if(empty($eligible)) {
+      EnhanceHearingFinish($player, "PASS");
+      return;
+  }
+  $eligibleStr = implode("&", $eligible);
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $eligibleStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "gwve1d47o7:0:ActivateAbility-1", 1, "", 1);
+};
+
+$cardActivatedAbilities["edg616r0za:0"] = function($player) { //Look at top 3, may take wind/reaction
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $deck = &GetDeck($player);
+  $count = min(3, count($deck));
+  if($count === 0) return;
+  for($i = 0; $i < $count; ++$i) {
+      MZMoveTopOfZone($player, "myDeck", "myTempZone");
+  }
+  $eligible = [];
+  $tempCards = ZoneSearch("myTempZone");
+  foreach($tempCards as $tmz) {
+      $tobj = GetZoneObject($tmz);
+      if(CardElement($tobj->CardID) === "WIND" || PropertyContains(CardSubtypes($tobj->CardID), "REACTION")) {
+          $eligible[] = $tmz;
+      }
+  }
+  if(empty($eligible)) {
+      EnhanceHearingFinish($player, "PASS");
+      return;
+  }
+  $eligibleStr = implode("&", $eligible);
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $eligibleStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "edg616r0za:0:CardActivated-1", 1, "", 1);
+};

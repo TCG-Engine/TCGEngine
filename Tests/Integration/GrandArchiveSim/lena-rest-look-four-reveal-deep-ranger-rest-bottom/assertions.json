@@ -1,0 +1,84 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myTempZone",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "label": "No looked-at card is left stranded in the temp zone",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 17,
+        "label": "Deck size",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "ra9950o14t",
+        "label": "The card below the looked-at cards (marker) is the new top card: exactly 4 were looked at",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "label": "Hand size",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myHand-3",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "bx4k3akqx7",
+        "label": "The revealed card is in hand",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myDeck-14",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "label": "Bottom-of-deck slot 1 of 3: looked-at card in original relative order",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myDeck-15",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "label": "Bottom-of-deck slot 2 of 3: looked-at card in original relative order",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myDeck-16",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "n8wyfG9hbY",
+        "label": "Bottom-of-deck slot 3 of 3: looked-at card in original relative order",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

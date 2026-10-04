@@ -1,0 +1,29 @@
+{
+    "name": "enhance-hearing-look-three-decline-all-three-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:26:47+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "edg616r0za"
+    ],
+    "notes": "Enhance Hearing (edg616r0za): a wind card is available as the 3rd looked-at card but the player declines the 'may reveal'. All three go to the bottom in their original order and nothing is stranded in the temp zone (the follow-up needed dontSkipOnPass).",
+    "semanticCoverage": {
+        "testedCards": [
+            "edg616r0za"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "look-at-top",
+            "bottom-deck"
+        ],
+        "rulesClauses": [
+            "Look at the top three cards of your deck. You may reveal a wind element card or a Reaction card from among them and put it into your hand. Put the rest on the bottom of your deck in any order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated cardActivatedAbilities[\"edg616r0za:0\"] body looked at the top three cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" re-resolved to the SAME removed slot on every iteration after the first and MZMove's already-removed guard silently no-oped -- only the top card was ever looked at (a wind or Reaction card deeper than the first card was never offered). Also the \"may reveal\" follow-up CUSTOM was added without dontSkipOnPass, so declining (PASS) skipped EnhanceHearingFinish and stranded the looked-at card in myTempZone. The generated file cannot be edited (gitignored), so the closure is overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone() and dontSkipOnPass:1.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[edg616r0za:0]",
+        "fixCommit": "TBD"
+    }
+}
