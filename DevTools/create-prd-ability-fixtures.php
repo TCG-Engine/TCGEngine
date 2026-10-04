@@ -27552,6 +27552,20 @@ DECK,
     ],
 ];
 
+
+// --- Tide Diviner (zrBBvgIvt6): "On Enter: Look at the top 1+LV cards of your deck. Put one of those cards into your hand and the rest into your graveyard." The generated body looked with a
+// fixed-index MZMove loop: only the top card was ever looked at (the champion is level 2 here, so three cards must be looked at). ---
+$fixtures['tide-diviner-enter-level-two-looks-three-takes-deep-card-rest-to-graveyard'] = [
+    'testedCards' => ['zrBBvgIvt6'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '0i139x5eub', 'Subcards' => ['tafqldAGRF']]], // level-2 champion with a Spirit of Water lineage (water element)
+        $gaHand('zrBBvgIvt6'), // Tide Diviner -> myHand-7
+        $gaTop([$GA_DG, $GA_FS, $GA_FW, $GA_MARK]), // top three looked at (take the 3rd), then a Charge the Soul marker
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4), [mrdAns(1, 'myTempZone-2')]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

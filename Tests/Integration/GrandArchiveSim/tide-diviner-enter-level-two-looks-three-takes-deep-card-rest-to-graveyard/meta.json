@@ -1,0 +1,29 @@
+{
+    "name": "tide-diviner-enter-level-two-looks-three-takes-deep-card-rest-to-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:54:38+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "zrBBvgIvt6"
+    ],
+    "notes": "Tide Diviner (zrBBvgIvt6) with a level-2 champion looks at the top 3 cards: the third goes to hand, the first two to the graveyard, and a marker sits below them. Pre-fix only the top card was ever looked at.",
+    "semanticCoverage": {
+        "testedCards": [
+            "zrBBvgIvt6"
+        ],
+        "mechanics": [
+            "look-at-top",
+            "mill",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "On Enter: Look at the top 1+LV cards of your deck. Put one of those cards into your hand and the rest into your graveyard."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated enterAbilities[\"zrBBvgIvt6:0\"] body looked at the top 1+LV cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" re-resolved to the SAME removed slot after the first and MZMove's already-removed guard silently no-oped -- only the top card was ever looked at at any champion level (nothing went to the graveyard and the player never got a choice). The generated file cannot be edited (gitignored), so the closure is overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone().",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php enterAbilities[zrBBvgIvt6:0]",
+        "fixCommit": "TBD"
+    }
+}

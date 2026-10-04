@@ -1122,3 +1122,26 @@ $enterAbilities["0i139x5eub:0"] = function($player) { //0i139x5eub
       $banishedObj->TurnEffects[] = "KONGMING_" . $dir;
   }
 };
+
+// ---------------------------------------------------------------------------------------------
+// Tide Diviner (zrBBvgIvt6): "On Enter: Look at the top 1+LV cards of your deck. Put one of those cards into your hand and the rest into your graveyard." The generated body looked with a loop of
+// MZMove($player, "myDeck-0", "myTempZone"): Remove() only flags a slot removed (no splice), so "myDeck-0" re-resolved to the same removed slot and only the TOP card was ever looked at (any champion
+// level above 0 still showed a single card, and the rest never went to the graveyard). Verbatim body with MZMoveTopOfZone().
+// ---------------------------------------------------------------------------------------------
+$enterAbilities["zrBBvgIvt6:0"] = function($player) { //Look at Top 1+LV Cards
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // On Enter: look at top 1+LV cards of your deck, put one in hand, rest to graveyard
+  $champLevel = PlayerLevel($player);
+  $n = 1 + $champLevel;
+  $deck = &GetDeck($player);
+  $availableCards = min($n, count($deck));
+  if($availableCards === 0) return;
+  for($i = 0; $i < $availableCards; ++$i) {
+      MZMoveTopOfZone($player, "myDeck", "myTempZone");
+  }
+  $tempCards = ZoneSearch("myTempZone");
+  $tempMZList = implode("&", $tempCards);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $tempMZList, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "zrBBvgIvt6:0:Enter-1", 1);
+};
