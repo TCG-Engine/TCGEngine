@@ -722,3 +722,37 @@ $customDQHandlers["fIQR28QmYg:0:Enter-1"] = function($player, $parts, $lastDecis
   $topCount = intval(DecisionQueueController::GetVariable("TopDeckOptionalCount"));
   ResolveTopDeckOptionalSelection($player, $chosen, $topCount, "myMemory", null);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Storm Tyrant's Eye (EQZZsiUDyl): the generated body moved the arcane card to hand and then put the rest on the bottom with a loop of
+// MZMove($player, "myDeck-0", "myDeck"): Remove() only flags a slot removed, so "myDeck-0" re-resolved to the same removed slot and only ONE
+// revealed card reached the bottom (the others stayed on top). Verbatim body with MZMoveTopOfZone().
+// ---------------------------------------------------------------------------------------------
+$activateAbilityAbilities["EQZZsiUDyl:0"] = function($player) { //
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $abilityIndex = DecisionQueueController::GetVariable("abilityIndex");
+  // Storm Tyrant's Eye: [cost: banish self] Reveal until arcane found; deal unpreventable damage = cards revealed; put 1 to hand, rest to bottom
+  $deck = &GetDeck($player);
+  $revealed = 0;
+  $foundIdx = -1;
+  for($i = 0; $i < count($deck); ++$i) {
+      $revealed++;
+      $element = CardElement($deck[$i]->CardID);
+      if(PropertyContains($element, "ARCANE")) {
+          $foundIdx = $i;
+          break;
+      }
+  }
+  if($revealed > 0) {
+      DealChampionDamage($player, $revealed);
+  }
+  if($foundIdx >= 0) {
+      MZMove($player, "myDeck-" . $foundIdx, "myHand");
+      $revealed--;
+  }
+  $deck = &GetDeck($player);
+  for($i = 0; $i < $revealed && count($deck) > 0; ++$i) {
+      MZMoveTopOfZone($player, "myDeck", "myDeck");
+  }
+};

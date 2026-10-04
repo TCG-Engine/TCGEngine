@@ -1,0 +1,29 @@
+{
+    "name": "storm-tyrant-eye-reveal-until-arcane-damage-rest-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T05:18:58+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "EQZZsiUDyl"
+    ],
+    "notes": "Storm Tyrant's Eye (EQZZsiUDyl) seeded on the field and activated for real (Banish cost). Top four: Dungeon Guide, Fluffy Shopkeep, Fulgurite Coordinator (ARCANE, 3rd), Charge the Soul (marker). Three cards are revealed: 3 unpreventable damage to the champion, the arcane card goes to hand, the other two go to the bottom and the marker is the new top card. Pre-fix only one revealed card reached the bottom.",
+    "semanticCoverage": {
+        "testedCards": [
+            "EQZZsiUDyl"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "damage",
+            "bottom-deck"
+        ],
+        "rulesClauses": [
+            "Banish Storm Tyrant's Eye: Reveal cards from the top of your deck until you reveal an arcane element card. Deal unpreventable damage to your champion equal to the amount of cards revealed this way. Put one of those cards into your hand and the rest on the bottom of your deck in a random order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated activateAbilityAbilities[\"EQZZsiUDyl:0\"] body moved the arcane card to hand and then put the rest of the revealed cards on the bottom with a loop of MZMove($player, \"myDeck-0\", \"myDeck\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" re-resolved to the SAME removed slot on every iteration after the first and MZMove's guard silently no-oped -- only ONE revealed card reached the bottom (live repro on HEAD: Fluffy Shopkeep stayed on top of the deck, deck-0 was not the card below the three revealed). The generated file is gitignored, so the closure is overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone(). (The 'random order' of the rest is not randomized by the engine: out of scope.)",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php activateAbilityAbilities[EQZZsiUDyl:0]",
+        "fixCommit": "TBD"
+    }
+}

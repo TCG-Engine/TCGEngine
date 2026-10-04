@@ -27186,6 +27186,21 @@ $fixtures['lucia-reclaimed-blight-player-two-enter-look-six-reveal-deep-spell-to
     ]),
 ];
 
+
+// --- Storm Tyrant's Eye (EQZZsiUDyl): "Banish CARDNAME: Reveal cards from the top of your deck until you reveal an arcane element card. Deal
+// unpreventable damage to your champion equal to the amount of cards revealed this way. Put one of those cards into your hand and the
+// rest on the bottom of your deck in a random order." ---
+$GA_ARCANE = '7aZwqrfbzO'; // Fulgurite Coordinator (ARCANE ally)
+$gaStormEyeAct = function(int $p) { return mrdAct($p, 10001, 'myField-1!CustomInput!Activate:0'); };
+$gaStormEyeSetup = function(array $top, int $player = 1) use ($gaTop) { return [['player' => $player, 'zone' => 'myField', 'cardID' => 'EQZZsiUDyl'], $gaTop($top, $player)]; };
+$fixtures['storm-tyrant-eye-reveal-until-arcane-damage-rest-bottom'] = [
+    'testedCards' => ['EQZZsiUDyl'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // top: DG, FS, Fulgurite Coordinator (ARCANE, 3rd) then Charge the Soul (marker): reveal 3, 3 damage, arcane to hand, DG + FS to the bottom
+    'setup' => $gaStormEyeSetup([$GA_DG, $GA_FS, $GA_ARCANE, $GA_MARK]),
+    'actions' => [$gaStormEyeAct(1)],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

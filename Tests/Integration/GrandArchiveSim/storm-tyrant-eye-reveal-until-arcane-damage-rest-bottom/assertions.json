@@ -1,0 +1,11 @@
+[
+    {"step":1,"type":"card_property_equals","mzId":"myField-0","viewerPlayerID":1,"property":"Damage","value":"3","semantic":true,"label":"Unpreventable damage equals the 3 cards revealed"},
+    {"step":1,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"The arcane card is in hand (7 + 1)"},
+    {"step":1,"type":"card_property_equals","mzId":"myHand-7","viewerPlayerID":1,"property":"CardID","value":"7aZwqrfbzO","semantic":true,"label":"The revealed arcane card is in hand"},
+    {"step":1,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Storm Tyrant's Eye banished itself as the cost"},
+    {"step":1,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":16,"semantic":true,"label":"Deck: 17 minus the arcane card"},
+    {"step":1,"type":"card_property_equals","mzId":"myDeck-0","viewerPlayerID":1,"property":"CardID","value":"ra9950o14t","semantic":true,"label":"The 4th card (marker) is the new top card: all three revealed cards left the top"},
+    {"step":1,"type":"card_property_equals","mzId":"myDeck-14","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom slot 1 of 2: first non-arcane revealed card"},
+    {"step":1,"type":"card_property_equals","mzId":"myDeck-15","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom slot 2 of 2"},
+    {"step":1,"type":"decision_queue_empty","player":"all"}
+]
