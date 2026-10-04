@@ -1200,3 +1200,31 @@ $customDQHandlers["3bS1Y9OQrF:0:CardActivated-1"] = function($player, $parts, $l
       $Preserve_Cards[$movedObj->CardID] = true;
   }
 };
+
+// ---------------------------------------------------------------------------------------------
+// Spring Cleaning (dZ0Y2ILgZW): "Put one of your omens into your graveyard. If you do, look at the top three cards of your deck. Banish one of them and put an omen counter on it. Put the rest on the
+// bottom of your deck in any order." The generated handler looked with a loop of MZMove($player, "myDeck-0", "myTempZone"): Remove() only flags a slot removed (no splice), so only the TOP card was ever
+// looked at (the 'choice' of which to banish was a single card and nothing else went to the bottom). Verbatim handler with MZMoveTopOfZone().
+// ---------------------------------------------------------------------------------------------
+$customDQHandlers["dZ0Y2ILgZW:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //dZ0Y2ILgZW
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DecisionQueueController::StoreVariable("chosenOmen", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "dZ0Y2ILgZW:0:CardActivated-1")) return;
+  $chosenOmen = $lastDecision;
+  MZMove($player, $chosenOmen, "myGraveyard");
+  
+  $deck = GetZone("myDeck");
+  $revealCount = min(3, count($deck));
+  if($revealCount <= 0) return;
+  for($i = 0; $i < $revealCount; ++$i) {
+      MZMoveTopOfZone($player, "myDeck", "myTempZone");
+  }
+  
+  $tempCards = ZoneSearch("myTempZone");
+  if(empty($tempCards)) return;
+  $banishStr = implode("&", $tempCards);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $banishStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "dZ0Y2ILgZW:0:CardActivated-2", 1);
+};

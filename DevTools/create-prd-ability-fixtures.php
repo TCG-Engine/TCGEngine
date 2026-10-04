@@ -27595,6 +27595,20 @@ $fixtures['natures-insight-memory-card-cost-three-puts-top-three-into-material']
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdAns(1, 'myMemory-0')]), // cost 5 - 2 (Class Bonus) = 3 payments
 ];
 
+
+// --- Spring Cleaning (dZ0Y2ILgZW): "Put one of your omens into your graveyard. If you do, look at the top three cards of your deck. Banish one of them and put an omen counter on it. Put the
+// rest on the bottom of your deck in any order." The generated handler looked with a fixed-index MZMove loop: only the top card was ever looked at. An omen is a banished card with an omen counter. ---
+$fixtures['spring-cleaning-omen-to-graveyard-looks-three-banishes-deep-card-as-omen-rest-bottom'] = [
+    'testedCards' => ['dZ0Y2ILgZW'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => $GA_DG, 'setProperties' => ['Counters' => ['omen' => 1]]], // an existing omen -> myBanish-0
+        $gaHand('dZ0Y2ILgZW'), // Spring Cleaning -> myHand-7
+        $gaTop([$GA_DG, $GA_FS, $GA_FW, $GA_MARK]), // top three looked at (the 3rd, Fairy Whispers, becomes the new omen; the other two go to the bottom), then a marker
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myBanish-0'), mrdAns(1, 'myTempZone-2')]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
