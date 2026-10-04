@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-04T15:29:43+00:00",
+    "generatedAt": "2026-10-04T15:37:43+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 692,
+        "cardsWithExistingFixtures": 696,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1795,
+        "cardsNeedingSemanticCoverage": 1791,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2380,24 +2380,6 @@
             "priority": 24
         },
         {
-            "cardId": "OiyjVzW7Av",
-            "name": "Overflow the Barrow",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "wr42i6eifn",
             "name": "Peaceful Reunion",
             "type": "ACTION",
@@ -3163,23 +3145,6 @@
                 "cost",
                 "damage",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "px8jypwc8t",
-            "name": "Dormant Sacrificial Altar",
-            "type": "DOMAIN",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6396,25 +6361,6 @@
                 "draw-discard",
                 "zone-movement",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "6fxxgmuesd",
-            "name": "Icebound Slam",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -30334,21 +30280,6 @@
             "priority": 11
         },
         {
-            "cardId": "x6jo8zxhl9",
-            "name": "Waterfall Veiler",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "dm44nt1lyk",
             "name": "Winbless Forecaster",
             "type": "ALLY",
@@ -44859,6 +44790,28 @@
             "priority": 44
         },
         {
+            "cardId": "OiyjVzW7Av",
+            "name": "Overflow the Barrow",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "overflow-the-barrow-adds-haunt-then-mills-haunt-count"
+            ],
+            "semanticFixtures": [
+                "overflow-the-barrow-adds-haunt-then-mills-haunt-count"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "9e0z7hb9id",
             "name": "Rebounding Gust",
             "type": "ACTION",
@@ -44983,6 +44936,27 @@
             ],
             "semanticFixtures": [
                 "cavalier-rescue-target-turn-effect"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "px8jypwc8t",
+            "name": "Dormant Sacrificial Altar",
+            "type": "DOMAIN",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "dormant-sacrificial-altar-sacrifice-automaton-and-human-mills-two"
+            ],
+            "semanticFixtures": [
+                "dormant-sacrificial-altar-sacrifice-automaton-and-human-mills-two"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45277,6 +45251,31 @@
             ],
             "semanticFixtures": [
                 "golden-bishop-charge-counter-prevent-does-not-rest"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "6fxxgmuesd",
+            "name": "Icebound Slam",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "icebound-slam-on-attack-mills-five-four-water-no-bonus",
+                "icebound-slam-on-attack-mills-five-water-gets-plus-five-power"
+            ],
+            "semanticFixtures": [
+                "icebound-slam-on-attack-mills-five-four-water-no-bonus",
+                "icebound-slam-on-attack-mills-five-water-gets-plus-five-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46856,6 +46855,25 @@
             ],
             "semanticFixtures": [
                 "the-looking-glass-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "x6jo8zxhl9",
+            "name": "Waterfall Veiler",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status"
+            ],
+            "existingFixtures": [
+                "waterfall-veiler-champion-hit-opponent-mills-four"
+            ],
+            "semanticFixtures": [
+                "waterfall-veiler-champion-hit-opponent-mills-four"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

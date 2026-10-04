@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated onHitAbilities[\"x6jo8zxhl9:0\"] milled the opponent's top four cards with a loop of MZMove($player, \"theirDeck-0\", \"theirGraveyard\"). Remove() only flags a slot removed (no splice), so \"theirDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped: only the top card was ever milled (live repro: opponent graveyard 1, deck 17). Overridden in GeneratedAbilityOverrides.php with MillCards().",
         "affectedFunction": "GeneratedAbilityOverrides.php onHitAbilities[\"x6jo8zxhl9:0\"] override (generated body in GeneratedMacroCode.php)",
-        "fixCommit": "TBD"
+        "fixCommit": "0b4b7ef1"
     }
 }
