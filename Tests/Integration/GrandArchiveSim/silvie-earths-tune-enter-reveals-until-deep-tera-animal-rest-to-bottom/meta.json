@@ -1,0 +1,30 @@
+{
+    "name": "silvie-earths-tune-enter-reveals-until-deep-tera-animal-rest-to-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T17:05:38+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ZR8tnLruR6"
+    ],
+    "notes": "Silvie, Earth's Tune (ZR8tnLruR6), leveled up from Silvie, With the Pack: the first tera Animal/Beast ally (Gaia's Songbird) is the 4th card; it goes to hand and the three revealed cards before it go to the bottom (a Fluffy Shopkeep below them is the level-up's own draw; a marker is the new top). Pre-fix only one of them moved.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ZR8tnLruR6"
+        ],
+        "mechanics": [
+            "reveal-until",
+            "bottom-deck",
+            "level-up",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "On Enter: Reveal cards from the top of your deck until you reveal a tera element Animal or Beast ally card. Put that card into your hand and the rest on the bottom of your deck in a random order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Same defect as Gaia's Songbird: the generated enterAbilities[\"ZR8tnLruR6:0\"] put the revealed-but-not-taken cards on the bottom with a loop of MZMove($player, \"myDeck-0\", \"myDeck\") -- Remove() only flags a slot removed (no splice), so only ONE of them reached the bottom and the rest stayed on top. Overridden in Custom/GeneratedAbilityOverrides.php (shared with Gaia's Songbird) with MZMoveTopOfZone().",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php enterAbilities[ZR8tnLruR6:0]",
+        "fixCommit": "TBD"
+    }
+}

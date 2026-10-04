@@ -27676,6 +27676,33 @@ $fixtures['gaias-songbird-enter-reveals-until-deep-beast-rest-to-bottom'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1)),
 ];
 
+
+// --- Silvie, Earth's Tune (ZR8tnLruR6): "On Enter: Reveal cards from the top of your deck until you reveal a tera element Animal or Beast ally card. Put that card into your hand and the rest on the
+// bottom of your deck." Same fixed-index bottom loop as Gaia's Songbird (fixed by the same override); the champion levels up from Silvie, With the Pack (level 2). ---
+$fixtures['silvie-earths-tune-enter-reveals-until-deep-tera-animal-rest-to-bottom'] = [
+    'testedCards' => ['ZR8tnLruR6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Silvie, Earth's Tune
+# Main
+10 Dungeon Guide
+10 Fluffy Shopkeep
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT']], // Silvie, With the Pack (TAMER, level 2): the level-up base
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // level-up memory payment 1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // 2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // 3
+        ['player' => 1, 'deckTop' => [$GA_DG, $GA_FS, $GA_FW, 'sHzSmygjWY', $GA_FS, $GA_MARK]], // reveal until Gaia's Songbird (TERA Animal ally, 4th); the three before it go to the bottom; a Fluffy Shopkeep (the level-up's own draw takes it); then a marker
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Silvie, Earth's Tune
+    ],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
