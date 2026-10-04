@@ -27493,6 +27493,37 @@ $fixtures['naia-enter-banishes-deep-spell-tags-it-and-rest-to-graveyard'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdAns(1, 'myTempZone-2')]),
 ];
 
+
+// --- Kind Beastcaller (k02kvfblwa): "[Class Bonus] On Enter: Look at the top five cards of your deck. You may reveal an Animal or Beast ally card from among them and put it into your hand. Put the
+// rest on the bottom of your deck in any order." The generated body looked with a fixed-index MZMove loop (only the top card was ever looked at) and the follow-up was skipped on PASS. ---
+$gaBeastSetup = function(array $top, int $player = 1) use ($gaHand, $gaTop) {
+    return [
+        ['player' => $player, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']], // Guo Jia, Chosen Disciple (TAMER champion): Class Bonus
+        $gaHand('k02kvfblwa', $player), // Kind Beastcaller -> myHand-7
+        $gaTop($top, $player),
+    ];
+};
+$fixtures['kind-beastcaller-enter-look-five-reveal-deep-animal-rest-bottom'] = [
+    'testedCards' => ['k02kvfblwa'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // top five, top to bottom: DG, FS, Fairy Whispers, FS, Baby Green Slime (ANIMAL ally, 5th); then Charge the Soul (marker)
+    'setup' => $gaBeastSetup([$GA_DG, $GA_FS, $GA_FW, $GA_FS, $GA_WINDALLY, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdAns(1, 'myTempZone-4')]),
+];
+$fixtures['kind-beastcaller-enter-look-five-decline-all-five-bottom'] = [
+    'testedCards' => ['k02kvfblwa'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaBeastSetup([$GA_DG, $GA_FS, $GA_FW, $GA_FS, $GA_WINDALLY, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1)]), // "You may reveal": decline
+];
+$fixtures['kind-beastcaller-enter-look-five-no-animal-all-five-bottom'] = [
+    'testedCards' => ['k02kvfblwa'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // Fluffy Shopkeep is an Animal ally, so only Dungeon Guide (not an Animal/Beast) and Fairy Whispers (a spell) are used here
+    'setup' => $gaBeastSetup([$GA_DG, $GA_FW, $GA_DG, $GA_FW, $GA_DG, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3)),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

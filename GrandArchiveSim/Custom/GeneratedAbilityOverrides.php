@@ -1049,3 +1049,55 @@ $enterAbilities["jdmthh88rx:0"] = function($player) { //jdmthh88rx
   DecisionQueueController::AddDecision($player, "MZCHOOSE", $tempStr, 1, "");
   DecisionQueueController::AddDecision($player, "CUSTOM", "jdmthh88rx:0:Enter-1", 1);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Kind Beastcaller (k02kvfblwa): "[Class Bonus] On Enter: Look at the top five cards of your deck. You may reveal an Animal or Beast ally card from among them and put it into your hand. Put the rest on
+// the bottom of your deck in any order." The generated body looked with a loop of MZMove($player, "myDeck-0", "myTempZone"): Remove() only flags a slot removed (no splice), so only the TOP card was
+// ever looked at. The "may reveal" follow-up CUSTOM was also added without dontSkipOnPass, so declining (PASS) skipped it and stranded the looked-at card in the temp zone. Verbatim bodies with
+// MZMoveTopOfZone(), dontSkipOnPass:1 and a PASS guard in the handler.
+// ---------------------------------------------------------------------------------------------
+$enterAbilities["k02kvfblwa:0"] = function($player) { //k02kvfblwa
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Kind Beastcaller: [Class Bonus] On Enter: Look at top 5.
+  // May reveal an Animal or Beast ally and put it into hand. Rest to bottom.
+  if(!IsClassBonusActive($player, ["TAMER"])) return;
+  $deck = GetDeck($player);
+  if(empty($deck)) return;
+  $lookCount = min(5, count($deck));
+  for($i = 0; $i < $lookCount; $i++) {
+      MZMoveTopOfZone($player, "myDeck", "myTempZone");
+  }
+  $tempCards = ZoneSearch("myTempZone");
+  $validTargets = [];
+  foreach($tempCards as $tc) {
+      $tcObj = GetZoneObject($tc);
+      if($tcObj !== null && PropertyContains(CardType($tcObj->CardID), "ALLY")) {
+          $subtypes = CardSubtypes($tcObj->CardID);
+          if(PropertyContains($subtypes, "ANIMAL") || PropertyContains($subtypes, "BEAST")) {
+              $validTargets[] = $tc;
+          }
+      }
+  }
+  if(empty($validTargets)) {
+      PutTempZoneOnBottomOfDeck($player);
+      return;
+  }
+  $validStr = implode("&", $validTargets);
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $validStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "k02kvfblwa:0:Enter-1", 1, "", 1);
+};
+
+$customDQHandlers["k02kvfblwa:0:Enter-1"] = function($player, $parts, $lastDecision) { //k02kvfblwa
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DecisionQueueController::StoreVariable("chosen", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "k02kvfblwa:0:Enter-1")) return;
+  $chosen = $lastDecision;
+  if($chosen !== "-" && $chosen !== "" && $chosen !== "PASS") {
+      Reveal($player, revealedMZ: $chosen);
+      MZMove($player, $chosen, "myHand");
+  }
+  PutTempZoneOnBottomOfDeck($player);
+};

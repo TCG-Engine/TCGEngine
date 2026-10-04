@@ -1,0 +1,24 @@
+{
+    "name": "kind-beastcaller-enter-look-five-no-animal-all-five-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:48:14+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "k02kvfblwa"
+    ],
+    "notes": "Kind Beastcaller (k02kvfblwa): no Animal or Beast ally among the top five (Dungeon Guide and a spell only), so there is no prompt; all five go to the bottom in their original order.",
+    "semanticCoverage": {
+        "testedCards": [
+            "k02kvfblwa"
+        ],
+        "mechanics": [
+            "look-at-top",
+            "bottom-deck",
+            "reveal",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Look at the top five cards of your deck. You may reveal an Animal or Beast ally card from among them and put it into your hand. Put the rest on the bottom of your deck in any order."
+        ]
+    }
+}
