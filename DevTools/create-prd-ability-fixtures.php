@@ -27347,6 +27347,33 @@ $fixtures['captain-archer-imbued-look-six-no-wind-ally-all-six-bottom'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-4'), mrdAns(1, 'YES')], mrdPay(1, 4)),
 ];
 
+
+// --- Restoring Embers (FnTT1G4OQg): "Kindle 4. Recover 4. Then if your influence is four or less, draw a card into your memory." The generated body called DrawToMemory(),
+// which does not exist (fatal); the engine function is DrawIntoMemory(). Influence = cards in hand + cards in memory. ---
+$gaEmbersSetup = function(int $extraHand) use ($gaHand, $GA_DG) {
+    $rows = [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 6]], // champion with 6 damage: Recover 4 leaves 2
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+    ];
+    for ($i = 0; $i < 4 + $extraHand; ++$i) $rows[] = $gaHand($GA_DG); // payers (hand-0..)
+    $rows[] = $gaHand('FnTT1G4OQg'); // Restoring Embers -> last hand slot
+    return $rows;
+};
+$fixtures['restoring-embers-influence-four-recovers-and-draws-into-memory'] = [
+    'testedCards' => ['FnTT1G4OQg'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // hand: four payers + Embers; the four payers go to memory, so influence = 0 hand + 4 memory = 4 -> draw a card into memory
+    'setup' => $gaEmbersSetup(0),
+    'actions' => array_merge([mrdPlay(1, 'myHand-4')], mrdPay(1, 4)),
+];
+$fixtures['restoring-embers-influence-five-recovers-without-drawing'] = [
+    'testedCards' => ['FnTT1G4OQg'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // one extra card left in hand: influence = 1 hand + 4 memory = 5 -> recover only
+    'setup' => $gaEmbersSetup(1),
+    'actions' => array_merge([mrdPlay(1, 'myHand-5')], mrdPay(1, 4)),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

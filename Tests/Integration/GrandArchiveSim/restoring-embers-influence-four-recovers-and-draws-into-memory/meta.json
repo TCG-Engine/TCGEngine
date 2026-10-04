@@ -1,0 +1,29 @@
+{
+    "name": "restoring-embers-influence-four-recovers-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:36:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "FnTT1G4OQg"
+    ],
+    "notes": "Restoring Embers (FnTT1G4OQg): four payers go to memory so influence (hand + memory) is exactly four; the champion recovers 4 and a card is drawn into memory. Pre-fix this died with an undefined-function fatal after the recovery.",
+    "semanticCoverage": {
+        "testedCards": [
+            "FnTT1G4OQg"
+        ],
+        "mechanics": [
+            "healing",
+            "draw-discard",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Recover 4. Then if your influence is four or less, draw a card into your memory."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated cardActivatedAbilities[\"FnTT1G4OQg:0\"] body called DrawToMemory(), which does not exist in GrandArchiveSim (the engine function is DrawIntoMemory()): every resolution with influence four or less recovered the champion and then died with a fatal 'Call to undefined function DrawToMemory()', leaving the effect unresolved. The generated file cannot be edited (gitignored), so the closure is overridden in Custom/GeneratedAbilityOverrides.php with DrawIntoMemory().",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[FnTT1G4OQg:0]",
+        "fixCommit": "TBD"
+    }
+}

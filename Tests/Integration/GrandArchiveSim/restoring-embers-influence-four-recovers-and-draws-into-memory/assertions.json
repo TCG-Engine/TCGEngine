@@ -1,0 +1,53 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "Recover 4 healed the champion from 6 damage to 2"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Four paid cards plus the card drawn into memory"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Hand is empty (influence was exactly four)"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 12,
+        "semantic": true,
+        "label": "One card left the deck: the draw into memory happened"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Seven emptied-hand cards plus Restoring Embers"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

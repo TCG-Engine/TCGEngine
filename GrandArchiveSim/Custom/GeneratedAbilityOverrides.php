@@ -967,3 +967,17 @@ $customDQHandlers["disqw3d0o5:0:Enter-1"] = function($player, $parts, $lastDecis
   }
   PutTempZoneOnBottomOfDeck($player);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Restoring Embers (FnTT1G4OQg): "Recover 4. Then if your influence is four or less, draw a card into your memory." The generated body called DrawToMemory(), which does
+// not exist in GrandArchiveSim (the engine function is DrawIntoMemory()): a fatal "undefined function" every time the influence condition held, after the recovery.
+// Verbatim body with DrawIntoMemory().
+// ---------------------------------------------------------------------------------------------
+$cardActivatedAbilities["FnTT1G4OQg:0"] = function($player) { //FnTT1G4OQg
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  RecoverChampion($player, 4);
+  if(GetInfluence($player) <= 4) {
+      DrawIntoMemory($player, 1);
+  }
+};
