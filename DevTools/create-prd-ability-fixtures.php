@@ -27609,6 +27609,37 @@ $fixtures['spring-cleaning-omen-to-graveyard-looks-three-banishes-deep-card-as-o
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myBanish-0'), mrdAns(1, 'myTempZone-2')]),
 ];
 
+
+// --- Advent of the Stormcaller (ZSSegCjquB): "[Class Bonus] Efficiency. Reveal the top LV cards of your deck. You may banish any amount of arcane element cards from among them. For each card banished
+// this way, choose a unit and deal 2 damage to it. Put the rest of the revealed cards on the top or on the bottom of your deck in any order." Defects: the generated body revealed with a fixed-index
+// MZMove loop (only the top card); a card banished on one pass was offered again on the next (ZoneSearch does not skip removed slots) and still counted toward the damage; and declining the "may banish"
+// prompt skipped the follow-up (dontSkipOnPass missing), stranding the revealed cards. The champion is level 3 (Efficiency: cost 15 - 3 = 12). Rolling Chorus is the arcane card. ---
+$gaAdventSetup = function(array $top) use ($gaHand, $gaTop, $GA_DG) {
+    $rows = [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7x2v4tdop1', 'Subcards' => ['x9sSpjpP3G']]], // Kongming, Fel Eidolon (level 3, MAGE) with an ARCANE lineage (Lorraine, Arclight Saber)
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+    ];
+    for ($i = 0; $i < 12; ++$i) $rows[] = $gaHand($GA_DG); // twelve payers (hand-0..11)
+    $rows[] = $gaHand('ZSSegCjquB'); // Advent of the Stormcaller -> myHand-12
+    $rows[] = $gaTop($top);
+    return $rows;
+};
+$fixtures['advent-of-the-stormcaller-reveals-three-banishes-two-arcane-damages-two-units-rearranges-rest'] = [
+    'testedCards' => ['ZSSegCjquB'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // top three: Rolling Chorus (ARCANE), Dungeon Guide, Rolling Chorus (ARCANE); then a Charge the Soul marker
+    'setup' => $gaAdventSetup(['IZVXDYjcSL', $GA_DG, 'IZVXDYjcSL', $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-12')], mrdPay(1, 12), [mrdAns(1, 'myTempZone-0'), mrdAns(1, 'myTempZone-1'), mrdAns(1, 'theirField-0'), mrdAns(1, 'theirField-0'), mrdAns(1, 'Top=;Bottom=em6eEh9q8y')]), // the unbanished Dungeon Guide goes to the BOTTOM (glimpse)
+];
+
+$fixtures['advent-of-the-stormcaller-decline-banish-rearranges-all-three-no-damage'] = [
+    'testedCards' => ['ZSSegCjquB'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaAdventSetup(['IZVXDYjcSL', $GA_DG, 'IZVXDYjcSL', $GA_MARK]),
+    // "You may banish any amount": decline; the three revealed cards are rearranged (all three back on top in the same order)
+    'actions' => array_merge([mrdPlay(1, 'myHand-12')], mrdPay(1, 12), [mrdPass(1), mrdAns(1, 'Top=IZVXDYjcSL,em6eEh9q8y,IZVXDYjcSL;Bottom=')]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

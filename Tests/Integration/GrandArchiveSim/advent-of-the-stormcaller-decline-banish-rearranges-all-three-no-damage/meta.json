@@ -1,0 +1,22 @@
+{
+    "name": "advent-of-the-stormcaller-decline-banish-rearranges-all-three-no-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T17:00:49+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ZSSegCjquB"
+    ],
+    "notes": "Advent of the Stormcaller (ZSSegCjquB): the player declines to banish any arcane card; no damage is dealt and the three revealed cards are rearranged back on top. Pre-fix declining skipped the follow-up entirely (and only the top card was revealed).",
+    "semanticCoverage": {
+        "testedCards": [
+            "ZSSegCjquB"
+        ],
+        "mechanics": [
+            "reveal",
+            "look-at-top"
+        ],
+        "rulesClauses": [
+            "Reveal the top LV cards of your deck. You may banish any amount of arcane element cards from among them. For each card banished this way, choose a unit and deal 2 damage to it. Put the rest of the revealed cards on the top or on the bottom of your deck in any order."
+        ]
+    }
+}

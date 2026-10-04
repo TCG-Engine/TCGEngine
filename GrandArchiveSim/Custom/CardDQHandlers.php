@@ -1713,18 +1713,22 @@ $customDQHandlers["LightweaverRevealDmg"] = function($player, $parts, $lastDecis
  * @param int $banishedCount Number of arcane cards banished so far
  */
 function AdventStormcallerBanishLoop($player, $banishedCount) {
+    // ZoneSearch() does not skip slots flagged removed: without this splice a card banished on the previous pass was offered again (picking it
+    // banished nothing but still counted toward the 2-damage-per-banished-card total).
+    DecisionQueueController::CleanupRemovedCards();
     $arcaneTmp = ZoneSearch("myTempZone", cardElements: ["ARCANE"]);
     if(empty($arcaneTmp)) {
         AdventStormcallerDamagePhase($player, $banishedCount);
         return;
     }
+    // dontSkipOnPass: declining ("any amount") must still run the handler, otherwise the damage phase and the rearrange never happen.
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $arcaneTmp), 1, tooltip:"Banish_an_arcane_card?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "AdventBanishPick|$banishedCount", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AdventBanishPick|$banishedCount", 1, "", 1);
 }
 
 $customDQHandlers["AdventBanishPick"] = function($player, $parts, $lastDecision) {
     $banishedCount = intval($parts[0]);
-    if($lastDecision == "-" || $lastDecision == "") {
+    if($lastDecision == "-" || $lastDecision == "" || $lastDecision == "PASS") {
         AdventStormcallerDamagePhase($player, $banishedCount);
         return;
     }

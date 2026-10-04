@@ -1,0 +1,84 @@
+[
+    {
+        "step": 15,
+        "type": "zone_count",
+        "zone": "myTempZone",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "No revealed card is left stranded in the temp zone"
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was banished"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "No damage was dealt"
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 17,
+        "semantic": true,
+        "label": "All three revealed cards are back in the deck"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "IZVXDYjcSL",
+        "semantic": true,
+        "label": "Top card (first revealed, kept on top)"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "mzId": "myDeck-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Second revealed card, kept on top"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "mzId": "myDeck-2",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "IZVXDYjcSL",
+        "semantic": true,
+        "label": "Third revealed card, kept on top"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "mzId": "myDeck-3",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "ra9950o14t",
+        "semantic": true,
+        "label": "The marker follows the three revealed cards"
+    },
+    {
+        "step": 15,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

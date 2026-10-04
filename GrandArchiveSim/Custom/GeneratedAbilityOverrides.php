@@ -1228,3 +1228,26 @@ $customDQHandlers["dZ0Y2ILgZW:0:CardActivated-1"] = function($player, $parts, $l
   DecisionQueueController::AddDecision($player, "MZCHOOSE", $banishStr, 1, "");
   DecisionQueueController::AddDecision($player, "CUSTOM", "dZ0Y2ILgZW:0:CardActivated-2", 1);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Advent of the Stormcaller (ZSSegCjquB): "Reveal the top LV cards of your deck. You may banish any amount of arcane element cards from among them. For each card banished this way, choose a unit and
+// deal 2 damage to it. Put the rest of the revealed cards on the top or on the bottom of your deck in any order." The generated body revealed with a loop of MZMove($player, "myDeck-0",
+// "myTempZone"): Remove() only flags a slot removed (no splice), so only the TOP card was ever revealed. (The banish loop / decline handling in Custom/CardDQHandlers.php is fixed separately.)
+// Verbatim body with MZMoveTopOfZone().
+// ---------------------------------------------------------------------------------------------
+$cardActivatedAbilities["ZSSegCjquB:0"] = function($player) { //Advent of the Stormcaller
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $lv = PlayerLevel($player);
+  $deck = &GetDeck($player);
+  $n = min($lv, count($deck));
+  if($n == 0) return;
+  for($i = 0; $i < $n; ++$i) {
+      MZMoveTopOfZone($player, "myDeck", "myTempZone");
+  }
+  $tempCards = ZoneSearch("myTempZone");
+  foreach($tempCards as $tc) {
+      DoRevealCard($player, $tc);
+  }
+  AdventStormcallerBanishLoop($player, 0);
+};
