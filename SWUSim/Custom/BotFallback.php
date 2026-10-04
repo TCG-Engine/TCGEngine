@@ -128,6 +128,33 @@ function SWUBotTargetValue(array $att, ?array $def, array $W): float {
     }
 }
 
+// Feature 'splitpop' (p32) — what popping one Shield on unit $v is worth, from $seat's view. Owner rule of thumb
+// (2026-10-04): "see a shield on a unit as adding +P power to the unit for each shield, since it can tank that many hits,
+// P being its current power. Popping a shield on a 4-power unit, especially a Sentinel, is very valuable. A shield on a
+// 3-power, 1hp unit is not so valuable since 1 indirect ping or 1 Weakness token can clear that unit. That unit's value
+// goes down if I have a Saboteur on the board or an ambushing Saboteur in hand like Fennec Shand."
+// So: chip × current power (one chip per point of the hit it would absorb), × 1.5 on a Sentinel. Floored to ONE chip when
+// the Shield barely protects: a 1-HP unit (a Weakness token or an indirect point clears it through the Shield), or when
+// the side that attacks it ignores Shields anyway — for an enemy unit, my Saboteur in its arena or an Ambush Saboteur in
+// my hand; for my own unit, an enemy Saboteur in play (their hand is hidden).
+function _SWUBotShieldPopValue(int $seat, array $v, array $W, bool $enemy): float {
+    $chip = $W['chip'];
+    if (intval($v['remaining']) <= 1) return $chip;
+    // Who attacks this unit: me, for an enemy unit; my opponents (OpponentsOf — a Team Suns teammate is not one), for mine.
+    $attackers = $enemy ? [$seat] : OpponentsOf($seat);
+    foreach ($attackers as $a) {
+        foreach (SWUBotUnits(intval($a)) as $u) if ($u['saboteur'] && $u['arena'] === $v['arena']) return $chip;
+        if ($enemy) {
+            foreach (GetHand(intval($a)) as $h) {
+                if (!empty($h->removed)) continue;
+                $t = strval(CardText(strval($h->CardID)) ?? '');
+                if (preg_match('/\bAmbush\b/', $t) && preg_match('/\bSaboteur\b/', $t)) return $chip;
+            }
+        }
+    }
+    return $chip * max(1, intval($v['power'])) * (!empty($v['sentinel']) ? 1.5 : 1.0);
+}
+
 // A split-damage answer ("mz:a,mz:b", MZSPLITASSIGN), part by part: an enemy unit defeated is worth kill × its
 // value, an enemy unit only damaged chip × the damage, the enemy base base × the damage; my own units and base
 // cost the mirror (a lost unit loss × value; my base SWU_BOT_OWN_BASE_DAMAGE a point, whatever the style — the
@@ -135,6 +162,7 @@ function SWUBotTargetValue(array $att, ?array $def, array $W): float {
 // side counts 0.5 more: a body on the board. $unpreventable (indirect damage, CR 35.3) ignores Shields; otherwise
 // a Shield absorbs the whole instance. Feature 'splits'.
 const SWU_BOT_OWN_BASE_DAMAGE = 0.5;
+const SWU_BOT_SPLIT_WASTED_POINT = 0.01;   // 'splitpop': a point a Shield absorbs past the one that popped it — a tie-breaker, not a value
 function _SWUBotSplitScore(int $seat, string $candidate, array $W, bool $unpreventable): float {
     $s = 0.0;
     foreach (explode(',', $candidate) as $pair) {
@@ -146,7 +174,18 @@ function _SWUBotSplitScore(int $seat, string $candidate, array $W, bool $unpreve
         if (str_contains($mz, 'Base')) { $s += $enemy ? $W['base'] * $amt : -SWU_BOT_OWN_BASE_DAMAGE * $amt; continue; }
         $v = SWUBotViewForMz($seat, $mz);
         if ($v === null) continue;
-        if (!$unpreventable && $v['shields'] > 0) continue;
+        // A Shield absorbs the whole instance — but popping it is worth what the Shield was worth ('splitpop', p32). Scored
+        // 0, a pop tied with dumping the same point into an overkill.
+        // ONE point pops ONE Shield, whatever is assigned: a target's share of a split is one damage instance, and a Shield
+        // prevents the whole instance — a unit with 2 Shields still has one left after it. Every point past the first is
+        // wasted, so it costs a little (owner: "don't waste 2 of the split on it. 1 ping is enough to pop one of the
+        // shields"); without the cost a wasted point scored 0 and could tie with a point spent somewhere useful.
+        if (!$unpreventable && $v['shields'] > 0) {
+            if (SWUBotFeatureOn('splitpop')) {
+                $s += ($enemy ? 1 : -1) * _SWUBotShieldPopValue($seat, $v, $W, $enemy) - SWU_BOT_SPLIT_WASTED_POINT * ($amt - 1);
+            }
+            continue;
+        }
         if ($amt >= $v['remaining']) $s += ($enemy ? $W['kill'] : -$W['loss']) * SWUBotUnitValue($v) + ($enemy ? 0.5 : -0.5);
         else $s += ($enemy ? 1 : -1) * $W['chip'] * $amt;
     }
@@ -804,7 +843,10 @@ function _SWUBotTargetScore(int $seat, string $mz, bool $hostile, int $amount, s
     }
     if ($hostile && $enemy && $amount > 0 && SWUBotFeatureOn('targeting')) {
         $blocked = !str_starts_with($head, 'APPLY_PHASE_DEBUFF') && $v['shields'] > 0;
-        if ($blocked) $score = 0.0;
+        // A Shield stops the hit — and popping it is worth what the Shield was worth ('splitpop', p32). At 0, IG-2000's
+        // "1 damage to each of up to 3 units" chipped a 6/6 Pre Vizsla over popping a third Mandalorian token's Shield
+        // (owner, 2026-10-04: "it would actually be better to pop 3 shields than to only pop 2 and ping 1 on Pre Vizsla").
+        if ($blocked) $score = SWUBotFeatureOn('splitpop') ? _SWUBotShieldPopValue($seat, $v, $W, true) : 0.0;
         elseif ($amount >= $v['remaining']) $score = SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0;
         elseif (SWUBotFeatureOn('setup') && !$v['isLeader'] && $v['remaining'] - $amount <= _SWUBotFinisherHP($seat))
             $score = 0.8 * (SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0);   // my finisher defeats it next

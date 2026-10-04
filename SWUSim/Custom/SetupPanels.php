@@ -252,7 +252,10 @@ function SWUSetupDeckPicker(string $selectId, array $decks, string $emptyLabel =
                . '<span class="u-vh">' . $e($plain) . ($count > 0 ? '. ' . $count . ' cards.' : '') . '</span>'
                . '</span>';
     }
-    return '<div class="deckpick ch" data-slot="' . $e($slot) . '"><span class="selwrap ch">'
+    // data-select-id / data-none-label: what it was built FROM, so the menu can rebuild it in place after a save (the empty
+    // state above already carries them). GUEST_BUILD_PICKER, the client twin, writes the same two.
+    return '<div class="deckpick ch" data-slot="' . $e($slot) . '" data-select-id="' . $sid . '"'
+         . ' data-none-label="' . $e($noneLabel) . '"><span class="selwrap ch">'
          . '<select class="select" id="' . $sid . '" name="' . $sid . '"'
          . ' data-slot="' . $e($slot) . '">' . $opts . '</select>'
          . '</span>' . $rows . '</div>'

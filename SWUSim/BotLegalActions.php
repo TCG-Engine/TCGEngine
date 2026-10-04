@@ -131,12 +131,26 @@ function _SWUBotCorrectBridgeAnswers(string $type, string $param, array $actions
         // treats "spec|UPTO" as a zone and appends an index, yielding "theirSpaceArena-0|UPTO-0".)
         if (!preg_match('/^(\d+)\|(.*)\|([A-Za-z_]+)$/', $param, $m)) return $actions;
         if (!function_exists('BridgeEnumerateSplitAssignResults') || !function_exists('BridgeExpandDecisionSpecChoices')) return $actions;
-        $build = function () use ($m) {
+        // An "up to N" split (UPTO) may assign FEWER than N, but the bridge only enumerates splits of exactly N — so a
+        // point that could only be wasted (a 2nd point on a Shielded unit: one instance pops one Shield) or spent on my
+        // own unit had no way to go unassigned. With 'splitpop' (p32), also enumerate every smaller total, the full one
+        // first, all under SWU_BOT_SPLIT_MAX.
+        $totals = [intval($m[1])];
+        if ($m[3] === 'UPTO' && SWUBotFeatureOn('splitpop')) for ($t = intval($m[1]) - 1; $t >= 1; $t--) $totals[] = $t;
+        $build = function () use ($m, $totals) {
             $choices = [];
             foreach (array_filter(explode('&', $m[2]), fn($v) => $v !== '') as $spec) {
                 foreach (BridgeExpandDecisionSpecChoices($spec) as $c) $choices[] = $c;
             }
-            return BridgeEnumerateSplitAssignResults(array_values(array_unique($choices)), intval($m[1]));
+            $choices = array_values(array_unique($choices));
+            $out = [];
+            foreach ($totals as $t) {
+                foreach ((array)BridgeEnumerateSplitAssignResults($choices, $t) as $r) {
+                    if (count($out) >= SWU_BOT_SPLIT_MAX) break 2;
+                    $out[] = $r;
+                }
+            }
+            return array_values(array_unique($out));
         };
         $results = function_exists('BridgeWithPlayerPerspective') ? BridgeWithPlayerPerspective($seat, $build) : $build();
         return array_map(fn($r) => ['playerID' => $seat, 'mode' => 100, 'buttonInput' => '', 'cardID' => $r, 'chkInput' => [], 'inputText' => ''], (array)$results);

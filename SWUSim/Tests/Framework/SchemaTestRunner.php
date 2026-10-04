@@ -1434,6 +1434,10 @@ class SchemaTestRunner {
         // WithPrivateGame: true -> SimGameIsPrivateGame returns true, so undo is always free (no consent).
         // Default public (false). Reset every test so it never leaks across cases in one process.
         $GLOBALS['SWU_TEST_FORCE_PRIVATE'] = strtolower($given['WithPrivateGame'] ?? 'false') === 'true';
+        // A schema test is never a developer's browser session, even when the suite itself is driven over HTTP from
+        // localhost (curl …:3400/zzRegressionSWUSim.php): SWUUndoConsentDisabledForLocalDev must stand down, or every
+        // consent case (undo/ConsentGating, undo/RequestApprove, core/GameLog_Undo …) silently loses its consent step.
+        $GLOBALS['SWU_TEST_SCHEMA_RUN'] = true;
         for ($oaSeat = 1; $oaSeat <= 4; ++$oaSeat) {
             if (strtolower($given["P{$oaSeat}OnlyActions"] ?? '') !== 'true') continue;
             $oaHolder = ($oaSeat === 1) ? 2 : 1;   // any OTHER seat; 2 for seat 1 keeps P1OnlyActions identical

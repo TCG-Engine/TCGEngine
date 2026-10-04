@@ -22128,8 +22128,12 @@ function SWUGameIsPrivate(string $rootName = '', string $gameName = ''): bool {
 // on for a browser pointed at localhost:3400.
 //
 // ⚠ PROD IS UNAFFECTED by construction: swustats.net never matches these hosts.
+// ⚠ …and the suite is usually NOT on the CLI: it is driven as `curl http://localhost:3400/TCGEngine/zzRegressionSWUSim.php`,
+// whose host IS localhost — so this switch silently turned consent off inside the suite and 8 consent cases went red
+// (found 2026-10-04). The schema runner marks its runs (SWU_TEST_SCHEMA_RUN, SchemaTestRunner::applyPostSetupDirectives).
 function SWUUndoConsentDisabledForLocalDev(): bool {
     if (PHP_SAPI === 'cli') return false;
+    if (!empty($GLOBALS['SWU_TEST_SCHEMA_RUN'])) return false;
     $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
     if ($host === '') return false;
     return str_starts_with($host, 'localhost')

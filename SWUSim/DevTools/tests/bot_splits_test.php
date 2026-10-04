@@ -44,7 +44,15 @@ $check(_SWUBotSplitScore(1, $killTie, $Wa, true) > _SWUBotSplitScore(1, $killMar
 $check(_SWUBotSplitScore(1, $killMarine, $Wc, true) > _SWUBotSplitScore(1, $killTie, $Wc, true), 'Control: defeat the bigger unit');
 // A Shield stops divided damage (one instance) but not indirect damage (unpreventable).
 $build(function ($b) { $b->MyLeader('SOR_014', false); $b->WithGroundUnitForPlayer(2, 'SOR_095', true); $b->WithUpgradesOnGroundUnitForPlayer(2, 0, [GameStateBuilder::Upgrade('SOR_T02', 2)]); });
-$check(_SWUBotSplitScore(1, 'theirGroundArena-0:3', $Wc, false) === 0.0, 'divided damage into a Shield: worth nothing');
+// Divided damage into a Shield deals nothing — but it POPS the Shield ('splitpop', p32, owner 2026-10-04: a Shield is worth
+// about the unit's power). One point pops it; the other two of these three are wasted, so they cost a little.
+$mar = null; foreach (SWUBotUnits(2) as $v) if ($v['cardID'] === 'SOR_095') $mar = $v;
+$pop = _SWUBotShieldPopValue(1, $mar, $Wc, true);
+$check($pop > 0.0 && abs(_SWUBotSplitScore(1, 'theirGroundArena-0:3', $Wc, false) - ($pop - 2 * SWU_BOT_SPLIT_WASTED_POINT)) < 1e-9,
+       'divided damage into a Shield: worth the popped Shield, less the 2 wasted points');
+$GLOBALS['SWUBotDisabledFeatures'] = ['splitpop'];
+$check(_SWUBotSplitScore(1, 'theirGroundArena-0:3', $Wc, false) === 0.0, '@no-splitpop: divided damage into a Shield is worth nothing (the stack before p32)');
+$GLOBALS['SWUBotDisabledFeatures'] = [];
 $check(_SWUBotSplitScore(1, 'theirGroundArena-0:3', $Wc, true) > 0.0, 'indirect damage ignores the Shield: the kill counts');
 
 // ── "Choose a player" for indirect damage: Fett's Firespray's When Played.

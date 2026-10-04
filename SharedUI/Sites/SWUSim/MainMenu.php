@@ -872,9 +872,19 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
               x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
               x.onload = function () {
                 var r = {}; try { r = JSON.parse(x.responseText); } catch (e) {}
-                if (r.success) location.reload();
-                else tell('Could not save deck: ' + (r.error === 'not_a_link'
-                          ? 'only deck links can be saved' : (r.error || 'unknown')));
+                if (!r.success) {
+                  tell('Could not save deck: ' + (r.error === 'not_a_link'
+                       ? 'only deck links can be saved' : (r.error || 'unknown')));
+                  return;
+                }
+                // In place (owner, 2026-10-04): this used to location.reload(), which closed the modal and left the
+                // new deck unselected. Rebuild the pickers from the response, choose the new deck here, keep the modal.
+                if (r.decks && r.key && typeof DECK_PICKERS_REBUILD === 'function'
+                    && DECK_PICKERS_REBUILD(r.decks, { dlg: dlg, slot: slot || 'own', key: r.key })) {
+                  tell('Saved "' + name + '" to your decks — it is now selected.');
+                } else {
+                  location.reload();   // an older server without the picker data: the old behaviour
+                }
               };
               x.send('action=save&deckInput=' + encodeURIComponent(link));
               return;
@@ -890,8 +900,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
               tell('This browser would not let the deck be saved (private window or storage full).');
               return;
             }
+            // in place, the new deck chosen in THIS modal; the line is written after, so the pick's own line does not replace it
+            GUEST_RENDER_ALL({ dlg: dlg, slot: slot || 'own', key: GUEST_KEY_FOR(link) });
             tell('Saved "' + name + '" to this browser. Log in to keep your decks on your account.');
-            GUEST_RENDER_ALL();         // in place, so the line above survives to be read
           })
           .catch(function () { tell('Could not reach the server to check that deck link.'); });
       }
@@ -2703,24 +2714,46 @@ function GUEST_BUILD_PICKER(host, decks) {
   return div;
 }
 
-function GUEST_RENDER_ALL() {
-  if (!IS_GUEST) return;
-  var decks = GUEST_DECKS.load();
-  if (!decks.length) return;                 /* leave the empty state exactly as rendered */
-  /* [data-guest] pickers are ones this function built earlier — after a save they are rebuilt in
-     place. Reloading the page would be simpler and would also throw away the "Saved X" line the
-     player just earned, which is the feedback this whole flow exists to give. */
-  document.querySelectorAll('.deckpick[data-empty], .deckpick[data-guest]').forEach(function (host) {
+/* Rebuild EVERY saved-deck picker in place from $decks — a guest's (localStorage) or, after a save, an account's (the
+   save response; owner 2026-10-04: a save used to reload the page, which closed the modal and left the new deck
+   unselected). Reloading would also throw away the "Saved X" line the player just earned, which is the feedback this
+   whole flow exists to give. Each picker keeps the deck it had chosen. $choose = { dlg, slot, key }: select that deck
+   in that modal's slot and fire the ordinary pick (SETUP_BIND_PICKERS), so it becomes the played deck exactly as if it
+   had been picked by hand. Returns that picker's <select>, or null. */
+function DECK_PICKERS_REBUILD(decks, choose) {
+  if (!decks || !decks.length) return null;  /* leave the empty state exactly as rendered */
+  var chosenSel = null;
+  document.querySelectorAll('.deckpick').forEach(function (host) {
+    var old = host.querySelector('select');
+    var keep = old ? old.value : '';
+    var selId = host.getAttribute('data-select-id') || (old && old.id) || '';
+    /* the enhancement put this picker's popup in its pane's layer — drop it, or the rebuilt one duplicates its ids */
+    var oldList = selId && document.getElementById(selId + '-list');
+    if (oldList && oldList.closest('.lb__wrap')) oldList.closest('.lb__wrap').remove();
     var wrap = host.closest('.lb') || host;   /* the enhancement wraps it; replace the whole thing */
-    if (wrap !== host) {
-      var fresh = host.cloneNode(false);
-      fresh.className = 'deckpick';
-      wrap.replaceWith(fresh);
-      host = fresh;
-    }
-    var built = GUEST_BUILD_PICKER(host, decks);
+    var fresh = host.cloneNode(false);
+    fresh.className = 'deckpick';
+    if (selId) fresh.setAttribute('data-select-id', selId);
+    wrap.replaceWith(fresh);
+    var built = GUEST_BUILD_PICKER(fresh, decks);
+    var sel = built.querySelector('select');
+    var mine = choose && choose.dlg && choose.dlg.contains(built) &&
+               (built.getAttribute('data-slot') || 'own') === choose.slot;
+    var want = mine ? choose.key : keep;
+    if (sel && want && [].some.call(sel.options, function (o) { return o.value === want; })) sel.value = want;
     if (typeof window.BUILD_LISTBOX === 'function') window.BUILD_LISTBOX(built, 'deck');
+    if (mine && sel) chosenSel = sel;
   });
+  if (chosenSel) {
+    if (typeof LB_SYNC === 'function') LB_SYNC(chosenSel);
+    chosenSel.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  return chosenSel;
+}
+
+function GUEST_RENDER_ALL(choose) {
+  if (!IS_GUEST) return null;
+  return DECK_PICKERS_REBUILD(GUEST_DECKS.load(), choose);
 }
 GUEST_RENDER_ALL();
 

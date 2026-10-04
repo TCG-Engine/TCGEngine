@@ -11,6 +11,7 @@ require_once __DIR__ . '/../Database/ConnectionManager.php';
 require_once __DIR__ . '/../Database/functions.inc.php';
 require_once __DIR__ . '/Custom/DeckImport.php';   // SWUResolveDeckInput (pure lib)
 require_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php';   // titleData for matchup labels
+require_once __DIR__ . '/Custom/SetupPanels.php';   // SWUSetupSavedDecks / SWUSetupCardLabel — the save response's picker list
 
 $respond = function($arr) use ($__test) {
     if ($__test) return $arr;
@@ -44,7 +45,16 @@ if ($action === 'save') {
     $content  = (strpos($decklink, 'raw:') === 0) ? base64_encode($input) : null;
     $ok = AddSavedDeck($uid, $decklink, $name, $leader, $base, $format, $content);
     if (!$ok) return $respond(['success'=>false,'error'=>'db_insert_failed']);
-    return $respond(['success'=>true,'decklink'=>$decklink,'leader'=>$leader,'base'=>$base]);
+    // The menu rebuilds its saved-deck pickers IN PLACE from this (owner, 2026-10-04: saving used to reload the page, which
+    // closed the setup modal and left the new deck unselected). `decks` is SWUSetupSavedDecks() — exactly what the page
+    // renders on load — plus each deck's leader/base names, and `key` is the new deck's picker key in that list.
+    // Additive: the existing fields are unchanged.
+    $decks = array_map(function ($d) {
+        $labels = array_map('SWUSetupCardLabel', array_merge((array)$d['leaders'], $d['base'] !== '' ? [$d['base']] : []));
+        return $d + ['subtitle' => implode(' · ', $labels)];
+    }, SWUSetupSavedDecks($uid));
+    return $respond(['success'=>true,'decklink'=>$decklink,'leader'=>$leader,'base'=>$base,
+                     'key'=>substr(sha1($decklink), 0, 12), 'decks'=>$decks]);
 }
 // The menu's "last deck used" pointer. Written when a game actually STARTS, and forgotten when
 // the remembered link stops resolving. Guests never reach here — theirs lives in localStorage.
