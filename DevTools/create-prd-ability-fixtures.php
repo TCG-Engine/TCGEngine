@@ -27703,6 +27703,35 @@ DECK,
     ],
 ];
 
+
+// --- Blinding Lapse (rKKDhaLJ8w): "Target opponent with influence nine or more puts all cards from their hand into their memory. Then that player banishes three cards at random from their memory."
+// The generated body was registered only in the dead $activateCardAbilities table, so playing it did nothing. Influence = hand + memory. ---
+$gaLapseSetup = function(int $oppMemory) use ($gaHand) {
+    $rows = [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE']], // Zander, Blinding Steel (level 3, LUXEM): unlocks the LUXEM element
+        $gaHand('rKKDhaLJ8w'), // Blinding Lapse -> myHand-7
+    ];
+    // every opponent card is the same Dungeon Guide so the printed "banishes three cards at random" lands in the same state whichever are picked (the fixture must replay identically)
+    $rows[] = ['player' => 2, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'];
+    for ($i = 0; $i < 7; ++$i) $rows[] = ['player' => 2, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'];
+    for ($i = 0; $i < $oppMemory; ++$i) $rows[] = ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'];
+    return $rows;
+};
+$fixtures['blinding-lapse-opponent-influence-nine-hand-to-memory-banishes-three'] = [
+    'testedCards' => ['rKKDhaLJ8w'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // opponent: 7 cards in hand + 2 in memory = influence 9
+    'setup' => $gaLapseSetup(2),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3)),
+];
+$fixtures['blinding-lapse-opponent-influence-eight-does-nothing'] = [
+    'testedCards' => ['rKKDhaLJ8w'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // opponent: 7 cards in hand + 1 in memory = influence 8 (< 9)
+    'setup' => $gaLapseSetup(1),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3)),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

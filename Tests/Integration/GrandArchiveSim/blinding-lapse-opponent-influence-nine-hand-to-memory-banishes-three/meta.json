@@ -1,0 +1,29 @@
+{
+    "name": "blinding-lapse-opponent-influence-nine-hand-to-memory-banishes-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T17:07:41+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "rKKDhaLJ8w"
+    ],
+    "notes": "Blinding Lapse (rKKDhaLJ8w): the opponent has influence 9 (7 in hand + 2 in memory, all Dungeon Guide so the random banish replays identically): the hand goes to memory and three cards are banished from it. Pre-fix playing it did nothing. LiquidAmnesiaBanish's ghost-slot defect is random: with the splice removed this fixture failed 8 of 30 replays (a later pick landed on the card banished a moment earlier); with it, 0 of 30.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rKKDhaLJ8w"
+        ],
+        "mechanics": [
+            "memory",
+            "banish",
+            "hand-to-memory"
+        ],
+        "rulesClauses": [
+            "Target opponent with influence nine or more puts all cards from their hand into their memory. Then that player banishes three cards at random from their memory."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Three defects. (1) The generated body for Blinding Lapse was registered ONLY in $activateCardAbilities, a table nothing dispatches (an action's effect lives in $cardActivatedAbilities): playing Blinding Lapse paid its cost and then resolved with no effect at all. (2) That body moved the opponent's hand with while(count(GetHand())>0) MZMove($player, \"theirHand-0\", \"theirMemory\"): Remove() only flags a slot removed (no splice), so it would have re-moved the same removed slot forever (an infinite loop). A live $cardActivatedAbilities registration in Custom/GeneratedAbilityOverrides.php now moves the hand with MZMoveTopOfZone(). (3) LiquidAmnesiaBanish() (Custom/CardDQHandlers.php, shared with Liquid Amnesia) re-searched the memory with ZoneSearch(), which does not skip removed slots, so a later 'random' pick could land on the card banished a moment earlier (a no-op) and fewer than the printed number of cards were banished. It now splices removed slots first.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[rKKDhaLJ8w:0] / Custom/CardDQHandlers.php LiquidAmnesiaBanish()",
+        "fixCommit": "TBD"
+    }
+}

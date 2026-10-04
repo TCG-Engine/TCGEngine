@@ -1331,3 +1331,22 @@ $enterAbilities["ZR8tnLruR6:0"] = function($player) { //ZR8tnLruR6
       MZMoveTopOfZone($player, "myDeck", "myDeck");
   }
 };
+
+// ---------------------------------------------------------------------------------------------
+// Blinding Lapse (rKKDhaLJ8w): "Target opponent with influence nine or more puts all cards from their hand into their memory. Then that player banishes three cards at random from their memory."
+// The generated body was registered ONLY in $activateCardAbilities, which nothing dispatches (the live registry for an action's effect is $cardActivatedAbilities), so playing Blinding Lapse
+// resolved with no effect at all. The generated body also moved the hand with a loop of MZMove($player, "theirHand-0", "theirMemory") under while(count(GetHand())>0): Remove() only flags a slot
+// removed, so it would have re-moved the same removed slot forever. Live registration with MZMoveTopOfZone() and one splice up front so the influence count is exact.
+// ---------------------------------------------------------------------------------------------
+$cardActivatedAbilities["rKKDhaLJ8w:0"] = function($player) { //Memory collapse
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $opponent = ($player == 1) ? 2 : 1;
+  DecisionQueueController::CleanupRemovedCards();
+  if(count(GetHand($opponent)) + count(GetMemory($opponent)) < 9) return;
+  $handCount = count(GetHand($opponent));
+  for($i = 0; $i < $handCount; ++$i) {
+      MZMoveTopOfZone($player, "theirHand", "theirMemory");
+  }
+  LiquidAmnesiaBanish($player, "theirMemory", 3);
+};

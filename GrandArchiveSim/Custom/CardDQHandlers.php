@@ -5021,6 +5021,9 @@ function BerthaPutRestOnBottom($player) {
 // ============================================================================
 function LiquidAmnesiaBanish($player, $memRef, $remaining) {
     if($remaining <= 0) return;
+    // ZoneSearch() does not skip slots flagged removed: without this splice the card banished on the previous pass stayed in the candidate list,
+    // so a later "random" pick could land on it (a no-op) and fewer than the printed number of cards were banished.
+    DecisionQueueController::CleanupRemovedCards();
     $memCards = ZoneSearch($memRef);
     if(empty($memCards)) return;
     // Pick random card from memory
