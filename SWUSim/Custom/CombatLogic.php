@@ -2831,17 +2831,10 @@ function _SWUCombatFinishAction($player): void {
         return;
     }
     // The combat's own defeats flushed their When Defeated triggers through FlushTriggerBag, which queues a
-    // RESOLVE_TRIGGER per trigger and NO finalising resume. Closing here ran the action end — the turn swap —
-    // before those triggers resolved, so an attacker that died to the counter asked its controller "search your
-    // deck?" / "use the Force?" after the turn had already passed (the house rule: the turn stays with the actor
-    // until everything its action set off has resolved). When such triggers sit on the ACTING player's own
-    // queue, end the action BEHIND them instead (block 20, after anything they queue at lower blocks).
-    // Scoped to the actor's own queue: that queue is the one being drained, so the close cannot strand, unlike
-    // a lone CUSTOM parked on a seat that is not otherwise acting.
-    if (intval($player) === intval(GetTurnPlayer()) && _SWUHasQueuedTriggerResolution(intval($player))) {
-        SWUQueueAfterAction(intval($player), 20);
-        return;
-    }
+    // RESOLVE_TRIGGER per trigger and NO finalising resume — an attacker that died to the counter asks its
+    // controller "search your deck?" / "use the Force?". SWUAfterAction itself now waits behind triggers and picks
+    // still queued on the acting player's own queue (2026-10-04), so the combat-only block-20 close that lived
+    // here is gone. Guard: interactions/CombatWhenDefeated_TheActorsOwnDecision_TurnPassesEarly.md.
     SWUAfterAction($player);
 }
 

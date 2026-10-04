@@ -142,3 +142,88 @@ P2BASEDMG:3
 P1NODECISION
 TURNPLAYER:2
 NOEXTRAACTION
+
+---
+
+# QueuedTrigger_Maul_TurnStaysWhileTheDefeatedUnitsWhenDefeatedIsPending
+#// The close also waits for TRIGGERS still queued on the actor's queue (RESOLVE_TRIGGER entries are static
+#// CUSTOMs, which the pick check ignores). HMW_016 Maul's front plays JTL_063 from hand and defeats it; its
+#// "When Defeated: You may draw a card" was still queued when the action closed, so the turn passed first and
+#// the draw was asked after. (This replaced _SWUCombatFinishAction's own block-20 close — the combat-only copy.)
+
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:6;myLeader:HMW_016}
+WithActivePlayer: 1
+WithP1Hand: JTL_063
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1DISCARDCOUNT:1
+P1HASDECISION
+TURNPLAYER:1
+
+---
+
+# QueuedTrigger_Maul_TurnPassesOnceAfterTheDraw
+
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:6;myLeader:HMW_016}
+WithActivePlayer: 1
+WithP1Hand: JTL_063
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1HANDCOUNT:1
+P1NODECISION
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# QueuedTrigger_MercilessContest_TurnStaysWhileTheWhenDefeatedIsPending
+#// TWI_238 Merciless Contest: each player defeats a unit they control. P1's is JTL_063, whose "When Defeated:
+#// You may draw a card" is queued behind the event's resolution.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:3;handCardIds:TWI_238}
+WithP1GroundArena: JTL_063:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1HASDECISION
+TURNPLAYER:1
+
+---
+
+# QueuedTrigger_MercilessContest_TurnPassesOnceAfterTheDraw
+
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:3;handCardIds:TWI_238}
+WithP1GroundArena: JTL_063:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1HANDCOUNT:1
+P1NODECISION
+TURNPLAYER:2
+NOEXTRAACTION

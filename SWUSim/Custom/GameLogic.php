@@ -9847,7 +9847,13 @@ function SWUAfterAction($player) {
     // refused by the gate anyway), and only on the actor's own queue: another seat's decision is FINISH_PLAY_CARD's
     // hop, and a lone CUSTOM queued on a seat that is not acting never drains. _SWUPlayerHasBlockingDecision counts
     // interactive decisions only, so a queue holding just static continuations never defers (no spin).
-    if (_SWUActionCloseWouldPass() && _SWUPlayerHasBlockingDecision(intval($player))) {
+    // Also waits for TRIGGERS queued on the actor's queue (RESOLVE_TRIGGER — static CUSTOMs the pick check ignores):
+    // HMW_016 Maul's front defeats the unit it just played, and that unit's When Defeated was still queued at the
+    // close. They drain ahead of the re-queued close and are gone when it re-checks, so this cannot spin either.
+    // This generalises _SWUCombatFinishAction's old combat-only block-20 close (2026-10-04).
+    // ⚠ $player must be the TURN player: only then is this the queue being drained (the old combat close's guard).
+    if (_SWUActionCloseWouldPass() && intval($player) === intval(GetTurnPlayer())
+        && (_SWUPlayerHasBlockingDecision(intval($player)) || _SWUHasQueuedTriggerResolution(intval($player)))) {
         $closeBlock = 20;   // behind ordinary picks (block 1) and the play tail (5, 10); never ahead of the pick it waits for
         foreach (GetDecisionQueue(intval($player)) as $d) {
             if (empty($d->removed)) $closeBlock = max($closeBlock, intval($d->Block ?? 0));
