@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-03T20:46:49+00:00",
+    "generatedAt": "2026-10-04T05:35:45+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 681,
+        "cardsWithExistingFixtures": 692,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1806,
+        "cardsNeedingSemanticCoverage": 1795,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2254,24 +2254,6 @@
             "priority": 24
         },
         {
-            "cardId": "RhSPMn8Lix",
-            "name": "Ignition Draw",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "AbjQkcN57S",
             "name": "Judas, Claret Intercessor",
             "type": "UNIQUE,ALLY",
@@ -2300,24 +2282,6 @@
                 "zone-movement",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "fIQR28QmYg",
-            "name": "Lucia, Reclaimed Blight",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3692,23 +3656,6 @@
                 "targeting",
                 "zone-movement",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "6JMwc6cpRm",
-            "name": "Peer the Depths",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8239,25 +8186,6 @@
                 "draw-discard",
                 "zone-movement",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "9cef7aknvn",
-            "name": "Wuji of Lingering Fate",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "status",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -12986,24 +12914,6 @@
             "priority": 14
         },
         {
-            "cardId": "yunjm0of8e",
-            "name": "Spellshield: Tera",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "prevention",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "CQ1bxUyi0Q",
             "name": "Spirit Blade: Ensoul",
             "type": "ACTION",
@@ -17715,23 +17625,6 @@
             "priority": 13
         },
         {
-            "cardId": "29lqrve8fz",
-            "name": "Nico, Rapture's Embrace",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "5bbae3z4py",
             "name": "Nico, Whiplash Allure",
             "type": "CHAMPION",
@@ -17927,23 +17820,6 @@
             "mechanics": [
                 "zone-movement",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "7qjnqww067",
-            "name": "Paired Minds, Kindred Souls",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -25342,22 +25218,6 @@
             "priority": 12
         },
         {
-            "cardId": "vFvhZeunOc",
-            "name": "SignalTech X Ultra",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "vwktc1c3kn",
             "name": "Silent Firebrand",
             "type": "ALLY",
@@ -25750,22 +25610,6 @@
             "mechanics": [
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "EQZZsiUDyl",
-            "name": "Storm Tyrant's Eye",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -27895,21 +27739,6 @@
             "priority": 11
         },
         {
-            "cardId": "TLqUZgBeg7",
-            "name": "Divining Streams",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "owq8s5fefw",
             "name": "Duplicitous Replication",
             "type": "ACTION",
@@ -29312,21 +29141,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "gqh3mw478q",
-            "name": "Lure the Abyss",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -44231,12 +44045,16 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "recruitment-officer-class-bonus-on-foster-look-top-5",
-                "recruitment-officer-decline-returns-looked-at-cards"
+                "recruitment-officer-foster-look-five-decline-bottoms-all-five",
+                "recruitment-officer-foster-look-five-no-ally-all-five-bottom",
+                "recruitment-officer-foster-look-five-reveal-deep-ally-rest-bottom",
+                "recruitment-officer-player-two-foster-look-five-reveal-deep-ally-rest-bottom"
             ],
             "semanticFixtures": [
-                "recruitment-officer-class-bonus-on-foster-look-top-5",
-                "recruitment-officer-decline-returns-looked-at-cards"
+                "recruitment-officer-foster-look-five-decline-bottoms-all-five",
+                "recruitment-officer-foster-look-five-no-ally-all-five-bottom",
+                "recruitment-officer-foster-look-five-reveal-deep-ally-rest-bottom",
+                "recruitment-officer-player-two-foster-look-five-reveal-deep-ally-rest-bottom"
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
@@ -44959,6 +44777,38 @@
             "priority": 44
         },
         {
+            "cardId": "RhSPMn8Lix",
+            "name": "Ignition Draw",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ignition-draw-look-six-banish-one-then-decline-second",
+                "ignition-draw-look-six-banish-two-aethercharge-rest-bottom",
+                "ignition-draw-look-six-decline-bottoms-all-six",
+                "ignition-draw-look-six-deep-aethercharge-offered",
+                "ignition-draw-look-six-three-aethercharge-banish-capped-at-two",
+                "ignition-draw-player-two-look-six-banish-two-aethercharge-rest-bottom"
+            ],
+            "semanticFixtures": [
+                "ignition-draw-look-six-banish-one-then-decline-second",
+                "ignition-draw-look-six-banish-two-aethercharge-rest-bottom",
+                "ignition-draw-look-six-decline-bottoms-all-six",
+                "ignition-draw-look-six-deep-aethercharge-offered",
+                "ignition-draw-look-six-three-aethercharge-banish-capped-at-two",
+                "ignition-draw-player-two-look-six-banish-two-aethercharge-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "X5XONoPY6Z",
             "name": "Inverted Pyroslash",
             "type": "ATTACK",
@@ -44975,6 +44825,34 @@
             ],
             "semanticFixtures": [
                 "inverted-pyroslash-ciel-discount"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "fIQR28QmYg",
+            "name": "Lucia, Reclaimed Blight",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lucia-reclaimed-blight-enter-look-six-decline-all-six-bottom",
+                "lucia-reclaimed-blight-enter-look-six-no-spell-all-six-bottom",
+                "lucia-reclaimed-blight-enter-look-six-reveal-deep-spell-to-memory-rest-bottom",
+                "lucia-reclaimed-blight-player-two-enter-look-six-reveal-deep-spell-to-memory-rest-bottom"
+            ],
+            "semanticFixtures": [
+                "lucia-reclaimed-blight-enter-look-six-decline-all-six-bottom",
+                "lucia-reclaimed-blight-enter-look-six-no-spell-all-six-bottom",
+                "lucia-reclaimed-blight-enter-look-six-reveal-deep-spell-to-memory-rest-bottom",
+                "lucia-reclaimed-blight-player-two-enter-look-six-reveal-deep-spell-to-memory-rest-bottom"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45149,6 +45027,31 @@
             "semanticFixtures": [
                 "kindling-flare-decline-all-herbs-pays-reserve-cost",
                 "kindling-flare-decline-further-herb-pays-reserve-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "6JMwc6cpRm",
+            "name": "Peer the Depths",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "peer-the-depths-banish-top-card-keeps-order-of-the-rest",
+                "peer-the-depths-look-four-opponent-banish-one-rest-bottom",
+                "peer-the-depths-player-two-look-four-opponent-banish-one-rest-bottom"
+            ],
+            "semanticFixtures": [
+                "peer-the-depths-banish-top-card-keeps-order-of-the-rest",
+                "peer-the-depths-look-four-opponent-banish-one-rest-bottom",
+                "peer-the-depths-player-two-look-four-opponent-banish-one-rest-bottom"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45519,6 +45422,35 @@
             "priority": 35
         },
         {
+            "cardId": "9cef7aknvn",
+            "name": "Wuji of Lingering Fate",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wuji-of-lingering-fate-player-two-west-east-sacrifice-mill-three-self",
+                "wuji-of-lingering-fate-west-east-decline-sacrifice-no-mill",
+                "wuji-of-lingering-fate-west-east-sacrifice-mill-three-opponent",
+                "wuji-of-lingering-fate-west-east-sacrifice-mill-three-self"
+            ],
+            "semanticFixtures": [
+                "wuji-of-lingering-fate-player-two-west-east-sacrifice-mill-three-self",
+                "wuji-of-lingering-fate-west-east-decline-sacrifice-no-mill",
+                "wuji-of-lingering-fate-west-east-sacrifice-mill-three-opponent",
+                "wuji-of-lingering-fate-west-east-sacrifice-mill-three-self"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "4GFKcHg9NU",
             "name": "Argus, All-Seeing Giant",
             "type": "UNIQUE,ALLY",
@@ -45861,6 +45793,30 @@
             "priority": 34
         },
         {
+            "cardId": "yunjm0of8e",
+            "name": "Spellshield: Tera",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "prevention",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "spellshield-tera-player-two-prevent-three-reveals-three-into-material-preserved",
+                "spellshield-tera-prevent-three-reveals-three-into-material-preserved"
+            ],
+            "semanticFixtures": [
+                "spellshield-tera-player-two-prevent-three-reveals-three-into-material-preserved",
+                "spellshield-tera-prevent-three-reveals-three-into-material-preserved"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "TDI5DOrWB5",
             "name": "Stillshard Strike",
             "type": "ATTACK",
@@ -46138,6 +46094,58 @@
             "priority": 33
         },
         {
+            "cardId": "29lqrve8fz",
+            "name": "Nico, Rapture's Embrace",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "nico-raptures-embrace-enter-look-two-graveyard-first-bottom-second",
+                "nico-raptures-embrace-enter-look-two-graveyard-one-bottom-other",
+                "nico-raptures-embrace-player-two-enter-look-two-graveyard-one-bottom-other"
+            ],
+            "semanticFixtures": [
+                "nico-raptures-embrace-enter-look-two-graveyard-first-bottom-second",
+                "nico-raptures-embrace-enter-look-two-graveyard-one-bottom-other",
+                "nico-raptures-embrace-player-two-enter-look-two-graveyard-one-bottom-other"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "7qjnqww067",
+            "name": "Paired Minds, Kindred Souls",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "paired-minds-look-ten-no-horse-all-ten-bottom",
+                "paired-minds-look-ten-reveal-deep-horse-rest-bottom",
+                "paired-minds-look-ten-two-horses-reveal-second-first-goes-bottom",
+                "paired-minds-player-two-look-ten-reveal-deep-horse-rest-bottom"
+            ],
+            "semanticFixtures": [
+                "paired-minds-look-ten-no-horse-all-ten-bottom",
+                "paired-minds-look-ten-reveal-deep-horse-rest-bottom",
+                "paired-minds-look-ten-two-horses-reveal-second-first-goes-bottom",
+                "paired-minds-player-two-look-ten-reveal-deep-horse-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "WyNvyDHFdB",
             "name": "Pantheon Barrier",
             "type": "TOKEN,PHANTASIA,DOMAIN",
@@ -46257,10 +46265,22 @@
                 "condition"
             ],
             "existingFixtures": [
-                "ashen-riffle-decline-returns-revealed-card"
+                "ashen-riffle-player-two-reveal-four-banish-two-suited-rest-bottom",
+                "ashen-riffle-reveal-four-banish-one-then-decline-second",
+                "ashen-riffle-reveal-four-banish-two-suited-rest-bottom",
+                "ashen-riffle-reveal-four-decline-bottoms-all-four",
+                "ashen-riffle-reveal-four-deep-suited-offered",
+                "ashen-riffle-reveal-four-three-eligible-banish-capped-at-two",
+                "ashen-riffle-small-deck-decline-returns-all-four-revealed-cards"
             ],
             "semanticFixtures": [
-                "ashen-riffle-decline-returns-revealed-card"
+                "ashen-riffle-player-two-reveal-four-banish-two-suited-rest-bottom",
+                "ashen-riffle-reveal-four-banish-one-then-decline-second",
+                "ashen-riffle-reveal-four-banish-two-suited-rest-bottom",
+                "ashen-riffle-reveal-four-decline-bottoms-all-four",
+                "ashen-riffle-reveal-four-deep-suited-offered",
+                "ashen-riffle-reveal-four-three-eligible-banish-capped-at-two",
+                "ashen-riffle-small-deck-decline-returns-all-four-revealed-cards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46469,6 +46489,32 @@
             "priority": 32
         },
         {
+            "cardId": "vFvhZeunOc",
+            "name": "SignalTech X Ultra",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "signaltech-x-ultra-player-two-rest-look-three-reveal-ally-rest-bottom-sacrifice",
+                "signaltech-x-ultra-rest-look-three-decline-all-three-bottom-no-sacrifice",
+                "signaltech-x-ultra-rest-look-three-no-ally-all-three-bottom-no-sacrifice",
+                "signaltech-x-ultra-rest-look-three-reveal-ally-rest-bottom-sacrifice"
+            ],
+            "semanticFixtures": [
+                "signaltech-x-ultra-player-two-rest-look-three-reveal-ally-rest-bottom-sacrifice",
+                "signaltech-x-ultra-rest-look-three-decline-all-three-bottom-no-sacrifice",
+                "signaltech-x-ultra-rest-look-three-no-ally-all-three-bottom-no-sacrifice",
+                "signaltech-x-ultra-rest-look-three-reveal-ally-rest-bottom-sacrifice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "lsLd8ADGAe",
             "name": "Silvergale Monstrosity's Call",
             "type": "ACTION",
@@ -46485,6 +46531,26 @@
             "semanticFixtures": [
                 "silvergale-monstrosity-call-prepare-2-declined-obelith-no-sheen",
                 "silvergale-monstrosity-call-prepare-2-paid-moves-sheen-to-obelith"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "EQZZsiUDyl",
+            "name": "Storm Tyrant's Eye",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "storm-tyrant-eye-reveal-until-arcane-damage-rest-bottom"
+            ],
+            "semanticFixtures": [
+                "storm-tyrant-eye-reveal-until-arcane-damage-rest-bottom"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46613,6 +46679,29 @@
             "priority": 31
         },
         {
+            "cardId": "TLqUZgBeg7",
+            "name": "Divining Streams",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "divining-streams-look-three-first-to-graveyard-last-on-top",
+                "divining-streams-look-three-graveyard-top-bottom",
+                "divining-streams-player-two-look-three-graveyard-top-bottom"
+            ],
+            "semanticFixtures": [
+                "divining-streams-look-three-first-to-graveyard-last-on-top",
+                "divining-streams-look-three-graveyard-top-bottom",
+                "divining-streams-player-two-look-three-graveyard-top-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "k8bwlx70qj",
             "name": "Genbu, Black Tortoise",
             "type": "ALLY",
@@ -46664,6 +46753,31 @@
             ],
             "semanticFixtures": [
                 "lesser-boon-of-territories-scavenge-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "gqh3mw478q",
+            "name": "Lure the Abyss",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "lure-the-abyss-player-two-reveal-four-specters-to-graveyard-rest-bottom",
+                "lure-the-abyss-reveal-four-all-specters-all-to-graveyard",
+                "lure-the-abyss-reveal-four-no-specter-all-four-bottom",
+                "lure-the-abyss-reveal-four-specters-to-graveyard-rest-bottom"
+            ],
+            "semanticFixtures": [
+                "lure-the-abyss-player-two-reveal-four-specters-to-graveyard-rest-bottom",
+                "lure-the-abyss-reveal-four-all-specters-all-to-graveyard",
+                "lure-the-abyss-reveal-four-no-specter-all-four-bottom",
+                "lure-the-abyss-reveal-four-specters-to-graveyard-rest-bottom"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

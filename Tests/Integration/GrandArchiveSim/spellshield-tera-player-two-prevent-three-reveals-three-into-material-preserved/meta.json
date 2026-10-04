@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. The PREVENT_CHAMP_TERA_PRESERVE branch of the damage-prevention code (CombatLogic.php) moved the revealed cards with a loop of MZMove($controller, \"myDeck-0\", \"myMaterial\") and read each card id from $deckZone[0]. Remove() only flags a slot removed (no splice), so \"myDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped: no matter how much damage was prevented only the top card was ever put into the material deck (and the same card id re-marked preserved) -- live repro on HEAD: 3 damage prevented moved 1 card (material 1, deck 16 instead of 3 and 14). Fixed with the new MZMoveTopOfZone() helper, marking each moved card's own id preserved.",
         "affectedFunction": "Custom/CombatLogic.php damage-prevention PREVENT_CHAMP_TERA_PRESERVE branch",
-        "fixCommit": "TBD"
+        "fixCommit": "46a1936b4"
     }
 }

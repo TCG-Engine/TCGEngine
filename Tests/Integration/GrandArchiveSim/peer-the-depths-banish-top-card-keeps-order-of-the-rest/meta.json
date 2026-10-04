@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "FIXED. PeerTheDepthsResolve() pulled the opponent's top four cards with a loop of MZMove($player, \"theirDeck-0\", \"myTempZone\"). Remove() only flags a slot removed (no splice), so \"theirDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped: only the top card of the opponent's deck was ever looked at (live repro on HEAD: the banish prompt offered the single card myTempZone-0). Fixed with the new MZMoveTopOfZone() helper (it flips the zone perspective for $player != the viewer exactly like MZMove).",
         "affectedFunction": "Custom/GameLogic.php PeerTheDepthsResolve()",
-        "fixCommit": "TBD"
+        "fixCommit": "f25d8b367"
     }
 }

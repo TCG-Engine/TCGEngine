@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. LureTheAbyssExecute() pulled the top four cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"). Remove() only flags a slot removed (no splice), so \"myDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped: only the top card was ever revealed (live repro on HEAD: with two Specters in the top four, graveyard stayed at 1 [just the spell] and only the top card moved to the bottom; Specters were never put into the graveyard). Fix: new MZMoveTopOfZone() helper (GameLogic.php) compacts the zone first when the top slot is a removed phantom, then MZMoves the real top card -- full MZMove semantics kept.",
         "affectedFunction": "Custom/CardDQHandlers.php LureTheAbyssExecute()",
-        "fixCommit": "TBD"
+        "fixCommit": "0d566db71"
     }
 }

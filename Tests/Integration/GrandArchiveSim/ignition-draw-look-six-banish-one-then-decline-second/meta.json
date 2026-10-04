@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. Three defects. (1) IgnitionDrawStart() pulled the top six cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped -- only the top card was ever looked at (live repro on HEAD: temp zone held 1 card, the Aethercharge cards deeper in the top six were never offered and only 1 card went to the bottom). Fixed with the new MZMoveTopOfZone() helper. (2) After banishing the first Aethercharge, IgnitionDrawBanishChoice built the next candidate list before the banished card's slot was spliced out of myTempZone, so the second prompt listed stale myTempZone-N slots and banished the WRONG card (a Dungeon Guide) once the zone was cleaned up: fixed by CleanupRemovedCards() before IgnitionDrawChooseStep(). (3) IgnitionDrawBanishChoice was queued without dontSkipOnPass, so declining the \"up to two\" banish (MZMAYCHOOSE answered PASS) skipped the handler and stranded the looked-at cards in myTempZone: fixed with dontSkipOnPass:1.",
         "affectedFunction": "Custom/CardDQHandlers.php IgnitionDrawStart() / IgnitionDrawChooseStep() / IgnitionDrawBanishChoice handler",
-        "fixCommit": "TBD"
+        "fixCommit": "45fb464aa"
     }
 }
