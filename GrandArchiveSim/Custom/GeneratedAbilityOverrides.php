@@ -771,3 +771,16 @@ $enterAbilities["172utOanGk:0"] = function($player) { //Dante Bonus — Mill thr
   $waterCount = count(ZoneSearch("myGraveyard", cardElements: ["WATER"]));
   Empower($player, $waterCount, "172utOanGk");
 };
+
+// ---------------------------------------------------------------------------------------------
+// Overflow the Barrow (OiyjVzW7Av): "Put a haunt counter on your Phantasmagoria. Then put the top X cards from your deck into your graveyard, where X is
+// the amount of haunt counters on your Phantasmagoria." The generated body milled with a loop of MZMove($player, "myDeck-0", "myGraveyard"): Remove() only
+// flags a slot removed (no splice), so only ONE card was ever milled. Verbatim body with MillCards() (distinct slots, honours Purging Tempest / Sasha).
+// ---------------------------------------------------------------------------------------------
+$cardActivatedAbilities["OiyjVzW7Av:0"] = function($player) { //OiyjVzW7Av
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  AddHauntToMastery($player, 1);
+  $hauntCount = GetHauntCount($player);
+  if($hauntCount > 0) MillCards($player, "myDeck", "myGraveyard", $hauntCount);
+};

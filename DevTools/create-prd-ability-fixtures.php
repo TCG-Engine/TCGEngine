@@ -27186,6 +27186,24 @@ DECK,
 ];
 
 
+// --- Overflow the Barrow (OiyjVzW7Av): "As long as you have no cards in your graveyard, this card costs 2 less to activate. Put a haunt counter on your
+// Phantasmagoria. Then put the top X cards from your deck into your graveyard, where X is the amount of haunt counters on your Phantasmagoria." ---
+// Generated body milled with a loop of MZMove($player, "myDeck-0", "myGraveyard"): only the TOP card was ever milled (see 1676ae91 Pure Cytosynth).
+// Phantasmagoria (D3rexaXCBo) is seeded in the mastery with 2 haunt counters: playing the card adds a third, so exactly three cards are milled.
+$fixtures['overflow-the-barrow-adds-haunt-then-mills-haunt-count'] = [
+    'testedCards' => ['OiyjVzW7Av'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // top four: Dungeon Guide, Fluffy Shopkeep, Fairy Whispers (the three milled), Charge the Soul (marker: must be the new top card)
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]], // UMBRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'D3rexaXCBo', 'setProperties' => ['Counters' => ['haunt' => 2]]],
+        $gaHand('OiyjVzW7Av'),
+        $gaTop([$GA_DG, $GA_FS, $GA_FW, $GA_MARK], 1),
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1)), // empty graveyard: costs 2 less (3 -> 1)
+];
+
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
