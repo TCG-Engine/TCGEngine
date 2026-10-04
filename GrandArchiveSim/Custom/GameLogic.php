@@ -23601,9 +23601,15 @@ function HasTaunt($obj) {
     return false;
 }
 
-/**
- * Move all TempZone cards back to the top of the player's deck (preserving order).
- */
+// "memory cost 0 or reserve cost N or less": the card-data accessors use -1 for "no such cost", so a memory-only item (memory cost 1+, reserve -1) satisfied a bare
+// "CardCost_reserve($id) <= N" and every one of them was a legal target. Explicit memory cost 0, or a real reserve cost (>= 0) of at most N.
+function ItemLowCostMatches($cardID, $maxReserve) {
+    $memory = CardCost_memory($cardID);
+    if($memory !== null && intval($memory) === 0) return true;
+    $reserve = CardCost_reserve($cardID);
+    return $reserve !== null && intval($reserve) >= 0 && intval($reserve) <= $maxReserve;
+}
+
 // Put every card left in the temp zone on the BOTTOM of the deck, keeping their order. MZMoveTopOfZone, not a loop of MZMove($player, "myTempZone-0", ...):
 // MZMove only flags the slot removed, so "myTempZone-0" would keep resolving to the same removed slot.
 function PutTempZoneOnBottomOfDeck($player) {
@@ -23613,6 +23619,9 @@ function PutTempZoneOnBottomOfDeck($player) {
     }
 }
 
+/**
+ * Move all TempZone cards back to the top of the player's deck (preserving order).
+ */
 function PutTempZoneOnTopOfDeck($player) {
     $deck = &GetDeck($player);
     $tempZone = &GetTempZone($player);

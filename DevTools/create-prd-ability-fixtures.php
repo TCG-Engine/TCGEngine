@@ -27768,6 +27768,84 @@ $fixtures['peer-the-depths-not-offered-to-non-turn-player-in-opponents-recollect
     'setup' => [$gaHand('6JMwc6cpRm', 1), $gaHand('6JMwc6cpRm', 2)],
     'actions' => [mrdEnd(1), mrdEnd(2), mrdPass(1)], // turn 2 passes; player 1's recollection window opens; player 1 passes it
 ];
+
+// --- "Destroy target item or weapon with memory cost 0 or reserve cost N or less": the generated filter treated the data's -1 ("no reserve cost") as "<= N", so memory-only items were legal targets.
+// The opponent controls Scepter of Lumina (memory cost 1, no reserve cost: NOT a legal target) and Forest Cake (reserve cost 2: legal). ---
+$gaLowCostSetup = function(string $cardID) use ($gaHand) {
+    return [
+        $gaHand($cardID), // the destroyer -> myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e5o3cm9lbe'], // Scepter of Lumina (memory cost 1, no reserve cost) -> theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'bjx6yo7mm5'], // Forest Cake (reserve cost 2) -> theirField-2
+    ];
+};
+$fixtures['ghastly-corrosion-refuses-memory-only-item-destroys-low-reserve-item'] = [
+    'testedCards' => ['40xhntos3d'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaLowCostSetup('40xhntos3d'),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target']),
+        mrdAns(1, 'theirField-2'),
+    ]),
+];
+$fixtures['reduce-to-ash-refuses-memory-only-item-destroys-low-reserve-item'] = [
+    'testedCards' => ['sbalegbscx'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaLowCostSetup('sbalegbscx'),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target']),
+        mrdAns(1, 'theirField-2'),
+    ]),
+];
+
+$fixtures['rapid-combustion-refuses-memory-only-item-destroys-low-reserve-item'] = [
+    'testedCards' => ['0s6solta0h'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // both opponent items were seeded this turn ("entered the field this turn" holds); only Forest Cake (reserve 2 <= 3) is legal
+    'setup' => $gaLowCostSetup('0s6solta0h'),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target']),
+        mrdAns(1, 'theirField-2'),
+    ]),
+];
+$fixtures['unstable-fractal-refuses-memory-only-item-destroys-low-reserve-item'] = [
+    'testedCards' => ['2o82fwl22v'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00']], // Diao Chan, Enchantress (CLERIC): Class Bonus
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2o82fwl22v', 'setProperties' => ['Status' => 2]], // Unstable Fractal, seeded awake -> myField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e5o3cm9lbe'], // Scepter of Lumina (memory cost 1, no reserve cost) -> theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'bjx6yo7mm5'], // Forest Cake (reserve cost 2) -> theirField-2
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target']),
+        mrdAns(1, 'theirField-2'),
+    ]),
+];
+$fixtures['converge-reflections-refuses-memory-only-item-destroys-low-reserve-item'] = [
+    'testedCards' => ['TBVLLRPiwP'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [
+        $gaHand('TBVLLRPiwP'), // Converge Reflections -> myHand-7
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Y34Imzlr0n'], // sacrifice fodder (non-token weapon) -> myField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e5o3cm9lbe'], // Scepter of Lumina -> theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'bjx6yo7mm5'], // Forest Cake -> theirField-2
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7'), mrdAns(1, 'myField-1')], mrdPay(1, 2), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target']),
+        mrdAns(1, 'theirField-2'),
+    ]),
+];
+
+$fixtures['swooping-talons-level-two-mode-refuses-memory-only-item-destroys-low-reserve-item'] = [
+    'testedCards' => ['rj52215upu'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => array_merge([['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '0i139x5eub']]], $gaLowCostSetup('rj52215upu')), // level-2 champion unlocks the destroy mode (no ally on the field, so it is the only mode and is chosen automatically)
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target']),
+        mrdAns(1, 'theirField-2'),
+    ]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

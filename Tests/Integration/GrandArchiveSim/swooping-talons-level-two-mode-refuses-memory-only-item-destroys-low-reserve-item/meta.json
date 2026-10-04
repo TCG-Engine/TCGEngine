@@ -1,0 +1,28 @@
+{
+    "name": "swooping-talons-level-two-mode-refuses-memory-only-item-destroys-low-reserve-item",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T19:51:38+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "rj52215upu"
+    ],
+    "notes": "Swooping Talons (rj52215upu) with a level-2 champion: of Scepter of Lumina (memory 1, no reserve) and Forest Cake (reserve 2) only Forest Cake is selectable. Pre-fix both were offered.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rj52215upu"
+        ],
+        "mechanics": [
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Level 2+] Destroy target item with memory cost 0 or reserve cost 4 or less."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Swooping Talons' destroy mode (and Smashing Force's destroy step) build their target list in hand-written helpers (SwoopingTalonsMode2, SmashingForceBanish2 in Custom/CardDQHandlers.php) with the same filter as the generated code, \"CardCost_memory($id) == 0 || CardCost_reserve($id) <= 4\". The card data uses -1 for \"no such cost\", so every memory-only item (memory cost 1+, no reserve cost; e.g. Scepter of Lumina) satisfied \"reserve <= 4\" and was offered as a target. Both now use ItemLowCostMatches() (Custom/GameLogic.php), as do the generated closures (overridden in Custom/GeneratedAbilityOverrides.php).",
+        "affectedFunction": "Custom/CardDQHandlers.php SwoopingTalonsMode2() / SmashingForceBanish2()",
+        "fixCommit": "TBD"
+    }
+}

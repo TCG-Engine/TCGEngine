@@ -1393,3 +1393,246 @@ $cardActivatedAbilities["qy34r8gffr:0"] = function($player) { //Choose a card na
 $activateCardPrereqs["6JMwc6cpRm:0"] = function($player, $mzID, $ignoreCost) { //Recollection-only activation prereq
   return GetCurrentPhase() === "BREC" && GetTurnPlayer() == $player;
 };
+
+// ---------------------------------------------------------------------------------------------
+// "Destroy target item [or weapon] with memory cost 0 or reserve cost N or less" (Converge Reflections TBVLLRPiwP [prereq + handler], Unstable Fractal 2o82fwl22v [ability + prereq], Alkahest xfpk9xycwz,
+// Rapid Combustion 0s6solta0h, Ghastly Corrosion 40xhntos3d, Swooping Talons rj52215upu, Reduce to Ash sbalegbscx, Smashing Force 88rx6p3p5i). The generated target filters tested
+// "CardCost_memory($id) == 0 || CardCost_reserve($id) <= N": the card data uses -1 for "no such cost", so all 139 memory-only items/weapons/regalia (memory cost 1+, no reserve cost) satisfied
+// "reserve <= N" and were legal targets. Verbatim bodies with ItemLowCostMatches() (explicit memory cost 0, or a real reserve cost of at most N).
+// ---------------------------------------------------------------------------------------------
+$activateCardPrereqs["TBVLLRPiwP:0"] = function($player, $mzID, $ignoreCost) { //Play prereq prereq
+  $myItemsWeapons = array_merge(
+      ZoneSearch("myField", ["ITEM", "REGALIA"]),
+      ZoneSearch("myField", ["WEAPON"])
+  );
+  $sacTargets = array_filter($myItemsWeapons, fn($mz) => !IsToken(GetZoneObject($mz)->CardID));
+  if(empty($sacTargets)) {
+      SetFlashMessage("Converge Reflections requires a non-token item or weapon to sacrifice.");
+      return false;
+  }
+  $allItemsWeapons = array_merge(
+      ZoneSearch("myField", ["ITEM", "REGALIA"]),
+      ZoneSearch("theirField", ["ITEM", "REGALIA"]),
+      ZoneSearch("myField", ["WEAPON"]),
+      ZoneSearch("theirField", ["WEAPON"])
+  );
+  foreach($allItemsWeapons as $mzI) {
+      $iObj = GetZoneObject($mzI);
+      if($iObj === null) continue;
+      if(ItemLowCostMatches($iObj->CardID, 4)) {
+          return true;
+      }
+  }
+  SetFlashMessage("Converge Reflections requires a valid item or weapon target.");
+  return false;
+};
+$activateAbilityAbilities["2o82fwl22v:0"] = function($player) { //Destroy
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $abilityIndex = DecisionQueueController::GetVariable("abilityIndex");
+  // Unstable Fractal: [Class Bonus] (3), REST, Sacrifice self: Destroy target item with memory cost 0 or reserve cost 5 or less.
+  if(!IsClassBonusActive($player, ["CLERIC"])) return;
+  $validTargets = [];
+  $allItems = array_merge(
+      ZoneSearch("myField", ["ITEM", "REGALIA"]),
+      ZoneSearch("theirField", ["ITEM", "REGALIA"])
+  );
+  foreach($allItems as $mzI) {
+      $iObj = GetZoneObject($mzI);
+      if($iObj === null) continue;
+      if(ItemLowCostMatches($iObj->CardID, 5)) {
+          $validTargets[] = $mzI;
+      }
+  }
+  if(empty($validTargets)) return;
+  $targetStr = implode("&", $validTargets);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "2o82fwl22v:0:ActivateAbility-1", 1);
+};
+$activateAbilityPrereqs["2o82fwl22v:0"] = function($player, $mzID, $abilityIndex) { //Destroy prereq
+  $sourceObject = GetZoneObject($mzID);
+  if($sourceObject === null) return false;
+  if($sourceObject->Status != 2) return false;
+  if(!IsClassBonusActive($player, ["CLERIC"])) return false;
+  $hand = GetHand($player);
+  if(count($hand) < 3) return false;
+  $allItems = array_merge(
+      ZoneSearch("myField", ["ITEM", "REGALIA"]),
+      ZoneSearch("theirField", ["ITEM", "REGALIA"])
+  );
+  foreach($allItems as $mzI) {
+      $iObj = GetZoneObject($mzI);
+      if($iObj === null) continue;
+      if(ItemLowCostMatches($iObj->CardID, 5)) {
+          return true;
+      }
+  }
+  return false;
+};
+$activateAbilityAbilities["xfpk9xycwz:0"] = function($player) { //xfpk9xycwz
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $abilityIndex = DecisionQueueController::GetVariable("abilityIndex");
+  // Alkahest: [Level 4+] Banish self: Destroy target item or weapon with memory cost 0 or reserve cost 4 or less
+  $validTargets = [];
+  $allItems = array_merge(
+      ZoneSearch("myField", ["ITEM", "REGALIA"]),
+      ZoneSearch("theirField", ["ITEM", "REGALIA"]),
+      ZoneSearch("myField", ["WEAPON"]),
+      ZoneSearch("theirField", ["WEAPON"])
+  );
+  foreach($allItems as $mzI) {
+      $iObj = GetZoneObject($mzI);
+      if(ItemLowCostMatches($iObj->CardID, 4)) {
+          $validTargets[] = $mzI;
+      }
+  }
+  if(empty($validTargets)) return;
+  $targetStr = implode("&", $validTargets);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "xfpk9xycwz:0:ActivateAbility-1", 1);
+};
+$cardActivatedAbilities["0s6solta0h:0"] = function($player) { //0s6solta0h
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $validTargets = [];
+  $allItems = array_merge(
+      ZoneSearch("myField", ["ITEM", "REGALIA"]),
+      ZoneSearch("theirField", ["ITEM", "REGALIA"]),
+      ZoneSearch("myField", ["WEAPON"]),
+      ZoneSearch("theirField", ["WEAPON"])
+  );
+  $allItems = FilterSpellshroudTargets($allItems);
+  foreach($allItems as $mzI) {
+      $iObj = GetZoneObject($mzI);
+      if($iObj === null || $iObj->removed) continue;
+      if(!in_array("ENTERED_THIS_TURN", $iObj->TurnEffects)) continue;
+      if(ItemLowCostMatches($iObj->CardID, 3)) {
+          $validTargets[] = $mzI;
+      }
+  }
+  if(empty($validTargets)) return;
+  $targetStr = implode("&", $validTargets);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "0s6solta0h:0:CardActivated-1", 1);
+};
+$cardActivatedAbilities["40xhntos3d:0"] = function($player) { //Destroy target item/weapon
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Ghastly Corrosion: Destroy target item or weapon with memory cost 0 or reserve cost 4 or less
+  $validTargets = [];
+  $allItems = array_merge(
+      ZoneSearch("myField", ["ITEM", "REGALIA"]),
+      ZoneSearch("theirField", ["ITEM", "REGALIA"]),
+      ZoneSearch("myField", ["WEAPON"]),
+      ZoneSearch("theirField", ["WEAPON"])
+  );
+  $allItems = FilterSpellshroudTargets($allItems);
+  foreach($allItems as $mzI) {
+      $iObj = GetZoneObject($mzI);
+      if($iObj === null) continue;
+      if(ItemLowCostMatches($iObj->CardID, 4)) {
+          $validTargets[] = $mzI;
+      }
+  }
+  if(empty($validTargets)) return;
+  $targetStr = implode("&", $validTargets);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "40xhntos3d:0:CardActivated-1", 1);
+};
+$cardActivatedAbilities["rj52215upu:0"] = function($player) { //Choose: deal 2 to ally OR destroy item
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $level = PlayerLevel($player);
+  $hasAllies = !empty(array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"])));
+  $hasItems = false;
+  if($level >= 2) {
+      $allItems = array_merge(ZoneSearch("myField", ["ITEM", "REGALIA"]), ZoneSearch("theirField", ["ITEM", "REGALIA"]));
+      foreach($allItems as $mzI) {
+          $iObj = GetZoneObject($mzI);
+          if(ItemLowCostMatches($iObj->CardID, 4)) {
+              $hasItems = true;
+              break;
+          }
+      }
+  }
+  if(!$hasAllies && !$hasItems) return;
+  if($hasAllies && !$hasItems) {
+      SwoopingTalonsMode1($player);
+  } else if(!$hasAllies && $hasItems) {
+      SwoopingTalonsMode2($player);
+  } else {
+      DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Deal_2_damage_to_target_ally?");
+      DecisionQueueController::AddDecision($player, "CUSTOM", "SwoopingTalons_Choice", 1);
+  }
+};
+$cardActivatedAbilities["sbalegbscx:0"] = function($player) { //sbalegbscx
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Reduce to Ash: Destroy target item or weapon with memory cost 0 or reserve cost 4 or less
+  $validTargets = [];
+  $allTargets = array_merge(
+      ZoneSearch("myField", ["ITEM", "WEAPON"]),
+      ZoneSearch("theirField", ["ITEM", "WEAPON"])
+  );
+  $allTargets = FilterSpellshroudTargets($allTargets);
+  foreach($allTargets as $mz) {
+      $obj = GetZoneObject($mz);
+      if($obj === null) continue;
+      $cid = $obj->CardID;
+      if(ItemLowCostMatches($cid, 4)) {
+          $validTargets[] = $mz;
+      }
+  }
+  if(empty($validTargets)) return;
+  $targetStr = implode("&", $validTargets);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "sbalegbscx:0:CardActivated-1", 1);
+};
+$cardActivatedAbilities["TBVLLRPiwP:0"] = function($player) { //Destroy target item/weapon (M0 or R<=4), draw to memory if Distortion
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $validTargets = [];
+  $allItemsWeapons = array_merge(
+      ZoneSearch("myField", ["ITEM", "REGALIA"]),
+      ZoneSearch("theirField", ["ITEM", "REGALIA"]),
+      ZoneSearch("myField", ["WEAPON"]),
+      ZoneSearch("theirField", ["WEAPON"])
+  );
+  foreach($allItemsWeapons as $mzI) {
+      $iObj = GetZoneObject($mzI);
+      if($iObj === null) continue;
+      if(ItemLowCostMatches($iObj->CardID, 4)) {
+          $validTargets[] = $mzI;
+      }
+  }
+  if(empty($validTargets)) return;
+  $targetStr = implode("&", $validTargets);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "TBVLLRPiwP:0:CardActivated-1", 1);
+};
+$onAttackAbilities["88rx6p3p5i:0"] = function($player) { //88rx6p3p5i
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Smashing Force: [CB] On Attack: May banish 2 fire cards from graveyard to destroy item/weapon
+  if(!IsClassBonusActive($player, ["GUARDIAN"])) return;
+  $fireCards = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+  if(count($fireCards) < 2) return;
+  // Check if any valid destroy targets exist
+  $validTargets = [];
+  $allItems = array_merge(
+      ZoneSearch("myField", ["ITEM", "REGALIA"]),
+      ZoneSearch("theirField", ["ITEM", "REGALIA"]),
+      ZoneSearch("myField", ["WEAPON"]),
+      ZoneSearch("theirField", ["WEAPON"])
+  );
+  foreach($allItems as $mzI) {
+      $iObj = GetZoneObject($mzI);
+      if(ItemLowCostMatches($iObj->CardID, 4)) {
+          $validTargets[] = $mzI;
+      }
+  }
+  if(empty($validTargets)) return;
+  DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Banish_2_fire_cards_to_destroy_item/weapon?");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "88rx6p3p5i:0:OnAttack-1", 1);
+};

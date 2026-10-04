@@ -1,0 +1,28 @@
+{
+    "name": "reduce-to-ash-refuses-memory-only-item-destroys-low-reserve-item",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T19:48:54+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "sbalegbscx"
+    ],
+    "notes": "Reduce to Ash: of Scepter of Lumina (memory cost 1, no reserve cost) and Forest Cake (reserve cost 2) only Forest Cake is a legal target -- the memory-only item is refused. Pre-fix both were offered.",
+    "semanticCoverage": {
+        "testedCards": [
+            "sbalegbscx"
+        ],
+        "mechanics": [
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Destroy target item or weapon with memory cost 0 or reserve cost 4 or less."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated target filter for this card tested \"CardCost_memory($id) == 0 || CardCost_reserve($id) <= N\" for \"memory cost 0 or reserve cost N or less\". The card data uses -1 for \"no such cost\", so every memory-only item/weapon/regalia (memory cost 1+, no reserve cost; 139 cards, e.g. Scepter of Lumina) satisfied \"reserve <= N\" and was offered as a legal target. The generated file cannot be edited (gitignored): the closures are overridden in Custom/GeneratedAbilityOverrides.php with ItemLowCostMatches() (Custom/GameLogic.php): explicit memory cost 0, or a real reserve cost (>= 0) of at most N. Same filter fixed for Converge Reflections, Unstable Fractal, Alkahest, Rapid Combustion, Ghastly Corrosion, Swooping Talons, Reduce to Ash and Smashing Force.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[sbalegbscx:0] (+ ItemLowCostMatches in Custom/GameLogic.php)",
+        "fixCommit": "TBD"
+    }
+}

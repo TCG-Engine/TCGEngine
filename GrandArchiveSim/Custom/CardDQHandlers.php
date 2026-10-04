@@ -2122,7 +2122,7 @@ $customDQHandlers["SmashingForceBanish2"] = function($player, $parts, $lastDecis
     );
     foreach($allItems as $mzI) {
         $iObj = GetZoneObject($mzI);
-        if(CardCost_memory($iObj->CardID) == 0 || CardCost_reserve($iObj->CardID) <= 4) {
+        if(ItemLowCostMatches($iObj->CardID, 4)) {
             $validTargets[] = $mzI;
         }
     }
@@ -2325,7 +2325,7 @@ function SwoopingTalonsMode2($player) {
     $allItems = array_merge(ZoneSearch("myField", ["ITEM", "REGALIA"]), ZoneSearch("theirField", ["ITEM", "REGALIA"]));
     foreach($allItems as $mzI) {
         $iObj = GetZoneObject($mzI);
-        if(CardCost_memory($iObj->CardID) == 0 || CardCost_reserve($iObj->CardID) <= 4) {
+        if(ItemLowCostMatches($iObj->CardID, 4)) {
             $validItems[] = $mzI;
         }
     }
