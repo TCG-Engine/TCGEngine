@@ -1,0 +1,28 @@
+{
+    "name": "huang-zhong-return-to-memory-ranger-units-become-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:39:11+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "XikXt8WyNp"
+    ],
+    "notes": "Huang Zhong, Unerring Aim (XikXt8WyNp): with a Ranger champion, a Ranger ally and a non-Ranger ally in play, paying (3) and returning Huang Zhong to memory makes the Ranger champion and the Ranger ally distant but not the non-Ranger ally. Pre-fix the handler died with an undefined-function fatal (GetController).",
+    "semanticCoverage": {
+        "testedCards": [
+            "XikXt8WyNp"
+        ],
+        "mechanics": [
+            "distant",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] (3), Return CARDNAME to its owner's memory: Ranger units you control become distant."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The HuangZhongDistant handler (Custom/CardDQHandlers.php) called GetController(), which does not exist in GrandArchiveSim: after the three reserve payments were made the ability died with a fatal 'Call to undefined function GetController()', so no Ranger unit became distant and Huang Zhong was never returned to memory. It now reads the controller off the zone object. It also made only Ranger ALLIES distant although the ability says Ranger units (allies and champions): a Ranger champion now becomes distant too.",
+        "affectedFunction": "Custom/CardDQHandlers.php customDQHandlers[HuangZhongDistant]",
+        "fixCommit": "TBD"
+    }
+}

@@ -27402,6 +27402,21 @@ $fixtures['genuflecting-execution-destroys-one-rested-ally-declines-second'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 7), [mrdAns(1, 'theirField-1'), mrdPass(1)]),
 ];
 
+
+// --- Huang Zhong, Unerring Aim (XikXt8WyNp): "[Class Bonus] (3), Return CARDNAME to its owner's memory: Ranger units you control become distant." The generated activation queued
+// HuangZhongDistant, whose handler called GetController(), which does not exist (fatal after the cost was paid). ---
+$fixtures['huang-zhong-return-to-memory-ranger-units-become-distant'] = [
+    'testedCards' => ['XikXt8WyNp'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7ozuj68m69', 'Subcards' => ['tafqldAGRF']]], // Diana, Deadly Duelist (level 2 RANGER): Class Bonus + a Ranger champion
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'XikXt8WyNp'],  // Huang Zhong -> field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'bx4k3akqx7'],  // Hidden Longbowman (RANGER ally) -> field-2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],  // Dungeon Guide (not a Ranger) -> field-3
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 3)),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

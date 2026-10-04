@@ -2998,12 +2998,18 @@ $customDQHandlers["ThreeOfDiamondsGraveyard"] = function($player, $parts, $lastD
 $customDQHandlers["HuangZhongDistant"] = function($player, $parts, $lastDecision) {
     // $parts[0] = mzID of Huang Zhong
     $mzID = $parts[0];
-    global $playerID;
-    $player = GetController($mzID);
-    // Make all Ranger units on field distant
+    // GetController() does not exist in this engine (fatal "undefined function" after the cost was paid): the controller is on the zone object.
+    $huangObj = GetZoneObject($mzID);
+    if($huangObj === null || $huangObj->removed) return;
+    $player = $huangObj->Controller;
+    // Make all Ranger units (allies AND the champion) you control distant
     $rangerAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["RANGER"]);
     foreach($rangerAllies as $rangerMZ) {
         BecomeDistant($player, $rangerMZ);
+    }
+    foreach(ZoneSearch("myField", ["CHAMPION"]) as $champMZ) {
+        $champObj = GetZoneObject($champMZ);
+        if($champObj !== null && !$champObj->removed && PropertyContains(EffectiveCardClasses($champObj), "RANGER")) BecomeDistant($player, $champMZ);
     }
     // Return Huang Zhong to memory
     MZMove($player, $mzID, "myMemory");
