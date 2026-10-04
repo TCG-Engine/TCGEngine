@@ -10022,6 +10022,9 @@ $customDQHandlers["ScorchfireRemovePrep"] = function($player, $params, $lastDeci
 
 // Nature's Appeal (oj0oh7pjoq): choose card for material then put rest on bottom
 function NaturesAppealMaterialAndBottom($player) {
+    // ZoneSearch() does not skip slots flagged removed: without this splice the card just taken into hand was still offered (and counted) as a
+    // "remaining" card for the material deck.
+    DecisionQueueController::CleanupRemovedCards();
     $remaining = ZoneSearch("myTempZone");
     if(empty($remaining)) return;
     if(count($remaining) == 1) {

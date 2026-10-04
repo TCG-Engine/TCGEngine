@@ -27566,6 +27566,20 @@ $fixtures['tide-diviner-enter-level-two-looks-three-takes-deep-card-rest-to-grav
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4), [mrdAns(1, 'myTempZone-2')]),
 ];
 
+
+// --- Nature's Appeal (oj0oh7pjoq): "Reveal the top LV cards of your deck. Put one of those cards into your hand and another into your material deck preserved. Put the rest on the bottom of
+// your deck in any order." The generated body revealed with a fixed-index MZMove loop: only the top card was ever revealed. The champion is level 3 (Kongming, Fel Eidolon, TERA). ---
+$fixtures['natures-appeal-level-three-reveals-three-hand-material-and-bottom'] = [
+    'testedCards' => ['oj0oh7pjoq'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7x2v4tdop1']], // Kongming, Fel Eidolon (level 3, TERA)
+        $gaHand('oj0oh7pjoq'), // Nature's Appeal -> myHand-7
+        $gaTop([$GA_DG, $GA_FS, $GA_FW, $GA_MARK]), // top three revealed (Fairy Whispers -> hand, Fluffy Shopkeep -> material, Dungeon Guide -> bottom), then a marker
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myTempZone-2'), mrdAns(1, 'myTempZone-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'the card already put into hand is no longer offered for the material deck']), mrdAns(1, 'myTempZone-1')]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

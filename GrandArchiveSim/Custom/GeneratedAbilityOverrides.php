@@ -1145,3 +1145,29 @@ $enterAbilities["zrBBvgIvt6:0"] = function($player) { //Look at Top 1+LV Cards
   DecisionQueueController::AddDecision($player, "MZCHOOSE", $tempMZList, 1, "");
   DecisionQueueController::AddDecision($player, "CUSTOM", "zrBBvgIvt6:0:Enter-1", 1);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Nature's Appeal (oj0oh7pjoq): "Reveal the top LV cards of your deck. Put one of those cards into your hand and another into your material deck preserved. Put the rest on the bottom of your deck
+// in any order." The generated body revealed with a loop of MZMove($player, "myDeck-0", "myTempZone"): Remove() only flags a slot removed (no splice), so "myDeck-0" re-resolved to the same removed
+// slot and only the TOP card was ever revealed (it went straight to hand; no material card, nothing on the bottom). Verbatim body with MZMoveTopOfZone().
+// ---------------------------------------------------------------------------------------------
+$cardActivatedAbilities["oj0oh7pjoq:0"] = function($player) { //oj0oh7pjoq
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Nature's Appeal: Reveal top LV cards. Put one into hand, one into material preserved. Rest to bottom.
+  $lvl = PlayerLevel($player);
+  $deck = GetDeck($player);
+  $available = min($lvl, count($deck));
+  if($available == 0) return;
+  for($i = 0; $i < $available; $i++) {
+      MZMoveTopOfZone($player, "myDeck", "myTempZone");
+  }
+  $tempCards = ZoneSearch("myTempZone");
+  if(count($tempCards) == 1) {
+      MZMove($player, $tempCards[0], "myHand");
+      return;
+  }
+  $tempStr = implode("&", $tempCards);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $tempStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "oj0oh7pjoq:0:CardActivated-1", 1);
+};
