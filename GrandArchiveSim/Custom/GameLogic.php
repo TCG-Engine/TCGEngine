@@ -20338,7 +20338,7 @@ function RollingChorusBanishAndDraw($player, $selection) {
         if(!preg_match('/^(my|their)Graveyard-(\d+)$/', $mzID, $matches)) continue;
         $obj = GetZoneObject($mzID);
         if($obj === null || $obj->removed) continue;
-        $entries[] = ["side" => $matches[1], "index" => intval($matches[2]), "cost" => max(0, intval(CardReserveCost($obj->CardID)))];
+        $entries[] = ["side" => $matches[1], "index" => intval($matches[2]), "cost" => max(0, intval(CardCost_reserve($obj->CardID)))]; // CardReserveCost() does not exist (fatal)
     }
     usort($entries, fn($a, $b) => $b["index"] <=> $a["index"]);
     $total = 0;
@@ -20602,8 +20602,11 @@ function AugustineStepTwoTargets() {
     foreach(array_merge(ZoneSearch("myField", ["ITEM", "WEAPON"]), ZoneSearch("theirField", ["ITEM", "WEAPON"])) as $candidateMZ) {
         $candidateObj = GetZoneObject($candidateMZ);
         if($candidateObj === null) continue;
-        $memoryCost = CardMemoryCost($candidateObj->CardID);
-        $reserveCost = CardReserveCost($candidateObj->CardID);
+        // CardMemoryCost() takes the zone OBJECT (a CardID string made it read ->CardID off a string: always 0, so every item/weapon qualified) and
+        // CardReserveCost() does not exist (fatal); the printed reserve cost is CardCost_reserve() (-1 = none).
+        // "memory cost 0" needs an explicit printed memory cost of 0: CardMemoryCost() clamps "no memory cost" (-1) up to 0 too.
+        $memoryCost = CardCost_memory($candidateObj->CardID) >= 0 ? CardMemoryCost($candidateObj) : -1;
+        $reserveCost = intval(CardCost_reserve($candidateObj->CardID));
         if($memoryCost === 0 || ($reserveCost >= 0 && $reserveCost <= 4)) $targets[] = $candidateMZ;
     }
     return $targets;

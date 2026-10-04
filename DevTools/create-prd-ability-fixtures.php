@@ -27417,6 +27417,57 @@ $fixtures['huang-zhong-return-to-memory-ranger-units-become-distant'] = [
     'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 3)),
 ];
 
+
+// --- Rolling Chorus (IZVXDYjcSL): "Banish up to two target cards from a single graveyard. If the total reserve cost of the banished cards is 15 or greater, draw a card into your
+// memory." The generated handler reached RollingChorusBanishAndDraw(), which called CardReserveCost(): that function does not exist (fatal). ---
+$gaChorusSetup = function(string $gyA, string $gyB) use ($gaHand) {
+    return [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]], // Lorraine, Arclight Saber (ARCANE): unlocks the ARCANE element
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => $gyA],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => $gyB],
+        $gaHand('IZVXDYjcSL'), // Rolling Chorus -> myHand-7
+    ];
+};
+$fixtures['rolling-chorus-banish-two-total-reserve-twenty-draws-into-memory'] = [
+    'testedCards' => ['IZVXDYjcSL'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // graveyard: Season's End (reserve 10) and Argus, All-Seeing Giant (reserve 10): total 20 >= 15
+    'setup' => $gaChorusSetup('ddggqvxw8f', '4GFKcHg9NU'),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'A'), mrdAns(1, 'myGraveyard-0&myGraveyard-1')]),
+];
+$fixtures['rolling-chorus-banish-two-total-reserve-six-does-not-draw'] = [
+    'testedCards' => ['IZVXDYjcSL'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    // graveyard: Dungeon Guide (3) and Fluffy Shopkeep (3): total 6 < 15
+    'setup' => $gaChorusSetup($GA_DG, $GA_FS),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'A'), mrdAns(1, 'myGraveyard-0&myGraveyard-1')]),
+];
+
+
+// --- Augustine, Votary of Yore (KdlhoQ1evn): "[REST]: Cascade -- 1: Up to one target object loses spellshroud and stealth until the end of your next turn. Glimpse 2. 2: As a Spell,
+// destroy target item or weapon with memory cost 0 or reserve cost 4 or less. If you do, its controller summons a Core Fractal token." The generated await frame's step 2 called
+// AugustineStepTwoTargets(), which used CardReserveCost() (does not exist: fatal) and CardMemoryCost(<CardID string>) (the function takes the zone object). The cascade counter is
+// seeded to 1 so the next activation is step 2. The opponent controls Scepter of Lumina (memory cost 1, no reserve cost), Explosive Concoction (reserve 7, no memory cost) and
+// Forest Cake (reserve 2): only Forest Cake is a legal target. ---
+$fixtures['augustine-cascade-two-destroys-low-cost-item-opponent-summons-core-fractal'] = [
+    'testedCards' => ['KdlhoQ1evn'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'KdlhoQ1evn'], // Augustine -> field-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Counters' => ['cascade' => 1]]], // the next activation is cascade step 2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e5o3cm9lbe'], // Scepter of Lumina (memory cost 1, no reserve cost) -> theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'yorsltrnu3'], // Explosive Concoction (reserve 7, no memory cost) -> theirField-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'bjx6yo7mm5'], // Forest Cake (reserve 2) -> theirField-3
+    ],
+    'actions' => [
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'),
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target']),
+        mrdAns(1, 'theirField-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'Explosive Concoction has reserve cost 7 and no memory cost: not a legal target']),
+        mrdAns(1, 'theirField-3'), // Forest Cake: reserve cost 2
+        mrdPass(1), // the ability-resolution response window
+    ],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

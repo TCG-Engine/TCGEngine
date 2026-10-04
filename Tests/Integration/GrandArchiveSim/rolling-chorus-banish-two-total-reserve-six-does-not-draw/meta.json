@@ -1,0 +1,22 @@
+{
+    "name": "rolling-chorus-banish-two-total-reserve-six-does-not-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:41:02+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "IZVXDYjcSL"
+    ],
+    "notes": "Rolling Chorus (IZVXDYjcSL): banishing Dungeon Guide and Fluffy Shopkeep (reserve 3 each) totals 6 < 15, so nothing is drawn.",
+    "semanticCoverage": {
+        "testedCards": [
+            "IZVXDYjcSL"
+        ],
+        "mechanics": [
+            "banish",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Banish up to two target cards from a single graveyard. If the total reserve cost of the banished cards is 15 or greater, draw a card into your memory."
+        ]
+    }
+}
