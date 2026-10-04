@@ -27204,6 +27204,32 @@ $fixtures['overflow-the-barrow-adds-haunt-then-mills-haunt-count'] = [
 ];
 
 
+// --- Icebound Slam (6fxxgmuesd): "On Attack: Put the top five cards of your deck into your graveyard. Then if there are five or more water element cards
+// in your graveyard, Icebound Slam gets +5 POWER." Generated body milled with a loop of MZMove($player, "myDeck-0", "myGraveyard"): only the TOP card was ever
+// milled (see 1676ae91 Pure Cytosynth). Top six of the deck: five Spirit of Water (WATER) then Charge the Soul (marker: must be the new top card). ---
+$GA_SOW = 'tafqldAGRF'; // Spirit of Water (WATER)
+// Attack cards can't be activated by the opening player on turn 1, so player 2 attacks (turn 2). Player 2's turn-start draw takes the top card of its
+// deck, so a filler Dungeon Guide sits on top; the five milled cards and the marker follow.
+$gaIceSlam = function(array $five) use ($gaHand, $gaTop, $GA_SOW, $GA_DG, $GA_MARK) {
+    return [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => [$GA_SOW]]], // WATER lineage/element unlock
+        $gaHand('6fxxgmuesd', 2),
+        $gaTop(array_merge([$GA_DG], $five, [$GA_MARK]), 2),
+    ];
+};
+$fixtures['icebound-slam-on-attack-mills-five-water-gets-plus-five-power'] = [
+    'testedCards' => ['6fxxgmuesd'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaIceSlam([$GA_SOW, $GA_SOW, $GA_SOW, $GA_SOW, $GA_SOW]),
+    'actions' => array_merge([mrdEnd(1), mrdPlay(2, 'myHand-7')], mrdPay(2, 7), [mrdAns(2, 'theirField-0')]),
+];
+$fixtures['icebound-slam-on-attack-mills-five-four-water-no-bonus'] = [
+    'testedCards' => ['6fxxgmuesd'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaIceSlam([$GA_SOW, $GA_SOW, $GA_SOW, $GA_SOW, $GA_DG]),
+    'actions' => array_merge([mrdEnd(1), mrdPlay(2, 'myHand-7')], mrdPay(2, 7), [mrdAns(2, 'theirField-0')]),
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

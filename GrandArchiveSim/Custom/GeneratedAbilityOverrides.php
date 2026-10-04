@@ -784,3 +784,22 @@ $cardActivatedAbilities["OiyjVzW7Av:0"] = function($player) { //OiyjVzW7Av
   $hauntCount = GetHauntCount($player);
   if($hauntCount > 0) MillCards($player, "myDeck", "myGraveyard", $hauntCount);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Icebound Slam (6fxxgmuesd): "On Attack: Put the top five cards of your deck into your graveyard. Then if there are five or more water element cards in your
+// graveyard, Icebound Slam gets +5 POWER." The generated body milled with a loop of MZMove($player, "myDeck-0", "myGraveyard"): Remove() only flags a slot
+// removed (no splice), so only ONE card was ever milled. Verbatim body with MillCards() (distinct slots, honours Purging Tempest / Sasha); the cleanup
+// splices the milled slots out before the water cards are counted.
+// ---------------------------------------------------------------------------------------------
+$onAttackAbilities["6fxxgmuesd:0"] = function($player) { //6fxxgmuesd
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Icebound Slam: On Attack: Mill 5, then if 5+ water in graveyard, +5 POWER
+  MillCards($player, "myDeck", "myGraveyard", 5);
+  DecisionQueueController::CleanupRemovedCards();
+  $waterCards = ZoneSearch("myGraveyard", cardElements: ["WATER"]);
+  if(count($waterCards) >= 5) {
+      $mzID = DecisionQueueController::GetVariable("mzID");
+      AddTurnEffect($mzID, "6fxxgmuesd");
+  }
+};
