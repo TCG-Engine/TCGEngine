@@ -803,3 +803,20 @@ $onAttackAbilities["6fxxgmuesd:0"] = function($player) { //6fxxgmuesd
       AddTurnEffect($mzID, "6fxxgmuesd");
   }
 };
+
+// ---------------------------------------------------------------------------------------------
+// Waterfall Veiler (x6jo8zxhl9): "On Champion Hit: That opponent puts the top four cards of their deck into their graveyard." The generated body milled with a
+// loop of MZMove($player, "theirDeck-0", "theirGraveyard"): Remove() only flags a slot removed (no splice), so only ONE card was ever milled. Verbatim body with
+// MillCards() (distinct slots, honours Purging Tempest / Sasha; "theirDeck"/"theirGraveyard" are in the Veiler controller's perspective).
+// ---------------------------------------------------------------------------------------------
+$onHitAbilities["x6jo8zxhl9:0"] = function($player) { //x6jo8zxhl9
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Waterfall Veiler: On Champion Hit: opponent puts top 4 cards of deck into graveyard.
+  $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+  if($hitTarget === null || $hitTarget === "-" || $hitTarget === "") return;
+  $hitObj = GetZoneObject($hitTarget);
+  if($hitObj === null || $hitObj->removed) return;
+  if(!PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) return;
+  MillCards($player, "theirDeck", "theirGraveyard", 4);
+};

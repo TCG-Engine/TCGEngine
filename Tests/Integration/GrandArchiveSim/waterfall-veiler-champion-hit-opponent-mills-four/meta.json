@@ -1,0 +1,30 @@
+{
+    "name": "waterfall-veiler-champion-hit-opponent-mills-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T15:35:11+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "x6jo8zxhl9"
+    ],
+    "notes": "Waterfall Veiler (x6jo8zxhl9), seeded on player 1's field (awake), attacks player 2's champion on turn 3 and hits it. Player 2's deck top (after its turn-2 draw took a filler Dungeon Guide): Fluffy Shopkeep, Dungeon Guide, Fairy Whispers, Spirit of Water (the four milled), Charge the Soul (marker: must be the new top card). Pre-fix the generated body milled the opponent with a loop of MZMove(theirDeck-0), so only ONE card was milled (opponent graveyard 1, deck 17).",
+    "semanticCoverage": {
+        "testedCards": [
+            "x6jo8zxhl9"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "mill",
+            "combat",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "On Champion Hit: That opponent puts the top four cards of their deck into their graveyard."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated onHitAbilities[\"x6jo8zxhl9:0\"] milled the opponent's top four cards with a loop of MZMove($player, \"theirDeck-0\", \"theirGraveyard\"). Remove() only flags a slot removed (no splice), so \"theirDeck-0\" resolved to the SAME removed slot on every iteration after the first and MZMove's \"already removed\" guard silently no-oped: only the top card was ever milled (live repro: opponent graveyard 1, deck 17). Overridden in GeneratedAbilityOverrides.php with MillCards().",
+        "affectedFunction": "GeneratedAbilityOverrides.php onHitAbilities[\"x6jo8zxhl9:0\"] override (generated body in GeneratedMacroCode.php)",
+        "fixCommit": "TBD"
+    }
+}

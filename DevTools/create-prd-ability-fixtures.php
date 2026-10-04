@@ -27230,6 +27230,21 @@ $fixtures['icebound-slam-on-attack-mills-five-four-water-no-bonus'] = [
     'actions' => array_merge([mrdEnd(1), mrdPlay(2, 'myHand-7')], mrdPay(2, 7), [mrdAns(2, 'theirField-0')]),
 ];
 
+// --- Waterfall Veiler (x6jo8zxhl9): "[Class Bonus] Stealth. On Champion Hit: That opponent puts the top four cards of their deck into their graveyard." ---
+// Generated body milled the OPPONENT with a loop of MZMove($player, "theirDeck-0", "theirGraveyard"): only the TOP card was ever milled (see 1676ae91 Pure Cytosynth).
+// Player 1's Waterfall Veiler attacks player 2's champion on turn 3. Player 2's deck top (after its turn-2 draw takes a filler Dungeon Guide): Fluffy Shopkeep,
+// Dungeon Guide, Fairy Whispers, Spirit of Water (the four milled), Charge the Soul (marker: must be the new top card).
+$fixtures['waterfall-veiler-champion-hit-opponent-mills-four'] = [
+    'testedCards' => ['x6jo8zxhl9'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'x6jo8zxhl9'], // Waterfall Veiler -> field-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        $gaTop([$GA_DG, $GA_FS, $GA_DG, $GA_FW, $GA_SOW, $GA_MARK], 2),
+    ],
+    'actions' => [mrdEnd(1), mrdEnd(2), mrdPass(1), mrdPlay(1, 'myField-1'), mrdAns(1, 'theirField-0')], // P1 attacks P2's champion on turn 3 (after declining the materialize offer)
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
