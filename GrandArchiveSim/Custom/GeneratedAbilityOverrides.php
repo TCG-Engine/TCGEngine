@@ -1023,3 +1023,29 @@ $customDQHandlers["iqzaNLhqk4:0:CardActivated-2"] = function($player, $parts, $l
   if($chosen2 == "-") return;
   DoAllyDestroyed($player, $chosen2);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Naia, Diviner of Fortunes (jdmthh88rx): "[Class Bonus] On Enter: Reveal the top three cards from your deck. Banish one of those cards and put the rest into your graveyard. If the banished
+// card is a Spell card, you may activate it as long as you control CARDNAME." The generated body revealed with a loop of MZMove($player, "myDeck-0", "myTempZone"): Remove() only flags a slot
+// removed (no splice), so "myDeck-0" re-resolved to the same removed slot and only the TOP card was ever revealed (it was the only choice, and nothing else went to the graveyard).
+// Verbatim body with MZMoveTopOfZone().
+// ---------------------------------------------------------------------------------------------
+$enterAbilities["jdmthh88rx:0"] = function($player) { //jdmthh88rx
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Naia, Diviner of Fortunes: [CB] On Enter: Reveal top 3, banish 1, rest to GY.
+  // If banished card is a Spell, may activate it while controlling Naia.
+  if(!IsClassBonusActive($player, ["MAGE"])) return;
+  $deck = GetDeck($player);
+  if(empty($deck)) return;
+  $revealCount = min(3, count($deck));
+  // Move top N cards to TempZone for display
+  for($i = 0; $i < $revealCount; ++$i) {
+      MZMoveTopOfZone($player, "myDeck", "myTempZone");
+  }
+  $tempCards = ZoneSearch("myTempZone");
+  if(empty($tempCards)) return;
+  $tempStr = implode("&", $tempCards);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $tempStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "jdmthh88rx:0:Enter-1", 1);
+};

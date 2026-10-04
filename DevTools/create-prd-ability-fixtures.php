@@ -27468,6 +27468,31 @@ $fixtures['augustine-cascade-two-destroys-low-cost-item-opponent-summons-core-fr
     ],
 ];
 
+
+// --- Naia, Diviner of Fortunes (jdmthh88rx): "[Class Bonus] On Enter: Reveal the top three cards from your deck. Banish one of those cards and put the rest into your graveyard. If the
+// banished card is a Spell card, you may activate it as long as you control CARDNAME." The generated body revealed with a fixed-index MZMove loop (only the top card was ever revealed). ---
+$gaNaiaSetup = function(array $top, int $player = 1) use ($gaHand, $gaTop) {
+    return [
+        ['player' => $player, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7x2v4tdop1', 'Subcards' => ['tafqldAGRF']]], // Kongming, Fel Eidolon (MAGE) with a Spirit of Water lineage: Class Bonus + water element
+        $gaHand('jdmthh88rx', $player), // Naia -> myHand-7
+        $gaTop($top, $player),
+    ];
+};
+$fixtures['naia-enter-reveals-three-banishes-deep-ally-rest-to-graveyard'] = [
+    'testedCards' => ['jdmthh88rx'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // top three, top to bottom: DG, FS, Hidden Longbowman (the one banished, 3rd); then Charge the Soul (marker: must be the new top card)
+    'setup' => $gaNaiaSetup([$GA_DG, $GA_FS, 'bx4k3akqx7', $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdAns(1, 'myTempZone-2')]),
+];
+$fixtures['naia-enter-banishes-deep-spell-tags-it-and-rest-to-graveyard'] = [
+    'testedCards' => ['jdmthh88rx'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    // top three: DG, FS, Fairy Whispers (a Spell, 3rd) -> banished and tagged so it can be activated while Naia is controlled
+    'setup' => $gaNaiaSetup([$GA_DG, $GA_FS, $GA_FW, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdAns(1, 'myTempZone-2')]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

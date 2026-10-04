@@ -1,0 +1,30 @@
+{
+    "name": "naia-enter-reveals-three-banishes-deep-ally-rest-to-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:46:26+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "jdmthh88rx"
+    ],
+    "notes": "Naia, Diviner of Fortunes (jdmthh88rx): the third of the top three cards (Hidden Longbowman) is banished and the other two go to the graveyard; a Charge the Soul marker is the fourth card and stays on top. Pre-fix only the top card was revealed.",
+    "semanticCoverage": {
+        "testedCards": [
+            "jdmthh88rx"
+        ],
+        "mechanics": [
+            "reveal",
+            "banish",
+            "mill",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Reveal the top three cards from your deck. Banish one of those cards and put the rest into your graveyard. If the banished card is a Spell card, you may activate it as long as you control CARDNAME."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated enterAbilities[\"jdmthh88rx:0\"] body revealed the top three cards with a loop of MZMove($player, \"myDeck-0\", \"myTempZone\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" re-resolved to the SAME removed slot after the first and MZMove's already-removed guard silently no-oped -- only the top card was ever revealed (the player's 'choice' was a single card and nothing went to the graveyard). The generated file cannot be edited (gitignored), so the closure is overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone().",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php enterAbilities[jdmthh88rx:0]",
+        "fixCommit": "TBD"
+    }
+}

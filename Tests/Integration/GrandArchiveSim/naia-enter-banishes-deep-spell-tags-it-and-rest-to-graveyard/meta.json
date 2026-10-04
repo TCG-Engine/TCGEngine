@@ -1,0 +1,24 @@
+{
+    "name": "naia-enter-banishes-deep-spell-tags-it-and-rest-to-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:46:27+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "jdmthh88rx"
+    ],
+    "notes": "Naia, Diviner of Fortunes (jdmthh88rx): the third revealed card is a Spell (Fairy Whispers); it is banished and tagged NAIA_BANISHED, the other two go to the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "jdmthh88rx"
+        ],
+        "mechanics": [
+            "reveal",
+            "banish",
+            "mill",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Reveal the top three cards from your deck. Banish one of those cards and put the rest into your graveyard. If the banished card is a Spell card, you may activate it as long as you control CARDNAME."
+        ]
+    }
+}
