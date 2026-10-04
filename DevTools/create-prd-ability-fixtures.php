@@ -27312,6 +27312,41 @@ $fixtures['enhance-hearing-look-three-decline-all-three-bottom'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1)]), // "You may reveal": decline
 ];
 
+
+// --- Captain Archer (disqw3d0o5): "Imbue 4. [Class Bonus] On Enter: If Captain Archer is imbued, look at the top six cards of your deck. You may put a wind
+// element ally card with reserve cost 3 or less from among them onto the field distant. Put the rest on the bottom of your deck in any order." ---
+$GA_WINDALLY = 'cqadnk9iz0'; // Baby Green Slime (WIND ally, reserve cost 2)
+$gaArcherSetup = function(array $top, int $player = 1) use ($gaTop, $gaHand, $GA_FW) {
+    return [
+        ['player' => $player, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7ozuj68m69', 'Subcards' => ['tafqldAGRF', 'pNiyaGlIe7']]], // Diana, Deadly Duelist (RANGER) with a Spirit of Wind lineage: Class Bonus + wind element
+        ['player' => $player, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        $gaHand($GA_FW, $player), $gaHand($GA_FW, $player), $gaHand($GA_FW, $player), $gaHand($GA_FW, $player), // four wind cards to reserve: the Imbue 4 payment
+        $gaHand('disqw3d0o5', $player), // Captain Archer -> myHand-4
+        $gaTop($top, $player),
+    ];
+};
+$fixtures['captain-archer-imbued-look-six-put-deep-wind-ally-distant-rest-bottom'] = [
+    'testedCards' => ['disqw3d0o5'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    // top six, top to bottom: DG, FS, Fairy Whispers (wind but a spell), FS, Baby Green Slime (WIND ally, 5th), DG; then Charge the Soul (marker)
+    'setup' => $gaArcherSetup([$GA_DG, $GA_FS, $GA_FW, $GA_FS, $GA_WINDALLY, $GA_DG, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-4'), mrdAns(1, 'YES')], mrdPay(1, 4), [mrdAns(1, 'myTempZone-4')]), // Baby Green Slime (5th of the six)
+];
+
+$fixtures['captain-archer-imbued-look-six-decline-all-six-bottom'] = [
+    'testedCards' => ['disqw3d0o5'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => $gaArcherSetup([$GA_DG, $GA_FS, $GA_FW, $GA_FS, $GA_WINDALLY, $GA_DG, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-4'), mrdAns(1, 'YES')], mrdPay(1, 4), [mrdPass(1)]), // "You may put": decline
+];
+$fixtures['captain-archer-imbued-look-six-no-wind-ally-all-six-bottom'] = [
+    'testedCards' => ['disqw3d0o5'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    // no wind ally among the top six (Fairy Whispers is a wind SPELL): no prompt, all six go to the bottom
+    'setup' => $gaArcherSetup([$GA_DG, $GA_FS, $GA_FW, $GA_FS, $GA_DG, $GA_FW, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-4'), mrdAns(1, 'YES')], mrdPay(1, 4)),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

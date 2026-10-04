@@ -908,3 +908,62 @@ $cardActivatedAbilities["edg616r0za:0"] = function($player) { //Look at top 3, m
   DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $eligibleStr, 1, "");
   DecisionQueueController::AddDecision($player, "CUSTOM", "edg616r0za:0:CardActivated-1", 1, "", 1);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Captain Archer (disqw3d0o5): "[Class Bonus] On Enter: If Captain Archer is imbued, look at the top six cards of your deck. You may put a wind element ally card with
+// reserve cost 3 or less from among them onto the field distant. Put the rest on the bottom of your deck in any order." Three defects in the generated body/handler:
+// (1) the look was a loop of MZMove($player, "myDeck-0", "myTempZone"): Remove() only flags a slot removed (no splice), so only the TOP card was ever looked at;
+// (2) the rest went back with PutTempZoneOnTopOfDeck() (the TOP of the deck, reversed) instead of the bottom; (3) the "may put" follow-up CUSTOM was skipped on PASS
+// (dontSkipOnPass missing), so declining left the looked-at card in the temp zone; (4) the reserve-cost check called CardCost(), which does not exist in GrandArchiveSim
+// (fatal as soon as a wind ally was among the six): now CardCost_reserve(). Verbatim bodies with MZMoveTopOfZone(), PutTempZoneOnBottomOfDeck() and dontSkipOnPass.
+// ---------------------------------------------------------------------------------------------
+$enterAbilities["disqw3d0o5:0"] = function($player) { //disqw3d0o5
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Captain Archer: [CB] On Enter: if imbued, look at top 6.
+  // May put a wind element ally with reserve cost 3 or less onto field distant.
+  // Put the rest on bottom in any order.
+  if(!IsClassBonusActive($player, ["RANGER"])) return;
+  $isImbued = DecisionQueueController::GetVariable("isImbued");
+  if($isImbued !== "YES") return;
+  $deck = GetDeck($player);
+  if(empty($deck)) return;
+  $lookCount = min(6, count($deck));
+  for($i = 0; $i < $lookCount; ++$i) {
+      MZMoveTopOfZone($player, "myDeck", "myTempZone");
+  }
+  $tempCards = ZoneSearch("myTempZone");
+  $validTargets = [];
+  foreach($tempCards as $tc) {
+      $tcObj = GetZoneObject($tc);
+      if($tcObj !== null && PropertyContains(CardType($tcObj->CardID), "ALLY")
+          && CardElement($tcObj->CardID) === "WIND"
+          && intval(CardCost_reserve($tcObj->CardID)) <= 3) {
+          $validTargets[] = $tc;
+      }
+  }
+  if(empty($validTargets)) {
+      PutTempZoneOnBottomOfDeck($player);
+      return;
+  }
+  $validStr = implode("&", $validTargets);
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $validStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "disqw3d0o5:0:Enter-1", 1, "", 1);
+};
+
+$customDQHandlers["disqw3d0o5:0:Enter-1"] = function($player, $parts, $lastDecision) { //disqw3d0o5
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DecisionQueueController::StoreVariable("chosen", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "disqw3d0o5:0:Enter-1")) return;
+  $chosen = $lastDecision;
+  if($chosen !== "-" && $chosen !== "PASS" && $chosen !== "") {
+      MZMove($player, $chosen, "myField");
+      // Find the newly added card and make it distant
+      $field = &GetField($player);
+      $newIdx = count($field) - 1;
+      BecomeDistant($player, "myField-" . $newIdx);
+  }
+  PutTempZoneOnBottomOfDeck($player);
+};

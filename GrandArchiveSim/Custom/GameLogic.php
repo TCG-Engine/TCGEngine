@@ -23598,6 +23598,15 @@ function HasTaunt($obj) {
 /**
  * Move all TempZone cards back to the top of the player's deck (preserving order).
  */
+// Put every card left in the temp zone on the BOTTOM of the deck, keeping their order. MZMoveTopOfZone, not a loop of MZMove($player, "myTempZone-0", ...):
+// MZMove only flags the slot removed, so "myTempZone-0" would keep resolving to the same removed slot.
+function PutTempZoneOnBottomOfDeck($player) {
+    $n = count(ZoneSearch("myTempZone"));
+    for($i = 0; $i < $n; ++$i) {
+        MZMoveTopOfZone($player, "myTempZone", "myDeck");
+    }
+}
+
 function PutTempZoneOnTopOfDeck($player) {
     $deck = &GetDeck($player);
     $tempZone = &GetTempZone($player);
