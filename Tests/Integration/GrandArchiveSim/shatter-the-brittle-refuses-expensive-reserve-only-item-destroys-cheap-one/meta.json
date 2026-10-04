@@ -1,0 +1,28 @@
+{
+    "name": "shatter-the-brittle-refuses-expensive-reserve-only-item-destroys-cheap-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T19:53:14+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "tdz5of8zuz"
+    ],
+    "notes": "Shatter the Brittle (tdz5of8zuz): of Craggy Fatestone (reserve 4, legal) and the opponent's Explosive Concoction (reserve 7, no memory cost: illegal) only the Fatestone is selectable. Pre-fix the Concoction was offered too.",
+    "semanticCoverage": {
+        "testedCards": [
+            "tdz5of8zuz"
+        ],
+        "mechanics": [
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Destroy target item or weapon with memory cost 1 or less or reserve cost 5 or less."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated filter for Shatter the Brittle tested \"memory <= 1 || reserve <= 5\" on the raw card data, where -1 means \"no such cost\": every reserve-only item (no memory cost), however expensive -- e.g. Explosive Concoction, reserve 7 -- passed \"memory <= 1\", and every memory-only item passed \"reserve <= 5\", so nearly every item and weapon was a legal target. Overridden in Custom/GeneratedAbilityOverrides.php requiring a real cost (>= 0) on the side being tested.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[tdz5of8zuz:0]",
+        "fixCommit": "TBD"
+    }
+}

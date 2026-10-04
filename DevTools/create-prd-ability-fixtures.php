@@ -27846,6 +27846,20 @@ $fixtures['swooping-talons-level-two-mode-refuses-memory-only-item-destroys-low-
     ]),
 ];
 
+$fixtures['shatter-the-brittle-refuses-expensive-reserve-only-item-destroys-cheap-one'] = [
+    'testedCards' => ['tdz5of8zuz'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaHand('tdz5of8zuz'), // Shatter the Brittle -> myHand-7
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d'], // Craggy Fatestone (the prerequisite Fatestone; reserve 4: a legal target) -> myField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'yorsltrnu3'], // Explosive Concoction (reserve 7, NO memory cost: not a legal target) -> theirField-1
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Explosive Concoction has reserve cost 7 and no memory cost: not a legal target']),
+        mrdAns(1, 'myField-1'),
+    ]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

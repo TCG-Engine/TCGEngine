@@ -1636,3 +1636,34 @@ $onAttackAbilities["88rx6p3p5i:0"] = function($player) { //88rx6p3p5i
   DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Banish_2_fire_cards_to_destroy_item/weapon?");
   DecisionQueueController::AddDecision($player, "CUSTOM", "88rx6p3p5i:0:OnAttack-1", 1);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Shatter the Brittle (tdz5of8zuz): "Destroy target item or weapon with memory cost 1 or less or reserve cost 5 or less." The generated filter tested "memory <= 1 || reserve <= 5" on the raw card data,
+// where -1 means "no such cost": every item with no memory cost (all the reserve-only ones, however expensive -- e.g. Explosive Concoction, reserve 7) passed "memory <= 1", and every memory-only item
+// passed "reserve <= 5". Verbatim body requiring a real cost (>= 0) on the side that is tested.
+// ---------------------------------------------------------------------------------------------
+$cardActivatedAbilities["tdz5of8zuz:0"] = function($player) { //Destroy cheap regalia
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $validTargets = [];
+  $allObjects = array_merge(
+      ZoneSearch("myField", ["ITEM"]),
+      ZoneSearch("theirField", ["ITEM"]),
+      ZoneSearch("myField", ["WEAPON"]),
+      ZoneSearch("theirField", ["WEAPON"])
+  );
+  foreach($allObjects as $mz) {
+      $obj = GetZoneObject($mz);
+      if($obj === null || $obj->removed) continue;
+      $memoryCost = CardCost_memory($obj->CardID);
+      $reserveCost = CardCost_reserve($obj->CardID);
+      if(($memoryCost !== null && intval($memoryCost) >= 0 && intval($memoryCost) <= 1) || ($reserveCost !== null && intval($reserveCost) >= 0 && intval($reserveCost) <= 5)) {
+          $validTargets[] = $mz;
+      }
+  }
+  $validTargets = FilterSpellshroudTargets($validTargets);
+  if(empty($validTargets)) return;
+  $targetStr = implode("&", $validTargets);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "tdz5of8zuz:0:CardActivated-1", 1);
+};
