@@ -27640,6 +27640,28 @@ $fixtures['advent-of-the-stormcaller-decline-banish-rearranges-all-three-no-dama
     'actions' => array_merge([mrdPlay(1, 'myHand-12')], mrdPay(1, 12), [mrdPass(1), mrdAns(1, 'Top=IZVXDYjcSL,em6eEh9q8y,IZVXDYjcSL;Bottom=')]),
 ];
 
+
+// --- Desperate Cavalier (slmer06rku): "[Class Bonus] On Attack: If your influence is four or less, banish the top two cards of your deck. As long as they're banished you may activate them. ..." The
+// generated body banished with a fixed-index MZMove loop: only ONE card was ever banished. Player 2 attacks (the opening player cannot attack on turn 1) with a WARRIOR champion and an empty hand
+// (influence 1 after the turn draw). ---
+$fixtures['desperate-cavalier-on-attack-banishes-top-two-cards-low-influence'] = [
+    'testedCards' => ['slmer06rku'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '81gvGHkuVb']], // Lorraine, Ascendant Wings (WARRIOR): Class Bonus
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'slmer06rku'], // Desperate Cavalier -> p2 myField-1
+        ['player' => 2, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'], // influence: only the turn-start draw is left (1)
+        ['player' => 2, 'deckTop' => ['em6eEh9q8y', 'px60u5n1do', 'n8wyfG9hbY', 'ra9950o14t']], // top two get banished; the third is the turn-start draw...
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1's turn 1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Desperate Cavalier declares an attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target player 1's champion
+    ],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

@@ -1251,3 +1251,22 @@ $cardActivatedAbilities["ZSSegCjquB:0"] = function($player) { //Advent of the St
   }
   AdventStormcallerBanishLoop($player, 0);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Desperate Cavalier (slmer06rku): "[Class Bonus] On Attack: If your influence is four or less, banish the top two cards of your deck. As long as they're banished you may activate them..." The generated
+// body banished with a loop of MZMove($player, "myDeck-0", "myBanish"): Remove() only flags a slot removed (no splice), so on the second pass "myDeck-0" re-resolved to the same removed slot, MZMove returned
+// null and the loop broke -- only ONE card was ever banished (and only that one was tagged). Verbatim body with MZMoveTopOfZone().
+// ---------------------------------------------------------------------------------------------
+$onAttackAbilities["slmer06rku:0"] = function($player) { //Desperate Cavalier attack banish
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  if(!IsClassBonusActive($player, CardClasses("slmer06rku"))) return;
+  if(GetInfluence($player) > 4) return;
+  for($i = 0; $i < 2; ++$i) {
+      if(empty(ZoneSearch("myDeck"))) break;
+      $banishedObj = MZMoveTopOfZone($player, "myDeck", "myBanish");
+      if($banishedObj === null) break;
+      $banishedObj->AddTurnEffects('_desperateCavalier');
+  }
+  DecisionQueueController::CleanupRemovedCards();
+};

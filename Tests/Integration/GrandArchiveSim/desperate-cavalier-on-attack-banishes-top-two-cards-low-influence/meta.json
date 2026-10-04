@@ -1,0 +1,29 @@
+{
+    "name": "desperate-cavalier-on-attack-banishes-top-two-cards-low-influence",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T17:02:38+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "slmer06rku"
+    ],
+    "notes": "Desperate Cavalier (slmer06rku): with influence 1 (<= 4) and a Warrior champion, attacking banishes the top TWO cards of the deck, each tagged so it can be activated; a marker sits below them. Pre-fix only the first card was banished.",
+    "semanticCoverage": {
+        "testedCards": [
+            "slmer06rku"
+        ],
+        "mechanics": [
+            "banish",
+            "on-attack",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: If your influence is four or less, banish the top two cards of your deck. As long as they're banished you may activate them. As an additional cost to activate each of those cards, deal 2 unpreventable damage to your champion."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated onAttackAbilities[\"slmer06rku:0\"] body banished the top two cards with a loop of MZMove($player, \"myDeck-0\", \"myBanish\"): Remove() only flags a slot removed (no splice), so on the second pass \"myDeck-0\" re-resolved to the SAME removed slot, MZMove returned null and the loop 'break'-ed -- only ONE card was ever banished (and only that one received the _desperateCavalier 'may activate' tag). The generated file cannot be edited (gitignored), so the closure is overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone().",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php onAttackAbilities[slmer06rku:0]",
+        "fixCommit": "TBD"
+    }
+}
