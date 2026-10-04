@@ -6108,7 +6108,13 @@ function OnCardActivated($player, $mzCard) {
     }
     DecisionQueueController::CleanupRemovedCards();
     if(isset($cardActivatedAbilities[$obj->CardID . ":0"])) {
+        // Spells can't target objects with spellshroud. ~35 generated Spell openers build their target list without FilterSpellshroudTargets(), so
+        // the targets they queue are filtered here, once, for every Spell (see GASpellshroudFilterNewDecisions).
+        $isSpellCard = PropertyContains(CardSubtypes($obj->CardID), "SPELL");
+        $decisionsBefore = [];
+        if($isSpellCard) foreach(GetDecisionQueue($player) as $queuedBefore) $decisionsBefore[] = $queuedBefore;
         $cardActivatedAbilities[$obj->CardID . ":0"]($player);
+        if($isSpellCard) GASpellshroudFilterNewDecisions($player, $decisionsBefore);
     }
     // Queue the deferred PREPARED tag (see the ATTACK branch above) only now -- AFTER the card's
     // own CardActivated ability macro just above has had the chance to queue its "Pay Prepare N?"
@@ -23799,6 +23805,28 @@ function GetRangedValue($obj) {
  * @param array $mzIDs  Array of mzID strings (e.g. ["myField-0", "theirField-2"])
  * @return array  Filtered array with spellshroud objects removed
  */
+// Strip spellshroud objects from the explicit-target choices a Spell's opener just queued (decisions not in $decisionsBefore). A choice left with no legal target is dropped together with its
+// continuation (the CUSTOM handler queued right behind it), so the Spell fizzles instead of offering an illegal target.
+function GASpellshroudFilterNewDecisions($player, $decisionsBefore) {
+    $queue = &GetDecisionQueue($player);
+    for($i = 0; $i < count($queue); ++$i) {
+        $decision = $queue[$i];
+        if(in_array($decision, $decisionsBefore, true)) continue;
+        if($decision->Type !== "MZCHOOSE" && $decision->Type !== "MZMAYCHOOSE") continue;
+        if(!preg_match('/^(?:my|their)(?:Field)-\d+(?:&(?:my|their)Field-\d+)*$/', strval($decision->Param))) continue;
+        $options = explode("&", $decision->Param);
+        $legal = FilterSpellshroudTargets($options);
+        if(count($legal) === count($options)) continue;
+        if(empty($legal)) {
+            $drop = (isset($queue[$i + 1]) && $queue[$i + 1]->Type === "CUSTOM") ? 2 : 1;
+            array_splice($queue, $i, $drop);
+            --$i;
+            continue;
+        }
+        $decision->Param = implode("&", $legal);
+    }
+}
+
 function FilterSpellshroudTargets($mzIDs) {
     $filtered = [];
     foreach($mzIDs as $mzID) {

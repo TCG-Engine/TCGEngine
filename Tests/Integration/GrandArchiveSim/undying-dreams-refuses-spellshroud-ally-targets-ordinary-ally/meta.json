@@ -1,7 +1,7 @@
 {
     "name": "undying-dreams-refuses-spellshroud-ally-targets-ordinary-ally",
     "rootName": "GrandArchiveSim",
-    "createdAt": "2026-10-04T19:54:47+00:00",
+    "createdAt": "2026-10-04T19:57:03+00:00",
     "createdBy": "Claude Sonnet 5.5",
     "testedCards": [
         "y5koddlyv8"
@@ -22,8 +22,8 @@
     },
     "engineBug": {
         "status": "fixed",
-        "summary": "FIXED. The generated opening body of Undying Dreams (a Spell) built its ally target list without FilterSpellshroudTargets(), so an ally with spellshroud (e.g. Genbu, Black Tortoise) was offered and could be targeted by it. Overridden in Custom/GeneratedAbilityOverrides.php with the filter. (Bring Down the Mighty, which the earlier backlog also listed, is a Skill, not a Spell, so spellshroud correctly does not apply to it.)",
-        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[y5koddlyv8:0]",
+        "summary": "FIXED. Undying Dreams's generated opening body (like ~35 other Spell openers) built its target list without FilterSpellshroudTargets(), so an ally with spellshroud (e.g. Genbu, Black Tortoise) was offered and could be targeted by the Spell. Rather than override each generated closure, OnCardActivated() (Custom/GameLogic.php) now filters the explicit-target choices (MZCHOOSE / MZMAYCHOOSE over field objects) that ANY Spell's opener queues through GASpellshroudFilterNewDecisions(): spellshroud objects are removed, and a choice left with no legal target is dropped with its continuation so the Spell fizzles.",
+        "affectedFunction": "Custom/GameLogic.php GASpellshroudFilterNewDecisions() (called from OnCardActivated)",
         "fixCommit": "TBD"
     }
 }

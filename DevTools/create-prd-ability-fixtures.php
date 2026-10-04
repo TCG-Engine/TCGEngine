@@ -27877,6 +27877,32 @@ $fixtures['undying-dreams-refuses-spellshroud-ally-targets-ordinary-ally'] = [
     ]),
 ];
 
+$gaShroudSetup = function(string $spell) use ($gaHand, $GA_DG) {
+    return [
+        $gaHand($spell), // the Spell -> myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'k8bwlx70qj'], // Genbu, Black Tortoise (spellshroud) -> theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => $GA_DG],       // Dungeon Guide -> theirField-2
+    ];
+};
+$fixtures['spark-alight-refuses-spellshroud-unit-damages-ordinary-ally'] = [
+    'testedCards' => ['L9yBqoOshh'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaShroudSetup('L9yBqoOshh'),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Genbu, Black Tortoise has spellshroud: not a legal target of the Spell Spark Alight']),
+        mrdAns(1, 'theirField-2'),
+    ]),
+];
+$fixtures['freezing-hail-refuses-spellshroud-unit-damages-ordinary-ally'] = [
+    'testedCards' => ['SrBA7h2a1N'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => $gaShroudSetup('SrBA7h2a1N'),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Genbu, Black Tortoise has spellshroud: not a legal target of the Spell Freezing Hail']),
+        mrdAns(1, 'theirField-2'),
+    ]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
