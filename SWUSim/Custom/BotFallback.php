@@ -164,14 +164,18 @@ function _SWUBotShieldPopValue(int $seat, array $v, array $W, bool $enemy): floa
 const SWU_BOT_OWN_BASE_DAMAGE = 0.5;
 const SWU_BOT_SPLIT_WASTED_POINT = 0.01;   // 'splitpop': a point a Shield absorbs past the one that popped it — a tie-breaker, not a value
 function _SWUBotSplitScore(int $seat, string $candidate, array $W, bool $unpreventable): float {
-    $s = 0.0;
+    $s = 0.0; $toBase = [];
     foreach (explode(',', $candidate) as $pair) {
         $bits = explode(':', $pair);
         if (count($bits) < 2) continue;
         $mz = trim($bits[0]); $amt = intval($bits[1]);
         if ($amt <= 0) continue;
         $enemy = SWUBotIsEnemyMz($seat, $mz);   // owner seat, not a "their" prefix (p{n} at 3-4 seats)
-        if (str_contains($mz, 'Base')) { $s += $enemy ? $W['base'] * $amt : -SWU_BOT_OWN_BASE_DAMAGE * $amt; continue; }
+        if (str_contains($mz, 'Base')) {
+            $s += $enemy ? $W['base'] * $amt : -SWU_BOT_OWN_BASE_DAMAGE * $amt;
+            if ($enemy) $toBase[$mz] = ($toBase[$mz] ?? 0) + $amt;
+            continue;
+        }
         $v = SWUBotViewForMz($seat, $mz);
         if ($v === null) continue;
         // A Shield absorbs the whole instance — but popping it is worth what the Shield was worth ('splitpop', p32). Scored
@@ -188,6 +192,15 @@ function _SWUBotSplitScore(int $seat, string $candidate, array $W, bool $unpreve
         }
         if ($amt >= $v['remaining']) $s += ($enemy ? $W['kill'] : -$W['loss']) * SWUBotUnitValue($v) + ($enemy ? 0.5 : -0.5);
         else $s += ($enemy ? 1 : -1) * $W['chip'] * $amt;
+    }
+    // Feature 'splitlethal' (p33, bug #1126): points that FINISH an enemy base are the game, not W['base'] each — game 1485163's
+    // Devastator spread 4 indirect over two kills while the Krennic base sat on 4 HP. "theirBase" is the opponent (the first
+    // one at 3-4 seats); "p<n>Base" names its seat.
+    if (SWUBotFeatureOn('splitlethal')) {
+        foreach ($toBase as $mz => $amt) {
+            $owner = preg_match('/^p(\d+)/', $mz, $pm) ? intval($pm[1]) : (SWUBotOpponents($seat)[0] ?? 0);
+            if ($owner > 0 && $amt >= SWUBaseRemainingHp($owner)) $s += SWU_BOT_PING_LETHAL;
+        }
     }
     return $s;
 }
