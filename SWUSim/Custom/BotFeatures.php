@@ -385,6 +385,21 @@ const SWU_BOT_PART29_FEATURES = ['discardpick', 'heropitch', 'pingvalue', 'dumpd
 // Guards: SWUSim/DevTools/tests/bot_fodderfirst_test.php, bot_wipeaware_test.php.
 const SWU_BOT_PART30_FEATURES = ['fodderfirst', 'wipeaware'];
 
+// Part 31 (2026-10-04): three plays from Ninin's human-vs-human Premier game, Hemlock Red vs Lando Blue. FOLDED IN WITHOUT A
+// MEASUREMENT on the owner's instruction ("no measure. just fold it in as is"):
+//   etbsetup       — a When Played gated on "If you control a unit that costs N or less" waits for the cheap unit that turns it
+//                    on (Imperial Door Technician, then Dooku's Solar Sailer: Lando discarded Chimaera);
+//   weaknessaction — "Action […]: Give a Weakness token to a unit" is worth its best target (kill or soften) less its resource;
+//   spentetb       — a unit whose only text is a used When Played is its BODY when sacrificed (Chimaera took the Sailer);
+//   observerfirst  — (Ninin vs Maul Blue, R16) an HK-47-style "when an enemy unit is defeated: deal N to its controller's base"
+//                    unit goes down before this round's kill. Same game widened p30 'fodderfirst': a cheaper hand unit is the
+//                    price even when units are in play;
+//   uniquereplay   — (Ninin vs Ackbar Data Vault, R3) a second copy of a CHEAP unique (cost <= 3) with a When Played, over a SPENT
+//                    copy (exhausted or damaged): the old copy goes, the When Played resolves again. Owner: "usually true for
+//                    cheap units with When Played abilities."
+// Guard: SWUSim/DevTools/tests/bot_hemlockplays_test.php.
+const SWU_BOT_PART31_FEATURES = ['etbsetup', 'weaknessaction', 'spentetb', 'observerfirst', 'uniquereplay'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
@@ -393,7 +408,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES);   // part 2, then 3-30
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES);   // part 2, then 3-31
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -408,7 +423,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,

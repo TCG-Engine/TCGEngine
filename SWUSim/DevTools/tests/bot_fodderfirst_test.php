@@ -53,4 +53,14 @@ $check($first($boardD2, '') === $first($boardD2, 'no-fodderfirst'), 'D2: only a 
 $boardE = $board(['ASH_052', 'JTL_144'], 10);
 $check($first($boardE, '') === $first($boardE, 'no-fodderfirst'), 'E: an event is no fodder — unchanged; got ' . $first($boardE, '') . ' vs ' . $first($boardE, 'no-fodderfirst'));
 
+// G) WIDENED 2026-10-04 (Ninin vs Maul Blue, R16: she rolled Chimaera back to play Storm Raider first, so the 1-cost Raider was
+// the price, not a Mandalorian or her Pre Vizsla). A unit IS in play — Marrok (3, 2/6 Sentinel) — but the hand's Storm Raider
+// (1) is the cheaper price: it goes first. Before the widening the rule only fired on an empty board.
+// (Leader exhausted: Hemlock's Weakness Action — p31 'weaknessaction' — would otherwise come first on this board.)
+$boardG = function ($b) { $b->MyLeader('HMW_003', false, false, true); $b->MyBase('HMW_027'); $b->FillResourcesForPlayer(1, 'LAW_097', 8);
+    foreach (['ASH_052', 'LAW_172'] as $c) $b->WithCardInHandForPlayer(1, $c);
+    $b->WithGroundUnitForPlayer(2, 'LOF_035'); $b->WithGroundUnitForPlayer(1, 'ASH_030', false); };
+$check($first($boardG, 'no-fodderfirst') === $chim, 'G fixture: Chimaera first with Marrok in play; got ' . $first($boardG, 'no-fodderfirst'));
+$check($first($boardG, '') === $fodder, 'G: the cheaper Storm Raider is played first; got ' . $first($boardG, ''));
+
 bot_test_finish();

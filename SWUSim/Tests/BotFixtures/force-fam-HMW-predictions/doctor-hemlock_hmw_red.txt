@@ -3,8 +3,10 @@
 #   Hemlock Red (doctor-hemlock_hmw_red_naboo, 2026-10-01). Converted 2026-10-04. 51 main-deck cards, 10 sideboard.
 #   No base trait in the name: Torrent (the Naboo payoff) is out, and no card left cares about the base's trait.
 # Author: Ninin
-# Archetype (owner's label, 2026-10-04): Midrange
-# Style: midrange
+# Archetype (owner's label, 2026-10-04): Soft control — RELABELLED 2026-10-04 from midrange after Ninin's human games
+#   (vs Lando Blue, Maul Blue): heal to full with Chimaera / Lost and Forgotten, stop resourcing ~11, hold answers, close
+#   with General Grievous. Her earlier list measured soft control 83% vs midrange 68% vs Krennic Splash in self-play.
+# Style: softcontrol
 # Flavours: tempo
 
 Leader

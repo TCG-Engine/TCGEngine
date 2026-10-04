@@ -321,15 +321,21 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                     $v = $W['develop'] * intval(CardCost($cid)) + (str_contains(strval(CardType($cid)), 'Unit') ? $W['unitPlay'] : 0.0);
                 }
                 // A second copy of a unique unit I control defeats one (the uniqueness rule) — feature 'picks'.
-                if (SWUBotFeatureOn('picks') && _SWUBotUniqueClash($seat, $cid)) $v -= $W['develop'] * intval(CardCost($cid)) + 1.0;
+                // …unless the copy in play is SPENT and this cheap copy's When Played is worth playing again (feature 'uniquereplay', p31).
+                $replay = SWUBotFeatureOn('uniquereplay') && _SWUBotUniqueReplayWorthIt($seat, $cid);
+                if (SWUBotFeatureOn('picks') && !$replay && _SWUBotUniqueClash($seat, $cid)) $v -= $W['develop'] * intval(CardCost($cid)) + 1.0;
                 // …and over an UNDAMAGED copy it gains nothing: held (feature 'unique'; owner report 2026-09-14, Bot
                 // Practice game 183227 — Sabine's Masterpiece played over a healthy one). A damaged copy is a heal.
                 // A refinement of 'picks', so it needs 'picks' on too (bot_picks_test compares picks on/off).
-                if (SWUBotFeatureOn('picks') && SWUBotFeatureOn('unique') && _SWUBotUniqueClash($seat, $cid) && _SWUBotUniqueCopyHealthy($seat, $cid)) return -0.5;
+                if (SWUBotFeatureOn('picks') && SWUBotFeatureOn('unique') && !$replay && _SWUBotUniqueClash($seat, $cid) && _SWUBotUniqueCopyHealthy($seat, $cid)) return -0.5;
                 $guides = $ctx['_guides'] ?? _SWUBotGuides($ctx);
                 if ($guides['maxUnits'] === strval($action['cardID'] ?? '')) $v += $W['maxUnits'];
                 // Feature 'fodderfirst' (p30): the paired-defeat card waits for the cheap unit that will be its price.
                 if (SWUBotFeatureOn('fodderfirst') && _SWUBotPairedDefeatWantsFodder($seat, $i, $cid)) return min($v, -0.4);
+                // Feature 'etbsetup' (p31): the gated When Played waits for the cheap unit that turns it on.
+                if (SWUBotFeatureOn('etbsetup') && _SWUBotEtbWantsSetup($seat, $i, $cid)) return min($v, -0.4);
+                // Feature 'observerfirst' (p31): the kill waits for the HK-47 that turns it into base damage.
+                if (SWUBotFeatureOn('observerfirst') && _SWUBotKillWaitsForObserver($seat, $i, $cid)) return min($v, -0.4);
                 // Feature 'wipeaware' (p30): not into a shown per-unit wipe's lethal range.
                 if (SWUBotFeatureOn('wipeaware') && ($per = _SWUBotShownPerUnitWipe($seat)) > 0 && _SWUBotPlayEntersWipeRange($seat, $action, $per)) return min($v, -0.5);
                 return $v;
@@ -972,8 +978,18 @@ function SWUBotSacrificeCost(array $v): float {
     return _SWUBotSacrificeCostByValue($v);
 }
 
+// Feature 'spentetb' (p31): a unit whose ONLY text is a When Played — already used, it is in play — is its body: what its printed
+// cost paid for the effect is spent (Ninin's Chimaera took her Solar Sailer, not a unit with an ongoing ability). Any other
+// ability or keyword (On Attack, When Defeated, an Action, a "While …", Sentinel, Raid…) keeps the printed-cost pricing.
+function _SWUBotOnlySpentWhenPlayed(string $cid): bool {
+    $t = trim(strval(CardText($cid)));
+    return (bool)preg_match('/^When Played:/i', $t)
+        && !preg_match('/When Defeated|On Attack|Action \[|\bWhile\b|Sentinel|Raid|Restore|Overwhelm|Grit|Saboteur|Ambush|Shielded|Hidden|Bounty|Smuggle|Exploit|Piloting|Coordinate/i', $t);
+}
+
 function _SWUBotSacrificeCostByValue(array $v): float {
     $value = SWUBotUnitValue($v);
+    if (SWUBotFeatureOn('spentetb') && _SWUBotOnlySpentWhenPlayed($v['cardID'])) $value = min($value, _SWUBotUnitStatsValue($v));
     $text = strval(CardText($v['cardID']));
     if (stripos($text, 'When Defeated') === false) return $value;
     if (!SWUBotFeatureOn('fodder')) return max(0.0, $value - 1.5);
@@ -1580,6 +1596,20 @@ function _SWUBotUniqueClash(int $seat, string $cid): bool {
     return false;
 }
 
+// Feature 'uniquereplay' (p31): a second copy of a CHEAP unique unit with a When Played, over a SPENT copy (exhausted or damaged)
+// — the uniqueness rule defeats the old copy and the new one's When Played resolves again, a ready body for a used one. Ninin vs
+// Ackbar Data Vault R3 (a second Nuvo Vindi, another Weakness token); owner 2026-10-04: "this is usually true for cheap units with
+// When Played abilities." Cheap = printed cost 3 or less.
+const SWU_BOT_UNIQUE_REPLAY_MAX_COST = 3;
+function _SWUBotUniqueReplayWorthIt(int $seat, string $cid): bool {
+    if (intval(CardCost($cid)) > SWU_BOT_UNIQUE_REPLAY_MAX_COST || !preg_match('/When Played/i', strval(CardText($cid)))) return false;
+    foreach (SWUBotUnits($seat) as $v) {
+        if (CardTitle($v['cardID']) === CardTitle($cid) && strval(CardSubtitle($v['cardID'])) === strval(CardSubtitle($cid)))
+            return !$v['ready'] || $v['remaining'] < $v['hp'];
+    }
+    return false;
+}
+
 // The copy of unique $cid I already control is at full HP (nothing to refresh). Feature 'unique'.
 function _SWUBotUniqueCopyHealthy(int $seat, string $cid): bool {
     foreach (SWUBotUnits($seat) as $v) {
@@ -2097,7 +2127,10 @@ function _SWUBotHandSwingBest(array $ctx, int $seat, int $h, array $W): ?float {
 // affordable after it — the cheap unit is then played first, to be the price (owner's Hemlock games, 2026-10-03).
 function _SWUBotPairedDefeatWantsFodder(int $seat, int $i, string $cid): bool {
     if (!preg_match('/choose a friendly unit and an enemy non-leader unit\. If you do, defeat those units/i', strval(CardText($cid)))) return false;
-    if (!empty(SWUBotUnits($seat))) return false;
+    // WIDENED 2026-10-04 (Ninin vs Maul Blue, R16): not only an empty board — the hand unit must be a CHEAPER price than the
+    // cheapest one already in play (an empty board leaves only the paired card itself, so anything is cheaper).
+    $price = PHP_FLOAT_MAX;
+    foreach (SWUBotUnits($seat) as $v) $price = min($price, SWUBotSacrificeCost($v));
     $target = false;
     foreach (SWUBotOpponents($seat) as $o) foreach (SWUBotUnits($o) as $v) if (!$v['isLeader']) { $target = true; break 2; }
     if (!$target) return false;
@@ -2106,6 +2139,27 @@ function _SWUBotPairedDefeatWantsFodder(int $seat, int $i, string $cid): bool {
     $cap = SWUTotalPaymentCapacity($seat); $own = intval(SWUComputePlayCost($seat, $self));
     foreach ($hand as $j => $o) {
         if ($j === $i || $o === null || !empty($o->removed) || !str_contains(strval(CardType(strval($o->CardID ?? ''))), 'Unit')) continue;
+        if (floatval(CardCost(strval($o->CardID ?? ''))) >= $price) continue;   // not a cheaper price than what is in play
+        $c = intval(SWUComputePlayCost($seat, $o));
+        if ($c <= $cap && $cap - $c >= $own) return true;
+    }
+    return false;
+}
+
+// Feature 'observerfirst' (p31): a unit in hand that pays off ENEMY DEFEATS — "When an enemy unit is defeated: Deal N damage to
+// its controller's base" (LOF_130 HK-47) — goes down BEFORE this round's kill, when none is in play yet and both fit this round
+// (Ninin vs Maul Blue, R16: HK-47 first, then Chimaera's kill pinged the base). True for the KILL play $i that should wait.
+function _SWUBotKillWaitsForObserver(int $seat, int $i, string $cid): bool {
+    $re = "/When an enemy unit is defeated: Deal \\d+ damage to its controller's base/i";
+    if (SWUBotPlayEnemyKills($seat, $cid) <= 0) return false;
+    foreach (SWUBotUnits($seat) as $v) if (preg_match($re, strval(CardText($v['cardID'])))) return false;   // already observing
+    $hand = GetHand($seat); $self = $hand[$i] ?? null;
+    if ($self === null) return false;
+    $cap = SWUTotalPaymentCapacity($seat); $own = intval(SWUComputePlayCost($seat, $self));
+    foreach ($hand as $j => $o) {
+        if ($j === $i || $o === null || !empty($o->removed)) continue;
+        $pid = strval($o->CardID ?? '');
+        if (!str_contains(strval(CardType($pid)), 'Unit') || !preg_match($re, strval(CardText($pid)))) continue;
         $c = intval(SWUComputePlayCost($seat, $o));
         if ($c <= $cap && $cap - $c >= $own) return true;
     }
@@ -2151,6 +2205,43 @@ function _SWUBotPlayEntersWipeRange(int $seat, array $action, int $per): bool {
     return $after > $now && $after * $per >= $hp;
 }
 
+// Feature 'etbsetup' (p31): a When Played gated on "If you control a unit that costs N or less" (HMW_154 Dooku's Solar Sailer)
+// with the condition OFF, while a unit in hand of printed cost N or less is castable now and the gated card stays affordable
+// after it — the cheap unit goes first and turns the When Played on (Ninin vs Lando: IDT, then the Sailer took Chimaera).
+function _SWUBotEtbWantsSetup(int $seat, int $i, string $cid): bool {
+    if (!preg_match('/When Played: If you control a unit that costs (\d+) or less,/i', strval(CardText($cid)), $m)) return false;
+    $n = intval($m[1]);
+    foreach (SWUBotUnits($seat) as $v) if (intval(CardCost($v['cardID'])) <= $n) return false;   // already on (tokens cost 0)
+    $hand = GetHand($seat); $self = $hand[$i] ?? null;
+    if ($self === null) return false;
+    $cap = SWUTotalPaymentCapacity($seat); $own = intval(SWUComputePlayCost($seat, $self));
+    foreach ($hand as $j => $o) {
+        if ($j === $i || $o === null || !empty($o->removed)) continue;
+        $pid = strval($o->CardID ?? '');
+        if (!str_contains(strval(CardType($pid)), 'Unit') || intval(CardCost($pid)) > $n) continue;
+        $c = intval(SWUComputePlayCost($seat, $o));
+        if ($c <= $cap && $cap - $c >= $own) return true;
+    }
+    return false;
+}
+
+// Feature 'weaknessaction' (p31): "Action [N resource(s), Exhaust]: Give a Weakness token to a unit…" (HMW_003 Doctor Hemlock's
+// front side) is worth its BEST target on the Weakness scale (_SWUBotWeaknessScore: a kill, else a soften) less the resources
+// it costs. NULL for any other Action. "…without a Weakness token on it" excludes units that already carry one.
+function _SWUBotWeaknessActionValue(int $seat, array $action, array $W): ?float {
+    if (!preg_match('/Action \[([^\]]*)\]: Give a Weakness token to a unit( without a Weakness token on it)?\./i', _SWUBotActionSourceText($seat, $action), $m)) return null;
+    $res = preg_match('/(\d+) resources?/i', $m[1], $r) ? intval($r[1]) : 0;
+    $best = null;
+    foreach (SWUBotOpponents($seat) as $o) {
+        foreach (SWUBotUnits($o) as $v) {
+            if (!empty($m[2]) && isset($v['obj']) && function_exists('_SWUUnitHasUpgrade') && _SWUUnitHasUpgrade($v['obj'], 'HMW_T02')) continue;
+            $s = _SWUBotWeaknessScore($seat, $v, true, 0, 'GIVE_WEAKNESS', 1, $W);
+            $best = $best === null ? $s : max($best, $s);
+        }
+    }
+    return $best === null ? -0.5 : $best - $W['develop'] * $res;
+}
+
 // A leader / unit / base Action, judged by applying it with the lookahead (BotLookahead.php):
 //   - it would change nothing and raise no decision (an Epic Action with nothing to play) → never use it;
 //   - it costs friendly units, either directly or through a "defeat a friendly unit" choice → the flat
@@ -2184,6 +2275,8 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     // Feature 'pingvalue' (p29): the lookahead stops at the discard prompt, so a discard-cost Action was a flat
     // W['ability'] with its cost unpriced — the bot pinged a base for 1 with its Chimaera.
     if (SWUBotFeatureOn('pingvalue') && ($pv = _SWUBotDiscardCostActionValue($seat, $action, $W)) !== null) return $pv;
+    // Feature 'weaknessaction' (p31): the same blind spot for a Weakness Action — flat W['ability'] whether or not it kills.
+    if (SWUBotFeatureOn('weaknessaction') && ($wv = _SWUBotWeaknessActionValue($seat, $action, $W)) !== null) return $wv;
     if (!function_exists('SWUBotLookahead')) return $W['ability'];
     $before = _SWUBotBoardSignature($seat);
     $handIDs = fn() => array_values(array_map(fn($o) => strval($o->CardID), array_filter(GetHand($seat), fn($o) => $o !== null && empty($o->removed))));
