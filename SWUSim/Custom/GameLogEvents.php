@@ -116,6 +116,7 @@ function _SWULogCardFromHandler(string $handler): string {
 // that card, its player is kept: a cross-player continuation (the opponent's pick inside the caster's
 // ability) runs on the OTHER seat, and must not re-attribute the caster's card to that seat.
 function GameBeforeCustomHandler(int $player, string $handlerName, string $fullParam = ''): void {
+    $GLOBALS['gSWULogHandlerSeats'][] = $player;   // FIRST: every return below must still push (popped by the After hook)
     $card = _SWULogCardFromHandler($handlerName);
     if ($card === '') { SWULogRestoreQueuedSource($player, $fullParam); return; }
     [, $cur] = SWULogSource();
@@ -125,6 +126,20 @@ function GameBeforeCustomHandler(int $player, string $handlerName, string $fullP
     // dispatched for, NOT the seat running this CUSTOM.
     $owner = intval(GetSWUVar('SWU_LOG_SRCP_' . $card, '0'));
     SWULogSetSource($owner > 0 ? $owner : $player, $card);
+}
+
+// Core hook, paired with GameBeforeCustomHandler (called in a finally). Handlers nest — one can drain another
+// queue inline — so the running seats are a STACK, never a single value that an inner handler would leave behind.
+function GameAfterCustomHandler(int $player): void {
+    if (!empty($GLOBALS['gSWULogHandlerSeats'])) array_pop($GLOBALS['gSWULogHandlerSeats']);
+}
+
+// The seat whose queue is running the current CUSTOM handler — the seat that answered the pick it continues — or 0
+// outside any handler (an action's inline resolution). A pick is always answered on the picker's own queue, and its
+// continuation runs on that same queue, so this names who CHOSE.
+function SWULogHandlerSeat(): int {
+    $s = $GLOBALS['gSWULogHandlerSeats'] ?? [];
+    return empty($s) ? 0 : intval(end($s));
 }
 
 // QUEUED-SOURCE STAMP (user decision 2026-09-11, gamelog-updates #6). A UNIVERSAL continuation
@@ -342,8 +357,17 @@ function SWULogDiscard(int $owner, string $cardID, string $from): void {
     $ref  = GameLogCardRef($cardID);
     $zone = ($from === 'DECK') ? 'deck' : 'hand';
     [$sp] = SWULogSource();
-    if ($sp > 0 && $sp !== $owner) {
-        // Another player's ability took it: "P1's [[Garindan]] discarded X from P2's hand".
+    // WHO CHOSE (Twin Suns log review, 2026-10-03): the seat whose queue is running the handler that discards —
+    // a pick is answered on the picker's own queue and continued there. 0 = inline, no pick.
+    $by = SWULogHandlerSeat();
+    if ($by > 0 && $by !== $owner && $by !== $sp) {
+        // A third party picked from another player's hand — TS26_80 Reveal Intentions, where each player discards
+        // from the hand of the player to their right: "P2 discarded X from P1's hand (Reveal Intentions)".
+        $text = "P{$by} discarded {$ref} from P{$owner}'s {$zone}" . SWULogSourceSuffix();
+    } elseif ($sp > 0 && $sp !== $owner && $by !== $owner) {
+        // Another player's ability took it, and that player (or no one) picked: "P1's [[Garindan]] discarded X
+        // from P2's hand". When the OWNER picked ("each opponent discards a card" — SHD_244 No Bargain) it falls
+        // through to the owner's own line below, which used to credit their pick to the caster.
         $text = SWULogSourcePhrase() . " discarded {$ref} from P{$owner}'s {$zone}";
     } else {
         $text = "P{$owner} discarded {$ref}" . ($from === 'DECK' ? ' from their deck' : '') . SWULogSourceSuffix();

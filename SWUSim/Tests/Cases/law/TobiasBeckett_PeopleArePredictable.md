@@ -529,3 +529,81 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:0
 P1CREDITCOUNT:1
+
+---
+
+# DeployedOffersOwnedUnitsAtEveryOpponent_FourSeats
+#// LAW_002 Tobias Beckett (deployed) — "Defeat any number of units you own but don't control." In Twin Suns
+#// the front side hands units to ANY opponent, so the units you own can sit on several opponents' boards. The
+#// offer must cover every one of them, not just one opponent's arenas.
+#// Game 1485163 (reported 2026-10-03): seat 2 gave a Battle Droid token to seat 3, then deployed Tobias, and
+#// the droid was not offered.
+#// P1 owns a Battle Droid token controlled by seat 2 AND one controlled by seat 3; both are offered.
+#// ⚠ A 2-player version CANNOT FAIL — the only opponent is the one the old search looked at.
+
+## GIVEN
+CommonSetup: yyw/grw/{myLeader:LAW_002;myBase:SOR_028}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Resources: 6
+WithP2ControlledUnit: TS26_T01:1
+WithP3ControlledUnit: TS26_T01:1
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithP1Deck: [SOR_237 SOR_095]
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1SELECTABLEEXACT:p2GroundArena-0&p3GroundArena-0
+
+---
+
+# DeployedDoesNotOfferDroidsDookuMadeForOpponents_FourSeats
+#// LAW_002 Tobias Beckett (deployed) + TS26_01 Count Dooku, Offering Aid in one Twin Suns seat — the board of
+#// game 1485163 (reported 2026-10-03: "my droid tokens I gave to opponents are not considered my owned units").
+#// Dooku: "Choose 2 players. THEY each ... create a Battle Droid token." The chosen players CREATE the tokens, and
+#// CR 1.x.a: "A player is also the owner of any non-upgrade token they create." So a droid Dooku makes for seat 3
+#// is seat 3's — owned AND controlled — and Tobias's "units you own but don't control" never includes it.
+#// NOT A BUG. Only a unit handed over by Tobias's FRONT side stays yours (DeployedOffersOwnedUnitsAtEveryOpponent_
+#// FourSeats). Here P1 makes droids for seats 3 and 4, then deploys Tobias: nothing is offered, no Credit, no draw.
+#// ⚠ The droids exist (P3/P4 GROUNDARENACOUNT:1), so an empty offer is the ownership rule, not an empty board.
+
+## GIVEN
+CommonSetup: yyw/grw/{
+  myLeader:LAW_002;
+  myLeader2:TS26_01;
+  myBase:SOR_028
+}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Resources: 6
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithP1Deck: [SOR_237 SOR_095]
+
+## WHEN
+- P1>UseLeaderAbility:1
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:P4
+- P1>DeployLeader:0
+
+## EXPECT
+SEATCOUNT:4
+P3GROUNDARENACOUNT:1
+P4GROUNDARENACOUNT:1
+P1NODECISION
+P1CREDITCOUNT:0
+P1HANDCOUNT:0
+P1LEADER:DEPLOYED

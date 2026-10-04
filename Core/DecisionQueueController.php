@@ -142,7 +142,13 @@ class DecisionQueueController {
                         // Optional per-game hook (SWUSim: the game-log source context — a card-named
                         // continuation re-establishes which ability is resolving). Absent elsewhere.
                         if (function_exists('GameBeforeCustomHandler')) GameBeforeCustomHandler(intval($player), (string)$handlerName, (string)$decision->Param);
-                        $customDQHandlers[$handlerName]($player, $parts, $lastDecision);
+                        // Its optional pair (SWUSim: which seat's queue is running, so the game log can name
+                        // who CHOSE a discard). finally: a handler that throws must not leave the seat set.
+                        try {
+                            $customDQHandlers[$handlerName]($player, $parts, $lastDecision);
+                        } finally {
+                            if (function_exists('GameAfterCustomHandler')) GameAfterCustomHandler(intval($player));
+                        }
                         break;
                     case "SYSTEM":
                         if($lastDecision == "PASS" && !$decision->DontSkipOnPass) break;

@@ -4216,10 +4216,17 @@ function _SWUCreateOneToken(int $player, string $tokenID, bool $ready = false): 
     }
     // Game log — one line per created token unit (every creation path, Jerjerrod's doubling included).
     if ($newCard !== null && function_exists('SWULogEffect')) {
+        // Another seat's ability that makes THIS seat create the token ("Choose 2 players. They each ... create a
+        // Battle Droid token" — TS26_01 Count Dooku) names the creator first, the CONTROL line's shape: "P3 created
+        // a Battle Droid token (Count Dooku)". The creator OWNS it (CR 1.x.a); "P1's Count Dooku created a Battle
+        // Droid token for P3" read as P1's droid handed over (game 1485163).
         [$lsP] = SWULogSource();
         $lsTok = _SWULogTokenPhrase($tokenID);
-        SWULogEffect('TOKEN', 'created ' . $lsTok . ($lsP !== intval($player) ? ' for P' . intval($player) : ''),
-            'P' . intval($player) . ' created ' . $lsTok);
+        if ($lsP > 0 && $lsP !== intval($player)) {
+            AddGameLogEntry('TOKEN', 'P' . intval($player) . ' created ' . $lsTok . SWULogSourceSuffix());
+        } else {
+            SWULogEffect('TOKEN', 'created ' . $lsTok, 'P' . intval($player) . ' created ' . $lsTok);
+        }
     }
     // Shielded (e.g. ASH_T01 Mandalorian token, or a Vehicle token while JTL_047 Yularen grants Shielded)
     // applies when the unit enters play, including by being created — give it a Shield token now. Creation
@@ -9831,6 +9838,23 @@ function _SWURecordDamageSource(int $player, ?string $mzID): void {
 }
 
 function SWUAfterAction($player) {
+    // The action is not over while the ACTING player still owes a pick on their own queue (2026-10-04): a bounty's
+    // "Collect bounty?", DJ's resource pick, a follow-up pick queued by a continuation BEHIND an already-queued close
+    // (LAW_002 Tobias). Closing now passed the turn mid-ability — the next seat saw its turn and its clicks bounced
+    // off "decisions are pending" (the Plan-counter report, 2026-09-22) — and ran every action-scoped reset below
+    // before those picks resolved. Re-queue the close behind them instead; it re-checks when it runs, so a pick that
+    // queues another pick is waited for too. Only in the frame that will really close (a nested frame's close is
+    // refused by the gate anyway), and only on the actor's own queue: another seat's decision is FINISH_PLAY_CARD's
+    // hop, and a lone CUSTOM queued on a seat that is not acting never drains. _SWUPlayerHasBlockingDecision counts
+    // interactive decisions only, so a queue holding just static continuations never defers (no spin).
+    if (_SWUActionCloseWouldPass() && _SWUPlayerHasBlockingDecision(intval($player))) {
+        $closeBlock = 20;   // behind ordinary picks (block 1) and the play tail (5, 10); never ahead of the pick it waits for
+        foreach (GetDecisionQueue(intval($player)) as $d) {
+            if (empty($d->removed)) $closeBlock = max($closeBlock, intval($d->Block ?? 0));
+        }
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SWU_AFTER_ACTION", $closeBlock, '', 1);
+        return;
+    }
     // Draw triggers that waited for this action (CR 7.6.8 — see SWUBeginDeferDrawTriggers) resolve now, still
     // INSIDE it: release them and close again BEHIND them (FINISH_PLAY_CARD — it also waits for a seat that
     // still owes a decision, e.g. an opponent's JTL_111 reaction). Only in the frame that will really close
