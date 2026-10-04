@@ -27759,6 +27759,15 @@ $fixtures['kingdoms-divide-choose-card-name-taxes-it-two-more'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-1')], mrdPay(1, 1), [mrdAns(1, 'myMemory-0')]), // choose the card name "Dungeon Guide"
 ];
 
+
+// --- Peer the Depths (6JMwc6cpRm): "Activate this card only during your recollection phase." The generated prereq only checked the phase (BREC), so the NON-turn player was offered it in the turn
+// player's recollection response window. Both players hold a copy; in player 1's recollection phase (turn 3) player 1 passes its window and player 2 must NOT be offered Peer the Depths. ---
+$fixtures['peer-the-depths-not-offered-to-non-turn-player-in-opponents-recollection'] = [
+    'testedCards' => ['6JMwc6cpRm'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [$gaHand('6JMwc6cpRm', 1), $gaHand('6JMwc6cpRm', 2)],
+    'actions' => [mrdEnd(1), mrdEnd(2), mrdPass(1)], // turn 2 passes; player 1's recollection window opens; player 1 passes it
+];
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

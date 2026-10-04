@@ -1385,3 +1385,11 @@ $cardActivatedAbilities["qy34r8gffr:0"] = function($player) { //Choose a card na
   DecisionQueueController::AddDecision($player, "MZCHOOSE", $choiceStr, 1, "");
   DecisionQueueController::AddDecision($player, "CUSTOM", "qy34r8gffr:0:ActivateCard-1", 1);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Peer the Depths (6JMwc6cpRm): "Activate this card only during your recollection phase." The generated prereq only checked the phase (BREC), not whose recollection phase it was, so the NON-turn
+// player was offered Peer the Depths in the turn player's recollection response window. Verbatim prereq plus the turn-player check.
+// ---------------------------------------------------------------------------------------------
+$activateCardPrereqs["6JMwc6cpRm:0"] = function($player, $mzID, $ignoreCost) { //Recollection-only activation prereq
+  return GetCurrentPhase() === "BREC" && GetTurnPlayer() == $player;
+};

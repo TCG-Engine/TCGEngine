@@ -1,0 +1,28 @@
+{
+    "name": "peer-the-depths-not-offered-to-non-turn-player-in-opponents-recollection",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T17:14:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "6JMwc6cpRm"
+    ],
+    "notes": "Peer the Depths (6JMwc6cpRm): both players hold a copy. In player 1's recollection phase player 1 is offered it, passes, and player 2 (not the turn player) is NOT offered it, so the game proceeds straight to player 1's main phase. Pre-fix player 2 was offered it in the second response window.",
+    "semanticCoverage": {
+        "testedCards": [
+            "6JMwc6cpRm"
+        ],
+        "mechanics": [
+            "timing",
+            "recollection-phase"
+        ],
+        "rulesClauses": [
+            "Activate this card only during your recollection phase."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated prereq for Peer the Depths (activateCardPrereqs[\"6JMwc6cpRm:0\"]) was just GetCurrentPhase() === \"BREC\": it checked that it is a recollection phase but not WHOSE, so in the turn player's recollection response window the NON-turn player was offered Peer the Depths (decision 'OpportunityWindowSecondResponse' listing it) even though it may be activated only during its controller's own recollection phase. The prereq is overridden in Custom/GeneratedAbilityOverrides.php with the added GetTurnPlayer() == $player check.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php activateCardPrereqs[6JMwc6cpRm:0]",
+        "fixCommit": "TBD"
+    }
+}

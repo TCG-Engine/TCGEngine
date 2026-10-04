@@ -1,0 +1,30 @@
+[
+    {
+        "step": 3,
+        "type": "phase_is",
+        "value": "MAIN"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 2,
+        "value": 9,
+        "semantic": true,
+        "label": "Player 2 still holds Peer the Depths (it was never offered or played)"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was played by player 2"
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
