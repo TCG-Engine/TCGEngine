@@ -1,0 +1,29 @@
+{
+    "name": "natures-insight-memory-card-cost-three-puts-top-three-into-material",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:57:50+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "3bS1Y9OQrF"
+    ],
+    "notes": "Nature's Insight (3bS1Y9OQrF): revealing Dungeon Guide (reserve cost 3) from memory puts it and the top THREE deck cards into the material deck; a marker sits below them. Pre-fix only one deck card moved.",
+    "semanticCoverage": {
+        "testedCards": [
+            "3bS1Y9OQrF"
+        ],
+        "mechanics": [
+            "material-deck",
+            "zone-movement",
+            "reveal"
+        ],
+        "rulesClauses": [
+            "Reveal a card from your memory and put it into your material deck preserved. X is that card's reserve cost. Then reveal the top X cards of your deck and put them into your material deck preserved."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated customDQHandlers[\"3bS1Y9OQrF:0:CardActivated-1\"] moved the top X deck cards into the material deck with a loop of MZMove($player, \"myDeck-0\", \"myMaterial\") reading $deck[0]: Remove() only flags a slot removed (no splice), so after the first card \"myDeck-0\" / $deck[0] was the SAME removed slot and MZMove's already-removed guard silently no-oped -- only ONE deck card ever reached the material deck (the other X-1 stayed on top). The generated file cannot be edited (gitignored), so the handler is overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone().",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[3bS1Y9OQrF:0:CardActivated-1]",
+        "fixCommit": "TBD"
+    }
+}

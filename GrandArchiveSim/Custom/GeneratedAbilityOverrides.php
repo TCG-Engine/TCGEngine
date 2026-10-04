@@ -1171,3 +1171,32 @@ $cardActivatedAbilities["oj0oh7pjoq:0"] = function($player) { //oj0oh7pjoq
   DecisionQueueController::AddDecision($player, "MZCHOOSE", $tempStr, 1, "");
   DecisionQueueController::AddDecision($player, "CUSTOM", "oj0oh7pjoq:0:CardActivated-1", 1);
 };
+
+// ---------------------------------------------------------------------------------------------
+// Nature's Insight (3bS1Y9OQrF): "Reveal a card from your memory and put it into your material deck preserved. X is that card's reserve cost. Then reveal the top X cards of your deck and put them into
+// your material deck preserved." The generated handler moved the deck cards with a loop of MZMove($player, "myDeck-0", "myMaterial") reading $deck[0]: Remove() only flags a slot removed (no splice), so after
+// the first card "myDeck-0" / $deck[0] was the same removed slot -- only ONE deck card reached the material deck (the rest of the X stayed on top). Verbatim handler with MZMoveTopOfZone().
+// ---------------------------------------------------------------------------------------------
+$customDQHandlers["3bS1Y9OQrF:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Reveal memory card → material preserved; put top X deck cards into material preserved
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DecisionQueueController::StoreVariable("chosen", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "3bS1Y9OQrF:0:CardActivated-1")) return;
+  $chosen = $lastDecision;
+  global $Preserve_Cards;
+  $chosenObj = GetZoneObject($chosen);
+  if($chosenObj === null) return;
+  $x = max(0, intval(CardCost_reserve($chosenObj->CardID)));
+  $chosenCardID = $chosenObj->CardID;
+  MZMove($player, $chosen, "myMaterial");
+  $Preserve_Cards[$chosenCardID] = true;
+  DecisionQueueController::CleanupRemovedCards();
+  for($i = 0; $i < $x; ++$i) {
+      $deck = GetZone("myDeck");
+      if(empty($deck)) break;
+      $movedObj = MZMoveTopOfZone($player, "myDeck", "myMaterial");
+      if($movedObj === null) break;
+      $Preserve_Cards[$movedObj->CardID] = true;
+  }
+};

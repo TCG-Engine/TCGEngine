@@ -27580,6 +27580,21 @@ $fixtures['natures-appeal-level-three-reveals-three-hand-material-and-bottom'] =
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myTempZone-2'), mrdAns(1, 'myTempZone-2', ['expectFailure' => true, 'semantic' => true, 'label' => 'the card already put into hand is no longer offered for the material deck']), mrdAns(1, 'myTempZone-1')]),
 ];
 
+
+// --- Nature's Insight (3bS1Y9OQrF): "Reveal a card from your memory and put it into your material deck preserved. X is that card's reserve cost. Then reveal the top X cards of your deck and put
+// them into your material deck preserved." The generated handler moved the deck cards with a fixed-index loop (read $deck[0] / "myDeck-0"): only ONE card ever reached the material deck. ---
+$fixtures['natures-insight-memory-card-cost-three-puts-top-three-into-material'] = [
+    'testedCards' => ['3bS1Y9OQrF'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7x2v4tdop1']], // Kongming, Fel Eidolon (level 3, TERA)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_DG],       // memory-0: Dungeon Guide (reserve cost 3 -> X = 3)
+        $gaHand('3bS1Y9OQrF'),                                           // Nature's Insight -> myHand-7
+        $gaTop([$GA_FS, $GA_FW, $GA_DG, $GA_MARK]),                      // top three go to the material deck, then a Charge the Soul marker
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdAns(1, 'myMemory-0')]), // cost 5 - 2 (Class Bonus) = 3 payments
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
