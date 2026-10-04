@@ -1270,3 +1270,64 @@ $onAttackAbilities["slmer06rku:0"] = function($player) { //Desperate Cavalier at
   }
   DecisionQueueController::CleanupRemovedCards();
 };
+
+// ---------------------------------------------------------------------------------------------
+// Gaia's Songbird (sHzSmygjWY) and Silvie, Earth's Tune (ZR8tnLruR6): "Reveal cards from the top of your deck until you reveal a [Beast ally / tera Animal or Beast ally] card. Put that card into your hand
+// and the rest on the bottom of your deck." The generated bodies put the revealed cards that were not taken on the bottom with a loop of MZMove($player, "myDeck-0", "myDeck"): Remove() only flags a slot
+// removed (no splice), so "myDeck-0" re-resolved to the same removed slot and only ONE of them reached the bottom (the others stayed on top). Verbatim bodies with MZMoveTopOfZone().
+// (The printed "in a random order" is not modelled: the revealed cards keep their order.)
+// ---------------------------------------------------------------------------------------------
+$enterAbilities["sHzSmygjWY:0"] = function($player) { //sHzSmygjWY
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Gaia's Songbird: [Class Bonus] On Enter: reveal until Beast ally found
+  if(!IsClassBonusActive($player)) return;
+  $deck = &GetDeck($player);
+  $revealed = 0;
+  $foundIdx = -1;
+  for($i = 0; $i < count($deck); ++$i) {
+      $revealed++;
+      $type = CardType($deck[$i]->CardID);
+      $subtypes = CardSubtypes($deck[$i]->CardID);
+      if(PropertyContains($type, "ALLY") && PropertyContains($subtypes, "BEAST")) {
+          $foundIdx = $i;
+          break;
+      }
+  }
+  if($foundIdx >= 0) {
+      MZMove($player, "myDeck-" . $foundIdx, "myHand");
+      $revealed--;
+  }
+  $deck = &GetDeck($player);
+  for($i = 0; $i < $revealed && count($deck) > 0; ++$i) {
+      MZMoveTopOfZone($player, "myDeck", "myDeck");
+  }
+};
+
+$enterAbilities["ZR8tnLruR6:0"] = function($player) { //ZR8tnLruR6
+  // Retrieve macro parameters
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  // Silvie, Earth's Tune: On Enter: reveal until tera Animal/Beast ally found
+  $deck = &GetDeck($player);
+  $revealed = 0;
+  $foundIdx = -1;
+  for($i = 0; $i < count($deck); ++$i) {
+      $revealed++;
+      $element = CardElement($deck[$i]->CardID);
+      $type = CardType($deck[$i]->CardID);
+      $subtypes = CardSubtypes($deck[$i]->CardID);
+      if(PropertyContains($element, "TERA") && PropertyContains($type, "ALLY") && (PropertyContains($subtypes, "ANIMAL") || PropertyContains($subtypes, "BEAST"))) {
+          $foundIdx = $i;
+          break;
+      }
+  }
+  if($foundIdx >= 0) {
+      MZMove($player, "myDeck-" . $foundIdx, "myHand");
+      $revealed--;
+  }
+  // Move remaining revealed cards to bottom in random order
+  $deck = &GetDeck($player);
+  for($i = 0; $i < $revealed && count($deck) > 0; ++$i) {
+      MZMoveTopOfZone($player, "myDeck", "myDeck");
+  }
+};

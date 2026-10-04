@@ -1,0 +1,29 @@
+{
+    "name": "gaias-songbird-enter-reveals-until-deep-beast-rest-to-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T17:04:39+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "sHzSmygjWY"
+    ],
+    "notes": "Gaia's Songbird (sHzSmygjWY): the first Beast ally (Gray Wolf) is the 4th card; it goes to hand and the three revealed cards before it go to the bottom while a marker becomes the top card. Pre-fix only one of them moved.",
+    "semanticCoverage": {
+        "testedCards": [
+            "sHzSmygjWY"
+        ],
+        "mechanics": [
+            "reveal-until",
+            "bottom-deck",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Reveal cards from the top of your deck until you reveal a Beast ally card. Put that card into your hand and the rest on the bottom of your deck in a random order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated enterAbilities[\"sHzSmygjWY:0\"] / [\"ZR8tnLruR6:0\"] bodies (Gaia's Songbird, Silvie Earth's Tune) put the revealed-but-not-taken cards on the bottom with a loop of MZMove($player, \"myDeck-0\", \"myDeck\"): Remove() only flags a slot removed (no splice), so \"myDeck-0\" re-resolved to the SAME removed slot after the first and MZMove's already-removed guard silently no-oped -- only ONE of the revealed cards reached the bottom and the rest stayed on top of the deck (the existing gaias-songbird fixture only covered a Beast on the very top). The generated file cannot be edited (gitignored), so both closures are overridden in Custom/GeneratedAbilityOverrides.php with MZMoveTopOfZone(). The printed 'random order' is not modelled (the revealed cards keep their order).",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php enterAbilities[sHzSmygjWY:0] and [ZR8tnLruR6:0]",
+        "fixCommit": "TBD"
+    }
+}

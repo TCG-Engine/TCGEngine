@@ -27662,6 +27662,20 @@ $fixtures['desperate-cavalier-on-attack-banishes-top-two-cards-low-influence'] =
     ],
 ];
 
+
+// --- Gaia's Songbird (sHzSmygjWY): "[Class Bonus] On Enter: Reveal cards from the top of your deck until you reveal a Beast ally card. Put that card into your hand and the rest on the bottom of your deck."
+// The generated body put the revealed-but-not-taken cards on the bottom with a fixed-index MZMove loop (only one of them moved). The existing gaias-songbird fixture only covers a Beast on top. ---
+$fixtures['gaias-songbird-enter-reveals-until-deep-beast-rest-to-bottom'] = [
+    'testedCards' => ['sHzSmygjWY'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['GKEpAulogu']]], // Silvie, Loved by All -- unlocks TERA
+        $gaHand('sHzSmygjWY'), // Gaia's Songbird -> myHand-7
+        $gaTop([$GA_DG, $GA_FS, $GA_FW, 'hJ2xh9lNMR', $GA_MARK]), // reveal until Gray Wolf (BEAST ally, 4th): the three before it go to the bottom; then a marker
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1)),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
