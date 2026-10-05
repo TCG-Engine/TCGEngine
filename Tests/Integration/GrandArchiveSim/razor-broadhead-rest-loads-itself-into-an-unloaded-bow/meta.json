@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Razor Broadhead's field activation was misrouted through ActivateCard (the [REST] cost was never paid).",
         "affectedFunction": "activateAbilityAbilities['si9ux3ak6o:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

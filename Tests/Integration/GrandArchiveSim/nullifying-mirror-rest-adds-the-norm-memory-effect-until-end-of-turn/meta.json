@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Nullifying Mirror never rested and its norm-memory effect applied permanently without activation.",
         "affectedFunction": "GAEffectiveElement / activateAbilityAbilities['pol1nz0j1n:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

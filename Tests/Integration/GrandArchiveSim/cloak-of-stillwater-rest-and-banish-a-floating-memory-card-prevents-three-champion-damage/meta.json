@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Cloak of Stillwater never rested.",
         "affectedFunction": "activateAbilityAbilities['2ha4dk88zq:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

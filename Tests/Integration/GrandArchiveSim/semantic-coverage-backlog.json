@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T21:54:50+00:00",
+    "generatedAt": "2026-10-05T22:15:16+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 785,
+        "cardsWithExistingFixtures": 801,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1701,
+        "cardsNeedingSemanticCoverage": 1685,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -66,26 +66,6 @@
             "priority": 114
         },
         {
-            "cardId": "4e1gqwah01",
-            "name": "Corsair Captain",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "m7f6r8f3y8",
             "name": "Diana, Aether Dilettante",
             "type": "CHAMPION",
@@ -126,26 +106,6 @@
             "priority": 114
         },
         {
-            "cardId": "cworak5y4y",
-            "name": "Whimsy's Warden",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "nn48ne8a05",
             "name": "Ciel, Loyal Valet",
             "type": "CHAMPION",
@@ -173,44 +133,6 @@
             "mechanics": [
                 "draw-discard",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "drnxdiltx3",
-            "name": "Foresight Lens",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "fm894uc4ij",
-            "name": "Manxome Armoire",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -255,25 +177,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "izgiu216l2",
-            "name": "Torch Marshal",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1033,25 +936,6 @@
             "priority": 25
         },
         {
-            "cardId": "2ha4dk88zq",
-            "name": "Cloak of Stillwater",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "draw-discard",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "ulh4lplwqe",
             "name": "Coiled Fatestone",
             "type": "ITEM",
@@ -1447,25 +1331,6 @@
                 "draw-discard",
                 "zone-movement",
                 "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "si9ux3ak6o",
-            "name": "Razor Broadhead",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -2991,23 +2856,6 @@
                 "cost",
                 "combat",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "FQigf17dCr",
-            "name": "Grave Gateau",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8595,24 +8443,6 @@
             "priority": 14
         },
         {
-            "cardId": "5LoOprBJay",
-            "name": "Discordia, Harp of Malice",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "bro89w0ejc",
             "name": "Displace",
             "type": "ACTION",
@@ -10386,24 +10216,6 @@
                 "damage",
                 "recover",
                 "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "Tx6iJQNSA6",
-            "name": "Majestic Spirit's Crest",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "combat",
                 "trigger"
             ],
             "existingFixtures": [],
@@ -12195,24 +12007,6 @@
             "priority": 14
         },
         {
-            "cardId": "K15jWbHAMY",
-            "name": "Teardrop Diadem",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "6Rb25k7OjY",
             "name": "Tempestuous Conviction",
             "type": "ACTION",
@@ -13242,23 +13036,6 @@
                 "draw-discard",
                 "status",
                 "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "clgolelsra",
-            "name": "Bellona's Runestone",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -15208,23 +14985,6 @@
             "cardId": "8qgr2drym1",
             "name": "Frozen Dismissal",
             "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "iqcknwa2vl",
-            "name": "Frozen Quill",
-            "type": "ITEM",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -20243,22 +20003,6 @@
             "mechanics": [
                 "draw-discard",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "21oy1nd4nw",
-            "name": "Condemned Trinket",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -26899,21 +26643,6 @@
             "priority": 11
         },
         {
-            "cardId": "997vxajn2q",
-            "name": "Halcyon Prism",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "nWAMmtAEM7",
             "name": "Haze Droid",
             "type": "ALLY",
@@ -27731,21 +27460,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "pol1nz0j1n",
-            "name": "Nullifying Mirror",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -31404,10 +31118,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "corhazi-courier-onhit-draw-discard-damage"
+                "corhazi-courier-onhit-draw-discard-damage",
+                "corhazi-courier-without-the-class-bonus-on-hit-does-not-draw"
             ],
             "semanticFixtures": [
-                "corhazi-courier-onhit-draw-discard-damage"
+                "corhazi-courier-onhit-draw-discard-damage",
+                "corhazi-courier-without-the-class-bonus-on-hit-does-not-draw"
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
@@ -33340,13 +33056,41 @@
                 "condition"
             ],
             "existingFixtures": [
-                "corhazi-lightblade-reveal-luxem-critical"
+                "corhazi-lightblade-reveal-luxem-critical",
+                "corhazi-lightblade-without-the-class-bonus-does-not-reveal-or-gain-critical"
             ],
             "semanticFixtures": [
-                "corhazi-lightblade-reveal-luxem-critical"
+                "corhazi-lightblade-reveal-luxem-critical",
+                "corhazi-lightblade-without-the-class-bonus-does-not-reveal-or-gain-critical"
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "4e1gqwah01",
+            "name": "Corsair Captain",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "corsair-captain-not-distant-has-base-power",
+                "corsair-captain-ranged-two-gets-plus-two-power-while-distant"
+            ],
+            "semanticFixtures": [
+                "corsair-captain-not-distant-has-base-power",
+                "corsair-captain-ranged-two-gets-plus-two-power-while-distant"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -35543,6 +35287,32 @@
             "priority": 134
         },
         {
+            "cardId": "cworak5y4y",
+            "name": "Whimsy's Warden",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "whimsys-warden-gets-plus-two-power-with-two-or-more-omens",
+                "whimsys-warden-has-base-power-with-only-one-omen"
+            ],
+            "semanticFixtures": [
+                "whimsys-warden-gets-plus-two-power-with-two-or-more-omens",
+                "whimsys-warden-has-base-power-with-only-one-omen"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "Fkpr1hCUGF",
             "name": "Aenean Frozen Shunt",
             "type": "ACTION",
@@ -35936,10 +35706,12 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "caretaker-drone-class-bonus-death-glimpse"
+                "caretaker-drone-class-bonus-death-glimpse",
+                "caretaker-drone-without-the-class-bonus-on-death-does-not-glimpse"
             ],
             "semanticFixtures": [
-                "caretaker-drone-class-bonus-death-glimpse"
+                "caretaker-drone-class-bonus-death-glimpse",
+                "caretaker-drone-without-the-class-bonus-on-death-does-not-glimpse"
             ],
             "starterDecks": [
                 "Arisanna Starter Deck"
@@ -36464,6 +36236,31 @@
             "priority": 133
         },
         {
+            "cardId": "drnxdiltx3",
+            "name": "Foresight Lens",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "foresight-lens-banish-glimpses-two",
+                "foresight-lens-banish-while-distant-glimpses-four"
+            ],
+            "semanticFixtures": [
+                "foresight-lens-banish-glimpses-two",
+                "foresight-lens-banish-while-distant-glimpses-four"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "rp5k1vt1cn",
             "name": "Fractal of Insight",
             "type": "PHANTASIA",
@@ -36573,11 +36370,13 @@
             ],
             "existingFixtures": [
                 "gaias-songbird-class-bonus-enter-reveal-beast",
-                "gaias-songbird-enter-reveals-until-deep-beast-rest-to-bottom"
+                "gaias-songbird-enter-reveals-until-deep-beast-rest-to-bottom",
+                "gaias-songbird-without-the-class-bonus-does-not-reveal"
             ],
             "semanticFixtures": [
                 "gaias-songbird-class-bonus-enter-reveal-beast",
-                "gaias-songbird-enter-reveals-until-deep-beast-rest-to-bottom"
+                "gaias-songbird-enter-reveals-until-deep-beast-rest-to-bottom",
+                "gaias-songbird-without-the-class-bonus-does-not-reveal"
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
@@ -37000,14 +36799,41 @@
                 "condition"
             ],
             "existingFixtures": [
-                "magus-disciple-class-bonus-on-death-draw"
+                "magus-disciple-class-bonus-on-death-draw",
+                "magus-disciple-without-the-class-bonus-on-death-does-not-draw"
             ],
             "semanticFixtures": [
-                "magus-disciple-class-bonus-on-death-draw"
+                "magus-disciple-class-bonus-on-death-draw",
+                "magus-disciple-without-the-class-bonus-on-death-does-not-draw"
             ],
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "fm894uc4ij",
+            "name": "Manxome Armoire",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "manxome-armoire-ciel-bonus-banish-swaps-an-omen-for-a-card-from-hand",
+                "manxome-armoire-without-the-ciel-bonus-cannot-activate"
+            ],
+            "semanticFixtures": [
+                "manxome-armoire-ciel-bonus-banish-swaps-an-omen-for-a-card-from-hand",
+                "manxome-armoire-without-the-ciel-bonus-cannot-activate"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -37311,10 +37137,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "ornamental-greatsword-enter-ally-power"
+                "ornamental-greatsword-enter-ally-power",
+                "ornamental-greatsword-without-the-class-bonus-gives-no-power"
             ],
             "semanticFixtures": [
-                "ornamental-greatsword-enter-ally-power"
+                "ornamental-greatsword-enter-ally-power",
+                "ornamental-greatsword-without-the-class-bonus-gives-no-power"
             ],
             "starterDecks": [
                 "Lorraine Starter Deck",
@@ -37524,10 +37352,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "purge-in-flames-damage"
+                "purge-in-flames-damage",
+                "purge-in-flames-without-the-class-bonus-deals-two-damage"
             ],
             "semanticFixtures": [
-                "purge-in-flames-damage"
+                "purge-in-flames-damage",
+                "purge-in-flames-without-the-class-bonus-deals-two-damage"
             ],
             "starterDecks": [
                 "Rai Starter Deck",
@@ -38445,6 +38275,33 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "izgiu216l2",
+            "name": "Torch Marshal",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "torch-marshal-attack-costs-an-additional-two",
+                "torch-marshal-class-bonus-gets-plus-one-power",
+                "torch-marshal-without-the-class-bonus-has-base-power"
+            ],
+            "semanticFixtures": [
+                "torch-marshal-attack-costs-an-additional-two",
+                "torch-marshal-class-bonus-gets-plus-one-power",
+                "torch-marshal-without-the-class-bonus-has-base-power"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -40258,10 +40115,14 @@
                 "condition"
             ],
             "existingFixtures": [
-                "melodious-flute-level-while-animal-beast"
+                "melodious-flute-class-bonus-banish-marks-the-next-harmony-action-as-a-melody",
+                "melodious-flute-level-while-animal-beast",
+                "melodious-flute-without-the-class-bonus-cannot-activate"
             ],
             "semanticFixtures": [
-                "melodious-flute-level-while-animal-beast"
+                "melodious-flute-class-bonus-banish-marks-the-next-harmony-action-as-a-melody",
+                "melodious-flute-level-while-animal-beast",
+                "melodious-flute-without-the-class-bonus-cannot-activate"
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
@@ -43233,6 +43094,29 @@
             "priority": 54
         },
         {
+            "cardId": "2ha4dk88zq",
+            "name": "Cloak of Stillwater",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "draw-discard",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "cloak-of-stillwater-rest-and-banish-a-floating-memory-card-prevents-three-champion-damage"
+            ],
+            "semanticFixtures": [
+                "cloak-of-stillwater-rest-and-banish-a-floating-memory-card-prevents-three-champion-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "gn1b2sbrq9",
             "name": "Echoic Guard",
             "type": "ACTION",
@@ -43323,6 +43207,29 @@
             ],
             "semanticFixtures": [
                 "redslime-ondeath-sweep-stack-order-choice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "si9ux3ak6o",
+            "name": "Razor Broadhead",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "razor-broadhead-rest-loads-itself-into-an-unloaded-bow"
+            ],
+            "semanticFixtures": [
+                "razor-broadhead-rest-loads-itself-into-an-unloaded-bow"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43847,6 +43754,27 @@
             ],
             "semanticFixtures": [
                 "ghastly-corrosion-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "FQigf17dCr",
+            "name": "Grave Gateau",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "status"
+            ],
+            "existingFixtures": [
+                "grave-gateau-rest-and-sacrifice-puts-a-buff-counter-on-a-specter"
+            ],
+            "semanticFixtures": [
+                "grave-gateau-rest-and-sacrifice-puts-a-buff-counter-on-a-specter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44978,6 +44906,28 @@
             "priority": 34
         },
         {
+            "cardId": "5LoOprBJay",
+            "name": "Discordia, Harp of Malice",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "discordia-rest-swaps-levels-by-its-music-counters-and-is-banished-at-end-phase"
+            ],
+            "semanticFixtures": [
+                "discordia-rest-swaps-levels-by-its-music-counters-and-is-banished-at-end-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "ycwz9gv4vm",
             "name": "Enthralling Visage",
             "type": "ACTION",
@@ -45226,6 +45176,30 @@
                 "lena-rest-look-four-decline-all-four-bottom",
                 "lena-rest-look-four-no-ranger-all-four-bottom",
                 "lena-rest-look-four-reveal-deep-ranger-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "Tx6iJQNSA6",
+            "name": "Majestic Spirit's Crest",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "majestic-spirits-crest-class-bonus-banish-grants-the-champion-an-on-attack-draw",
+                "majestic-spirits-crest-without-the-class-bonus-cannot-activate"
+            ],
+            "semanticFixtures": [
+                "majestic-spirits-crest-class-bonus-banish-grants-the-champion-an-on-attack-draw",
+                "majestic-spirits-crest-without-the-class-bonus-cannot-activate"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45500,6 +45474,28 @@
             "priority": 34
         },
         {
+            "cardId": "K15jWbHAMY",
+            "name": "Teardrop Diadem",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "teardrop-diadem-banish-draws-three-into-memory"
+            ],
+            "semanticFixtures": [
+                "teardrop-diadem-banish-draws-three-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "XLbCBxla8K",
             "name": "Thousand Refractions",
             "type": "ATTACK",
@@ -45613,6 +45609,27 @@
                 "flawless-blade-with-abilities-gives-attack-cards-floating-memory-to-pay-materialize",
                 "flawless-blade-without-abilities-attack-cards-have-no-floating-memory",
                 "phantasmagoria-non-specter-graveyard-card-cannot-pay-memory-with-floating-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "clgolelsra",
+            "name": "Bellona's Runestone",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "bellonas-runestone-banish-buffs-a-weapon-and-adds-a-durability-counter"
+            ],
+            "semanticFixtures": [
+                "bellonas-runestone-banish-buffs-a-weapon-and-adds-a-durability-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45755,6 +45772,27 @@
                 "fishing-accident-prepare-2-declined-ally-rested",
                 "fishing-accident-prepare-2-paid-ally-to-bottom-of-deck",
                 "thieving-cut-prepared-still-draws-after-opponent-activates-an-unprepared-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "iqcknwa2vl",
+            "name": "Frozen Quill",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "frozen-quill-rest-loads-itself-into-an-unloaded-bow"
+            ],
+            "semanticFixtures": [
+                "frozen-quill-rest-loads-itself-into-an-unloaded-bow"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46402,6 +46440,26 @@
             ],
             "semanticFixtures": [
                 "cell-forging-declined-weapon-summons-a-powercell"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "21oy1nd4nw",
+            "name": "Condemned Trinket",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "condemned-trinket-pays-three-banishes-itself-and-omens-a-graveyard-card"
+            ],
+            "semanticFixtures": [
+                "condemned-trinket-pays-three-banishes-itself-and-omens-a-graveyard-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47156,6 +47214,25 @@
             "priority": 31
         },
         {
+            "cardId": "997vxajn2q",
+            "name": "Halcyon Prism",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "halcyon-prism-banish-glimpses-three"
+            ],
+            "semanticFixtures": [
+                "halcyon-prism-banish-glimpses-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "ZpM7gliLxm",
             "name": "Lesser Boon of Territories",
             "type": "LESSER BOON",
@@ -47232,6 +47309,25 @@
             ],
             "semanticFixtures": [
                 "natures-appeal-level-three-reveals-three-hand-material-and-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "pol1nz0j1n",
+            "name": "Nullifying Mirror",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "nullifying-mirror-rest-adds-the-norm-memory-effect-until-end-of-turn"
+            ],
+            "semanticFixtures": [
+                "nullifying-mirror-rest-adds-the-norm-memory-effect-until-end-of-turn"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

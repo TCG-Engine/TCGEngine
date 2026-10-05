@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Teardrop Diadem could draw three cards into memory for free any number of times.",
         "affectedFunction": "activateAbilityAbilities['K15jWbHAMY:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

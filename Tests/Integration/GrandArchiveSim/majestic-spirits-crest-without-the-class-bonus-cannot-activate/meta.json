@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "A non-Warrior champion could banish the Crest for no effect.",
         "affectedFunction": "activateAbilityPrereqs['Tx6iJQNSA6:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

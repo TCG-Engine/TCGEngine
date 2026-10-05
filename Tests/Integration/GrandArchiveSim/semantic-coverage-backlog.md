@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **785**
+Cards linked to an existing fixture: **801**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1701**
+Implemented cards still needing semantic coverage: **1685**
 
 ## Mechanic groups
 
@@ -28,17 +28,12 @@ Implemented cards still needing semantic coverage: **1701**
 | --- | --- | ---: | --- | --- | --- |
 | Pleiades, Celestial Genesis (`rsps1qnzfl`) | REGALIA,WEAPON | 2 | token, combat, trigger | Diana, Moonpiercer | — |
 | Ciel, Mirage's Grave (`zhh43i1eaa`) | CHAMPION | 1 | targeting, damage, counter, trigger | Ciel, Mirage's Grave | — |
-| Corsair Captain (`4e1gqwah01`) | ALLY | 1 | cost, zone-movement, status, condition | Diana, Moonpiercer | — |
 | Diana, Aether Dilettante (`m7f6r8f3y8`) | CHAMPION | 1 | cost, status, trigger, condition | Diana, Moonpiercer | — |
 | Diana, Moonpiercer (`v3vfjtwm7g`) | CHAMPION | 1 | targeting, status, trigger, condition | Diana, Moonpiercer | — |
-| Whimsy's Warden (`cworak5y4y`) | ALLY | 1 | status, combat, trigger, condition | Ciel, Mirage's Grave | — |
 | Ciel, Loyal Valet (`nn48ne8a05`) | CHAMPION | 1 | zone-movement, counter, trigger | Ciel, Mirage's Grave | — |
 | Ciel, Omenbringer (`o69ogocemo`) | CHAMPION | 1 | draw-discard, trigger, condition | Ciel, Mirage's Grave | — |
-| Foresight Lens (`drnxdiltx3`) | REGALIA,ITEM | 1 | zone-movement, status, condition | Diana, Moonpiercer | — |
-| Manxome Armoire (`fm894uc4ij`) | REGALIA,ITEM | 1 | zone-movement, counter, condition | Ciel, Mirage's Grave | — |
 | Reverse Affliction (`1bxh5xz2uz`) | ACTION | 1 | zone-movement, counter, condition | Ciel, Mirage's Grave | — |
 | Seeker's Aetherwing (`bf7yzaqes4`) | REGALIA,WEAPON | 1 | targeting, status, combat | Diana, Moonpiercer | — |
-| Torch Marshal (`izgiu216l2`) | ALLY | 1 | cost, combat, condition | Ciel, Mirage's Grave | — |
 | Aetheric Calibration (`7l9th23niu`) | ACTION | 1 | zone-movement, condition | Diana, Moonpiercer | — |
 | Grande Aiguille (`6ihv6hbvye`) | REGALIA,WEAPON | 1 | counter, condition | Ciel, Mirage's Grave | — |
 | Grande Sonnerie (`s4b2mkh1xm`) | REGALIA,WEAPON | 1 | cost, condition | Ciel, Mirage's Grave | — |
@@ -76,3 +71,8 @@ Implemented cards still needing semantic coverage: **1701**
 | Sneaky Raccoon (`jH6F9XYrL5`) | ALLY | 1 | status, condition | — | sneaky-raccoon-stealth |
 | Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
 | Oasis Trading Post (`uy4xippor7`) | DOMAIN | 3 | token | — | — |
+| Trained Birdroid (`84lj40Kyhv`) | ALLY | 2 | status, combat, trigger | — | — |
+| Quadrille's Gryphon (`84e2rfex54`) | ALLY | 2 | counter, trigger | — | — |
+| Aenean Guttering Flames (`JGQ9LO5DFv`) | PHANTASIA | 2 | cost, damage, draw-discard, trigger, condition | — | — |
+| Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |
+| Cao Cao, Aspirant of Chaos (`d5og6z31q9`) | UNIQUE,ALLY | 2 | cost, damage, zone-movement, status, combat, trigger, condition | — | — |

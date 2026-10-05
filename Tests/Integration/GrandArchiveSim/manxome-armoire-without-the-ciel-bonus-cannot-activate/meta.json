@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Class/name-bonus activated abilities could be activated and paid for without the bonus.",
         "affectedFunction": "activateAbilityPrereqs['fm894uc4ij:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

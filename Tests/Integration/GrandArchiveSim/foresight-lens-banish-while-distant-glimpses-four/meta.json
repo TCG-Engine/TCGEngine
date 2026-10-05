@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Foresight Lens never banished itself: it could glimpse for free repeatedly.",
         "affectedFunction": "activateAbilityAbilities['drnxdiltx3:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

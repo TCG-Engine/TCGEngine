@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Condemned Trinket never banished itself.",
         "affectedFunction": "activateAbilityAbilities['21oy1nd4nw:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Class Bonus effects applied for every champion (bare IsClassBonusActive($player) is always true).",
         "affectedFunction": "IsClassBonusActive / GAInstallClassBonusSourceWrappers",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Halcyon Prism could be activated repeatedly (the banish-self cost was never paid through the ActivateCard route).",
         "affectedFunction": "activateAbilityAbilities['997vxajn2q:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

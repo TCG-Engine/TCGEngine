@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Frozen Quill's field activation was misrouted through ActivateCard (the [REST] cost was never paid).",
         "affectedFunction": "activateAbilityAbilities['iqcknwa2vl:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Grave Gateau's activation was misrouted (its sacrifice ran inside the play-time body).",
         "affectedFunction": "activateAbilityAbilities['FQigf17dCr:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

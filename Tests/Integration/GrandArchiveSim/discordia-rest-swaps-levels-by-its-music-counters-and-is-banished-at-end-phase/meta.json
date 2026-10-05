@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Discordia never rested and its level swap used an undefined variable.",
         "affectedFunction": "activateAbilityAbilities['5LoOprBJay:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

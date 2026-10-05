@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "A non-Tamer champion could banish the Flute for no effect.",
         "affectedFunction": "activateAbilityPrereqs['WAFNy2lY5t:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }

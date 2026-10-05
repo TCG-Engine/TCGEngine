@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Bellona's Runestone could be used repeatedly without banishing itself.",
         "affectedFunction": "activateAbilityAbilities['clgolelsra:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "d36a88cf"
     }
 }
