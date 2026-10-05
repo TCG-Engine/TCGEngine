@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Cell Forging's optional-choice continuation (pufooz13xf:0:CardActivated-1) is a generated handler whose own decline branch is part of the card text, but Core's ExecuteStaticMethods() skipped it on PASS (queued without dontSkipOnPass): the Powercell was never summoned when no weapon was chosen. Fix: Grand Archive registers the handler as decline-aware (GameCustomHandlerRunsOnPass, asked by Core before it skips).",
         "affectedFunction": "Custom/GameLogic.php GameCustomHandlerRunsOnPass",
-        "fixCommit": "TBD"
+        "fixCommit": "7e927a2c"
     }
 }

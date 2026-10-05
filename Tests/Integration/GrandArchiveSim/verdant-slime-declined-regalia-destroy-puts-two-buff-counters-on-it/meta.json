@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Verdant Slime's optional-choice continuation (kkbbu08s5r:0:Enter-1) is a generated handler whose own decline branch is part of the card text, but Core's ExecuteStaticMethods() skipped it on PASS (queued without dontSkipOnPass): the 'if you don't' buff counters were never put on it. Fix: Grand Archive registers the handler as decline-aware (GameCustomHandlerRunsOnPass, asked by Core before it skips).",
         "affectedFunction": "Custom/GameLogic.php GameCustomHandlerRunsOnPass",
-        "fixCommit": "TBD"
+        "fixCommit": "7e927a2c"
     }
 }

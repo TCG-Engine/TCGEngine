@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T16:29:21+00:00",
+    "generatedAt": "2026-10-05T16:34:08+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 766,
+        "cardsWithExistingFixtures": 767,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1720,
+        "cardsNeedingSemanticCoverage": 1719,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -20380,22 +20380,6 @@
             "priority": 12
         },
         {
-            "cardId": "pufooz13xf",
-            "name": "Cell Forging",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "m6lGw6bQtb",
             "name": "Cell Production",
             "type": "ACTION",
@@ -32813,6 +32797,7 @@
                 "stifling-trap-memory-alt-cost-class-bonus-inactive-not-offered",
                 "stifling-trap-memory-alt-cost-declined-keeps-counters",
                 "stifling-trap-memory-alt-cost-hand-copy-pays-reserve-keeps-counters",
+                "stifling-trap-memory-alt-cost-not-offered-without-a-target-ally",
                 "stifling-trap-memory-alt-cost-one-counter-not-offered",
                 "stifling-trap-memory-alt-cost-own-turn-not-offered",
                 "stifling-trap-memory-alt-cost-paid-no-reserve"
@@ -32822,6 +32807,7 @@
                 "stifling-trap-memory-alt-cost-class-bonus-inactive-not-offered",
                 "stifling-trap-memory-alt-cost-declined-keeps-counters",
                 "stifling-trap-memory-alt-cost-hand-copy-pays-reserve-keeps-counters",
+                "stifling-trap-memory-alt-cost-not-offered-without-a-target-ally",
                 "stifling-trap-memory-alt-cost-one-counter-not-offered",
                 "stifling-trap-memory-alt-cost-own-turn-not-offered",
                 "stifling-trap-memory-alt-cost-paid-no-reserve"
@@ -32949,9 +32935,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "verdant-slime-declined-regalia-destroy-puts-two-buff-counters-on-it",
                 "verdant-slime-on-enter-no-regalia-two-buff"
             ],
             "semanticFixtures": [
+                "verdant-slime-declined-regalia-destroy-puts-two-buff-counters-on-it",
                 "verdant-slime-on-enter-no-regalia-two-buff"
             ],
             "starterDecks": [
@@ -46312,6 +46300,26 @@
                 "ashen-riffle-reveal-four-deep-suited-offered",
                 "ashen-riffle-reveal-four-three-eligible-banish-capped-at-two",
                 "ashen-riffle-small-deck-decline-returns-all-four-revealed-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "pufooz13xf",
+            "name": "Cell Forging",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "token"
+            ],
+            "existingFixtures": [
+                "cell-forging-declined-weapon-summons-a-powercell"
+            ],
+            "semanticFixtures": [
+                "cell-forging-declined-weapon-summons-a-powercell"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

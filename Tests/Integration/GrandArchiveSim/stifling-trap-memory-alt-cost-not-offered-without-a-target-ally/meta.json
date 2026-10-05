@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Stifling Trap ('deal 2 damage to target ally') had no legal-target check, so its Class Bonus alternate cost (remove two preparation counters, activate from memory) was offered, and paid, with no ally anywhere to target. Fix: CanUseStiflingTrapMemoryActivation() requires at least one ally on either field.",
         "affectedFunction": "Custom/OpportunityLogic.php CanUseStiflingTrapMemoryActivation",
-        "fixCommit": "TBD"
+        "fixCommit": "7e927a2c"
     }
 }
