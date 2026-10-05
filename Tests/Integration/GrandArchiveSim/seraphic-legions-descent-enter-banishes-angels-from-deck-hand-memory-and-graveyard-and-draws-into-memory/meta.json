@@ -1,0 +1,31 @@
+{
+    "name": "seraphic-legions-descent-enter-banishes-angels-from-deck-hand-memory-and-graveyard-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:53:27+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "QX72P4Xx1A"
+    ],
+    "notes": "Seraphic Legion's Descent had no implementation of its On Enter. Added $enterAbilities['QX72P4Xx1A:0']: choose any amount of Angel allies in the deck (MZMULTICHOOSE) and banish them, then any amount from hand/memory/graveyard, shuffle the deck, and draw into memory once per card banished from hand and memory. Banished cards get a seraphicLegion counter. The champion's lineage includes a TERA card so the Exalted element is enabled.",
+    "semanticCoverage": {
+        "testedCards": [
+            "QX72P4Xx1A"
+        ],
+        "mechanics": [
+            "on-enter",
+            "search",
+            "zone-movement",
+            "shuffle",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "On Enter: Search your deck for any amount of Angel ally cards. Banish those cards along with any amount of Angel ally cards from your hand, memory, and/or graveyard. Shuffle your deck. Then draw a card into your memory for each card banished from your hand and memory this way."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Seraphic Legion's Descent's On Enter was not implemented.",
+        "affectedFunction": "enterAbilities['QX72P4Xx1A:0']",
+        "fixCommit": "TBD"
+    }
+}

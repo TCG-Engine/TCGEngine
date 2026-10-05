@@ -1,0 +1,21 @@
+{
+    "name": "jinzhuo-cannot-activate-without-fabled-emerald-fatestone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:49:14+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "m4MTDKWvyR"
+    ],
+    "notes": "The activation restriction (control an object named Fabled Emerald Fatestone) refuses the ability before the cost is paid.",
+    "semanticCoverage": {
+        "testedCards": [
+            "m4MTDKWvyR"
+        ],
+        "mechanics": [
+            "activation-restriction"
+        ],
+        "rulesClauses": [
+            "Activate this ability only if you control an object named Fabled Emerald Fatestone."
+        ]
+    }
+}

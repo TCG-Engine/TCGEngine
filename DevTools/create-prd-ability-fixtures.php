@@ -29366,6 +29366,80 @@ $fixtures['sojourners-hunt-rest-becomes-a-chosen-weapon-subtype-until-end-of-tur
     'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, '0')], // option A: Sword
 ];
 
+// Jinzhuo, Bands of Virtue (m4MTDKWvyR): "[Guo Jia Bonus] [REST], Banish CARDNAME: Scavenge 6 for a Beast ally card. If a card was scavenged this way, put X quest counters on your champion, where X is that card's power stat (capped at 4).
+// Otherwise, return CARDNAME to the field rested. Activate this ability only if you control an object named Fabled Emerald Fatestone."
+$gaJinzhuoSetup = [
+    ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']], // Guo Jia, Chosen Disciple (Guo Jia Bonus)
+    ['player' => 1, 'zone' => 'myField', 'cardID' => 'jz7odeqku4'], // Fabled Emerald Fatestone -> myField-1
+    ['player' => 1, 'zone' => 'myField', 'cardID' => 'm4MTDKWvyR'], // Jinzhuo, Bands of Virtue -> myField-2
+];
+$fixtures['jinzhuo-scavenges-a-beast-ally-and-puts-power-quest-counters-on-the-champion'] = [
+    'testedCards' => ['m4MTDKWvyR'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => array_merge($gaJinzhuoSetup, [$gaTop(['v1au7t9m4m'])]), // Capricious Lynx (BEAST ally, power 3) on top of the deck
+    'actions' => [mrdAct(1, 10001, 'myField-2!CustomInput!Activate:0'), mrdAns(1, 'myTempZone-5'), mrdAns(1, 'Top=;Bottom=em6eEh9q8y,em6eEh9q8y,px60u5n1do,em6eEh9q8y,em6eEh9q8y')], // the Lynx is the sixth revealed card (listed bottom-up); the other five go back on the bottom
+];
+$fixtures['jinzhuo-finding-no-beast-ally-returns-itself-to-the-field-rested'] = [
+    'testedCards' => ['m4MTDKWvyR'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaJinzhuoSetup, // the top six cards are Dungeon Guides and Fluffy Shopkeeps: no Beast
+    'actions' => [mrdAct(1, 10001, 'myField-2!CustomInput!Activate:0'), mrdAns(1, 'Top=;Bottom=em6eEh9q8y,em6eEh9q8y,px60u5n1do,em6eEh9q8y,em6eEh9q8y,px60u5n1do')], // put the six revealed cards back on the bottom
+];
+$fixtures['jinzhuo-cannot-activate-without-fabled-emerald-fatestone'] = [
+    'testedCards' => ['m4MTDKWvyR'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']], // Guo Jia, Chosen Disciple
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm4MTDKWvyR'], // Jinzhuo -> myField-1, no Fatestone
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+
+// Seraphic Legion's Descent (QX72P4Xx1A): "On Enter: Search your deck for any amount of Angel ally cards. Banish those cards along with any amount of Angel ally cards from your hand, memory, and/or graveyard. Shuffle your deck.
+// Then draw a card into your memory for each card banished from your hand and memory this way."  (EXALTED + NORM: the champion's lineage includes a TERA card so the Exalted element is enabled.)
+$gaLegionChamp = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]]; // Spirit of Fire + Kongming (TERA): Exalted enabled
+$fixtures['seraphic-legions-descent-enter-banishes-angels-from-deck-hand-memory-and-graveyard-and-draws-into-memory'] = [
+    'testedCards' => ['QX72P4Xx1A'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaLegionChamp,
+        $gaHand('QX72P4Xx1A'), // Seraphic Legion's Descent -> myHand-7
+        $gaHand('92mnQJPfR8'), // Angel Attendant -> myHand-8
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'e5r6eVzpkD'], // Reverent Seraphim -> myMemory-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'kl4bTg57Cj'], // Benediction Angel -> myGraveyard-0
+        $gaTop(['aKjX6INGkV']), // Angelic Vanguard on top of the deck
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdAns(1, 'myDeck-0'), mrdAns(1, 'myHand-4&myMemory-0&myGraveyard-0')]), // pay 3 (the first three hand cards go to memory), banish the deck Angel, then the hand + memory + graveyard Angels
+];
+
+// "[Level 3+] (1), [REST]: Until end of turn, you may activate target card banished by CARDNAME."
+$gaLegionLvl3 = [
+    ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu']], // Guo Jia, Heaven's Favored (level 3)
+    ['player' => 1, 'zone' => 'myField', 'cardID' => 'QX72P4Xx1A'], // Seraphic Legion's Descent -> myField-1
+    ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'aKjX6INGkV', 'setProperties' => ['Counters' => ['seraphicLegion' => 1]]], // Angelic Vanguard banished by the Legion -> myBanish-0
+];
+$fixtures['seraphic-legions-descent-level-three-pays-one-and-lets-you-activate-the-banished-angel'] = [
+    'testedCards' => ['QX72P4Xx1A'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaLegionLvl3,
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 1), [mrdAns(1, 'myBanish-0'), mrdPlay(1, 'myBanish-0'), mrdAns(1, 'NO')], mrdPay(1, 3)), // pay (1), tag the banished Angelic Vanguard, activate it from the banishment, decline its Imbue, pay its reserve cost of 3
+];
+$fixtures['seraphic-legions-descent-banished-angel-is-not-activatable-without-the-level-three-ability'] = [
+    'testedCards' => ['QX72P4Xx1A'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaLegionLvl3,
+    'actions' => [mrdPlay(1, 'myBanish-0')], // click the banished Angel without activating the ability: nothing happens
+];
+$fixtures['seraphic-legions-descent-level-three-ability-is-refused-below-level-three'] = [
+    'testedCards' => ['QX72P4Xx1A'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'QX72P4Xx1A'], // Seraphic Legion's Descent -> myField-1 (the champion is level 0/1)
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'aKjX6INGkV', 'setProperties' => ['Counters' => ['seraphicLegion' => 1]]],
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

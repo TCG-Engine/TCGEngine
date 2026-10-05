@@ -1,0 +1,35 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Jinzhuo stays on the field: the activation is refused without Fabled Emerald Fatestone"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "Jinzhuo is not rested"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was banished"
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

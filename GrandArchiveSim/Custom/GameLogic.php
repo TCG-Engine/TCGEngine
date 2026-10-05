@@ -1838,6 +1838,13 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                     if(ActivateBanishedCard($playerID, $actionCard)) return "PLAY";
                 }
             }
+            // Seraphic Legion's Descent (QX72P4Xx1A): activate a tagged banished Angel card this turn
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && in_array('_seraphicLegion', $bObj->TurnEffects ?? [])) {
+                    if(ActivateBanishedCard($playerID, $actionCard, ['vars' => ['activationSourceZoneOverride' => 'myBanish']])) return "PLAY";
+                }
+            }
             // Ashen Riffle (fjpimrl974): activate tagged Suited non-action cards from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
@@ -5743,6 +5750,116 @@ $customDQHandlers["SojournersHuntSubtype"] = function($player, $parts, $lastDeci
     AddTurnEffect($parts[0] ?? "-", "SOJOURNER_" . $subtypes[$choice]);
 };
 
+// Jinzhuo, Bands of Virtue (m4MTDKWvyR): "[Guo Jia Bonus] [REST], Banish CARDNAME: Scavenge 6 for a Beast ally card. If a card was scavenged this way, put X quest counters on your champion, where X is that card's power stat.
+// X is capped at 4. Otherwise, return CARDNAME to the field rested. Activate this ability only if you control an object named Fabled Emerald Fatestone."
+function GAControlsFabledEmeraldFatestone($player) {
+    foreach(ZoneSearch("myField") as $fieldMZ) {
+        $fieldObj = GetZoneObject($fieldMZ);
+        if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "jz7odeqku4") return true;
+    }
+    return false;
+}
+$activateAbilityAbilities["m4MTDKWvyR:0"] = function($player) {
+    DecisionQueueController::StoreVariable("jinzhuoScavenged", "NO");
+    ScavengeForAllySubtype($player, 6, "BEAST", "JinzhuoScavenged");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "JinzhuoFinish", 1, dontSkipOnPass:1);
+};
+$activateAbilityPrereqs["m4MTDKWvyR:0"] = function($player, $mzID, $abilityIndex) {
+    return GAItemAwake($mzID) && IsGuoJiaBonus($player) && GAControlsFabledEmeraldFatestone($player);
+};
+function JinzhuoScavenged($player, $scavengedCardID) {
+    DecisionQueueController::StoreVariable("jinzhuoScavenged", "YES");
+    $champMZ = FindChampionMZ($player);
+    if($champMZ !== null) AddCounters($player, $champMZ, "quest", min(4, max(0, intval(CardPower($scavengedCardID)))));
+}
+$customDQHandlers["JinzhuoFinish"] = function($player, $parts, $lastDecision) {
+    if(DecisionQueueController::GetVariable("jinzhuoScavenged") === "YES") return;
+    // "Return CARDNAME to the field": move the banished Jinzhuo (the most recent copy in the banishment) back onto the field, rested.
+    $banish = GetZone("myBanish");
+    for($bi = count($banish) - 1; $bi >= 0; --$bi) {
+        if($banish[$bi]->removed || $banish[$bi]->CardID !== "m4MTDKWvyR") continue;
+        $returned = MZMove($player, "myBanish-" . $bi, "myField");
+        if($returned !== null) {
+            $returned->Status = 1;
+            $returned->Controller = $player;
+        }
+        DecisionQueueController::CleanupRemovedCards();
+        break;
+    }
+};
+// Seraphic Legion's Descent (QX72P4Xx1A): "On Enter: Search your deck for any amount of Angel ally cards. Banish those cards along with any amount of Angel ally cards from your hand, memory, and/or graveyard. Shuffle your deck.
+// Then draw a card into your memory for each card banished from your hand and memory this way. [Level 3+] (1), [REST]: Until end of turn, you may activate target card banished by CARDNAME."
+// The banished cards carry a seraphicLegion counter; the level 3 ability tags one with the _seraphicLegion turn effect, which makes it activatable from the banishment (same shape as Ashen Riffle / Devised Conspiracy).
+function GASeraphicLegionBanish($player, $selection, $countHandMemory = false) {
+    $picked = array_values(array_filter(explode("&", strval($selection)), fn($v) => $v !== "" && $v !== "-" && $v !== "PASS"));
+    usort($picked, function($a, $b) { return intval(explode("-", $b)[1] ?? 0) <=> intval(explode("-", $a)[1] ?? 0); });
+    $fromHandOrMemory = 0;
+    foreach($picked as $pickedMZ) {
+        $pickedObj = GetZoneObject($pickedMZ);
+        if($pickedObj === null || $pickedObj->removed || !PropertyContains(EffectiveCardType($pickedObj), "ALLY") || !PropertyContains(EffectiveCardSubtypes($pickedObj), "ANGEL")) continue;
+        $fromZone = strtok($pickedMZ, "-");
+        $banished = MZMove($player, $pickedMZ, "myBanish");
+        if($banished === null) continue;
+        if(!is_array($banished->Counters)) $banished->Counters = [];
+        $banished->Counters["seraphicLegion"] = 1;
+        if($fromZone === "myHand" || $fromZone === "myMemory") ++$fromHandOrMemory;
+    }
+    DecisionQueueController::CleanupRemovedCards();
+    return $fromHandOrMemory;
+}
+$enterAbilities["QX72P4Xx1A:0"] = function($player) {
+    DecisionQueueController::StoreVariable("seraphicLegionDrawCount", "0");
+    $deckAngels = ZoneSearch("myDeck", ["ALLY"], cardSubtypes: ["ANGEL"]);
+    if(!empty($deckAngels)) {
+        DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . count($deckAngels) . "|" . implode("&", $deckAngels), 1, tooltip:"Search_your_deck_for_any_amount_of_Angel_ally_cards");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SeraphicLegionDeck", 1, dontSkipOnPass:1);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SeraphicLegionOthers", 1, dontSkipOnPass:1);
+};
+$customDQHandlers["SeraphicLegionDeck"] = function($player, $parts, $lastDecision) {
+    GASeraphicLegionBanish($player, $lastDecision);
+};
+$customDQHandlers["SeraphicLegionOthers"] = function($player, $parts, $lastDecision) {
+    $others = array_merge(ZoneSearch("myHand", ["ALLY"], cardSubtypes: ["ANGEL"]), ZoneSearch("myMemory", ["ALLY"], cardSubtypes: ["ANGEL"]), ZoneSearch("myGraveyard", ["ALLY"], cardSubtypes: ["ANGEL"]));
+    if(!empty($others)) {
+        DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . count($others) . "|" . implode("&", $others), 1, tooltip:"Banish_any_amount_of_Angel_ally_cards_from_your_hand_memory_and/or_graveyard");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SeraphicLegionOthersBanish", 1, dontSkipOnPass:1);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SeraphicLegionFinish", 1, dontSkipOnPass:1);
+};
+$customDQHandlers["SeraphicLegionOthersBanish"] = function($player, $parts, $lastDecision) {
+    DecisionQueueController::StoreVariable("seraphicLegionDrawCount", strval(GASeraphicLegionBanish($player, $lastDecision, true)));
+};
+$customDQHandlers["SeraphicLegionFinish"] = function($player, $parts, $lastDecision) {
+    DecisionQueueController::CleanupRemovedCards();
+    ShuffleZone("myDeck");
+    $drawCount = intval(DecisionQueueController::GetVariable("seraphicLegionDrawCount"));
+    if($drawCount > 0) DrawIntoMemory($player, $drawCount);
+};
+function GASeraphicLegionTargets($player) {
+    $targets = [];
+    foreach(ZoneSearch("myBanish") as $banishMZ) {
+        $banishObj = GetZoneObject($banishMZ);
+        if($banishObj !== null && !$banishObj->removed && is_array($banishObj->Counters) && !empty($banishObj->Counters["seraphicLegion"])) $targets[] = $banishMZ;
+    }
+    return $targets;
+}
+$activateAbilityAbilities["QX72P4Xx1A:0"] = function($player) {
+    $targets = GASeraphicLegionTargets($player);
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Choose_a_card_banished_by_Seraphic_Legions_Descent");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SeraphicLegionGrant", 1);
+};
+$activateAbilityPrereqs["QX72P4Xx1A:0"] = function($player, $mzID, $abilityIndex) {
+    return GAItemAwake($mzID) && PlayerLevel($player) >= 3 && !empty(GASeraphicLegionTargets($player));
+};
+$customDQHandlers["SeraphicLegionGrant"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null || $targetObj->removed) return;
+    AddTurnEffect($lastDecision, "_seraphicLegion");
+};
+
 // cardID => ability names of field activated abilities whose generated CardActivateAbilityCount row is 0
 // (see the Key Slime Pudding / Baby Blue Slime note above). Names become the opportunity-window labels
 // ("myField-N@Activate-0@<name>") and the Activate button captions.
@@ -5763,6 +5880,8 @@ function GAActivateAbilityCountOverrides() {
         "bupi7VU4of" => ["Ignore exalted"], // Pride of Demiourgos
         "sZlDgmVTD7" => ["Choose one", "Draw"], // Heirloom of Materia
         "aqlbuznsz4" => ["Subtype"], // Sojourner's Hunt
+        "m4MTDKWvyR" => ["Scavenge"], // Jinzhuo, Bands of Virtue
+        "QX72P4Xx1A" => ["Grant activation"], // Seraphic Legion's Descent
     ];
 }
 // Lazy, idempotent application to the generated count/name arrays for callers that run without
@@ -7634,6 +7753,15 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 for($ri = 0; $ri < $reserveCount; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             }
             break;
+        case "m4MTDKWvyR": // Jinzhuo, Bands of Virtue: [REST], Banish self
+            {
+                $jinzhuoObj = &GetZoneObject($mzCard);
+                if($jinzhuoObj !== null) $jinzhuoObj->Status = 1;
+                OnLeaveField($player, $mzCard);
+                MZMove($player, $mzCard, "myBanish");
+                DecisionQueueController::CleanupRemovedCards();
+            }
+            break;
         case "tAiiMGZJXp": // Transcendental Rite: Banish self
             OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myBanish");
@@ -7644,6 +7772,9 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             for($ri = 0; $ri < 2; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            break;
+        case "QX72P4Xx1A": // Seraphic Legion's Descent: (1), [REST] (the REST is the phantasia auto-rest)
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             break;
         case "fviga4cmti": // Phantom Veil: (2)
             for($ri = 0; $ri < 2; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
@@ -17320,6 +17451,10 @@ function ScavengeForSubtype($player, $amount, $subtype, $callback = "") {
     ScavengeForProperty($player, $amount, "subtype", $subtype, $callback);
 }
 
+function ScavengeForAllySubtype($player, $amount, $subtype, $callback = "") {
+    ScavengeForProperty($player, $amount, "allySubtype", $subtype, $callback);
+}
+
 function ScavengeForType($player, $amount, $type, $callback = "") {
     ScavengeForProperty($player, $amount, "type", $type, $callback);
 }
@@ -17385,6 +17520,9 @@ function ScavengeTempZoneChoices($player, $kind, $value) {
                 break;
             case "element":
                 $matches = CardElement($cardID) === $value;
+                break;
+            case "allySubtype":
+                $matches = PropertyContains(CardType($cardID), "ALLY") && PropertyContains(CardSubtypes($cardID), $value);
                 break;
             case "aeneanSpell":
                 $matches = IsAeneanSpellCardID($cardID);
@@ -18886,6 +19024,11 @@ function BanishSelectionMetadata($obj) {
 
     // Recursive Confidant (KfC8fwcF2T): tagged _recursiveConfidant turn effect
     if ($currentPhase === "MAIN" && in_array('_recursiveConfidant', $turnEffects)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Seraphic Legion's Descent (QX72P4Xx1A): tagged banished cards may be activated this turn.
+    if ($currentPhase === "MAIN" && in_array('_seraphicLegion', $turnEffects)) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 

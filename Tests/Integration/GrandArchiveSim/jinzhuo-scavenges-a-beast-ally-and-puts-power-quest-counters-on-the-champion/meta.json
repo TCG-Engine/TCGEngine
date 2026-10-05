@@ -1,0 +1,30 @@
+{
+    "name": "jinzhuo-scavenges-a-beast-ally-and-puts-power-quest-counters-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:49:37+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "m4MTDKWvyR"
+    ],
+    "notes": "Jinzhuo had no implementation. [Guo Jia Bonus] [REST], Banish self: Scavenge 6 for a Beast ALLY card (new ScavengeForAllySubtype / 'allySubtype' kind), then put min(4, power) quest counters on the champion; requires Guo Jia champion + Fabled Emerald Fatestone on the field.",
+    "semanticCoverage": {
+        "testedCards": [
+            "m4MTDKWvyR"
+        ],
+        "mechanics": [
+            "cost",
+            "scavenge",
+            "counters",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] [REST], Banish CARDNAME: Scavenge 6 for a Beast ally card. If a card was scavenged this way, put X quest counters on your champion, where X is that card's power stat. X is capped at 4."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Jinzhuo's activated ability was not implemented.",
+        "affectedFunction": "activateAbilityAbilities['m4MTDKWvyR:0']",
+        "fixCommit": "TBD"
+    }
+}

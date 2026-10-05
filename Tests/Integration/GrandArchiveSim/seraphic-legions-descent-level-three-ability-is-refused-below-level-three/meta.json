@@ -1,0 +1,22 @@
+{
+    "name": "seraphic-legions-descent-level-three-ability-is-refused-below-level-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:53:29+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "QX72P4Xx1A"
+    ],
+    "notes": "The [Level 3+] gate refuses the ability for a champion below level 3.",
+    "semanticCoverage": {
+        "testedCards": [
+            "QX72P4Xx1A"
+        ],
+        "mechanics": [
+            "level-gate",
+            "activation-restriction"
+        ],
+        "rulesClauses": [
+            "[Level 3+]"
+        ]
+    }
+}

@@ -1,0 +1,79 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Four Angels banished: from the deck, hand, memory and graveyard"
+    },
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "cardID": "aKjX6INGkV",
+        "semantic": true,
+        "label": "The Angelic Vanguard from the deck is banished"
+    },
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "cardID": "92mnQJPfR8",
+        "semantic": true,
+        "label": "The Angel Attendant from hand is banished"
+    },
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "cardID": "e5r6eVzpkD",
+        "semantic": true,
+        "label": "The Reverent Seraphim from memory is banished"
+    },
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "cardID": "kl4bTg57Cj",
+        "semantic": true,
+        "label": "The Benediction Angel from the graveyard is banished"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Memory: 1 + 3 reserved - 1 banished + 2 drawn (one per card banished from hand and memory)"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The graveyard Angel left"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 11,
+        "semantic": true,
+        "label": "Deck: 14 - 1 searched - 2 drawn into memory"
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

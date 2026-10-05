@@ -1,0 +1,23 @@
+{
+    "name": "jinzhuo-finding-no-beast-ally-returns-itself-to-the-field-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:49:26+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "m4MTDKWvyR"
+    ],
+    "notes": "No Beast ally among the six revealed cards: nothing is scavenged, so Jinzhuo returns to the field rested (JinzhuoFinish, queued dontSkipOnPass).",
+    "semanticCoverage": {
+        "testedCards": [
+            "m4MTDKWvyR"
+        ],
+        "mechanics": [
+            "cost",
+            "scavenge",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Otherwise, return CARDNAME to the field rested."
+        ]
+    }
+}

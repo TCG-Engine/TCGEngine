@@ -1,0 +1,26 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "Below level 3 the ability is refused: the Legion stays awake"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was paid"
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

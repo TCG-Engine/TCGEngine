@@ -1,0 +1,29 @@
+{
+    "name": "seraphic-legions-descent-level-three-pays-one-and-lets-you-activate-the-banished-angel",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:53:11+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "QX72P4Xx1A"
+    ],
+    "notes": "Level 3+ ability: (1) plus the phantasia's auto-rest; target a card banished by the Legion and tag it _seraphicLegion, which makes it activatable from the banishment this turn (the banish click handler and highlight in GameLogic.php, same shape as Ashen Riffle / Devised Conspiracy). The tagged Angelic Vanguard is then activated from the banishment.",
+    "semanticCoverage": {
+        "testedCards": [
+            "QX72P4Xx1A"
+        ],
+        "mechanics": [
+            "cost",
+            "activate-from-banishment",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "[Level 3+] (1), [REST]: Until end of turn, you may activate target card banished by CARDNAME."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Seraphic Legion's Descent's level 3 ability was not implemented.",
+        "affectedFunction": "activateAbilityAbilities['QX72P4Xx1A:0']",
+        "fixCommit": "TBD"
+    }
+}

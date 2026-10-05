@@ -1,0 +1,21 @@
+{
+    "name": "seraphic-legions-descent-banished-angel-is-not-activatable-without-the-level-three-ability",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:53:28+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "QX72P4Xx1A"
+    ],
+    "notes": "Control: an untagged banished Angel cannot be activated from the banishment.",
+    "semanticCoverage": {
+        "testedCards": [
+            "QX72P4Xx1A"
+        ],
+        "mechanics": [
+            "activate-from-banishment"
+        ],
+        "rulesClauses": [
+            "you may activate target card banished by CARDNAME (only after the ability)"
+        ]
+    }
+}
