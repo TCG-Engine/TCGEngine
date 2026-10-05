@@ -161,12 +161,16 @@ function SWUBotHeuristicChoose(string $style, array $actions, array $legal, stri
     $GLOBALS['SWURlOn'] = ($variant === 'rl');   // the learned layer (SWUSim/Rl/SwuPolicy.php), fallback decisions only
     $prevValue = $GLOBALS['SWUValueOn'] ?? false;
     $GLOBALS['SWUValueOn'] = ($variant === 'value');   // the learned value model (SWUSim/Rl/SwuValue.php)
+    // The deciding seat, for valuations that read a hand: feature 'lockpiece' (p35) prices a name-lock only from the locked seat.
+    $prevViewer = $GLOBALS['SWUBotViewerSeat'] ?? null;
+    $GLOBALS['SWUBotViewerSeat'] = intval($legal['playerID'] ?? 0);
     try {
         return _SWUBotHeuristicChooseStack($style, $actions, $legal);
     } finally {
         SWUBotSetDisabledFeatures($prev);
         $GLOBALS['SWURlOn'] = $prevRl;
         $GLOBALS['SWUValueOn'] = $prevValue;
+        if ($prevViewer === null) unset($GLOBALS['SWUBotViewerSeat']); else $GLOBALS['SWUBotViewerSeat'] = $prevViewer;
     }
 }
 

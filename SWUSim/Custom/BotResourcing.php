@@ -170,6 +170,8 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         // resource if i have no board. but when my board has 3+ units, this is a big unit" (2026-09-24).
         // Proportional, not a threshold — a 9-power Clone Combat Squadron must outrank a 6-power one.
         $keep += SWU_BOT_CTXPOWER_KEEP * SWUBotContextSurplus($seat, $cid);
+        // 'disclosereserve' (p36): the last card my Condemn's disclose needs (the tiered path keeps it in tier 9).
+        if (SWUBotFeatureOn('disclosereserve') && _SWUBotBreaksDiscloseReserve($seat, $i)) $keep += 100.0;
         // PROPOSAL 'sentinelkeep' (default OFF, "@try-sentinelkeep"). Owner ruling 2026-09-18: "Sentinels in
         // general are good to keep… unless you have two of the same unique unit Sentinel. then it should be safe
         // to resource one." A Sentinel is how control mitigates early damage, and the deficit is a SURVIVAL
@@ -293,13 +295,17 @@ function _SWUBotUnitArenas(int $seat): array {
 // costs me nothing by its wording.
 function _SWUBotWipeLosses(int $seat, string $cid): array {
     $arenas = _SWUBotWipeArenas($cid);
-    $sum = function (int $s) use ($arenas) {
+    $sum = function (int $s, bool $enemy = false) use ($arenas) {
         $v = 0.0;
-        foreach (SWUBotUnits($s) as $u) { if (in_array(strval($u['arena']), $arenas, true)) $v += SWUBotUnitValue($u); }
+        foreach (SWUBotUnits($s) as $u) {
+            if (!in_array(strval($u['arena']), $arenas, true)) continue;
+            if ($enemy && SWUBotDefeatFizzles($u)) continue;   // 'defeatimmune' (p36): my wipe can't defeat it
+            $v += SWUBotUnitValue($u);
+        }
         return $v;
     };
     $theirs = 0.0;
-    foreach (SWUBotOpponents($seat) as $o) $theirs += $sum($o);   // every live enemy (3-4 seats)
+    foreach (SWUBotOpponents($seat) as $o) $theirs += $sum($o, true);   // every live enemy (3-4 seats)
     return [_SWUBotWipeIsOneSided($cid) ? 0.0 : $sum($seat), $theirs];
 }
 
@@ -456,6 +462,8 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
         $cost = _SWUBotSeatCost($seat, $cid);
         if ($spaceAggro && preg_match('/defeat all space units/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
         if (in_array($cid, SWU_BOT_ENGINE_KEEPS, true)) { $out[$i] = [9, 0.0]; continue; }
+        // 'disclosereserve' (p36): the last card my Condemn's disclose needs is kept with the engine cards.
+        if (SWUBotFeatureOn('disclosereserve') && _SWUBotBreaksDiscloseReserve($seat, $i)) { $out[$i] = [9, 0.0]; continue; }
         // resourcing3: a capital-ship deck cheats its Capital Ships out to trade and stall (owner, Piett vs Vader);
         // they go last, the priciest first if one must go.
         if ($capitalDeck && str_contains(strval(CardTrait($cid) ?? ''), 'Capital Ship')) { $out[$i] = [8, -1.0 * $cost]; continue; }

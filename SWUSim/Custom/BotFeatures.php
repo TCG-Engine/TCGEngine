@@ -413,6 +413,49 @@ const SWU_BOT_PART32_FEATURES = ['splitpop'];
 // base damage W['base'] a point with no lethal check. A correction (bug fix) — ships ON. Guard: bot_splitlethal_test.php.
 const SWU_BOT_PART33_FEATURES = ['splitlethal'];
 
+// Part 34 (2026-10-04): 'lethalrace' — rule 2 'lethal-now' summed every ready attacker against the enemy base, but SWU
+// alternates actions: K attacks hand the opponent K-1 actions, and when their ready attackers kill me in those the lethal
+// never lands. 400-game Hemlock Red vs Vader Yellow sweep: in that spot the firing seat lost 80 of 84; all 9 Hemlock losses
+// with Hyperspace Disaster castable-but-uncast were this rule (hv024: 2 HP, 4 attacks needed, nine ships ready). Rule 2 now
+// stands aside and rules 4/5 decide. A correction — ships ON. Guard: SWUSim/DevTools/tests/bot_lethalrace_test.php.
+const SWU_BOT_PART34_FEATURES = ['lethalrace'];
+
+// Part 35 (2026-10-04): 'lockpiece' — Ninin vs Luke (ASH) Data Vault: Galen Erso (SEC_046) named Chimaera and Ryder Azadi
+// (ASH_077) named Pre Vizsla; Ninin killed Galen, then Chimaera came down whole. An enemy unit whose name-lock holds a card in
+// my hand is worth half that card's printed cost more dead, and all of it on a FREE kill (an attack) that leaves the card
+// castable this round — owner 2026-10-04: "valued higher if i have a way to kill them without spending resources. this way i
+// can still play the bomb same round." The bomb a Galen blanks waits while an attack can kill that Galen this round. Priced
+// only from the locked seat's view (SWUBotViewerSeat). Guard: SWUSim/DevTools/tests/bot_lockpiece_test.php.
+const SWU_BOT_PART35_FEATURES = ['lockpiece'];
+
+// Part 36 (2026-10-04): levers from Ninin's human games, owner "build all 7". Each correction ships ON under the ship/hold rule.
+//   upgradecost — an attachment is worth its card's printed cost (a token 1, a downgrade 0), not a flat +1: No Glory, Only
+//                 Results on Open Circle Ace took Han Solo with it (Reprint_Cad vs Ninin, R4). Guard: bot_upgradecost_test.php.
+//   defeatimmune — a defeat effect of mine is worth nothing on a unit that "can't be defeated by enemy card abilities" (SWUAvoidsDefeat):
+//                 target pick, wipe value, Chimaera's best enemy, SWUBotHandCardKills. Chewbacca piloted the Sheathipede (same game).
+//                 Guard: bot_defeatimmune_test.php.
+//   disclosereserve — while my Condemn sits on an enemy unit, the last card that can disclose Vigilance+Villainy is priced at
+//                 the power its -6/-0 blanks when played, and kept off the resource pick. Reprint_Cad played Marrok (same game).
+//                 Guard: bot_disclosereserve_test.php.
+//   condemnfore — an attacker under an ENEMY Condemn expects -6 power when the defender can disclose (the defender knows its hand;
+//                 others see its hand size). Condemned Ahsoka was blanked three times (same game). Guard: bot_condemnfore_test.php.
+//   wipeinit    — a relevant wipe (Hyperspace Disaster / Single Reactor Ignition) castable NEXT round: claim the initiative so it
+//                 goes first, and hold units out of its arena (owner ruling; Ninin's R5/R6 claims). Guard: bot_wipeinit_test.php.
+//   wipedraw    — no such wipe in hand, but some in the deck: claim on the 2-draw chance x the damage it stops (owner: "they claim in
+//                 hopes of drawing a wipe" — Reprint_Cad, every round). Guard: bot_wipeinit_test.php.
+//   searchpick  — a deck-search pick never takes a unique already in play or twice (-1 each); the bridge now also OFFERS the maximal
+//                 picks its 40-candidate cap cut off (ungated). Admiral Ackbar's flip: 4 ships for 5 (Ninin R4); 51/125 traced bot
+//                 searches took fewer ships than possible, 17 broke uniqueness. Guard: bot_searchpick_test.php.
+//   ndsetup     — a hit leaving 1 HP is a 'setup' when a ready undeployed Hemlock (a resource ready, target un-Weakened) or Talzin (with
+//                 the Force) can finish it: No Disintegrations -> Hemlock (owner ruling). Guard: bot_finisher_test.php.
+//   onattackfinish — the same when a READY deployed Hemlock / Talzin will attack (On Attack Weakness / -1/-1): Ninth Sister 1/1/1
+//                 then Hemlock's token (Reprint_Cad R6). Guard: bot_finisher_test.php.
+//   stacklethal — a Support flip turn plans its stacked-buff attacker by its projected SINGLE attack (+ Plot buffs left + its own On
+//                 Attack boost); a lethal one goes first. Three Jar Jars on Mando's N-1 (Ninin vs RussellHoskins R5). Guard:
+//                 bot_stacklethal_test.php.
+const SWU_BOT_PART36_FEATURES = ['upgradecost', 'defeatimmune', 'disclosereserve', 'condemnfore', 'wipeinit', 'wipedraw', 'searchpick',
+                                 'ndsetup', 'onattackfinish', 'stacklethal'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
@@ -421,7 +464,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES);   // part 2, then 3-33
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES);   // part 2, then 3-36
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -436,7 +479,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,

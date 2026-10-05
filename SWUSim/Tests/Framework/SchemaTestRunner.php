@@ -1320,6 +1320,12 @@ class SchemaTestRunner {
                 TriggerGameOver($player);
                 break;
 
+            case 'Kick':
+                // $player is removed for inactivity — the SAME entry production's voting request uses
+                // (SWUApplyKick, SWUSim/Custom/InactivityClock.php). No args.
+                SWUApplyKick($player);
+                break;
+
             case 'SimulateRequestBoundary':
                 // Model the fresh-process boundary a real interactive decision creates: transient
                 // in-memory continuation globals reset while serialized gamestate persists. Catches
@@ -1585,6 +1591,37 @@ class SchemaTestRunner {
                 if ($actual !== $expected)
                     $failures[] = "{$line}: expected winners [" . implode(',', $expected)
                                 . "], got [" . implode(',', $actual) . "]";
+
+            } elseif (preg_match('/^GAMEOVERREASON:(win|concede|abandon)$/', $line, $m)) {
+                // Meta Premier (spec §4.2): how the game ended, as the rating layer will read it.
+                // Absent GAMEOVER_REASON means an ordinary win.
+                $actual = DecisionQueueController::GetVariable('GAMEOVER_REASON') ?? 'win';
+                if ($actual !== $m[1])
+                    $failures[] = "{$line}: expected '{$m[1]}', got '{$actual}'";
+
+            } elseif (preg_match('/^GAMEDETAIL:(\w+):(.*)$/', $line, $m)) {
+                // One scalar of SWUCaptureCurrentGameDetail() — what the Match layer stores per game (and the
+                // Meta Premier rating layer reads). Booleans compare as 'true'/'false'.
+                if (!function_exists('SWUCaptureCurrentGameDetail')) require_once __DIR__ . '/../../StatsSubmit.php';
+                $d = SWUCaptureCurrentGameDetail();
+                $v = $d[$m[1]] ?? null;
+                $actual = is_bool($v) ? ($v ? 'true' : 'false') : (is_scalar($v) ? (string)$v : json_encode($v));
+                if ($actual !== $m[2])
+                    $failures[] = "{$line}: expected '{$m[2]}', got '{$actual}'";
+
+            } elseif (preg_match('/^DQVARABSENT:([A-Za-z0-9_]+)$/', $line, $m)) {
+                // A DecisionQueueVariables key that must NOT exist. That zone is deterministic-RNG hash material
+                // (Core/DeterministicRNG.php EngineSnapshotState), so a bookkeeping flag stored there would shift every
+                // game's random stream from the moment it is written.
+                $v = DecisionQueueController::GetVariable($m[1]);
+                if ($v !== null)
+                    $failures[] = "{$line}: expected no {$m[1]}, got '" . strval($v) . "'";
+
+            } elseif (preg_match('/^PREGAMEDONE:([01])$/', $line, $m)) {
+                // Meta Premier (spec §4.3): has the first action phase opened (mulligans + resources done)?
+                $actual = SWUPregameDone() ? '1' : '0';
+                if ($actual !== $m[1])
+                    $failures[] = "{$line}: expected '{$m[1]}', got '{$actual}'";
 
             } elseif (preg_match('/^OPPONENTSOF:(\d+):(.*)$/', $line, $m)) {
                 // Twin Suns (Phase 3): the live opponents of a seat, as a comma-joined list.

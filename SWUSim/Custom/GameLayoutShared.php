@@ -4968,8 +4968,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             b.push({label:'Forfeit Best of 3', onClick:function(){ if(typeof confirmConcedeMatch==='function') confirmConcedeMatch(); }});
         } else if (bestOf === 1 && seriesOver) {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
-            b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
-            b.push({label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=1'); }});
+            // Meta Premier (rated): no rematch — players re-queue. The server refuses these too.
+            if (!info.rated) {
+                b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
+                b.push({label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=1'); }});
+            }
             if (info.convertible) {
                 var cv = SWUConvertButtonState(info); // {label, disabled}
                 b.push({id:'swu-convert-btn', label:cv.label, disabled:cv.disabled,
@@ -4979,9 +4982,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // Bo3 finished — rematch with a Bo1/Bo3 toggle.
             var fmt = { v: 3 };
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
-            b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=' + fmt.v); }});
-            b.push({id:'swu-rematch-btn', label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=' + fmt.v); }});
-            b.push({id:'swu-bestof-btn', label:'Bo3', onClick:function(ev){ fmt.v = (fmt.v===3?1:3); ev.target.textContent = 'Bo' + fmt.v; }});
+            if (!info.rated) {   // Meta Premier (rated): no rematch — players re-queue
+                b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=' + fmt.v); }});
+                b.push({id:'swu-rematch-btn', label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=' + fmt.v); }});
+                b.push({id:'swu-bestof-btn', label:'Bo3', onClick:function(ev){ fmt.v = (fmt.v===3?1:3); ev.target.textContent = 'Bo' + fmt.v; }});
+            }
         } else {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
         }

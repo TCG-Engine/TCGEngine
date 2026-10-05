@@ -456,8 +456,9 @@ function MatchMaybeSpawnAfterSideboard($rootName, $matchId) {
 // Rematch: create a NEW match between the same players (mutual agreement). Each seat records its
 // chosen bestOf (1|3) + sideboard preference; both must agree on bestOf to pair.
 function MatchRequestRematch($rootName, $oldMatchId, $seat, $bestOf, $sideboard) {
-    return MatchWithLock($rootName, $oldMatchId, function (&$m) use ($seat, $bestOf, $sideboard) {
+    return MatchWithLock($rootName, $oldMatchId, function (&$m) use ($rootName, $seat, $bestOf, $sideboard) {
         if (($m['state'] ?? '') !== 'complete') return;
+        if (MatchHook($rootName, 'allowsSeriesChange', $m) === false) return;   // e.g. a rated format: re-queue instead
         if ($seat !== 1 && $seat !== 2) return;
         if (!isset($m['rematchRequests'])) $m['rematchRequests'] = [];
         $m['rematchRequests'][strval($seat)] = ['bestOf' => (intval($bestOf) === 3 ? 3 : 1), 'sideboard' => (bool)$sideboard];
@@ -467,6 +468,7 @@ function MatchRequestRematch($rootName, $oldMatchId, $seat, $bestOf, $sideboard)
 function MatchAcceptRematch($rootName, $oldMatchId) {
     $m = MatchRead($rootName, $oldMatchId);
     if (!is_array($m) || ($m['state'] ?? '') !== 'complete') return null;
+    if (MatchHook($rootName, 'allowsSeriesChange', $m) === false) return null;
     $r1 = $m['rematchRequests']['1'] ?? null;
     $r2 = $m['rematchRequests']['2'] ?? null;
     if (!$r1 || !$r2) return null;
@@ -512,8 +514,9 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
 
 // Convert a finished Bo1 into a Bo3 (mutual agreement). Records a per-seat request.
 function MatchRequestConvertToBo3($rootName, $matchId, $seat) {
-    return MatchWithLock($rootName, $matchId, function (&$m) use ($seat) {
+    return MatchWithLock($rootName, $matchId, function (&$m) use ($rootName, $seat) {
         if (($m['state'] ?? '') !== 'complete' || intval($m['bestOf'] ?? 1) !== 1) return;
+        if (MatchHook($rootName, 'allowsSeriesChange', $m) === false) return;
         if (!isset($m['convertRequests'])) $m['convertRequests'] = [];
         if ($seat === 1 || $seat === 2) $m['convertRequests'][strval($seat)] = true;
     });
@@ -522,6 +525,7 @@ function MatchRequestConvertToBo3($rootName, $matchId, $seat) {
 function MatchAcceptConvertToBo3($rootName, $matchId) {
     $m = MatchRead($rootName, $matchId);
     if (!is_array($m) || intval($m['bestOf'] ?? 1) !== 1) return null;
+    if (MatchHook($rootName, 'allowsSeriesChange', $m) === false) return null;
     if (empty($m['convertRequests']['1']) || empty($m['convertRequests']['2'])) return null;
     MatchWithLock($rootName, $matchId, function (&$mm) {
         $mm['bestOf'] = 3; $mm['winsNeeded'] = 2; $mm['state'] = 'in_progress';
@@ -578,8 +582,10 @@ function MatchReapStale($rootName, $maxAgeSeconds = 86400, $nowTs = null) {
 }
 
 // Concede the whole match: award the opponent the wins needed to clinch. Idempotent.
-function MatchConcede($rootName, $matchId, $concedingSeat) {
-    return MatchWithLock($rootName, $matchId, function (&$m) use ($rootName, $concedingSeat) {
+// $gameDetail: the open game's captured detail when the caller has the live gamestate (the in-game concede input);
+// null from paths that do not (the block-forfeit API). Stored on the open game with endReason forced to 'concede'.
+function MatchConcede($rootName, $matchId, $concedingSeat, ?array $gameDetail = null) {
+    $result = MatchWithLock($rootName, $matchId, function (&$m) use ($rootName, $concedingSeat, $gameDetail) {
         if (($m['state'] ?? '') === 'complete') return;       // idempotent
         $opp = ($concedingSeat === 1) ? 2 : 1;
         // Count the in-progress game (if any) as a decisive loss for the conceding seat.
@@ -587,6 +593,9 @@ function MatchConcede($rootName, $matchId, $concedingSeat) {
             if (($g['winner'] ?? null) === null) {
                 $m['games'][$i]['winner'] = $opp;
                 $m['games'][$i]['statsRecorded'] = true;   // seal: same contract as MatchRecordGameResult
+                // No live gamestate (the block-opponent forfeit): nobody can say whether pregame had finished.
+                $m['games'][$i]['detail'] = array_merge($m['games'][$i]['detail'] ?? [],
+                    $gameDetail ?? ['pregameUnknown' => true], ['endReason' => 'concede']);
                 $rds = $GLOBALS['MATCH_HOOKS'][$rootName]['recordDeckStats'] ?? null;
                 if (is_callable($rds)) { $rds($m, $opp); }
                 break;
@@ -595,8 +604,12 @@ function MatchConcede($rootName, $matchId, $concedingSeat) {
         $m['wins'][strval($opp)] = intval($m['winsNeeded'] ?? 1); // clinch
         $m['state'] = 'complete';
         $m['winner'] = $opp;
+        $m['concededBy'] = intval($concedingSeat);
         unset($m['sideboard'], $m['sideboardDeadline'], $m['sideboardWarned'], $m['pendingFirstPlayer']);
     });
+    // After the lock is released: a whole-match concede never reaches the after-action submitResults branch.
+    MatchHook($rootName, 'rateMatch', $matchId);
+    return $result;
 }
 
 // Post-action: if this game belongs to a match and just ended, advance the match.
@@ -627,11 +640,23 @@ function MatchAfterActionHook($rootName, $gameName) {
     $m = MatchRead($rootName, $ref['matchId']);
     if (!is_array($m)) return;
 
+    // A game that should end the whole series (SWUSim: an abandon in a rated match) — the sim names the seat that
+    // forfeits it, and the match ends here instead of going to sideboarding.
+    if (!MatchIsOver($m)) {
+        $forfeitSeat = MatchHook($rootName, 'endSeriesAfterGame', $m);
+        if (is_int($forfeitSeat) && $forfeitSeat > 0) {
+            MatchConcede($rootName, $ref['matchId'], $forfeitSeat);
+            $m = MatchRead($rootName, $ref['matchId']);
+            if (!is_array($m)) return;
+        }
+    }
+
     if (MatchIsOver($m)) {
         // Match complete — the flashMatchResult hook carries the series result to the client.
         MatchHook($rootName, 'flashMatchResult', $gameName, MatchWinner($m), $m);
         if (function_exists('RemoveActiveGame')) RemoveActiveGame($rootName, $gameName);
         MatchHook($rootName, 'submitResults', $ref['matchId']);
+        MatchHook($rootName, 'rateMatch', $ref['matchId']);   // rated formats only; idempotent
         return;
     }
     // Not over — begin sideboarding; both clients move to the sideboard screen. 2-seat Bo3 only:

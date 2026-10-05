@@ -4574,6 +4574,31 @@ body:has(#cardDetail) .blocked-user-list {
   color: var(--ink-3);
 }
 
+/* Meta Premier — the player's own rating (SharedUI/Render/MetaPremierRating.php). One row per open match type:
+   label and value on a line, the record underneath. */
+body:has(#cardDetail) .metaPremierRating .note {
+  margin: 0 0 var(--s-3);
+  font-size: var(--t-12);
+  color: var(--ink-3);
+}
+body:has(#cardDetail) .mp-list { margin: 0; padding: 0; list-style: none; }
+body:has(#cardDetail) .mp-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px var(--s-3);
+  padding-block: var(--s-2);
+}
+body:has(#cardDetail) .mp-row + .mp-row { border-block-start: 1px solid var(--edge); }
+body:has(#cardDetail) .mp-label { font-size: var(--t-13); color: var(--ink-2); }
+body:has(#cardDetail) .mp-value {
+  font-size: var(--t-15);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums lining-nums;
+  text-align: end;
+}
+body:has(#cardDetail) .mp-record { grid-column: 1 / -1; font-size: var(--t-12); color: var(--ink-3); }
+
 /* brand buttons keep their colour — a recognition cue — but are sized to their
    label rather than spanning the pane: they are secondary actions */
 /* Discord and Patreon keep their brand colour — it is a recognition cue, not our accent — but

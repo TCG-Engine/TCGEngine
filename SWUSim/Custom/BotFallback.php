@@ -108,12 +108,13 @@ function SWUBotTargetValue(array $att, ?array $def, array $W): float {
     $breach = fn(): float => SWUBotFeatureOn('breach') ? $W['base'] * _SWUBotBreachOpened($att, $def) : 0.0;
     switch (SWUBotCombatOutcome($att, $def)) {
         case 'kill-survive':
-            $v = $W['kill'] * SWUBotUnitValue($def) + _SWUBotThreatRemoved($att, $def, $W) + $breach();
+            // 'lockpiece' (p35): an attack is a free kill — the locked bomb may still come down this round.
+            $v = $W['kill'] * (SWUBotUnitValue($def) + _SWUBotLockFreeKillExtra($def)) + _SWUBotThreatRemoved($att, $def, $W) + $breach();
             // The Overwhelm excess reaches the base — which also makes Aggro prefer the lowest-HP kill.
             if (SWUBotOverwhelmKills($att, $def)) $v += $W['base'] * ($att['attackPower'] - $def['remaining']);
             return $v;
         case 'trade':
-            return $W['kill'] * SWUBotUnitValue($def) + _SWUBotThreatRemoved($att, $def, $W)
+            return $W['kill'] * (SWUBotUnitValue($def) + _SWUBotLockFreeKillExtra($def)) + _SWUBotThreatRemoved($att, $def, $W)
                    - $lossF * $W['loss'] * SWUBotUnitValue($att) + $breach();
         case 'bounce':
             // Guide: pop a Shield with the smallest attacker.
@@ -382,10 +383,17 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 if (SWUBotFeatureOn('picks') && SWUBotFeatureOn('unique') && !$replay && _SWUBotUniqueClash($seat, $cid) && _SWUBotUniqueCopyHealthy($seat, $cid)) return -0.5;
                 $guides = $ctx['_guides'] ?? _SWUBotGuides($ctx);
                 if ($guides['maxUnits'] === strval($action['cardID'] ?? '')) $v += $W['maxUnits'];
+                // Feature 'wipeinit' (p36): a unit played into the arena of the wipe I am setting up for next round dies to it.
+                if (SWUBotFeatureOn('wipeinit') && str_contains(strval(CardType($cid)), 'Unit') && ($wp = _SWUBotWipeNextRound($seat)) !== null
+                    && in_array(_SWUBotPlayArena($cid), $wp['arenas'], true)) return min($v, -0.4);
+                // Feature 'disclosereserve' (p36): playing the last card my Condemn's disclose needs gives back the -6/-0.
+                if (SWUBotFeatureOn('disclosereserve') && ($pts = _SWUBotDiscloseReserveCost($seat, $i)) > 0) $v -= $W['base'] * $pts;
                 // Feature 'fodderfirst' (p30): the paired-defeat card waits for the cheap unit that will be its price.
                 if (SWUBotFeatureOn('fodderfirst') && _SWUBotPairedDefeatWantsFodder($seat, $i, $cid)) return min($v, -0.4);
                 // Feature 'etbsetup' (p31): the gated When Played waits for the cheap unit that turns it on.
                 if (SWUBotFeatureOn('etbsetup') && _SWUBotEtbWantsSetup($seat, $i, $cid)) return min($v, -0.4);
+                // Feature 'lockpiece' (p35): the bomb a Galen blanks waits while an attack can kill that Galen this round.
+                if (SWUBotFeatureOn('lockpiece') && _SWUBotBlankedBombWaits($seat, $cid)) return min($v, -0.4);
                 // Feature 'observerfirst' (p31): the kill waits for the HK-47 that turns it into base damage.
                 if (SWUBotFeatureOn('observerfirst') && _SWUBotKillWaitsForObserver($seat, $i, $cid)) return min($v, -0.4);
                 // Feature 'wipeaware' (p30): not into a shown per-unit wipe's lethal range.
@@ -783,7 +791,7 @@ function _SWUBotWeaknessScore(int $seat, array $v, bool $enemy, int $dmg, string
             + ($shieldStopsDamage ? 0.0 : SWUBotUnitValue($v) * $W['chip'] * $dmg / max(1, $v['hp']));
     if ($enemy) {
         if ($loss >= $v['remaining']) return $kill;
-        if (SWUBotFeatureOn('setup') && !$v['isLeader'] && $v['remaining'] - $loss <= _SWUBotFinisherHP($seat)) return max($soften, 0.8 * $kill);
+        if (SWUBotFeatureOn('setup') && !$v['isLeader'] && $v['remaining'] - $loss <= _SWUBotFinisherHPFor($seat, $v)) return max($soften, 0.8 * $kill);
         return $soften;
     }
     if ($loss >= $v['remaining']) return SWUBotFeatureOn('fodder') ? -SWUBotSacrificeCost($v) : -SWUBotUnitValue($v);
@@ -833,6 +841,8 @@ function _SWUBotTargetScore(int $seat, string $mz, bool $hostile, int $amount, s
     if ($v === null) return null;
     // $weak Weakness tokens (feature 'weakness'): HP reduction a Shield does not stop — clean up, else soften up.
     if ($weak > 0 && $hostile) return _SWUBotWeaknessScore($seat, $v, $enemy, $amount, $head, $weak, $W);
+    // 'defeatimmune' (p36): my defeat effect on an enemy that can't be defeated by enemy card abilities does nothing.
+    if ($hostile && $enemy && $amount === 0 && _SWUBotHeadDefeats($head) && SWUBotDefeatFizzles($v)) return 0.0;
     $score = $good ? SWUBotUnitValue($v) : -SWUBotUnitValue($v);
     // A hostile effect aimed at MY OWN board is a sacrifice: price it as fodder, not as a loss of printed value
     // (feature 'fodder'), so the unit whose defeat pays me back is the one that goes.
@@ -861,13 +871,22 @@ function _SWUBotTargetScore(int $seat, string $mz, bool $hostile, int $amount, s
         // (owner, 2026-10-04: "it would actually be better to pop 3 shields than to only pop 2 and ping 1 on Pre Vizsla").
         if ($blocked) $score = SWUBotFeatureOn('splitpop') ? _SWUBotShieldPopValue($seat, $v, $W, true) : 0.0;
         elseif ($amount >= $v['remaining']) $score = SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0;
-        elseif (SWUBotFeatureOn('setup') && !$v['isLeader'] && $v['remaining'] - $amount <= _SWUBotFinisherHP($seat))
+        elseif (SWUBotFeatureOn('setup') && !$v['isLeader'] && $v['remaining'] - $amount <= _SWUBotFinisherHPFor($seat, $v))
             $score = 0.8 * (SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0);   // my finisher defeats it next
         else $score = SWUBotUnitValue($v) * $W['chip'] * $amount / max(1, $v['hp']);
     }
     // Exhaust a READY enemy; buffs go on units that attack this round (a ready friendly unit).
     if ($v['ready'] && (($hostile && $enemy && $head === 'EXHAUST_UNIT') || (!$hostile && !$enemy))) $score += $W['ready'];
     return $score;
+}
+
+// Is $head a DEFEAT of the chosen unit — the DEFEAT_UNIT continuation, or a card continuation ("LAW_133#…") whose text defeats
+// without taking control first (No Glory, Only Results defeats a unit its caster then controls: not an enemy ability)?
+function _SWUBotHeadDefeats(string $head): bool {
+    if ($head === 'DEFEAT_UNIT') return true;
+    if (!preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#/', $head, $m)) return false;
+    $t = strval(CardText($m[1]));
+    return (bool)preg_match('/\bdefeat\b/i', $t) && !preg_match('/take control/i', $t);
 }
 
 // A candidate: one pick, or an '&'-joined multi-select scored as the sum of its picks (feature 'targeting').
@@ -895,14 +914,17 @@ function _SWUBotTargetsScore(int $seat, string $candidate, bool $hostile, int $a
 // would be peeking at hidden information and would not transfer out of self-play.
 const SWU_BOT_LANDO_ACTION = '/Choose an aspect, then discard a card from a deck/i';
 
-// [$isLandoLeader, $postFlip] for this seat's undeployed leader.
-function _SWUBotLandoPhase(int $seat): array {
-    $l = GetLeader($seat)[0] ?? null;
-    if ($l === null) return [false, false];
-    $deployed = !empty($l->Deployed) && strval($l->Deployed) !== 'false';
-    if ($deployed || !preg_match(SWU_BOT_LANDO_ACTION, strval(CardText(strval($l->CardID ?? ''))))) return [false, false];
-    $flipped = !empty($l->EpicActionUsed) && strval($l->EpicActionUsed) !== 'false';
-    return [true, $flipped];
+// [$isLandoLeader, $postFlip] for this seat's undeployed Lando, in whichever slot he sits (a Twin Suns seat has two
+// leaders). $leaders narrows it to the leader whose Action is being priced (_SWUBotActionLeader).
+function _SWUBotLandoPhase(int $seat, ?array $leaders = null): array {
+    foreach ($leaders ?? GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed)) continue;
+        $deployed = !empty($l->Deployed) && strval($l->Deployed) !== 'false';
+        if ($deployed || !preg_match(SWU_BOT_LANDO_ACTION, strval(CardText(strval($l->CardID ?? ''))))) continue;
+        $flipped = !empty($l->EpicActionUsed) && strval($l->EpicActionUsed) !== 'false';
+        return [true, $flipped];
+    }
+    return [false, false];
 }
 
 // How often an aspect appears across a bag of CardIDs.
@@ -959,10 +981,12 @@ function _SWUBotLandoDecisionScore(array $ctx, string $c, int $index): ?float {
 //   - skip it while resources + Credits already cover the biggest card in hand — the Credit buys nothing;
 //   - with their deck nearly out, the mill IS the win condition, so it goes FIRST;
 //   - otherwise it is a spare-resource play: below the round's real plays, above passing.
-function _SWUBotLandoAbilityScore(array $ctx, array $W): ?float {
+function _SWUBotLandoAbilityScore(array $ctx, array $action, array $W): ?float {
     if (!SWUBotProposalOn('landomill')) return null;
     $seat = intval($ctx['seat']);
-    [$isLando, $post] = _SWUBotLandoPhase($seat);
+    $l = _SWUBotActionLeader($seat, $action);
+    if ($l === null) return null;
+    [$isLando, $post] = _SWUBotLandoPhase($seat, [$l]);
     if (!$isLando || !$post) return null;
     $theirDeck = count(array_filter(GetDeck(SWUBotOpponent($seat)), fn($o) => $o !== null && empty($o->removed)));
     if ($theirDeck <= SWU_BOT_LANDO_MILL_KILL) return 10.0;            // milling them out is the plan now
@@ -984,7 +1008,7 @@ function _SWUBotBestEnemyNonLeaderValue(int $seat): float {
     if (!function_exists('_SWUAllEnemyUnits')) return $best;
     foreach (_SWUAllEnemyUnits($seat) as $u) {
         $v = SWUBotUnitView($u);
-        if (!empty($v['isLeader'])) continue;
+        if (!empty($v['isLeader']) || SWUBotDefeatFizzles($v)) continue;   // 'defeatimmune' (p36)
         $best = max($best, SWUBotUnitValue($v));
     }
     return $best;
@@ -1577,15 +1601,51 @@ function _SWUBotSupportLentRaid(int $seat, ?string $sourceMz = null): int {
 function _SWUBotSupportPlanUid(int $seat, int $bonus = 0): int {
     $blocked = _SWUBotBlockedArenas($seat);
     $lent = _SWUBotSupportLentRaid($seat);
+    // 'stacklethal' (p36): the Plot buffs still to come and the base they must finish.
+    $stack = SWUBotFeatureOn('stacklethal');
+    $plotLeft = $stack ? _SWUBotPlotBuffsLeft($seat) : 0;
+    $hp = $stack ? SWUBaseRemainingHp(SWUBotOpponent($seat)) : PHP_INT_MAX;
     $best = null; $bestKey = null;
     foreach (SWUBotUnits($seat) as $v) {
         if (!$v['ready'] || $v['isLeader']) continue;
         // 'breach' (p26): a Sentinel this unit can defeat with the buff on offer is not a write-off.
         $clear = !$blocked[$v['arena']] || (SWUBotFeatureOn('breach') && _SWUBotCanBreach($v, $bonus + $lent));
-        $key = [$clear ? 1 : 0, $v['attackPower'], $v['remaining'], -$v['uid']];
+        // 'stacklethal' (p36): this unit's ONE attack with every buff on it (and its own On Attack boost) finishes the base.
+        $lethal = $stack && !$blocked[$v['arena']] && $v['attackPower'] + $bonus + $plotLeft + _SWUBotSelfAttackBoost($seat, $v) + $lent >= $hp;
+        $key = [$lethal ? 1 : 0, $clear ? 1 : 0, $v['attackPower'], $v['remaining'], -$v['uid']];
         if ($bestKey === null || $key > $bestKey) { $best = $v; $bestKey = $key; }
     }
     return $best === null ? 0 : $best['uid'];
+}
+
+// 'stacklethal' (p36): the "+N/+N to another friendly unit for this phase" still to come from Plot cards in my resources, greedily
+// as far as my ready resources pay (SEC_111 Jar Jar Binks: +2 for 2). Only meaningful in a deploy's Plot window.
+function _SWUBotPlotBuffsLeft(int $seat): int {
+    $cap = SWUTotalPaymentCapacity($seat); $sum = 0;
+    foreach (GetResources($seat) as $r) {
+        if ($r === null || !empty($r->removed)) continue;
+        $cid = strval($r->CardID ?? '');
+        if (!function_exists('HasKeyword_Plot') || !HasKeyword_Plot($r)) continue;
+        if (!preg_match('/give another friendly unit \+(\d+)\/\+\d+ for this phase/i', strval(CardText($cid)), $m)) continue;
+        $c = intval(CardCost($cid));
+        if ($c > $cap) continue;
+        $cap -= $c; $sum += intval($m[1]);
+    }
+    return $sum;
+}
+
+// 'stacklethal' (p36): the boost $v gives ITSELF on attack — "On Attack: … this unit gets +N/+0 for this attack" (ASH_203 Mando's
+// N-1 Starfighter: "You may exhaust a friendly (non-upgrade) leader. If you do, …" — needs a ready leader of mine).
+function _SWUBotSelfAttackBoost(int $seat, array $v): int {
+    $t = strval(CardText($v['cardID']));
+    if (!preg_match('/On Attack:[^"]*?this unit gets \+(\d+)\/\+0 for this attack/i', $t, $m)) return 0;
+    if (stripos($t, 'exhaust a friendly (non-upgrade) leader') !== false) {
+        $ready = false;
+        foreach (SWUBotUnits($seat) as $u) if ($u['isLeader'] && $u['ready']) $ready = true;
+        foreach (GetLeader($seat) as $l) if ($l !== null && empty($l->removed) && _SWULeaderReadyUndeployed($seat, strval($l->CardID ?? ''))) $ready = true;
+        if (!$ready) return 0;
+    }
+    return intval($m[1]);
 }
 
 // The Support attacker: the strongest in an arena that reaches the base. After the Plot buffs that is the planned unit —
@@ -1637,8 +1697,21 @@ function _SWUBotBuffSpreadScore(array $ctx, int $seat, string $c): ?float {
 
 // A search's pick ("CardID,CardID"; "" = none): the play value of what it takes, a little more per card.
 function _SWUBotSearchScore(int $seat, string $candidate, array $W): float {
+    // Feature 'searchpick' (p36): a UNIQUE card whose name is already in play under me, or earlier in this pick, is defeated by
+    // the uniqueness rule the moment it lands — worth -1, not its play value (17 of 125 traced Ackbar searches did this).
+    $uniq = SWUBotFeatureOn('searchpick');
+    $names = [];
+    $name = fn(string $c) => strval(CardTitle($c)) . '|' . strval(CardSubtitle($c));
+    if ($uniq) foreach (SWUBotUnits($seat) as $v) if (CardUnique($v['cardID'])) $names[$name($v['cardID'])] = true;
     $s = 0.0;
-    foreach (array_filter(explode(',', $candidate)) as $cid) $s += _SWUBotPlayValue($seat, trim($cid), $W) + 0.01;
+    foreach (array_filter(explode(',', $candidate)) as $cid) {
+        $cid = trim($cid);
+        if ($uniq && CardUnique($cid)) {
+            if (isset($names[$name($cid)])) { $s -= 1.0; continue; }
+            $names[$name($cid)] = true;
+        }
+        $s += _SWUBotPlayValue($seat, $cid, $W) + 0.01;
+    }
     return $s;
 }
 
@@ -1849,9 +1922,18 @@ function _SWUBotHasOtherForceUse(int $seat): bool {
 }
 
 // The printed text behind a leader or unit Action (the leader's front side while undeployed).
+// The leader whose Action this is: 'myLeader-1!CustomInput!LeaderAbility' → GetLeader($seat)[1]. Null for any other
+// action. A Twin Suns seat has two leaders, and reading slot 0 priced one leader's Action with the other's text (#1127).
+function _SWUBotActionLeader(int $seat, array $action): ?object {
+    if (SWUBotActionKind($action) !== 'leader-ability') return null;
+    $i = preg_match('/^myLeader-(\d+)$/', SWUBotActionMz($action), $m) ? intval($m[1]) : 0;
+    $l = GetLeader($seat)[$i] ?? null;
+    return is_object($l) && empty($l->removed) ? $l : null;
+}
+
 function _SWUBotActionSourceText(int $seat, array $action): string {
     $k = SWUBotActionKind($action);
-    if ($k === 'leader-ability') { $l = GetLeader($seat)[0] ?? null; return $l !== null ? strval(CardText(strval($l->CardID ?? ''))) : ''; }
+    if ($k === 'leader-ability') { $l = _SWUBotActionLeader($seat, $action); return $l !== null ? strval(CardText(strval($l->CardID ?? ''))) : ''; }
     if ($k === 'unit-action') { $v = SWUBotViewForMz($seat, SWUBotActionMz($action)); return $v !== null ? strval(CardText($v['cardID'])) : ''; }
     return '';
 }
@@ -1868,6 +1950,36 @@ function _SWUBotFinisherHP(int $seat): int {
     }
     foreach (SWUBotUnits($seat) as $v) {
         if ($v['ready'] && preg_match($re, strval(CardText($v['cardID'])), $m)) $n = max($n, intval($m[1]));
+    }
+    return $n;
+}
+
+// The finisher threshold against THIS target $v: _SWUBotFinisherHP, raised to 1 when my leader can finish a 1-HP unit this round.
+//   'ndsetup' (p36)        — a ready UNDEPLOYED leader's Action: Doctor Hemlock ("Action [1 resource, Exhaust]: Give a Weakness token
+//                            to a unit without a Weakness token on it" — a ready resource, a target with none) or Mother Talzin
+//                            ("Action [Exhaust, use the Force (lose your Force token)]: Give a unit -1/-1" — needs the Force). Owner
+//                            2026-10-04: No Disintegrations sets these up.
+//   'onattackfinish' (p36) — a READY deployed leader whose On Attack gives a Weakness token / -1/-1 to a unit (Hemlock, Talzin):
+//                            Reprint_Cad split Ninth Sister 1/1/1, then Hemlock's attack token finished the Interceptor.
+function _SWUBotFinisherHPFor(int $seat, array $v): int {
+    $n = _SWUBotFinisherHP($seat);
+    $nd = SWUBotFeatureOn('ndsetup'); $oa = SWUBotFeatureOn('onattackfinish');
+    if (!$nd && !$oa) return $n;
+    foreach (GetLeader($seat) as $l) {
+        if (!$nd || $l === null || !empty($l->removed)) continue;
+        $cid = strval($l->CardID ?? '');
+        if (!_SWULeaderReadyUndeployed($seat, $cid)) continue;
+        $t = strval(CardText($cid));
+        if (preg_match('/Action \[1 resource, Exhaust\]: Give a Weakness token to a unit without a Weakness token on it/i', $t)
+            && SWUTotalPaymentCapacity($seat) >= 1 && intval($v['downgrades'] ?? 0) === 0) return max($n, 1);
+        if (preg_match('/Action \[Exhaust, use the Force[^\]]*\]: Give a unit -1\/-1/i', $t)
+            && function_exists('PlayerHasTheForce') && PlayerHasTheForce($seat)) return max($n, 1);
+    }
+    if ($oa) {
+        foreach (SWUBotUnits($seat) as $u) {
+            if (!$u['isLeader'] || !$u['ready']) continue;
+            if (preg_match('/On Attack: You may give (a Weakness token to a unit|a unit -1\/-1)/i', strval(CardDeployText($u['cardID'])))) return max($n, 1);
+        }
     }
     return $n;
 }
@@ -2280,6 +2392,75 @@ function _SWUBotEtbWantsSetup(int $seat, int $i, string $cid): bool {
     return false;
 }
 
+// Feature 'lockpiece' (p35): $cid in my hand is blanked by an enemy Galen (SWU_GALEN — it would come down with no abilities),
+// and a ready friendly unit can kill that Galen by attack this round (kill-survive or trade). Then the kill goes first and the
+// bomb follows whole — Ninin vs Luke (ASH) Data Vault: Galen named Chimaera; Galen died, then Chimaera.
+function _SWUBotBlankedBombWaits(int $seat, string $cid): bool {
+    $title = str_replace(' ', '_', strval(CardTitle($cid)));
+    if ($title === '' || !function_exists('_SWUGalenNames') || !_SWUGalenNames($seat, $title)) return false;
+    foreach (SWUBotEnemyUnits($seat) as $g) {
+        if (!in_array($title, _SWUBotLockTitles($g), true) || strval($g['cardID']) !== 'SEC_046') continue;
+        foreach (SWUBotUnits($seat) as $att) {
+            if (!$att['ready']) continue;
+            $reach = false;
+            foreach (SWUBotAttackTargets($seat, $att)['units'] as $u) if ($u['uid'] === $g['uid']) { $reach = true; break; }
+            if ($reach && in_array(SWUBotCombatOutcome($att, $g), ['kill-survive', 'trade'], true)) return true;
+        }
+    }
+    return false;
+}
+
+// The arena a unit card enters ('Ground' | 'Space'), from its printed arena. Feature 'wipeinit' (p36).
+function _SWUBotPlayArena(string $cid): string {
+    return stripos(strval(CardArena($cid)), 'Space') !== false ? 'Space' : 'Ground';
+}
+
+// ── Feature 'disclosereserve' (p36) — keep the hand that powers my disclose defence ──────────────────────────────
+// Reprint_Cad (Hemlock Red) vs Ninin (Ahsoka Yellow), 2026-10-04: SEC_038 Condemn on Ahsoka ("On Attack: the defending player
+// may disclose Vigilance Villainy. If they do, this unit gets -6/-0"); after three blanked attacks Reprint_Cad PLAYED Marrok, the
+// last card that could disclose. Owner: hold it. My upgrade on an ENEMY unit => [the aspects my hand must show].
+const SWU_BOT_DISCLOSE_DEFENCES = ['SEC_038' => ['Vigilance', 'Villainy']];
+
+// Each enemy unit carrying my disclose defence: ['req' => aspects, 'blanked' => attack power the -6/-0 removes].
+function _SWUBotDiscloseReserves(int $seat): array {
+    $out = [];
+    foreach (SWUBotEnemyUnits($seat) as $u) {
+        if (!isset($u['obj'])) continue;
+        foreach (GetUpgradesOnUnit($u['obj']) as $s) {
+            $req = SWU_BOT_DISCLOSE_DEFENCES[strval($s->CardID ?? '')] ?? null;
+            if ($req !== null && intval($s->Controller ?? ($s->Owner ?? 0)) === $seat)
+                $out[] = ['req' => $req, 'blanked' => min(6, max(0, intval($u['rawAttackPower'] ?? $u['attackPower'])))];
+        }
+    }
+    return $out;
+}
+
+// Can my hand, leaving out index $skip, still disclose $req? The engine's own icon reader and cover test (PlayerCanDisclose).
+function _SWUBotDiscloseCovers(int $seat, ?int $skip, array $req): bool {
+    if (!function_exists('SWUCardAspectIcons') || !function_exists('_SWUAspectsCover')) return false;
+    $have = [];
+    foreach (GetHand($seat) as $j => $o) {
+        if ($j === $skip || $o === null || !empty($o->removed)) continue;
+        $have = array_merge($have, SWUCardAspectIcons(strval($o->CardID ?? '')));
+    }
+    return _SWUAspectsCover($have, $req);
+}
+
+// The attack power I stop blanking if hand card $i leaves (played or resourced): summed over the defences it breaks.
+function _SWUBotDiscloseReserveCost(int $seat, int $i): int {
+    $pts = 0;
+    foreach (_SWUBotDiscloseReserves($seat) as $r) {
+        if (_SWUBotDiscloseCovers($seat, null, $r['req']) && !_SWUBotDiscloseCovers($seat, $i, $r['req'])) $pts += $r['blanked'];
+    }
+    return $pts;
+}
+function _SWUBotBreaksDiscloseReserve(int $seat, int $i): bool {
+    foreach (_SWUBotDiscloseReserves($seat) as $r) {
+        if (_SWUBotDiscloseCovers($seat, null, $r['req']) && !_SWUBotDiscloseCovers($seat, $i, $r['req'])) return true;
+    }
+    return false;
+}
+
 // Feature 'weaknessaction' (p31): "Action [N resource(s), Exhaust]: Give a Weakness token to a unit…" (HMW_003 Doctor Hemlock's
 // front side) is worth its BEST target on the Weakness scale (_SWUBotWeaknessScore: a kill, else a soften) less the resources
 // it costs. NULL for any other Action. "…without a Weakness token on it" excludes units that already carry one.
@@ -2307,14 +2488,13 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     $seat = intval($ctx['seat']);
     // PROPOSAL 'landomill' (default OFF): once Lando has flipped and come back, the Action is a spare-resource play —
     // or a skip, or the win condition when their deck is nearly out. Pre-flip it is left exactly as it was.
-    if (SWUBotActionKind($action) === 'leader-ability' && ($l = _SWUBotLandoAbilityScore($ctx, $W)) !== null) return $l;
+    if (SWUBotActionKind($action) === 'leader-ability' && ($l = _SWUBotLandoAbilityScore($ctx, $action, $W)) !== null) return $l;
     // PROPOSAL 'piettcheat' (default OFF). Owner, 2026-09-22: Piett "should cheat out capital ships to be able to trade
     // and stall against Vader". The lookahead stops at the ship prompt, so the discounted play scored as a bare
     // ability (1.5) — no more than playing the same ship at full price. Value it as the best ship it can play, plus
     // the resource it saves.
     if (SWUBotProposalOn('piettcheat') && SWUBotActionKind($action) === 'leader-ability') {
-        $l = GetLeader($seat)[0] ?? null;
-        $txt = $l !== null ? strval(CardText(strval($l->CardID ?? ''))) : '';
+        $txt = _SWUBotActionSourceText($seat, $action);
         if (preg_match('/Play an? ([A-Z][\w ]*?) unit from your hand\. It costs (\d+) resources? less/', $txt, $m)
             && function_exists('SWUHandPlayablesAtDiscount')) {
             $best = null;

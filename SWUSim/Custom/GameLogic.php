@@ -7061,6 +7061,17 @@ $customDQHandlers["SWUApplyRegroupResource"] = function($player, $parts, $lastDe
 // GA definitions keep these SWUSim versions. Add real logic here as phases
 // are implemented.
 
+// Meta Premier (docs/superpowers/specs/2026-10-03-swusim-metapremier-ratings-design.md §4.3): has pregame (mulligans +
+// starting resources) finished? CreateGame runs setup inside round 1's APS, and the round-1 action phase only opens
+// (MainPhase) once setup has drained — so "still round 1 and still APS" IS pregame. A match ended before then is not
+// rated. ⚠ DERIVED, never stored: DecisionQueueVariables is deterministic-RNG hash material, so a stored flag would shift
+// every game's random stream from round 1 onward.
+function SWUPregameDone(): bool {
+    $turn = &GetTurnNumber();
+    $phase = &GetCurrentPhase();
+    return !(intval($turn) <= 1 && strval($phase) === 'APS');
+}
+
 function MainPhase() {
     // TODO: consecutive-pass tracking and TurnPlayer swap
     // Entered once per round, when the action phase's start (and, in round 1, SETUP) has drained — the only
@@ -24503,6 +24514,12 @@ function TriggerGameOver($loserPlayer) {
         return;
     }
     // Two seats: conceding really is an immediate loss — there is nobody else left to play.
+    // Meta Premier (spec §4.2): record HOW it ended. Only while undecided — a Concede on the end screen of a game
+    // already won must not relabel it — and never over SWUApplyKick's 'abandon', which routes through here.
+    if (DecisionQueueController::GetVariable('GAMEOVER_WINNER') === null
+        && DecisionQueueController::GetVariable('GAMEOVER_REASON') === null) {
+        DecisionQueueController::StoreVariable('GAMEOVER_REASON', 'concede');
+    }
     $winner = ($loser == 1) ? 2 : 1;
     SWUDeclareGameWinner($winner, null, "P{$loser} conceded");
 }

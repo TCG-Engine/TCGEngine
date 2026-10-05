@@ -112,6 +112,10 @@ function SWUApplyKick(int $target): void
     AddGameLogEntry('CONCEDE', "$name was removed for inactivity", 'ALL');
 
     if (SeatCountForGame() <= 2) {
+        // Meta Premier (spec §4.2): an inactivity removal is an ABANDON, not a concession. Only while undecided.
+        if (DecisionQueueController::GetVariable('GAMEOVER_WINNER') === null) {
+            DecisionQueueController::StoreVariable('GAMEOVER_REASON', 'abandon');
+        }
         TriggerGameOver($target);                      // declares the opponent the winner
         return;
     }

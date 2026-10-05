@@ -363,7 +363,16 @@ function SWUSetupPoolOptions(array $tree, string $groupId, string $optionId, str
                 $fmt = (string)($p['format'] ?? '');
                 if ($fmt === '') continue;
                 $isSel = $selected !== '' ? ($fmt === $selected) : ($out === '');
-                $out .= '<option value="' . $e($fmt) . '"' . ($isSel ? ' selected' : '') . '>'
+                // A restricted pool (Meta Premier) carries its rules for the modal script. Only restricted pools get
+                // these attributes, so every other option's markup is byte-identical.
+                $rules = '';
+                $allowed = $p['allowedQueueTypes'] ?? null;
+                if (is_array($allowed) && function_exists('SWUQueueTypeDefinitions') && count($allowed) < count(SWUQueueTypeDefinitions())) {
+                    $rules .= ' data-queuetypes="' . $e(implode(',', $allowed)) . '"';
+                }
+                if (!empty($p['queueOnly']))     $rules .= ' data-queue-only="1"';
+                if (!empty($p['requiresLogin'])) $rules .= ' data-requires-login="1"';
+                $out .= '<option value="' . $e($fmt) . '"' . ($isSel ? ' selected' : '') . $rules . '>'
                       . $e($p['label'] ?? $fmt) . '</option>';
             }
             return $out;

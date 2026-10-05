@@ -185,6 +185,20 @@
         exit;
       }
     }
+    // Meta Premier gates (docs/superpowers/specs/2026-10-03-swusim-metapremier-ratings-design.md §2.3): logged in, queue
+    // only, match type open, no abandon cooldown. The account is the SESSION's — never a posted id. Every other format
+    // passes straight through (null).
+    require_once __DIR__ . '/../../SWUSim/MetaPremier.php';
+    $mpRefusal = SWUMetaPremierQueueRefusal($format, $queueType, $joiningUserId, $createPrivate, 'SWUMetaPremierCooldownLeftSafe');
+    if ($mpRefusal !== null) {
+      $response->success = false;
+      $response->message = $mpRefusal['message'];
+      $response->code = $mpRefusal['code'];               // additive fields: the menu can tell the reasons apart
+      $response->secondsLeft = $mpRefusal['secondsLeft'];
+      header('Content-Type: application/json');
+      echo json_encode($response);
+      exit;
+    }
   }
   if ($rootName === 'GrandArchiveSim') {
     // GA has no DB-backed login, so no logged-in gate. Just normalize unknown values.
@@ -657,6 +671,18 @@
   // it is arguably WRONG: you queued to find an opponent, and being parked back in your own empty
   // room is not matchmaking. Landing in somebody else's room is the better outcome, and your
   // abandoned seat is released either way.
+  // Meta Premier (spec §5.1): only lobbies inside the widening rating window, closest rating first. Every other format
+  // keeps first-found pairing over the unfiltered list.
+  $mpJoinerRating = null;
+  $mpWaitStart = null;     // when this player first queued (a re-queue keeps it — see SWUMetaPremierOwnWaitStart)
+  if ($rootName === 'SWUSim' && SWUFormatIsRated($format)) {
+    $mpJoinerRating = SWUMetaPremierQueueRating($joiningUserId, $queueType, $format);
+    if (isset($cacheInfo['cache_list'])) {
+      $mpWaitStart = SWUMetaPremierOwnWaitStart($cacheInfo['cache_list'], fn($k) => apcu_fetch($k), $format, $queueType, $joiningUserId);
+      $cacheInfo['cache_list'] = SWUMetaPremierOrderCandidates($cacheInfo['cache_list'], fn($k) => apcu_fetch($k),
+          $format, $queueType, $mpJoinerRating, $joiningUserId, time(), $mpWaitStart === null ? 0 : max(0, time() - $mpWaitStart));
+    }
+  }
   if (isset($cacheInfo['cache_list'])) {
       foreach ($cacheInfo['cache_list'] as $entry) {
           if (!isset($entry['info'])) continue;
@@ -837,6 +863,11 @@
       $lobby->isPrivate = false;
       if ($rootName === 'GrandArchiveSim') $lobby->shareAnonymizedGameplayData = $shareAnonymizedGameplayData;
       $lobby->casterMode = $casterMode;
+      // Meta Premier: the pairing window is measured against the creator's rating and from when the lobby opened.
+      if ($rootName === 'SWUSim' && SWUFormatIsRated($format)) {
+        $lobby->rating    = $mpJoinerRating ?? SWUMetaPremierQueueRating($joiningUserId, $queueType, $format);
+        $lobby->createdAt = $mpWaitStart ?? time();
+      }
       $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
       $newPlayer->setUsername($joiningUsername);
       // A public ROOM needs a host, and the creator is it. Identity (hostPlayerID), never "seat 1" —

@@ -46,6 +46,13 @@ mkdir -p "$OUT/games" "$OUT/traces" "$OUT/logs" /tmp/swusim-opcache   # opcache 
 # Refuse to mix arms in one outdir: the first run stamps it, a later run with another arm stops.
 ARM=$(if [ -n "$SUPERSET" ]; then echo superset; elif [ -n "$FOLD" ]; then echo "superset:$(echo $FOLD | tr ' ' '\n' | sort | tr '\n' ',' | sed 's/,$//')"; else echo game1; fi)
 [ -n "$VARIANT" ] && ARM="$ARM@$VARIANT"
+# PAIRS_FILE="<path>" (env) — a fidelity SCREEN: play only the listed unordered pairs ("deckA deckB" per line, from
+# SWUSim/DevTools/rl/fidelity_pairs.py), both seat orders. Part of the arm stamp, so a screen never resumes into a full sweep.
+PAIRS_FILE=${PAIRS_FILE:-}
+if [ -n "$PAIRS_FILE" ]; then
+  [ -s "$PAIRS_FILE" ] || { echo "[sweep] PAIRS_FILE $PAIRS_FILE is missing or empty" >&2; exit 1; }
+  ARM="$ARM+pairs:$(basename "$PAIRS_FILE")"
+fi
 if [ -s "$OUT/arm" ] && [ "$(cat "$OUT/arm")" != "$ARM" ]; then
   echo "[sweep] $OUT holds a '$(cat "$OUT/arm")' run; this is '$ARM'. Use a separate outdir." >&2; exit 1
 fi
@@ -53,11 +60,20 @@ echo "$ARM" > "$OUT/arm"
 FOLD=" $FOLD "   # padded, so run_one can match a whole name with a substring test
 export DIR OUT FOLD VARIANT
 : > "$OUT/jobs.txt"
-for a in $decks; do for b in $decks; do
-  [ "$a" = "$b" ] && continue
-  for s in $(seq -f "s%03g" 1 "$SEEDS"); do echo "$a $b $s" >> "$OUT/jobs.txt"; done
-done; done
+if [ -n "$PAIRS_FILE" ]; then
+  while read -r a b; do
+    [ -n "$a" ] || continue
+    for d in "$a" "$b"; do [ -f "$DIR/$d.txt" ] || { echo "[sweep] PAIRS_FILE names no $DIR/$d.txt" >&2; exit 1; }; done
+    for s in $(seq -f "s%03g" 1 "$SEEDS"); do echo "$a $b $s" >> "$OUT/jobs.txt"; echo "$b $a $s" >> "$OUT/jobs.txt"; done
+  done < "$PAIRS_FILE"
+else
+  for a in $decks; do for b in $decks; do
+    [ "$a" = "$b" ] && continue
+    for s in $(seq -f "s%03g" 1 "$SEEDS"); do echo "$a $b $s" >> "$OUT/jobs.txt"; done
+  done; done
+fi
 echo "[sweep] $(wc -l < "$OUT/jobs.txt") games, $WORKERS workers, arm $ARM, output $OUT — $(date -u +%H:%M:%S)"
+[ -n "${JOBS_ONLY:-}" ] && exit 0   # write jobs.txt and stop: a dry check of the job list without playing a game
 
 run_one() {
   local a=$1 b=$2 s=$3 f="$OUT/games/$1.$2.$3.tsv"

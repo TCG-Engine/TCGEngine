@@ -328,6 +328,29 @@ while (true) {
     }
   }
 
+  // Meta Premier (final review #1): a waiting rated quick-match lobby never pairs on its own — only a JOIN pairs. When
+  // another waiting rated lobby has come inside the wider of the two windows, tell this seated player to re-queue; their
+  // JoinQueue applies the same rule and pairs them. Checked every ~2s: it scans the APCu lobby list.
+  if ($lobby && is_object($lobby) && isset($lobby->rating, $lobby->createdAt) && empty($lobby->gameName)
+      && microtime(true) >= ($mpNextCheck ?? 0) && strval($lobby->rootName ?? '') === 'SWUSim') {
+    $mpNextCheck = microtime(true) + 2.0;
+    $mpSeated = false;
+    foreach (($lobby->players ?? []) as $mpP) {
+      if (($mpP instanceof Player) && $mpP->getAuthKey() == $authKey) { $mpSeated = true; break; }
+    }
+    if ($mpSeated) {
+      require_once __DIR__ . '/../../SWUSim/MetaPremier.php';
+      $mpInfo = apcu_cache_info();
+      if (SWUMetaPremierShouldRequeue(strval($lobbyID), $mpInfo['cache_list'] ?? [], fn($k) => apcu_fetch($k), time())) {
+        $response->success = true;
+        $response->requeue = true;    // additive: the SWUSim menu re-submits its last join
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
+      }
+    }
+  }
+
   // A lobby that was resolved and then disappeared is GONE (apcu TTL, or everyone left and
   // LeaveQueue deleted it), which the page must distinguish from "no updates yet".
   if (!$lobby && $lobbyID !== '') {

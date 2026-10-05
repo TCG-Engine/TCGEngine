@@ -288,6 +288,10 @@ function _ProfilePanelRegistry(): array {
             return "<div class='soundSettings container bg-black'><h2>Game Settings</h2>"
                  . RenderSoundSettings((int)($ctx['userId'] ?? 0)) . "</div>";
         },
+        'metaPremierRating' => function($def, $ctx, $ud) {
+            require_once __DIR__ . '/MetaPremierRating.php';
+            return RenderMetaPremierRating((int)($ctx['userId'] ?? 0));
+        },
         'blockedUsers'     => function($def, $ctx, $ud) {
             require_once __DIR__ . '/BlockedUsers.php';
             return "<div class='blockedUsers container bg-black'><h2>Blocked Users</h2>"
