@@ -1,0 +1,27 @@
+{
+    "name": "facet-together-decline-second-sacrifice-still-buffs-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:37:07+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "XmsEbk19Iu"
+    ],
+    "notes": "Facet Together, activated on the opponent's turn: sacrifice one Memorite, decline the second offer, then target the Memorite Blade. The card's effect never ran at all (generated as an On Enter effect on an Action), and once running, declining the second sacrifice skipped the handler that grants the weapon its +X POWER.",
+    "semanticCoverage": {
+        "testedCards": [
+            "XmsEbk19Iu"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "sacrifice",
+            "action-resolution"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Facet Together's effect was generated as an $enterAbilities entry, but the card is an Action that never enters the field, so activating it did nothing at all (no sacrifice prompt, no +X POWER, no sheen). Fix: GeneratedAbilityOverrides.php registers the effect as the Action's resolution ($cardActivatedAbilities). FIXED. FacetTogetherSacrifice was queued without dontSkipOnPass, so declining a further sacrifice (PASS) made ExecuteStaticMethods skip the handler and the weapon never received the +X POWER for the Memorites already sacrificed. Fix: the queue sites pass dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "GeneratedAbilityOverrides.php cardActivatedAbilities[XmsEbk19Iu:0]; Custom/GameLogic.php FacetTogetherSacrifice",
+        "fixCommit": "TBD"
+    }
+}

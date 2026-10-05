@@ -1,0 +1,26 @@
+{
+    "name": "cone-of-frost-level3-decline-first-target-still-offers-second",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:32:13+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "i7sbjy86ep"
+    ],
+    "notes": "Cone of Frost at level 3: the level-1 'up to one target' is declined, then the level-3 one is used on the opposing champion. The decline used to skip ConeOfFrostStep, so the level-3 offer never appeared.",
+    "semanticCoverage": {
+        "testedCards": [
+            "i7sbjy86ep"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "level-gated-effects"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Cone of Frost's optional-choice continuation (ConeOfFrostStep) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its follow-up never ran: the later level clauses were never offered after a declined target. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/CardDQHandlers.php ConeOfFrostStep",
+        "fixCommit": "TBD"
+    }
+}

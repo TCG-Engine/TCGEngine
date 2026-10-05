@@ -1686,3 +1686,73 @@ foreach(["9tmr8iel1m", "LahboNoSRx", "98i5ak5nwo", "f4rlv5dsrb", "j9fiu22ltl", "
     AddCounters($player, $mzID, "level", 1);
   };
 }
+
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Facet Together (XmsEbk19Iu): "Activate this card only during an opponent's turn. Sacrifice any amount of Memorite objects. Target weapon you control gets +X POWER until the end of
+// your next turn, where X is the amount of objects sacrificed this way. Then put X sheen counters on your Fractured Memories."
+// The effect was generated as an $enterAbilities entry on an Action (which OnCardActivated() now runs as the Action's effect). This override is the same body with the follow-up queued
+// with dontSkipOnPass, so declining a further sacrifice ("any amount") still applies the bonus for the objects already sacrificed (FacetTogetherSacrifice consumes the decline).
+$cardActivatedAbilities["XmsEbk19Iu:0"] = function($player) { //Facet Together
+  DecisionQueueController::StoreVariable("FacetTogetherCount", "0");
+  $memorites = ZoneSearch("myField", cardSubtypes: ["MEMORITE"]);
+  if(empty($memorites)) return;
+  $memStr = implode("&", $memorites);
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $memStr, 1, tooltip:"Sacrifice_a_Memorite_object?");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "FacetTogetherSacrifice", 1, dontSkipOnPass:1);
+};
+
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Dichroic Scorch (TlhsnnRhGK): "Remove all sheen counters from all units on the field. Then deal X damage to each unit except for your champion, where X is the amount of counters removed this way."
+// The generated body had never run (an Action's effect generated as an On Enter ability, see OnCardActivated()) and is broken: its first loop binds `$field = &GetField($p)` and its second loop then
+// assigns `$field = GetZone(...)` through that reference, overwriting the last player's real field array with a copy of the other player's field (the opposing champion was replaced by a copy of
+// the activating player's champion, which then took the damage that was meant to skip it); and it removed counters through "myField-" paths for both players. Rewritten without the references and
+// with each player's field addressed from the acting player's perspective.
+$enterAbilities["TlhsnnRhGK:0"] = function($player) { //Dichroic Scorch
+  global $playerID;
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $units = [];
+  for($p = 1; $p <= 2; ++$p) {
+      $zone = ($p == $playerID) ? "myField" : "theirField";
+      $count = count(GetZone($zone));
+      for($i = 0; $i < $count; ++$i) {
+          $obj = GetZoneObject($zone . "-" . $i);
+          if($obj === null || $obj->removed) continue;
+          $type = EffectiveCardType($obj);
+          $isChampion = PropertyContains($type, "CHAMPION");
+          if(!PropertyContains($type, "ALLY") && !$isChampion) continue;
+          $units[] = ["p" => $p, "mz" => $zone . "-" . $i, "champion" => $isChampion];
+      }
+  }
+  $totalSheen = 0;
+  foreach($units as $unit) {
+      $sheen = GetCounterCount(GetZoneObject($unit["mz"]), "sheen");
+      if($sheen <= 0) continue;
+      RemoveCounters($unit["p"], $unit["mz"], "sheen", $sheen);
+      $totalSheen += $sheen;
+  }
+  if($totalSheen <= 0) return;
+  foreach($units as $unit) {
+      if($unit["champion"] && $unit["p"] == $player) continue; // except for your champion
+      DealDamage($player, $mzID, $unit["mz"], $totalSheen);
+  }
+};
+
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Enthralling Visage (ycwz9gv4vm): "The next time damage would be dealt to target unit this turn, prevent 2 of that damage. When damage is prevented this way, banish target card in a graveyard."
+// The generated second step tagged the unit with "ycwz_<graveyard card's Owner>_<cardID>", which CombatLogic.php reads back when the damage is prevented to find the graveyard to banish from. A graveyard
+// object's Owner property is not set (it is only stamped when a card enters the field), so the tag read "ycwz__<cardID>" and the prevented damage banished nothing. The graveyard's owner is taken from the
+// zone the card was chosen in instead.
+$customDQHandlers["ycwz9gv4vm:0:Enter-2"] = function($player, $parts, $lastDecision) { //Enthralling Visage: target graveyard card
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DecisionQueueController::StoreVariable("chosenGrav", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "ycwz9gv4vm:0:Enter-2")) return;
+  $chosenUnit = DecisionQueueController::GetVariable("chosenUnit");
+  $gravObj = GetZoneObject($lastDecision);
+  if($gravObj === null) return;
+  $graveyardOwner = (strpos($lastDecision, "my") === 0) ? $player : GetOpponent($player);
+  AddTurnEffect($chosenUnit, "ycwz_" . $graveyardOwner . "_" . $gravObj->CardID);
+};

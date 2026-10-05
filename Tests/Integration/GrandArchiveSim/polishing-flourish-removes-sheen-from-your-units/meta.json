@@ -1,0 +1,25 @@
+{
+    "name": "polishing-flourish-removes-sheen-from-your-units",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:41:14+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "D79VKF2uOg"
+    ],
+    "notes": "Polishing Flourish: 'Remove all sheen counters from units you control' used to never run. Your Dungeon Guide loses its sheen; the opposing Dungeon Guide keeps its own.",
+    "semanticCoverage": {
+        "testedCards": [
+            "D79VKF2uOg"
+        ],
+        "mechanics": [
+            "actions-resolve-generated-enter-effect"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Polishing Flourish's effect was generated as an $enterAbilities entry, but it is an Action that never enters the field, so activating it only paid its cost and sent it to the graveyard: the effect never ran. Fix: OnCardActivated() runs an Action's enter ability as its resolution effect when the card has no activation ability of its own.",
+        "affectedFunction": "Custom/GameLogic.php OnCardActivated",
+        "fixCommit": "TBD"
+    }
+}

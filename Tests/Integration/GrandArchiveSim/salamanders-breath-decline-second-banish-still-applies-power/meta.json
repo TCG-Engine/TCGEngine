@@ -1,0 +1,27 @@
+{
+    "name": "salamanders-breath-decline-second-banish-still-applies-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:47:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "mob9nu6lal"
+    ],
+    "notes": "Salamander's Breath: the Diana Bonus On Attack lets player 2 banish up to X (2) fire cards from their graveyard for +1 POWER each. One is banished, the second offer is declined. The decline used to skip SalamandersBanish, so the +1 POWER for the banished card was lost.",
+    "semanticCoverage": {
+        "testedCards": [
+            "mob9nu6lal"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "diana-bonus",
+            "on-attack"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Salamander's Breath's optional-choice continuation (SalamandersBanish) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its follow-up never ran: the +1 POWER for the already banished card was lost. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/CardDQHandlers.php SalamandersBanish",
+        "fixCommit": "TBD"
+    }
+}

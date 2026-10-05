@@ -606,7 +606,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
                 "0|" . $maxChoices . "|" . $clarentChoices, 1,
                 tooltip:"Banish_Clarent,_Sword_of_Peace_and_up_to_1_other_Sword_Regalia");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ClarentReimaginedMatCost|" . $mzCard . "|" . $memoryCost, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ClarentReimaginedMatCost|" . $mzCard . "|" . $memoryCost, 1, dontSkipOnPass:1);
             return;
         }
     }
@@ -829,6 +829,7 @@ $customDQHandlers["CoronalMaterializeCost"] = function($player, $parts, $lastDec
 };
 
 $customDQHandlers["ClarentReimaginedMatCost"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $mzCard = $parts[0] ?? "";
     $remainingCost = intval($parts[1] ?? 0);
     if($mzCard === "") return;

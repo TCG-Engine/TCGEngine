@@ -1,0 +1,23 @@
+{
+    "name": "topsy-decree-declined-graveyard-banish-still-continues-to-next-mode",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-06-09T21:21:46+02:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "notes": "Topsy Decree with modes C (banish up to two from a graveyard) then A (champion gains spellshroud): the banish multi-choose is declined with PASS. The decline used to skip TopsyDecreeBanish, which is what continues to the next chosen mode, so the champion never gained spellshroud.",
+    "semanticCoverage": {
+        "testedCards": [
+            "vz4kc558yx"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "modal-spell"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Topsy Decree's optional-choice continuation (TopsyDecreeBanish) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its follow-up never ran: the remaining chosen modes were never processed after a declined graveyard banish. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/GameLogic.php TopsyDecreeBanish",
+        "fixCommit": "TBD"
+    }
+}

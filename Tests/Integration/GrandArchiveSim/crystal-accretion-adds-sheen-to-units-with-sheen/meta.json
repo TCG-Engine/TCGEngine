@@ -1,0 +1,25 @@
+{
+    "name": "crystal-accretion-adds-sheen-to-units-with-sheen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:41:15+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "HDeEE7YPTl"
+    ],
+    "notes": "Crystal Accretion: 'Put a sheen counter on each unit with a sheen counter on it' used to never run. Only the unit that already had sheen gains another.",
+    "semanticCoverage": {
+        "testedCards": [
+            "HDeEE7YPTl"
+        ],
+        "mechanics": [
+            "actions-resolve-generated-enter-effect"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Crystal Accretion's effect was generated as an $enterAbilities entry, but it is an Action that never enters the field, so activating it only paid its cost and sent it to the graveyard: the effect never ran. Fix: OnCardActivated() runs an Action's enter ability as its resolution effect when the card has no activation ability of its own.",
+        "affectedFunction": "Custom/GameLogic.php OnCardActivated",
+        "fixCommit": "TBD"
+    }
+}

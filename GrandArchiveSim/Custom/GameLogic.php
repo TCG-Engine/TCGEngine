@@ -2792,6 +2792,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $hasSlimeKingCost            = false;
     $hasInnervateAgilityCost     = false;
     $hasGoldenGambitCost         = false;
+    $hasSacrificePlayCost        = false;
     $hasDecomposeCost            = false;
     $hasArgusReserveAltCost      = false;
     $hasPowercellSacrificeCost   = false;
@@ -2833,13 +2834,32 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    //1.3 Declaring Costs — Golden Gambit (B1EbF6jcYF): sacrifice a Chessman ally
-    if($obj->CardID === "B1EbF6jcYF" && !$ignoreCost) {
+    //1.3 Declaring Costs — Golden Gambit (B1EbF6jcYF), Veiled Gambit (hxdfyA0eP1), Freezing Gambit (fgBpQZe0js): sacrifice a Chessman ally
+    // (the latter two only checked for a Chessman ally in their play prereq and never sacrificed it)
+    if(in_array($obj->CardID, ["B1EbF6jcYF", "hxdfyA0eP1", "fgBpQZe0js"], true) && !$ignoreCost) {
         $targets = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]);
         if(!empty($targets)) {
             $hasGoldenGambitCost = true;
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 100, tooltip:"Sacrifice_a_Chessman_ally");
             DecisionQueueController::AddDecision($player, "CUSTOM", "GoldenGambitActivationCost|" . $reserveCost, 100);
+        }
+    }
+
+    // 1.3 Declaring Costs - Sacrifice Play (1jmQ9XSLph): "sacrifice up to two awake Chessman allies"; it enters the intent with +2 POWER for each ally sacrificed
+    if($obj->CardID === "1jmQ9XSLph" && !$ignoreCost) {
+        $awakeChessman = [];
+        $costField = GetZone("myField");
+        for($fi = 0; $fi < count($costField); ++$fi) {
+            if($costField[$fi]->removed) continue;
+            if(!PropertyContains(EffectiveCardType($costField[$fi]), "ALLY") || !PropertyContains(EffectiveCardSubtypes($costField[$fi]), "CHESSMAN")) continue;
+            if(($costField[$fi]->Status ?? 0) != 2) continue;
+            $awakeChessman[] = "myField-" . $fi;
+        }
+        if(!empty($awakeChessman)) {
+            $hasSacrificePlayCost = true;
+            DecisionQueueController::StoreVariable("sacrificePlayCount", "0");
+            DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . min(2, count($awakeChessman)) . "|" . implode("&", $awakeChessman), 100, tooltip:"Sacrifice_up_to_two_awake_Chessman_allies");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SacrificePlayCost|" . $reserveCost, 100, dontSkipOnPass:1);
         }
     }
 
@@ -3343,7 +3363,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasSacrificePlayCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -3890,7 +3910,7 @@ function TopsyDecreeQueueBanishFromGraveyard($player, $graveyardZone) {
     $targetStr = implode("&", $targets);
     $maxChoices = min(2, count($targets));
     DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . $maxChoices . "|" . $targetStr, 1, tooltip:"Banish_up_to_two_cards_from_the_chosen_graveyard");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeBanish|$player", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeBanish|$player", 1, dontSkipOnPass:1);
 }
 
 function TopsyDecreeContinue($queuePlayer, $actingPlayer) {
@@ -3913,6 +3933,7 @@ $customDQHandlers["TopsyDecreeChooseGraveyard"] = function($player, $parts, $las
 };
 
 $customDQHandlers["TopsyDecreeBanish"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $actingPlayer = count($parts) > 0 ? intval($parts[0]) : $player;
     if($lastDecision !== "-" && $lastDecision !== "PASS" && !empty($lastDecision)) {
         $selected = array_values(array_unique(array_filter(explode("&", $lastDecision), function($value) {
@@ -4719,6 +4740,33 @@ $customDQHandlers["GoldenGambitActivationCost"] = function($player, $parts, $las
 };
 
 /**
+ * DQ handler: Sacrifice Play (1jmQ9XSLph) activation cost: sacrifice the chosen awake Chessman allies (up to two, or none), remember how many for the +2 POWER each when the
+ * card enters the intent, then pay reserve and grant opportunity. Queued with dontSkipOnPass: declining the sacrifice (PASS) still has to pay the card's reserve cost.
+ * Parts: [reserveCost].
+ */
+$customDQHandlers["SacrificePlayCost"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
+    $reserveCost = intval($parts[0] ?? 0);
+    $selected = array_values(array_filter(explode("&", strval($lastDecision)), fn($mz) => $mz !== "" && $mz !== "-" && $mz !== "PASS"));
+    if(count($selected) > 2) $selected = array_slice($selected, 0, 2);
+    usort($selected, fn($a, $b) => intval(substr(strrchr($b, "-"), 1)) <=> intval(substr(strrchr($a, "-"), 1)));
+    $sacrificed = 0;
+    foreach($selected as $mz) {
+        $sacObj = GetZoneObject($mz);
+        if($sacObj === null || $sacObj->removed) continue;
+        DoSacrificeFighter($player, $mz);
+        ++$sacrificed;
+    }
+    DecisionQueueController::CleanupRemovedCards();
+    DecisionQueueController::StoreVariable("sacrificePlayCount", strval($sacrificed));
+    if($sacrificed > 0) DecisionQueueController::StoreVariable("additionalCostPaid", "YES");
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+/**
  * DQ handler: Decompose (3JWk1jxX5u) mandatory activation cost.
  * Sacrifice the chosen ally, store its life stat for resolution, then pay reserve.
  * Parts: [reserveCost].
@@ -5512,6 +5560,7 @@ $customDQHandlers["DichroicScorchDiscard"] = function($player, $parts, $lastDeci
 };
 
 $customDQHandlers["FacetTogetherSacrifice"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $count = intval(DecisionQueueController::GetVariable("FacetTogetherCount"));
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         // Sacrifice chosen Memorite
@@ -5523,7 +5572,7 @@ $customDQHandlers["FacetTogetherSacrifice"] = function($player, $parts, $lastDec
         if(!empty($remaining)) {
             $remStr = implode("&", $remaining);
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $remStr, 1, tooltip:"Sacrifice_another_Memorite?");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "FacetTogetherSacrifice", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "FacetTogetherSacrifice", 1, dontSkipOnPass:1);
             return;
         }
     }
@@ -5891,7 +5940,7 @@ $customDQHandlers["CardActivated"] = function($player, $parts, $lastDecision) {
 };
 
 function OnCardActivated($player, $mzCard) {
-    global $cardActivatedAbilities;
+    global $cardActivatedAbilities, $enterAbilities;
     $obj = GetZoneObject($mzCard);
     $cardType = CardType($obj->CardID);
     $turnPlayer = GetTurnPlayer();
@@ -6119,6 +6168,15 @@ function OnCardActivated($player, $mzCard) {
         // Attack cards resolve and enter the champion's intent zone
         $obj = MZMove($player, $mzCard, "myIntent");
         $obj->Controller = $player;
+        // Sacrifice Play (1jmQ9XSLph): +2 POWER for each ally sacrificed as its additional cost (an Intent object has no counters: the count rides on its TurnEffects, read by the power calculation)
+        if($obj->CardID === "1jmQ9XSLph") {
+            $sacrificedForPlay = intval(DecisionQueueController::GetVariable("sacrificePlayCount"));
+            if($sacrificedForPlay > 0) {
+                if(!is_array($obj->TurnEffects)) $obj->TurnEffects = [];
+                $obj->TurnEffects[] = "SACRIFICE_PLAY_" . $sacrificedForPlay;
+            }
+            DecisionQueueController::ClearVariable("sacrificePlayCount");
+        }
         IncrementAttackCardActivatedCount($player);
         // Defer tagging with the PREPARED TurnEffect (read later by "as long as prepared, it
         // has unblockable"-style ATTACK cards, e.g. Find the Lost/jTBNAEedbg, Strike from the
@@ -6160,13 +6218,17 @@ function OnCardActivated($player, $mzCard) {
         DecisionQueueController::StoreVariable("wasEphemerated", "NO");
     }
     DecisionQueueController::CleanupRemovedCards();
-    if(isset($cardActivatedAbilities[$obj->CardID . ":0"])) {
+    // An Action's effect is sometimes generated as an "On Enter" ability (an Action never enters the field, so nothing would ever run it: Gleaming Smolder,
+    // Facet Together, ...). With no activation ability of its own, the Action's effect is its enter ability.
+    $resolutionAbility = $cardActivatedAbilities[$obj->CardID . ":0"] ?? null;
+    if($resolutionAbility === null && PropertyContains($cardType, "ACTION")) $resolutionAbility = $enterAbilities[$obj->CardID . ":0"] ?? null;
+    if($resolutionAbility !== null) {
         // Spells can't target objects with spellshroud. ~35 generated Spell openers build their target list without FilterSpellshroudTargets(), so
         // the targets they queue are filtered here, once, for every Spell (see GASpellshroudFilterNewDecisions).
         $isSpellCard = PropertyContains(CardSubtypes($obj->CardID), "SPELL");
         $decisionsBefore = [];
         if($isSpellCard) foreach(GetDecisionQueue($player) as $queuedBefore) $decisionsBefore[] = $queuedBefore;
-        $cardActivatedAbilities[$obj->CardID . ":0"]($player);
+        $resolutionAbility($player);
         if($isSpellCard) GASpellshroudFilterNewDecisions($player, $decisionsBefore);
     }
     // Queue the deferred PREPARED tag (see the ATTACK branch above) only now -- AFTER the card's
@@ -13128,11 +13190,11 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
-        case "1jmQ9XSLph": // Sacrifice Play: +2 POWER per ally sacrificed (stored as counter)
+        case "1jmQ9XSLph": // Sacrifice Play: +2 POWER per ally sacrificed (SACRIFICE_PLAY_<n> turn effect, set when it enters the intent)
             {
                 $sacCount = 0;
-                if(is_array($obj->Counters) && isset($obj->Counters['sacPlayCount'])) {
-                    $sacCount = intval($obj->Counters['sacPlayCount']);
+                foreach($obj->TurnEffects ?? [] as $sacEffect) {
+                    if(strpos($sacEffect, "SACRIFICE_PLAY_") === 0) $sacCount += intval(substr($sacEffect, strlen("SACRIFICE_PLAY_")));
                 }
                 $power += $sacCount * 2;
             }

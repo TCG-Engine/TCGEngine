@@ -1,0 +1,26 @@
+{
+    "name": "clarent-reimagined-declined-material-banish-still-materializes",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:34:05+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "kINobk9KQA"
+    ],
+    "notes": "Clarent, Reimagined with the Lorraine Bonus active: during the Materialize Phase the player declines the 'banish Clarent, Sword of Peace and up to one other Sword Regalia to pay memory' offer. The decline used to skip ClarentReimaginedMatCost, so the card was never materialized.",
+    "semanticCoverage": {
+        "testedCards": [
+            "kINobk9KQA"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "materialize-cost"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Clarent, Reimagined's optional-choice continuation (ClarentReimaginedMatCost) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its follow-up never ran: the materialization silently never happened after the player declined the cost-reduction offer. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/MaterializeLogic.php ClarentReimaginedMatCost",
+        "fixCommit": "TBD"
+    }
+}

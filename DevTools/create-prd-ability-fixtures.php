@@ -28200,6 +28200,245 @@ $fixtures['hulao-gate-upkeep-declined-banish-sacrifices-the-domain'] = [
     'actions' => [mrdEnd(1), mrdEnd(2), mrdPass(1)], // player 1's recollection (their second turn) offers the banish: decline it
 ];
 
+// Fiery Swing (ijkyboiopv): "[Class Bonus] On Attack: You may banish up to six fire element cards from your graveyard. For each card banished
+// this way, CARDNAME gets +1 POWER." Banish one fire card, then decline the second prompt: the +1 POWER must still be applied
+// (FierySwingBanish was queued without dontSkipOnPass, so the decline skipped it and the power bonus for the banished card was lost).
+$fixtures['fiery-swing-decline-second-banish-still-applies-power-bonus'] = [
+    'testedCards' => ['ijkyboiopv'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]], // Class Bonus active
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'pk9xycwz9g'], // Cell Handler (fire) -> myGraveyard-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'pk9xycwz9g'], // Cell Handler (fire) -> myGraveyard-1
+        $gaHand('ijkyboiopv'), // Fiery Swing -> myHand-7
+    ],
+    'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdAns(1, '-'), mrdPlay(1, 'myHand-7')], mrdPay(1, 6), [mrdAns(1, 'theirField-0'), mrdAns(1, 'myGraveyard-0'), mrdPass(1)]),
+];
+
+// Cone of Frost (i7sbjy86ep): "[Level 1+] Deal 2 damage to up to one target unit. [Level 3+] Deal 2 damage to up to one target unit." Each level is its own
+// "up to one" effect. At level 3, decline the first target (PASS) and pick one for the second: the damage must land (ConeOfFrostStep was queued without
+// dontSkipOnPass, so declining the first target skipped the whole chain and the level-3 offer never came).
+$fixtures['cone-of-frost-level3-decline-first-target-still-offers-second'] = [
+    'testedCards' => ['i7sbjy86ep'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF'], 'Counters' => ['level' => 3]]], // WATER lineage/element unlock, level 3
+        $gaHand('i7sbjy86ep'), // Cone of Frost -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1), mrdAns(1, 'theirField-0')]), // decline the level-1 target, hit the opposing champion with the level-3 one
+];
+
+// Clarent, Reimagined (kINobk9KQA): "[Lorraine Bonus] While paying for this card's memory cost, you may banish a card named Clarent, Sword of Peace and up
+// to one other Sword Regalia card from your material deck. Each card banished this way pays for 1 of that cost." Decline the banish offer (PASS): the
+// card must still be materialized and its memory cost paid normally (ClarentReimaginedMatCost was queued without dontSkipOnPass, so the decline skipped it
+// and the materialization silently never happened).
+$fixtures['clarent-reimagined-declined-material-banish-still-materializes'] = [
+    'testedCards' => ['kINobk9KQA'],
+    'deck' => "# Material\n1 Spirit of Water\n1 Clarent, Reimagined\n1 Clarent, Sword of Peace\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [$gaWarriorWater], // Lorraine, Wandering Warrior: Lorraine Bonus active
+    'actions' => array_merge($gaMaterializeTurnTwo(), [mrdAns(1, 'myMaterial-0'), mrdPass(1)]), // start materializing Clarent, Reimagined; decline the banish-from-material offer
+];
+
+// Facet Together (XmsEbk19Iu): "Sacrifice any amount of Memorite objects. Target weapon you control gets +X POWER until the end of your next turn, where X is
+// the amount of objects sacrificed this way. Then put X sheen counters on your Fractured Memories." Sacrifice one Memorite, then decline the second offer: the
+// weapon must still get +1 POWER (FacetTogetherSacrifice was queued without dontSkipOnPass, so the decline skipped the handler and the weapon never got its bonus).
+$fixtures['facet-together-decline-second-sacrifice-still-buffs-weapon'] = [
+    'testedCards' => ['XmsEbk19Iu'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn', 'Subcards' => ['pNiyaGlIe7']]], // Lorraine, Wandering Warrior (WARRIOR) + Spirit of Wind lineage: class + WIND element
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'nZFkDcvpaY'], // Memorite Blade (weapon) -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fdnlbJm3hr'], // Memorite Obelith -> myField-2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fdnlbJm3hr'], // Memorite Obelith -> myField-3
+        $gaHand('XmsEbk19Iu'), // Facet Together -> myHand-7
+    ],
+    'actions' => array_merge([mrdEnd(1), mrdPass(1), mrdPass(1), mrdPlay(2, 'myHand-0')], mrdPay(2, 3), [mrdAns(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'myField-2'), mrdPass(1), mrdAns(1, 'myField-1'), mrdAns(2, 'NO')]), // player 2 plays Dungeon Guide, opening a window: player 1 plays Facet Together on the opponent's turn (it resolves first): sacrifices one Memorite, declines the second, targets the Memorite Blade; then player 2 declines Dungeon Guide's On Enter
+];
+
+
+// --- Actions whose effect was generated as an "On Enter" ability. An Action never enters the field, so the effect was never run and activating the card only paid for it and put it into the
+// graveyard. OnCardActivated() now treats an Action's enter ability as its resolution effect when it has no activation ability of its own. One fixture per affected card. ---
+
+// Gleaming Smolder (THjSE7caau): "Draw a card and discard a card."
+$fixtures['gleaming-smolder-draws-then-discards'] = [
+    'testedCards' => ['THjSE7caau'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]], // ASSASSIN class
+        $gaHand('THjSE7caau'), // Gleaming Smolder -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myHand-0')]), // draw a card, discard the first card in hand
+];
+
+// Polishing Flourish (D79VKF2uOg): "Remove all sheen counters from units you control."
+$fixtures['polishing-flourish-removes-sheen-from-your-units'] = [
+    'testedCards' => ['D79VKF2uOg'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'CLERIC']]]], // CLERIC class
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Counters' => ['sheen' => 3]]],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // opposing Dungeon Guide -> theirField-1 (its sheen is not removed)
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Counters' => ['sheen' => 2]]],
+        $gaHand('D79VKF2uOg'), // Polishing Flourish -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2)),
+];
+
+// Crystal Accretion (HDeEE7YPTl): "Put a sheen counter on each unit with a sheen counter on it."
+$fixtures['crystal-accretion-adds-sheen-to-units-with-sheen'] = [
+    'testedCards' => ['HDeEE7YPTl'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF'], 'Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]], // WATER element unlock, ASSASSIN class
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide with sheen -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Counters' => ['sheen' => 1]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep without sheen -> myField-2 (stays without)
+        $gaHand('HDeEE7YPTl'), // Crystal Accretion -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2)),
+];
+
+// Reveal the Hidden (rHccTUUWou): "[Level 1+] Draw a card."
+$fixtures['reveal-the-hidden-level-1-draws-a-card'] = [
+    'testedCards' => ['rHccTUUWou'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'RANGER'], 'level' => 1]]], // RANGER class, level 1
+        $gaHand('rHccTUUWou'), // Reveal the Hidden -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2)),
+];
+
+// Burning Aethercharge (vrK16VZ2zU): "Deal 2 damage to target champion. Then you may load CARDNAME into an Aetherwing weapon you control."
+$fixtures['burning-aethercharge-deals-two-damage-to-target-champion'] = [
+    'testedCards' => ['vrK16VZ2zU'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'RANGER']]]], // RANGER class
+        $gaHand('vrK16VZ2zU'), // Burning Aethercharge -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'theirField-0')]),
+];
+
+// Dichroic Scorch (TlhsnnRhGK): "As an additional cost, discard a fire element card. Remove all sheen counters from all units on the field. Then deal X damage to each unit except for your
+// champion, where X is the amount of counters removed this way."
+$fixtures['dichroic-scorch-removes-sheen-and-deals-that-much-damage'] = [
+    'testedCards' => ['TlhsnnRhGK'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]], // ASSASSIN class
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide with 2 sheen -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Counters' => ['sheen' => 2]]],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], // opposing Fluffy Shopkeep with 1 sheen -> theirField-1 (3 sheen removed in total: X = 3)
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Counters' => ['sheen' => 1]]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'r7oifozaog'], // Baby Red Slime (fire): the additional discard cost -> myHand-7
+        $gaHand('TlhsnnRhGK'), // Dichroic Scorch -> myHand-8
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-8')], [mrdAns(1, 'myHand-7')], mrdPay(1, 3)),
+];
+
+
+// Mirrored Confrontation (zHbIiP3knE): "Each player may reveal a champion card with base level 3 from their material deck. Each player that does draws a card into their memory and recovers 2."
+$fixtures['mirrored-confrontation-reveal-level-3-champion-draws-into-memory-and-recovers'] = [
+    'testedCards' => ['zHbIiP3knE'],
+    'deck' => "# Material\n1 Spirit of Fire\n1 Lorraine, Crux Knight\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 3, 'Counters' => ['_overrides' => ['classes' => 'RANGER']]]], // RANGER class; 3 damage to recover from
+        $gaHand('zHbIiP3knE'), // Mirrored Confrontation -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'YES'), mrdAns(2, 'NO')]), // player 1 reveals their level 3 champion, player 2 does not
+];
+
+// Crystallized Anthem (XfAJlQt9hH): "Prevent the next 2 damage that would be dealt to each unit you control this turn. ..."
+$fixtures['crystallized-anthem-marks-each-unit-you-control'] = [
+    'testedCards' => ['XfAJlQt9hH'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['KqBosnU7pU'], 'Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]], // ASSASSIN class; Spirit of Wind supplies WIND, Mordred, Fated Luminary in the lineage supplies EXALTED
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> myField-1
+        $gaHand('XfAJlQt9hH'), // Crystallized Anthem -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2)),
+];
+
+
+// Veiled Gambit (hxdfyA0eP1): "As an additional cost to activate this card, sacrifice a Chessman ally. Prevent the next 4 damage that would be dealt to your champion and up to one other target unit until end of turn."
+$fixtures['veiled-gambit-sacrifices-a-chessman-and-shields-the-champion'] = [
+    'testedCards' => ['hxdfyA0eP1'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'CLERIC']]]], // CLERIC class
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Rpr6yCQKU6'], // Pawn Piece (CHESSMAN ally) -> myField-1
+        $gaHand('hxdfyA0eP1'), // Veiled Gambit -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7'), mrdAns(1, 'myField-1')], mrdPay(1, 1), [mrdAns(1, 'theirField-0')]), // sacrifice the Pawn Piece as the additional cost, pay 1, shield the opposing champion as the optional second target
+];
+
+
+// Freezing Gambit (fgBpQZe0js): "As an additional cost to activate this card, sacrifice a Chessman ally. Choose one or both-- Negate target card activation unless its controller pays (2); Target unit's attacks get -3 POWER until end of turn."
+$fixtures['freezing-gambit-sacrifices-a-chessman-and-debuffs-the-target'] = [
+    'testedCards' => ['fgBpQZe0js'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'CLERIC']]]], // CLERIC class
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Rpr6yCQKU6'], // Pawn Piece (CHESSMAN ally) -> myField-1
+        $gaHand('fgBpQZe0js'), // Freezing Gambit -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7'), mrdAns(1, 'myField-1')], mrdPay(1, 2), [mrdAns(1, 'theirField-0')]), // sacrifice the Pawn Piece as the additional cost, pay 2, give the opposing champion's attacks -3 POWER
+];
+
+// Enthralling Visage (ycwz9gv4vm): "The next time damage would be dealt to target unit this turn, prevent 2 of that damage. When damage is prevented this way, banish target card in a graveyard."
+$fixtures['enthralling-visage-shields-the-target-unit'] = [
+    'testedCards' => ['ycwz9gv4vm'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]], // GUARDIAN class
+        $gaHand('ycwz9gv4vm'), // Enthralling Visage -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myField-0'), mrdAns(1, 'myGraveyard-0')]), // shield your own champion; the only graveyard card (Enthralling Visage itself) is the card banished when the damage is prevented
+];
+
+
+// Salamander's Breath (mob9nu6lal): "[Diana Bonus] On Attack: You may banish up to X fire element cards from your graveyard where X is the amount of Aethercharge cards in the attacker's intent. This attack gets +1 POWER for each card banished this way."
+// Banish one fire card, then decline the second offer: the +1 POWER must still be applied (SalamandersBanish was queued without dontSkipOnPass, so the decline skipped the handler and the bonus was lost).
+$fixtures['salamanders-breath-decline-second-banish-still-applies-power'] = [
+    'testedCards' => ['mob9nu6lal'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    // Player 2 attacks on their first turn (nobody can attack on turn 1) with Salamander's Breath loaded with two Aethercharge cards, which go to the intent when it attacks (X = 2).
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['m7f6r8f3y8'], 'Counters' => ['_overrides' => ['classes' => 'RANGER']]]], // Diana, Aether Dilettante in the lineage: Diana Bonus; RANGER class so the RANGER weapon can be used
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'mob9nu6lal'], // Salamander's Breath -> myField-1
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Subcards' => ['7l9th23niu', '7l9th23niu'], 'Counters' => ['durability' => 3]]], // loaded with two Aetheric Calibration (Aethercharge)
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], // Baby Red Slime (fire) -> myGraveyard-0
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], // Baby Red Slime (fire) -> myGraveyard-1
+    ],
+    'actions' => [mrdEnd(1), mrdPlay(2, 'myField-0'), mrdAns(2, 'myField-1'), mrdAns(2, 'theirField-0'), mrdAns(2, 'myGraveyard-0'), mrdPass(2)],
+];
+
+
+// Sacrifice Play (1jmQ9XSLph): "As an additional cost to activate this card, sacrifice up to two awake Chessman allies. Command Chessman. CARDNAME enters the intent with +2 POWER for each ally sacrificed this way."
+// The additional cost was never implemented (its handlers were never queued), so no ally was ever sacrificed and the power bonus never applied.
+$gaSacrificePlaySetup = [
+    ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'WARRIOR']]]], // WARRIOR class
+    ['player' => 1, 'zone' => 'myField', 'cardID' => 'Rpr6yCQKU6'], // Pawn Piece (CHESSMAN ally) -> myField-1
+    ['player' => 1, 'zone' => 'myField', 'cardID' => 'Rpr6yCQKU6'], // Pawn Piece (CHESSMAN ally) -> myField-2
+    ['player' => 1, 'zone' => 'myField', 'cardID' => 'Rpr6yCQKU6'], // Pawn Piece (CHESSMAN ally) -> myField-3 (the Command needs an ally left to attack with)
+    $gaHand('1jmQ9XSLph'), // Sacrifice Play -> myHand-7
+];
+$fixtures['sacrifice-play-sacrificing-two-chessman-allies-gives-plus-four-power'] = [
+    'testedCards' => ['1jmQ9XSLph'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaSacrificePlaySetup,
+    'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdAns(1, '-'), mrdPlay(1, 'myHand-7'), mrdAns(1, 'myField-1&myField-2')], mrdPay(1, 3), [mrdAns(1, 'myField-1'), mrdAns(1, 'theirField-0')]), // sacrifice two Pawn Pieces, pay 3, the last Pawn Piece is the commanded attacker
+];
+$fixtures['sacrifice-play-declined-sacrifice-still-pays-reserve-for-base-power'] = [
+    'testedCards' => ['1jmQ9XSLph'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaSacrificePlaySetup,
+    'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdAns(1, '-'), mrdPlay(1, 'myHand-7'), mrdPass(1)], mrdPay(1, 3), [mrdAns(1, 'myField-1'), mrdAns(1, 'theirField-0')]), // decline the sacrifice, pay 3, the first Pawn Piece is the commanded attacker
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

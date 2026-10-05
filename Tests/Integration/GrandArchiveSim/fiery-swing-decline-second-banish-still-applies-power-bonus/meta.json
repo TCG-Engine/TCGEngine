@@ -1,0 +1,27 @@
+{
+    "name": "fiery-swing-decline-second-banish-still-applies-power-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:30:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ijkyboiopv"
+    ],
+    "notes": "Fiery Swing: [Class Bonus] On Attack, banish one fire card from the graveyard then decline the second offer. The decline used to skip FierySwingBanish, so the +1 POWER for the card already banished was never applied (7 damage became 6).",
+    "semanticCoverage": {
+        "testedCards": [
+            "ijkyboiopv"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "class-bonus",
+            "on-attack"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Fiery Swing's optional-choice continuation (FierySwingBanish) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its \"if you don't\" branch never ran: the +1 POWER for the already banished card was lost. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/CardDQHandlers.php FierySwingBanish",
+        "fixCommit": "TBD"
+    }
+}

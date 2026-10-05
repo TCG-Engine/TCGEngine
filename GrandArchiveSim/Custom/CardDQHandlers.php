@@ -3251,6 +3251,8 @@ $customDQHandlers["ConeOfFrostStep"] = function($player, $parts, $lastDecision) 
     $step = intval($parts[0]);
     $sourceMZ = $parts[1];
     $level = PlayerLevel($player);
+    // Each level's "up to one target" is its own effect: declining one still lets the higher levels run
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
 
     if($step == 1) {
         // Step 1: present first target choice (Level 1+)
@@ -3262,7 +3264,7 @@ $customDQHandlers["ConeOfFrostStep"] = function($player, $parts, $lastDecision) 
         if(!empty($targets)) {
             $tStr = implode("&", $targets);
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $tStr, 1, "Deal_2_damage_to_target_(Cone_of_Frost_1)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|2|" . $sourceMZ, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|2|" . $sourceMZ, 1, dontSkipOnPass:1);
         }
     } elseif($step == 2) {
         // Process first target choice
@@ -3279,7 +3281,7 @@ $customDQHandlers["ConeOfFrostStep"] = function($player, $parts, $lastDecision) 
             if(!empty($targets)) {
                 $tStr = implode("&", $targets);
                 DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $tStr, 1, "Deal_2_damage_to_target_(Cone_of_Frost_2)");
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|3|" . $sourceMZ, 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|3|" . $sourceMZ, 1, dontSkipOnPass:1);
             }
         }
     } elseif($step == 3) {
@@ -3297,7 +3299,7 @@ $customDQHandlers["ConeOfFrostStep"] = function($player, $parts, $lastDecision) 
             if(!empty($targets)) {
                 $tStr = implode("&", $targets);
                 DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $tStr, 1, "Deal_2_damage_to_target_(Cone_of_Frost_3)");
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|4|" . $sourceMZ, 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|4|" . $sourceMZ, 1, dontSkipOnPass:1);
             }
         }
     } elseif($step == 4) {
@@ -3314,6 +3316,10 @@ $customDQHandlers["FierySwingBanish"] = function($player, $parts, $lastDecision)
     $sourceMZ = $parts[0];
     $count = intval($parts[1]);
 
+    // Declining a further banish ("up to six") ends the loop; the bonus for what was already banished must still be applied
+    $declined = ($lastDecision === "PASS");
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
+
     // Process previous choice
     if($lastDecision !== "-" && $lastDecision !== "") {
         MZMove($player, $lastDecision, "myBanish");
@@ -3321,12 +3327,12 @@ $customDQHandlers["FierySwingBanish"] = function($player, $parts, $lastDecision)
     }
 
     // Check if we can banish more (max 6)
-    if($count < 6) {
+    if($count < 6 && !$declined) {
         $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
         if(!empty($fireGY)) {
             $fireStr = implode("&", $fireGY);
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $fireStr, 1, "Banish_fire_card_from_GY?_(" . $count . "/6_banished)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "FierySwingBanish|" . $sourceMZ . "|" . $count, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "FierySwingBanish|" . $sourceMZ . "|" . $count, 1, dontSkipOnPass:1);
             return;
         }
     }
@@ -6378,10 +6384,11 @@ function SalamandersBreathBanishLoop($player, $maxBanish, $banishedSoFar) {
     DecisionQueueController::StoreVariable("SB_banished", strval($banishedSoFar));
     $fireStr = implode("&", $fireGY);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $fireStr, 1, tooltip:"Banish_fire_card_for_+1_power");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SalamandersBanish", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SalamandersBanish", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["SalamandersBanish"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $maxRemaining = intval(DecisionQueueController::GetVariable("SB_maxRemaining"));
     $banished = intval(DecisionQueueController::GetVariable("SB_banished"));
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
@@ -7771,44 +7778,6 @@ $customDQHandlers["ChessmanSacrifice"] = function($player, $parts, $lastDecision
     DecisionQueueController::StoreVariable("chessmanSacrificeWasQueen", $isQueen ? "YES" : "NO");
     DoSacrificeFighter($player, $lastDecision);
     DecisionQueueController::CleanupRemovedCards();
-};
-
-// SacrificePlayCost1: first sacrifice for Sacrifice Play (1jmQ9XSLph).
-$customDQHandlers["SacrificePlayCost1"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
-        DecisionQueueController::StoreVariable("sacrificePlayCount", "0");
-        return;
-    }
-    DoSacrificeFighter($player, $lastDecision);
-    DecisionQueueController::CleanupRemovedCards();
-    // Offer second sacrifice
-    $awakeChessman = [];
-    $myField = GetZone("myField");
-    for($fi = 0; $fi < count($myField); ++$fi) {
-        if(!$myField[$fi]->removed && PropertyContains(EffectiveCardType($myField[$fi]), "ALLY")
-           && PropertyContains(EffectiveCardSubtypes($myField[$fi]), "CHESSMAN")
-           && isset($myField[$fi]->Status) && $myField[$fi]->Status == 2) {
-            $awakeChessman[] = "myField-" . $fi;
-        }
-    }
-    if(!empty($awakeChessman)) {
-        $sacStr = implode("&", $awakeChessman);
-        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $sacStr, 100, tooltip:"Sacrifice_a_second_awake_Chessman_ally?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "SacrificePlayCost2", 100);
-    } else {
-        DecisionQueueController::StoreVariable("sacrificePlayCount", "1");
-    }
-};
-
-// SacrificePlayCost2: second sacrifice for Sacrifice Play.
-$customDQHandlers["SacrificePlayCost2"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
-        DecisionQueueController::StoreVariable("sacrificePlayCount", "1");
-        return;
-    }
-    DoSacrificeFighter($player, $lastDecision);
-    DecisionQueueController::CleanupRemovedCards();
-    DecisionQueueController::StoreVariable("sacrificePlayCount", "2");
 };
 
 // BriarSpindleWakeup: wake each Chessman ally you control (ability 0 effect).

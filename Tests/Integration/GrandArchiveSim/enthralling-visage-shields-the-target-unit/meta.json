@@ -1,0 +1,26 @@
+{
+    "name": "enthralling-visage-shields-the-target-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:44:34+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ycwz9gv4vm"
+    ],
+    "notes": "Enthralling Visage: shield your champion and choose the graveyard card to banish when the damage is prevented. The effect used to never run, and once running the shield tag lost the graveyard card's owner (graveyard objects have no Owner), so nothing would have been banished.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ycwz9gv4vm"
+        ],
+        "mechanics": [
+            "actions-resolve-generated-enter-effect",
+            "graveyard-owner"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Enthralling Visage's effect was generated as an $enterAbilities entry, but it is an Action that never enters the field, so activating it only paid its cost and sent it to the graveyard: the effect never ran. Fix: OnCardActivated() runs an Action's enter ability as its resolution effect when the card has no activation ability of its own. The generated second step also tagged the unit with the graveyard card's Owner property, which is blank for graveyard objects; the owner now comes from the zone it was chosen in (GeneratedAbilityOverrides.php).",
+        "affectedFunction": "Custom/GameLogic.php OnCardActivated; Custom/GeneratedAbilityOverrides.php customDQHandlers[ycwz9gv4vm:0:Enter-2]",
+        "fixCommit": "TBD"
+    }
+}

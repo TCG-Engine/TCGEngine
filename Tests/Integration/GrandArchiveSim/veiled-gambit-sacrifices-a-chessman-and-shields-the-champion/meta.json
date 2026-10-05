@@ -1,0 +1,26 @@
+{
+    "name": "veiled-gambit-sacrifices-a-chessman-and-shields-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:43:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "hxdfyA0eP1"
+    ],
+    "notes": "Veiled Gambit: sacrifice the Pawn Piece (additional cost), pay 1, shield your champion and the opposing champion. The effect used to never run and the Chessman was never sacrificed. Its additional cost (sacrifice a Chessman ally) was also never paid: the play prereq only checked that a Chessman ally existed. The cost is now declared with Golden Gambit's in DoActivateCard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "hxdfyA0eP1"
+        ],
+        "mechanics": [
+            "actions-resolve-generated-enter-effect",
+            "additional-cost-sacrifice"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Veiled Gambit's effect was generated as an $enterAbilities entry, but it is an Action that never enters the field, so activating it only paid its cost and sent it to the graveyard: the effect never ran. Fix: OnCardActivated() runs an Action's enter ability as its resolution effect when the card has no activation ability of its own. Its additional cost (sacrifice a Chessman ally) was also never paid: the play prereq only checked that a Chessman ally existed. The cost is now declared with Golden Gambit's in DoActivateCard.",
+        "affectedFunction": "Custom/GameLogic.php OnCardActivated; Custom/GameLogic.php DoActivateCard Chessman-sacrifice cost",
+        "fixCommit": "TBD"
+    }
+}

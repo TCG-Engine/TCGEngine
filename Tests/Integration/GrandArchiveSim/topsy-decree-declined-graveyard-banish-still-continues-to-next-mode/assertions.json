@@ -1,0 +1,26 @@
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"SPELLSHROUD\"]",
+        "semantic": true,
+        "label": "The champion still gains spellshroud (the next chosen mode) after the graveyard banish was declined"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Nothing was banished from the graveyard"
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

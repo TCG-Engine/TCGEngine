@@ -1,0 +1,25 @@
+{
+    "name": "mirrored-confrontation-reveal-level-3-champion-draws-into-memory-and-recovers",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:42:20+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "zHbIiP3knE"
+    ],
+    "notes": "Mirrored Confrontation: player 1 reveals their level 3 champion (Lorraine, Crux Knight) and draws a card into memory and recovers 2; player 2 declines. The effect used to never run.",
+    "semanticCoverage": {
+        "testedCards": [
+            "zHbIiP3knE"
+        ],
+        "mechanics": [
+            "actions-resolve-generated-enter-effect"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Mirrored Confrontation's effect was generated as an $enterAbilities entry, but it is an Action that never enters the field, so activating it only paid its cost and sent it to the graveyard: the effect never ran. Fix: OnCardActivated() runs an Action's enter ability as its resolution effect when the card has no activation ability of its own.",
+        "affectedFunction": "Custom/GameLogic.php OnCardActivated",
+        "fixCommit": "TBD"
+    }
+}

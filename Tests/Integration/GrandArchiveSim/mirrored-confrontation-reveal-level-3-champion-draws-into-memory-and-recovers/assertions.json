@@ -1,0 +1,35 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "Player 1 recovered 2 of the 3 damage on their champion"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Two paid reserve cards plus the card drawn into memory"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 12,
+        "semantic": true,
+        "label": "One card was drawn into memory"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

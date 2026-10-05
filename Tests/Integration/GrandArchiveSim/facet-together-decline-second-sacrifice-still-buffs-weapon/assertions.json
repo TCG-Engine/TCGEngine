@@ -1,0 +1,26 @@
+[
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"nZFkDcvpaY\",\"FACET_POWER_1\"]",
+        "semantic": true,
+        "label": "The weapon got +1 POWER for the one Memorite sacrificed, even though the second sacrifice was declined"
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Champion, the weapon and one Memorite remain: exactly one Memorite object was sacrificed"
+    },
+    {
+        "step": 13,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

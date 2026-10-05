@@ -1,0 +1,25 @@
+{
+    "name": "gleaming-smolder-draws-then-discards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:39:23+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "THjSE7caau"
+    ],
+    "notes": "Gleaming Smolder: the effect 'Draw a card and discard a card' used to never run (the card only paid its cost). It now draws one card and prompts for the discard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "THjSE7caau"
+        ],
+        "mechanics": [
+            "actions-resolve-generated-enter-effect"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Gleaming Smolder's effect was generated as an $enterAbilities entry, but it is an Action that never enters the field, so activating it only paid its cost and sent it to the graveyard: the effect never ran. Fix: OnCardActivated() runs an Action's enter ability as its resolution effect when the card has no activation ability of its own.",
+        "affectedFunction": "Custom/GameLogic.php OnCardActivated",
+        "fixCommit": "TBD"
+    }
+}

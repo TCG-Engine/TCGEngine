@@ -1,0 +1,26 @@
+{
+    "name": "sacrifice-play-sacrificing-two-chessman-allies-gives-plus-four-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:49:11+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "1jmQ9XSLph"
+    ],
+    "notes": "Sacrifice Play: sacrifice two awake Pawn Pieces as the additional cost, pay 3, command with the last Pawn Piece. The additional cost used to be skipped entirely: no ally was sacrificed and the attack dealt only its base 2.",
+    "semanticCoverage": {
+        "testedCards": [
+            "1jmQ9XSLph"
+        ],
+        "mechanics": [
+            "additional-cost-sacrifice",
+            "command-chessman"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Sacrifice Play's additional cost (sacrifice up to two awake Chessman allies, +2 POWER each when it enters the intent) was never implemented: its SacrificePlayCost1/2 handlers were never queued and the power code read a counter nothing wrote (an Intent object has no counters), so no ally was sacrificed and no bonus applied. Fix: DoActivateCard declares the cost (one up-to-two multi-choose, SacrificePlayCost sacrifices them, queued with dontSkipOnPass so a declined sacrifice still pays the reserve cost); the count rides on the intent card's SACRIFICE_PLAY_<n> turn effect.",
+        "affectedFunction": "Custom/GameLogic.php DoActivateCard / SacrificePlayCost / OnCardActivated",
+        "fixCommit": "TBD"
+    }
+}

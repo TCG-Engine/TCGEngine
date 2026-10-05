@@ -1,0 +1,25 @@
+{
+    "name": "burning-aethercharge-deals-two-damage-to-target-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:39:29+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "vrK16VZ2zU"
+    ],
+    "notes": "Burning Aethercharge: 'Deal 2 damage to target champion' used to never run (no target prompt, no damage).",
+    "semanticCoverage": {
+        "testedCards": [
+            "vrK16VZ2zU"
+        ],
+        "mechanics": [
+            "actions-resolve-generated-enter-effect"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Burning Aethercharge's effect was generated as an $enterAbilities entry, but it is an Action that never enters the field, so activating it only paid its cost and sent it to the graveyard: the effect never ran. Fix: OnCardActivated() runs an Action's enter ability as its resolution effect when the card has no activation ability of its own.",
+        "affectedFunction": "Custom/GameLogic.php OnCardActivated",
+        "fixCommit": "TBD"
+    }
+}

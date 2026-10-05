@@ -1,0 +1,26 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The Pawn Piece was sacrificed as the additional cost: only the champion is left"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 2,
+        "property": "TurnEffects",
+        "value": "[\"fgBpQZe0js-debuff\"]",
+        "semantic": true,
+        "label": "The targeted opposing champion's attacks get -3 POWER"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

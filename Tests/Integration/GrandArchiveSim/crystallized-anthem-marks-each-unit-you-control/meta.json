@@ -1,0 +1,25 @@
+{
+    "name": "crystallized-anthem-marks-each-unit-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:42:32+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "XfAJlQt9hH"
+    ],
+    "notes": "Crystallized Anthem: the damage-prevention shield on each unit you control used to never be applied (the effect never ran).",
+    "semanticCoverage": {
+        "testedCards": [
+            "XfAJlQt9hH"
+        ],
+        "mechanics": [
+            "actions-resolve-generated-enter-effect"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Crystallized Anthem's effect was generated as an $enterAbilities entry, but it is an Action that never enters the field, so activating it only paid its cost and sent it to the graveyard: the effect never ran. Fix: OnCardActivated() runs an Action's enter ability as its resolution effect when the card has no activation ability of its own.",
+        "affectedFunction": "Custom/GameLogic.php OnCardActivated",
+        "fixCommit": "TBD"
+    }
+}
