@@ -21,6 +21,7 @@
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/BotHeuristic.php';
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // isolates this file's feature from curve value (p38, 2026-10-06)
 
 const HSD = 'SEC_078';   // Hyperspace Disaster, 7 — "Defeat all space units."
 const SRI = 'LAW_044';   // Single Reactor Ignition, 8 — "Defeat all units."

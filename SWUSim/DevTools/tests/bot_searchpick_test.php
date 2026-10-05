@@ -57,7 +57,10 @@ $pick = $pickOf($l, '');
 $check(count($pick) === 4, 'B: four ships for 5; got ' . json_encode($pick));
 // C) Mando's N-1 Starfighter (unique) already in play: the pick never takes another copy (it would be defeated at once).
 $l = $toSearch(['ASH_203']);
-$pickOff = $pickOf($l, 'no-searchpick'); $pickOn = $pickOf($l, '');
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // the pre-searchpick baseline, isolated from curve value (p38, 2026-10-06)
+$pickOff = $pickOf($l, 'no-searchpick');
+unset($GLOBALS['SWUBotPinnedDisabled']);
+$pickOn = $pickOf($l, '');
 $check(!in_array('ASH_203', $pickOn, true), 'C: no second N-1 Starfighter; got ' . json_encode($pickOn));
 $check(in_array('ASH_203', $pickOff, true), 'C fixture: today the scorer takes it; got ' . json_encode($pickOff));
 // D) …nor two copies of a unique in one pick (none in play).

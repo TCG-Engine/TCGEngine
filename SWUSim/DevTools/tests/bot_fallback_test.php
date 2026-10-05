@@ -121,6 +121,13 @@ $check($choose('normal') === 'EffectStack-0', 'Tyranus: no kill-survive Ambush �
 // broken by index — compare the two candidates' scores directly.
 $c = $botCtx('normal');
 $check(SWUBotScoreAction($c, $c['actions'][1], 1) < SWUBotScoreAction($c, $c['actions'][0], 0), 'an Ambush trigger scores below a buff trigger');
+// HMW_216 Insurgent Camp readies the unit just played. The Ambush readies it anyway, so a Camp resolved first is
+// spent for nothing: the Camp waits for that unit's Ambush (then readies it after the attack).
+$build(function ($b) { $b->FillResourcesForPlayer(1, 'SOR_095', 8); $b->WithUpgradeOnBaseForPlayer(1, 'HMW_216'); $b->WithCardInHandForPlayer(1, 'LOF_208'); $b->WithGroundUnitForPlayer(2, 'SEC_028', true); });
+$act(1, 10002, 'myHand-0!FSM!');
+$types = array_map(fn($a) => strval(GetEffectStack()[intval(substr($a['cardID'], strlen('EffectStack-')))]->TriggerType), $botCtx('normal')['actions']);
+$check($botCtx('normal')['tooltip'] === 'Choose_trigger_to_resolve' && $types === ['Ambush', 'HMW_216'], 'fixture: Ambush listed before Insurgent Camp');
+$check($choose('normal') === 'EffectStack-0', 'Insurgent Camp: the Ambush goes first, so the Camp readies the unit after its attack');
 
 // ── Free play ────────────────────────────────────────────────────────────────────────────────────
 // The attack (Marine into a 4/4) now also hits the base — it is no longer a pure losing trade. The leader is

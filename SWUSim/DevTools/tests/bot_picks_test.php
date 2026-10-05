@@ -27,7 +27,10 @@ $check($stack('normal', 1, 'no-picks')[0] === 'myGroundArena-0', '@no-picks: the
 // Searches rank by play value; more good cards beat fewer.
 $build(function ($b) { $b->MyLeader('SOR_014', false); });
 $W = SWUBotWeights('normal', 1);
-$check(_SWUBotSearchScore(1, 'SOR_046', $W) > _SWUBotSearchScore(1, 'SOR_095', $W), 'search: the 4-cost beats the 2-cost');
+// On-aspect pair (owner, 2026-10-06): with curve value (p38) an OFF-aspect 4-drop must earn its penalty, so the "bigger card
+// ranks higher" check uses two cards this seat plays at printed cost — Captain Typho (4, Command/Heroism) vs the Marine (2).
+$check(CardAspect('SEC_098') === CardAspect('SOR_095') && SWUAspectPenalty(1, 'SEC_098') === 0, 'premise: Captain Typho is on-aspect like the Marine');
+$check(_SWUBotSearchScore(1, 'SEC_098', $W) > _SWUBotSearchScore(1, 'SOR_095', $W), 'search: the 4-cost beats the 2-cost');
 $check(_SWUBotSearchScore(1, 'SOR_046,SOR_095', $W) > _SWUBotSearchScore(1, 'SOR_046', $W) && _SWUBotSearchScore(1, '', $W) === 0.0, 'search: two cards beat one; none is 0');
 
 // A second copy of a unique unit I control (the uniqueness rule defeats one) is worth less.

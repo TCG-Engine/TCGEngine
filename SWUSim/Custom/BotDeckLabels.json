@@ -1,5 +1,5 @@
 {
-    "generated": "2026-10-04",
+    "generated": "2026-10-06",
     "groups": [
         {
             "id": "ash-meta-2026-09",
@@ -967,6 +967,38 @@
                 "SEC_179": 1
             },
             "total": 50
+        },
+        {
+            "key": "force-fam-HMW-predictions--darth-vader_hmw_yellow",
+            "group": "force-fam-HMW-predictions",
+            "file": "darth-vader_hmw_yellow",
+            "name": "Darth Vader (HMW) Yellow By Ninin",
+            "author": "Ninin",
+            "leader": "HMW_007",
+            "base": "HMW_032",
+            "style": "softaggro",
+            "cards": {
+                "SEC_080": 3,
+                "ASH_191": 3,
+                "ASH_190": 2,
+                "SEC_187": 3,
+                "ASH_097": 3,
+                "LOF_084": 3,
+                "ASH_192": 3,
+                "ASH_220": 3,
+                "LOF_183": 3,
+                "JTL_221": 3,
+                "ASH_194": 3,
+                "ASH_222": 3,
+                "HMW_202": 3,
+                "LOF_091": 2,
+                "LOF_182": 3,
+                "HMW_203": 2,
+                "SEC_087": 2,
+                "JTL_112": 2,
+                "JTL_124": 2
+            },
+            "total": 51
         },
         {
             "key": "force-fam-HMW-predictions--director-krennic_law_blue-splash",

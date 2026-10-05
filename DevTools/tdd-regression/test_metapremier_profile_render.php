@@ -27,7 +27,7 @@ try {
     check('pane + heading', strpos($html, "class='metaPremierRating") !== false && strpos($html, '<h2>Meta Premier</h2>') !== false);
     check('no matches yet message', strpos($html, 'No rated matches yet') !== false, $html);
     check('Best of 3 row shown', strpos($html, 'Best of 3') !== false);
-    check('bo1 row hidden while switched off', strpos($html, 'Best of 1') === false);
+    check('Best of 1 row shown (both ladders, owner 2026-10-05)', strpos($html, 'Best of 1') !== false);
     $conn->query("INSERT INTO glicko_ratings (userId, format, queueType, season, rating, rd, volatility, games, wins, losses, updatedAt)
                   VALUES (" . U . ",'metapremier','bo3',1,1612.4,200,0.06,5,3,2,UNIX_TIMESTAMP())");
     $html = RenderMetaPremierRating(U, $conn);

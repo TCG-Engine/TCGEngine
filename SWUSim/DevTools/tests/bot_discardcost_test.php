@@ -99,14 +99,16 @@ $check($lootPick('') === 'myHand-1', 'A4: the loot is still taken, paying with t
 // B) HEROPITCH: Anakin in hand and no Heroism card in my discard → the off-aspect Heroism card (Ki-Adi-Mundi) is pitched
 // before even the cheapest filler, because in the discard it switches on Anakin's Heroism clause.
 $boardB = $vader(['ASH_052', 'LOF_059', 'LOF_146', 'LOF_070']);
-$check($discardPick($boardB, 'no-heropitch') === 'myHand-1', 'B fixture: without heropitch the filler goes; got ' . $discardPick($boardB, 'no-heropitch'));
+// Owner, 2026-10-06 (curve value, p38): "Ki-Adi goes (curve is right)" — an off-aspect 4-drop that plays at 6 is worth less
+// to keep than an on-curve 2/2, so Ki-Adi-Mundi goes even WITHOUT heropitch (B), and when nothing is gained by pitching (B2, B3).
+$check($discardPick($boardB, 'no-heropitch') === 'myHand-2', 'B fixture: without heropitch, curve value already pitches the off-aspect Ki-Adi; got ' . $discardPick($boardB, 'no-heropitch'));
 $check($discardPick($boardB, '') === 'myHand-2', 'B: the off-aspect Heroism Ki-Adi-Mundi is pitched for Anakin; got ' . $discardPick($boardB, ''));
 // B2) A Heroism card is already in the discard: Anakin's clause is on — nothing more to gain, the filler goes.
 $boardB2 = $vader(['ASH_052', 'LOF_059', 'LOF_146', 'LOF_070'], 0, fn($b) => $b->WithCardInDiscardForPlayer(1, 'SEC_157'));
-$check($discardPick($boardB2, '') === 'myHand-1', 'B2: a Heroism card already in the discard — the filler goes; got ' . $discardPick($boardB2, ''));
+$check($discardPick($boardB2, '') === 'myHand-2', 'B2: a Heroism card already in the discard — Ki-Adi goes (curve value, owner 2026-10-06); got ' . $discardPick($boardB2, ''));
 // B3) No Anakin anywhere (hand or deck): the Heroism card is just a card.
 $boardB3 = $vader(['ASH_052', 'LOF_059', 'LOF_146']);
-$check($discardPick($boardB3, '') === 'myHand-1', 'B3: no Anakin — the filler goes; got ' . $discardPick($boardB3, ''));
+$check($discardPick($boardB3, '') === 'myHand-2', 'B3: no Anakin — Ki-Adi goes (curve value, owner 2026-10-06); got ' . $discardPick($boardB3, ''));
 // B4) Anakin still in the DECK counts: it is the card the pitch is for.
 $boardB4 = $vader(['ASH_052', 'LOF_059', 'LOF_146'], 0, fn($b) => $b->WithCardInDeckForPlayer(1, 'LOF_070'));
 $check($discardPick($boardB4, '') === 'myHand-2', 'B4: Anakin in the deck — the Heroism card is pitched; got ' . $discardPick($boardB4, ''));

@@ -234,6 +234,12 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         }
         // `$budget > 0` states the intent; the sum test alone already refuses every Plot card (all cost ≥ 1).
         if ($budget > 0 && HasKeyword_Plot($c) && $plotInResources + $cost <= $budget) $keep = -1000.0 + $cost;
+        // FEATURE 'curveresource' (p38; spec 2026-10-05-swusim-curve-value-design.md §4.2): the curve surplus breaks ties in the
+        // keep score — the more under-curve of two similar cards goes first. Control's tiers sort first (below), so this only
+        // orders cards WITHIN a tier there. An unpriced card adds 0.
+        if (SWUBotFeatureOn('curveresource')) {   // feature p38
+            $keep += SWU_BOT_CURVE_RESOURCE_KEEP * (SWUBotCurveSurplus($seat, $cid, SWUBotHorizon(strval($ctx['style']), $seat)) ?? 0.0);
+        }
         $ranked[] = [$keep, $i];
     }
     // PROPOSAL 'resourcing2' — the owner's resourcing rulings as ORDERED TIERS for the control wing. Tiers come first,
@@ -416,9 +422,11 @@ const SWU_BOT_ENGINE_KEEPS = ['ASH_052'];   // Chimaera — A Frightening Realit
 // all of their lists. The bot cannot see an opponent's label in live play; its leader is the best proxy. Leaders that
 // also head midrange/control lists (Luke JTL_012, Piett, Maul, Talzin…) are left out: a slow matchup is the exception
 // the owner's ruling makes ("resource high-cost early unless you can ramp or the matchup is slow").
-const SWU_BOT_AGGRO_LEADERS = ['ASH_009', 'ASH_013', 'ASH_017', 'JTL_004', 'JTL_006', 'JTL_008', 'JTL_009', 'JTL_011',
-                               'JTL_013', 'JTL_015', 'LAW_002', 'LAW_010', 'LAW_013', 'LAW_016', 'LOF_010', 'SEC_006',
-                               'SEC_014'];
+// HMW_007 Darth Vader (Might of the Empire) added by the owner 2026-10-05 — Raid 1 to every 3+ cost friendly unit;
+// Ninin's Force Fam list is soft aggro.
+const SWU_BOT_AGGRO_LEADERS = ['ASH_009', 'ASH_013', 'ASH_017', 'HMW_007', 'JTL_004', 'JTL_006', 'JTL_008', 'JTL_009',
+                               'JTL_011', 'JTL_013', 'JTL_015', 'LAW_002', 'LAW_010', 'LAW_013', 'LAW_016', 'LOF_010',
+                               'SEC_006', 'SEC_014'];
 
 function SWUBotOpponentIsAggroLeader(int $seat): bool {
     foreach (SWUBotOpponents($seat) as $o) {   // any live enemy (3-4 seats)
@@ -468,6 +476,14 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
         // they go last, the priciest first if one must go.
         if ($capitalDeck && str_contains(strval(CardTrait($cid) ?? ''), 'Capital Ship')) { $out[$i] = [8, -1.0 * $cost]; continue; }
         if (($inHand[$cid] ?? 0) >= 2 && $i !== $firstIdx[$cid]) { $out[$i] = [0, 0.0]; continue; }
+        // Feature 'wipekeepaggro' (p37): a relevant WIPE is kept against aggro — owner (Krennic Splash, 2026-10-06): resource "late
+        // bombs vs aggro, never the wipes". Below, a 7+ card only "fit the matchup" with 3+ enemy units, so the wipe being saved for
+        // the flip turn looked like a dead 7-drop: SRI was resourced 19 times in 20 traced games vs Ahsoka Blue. (A spare duplicate
+        // has already gone to tier 0 above.) Only an UNBOUNDED wipe (Single Reactor Ignition, Hyperspace Disaster — what the owner keeps
+        // per matchup); a bounded one ("…with a total of N or less remaining HP", Pre Vizsla) is left to the rules below — the owner's
+        // Q2 ruling resources Pre Vizsla against Vader (bot_owner_resourcing_test).
+        if (SWUBotFeatureOn('wipekeepaggro') && $aggressive && in_array('wipe', $tags, true) && _SWUBotWipeIsRelevant($seat, $cid)
+            && !preg_match('/with a total of \d+ or less/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
         if (!$opening && $preflip && $aggressive && $cost >= 7) {
             $fitsMatchup = $answer && (in_array('wipe', $tags, true) ? count($oppUnits) >= 3 : true);
             $out[$i] = [1, $fitsMatchup ? 1.0 : 0.0];

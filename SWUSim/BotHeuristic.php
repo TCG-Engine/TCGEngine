@@ -21,6 +21,7 @@ require_once __DIR__ . '/Custom/BotGuides.php';
 require_once __DIR__ . '/Custom/BotNameCard.php';
 require_once __DIR__ . '/Custom/BotFallback.php';
 require_once __DIR__ . '/Custom/BotCardValue.php';  // proposal 'cardvalue' — board-aware card valuation
+require_once __DIR__ . '/Custom/BotCurveValue.php';  // curve value: a card in hand priced against its cost (spec 2026-10-05)
 require_once __DIR__ . '/Custom/BotRules.php';
 require_once __DIR__ . '/Custom/BotLookahead.php';   // the fallback judges Actions by applying them (BotFallback.php)
 require_once __DIR__ . '/Rl/SwuKeys.php';            // RL Phase 3: swu-v1 state and move keys

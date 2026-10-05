@@ -52,4 +52,15 @@ $check($racing(true) === false, 'D: my clock is 15 rounds — not racing');
 $board($wide, 30, ['ASH_030'], 10, 1);
 $check($racing(true) === false, 'E: a Sentinel stops every attack I have — not racing');
 
+// F) Initiative decides a mirror: my Rey into 9 HP vs their Rey into my 9 HP — THEY act first, so I am not winning it.
+$board(['LAW_149'], 9, ['LAW_149'], 9, 2);
+$check($racing(true) === false, 'F: Rey vs Rey, they hold the initiative — not racing');
+// G) Largest first: my Rey (9) + Ace (2) into 9 HP vs their three 2s into my 4 HP, they act first. Their 2 (4 -> 2), my 9 finishes.
+// Spending the 2 first would let their second 2 finish me.
+$board(['LAW_149', 'ASH_201'], 4, ['ASH_201', 'ASH_201', 'ASH_201'], 9, 2);
+$check($racing(true) === true, 'G: the biggest attack goes first — racing');
+// H) My Sentinel (Marrok, ground) walls their Rey off my base: only I can hit a base, so I am racing even off the initiative.
+$board(['LAW_149', 'ASH_030'], 9, ['LAW_149'], 9, 2);
+$check($racing(true) === true, 'H: my Sentinel stops their only attacker — racing');
+
 bot_test_finish();

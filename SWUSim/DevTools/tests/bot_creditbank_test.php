@@ -28,6 +28,7 @@
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/BotHeuristic.php';
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // isolates this file's feature from curve value (p38, 2026-10-06)
 
 // ⚠ ISOLATED FROM PART 23 'bigcredit' (2026-10-03, shipped default ON): that rule holds a cheap play that needs a banked
 // Credit outright, so with it on every "default value" below is -0.5 and this proposal has nothing left to measure.

@@ -11360,7 +11360,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             TheForceIsWithYou($player); break;
         case 'LOF_087': EighthBrotherReaction($player); break; // "When you play another unit": may use the Force → +2/+2
         case 'HMW_171': Hmw171TrapFieldReaction($player, intval($mzID), max(1, intval($extra[0] ?? 1))); break;
-        case 'HMW_216': Hmw216InsurgentCampReaction(intval($player), intval($mzID), max(1, intval($extra[0] ?? 1))); break; // Insurgent Camp // Trap Field — non-leader ground unit entered: may defeat this upgrade → deal 3
+        case 'HMW_216': Hmw216InsurgentCampReaction(intval($player), intval($mzID)); break; // Insurgent Camp — you played a unit with ≤3 power: may defeat this upgrade → ready it ($mzID = its UID)
         case 'HMW_206': { // The Tarkin Doctrine base-grant — "When you play a Fortification upgrade: Exhaust an enemy unit."
             global $playerID; $playerID = intval($player);
             $enemies = array_merge(
@@ -13061,14 +13061,15 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         AddTrigger($playingPlayer, 'SHD_018', 'SHD_018', '', '4');
     }
     // HMW_216 Insurgent Camp (Fortify) — "When you play a unit with 3 or less power: You may defeat this
-    // upgrade. If you do, ready that unit." Trap Field's shape: ONE trigger carrying the copy count. Power is
-    // read off the entered unit (current power). "you" = the base's controller only.
+    // upgrade. If you do, ready that unit." ONE trigger however many copies are attached (see
+    // cards/hmw/InsurgentCamp.php for why). Power is read off the entered unit (current power). "you" = the
+    // base's controller only.
     if ($isUnitPlay && $playedUID > 0 && !_SWUFortifyBlanked(intval($playingPlayer), 'HMW_216')) {
         $n216 = _SWUCountBaseUpgrades(intval($playingPlayer), 'HMW_216');
         $pMz216 = $n216 > 0 ? SWUFindMzByUID($playedUID) : null;
         $pObj216 = $pMz216 !== null ? GetZoneObject($pMz216) : null;
         if ($pObj216 !== null && !SWUObjGone($pObj216) && intval(ObjectCurrentPower($pObj216)) <= 3) {
-            AddTrigger($playingPlayer, 'HMW_216', 'HMW_216', (string)$playedUID, (string)$n216);
+            AddTrigger($playingPlayer, 'HMW_216', 'HMW_216', (string)$playedUID);
         }
     }
     $playerID = $swuOwnRxSavedPID;

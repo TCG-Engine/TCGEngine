@@ -116,8 +116,14 @@ try {
     echo "── gates ──\n";
     $r = join_($anon, 'metapremier', 'bo3', $LEGAL);
     check(empty($r['success']) && ($r['code'] ?? '') === 'login_required' && empty($r['lobbyID']), 'a guest is refused', $r);
+    // Bo1 is a rated ladder too (owner, 2026-10-05). FEATFLAG_GLICKO2: while the queue is off it is refused like Bo3.
     $r = join_($bot1, 'metapremier', 'bo1', $LEGAL);
-    check(empty($r['success']) && ($r['code'] ?? '') === 'queue_type_unavailable', 'Bo1 is refused while its switch is off', $r);
+    if (!empty(SWUGetFormat('metapremier')['enabled'])) {
+        check(!empty($r['success']) && !empty($r['lobbyID']), 'a logged-in Bo1 join is accepted', $r);
+        leave($bot1, $r);
+    } else {
+        check(empty($r['success']) && empty($r['lobbyID']), 'FEATFLAG_GLICKO2 off: a logged-in Bo1 join is refused', $r);
+    }
     $r = join_($bot1, 'metapremier', 'bo3', $LEGAL, ['createPrivate' => '1']);
     check(empty($r['success']) && ($r['code'] ?? '') === 'queue_only' && empty($r['lobbyID']), 'a private Meta Premier room is refused', $r);
     $conn->query("INSERT INTO glicko_penalties (userId, abandonStrikes, cooldownUntil) VALUES ($U1, 1, UNIX_TIMESTAMP() + 300)");
@@ -190,6 +196,17 @@ try {
             'playerID' => 1, 'authKey' => $m3['players']['1']['authKey'] ?? ''])), true);
         check(($eg['rated'] ?? null) === true && ($eg['convertible'] ?? null) === false, 'EndGameInfo marks the match rated, not convertible', $eg);
     }
+    $conn->query("DELETE FROM glicko_penalties WHERE userId IN ($ids)");
+
+    echo "── Bo1 and Bo3 are separate queues ──\n";
+    $a = join_($bot1, 'metapremier', 'bo1', $LEGAL);
+    $b = join_($bot2, 'metapremier', 'bo3', $LEGAL);
+    check(empty($a['ready']) && empty($b['ready']) && ($a['lobbyID'] ?? '') !== ($b['lobbyID'] ?? '-'), 'a Bo1 and a Bo3 searcher are never paired', [$a, $b]);
+    leave($bot2, $b);
+    $b = join_($bot2, 'metapremier', 'bo1', $LEGAL);
+    $m = !empty($b['gameName']) ? matchOf($b['gameName']) : null;
+    check(is_array($m) && ($m['queueType'] ?? '') === 'bo1' && intval($m['bestOf'] ?? 0) === 1, 'two Bo1 searchers pair into a Bo1 match', $m['queueType'] ?? $b);
+    if (is_array($m)) { $createdMatches[] = $m; input($m, $b['gameName'], 2, 10007); }   // end it; this section is about pairing
     $conn->query("DELETE FROM glicko_penalties WHERE userId IN ($ids)");
 
     echo "── two players out of each other's range still meet once their windows open (final review #1) ──\n";

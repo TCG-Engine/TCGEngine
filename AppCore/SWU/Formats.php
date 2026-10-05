@@ -26,7 +26,8 @@ function SWUFormatDefinitions() {
         ],
         // Meta Premier — the rated queue (docs/superpowers/specs/2026-10-03-swusim-metapremier-ratings-design.md).
         // Same card pool as Premier, never preview sets. Logged-in only, queue-only, Glicko-2 rated per match type.
-        // ⚠ 'queueTypes' IS THE Bo1 SWITCH: set 'bo1' => true to open the Bo1 queue (and its separate rating).
+        // 'queueTypes': Bo1 and Bo3 are both open, each its own rated ladder (owner, 2026-10-05: the community asked for
+        // both). Set one false to close that queue; its rating and profile row follow.
         'metapremier' => [
             'displayName' => 'Meta Premier',
             'legalSets'   => $premierSets,
@@ -38,7 +39,7 @@ function SWUFormatDefinitions() {
             'publicQueue' => true,
             'rated'       => true,
             'queueOnly'   => true,
-            'queueTypes'  => ['bo3' => true, 'bo1' => false],
+            'queueTypes'  => ['bo3' => true, 'bo1' => true],
         ],
         'eternal' => [
             'displayName' => 'Eternal',
@@ -400,13 +401,12 @@ function SWUMenuTree(): array {
         ['format' => 'open',            'label' => 'Open'],
     ];
     // PvP alone offers Meta Premier: a rated pool is matchmaking between two people, never a bot game. THIRD in the list
-    // (owner, 2026-10-04). The label names the match length because only Bo3 is open; the format's displayName stays
-    // "Meta Premier" for messages and the profile, which also cover Bo1 once that switch flips.
+    // (owner, 2026-10-04). Plain "Meta Premier" since both match lengths are open (owner, 2026-10-05).
     $pvpPools = $constructedPools;
     // FEATFLAG_GLICKO2 — the pool exists only while the format is enabled. The PvP dialog renders from the UNFILTERED
     // tree (MainMenu's $swuMenuTreeFull, kept for invites), so 'enabled' => false alone would still list it there.
     if (!empty(SWUGetFormat('metapremier')['enabled'])) {
-        array_splice($pvpPools, 2, 0, [['format' => 'metapremier', 'label' => 'Meta Premier (Bo3)']]);
+        array_splice($pvpPools, 2, 0, [['format' => 'metapremier', 'label' => 'Meta Premier']]);
     }
     $tree = [
         // Arenabot is listed FIRST, so it is the menu's default opponent (owner, 2026-09-21).

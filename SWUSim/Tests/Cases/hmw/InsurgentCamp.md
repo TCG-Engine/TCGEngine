@@ -4,6 +4,7 @@
 #//           negative=OpponentPlaysAUnit_NoOffer and CreatedToken_NoOffer (created ≠ played)
 #//           control=N/A ("you" = the base's controller) · reqboundary=AcrossTheRequestBoundary
 #//           modes=2P only ("When you play" is self-only)
+#//           order=AmbushFirst_ThenCamp_ReadiesAfterTheAttack paired with CampFirst_ThenAmbush_EndsExhausted
 #//
 #// HMW_216 Insurgent Camp — Upgrade, cost 1, [Cunning][Heroism], Fortification.
 #// "Fortify. When you play a unit with 3 or less power: You may defeat this upgrade. If you do, ready that unit."
@@ -171,4 +172,61 @@ WithP1Hand: JTL_115
 P1SPACEARENAUNIT:0:CARDID:JTL_115
 P1SPACEARENAUNIT:0:POWER:3
 P1SPACEARENAUNIT:0:READY
+P1BASE:UPGRADECOUNT:0
+
+---
+
+# AmbushFirst_ThenCamp_ReadiesAfterTheAttack
+#// The combo: Ambush and the Camp trigger on the same play and P1 orders them (CR 7.6.9). Ambush first — LOF_208
+#// Mysterious Hermit (1/4) attacks SEC_028 Trayus Acolyte (2/4), takes 2, deals 1, ends exhausted — then the Camp
+#// readies it.
+
+## GIVEN
+CommonSetup: yyw/brk/{myResources:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_216
+WithP1Hand: LOF_208
+WithP2GroundArena: SEC_028:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>ResolveTrigger:Ambush
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:LOF_208
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P1GROUNDARENAUNIT:0:READY
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P1BASE:UPGRADECOUNT:0
+
+---
+
+# CampFirst_ThenAmbush_EndsExhausted
+#// The other order, same board: the Camp readies the Hermit, then the Ambush attack exhausts it. The Camp is
+#// spent for nothing — the order is the player's to get right.
+
+## GIVEN
+CommonSetup: yyw/brk/{myResources:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_216
+WithP1Hand: LOF_208
+WithP2GroundArena: SEC_028:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>ResolveTrigger:HMW_216
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:LOF_208
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:DAMAGE:1
 P1BASE:UPGRADECOUNT:0

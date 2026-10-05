@@ -75,7 +75,9 @@ $check(in_array($ACTION, $ids, true), 'A fixture: Krennic\'s ramp Action is on o
 // bring it back to 8, and SWUComputePlayCost cannot see that waiver — so the fixture uses the honest 10.
 $check(SWUComputePlayCost(1, GetHand(1)[0]) === 10, 'A fixture: Single Reactor Ignition costs 10 unwaived (8 printed + 2 Aggression)');
 $check(SWUTotalPaymentCapacity(1) === 9, 'A fixture: capacity is 9 — exactly one Credit short of 10');
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // owner 2026-10-06: on this board SRI is a bad play by curve value; this checks the MECHANISM
 $sA = $score($ACTION, 'softcontrol', ['try:creditvalue']);
+unset($GLOBALS['SWUBotPinnedDisabled']);
 $check($sA !== null && $sA > 0.0, "A: ramping is worth doing when the Credit unlocks the bomb; got " . json_encode($sA));
 // The reported mistake, reproducible with the feature off — so A cannot pass vacuously.
 $off = $score($ACTION);

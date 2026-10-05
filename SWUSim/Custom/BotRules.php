@@ -120,6 +120,33 @@ function SWUBotRuleBreakLethal(array $ctx): ?array {
 // Boba example prevents 8+. A first guess — tune after measuring.
 const SWU_BOT_WIPE_THREAT_WORTH = 5;
 
+// 'epicwipe' (p37): a relevant UNBOUNDED wipe in hand that I cannot cast now but can through my base's "ignoring 1 of its … aspect
+// penalties" Epic, and that is worth it: it defeats 2+ enemy units it can defeat, costs them more value than me, and stabilises (their
+// clock after the wipe, from what survives it, is 3+ rounds and longer than now). ['index' => hand index, 'cid' => card] or null.
+function _SWUBotWaiverUnlocksWipe(int $seat): ?array {
+    if (!function_exists('_SWUCommonBaseWaivePenalty')) return null;
+    $base = GetBase($seat)[0] ?? null;
+    if ($base === null || !preg_match('/ignoring 1 of its/i', strval(CardText(strval($base->CardID ?? ''))))) return null;
+    $cap = SWUTotalPaymentCapacity($seat); $opp = SWUBotOpponent($seat);
+    foreach (GetHand($seat) as $i => $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cid = strval($o->CardID ?? '');
+        if (!in_array('wipe', SWUBotCardTags($cid), true) || !_SWUBotWipeIsRelevant($seat, $cid)
+            || preg_match('/with a total of \d+ or less/i', strval(CardText($cid)))) continue;
+        $cost = intval(SWUComputePlayCost($seat, $o));
+        if ($cost <= $cap || $cost - min(_SWUCommonBaseWaivePenalty($seat, $cid), SWUAspectPenalty($seat, $cid)) > $cap) continue;
+        $arenas = _SWUBotWipeArenas($cid);
+        $dies = fn(array $v) => in_array($v['arena'], $arenas, true) && !SWUBotDefeatFizzles($v);   // a deployed leader dies too
+        $killed = count(array_filter(SWUBotUnits($opp), $dies));
+        [$mine, $theirs] = _SWUBotWipeLosses($seat, $cid);
+        $left = 0;
+        foreach (SWUBotUnits($opp) as $v) if (!$dies($v)) $left += SWUBotUnitBaseThreat($seat, $v);
+        $after = $left > 0 ? max(1, intdiv(SWUBaseRemainingHp($seat) + $left - 1, $left)) : SWU_BOT_NO_CLOCK;
+        if ($killed >= 2 && $theirs > $mine && SWUBotStabilises(SWUBotClock($opp, $seat), $after)) return ['index' => $i, 'cid' => $cid];
+    }
+    return null;
+}
+
 function SWUBotRuleControlWipe(array $ctx): ?array {
     // The control wing (rank 3-4): soft and hard control both plan wipes.
     if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
@@ -181,7 +208,20 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
         if ($diag && $t && !$c) SWUBotRecordCoverage($seat, 'wipe:threat-only');
         return $c || $t;
     };
-    return _SWUBotBestLine($ctx, $read, $score, $ok, $isWipe);
+    $line = _SWUBotBestLine($ctx, $read, $score, $ok, $isWipe);
+    if ($line !== null || !SWUBotFeatureOn('epicwipe')) return $line;
+    // Feature 'epicwipe' (p37): no castable wipe qualifies — one castable only THROUGH the base's aspect-waiver Epic may (Krennic Splash:
+    // Single Reactor Ignition 10 -> 8 with the Daimyo's Palace waiver; owner "the 5R turn + 3 credits or 6R + 2C"). Judged on the board
+    // by the same tests (2+ enemy units defeated, more of their value than mine, stabilises), not by the lookahead: its line through the
+    // Epic's prompt stored a plan that played the WRONG card there. Left alone, the fallback plays the wipe at the prompt (with Rey also
+    // unlocked too — bot_epicwipe_test B2).
+    $epic = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'base-epic');
+    // Against an aggro leader, only on (or after) their FLIP turn — owner follow-up 2026-10-06: "wipe on HER flip turn only". Before it, a
+    // round-4/5 wipe into a half board fired in 12 of 20 traced games and was null: she rebuilt 4–6 units the next round. (Facing lethal,
+    // rule 4 'break-lethal' already plays whatever saves the game.)
+    $flipped = !empty(array_filter(SWUBotUnits($opp), fn($v) => $v['isLeader']));
+    if (SWUBotOpponentIsAggroLeader($seat) && !$flipped) return null;
+    return ($epic !== null && _SWUBotWaiverUnlocksWipe($seat) !== null) ? $epic : null;
 }
 
 // PROPOSAL 'initiative' (default OFF, "@try-initiative"). Owner ruling 2026-09-18 (Q16 / 5.2): taking the
@@ -368,7 +408,10 @@ function SWUBotRuleKillFirst(array $ctx): ?array {
 // by round 3 and 2.3 by round 5 (2026-09-19). While behind on bodies, put one down BEFORE attacking; the attack is
 // still available afterwards, the body is not (a removal spell in their turn takes the play away).
 function SWUBotRuleBlockerFirst(array $ctx): ?array {
-    if (!SWUBotProposalOn('blockerfirst') || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    // PROMOTED 2026-10-05 to a shipped feature (p37, every style) — owner: "promote it for all. hyperaggro may not even play
+    // sentinels." Fidelity screen: four styles toward the real table (softcontrol +2.5, softaggro +2.3, midrange +1.9, hardcontrol
+    // +1.2 pp). '@try-blockerfirst' still names it; '@no-blockerfirst' switches it off.
+    if (!(SWUBotProposalOn('blockerfirst') || SWUBotFeatureOn('blockerfirst')) || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
     if (count(SWUBotUnits($seat)) >= count(SWUBotUnits($opp))) return null;
     $hasAttack = false;
@@ -380,7 +423,16 @@ function SWUBotRuleBlockerFirst(array $ctx): ?array {
         $o = _SWUBotHandObject($seat, $a);
         if ($o !== null && str_contains(strval(CardType(strval($o->CardID))), 'Unit')) $plays[] = $a;
     }
-    return empty($plays) ? null : SWUBotFallbackChoose(array_merge($ctx, ['actions' => $plays]));
+    // The fallback's own pick among the unit plays (guides computed ONCE, each play scored once), and only a body it WANTS: one it
+    // holds (<= 0 — a shown wipe, a unique clash, a fodder wait…) stays held, or this rule overrode every hold (bot_wipeaware_test F:
+    // a Pre Vizsla held for a shown wipe was played into it). Scoring every play twice cost ~20% per round (measured 2026-10-05).
+    $sub = array_merge($ctx, ['actions' => $plays]); $sub['_guides'] = _SWUBotGuides($sub);
+    $best = null; $bestScore = 0.0;
+    foreach ($plays as $j => $a) {
+        $sc = SWUBotScoreAction($sub, $a, $j);
+        if ($sc > $bestScore) { $best = $a; $bestScore = $sc; }
+    }
+    return $best;
 }
 
 // PROPOSAL 'krennicramp' (default OFF) — the owner's Krennic plan vs Vader (rulings K1-K4, 2026-09-22). The leader
@@ -465,7 +517,8 @@ function _SWUBotKrennicPlanOn(array $ctx, string $part = ''): bool {
 // Defeated unit. Lower is better; null = not fodder.
 function _SWUBotFodderRank(string $cid, int $cost): ?int {
     if (stripos(strval(CardText($cid)), 'When Defeated: You may resource this unit') !== false) return 0;
-    if ($cost <= 2 || stripos(strval(CardText($cid)), 'When Defeated') !== false) return 1 + $cost;
+    $wd = SWUBotProposalOn('wdability') ? (bool)preg_match('/When Defeated:/i', strval(CardText($cid))) : stripos(strval(CardText($cid)), 'When Defeated') !== false;
+    if ($cost <= 2 || $wd) return 1 + $cost;
     return null;
 }
 

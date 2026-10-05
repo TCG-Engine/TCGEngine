@@ -7,6 +7,7 @@
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/BotHeuristic.php';
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // isolates this file's feature from curve value (p38, 2026-10-06)
 
 const MARINE = 'SOR_095';   // Battlefield Marine 3/3 — Command, Heroism (vanilla)
 const TROOPER = 'SOR_128';  // Death Star Stormtrooper 3/1 — Aggression, Villainy (vanilla)

@@ -16,8 +16,9 @@ $check($mp['legalSets'] === $pr['legalSets'] && $mp['banned'] === $pr['banned'],
 $check(SWUFormatIsRated('metapremier') && !SWUFormatIsRated('premier'), 'only metapremier is rated');
 $check(SWUFormatIsQueueOnly('metapremier') && !SWUFormatIsQueueOnly('premier'), 'only metapremier is queue-only');
 $check(SWUFormatAllowsQueueType('metapremier', 'bo3') === true, 'metapremier bo3 allowed');
-$check(SWUFormatAllowsQueueType('metapremier', 'bo1') === false, 'metapremier bo1 switched off');
-$check(SWUFormatAllowedQueueTypes('metapremier') === ['bo3'], 'allowed list = [bo3]');
+// Owner, 2026-10-05: the community asked for both — Bo1 and Bo3 are each their own rated ladder.
+$check(SWUFormatAllowsQueueType('metapremier', 'bo1') === true, 'metapremier bo1 allowed');
+$check(SWUFormatAllowedQueueTypes('metapremier') === ['bo1', 'bo3'], 'allowed list = [bo1, bo3]');
 $check(SWUFormatAllowsQueueType('premier', 'bo1') && SWUFormatAllowsQueueType('premier', 'bo3'), 'premier allows both');
 $check(SWUFormatAllowsQueueType('premier', 'bo7') === false, 'unknown queue type never allowed');
 $check(SWUFormatIsPreview('metapremier') === false, 'metapremier is never a preview format');
@@ -49,9 +50,9 @@ $pools = []; foreach ($pvp['pools'] as $p) $pools[$p['format']] = $p;
 if (!$glickoOn) {   // FEATFLAG_GLICKO2 off: no pool anywhere in the menu; the pool checks resume when it turns on
     $check(!isset($pools['metapremier']), 'FEATFLAG_GLICKO2 off: PvP offers no Meta Premier pool');
 } else {
-$check(isset($pools['metapremier']) && $pools['metapremier']['label'] === 'Meta Premier (Bo3)', 'PvP has a "Meta Premier (Bo3)" pool');
+$check(isset($pools['metapremier']) && $pools['metapremier']['label'] === 'Meta Premier', 'PvP has a "Meta Premier" pool');
 $check((array_keys($pools)[2] ?? '') === 'metapremier', 'Meta Premier is the THIRD PvP pool (owner, 2026-10-04)', implode(',', array_keys($pools)));
-$check(($pools['metapremier']['allowedQueueTypes'] ?? null) === ['bo3'], 'pool lists bo3 only');
+$check(($pools['metapremier']['allowedQueueTypes'] ?? null) === ['bo1', 'bo3'], 'pool lists both match types');
 $check(($pools['metapremier']['queueOnly'] ?? null) === true && ($pools['metapremier']['requiresLogin'] ?? null) === true, 'pool flags');
 }   // FEATFLAG_GLICKO2
 $check(($pools['premier']['allowedQueueTypes'] ?? null) === ['bo1', 'bo3'] && ($pools['premier']['requiresLogin'] ?? null) === false, 'premier pool flags permissive');

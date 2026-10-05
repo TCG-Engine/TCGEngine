@@ -16,7 +16,7 @@ cd /var/www/html/TCGEngine
 # the pre-part-2 stack by mistake.)
 NEW=${1:-}; OLD=${2-base}; SEEDS=${3:-10}; WORKERS=${4:-8}; OUT=${5:-/tmp/strength}; DIR=${6:-SWUSim/Tests/BotFixtures/ash-meta-2026-09}
 mkdir -p "$OUT/games"
-export NEW OLD DIR OUT
+export NEW OLD DIR OUT SEED_PREFIX
 decks=${DECKS:-$(ls "$DIR"/*.txt | xargs -n1 basename | sed 's/\.txt$//')}
 : > "$OUT/jobs.txt"
 # FOCUS="deckA deckB" keeps only pairings where at least one side is a focus deck. A change that touches a few decks
@@ -27,7 +27,9 @@ for a in $decks; do for b in $decks; do
   if [ -n "${FOCUS:-}" ]; then
     case " $FOCUS " in *" $a "*|*" $b "*) ;; *) continue ;; esac
   fi
-  for s in $(seq -f "s%03g" 1 "$SEEDS"); do echo "$a $b $s 1" >> "$OUT/jobs.txt"; echo "$a $b $s 2" >> "$OUT/jobs.txt"; done
+  # SEED_PREFIX (env, default "s") — a FRESH seed block: games are deterministic per (seed, first player), so a change
+  # tuned on the s-block must be measured on another (spec 2026-10-05-swusim-curve-value-design.md §6.5).
+  for s in $(seq -f "${SEED_PREFIX:-s}%03g" 1 "$SEEDS"); do echo "$a $b $s 1" >> "$OUT/jobs.txt"; echo "$a $b $s 2" >> "$OUT/jobs.txt"; done
 done; done
 echo "[strength] new='$NEW' old='$OLD' — $(wc -l < "$OUT/jobs.txt") games, $WORKERS workers — $(date -u +%H:%M:%S)"
 

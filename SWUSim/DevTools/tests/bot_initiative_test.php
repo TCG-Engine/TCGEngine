@@ -12,6 +12,7 @@ require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/Custom/BotLookahead.php';
 include_once './SWUSim/BotHeuristic.php';
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // isolates this file's feature from curve value (p38, 2026-10-06)
 
 const INIT = 'InitiativeCounter-0!CustomInput!TakeInitiative';
 $rules = SWUBotRulesAfterFilter();

@@ -239,7 +239,9 @@ function _SWUBotControlsReadyVehicle(int $seat): bool {
 
 // Choose_trigger_to_resolve: buffs before the attack — Ambush and Support wait. The LOF_231 Darth Tyranus
 // exception (spec): a Shielded trigger whose unit's pending Ambush already has a kill-survive target without
-// the Shield goes AFTER the Ambush, so the Shield is still there afterwards.
+// the Shield goes AFTER the Ambush, so the Shield is still there afterwards. HMW_216 Insurgent Camp ("ready that
+// unit") also goes after the played unit's own Ambush: the Ambush readies it anyway, so a Camp resolved first is
+// spent for nothing, while one resolved after readies the unit post-attack.
 function _SWUBotTriggerScore(array $ctx, string $candidate): float {
     if (!preg_match('/EffectStack-(\d+)$/', $candidate, $m)) return 0.0;
     $stack = GetEffectStack();
@@ -257,6 +259,13 @@ function _SWUBotTriggerScore(array $ctx, string $candidate): float {
             foreach (SWUBotAttackTargets(intval($ctx['seat']), $att)['units'] as $u) {
                 if (SWUBotCombatOutcome($att, $u) === 'kill-survive') return -1.0;
             }
+        }
+    }
+    if ($type === 'HMW_216') {   // Params = the played unit's UID; an Ambush carries "mz|uid"
+        $uid = strval($e->Params ?? '');
+        foreach ($stack as $o) {
+            if ($o === $e || !empty($o->removed) || strval($o->TriggerType ?? '') !== 'Ambush') continue;
+            if (intval($o->Controller) === intval($e->Controller) && (explode('|', strval($o->Params ?? ''))[1] ?? '') === $uid) return -1.0;
         }
     }
     return 1.0;
@@ -372,6 +381,11 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 // A Force card without the Force: its effect cannot happen — only the body counts (feature 'force').
                 if (SWUBotFeatureOn('force') && function_exists('PlayerHasTheForce') && !PlayerHasTheForce($seat) && _SWUBotNeedsTheForce($cid)) {
                     $v = $W['develop'] * intval(CardCost($cid)) + (str_contains(strval(CardType($cid)), 'Unit') ? $W['unitPlay'] : 0.0);
+                    // Feature 'curveplay' (p38): the curve surplus must survive this reset, or the WITH-Force copy (which keeps
+                    // its surplus) scores below the body-only copy. The pricer already prices the Force-gated effect at 0 here.
+                    if (SWUBotFeatureOn('curveplay')) {
+                        $v += floatval($W['curve'] ?? 0.0) * (SWUBotCurveSurplus($seat, $cid, intval(round($W['horizon'] ?? SWU_CURVE_STATIC_HORIZON))) ?? 0.0);
+                    }
                 }
                 // A second copy of a unique unit I control defeats one (the uniqueness rule) — feature 'picks'.
                 // …unless the copy in play is SPENT and this cheap copy's When Played is worth playing again (feature 'uniquereplay', p31).
@@ -475,7 +489,7 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     if ((SWUBotProposalOn('piettcheat') || SWUBotFeatureOn('aspectwaiver'))
         && str_starts_with($tip, 'Play_a_') && str_starts_with($c, 'myHand-')) {
         $o = GetHand($seat)[intval(substr($c, strlen('myHand-')))] ?? null;
-        if ($o !== null) return 0.5 + 0.01 * _SWUBotPlayValue($seat, strval($o->CardID ?? ''), $W);
+        if ($o !== null) return 0.5 + 0.01 * _SWUBotPlayValue($seat, strval($o->CardID ?? ''), $W, 'hand', _SWUBotPlayPromptRoute($tip));
     }
     // Feature 'discardpick' (p29): a card discarded from MY hand — a cost (LAW_011 Darth Vader's ping) or an effect — is the
     // one worth least to keep. Before this every such prompt fell to the enumeration tiebreak below: hand index 0, which
@@ -547,7 +561,9 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         $s = _SWUBotAttachScore($seat, $c, strval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[1] ?? ''), $W);
         return $s ?? -$index * 1e-6;
     }
-    if ($type === 'TOPDECKSEARCH' && $tip === 'Search_top_cards' && SWUBotFeatureOn('picks')) return _SWUBotSearchScore($seat, $c, $W);
+    // The decision's 6th segment is the verb: "Play" — the picks are played for FREE (DoTopDeckPlay) — or "Take" (drawn).
+    if ($type === 'TOPDECKSEARCH' && $tip === 'Search_top_cards' && SWUBotFeatureOn('picks'))
+        return _SWUBotSearchScore($seat, $c, $W, _SWUBotSearchRoute(strval($ctx['param'] ?? '')));
     // Part 20 'buffspread': a Support leader's flip turn — who makes the Support attack, and where its phase buffs go.
     if ($onBoard && SWUBotFeatureOn('buffspread')) {
         if ($head === 'SWUSupportChooseAttacker') {
@@ -1051,7 +1067,10 @@ function SWUBotSacrificeCost(array $v): float {
             if ($condemned || SWUBotUnitIsDoomed($v)) return min(SWU_BOT_DOOMED_LEADER_SAC_COST, SWUBotUnitValue($v));
         } elseif (SWUBotUnitIsDoomed($v)) {
             // 2b: dying anyway — unless the When Defeated pricing below already makes it cheaper still.
-            return min(SWU_BOT_DOOMED_SAC_COST, _SWUBotSacrificeCostByValue($v));
+            $byValue = _SWUBotSacrificeCostByValue($v);
+            // Feature 'doomedtie' (p37): ordered by value among the doomed. The flat 0.5 tied them, and the FIRST listed went: Krennic's
+            // Credit Action sacrificed the Director Krennic unit over a Spy token (17 of 60 traced games vs Ahsoka Blue).
+            return min(SWU_BOT_DOOMED_SAC_COST, $byValue) + (SWUBotProposalOn('doomedtie') ? 0.01 * max(0.0, $byValue) : 0.0);
         }
     }
     return _SWUBotSacrificeCostByValue($v);
@@ -1070,7 +1089,10 @@ function _SWUBotSacrificeCostByValue(array $v): float {
     $value = SWUBotUnitValue($v);
     if (SWUBotFeatureOn('spentetb') && _SWUBotOnlySpentWhenPlayed($v['cardID'])) $value = min($value, _SWUBotUnitStatsValue($v));
     $text = strval(CardText($v['cardID']));
-    if (stripos($text, 'When Defeated') === false) return $value;
+    // Feature 'wdability' (p37): a When Defeated ABILITY ("When Defeated:"), not the words: JTL_032 Director Krennic's "the first unit you
+    // play each round that has a 'When Defeated' ability costs 1 less" read as its own payback, so the deck's engine priced as fodder.
+    $hasWd = SWUBotProposalOn('wdability') ? (bool)preg_match('/When Defeated:/i', $text) : stripos($text, 'When Defeated') !== false;
+    if (!$hasWd) return $value;
     if (!SWUBotFeatureOn('fodder')) return max(0.0, $value - 1.5);
     // Feature 'fodder': price the When Defeated by WHAT IT DOES, not a flat allowance. The flat 1.5 collapsed the
     // choice to printed cost, so the cheapest body always went — measured over 48 Krennic games, LAW_159 Expendable
@@ -1173,7 +1195,7 @@ function _SWUBotEarlyRemovalAdjust(int $seat, string $cid, float $v, array $W): 
     return $v;
 }
 
-function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = 'hand'): float {
+function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = 'hand', string $route = 'paid'): float {
     // PROPOSAL 'cardvalue' (default OFF): the whole valuation comes from BotCardValue.php instead — Body +
     // Effect - SelfCost, read off the board, in expected base damage. It already includes the
     // `develop x cost` floor and the unitPlay term, so this returns outright rather than adding to the
@@ -1189,6 +1211,13 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
     foreach (SWUBotCardTags($cid) as $t) {
         if ($t === 'debuff-all-enemy-units' || $t === 'heal-on-enemy-defeat') continue;   // board-scaled below, never flat
         $v += ($W[$t] ?? 0.0) * ($t === 'draw' ? SWUBotDrawMultiplier($seat) : 1.0);
+    }
+    // FEATURE 'curveplay' (p38; spec 2026-10-05-swusim-curve-value-design.md §4.1): the card's curve SURPLUS — what it is worth
+    // over what it costs, in resources, from the owner's prices — is ADDED on top of the cost floor and the tag sum (never
+    // replacing them: 'unitvalue' measured −50 doing that). An unpriced card adds 0.
+    // $route: 'paid' | 'waived' | 'free' (BotCurveValue.php) | 'nocurve' — a comparison that must not use curve value.
+    if (function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('curveplay') && $route !== 'nocurve') {   // feature p38
+        $v += floatval($W['curve'] ?? 0.0) * (SWUBotCurveSurplus($seat, $cid, intval(round($W['horizon'] ?? SWU_CURVE_STATIC_HORIZON)), true, $route) ?? 0.0);
     }
     // "Give each enemy unit -X/-X" (owner 2026-10-01): worth the weight once PER enemy unit the shrink would kill —
     // zero on a board of big units, the most on a wide board of weak ones.
@@ -1438,6 +1467,10 @@ function _SWUBotEnabledPlayValue(int $seat, array $handBefore, array $after, arr
             // with the waiver already gone. Reading the cost here is safe: SWUBotLookahead has already RESTORED
             // the pre-action state, so this is "could I cast it WITHOUT this action?".
             if (SWUBotFeatureOn('aspectwaiver') && _SWUBotCardAlreadyPlayable($seat, $o)) continue;
+            // Feature 'epicwipe' (p37): against an aggro leader that has NOT flipped, an unlocked wipe is not worth the waiver yet — owner
+            // follow-up 2026-10-06, "wipe on HER flip turn only" (rule 5 opens it once she has deployed).
+            if (SWUBotFeatureOn('epicwipe') && in_array('wipe', SWUBotCardTags(strval($o->CardID)), true) && SWUBotOpponentIsAggroLeader($seat)
+                && empty(array_filter(SWUBotUnits(SWUBotOpponent($seat)), fn($v) => $v['isLeader']))) continue;
             $best = max($best, _SWUBotPlayValue($seat, strval($o->CardID), $W));
         }
         // Nothing unlocked → the action enables nothing, so it is worth nothing here.
@@ -1464,7 +1497,7 @@ function _SWUBotEnabledPlayValue(int $seat, array $handBefore, array $after, arr
         // line uses the waiver for (found 2026-10-03 while adding 'waiverhold', which would otherwise have held it).
         if (!in_array($cid, $inPlay, true) && !(SWUBotFeatureOn('waiverhold') && stripos(strval(CardType($cid)), 'Event') !== false)) continue;
         if (in_array($cid, $alreadyCastable, true)) continue;
-        $v += _SWUBotPlayValue($seat, $cid, $W);
+        $v += _SWUBotPlayValue($seat, $cid, $W, 'hand', 'waived');   // played through the waiver: no aspect penalty
     }
     return $v;
 }
@@ -1696,7 +1729,23 @@ function _SWUBotBuffSpreadScore(array $ctx, int $seat, string $c): ?float {
 }
 
 // A search's pick ("CardID,CardID"; "" = none): the play value of what it takes, a little more per card.
-function _SWUBotSearchScore(int $seat, string $candidate, array $W): float {
+// Curve-value route of a "Play_a_…" hand prompt (final review, 2026-10-06): only a prompt that IGNORES an aspect penalty
+// (the LAW base waiver) is 'waived'; "…for free" is 'free'; a discount ("costs 1 less") still pays its penalty — 'paid'.
+function _SWUBotPlayPromptRoute(string $tip): string {
+    if (stripos($tip, 'ignor') !== false && stripos($tip, 'aspect') !== false) return 'waived';
+    if (stripos($tip, 'for_free') !== false || stripos($tip, 'for free') !== false) return 'free';
+    return 'paid';
+}
+
+// Curve-value route of a TOPDECKSEARCH (final review, 2026-10-06): FREE only when the picks are PLAYED within a combined-cost
+// budget — DoTopDeckPlay's "cost:N" constraint with the verb "Play" (Ackbar, U-Wing). A discounted "Play" search (Kelleran
+// Beq, "count:1", 3 less) and a "Take" search are 'paid'. Param segments: all|match|constraint|costs|label|verb|scope.
+function _SWUBotSearchRoute(string $param): string {
+    $p = explode('|', $param);
+    return (stripos(strval($p[5] ?? ''), 'play') !== false && str_starts_with(strval($p[2] ?? ''), 'cost:')) ? 'free' : 'paid';
+}
+
+function _SWUBotSearchScore(int $seat, string $candidate, array $W, string $route = 'paid'): float {
     // Feature 'searchpick' (p36): a UNIQUE card whose name is already in play under me, or earlier in this pick, is defeated by
     // the uniqueness rule the moment it lands — worth -1, not its play value (17 of 125 traced Ackbar searches did this).
     $uniq = SWUBotFeatureOn('searchpick');
@@ -1710,7 +1759,7 @@ function _SWUBotSearchScore(int $seat, string $candidate, array $W): float {
             if (isset($names[$name($cid)])) { $s -= 1.0; continue; }
             $names[$name($cid)] = true;
         }
-        $s += _SWUBotPlayValue($seat, $cid, $W) + 0.01;
+        $s += _SWUBotPlayValue($seat, $cid, $W, 'hand', $route) + 0.01;
     }
     return $s;
 }
@@ -2184,7 +2233,13 @@ function SWUBotHandKeepValue(int $seat, $obj, array $W): float {
     $cid = strval($obj->CardID ?? '');
     if (SWUBotFeatureOn('heropitch') && _SWUBotOffAspectHeroism($seat, $cid) && _SWUBotWantsHeroismInDiscard($seat)) return -$W['removal'];
     $penalty = function_exists('SWUComputePlayCost') ? max(0, intval(SWUComputePlayCost($seat, $obj)) - intval(CardCost($cid))) : 0;
-    return max(0.0, _SWUBotPlayValue($seat, $cid, $W) - $W['develop'] * $penalty);
+    // Fix 2 (owner, 2026-10-06): an UNPRICED card adds no curve term, so next to a priced under-curve card it looks better
+    // than it is. Keep/discard comparisons use curve value only when every card in hand is priced.
+    $allPriced = true;
+    foreach (GetHand($seat) as $h) if ($h !== null && empty($h->removed) && SWUBotCurveValue($seat, strval($h->CardID ?? '')) === null) { $allPriced = false; break; }
+    // 'waived' when priced: this line already charges the aspect penalty itself (− develop × penalty); a 'paid' curve
+    // surplus would charge it a second time.
+    return max(0.0, _SWUBotPlayValue($seat, $cid, $W, 'hand', $allPriced ? 'waived' : 'nocurve') - $W['develop'] * $penalty);
 }
 
 // The card a discard cost would take: the lowest keep value in hand. NULL for an empty hand.
@@ -2761,6 +2816,9 @@ function _SWUBotShouldMulligan(int $seat, string $style): ?bool {
         if ($rank >= 3) return $answers === 0 || $atMost(3) < 2;                   // control needs an answer AND a curve
         return $atMost(3) < 2;                                                     // midrange: just the curve
     }
+    // FEATURE 'curvemull' (p38; spec 2026-10-05-swusim-curve-value-design.md §4.3) — the curve-value keep (BotCurveValue.php).
+    // LAST, so an explicit '@try-<mulligan proposal>' above still decides when it is switched on.
+    if (SWUBotFeatureOn('curvemull')) return _SWUBotCurveMulligan($seat, $style);
     return null;
 }
 

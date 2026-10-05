@@ -456,6 +456,29 @@ const SWU_BOT_PART35_FEATURES = ['lockpiece'];
 const SWU_BOT_PART36_FEATURES = ['upgradecost', 'defeatimmune', 'disclosereserve', 'condemnfore', 'wipeinit', 'wipedraw', 'searchpick',
                                  'ndsetup', 'onattackfinish', 'stacklethal'];
 
+// Part 37 (2026-10-05): 'actionclock' — "am I winning the race?" (SWUBotIsRacing) counted in ACTIONS: every unit attacks once a round,
+// largest first, the sides alternating, the initiative holder first. Owner's "tall beats wide per action" (Ahsoka Yellow vs Han Solo
+// JTL Red); measured first — 7.9% of race decisions disagree, the action verdict names the winner 79% of the time there. Owner chose
+// a shipped feature (option A). Guard: SWUSim/DevTools/tests/bot_actionclock_test.php.
+// 'blockerfirst' — PROMOTED from a proposal 2026-10-05 for every style (owner: "promote it for all. hyperaggro may not even play
+// sentinels"): behind on bodies, a unit goes down before attacking. Supersedes the midrange-only 2026-09-23 Sentinel/power ruling
+// ('mgsentinel' stays a proposal). Fidelity screen: four styles toward real (+1.2 to +2.5 pp). Guard: bot_blockerfirst_test.php.
+// 'wipekeepaggro' — against an aggro leader the control tiers keep a relevant wipe (tier 9) instead of resourcing it as a dead 7-drop
+// before the board fills: owner (Krennic Splash questionnaire 2026-10-06) "never the wipes"; SRI was resourced 19 of 20 traced games
+// vs Ahsoka Blue. Guard: bot_wipekeepaggro_test.php.
+// 'epicwipe' — rule 5 may open a wipe castable only through the base's aspect-waiver Epic (Krennic Splash: SRI 10 -> 8, owner "5R + 3C or
+// 6R + 2C"), judged on the board by rule 5's own tests. Guard: bot_epicwipe_test.php.
+const SWU_BOT_PART37_FEATURES = ['actionclock', 'blockerfirst', 'wipekeepaggro', 'epicwipe'];
+// Part 38 (2026-10-06): CURVE VALUE — a card in hand priced against its cost from the owner's prices (BotCurveValue.php,
+// spec docs/superpowers/specs/2026-10-05-swusim-curve-value-design.md). Measured ONE AT A TIME, 14,040 games each, fresh
+// 'cv' seeds, 27-deck gate (docs/superpowers/research/curve-value/2026-10-06-measurement.md):
+//   'curveplay'     — play score + W['curve'] × surplus: NEW 50.8% (p .032), hard control +4.0pp; no deck hurt.
+//   'curveresource' — surplus breaks resourcing ties:  NEW 50.7% (p .055), hard control +3.0pp; no deck hurt.
+//   'curvemull'     — the curve-value mulligan:          NEW 51.0% (p .009), hyper aggro +2.9, midrange +2.2; no deck hurt.
+//                     ⚠ Hard control mulligans 58% of hands under it (hyper 17%) — flagged for the owner.
+// Owner shipped all three, no combined run ("Ship all 3, no combined run"). Guards: bot_curvevalue_test.php, bot_curvedecisions_test.php.
+const SWU_BOT_PART38_FEATURES = ['curveplay', 'curveresource', 'curvemull'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
@@ -464,7 +487,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES);   // part 2, then 3-36
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES);   // part 2, then 3-38
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -479,7 +502,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
@@ -705,6 +728,12 @@ const SWU_BOT_PROPOSALS = [
     // Behaviour arms — the family every shipped win came from (sequencing and keeping, not valuation):
     'killfirst',       // take a kill-and-survive attack before a base attack, within the turn
     'blockerfirst',    // behind on units: play a body before attacking
+    'doomedtie',       // HELD 2026-10-06 (measured HARMFUL): doomed units sacrificed cheapest-first (0.5 + 0.01 x value) instead of tying
+                       // at a flat 0.5, where the first listed went — Krennic's Credit Action sacrificed the Director Krennic unit over a
+                       // Spy token (17 of 60 traced games vs Ahsoka Blue); the owner never sacrifices it. With 'wdability', on Krennic
+                       // Splash's 15 screen pairs: 34.3% vs 37.0%, paired 1 game won / 9 lost (sign p=.02). Guard: bot_doomedtie_test.php.
+    'wdability',       // HELD 2026-10-06 (same measurement): a sacrifice's When Defeated payback is the ABILITY ("When Defeated:"), not the
+                       // words — JTL_032's "a unit that has a 'When Defeated' ability" priced it as its own fodder.
     'tradewhenbehind', // behind on units: an even trade is worth taking (owner Q10, made conditional)
     // ('leaderrisk' was SHIPPED 2026-10-03 in feature group 'p28' — see the Part 28 comment.)
     'removalready',    // spend removal on READY enemies; an exhausted one cannot attack this round
@@ -804,6 +833,7 @@ const SWU_BOT_PROPOSALS = [
     // ⚠ Pairs with 'aspectwaiver': banking Credits is pointless if the waiver is burned in round 1, which
     // is bug #1098 in the SAME game. Measure them together.
     'creditbank',
+    // ('curveplay', 'curveresource', 'curvemull' were SHIPPED 2026-10-06 as feature group 'p38'.)
     // ('mgkill' was SHIPPED 2026-09-25 as feature group 'p13' — its history is in the feature comment.)
     // ('mgbomb' was SHIPPED 2026-09-24 as feature group 'p12' — its history is in the feature comment.)
     // ('breach' was SHIPPED 2026-10-03 as feature group 'p26' — its history is in the feature comment.)
@@ -830,6 +860,7 @@ function SWUBotProposalList(): array {
 // history of these groups is therefore PRE-p16 and not reproducible as written.
 const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
                                  'krennicfull' => ['creditvalue', 'krennicscript'],
+                                 'krennicsac'  => ['doomedtie', 'wdability'],   // HELD 2026-10-06: harmful on Krennic Splash (1:9, p=.02)
                                  ];
 // ⚠ No 'creditline' group. #1098 + #1099 are one chain, but p16 shipped the waiver half as a FEATURE, so
 // plain @try-creditbank already measures "the Credit half ON TOP OF the waiver fix" — a group would just
@@ -901,5 +932,8 @@ function SWUBotSetDisabledFeatures(array $features): void {
 }
 
 function SWUBotFeatureOn(string $feature): bool {
-    return !in_array($feature, $GLOBALS['SWUBotDisabledFeatures'] ?? [], true);
+    // TEST-ONLY pin ($GLOBALS['SWUBotPinnedDisabled']): a guard test for one feature pins LATER features off so its numbers
+    // keep isolating its own feature (introduced with p38, 2026-10-06). Production never sets it.
+    return !in_array($feature, $GLOBALS['SWUBotDisabledFeatures'] ?? [], true)
+        && !in_array($feature, $GLOBALS['SWUBotPinnedDisabled'] ?? [], true);
 }

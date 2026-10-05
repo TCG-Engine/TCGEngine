@@ -105,7 +105,9 @@ $ctxD = $botCtx('softcontrol');
 $check(str_starts_with($ctxD['tooltip'], 'Play_a_card_(ignore_1_'), "D fixture: the waiver prompt is up; got '{$ctxD['tooltip']}'");
 $cands = array_map(fn($a) => strval($a['cardID']), $ctxD['actions']);
 $check(count($cands) >= 2, 'D fixture: more than one card is playable at the waived cost; got ' . json_encode($cands));
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // owner 2026-10-06: on this board SRI is a bad play by curve value; this checks the MECHANISM
 $check($pickAt() === 'myHand-2', 'D: the prompt picks LAW_044 at index 2, not the cheap index-0 card');
+unset($GLOBALS['SWUBotPinnedDisabled']);
 $check($pickAt('no-aspectwaiver') === 'myHand-0', 'D @no-aspectwaiver: it picks the lowest index (the traced behaviour)');
 
 // ── E) A waiver that unlocks nothing is not worth using at all ──────────────────────────────────────────────

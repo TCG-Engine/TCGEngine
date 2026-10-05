@@ -2,7 +2,7 @@
 // Chromium, Firefox and WebKit, at desktop and phone width. Screenshots land in $OUT for a visual pass.
 //
 // What it protects:
-//  • PvP's card pool offers "Meta Premier"; choosing it leaves Match Type with Best of 3 only (Bo1 switched off),
+//  • PvP's card pool offers "Meta Premier"; choosing it offers both match types (owner, 2026-10-05: Bo1 and Bo3 ladders),
 //    hides Create Private Room (queue only), and — logged out — disables Join Queue with a "Log in" hint
 //  • switching back to Premier restores both match types and Create Private Room (Premier untouched)
 //  • a Premier-legal deck link pasted while on Meta Premier keeps Meta Premier (detection must not yank the pool)
@@ -38,7 +38,7 @@ async function openPvp(page) {
   await page.waitForSelector('dialog#setup-pvp[open]');
 }
 // Pick a card pool the way a player does: open the chip (an enhanced listbox over the hidden <select>) and click the row.
-const POOL_LABEL = { metapremier: 'Meta Premier (Bo3)', premier: 'Premier' };
+const POOL_LABEL = { metapremier: 'Meta Premier', premier: 'Premier' };
 const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 async function pickPool(page, fmt) {
   await page.click('#pvp-pool-btn');
@@ -88,7 +88,7 @@ for (const [engine, launcher] of ENGINES) {
     ok(tag, 'PvP offers a Meta Premier pool', pools.includes('metapremier'), pools.join(','));
     await pickPool(page, 'metapremier');
     let s = await state(page);
-    ok(tag, 'logged out: Match Type offers Best of 3 only', JSON.stringify(s.match) === '["Best of 3"]', JSON.stringify(s.match));
+    ok(tag, 'logged out: Match Type offers both', JSON.stringify(s.match) === '["Best of 1","Best of 3"]', JSON.stringify(s.match));
     ok(tag, 'logged out: Join Queue disabled', s.joinDisabled);
     ok(tag, 'logged out: the "Log in" hint shows', s.hintVisible && /log in/i.test(s.hintText), s.hintText);
     ok(tag, 'logged out: Create Private Room hidden', !s.privVisible);
@@ -104,14 +104,18 @@ for (const [engine, launcher] of ENGINES) {
     await openPvp(page);
     await pickPool(page, 'metapremier');
     s = await state(page);
-    ok(tag, 'logged in: Best of 3 only', JSON.stringify(s.match) === '["Best of 3"]', JSON.stringify(s.match));
+    ok(tag, 'logged in: Match Type offers both', JSON.stringify(s.match) === '["Best of 1","Best of 3"]', JSON.stringify(s.match));
     ok(tag, 'logged in: Join Queue enabled, no hint', s.joinVisible && !s.joinDisabled && !s.hintVisible);
     ok(tag, 'logged in: Create Private Room hidden', !s.privVisible);
     await page.screenshot({ path: `${OUT}/${engine}-${width}-loggedin-metapremier.png` });
-    // the submission path reads the modal: Meta Premier + Best of 3 → metapremier / bo3
-    const synced = await page.evaluate(() => { window.SYNC_ACTIVE_SETUP();
-      return [document.getElementById('swu-format-select').value, document.getElementById('swu-queuetype-select').value]; });
-    ok(tag, 'the submission carries metapremier / bo3', synced.join('/') === 'metapremier/bo3', synced.join('/'));
+    // the submission path reads the modal: Meta Premier + the chosen length → metapremier / bo1 | bo3
+    const sync = () => page.evaluate(() => { window.SYNC_ACTIVE_SETUP();
+      return [document.getElementById('swu-format-select').value, document.getElementById('swu-queuetype-select').value].join('/'); });
+    let synced = await sync();
+    ok(tag, 'the submission carries metapremier / bo1 by default', synced === 'metapremier/bo1', synced);
+    await page.selectOption('#pvp-match', { label: 'Best of 3' });
+    synced = await sync();
+    ok(tag, '... and metapremier / bo3 when Best of 3 is chosen', synced === 'metapremier/bo3', synced);
 
     if (width === 1440) {   // deck detection hits the network; once per engine is enough
       await page.fill('dialog[open] input[data-detect]', PREM);
@@ -119,7 +123,7 @@ for (const [engine, launcher] of ENGINES) {
       await page.waitForTimeout(4000);
       s = await state(page);
       ok(tag, 'a Premier-legal link keeps Meta Premier selected', s.pool === 'metapremier', s.pool);
-      ok(tag, '... and Match Type stays Best of 3 only', JSON.stringify(s.match) === '["Best of 3"]', JSON.stringify(s.match));
+      ok(tag, '... and Match Type still offers both', JSON.stringify(s.match) === '["Best of 1","Best of 3"]', JSON.stringify(s.match));
     }
 
     // ── profile ──────────────────────────────────────────────────────────────────────────────────────

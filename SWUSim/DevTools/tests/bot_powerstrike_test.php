@@ -7,6 +7,7 @@
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/BotHeuristic.php';
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // isolates this file's feature from curve value (p38, 2026-10-06)
 
 const STRIKE_TRUE = 'SOR_127';  // event: "A friendly unit deals damage equal to its power to an enemy unit."
 const CROSSHAIR = 'SHD_087';    // unit: "Action: This unit deals damage equal to his power to an enemy ground unit."

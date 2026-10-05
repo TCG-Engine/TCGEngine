@@ -312,11 +312,64 @@ function SWUBotLethalNextRound(int $seat, int $defSeat): bool {
 // the initiative holder swings first, so they win the race. The counter reads "P{n}_UNCLAIMED" or
 // "P{n}_CLAIMED" (SWUTakeInitiative); either way P{n} holds it.
 function SWUBotIsRacing(int $seat, int $defSeat): bool {
+    // Feature 'actionclock' (p37): inside the race window, who wins is decided in ACTIONS (see _SWUBotActionRaceWins). The unit views
+    // are built ONCE: the round clock is the sum of the same attack lists (as SWUBotClock / SWUBotBasePotential count them), so the
+    // simulation costs no extra views — computing both separately made every game ~21% slower (measured 2026-10-05). The
+    // 'sentinelpot' proposal counts the clock differently, so under it the old path runs.
+    if (function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('actionclock') && !(function_exists('SWUBotProposalOn') && SWUBotProposalOn('sentinelpot'))) {
+        $a = _SWUBotRaceAttacks($seat, $defSeat); $b = _SWUBotRaceAttacks($defSeat, $seat);
+        $clock = fn(array $att, int $hp) => array_sum($att) <= 0 ? SWU_BOT_NO_CLOCK : max(1, intdiv($hp + array_sum($att) - 1, array_sum($att)));
+        $hm = SWUBaseRemainingHp($seat); $ht = SWUBaseRemainingHp($defSeat);
+        $mine = $clock($a, $ht);
+        if ($mine > 3) return false;
+        $meFirst = str_starts_with(strval(GetInitiativeCounter() ?? ''), 'P' . $seat . '_');
+        if (($won = _SWUBotActionRaceSim($a, $b, $hm, $ht, $meFirst)) !== null) return $won;
+        $theirs = $clock($b, $hm);
+        if ($mine !== $theirs) return $mine < $theirs;
+        return $meFirst;
+    }
     $mine = SWUBotClock($seat, $defSeat);
     $theirs = SWUBotClock($defSeat, $seat);
     if ($mine > 3) return false;
     if ($mine !== $theirs) return $mine < $theirs;
     return str_starts_with(strval(GetInitiativeCounter() ?? ''), 'P' . $seat . '_');
+}
+
+// Feature 'actionclock' (p37) — owner 2026-10-04 (Ahsoka Yellow lost to Han Solo JTL Red): "they can do more damage per action even
+// if we have more damage available. we have to take more actions to deal all our damage." SWUBotClock divides HP by SUMMED power, so
+// a wide board and a tall one with equal totals tie — but SWU alternates actions. Measured first: on 22,868 race decisions the two
+// verdicts disagree 7.9% of the time, and there the action verdict named the eventual winner 79% of the time (round verdict 21%)
+// — docs/superpowers/research/2026-09-premier-meta/2026-10-05_action_clock.md. Owner chose a shipped feature (option A).
+// Each side's attacks that reach the other base (every unit, as SWUBotClock counts them; a Sentinel guards its arena, Saboteur
+// ignores it), largest first.
+function _SWUBotRaceAttacks(int $att, int $def): array {
+    $guarded = _SWUBotSentinelArenas($def); $p = [];
+    foreach (SWUBotUnits($att) as $v) {
+        if (intval($v['attackPower']) > 0 && ($v['saboteur'] || !($guarded[$v['arena']] ?? false))) $p[] = intval($v['attackPower']);
+    }
+    rsort($p);
+    return $p;
+}
+// Does $seat empty $def's base first? A static board: every unit attacks once a round, largest first, the sides ALTERNATE, the
+// initiative holder first. null when neither base falls within 30 rounds (the round verdict decides).
+function _SWUBotActionRaceWins(int $seat, int $def): ?bool {
+    return _SWUBotActionRaceSim(_SWUBotRaceAttacks($seat, $def), _SWUBotRaceAttacks($def, $seat), SWUBaseRemainingHp($seat),
+        SWUBaseRemainingHp($def), str_starts_with(strval(GetInitiativeCounter() ?? ''), 'P' . $seat . '_'));
+}
+// The race itself, on attack lists already built (largest first): $hm my base HP, $ht theirs.
+function _SWUBotActionRaceSim(array $mine, array $theirs, int $hm, int $ht, bool $meFirst): ?bool {
+    if (empty($mine) && empty($theirs)) return null;
+    for ($r = 0; $r < 30; $r++) {
+        $a = $mine; $b = $theirs; $myTurn = $meFirst;
+        while (!empty($a) || !empty($b)) {
+            if ($myTurn && !empty($a)) $ht -= array_shift($a);
+            elseif (!$myTurn && !empty($b)) $hm -= array_shift($b);
+            if ($ht <= 0) return true;
+            if ($hm <= 0) return false;
+            $myTurn = !$myTurn;
+        }
+    }
+    return null;
 }
 
 // Rule 5's "stabilises" (spec Section 2): after the wipe the opponent's clock is at least 3 rounds AND longer
