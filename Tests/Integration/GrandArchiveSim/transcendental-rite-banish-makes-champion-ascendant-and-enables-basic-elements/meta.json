@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Transcendental Rite's banish ability was not implemented.",
         "affectedFunction": "activateAbilityAbilities['tAiiMGZJXp:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "56dec909"
     }
 }

@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Scale of Souls' (2) reserve cost was never charged and the item was never rested (misrouted through ActivateCard).",
         "affectedFunction": "ActivatedAbilityCost / activateAbilityAbilities['0z2snsdwmx:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "5b809492"
     }
 }

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **783**
+Cards linked to an existing fixture: **785**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1703**
+Implemented cards still needing semantic coverage: **1701**
 
 ## Mechanic groups
 
@@ -42,7 +42,6 @@ Implemented cards still needing semantic coverage: **1703**
 | Aetheric Calibration (`7l9th23niu`) | ACTION | 1 | zone-movement, condition | Diana, Moonpiercer | — |
 | Grande Aiguille (`6ihv6hbvye`) | REGALIA,WEAPON | 1 | counter, condition | Ciel, Mirage's Grave | — |
 | Grande Sonnerie (`s4b2mkh1xm`) | REGALIA,WEAPON | 1 | cost, condition | Ciel, Mirage's Grave | — |
-| Refluxal Ribbon (`vm4xg2hedp`) | REGALIA,ITEM | 1 | targeting, zone-movement | Diana, Moonpiercer | — |
 | Sablier Guard (`tu7jvjf2gh`) | ALLY | 1 | cost, counter | Ciel, Mirage's Grave | — |
 | Sinistre Stab (`e1xj8mqr2o`) | ATTACK | 1 | combat, condition | Ciel, Mirage's Grave | — |
 | Constellation's Blessing (`nypwwnirjk`) | ACTION | 1 | draw-discard | Diana, Moonpiercer | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **1703**
 | Scars of Old (`lD0sK81PZT`) | ACTION | 1 | draw-discard, counter | — | scars-of-old-buff-counters, scars-of-old-draw-discard |
 | Sneaky Raccoon (`jH6F9XYrL5`) | ALLY | 1 | status, condition | — | sneaky-raccoon-stealth |
 | Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
+| Oasis Trading Post (`uy4xippor7`) | DOMAIN | 3 | token | — | — |

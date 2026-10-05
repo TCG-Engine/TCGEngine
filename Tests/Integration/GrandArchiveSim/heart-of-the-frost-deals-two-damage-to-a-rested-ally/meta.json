@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Heart of the Frost's ability was not implemented.",
         "affectedFunction": "activateAbilityAbilities['7NlaXYtNM6:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "5b809492"
     }
 }

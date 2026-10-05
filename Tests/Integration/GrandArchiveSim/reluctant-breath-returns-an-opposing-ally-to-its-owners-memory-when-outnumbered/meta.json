@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Reluctant Breath's ability was not implemented.",
         "affectedFunction": "activateAbilityAbilities['xfheZavYZm:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "5b809492"
     }
 }

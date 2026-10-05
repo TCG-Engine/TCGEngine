@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "Verdant Scepter's On Enter was not implemented.",
         "affectedFunction": "enterAbilities['7wsxirq146:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "56dec909"
     }
 }

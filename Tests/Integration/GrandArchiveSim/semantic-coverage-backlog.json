@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T21:26:18+00:00",
+    "generatedAt": "2026-10-05T21:47:44+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 783,
+        "cardsWithExistingFixtures": 785,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1703,
+        "cardsNeedingSemanticCoverage": 1701,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -328,24 +328,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "vm4xg2hedp",
-            "name": "Refluxal Ribbon",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -16739,23 +16721,6 @@
             "cardId": "nl1gxrpx8j",
             "name": "Perse, Relentless Raptor",
             "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "fviga4cmti",
-            "name": "Phantom Veil",
-            "type": "REGALIA,ITEM",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -40596,6 +40561,28 @@
             "priority": 132
         },
         {
+            "cardId": "vm4xg2hedp",
+            "name": "Refluxal Ribbon",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "refluxal-ribbon-pays-two-banishes-itself-and-loads-an-aethercharge-from-the-graveyard"
+            ],
+            "semanticFixtures": [
+                "refluxal-ribbon-pays-two-banishes-itself-and-loads-an-aethercharge-from-the-graveyard"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "me0xxw0plq",
             "name": "Refracted Twilight",
             "type": "ITEM",
@@ -46019,6 +46006,27 @@
             ],
             "semanticFixtures": [
                 "pantheon-barrier-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "fviga4cmti",
+            "name": "Phantom Veil",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "phantom-veil-pays-two-and-grants-the-linked-ally-stealth"
+            ],
+            "semanticFixtures": [
+                "phantom-veil-pays-two-and-grants-the-linked-ally-stealth"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Sojourner's Hunt's ability was not implemented.",
         "affectedFunction": "activateAbilityAbilities['aqlbuznsz4:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "56dec909"
     }
 }

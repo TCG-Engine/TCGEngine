@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Treasure of the Depths never gained refinement counters.",
         "affectedFunction": "BeforeEndPhase",
-        "fixCommit": "TBD"
+        "fixCommit": "56dec909"
     }
 }

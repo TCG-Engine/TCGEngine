@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Phantom Veil's (2) cost was never charged.",
         "affectedFunction": "ActivatedAbilityCost (fviga4cmti)",
-        "fixCommit": "TBD"
+        "fixCommit": "5b809492"
     }
 }

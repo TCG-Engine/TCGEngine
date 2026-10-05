@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Pride of Demiourgos was not implemented; one-shot element bypasses were consumed by the selection legality scan.",
         "affectedFunction": "CanActivateCardForSelection / CanPlayerUseCardElement",
-        "fixCommit": "TBD"
+        "fixCommit": "56dec909"
     }
 }

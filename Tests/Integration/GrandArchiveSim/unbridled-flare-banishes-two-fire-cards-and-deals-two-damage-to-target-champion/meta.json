@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Unbridled Flare's second ability was not implemented.",
         "affectedFunction": "activateAbilityAbilities['hXERTZPM0w:1']",
-        "fixCommit": "TBD"
+        "fixCommit": "5b809492"
     }
 }

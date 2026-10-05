@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "Heirloom of Materia's abilities were not implemented.",
         "affectedFunction": "activateAbilityAbilities['sZlDgmVTD7:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "56dec909"
     }
 }

@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Refluxal Ribbon could not be activated through the field click: its (2) cost and banish-self cost were never paid.",
         "affectedFunction": "ActivatedAbilityCost / activateAbilityAbilities['vm4xg2hedp:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "5b809492"
     }
 }

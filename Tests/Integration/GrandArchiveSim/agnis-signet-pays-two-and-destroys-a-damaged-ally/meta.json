@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Agni's Signet's ability was not implemented.",
         "affectedFunction": "activateAbilityAbilities['yIozXMrdqr:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "5b809492"
     }
 }

@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Treasure of the Depths's activated ability was not implemented.",
         "affectedFunction": "activateAbilityAbilities['4Kxe6pSt6C:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "56dec909"
     }
 }
