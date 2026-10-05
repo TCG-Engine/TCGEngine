@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Lucenia's Reign's '(2), Discard a Chessman Command card' cost: the (2) was never paid, the discard was done by the effect body (after the opponent had priority) and the phantasia was exhausted by the implicit REST. Fix: ActivatedAbilityCost queues the discard choice and the two reserve payments, the effect body only targets the Chessman ally, and the id is on the skipAutoRest list.",
         "affectedFunction": "Custom/GameLogic.php ActivatedAbilityCost / skipAutoRest; Custom/GeneratedAbilityOverrides.php zrvvwz3ww9:0",
-        "fixCommit": "TBD"
+        "fixCommit": "bff53026"
     }
 }

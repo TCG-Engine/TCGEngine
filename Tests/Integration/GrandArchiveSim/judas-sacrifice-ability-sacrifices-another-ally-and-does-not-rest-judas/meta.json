@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Judas's two activated abilities ('[Class Bonus] Sacrifice another ally', '[Class Bonus] (2), Sacrifice another ally') never paid their sacrifice (the prereq accepted Judas himself as the ally and no cost was queued) and Judas was exhausted by the implicit REST. Fix: ActivatedAbilityCost queues the 'sacrifice another ally' choice (and the (2) for the second ability), the prereq needs another ally, and Judas is on the skipAutoRest list.",
         "affectedFunction": "Custom/GameLogic.php ActivatedAbilityCost / skipAutoRest; Custom/GeneratedAbilityOverrides.php Judas prereqs",
-        "fixCommit": "TBD"
+        "fixCommit": "bff53026"
     }
 }

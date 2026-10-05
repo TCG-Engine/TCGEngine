@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. The On Attack / On Hit triggers of Prepare cards (Thieving Cut, Final Stroke, Striking Illuminance, Stillshard Strike, Sudden Deluge, Poised Strike, Spirit Blade: Terminus, ...) read 'wasPrepared', one shared DQ variable that every later activation overwrites (an opposing fast card answering the attack). Fix: the trigger context takes wasPrepared from the attack card's own PREPARED tag in the intent (GAWasPreparedForTrigger), falling back to the variable for non-intent sources.",
         "affectedFunction": "Custom/GameLogic.php QueueAttackTriggeredAbility / QueueHitTriggeredAbility",
-        "fixCommit": "TBD"
+        "fixCommit": "bff53026"
     }
 }

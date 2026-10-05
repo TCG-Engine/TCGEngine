@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Silvergale Monstrosity's Call moved ALL the sheen onto the first Memorite Obelith with no choice, although the card says 'any amount of sheen counters ... onto any amount of allies named Memorite Obelith'. Fix: GASilvergaleResolve offers an MZSPLITASSIGN (up to the sheen on Fractured Memories, over every Memorite Obelith you control, partial allowed) and GASilvergaleMoveSheen applies it.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php GASilvergaleResolve / GASilvergaleMoveSheen",
-        "fixCommit": "TBD"
+        "fixCommit": "bff53026"
     }
 }

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T15:50:22+00:00",
+    "generatedAt": "2026-10-05T16:05:24+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 753,
+        "cardsWithExistingFixtures": 758,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1733,
+        "cardsNeedingSemanticCoverage": 1728,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2200,24 +2200,6 @@
             "priority": 24
         },
         {
-            "cardId": "AbjQkcN57S",
-            "name": "Judas, Claret Intercessor",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "AXE6sCzjZU",
             "name": "Legendary Saddle",
             "type": "REGALIA,ITEM",
@@ -3413,23 +3395,6 @@
                 "cost",
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "zrvvwz3ww9",
-            "name": "Lucenia's Reign",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -11182,24 +11147,6 @@
             "priority": 14
         },
         {
-            "cardId": "D3rexaXCBo",
-            "name": "Phantasmagoria",
-            "type": "MASTERY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "wAabqFjdM5",
             "name": "Plasma Vanguard",
             "type": "ALLY",
@@ -17332,23 +17279,6 @@
             "priority": 13
         },
         {
-            "cardId": "6p3p5iqigc",
-            "name": "Portside Pirate",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "8bki6fxxgm",
             "name": "Potion Infusion: Blaze",
             "type": "ACTION",
@@ -17681,23 +17611,6 @@
                 "cost",
                 "targeting",
                 "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "gJ2dsgywEs",
-            "name": "Reckless Conversion",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -30707,10 +30620,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "thieving-cut-prepare-onhit-draw"
+                "thieving-cut-prepare-onhit-draw",
+                "thieving-cut-prepared-still-draws-after-opponent-activates-an-unprepared-card"
             ],
             "semanticFixtures": [
-                "thieving-cut-prepare-onhit-draw"
+                "thieving-cut-prepare-onhit-draw",
+                "thieving-cut-prepared-still-draws-after-opponent-activates-an-unprepared-card"
             ],
             "starterDecks": [
                 "Zander Pantheon Starter",
@@ -37508,6 +37423,8 @@
                 "combat"
             ],
             "existingFixtures": [
+                "flawless-blade-with-abilities-gives-attack-cards-floating-memory-to-pay-materialize",
+                "flawless-blade-without-abilities-attack-cards-have-no-floating-memory",
                 "mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup",
                 "mordred-flawless-blade-floating-payment-rejects-non-floating-card",
                 "mordred-flawless-blade-non-attack-card-in-graveyard-does-not-float",
@@ -37515,6 +37432,8 @@
                 "mordred-flawless-blade-player-two-blade-floats-own-graveyard"
             ],
             "semanticFixtures": [
+                "flawless-blade-with-abilities-gives-attack-cards-floating-memory-to-pay-materialize",
+                "flawless-blade-without-abilities-attack-cards-have-no-floating-memory",
                 "mordred-flawless-blade-attack-card-in-graveyard-floats-for-levelup",
                 "mordred-flawless-blade-floating-payment-rejects-non-floating-card",
                 "mordred-flawless-blade-non-attack-card-in-graveyard-does-not-float",
@@ -43819,6 +43738,28 @@
             "priority": 44
         },
         {
+            "cardId": "AbjQkcN57S",
+            "name": "Judas, Claret Intercessor",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "judas-sacrifice-ability-sacrifices-another-ally-and-does-not-rest-judas"
+            ],
+            "semanticFixtures": [
+                "judas-sacrifice-ability-sacrifices-another-ally-and-does-not-rest-judas"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "fIQR28QmYg",
             "name": "Lucia, Reclaimed Blight",
             "type": "UNIQUE,ALLY",
@@ -44122,6 +44063,27 @@
             "semanticFixtures": [
                 "kindling-flare-decline-all-herbs-pays-reserve-cost",
                 "kindling-flare-decline-further-herb-pays-reserve-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "zrvvwz3ww9",
+            "name": "Lucenia's Reign",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lucenia-reign-pays-two-and-discards-a-chessman-command-as-the-cost"
+            ],
+            "semanticFixtures": [
+                "lucenia-reign-pays-two-and-discards-a-chessman-command-as-the-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45287,6 +45249,28 @@
             "priority": 34
         },
         {
+            "cardId": "D3rexaXCBo",
+            "name": "Phantasmagoria",
+            "type": "MASTERY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "phantasmagoria-non-specter-graveyard-card-cannot-pay-memory-with-floating-memory"
+            ],
+            "semanticFixtures": [
+                "phantasmagoria-non-specter-graveyard-card-cannot-pay-memory-with-floating-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "ooGvrzxTmr",
             "name": "Piccarda, Night Rider",
             "type": "UNIQUE,ALLY",
@@ -45636,10 +45620,16 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "arondight-azure-blade-enter-banish-one-floating-then-decline-keeps-one-refinement"
+                "arondight-azure-blade-enter-banish-one-floating-then-decline-keeps-one-refinement",
+                "flawless-blade-with-abilities-gives-attack-cards-floating-memory-to-pay-materialize",
+                "flawless-blade-without-abilities-attack-cards-have-no-floating-memory",
+                "phantasmagoria-non-specter-graveyard-card-cannot-pay-memory-with-floating-memory"
             ],
             "semanticFixtures": [
-                "arondight-azure-blade-enter-banish-one-floating-then-decline-keeps-one-refinement"
+                "arondight-azure-blade-enter-banish-one-floating-then-decline-keeps-one-refinement",
+                "flawless-blade-with-abilities-gives-attack-cards-floating-memory-to-pay-materialize",
+                "flawless-blade-without-abilities-attack-cards-have-no-floating-memory",
+                "phantasmagoria-non-specter-graveyard-card-cannot-pay-memory-with-floating-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45775,11 +45765,13 @@
             ],
             "existingFixtures": [
                 "fishing-accident-prepare-2-declined-ally-rested",
-                "fishing-accident-prepare-2-paid-ally-to-bottom-of-deck"
+                "fishing-accident-prepare-2-paid-ally-to-bottom-of-deck",
+                "thieving-cut-prepared-still-draws-after-opponent-activates-an-unprepared-card"
             ],
             "semanticFixtures": [
                 "fishing-accident-prepare-2-declined-ally-rested",
-                "fishing-accident-prepare-2-paid-ally-to-bottom-of-deck"
+                "fishing-accident-prepare-2-paid-ally-to-bottom-of-deck",
+                "thieving-cut-prepared-still-draws-after-opponent-activates-an-unprepared-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46012,6 +46004,27 @@
             "priority": 33
         },
         {
+            "cardId": "6p3p5iqigc",
+            "name": "Portside Pirate",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "status"
+            ],
+            "existingFixtures": [
+                "portside-pirate-ability-does-not-rest-the-pirate"
+            ],
+            "semanticFixtures": [
+                "portside-pirate-ability-does-not-rest-the-pirate"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "dOPqsWYMCQ",
             "name": "Radiant Origin of Mage",
             "type": "PHANTASIA",
@@ -46069,6 +46082,27 @@
             ],
             "semanticFixtures": [
                 "rapid-combustion-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "gJ2dsgywEs",
+            "name": "Reckless Conversion",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "reckless-conversion-banishes-four-random-memory-cards-reproducibly"
+            ],
+            "semanticFixtures": [
+                "reckless-conversion-banishes-four-random-memory-cards-reproducibly"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46647,11 +46681,13 @@
             ],
             "existingFixtures": [
                 "silvergale-monstrosity-call-prepare-2-declined-obelith-no-sheen",
-                "silvergale-monstrosity-call-prepare-2-paid-moves-sheen-to-obelith"
+                "silvergale-monstrosity-call-prepare-2-paid-moves-sheen-to-obelith",
+                "silvergale-monstrosity-call-prepare-2-paid-splits-some-sheen-over-two-obeliths"
             ],
             "semanticFixtures": [
                 "silvergale-monstrosity-call-prepare-2-declined-obelith-no-sheen",
-                "silvergale-monstrosity-call-prepare-2-paid-moves-sheen-to-obelith"
+                "silvergale-monstrosity-call-prepare-2-paid-moves-sheen-to-obelith",
+                "silvergale-monstrosity-call-prepare-2-paid-splits-some-sheen-over-two-obeliths"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

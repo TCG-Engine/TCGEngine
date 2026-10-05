@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Many generated bodies choose 'at random' with PHP's native rand() / array_rand() / shuffle() (Reckless Conversion, random discards from memory/hand, Gaia's Songbird/Silvie-style 'random order' bottoms, ...). Unlike EngineRandomInt() that is not reproducible: undo-and-redo or a replay of the same action from the same state gave a different outcome, and fixtures with such effects were flaky. Fix: the shared action runner calls an optional game hook GameSeedNativeRandom() before every action; Grand Archive seeds mt_srand() from the same game-state hash EngineRandomInt() uses.",
         "affectedFunction": "Core/EngineActionRunner.php GameSeedNativeRandom hook; Custom/GameLogic.php GameSeedNativeRandom",
-        "fixCommit": "TBD"
+        "fixCommit": "bff53026"
     }
 }

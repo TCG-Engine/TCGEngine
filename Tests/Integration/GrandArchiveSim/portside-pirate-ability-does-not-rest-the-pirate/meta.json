@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Portside Pirate's activated ability has no [REST] in its printed cost, but DoActivatedAbility() rests every ally/champion/phantasia that uses an activated ability unless its id is on the skipAutoRest list, so using the ability exhausted the card. Fix: the id is on the skipAutoRest list.",
         "affectedFunction": "Custom/GameLogic.php DoActivatedAbility skipAutoRest",
-        "fixCommit": "TBD"
+        "fixCommit": "bff53026"
     }
 }

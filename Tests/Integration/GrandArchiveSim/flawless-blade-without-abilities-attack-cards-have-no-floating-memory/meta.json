@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. HasFloatingMemory() granted attack cards floating memory for any Mordred, Flawless Blade on the field without checking HasNoAbilities() on the Blade, so a Blade that had lost its abilities still gave floating memory. Fix: the Blade must still have its abilities.",
         "affectedFunction": "Custom/GameLogic.php HasFloatingMemory",
-        "fixCommit": "TBD"
+        "fixCommit": "bff53026"
     }
 }

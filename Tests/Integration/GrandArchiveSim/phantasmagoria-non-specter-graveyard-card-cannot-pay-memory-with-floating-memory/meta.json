@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. HasFloatingMemory() and HasNoAbilities() asked IsGraveyardAbilitySuppressed() about the graveyard object's Controller, which graveyard objects do not carry, so Phantasmagoria (non-Specter cards in your graveyard lose all abilities) never removed Floating Memory from the graveyard. Fix: ask about the graveyard's owner (FloatingMemoryOwner).",
         "affectedFunction": "Custom/GameLogic.php HasFloatingMemory / HasNoAbilities",
-        "fixCommit": "TBD"
+        "fixCommit": "bff53026"
     }
 }
