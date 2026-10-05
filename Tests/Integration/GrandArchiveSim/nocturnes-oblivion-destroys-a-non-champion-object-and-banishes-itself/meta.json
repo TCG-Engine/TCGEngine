@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Nocturne's Oblivion's \"Banish CARDNAME\" used the variable mzID (the effect-stack slot) to find itself, but by the time a spell's effect runs it has already moved from the stack to the graveyard, so it was never banished and stayed in the graveyard. Fix: it is looked up in the graveyard (BanishResolvedSpellFromGraveyard).",
         "affectedFunction": "Custom/GameLogic.php NocturnesOblivionResolve / BanishResolvedSpellFromGraveyard",
-        "fixCommit": "TBD"
+        "fixCommit": "94fc9bb0"
     }
 }

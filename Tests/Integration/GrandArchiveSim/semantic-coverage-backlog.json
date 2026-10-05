@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T21:11:04+00:00",
+    "generatedAt": "2026-10-05T21:15:58+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 767,
+        "cardsWithExistingFixtures": 775,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1719,
+        "cardsNeedingSemanticCoverage": 1711,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -37,26 +37,6 @@
                 "draw-discard",
                 "zone-movement",
                 "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "1a5zdqgydt",
-            "name": "Nocturne's Oblivion",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -106,26 +86,6 @@
             "priority": 123
         },
         {
-            "cardId": "ra9950o14t",
-            "name": "Charge the Soul",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "zhh43i1eaa",
             "name": "Ciel, Mirage's Grave",
             "type": "CHAMPION",
@@ -136,26 +96,6 @@
                 "damage",
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "puyzn48srd",
-            "name": "Conflagrant Sentinel",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -181,26 +121,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "vo1qr9bkme",
-            "name": "Coy Bouclier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -256,26 +176,6 @@
                 "counter",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "vyRjDql0TR",
-            "name": "Tempered Steel",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -7702,24 +7602,6 @@
                 "status",
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "oLzsAj9mKl",
-            "name": "Advantageous Perch",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -16358,23 +16240,6 @@
             "priority": 13
         },
         {
-            "cardId": "TQoTD8eGQH",
-            "name": "Magnificent Banquet",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "wum3f33kay",
             "name": "Maiden of Shrouded Fog",
             "type": "PHANTASIA,ALLY",
@@ -19204,23 +19069,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "draw-discard",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "p7nkdqnzzg",
-            "name": "Whirlwind Threads",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
                 "counter",
                 "condition"
             ],
@@ -30261,6 +30109,30 @@
             "priority": 144
         },
         {
+            "cardId": "1a5zdqgydt",
+            "name": "Nocturne's Oblivion",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "nocturnes-oblivion-destroys-a-non-champion-object-and-banishes-itself"
+            ],
+            "semanticFixtures": [
+                "nocturnes-oblivion-destroys-a-non-champion-object-and-banishes-itself"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "97n2jnltv5",
             "name": "Penetrator Round",
             "type": "REGALIA,ITEM",
@@ -33396,6 +33268,30 @@
             "priority": 134
         },
         {
+            "cardId": "ra9950o14t",
+            "name": "Charge the Soul",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "charge-the-soul-deals-one-damage-to-target-unit"
+            ],
+            "semanticFixtures": [
+                "charge-the-soul-deals-one-damage-to-target-unit"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "jxhkurfp66",
             "name": "Charged Manaplate",
             "type": "REGALIA,ITEM",
@@ -33519,6 +33415,32 @@
             "priority": 134
         },
         {
+            "cardId": "puyzn48srd",
+            "name": "Conflagrant Sentinel",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "conflagrant-sentinel-enter-declined-discard-gets-no-buff-counter",
+                "conflagrant-sentinel-enter-discard-a-card-puts-a-buff-counter-on-it"
+            ],
+            "semanticFixtures": [
+                "conflagrant-sentinel-enter-declined-discard-gets-no-buff-counter",
+                "conflagrant-sentinel-enter-discard-a-card-puts-a-buff-counter-on-it"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "l8ao8bls6g",
             "name": "Convalescent Tonic",
             "type": "ITEM",
@@ -33562,6 +33484,30 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "vo1qr9bkme",
+            "name": "Coy Bouclier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "coy-bouclier-level-two-costs-two-less"
+            ],
+            "semanticFixtures": [
+                "coy-bouclier-level-two-costs-two-less"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -35481,6 +35427,30 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "vyRjDql0TR",
+            "name": "Tempered Steel",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "tempered-steel-puts-a-durability-counter-on-your-weapon"
+            ],
+            "semanticFixtures": [
+                "tempered-steel-puts-a-durability-counter-on-your-weapon"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -44849,6 +44819,28 @@
             "priority": 35
         },
         {
+            "cardId": "oLzsAj9mKl",
+            "name": "Advantageous Perch",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "advantageous-perch-distant-returns-a-ranger-action-and-banishes-itself"
+            ],
+            "semanticFixtures": [
+                "advantageous-perch-distant-returns-a-ranger-action-and-banishes-itself"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "xfpk9xycwz",
             "name": "Alkahest",
             "type": "REGALIA,ITEM",
@@ -45859,6 +45851,27 @@
             "priority": 33
         },
         {
+            "cardId": "TQoTD8eGQH",
+            "name": "Magnificent Banquet",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "magnificent-banquet-recovers-five-and-returns-to-the-material-deck-preserved"
+            ],
+            "semanticFixtures": [
+                "magnificent-banquet-recovers-five-and-returns-to-the-material-deck-preserved"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "up6fw61vf1",
             "name": "Malevolent Vow",
             "type": "ACTION",
@@ -46276,6 +46289,27 @@
             "semanticFixtures": [
                 "tribute-singer-does-not-offer-a-melody-it-cannot-pay-for",
                 "tribute-singer-reveal-five-decline-activation-all-five-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "p7nkdqnzzg",
+            "name": "Whirlwind Threads",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "whirlwind-threads-puts-a-quest-counter-on-your-champion"
+            ],
+            "semanticFixtures": [
+                "whirlwind-threads-puts-a-quest-counter-on-your-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **767**
+Cards linked to an existing fixture: **775**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1719**
+Implemented cards still needing semantic coverage: **1711**
 
 ## Mechanic groups
 
@@ -27,18 +27,13 @@ Implemented cards still needing semantic coverage: **1719**
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
 | Leporine Masque (`pgysz2zfji`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, counter | Ciel, Mirage's Grave | — |
-| Nocturne's Oblivion (`1a5zdqgydt`) | ACTION | 2 | cost, targeting, zone-movement, condition | Ciel, Mirage's Grave | — |
 | Ranger Boots (`fbs9qzo3f6`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, status, trigger | Diana, Moonpiercer | — |
 | Pleiades, Celestial Genesis (`rsps1qnzfl`) | REGALIA,WEAPON | 2 | token, combat, trigger | Diana, Moonpiercer | — |
-| Charge the Soul (`ra9950o14t`) | ACTION | 1 | cost, targeting, damage, zone-movement | Diana, Moonpiercer | — |
 | Ciel, Mirage's Grave (`zhh43i1eaa`) | CHAMPION | 1 | targeting, damage, counter, trigger | Ciel, Mirage's Grave | — |
-| Conflagrant Sentinel (`puyzn48srd`) | ALLY | 1 | draw-discard, counter, trigger, condition | Ciel, Mirage's Grave | — |
 | Corsair Captain (`4e1gqwah01`) | ALLY | 1 | cost, zone-movement, status, condition | Diana, Moonpiercer | — |
-| Coy Bouclier (`vo1qr9bkme`) | ALLY | 1 | cost, status, combat, condition | Ciel, Mirage's Grave | — |
 | Diana, Aether Dilettante (`m7f6r8f3y8`) | CHAMPION | 1 | cost, status, trigger, condition | Diana, Moonpiercer | — |
 | Diana, Moonpiercer (`v3vfjtwm7g`) | CHAMPION | 1 | targeting, status, trigger, condition | Diana, Moonpiercer | — |
 | Ombreux Chevalier (`crv1etn4g3`) | ALLY | 1 | zone-movement, counter, trigger, condition | Ciel, Mirage's Grave | — |
-| Tempered Steel (`vyRjDql0TR`) | ACTION | 1 | cost, targeting, zone-movement, counter | Ciel, Mirage's Grave | — |
 | Whimsy's Warden (`cworak5y4y`) | ALLY | 1 | status, combat, trigger, condition | Ciel, Mirage's Grave | — |
 | Ciel, Loyal Valet (`nn48ne8a05`) | CHAMPION | 1 | zone-movement, counter, trigger | Ciel, Mirage's Grave | — |
 | Ciel, Omenbringer (`o69ogocemo`) | CHAMPION | 1 | draw-discard, trigger, condition | Ciel, Mirage's Grave | — |
@@ -76,3 +71,8 @@ Implemented cards still needing semantic coverage: **1719**
 | Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |
 | Stellarion Shift (`ms2x2v4qe3`) | ACTION | 3 | targeting, damage, prevention, draw-discard, zone-movement, status, condition | — | — |
 | FlameTech Manual (`WZJxZMBAir`) | REGALIA,ITEM | 1 | targeting, damage, draw-discard, zone-movement | — | flametech-manual-cascade, flametech-manual-cascade-activate |
+| Nefarious Timepiece (`h1njd7z5j3`) | REGALIA,ITEM | 3 | cost, targeting, draw-discard, zone-movement | — | — |
+| Synthetic Core (`w0y6isxy5l`) | REGALIA,ITEM | 1 | zone-movement, token, trigger, condition | — | synthetic-core-smoke |
+| Bise Blade (`aZzm2GEWEu`) | REGALIA,WEAPON | 3 | cost, token, trigger | — | — |
+| Escharotomy (`CIU4gT14EE`) | ACTION | 1 | cost, targeting, recover | — | escharotomy-prevents-recover, escharotomy-recover |
+| Fatestone of Progress (`2sn7hlyrkw`) | ITEM | 3 | counter, trigger, condition | — | — |
