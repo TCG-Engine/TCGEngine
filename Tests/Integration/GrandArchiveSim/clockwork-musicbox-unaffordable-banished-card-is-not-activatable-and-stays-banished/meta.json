@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Clockwork Musicbox's '[REST]: You may activate a card banished by Clockwork Musicbox' offered EVERY banished card as a mandatory choice and moved the chosen card into the hand BEFORE checking it could be activated (MusicboxActivateCard did MZMove then ActivateCard), so choosing one you could not pay for left it in your hand for free after the REST was spent. Fix: the ability needs a banished card that can actually begin activating, offers only those (optional) and activates through ActivateBanishedCard(), which validates before it moves anything.",
         "affectedFunction": "Custom/CardDQHandlers.php MusicboxActivateCard / MusicboxActivatableCards; Custom/GeneratedAbilityOverrides.php activateAbility q2svdv3zb9:0",
-        "fixCommit": "TBD"
+        "fixCommit": "508cf97b"
     }
 }

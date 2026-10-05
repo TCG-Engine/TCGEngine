@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T16:21:11+00:00",
+    "generatedAt": "2026-10-05T16:29:21+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 765,
+        "cardsWithExistingFixtures": 766,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1721,
+        "cardsNeedingSemanticCoverage": 1720,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -8621,24 +8621,6 @@
                 "targeting",
                 "counter",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "q2svdv3zb9",
-            "name": "Clockwork Musicbox",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -30622,10 +30604,14 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "coronal-of-rejuvenation-banish-spell"
+                "coronal-of-rejuvenation-banish-spell",
+                "coronal-of-rejuvenation-plays-an-affordable-banished-card",
+                "coronal-of-rejuvenation-unaffordable-banished-card-is-not-playable-and-stays-banished"
             ],
             "semanticFixtures": [
-                "coronal-of-rejuvenation-banish-spell"
+                "coronal-of-rejuvenation-banish-spell",
+                "coronal-of-rejuvenation-plays-an-affordable-banished-card",
+                "coronal-of-rejuvenation-unaffordable-banished-card-is-not-playable-and-stays-banished"
             ],
             "starterDecks": [
                 "Kongming Starter Deck",
@@ -44935,6 +44921,30 @@
             "priority": 34
         },
         {
+            "cardId": "q2svdv3zb9",
+            "name": "Clockwork Musicbox",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "clockwork-musicbox-activates-an-affordable-banished-card",
+                "clockwork-musicbox-unaffordable-banished-card-is-not-activatable-and-stays-banished"
+            ],
+            "semanticFixtures": [
+                "clockwork-musicbox-activates-an-affordable-banished-card",
+                "clockwork-musicbox-unaffordable-banished-card-is-not-activatable-and-stays-banished"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "5qWWpkgQLl",
             "name": "Coup de Grace",
             "type": "ATTACK",
@@ -46264,9 +46274,11 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "tribute-singer-does-not-offer-a-melody-it-cannot-pay-for",
                 "tribute-singer-reveal-five-decline-activation-all-five-bottom"
             ],
             "semanticFixtures": [
+                "tribute-singer-does-not-offer-a-melody-it-cannot-pay-for",
                 "tribute-singer-reveal-five-decline-activation-all-five-bottom"
             ],
             "starterDecks": [],

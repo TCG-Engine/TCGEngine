@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Effects that let you activate a card from outside your hand (Tribute Singer, Slime Calling, Clockwork Musicbox) offered every candidate and moved the chosen card into the hand BEFORE checking that it could be activated, so a card whose cost could not be paid ended up in the hand for free (and Slime Calling's one-shot discount lingered). Fix: candidates are offered only when ActivationRefusedBeforeStart() allows them (with the effect's discount applied while asking), and the chosen card is re-validated before it moves.",
         "affectedFunction": "Custom/GameLogic.php TributeSingerEnter / TributeSingerChoose / SlimeCallingChooseSlime / SlimeCallingActivate",
-        "fixCommit": "TBD"
+        "fixCommit": "508cf97b"
     }
 }

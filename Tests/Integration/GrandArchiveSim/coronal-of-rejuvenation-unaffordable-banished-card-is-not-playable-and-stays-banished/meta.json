@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Coronal of Rejuvenation's '[REST]: You may play a card banished by Coronal of Rejuvenation' offered EVERY banished card as a mandatory choice and moved the chosen card into the hand BEFORE checking it could be activated (see the Clockwork Musicbox fix), so choosing one you could not pay for left it in your hand for free after the REST was spent. Fix: the ability needs a banished card that can actually begin activating, offers only those and activates through ActivateBanishedCard().",
         "affectedFunction": "Custom/GameLogic.php CoronalActivatableCards / CoronalOfRejuvenationActivate; Custom/GeneratedAbilityOverrides.php activateAbility uvgflagxbb:0",
-        "fixCommit": "TBD"
+        "fixCommit": "508cf97b"
     }
 }
