@@ -1,0 +1,26 @@
+{
+    "name": "castling-decline-first-target-still-offers-the-second",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:19:15+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "tFOpmUdi2W"
+    ],
+    "notes": "Castling: 'up to two target Chessman allies': the first target is declined, the second one is chosen. Declining the first used to skip CastlingFirstTarget, so the second target was never offered.",
+    "semanticCoverage": {
+        "testedCards": [
+            "tFOpmUdi2W"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "up-to-two-targets"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Castling's optional-choice continuation (CastlingFirstTarget) handles the declined choice itself, but Core's ExecuteStaticMethods() skipped it on PASS (it was queued by a generated card body without dontSkipOnPass): the second target was never offered after the first was declined. Fix: Grand Archive registers the handler as decline-aware (GameCustomHandlerRunsOnPass, asked by Core before it skips) and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/GameLogic.php GameCustomHandlerRunsOnPass; Custom/CardDQHandlers.php CastlingFirstTarget",
+        "fixCommit": "TBD"
+    }
+}

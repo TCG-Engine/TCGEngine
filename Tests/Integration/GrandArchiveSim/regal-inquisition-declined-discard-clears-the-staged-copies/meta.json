@@ -1,0 +1,26 @@
+{
+    "name": "regal-inquisition-declined-discard-clears-the-staged-copies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:19:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "KVbuQJyWsU"
+    ],
+    "notes": "Regal Inquisition: player 1 looks at the opponent's hand and memory and declines to discard anything. The staged copies of the opponent's cards must be cleared from the temp zone; declining used to skip RegalInquisitionDiscard (which clears them), leaving the opponent's cards visible in the temp zone.",
+    "semanticCoverage": {
+        "testedCards": [
+            "KVbuQJyWsU"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "hidden-information"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Regal Inquisition's optional-choice continuation (RegalInquisitionDiscard) handles the declined choice itself, but Core's ExecuteStaticMethods() skipped it on PASS (it was queued by a generated card body without dontSkipOnPass): the temp-zone copies of the opponent's hand and memory were never cleared. Fix: Grand Archive registers the handler as decline-aware (GameCustomHandlerRunsOnPass, asked by Core before it skips) and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/GameLogic.php GameCustomHandlerRunsOnPass; Custom/CardDQHandlers.php RegalInquisitionDiscard",
+        "fixCommit": "TBD"
+    }
+}

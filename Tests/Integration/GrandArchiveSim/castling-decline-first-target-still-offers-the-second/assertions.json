@@ -1,0 +1,27 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myField-2",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"SPELLSHROUD_NEXT_TURN\",\"TAUNT_NEXT_TURN\",\"tFOpmUdi2W_HP\"]",
+        "semantic": true,
+        "label": "The second Pawn Piece got spellshroud, taunt and +2 LIFE even though the first target was declined"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]",
+        "semantic": true,
+        "label": "The declined first Pawn Piece is untouched"
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

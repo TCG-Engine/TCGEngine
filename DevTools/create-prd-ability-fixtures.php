@@ -28640,6 +28640,64 @@ $fixtures['alkahest-level-four-banishes-itself-to-destroy-a-low-cost-item'] = [
     ],
 ];
 
+
+// --- Declined optional choices whose handlers do the "decline" part themselves (GameCustomHandlerRunsOnPass): ExecuteStaticMethods() used to skip them on PASS. ---
+
+// Castling (tFOpmUdi2W): "Until end of turn, up to two target Chessman allies gain spellshroud and taunt, and get +2 LIFE." Declining the first target (PASS) used to skip CastlingFirstTarget, so the second target was never offered.
+$fixtures['castling-decline-first-target-still-offers-the-second'] = [
+    'testedCards' => ['tFOpmUdi2W'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]], // GUARDIAN class
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Rpr6yCQKU6'], // Pawn Piece -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Rpr6yCQKU6'], // Pawn Piece -> myField-2
+        $gaHand('tFOpmUdi2W'), // Castling -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4), [mrdPass(1), mrdAns(1, 'myField-2')]), // decline the first target, pick the second
+];
+
+// Regal Inquisition (KVbuQJyWsU): "Look at target opponent's hand and memory. Discard any amount of cards from among them. For each card discarded this way, that opponent reveals the top card of their deck and puts it into
+// their hand." The opponent's cards are staged in the temp zone to choose from; declining (PASS) skipped RegalInquisitionDiscard, which clears them, so copies of the opponent's hand and memory stayed in the temp zone.
+$fixtures['regal-inquisition-declined-discard-clears-the-staged-copies'] = [
+    'testedCards' => ['KVbuQJyWsU'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['KqBosnU7pU'], 'Counters' => ['_overrides' => ['classes' => 'CLERIC']]]], // CLERIC class; Mordred, Fated Luminary in the lineage unlocks EXALTED
+        $gaHand('KVbuQJyWsU'), // Regal Inquisition -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdPass(1)]), // decline to discard anything
+];
+
+
+// Modulating Cadence (p5p0azskw4): "Look at the top eight cards of your deck. You may reveal a Harmony or Melody card from among them and put it into your hand. Put the rest on the bottom of your deck in any order."
+// Declining the reveal (PASS) used to skip ModulatingCadenceReveal, so the eight looked-at cards were never put on the bottom of the deck and stayed in the temp zone.
+$fixtures['modulating-cadence-declined-reveal-still-puts-the-rest-on-the-bottom'] = [
+    'testedCards' => ['p5p0azskw4'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'TAMER']]]], // TAMER class (Spirit of Wind supplies WIND)
+        $gaTop(['p5p0azskw4', $GA_DG, $GA_FS, $GA_DG, $GA_FS, $GA_DG, $GA_FS, $GA_DG]), // a Melody card (another Modulating Cadence) among the top eight
+        $gaHand('p5p0azskw4'), // Modulating Cadence -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4), [mrdPass(1), mrdAns(1, 'Bottom=p5p0azskw4,em6eEh9q8y,px60u5n1do,em6eEh9q8y,px60u5n1do,em6eEh9q8y,px60u5n1do,em6eEh9q8y')]), // decline to reveal the Melody; keep the order for the bottom of the deck
+];
+
+
+// Sinister Mindreaver (jozihslnhz): "On Champion Hit: Look at that opponent's memory. You may discard up to two cards from it. If you do, they draw that many cards into their memory." Discard one memory card, decline the second:
+// the opponent draws one card into memory (declining used to skip SinisterMindreaverPick2, which does the drawing, so the opponent drew nothing).
+$fixtures['sinister-mindreaver-decline-second-discard-opponent-still-draws-one'] = [
+    'testedCards' => ['jozihslnhz'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]], // ASSASSIN class (Spirit of Fire has no class)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'jozihslnhz'], // Sinister Mindreaver -> p2 myField-1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_DG], // player 1's memory -> myMemory-0
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_FS], // -> myMemory-1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_DG], // -> myMemory-2
+    ],
+    'actions' => [mrdEnd(1), mrdPlay(2, 'myField-1'), mrdAns(2, 'theirField-0'), mrdAns(2, 'theirMemory-0'), mrdPass(2)], // discard one memory card, decline the second
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

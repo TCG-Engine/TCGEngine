@@ -1,0 +1,26 @@
+{
+    "name": "sinister-mindreaver-decline-second-discard-opponent-still-draws-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:20:39+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "jozihslnhz"
+    ],
+    "notes": "Sinister Mindreaver On Champion Hit: player 2 discards one of player 1's memory cards and declines the second. 'They draw that many cards': player 1 draws one card into memory. Declining the second discard used to skip SinisterMindreaverPick2, which does the drawing, so player 1 drew nothing.",
+    "semanticCoverage": {
+        "testedCards": [
+            "jozihslnhz"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "on-hit"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Sinister Mindreaver's optional-choice continuation (SinisterMindreaverPick2) handles the declined choice itself, but Core's ExecuteStaticMethods() skipped it on PASS (it was queued without dontSkipOnPass): the opponent never drew the card for the discard after the second discard was declined. Fix: Grand Archive registers the handler as decline-aware (GameCustomHandlerRunsOnPass, asked by Core before it skips) and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/GameLogic.php GameCustomHandlerRunsOnPass; Custom/CardDQHandlers.php SinisterMindreaverPick2",
+        "fixCommit": "TBD"
+    }
+}

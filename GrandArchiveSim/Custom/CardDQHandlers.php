@@ -15,6 +15,7 @@ function ProvokeObstinanceChooseNext($player) {
 }
 
 $customDQHandlers["ProvokeObstinanceApply"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         DecisionQueueController::ClearVariable("ProvokeObstinanceCount");
         return;
@@ -3837,6 +3838,7 @@ function SinisterMindreaverContinue($player, $pick1) {
 }
 
 $customDQHandlers["SinisterMindreaverPick2"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $opponent = ($player == 1) ? 2 : 1;
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         MZMove($player, $lastDecision, "theirGraveyard");
@@ -4426,6 +4428,7 @@ $customDQHandlers["BlazingBowmanBanish"] = function($player, $parts, $lastDecisi
 // Modulating Cadence (p5p0azskw4): reveal Harmony/Melody from TempZone, rest to bottom
 // ============================================================================
 $customDQHandlers["ModulatingCadenceReveal"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         Reveal($player, revealedMZ: $lastDecision);
         MZMove($player, $lastDecision, "myHand");
@@ -4440,6 +4443,7 @@ $customDQHandlers["ModulatingCadenceBottom"] = function($player, $parts, $lastDe
 // Lost in Thought (egbscxwjbq): iterative floating memory banish from GY
 // ============================================================================
 $customDQHandlers["LostInThoughtBanish"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $banished = intval($parts[0]);
 
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
@@ -4637,6 +4641,7 @@ $customDQHandlers["PrimalWhipBuff"] = function($player, $parts, $lastDecision) {
 // Orb of Regret (BY0E8si926): shuffle up to 3 cards from hand into deck, draw that many
 // ============================================================================
 $customDQHandlers["OrbOfRegretShuffle"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $iteration = intval($parts[0]);
     $count = intval(DecisionQueueController::GetVariable("OrbOfRegretCount"));
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
@@ -5927,6 +5932,7 @@ function RegalInquisitionStep($player) {
 }
 
 $customDQHandlers["RegalInquisitionDiscard"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $selectedSources = [];
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         foreach(explode("&", $lastDecision) as $tempChoice) {
@@ -6200,6 +6206,7 @@ $customDQHandlers["DianaL2WeaponChosen"] = function($player, $parts, $lastDecisi
 };
 
 $customDQHandlers["DianaL2LoadChoice"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $round = intval($parts[0]);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         // Done loading — draw into memory for each card loaded
@@ -6763,6 +6770,7 @@ function MalevolentVowFinish($player) {
 }
 
 $customDQHandlers["MalevolentVow1"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         DoDiscardCard($player, $lastDecision);
         DecisionQueueController::CleanupRemovedCards();
@@ -8011,6 +8019,7 @@ $customDQHandlers["SunderingMoonPreventTarget"] = function($player, $parts, $las
 };
 
 $customDQHandlers["FoundPowerDiscard1"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $discarded = intval(DecisionQueueController::GetVariable("FoundPowerDiscarded") ?? "0");
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         DoDiscardCard($player, $lastDecision);
@@ -8040,6 +8049,7 @@ $customDQHandlers["FoundPowerDiscard2"] = function($player, $parts, $lastDecisio
 
 // Spirit Blade: Dispersion — choose Sword weapons to strip durability + banish
 $customDQHandlers["SpiritBladeChooseSword"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     global $playerID;
     $totalDurability = intval($parts[0] ?? 0);
 
@@ -8158,6 +8168,7 @@ $customDQHandlers["EtherealysPromiseBanish"] = function($player, $parts, $lastDe
 // Castling (tFOpmUdi2W): up to 2 Chessman allies gain SS, taunt, +2 LIFE
 // ============================================================================
 $customDQHandlers["CastlingFirstTarget"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $first = $lastDecision;
     if($first !== "-" && $first !== "" && $first !== "PASS") {
         AddTurnEffect($first, "SPELLSHROUD_NEXT_TURN");

@@ -1,0 +1,34 @@
+[
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myTempZone",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The eight looked-at cards left the temp zone"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 21,
+        "semantic": true,
+        "label": "All eight cards are back in the deck (on the bottom)"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Nothing was put into hand: eight, minus Modulating Cadence, minus four paid"
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

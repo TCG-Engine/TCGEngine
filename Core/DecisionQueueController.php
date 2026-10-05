@@ -128,10 +128,12 @@ class DecisionQueueController {
                         MZMove($player, $source, $destination);
                         break;
                     case "CUSTOM":
-                        if($lastDecision == "PASS" && !$decision->DontSkipOnPass) break;
                         global $customDQHandlers;
                         $parts = explode("|", $decision->Param);
                         $handlerName = array_shift($parts);
+                        // Optional per-game hook: handlers that handle a declined (PASS) choice themselves, queued by code the game cannot edit (generated card bodies) without dontSkipOnPass.
+                        // Absent elsewhere, so every other game skips exactly as before.
+                        if($lastDecision == "PASS" && !$decision->DontSkipOnPass && !(function_exists('GameCustomHandlerRunsOnPass') && GameCustomHandlerRunsOnPass((string)$handlerName))) break;
                         // Optional per-game hook (SWUSim: the game-log source context — a card-named
                         // continuation re-establishes which ability is resolving). Absent elsewhere.
                         if (function_exists('GameBeforeCustomHandler')) GameBeforeCustomHandler(intval($player), (string)$handlerName, (string)$decision->Param);

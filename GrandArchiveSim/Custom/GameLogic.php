@@ -1165,6 +1165,19 @@ function RestoreUndoVersion($targetPlayerID, $raw) {
 // every unflagged CUSTOM queued behind it for as long as "PASS" is the current value. A handler that has real work to
 // do on a decline calls this first: it turns the decline into "-" and queues a PASSPARAMETER at the very front so
 // the unflagged ReserveCard / EffectStackOpportunity / follow-up CUSTOMs it queues next are not skipped either.
+// Handlers that handle a declined optional choice (PASS) themselves -- the decline is part of the card's text ("up to", "any amount", "you may"): finish a loop, draw for what was already
+// banished/discarded, clear staged copies. Core's ExecuteStaticMethods() skips a CUSTOM handler on PASS unless it was queued with dontSkipOnPass, and several of these are queued by generated
+// card bodies that cannot be edited; Core asks this hook (GameCustomHandlerRunsOnPass) before skipping. Each handler consumes the decline with ConsumeDeclinedChoice().
+$gaDeclineAwareHandlers = [
+    "DianaL2LoadChoice" => true, "HoarfrostHoldChoose" => true, "ImmaterialDissolveSelect" => true, "LostInThoughtBanish" => true, "MalevolentVow1" => true,
+    "ModulatingCadenceReveal" => true, "OrbOfRegretShuffle" => true, "SinisterMindreaverPick2" => true, "SpiritBladeChooseSword" => true, "StonescaleBandDiscard" => true,
+    "CastlingFirstTarget" => true, "FoundPowerDiscard1" => true, "RegalInquisitionDiscard" => true, "ProvokeObstinanceApply" => true,
+];
+function GameCustomHandlerRunsOnPass($handlerName) {
+    global $gaDeclineAwareHandlers;
+    return isset($gaDeclineAwareHandlers[$handlerName]);
+}
+
 function ConsumeDeclinedChoice($player, $lastDecision) {
     if($lastDecision !== "PASS") return $lastDecision;
     DecisionQueueController::AddDecision($player, "PASSPARAMETER", "-", 0);
@@ -4379,6 +4392,7 @@ function StonescaleBandEnter($player) {
 }
 
 $customDQHandlers["StonescaleBandDiscard"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $count = intval(DecisionQueueController::GetVariable("StonescaleBandDiscardCount"));
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         if($count > 0) Draw($player, $count);
@@ -10000,6 +10014,7 @@ $customDQHandlers["HulaoGateUpkeep"] = function($player, $parts, $lastDecision) 
 // Immaterial Dissolution (55d9w9uuvq): accumulate up to 3 chosen non-regalia tokens (total cost <= 4)
 // then destroy them all. Each call processes one MZMAYCHOOSE resolution.
 $customDQHandlers["ImmaterialDissolveSelect"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     global $customDQHandlers;
     $count = intval(DecisionQueueController::GetVariable("dissolveCount"));
     $cost = intval(DecisionQueueController::GetVariable("dissolveCost"));
@@ -25775,6 +25790,7 @@ function HoarfrostHoldEnter($player, $mzID) {
 }
 
 $customDQHandlers["HoarfrostHoldChoose"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         $mzID = DecisionQueueController::GetVariable("hoarfrostHoldMZ");
         $count = intval(DecisionQueueController::GetVariable("hoarfrostHoldCount"));

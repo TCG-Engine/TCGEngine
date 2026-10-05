@@ -1,0 +1,26 @@
+{
+    "name": "modulating-cadence-declined-reveal-still-puts-the-rest-on-the-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:20:06+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "p5p0azskw4"
+    ],
+    "notes": "Modulating Cadence: look at the top eight cards, decline to reveal the Melody among them. The eight cards must still go to the bottom of the deck; declining used to skip ModulatingCadenceReveal, so they were never rearranged and stayed in the temp zone.",
+    "semanticCoverage": {
+        "testedCards": [
+            "p5p0azskw4"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "look-at-top"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Modulating Cadence's optional-choice continuation (ModulatingCadenceReveal) handles the declined choice itself, but Core's ExecuteStaticMethods() skipped it on PASS (it was queued by a generated card body without dontSkipOnPass): the looked-at cards were never put on the bottom of the deck after the reveal was declined. Fix: Grand Archive registers the handler as decline-aware (GameCustomHandlerRunsOnPass, asked by Core before it skips) and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/GameLogic.php GameCustomHandlerRunsOnPass; Custom/CardDQHandlers.php ModulatingCadenceReveal",
+        "fixCommit": "TBD"
+    }
+}
