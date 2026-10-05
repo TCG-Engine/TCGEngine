@@ -29,6 +29,6 @@
         "status": "fixed",
         "summary": "FIXED. ZENA's min-0 MZMULTICHOOSE continuation (ZenaReserveCost) was queued without dontSkipOnPass, so answering PASS made ExecuteStaticMethods skip the handler and every unflagged CUSTOM behind it (ReserveCard payments, EffectStackOpportunity): the queue drained, the card never resolved. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline via ConsumeDeclinedChoice().",
         "affectedFunction": "Custom/GameLogic.php ZenaReserveCost",
-        "fixCommit": "TBD"
+        "fixCommit": "0616bd61"
     }
 }

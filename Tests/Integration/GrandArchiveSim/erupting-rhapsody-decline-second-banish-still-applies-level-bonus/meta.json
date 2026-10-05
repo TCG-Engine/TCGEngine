@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Erupting Rhapsody's optional-choice continuation (EruptingRhapsodyPick) was queued without dontSkipOnPass, so declining the follow-up prompt (PASS) made ExecuteStaticMethods skip the handler: EruptingRhapsodyFinalize never ran, so the +1 level per banished card was never applied. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
         "affectedFunction": "Custom/CardDQHandlers.php EruptingRhapsodyPick",
-        "fixCommit": "TBD"
+        "fixCommit": "0616bd61"
     }
 }

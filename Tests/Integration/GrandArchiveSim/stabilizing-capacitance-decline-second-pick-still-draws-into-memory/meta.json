@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Stabilizing Capacitance's optional-choice continuation (StabilizingCapacitancePick) was queued without dontSkipOnPass, so declining the follow-up prompt (PASS) made ExecuteStaticMethods skip the handler: StabilizingCapacitanceFinish never ran, so the cards put on the bottom were never replaced by draws into memory. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
         "affectedFunction": "Custom/CardDQHandlers.php StabilizingCapacitancePick",
-        "fixCommit": "TBD"
+        "fixCommit": "0616bd61"
     }
 }

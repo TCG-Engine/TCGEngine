@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Hulao Gate, Sun's Ascent's optional-choice continuation (HulaoGateUpkeep) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its \"if you don't\" branch never ran: the domain was never sacrificed. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
         "affectedFunction": "Custom/GameLogic.php HulaoGateUpkeep",
-        "fixCommit": "TBD"
+        "fixCommit": "0616bd61"
     }
 }

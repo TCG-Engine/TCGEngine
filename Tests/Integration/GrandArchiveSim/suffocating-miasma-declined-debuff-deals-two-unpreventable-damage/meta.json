@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Suffocating Miasma's optional-choice continuation (SuffocatingMiasmaRecollection) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its \"if you don't\" branch never ran: the 2 unpreventable damage to the champion was never dealt. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
         "affectedFunction": "Custom/GameLogic.php SuffocatingMiasmaRecollection",
-        "fixCommit": "TBD"
+        "fixCommit": "0616bd61"
     }
 }

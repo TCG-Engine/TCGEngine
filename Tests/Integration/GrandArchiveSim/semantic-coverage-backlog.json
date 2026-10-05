@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T14:43:33+00:00",
+    "generatedAt": "2026-10-05T15:25:51+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 732,
+        "cardsWithExistingFixtures": 736,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1755,
+        "cardsNeedingSemanticCoverage": 1750,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1136,24 +1136,6 @@
             ],
             "existingFixtures": [
                 "sneaky-raccoon-stealth"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "vxzsjRxMIn",
-            "name": "ZENA, Echo Weaver",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [
-                "prd-zena-alt-reserve"
             ],
             "semanticFixtures": [],
             "starterDecks": [],
@@ -6168,25 +6150,6 @@
             "priority": 15
         },
         {
-            "cardId": "snke7lneo4",
-            "name": "Hulao Gate, Sun's Ascent",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "okDVkV1l76",
             "name": "Hymn of Gaia's Grace",
             "type": "ACTION",
@@ -7312,26 +7275,6 @@
             "mechanics": [
                 "cost",
                 "targeting",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "coxpnjvt9y",
-            "name": "Suffocating Miasma",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter",
                 "status",
                 "trigger",
                 "condition"
@@ -9462,24 +9405,6 @@
                 "targeting",
                 "zone-movement",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "dBAdWMoPEz",
-            "name": "Erupting Rhapsody",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -24880,22 +24805,6 @@
             "mechanics": [
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "c4sy8u49sk",
-            "name": "Stabilizing Capacitance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -44851,6 +44760,29 @@
             "priority": 35
         },
         {
+            "cardId": "snke7lneo4",
+            "name": "Hulao Gate, Sun's Ascent",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hulao-gate-upkeep-declined-banish-sacrifices-the-domain"
+            ],
+            "semanticFixtures": [
+                "hulao-gate-upkeep-declined-banish-sacrifices-the-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "6fxxgmuesd",
             "name": "Icebound Slam",
             "type": "ATTACK",
@@ -45065,6 +44997,30 @@
             "priority": 35
         },
         {
+            "cardId": "coxpnjvt9y",
+            "name": "Suffocating Miasma",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "suffocating-miasma-declined-debuff-deals-two-unpreventable-damage"
+            ],
+            "semanticFixtures": [
+                "suffocating-miasma-declined-debuff-deals-two-unpreventable-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "rj52215upu",
             "name": "Swooping Talons",
             "type": "ACTION",
@@ -45207,6 +45163,28 @@
                 "coup-de-grace-prepare-4-paid-critical-4-doubles-damage",
                 "coup-de-grace-prepare-4-paid-non-assassin-no-critical",
                 "coup-de-grace-three-counters-cannot-pay-prepare-4"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "dBAdWMoPEz",
+            "name": "Erupting Rhapsody",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "erupting-rhapsody-decline-second-banish-still-applies-level-bonus"
+            ],
+            "semanticFixtures": [
+                "erupting-rhapsody-decline-second-banish-still-applies-level-bonus"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46647,6 +46625,26 @@
             "priority": 32
         },
         {
+            "cardId": "c4sy8u49sk",
+            "name": "Stabilizing Capacitance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "stabilizing-capacitance-decline-second-pick-still-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "stabilizing-capacitance-decline-second-pick-still-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "EQZZsiUDyl",
             "name": "Storm Tyrant's Eye",
             "type": "REGALIA,ITEM",
@@ -46721,6 +46719,27 @@
             ],
             "semanticFixtures": [
                 "tide-diviner-enter-level-two-looks-three-takes-deep-card-rest-to-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "vxzsjRxMIn",
+            "name": "ZENA, Echo Weaver",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "prd-zena-alt-reserve",
+                "zena-alt-cost-declined-pays-normal-reserve"
+            ],
+            "semanticFixtures": [
+                "zena-alt-cost-declined-pays-normal-reserve"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
