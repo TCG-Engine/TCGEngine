@@ -1,0 +1,26 @@
+{
+    "name": "purification-decline-second-curse-clears-the-staged-copies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:07:53+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "k8ao8bki6f"
+    ],
+    "notes": "Purification: discard one of two Curse cards from the lineage, decline the second. The staged temp-zone copies must be cleared; declining used to skip PurificationCurse2 (which clears them), leaving a display-only copy of the Curse in the temp zone.",
+    "semanticCoverage": {
+        "testedCards": [
+            "k8ao8bki6f"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "lineage-curse"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. PurificationCurse1/2 (the 'choose up to two Curse cards from your champion's lineage' picks) were queued without dontSkipOnPass, so declining a pick skipped the handler that clears the temp-zone copies the picks are made from; the copies stayed behind. Fix: both queue sites pass dontSkipOnPass and the handlers consume the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/CardDQHandlers.php PurificationCurse1 / PurificationCurse2",
+        "fixCommit": "TBD"
+    }
+}

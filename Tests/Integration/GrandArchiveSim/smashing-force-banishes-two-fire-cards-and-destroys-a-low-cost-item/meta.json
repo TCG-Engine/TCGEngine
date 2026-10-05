@@ -1,0 +1,22 @@
+{
+    "name": "smashing-force-banishes-two-fire-cards-and-destroys-a-low-cost-item",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:14:33+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "88rx6p3p5i"
+    ],
+    "notes": "Smashing Force with the Class Bonus: banish two fire cards from the graveyard and destroy target item or weapon with memory cost 0 or reserve cost 4 or less. The memory-only Scepter of Lumina is not a legal target; the Forest Cake is destroyed.",
+    "semanticCoverage": {
+        "testedCards": [
+            "88rx6p3p5i"
+        ],
+        "mechanics": [
+            "on-attack",
+            "class-bonus",
+            "destroy",
+            "cost-filter"
+        ],
+        "rulesClauses": []
+    }
+}

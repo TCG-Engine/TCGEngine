@@ -10855,13 +10855,19 @@ function RecollectionPhase() {
     // Must run BEFORE memory is returned to hand, since the checks reveal memory cards.
     DomainRecollectionUpkeep($turnPlayer);
 
-    // Kongming, Erudite Strategist (0i139x5eub): clear "may play until beginning of next turn" tags from banished cards
+    // Kongming, Erudite Strategist (0i139x5eub): clear "may play until beginning of next turn" tags from banished cards. The champion levels up in the Materialize Phase, which is immediately
+    // followed by THIS turn's recollection phase: only tags from an earlier turn (KONGMING_TURN_<n>, n < this turn) have reached "the beginning of your next turn".
     $kongmingBanish = &GetBanish($turnPlayer);
     for($bi = 0; $bi < count($kongmingBanish); ++$bi) {
         if($kongmingBanish[$bi]->removed || !is_array($kongmingBanish[$bi]->TurnEffects)) continue;
+        $kongmingTagTurn = null;
+        foreach($kongmingBanish[$bi]->TurnEffects as $kongmingEffect) {
+            if(strpos($kongmingEffect, "KONGMING_TURN_") === 0) $kongmingTagTurn = intval(substr($kongmingEffect, strlen("KONGMING_TURN_")));
+        }
+        if($kongmingTagTurn !== null && $kongmingTagTurn >= intval(GetTurnNumber())) continue;
         $kongmingBanish[$bi]->TurnEffects = array_values(array_filter(
             $kongmingBanish[$bi]->TurnEffects,
-            fn($e) => !in_array($e, ["KONGMING_NORTH", "KONGMING_EAST", "KONGMING_SOUTH", "KONGMING_WEST"])
+            fn($e) => !in_array($e, ["KONGMING_NORTH", "KONGMING_EAST", "KONGMING_SOUTH", "KONGMING_WEST"]) && strpos($e, "KONGMING_TURN_") !== 0
         ));
     }
 
@@ -18662,6 +18668,11 @@ function ExpireEffects($isEndTurn=true) {
                 // cleanup after the banish (= the banishing turn ending) also stamps
                 // _warriorFaeRealmLater; the card is refused until that stamp exists.
                 if($effect === '_warriorFaeRealm' || $effect === '_warriorFaeRealmLater') {
+                    $newBanishEffects[] = $effect;
+                }
+                // Kongming, Erudite Strategist (0i139x5eub): "until the beginning of your next turn" -- the may-play tags outlive the turn they were made in and are cleared by the owner's
+                // next recollection phase (see the Kongming block in RecollectionPhase).
+                if(strpos($effect, "KONGMING_") === 0) {
                     $newBanishEffects[] = $effect;
                 }
             }

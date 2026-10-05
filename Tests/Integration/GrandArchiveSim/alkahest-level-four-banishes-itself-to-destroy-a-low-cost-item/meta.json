@@ -1,0 +1,22 @@
+{
+    "name": "alkahest-level-four-banishes-itself-to-destroy-a-low-cost-item",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:15:15+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "xfpk9xycwz"
+    ],
+    "notes": "Alkahest at champion level 4: banish Alkahest to destroy target item or weapon with memory cost 0 or reserve cost 4 or less. The memory-only Scepter of Lumina is refused as a target; the Forest Cake is destroyed.",
+    "semanticCoverage": {
+        "testedCards": [
+            "xfpk9xycwz"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "destroy",
+            "cost-filter",
+            "level-gate"
+        ],
+        "rulesClauses": []
+    }
+}

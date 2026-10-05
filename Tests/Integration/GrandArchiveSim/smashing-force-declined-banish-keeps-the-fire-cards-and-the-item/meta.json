@@ -1,0 +1,20 @@
+{
+    "name": "smashing-force-declined-banish-keeps-the-fire-cards-and-the-item",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:13:16+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "88rx6p3p5i"
+    ],
+    "notes": "Smashing Force: the On Attack 'you may banish two fire element cards' is declined, so nothing is banished and nothing is destroyed.",
+    "semanticCoverage": {
+        "testedCards": [
+            "88rx6p3p5i"
+        ],
+        "mechanics": [
+            "on-attack",
+            "optional-choice-decline"
+        ],
+        "rulesClauses": []
+    }
+}

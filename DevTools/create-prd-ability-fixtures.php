@@ -28567,6 +28567,79 @@ $fixtures['lucenia-reign-pays-two-and-discards-a-chessman-command-as-the-cost'] 
     'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myField-2')]), // discard the Command card, pay (2), target the Pawn Piece
 ];
 
+
+// Purification (k8ao8bki6f): "Recover 2. Then choose up to two Curse cards from your champion's lineage and discard them. For each card discarded this way, recover 2." The Curse cards are staged in the temp zone to be picked from;
+// declining the second pick (PASS) skipped PurificationCurse2 (queued without dontSkipOnPass), which is what clears the staged copies, so a copy of the remaining Curse stayed in the temp zone.
+$fixtures['purification-decline-second-curse-clears-the-staged-copies'] = [
+    'testedCards' => ['k8ao8bki6f'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 6, 'Subcards' => ['f15joh300z', 'f15joh300z'], 'Counters' => ['_overrides' => ['classes' => 'CLERIC']]]], // CLERIC class, two Umbra Sight (Curse) cards in the lineage, 6 damage to recover
+        $gaHand('k8ao8bki6f'), // Purification -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'myTempZone-0'), mrdPass(1)]), // discard one Curse, decline the second
+];
+
+
+// Kingdom's Divide (qy34r8gffr): "Choose a card name. Until the beginning of your next turn, cards with the chosen name cost 2 more to activate." Naming Dungeon Guide (reserve cost 3) makes the next Dungeon Guide cost 5.
+$fixtures['kingdoms-divide-named-card-costs-two-more-reserve-to-activate'] = [
+    'testedCards' => ['qy34r8gffr'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), // six payers (and the card named): myHand-0..5
+        $gaHand('qy34r8gffr'), // Kingdom's Divide -> myHand-6
+        $gaHand($GA_DG), // the Dungeon Guide to activate afterwards -> myHand-7 (myHand-5 once Kingdom's Divide has left)
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-6')], mrdPay(1, 1), [mrdAns(1, 'myHand-0')], [mrdPlay(1, 'myHand-5')], mrdPay(1, 5), [mrdAns(1, 'NO')]), // name Dungeon Guide; activating it costs 3 + 2 = 5 reserve payments
+];
+
+
+// Smashing Force (88rx6p3p5i): "[Class Bonus] On Attack: You may banish two fire element cards from your graveyard. When you do, destroy target item or weapon with memory cost 0 or reserve cost 4 or less."
+// The banish is optional ("you may"); it used to be forced whenever two fire cards were in the graveyard. Player 2 (a Guardian) attacks on their first turn with two fire cards in their graveyard while
+// player 1 controls Scepter of Lumina (memory cost 1, not a legal target) and Forest Cake (reserve cost 2).
+$gaSmashingSetup = [
+    ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]], // GUARDIAN class: the Class Bonus is active
+    ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], // Baby Red Slime (fire) -> p2 myGraveyard-0
+    ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], // Baby Red Slime (fire) -> p2 myGraveyard-1
+    ['player' => 1, 'zone' => 'myField', 'cardID' => 'e5o3cm9lbe'], // Scepter of Lumina (memory cost 1, no reserve cost) -> p1 myField-1
+    ['player' => 1, 'zone' => 'myField', 'cardID' => 'bjx6yo7mm5'], // Forest Cake (reserve cost 2) -> p1 myField-2
+    ['player' => 2, 'zone' => 'myHand', 'cardID' => '88rx6p3p5i'], // Smashing Force -> p2 myHand-7
+];
+$fixtures['smashing-force-banishes-two-fire-cards-and-destroys-a-low-cost-item'] = [
+    'testedCards' => ['88rx6p3p5i'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaSmashingSetup,
+    'actions' => array_merge([mrdEnd(1), mrdPlay(2, 'myHand-7')], mrdPay(2, 4), [mrdAns(2, 'theirField-0'), mrdAns(2, 'YES'), mrdAns(2, 'myGraveyard-0'), mrdAns(2, 'myGraveyard-0'),
+        mrdAns(2, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target']), // refused
+        mrdAns(2, 'theirField-2')]), // Forest Cake is destroyed
+];
+$fixtures['smashing-force-declined-banish-keeps-the-fire-cards-and-the-item'] = [
+    'testedCards' => ['88rx6p3p5i'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaSmashingSetup,
+    'actions' => array_merge([mrdEnd(1), mrdPlay(2, 'myHand-7')], mrdPay(2, 4), [mrdAns(2, 'theirField-0'), mrdAns(2, 'NO')]),
+];
+
+
+// Alkahest (xfpk9xycwz): "[Level 4+] Banish CARDNAME: Destroy target item or weapon with memory cost 0 or reserve cost 4 or less." At level 4 the ability banishes Alkahest as its cost; the memory-only Scepter of Lumina
+// (memory cost 1, no reserve cost) is not a legal target, the Forest Cake (reserve cost 2) is.
+$fixtures['alkahest-level-four-banishes-itself-to-destroy-a-low-cost-item'] = [
+    'testedCards' => ['xfpk9xycwz'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4]]], // level 4
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'xfpk9xycwz'], // Alkahest -> myField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e5o3cm9lbe'], // Scepter of Lumina (memory cost 1, no reserve cost) -> theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'bjx6yo7mm5'], // Forest Cake (reserve cost 2) -> theirField-2
+    ],
+    'actions' => [
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'),
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target']), // refused
+        mrdAns(1, 'theirField-2'), // Forest Cake is destroyed
+    ],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

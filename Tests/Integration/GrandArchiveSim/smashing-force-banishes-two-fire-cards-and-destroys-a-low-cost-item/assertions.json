@@ -1,0 +1,29 @@
+[
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "semantic": true,
+        "label": "Player 1's champion and the memory-only Scepter remain: the Forest Cake (reserve cost 2) was destroyed"
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "Both fire cards left the graveyard; only the resolved Smashing Force is there"
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "semantic": true,
+        "label": "The two banished fire cards"
+    }
+]

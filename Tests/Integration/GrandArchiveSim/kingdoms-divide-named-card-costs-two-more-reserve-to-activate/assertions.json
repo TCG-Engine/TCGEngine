@@ -1,0 +1,34 @@
+[
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "One reserve payment for Kingdom's Divide and five (3 + 2) for the taxed Dungeon Guide"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The Dungeon Guide was activated and entered the field"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Every hand card was spent"
+    },
+    {
+        "step": 10,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

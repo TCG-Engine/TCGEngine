@@ -1,0 +1,26 @@
+{
+    "name": "kongming-erudite-strategist-tags-expire-at-the-beginning-of-the-next-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:51:05+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "0i139x5eub"
+    ],
+    "notes": "Kongming, Erudite Strategist: after the level-up banishes four cards, the may-play tags last through the rest of the turn and the opponent's whole turn and expire at the beginning of the owner's next turn.",
+    "semanticCoverage": {
+        "testedCards": [
+            "0i139x5eub"
+        ],
+        "mechanics": [
+            "may-play-until-next-turn",
+            "turn-effects"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Kongming, Erudite Strategist's \"you may play it ... until the beginning of your next turn\" tags (KONGMING_<direction> on the four banished cards) never lasted: ExpireEffects() wipes every non-whitelisted TurnEffect on banished cards at the end of the turn, and the champion levels up in the Materialize Phase, immediately before THAT turn's recollection phase, whose Kongming cleanup removed the tags straight away. Fix: the tags carry the turn they were made in (KONGMING_TURN_<n>), survive the end-of-turn wipe, and are cleared by the owner's recollection phase only on a later turn.",
+        "affectedFunction": "Custom/GameLogic.php ExpireEffects / RecollectionPhase Kongming block; Custom/GeneratedAbilityOverrides.php enterAbilities[0i139x5eub:0]",
+        "fixCommit": "TBD"
+    }
+}

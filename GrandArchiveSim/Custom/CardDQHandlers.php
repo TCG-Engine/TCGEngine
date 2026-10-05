@@ -4880,10 +4880,11 @@ function PurificationCursePick($player) {
     }
     $options = implode("&", $tempMZs);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $options, 1, "Choose_Curse_to_discard");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "PurificationCurse1", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PurificationCurse1", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["PurificationCurse1"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $tempZone = &GetTempZone($player);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         while(count($tempZone) > 0) array_pop($tempZone);
@@ -4906,13 +4907,14 @@ $customDQHandlers["PurificationCurse1"] = function($player, $parts, $lastDecisio
     if(!empty($remaining)) {
         $options = implode("&", $remaining);
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $options, 1, "Choose_another_Curse_to_discard");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "PurificationCurse2", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "PurificationCurse2", 1, dontSkipOnPass:1);
     } else {
         while(count($tempZone) > 0) array_pop($tempZone);
     }
 };
 
 $customDQHandlers["PurificationCurse2"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $tempZone = &GetTempZone($player);
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         $chosenObj = GetZoneObject($lastDecision);

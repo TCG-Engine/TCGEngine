@@ -78,6 +78,46 @@
     },
     {
         "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myBanish-2",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"KONGMING_NORTH\",\"KONGMING_TURN_2\"]",
+        "semantic": true,
+        "label": "The north card may be played until the beginning of the next turn while Shifting Currents face north (tag survives this turn's own recollection phase)"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myBanish-3",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"KONGMING_EAST\",\"KONGMING_TURN_2\"]",
+        "semantic": true,
+        "label": "The east card may be played until the beginning of the next turn while Shifting Currents face east (tag survives this turn's own recollection phase)"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myBanish-4",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"KONGMING_SOUTH\",\"KONGMING_TURN_2\"]",
+        "semantic": true,
+        "label": "The south card may be played until the beginning of the next turn while Shifting Currents face south (tag survives this turn's own recollection phase)"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myBanish-5",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"KONGMING_WEST\",\"KONGMING_TURN_2\"]",
+        "semantic": true,
+        "label": "The west card may be played until the beginning of the next turn while Shifting Currents face west (tag survives this turn's own recollection phase)"
+    },
+    {
+        "step": 3,
         "type": "decision_queue_empty",
         "player": "all"
     }

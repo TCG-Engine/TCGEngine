@@ -1133,6 +1133,7 @@ $enterAbilities["0i139x5eub:0"] = function($player) { //0i139x5eub
       if($banishedObj === null) break;
       if(!is_array($banishedObj->TurnEffects)) $banishedObj->TurnEffects = [];
       $banishedObj->TurnEffects[] = "KONGMING_" . $dir;
+      $banishedObj->TurnEffects[] = "KONGMING_TURN_" . GetTurnNumber(); // the turn it was banished: the tags must outlive THIS turn's recollection phase (the level-up happens in the Materialize Phase)
   }
 };
 

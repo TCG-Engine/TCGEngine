@@ -1,7 +1,6 @@
 1
 0
-14
-ra9950o14t
+13
 px60u5n1do
 px60u5n1do
 em6eEh9q8y
@@ -15,8 +14,7 @@ em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
-12
-em6eEh9q8y
+11
 px60u5n1do
 px60u5n1do
 em6eEh9q8y
@@ -31,36 +29,37 @@ px60u5n1do
 6
 n8wyfG9hbY - -
 n8wyfG9hbY - -
-em6eEh9q8y KONGMING_NORTH~KONGMING_TURN_2 -
-px60u5n1do KONGMING_EAST~KONGMING_TURN_2 -
-n8wyfG9hbY KONGMING_SOUTH~KONGMING_TURN_2 -
-bx4k3akqx7 KONGMING_WEST~KONGMING_TURN_2 -
+em6eEh9q8y - -
+px60u5n1do - -
+n8wyfG9hbY - -
+bx4k3akqx7 - -
 0
 0
 0
+0
+0
+9
+em6eEh9q8y
+px60u5n1do
+em6eEh9q8y
+px60u5n1do
+px60u5n1do
+em6eEh9q8y
+px60u5n1do
+px60u5n1do
+ra9950o14t
+9
+em6eEh9q8y
+px60u5n1do
+em6eEh9q8y
+em6eEh9q8y
+em6eEh9q8y
+px60u5n1do
+px60u5n1do
+em6eEh9q8y
+em6eEh9q8y
 1
-LEVELED_UP_THIS_TURN
-0
-8
-em6eEh9q8y
-px60u5n1do
-em6eEh9q8y
-px60u5n1do
-px60u5n1do
-em6eEh9q8y
-px60u5n1do
-px60u5n1do
-8
-em6eEh9q8y
-px60u5n1do
-em6eEh9q8y
-em6eEh9q8y
-em6eEh9q8y
-px60u5n1do
-px60u5n1do
-em6eEh9q8y
-1
-0i139x5eub 2 1 0 1 ENTERED_THIS_TURN - WyJhcFZ0eXQ0OHUzIl0= 3
+0i139x5eub 2 1 0 1 - - WyJhcFZ0eXQ0OHUzIl0= 3
 1
 LMyKyVC2O9 2 2 0 2 - - - 2
 0
@@ -84,7 +83,7 @@ qh5mpkyl60 NORTH -
 0
 
 
-2
+3
 1
 1
 MAIN

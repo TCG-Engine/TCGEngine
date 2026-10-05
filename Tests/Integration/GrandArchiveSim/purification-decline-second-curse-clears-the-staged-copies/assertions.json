@@ -1,0 +1,36 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "6 damage, recover 2 for the spell and 2 for the one discarded Curse"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Subcards",
+        "value": "[\"f15joh300z\"]",
+        "semantic": true,
+        "label": "One Curse is left in the lineage"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myTempZone",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The staged Curse copy was cleared after the second pick was declined"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
