@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T16:34:08+00:00",
+    "generatedAt": "2026-10-05T21:11:04+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 767,
@@ -34028,10 +34028,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "fireball-scaling-damage"
+                "fireball-scaling-damage",
+                "fireball-spellshroud-unit-is-not-a-legal-target"
             ],
             "semanticFixtures": [
-                "fireball-scaling-damage"
+                "fireball-scaling-damage",
+                "fireball-spellshroud-unit-is-not-a-legal-target"
             ],
             "starterDecks": [
                 "Rai Starter Deck",
@@ -34079,10 +34081,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "focused-flames-damage"
+                "focused-flames-damage",
+                "focused-flames-spellshroud-unit-is-not-a-legal-target"
             ],
             "semanticFixtures": [
-                "focused-flames-damage"
+                "focused-flames-damage",
+                "focused-flames-spellshroud-unit-is-not-a-legal-target"
             ],
             "starterDecks": [
                 "Rai Starter Deck",
@@ -39754,11 +39758,13 @@
             ],
             "existingFixtures": [
                 "freezing-hail-blue-slime-class-bonus-buff",
-                "freezing-hail-refuses-spellshroud-unit-damages-ordinary-ally"
+                "freezing-hail-refuses-spellshroud-unit-damages-ordinary-ally",
+                "freezing-hail-spellshroud-unit-is-not-a-legal-target"
             ],
             "semanticFixtures": [
                 "freezing-hail-blue-slime-class-bonus-buff",
-                "freezing-hail-refuses-spellshroud-unit-damages-ordinary-ally"
+                "freezing-hail-refuses-spellshroud-unit-damages-ordinary-ally",
+                "freezing-hail-spellshroud-unit-is-not-a-legal-target"
             ],
             "starterDecks": [
                 "Silvie Starter Deck",
@@ -46197,10 +46203,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "spark-alight-refuses-spellshroud-unit-damages-ordinary-ally"
+                "spark-alight-refuses-spellshroud-unit-damages-ordinary-ally",
+                "spark-alight-spellshroud-unit-is-not-a-legal-target"
             ],
             "semanticFixtures": [
-                "spark-alight-refuses-spellshroud-unit-damages-ordinary-ally"
+                "spark-alight-refuses-spellshroud-unit-damages-ordinary-ally",
+                "spark-alight-spellshroud-unit-is-not-a-legal-target"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46378,9 +46386,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "found-power-decline-first-discard-still-offers-the-second",
                 "found-power-decline-second-discard-still-draws"
             ],
             "semanticFixtures": [
+                "found-power-decline-first-discard-still-offers-the-second",
                 "found-power-decline-second-discard-still-draws"
             ],
             "starterDecks": [],

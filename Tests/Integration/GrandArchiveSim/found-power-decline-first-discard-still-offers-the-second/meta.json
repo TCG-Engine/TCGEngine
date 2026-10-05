@@ -20,6 +20,6 @@
         "status": "fixed",
         "summary": "FIXED. FoundPowerDiscard1 is queued by a generated body without dontSkipOnPass, so declining the first discard offer (PASS) skipped it and the second offer was never made. Fix: registered as decline-aware (GameCustomHandlerRunsOnPass).",
         "affectedFunction": "Custom/GameLogic.php GameCustomHandlerRunsOnPass",
-        "fixCommit": "TBD"
+        "fixCommit": "dd5ddddf"
     }
 }
