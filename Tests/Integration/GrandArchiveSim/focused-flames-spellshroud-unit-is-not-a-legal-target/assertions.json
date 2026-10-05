@@ -1,0 +1,17 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 2,
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "Aquamirage Whisper (spellshroud) is untouched"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

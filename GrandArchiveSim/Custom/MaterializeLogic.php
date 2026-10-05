@@ -727,6 +727,7 @@ $customDQHandlers["SealedBladeFloatingCost"] = function($player, $parts, $lastDe
         Materialize($player, $mzCard);
         return;
     }
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $floating = ZoneSearch("myGraveyard", floatingMemoryOnly:true);
     if(empty($floating)) return;
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $floating), 1,
@@ -743,6 +744,7 @@ $customDQHandlers["DragonsDawnBanish"] = function($player, $parts, $lastDecision
     $count = intval($parts[1]);
     $memoryCost = intval($parts[2]);
     if($count < 3) {
+        DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
         $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
         $remaining = 3 - $count;
         if(count($fireGY) < $remaining) return; // Can't pay remaining cost

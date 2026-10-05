@@ -28808,6 +28808,78 @@ $fixtures['cell-forging-declined-weapon-summons-a-powercell'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1)]), // do not choose the weapon: summon a Powercell instead
 ];
 
+
+// Found Power (8pIXnuI1Df): "discard up to two cards, then draw that many." Each of the two discard offers is its own optional prompt: declining the FIRST (PASS) must still offer the second.
+// FoundPowerDiscard1 was queued by the generated body without dontSkipOnPass, so declining the first skipped it and the second offer never came.
+$fixtures['found-power-decline-first-discard-still-offers-the-second'] = [
+    'testedCards' => ['8pIXnuI1Df'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'k5wrAxBbF9'], // Proto Key Crest (the condition)
+        $gaHand('8pIXnuI1Df'), // Found Power -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdPass(1), mrdAns(1, 'myHand-0')]), // decline the first discard, discard one card on the second offer
+];
+
+
+// Spells that build their target list without FilterSpellshroudTargets() are filtered once, centrally (GASpellshroudFilterNewDecisions). Opposing Aquamirage Whisper (printed spellshroud) must be refused as a target, a Dungeon Guide accepted.
+$fixtures['fireball-spellshroud-unit-is-not-a-legal-target'] = [
+    'testedCards' => ['RIVahUIQVD'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'MAGE']]]], // MAGE class (cost reduction)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '3n5x9fbkn0'], // Aquamirage Whisper (printed spellshroud) -> theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> theirField-2
+        $gaHand('RIVahUIQVD'), // Fireball -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Aquamirage Whisper has spellshroud: not a legal target for Fireball']), // refused
+        mrdAns(1, 'theirField-2'), // the Dungeon Guide is the legal target
+    ]),
+];
+$fixtures['spark-alight-spellshroud-unit-is-not-a-legal-target'] = [
+    'testedCards' => ['L9yBqoOshh'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'MAGE']]]], // MAGE class (cost reduction)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '3n5x9fbkn0'], // Aquamirage Whisper (printed spellshroud) -> theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> theirField-2
+        $gaHand('L9yBqoOshh'), // Spark Alight -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Aquamirage Whisper has spellshroud: not a legal target for Spark Alight']), // refused
+        mrdAns(1, 'theirField-2'), // the Dungeon Guide is the legal target
+    ]),
+];
+$fixtures['freezing-hail-spellshroud-unit-is-not-a-legal-target'] = [
+    'testedCards' => ['SrBA7h2a1N'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF'], 'Counters' => ['_overrides' => ['classes' => 'MAGE']]]], // MAGE class (cost reduction) ; WATER element
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '3n5x9fbkn0'], // Aquamirage Whisper (printed spellshroud) -> theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> theirField-2
+        $gaHand('SrBA7h2a1N'), // Freezing Hail -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Aquamirage Whisper has spellshroud: not a legal target for Freezing Hail']), // refused
+        mrdAns(1, 'theirField-2'), // the Dungeon Guide is the legal target
+    ]),
+];
+$fixtures['focused-flames-spellshroud-unit-is-not-a-legal-target'] = [
+    'testedCards' => ['145y6KBhxe'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'MAGE']]]], // MAGE class (cost reduction)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '3n5x9fbkn0'], // Aquamirage Whisper (printed spellshroud) -> theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> theirField-2
+        $gaHand('145y6KBhxe'), // Focused Flames -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Aquamirage Whisper has spellshroud: not a legal target for Focused Flames']), // refused
+        mrdAns(1, 'theirField-2'), // the Dungeon Guide is the legal target
+    ]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

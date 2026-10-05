@@ -1,0 +1,34 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Found Power and the one discarded card"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 12,
+        "semantic": true,
+        "label": "One card was drawn for the one discard"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Eight, minus Found Power, minus one paid, minus one discarded, plus one drawn"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -5791,6 +5791,7 @@ $customDQHandlers["CielOmenbringerDiscard"] = function($player, $parts, $lastDec
     DrawIntoMemory($player, 1);
     // Continue loop if remaining > 0
     if($remaining > 0) {
+        DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
         $handAndMem = array_merge(ZoneSearch("myHand"), ZoneSearch("myMemory"));
         if(!empty($handAndMem)) {
             $targetStr = implode("&", $handAndMem);
@@ -5843,6 +5844,7 @@ $customDQHandlers["FlowingOubliChoose"] = function($player, $parts, $lastDecisio
 
 // Pristine Scourge (kugriwszxr): look at opponent memory, discard 1 (or 2 if 5+ distinct costs)
 function PristineScourgeResolve($player) {
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $oppMemory = ZoneSearch("theirMemory");
     if(empty($oppMemory)) return;
     $discardCount = GetOmenDistinctCostCount($player) >= 5 ? 2 : 1;
@@ -10124,6 +10126,7 @@ function ShiningMarchadorPay($player) {
 }
 $customDQHandlers["ShiningMarchadorReserve1"] = function($player, $parts, $lastDecision) {
     MZMove($player, $lastDecision, "myMemory");
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $hand = ZoneSearch("myHand");
     if(empty($hand)) return;
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $hand), 1, tooltip: "Choose_card_to_pay_(2/2)");
@@ -26480,6 +26483,7 @@ $customDQHandlers["AshfletchedBowmanRecollection"] = function($player, $parts, $
     AddTurnEffect($mzID, "RANGED_3");
 
     if($pickNumber >= 3) return;
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
     if(empty($fireGY)) return;
     $nextPick = $pickNumber + 1;

@@ -575,6 +575,7 @@ $customDQHandlers["FatestoneUnrelentingBanish1"] = function($player, $parts, $la
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $mzID = $parts[0];
     MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
     if(empty($fireGY)) return;
     $fireStr = implode("&", $fireGY);

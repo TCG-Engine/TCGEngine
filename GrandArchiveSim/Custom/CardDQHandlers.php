@@ -1847,6 +1847,7 @@ $customDQHandlers["PrismaticEdgeFire"] = function($player, $parts, $lastDecision
 $customDQHandlers["HarnessManaLoop"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     MZMove($player, $lastDecision, "myMemory");
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $hand = ZoneSearch("myHand");
     if(!empty($hand)) {
         $handStr = implode("&", $hand);
@@ -1886,6 +1887,7 @@ $customDQHandlers["SanctumOfEsotericTruth1"] = function($player, $parts, $lastDe
     // Put first card on bottom of deck
     MZMove($player, $lastDecision, "myDeck");
     // Choose second card
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $handAndMemory = array_merge(ZoneSearch("myHand"), ZoneSearch("myMemory"));
     if(!empty($handAndMemory)) {
         $choices = implode("&", $handAndMemory);
@@ -2103,6 +2105,7 @@ $customDQHandlers["PortsidePirateBanish"] = function($player, $parts, $lastDecis
 
 // --- Smashing Force (88rx6p3p5i) helpers ---
 function SmashingForceBanishStart($player) {
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $fireCards = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
     if(count($fireCards) < 2) return;
     $fireStr = implode("&", $fireCards);
@@ -2115,6 +2118,7 @@ $customDQHandlers["SmashingForceBanish1"] = function($player, $parts, $lastDecis
     $hadFloating = HasFloatingMemory(GetZoneObject($lastDecision));
     MZMove($player, $lastDecision, "myBanish");
     if($hadFloating) NicoOnFloatingMemoryBanished($player);
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $fireCards2 = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
     if(empty($fireCards2)) return;
     $fireStr2 = implode("&", $fireCards2);
@@ -3342,6 +3346,7 @@ $customDQHandlers["FierySwingBanish"] = function($player, $parts, $lastDecision)
 
     // Check if we can banish more (max 6)
     if($count < 6 && !$declined) {
+        DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
         $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
         if(!empty($fireGY)) {
             $fireStr = implode("&", $fireGY);
@@ -3837,6 +3842,7 @@ function MusicboxActivatableCards($player) {
 function SinisterMindreaverContinue($player, $pick1) {
     if($pick1 === "-" || $pick1 === "" || $pick1 === "PASS") return;
     MZMove($player, $pick1, "theirGraveyard");
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $oppMemory2 = ZoneSearch("theirMemory");
     if(!empty($oppMemory2)) {
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $oppMemory2), 1, "Discard_another_from_memory?");
@@ -4027,6 +4033,7 @@ $customDQHandlers["GalestreamInsightReveal"] = function($player, $parts, $lastDe
 };
 
 function DusksoulStoneActivated($player) {
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $myGY = ZoneSearch("myGraveyard");
     $theirGY = ZoneSearch("theirGraveyard");
     if(empty($myGY) && empty($theirGY)) return;
@@ -4468,6 +4475,7 @@ $customDQHandlers["LostInThoughtBanish"] = function($player, $parts, $lastDecisi
     $banished++;
 
     // Check for more floating memory cards in graveyard
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $floatingGY = ZoneSearch("myGraveyard", floatingMemoryOnly: true);
     if(!empty($floatingGY)) {
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $floatingGY), 1, tooltip:"Banish_another_floating_memory_card?");
@@ -4493,6 +4501,7 @@ $customDQHandlers["PurifiedShotBanish"] = function($player, $parts, $lastDecisio
     $remaining--;
 
     if($remaining > 0) {
+        DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
         $oppGY = ZoneSearch("theirGraveyard");
         if(!empty($oppGY)) {
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $oppGY), 1, tooltip:"Banish_another_card_from_opponent_graveyard?");
@@ -7341,6 +7350,7 @@ function GaiasBlessingBanishLoop($player, $remaining, $materialMZ) {
         ActivateCard($player, "myHand-" . $handIdx, true);
         return;
     }
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $animalBeastGY = ZoneSearch("myGraveyard", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
     if(empty($animalBeastGY)) {
         GaiasBlessingBanishLoop($player, 0, $materialMZ);
