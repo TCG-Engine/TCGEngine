@@ -1853,3 +1853,11 @@ $cardActivatedAbilities["oLzsAj9mKl:0"] = function($player) { //oLzsAj9mKl
 // champion's mzID (a fatal error). Neutralized; the real field ability is registered in Custom/GameLogic.php ($activateAbilityAbilities["fbs9qzo3f6:0"]).
 $cardActivatedAbilities["fbs9qzo3f6:0"] = function($player) { //Ranger Boots: no on-play activated effect
 };
+
+// Scale of Souls (0z2snsdwmx) and Refluxal Ribbon (vm4xg2hedp): both printed abilities are field activations. The generator filed them in the play-time
+// $cardActivatedAbilities table (misrouted through ActivateCard, which treats the field item as a card being played); the real entries are
+// $activateAbilityAbilities["0z2snsdwmx:0"] / ["vm4xg2hedp:0"] in Custom/GameLogic.php.
+$cardActivatedAbilities["0z2snsdwmx:0"] = function($player) { //Scale of Souls: no on-play activated effect
+};
+$cardActivatedAbilities["vm4xg2hedp:0"] = function($player) { //Refluxal Ribbon: no on-play activated effect
+};

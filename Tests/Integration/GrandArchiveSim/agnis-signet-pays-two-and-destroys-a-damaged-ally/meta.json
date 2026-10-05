@@ -1,0 +1,29 @@
+{
+    "name": "agnis-signet-pays-two-and-destroys-a-damaged-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:32:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "yIozXMrdqr"
+    ],
+    "notes": "Agni's Signet had no implementation. (2), [REST], Banish self: As a Spell, destroy target damaged ally. Only the damaged Dungeon Guide is a legal target; the undamaged Fluffy Shopkeep is not offered.",
+    "semanticCoverage": {
+        "testedCards": [
+            "yIozXMrdqr"
+        ],
+        "mechanics": [
+            "cost",
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "(2), [REST], Banish Agni's Signet: As a Spell, destroy target damaged ally."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Agni's Signet's ability was not implemented.",
+        "affectedFunction": "activateAbilityAbilities['yIozXMrdqr:0']",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "heart-of-the-frost-rests-an-awake-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:32:30+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "7NlaXYtNM6"
+    ],
+    "notes": "Heart of the Frost had no implementation. [REST], Banish self: As a Spell, deal 2 damage to target ally if it's rested; otherwise rest it. An awake target is rested.",
+    "semanticCoverage": {
+        "testedCards": [
+            "7NlaXYtNM6"
+        ],
+        "mechanics": [
+            "cost",
+            "rest",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[REST], Banish Heart of the Frost: As a Spell, deal 2 damage to target ally if it's rested. Otherwise, rest it."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Heart of the Frost's ability was not implemented.",
+        "affectedFunction": "activateAbilityAbilities['7NlaXYtNM6:0']",
+        "fixCommit": "TBD"
+    }
+}

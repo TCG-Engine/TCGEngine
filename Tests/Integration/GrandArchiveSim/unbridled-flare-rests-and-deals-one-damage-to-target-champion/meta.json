@@ -1,0 +1,29 @@
+{
+    "name": "unbridled-flare-rests-and-deals-one-damage-to-target-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:31:06+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "hXERTZPM0w"
+    ],
+    "notes": "Unbridled Flare had no implementation at all for either ability (the activation did nothing). First ability: [REST], As a Spell, deal 1 damage to target champion. Added as $activateAbilityAbilities['hXERTZPM0w:0'] with a REST cost in ActivatedAbilityCost; targets are filtered for spellshroud.",
+    "semanticCoverage": {
+        "testedCards": [
+            "hXERTZPM0w"
+        ],
+        "mechanics": [
+            "cost",
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[REST]: As a Spell, deal 1 damage to target champion."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Unbridled Flare's abilities were not implemented.",
+        "affectedFunction": "activateAbilityAbilities['hXERTZPM0w:0']",
+        "fixCommit": "TBD"
+    }
+}

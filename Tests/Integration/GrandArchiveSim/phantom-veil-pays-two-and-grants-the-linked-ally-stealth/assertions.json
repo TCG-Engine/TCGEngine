@@ -4,19 +4,19 @@
         "type": "card_property_equals",
         "mzId": "myField-1",
         "viewerPlayerID": 1,
-        "property": "Status",
-        "value": "1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"STEALTH\"]",
         "semantic": true,
-        "label": "Scale of Souls is rested by the [REST] cost"
+        "label": "The linked Dungeon Guide gained stealth"
     },
     {
         "step": 4,
         "type": "zone_count",
         "zone": "myHand",
         "viewerPlayerID": 1,
-        "value": 6,
+        "value": 5,
         "semantic": true,
-        "label": "Paid two reserve cards and returned one memory card: 7 - 2 + 1 cards in hand"
+        "label": "Two reserve cards paid for the (2) cost"
     },
     {
         "step": 4,
@@ -25,16 +25,7 @@
         "viewerPlayerID": 1,
         "value": 2,
         "semantic": true,
-        "label": "Memory: 1 + 2 reserved - 1 returned"
-    },
-    {
-        "step": 4,
-        "type": "card_exists",
-        "zone": "myHand",
-        "viewerPlayerID": 1,
-        "cardID": "n8wyfG9hbY",
-        "semantic": true,
-        "label": "the chosen memory card (Fairy Whispers) is back in hand"
+        "label": "The reserved cards are in memory"
     },
     {
         "step": 4,

@@ -1,0 +1,37 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "The opposing champion took 1 damage"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "Unbridled Flare is rested by its [REST] cost"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "Your own champion is untouched"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

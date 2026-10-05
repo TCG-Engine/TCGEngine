@@ -1,0 +1,29 @@
+{
+    "name": "refluxal-ribbon-pays-two-banishes-itself-and-loads-an-aethercharge-from-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:31:03+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "vm4xg2hedp"
+    ],
+    "notes": "Refluxal Ribbon's printed ability is a field activation, but the generator only filed a play-time $cardActivatedAbilities body (misrouted through ActivateCard: no (2) cost, the Ribbon never banished). Registered as a field activated ability in Custom/GameLogic.php; the generated target/wing handlers are reused. ActivatedAbilityCost banishes the Ribbon and queues the two reserve payments.",
+    "semanticCoverage": {
+        "testedCards": [
+            "vm4xg2hedp"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "load"
+        ],
+        "rulesClauses": [
+            "(2), Banish Refluxal Ribbon: Load target Aethercharge card from your graveyard into an Aetherwing weapon you control."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Refluxal Ribbon could not be activated through the field click: its (2) cost and banish-self cost were never paid.",
+        "affectedFunction": "ActivatedAbilityCost / activateAbilityAbilities['vm4xg2hedp:0']",
+        "fixCommit": "TBD"
+    }
+}

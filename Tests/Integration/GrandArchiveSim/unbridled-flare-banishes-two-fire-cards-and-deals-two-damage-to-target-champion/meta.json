@@ -1,0 +1,29 @@
+{
+    "name": "unbridled-flare-banishes-two-fire-cards-and-deals-two-damage-to-target-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:31:37+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "hXERTZPM0w"
+    ],
+    "notes": "Second Unbridled Flare ability: [REST], banish two fire element cards from your graveyard (chosen one at a time as a cost), As a Spell, deal 2 damage to target champion. The prereq requires two fire element cards in the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "hXERTZPM0w"
+        ],
+        "mechanics": [
+            "cost",
+            "damage",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[REST], Banish two fire element cards from your graveyard: As a Spell, deal 2 damage to target champion."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Unbridled Flare's second ability was not implemented.",
+        "affectedFunction": "activateAbilityAbilities['hXERTZPM0w:1']",
+        "fixCommit": "TBD"
+    }
+}

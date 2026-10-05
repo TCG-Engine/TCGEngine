@@ -8728,7 +8728,8 @@ DECK,
 // repeatable ability only reachable this way (not via the fast-opportunity MZMAYCHOOSE path the
 // other myField@Activate fixtures in this suite use), so this fixture drives the direct,
 // non-opportunity mode=10001 CustomInput click that was previously dead.
-// SEPARATE, NOT-YET-FIXED GAP FOUND: the card's own "(2)" reserve cost is not wired up --
+// (Superseded: the "(2)" cost IS now paid -- the ability is registered as a field activation in Custom/GameLogic.php and the fixture pays two reserve cards.)
+// Earlier note, kept for history: the card's own "(2)" reserve cost was not wired up --
 // CardCost_reserve('0z2snsdwmx') returns -1 (unset) in the CardEditor card-ability database, so
 // CalculateActivationReserveCost() computes no reserve cost and DoActivateCard() charges nothing.
 // This is a card-data gap in the CardEditor database (separate from the CustomInput.php routing
@@ -8754,12 +8755,12 @@ DECK,
         ['player' => 1, 'zone' => 'myField', 'cardID' => '0z2snsdwmx'], // Scale of Souls
         ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // Fairy Whispers, filler card to return from memory
     ],
-    'actions' => [
-        // Direct field click via the normal client action path (not the fast-opportunity
-        // workaround) -- only reachable now that CustomInput.php routes this to ActivateCard().
+    'actions' => array_merge([
+        // Direct field click via the normal client action path (not the fast-opportunity workaround).
         ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ], mrdPay(1, 2), [ // the "(2)" is now paid: two hand cards are reserved into memory first
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // choose the filler card to return to hand
-    ],
+    ]),
 ];
 
 // --- Barter Herbs: sacrifice up to two Herbs, summon that many chosen replacement Herb tokens ---
@@ -29092,6 +29093,116 @@ foreach (['drIdaGpPJ2' => ['natura', 'Natura'], '0sVdvpQKXq' => ['spectra', 'Spe
         'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:1')], mrdPay(1, 3)), // (3), banish: draw a card into your memory
     ];
 }
+
+// --- Starter-deck coverage batch 3: regalia items whose activated abilities were missing or misfiled ---
+
+// Refluxal Ribbon (vm4xg2hedp): "(2), Banish Refluxal Ribbon: Load target Aethercharge card from your graveyard into an Aetherwing weapon you control."
+$fixtures['refluxal-ribbon-pays-two-banishes-itself-and-loads-an-aethercharge-from-the-graveyard'] = [
+    'testedCards' => ['vm4xg2hedp'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mob9nu6lal'], // Salamander's Breath (Aetherwing weapon) -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'vm4xg2hedp'], // Refluxal Ribbon -> myField-2
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'wd7nuab7f3'], // Aether's Embrace (Aethercharge) -> myGraveyard-0
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-2!CustomInput!Activate:0')], mrdPay(1, 2), [mrdAns(1, 'myGraveyard-0')]),
+];
+
+// Phantom Veil (fviga4cmti): "Ally Link. (2): Linked ally gains stealth until end of turn."
+$fixtures['phantom-veil-pays-two-and-grants-the-linked-ally-stealth'] = [
+    'testedCards' => ['fviga4cmti'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => $GA_DG], // Dungeon Guide -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Subcards' => ['fviga4cmti']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fviga4cmti'], // Phantom Veil -> myField-2
+        ['player' => 1, 'patchMzId' => 'myField-2', 'setProperties' => ['Counters' => ['linkedToAlly' => $GA_DG]]],
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-2!CustomInput!Activate:0')], mrdPay(1, 2), [mrdPass(1)]), // pass the Opportunity window (the Veil has no [REST]: it could be activated again)
+];
+
+// Unbridled Flare (hXERTZPM0w): "[REST]: As a Spell, deal 1 damage to target champion."
+$fixtures['unbridled-flare-rests-and-deals-one-damage-to-target-champion'] = [
+    'testedCards' => ['hXERTZPM0w'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hXERTZPM0w'], // Unbridled Flare -> myField-1
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'theirField-0')],
+];
+
+// Unbridled Flare, second ability: "[REST], Banish two fire element cards from your graveyard: As a Spell, deal 2 damage to target champion."
+$fixtures['unbridled-flare-banishes-two-fire-cards-and-deals-two-damage-to-target-champion'] = [
+    'testedCards' => ['hXERTZPM0w'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hXERTZPM0w'], // Unbridled Flare -> myField-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], // Baby Red Slime (fire) -> myGraveyard-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], // Baby Red Slime (fire) -> myGraveyard-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep (not fire): stays
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:1'), mrdAns(1, 'myGraveyard-0'), mrdAns(1, 'myGraveyard-0'), mrdAns(1, 'theirField-0')],
+];
+
+// Heart of the Frost (7NlaXYtNM6): "[REST], Banish Heart of the Frost: As a Spell, deal 2 damage to target ally if it's rested. Otherwise, rest it."
+$fixtures['heart-of-the-frost-rests-an-awake-ally'] = [
+    'testedCards' => ['7NlaXYtNM6'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7NlaXYtNM6'], // Heart of the Frost -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // Hindered: enters rested, so wake it
+        ['player' => 2, 'zone' => 'myField', 'cardID' => $GA_DG], // Dungeon Guide -> theirField-1 (awake)
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'theirField-1')],
+];
+$fixtures['heart-of-the-frost-deals-two-damage-to-a-rested-ally'] = [
+    'testedCards' => ['7NlaXYtNM6'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7NlaXYtNM6'], // Heart of the Frost -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // Hindered: enters rested, so wake it
+        ['player' => 2, 'zone' => 'myField', 'cardID' => $GA_DG], // Dungeon Guide -> theirField-1
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 1]], // rested
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'theirField-1')],
+];
+
+// Reluctant Breath (xfheZavYZm): "[REST], Banish Reluctant Breath: As a Spell, return target ally you don't control to its owner's memory. Activate this ability only if an opponent controls at least two more allies than you."
+$fixtures['reluctant-breath-returns-an-opposing-ally-to-its-owners-memory-when-outnumbered'] = [
+    'testedCards' => ['xfheZavYZm'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'xfheZavYZm'], // Reluctant Breath -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // Hindered: enters rested, so wake it
+        ['player' => 2, 'zone' => 'myField', 'cardID' => $GA_DG], // theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => $GA_FS], // theirField-2
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'theirField-1')],
+];
+$fixtures['reluctant-breath-cannot-activate-unless-outnumbered-by-two'] = [
+    'testedCards' => ['xfheZavYZm'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'xfheZavYZm'], // Reluctant Breath -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // Hindered: enters rested, so wake it
+        ['player' => 2, 'zone' => 'myField', 'cardID' => $GA_DG], // only one opposing ally: not two more than you
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+
+// Agni's Signet (yIozXMrdqr): "(2), [REST], Banish Agni's Signet: As a Spell, destroy target damaged ally."
+$fixtures['agnis-signet-pays-two-and-destroys-a-damaged-ally'] = [
+    'testedCards' => ['yIozXMrdqr'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'yIozXMrdqr'], // Agni's Signet -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // Hindered: enters rested, so wake it
+        ['player' => 2, 'zone' => 'myField', 'cardID' => $GA_DG], // theirField-1 (damaged below)
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Damage' => 1]],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => $GA_FS], // undamaged ally: not a legal target
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 2), [mrdAns(1, 'theirField-1')]),
+];
 
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

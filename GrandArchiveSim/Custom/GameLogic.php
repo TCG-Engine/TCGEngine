@@ -5474,6 +5474,147 @@ $customDQHandlers["9ggfiy38t2:0:ActivateAbility-1"] = function($player, $parts, 
     AddTurnEffect($lastDecision, "PREVENT_ALL_2");
 };
 
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Field items whose printed activated abilities were missing or misfiled by the generator (no $activateAbilityAbilities row, or only a
+// $cardActivatedAbilities play-time body that ActivateCard would misroute). Same shape as Ranger Boots above: the REST / banish / reserve
+// costs are paid by ActivatedAbilityCost(); the bodies below only apply the effect. Items are never auto-rested, so every REST cost is
+// paid there and every prereq requires the item to be awake (Status 2).
+// ---------------------------------------------------------------------------------------------------------------------------------
+function GAItemAwake($mzID) {
+    $obj = GetZoneObject($mzID);
+    return $obj !== null && !$obj->removed && $obj->Status == 2;
+}
+function GAAllAllyTargets() {
+    return FilterSpellshroudTargets(array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"])));
+}
+function GAChampionTargets() {
+    return FilterSpellshroudTargets(array_merge(ZoneSearch("myField", ["CHAMPION"]), ZoneSearch("theirField", ["CHAMPION"])));
+}
+// Scale of Souls (0z2snsdwmx): "(2), [REST]: Return a card from your memory to your hand."
+$activateAbilityAbilities["0z2snsdwmx:0"] = function($player) {
+    $memory = ZoneSearch("myMemory");
+    if(empty($memory)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $memory), 1, tooltip:"Return_a_card_from_memory_to_hand");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ScaleOfSoulsReturn", 1);
+};
+$activateAbilityPrereqs["0z2snsdwmx:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID); };
+$customDQHandlers["ScaleOfSoulsReturn"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myHand");
+};
+// Refluxal Ribbon (vm4xg2hedp): "(2), Banish Refluxal Ribbon: Load target Aethercharge card from your graveyard into an Aetherwing weapon you control."
+// The generated target/wing handlers ("vm4xg2hedp:0:CardActivated-1/-2") are correct; only the entry point was misfiled.
+$activateAbilityAbilities["vm4xg2hedp:0"] = function($player) {
+    $gy = ZoneSearch("myGraveyard", cardSubtypes: ["AETHERCHARGE"]);
+    if(empty($gy) || empty(GetAetherwingWeapons($player))) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $gy), 1, tooltip:"Load_an_Aethercharge_card");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "vm4xg2hedp:0:CardActivated-1", 1);
+};
+$activateAbilityPrereqs["vm4xg2hedp:0"] = function($player, $mzID, $abilityIndex) {
+    return GAItemAwake($mzID) && !empty(ZoneSearch("myGraveyard", cardSubtypes: ["AETHERCHARGE"])) && !empty(GetAetherwingWeapons($player));
+};
+// Phantom Veil (fviga4cmti): "(2): Linked ally gains stealth until end of turn." The generated body is fine; the (2) cost was never paid.
+$activateAbilityPrereqs["fviga4cmti:0"] = function($player, $mzID, $abilityIndex) {
+    $veilObj = GetZoneObject($mzID);
+    return $veilObj !== null && GetLinkedAllyMZ($player, $veilObj) !== null;
+};
+// Unbridled Flare (hXERTZPM0w): "[REST]: As a Spell, deal 1 damage to target champion." / "[REST], Banish two fire element cards from your graveyard: As a Spell, deal 2 damage to target champion."
+function GAUnbridledFlareStart($player, $mzID, $amount) {
+    $champions = GAChampionTargets();
+    if(empty($champions)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $champions), 1, tooltip:"Choose_target_champion");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "UnbridledFlareDamage|" . $amount . "|" . $mzID, 1);
+}
+$activateAbilityAbilities["hXERTZPM0w:0"] = function($player) { GAUnbridledFlareStart($player, DecisionQueueController::GetVariable("mzID"), 1); };
+$activateAbilityAbilities["hXERTZPM0w:1"] = function($player) { GAUnbridledFlareStart($player, DecisionQueueController::GetVariable("mzID"), 2); };
+$activateAbilityPrereqs["hXERTZPM0w:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID); };
+$activateAbilityPrereqs["hXERTZPM0w:1"] = function($player, $mzID, $abilityIndex) {
+    return GAItemAwake($mzID) && count(ZoneSearch("myGraveyard", cardElements: ["FIRE"])) >= 2;
+};
+$customDQHandlers["UnbridledFlareDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null || $targetObj->removed) return;
+    DealDamage($player, $parts[1] ?? "-", $lastDecision, intval($parts[0] ?? 1));
+};
+// "Banish N <element> element cards from your graveyard" activation cost: each card is chosen in turn (queued at the cost block).
+$customDQHandlers["GABanishGraveyardCost"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        $hadFloating = HasFloatingMemory(GetZoneObject($lastDecision));
+        MZMove($player, $lastDecision, "myBanish");
+        if($hadFloating) NicoOnFloatingMemoryBanished($player);
+        DecisionQueueController::CleanupRemovedCards();
+    }
+    GAQueueGraveyardBanishCost($player, intval($parts[0] ?? 0) - 1, strval($parts[1] ?? "FIRE"));
+};
+function GAQueueGraveyardBanishCost($player, $remaining, $element) {
+    if($remaining <= 0) return;
+    $cards = ZoneSearch("myGraveyard", cardElements: [$element]);
+    if(empty($cards)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $cards), 100, tooltip:"Banish_a_" . strtolower($element) . "_element_card");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GABanishGraveyardCost|" . $remaining . "|" . $element, 100);
+}
+// Heart of the Frost (7NlaXYtNM6): "[REST], Banish Heart of the Frost: As a Spell, deal 2 damage to target ally if it's rested. Otherwise, rest it."
+$activateAbilityAbilities["7NlaXYtNM6:0"] = function($player) {
+    $allies = GAAllAllyTargets();
+    if(empty($allies)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allies), 1, tooltip:"Choose_target_ally");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "HeartOfTheFrostApply", 1);
+};
+$activateAbilityPrereqs["7NlaXYtNM6:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID) && !empty(GAAllAllyTargets()); };
+$customDQHandlers["HeartOfTheFrostApply"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null || $targetObj->removed || !PropertyContains(EffectiveCardType($targetObj), "ALLY")) return;
+    if($targetObj->Status == 1) DealDamage($player, "-", $lastDecision, 2);
+    else OnRestCard($player, $lastDecision);
+};
+// Reluctant Breath (xfheZavYZm): "[REST], Banish Reluctant Breath: As a Spell, return target ally you don't control to its owner's memory. Activate this ability only if an opponent controls at least two more allies than you."
+function GAReluctantBreathTargets() {
+    $mine = count(ZoneSearch("myField", ["ALLY"]));
+    $theirs = ZoneSearch("theirField", ["ALLY"]);
+    if(count($theirs) < $mine + 2) return [];
+    return FilterSpellshroudTargets($theirs);
+}
+$activateAbilityAbilities["xfheZavYZm:0"] = function($player) {
+    $targets = GAReluctantBreathTargets();
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Return_target_ally_to_its_owners_memory");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReluctantBreathReturn", 1);
+};
+$activateAbilityPrereqs["xfheZavYZm:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID) && !empty(GAReluctantBreathTargets()); };
+$customDQHandlers["ReluctantBreathReturn"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed || !PropertyContains(EffectiveCardType($obj), "ALLY")) return;
+    OnLeaveField($player, $lastDecision);
+    MZMove($player, $lastDecision, intval($obj->Owner) === intval($player) ? "myMemory" : "theirMemory");
+    DecisionQueueController::CleanupRemovedCards();
+};
+// Agni's Signet (yIozXMrdqr): "(2), [REST], Banish Agni's Signet: As a Spell, destroy target damaged ally."
+function GADamagedAllyTargets() {
+    $targets = [];
+    foreach(GAAllAllyTargets() as $allyMZ) {
+        $allyObj = GetZoneObject($allyMZ);
+        if($allyObj !== null && intval($allyObj->Damage ?? 0) > 0) $targets[] = $allyMZ;
+    }
+    return $targets;
+}
+$activateAbilityAbilities["yIozXMrdqr:0"] = function($player) {
+    $targets = GADamagedAllyTargets();
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Destroy_target_damaged_ally");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AgnisSignetDestroy", 1);
+};
+$activateAbilityPrereqs["yIozXMrdqr:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID) && !empty(GADamagedAllyTargets()); };
+$customDQHandlers["AgnisSignetDestroy"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed || !PropertyContains(EffectiveCardType($obj), "ALLY") || intval($obj->Damage ?? 0) <= 0) return;
+    DoAllyDestroyed($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+};
+
 // cardID => ability names of field activated abilities whose generated CardActivateAbilityCount row is 0
 // (see the Key Slime Pudding / Baby Blue Slime note above). Names become the opportunity-window labels
 // ("myField-N@Activate-0@<name>") and the Activate button captions.
@@ -5482,6 +5623,12 @@ function GAActivateAbilityCountOverrides() {
         "4wuq20gvcg" => ["Banish"],  // Key Slime Pudding
         "fbs9qzo3f6" => ["Distant"], // Ranger Boots
         "9ggfiy38t2" => ["Prevent"], // Baby Blue Slime
+        "0z2snsdwmx" => ["Return"], // Scale of Souls
+        "vm4xg2hedp" => ["Load"], // Refluxal Ribbon
+        "hXERTZPM0w" => ["Damage 1", "Damage 2"], // Unbridled Flare
+        "7NlaXYtNM6" => ["Rest or damage"], // Heart of the Frost
+        "xfheZavYZm" => ["Return"], // Reluctant Breath
+        "yIozXMrdqr" => ["Destroy"], // Agni's Signet
     ];
 }
 // Lazy, idempotent application to the generated count/name arrays for callers that run without
@@ -7320,6 +7467,34 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "0z2snsdwmx": // Scale of Souls: (2), [REST]
+        case "hXERTZPM0w": // Unbridled Flare: [REST]; the second ability also banishes two fire element cards from the graveyard
+        case "7NlaXYtNM6": // Heart of the Frost: [REST], Banish self
+        case "xfheZavYZm": // Reluctant Breath: [REST], Banish self
+        case "yIozXMrdqr": // Agni's Signet: (2), [REST], Banish self
+            {
+                $itemObj = &GetZoneObject($mzCard);
+                if($itemObj !== null) $itemObj->Status = 1;
+                if(in_array($cardID, ["7NlaXYtNM6", "xfheZavYZm", "yIozXMrdqr"])) {
+                    OnLeaveField($player, $mzCard);
+                    MZMove($player, $mzCard, "myBanish");
+                    DecisionQueueController::CleanupRemovedCards();
+                }
+                if($cardID === "hXERTZPM0w" && intval($abilityIndex) === 1) GAQueueGraveyardBanishCost($player, 2, "FIRE");
+                if($cardID === "0z2snsdwmx" || $cardID === "yIozXMrdqr") {
+                    for($ri = 0; $ri < 2; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
+        case "vm4xg2hedp": // Refluxal Ribbon: (2), Banish self
+            OnLeaveField($player, $mzCard);
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            for($ri = 0; $ri < 2; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            break;
+        case "fviga4cmti": // Phantom Veil: (2)
+            for($ri = 0; $ri < 2; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             break;
         case "4wuq20gvcg": // Key Slime Pudding: banish self (leave-field triggers apply, like the other field-leaving costs)
             OnLeaveField($player, $mzCard);

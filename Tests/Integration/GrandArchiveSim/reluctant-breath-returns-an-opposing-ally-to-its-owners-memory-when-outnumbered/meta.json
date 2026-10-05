@@ -1,0 +1,29 @@
+{
+    "name": "reluctant-breath-returns-an-opposing-ally-to-its-owners-memory-when-outnumbered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:32:33+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "xfheZavYZm"
+    ],
+    "notes": "Reluctant Breath had no implementation. [REST], Banish self: As a Spell, return target ally you don't control to its owner's memory; activatable only if an opponent controls at least two more allies than you. Player 2 controls two allies against none, so Dungeon Guide is returned to player 2's memory.",
+    "semanticCoverage": {
+        "testedCards": [
+            "xfheZavYZm"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[REST], Banish Reluctant Breath: As a Spell, return target ally you don't control to its owner's memory. Activate this ability only if an opponent controls at least two more allies than you."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Reluctant Breath's ability was not implemented.",
+        "affectedFunction": "activateAbilityAbilities['xfheZavYZm:0']",
+        "fixCommit": "TBD"
+    }
+}

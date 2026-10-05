@@ -1,0 +1,44 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "theirMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The Dungeon Guide went to its owner's memory"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The champion and one remaining ally"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Only the Fluffy Shopkeep is left"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Reluctant Breath banished itself as a cost"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

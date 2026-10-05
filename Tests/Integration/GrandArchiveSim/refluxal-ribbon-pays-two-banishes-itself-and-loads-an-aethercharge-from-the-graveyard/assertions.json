@@ -1,0 +1,44 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Refluxal Ribbon banished itself as a cost"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The Aethercharge card left the graveyard"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Subcards",
+        "value": "[\"wd7nuab7f3\"]",
+        "semantic": true,
+        "label": "Aether's Embrace is loaded into Salamander's Breath"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Two reserve cards paid"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

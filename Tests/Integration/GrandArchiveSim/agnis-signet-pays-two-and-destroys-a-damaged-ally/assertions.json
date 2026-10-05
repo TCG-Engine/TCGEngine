@@ -1,0 +1,44 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The damaged ally was destroyed"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "The undamaged ally was not a legal target and remains"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Agni's Signet banished itself as a cost"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "(2) paid into memory"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

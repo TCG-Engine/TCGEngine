@@ -1,0 +1,29 @@
+{
+    "name": "phantom-veil-pays-two-and-grants-the-linked-ally-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:31:58+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "fviga4cmti"
+    ],
+    "notes": "Phantom Veil's generated stealth body was fine, but no cost case existed for its (2) and it had no prereq: the ability was free and fired without a linked ally. ActivatedAbilityCost now queues two reserve payments; the prereq requires a linked ally.",
+    "semanticCoverage": {
+        "testedCards": [
+            "fviga4cmti"
+        ],
+        "mechanics": [
+            "cost",
+            "stealth",
+            "ally-link"
+        ],
+        "rulesClauses": [
+            "(2): Linked ally gains stealth until end of turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Phantom Veil's (2) cost was never charged.",
+        "affectedFunction": "ActivatedAbilityCost (fviga4cmti)",
+        "fixCommit": "TBD"
+    }
+}

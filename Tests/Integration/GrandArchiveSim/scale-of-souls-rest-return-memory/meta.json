@@ -1,17 +1,28 @@
 {
-    "name": "Scale of Souls' REST: return a card from your memory to your hand",
+    "name": "scale-of-souls-rest-return-memory",
     "rootName": "GrandArchiveSim",
-    "createdAt": "2026-09-14T01:42:39+00:00",
-    "createdBy": "batch-script",
-    "notes": "Field-resident REGALIA/ITEM cards whose activated ability is registered in $cardActivatedAbilities had no client-reachable activation path (CustomInput.php's \"myField\"/\"myIntent\" case only ever called ActivateAbility(), which reads a different dictionary) -- fixed by routing through ActivateCard() when CardCardActivatedCount() indicates this dictionary instead. This fixture confirms the fix end-to-end: a direct myField-N!CustomInput!Activate:0 click now correctly resolves Scale of Souls' REST ability, returning the chosen memory card to hand.",
+    "createdAt": "2026-10-05T21:33:46+00:00",
+    "createdBy": "Claude Sonnet 5.5",
     "testedCards": [
         "0z2snsdwmx"
     ],
+    "notes": "Scale of Souls' ability is a field activation. The generator filed it in the play-time table; CustomInput routed it through ActivateCard, which skipped the printed (2) reserve cost (the CardEditor DB has no reserve cost for it) and never rested the item. It is now registered as a field activated ability ($activateAbilityAbilities in Custom/GameLogic.php): ActivatedAbilityCost rests the item and queues two reserve payments, the prereq requires it awake.",
     "semanticCoverage": {
-        "testedCards": ["0z2snsdwmx"],
-        "mechanics": ["cost", "zone-movement"],
+        "testedCards": [
+            "0z2snsdwmx"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement"
+        ],
         "rulesClauses": [
             "(2), REST: Return a card from your memory to your hand."
         ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Scale of Souls' (2) reserve cost was never charged and the item was never rested (misrouted through ActivateCard).",
+        "affectedFunction": "ActivatedAbilityCost / activateAbilityAbilities['0z2snsdwmx:0']",
+        "fixCommit": "TBD"
     }
 }

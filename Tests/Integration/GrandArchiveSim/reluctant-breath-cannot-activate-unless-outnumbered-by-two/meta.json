@@ -1,0 +1,21 @@
+{
+    "name": "reluctant-breath-cannot-activate-unless-outnumbered-by-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:32:35+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "xfheZavYZm"
+    ],
+    "notes": "With only one opposing ally and none of your own, the opponent does not control at least two more allies than you: the activation is refused and nothing is paid.",
+    "semanticCoverage": {
+        "testedCards": [
+            "xfheZavYZm"
+        ],
+        "mechanics": [
+            "activation-restriction"
+        ],
+        "rulesClauses": [
+            "Activate this ability only if an opponent controls at least two more allies than you."
+        ]
+    }
+}

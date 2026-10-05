@@ -1,0 +1,29 @@
+{
+    "name": "heart-of-the-frost-deals-two-damage-to-a-rested-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:32:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "7NlaXYtNM6"
+    ],
+    "notes": "A rested target takes 2 damage (and is not woken or otherwise changed).",
+    "semanticCoverage": {
+        "testedCards": [
+            "7NlaXYtNM6"
+        ],
+        "mechanics": [
+            "cost",
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "As a Spell, deal 2 damage to target ally if it's rested."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Heart of the Frost's ability was not implemented.",
+        "affectedFunction": "activateAbilityAbilities['7NlaXYtNM6:0']",
+        "fixCommit": "TBD"
+    }
+}
