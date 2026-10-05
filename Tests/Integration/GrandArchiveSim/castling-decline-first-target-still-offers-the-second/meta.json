@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Castling's optional-choice continuation (CastlingFirstTarget) handles the declined choice itself, but Core's ExecuteStaticMethods() skipped it on PASS (it was queued by a generated card body without dontSkipOnPass): the second target was never offered after the first was declined. Fix: Grand Archive registers the handler as decline-aware (GameCustomHandlerRunsOnPass, asked by Core before it skips) and the handler consumes the decline with ConsumeDeclinedChoice().",
         "affectedFunction": "Custom/GameLogic.php GameCustomHandlerRunsOnPass; Custom/CardDQHandlers.php CastlingFirstTarget",
-        "fixCommit": "TBD"
+        "fixCommit": "cbd045c6"
     }
 }

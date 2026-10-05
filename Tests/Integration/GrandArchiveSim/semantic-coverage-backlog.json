@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T16:05:24+00:00",
+    "generatedAt": "2026-10-05T16:21:11+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 758,
+        "cardsWithExistingFixtures": 765,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1728,
+        "cardsNeedingSemanticCoverage": 1721,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2893,23 +2893,6 @@
             "priority": 23
         },
         {
-            "cardId": "tFOpmUdi2W",
-            "name": "Castling",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "4f3bi5lohu",
             "name": "Ceasing Edict",
             "type": "ACTION",
@@ -4281,22 +4264,6 @@
             "mechanics": [
                 "draw-discard",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "p5p0azskw4",
-            "name": "Modulating Cadence",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -7034,25 +7001,6 @@
             "priority": 15
         },
         {
-            "cardId": "88rx6p3p5i",
-            "name": "Smashing Force",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "5u5m8xblmd",
             "name": "Snow White, Weiss Queen",
             "type": "UNIQUE,ALLY",
@@ -7917,24 +7865,6 @@
                 "status",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "xfpk9xycwz",
-            "name": "Alkahest",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -17466,23 +17396,6 @@
             "priority": 13
         },
         {
-            "cardId": "k8ao8bki6f",
-            "name": "Purification",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "recover",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "z11p126ctq",
             "name": "Purling Footman",
             "type": "ALLY",
@@ -18307,23 +18220,6 @@
             "mechanics": [
                 "draw-discard",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "jozihslnhz",
-            "name": "Sinister Mindreaver",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
                 "condition"
             ],
             "existingFixtures": [],
@@ -23742,22 +23638,6 @@
             "mechanics": [
                 "targeting",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "KVbuQJyWsU",
-            "name": "Regal Inquisition",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -43941,6 +43821,27 @@
             "priority": 43
         },
         {
+            "cardId": "tFOpmUdi2W",
+            "name": "Castling",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "castling-decline-first-target-still-offers-the-second"
+            ],
+            "semanticFixtures": [
+                "castling-decline-first-target-still-offers-the-second"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "75uhspxqme",
             "name": "Cavalier Rescue",
             "type": "ACTION",
@@ -44220,6 +44121,26 @@
                 "galestream-insight-look-six-no-spell-bottoms-all-six",
                 "galestream-insight-look-six-reveal-spell-rest-bottom",
                 "galestream-insight-player-two-look-six-reveal-spell-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "p5p0azskw4",
+            "name": "Modulating Cadence",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "modulating-cadence-declined-reveal-still-puts-the-rest-on-the-bottom"
+            ],
+            "semanticFixtures": [
+                "modulating-cadence-declined-reveal-still-puts-the-rest-on-the-bottom"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44801,6 +44722,31 @@
             "priority": 35
         },
         {
+            "cardId": "88rx6p3p5i",
+            "name": "Smashing Force",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "smashing-force-banishes-two-fire-cards-and-destroys-a-low-cost-item",
+                "smashing-force-declined-banish-keeps-the-fire-cards-and-the-item"
+            ],
+            "semanticFixtures": [
+                "smashing-force-banishes-two-fire-cards-and-destroys-a-low-cost-item",
+                "smashing-force-declined-banish-keeps-the-fire-cards-and-the-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "coxpnjvt9y",
             "name": "Suffocating Miasma",
             "type": "PHANTASIA",
@@ -44921,6 +44867,28 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 35
+        },
+        {
+            "cardId": "xfpk9xycwz",
+            "name": "Alkahest",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "alkahest-level-four-banishes-itself-to-destroy-a-low-cost-item"
+            ],
+            "semanticFixtures": [
+                "alkahest-level-four-banishes-itself-to-destroy-a-low-cost-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
         },
         {
             "cardId": "4GFKcHg9NU",
@@ -45831,10 +45799,12 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "kingdoms-divide-choose-card-name-taxes-it-two-more"
+                "kingdoms-divide-choose-card-name-taxes-it-two-more",
+                "kingdoms-divide-named-card-costs-two-more-reserve-to-activate"
             ],
             "semanticFixtures": [
-                "kingdoms-divide-choose-card-name-taxes-it-two-more"
+                "kingdoms-divide-choose-card-name-taxes-it-two-more",
+                "kingdoms-divide-named-card-costs-two-more-reserve-to-activate"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45852,10 +45822,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "kongming-erudite-strategist-enter-banishes-four-top-cards"
+                "kongming-erudite-strategist-enter-banishes-four-top-cards",
+                "kongming-erudite-strategist-tags-expire-at-the-beginning-of-the-next-turn"
             ],
             "semanticFixtures": [
-                "kongming-erudite-strategist-enter-banishes-four-top-cards"
+                "kongming-erudite-strategist-enter-banishes-four-top-cards",
+                "kongming-erudite-strategist-tags-expire-at-the-beginning-of-the-next-turn"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46025,6 +45997,27 @@
             "priority": 33
         },
         {
+            "cardId": "k8ao8bki6f",
+            "name": "Purification",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "recover",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "purification-decline-second-curse-clears-the-staged-copies"
+            ],
+            "semanticFixtures": [
+                "purification-decline-second-curse-clears-the-staged-copies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "dOPqsWYMCQ",
             "name": "Radiant Origin of Mage",
             "type": "PHANTASIA",
@@ -46145,6 +46138,27 @@
             ],
             "semanticFixtures": [
                 "salamanders-breath-decline-second-banish-still-applies-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "jozihslnhz",
+            "name": "Sinister Mindreaver",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sinister-mindreaver-decline-second-discard-opponent-still-draws-one"
+            ],
+            "semanticFixtures": [
+                "sinister-mindreaver-decline-second-discard-opponent-still-draws-one"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46576,6 +46590,26 @@
             ],
             "semanticFixtures": [
                 "polishing-flourish-removes-sheen-from-your-units"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "KVbuQJyWsU",
+            "name": "Regal Inquisition",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "regal-inquisition-declined-discard-clears-the-staged-copies"
+            ],
+            "semanticFixtures": [
+                "regal-inquisition-declined-discard-clears-the-staged-copies"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

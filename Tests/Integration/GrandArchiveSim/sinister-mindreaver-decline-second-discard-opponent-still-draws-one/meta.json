@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Sinister Mindreaver's optional-choice continuation (SinisterMindreaverPick2) handles the declined choice itself, but Core's ExecuteStaticMethods() skipped it on PASS (it was queued without dontSkipOnPass): the opponent never drew the card for the discard after the second discard was declined. Fix: Grand Archive registers the handler as decline-aware (GameCustomHandlerRunsOnPass, asked by Core before it skips) and the handler consumes the decline with ConsumeDeclinedChoice().",
         "affectedFunction": "Custom/GameLogic.php GameCustomHandlerRunsOnPass; Custom/CardDQHandlers.php SinisterMindreaverPick2",
-        "fixCommit": "TBD"
+        "fixCommit": "cbd045c6"
     }
 }

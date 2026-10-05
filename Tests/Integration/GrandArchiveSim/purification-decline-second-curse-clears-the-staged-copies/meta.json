@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. PurificationCurse1/2 (the 'choose up to two Curse cards from your champion's lineage' picks) were queued without dontSkipOnPass, so declining a pick skipped the handler that clears the temp-zone copies the picks are made from; the copies stayed behind. Fix: both queue sites pass dontSkipOnPass and the handlers consume the decline with ConsumeDeclinedChoice().",
         "affectedFunction": "Custom/CardDQHandlers.php PurificationCurse1 / PurificationCurse2",
-        "fixCommit": "TBD"
+        "fixCommit": "622b4fed"
     }
 }

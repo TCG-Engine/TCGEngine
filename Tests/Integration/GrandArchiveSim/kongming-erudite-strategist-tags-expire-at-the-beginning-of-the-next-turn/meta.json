@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Kongming, Erudite Strategist's \"you may play it ... until the beginning of your next turn\" tags (KONGMING_<direction> on the four banished cards) never lasted: ExpireEffects() wipes every non-whitelisted TurnEffect on banished cards at the end of the turn, and the champion levels up in the Materialize Phase, immediately before THAT turn's recollection phase, whose Kongming cleanup removed the tags straight away. Fix: the tags carry the turn they were made in (KONGMING_TURN_<n>), survive the end-of-turn wipe, and are cleared by the owner's recollection phase only on a later turn.",
         "affectedFunction": "Custom/GameLogic.php ExpireEffects / RecollectionPhase Kongming block; Custom/GeneratedAbilityOverrides.php enterAbilities[0i139x5eub:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "622b4fed"
     }
 }
