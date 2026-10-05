@@ -1848,3 +1848,8 @@ $cardActivatedAbilities["oLzsAj9mKl:0"] = function($player) { //oLzsAj9mKl
   DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $rangerActions), 1, "");
   DecisionQueueController::AddDecision($player, "CUSTOM", "oLzsAj9mKl:0:CardActivated-1", 1);
 };
+
+// Ranger Boots (fbs9qzo3f6): the generated body for "[Class Bonus] [REST], Banish Ranger Boots: Your champion becomes distant" is filed in the play-time table and called BecomeDistant($player) without the
+// champion's mzID (a fatal error). Neutralized; the real field ability is registered in Custom/GameLogic.php ($activateAbilityAbilities["fbs9qzo3f6:0"]).
+$cardActivatedAbilities["fbs9qzo3f6:0"] = function($player) { //Ranger Boots: no on-play activated effect
+};

@@ -1,0 +1,27 @@
+{
+    "name": "heirloom-of-natura-draw-ability-pays-three-and-banishes-itself",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:22:10+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "drIdaGpPJ2"
+    ],
+    "notes": "Heirloom of Natura: '(3), Banish: draw a card into your memory' (second ability). The (3) used to be free.",
+    "semanticCoverage": {
+        "testedCards": [
+            "drIdaGpPJ2"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost",
+            "banish-self"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Heirloom of Natura's \"(3), Banish: Draw a card into your memory\" cost was never paid: ActivatedAbilityCost() had no entry for it (or only banished the card), so the ability was free. Fix: ActivatedAbilityCost() banishes the card and queues the reserve payments.",
+        "affectedFunction": "Custom/GameLogic.php ActivatedAbilityCost",
+        "fixCommit": "TBD"
+    }
+}

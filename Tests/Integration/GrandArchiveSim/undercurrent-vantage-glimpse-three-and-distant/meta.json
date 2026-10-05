@@ -1,0 +1,20 @@
+{
+    "name": "undercurrent-vantage-glimpse-three-and-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:16:48+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "xicxo661ly"
+    ],
+    "notes": "Undercurrent Vantage: glimpse 3 (kept on top) and the champion becomes distant.",
+    "semanticCoverage": {
+        "testedCards": [
+            "xicxo661ly"
+        ],
+        "mechanics": [
+            "glimpse",
+            "distant"
+        ],
+        "rulesClauses": []
+    }
+}

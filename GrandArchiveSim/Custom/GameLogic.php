@@ -5426,6 +5426,16 @@ $activateAbilityPrereqs["7mmve2l328:0"] = function($player, $mzID, $abilityIndex
 // ActivatedAbilityCost() ("4wuq20gvcg" case) before this body runs; the body only sets the per-player
 // global effect that Enter handling (GameLogic.php, "Key Slime Pudding" block in the field-entry code)
 // reads. Global effects are wiped at end of turn, matching "until end of turn".
+// Ranger Boots (fbs9qzo3f6): "[Class Bonus] [REST], Banish Ranger Boots: Your champion becomes distant." Misfiled by the generator like Key Slime Pudding (a $cardActivatedAbilities body that, routed through ActivateCard,
+// treated the field item as a card being played: it drew a card and never banished itself). Registered as the field activated ability it is; the REST + banish cost is paid by ActivatedAbilityCost().
+$activateAbilityAbilities["fbs9qzo3f6:0"] = function($player) { //Ranger Boots: your champion becomes distant
+    $champMZ = FindChampionMZ($player);
+    if($champMZ !== null) BecomeDistant($player, $champMZ);
+};
+$activateAbilityPrereqs["fbs9qzo3f6:0"] = function($player, $mzID, $abilityIndex) {
+    $bootsObj = GetZoneObject($mzID);
+    return $bootsObj !== null && $bootsObj->Status == 2 && IsClassBonusActive($player, ["RANGER"]);
+};
 $activateAbilityAbilities["4wuq20gvcg:0"] = function($player) { //Banish: Slime allies enter with an additional buff counter this turn
     AddGlobalEffects($player, "4wuq20gvcg");
 };
@@ -5470,6 +5480,7 @@ $customDQHandlers["9ggfiy38t2:0:ActivateAbility-1"] = function($player, $parts, 
 function GAActivateAbilityCountOverrides() {
     return [
         "4wuq20gvcg" => ["Banish"],  // Key Slime Pudding
+        "fbs9qzo3f6" => ["Distant"], // Ranger Boots
         "9ggfiy38t2" => ["Prevent"], // Baby Blue Slime
     ];
 }
@@ -7045,13 +7056,28 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             break;
         case "nd8dy77ikm": // Shadeblood Coating Ã¢â‚¬â€ banish self
         case "nxm05jkjxg": // Rousing Rattle Drum Ã¢â‚¬â€ banish self
-        case "pgysz2zfji": // Leporine Masque - banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "pgysz2zfji": // Leporine Masque: (6), Banish -- the (6) costs (X) less, X = the amount of omens you have
+            {
+                $masqueCost = max(0, 6 - GetOmenCount($player));
+                MZMove($player, $mzCard, "myBanish");
+                DecisionQueueController::CleanupRemovedCards();
+                for($ri = 0; $ri < $masqueCost; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
             break;
         case "M5LHimBiCn": // Black Ice Spellweaver - sacrifice self
             DoSacrificeFighter($player, $mzCard);
             DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "drIdaGpPJ2": // Heirloom of Natura
+        case "0sVdvpQKXq": // Heirloom of Spectra: "Banish CARDNAME" is the whole cost of the first ability; the second is "(3), Banish CARDNAME"
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            if(intval($abilityIndex) === 1) {
+                for($ri = 0; $ri < 3; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
             break;
         case "MRiM1fnOWC": // Heirloom of Libra - banish self; second ability also pays (3)
             MZMove($player, $mzCard, "myBanish");
@@ -7286,6 +7312,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             $sourceObj->Status = 1;
             ProcessPotionInfusionTriggers($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "fbs9qzo3f6": // Ranger Boots: [Class Bonus] [REST], Banish Ranger Boots
+            $bootsObj = &GetZoneObject($mzCard);
+            if($bootsObj !== null) $bootsObj->Status = 1;
+            OnLeaveField($player, $mzCard);
+            MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
         case "4wuq20gvcg": // Key Slime Pudding: banish self (leave-field triggers apply, like the other field-leaving costs)

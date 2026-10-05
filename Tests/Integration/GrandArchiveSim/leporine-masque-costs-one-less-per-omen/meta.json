@@ -1,0 +1,27 @@
+{
+    "name": "leporine-masque-costs-one-less-per-omen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:16:44+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "pgysz2zfji"
+    ],
+    "notes": "Leporine Masque: (6), banish: draw a card into memory, costing one less per omen: with two omens it takes four reserve payments. The (6) used to be free.",
+    "semanticCoverage": {
+        "testedCards": [
+            "pgysz2zfji"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost",
+            "omen"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Leporine Masque's \"(6), Banish Leporine Masque\" cost was never paid: ActivatedAbilityCost() had no entry for it (or only banished the card), so the ability was free. Fix: ActivatedAbilityCost() banishes the card and queues the reserve payments.",
+        "affectedFunction": "Custom/GameLogic.php ActivatedAbilityCost pgysz2zfji",
+        "fixCommit": "TBD"
+    }
+}
