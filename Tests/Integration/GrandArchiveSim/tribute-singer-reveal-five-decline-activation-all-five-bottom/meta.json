@@ -1,0 +1,28 @@
+{
+    "name": "tribute-singer-reveal-five-decline-activation-all-five-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T01:13:26+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ne6qXGbr4c"
+    ],
+    "notes": "auto",
+    "semanticCoverage": {
+        "testedCards": [
+            "ne6qXGbr4c"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "look-at-top"
+        ],
+        "rulesClauses": [
+            "Reveal the top five cards of your deck. You may activate a non-advanced element Harmony or Melody card from among the revealed cards or your memory. That card costs (3) less to activate this way. Put the rest of the revealed cards on the bottom of your deck in any order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. TributeSingerChoose was queued without dontSkipOnPass, so declining the optional activation (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its decline branch (QueueTempZoneBottomDeckRearrange) never ran: all five revealed cards stayed in the temp zone and the deck was five cards short (live repro on HEAD: deck 14 instead of 19). Fix: dontSkipOnPass:1 at the queue site.",
+        "affectedFunction": "Custom/GameLogic.php TributeSingerEnter AddDecision(..., \"CUSTOM\", \"TributeSingerChoose\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

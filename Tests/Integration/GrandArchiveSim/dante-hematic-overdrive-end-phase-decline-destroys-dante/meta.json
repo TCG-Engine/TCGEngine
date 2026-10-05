@@ -1,0 +1,28 @@
+{
+    "name": "dante-hematic-overdrive-end-phase-decline-destroys-dante",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T01:13:26+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "MG4zUMPqIC"
+    ],
+    "notes": "auto",
+    "semanticCoverage": {
+        "testedCards": [
+            "MG4zUMPqIC"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, sacrifice an Elysian object or banish an Elysian card from your hand or memory. If you do neither, destroy Dante."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. DanteHematicUpkeep was queued without dontSkipOnPass, so declining the optional sacrifice/banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its decline branch (DestroyDanteChampion) never ran: Dante survived the upkeep he was supposed to fail (live repro on HEAD: Dante still on the field, graveyard empty). Fix: dontSkipOnPass:1 at the queue site.",
+        "affectedFunction": "Custom/GameLogic.php QueueDanteHematicUpkeep AddDecision(..., \"CUSTOM\", \"DanteHematicUpkeep\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

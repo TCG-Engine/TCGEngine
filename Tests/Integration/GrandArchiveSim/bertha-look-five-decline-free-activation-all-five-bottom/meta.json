@@ -1,0 +1,28 @@
+{
+    "name": "bertha-look-five-decline-free-activation-all-five-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T01:13:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ki6fxxgmue"
+    ],
+    "notes": "auto",
+    "semanticCoverage": {
+        "testedCards": [
+            "ki6fxxgmue"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "look-at-top"
+        ],
+        "rulesClauses": [
+            "Look at the top five cards of your deck. You may activate a Ranger action card with reserve cost 2 or less from among them without paying its costs. Put the rest on the bottom of your deck in any order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. BerthaChooseAction was queued without dontSkipOnPass, so declining the free activation (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its decline branch (BerthaPutRestOnBottom) never ran: all five looked-at cards stayed in the temp zone and the deck was five cards short (live repro on HEAD: deck 14 instead of 19). Fix: dontSkipOnPass:1 at the queue site.",
+        "affectedFunction": "Custom/CardDQHandlers.php BerthaLookFinish AddDecision(..., \"CUSTOM\", \"BerthaChooseAction\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

@@ -4970,7 +4970,7 @@ function BerthaLookFinish($player) {
     if(!empty($validActions)) {
         $actionStr = implode("&", $validActions);
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $actionStr, 1, tooltip:"Activate_a_Ranger_action_for_free?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "BerthaChooseAction", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BerthaChooseAction", 1, dontSkipOnPass:1);
     } else {
         // No valid actions — shuffle rest to bottom of deck
         BerthaPutRestOnBottom($player);
@@ -6215,7 +6215,7 @@ $customDQHandlers["DianaL2LoadChoice"] = function($player, $parts, $lastDecision
     }
     $targetStr = implode("&", $targets);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Load_another_Aethercharge");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "DianaL2LoadChoice|2", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DianaL2LoadChoice|2", 1, dontSkipOnPass:1);
 };
 
 // ============================================================================
@@ -6665,7 +6665,7 @@ $customDQHandlers["ViridescentAetherstreakModeA"] = function($player, $parts, $l
         $targets = ViridescentAetherstreakTargets($player);
         if(!empty($targets)) {
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1, tooltip:"Choose_up_to_one_target_unit");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ViridescentAetherstreakTargetA", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ViridescentAetherstreakTargetA", 1, dontSkipOnPass:1);
             return;
         }
     }
@@ -6703,8 +6703,18 @@ $customDQHandlers["ViridescentAetherstreakModeC"] = function($player, $parts, $l
 };
 
 $customDQHandlers["ViridescentAetherstreakLoad"] = function($player, $parts, $lastDecision) {
+    // VAE_source is the zone slot the card was activated from (a hand slot); by the time the mode resolves the card is in the graveyard, so that
+    // slot is stale (empty, or some other card) and the load silently did nothing. Load the copy that is actually in the graveyard.
     $sourceMZ = DecisionQueueController::GetVariable("VAE_source");
-    if($lastDecision !== "-" && $lastDecision !== "" && $sourceMZ !== null && $sourceMZ !== "") {
+    $sourceObj = ($sourceMZ !== null && $sourceMZ !== "") ? GetZoneObject($sourceMZ) : null;
+    if($sourceObj === null || $sourceObj->removed || $sourceObj->CardID !== "pc0y3xneg7") {
+        $sourceMZ = null;
+        $gy = GetZone("myGraveyard");
+        for($gi = count($gy) - 1; $gi >= 0; --$gi) {
+            if(!$gy[$gi]->removed && $gy[$gi]->CardID === "pc0y3xneg7") { $sourceMZ = "myGraveyard-" . $gi; break; }
+        }
+    }
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS" && $sourceMZ !== null) {
         LoadArrowIntoBow($player, $sourceMZ, $lastDecision);
     }
     ViridescentAetherstreakFinalize($player);
@@ -8594,7 +8604,7 @@ function ArondightBanishLoop($player, $arondightMZ, $banishedSoFar) {
     DecisionQueueController::StoreVariable("ArondightMZ", $arondightMZ);
     DecisionQueueController::StoreVariable("ArondightBanished", strval($banishedSoFar));
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $floatingMZ), 1, tooltip:"Banish_floating_memory_card_from_GY?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ArondightBanishChoice", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ArondightBanishChoice", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["ArondightBanishChoice"] = function($player, $parts, $lastDecision) {

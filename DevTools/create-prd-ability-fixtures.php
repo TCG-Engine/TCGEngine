@@ -27903,6 +27903,158 @@ $fixtures['freezing-hail-refuses-spellshroud-unit-damages-ordinary-ally'] = [
     ]),
 ];
 
+
+// --- Bertha, Spry Howitzer (ki6fxxgmue): "[Class Bonus] [Level 2+] On Enter: Look at the top five cards of your deck. You may activate a Ranger action card with reserve cost 2 or less from among them without paying its costs. Put the rest on the
+// bottom of your deck in any order." Declining the free activation PASSes the MZMAYCHOOSE; BerthaChooseAction was queued without dontSkipOnPass, so its "put the rest on the bottom" branch never ran and all five looked-at cards stayed in the
+// temp zone. Hightail (Xy8loj55gJ, Ranger action, reserve 1) is the only legal pick. ---
+$gaBerthaSetup = function(array $top) use ($gaTop, $gaHand) {
+    return [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7ozuj68m69', 'Counters' => ['level' => 2]]], // Diana, Deadly Duelist (RANGER) at level 2: Class Bonus + Level 2+
+        $gaHand('ki6fxxgmue'), // Bertha -> myHand-7
+        $gaTop($top),
+    ];
+};
+$fixtures['bertha-look-five-decline-free-activation-all-five-bottom'] = [
+    'testedCards' => ['ki6fxxgmue'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaBerthaSetup(['Xy8loj55gJ', $GA_DG, $GA_FS, $GA_DG, $GA_FS, $GA_MARK]),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1), mrdAns(1, 'Bottom=Xy8loj55gJ,' . $GA_DG . ',' . $GA_FS . ',' . $GA_DG . ',' . $GA_FS)]), // "You may activate": decline, then keep the printed order on the bottom
+];
+
+
+// --- Dante, Hematic Overdrive (MG4zUMPqIC): "For the rest of the game, Dante has 'At the beginning of your end phase, sacrifice an Elysian object or banish an Elysian card from your hand or memory. If you do neither, destroy Dante.'" Declining
+// the optional pick (PASS) must destroy Dante; DanteHematicUpkeep was queued without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler and the champion survived. The DANTE_HEMATIC_UPKEEP global effect is seeded directly
+// (it is what Dante's On Enter adds) and an Elysian Orphan in hand is the only legal pick. ---
+$fixtures['dante-hematic-overdrive-end-phase-decline-destroys-dante'] = [
+    'testedCards' => ['MG4zUMPqIC'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'MG4zUMPqIC']], // Dante, Hematic Overdrive
+        ['player' => 1, 'globalEffect' => 'DANTE_HEMATIC_UPKEEP'],
+        $gaHand('RN7ueRDijA'), // Elysian Orphan (the only Elysian card) -> myHand-7
+    ],
+    'actions' => [mrdEnd(1), mrdPass(1)], // end the turn; "sacrifice or banish an Elysian card": decline
+];
+
+// --- Tribute Singer (ne6qXGbr4c): "[Level 1+] On Enter: Reveal the top five cards of your deck. You may activate a non-advanced element Harmony or Melody card from among the revealed cards or your memory. That card costs (3) less to
+// activate this way. Put the rest of the revealed cards on the bottom of your deck in any order." Declining the activation PASSes the MZMAYCHOOSE; TributeSingerChoose was queued without dontSkipOnPass, so its "put the rest on the bottom"
+// branch never ran and all five revealed cards stayed in the temp zone. Belted Tune (ko5PJRsy25, a NORM Melody) is the only legal pick. ---
+$fixtures['tribute-singer-reveal-five-decline-activation-all-five-bottom'] = [
+    'testedCards' => ['ne6qXGbr4c'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 1]]], // Level 1+
+        $gaHand('ne6qXGbr4c'), // Tribute Singer -> myHand-7
+        $gaTop(['ko5PJRsy25', $GA_DG, $GA_FS, $GA_DG, $GA_FS, $GA_MARK]),
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1), mrdAns(1, 'Bottom=ko5PJRsy25,' . $GA_DG . ',' . $GA_FS . ',' . $GA_DG . ',' . $GA_FS)]), // "You may activate": decline, then keep the printed order on the bottom
+];
+
+
+// --- Brewing Kit (dwmxz1vdxi): "[REST], Sacrifice three Herbs: Look at the top six cards of your deck. You may reveal a Potion item card from among them and put it into your hand. Put the rest on the bottom of your deck in any order."
+// Declining the Potion PASSes the MZMAYCHOOSE; BrewingKitPotionPick was queued without dontSkipOnPass, so its cleanup (BrewingKitCleanup) never ran and all six looked-at cards stayed in the temp zone. Distilled Atrophy
+// (h38lrj5221, a Potion item) is the only legal pick; three Blightroot herb tokens are sacrificed to pay. ---
+$GA_BLIGHTROOT = 'i0a5uhjxhk'; // Blightroot (Herb token)
+$fixtures['brewing-kit-look-six-decline-potion-all-six-bottom'] = [
+    'testedCards' => ['dwmxz1vdxi'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dwmxz1vdxi'],     // Brewing Kit -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => $GA_BLIGHTROOT],   // Herb -> myField-2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => $GA_BLIGHTROOT],   // Herb -> myField-3
+        ['player' => 1, 'zone' => 'myField', 'cardID' => $GA_BLIGHTROOT],   // Herb -> myField-4
+        $gaTop(['h38lrj5221', $GA_DG, $GA_FS, $GA_DG, $GA_FS, $GA_DG, $GA_MARK]),
+    ],
+    'actions' => [
+        mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'),
+        mrdAns(1, 'myField-2'), mrdAns(1, 'myField-2'), mrdAns(1, 'myField-2'), // sacrifice the three herbs (the field shifts down after each)
+        mrdPass(1),                                                              // "You may reveal a Potion": decline
+        mrdPass(1), mrdPass(2),                                                  // nobody responds to the resolved ability
+    ],
+];
+
+
+// --- Arondight, Azure Blade (29xxoo7dl5): "[Class Bonus] On Enter: You may banish any amount of cards with floating memory from your graveyard. For each card banished this way, put a refinement counter on Arondight." Declining a further
+// banish (PASS) must still add one refinement counter per card already banished; ArondightBanishChoice was queued without dontSkipOnPass, so ExecuteStaticMethods() skipped the handler and the counters were lost. Two Fast Cure (3oda2ha4dk,
+// floating memory) are seeded into the graveyard; one is banished and the next offer declined. ---
+$gaWarriorWater = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn', 'Subcards' => ['tafqldAGRF']]]; // Lorraine, Wandering Warrior (WARRIOR) + Spirit of Water lineage: Class Bonus + WATER element
+$gaMaterializeTurnTwo = function() { // both players pass through to player 1's second turn, where a real Materialize opportunity is offered
+    return array_merge([mrdEnd(1)], array_fill(0, 6, mrdEnd(2)));
+};
+$fixtures['arondight-azure-blade-enter-banish-one-floating-then-decline-keeps-one-refinement'] = [
+    'testedCards' => ['29xxoo7dl5'],
+    'deck' => "# Material\n1 Spirit of Water\n1 Arondight, Azure Blade\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [
+        $gaWarriorWater,
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], // Fast Cure (floating memory) -> myGraveyard-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], // Fast Cure (floating memory) -> myGraveyard-1
+    ],
+    'actions' => array_merge($gaMaterializeTurnTwo(), [mrdAns(1, 'myMaterial-0'), mrdAns(1, '-'), mrdAns(1, 'myGraveyard-0'), mrdPass(1)]) // materialize (memory cost paid, no floating-memory payment), banish one Fast Cure, decline the second,
+];
+
+
+// --- Stonescale Band (sphwpjsznn): "[Class Bonus] On Enter: Discard up to three ally cards from your hand and/or memory, then draw that many cards." Declining a further discard (PASS) must still draw one card per ally already
+// discarded; StonescaleBandDiscard's loop re-queue was missing dontSkipOnPass, so the handler (and its draw) was skipped. The champion is patched to Guo Jia, Chosen Disciple (TAMER) with a Kongming (TERA) lineage for the Class Bonus
+// and TERA element access; the seeded hand is all allies (Dungeon Guide / Fluffy Shopkeep). ---
+$gaTameTera = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['7x2v4tdop1']]]; // Guo Jia (TAMER) + Kongming (TERA) lineage
+$fixtures['stonescale-band-enter-discard-one-ally-then-decline-draws-one'] = [
+    'testedCards' => ['sphwpjsznn'],
+    'deck' => "# Material\n1 Spirit of Water\n1 Stonescale Band\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [$gaTameTera, ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_FS]], // a memory card pays Stonescale Band's memory cost (1)
+    'actions' => array_merge($gaMaterializeTurnTwo(), [mrdAns(1, 'myMaterial-0'), mrdAns(1, 'myHand-0'), mrdPass(1)]), // materialize, discard one ally, decline the second discard (the draw lands before the beginning-of-recollection window opens)
+];
+
+
+// --- Diana, Judgment's Arrow (wiztyu6o24): "On Enter: Load up to two Aethercharge cards from your hand and/or memory into an Aetherwing weapon you control. For each card loaded this way, draw a card into your memory." Declining the second
+// load (PASS) must still draw one card into memory for the card already loaded; DianaL2LoadChoice's second-prompt queue site was missing dontSkipOnPass, so the handler and its draw-into-memory were skipped. Diana, Keen Huntress (level 1) is the
+// level-up base, Salamander's Breath (an Aetherwing) is on the field, two Aether's Embrace (Aethercharge cards) are in hand, and two memory cards pay the 2-memory level-up cost. ---
+$fixtures['diana-judgments-arrow-enter-load-one-aethercharge-then-decline-draws-one-into-memory'] = [
+    'testedCards' => ['wiztyu6o24'],
+    'deck' => "# Material\n1 Spirit of Fire\n1 Diana, Judgment's Arrow\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'e3z4pyx8bd']], // Diana, Keen Huntress (level 1): the level-up base
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mob9nu6lal'], // Salamander's Breath (Aetherwing weapon) -> myField-1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_FS],      // level-up memory payment 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_FS],      // level-up memory payment 2/2
+        $gaHand('wd7nuab7f3'), // Aether's Embrace (Aethercharge) -> myHand-7
+        $gaHand('wd7nuab7f3'), // Aether's Embrace (Aethercharge) -> myHand-8
+    ],
+    'actions' => [mrdEnd(1), mrdEnd(2), mrdAns(1, 'myMaterial-0'), mrdAns(1, 'myHand-7'), mrdPass(1)], // level up, load one Aether's Embrace, decline the second load
+];
+
+
+// --- Topsy Decree (Byx6iokcT4): "Choose one — Up to one target opponent discards a card from their hand or memory ..." The targeted opponent has no choice about discarding: the flow offered the opponent an MZMAYCHOOSE, so they could
+// PASS and keep every card (and TopsyDecreeDiscard was queued without dontSkipOnPass, so a PASS also dropped the rest of the chosen modes). Player 2 holds a single card; passing the discard prompt must bring it back until they discard. ---
+$fixtures['topsy-decree-opponent-must-discard-cannot-decline'] = [
+    'testedCards' => ['Byx6iokcT4'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [
+        $gaHand('Byx6iokcT4'), // Topsy Decree -> myHand-7
+        ['player' => 2, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => $GA_DG], // opponent's only hand card
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7'), mrdAns(1, 'NO')], mrdPay(1, 3), [
+        mrdAns(1, '1'), // decline the Imbue, pay 3, choose the discard mode
+        mrdPass(2),            // the engine accepts PASS for any decision; the discard is not optional, so the prompt must come back
+        mrdAns(2, 'myHand-0'),
+    ]),
+];
+
+
+// --- Viridescent Aetherstreak (pc0y3xneg7): "[Class Bonus] This card costs 1 less to activate. Choose two - up to one target unit becomes distant; prevent the next 2 damage to each distant unit; load this card into an Aetherwing weapon."
+// Choosing the first mode and then declining its "up to one target" (PASS) must still go on to the next mode; ViridescentAetherstreakTargetA was queued without dontSkipOnPass, so the handler (which asks the next mode) was skipped and the
+// card stopped after one mode, never loading. Salamander's Breath (an Aetherwing) is on the field, Diana, Deadly Duelist (RANGER) with a Spirit of Wind lineage gives the Class Bonus and the wind element. ---
+$fixtures['viridescent-aetherstreak-mode-one-no-target-then-load-into-aetherwing'] = [
+    'testedCards' => ['pc0y3xneg7'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7ozuj68m69', 'Subcards' => ['pNiyaGlIe7']]], // Diana, Deadly Duelist (RANGER): Class Bonus; Spirit of Wind lineage: wind element
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mob9nu6lal'], // Salamander's Breath (Aetherwing weapon)
+        $gaHand('pc0y3xneg7'), // Viridescent Aetherstreak -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'YES'), mrdPass(1), mrdAns(1, 'NO'), mrdAns(1, 'YES'), mrdAns(1, 'myField-1')]), // mode 1, no target; not mode 2; mode 3 into Salamander's Breath
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

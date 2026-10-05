@@ -1,0 +1,26 @@
+[
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Declining the first mode's target still goes on to the third mode: the card was loaded, not left in the graveyard"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Subcards",
+        "value": "[\"pc0y3xneg7\"]",
+        "semantic": true,
+        "label": "Viridescent Aetherstreak is loaded into Salamander's Breath"
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

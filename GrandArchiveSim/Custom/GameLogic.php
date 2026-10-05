@@ -3762,22 +3762,16 @@ $customDQHandlers["TopsyDecree_ProcessNext"] = function($player, $parts, $lastDe
             break;
         case "1": // Up to one target opponent discards a card from hand or memory
             $oppPlayer = ($actingPlayer == 1) ? 2 : 1;
-            $oppHand = &GetHand($oppPlayer);
-            $oppMemory = &GetMemory($oppPlayer);
-            $targets = [];
-            for($i = 0; $i < count($oppHand); ++$i) {
-                if(!$oppHand[$i]->removed) $targets[] = "myHand-" . $i;
-            }
-            for($i = 0; $i < count($oppMemory); ++$i) {
-                if(!$oppMemory[$i]->removed) $targets[] = "myMemory-" . $i;
-            }
+            $targets = TopsyDecreeDiscardTargets($oppPlayer);
             if(empty($targets)) {
                 TopsyDecreeContinue($player, $actingPlayer);
                 break;
             }
             $targetStr = implode("&", $targets);
-            DecisionQueueController::AddDecision($oppPlayer, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Discard_a_card_(Topsy_Decree)");
-            DecisionQueueController::AddDecision($oppPlayer, "CUSTOM", "TopsyDecreeDiscard|$actingPlayer", 1);
+            // The targeted opponent must discard: MZMAYCHOOSE let them PASS and keep every card (and, without dontSkipOnPass, a PASS
+            // also skipped TopsyDecreeDiscard, which is what continues to the next chosen mode).
+            DecisionQueueController::AddDecision($oppPlayer, "MZCHOOSE", $targetStr, 1, tooltip:"Discard_a_card_(Topsy_Decree)");
+            DecisionQueueController::AddDecision($oppPlayer, "CUSTOM", "TopsyDecreeDiscard|$actingPlayer", 1, dontSkipOnPass:1);
             break;
         case "2": // Choose up to 2 cards from a single graveyard and banish them
             $oppPlayer = ($actingPlayer == 1) ? 2 : 1;
@@ -3816,10 +3810,33 @@ $customDQHandlers["TopsyDecree_ProcessNext"] = function($player, $parts, $lastDe
     }
 };
 
+// The discard targets, as offered to the discarding player themselves (their own hand and memory, in their own perspective).
+function TopsyDecreeDiscardTargets($discardingPlayer) {
+    $hand = &GetHand($discardingPlayer);
+    $memory = &GetMemory($discardingPlayer);
+    $targets = [];
+    for($i = 0; $i < count($hand); ++$i) {
+        if(!$hand[$i]->removed) $targets[] = "myHand-" . $i;
+    }
+    for($i = 0; $i < count($memory); ++$i) {
+        if(!$memory[$i]->removed) $targets[] = "myMemory-" . $i;
+    }
+    return $targets;
+}
+
 $customDQHandlers["TopsyDecreeDiscard"] = function($player, $parts, $lastDecision) {
     $actingPlayer = count($parts) > 0 ? intval($parts[0]) : $player;
     if($lastDecision !== "-" && $lastDecision !== "PASS" && !empty($lastDecision)) {
         MZMove($player, $lastDecision, "myGraveyard");
+    } else {
+        // GameValidateDecisionAnswer() accepts PASS for every decision, but the targeted opponent has no option to decline the discard:
+        // ask again while they still have a card to discard.
+        $targets = TopsyDecreeDiscardTargets($player);
+        if(!empty($targets)) {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Discard_a_card_(Topsy_Decree)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeDiscard|$actingPlayer", 1, dontSkipOnPass:1);
+            return;
+        }
     }
     TopsyDecreeContinue($player, $actingPlayer);
 };
@@ -4325,7 +4342,7 @@ $customDQHandlers["StonescaleBandDiscard"] = function($player, $parts, $lastDeci
     }
     $targetStr = implode("&", $choices);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Discard_an_ally_card?_(" . ($count + 1) . "_of_3)");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "StonescaleBandDiscard", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StonescaleBandDiscard", 1, dontSkipOnPass:1);
 };
 
 function RendingFlamesOnAttack($player, $mzID) {
@@ -20106,7 +20123,7 @@ function QueueDanteHematicUpkeep($player) {
     }
     if(empty($choices)) { DestroyDanteChampion($player); return; }
     DecisionQueueController::AddDecision($player,"MZMAYCHOOSE",implode("&",$choices),1,tooltip:"Sacrifice_or_banish_an_Elysian_card");
-    DecisionQueueController::AddDecision($player,"CUSTOM","DanteHematicUpkeep",1);
+    DecisionQueueController::AddDecision($player,"CUSTOM","DanteHematicUpkeep",1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["DanteHematicUpkeep"] = function($player,$parts,$lastDecision){
@@ -20207,7 +20224,7 @@ function TributeSingerEnter($player) {
     }
     if(empty($targets)) { QueueTempZoneBottomDeckRearrange($player); return; }
     DecisionQueueController::AddDecision($player,"MZMAYCHOOSE",implode("&",$targets),1,tooltip:"Activate_a_Harmony_or_Melody_card?");
-    DecisionQueueController::AddDecision($player,"CUSTOM","TributeSingerChoose",1);
+    DecisionQueueController::AddDecision($player,"CUSTOM","TributeSingerChoose",1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["TributeSingerChoose"] = function($player,$parts,$lastDecision) {

@@ -1,0 +1,28 @@
+{
+    "name": "topsy-decree-opponent-must-discard-cannot-decline",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T01:22:54+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "Byx6iokcT4"
+    ],
+    "notes": "auto",
+    "semanticCoverage": {
+        "testedCards": [
+            "Byx6iokcT4"
+        ],
+        "mechanics": [
+            "discard",
+            "forced-choice"
+        ],
+        "rulesClauses": [
+            "Up to one target opponent discards a card from their hand or memory."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The targeted opponent was offered the discard as an MZMAYCHOOSE, so they could PASS and keep every card, and TopsyDecreeDiscard was queued without dontSkipOnPass so a PASS also dropped the rest of the chosen modes (live repro on HEAD: PASS accepted, nothing discarded, queue empty). The discard is now a forced MZCHOOSE, and because GameValidateDecisionAnswer() accepts PASS for every decision type the handler re-asks while the opponent still has a card to discard.",
+        "affectedFunction": "Custom/GameLogic.php TopsyDecree_ProcessNext case 1 and the TopsyDecreeDiscard handler",
+        "fixCommit": "TBD"
+    }
+}

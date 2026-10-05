@@ -1,0 +1,29 @@
+{
+    "name": "arondight-azure-blade-enter-banish-one-floating-then-decline-keeps-one-refinement",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T01:16:06+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "29xxoo7dl5"
+    ],
+    "notes": "auto",
+    "semanticCoverage": {
+        "testedCards": [
+            "29xxoo7dl5"
+        ],
+        "mechanics": [
+            "counter",
+            "zone-movement",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "You may banish any amount of cards with floating memory from your graveyard. For each card banished this way, put a refinement counter on Arondight."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. ArondightBanishChoice was queued without dontSkipOnPass, so declining a further banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its done branch (AddCounters refinement = banished count) never ran: a floating-memory card was banished and Arondight got no refinement counter (live repro on HEAD: Counters empty). Fix: dontSkipOnPass:1 at the queue site.",
+        "affectedFunction": "Custom/CardDQHandlers.php ArondightBanishLoop AddDecision(..., \"CUSTOM\", \"ArondightBanishChoice\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

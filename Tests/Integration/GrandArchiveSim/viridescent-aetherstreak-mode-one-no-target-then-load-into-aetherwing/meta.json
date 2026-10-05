@@ -1,0 +1,29 @@
+{
+    "name": "viridescent-aetherstreak-mode-one-no-target-then-load-into-aetherwing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T01:25:02+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "pc0y3xneg7"
+    ],
+    "notes": "auto",
+    "semanticCoverage": {
+        "testedCards": [
+            "pc0y3xneg7"
+        ],
+        "mechanics": [
+            "modal",
+            "load",
+            "target-optional"
+        ],
+        "rulesClauses": [
+            "Choose two - Up to one target unit becomes distant. / Prevent the next 2 damage that would be dealt to each distant unit this turn. / Load Viridescent Aetherstreak into an Aetherwing weapon you control."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. ViridescentAetherstreakTargetA was queued without dontSkipOnPass, so declining the first mode's optional target (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler, which is what asks the remaining mode: the card stopped after one mode (live repro on HEAD: queue empty, card left in the graveyard instead of loading into the Aetherwing). Fix: dontSkipOnPass:1 at the queue site.",
+        "affectedFunction": "Custom/CardDQHandlers.php ViridescentAetherstreakModeA AddDecision(..., \"CUSTOM\", \"ViridescentAetherstreakTargetA\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "brewing-kit-look-six-decline-potion-all-six-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T01:14:18+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "dwmxz1vdxi"
+    ],
+    "notes": "auto",
+    "semanticCoverage": {
+        "testedCards": [
+            "dwmxz1vdxi"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "look-at-top",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "Look at the top six cards of your deck. You may reveal a Potion item card from among them and put it into your hand. Put the rest on the bottom of your deck in any order."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. BrewingKitPotionPick was queued without dontSkipOnPass, so declining the Potion (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and BrewingKitCleanup never ran: all six looked-at cards stayed in the temp zone and the deck was six cards short (live repro on HEAD: deck 14 instead of 20). Fix: dontSkipOnPass:1 at the queue site.",
+        "affectedFunction": "Custom/PotionLogic.php BrewingKitLookTop6 AddDecision(..., \"CUSTOM\", \"BrewingKitPotionPick\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

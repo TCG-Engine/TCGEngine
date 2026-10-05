@@ -1,0 +1,29 @@
+{
+    "name": "stonescale-band-enter-discard-one-ally-then-decline-draws-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T01:18:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "sphwpjsznn"
+    ],
+    "notes": "auto",
+    "semanticCoverage": {
+        "testedCards": [
+            "sphwpjsznn"
+        ],
+        "mechanics": [
+            "draw",
+            "discard",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Discard up to three ally cards from your hand and/or memory, then draw that many cards."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. StonescaleBandDiscard's loop re-queue AddDecision omitted dontSkipOnPass, so declining a further discard (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (Draw $count) never ran: an ally was discarded but no card was drawn (live repro on HEAD: hand stayed at 6). Fix: dontSkipOnPass:1 on the re-queue.",
+        "affectedFunction": "Custom/GameLogic.php StonescaleBandDiscard handler's AddDecision(..., \"CUSTOM\", \"StonescaleBandDiscard\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

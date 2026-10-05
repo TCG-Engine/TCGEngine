@@ -1,0 +1,29 @@
+{
+    "name": "diana-judgments-arrow-enter-load-one-aethercharge-then-decline-draws-one-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T01:19:18+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "wiztyu6o24"
+    ],
+    "notes": "auto",
+    "semanticCoverage": {
+        "testedCards": [
+            "wiztyu6o24"
+        ],
+        "mechanics": [
+            "load",
+            "draw-into-memory",
+            "level-up"
+        ],
+        "rulesClauses": [
+            "Load up to two Aethercharge cards from your hand and/or memory into an Aetherwing weapon you control. For each card loaded this way, draw a card into your memory."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. DianaL2LoadChoice's second-prompt queue site omitted dontSkipOnPass, so declining the second load (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its done branch (DrawIntoMemory per loaded card) never ran: a card was loaded but nothing was drawn into memory (live repro on HEAD: memory 0). Fix: dontSkipOnPass:1 on the second-prompt queue site.",
+        "affectedFunction": "Custom/CardDQHandlers.php DianaL2LoadChoice handler's AddDecision(..., \"CUSTOM\", \"DianaL2LoadChoice|2\", 1, dontSkipOnPass:1)",
+        "fixCommit": "TBD"
+    }
+}

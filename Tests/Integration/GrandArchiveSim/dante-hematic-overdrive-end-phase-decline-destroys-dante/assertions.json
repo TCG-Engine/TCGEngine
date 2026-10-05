@@ -1,0 +1,35 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myGraveyard-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "MG4zUMPqIC",
+        "semantic": true,
+        "label": "Declining to sacrifice or banish an Elysian card destroys Dante: he is in the graveyard"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Dante left the field"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "The Elysian card in hand was neither banished nor discarded"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

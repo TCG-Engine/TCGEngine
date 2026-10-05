@@ -1,0 +1,85 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myTempZone",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "No looked-at card is left stranded in the temp zone"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 19,
+        "semantic": true,
+        "label": "Deck size: all five looked-at cards are back in the deck"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "ra9950o14t",
+        "semantic": true,
+        "label": "The card below the looked-at cards (marker) is the new top card: exactly 5 were looked at"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myDeck-14",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "Xy8loj55gJ",
+        "semantic": true,
+        "label": "Bottom-of-deck slot 1 of 5 holds the looked-at card in the order kept"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myDeck-15",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Bottom-of-deck slot 2 of 5 holds the looked-at card in the order kept"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myDeck-16",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Bottom-of-deck slot 3 of 5 holds the looked-at card in the order kept"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myDeck-17",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Bottom-of-deck slot 4 of 5 holds the looked-at card in the order kept"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myDeck-18",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Bottom-of-deck slot 5 of 5 holds the looked-at card in the order kept"
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

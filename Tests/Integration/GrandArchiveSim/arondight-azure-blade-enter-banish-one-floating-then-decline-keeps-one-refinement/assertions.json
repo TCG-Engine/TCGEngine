@@ -1,0 +1,26 @@
+[
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "{\"durability\":2,\"refinement\":1}",
+        "semantic": true,
+        "label": "One floating-memory card banished then declined: Arondight keeps its 2 durability and gets exactly 1 refinement counter"
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the one chosen Fast Cure was banished"
+    },
+    {
+        "step": 11,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
