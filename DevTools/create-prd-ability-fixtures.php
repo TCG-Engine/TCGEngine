@@ -28141,6 +28141,65 @@ $fixtures['material-refused-click-keeps-undo-snapshot'] = [
     ],
 ];
 
+// --- Declined optional prompts (MZMAYCHOOSE answered PASS) must still run their continuation. A handler queued without
+// dontSkipOnPass is skipped by ExecuteStaticMethods() on PASS, along with every unflagged CUSTOM queued behind it, so whatever the
+// handler does on a decline (finalize the loop, deal the "if you don't" damage, sacrifice the card, ...) never happened. ---
+
+// Erupting Rhapsody (dBAdWMoPEz): "Banish any amount of fire element cards from your graveyard. Your champion gets +1 level until
+// end of turn for each card banished this way." Banish one, then decline the second prompt: the level bonus must still be applied
+// (EruptingRhapsodyPick was queued without dontSkipOnPass, so the decline skipped EruptingRhapsodyFinalize).
+$fixtures['erupting-rhapsody-decline-second-banish-still-applies-level-bonus'] = [
+    'testedCards' => ['dBAdWMoPEz'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], // Baby Red Slime (fire) -> myGraveyard-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], // Baby Red Slime (fire) -> myGraveyard-1
+        $gaHand('dBAdWMoPEz'), // Erupting Rhapsody -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myGraveyard-0'), mrdPass(1)]), // banish one fire card, decline the second
+];
+
+// Stabilizing Capacitance (c4sy8u49sk): "Put any amount of cards from your memory on the bottom of your deck in any order. Then draw
+// that many cards into your memory." Put one memory card on the bottom, then decline the second: the draw into memory must still
+// happen (StabilizingCapacitancePick was queued without dontSkipOnPass, so the decline skipped StabilizingCapacitanceFinish).
+$fixtures['stabilizing-capacitance-decline-second-pick-still-draws-into-memory'] = [
+    'testedCards' => ['c4sy8u49sk'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'g92bHLtTNl']], // Rai, Storm Seer (ARCANE Mage): the spell's element matches the champion
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_FS], // memory card 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_FS], // memory card 2/2
+        $gaHand('c4sy8u49sk'), // Stabilizing Capacitance -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'myMemory-0'), mrdPass(1)]), // one memory card to the bottom, decline the second
+];
+
+// Suffocating Miasma (coxpnjvt9y): "At the beginning of each opponent's recollection phase, that player puts a debuff counter on an ally they control.
+// If they don't, deal 2 unpreventable damage to their champion." Player 2, at the start of their recollection phase, declines (PASS):
+// the 2 damage must be dealt (SuffocatingMiasmaRecollection was queued without dontSkipOnPass, so the decline skipped the "if they don't" branch).
+$fixtures['suffocating-miasma-declined-debuff-deals-two-unpreventable-damage'] = [
+    'testedCards' => ['coxpnjvt9y'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'coxpnjvt9y'], // Suffocating Miasma (player 1's phantasia)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide: player 2's only ally, the debuff target they decline
+    ],
+    'actions' => [mrdEnd(1), mrdEnd(2), mrdEnd(1), mrdPass(2)], // each player's FIRST recollection is skipped, so player 2's prompt comes at the start of their second turn; decline it
+];
+
+// Hulao Gate, Sun's Ascent (snke7lneo4): "Upkeep - At the beginning of your recollection phase, you may banish a fire element card from your graveyard.
+// If you don't, sacrifice Hulao Gate." Declining (PASS) must sacrifice the domain (HulaoGateUpkeep was queued without dontSkipOnPass, so the decline
+// skipped the sacrifice and the Gate stayed forever).
+$fixtures['hulao-gate-upkeep-declined-banish-sacrifices-the-domain'] = [
+    'testedCards' => ['snke7lneo4'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'snke7lneo4'], // Hulao Gate, Sun's Ascent
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], // Baby Red Slime (fire): makes the banish offer available
+    ],
+    'actions' => [mrdEnd(1), mrdEnd(2), mrdPass(1)], // player 1's recollection (their second turn) offers the banish: decline it
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

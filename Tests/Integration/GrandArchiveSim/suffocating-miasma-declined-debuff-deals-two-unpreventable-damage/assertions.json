@@ -1,0 +1,27 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 2,
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "Declining the debuff counter deals 2 unpreventable damage to the champion"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 2,
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "The ally did not receive a debuff counter"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

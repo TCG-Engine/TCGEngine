@@ -1,0 +1,34 @@
+{
+    "name": "ZENA declined alternate cost pays the normal reserve",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T00:00:00.000Z",
+    "createdBy": "Claude Sonnet 5.5",
+    "sourceTemplate": "hand-written/declined-optional-cost",
+    "draft": false,
+    "draftGameName": "103",
+    "parameters": {
+        "handCard": "vxzsjRxMIn",
+        "name": "ZENA declined alternate cost pays the normal reserve",
+        "slug": "zena-alt-cost-declined-pays-normal-reserve"
+    },
+    "testedCards": [
+        "vxzsjRxMIn"
+    ],
+    "notes": "Declining ZENA's optional 'banish up to two Harmony/Melody cards' prompt (MZMULTICHOOSE min 0, answered PASS) used to skip the ZenaReserveCost continuation, so no reserve was paid, no opportunity window opened and ZENA never reached the field. Mirror of prd-zena-alt-reserve, which takes the discount.",
+    "semanticCoverage": {
+        "testedCards": [
+            "vxzsjRxMIn"
+        ],
+        "mechanics": [
+            "alternative-cost",
+            "optional-choice-decline"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. ZENA's min-0 MZMULTICHOOSE continuation (ZenaReserveCost) was queued without dontSkipOnPass, so answering PASS made ExecuteStaticMethods skip the handler and every unflagged CUSTOM behind it (ReserveCard payments, EffectStackOpportunity): the queue drained, the card never resolved. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline via ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/GameLogic.php ZenaReserveCost",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "name": "hulao-gate-upkeep-declined-banish-sacrifices-the-domain",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:22:47+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "snke7lneo4"
+    ],
+    "notes": "Hulao Gate, Sun's Ascent upkeep: at the start of player 1's recollection phase the banish-a-fire-card offer is declined. The decline used to skip HulaoGateUpkeep, so the 'if you don't, sacrifice Hulao Gate' branch never ran and the Gate stayed forever.",
+    "semanticCoverage": {
+        "testedCards": [
+            "snke7lneo4"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "sacrifice",
+            "upkeep"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Hulao Gate, Sun's Ascent's optional-choice continuation (HulaoGateUpkeep) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its \"if you don't\" branch never ran: the domain was never sacrificed. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/GameLogic.php HulaoGateUpkeep",
+        "fixCommit": "TBD"
+    }
+}

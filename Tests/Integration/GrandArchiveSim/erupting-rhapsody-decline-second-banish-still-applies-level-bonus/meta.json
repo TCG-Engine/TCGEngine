@@ -1,0 +1,26 @@
+{
+    "name": "erupting-rhapsody-decline-second-banish-still-applies-level-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:20:47+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "dBAdWMoPEz"
+    ],
+    "notes": "Erupting Rhapsody: banish one fire card from the graveyard, then decline (PASS) the second 'banish another?' prompt. The decline used to skip EruptingRhapsodyPick, so EruptingRhapsodyFinalize never ran and the champion got no level bonus for the card already banished.",
+    "semanticCoverage": {
+        "testedCards": [
+            "dBAdWMoPEz"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "turn-effect"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Erupting Rhapsody's optional-choice continuation (EruptingRhapsodyPick) was queued without dontSkipOnPass, so declining the follow-up prompt (PASS) made ExecuteStaticMethods skip the handler: EruptingRhapsodyFinalize never ran, so the +1 level per banished card was never applied. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/CardDQHandlers.php EruptingRhapsodyPick",
+        "fixCommit": "TBD"
+    }
+}

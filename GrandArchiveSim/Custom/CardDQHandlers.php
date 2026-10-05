@@ -1636,10 +1636,11 @@ function EruptingRhapsodyContinue($player, $banishedCount) {
         return;
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $fireGY), 1, tooltip:"Banish_a_fire_card_from_graveyard?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "EruptingRhapsodyPick|$banishedCount", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EruptingRhapsodyPick|$banishedCount", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["EruptingRhapsodyPick"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $banishedCount = intval($parts[0]);
     if($lastDecision == "-" || $lastDecision == "") {
         EruptingRhapsodyFinalize($player, $banishedCount);
@@ -3752,6 +3753,7 @@ $customDQHandlers["FractalOfRainMill"] = function($player, $parts, $lastDecision
 
 // Suffocating Miasma recollection: debuff chosen ally or deal 2 unpreventable to champion
 $customDQHandlers["SuffocatingMiasmaRecollection"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         AddCounters($player, $lastDecision, "debuff", 1);
     } else {
@@ -5826,7 +5828,7 @@ function StabilizingCapacitanceLoop($player, $count) {
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $memCards, 1,
         tooltip:"Put_a_card_from_memory_on_bottom_of_deck?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "StabilizingCapacitancePick|$count", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StabilizingCapacitancePick|$count", 1, dontSkipOnPass:1);
 }
 
 function StabilizingCapacitanceFinish($player, $count) {
@@ -5840,6 +5842,7 @@ function StabilizingCapacitanceFinish($player, $count) {
 }
 
 $customDQHandlers["StabilizingCapacitancePick"] = function($player, $params, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $count = intval($params[0]);
     if($lastDecision === "-" || $lastDecision === "") {
         StabilizingCapacitanceFinish($player, $count);

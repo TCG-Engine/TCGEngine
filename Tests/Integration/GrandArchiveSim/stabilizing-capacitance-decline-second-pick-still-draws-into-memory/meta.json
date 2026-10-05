@@ -1,0 +1,26 @@
+{
+    "name": "stabilizing-capacitance-decline-second-pick-still-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:20:48+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "c4sy8u49sk"
+    ],
+    "notes": "Stabilizing Capacitance: put one memory card on the bottom of the deck, then decline (PASS) the second pick. The decline used to skip StabilizingCapacitancePick, so StabilizingCapacitanceFinish never ran and the card put on the bottom was never replaced by a draw into memory.",
+    "semanticCoverage": {
+        "testedCards": [
+            "c4sy8u49sk"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "draw-into-memory"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Stabilizing Capacitance's optional-choice continuation (StabilizingCapacitancePick) was queued without dontSkipOnPass, so declining the follow-up prompt (PASS) made ExecuteStaticMethods skip the handler: StabilizingCapacitanceFinish never ran, so the cards put on the bottom were never replaced by draws into memory. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/CardDQHandlers.php StabilizingCapacitancePick",
+        "fixCommit": "TBD"
+    }
+}

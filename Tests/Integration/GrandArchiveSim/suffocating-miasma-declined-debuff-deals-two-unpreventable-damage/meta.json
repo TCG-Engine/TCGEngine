@@ -1,0 +1,26 @@
+{
+    "name": "suffocating-miasma-declined-debuff-deals-two-unpreventable-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:22:46+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "coxpnjvt9y"
+    ],
+    "notes": "Suffocating Miasma: at the start of player 2's recollection phase (their second turn - each player's first recollection is skipped) player 2 declines to put a debuff counter on their ally. The decline used to skip SuffocatingMiasmaRecollection, so the 'if they don't, deal 2 unpreventable damage' branch never ran.",
+    "semanticCoverage": {
+        "testedCards": [
+            "coxpnjvt9y"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "unpreventable-damage"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Suffocating Miasma's optional-choice continuation (SuffocatingMiasmaRecollection) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its \"if you don't\" branch never ran: the 2 unpreventable damage to the champion was never dealt. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
+        "affectedFunction": "Custom/GameLogic.php SuffocatingMiasmaRecollection",
+        "fixCommit": "TBD"
+    }
+}

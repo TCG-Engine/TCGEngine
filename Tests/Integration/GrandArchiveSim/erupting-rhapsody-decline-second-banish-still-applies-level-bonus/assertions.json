@@ -1,0 +1,26 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"dBAdWMoPEz-1\"]",
+        "semantic": true,
+        "label": "Declining the second banish still finalizes: the champion gets +1 level (one banished card)"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "One fire card was banished (3 -> 2 in the graveyard, counting Erupting Rhapsody itself)"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

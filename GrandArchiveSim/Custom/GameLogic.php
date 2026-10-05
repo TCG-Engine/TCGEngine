@@ -1160,6 +1160,17 @@ function RestoreUndoVersion($targetPlayerID, $raw) {
     $playerID = $savedPlayerID;
 }
 
+// A declined optional prompt (MZMAYCHOOSE / min-0 MZMULTICHOOSE answered "PASS") reaches its continuation
+// handler only when the queue site passes dontSkipOnPass; otherwise ExecuteStaticMethods() skips the handler and
+// every unflagged CUSTOM queued behind it for as long as "PASS" is the current value. A handler that has real work to
+// do on a decline calls this first: it turns the decline into "-" and queues a PASSPARAMETER at the very front so
+// the unflagged ReserveCard / EffectStackOpportunity / follow-up CUSTOMs it queues next are not skipped either.
+function ConsumeDeclinedChoice($player, $lastDecision) {
+    if($lastDecision !== "PASS") return $lastDecision;
+    DecisionQueueController::AddDecision($player, "PASSPARAMETER", "-", 0);
+    return "-";
+}
+
 function GetStartingChampionChoices($player) {
     $material = GetMaterial($player);
     $levelZeroChampions = [];
@@ -2955,7 +2966,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
                 "0|" . min(2, count($songs)) . "|" . implode("&", $songs), 100,
                 tooltip:"Banish_up_to_two_Harmony_or_Melody_cards_to_pay_two_each");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ZenaReserveCost|" . $reserveCost, 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ZenaReserveCost|" . $reserveCost, 100, dontSkipOnPass:1);
         }
     }
 
@@ -3434,6 +3445,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 }
 
 $customDQHandlers["ZenaReserveCost"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $reserveCost = max(0, intval($parts[0] ?? 0));
     $selected = array_values(array_filter(explode("&", strval($lastDecision)),
         fn($mz) => $mz !== "" && $mz !== "-" && $mz !== "PASS"));
@@ -9856,6 +9868,7 @@ $customDQHandlers["BurstAsunderDoSacrifice"] = function($player, $parts, $lastDe
 
 // Hulao Gate, Sun's Ascent (snke7lneo4): domain upkeep â€” banish fire from GY or sacrifice
 $customDQHandlers["HulaoGateUpkeep"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $fieldIdx = $parts[0];
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         MZMove($player, $lastDecision, "myBanish");
@@ -11017,7 +11030,7 @@ function RecollectionPhase() {
             $turnAllies = ZoneSearch("myField", ["ALLY"]);
             if(!empty($turnAllies)) {
                 DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", $turnAllies), 1, "Put_debuff_counter_on_an_ally_(or_take_2_unpreventable)");
-                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "SuffocatingMiasmaRecollection", 1);
+                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "SuffocatingMiasmaRecollection", 1, dontSkipOnPass:1);
             } else {
                 $champMZ = FindChampionMZ($turnPlayer);
                 if($champMZ !== null) {
@@ -26393,7 +26406,7 @@ function DomainRecollectionUpkeep($player) {
                     if(!empty($fireGY)) {
                         $fireStr = implode("&", $fireGY);
                         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $fireStr, 1, "Banish_fire_card_or_sacrifice_Hulao_Gate");
-                        DecisionQueueController::AddDecision($player, "CUSTOM", "HulaoGateUpkeep|" . $i, 1);
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "HulaoGateUpkeep|" . $i, 1, dontSkipOnPass:1);
                     } else {
                         DoSacrificeFighter($player, "myField-" . $i);
                         DecisionQueueController::CleanupRemovedCards();
