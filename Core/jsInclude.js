@@ -79,7 +79,7 @@ function CardDetailHoverDelay(options) {
   var el = document.getElementById("folderPath");
   var folderPath = el ? el.value : "";
   if (folderPath == "SWUDeck" || folderPath == "AzukiDeck") return SWUDECK_CARD_DETAIL_HOVER_MS;
-  if (folderPath == "SWUSim") return 850;
+  if (folderPath == "SWUSim") return 400;
   if (folderPath == "AzukiSim" || folderPath == "FaBSim") return AZUKISIM_CARD_DETAIL_HOVER_MS;
   if (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim") return 100;
   return 1;
@@ -604,7 +604,7 @@ function ShowTopCardPeek(e, el, options) {
 }
 
 // CLICK on the eye badge: open the top card NOW and keep it up until the next click (owner ruling, game
-// 1459263). The badge's click used to call ShowTopCardPeek — the hover path, an 850ms dwell then a preview
+// 1459263). The badge's click used to call ShowTopCardPeek — the hover path, a 400ms dwell then a preview
 // that closes on mouseout — so once a hover had opened it, a click visibly did nothing. A second click on
 // the badge closes it. A TAP (a click right after a touchstart) goes through the existing touch preview
 // instead: phone sizing + scrim, dismissed by the next tap in BeginCardDetailLongPress.

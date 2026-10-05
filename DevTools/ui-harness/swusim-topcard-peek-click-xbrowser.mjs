@@ -2,7 +2,7 @@
 //
 // THE BUG (game 1459263, 2026-10-03). With HMW_205 Intelligence Agency on your base ("you may look at the top
 // card of your deck at any time") the deck shows an eye badge. Hovering it previewed the top card, but its
-// onclick called the SAME hover path (ShowTopCardPeek → ShowCardDetailByCardID): an 850ms dwell, then a
+// onclick called the SAME hover path (ShowTopCardPeek → ShowCardDetailByCardID): a 400ms dwell, then a
 // preview that closes on mouseout. So after a hover had already opened the preview, a click visibly did
 // nothing, and a click on its own only "worked" if the pointer sat still for the dwell. The owner's ruling:
 // a click opens an INSTANT, STICKY preview — it stays up when the pointer leaves, and the next click
@@ -85,7 +85,7 @@ for (const engine of engines) {
     await page.waitForTimeout(300);
     ok(`${tag} hover preview closes on mouseout (control)`, (await preview(page)) === 'none', await preview(page));
 
-    // 2. A click opens it AT ONCE — well inside the 850ms hover dwell.
+    // 2. A click opens it AT ONCE — well inside the 400ms hover dwell.
     await reset();
     await page.mouse.move(bx, by);
     await page.mouse.down(); await page.mouse.up();

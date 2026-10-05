@@ -298,7 +298,7 @@ include_once __DIR__ . '/Disclaimer.php';
 
 <?php /* Card-detail hover preview, borrowed wholesale from the game board. jsInclude.js needs two
          things a game page normally provides: the #cardDetail panel it renders into, and #folderPath,
-         which it reads to pick the hover delay (SWUSim = 850ms — matching the board is the point).
+         which it reads to pick the hover delay (SWUSim = 400ms — matching the board is the point).
          Its load-time listeners are all card-detail specific (mousemove / touch long-press / dragstart),
          so they are inert on a static page. */ ?>
 <input type="hidden" id="folderPath" value="SWUSim">
