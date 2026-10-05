@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Heirloom of Natura's \"(3), Banish: Draw a card into your memory\" cost was never paid: ActivatedAbilityCost() had no entry for it (or only banished the card), so the ability was free. Fix: ActivatedAbilityCost() banishes the card and queues the reserve payments.",
         "affectedFunction": "Custom/GameLogic.php ActivatedAbilityCost",
-        "fixCommit": "TBD"
+        "fixCommit": "2d18e278"
     }
 }

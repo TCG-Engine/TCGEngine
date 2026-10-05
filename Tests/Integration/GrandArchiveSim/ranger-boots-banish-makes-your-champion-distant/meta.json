@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Ranger Boots' '[Class Bonus] [REST], Banish Ranger Boots: Your champion becomes distant' was misfiled as a $cardActivatedAbilities body (a play-time effect) that called BecomeDistant($player) without the champion's mzID -- a fatal error -- and a field click was routed through ActivateCard, which re-ran the On Enter draw and never banished the Boots. Fix: registered as a real field activated ability (activateAbilityAbilities / prereq / count override) with the REST + banish cost in ActivatedAbilityCost(); the misfiled body is neutralized.",
         "affectedFunction": "Custom/GameLogic.php activateAbilityAbilities[fbs9qzo3f6:0] / ActivatedAbilityCost; Custom/GeneratedAbilityOverrides.php",
-        "fixCommit": "TBD"
+        "fixCommit": "2d18e278"
     }
 }

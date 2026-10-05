@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Leporine Masque's \"(6), Banish Leporine Masque\" cost was never paid: ActivatedAbilityCost() had no entry for it (or only banished the card), so the ability was free. Fix: ActivatedAbilityCost() banishes the card and queues the reserve payments.",
         "affectedFunction": "Custom/GameLogic.php ActivatedAbilityCost pgysz2zfji",
-        "fixCommit": "TBD"
+        "fixCommit": "2d18e278"
     }
 }

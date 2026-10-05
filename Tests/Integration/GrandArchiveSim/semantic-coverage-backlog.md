@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **775**
+Cards linked to an existing fixture: **783**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1711**
+Implemented cards still needing semantic coverage: **1703**
 
 ## Mechanic groups
 
@@ -26,26 +26,20 @@ Implemented cards still needing semantic coverage: **1711**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Leporine Masque (`pgysz2zfji`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, counter | Ciel, Mirage's Grave | — |
-| Ranger Boots (`fbs9qzo3f6`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, status, trigger | Diana, Moonpiercer | — |
 | Pleiades, Celestial Genesis (`rsps1qnzfl`) | REGALIA,WEAPON | 2 | token, combat, trigger | Diana, Moonpiercer | — |
 | Ciel, Mirage's Grave (`zhh43i1eaa`) | CHAMPION | 1 | targeting, damage, counter, trigger | Ciel, Mirage's Grave | — |
 | Corsair Captain (`4e1gqwah01`) | ALLY | 1 | cost, zone-movement, status, condition | Diana, Moonpiercer | — |
 | Diana, Aether Dilettante (`m7f6r8f3y8`) | CHAMPION | 1 | cost, status, trigger, condition | Diana, Moonpiercer | — |
 | Diana, Moonpiercer (`v3vfjtwm7g`) | CHAMPION | 1 | targeting, status, trigger, condition | Diana, Moonpiercer | — |
-| Ombreux Chevalier (`crv1etn4g3`) | ALLY | 1 | zone-movement, counter, trigger, condition | Ciel, Mirage's Grave | — |
 | Whimsy's Warden (`cworak5y4y`) | ALLY | 1 | status, combat, trigger, condition | Ciel, Mirage's Grave | — |
 | Ciel, Loyal Valet (`nn48ne8a05`) | CHAMPION | 1 | zone-movement, counter, trigger | Ciel, Mirage's Grave | — |
 | Ciel, Omenbringer (`o69ogocemo`) | CHAMPION | 1 | draw-discard, trigger, condition | Ciel, Mirage's Grave | — |
-| Flamme Sorcel (`j6er6z99sv`) | ACTION | 1 | cost, draw-discard, condition | Ciel, Mirage's Grave | — |
 | Foresight Lens (`drnxdiltx3`) | REGALIA,ITEM | 1 | zone-movement, status, condition | Diana, Moonpiercer | — |
 | Manxome Armoire (`fm894uc4ij`) | REGALIA,ITEM | 1 | zone-movement, counter, condition | Ciel, Mirage's Grave | — |
 | Reverse Affliction (`1bxh5xz2uz`) | ACTION | 1 | zone-movement, counter, condition | Ciel, Mirage's Grave | — |
 | Seeker's Aetherwing (`bf7yzaqes4`) | REGALIA,WEAPON | 1 | targeting, status, combat | Diana, Moonpiercer | — |
 | Torch Marshal (`izgiu216l2`) | ALLY | 1 | cost, combat, condition | Ciel, Mirage's Grave | — |
-| Undercurrent Vantage (`xicxo661ly`) | ACTION | 1 | cost, zone-movement, status | Diana, Moonpiercer | — |
 | Aetheric Calibration (`7l9th23niu`) | ACTION | 1 | zone-movement, condition | Diana, Moonpiercer | — |
-| Drown in Aether (`gnfbp3g8iw`) | ACTION | 1 | targeting, status | Diana, Moonpiercer | — |
 | Grande Aiguille (`6ihv6hbvye`) | REGALIA,WEAPON | 1 | counter, condition | Ciel, Mirage's Grave | — |
 | Grande Sonnerie (`s4b2mkh1xm`) | REGALIA,WEAPON | 1 | cost, condition | Ciel, Mirage's Grave | — |
 | Refluxal Ribbon (`vm4xg2hedp`) | REGALIA,ITEM | 1 | targeting, zone-movement | Diana, Moonpiercer | — |
@@ -76,3 +70,9 @@ Implemented cards still needing semantic coverage: **1711**
 | Bise Blade (`aZzm2GEWEu`) | REGALIA,WEAPON | 3 | cost, token, trigger | — | — |
 | Escharotomy (`CIU4gT14EE`) | ACTION | 1 | cost, targeting, recover | — | escharotomy-prevents-recover, escharotomy-recover |
 | Fatestone of Progress (`2sn7hlyrkw`) | ITEM | 3 | counter, trigger, condition | — | — |
+| Lesser Boon of Allurement (`JuKoCVIvCG`) | LESSER BOON | 3 | cost, draw-discard, condition | — | — |
+| Aenean Flux Generator (`oCqKBEPemA`) | ITEM | 2 | targeting, damage, draw-discard, trigger | — | — |
+| Proof of Life (`mes4idoihs`) | ACTION | 3 | damage, zone-movement | — | — |
+| Scars of Old (`lD0sK81PZT`) | ACTION | 1 | draw-discard, counter | — | scars-of-old-buff-counters, scars-of-old-draw-discard |
+| Sneaky Raccoon (`jH6F9XYrL5`) | ALLY | 1 | status, condition | — | sneaky-raccoon-stealth |
+| Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |

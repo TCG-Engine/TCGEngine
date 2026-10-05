@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T21:15:58+00:00",
+    "generatedAt": "2026-10-05T21:26:18+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 775,
+        "cardsWithExistingFixtures": 783,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1711,
+        "cardsNeedingSemanticCoverage": 1703,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,46 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "pgysz2zfji",
-            "name": "Leporine Masque",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "fbs9qzo3f6",
-            "name": "Ranger Boots",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
         {
             "cardId": "rsps1qnzfl",
             "name": "Pleiades, Celestial Genesis",
@@ -166,26 +126,6 @@
             "priority": 114
         },
         {
-            "cardId": "crv1etn4g3",
-            "name": "Ombreux Chevalier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "cworak5y4y",
             "name": "Whimsy's Warden",
             "type": "ALLY",
@@ -233,25 +173,6 @@
             "mechanics": [
                 "draw-discard",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "j6er6z99sv",
-            "name": "Flamme Sorcel",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
                 "condition"
             ],
             "existingFixtures": [],
@@ -358,25 +279,6 @@
             "priority": 113
         },
         {
-            "cardId": "xicxo661ly",
-            "name": "Undercurrent Vantage",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "7l9th23niu",
             "name": "Aetheric Calibration",
             "type": "ACTION",
@@ -385,24 +287,6 @@
             "mechanics": [
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "gnfbp3g8iw",
-            "name": "Drown in Aether",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3169,40 +3053,6 @@
         {
             "cardId": "MRiM1fnOWC",
             "name": "Heirloom of Libra",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "drIdaGpPJ2",
-            "name": "Heirloom of Natura",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "0sVdvpQKXq",
-            "name": "Heirloom of Spectra",
             "type": "REGALIA,ITEM",
             "abilityCount": 2,
             "listenerCount": 0,
@@ -30013,6 +29863,30 @@
             "priority": 144
         },
         {
+            "cardId": "pgysz2zfji",
+            "name": "Leporine Masque",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "leporine-masque-costs-one-less-per-omen"
+            ],
+            "semanticFixtures": [
+                "leporine-masque-costs-one-less-per-omen"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "edjgscy50x",
             "name": "Light the Hunt",
             "type": "ACTION",
@@ -30224,6 +30098,30 @@
             ],
             "starterDecks": [
                 "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "fbs9qzo3f6",
+            "name": "Ranger Boots",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "ranger-boots-banish-makes-your-champion-distant"
+            ],
+            "semanticFixtures": [
+                "ranger-boots-banish-makes-your-champion-distant"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
             ],
             "needsSemanticCoverage": false,
             "priority": 144
@@ -34687,6 +34585,30 @@
             "priority": 134
         },
         {
+            "cardId": "crv1etn4g3",
+            "name": "Ombreux Chevalier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ombreux-chevalier-enter-swaps-an-omen-for-a-card-from-hand"
+            ],
+            "semanticFixtures": [
+                "ombreux-chevalier-enter-swaps-an-omen-for-a-card-from-hand"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "llQe0cg4xJ",
             "name": "Orb of Choking Fumes",
             "type": "REGALIA,ITEM",
@@ -36503,6 +36425,29 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "j6er6z99sv",
+            "name": "Flamme Sorcel",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flamme-sorcel-discarding-a-card-with-an-omens-cost-draws-another"
+            ],
+            "semanticFixtures": [
+                "flamme-sorcel-discarding-a-card-with-an-omens-cost-draws-another"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -38611,6 +38556,29 @@
             "priority": 133
         },
         {
+            "cardId": "xicxo661ly",
+            "name": "Undercurrent Vantage",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "undercurrent-vantage-glimpse-three-and-distant"
+            ],
+            "semanticFixtures": [
+                "undercurrent-vantage-glimpse-three-and-distant"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "KoF3AMSlUe",
             "name": "Veiling Breeze",
             "type": "ACTION",
@@ -39519,6 +39487,28 @@
                 "Arisanna Pantheon Starter",
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "gnfbp3g8iw",
+            "name": "Drown in Aether",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status"
+            ],
+            "existingFixtures": [
+                "drown-in-aether-gives-a-rested-ally-minus-three-life"
+            ],
+            "semanticFixtures": [
+                "drown-in-aether-gives-a-rested-ally-minus-three-life"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43870,6 +43860,48 @@
             ],
             "semanticFixtures": [
                 "ghastly-corrosion-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "drIdaGpPJ2",
+            "name": "Heirloom of Natura",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "heirloom-of-natura-draw-ability-pays-three-and-banishes-itself"
+            ],
+            "semanticFixtures": [
+                "heirloom-of-natura-draw-ability-pays-three-and-banishes-itself"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "0sVdvpQKXq",
+            "name": "Heirloom of Spectra",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "heirloom-of-spectra-draw-ability-pays-three-and-banishes-itself"
+            ],
+            "semanticFixtures": [
+                "heirloom-of-spectra-draw-ability-pays-three-and-banishes-itself"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
