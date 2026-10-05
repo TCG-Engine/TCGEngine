@@ -1139,6 +1139,27 @@ function SaveUndoVersion($targetPlayerID, $name = "") {
     $playerID = $savedPlayerID;
 }
 
+// Raw text of the live undo snapshot (null when none). Paired with RestoreUndoVersion() by ActionMap cases that
+// must save the snapshot up front (their activation paths move cards immediately) but fall through with no
+// action when the click is refused -- a refused click must not replace the previous real action's snapshot.
+function CaptureUndoVersion($targetPlayerID) {
+    $zone = &GetVersions(intval($targetPlayerID));
+    for($i = count($zone) - 1; $i >= 0; --$i) {
+        if(!$zone[$i]->removed) return $zone[$i]->Version;
+    }
+    return null;
+}
+
+function RestoreUndoVersion($targetPlayerID, $raw) {
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $targetPlayer = intval($targetPlayerID);
+    $playerID = $targetPlayer;
+    MZClearZone($targetPlayer, "myVersions");
+    if($raw !== null) AddVersions($targetPlayer, $raw);
+    $playerID = $savedPlayerID;
+}
+
 function GetStartingChampionChoices($player) {
     $material = GetMaterial($player);
     $levelZeroChampions = [];
@@ -1400,12 +1421,16 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             }
             break;
         case "myGraveyard":
+            // The activation paths below move cards immediately, so the snapshot is saved up front; a click that
+            // falls through to a plain `break` (refused / no permission) puts the previous snapshot back.
+            $undoBefore = CaptureUndoVersion($playerID);
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 SaveUndoVersion($playerID);
             }
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $gyObj = GetZoneObject($actionCard);
                 if($gyObj !== null && !$gyObj->removed && IsGraveyardAbilitySuppressed($playerID, $gyObj->CardID)) {
+                    RestoreUndoVersion($playerID, $undoBefore);
                     break;
                 }
             }
@@ -1630,6 +1655,7 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                 }
                 return "PLAY";
             }
+            RestoreUndoVersion($playerID, $undoBefore);
             break;
         case "myBanish":
             // (No SaveUndoVersion here: ActivateBanishedCard() saves the undo snapshot once an activation is
@@ -1819,6 +1845,8 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             }
             break;
         case "myMaterial":
+            // Same contract as the graveyard case: saved up front, restored when the click falls through.
+            $undoBefore = CaptureUndoVersion($playerID);
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 SaveUndoVersion($playerID);
             }
@@ -1981,6 +2009,7 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                     }
                 }
             }
+            RestoreUndoVersion($playerID, $undoBefore);
             break;
         case "myDeck":
             // Gaia's Blessing (ymhDYTPfi1): activate Animal/Beast ally from top of deck while Gaia's Blessing is on field

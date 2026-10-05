@@ -1,0 +1,25 @@
+{
+    "name": "material-refused-click-keeps-undo-snapshot",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T14:42:02+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "em6eEh9q8y"
+    ],
+    "notes": "Undo snapshot: the ActionMap 'myMaterial' case called SaveUndoVersion() on every MAIN click, including refused ones. Dungeon Guide is played for real (steps 1-5), then a plain material card is clicked (step 6) and again (step 7). myVersions-0 is asserted byte-identical to the step-5 snapshot at step 7.",
+    "semanticCoverage": {
+        "testedCards": [
+            "em6eEh9q8y"
+        ],
+        "mechanics": [
+            "zone-movement"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The ActionMap 'myMaterial' case saved an undo snapshot at the top of every click in MAIN, including refused ones and clicks on cards with no activation, overwriting the snapshot taken by the previous real action (Undo then rolled back nothing). Fix: the previous snapshot is captured first (CaptureUndoVersion) and restored (RestoreUndoVersion) when the click falls through without an action.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap() case 'myMaterial'",
+        "fixCommit": "TBD"
+    }
+}

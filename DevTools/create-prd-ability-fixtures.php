@@ -28097,6 +28097,50 @@ $fixtures['nameless-champion-cannot-level-up'] = [
     ], // the champion's own (6) ability opens a priority window at every step: pass each one
 ];
 
+// Undo snapshot: a REFUSED graveyard / material-deck click must not overwrite the undo snapshot (same contract as the
+// banishment fixture above). Dungeon Guide is played for real (the hand click saves the snapshot); then a plain card in the
+// graveyard (no ephemerate, no graveyard ability) is clicked twice. The ActionMap 'myGraveyard' case used to save an undo
+// snapshot at the top of every click, so the refused click replaced the pre-play snapshot with the post-play state.
+$fixtures['graveyard-refused-click-keeps-undo-snapshot'] = [
+    'testedCards' => ['em6eEh9q8y'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'], // 7 plain cards -> p1 graveyard
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: play the Dungeon Guide (saves the undo snapshot)
+        ...mrdPay(1, 3), // 2-4: reserve payments
+        mrdAns(1, 'NO'), // 5: decline the optional On Enter
+        mrdPlay(1, 'myGraveyard-0'), // 6: click a plain graveyard card: nothing to activate
+        mrdPlay(1, 'myGraveyard-0'), // 7: click it again (the engine re-reads the saved state between actions, so the undo snapshot is observable here)
+    ],
+];
+
+// Same contract for the material deck: clicking a material card that has no special activation permission is refused and
+// must leave the previous real action's undo snapshot untouched.
+$fixtures['material-refused-click-keeps-undo-snapshot'] = [
+    'testedCards' => ['em6eEh9q8y'],
+    'deck' => $mordredDeck,
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p1 myHand-0
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'], // payer
+    ],
+    'actions' => [
+        mrdPlay(1, 'myHand-0'), // 1: play the Dungeon Guide (saves the undo snapshot)
+        ...mrdPay(1, 3), // 2-4: reserve payments
+        mrdAns(1, 'NO'), // 5: decline the optional On Enter
+        mrdPlay(1, 'myMaterial-1'), // 6: click a plain material card: nothing to activate
+        mrdPlay(1, 'myMaterial-1'), // 7: click it again (observability, as above)
+    ],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
