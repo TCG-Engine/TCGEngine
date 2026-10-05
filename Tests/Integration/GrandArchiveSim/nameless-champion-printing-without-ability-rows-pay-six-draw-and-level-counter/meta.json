@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. Three printings of Nameless Champion (LahboNoSRx, foV3VG5iOr, K7jYO9IibV) have no generated ability rows at all, so the (6) ability did nothing on them (live repro on HEAD: clicking Activate changed nothing). The ability count, cost and body are now keyed on the card name for every printing.",
         "affectedFunction": "Custom/GameLogic.php DoActivatedAbility / ActivatedAbilityCost and Custom/GeneratedAbilityOverrides.php (Nameless Champion block)",
-        "fixCommit": "TBD"
+        "fixCommit": "40c62b074bf74af6fecac0930cb9949c9f5ec62f"
     }
 }

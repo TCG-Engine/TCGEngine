@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. The targeted opponent was offered the discard as an MZMAYCHOOSE, so they could PASS and keep every card, and TopsyDecreeDiscard was queued without dontSkipOnPass so a PASS also dropped the rest of the chosen modes (live repro on HEAD: PASS accepted, nothing discarded, queue empty). The discard is now a forced MZCHOOSE, which GameValidateDecisionAnswer() refuses to let PASS.",
         "affectedFunction": "Custom/GameLogic.php TopsyDecree_ProcessNext case 1",
-        "fixCommit": "TBD"
+        "fixCommit": "40c62b074bf74af6fecac0930cb9949c9f5ec62f"
     }
 }

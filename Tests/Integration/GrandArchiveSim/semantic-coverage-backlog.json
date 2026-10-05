@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T01:25:51+00:00",
+    "generatedAt": "2026-10-05T14:30:53+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 731,
+        "cardsWithExistingFixtures": 732,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1756,
+        "cardsNeedingSemanticCoverage": 1755,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -23384,22 +23384,6 @@
             "priority": 12
         },
         {
-            "cardId": "9tmr8iel1m",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "as8yfa8ptg",
             "name": "Nameless Champion",
             "type": "CHAMPION",
@@ -46503,6 +46487,28 @@
             ],
             "semanticFixtures": [
                 "lesser-boon-of-shou-enlighten-on-play"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "9tmr8iel1m",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-cannot-level-up",
+                "nameless-champion-pay-six-draw-and-level-counter-only-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-cannot-level-up",
+                "nameless-champion-pay-six-draw-and-level-counter-only-once"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

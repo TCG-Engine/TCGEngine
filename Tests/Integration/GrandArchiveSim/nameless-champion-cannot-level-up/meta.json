@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. Only one printing (0794z3ffck) enforced \"can't level up\", and it did so after the level-up memory cost had been paid and the card moved, silently losing the cost. The level-up is now never offered for any printing (CanChampionLevelUpIntoCard).",
         "affectedFunction": "Custom/GameLogic.php CanChampionLevelUpIntoCard and Custom/MaterializeLogic.php",
-        "fixCommit": "TBD"
+        "fixCommit": "40c62b074bf74af6fecac0930cb9949c9f5ec62f"
     }
 }
