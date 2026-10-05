@@ -18,7 +18,7 @@
         "semantic": true
     },
     {
-        "step": 7,
+        "step": 8,
         "type": "card_property_equals",
         "mzId": "p2Field-0",
         "property": "Counters",
@@ -27,7 +27,7 @@
         "semantic": true
     },
     {
-        "step": 7,
+        "step": 8,
         "type": "card_property_equals",
         "mzId": "p2Field-1",
         "property": "CardID",
@@ -36,7 +36,7 @@
         "semantic": true
     },
     {
-        "step": 7,
+        "step": 8,
         "type": "card_property_equals",
         "mzId": "p2Field-1",
         "property": "Counters",
@@ -45,7 +45,7 @@
         "semantic": true
     },
     {
-        "step": 7,
+        "step": 8,
         "type": "card_property_equals",
         "mzId": "p2Mastery-0",
         "property": "Counters",
@@ -54,7 +54,7 @@
         "semantic": true
     },
     {
-        "step": 7,
+        "step": 8,
         "type": "decision_queue_empty",
         "player": "all",
         "label": "Nothing pending",

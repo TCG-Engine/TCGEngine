@@ -59,7 +59,7 @@
         "playerID": 2,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "myField-1:5",
+        "cardID": "myField-1:1,myField-2:3",
         "chkInput": [],
         "inputText": ""
     }

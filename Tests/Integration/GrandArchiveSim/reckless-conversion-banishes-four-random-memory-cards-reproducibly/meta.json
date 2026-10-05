@@ -1,0 +1,26 @@
+{
+    "name": "reckless-conversion-banishes-four-random-memory-cards-reproducibly",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:57:54+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "gJ2dsgywEs"
+    ],
+    "notes": "Reckless Conversion: draw two into memory, banish four at random from memory, [Class Bonus] return the rest to hand. The random picks used PHP's rand(), so replaying the same action from the same state banished different cards (the snapshot never matched twice).",
+    "semanticCoverage": {
+        "testedCards": [
+            "gJ2dsgywEs"
+        ],
+        "mechanics": [
+            "randomness",
+            "determinism"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Many generated bodies choose 'at random' with PHP's native rand() / array_rand() / shuffle() (Reckless Conversion, random discards from memory/hand, Gaia's Songbird/Silvie-style 'random order' bottoms, ...). Unlike EngineRandomInt() that is not reproducible: undo-and-redo or a replay of the same action from the same state gave a different outcome, and fixtures with such effects were flaky. Fix: the shared action runner calls an optional game hook GameSeedNativeRandom() before every action; Grand Archive seeds mt_srand() from the same game-state hash EngineRandomInt() uses.",
+        "affectedFunction": "Core/EngineActionRunner.php GameSeedNativeRandom hook; Custom/GameLogic.php GameSeedNativeRandom",
+        "fixCommit": "TBD"
+    }
+}

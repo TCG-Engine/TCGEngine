@@ -1,0 +1,29 @@
+{
+    "name": "phantasmagoria-non-specter-graveyard-card-cannot-pay-memory-with-floating-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:00:57+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "D3rexaXCBo",
+        "29xxoo7dl5"
+    ],
+    "notes": "Phantasmagoria: non-Specter cards in your graveyard lose all abilities, including Floating Memory. The Fast Cure in the graveyard is no longer offered to pay Arondight's memory cost (nor for its Class Bonus On Enter). The suppression asked about the graveyard object's Controller, which graveyard objects do not have, so it never applied.",
+    "semanticCoverage": {
+        "testedCards": [
+            "D3rexaXCBo",
+            "29xxoo7dl5"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "ability-loss",
+            "phantasmagoria"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. HasFloatingMemory() and HasNoAbilities() asked IsGraveyardAbilitySuppressed() about the graveyard object's Controller, which graveyard objects do not carry, so Phantasmagoria (non-Specter cards in your graveyard lose all abilities) never removed Floating Memory from the graveyard. Fix: ask about the graveyard's owner (FloatingMemoryOwner).",
+        "affectedFunction": "Custom/GameLogic.php HasFloatingMemory / HasNoAbilities",
+        "fixCommit": "TBD"
+    }
+}

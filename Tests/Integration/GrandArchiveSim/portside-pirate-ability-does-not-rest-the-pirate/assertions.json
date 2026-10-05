@@ -1,0 +1,45 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "The Pirate is still awake after using its ability (the cost is only the banish)"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "It got its buff counter"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The Fast Cure was banished as the cost"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The banished Fast Cure"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

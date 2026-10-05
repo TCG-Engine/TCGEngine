@@ -410,6 +410,12 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
   $chkInput = $action['chkInput'];
   $inputText = $action['inputText'];
 
+  // Optional, game-owned seam: seed PHP's native generator (rand / array_rand / shuffle) from the game state before the action runs, so card code written with native randomness is
+  // reproducible on undo and replay the way EngineRandomInt() is. Games that do not define the hook are unchanged.
+  if (function_exists('GameSeedNativeRandom')) {
+    GameSeedNativeRandom();
+  }
+
   $result = [
     'success' => true,
     'message' => '',

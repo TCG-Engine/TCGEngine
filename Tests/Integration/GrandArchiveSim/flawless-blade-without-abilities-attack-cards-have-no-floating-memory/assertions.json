@@ -1,0 +1,29 @@
+[
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Arondight was not materialized: nothing could pay its memory cost"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMaterial",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Arondight is still in the material deck"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The Emberslash stayed in the graveyard"
+    }
+]

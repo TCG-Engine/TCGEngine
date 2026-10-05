@@ -1,0 +1,29 @@
+{
+    "name": "thieving-cut-prepared-still-draws-after-opponent-activates-an-unprepared-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:55:29+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "7t9m4muq2r",
+        "RRx0KK6g6D"
+    ],
+    "notes": "Thieving Cut (prepared) attacks; player 1 answers after the attack declaration with Fishing Accident (not prepared). The On Hit trigger used to read the shared wasPrepared flag, which Fishing Accident's activation had just reset to NO, so the prepared Thieving Cut never drew its card.",
+    "semanticCoverage": {
+        "testedCards": [
+            "7t9m4muq2r",
+            "RRx0KK6g6D"
+        ],
+        "mechanics": [
+            "prepare",
+            "on-hit",
+            "stale-flag"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The On Attack / On Hit triggers of Prepare cards (Thieving Cut, Final Stroke, Striking Illuminance, Stillshard Strike, Sudden Deluge, Poised Strike, Spirit Blade: Terminus, ...) read 'wasPrepared', one shared DQ variable that every later activation overwrites (an opposing fast card answering the attack). Fix: the trigger context takes wasPrepared from the attack card's own PREPARED tag in the intent (GAWasPreparedForTrigger), falling back to the variable for non-intent sources.",
+        "affectedFunction": "Custom/GameLogic.php QueueAttackTriggeredAbility / QueueHitTriggeredAbility",
+        "fixCommit": "TBD"
+    }
+}

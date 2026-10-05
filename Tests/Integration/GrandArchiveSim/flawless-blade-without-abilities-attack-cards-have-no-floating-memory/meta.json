@@ -1,0 +1,29 @@
+{
+    "name": "flawless-blade-without-abilities-attack-cards-have-no-floating-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:00:56+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "WI2owxIw0z",
+        "29xxoo7dl5"
+    ],
+    "notes": "Mordred, Flawless Blade with its abilities removed: attack cards in the graveyard have no floating memory, so the Emberslash is not offered and Arondight's memory cost cannot be paid (the materialization is refused). The static ability used to ignore HasNoAbilities().",
+    "semanticCoverage": {
+        "testedCards": [
+            "WI2owxIw0z",
+            "29xxoo7dl5"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "static-ability",
+            "ability-loss"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. HasFloatingMemory() granted attack cards floating memory for any Mordred, Flawless Blade on the field without checking HasNoAbilities() on the Blade, so a Blade that had lost its abilities still gave floating memory. Fix: the Blade must still have its abilities.",
+        "affectedFunction": "Custom/GameLogic.php HasFloatingMemory",
+        "fixCommit": "TBD"
+    }
+}

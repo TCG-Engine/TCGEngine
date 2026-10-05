@@ -1,0 +1,22 @@
+{
+    "name": "flawless-blade-with-abilities-gives-attack-cards-floating-memory-to-pay-materialize",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:00:54+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "WI2owxIw0z",
+        "29xxoo7dl5"
+    ],
+    "notes": "Mordred, Flawless Blade gives attack cards in your graveyard floating memory: with no memory cards, the Emberslash in the graveyard pays Arondight's memory cost.",
+    "semanticCoverage": {
+        "testedCards": [
+            "WI2owxIw0z",
+            "29xxoo7dl5"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "static-ability"
+        ],
+        "rulesClauses": []
+    }
+}

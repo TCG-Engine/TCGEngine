@@ -5939,6 +5939,15 @@ $customDQHandlers["CardActivated"] = function($player, $parts, $lastDecision) {
     CardActivated($player, $parts[0]);
 };
 
+/**
+ * Engine seam (Core/EngineActionRunner.php): seed PHP's native generator before every action. Many generated bodies pick "at random" with rand() / array_rand() / shuffle(), which an undo or
+ * replay cannot reproduce (the same action from the same state gave different results, and fixtures with such effects were flaky). The seed is the game-state hash EngineRandomInt() uses.
+ */
+function GameSeedNativeRandom() {
+    if(!function_exists('EngineDeterministicHashMaterial')) return;
+    mt_srand(hexdec(substr(hash('sha256', EngineDeterministicHashMaterial()), 0, 8)));
+}
+
 function OnCardActivated($player, $mzCard) {
     global $cardActivatedAbilities, $enterAbilities;
     $obj = GetZoneObject($mzCard);
@@ -7552,6 +7561,40 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "AbjQkcN57S": // Judas, Claret Intercessor: [Class Bonus] [(2),] Sacrifice another ally
+            {
+                $judasField = GetZone("myField");
+                $otherAllies = [];
+                for($ji = 0; $ji < count($judasField); ++$ji) {
+                    if($judasField[$ji]->removed || "myField-" . $ji === $mzCard) continue;
+                    if(PropertyContains(EffectiveCardType($judasField[$ji]), "ALLY")) $otherAllies[] = "myField-" . $ji;
+                }
+                if(!empty($otherAllies)) {
+                    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $otherAllies), 100, tooltip:"Sacrifice_another_ally");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "JudasSacrificeCost", 100);
+                }
+                if($abilityIndex == 1) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
+        case "zrvvwz3ww9": // Lucenia's Reign: (2), Discard a Chessman Command card
+            {
+                $luceniaHand = GetZone("myHand");
+                $commandCards = [];
+                for($hi = 0; $hi < count($luceniaHand); ++$hi) {
+                    if($luceniaHand[$hi]->removed) continue;
+                    if(PropertyContains(CardSubtypes($luceniaHand[$hi]->CardID), "CHESSMAN") && PropertyContains(CardSubtypes($luceniaHand[$hi]->CardID), "COMMAND")) $commandCards[] = "myHand-" . $hi;
+                }
+                if(!empty($commandCards)) {
+                    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $commandCards), 100, tooltip:"Discard_a_Chessman_Command_card");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "LuceniaDiscardCost", 100);
+                }
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
         case "g31dg6zl3j": // Sigil of Budding Embers: REST + banish self
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
@@ -7796,8 +7839,11 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     //   peyG8Hfgqt Templar of the Eternal ([Class Bonus] (2), Return a regalia you control ...)
     //   s4oelWMRJE Golden Bishop          (Remove a charge counter from CARDNAME)
     //   rw8qq1uwq8 Corhazi Outlook        ([Class Bonus] Remove a preparation counter from your champion)
+    //   6p3p5iqigc Portside Pirate        ([Class Bonus] Banish a card with floating memory from your graveyard)
+    //   AbjQkcN57S Judas, Claret Intercessor ([Class Bonus] [(2),] Sacrifice another ally)
+    //   zrvvwz3ww9 Lucenia's Reign        ((2), Discard a Chessman Command card)
     $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq", "4yqL9xtzVi", "dPP9I4nVn0", "k8bwlx70qj", "u73yv2nbvj", "yicNKtzC3H", "GhxADim7Kf", "4FtNBFaOJp",
-        "he6kd7hocc", "0ejcyuvuxn", "xW6SZSlJX6", "peyG8Hfgqt", "s4oelWMRJE", "rw8qq1uwq8"]);
+        "he6kd7hocc", "0ejcyuvuxn", "xW6SZSlJX6", "peyG8Hfgqt", "s4oelWMRJE", "rw8qq1uwq8", "6p3p5iqigc", "AbjQkcN57S", "zrvvwz3ww9"]);
     if(IsNamelessChampionID($cardID)) $skipAutoRest = true; // (6) only: no [REST] in the cost
     if($selectedAbilityIndex < $staticAbilityCount && !$isCardistry && !$skipAutoRest
         && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
@@ -8551,12 +8597,22 @@ function GAReindexFieldSpecsAfterSplice($specList, $specZone, $removedIndex) {
  * baseline (pre-migration) behavior exactly (a blanket "defer cleanup for all of combat" version of
  * this was tried and reverted -- see CombatLogic.php's GetProtectedRemovedCardUniqueIDs() docblock).
  */
+/**
+ * Whether the triggering card was prepared. "wasPrepared" is one shared DQ variable that every later activation (an opposing fast card answering the attack, say) overwrites, so a prepared attack
+ * card in the intent is read from its own PREPARED tag (set by GA_TagPreparedAttack when its Prepare cost was paid) instead; anything else falls back to the variable.
+ */
+function GAWasPreparedForTrigger($mzID) {
+    $sourceObj = ($mzID !== null && $mzID !== "") ? GetZoneObject($mzID) : null;
+    if($sourceObj instanceof Intent) return in_array("PREPARED", $sourceObj->TurnEffects ?? [], true) ? "YES" : "NO";
+    return DecisionQueueController::GetVariable("wasPrepared") ?? "NO";
+}
+
 function QueueAttackTriggeredAbility($controller, $cardID, $mzID, $sourceMZ = null) {
     global $onAttackAbilities;
     if(!isset($onAttackAbilities[$cardID . ":0"])) return false;
     $context = [
         'mzID' => NormalizeMzIDForController($mzID, $controller),
-        'wasPrepared' => DecisionQueueController::GetVariable("wasPrepared") ?? "NO",
+        'wasPrepared' => GAWasPreparedForTrigger($sourceMZ ?? $mzID),
     ];
     $selfUniqueID = GetFieldObjectUniqueID($mzID, $controller);
     if ($selfUniqueID !== null) $context['selfUniqueID'] = strval($selfUniqueID);
@@ -8579,7 +8635,7 @@ function QueueHitTriggeredAbility($controller, $cardID, $mzID) {
     if(!isset($onHitAbilities[$cardID . ":0"])) return false;
     $context = [
         'mzID' => NormalizeMzIDForController($mzID, $controller),
-        'wasPrepared' => DecisionQueueController::GetVariable("wasPrepared") ?? "NO",
+        'wasPrepared' => GAWasPreparedForTrigger($mzID),
         'CombatDamageAmount' => strval(DecisionQueueController::GetVariable("CombatDamageAmount") ?? "0"),
     ];
     $selfUniqueID = GetFieldObjectUniqueID($mzID, $controller);
@@ -22490,9 +22546,10 @@ function FloatingMemoryOwner($obj) {
 }
 
 function HasFloatingMemory($obj) {
-    if(IsGraveyardAbilitySuppressed($obj->Controller ?? null, $obj->CardID)) return false;
-    if(HasKeyword_FloatingMemory($obj)) return true;
     $floatOwner = FloatingMemoryOwner($obj);
+    // Graveyard objects carry no Controller, so Phantasmagoria ("non-Specter cards in YOUR graveyard lose all abilities") has to ask about the graveyard's owner.
+    if(IsGraveyardAbilitySuppressed($floatOwner, $obj->CardID)) return false;
+    if(HasKeyword_FloatingMemory($obj)) return true;
     // Mordred, Fated Luminary (KqBosnU7pU): "Attack cards in YOUR graveyard have floating memory"
     if($floatOwner !== null && MordredFatedEphemerateApplies($floatOwner, $obj->CardID)) return true;
     // Mordred, Flawless Blade (WI2owxIw0z): "Attack cards in YOUR graveyard have floating memory"
@@ -22501,7 +22558,7 @@ function HasFloatingMemory($obj) {
         $pField = &GetField($floatOwner);
         foreach($pField as $fCard) {
             if($fCard === null) continue;
-            if(!$fCard->removed && $fCard->CardID === "WI2owxIw0z") {
+            if(!$fCard->removed && $fCard->CardID === "WI2owxIw0z" && !HasNoAbilities($fCard)) {
                 return true;
             }
         }
@@ -22560,7 +22617,7 @@ function HasNoAbilities($obj) {
         if(GlobalEffectCount($opponent, "0sVdvpQKXq_MEMORY") > 0) return true;
     }
     if(isset($obj->Location) && $obj->Location === 'Graveyard') {
-        if(IsGraveyardAbilitySuppressed($obj->Controller ?? null, $obj->CardID)) return true;
+        if(IsGraveyardAbilitySuppressed(FloatingMemoryOwner($obj), $obj->CardID)) return true;
     }
     return false;
 }

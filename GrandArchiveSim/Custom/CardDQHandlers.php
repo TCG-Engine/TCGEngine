@@ -2080,6 +2080,19 @@ $customDQHandlers["NavCompass_Discard"] = function($player, $parts, $lastDecisio
 };
 
 // --- Portside Pirate (6p3p5iqigc) DQ handler ---
+// Judas, Claret Intercessor (AbjQkcN57S): the "Sacrifice another ally" activation cost.
+$customDQHandlers["JudasSacrificeCost"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+// Lucenia's Reign (zrvvwz3ww9): the "Discard a Chessman Command card" activation cost.
+$customDQHandlers["LuceniaDiscardCost"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoDiscardCard($player, $lastDecision);
+};
+
 $customDQHandlers["PortsidePirateBanish"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $hadFloating = HasFloatingMemory(GetZoneObject($lastDecision));

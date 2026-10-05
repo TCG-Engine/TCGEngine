@@ -1,0 +1,27 @@
+{
+    "name": "silvergale-monstrosity-call-prepare-2-paid-splits-some-sheen-over-two-obeliths",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T15:52:52+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "lsLd8ADGAe"
+    ],
+    "notes": "Silvergale Monstrosity's Call, prepared: with two Memorite Obeliths in play, 'any amount of sheen onto any amount of Obeliths' is a choice: player 2 puts 1 on the old Obelith, 3 on the new one and keeps 1 on Fractured Memories. It used to move every sheen counter onto the first Obelith.",
+    "semanticCoverage": {
+        "testedCards": [
+            "lsLd8ADGAe"
+        ],
+        "mechanics": [
+            "prepare",
+            "sheen",
+            "split-assign"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Silvergale Monstrosity's Call moved ALL the sheen onto the first Memorite Obelith with no choice, although the card says 'any amount of sheen counters ... onto any amount of allies named Memorite Obelith'. Fix: GASilvergaleResolve offers an MZSPLITASSIGN (up to the sheen on Fractured Memories, over every Memorite Obelith you control, partial allowed) and GASilvergaleMoveSheen applies it.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php GASilvergaleResolve / GASilvergaleMoveSheen",
+        "fixCommit": "TBD"
+    }
+}

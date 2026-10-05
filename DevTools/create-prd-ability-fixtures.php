@@ -26386,6 +26386,20 @@ $fixtures['silvergale-monstrosity-call-prepare-2-paid-moves-sheen-to-obelith'] =
     'actions' => array_merge($gaPrepareP2Play(3), [
         $gaAct(1, 'PASS'),
         $gaAct(2, 'YES'),
+        $gaAct(2, 'myField-1:5'), // move all 5 sheen onto the summoned Obelith
+    ]),
+];
+// "Any amount ... onto any amount of allies named Memorite Obelith": spread 4 of the 5 sheen over two Obeliths and leave 1 on Fractured Memories.
+$fixtures['silvergale-monstrosity-call-prepare-2-paid-splits-some-sheen-over-two-obeliths'] = [
+    'testedCards' => ['lsLd8ADGAe'],
+    'deck' => $gaPrepareDeck,
+    'setup' => array_merge($gaSilvergaleSetup(), [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'fdnlbJm3hr'], // an existing Memorite Obelith -> myField-1 (the summoned one becomes myField-2)
+    ]),
+    'actions' => array_merge($gaPrepareP2Play(3), [
+        $gaAct(1, 'PASS'),
+        $gaAct(2, 'YES'),
+        $gaAct(2, 'myField-1:1,myField-2:3'), // 1 sheen onto the old Obelith, 3 onto the new one, 1 stays on Fractured Memories
     ]),
 ];
 $fixtures['silvergale-monstrosity-call-prepare-2-declined-obelith-no-sheen'] = [
@@ -28437,6 +28451,120 @@ $fixtures['sacrifice-play-declined-sacrifice-still-pays-reserve-for-base-power']
     'deck' => $gaSweepDeck('Spirit of Fire'),
     'setup' => $gaSacrificePlaySetup,
     'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdAns(1, '-'), mrdPlay(1, 'myHand-7'), mrdPass(1)], mrdPay(1, 3), [mrdAns(1, 'myField-1'), mrdAns(1, 'theirField-0')]), // decline the sacrifice, pay 3, the first Pawn Piece is the commanded attacker
+];
+
+
+// Thieving Cut (7t9m4muq2r): "Prepare 1. On Hit: If CARDNAME was prepared, draw a card." The hit trigger read the shared wasPrepared variable, which any later activation overwrites: here the
+// opponent answers the attack by activating Fishing Accident (not prepared), and the prepared Thieving Cut then no longer drew its card. Whether an attack card was prepared now comes from the
+// PREPARED tag on its own card in the intent.
+$fixtures['thieving-cut-prepared-still-draws-after-opponent-activates-an-unprepared-card'] = [
+    'testedCards' => ['7t9m4muq2r', 'RRx0KK6g6D'],
+    'deck' => $gaPrepareDeck,
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 1]]], // fuel for Thieving Cut's Prepare 1
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '7t9m4muq2r'], // Thieving Cut -> p2 myHand-7
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc', 'Subcards' => array_merge(['gt7lh9v221', 'bjlwabipl6', 'pNiyaGlIe7'], $gaWaterLineage)]], // ASSASSIN champion with a water lineage: can activate Fishing Accident
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'RRx0KK6g6D'], // Fishing Accident -> p1 myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) -> p2 myField-1: Fishing Accident's target
+    ],
+    'actions' => [$gaAct(1, 'myHealth-0!CustomInput!Pass', 10001), $gaAct(1, 'PASS'), $gaAct(1, 'PASS'), $gaAct(2, 'myHand-7!FSM!', 10002), $gaAct(2, 'myHand-0'), $gaAct(2, 'myHand-0'), $gaAct(1, 'PASS'), $gaAct(2, 'YES'), $gaAct(2, 'theirField-0'), $gaAct(1, 'myHand-7'), $gaAct(1, 'myHand-0'), $gaAct(1, 'theirField-1')], // after the attack declaration player 1 answers with Fishing Accident (not prepared), which used to overwrite the shared wasPrepared flag before Thieving Cut's hit
+];
+
+
+// Reckless Conversion (gJ2dsgywEs): "Draw two cards into your memory then banish four cards at random from it." The generated body picked the cards with PHP's rand(), which no replay or undo can
+// reproduce (the same action from the same state banished different cards each time); native randomness is now seeded from the game state before every action, like EngineRandomInt().
+$fixtures['reckless-conversion-banishes-four-random-memory-cards-reproducibly'] = [
+    'testedCards' => ['gJ2dsgywEs'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'g92bHLtTNl']], // Rai, Storm Seer (ARCANE Mage): the spell's element and class match (the [Class Bonus] returns the surviving memory to hand)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> myMemory-0
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> myMemory-1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'r7oifozaog'], // Baby Red Slime -> myMemory-2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'pk9xycwz9g'], // Cell Handler -> myMemory-3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => '3oda2ha4dk'], // Fast Cure -> myMemory-4
+        $gaHand('gJ2dsgywEs'), // Reckless Conversion -> myHand-7
+    ],
+    'actions' => [mrdPlay(1, 'myHand-7')],
+];
+
+
+// Phantasmagoria (D3rexaXCBo): "Non-Specter cards in your graveyard lose all abilities." A graveyard card's Floating Memory is one of those abilities: with Phantasmagoria, Fast Cure in your graveyard cannot be banished to pay for
+// a memory cost. (HasFloatingMemory() asked about suppression for the graveyard object's Controller, which graveyard objects do not carry, so the suppression never applied.)
+$fixtures['phantasmagoria-non-specter-graveyard-card-cannot-pay-memory-with-floating-memory'] = [
+    'testedCards' => ['D3rexaXCBo', '29xxoo7dl5'],
+    'deck' => "# Material\n1 Spirit of Water\n1 Arondight, Azure Blade\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [
+        $gaWarriorWater,
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'D3rexaXCBo'], // Phantasmagoria
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], // Fast Cure (floating memory) -> myGraveyard-0
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // memory cards that pay Arondight's 2 memory directly
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => array_merge($gaMaterializeTurnTwo(), [mrdAns(1, 'myMaterial-0')]),
+];
+
+
+// Mordred, Flawless Blade (WI2owxIw0z): "Attack cards in your graveyard have floating memory." That static ability is one of the champion's abilities: with abilities removed (NO_ABILITIES) an attack card in the graveyard has
+// no floating memory, so it cannot pay for a materialize's memory cost. Arondight (memory 1) with no memory cards cannot be paid for: the materialization is refused (offered again) instead of offering the attack card.
+$gaFlawlessSetup = function(bool $noAbilities) {
+    return [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => array_merge(['CardID' => 'WI2owxIw0z', 'Subcards' => ['tafqldAGRF']], $noAbilities ? ['Counters' => ['_overrides' => ['NO_ABILITIES' => 1]]] : [])], // Mordred, Flawless Blade (+ Spirit of Water lineage for the WATER element); NO_ABILITIES as a persistent override (a turn effect would not survive the turn changes)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '0xylS3OcNa'], // Emberslash (ATTACK card) -> myGraveyard-0
+    ]; // no memory cards: Arondight's 1 memory has to come from floating memory
+};
+$fixtures['flawless-blade-with-abilities-gives-attack-cards-floating-memory-to-pay-materialize'] = [
+    'testedCards' => ['WI2owxIw0z', '29xxoo7dl5'],
+    'deck' => "# Material\n1 Spirit of Water\n1 Arondight, Azure Blade\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => $gaFlawlessSetup(false),
+    'actions' => array_merge($gaMaterializeTurnTwo(), [mrdAns(1, 'myMaterial-0'), mrdAns(1, 'myGraveyard-0')]), // the Emberslash in the graveyard is offered as floating memory and banished to pay
+];
+$fixtures['flawless-blade-without-abilities-attack-cards-have-no-floating-memory'] = [
+    'testedCards' => ['WI2owxIw0z', '29xxoo7dl5'],
+    'deck' => "# Material\n1 Spirit of Water\n1 Arondight, Azure Blade\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => $gaFlawlessSetup(true),
+    'actions' => array_merge($gaMaterializeTurnTwo(), [mrdAns(1, 'myMaterial-0'), mrdAns(1, 'myGraveyard-0', ['expectFailure' => true, 'semantic' => true, 'label' => 'With the Blade\'s abilities removed the Emberslash is not offered as floating memory, so it cannot be chosen'])]),
+];
+
+
+// Portside Pirate (6p3p5iqigc): "[Class Bonus] Banish a card with floating memory from your graveyard: Put a buff counter on CARDNAME and it gains stealth until end of turn." The printed cost has no [REST], but every
+// activated ally ability implicitly rested the ally unless its id was on DoActivatedAbility()'s skipAutoRest list, so using the ability exhausted the Pirate.
+$fixtures['portside-pirate-ability-does-not-rest-the-pirate'] = [
+    'testedCards' => ['6p3p5iqigc'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]], // ASSASSIN class: the Class Bonus is active
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '6p3p5iqigc'], // Portside Pirate -> myField-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], // Fast Cure (floating memory) -> myGraveyard-0
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myGraveyard-0')],
+];
+
+
+// Judas, Claret Intercessor (AbjQkcN57S): "[Class Bonus] Sacrifice another ally: CARDNAME gains spellshroud until end of turn." The printed cost has no [REST], and the sacrifice is the whole cost.
+$fixtures['judas-sacrifice-ability-sacrifices-another-ally-and-does-not-rest-judas'] = [
+    'testedCards' => ['AbjQkcN57S'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'MAGE']]]], // MAGE class: the Class Bonus is active
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'AbjQkcN57S'], // Judas, Claret Intercessor -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (the other ally) -> myField-2
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myField-2')], // sacrifice the Dungeon Guide as the cost
+];
+
+
+// Lucenia's Reign (zrvvwz3ww9): "(2), Discard a Chessman Command card: Target Chessman ally you control gets +1 LIFE until end of turn. Draw a card into your memory." The discard and the (2) are costs paid before the
+// opponent gets priority; the phantasia is not rested (no [REST] in the cost).
+$fixtures['lucenia-reign-pays-two-and-discards-a-chessman-command-as-the-cost'] = [
+    'testedCards' => ['zrvvwz3ww9'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zrvvwz3ww9'], // Lucenia's Reign -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Rpr6yCQKU6'], // Pawn Piece (CHESSMAN ally) -> myField-2
+        $gaHand('1jmQ9XSLph'), // Sacrifice Play (a Chessman Command card) -> myHand-7
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myField-2')]), // discard the Command card, pay (2), target the Pawn Piece
 ];
 
 // Filter if --fixture specified

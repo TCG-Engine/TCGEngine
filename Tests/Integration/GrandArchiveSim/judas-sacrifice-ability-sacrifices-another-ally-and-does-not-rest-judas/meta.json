@@ -1,0 +1,27 @@
+{
+    "name": "judas-sacrifice-ability-sacrifices-another-ally-and-does-not-rest-judas",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:04:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "AbjQkcN57S"
+    ],
+    "notes": "Judas, Claret Intercessor: '[Class Bonus] Sacrifice another ally: Judas gains spellshroud until end of turn'. The sacrifice cost was never paid (no ally was sacrificed) and Judas was exhausted by the implicit REST.",
+    "semanticCoverage": {
+        "testedCards": [
+            "AbjQkcN57S"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "additional-cost-sacrifice",
+            "auto-rest"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Judas's two activated abilities ('[Class Bonus] Sacrifice another ally', '[Class Bonus] (2), Sacrifice another ally') never paid their sacrifice (the prereq accepted Judas himself as the ally and no cost was queued) and Judas was exhausted by the implicit REST. Fix: ActivatedAbilityCost queues the 'sacrifice another ally' choice (and the (2) for the second ability), the prereq needs another ally, and Judas is on the skipAutoRest list.",
+        "affectedFunction": "Custom/GameLogic.php ActivatedAbilityCost / skipAutoRest; Custom/GeneratedAbilityOverrides.php Judas prereqs",
+        "fixCommit": "TBD"
+    }
+}

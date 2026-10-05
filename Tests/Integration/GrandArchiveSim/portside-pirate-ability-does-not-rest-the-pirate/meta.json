@@ -1,0 +1,26 @@
+{
+    "name": "portside-pirate-ability-does-not-rest-the-pirate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:03:59+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "6p3p5iqigc"
+    ],
+    "notes": "Portside Pirate: banish a floating-memory card from the graveyard to give the Pirate a buff counter and stealth. The ability used to exhaust the Pirate (implicit REST) although its cost has no [REST].",
+    "semanticCoverage": {
+        "testedCards": [
+            "6p3p5iqigc"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "auto-rest"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Portside Pirate's activated ability has no [REST] in its printed cost, but DoActivatedAbility() rests every ally/champion/phantasia that uses an activated ability unless its id is on the skipAutoRest list, so using the ability exhausted the card. Fix: the id is on the skipAutoRest list.",
+        "affectedFunction": "Custom/GameLogic.php DoActivatedAbility skipAutoRest",
+        "fixCommit": "TBD"
+    }
+}

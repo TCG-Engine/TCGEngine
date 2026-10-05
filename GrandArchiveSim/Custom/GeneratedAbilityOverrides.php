@@ -492,8 +492,7 @@ $customDQHandlers["GAFishingAccidentResolve"] = function($player, $parts, $lastD
 // Silvergale Monstrosity's Call was prepared, move any amount of sheen counters from your Fractured
 // Memories onto any amount of allies named Memorite Obelith you control." The generated body summoned and
 // read wasPrepared synchronously and never offered the cost. Resolution now runs after the Prepare answer.
-// "Any amount" is resolved as the generated body did (all the sheen, onto the first Memorite Obelith you
-// control), but the target is now matched by NAME (Memorite Obelith) instead of any MEMORITE subtype.
+// "Any amount ... onto any amount of" is the player's choice: a split-assign over every Memorite Obelith you control (up to all the sheen, any distribution, nothing is fine).
 $cardActivatedAbilities["lsLd8ADGAe:0"] = function($player) { // Silvergale Monstrosity's Call
     GAQueueFixedPrepare($player, 2);
     DecisionQueueController::AddDecision($player, "CUSTOM", "GASilvergaleResolve", 1, dontSkipOnPass:1);
@@ -503,14 +502,28 @@ $customDQHandlers["GASilvergaleResolve"] = function($player, $parts, $lastDecisi
     if(DecisionQueueController::GetVariable("wasPrepared") !== "YES") return;
     $sheen = GetSheenCount($player);
     if($sheen <= 0) return;
-    $obelithMZ = null;
+    $obeliths = [];
     $field = GetZone("myField");
     for($i = 0; $i < count($field); ++$i) {
-        if(!$field[$i]->removed && $field[$i]->CardID === "fdnlbJm3hr") { $obelithMZ = "myField-" . $i; break; }
+        if(!$field[$i]->removed && $field[$i]->CardID === "fdnlbJm3hr") $obeliths[] = "myField-" . $i;
     }
-    if($obelithMZ === null) return;
-    RemoveSheenFromMastery($player, $sheen);
-    AddCounters($player, $obelithMZ, "sheen", $sheen);
+    if(empty($obeliths)) return;
+    DecisionQueueController::AddDecision($player, "MZSPLITASSIGN", $sheen . "|" . implode("&", $obeliths) . "|UPTO", 1, tooltip:"Move_sheen_from_Fractured_Memories_onto_Memorite_Obelith_allies");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GASilvergaleMoveSheen", 1, dontSkipOnPass:1);
+};
+$customDQHandlers["GASilvergaleMoveSheen"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
+    if($lastDecision === "-" || $lastDecision === "") return;
+    foreach(explode(",", $lastDecision) as $pair) {
+        $pairParts = explode(":", $pair);
+        if(count($pairParts) < 2) continue;
+        $targetObj = GetZoneObject($pairParts[0]);
+        if($targetObj === null || $targetObj->removed || $targetObj->CardID !== "fdnlbJm3hr") continue; // only allies named Memorite Obelith
+        $amount = min(intval($pairParts[1]), GetSheenCount($player));
+        if($amount <= 0) continue;
+        RemoveSheenFromMastery($player, $amount);
+        AddCounters($player, $pairParts[0], "sheen", $amount);
+    }
 };
 
 // ---------------------------------------------------------------------------------------------
@@ -1755,4 +1768,27 @@ $customDQHandlers["ycwz9gv4vm:0:Enter-2"] = function($player, $parts, $lastDecis
   if($gravObj === null) return;
   $graveyardOwner = (strpos($lastDecision, "my") === 0) ? $player : GetOpponent($player);
   AddTurnEffect($chosenUnit, "ycwz_" . $graveyardOwner . "_" . $gravObj->CardID);
+};
+
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Judas, Claret Intercessor (AbjQkcN57S): "[Class Bonus] Sacrifice another ally: ..." / "[Class Bonus] (2), Sacrifice another ally: ...". The generated prereqs accepted Judas himself as the ally to sacrifice
+// (any ally in play); the sacrifice is now a real activation cost (ActivatedAbilityCost), so another ally has to exist.
+$judasPrereq = function($player, $mzID, $abilityIndex) {
+  if(!IsClassBonusActive($player, CardClasses("AbjQkcN57S"))) return false;
+  foreach(ZoneSearch("myField", ["ALLY"]) as $allyMZ) {
+      if($allyMZ !== $mzID) return true;
+  }
+  return false;
+};
+$activateAbilityPrereqs["AbjQkcN57S:0"] = $judasPrereq;
+$activateAbilityPrereqs["AbjQkcN57S:1"] = $judasPrereq;
+
+// Lucenia's Reign (zrvvwz3ww9): "(2), Discard a Chessman Command card: Target Chessman ally you control gets +1 LIFE until end of turn. Draw a card into your memory." The generated body discarded in the effect
+// (after the opponent had priority) and nothing paid the (2); the discard and the (2) are now activation costs (ActivatedAbilityCost), so the effect only chooses the Chessman ally.
+$activateAbilityAbilities["zrvvwz3ww9:0"] = function($player) { //Lucenia's Reign: target Chessman ally +1 LIFE, draw into memory
+  $chessmanAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]);
+  if(empty($chessmanAllies)) return;
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $chessmanAllies), 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "zrvvwz3ww9:0:ActivateAbility-2", 1);
 };
