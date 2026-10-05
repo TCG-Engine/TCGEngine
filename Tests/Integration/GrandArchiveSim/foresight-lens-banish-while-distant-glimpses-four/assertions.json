@@ -1,0 +1,56 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Foresight Lens banished itself as the cost"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Glimpse 4 (distant champion): the Fluffy Shopkeep stays on top"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myDeck-14",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Three of the four glimpsed cards went to the bottom, in the chosen order..."
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myDeck-15",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "...Dungeon Guide, Fluffy Shopkeep,"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myDeck-16",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "...Dungeon Guide"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,27 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[]",
+        "semantic": true,
+        "label": "Dungeon Guide gets no +1 POWER effect: the champion's class does not match Ornamental Greatsword"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "qyQLlDYBlr",
+        "semantic": true,
+        "label": "The Greatsword materialized"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,31 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"clgolelsra\"]",
+        "semantic": true,
+        "label": "The weapon got the +2 POWER effect until end of turn"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "{\"durability\":5}",
+        "semantic": true,
+        "label": "...and a durability counter (4 -> 5)"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Bellona's Runestone banished itself as the cost"
+    }
+]

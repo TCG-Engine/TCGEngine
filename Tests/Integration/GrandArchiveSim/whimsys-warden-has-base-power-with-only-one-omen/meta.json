@@ -1,0 +1,22 @@
+{
+    "name": "whimsys-warden-has-base-power-with-only-one-omen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:55:58+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "cworak5y4y"
+    ],
+    "notes": "One omen is below the threshold of two.",
+    "semanticCoverage": {
+        "testedCards": [
+            "cworak5y4y"
+        ],
+        "mechanics": [
+            "static-modifier",
+            "omen"
+        ],
+        "rulesClauses": [
+            "As long as you have two or more omens, Whimsy's Warden gets +2 POWER."
+        ]
+    }
+}

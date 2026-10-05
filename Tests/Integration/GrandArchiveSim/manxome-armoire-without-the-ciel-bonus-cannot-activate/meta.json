@@ -1,0 +1,28 @@
+{
+    "name": "manxome-armoire-without-the-ciel-bonus-cannot-activate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T22:02:28+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "fm894uc4ij"
+    ],
+    "notes": "The generated body gated its effect on the Ciel Bonus but the 'Banish self' cost was paid first, so a non-Ciel champion could throw the Armoire away for nothing. $activateAbilityPrereqs['fm894uc4ij:0'] now requires the bonus (same fix for Majestic Spirit's Crest, Melodious Flute, Flamelash Subduer, Mantle of the Abyss and Bise Blade).",
+    "semanticCoverage": {
+        "testedCards": [
+            "fm894uc4ij"
+        ],
+        "mechanics": [
+            "activation-restriction",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] Banish Manxome Armoire: ..."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Class/name-bonus activated abilities could be activated and paid for without the bonus.",
+        "affectedFunction": "activateAbilityPrereqs['fm894uc4ij:0']",
+        "fixCommit": "TBD"
+    }
+}

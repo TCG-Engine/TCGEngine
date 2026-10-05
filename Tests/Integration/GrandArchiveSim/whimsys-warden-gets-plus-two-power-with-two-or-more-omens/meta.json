@@ -1,0 +1,22 @@
+{
+    "name": "whimsys-warden-gets-plus-two-power-with-two-or-more-omens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:55:57+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "cworak5y4y"
+    ],
+    "notes": "Static +2 POWER while you have two or more omens (omens are banished cards with an omen counter).",
+    "semanticCoverage": {
+        "testedCards": [
+            "cworak5y4y"
+        ],
+        "mechanics": [
+            "static-modifier",
+            "omen"
+        ],
+        "rulesClauses": [
+            "As long as you have two or more omens, Whimsy's Warden gets +2 POWER."
+        ]
+    }
+}

@@ -18,6 +18,15 @@
         "type": "card_property_equals",
         "mzId": "p1Field-1",
         "property": "TurnEffects",
-        "value": "[\"ENTERED_THIS_TURN\",\"ENTERED_THIS_TURN\"]"
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "Insignia of the Corhazi is rested by its [REST] cost"
     }
 ]

@@ -1,0 +1,28 @@
+{
+    "name": "nullifying-mirror-rest-adds-the-norm-memory-effect-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T22:12:33+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "pol1nz0j1n"
+    ],
+    "notes": "The generator filed this printed ACTIVATED ability in the play-time $cardActivatedAbilities table, so the field click was routed through ActivateCard (the item treated as a card being played): the effect ran but the printed REST / banish-self / sacrifice cost was never paid and the item could be re-used for free every time. Registered as a field activation ($activateAbilityAbilities in Custom/GameLogic.php; ActivatedAbilityCost pays the cost) and the play-time body neutralized in Custom/GeneratedAbilityOverrides.php. The memory-element override also applied permanently while the Mirror merely sat on the field; it now requires the activated effect (the pol1nz0j1n global effect, expiring at end of turn).",
+    "semanticCoverage": {
+        "testedCards": [
+            "pol1nz0j1n"
+        ],
+        "mechanics": [
+            "cost",
+            "element-override"
+        ],
+        "rulesClauses": [
+            "[REST]: Until end of turn, cards in target opponent's memory are norm element."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Nullifying Mirror never rested and its norm-memory effect applied permanently without activation.",
+        "affectedFunction": "GAEffectiveElement / activateAbilityAbilities['pol1nz0j1n:0']",
+        "fixCommit": "TBD"
+    }
+}

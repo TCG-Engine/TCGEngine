@@ -1,0 +1,21 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Subcards",
+        "value": "[\"iqcknwa2vl\"]",
+        "semantic": true,
+        "label": "Frozen Quill is loaded into the Bow"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The arrow left the field (champion and Bow remain)"
+    }
+]

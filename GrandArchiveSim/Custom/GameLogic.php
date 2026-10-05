@@ -5860,6 +5860,105 @@ $customDQHandlers["SeraphicLegionGrant"] = function($player, $parts, $lastDecisi
     AddTurnEffect($lastDecision, "_seraphicLegion");
 };
 
+// "[Class Bonus] / [Ciel Bonus] / [Alice Bonus] <cost>: <effect>" activated abilities only exist while the bonus is active. The generated bodies gate their effect on the bonus but the cost (banish self, the item
+// REST, the (N) reserve ...) is paid by ActivatedAbilityCost() before the body runs, so without these prereqs an ineligible champion could activate them and pay for nothing.
+$activateAbilityPrereqs["Tx6iJQNSA6:0"] = function($player, $mzID, $abilityIndex) { return IsClassBonusActive($player, CardClasses("Tx6iJQNSA6")); }; // Majestic Spirit's Crest
+$activateAbilityPrereqs["WAFNy2lY5t:0"] = function($player, $mzID, $abilityIndex) { return IsClassBonusActive($player, CardClasses("WAFNy2lY5t")); }; // Melodious Flute
+$activateAbilityPrereqs["1i6ierdDjq:0"] = function($player, $mzID, $abilityIndex) { return IsClassBonusActive($player, CardClasses("1i6ierdDjq")); }; // Flamelash Subduer
+$activateAbilityPrereqs["1ubrwubSQN:0"] = function($player, $mzID, $abilityIndex) { return IsAliceBonusActive($player); }; // Mantle of the Abyss
+$activateAbilityPrereqs["fm894uc4ij:0"] = function($player, $mzID, $abilityIndex) { return IsCielBonusActive($player); }; // Manxome Armoire
+$activateAbilityPrereqs["aZzm2GEWEu:0"] = function($player, $mzID, $abilityIndex) { return IsCielBonusActive($player); }; // Bise Blade
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Field items whose printed activated ability was filed by the generator in the play-time $cardActivatedAbilities table (Foresight Lens, Halcyon Prism, Teardrop Diadem, Bellona's Runestone, Condemned Trinket,
+// Nullifying Mirror, Cloak of Stillwater, Insignia of the Corhazi, Penetrator Round, Razor Broadhead, Frozen Quill, Discordia, Grave Gateau). The field click was routed through ActivateCard, which treated the
+// item as a card being played: the effect ran but the printed REST / banish-self / sacrifice costs were never paid, so every one of these could be repeated for free any number of times. Registered as the
+// field activations they are (the costs are paid by ActivatedAbilityCost(); the play-time bodies are neutralized in Custom/GeneratedAbilityOverrides.php).
+// ---------------------------------------------------------------------------------------------------------------------------------
+function GAUnloadedGuns($player) {
+    $guns = [];
+    foreach(ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["GUN"]) as $gunMZ) {
+        $gunObj = GetZoneObject($gunMZ);
+        if($gunObj !== null && !$gunObj->removed && !IsGunLoaded($gunObj)) $guns[] = $gunMZ;
+    }
+    return $guns;
+}
+$activateAbilityAbilities["997vxajn2q:0"] = function($player) { Glimpse($player, 3); }; // Halcyon Prism: Banish: Glimpse 3
+$activateAbilityAbilities["drnxdiltx3:0"] = function($player) { // Foresight Lens: Banish: Glimpse 2; glimpse 4 instead while your champion is distant
+    $champMZ = FindChampionMZ($player);
+    $champObj = $champMZ === null ? null : GetZoneObject($champMZ);
+    Glimpse($player, ($champObj !== null && IsDistant($champObj)) ? 4 : 2);
+};
+$activateAbilityAbilities["K15jWbHAMY:0"] = function($player) { DrawIntoMemory($player, 3); }; // Teardrop Diadem: Banish: Draw three cards into your memory
+$activateAbilityAbilities["clgolelsra:0"] = function($player) { // Bellona's Runestone: Banish: target weapon you control gets +2 POWER until end of turn; put a durability counter on it
+    $weapons = ZoneSearch("myField", ["WEAPON"]);
+    if(empty($weapons)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $weapons), 1, tooltip:"Choose_a_weapon");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "clgolelsra:0:CardActivated-1", 1);
+};
+$activateAbilityPrereqs["clgolelsra:0"] = function($player, $mzID, $abilityIndex) { return !empty(ZoneSearch("myField", ["WEAPON"])); };
+$activateAbilityAbilities["21oy1nd4nw:0"] = function($player) { // Condemned Trinket: (3), Banish: banish a card from your graveyard and put an omen counter on it
+    $gy = ZoneSearch("myGraveyard");
+    if(empty($gy)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $gy), 1, tooltip:"Banish_a_card_from_your_graveyard");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "21oy1nd4nw:0:CardActivated-1", 1);
+};
+$activateAbilityPrereqs["21oy1nd4nw:0"] = function($player, $mzID, $abilityIndex) { return !empty(ZoneSearch("myGraveyard")); };
+$activateAbilityAbilities["pol1nz0j1n:0"] = function($player) { AddGlobalEffects($player, "pol1nz0j1n"); }; // Nullifying Mirror: [REST]: until end of turn the opponent's memory cards are norm (GAEffectiveElement)
+$activateAbilityPrereqs["pol1nz0j1n:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID); };
+$activateAbilityAbilities["2ha4dk88zq:0"] = function($player) { // Cloak of Stillwater: [REST], Banish a floating-memory card from your graveyard: prevent the next 3 damage to your champion this turn
+    $champMZ = FindChampionMZ($player);
+    if($champMZ !== null) AddTurnEffect($champMZ, "PREVENT_CHAMP_3");
+};
+$activateAbilityPrereqs["2ha4dk88zq:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID) && !empty(ZoneSearch("myGraveyard", floatingMemoryOnly: true)); };
+$activateAbilityAbilities["52u81v4c0z:0"] = function($player) { AddPrepCounter($player, 1); }; // Insignia of the Corhazi: (3), [REST]: put a preparation counter on your champion
+$activateAbilityPrereqs["52u81v4c0z:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID); };
+$activateAbilityAbilities["97n2jnltv5:0"] = function($player) { // Penetrator Round: [REST]: load it into target unloaded Gun weapon you control
+    $guns = GAUnloadedGuns($player);
+    if(empty($guns)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $guns), 1, tooltip:"Choose_a_Gun_weapon_to_load");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LoadBullet|" . DecisionQueueController::GetVariable("mzID"), 1);
+};
+$activateAbilityPrereqs["97n2jnltv5:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID) && !empty(GAUnloadedGuns($player)); };
+foreach(["si9ux3ak6o", "iqcknwa2vl"] as $gaArrowCardID) { // Razor Broadhead / Frozen Quill: [REST]: load it into target unloaded Bow weapon you control
+    $activateAbilityAbilities[$gaArrowCardID . ":0"] = function($player) {
+        $bows = GetUnloadedBows($player);
+        if(empty($bows)) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $bows), 1, tooltip:"Choose_a_Bow_weapon_to_load");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "LoadArrow|" . DecisionQueueController::GetVariable("mzID"), 1);
+    };
+    $activateAbilityPrereqs[$gaArrowCardID . ":0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID) && !empty(GetUnloadedBows($player)); };
+}
+// Discordia, Harp of Malice: "[REST]: Target champion gets -X level and your champion gets +X level until end of turn, where X is the amount of music counters on CARDNAME. At the beginning of the next end phase, banish CARDNAME."
+$activateAbilityAbilities["5LoOprBJay:0"] = function($player) {
+    $discordiaMZ = DecisionQueueController::GetVariable("mzID");
+    $discordiaObj = GetZoneObject($discordiaMZ);
+    if($discordiaObj === null) return;
+    $musicCount = GetCounterCount($discordiaObj, "music");
+    $champions = array_merge(ZoneSearch("myField", ["CHAMPION"]), ZoneSearch("theirField", ["CHAMPION"]));
+    AddTurnEffect($discordiaMZ, "BANISH_SELF");
+    if(empty($champions)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $champions), 1, tooltip:"Choose_target_champion");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DiscordiaLevelSwap|" . $musicCount, 1);
+};
+$activateAbilityPrereqs["5LoOprBJay:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID); };
+$customDQHandlers["DiscordiaLevelSwap"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $musicCount = intval($parts[0] ?? 0);
+    if($musicCount <= 0) return;
+    AddTurnEffect($lastDecision, "DISCORDIA_MINUS_" . $musicCount);
+    $myChampMZ = FindChampionMZ($player);
+    if($myChampMZ !== null) AddTurnEffect($myChampMZ, "DISCORDIA_PLUS_" . $musicCount);
+};
+// Grave Gateau: "[REST], Sacrifice CARDNAME: Put a buff counter on target Specter ally."
+$activateAbilityAbilities["FQigf17dCr:0"] = function($player) {
+    $specters = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SPECTER"]);
+    if(empty($specters)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $specters), 1, tooltip:"Choose_a_Specter_ally");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FQigf17dCr:0:CardActivated-1", 1);
+};
+$activateAbilityPrereqs["FQigf17dCr:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID) && !empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SPECTER"])); };
+
 // cardID => ability names of field activated abilities whose generated CardActivateAbilityCount row is 0
 // (see the Key Slime Pudding / Baby Blue Slime note above). Names become the opportunity-window labels
 // ("myField-N@Activate-0@<name>") and the Activate button captions.
@@ -5882,6 +5981,19 @@ function GAActivateAbilityCountOverrides() {
         "aqlbuznsz4" => ["Subtype"], // Sojourner's Hunt
         "m4MTDKWvyR" => ["Scavenge"], // Jinzhuo, Bands of Virtue
         "QX72P4Xx1A" => ["Grant activation"], // Seraphic Legion's Descent
+        "997vxajn2q" => ["Glimpse"], // Halcyon Prism
+        "drnxdiltx3" => ["Glimpse"], // Foresight Lens
+        "K15jWbHAMY" => ["Draw"], // Teardrop Diadem
+        "clgolelsra" => ["Buff weapon"], // Bellona's Runestone
+        "21oy1nd4nw" => ["Banish"], // Condemned Trinket
+        "pol1nz0j1n" => ["Norm memory"], // Nullifying Mirror
+        "2ha4dk88zq" => ["Prevent"], // Cloak of Stillwater
+        "52u81v4c0z" => ["Prepare"], // Insignia of the Corhazi
+        "97n2jnltv5" => ["Load"], // Penetrator Round
+        "si9ux3ak6o" => ["Load"], // Razor Broadhead
+        "iqcknwa2vl" => ["Load"], // Frozen Quill
+        "5LoOprBJay" => ["Level swap"], // Discordia, Harp of Malice
+        "FQigf17dCr" => ["Buff"], // Grave Gateau
     ];
 }
 // Lazy, idempotent application to the generated count/name arrays for callers that run without
@@ -7738,6 +7850,42 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 if($cardID === "hXERTZPM0w" && intval($abilityIndex) === 1) GAQueueGraveyardBanishCost($player, 2, "FIRE");
                 if($cardID === "0z2snsdwmx" || $cardID === "yIozXMrdqr") {
                     for($ri = 0; $ri < 2; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
+        case "997vxajn2q": // Halcyon Prism: Banish self
+        case "drnxdiltx3": // Foresight Lens: Banish self
+        case "clgolelsra": // Bellona's Runestone: Banish self
+        case "21oy1nd4nw": // Condemned Trinket: (3), Banish self
+            OnLeaveField($player, $mzCard);
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            if($cardID === "21oy1nd4nw") {
+                for($ri = 0; $ri < 3; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
+        case "97n2jnltv5": // Penetrator Round: [REST]
+        case "iqcknwa2vl": // Frozen Quill: [REST]
+        case "5LoOprBJay": // Discordia, Harp of Malice: [REST]
+        case "52u81v4c0z": // Insignia of the Corhazi: (3), [REST]
+        case "2ha4dk88zq": // Cloak of Stillwater: [REST], Banish a floating-memory card from your graveyard
+        case "FQigf17dCr": // Grave Gateau: [REST], Sacrifice self
+            {
+                $itemObj = &GetZoneObject($mzCard);
+                if($itemObj !== null) $itemObj->Status = 1;
+                if($cardID === "52u81v4c0z") {
+                    for($ri = 0; $ri < 3; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+                if($cardID === "2ha4dk88zq") {
+                    $floatingGY = ZoneSearch("myGraveyard", floatingMemoryOnly: true);
+                    if(!empty($floatingGY)) {
+                        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $floatingGY), 100, tooltip:"Banish_a_card_with_floating_memory_from_your_graveyard");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "PortsidePirateBanish", 100);
+                    }
+                }
+                if($cardID === "FQigf17dCr") {
+                    DoSacrificeFighter($player, $mzCard);
+                    DecisionQueueController::CleanupRemovedCards();
                 }
             }
             break;
@@ -20158,6 +20306,9 @@ function PlayerLevel($player) {
 
 function IsClassBonusActive($player, $classes=null) {
     global $playerID;
+    // Many generated bodies call IsClassBonusActive($player) with NO class list, which on its own means "controls any champion" (always true). GAInstallClassBonusSourceWrappers()
+    // (Custom/GeneratedAbilityOverrides.php) wraps those cards' ability closures so this bare form resolves against the class(es) of the card whose ability is running.
+    if($classes === null && !empty($GLOBALS['gaClassBonusSourceClasses'])) $classes = $GLOBALS['gaClassBonusSourceClasses'];
     $zone = $player == $playerID ? "myField" : "theirField";
     $zoneArr = GetZone($zone);
     $requiredClasses = null;
@@ -23247,18 +23398,9 @@ function EffectiveCardElement($obj) {
             $opponent = ($obj->Controller == 1) ? 2 : 1;
             if(GlobalEffectCount($opponent, "0sVdvpQKXq_MEMORY") > 0) return "NORM";
         }
-        global $playerID;
-        $controller = $obj->Controller ?? 0;
-        $opponentZone = ($controller == $playerID) ? "theirField" : "myField";
-        if(ZoneContainsCardID($opponentZone, "pol1nz0j1n")) {
-            // Check the mirror is not exhausted and has no abilities suppressed
-            $mirrorField = GetZone($opponentZone);
-            foreach($mirrorField as $mfObj) {
-                if(!$mfObj->removed && $mfObj->CardID === "pol1nz0j1n" && !HasNoAbilities($mfObj)) {
-                    return "NORM";
-                }
-            }
-        }
+        // Nullifying Mirror (pol1nz0j1n): "[REST]: Until end of turn, cards in target opponent's memory are norm element." Only after the ability was activated (its pol1nz0j1n global effect, which
+        // expires at end of turn): merely controlling the Mirror used to make every opposing memory card norm, permanently.
+        if(isset($obj->Controller) && GlobalEffectCount(($obj->Controller == 1) ? 2 : 1, "pol1nz0j1n") > 0) return "NORM";
     }
     return CardElement($obj->CardID);
 }

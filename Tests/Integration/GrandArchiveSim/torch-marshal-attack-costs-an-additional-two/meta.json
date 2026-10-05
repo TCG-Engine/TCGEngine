@@ -1,0 +1,22 @@
+{
+    "name": "torch-marshal-attack-costs-an-additional-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:56:40+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "izgiu216l2"
+    ],
+    "notes": "Declaring an attack with Torch Marshal asks for two reserve payments before the target is chosen.",
+    "semanticCoverage": {
+        "testedCards": [
+            "izgiu216l2"
+        ],
+        "mechanics": [
+            "cost",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As an additional cost to declare an attack with this ally, pay (2)."
+        ]
+    }
+}

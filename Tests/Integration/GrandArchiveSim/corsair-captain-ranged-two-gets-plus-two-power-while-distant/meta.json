@@ -1,0 +1,22 @@
+{
+    "name": "corsair-captain-ranged-two-gets-plus-two-power-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:57:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4e1gqwah01"
+    ],
+    "notes": "Ranged 2 keyword.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4e1gqwah01"
+        ],
+        "mechanics": [
+            "keyword",
+            "distant"
+        ],
+        "rulesClauses": [
+            "Ranged 2: as long as this unit is distant, its attacks get +2 POWER."
+        ]
+    }
+}

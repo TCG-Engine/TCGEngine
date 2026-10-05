@@ -1,0 +1,28 @@
+{
+    "name": "ornamental-greatsword-without-the-class-bonus-gives-no-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T22:06:51+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qyQLlDYBlr"
+    ],
+    "notes": "Generated bodies gated these cards' [Class Bonus] with IsClassBonusActive($player) and NO class list, which only checks that the player controls any champion and is therefore always true: every champion got the bonus. IsClassBonusActive() now resolves the bare form against the printed class(es) of the card whose ability closure is running (GAInstallClassBonusSourceWrappers() in Custom/GeneratedAbilityOverrides.php wraps the 32 affected cards' ability closures); a champion matching any of the card's classes satisfies it. Spirit of Fire is not a Guardian or Warrior.",
+    "semanticCoverage": {
+        "testedCards": [
+            "qyQLlDYBlr"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Target ally you control gets +1 POWER until end of turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Class Bonus effects applied for every champion (bare IsClassBonusActive($player) is always true).",
+        "affectedFunction": "IsClassBonusActive / GAInstallClassBonusSourceWrappers",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "majestic-spirits-crest-class-bonus-banish-grants-the-champion-an-on-attack-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T22:02:26+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "Tx6iJQNSA6"
+    ],
+    "notes": "With a WARRIOR champion the Class Bonus ability resolves.",
+    "semanticCoverage": {
+        "testedCards": [
+            "Tx6iJQNSA6"
+        ],
+        "mechanics": [
+            "cost",
+            "class-bonus",
+            "granted-ability"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Banish Majestic Spirit's Crest: Your champion gains 'On Attack: Draw a card' until end of turn."
+        ]
+    }
+}

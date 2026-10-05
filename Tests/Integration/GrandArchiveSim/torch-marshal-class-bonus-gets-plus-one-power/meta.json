@@ -1,0 +1,22 @@
+{
+    "name": "torch-marshal-class-bonus-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:55:59+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "izgiu216l2"
+    ],
+    "notes": "A GUARDIAN champion satisfies the [Class Bonus].",
+    "semanticCoverage": {
+        "testedCards": [
+            "izgiu216l2"
+        ],
+        "mechanics": [
+            "static-modifier",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Torch Marshal gets +1 POWER."
+        ]
+    }
+}

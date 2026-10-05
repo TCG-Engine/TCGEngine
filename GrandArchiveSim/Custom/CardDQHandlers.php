@@ -140,7 +140,7 @@ $customDQHandlers["HsaWNAsmAQ_OptionA"] = function($player, $parts, $lastDecisio
         $chosen = 1;
     }
     DecisionQueueController::StoreVariable("BF_chosen", "$chosen");
-    $maxChoices = IsClassBonusActive($player) ? 2 : 1;
+    $maxChoices = IsClassBonusActive($player, CardClasses("HsaWNAsmAQ")) ? 2 : 1; // Bestial Frenzy [Class Bonus]
     if($chosen < $maxChoices) {
         $beasts = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["BEAST"]);
         if(!empty($beasts)) {
@@ -156,7 +156,7 @@ $customDQHandlers["HsaWNAsmAQ_OptionA"] = function($player, $parts, $lastDecisio
 
 $customDQHandlers["HsaWNAsmAQ_OptionB"] = function($player, $parts, $lastDecision) {
     $chosen = intval(DecisionQueueController::GetVariable("BF_chosen"));
-    $maxChoices = IsClassBonusActive($player) ? 2 : 1;
+    $maxChoices = IsClassBonusActive($player, CardClasses("HsaWNAsmAQ")) ? 2 : 1; // Bestial Frenzy [Class Bonus]
     if($lastDecision === "YES") {
         $beasts = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["BEAST"]);
         if(!empty($beasts)) {

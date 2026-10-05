@@ -1,0 +1,25 @@
+[
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myGlobalEffects",
+        "viewerPlayerID": 1,
+        "cardID": "WAFNy2lY5t",
+        "semantic": true,
+        "label": "The next-Harmony-is-a-Melody effect is active"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Melodious Flute banished itself as the cost"
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

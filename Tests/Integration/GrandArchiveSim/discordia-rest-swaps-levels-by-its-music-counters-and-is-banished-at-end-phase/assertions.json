@@ -1,0 +1,47 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"DISCORDIA_MINUS_2\"]",
+        "semantic": true,
+        "label": "The target champion gets -2 level (two music counters)"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"DISCORDIA_PLUS_2\"]",
+        "semantic": true,
+        "label": "Your champion gets +2 level"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "Discordia is rested by its [REST] cost"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"BANISH_SELF\"]",
+        "semantic": true,
+        "label": "Discordia is tagged to be banished at the next end phase"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

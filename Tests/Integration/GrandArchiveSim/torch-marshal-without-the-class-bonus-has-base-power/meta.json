@@ -1,0 +1,22 @@
+{
+    "name": "torch-marshal-without-the-class-bonus-has-base-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:56:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "izgiu216l2"
+    ],
+    "notes": "No class match: no bonus.",
+    "semanticCoverage": {
+        "testedCards": [
+            "izgiu216l2"
+        ],
+        "mechanics": [
+            "static-modifier",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Torch Marshal gets +1 POWER."
+        ]
+    }
+}

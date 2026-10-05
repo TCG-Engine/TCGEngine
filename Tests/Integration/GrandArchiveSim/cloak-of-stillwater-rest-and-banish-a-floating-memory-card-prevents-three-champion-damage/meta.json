@@ -1,0 +1,28 @@
+{
+    "name": "cloak-of-stillwater-rest-and-banish-a-floating-memory-card-prevents-three-champion-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T22:12:34+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "2ha4dk88zq"
+    ],
+    "notes": "The generator filed this printed ACTIVATED ability in the play-time $cardActivatedAbilities table, so the field click was routed through ActivateCard (the item treated as a card being played): the effect ran but the printed REST / banish-self / sacrifice cost was never paid and the item could be re-used for free every time. Registered as a field activation ($activateAbilityAbilities in Custom/GameLogic.php; ActivatedAbilityCost pays the cost) and the play-time body neutralized in Custom/GeneratedAbilityOverrides.php. The banish of the floating-memory card is now a real cost.",
+    "semanticCoverage": {
+        "testedCards": [
+            "2ha4dk88zq"
+        ],
+        "mechanics": [
+            "cost",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "[REST], Banish a card with floating memory from your graveyard: Prevent the next 3 damage that would be dealt to your champion this turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Cloak of Stillwater never rested.",
+        "affectedFunction": "activateAbilityAbilities['2ha4dk88zq:0']",
+        "fixCommit": "TBD"
+    }
+}

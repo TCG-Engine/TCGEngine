@@ -1,0 +1,28 @@
+{
+    "name": "razor-broadhead-rest-loads-itself-into-an-unloaded-bow",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T22:12:35+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "si9ux3ak6o"
+    ],
+    "notes": "The generator filed this printed ACTIVATED ability in the play-time $cardActivatedAbilities table, so the field click was routed through ActivateCard (the item treated as a card being played): the effect ran but the printed REST / banish-self / sacrifice cost was never paid and the item could be re-used for free every time. Registered as a field activation ($activateAbilityAbilities in Custom/GameLogic.php; ActivatedAbilityCost pays the cost) and the play-time body neutralized in Custom/GeneratedAbilityOverrides.php. (The Opportunity window opened by the new field ability is left pending.)",
+    "semanticCoverage": {
+        "testedCards": [
+            "si9ux3ak6o"
+        ],
+        "mechanics": [
+            "cost",
+            "load"
+        ],
+        "rulesClauses": [
+            "[REST]: Load CARDNAME into target unloaded Bow weapon you control."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Razor Broadhead's field activation was misrouted through ActivateCard (the [REST] cost was never paid).",
+        "affectedFunction": "activateAbilityAbilities['si9ux3ak6o:0']",
+        "fixCommit": "TBD"
+    }
+}

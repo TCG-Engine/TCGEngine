@@ -1861,3 +1861,48 @@ $cardActivatedAbilities["0z2snsdwmx:0"] = function($player) { //Scale of Souls: 
 };
 $cardActivatedAbilities["vm4xg2hedp:0"] = function($player) { //Refluxal Ribbon: no on-play activated effect
 };
+
+// ---------------------------------------------------------------------------------------------
+// Bare "[Class Bonus]" gates. The generator emitted IsClassBonusActive($player) with NO class list for these cards' abilities, which only means "controls any champion" and is therefore always true:
+// every champion got these cards' Class Bonus effects. IsClassBonusActive() now resolves the bare form against $GLOBALS['gaClassBonusSourceClasses'], which the wrappers installed here set to the
+// printed class(es) of the card for the duration of each of its ability closures (any table, including the follow-up customDQHandlers whose key starts with "<cardID>:"). A champion matching any
+// of the card's classes satisfies the bonus. Installed last so it wraps the final closure of every key (generated or overridden above).
+// ---------------------------------------------------------------------------------------------
+function GAInstallClassBonusSourceWrappers(array &$tables) {
+    $cardIDs = ["2Ch1Gp3jEL", "5qWWpkgQLl", "6e7lRnczfL", "776yt8UxhU", "8lrj52215u", "8yzADlgx4R", "GRkBQ1Uvir", "NwswAHojeq", "SPESFtKHLw", "Tx6iJQNSA6", "W1vZwOXfG3", "WAFNy2lY5t", "WShYN9M3lU",
+        "XLbCBxla8K", "XMb6pSHFJg", "XQKyUqsMUg", "XZFXOE9sEV", "YqQsXwEvv5", "dZ960Hnkzv", "dmbBXRTVIk", "ify06tSEVC", "m3n9yvn1uo", "mj3WSrghUH", "mloejozihs", "optpu3fubb", "pnDhApDNvR",
+        "qYH9PJP7uM", "qyQLlDYBlr", "sHzSmygjWY", "uTBsOYf15p", "urfp66pv4n", "zcVjsVRBV8"];
+    $cardSet = array_flip($cardIDs);
+    foreach($tables as &$table) {
+        if(!is_array($table)) continue;
+        foreach(array_keys($table) as $key) {
+            $cardID = strtok(strval($key), ":");
+            if(!isset($cardSet[$cardID]) || !is_callable($table[$key])) continue;
+            $original = $table[$key];
+            // The card dictionary is not loaded yet while this file runs, so the printed classes are resolved when the closure is called.
+            $table[$key] = function(...$args) use ($original, $cardID) {
+                $previous = $GLOBALS['gaClassBonusSourceClasses'] ?? null;
+                $GLOBALS['gaClassBonusSourceClasses'] = array_values(array_filter(array_map('trim', explode(",", strval(CardClasses($cardID))))));
+                try {
+                    return $original(...$args);
+                } finally {
+                    $GLOBALS['gaClassBonusSourceClasses'] = $previous;
+                }
+            };
+        }
+    }
+    unset($table);
+}
+// (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)
+$gaClassBonusTables = [&$customDQHandlers, &$cardActivatedAbilities, &$enterAbilities, &$activateAbilityAbilities, &$activateAbilityPrereqs, &$activationCostModifierAbilities, &$onAttackAbilities,
+    &$onHitAbilities, &$onKillAbilities, &$allyDestroyedAbilities, &$activateCardAbilities, &$activateCardPrereqs, &$cardActivatedPrereqs, &$memoryCostModifierAbilities, &$leaveFieldAbilities,
+    &$playCardAbilities, &$onFosterAbilities, &$enterPrereqs, &$reserveCostModifierAbilities, &$dealDamageAbilities, &$onAttackPrereqs, &$onBanishAbilities, &$restCardAbilities, &$revealAbilities];
+GAInstallClassBonusSourceWrappers($gaClassBonusTables);
+unset($gaClassBonusTables);
+
+// Field-item activations misfiled in the play-time table (see the "Field items whose printed activated ability was filed ..." block in Custom/GameLogic.php): neutralize the bodies so they can no longer run
+// (free, repeatable) through ActivateCard. Their real entries are $activateAbilityAbilities in GameLogic.php; the generated follow-up handlers ("<id>:0:CardActivated-1") are still used.
+foreach(["997vxajn2q", "drnxdiltx3", "K15jWbHAMY", "clgolelsra", "21oy1nd4nw", "pol1nz0j1n", "2ha4dk88zq", "52u81v4c0z", "97n2jnltv5", "si9ux3ak6o", "iqcknwa2vl", "5LoOprBJay", "FQigf17dCr"] as $gaMisfiledItemID) {
+    $cardActivatedAbilities[$gaMisfiledItemID . ":0"] = function($player) { // no on-play activated effect: the item's printed ability is a field activation
+    };
+}

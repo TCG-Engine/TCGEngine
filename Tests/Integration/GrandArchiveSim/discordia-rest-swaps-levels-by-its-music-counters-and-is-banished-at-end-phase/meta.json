@@ -1,0 +1,29 @@
+{
+    "name": "discordia-rest-swaps-levels-by-its-music-counters-and-is-banished-at-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T22:12:37+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "5LoOprBJay"
+    ],
+    "notes": "The generator filed this printed ACTIVATED ability in the play-time $cardActivatedAbilities table, so the field click was routed through ActivateCard (the item treated as a card being played): the effect ran but the printed REST / banish-self / sacrifice cost was never paid and the item could be re-used for free every time. Registered as a field activation ($activateAbilityAbilities in Custom/GameLogic.php; ActivatedAbilityCost pays the cost) and the play-time body neutralized in Custom/GeneratedAbilityOverrides.php. The generated follow-up handler also read an undefined $musicCount (a PHP warning that made the level swap a no-op); the music count is now carried in the handler parameter.",
+    "semanticCoverage": {
+        "testedCards": [
+            "5LoOprBJay"
+        ],
+        "mechanics": [
+            "cost",
+            "level-modifier",
+            "delayed-effect"
+        ],
+        "rulesClauses": [
+            "[REST]: Target champion gets -X level and your champion gets +X level until end of turn, where X is the amount of music counters on CARDNAME. At the beginning of the next end phase, banish CARDNAME."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Discordia never rested and its level swap used an undefined variable.",
+        "affectedFunction": "activateAbilityAbilities['5LoOprBJay:0']",
+        "fixCommit": "TBD"
+    }
+}

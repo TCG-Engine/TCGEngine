@@ -1,0 +1,28 @@
+{
+    "name": "corhazi-lightblade-without-the-class-bonus-does-not-reveal-or-gain-critical",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T22:06:52+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "2Ch1Gp3jEL"
+    ],
+    "notes": "Generated bodies gated these cards' [Class Bonus] with IsClassBonusActive($player) and NO class list, which only checks that the player controls any champion and is therefore always true: every champion got the bonus. IsClassBonusActive() now resolves the bare form against the printed class(es) of the card whose ability closure is running (GAInstallClassBonusSourceWrappers() in Custom/GeneratedAbilityOverrides.php wraps the 32 affected cards' ability closures); a champion matching any of the card's classes satisfies it. Spirit of Fire is not an Assassin: the On Attack reveal does not happen.",
+    "semanticCoverage": {
+        "testedCards": [
+            "2Ch1Gp3jEL"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-attack"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: Reveal a card from your memory at random. If a luxem element card was revealed, CARDNAME gains critical 1 until end of turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Class Bonus effects applied for every champion (bare IsClassBonusActive($player) is always true).",
+        "affectedFunction": "IsClassBonusActive / GAInstallClassBonusSourceWrappers",
+        "fixCommit": "TBD"
+    }
+}

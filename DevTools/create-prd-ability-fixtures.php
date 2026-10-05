@@ -829,7 +829,7 @@ DECK,
     ],
     'actions' => [
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // the Round materialized to myField-2 (the Sidearm is myField-1)
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
@@ -4091,6 +4091,7 @@ $fixtures['purge-in-flames-damage'] = [
 4 Fluffy Shopkeep
 DECK,
     'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'MAGE']]]], // MAGE champion: the [Class Bonus] is active (a bare class-bonus gate used to be always true)
         ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - AoE target 1/2
         ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 1/2
         ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 2/2
@@ -9076,6 +9077,7 @@ DECK,
     // (same technique as crest-of-the-alliance-fostered-ally-dies-draw), which triggers On Death
     // reliably.
     'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'CLERIC']]]], // CLERIC champion: the [Class Bonus] is active (a bare class-bonus gate used to be always true)
         ['player' => 1, 'zone' => 'myField', 'cardID' => 'urfp66pv4n'], // Caretaker Drone
         ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UaUfw7yFTW'], // Undeniable Truth, seeded to a known hand slot
     ],
@@ -10146,6 +10148,7 @@ DECK,
     // reveal finds it on the very first card, confirmed by Gray Wolf ending up in hand rather than
     // in the deck.
     'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'TAMER']]]], // TAMER champion: the [Class Bonus] is active (a bare class-bonus gate used to be always true)
         ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['GKEpAulogu']]], // Silvie, Loved by All -- unlocks TERA
         ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => 'hJ2xh9lNMR']], // Gray Wolf on top of deck
         ['player' => 1, 'zone' => 'myHand', 'cardID' => 'sHzSmygjWY'], // Gaia's Songbird, seeded to a known hand slot
@@ -10792,6 +10795,7 @@ DECK,
     // Same Undeniable Truth sacrifice-kill technique as library-witch-on-death-draw (its cost
     // handler directly sacrifices and queues its own 1-reserve cost -- no YES/NO or Glimpse step).
     'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'CLERIC']]]], // CLERIC champion: the [Class Bonus] is active (a bare class-bonus gate used to be always true)
         ['player' => 1, 'zone' => 'myField', 'cardID' => 'pnDhApDNvR'], // Magus Disciple
         ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UaUfw7yFTW'], // Undeniable Truth, seeded to a known hand slot
     ],
@@ -11340,6 +11344,7 @@ DECK,
     // than assumed away; the default Spirit of Fire champion already satisfies it. A Dungeon
     // Guide is seeded as the ally target.
     'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]], // GUARDIAN champion: the [Class Bonus] is active (a bare class-bonus gate used to be always true)
         ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, the ally target
     ],
     'actions' => [
@@ -13536,6 +13541,7 @@ DECK,
     // "if a fire element card was discarded" branch is reachable, dealing 1 damage to the chosen
     // unit (the opponent's champion).
     'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]], // ASSASSIN champion: the [Class Bonus] is active (a bare class-bonus gate used to be always true)
         ['player' => 2, 'zone' => 'myField', 'cardID' => 'YqQsXwEvv5'], // Corhazi Courier
         ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
         ['player' => 2, 'zone' => 'myHand', 'cardID' => 'YqQsXwEvv5'], // second copy (FIRE), discard fodder, seeded to a known hand slot
@@ -15151,6 +15157,7 @@ DECK,
     // pre-existing condition-classification issue orthogonal to the reveal/critical logic this
     // fixture targets, so it's left uncovered/unfixed here.
     'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]], // ASSASSIN champion: the [Class Bonus] is active (a bare class-bonus gate used to be always true)
         ['player' => 2, 'zone' => 'myField', 'cardID' => '2Ch1Gp3jEL'], // Corhazi Lightblade
         ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
         ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'd9zax2g20h'], // Bathe in Light (LUXEM) - sole memory card, deterministic reveal
@@ -19881,6 +19888,7 @@ $fixtures['zephyr-assistant-on-leave-resolves-when-retaliation-declined'] = [
 4 Windslice
 DECK,
     'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'MAGE']]]], // MAGE champion: the [Class Bonus] is active (a bare class-bonus gate used to be always true)
         ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
         ['player' => 1, 'zone' => 'myHand', 'cardID' => 'XZFXOE9sEV'], // Zephyr Assistant -> hand-7
         ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['buff' => 9]]], // Dungeon Guide with 9 buff counters (10 power) -> p2 field-1
@@ -27689,6 +27697,7 @@ $fixtures['gaias-songbird-enter-reveals-until-deep-beast-rest-to-bottom'] = [
     'testedCards' => ['sHzSmygjWY'],
     'deck' => $gaSweepDeck('Spirit of Fire'),
     'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'TAMER']]]], // TAMER champion: the [Class Bonus] is active (a bare class-bonus gate used to be always true)
         ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['GKEpAulogu']]], // Silvie, Loved by All -- unlocks TERA
         $gaHand('sHzSmygjWY'), // Gaia's Songbird -> myHand-7
         $gaTop([$GA_DG, $GA_FS, $GA_FW, 'hJ2xh9lNMR', $GA_MARK]), // reveal until Gray Wolf (BEAST ally, 4th): the three before it go to the bottom; then a marker
@@ -29438,6 +29447,460 @@ $fixtures['seraphic-legions-descent-level-three-ability-is-refused-below-level-t
         ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'aKjX6INGkV', 'setProperties' => ['Counters' => ['seraphicLegion' => 1]]],
     ],
     'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+
+// --- Starter-deck coverage batch 4 (Ciel / Diana decks): allies, items and weapons ---
+$gaNoop = function() { return mrdAns(1, 'myField-0'); }; // an answer with nothing pending is accepted as a no-op: gives the fixture a step to assert on
+
+// Whimsy's Warden (cworak5y4y): "Intercept. As long as you have two or more omens, Whimsy's Warden gets +2 POWER."
+$fixtures['whimsys-warden-gets-plus-two-power-with-two-or-more-omens'] = [
+    'testedCards' => ['cworak5y4y'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'cworak5y4y'], // Whimsy's Warden (power 1) -> myField-1
+        $gaOmen(), $gaOmen('px60u5n1do'),
+    ],
+    'actions' => [$gaNoop()],
+];
+$fixtures['whimsys-warden-has-base-power-with-only-one-omen'] = [
+    'testedCards' => ['cworak5y4y'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'cworak5y4y'], // Whimsy's Warden -> myField-1
+        $gaOmen(),
+    ],
+    'actions' => [$gaNoop()],
+];
+
+// Torch Marshal (izgiu216l2): "[Class Bonus] Torch Marshal gets +1 POWER. As an additional cost to declare an attack with this ally, pay (2)."
+$fixtures['torch-marshal-class-bonus-gets-plus-one-power'] = [
+    'testedCards' => ['izgiu216l2'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'izgiu216l2'], // Torch Marshal (power 3) -> myField-1
+    ],
+    'actions' => [$gaNoop()],
+];
+$fixtures['torch-marshal-without-the-class-bonus-has-base-power'] = [
+    'testedCards' => ['izgiu216l2'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'izgiu216l2'], // Torch Marshal -> myField-1
+    ],
+    'actions' => [$gaNoop()],
+];
+$fixtures['torch-marshal-attack-costs-an-additional-two'] = [
+    'testedCards' => ['izgiu216l2'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'izgiu216l2'], // Torch Marshal -> theirField-1 (attacks on player 2's turn)
+    ],
+    'actions' => array_merge([mrdEnd(1), mrdPass(1), mrdPass(1), mrdAct(2, 10002, 'myField-1!FSM!')], mrdPay(2, 2), [mrdAns(2, 'theirField-0')]), // the attack costs an additional (2), then the target is chosen
+];
+
+// Foresight Lens (drnxdiltx3): "Banish Foresight Lens: Glimpse 2. If your champion is distant, glimpse 4 instead."
+$fixtures['foresight-lens-banish-glimpses-two'] = [
+    'testedCards' => ['drnxdiltx3'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'drnxdiltx3'], // Foresight Lens -> myField-1
+        $gaTop(['em6eEh9q8y', 'px60u5n1do', 'em6eEh9q8y', 'px60u5n1do']),
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'Top=px60u5n1do;Bottom=em6eEh9q8y')], // glimpse 2: swap the top card to the bottom
+];
+$fixtures['foresight-lens-banish-while-distant-glimpses-four'] = [
+    'testedCards' => ['drnxdiltx3'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'drnxdiltx3'], // Foresight Lens -> myField-1
+        $gaTop(['em6eEh9q8y', 'px60u5n1do', 'em6eEh9q8y', 'px60u5n1do']),
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['TurnEffects' => ['DISTANT']]],
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'Top=px60u5n1do;Bottom=em6eEh9q8y,px60u5n1do,em6eEh9q8y')], // glimpse 4 (distant): keep one on top, three to the bottom
+];
+
+// Manxome Armoire (fm894uc4ij): "[Ciel Bonus] Banish Manxome Armoire: Return one of your omens to your hand. If you do, banish a card from your hand and put an omen counter on it."
+$fixtures['manxome-armoire-ciel-bonus-banish-swaps-an-omen-for-a-card-from-hand'] = [
+    'testedCards' => ['fm894uc4ij'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaCiel,
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fm894uc4ij'], // Manxome Armoire -> myField-1
+        $gaOmen('px60u5n1do'), // a Fluffy Shopkeep omen -> myBanish-0
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myBanish-0'), mrdAns(1, 'myHand-0')], // return the omen to hand, then banish a hand card as the new omen
+];
+
+$fixtures['manxome-armoire-without-the-ciel-bonus-cannot-activate'] = [
+    'testedCards' => ['fm894uc4ij'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fm894uc4ij'], // Manxome Armoire -> myField-1 (the champion is not named Ciel)
+        $gaOmen('px60u5n1do'),
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+
+// Corsair Captain (4e1gqwah01): "Ranged 2 (as long as this unit is distant, its attacks get +2 POWER). [Class Bonus] Floating Memory."
+$fixtures['corsair-captain-ranged-two-gets-plus-two-power-while-distant'] = [
+    'testedCards' => ['4e1gqwah01'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4e1gqwah01', 'setProperties' => ['TurnEffects' => ['DISTANT']]], // Corsair Captain (power 1), distant -> myField-1
+    ],
+    'actions' => [$gaNoop()],
+];
+$fixtures['corsair-captain-not-distant-has-base-power'] = [
+    'testedCards' => ['4e1gqwah01'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4e1gqwah01'], // Corsair Captain -> myField-1
+    ],
+    'actions' => [$gaNoop()],
+];
+
+// Majestic Spirit's Crest (Tx6iJQNSA6): "[Class Bonus] Banish Majestic Spirit's Crest: Your champion gains 'On Attack: Draw a card' until end of turn."
+$fixtures['majestic-spirits-crest-class-bonus-banish-grants-the-champion-an-on-attack-draw'] = [
+    'testedCards' => ['Tx6iJQNSA6'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'WARRIOR']]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Tx6iJQNSA6'], // Majestic Spirit's Crest -> myField-1
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+$fixtures['majestic-spirits-crest-without-the-class-bonus-cannot-activate'] = [
+    'testedCards' => ['Tx6iJQNSA6'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Tx6iJQNSA6'], // Majestic Spirit's Crest -> myField-1 (the champion has no class)
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+// Melodious Flute (WAFNy2lY5t): "[Class Bonus] Banish Melodious Flute: The next Harmony action card you activate this turn is a Melody in addition to its other types."
+$fixtures['melodious-flute-class-bonus-banish-marks-the-next-harmony-action-as-a-melody'] = [
+    'testedCards' => ['WAFNy2lY5t'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'TAMER']]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'WAFNy2lY5t'], // Melodious Flute -> myField-1
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+$fixtures['melodious-flute-without-the-class-bonus-cannot-activate'] = [
+    'testedCards' => ['WAFNy2lY5t'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'WAFNy2lY5t'], // Melodious Flute -> myField-1 (the champion has no class)
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+
+// Negative twin of 'ornamental-greatsword-enter-ally-power': the champion's class does not match, so the [Class Bonus] must NOT apply.
+$fixtures['ornamental-greatsword-without-the-class-bonus-gives-no-power'] = [
+    'testedCards' => ['qyQLlDYBlr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Ornamental Greatsword
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    
+'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, the ally target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Negative twin of 'corhazi-lightblade-reveal-luxem-critical': the champion's class does not match, so the [Class Bonus] must NOT apply.
+$fixtures['corhazi-lightblade-without-the-class-bonus-does-not-reveal-or-gain-critical'] = [
+    'testedCards' => ['2Ch1Gp3jEL'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    
+'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '2Ch1Gp3jEL'], // Corhazi Lightblade
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'd9zax2g20h'], // Bathe in Light (LUXEM) - sole memory card, deterministic reveal
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1's turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 2 declines their own materialize offer
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Corhazi Lightblade declares an attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target player 1's champion
+    ],
+];
+
+// Negative twin of 'corhazi-courier-onhit-draw-discard-damage': the champion's class does not match, so the [Class Bonus] must NOT apply.
+$fixtures['corhazi-courier-without-the-class-bonus-on-hit-does-not-draw'] = [
+    'testedCards' => ['YqQsXwEvv5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    
+'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'YqQsXwEvv5'], // Corhazi Courier
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'YqQsXwEvv5'], // second copy (FIRE), discard fodder, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Corhazi Courier
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // discard the second (FIRE) copy
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // choose the opponent's champion to deal 1 damage to
+    ],
+];
+
+// Negative twin of 'caretaker-drone-class-bonus-death-glimpse': the champion's class does not match, so the [Class Bonus] must NOT apply.
+$fixtures['caretaker-drone-without-the-class-bonus-on-death-does-not-glimpse'] = [
+    'testedCards' => ['urfp66pv4n'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    
+'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'urfp66pv4n'], // Caretaker Drone
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UaUfw7yFTW'], // Undeniable Truth, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Caretaker Drone as the mandatory cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Negative twin of 'magus-disciple-class-bonus-on-death-draw': the champion's class does not match, so the [Class Bonus] must NOT apply.
+$fixtures['magus-disciple-without-the-class-bonus-on-death-does-not-draw'] = [
+    'testedCards' => ['pnDhApDNvR'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    
+'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'pnDhApDNvR'], // Magus Disciple
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UaUfw7yFTW'], // Undeniable Truth, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Magus Disciple as the mandatory cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Undeniable Truth's 1-reserve cost
+    ],
+];
+
+// Negative twin of 'purge-in-flames-damage': the champion's class does not match, so the [Class Bonus] must NOT apply.
+$fixtures['purge-in-flames-without-the-class-bonus-deals-two-damage'] = [
+    'testedCards' => ['uTBsOYf15p'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Purge in Flames
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    
+'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - AoE target 1/2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 1/2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 2/2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uTBsOYf15p'], // Purge in Flames, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-9!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// Negative twin of 'gaias-songbird-class-bonus-enter-reveal-beast': the champion's class does not match, so the [Class Bonus] must NOT apply.
+$fixtures['gaias-songbird-without-the-class-bonus-does-not-reveal'] = [
+    'testedCards' => ['sHzSmygjWY'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    
+'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['GKEpAulogu']]], // Silvie, Loved by All -- unlocks TERA
+        ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => 'hJ2xh9lNMR']], // Gray Wolf on top of deck
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'sHzSmygjWY'], // Gaia's Songbird, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Field items whose printed activated ability used to run free and repeatable (misfiled in the play-time table) ---
+// Halcyon Prism (997vxajn2q): "Banish Halcyon Prism: Glimpse 3."
+$fixtures['halcyon-prism-banish-glimpses-three'] = [
+    'testedCards' => ['997vxajn2q'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '997vxajn2q'], // Halcyon Prism -> myField-1
+        $gaTop(['em6eEh9q8y', 'px60u5n1do', 'em6eEh9q8y']),
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'Top=px60u5n1do;Bottom=em6eEh9q8y,em6eEh9q8y')], // glimpse 3: keep one on top, two to the bottom
+];
+// Teardrop Diadem (K15jWbHAMY): "Banish Teardrop Diadem: Draw three cards into your memory."
+$fixtures['teardrop-diadem-banish-draws-three-into-memory'] = [
+    'testedCards' => ['K15jWbHAMY'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'K15jWbHAMY'], // Teardrop Diadem -> myField-1
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+// Bellona's Runestone (clgolelsra): "Banish Bellona's Runestone: Target weapon you control gets +2 POWER until end of turn. Put a durability counter on that weapon."
+$fixtures['bellonas-runestone-banish-buffs-a-weapon-and-adds-a-durability-counter'] = [
+    'testedCards' => ['clgolelsra'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'clgolelsra'], // Bellona's Runestone -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], // Sojourner's Hunt (a weapon) -> myField-2
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myField-1')], // the Runestone banishes itself first, so the weapon slides down to myField-1
+];
+// Condemned Trinket (21oy1nd4nw): "(3), Banish Condemned Trinket: Banish a card from your graveyard and put an omen counter on it."
+$fixtures['condemned-trinket-pays-three-banishes-itself-and-omens-a-graveyard-card'] = [
+    'testedCards' => ['21oy1nd4nw'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '21oy1nd4nw'], // Condemned Trinket -> myField-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> myGraveyard-0
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 3), [mrdAns(1, 'myGraveyard-0')]),
+];
+// Nullifying Mirror (pol1nz0j1n): "[REST]: Until end of turn, cards in target opponent's memory are norm element."
+$fixtures['nullifying-mirror-rest-adds-the-norm-memory-effect-until-end-of-turn'] = [
+    'testedCards' => ['pol1nz0j1n'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'pol1nz0j1n'], // Nullifying Mirror -> myField-1
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+// Cloak of Stillwater (2ha4dk88zq): "[REST], Banish a card with floating memory from your graveyard: Prevent the next 3 damage that would be dealt to your champion this turn."
+$fixtures['cloak-of-stillwater-rest-and-banish-a-floating-memory-card-prevents-three-champion-damage'] = [
+    'testedCards' => ['2ha4dk88zq'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2ha4dk88zq'], // Cloak of Stillwater -> myField-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], // Fast Cure (floating memory) -> myGraveyard-0
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myGraveyard-0')],
+];
+// Razor Broadhead (si9ux3ak6o) / Frozen Quill (iqcknwa2vl): "[REST]: Load CARDNAME into target unloaded Bow weapon you control."
+$fixtures['razor-broadhead-rest-loads-itself-into-an-unloaded-bow'] = [
+    'testedCards' => ['si9ux3ak6o'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], // Sojourner's Hunt (a Bow) -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'si9ux3ak6o'], // Razor Broadhead -> myField-2
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-2!CustomInput!Activate:0'), mrdAns(1, 'myField-1')],
+];
+$fixtures['frozen-quill-rest-loads-itself-into-an-unloaded-bow'] = [
+    'testedCards' => ['iqcknwa2vl'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], // Sojourner's Hunt (a Bow) -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'iqcknwa2vl'], // Frozen Quill -> myField-2
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-2!CustomInput!Activate:0'), mrdAns(1, 'myField-1')],
+];
+// Discordia, Harp of Malice (5LoOprBJay): "[REST]: Target champion gets -X level and your champion gets +X level until end of turn, where X is the amount of music counters on CARDNAME. At the beginning of the next end phase, banish CARDNAME."
+$fixtures['discordia-rest-swaps-levels-by-its-music-counters-and-is-banished-at-end-phase'] = [
+    'testedCards' => ['5LoOprBJay'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5LoOprBJay'], // Discordia -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Counters' => ['music' => 2]]],
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'theirField-0')],
+];
+// Grave Gateau (FQigf17dCr): "[REST], Sacrifice CARDNAME: Put a buff counter on target Specter ally."
+$fixtures['grave-gateau-rest-and-sacrifice-puts-a-buff-counter-on-a-specter'] = [
+    'testedCards' => ['FQigf17dCr'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zyEMI5XNHt'], // Mourning Veilbound (SPECTER ally) -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'FQigf17dCr'], // Grave Gateau -> myField-2
+        ['player' => 1, 'patchMzId' => 'myField-2', 'setProperties' => ['Status' => 2]], // Hindered: enters rested, so wake it
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-2!CustomInput!Activate:0'), mrdAns(1, 'myField-1')],
 ];
 
 // Filter if --fixture specified

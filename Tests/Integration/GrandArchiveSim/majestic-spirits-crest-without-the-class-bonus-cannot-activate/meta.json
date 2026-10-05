@@ -1,0 +1,29 @@
+{
+    "name": "majestic-spirits-crest-without-the-class-bonus-cannot-activate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T22:02:26+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "Tx6iJQNSA6"
+    ],
+    "notes": "The Class Bonus was enforced on the effect only (bare IsClassBonusActive) while the banish cost was paid: now refused by $activateAbilityPrereqs['Tx6iJQNSA6:0'].",
+    "semanticCoverage": {
+        "testedCards": [
+            "Tx6iJQNSA6"
+        ],
+        "mechanics": [
+            "activation-restriction",
+            "class-bonus",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Banish Majestic Spirit's Crest: ..."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "A non-Warrior champion could banish the Crest for no effect.",
+        "affectedFunction": "activateAbilityPrereqs['Tx6iJQNSA6:0']",
+        "fixCommit": "TBD"
+    }
+}

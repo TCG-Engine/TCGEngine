@@ -1,0 +1,29 @@
+{
+    "name": "melodious-flute-without-the-class-bonus-cannot-activate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T22:02:28+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "WAFNy2lY5t"
+    ],
+    "notes": "The Class Bonus was enforced on the effect only while the banish cost was paid: now refused by $activateAbilityPrereqs['WAFNy2lY5t:0'].",
+    "semanticCoverage": {
+        "testedCards": [
+            "WAFNy2lY5t"
+        ],
+        "mechanics": [
+            "activation-restriction",
+            "class-bonus",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Banish Melodious Flute: ..."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "A non-Tamer champion could banish the Flute for no effect.",
+        "affectedFunction": "activateAbilityPrereqs['WAFNy2lY5t:0']",
+        "fixCommit": "TBD"
+    }
+}

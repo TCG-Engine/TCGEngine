@@ -1,0 +1,27 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[]",
+        "semantic": true,
+        "label": "No CRITICAL_1 tag: the On Attack reveal did not happen without the Assassin class bonus"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "The attack resolved normally for its printed 2 POWER (no critical prompt)"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
