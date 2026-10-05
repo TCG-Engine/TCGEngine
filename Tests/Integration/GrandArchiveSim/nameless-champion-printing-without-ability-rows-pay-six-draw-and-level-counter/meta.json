@@ -1,0 +1,29 @@
+{
+    "name": "nameless-champion-printing-without-ability-rows-pay-six-draw-and-level-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T14:29:33+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "LahboNoSRx"
+    ],
+    "notes": "auto",
+    "semanticCoverage": {
+        "testedCards": [
+            "LahboNoSRx"
+        ],
+        "mechanics": [
+            "draw",
+            "counter",
+            "once-per-game"
+        ],
+        "rulesClauses": [
+            "This champion can't level up. (6): Draw a card and put a level counter on Nameless Champion. Activate this ability only once."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Three printings of Nameless Champion (LahboNoSRx, foV3VG5iOr, K7jYO9IibV) have no generated ability rows at all, so the (6) ability did nothing on them (live repro on HEAD: clicking Activate changed nothing). The ability count, cost and body are now keyed on the card name for every printing.",
+        "affectedFunction": "Custom/GameLogic.php DoActivatedAbility / ActivatedAbilityCost and Custom/GeneratedAbilityOverrides.php (Nameless Champion block)",
+        "fixCommit": "TBD"
+    }
+}

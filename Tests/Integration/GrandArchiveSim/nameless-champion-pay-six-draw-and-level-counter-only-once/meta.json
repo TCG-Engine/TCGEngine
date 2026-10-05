@@ -1,0 +1,29 @@
+{
+    "name": "nameless-champion-pay-six-draw-and-level-counter-only-once",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T14:29:03+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "9tmr8iel1m"
+    ],
+    "notes": "auto",
+    "semanticCoverage": {
+        "testedCards": [
+            "9tmr8iel1m"
+        ],
+        "mechanics": [
+            "draw",
+            "counter",
+            "once-per-game"
+        ],
+        "rulesClauses": [
+            "This champion can't level up. (6): Draw a card and put a level counter on Nameless Champion. Activate this ability only once."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The ability's printed cost is (6) with no [REST], but DoActivatedAbility() applied the implicit REST to every static champion ability, so Nameless Champion rested when activated (live repro on HEAD: Status 1). The once-only check lives in $activateAbilityPrereqs, which the direct activation path never consults; it only appeared to work because the rested champion could not activate again that turn. Once the champion stays awake the second activation was possible every turn. Fix: Nameless Champion skips the implicit REST and DoActivatedAbility() refuses a second activation before any cost is paid.",
+        "affectedFunction": "Custom/GameLogic.php DoActivatedAbility (IsNamelessChampionID / NamelessChampionAbilityUsed)",
+        "fixCommit": "TBD"
+    }
+}

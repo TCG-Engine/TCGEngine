@@ -1134,8 +1134,8 @@ function DoMaterialize($player, $mzCard) {
             }
         }
 
-        // Nameless Champion (0794z3ffck): This champion can't level up.
-        if($existingChampionIdx >= 0 && $existingChampionCardID === "0794z3ffck"
+        // Nameless Champion (every printing): This champion can't level up.
+        if($existingChampionIdx >= 0 && IsNamelessChampionID($existingChampionCardID)
            && !HasNoAbilities($field[$existingChampionIdx])) {
             MZMove($player, $mzCard, "myMaterial");
             return;

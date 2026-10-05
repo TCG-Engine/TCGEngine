@@ -1,69 +1,61 @@
 [
     {
         "playerID": 1,
-        "mode": 10002,
+        "mode": 10001,
         "buttonInput": "",
-        "cardID": "myHand-7!FSM!",
+        "cardID": "myHealth-0!CustomInput!Pass",
         "chkInput": [],
         "inputText": ""
     },
     {
         "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "NO",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "myHand-0",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "myHand-0",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "myHand-0",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "1",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 2,
         "mode": 100,
         "buttonInput": "",
         "cardID": "PASS",
         "chkInput": [],
-        "inputText": "",
-        "expectFailure": true,
-        "semantic": true,
-        "label": "The targeted opponent cannot decline the discard"
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "PASS",
+        "chkInput": [],
+        "inputText": ""
     },
     {
         "playerID": 2,
-        "mode": 100,
+        "mode": 10001,
         "buttonInput": "",
-        "cardID": "myHand-0",
+        "cardID": "myHealth-0!CustomInput!Pass",
         "chkInput": [],
         "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "PASS",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "PASS",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myMaterial-0",
+        "chkInput": [],
+        "inputText": "",
+        "expectFailure": true,
+        "semantic": true,
+        "label": "Nameless Champion cannot level up: the level-up is not offered"
     }
 ]

@@ -1668,3 +1668,21 @@ $cardActivatedAbilities["tdz5of8zuz:0"] = function($player) { //Destroy cheap re
   DecisionQueueController::AddDecision($player, "CUSTOM", "tdz5of8zuz:0:CardActivated-1", 1);
 };
 
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Nameless Champion (18 printings): "This champion can't level up. (6): Draw a card and put a level counter on Nameless Champion. Activate this ability only once."
+// The generated body only exists for 15 of the 18 printings (LahboNoSRx, foV3VG5iOr and K7jYO9IibV have no ability rows at all) and its once-only check lives in
+// $activateAbilityPrereqs, which DoActivatedAbility()'s direct path never consults (the champion's implicit REST was what made a second activation fail in the same turn;
+// with that REST removed the ability could be used every turn). One body for every printing; DoActivatedAbility() refuses a second activation before the cost is paid.
+foreach(["9tmr8iel1m", "LahboNoSRx", "98i5ak5nwo", "f4rlv5dsrb", "j9fiu22ltl", "ztjuymn2ge", "as8yfa8ptg", "foV3VG5iOr", "K7jYO9IibV", "pv6ichyxj0", "jk9w4buhwk",
+        "b53ccl9ipn", "thaqwi9apy", "k7sz76vn6u", "nq6nhjy85f", "mic7hijxlg", "86flbytki3", "0794z3ffck"] as $gaNamelessID) {
+  $activateAbilityAbilities[$gaNamelessID . ":0"] = function($player) use ($gaNamelessID) { //Draw
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    $obj = &GetZoneObject($mzID);
+    if($obj === null || $obj->removed || NamelessChampionAbilityUsed($obj)) return;
+    if(!is_array($obj->Counters)) $obj->Counters = [];
+    $obj->Counters[$gaNamelessID . "_used"] = 1;
+    Draw($player, 1);
+    AddCounters($player, $mzID, "level", 1);
+  };
+}

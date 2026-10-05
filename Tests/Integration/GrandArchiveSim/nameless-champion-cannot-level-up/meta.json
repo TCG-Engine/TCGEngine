@@ -1,0 +1,28 @@
+{
+    "name": "nameless-champion-cannot-level-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T14:29:02+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "9tmr8iel1m"
+    ],
+    "notes": "auto",
+    "semanticCoverage": {
+        "testedCards": [
+            "9tmr8iel1m"
+        ],
+        "mechanics": [
+            "level-up",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "This champion can't level up."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Only one printing (0794z3ffck) enforced \"can't level up\", and it did so after the level-up memory cost had been paid and the card moved, silently losing the cost. The level-up is now never offered for any printing (CanChampionLevelUpIntoCard).",
+        "affectedFunction": "Custom/GameLogic.php CanChampionLevelUpIntoCard and Custom/MaterializeLogic.php",
+        "fixCommit": "TBD"
+    }
+}

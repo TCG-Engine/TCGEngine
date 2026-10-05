@@ -1,7 +1,7 @@
 {
     "name": "topsy-decree-opponent-must-discard-cannot-decline",
     "rootName": "GrandArchiveSim",
-    "createdAt": "2026-10-05T01:22:54+00:00",
+    "createdAt": "2026-10-05T14:24:14+00:00",
     "createdBy": "Claude Sonnet 5.5",
     "testedCards": [
         "Byx6iokcT4"
@@ -21,8 +21,8 @@
     },
     "engineBug": {
         "status": "fixed",
-        "summary": "FIXED. The targeted opponent was offered the discard as an MZMAYCHOOSE, so they could PASS and keep every card, and TopsyDecreeDiscard was queued without dontSkipOnPass so a PASS also dropped the rest of the chosen modes (live repro on HEAD: PASS accepted, nothing discarded, queue empty). The discard is now a forced MZCHOOSE, and because GameValidateDecisionAnswer() accepts PASS for every decision type the handler re-asks while the opponent still has a card to discard.",
-        "affectedFunction": "Custom/GameLogic.php TopsyDecree_ProcessNext case 1 and the TopsyDecreeDiscard handler",
-        "fixCommit": "6cf02f57a1cd49cd21bc4989588da63468490939"
+        "summary": "FIXED. The targeted opponent was offered the discard as an MZMAYCHOOSE, so they could PASS and keep every card, and TopsyDecreeDiscard was queued without dontSkipOnPass so a PASS also dropped the rest of the chosen modes (live repro on HEAD: PASS accepted, nothing discarded, queue empty). The discard is now a forced MZCHOOSE, which GameValidateDecisionAnswer() refuses to let PASS.",
+        "affectedFunction": "Custom/GameLogic.php TopsyDecree_ProcessNext case 1",
+        "fixCommit": "TBD"
     }
 }

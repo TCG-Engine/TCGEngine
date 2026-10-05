@@ -28,14 +28,18 @@ include_once __DIR__ . '/CardDQHandlers.php';
 // auto-decline when no candidate is left); mandatory-choice decline behavior is intentionally
 // left unchanged for compatibility.
 function GameValidateDecisionAnswer(int $player, string $answer): bool {
-    if ($answer === 'PASS' || $answer === '-' || $answer === '') return true;
-
     $head = null;
     foreach (GetDecisionQueue($player) as $decision) {
         if (empty($decision->removed)) {
             $head = $decision;
             break;
         }
+    }
+    if ($answer === 'PASS' || $answer === '-' || $answer === '') {
+        // A mandatory MZCHOOSE (the UI only offers Pass on MZMAYCHOOSE / min-0 multichoose) cannot be declined while it still has a
+        // legal candidate. With no candidate left it is answered with PASS by the engine itself and must stay acceptable.
+        if ($head !== null && strval($head->Type ?? '') === 'MZCHOOSE' && GACountLiveChoiceCandidates(strval($head->Param ?? '')) > 0) return false;
+        return true;
     }
     if ($head === null) return true;
     $type = strval($head->Type ?? '');
@@ -3769,7 +3773,7 @@ $customDQHandlers["TopsyDecree_ProcessNext"] = function($player, $parts, $lastDe
             }
             $targetStr = implode("&", $targets);
             // The targeted opponent must discard: MZMAYCHOOSE let them PASS and keep every card (and, without dontSkipOnPass, a PASS
-            // also skipped TopsyDecreeDiscard, which is what continues to the next chosen mode).
+            // also skipped TopsyDecreeDiscard, which is what continues to the next chosen mode). A plain MZCHOOSE cannot be declined.
             DecisionQueueController::AddDecision($oppPlayer, "MZCHOOSE", $targetStr, 1, tooltip:"Discard_a_card_(Topsy_Decree)");
             DecisionQueueController::AddDecision($oppPlayer, "CUSTOM", "TopsyDecreeDiscard|$actingPlayer", 1, dontSkipOnPass:1);
             break;
@@ -3828,15 +3832,6 @@ $customDQHandlers["TopsyDecreeDiscard"] = function($player, $parts, $lastDecisio
     $actingPlayer = count($parts) > 0 ? intval($parts[0]) : $player;
     if($lastDecision !== "-" && $lastDecision !== "PASS" && !empty($lastDecision)) {
         MZMove($player, $lastDecision, "myGraveyard");
-    } else {
-        // GameValidateDecisionAnswer() accepts PASS for every decision, but the targeted opponent has no option to decline the discard:
-        // ask again while they still have a card to discard.
-        $targets = TopsyDecreeDiscardTargets($player);
-        if(!empty($targets)) {
-            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Discard_a_card_(Topsy_Decree)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeDiscard|$actingPlayer", 1, dontSkipOnPass:1);
-            return;
-        }
     }
     TopsyDecreeContinue($player, $actingPlayer);
 };
@@ -6883,21 +6878,24 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
-        case "j9fiu22ltl": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "jk9w4buhwk": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "as8yfa8ptg": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "k7sz76vn6u": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "thaqwi9apy": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "86flbytki3": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "98i5ak5nwo": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "ztjuymn2ge": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "9tmr8iel1m": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "pv6ichyxj0": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "0794z3ffck": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "b53ccl9ipn": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "mic7hijxlg": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "nq6nhjy85f": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
-        case "f4rlv5dsrb": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "j9fiu22ltl": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "jk9w4buhwk": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "as8yfa8ptg": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "k7sz76vn6u": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "thaqwi9apy": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "86flbytki3": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "98i5ak5nwo": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "ztjuymn2ge": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "9tmr8iel1m": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "pv6ichyxj0": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "0794z3ffck": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "b53ccl9ipn": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "mic7hijxlg": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "nq6nhjy85f": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "f4rlv5dsrb": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "LahboNoSRx": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "foV3VG5iOr": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
+        case "K7jYO9IibV": // Nameless Champion  - (6): Draw a card and put a level counter on it (no rest cost; "Activate this ability only once")
             if(intval($abilityIndex) === 0) {
                 for($ri = 0; $ri < 6; ++$ri) {
                     DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
@@ -7620,6 +7618,17 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
     }
 }
 
+// Nameless Champion (18 printings): "This champion can't level up. (6): Draw a card and put a level counter on Nameless Champion. Activate this ability only once."
+// The ability has no [REST] in its cost, may be activated once per game, and three printings (LahboNoSRx, foV3VG5iOr, K7jYO9IibV) have no generated ability rows
+// at all, so everything is keyed on the name instead of a per-printing id list.
+function IsNamelessChampionID($cardID) {
+    return CardName($cardID) === "Nameless Champion";
+}
+
+function NamelessChampionAbilityUsed($obj) {
+    return $obj !== null && is_array($obj->Counters ?? null) && isset($obj->Counters[$obj->CardID . "_used"]);
+}
+
 function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
@@ -7634,6 +7643,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "uvgflagxbb" && HasOpportunity($player)) return; // Coronal of Rejuvenation: slow speed only
     if($cardID === "wCAIuvPOAT" && CountPreservedCardsInMaterial($player) < 5) return; // Verdure of Preservation
     if(GetCounterCount($sourceObject, "frenzy") > 0) return;
+    if(IsNamelessChampionID($cardID) && NamelessChampionAbilityUsed($sourceObject)) return; // "Activate this ability only once" (checked before the cost is paid)
 
     // Cardistry: block activation if already used (per-card, per-game)
     global $Cardistry_Cards;
@@ -7663,6 +7673,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // vkL2RFh0yM above -- see its activateAbilityAbilities/activateAbilityPrereqs registration
     // and this NOTE, just above ResolveObelithEscort() in this file.
     if($cardID === "7mmve2l328" && !$isHandActivatedMacro) $staticAbilityCount = 1;
+    if(IsNamelessChampionID($cardID) && !$isHandActivatedMacro) $staticAbilityCount = 1; // three printings have no generated ability-count row
     $refractedTwilightCopies = 0;
     if(PropertyContains(CardSubtypes($cardID), "POTION") && $selectedAbilityIndex < $staticAbilityCount) {
         foreach($sourceObject->TurnEffects as $rtIdx => $rtEffect) {
@@ -7684,6 +7695,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     //   rw8qq1uwq8 Corhazi Outlook        ([Class Bonus] Remove a preparation counter from your champion)
     $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq", "4yqL9xtzVi", "dPP9I4nVn0", "k8bwlx70qj", "u73yv2nbvj", "yicNKtzC3H", "GhxADim7Kf", "4FtNBFaOJp",
         "he6kd7hocc", "0ejcyuvuxn", "xW6SZSlJX6", "peyG8Hfgqt", "s4oelWMRJE", "rw8qq1uwq8"]);
+    if(IsNamelessChampionID($cardID)) $skipAutoRest = true; // (6) only: no [REST] in the cost
     if($selectedAbilityIndex < $staticAbilityCount && !$isCardistry && !$skipAutoRest
         && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
         $sourceObject->Status = 1;
@@ -20917,6 +20929,9 @@ function CanChampionLevelUpIntoCard($player, $cardID, $higherLevelOnly = false) 
 
     $champObj = GetPlayerChampion($player);
     if($champObj === null || $champObj->removed) return false;
+
+    // Nameless Champion: "This champion can't level up." Excluded here so the level-up is never offered (refusing it after the memory cost was paid lost that cost).
+    if(IsNamelessChampionID($champObj->CardID) && !HasNoAbilities($champObj)) return false;
 
     $currentLevel = intval(CardLevel($champObj->CardID));
     if($targetLevel === ($currentLevel + 1)) return true;

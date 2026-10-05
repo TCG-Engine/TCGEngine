@@ -28024,7 +28024,7 @@ $fixtures['diana-judgments-arrow-enter-load-one-aethercharge-then-decline-draws-
 
 
 // --- Topsy Decree (Byx6iokcT4): "Choose one — Up to one target opponent discards a card from their hand or memory ..." The targeted opponent has no choice about discarding: the flow offered the opponent an MZMAYCHOOSE, so they could
-// PASS and keep every card (and TopsyDecreeDiscard was queued without dontSkipOnPass, so a PASS also dropped the rest of the chosen modes). Player 2 holds a single card; passing the discard prompt must bring it back until they discard. ---
+// PASS and keep every card (and TopsyDecreeDiscard was queued without dontSkipOnPass, so a PASS also dropped the rest of the chosen modes). Player 2 holds a single card; passing the discard prompt must be refused. ---
 $fixtures['topsy-decree-opponent-must-discard-cannot-decline'] = [
     'testedCards' => ['Byx6iokcT4'],
     'deck' => $gaSweepDeck('Spirit of Water'),
@@ -28035,7 +28035,7 @@ $fixtures['topsy-decree-opponent-must-discard-cannot-decline'] = [
     ],
     'actions' => array_merge([mrdPlay(1, 'myHand-7'), mrdAns(1, 'NO')], mrdPay(1, 3), [
         mrdAns(1, '1'), // decline the Imbue, pay 3, choose the discard mode
-        mrdPass(2),            // the engine accepts PASS for any decision; the discard is not optional, so the prompt must come back
+        mrdAns(2, 'PASS', ['expectFailure' => true, 'semantic' => true, 'label' => 'The targeted opponent cannot decline the discard']),
         mrdAns(2, 'myHand-0'),
     ]),
 ];
@@ -28053,6 +28053,48 @@ $fixtures['viridescent-aetherstreak-mode-one-no-target-then-load-into-aetherwing
         $gaHand('pc0y3xneg7'), // Viridescent Aetherstreak -> myHand-7
     ],
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'YES'), mrdPass(1), mrdAns(1, 'NO'), mrdAns(1, 'YES'), mrdAns(1, 'myField-1')]), // mode 1, no target; not mode 2; mode 3 into Salamander's Breath
+];
+
+
+// --- Nameless Champion (9tmr8iel1m): "This champion can't level up. (6): Draw a card and put a level counter on Nameless Champion. Activate this ability only once." The cost is six reserve (no rest) and the ability works exactly
+// once. Player 1's champion is patched to Nameless Champion and pays six hand cards. ---
+$fixtures['nameless-champion-pay-six-draw-and-level-counter-only-once'] = [
+    'testedCards' => ['9tmr8iel1m'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '9tmr8iel1m']], // Nameless Champion
+        $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), // six more hand cards: a second activation is affordable, so only "once" can refuse it
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-0!CustomInput!Activate:0')], mrdPay(1, 6), [
+        mrdAct(1, 10001, 'myField-0!CustomInput!Activate:0'),
+    ]),
+];
+
+
+// --- Nameless Champion, a printing with no generated ability rows (LahboNoSRx): the same (6) ability must work. ---
+$fixtures['nameless-champion-printing-without-ability-rows-pay-six-draw-and-level-counter'] = [
+    'testedCards' => ['LahboNoSRx'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'LahboNoSRx']], // Nameless Champion (ASSASSIN/WARRIOR printing)
+        $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), // six more hand cards: a second activation is affordable, so only "once" can refuse it
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-0!CustomInput!Activate:0')], mrdPay(1, 6), [mrdAct(1, 10001, 'myField-0!CustomInput!Activate:0')]), // the second click must do nothing
+];
+
+// --- Nameless Champion (9tmr8iel1m): "This champion can't level up." Only one printing (0794z3ffck) enforced it. A level-1 Nameless Champion with a Kongming, Erudite Strategist in the material deck and the 2-memory level-up cost
+// pre-loaded must stay as it is when the level-up is chosen. ---
+$fixtures['nameless-champion-cannot-level-up'] = [
+    'testedCards' => ['9tmr8iel1m'],
+    'deck' => "# Material\n1 Spirit of Fire\n1 Kongming, Erudite Strategist\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '9tmr8iel1m']], // Nameless Champion (level 1)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_FW], // pays the 2-memory level-up cost, card 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_FW], // card 2/2
+    ],
+    'actions' => [
+        mrdEnd(1), mrdPass(1), mrdPass(1), mrdEnd(2), mrdPass(1), mrdPass(1), mrdAns(1, 'myMaterial-0', ['expectFailure' => true, 'semantic' => true, 'label' => 'Nameless Champion cannot level up: the level-up is not offered']),
+    ], // the champion's own (6) ability opens a priority window at every step: pass each one
 ];
 
 // Filter if --fixture specified

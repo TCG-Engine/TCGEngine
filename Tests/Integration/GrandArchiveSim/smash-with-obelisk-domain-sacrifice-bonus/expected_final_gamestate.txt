@@ -29,10 +29,12 @@
 0
 0
 0
-1
+2
 lcCGyyNGuM
+2kkvoqk1l7
 0
-0
+1
+CHAMP_DEALT_COMBAT_DMG
 7
 1x97n2jnlt
 1x97n2jnlt
@@ -51,12 +53,11 @@ lcCGyyNGuM
 1x97n2jnlt
 1x97n2jnlt
 1
-pNiyaGlIe7 2 1 0 1 - - - 1
+pNiyaGlIe7 2 1 10 1 WAS_ATTACKED~DAMAGED_SINCE_LAST_TURN~CHAMP_DMG_BY_P2 eyJfY2hhbXBEYW1hZ2VUaGlzVHVybiI6MTB9 - 1
 1
-pNiyaGlIe7 1 2 0 2 - - WyJuMmpubHR2NWtsIl0= 2
+pNiyaGlIe7 1 2 0 2 - eyJfY2hhbXBDb21iYXREYW1hZ2VEZWFsdFRoaXNUdXJuIjoxMH0= WyJuMmpubHR2NWtsIl0= 2
 0
-1
-2kkvoqk1l7 2 2kkvoqk1l7-4
+0
 0
 4
 1x97n2jnlt

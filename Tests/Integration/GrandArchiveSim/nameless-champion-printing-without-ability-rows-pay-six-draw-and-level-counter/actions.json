@@ -1,17 +1,9 @@
 [
     {
         "playerID": 1,
-        "mode": 10002,
+        "mode": 10001,
         "buttonInput": "",
-        "cardID": "myHand-7!FSM!",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "NO",
+        "cardID": "myField-0!CustomInput!Activate:0",
         "chkInput": [],
         "inputText": ""
     },
@@ -43,26 +35,31 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "1",
+        "cardID": "myHand-0",
         "chkInput": [],
         "inputText": ""
     },
     {
-        "playerID": 2,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "PASS",
-        "chkInput": [],
-        "inputText": "",
-        "expectFailure": true,
-        "semantic": true,
-        "label": "The targeted opponent cannot decline the discard"
-    },
-    {
-        "playerID": 2,
+        "playerID": 1,
         "mode": 100,
         "buttonInput": "",
         "cardID": "myHand-0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myField-0!CustomInput!Activate:0",
         "chkInput": [],
         "inputText": ""
     }
