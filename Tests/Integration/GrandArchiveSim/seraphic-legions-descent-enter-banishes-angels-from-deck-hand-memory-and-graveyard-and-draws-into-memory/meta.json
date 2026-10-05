@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "Seraphic Legion's Descent's On Enter was not implemented.",
         "affectedFunction": "enterAbilities['QX72P4Xx1A:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "76b7b09f"
     }
 }

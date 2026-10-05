@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Seraphic Legion's Descent's level 3 ability was not implemented.",
         "affectedFunction": "activateAbilityAbilities['QX72P4Xx1A:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "76b7b09f"
     }
 }
