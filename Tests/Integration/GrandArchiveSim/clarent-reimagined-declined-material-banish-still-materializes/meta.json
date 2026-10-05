@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Clarent, Reimagined's optional-choice continuation (ClarentReimaginedMatCost) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its follow-up never ran: the materialization silently never happened after the player declined the cost-reduction offer. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
         "affectedFunction": "Custom/MaterializeLogic.php ClarentReimaginedMatCost",
-        "fixCommit": "TBD"
+        "fixCommit": "74a9b94c"
     }
 }

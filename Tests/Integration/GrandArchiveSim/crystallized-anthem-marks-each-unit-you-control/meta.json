@@ -20,6 +20,6 @@
         "status": "fixed",
         "summary": "FIXED. Crystallized Anthem's effect was generated as an $enterAbilities entry, but it is an Action that never enters the field, so activating it only paid its cost and sent it to the graveyard: the effect never ran. Fix: OnCardActivated() runs an Action's enter ability as its resolution effect when the card has no activation ability of its own.",
         "affectedFunction": "Custom/GameLogic.php OnCardActivated",
-        "fixCommit": "TBD"
+        "fixCommit": "74a9b94c"
     }
 }

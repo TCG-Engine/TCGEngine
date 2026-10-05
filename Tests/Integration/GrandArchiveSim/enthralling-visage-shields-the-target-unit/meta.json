@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Enthralling Visage's effect was generated as an $enterAbilities entry, but it is an Action that never enters the field, so activating it only paid its cost and sent it to the graveyard: the effect never ran. Fix: OnCardActivated() runs an Action's enter ability as its resolution effect when the card has no activation ability of its own. The generated second step also tagged the unit with the graveyard card's Owner property, which is blank for graveyard objects; the owner now comes from the zone it was chosen in (GeneratedAbilityOverrides.php).",
         "affectedFunction": "Custom/GameLogic.php OnCardActivated; Custom/GeneratedAbilityOverrides.php customDQHandlers[ycwz9gv4vm:0:Enter-2]",
-        "fixCommit": "TBD"
+        "fixCommit": "74a9b94c"
     }
 }

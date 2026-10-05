@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Cone of Frost's optional-choice continuation (ConeOfFrostStep) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its follow-up never ran: the later level clauses were never offered after a declined target. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
         "affectedFunction": "Custom/CardDQHandlers.php ConeOfFrostStep",
-        "fixCommit": "TBD"
+        "fixCommit": "74a9b94c"
     }
 }

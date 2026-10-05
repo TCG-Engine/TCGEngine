@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Dichroic Scorch's effect was generated as an $enterAbilities entry, but it is an Action that never enters the field, so activating it only paid its cost and sent it to the graveyard: the effect never ran. Fix: OnCardActivated() runs an Action's enter ability as its resolution effect when the card has no activation ability of its own. The generated body also assigned `$field = GetZone(...)` through a leaked `$field = &GetField($p)` reference, replacing the opposing field with a copy of the activating player's field, and removed counters via 'myField-' for both players. Rewritten in GeneratedAbilityOverrides.php.",
         "affectedFunction": "Custom/GameLogic.php OnCardActivated; Custom/GeneratedAbilityOverrides.php enterAbilities[TlhsnnRhGK:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "74a9b94c"
     }
 }

@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Veiled Gambit's effect was generated as an $enterAbilities entry, but it is an Action that never enters the field, so activating it only paid its cost and sent it to the graveyard: the effect never ran. Fix: OnCardActivated() runs an Action's enter ability as its resolution effect when the card has no activation ability of its own. Its additional cost (sacrifice a Chessman ally) was also never paid: the play prereq only checked that a Chessman ally existed. The cost is now declared with Golden Gambit's in DoActivateCard.",
         "affectedFunction": "Custom/GameLogic.php OnCardActivated; Custom/GameLogic.php DoActivateCard Chessman-sacrifice cost",
-        "fixCommit": "TBD"
+        "fixCommit": "74a9b94c"
     }
 }

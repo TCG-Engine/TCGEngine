@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Fiery Swing's optional-choice continuation (FierySwingBanish) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its \"if you don't\" branch never ran: the +1 POWER for the already banished card was lost. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
         "affectedFunction": "Custom/CardDQHandlers.php FierySwingBanish",
-        "fixCommit": "TBD"
+        "fixCommit": "74a9b94c"
     }
 }

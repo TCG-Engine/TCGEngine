@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T15:25:51+00:00",
+    "generatedAt": "2026-10-05T15:50:22+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 736,
+        "cardsWithExistingFixtures": 753,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1750,
+        "cardsNeedingSemanticCoverage": 1733,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2650,24 +2650,6 @@
             "priority": 24
         },
         {
-            "cardId": "hxdfyA0eP1",
-            "name": "Veiled Gambit",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "xF9phlSAkE",
             "name": "Waited Accord",
             "type": "UNIQUE,PHANTASIA",
@@ -3074,23 +3056,6 @@
                 "cost",
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "TlhsnnRhGK",
-            "name": "Dichroic Scorch",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "draw-discard"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4147,22 +4112,6 @@
             "priority": 22
         },
         {
-            "cardId": "vz4kc558yx",
-            "name": "Devious Welcome",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "rAiEX6Ra4p",
             "name": "Evaporation Synchron",
             "type": "REGALIA,ITEM",
@@ -4223,22 +4172,6 @@
                 "zone-movement",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "fgBpQZe0js",
-            "name": "Freezing Gambit",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4702,21 +4635,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 21
-        },
-        {
-            "cardId": "XmsEbk19Iu",
-            "name": "Facet Together",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5283,27 +5201,6 @@
                 "draw-discard",
                 "status",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "kINobk9KQA",
-            "name": "Clarent, Reimagined",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention",
-                "zone-movement",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -8603,24 +8500,6 @@
             "priority": 14
         },
         {
-            "cardId": "vrK16VZ2zU",
-            "name": "Burning Aethercharge",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "mz1dJZExOk",
             "name": "Burnished Obelith",
             "type": "ALLY",
@@ -9359,24 +9238,6 @@
             "priority": 14
         },
         {
-            "cardId": "ycwz9gv4vm",
-            "name": "Enthralling Visage",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "axxaUOWHA3",
             "name": "Epicurean Institute",
             "type": "DOMAIN",
@@ -9710,24 +9571,6 @@
                 "targeting",
                 "damage",
                 "recover",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "ijkyboiopv",
-            "name": "Fiery Swing",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -14837,23 +14680,6 @@
             "priority": 13
         },
         {
-            "cardId": "HDeEE7YPTl",
-            "name": "Crystal Accretion",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "cy3gme0xxw",
             "name": "Cultivate",
             "type": "ACTION",
@@ -15900,23 +15726,6 @@
                 "cost",
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "THjSE7caau",
-            "name": "Gleaming Smolder",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -18127,23 +17936,6 @@
                 "zone-movement",
                 "counter",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "mob9nu6lal",
-            "name": "Salamander's Breath",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -21181,22 +20973,6 @@
             "priority": 12
         },
         {
-            "cardId": "XfAJlQt9hH",
-            "name": "Crystallized Anthem",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "4coy34bro8",
             "name": "Dawn of Ashes",
             "type": "UNIQUE,DOMAIN",
@@ -23757,22 +23533,6 @@
             "priority": 12
         },
         {
-            "cardId": "D79VKF2uOg",
-            "name": "Polishing Flourish",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "9ZapXmmBc9",
             "name": "Portly Raccoon",
             "type": "ALLY",
@@ -24125,22 +23885,6 @@
             "priority": 12
         },
         {
-            "cardId": "rHccTUUWou",
-            "name": "Reveal the Hidden",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "r5a3pmmloe",
             "name": "Revenant's Scourge",
             "type": "ATTACK",
@@ -24277,22 +24021,6 @@
             "mechanics": [
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "1jmQ9XSLph",
-            "name": "Sacrifice Play",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -28502,21 +28230,6 @@
             "cardId": "OwhKGEMTXm",
             "name": "Miasmic Fog",
             "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "zHbIiP3knE",
-            "name": "Mirrored Confrontation",
-            "type": "ACTION",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -36663,10 +36376,12 @@
                 "damage"
             ],
             "existingFixtures": [
-                "cone-of-frost-level1-damage"
+                "cone-of-frost-level1-damage",
+                "cone-of-frost-level3-decline-first-target-still-offers-second"
             ],
             "semanticFixtures": [
-                "cone-of-frost-level1-damage"
+                "cone-of-frost-level1-damage",
+                "cone-of-frost-level3-decline-first-target-still-offers-second"
             ],
             "starterDecks": [
                 "Kongming Starter Deck"
@@ -44242,6 +43957,28 @@
             "priority": 44
         },
         {
+            "cardId": "hxdfyA0eP1",
+            "name": "Veiled Gambit",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention"
+            ],
+            "existingFixtures": [
+                "veiled-gambit-sacrifices-a-chessman-and-shields-the-champion"
+            ],
+            "semanticFixtures": [
+                "veiled-gambit-sacrifices-a-chessman-and-shields-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "u817uqlk1j",
             "name": "Annul Spell",
             "type": "ACTION",
@@ -44278,6 +44015,27 @@
             ],
             "semanticFixtures": [
                 "cavalier-rescue-target-turn-effect"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "TlhsnnRhGK",
+            "name": "Dichroic Scorch",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "dichroic-scorch-removes-sheen-and-deals-that-much-damage"
+            ],
+            "semanticFixtures": [
+                "dichroic-scorch-removes-sheen-and-deals-that-much-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44438,6 +44196,46 @@
             "priority": 42
         },
         {
+            "cardId": "vz4kc558yx",
+            "name": "Devious Welcome",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "topsy-decree-declined-graveyard-banish-still-continues-to-next-mode"
+            ],
+            "semanticFixtures": [
+                "topsy-decree-declined-graveyard-banish-still-continues-to-next-mode"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "fgBpQZe0js",
+            "name": "Freezing Gambit",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting"
+            ],
+            "existingFixtures": [
+                "freezing-gambit-sacrifices-a-chessman-and-debuffs-the-target"
+            ],
+            "semanticFixtures": [
+                "freezing-gambit-sacrifices-a-chessman-and-debuffs-the-target"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "usa6qyq3ka",
             "name": "Galestream Insight",
             "type": "ACTION",
@@ -44565,6 +44363,25 @@
             "priority": 41
         },
         {
+            "cardId": "XmsEbk19Iu",
+            "name": "Facet Together",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "facet-together-decline-second-sacrifice-still-buffs-weapon"
+            ],
+            "semanticFixtures": [
+                "facet-together-decline-second-sacrifice-still-buffs-weapon"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 41
+        },
+        {
             "cardId": "KdlhoQ1evn",
             "name": "Augustine, Votary of Yore",
             "type": "UNIQUE,ALLY",
@@ -44610,6 +44427,31 @@
                 "captain-archer-imbued-look-six-decline-all-six-bottom",
                 "captain-archer-imbued-look-six-no-wind-ally-all-six-bottom",
                 "captain-archer-imbued-look-six-put-deep-wind-ally-distant-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "kINobk9KQA",
+            "name": "Clarent, Reimagined",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "clarent-reimagined-declined-material-banish-still-materializes"
+            ],
+            "semanticFixtures": [
+                "clarent-reimagined-declined-material-banish-still-materializes"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45141,6 +44983,28 @@
             "priority": 34
         },
         {
+            "cardId": "vrK16VZ2zU",
+            "name": "Burning Aethercharge",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "burning-aethercharge-deals-two-damage-to-target-champion"
+            ],
+            "semanticFixtures": [
+                "burning-aethercharge-deals-two-damage-to-target-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "5qWWpkgQLl",
             "name": "Coup de Grace",
             "type": "ATTACK",
@@ -45163,6 +45027,28 @@
                 "coup-de-grace-prepare-4-paid-critical-4-doubles-damage",
                 "coup-de-grace-prepare-4-paid-non-assassin-no-critical",
                 "coup-de-grace-three-counters-cannot-pay-prepare-4"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "ycwz9gv4vm",
+            "name": "Enthralling Visage",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "enthralling-visage-shields-the-target-unit"
+            ],
+            "semanticFixtures": [
+                "enthralling-visage-shields-the-target-unit"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45207,6 +45093,28 @@
             ],
             "semanticFixtures": [
                 "fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "ijkyboiopv",
+            "name": "Fiery Swing",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fiery-swing-decline-second-banish-still-applies-power-bonus"
+            ],
+            "semanticFixtures": [
+                "fiery-swing-decline-second-banish-still-applies-power-bonus"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45788,6 +45696,27 @@
             "priority": 33
         },
         {
+            "cardId": "HDeEE7YPTl",
+            "name": "Crystal Accretion",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "crystal-accretion-adds-sheen-to-units-with-sheen"
+            ],
+            "semanticFixtures": [
+                "crystal-accretion-adds-sheen-to-units-with-sheen"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "u1a1s4ys44",
             "name": "Excalibur, Reflected Edge",
             "type": "UNIQUE,WEAPON",
@@ -45851,6 +45780,27 @@
             "semanticFixtures": [
                 "fishing-accident-prepare-2-declined-ally-rested",
                 "fishing-accident-prepare-2-paid-ally-to-bottom-of-deck"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "THjSE7caau",
+            "name": "Gleaming Smolder",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gleaming-smolder-draws-then-discards"
+            ],
+            "semanticFixtures": [
+                "gleaming-smolder-draws-then-discards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46146,6 +46096,27 @@
             "priority": 33
         },
         {
+            "cardId": "mob9nu6lal",
+            "name": "Salamander's Breath",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "salamanders-breath-decline-second-banish-still-applies-power"
+            ],
+            "semanticFixtures": [
+                "salamanders-breath-decline-second-banish-still-applies-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "7ePq6I4uZ8",
             "name": "Soultrace Tessellation",
             "type": "ACTION",
@@ -46281,6 +46252,26 @@
                 "ashen-riffle-reveal-four-deep-suited-offered",
                 "ashen-riffle-reveal-four-three-eligible-banish-capped-at-two",
                 "ashen-riffle-small-deck-decline-returns-all-four-revealed-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "XfAJlQt9hH",
+            "name": "Crystallized Anthem",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention"
+            ],
+            "existingFixtures": [
+                "crystallized-anthem-marks-each-unit-you-control"
+            ],
+            "semanticFixtures": [
+                "crystallized-anthem-marks-each-unit-you-control"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46537,6 +46528,46 @@
             "priority": 32
         },
         {
+            "cardId": "D79VKF2uOg",
+            "name": "Polishing Flourish",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "polishing-flourish-removes-sheen-from-your-units"
+            ],
+            "semanticFixtures": [
+                "polishing-flourish-removes-sheen-from-your-units"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "rHccTUUWou",
+            "name": "Reveal the Hidden",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status"
+            ],
+            "existingFixtures": [
+                "reveal-the-hidden-level-1-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "reveal-the-hidden-level-1-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "QvQhg1EOBR",
             "name": "Sacred Engulfment",
             "type": "ACTION",
@@ -46551,6 +46582,28 @@
             ],
             "semanticFixtures": [
                 "sacred-engulfment-decline-further-banish-still-empowers"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "1jmQ9XSLph",
+            "name": "Sacrifice Play",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status"
+            ],
+            "existingFixtures": [
+                "sacrifice-play-declined-sacrifice-still-pays-reserve-for-base-power",
+                "sacrifice-play-sacrificing-two-chessman-allies-gives-plus-four-power"
+            ],
+            "semanticFixtures": [
+                "sacrifice-play-declined-sacrifice-still-pays-reserve-for-base-power",
+                "sacrifice-play-sacrificing-two-chessman-allies-gives-plus-four-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46967,6 +47020,25 @@
                 "lure-the-abyss-reveal-four-all-specters-all-to-graveyard",
                 "lure-the-abyss-reveal-four-no-specter-all-four-bottom",
                 "lure-the-abyss-reveal-four-specters-to-graveyard-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "zHbIiP3knE",
+            "name": "Mirrored Confrontation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "mirrored-confrontation-reveal-level-3-champion-draws-into-memory-and-recovers"
+            ],
+            "semanticFixtures": [
+                "mirrored-confrontation-reveal-level-3-champion-draws-into-memory-and-recovers"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

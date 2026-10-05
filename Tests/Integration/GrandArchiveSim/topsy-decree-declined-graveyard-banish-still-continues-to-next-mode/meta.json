@@ -18,6 +18,6 @@
         "status": "fixed",
         "summary": "FIXED. Topsy Decree's optional-choice continuation (TopsyDecreeBanish) was queued without dontSkipOnPass, so declining the prompt (PASS) made ExecuteStaticMethods skip the handler and its follow-up never ran: the remaining chosen modes were never processed after a declined graveyard banish. Fix: the queue site passes dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
         "affectedFunction": "Custom/GameLogic.php TopsyDecreeBanish",
-        "fixCommit": "TBD"
+        "fixCommit": "74a9b94c"
     }
 }

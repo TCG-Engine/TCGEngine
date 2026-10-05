@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "FIXED. Facet Together's effect was generated as an $enterAbilities entry, but the card is an Action that never enters the field, so activating it did nothing at all (no sacrifice prompt, no +X POWER, no sheen). Fix: GeneratedAbilityOverrides.php registers the effect as the Action's resolution ($cardActivatedAbilities). FIXED. FacetTogetherSacrifice was queued without dontSkipOnPass, so declining a further sacrifice (PASS) made ExecuteStaticMethods skip the handler and the weapon never received the +X POWER for the Memorites already sacrificed. Fix: the queue sites pass dontSkipOnPass and the handler consumes the decline with ConsumeDeclinedChoice().",
         "affectedFunction": "GeneratedAbilityOverrides.php cardActivatedAbilities[XmsEbk19Iu:0]; Custom/GameLogic.php FacetTogetherSacrifice",
-        "fixCommit": "TBD"
+        "fixCommit": "74a9b94c"
     }
 }

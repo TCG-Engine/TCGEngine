@@ -21,6 +21,6 @@
         "status": "fixed",
         "summary": "FIXED. Sacrifice Play's additional cost (sacrifice up to two awake Chessman allies, +2 POWER each when it enters the intent) was never implemented: its SacrificePlayCost1/2 handlers were never queued and the power code read a counter nothing wrote (an Intent object has no counters), so no ally was sacrificed and no bonus applied. Fix: DoActivateCard declares the cost (one up-to-two multi-choose, SacrificePlayCost sacrifices them, queued with dontSkipOnPass so a declined sacrifice still pays the reserve cost); the count rides on the intent card's SACRIFICE_PLAY_<n> turn effect.",
         "affectedFunction": "Custom/GameLogic.php DoActivateCard / SacrificePlayCost / OnCardActivated",
-        "fixCommit": "TBD"
+        "fixCommit": "74a9b94c"
     }
 }
