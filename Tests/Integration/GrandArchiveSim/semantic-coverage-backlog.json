@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-04T19:58:14+00:00",
+    "generatedAt": "2026-10-05T01:25:51+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 723,
+        "cardsWithExistingFixtures": 731,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1764,
+        "cardsNeedingSemanticCoverage": 1756,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -485,24 +485,6 @@
             "mechanics": [
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "wiztyu6o24",
-            "name": "Diana, Judgment's Arrow",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4555,22 +4537,6 @@
             "priority": 22
         },
         {
-            "cardId": "sphwpjsznn",
-            "name": "Stonescale Band",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "at3fn2idd6",
             "name": "Sudden Deluge",
             "type": "ATTACK",
@@ -5434,25 +5400,6 @@
                 "counter",
                 "status",
                 "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "MG4zUMPqIC",
-            "name": "Dante, Hematic Overdrive",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "zone-movement",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -7771,25 +7718,6 @@
                 "combat",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "pc0y3xneg7",
-            "name": "Viridescent Aetherstreak",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention",
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13034,24 +12962,6 @@
             "priority": 14
         },
         {
-            "cardId": "Byx6iokcT4",
-            "name": "Topsy Decree",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "vwbcizm6h3",
             "name": "Torrential Blast",
             "type": "ACTION",
@@ -13838,23 +13748,6 @@
                 "status",
                 "combat",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "29xxoo7dl5",
-            "name": "Arondight, Azure Blade",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -19465,23 +19358,6 @@
                 "draw-discard",
                 "status",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "ne6qXGbr4c",
-            "name": "Tribute Singer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -26682,21 +26558,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "dwmxz1vdxi",
-            "name": "Brewing Kit",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -40256,6 +40117,28 @@
             "priority": 132
         },
         {
+            "cardId": "wiztyu6o24",
+            "name": "Diana, Judgment's Arrow",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "diana-judgments-arrow-enter-load-one-aethercharge-then-decline-draws-one-into-memory"
+            ],
+            "semanticFixtures": [
+                "diana-judgments-arrow-enter-load-one-aethercharge-then-decline-draws-one-into-memory"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "zd83net7x0",
             "name": "Disenchant",
             "type": "ACTION",
@@ -44706,6 +44589,26 @@
             "priority": 42
         },
         {
+            "cardId": "sphwpjsznn",
+            "name": "Stonescale Band",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "stonescale-band-enter-discard-one-ally-then-decline-draws-one"
+            ],
+            "semanticFixtures": [
+                "stonescale-band-enter-discard-one-ally-then-decline-draws-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "cnqsm3n9yv",
             "name": "Turbo Charge",
             "type": "ACTION",
@@ -44810,6 +44713,29 @@
                 "captain-archer-imbued-look-six-decline-all-six-bottom",
                 "captain-archer-imbued-look-six-no-wind-ally-all-six-bottom",
                 "captain-archer-imbued-look-six-put-deep-wind-ally-distant-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "MG4zUMPqIC",
+            "name": "Dante, Hematic Overdrive",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dante-hematic-overdrive-end-phase-decline-destroys-dante"
+            ],
+            "semanticFixtures": [
+                "dante-hematic-overdrive-end-phase-decline-destroys-dante"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45191,6 +45117,29 @@
             ],
             "semanticFixtures": [
                 "undying-dreams-refuses-spellshroud-ally-targets-ordinary-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "pc0y3xneg7",
+            "name": "Viridescent Aetherstreak",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention",
+                "status"
+            ],
+            "existingFixtures": [
+                "viridescent-aetherstreak-mode-one-no-target-then-load-into-aetherwing"
+            ],
+            "semanticFixtures": [
+                "viridescent-aetherstreak-mode-one-no-target-then-load-into-aetherwing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45736,6 +45685,28 @@
             "priority": 34
         },
         {
+            "cardId": "Byx6iokcT4",
+            "name": "Topsy Decree",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "topsy-decree-opponent-must-discard-cannot-decline"
+            ],
+            "semanticFixtures": [
+                "topsy-decree-opponent-must-discard-cannot-decline"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "ZSSegCjquB",
             "name": "Advent of the Stormcaller",
             "type": "ACTION",
@@ -45780,6 +45751,27 @@
             "priority": 33
         },
         {
+            "cardId": "29xxoo7dl5",
+            "name": "Arondight, Azure Blade",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "arondight-azure-blade-enter-banish-one-floating-then-decline-keeps-one-refinement"
+            ],
+            "semanticFixtures": [
+                "arondight-azure-blade-enter-banish-one-floating-then-decline-keeps-one-refinement"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "ki6fxxgmue",
             "name": "Bertha, Spry Howitzer",
             "type": "UNIQUE,ALLY",
@@ -45791,9 +45783,11 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "bertha-look-five-decline-free-activation-all-five-bottom",
                 "ignore-cost-free-activation-with-empty-hand-is-not-refused"
             ],
             "semanticFixtures": [
+                "bertha-look-five-decline-free-activation-all-five-bottom",
                 "ignore-cost-free-activation-with-empty-hand-is-not-refused"
             ],
             "starterDecks": [],
@@ -46274,6 +46268,27 @@
             "priority": 33
         },
         {
+            "cardId": "ne6qXGbr4c",
+            "name": "Tribute Singer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "tribute-singer-reveal-five-decline-activation-all-five-bottom"
+            ],
+            "semanticFixtures": [
+                "tribute-singer-reveal-five-decline-activation-all-five-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "fjpimrl974",
             "name": "Ashen Riffle",
             "type": "ACTION",
@@ -46717,6 +46732,25 @@
             "semanticFixtures": [
                 "blinding-lapse-opponent-influence-eight-does-nothing",
                 "blinding-lapse-opponent-influence-nine-hand-to-memory-banishes-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "dwmxz1vdxi",
+            "name": "Brewing Kit",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "brewing-kit-look-six-decline-potion-all-six-bottom"
+            ],
+            "semanticFixtures": [
+                "brewing-kit-look-six-decline-potion-all-six-bottom"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

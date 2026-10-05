@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. StonescaleBandDiscard's loop re-queue AddDecision omitted dontSkipOnPass, so declining a further discard (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its PASS branch (Draw $count) never ran: an ally was discarded but no card was drawn (live repro on HEAD: hand stayed at 6). Fix: dontSkipOnPass:1 on the re-queue.",
         "affectedFunction": "Custom/GameLogic.php StonescaleBandDiscard handler's AddDecision(..., \"CUSTOM\", \"StonescaleBandDiscard\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "6cf02f57a1cd49cd21bc4989588da63468490939"
     }
 }

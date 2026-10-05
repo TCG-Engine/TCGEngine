@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. ViridescentAetherstreakTargetA was queued without dontSkipOnPass, so declining the first mode's optional target (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler, which is what asks the remaining mode: the card stopped after one mode (live repro on HEAD: queue empty, card left in the graveyard instead of loading into the Aetherwing). Fix: dontSkipOnPass:1 at the queue site.",
         "affectedFunction": "Custom/CardDQHandlers.php ViridescentAetherstreakModeA AddDecision(..., \"CUSTOM\", \"ViridescentAetherstreakTargetA\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "6cf02f57a1cd49cd21bc4989588da63468490939"
     }
 }

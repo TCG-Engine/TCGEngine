@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **723**
+Cards linked to an existing fixture: **731**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1764**
+Implemented cards still needing semantic coverage: **1756**
 
 ## Mechanic groups
 
@@ -50,7 +50,6 @@ Implemented cards still needing semantic coverage: **1764**
 | Torch Marshal (`izgiu216l2`) | ALLY | 1 | cost, combat, condition | Ciel, Mirage's Grave | — |
 | Undercurrent Vantage (`xicxo661ly`) | ACTION | 1 | cost, zone-movement, status | Diana, Moonpiercer | — |
 | Aetheric Calibration (`7l9th23niu`) | ACTION | 1 | zone-movement, condition | Diana, Moonpiercer | — |
-| Diana, Judgment's Arrow (`wiztyu6o24`) | CHAMPION | 1 | draw-discard, trigger | Diana, Moonpiercer | — |
 | Drown in Aether (`gnfbp3g8iw`) | ACTION | 1 | targeting, status | Diana, Moonpiercer | — |
 | Grande Aiguille (`6ihv6hbvye`) | REGALIA,WEAPON | 1 | counter, condition | Ciel, Mirage's Grave | — |
 | Grande Sonnerie (`s4b2mkh1xm`) | REGALIA,WEAPON | 1 | cost, condition | Ciel, Mirage's Grave | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **1764**
 | Golden Measure Patisserie (`Bq2kynKJvx`) | UNIQUE,DOMAIN | 3 | cost, targeting, counter, token, trigger | — | — |
 | Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |
 | Stellarion Shift (`ms2x2v4qe3`) | ACTION | 3 | targeting, damage, prevention, draw-discard, zone-movement, status, condition | — | — |
+| FlameTech Manual (`WZJxZMBAir`) | REGALIA,ITEM | 1 | targeting, damage, draw-discard, zone-movement | — | flametech-manual-cascade, flametech-manual-cascade-activate |

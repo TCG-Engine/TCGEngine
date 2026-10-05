@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. ArondightBanishChoice was queued without dontSkipOnPass, so declining a further banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its done branch (AddCounters refinement = banished count) never ran: a floating-memory card was banished and Arondight got no refinement counter (live repro on HEAD: Counters empty). Fix: dontSkipOnPass:1 at the queue site.",
         "affectedFunction": "Custom/CardDQHandlers.php ArondightBanishLoop AddDecision(..., \"CUSTOM\", \"ArondightBanishChoice\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "6cf02f57a1cd49cd21bc4989588da63468490939"
     }
 }

@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. BrewingKitPotionPick was queued without dontSkipOnPass, so declining the Potion (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and BrewingKitCleanup never ran: all six looked-at cards stayed in the temp zone and the deck was six cards short (live repro on HEAD: deck 14 instead of 20). Fix: dontSkipOnPass:1 at the queue site.",
         "affectedFunction": "Custom/PotionLogic.php BrewingKitLookTop6 AddDecision(..., \"CUSTOM\", \"BrewingKitPotionPick\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "6cf02f57a1cd49cd21bc4989588da63468490939"
     }
 }

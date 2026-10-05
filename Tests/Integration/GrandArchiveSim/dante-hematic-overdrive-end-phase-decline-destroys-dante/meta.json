@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. DanteHematicUpkeep was queued without dontSkipOnPass, so declining the optional sacrifice/banish (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its decline branch (DestroyDanteChampion) never ran: Dante survived the upkeep he was supposed to fail (live repro on HEAD: Dante still on the field, graveyard empty). Fix: dontSkipOnPass:1 at the queue site.",
         "affectedFunction": "Custom/GameLogic.php QueueDanteHematicUpkeep AddDecision(..., \"CUSTOM\", \"DanteHematicUpkeep\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "6cf02f57a1cd49cd21bc4989588da63468490939"
     }
 }

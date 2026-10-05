@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. TributeSingerChoose was queued without dontSkipOnPass, so declining the optional activation (MZMAYCHOOSE answered PASS) made ExecuteStaticMethods() skip the handler and its decline branch (QueueTempZoneBottomDeckRearrange) never ran: all five revealed cards stayed in the temp zone and the deck was five cards short (live repro on HEAD: deck 14 instead of 19). Fix: dontSkipOnPass:1 at the queue site.",
         "affectedFunction": "Custom/GameLogic.php TributeSingerEnter AddDecision(..., \"CUSTOM\", \"TributeSingerChoose\", 1, dontSkipOnPass:1)",
-        "fixCommit": "TBD"
+        "fixCommit": "6cf02f57a1cd49cd21bc4989588da63468490939"
     }
 }
