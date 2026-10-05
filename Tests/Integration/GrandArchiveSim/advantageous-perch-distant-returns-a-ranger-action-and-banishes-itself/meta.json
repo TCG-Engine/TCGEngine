@@ -1,0 +1,26 @@
+{
+    "name": "advantageous-perch-distant-returns-a-ranger-action-and-banishes-itself",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:14:04+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "oLzsAj9mKl"
+    ],
+    "notes": "Advantageous Perch: the champion becomes distant, Charge the Soul returns to hand and Perch banishes itself. Perch used to stay in the graveyard (and was offered as its own return target).",
+    "semanticCoverage": {
+        "testedCards": [
+            "oLzsAj9mKl"
+        ],
+        "mechanics": [
+            "banish-self",
+            "return-from-graveyard"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Advantageous Perch's \"Banish CARDNAME\" used the variable mzID (the effect-stack slot) to find itself, but by the time a spell's effect runs it has already moved from the stack to the graveyard, so it was never banished and stayed in the graveyard. Fix: it is looked up in the graveyard (BanishResolvedSpellFromGraveyard).",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[oLzsAj9mKl:0]",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "name": "tempered-steel-puts-a-durability-counter-on-your-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:12:07+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "vyRjDql0TR"
+    ],
+    "notes": "Tempered Steel: put a durability counter on target weapon you control.",
+    "semanticCoverage": {
+        "testedCards": [
+            "vyRjDql0TR"
+        ],
+        "mechanics": [
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": []
+    }
+}

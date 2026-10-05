@@ -1826,3 +1826,25 @@ $activateAbilityAbilities["uvgflagxbb:0"] = function($player) { //Play
   DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 1, tooltip:"Choose_card_banished_by_Coronal");
   DecisionQueueController::AddDecision($player, "CUSTOM", "CoronalOfRejuvenationActivate", 1);
 };
+
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Advantageous Perch (oLzsAj9mKl): "Your champion becomes distant. Then return up to one target Ranger action card from your graveyard to your hand. Banish CARDNAME." The generated body banished itself with
+// MZMove($player, $mzID, ...), but a spell has already left the effect stack for the graveyard when its effect runs, so "mzID" points at nothing: Advantageous Perch stayed in the graveyard (and was itself
+// offered as the Ranger action to return). It is looked up in the graveyard instead.
+$cardActivatedAbilities["oLzsAj9mKl:0"] = function($player) { //oLzsAj9mKl
+  $champMZ = FindChampionMZ($player);
+  if($champMZ !== null) BecomeDistant($player, $champMZ);
+  BanishResolvedSpellFromGraveyard($player, "oLzsAj9mKl");
+  $rangerActions = [];
+  $gy = GetZone("myGraveyard");
+  for($gi = 0; $gi < count($gy); ++$gi) {
+      if($gy[$gi]->removed) continue;
+      if(PropertyContains(CardType($gy[$gi]->CardID), "ACTION") && PropertyContains(CardClasses($gy[$gi]->CardID), "RANGER")) {
+          $rangerActions[] = "myGraveyard-" . $gi;
+      }
+  }
+  if(empty($rangerActions)) return;
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $rangerActions), 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "oLzsAj9mKl:0:CardActivated-1", 1);
+};

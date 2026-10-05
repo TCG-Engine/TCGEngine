@@ -1,0 +1,21 @@
+{
+    "name": "conflagrant-sentinel-enter-discard-a-card-puts-a-buff-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:12:04+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "puyzn48srd"
+    ],
+    "notes": "Conflagrant Sentinel: On Enter, you may discard a card; if you do it gets a buff counter.",
+    "semanticCoverage": {
+        "testedCards": [
+            "puyzn48srd"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-choice",
+            "counter"
+        ],
+        "rulesClauses": []
+    }
+}

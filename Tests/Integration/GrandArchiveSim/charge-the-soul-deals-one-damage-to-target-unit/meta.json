@@ -1,0 +1,20 @@
+{
+    "name": "charge-the-soul-deals-one-damage-to-target-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:12:08+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ra9950o14t"
+    ],
+    "notes": "Charge the Soul: deal 1 damage to target unit (no Aetherwing to load into).",
+    "semanticCoverage": {
+        "testedCards": [
+            "ra9950o14t"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": []
+    }
+}

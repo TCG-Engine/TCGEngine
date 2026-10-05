@@ -1,0 +1,34 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Player 2 only has their champion left"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Nocturne's Oblivion banished itself"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "It is not left in the graveyard"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

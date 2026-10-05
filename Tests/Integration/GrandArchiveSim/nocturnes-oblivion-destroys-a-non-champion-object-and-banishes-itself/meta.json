@@ -1,0 +1,26 @@
+{
+    "name": "nocturnes-oblivion-destroys-a-non-champion-object-and-banishes-itself",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:12:10+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "1a5zdqgydt"
+    ],
+    "notes": "Nocturne's Oblivion: destroy target non-champion object, then banish Nocturne's Oblivion. It used to stay in the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "1a5zdqgydt"
+        ],
+        "mechanics": [
+            "destroy",
+            "banish-self"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Nocturne's Oblivion's \"Banish CARDNAME\" used the variable mzID (the effect-stack slot) to find itself, but by the time a spell's effect runs it has already moved from the stack to the graveyard, so it was never banished and stayed in the graveyard. Fix: it is looked up in the graveyard (BanishResolvedSpellFromGraveyard).",
+        "affectedFunction": "Custom/GameLogic.php NocturnesOblivionResolve / BanishResolvedSpellFromGraveyard",
+        "fixCommit": "TBD"
+    }
+}

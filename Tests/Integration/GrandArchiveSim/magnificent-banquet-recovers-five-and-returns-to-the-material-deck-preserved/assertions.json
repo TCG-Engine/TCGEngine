@@ -1,0 +1,36 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "Recover 5 of the 8 damage"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myMaterial-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "TQoTD8eGQH",
+        "semantic": true,
+        "label": "Magnificent Banquet went into the material deck"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Not left in the graveyard"
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

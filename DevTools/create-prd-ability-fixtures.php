@@ -28880,6 +28880,110 @@ $fixtures['focused-flames-spellshroud-unit-is-not-a-legal-target'] = [
     ]),
 ];
 
+
+// --- Starter-deck coverage batch: Conflagrant Sentinel, Tempered Steel, Charge the Soul, Nocturne's Oblivion, Coy Bouclier ---
+
+// Conflagrant Sentinel (puyzn48srd): "On Enter: You may discard a card. If you do, put a buff counter on it."
+$fixtures['conflagrant-sentinel-enter-discard-a-card-puts-a-buff-counter-on-it'] = [
+    'testedCards' => ['puyzn48srd'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]],
+        $gaHand('puyzn48srd'), // Conflagrant Sentinel -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdAns(1, 'myHand-0')]), // discard the first card in hand
+];
+$fixtures['conflagrant-sentinel-enter-declined-discard-gets-no-buff-counter'] = [
+    'testedCards' => ['puyzn48srd'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]],
+        $gaHand('puyzn48srd'),
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1)]), // decline the discard
+];
+
+// Tempered Steel (vyRjDql0TR): "Put a durability counter on target weapon you control."
+$fixtures['tempered-steel-puts-a-durability-counter-on-your-weapon'] = [
+    'testedCards' => ['vyRjDql0TR'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace -> myField-1
+        $gaHand('vyRjDql0TR'), // Tempered Steel -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'myField-1')]),
+];
+
+// Charge the Soul (ra9950o14t): "Deal 1 damage to target unit. Then you may load it into an Aetherwing weapon you control."
+$fixtures['charge-the-soul-deals-one-damage-to-target-unit'] = [
+    'testedCards' => ['ra9950o14t'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'RANGER']]]],
+        $gaHand('ra9950o14t'), // Charge the Soul -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'theirField-0')]),
+];
+
+// Nocturne's Oblivion (1a5zdqgydt): "Destroy target non-champion object. Banish Nocturne's Oblivion."
+$fixtures['nocturnes-oblivion-destroys-a-non-champion-object-and-banishes-itself'] = [
+    'testedCards' => ['1a5zdqgydt'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc'], 'Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]], // UMBRA lineage
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> theirField-1
+        $gaHand('1a5zdqgydt'), // Nocturne's Oblivion -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdAns(1, 'theirField-1')]),
+];
+
+// Coy Bouclier (vo1qr9bkme): "[Level 2+] This card costs 2 less to activate." (5 -> 3 reserve payments)
+$fixtures['coy-bouclier-level-two-costs-two-less'] = [
+    'testedCards' => ['vo1qr9bkme'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 2, '_overrides' => ['classes' => 'GUARDIAN']]]],
+        $gaHand('vo1qr9bkme'), // Coy Bouclier -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3)),
+];
+
+
+// Advantageous Perch (oLzsAj9mKl): "Your champion becomes distant. Then return up to one target Ranger action card from your graveyard to your hand. Banish CARDNAME."
+$fixtures['advantageous-perch-distant-returns-a-ranger-action-and-banishes-itself'] = [
+    'testedCards' => ['oLzsAj9mKl'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['KqBosnU7pU'], 'Counters' => ['_overrides' => ['classes' => 'RANGER']]]], // RANGER class; another advanced element (EXALTED) for Exalted
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'ra9950o14t'], // Charge the Soul (Ranger action) -> myGraveyard-0
+        $gaHand('oLzsAj9mKl'), // Advantageous Perch -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myGraveyard-0')]), // return the Charge the Soul
+];
+
+// Magnificent Banquet (TQoTD8eGQH): "Recover 5. Then put CARDNAME into its owner's material deck preserved."
+$fixtures['magnificent-banquet-recovers-five-and-returns-to-the-material-deck-preserved'] = [
+    'testedCards' => ['TQoTD8eGQH'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 8, 'Subcards' => ['7x2v4tdop1'], 'Counters' => ['_overrides' => ['classes' => 'CLERIC']]]], // TERA lineage, CLERIC class, 8 damage
+        $gaHand('TQoTD8eGQH'), // Magnificent Banquet -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2)),
+];
+
+// Whirlwind Threads (p7nkdqnzzg): "Put a quest counter on your champion. If an object was suppressed this turn, put Whirlwind Threads into your memory."
+$fixtures['whirlwind-threads-puts-a-quest-counter-on-your-champion'] = [
+    'testedCards' => ['p7nkdqnzzg'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'TAMER']]]],
+        $gaHand('p7nkdqnzzg'), // Whirlwind Threads -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1)),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

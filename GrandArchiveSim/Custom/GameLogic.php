@@ -16415,13 +16415,27 @@ $customDQHandlers["WindyLeapReturn"] = function($player, $parts, $lastDecision) 
     }
 };
 
+// "Banish CARDNAME": by the time a spell's effect runs it has already left the effect stack for the graveyard, so the variable "mzID" (the stack slot) points at nothing -- the card is looked up
+// in its controller's graveyard instead.
+function BanishResolvedSpellFromGraveyard($player, $cardID) {
+    $graveyard = ZoneSearch("myGraveyard", forPlayer:$player);
+    for($i = count($graveyard) - 1; $i >= 0; --$i) {
+        $obj = GetZoneObjectForPlayerPerspective($player, $graveyard[$i]);
+        if($obj !== null && !$obj->removed && $obj->CardID === $cardID) {
+            MZMove($player, $graveyard[$i], "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            return;
+        }
+    }
+}
+
 function NocturnesOblivionResolve($player) {
     $targets = array_values(array_filter(array_merge(ZoneSearch("myField"), ZoneSearch("theirField")), function($mz) {
         $obj = GetZoneObject($mz);
         return $obj !== null && !$obj->removed && !PropertyContains(EffectiveCardType($obj), "CHAMPION");
     }));
     $targets = FilterSpellshroudTargets($targets);
-    if(empty($targets)) return;
+    if(empty($targets)) { BanishResolvedSpellFromGraveyard($player, "1a5zdqgydt"); return; }
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Destroy_target_non-champion_object");
     DecisionQueueController::AddDecision($player, "CUSTOM", "NocturnesOblivionDestroy", 1);
 }
@@ -16431,9 +16445,7 @@ $customDQHandlers["NocturnesOblivionDestroy"] = function($player, $parts, $lastD
         $obj = GetZoneObject($lastDecision);
         if($obj !== null && !$obj->removed) DoAllyDestroyed($player, $lastDecision);
     }
-    $source = DecisionQueueController::GetVariable("mzID");
-    if($source !== null && $source !== "-" && $source !== "") MZMove($player, $source, "myBanish");
-    DecisionQueueController::CleanupRemovedCards();
+    BanishResolvedSpellFromGraveyard($player, "1a5zdqgydt");
 };
 
 // --- Starcalling Registry ---
