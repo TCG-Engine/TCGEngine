@@ -1204,6 +1204,8 @@ function CanUseStiflingTrapMemoryActivation($player, $mzID, $obj) {
     if($obj->CardID !== "z5exbwdp7q") return false;
     if(!StiflingTrapAlternateCostPayable($player)) return false;
     if(!CanActivateOpportunityCard($player, $mzID, $obj)) return false;
+    // "Deal 2 damage to target ally": the counters must not be spent on an activation with no ally anywhere to target.
+    if(empty(array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"])))) return false;
     // Pre-announcement gates with ignoreCost (the reserve cost is the part being waived).
     return !ActivationRefusedBeforeStart($player, $obj, true, true);
 }

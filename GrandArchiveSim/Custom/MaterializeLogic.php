@@ -44,22 +44,22 @@ function MaterializePhase() {
     }
 }
 
+// The choices are offered to $player in $player's own coordinate space ("my..." = $player's zones), whoever the request's viewer ($playerID) is: ZoneSearch(forPlayer:) searches the right zone and flips the
+// results back, and the field objects are scanned in the viewer's field array but reported as "myField-N".
 function GetMaterializeFloatingChoices($player) {
-    $choices = ZoneSearch("myGraveyard", floatingMemoryOnly:true);
+    $choices = ZoneSearch("myGraveyard", floatingMemoryOnly:true, forPlayer:$player);
     if(GlobalEffectCount($player, "pwscn0esog_ACTIVE") > 0) {
-        global $playerID;
-        $oppGY = ($player == $playerID) ? "theirGraveyard" : "myGraveyard";
-        $choices = array_merge($choices, ZoneSearch($oppGY, floatingMemoryOnly:true));
+        $choices = array_merge($choices, ZoneSearch("theirGraveyard", floatingMemoryOnly:true, forPlayer:$player));
     }
     // Art of War (fjne9ri261): while paying memory cost, you may banish it to pay for 1.
     global $playerID;
-    $myField = ($player == $playerID) ? "myField" : "theirField";
-    $field = GetZone($myField);
+    $fieldArrayName = ($player == $playerID) ? "myField" : "theirField";
+    $field = GetZone($fieldArrayName);
     for($i = 0; $i < count($field); ++$i) {
         if($field[$i]->removed) continue;
         if($field[$i]->CardID !== "fjne9ri261") continue;
         if(HasNoAbilities($field[$i])) continue;
-        $choices[] = $myField . "-" . $i;
+        $choices[] = "myField-" . $i;
     }
     // VelTech Presidential Card: while paying a VelTech card's memory cost,
     // it may be banished from the field to pay for one.
@@ -68,7 +68,7 @@ function GetMaterializeFloatingChoices($player) {
     if($pendingObj !== null && PropertyContains(CardSubtypes($pendingObj->CardID), "VELTECH")) {
         for($i = 0; $i < count($field); ++$i) {
             if($field[$i]->removed || $field[$i]->CardID !== "S84TY03uxj" || HasNoAbilities($field[$i])) continue;
-            $choices[] = $myField . "-" . $i;
+            $choices[] = "myField-" . $i;
         }
     }
     return implode("&", $choices);

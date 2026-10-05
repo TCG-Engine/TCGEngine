@@ -15,12 +15,17 @@ $rootName = 'GrandArchiveSim';
 $seed = 42;
 $dryRun = false;
 $onlyFixture = null;
+$resetMeta = false;
 
 foreach (array_slice($argv, 1) as $arg) {
     if (str_starts_with($arg, '--seed=')) $seed = intval(substr($arg, 7));
     elseif ($arg === '--dry-run') $dryRun = true;
+    elseif ($arg === '--reset-meta') $resetMeta = true;
     elseif (str_starts_with($arg, '--fixture=')) $onlyFixture = substr($arg, 10);
 }
+// Regenerating a fixture used to wipe its directory, including the hand-written assertions.json and the meta.json notes / semanticCoverage / engineBug records. They are now carried over unless
+// --reset-meta is passed: the snapshot (initial/expected gamestate, actions.json) is always rebuilt from the definition below, and the verification run at the end tells you when the kept
+// assertions no longer match the rebuilt fixture.
 
 require_once $repoRoot . '/Core/EngineActionRunner.php';
 define('TCGENGINE_BRIDGE_LIBRARY_ONLY', true);
@@ -28763,6 +28768,46 @@ $fixtures['coronal-of-rejuvenation-plays-an-affordable-banished-card'] = [
     'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myBanish-0')], mrdPay(1, 3), [mrdAns(1, 'NO')]), // REST Coronal, play the Dungeon Guide (3 reserve), decline its On Enter
 ];
 
+
+// Stifling Trap (z5exbwdp7q): "Deal 2 damage to target ally, then negate all on enter triggers from that ally." With no ally anywhere to target (the opponent's Dungeon Guide is still on the stack) the Class Bonus alternate cost must not
+// be offered: it spent two preparation counters on an activation that could not do anything.
+$fixtures['stifling-trap-memory-alt-cost-not-offered-without-a-target-ally'] = [
+    'testedCards' => ['z5exbwdp7q'],
+    'deck' => $tristanDeck,
+    'setup' => [$stiflingTrapTristan2Prep, $stiflingTrapSeedTrapInMemory],
+    'actions' => array_merge($stiflingTrapOpening, $stiflingTrapOpponentPlaysDungeonGuide, [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // not an offered option (no ally to target): nothing happens and the two preparation counters are kept
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // p1 passes the window
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // player 2 declines the newly played Dungeon Guide's On Enter
+    ]),
+];
+
+
+// Verdant Slime (kkbbu08s5r): "On Enter: Destroy up to one target regalia with memory cost 0. If you don't, put two buff counters on CARDNAME." Declining the target (PASS) skipped the generated continuation, whose decline branch
+// puts the two buff counters on it.
+$fixtures['verdant-slime-declined-regalia-destroy-puts-two-buff-counters-on-it'] = [
+    'testedCards' => ['kkbbu08s5r'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock (Verdant Slime is a TERA Tamer)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'xfpk9xycwz'], // Alkahest (regalia, memory cost 0) -> theirField-1: the only legal target
+        $gaHand('kkbbu08s5r'), // Verdant Slime -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdPass(1)]), // decline to destroy the regalia
+];
+
+// Cell Forging (pufooz13xf): "Choose one -- Put two durability counters on target weapon. / Summon a Powercell token." Not choosing a weapon (PASS) is the Powercell mode: it used to do nothing at all.
+$fixtures['cell-forging-declined-weapon-summons-a-powercell'] = [
+    'testedCards' => ['pufooz13xf'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]], // GUARDIAN class
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (a weapon) -> myField-1
+        $gaHand('pufooz13xf'), // Cell Forging -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1)]), // do not choose the weapon: summon a Powercell instead
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
@@ -28794,8 +28839,20 @@ foreach ($fixtures as $slug => $def) {
         continue;
     }
 
-    // Clean existing fixture
+    // Clean existing fixture (keeping its hand-written assertions and meta unless --reset-meta)
+    $keptAssertionsJson = null;
+    $keptMeta = null;
     if (is_dir($fixtureDir)) {
+        if (!$resetMeta) {
+            if (is_file($fixtureDir . '/assertions.json')) {
+                $decodedAssertions = json_decode(file_get_contents($fixtureDir . '/assertions.json'), true);
+                if (is_array($decodedAssertions) && !empty($decodedAssertions)) $keptAssertionsJson = $decodedAssertions;
+            }
+            if (is_file($fixtureDir . '/meta.json')) {
+                $decodedMeta = json_decode(file_get_contents($fixtureDir . '/meta.json'), true);
+                if (is_array($decodedMeta)) $keptMeta = $decodedMeta;
+            }
+        }
         RegressionDeleteDirRecursive($fixtureDir);
     }
     RegressionEnsureDir($fixtureDir);
@@ -29041,18 +29098,27 @@ foreach ($fixtures as $slug => $def) {
 
         file_put_contents(
             $fixtureDir . '/assertions.json',
-            json_encode([], JSON_PRETTY_PRINT)
+            json_encode($keptAssertionsJson ?? [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
         );
 
-        file_put_contents(
-            $fixtureDir . '/meta.json',
-            json_encode([
+        $generatedMeta = [
+            'name' => $slug,
+            'rootName' => $rootName,
+            'createdAt' => date('c'),
+            'createdBy' => 'batch-script',
+            'testedCards' => $def['testedCards'],
+        ];
+        if ($keptMeta !== null) {
+            // The earlier record wins (createdAt/createdBy, notes, semanticCoverage, engineBug, ...); the identity and the tested cards follow the definition.
+            $generatedMeta = array_merge($generatedMeta, $keptMeta, [
                 'name' => $slug,
                 'rootName' => $rootName,
-                'createdAt' => date('c'),
-                'createdBy' => 'batch-script',
                 'testedCards' => $def['testedCards'],
-            ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+            ]);
+        }
+        file_put_contents(
+            $fixtureDir . '/meta.json',
+            json_encode($generatedMeta, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
         );
 
         // 8. Save expected final gamestate

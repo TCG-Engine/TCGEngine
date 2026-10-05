@@ -1,0 +1,26 @@
+{
+    "name": "verdant-slime-declined-regalia-destroy-puts-two-buff-counters-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:33:21+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "kkbbu08s5r"
+    ],
+    "notes": "Verdant Slime: 'destroy up to one target regalia with memory cost 0. If you don't, put two buff counters on Verdant Slime.' The target is declined. The decline used to skip the generated continuation, so no counters were put on it.",
+    "semanticCoverage": {
+        "testedCards": [
+            "kkbbu08s5r"
+        ],
+        "mechanics": [
+            "optional-choice-decline",
+            "if-you-dont"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Verdant Slime's optional-choice continuation (kkbbu08s5r:0:Enter-1) is a generated handler whose own decline branch is part of the card text, but Core's ExecuteStaticMethods() skipped it on PASS (queued without dontSkipOnPass): the 'if you don't' buff counters were never put on it. Fix: Grand Archive registers the handler as decline-aware (GameCustomHandlerRunsOnPass, asked by Core before it skips).",
+        "affectedFunction": "Custom/GameLogic.php GameCustomHandlerRunsOnPass",
+        "fixCommit": "TBD"
+    }
+}

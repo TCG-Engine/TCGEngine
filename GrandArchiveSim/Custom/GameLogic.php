@@ -1172,6 +1172,8 @@ $gaDeclineAwareHandlers = [
     "DianaL2LoadChoice" => true, "HoarfrostHoldChoose" => true, "ImmaterialDissolveSelect" => true, "LostInThoughtBanish" => true, "MalevolentVow1" => true,
     "ModulatingCadenceReveal" => true, "OrbOfRegretShuffle" => true, "SinisterMindreaverPick2" => true, "SpiritBladeChooseSword" => true, "StonescaleBandDiscard" => true,
     "CastlingFirstTarget" => true, "FoundPowerDiscard1" => true, "RegalInquisitionDiscard" => true, "ProvokeObstinanceApply" => true,
+    // generated handlers whose own decline branch is part of the card text (kkbbu08s5r: "if you don't, put two buff counters"; pufooz13xf Cell Forging: no weapon chosen = summon a Powercell)
+    "kkbbu08s5r:0:Enter-1" => true, "pufooz13xf:0:CardActivated-1" => true,
 ];
 function GameCustomHandlerRunsOnPass($handlerName) {
     global $gaDeclineAwareHandlers;

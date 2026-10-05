@@ -1,0 +1,27 @@
+{
+    "name": "stifling-trap-memory-alt-cost-not-offered-without-a-target-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:30:44+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "z5exbwdp7q"
+    ],
+    "notes": "Stifling Trap's Class Bonus alternate cost with no ally on either field to target (the opponent's Dungeon Guide is still on the stack): the memory copy is not offered, so the two preparation counters are not spent on an activation that could do nothing.",
+    "semanticCoverage": {
+        "testedCards": [
+            "z5exbwdp7q"
+        ],
+        "mechanics": [
+            "alternate-cost",
+            "legal-target",
+            "cost-validation"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Stifling Trap ('deal 2 damage to target ally') had no legal-target check, so its Class Bonus alternate cost (remove two preparation counters, activate from memory) was offered, and paid, with no ally anywhere to target. Fix: CanUseStiflingTrapMemoryActivation() requires at least one ally on either field.",
+        "affectedFunction": "Custom/OpportunityLogic.php CanUseStiflingTrapMemoryActivation",
+        "fixCommit": "TBD"
+    }
+}

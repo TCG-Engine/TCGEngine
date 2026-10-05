@@ -1,0 +1,30 @@
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "{\"preparation\":2}",
+        "semantic": true,
+        "label": "The two preparation counters were not spent"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Stifling Trap stays in memory"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was activated"
+    }
+]
