@@ -20409,16 +20409,25 @@ function ForeseFervidCantorScavenged($player, $cardID) {
     }
 }
 
+// Would activating this card for (3) less be refused? The discount is applied only while asking.
+function TributeSingerActivationRefused($player, $obj) {
+    $previous = DecisionQueueController::GetVariable("tributeSingerDiscountCard");
+    DecisionQueueController::StoreVariable("tributeSingerDiscountCard", $obj->CardID);
+    $refused = ActivationRefusedBeforeStart($player, $obj, false, true);
+    DecisionQueueController::StoreVariable("tributeSingerDiscountCard", $previous ?? "");
+    return $refused;
+}
+
 function TributeSingerEnter($player) {
     $deck=GetDeck($player); $count=min(5,count($deck)); $targets=[];
     ClearMyTempZoneCards($player);
     for($i=$count-1;$i>=0;--$i) MZMove($player,"myDeck-".$i,"myTempZone");
     foreach(ZoneSearch("myTempZone",forPlayer:$player) as $mz) {
         $o=GetZoneObject($mz); if($o===null)continue; $st=CardSubtypes($o->CardID);
-        if(!IsAdvancedElementCard($o->CardID) && (PropertyContains($st,"HARMONY")||PropertyContains($st,"MELODY"))) $targets[]=$mz;
+        if(!IsAdvancedElementCard($o->CardID) && (PropertyContains($st,"HARMONY")||PropertyContains($st,"MELODY")) && !TributeSingerActivationRefused($player,$o)) $targets[]=$mz;
     }
     foreach(ZoneSearch("myMemory",forPlayer:$player) as $mz) {
-        $o=GetZoneObject($mz); if($o!==null && !IsAdvancedElementCard($o->CardID) && (PropertyContains(CardSubtypes($o->CardID),"HARMONY")||PropertyContains(CardSubtypes($o->CardID),"MELODY"))) $targets[]=$mz;
+        $o=GetZoneObject($mz); if($o!==null && !IsAdvancedElementCard($o->CardID) && (PropertyContains(CardSubtypes($o->CardID),"HARMONY")||PropertyContains(CardSubtypes($o->CardID),"MELODY")) && !TributeSingerActivationRefused($player,$o)) $targets[]=$mz;
     }
     if(empty($targets)) { QueueTempZoneBottomDeckRearrange($player); return; }
     DecisionQueueController::AddDecision($player,"MZMAYCHOOSE",implode("&",$targets),1,tooltip:"Activate_a_Harmony_or_Melody_card?");
@@ -20429,12 +20438,17 @@ $customDQHandlers["TributeSingerChoose"] = function($player,$parts,$lastDecision
     if($lastDecision===""||$lastDecision==="-"||$lastDecision==="PASS") { QueueTempZoneBottomDeckRearrange($player); return; }
     $chosen=GetZoneObject($lastDecision); if($chosen===null){QueueTempZoneBottomDeckRearrange($player);return;}
     DecisionQueueController::StoreVariable("tributeSingerDiscountCard",$chosen->CardID);
-    $activationMZ=$lastDecision;
-    if(strpos($lastDecision,"TempZone-")!==false) {
-        MZMove($player,$lastDecision,"myHand");
-        $hand=&GetHand($player); $activationMZ="myHand-".(count($hand)-1);
+    // Validated before anything moves: a card that cannot be activated stays where it is (temp zone: bottomed with the rest; memory: stays) and the discount does not linger.
+    if(ActivationRefusedBeforeStart($player,$chosen,false)) {
+        DecisionQueueController::StoreVariable("tributeSingerDiscountCard","");
+    } else {
+        $activationMZ=$lastDecision;
+        if(strpos($lastDecision,"TempZone-")!==false) {
+            MZMove($player,$lastDecision,"myHand");
+            $hand=&GetHand($player); $activationMZ="myHand-".(count($hand)-1);
+        }
+        DoActivateCard($player,$activationMZ);
     }
-    DoActivateCard($player,$activationMZ);
     QueueTempZoneBottomDeckRearrange($player);
 };
 
@@ -26435,14 +26449,22 @@ function TriggerShademistPriestess($player) {
     }
 }
 
+// Coronal of Rejuvenation (uvgflagxbb): the cards it banished (_coronal counter) that the player could actually begin activating right now.
+function CoronalActivatableCards($player) {
+    $banishment = GetZone("myBanish");
+    $cards = [];
+    for($i = 0; $i < count($banishment); ++$i) {
+        if($banishment[$i]->removed || !is_array($banishment[$i]->Counters ?? null) || !isset($banishment[$i]->Counters['_coronal'])) continue;
+        if(ActivationRefusedBeforeStart($player, $banishment[$i], false, true)) continue;
+        $cards[] = "myBanish-" . $i;
+    }
+    return $cards;
+}
+
+// Validated before the card is moved to the hand (ActivateBanishedCard): a banished card that cannot be activated stays banished instead of ending up in the hand for free.
 $customDQHandlers["CoronalOfRejuvenationActivate"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $handObj = MZMove($player, $lastDecision, "myHand");
-    if($handObj === null) return;
-    $hand = &GetHand($player);
-    $handIdx = count($hand) - 1;
-    if($handIdx < 0) return;
-    ActivateCard($player, "myHand-" . $handIdx, false);
+    ActivateBanishedCard($player, $lastDecision);
 };
 
 $customDQHandlers["AshfletchedBowmanRecollection"] = function($player, $parts, $lastDecision) {
@@ -27492,6 +27514,27 @@ function HandCardCostDifference($obj) {
 // Slime Calling (dc8P58gmjR): multi-step flow helpers and DQ handlers
 // ============================================================================
 
+// Would activating this Slime ally with Slime Calling's 1-less discount be refused (cannot pay, gates, prerequisites)? The discount is applied only while asking.
+function SlimeCallingActivationRefused($player, $obj) {
+    $alreadyDiscounted = GlobalEffectCount($player, "dc8P58gmjR_SLIME_DISCOUNT") > 0;
+    if(!$alreadyDiscounted) AddGlobalEffects($player, "dc8P58gmjR_SLIME_DISCOUNT");
+    $refused = ActivationRefusedBeforeStart($player, $obj, false, true);
+    if(!$alreadyDiscounted) RemoveGlobalEffect($player, "dc8P58gmjR_SLIME_DISCOUNT");
+    return $refused;
+}
+
+// Activate the chosen Slime ally from the temp zone with the discount. Validated first: a card that cannot be activated stays in the temp zone (it is put on the bottom with the rest) and the one-shot
+// discount is not left behind for the next Slime ally.
+function SlimeCallingActivate($player, $mzCard) {
+    $obj = GetZoneObject($mzCard);
+    if($obj === null || $obj->removed) return;
+    if(SlimeCallingActivationRefused($player, $obj)) return;
+    AddGlobalEffects($player, "dc8P58gmjR_SLIME_DISCOUNT");
+    MZMove($player, $mzCard, "myHand");
+    $hand = GetHand($player);
+    DoActivateCard($player, "myHand-" . (count($hand) - 1));
+}
+
 /**
  * Scan myTempZone for remaining Slime ally cards and offer the player an optional
  * pick. If none remain, proceeds directly to the rearrange step.
@@ -27505,7 +27548,8 @@ function SlimeCallingChooseSlime($player, $pickNumber) {
     for($i = 0; $i < count($tempZone); ++$i) {
         if(!$tempZone[$i]->removed) {
             $cid = $tempZone[$i]->CardID;
-            if(PropertyContains(CardType($cid), "ALLY") && PropertyContains(CardSubtypes($cid), "SLIME")) {
+            if(PropertyContains(CardType($cid), "ALLY") && PropertyContains(CardSubtypes($cid), "SLIME")
+               && !SlimeCallingActivationRefused($player, $tempZone[$i])) {
                 $slimeCandidates[] = "myTempZone-" . $i;
             }
         }
@@ -27582,13 +27626,7 @@ $customDQHandlers["TempZoneBottomDeckRearrangeApply"] = function($player, $parts
  */
 $customDQHandlers["SlimeCallingActivate1"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
-        $obj = GetZoneObject($lastDecision);
-        if($obj !== null && !$obj->removed) {
-            AddGlobalEffects($player, "dc8P58gmjR_SLIME_DISCOUNT");
-            MZMove($player, $lastDecision, "myHand");
-            $hand = GetHand($player);
-            DoActivateCard($player, "myHand-" . (count($hand) - 1));
-        }
+        SlimeCallingActivate($player, $lastDecision);
     }
     // Queue second pick after the first activation's decisions are processed
     SlimeCallingChooseSlime($player, 2);
@@ -27601,13 +27639,7 @@ $customDQHandlers["SlimeCallingActivate1"] = function($player, $parts, $lastDeci
  */
 $customDQHandlers["SlimeCallingActivate2"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
-        $obj = GetZoneObject($lastDecision);
-        if($obj !== null && !$obj->removed) {
-            AddGlobalEffects($player, "dc8P58gmjR_SLIME_DISCOUNT");
-            MZMove($player, $lastDecision, "myHand");
-            $hand = GetHand($player);
-            DoActivateCard($player, "myHand-" . (count($hand) - 1));
-        }
+        SlimeCallingActivate($player, $lastDecision);
     }
     SlimeCallingRearrange($player);
 };

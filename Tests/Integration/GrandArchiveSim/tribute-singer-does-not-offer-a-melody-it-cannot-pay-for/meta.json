@@ -1,0 +1,27 @@
+{
+    "name": "tribute-singer-does-not-offer-a-melody-it-cannot-pay-for",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:27:51+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ne6qXGbr4c"
+    ],
+    "notes": "Tribute Singer with an empty hand after paying for it: the Modulating Cadence among the top five (cost 4, 1 after the discount) cannot be paid for, so it is not offered; all five cards go to the bottom. It used to be offered and, once chosen, moved into the hand for free before the refused activation.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ne6qXGbr4c"
+        ],
+        "mechanics": [
+            "activate-from-zone",
+            "cost-validation",
+            "tribute-singer"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Effects that let you activate a card from outside your hand (Tribute Singer, Slime Calling, Clockwork Musicbox) offered every candidate and moved the chosen card into the hand BEFORE checking that it could be activated, so a card whose cost could not be paid ended up in the hand for free (and Slime Calling's one-shot discount lingered). Fix: candidates are offered only when ActivationRefusedBeforeStart() allows them (with the effect's discount applied while asking), and the chosen card is re-validated before it moves.",
+        "affectedFunction": "Custom/GameLogic.php TributeSingerEnter / TributeSingerChoose / SlimeCallingChooseSlime / SlimeCallingActivate",
+        "fixCommit": "TBD"
+    }
+}

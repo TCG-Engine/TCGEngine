@@ -1,0 +1,27 @@
+{
+    "name": "clockwork-musicbox-unaffordable-banished-card-is-not-activatable-and-stays-banished",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:25:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "q2svdv3zb9"
+    ],
+    "notes": "Clockwork Musicbox with a banished Dungeon Guide (reserve cost 3) and no hand cards to pay with: the ability does not start, so the card cannot be taken to the hand for free (it used to be: REST paid, mandatory choice, card moved to hand, activation refused).",
+    "semanticCoverage": {
+        "testedCards": [
+            "q2svdv3zb9"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "activate-from-banishment",
+            "cost-validation"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Clockwork Musicbox's '[REST]: You may activate a card banished by Clockwork Musicbox' offered EVERY banished card as a mandatory choice and moved the chosen card into the hand BEFORE checking it could be activated (MusicboxActivateCard did MZMove then ActivateCard), so choosing one you could not pay for left it in your hand for free after the REST was spent. Fix: the ability needs a banished card that can actually begin activating, offers only those (optional) and activates through ActivateBanishedCard(), which validates before it moves anything.",
+        "affectedFunction": "Custom/CardDQHandlers.php MusicboxActivateCard / MusicboxActivatableCards; Custom/GeneratedAbilityOverrides.php activateAbility q2svdv3zb9:0",
+        "fixCommit": "TBD"
+    }
+}

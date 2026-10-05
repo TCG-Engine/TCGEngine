@@ -28698,6 +28698,71 @@ $fixtures['sinister-mindreaver-decline-second-discard-opponent-still-draws-one']
     'actions' => [mrdEnd(1), mrdPlay(2, 'myField-1'), mrdAns(2, 'theirField-0'), mrdAns(2, 'theirMemory-0'), mrdPass(2)], // discard one memory card, decline the second
 ];
 
+
+// Clockwork Musicbox (q2svdv3zb9): "[REST]: You may activate a card banished by CARDNAME. (You still pay its costs.)" The card used to be moved to the hand before anything checked it could be activated.
+$gaMusicboxSetup = function(bool $affordable) use ($GA_DG, $gaHand) {
+    $rows = [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'q2svdv3zb9'], // Clockwork Musicbox -> myField-1 (Hindered: it enters rested)
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // wake it up: its [REST] ability can be used
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => $GA_DG, 'setProperties' => ['Counters' => ['_musicbox' => 1]]], // a Dungeon Guide (reserve cost 3) banished by the Musicbox -> myBanish-0
+    ];
+    if(!$affordable) array_unshift($rows, ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard']); // no hand cards: the 3 reserve cost cannot be paid
+    return $rows;
+};
+$fixtures['clockwork-musicbox-unaffordable-banished-card-is-not-activatable-and-stays-banished'] = [
+    'testedCards' => ['q2svdv3zb9'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaMusicboxSetup(false),
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), // nothing to activate that can be paid for: the ability does not even start (no REST, no prompt)
+        mrdAns(1, 'myBanish-0')], // there is no pending choice: the unaffordable banished Dungeon Guide cannot be taken into the hand for free
+];
+$fixtures['clockwork-musicbox-activates-an-affordable-banished-card'] = [
+    'testedCards' => ['q2svdv3zb9'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaMusicboxSetup(true),
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myBanish-0')], mrdPay(1, 3), [mrdAns(1, 'NO')]), // REST the Musicbox, activate the Dungeon Guide (3 reserve), decline its On Enter
+];
+
+
+// Tribute Singer (ne6qXGbr4c): "On Enter: Reveal the top five cards of your deck. You may activate a non-advanced element Harmony or Melody card from among the revealed cards or your memory. That card costs (3) less to activate
+// this way." A Melody whose discounted cost cannot be paid (empty hand after paying Tribute Singer) used to be offered anyway and, once chosen, was moved into the hand for free. It is no longer offered.
+$fixtures['tribute-singer-does-not-offer-a-melody-it-cannot-pay-for'] = [
+    'testedCards' => ['ne6qXGbr4c'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard'],
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 1, '_overrides' => ['classes' => 'TAMER']]]], // Level 1+; TAMER class for Modulating Cadence
+        $gaHand($GA_DG), $gaHand($GA_DG), $gaHand($GA_DG), // three payers -> myHand-0..2 (the hand is empty once Tribute Singer is paid for)
+        $gaHand('ne6qXGbr4c'), // Tribute Singer -> myHand-3
+        $gaTop(['p5p0azskw4', $GA_DG, $GA_FS, $GA_DG, $GA_FS, $GA_MARK]), // Modulating Cadence (Melody, reserve cost 4: 1 after the discount) among the top five
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-3')], mrdPay(1, 3), [mrdAns(1, 'Bottom=p5p0azskw4,' . $GA_DG . ',' . $GA_FS . ',' . $GA_DG . ',' . $GA_FS)]), // nothing activatable is offered: straight to putting the five on the bottom
+];
+
+
+// Coronal of Rejuvenation (uvgflagxbb): "[REST]: You may play a card banished by CARDNAME. Activate this ability only at slow speed." The card used to be moved to the hand before anything checked it could be activated.
+$gaCoronalSetup = function(bool $affordable) use ($GA_DG) {
+    $rows = [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'uvgflagxbb'], // Coronal of Rejuvenation -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => $GA_DG, 'setProperties' => ['Counters' => ['_coronal' => 1]]], // a Dungeon Guide (reserve cost 3) banished by Coronal -> myBanish-0
+    ];
+    if(!$affordable) array_unshift($rows, ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myGraveyard']); // no hand cards: the 3 reserve cost cannot be paid
+    return $rows;
+};
+$fixtures['coronal-of-rejuvenation-unaffordable-banished-card-is-not-playable-and-stays-banished'] = [
+    'testedCards' => ['uvgflagxbb'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaCoronalSetup(false),
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myBanish-0')], // the ability does not start; there is no pending choice to answer
+];
+$fixtures['coronal-of-rejuvenation-plays-an-affordable-banished-card'] = [
+    'testedCards' => ['uvgflagxbb'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaCoronalSetup(true),
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myBanish-0')], mrdPay(1, 3), [mrdAns(1, 'NO')]), // REST Coronal, play the Dungeon Guide (3 reserve), decline its On Enter
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

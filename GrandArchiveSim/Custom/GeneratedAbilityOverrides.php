@@ -1793,3 +1793,36 @@ $activateAbilityAbilities["zrvvwz3ww9:0"] = function($player) { //Lucenia's Reig
   DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $chessmanAllies), 1, "");
   DecisionQueueController::AddDecision($player, "CUSTOM", "zrvvwz3ww9:0:ActivateAbility-2", 1);
 };
+
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Clockwork Musicbox (q2svdv3zb9): "[REST]: You may activate a card banished by CARDNAME. (You still pay its costs.)" The generated body offered EVERY card it had banished (a mandatory choice) and the chosen card was
+// moved to the hand before anything checked it could be activated, so picking one you could not pay for left it in your hand for free (after the REST cost was already paid). The ability now needs a banished card
+// you can actually begin activating, offers only those (optionally: "you may"), and activates through ActivateBanishedCard(), which validates before it moves anything.
+$activateAbilityPrereqs["q2svdv3zb9:0"] = function($player, $mzID, $abilityIndex) { //Activate prereq
+  $sourceObject = GetZoneObject($mzID);
+  if($sourceObject === null) return false;
+  if($sourceObject->Status != 2) return false;
+  return !empty(MusicboxActivatableCards($player));
+};
+$activateAbilityAbilities["q2svdv3zb9:0"] = function($player) { //Activate
+  $musicboxCards = MusicboxActivatableCards($player);
+  if(empty($musicboxCards)) return;
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $musicboxCards), 1, "Activate_a_card_banished_by_Clockwork_Musicbox");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "q2svdv3zb9:0:ActivateAbility-1", 1);
+};
+
+
+// Coronal of Rejuvenation (uvgflagxbb): "[REST]: You may play a card banished by CARDNAME. Activate this ability only at slow speed." The generated body offered every card it had banished (a mandatory choice) and the chosen
+// card was moved to the hand before anything checked it could be activated. The ability now needs a banished card that can actually begin activating, offers only those, and activates through ActivateBanishedCard().
+$activateAbilityPrereqs["uvgflagxbb:0"] = function($player, $mzID, $abilityIndex) { //Play prereq
+  $sourceObject = GetZoneObject($mzID);
+  if($sourceObject === null || $sourceObject->Status != 2) return false;
+  return !empty(CoronalActivatableCards($player));
+};
+$activateAbilityAbilities["uvgflagxbb:0"] = function($player) { //Play
+  $choices = CoronalActivatableCards($player);
+  if(empty($choices)) return;
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 1, tooltip:"Choose_card_banished_by_Coronal");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "CoronalOfRejuvenationActivate", 1);
+};

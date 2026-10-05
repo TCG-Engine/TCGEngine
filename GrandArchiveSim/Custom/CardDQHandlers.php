@@ -3816,11 +3816,21 @@ $customDQHandlers["MusicboxActivate"] = function($player, $parts, $lastDecision)
     MusicboxActivateCard($player, $lastDecision);
 };
 
+// The banished card is validated (activation gates, prerequisites, reserve affordability) BEFORE it is moved to the hand: moving it first and then being refused used to leave it in the hand for free.
 function MusicboxActivateCard($player, $banishedMZ) {
-    $handObj = MZMove($player, $banishedMZ, "myHand");
-    $hand = &GetHand($player);
-    $handIdx = count($hand) - 1;
-    ActivateCard($player, "myHand-" . $handIdx, false);
+    return ActivateBanishedCard($player, $banishedMZ);
+}
+
+// The Musicbox cards (banished by it) the player could actually begin activating right now.
+function MusicboxActivatableCards($player) {
+    $banish = GetZone("myBanish");
+    $cards = [];
+    for($bi = 0; $bi < count($banish); ++$bi) {
+        if($banish[$bi]->removed || !isset($banish[$bi]->Counters['_musicbox'])) continue;
+        if(ActivationRefusedBeforeStart($player, $banish[$bi], false, true)) continue;
+        $cards[] = "myBanish-" . $bi;
+    }
+    return $cards;
 }
 
 // Sinister Mindreaver: continue after first memory pick

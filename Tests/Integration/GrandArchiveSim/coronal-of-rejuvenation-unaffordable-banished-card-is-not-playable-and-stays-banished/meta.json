@@ -1,0 +1,27 @@
+{
+    "name": "coronal-of-rejuvenation-unaffordable-banished-card-is-not-playable-and-stays-banished",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:28:49+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "uvgflagxbb"
+    ],
+    "notes": "Coronal of Rejuvenation with a banished Dungeon Guide (reserve cost 3) and no hand cards to pay with: the ability does not start, so the card cannot be taken to the hand for free.",
+    "semanticCoverage": {
+        "testedCards": [
+            "uvgflagxbb"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "activate-from-banishment",
+            "cost-validation"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Coronal of Rejuvenation's '[REST]: You may play a card banished by Coronal of Rejuvenation' offered EVERY banished card as a mandatory choice and moved the chosen card into the hand BEFORE checking it could be activated (see the Clockwork Musicbox fix), so choosing one you could not pay for left it in your hand for free after the REST was spent. Fix: the ability needs a banished card that can actually begin activating, offers only those and activates through ActivateBanishedCard().",
+        "affectedFunction": "Custom/GameLogic.php CoronalActivatableCards / CoronalOfRejuvenationActivate; Custom/GeneratedAbilityOverrides.php activateAbility uvgflagxbb:0",
+        "fixCommit": "TBD"
+    }
+}
