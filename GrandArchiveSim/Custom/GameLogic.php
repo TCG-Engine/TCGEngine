@@ -5615,6 +5615,134 @@ $customDQHandlers["AgnisSignetDestroy"] = function($player, $parts, $lastDecisio
     DecisionQueueController::CleanupRemovedCards();
 };
 
+// Treasure of the Depths (4Kxe6pSt6C): "Deluge 3 -- At the beginning of your end phase, if there are three or more water element cards in your graveyard and there are less than three refinement
+// counters on CARDNAME, put a refinement counter on CARDNAME. (3), [REST]: Draw a card into your memory. Activate this ability only if there are three or more refinement counters on CARDNAME."
+// The end-phase trigger is in BeforeEndPhase() (next to the other beginning-of-end-phase item triggers).
+$activateAbilityAbilities["4Kxe6pSt6C:0"] = function($player) { DrawIntoMemory($player, 1); };
+$activateAbilityPrereqs["4Kxe6pSt6C:0"] = function($player, $mzID, $abilityIndex) {
+    $itemObj = GetZoneObject($mzID);
+    return GAItemAwake($mzID) && GetCounterCount($itemObj, "refinement") >= 3;
+};
+// Verdant Scepter (7wsxirq146): "[Class Bonus] On Enter: You may banish a Slime ally you control. If you do, put an amount of refinement counters on CARDNAME equal to the banished ally's power plus 1.
+// [REST], Remove a refinement counter from CARDNAME: Put a buff counter on each of up to two Slime allies you control then draw a card."
+$enterAbilities["7wsxirq146:0"] = function($player) {
+    $scepterMZ = DecisionQueueController::GetVariable("mzID");
+    if(!IsClassBonusActive($player, CardClasses("7wsxirq146"))) return;
+    $slimes = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SLIME"]);
+    if(empty($slimes)) return;
+    $scepterUID = GetFieldObjectUniqueID($scepterMZ, $player);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $slimes), 1, tooltip:"May_banish_a_Slime_ally_for_refinement_counters");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "VerdantScepterBanish|" . intval($scepterUID), 1);
+};
+$customDQHandlers["VerdantScepterBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $slimeObj = GetZoneObject($lastDecision);
+    if($slimeObj === null || $slimeObj->removed || !PropertyContains(EffectiveCardType($slimeObj), "ALLY")) return;
+    $counters = max(0, ObjectCurrentPower($slimeObj)) + 1;
+    OnLeaveField($player, $lastDecision);
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    $scepterMZ = FindFieldMzByUniqueID($parts[0] ?? 0);
+    if($scepterMZ === "") return;
+    AddCounters($player, NormalizeMZForPlayerPerspective($player, $scepterMZ), "refinement", $counters);
+};
+$activateAbilityAbilities["7wsxirq146:0"] = function($player) {
+    $slimes = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SLIME"]);
+    if(empty($slimes)) { Draw($player, 1); return; }
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|2|" . implode("&", $slimes), 1, tooltip:"Put_a_buff_counter_on_up_to_two_Slime_allies");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "VerdantScepterBuff", 1, dontSkipOnPass:1);
+};
+$activateAbilityPrereqs["7wsxirq146:0"] = function($player, $mzID, $abilityIndex) {
+    $scepterObj = GetZoneObject($mzID);
+    return GAItemAwake($mzID) && GetCounterCount($scepterObj, "refinement") >= 1;
+};
+$customDQHandlers["VerdantScepterBuff"] = function($player, $parts, $lastDecision) {
+    foreach(array_slice(array_values(array_filter(explode("&", strval($lastDecision)), fn($v) => $v !== "" && $v !== "-" && $v !== "PASS")), 0, 2) as $slimeMZ) {
+        $slimeObj = GetZoneObject($slimeMZ);
+        if($slimeObj !== null && !$slimeObj->removed) AddCounters($player, $slimeMZ, "buff", 1);
+    }
+    Draw($player, 1);
+};
+// Transcendental Rite (tAiiMGZJXp): "Banish Transcendental Rite: Your champion becomes an Ascendant in addition to its other types. All basic elements are enabled for you until end of turn."
+$activateAbilityAbilities["tAiiMGZJXp:0"] = function($player) {
+    MakeChampionAscendant($player);
+    AddGlobalEffects($player, "tAiiMGZJXp_FIRE");
+    AddGlobalEffects($player, "tAiiMGZJXp_WATER");
+    AddGlobalEffects($player, "tAiiMGZJXp_WIND");
+};
+$doesGlobalEffectApply["tAiiMGZJXp_FIRE"] = function($obj) { return false; };
+$doesGlobalEffectApply["tAiiMGZJXp_WATER"] = function($obj) { return false; };
+$doesGlobalEffectApply["tAiiMGZJXp_WIND"] = function($obj) { return false; };
+// Pride of Demiourgos (bupi7VU4of): "[Level 2+] (2), [REST]: Ignore the exalted elemental requirement for the next card you play this turn." The bypass flag is honored (and consumed) in CanPlayerUseCardElement().
+$activateAbilityAbilities["bupi7VU4of:0"] = function($player) { AddGlobalEffects($player, "bupi7VU4of_IGNORE_EXALTED"); };
+$activateAbilityPrereqs["bupi7VU4of:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID) && PlayerLevel($player) >= 2; };
+// Heirloom of Materia (sZlDgmVTD7): "Banish CARDNAME: Choose one -- Remove all damage counters from target champion you don't control. Return those counters onto that champion at the beginning of your next turn.
+// -- For each opponent, for every two token objects they control, they sacrifice one." / "(3), Banish CARDNAME: Draw a card into your memory."
+$activateAbilityAbilities["sZlDgmVTD7:0"] = function($player) {
+    DecisionQueueController::AddDecision($player, "MZMODAL", "1|1|A:_Remove_all_damage_counters_from_target_opposing_champion_(returned_next_turn)&B:_Each_opponent_sacrifices_one_token_per_two_they_control", 1, "Heirloom_of_Materia");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "HeirloomOfMateriaMode", 1);
+};
+$activateAbilityAbilities["sZlDgmVTD7:1"] = function($player) { DrawIntoMemory($player, 1); };
+$customDQHandlers["HeirloomOfMateriaMode"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $opponent = $player == 1 ? 2 : 1;
+    if(trim(strval($lastDecision)) === "0") {
+        $champMZ = FindChampionMZ($opponent);
+        $champObj = $champMZ === null ? null : GetZoneObject($champMZ);
+        if($champObj === null) return;
+        $removed = intval($champObj->Damage ?? 0);
+        if($removed <= 0) return;
+        $champObj->Damage = 0;
+        if(!is_array($champObj->Counters)) $champObj->Counters = [];
+        $champObj->Counters["materiaDamage"] = intval($champObj->Counters["materiaDamage"] ?? 0) + $removed;
+        $champObj->Counters["materiaOwner"] = $player;
+    } else {
+        GAMateriaSacrificeNextToken($opponent, intdiv(count(ZoneSearch("myField", ["TOKEN"], forPlayer:$opponent)), 2));
+    }
+};
+function GAMateriaSacrificeNextToken($opponent, $remaining) {
+    if($remaining <= 0) return;
+    $tokens = ZoneSearch("myField", ["TOKEN"], forPlayer:$opponent);
+    if(empty($tokens)) return;
+    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", $tokens), 1, tooltip:"Sacrifice_a_token_(Heirloom_of_Materia)");
+    DecisionQueueController::AddDecision($opponent, "CUSTOM", "HeirloomOfMateriaSacrifice|" . $remaining, 1);
+}
+$customDQHandlers["HeirloomOfMateriaSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        DoSacrificeFighter($player, $lastDecision);
+        DecisionQueueController::CleanupRemovedCards();
+    }
+    GAMateriaSacrificeNextToken($player, intval($parts[0] ?? 0) - 1);
+};
+// "Return those counters onto that champion at the beginning of your next turn": called from WakeUpPhase() for the turn player.
+function GAMateriaReturnDamage($turnPlayer) {
+    foreach([1, 2] as $champOwner) {
+        $field = &GetField($champOwner);
+        for($i = 0; $i < count($field); ++$i) {
+            $obj = $field[$i];
+            if($obj->removed || !is_array($obj->Counters) || intval($obj->Counters["materiaOwner"] ?? 0) !== intval($turnPlayer)) continue;
+            $field[$i]->Damage = intval($field[$i]->Damage ?? 0) + intval($obj->Counters["materiaDamage"] ?? 0);
+            unset($field[$i]->Counters["materiaDamage"], $field[$i]->Counters["materiaOwner"]);
+        }
+    }
+}
+// Sojourner's Hunt (aqlbuznsz4): "[REST]: Sojourner's Hunt becomes a weapon subtype of your choice in addition to its other types until end of turn." (EffectiveCardSubtypes() reads the SOJOURNER_<SUBTYPE> turn effect.)
+function GASojournerSubtypes() { return ["SWORD", "DAGGER", "POLEARM", "GUN", "HAMMER", "MAUL", "BOW", "VELTECH", "AETHERWING", "WHIP", "FIST", "LASH"]; }
+$activateAbilityAbilities["aqlbuznsz4:0"] = function($player) {
+    $options = [];
+    foreach(GASojournerSubtypes() as $subtypeIdx => $subtypeName) $options[] = chr(65 + $subtypeIdx) . ":_" . ucfirst(strtolower($subtypeName));
+    DecisionQueueController::AddDecision($player, "MZMODAL", "1|1|" . implode("&", $options), 1, "Sojourners_Hunt");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SojournersHuntSubtype|" . DecisionQueueController::GetVariable("mzID"), 1);
+};
+$activateAbilityPrereqs["aqlbuznsz4:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID); };
+$customDQHandlers["SojournersHuntSubtype"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $subtypes = GASojournerSubtypes();
+    $choice = intval(trim(strval($lastDecision)));
+    if(!isset($subtypes[$choice])) return;
+    AddTurnEffect($parts[0] ?? "-", "SOJOURNER_" . $subtypes[$choice]);
+};
+
 // cardID => ability names of field activated abilities whose generated CardActivateAbilityCount row is 0
 // (see the Key Slime Pudding / Baby Blue Slime note above). Names become the opportunity-window labels
 // ("myField-N@Activate-0@<name>") and the Activate button captions.
@@ -5629,6 +5757,12 @@ function GAActivateAbilityCountOverrides() {
         "7NlaXYtNM6" => ["Rest or damage"], // Heart of the Frost
         "xfheZavYZm" => ["Return"], // Reluctant Breath
         "yIozXMrdqr" => ["Destroy"], // Agni's Signet
+        "4Kxe6pSt6C" => ["Draw"], // Treasure of the Depths
+        "7wsxirq146" => ["Buff"], // Verdant Scepter
+        "tAiiMGZJXp" => ["Ascend"], // Transcendental Rite
+        "bupi7VU4of" => ["Ignore exalted"], // Pride of Demiourgos
+        "sZlDgmVTD7" => ["Choose one", "Draw"], // Heirloom of Materia
+        "aqlbuznsz4" => ["Subtype"], // Sojourner's Hunt
     ];
 }
 // Lazy, idempotent application to the generated count/name arrays for callers that run without
@@ -7219,6 +7353,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::CleanupRemovedCards();
             break;
         case "drIdaGpPJ2": // Heirloom of Natura
+        case "sZlDgmVTD7": // Heirloom of Materia (same shape: Banish; the second ability also pays (3))
         case "0sVdvpQKXq": // Heirloom of Spectra: "Banish CARDNAME" is the whole cost of the first ability; the second is "(3), Banish CARDNAME"
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
@@ -7486,6 +7621,23 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                     for($ri = 0; $ri < 2; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
                 }
             }
+            break;
+        case "4Kxe6pSt6C": // Treasure of the Depths: (3), [REST]
+        case "7wsxirq146": // Verdant Scepter: [REST], Remove a refinement counter from CARDNAME
+        case "bupi7VU4of": // Pride of Demiourgos: (2), [REST]
+        case "aqlbuznsz4": // Sojourner's Hunt: [REST]
+            {
+                $itemObj = &GetZoneObject($mzCard);
+                if($itemObj !== null) $itemObj->Status = 1;
+                if($cardID === "7wsxirq146") RemoveCounters($player, $mzCard, "refinement", 1);
+                $reserveCount = $cardID === "4Kxe6pSt6C" ? 3 : ($cardID === "bupi7VU4of" ? 2 : 0);
+                for($ri = 0; $ri < $reserveCount; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
+        case "tAiiMGZJXp": // Transcendental Rite: Banish self
+            OnLeaveField($player, $mzCard);
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
             break;
         case "vm4xg2hedp": // Refluxal Ribbon: (2), Banish self
             OnLeaveField($player, $mzCard);
@@ -9297,6 +9449,8 @@ function WakeUpPhase() {
 
     $currentTurn = intval(GetTurnNumber());
     if($currentTurn === 1) return;
+
+    GAMateriaReturnDamage(GetTurnPlayer()); // Heirloom of Materia: "return those counters ... at the beginning of your next turn"
 
     // Wake Up phase â€” ready all cards on the turn player's field
     $turnPlayer = &GetTurnPlayer();
@@ -11861,6 +12015,16 @@ function EndPhase() {
             $pcObj->Controller = $turnPlayer;
             $pcObj->Owner = $turnPlayer;
             break;
+        }
+    }
+
+    // Treasure of the Depths (4Kxe6pSt6C): Deluge 3 -- at the beginning of your end phase, if there are three or more water element cards in your graveyard and there are less than three refinement
+    // counters on CARDNAME, put a refinement counter on CARDNAME.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "4Kxe6pSt6C" && !HasNoAbilities($field[$i])
+            && DelugeAmount($turnPlayer) >= 3 && GetCounterCount($field[$i], "refinement") < 3) {
+            AddCounters($turnPlayer, "myField-" . $i, "refinement", 1);
         }
     }
 
@@ -18342,7 +18506,9 @@ function CanActivateCardForSelection($player, $obj, $strict = false) {
             SetFlashMessage($existingFlash);
         }
     }
-    if(!CanPlayerUseCardElement($player, $obj->CardID, $strict, $strict)) {
+    // A selection check never consumes a one-shot element bypass (Prismatic Codex / Pride of Demiourgos): the opportunity window evaluates this for every card in hand, which
+    // used to spend the bypass before the player activated anything. The real activation consumes it (ActivationBlockedBeforeAnnounce).
+    if(!CanPlayerUseCardElement($player, $obj->CardID, false, $strict)) {
         SetFlashMessage($existingFlash);
         return false;
     }
@@ -21285,6 +21451,10 @@ function GetPlayerEnabledElements($player) {
     if(GlobalEffectCount($player, "by8145w2u2_FIRE") > 0) $enabled["FIRE"] = true;
     if(GlobalEffectCount($player, "by8145w2u2_WATER") > 0) $enabled["WATER"] = true;
     if(GlobalEffectCount($player, "by8145w2u2_WIND") > 0) $enabled["WIND"] = true;
+    // Transcendental Rite (tAiiMGZJXp): same effect
+    if(GlobalEffectCount($player, "tAiiMGZJXp_FIRE") > 0) $enabled["FIRE"] = true;
+    if(GlobalEffectCount($player, "tAiiMGZJXp_WATER") > 0) $enabled["WATER"] = true;
+    if(GlobalEffectCount($player, "tAiiMGZJXp_WIND") > 0) $enabled["WIND"] = true;
 
     return array_keys($enabled);
 }
@@ -21429,6 +21599,15 @@ function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setF
             RemoveGlobalEffect($player, "PRISMATIC_CODEX_IGNORE_ELEMENT");
         }
         return true;
+    }
+
+    // Pride of Demiourgos (bupi7VU4of): the next card played ignores the Exalted element requirement (its other elements are still required).
+    if(GlobalEffectCount($player, "bupi7VU4of_IGNORE_EXALTED") > 0 && PropertyContains($cardElement, "EXALTED")) {
+        $otherElements = array_values(array_filter(array_map('trim', explode(',', $cardElement)), fn($part) => $part !== "" && $part !== "EXALTED"));
+        if(CanPlayerMeetCardElementRequirements($player, empty($otherElements) ? "NORM" : implode(",", $otherElements))) {
+            if($consumeBypass) RemoveGlobalEffect($player, "bupi7VU4of_IGNORE_EXALTED");
+            return true;
+        }
     }
 
     // Silvie, Slime Sovereign (mdwbkuhtjm): ignore element requirements for advanced element Slime ally cards
@@ -22986,6 +23165,12 @@ function EffectiveCardSubtypes($obj) {
     }
     // Ally Link: Beastsoul Visage (8asbierp5k) linked ally becomes a Beast
     $subtypes = CardSubtypes($obj->CardID);
+    // Sojourner's Hunt (aqlbuznsz4): becomes a weapon subtype of the controller's choice until end of turn
+    foreach(($obj->TurnEffects ?? []) as $subtypeEffect) {
+        if(strpos(strval($subtypeEffect), "SOJOURNER_") !== 0) continue;
+        $extraSubtype = substr(strval($subtypeEffect), strlen("SOJOURNER_"));
+        if(!PropertyContains($subtypes, $extraSubtype)) $subtypes = $subtypes ? $subtypes . "," . $extraSubtype : $extraSubtype;
+    }
     $linkedCards = GetLinkedCards($obj);
     foreach($linkedCards as $linkedObj) {
         if($linkedObj === null || $linkedObj->CardID !== "8asbierp5k" || !PropertyContains($subtypes, "BEAST")) continue;

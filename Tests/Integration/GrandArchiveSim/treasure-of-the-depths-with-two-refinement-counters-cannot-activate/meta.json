@@ -1,0 +1,21 @@
+{
+    "name": "treasure-of-the-depths-with-two-refinement-counters-cannot-activate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:20+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4Kxe6pSt6C"
+    ],
+    "notes": "Two refinement counters: the activation restriction refuses the ability before anything is paid.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4Kxe6pSt6C"
+        ],
+        "mechanics": [
+            "activation-restriction"
+        ],
+        "rulesClauses": [
+            "Activate this ability only if there are three or more refinement counters on CARDNAME."
+        ]
+    }
+}

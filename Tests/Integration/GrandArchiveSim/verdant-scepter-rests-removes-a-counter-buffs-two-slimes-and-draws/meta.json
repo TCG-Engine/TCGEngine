@@ -1,0 +1,29 @@
+{
+    "name": "verdant-scepter-rests-removes-a-counter-buffs-two-slimes-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "7wsxirq146"
+    ],
+    "notes": "Verdant Scepter's activated ability: [REST], remove a refinement counter (prereq: at least one), put a buff counter on each of up to two chosen Slime allies, then draw. The draw handler is queued dontSkipOnPass so choosing no Slimes still draws.",
+    "semanticCoverage": {
+        "testedCards": [
+            "7wsxirq146"
+        ],
+        "mechanics": [
+            "cost",
+            "counters",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[REST], Remove a refinement counter from CARDNAME: Put a buff counter on each of up to two Slime allies you control then draw a card."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Verdant Scepter's activated ability was not implemented.",
+        "affectedFunction": "activateAbilityAbilities['7wsxirq146:0']",
+        "fixCommit": "TBD"
+    }
+}

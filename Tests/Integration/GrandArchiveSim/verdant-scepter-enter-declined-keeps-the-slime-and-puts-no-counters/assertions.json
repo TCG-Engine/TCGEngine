@@ -1,0 +1,36 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "r7oifozaog",
+        "semantic": true,
+        "label": "The Slime ally stays on the field"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "myField-2",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "No refinement counters were put on the Scepter"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the memory card spent on the memory cost is banished: the Slime was not"
+    },
+    {
+        "step": 9,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

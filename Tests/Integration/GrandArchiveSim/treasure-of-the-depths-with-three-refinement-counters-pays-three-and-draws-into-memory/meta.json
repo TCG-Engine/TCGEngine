@@ -1,0 +1,28 @@
+{
+    "name": "treasure-of-the-depths-with-three-refinement-counters-pays-three-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:19+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4Kxe6pSt6C"
+    ],
+    "notes": "Treasure of the Depths had no implementation of its activated ability. Registered as a field activation: ActivatedAbilityCost rests it and queues three reserve payments; the prereq requires three refinement counters.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4Kxe6pSt6C"
+        ],
+        "mechanics": [
+            "cost",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "(3), [REST]: Draw a card into your memory. Activate this ability only if there are three or more refinement counters on CARDNAME."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Treasure of the Depths's activated ability was not implemented.",
+        "affectedFunction": "activateAbilityAbilities['4Kxe6pSt6C:0']",
+        "fixCommit": "TBD"
+    }
+}

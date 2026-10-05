@@ -1,0 +1,49 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "7wsxirq146",
+        "semantic": true,
+        "label": "The Scepter entered the field (the banished Slime slot closed up)"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "{\"refinement\":3}",
+        "semantic": true,
+        "label": "Banished Baby Red Slime had power 2: 2 + 1 = 3 refinement counters"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The Slime ally was banished (plus the memory card spent on the Scepter's memory cost)"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Champion and Scepter remain"
+    },
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "cardID": "r7oifozaog",
+        "semantic": true,
+        "label": "Baby Red Slime is in the banishment"
+    }
+]

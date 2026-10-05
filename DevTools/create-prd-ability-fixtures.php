@@ -29204,6 +29204,168 @@ $fixtures['agnis-signet-pays-two-and-destroys-a-damaged-ally'] = [
     'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 2), [mrdAns(1, 'theirField-1')]),
 ];
 
+// --- Starter-deck coverage batch 3b: regalia items whose activated abilities were missing ---
+$gaBlueSlime = 'r7oifozaog'; // Baby Red Slime: SLIME ally, power 2 (FIRE)
+$gaWaterSlime = '9ggfiy38t2'; // Baby Blue Slime: SLIME ally, WATER element
+
+// Treasure of the Depths (4Kxe6pSt6C): "(3), [REST]: Draw a card into your memory. Activate this ability only if there are three or more refinement counters on CARDNAME."
+$fixtures['treasure-of-the-depths-with-three-refinement-counters-pays-three-and-draws-into-memory'] = [
+    'testedCards' => ['4Kxe6pSt6C'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4Kxe6pSt6C'], // Treasure of the Depths -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Counters' => ['refinement' => 3]]],
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 3)),
+];
+$fixtures['treasure-of-the-depths-with-two-refinement-counters-cannot-activate'] = [
+    'testedCards' => ['4Kxe6pSt6C'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4Kxe6pSt6C'], // Treasure of the Depths -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Counters' => ['refinement' => 2]]],
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+// Deluge 3: at the beginning of your end phase, with three or more water element cards in your graveyard and fewer than three refinement counters, put a refinement counter on it.
+$fixtures['treasure-of-the-depths-end-phase-with-three-water-cards-adds-a-refinement-counter'] = [
+    'testedCards' => ['4Kxe6pSt6C'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4Kxe6pSt6C'], // Treasure of the Depths -> myField-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => $gaWaterSlime], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => $gaWaterSlime], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => $gaWaterSlime],
+    ],
+    'actions' => [mrdEnd(1)],
+];
+$fixtures['treasure-of-the-depths-end-phase-with-two-water-cards-adds-nothing'] = [
+    'testedCards' => ['4Kxe6pSt6C'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4Kxe6pSt6C'], // Treasure of the Depths -> myField-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => $gaWaterSlime], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => $gaWaterSlime],
+    ],
+    'actions' => [mrdEnd(1)],
+];
+
+// Verdant Scepter (7wsxirq146): "[Class Bonus] On Enter: You may banish a Slime ally you control. If you do, put an amount of refinement counters on CARDNAME equal to the banished ally's power plus 1."
+$gaVerdantChamp = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1'], 'Counters' => ['_overrides' => ['classes' => 'TAMER']]]]; // TERA lineage + TAMER class bonus
+$gaVerdantDeck = "# Material\n1 Spirit of Fire\n1 Verdant Scepter\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n";
+$fixtures['verdant-scepter-enter-banishes-a-slime-for-power-plus-one-refinement-counters'] = [
+    'testedCards' => ['7wsxirq146'],
+    'deck' => $gaVerdantDeck,
+    'setup' => [
+        $gaVerdantChamp,
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_FS], // pays the Scepter's memory cost of 1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => $gaBlueSlime], // Baby Red Slime (power 2) -> myField-1
+    ],
+    'actions' => array_merge($gaMaterializeTurnTwo(), [mrdAns(1, 'myMaterial-0'), mrdAns(1, 'myField-1')]), // materialize the Scepter on turn two (memory cost paid by the seeded memory card), banish the Slime
+];
+$fixtures['verdant-scepter-enter-declined-keeps-the-slime-and-puts-no-counters'] = [
+    'testedCards' => ['7wsxirq146'],
+    'deck' => $gaVerdantDeck,
+    'setup' => [
+        $gaVerdantChamp,
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => $GA_FS], // pays the Scepter's memory cost of 1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => $gaBlueSlime], // Baby Red Slime -> myField-1
+    ],
+    'actions' => array_merge($gaMaterializeTurnTwo(), [mrdAns(1, 'myMaterial-0'), mrdPass(1)]), // materialize the Scepter on turn two, decline the banish
+];
+// "[REST], Remove a refinement counter from CARDNAME: Put a buff counter on each of up to two Slime allies you control then draw a card."
+$fixtures['verdant-scepter-rests-removes-a-counter-buffs-two-slimes-and-draws'] = [
+    'testedCards' => ['7wsxirq146'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7wsxirq146'], // Verdant Scepter -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Counters' => ['refinement' => 2]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => $gaBlueSlime], // myField-2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => $gaBlueSlime], // myField-3
+        ['player' => 1, 'zone' => 'myField', 'cardID' => $gaBlueSlime], // myField-4: not chosen
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myField-2&myField-3')],
+];
+
+// Transcendental Rite (tAiiMGZJXp): "Banish Transcendental Rite: Your champion becomes an Ascendant in addition to its other types. All basic elements are enabled for you until end of turn."
+// Spirit of Fire only enables FIRE: the WATER Baby Blue Slime in hand is unplayable until the Rite is banished.
+$fixtures['transcendental-rite-banish-makes-champion-ascendant-and-enables-basic-elements'] = [
+    'testedCards' => ['tAiiMGZJXp'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'tAiiMGZJXp'], // Transcendental Rite -> myField-1
+        $gaHand($gaWaterSlime), // Baby Blue Slime (WATER) -> myHand-7
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPlay(1, 'myHand-7')], mrdPay(1, 2)),
+];
+$fixtures['transcendental-rite-without-it-a-water-card-is-not-playable'] = [
+    'testedCards' => ['tAiiMGZJXp'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaHand($gaWaterSlime), // Baby Blue Slime (WATER) -> myHand-7
+    ],
+    'actions' => [mrdPlay(1, 'myHand-7')],
+];
+
+// Pride of Demiourgos (bupi7VU4of): "[Level 2+] (2), [REST]: Ignore the exalted elemental requirement for the next card you play this turn."
+// Royal Oathguard is an EXALTED + NORM ally: a champion with no advanced element cannot play it until the Pride's effect is active.
+$fixtures['pride-of-demiourgos-lets-the-next-exalted-card-be-played'] = [
+    'testedCards' => ['bupi7VU4of'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221']], // Tristan, Hired Blade (level 2)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'bupi7VU4of'], // Pride of Demiourgos -> myField-1
+        $gaHand('g3DQoQvyjI'), // Royal Oathguard (EXALTED, NORM) -> myHand-7
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 2), [mrdPlay(1, 'myHand-5')], mrdPay(1, 3)),
+];
+$fixtures['exalted-card-is-not-playable-without-an-advanced-element'] = [
+    'testedCards' => ['bupi7VU4of'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaHand('g3DQoQvyjI'), // Royal Oathguard (EXALTED, NORM) -> myHand-7
+    ],
+    'actions' => [mrdPlay(1, 'myHand-7')],
+];
+
+// Heirloom of Materia (sZlDgmVTD7): "Banish CARDNAME: Choose one -- Remove all damage counters from target champion you don't control. Return those counters onto that champion at the beginning of your next turn."
+$fixtures['heirloom-of-materia-removes-an-opposing-champions-damage-and-returns-it-next-turn'] = [
+    'testedCards' => ['sZlDgmVTD7'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'sZlDgmVTD7'], // Heirloom of Materia -> myField-1
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 5]],
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, '0'), mrdEnd(1), mrdEnd(2)],
+];
+// "-- For each opponent, for every two token objects they control, they sacrifice one."
+$fixtures['heirloom-of-materia-opponent-sacrifices-one-token-per-two-they-control'] = [
+    'testedCards' => ['sZlDgmVTD7'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'sZlDgmVTD7'], // Heirloom of Materia -> myField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], ['player' => 2, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], ['player' => 2, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], ['player' => 2, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // five Powercell tokens: two are sacrificed
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, '1'), mrdAns(2, 'myField-1'), mrdAns(2, 'myField-1')],
+];
+// "(3), Banish CARDNAME: Draw a card into your memory."
+$fixtures['heirloom-of-materia-draw-ability-pays-three-and-banishes-itself'] = [
+    'testedCards' => ['sZlDgmVTD7'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'sZlDgmVTD7'], // Heirloom of Materia -> myField-1
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:1')], mrdPay(1, 3)),
+];
+
+// Sojourner's Hunt (aqlbuznsz4): "[REST]: Sojourner's Hunt becomes a weapon subtype of your choice in addition to its other types until end of turn."
+$fixtures['sojourners-hunt-rest-becomes-a-chosen-weapon-subtype-until-end-of-turn'] = [
+    'testedCards' => ['aqlbuznsz4'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], // Sojourner's Hunt -> myField-1
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, '0')], // option A: Sword
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

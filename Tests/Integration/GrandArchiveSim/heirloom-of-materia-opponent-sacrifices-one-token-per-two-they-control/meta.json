@@ -1,0 +1,23 @@
+{
+    "name": "heirloom-of-materia-opponent-sacrifices-one-token-per-two-they-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "sZlDgmVTD7"
+    ],
+    "notes": "Mode B: the opponent chooses floor(tokens / 2) tokens to sacrifice, one choice at a time (five Powercells: two sacrificed).",
+    "semanticCoverage": {
+        "testedCards": [
+            "sZlDgmVTD7"
+        ],
+        "mechanics": [
+            "cost",
+            "modal",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "For each opponent, for every two token objects they control, they sacrifice one."
+        ]
+    }
+}

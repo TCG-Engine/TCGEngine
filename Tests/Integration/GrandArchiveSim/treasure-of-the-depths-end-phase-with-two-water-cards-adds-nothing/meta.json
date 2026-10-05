@@ -1,0 +1,22 @@
+{
+    "name": "treasure-of-the-depths-end-phase-with-two-water-cards-adds-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:22+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4Kxe6pSt6C"
+    ],
+    "notes": "Deluge 3 is not met with two water element cards in the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4Kxe6pSt6C"
+        ],
+        "mechanics": [
+            "deluge",
+            "end-phase-trigger"
+        ],
+        "rulesClauses": [
+            "Deluge 3 -- ... if there are three or more water element cards in your graveyard ..."
+        ]
+    }
+}

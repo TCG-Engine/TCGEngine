@@ -1,0 +1,29 @@
+{
+    "name": "sojourners-hunt-rest-becomes-a-chosen-weapon-subtype-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:33+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "aqlbuznsz4"
+    ],
+    "notes": "Sojourner's Hunt had no implementation. [REST]: the controller picks a weapon subtype (MZMODAL) and a SOJOURNER_<SUBTYPE> turn effect is applied; EffectiveCardSubtypes() adds it until end of turn.",
+    "semanticCoverage": {
+        "testedCards": [
+            "aqlbuznsz4"
+        ],
+        "mechanics": [
+            "cost",
+            "subtype-change",
+            "modal"
+        ],
+        "rulesClauses": [
+            "[REST]: CARDNAME becomes a weapon subtype of your choice in addition to its other types until end of turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Sojourner's Hunt's ability was not implemented.",
+        "affectedFunction": "activateAbilityAbilities['aqlbuznsz4:0']",
+        "fixCommit": "TBD"
+    }
+}

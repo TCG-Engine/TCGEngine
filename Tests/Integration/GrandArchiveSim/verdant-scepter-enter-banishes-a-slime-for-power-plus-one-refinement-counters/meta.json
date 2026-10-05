@@ -1,0 +1,30 @@
+{
+    "name": "verdant-scepter-enter-banishes-a-slime-for-power-plus-one-refinement-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:45+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "7wsxirq146"
+    ],
+    "notes": "Verdant Scepter had no implementation of its Class Bonus On Enter or its ability. Added $enterAbilities['7wsxirq146:0']: MAY banish a Slime ally, then put (power + 1) refinement counters on the Scepter (found again by UniqueID, since banishing the Slime shifts field slots). The champion is patched TAMER (Class Bonus) with a TERA lineage card; the Scepter is materialized on turn two (its memory cost is paid by the seeded memory card). The opportunity window opened by the new field ability is left pending.",
+    "semanticCoverage": {
+        "testedCards": [
+            "7wsxirq146"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "counters",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: You may banish a Slime ally you control. If you do, put an amount of refinement counters on CARDNAME equal to the banished ally's power plus 1."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Verdant Scepter's On Enter was not implemented.",
+        "affectedFunction": "enterAbilities['7wsxirq146:0']",
+        "fixCommit": "TBD"
+    }
+}

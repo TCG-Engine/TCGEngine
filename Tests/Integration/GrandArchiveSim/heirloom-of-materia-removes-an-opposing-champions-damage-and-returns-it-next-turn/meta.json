@@ -1,0 +1,30 @@
+{
+    "name": "heirloom-of-materia-removes-an-opposing-champions-damage-and-returns-it-next-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:30+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "sZlDgmVTD7"
+    ],
+    "notes": "Heirloom of Materia had no implementation. Banish self, choose one (MZMODAL): mode A removes all damage from the opposing champion and records it as materiaDamage/materiaOwner counters; GAMateriaReturnDamage() (WakeUpPhase) puts it back at the beginning of the activator's next turn.",
+    "semanticCoverage": {
+        "testedCards": [
+            "sZlDgmVTD7"
+        ],
+        "mechanics": [
+            "cost",
+            "modal",
+            "delayed-effect",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Choose one -- Remove all damage counters from target champion you don't control. Return those counters onto that champion at the beginning of your next turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Heirloom of Materia's abilities were not implemented.",
+        "affectedFunction": "activateAbilityAbilities['sZlDgmVTD7:0']",
+        "fixCommit": "TBD"
+    }
+}

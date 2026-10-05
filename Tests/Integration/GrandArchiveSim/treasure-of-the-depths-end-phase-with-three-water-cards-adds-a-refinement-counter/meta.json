@@ -1,0 +1,29 @@
+{
+    "name": "treasure-of-the-depths-end-phase-with-three-water-cards-adds-a-refinement-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:21+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4Kxe6pSt6C"
+    ],
+    "notes": "The Deluge 3 end-phase trigger had no implementation. Added to BeforeEndPhase(): with Deluge 3 met (three or more water cards in the graveyard) and fewer than three refinement counters, put a refinement counter on it.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4Kxe6pSt6C"
+        ],
+        "mechanics": [
+            "deluge",
+            "end-phase-trigger",
+            "counters"
+        ],
+        "rulesClauses": [
+            "Deluge 3 -- At the beginning of your end phase, if there are three or more water element cards in your graveyard and there are less than three refinement counters on CARDNAME, put a refinement counter on CARDNAME."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Treasure of the Depths never gained refinement counters.",
+        "affectedFunction": "BeforeEndPhase",
+        "fixCommit": "TBD"
+    }
+}

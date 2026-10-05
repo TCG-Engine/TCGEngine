@@ -1,0 +1,29 @@
+{
+    "name": "transcendental-rite-banish-makes-champion-ascendant-and-enables-basic-elements",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:27+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "tAiiMGZJXp"
+    ],
+    "notes": "Transcendental Rite had no implementation. Banish self: MakeChampionAscendant() plus tAiiMGZJXp_FIRE/WATER/WIND global effects read by GetPlayerEnabledElements() (the same mechanism as Imperial Seal). A WATER Baby Blue Slime is playable afterwards even though the Spirit of Fire champion only enables FIRE.",
+    "semanticCoverage": {
+        "testedCards": [
+            "tAiiMGZJXp"
+        ],
+        "mechanics": [
+            "cost",
+            "champion-type",
+            "element-enablement"
+        ],
+        "rulesClauses": [
+            "Banish Transcendental Rite: Your champion becomes an Ascendant in addition to its other types. All basic elements are enabled for you until end of turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Transcendental Rite's banish ability was not implemented.",
+        "affectedFunction": "activateAbilityAbilities['tAiiMGZJXp:0']",
+        "fixCommit": "TBD"
+    }
+}

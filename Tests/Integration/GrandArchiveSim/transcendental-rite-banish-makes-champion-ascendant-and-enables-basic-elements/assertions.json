@@ -1,0 +1,45 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "{\"_overrides\":{\"type\":\"CHAMPION,ASCENDANT\"}}",
+        "semantic": true,
+        "label": "The champion became an Ascendant in addition to its other types"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Transcendental Rite banished itself as a cost"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "9ggfiy38t2",
+        "semantic": true,
+        "label": "The WATER Baby Blue Slime was played: basic elements are enabled for the turn"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Two reserve cards paid"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

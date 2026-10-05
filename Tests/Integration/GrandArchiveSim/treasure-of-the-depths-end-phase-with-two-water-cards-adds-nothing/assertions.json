@@ -1,0 +1,12 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "Only two water cards: no refinement counter"
+    }
+]

@@ -1,0 +1,28 @@
+{
+    "name": "pride-of-demiourgos-lets-the-next-exalted-card-be-played",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:29+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "bupi7VU4of"
+    ],
+    "notes": "Pride of Demiourgos had no implementation. Level 2+ (Tristan, Hired Blade patched in), (2), [REST]: adds a bupi7VU4of_IGNORE_EXALTED global effect, honored and consumed in CanPlayerUseCardElement(). Also fixed: CanActivateCardForSelection() passed its strict flag as the consume flag, so the opportunity window's legality scan spent one-shot element bypasses (this one and Prismatic Codex) before the player played anything.",
+    "semanticCoverage": {
+        "testedCards": [
+            "bupi7VU4of"
+        ],
+        "mechanics": [
+            "cost",
+            "element-requirement-bypass"
+        ],
+        "rulesClauses": [
+            "[Level 2+] (2), [REST]: Ignore the exalted elemental requirement for the next card you play this turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Pride of Demiourgos was not implemented; one-shot element bypasses were consumed by the selection legality scan.",
+        "affectedFunction": "CanActivateCardForSelection / CanPlayerUseCardElement",
+        "fixCommit": "TBD"
+    }
+}

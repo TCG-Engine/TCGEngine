@@ -1,0 +1,22 @@
+{
+    "name": "verdant-scepter-enter-declined-keeps-the-slime-and-puts-no-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:24+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "7wsxirq146"
+    ],
+    "notes": "Declining the optional banish leaves the Slime on the field and puts no refinement counters on the Scepter.",
+    "semanticCoverage": {
+        "testedCards": [
+            "7wsxirq146"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-effect"
+        ],
+        "rulesClauses": [
+            "You may banish a Slime ally you control."
+        ]
+    }
+}
