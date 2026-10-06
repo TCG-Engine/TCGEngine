@@ -85,3 +85,5 @@
 .energy-preview-cards{display:grid;grid-template-columns:repeat(var(--energy-columns,3),minmax(0,1fr));gap:12px}
 .energy-preview-card img{display:block;width:100%;border-radius:5px;aspect-ratio:600/825;object-fit:contain}
 .energy-preview-card span{display:block;font-size:10px;line-height:1.4;margin-top:5px;text-align:center}
+
+#stats{width:min(920px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow:auto} #stats .damage-stats{margin:16px 0} #stats .section-heading{position:sticky;top:-26px;background:var(--panel);padding:12px 0;z-index:1}

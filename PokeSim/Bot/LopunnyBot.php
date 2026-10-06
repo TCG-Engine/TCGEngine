@@ -12,6 +12,7 @@ function PokeLopunnyCanPay(array $card,array $cost): bool {
     return PokeHasAttackEnergy((object)['Energy'=>$card['energy']],$cost);
 }
 function PokeLopunnyDamage(array $ctx,array $attacker,string $attackID,int $index,array $target,bool $moved=false): int {
+    if (PokeBotEnemyBulwark($ctx)&&count($attacker['energy'])<=2) return 0;
     $attack=CardAttacks($attackID)[$index]??[];
     $damage=(int)($attack['damage']??0);
     if ($attackID==='me02-084' && $index===0) $damage=($moved||($attacker['counters']['movedActiveTurn']??-1)===$ctx['view']['turn'])?230:60;
@@ -69,7 +70,7 @@ function PokeLopunnyTrainerScore(array $ctx,string $id): float {
         case 'me01-114':
             if (!$active||($ctx['seat']===$ctx['view']['firstPlayer']&&$ctx['own']['turns']===1)) return -20;
             $current=PokeLopunnyAttackValue($ctx,$active);
-            foreach ($ctx['enemy']['Bench'] as $target) if (PokeLopunnyAttackValue($ctx,$active,false,$target)>$current+80) return 85;
+            foreach ($ctx['enemy']['Bench'] as $target) if (PokeLopunnyAttackValue(PokeBotGustContext($ctx,$target),$active,false,$target)>$current+80) return 85;
             return -20;
     }
     return -20;
@@ -123,6 +124,8 @@ function PokeLopunnyActionScore(array $ctx,array $action): float {
             return -20;
         case 'trainer': return PokeLopunnyTrainerScore($ctx,$card['id']);
         case 'attach':
+            if(PokeBotEnemyBulwark($ctx)&&in_array($target['id'],['me02-083','me02-084','30th-066'],true)&&count($target['energy'])<3)
+                return $target['ref']===($active['ref']??'')?190:155;
             $future=$target;
             $future['energy'][]=$card['id'];
             $willMove=$target['ref']!==($active['ref']??'');
@@ -172,7 +175,7 @@ function PokeLopunnyDecision(array $ctx,array $decision): string {
         if (str_contains($prompt,'discard')) return PokeLopunnyDiscardScore($ctx,$id);
         if (str_contains($prompt,'Wally')) return $card['damage'];
         if (str_contains($prompt,'Air Balloon')) return ($card['ref']===($ctx['own']['Active'][0]['ref']??'')?200:0)+($id==='me02-084'?100:($id==='sv09-120'||$id==='sv05-129'?80:10));
-        if (str_contains($prompt,'Boss')) return PokeLopunnyAttackValue($ctx,$ctx['own']['Active'][0],false,$card);
+        if (str_contains($prompt,'Boss')) return PokeLopunnyAttackValue(PokeBotGustContext($ctx,$card),$ctx['own']['Active'][0],false,$card);
         if (str_contains($prompt,'new Active')||str_contains($prompt,'switch')||str_contains($prompt,'Switch')) return PokeLopunnyAttackValue($ctx,$card,true)+($id==='30th-066'?20:0);
         return PokeLopunnySearchScore($ctx,$id);
     };

@@ -47,7 +47,7 @@ function PokeOpeningSnapshot(int $player): array {
         $obj = GetZoneObject($ref);
         foreach (CardAttacks($attackID) ?? [] as $index=>$attack) {
             if (!PokeOpeningMatches($profile, $attackID, $index)) continue;
-            $cost = $attack['cost'] ?? []; $gap = count($cost);
+            $cost = PokeAttackCost($obj, $attack['cost'] ?? []); $gap = count($cost);
             // Minimum unmatched cost units using the engine's Energy matching.
             for ($size=count($cost); $size>=0; --$size) {
                 foreach (PokeCombinations($cost, $size) as $subset) if (PokeHasAttackEnergy($obj, $subset)) {

@@ -1,0 +1,23 @@
+{
+  "baseline": "4 Relicanth PBL 17\n4 Antique Armor Fossil PBL 72\n4 Antique Plume Fossil WHT 79\n2 Antique Skull Fossil PBL 73\n2 Antique Root Fossil SCR 130\n2 Antique Cover Fossil SCR 129\n4 Fossil Quarry PBL 76\n4 Pok\u00e9 Pad POR 81\n4 Lillie's Determination MEG 119\n4 Lacey SCR 139\n3 Iris's Fighting Spirit ASC 190\n2 Judge POR 76\n4 Night Stretcher ASC 196\n3 Energy Search POR 72\n2 Energy Retrieval WHT 82\n3 sv06-158\n1 Boss's Orders MEG 114\n7 Water Energy MEE 3\n1 sv06-167\n",
+  "variants": {
+    "baseline": {},
+    "cut-water-1": {
+      "mee-003": -1
+    },
+    "cut-water-2": {
+      "mee-003": -2
+    },
+    "cut-water-3": {
+      "mee-003": -3
+    },
+    "cut-water-4": {
+      "mee-003": -4
+    }
+  },
+  "opponents": [
+    "dhelmise-v2",
+    "brisbane-lopunny"
+  ],
+  "purpose": "Isolate removal of 1-4 of seven Basic Water Energy using inert blanks; retain Legacy, all search and recovery. Both starting orders; fixed bot policy."
+}

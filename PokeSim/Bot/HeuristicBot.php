@@ -1,7 +1,21 @@
 <?php
 require_once __DIR__.'/LopunnyBot.php';
 require_once __DIR__.'/PrizeLogic.php';
+require_once __DIR__.'/RelicanthBot.php';
+require_once __DIR__.'/RelicanthDrawBot.php';
+require_once __DIR__.'/RelicanthMetaTuneBot.php';
+require_once __DIR__.'/RelicanthColressBot.php';
 /** Deck policy over a seat observation. Never reads the opposing hand, deck or Prizes. */
+function PokeBotEnemyBulwark(array $ctx): bool {
+    return (bool)array_filter($ctx['enemy']['Bench'],fn($c)=>$c['id']==='me05-062'&&empty($c['counters']['noAbilities']));
+}
+/** Boss changes which Bastiodon are on the Bench before damage is evaluated. */
+function PokeBotGustContext(array $ctx,array $target): array {
+    $ctx['enemy']['Bench']=array_values(array_filter($ctx['enemy']['Bench'],fn($c)=>$c['ref']!==$target['ref']));
+    foreach($ctx['enemy']['Active'] as $old)$ctx['enemy']['Bench'][]=$old;
+    $ctx['enemy']['Active']=[$target];
+    return $ctx;
+}
 function PokeBotContext(array $view): array {
     $seat=$view['viewer']; $own=$view['players'][$seat]; $enemy=$view['players'][3-$seat];
     $field=array_merge($own['Active'],$own['Bench']); $hand=array_count_values(array_column($own['Hand'],'id'));
@@ -14,6 +28,14 @@ function PokeBotFieldCount(array $ctx,array $ids): int { return count(array_filt
 function PokeBotNeedsBlender(array $ctx): bool {
     return $ctx['hide']<4&&!isset($ctx['hand']['sv08-164'])
         &&!in_array('sv08-164',array_column($ctx['own']['Discard'],'id'),true);
+}
+/** Desired Supporter access for Last-Ditch Catch, based only on this seat's hand
+ * and board. Holding Meowth during setup preserves its bench-from-hand trigger. */
+function PokeBotNeedsMeowth(array $ctx): bool {
+    if($ctx['own']['supporterUsed']||count($ctx['own']['Bench'])>=5||PokeBotFieldCount($ctx,['me03-062']))return false;
+    if(PokeBotOpeningNeedsDraw($ctx))return !isset($ctx['hand']['me02.5-192']);
+    if(PokeBotNeedsBlender($ctx))return !isset($ctx['hand']['me02.5-207']);
+    return !$ctx['draw']&&count($ctx['own']['Hand'])<5;
 }
 function PokeBotNeedsDhelmise(array $ctx): bool {
     return PokeBotFieldCount($ctx,['me05-039'])+($ctx['hand']['me05-039']??0)<2;
@@ -77,18 +99,20 @@ function PokeBotBlenderDecision(array $ctx,array $d): string {
     return implode('&',$selected)?:'-';
 }
 function PokeBotCard(array $ctx,string $ref): ?array {
+    if (($ctx['view']['stadium']['ref']??'')===$ref) return $ctx['view']['stadium'];
     foreach ([$ctx['own'],$ctx['enemy']] as $p) foreach (['Hand','Active','Bench'] as $zone) foreach($p[$zone] as $c) if($c['ref']===$ref)return $c;
     return null;
 }
 function PokeBotDamage(array $ctx,array $attacker,array $target): int {
     $id=$attacker['id'];
+    if (!in_array($id,['me05-005','me05-006'],true)&&PokeBotEnemyBulwark($ctx)&&count($attacker['energy'])<=2) return 0;
     if(in_array($id,['me05-005','me05-006'],true)) {
         if(in_array($target['id'],['me05-005','me05-006','me05-034'],true)&&empty($target['counters']['noAbilities']))return 0;
         if(in_array('sv05-161',$target['energy'],true))return 0;
         if(str_contains($target['ref'],'Bench')&&($ctx['view']['stadium']['id']??'')==='me02-085')return 0;
         return $id==='me05-005'?10:($ctx['hide']>=6?40:0);
     }
-    $damage=$id==='me05-039'?($ctx['hide']>=4?170:30):80;
+    $damage=$id==='me05-039'?($ctx['hide']>=4?170:30):($id==='me03-062'?60:80);
     foreach($ctx['view']['log'] as $event) if($event['turn']===$ctx['view']['turn']&&($event['player']??0)===$ctx['seat']&&($event['card']??'')==='sv09-144'&&($event['event']??'')==='play-trainer'&&CardSuffix($target['id'])==='ex')$damage+=40;
     foreach(CardWeaknesses($target['id'])??[] as $w)if(in_array($w['type'],explode(',',CardTypes($id)??''),true))$damage=str_contains($w['value'],'×')||str_contains($w['value'],'x')?$damage*(int)preg_replace('/\D/','',$w['value']):$damage+(int)$w['value'];
     foreach(CardResistances($target['id'])??[] as $r)if(in_array($r['type'],explode(',',CardTypes($id)??''),true))$damage+=(int)$r['value'];
@@ -129,7 +153,9 @@ function PokeBotTrainerScore(array $ctx,string $id): float {
         'sv08-164'=>$ctx['hide']<4?300:40,
         'me02.5-213'=>$ctx['hide']<4?($canDiscardCombo?150:85):($needsBasic?150:-20),
         'me03-072'=>$needsEnergy&&!$ctx['own']['energyUsed']?150:-20,
-        'me03-081'=>$needsBasic?150:($ctx['hide']<4?40:-20),
+        // Once the discard combo is online, obtain a Dhelmise without spending
+        // two extra hand cards. Ultra Ball keeps priority for useful HNS discards.
+        'me03-081'=>$needsBasic?($ctx['hide']>=4?155:150):($ctx['hide']<4?40:-20),
         'me02.5-196'=>count(array_filter($ctx['own']['Discard'],fn($c)=>($needsEnergy&&$c['id']==='mee-005')||($needsBasic&&$c['id']==='me05-039')))?150:-20,
         'sv10.5w-082'=>$needsEnergy?150:-20,
         'sv10.5b-084','sv08-165'=>$supporter&&!$ctx['draw']&&!isset($ctx['hand']['me02.5-207'])?75:-20,
@@ -152,9 +178,10 @@ function PokeBotActionScore(array $ctx,array $a): float {
     $card=isset($a['source'])?PokeBotCard($ctx,$a['source']):null;
     $target=isset($a['target'])?PokeBotCard($ctx,$a['target']):null;
     switch($a['type']) {
-        case 'setup-active':return $card['id']==='me05-039'?100:80;
+        case 'setup-active':return $card['id']==='me05-039'?100:($card['id']==='me03-062'?10:80);
         case 'ready':return 0;
         case 'bench':
+            if($card['id']==='me03-062')return $ctx['view']['phase']==='SETUP'?-20:(PokeBotNeedsMeowth($ctx)?290:-20);
             // Put the main attacker on the board before committing this turn's
             // attachment. A Dhelmise still in hand cannot compete as an Energy target.
             if($card['id']==='me05-039')return PokeBotFieldCount($ctx,['me05-039'])===0?180:(PokeBotFieldCount($ctx,['me05-039'])<2?140:-10);
@@ -166,6 +193,8 @@ function PokeBotActionScore(array $ctx,array $a): float {
         case 'trainer':return PokeBotTrainerScore($ctx,$card['id']);
         case 'attach':
             $active=$ctx['own']['Active'][0]??null;
+            if(PokeBotEnemyBulwark($ctx)&&$target['id']==='me05-039'&&count($target['energy'])<3)
+                return $target['ref']===($active['ref']??'')?190:155;
             $priority=PokeBotAttackValue($ctx,$target,false);
             if($target['id']==='me05-039'&&!$target['energy'])return 160+$priority/30+($target['ref']===($active['ref']??'')?10:0)+($card['id']==='me03-088'&&PokeBotNeedsDhelmise($ctx)?20:0);
             // Poltchageist retreats for free. Power it only after all productive
@@ -199,6 +228,7 @@ function PokeBotDiscardScore(array $ctx,string $id): float {
     return 30-PokeBotTrainerScore($ctx,$id)/4;
 }
 function PokeBotSearchScore(array $ctx,string $id): float {
+    if($id==='me03-062')return PokeBotNeedsMeowth($ctx)&&!isset($ctx['hand'][$id])?260:-20;
     if($id==='me02.5-192'&&PokeBotOpeningNeedsDraw($ctx))return 310;
     // Recovery can offer both Energy and Pokémon. Find the first attacker
     // before spare Energy or a second copy, then attach to that attacker.
@@ -245,12 +275,24 @@ function PokeBotDecision(array $ctx,array $d): string {
     return $choices[0]['value']??'-';
 }
 function PokeBotChoose(array $view): ?array {
+    if (($view['players'][$view['viewer']]['deckKey']??'')==='relicanth-v3-meta-tune') return PokeRelicanthMetaTuneChoose($view);
+    if (in_array($view['players'][$view['viewer']]['deckKey']??'', ['relicanth-v4-colress','relicanth-v5-bastiodon','relicanth-v6-explorers-guidance','relicanth-v7-lanas-aid'], true)) return PokeRelicanthColressChoose($view);
+    if (($view['players'][$view['viewer']]['deckKey']??'')==='relicanth-v2-draw') return PokeRelicanthDrawChoose($view);
+    if (($view['players'][$view['viewer']]['deckKey']??'')==='relicanth-fossils') return PokeRelicanthChoose($view);
     if (($view['players'][$view['viewer']]['deckKey']??'')==='brisbane-lopunny') return PokeLopunnyChoose($view);
     $ctx=PokeBotContext($view);$d=$view['decision'];
     if($d)return ['type'=>'decision','player'=>$ctx['seat'],'value'=>PokeBotDecision($ctx,$d)];
     $actions=$view['actions'];if(!$actions)return null;
     usort($actions,fn($a,$b)=>PokeBotActionScore($ctx,$b)<=>PokeBotActionScore($ctx,$a));
-    return $actions[0];
+    $best=$actions[0];
+    // Burn a legal Pad before a planned shuffle-and-draw, even if no new
+    // Pokemon is needed. Search choices still use the normal exposed candidates.
+    // Applying this only when Lillie would be next preserves Blender, Petrel,
+    // useful Ultra Ball discards, attachments and winning attack priorities.
+    if($best['type']==='trainer'&&PokeBotCard($ctx,$best['source'])['id']==='me02.5-192'){
+        foreach($actions as $action)if($action['type']==='trainer'&&PokeBotCard($ctx,$action['source'])['id']==='me03-081')return $action;
+    }
+    return $best;
 }
 /** Advance only bot-controlled work; stop at every human decision, including on bot turns. */
 function PokeRunBot(int $seat=2,int $budget=150): int {

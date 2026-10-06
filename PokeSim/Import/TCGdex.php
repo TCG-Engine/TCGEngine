@@ -123,10 +123,10 @@ function PokeTCGdexImport(bool $refresh = false, ?array $ids = null, bool $image
         foreach ($cards as $id => $card) {
             if ($ids !== null && !in_array($id, $ids, true)) continue;
             $sourceId = $id; $image = $card['image'] ?? '';
-            // MEE 005 has no published art. Keep its printing/data identity and
+            // These MEE printings have no published art. Keep their data identity and
             // explicitly record the equivalent basic Energy art used for display.
-            if ($image === '' && $id === 'mee-005') {
-                $sourceId = 'swsh12.5-156';
+            if ($image === '' && in_array($id, ['mee-005','mee-003'], true)) {
+                $sourceId = $id === 'mee-005' ? 'swsh12.5-156' : 'base1-102';
                 $fallback = $cards[$sourceId] ?? PokeTCGdexRequest('https://api.tcgdex.net/v2/en/cards/' . $sourceId);
                 if (($fallback['name'] ?? '') !== $card['name']) throw new RuntimeException('Energy image fallback name mismatch');
                 $image = $fallback['image'] ?? '';

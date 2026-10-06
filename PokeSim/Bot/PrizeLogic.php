@@ -18,7 +18,7 @@ function PokeBotVisibleThreat(array $ctx,array $target): float {
 function PokeBotPrizeTarget(array $ctx,array $attacker,array $target): array {
     // Boss makes the target Active: Bench-only protection no longer applies.
     $activeTarget=$target;$activeTarget['ref']='p'.(3-$ctx['seat']).'Active-0';
-    $damage=PokeBotDamage($ctx,$attacker,$activeTarget);
+    $damage=PokeBotDamage(str_contains($target['ref'],'Bench')?PokeBotGustContext($ctx,$target):$ctx,$attacker,$activeTarget);
     $hp=max(0,$target['hp']-$target['damage']);
     $hits=$damage>0?(int)ceil($hp/$damage):PHP_INT_MAX;
     $prizes=min($ctx['own']['prizeCount'],PokePrizeValue($target['id']));

@@ -70,7 +70,7 @@
         const selected=container.querySelector('select')?.value||'all';
         container.replaceChildren(el('h3','Average damage by deck and starting order'));
         const decks=Array.from(new Set(games.flatMap(g=>(g.damageTurns||[]).map(r=>r.deck)))).filter(Boolean).sort();
-        const deckName=key=>key==='sinistcha'?'Dhelmise / Sinistcha':key==='brisbane-lopunny'?'Brisbane Lopunny':key;
+        const deckName=key=>key==='sinistcha'?'Dhelmise / Sinistcha':key==='dhelmise-v2'?'dhelmise v2':key==='brisbane-lopunny'?'Brisbane Lopunny':key==='relicanth-v2-draw'?'relicanth v2 - draw':key==='relicanth-v3-meta-tune'?'Relicanth-v3-meta-tune':key==='relicanth-v4-colress'?'Relicanth v4 - Colress':key==='relicanth-v5-bastiodon'?'Relicanth v5 - Bastiodon':key==='relicanth-v6-explorers-guidance'?"Relicanth v6 - Explorer's Guidance":key==='relicanth-v7-lanas-aid'?"Relicanth v7 - Lana's Aid":key;
         const label=el('label','Deck '),select=el('select');select.setAttribute('aria-label','Damage statistics deck');
         for(const [key,name] of [['all',decks.length===2?'Both decks':'All decks'],...decks.map(key=>[key,deckName(key)])]){const option=el('option',name);option.value=key;select.append(option);}
         select.value=selected;if(!select.value)select.value='all';select.onchange=()=>averages(container,games);label.append(select);container.append(label);

@@ -24,6 +24,11 @@ Macro: Name=AttackEffectProtection(subjectObj,sourceObj); MacroType=ValueModifie
 Macro: Name=AbilityEffectProtection(subjectObj,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
 Macro: Name=RetreatCostModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
 Macro: Name=AttackDamageModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
+Macro: Name=AttackDamageDraw(subjectObj,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
+Macro: Name=IncomingAttackDamageModifier(subjectObj,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
+Macro: Name=AttackDamageCounterReflect(subjectObj,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
+Macro: Name=KnockoutPrizeModifier(subjectObj,currentValue); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
+Macro: Name=ProvidesAllEnergyTypes(subjectObj,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
 Active - CardID:string, Damage:number=0, Controller:number=0, EnteredTurn:number=0, EvolvedTurn:number=-1, Energy:array[string], Evolutions:array[string], Tool:string="-", Conditions:json, Counters:json, TurnEffects:json
 Display: Visibility=Public, Mode=All
 Bench - CardID:string, Damage:number=0, Controller:number=0, EnteredTurn:number=0, EvolvedTurn:number=-1, Energy:array[string], Evolutions:array[string], Tool:string="-", Conditions:json, Counters:json, TurnEffects:json

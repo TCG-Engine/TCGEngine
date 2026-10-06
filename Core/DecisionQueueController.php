@@ -374,9 +374,18 @@ class DecisionQueueController {
      */
     private static function DecodeVariables($raw) {
         $raw = (string)$raw;
+        // One payload per request/process. Compare the serialized value itself so
+        // direct setters, restored snapshots and consecutive games invalidate it.
+        // Returned PHP arrays use copy-on-write; callers cannot mutate the cache.
+        static $cachedRaw = null, $cachedVariables = [];
+        if ($raw === $cachedRaw) return $cachedVariables;
         if (trim($raw) === '') return [];
         $json = json_decode($raw, true);
-        if (is_array($json)) return $json;
+        if (is_array($json)) {
+            $cachedRaw = $raw;
+            $cachedVariables = $json;
+            return $json;
+        }
         // ── legacy pipe form ──
         if (preg_match('/^\d+$/', trim($raw))) return ['PASS' => trim($raw)]; // oldest form: bare PASS count
         $out = [];

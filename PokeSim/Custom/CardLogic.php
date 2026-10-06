@@ -59,10 +59,10 @@ function PokeCardImplemented(string $id): bool {
 function PokeHasRuleBox(string $id): bool {
     return !empty(CardSuffix($id)) || str_ends_with(CardName($id) ?? '', ' ex') || in_array(CardStage($id), ['VMAX', 'VSTAR', 'V-UNION'], true) || str_starts_with(CardName($id) ?? '', 'Radiant ');
 }
-function EffectiveCardType($obj): string { return CardType(is_string($obj) ? $obj : $obj->CardID) ?? ''; }
-function EffectiveCardSubtypes($obj): array { return array_filter([CardStage(is_string($obj) ? $obj : $obj->CardID), CardTrainerType(is_string($obj) ? $obj : $obj->CardID)]); }
+function EffectiveCardType($obj): string { return !is_string($obj) && in_array($obj->Location,['Active','Bench'],true) && PokeIsFossil($obj->CardID) ? 'Pokemon' : (CardType(is_string($obj) ? $obj : $obj->CardID) ?? ''); }
+function EffectiveCardSubtypes($obj): array { return !is_string($obj) && in_array($obj->Location,['Active','Bench'],true) && PokeIsFossil($obj->CardID) ? ['Basic'] : array_filter([CardStage(is_string($obj) ? $obj : $obj->CardID), CardTrainerType(is_string($obj) ? $obj : $obj->CardID)]); }
 function EffectiveCardClasses($obj): array { return []; }
-function EffectiveCardElement($obj): string { return CardTypes(is_string($obj) ? $obj : $obj->CardID) ?? ''; }
+function EffectiveCardElement($obj): string { return !is_string($obj) && in_array($obj->Location,['Active','Bench'],true) && PokeIsFossil($obj->CardID) ? 'Colorless' : (CardTypes(is_string($obj) ? $obj : $obj->CardID) ?? ''); }
 function HasNoAbilities($obj): bool { return !empty($obj->Counters['noAbilities']); }
 function ParseModifierResult($result): array { return ['delta' => is_array($result) ? (int)($result['delta'] ?? 0) : (int)$result, 'consume' => false, 'applied' => true]; }
 function ConsumeModifierSource($source): void {}
@@ -74,6 +74,8 @@ function PokeCandidates(int $player, string $zone, string $filter = 'any'): stri
         $id = $obj->CardID; $match = match ($filter) {
             'pokemon' => EffectiveCardType($obj) === 'Pokemon',
             'nonRuleBox' => EffectiveCardType($obj) === 'Pokemon' && !PokeHasRuleBox($id),
+            'nonRuleBoxOrBasicEnergy' => (EffectiveCardType($obj) === 'Pokemon' && !PokeHasRuleBox($id))
+                || (EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal'),
             'trainer' => EffectiveCardType($obj) === 'Trainer',
             'supporter' => CardTrainerType($id) === 'Supporter',
             'rocketSupporter' => CardTrainerType($id) === 'Supporter' && str_contains(CardName($id), 'Team Rocket'),
@@ -84,6 +86,10 @@ function PokeCandidates(int $player, string $zone, string $filter = 'any'): stri
             'poffin' => EffectiveCardType($obj) === 'Pokemon' && CardStage($id) === 'Basic' && (int)CardHp($id) <= 70,
             'evolution' => EffectiveCardType($obj) === 'Pokemon' && CardStage($id) !== 'Basic',
             'energy' => EffectiveCardType($obj) === 'Energy',
+            'stadium' => CardTrainerType($id) === 'Stadium',
+            'item' => CardTrainerType($id) === 'Item',
+            'tool' => CardTrainerType($id) === 'Tool',
+            'antiqueItem' => EffectiveCardType($obj) === 'Trainer' && CardTrainerType($id) === 'Item' && str_contains(CardName($id)??'', 'Antique'),
             default => true,
         };
         if ($match) $ids[] = PokeRef($player, $zone, $i);
@@ -125,6 +131,13 @@ function PokeRevealTop(int $player, int $number): void {
 function PokeReturnTemp(int $player): void {
     foreach (PokeObjects($player, 'TempZone') as $i => $obj) PokeMoveSimple(PokeRef($player, 'TempZone', $i), $player, 'Deck');
     PokeShuffle($player);
+}
+/** Looked-at cards stay private; only the unchosen cards enter public discard. */
+function PokeResolveExplorersGuidance(int $player, string $chosen): void {
+    foreach (explode('&', $chosen) as $ref) {
+        if (str_starts_with($ref, "p{$player}TempZone-")) PokeMoveSimple($ref, $player, 'Hand');
+    }
+    foreach (PokeObjects($player, 'TempZone') as $i => $obj) PokeMoveSimple(PokeRef($player, 'TempZone', $i), $player, 'Discard');
 }
 function PokeShuffleHandDraw(int $player, int $number, bool $bottom = false): void {
     $hand = [];

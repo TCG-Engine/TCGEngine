@@ -178,4 +178,34 @@ foreach([1,42,99] as $seed){
     botCheck(GetWinner()>0,"Bot mirror seed $seed finishes");
     echo "Bot mirror seed $seed: player ".GetWinner()." won in ".GetTurnNumber()." turns ($steps actions)\n";
 }
+botFixture();PokeAdd(2,'Hand','me03-062');PokeAdd(2,'Deck','me02.5-207');PokeAdd(2,'Deck','sv08-164');
+$a=PokeBotChoose(PokeObservation(2));botCheck($a['type']==='bench'&&GetZoneObject($a['source'])->CardID==='me03-062','Meowth benches for missing Petrel');PokeApplyAction($a);
+$a=PokeBotChoose(PokeObservation(2));botCheck(GetZoneObject($a['value'])->CardID==='me02.5-207','Last-Ditch Catch searches Petrel');PokeApplyAction($a);
+$a=PokeBotChoose(PokeObservation(2));botCheck($a['type']==='trainer'&&GetZoneObject($a['source'])->CardID==='me02.5-207','Meowth route plays Petrel');PokeApplyAction($a);
+$a=PokeBotChoose(PokeObservation(2));botCheck(GetZoneObject($a['value'])->CardID==='sv08-164','Meowth route reaches Blender');
+botFixture();PokeAdd(2,'Hand','me03-062');PokeAdd(2,'Hand','me02.5-207');
+botCheck(!PokeBotNeedsMeowth(PokeBotContext(PokeObservation(2))),'Existing Petrel avoids unnecessary two-prize bench');
+botFixture();PokeAdd(2,'Hand','me02.5-213');PokeAdd(2,'Hand','me05-005');PokeAdd(2,'Hand','me05-006');PokeAdd(2,'Hand','me05-034');PokeAdd(2,'Deck','me03-062');
+$a=PokeBotChoose(PokeObservation(2));botCheck($a['type']==='trainer'&&GetZoneObject($a['source'])->CardID==='me02.5-213','Ultra Ball begins additional Pokemon search route');PokeApplyAction($a);
+PokeApplyAction(PokeBotChoose(PokeObservation(2)));
+$a=PokeBotChoose(PokeObservation(2));botCheck(GetZoneObject($a['value'])->CardID==='me03-062','Ultra Ball searches Meowth for missing Supporter access');
+botFixture();SetCurrentPhase('SETUP');PokeAdd(2,'Hand','me03-062');
+$ctx=PokeBotContext(PokeObservation(2));
+botCheck(PokeBotActionScore($ctx,['type'=>'bench','source'=>'p2Hand-0'])<0,'Meowth stays in hand during setup');
+// Pad pre-draw sequencing operates on the next selected action, rather than
+// indiscriminately outranking the combo or a winning attack.
+botFixture();$c=PokeAdd(2,'Bench','me05-039');$c->Controller=2;$c->Energy=['mee-005'];
+PokeAdd(2,'Hand','me03-081');PokeAdd(2,'Hand','me02.5-192');PokeAdd(2,'Deck','me05-006');
+$a=PokeBotChoose(PokeObservation(2));botCheck($a['type']==='trainer'&&GetZoneObject($a['source'])->CardID==='me03-081','Spare Pad is spent before a planned Lillie');PokeApplyAction($a);PokeApplyAction(PokeBotChoose(PokeObservation(2)));
+$a=PokeBotChoose(PokeObservation(2));botCheck(GetZoneObject($a['source'])->CardID==='me02.5-192','Pre-draw search follows through to Lillie');
+botFixture();for($i=0;$i<4;++$i)PokeAdd(2,'Discard','me05-006');
+foreach(['me02.5-213','me03-081','mee-005','mee-005'] as $id)PokeAdd(2,'Hand',$id);PokeAdd(2,'Deck','me05-039');
+$a=PokeBotChoose(PokeObservation(2));botCheck(GetZoneObject($a['source'])->CardID==='me03-081','Online combo uses free Pad over Ultra Ball regardless of hand order');PokeApplyAction($a);PokeApplyAction(PokeBotChoose(PokeObservation(2)));
+botCheck(count(array_filter(PokeObjects(2,'Hand'),fn($c)=>$c->CardID==='mee-005'))===2&&count(array_filter(PokeObjects(2,'Hand'),fn($c)=>$c->CardID==='me02.5-213'))===1,'Free Pokemon search preserves both Energy and Ultra Ball');
+botFixture();foreach(['sv08-164','me03-081','me02.5-192'] as $id)PokeAdd(2,'Hand',$id);
+$a=PokeBotChoose(PokeObservation(2));botCheck(GetZoneObject($a['source'])->CardID==='sv08-164','Pre-draw Pad does not delay an available Blender');
+botFixture();foreach(['me02.5-207','me03-081','me02.5-192'] as $id)PokeAdd(2,'Hand',$id);
+$a=PokeBotChoose(PokeObservation(2));botCheck(GetZoneObject($a['source'])->CardID==='me02.5-207','Pre-draw Pad does not delay Petrel when draw is unnecessary');
+botFixture();for($i=0;$i<2;++$i)PokeAdd(2,'Discard','me05-006');foreach(['me02.5-213','me05-006','me05-034','me03-081','me02.5-192'] as $id)PokeAdd(2,'Hand',$id);
+$a=PokeBotChoose(PokeObservation(2));botCheck(GetZoneObject($a['source'])->CardID==='me02.5-213','Useful Ultra Ball discards retain priority before combo is online');
 echo "PASS $checks bot checks\n";

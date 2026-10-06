@@ -1,7 +1,8 @@
 <?php
 const POKE_SET_CODES = ['PBL' => 'me05', 'ASC' => 'me02.5', 'SSP' => 'sv08', 'CRI' => 'me04',
     'POR' => 'me03', 'BLK' => 'sv10.5b', 'WHT' => 'sv10.5w', 'JTG' => 'sv09', 'MEE' => 'mee',
-    'TEF'=>'sv05', 'PFL'=>'me02', 'SCR'=>'sv07', 'DRI'=>'sv10', 'MEG'=>'me01', 'SVI'=>'sv01', '30C'=>'30th'];
+    'TEF'=>'sv05', 'PFL'=>'me02', 'SCR'=>'sv07', 'DRI'=>'sv10', 'MEG'=>'me01', 'SVI'=>'sv01', '30C'=>'30th',
+    'SFA'=>'sv06.5', 'TWM'=>'sv06', 'PRE'=>'sv08.5'];
 
 function PokeParseDeckText(string $text, bool $verify = true): array {
     $entries = [];

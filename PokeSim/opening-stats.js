@@ -17,7 +17,7 @@
         return [...groups.values()];
     }
     const labels={attacker_unavailable:'Attacker unavailable',energy_shortfall:'Energy shortfall',access_to_active:'Powered attacker on Bench',goal_prerequisite_unmet:'Goal prerequisite unmet',special_condition:'Special condition',legal_attack_unused:'Legal attack unused',legal_goal_unused:'Legal goal unused',fallback_attack:'Fallback attack',attack_failed_to_resolve:'Attack failed to resolve'};
-    function deckName(key){return key==='sinistcha'?'Dhelmise / Sinistcha':key==='brisbane-lopunny'?'Brisbane Lopunny':key;}
+    function deckName(key){return key==='sinistcha'?'Dhelmise / Sinistcha':key==='dhelmise-v2'?'dhelmise v2':key==='brisbane-lopunny'?'Brisbane Lopunny':key==='relicanth-v2-draw'?'relicanth v2 - draw':key==='relicanth-v3-meta-tune'?'Relicanth-v3-meta-tune':key==='relicanth-v4-colress'?'Relicanth v4 - Colress':key==='relicanth-v5-bastiodon'?'Relicanth v5 - Bastiodon':key==='relicanth-v6-explorers-guidance'?"Relicanth v6 - Explorer's Guidance":key==='relicanth-v7-lanas-aid'?"Relicanth v7 - Lana's Aid":key;}
     function rate(n,d){return d?(100*n/d).toFixed(1)+'% ('+n+'/'+d+')':'—';}
     function el(tag,value){const node=document.createElement(tag);if(value!==undefined)node.textContent=value;return node;}
     function render(container,games){

@@ -3,14 +3,16 @@
  *  as local play. This runner never imports or saves a user's session game.
  */
 function PokeSimulationPolicy(): string {
-    $files=[__DIR__.'/HeuristicBot.php',__DIR__.'/PrizeLogic.php',__DIR__.'/LopunnyBot.php',__DIR__.'/../Decks/Registry.php',__DIR__.'/../Decks/brisbane-lopunny.txt',__DIR__.'/../Custom/AttachmentLogic.php',__DIR__.'/../Decks/sinistcha.txt',__DIR__.'/../Custom/GameLogic.php',
+    $colressFiles=[__DIR__.'/RelicanthColressBot.php',__DIR__.'/../Decks/relicanth-v4-colress.txt',__DIR__.'/../Decks/relicanth-v5-bastiodon.txt',__DIR__.'/../Decks/relicanth-v6-explorers-guidance.txt',__DIR__.'/../Decks/relicanth-v7-lanas-aid.txt'];
+    $fossilFiles=[__DIR__.'/RelicanthBot.php',__DIR__.'/RelicanthDrawBot.php',__DIR__.'/RelicanthMetaTuneBot.php',__DIR__.'/../Custom/FossilLogic.php',__DIR__.'/../Decks/relicanth-fossils.txt',__DIR__.'/../Decks/relicanth-v2-draw.txt',__DIR__.'/../Decks/relicanth-v3-meta-tune.txt'];
+    $files=[__DIR__.'/HeuristicBot.php',__DIR__.'/PrizeLogic.php',__DIR__.'/LopunnyBot.php',__DIR__.'/../Decks/Registry.php',__DIR__.'/../Decks/brisbane-lopunny.txt',__DIR__.'/../Custom/AttachmentLogic.php',__DIR__.'/../Decks/sinistcha.txt',__DIR__.'/../Decks/dhelmise-v2.txt',__DIR__.'/../Custom/GameLogic.php',
         __DIR__.'/../Custom/CombatLogic.php',__DIR__.'/../Custom/DamageStats.php',__DIR__.'/../Custom/OpeningStats.php',__DIR__.'/../Custom/OpeningProfiles.php',__FILE__,__DIR__.'/../Runtime.php',__DIR__.'/../GeneratedCode/GeneratedCardDictionaries.php',__DIR__.'/../Custom/CardLogic.php',__DIR__.'/../GeneratedCode/GeneratedMacroCode.php'];
-    return substr(hash('sha256',implode('',array_map('file_get_contents',$files))),0,16);
+    return substr(hash('sha256',implode('',array_map('file_get_contents',array_merge($files,$fossilFiles,$colressFiles)))),0,16);
 }
-function PokeSimulateGame(int $seed,int $firstPlayer,int $maxActions=1500,string $deckKey1='sinistcha',string $deckKey2='sinistcha'): array {
+function PokeSimulateGame(int $seed,int $firstPlayer,int $maxActions=1500,string $deckKey1='sinistcha',string $deckKey2='sinistcha',?array $deckOverride1=null,?array $deckOverride2=null,?callable $observer=null): array {
     if($seed<1||$seed>2147483647||!in_array($firstPlayer,[1,2],true)||$maxActions<1)
         throw new InvalidArgumentException('Invalid simulation parameters');
-    $deck1=PokeNamedDeck($deckKey1);$deck2=PokeNamedDeck($deckKey2);
+    $deck1=$deckOverride1 ?? PokeNamedDeck($deckKey1);$deck2=$deckOverride2 ?? PokeNamedDeck($deckKey2);
     $steps=0;$result=['seed'=>$seed,'deck1'=>$deckKey1,'deck2'=>$deckKey2,'firstPlayer'=>$firstPlayer,'winner'=>0,'winnerOrder'=>null,
         'turns'=>0,'actions'=>0,'status'=>'capped','reason'=>'Action limit reached'];
     try {
@@ -20,6 +22,8 @@ function PokeSimulateGame(int $seed,int $firstPlayer,int $maxActions=1500,string
             $action=PokeBotChoose(PokeObservation($seat));
             if($action===null)throw new RuntimeException('No bot action for pending player '.$seat);
             PokeApplyAction($action);++$steps;
+            // Diagnostics observe accepted actions; they never choose or alter a move.
+            if($observer!==null)$observer($action);
         }
         $result['winner']=GetWinner();$result['turns']=GetTurnNumber();
         if($result['winner']){

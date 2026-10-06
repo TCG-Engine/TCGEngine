@@ -14,7 +14,7 @@ function save(){
     catch{$('simulationError').textContent='Browser storage is full or unavailable. Download CSV before leaving this page.';}
 }
 function text(tag,value){const e=document.createElement(tag);e.textContent=value;return e;}
-function deckName(key){return key==='brisbane-lopunny'?'Brisbane Lopunny':'Dhelmise / Sinistcha';}
+function deckName(key){return {'sinistcha':'Dhelmise / Sinistcha','dhelmise-v2':'dhelmise v2','brisbane-lopunny':'Brisbane Lopunny','relicanth-fossils':'Relicanth / Fossils','relicanth-v2-draw':'relicanth v2 - draw','relicanth-v3-meta-tune':'Relicanth-v3-meta-tune','relicanth-v4-colress':'Relicanth v4 - Colress','relicanth-v5-bastiodon':'Relicanth v5 - Bastiodon','relicanth-v6-explorers-guidance':"Relicanth v6 - Explorer's Guidance",'relicanth-v7-lanas-aid':"Relicanth v7 - Lana's Aid"}[key]||key;}
 function rate(wins,games){return games?(100*wins/games).toFixed(1)+'%':'—';}
 function render(){
     const rows=job?.rows||[],complete=rows.filter(r=>r.status==='complete');
