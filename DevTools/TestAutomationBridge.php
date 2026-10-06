@@ -946,6 +946,34 @@ function BridgeEnumerateDecisionActions($decision, $player) {
               ++$emitted;
             }
           }
+          // The BIGGEST picks the cap cut off — legal subsets by size then combined cost, descending — up to 20 more.
+          // Smallest-first under the cap meant a ten-card peek offered 10 singles + 30 pairs and NOTHING bigger: Admiral
+          // Ackbar's "any number of space units with combined cost 5 or less" could never take four 1-2 drops (SWUSim bot
+          // feature 'searchpick', 2026-10-04 — 51 of 125 traced Ackbar searches took fewer ships than the best legal pick).
+          // Appended AFTER the existing list, so every earlier candidate keeps its position. 2^n subsets: n <= 12 only.
+          $n = count($matchIDs);
+          if ($n <= 12) {
+            $seen = [];
+            foreach ($actions as $a) $seen[strval($a['cardID'] ?? '')] = true;
+            $legal = [];
+            for ($mask = 1; $mask < (1 << $n); ++$mask) {
+              $cnt = 0; $total = 0; $ids = [];
+              for ($k = 0; $k < $n; ++$k) {
+                if (!($mask & (1 << $k))) continue;
+                $cnt++; $total += intval($costs[$matchIDs[$k]] ?? 0); $ids[] = $matchIDs[$k];
+              }
+              if ($cnt > $maxPicks || ($maxCost !== null && $total > $maxCost)) continue;
+              $legal[] = [$cnt, $total, implode(',', $ids)];
+            }
+            usort($legal, fn($x, $y) => [$y[0], $y[1]] <=> [$x[0], $x[1]]);
+            $added = 0;
+            foreach ($legal as [$cnt, $total, $key]) {
+              if ($added >= 20) break;
+              if (isset($seen[$key])) continue;
+              $seen[$key] = true; ++$added;
+              $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $key, 'chkInput' => [], 'inputText' => ''];
+            }
+          }
           // Taking nothing is always legal (the validator accepts '' for every non-MZCHOOSE type),
           // and it is the answer of last resort — listed last so a chooser that scans in order only
           // reaches it when no real pick is available.

@@ -13,6 +13,7 @@ require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/Custom/BotLookahead.php';
 include_once './SWUSim/BotHeuristic.php';
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // isolates this file's feature from curve value (p38, 2026-10-06)
 
 foreach (['mgremoval', 'mgmull'] as $p) $check(SWUBotVariantDisabled("try-$p") === ["try:$p"], "proposal $p is registered");
 $AGGRO = 'ASH_009';   // Ahsoka Tano — SWU_BOT_AGGRO_LEADERS
@@ -107,8 +108,10 @@ $removalBoard = function (string $enemy) use ($build) {
 $removalBoard('SOR_100');
 $check($choose('midrange', '') !== 'myHand-0!FSM!', 'fixture: the shipped bot does not lead with the removal');
 $check($choose('midrange', 'try-mgremoval') === 'myHand-0!FSM!', 'mgremoval: a ready 5-drop is answered before attacking');
-// The same board with a ready 2-drop that hits just as hard is NOT worth the card (Battlefield Marine, 2, 3/3).
-$removalBoard('SOR_095');
+// The same board with a ready 2-drop that hits just as hard is NOT worth the card (Viper Probe Droid, 2, 3/2). The bar
+// is the cost THEY paid (_SWUBotSeatCost for their seat), and with p28 'mgcost' that includes their aspect penalty: the
+// old Battlefield Marine (Command/Heroism) cost this Aggression/Villainy Dedra 6 — over the bar. SOR_228 is Villainy: 2.
+$removalBoard('SOR_228');
 $check($choose('midrange', 'try-mgremoval') !== 'myHand-0!FSM!', 'mgremoval: a 2-cost body is under the bar, card held');
 // Scope: the arm does not reach the other styles (control has its own shipped rule).
 $removalBoard('SOR_100');

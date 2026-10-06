@@ -75,7 +75,7 @@ const hoverImg = async (p, srcPart) => {
   if (!(await loc.count())) return false;
   await p.mouse.move(2, 2); await p.waitForTimeout(150);
   await loc.hover({ force: true });
-  await p.waitForTimeout(1500);   // SWUSim's hover dwell is 850ms, then a fade
+  await p.waitForTimeout(1500);   // SWUSim's hover dwell is 400ms, then a fade
   return true;
 };
 

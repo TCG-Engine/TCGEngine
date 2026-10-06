@@ -218,13 +218,16 @@ P1NODECISION
 
 ---
 
-# StolenUnitBecomesLeaderUnit_DefeatedAtRegroup
-#// SOR_224 Change of Heart — "At the start of the regroup phase, its owner takes control of it."
-#// A leader unit can only ever be controlled by its leader's controller, so if the stolen unit has
-#// BECOME a leader unit before the delayed effect resolves, the return cannot happen and the unit is
-#// DEFEATED instead. P1 steals P2's Vehicle SEC_214, then deploys its own leader JTL_008 Wedge
-#// Antilles onto it as a Pilot. At regroup: SEC_214 goes to its OWNER's (P2's) discard and Wedge
-#// returns to the leader zone exhausted (a leader never goes to a discard).
+# StolenUnitMadeLeaderUnit_StillReturnsAtRegroup_PilotStaysAttached
+#// SOR_224 Change of Heart — "At the start of the regroup phase, its owner takes control of it." P1 steals P2's
+#// Vehicle SEC_214, then deploys Wedge Antilles (JTL_008) onto it as a Pilot. At regroup SEC_214 returns to P2
+#// carrying P1's Wedge.
+#// CR v9.0 3.4.7 (rewritten 2026): "Some abilities make non-leader units leader units ... it doesn't follow
+#// rules 3.4.1-3.4.6. ... it can change control or move to an out-of-play zone". A unit made a leader by a
+#// Pilot leader is NOT defeated instead (that is 3.4.6, for real leader units). Judges' discussion
+#// 2026-10-01: "you're giving control of the unit, and not the leader upgrade" — the Pilot leader stays
+#// attached, still controlled by its own player, so that leader stays DEPLOYED. (Before v9 this section
+#// asserted the unit was defeated instead.)
 
 ## GIVEN
 CommonSetup: yrw/ggk/{
@@ -247,7 +250,9 @@ WithP2Deck: [SOR_046 SOR_046]
 
 ## EXPECT
 P1GROUNDARENACOUNT:0
-P2GROUNDARENACOUNT:0
-P2DISCARDUNIT:0:CARDID:SEC_214
-P1LEADER:NOTDEPLOYED
-P1LEADER:EXHAUSTED
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_214
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2DISCARDCOUNT:0
+P1LEADER:DEPLOYED
+

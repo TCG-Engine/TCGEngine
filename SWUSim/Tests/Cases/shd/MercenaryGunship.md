@@ -59,12 +59,15 @@ P2RESAVAILABLE:3
 
 ---
 
-# PilotedLeaderUnit_DefeatedInsteadOfChangingControl
-#// Per CR 3.4.6: if an ability would make a LEADER UNIT change control, it is defeated instead. P1's
-#// leader JTL_001 is deployed as a Pilot upgrade onto the Gunship, which makes the Gunship a leader unit.
-#// P2 then pays the 4 resources for the any-player take-control action: control does NOT transfer —
-#// the Gunship goes to its owner's discard and the Leader Upgrade flips back to P1's leader zone
-#// EXHAUSTED. Both arenas end empty, and P2 still paid the cost.
+# PilotedLeaderUnit_ChangesControl_PilotStaysAttached
+#// P1's leader JTL_001 is deployed as a Pilot on the Gunship, making the Gunship a leader unit. P2 pays the 4
+#// resources for the any-player take-control action: the Gunship moves to P2 carrying P1's Pilot leader.
+#// CR v9.0 3.4.7 (rewritten 2026): "Some abilities make non-leader units leader units ... it doesn't follow
+#// rules 3.4.1-3.4.6. ... it can change control or move to an out-of-play zone". A unit made a leader by a
+#// Pilot leader is NOT defeated instead (that is 3.4.6, for real leader units). Judges' discussion
+#// 2026-10-01: "you're giving control of the unit, and not the leader upgrade" — the Pilot leader stays
+#// attached, still controlled by its own player, so that leader stays DEPLOYED. (Before v9 this section
+#// asserted the unit was defeated instead.)
 
 ## GIVEN
 CommonSetup: bbk/bbk/{
@@ -83,11 +86,11 @@ WithP1SpaceArena: SHD_256:1:0
 
 ## EXPECT
 P1SPACEARENACOUNT:0
-P2SPACEARENACOUNT:0
-P1DISCARDCOUNT:1
-P1DISCARDUNIT:0:CARDID:SHD_256
-P1LEADER:NOTDEPLOYED
-P1LEADER:EXHAUSTED
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SHD_256
+P2SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1DISCARDCOUNT:0
+P1LEADER:DEPLOYED
 P2RESAVAILABLE:1
 
 ---

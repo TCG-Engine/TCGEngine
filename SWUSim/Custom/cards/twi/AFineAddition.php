@@ -68,10 +68,48 @@ $whenPlayedAbilities["TWI_040:0"] = function($player, $mzID = '') {
             // Piloting card can be played as an upgrade here (user-confirmed ruling; unlike Reforge).
             $cands = _SWUTwi040Candidates(intval($player));
             if (empty($cands)) return; // nothing playable → fizzle
-            // "may" pick which upgrade (or decline). Attach happens via _SWUFinalizeUpgradeAttach (a DIRECT
-            // attach path — it does NOT route through SWUBeginPlayCard/ActivateCard, so the old nested-play
-            // no-op doesn't apply). The event's FINISH_PLAY_CARD owns the After Action (suppressed below).
-            SWUQueueMayChooseTarget(intval($player), $cands,
-                "Play_an_upgrade_(A_Fine_Addition)?", "Choose_an_upgrade_to_play", "TWI_040#0");
+            // Candidates in SEVERAL zones → pick the zone first, then the card from that zone alone. A mixed
+            // pool could not be answered in the browser: a discard pile draws only its latest card, so a
+            // buried candidate had nothing to click (Discord 2026-10-03: "doesn't work with other players'
+            // discard pile"). One zone → straight to the card pick, as before.
+            $labels = array_values(array_unique(array_map('_SWUTwi040ZoneLabel', $cands)));
+            if (count($labels) > 1) {
+                DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", implode('&', $labels), 1,
+                    tooltip: "Play_an_upgrade_from_where?");
+                DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TWI_040#Z", 1);
+                return;
+            }
+            _SWUTwi040OfferCards(intval($player), $cands);
             return;
+};
+
+// "may" pick which upgrade (or decline). Attach happens via _SWUFinalizeUpgradeAttach (a DIRECT attach path —
+// it does NOT route through SWUBeginPlayCard/ActivateCard, so the old nested-play no-op doesn't apply). The
+// event's FINISH_PLAY_CARD owns the After Action (suppressed below).
+function _SWUTwi040OfferCards(int $player, array $cands): void {
+    SWUQueueMayChooseTarget($player, $cands,
+        "Play_an_upgrade_(A_Fine_Addition)?", "Choose_an_upgrade_to_play", "TWI_040#0");
+}
+
+// The zone menu's label for a candidate mzID, in the caster's frame. It is also how the answer is mapped back
+// (TWI_040#Z re-derives the pool and keeps the candidates whose label matches), so it must be stable across
+// the request boundary. Underscores are transport (OptionChooseUI renders them as spaces); "P3's_Discard" is
+// shown with the seat's username by optionDisplayLabel.
+function _SWUTwi040ZoneLabel(string $mz): string {
+    $zone = preg_replace('/-\d+$/', '', $mz);
+    if ($zone === 'myHand')       return 'Your_Hand';
+    if ($zone === 'myDiscard')    return 'Your_Discard';
+    if ($zone === 'theirDiscard') return "Opponent's_Discard";
+    if (preg_match('/^p(\d+)Discard$/', $zone, $m)) return "P{$m[1]}'s_Discard";
+    return $zone;
+}
+
+// Zone picked → offer only that zone's candidates (re-derived: the pool cannot change between the two steps,
+// and a closure cannot cross the request boundary).
+$customDQHandlers["TWI_040#Z"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $cands = array_values(array_filter(_SWUTwi040Candidates(intval($player)),
+        fn($mz) => _SWUTwi040ZoneLabel($mz) === (string)$lastDecision));
+    if (empty($cands)) return;
+    _SWUTwi040OfferCards(intval($player), $cands);
 };

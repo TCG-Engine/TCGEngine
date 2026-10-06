@@ -68,4 +68,37 @@ if (($legal['kind'] ?? '') === 'decision') {
 $check($theirs() === [TROOPER] && !in_array(MARINE, array_map(fn($v) => $v['cardID'], SWUBotUnits(1)), true),
     'after it resolves: their Consular and my Marine are gone, their Trooper is left (theirs: ' . json_encode($theirs()) . ')');
 
+// ── Part 25 'defeatpick': the ENEMY half is a defeat — the most valuable enemy non-leader unit goes ──────────────────
+// Owner report 2026-10-03, game 1438045: "bot played Chimaera to sac itself and a weak unit of mine. if it does this last
+// resort type of sac, it should take a high valued unit on my side." Pre Vizsla had just wiped the bot's board, so
+// Chimaera itself was the only friendly unit; the enemy prompt ("Choose_an_enemy_non-leader_unit") scored every candidate
+// the flat 0.01 and took the FIRST listed — a shielded Han Solo (1/1, cost 1) over Pre Vizsla (6/6, cost 8). The reported
+// board order is kept: Han Solo was played first, so he is listed first and a tie would take him.
+$enemyPick = function (string $variant = '') use (&$gameName, $act, $build) {
+    $build(function ($b) { $b->MyLeader('LAW_008', true, false, true); $b->MyBase('LAW_021'); $b->FillResourcesForPlayer(1, 'SOR_095', 10);
+        $b->WithCardInHandForPlayer(1, 'ASH_052');
+        $b->TheirLeader('HMW_008', true, false, true); $b->TheirBase('HMW_021');
+        $b->WithGroundUnitForPlayer(2, 'LAW_037', true); $b->WithUpgradesOnGroundUnitForPlayer(2, 0, [GameStateBuilder::Upgrade('SOR_T02', 2)]);
+        $b->WithGroundUnitForPlayer(2, 'ASH_053', true);
+        for ($i = 0; $i < 3; $i++) $b->WithGroundUnitForPlayer(2, 'ASH_T01', true);
+        $b->FillResourcesForPlayer(2, 'SOR_095', 8); });
+    $act(1, 10002, 'myHand-0!FSM!');
+    $picked = null;
+    for ($i = 0; $i < 6; $i++) {
+        $l = SWUBotLegalActions($gameName, 1);
+        if (($l['kind'] ?? '') !== 'decision') break;
+        $p = SWUBotHeuristicChoose('softcontrol', (array)$l['actions'], $l, $variant);
+        $id = strval($p['cardID'] ?? 'PASS');
+        if (strval($l['decisionTooltip'] ?? '') === 'Choose_an_enemy_non-leader_unit') {
+            global $playerID; $s = $playerID; $playerID = 1; $picked = strval(GetZoneObject($id)->CardID ?? ''); $playerID = $s;
+        }
+        $act(1, intval($p['mode'] ?? 10001), $id);
+    }
+    return $picked;
+};
+$pick = $enemyPick();
+$check($pick === 'ASH_053', "defeatpick: Chimaera sacrificing itself takes the MOST VALUABLE enemy (Pre Vizsla), not the first listed; got $pick");
+$pickOff = $enemyPick('no-defeatpick');
+$check($pickOff === 'LAW_037', "defeatpick @no-defeatpick: the first-listed Han Solo (the reported line); got $pickOff");
+
 bot_test_finish();

@@ -1320,6 +1320,12 @@ class SchemaTestRunner {
                 TriggerGameOver($player);
                 break;
 
+            case 'Kick':
+                // $player is removed for inactivity — the SAME entry production's voting request uses
+                // (SWUApplyKick, SWUSim/Custom/InactivityClock.php). No args.
+                SWUApplyKick($player);
+                break;
+
             case 'SimulateRequestBoundary':
                 // Model the fresh-process boundary a real interactive decision creates: transient
                 // in-memory continuation globals reset while serialized gamestate persists. Catches
@@ -1434,6 +1440,10 @@ class SchemaTestRunner {
         // WithPrivateGame: true -> SimGameIsPrivateGame returns true, so undo is always free (no consent).
         // Default public (false). Reset every test so it never leaks across cases in one process.
         $GLOBALS['SWU_TEST_FORCE_PRIVATE'] = strtolower($given['WithPrivateGame'] ?? 'false') === 'true';
+        // A schema test is never a developer's browser session, even when the suite itself is driven over HTTP from
+        // localhost (curl …:3400/zzRegressionSWUSim.php): SWUUndoConsentDisabledForLocalDev must stand down, or every
+        // consent case (undo/ConsentGating, undo/RequestApprove, core/GameLog_Undo …) silently loses its consent step.
+        $GLOBALS['SWU_TEST_SCHEMA_RUN'] = true;
         for ($oaSeat = 1; $oaSeat <= 4; ++$oaSeat) {
             if (strtolower($given["P{$oaSeat}OnlyActions"] ?? '') !== 'true') continue;
             $oaHolder = ($oaSeat === 1) ? 2 : 1;   // any OTHER seat; 2 for seat 1 keeps P1OnlyActions identical
@@ -1581,6 +1591,37 @@ class SchemaTestRunner {
                 if ($actual !== $expected)
                     $failures[] = "{$line}: expected winners [" . implode(',', $expected)
                                 . "], got [" . implode(',', $actual) . "]";
+
+            } elseif (preg_match('/^GAMEOVERREASON:(win|concede|abandon)$/', $line, $m)) {
+                // Meta Premier (spec §4.2): how the game ended, as the rating layer will read it.
+                // Absent GAMEOVER_REASON means an ordinary win.
+                $actual = DecisionQueueController::GetVariable('GAMEOVER_REASON') ?? 'win';
+                if ($actual !== $m[1])
+                    $failures[] = "{$line}: expected '{$m[1]}', got '{$actual}'";
+
+            } elseif (preg_match('/^GAMEDETAIL:(\w+):(.*)$/', $line, $m)) {
+                // One scalar of SWUCaptureCurrentGameDetail() — what the Match layer stores per game (and the
+                // Meta Premier rating layer reads). Booleans compare as 'true'/'false'.
+                if (!function_exists('SWUCaptureCurrentGameDetail')) require_once __DIR__ . '/../../StatsSubmit.php';
+                $d = SWUCaptureCurrentGameDetail();
+                $v = $d[$m[1]] ?? null;
+                $actual = is_bool($v) ? ($v ? 'true' : 'false') : (is_scalar($v) ? (string)$v : json_encode($v));
+                if ($actual !== $m[2])
+                    $failures[] = "{$line}: expected '{$m[2]}', got '{$actual}'";
+
+            } elseif (preg_match('/^DQVARABSENT:([A-Za-z0-9_]+)$/', $line, $m)) {
+                // A DecisionQueueVariables key that must NOT exist. That zone is deterministic-RNG hash material
+                // (Core/DeterministicRNG.php EngineSnapshotState), so a bookkeeping flag stored there would shift every
+                // game's random stream from the moment it is written.
+                $v = DecisionQueueController::GetVariable($m[1]);
+                if ($v !== null)
+                    $failures[] = "{$line}: expected no {$m[1]}, got '" . strval($v) . "'";
+
+            } elseif (preg_match('/^PREGAMEDONE:([01])$/', $line, $m)) {
+                // Meta Premier (spec §4.3): has the first action phase opened (mulligans + resources done)?
+                $actual = SWUPregameDone() ? '1' : '0';
+                if ($actual !== $m[1])
+                    $failures[] = "{$line}: expected '{$m[1]}', got '{$actual}'";
 
             } elseif (preg_match('/^OPPONENTSOF:(\d+):(.*)$/', $line, $m)) {
                 // Twin Suns (Phase 3): the live opponents of a seat, as a comma-joined list.
@@ -1746,6 +1787,18 @@ class SchemaTestRunner {
                 $pending = $g->state->pendingDecision($p);
                 if ($pending === null)
                     $failures[] = "{$line}: expected a pending decision, but none found";
+
+            } elseif (preg_match('/^P(\d+)DECISIONTYPE:(\w+)$/', $line, $m)) {
+                // The pending decision's TYPE — e.g. MZCHOOSE (mandatory) vs MZMAYCHOOSE (declinable). The
+                // only way to pin "you must choose one": a decline answer to a mandatory choice is refused by
+                // the harness before it runs, so it cannot be written as a WHEN line, and the candidate set
+                // (SELECTABLEEXACT) is identical for both types.
+                $p       = intval($m[1]);
+                $pending = $g->state->pendingDecision($p);
+                if ($pending === null)
+                    $failures[] = "{$line}: expected a pending {$m[2]} decision, but none found";
+                elseif (($pending->Type ?? '') !== $m[2])
+                    $failures[] = "{$line}: expected decision type {$m[2]}, got " . ($pending->Type ?? '?');
 
             } elseif (preg_match('/^P(\d+)DECISIONHIGHLIGHT:(.+)$/', $line, $m)) {
                 // The board unit a prompt is pointing AT, asserted by CardID rather than by the raw param.

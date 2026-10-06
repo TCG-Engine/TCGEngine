@@ -21,10 +21,11 @@
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/BotHeuristic.php';
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // isolates this file's feature from curve value (p38, 2026-10-06)
 
 const HSD = 'SEC_078';   // Hyperspace Disaster, 7 — "Defeat all space units."
 const SRI = 'LAW_044';   // Single Reactor Ignition, 8 — "Defeat all units."
-const BOMB = 'SEC_051';  // Bo-Katan Kryze, 9 — takes the single bomb slot in every hand, so no wipe is the bomb
+const BOMB = 'SEC_051';  // Bo-Katan Kryze, 9 (11 for this seat) — takes the single bomb slot in every hand, so no wipe is the bomb
 const OWEN = 'LOF_057';  // 1-cost filler
 const BARRISS = 'ASH_044'; // 3-cost filler
 
@@ -46,8 +47,12 @@ $resourced = function (int $n, array $disabled) use ($botCtx) {
 // $opp: list of [arena, cardID] enemy units. $mine: list of [arena, cardID] friendly units.
 $board = function (int $res, array $hand, array $opp = [], array $mine = [], int $myBaseDamage = 0) use ($build) {
     $build(function ($b) use ($res, $hand, $opp, $mine, $myBaseDamage) {
-        $b->MyLeader('LAW_018');
-        $b->MyBase('SOR_020', $myBaseDamage);
+        // A control seat that plays BOTH wipes on-aspect (p28 'mgcost', 2026-10-03: costs are what THIS seat pays). The old
+        // Lando (Cunning/Heroism) + Vigilance base paid +4 for Single Reactor Ignition (8 -> 12), which made SRI the bomb
+        // and broke this file's premise. Krennic SOR_001 (Vigilance/Villainy) + an Aggression base: SRI 8, HSD 7, and
+        // Bo-Katan 11 — still the single bomb, so no wipe is.
+        $b->MyLeader('SOR_001');
+        $b->MyBase('SOR_025', $myBaseDamage);
         $b->TheirBase('SOR_020', 0);
         $b->FillResourcesForPlayer(1, 'SOR_095', $res);
         foreach ($hand as $c) $b->WithCardInHandForPlayer(1, $c);

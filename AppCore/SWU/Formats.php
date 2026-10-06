@@ -24,6 +24,23 @@ function SWUFormatDefinitions() {
             'enabled'     => true,
             'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
+        // Meta Premier — the rated queue (docs/superpowers/specs/2026-10-03-swusim-metapremier-ratings-design.md).
+        // Same card pool as Premier, never preview sets. Logged-in only, queue-only, Glicko-2 rated per match type.
+        // 'queueTypes': Bo1 and Bo3 are both open, each its own rated ladder (owner, 2026-10-05: the community asked for
+        // both). Set one false to close that queue; its rating and profile row follow.
+        'metapremier' => [
+            'displayName' => 'Meta Premier',
+            'legalSets'   => $premierSets,
+            'banned'      => $premierBans,
+            // FEATFLAG_GLICKO2 — OFF for everyone, local dev included (owner, 2026-10-05), until the rated queue is ready.
+            // false: no menu pool (SWUMenuTree), JoinQueue refuses it (SWUFormatAllowsPublicQueue), and matches already in
+            // flight still resolve and rate. To ship: set true here, then follow every other FEATFLAG_GLICKO2 site.
+            'enabled'     => false,
+            'publicQueue' => true,
+            'rated'       => true,
+            'queueOnly'   => true,
+            'queueTypes'  => ['bo3' => true, 'bo1' => true],
+        ],
         'eternal' => [
             'displayName' => 'Eternal',
             'legalSets'   => $eternalSets,
@@ -288,6 +305,11 @@ function SWUGetFormat($formatId) {
         'maxPlayers'        => intval($f['maxPlayers'] ?? 2),
         'teams'             => intval($f['teams'] ?? 0),
         'uniqueTeamLeaders' => !empty($f['uniqueTeamLeaders']),
+        // Rated queue keys (metapremier). Defaults keep every other format byte-identical. Same WHITELIST
+        // rule as above: a key added to SWUFormatDefinitions() but not listed here is silently dropped.
+        'rated'             => !empty($f['rated']),
+        'queueOnly'         => !empty($f['queueOnly']),
+        'queueTypes'        => (isset($f['queueTypes']) && is_array($f['queueTypes'])) ? $f['queueTypes'] : null,
     ];
 }
 
@@ -321,6 +343,9 @@ function SWUStatsFormats(bool $enabledOnly = true): array {
     $out = [];
     foreach (array_keys(SWUFormatDefinitions()) as $id) {
         if ($id === 'open') continue;
+        // Meta Premier games are reported to the stats site as premier (SWUStatsFormatFor), so the stats
+        // whitelist — which the public SubmitGameResult / meta-stats APIs read — stays exactly as it was.
+        if ($id === 'metapremier') continue;
         $f = SWUGetFormat($id);
         if ($f === null || !empty($f['localMode'])) continue;
         if ($enabledOnly && empty($f['enabled'])) continue;
@@ -375,6 +400,14 @@ function SWUMenuTree(): array {
         ['format' => 'padawan-preview', 'label' => 'Padawan Preview' . $pv],
         ['format' => 'open',            'label' => 'Open'],
     ];
+    // PvP alone offers Meta Premier: a rated pool is matchmaking between two people, never a bot game. THIRD in the list
+    // (owner, 2026-10-04). Plain "Meta Premier" since both match lengths are open (owner, 2026-10-05).
+    $pvpPools = $constructedPools;
+    // FEATFLAG_GLICKO2 — the pool exists only while the format is enabled. The PvP dialog renders from the UNFILTERED
+    // tree (MainMenu's $swuMenuTreeFull, kept for invites), so 'enabled' => false alone would still list it there.
+    if (!empty(SWUGetFormat('metapremier')['enabled'])) {
+        array_splice($pvpPools, 2, 0, [['format' => 'metapremier', 'label' => 'Meta Premier']]);
+    }
     $tree = [
         // Arenabot is listed FIRST, so it is the menu's default opponent (owner, 2026-09-21).
         ['id' => 'constructed', 'label' => 'Constructed', 'secondLabel' => 'Opponent', 'options' => [
@@ -383,7 +416,7 @@ function SWUMenuTree(): array {
             // promised. The format id and displayName stay 'botpractice' / 'Arenabot' — this is the
             // player-facing CHOICE label only.
             ['id' => 'arenabot', 'label' => 'Arenabot (beta)', 'format' => 'botpractice', 'pools' => $constructedPools],
-            ['id' => 'pvp',      'label' => 'PvP',      'pools' => $constructedPools],
+            ['id' => 'pvp',      'label' => 'PvP',      'pools' => $pvpPools],
         ]],
         ['id' => 'twinsuns', 'label' => 'Twin Suns', 'secondLabel' => 'Players', 'options' => [
             ['id' => 'ffa', 'label' => 'Free-for-all', 'pools' => [
@@ -406,6 +439,10 @@ function SWUMenuTree(): array {
         foreach ($gt['options'] as &$opt) {
             foreach ($opt['pools'] as &$p) {
                 $p['publicQueue'] = !isset($opt['format']) && SWUFormatAllowsPublicQueue($p['format']);
+                // What the client needs to shape the Match Type select and the buttons (metapremier).
+                $p['allowedQueueTypes'] = SWUFormatAllowedQueueTypes($p['format']);
+                $p['queueOnly']         = SWUFormatIsQueueOnly($p['format']);
+                $p['requiresLogin']     = SWUFormatIsRated($p['format']);
             }
             unset($p);
         }
@@ -554,4 +591,36 @@ function SWUFormatAllowsPublicQueue(string $formatId, ?bool $switchOn = null): b
     if (!$on) return false;
     $f = SWUGetFormat($formatId);
     return $f !== null && !empty($f['enabled']) && !empty($f['publicQueue']);
+}
+
+// ── Rated queue (metapremier) — docs/superpowers/specs/2026-10-03-swusim-metapremier-ratings-design.md §2.1 ──────────
+
+function SWUFormatIsRated(string $formatId): bool {
+    $f = SWUGetFormat($formatId);
+    return $f !== null && !empty($f['rated']);
+}
+
+function SWUFormatIsQueueOnly(string $formatId): bool {
+    $f = SWUGetFormat($formatId);
+    return $f !== null && !empty($f['queueOnly']);
+}
+
+// May $formatId be played as $queueType? A format with no 'queueTypes' allows every defined type.
+function SWUFormatAllowsQueueType(string $formatId, string $queueType): bool {
+    if (SWUGetQueueType($queueType) === null) return false;
+    $f = SWUGetFormat($formatId);
+    if ($f === null) return false;
+    if ($f['queueTypes'] === null) return true;
+    return !empty($f['queueTypes'][$queueType]);
+}
+
+function SWUFormatAllowedQueueTypes(string $formatId): array {
+    return array_values(array_filter(array_keys(SWUQueueTypeDefinitions()),
+        fn($qt) => SWUFormatAllowsQueueType($formatId, $qt)));
+}
+
+// The format id external stats consumers see. swustats.net's SubmitGameResult is a public contract:
+// a rated Meta Premier game is a Premier game to it (spec §2.4).
+function SWUStatsFormatFor(string $formatId): string {
+    return $formatId === 'metapremier' ? 'premier' : $formatId;
 }

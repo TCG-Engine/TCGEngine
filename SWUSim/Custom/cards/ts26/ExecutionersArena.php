@@ -11,21 +11,35 @@ $baseAbilities["TS26_11"] = function($player) {
     ExecutionersArenaDeal(intval($player), $n);
 };
 
+// $parts: [instances left, picks so far "uid,uid"]. CR 8.34.1: choose every instance first, then resolve them
+// together — and 8.34.1.a: the damage to a target is ONE instance (2 per pick, summed). Dealing each pick as it was
+// chosen let a Shield stop only the first of two picks on the same unit.
 $customDQHandlers["TS26_11#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $remaining = intval($parts[0] ?? 0);
+    $picks = (isset($parts[1]) && $parts[1] !== '') ? explode(',', $parts[1]) : [];
     if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS' && str_contains($lastDecision, '-')) {
-        SWUDealDamageToUnit($lastDecision, 2, intval($player));
+        $o = GetZoneObject($lastDecision);
+        if (!SWUObjGone($o)) $picks[] = intval($o->UniqueID ?? 0);
     }
-    ExecutionersArenaDeal(intval($player), $remaining - 1);
+    ExecutionersArenaDeal(intval($player), $remaining - 1, $picks);
 };
 
 // TS26_11 Executioner's Arena — Epic Action: for each friendly leader unit, you may deal 2 damage to a
-// unit. (Loops one "may deal 2 to a unit" pick per leader unit.)
-function ExecutionersArenaDeal(int $player, int $remaining): void {
+// unit. One "may deal 2 to a unit" pick per leader unit; the damage lands only after the last pick.
+function ExecutionersArenaDeal(int $player, int $remaining, array $picks = []): void {
     global $playerID; $playerID = intval($player);
-    if ($remaining <= 0) { SWUAfterAction($player); return; }
-    $tg = SWUAllUnits();
-    if (empty($tg)) { SWUAfterAction($player); return; }
-    SWUQueueMayChooseTarget($player, $tg, "Deal_2_damage_to_a_unit?", "Choose_a_unit", "TS26_11#0|{$remaining}");
+    $tg = ($remaining > 0) ? SWUAllUnits() : [];
+    if ($remaining > 0 && !empty($tg)) {
+        SWUQueueMayChooseTarget($player, $tg, "Deal_2_damage_to_a_unit?", "Choose_a_unit", "TS26_11#0|{$remaining}|" . implode(',', $picks));
+        return;
+    }
+    $byTarget = [];
+    foreach ($picks as $uid) { if (intval($uid) > 0) $byTarget[intval($uid)] = ($byTarget[intval($uid)] ?? 0) + 2; }
+    foreach ($byTarget as $uid => $total) {
+        $playerID = intval($player);
+        $mz = SWUFindMzByUID(intval($uid));
+        if ($mz !== null) SWUDealDamageToUnit($mz, $total, intval($player));
+    }
+    SWUAfterAction($player);
 }

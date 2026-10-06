@@ -58,13 +58,19 @@ $check(SWUBotLeaderDeployThreshold(1) === 0, 'Flipatine: never deploys → no fl
 // ── Card choice per style ────────────────────────────────────────────────────────────────────────
 $build(function ($b) use ($hand) { $hand($b, ['SOR_095', 'SOR_046', 'LOF_084']); });   // costs 2, 4, 3
 $check($pick('aggro') === ['myHand-1'], 'Aggro resources its most expensive card');
-$check($pick('control') === ['myHand-0'], 'Control resources its cheapest card (keeps its bombs)');
+// ⚠ p28 'mgcost' (owner 2026-10-03): costs are what THIS SEAT pays. Under the bootstrap leader the Consular (4) and the Knight
+// (3) are off-aspect, +2 each → 2 / 6 / 5. Control keeps the castable Marine and its bomb (the 6) and resources the card
+// furthest from castable after it — the Knight. '@no-mgcost' still reproduces the printed-cost pick (myHand-0).
+$check($pick('control') === ['myHand-2'], 'Control keeps its castable card and its bomb, resources the next-furthest (seat costs 2/6/5)');
 // p12 'mgbomb' (2026-09-24): midrange now uses the SAME castable-soon + protect-one-bomb rule as control,
 // so it resources its cheapest card and keeps its bomb. Before p12 this returned myHand-1 (the most
 // expensive) — the `-$cost` fallback. '@no-mgbomb' still reproduces the old pick.
-$check($pick('normal') === ['myHand-0'], 'Normal resources its cheapest card, exactly like Control (p12 mgbomb)');
+$check($pick('normal') === ['myHand-2'], 'Normal resources like Control (p12 mgbomb), on seat costs (p28 mgcost)');
 $check($pick('normal') === $pick('control'), 'Normal and Control now agree — that IS p12');
-$check($pick('control', 2) === ['myHand-0', 'myHand-2'], 'two picks, lowest keep value first');
+$check($pick('control', 2) === ['myHand-2', 'myHand-0'], 'two picks, lowest keep value first (seat costs: the Knight, then the Marine)');
+SWUBotSetDisabledFeatures(['mgcost']);
+$check($pick('control') === ['myHand-0'] && $pick('control', 2) === ['myHand-0', 'myHand-2'], '@no-mgcost: on printed costs Control resources its cheapest card');
+SWUBotSetDisabledFeatures([]);
 $build(function ($b) use ($hand) { $hand($b, ['SOR_046', 'SOR_095', 'SOR_164']); });   // costs 4, 2, 4
 $check($pick('aggro') === ['myHand-0'], 'ties go to the lowest hand index');
 
@@ -74,11 +80,13 @@ $check($pick('aggro') === ['myHand-0'], 'ties go to the lowest hand index');
 // three rounds. Now: 2 resources after the pick → castable soon = cost ≤ 4. The 4 and one bomb (the first
 // 8) are kept. Since tags v2 (owner OK 2026-09-14) Pre Vizsla and Hyperspace Disaster are wipes, and key cards go
 // to resources after far filler: Dedra Meero (6, filler) and ONE Pre Vizsla are resourced; the other copy stays.
-$build(function ($b) use ($hand) { $hand($b, ['LAW_159', 'ASH_133', 'SEC_078', 'SEC_087', 'ASH_053', 'ASH_053']); });
+// The deck's own leader and base (LAW_008 / LAW_020): with p28 'mgcost' a card is costed for THIS seat, and under the
+// bootstrap leader Pre Vizsla would read as a 12.
+$build(function ($b) use ($hand) { $b->MyLeader('LAW_008'); $b->MyBase('LAW_020'); $hand($b, ['LAW_159', 'ASH_133', 'SEC_078', 'SEC_087', 'ASH_053', 'ASH_053']); });
 $check($pick('control', 2) === ['myHand-3', 'myHand-4'], 'Control\'s opening: keep the 4 and one bomb; resource the far filler and one extra Pre Vizsla');
 // A regroup: 3 resources, hand 8 / 8 / 7 / 2 → castable soon = cost ≤ 6. The just-drawn 2 is kept; the
 // resourced card is the one furthest from castable other than the bomb (the second 8).
-$build(function ($b) use ($hand) { $b->FillResourcesForPlayer(1, 'SOR_095', 3); $hand($b, ['ASH_133', 'ASH_053', 'SEC_078', 'LOF_059']); });
+$build(function ($b) use ($hand) { $b->MyLeader('LAW_008'); $b->MyBase('LAW_020'); $b->FillResourcesForPlayer(1, 'SOR_095', 3); $hand($b, ['ASH_133', 'ASH_053', 'SEC_078', 'LOF_059']); });
 $check($pick('control') === ['myHand-1'], 'Control\'s regroup: keep the cheap card it can cast, resource a second bomb');
 
 // ── The Plot budget ──────────────────────────────────────────────────────────────────────────────
@@ -101,10 +109,12 @@ $check($pick('aggro') === ['myHand-1'], 'once the leader is deployed, Plot has n
 // ── Key cards stay out of resources (Phase 1b part 2, Task 6, feature 'keep'; owner ruling 2026-09-14 — the
 // default improves, training still learns past it). Diagnosis: Piett red resourced 5.9 Capital Ships a game.
 $build(function ($b) use ($hand) { $b->MyLeader('JTL_005', false); $b->MyBase('LAW_027'); $b->FillResourcesForPlayer(1, 'SOR_095', 5); $hand($b, ['JTL_143', 'ASH_099', 'SEC_110', 'SOR_095']); });
-$check($pick('normal', 2) === ['myHand-2', 'myHand-3'], 'Piett red resources the GNK and the Marine, keeps Devastator and the Gozanti');
+// p28 'mgcost': the Marine is off-aspect for Piett red (2 → 4), so it goes first now; the pair is unchanged.
+$check($pick('normal', 2) === ['myHand-3', 'myHand-2'], 'Piett red resources the Marine and the GNK, keeps Devastator and the Gozanti');
 SWUBotSetDisabledFeatures(['keep']);
 // Under p12 the castable-soon rule reorders the pair (was myHand-0 + myHand-1 on the `-$cost` fallback).
-$check($pick('normal', 2) === ['myHand-0', 'myHand-2'], '@no-keep under p12: the castable-soon rule changes the second pick');
+// …and with the Marine at 4 the castable-soon rule pairs it with Devastator (was Devastator + the GNK on printed costs).
+$check($pick('normal', 2) === ['myHand-3', 'myHand-0'], '@no-keep under p12 + p28: the Marine (seat cost 4) and Devastator');
 SWUBotSetDisabledFeatures([]);
 // Krennic's wipe vs far filler: both 8s are far from castable at 2 resources; the answer stays, Trask Walker (heal
 // only) goes. Control's castable-soon rule still comes first (the Marine is kept either way).

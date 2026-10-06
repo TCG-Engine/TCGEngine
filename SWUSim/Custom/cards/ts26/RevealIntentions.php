@@ -82,6 +82,7 @@ $whenPlayedAbilities["TS26_80:0"] = function($player, $mzID = '') {
         $refs = [];
         foreach (GetHand($rp) as $c) { if (empty($c->removed)) $refs[] = GameLogCardRef($c->CardID); }
         AddGameLogEntry('REVEAL', "P{$rp} revealed their hand: " . (empty($refs) ? '(empty)' : implode(', ', $refs)), 'ALL');
+        SWURecordHandSeen($rp, range(1, SeatCountForGame()));   // a public reveal: every other seat has seen it
         if (!empty($refs) && function_exists('_SWUSec016React')) _SWUSec016React($rp);
     }
     $playerID = $savedPID;

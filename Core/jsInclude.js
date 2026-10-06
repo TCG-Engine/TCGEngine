@@ -29,6 +29,10 @@ var AZUKISIM_CARD_DETAIL_HOVER_MS = 400;
 var CARD_DETAIL_TOUCH_VIEWPORT_W = 0.92;
 var CARD_DETAIL_TOUCH_VIEWPORT_H = 0.90;
 var cardDetailPersistent = false;
+// A DESKTOP preview opened by a click (the deck top-card eye, PinTopCardPeek). cardDetailPersistent is the
+// touch twin and is dismissed by touchstart, which a mouse never fires, so a click needs its own flag:
+// while pinned, hovers cannot replace the preview and mouseout cannot close it; the next click does.
+var cardDetailPinned = false;
 
 function TrackCardDetailMouse(e) {
   if (!e || typeof e.clientX !== "number" || typeof e.clientY !== "number") return;
@@ -37,7 +41,7 @@ function TrackCardDetailMouse(e) {
 }
 
 function IsCardDetailSuppressed() {
-  return !!window._suppressCardDetail || freezeCardDetailUntilMouseMove;
+  return !!window._suppressCardDetail || freezeCardDetailUntilMouseMove || cardDetailPinned;
 }
 
 function IsCardDetailOpen() {
@@ -75,7 +79,7 @@ function CardDetailHoverDelay(options) {
   var el = document.getElementById("folderPath");
   var folderPath = el ? el.value : "";
   if (folderPath == "SWUDeck" || folderPath == "AzukiDeck") return SWUDECK_CARD_DETAIL_HOVER_MS;
-  if (folderPath == "SWUSim") return 850;
+  if (folderPath == "SWUSim") return 400;
   if (folderPath == "AzukiSim" || folderPath == "FaBSim") return AZUKISIM_CARD_DETAIL_HOVER_MS;
   if (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim") return 100;
   return 1;
@@ -599,6 +603,25 @@ function ShowTopCardPeek(e, el, options) {
   ShowCardDetailByCardID(e, el.getAttribute('data-topcard-peek') || '', options);
 }
 
+// CLICK on the eye badge: open the top card NOW and keep it up until the next click (owner ruling, game
+// 1459263). The badge's click used to call ShowTopCardPeek — the hover path, a 400ms dwell then a preview
+// that closes on mouseout — so once a hover had opened it, a click visibly did nothing. A second click on
+// the badge closes it. A TAP (a click right after a touchstart) goes through the existing touch preview
+// instead: phone sizing + scrim, dismissed by the next tap in BeginCardDetailLongPress.
+function PinTopCardPeek(e, el) {
+  if (!el || typeof el.getAttribute !== 'function') return;
+  if (cardDetailPinned) { HideCardDetail(true); return; }
+  var src = SwuCardArtSrc(el.getAttribute('data-topcard-peek') || '');
+  if (!src) return;
+  clearTimeout(showDetailTimeout);   // drop the focus/hover dwell this same click started
+  if (Date.now() < suppressMouseCardDetailUntil) {
+    ShowDetail({ type: "touchlongpress", target: el, clientX: e.clientX, clientY: e.clientY }, src, null);
+    return;
+  }
+  ShowDetail(e, src, el);
+  cardDetailPinned = true;   // AFTER ShowDetail — it refuses to open while pinned (IsCardDetailSuppressed)
+}
+
 // Twin Suns mini-board thumbnails (leaders / base / units in the home preview tiles). They are
 // background-image spans, so they get the same blow-up-on-hover the full board gives its cards.
 function ShowMiniCardDetail(e, el, options) {
@@ -614,7 +637,7 @@ function HideCardDetail(force) {
   // finger moves between cards; without this guard that stray event closes a preview the user
   // just opened, so the second and later long-presses flash and vanish. ShowCardDetail already
   // guards the mirror case via suppressMouseCardDetailUntil.
-  if (!force && cardDetailPersistent) return;
+  if (!force && (cardDetailPersistent || cardDetailPinned)) return;
   cardDetailRequestToken++;
   clearTimeout(showDetailTimeout);
   var el = document.getElementById("cardDetail");
@@ -629,8 +652,19 @@ function HideCardDetail(force) {
     if (stale[i].parentNode) stale[i].parentNode.removeChild(stale[i]);
   }
   cardDetailPersistent = false;
+  cardDetailPinned = false;
   HideCardDetailScrim();
 }
+
+// The click that ends a pinned preview. Capture phase, so a target that stops propagation (most board
+// cards do) still dismisses it; the click itself is NOT consumed and goes on to do whatever it does. The
+// badge is exempt — its own onclick toggles the pin, and closing here first would reopen it there.
+document.addEventListener("click", function(e) {
+  if (!cardDetailPinned) return;
+  if (e && e.target && typeof e.target.closest === "function" &&
+      e.target.closest(".topcard-peek-badge, [data-card-detail-control]")) return;
+  HideCardDetail(true);
+}, true);
 
 document.addEventListener("mousemove", function(e) {
   if (!freezeCardDetailUntilMouseMove) {
@@ -1464,6 +1498,9 @@ function ShowZonePopup(cardId) {
         (visibility === "Self" && isOpponentZone);
       if (displayMode === "Single" && hiddenFromViewer) return;
     }
+    // A sim whose board can show a seat other than the server's `my`/`their` (SWUSim Twin Suns matchups)
+    // renames the zone to the one it is actually showing. Undefined everywhere else → no change.
+    if (typeof window.SimRemapPopupZone === "function") zoneName = window.SimRemapPopupZone(zoneName) || zoneName;
     TogglePopup(zoneName);
   }
 }

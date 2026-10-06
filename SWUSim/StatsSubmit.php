@@ -43,6 +43,13 @@ function SWUCaptureCurrentGameDetail() {
         $t=SWUTelemetryGet();
         $detail['telemetry']=['cards'=>$t['cards'] ?? [],'turns'=>$t['turns'] ?? []];
     }
+    // Meta Premier (docs/superpowers/specs/2026-10-03-swusim-metapremier-ratings-design.md §4.2-4.3). Additive keys —
+    // SWUBuildGameResultPayload reads named keys only, so the swustats.net payload is unchanged.
+    if (class_exists('DecisionQueueController')) {
+        $detail['pregameDone'] = function_exists('SWUPregameDone') ? SWUPregameDone() : true;
+        $reason = DecisionQueueController::GetVariable('GAMEOVER_REASON');
+        $detail['endReason'] = in_array($reason, ['concede', 'abandon'], true) ? $reason : 'win';
+    }
     return $detail;
 }
 
@@ -77,7 +84,8 @@ function SWUBuildGameResultPayload($match, $game) {
         'loseHero'=>SWUCardToStatsId($d['leader'][strval($loser)] ?? ''),
         'round'=>intval($d['turns'] ?? 0),
         'winnerHealth'=>intval($d['baseHpLeft'][strval($winner)] ?? 0),
-        'format'=>strval($match['format'] ?? 'premier'),
+        // A rated Meta Premier game is a Premier game to swustats.net (external contract — SWUStatsFormatFor).
+        'format'=>SWUStatsFormatFor(strval($match['format'] ?? 'premier')),
         'gameName'=>strval($game['gameName'] ?? ''),
         'sequenceNumber'=>intval($game['gameNumber'] ?? 1),
         'player1'=>json_encode($buildPlayer(1)),

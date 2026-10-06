@@ -68,8 +68,12 @@ P1DECKCOUNT:2
 
 ---
 
-# ChooseNone_DeckUnchanged
-
+# ChooseNone_StillTakesACard
+#// HMW_101 Trust Yourself — "Give a Shield token to a unit. Search the top 3 cards of your deck for a card and
+#// draw it." P1 answers the search with no pick: the Shield is given and a card is still drawn.
+#// CR v9.0 8.26.1: only a search that SPECIFIES AN ATTRIBUTE may come up empty (the deck is hidden from the
+#// opponent); "for a card" has none, so declining still takes a card — the first one (owner ruling 2026-10-03).
+#// Before v9 this section asserted that taking nothing was allowed.
 ## GIVEN
 CommonSetup: bbk/bbk/{myResources:2}
 SkipPreGame: true
@@ -84,8 +88,8 @@ WithP1Deck: [SOR_128 SEC_080 SOR_046]
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
-P1HANDCOUNT:0
-P1DECKCOUNT:3
+P1HANDCOUNT:1
+P1DECKCOUNT:2
 
 ---
 

@@ -99,8 +99,11 @@ $resourceFirst = function (string $style, string $prop = '', bool $prePl2 = fals
     SWUBotSetDisabledFeatures([]);
     return strval(GetHand(1)[intval(substr($mz, strlen('myHand-')))]->CardID ?? '?');
 };
-$build(function ($b) use ($quiet) {
-    $quiet($b); $b->FillResourcesForPlayer(1, 'SOR_095', 2);
+// A Vigilance leader (SOR_005, quiet: exhausted, Epic Action used): with p28 'mgcost' a card is costed for THIS seat, and
+// under the bootstrap Sabine the Vigilance Wing Guard would cost 5 — no longer an efficient body (2 + 4 < 10), so it lost
+// p11's keep bonus and was resourced whatever the arm did.
+$build(function ($b) {
+    $b->MyLeader('SOR_005', false, false, true); $b->FillResourcesForPlayer(1, 'SOR_095', 2);
     foreach (['JTL_041', 'SOR_063', 'SOR_095'] as $c) $b->WithCardInHandForPlayer(1, $c);   // bomb, Sentinel, filler
 });
 // ⚠ PINNED PRE-p12. On the SHIPPED stack this arm is now a NO-OP in this position: p12's castable-soon rule

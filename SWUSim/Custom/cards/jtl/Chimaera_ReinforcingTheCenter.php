@@ -43,6 +43,10 @@ $customDQHandlers["JTL_039#0"] = function($player, $parts, $lastDecision) {
     if (HasWhenDefeatedAbility($obj->CardID)) $options[] = null;
     foreach ($granted as $g) $options[] = $g;
     if (empty($options)) return;
+    // The chosen unit is ALIVE — it was not defeated at all. Refresh the slot's defeat information to describe it
+    // (not defeated by combat; its CURRENT power), so a value left over from an earlier unit defeated in the same
+    // slot can't leak in (ASH_028 Paz's combat check, JTL_104 Raddus's power).
+    SWUPrepareLivingWhenDefeatedUse((string)$lastDecision);
     if (count($options) === 1) {
         SWUUseWhenDefeatedAbility(intval($player), $obj->CardID, $lastDecision, $options[0]);
         return;

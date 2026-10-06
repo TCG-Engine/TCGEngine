@@ -58,3 +58,30 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P1GROUNDARENACOUNT:2
+
+---
+
+# BothInstancesIntoOneShieldedUnit_OneInstance_ShieldStopsAll
+#// CR 8.34.1: "for each" effects are resolved by "determining how many times an effect will be applied, choosing how
+#// each instance will be applied, then resolving all effects simultaneously", and 8.34.1.a: "If an ability that uses
+#// the phrase 'for each' … deals some amount of damage, all damage is calculated and dealt as ONE instance of damage."
+#// Dooku exploits SOR_095 (power 3) and SOR_140 (power 2) and aims BOTH at P2's Shielded SOR_046: one instance of 5,
+#// which the Shield prevents entirely — 0 damage, Shield gone. (Dealt as two instances, the Shield stopped the first 3
+#// and the second 2 got through.)
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:4;handCardIds:TWI_138}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SOR_140:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+WithP2GroundArena: LAW_124:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:1:DAMAGE:0

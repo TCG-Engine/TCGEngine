@@ -28,9 +28,16 @@
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/BotHeuristic.php';
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // isolates this file's feature from curve value (p38, 2026-10-06)
 
-$ON  = ["try:creditbank"];
-$ON2 = ["try:creditbank"];
+// ⚠ ISOLATED FROM PART 23 'bigcredit' (2026-10-03, shipped default ON): that rule holds a cheap play that needs a banked
+// Credit outright, so with it on every "default value" below is -0.5 and this proposal has nothing left to measure.
+// The baseline here is therefore "bigcredit OFF", and the proposal arm adds the proposal to it. The last section pins
+// what the shipped default now does with the reported #1099 board.
+$BASE = ['bigcredit'];
+$ON  = ["try:creditbank", 'bigcredit'];
+$ON2 = ["try:creditbank", 'bigcredit'];
+SWUBotSetDisabledFeatures($BASE);
 
 // ── Registry ────────────────────────────────────────────────────────────────────────────────────────────
 $check(in_array('creditbank', SWUBotProposalList(), true), 'creditbank is a PROPOSAL (default off)');
@@ -79,7 +86,7 @@ $board(3, 2, false, ['ASH_079', 'LAW_044', 'JTL_121']);
 $offB = _SWUBotPlayValue(1, 'ASH_079', $W);
 SWUBotSetDisabledFeatures($ON);
 $onB  = _SWUBotPlayValue(1, 'ASH_079', $W);
-SWUBotSetDisabledFeatures([]);
+SWUBotSetDisabledFeatures($BASE);
 $check($onB < $offB, 'B: playing Koska out of the bank is worth LESS while the line is live; got '
     . json_encode([$offB, $onB]));
 $check(abs($offB - 1.2) < 1e-9, 'B: the reported default value is unchanged at 1.2; got ' . json_encode($offB));
@@ -95,7 +102,7 @@ $board(3, 2, true, ['ASH_079', 'LAW_044', 'JTL_121']);
 $offB2 = _SWUBotPlayValue(1, 'ASH_079', $W);
 SWUBotSetDisabledFeatures($ON);
 $onB2  = _SWUBotPlayValue(1, 'ASH_079', $W);
-SWUBotSetDisabledFeatures([]);
+SWUBotSetDisabledFeatures($BASE);
 $check(_SWUBotCreditPlan(1, $W)[0] === 0.0,
     'B2: with the waiver burned the bomb is out of reach, so there is no line to protect');
 $check(abs($onB2 - $offB2) < 1e-9,
@@ -107,7 +114,7 @@ $board(6, 1, true);
 $offC = _SWUBotPlayValue(1, 'ASH_079', $W);
 SWUBotSetDisabledFeatures($ON);
 $onC  = _SWUBotPlayValue(1, 'ASH_079', $W);
-SWUBotSetDisabledFeatures([]);
+SWUBotSetDisabledFeatures($BASE);
 $check(SWUResourceCount(1, true) >= 4, 'C fixture: resources alone now cover Koska');
 $check(abs($onC - $offC) < 1e-9,
     'C: no Credit is spent, so nothing is charged; got ' . json_encode([$offC, $onC]));
@@ -116,7 +123,7 @@ $check(abs($onC - $offC) < 1e-9,
 $board(3, 0, true);
 SWUBotSetDisabledFeatures($ON);
 $onD = _SWUBotPlayValue(1, 'ASH_079', $W);
-SWUBotSetDisabledFeatures([]);
+SWUBotSetDisabledFeatures($BASE);
 // ⚠ Asserted on the SPEND COST, not the plan: with 0 banked there is still a line the deck could bank
 // TOWARD (Credits are makeable until deploy), so the plan is legitimately non-zero. What must hold is that
 // a bank of nothing cannot be charged for.
@@ -176,7 +183,7 @@ $check(!$reachG, 'G: deployed, 3 resources and 1 Credit cannot reach the waived 
     . 'the line is DEAD; got ' . json_encode([$planG, $needG, $reachG]));
 SWUBotSetDisabledFeatures($ON2);
 $onG = _SWUBotPlayValue(1, 'ASH_079', $W);
-SWUBotSetDisabledFeatures([]);
+SWUBotSetDisabledFeatures($BASE);
 $check(abs($onG - 1.2) < 1e-9, 'G: so spending the Credit is free; got ' . json_encode($onG));
 
 // ── H) SURPLUS BEYOND THE LINE IS FREE ──────────────────────────────────────────────────────────────────
@@ -186,8 +193,16 @@ $board(3, 4, false, ['ASH_079', 'LAW_044', 'JTL_121']);   // 4 banked, line need
 $check($reachH && $needH === 2, 'H fixture: the line still needs 2; got ' . json_encode([$needH, $reachH]));
 SWUBotSetDisabledFeatures($ON2);
 $onH = _SWUBotPlayValue(1, 'ASH_079', $W);
-SWUBotSetDisabledFeatures([]);
+SWUBotSetDisabledFeatures($BASE);
 $check(abs($onH - 1.2) < 1e-9,
     'H: with 4 banked and 2 needed, spending 1 comes out of the SURPLUS and is free; got ' . json_encode($onH));
+
+// ── Z) The SHIPPED default (Part 23 'bigcredit') on the reported #1099 board ─────────────────────────────────────
+// "bot did not bank Credit. it wasted it on Koska Reeves": Koska (cost 4, not a big play) needs the banked Credit, so
+// with the default stack she is HELD — what the owner asked for, without this proposal's whole-line model.
+SWUBotSetDisabledFeatures([]);
+$board(3, 1, true);
+$check(SWUBotBanksCredits(1) && SWUBotCreditSpendFor(1, 'ASH_079') > 0, 'Z fixture: a credit-ramp deck, and Koska needs the Credit');
+$check(_SWUBotPlayValue(1, 'ASH_079', $W) < 0, 'Z: with the shipped default the #1099 Koska spend is held; got ' . json_encode(_SWUBotPlayValue(1, 'ASH_079', $W)));
 
 bot_test_finish();

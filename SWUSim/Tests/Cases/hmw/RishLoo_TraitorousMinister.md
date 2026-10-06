@@ -163,17 +163,18 @@ P1SELECTABLEEXACT:theirGroundArena-1&theirSpaceArena-0
 
 ---
 
-# StolenUnitBecomesALeaderUnit_DefeatedAtRegroupInsteadOfReturning
-#// The delayed half meets CR 3.4.6: "If an ability would cause a Leader Unit to … CHANGE CONTROL for any
-#// reason, it is defeated instead." P1's Rish Loo steals P2's weakened SEC_214 Skyhopper Canyon Runner
-#// (a ground Vehicle), then P1 deploys its leader JTL_008 Wedge Antilles onto it AS A PILOT — the stolen
-#// Vehicle is now a leader unit under P1's control. At the start of regroup "its owner takes control of
-#// it" cannot happen, so the unit is DEFEATED: SEC_214 goes to its OWNER's discard (P2) and Wedge returns
-#// to the leader zone exhausted (CR 3.4.7 — a leader never goes to a discard).
-#// PREVIEW SET: no official ruling; reasoned from CR 3.4.6/3.4.7 and the released analogue
-#// lof/LiberatedByDarkness.md (StolenUnitBecomesLeaderUnit_DefeatedAtRegroup), which shares the return.
+# StolenUnitMadeLeaderUnit_StillReturnsAtRegroup_PilotStaysAttached
+#// P1's Rish Loo steals P2's SEC_214 Skyhopper Canyon Runner; P1 deploys Wedge Antilles (JTL_008) onto it as a
+#// Pilot. At the start of regroup "its owner takes control of it": SEC_214 goes back to P2 carrying P1's Wedge.
+#// PREVIEW SET: no official ruling; reasoned from CR v9 3.4.7 and the 2026-10-01 judges' discussion.
 #// ⚠ FIXTURE: myLeader JTL_008 is Command/Heroism, so Rish Loo's Villainy is uncovered: 4 + 2 = 6.
 #//   Wedge's deploy needs 5+ resources CONTROLLED — 12 covers both.
+#// CR v9.0 3.4.7 (rewritten 2026): "Some abilities make non-leader units leader units ... it doesn't follow
+#// rules 3.4.1-3.4.6. ... it can change control or move to an out-of-play zone". A unit made a leader by a
+#// Pilot leader is NOT defeated instead (that is 3.4.6, for real leader units). Judges' discussion
+#// 2026-10-01: "you're giving control of the unit, and not the leader upgrade" — the Pilot leader stays
+#// attached, still controlled by its own player, so that leader stays DEPLOYED. (Before v9 this section
+#// asserted the unit was defeated instead.)
 
 ## GIVEN
 CommonSetup: yyk/rrk/{myResources:12;myLeader:JTL_008}
@@ -194,11 +195,11 @@ WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
 ## EXPECT
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:HMW_200
-P2GROUNDARENACOUNT:0
-P2DISCARDCOUNT:1
-P2DISCARDUNIT:0:CARDID:SEC_214
-P1LEADER:NOTDEPLOYED
-P1LEADER:EXHAUSTED
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_214
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P2DISCARDCOUNT:0
+P1LEADER:DEPLOYED
 
 ---
 

@@ -32,9 +32,8 @@
 // independently, so no seat can be made to wait on another.
 
 $whenPlayedAbilities["HMW_161:0"] = function ($player, $mzID = '') {
+    // Hidden information — CR v9.0 7.1.a: each player chooses independently, discards happen together.
     $me = intval($player);
-    foreach (OpponentsOf($me) as $opp) {
-        SWUKeepNDiscardRest($opp, 3, "Keep_3_cards_-_discard_the_rest");
-    }
-    SWUKeepNDiscardRest($me, 3, "Keep_3_cards_-_discard_the_rest");
+    SWUEachSeatDiscardsSimultaneously($me, array_merge(OpponentsOf($me), [$me]), 'keep', 3,
+        "Keep_3_cards_-_discard_the_rest");
 };

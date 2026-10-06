@@ -1,11 +1,12 @@
 <?php
 // HMW_216 Insurgent Camp — Upgrade, cost 1, Fortification.
 // "Fortify. When you play a unit with 3 or less power: You may defeat this upgrade. If you do, ready that unit."
-// Collected in SWUCollectOwnPlayReactions (GameLogic), dispatched here. HMW_171 Trap Field's shape: one
-// trigger with the copy count, one may-defeat per copy until declined or none left.
+// Collected in SWUCollectOwnPlayReactions (GameLogic), dispatched here. ONE trigger and ONE offer however many
+// copies are attached (non-unique, so they can stack): once the unit is ready a further copy has nothing to
+// ready, and splitting copies around an Ambush gains nothing (a Camp resolved before the Ambush is wasted).
 
 if (!function_exists('Hmw216InsurgentCampReaction')) {
-    function Hmw216InsurgentCampReaction(int $player, int $playedUID, int $count): void {
+    function Hmw216InsurgentCampReaction(int $player, int $playedUID): void {
         global $playerID; $playerID = $player;
         $mzPlayed = SWUFindMzByUID($playedUID);
         if ($mzPlayed === null) return;
@@ -13,7 +14,7 @@ if (!function_exists('Hmw216InsurgentCampReaction')) {
         // Name it: "that unit" is the unit whose PLAY triggered this, which the popup hides.
         DecisionQueueController::AddDecision($player, 'YESNO', SWUPromptHighlightParam($mzPlayed), 1,
             tooltip: 'Defeat Insurgent Camp to ready ' . SWUPromptUnitLabel($mzPlayed) . '?');
-        DecisionQueueController::AddDecision($player, 'CUSTOM', "HMW_216#0|{$playedUID}|{$count}", 1);
+        DecisionQueueController::AddDecision($player, 'CUSTOM', "HMW_216#0|{$playedUID}", 1);
     }
 }
 

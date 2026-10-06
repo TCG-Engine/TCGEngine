@@ -18,8 +18,10 @@ require_once __DIR__ . '/Custom/BotFlavours.php';
 require_once __DIR__ . '/Custom/BotStyles.php';
 require_once __DIR__ . '/Custom/BotResourcing.php';
 require_once __DIR__ . '/Custom/BotGuides.php';
+require_once __DIR__ . '/Custom/BotNameCard.php';
 require_once __DIR__ . '/Custom/BotFallback.php';
 require_once __DIR__ . '/Custom/BotCardValue.php';  // proposal 'cardvalue' — board-aware card valuation
+require_once __DIR__ . '/Custom/BotCurveValue.php';  // curve value: a card in hand priced against its cost (spec 2026-10-05)
 require_once __DIR__ . '/Custom/BotRules.php';
 require_once __DIR__ . '/Custom/BotLookahead.php';   // the fallback judges Actions by applying them (BotFallback.php)
 require_once __DIR__ . '/Rl/SwuKeys.php';            // RL Phase 3: swu-v1 state and move keys
@@ -160,12 +162,16 @@ function SWUBotHeuristicChoose(string $style, array $actions, array $legal, stri
     $GLOBALS['SWURlOn'] = ($variant === 'rl');   // the learned layer (SWUSim/Rl/SwuPolicy.php), fallback decisions only
     $prevValue = $GLOBALS['SWUValueOn'] ?? false;
     $GLOBALS['SWUValueOn'] = ($variant === 'value');   // the learned value model (SWUSim/Rl/SwuValue.php)
+    // The deciding seat, for valuations that read a hand: feature 'lockpiece' (p35) prices a name-lock only from the locked seat.
+    $prevViewer = $GLOBALS['SWUBotViewerSeat'] ?? null;
+    $GLOBALS['SWUBotViewerSeat'] = intval($legal['playerID'] ?? 0);
     try {
         return _SWUBotHeuristicChooseStack($style, $actions, $legal);
     } finally {
         SWUBotSetDisabledFeatures($prev);
         $GLOBALS['SWURlOn'] = $prevRl;
         $GLOBALS['SWUValueOn'] = $prevValue;
+        if ($prevViewer === null) unset($GLOBALS['SWUBotViewerSeat']); else $GLOBALS['SWUBotViewerSeat'] = $prevViewer;
     }
 }
 

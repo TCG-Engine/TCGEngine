@@ -22,7 +22,12 @@ function SWUSpawnNextMatchGame($matchId, $loserSeat, $priorGame) { return MatchS
 function SWUSideboardTimeoutCheck($matchId)         { return MatchSideboardTimeoutCheck('SWUSim', $matchId); }
 function SWUSideboardWarningCheck($matchId)         { return MatchSideboardWarningCheck('SWUSim', $matchId); }
 function SWUMaybeSpawnAfterSideboard($matchId)      { return MatchMaybeSpawnAfterSideboard('SWUSim', $matchId); }
-function SWUConcedeMatch($matchId, $concedingSeat)  { return MatchConcede('SWUSim', $matchId, $concedingSeat); }
+// The in-game concede input (10007) runs with the live gamestate loaded, so the open game's detail (pregameDone — is
+// this match rated at all?) is captured here; BlockedUsers.php's forfeit has no gamestate and passes none.
+function SWUConcedeMatch($matchId, $concedingSeat) {
+    $detail = (function_exists('SWUCaptureCurrentGameDetail') && function_exists('GetTurnNumber')) ? SWUCaptureCurrentGameDetail() : null;
+    return MatchConcede('SWUSim', $matchId, $concedingSeat, $detail);
+}
 function SWUReapStaleMatches($maxAgeSeconds = 86400, $nowTs = null) { return MatchReapStale('SWUSim', $maxAgeSeconds, $nowTs); }
 function SWURequestRematch($oldMatchId, $seat, $bestOf, $sideboard) { return MatchRequestRematch('SWUSim', $oldMatchId, $seat, $bestOf, $sideboard); }
 function SWUAcceptRematch($oldMatchId)              { return MatchAcceptRematch('SWUSim', $oldMatchId); }

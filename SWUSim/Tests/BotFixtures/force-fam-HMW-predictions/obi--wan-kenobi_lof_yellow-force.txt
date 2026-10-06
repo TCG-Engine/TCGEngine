@@ -1,0 +1,40 @@
+# Self-play fixture — "Obi-Wan // Cunning (HMW)" (Obi-Wan Kenobi, Courage Makes Heroes - Crystal Caves)
+# Source: a PREDICTED list for the HMW meta by the creator MasterJay, given by the owner 2026-10-04 as JSON.
+#   Converted 2026-10-04. 50 main-deck cards, 8 sideboard.
+# Author: MasterJay
+# Archetype (owner's label, 2026-10-04): Soft aggro
+# Style: softaggro
+
+Leader
+1 LOF_008
+
+Base
+1 LOF_029
+
+Deck
+3 ASH_253
+3 LOF_096
+3 HMW_208
+2 LOF_102
+3 HMW_210
+2 HMW_049
+3 HMW_048
+2 LOF_100
+1 SEC_179
+3 LOF_193
+2 LOF_128
+3 LOF_195
+3 LOF_093
+2 LOF_111
+3 ASH_040
+3 JTL_201
+2 ASH_219
+2 LAW_237
+2 LOF_215
+3 ASH_114
+
+Sideboard
+2 HMW_124
+2 ASH_235
+2 JTL_096
+2 ASH_222

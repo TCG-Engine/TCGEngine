@@ -18,26 +18,11 @@ $whenPlayedAbilities["TWI_177:0"] = function($player, $mzID = '') {
     }
     // 2. Each OPPONENT discards 2 via the helper, one call per seat; the caster's own discard is handled
     //    inline below because it must exclude the just-played event.
-    foreach (OpponentsOf(intval($player)) as $opp) {
-        SWUDiscardCards(intval($player), 2, $opp);
-    }
-    $playerID = intval($player);
-    $casterCards = [];
-    $excluded = false;
-    foreach (array_values(ZoneSearch("myHand")) as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o)) continue;
-        if (!$excluded && ($o->CardID ?? '') === 'TWI_177') { $excluded = true; continue; } // skip the event itself
-        $casterCards[] = $o;
-    }
-    if (count($casterCards) <= 2) {
-        foreach ($casterCards as $o) { $o->Remove(); SWUAddToDiscard(intval($player), $o->CardID, 'HAND'); }
-    } else {
-        for ($n = 0; $n < 2; $n++) {
-            DecisionQueueController::AddDecision(intval($player), "MZCHOOSE", "myHand", 1, tooltip: "Choose_card_to_discard");
-            DecisionQueueController::AddDecision(intval($player), "CUSTOM", "DISCARD_FROM_OWN_HAND|" . intval($player), 1);
-        }
-    }
+    // "…and discards 2 cards from their hand" — hidden information, CR v9.0 7.1.a: every player chooses
+    // independently and all the discards happen together (SWUEachSeatDiscardsSimultaneously). The event itself
+    // still sits in the caster's hand, so one copy is excluded from the caster's pool.
+    SWUEachSeatDiscardsSimultaneously(intval($player), array_merge([intval($player)], OpponentsOf(intval($player))),
+        'discard', 2, "Choose_2_cards_to_discard", 'TWI_177');
     // 3. Deal 4 to each ground unit (both players; UID-snapshot).
     $playerID = intval($player);
     $uids = [];

@@ -40,7 +40,7 @@
 #     squashed into a portrait frame while units looked fine. ShowDetail preloads the image and sizes
 #     from img.width/img.height, so each card keeps its own shape. Measured: 0.0% distortion for
 #     leader, base AND unit in both engines.
-#   • The dwell before the preview opens must MATCH the full board (SWUSim = 850ms). Both read the
+#   • The dwell before the preview opens must MATCH the full board (SWUSim = 400ms). Both read the
 #     same CardDetailHoverDelay() now; measured mini-board 877ms vs full board 873ms in Chromium,
 #     824 vs 866 in Firefox. A preview path with its own timing reads as a different feature.
 #   • CLICK the DISCARD chip and that seat's discard pile opens, the same popup the full board opens

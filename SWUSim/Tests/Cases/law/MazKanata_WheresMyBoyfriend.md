@@ -385,3 +385,43 @@ P1GROUNDARENAUNIT:1:READY
 P1DECKCOUNT:4
 P2DECKCOUNT:3
 P1RESAVAILABLE:4
+
+---
+
+# FetchedUnitMadeLeaderByAPilot_StillGoesToTheBottom_LeaderGoesHome
+#// LAW_074 Maz Kanata — "At the start of the regroup phase, put that unit on the bottom of your deck". Maz fetches
+#// the Underworld Speeder SOR_114 Escort Skiff (a ground Vehicle); P1 then deploys Kazuda (JTL_018) onto it as a Pilot, making it a
+#// leader unit. CR v9.0 3.4.7: a unit MADE a leader "can ... move to an out-of-play zone", so at regroup it still
+#// goes to the bottom of the deck; its leader upgrade is defeated as it leaves play and returns to the leader
+#// zone exhausted. (Before v9 the move refused any leader unit, so the ship stayed in play.)
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_018;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1GroundArena: LAW_074:1:0
+WithP1Deck: SOR_114
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:SOR_114
+- P1>DeployLeader
+- P1>AnswerDecision:Pilot
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+## EXPECT
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_074
+P1DISCARDCOUNT:0
+P1DECKCOUNT:4
+P1LEADER:NOTDEPLOYED

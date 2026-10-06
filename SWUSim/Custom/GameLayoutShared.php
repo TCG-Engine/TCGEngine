@@ -103,6 +103,18 @@
     box-shadow: 0 0 8px 3px var(--accent-strong, #f0c040), inset 0 0 4px var(--accent-strong, #f0c040);
     border-radius: 4px;
 }
+/* The same glow inside the discard POPUP (count bubble / Twin Suns discard chip) — the only place a
+   playable card that is not on top of its pile is rendered. On the IMAGE, not the wrapper span: the
+   popup stretches each span to its grid cell, so a span glow draws a box around empty space, while the
+   image carries the card's own rounded corners. Without this rule the class was applied and invisible.
+   The GOLD of the pile's own .has-action glow, not --accent-strong: that token is a pale theme accent
+   (grey-blue in the default theme) which read as a faint white halo, and the pile the player just
+   clicked glows gold — so the card it is glowing for should too. */
+#popupContainer .discard-playable img:not(.counter-image-icon) {
+    box-shadow: 0 0 14px 4px rgba(240,192,64,0.85), 0 0 3px 2px rgba(240,192,64,0.95);
+    border-radius: 8px;
+}
+#popupContainer .discard-playable { cursor: pointer; }
 #myDiscardSlot.has-action,
 #theirDiscardSlot.has-action {
     box-shadow: 0 0 14px 3px rgba(240,192,64,0.70), 0 0 4px 1px rgba(240,192,64,0.40);
@@ -617,9 +629,12 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
    content, and on the short mobile tile both arenas duly shrank to 10px — padding and border, no
    cards — while looking fine on the roomy desktop tile. Leaving min-height at its `auto` default
    floors each arena at label + one card row, so the split stays even AND nothing disappears. */
-/* ⚠ GRID, NOT WRAPPING FLEX. The arena fills DOWN then ACROSS: `grid-auto-flow: column` with a fixed
-   row count lays unit 0 above unit 1, then starts a new column — so --swu-mb-rows literally is "how
-   many rows this arena shows", and everything past the visible width is reached by scrolling sideways.
+/* ⚠ GRID, NOT WRAPPING FLEX. The arena fills ACROSS then DOWN (owner request 2026-10-03; it was down-
+   then-across): a fixed row count plus an explicit column count of ceil(units / rows), flowing by ROW,
+   so unit 1 sits right of unit 0. --swu-mb-rows literally is "how many rows this arena shows", and
+   everything past the visible width is reached by scrolling sideways. The column count comes inline from
+   swuMbRowOpen() as --swu-mb-c1 / --swu-mb-c2 (CSS cannot round inside repeat()); which one applies is
+   chosen beside the --swu-mb-rows rules below — keep those two pairs in step.
    ⚠ `flex-flow: column wrap` expresses the same intent and was rejected: a column-wrap flex container
    does not reliably grow its SCROLLABLE width in Gecko/WebKit, so the overflow columns exist but
    cannot be scrolled to — the exact failure this layout must not have. A grid container's scroll width
@@ -645,7 +660,8 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
 .swu-mb-row { display: grid; padding-bottom: calc(var(--swu-mb-unit) * 0.14); flex: 1 1 auto;
     padding-left: calc(var(--swu-mb-unit) * 0.09); padding-right: calc(var(--swu-mb-unit) * 0.09);
     column-gap: calc(var(--swu-mb-unit) * 0.16); row-gap: calc(var(--swu-mb-unit) * 0.16);
-    grid-auto-flow: column; grid-auto-columns: max-content;
+    grid-auto-flow: row; grid-auto-columns: max-content;
+    grid-template-columns: repeat(var(--swu-mb-c1, 1), max-content);   /* --swu-mb-rows: 1 (the :root default) */
     grid-template-rows: repeat(var(--swu-mb-rows, 1), calc(var(--swu-mb-unit) + 6px));
     justify-content: start; align-content: start;
     overflow-x: auto; overflow-y: hidden;
@@ -736,6 +752,9 @@ body.swu-home .swu-mb-base   { --swu-mb-base-w: 66px; }
    enormous window does not produce absurd thumbnails. */
 body.swu-home { --swu-mb-unit: clamp(52px, 7.1vh, 92px); --swu-mb-rows: 2; }
 @media (max-height: 900px) { body.swu-home { --swu-mb-unit: clamp(52px, 11.0vh, 110px); --swu-mb-rows: 1; } }
+/* Column count to match each row count above (left→right fill, see .swu-mb-row). Change one, change both. */
+body.swu-home .swu-mb-row { grid-template-columns: repeat(var(--swu-mb-c2, 1), max-content); }
+@media (max-height: 900px) { body.swu-home .swu-mb-row { grid-template-columns: repeat(var(--swu-mb-c1, 1), max-content); } }
 body.swu-home .swu-mb-basedmg { font-size: 18px; }
 body.swu-home .swu-mb-dmg { font-size: 10px; }
 
@@ -2458,11 +2477,62 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         }
     }
 
+    // Clicking the PILE opens the full discard viewer (owner, 2026-10-02: players did not realise the
+    // only way in was the small count bubble). Runs after handleDiscardClick, so a glowing playable TOP
+    // card still plays in one click (that handler preventDefault()s when it acts). Stands aside for
+    // anything that owns the click: an active target selection, a selectable card, or a CHOOSEZONE
+    // binding on the pile — those listeners sit below this capture-phase one and would never fire.
+    // Covers the count bubble too, and stopPropagation keeps the bubble's own toggle from shutting the
+    // viewer this just opened. The card's default CardClick → FSM is a no-op for a discard card
+    // (ActionMap has no discard case), so nothing is lost by not letting it through.
+    function openDiscardPileFromSlot(e, zone) {
+        if (e.defaultPrevented) return;
+        if (window.SelectionMode && window.SelectionMode.active) return;
+        var slot = e.currentTarget;
+        var t = e.target;
+        if (t && t.closest && (t.closest('.selectable-card') || t.closest('.choosezone-selectable'))) return;
+        if (slot.classList.contains('choosezone-selectable') || slot.querySelector('.choosezone-selectable')
+            || (slot.closest && slot.closest('.choosezone-selectable'))) return;
+        if (!slot.querySelector('[data-mzid]')) return;              // empty pile: nothing to show
+        if (typeof ShowZonePopup !== 'function') return;
+        e.stopPropagation();
+        e.preventDefault();
+        ShowZonePopup(zone);
+    }
+
     function setupDiscardClick() {
         var mySlot = document.getElementById('myDiscardSlot');
-        if (mySlot) mySlot.addEventListener('click', function(e) { handleDiscardClick(e, 'mine'); }, true);
+        if (mySlot) mySlot.addEventListener('click', function(e) {
+            handleDiscardClick(e, 'mine');
+            openDiscardPileFromSlot(e, 'myDiscard');
+        }, true);
         var theirSlot = document.getElementById('theirDiscardSlot');
-        if (theirSlot) theirSlot.addEventListener('click', function(e) { handleDiscardClick(e, 'opp'); }, true);
+        if (theirSlot) theirSlot.addEventListener('click', function(e) {
+            handleDiscardClick(e, 'opp');
+            openDiscardPileFromSlot(e, 'theirDiscard');
+        }, true);
+        // The discard POPUP (count bubble / Twin Suns discard chip). A discard slot is
+        // Mode=Single(Latest) and renders only its TOP card, so a playable card anywhere else in the
+        // pile exists ONLY in the popup. With the click bound to the slots alone, that card fell
+        // through to the generic CardClick → FSM and nothing happened — the permission silently worked
+        // only while the card happened to be on top (game 1438045: Stolen AT-Hauler under a
+        // Sheathipede). CAPTURE phase so this runs before the card's inline CardClick; the owner is
+        // read off the card's own zone, so one listener serves every pile.
+        var popups = document.getElementById('popupContainer');
+        if (popups) {
+            popups.addEventListener('click', function(e) {
+                var card = e.target && e.target.closest ? e.target.closest('.discard-playable[data-mzid]') : null;
+                if (!card) return;
+                var mine = /^myDiscard-/.test(card.getAttribute('data-mzid') || '');
+                handleDiscardClick(e, mine ? 'mine' : 'opp');
+                if (typeof ClosePopup === 'function') ClosePopup();   // the pile is about to change
+            }, true);
+            // The popup is built asynchronously (fetch → innerHTML), after the last glow pass ran.
+            if (typeof MutationObserver === 'function') {
+                new MutationObserver(function() { refreshDiscardCardGlows(); })
+                    .observe(popups, { childList: true });
+            }
+        }
     }
 
     // Clicking a unit that has an available Action (glowing .unit-action) is ambiguous:
@@ -2844,6 +2914,25 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // A target mzID is seat-tagged server-side as `p{n}<Zone>-{i}`; on the client only the two seats on
     // the CURRENT view render (as `my…`/`their…`). These map an mzID to its owning seat and to the frame
     // the current view would render it in.
+    // ShowZonePopup hook (Core/jsInclude.js). The board repaints `my…`/`their…` from the CURRENT view's seats,
+    // but a popup is fetched from the server by NAME, and the server resolves `their…` to the HOME view's
+    // oppSeat (swuViews[0]) — so in "you vs P3" the discard slot drew P3's top card while tapping it opened
+    // P2's pile (mobile report 2026-10-03, desktop identical). Rename to the seat-tagged zone the home tiles
+    // already open (`p3Discard`) whenever the view's seat differs from the server's.
+    // ⚠ PUBLIC ZONES ONLY — the allowlist below is deliberate; do not add a hidden zone to it.
+    // Unchanged (byte-identical) for 2 seats and for the home view's own opponent, which keeps the
+    // playable-from-popup discard flow on its `theirDiscard-N` ids.
+    var SWU_POPUP_REMAP_PUBLIC = { Discard: 1 };
+    window.SimRemapPopupZone = function (zoneName) {
+        var v = window.swuView, home = (window.swuViews || [])[0];
+        if (!v || !home) return zoneName;
+        var m = /^(my|their)(.+)$/.exec(String(zoneName || ''));
+        if (!m || !SWU_POPUP_REMAP_PUBLIC[m[2]]) return zoneName;
+        var seat = (m[1] === 'their') ? v.oppSeat : v.viewSeat;
+        var serverSeat = (m[1] === 'their') ? home.oppSeat : home.viewSeat;
+        return (seat && seat !== serverSeat) ? ('p' + seat + m[2]) : zoneName;
+    };
+
     function swuSeatOfMzid(mzid) {
         var s = String(mzid || '');
         var pm = s.match(/^p(\d+)/);
@@ -2924,6 +3013,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             if (frame === null && typeof window.ShouldUseMZChoosePopupForSpec === 'function'
                 && window.ShouldUseMZChoosePopupForSpec(spec)) {
                 inlineNormalized.push(spec);                                          // popup handles it
+                return;
+            }
+            // ⚠ The same holds for a PILE (a discard — DisplayMode Single): an off-view seat's pile is not on
+            // screen, and even on screen only its latest card is drawn, so there is nothing to badge. Flag it
+            // for the popup (IsMZChooseSpecUndrawnPileCard honours forcePopup). Reported 2026-10-03: TWI_040 A
+            // Fine Addition could take an upgrade from P2's discard (on view) but never from P3's.
+            if (frame === null && typeof window.GetZoneData === 'function'
+                && String((window.GetZoneData(spec.zone) || {}).DisplayMode || '').toLowerCase() === 'single') {
+                inlineNormalized.push(Object.assign({}, spec, { forcePopup: true }));  // seat-tagged; popup draws it
                 return;
             }
             if (frame === null) { offViewSpecs.push(spec); return; }                 // off-view → badge only
@@ -3982,8 +4080,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // repeat what the layout already says. The arenas keep a NON-COLOUR distinction — their
             // fixed vertical ORDER, space above ground, exactly as on the full board — so the silver /
             // sand borders reinforce that reading rather than being the only carrier of it.
-            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--space"><div class="swu-mb-row">' + spaceHtml + '</div></div>' +
-            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--ground"><div class="swu-mb-row">' + groundHtml + '</div></div>';
+            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--space">' + swuMbRowOpen(defeated ? 0 : b.spaceUnits.length) + spaceHtml + '</div></div>' +
+            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--ground">' + swuMbRowOpen(defeated ? 0 : b.groundUnits.length) + groundHtml + '</div></div>';
+    }
+
+    // The arena grid fills LEFT→RIGHT then TOP→BOTTOM, so it needs its column count — ceil(units / rows).
+    // The row count is CSS (--swu-mb-rows: 1 or 2, by window height) and CSS cannot round inside repeat(),
+    // so emit the column count for BOTH row counts; the .swu-mb-row rules beside --swu-mb-rows pick one.
+    function swuMbRowOpen(n) {
+        n = Math.max(1, parseInt(n, 10) || 0);   // repeat(0, …) is invalid — an empty arena still gets one track
+        return '<div class="swu-mb-row" style="--swu-mb-c1:' + n + ';--swu-mb-c2:' + Math.ceil(n / 2) + '">';
     }
 
     // 3-player home view: one mini board per opponent, each a gateway button into that opponent's
@@ -4363,6 +4469,30 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 var el = (entry.owner ? document.getElementById('p' + entry.owner + 'Discard-' + entry.idx) : null)
                       || document.getElementById('theirDiscard-' + entry.idx);
                 if (el) el.classList.add('discard-playable');
+            });
+        }
+        // The same cards inside an open discard POPUP — the only place a playable card that is not on
+        // top of its pile is rendered (see setupDiscardClick). Matched by data-mzid, never by id: the
+        // top card's id exists in BOTH the slot and the popup, so getElementById finds the slot copy.
+        var popups = document.getElementById('popupContainer');
+        if (popups) {
+            popups.querySelectorAll('.discard-playable').forEach(function(el) {
+                el.classList.remove('discard-playable');
+            });
+            var mark = function(mzid) {
+                popups.querySelectorAll('[data-mzid="' + mzid + '"]').forEach(function(el) {
+                    el.classList.add('discard-playable');
+                });
+            };
+            (d.playableDiscards || []).forEach(function(entry) { mark('myDiscard-' + entry.idx); });
+            // An opponent entry names its pile's seat. A Twin Suns seat popup is p{n}Discard; the
+            // theirDiscard popup is the opponent currently in view, so it only takes that seat's entries
+            // (2-player has no view seat and keeps the one opponent).
+            var viewOpp = window.swuView && window.swuView.oppSeat ? parseInt(window.swuView.oppSeat, 10) : 0;
+            (d.opponentPlayableDiscards || []).forEach(function(entry) {
+                var owner = parseInt(entry.owner, 10) || 0;
+                if (owner) mark('p' + owner + 'Discard-' + entry.idx);
+                if (!owner || !viewOpp || owner === viewOpp) mark('theirDiscard-' + entry.idx);
             });
         }
     }
@@ -4838,8 +4968,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             b.push({label:'Forfeit Best of 3', onClick:function(){ if(typeof confirmConcedeMatch==='function') confirmConcedeMatch(); }});
         } else if (bestOf === 1 && seriesOver) {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
-            b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
-            b.push({label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=1'); }});
+            // Meta Premier (rated): no rematch — players re-queue. The server refuses these too.
+            if (!info.rated) {
+                b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
+                b.push({label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=1'); }});
+            }
             if (info.convertible) {
                 var cv = SWUConvertButtonState(info); // {label, disabled}
                 b.push({id:'swu-convert-btn', label:cv.label, disabled:cv.disabled,
@@ -4849,9 +4982,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // Bo3 finished — rematch with a Bo1/Bo3 toggle.
             var fmt = { v: 3 };
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
-            b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=' + fmt.v); }});
-            b.push({id:'swu-rematch-btn', label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=' + fmt.v); }});
-            b.push({id:'swu-bestof-btn', label:'Bo3', onClick:function(ev){ fmt.v = (fmt.v===3?1:3); ev.target.textContent = 'Bo' + fmt.v; }});
+            if (!info.rated) {   // Meta Premier (rated): no rematch — players re-queue
+                b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=' + fmt.v); }});
+                b.push({id:'swu-rematch-btn', label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=' + fmt.v); }});
+                b.push({id:'swu-bestof-btn', label:'Bo3', onClick:function(ev){ fmt.v = (fmt.v===3?1:3); ev.target.textContent = 'Bo' + fmt.v; }});
+            }
         } else {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
         }

@@ -68,6 +68,9 @@ foreach (array_keys($m['players'] ?? []) as $s) $winsBySeat[strval($s)] = intval
 $bestOf = intval($m['bestOf'] ?? 1);
 $state = strval($m['state'] ?? '');
 $seriesOver = ($state === 'complete');
+// Meta Premier: a rated match offers no Rematch / Quick Rematch / Convert — players re-queue (spec §4.5; the server
+// refuses them too, via the allowsSeriesChange hook).
+$rated = function_exists('SWUFormatIsRated') && SWUFormatIsRated(strval($m['format'] ?? ''));
 
 // Per-seat convert-to-Bo3 requests, so the menu can show a two-step mutual confirmation
 // ("Convert" → "Waiting on opponent" for the initiator; "Confirm Convert" for the other).
@@ -108,7 +111,8 @@ echo json_encode([
     'matchWinner' => intval($m['winner'] ?? 0),
     // Rematch / Quick Rematch / convert-to-Bo3 are all 2-seat flows (they sideboard a pair and
     // respawn one opponent). Twin Suns is Bo1-only with four seats, so the menu offers neither.
-    'convertible' => ($bestOf === 1 && $seriesOver && $seatCount <= 2),
+    'convertible' => ($bestOf === 1 && $seriesOver && $seatCount <= 2 && !$rated),
+    'rated'       => $rated,                              // additive: a rated (Meta Premier) match — no rematch buttons
     'convertRequestedByMe'  => $isSpectator ? false : !empty($convReq[strval($seat)]),
     'convertRequestedByOpp' => $isSpectator ? false : !empty($convReq[strval($oppSeat)]),
     'seriesOver'  => $seriesOver,

@@ -13,7 +13,9 @@ $onAttackAbilities["ASH_009:0"] = function($player, $mzID) {
     // include temporary modifiers". Also covers the Support attacker that gains this ability.
     $selfPow = intval(ObjectCurrentPowerInAttack($self));
     SWUOfferUnitTarget($player, $mzID, [
-        'continuation' => 'APPLY_PHASE_BUFF|2|0|ASH_009', 'side' => 'any', 'may' => true,
+        // A unit never has less power than itself — but the threshold is the in-attack power (Raid) and each candidate's
+        // is its current power, so with a lent Raid the attacker passed its own test (found 2026-10-02).
+        'continuation' => 'APPLY_PHASE_BUFF|2|0|ASH_009', 'side' => 'any', 'may' => true, 'excludeSelf' => true,
         'extraFilter' => fn($o) => intval(ObjectCurrentPower($o)) < $selfPow,
         'question' => "Buff_a_weaker_unit?",
         'prompt' => "Give_+2/+0_to_a_unit_with_less_power_than_this_unit",

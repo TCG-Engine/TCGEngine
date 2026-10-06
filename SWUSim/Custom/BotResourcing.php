@@ -7,7 +7,7 @@ require_once __DIR__ . '/BotFlavours.php';
 // both GUIDES that training learns past; Normal's card choice, stops and mulligans are ultimately learned.
 // Keep value: LOWER = resource it first.
 
-// Keep bonus per point of board-dependent power surplus (proposal 'ctxpower', SWUBotContextSurplus).
+// Keep bonus per point of board-dependent power surplus (feature 'ctxpower' p28, SWUBotContextSurplus).
 const SWU_BOT_CTXPOWER_KEEP = 2.0;
 // Spec: docs/superpowers/specs/2026-09-13-swusim-rl-bots-design.md, Section 2 ("The resourcing engine").
 
@@ -72,7 +72,7 @@ function _SWUBotRedundantUniqueInHand(int $seat, string $cardID, int $index): bo
     return false;
 }
 
-// PROPOSAL 'mgcost' (default OFF, "@try-mgcost") — THE COST THIS SEAT ACTUALLY PAYS.
+// Feature 'mgcost' (p28, shipped 2026-10-03; @no-mgcost) — THE COST THIS SEAT ACTUALLY PAYS.
 // Owner ruling 2026-09-23 (6): "off-aspect cards cost +2 and must be judged at that cost. Chimaera technically
 // costs 9 for Luke (ASH) DV. it would be one of the first to go in an opening hand."
 // The whole resourcing engine reads PRINTED cost — CardCost() — so an off-aspect card is ranked as if the seat
@@ -84,7 +84,7 @@ function _SWUBotRedundantUniqueInHand(int $seat, string $cardID, int $index): bo
 // desync the bot from SWUDeployLeader().
 function _SWUBotSeatCost(int $seat, string $cid): int {
     $c = intval(CardCost($cid));
-    if (!SWUBotProposalOn('mgcost') || !function_exists('SWUAspectPenalty')) return $c;
+    if (!SWUBotFeatureOn('mgcost') || !function_exists('SWUAspectPenalty')) return $c;
     return $c + intval(SWUAspectPenalty($seat, $cid));
 }
 
@@ -162,7 +162,7 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         if (SWUBotFeatureOn('keep') && SWUBotIsKeyCard($seat, $cid)) {
             $keep += ($rank >= 3 && !SWUBotProposalOn('keepequal')) ? 50.0 : 150.0;
         }
-        // PROPOSAL 'ctxpower' (default OFF): a card whose power depends on the board, judged ON the board.
+        // Feature 'ctxpower' (p28, shipped 2026-10-03; @no-ctxpower): a card whose power depends on the board, judged ON the board.
         // The list is sorted ASCENDING and the first entries are resourced, so a positive bonus pulls a card
         // AWAY from the resource pick — it can only ever rescue one, never bury one.
         // 2.0 a point against the aggro wing's `-$cost` means a 4-cost card needs a surplus of 2 before it is
@@ -170,6 +170,8 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         // resource if i have no board. but when my board has 3+ units, this is a big unit" (2026-09-24).
         // Proportional, not a threshold — a 9-power Clone Combat Squadron must outrank a 6-power one.
         $keep += SWU_BOT_CTXPOWER_KEEP * SWUBotContextSurplus($seat, $cid);
+        // 'disclosereserve' (p36): the last card my Condemn's disclose needs (the tiered path keeps it in tier 9).
+        if (SWUBotFeatureOn('disclosereserve') && _SWUBotBreaksDiscloseReserve($seat, $i)) $keep += 100.0;
         // PROPOSAL 'sentinelkeep' (default OFF, "@try-sentinelkeep"). Owner ruling 2026-09-18: "Sentinels in
         // general are good to keep… unless you have two of the same unique unit Sentinel. then it should be safe
         // to resource one." A Sentinel is how control mitigates early damage, and the deficit is a SURVIVAL
@@ -232,6 +234,12 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         }
         // `$budget > 0` states the intent; the sum test alone already refuses every Plot card (all cost ≥ 1).
         if ($budget > 0 && HasKeyword_Plot($c) && $plotInResources + $cost <= $budget) $keep = -1000.0 + $cost;
+        // FEATURE 'curveresource' (p38; spec 2026-10-05-swusim-curve-value-design.md §4.2): the curve surplus breaks ties in the
+        // keep score — the more under-curve of two similar cards goes first. Control's tiers sort first (below), so this only
+        // orders cards WITHIN a tier there. An unpriced card adds 0.
+        if (SWUBotFeatureOn('curveresource')) {   // feature p38
+            $keep += SWU_BOT_CURVE_RESOURCE_KEEP * (SWUBotCurveSurplus($seat, $cid, SWUBotHorizon(strval($ctx['style']), $seat)) ?? 0.0);
+        }
         $ranked[] = [$keep, $i];
     }
     // PROPOSAL 'resourcing2' — the owner's resourcing rulings as ORDERED TIERS for the control wing. Tiers come first,
@@ -293,13 +301,17 @@ function _SWUBotUnitArenas(int $seat): array {
 // costs me nothing by its wording.
 function _SWUBotWipeLosses(int $seat, string $cid): array {
     $arenas = _SWUBotWipeArenas($cid);
-    $sum = function (int $s) use ($arenas) {
+    $sum = function (int $s, bool $enemy = false) use ($arenas) {
         $v = 0.0;
-        foreach (SWUBotUnits($s) as $u) { if (in_array(strval($u['arena']), $arenas, true)) $v += SWUBotUnitValue($u); }
+        foreach (SWUBotUnits($s) as $u) {
+            if (!in_array(strval($u['arena']), $arenas, true)) continue;
+            if ($enemy && SWUBotDefeatFizzles($u)) continue;   // 'defeatimmune' (p36): my wipe can't defeat it
+            $v += SWUBotUnitValue($u);
+        }
         return $v;
     };
     $theirs = 0.0;
-    foreach (SWUBotOpponents($seat) as $o) $theirs += $sum($o);   // every live enemy (3-4 seats)
+    foreach (SWUBotOpponents($seat) as $o) $theirs += $sum($o, true);   // every live enemy (3-4 seats)
     return [_SWUBotWipeIsOneSided($cid) ? 0.0 : $sum($seat), $theirs];
 }
 
@@ -410,9 +422,11 @@ const SWU_BOT_ENGINE_KEEPS = ['ASH_052'];   // Chimaera — A Frightening Realit
 // all of their lists. The bot cannot see an opponent's label in live play; its leader is the best proxy. Leaders that
 // also head midrange/control lists (Luke JTL_012, Piett, Maul, Talzin…) are left out: a slow matchup is the exception
 // the owner's ruling makes ("resource high-cost early unless you can ramp or the matchup is slow").
-const SWU_BOT_AGGRO_LEADERS = ['ASH_009', 'ASH_013', 'ASH_017', 'JTL_004', 'JTL_006', 'JTL_008', 'JTL_009', 'JTL_011',
-                               'JTL_013', 'JTL_015', 'LAW_002', 'LAW_010', 'LAW_013', 'LAW_016', 'LOF_010', 'SEC_006',
-                               'SEC_014'];
+// HMW_007 Darth Vader (Might of the Empire) added by the owner 2026-10-05 — Raid 1 to every 3+ cost friendly unit;
+// Ninin's Force Fam list is soft aggro.
+const SWU_BOT_AGGRO_LEADERS = ['ASH_009', 'ASH_013', 'ASH_017', 'HMW_007', 'JTL_004', 'JTL_006', 'JTL_008', 'JTL_009',
+                               'JTL_011', 'JTL_013', 'JTL_015', 'LAW_002', 'LAW_010', 'LAW_013', 'LAW_016', 'LOF_010',
+                               'SEC_006', 'SEC_014'];
 
 function SWUBotOpponentIsAggroLeader(int $seat): bool {
     foreach (SWUBotOpponents($seat) as $o) {   // any live enemy (3-4 seats)
@@ -456,10 +470,20 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
         $cost = _SWUBotSeatCost($seat, $cid);
         if ($spaceAggro && preg_match('/defeat all space units/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
         if (in_array($cid, SWU_BOT_ENGINE_KEEPS, true)) { $out[$i] = [9, 0.0]; continue; }
+        // 'disclosereserve' (p36): the last card my Condemn's disclose needs is kept with the engine cards.
+        if (SWUBotFeatureOn('disclosereserve') && _SWUBotBreaksDiscloseReserve($seat, $i)) { $out[$i] = [9, 0.0]; continue; }
         // resourcing3: a capital-ship deck cheats its Capital Ships out to trade and stall (owner, Piett vs Vader);
         // they go last, the priciest first if one must go.
         if ($capitalDeck && str_contains(strval(CardTrait($cid) ?? ''), 'Capital Ship')) { $out[$i] = [8, -1.0 * $cost]; continue; }
         if (($inHand[$cid] ?? 0) >= 2 && $i !== $firstIdx[$cid]) { $out[$i] = [0, 0.0]; continue; }
+        // Feature 'wipekeepaggro' (p37): a relevant WIPE is kept against aggro — owner (Krennic Splash, 2026-10-06): resource "late
+        // bombs vs aggro, never the wipes". Below, a 7+ card only "fit the matchup" with 3+ enemy units, so the wipe being saved for
+        // the flip turn looked like a dead 7-drop: SRI was resourced 19 times in 20 traced games vs Ahsoka Blue. (A spare duplicate
+        // has already gone to tier 0 above.) Only an UNBOUNDED wipe (Single Reactor Ignition, Hyperspace Disaster — what the owner keeps
+        // per matchup); a bounded one ("…with a total of N or less remaining HP", Pre Vizsla) is left to the rules below — the owner's
+        // Q2 ruling resources Pre Vizsla against Vader (bot_owner_resourcing_test).
+        if (SWUBotFeatureOn('wipekeepaggro') && $aggressive && in_array('wipe', $tags, true) && _SWUBotWipeIsRelevant($seat, $cid)
+            && !preg_match('/with a total of \d+ or less/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
         if (!$opening && $preflip && $aggressive && $cost >= 7) {
             $fitsMatchup = $answer && (in_array('wipe', $tags, true) ? count($oppUnits) >= 3 : true);
             $out[$i] = [1, $fitsMatchup ? 1.0 : 0.0];

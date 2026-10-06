@@ -1784,10 +1784,8 @@ function SEC147EachDiscardTrigger($player, $mzID)
   // The acting player still goes FIRST, so the resolution order is unchanged at two seats.
   $seats = [intval($player)];
   foreach (GetLiveSeatsArray() as $s) { if (intval($s) !== intval($player)) $seats[] = intval($s); }
-  foreach ($seats as $p) {
-    $playerID = $p;
-    SWUOfferDiscard($p, ['from'=>'own']);
-  }
+  // Hidden information — CR v9.0 7.1.a: each seat chooses independently, all picks discarded together.
+  SWUEachSeatDiscardsSimultaneously(intval($player), $seats, 'discard', 1, "Discard_a_card_from_your_hand");
   $playerID = $savedPID;
 }
 

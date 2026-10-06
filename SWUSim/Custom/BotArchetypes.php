@@ -106,6 +106,11 @@ function SWUBotWeightTable(): array {
         // is applied. Values come from two measurements, not taste: the human's Krennic separated
         // perfectly at round 7 over 15 real games, and control wins ~53% of games reaching round 8.
         'horizon'     => [3.00,  4.00,  6.00,  8.00,  9.00],
+        // CURVE (spec 2026-10-05-swusim-curve-value-design.md §4.1): per resource of curve SURPLUS (BotCurveValue.php),
+        // read by proposal 'curveplay'. = develop: surplus is in resources and develop already prices a resource of cost
+        // at 0.30, so a 3-drop one resource over curve ties an on-curve 4-drop on the floor. Flat in v1 (owner); a shape
+        // comes from the owner's ratios after the first measurement. NOT a card tag, so not in SWUSim/Rl/tag-weights.md.
+        'curve'       => [0.30,  0.30,  0.30,  0.30,  0.30],
     ];
     return $T;
 }

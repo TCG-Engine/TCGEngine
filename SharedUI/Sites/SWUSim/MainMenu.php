@@ -872,9 +872,19 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
               x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
               x.onload = function () {
                 var r = {}; try { r = JSON.parse(x.responseText); } catch (e) {}
-                if (r.success) location.reload();
-                else tell('Could not save deck: ' + (r.error === 'not_a_link'
-                          ? 'only deck links can be saved' : (r.error || 'unknown')));
+                if (!r.success) {
+                  tell('Could not save deck: ' + (r.error === 'not_a_link'
+                       ? 'only deck links can be saved' : (r.error || 'unknown')));
+                  return;
+                }
+                // In place (owner, 2026-10-04): this used to location.reload(), which closed the modal and left the
+                // new deck unselected. Rebuild the pickers from the response, choose the new deck here, keep the modal.
+                if (r.decks && r.key && typeof DECK_PICKERS_REBUILD === 'function'
+                    && DECK_PICKERS_REBUILD(r.decks, { dlg: dlg, slot: slot || 'own', key: r.key })) {
+                  tell('Saved "' + name + '" to your decks — it is now selected.');
+                } else {
+                  location.reload();   // an older server without the picker data: the old behaviour
+                }
               };
               x.send('action=save&deckInput=' + encodeURIComponent(link));
               return;
@@ -890,8 +900,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
               tell('This browser would not let the deck be saved (private window or storage full).');
               return;
             }
+            // in place, the new deck chosen in THIS modal; the line is written after, so the pick's own line does not replace it
+            GUEST_RENDER_ALL({ dlg: dlg, slot: slot || 'own', key: GUEST_KEY_FOR(link) });
             tell('Saved "' + name + '" to this browser. Log in to keep your decks on your account.');
-            GUEST_RENDER_ALL();         // in place, so the line above survives to be read
           })
           .catch(function () { tell('Could not reach the server to check that deck link.'); });
       }
@@ -1151,7 +1162,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
                   '&format=' + encodeURIComponent(checkFormat));
       }
 
+      var _lastJoin = null;   // Meta Premier: the poll may ask for a re-queue (response.requeue) — re-send this
       function doJoinQueue(options, submission) {
+        _lastJoin = { options: options, submission: submission };
         var xhr = new XMLHttpRequest();
         xhr.open('POST', swusimAppBase() + 'APIs/Lobbies/JoinQueue.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -1744,6 +1757,15 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         xhr.onload = function() {
           if (xhr.status >= 200 && xhr.status < 300) {
             var response = JSON.parse(xhr.responseText);
+            if (response.requeue && _lastJoin) {
+              // Meta Premier: someone in rating range is waiting in another lobby. Join again (the server keeps this
+              // player's wait time); the old seat is released once the new one is secured.
+              var rqPopup = document.getElementById('waiting-popup');
+              if (rqPopup) rqPopup.remove();
+              if (_waitingEscHandler) { document.removeEventListener('keydown', _waitingEscHandler); _waitingEscHandler = null; }
+              doJoinQueue(_lastJoin.options, _lastJoin.submission);
+              return;
+            }
             if (response.gone || (response.ready && !response.gameName)) {
               // Released from the queue, or the lobby is gone: say why and STOP polling. Re-polling a gone lobby used to
               // spin (docs/superpowers/specs/2026-09-16-swusim-public-queues-design.md §2.4).
@@ -2447,6 +2469,8 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
       /* the listbox is a VIEW of the <select>; ask it to re-read.
          No `change` — see the note on __lbSync. */
       if (pick.__lbSync) pick.__lbSync();
+      /* ...so the pool's own rules (Meta Premier: Bo3 only, queue only) are re-applied here too */
+      if (typeof window.SWU_POOL_RULES_SYNC === 'function') window.SWU_POOL_RULES_SYNC(dlg);
       return true;
     }
     return false;
@@ -2525,7 +2549,11 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
        drag the player into a modal for a deck they have already replaced */
     var seq = ++_detectSeq;
 
-    var body = 'deckLink=' + encodeURIComponent(link) + '&format=premier';
+    /* Meta Premier is never a DETECTED format (its pool is Premier's), so while it is the chosen pool
+       the deck is checked against it directly — a legal deck must not drag the player back to Premier. */
+    var poolSel = dlg.querySelector('.poolpick select');
+    var onRated = !!(poolSel && poolSel.value === 'metapremier');
+    var body = 'deckLink=' + encodeURIComponent(link) + '&format=' + (onRated ? 'metapremier' : 'premier');
     fetch('/TCGEngine/SWUSim/ValidateDeck.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -2546,6 +2574,10 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
       };
       var fmt = data.detectedFormat;
       var here = MODALS[dlg.id];
+
+      /* on Meta Premier with a deck that is legal there → stay put, chip untouched */
+      if (onRated && here && here.leaders === deck.leaders.length
+          && Array.isArray(data.formatErrors) && data.formatErrors.length === 0) { return; }
 
       /* playable where they already are → stay put, just set the chip */
       if (here && here.leaders === deck.leaders.length) { apply(dlg, deck, fmt); return; }
@@ -2703,24 +2735,46 @@ function GUEST_BUILD_PICKER(host, decks) {
   return div;
 }
 
-function GUEST_RENDER_ALL() {
-  if (!IS_GUEST) return;
-  var decks = GUEST_DECKS.load();
-  if (!decks.length) return;                 /* leave the empty state exactly as rendered */
-  /* [data-guest] pickers are ones this function built earlier — after a save they are rebuilt in
-     place. Reloading the page would be simpler and would also throw away the "Saved X" line the
-     player just earned, which is the feedback this whole flow exists to give. */
-  document.querySelectorAll('.deckpick[data-empty], .deckpick[data-guest]').forEach(function (host) {
+/* Rebuild EVERY saved-deck picker in place from $decks — a guest's (localStorage) or, after a save, an account's (the
+   save response; owner 2026-10-04: a save used to reload the page, which closed the modal and left the new deck
+   unselected). Reloading would also throw away the "Saved X" line the player just earned, which is the feedback this
+   whole flow exists to give. Each picker keeps the deck it had chosen. $choose = { dlg, slot, key }: select that deck
+   in that modal's slot and fire the ordinary pick (SETUP_BIND_PICKERS), so it becomes the played deck exactly as if it
+   had been picked by hand. Returns that picker's <select>, or null. */
+function DECK_PICKERS_REBUILD(decks, choose) {
+  if (!decks || !decks.length) return null;  /* leave the empty state exactly as rendered */
+  var chosenSel = null;
+  document.querySelectorAll('.deckpick').forEach(function (host) {
+    var old = host.querySelector('select');
+    var keep = old ? old.value : '';
+    var selId = host.getAttribute('data-select-id') || (old && old.id) || '';
+    /* the enhancement put this picker's popup in its pane's layer — drop it, or the rebuilt one duplicates its ids */
+    var oldList = selId && document.getElementById(selId + '-list');
+    if (oldList && oldList.closest('.lb__wrap')) oldList.closest('.lb__wrap').remove();
     var wrap = host.closest('.lb') || host;   /* the enhancement wraps it; replace the whole thing */
-    if (wrap !== host) {
-      var fresh = host.cloneNode(false);
-      fresh.className = 'deckpick';
-      wrap.replaceWith(fresh);
-      host = fresh;
-    }
-    var built = GUEST_BUILD_PICKER(host, decks);
+    var fresh = host.cloneNode(false);
+    fresh.className = 'deckpick';
+    if (selId) fresh.setAttribute('data-select-id', selId);
+    wrap.replaceWith(fresh);
+    var built = GUEST_BUILD_PICKER(fresh, decks);
+    var sel = built.querySelector('select');
+    var mine = choose && choose.dlg && choose.dlg.contains(built) &&
+               (built.getAttribute('data-slot') || 'own') === choose.slot;
+    var want = mine ? choose.key : keep;
+    if (sel && want && [].some.call(sel.options, function (o) { return o.value === want; })) sel.value = want;
     if (typeof window.BUILD_LISTBOX === 'function') window.BUILD_LISTBOX(built, 'deck');
+    if (mine && sel) chosenSel = sel;
   });
+  if (chosenSel) {
+    if (typeof LB_SYNC === 'function') LB_SYNC(chosenSel);
+    chosenSel.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  return chosenSel;
+}
+
+function GUEST_RENDER_ALL(choose) {
+  if (!IS_GUEST) return null;
+  return DECK_PICKERS_REBUILD(GUEST_DECKS.load(), choose);
 }
 GUEST_RENDER_ALL();
 
@@ -3204,6 +3258,60 @@ function IS_LINK(s) {
   return s !== '' && s.charAt(0) !== '{' && s.indexOf('\n') === -1 && s.indexOf('\r') === -1;
 }
 
+// ── Card-pool rules (Meta Premier) ────────────────────────────────────────────
+// docs/superpowers/specs/2026-10-03-swusim-metapremier-ratings-design.md §2.2. A restricted pool's <option> carries
+// data-queuetypes / data-queue-only / data-requires-login (SWUSetupPoolOptions). This keeps the modal honest about them:
+// Match Type offers only the allowed lengths, a queue-only pool has no Create Private Room, and a pool that needs an
+// account disables Join Queue for a guest and says why. The server refuses all of these on its own (JoinQueue.php);
+// this only stops the page offering what will be refused. Unrestricted pools restore everything.
+// Match Type is a NATIVE select, so its options are rebuilt rather than hidden — <option hidden> is ignored by WebKit on
+// iOS. Buttons use style.display, not [hidden]: .swu2-btn sets display and would win over the attribute.
+window.SWU_POOL_RULES_SYNC = function (dlg) {
+  var pool = dlg && dlg.querySelector('.poolpick select');
+  if (!pool) return;
+  var opt = pool.options[pool.selectedIndex] || null;
+  var allowed = (opt && opt.getAttribute('data-queuetypes')) ? opt.getAttribute('data-queuetypes').split(',') : null;
+  var qtOf = function (text) { return /3/.test(text) ? 'bo3' : 'bo1'; };
+
+  var match = dlg.querySelector('select[id$="-match"]');
+  if (match) {
+    if (!match.__allOptions) match.__allOptions = [].slice.call(match.options).map(function (o) { return o.text; });
+    var want = match.__allOptions.filter(function (t) { return !allowed || allowed.indexOf(qtOf(t)) !== -1; });
+    var have = [].slice.call(match.options).map(function (o) { return o.text; });
+    if (have.join('|') !== want.join('|')) {
+      var keep = match.options[match.selectedIndex] ? match.options[match.selectedIndex].text : '';
+      match.innerHTML = '';
+      want.forEach(function (t) { var o = document.createElement('option'); o.textContent = t; match.appendChild(o); });
+      var idx = want.indexOf(keep);
+      match.selectedIndex = idx >= 0 ? idx : 0;
+    }
+  }
+
+  var priv = dlg.querySelector('button[data-act="private"]');
+  if (priv) priv.style.display = (opt && opt.hasAttribute('data-queue-only')) ? 'none' : '';
+
+  var needsLogin = !!(opt && opt.hasAttribute('data-requires-login')) && !!window.SWU_IS_GUEST;
+  var join = dlg.querySelector('button[data-act="join"]');
+  if (join) join.disabled = needsLogin;
+  var hint = dlg.querySelector('.mp-loginhint');
+  if (needsLogin && !hint) {
+    var row = join && join.closest('.arow');
+    hint = document.createElement('p');
+    hint.className = 'note mp-loginhint';
+    if (row && row.parentNode) row.parentNode.insertBefore(hint, row);
+  }
+  if (hint) {
+    hint.textContent = needsLogin ? 'Log in to play ' + opt.text + '.' : '';
+    hint.style.display = needsLogin ? '' : 'none';
+  }
+};
+[].slice.call(document.querySelectorAll('dialog.setup')).forEach(function (dlg) {
+  var pool = dlg.querySelector('.poolpick select');
+  if (!pool) return;
+  pool.addEventListener('change', function () { window.SWU_POOL_RULES_SYNC(dlg); });
+  window.SWU_POOL_RULES_SYNC(dlg);
+});
+
 // ── Task 17: the modals drive the EXISTING submission path ────────────────────
 // getDeckSubmission() reads a fixed set of legacy ids. Rather than rewrite that proven function,
 // copy the OPEN modal's values into those fields immediately before submitting.
@@ -3245,9 +3353,13 @@ window.SYNC_ACTIVE_SETUP = function () {
   var poolFmt = poolSel ? String(poolSel.value || '').trim() : '';
   var fmt = (seg && seg.dataset.format) || poolFmt || modeFormat;
   set('swu-format-select', fmt);
-  // The card pool IS the format for the constructed modals; the local modes have none, and
-  // 'premier' is the legacy default the queue expects there.
-  set('swu-cardpool-input', poolFmt || (dlg.id === 'setup-solo' || dlg.id === 'setup-arenabot' ? 'premier' : fmt));
+  // The card pool IS the format for the constructed modals. Arenabot's modal has no pool picker and
+  // plays Open, so ANY list can be practised — Eternal, Twin Suns, a 1-leader deck vs a 2-leader bot
+  // (owner, 2026-10-02). It used to send 'premier', which refused every non-Premier list with an
+  // error pointing at an Open option the modal does not show. The solo modes have no pool; the server
+  // ignores it there and 'premier' is the legacy value.
+  set('swu-cardpool-input', poolFmt || (dlg.id === 'setup-arenabot' ? 'open'
+                                       : dlg.id === 'setup-solo' ? 'premier' : fmt));
 
   // "Best of 1" -> bo1. Anything else falls back to bo1 rather than sending an unknown value.
   var mt = slug(val('select[id$="-match"]'));

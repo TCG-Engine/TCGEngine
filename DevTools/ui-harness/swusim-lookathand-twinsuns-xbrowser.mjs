@@ -114,7 +114,9 @@ for (const [engineName, engine] of ENGINES) {
     for (const oppId of ['2', '1']) {
       // ⚠ MOBILE IS NOT OPTIONAL HERE. The popup's own zone label overflowed only at phone width — a
       // desktop-only probe reported it healthy while it covered the entire card preview on a phone.
-      for (const [mode, layout] of [['clicked', 'desktop'], ['preanswered', 'desktop'], ['preanswered', 'mobile']]) {
+      // 'clicked' runs at BOTH widths: 'preanswered' passes even when the live game is broken (see buildGame),
+      // so a mobile row that only ran preanswered never exercised a phone actually tapping the opponent.
+      for (const [mode, layout] of [['clicked', 'desktop'], ['clicked', 'mobile'], ['preanswered', 'desktop'], ['preanswered', 'mobile']]) {
         const view = oppId === '2' ? 'picked seat IN view' : 'picked seat OFF view';
         const tag = `${engineName}/opp${oppId} ${mode}/${layout} (${view})`;
         const ctx = await browser.newContext({ viewport: layout === 'mobile'
@@ -137,8 +139,11 @@ for (const [engineName, engine] of ENGINES) {
           ok(`${tag}: the opponent picker is shown`, shown);
           if (shown) {
             // Click the button for seat 2. Its TEXT is humanised (a username), so pick by position:
-            // the options are emitted in OpponentsOf() order, so seat 2 is the first button.
-            await banner.locator('button').first().click().catch(() => {});
+            // the options are emitted in OpponentsOf() order — for the seat-3 viewer that is [1, 2], so seat 2
+            // is the SECOND button. (This used to click .first(), i.e. seat 1: the "IN view / OFF view" labels
+            // were inverted for the clicked rows, and they matched neither the fixture's P2 hand nor the
+            // preanswered rows, which answer P2.)
+            await banner.locator('button').nth(1).click().catch(() => {});
             await page.waitForTimeout(3500);
           }
         }

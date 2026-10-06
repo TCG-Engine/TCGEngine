@@ -28,6 +28,20 @@ function _SWUOverwhelmSpillToBase(int $player, string $targetMzID, $attacker, in
     return $overflowAmt;
 }
 
+// ASH_137 Wipe Them Out — is there "another unit in the same arena" (either side, not the attacker, not the
+// defender being defeated) to take the excess? Decides whether an Overwhelm spill is held for the choice.
+function _SWUAsh137HasOtherUnit(string $attackerMzID, int $attackerUID, int $defenderUID): bool {
+    $arena = strpos($attackerMzID, 'SpaceArena') !== false ? 'SpaceArena' : 'GroundArena';
+    foreach (GetLiveSeatsArray() as $seat) {
+        foreach (GetZone(SWUSeatZone(intval($GLOBALS['playerID']), intval($seat), $arena)) as $u) {
+            if (SWUObjGone($u)) continue;
+            $uid = intval($u->UniqueID ?? 0);
+            if ($uid !== $attackerUID && $uid !== $defenderUID) return true;
+        }
+    }
+    return false;
+}
+
 
 // "Deals combat damage before the defender" — the colloquial "Shoot First" ordering. Sources: the
 // SHOOT_FIRST turn-effect marker (SOR_217 Shoot First's grant, SOR_219's conditional grant), SOR_198
@@ -581,6 +595,30 @@ function SWUReturnLeaderToZone(int $ownerPlayer, string $unitMzID): void {
 // OWN CardID is NOT a leader — i.e. a Vehicle carrying a leader-pilot upgrade (IsPilot=true
 // subcard whose CardID has CardType containing 'Leader'). The subcard is removed from Subcards
 // and the owning player's leader-zone entry is reset (Deployed=false/DeployedUniqueID=0/Ready=false/Damage=0).
+// A LEADER UPGRADE (a leader deployed as a Pilot) is defeated: flip it back to its owner's leader zone,
+// exhausted (CR 3.4.5) — a leader never goes to a discard — and announce it as an upgrade defeat, because it
+// IS one: "When a friendly upgrade is defeated" (ASH_161 Zeb) and the ASH_039 phase flag must see it. Every
+// way a leader upgrade leaves goes through here: defeated directly (Confiscate), its host leaving play (CR
+// 1.5.5.d, simultaneously), and an ability that would move it to an out-of-play zone or change its control
+// (CR v9.0 3.4.6: "defeated instead … a replacement effect" — Bamboozle, ASH_042 Jabba, any "return an
+// upgrade"). Before this each route reset the leader record itself and none announced the defeat.
+function SWUDefeatLeaderUpgradeToZone(int $owner, int $controller, string $cardID, $host): void {
+    global $playerID;
+    $saved = $playerID;
+    $playerID = $owner;
+    // Twin Suns: return the specific leader this pilot is (pilots carry DeployedUniqueID 0, so match by CardID).
+    $ldr = SWUFindLeaderByCardID($owner, $cardID);
+    if ($ldr === null) $ldr = SWUGetLeaderByIndex($owner, 0);
+    if ($ldr !== null) {
+        $ldr->Deployed         = false;
+        $ldr->DeployedUniqueID = 0;
+        $ldr->Ready            = false;
+        $ldr->Damage           = 0;
+    }
+    $playerID = $saved;
+    _SWUOnUpgradeDefeated($controller > 0 ? $controller : $owner, $cardID, $host, $owner);
+}
+
 function SWUReturnLeaderPilotSubcards($host, int $ownerPlayer): void {
     if ($host === null || empty($host->Subcards) || !is_array($host->Subcards)) return;
     global $playerID;
@@ -593,19 +631,10 @@ function SWUReturnLeaderPilotSubcards($host, int $ownerPlayer): void {
         // A leader card can only be a subcard via Piloting, so a (non-captive) leader subcard is
         // always a leader-pilot — recognize it by its leader CardType regardless of the IsPilot flag.
         if (!$isRemoved && !$isCaptive && strpos(CardType($subCardID) ?? '', 'Leader') !== false) {
-            // Return this leader to the leader zone — find the owning player from the subcard.
+            // The host is leaving play, so this leader upgrade is defeated with it (CR 1.5.5.d) and goes home.
             $subOwner = is_array($sub) ? intval($sub['Owner'] ?? $ownerPlayer) : intval($sub->Owner ?? $ownerPlayer);
-            $playerID = $subOwner;
-            // Twin Suns: return the specific leader this pilot subcard is (a pilot has DeployedUniqueID 0,
-            // so match by CardID — leader CardIDs are unique per seat). Fall back to first live.
-            $ldr = SWUFindLeaderByCardID($subOwner, $subCardID);
-            if ($ldr === null) $ldr = SWUGetLeaderByIndex($subOwner, 0);
-            if ($ldr !== null) {
-                $ldr->Deployed        = false;
-                $ldr->DeployedUniqueID = 0;
-                $ldr->Ready           = false;
-                $ldr->Damage          = 0;
-            }
+            $subCtrl  = is_array($sub) ? intval($sub['Controller'] ?? $subOwner) : intval($sub->Controller ?? $subOwner);
+            SWUDefeatLeaderUpgradeToZone($subOwner, $subCtrl, $subCardID, $host);
             // Do NOT add to $newSubcards — the subcard is removed from the host.
             continue;
         }
@@ -625,28 +654,30 @@ function SWUReturnLeaderPilotSubcards($host, int $ownerPlayer): void {
 // read off the still-attached subcard later) because this sweep does not remove subcards from the host.
 const SWU_SELF_HANDLED_DEFEAT_SUBCARDS = ['JTL_094'];
 
-// Discard a leaving-play host's remaining (non-leader, non-captive) upgrade/pilot subcards to their
-// OWNER's discard. CR: when a unit leaves play its upgrades are defeated, and a defeated card always
-// goes to ITS OWN owner's discard — control is never "stolen" into another player's discard. Token
-// upgrades are set aside (removed from game), not discarded. Call AFTER SWURescueCaptivesOf (captives
-// already released) and SWUReturnLeaderPilotSubcards (leader-pilots already returned to the leader
-// zone). Does NOT clear Subcards: later collection passes (JTL_073 grant) still read the array.
-// TWI_069 Roger Roger — "When Defeated: Attach this upgrade to a friendly Battle Droid token." Re-attach
-// the upgrade to a friendly Battle Droid token (TWI_T01) OTHER than the one leaving play. Returns true if
-// re-attached (the caller then skips the normal discard); false if there is no eligible token.
-function _SWURogerRogerReattach(int $controller, int $owner, int $excludeUID): bool {
-    foreach (array_merge(GetGroundArena($controller), GetSpaceArena($controller)) as $u) {
-        if (SWUObjGone($u)) continue;
-        if (($u->CardID ?? '') !== 'TWI_T01') continue;
-        if (intval($u->UniqueID ?? 0) === $excludeUID) continue;
-        if (!is_array($u->Subcards ?? null)) $u->Subcards = [];
-        $u->Subcards[] = (object)['CardID' => 'TWI_069', 'Owner' => $owner, 'Controller' => $controller,
-            'TurnEffects' => [], 'IsPilot' => false, 'IsCaptive' => false];
-        return true;
-    }
-    return false;
+// THE "a unit is leaving play — defeat its upgrades" sequence (CR 9.3; CR 8.34.1 for capture). Every route a
+// unit leaves play by calls this: defeat (incl. the combat and deployed-leader paths), bounce, capture (by a
+// unit or a base), a token ceasing, and "its owner puts it on the top or bottom of their deck". Each of those
+// used to carry its OWN copy of the upgrade loop, and the copies drifted: bounce/capture/to-deck skipped the
+// observers for token upgrades, capture and to-deck never returned a leader pilot or deferred JTL_094, and
+// to-deck fired no upgrade-defeated observers at all. Any upgrade's own When Defeated (Roger Roger, Blade of
+// Talzin) is only as reachable as the path that defeats it, so there is one path.
+//   1. a leader pilot returns to its leader zone (it never goes to a discard)
+//   2. JTL_094 Luke's "would be defeated → may move to the ground arena instead" is deferred to action end
+//   3. every other upgrade is defeated — non-tokens to their OWNER's discard, tokens set aside — and its
+//      upgrade-defeated observers and own When Defeated fire (_SWUOnUpgradeDefeated)
+// Captives are NOT handled here: each route rescues them at its own point (SWURescueCaptivesOf).
+function SWUDefeatUpgradesOfLeavingUnit($host, int $owner): void {
+    if ($host === null) return;
+    SWUReturnLeaderPilotSubcards($host, $owner);
+    _SWUDeferPilotDefeatReplacements($host);
+    SWUDiscardHostSubcards($host);
 }
 
+// Step 3 of SWUDefeatUpgradesOfLeavingUnit — call that, not this. Discards a leaving-play host's remaining
+// (non-leader, non-captive) upgrade/pilot subcards to their OWNER's discard. CR: when a unit leaves play its
+// upgrades are defeated, and a defeated card always goes to ITS OWN owner's discard — control is never
+// "stolen" into another player's discard. Token upgrades are set aside (removed from game), not discarded.
+// Does NOT clear Subcards: later collection passes (JTL_073 grant) still read the array.
 function SWUDiscardHostSubcards($host): void {
     if ($host === null || empty($host->Subcards) || !is_array($host->Subcards)) return;
     global $playerID;
@@ -663,12 +694,6 @@ function SWUDiscardHostSubcards($host): void {
         // same Shield consumed by damage DID fire (SWUPreventWithShield). One rule, opposite answers.
         $subIsToken = strpos(strtolower(CardType($subCardID) ?? ''), 'token') !== false;
         $subOwner = is_array($sub) ? intval($sub['Owner'] ?? $savedPID) : intval($sub->Owner ?? $savedPID);
-        // TWI_069 Roger Roger — re-attach to a friendly Battle Droid token instead of discarding (if any).
-        if ($subCardID === 'TWI_069') {
-            $rrCtrl = is_array($sub) ? intval($sub['Controller'] ?? 0) : intval($sub->Controller ?? 0);
-            if ($rrCtrl <= 0) $rrCtrl = intval($host->Controller ?? $subOwner);
-            if (_SWURogerRogerReattach($rrCtrl, $subOwner, intval($host->UniqueID ?? 0))) continue;
-        }
         if (!$subIsToken) SWUAddToDiscard($subOwner, $subCardID, 'PLAY');   // tokens are set aside, not discarded
         // "A friendly upgrade was defeated" observers (ASH_039 flag, ASH_055 return, ASH_161 deal 1) — this
         // is the host-defeated path (parallel to SWUDefeatUpgrade / _SWUDefeatAllUpgradesOn). Fires for
@@ -816,7 +841,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
         // SWUDiscardHostSubcards() call further down, so an upgrade on a defeated deployed leader simply
         // CEASED TO EXIST: it was in no discard pile and in no arena. Runs BEFORE the return-to-zone,
         // which removes $obj (and which rescues CAPTIVES — those are skipped here by design).
-        SWUDiscardHostSubcards($obj);
+        SWUDefeatUpgradesOfLeavingUnit($obj, $owner);
         SWUReturnLeaderToZone($owner, $unitMzID);
         DecisionQueueController::CleanupRemovedCards();
         $playerID = $savedPID;
@@ -837,9 +862,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     // CR 8.34.4: rescue any captives guarded by this unit before it leaves play.
     SWURescueCaptivesOf($obj);
     // If the host carries a leader-pilot upgrade, return that leader to zone before discarding.
-    SWUReturnLeaderPilotSubcards($obj, $owner);
-    _SWUDeferPilotDefeatReplacements($obj); // JTL_094: a pilot upgrade that "may instead move to ground"
-    SWUDiscardHostSubcards($obj);           // remaining upgrades/pilots → each owner's discard
+    SWUDefeatUpgradesOfLeavingUnit($obj, $owner);   // CR 9.3 — leader pilots home, JTL_094 deferred, the rest defeated
     $obj->removed = true;
     // Pass $obj so SWUAddToDiscard can revert a TWI_116 Clone copy's CardID to the real card (it leaves
     // play as Clone, not as the card it copied).
@@ -1021,19 +1044,11 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
         return true;
     }
 
-    // Leader-pilot subcard (IsPilot + CardID is a leader): return to the leader zone instead of discard.
+    // Leader-pilot subcard (IsPilot + CardID is a leader): defeated → back to the leader zone, never a discard.
+    // A BOUNCE ($bounce, e.g. Bamboozle) can't take a leader upgrade to hand: CR v9.0 3.4.6 defeats it instead
+    // (a replacement effect), so both paths are the same defeat, and both announce it as an upgrade defeat.
     if ($foundIsPilot && strpos(CardType($foundCardID) ?? '', 'Leader') !== false) {
-        $playerID = $foundOwner;
-        // Twin Suns: return the specific leader this pilot upgrade is (match by CardID; pilots carry
-        // DeployedUniqueID 0). Fall back to first live for single-leader.
-        $ldr = SWUFindLeaderByCardID($foundOwner, $foundCardID);
-        if ($ldr === null) $ldr = SWUGetLeaderByIndex($foundOwner, 0);
-        if ($ldr !== null) {
-            $ldr->Deployed        = false;
-            $ldr->DeployedUniqueID = 0;
-            $ldr->Ready           = false;
-            $ldr->Damage          = 0;
-        }
+        SWUDefeatLeaderUpgradeToZone(intval($foundOwner), intval($foundCtrl), (string)$foundCardID, $host);
     // Tokens are set aside (removed from game); non-tokens go to owner's discard or hand. Either way a
     // non-bounced upgrade is DEFEATED, so the observers fire for both — see the token branch below.
     } elseif (strpos(strtolower(CardType($foundCardID) ?? ''), 'token') !== false) {
@@ -1043,11 +1058,6 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
     } else {
         if ($bounce) {
             AddHand($foundOwner, CardID: $foundCardID);
-        } elseif ($foundCardID === 'TWI_069'
-                && _SWURogerRogerReattach(intval($foundCtrl) > 0 ? intval($foundCtrl) : intval($foundOwner),
-                       intval($foundOwner), intval($host->UniqueID ?? 0))) {
-            // TWI_069 Roger Roger — When Defeated: re-attach to a friendly Battle Droid token instead of
-            // discarding (a directly-defeated upgrade, host survives). No discard / defeated-observer.
         } else {
             SWUAddToDiscard($foundOwner, $foundCardID, 'PLAY');
             // "A friendly upgrade was defeated" observers (ASH_039 flag, ASH_055 return, ASH_161 deal 1).
@@ -1585,6 +1595,9 @@ function _SWUUnitBaseDamageStamps(int $ctrl, int $uid): int {
     return $n;
 }
 
+// $combatCtx['baseReplay']: called a second time by ASH_137 Wipe Them Out after its held Overwhelm excess
+// went to the base (Ash137HeldExcessResolve). Only the base-hit abilities may fire on that pass; the ones
+// that fire on every attack end were already collected by the real pass and are skipped.
 function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID, array $combatCtx): void {
     $attacker = GetZoneObject($attackerMzID);
     // LAW_007 Boba Fett is a FIELD observer owned by BOBA (not by the attacker): "When a friendly Bounty
@@ -1677,7 +1690,7 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // ASH_016 Shin leader observers, which were moved above this same early-return for the same reason.
     // ⚠ The UNDEPLOYED side stays BELOW: it heals only "that unit", so with the attacker gone it has no
     // legal target and offering it would be a fizzle-only optional.
-    if (_SWULeaderDeployed($activePlayer, 'ASH_005')) {
+    if (_SWULeaderDeployed($activePlayer, 'ASH_005') && empty($combatCtx['baseReplay'])) {
         AddTrigger($activePlayer, 'ASH_005#1', 'ASH_005#1', $attackerMzID);
     }
     // SHD_143 Ruthlessness (granted upgrade) — "When this unit attacks and defeats a unit: Deal 2 damage
@@ -1732,7 +1745,8 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                             // with less power than this unit." (Survival gated at line 665; fires on any attack.)
                             // A defender's parked When-Defeated (e.g. Raddus's "deal damage equal to power")
                             // can still kill it — relay behind those so "survived" is real before offering.
-                if (!_SWUAttackEndCrossPlayerOrderSeam(intval($activePlayer), 'LAW_033', intval($attacker->UniqueID ?? 0), 'LAW_033')) {
+                if (empty($combatCtx['baseReplay'])
+                    && !_SWUAttackEndCrossPlayerOrderSeam(intval($activePlayer), 'LAW_033', intval($attacker->UniqueID ?? 0), 'LAW_033')) {
                     AddTrigger($activePlayer, 'LAW_033', 'LAW_033', $attackerMzID);
                 }
                 break;
@@ -1840,7 +1854,7 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // LAW_088 Anakin Skywalker (field passive) — "When a friendly unit's attack ends: if no other units
     // have attacked this phase, you may return it to its owner's hand. If you do, heal 2 from your base."
     // The attacker survived (gated at line 665). "No other units" = exactly one attack flag this phase.
-    if (_SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_088') > 0) {
+    if (_SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_088') > 0 && empty($combatCtx['baseReplay'])) {
         $attackers = 0;
         foreach (GetLiveSeatsArray() as $ap) {
             foreach (GetGlobalEffects($ap) as $ge) {
@@ -1950,7 +1964,19 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // NOTE: does NOT currently fire when the attacker TRADES (dies in the same combat) — the trigger fires
     // and its MayChoose queues, but the prompt doesn't surface through the combat trigger flush once the
     // attacker is removed (a combat trigger-ordering / index-shift edge). Deferred — see ash.md.
-    if (!empty($combatCtx['ash137Excess']) && intval($combatCtx['excess'] ?? 0) > 0) {
+    if (!empty($combatCtx['ash137Excess']) && empty($combatCtx['baseReplay']) && intval($combatCtx['excess'] ?? 0) > 0) {
+        // Overwhelm excess held back at the spill site: the trigger offers unit-or-base. What the base
+        // branch needs to replay the "deals combat damage to a base" abilities is parked by attacker UID.
+        if (intval($combatCtx['ash137HeldBaseOwner'] ?? 0) > 0) {
+            SetSWUVar('SWU_ASH137_HELD_' . intval($attacker->UniqueID ?? 0), json_encode([
+                'baseOwner'      => intval($combatCtx['ash137HeldBaseOwner']),
+                'attackerUID'    => intval($combatCtx['attackerUID'] ?? 0),
+                'attackerCardID' => strval($combatCtx['attackerCardID'] ?? ''),
+                'supportGrant'   => $combatCtx['supportGrant'] ?? null,
+                'jtl177BaseDraw' => !empty($combatCtx['jtl177BaseDraw']),
+                'ash162Discard'  => !empty($combatCtx['ash162Discard']),
+            ]));
+        }
         AddTrigger($activePlayer, 'ASH_137', 'ASH_137', $attackerMzID, strval(intval($combatCtx['excess'])));
     }
     // ASH_162 Rash Action (granted, this attack) — "When Attack Ends: if this unit dealt combat damage to
@@ -1966,7 +1992,7 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     }
     // ASH_005 Luke Skywalker (undeployed leader) — "When a friendly unit's attack ends: you may exhaust this
     // leader; if you do, heal 1 damage from that unit." Fires for the attacking player's ready, undeployed Luke.
-    if (_SWULeaderReadyUndeployed($activePlayer, 'ASH_005')) {
+    if (_SWULeaderReadyUndeployed($activePlayer, 'ASH_005') && empty($combatCtx['baseReplay'])) {
         AddTrigger($activePlayer, 'ASH_005', 'ASH_005', $attackerMzID);
     }
     // (ASH_013 Ezra + ASH_016 Shin leader-observer hooks moved ABOVE the attacker-survival early-return —
@@ -2805,17 +2831,10 @@ function _SWUCombatFinishAction($player): void {
         return;
     }
     // The combat's own defeats flushed their When Defeated triggers through FlushTriggerBag, which queues a
-    // RESOLVE_TRIGGER per trigger and NO finalising resume. Closing here ran the action end — the turn swap —
-    // before those triggers resolved, so an attacker that died to the counter asked its controller "search your
-    // deck?" / "use the Force?" after the turn had already passed (the house rule: the turn stays with the actor
-    // until everything its action set off has resolved). When such triggers sit on the ACTING player's own
-    // queue, end the action BEHIND them instead (block 20, after anything they queue at lower blocks).
-    // Scoped to the actor's own queue: that queue is the one being drained, so the close cannot strand, unlike
-    // a lone CUSTOM parked on a seat that is not otherwise acting.
-    if (intval($player) === intval(GetTurnPlayer()) && _SWUHasQueuedTriggerResolution(intval($player))) {
-        SWUQueueAfterAction(intval($player), 20);
-        return;
-    }
+    // RESOLVE_TRIGGER per trigger and NO finalising resume — an attacker that died to the counter asks its
+    // controller "search your deck?" / "use the Force?". SWUAfterAction itself now waits behind triggers and picks
+    // still queued on the acting player's own queue (2026-10-04), so the combat-only block-20 close that lived
+    // here is gone. Guard: interactions/CombatWhenDefeated_TheActorsOwnDecision_TurnPassesEarly.md.
     SWUAfterAction($player);
 }
 
@@ -3000,8 +3019,9 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $target = $found;
     }
 
-    $attackPower = intval(ObjectCurrentPower($attacker));
-    $attackBasePower = $attackPower; // LAW_086: snapshot pre-modifier power to recompute Grit after a defender-first hit
+    // UNFLOORED until every addition and subtraction is in (CR 8.15.4) — floored once below, before multipliers.
+    $attackPower = intval(ObjectCurrentPowerRaw($attacker));
+    $attackBasePower = max(0, $attackPower); // LAW_086: snapshot pre-modifier power to recompute Grit after a defender-first hit
     // Raid: +N power for this attack only (CR 7.6.7). A unit that has lost all abilities (e.g. SEC_038
     // Condemn while attacking, SEC_054) gets no Raid — value keywords honor suppression here, since the
     // generated GetKeyword_*_Value readers don't gate on SWUKeywordSuppressed/LostAbilities themselves.
@@ -3055,11 +3075,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // SEC_033 Sly Moore: "each enemy unit gets -2/-0 while attacking a base this phase." The marker sits
     // on the (enemy) attacker; reduce its power only when the target is a base.
     if (_SWUSlyMooreDebuffs($attacker) && strpos((string)$targetMzID, 'Base') !== false) {
-        $attackPower = max(0, $attackPower - 2);
+        $attackPower -= 2;   // floored once, below (CR 8.15.4)
     }
     // ASH_054 Pointless to Resist (upgrade) — "Attached unit gets -3/-0 while attacking a base."
     if (strpos((string)$targetMzID, 'Base') !== false && _SWUUnitHasUpgrade($attacker, 'ASH_054')) {
-        $attackPower = max(0, $attackPower - 3);
+        $attackPower -= 3;   // floored once, below (CR 8.15.4)
     }
     // SEC_139 Miraj Scintel: "While a friendly unit is attacking a damaged unit, the attacker gains
     // Overwhelm." Field-passive — any friendly attacker, while its controller controls SEC_139.
@@ -3077,21 +3097,21 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // SOR_071 Electrostaff: "While attached unit is defending, the attacker gets -1/-0." If the
     // defender (host of this upgrade) is being attacked, reduce the attacker's power by 1.
     if ($target !== null && empty($target->removed) && _SWUUnitHasUpgrade($target, 'SOR_071')) {
-        $attackPower = max(0, $attackPower - 1);
+        $attackPower -= 1;   // floored once, below (CR 8.15.4)
     }
     // TWI_072 I Have the High Ground: "Each enemy unit gets -4/-0 while attacking that unit this phase."
     // The marker sits on the protected (defending) unit; reduce the attacker's power by 4 vs it.
     if ($target !== null && empty($target->removed)
         && is_array($target->TurnEffects ?? null) && in_array('TWI_072', $target->TurnEffects, true)) {
-        $attackPower = max(0, $attackPower - 4);
+        $attackPower -= 4;   // floored once, below (CR 8.15.4)
     }
     // LAW_108 Lando Calrissian: "While this unit is defending, the attacker gets -1/-0."
     if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'LAW_108') {
-        $attackPower = max(0, $attackPower - 1);
+        $attackPower -= 1;   // floored once, below (CR 8.15.4)
     }
     // JTL_054 Gold Leader: "While this unit is defending, the attacker gets -1/-0."
     if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'JTL_054') {
-        $attackPower = max(0, $attackPower - 1);
+        $attackPower -= 1;   // floored once, below (CR 8.15.4)
     }
     // HMW_251 Blockade Ship: "Enemy ground units get -1/-0 while attacking."
     // A CROSS-ARENA aura: the Blockade Ship sits in SPACE and debuffs the GROUND arena, so the source's
@@ -3109,16 +3129,16 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         foreach (OpponentsOf(intval($attacker->Controller ?? 0)) as $bsOpp) {
             $blockade += _SWUCountActiveUnitsWithCardID(intval($bsOpp), 'HMW_251');
         }
-        if ($blockade > 0) $attackPower = max(0, $attackPower - $blockade);
+        if ($blockade > 0) $attackPower -= $blockade;   // floored once, below (CR 8.15.4)
     }
     // SEC_042 Cassian Andor: "While this unit is defending, the attacker gets -2/-0."
     if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'SEC_042') {
-        $attackPower = max(0, $attackPower - 2);
+        $attackPower -= 2;   // floored once, below (CR 8.15.4)
     }
     // JTL_259 Retrofitted Airspeeder: "While attacking a space unit, this unit gets -1/-0."
     if (_SWUAttackerGrants($attacker, 'JTL_259') && $target !== null && empty($target->removed)
         && strpos((string)$targetMzID, 'SpaceArena') !== false) {
-        $attackPower = max(0, $attackPower - 1);
+        $attackPower -= 1;   // floored once, below (CR 8.15.4)
     }
     // "Deals combat damage before the defender" ordering — the colloquial "Shoot First". Sources:
     // the SHOOT_FIRST marker (SOR_217 Shoot First grant) OR SOR_198 Han Solo's innate deal-first.
@@ -3151,6 +3171,15 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             else $keptTE[] = $te;
         }
         $attacker->TurnEffects = $keptTE;
+    }
+    // One floor, after every addition and subtraction (CR 8.15.4) — Cantina Braggart 0 −2 +Raid 2 attacks for 0.
+    $attackPower = max(0, intval($attackPower));
+    // MULTIPLICATIVE modifiers come LAST (CR v9.0 8.15.2: additive, then subtractive, then multiplicative), after
+    // every addition and subtraction above — SEC_137 Dryden Vos "double this unit's power for this attack".
+    // A value can't go below 0 (CR 8.15.4), so it is the clamped total that doubles. Consumed with the attack.
+    if (is_array($attacker->TurnEffects ?? null) && in_array('SWU_ATK_DOUBLE', $attacker->TurnEffects, true)) {
+        $attackPower = max(0, intval($attackPower)) * 2;
+        $attacker->TurnEffects = array_values(array_filter($attacker->TurnEffects, fn($e) => $e !== 'SWU_ATK_DOUBLE'));
     }
     // "HAD N power" — the power-at-defeat family (SEC_035 Darth Sion "7+", HMW_109 Tireless Magnaguard
     // "5+"). An attacker's power at the moment it is defeated includes everything folded into its ATTACK
@@ -3439,6 +3468,14 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $combatCtx['defenderCardID'] = $target->CardID ?? ''; // for "equal to the defeated unit's cost" (LOF_086)
         $combatCtx['defenderOwner']  = intval($target->Owner ?? 0); // SHD_122 — put the defeated unit into play as a resource under your control
 
+        // Combat damage is simultaneous (CR 1.9.10): when both units die they are defeated in the SAME event, and
+        // their upgrades with them (CR 1.5.5.d). But the code below removes the attacker before the defender, so
+        // an observer checked while a unit's upgrades are being defeated (ASH_161 Zeb, "when a friendly upgrade is
+        // defeated") would not see a co-defeated observer that was removed a moment earlier. Open the same
+        // pre-event snapshot window a wipe uses, for exactly these defeats; it is closed again BEFORE
+        // CollectCombatStep3Triggers, whose leave-play reactions keep their own $defeatedCards batch logic.
+        $combatSimulOpened = empty($GLOBALS['gSimulDefeatWindow']);
+        if ($combatSimulOpened) SWUSimulDefeatBegin();
         // Keep $playerID = $player (attacker's perspective) throughout so that
         // mzIDs like "myGroundArena-0" / "theirGroundArena-0" resolve correctly.
         $atkRep = ($attackerHP <= 0 && !SWUImmuneToHpDefeat($attacker)) ? _SWUUnitDefeatReplacement($attacker) : null;
@@ -3474,9 +3511,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                     // CR 8.34.4: rescue any captives guarded by the attacker before it leaves play.
                     SWURescueCaptivesOf($atkObj);
                     // If the host carries a leader-pilot upgrade, return that leader to zone before discarding.
-                    SWUReturnLeaderPilotSubcards($atkObj, $atkOwner);
-                    _SWUDeferPilotDefeatReplacements($atkObj); // JTL_094 pilot-upgrade defeat-replacement
-                    SWUDiscardHostSubcards($atkObj);           // remaining upgrades/pilots → each owner's discard
+                    SWUDefeatUpgradesOfLeavingUnit($atkObj, $atkOwner);   // CR 9.3 — leader pilots home, JTL_094 deferred, the rest defeated
                     // Unit slides to its OWNER's discard. Tokens CEASE rather than being discarded,
                     // so they get no slide. Perspective is the unit's own controller.
                     if (!_SWUCardCeasesOnLeavePlay($atkObj->CardID ?? '')) {
@@ -3533,9 +3568,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                     $pendingCaptiveRescues = SWUDetachCaptivesOf($defObj);
                     $pendingCaptiveHost    = $defObj;
                     // If the host carries a leader-pilot upgrade, return that leader to zone before discarding.
-                    SWUReturnLeaderPilotSubcards($defObj, $defOwner);
-                    _SWUDeferPilotDefeatReplacements($defObj); // JTL_094 pilot-upgrade defeat-replacement
-                    SWUDiscardHostSubcards($defObj);           // remaining upgrades/pilots → each owner's discard
+                    SWUDefeatUpgradesOfLeavingUnit($defObj, $defOwner);   // CR 9.3 — leader pilots home, JTL_094 deferred, the rest defeated
                     // Unit slides to its OWNER's discard. Tokens CEASE rather than being discarded,
                     // so they get no slide. Perspective is the unit's own controller.
                     if (!_SWUCardCeasesOnLeavePlay($defObj->CardID ?? '')) {
@@ -3554,7 +3587,16 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             // ASH_150 Deadly Vulnerability — "While attached unit is defending, the attacker loses Overwhelm."
             if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged || $shd138VsBounty || $sec139Overwhelm || $shd007Deployed)
                 && !_SWUUnitHasUpgrade($target, 'ASH_150')) {
-                $_logOverwhelm = _SWUOverwhelmSpillToBase($player, $targetMzID, $attacker, -$defenderHP, $combatCtx);
+                // ASH_137 Wipe Them Out + Overwhelm (user ruling 2026-10-03): the same excess can go to
+                // another unit in the arena OR to the base, so HOLD it here and let the ASH_137 trigger ask.
+                // Only when there is a choice to make (another unit in the arena) and the attacker survives:
+                // a dead attacker's ASH_137 never surfaces (see the arm site), and the spill must not be lost.
+                if (!empty($combatCtx['ash137Excess']) && $attackerHP > 0
+                    && _SWUAsh137HasOtherUnit($attackerMzID, intval($attacker->UniqueID ?? 0), intval($target->UniqueID ?? 0))) {
+                    $combatCtx['ash137HeldBaseOwner'] = SWUMzOwner($targetMzID, $player);
+                } else {
+                    $_logOverwhelm = _SWUOverwhelmSpillToBase($player, $targetMzID, $attacker, -$defenderHP, $combatCtx);
+                }
             }
         }
     }
@@ -3575,9 +3617,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 SWUReturnLeaderToZone($rOwner, $redirectMz);
             } else {
                 SWURescueCaptivesOf($rObj);
-                SWUReturnLeaderPilotSubcards($rObj, $rOwner);
-                _SWUDeferPilotDefeatReplacements($rObj);
-                SWUDiscardHostSubcards($rObj);
+                SWUDefeatUpgradesOfLeavingUnit($rObj, $rOwner);   // CR 9.3 — leader pilots home, JTL_094 deferred, the rest defeated
                 // Unit slides to its OWNER's discard (tokens cease, so no slide).
                 if (!_SWUCardCeasesOnLeavePlay($rObj->CardID ?? '')) {
                     SWUQueueZoneMoveAnim($redirectMz, 'myDiscard-0', intval($rObj->Controller ?? $player),
@@ -3601,6 +3641,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // Step 3: When Defeated + After Attack triggers — must run before CleanupRemovedCards so
     // GetZoneObject can still find defeated units (marked removed=true but still in the array).
     // Cleanup after this point to avoid PHP auto-vivifying null slots in emptied arena arrays.
+    if (!empty($combatSimulOpened)) SWUSimulDefeatEnd();   // opened above, around the combat-damage defeats only
     CollectCombatStep3Triggers($player, $attackerMzID, $targetMzID, $defeatedCards, $combatCtx);
     // Defender's captives now return to play — after the observers above, per the detach/materialize
     // split at the defender-defeat branch.
@@ -4405,9 +4446,7 @@ function _SWUMaulCombatDefeat($obj, string $mzID, int $player, bool $isAttacker,
     } else {
         $hasSecondChance = _SWUUnitHasUpgrade($obj, 'SHD_053');
         SWURescueCaptivesOf($obj);
-        SWUReturnLeaderPilotSubcards($obj, $owner);
-        _SWUDeferPilotDefeatReplacements($obj);
-        SWUDiscardHostSubcards($obj);
+        SWUDefeatUpgradesOfLeavingUnit($obj, $owner);   // CR 9.3 — leader pilots home, JTL_094 deferred, the rest defeated
         // Unit slides to its OWNER's discard (tokens cease, so no slide).
         if (!_SWUCardCeasesOnLeavePlay($obj->CardID ?? '')) {
             SWUQueueZoneMoveAnim($mzID, 'myDiscard-0', intval($obj->Controller ?? $owner),

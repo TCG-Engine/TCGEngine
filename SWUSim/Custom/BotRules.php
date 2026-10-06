@@ -32,6 +32,8 @@ function SWUBotRuleLethalNow(array $ctx): ?array {
     if (SeatCountForGame() > 2) return SWUBotRuleTwinSunsLethal($ctx);
     if (_SWUBotIsFreePlay($ctx)) {
         if (!SWUBotLethalNow($seat, $opp)) return null;
+        // Feature 'lethalrace' (p34): not a lethal they can race in the gaps between my attacks — rules 4/5 decide instead.
+        if (SWUBotFeatureOn('lethalrace') && !SWUBotLethalRaceSafe($seat, $opp)) return null;
         $best = null; $bestPow = -1;
         foreach ($ctx['actions'] as $a) {
             if (SWUBotActionKind($a) !== 'attack') continue;
@@ -118,6 +120,33 @@ function SWUBotRuleBreakLethal(array $ctx): ?array {
 // Boba example prevents 8+. A first guess — tune after measuring.
 const SWU_BOT_WIPE_THREAT_WORTH = 5;
 
+// 'epicwipe' (p37): a relevant UNBOUNDED wipe in hand that I cannot cast now but can through my base's "ignoring 1 of its … aspect
+// penalties" Epic, and that is worth it: it defeats 2+ enemy units it can defeat, costs them more value than me, and stabilises (their
+// clock after the wipe, from what survives it, is 3+ rounds and longer than now). ['index' => hand index, 'cid' => card] or null.
+function _SWUBotWaiverUnlocksWipe(int $seat): ?array {
+    if (!function_exists('_SWUCommonBaseWaivePenalty')) return null;
+    $base = GetBase($seat)[0] ?? null;
+    if ($base === null || !preg_match('/ignoring 1 of its/i', strval(CardText(strval($base->CardID ?? ''))))) return null;
+    $cap = SWUTotalPaymentCapacity($seat); $opp = SWUBotOpponent($seat);
+    foreach (GetHand($seat) as $i => $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cid = strval($o->CardID ?? '');
+        if (!in_array('wipe', SWUBotCardTags($cid), true) || !_SWUBotWipeIsRelevant($seat, $cid)
+            || preg_match('/with a total of \d+ or less/i', strval(CardText($cid)))) continue;
+        $cost = intval(SWUComputePlayCost($seat, $o));
+        if ($cost <= $cap || $cost - min(_SWUCommonBaseWaivePenalty($seat, $cid), SWUAspectPenalty($seat, $cid)) > $cap) continue;
+        $arenas = _SWUBotWipeArenas($cid);
+        $dies = fn(array $v) => in_array($v['arena'], $arenas, true) && !SWUBotDefeatFizzles($v);   // a deployed leader dies too
+        $killed = count(array_filter(SWUBotUnits($opp), $dies));
+        [$mine, $theirs] = _SWUBotWipeLosses($seat, $cid);
+        $left = 0;
+        foreach (SWUBotUnits($opp) as $v) if (!$dies($v)) $left += SWUBotUnitBaseThreat($seat, $v);
+        $after = $left > 0 ? max(1, intdiv(SWUBaseRemainingHp($seat) + $left - 1, $left)) : SWU_BOT_NO_CLOCK;
+        if ($killed >= 2 && $theirs > $mine && SWUBotStabilises(SWUBotClock($opp, $seat), $after)) return ['index' => $i, 'cid' => $cid];
+    }
+    return null;
+}
+
 function SWUBotRuleControlWipe(array $ctx): ?array {
     // The control wing (rank 3-4): soft and hard control both plan wipes.
     if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
@@ -154,10 +183,14 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
         : fn(array $r) => false;
     $qualifies = fn(array $r) => $countGate($r) || $threatGate($r);
     $score = fn(array $r) => $qualifies($r) ? 1000.0 + $r['oppClock'] * 10 + ($byValue ? $r['net'] : -$r['ownLost']) : -1.0;
-    $isWipe = function (array $a) use ($seat) {
+    // Feature 'wipeaware' (p30): a wipe that leaves me in a SHOWN per-unit wipe's lethal range — Pre Vizsla's tokens — is
+    // not this rule's to play (owner's game 1483356 R19); the fallback holds it the same way.
+    $per = SWUBotFeatureOn('wipeaware') ? _SWUBotShownPerUnitWipe($seat) : 0;
+    $isWipe = function (array $a) use ($seat, $per) {
         if (SWUBotActionKind($a) !== 'play') return false;
         $o = _SWUBotHandObject($seat, $a);
-        return $o !== null && in_array('wipe', SWUBotCardTags(strval($o->CardID)), true);
+        if ($o === null || !in_array('wipe', SWUBotCardTags(strval($o->CardID)), true)) return false;
+        return !($per > 0 && _SWUBotPlayEntersWipeRange($seat, $a, $per));
     };
     // Diagnostics (read-only; land in SWUBOT_METRICS coverage). 'wipe:castable' = this rule saw at least one wipe it
     // could play — the rule only ever sees CASTABLE wipes, so a gate that never fires may simply never be reached.
@@ -175,7 +208,20 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
         if ($diag && $t && !$c) SWUBotRecordCoverage($seat, 'wipe:threat-only');
         return $c || $t;
     };
-    return _SWUBotBestLine($ctx, $read, $score, $ok, $isWipe);
+    $line = _SWUBotBestLine($ctx, $read, $score, $ok, $isWipe);
+    if ($line !== null || !SWUBotFeatureOn('epicwipe')) return $line;
+    // Feature 'epicwipe' (p37): no castable wipe qualifies — one castable only THROUGH the base's aspect-waiver Epic may (Krennic Splash:
+    // Single Reactor Ignition 10 -> 8 with the Daimyo's Palace waiver; owner "the 5R turn + 3 credits or 6R + 2C"). Judged on the board
+    // by the same tests (2+ enemy units defeated, more of their value than mine, stabilises), not by the lookahead: its line through the
+    // Epic's prompt stored a plan that played the WRONG card there. Left alone, the fallback plays the wipe at the prompt (with Rey also
+    // unlocked too — bot_epicwipe_test B2).
+    $epic = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'base-epic');
+    // Against an aggro leader, only on (or after) their FLIP turn — owner follow-up 2026-10-06: "wipe on HER flip turn only". Before it, a
+    // round-4/5 wipe into a half board fired in 12 of 20 traced games and was null: she rebuilt 4–6 units the next round. (Facing lethal,
+    // rule 4 'break-lethal' already plays whatever saves the game.)
+    $flipped = !empty(array_filter(SWUBotUnits($opp), fn($v) => $v['isLeader']));
+    if (SWUBotOpponentIsAggroLeader($seat) && !$flipped) return null;
+    return ($epic !== null && _SWUBotWaiverUnlocksWipe($seat) !== null) ? $epic : null;
 }
 
 // PROPOSAL 'initiative' (default OFF, "@try-initiative"). Owner ruling 2026-09-18 (Q16 / 5.2): taking the
@@ -362,7 +408,10 @@ function SWUBotRuleKillFirst(array $ctx): ?array {
 // by round 3 and 2.3 by round 5 (2026-09-19). While behind on bodies, put one down BEFORE attacking; the attack is
 // still available afterwards, the body is not (a removal spell in their turn takes the play away).
 function SWUBotRuleBlockerFirst(array $ctx): ?array {
-    if (!SWUBotProposalOn('blockerfirst') || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    // PROMOTED 2026-10-05 to a shipped feature (p37, every style) — owner: "promote it for all. hyperaggro may not even play
+    // sentinels." Fidelity screen: four styles toward the real table (softcontrol +2.5, softaggro +2.3, midrange +1.9, hardcontrol
+    // +1.2 pp). '@try-blockerfirst' still names it; '@no-blockerfirst' switches it off.
+    if (!(SWUBotProposalOn('blockerfirst') || SWUBotFeatureOn('blockerfirst')) || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
     if (count(SWUBotUnits($seat)) >= count(SWUBotUnits($opp))) return null;
     $hasAttack = false;
@@ -374,7 +423,16 @@ function SWUBotRuleBlockerFirst(array $ctx): ?array {
         $o = _SWUBotHandObject($seat, $a);
         if ($o !== null && str_contains(strval(CardType(strval($o->CardID))), 'Unit')) $plays[] = $a;
     }
-    return empty($plays) ? null : SWUBotFallbackChoose(array_merge($ctx, ['actions' => $plays]));
+    // The fallback's own pick among the unit plays (guides computed ONCE, each play scored once), and only a body it WANTS: one it
+    // holds (<= 0 — a shown wipe, a unique clash, a fodder wait…) stays held, or this rule overrode every hold (bot_wipeaware_test F:
+    // a Pre Vizsla held for a shown wipe was played into it). Scoring every play twice cost ~20% per round (measured 2026-10-05).
+    $sub = array_merge($ctx, ['actions' => $plays]); $sub['_guides'] = _SWUBotGuides($sub);
+    $best = null; $bestScore = 0.0;
+    foreach ($plays as $j => $a) {
+        $sc = SWUBotScoreAction($sub, $a, $j);
+        if ($sc > $bestScore) { $best = $a; $bestScore = $sc; }
+    }
+    return $best;
 }
 
 // PROPOSAL 'krennicramp' (default OFF) — the owner's Krennic plan vs Vader (rulings K1-K4, 2026-09-22). The leader
@@ -459,7 +517,8 @@ function _SWUBotKrennicPlanOn(array $ctx, string $part = ''): bool {
 // Defeated unit. Lower is better; null = not fodder.
 function _SWUBotFodderRank(string $cid, int $cost): ?int {
     if (stripos(strval(CardText($cid)), 'When Defeated: You may resource this unit') !== false) return 0;
-    if ($cost <= 2 || stripos(strval(CardText($cid)), 'When Defeated') !== false) return 1 + $cost;
+    $wd = SWUBotProposalOn('wdability') ? (bool)preg_match('/When Defeated:/i', strval(CardText($cid))) : stripos(strval(CardText($cid)), 'When Defeated') !== false;
+    if ($cost <= 2 || $wd) return 1 + $cost;
     return null;
 }
 
@@ -675,6 +734,8 @@ function SWUBotHandCardKills(string $cid, array $u): bool {
     $t = strval(CardText($cid));
     if ($t === '' || stripos($t, 'chooses') !== false) return false;
     if ($u['isLeader'] && stripos($t, 'non-leader') !== false) return false;
+    // 'defeatimmune' (p36): a defeat (not take-control-then-defeat) fizzles on a unit that can't be defeated by enemy abilities.
+    if (preg_match('/\bdefeat\b/i', $t) && !preg_match('/take control/i', $t) && SWUBotDefeatFizzles($u)) return false;
     if (stripos($t, 'space unit') !== false && $u['arena'] !== 'Space') return false;
     if (stripos($t, 'ground unit') !== false && $u['arena'] !== 'Ground') return false;
     [$cls, $kind, $n] = SWUBotRemovalClass($cid);
@@ -795,6 +856,87 @@ function SWUBotRuleBankCredits(array $ctx): ?array {
     foreach (SWUBotEnemyUnits($seat) as $v) { if (in_array($v['cardID'], SWU_BOT_CREDIT_PREDATORS, true)) { $preyed = true; break; } }
     $n = $preyed ? min($max, $cost) : min($max, max(0, $cost - SWUResourceCount($seat, true)));
     return _SWUBotFind($ctx, fn($a) => SWUBotSelectionCount($a) === $n);
+}
+
+// ── Features 'wipeinit' + 'wipedraw' (p36) — claim the initiative so next round's wipe goes FIRST ───────────────────────
+// Owner 2026-10-04: "this can be for both HSD or SRI … it might be best to not let the opponent take initiative and get another
+// 5+ damage in if you claim and wipe a space aggro deck"; and of Hemlock players claiming every round with no wipe in hand:
+// "they claim in hopes of drawing a wipe". Ninin's games: claimed R5 -> Hyperspace Disaster R6 (vs Vader Yellow); claimed R6 ->
+// Single Reactor Ignition R7 (vs Luke ASH Data Vault). The existing 'initiative-for-answer' could not see a wipe and counted only
+// the single biggest threat; these count every enemy unit the wipe kills that reaches my base.
+
+// The base damage the wipe's arenas threaten (SWUBotUnitBaseThreat: my Sentinels guard, Saboteurs ignore them).
+function _SWUBotWipeThreat(int $seat, array $arenas): int {
+    $t = 0;
+    foreach (SWUBotEnemyUnits($seat) as $u) if (in_array($u['arena'], $arenas, true) && !SWUBotDefeatFizzles($u)) $t += SWUBotUnitBaseThreat($seat, $u);
+    return $t;
+}
+// My resources next round: every resource readied + the regroup's resource + my Credits.
+function _SWUBotCapNextRound(int $seat): int {
+    return SWUResourceCount($seat) + 1 + count(SWUUsableCreditTokenMzIDs($seat));
+}
+// 'wipeinit': the best RELEVANT wipe in hand that is NOT castable now but IS next round, and costs them more than me.
+function _SWUBotWipeNextRound(int $seat): ?array {
+    $capNow = SWUTotalPaymentCapacity($seat); $capNext = _SWUBotCapNextRound($seat);
+    $best = null;
+    foreach (GetHand($seat) as $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cid = strval($o->CardID ?? '');
+        if (!in_array('wipe', SWUBotCardTags($cid), true) || !_SWUBotWipeIsRelevant($seat, $cid)) continue;
+        $cost = intval(SWUComputePlayCost($seat, $o));
+        if ($cost <= $capNow || $cost > $capNext) continue;
+        [$mine, $theirs] = _SWUBotWipeLosses($seat, $cid);
+        if ($theirs <= $mine) continue;
+        $arenas = _SWUBotWipeArenas($cid); $threat = _SWUBotWipeThreat($seat, $arenas);
+        if ($best === null || $threat > $best['threat']) $best = ['cid' => $cid, 'arenas' => $arenas, 'threat' => $threat];
+    }
+    return $best;
+}
+// 'wipedraw': the chance of drawing a relevant wipe castable next round in the regroup's 2 draws, from the deck's CONTENTS (a
+// player knows their list; the order is never read). Best p x threat over distinct wipes: ['cid', 'p', 'threat'], or null.
+function _SWUBotWipeDrawChance(int $seat): ?array {
+    $deck = array_values(array_filter(GetDeck($seat), fn($o) => $o !== null && empty($o->removed)));
+    $d = count($deck);
+    if ($d === 0) return null;
+    $copies = [];
+    foreach ($deck as $o) { $c = strval($o->CardID ?? ''); $copies[$c] = ($copies[$c] ?? 0) + 1; }
+    $choose2 = fn(int $n) => $n < 2 ? 0 : $n * ($n - 1) / 2;
+    $capNext = _SWUBotCapNextRound($seat); $best = null;
+    foreach ($copies as $cid => $k) {
+        if (!in_array('wipe', SWUBotCardTags($cid), true) || !_SWUBotWipeIsRelevant($seat, $cid) || _SWUBotSeatCost($seat, $cid) > $capNext) continue;
+        [$mine, $theirs] = _SWUBotWipeLosses($seat, $cid);
+        if ($theirs <= $mine) continue;
+        $p = $d >= 2 ? 1.0 - $choose2($d - $k) / $choose2($d) : 1.0;
+        $threat = _SWUBotWipeThreat($seat, _SWUBotWipeArenas($cid));
+        if ($best === null || $p * $threat > $best['p'] * $best['threat']) $best = ['cid' => $cid, 'p' => $p, 'threat' => $threat];
+    }
+    return $best;
+}
+
+function SWUBotRuleInitiativeForWipe(array $ctx): ?array {
+    $hand = SWUBotFeatureOn('wipeinit'); $draw = SWUBotFeatureOn('wipedraw');
+    if ((!$hand && !$draw) || !_SWUBotIsFreePlay($ctx)) return null;
+    $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
+    if (SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3) return null;
+    $init = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'initiative');
+    if ($init === null || strval(GetInitiativeCounter() ?? '') !== 'P' . $opp . '_UNCLAIMED') return null;
+    // A wipe castable NOW needs no set-up: 'control-wipe' runs earlier, and its play is in the forgone sum below.
+    $gain = 0.0;
+    if ($hand && ($w = _SWUBotWipeNextRound($seat)) !== null) $gain = max($gain, floatval($w['threat']));
+    if ($draw && ($w = _SWUBotWipeDrawChance($seat)) !== null) $gain = max($gain, $w['p'] * $w['threat']);
+    if ($gain <= 0.0) return null;
+    // What claiming forgoes: the rest of this round (every free attack + the best other play), guides held out — the same
+    // accounting as 'initiative-for-answer'.
+    $W = SWUBotWeights(strval($ctx['style']), $seat);
+    $noGuides = array_merge($ctx, ['_guides' => ['attackFirst' => [], 'maxUnits' => '']]);
+    $attacks = 0.0; $other = 0.0;
+    foreach ($ctx['actions'] as $i => $a) {
+        $k = SWUBotActionKind($a);
+        if ($k === 'pass' || $k === 'initiative') continue;
+        $s = max(0.0, SWUBotScoreAction($noGuides, $a, $i));
+        if ($k === 'attack') $attacks += $s; else $other = max($other, $s);
+    }
+    return $W['base'] * $gain > $attacks + $other ? $init : null;
 }
 
 function SWUBotRulesBeforeFilter(): array {
@@ -918,6 +1060,7 @@ function SWUBotRulesAfterFilter(): array {
         'krennic-plan'             => 'SWUBotRuleKrennicPlan',           // proposal 'krennicplan' — inert unless "@try-krennicplan"
         'control-wipe'             => 'SWUBotRuleControlWipe',
         'initiative-for-answer'    => 'SWUBotRuleInitiativeForAnswer',   // proposal 'initiative' — inert unless "@try-initiative"
+        'initiative-for-wipe'      => 'SWUBotRuleInitiativeForWipe',     // features 'wipeinit' + 'wipedraw' (p36)
         'kill-first'               => 'SWUBotRuleKillFirst',             // proposal 'killfirst'
         'krennic-ramp'             => 'SWUBotRuleKrennicRamp',           // proposal 'krennicramp'
         'blocker-first'            => 'SWUBotRuleBlockerFirst',          // proposal 'blockerfirst'

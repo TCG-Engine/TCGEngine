@@ -1573,6 +1573,7 @@ return [
     'TWI_066' => 'twi/MultiTroopTransport.php',
     'TWI_067' => 'twi/TheZilloBeast_AwokenFromTheDepths.php',
     'TWI_068' => 'twi/Foresight.php',
+    'TWI_069' => 'twi/RogerRoger.php',
     'TWI_070' => 'twi/PerilousPosition.php',
     'TWI_072' => 'twi/IHaveTheHighGround.php',
     'TWI_073' => 'twi/GrievousReassembly.php',

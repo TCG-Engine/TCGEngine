@@ -53,9 +53,12 @@ if (!function_exists('_SWULaw099Defeat')) {
 }
 
 $whenPlayedAbilities["LAW_099:0"] = function($player, $mzID) {
-    _SWULaw099Ask(intval($player), SWUSeatsInPlayerOrder(intval($player)), []);
+    // Shared with TWI_238 Merciless Contest (CR v9.0 7.1.a — choose in turn, then defeat together).
+    SWUEachPlayerChoosesOwnUnitToDefeat(intval($player), false, "Choose_a_unit_you_control_to_defeat");
 };
 
+// Kept so a game saved mid-choice under the old continuation key still resolves; new plays use the shared
+// EACH_PLAYER_DEFEAT_PICK chain (CardHelpers.php).
 $customDQHandlers["LAW_099#PICK"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $caster    = intval($parts[0] ?? $player);

@@ -176,8 +176,9 @@ $check($deckOf('# Author: Star Wars Dad')['author'] === 'Star Wars Dad', 'the au
 $authors = [];
 foreach (glob('./SWUSim/Tests/BotFixtures/force-fam-HMW-predictions/*.txt') ?: [] as $p) $authors[basename($p, '.txt')] = SWUBotDeckFromFixtureText((string)file_get_contents($p))['author'];
 $check(count($authors) >= 5 && !in_array('', $authors, true), 'every force-fam-HMW-predictions deck names its author: ' . json_encode($authors));
-$known = ['ahsoka-tano_ash_yellow' => 'Ninin', 'doctor-hemlock_hmw_red_naboo' => 'Ninin', 'director-krennic_law_blue-splash' => 'Ninin', 'doctor-hemlock_hmw_yellow_naboo' => 'Star Wars Dad',
-          'maul_hmw_blue' => 'Star Wars Dad', 'tarfful_hmw_blue_kashyyyk' => 'Star Wars Dad', 'wicket_hmw_green-splash' => 'Star Wars Dad'];
+$known = ['ahsoka-tano_ash_yellow' => 'Ninin', 'doctor-hemlock_hmw_red' => 'Ninin', 'director-krennic_law_blue-splash' => 'Ninin', 'doctor-hemlock_hmw_yellow_naboo' => 'Star Wars Dad',
+          'maul_hmw_blue' => 'Star Wars Dad', 'tarfful_hmw_blue_kashyyyk' => 'Star Wars Dad', 'wicket_hmw_green-splash' => 'Star Wars Dad',
+          'general-grievous_hmw_blue_kashyyyk' => 'Ninin', 'obi--wan-kenobi_lof_yellow-force' => 'MasterJay'];
 $wrong = array_filter($known, fn($a, $f) => ($authors[$f] ?? null) !== $a, ARRAY_FILTER_USE_BOTH);
 $check(empty($wrong), 'each known creator deck credits the right author', json_encode(array_map(fn($f) => $authors[$f] ?? '(missing)', array_keys($wrong))));
 

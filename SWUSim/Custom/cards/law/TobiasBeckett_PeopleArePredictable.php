@@ -13,7 +13,7 @@ $leaderAbilities["LAW_002"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $targets = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {   // "a friendly unit" — leaders included (see LAW_002#0)
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed)) $targets[] = $mz;
         }
@@ -38,7 +38,7 @@ $customDQHandlers["LAW_002#2"] = function($player, $parts, $lastDecision) {
     if ($opp <= 0 || $opp === intval($player)) return;
     $targets = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {   // "a friendly unit" — leaders included (see LAW_002#0)
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed)) $targets[] = $mz;
         }
@@ -55,10 +55,18 @@ $customDQHandlers["LAW_002#0"] = function($player, $parts, $lastDecision) {
     // The chosen opponent rides the Param; never re-derive it from OtherPlayer() here.
     $opp = intval($parts[0] ?? 0);
     if ($opp <= 0 || $opp === intval($player)) return;
+    // A REAL leader unit (printed type Leader — a deployed second leader in Twin Suns) can't change control:
+    // CR 3.4.6 defeats it instead, "a replacement effect". CR 8.9.2: a replacement of the text before "if you
+    // do" still counts as resolved, so "If they do, create a Credit token" still pays out. A unit merely MADE a
+    // leader (Pilot leader, Darksaber) is not affected by 3.4.6 (CR v9.0 3.4.7) and just changes control.
+    $isRealLeader = strpos(CardType($o->CardID ?? '') ?? '', 'Leader') !== false;
+    $uid          = intval($o->UniqueID ?? 0);
     $newMz = SWUTakeControlOfUnit($opp, $lastDecision);   // that opponent takes control
-    // "If they do, create a Credit token." — only when control ACTUALLY transferred. LAW_149 Rey
-    // ("opponents can't take control of this unit") blocks the transfer ($newMz === '') → no Credit.
-    if ($newMz !== '') SWUCreateCreditToken(intval($player), 1);
+    $playerID = intval($player);
+    $replacedByDefeat = $isRealLeader && $newMz === '' && $uid > 0 && SWUFindMzByUID($uid) === null;
+    // LAW_149 Rey ("opponents can't take control of this unit") is a CAN'T, not a replacement: the transfer
+    // simply doesn't happen ($newMz === '', unit still in play) → no Credit.
+    if ($newMz !== '' || $replacedByDefeat) SWUCreateCreditToken(intval($player), 1);
 };
 
 $whenPlayedAbilities["LAW_002:0"] = function($player, $mzID) {

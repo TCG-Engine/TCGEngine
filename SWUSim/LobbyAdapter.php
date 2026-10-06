@@ -31,7 +31,7 @@ class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAd
         // CardIDs alone — this runs on every 1.5s poll, so no deck is resolved here.
         foreach (SWUSetupTwinSunsPreCons() as $pc) {
             $out['precon:' . $pc['key']] = ['name' => 'Arenabot · ' . $pc['name'], 'description' => 'Plays the official ' . $pc['name'] . ' pre-con.',
-                'deck' => 'precon', 'deckName' => $pc['name'],
+                'deck' => 'precon', 'deckName' => $pc['name'], 'count' => (int)$pc['count'],
                 'cards' => $this->_identityCards(['leader' => $pc['leaders'], 'base' => $pc['base']])];
         }
         $out['custom'] = ['name' => 'Arenabot · your decklist', 'description' => 'Plays a Twin Suns list you paste.', 'deck' => 'paste'];

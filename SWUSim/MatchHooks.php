@@ -6,6 +6,7 @@ require_once __DIR__ . '/Custom/DeckImport.php';           // SWUResolveDeckInpu
 require_once __DIR__ . '/CreateGame.php';                  // SWUSetupGame
 require_once __DIR__ . '/StatsSubmit.php';                 // SWUCaptureCurrentGameDetail / SWUSubmitMatchResults / SWUBuildStatsHtml
 require_once __DIR__ . '/../Database/functions.inc.php';   // SWUResolveSeatCosmetics / AreUsersBlocked
+require_once __DIR__ . '/../AppCore/SWU/Formats.php';      // SWUFormatIsRated
 
 // ── Hook bodies ───────────────────────────────────────────────────────────────
 
@@ -99,6 +100,40 @@ function SWURecordDeckStatsForGame(array &$match, $winnerSeat) {
     }
 }
 
+// Meta Premier rating (rateMatch hook) — classify the finished match and apply it. Idempotent; silent for unrated
+// formats, guests, and a server without migration 17. docs/superpowers/specs/2026-10-03-swusim-metapremier-ratings-design.md §4.1.
+function SWUMetaPremierRateMatch($matchId) {
+    $m = SWUReadMatch($matchId);
+    if (!is_array($m)) return;
+    require_once __DIR__ . '/MetaPremier.php';
+    $c = SWUMetaPremierClassify($m);
+    if ($c === null) return;
+    require_once __DIR__ . '/../Database/ConnectionManager.php';
+    try { SWUMetaPremierApply(GetLocalMySQLConnection(), $c); }
+    catch (Throwable $e) { error_log('SWUMetaPremierRateMatch: ' . $e->getMessage()); }
+}
+
+// allowsSeriesChange hook: no Rematch / Quick Rematch / Convert-to-Bo3 in a rated format — those build a new or longer
+// match between the same two players without the queue (spec §4.5). Players re-queue instead.
+function SWUMatchAllowsSeriesChange(array $m): bool {
+    return !SWUFormatIsRated(strval($m['format'] ?? ''));
+}
+
+// endSeriesAfterGame hook: in a rated format an ABANDON (inactivity removal) or an EARLY concede (before Round 2's action
+// phase — owner, 2026-10-05) forfeits the whole series; the opponent should not have to sit through sideboarding for a
+// series that is already decided. Returns the seat that lost the game just recorded that way, or 0.
+function SWUMatchEndSeriesAfterGame(array $m): int {
+    if (!SWUFormatIsRated(strval($m['format'] ?? '')) || count($m['players'] ?? []) !== 2) return 0;
+    $last = null;
+    foreach (($m['games'] ?? []) as $g) if (($g['winner'] ?? null) !== null) $last = $g;
+    if ($last === null) return 0;
+    $d = $last['detail'] ?? [];
+    $early = ($d['endReason'] ?? '') === 'concede' && isset($d['turns']) && intval($d['turns']) < 2;
+    if (($d['endReason'] ?? '') !== 'abandon' && !$early) return 0;
+    $winner = intval($last['winner']);
+    return ($winner === 1) ? 2 : (($winner === 2) ? 1 : 0);
+}
+
 // ── Registration ──────────────────────────────────────────────────────────────
 MatchRegisterHooks('SWUSim', [
     // required
@@ -113,6 +148,9 @@ MatchRegisterHooks('SWUSim', [
     'flashMatchResult'  => 'SWUFlashMatchResult',
     'arePlayersBlocked' => 'SWUArePlayersBlocked',
     'declareGameWinner' => 'SWUDeclareGameWinner',
+    'rateMatch'         => 'SWUMetaPremierRateMatch',
+    'allowsSeriesChange' => 'SWUMatchAllowsSeriesChange',
+    'endSeriesAfterGame' => 'SWUMatchEndSeriesAfterGame',
     // config
     'queueTypes'        => ['bo1', 'bo3'],
     'sideboardUrl'      => 'Sideboard.php',

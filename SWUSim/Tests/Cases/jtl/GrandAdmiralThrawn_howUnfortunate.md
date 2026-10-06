@@ -709,3 +709,76 @@ P1SPACEARENAUNIT:0:CARDID:JTL_T01
 P1SPACEARENAUNIT:1:CARDID:JTL_T01
 P1SPACEARENAUNIT:2:CARDID:JTL_T01
 P1NODECISION
+
+---
+
+# Undeployed_ReusePaz_DefeatedByCombat_StillNoTokens
+#// CR v9.0 7.6.14.d: when a "When Defeated" ability is used by another ability and the unit was defeated in the
+#// CURRENT action, Last Known Information is used — and LKI includes "how the card was defeated" (CR 8.11.1).
+#// ASH_028 Paz Vizsla: "When Defeated: If this unit wasn't defeated by combat damage, create 2 Mandalorian tokens."
+#// Paz (4/7, 6 damage) dies attacking SEC_080, so his own When Defeated makes nothing — and Thrawn's reuse must
+#// make nothing either. (Paz's handler used to CONSUME the "defeated by combat" flag on its first read, so the
+#// reuse saw no flag and created 2 tokens.)
+## GIVEN
+CommonSetup: gbk/bbk/{
+  myLeader:JTL_002;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: ASH_028:1:6
+WithP2GroundArena: SEC_080:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:YES
+## EXPECT
+P1LEADER:EXHAUSTED
+P1GROUNDARENACOUNT:0
+
+---
+
+# Undeployed_ReusePaz_DefeatedByCombat_AcrossTheRequestBoundary
+#// Same as above, but Thrawn's YES is answered in a LATER request (as it is live): an in-memory "defeated by
+#// combat" flag is gone by then, so it must be kept in the game state.
+## GIVEN
+CommonSetup: gbk/bbk/{
+  myLeader:JTL_002;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: ASH_028:1:6
+WithP2GroundArena: SEC_080:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+## EXPECT
+P1LEADER:EXHAUSTED
+P1GROUNDARENACOUNT:0
+
+---
+
+# Undeployed_ReusePaz_DefeatedByAnAbility_TokensBothTimes
+#// Control: Paz defeated by an ABILITY (P1's own SOR_078 Vanquish), not combat damage — his When Defeated makes 2
+#// Mandalorian tokens, and Thrawn's reuse makes 2 more.
+## GIVEN
+CommonSetup: gbk/bbk/{
+  myLeader:JTL_002;
+  myBase:JTL_022;
+  theirBase:SOR_021;
+  myResources:9
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_078
+WithP1GroundArena: ASH_028:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+## EXPECT
+P1LEADER:EXHAUSTED
+P1GROUNDARENACOUNT:4
+P1GROUNDARENAUNIT:0:CARDID:ASH_T01

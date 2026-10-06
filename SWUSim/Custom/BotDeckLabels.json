@@ -1,5 +1,5 @@
 {
-    "generated": "2026-10-02",
+    "generated": "2026-10-06",
     "groups": [
         {
             "id": "ash-meta-2026-09",
@@ -969,6 +969,38 @@
             "total": 50
         },
         {
+            "key": "force-fam-HMW-predictions--darth-vader_hmw_yellow",
+            "group": "force-fam-HMW-predictions",
+            "file": "darth-vader_hmw_yellow",
+            "name": "Darth Vader (HMW) Yellow By Ninin",
+            "author": "Ninin",
+            "leader": "HMW_007",
+            "base": "HMW_032",
+            "style": "softaggro",
+            "cards": {
+                "SEC_080": 3,
+                "ASH_191": 3,
+                "ASH_190": 2,
+                "SEC_187": 3,
+                "ASH_097": 3,
+                "LOF_084": 3,
+                "ASH_192": 3,
+                "ASH_220": 3,
+                "LOF_183": 3,
+                "JTL_221": 3,
+                "ASH_194": 3,
+                "ASH_222": 3,
+                "HMW_202": 3,
+                "LOF_091": 2,
+                "LOF_182": 3,
+                "HMW_203": 2,
+                "SEC_087": 2,
+                "JTL_112": 2,
+                "JTL_124": 2
+            },
+            "total": 51
+        },
+        {
             "key": "force-fam-HMW-predictions--director-krennic_law_blue-splash",
             "group": "force-fam-HMW-predictions",
             "file": "director-krennic_law_blue-splash",
@@ -1005,16 +1037,16 @@
             "total": 51
         },
         {
-            "key": "force-fam-HMW-predictions--doctor-hemlock_hmw_red_naboo",
+            "key": "force-fam-HMW-predictions--doctor-hemlock_hmw_red",
             "group": "force-fam-HMW-predictions",
-            "file": "doctor-hemlock_hmw_red_naboo",
-            "name": "Doctor Hemlock (HMW) Red (Naboo) By Ninin",
+            "file": "doctor-hemlock_hmw_red",
+            "name": "Doctor Hemlock (HMW) Red By Ninin",
             "author": "Ninin",
             "leader": "HMW_003",
             "base": "HMW_027",
             "style": "softcontrol",
             "cards": {
-                "JTL_140": 3,
+                "JTL_140": 2,
                 "JTL_143": 2,
                 "LOF_130": 3,
                 "LAW_174": 3,
@@ -1023,20 +1055,21 @@
                 "ASH_052": 3,
                 "ASH_053": 3,
                 "HMW_062": 3,
-                "LAW_133": 2,
+                "LAW_133": 1,
                 "LAW_097": 3,
                 "LAW_172": 3,
                 "LOF_070": 2,
                 "ASH_146": 2,
                 "HMW_071": 1,
-                "LAW_044": 2,
                 "JTL_043": 2,
+                "LAW_044": 2,
                 "JTL_144": 2,
                 "SEC_078": 2,
                 "HMW_159": 2,
-                "HMW_100": 1
+                "ASH_148": 2,
+                "HMW_154": 2
             },
-            "total": 50
+            "total": 51
         },
         {
             "key": "force-fam-HMW-predictions--doctor-hemlock_hmw_yellow_naboo",
@@ -1074,6 +1107,37 @@
             "total": 51
         },
         {
+            "key": "force-fam-HMW-predictions--general-grievous_hmw_blue_kashyyyk",
+            "group": "force-fam-HMW-predictions",
+            "file": "general-grievous_hmw_blue_kashyyyk",
+            "name": "General Grievous (HMW) Blue (Kashyyyk) By Ninin",
+            "author": "Ninin",
+            "leader": "HMW_008",
+            "base": "HMW_021",
+            "style": "midrange",
+            "cards": {
+                "LAW_133": 2,
+                "LOF_091": 3,
+                "ASH_097": 3,
+                "LAW_037": 3,
+                "ASH_048": 3,
+                "SEC_082": 3,
+                "HMW_103": 3,
+                "LOF_084": 3,
+                "ASH_052": 3,
+                "HMW_104": 3,
+                "ASH_053": 3,
+                "HMW_136": 3,
+                "HMW_151": 2,
+                "SEC_111": 3,
+                "LAW_097": 3,
+                "HMW_109": 2,
+                "JTL_081": 3,
+                "SEC_057": 3
+            },
+            "total": 51
+        },
+        {
             "key": "force-fam-HMW-predictions--maul_hmw_blue",
             "group": "force-fam-HMW-predictions",
             "file": "maul_hmw_blue",
@@ -1107,6 +1171,39 @@
                 "HMW_204": 2
             },
             "total": 54
+        },
+        {
+            "key": "force-fam-HMW-predictions--obi--wan-kenobi_lof_yellow-force",
+            "group": "force-fam-HMW-predictions",
+            "file": "obi--wan-kenobi_lof_yellow-force",
+            "name": "Obi-Wan Kenobi (LOF) Yellow Force By MasterJay",
+            "author": "MasterJay",
+            "leader": "LOF_008",
+            "base": "LOF_029",
+            "style": "softaggro",
+            "cards": {
+                "ASH_253": 3,
+                "LOF_096": 3,
+                "HMW_208": 3,
+                "LOF_102": 2,
+                "HMW_210": 3,
+                "HMW_049": 2,
+                "HMW_048": 3,
+                "LOF_100": 2,
+                "SEC_179": 1,
+                "LOF_193": 3,
+                "LOF_128": 2,
+                "LOF_195": 3,
+                "LOF_093": 3,
+                "LOF_111": 2,
+                "ASH_040": 3,
+                "JTL_201": 3,
+                "ASH_219": 2,
+                "LAW_237": 2,
+                "LOF_215": 2,
+                "ASH_114": 3
+            },
+            "total": 50
         },
         {
             "key": "force-fam-HMW-predictions--tarfful_hmw_blue_kashyyyk",
