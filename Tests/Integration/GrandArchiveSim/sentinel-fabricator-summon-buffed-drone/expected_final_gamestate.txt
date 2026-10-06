@@ -41,7 +41,7 @@ j68m69iq4d
 n8wyfG9hbY
 3
 LMyKyVC2O9 2 1 0 1 - - - 1
-j68m69iq4d 2 1 0 1 ENTERED_THIS_TURN - - 3
+j68m69iq4d 1 1 0 1 ENTERED_THIS_TURN - - 3
 mu6gvnta6q 2 1 0 1 ENTERED_THIS_TURN eyJidWZmIjoxfQ== - 4
 1
 LMyKyVC2O9 2 2 0 2 - - - 2

@@ -1,9 +1,9 @@
 1
 0
 5
-em6eEh9q8y
 px60u5n1do
 n8wyfG9hbY
+em6eEh9q8y
 px60u5n1do
 n8wyfG9hbY
 5
@@ -12,7 +12,8 @@ px60u5n1do
 n8wyfG9hbY
 em6eEh9q8y
 n8wyfG9hbY
-0
+1
+BY0E8si926 ENTERED_THIS_TURN -
 0
 0
 0
@@ -34,9 +35,8 @@ em6eEh9q8y
 px60u5n1do
 n8wyfG9hbY
 n8wyfG9hbY
-2
+1
 LMyKyVC2O9 2 1 0 1 - - - 1
-BY0E8si926 2 1 0 1 ENTERED_THIS_TURN - - 3
 1
 LMyKyVC2O9 2 2 0 2 - - - 2
 0

@@ -5959,6 +5959,190 @@ $activateAbilityAbilities["FQigf17dCr:0"] = function($player) {
 };
 $activateAbilityPrereqs["FQigf17dCr:0"] = function($player, $mzID, $abilityIndex) { return GAItemAwake($mzID) && !empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SPECTER"])); };
 
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Printed activation costs for field abilities. The generated bodies never pay the part of a printed cost that is not a reserve payment embedded at the top of the body (some do that), and ActivatedAbilityCost()
+// only has hand-written cases for a few cards: for the cards below the REST / "Banish|Sacrifice CARDNAME" / (N) / "banish a card from your graveyard" ... costs were simply never paid, so these abilities ran
+// for free and could be repeated (e.g. Orb of Regret never banished itself, Delicious Pastry never got sacrificed, Gossamer Staff never rested). Found by activating every field ability with an auto-answering probe
+// and comparing the state with the printed cost.
+//   rest       -- the printed [REST]: items/weapons/domains are not auto-rested; allies/phantasias are, but the prereq below still requires them to be awake
+//   reserve    -- (N): int, or a function name returning the amount (reserve discounts)
+//   banish / sacrifice / toMaterial -- "Banish|Sacrifice CARDNAME" / "Return CARDNAME to your material deck"
+//   banishGraveyard -- "Banish a card from your graveyard": ['element'=>'FIRE'] | ['floating'=>true]
+//   sacrificePowercell, removeSelfCounters [name=>n], lki [counter names whose count is recorded before the card leaves: gaLKI_<name>]
+//   bonus      -- 'class' | 'ciel' | 'guojia' | 'jin': the printed "[... Bonus]" gate (also enforced by the prereq)
+//   noAutoRest -- ally/phantasia abilities whose printed cost has no [REST]
+// Spec keys are "<cardID>:<abilityIndex>"; none of these cards has a case in ActivatedAbilityCost().
+// ---------------------------------------------------------------------------------------------------------------------------------
+function GAFieldAbilityCostTable() {
+    static $table = null;
+    if($table !== null) return $table;
+    $table = [
+        "e5o3cm9lbe:0" => ['reserve' => 5, 'banish' => true], // Scepter of Lumina
+        "gyk90s0hst:0" => ['reserve' => 1, 'rest' => true], // Gossamer Staff
+        "znavmjiefw:0" => ['reserve' => 3, 'rest' => true], // Intwined Bangle
+        "h1njd7z5j3:0" => ['reserve' => 5, 'banish' => true], // Nefarious Timepiece
+        "Y8s7XGHqHk:0" => ['reserve' => 4, 'rest' => true, 'bonus' => 'class'], // Wind Surge Emitter
+        "jz7odeqku4:0" => ['reserve' => 4, 'rest' => true, 'bonus' => 'guojia'], // Fabled Emerald Fatestone
+        "jz7odeqku4:1" => ['rest' => true],
+        "6ce5rzrjd9:0" => ['rest' => true], // Fabled Azurite Fatestone
+        "vzmnt0orxj:0" => ['rest' => true], // Fabled Sapphire Fatestone
+        "mzf5dmpqbc:0" => ['rest' => true], // Fabled Ruby Fatestone
+        "h8n1520m2d:0" => ['rest' => true], // Craggy Fatestone
+        "f4wqesifxk:0" => ['rest' => true, 'bonus' => 'ciel'], // Servant's Obligation (its body pays the (3) and the banish)
+        "j68m69iq4d:0" => ['rest' => true], // Sentinel Fabricator (its body pays the (3))
+        "7yacwhzzfb:0" => ['reserve' => 2, 'rest' => true], // Focusing Round
+        "swy2NJ4q6O:0" => ['reserve' => 2, 'rest' => true], // Scarlet Tassel
+        "aou4be9z82:0" => ['rest' => true], // Humpty Dumpty, Fate's Fall
+        "aou4be9z82:1" => ['reserve' => 2],
+        "8677jq0hfm:0" => ['reserve' => 2, 'toMaterial' => true, 'bonus' => 'jin'], // Sundering Moon
+        "7wKegim9Yl:0" => ['reserve' => 2, 'sacrifice' => true], // SignalTech One
+        "rZSnsLUzEd:0" => ['reserve' => 3, 'sacrifice' => true], // Vel-ocity Punch
+        "tCTH0Bpfr5:0" => ['sacrifice' => true], // Delicious Pastry
+        "tCTH0Bpfr5:1" => ['reserve' => 2, 'sacrifice' => true],
+        "5HPvGPjsD9:0" => ['sacrifice' => true], // Exquisite Dessert
+        "5HPvGPjsD9:1" => ['reserve' => 1, 'sacrifice' => true],
+        "oqhB00zhaD:0" => ['rest' => true, 'banish' => true], // Battery Core X
+        "bEXmm4rKOs:0" => ['rest' => true, 'banish' => true], // The Duchess's Thornes
+        "6VOzmfit0I:0" => ['rest' => true, 'banish' => true], // Chime of Endless Dreams
+        "a8a0v4njrt:0" => ['banish' => true], // Slate Whetstone
+        "UE6g95C1nZ:0" => ['banish' => true], // Equinox Hour
+        "XbYtI0XtVH:0" => ['banish' => true, 'lki' => ['refinement']], // Seed of Empowerment
+        "BY0E8si926:0" => ['banish' => true], // Orb of Regret
+        "f6lxizyuml:0" => ['rest' => true, 'banish' => true], // Spellward Scepter
+        "21g6ldxwrv:0" => ['banish' => true], // Necklace of Hindsight
+        "24ansclpqc:0" => ['banish' => true], // Bauble of Scarcity
+        "rR2j9dQRDH:0" => ['sacrifice' => true, 'bonus' => 'class'], // ChannelTech Charm S
+        "qmj9q5gmsp:0" => ['banish' => true], // Beastbond Claws
+        "Tx8noEw78s:0" => ['sacrifice' => true, 'lki' => ['refinement']], // Extinguishing Synchron
+        "ybdj1Db9jz:0" => ['rest' => true, 'banish' => true, 'bonus' => 'class'], // Seed of Nature
+        "7mmve2l328:0" => ['rest' => true, 'bonus' => 'class'], // Band of Burning Verdict
+        "qalnrTTPal:0" => ['rest' => true], // ResonanTech Module
+        "SGsDKB9CN5:0" => ['rest' => true], // Endura, Scepter of Ignition (its body removes the enlighten counter)
+        "dZ30oXwi3l:0" => ['rest' => true], // Myopic Lens
+        "YGNgrHBAh2:0" => ['rest' => true], // Revoker Bell
+        "WZJxZMBAir:0" => ['rest' => true, 'banishGraveyard' => ['element' => 'FIRE'], 'bonus' => 'class'], // FlameTech Manual
+        "5av43ehjdu:0" => ['rest' => true], // Ventus, Staff of Zephyrs (its bodies remove the refinement counters)
+        "5av43ehjdu:1" => ['rest' => true],
+        "WI5oMtzP3W:0" => ['rest' => true, 'banishGraveyard' => ['floating' => true], 'bonus' => 'class'], // AquaTech Blade X
+        "l75tlzsmw3:0" => ['rest' => true], // Plated Bullet
+        "8c9htu9agw:0" => ['rest' => true], // Prototype Staff
+        "yZBIpXIDIo:0" => ['rest' => true], // CookTech Mixer
+        "yZBIpXIDIo:1" => ['sacrifice' => true, 'sacrificePowercell' => true],
+        "GKeIgWKSUi:0" => ['rest' => true], // Revitalizer X Ultra
+        "AGXBh74UEp:0" => ['rest' => true, 'removeSelfCounters' => ['durability' => 3], 'bonus' => 'class'], // Rapid Deployment Nexus
+        "PAymR7JsNp:0" => ['reserve' => 3, 'rest' => true], // PlasmaTech Blaster
+        "Bq2kynKJvx:0" => ['reserve' => 'GAPatisserieReserve', 'rest' => true], // Golden Measure Patisserie
+        "aZzm2GEWEu:0" => ['reserve' => 'GABiseBladeReserve', 'bonus' => 'ciel'], // Bise Blade
+        "ROjhG3L1iy:0" => ['reserve' => 3, 'rest' => true, 'sacrificePowercell' => true], // Sordelle, Unmoored Exception
+        "x8o84m37ti:0" => ['reserve' => 3, 'rest' => true], // Yuan Shao, Crown General
+        "EB5sNiPNvA:0" => ['reserve' => 'GACellwardenReserve', 'rest' => true, 'bonus' => 'class'], // Cellwarden Droid
+        "RP37sLrsxr:0" => ['reserve' => 2, 'rest' => true], // Throne Sentinel
+        "l7pnn9jw7c:0" => ['reserve' => 2, 'rest' => true], // Revealing Mesmer
+        "l7pnn9jw7c:1" => ['reserve' => 2, 'rest' => true],
+        "MiIBTi1hju:0" => ['reserve' => 3, 'rest' => true, 'sacrifice' => true, 'bonus' => 'class'], // Bifurcating Fractal
+        "KRNYwHCOVM:0" => ['reserve' => 2, 'rest' => true], // Glassgale Flock
+        "tp7eVOsAHU:0" => ['reserve' => 3, 'noAutoRest' => true, 'bonus' => 'class'], // Radiant Origin of Ranger (its body sacrifices)
+        "yT32RI6pqt:0" => ['reserve' => 3, 'sacrifice' => true, 'noAutoRest' => true, 'bonus' => 'class'], // Radiant Origin of Guardian
+        "dOPqsWYMCQ:0" => ['reserve' => 4, 'sacrifice' => true, 'noAutoRest' => true, 'bonus' => 'class'], // Radiant Origin of Mage
+        "zS0TJ97QSV:0" => ['reserve' => 3, 'sacrifice' => true, 'noAutoRest' => true, 'bonus' => 'class'], // Radiant Origin of Tamer
+        "jmaPje9XgG:0" => ['reserve' => 2, 'sacrifice' => true, 'noAutoRest' => true], // Where Futures Stir
+        "jjGLZKfRn5:0" => ['reserve' => 2, 'sacrifice' => true, 'noAutoRest' => true, 'bonus' => 'guojia'], // Avatar of Suzaku
+        "67CIhG8hmG:0" => ['reserve' => 2, 'sacrifice' => true, 'noAutoRest' => true, 'bonus' => 'guojia'], // Avatar of Genbu
+    ];
+    return $table;
+}
+function GAFieldAbilityCostSpec($cardID, $abilityIndex) {
+    return GAFieldAbilityCostTable()[$cardID . ":" . intval($abilityIndex)] ?? null;
+}
+function GAPatisserieReserve($player, $mzID) {
+    $kitchen = count(ZoneSearch("myField", ["ITEM"], cardSubtypes: ["KITCHEN"]));
+    return max(0, 3 - $kitchen);
+}
+function GABiseBladeReserve($player, $mzID) {
+    $costs = [];
+    foreach(GetOmens($player) as $omenObj) $costs[intval(CardCost_reserve($omenObj->CardID))] = true;
+    return max(0, 6 - count($costs));
+}
+function GACellwardenReserve($player, $mzID) {
+    return max(0, 5 - count(ZoneSearch("myGraveyard", cardElements: ["WATER"])));
+}
+function GAFieldAbilityReserveAmount($player, $mzID, $spec) {
+    $reserve = $spec['reserve'] ?? 0;
+    return is_string($reserve) ? intval($reserve($player, $mzID)) : intval($reserve);
+}
+function GAFieldAbilityBonusActive($player, $bonus, $cardID) {
+    switch($bonus) {
+        case 'class': return IsClassBonusActive($player, CardClasses($cardID));
+        case 'ciel': return IsCielBonusActive($player);
+        case 'guojia': return IsGuoJiaBonus($player);
+        case 'jin': return IsJinBonus($player);
+    }
+    return true;
+}
+function GAPowercellTargets() {
+    return ZoneSearch("myField", ["ITEM"], cardSubtypes: ["POWERCELL"]);
+}
+// Called from ActivatedAbilityCost(): pays every component of the spec in printed order (REST, counters, (N), extra costs, then the card leaves).
+function GAPayFieldAbilityCost($player, $mzCard, $cardID, $abilityIndex, $spec) {
+    $obj = &GetZoneObject($mzCard);
+    if($obj === null) return;
+    foreach(($spec['lki'] ?? []) as $lkiCounter) DecisionQueueController::StoreVariable("gaLKI_" . $lkiCounter, strval(GetCounterCount($obj, $lkiCounter)));
+    if(!empty($spec['rest'])) $obj->Status = 1;
+    foreach(($spec['removeSelfCounters'] ?? []) as $counterName => $counterAmount) RemoveCounters($player, $mzCard, $counterName, $counterAmount);
+    $reserve = GAFieldAbilityReserveAmount($player, $mzCard, $spec);
+    for($ri = 0; $ri < $reserve; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    if(!empty($spec['banishGraveyard'])) {
+        $filter = $spec['banishGraveyard'];
+        $candidates = !empty($filter['floating']) ? ZoneSearch("myGraveyard", floatingMemoryOnly: true) : ZoneSearch("myGraveyard", cardElements: [$filter['element']]);
+        if(!empty($candidates)) {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $candidates), 100, tooltip:"Banish_a_card_from_your_graveyard");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PortsidePirateBanish", 100);
+        }
+    }
+    if(!empty($spec['sacrificePowercell'])) {
+        $powercells = array_values(array_filter(GAPowercellTargets(), fn($pcMZ) => $pcMZ !== $mzCard));
+        if(!empty($powercells)) {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $powercells), 100, tooltip:"Sacrifice_a_Powercell");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "JudasSacrificeCost", 100);
+        }
+    }
+    if(!empty($spec['banish']) || !empty($spec['sacrifice']) || !empty($spec['toMaterial'])) {
+        if(!empty($spec['sacrifice'])) {
+            DoSacrificeFighter($player, $mzCard);
+        } else {
+            OnLeaveField($player, $mzCard);
+            MZMove($player, $mzCard, !empty($spec['toMaterial']) ? "myMaterial" : "myBanish");
+        }
+        DecisionQueueController::CleanupRemovedCards();
+    }
+}
+// "Can this ability be activated": the generated CanActivateAbility() only consults $activateAbilityPrereqs, so the spec's own requirements (awake for a REST cost, the bonus gate, (N) affordable, the extra
+// cost payable) are wrapped around whatever prereq the card already has. Installed from Custom/GeneratedAbilityOverrides.php so it wraps the final closure.
+function GAInstallFieldAbilityCostPrereqs(array &$prereqTable) {
+    foreach(GAFieldAbilityCostTable() as $key => $spec) {
+        $original = $prereqTable[$key] ?? null;
+        $prereqTable[$key] = function($player, $mzID, $abilityIndex) use ($key, $spec, $original) {
+            $obj = GetZoneObject($mzID);
+            if($obj === null || $obj->removed) return false;
+            $cardID = $obj->CardID;
+            if(!empty($spec['rest']) && $obj->Status != 2) return false;
+            if(!empty($spec['bonus']) && !GAFieldAbilityBonusActive($player, $spec['bonus'], $cardID)) return false;
+            foreach(($spec['removeSelfCounters'] ?? []) as $counterName => $counterAmount) {
+                if(GetCounterCount($obj, $counterName) < $counterAmount) return false;
+            }
+            $reserve = GAFieldAbilityReserveAmount($player, $mzID, $spec);
+            if($reserve > 0 && CountAvailableReservePayments($player) < $reserve) return false;
+            if(!empty($spec['banishGraveyard'])) {
+                $filter = $spec['banishGraveyard'];
+                $candidates = !empty($filter['floating']) ? ZoneSearch("myGraveyard", floatingMemoryOnly: true) : ZoneSearch("myGraveyard", cardElements: [$filter['element']]);
+                if(empty($candidates)) return false;
+            }
+            if(!empty($spec['sacrificePowercell']) && count(array_filter(GAPowercellTargets(), fn($pcMZ) => $pcMZ !== $mzID)) === 0) return false;
+            return $original === null ? true : $original($player, $mzID, $abilityIndex);
+        };
+    }
+}
+
 // cardID => ability names of field activated abilities whose generated CardActivateAbilityCount row is 0
 // (see the Key Slime Pudding / Baby Blue Slime note above). Names become the opportunity-window labels
 // ("myField-N@Activate-0@<name>") and the Activate button captions.
@@ -7259,6 +7443,11 @@ function CardPlayedEffects($player, $card, $cardPlayed) {
  */
 function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
     global $Cardistry_Cards;
+    $gaCostSpec = GAFieldAbilityCostSpec($cardID, $abilityIndex);
+    if($gaCostSpec !== null) {
+        GAPayFieldAbilityCost($player, $mzCard, $cardID, $abilityIndex, $gaCostSpec);
+        return;
+    }
     if(isset($Cardistry_Cards[$cardID])) {
         $baseCost = intval($Cardistry_Cards[$cardID]);
         $reserveCost = max(0, $baseCost - GetCardistryDiscount($player));
@@ -8502,6 +8691,8 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq", "4yqL9xtzVi", "dPP9I4nVn0", "k8bwlx70qj", "u73yv2nbvj", "yicNKtzC3H", "GhxADim7Kf", "4FtNBFaOJp",
         "he6kd7hocc", "0ejcyuvuxn", "xW6SZSlJX6", "peyG8Hfgqt", "s4oelWMRJE", "rw8qq1uwq8", "6p3p5iqigc", "AbjQkcN57S", "zrvvwz3ww9"]);
     if(IsNamelessChampionID($cardID)) $skipAutoRest = true; // (6) only: no [REST] in the cost
+    $gaSkipSpec = GAFieldAbilityCostSpec($cardID, $selectedAbilityIndex);
+    if($gaSkipSpec !== null && !empty($gaSkipSpec['noAutoRest'])) $skipAutoRest = true; // printed cost without [REST] (GAFieldAbilityCostTable)
     if($selectedAbilityIndex < $staticAbilityCount && !$isCardistry && !$skipAutoRest
         && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
         $sourceObject->Status = 1;

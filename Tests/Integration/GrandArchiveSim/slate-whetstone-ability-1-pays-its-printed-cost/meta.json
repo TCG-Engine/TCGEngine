@@ -1,0 +1,27 @@
+{
+    "name": "slate-whetstone-ability-1-pays-its-printed-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-06T02:23:48+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "a8a0v4njrt"
+    ],
+    "notes": "Slate Whetstone, ability 1: the printed activation cost (REST, Banish/Sacrifice CARDNAME, (N), extra costs) used to be unpaid, so the ability ran for free and repeatedly. Activated here in a generic environment (Guo Jia level-3 champion with the card's class, allies, Powercell, graveyard and memory cards, a Bow, six hand cards of reserve fuel); the assertions pin the cost that is now paid. Costs live in GAFieldAbilityCostTable() (Custom/GameLogic.php).",
+    "semanticCoverage": {
+        "testedCards": [
+            "a8a0v4njrt"
+        ],
+        "mechanics": [
+            "cost"
+        ],
+        "rulesClauses": [
+            "Printed activation cost of Slate Whetstone ability 1"
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Slate Whetstone ability 1 never paid its printed activation cost (it ran free and could be repeated).",
+        "affectedFunction": "GAFieldAbilityCostTable / ActivatedAbilityCost",
+        "fixCommit": "TBD"
+    }
+}

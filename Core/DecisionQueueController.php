@@ -305,7 +305,8 @@ class DecisionQueueController {
                     $numChoices += 1;
                 }
             } else {
-                // Whole zone - count all cards
+                // Whole zone - count all cards (an empty option list names no zone: zero choices, not a fatal count(null))
+                if($spec['zone'] === '' || $spec['zone'] === null) continue;
                 $numChoices += MZZoneCount($spec['zone']);
             }
         }
@@ -319,6 +320,7 @@ class DecisionQueueController {
                 $obj = MZResolveObject($spec['original']);
                 if ($obj !== null && !(isset($obj->removed) && $obj->removed)) return $spec['original'];
             } else {
+                if ($spec['zone'] === '' || $spec['zone'] === null) continue;
                 if (MZZoneCount($spec['zone']) > 0) return $spec['zone'] . '-0';
             }
         }

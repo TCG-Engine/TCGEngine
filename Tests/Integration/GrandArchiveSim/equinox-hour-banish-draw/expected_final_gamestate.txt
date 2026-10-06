@@ -19,7 +19,8 @@ em6eEh9q8y
 UE6g95C1nZ
 px60u5n1do
 px60u5n1do
-0
+1
+UE6g95C1nZ ENTERED_THIS_TURN -
 0
 0
 0
@@ -41,9 +42,8 @@ n8wyfG9hbY
 UE6g95C1nZ
 px60u5n1do
 n8wyfG9hbY
-2
+1
 LMyKyVC2O9 2 1 0 1 - - - 1
-UE6g95C1nZ 2 1 0 1 ENTERED_THIS_TURN - - 3
 1
 LMyKyVC2O9 2 2 0 2 - - - 2
 0

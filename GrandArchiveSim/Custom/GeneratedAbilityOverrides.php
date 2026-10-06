@@ -1906,3 +1906,16 @@ foreach(["997vxajn2q", "drnxdiltx3", "K15jWbHAMY", "clgolelsra", "21oy1nd4nw", "
     $cardActivatedAbilities[$gaMisfiledItemID . ":0"] = function($player) { // no on-play activated effect: the item's printed ability is a field activation
     };
 }
+
+// Printed-cost prereqs for the abilities in GAFieldAbilityCostTable() (Custom/GameLogic.php): wraps the final $activateAbilityPrereqs closures.
+GAInstallFieldAbilityCostPrereqs($activateAbilityPrereqs);
+
+// Seed of Empowerment (XbYtI0XtVH): "Banish CARDNAME: Empower X, where X is the amount of refinement counters that was on CARDNAME." and Extinguishing Synchron (Tx8noEw78s): "Sacrifice CARDNAME: Recover 2+X, where X is the
+// amount of refinement counters that was on CARDNAME." The card leaves as the cost now, so the generated bodies (which read the counters off the field object) see nothing: they read the last-known count that
+// GAPayFieldAbilityCost() recorded before the card left.
+$activateAbilityAbilities["XbYtI0XtVH:0"] = function($player) { //Banish to empower for refinement
+    Empower($player, intval(DecisionQueueController::GetVariable("gaLKI_refinement")), "XbYtI0XtVH");
+};
+$activateAbilityAbilities["Tx8noEw78s:0"] = function($player) { //Sacrifice to recover
+    RecoverChampion($player, 2 + intval(DecisionQueueController::GetVariable("gaLKI_refinement")));
+};

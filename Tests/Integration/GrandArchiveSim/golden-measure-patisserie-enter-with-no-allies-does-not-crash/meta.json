@@ -1,0 +1,28 @@
+{
+    "name": "golden-measure-patisserie-enter-with-no-allies-does-not-crash",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-06T03:16:44+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "Bq2kynKJvx"
+    ],
+    "notes": "On Enter targets an ally; with no allies on either field the generated body queued an MZCHOOSE with an empty option list and MZCountChoices('') called count(null) (TypeError). Fixed in Core/DecisionQueueController (an empty option list is zero choices).",
+    "semanticCoverage": {
+        "testedCards": [
+            "Bq2kynKJvx"
+        ],
+        "mechanics": [
+            "on-enter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "On Enter: Put a buff counter on target ally."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Entering with no allies on the field crashed the engine (count(null) on an empty MZCHOOSE).",
+        "affectedFunction": "DecisionQueueController::MZCountChoices",
+        "fixCommit": "TBD"
+    }
+}

@@ -32,7 +32,7 @@ em6eEh9q8y
 em6eEh9q8y
 2
 j6dkdoxyqt 2 1 0 1 - eyJxdWVzdCI6MTB9 - 1
-6ce5rzrjd9 1 1 0 1 ENTERED_THIS_TURN - - 3
+6ce5rzrjd9 2 1 0 1 ENTERED_THIS_TURN - - 3
 1
 LMyKyVC2O9 2 2 0 2 - - - 2
 0

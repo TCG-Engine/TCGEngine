@@ -1,0 +1,57 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 10,
+        "semantic": true,
+        "label": "Hand after paying the printed (N) reserve cost (and any draws the ability makes)"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Memory after the reserve payments / draws into memory"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Banishment after the printed banish costs"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Graveyard after the printed sacrifice / banish costs"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Field after the printed Banish / Sacrifice / Return CARDNAME cost"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "The card's own status after paying its printed [REST] cost (1 = rested, 2 = awake when it has no [REST] cost)"
+    }
+]

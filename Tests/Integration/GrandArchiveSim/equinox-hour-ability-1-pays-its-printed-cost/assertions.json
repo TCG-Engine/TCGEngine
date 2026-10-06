@@ -1,0 +1,47 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 14,
+        "semantic": true,
+        "label": "Hand after paying the printed (N) reserve cost (and any draws the ability makes)"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Memory after the reserve payments / draws into memory"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Banishment after the printed banish costs"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Graveyard after the printed sacrifice / banish costs"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Field after the printed Banish / Sacrifice / Return CARDNAME cost"
+    }
+]

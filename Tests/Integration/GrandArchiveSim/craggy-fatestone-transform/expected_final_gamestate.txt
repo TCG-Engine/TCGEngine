@@ -1,5 +1,5 @@
 1
-199
+0
 49
 8ofid087a6
 cl1mvb9q96
@@ -122,7 +122,7 @@ izf4wdsbz9
 8ofid087a6
 al6pqkmgmz
 4
-40oe1wf79p 2 1 0 1 - eyJidWZmIjoyfQ== - -1
+40oe1wf79p 1 1 0 1 - eyJidWZmIjoyfQ== - -1
 j6dkdoxyqt 2 1 4 1 vz4kc558yx-ACTION_ACTIVATED eyJxdWVzdCI6MX0= WyJMTXlLeVZDMk85Il0= -1
 6ce5rzrjd9 2 1 0 1 - eyJidWZmIjoyfQ== - -1
 1XegCUjBnY 2 1 0 1 ENTERED_THIS_TURN - - -1
@@ -179,13 +179,13 @@ wsycqp2l90
 1
 MAIN
 
-
-{"mzID":"myField-0","amount":1,"ignoreCost":false,"mzIDCardID":"h8n1520m2d","activationSourceZone":"myHand","wasPrepared":"NO","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","FatestoneOfRevelationsFirst":"myHand-0","chosen":"myTempZone-0","revealedMZ":"myTempZone-0","CombatDamageAmount":"1","source":"myField-1","target":"theirField-3","CombatKilledCardID":"b0ssellm84","abilityIndex":0}
-0
-{"ActivateCardCalls":{"1":5,"2":4},"ActivateCard":{"1":{"h8n1520m2d":1,"rWhFC8XBaH":1,"0v893yn5iq":2,"b0ssellm84":1},"2":{"xd4kv0akqr":1,"b0ssellm84":2,"h8n1520m2d":1}},"CardActivatedCalls":{"1":5,"2":4},"CardActivated":{"1":{"h8n1520m2d":1,"rWhFC8XBaH":1,"0v893yn5iq":2,"b0ssellm84":1},"2":{"xd4kv0akqr":1,"b0ssellm84":2,"h8n1520m2d":1}},"EnterCalls":{"1":5,"2":6},"Enter":{"1":{"h8n1520m2d":1,"j6dkdoxyqt":1,"6ce5rzrjd9":1,"b0ssellm84":1,"1XegCUjBnY":1},"2":{"xd4kv0akqr":1,"b0ssellm84":2,"j6dkdoxyqt":1,"6ce5rzrjd9":1,"h8n1520m2d":1}},"DrawCalls":{"2":4,"1":3},"Draw":{"2":4,"1":3},"RevealCalls":{"2":1,"1":1},"RestCardCalls":{"2":4,"1":1},"RestCard":{"2":{"b0ssellm84":3,"k98b6icmw9":1},"1":{"b0ssellm84":1}},"OnAttackCalls":{"2":4,"1":1},"OnAttack":{"2":{"b0ssellm84":3,"k98b6icmw9":1},"1":{"b0ssellm84":1}},"DealDamageCalls":{"2":4,"1":1},"MaterializeCalls":{"1":2,"2":1},"Materialize":{"1":{"j6dkdoxyqt":1,"1XegCUjBnY":1},"2":{"j6dkdoxyqt":1}},"AllyDestroyedCalls":{"1":1,"2":1},"AllyDestroyed":{"1":{"b0ssellm84":1},"2":{"b0ssellm84":1}},"ActivateAbilityCalls":{"2":1,"1":10},"ActivateAbility":{"2":{"xd4kv0akqr":1},"1":{"h8n1520m2d":10}}}
-2
-{"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"h8n1520m2d":1}}}
-0
 -
 -
-{"cards":{"1":{"h8n1520m2d":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":1}}},"turns":[],"cur":[],"combatEvents":[]}
+-
+-
+-
+-
+-
+-
+-
+-

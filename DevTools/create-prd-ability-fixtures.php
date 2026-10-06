@@ -164,6 +164,7 @@ DECK,
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         // Activate Cascade on FlameTech Manual (now at myField-2)
         ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // pay the "banish a fire element card from your graveyard" cost
         // Cascade deals 2 damage to a target champion — hit the opponent's.
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
         // Pass remaining fast action opportunities
@@ -6542,7 +6543,7 @@ DECK,
     'actions' => [
         ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''], // choose Steel Halberd as the buff target
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Steel Halberd as the buff target (it slides down to myField-1 once the Whetstone banishes itself as the cost)
     ],
 ];
 
@@ -7719,8 +7720,7 @@ DECK,
         ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // (The opportunity windows that used to be answered with two PASSes were offering a bogus activation of the loaded Plated Bullet from the intent: it is no longer offered, so the Pump's choice follows directly.)
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
@@ -18012,7 +18012,7 @@ $fixtures['fabled-azurite-fatestone-rest-transform-10-quest'] = [
 DECK,
     'setup' => [
         ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Counters' => ['quest' => 10]]],
-        ['player' => 1, 'zone' => 'myField', 'cardID' => '6ce5rzrjd9', 'setProperties' => ['Status' => 1]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '6ce5rzrjd9'], // awake: the [REST] cost is paid by the activation (it used to be seeded rested because the cost was never paid)
     ],
     'actions' => [
         ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
@@ -29901,6 +29901,1157 @@ $fixtures['grave-gateau-rest-and-sacrifice-puts-a-buff-counter-on-a-specter'] = 
         ['player' => 1, 'patchMzId' => 'myField-2', 'setProperties' => ['Status' => 2]], // Hindered: enters rested, so wake it
     ],
     'actions' => [mrdAct(1, 10001, 'myField-2!CustomInput!Activate:0'), mrdAns(1, 'myField-1')],
+];
+
+// --- Printed activation costs of field abilities (GAFieldAbilityCostTable): each fixture activates the ability in a generic environment and pins the paid cost ---
+$fixtures['scepter-of-lumina-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['e5o3cm9lbe'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'e5o3cm9lbe'], // Scepter of Lumina -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['gossamer-staff-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['gyk90s0hst'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC,MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'gyk90s0hst'], // Gossamer Staff -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['intwined-bangle-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['znavmjiefw'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'TAMER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'znavmjiefw'], // Intwined Bangle -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myField-6'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['nefarious-timepiece-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['h1njd7z5j3'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h1njd7z5j3'], // Nefarious Timepiece -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAns(1, 'myField-1'), mrdAns(1, 'YES'), mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['wind-surge-emitter-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['Y8s7XGHqHk'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Y8s7XGHqHk'], // Wind Surge Emitter -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myField-2'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['fabled-emerald-fatestone-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['jz7odeqku4'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'TAMER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'jz7odeqku4'], // Fabled Emerald Fatestone -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myField-2'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['fabled-emerald-fatestone-ability-2-pays-its-printed-cost'] = [
+    'testedCards' => ['jz7odeqku4'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'TAMER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'jz7odeqku4'], // Fabled Emerald Fatestone -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:1'), mrdAns(1, 'YES'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['fabled-azurite-fatestone-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['6ce5rzrjd9'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'TAMER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '6ce5rzrjd9'], // Fabled Azurite Fatestone -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['fabled-sapphire-fatestone-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['vzmnt0orxj'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'TAMER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'vzmnt0orxj'], // Fabled Sapphire Fatestone -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['fabled-ruby-fatestone-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['mzf5dmpqbc'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'TAMER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mzf5dmpqbc'], // Fabled Ruby Fatestone -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['servant-s-obligation-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['f4wqesifxk'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nn48ne8a05', 'Counters' => ['_overrides' => ['classes' => 'GUARDIAN'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'f4wqesifxk'], // Servant's Obligation -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['sentinel-fabricator-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['j68m69iq4d'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'GUARDIAN'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'j68m69iq4d'], // Sentinel Fabricator -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['focusing-round-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['7yacwhzzfb'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'RANGER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7yacwhzzfb'], // Focusing Round -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['scarlet-tassel-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['swy2NJ4q6O'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'WARRIOR'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'swy2NJ4q6O'], // Scarlet Tassel -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['humpty-dumpty-fate-s-fall-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['aou4be9z82'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aou4be9z82'], // Humpty Dumpty, Fate's Fall -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'Top=em6eEh9q8y;Bottom='), mrdAns(1, 'PASS')],
+];
+
+$fixtures['humpty-dumpty-fate-s-fall-ability-2-pays-its-printed-cost'] = [
+    'testedCards' => ['aou4be9z82'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aou4be9z82'], // Humpty Dumpty, Fate's Fall -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:1'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['sundering-moon-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['8677jq0hfm'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j', 'Counters' => ['_overrides' => ['classes' => 'WARRIOR'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '8677jq0hfm'], // Sundering Moon -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myField-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['signaltech-one-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['7wKegim9Yl'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'RANGER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7wKegim9Yl'], // SignalTech One -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAns(1, 'Top=em6eEh9q8y,em6eEh9q8y,px60u5n1do,em6eEh9q8y;Bottom='), mrdAns(1, 'YES'), mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['vel-ocity-punch-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['rZSnsLUzEd'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'WARRIOR'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'rZSnsLUzEd'], // Vel-ocity Punch -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['delicious-pastry-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['tCTH0Bpfr5'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'tCTH0Bpfr5'], // Delicious Pastry -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['delicious-pastry-ability-2-pays-its-printed-cost'] = [
+    'testedCards' => ['tCTH0Bpfr5'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'tCTH0Bpfr5'], // Delicious Pastry -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:1'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myField-1'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['exquisite-dessert-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['5HPvGPjsD9'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5HPvGPjsD9'], // Exquisite Dessert -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['exquisite-dessert-ability-2-pays-its-printed-cost'] = [
+    'testedCards' => ['5HPvGPjsD9'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5HPvGPjsD9'], // Exquisite Dessert -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:1'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myField-1'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['battery-core-x-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['oqhB00zhaD'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'WARRIOR'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'oqhB00zhaD'], // Battery Core X -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myField-1'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['the-duchess-s-thornes-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['bEXmm4rKOs'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'bEXmm4rKOs'], // The Duchess's Thornes -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['chime-of-endless-dreams-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['6VOzmfit0I'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '6VOzmfit0I'], // Chime of Endless Dreams -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['slate-whetstone-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['a8a0v4njrt'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'WARRIOR'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'a8a0v4njrt'], // Slate Whetstone -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['equinox-hour-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['UE6g95C1nZ'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'UE6g95C1nZ'], // Equinox Hour -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS'), mrdAns(2, 'YES')],
+];
+
+$fixtures['seed-of-empowerment-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['XbYtI0XtVH'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'XbYtI0XtVH'], // Seed of Empowerment -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['orb-of-regret-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['BY0E8si926'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'BY0E8si926'], // Orb of Regret -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['spellward-scepter-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['f6lxizyuml'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'f6lxizyuml'], // Spellward Scepter -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['necklace-of-hindsight-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['21g6ldxwrv'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '21g6ldxwrv'], // Necklace of Hindsight -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'Top=em6eEh9q8y,em6eEh9q8y,px60u5n1do,px60u5n1do;Bottom='), mrdAns(1, 'PASS')],
+];
+
+$fixtures['bauble-of-scarcity-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['24ansclpqc'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '24ansclpqc'], // Bauble of Scarcity -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS'), mrdAns(2, 'myHand-0')],
+];
+
+$fixtures['channeltech-charm-s-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['rR2j9dQRDH'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC,MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'rR2j9dQRDH'], // ChannelTech Charm S -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['beastbond-claws-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['qmj9q5gmsp'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'TAMER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'qmj9q5gmsp'], // Beastbond Claws -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myField-2'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['extinguishing-synchron-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['Tx8noEw78s'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Tx8noEw78s'], // Extinguishing Synchron -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['seed-of-nature-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['ybdj1Db9jz'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'TAMER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ybdj1Db9jz'], // Seed of Nature -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['band-of-burning-verdict-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['7mmve2l328'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'TAMER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7mmve2l328'], // Band of Burning Verdict -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myField-3'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['resonantech-module-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['qalnrTTPal'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'qalnrTTPal'], // ResonanTech Module -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'Top=em6eEh9q8y;Bottom='), mrdAns(1, 'PASS')],
+];
+
+$fixtures['endura-scepter-of-ignition-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['SGsDKB9CN5'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'SGsDKB9CN5'], // Endura, Scepter of Ignition -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myField-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['myopic-lens-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['dZ30oXwi3l'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dZ30oXwi3l'], // Myopic Lens -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myField-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['revoker-bell-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['YGNgrHBAh2'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'YGNgrHBAh2'], // Revoker Bell -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myGraveyard-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['flametech-manual-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['WZJxZMBAir'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'WZJxZMBAir'], // FlameTech Manual -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myGraveyard-0'), mrdAns(1, 'myField-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['ventus-staff-of-zephyrs-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['5av43ehjdu'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5av43ehjdu'], // Ventus, Staff of Zephyrs -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['ventus-staff-of-zephyrs-ability-2-pays-its-printed-cost'] = [
+    'testedCards' => ['5av43ehjdu'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5av43ehjdu'], // Ventus, Staff of Zephyrs -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:1'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['aquatech-blade-x-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['WI5oMtzP3W'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'WARRIOR'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'WI5oMtzP3W'], // AquaTech Blade X -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myGraveyard-1'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['plated-bullet-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['l75tlzsmw3'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'RANGER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'l75tlzsmw3'], // Plated Bullet -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['prototype-staff-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['8c9htu9agw'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '8c9htu9agw'], // Prototype Staff -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['cooktech-mixer-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['yZBIpXIDIo'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'yZBIpXIDIo'], // CookTech Mixer -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['cooktech-mixer-ability-2-pays-its-printed-cost'] = [
+    'testedCards' => ['yZBIpXIDIo'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'yZBIpXIDIo'], // CookTech Mixer -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:1'), mrdAns(1, 'myField-3'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['revitalizer-x-ultra-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['GKeIgWKSUi'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'GKeIgWKSUi'], // Revitalizer X Ultra -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['rapid-deployment-nexus-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['AGXBh74UEp'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'GUARDIAN'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'AGXBh74UEp'], // Rapid Deployment Nexus -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['golden-measure-patisserie-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['Bq2kynKJvx'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Bq2kynKJvx'], // Golden Measure Patisserie -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['bise-blade-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['aZzm2GEWEu'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nn48ne8a05', 'Counters' => ['_overrides' => ['classes' => 'GUARDIAN'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aZzm2GEWEu'], // Bise Blade -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['sordelle-unmoored-exception-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['ROjhG3L1iy'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ROjhG3L1iy'], // Sordelle, Unmoored Exception -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myField-2'), mrdAns(1, 'Bottom=em6eEh9q8y,em6eEh9q8y,px60u5n1do,em6eEh9q8y,em6eEh9q8y,px60u5n1do'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['cellwarden-droid-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['EB5sNiPNvA'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'TAMER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'EB5sNiPNvA'], // Cellwarden Droid -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['throne-sentinel-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['RP37sLrsxr'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'GUARDIAN'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'RP37sLrsxr'], // Throne Sentinel -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['revealing-mesmer-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['l7pnn9jw7c'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'l7pnn9jw7c'], // Revealing Mesmer -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['revealing-mesmer-ability-2-pays-its-printed-cost'] = [
+    'testedCards' => ['l7pnn9jw7c'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'l7pnn9jw7c'], // Revealing Mesmer -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:1'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['bifurcating-fractal-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['MiIBTi1hju'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC,MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'MiIBTi1hju'], // Bifurcating Fractal -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['radiant-origin-of-ranger-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['tp7eVOsAHU'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'RANGER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'tp7eVOsAHU'], // Radiant Origin of Ranger -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2, 'Counters' => ['training' => 6]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['radiant-origin-of-guardian-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['yT32RI6pqt'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'GUARDIAN'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'yT32RI6pqt'], // Radiant Origin of Guardian -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2, 'Counters' => ['training' => 5]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['radiant-origin-of-mage-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['dOPqsWYMCQ'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dOPqsWYMCQ'], // Radiant Origin of Mage -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2, 'Counters' => ['training' => 6]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['radiant-origin-of-tamer-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['zS0TJ97QSV'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'TAMER'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zS0TJ97QSV'], // Radiant Origin of Tamer -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2, 'Counters' => ['training' => 7]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['where-futures-stir-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['jmaPje9XgG'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'jmaPje9XgG'], // Where Futures Stir -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2, 'Counters' => ['training' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['avatar-of-suzaku-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['jjGLZKfRn5'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'MAGE'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'jjGLZKfRn5'], // Avatar of Suzaku -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+$fixtures['avatar-of-genbu-ability-1-pays-its-printed-cost'] = [
+    'testedCards' => ['67CIhG8hmG'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'GUARDIAN'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '67CIhG8hmG'], // Avatar of Genbu -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'qzzadf9q1v'], // allies and a Powercell
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // an opposing ally
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3oda2ha4dk'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // fire, floating-memory and water cards
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aqlbuznsz4'], ['player' => 1, 'zone' => 'myField', 'cardID' => '9ggfiy38t2'], // a Bow weapon and a non-Human Slime ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // reserve fuel
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'PASS')],
+];
+
+// Golden Measure Patisserie (Bq2kynKJvx): "On Enter: Put a buff counter on target ally." With no ally on either field the enter ability queued an MZCHOOSE with an empty option list and the engine died with
+// "count(): Argument #1 must be of type Countable|array, null given" (MZZoneCount('')). Core/DecisionQueueController now treats an empty option list as zero choices.
+$fixtures['golden-measure-patisserie-enter-with-no-allies-does-not-crash'] = [
+    'testedCards' => ['Bq2kynKJvx'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaHand('Bq2kynKJvx'), // Golden Measure Patisserie (unique domain) -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3)),
 ];
 
 // Filter if --fixture specified
