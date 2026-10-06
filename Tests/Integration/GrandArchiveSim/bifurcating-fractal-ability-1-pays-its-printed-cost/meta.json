@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "Bifurcating Fractal ability 1 never paid its printed activation cost (it ran free and could be repeated).",
         "affectedFunction": "GAFieldAbilityCostTable / ActivatedAbilityCost",
-        "fixCommit": "TBD"
+        "fixCommit": "ca67093b"
     }
 }

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-05T22:15:16+00:00",
+    "generatedAt": "2026-10-06T03:59:46+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 801,
+        "cardsWithExistingFixtures": 842,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1685,
+        "cardsNeedingSemanticCoverage": 1642,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -425,39 +425,6 @@
             "priority": 111
         },
         {
-            "cardId": "yZBIpXIDIo",
-            "name": "CookTech Mixer",
-            "type": "ITEM",
-            "abilityCount": 4,
-            "listenerCount": 1,
-            "mechanics": [
-                "cost",
-                "damage",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 51
-        },
-        {
-            "cardId": "qalnrTTPal",
-            "name": "ResonanTech Module",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 4,
-            "listenerCount": 1,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 50
-        },
-        {
             "cardId": "t0240ykvj0",
             "name": "Rescue the Heir",
             "type": "ACTION",
@@ -476,25 +443,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 44
-        },
-        {
-            "cardId": "5HPvGPjsD9",
-            "name": "Exquisite Dessert",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "recover",
-                "counter"
-            ],
-            "existingFixtures": [
-                "exquisite-dessert-materialize"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 43
         },
         {
             "cardId": "oye74ibwo8",
@@ -552,25 +500,6 @@
             "priority": 35
         },
         {
-            "cardId": "Bq2kynKJvx",
-            "name": "Golden Measure Patisserie",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "counter",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 35
-        },
-        {
             "cardId": "p2n1953som",
             "name": "Spirelle, Schwartz Queen",
             "type": "UNIQUE,ALLY",
@@ -611,45 +540,6 @@
             "priority": 35
         },
         {
-            "cardId": "WZJxZMBAir",
-            "name": "FlameTech Manual",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [
-                "flametech-manual-cascade",
-                "flametech-manual-cascade-activate"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 34
-        },
-        {
-            "cardId": "h1njd7z5j3",
-            "name": "Nefarious Timepiece",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 34
-        },
-        {
             "cardId": "w0y6isxy5l",
             "name": "Synthetic Core",
             "type": "REGALIA,ITEM",
@@ -668,23 +558,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 34
-        },
-        {
-            "cardId": "aZzm2GEWEu",
-            "name": "Bise Blade",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 33
         },
         {
             "cardId": "CIU4gT14EE",
@@ -1341,26 +1214,6 @@
             "priority": 25
         },
         {
-            "cardId": "8677jq0hfm",
-            "name": "Sundering Moon",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "tQTQqCnaZU",
             "name": "Triumphant Mechanic",
             "type": "ALLY",
@@ -1426,24 +1279,6 @@
                 "zone-movement",
                 "token",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "WI5oMtzP3W",
-            "name": "AquaTech Blade X",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1769,24 +1604,6 @@
                 "zone-movement",
                 "status",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "7yacwhzzfb",
-            "name": "Focusing Round",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2299,24 +2116,6 @@
             "priority": 24
         },
         {
-            "cardId": "Y8s7XGHqHk",
-            "name": "Wind Surge Emitter",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "hreqhj1trn",
             "name": "Windpiercer",
             "type": "REGALIA,ITEM",
@@ -2558,40 +2357,6 @@
             "priority": 23
         },
         {
-            "cardId": "EB5sNiPNvA",
-            "name": "Cellwarden Droid",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "rR2j9dQRDH",
-            "name": "ChannelTech Charm S",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "ygqehvpblj",
             "name": "Cloudstone Orb",
             "type": "REGALIA,ITEM",
@@ -2618,23 +2383,6 @@
                 "targeting",
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "tCTH0Bpfr5",
-            "name": "Delicious Pastry",
-            "type": "TOKEN,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "recover",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3255,23 +3003,6 @@
             "priority": 23
         },
         {
-            "cardId": "7wKegim9Yl",
-            "name": "SignalTech One",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "AJeuUDTPmV",
             "name": "Slime Party",
             "type": "ACTION",
@@ -3281,23 +3012,6 @@
                 "cost",
                 "counter",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "ROjhG3L1iy",
-            "name": "Sordelle, Unmoored Exception",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "token",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3374,23 +3088,6 @@
             "priority": 23
         },
         {
-            "cardId": "bEXmm4rKOs",
-            "name": "The Duchess's Thornes",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "xw9w6y7vtz",
             "name": "Think Deep",
             "type": "ACTION",
@@ -3399,23 +3096,6 @@
             "mechanics": [
                 "cost",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "RP37sLrsxr",
-            "name": "Throne Sentinel",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -3450,23 +3130,6 @@
             "mechanics": [
                 "draw-discard",
                 "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "5av43ehjdu",
-            "name": "Ventus, Staff of Zephyrs",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
                 "trigger"
             ],
             "existingFixtures": [],
@@ -4172,21 +3835,6 @@
             "priority": 21
         },
         {
-            "cardId": "aou4be9z82",
-            "name": "Humpty Dumpty, Fate's Fall",
-            "type": "UNIQUE,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 21
-        },
-        {
             "cardId": "ymuarq5tv0",
             "name": "Mortal Ambition",
             "type": "ACTION",
@@ -4226,21 +3874,6 @@
                 "counter",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 21
-        },
-        {
-            "cardId": "l7pnn9jw7c",
-            "name": "Revealing Mesmer",
-            "type": "PHANTASIA",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6386,26 +6019,6 @@
             "priority": 15
         },
         {
-            "cardId": "e5o3cm9lbe",
-            "name": "Scepter of Lumina",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "wjbqjdmthh",
             "name": "Scorching Trap",
             "type": "ACTION",
@@ -7687,24 +7300,6 @@
             "priority": 14
         },
         {
-            "cardId": "oqhB00zhaD",
-            "name": "Battery Core X",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "44vm5kt3q2",
             "name": "Battlefield Spotter",
             "type": "ALLY",
@@ -8777,24 +8372,6 @@
                 "draw-discard",
                 "status",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "Tx8noEw78s",
-            "name": "Extinguishing Synchron",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12925,23 +12502,6 @@
             "priority": 13
         },
         {
-            "cardId": "jjGLZKfRn5",
-            "name": "Avatar of Suzaku",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "62lVDTOToR",
             "name": "Baby Silver Slime",
             "type": "ALLY",
@@ -12993,23 +12553,6 @@
             "priority": 13
         },
         {
-            "cardId": "qmj9q5gmsp",
-            "name": "Beastbond Claws",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "pwakb1k0zi",
             "name": "Bedivere, Woodland Overseer",
             "type": "UNIQUE,ALLY",
@@ -13052,23 +12595,6 @@
             "mechanics": [
                 "cost",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "MiIBTi1hju",
-            "name": "Bifurcating Fractal",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "token",
                 "condition"
             ],
             "existingFixtures": [],
@@ -16155,23 +15681,6 @@
             "priority": 13
         },
         {
-            "cardId": "21g6ldxwrv",
-            "name": "Necklace of Hindsight",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "jwsl7dedg6",
             "name": "Neos Elemental",
             "type": "ALLY",
@@ -17447,23 +16956,6 @@
             "priority": 13
         },
         {
-            "cardId": "f4wqesifxk",
-            "name": "Servant's Obligation",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "0d93t7bfwc",
             "name": "Servile Possessions",
             "type": "MASTERY",
@@ -18637,23 +18129,6 @@
             "priority": 13
         },
         {
-            "cardId": "jmaPje9XgG",
-            "name": "Where Futures Stir",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "5swaf8urrq",
             "name": "Whirlwind Vizier",
             "type": "ALLY",
@@ -19458,22 +18933,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "67CIhG8hmG",
-            "name": "Avatar of Genbu",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -21611,22 +21070,6 @@
             "priority": 12
         },
         {
-            "cardId": "znavmjiefw",
-            "name": "Intwined Bangle",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "u2Peefob8w",
             "name": "Ionized Asceticism",
             "type": "ACTION",
@@ -22907,22 +22350,6 @@
             "priority": 12
         },
         {
-            "cardId": "AGXBh74UEp",
-            "name": "Rapid Deployment Nexus",
-            "type": "DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "ypwc8tuhuy",
             "name": "Rapid Reload",
             "type": "ACTION",
@@ -23067,38 +22494,6 @@
             "priority": 12
         },
         {
-            "cardId": "GKeIgWKSUi",
-            "name": "Revitalizer X Ultra",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "YGNgrHBAh2",
-            "name": "Revoker Bell",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "KgjL9uCqm6",
             "name": "Rhesus Eradication",
             "type": "ACTION",
@@ -23211,22 +22606,6 @@
             "priority": 12
         },
         {
-            "cardId": "swy2NJ4q6O",
-            "name": "Scarlet Tassel",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "AiijXxCapd",
             "name": "Scientific Discoveries",
             "type": "ACTION",
@@ -23315,22 +22694,6 @@
             "mechanics": [
                 "targeting",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "XbYtI0XtVH",
-            "name": "Seed of Empowerment",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -23571,22 +22934,6 @@
             "mechanics": [
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "f6lxizyuml",
-            "name": "Spellward Scepter",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -24475,22 +23822,6 @@
             "priority": 12
         },
         {
-            "cardId": "rZSnsLUzEd",
-            "name": "Vel-ocity Punch",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "S84TY03uxj",
             "name": "VelTech Presidential Card",
             "type": "REGALIA,ITEM",
@@ -25218,21 +24549,6 @@
             "priority": 11
         },
         {
-            "cardId": "24ansclpqc",
-            "name": "Bauble of Scarcity",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "8qW1koLOK6",
             "name": "Beseech the Winds",
             "type": "ACTION",
@@ -25525,21 +24841,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "6VOzmfit0I",
-            "name": "Chime of Endless Dreams",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -26613,21 +25914,6 @@
             "priority": 11
         },
         {
-            "cardId": "gyk90s0hst",
-            "name": "Gossamer Staff",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "MTm7r2KOSS",
             "name": "GustTech Shield",
             "type": "ITEM",
@@ -27385,21 +26671,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "dZ30oXwi3l",
-            "name": "Myopic Lens",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -28592,11 +27863,13 @@
                 "condition"
             ],
             "existingFixtures": [
+                "band-of-burning-verdict-ability-1-pays-its-printed-cost",
                 "band-of-burning-verdict-enter-draw",
                 "band-of-burning-verdict-play-without-tamer-bonus",
                 "band-of-burning-verdict-rest-buff-requires-activation"
             ],
             "semanticFixtures": [
+                "band-of-burning-verdict-ability-1-pays-its-printed-cost",
                 "band-of-burning-verdict-enter-draw",
                 "band-of-burning-verdict-play-without-tamer-bonus",
                 "band-of-burning-verdict-rest-buff-requires-activation"
@@ -30420,9 +29693,11 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "seed-of-nature-ability-1-pays-its-printed-cost",
                 "seed-of-nature-enter-level-buff"
             ],
             "semanticFixtures": [
+                "seed-of-nature-ability-1-pays-its-printed-cost",
                 "seed-of-nature-enter-level-buff"
             ],
             "starterDecks": [
@@ -31532,10 +30807,12 @@
                 "condition"
             ],
             "existingFixtures": [
+                "fabled-azurite-fatestone-ability-1-pays-its-printed-cost",
                 "fabled-azurite-fatestone-existing-spellshroud-still-blocks-spells",
                 "fabled-azurite-fatestone-rest-transform-10-quest"
             ],
             "semanticFixtures": [
+                "fabled-azurite-fatestone-ability-1-pays-its-printed-cost",
                 "fabled-azurite-fatestone-existing-spellshroud-still-blocks-spells",
                 "fabled-azurite-fatestone-rest-transform-10-quest"
             ],
@@ -33503,9 +32780,11 @@
                 "zone-movement"
             ],
             "existingFixtures": [
+                "equinox-hour-ability-1-pays-its-printed-cost",
                 "equinox-hour-banish-draw"
             ],
             "semanticFixtures": [
+                "equinox-hour-ability-1-pays-its-printed-cost",
                 "equinox-hour-banish-draw"
             ],
             "starterDecks": [
@@ -34427,9 +33706,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "plated-bullet-ability-1-pays-its-printed-cost",
                 "plated-bullet-rest-load-shadows-twin-power"
             ],
             "semanticFixtures": [
+                "plated-bullet-ability-1-pays-its-printed-cost",
                 "plated-bullet-rest-load-shadows-twin-power"
             ],
             "starterDecks": [
@@ -36084,9 +35365,11 @@
                 "counter"
             ],
             "existingFixtures": [
+                "endura-scepter-of-ignition-ability-1-pays-its-printed-cost",
                 "endura-scepter-rest-damage"
             ],
             "semanticFixtures": [
+                "endura-scepter-of-ignition-ability-1-pays-its-printed-cost",
                 "endura-scepter-rest-damage"
             ],
             "starterDecks": [
@@ -37306,9 +36589,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "prototype-staff-ability-1-pays-its-printed-cost",
                 "prototype-staff-rest-bottom-draw"
             ],
             "semanticFixtures": [
+                "prototype-staff-ability-1-pays-its-printed-cost",
                 "prototype-staff-rest-bottom-draw"
             ],
             "starterDecks": [
@@ -37729,9 +37014,11 @@
                 "zone-movement"
             ],
             "existingFixtures": [
+                "slate-whetstone-ability-1-pays-its-printed-cost",
                 "slate-whetstone-banish-polearm-power-draw"
             ],
             "semanticFixtures": [
+                "slate-whetstone-ability-1-pays-its-printed-cost",
                 "slate-whetstone-banish-polearm-power-draw"
             ],
             "starterDecks": [
@@ -40753,9 +40040,11 @@
                 "token"
             ],
             "existingFixtures": [
+                "sentinel-fabricator-ability-1-pays-its-printed-cost",
                 "sentinel-fabricator-summon-buffed-drone"
             ],
             "semanticFixtures": [
+                "sentinel-fabricator-ability-1-pays-its-printed-cost",
                 "sentinel-fabricator-summon-buffed-drone"
             ],
             "starterDecks": [
@@ -43072,6 +42361,74 @@
             "priority": 131
         },
         {
+            "cardId": "yZBIpXIDIo",
+            "name": "CookTech Mixer",
+            "type": "ITEM",
+            "abilityCount": 4,
+            "listenerCount": 1,
+            "mechanics": [
+                "cost",
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "cooktech-mixer-ability-1-pays-its-printed-cost",
+                "cooktech-mixer-ability-2-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "cooktech-mixer-ability-1-pays-its-printed-cost",
+                "cooktech-mixer-ability-2-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 71
+        },
+        {
+            "cardId": "qalnrTTPal",
+            "name": "ResonanTech Module",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 4,
+            "listenerCount": 1,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "resonantech-module-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "resonantech-module-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 70
+        },
+        {
+            "cardId": "Bq2kynKJvx",
+            "name": "Golden Measure Patisserie",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "counter",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "golden-measure-patisserie-ability-1-pays-its-printed-cost",
+                "golden-measure-patisserie-enter-with-no-allies-does-not-crash"
+            ],
+            "semanticFixtures": [
+                "golden-measure-patisserie-ability-1-pays-its-printed-cost",
+                "golden-measure-patisserie-enter-with-no-allies-does-not-crash"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 55
+        },
+        {
             "cardId": "jz7odeqku4",
             "name": "Fabled Emerald Fatestone",
             "type": "REGALIA,ITEM",
@@ -43084,14 +42441,61 @@
                 "condition"
             ],
             "existingFixtures": [
+                "fabled-emerald-fatestone-ability-1-pays-its-printed-cost",
+                "fabled-emerald-fatestone-ability-2-pays-its-printed-cost",
                 "fabled-emerald-fatestone-printed-spellshroud-spell-cannot-target-it"
             ],
             "semanticFixtures": [
+                "fabled-emerald-fatestone-ability-1-pays-its-printed-cost",
+                "fabled-emerald-fatestone-ability-2-pays-its-printed-cost",
                 "fabled-emerald-fatestone-printed-spellshroud-spell-cannot-target-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 54
+        },
+        {
+            "cardId": "h1njd7z5j3",
+            "name": "Nefarious Timepiece",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "nefarious-timepiece-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "nefarious-timepiece-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 54
+        },
+        {
+            "cardId": "aZzm2GEWEu",
+            "name": "Bise Blade",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "bise-blade-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "bise-blade-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 53
         },
         {
             "cardId": "2ha4dk88zq",
@@ -43236,6 +42640,52 @@
             "priority": 45
         },
         {
+            "cardId": "8677jq0hfm",
+            "name": "Sundering Moon",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sundering-moon-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "sundering-moon-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "WI5oMtzP3W",
+            "name": "AquaTech Blade X",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "aquatech-blade-x-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "aquatech-blade-x-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "e3aebjvwbc",
             "name": "Astral Seal",
             "type": "ACTION",
@@ -43340,10 +42790,34 @@
                 "condition"
             ],
             "existingFixtures": [
+                "fabled-sapphire-fatestone-ability-1-pays-its-printed-cost",
                 "fabled-sapphire-fatestone-printed-spellshroud-spell-cannot-target-it"
             ],
             "semanticFixtures": [
+                "fabled-sapphire-fatestone-ability-1-pays-its-printed-cost",
                 "fabled-sapphire-fatestone-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "7yacwhzzfb",
+            "name": "Focusing Round",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "focusing-round-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "focusing-round-ability-1-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43634,6 +43108,28 @@
             "priority": 44
         },
         {
+            "cardId": "Y8s7XGHqHk",
+            "name": "Wind Surge Emitter",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wind-surge-emitter-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "wind-surge-emitter-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "u817uqlk1j",
             "name": "Annul Spell",
             "type": "ACTION",
@@ -43697,6 +43193,71 @@
             "priority": 43
         },
         {
+            "cardId": "EB5sNiPNvA",
+            "name": "Cellwarden Droid",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "token"
+            ],
+            "existingFixtures": [
+                "cellwarden-droid-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "cellwarden-droid-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "rR2j9dQRDH",
+            "name": "ChannelTech Charm S",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "channeltech-charm-s-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "channeltech-charm-s-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "tCTH0Bpfr5",
+            "name": "Delicious Pastry",
+            "type": "TOKEN,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "recover",
+                "counter"
+            ],
+            "existingFixtures": [
+                "delicious-pastry-ability-1-pays-its-printed-cost",
+                "delicious-pastry-ability-2-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "delicious-pastry-ability-1-pays-its-printed-cost",
+                "delicious-pastry-ability-2-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "TlhsnnRhGK",
             "name": "Dichroic Scorch",
             "type": "ACTION",
@@ -43733,6 +43294,30 @@
             ],
             "semanticFixtures": [
                 "dormant-sacrificial-altar-sacrifice-automaton-and-human-mills-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "5HPvGPjsD9",
+            "name": "Exquisite Dessert",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "recover",
+                "counter"
+            ],
+            "existingFixtures": [
+                "exquisite-dessert-ability-1-pays-its-printed-cost",
+                "exquisite-dessert-ability-2-pays-its-printed-cost",
+                "exquisite-dessert-materialize"
+            ],
+            "semanticFixtures": [
+                "exquisite-dessert-ability-1-pays-its-printed-cost",
+                "exquisite-dessert-ability-2-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43909,6 +43494,113 @@
                 "peer-the-depths-look-four-opponent-banish-one-rest-bottom",
                 "peer-the-depths-not-offered-to-non-turn-player-in-opponents-recollection",
                 "peer-the-depths-player-two-look-four-opponent-banish-one-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "7wKegim9Yl",
+            "name": "SignalTech One",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "signaltech-one-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "signaltech-one-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "ROjhG3L1iy",
+            "name": "Sordelle, Unmoored Exception",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "sordelle-unmoored-exception-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "sordelle-unmoored-exception-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "bEXmm4rKOs",
+            "name": "The Duchess's Thornes",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "the-duchess-s-thornes-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "the-duchess-s-thornes-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "RP37sLrsxr",
+            "name": "Throne Sentinel",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "throne-sentinel-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "throne-sentinel-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "5av43ehjdu",
+            "name": "Ventus, Staff of Zephyrs",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "ventus-staff-of-zephyrs-ability-1-pays-its-printed-cost",
+                "ventus-staff-of-zephyrs-ability-2-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "ventus-staff-of-zephyrs-ability-1-pays-its-printed-cost",
+                "ventus-staff-of-zephyrs-ability-2-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44156,6 +43848,48 @@
             ],
             "semanticFixtures": [
                 "facet-together-decline-second-sacrifice-still-buffs-weapon"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 41
+        },
+        {
+            "cardId": "aou4be9z82",
+            "name": "Humpty Dumpty, Fate's Fall",
+            "type": "UNIQUE,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter"
+            ],
+            "existingFixtures": [
+                "humpty-dumpty-fate-s-fall-ability-1-pays-its-printed-cost",
+                "humpty-dumpty-fate-s-fall-ability-2-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "humpty-dumpty-fate-s-fall-ability-1-pays-its-printed-cost",
+                "humpty-dumpty-fate-s-fall-ability-2-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 41
+        },
+        {
+            "cardId": "l7pnn9jw7c",
+            "name": "Revealing Mesmer",
+            "type": "PHANTASIA",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "revealing-mesmer-ability-1-pays-its-printed-cost",
+                "revealing-mesmer-ability-2-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "revealing-mesmer-ability-1-pays-its-printed-cost",
+                "revealing-mesmer-ability-2-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44550,6 +44284,30 @@
             "priority": 35
         },
         {
+            "cardId": "e5o3cm9lbe",
+            "name": "Scepter of Lumina",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "scepter-of-lumina-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "scepter-of-lumina-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "fcfxhkqda6",
             "name": "Seiryuu, Azure Dragon",
             "type": "ALLY",
@@ -44832,6 +44590,28 @@
             "priority": 34
         },
         {
+            "cardId": "oqhB00zhaD",
+            "name": "Battery Core X",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "battery-core-x-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "battery-core-x-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "vrK16VZ2zU",
             "name": "Burning Aethercharge",
             "type": "ACTION",
@@ -44972,6 +44752,28 @@
             "priority": 34
         },
         {
+            "cardId": "Tx8noEw78s",
+            "name": "Extinguishing Synchron",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "extinguishing-synchron-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "extinguishing-synchron-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "mzf5dmpqbc",
             "name": "Fabled Ruby Fatestone",
             "type": "REGALIA,ITEM",
@@ -44984,9 +44786,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "fabled-ruby-fatestone-ability-1-pays-its-printed-cost",
                 "fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it"
             ],
             "semanticFixtures": [
+                "fabled-ruby-fatestone-ability-1-pays-its-printed-cost",
                 "fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it"
             ],
             "starterDecks": [],
@@ -45010,6 +44814,30 @@
             ],
             "semanticFixtures": [
                 "fiery-swing-decline-second-banish-still-applies-power-bonus"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "WZJxZMBAir",
+            "name": "FlameTech Manual",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "flametech-manual-ability-1-pays-its-printed-cost",
+                "flametech-manual-cascade",
+                "flametech-manual-cascade-activate"
+            ],
+            "semanticFixtures": [
+                "flametech-manual-ability-1-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45268,9 +45096,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "radiant-origin-of-guardian-ability-1-pays-its-printed-cost",
                 "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
             ],
             "semanticFixtures": [
+                "radiant-origin-of-guardian-ability-1-pays-its-printed-cost",
                 "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
             ],
             "starterDecks": [],
@@ -45290,9 +45120,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "radiant-origin-of-ranger-ability-1-pays-its-printed-cost",
                 "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
             ],
             "semanticFixtures": [
+                "radiant-origin-of-ranger-ability-1-pays-its-printed-cost",
                 "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
             ],
             "starterDecks": [],
@@ -45312,9 +45144,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "radiant-origin-of-tamer-ability-1-pays-its-printed-cost",
                 "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
             ],
             "semanticFixtures": [
+                "radiant-origin-of-tamer-ability-1-pays-its-printed-cost",
                 "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
             ],
             "starterDecks": [],
@@ -45615,6 +45449,48 @@
             "priority": 33
         },
         {
+            "cardId": "jjGLZKfRn5",
+            "name": "Avatar of Suzaku",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "avatar-of-suzaku-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "avatar-of-suzaku-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "qmj9q5gmsp",
+            "name": "Beastbond Claws",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "beastbond-claws-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "beastbond-claws-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "clgolelsra",
             "name": "Bellona's Runestone",
             "type": "REGALIA,ITEM",
@@ -45653,6 +45529,27 @@
             "semanticFixtures": [
                 "bertha-look-five-decline-free-activation-all-five-bottom",
                 "ignore-cost-free-activation-with-empty-hand-is-not-refused"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "MiIBTi1hju",
+            "name": "Bifurcating Fractal",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bifurcating-fractal-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "bifurcating-fractal-ability-1-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45977,6 +45874,27 @@
             "priority": 33
         },
         {
+            "cardId": "21g6ldxwrv",
+            "name": "Necklace of Hindsight",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "necklace-of-hindsight-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "necklace-of-hindsight-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "29lqrve8fz",
             "name": "Nico, Rapture's Embrace",
             "type": "CHAMPION",
@@ -46124,9 +46042,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "radiant-origin-of-mage-ability-1-pays-its-printed-cost",
                 "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
             ],
             "semanticFixtures": [
+                "radiant-origin-of-mage-ability-1-pays-its-printed-cost",
                 "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
             ],
             "starterDecks": [],
@@ -46233,6 +46153,27 @@
             ],
             "semanticFixtures": [
                 "salamanders-breath-decline-second-banish-still-applies-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "f4wqesifxk",
+            "name": "Servant's Obligation",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "servant-s-obligation-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "servant-s-obligation-ability-1-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46373,6 +46314,27 @@
             "priority": 33
         },
         {
+            "cardId": "jmaPje9XgG",
+            "name": "Where Futures Stir",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "where-futures-stir-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "where-futures-stir-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "p7nkdqnzzg",
             "name": "Whirlwind Threads",
             "type": "ACTION",
@@ -46420,6 +46382,26 @@
                 "ashen-riffle-reveal-four-deep-suited-offered",
                 "ashen-riffle-reveal-four-three-eligible-banish-capped-at-two",
                 "ashen-riffle-small-deck-decline-returns-all-four-revealed-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "67CIhG8hmG",
+            "name": "Avatar of Genbu",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "avatar-of-genbu-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "avatar-of-genbu-ability-1-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46612,6 +46594,26 @@
             "priority": 32
         },
         {
+            "cardId": "znavmjiefw",
+            "name": "Intwined Bangle",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter"
+            ],
+            "existingFixtures": [
+                "intwined-bangle-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "intwined-bangle-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "k02kvfblwa",
             "name": "Kind Beastcaller",
             "type": "ALLY",
@@ -46708,9 +46710,11 @@
                 "zone-movement"
             ],
             "existingFixtures": [
+                "orb-of-regret-ability-1-pays-its-printed-cost",
                 "orb-of-regret-decline-still-draws"
             ],
             "semanticFixtures": [
+                "orb-of-regret-ability-1-pays-its-printed-cost",
                 "orb-of-regret-decline-still-draws"
             ],
             "starterDecks": [],
@@ -46758,6 +46762,26 @@
             "priority": 32
         },
         {
+            "cardId": "AGXBh74UEp",
+            "name": "Rapid Deployment Nexus",
+            "type": "DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "rapid-deployment-nexus-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "rapid-deployment-nexus-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "KVbuQJyWsU",
             "name": "Regal Inquisition",
             "type": "ACTION",
@@ -46792,6 +46816,46 @@
             ],
             "semanticFixtures": [
                 "reveal-the-hidden-level-1-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "GKeIgWKSUi",
+            "name": "Revitalizer X Ultra",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "revitalizer-x-ultra-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "revitalizer-x-ultra-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "YGNgrHBAh2",
+            "name": "Revoker Bell",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "revoker-bell-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "revoker-bell-ability-1-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46834,6 +46898,46 @@
             "semanticFixtures": [
                 "sacrifice-play-declined-sacrifice-still-pays-reserve-for-base-power",
                 "sacrifice-play-sacrificing-two-chessman-allies-gives-plus-four-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "swy2NJ4q6O",
+            "name": "Scarlet Tassel",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "scarlet-tassel-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "scarlet-tassel-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "XbYtI0XtVH",
+            "name": "Seed of Empowerment",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "seed-of-empowerment-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "seed-of-empowerment-ability-1-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46904,6 +47008,26 @@
             ],
             "semanticFixtures": [
                 "silvie-earths-tune-enter-reveals-until-deep-tera-animal-rest-to-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "f6lxizyuml",
+            "name": "Spellward Scepter",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "spellward-scepter-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "spellward-scepter-ability-1-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47010,6 +47134,26 @@
             "priority": 32
         },
         {
+            "cardId": "rZSnsLUzEd",
+            "name": "Vel-ocity Punch",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "vel-ocity-punch-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "vel-ocity-punch-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "vxzsjRxMIn",
             "name": "ZENA, Echo Weaver",
             "type": "UNIQUE,ALLY",
@@ -47029,6 +47173,25 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 32
+        },
+        {
+            "cardId": "24ansclpqc",
+            "name": "Bauble of Scarcity",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "bauble-of-scarcity-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "bauble-of-scarcity-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
         },
         {
             "cardId": "rKKDhaLJ8w",
@@ -47153,6 +47316,25 @@
             "priority": 31
         },
         {
+            "cardId": "6VOzmfit0I",
+            "name": "Chime of Endless Dreams",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "chime-of-endless-dreams-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "chime-of-endless-dreams-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "TLqUZgBeg7",
             "name": "Divining Streams",
             "type": "ACTION",
@@ -47208,6 +47390,25 @@
             ],
             "semanticFixtures": [
                 "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "gyk90s0hst",
+            "name": "Gossamer Staff",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "gossamer-staff-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "gossamer-staff-ability-1-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47290,6 +47491,25 @@
             ],
             "semanticFixtures": [
                 "mirrored-confrontation-reveal-level-3-champion-draws-into-memory-and-recovers"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "dZ30oXwi3l",
+            "name": "Myopic Lens",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "myopic-lens-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "myopic-lens-ability-1-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

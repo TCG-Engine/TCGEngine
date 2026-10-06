@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **801**
+Cards linked to an existing fixture: **842**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1685**
+Implemented cards still needing semantic coverage: **1642**
 
 ## Mechanic groups
 
@@ -48,20 +48,13 @@ Implemented cards still needing semantic coverage: **1685**
 | Prudent Nock (`0w5bp5nuae`) | ACTION | 1 | draw-discard | Diana, Moonpiercer | — |
 | Sidereal Spellshot (`xwwkxq0vp3`) | ACTION | 1 | unclassified | Diana, Moonpiercer | — |
 | Vigil Rempart (`pc3zpkw43o`) | ALLY | 1 | condition | Ciel, Mirage's Grave | — |
-| CookTech Mixer (`yZBIpXIDIo`) | ITEM | 4 | cost, damage, draw-discard | — | — |
-| ResonanTech Module (`qalnrTTPal`) | REGALIA,ITEM | 4 | cost, condition | — | — |
 | Rescue the Heir (`t0240ykvj0`) | ACTION | 2 | cost, targeting, zone-movement, condition | — | save-the-heir |
-| Exquisite Dessert (`5HPvGPjsD9`) | ITEM | 2 | targeting, recover, counter | — | exquisite-dessert-materialize |
 | Baleful Oblation (`oye74ibwo8`) | ACTION | 2 | cost, damage | — | baleful-oblation-ciel-bonus-and-effect |
 | Incarnate Majesty (`7dl5j4lx6x`) | ACTION | 2 | cost, zone-movement | — | incarnate-majesty-banish-spirit |
 | Cardiac Vessel (`5xjzPh6l2M`) | UNIQUE,PHANTASIA | 3 | cost, damage, draw-discard, trigger, condition | — | — |
-| Golden Measure Patisserie (`Bq2kynKJvx`) | UNIQUE,DOMAIN | 3 | cost, targeting, counter, token, trigger | — | — |
 | Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |
 | Stellarion Shift (`ms2x2v4qe3`) | ACTION | 3 | targeting, damage, prevention, draw-discard, zone-movement, status, condition | — | — |
-| FlameTech Manual (`WZJxZMBAir`) | REGALIA,ITEM | 1 | targeting, damage, draw-discard, zone-movement | — | flametech-manual-cascade, flametech-manual-cascade-activate |
-| Nefarious Timepiece (`h1njd7z5j3`) | REGALIA,ITEM | 3 | cost, targeting, draw-discard, zone-movement | — | — |
 | Synthetic Core (`w0y6isxy5l`) | REGALIA,ITEM | 1 | zone-movement, token, trigger, condition | — | synthetic-core-smoke |
-| Bise Blade (`aZzm2GEWEu`) | REGALIA,WEAPON | 3 | cost, token, trigger | — | — |
 | Escharotomy (`CIU4gT14EE`) | ACTION | 1 | cost, targeting, recover | — | escharotomy-prevents-recover, escharotomy-recover |
 | Fatestone of Progress (`2sn7hlyrkw`) | ITEM | 3 | counter, trigger, condition | — | — |
 | Lesser Boon of Allurement (`JuKoCVIvCG`) | LESSER BOON | 3 | cost, draw-discard, condition | — | — |
@@ -76,3 +69,10 @@ Implemented cards still needing semantic coverage: **1685**
 | Aenean Guttering Flames (`JGQ9LO5DFv`) | PHANTASIA | 2 | cost, damage, draw-discard, trigger, condition | — | — |
 | Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |
 | Cao Cao, Aspirant of Chaos (`d5og6z31q9`) | UNIQUE,ALLY | 2 | cost, damage, zone-movement, status, combat, trigger, condition | — | — |
+| Coiled Fatestone (`ulh4lplwqe`) | ITEM | 2 | damage, draw-discard, counter, trigger, condition | — | — |
+| Combustible Potion (`GPsEkAfDjy`) | ITEM | 2 | cost, targeting, damage, draw-discard, trigger, condition | — | — |
+| Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
+| Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
+| Decaying Reproach (`qXIKFip2t4`) | ACTION | 2 | cost, targeting, damage, recover, draw-discard | — | — |
+| Diffusive Block (`o7eanl1gxr`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
+| Dusklight Communion (`5upufyoz23`) | UNIQUE,PHANTASIA | 2 | cost, targeting, zone-movement, trigger, condition | — | — |

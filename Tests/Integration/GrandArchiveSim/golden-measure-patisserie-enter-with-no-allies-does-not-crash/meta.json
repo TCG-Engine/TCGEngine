@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Entering with no allies on the field crashed the engine (count(null) on an empty MZCHOOSE).",
         "affectedFunction": "DecisionQueueController::MZCountChoices",
-        "fixCommit": "TBD"
+        "fixCommit": "ca67093b"
     }
 }
