@@ -404,6 +404,35 @@ function SWUBotRuleKillFirst(array $ctx): ?array {
     return $best;
 }
 
+// Feature 'wallfirst' (p39) — control vs an aggro leader puts its Sentinel down FIRST in the early rounds. Owner, Krennic (LAW) Blue
+// 2026-10-06: vs aggro the deck stabilises with "Sentinel wall + trades", and the opener is "hold for R2 Sentinel" (R2 Moff Gideon from
+// 3 resources). Traced: with Gideon/Commando in hand going into R2, one was played on R2 in 16 of 38 aggro games — Latts Razzi went first.
+// Rounds 1-4, no friendly Sentinel yet in that arena; only a play the fallback wants (score > 0), so its holds stand.
+const SWU_BOT_WALL_FIRST_ROUNDS = 4;
+function SWUBotRuleWallFirst(array $ctx): ?array {
+    if (!SWUBotFeatureOn('wallfirst') || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || intval(GetTurnNumber()) > SWU_BOT_WALL_FIRST_ROUNDS) return null;
+    $seat = intval($ctx['seat']);
+    if (!SWUBotOpponentIsAggroLeader($seat)) return null;
+    $guarded = [];
+    foreach (SWUBotUnits($seat) as $u) if (!empty($u['sentinel'])) $guarded[$u['arena']] = true;
+    $plays = [];
+    foreach ($ctx['actions'] as $a) {
+        if (SWUBotActionKind($a) !== 'play') continue;
+        $o = _SWUBotHandObject($seat, $a);
+        $cid = $o !== null ? strval($o->CardID) : '';
+        if ($cid !== '' && str_contains(strval(CardType($cid)), 'Unit') && _SWUBotHasPrintedSentinel($cid) && empty($guarded[_SWUBotPlayArena($cid)])) $plays[] = $a;
+    }
+    if (empty($plays)) return null;
+    $sub = array_merge($ctx, ['actions' => $plays]); $sub['_guides'] = _SWUBotGuides($sub);
+    $best = null; $bestScore = 0.0;
+    foreach ($plays as $j => $a) {
+        $sc = SWUBotScoreAction($sub, $a, $j);
+        if ($sc > $bestScore) { $best = $a; $bestScore = $sc; }
+    }
+    return $best;
+}
+
 // PROPOSAL 'blockerfirst' (default OFF) — the loss-mining signature: in games control loses it is 1.4 units behind
 // by round 3 and 2.3 by round 5 (2026-09-19). While behind on bodies, put one down BEFORE attacking; the attack is
 // still available afterwards, the body is not (a removal spell in their turn takes the play away).
@@ -767,6 +796,13 @@ function SWUBotRulePlannedAnswer(array $ctx): ?array {
     $pick = (($ctx['kind'] ?? '') === 'decision' && ($ctx['tooltip'] ?? '') === $step['tooltip'])
         ? _SWUBotFind($ctx, fn($a) => strval($a['cardID'] ?? '') === $step['answer']) : null;
     if ($pick === null) { unset($GLOBALS['SWUBotPlan'][$seat]); return null; }
+    // A step the lookahead could not tell apart ('tied', BotLookahead.php): the fallback chooses among the tied answers,
+    // since the plan's 'answer' is only the first one listed. Game 1647080 gave a Weakness to the bot's own unit that way.
+    $tied = (array)($step['tied'] ?? []);
+    if (count($tied) > 1) {
+        $among = array_values(array_filter($ctx['actions'], fn($a) => in_array(strval($a['cardID'] ?? ''), $tied, true)));
+        if (count($among) > 1) $pick = SWUBotFallbackChoose(['actions' => $among] + $ctx) ?? $pick;
+    }
     $GLOBALS['SWUBotPlan'][$seat] = $plan;
     return $pick;
 }
@@ -1063,6 +1099,7 @@ function SWUBotRulesAfterFilter(): array {
         'initiative-for-wipe'      => 'SWUBotRuleInitiativeForWipe',     // features 'wipeinit' + 'wipedraw' (p36)
         'kill-first'               => 'SWUBotRuleKillFirst',             // proposal 'killfirst'
         'krennic-ramp'             => 'SWUBotRuleKrennicRamp',           // proposal 'krennicramp'
+        'wall-first'               => 'SWUBotRuleWallFirst',             // feature 'wallfirst' (p39)
         'blocker-first'            => 'SWUBotRuleBlockerFirst',          // proposal 'blockerfirst'
         'mg-sentinel'              => 'SWUBotRuleMgSentinel',            // proposal 'mgsentinel' — blockerfirst, corrected
         'free-kill'                => 'SWUBotRuleFreeKill',              // proposal 'freekill' — inert unless "@try-freekill"

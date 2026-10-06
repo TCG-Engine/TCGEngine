@@ -43,7 +43,8 @@ $check(SWUBotFeatureOn('curveplay'), 'with no pin, curveplay is on again');
 
 // ── Final-review fixes (2026-10-06) ───────────────────────────────────────────────────────────────────────────────
 // Review #2: only a prompt that IGNORES an aspect penalty is 'waived'; "for free" is 'free'; a mere discount stays 'paid'.
-$check(_SWUBotPlayPromptRoute('Play_a_card_(ignore_1_of_its_aspect_penalties)') === 'waived', 'the LAW base waiver prompt is waived');
+$check(_SWUBotPlayPromptRoute('Play_a_card_(ignore_1_of_its_aspect_penalties)') === 'waived', 'the LAW base waiver prompt is waived (one battlefield pip)');
+$check(_SWUBotPlayPromptRoute('Play_an_upgrade_(ignoring_its_aspect_penalty)') === 'nopenalty', 'a whole-penalty ignore (A Fine Addition) is nopenalty');
 $check(_SWUBotPlayPromptRoute('Play_a_unit_from_your_discard_pile_for_free') === 'free', 'a for-free prompt is free');
 $check(_SWUBotPlayPromptRoute('Play_a_Capital_Ship_unit_(costs_1_less)') === 'paid', 'a discount prompt still pays its penalty');
 // Review #3: a search is FREE only when it plays within a combined-cost budget (DoTopDeckPlay, "cost:N"); a discounted
@@ -51,6 +52,24 @@ $check(_SWUBotPlayPromptRoute('Play_a_Capital_Ship_unit_(costs_1_less)') === 'pa
 $check(_SWUBotSearchRoute('A,B,C|A,B|cost:5|A:2,B:3|space units|Play|top') === 'free', 'Ackbar (cost budget, Play) is free');
 $check(_SWUBotSearchRoute('A,B,C|A,B|count:1|A:2,B:3|units|Play|top') === 'paid', 'Kelleran Beq (count, Play — 3 less) is paid');
 $check(_SWUBotSearchRoute('A,B,C|A,B|count:1|A:2,B:3|units|Take|top') === 'paid', 'a Take search is paid');
+
+// The Credit planner's waiver (BotFallback _SWUBotCreditPlan) takes ONE battlefield pip, never Heroism/Villainy (owner,
+// 2026-10-06; it was min(2, penalty)). Krennic + Daimyo's Palace provide Command/Villainy/Vigilance; 5 resources, deploy at
+// 7, so the plan can bank up to 2 Credits. Fennec Shand (7, Cunning) is waived to 7 → 1 short → a plan. Luke Skywalker
+// (7, Vigilance/Heroism) keeps his Heroism penalty → 9 → 3 short, past the 2-Credit cap → no plan.
+$krennic = function (string $card) use ($build) { $build(function ($b) use ($card) {
+    $b->MyLeader('LAW_008', false, false, false); $b->MyBase('LAW_020', 0, false); $b->FillResourcesForPlayer(1, 'SOR_095', 5);
+    $b->WithCardInHandForPlayer(1, $card);
+}); };
+$Wsc = SWUBotWeights('softcontrol', 1);
+$krennic('SHD_220');
+$check(SWUAspectPenalty(1, 'SHD_220') === 2 && _SWUBotWaiverDiscount(1, 'SHD_220') === 2, 'premise: Fennec Shand misses one battlefield pip, waivable');
+[, $needF, $reachF] = _SWUBotCreditPlan(1, $Wsc);
+$check($reachF === true && $needF === 1, 'Credit plan: the waiver brings Fennec to 7 → bank 1; got ' . json_encode([$needF, $reachF]));
+$krennic('SOR_051');
+$check(SWUAspectPenalty(1, 'SOR_051') === 2 && _SWUBotWaiverDiscount(1, 'SOR_051') === 0, 'premise: Luke misses only a Heroism pip, not waivable');
+[, $needL, $reachL] = _SWUBotCreditPlan(1, $Wsc);
+$check($reachL === false, 'Credit plan: a Heroism penalty is NOT waived, so Luke at 9 is out of reach; got ' . json_encode([$needL, $reachL]));
 
 // ── curveresource ─────────────────────────────────────────────────────────────────────────────────────────────────
 $check(in_array('curveresource', SWUBotFeatureList(), true) && !in_array('curveresource', SWUBotProposalList(), true), 'curveresource is a shipped FEATURE');

@@ -66,9 +66,10 @@ $check(!_SWUBotBreaksDiscloseReserve(1, 0) && !_SWUBotBreaksDiscloseReserve(1, 1
 
 // D) The resource pick never takes the last discloser.
 // D1 — against an aggro leader (Ahsoka) the control tiers run: Marrok goes to the keep-everything tier 9.
+// The "today" arm also switches off 'wallkeep' (p39): Marrok is a printed Sentinel, which that feature now keeps vs aggro as well.
 $board(['ASH_030', 'LAW_172', 'HMW_159']);
 $tier = function (bool $on) use ($botCtx) {
-    $GLOBALS['SWUBotDisabledFeatures'] = $on ? [] : ['disclosereserve'];
+    $GLOBALS['SWUBotDisabledFeatures'] = $on ? [] : ['disclosereserve', 'wallkeep'];
     $t = _SWUBotResourcing2Tiers($botCtx('softcontrol'), 1, true)[0] ?? null; $GLOBALS['SWUBotDisabledFeatures'] = []; return $t;
 };
 $check($tier(true) === [9, 0.0], 'D1: Marrok is in the keep tier 9; got ' . json_encode($tier(true)));

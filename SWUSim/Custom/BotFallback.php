@@ -101,6 +101,19 @@ function _SWUBotPopKillCredit(array $att, array $def, array $W): float {
     return $best;
 }
 
+// Feature 'shieldtrader' (p37): a cheap unit (non-leader, cost <= 2) while it carries a Shield token is a FIGHTER — JTL_032 Director
+// Krennic's unit. Owner, Krennic Splash 2026-10-06: "while it is shielded … use it to either soften up sentinels, kill weenies, trade
+// shields"; without the Shield, "hit base to chip for 2. then sac it". Traced: shielded, it hit the base in 25 of its 42 attacks.
+const SWU_BOT_BARE_FODDER_DISCOUNT = 0.5;     // without it: below a same-value body, still above a 0-power token (owner: the Spy goes first)
+function _SWUBotShieldTrader(array $v): bool {
+    return SWUBotFeatureOn('shieldtrader') && empty($v['isLeader']) && intval($v['shields']) > 0 && intval($v['cost']) <= 2;
+}
+
+// An ANSWER: a removal or wipe card (tags v3). 'traskreturn' (p39).
+function _SWUBotIsAnswer(string $cid): bool {
+    return $cid !== '' && (bool)array_intersect(SWUBotCardTags($cid), ['removal', 'wipe']);
+}
+
 function SWUBotTargetValue(array $att, ?array $def, array $W): float {
     if ($def === null) return $W['base'] * $att['attackPower'];
     $lossF = _SWUBotLossFactor($att);
@@ -117,9 +130,10 @@ function SWUBotTargetValue(array $att, ?array $def, array $W): float {
             return $W['kill'] * (SWUBotUnitValue($def) + _SWUBotLockFreeKillExtra($def)) + _SWUBotThreatRemoved($att, $def, $W)
                    - $lossF * $W['loss'] * SWUBotUnitValue($att) + $breach();
         case 'bounce':
-            // Guide: pop a Shield with the smallest attacker.
+            // Guide: pop a Shield with the smallest attacker. 'shieldtrader': a Shield for a Shield is priced as the pop is worth.
             if ($def['shields'] > 0 && !$att['saboteur'])
-                return $W['chip'] - 0.05 * $att['attackPower'] + (SWUBotFeatureOn('popkill') ? _SWUBotPopKillCredit($att, $def, $W) : 0.0);
+                return (_SWUBotShieldTrader($att) ? _SWUBotShieldPopValue(intval($att['controller']), $def, $W, true) : $W['chip'])
+                       - 0.05 * $att['attackPower'] + (SWUBotFeatureOn('popkill') ? _SWUBotPopKillCredit($att, $def, $W) : 0.0);
             $dmg = min($att['attackPower'], $def['remaining']);
             return $W['chip'] * $dmg - ($def['grit'] ? $W['grit'] * $dmg : 0.0);   // guide: don't feed Grit
         default: // 'die'
@@ -281,10 +295,13 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         switch (SWUBotActionKind($action)) {
             case 'pass':       return 0.0;
             case 'initiative': return $W['initiative'];
-            case 'deploy':     return $W['deploy'] + (SWUBotFeatureOn('enablers') ? _SWUBotDeployDiscount($seat, $action, $W) : 0.0)
+            case 'deploy':     if (_SWUBotDeployStrikeWaits($seat)) return -0.4;   // 'deploystrike' (p39)
+                               return $W['deploy'] + (SWUBotFeatureOn('enablers') ? _SWUBotDeployDiscount($seat, $action, $W) : 0.0)
                                                   + (SWUBotFeatureOn('pilotdeploy') ? _SWUBotPilotDeployValue($seat, $action, $W) : 0.0)
                                                   + (SWUBotFeatureOn('plotdeploy') ? _SWUBotPlotDeployValue($seat, $W) : 0.0);
-            case 'leader-ability': case 'unit-action': case 'base-epic': return _SWUBotAbilityValue($ctx, $action, $W);
+            case 'leader-ability': if (_SWUBotKeepBodyHolds($seat)) return -0.4;   // 'keepbody' (p40)
+                               return _SWUBotAbilityValue($ctx, $action, $W);
+            case 'unit-action': case 'base-epic': return _SWUBotAbilityValue($ctx, $action, $W);
             case 'attack':
                 $att = SWUBotViewForMz($seat, SWUBotActionMz($action));
                 if ($att === null) return 0.0;
@@ -324,6 +341,8 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 $v = _SWUBotPlayValue($seat, $cid, $W);
                 // Play an enabler BEFORE the unit it improves (feature 'enablerfirst').
                 if (SWUBotFeatureOn('enablerfirst')) $v += _SWUBotEnablerFirstBonus($seat, $action, $cid, $W);
+                // Feature 'discountfirst' (p40): a static cost reducer (the Krennic unit) goes before the card it makes fit.
+                if (SWUBotFeatureOn('discountfirst')) $v += _SWUBotDiscountOrderBonus($seat, $action, $cid);
                 // PROPOSAL 'earlyremoval' (default OFF). _SWUBotPlayValue is TARGET-BLIND — a removal event scores
                 // develop x cost + W['removal'] whether the best target is a 2-drop or a bomb. This gives it a target.
                 // 'threatholdall' (default OFF) lifts the control-wing gate on the shipped p5 hold.
@@ -617,6 +636,18 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         if (SWUBotFeatureOn('force') && stripos($tip, 'Use_the_Force') !== false && preg_match('/-\d+\/-\d+|deal|defeat/i', $tip)
             && empty(array_filter(SWUBotEnemyUnits($seat), fn($v) => !$v['isLeader']))) return $c === 'NO' ? 0.1 : 0.0;
         return $c === 'YES' ? 0.1 : 0.0;
+    }
+    // Feature 'traskreturn' (p39): ASH_133 Trask Walker takes back the best ANSWER and returns it to hand. Owner (Krennic Blue, 2026-10-06):
+    // Trask takes back "Chimaera". Traced: "Bottom + heal 3" 225 of 225 — the discard pick was the first-legal tiebreak (the oldest
+    // card) and the mode lookahead priced the heal as a gain and a card in hand as nothing.
+    if (SWUBotFeatureOn('traskreturn') && $head === 'ASH_133#0' && preg_match('/^myDiscard-(\d+)$/', $c, $dm)) {
+        $cid = strval((GetDiscard($seat)[intval($dm[1])] ?? null)->CardID ?? '');
+        return 1.0 + (_SWUBotIsAnswer($cid) ? 10.0 : 0.0) + 0.1 * intval(CardCost($cid)) - $index * 1e-6;
+    }
+    if (SWUBotFeatureOn('traskreturn') && $type === 'OPTIONCHOOSE' && $head === 'ASH_133#1') {
+        $mz = strval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[1] ?? '');
+        $cid = preg_match('/^myDiscard-(\d+)$/', $mz, $dm) ? strval((GetDiscard($seat)[intval($dm[1])] ?? null)->CardID ?? '') : '';
+        if (_SWUBotIsAnswer($cid)) return $c === 'Return' ? 1.0 : 0.0;
     }
     // A card's own modal choice (its continuation "CARD#n"): judged by what each option does (feature 'modes').
     if ($type === 'OPTIONCHOOSE' && SWUBotFeatureOn('modes') && strval($ctx['param'] ?? '') !== 'Unit&Pilot'
@@ -1060,6 +1091,15 @@ function SWUBotUnusedSacPremium(array $v): float {
 }
 
 function SWUBotSacrificeCost(array $v): float {
+    // 'shieldtrader': a printed-Shielded cheap unit is kept while its Shield is up (priced at its full value); once it is gone, fodder (owner: "then sac it") —
+    // but after a 0-power token ("I'd sac the Spy since it is weaker on defense"). JTL_032's "When Defeated" is only words in its text,
+    // so only a real "When Defeated:" ability earns that discount here.
+    if (SWUBotFeatureOn('shieldtrader') && empty($v['isLeader']) && intval($v['cost']) <= 2 && preg_match('/\bShielded\b/', $text = strval(CardText($v['cardID'])))) {
+        $own = preg_match('/When Defeated:/i', $text) ? _SWUBotSacrificeCostByValue($v) : SWUBotUnitValue($v);
+        if (intval($v['shields']) > 0) return $own;   // its value counts the Shield: above a same-cost body
+        $bare = max(0.0, $own - SWU_BOT_BARE_FODDER_DISCOUNT);
+        return SWUBotFeatureOn('doomedsac') && SWUBotUnitIsDoomed($v) ? min($bare, SWU_BOT_DOOMED_SAC_COST + 0.01 * intval($v['power'])) : $bare;
+    }
     if (SWUBotFeatureOn('doomedsac')) {
         if (!empty($v['isLeader'])) {
             // 2a: Condemned ("loses all abilities") — sending it back restores the leader's front side.
@@ -1215,7 +1255,7 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
     // FEATURE 'curveplay' (p38; spec 2026-10-05-swusim-curve-value-design.md §4.1): the card's curve SURPLUS — what it is worth
     // over what it costs, in resources, from the owner's prices — is ADDED on top of the cost floor and the tag sum (never
     // replacing them: 'unitvalue' measured −50 doing that). An unpriced card adds 0.
-    // $route: 'paid' | 'waived' | 'free' (BotCurveValue.php) | 'nocurve' — a comparison that must not use curve value.
+    // $route: 'paid' | 'waived' | 'nopenalty' | 'free' (BotCurveValue.php) | 'nocurve' — a comparison that must not use curve value.
     if (function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('curveplay') && $route !== 'nocurve') {   // feature p38
         $v += floatval($W['curve'] ?? 0.0) * (SWUBotCurveSurplus($seat, $cid, intval(round($W['horizon'] ?? SWU_CURVE_STATIC_HORIZON)), true, $route) ?? 0.0);
     }
@@ -1265,7 +1305,9 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
     $v += $W['base'] * SWUBotContextSurplus($seat, $cid);
     // Part 23 'bigcredit': a credit-RAMP deck spends a banked Credit only on a big play (owner 2026-10-03, game 1438045:
     // "krennic didn't bank credits. wasted them right away on Onyx Squad Brute").
-    if (SWUBotFeatureOn('bigcredit') && SWUBotCreditSpendFor($seat, $cid) > 0 && SWUBotBanksCredits($seat) && !SWUBotCreditWorthy($cid)) {
+    // Feature 'earlycredits' (p40): R1-3 vs an aggro leader the Credits pay for board — owner 2026-10-06, "Spend by R3, then bank".
+    if (SWUBotFeatureOn('bigcredit') && SWUBotCreditSpendFor($seat, $cid) > 0 && SWUBotBanksCredits($seat) && !SWUBotCreditWorthy($cid)
+        && !(SWUBotFeatureOn('earlycredits') && intval(GetTurnNumber()) <= SWU_BOT_EARLY_CREDIT_ROUNDS && SWUBotOpponentIsAggroLeader($seat))) {
         $v = min($v, -0.5);
     }
     return $v;
@@ -1279,6 +1321,10 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
 // every card its resources pay for.
 // Only a credit-RAMP deck banks: 'credit-ramp' without 'tempo' (BotFlavours.php) — Krennic. Lando's Credits are a
 // tempo engine ('credit-ramp' + 'tempo') and keep being spent.
+// Feature 'earlycredits' (p40) lifts the hold below in rounds 1-3 against an aggro leader. Autopsy 2026-10-06: the bot held 1.0-1.3
+// Credits every round while behind on board (R2: 0.9 units vs the owner's 2.2). Owner: "Spend by R3, then bank". The 2026-10-03 report
+// that started 'bigcredit' was vs HMW_008, not an aggro leader, and stays held.
+const SWU_BOT_EARLY_CREDIT_ROUNDS = 3;
 const SWU_BOT_BIGCREDIT_MIN_COST = 5;
 const SWU_BOT_BIGCREDIT_TAGS = ['removal', 'wipe', 'debuff-all-enemy-units', 'damage-enemy-unit'];
 
@@ -1314,6 +1360,54 @@ function SWUBotCreditWorthy(string $cid): bool {
 // Zero unless an ELIGIBLE payoff is in hand AND still affordable after this card is paid for — an unused grant is
 // worth nothing, and promoting the enabler then would just reorder two plays for no reason. Other benefits
 // ("gains Hidden / Shielded") are deliberately not priced: no number to price them with.
+// Feature 'keepbody' (p40). Rounds 1-3 vs an aggro leader: Krennic's Credit Action ("Action [Exhaust, defeat a friendly unit]: Create a
+// Credit token") does not sacrifice my ONLY unit unless its When Defeated draws. Autopsy 2026-10-06: the bot ended R1 with 0.2 units (a
+// 1-drop, sacrificed at once), the owner with 1.2. Owner ruling: "Sac it if it draws" (Ant Droid, Nightsister); a body without a draw stays.
+const SWU_BOT_KEEP_BODY_ROUNDS = 3;
+function _SWUBotKeepBodyHolds(int $seat): bool {
+    if (!SWUBotFeatureOn('keepbody') || intval(GetTurnNumber()) > SWU_BOT_KEEP_BODY_ROUNDS || !SWUBotOpponentIsAggroLeader($seat)) return false;
+    $leader = GetLeader($seat)[0] ?? null;
+    if ($leader === null || !preg_match('/defeat a friendly unit\]:\s*Create a Credit token/i', strval(CardText(strval($leader->CardID ?? ''))))) return false;
+    $units = array_values(array_filter(SWUBotUnits($seat), fn($v) => empty($v['isLeader'])));
+    return count($units) === 1 && !preg_match('/When Defeated:[^.]*\bdraw\b/i', strval(CardText($units[0]['cardID'])));
+}
+
+// Feature 'discountfirst' (p40). A unit whose STATIC text makes another card cheaper — JTL_032 Director Krennic: "The first unit you
+// play each round that has a 'When Defeated' ability costs 1 less" — is played FIRST when that is the only order in which both fit this
+// round. Autopsy 2026-10-06: holding the Krennic unit + Ant Droid on round 1 (the owner's opener), the bot played only the Ant Droid in
+// 28 of 28 games — Ant Droid first costs 1, and the 2-cost unit no longer fits. 'enablerfirst' reads only a When Played "next unit you
+// play this phase" grant. Judged by the lookahead (the hand's play costs after this play), so the discount's own conditions — which
+// unit, once a round — are the engine's, not a reading of the text.
+const SWU_BOT_DISCOUNT_ORDER_BONUS = 1.0;   // the whole second play this round
+function _SWUBotDiscountOrderBonus(int $seat, array $action, string $cid): float {
+    if (!str_contains(strval(CardType($cid)), 'Unit') || !preg_match('/\bcosts? \d+ (resources? )?less\b/i', strval(CardText($cid)))
+        || preg_match('/next unit you play this phase/i', strval(CardText($cid))) || !function_exists('SWUBotLookahead')) return 0.0;
+    $i = intval(substr(SWUBotActionMz($action), strlen('myHand-')));
+    $self = GetHand($seat)[$i] ?? null;
+    if ($self === null) return 0.0;
+    $cap = SWUTotalPaymentCapacity($seat);
+    $selfCost = intval(SWUComputePlayCost($seat, $self));
+    $left = $cap - $selfCost;
+    $costs = function () use ($seat) {
+        $out = [];
+        foreach (GetHand($seat) as $j => $o) { if ($o !== null && empty($o->removed)) $out[strval($o->CardID ?? '') . '#' . $j] = intval(SWUComputePlayCost($seat, $o)); }
+        return $out;
+    };
+    $before = $costs();
+    $after = SWUBotLookahead($seat, $action, fn() => ['c' => array_values(array_filter(array_map(fn($o) => $o === null || !empty($o->removed) ? null : [strval($o->CardID ?? ''), intval(SWUComputePlayCost($seat, $o))], GetHand($seat))))]);
+    if ($after === null) return 0.0;
+    foreach (GetHand($seat) as $j => $o) {
+        if ($j === $i || $o === null || !empty($o->removed)) continue;
+        $pid = strval($o->CardID ?? '');
+        $was = $before[$pid . '#' . $j] ?? PHP_INT_MAX;
+        $now = PHP_INT_MAX;
+        foreach ($after['c'] as [$c2, $k2]) if ($c2 === $pid) $now = min($now, $k2);
+        // It fits ONLY after this play, and playing it first would leave too little for this one: the order decides a whole play.
+        if ($now < $was && $now <= $left && $cap - $was < $selfCost) return SWU_BOT_DISCOUNT_ORDER_BONUS;
+    }
+    return 0.0;
+}
+
 function _SWUBotEnablerFirstBonus(int $seat, array $action, string $cid, array $W): float {
     $text = strval(CardText($cid));
     // The grant must come from PLAYING this card (When Played). "On Attack" / "When Defeated" versions of the same
@@ -1350,6 +1444,19 @@ function _SWUBotEnablerFirstBonus(int $seat, array $action, string $cid, array $
 // Deploying a leader that makes cards in hand cheaper — Piett: "Each Capital Ship unit you play costs 2 resources
 // less." — comes before hard-casting them (feature 'enablers'). Judged by the lookahead: each hand card's play
 // cost before and after the deploy.
+// Feature 'deploystrike' (p39): a leader whose deploy is "When Deployed: Another friendly unit deals damage equal to its power to an
+// enemy unit" (LAW_008 Director Krennic) waits until that strike KILLS. Owner 2026-10-06 — Krennic Blue: "Deploy when you have another
+// body that can deal big damage to the enemy"; Krennic Splash: "when the When Deployed ping kills". Traced: R6 (7 resources) in 305 of
+// 366 deploys. A Shield absorbs the strike, so a shielded enemy is not a kill.
+const SWU_BOT_DEPLOY_STRIKE_LEADERS = ['LAW_008'];
+function _SWUBotDeployStrikeWaits(int $seat): bool {
+    if (!SWUBotFeatureOn('deploystrike') || !in_array(strval((GetLeader($seat)[0] ?? null)->CardID ?? ''), SWU_BOT_DEPLOY_STRIKE_LEADERS, true)) return false;
+    $power = 0;
+    foreach (SWUBotUnits($seat) as $v) if (!$v['isLeader']) $power = max($power, intval($v['power']));
+    foreach (SWUBotEnemyUnits($seat) as $e) if (intval($e['shields']) === 0 && $power > 0 && $power >= intval($e['remaining'])) return false;
+    return true;
+}
+
 function _SWUBotDeployDiscount(int $seat, array $action, array $W): float {
     if (!function_exists('SWUBotLookahead')) return 0.0;
     $costs = function () use ($seat) {
@@ -1729,10 +1836,12 @@ function _SWUBotBuffSpreadScore(array $ctx, int $seat, string $c): ?float {
 }
 
 // A search's pick ("CardID,CardID"; "" = none): the play value of what it takes, a little more per card.
-// Curve-value route of a "Play_a_…" hand prompt (final review, 2026-10-06): only a prompt that IGNORES an aspect penalty
-// (the LAW base waiver) is 'waived'; "…for free" is 'free'; a discount ("costs 1 less") still pays its penalty — 'paid'.
+// Curve-value route of a "Play_a_…" hand prompt (final review, 2026-10-06): "ignore 1 of its … aspect penalties" (a LAW
+// base) is 'waived' — one battlefield pip; ignoring the whole penalty is 'nopenalty'; "…for free" is 'free'; a discount
+// ("costs 1 less") still pays its penalty — 'paid'.
 function _SWUBotPlayPromptRoute(string $tip): string {
-    if (stripos($tip, 'ignor') !== false && stripos($tip, 'aspect') !== false) return 'waived';
+    if (preg_match('/ignor\w*_1_of_its/i', $tip)) return 'waived';                       // a LAW base: one battlefield pip
+    if (stripos($tip, 'ignor') !== false && stripos($tip, 'aspect') !== false) return 'nopenalty';   // the whole penalty
     if (stripos($tip, 'for_free') !== false || stripos($tip, 'for free') !== false) return 'free';
     return 'paid';
 }
@@ -2116,7 +2225,8 @@ function _SWUBotCreditPlan(int $seat, array $W): array {
             $cid     = strval($o->CardID ?? '');
             $actual  = intval(SWUComputePlayCost($seat, $o));
             $penalty = max(0, $actual - intval(CardCost($cid)));
-            $waived  = $actual - ($waiver ? min(2, $penalty) : 0);   // the waiver removes ONE aspect's penalty
+            // The waiver removes ONE battlefield pip's penalty — never Heroism/Villainy (owner, 2026-10-06; it was min(2, penalty)).
+            $waived  = $actual - ($waiver ? _SWUBotWaiverDiscount($seat, $cid) : 0);
             // Already affordable with what is in hand RIGHT NOW? Then it is not something being banked FOR —
             // without this a 4-drop became its own "plan" and protected the very Credit about to buy it.
             if ($waived <= $res + $banked) continue;
@@ -2237,9 +2347,9 @@ function SWUBotHandKeepValue(int $seat, $obj, array $W): float {
     // than it is. Keep/discard comparisons use curve value only when every card in hand is priced.
     $allPriced = true;
     foreach (GetHand($seat) as $h) if ($h !== null && empty($h->removed) && SWUBotCurveValue($seat, strval($h->CardID ?? '')) === null) { $allPriced = false; break; }
-    // 'waived' when priced: this line already charges the aspect penalty itself (− develop × penalty); a 'paid' curve
+    // 'nopenalty' when priced: this line already charges the aspect penalty itself (− develop × penalty); a 'paid' curve
     // surplus would charge it a second time.
-    return max(0.0, _SWUBotPlayValue($seat, $cid, $W, 'hand', $allPriced ? 'waived' : 'nocurve') - $W['develop'] * $penalty);
+    return max(0.0, _SWUBotPlayValue($seat, $cid, $W, 'hand', $allPriced ? 'nopenalty' : 'nocurve') - $W['develop'] * $penalty);
 }
 
 // The card a discard cost would take: the lowest keep value in hand. NULL for an empty hand.

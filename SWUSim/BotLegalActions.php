@@ -193,6 +193,82 @@ function _SWUBotNameCardPool(array $actions, int $seat): array {
     return array_merge($out, $decline);
 }
 
+// The Param of the live entry queued right behind $seat's pending decision — its continuation ('' when none).
+function _SWUBotNextDecisionParam(int $seat): string {
+    $seenHead = false;
+    foreach (GetDecisionQueue($seat) as $entry) {
+        if ($entry === null || !empty($entry->removed)) continue;
+        if (!$seenHead) { $seenHead = true; continue; }
+        return strval($entry->Param ?? '');
+    }
+    return '';
+}
+
+// Giving a Weakness token (HMW_T02, -1/-1): owner ruling 2026-10-06 — "weakness tokens are considered 'bad' upgrades or
+// 'downgrades'. so you always want to put it on an enemy unit. only if there are no enemy units would you pass on this
+// opportunity to shrink". So when an enemy unit is offered, ONLY enemy units are legal for the bot (no friendly host, no
+// decline); with none, it declines; a MANDATORY give with only friendly hosts is left alone (refusing would stall).
+// A hard constraint here rather than a scorer preference because the scorer is not the only layer that answers: game
+// 1647080's planned-answer rule gave Hemlock's Weakness to the bot's own Anakin while the fallback scored it -1.35.
+// Recognised by the tooltip ("Give…Weakness…" — Hemlock, Torrent's "Give_N_Weakness_tokens…") or the GIVE_WEAKNESS
+// continuation behind it. Multi-picks keep only all-enemy answers.
+function _SWUBotWeaknessEnemyOnly(string $type, string $tooltip, array $actions, int $seat): array {
+    if (!in_array($type, ['MZCHOOSE', 'MZMAYCHOOSE', 'MZMULTICHOOSE'], true) || !function_exists('SWUBotIsEnemyMz')) return $actions;
+    $isGive = (bool)preg_match('/give.*weakness/i', $tooltip) || str_starts_with(_SWUBotNextDecisionParam($seat), 'GIVE_WEAKNESS');
+    if (!$isGive) return $actions;
+    $enemy = []; $decline = [];
+    foreach ($actions as $a) {
+        $c = strval($a['cardID'] ?? '');
+        if ($c === '-' || $c === 'PASS' || $c === '') { $decline[] = $a; continue; }
+        $parts = array_filter(explode('&', $c), fn($m) => $m !== '');
+        $allEnemy = !empty($parts);
+        foreach ($parts as $mz) if (!SWUBotIsEnemyMz($seat, $mz) || !str_contains($mz, 'Arena-')) { $allEnemy = false; break; }
+        if ($allEnemy) $enemy[] = $a;
+    }
+    if (!empty($enemy)) return $enemy;
+    return !empty($decline) ? $decline : $actions;
+}
+
+// The Exploit picker ("Defeat_up_to_N_units_(Exploit)", continuation EXPLOIT_RESOLVE): keep only the answers that
+// leave the play PAYABLE. An Exploit card is offered at its best-case price (CanAffordActivationReserve subtracts 2
+// per available fodder), but the fallback prices every friendly defeat as a loss, so it answered '-' and the play was
+// refused at FULL cost in ActivateCard — "Not enough ready resources (need 8)", written to the shared FlashMessage the
+// human opponent sees (Discord, Twin Suns Arenabots, 2026-10-06). A zero-pick answer skips the resolver's own abort
+// (_SWUResolveExploitPicks only probes when something was picked), so nothing downstream catches it.
+// Priced by the engine's own probe, _SWUPlayIsPayableAtDiscount, with the resolver's optimistic discount (2 per valid
+// pick up to Exploit X, +1 per Droid for SEC_122), so the filter and the resolver cannot disagree. Which payable answer
+// to take (fewest / cheapest bodies) stays with the choosers. If no answer is payable the list is left alone.
+function _SWUBotExploitPayableAnswers(array $actions, int $seat): array {
+    if (!function_exists('_SWUPlayIsPayableAtDiscount') || !function_exists('SWUExploitFodder')) return $actions;
+    $p = explode('|', _SWUBotNextDecisionParam($seat));
+    if (($p[0] ?? '') !== 'EXPLOIT_RESOLVE') return $actions;
+    $handMz = strval($p[1] ?? ''); $maxDefeats = intval($p[3] ?? 0); $playDiscount = intval($p[4] ?? 0);
+    $check = function () use ($actions, $seat, $handMz, $maxDefeats, $playDiscount) {
+        $played = GetZoneObject($handMz);
+        if ($played === null || !empty($played->removed)) return $actions;
+        $isVuutun = ($played->CardID ?? '') === 'SEC_122';
+        $fodder = array_flip(SWUExploitFodder($seat));
+        $out = [];
+        foreach ($actions as $a) {
+            $c = strval($a['cardID'] ?? '');
+            $uids = []; $droids = 0;
+            foreach (($c === '-' || $c === 'PASS') ? [] : explode('&', $c) as $mz) {
+                if ($mz === '' || !isset($fodder[$mz]) || count($uids) >= $maxDefeats) continue;
+                $o = GetZoneObject($mz);
+                if ($o === null || !empty($o->removed)) continue;
+                $uids[] = intval($o->UniqueID ?? 0);
+                if ($isVuutun && HasTrait($o->CardID ?? '', 'Droid')) $droids++;
+            }
+            if (_SWUPlayIsPayableAtDiscount($seat, $handMz, 2 * count($uids) + $droids + $playDiscount, $uids)) $out[] = $a;
+        }
+        return empty($out) ? $actions : $out;
+    };
+    if (function_exists('BridgeWithPlayerPerspective')) return BridgeWithPlayerPerspective($seat, $check);
+    global $playerID;
+    $saved = $playerID; $playerID = $seat;
+    try { return $check(); } finally { $playerID = $saved; }
+}
+
 function SWUBotLegalActions($gameName, $seat) {
     $seat = intval($seat);
     $decisionSeat = SWUBotPendingDecisionSeat();
@@ -209,6 +285,8 @@ function SWUBotLegalActions($gameName, $seat) {
         $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
         $actions = _SWUBotCorrectBridgeAnswers(strval($legal['decisionType'] ?? ''), strval($legal['decisionParam'] ?? ''), $actions, $seat);
         if (strval($legal['decisionType'] ?? '') === 'NAMECARD') $actions = _SWUBotNameCardPool($actions, $seat);
+        if (strval($legal['decisionType'] ?? '') === 'MZMULTICHOOSE') $actions = _SWUBotExploitPayableAnswers($actions, $seat);
+        $actions = _SWUBotWeaknessEnemyOnly(strval($legal['decisionType'] ?? ''), strval($legal['decisionTooltipRaw'] ?? ''), $actions, $seat);
         if (empty($actions)) {
             $front = null;
             foreach (GetDecisionQueue($seat) as $entry) {

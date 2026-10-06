@@ -29,8 +29,10 @@ $sac = function (array $mine, string $variant) use ($build, $act, &$gameName) {
     $v = SWUBotViewForMz(1, strval($p['cardID'] ?? ''));
     return $v['cardID'] ?? '?';
 };
-// A) The traced shape (ka001 / kc010): the Krennic unit listed first, a Spy token second. Today the Krennic unit goes; fixed, the Spy.
-$check($sac(['JTL_032', 'SEC_T01'], '') === 'JTL_032', 'A fixture: the shipped bot sacrifices the Krennic unit over a Spy token');
+// A) The traced shape (ka001 / kc010): the Krennic unit listed first, a Spy token second. Before 'shieldtrader' (p37, shipped; owner:
+// "unshielded krennic vs a Spy, i'd sac the Spy") the Krennic unit went; fixed, the Spy.
+$check($sac(['JTL_032', 'SEC_T01'], 'no-shieldtrader') === 'JTL_032', 'A fixture: without shieldtrader the bot sacrifices the Krennic unit over a Spy token');
+$check($sac(['JTL_032', 'SEC_T01'], '') === 'SEC_T01', 'A: the shipped bot (shieldtrader) sacrifices the Spy token; got ' . $sac(['JTL_032', 'SEC_T01'], ''));
 $check($sac(['JTL_032', 'SEC_T01'], 'try-krennicsac') === 'SEC_T01', 'A: with both proposals the Spy token goes; got ' . $sac(['JTL_032', 'SEC_T01'], 'try-krennicsac'));
 // B) Order does not matter: Spy first, Krennic unit second — still the Spy.
 $check($sac(['SEC_T01', 'JTL_032'], 'try-krennicsac') === 'SEC_T01', 'B: listed second, the Spy still goes');

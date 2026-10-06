@@ -171,7 +171,7 @@ function _SWUBotLookaheadContinue(int $seat, callable $read, callable $score, in
     $answers = array_slice((array)($legal['actions'] ?? []), 0, min(SWU_BOT_LOOKAHEAD_BRANCH, $budget));
     if (($legal['kind'] ?? '') !== 'decision' || empty($answers)) return $leaf();
     $tooltip = strval($legal['decisionTooltip'] ?? '');
-    $best = null;
+    $best = null; $tied = [];
     $n = count($answers);
     foreach ($answers as $i => $a) {
         $share = intdiv($budget - $spent, $n - $i);   // ≥ 1: at most $budget answers, each spending ≤ its share
@@ -181,10 +181,17 @@ function _SWUBotLookaheadContinue(int $seat, callable $read, callable $score, in
         });
         $spent += 1 + $sub;
         if ($r === null) continue;
+        $c = strval($a['cardID'] ?? '');
+        if ($best !== null && abs($r['_score'] - $best['_score']) < 1e-9) { $tied[] = $c; continue; }
         if ($best === null || $r['_score'] > $best['_score']) {
-            $r['_path'] = array_merge([['tooltip' => $tooltip, 'answer' => strval($a['cardID'] ?? '')]], $r['_path']);
-            $best = $r;
+            $r['_path'] = array_merge([['tooltip' => $tooltip, 'answer' => $c]], $r['_path']);
+            $best = $r; $tied = [$c];
         }
     }
+    // 'tied' = every answer that scored as well as the chosen one. The score only sees what the rule reads (rule 4: two
+    // clocks), so a tie means the line has NO reason to prefer 'answer' — it is merely the first the bridge lists, and my
+    // own zones come first. SWUBotRulePlannedAnswer lets the fallback choose among a tie. Game 1647080: Hemlock's On Attack
+    // Weakness moved no clock, and the plan gave it to the bot's own Anakin.
+    if ($best !== null) $best['_path'][0]['tied'] = $tied;
     return $best ?? $leaf();
 }

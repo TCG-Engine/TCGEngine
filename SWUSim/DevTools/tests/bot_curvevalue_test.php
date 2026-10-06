@@ -347,8 +347,19 @@ $check(is_array($fb) && count($fb) === 1 && ($fb[0][2] ?? '') === 'last', 'a fal
 // so the surplus is the card's full value. 'paid' (the default) is unchanged.
 $board('default', $vig);
 $paid = SWUBotCurveValue(1, $vig, true, 8); $waived = SWUBotCurveValue(1, $vig, true, 8, 'waived'); $free = SWUBotCurveValue(1, $vig, true, 8, 'free');
-$check($paid !== null && $waived !== null && abs($waived['budget'] - intval(CardCost($vig))) < 1e-9 && $waived['budget'] < $paid['budget'],
-    "route 'waived': budget = printed cost, without the penalty; got " . json_encode([$paid['budget'] ?? null, $waived['budget'] ?? null]));
+// The LAW bases waive ONE pip, and only a Vigilance/Command/Aggression/Cunning one — never Heroism or Villainy (owner,
+// 2026-10-06; the engine's _SWUCommonBaseWaivePenalty). Vigilance (SOR_058, Vigilance×2) missing both pips keeps one.
+$check(SWUAspectPenalty(1, $vig) === 4 && _SWUBotWaiverDiscount(1, $vig) === 2, 'premise: Vigilance misses two Vigilance pips; the waiver takes one');
+$check($paid !== null && $waived !== null && abs($waived['budget'] - (intval(CardCost($vig)) + 2)) < 1e-9 && $waived['budget'] < $paid['budget'],
+    "route 'waived': printed + the one pip the base cannot waive; got " . json_encode([$paid['budget'] ?? null, $waived['budget'] ?? null]));
+$np = SWUBotCurveValue(1, $vig, true, 8, 'nopenalty');
+$check($np !== null && abs($np['budget'] - intval(CardCost($vig))) < 1e-9, "route 'nopenalty': printed cost; got " . json_encode($np['budget'] ?? null));
+// A card missing ONLY an alignment pip (Imperial Dark Trooper, Command/Villainy, on a seat without Villainy): nothing waived.
+$check(SWUAspectPenalty(1, 'SEC_080') === 2 && _SWUBotWaiverDiscount(1, 'SEC_080') === 0, 'a Villainy-only penalty is not waived by the LAW base');
+$dt = SWUBotCurveValue(1, 'SEC_080', true, 8, 'waived'); $dp = SWUBotCurveValue(1, 'SEC_080', true, 8, 'paid');
+$check($dt !== null && $dp !== null && abs($dt['budget'] - $dp['budget']) < 1e-9, "route 'waived' on a Villainy-only penalty charges it in full; got " . json_encode([$dt['budget'] ?? null, $dp['budget'] ?? null]));
+// One battlefield pip missing (Takedown, Vigilance): waived to printed cost.
+$check(SWUAspectPenalty(1, 'SOR_077') === 2 && _SWUBotWaiverDiscount(1, 'SOR_077') === 2, 'a single Vigilance pip is waived in full');
 $check($free !== null && abs($free['budget']) < 1e-9 && abs($free['surplus'] - $free['value']) < 1e-9, "route 'free': budget 0, surplus = value; got " . json_encode($free));
 // Review #1 (2026-10-06): a condition the pricer cannot read must make the card UNPRICED (null), never silently false;
 // aspects, arenas and "damaged" are read; an "X or Y unit" is two aspects; a bare name is a title only if one exists.

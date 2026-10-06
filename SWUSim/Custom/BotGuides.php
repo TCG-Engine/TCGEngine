@@ -114,7 +114,7 @@ function SWUBotAggroMaxUnitsPick(array $ctx): ?array {
     if (SWUBotFeatureOn('plotdeploy')) {
         $deploy = null;
         foreach ($ctx['actions'] as $a) { if (SWUBotActionKind($a) === 'deploy') { $deploy = $a; break; } }
-        if ($deploy !== null) {
+        if ($deploy !== null && !_SWUBotDeployStrikeWaits($seat)) {   // 'deploystrike' (p39): Krennic waits for a killing strike
             $units = 0;
             foreach (_SWUBotAffordablePlots($seat) as [$cost, $cid]) {
                 if (str_contains(strval(CardType($cid)), 'Unit')) $units++;

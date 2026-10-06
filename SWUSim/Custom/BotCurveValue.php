@@ -162,9 +162,12 @@ function _SWUBotCurveParseUncached(string $cid): ?array {
     return ['type' => $type, 'terms' => $terms, 'discount' => $state['discount']];
 }
 
-// $route (owner, 2026-10-06): 'paid' (default) charges the real cost; 'waived' — the route waives the aspect penalty
-// (Daimyo's Palace Epic, the LAW_020 waiver prompt), so the printed cost; 'free' — played for free (a search that
-// plays its picks), so the budget is 0 and the surplus is the card's whole value.
+// $route (owner, 2026-10-06): 'paid' (default) charges the real cost.
+//   'waived'    — a LAW common base's Epic Action (Daimyo's Palace…): "ignoring 1 of its Vigilance, Command, Aggression, or
+//                 Cunning aspect penalties" — ONE battlefield pip, never Heroism/Villainy (_SWUBotWaiverDiscount).
+//   'nopenalty' — no aspect penalty at all: the caller charges it itself (SWUBotHandKeepValue), or the effect ignores the
+//                 card's whole penalty (TWI_040 A Fine Addition).
+//   'free'      — played for free (a search that plays its picks): budget 0, the surplus is the card's whole value.
 function SWUBotCurveValue(int $seat, string $cardID, bool $board = true, int $horizon = SWU_CURVE_STATIC_HORIZON, string $route = 'paid'): ?array {
     $p = _SWUBotCurveParse($cardID);
     if ($p === null) return null;
@@ -189,7 +192,9 @@ function SWUBotCurveValue(int $seat, string $cardID, bool $board = true, int $ho
     // The COST ACTUALLY PAID (spec §3, item 2): with a board, printed + aspect penalty − an active discount.
     $cost = intval(CardCost($cardID));
     if ($ctx['seat'] !== null) {
-        if ($route !== 'waived') $cost += intval(SWUAspectPenalty($ctx['seat'], $cardID));
+        $pen = intval(SWUAspectPenalty($ctx['seat'], $cardID));
+        if ($route === 'waived') $pen -= _SWUBotWaiverDiscount($ctx['seat'], $cardID);
+        if ($route !== 'nopenalty') $cost += $pen;
         if ($p['discount'] !== null && _SWUBotCurveCondition($ctx['seat'], $p['discount'][0]) === true) $cost -= $p['discount'][1];
     }
     $cost = max(0, $cost);
@@ -918,4 +923,12 @@ function _SWUBotCurveMulligan(int $seat, string $style): bool {
     }
     $keep = $castable >= 2 && $surplus >= 0.0 && (SWUBotStyleRank($style) > 1 || $cheap);
     return !$keep;
+}
+
+// What a LAW common base's waiver takes off this card's cost for $seat (owner, 2026-10-06): ONE battlefield pip
+// (Vigilance, Command, Aggression or Cunning) — 2 — or nothing when only Heroism/Villainy is missing. The engine's own
+// rule (_SWUCommonBaseWaivePenalty), capped at the penalty actually charged, as BotRules.php already does.
+function _SWUBotWaiverDiscount(int $seat, string $cid): int {
+    if (!function_exists('_SWUCommonBaseWaivePenalty')) return 0;
+    return min(intval(_SWUCommonBaseWaivePenalty($seat, $cid)), intval(SWUAspectPenalty($seat, $cid)));
 }

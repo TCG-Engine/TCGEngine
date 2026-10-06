@@ -468,7 +468,7 @@ const SWU_BOT_PART36_FEATURES = ['upgradecost', 'defeatimmune', 'disclosereserve
 // vs Ahsoka Blue. Guard: bot_wipekeepaggro_test.php.
 // 'epicwipe' — rule 5 may open a wipe castable only through the base's aspect-waiver Epic (Krennic Splash: SRI 10 -> 8, owner "5R + 3C or
 // 6R + 2C"), judged on the board by rule 5's own tests. Guard: bot_epicwipe_test.php.
-const SWU_BOT_PART37_FEATURES = ['actionclock', 'blockerfirst', 'wipekeepaggro', 'epicwipe'];
+const SWU_BOT_PART37_FEATURES = ['actionclock', 'blockerfirst', 'wipekeepaggro', 'epicwipe', 'shieldtrader'];
 // Part 38 (2026-10-06): CURVE VALUE — a card in hand priced against its cost from the owner's prices (BotCurveValue.php,
 // spec docs/superpowers/specs/2026-10-05-swusim-curve-value-design.md). Measured ONE AT A TIME, 14,040 games each, fresh
 // 'cv' seeds, 27-deck gate (docs/superpowers/research/curve-value/2026-10-06-measurement.md):
@@ -478,6 +478,18 @@ const SWU_BOT_PART37_FEATURES = ['actionclock', 'blockerfirst', 'wipekeepaggro',
 //                     ⚠ Hard control mulligans 58% of hands under it (hyper 17%) — flagged for the owner.
 // Owner shipped all three, no combined run ("Ship all 3, no combined run"). Guards: bot_curvevalue_test.php, bot_curvedecisions_test.php.
 const SWU_BOT_PART38_FEATURES = ['curveplay', 'curveresource', 'curvemull'];
+// Part 39 (2026-10-06): Krennic (LAW) Blue — the owner's questionnaire (docs/superpowers/research/2026-09-premier-meta/2026-10-06_deck_krennic-blue.md).
+//   wallkeep    — vs an aggro leader, control never resources its Sentinel wall (Koska included); vs space aggro it keeps Lawbringer.
+//   traskreturn — Trask Walker takes back the best answer (Chimaera) and returns it to hand (was "bottom + heal 3" 225/225).
+//   deploystrike — Krennic deploys only when his When Deployed strike (another friendly unit's power) kills (was R6 in 305/366).
+//   wallfirst    — R1-4 vs an aggro leader, control plays its first Sentinel in an arena before anything else (R2 Gideon: 16/38).
+const SWU_BOT_PART39_FEATURES = ['wallkeep', 'traskreturn', 'deploystrike', 'wallfirst'];
+// Part 40 (2026-10-06): the Krennic-vs-aggro AUTOPSY (docs/superpowers/research/2026-09-premier-meta/2026-10-06_autopsy_krennic-vs-aggro.md) +
+// the owner's rulings on it. The owner ends R1 with 1.2 bodies and R2 with 2.2; the bot with 0.2 and 0.9.
+//   discountfirst — a static cost reducer (the Krennic unit) goes before the card it makes fit (Krennic + Ant Droid: 28/28 played backwards).
+//   keepbody      — R1-3 vs aggro, Krennic's Credit Action keeps my only unit unless its When Defeated draws ("Sac it if it draws").
+//   earlycredits  — R1-3 vs aggro, banked Credits may pay for a cheap body ("Spend by R3, then bank"); 'bigcredit' holds from R4.
+const SWU_BOT_PART40_FEATURES = ['discountfirst', 'keepbody', 'earlycredits'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
@@ -487,7 +499,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES);   // part 2, then 3-38
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES);   // part 2, then 3-40
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -502,7 +514,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,

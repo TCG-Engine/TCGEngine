@@ -484,6 +484,15 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
         // Q2 ruling resources Pre Vizsla against Vader (bot_owner_resourcing_test).
         if (SWUBotFeatureOn('wipekeepaggro') && $aggressive && in_array('wipe', $tags, true) && _SWUBotWipeIsRelevant($seat, $cid)
             && !preg_match('/with a total of \d+ or less/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
+        // Feature 'wallkeep' (p39): Krennic (LAW) Blue, owner 2026-10-06 — vs aggro the deck stabilises with a "Sentinel wall + trades", and
+        // early resourcing is "Ravager / late bombs … Never a Sentinel". Tier 2 had no Sentinel keep (the p4 'sentinelkeep' +50 is on the
+        // plain path), so a 4-cost Commando or Koska looked like an uncastable card and went (~70 times in 480 traced games). A spare unique
+        // copy has already gone to tier 0 (2026-09-18: "two of the same unique unit Sentinel … safe to resource one").
+        // And vs SPACE aggro, Lawbringer ("each enemy unit with that aspect -2/-2") is the engine — owner: "Lawbringer on Aggression" vs
+        // Vader (JTL) Yellow, where it sat in the 7+ resource-first tier and was cast once in 40 games.
+        if (SWUBotFeatureOn('wallkeep') && $aggressive && str_contains(strval(CardType($cid)), 'Unit')
+            && (_SWUBotHasPrintedSentinel($cid) || preg_match('/\bgains Sentinel\b/i', strval(CardText($cid))))) { $out[$i] = [9, 0.0]; continue; }
+        if (SWUBotFeatureOn('wallkeep') && $spaceAggro && preg_match('/each enemy unit with that aspect -\d+\/-\d+/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
         if (!$opening && $preflip && $aggressive && $cost >= 7) {
             $fitsMatchup = $answer && (in_array('wipe', $tags, true) ? count($oppUnits) >= 3 : true);
             $out[$i] = [1, $fitsMatchup ? 1.0 : 0.0];
