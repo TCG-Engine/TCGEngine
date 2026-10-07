@@ -1,0 +1,23 @@
+{
+    "name": "pleiades-class-bonus-enter-glimpses-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:25:53+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "rsps1qnzfl"
+    ],
+    "notes": "RANGER champion with an ASTRA lineage.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rsps1qnzfl"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Glimpse 3."
+        ]
+    }
+}

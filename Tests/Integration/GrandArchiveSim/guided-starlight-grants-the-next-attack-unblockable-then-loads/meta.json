@@ -1,0 +1,22 @@
+{
+    "name": "guided-starlight-grants-the-next-attack-unblockable-then-loads",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:22:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "b0iz7wm7ow"
+    ],
+    "notes": "The \"unless an opponent pays (3)\" payment is not exercised.",
+    "semanticCoverage": {
+        "testedCards": [
+            "b0iz7wm7ow"
+        ],
+        "mechanics": [
+            "attack-modifier",
+            "load"
+        ],
+        "rulesClauses": [
+            "Your champion's next attack this turn gains unblockable unless an opponent pays (3). You may load Guided Starlight into an Aetherwing weapon you control."
+        ]
+    }
+}

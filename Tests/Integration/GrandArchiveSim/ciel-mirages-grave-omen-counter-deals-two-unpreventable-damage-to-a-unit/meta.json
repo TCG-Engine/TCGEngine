@@ -1,0 +1,23 @@
+{
+    "name": "ciel-mirages-grave-omen-counter-deals-two-unpreventable-damage-to-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:24:05+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "zhh43i1eaa"
+    ],
+    "notes": "Armoire banishes a hand card with an omen counter; Ciel, Mirage's Grave's trigger offers up to one target.",
+    "semanticCoverage": {
+        "testedCards": [
+            "zhh43i1eaa"
+        ],
+        "mechanics": [
+            "trigger",
+            "damage",
+            "omen"
+        ],
+        "rulesClauses": [
+            "Whenever an omen counter is put on a card in your banishment, as a Spell, deal 2 unpreventable damage to up to one target unit."
+        ]
+    }
+}

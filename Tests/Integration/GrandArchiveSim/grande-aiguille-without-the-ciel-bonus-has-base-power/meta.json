@@ -1,0 +1,22 @@
+{
+    "name": "grande-aiguille-without-the-ciel-bonus-has-base-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:19:34+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "6ihv6hbvye"
+    ],
+    "notes": "Ciel Bonus gate.",
+    "semanticCoverage": {
+        "testedCards": [
+            "6ihv6hbvye"
+        ],
+        "mechanics": [
+            "static-modifier",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus]"
+        ]
+    }
+}

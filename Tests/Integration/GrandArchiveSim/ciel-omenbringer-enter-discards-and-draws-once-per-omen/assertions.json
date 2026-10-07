@@ -1,0 +1,53 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "o69ogocemo",
+        "semantic": true,
+        "label": "Leveled up to Ciel, Omenbringer"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Two omens: two cards discarded"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 10,
+        "semantic": true,
+        "label": "Three cards drawn: two into memory for the omens plus the turn's draw"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Hand: 7 - 2 discarded + 2 (the memory draws return to hand at recollection) + 1 draw phase"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Two omens plus the two memory cards banished for the level-up memory cost"
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

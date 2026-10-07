@@ -1,0 +1,22 @@
+{
+    "name": "ciel-mirages-grave-omen-counter-trigger-declined-deals-no-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:24:06+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "zhh43i1eaa"
+    ],
+    "notes": "The trigger is optional (up to one target).",
+    "semanticCoverage": {
+        "testedCards": [
+            "zhh43i1eaa"
+        ],
+        "mechanics": [
+            "trigger",
+            "optional-effect"
+        ],
+        "rulesClauses": [
+            "up to one target unit"
+        ]
+    }
+}

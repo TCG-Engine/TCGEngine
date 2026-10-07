@@ -31054,6 +31054,186 @@ $fixtures['golden-measure-patisserie-enter-with-no-allies-does-not-crash'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3)),
 ];
 
+// --- Starter-deck coverage batch 5 (Ciel deck): omen-scaled statics ---
+$gaCielDeck = $gaSweepDeck('Spirit of Fire');
+// Grande Aiguille (6ihv6hbvye): "[Ciel Bonus] As long as you have two or more ally omens, Grande Aiguille gets +1 POWER."
+$fixtures['grande-aiguille-ciel-bonus-gets-plus-one-power-with-two-ally-omens'] = [
+    'testedCards' => ['6ihv6hbvye'],
+    'deck' => $gaCielDeck,
+    'setup' => [$gaCiel, ['player' => 1, 'zone' => 'myField', 'cardID' => '6ihv6hbvye'], $gaOmen(), $gaOmen()],
+    'actions' => [$gaNoop()],
+];
+$fixtures['grande-aiguille-with-only-one-ally-omen-has-base-power'] = [
+    'testedCards' => ['6ihv6hbvye'],
+    'deck' => $gaCielDeck,
+    'setup' => [$gaCiel, ['player' => 1, 'zone' => 'myField', 'cardID' => '6ihv6hbvye'], $gaOmen()],
+    'actions' => [$gaNoop()],
+];
+$fixtures['grande-aiguille-without-the-ciel-bonus-has-base-power'] = [
+    'testedCards' => ['6ihv6hbvye'],
+    'deck' => $gaCielDeck,
+    'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => '6ihv6hbvye'], $gaOmen(), $gaOmen()],
+    'actions' => [$gaNoop()],
+];
+// Grande Sonnerie (s4b2mkh1xm): "[Ciel Bonus] As long as the total reserve cost of your omens is 10 or greater, Grande Sonnerie gets +2 POWER."
+$fixtures['grande-sonnerie-ciel-bonus-gets-plus-two-power-at-ten-omen-reserve-cost'] = [
+    'testedCards' => ['s4b2mkh1xm'],
+    'deck' => $gaCielDeck,
+    'setup' => [$gaCiel, ['player' => 1, 'zone' => 'myField', 'cardID' => 's4b2mkh1xm'], $gaOmen(), $gaOmen(), $gaOmen(), $gaOmen()], // four Dungeon Guides: 4 x 3 = 12
+    'actions' => [$gaNoop()],
+];
+$fixtures['grande-sonnerie-below-ten-omen-reserve-cost-has-base-power'] = [
+    'testedCards' => ['s4b2mkh1xm'],
+    'deck' => $gaCielDeck,
+    'setup' => [$gaCiel, ['player' => 1, 'zone' => 'myField', 'cardID' => 's4b2mkh1xm'], $gaOmen(), $gaOmen(), $gaOmen()], // 3 x 3 = 9
+    'actions' => [$gaNoop()],
+];
+// Sablier Guard (tu7jvjf2gh): "+1 POWER and +1 LIFE for each omen you have with different reserve costs."
+$fixtures['sablier-guard-gets-plus-one-per-omen-with-different-reserve-costs'] = [
+    'testedCards' => ['tu7jvjf2gh'],
+    'deck' => $gaCielDeck,
+    'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'tu7jvjf2gh'], $gaOmen(), $gaOmen('urfp66pv4n'), $gaOmen()], // Dungeon Guide (3), Caretaker Drone (2: a different cost), Dungeon Guide (3 again)
+    'actions' => [$gaNoop()],
+];
+// Vigil Rempart (pc3zpkw43o): "[Class Bonus] Vigil Rempart gets +2 POWER."
+$fixtures['vigil-rempart-class-bonus-gets-plus-two-power'] = [
+    'testedCards' => ['pc3zpkw43o'],
+    'deck' => $gaCielDeck,
+    'setup' => [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]], ['player' => 1, 'zone' => 'myField', 'cardID' => 'pc3zpkw43o']],
+    'actions' => [$gaNoop()],
+];
+$fixtures['vigil-rempart-without-the-class-bonus-has-base-power'] = [
+    'testedCards' => ['pc3zpkw43o'],
+    'deck' => $gaCielDeck,
+    'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'pc3zpkw43o']],
+    'actions' => [$gaNoop()],
+];
+
+// --- Starter-deck coverage batch 5b (Diana deck): Aethercharge spells and Aetherwings ---
+$gaWing = ['player' => 1, 'zone' => 'myField', 'cardID' => 'mob9nu6lal']; // Salamander's Breath (Aetherwing weapon) -> myField-1
+$gaRangerAstra = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba'], 'Counters' => ['_overrides' => ['classes' => 'RANGER']]]]; // ASTRA lineage + RANGER class
+// Prudent Nock (0w5bp5nuae): "Draw a card into your memory. Then you may load Prudent Nock into an Aetherwing weapon you control."
+$fixtures['prudent-nock-draws-into-memory-then-loads-into-an-aetherwing'] = [
+    'testedCards' => ['0w5bp5nuae'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaWing, $gaHand('0w5bp5nuae')], // Prudent Nock -> myHand-7
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'YES')]),
+];
+// Aetheric Calibration (7l9th23niu): "Glimpse 4. Then reveal the top card of your deck. If that card is an Aethercharge card, put it into your memory. You may load Aetheric Calibration into an Aetherwing weapon you control."
+$fixtures['aetheric-calibration-glimpse-four-then-top-aethercharge-goes-to-memory'] = [
+    'testedCards' => ['7l9th23niu'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaWing, $gaHand('7l9th23niu'), $gaTop(['wd7nuab7f3', 'em6eEh9q8y', 'em6eEh9q8y', 'em6eEh9q8y'])], // Aether's Embrace (Aethercharge) on top
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'Top=wd7nuab7f3,em6eEh9q8y,em6eEh9q8y,em6eEh9q8y;Bottom='), mrdAns(1, 'YES')]),
+];
+// Dissuading Aether (bx25s7kiln): "Target unit's attacks get -3 POWER until end of turn. Then you may load Dissuading Aether into an Aetherwing weapon you control."
+$fixtures['dissuading-aether-gives-a-unit-minus-three-attack-power-then-loads'] = [
+    'testedCards' => ['bx25s7kiln'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF'], 'Counters' => ['_overrides' => ['classes' => 'RANGER']]]], $gaWing, ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], $gaHand('bx25s7kiln')], // WATER lineage; their Dungeon Guide -> theirField-1
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'theirField-1'), mrdAns(1, 'YES')]),
+];
+// Constellation's Blessing (nypwwnirjk): "[Class Bonus] Draw a card. Then you may load Constellation's Blessing into an Aetherwing weapon you control."
+$fixtures['constellations-blessing-class-bonus-draws-then-loads'] = [
+    'testedCards' => ['nypwwnirjk'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaRangerAstra, $gaWing, $gaHand('nypwwnirjk')],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'YES')]),
+];
+$fixtures['constellations-blessing-without-the-class-bonus-does-not-draw'] = [
+    'testedCards' => ['nypwwnirjk'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], $gaWing, $gaHand('nypwwnirjk')],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'YES')]),
+];
+// Guided Starlight (b0iz7wm7ow): "Your champion's next attack this turn gains unblockable unless an opponent pays (3). You may load Guided Starlight into an Aetherwing weapon you control."
+$fixtures['guided-starlight-grants-the-next-attack-unblockable-then-loads'] = [
+    'testedCards' => ['b0iz7wm7ow'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaRangerAstra, $gaWing, $gaHand('b0iz7wm7ow')],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'YES')]),
+];
+
+// --- Starter-deck coverage batch 5c (Ciel deck): champions ---
+// Ciel, Loyal Valet (nn48ne8a05): "Inherited Effect -- At the beginning of your end phase, you may banish a card from your graveyard or hand and put an omen counter on it."
+$gaCielDeckMat = "# Material\n1 Spirit of Fire\n1 Ciel, Omenbringer\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n";
+$fixtures['ciel-loyal-valet-end-phase-banishes-a-hand-card-as-an-omen'] = [
+    'testedCards' => ['nn48ne8a05'],
+    'deck' => $gaCielDeckMat,
+    'setup' => [$gaCiel],
+    'actions' => [mrdEnd(1), mrdAns(1, 'myHand-0')],
+];
+$fixtures['ciel-loyal-valet-end-phase-decline-adds-no-omen'] = [
+    'testedCards' => ['nn48ne8a05'],
+    'deck' => $gaCielDeckMat,
+    'setup' => [$gaCiel],
+    'actions' => [mrdEnd(1), mrdPass(1)],
+];
+
+// Ciel, Omenbringer (o69ogocemo): "On Enter: For each omen you have, discard a card from your hand or memory and draw a card into your memory."
+$fixtures['ciel-omenbringer-enter-discards-and-draws-once-per-omen'] = [
+    'testedCards' => ['o69ogocemo'],
+    'deck' => $gaCielDeckMat,
+    'setup' => [$gaCiel, $gaOmen(), $gaOmen('px60u5n1do'), ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y']],
+    'actions' => [mrdEnd(1), mrdPass(1), mrdEnd(2), mrdAns(1, 'myMaterial-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myHand-0')], // level up on turn three (the memory cost empties memory), then discard once per omen
+];
+
+// Ciel, Mirage's Grave (zhh43i1eaa): "Whenever an omen counter is put on a card in your banishment, as a Spell, deal 2 unpreventable damage to up to one target unit."
+$gaCielGrave = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zhh43i1eaa']];
+$fixtures['ciel-mirages-grave-omen-counter-deals-two-unpreventable-damage-to-a-unit'] = [
+    'testedCards' => ['zhh43i1eaa'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaCielGrave, ['player' => 1, 'zone' => 'myField', 'cardID' => 'fm894uc4ij'], $gaOmen('px60u5n1do'), ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y']], // Manxome Armoire -> myField-1; their Dungeon Guide -> theirField-1
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myBanish-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'theirField-1')],
+];
+$fixtures['ciel-mirages-grave-omen-counter-trigger-declined-deals-no-damage'] = [
+    'testedCards' => ['zhh43i1eaa'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaCielGrave, ['player' => 1, 'zone' => 'myField', 'cardID' => 'fm894uc4ij'], $gaOmen('px60u5n1do'), ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y']],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myBanish-0'), mrdAns(1, 'myHand-0'), mrdPass(1)],
+];
+
+// Diana, Moonpiercer (v3vfjtwm7g): "Whenever Diana becomes distant, choose one -- Negate each card activation that targets Diana unless its controller pays (2). Then if Diana is defending, end the combat phase unless the attacking player pays (2). / Glimpse 2."
+$gaMoonpiercer = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'v3vfjtwm7g']]; // Diana, Moonpiercer (RANGER)
+$fixtures['diana-moonpiercer-becoming-distant-glimpses-two'] = [
+    'testedCards' => ['v3vfjtwm7g'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaMoonpiercer, ['player' => 1, 'zone' => 'myField', 'cardID' => 'fbs9qzo3f6'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], $gaTop(['em6eEh9q8y', 'px60u5n1do'])], // Ranger Boots makes the champion distant
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'NO'), mrdAns(1, 'Top=px60u5n1do;Bottom=em6eEh9q8y')], // choose the Glimpse 2 mode, keep one on top and one on the bottom
+];
+
+// Diana, Aether Dilettante (m7f6r8f3y8): "On Enter: If Diana is distant, materialize an Aetherwing card from your material deck. (You still pay its costs.)"
+$gaDilettanteDeck = "# Material\n1 Spirit of Fire\n1 Diana, Aether Dilettante\n1 Salamander's Breath\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n";
+$fixtures['diana-aether-dilettante-enter-while-not-distant-materializes-nothing'] = [
+    'testedCards' => ['m7f6r8f3y8'],
+    'deck' => $gaDilettanteDeck,
+    'setup' => [['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y']], // (distant only lasts until end of turn, so it cannot be seeded across the turn boundary to the materialize phase)
+    'actions' => [mrdEnd(1), mrdPass(1), mrdEnd(2), mrdAns(1, 'myMaterial-0')],
+];
+
+// Pleiades, Celestial Genesis (rsps1qnzfl): "[Class Bonus] On Enter: Glimpse 3."
+$gaPleiadesDeck = "# Material\n1 Spirit of Fire\n1 Pleiades, Celestial Genesis\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n";
+$fixtures['pleiades-class-bonus-enter-glimpses-three'] = [
+    'testedCards' => ['rsps1qnzfl'],
+    'deck' => $gaPleiadesDeck,
+    'setup' => [$gaRangerAstra, $gaTop(['em6eEh9q8y', 'px60u5n1do', 'em6eEh9q8y'])],
+    'actions' => [mrdEnd(1), mrdPass(1), mrdEnd(2), mrdAns(1, 'myMaterial-0'), mrdAns(1, 'Top=px60u5n1do;Bottom=em6eEh9q8y,em6eEh9q8y')],
+];
+$fixtures['pleiades-without-the-class-bonus-enter-does-not-glimpse'] = [
+    'testedCards' => ['rsps1qnzfl'],
+    'deck' => $gaPleiadesDeck,
+    'setup' => [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], $gaTop(['em6eEh9q8y', 'px60u5n1do', 'em6eEh9q8y'])], // ASTRA lineage but no Ranger class
+    'actions' => [mrdEnd(1), mrdPass(1), mrdEnd(2), mrdAns(1, 'myMaterial-0')],
+];
+
+// Reverse Affliction (1bxh5xz2uz): "Banish a Curse card from your champion's lineage. If you own that card, put an omen counter on it."
+$fixtures['reverse-affliction-banishes-a-curse-from-the-lineage-as-an-omen'] = [
+    'testedCards' => ['1bxh5xz2uz'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['zhh43i1eaa', 'e1xj8mqr2o'], 'Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]], $gaHand('1bxh5xz2uz')], // UMBRA lineage with a Curse (Sinistre Stab) in it
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'myTempZone-0')]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

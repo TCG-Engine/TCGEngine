@@ -1,0 +1,37 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "The omen counter put by Manxome Armoire triggers 2 damage to the chosen unit"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "Nothing else was damaged"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "Own champion untouched"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,23 @@
+{
+    "name": "constellations-blessing-class-bonus-draws-then-loads",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:21:58+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "nypwwnirjk"
+    ],
+    "notes": "RANGER champion with an Astra lineage.",
+    "semanticCoverage": {
+        "testedCards": [
+            "nypwwnirjk"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "draw",
+            "load"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Draw a card. Then you may load Constellation's Blessing into an Aetherwing weapon you control."
+        ]
+    }
+}

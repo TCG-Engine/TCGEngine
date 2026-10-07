@@ -1,0 +1,22 @@
+{
+    "name": "ciel-loyal-valet-end-phase-decline-adds-no-omen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:22:57+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "nn48ne8a05"
+    ],
+    "notes": "The effect is optional.",
+    "semanticCoverage": {
+        "testedCards": [
+            "nn48ne8a05"
+        ],
+        "mechanics": [
+            "trigger",
+            "optional-effect"
+        ],
+        "rulesClauses": [
+            "you may banish a card from your graveyard or hand"
+        ]
+    }
+}

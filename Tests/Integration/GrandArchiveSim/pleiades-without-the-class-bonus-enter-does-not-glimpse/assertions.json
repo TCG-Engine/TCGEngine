@@ -1,0 +1,27 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "rsps1qnzfl",
+        "semantic": true,
+        "label": "Pleiades materialized"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "No glimpse: the original order is kept (the Dungeon Guide was drawn, the Fluffy Shopkeep is on top)"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

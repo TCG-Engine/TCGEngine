@@ -1,0 +1,22 @@
+{
+    "name": "grande-aiguille-ciel-bonus-gets-plus-one-power-with-two-ally-omens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:19:27+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "6ihv6hbvye"
+    ],
+    "notes": "Ciel Bonus static +1 POWER.",
+    "semanticCoverage": {
+        "testedCards": [
+            "6ihv6hbvye"
+        ],
+        "mechanics": [
+            "static-modifier",
+            "omen"
+        ],
+        "rulesClauses": [
+            "As long as you have two or more ally omens, Grande Aiguille gets +1 POWER."
+        ]
+    }
+}

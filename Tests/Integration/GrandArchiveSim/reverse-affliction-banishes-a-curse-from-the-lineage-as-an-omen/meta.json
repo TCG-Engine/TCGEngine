@@ -1,0 +1,23 @@
+{
+    "name": "reverse-affliction-banishes-a-curse-from-the-lineage-as-an-omen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:26:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "1bxh5xz2uz"
+    ],
+    "notes": "The omen counter also fires Ciel, Mirage's Grave's trigger, whose prompt is left pending.",
+    "semanticCoverage": {
+        "testedCards": [
+            "1bxh5xz2uz"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "omen",
+            "lineage"
+        ],
+        "rulesClauses": [
+            "Banish a Curse card from your champion's lineage. If you own that card, put an omen counter on it."
+        ]
+    }
+}

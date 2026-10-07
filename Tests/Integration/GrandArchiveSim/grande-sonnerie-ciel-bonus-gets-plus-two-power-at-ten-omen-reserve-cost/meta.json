@@ -1,0 +1,22 @@
+{
+    "name": "grande-sonnerie-ciel-bonus-gets-plus-two-power-at-ten-omen-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:19:37+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "s4b2mkh1xm"
+    ],
+    "notes": "Ciel Bonus static +2 POWER.",
+    "semanticCoverage": {
+        "testedCards": [
+            "s4b2mkh1xm"
+        ],
+        "mechanics": [
+            "static-modifier",
+            "omen"
+        ],
+        "rulesClauses": [
+            "As long as the total reserve cost of your omens is 10 or greater, Grande Sonnerie gets +2 POWER."
+        ]
+    }
+}
