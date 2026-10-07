@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **842**
+Cards linked to an existing fixture: **858**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1642**
+Implemented cards still needing semantic coverage: **1626**
 
 ## Mechanic groups
 
@@ -26,28 +26,12 @@ Implemented cards still needing semantic coverage: **1642**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Pleiades, Celestial Genesis (`rsps1qnzfl`) | REGALIA,WEAPON | 2 | token, combat, trigger | Diana, Moonpiercer | — |
-| Ciel, Mirage's Grave (`zhh43i1eaa`) | CHAMPION | 1 | targeting, damage, counter, trigger | Ciel, Mirage's Grave | — |
-| Diana, Aether Dilettante (`m7f6r8f3y8`) | CHAMPION | 1 | cost, status, trigger, condition | Diana, Moonpiercer | — |
-| Diana, Moonpiercer (`v3vfjtwm7g`) | CHAMPION | 1 | targeting, status, trigger, condition | Diana, Moonpiercer | — |
-| Ciel, Loyal Valet (`nn48ne8a05`) | CHAMPION | 1 | zone-movement, counter, trigger | Ciel, Mirage's Grave | — |
-| Ciel, Omenbringer (`o69ogocemo`) | CHAMPION | 1 | draw-discard, trigger, condition | Ciel, Mirage's Grave | — |
-| Reverse Affliction (`1bxh5xz2uz`) | ACTION | 1 | zone-movement, counter, condition | Ciel, Mirage's Grave | — |
 | Seeker's Aetherwing (`bf7yzaqes4`) | REGALIA,WEAPON | 1 | targeting, status, combat | Diana, Moonpiercer | — |
-| Aetheric Calibration (`7l9th23niu`) | ACTION | 1 | zone-movement, condition | Diana, Moonpiercer | — |
-| Grande Aiguille (`6ihv6hbvye`) | REGALIA,WEAPON | 1 | counter, condition | Ciel, Mirage's Grave | — |
-| Grande Sonnerie (`s4b2mkh1xm`) | REGALIA,WEAPON | 1 | cost, condition | Ciel, Mirage's Grave | — |
-| Sablier Guard (`tu7jvjf2gh`) | ALLY | 1 | cost, counter | Ciel, Mirage's Grave | — |
 | Sinistre Stab (`e1xj8mqr2o`) | ATTACK | 1 | combat, condition | Ciel, Mirage's Grave | — |
-| Constellation's Blessing (`nypwwnirjk`) | ACTION | 1 | draw-discard | Diana, Moonpiercer | — |
-| Dissuading Aether (`bx25s7kiln`) | ACTION | 1 | targeting | Diana, Moonpiercer | — |
-| Guided Starlight (`b0iz7wm7ow`) | ACTION | 1 | combat | Diana, Moonpiercer | — |
 | Lamentation's Toll (`1t3dvor61i`) | ATTACK | 1 | counter | Ciel, Mirage's Grave | — |
 | Meteoric Volley (`10u5ldz371`) | ACTION | 1 | condition | Diana, Moonpiercer | — |
 | Overpowering Defense (`14hr8i5oix`) | ACTION | 1 | condition | Ciel, Mirage's Grave | — |
-| Prudent Nock (`0w5bp5nuae`) | ACTION | 1 | draw-discard | Diana, Moonpiercer | — |
 | Sidereal Spellshot (`xwwkxq0vp3`) | ACTION | 1 | unclassified | Diana, Moonpiercer | — |
-| Vigil Rempart (`pc3zpkw43o`) | ALLY | 1 | condition | Ciel, Mirage's Grave | — |
 | Rescue the Heir (`t0240ykvj0`) | ACTION | 2 | cost, targeting, zone-movement, condition | — | save-the-heir |
 | Baleful Oblation (`oye74ibwo8`) | ACTION | 2 | cost, damage | — | baleful-oblation-ciel-bonus-and-effect |
 | Incarnate Majesty (`7dl5j4lx6x`) | ACTION | 2 | cost, zone-movement | — | incarnate-majesty-banish-spirit |
@@ -76,3 +60,19 @@ Implemented cards still needing semantic coverage: **1642**
 | Decaying Reproach (`qXIKFip2t4`) | ACTION | 2 | cost, targeting, damage, recover, draw-discard | — | — |
 | Diffusive Block (`o7eanl1gxr`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
 | Dusklight Communion (`5upufyoz23`) | UNIQUE,PHANTASIA | 2 | cost, targeting, zone-movement, trigger, condition | — | — |
+| Dynasty Chancellor (`do1blsupu0`) | ALLY | 2 | draw-discard, zone-movement, combat, trigger, condition | — | — |
+| Endura, Reimagined (`X7rh3Yi26A`) | REGALIA,ITEM | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | — | — |
+| Gloamspire Prowler (`igpck2z4rs`) | ALLY | 2 | cost, recover, draw-discard, trigger, condition | — | — |
+| Hunt, Weiss King (`Y6PZntlVDl`) | UNIQUE,ALLY | 2 | cost, targeting, draw-discard, counter, combat, condition | — | — |
+| Idle Fatestone (`qiv63tpshe`) | ITEM | 2 | cost, zone-movement, counter, trigger, condition | — | — |
+| Labyrinth, Jeweled Opus (`A58xZJJMz6`) | UNIQUE,PHANTASIA | 2 | cost, targeting, draw-discard, status, condition | — | — |
+| Lunar Conduit (`0yetaebjlw`) | REGALIA,ITEM | 2 | cost, targeting, damage, counter, trigger | — | — |
+| Maiden of Waning Bloom (`xkzLY4vWMk`) | PHANTASIA,ALLY | 2 | targeting, token, combat, trigger, condition | — | — |
+| Moontide Illusionist (`flzvpkc0ni`) | ALLY | 2 | cost, zone-movement, status, combat, trigger, condition | — | — |
+| Nightmare Coil (`3fe3c97s71`) | ACTION | 2 | damage, draw-discard, status, trigger, condition | — | — |
+| Overlord Mk III (`sl7ddcgw05`) | UNIQUE,ALLY | 2 | cost, draw-discard, zone-movement, counter, combat, condition | — | — |
+| Queen's Gambit (`NGAy4rNwUo`) | UNIQUE,PHANTASIA | 2 | cost, draw-discard, token, trigger, condition | — | — |
+| Quickstep Treads (`rZ6LEFqqIS`) | REGALIA,ITEM | 2 | cost, draw-discard, status, trigger, condition | — | — |
+| Ranger Strides (`pvxb5hrfsu`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, status, trigger, condition | — | — |
+| Triumphant Mechanic (`tQTQqCnaZU`) | ALLY | 2 | recover, draw-discard, combat, trigger, condition | — | — |
+| Uther, Illustrious King (`5h8asbierp`) | UNIQUE,ALLY | 2 | targeting, zone-movement, status, combat, trigger | — | — |

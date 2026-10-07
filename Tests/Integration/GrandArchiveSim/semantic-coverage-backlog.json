@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-06T03:59:46+00:00",
+    "generatedAt": "2026-10-07T13:27:19+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 842,
+        "cardsWithExistingFixtures": 858,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1642,
+        "cardsNeedingSemanticCoverage": 1626,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,142 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "rsps1qnzfl",
-            "name": "Pleiades, Celestial Genesis",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "zhh43i1eaa",
-            "name": "Ciel, Mirage's Grave",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "m7f6r8f3y8",
-            "name": "Diana, Aether Dilettante",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "v3vfjtwm7g",
-            "name": "Diana, Moonpiercer",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "nn48ne8a05",
-            "name": "Ciel, Loyal Valet",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "o69ogocemo",
-            "name": "Ciel, Omenbringer",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "1bxh5xz2uz",
-            "name": "Reverse Affliction",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
         {
             "cardId": "bf7yzaqes4",
             "name": "Seeker's Aetherwing",
@@ -182,78 +46,6 @@
             "priority": 113
         },
         {
-            "cardId": "7l9th23niu",
-            "name": "Aetheric Calibration",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "6ihv6hbvye",
-            "name": "Grande Aiguille",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "s4b2mkh1xm",
-            "name": "Grande Sonnerie",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "tu7jvjf2gh",
-            "name": "Sablier Guard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "e1xj8mqr2o",
             "name": "Sinistre Stab",
             "type": "ATTACK",
@@ -270,57 +62,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 112
-        },
-        {
-            "cardId": "nypwwnirjk",
-            "name": "Constellation's Blessing",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "bx25s7kiln",
-            "name": "Dissuading Aether",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "b0iz7wm7ow",
-            "name": "Guided Starlight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
         },
         {
             "cardId": "1t3dvor61i",
@@ -374,23 +115,6 @@
             "priority": 111
         },
         {
-            "cardId": "0w5bp5nuae",
-            "name": "Prudent Nock",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "xwwkxq0vp3",
             "name": "Sidereal Spellshot",
             "type": "ACTION",
@@ -403,23 +127,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "pc3zpkw43o",
-            "name": "Vigil Rempart",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -29588,6 +29295,31 @@
             "priority": 143
         },
         {
+            "cardId": "rsps1qnzfl",
+            "name": "Pleiades, Celestial Genesis",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "pleiades-class-bonus-enter-glimpses-three",
+                "pleiades-without-the-class-bonus-enter-does-not-glimpse"
+            ],
+            "semanticFixtures": [
+                "pleiades-class-bonus-enter-glimpses-three",
+                "pleiades-without-the-class-bonus-enter-does-not-glimpse"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "ndnEl5mq7W",
             "name": "Potion Infusion: Volatility",
             "type": "ACTION",
@@ -32172,6 +31904,32 @@
             "priority": 134
         },
         {
+            "cardId": "zhh43i1eaa",
+            "name": "Ciel, Mirage's Grave",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "ciel-mirages-grave-omen-counter-deals-two-unpreventable-damage-to-a-unit",
+                "ciel-mirages-grave-omen-counter-trigger-declined-deals-no-damage"
+            ],
+            "semanticFixtures": [
+                "ciel-mirages-grave-omen-counter-deals-two-unpreventable-damage-to-a-unit",
+                "ciel-mirages-grave-omen-counter-trigger-declined-deals-no-damage"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "m31WVJ9F04",
             "name": "Clarent, Sword of Peace",
             "type": "REGALIA,WEAPON",
@@ -32545,6 +32303,54 @@
             ],
             "starterDecks": [
                 "Merlin Re:Collection, Brilliant Vestige"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "m7f6r8f3y8",
+            "name": "Diana, Aether Dilettante",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "diana-aether-dilettante-enter-while-not-distant-materializes-nothing"
+            ],
+            "semanticFixtures": [
+                "diana-aether-dilettante-enter-while-not-distant-materializes-nothing"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "v3vfjtwm7g",
+            "name": "Diana, Moonpiercer",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "diana-moonpiercer-becoming-distant-glimpses-two"
+            ],
+            "semanticFixtures": [
+                "diana-moonpiercer-becoming-distant-glimpses-two"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -35024,6 +34830,54 @@
             "priority": 133
         },
         {
+            "cardId": "nn48ne8a05",
+            "name": "Ciel, Loyal Valet",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "ciel-loyal-valet-end-phase-banishes-a-hand-card-as-an-omen",
+                "ciel-loyal-valet-end-phase-decline-adds-no-omen"
+            ],
+            "semanticFixtures": [
+                "ciel-loyal-valet-end-phase-banishes-a-hand-card-as-an-omen",
+                "ciel-loyal-valet-end-phase-decline-adds-no-omen"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "o69ogocemo",
+            "name": "Ciel, Omenbringer",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ciel-omenbringer-enter-discards-and-draws-once-per-omen"
+            ],
+            "semanticFixtures": [
+                "ciel-omenbringer-enter-discards-and-draws-once-per-omen"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "LZ8JpWj27h",
             "name": "Clumsy Apprentice",
             "type": "ALLY",
@@ -36769,6 +36623,29 @@
             "priority": 133
         },
         {
+            "cardId": "1bxh5xz2uz",
+            "name": "Reverse Affliction",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "reverse-affliction-banishes-a-curse-from-the-lineage-as-an-omen"
+            ],
+            "semanticFixtures": [
+                "reverse-affliction-banishes-a-curse-from-the-lineage-as-an-omen"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "1BkfdFqCrG",
             "name": "Revitalizing Cleanse",
             "type": "ACTION",
@@ -37948,6 +37825,28 @@
             "priority": 133
         },
         {
+            "cardId": "7l9th23niu",
+            "name": "Aetheric Calibration",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "aetheric-calibration-glimpse-four-then-top-aethercharge-goes-to-memory"
+            ],
+            "semanticFixtures": [
+                "aetheric-calibration-glimpse-four-then-top-aethercharge-goes-to-memory"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "dIEAN4J4YS",
             "name": "Arcanist's Prism",
             "type": "REGALIA,ITEM",
@@ -38908,6 +38807,56 @@
             ],
             "starterDecks": [
                 "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "6ihv6hbvye",
+            "name": "Grande Aiguille",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "grande-aiguille-ciel-bonus-gets-plus-one-power-with-two-ally-omens",
+                "grande-aiguille-with-only-one-ally-omen-has-base-power",
+                "grande-aiguille-without-the-ciel-bonus-has-base-power"
+            ],
+            "semanticFixtures": [
+                "grande-aiguille-ciel-bonus-gets-plus-one-power-with-two-ally-omens",
+                "grande-aiguille-with-only-one-ally-omen-has-base-power",
+                "grande-aiguille-without-the-ciel-bonus-has-base-power"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "s4b2mkh1xm",
+            "name": "Grande Sonnerie",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "grande-sonnerie-below-ten-omen-reserve-cost-has-base-power",
+                "grande-sonnerie-ciel-bonus-gets-plus-two-power-at-ten-omen-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "grande-sonnerie-below-ten-omen-reserve-cost-has-base-power",
+                "grande-sonnerie-ciel-bonus-gets-plus-two-power-at-ten-omen-reserve-cost"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -39881,6 +39830,28 @@
             "starterDecks": [
                 "Zander Pantheon Starter",
                 "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "tu7jvjf2gh",
+            "name": "Sablier Guard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter"
+            ],
+            "existingFixtures": [
+                "sablier-guard-gets-plus-one-per-omen-with-different-reserve-costs"
+            ],
+            "semanticFixtures": [
+                "sablier-guard-gets-plus-one-per-omen-with-different-reserve-costs"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -41206,6 +41177,29 @@
             "priority": 131
         },
         {
+            "cardId": "nypwwnirjk",
+            "name": "Constellation's Blessing",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "constellations-blessing-class-bonus-draws-then-loads",
+                "constellations-blessing-without-the-class-bonus-does-not-draw"
+            ],
+            "semanticFixtures": [
+                "constellations-blessing-class-bonus-draws-then-loads",
+                "constellations-blessing-without-the-class-bonus-does-not-draw"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "KCXN59ldAi",
             "name": "Creative Tinder",
             "type": "ACTION",
@@ -41308,6 +41302,27 @@
             ],
             "starterDecks": [
                 "Diao Chan Re:Collection, Idyll Corsage"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "bx25s7kiln",
+            "name": "Dissuading Aether",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "dissuading-aether-gives-a-unit-minus-three-attack-power-then-loads"
+            ],
+            "semanticFixtures": [
+                "dissuading-aether-gives-a-unit-minus-three-attack-power-then-loads"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -41443,6 +41458,27 @@
             ],
             "starterDecks": [
                 "Tristan Re:Collection, Shadowdancer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "b0iz7wm7ow",
+            "name": "Guided Starlight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "guided-starlight-grants-the-next-attack-unblockable-then-loads"
+            ],
+            "semanticFixtures": [
+                "guided-starlight-grants-the-next-attack-unblockable-then-loads"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -41789,6 +41825,27 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "0w5bp5nuae",
+            "name": "Prudent Nock",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "prudent-nock-draws-into-memory-then-loads-into-an-aetherwing"
+            ],
+            "semanticFixtures": [
+                "prudent-nock-draws-into-memory-then-loads-into-an-aetherwing"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -42249,6 +42306,29 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "pc3zpkw43o",
+            "name": "Vigil Rempart",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "vigil-rempart-class-bonus-gets-plus-two-power",
+                "vigil-rempart-without-the-class-bonus-has-base-power"
+            ],
+            "semanticFixtures": [
+                "vigil-rempart-class-bonus-gets-plus-two-power",
+                "vigil-rempart-without-the-class-bonus-has-base-power"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
