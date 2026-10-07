@@ -1,0 +1,29 @@
+{
+    "name": "lurid-dreaming-at-the-opponents-end-phase-wakes-the-champion-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:38:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ps8unuy20m"
+    ],
+    "notes": "Timing restrictions ('Activate this card only during ...') were either absent or compared against phase codes the engine never reports (the end-phase opportunity window runs as BEOP, not END), and the $cardActivatedPrereqs table they were generated into was never consulted. Prereqs now live in Custom/GeneratedAbilityOverrides.php and are enforced by ActivationBlockedBeforeAnnounce / CanActivateCardForSelection. (Lurid Dreaming's 'END' check could never be true, so it was never playable.) The drawn card returns to hand at recollection.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ps8unuy20m"
+        ],
+        "mechanics": [
+            "timing",
+            "wake",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "Activate this card only during an opponent's end phase. Wake up your champion. If you do, draw a card into your memory."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Lurid Dreaming and Orchestrated Seizure compared the phase against 'END', which the end-phase opportunity window never reports (BEOP), so they could never be activated.",
+        "affectedFunction": "activateCardPrereqs['ps8unuy20m:0']",
+        "fixCommit": "TBD"
+    }
+}

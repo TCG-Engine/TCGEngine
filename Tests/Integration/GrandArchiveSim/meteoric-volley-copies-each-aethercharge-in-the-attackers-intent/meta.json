@@ -1,0 +1,23 @@
+{
+    "name": "meteoric-volley-copies-each-aethercharge-in-the-attackers-intent",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:37:10+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "10u5ldz371"
+    ],
+    "notes": "Player 2's Ranger champion attacks with an Aetherwing loaded with Aether's Embrace and responds with Meteoric Volley. (The intent objects are still present in the final snapshot.)",
+    "semanticCoverage": {
+        "testedCards": [
+            "10u5ldz371"
+        ],
+        "mechanics": [
+            "copy",
+            "combat",
+            "intent"
+        ],
+        "rulesClauses": [
+            "For each Aethercharge card in the attacker's intent, create a copy of it in that attacker's intent."
+        ]
+    }
+}

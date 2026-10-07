@@ -1,0 +1,28 @@
+{
+    "name": "meteoric-volley-cannot-be-activated-when-your-champion-is-not-attacking",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:37:11+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "10u5ldz371"
+    ],
+    "notes": "The generator emitted no prereq for the printed restriction, so Meteoric Volley could be activated any time; the prereq is now defined in Custom/GeneratedAbilityOverrides.php ($cardActivatedPrereqs, enforced by ActivationBlockedBeforeAnnounce).",
+    "semanticCoverage": {
+        "testedCards": [
+            "10u5ldz371"
+        ],
+        "mechanics": [
+            "activation-restriction",
+            "combat"
+        ],
+        "rulesClauses": [
+            "Activate this card only if your champion is attacking."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Meteoric Volley's 'only if your champion is attacking' restriction was missing.",
+        "affectedFunction": "cardActivatedPrereqs['10u5ldz371:0']",
+        "fixCommit": "TBD"
+    }
+}

@@ -1946,3 +1946,27 @@ $cardActivatedAbilities["dc8P58gmjR:0"] = function($player) { //Slime Calling --
   }
   SlimeCallingChooseSlime($player, 1);
 };
+
+// Meteoric Volley (10u5ldz371): "Activate this card only if your champion is attacking." The generator emitted no prereq for it at all, so it could be activated with no attack in progress.
+$cardActivatedPrereqs["10u5ldz371:0"] = function($player, $mzID) {
+    $attacker = DecisionQueueController::GetVariable("CombatAttacker");
+    if($attacker === null || $attacker === "" || $attacker === "-") return false;
+    $attackerObj = GetZoneObject($attacker);
+    return $attackerObj !== null && !$attackerObj->removed && $attackerObj->Controller == $player && PropertyContains(EffectiveCardType($attackerObj), "CHAMPION");
+};
+
+// "Activate this card only during ...": timing restrictions that were missing or written against phase codes the engine never reports. The opponent's / your end phase opportunity window runs as "BEOP"
+// (BeforeEndOpportunityPhase), the recollection window as "BREC".
+function GAIsEndPhaseWindow() { return in_array(GetCurrentPhase(), ["BEOP", "END"], true); }
+$activateCardPrereqs["ps8unuy20m:0"] = function($player, $mzID, $ignoreCost) { // Lurid Dreaming: only during an opponent's end phase
+    if(!GAIsEndPhaseWindow() || GetTurnPlayer() == $player) { SetFlashMessage("Lurid Dreaming can only be activated during an opponent's end phase."); return false; }
+    return true;
+};
+$activateCardPrereqs["pwscn0esog:0"] = function($player, $mzID, $ignoreCost) { // Orchestrated Seizure: only during an opponent's end phase
+    return GAIsEndPhaseWindow() && GetTurnPlayer() != $player;
+};
+$cardActivatedPrereqs["dfchplzf6m:0"] = function($player, $mzID) { return GAIsEndPhaseWindow() && GetTurnPlayer() != $player; }; // Ingress of Sanguine Ire: only during an opponent's end phase
+$cardActivatedPrereqs["ao1cfkhbp6:0"] = function($player, $mzID) { return GAIsEndPhaseWindow() && GetTurnPlayer() == $player; };  // Stand Fast: only during your end phase
+foreach(["vm5kt3q2sv", "nvx7mnu1xh", "PR4OkzJBVr"] as $gaRecollectionOnlyID) { // Vanish from Sight, Attune with Flames, Hemorrhaged Intimidation: only during an opponent's recollection phase
+    $cardActivatedPrereqs[$gaRecollectionOnlyID . ":0"] = function($player, $mzID) { return GetCurrentPhase() === "BREC" && GetTurnPlayer() != $player; };
+}

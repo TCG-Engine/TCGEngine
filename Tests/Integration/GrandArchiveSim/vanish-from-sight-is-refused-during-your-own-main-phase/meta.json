@@ -1,0 +1,27 @@
+{
+    "name": "vanish-from-sight-is-refused-during-your-own-main-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:38:27+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "vm5kt3q2sv"
+    ],
+    "notes": "Timing restrictions ('Activate this card only during ...') were either absent or compared against phase codes the engine never reports (the end-phase opportunity window runs as BEOP, not END), and the $cardActivatedPrereqs table they were generated into was never consulted. Prereqs now live in Custom/GeneratedAbilityOverrides.php and are enforced by ActivationBlockedBeforeAnnounce / CanActivateCardForSelection.",
+    "semanticCoverage": {
+        "testedCards": [
+            "vm5kt3q2sv"
+        ],
+        "mechanics": [
+            "timing"
+        ],
+        "rulesClauses": [
+            "Activate this card only during an opponent's recollection phase."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Vanish from Sight (also Attune with Flames, Hemorrhaged Intimidation, Ingress of Sanguine Ire, Stand Fast) had no timing restriction at all.",
+        "affectedFunction": "cardActivatedPrereqs",
+        "fixCommit": "TBD"
+    }
+}

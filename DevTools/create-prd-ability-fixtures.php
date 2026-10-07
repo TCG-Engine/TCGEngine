@@ -31318,6 +31318,50 @@ $fixtures['slime-calling-at-the-opponents-end-phase-activates-the-top-card-slime
     'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdAns(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myTempZone-2'), mrdAns(1, 'Top=;Bottom=em6eEh9q8y,em6eEh9q8y')], mrdPay(1, 2)), // pay (2), pick the Green Slime (the top card, listed last), put the rest on the bottom, pay its reduced cost (3 - 1)
 ];
 
+// Meteoric Volley (10u5ldz371): "Activate this card only if your champion is attacking. For each Aethercharge card in the attacker's intent, create a copy of it in that attacker's intent."
+$gaP2RangerAstra = ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba'], 'Counters' => ['_overrides' => ['classes' => 'RANGER']]]];
+$gaP2Wing = ['player' => 2, 'zone' => 'myField', 'cardID' => 'mob9nu6lal', 'setProperties' => ['Subcards' => ['wd7nuab7f3']]]; // Salamander's Breath loaded with Aether's Embrace -> p2 myField-1
+$fixtures['meteoric-volley-copies-each-aethercharge-in-the-attackers-intent'] = [
+    'testedCards' => ['10u5ldz371'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaP2RangerAstra, $gaP2Wing, ['player' => 2, 'zone' => 'myHand', 'cardID' => '10u5ldz371']],
+    'actions' => array_merge([mrdEnd(1), mrdAct(2, 10002, 'myField-0!FSM!'), mrdAns(2, 'myField-1'), mrdAns(2, 'theirField-0'), mrdAns(2, 'myHand-7')], mrdPay(2, 3)),
+];
+$fixtures['meteoric-volley-cannot-be-activated-when-your-champion-is-not-attacking'] = [
+    'testedCards' => ['10u5ldz371'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaRangerAstra, $gaHand('10u5ldz371')],
+    'actions' => [mrdPlay(1, 'myHand-7')],
+];
+
+// Lurid Dreaming (ps8unuy20m): "Activate this card only during an opponent's end phase. Wake up your champion. If you do, draw a card into your memory."
+$gaCleric = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Status' => 1, 'Counters' => ['_overrides' => ['classes' => 'CLERIC']]]]; // rested Cleric champion
+$fixtures['lurid-dreaming-at-the-opponents-end-phase-wakes-the-champion-and-draws-into-memory'] = [
+    'testedCards' => ['ps8unuy20m'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaCleric, $gaHand('ps8unuy20m')],
+    'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdAns(1, 'myHand-7')], mrdPay(1, 2)),
+];
+$fixtures['lurid-dreaming-is-refused-during-your-own-main-phase'] = [
+    'testedCards' => ['ps8unuy20m'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaCleric, $gaHand('ps8unuy20m')],
+    'actions' => [mrdPlay(1, 'myHand-7')],
+];
+// Vanish from Sight (vm5kt3q2sv): "Activate this card only during an opponent's recollection phase. Your champion gains stealth until end of turn."
+$fixtures['vanish-from-sight-is-refused-during-your-own-main-phase'] = [
+    'testedCards' => ['vm5kt3q2sv'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]], $gaHand('vm5kt3q2sv')],
+    'actions' => [mrdPlay(1, 'myHand-7')],
+];
+$fixtures['vanish-from-sight-during-the-opponents-recollection-phase-grants-stealth'] = [
+    'testedCards' => ['vm5kt3q2sv'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]], $gaHand('vm5kt3q2sv'), ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y']], // a card in the opponent's memory so their recollection phase (and its window) happens
+    'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdPass(1), mrdEnd(1), mrdAns(1, 'myHand-7')], mrdPay(1, 3)), // player 1's own recollection window is passed on turn three; on turn four player 1 responds in player 2's recollection window
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
