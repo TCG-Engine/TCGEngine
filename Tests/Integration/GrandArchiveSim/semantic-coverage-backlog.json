@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-07T13:36:07+00:00",
+    "generatedAt": "2026-10-07T13:39:48+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 862,
+        "cardsWithExistingFixtures": 865,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1622,
+        "cardsNeedingSemanticCoverage": 1619,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -44,23 +44,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 113
-        },
-        {
-            "cardId": "10u5ldz371",
-            "name": "Meteoric Volley",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
         },
         {
             "cardId": "xwwkxq0vp3",
@@ -3146,22 +3129,6 @@
             "mechanics": [
                 "targeting",
                 "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "ps8unuy20m",
-            "name": "Lurid Dreaming",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -27203,21 +27170,6 @@
             "priority": 11
         },
         {
-            "cardId": "vm5kt3q2sv",
-            "name": "Vanish from Sight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "9ox7u6wzh9",
             "name": "Varuckan Soulknife",
             "type": "REGALIA,WEAPON",
@@ -41702,6 +41654,29 @@
             "priority": 131
         },
         {
+            "cardId": "10u5ldz371",
+            "name": "Meteoric Volley",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "meteoric-volley-cannot-be-activated-when-your-champion-is-not-attacking",
+                "meteoric-volley-copies-each-aethercharge-in-the-attackers-intent"
+            ],
+            "semanticFixtures": [
+                "meteoric-volley-cannot-be-activated-when-your-champion-is-not-attacking",
+                "meteoric-volley-copies-each-aethercharge-in-the-attackers-intent"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "efTHWeXscP",
             "name": "Mirrordepth's Blade",
             "type": "REGALIA,WEAPON",
@@ -43794,6 +43769,28 @@
                 "galestream-insight-look-six-no-spell-bottoms-all-six",
                 "galestream-insight-look-six-reveal-spell-rest-bottom",
                 "galestream-insight-player-two-look-six-reveal-spell-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "ps8unuy20m",
+            "name": "Lurid Dreaming",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lurid-dreaming-at-the-opponents-end-phase-wakes-the-champion-and-draws-into-memory",
+                "lurid-dreaming-is-refused-during-your-own-main-phase"
+            ],
+            "semanticFixtures": [
+                "lurid-dreaming-at-the-opponents-end-phase-wakes-the-champion-and-draws-into-memory",
+                "lurid-dreaming-is-refused-during-your-own-main-phase"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47732,6 +47729,27 @@
             ],
             "semanticFixtures": [
                 "the-looking-glass-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "vm5kt3q2sv",
+            "name": "Vanish from Sight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status"
+            ],
+            "existingFixtures": [
+                "vanish-from-sight-during-the-opponents-recollection-phase-grants-stealth",
+                "vanish-from-sight-is-refused-during-your-own-main-phase"
+            ],
+            "semanticFixtures": [
+                "vanish-from-sight-during-the-opponents-recollection-phase-grants-stealth",
+                "vanish-from-sight-is-refused-during-your-own-main-phase"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

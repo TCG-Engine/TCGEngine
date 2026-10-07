@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Meteoric Volley's 'only if your champion is attacking' restriction was missing.",
         "affectedFunction": "cardActivatedPrereqs['10u5ldz371:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "9f10bd4f"
     }
 }

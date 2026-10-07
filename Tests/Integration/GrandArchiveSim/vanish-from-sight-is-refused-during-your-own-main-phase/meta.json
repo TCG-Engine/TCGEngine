@@ -22,6 +22,6 @@
         "status": "fixed",
         "summary": "Vanish from Sight (also Attune with Flames, Hemorrhaged Intimidation, Ingress of Sanguine Ire, Stand Fast) had no timing restriction at all.",
         "affectedFunction": "cardActivatedPrereqs",
-        "fixCommit": "TBD"
+        "fixCommit": "9f10bd4f"
     }
 }

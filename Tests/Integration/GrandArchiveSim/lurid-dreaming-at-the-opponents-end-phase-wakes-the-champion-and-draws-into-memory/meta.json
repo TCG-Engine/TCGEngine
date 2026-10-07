@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "Lurid Dreaming and Orchestrated Seizure compared the phase against 'END', which the end-phase opportunity window never reports (BEOP), so they could never be activated.",
         "affectedFunction": "activateCardPrereqs['ps8unuy20m:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "9f10bd4f"
     }
 }

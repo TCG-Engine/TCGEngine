@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **862**
+Cards linked to an existing fixture: **865**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1622**
+Implemented cards still needing semantic coverage: **1619**
 
 ## Mechanic groups
 
@@ -27,7 +27,6 @@ Implemented cards still needing semantic coverage: **1622**
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
 | Seeker's Aetherwing (`bf7yzaqes4`) | REGALIA,WEAPON | 1 | targeting, status, combat | Diana, Moonpiercer | — |
-| Meteoric Volley (`10u5ldz371`) | ACTION | 1 | condition | Diana, Moonpiercer | — |
 | Sidereal Spellshot (`xwwkxq0vp3`) | ACTION | 1 | unclassified | Diana, Moonpiercer | — |
 | Rescue the Heir (`t0240ykvj0`) | ACTION | 2 | cost, targeting, zone-movement, condition | — | save-the-heir |
 | Baleful Oblation (`oye74ibwo8`) | ACTION | 2 | cost, damage | — | baleful-oblation-ciel-bonus-and-effect |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **1622**
 | Aenean Swelling Gusts (`nbznVwdylT`) | ACTION | 2 | cost, targeting, damage, draw-discard | — | — |
 | Alice, Whim's Monarch (`9K4etFOi4M`) | CHAMPION | 2 | zone-movement, token, trigger, condition | — | — |
 | Arcane Elemental (`wFH1kBLrWh`) | ALLY | 2 | cost, zone-movement, combat, trigger | — | — |
+| Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
