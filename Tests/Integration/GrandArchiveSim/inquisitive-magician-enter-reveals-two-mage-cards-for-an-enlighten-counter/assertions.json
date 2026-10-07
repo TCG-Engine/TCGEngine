@@ -1,0 +1,17 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "{\"enlighten\":1}",
+        "semantic": true,
+        "label": "Revealing two Mage cards puts an enlighten counter on the champion"
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

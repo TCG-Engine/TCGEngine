@@ -1,0 +1,31 @@
+{
+    "name": "convergent-beam-with-a-fractal-deals-three-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:09:16+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "hPwHRfUpN2",
+        "8hqHAU0Xj6"
+    ],
+    "notes": "Convergent Beam while controlling a Core Fractal: 3 damage. Pre-fix the damage was always 1.",
+    "semanticCoverage": {
+        "testedCards": [
+            "hPwHRfUpN2",
+            "8hqHAU0Xj6"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control a Fractal object, deal 3 damage to that unit instead."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. See convergent-beam-without-fractal-deals-one-damage.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[hPwHRfUpN2:0:CardActivated-1]",
+        "fixCommit": "TBD"
+    }
+}

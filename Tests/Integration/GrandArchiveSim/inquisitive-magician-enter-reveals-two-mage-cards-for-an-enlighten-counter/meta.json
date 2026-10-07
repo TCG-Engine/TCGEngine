@@ -1,0 +1,31 @@
+{
+    "name": "inquisitive-magician-enter-reveals-two-mage-cards-for-an-enlighten-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:09:18+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "cbxpjya4u1",
+        "hPwHRfUpN2"
+    ],
+    "notes": "Inquisitive Magician On Enter: reveal two Mage cards (two Convergent Beams) from hand/memory for an enlighten counter. Pre-fix choosing the first card was a fatal (undefined $mageCards).",
+    "semanticCoverage": {
+        "testedCards": [
+            "cbxpjya4u1",
+            "hPwHRfUpN2"
+        ],
+        "mechanics": [
+            "reveal",
+            "counters",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "On Enter: You may reveal two Mage cards from your hand and/or memory. If you do, put an enlighten counter on your champion."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The Enter-1 handler filtered the undefined $mageCards (defined only in the enter body): array_filter(null) was a fatal. The handler is overridden in Custom/GeneratedAbilityOverrides.php and rebuilds the remaining Mage cards from the hand and memory.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[cbxpjya4u1:0:Enter-1]",
+        "fixCommit": "TBD"
+    }
+}

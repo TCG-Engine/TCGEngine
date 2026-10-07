@@ -1,0 +1,35 @@
+[
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Opponent keeps the champion and the memory-only item; Forest Cake was destroyed"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "e5o3cm9lbe",
+        "semantic": true,
+        "label": "Scepter of Lumina (memory cost 1, no reserve cost) was not a legal target and survives"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Forest Cake (reserve cost 2) was destroyed"
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

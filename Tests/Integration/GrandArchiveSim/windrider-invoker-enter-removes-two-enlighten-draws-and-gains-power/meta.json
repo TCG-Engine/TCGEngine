@@ -1,0 +1,29 @@
+{
+    "name": "windrider-invoker-enter-removes-two-enlighten-draws-and-gains-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:09:17+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "lx6xwr42i6"
+    ],
+    "notes": "Windrider Invoker On Enter: removing two enlighten counters from the champion draws a card and gives +3 power. Pre-fix the counters were never removed (the champion MZ was an undefined variable) although the card was drawn and the power granted.",
+    "semanticCoverage": {
+        "testedCards": [
+            "lx6xwr42i6"
+        ],
+        "mechanics": [
+            "counters",
+            "draw",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "On Enter: You may remove two enlighten counters from your champion. If you do, draw a card and Windrider Invoker gets +3 [POWER] until end of turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The Enter-1 handler read $champMZ, which was only defined in the enter body: RemoveCounters ran against an empty MZ, so the cost was never paid. The handler is overridden in Custom/GeneratedAbilityOverrides.php and looks the champion up itself.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[lx6xwr42i6:0:Enter-1]",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "convergent-beam-without-fractal-deals-one-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:09:15+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "hPwHRfUpN2"
+    ],
+    "notes": "Convergent Beam with no Fractal object: 1 damage.",
+    "semanticCoverage": {
+        "testedCards": [
+            "hPwHRfUpN2"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Deal 1 damage to target unit. If you control a Fractal object, deal 3 damage to that unit instead."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Convergent Beam computed $controlsFractal in the activation body and read it (undefined) in the separate resolution handler, so the 3-damage Fractal branch could never apply. The resolution handler is overridden in Custom/GeneratedAbilityOverrides.php and checks for a Fractal object when the damage is dealt.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[hPwHRfUpN2:0:CardActivated-1]",
+        "fixCommit": "TBD"
+    }
+}

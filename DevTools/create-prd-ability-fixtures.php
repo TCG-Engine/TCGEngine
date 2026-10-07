@@ -31391,6 +31391,77 @@ $fixtures['sidereal-spellshot-without-the-class-bonus-skips-the-glimpse-but-can-
     'actions' => [mrdPlay(1, 'myHand-7'), mrdAns(1, 'YES')],
 ];
 
+// --- Thermal Break (QJHpGP4kpe): "Destroy target item or weapon with memory cost 0 or reserve cost 3 or less." The generated target filter called CardMemoryCost($cardID) and the nonexistent
+// CardReserveCost(): casting it was a fatal as soon as any item was on the field. Only Forest Cake (reserve cost 2) is legal; Scepter of Lumina (memory cost 1, no reserve cost) is not. ---
+$fixtures['thermal-break-refuses-memory-only-item-destroys-low-reserve-item'] = [
+    'testedCards' => ['QJHpGP4kpe'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaLowCostSetup('QJHpGP4kpe'),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target']),
+        mrdAns(1, 'theirField-2'),
+    ]),
+];
+
+// --- Unbroken Droid (POD9hwHYy0): "On Enter: Destroy up to one target item or weapon with memory cost 0 or reserve cost 3 or less." Same generated filter fatal as Thermal Break. ---
+$fixtures['unbroken-droid-enter-destroys-low-reserve-item-refuses-memory-only-item'] = [
+    'testedCards' => ['POD9hwHYy0'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaLowCostSetup('POD9hwHYy0'),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target']),
+        mrdAns(1, 'theirField-2'),
+    ]),
+];
+
+// --- Convergent Beam (hPwHRfUpN2): "Deal 1 damage to target unit. If you control a Fractal object, deal 3 damage to that unit instead." The Fractal flag was computed in the activation body and read
+// (undefined) by the resolution handler, so the 3-damage branch could never apply. Without a Fractal: 1 damage; with a Core Fractal: 3. ---
+$fixtures['convergent-beam-without-fractal-deals-one-damage'] = [
+    'testedCards' => ['hPwHRfUpN2'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaHand('hPwHRfUpN2')],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'theirField-0')]),
+];
+$fixtures['convergent-beam-with-a-fractal-deals-three-damage'] = [
+    'testedCards' => ['hPwHRfUpN2', '8hqHAU0Xj6'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaHand('hPwHRfUpN2'), ['player' => 1, 'zone' => 'myField', 'cardID' => '8hqHAU0Xj6']], // Core Fractal (FRACTAL phantasia token)
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'theirField-0')]),
+];
+
+// --- Windrider Invoker (lx6xwr42i6): "On Enter: You may remove two enlighten counters from your champion. If you do, draw a card and Windrider Invoker gets +3 power until end of turn."
+// The champion's MZ was read from an undefined variable, so the counters were never removed although the card was drawn and the power granted. ---
+$fixtures['windrider-invoker-enter-removes-two-enlighten-draws-and-gains-power'] = [
+    'testedCards' => ['lx6xwr42i6'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        $gaHand('lx6xwr42i6'),
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['enlighten' => 3]]],
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1), mrdAns(1, 'YES')]), // pass the effect-stack window (the champion's Enlighten ability is offered with 3 counters), then accept the On Enter
+];
+
+// --- Inquisitive Magician (cbxpjya4u1): "On Enter: You may reveal two Mage cards from your hand and/or memory. If you do, put an enlighten counter on your champion." Picking the first card
+// was a fatal (array_filter on an undefined $mageCards). Two Convergent Beams (Mage) are in hand. ---
+$fixtures['inquisitive-magician-enter-reveals-two-mage-cards-for-an-enlighten-counter'] = [
+    'testedCards' => ['cbxpjya4u1', 'hPwHRfUpN2'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [$gaHand('cbxpjya4u1'), $gaHand('hPwHRfUpN2'), $gaHand('hPwHRfUpN2')],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1), mrdAns(1, 'myHand-4'), mrdAns(1, 'myHand-5')]), // pass the effect-stack window (the Beams are offered as responses), then reveal the two Convergent Beams
+];
+
+// --- Blinding Orb (qYH9PJP7uM): "Banish CARDNAME: Each opponent puts two cards from their hand into their memory. Class Bonus: Draw a card." The second handler moved the opponent's cards for an undefined
+// player, so nothing reached the opponent's memory. The champion is an Assassin here (class override) for the Class Bonus draw. ---
+$fixtures['blinding-orb-opponent-puts-two-cards-into-memory-class-bonus-draws'] = [
+    'testedCards' => ['qYH9PJP7uM'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'qYH9PJP7uM'], // Blinding Orb -> myField-1
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(2, 'myHand-0'), mrdAns(2, 'myHand-0')],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

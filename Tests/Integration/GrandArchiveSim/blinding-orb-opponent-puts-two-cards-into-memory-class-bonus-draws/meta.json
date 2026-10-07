@@ -1,0 +1,30 @@
+{
+    "name": "blinding-orb-opponent-puts-two-cards-into-memory-class-bonus-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:09:19+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qYH9PJP7uM"
+    ],
+    "notes": "Blinding Orb: banish it, the opponent puts two cards from hand into memory, and with the Class Bonus the activator draws. Pre-fix the opponent's cards were moved for an undefined player and never reached their memory.",
+    "semanticCoverage": {
+        "testedCards": [
+            "qYH9PJP7uM"
+        ],
+        "mechanics": [
+            "cost",
+            "memory",
+            "draw",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Each opponent puts two cards from their hand into their memory. Class Bonus: Draw a card."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The ActivateAbility-1/2 handlers called MZMove($opponent, ...) with $opponent defined only in the ability body (null in the handler), so the opponent's two cards never moved. The ability and handlers are overridden in Custom/GeneratedAbilityOverrides.php using the decision's own $player.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php activateAbilityAbilities[qYH9PJP7uM:0] / customDQHandlers[qYH9PJP7uM:0:ActivateAbility-1,2]",
+        "fixCommit": "TBD"
+    }
+}

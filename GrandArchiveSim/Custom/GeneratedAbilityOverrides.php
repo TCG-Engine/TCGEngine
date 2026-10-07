@@ -1977,3 +1977,115 @@ $cardActivatedAbilities["xwwkxq0vp3:0"] = function($player) { //xwwkxq0vp3
   if(IsClassBonusActive($player, ["RANGER"])) Glimpse($player, CardPower("xwwkxq0vp3"));
   MayLoadIntoAetherwing($player, "xwwkxq0vp3");
 };
+
+// ---------------------------------------------------------------------------------------------
+// "Destroy target item or weapon with memory cost 0 or reserve cost 3 or less" (Unbroken Droid POD9hwHYy0 On Enter, Thermal Break QJHpGP4kpe body + prereq). The generated target filters called
+// CardMemoryCost($cardID) (it takes an object) and CardReserveCost() (does not exist): casting Thermal Break or entering Unbroken Droid with an item or weapon on the field was a fatal.
+// Verbatim bodies with ItemLowCostMatches().
+// ---------------------------------------------------------------------------------------------
+$enterAbilities["POD9hwHYy0:0"] = function($player) { //Destroy up to one cheap item or weapon
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $candidates = array_merge(
+      ZoneSearch("myField", ["ITEM", "WEAPON"]),
+      ZoneSearch("theirField", ["ITEM", "WEAPON"])
+  );
+  $targets = [];
+  foreach($candidates as $candidateMZ) {
+      $candidateObj = GetZoneObject($candidateMZ);
+      if($candidateObj === null || $candidateObj->CardID === "POD9hwHYy0") continue;
+      if(ItemLowCostMatches($candidateObj->CardID, 3)) $targets[] = $candidateMZ;
+  }
+  if(empty($targets)) return;
+  $targetStr = implode("&", $targets);
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, "Destroy_up_to_one_item_or_weapon");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "POD9hwHYy0:0:Enter-1", 1);
+};
+$cardActivatedAbilities["QJHpGP4kpe:0"] = function($player) { //Destroy cheap item or weapon
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $candidates = array_merge(ZoneSearch("myField", ["ITEM", "WEAPON"]), ZoneSearch("theirField", ["ITEM", "WEAPON"]));
+  $targets = [];
+  foreach($candidates as $candidateMZ) {
+      $candidateObj = GetZoneObject($candidateMZ);
+      if($candidateObj === null) continue;
+      if(ItemLowCostMatches($candidateObj->CardID, 3)) $targets[] = $candidateMZ;
+  }
+  $targetStr = implode("&", $targets);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "Destroy_target_item_or_weapon");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "QJHpGP4kpe:0:CardActivated-1", 1);
+};
+$cardActivatedPrereqs["QJHpGP4kpe:0"] = function($player, $mzID) { //Destroy cheap item or weapon prereq
+  $candidates = array_merge(ZoneSearch("myField", ["ITEM", "WEAPON"]), ZoneSearch("theirField", ["ITEM", "WEAPON"]));
+  foreach($candidates as $candidateMZ) {
+      $candidateObj = GetZoneObject($candidateMZ);
+      if($candidateObj === null) continue;
+      if(ItemLowCostMatches($candidateObj->CardID, 3)) return true;
+  }
+  return false;
+};
+
+// ---------------------------------------------------------------------------------------------
+// Generated DQ handlers that read variables only defined in the ability body that queued them (PHP closures do not share scope): each logged "Undefined variable" and then ran with null.
+//   Inquisitive Magician cbxpjya4u1 Enter-1: $mageCards undefined -> array_filter(null) fatal as soon as the player picked the first Mage card to reveal.
+//   Convergent Beam hPwHRfUpN2: $controlsFractal undefined -> always 1 damage (the Fractal upgrade to 3 never applied).
+//   Windrider Invoker lx6xwr42i6 Enter-1: $champMZ undefined -> the two enlighten counters were never removed (but the card was drawn and +3 power granted for free).
+//   Blinding Orb qYH9PJP7uM: $opponent undefined -> MZMove(null, ...) so the opponent's two cards never reached memory; the opponent is the decision's own $player.
+// ---------------------------------------------------------------------------------------------
+$customDQHandlers["cbxpjya4u1:0:Enter-1"] = function($player, $parts, $lastDecision) { //Inquisitive Magician: reveal the first Mage card, then choose the second
+  $first = $lastDecision;
+  if($first === "-" || $first === "PASS" || $first === "" || $first === null) return;
+  DecisionQueueController::StoreVariable("first", $first);
+  $remaining = [];
+  foreach(["Hand", "Memory"] as $zoneName) {
+      foreach(ZoneSearch("my" . $zoneName, forPlayer: $player) as $mz) {
+          if($mz === $first) continue;
+          $zObj = GetZoneObject($mz);
+          if($zObj !== null && PropertyContains(CardClasses($zObj->CardID), "MAGE")) $remaining[] = $mz;
+      }
+  }
+  if(empty($remaining)) return;
+  DoRevealCard($player, $first);
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $remaining), 1, "Reveal_a_second_Mage_card");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "cbxpjya4u1:0:Enter-2", 1);
+};
+$customDQHandlers["hPwHRfUpN2:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Convergent Beam
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $chosen = $lastDecision;
+  if($chosen === "-" || $chosen === "" || $chosen === null) return;
+  $controlsFractal = false;
+  foreach(GetField($player) as $fieldObj) {
+      if($fieldObj !== null && !$fieldObj->removed && PropertyContains(EffectiveCardSubtypes($fieldObj), "FRACTAL")) { $controlsFractal = true; break; }
+  }
+  DealDamage($player, $mzID, $chosen, $controlsFractal ? 3 : 1);
+};
+$customDQHandlers["lx6xwr42i6:0:Enter-1"] = function($player, $parts, $lastDecision) { //Windrider Invoker
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  if($lastDecision !== "YES") return;
+  $champMZ = null;
+  foreach(GetField($player) as $fi => $fObj) {
+      if(!$fObj->removed && PropertyContains(CardType($fObj->CardID), "CHAMPION")) { $champMZ = "myField-" . $fi; break; }
+  }
+  if($champMZ === null) return;
+  RemoveCounters($player, $champMZ, "enlighten", 2);
+  Draw($player, 1);
+  AddTurnEffect($mzID, "lx6xwr42i6");
+};
+$activateAbilityAbilities["qYH9PJP7uM:0"] = function($player) { //Blinding Orb
+  $opponent = $player == 1 ? 2 : 1;
+  if(count(ZoneSearch("myHand", forPlayer: $opponent)) > 0) {
+      DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", ZoneSearch("myHand", forPlayer: $opponent)), 1, "Put_a_card_from_your_hand_into_memory");
+      DecisionQueueController::AddDecision($opponent, "CUSTOM", "qYH9PJP7uM:0:ActivateAbility-1", 1);
+  }
+  if(IsClassBonusActive($player)) Draw($player, 1);
+};
+$customDQHandlers["qYH9PJP7uM:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) { //Blinding Orb: the opponent's first card
+  if($lastDecision === "-" || $lastDecision === "" || $lastDecision === null) return;
+  MZMove($player, $lastDecision, "myMemory");
+  $handCards = ZoneSearch("myHand", forPlayer: $player);
+  if(empty($handCards)) return;
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $handCards), 1, "Put_a_second_card_from_your_hand_into_memory");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "qYH9PJP7uM:0:ActivateAbility-2", 1);
+};
+$customDQHandlers["qYH9PJP7uM:0:ActivateAbility-2"] = function($player, $parts, $lastDecision) { //Blinding Orb: the opponent's second card
+  if($lastDecision === "-" || $lastDecision === "" || $lastDecision === null) return;
+  MZMove($player, $lastDecision, "myMemory");
+};
