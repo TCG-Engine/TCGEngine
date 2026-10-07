@@ -1,0 +1,30 @@
+{
+    "name": "guarded-dissipation-prevents-damage-equal-to-greatest-sword-power-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:17:53+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "r5zs29xxoo",
+        "a40EMvoqYX"
+    ],
+    "notes": "Guarded Dissipation: prevent the next X damage where X is the greatest Sword power you control (1). Pre-fix the effect was PREVENT_ALL_ with no amount. (Level 0: no draw.)",
+    "semanticCoverage": {
+        "testedCards": [
+            "r5zs29xxoo",
+            "a40EMvoqYX"
+        ],
+        "mechanics": [
+            "prevention",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Prevent the next X damage that would be dealt to target unit this turn where X is the greatest power among Sword weapons you control."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Guarded Dissipation: the generated handler ($maxPower) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[r5zs29xxoo:0:CardActivated-1]",
+        "fixCommit": "TBD"
+    }
+}

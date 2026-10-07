@@ -6001,6 +6001,11 @@ function GAFieldAbilityCostTable() {
         "j68m69iq4d:0" => ['rest' => true], // Sentinel Fabricator (its body pays the (3))
         "7yacwhzzfb:0" => ['reserve' => 2, 'rest' => true], // Focusing Round
         "swy2NJ4q6O:0" => ['reserve' => 2, 'rest' => true], // Scarlet Tassel
+        "AOFRjoIHVe:0" => ['reserve' => 3], // Lesser Boon of Revelry
+        "V8aPGgLyh5:0" => ['reserve' => 3], // Lesser Boon of Rakko (twice; its prereq counts the uses)
+        "fJJBJ9M4c4:0" => ['reserve' => 3], // Lesser Boon of Rosen (once; the override in GeneratedAbilityOverrides.php counts the use)
+        "UC9byG4aD5:0" => ['reserve' => 'GAZerusaReserve'], // Lesser Boon of Zerusa: (2), +1 for each time it was activated this game
+        "UI0lAtGQBb:0" => ['reserve' => 'GABulletsReserve'], // Lesser Boon of Bullets: (2), +1 for each time it was activated this game
         "aou4be9z82:0" => ['rest' => true], // Humpty Dumpty, Fate's Fall
         "aou4be9z82:1" => ['reserve' => 2],
         "8677jq0hfm:0" => ['reserve' => 2, 'toMaterial' => true, 'bonus' => 'jin'], // Sundering Moon
@@ -6067,6 +6072,12 @@ function GAPatisserieReserve($player, $mzID) {
     $kitchen = count(ZoneSearch("myField", ["ITEM"], cardSubtypes: ["KITCHEN"]));
     return max(0, 3 - $kitchen);
 }
+function GABoonUsesReserve($mzID, $counter) {
+    $obj = GetZoneObject($mzID);
+    return 2 + ($obj === null ? 0 : intval(GetCounterCount($obj, $counter)));
+}
+function GAZerusaReserve($player, $mzID) { return GABoonUsesReserve($mzID, "UC9byG4aD5_uses"); }
+function GABulletsReserve($player, $mzID) { return GABoonUsesReserve($mzID, "UI0lAtGQBb_uses"); }
 function GABiseBladeReserve($player, $mzID) {
     $costs = [];
     foreach(GetOmens($player) as $omenObj) $costs[intval(CardCost_reserve($omenObj->CardID))] = true;

@@ -1,0 +1,31 @@
+{
+    "name": "incinerator-felindroid-enter-banishes-two-fire-cards-and-deals-three-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:17:54+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "Vl03t5rMSA"
+    ],
+    "notes": "Incinerator Felindroid On Enter: banish two fire cards from the graveyard, deal 3 damage to target ally. Pre-fix the two cards could never be chosen ($fireCards undefined).",
+    "semanticCoverage": {
+        "testedCards": [
+            "Vl03t5rMSA",
+            "m3zkl7lpvn",
+            "re911j7fo4"
+        ],
+        "mechanics": [
+            "banish",
+            "damage",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: You may banish two fire element cards from your graveyard. When you do, as a Spell, deal 3 damage to target ally."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Incinerator Felindroid: the generated On Enter handler ($fireCards) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[Vl03t5rMSA:0:Enter-1]",
+        "fixCommit": "TBD"
+    }
+}

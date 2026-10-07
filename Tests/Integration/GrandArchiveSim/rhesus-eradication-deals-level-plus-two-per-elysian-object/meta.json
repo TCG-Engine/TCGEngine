@@ -1,0 +1,31 @@
+{
+    "name": "rhesus-eradication-deals-level-plus-two-per-elysian-object",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:17:51+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "KgjL9uCqm6"
+    ],
+    "notes": "Rhesus Eradication: LV + 2 per Elysian object you control. Pre-fix 0 damage ($damageAmount undefined).",
+    "semanticCoverage": {
+        "testedCards": [
+            "KgjL9uCqm6",
+            "4FtNBFaOJp",
+            "RN7ueRDijA"
+        ],
+        "mechanics": [
+            "damage",
+            "level",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "Deal LV+X damage to target unit, where X is two times the amount of Elysian objects you control."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Rhesus Eradication: the generated handler ($damageAmount) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[KgjL9uCqm6:0:CardActivated-1]",
+        "fixCommit": "TBD"
+    }
+}

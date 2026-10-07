@@ -31462,6 +31462,186 @@ $fixtures['blinding-orb-opponent-puts-two-cards-into-memory-class-bonus-draws'] 
     'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(2, 'myHand-0'), mrdAns(2, 'myHand-0')],
 ];
 
+// --- Generated handlers that read a variable only defined in the ability body that queued them (closures do not share scope): the value was null at resolution. Each card below is
+// played / activated end to end; pre-fix the effect did nothing (or the wrong amount). ---
+
+// Corhazi Arsonist (0ejcyuvuxn): "If a unit hit by CARDNAME this turn would die, banish it instead." The On Hit read $target (undefined), so the hit unit was never marked and went to the graveyard.
+$fixtures['corhazi-arsonist-hit-unit-that-dies-is-banished-instead'] = [
+    'testedCards' => ['0ejcyuvuxn', 'rXHo9fLU32'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '0ejcyuvuxn'], // Corhazi Arsonist (2 power) -> field-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (3 life, 1 power) -> theirField-1
+        $gaHand('rXHo9fLU32'), // Ignite the Soul (1 damage to target unit): finishes the hit Dungeon Guide later in the same turn -> myHand-7
+    ],
+    'actions' => [mrdEnd(1), mrdPass(1), mrdPass(1), mrdEnd(2), mrdPass(1), mrdPass(1), mrdPass(1), mrdPlay(1, 'myField-1'), mrdAns(1, 'theirField-1'), mrdPass(1), mrdPass(2), mrdPlay(1, 'myHand-7'), mrdAns(1, 'myHand-0'), mrdPass(1), mrdAns(1, 'theirField-1')], // ... then Ignite the Soul finishes the hit Dungeon Guide (2 combat damage + 1)
+];
+
+// Carpsong Coda (3omh6h3a4y): "Deal an amount of damage to target unit equal to the highest life stat among water element Animal and Beast ally cards in your graveyard." The resolution handler read
+// $highestLife (undefined): 0 damage. Graveyard: Baby Blue Slime (life 2) and Jueying, Shadowmare (BEAST, life 3): 3 damage to the opponent's champion.
+$fixtures['carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard'] = [
+    'testedCards' => ['3omh6h3a4y'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [
+        $gaHand('3omh6h3a4y'),
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9ggfiy38t2'], // Baby Blue Slime (ANIMAL, life 2)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'c3plbuv3fr'], // Jueying, Shadowmare (BEAST, life 3)
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'theirField-0')]),
+];
+
+// Discordia, Harp of Malice (5LoOprBJay): "[REST]: Target champion gets -X level and your champion gets +X level until end of turn, where X is the amount of music counters on CARDNAME." The handler
+// read $musicCount (undefined): the level effects were named DISCORDIA_MINUS_ / DISCORDIA_PLUS_ with no X.
+$fixtures['discordia-harp-of-malice-rest-applies-level-swap-with-music-counter-x'] = [
+    'testedCards' => ['5LoOprBJay'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5LoOprBJay', 'setProperties' => ['Counters' => ['music' => 2]]], // Discordia with two music counters -> field-1
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'theirField-0')],
+];
+
+// Juggle Knives (7VxRE6HgZC): "Deal 1 damage to target champion. [Class Bonus] Draw a card." The handler dealt damage from an undefined source ($obj).
+$fixtures['juggle-knives-deals-one-damage-to-champion-and-class-bonus-draws'] = [
+    'testedCards' => ['7VxRE6HgZC'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaHand('7VxRE6HgZC'),
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]], // Assassin champion: the Class Bonus applies
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'theirField-0')]),
+];
+
+// Rhesus Eradication (KgjL9uCqm6): "Deal LV+X damage to target unit, where X is two times the amount of Elysian objects you control." The handler read $damageAmount (undefined): 0 damage.
+// Dante, Hemomancer (level 3) controls one Elysian Orphan: 3 + 2 = 5 damage.
+$fixtures['rhesus-eradication-deals-level-plus-two-per-elysian-object'] = [
+    'testedCards' => ['KgjL9uCqm6'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaHand('KgjL9uCqm6'),
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '4FtNBFaOJp']], // Dante, Hemomancer (level 3 EXIA Mage) as the champion
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'RN7ueRDijA'], // Elysian Orphan -> field-1
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdPass(1), mrdAns(1, 'theirField-0')]), // pass the effect-stack window (Dante's Empower is offered), then pick the target
+];
+
+// Aenean Swelling Gusts (nbznVwdylT): "Deal X damage to target unit, where X is the amount of wind element objects you control." The handler read $windCount (undefined): 0 damage. Spirit of Wind and a
+// Windrider Invoker are the two wind objects: 2 damage.
+$fixtures['aenean-swelling-gusts-deals-damage-equal-to-wind-objects-you-control'] = [
+    'testedCards' => ['nbznVwdylT'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        $gaHand('nbznVwdylT'),
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'lx6xwr42i6'], // Windrider Invoker (wind) -> field-1
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4), [mrdAns(1, 'theirField-0')]),
+];
+
+// Guarded Dissipation (r5zs29xxoo): "Prevent the next X damage that would be dealt to target unit this turn, where X is the greatest power among Sword weapons you control. [Level 1+] Draw a card." The
+// handler read $maxPower (undefined): the effect was named PREVENT_ALL_ with no amount. A Cheap Sword (power 1) is the only Sword.
+$fixtures['guarded-dissipation-prevents-damage-equal-to-greatest-sword-power-and-draws'] = [
+    'testedCards' => ['r5zs29xxoo', 'a40EMvoqYX'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [
+        $gaHand('r5zs29xxoo'),
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'a40EMvoqYX'], // Cheap Sword token (power 1) -> field-1
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myField-0')]),
+];
+
+// Ignite the Soul (rXHo9fLU32): "Deal 1 damage to target unit." The target list was the opponent's WHOLE field (items included, own units excluded) and the damage came from an undefined source.
+// Here the opponent controls a Dungeon Guide and an item (Forest Cake); the item is not a legal target, the ally is.
+$fixtures['ignite-the-soul-targets-units-only-and-deals-one-damage'] = [
+    'testedCards' => ['rXHo9fLU32'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaHand('rXHo9fLU32'),
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'bjx6yo7mm5'], // Forest Cake (item) -> theirField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> theirField-2
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [
+        mrdAns(1, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'An item is not a unit: not a legal target']),
+        mrdAns(1, 'theirField-2'),
+    ]),
+];
+
+// Incinerator Felindroid (Vl03t5rMSA): "[Class Bonus] On Enter: You may banish two fire element cards from your graveyard. When you do, as a Spell, deal 3 damage to target ally." The second step read
+// $fireCards (undefined): the two cards could never be chosen. Cleric champion, two fire cards in the graveyard, a Dungeon Guide (3 life) on the other side.
+$fixtures['incinerator-felindroid-enter-banishes-two-fire-cards-and-deals-three-damage'] = [
+    'testedCards' => ['Vl03t5rMSA'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaHand('Vl03t5rMSA'),
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'CLERIC']]]],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'm3zkl7lpvn'], // Slime Eruption (fire)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 're911j7fo4'], // Broken Promises (fire)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> theirField-1
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdAns(1, 'A'), mrdAns(1, 'myGraveyard-0&myGraveyard-1'), mrdAns(1, 'theirField-1')]), // banish two fire cards (mode A), choose both, target the Dungeon Guide
+];
+
+// Decaying Reproach (qXIKFip2t4): "Deal 3+X damage to target unit, where X is twice the amount of wither counters removed (up to four from objects you don't control)." The handler read $removed
+// (undefined): always 3. The opponent's Dungeon Guide has three wither counters: 3 + 6 = 9 damage to their champion.
+$fixtures['decaying-reproach-removes-wither-counters-for-extra-damage'] = [
+    'testedCards' => ['qXIKFip2t4'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaHand('qXIKFip2t4'),
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'd7l6i5thdy']], // Diao Chan, Idyll Corsage (level 3 TERA Cleric) as the champion
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['wither' => 3]]], // Dungeon Guide with 3 wither counters -> theirField-1
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'theirField-0')]),
+];
+
+// Discover the Divine (YJacXvwTiX): "You may remove four enlighten counters from your champion. If you do, level up your champion." The handler read $champMZ (undefined): the counters were never removed
+// but the champion still levelled up (free level-ups).
+$fixtures['discover-the-divine-removes-four-enlighten-counters-to-level-up'] = [
+    'testedCards' => ['YJacXvwTiX'],
+    'deck' => "# Material\n1 Spirit of Wind\n1 Vanitas, Obliviate Schemer\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [
+        $gaHand('YJacXvwTiX'),
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['enlighten' => 4]]],
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1), mrdAns(1, 'YES'), mrdAns(1, 'Top=px60u5n1do,px60u5n1do,em6eEh9q8y,em6eEh9q8y;Bottom=')]), // pass the effect-stack window (the champion's Enlighten ability is offered), accept, keep Vanitas's level-up Glimpse in order
+];
+
+// Lesser Boon of Revelry (AOFRjoIHVe): "(3): Target player that controls exactly one ally puts a buff counter on an ally they control without a buff counter on it." Choosing the player read
+// $myAllies/$theirAllies (undefined) in the handler: no counter was ever placed. Each player controls exactly one Dungeon Guide.
+$fixtures['lesser-boon-of-revelry-targeting-yourself-puts-a-buff-counter-on-your-only-ally'] = [
+    'testedCards' => ['AOFRjoIHVe'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'AOFRjoIHVe'], // Lesser Boon of Revelry -> field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> field-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> theirField-1
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 3), [mrdAns(1, 'YES'), mrdPass(1)]), // pay the (3), choose the player, pass the ability's response window
+];
+$fixtures['lesser-boon-of-revelry-targeting-the-opponent-puts-a-buff-counter-on-their-only-ally'] = [
+    'testedCards' => ['AOFRjoIHVe'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'AOFRjoIHVe'], // Lesser Boon of Revelry -> field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> field-2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> theirField-1
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 3), [mrdAns(1, 'NO'), mrdPass(1)]), // pay the (3), choose the player, pass the ability's response window
+];
+
+// Grim Pastiche (akmv2ssjhu): "Copy target non-Skill action omen you have with reserve cost 5 or less. If you do, you may activate that copy without paying its reserve cost." The second handler read
+// $copyCardID (undefined): saying yes activated nothing. The omen is a Convergent Beam (1 damage to target unit).
+$fixtures['grim-pastiche-copies-an-action-omen-and-activates-the-copy-free'] = [
+    'testedCards' => ['akmv2ssjhu', 'hPwHRfUpN2'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaHand('akmv2ssjhu'),
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'he6kd7hocc']], // Tristan, Shadowdancer (UMBRA)
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'hPwHRfUpN2', 'setProperties' => ['Counters' => ['omen' => 1]]], // Convergent Beam as an omen
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myBanish-0'), mrdAns(1, 'YES'), mrdAns(1, 'theirField-0')]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

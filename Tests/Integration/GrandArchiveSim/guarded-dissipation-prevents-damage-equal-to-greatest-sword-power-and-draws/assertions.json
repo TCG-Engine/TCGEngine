@@ -1,0 +1,17 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"PREVENT_ALL_1\"]",
+        "semantic": true,
+        "label": "The champion has PREVENT_ALL_1: the Cheap Sword's power (1) is the prevented amount"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

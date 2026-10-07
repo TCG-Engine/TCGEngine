@@ -1,0 +1,29 @@
+{
+    "name": "lesser-boon-of-revelry-targeting-yourself-puts-a-buff-counter-on-your-only-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:21:59+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "AOFRjoIHVe"
+    ],
+    "notes": "Lesser Boon of Revelry (3): you are the target player. Pre-fix the cost was unpaid and the counter was never placed.",
+    "semanticCoverage": {
+        "testedCards": [
+            "AOFRjoIHVe"
+        ],
+        "mechanics": [
+            "cost",
+            "counters",
+            "choice"
+        ],
+        "rulesClauses": [
+            "(3): Target player that controls exactly one ally puts a buff counter on an ally they control without a buff counter on it."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Lesser Boon of Revelry: the generated handler ($myAllies/$theirAllies) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used. The (3) activation cost was also never paid: GAFieldAbilityCostTable() now charges it.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[AOFRjoIHVe:0:ActivateAbility-1]",
+        "fixCommit": "TBD"
+    }
+}

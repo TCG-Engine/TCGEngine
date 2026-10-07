@@ -1,0 +1,31 @@
+{
+    "name": "corhazi-arsonist-hit-unit-that-dies-is-banished-instead",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:24:03+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "0ejcyuvuxn",
+        "rXHo9fLU32"
+    ],
+    "notes": "Corhazi Arsonist: a unit it hit this turn is banished instead of dying. Pre-fix the On Hit read an undefined $target and never marked the unit, so it went to the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "0ejcyuvuxn",
+            "rXHo9fLU32"
+        ],
+        "mechanics": [
+            "trigger",
+            "replacement",
+            "combat"
+        ],
+        "rulesClauses": [
+            "If a unit hit by CARDNAME this turn would die, banish it instead."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Corhazi Arsonist: the generated On Hit ($target) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php onHitAbilities[0ejcyuvuxn:0]",
+        "fixCommit": "TBD"
+    }
+}

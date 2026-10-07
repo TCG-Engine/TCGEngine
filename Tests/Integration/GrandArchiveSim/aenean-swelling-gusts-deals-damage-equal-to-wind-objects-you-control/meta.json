@@ -1,0 +1,29 @@
+{
+    "name": "aenean-swelling-gusts-deals-damage-equal-to-wind-objects-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:17:52+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "nbznVwdylT"
+    ],
+    "notes": "Aenean Swelling Gusts: X = wind element objects you control (2). Pre-fix 0 damage ($windCount undefined).",
+    "semanticCoverage": {
+        "testedCards": [
+            "nbznVwdylT",
+            "lx6xwr42i6"
+        ],
+        "mechanics": [
+            "damage",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "Deal X damage to target unit, where X is the amount of wind element objects you control."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Aenean Swelling Gusts: the generated handler ($windCount) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[nbznVwdylT:0:CardActivated-1]",
+        "fixCommit": "TBD"
+    }
+}

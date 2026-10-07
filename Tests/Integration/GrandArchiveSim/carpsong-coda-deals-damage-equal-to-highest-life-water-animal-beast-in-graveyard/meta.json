@@ -1,0 +1,31 @@
+{
+    "name": "carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:17:49+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "3omh6h3a4y"
+    ],
+    "notes": "Carpsong Coda deals damage equal to the highest life stat among water Animal and Beast ally cards in your graveyard (3). Pre-fix 0 damage ($highestLife undefined).",
+    "semanticCoverage": {
+        "testedCards": [
+            "3omh6h3a4y",
+            "9ggfiy38t2",
+            "c3plbuv3fr"
+        ],
+        "mechanics": [
+            "damage",
+            "graveyard",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal an amount of damage to target unit equal to the highest life stat among water element Animal and Beast ally cards in your graveyard."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Carpsong Coda: the generated resolution handler ($highestLife) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[3omh6h3a4y:0:CardActivated-1]",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "discordia-harp-of-malice-rest-applies-level-swap-with-music-counter-x",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:17:50+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "5LoOprBJay"
+    ],
+    "notes": "Discordia, Harp of Malice REST: -X level on the target champion and +X on yours, X = its music counters (2). Pre-fix the effects were named without X (undefined $musicCount).",
+    "semanticCoverage": {
+        "testedCards": [
+            "5LoOprBJay"
+        ],
+        "mechanics": [
+            "counters",
+            "level",
+            "rest"
+        ],
+        "rulesClauses": [
+            "[REST]: Target champion gets -X level and your champion gets +X level until end of turn, where X is the amount of music counters on CARDNAME."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Discordia, Harp of Malice: the generated handler ($musicCount) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[5LoOprBJay:0:CardActivated-1]",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "1 damage to the target champion"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Class Bonus (Assassin): a card was drawn (8 - 1 played - 2 paid + 1)"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

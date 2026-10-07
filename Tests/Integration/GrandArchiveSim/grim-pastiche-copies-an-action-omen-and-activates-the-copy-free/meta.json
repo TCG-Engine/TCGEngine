@@ -1,0 +1,31 @@
+{
+    "name": "grim-pastiche-copies-an-action-omen-and-activates-the-copy-free",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:19:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "akmv2ssjhu",
+        "hPwHRfUpN2"
+    ],
+    "notes": "Grim Pastiche: copy an action omen and activate the copy free. Pre-fix saying yes activated nothing ($copyCardID undefined).",
+    "semanticCoverage": {
+        "testedCards": [
+            "akmv2ssjhu",
+            "hPwHRfUpN2"
+        ],
+        "mechanics": [
+            "omen",
+            "copy",
+            "free-activation"
+        ],
+        "rulesClauses": [
+            "Copy target non-Skill action omen you have with reserve cost 5 or less. If you do, you may activate that copy without paying its reserve cost."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Grim Pastiche: the generated second handler ($copyCardID) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[akmv2ssjhu:0:CardActivated-2]",
+        "fixCommit": "TBD"
+    }
+}

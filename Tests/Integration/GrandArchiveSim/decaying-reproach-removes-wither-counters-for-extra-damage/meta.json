@@ -1,0 +1,30 @@
+{
+    "name": "decaying-reproach-removes-wither-counters-for-extra-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:17:55+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qXIKFip2t4"
+    ],
+    "notes": "Decaying Reproach: removes up to four wither counters from objects you don't control, then deals 3 + 2X damage (X = counters removed). Pre-fix always 3 ($removed undefined).",
+    "semanticCoverage": {
+        "testedCards": [
+            "qXIKFip2t4",
+            "d7l6i5thdy"
+        ],
+        "mechanics": [
+            "counters",
+            "damage",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "Deal 3+X damage to target unit, where X is twice the amount of wither counters removed."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Decaying Reproach: the generated handler ($removed) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[qXIKFip2t4:0] / customDQHandlers[qXIKFip2t4:0:CardActivated-1]",
+        "fixCommit": "TBD"
+    }
+}

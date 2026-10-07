@@ -1,0 +1,30 @@
+{
+    "name": "discover-the-divine-removes-four-enlighten-counters-to-level-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:17:56+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "YJacXvwTiX"
+    ],
+    "notes": "Discover the Divine: remove four enlighten counters to level up. Pre-fix the counters were never removed ($champMZ undefined) but the level-up still happened.",
+    "semanticCoverage": {
+        "testedCards": [
+            "YJacXvwTiX",
+            "x8bd7ozuj6"
+        ],
+        "mechanics": [
+            "counters",
+            "level-up",
+            "cost"
+        ],
+        "rulesClauses": [
+            "You may remove four enlighten counters from your champion. If you do, level up your champion."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Discover the Divine: the generated handler ($champMZ) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[YJacXvwTiX:0:CardActivated-1]",
+        "fixCommit": "TBD"
+    }
+}

@@ -1893,12 +1893,7 @@ function GAInstallClassBonusSourceWrappers(array &$tables) {
     }
     unset($table);
 }
-// (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)
-$gaClassBonusTables = [&$customDQHandlers, &$cardActivatedAbilities, &$enterAbilities, &$activateAbilityAbilities, &$activateAbilityPrereqs, &$activationCostModifierAbilities, &$onAttackAbilities,
-    &$onHitAbilities, &$onKillAbilities, &$allyDestroyedAbilities, &$activateCardAbilities, &$activateCardPrereqs, &$cardActivatedPrereqs, &$memoryCostModifierAbilities, &$leaveFieldAbilities,
-    &$playCardAbilities, &$onFosterAbilities, &$enterPrereqs, &$reserveCostModifierAbilities, &$dealDamageAbilities, &$onAttackPrereqs, &$onBanishAbilities, &$restCardAbilities, &$revealAbilities];
-GAInstallClassBonusSourceWrappers($gaClassBonusTables);
-unset($gaClassBonusTables);
+// (GAInstallClassBonusSourceWrappers() and GAInstallFieldAbilityCostPrereqs() are called at the very END of this file, after every override: they wrap the final closures.)
 
 // Field-item activations misfiled in the play-time table (see the "Field items whose printed activated ability was filed ..." block in Custom/GameLogic.php): neutralize the bodies so they can no longer run
 // (free, repeatable) through ActivateCard. Their real entries are $activateAbilityAbilities in GameLogic.php; the generated follow-up handlers ("<id>:0:CardActivated-1") are still used.
@@ -1907,8 +1902,6 @@ foreach(["997vxajn2q", "drnxdiltx3", "K15jWbHAMY", "clgolelsra", "21oy1nd4nw", "
     };
 }
 
-// Printed-cost prereqs for the abilities in GAFieldAbilityCostTable() (Custom/GameLogic.php): wraps the final $activateAbilityPrereqs closures.
-GAInstallFieldAbilityCostPrereqs($activateAbilityPrereqs);
 
 // Seed of Empowerment (XbYtI0XtVH): "Banish CARDNAME: Empower X, where X is the amount of refinement counters that was on CARDNAME." and Extinguishing Synchron (Tx8noEw78s): "Sacrifice CARDNAME: Recover 2+X, where X is the
 // amount of refinement counters that was on CARDNAME." The card leaves as the cost now, so the generated bodies (which read the counters off the field object) see nothing: they read the last-known count that
@@ -2069,14 +2062,6 @@ $customDQHandlers["lx6xwr42i6:0:Enter-1"] = function($player, $parts, $lastDecis
   Draw($player, 1);
   AddTurnEffect($mzID, "lx6xwr42i6");
 };
-$activateAbilityAbilities["qYH9PJP7uM:0"] = function($player) { //Blinding Orb
-  $opponent = $player == 1 ? 2 : 1;
-  if(count(ZoneSearch("myHand", forPlayer: $opponent)) > 0) {
-      DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", ZoneSearch("myHand", forPlayer: $opponent)), 1, "Put_a_card_from_your_hand_into_memory");
-      DecisionQueueController::AddDecision($opponent, "CUSTOM", "qYH9PJP7uM:0:ActivateAbility-1", 1);
-  }
-  if(IsClassBonusActive($player)) Draw($player, 1);
-};
 $customDQHandlers["qYH9PJP7uM:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) { //Blinding Orb: the opponent's first card
   if($lastDecision === "-" || $lastDecision === "" || $lastDecision === null) return;
   MZMove($player, $lastDecision, "myMemory");
@@ -2089,3 +2074,177 @@ $customDQHandlers["qYH9PJP7uM:0:ActivateAbility-2"] = function($player, $parts, 
   if($lastDecision === "-" || $lastDecision === "" || $lastDecision === null) return;
   MZMove($player, $lastDecision, "myMemory");
 };
+
+// ---------------------------------------------------------------------------------------------
+// More generated handlers that read variables only defined in the body that queued them (closures do not share scope), found by a static scan for variables read before definition.
+// Each recomputes the value at resolution:
+//   Corhazi Arsonist 0ejcyuvuxn On Hit ($target undefined: the hit unit was never marked, so "banish instead of die" never applied)
+//   Lesser Boon of Revelry AOFRjoIHVe (3) ability ($myAllies/$theirAllies)       Carpsong Coda 3omh6h3a4y ($highestLife: 0 damage)
+//   Discordia, Harp of Malice 5LoOprBJay ($musicCount: DISCORDIA_MINUS_/PLUS_ with no X)     Juggle Knives 7VxRE6HgZC ($obj: no damage source)
+//   Grim Pastiche akmv2ssjhu ($copyCardID: the copy was never activated)   Rhesus Eradication KgjL9uCqm6 ($damageAmount: 0 damage)
+//   Aenean Swelling Gusts nbznVwdylT ($windCount: 0 damage)   Guarded Dissipation r5zs29xxoo ($maxPower: PREVENT_ALL_ with no amount)
+//   Ignite the Soul rXHo9fLU32 ($obj: no damage source; and the target list was the opponent's WHOLE field instead of units)
+//   Discover the Divine YJacXvwTiX ($champMZ: the four enlighten counters were never removed but the champion levelled up)
+//   Incinerator Felindroid Vl03t5rMSA ($fireCards: the two fire cards could never be chosen)
+//   Decaying Reproach qXIKFip2t4 ($removed: always 3 damage instead of 3 + 2X)
+// ---------------------------------------------------------------------------------------------
+$onHitAbilities["0ejcyuvuxn:0"] = function($player) { //Corhazi Arsonist: mark the hit unit so it is banished instead of dying
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $obj = GetZoneObject($mzID);
+  if($obj === null || $obj->CardID !== "0ejcyuvuxn") return;
+  $target = DecisionQueueController::GetVariable("CombatTarget");
+  if($target === null || $target === "" || $target === "-") return;
+  $targetObj = GetZoneObject($target);
+  if($targetObj === null) return;
+  AddTurnEffect($target, "HIT_BY_0ejcyuvuxn");
+};
+$customDQHandlers["AOFRjoIHVe:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) { //Lesser Boon of Revelry
+  $zone = $lastDecision === "YES" ? "myField" : "theirField";
+  $allies = ZoneSearch($zone, ["ALLY"], forPlayer: $player);
+  if(count($allies) !== 1) return;
+  AddCounters($player, $allies[0], "buff", 1);
+};
+$customDQHandlers["3omh6h3a4y:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Carpsong Coda
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $highestLife = 0;
+  foreach(ZoneSearch("myGraveyard", ["ALLY"], cardElements: ["WATER"], cardSubtypes: ["ANIMAL", "BEAST"]) as $gyMZ) {
+      $gyObj = GetZoneObject($gyMZ);
+      if($gyObj !== null) $highestLife = max($highestLife, intval(CardLife($gyObj->CardID)));
+  }
+  if($highestLife > 0) DealDamage($player, $mzID, $lastDecision, $highestLife);
+};
+$customDQHandlers["5LoOprBJay:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Discordia, Harp of Malice
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $discObj = GetZoneObject($mzID);
+  $musicCount = $discObj === null ? 0 : intval(GetCounterCount($discObj, "music"));
+  AddTurnEffect($lastDecision, "DISCORDIA_MINUS_" . $musicCount);
+  $myChampMZ = FindChampionMZ($player);
+  if($myChampMZ !== null) AddTurnEffect($myChampMZ, "DISCORDIA_PLUS_" . $musicCount);
+  AddTurnEffect($mzID, "BANISH_SELF");
+};
+$customDQHandlers["7VxRE6HgZC:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Juggle Knives
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DealDamage($player, $mzID, $lastDecision, 1);
+  if(IsClassBonusActive($player, ["ASSASSIN", "RANGER"])) Draw($player, amount: 1);
+};
+$customDQHandlers["akmv2ssjhu:0:CardActivated-2"] = function($player, $parts, $lastDecision) { //Grim Pastiche
+  if($lastDecision !== "YES") return;
+  $chosenOmen = DecisionQueueController::GetVariable("chosenOmen");
+  $chosenObj = $chosenOmen === null ? null : GetZoneObject($chosenOmen);
+  if($chosenObj === null) return;
+  ActivateTemporaryCardCopy($player, $chosenObj->CardID);
+};
+$customDQHandlers["KgjL9uCqm6:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Rhesus Eradication
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $elysianCount = 0;
+  foreach(GetField($player) as $fieldObj) {
+      if($fieldObj !== null && !$fieldObj->removed && PropertyContains(EffectiveCardSubtypes($fieldObj), "ELYSIAN")) $elysianCount++;
+  }
+  DealDamage($player, $mzID, $lastDecision, PlayerLevel($player) + 2 * $elysianCount);
+};
+$customDQHandlers["nbznVwdylT:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Aenean Swelling Gusts
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $windCount = 0;
+  foreach(GetField($player) as $fieldObj) {
+      if($fieldObj !== null && !$fieldObj->removed && PropertyContains(EffectiveCardElement($fieldObj), "WIND")) $windCount++;
+  }
+  DealDamage($player, $mzID, $lastDecision, $windCount);
+  if(IsClassBonusActive($player, ["MAGE"]) && PlayerLevel($player) >= 5) DrawIntoMemory($player, 1);
+};
+$customDQHandlers["r5zs29xxoo:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Guarded Dissipation
+  $maxPower = 0;
+  foreach(ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["SWORD"]) as $swordMZ) {
+      $swordObj = GetZoneObject($swordMZ);
+      if($swordObj !== null) $maxPower = max($maxPower, intval(ObjectCurrentPower($swordObj)));
+  }
+  if($maxPower > 0) AddTurnEffect($lastDecision, "PREVENT_ALL_" . $maxPower);
+  if(PlayerLevel($player) >= 1) Draw($player, amount: 1);
+};
+$cardActivatedAbilities["rXHo9fLU32:0"] = function($player) { //Ignite the Soul: deal 1 damage to target unit
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $targets = FilterSpellshroudTargets(array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION"]), ZoneSearch("theirField", ["ALLY", "CHAMPION"])));
+  if(empty($targets)) return;
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "Deal_1_damage_to_target_unit");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "rXHo9fLU32:0:CardActivated-1", 1);
+};
+$customDQHandlers["rXHo9fLU32:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Ignite the Soul
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DealDamage($player, $mzID, $lastDecision, 1);
+};
+$customDQHandlers["YJacXvwTiX:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Discover the Divine
+  if($lastDecision !== "YES") return;
+  $champMZ = FindChampionMZ($player);
+  if($champMZ === null) return;
+  RemoveCounters($player, $champMZ, "enlighten", 4);
+  LevelUpChampion($player);
+};
+$customDQHandlers["Vl03t5rMSA:0:Enter-1"] = function($player, $parts, $lastDecision) { //Incinerator Felindroid: choose the two fire cards
+  if($lastDecision !== "A") return;
+  $fireCards = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+  if(count($fireCards) < 2) return;
+  DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "2|2|" . implode("&", $fireCards), 1, "Choose_two_fire_cards");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "Vl03t5rMSA:0:Enter-2", 1);
+};
+$cardActivatedAbilities["qXIKFip2t4:0"] = function($player) { //Decaying Reproach: remove up to four wither counters from objects you don't control, then deal 3 + 2X damage
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $removed = 0;
+  foreach(["myField", "theirField"] as $zone) {
+      $field = GetZone($zone);
+      for($i = 0; $i < count($field) && $removed < 4; ++$i) {
+          if($field[$i]->removed || $field[$i]->Controller == $player) continue;
+          $count = intval(GetCounterCount($field[$i], "wither"));
+          if($count <= 0) continue;
+          $toRemove = min(4 - $removed, $count);
+          RemoveCounters($player, $zone . "-" . $i, "wither", $toRemove);
+          $removed += $toRemove;
+      }
+  }
+  DecisionQueueController::StoreVariable("witherRemoved", $removed);
+  $units = FilterSpellshroudTargets(array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION"]), ZoneSearch("theirField", ["ALLY", "CHAMPION"])));
+  if(empty($units)) return;
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $units), 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "qXIKFip2t4:0:CardActivated-1", 1);
+};
+$customDQHandlers["qXIKFip2t4:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Decaying Reproach
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $removed = intval(DecisionQueueController::GetVariable("witherRemoved"));
+  DealDamage($player, $mzID, $lastDecision, 3 + 2 * $removed);
+};
+
+// Lesser Boon of Rosen fJJBJ9M4c4: "(3): Summon a Powercell token rested. Activate this ability only once." The once-only limit was never enforced (and the (3) is paid via GAFieldAbilityCostTable()).
+$activateAbilityAbilities["fJJBJ9M4c4:0"] = function($player) { //Rosen: summon a rested Powercell, once
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  AddCounters($player, $mzID, "fJJBJ9M4c4_used", 1);
+  $pcObj = MZAddZone($player, "myField", "qzzadf9q1v");
+  if($pcObj !== null) {
+      $pcObj->Status = 1;
+      $pcObj->Controller = $player;
+      $pcObj->Owner = $player;
+  }
+};
+$activateAbilityPrereqs["fJJBJ9M4c4:0"] = function($player, $mzID, $abilityIndex) { //Rosen prereq: only once
+  $obj = GetZoneObject($mzID);
+  return $obj !== null && GetCounterCount($obj, "fJJBJ9M4c4_used") < 1;
+};
+// Blinding Orb qYH9PJP7uM: the bare IsClassBonusActive($player) only means "controls a champion" unless it runs inside the class-bonus source wrapper; pass the card's printed classes explicitly.
+$activateAbilityAbilities["qYH9PJP7uM:0"] = function($player) { //Blinding Orb
+  $opponent = $player == 1 ? 2 : 1;
+  if(count(ZoneSearch("myHand", forPlayer: $opponent)) > 0) {
+      DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", ZoneSearch("myHand", forPlayer: $opponent)), 1, "Put_a_card_from_your_hand_into_memory");
+      DecisionQueueController::AddDecision($opponent, "CUSTOM", "qYH9PJP7uM:0:ActivateAbility-1", 1);
+  }
+  if(IsClassBonusActive($player, explode(",", CardClasses("qYH9PJP7uM")))) Draw($player, 1);
+};
+
+// ---------------------------------------------------------------------------------------------
+// KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
+// ---------------------------------------------------------------------------------------------
+// (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)
+$gaClassBonusTables = [&$customDQHandlers, &$cardActivatedAbilities, &$enterAbilities, &$activateAbilityAbilities, &$activateAbilityPrereqs, &$activationCostModifierAbilities, &$onAttackAbilities,
+    &$onHitAbilities, &$onKillAbilities, &$allyDestroyedAbilities, &$activateCardAbilities, &$activateCardPrereqs, &$cardActivatedPrereqs, &$memoryCostModifierAbilities, &$leaveFieldAbilities,
+    &$playCardAbilities, &$onFosterAbilities, &$enterPrereqs, &$reserveCostModifierAbilities, &$dealDamageAbilities, &$onAttackPrereqs, &$onBanishAbilities, &$restCardAbilities, &$revealAbilities];
+GAInstallClassBonusSourceWrappers($gaClassBonusTables);
+unset($gaClassBonusTables);
+
+// Printed-cost prereqs for the abilities in GAFieldAbilityCostTable() (Custom/GameLogic.php): wraps the final $activateAbilityPrereqs closures.
+GAInstallFieldAbilityCostPrereqs($activateAbilityPrereqs);

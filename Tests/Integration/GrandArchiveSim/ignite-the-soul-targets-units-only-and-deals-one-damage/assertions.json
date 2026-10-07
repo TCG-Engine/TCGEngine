@@ -1,0 +1,27 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "theirField-2",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "The Dungeon Guide took 1 damage"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "bjx6yo7mm5",
+        "semantic": true,
+        "label": "Forest Cake (an item) was not a legal target and is untouched"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

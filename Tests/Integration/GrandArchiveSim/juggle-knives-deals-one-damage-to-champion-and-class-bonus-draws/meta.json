@@ -1,0 +1,29 @@
+{
+    "name": "juggle-knives-deals-one-damage-to-champion-and-class-bonus-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:17:50+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "7VxRE6HgZC"
+    ],
+    "notes": "Juggle Knives: 1 damage to target champion, Class Bonus draw. Pre-fix the damage source was an undefined variable.",
+    "semanticCoverage": {
+        "testedCards": [
+            "7VxRE6HgZC"
+        ],
+        "mechanics": [
+            "damage",
+            "draw",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Deal 1 damage to target champion. [Class Bonus] Draw a card."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Juggle Knives: the generated handler ($obj, the damage source) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[7VxRE6HgZC:0:CardActivated-1]",
+        "fixCommit": "TBD"
+    }
+}

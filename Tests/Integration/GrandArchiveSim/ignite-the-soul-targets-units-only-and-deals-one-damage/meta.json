@@ -1,0 +1,28 @@
+{
+    "name": "ignite-the-soul-targets-units-only-and-deals-one-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:17:53+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "rXHo9fLU32"
+    ],
+    "notes": "Ignite the Soul: 1 damage to target unit; items are not units. Pre-fix the target list was the opponent's whole field and the damage source was undefined.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rXHo9fLU32"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 1 damage to target unit."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Ignite the Soul offered the opponent's WHOLE field as targets (items included, your own units excluded) and dealt the damage from an undefined source ($obj). The ability and its handler are overridden in Custom/GeneratedAbilityOverrides.php: legal targets are units (allies and champions) on either side.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[rXHo9fLU32:0] / customDQHandlers[rXHo9fLU32:0:CardActivated-1]",
+        "fixCommit": "TBD"
+    }
+}
