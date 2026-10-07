@@ -1,0 +1,32 @@
+{
+    "name": "fran-carmine-spark-on-attack-banishes-opponents-fire-graveyard-card-and-empowers",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:34:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "WRu4cuRHOS",
+        "r7oifozaog"
+    ],
+    "notes": "Fran, Carmine Spark On Attack: the chosen graveyard card is banished (to its owner's banishment) and a fire card empowers 3. Pre-fix the move used an undefined ->Owner (null), flipping the zone perspective so the wrong card moved.",
+    "semanticCoverage": {
+        "testedCards": [
+            "WRu4cuRHOS",
+            "r7oifozaog"
+        ],
+        "mechanics": [
+            "trigger",
+            "banish",
+            "graveyard",
+            "empower"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: Target player banishes a card from their graveyard. If a fire element card was banished this way, you empower 3."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. FranCarmineSparkBanish called MZMove($obj->Owner, ...), but graveyard objects have no Owner property: the null player flipped the zone perspective (own-graveyard picks moved the opponent's card; the banished card went to the wrong side). It now moves the chosen card to the banishment on the side of the graveyard it came from.",
+        "affectedFunction": "Custom/GameLogic.php FranCarmineSparkBanish",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "convoking-slime-recollection-summons-exactly-one-rested-copy",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:36:17+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "b1w1mvu68a"
+    ],
+    "notes": "Convoking Slime: at the beginning of your recollection phase summon exactly one rested copy. Pre-fix every new copy triggered in the same loop and summoned another: an unbounded loop.",
+    "semanticCoverage": {
+        "testedCards": [
+            "b1w1mvu68a"
+        ],
+        "mechanics": [
+            "trigger",
+            "summon",
+            "recollection"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your recollection phase, summon a copy of CARDNAME rested."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. ResolveBeforeRecollectionPhaseStart() iterated `for($i = 0; $i < count($field); ++$i)` over the live field array: the copy Convoking Slime appends to it was itself visited and summoned another copy, forever (the field grew past 2000 objects before a timeout). The loop now covers only the objects present when the phase begins.",
+        "affectedFunction": "Custom/GameLogic.php ResolveBeforeRecollectionPhaseStart",
+        "fixCommit": "TBD"
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "name": "sundering-moon-enter-with-two-wind-allies-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T14:27:39+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "8677jq0hfm",
+        "lx6xwr42i6"
+    ],
+    "notes": "Sundering Moon [Jin Bonus] On Enter: two wind allies give it +1 power until end of turn. Pre-fix SunderingMoonEnterResolve read an ambient 'currentMZID' that was never stored, so the power was never granted.",
+    "semanticCoverage": {
+        "testedCards": [
+            "8677jq0hfm",
+            "lx6xwr42i6"
+        ],
+        "mechanics": [
+            "trigger",
+            "power",
+            "bonus"
+        ],
+        "rulesClauses": [
+            "[Jin Bonus] On Enter: If you control two or more wind element allies, CARDNAME gets +1 [POWER] until end of turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. SunderingMoonEnterResolve() looked the entering weapon up through GetVariable(\"currentMZID\"), which nothing ever stores, so it returned early. It now uses the enter ability's \"mzID\" macro parameter.",
+        "affectedFunction": "Custom/GameLogic.php SunderingMoonEnterResolve",
+        "fixCommit": "TBD"
+    }
+}

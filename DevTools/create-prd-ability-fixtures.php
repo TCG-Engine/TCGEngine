@@ -31642,6 +31642,46 @@ $fixtures['grim-pastiche-copies-an-action-omen-and-activates-the-copy-free'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myBanish-0'), mrdAns(1, 'YES'), mrdAns(1, 'theirField-0')]),
 ];
 
+// Sundering Moon (8677jq0hfm): "[Jin Bonus] On Enter: If you control two or more wind element allies, CARDNAME gets +1 POWER until end of turn." The helper read an ambient variable ("currentMZID")
+// that was never stored, so the +1 power was never granted. Jin is the champion, two Windrider Invokers are the wind allies and the Moon enters last (power 1 + 1 = 2).
+$fixtures['sundering-moon-enter-with-two-wind-allies-gets-plus-one-power'] = [
+    'testedCards' => ['8677jq0hfm', 'lx6xwr42i6'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j']], // Jin as the champion
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'lx6xwr42i6'], // Windrider Invoker (wind ally) -> field-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'lx6xwr42i6'], // Windrider Invoker (wind ally) -> field-2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '8677jq0hfm'], // Sundering Moon enters last -> field-3
+    ],
+    'actions' => [mrdAns(1, 'myField-0')], // a no-op answer (nothing is pending): gives the assertions a step to read
+];
+
+// Fran, Carmine Spark (WRu4cuRHOS): "[Class Bonus] On Attack: Target player banishes a card from their graveyard. If a fire element card was banished this way, you empower 3." The banish moved the card for
+// `$obj->Owner` (graveyard objects have no Owner: null), which flipped the zone perspective, so the wrong card moved. Player 2's Baby Red Slime (fire) is the only graveyard card.
+$fixtures['fran-carmine-spark-on-attack-banishes-opponents-fire-graveyard-card-and-empowers'] = [
+    'testedCards' => ['WRu4cuRHOS', 'r7oifozaog'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'MAGE']]]], // Mage champion: the Class Bonus applies
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'WRu4cuRHOS'], // Fran, Carmine Spark -> field-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], // Baby Red Slime (fire) -> theirGraveyard-0
+    ],
+    'actions' => [mrdEnd(1), mrdEnd(2), mrdPass(1), mrdPlay(1, 'myField-1'), mrdAns(1, 'theirField-0'), mrdAns(1, 'theirGraveyard-0')],
+];
+
+// Convoking Slime (b1w1mvu68a): "[Class Bonus] At the beginning of your recollection phase, summon a copy of CARDNAME rested." The recollection-phase loop re-read count($field) every iteration, so each new copy
+// triggered in turn and summoned another one -- an unbounded loop (thousands of slimes, then a timeout). Exactly one copy must be summoned.
+$fixtures['convoking-slime-recollection-summons-exactly-one-rested-copy'] = [
+    'testedCards' => ['b1w1mvu68a'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'TAMER']]]], // Tamer champion: the Class Bonus applies
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'b1w1mvu68a'], // Convoking Slime -> field-1
+    ],
+    'actions' => [mrdEnd(1), mrdEnd(2)],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

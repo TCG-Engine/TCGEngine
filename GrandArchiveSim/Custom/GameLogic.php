@@ -11246,7 +11246,10 @@ function ResolveBeforeRecollectionPhaseStart($turnPlayer) {
 
     // Trigger recollection phase abilities for cards on the field
     $field = &GetField($turnPlayer);
-    for($i = 0; $i < count($field); ++$i) {
+    // Only the objects already on the field when the phase begins trigger: summoning during the loop (Convoking Slime's copy of itself) appends to $field, and re-reading count() made every new copy trigger
+    // in turn -- an unbounded loop that grew the field forever.
+    $recollectionFieldCount = count($field);
+    for($i = 0; $i < $recollectionFieldCount; ++$i) {
         if(!$field[$i]->removed) {
             switch($field[$i]->CardID) {
                 case "075L8pLihO": // Arima, Gaia's Wings: Put three buff counters on Arima
@@ -21132,7 +21135,8 @@ $customDQHandlers["FranCarmineSparkBanish"] = function($player, $parts, $lastDec
     $obj = GetZoneObject($lastDecision);
     if($obj === null || $obj->removed) return;
     $isFire = PropertyContains(CardElement($obj->CardID), "FIRE");
-    MZMove($obj->Owner, $lastDecision, "myBanish");
+    // Graveyard objects carry no ->Owner (that read was null, which flipped the zone perspective and moved the wrong card): the card goes to its owner's banishment, i.e. the side of the graveyard it was chosen from.
+    MZMove($player, $lastDecision, strpos($lastDecision, "their") === 0 ? "theirBanish" : "myBanish");
     if($isFire) Empower($player, 3, "WRu4cuRHOS");
 };
 
@@ -28037,7 +28041,7 @@ function SunderingMoonEnterResolve($player) {
     if(!IsJinBonus($player)) return;
     $windAllies = ZoneSearch("myField", ["ALLY"], cardElements: ["WIND"]);
     if(count($windAllies) < 2) return;
-    $mzID = DecisionQueueController::GetVariable("currentMZID");
+    $mzID = DecisionQueueController::GetVariable("mzID"); // the entering weapon (the enter body's macro parameter); "currentMZID" was never stored, so the +1 POWER never applied
     if($mzID === null || $mzID === "") return;
     AddTurnEffect($mzID, "8677jq0hfm-POWER");
 }
