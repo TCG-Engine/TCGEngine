@@ -32,10 +32,9 @@ function SWUFormatDefinitions() {
             'displayName' => 'Meta Premier',
             'legalSets'   => $premierSets,
             'banned'      => $premierBans,
-            // FEATFLAG_GLICKO2 — OFF for everyone, local dev included (owner, 2026-10-05), until the rated queue is ready.
-            // false: no menu pool (SWUMenuTree), JoinQueue refuses it (SWUFormatAllowsPublicQueue), and matches already in
-            // flight still resolve and rate. To ship: set true here, then follow every other FEATFLAG_GLICKO2 site.
-            'enabled'     => false,
+            // On since 2026-10-06 (owner). false would close it: no menu pool (SWUMenuTree), JoinQueue refuses it
+            // (SWUFormatAllowsPublicQueue), and matches already in flight still resolve and rate.
+            'enabled'     => true,
             'publicQueue' => true,
             'rated'       => true,
             'queueOnly'   => true,
@@ -403,8 +402,8 @@ function SWUMenuTree(): array {
     // PvP alone offers Meta Premier: a rated pool is matchmaking between two people, never a bot game. THIRD in the list
     // (owner, 2026-10-04). Plain "Meta Premier" since both match lengths are open (owner, 2026-10-05).
     $pvpPools = $constructedPools;
-    // FEATFLAG_GLICKO2 — the pool exists only while the format is enabled. The PvP dialog renders from the UNFILTERED
-    // tree (MainMenu's $swuMenuTreeFull, kept for invites), so 'enabled' => false alone would still list it there.
+    // The pool exists only while the format is enabled. The PvP dialog renders from the UNFILTERED tree (MainMenu's
+    // $swuMenuTreeFull, kept for invites), so without this check a disabled Meta Premier would still be listed there.
     if (!empty(SWUGetFormat('metapremier')['enabled'])) {
         array_splice($pvpPools, 2, 0, [['format' => 'metapremier', 'label' => 'Meta Premier']]);
     }

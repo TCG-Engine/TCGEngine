@@ -333,9 +333,8 @@ $expectPanels = [
   'SWUDeck'         => ['welcome+changePassword','team','developerOptions'],
   // regrouped 2026-09-25 for the redesigned profile: one pane per task, ordered so the
   // columns balance. cosmetics+sounds are merged because they are the same thing to a player.
-  // FEATFLAG_GLICKO2 — Meta Premier pane hidden for now. When the flag turns on this becomes
-  // ['savedDecks','welcome+changePassword','cosmetics+sounds','metaPremierRating+blockedUsers'].
-  'SWUSim'          => ['savedDecks','welcome+changePassword','cosmetics+sounds','blockedUsers'],
+  // + the Meta Premier rating, merged with Blocked Users (2026-10-06).
+  'SWUSim'          => ['savedDecks','welcome+changePassword','cosmetics+sounds','metaPremierRating+blockedUsers'],
   'GrandArchiveSim' => ['welcome'],
   'AzukiSim'        => ['welcome'],
   'GudnakSim'       => ['welcome'],

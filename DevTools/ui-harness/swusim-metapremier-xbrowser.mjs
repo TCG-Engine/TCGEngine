@@ -9,10 +9,6 @@
 //  • the profile shows the player's own Meta Premier pane
 //
 // Usage: node DevTools/ui-harness/swusim-metapremier-xbrowser.mjs     ENGINES=chromium,firefox,webkit (default: all)
-//
-// FEATFLAG_GLICKO2 — the rated queue is switched OFF (Formats.php 'enabled' => false; profile pane removed from SiteDef).
-// By default this checks the OFF state: no Meta Premier pool in PvP and no Meta Premier profile pane. Once the flag is on,
-// run it with FEATFLAG_GLICKO2=on to get the full menu / profile checks back (and make that the default).
 import { chromium, firefox, webkit } from 'playwright';
 import fs from 'node:fs';
 
@@ -23,7 +19,6 @@ const PREM = 'https://swudb.com/deck/LImIrpIS';      // Boba Fett, Premier-legal
 const ALL = { chromium, firefox, webkit };
 const ENGINES = Object.entries(ALL).filter(([n]) => !process.env.ENGINES || process.env.ENGINES.split(',').includes(n));
 let fails = 0, checks = 0;
-const GLICKO2_ON = process.env.FEATFLAG_GLICKO2 === 'on';   // FEATFLAG_GLICKO2 — see the header
 const ok = (engine, name, cond, extra = '') => { checks++; if (!cond) { fails++; console.log(`FAIL ${engine} :: ${name}${extra ? '  [' + extra + ']' : ''}`); } };
 
 async function login(page, user) {
@@ -68,19 +63,6 @@ for (const [engine, launcher] of ENGINES) {
     const browser = await launcher.launch();
     const page = await browser.newPage({ viewport: { width, height: 900 } });
     const errs = []; page.on('pageerror', e => errs.push(e.message));
-
-    // ── FEATFLAG_GLICKO2 off: hidden everywhere ────────────────────────────────────────────────────────
-    if (!GLICKO2_ON) {
-      await openPvp(page);
-      const offPools = await page.$$eval('#pvp-pool option', os => os.map(o => o.value));
-      ok(tag, 'FEATFLAG_GLICKO2 off: PvP offers no Meta Premier pool', !offPools.includes('metapremier'), offPools.join(','));
-      await login(page, 'claudebot1');
-      await page.goto(BASE + 'SharedUI/Sites/SWUSim/Profile.php', { waitUntil: 'load' });
-      ok(tag, 'FEATFLAG_GLICKO2 off: no Meta Premier profile pane', (await page.$('.metaPremierRating')) === null);
-      ok(tag, 'no page errors', errs.length === 0, errs[0] || '');
-      await browser.close();
-      continue;
-    }
 
     // ── logged out ───────────────────────────────────────────────────────────────────────────────────
     await openPvp(page);
@@ -131,6 +113,16 @@ for (const [engine, launcher] of ENGINES) {
     const pane = await page.evaluate(() => { const el = document.querySelector('.metaPremierRating');
       if (!el) return null; const r = el.getBoundingClientRect(); return { w: r.width, h: r.height, text: el.textContent }; });
     ok(tag, 'profile shows the Meta Premier pane', !!pane && pane.w > 0 && /Meta Premier/.test(pane.text), JSON.stringify(pane));
+    // One row per match type, STACKED, each label on one line. menuStyles.css' legacy "ul, li { display: flex }" once laid
+    // the rows side by side and squeezed "Best of 1" to a word per line on a phone (2026-10-06).
+    const rows = await page.evaluate(() => {
+      const rs = [...document.querySelectorAll('.metaPremierRating .mp-row')].map(e => e.getBoundingClientRect());
+      const ls = [...document.querySelectorAll('.metaPremierRating .mp-label')].map(e => e.getBoundingClientRect().height);
+      const lh = parseFloat(getComputedStyle(document.querySelector('.metaPremierRating .mp-label') || document.body).lineHeight) || 20;
+      return { n: rs.length, stacked: rs.every((r, i) => i === 0 || r.top >= rs[i - 1].bottom - 1), oneLine: ls.every(h => h < lh * 1.5), labelH: ls, lh };
+    });
+    ok(tag, 'profile: the Bo1 and Bo3 rows are stacked', rows.n === 2 && rows.stacked, JSON.stringify(rows));
+    ok(tag, 'profile: each match-type label sits on one line', rows.oneLine, JSON.stringify(rows));
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
     ok(tag, 'profile has no horizontal scroll', !overflow);
     await page.screenshot({ path: `${OUT}/${engine}-${width}-profile.png`, fullPage: true });

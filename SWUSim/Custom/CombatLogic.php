@@ -845,6 +845,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
         SWUReturnLeaderToZone($owner, $unitMzID);
         DecisionQueueController::CleanupRemovedCards();
         $playerID = $savedPID;
+        _SWUSweepAfterDefeat();   // a leader unit can grant HP too; AFTER the compaction, or its aura still counts
         return true;
     }
     $cardID = $obj->CardID;
@@ -881,6 +882,9 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     AddGlobalEffects($owner, 'SWU_DEFEATED_CARD_' . $cardID);
     DecisionQueueController::CleanupRemovedCards();
     $playerID = $savedPID;
+    // The unit is gone, and with it any HP it granted. AFTER the compaction: the aura givers walk the raw zone array,
+    // so a body only marked removed still grants its +X/+Y (the same placement lesson as SWUCombatDamage's sweep).
+    _SWUSweepAfterDefeat();
     return true;
 }
 
@@ -3641,7 +3645,9 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // Step 3: When Defeated + After Attack triggers — must run before CleanupRemovedCards so
     // GetZoneObject can still find defeated units (marked removed=true but still in the array).
     // Cleanup after this point to avoid PHP auto-vivifying null slots in emptied arena arrays.
-    if (!empty($combatSimulOpened)) SWUSimulDefeatEnd();   // opened above, around the combat-damage defeats only
+    // opened above, around the combat-damage defeats only. No sweep (false): step 3 below must still see the bodies;
+    // combat runs its own "no remaining HP" sweep after it, once they are compacted.
+    if (!empty($combatSimulOpened)) SWUSimulDefeatEnd(false);
     CollectCombatStep3Triggers($player, $attackerMzID, $targetMzID, $defeatedCards, $combatCtx);
     // Defender's captives now return to play — after the observers above, per the detach/materialize
     // split at the defender-defeat branch.

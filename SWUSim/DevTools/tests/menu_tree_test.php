@@ -20,11 +20,6 @@ foreach ($leaves as $l) {
 }
 foreach (array_keys(SWUFormatDefinitions()) as $id) {
     if ($id === 'botpractice') continue;
-    // FEATFLAG_GLICKO2 — Meta Premier has no menu path while switched off; covered again once it turns on.
-    if ($id === 'metapremier' && empty(SWUGetFormat('metapremier')['enabled'])) {
-        $check(($counts[$id] ?? 0) === 0, "FEATFLAG_GLICKO2 off: metapremier has no menu path");
-        continue;
-    }
     $check(($counts[$id] ?? 0) === 1, "format '$id' is reachable by exactly one PvP / Twin Suns / 1P path (found " . ($counts[$id] ?? 0) . ')');
 }
 $check(!isset($counts['botpractice']), 'botpractice is reachable only through Arenabot');
@@ -87,10 +82,7 @@ $check(!in_array('arenabot', $options($noBot, 'constructed'), true), 'the Arenab
 $check($options($noBot, 'constructed') === ['pvp'], 'with Arenabot closed, PvP is the only Constructed opponent');
 $previewsOff = SWUMenuTreeFor(true, fn(string $id): bool => !str_contains($id, 'preview'));
 // Owner, 2026-10-04: + metapremier, PvP only, third in the full list (right after Premier Preview) — so second here.
-// FEATFLAG_GLICKO2 — while the rated queue is off its pool is absent; with it on the list is the one in the comment above.
-$expectPvp = !empty(SWUGetFormat('metapremier')['enabled'])
-    ? ['premier', 'metapremier', 'eternal', 'padawan', 'open'] : ['premier', 'eternal', 'padawan', 'open'];
-$check($pools($previewsOff, 'constructed', 'pvp') === $expectPvp, 'a disabled preview format is not offered');
+$check($pools($previewsOff, 'constructed', 'pvp') === ['premier', 'metapremier', 'eternal', 'padawan', 'open'], 'a disabled preview format is not offered');
 $check($pools($previewsOff, 'twinsuns', 'teams') === ['teamsuns'], 'a disabled Team Suns Preview leaves Teams with Standard');
 $noFfa = SWUMenuTreeFor(true, fn(string $id): bool => !in_array($id, ['twinsuns', 'twinsuns-preview'], true));
 $check($options($noFfa, 'twinsuns') === ['teams'], 'an option whose every pool is disabled disappears');

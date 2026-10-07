@@ -116,14 +116,10 @@ try {
     echo "── gates ──\n";
     $r = join_($anon, 'metapremier', 'bo3', $LEGAL);
     check(empty($r['success']) && ($r['code'] ?? '') === 'login_required' && empty($r['lobbyID']), 'a guest is refused', $r);
-    // Bo1 is a rated ladder too (owner, 2026-10-05). FEATFLAG_GLICKO2: while the queue is off it is refused like Bo3.
+    // Bo1 is a rated ladder too (owner, 2026-10-05).
     $r = join_($bot1, 'metapremier', 'bo1', $LEGAL);
-    if (!empty(SWUGetFormat('metapremier')['enabled'])) {
-        check(!empty($r['success']) && !empty($r['lobbyID']), 'a logged-in Bo1 join is accepted', $r);
-        leave($bot1, $r);
-    } else {
-        check(empty($r['success']) && empty($r['lobbyID']), 'FEATFLAG_GLICKO2 off: a logged-in Bo1 join is refused', $r);
-    }
+    check(!empty($r['success']) && !empty($r['lobbyID']), 'a logged-in Bo1 join is accepted', $r);
+    leave($bot1, $r);
     $r = join_($bot1, 'metapremier', 'bo3', $LEGAL, ['createPrivate' => '1']);
     check(empty($r['success']) && ($r['code'] ?? '') === 'queue_only' && empty($r['lobbyID']), 'a private Meta Premier room is refused', $r);
     $conn->query("INSERT INTO glicko_penalties (userId, abandonStrikes, cooldownUntil) VALUES ($U1, 1, UNIX_TIMESTAMP() + 300)");
@@ -133,15 +129,6 @@ try {
     $r = join_($bot1, 'premier', 'bo1', $LEGAL);
     check(!empty($r['success']), 'plain Premier is untouched by the gates', $r);
     leave($bot1, $r);
-
-    // FEATFLAG_GLICKO2 — the rated queue is switched OFF. The gates above still hold; a logged-in Bo3 join must be refused,
-    // and every section below (pairing, rating, abandon) needs the queue, so they are skipped until the flag turns on.
-    if (empty(SWUGetFormat('metapremier')['enabled'])) {
-        $r = join_($bot1, 'metapremier', 'bo3', $LEGAL);
-        check(empty($r['success']) && empty($r['lobbyID']), 'FEATFLAG_GLICKO2 off: a logged-in Bo3 join is refused', $r);
-        echo "  SKIP: pairing / rating / abandon sections — FEATFLAG_GLICKO2 is off\n";
-        throw new RuntimeException('FEATFLAG_GLICKO2_OFF');
-    }
 
     echo "── rating window ──\n";
     $conn->query("INSERT INTO glicko_ratings (userId, format, queueType, season, rating, rd, volatility, games, updatedAt) VALUES ($U2,'metapremier','bo3',1,1900,80,0.06,20,UNIX_TIMESTAMP())");
@@ -242,8 +229,6 @@ try {
         // Still in mulligans when removed: no rating change, but a strike (spec §4.3).
         check($games($U2) === 0 && SWUMetaPremierCooldownLeft($conn, $U2) > 0, 'a pregame abandon: no rating, but a cooldown strike', [$games($U2), SWUMetaPremierCooldownLeft($conn, $U2)]);
     }
-} catch (RuntimeException $e) {
-    if ($e->getMessage() !== 'FEATFLAG_GLICKO2_OFF') throw $e;   // FEATFLAG_GLICKO2: the planned early stop, not a failure
 } finally {
     foreach ($OPENED as [$jar, $r]) leave($jar, $r);
     foreach ($createdMatches as $cm) {

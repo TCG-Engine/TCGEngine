@@ -103,10 +103,9 @@
     // because they are the same thing to a player — how the game looks and sounds — and were
     // only ever separate because the config grew that way. Saved Decks stands alone (it is the
     // substantial one) and Blocked Users stands alone (it is two controls).
-    // FEATFLAG_GLICKO2 — the Meta Premier rating pane is HIDDEN until the rated queue is ready (owner, 2026-10-05).
-    // To turn it on, replace 'blockedUsers' below with 'metaPremierRating+blockedUsers' (own rating only, merged with
-    // Blocked Users so the columns still balance) and update the pinned list in SharedUI/Render/Tests/RunRenderTests.php.
-    'sections'         => ['savedDecks','welcome+changePassword','cosmetics+sounds','blockedUsers'],
+    // The Meta Premier rating (own rating only, never a leaderboard) shares a pane with Blocked Users so the columns
+    // still balance. The pinned list in SharedUI/Render/Tests/RunRenderTests.php must match.
+    'sections'         => ['savedDecks','welcome+changePassword','cosmetics+sounds','metaPremierRating+blockedUsers'],
     'oauthAppLabel'    => 'Petranaki Arena',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
     'discordOAuth'     => true,

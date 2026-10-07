@@ -12447,10 +12447,30 @@ function _SWUSimulObserverCount(int $seat, string $cardID, array $leftCards): in
     }
     return $n;
 }
-function SWUSimulDefeatEnd(): void {
+// $sweep: the batch's defeats skipped their own "no remaining HP" sweep (_SWUSweepAfterDefeat), so run it once now
+// that every unit of the batch is gone — a defeated aura giver can leave a damaged ally without remaining HP.
+// ⚠ COMBAT PASSES false. It closes its window BEFORE CollectCombatStep3Triggers, which must still find the dead
+// bodies in their arenas, and the sweep compacts unconditionally — sweeping here lost 110 sections' triggers
+// (Bounties, Attack-End, Sidious, Logray; measured 2026-10-06). Combat sweeps at its own point, after step 3.
+function SWUSimulDefeatEnd(bool $sweep = true): void {
     $GLOBALS['gSimulDefeatWindow'] = false;
     unset($GLOBALS['gSimulDefeatSidious']);
     unset($GLOBALS['gSimulDefeatUnits']);
+    if ($sweep) _SWUSweepAfterDefeat();
+}
+
+// The state-based "no remaining HP" sweep after a unit LEAVES PLAY BY DEFEAT. A defeated unit can take HP with it —
+// JTL_115 Clone Combat Squadron's "+1/+1 for each other friendly space unit", SHD_190 Zuckuss / SHD_188 4-LOM's +1/+1
+// to each other, every "+X/+Y to other friendly units" aura — so an ally carrying damage can be left with none.
+// Combat already sweeps at its own point (SWUCombatDamage, after compaction); effect defeats (SWUDefeatUnit) never did,
+// so game 1647080's Clone Combat Squadron survived on 3 damage after The Legacy Run killed every other friendly space
+// unit. Deferred while a multi-defeat BATCH is open — a wipe's simultaneous-defeat window, or a divided-damage defeat
+// loop (gSWUDefeatBatchDepth) — because a sweep after the batch's FIRST defeat would defeat the co-targets that are
+// still waiting their turn, out of order and without the batch's "defeated by damage" flag. The batch sweeps once when
+// it closes (SWUSimulDefeatEnd / _SWUApplySplitHits).
+function _SWUSweepAfterDefeat(): void {
+    if (!empty($GLOBALS['gSimulDefeatWindow']) || intval($GLOBALS['gSWUDefeatBatchDepth'] ?? 0) > 0) return;
+    SWUCheckShrinkDefeats();
 }
 function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
     // TS26_13 Darth Sidious — snapshot how many Sidious units were in play WHEN these cards left, per
@@ -15310,17 +15330,25 @@ function _SWUApplySplitHits(int $player, array $hits, string $srcTok = ''): void
         $landed[] = ['uid' => intval($h['uid']), 'amount' => $amount, 'obj' => $obj];
         $dealtAny = true;
     }
-    foreach ($hits as $h) {
-        $mz  = SWUFindMzByUID($h['uid']);
-        if ($mz === null) continue;
-        $obj = GetZoneObject($mz);
-        if (SWUObjGone($obj)) continue;
-        $hp = ObjectCurrentHP($obj);
-        if ($hp > 0 && intval($obj->Damage) >= $hp && !SWUImmuneToHpDefeat($obj)) {
-            // SWUDefeatUnit now collects WhenDefeated + leave-play reactions itself (single point).
-            SWUDefeatUnit(intval($player), $mz, false, true); // SBA "no remaining HP" (not an ability-defeat)
+    // A BATCH: the per-defeat sweep is held until every co-target's own defeat has run (_SWUSweepAfterDefeat), then
+    // runs once — so a unit propped up by one of these victims (Clone Combat Squadron, 4-LOM) is defeated after.
+    $GLOBALS['gSWUDefeatBatchDepth'] = intval($GLOBALS['gSWUDefeatBatchDepth'] ?? 0) + 1;
+    try {
+        foreach ($hits as $h) {
+            $mz  = SWUFindMzByUID($h['uid']);
+            if ($mz === null) continue;
+            $obj = GetZoneObject($mz);
+            if (SWUObjGone($obj)) continue;
+            $hp = ObjectCurrentHP($obj);
+            if ($hp > 0 && intval($obj->Damage) >= $hp && !SWUImmuneToHpDefeat($obj)) {
+                // SWUDefeatUnit now collects WhenDefeated + leave-play reactions itself (single point).
+                SWUDefeatUnit(intval($player), $mz, false, true); // SBA "no remaining HP" (not an ability-defeat)
+            }
         }
+    } finally {
+        $GLOBALS['gSWUDefeatBatchDepth'] = intval($GLOBALS['gSWUDefeatBatchDepth']) - 1;
     }
+    _SWUSweepAfterDefeat();
     // "When damage is dealt to this unit" observers. Divided damage is a THIRD funnel alongside combat
     // and the single-target ability path, and it had none of these — SEC_143 The Elite Squad, HMW_211
     // Tech, SEC_002 Jabba, SHD_250 Tarfful, ASH_032 Rancor Keeper and the ASH_188 damaged-this-phase

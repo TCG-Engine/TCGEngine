@@ -13,10 +13,7 @@ $check = function ($ok, $msg) use (&$fails) { echo ($ok ? 'PASS' : 'FAIL') . ": 
 // into a quick match, the Twin Suns family pairs into a public ROOM with a host who starts it (see
 // lobby_adapter_test.php for the waiting-room half). 1P/local modes still never queue.
 // Owner, 2026-10-04: + metapremier, the rated queue (a 2-seat quick match; its own gates live in JoinQueue).
-$queuedQuick = ['premier', 'preview', 'eternal', 'eternal-preview', 'padawan', 'padawan-preview', 'open'];
-// FEATFLAG_GLICKO2 — Meta Premier is switched off ('enabled' => false), so it does not queue yet. It rejoins this list
-// automatically when the flag turns on.
-if (!empty(SWUGetFormat('metapremier')['enabled'])) $queuedQuick[] = 'metapremier';
+$queuedQuick = ['premier', 'preview', 'eternal', 'eternal-preview', 'padawan', 'padawan-preview', 'open', 'metapremier'];
 $queuedRoom  = ['twinsuns', 'twinsuns-preview', 'teamsuns', 'teamsuns-preview'];
 $queued = array_merge($queuedQuick, $queuedRoom);
 $never  = ['goldfish', 'hotseat', 'botpractice'];
@@ -41,11 +38,9 @@ foreach (array_keys(SWUFormatDefinitions()) as $id) {
     $flagged[] = $id;
     $check(empty($f['localMode']), "flagged format $id is not a local mode");
 }
-// FEATFLAG_GLICKO2 — metapremier keeps its publicQueue CONFIG while switched off ('enabled' => false is what closes it),
-// so the config list always includes it. Once the flag is on, $queued already contains it and this line is a no-op.
-$want = array_values(array_unique(array_merge($queued, ['metapremier'])));
+$want = $queued;
 sort($flagged); sort($want);
-$check($flagged === $want, 'exactly the 7 Constructed pools + the 4 Twin Suns formats carry publicQueue (' . implode(',', $flagged) . ')');
+$check($flagged === $want, 'exactly the ' . count($queuedQuick) . ' Constructed pools + the ' . count($queuedRoom) . ' Twin Suns formats carry publicQueue (' . implode(',', $flagged) . ')');
 
 // The room/quick split, asserted per format so neither group can drift into the other.
 foreach ($queuedQuick as $f) $check(SWUFormatIsRoomFormat($f) === false, "$f queues as a QUICK match (not a room)");

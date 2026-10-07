@@ -4581,10 +4581,12 @@ body:has(#cardDetail) .metaPremierRating .note {
   font-size: var(--t-12);
   color: var(--ink-3);
 }
-body:has(#cardDetail) .mp-list { margin: 0; padding: 0; list-style: none; }
+/* display: block — menuStyles.css' legacy "ul, li { display: flex }" otherwise lays the rows side by side, which
+   squeezed the label to 0px on a phone. The label is max-content so "Best of 1" never wraps; the value takes the rest. */
+body:has(#cardDetail) .mp-list { display: block; margin: 0; padding: 0; list-style: none; }
 body:has(#cardDetail) .mp-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: max-content minmax(0, 1fr);
   align-items: baseline;
   gap: 2px var(--s-3);
   padding-block: var(--s-2);

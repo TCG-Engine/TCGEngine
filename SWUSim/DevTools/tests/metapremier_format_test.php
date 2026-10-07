@@ -22,14 +22,8 @@ $check(SWUFormatAllowedQueueTypes('metapremier') === ['bo1', 'bo3'], 'allowed li
 $check(SWUFormatAllowsQueueType('premier', 'bo1') && SWUFormatAllowsQueueType('premier', 'bo3'), 'premier allows both');
 $check(SWUFormatAllowsQueueType('premier', 'bo7') === false, 'unknown queue type never allowed');
 $check(SWUFormatIsPreview('metapremier') === false, 'metapremier is never a preview format');
-// FEATFLAG_GLICKO2 — the rated queue is switched OFF ('enabled' => false in Formats.php). While off, assert that it is
-// hidden and refused; when the flag turns on, the full checks below run again with no edit needed here.
-$glickoOn = !empty($mp['enabled']);
-if ($glickoOn) {
-    $check(SWUFormatAllowsPublicQueue('metapremier', true) === true, 'metapremier queues publicly');
-} else {
-    $check(SWUFormatAllowsPublicQueue('metapremier', true) === false, 'FEATFLAG_GLICKO2 off: metapremier does not queue');
-}
+$check(!empty($mp['enabled']), 'metapremier is enabled (on since 2026-10-06)');
+$check(SWUFormatAllowsPublicQueue('metapremier', true) === true, 'metapremier queues publicly');
 $check(!in_array('metapremier', SWUDetectFormatOrder(), true), 'deck detection never yields metapremier');
 $check(SWUStatsFormatFor('metapremier') === 'premier' && SWUStatsFormatFor('eternal') === 'eternal', 'stats id mapping');
 // swustats' public APIs whitelist on SWUStatsFormats(); rated games are submitted as premier, so the
@@ -47,14 +41,10 @@ foreach (array_keys(SWUFormatDefinitions()) as $id) {
 $pvp = null;
 foreach (SWUMenuTree() as $gt) foreach ($gt['options'] as $o) if ($o['id'] === 'pvp') $pvp = $o;
 $pools = []; foreach ($pvp['pools'] as $p) $pools[$p['format']] = $p;
-if (!$glickoOn) {   // FEATFLAG_GLICKO2 off: no pool anywhere in the menu; the pool checks resume when it turns on
-    $check(!isset($pools['metapremier']), 'FEATFLAG_GLICKO2 off: PvP offers no Meta Premier pool');
-} else {
 $check(isset($pools['metapremier']) && $pools['metapremier']['label'] === 'Meta Premier', 'PvP has a "Meta Premier" pool');
 $check((array_keys($pools)[2] ?? '') === 'metapremier', 'Meta Premier is the THIRD PvP pool (owner, 2026-10-04)', implode(',', array_keys($pools)));
 $check(($pools['metapremier']['allowedQueueTypes'] ?? null) === ['bo1', 'bo3'], 'pool lists both match types');
 $check(($pools['metapremier']['queueOnly'] ?? null) === true && ($pools['metapremier']['requiresLogin'] ?? null) === true, 'pool flags');
-}   // FEATFLAG_GLICKO2
 $check(($pools['premier']['allowedQueueTypes'] ?? null) === ['bo1', 'bo3'] && ($pools['premier']['requiresLogin'] ?? null) === false, 'premier pool flags permissive');
 // Arenabot shares the Constructed pools; a rated pool has no place there (bot games are never rated).
 foreach (SWUMenuTree() as $gt) foreach ($gt['options'] as $o) if ($o['id'] === 'arenabot') {
