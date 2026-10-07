@@ -467,7 +467,13 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
     foreach ($hand as $i => $cid) {
         $tags = SWUBotCardTags($cid);
         $answer = (bool)array_intersect($tags, ['removal', 'wipe']);
+        // '@try-cravinganswer' (2026-10-07 gap screen): a power-strike that damages an enemy unit is an answer too — Craving Power
+        // (LOF_091) is Krennic Blue's only spot answer to a piloted ship, and was resourced in 30 of 82 losses to Boba Blue.
+        if (!$answer && SWUBotProposalOn('cravinganswer') && in_array('power-strike', $tags, true) && in_array('damage-enemy-unit', $tags, true)) $answer = true;
         $cost = _SWUBotSeatCost($seat, $cid);
+        // '@try-protecteddup' (2026-10-07 gap screen): a SECOND copy of a protected card is a spare — the duplicate check runs before the
+        // keeps (Lando s012 held Hyperspace Disaster x2 and resourced Direct Hit). ⚠ the owner confirmed the opposite precedence earlier.
+        if (SWUBotProposalOn('protecteddup') && ($inHand[$cid] ?? 0) >= 2 && $i !== $firstIdx[$cid]) { $out[$i] = [0, 0.0]; continue; }
         if ($spaceAggro && preg_match('/defeat all space units/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
         if (in_array($cid, SWU_BOT_ENGINE_KEEPS, true)) { $out[$i] = [9, 0.0]; continue; }
         // 'disclosereserve' (p36): the last card my Condemn's disclose needs is kept with the engine cards.
@@ -490,7 +496,11 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
         // copy has already gone to tier 0 (2026-09-18: "two of the same unique unit Sentinel … safe to resource one").
         // And vs SPACE aggro, Lawbringer ("each enemy unit with that aspect -2/-2") is the engine — owner: "Lawbringer on Aggression" vs
         // Vader (JTL) Yellow, where it sat in the 7+ resource-first tier and was cast once in 40 games.
-        if (SWUBotFeatureOn('wallkeep') && $aggressive && str_contains(strval(CardType($cid)), 'Unit')
+        // '@try-wallkeeparena' (2026-10-07 gap screen): against SPACE aggro, a Sentinel in an arena the opponent is not in walls off
+        // nothing — Aurra s012 resourced Pirate Snub Fighter and kept a ground Moff Gideon against four Vader ships.
+        $offArena = SWUBotProposalOn('wallkeeparena') && $spaceAggro
+            && !array_filter($oppUnits, fn($u) => $u['arena'] === _SWUBotPlayArena($cid));
+        if (SWUBotFeatureOn('wallkeep') && $aggressive && !$offArena && str_contains(strval(CardType($cid)), 'Unit')
             && (_SWUBotHasPrintedSentinel($cid) || preg_match('/\bgains Sentinel\b/i', strval(CardText($cid))))) { $out[$i] = [9, 0.0]; continue; }
         if (SWUBotFeatureOn('wallkeep') && $spaceAggro && preg_match('/each enemy unit with that aspect -\d+\/-\d+/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
         if (!$opening && $preflip && $aggressive && $cost >= 7) {
@@ -503,6 +513,8 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
         if ($answer && in_array('wipe', $tags, true) && count($oppUnits) >= 3) $keep += 100.0;
         if ($cost <= $cheapCap) $keep += $cheap <= 2 ? 250.0 : 50.0;
         $keep -= 20.0 * ($inDeck[$cid] ?? 0);
+        // '@try-wallkeeparena': and within its tier the off-arena Sentinel is the card that goes, ahead of a space answer.
+        if ($offArena && str_contains(strval(CardType($cid)), 'Unit') && _SWUBotHasPrintedSentinel($cid)) $keep -= 300.0;
         $out[$i] = [2, $keep];
     }
     return $out;

@@ -1,0 +1,44 @@
+# Self-play fixture — "Vader Yellow 9.3 sw" (Darth Vader, Victor Squadron Leader - Amnesty Housing)
+# Source: the HMW-meta list of Darth Abacus (export author "Abacus"), given by the owner 2026-10-07 as JSON.
+#   Converted 2026-10-07. 50 main-deck cards, 10 sideboard.
+# Author: Darth Abacus
+# Archetype (interpreted 2026-10-07; the owner asked for a read rather than giving a label): Space aggro.
+#   Same archetype as ash-meta-2026-09/darth-vader_jtl_yellow (melee #2, hyperaggro + space). 44 units, 41 of them
+#   in space-heavy go-wide shells: 17 one-cost cards (A-Wing, Screeching TIE, First Order TIE, Y-Wing, Outland
+#   Protector, Intelligence Agency), average cost 2.6. Victor Leader / Clone Combat Squadron / Victor Squadron pay
+#   off going wide in space; ground is only Plot/disruption (Garindan, Palpatine, Lifetree Caravan).
+# Style: hyperaggro
+# Flavours: space
+
+Leader
+1 JTL_006
+
+Base
+1 SEC_025
+
+Deck
+3 JTL_085
+3 ASH_117
+3 SEC_213
+3 SEC_185
+3 SEC_189
+2 HMW_205
+3 SEC_186
+2 HMW_136
+1 SEC_195
+3 JTL_081
+3 SEC_082
+3 LOF_091
+3 JTL_115
+3 HMW_203
+3 JTL_212
+3 ASH_194
+3 SEC_215
+3 JTL_221
+
+Sideboard
+2 LOF_226
+2 JTL_239
+2 HMW_204
+2 SEC_195
+2 JTL_235

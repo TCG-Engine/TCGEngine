@@ -263,6 +263,7 @@ function _SWUBotSplitScore(int $seat, string $candidate, array $W, bool $unpreve
             continue;
         }
         if ($amt >= $v['remaining']) $s += ($enemy ? $W['kill'] : -$W['loss']) * SWUBotUnitValue($v) + ($enemy ? 0.5 : -0.5);
+        elseif (!$enemy && SWUBotProposalOn('indirectsoak') && _SWUBotSoakIntoReach($seat, $v, $amt)) $s -= SWU_BOT_SOAK_LOSS * $W['loss'] * SWUBotUnitValue($v);
         else $s += ($enemy ? 1 : -1) * $W['chip'] * $amt;
     }
     // Feature 'splitlethal' (p33, bug #1126): points that FINISH an enemy base are the game, not W['base'] each — game 1485163's
@@ -275,6 +276,16 @@ function _SWUBotSplitScore(int $seat, string $candidate, array $W, bool $unpreve
         }
     }
     return $s;
+}
+
+// '@try-indirectsoak' (2026-10-07 gap screen): $amt damage on my unit $v takes it from out of the reach of the strongest enemy unit in its
+// arena to within it (remaining <= that power) — it is then a likely loss, not chip (Krennic vs Boba Blue: indirect soaked onto Moff Gideon,
+// then Marrok killed him; diagnosis .claude/tmp/diag_boba). An arena with no enemy unit: nothing can finish it.
+const SWU_BOT_SOAK_LOSS = 0.75;
+function _SWUBotSoakIntoReach(int $seat, array $v, int $amt): bool {
+    $reach = 0;
+    foreach (SWUBotOpponents($seat) as $o) foreach (SWUBotUnits(intval($o)) as $u) if ($u['arena'] === $v['arena']) $reach = max($reach, intval($u['attackPower']));
+    return $v['remaining'] > $reach && $v['remaining'] - $amt <= $reach;   // reach 0 would need a lethal share, priced above as a loss
 }
 
 // Continuations whose target is HURT (an enemy is the good pick) vs HELPED (a friendly is).
@@ -1421,6 +1432,12 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
     // Feature 'earlycredits' (p40): R1-3 vs an aggro leader the Credits pay for board — owner 2026-10-06, "Spend by R3, then bank".
     if (SWUBotFeatureOn('bigcredit') && SWUBotCreditSpendFor($seat, $cid) > 0 && SWUBotBanksCredits($seat) && !SWUBotCreditWorthy($cid)
         && !(SWUBotFeatureOn('earlycredits') && intval(GetTurnNumber()) <= SWU_BOT_EARLY_CREDIT_ROUNDS && SWUBotOpponentIsAggroLeader($seat))) {
+        $v = min($v, -0.5);
+    }
+    // '@try-wipecredit' (2026-10-07 gap screen): a play that spends a Credit the wipe needs NEXT round is held — Lando (any credit deck) began
+    // R4 with Hyperspace Disaster, 5 resources and 1 Credit, spent it on Anakin, and was one short in R5 (7 losses; diagnosis .claude/tmp/diag_vader).
+    if (SWUBotProposalOn('wipecredit') && ($spend = SWUBotCreditSpendFor($seat, $cid)) > 0 && !in_array('wipe', SWUBotCardTags($cid), true)
+        && ($w = _SWUBotWipeNextRound($seat)) !== null && _SWUBotCapNextRound($seat) - $spend < _SWUBotSeatCost($seat, $w['cid'])) {
         $v = min($v, -0.5);
     }
     return $v;
@@ -2834,6 +2851,28 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     if ($d === null && SWUBotFeatureOn('buffs') && isset($after['read'])) {
         $r0 = $readBefore; $r1 = $after['read'];
         if ($r1['theirs'] - $r0['theirs'] > 1e-6 && $r1['mine'] - $r0['mine'] <= 1e-6 && $after['hand'] == $handBefore) return -0.5;
+    }
+    // …and the hostile mirror: it resolved on its own and all it did was HURT my units. Owner report 2026-10-07:
+    // Tarkintown's Epic Action ("Deal 3 damage to a damaged non-leader unit") spent on the bot's own unit — the only
+    // damaged one on the board, so the lone target skipped the MZCHOOSE prompt the all-mine refusal below reads, and
+    // the Action kept the flat W['ability'] whether the unit survived or died. Refused only when that harm (lost HP,
+    // a popped Shield, a defeat) is the WHOLE change: no friendly unit gained, nothing else in the signature moved
+    // (their units, bases, hands, resources, Credits, decks, their discard — my discard is where my dead unit goes).
+    // A printed "friendly" target is a designed cost whose gain may not show in the signature (the Pershing
+    // carve-out below), so it is left to the pricing that follows.
+    if ($d === null && SWUBotFeatureOn('buffs') && !preg_match('/\bfriendly\b/i', _SWUBotActionSourceText($seat, $action))) {
+        $s1 = $after['sig'];
+        $harmed = false; $helped = false;
+        foreach ($before['mine'] as $uid => $row) {
+            $now = $s1['mine'][$uid] ?? null;   // [cardID, power, remaining, ready, shields, upgrades]
+            if ($now === null || $now[2] < $row[2] || $now[4] < $row[4]) $harmed = true;
+            if ($now !== null && ($now[1] > $row[1] || $now[2] > $row[2] || $now[4] > $row[4] || $now[5] > $row[5])) $helped = true;
+        }
+        if (count(array_diff_key($s1['mine'], $before['mine'])) > 0) $helped = true;
+        $restSame = true;
+        foreach (['theirs', 'bases', 'hands', 'resources', 'credits', 'decks'] as $k) if ($s1[$k] != $before[$k]) $restSame = false;
+        if (array_slice($s1['discards'], 1) != array_slice($before['discards'], 1)) $restSame = false;
+        if ($harmed && !$helped && $restSame) return -0.5;
     }
     // The Action's target prompt can only help the enemy (a buff whose every candidate is theirs) or only hurt
     // me (a hostile effect whose every candidate is mine): don't use it (feature 'buffs'; owner report

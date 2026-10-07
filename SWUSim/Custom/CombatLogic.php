@@ -3833,6 +3833,12 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
     $opArenaZone = "{$tp}{$arenaName}";
     $oppUnits    = [];
     $sentinels   = [];
+    // TS26_31 Chaotic Diversion — "it can't attack YOUR base or units YOU control": the protected seat offers
+    // no target at all. At 2 seats _SWUDirectionalCantAttackBlocksAll already makes the attack a no-op; at 3-4
+    // seats it can't (another opponent is still fair game), so without this the per-opponent union below
+    // offered the protected seat's base and units (Discord report 2026-10-07). Ahead of the Sentinel
+    // early-return, which would otherwise offer the protected seat's Sentinels.
+    if ($attackerObj !== null && in_array($targetSeat ?? $opponent, _SWUCantAttackSeats($attackerObj), true)) return [];
 
     $oppArena = GetZone($opArenaZone);
     for ($i = 0; $i < count($oppArena); $i++) {

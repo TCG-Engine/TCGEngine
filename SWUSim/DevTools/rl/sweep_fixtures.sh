@@ -49,6 +49,10 @@ ARM=$(if [ -n "$SUPERSET" ]; then echo superset; elif [ -n "$FOLD" ]; then echo 
 # PAIRS_FILE="<path>" (env) — a fidelity SCREEN: play only the listed unordered pairs ("deckA deckB" per line, from
 # SWUSim/DevTools/rl/fidelity_pairs.py), both seat orders. Part of the arm stamp, so a screen never resumes into a full sweep.
 PAIRS_FILE=${PAIRS_FILE:-}
+# SEED_PREFIX="<prefix>" (env, default "s") — a FRESH seed block, as in strength_test.sh: games are deterministic per seed, so a
+# lever picked on the s-block is confirmed on another. Part of the arm stamp when it is not the default.
+SEED_PREFIX=${SEED_PREFIX:-s}
+[ "$SEED_PREFIX" != "s" ] && ARM="$ARM+seeds:$SEED_PREFIX"
 if [ -n "$PAIRS_FILE" ]; then
   [ -s "$PAIRS_FILE" ] || { echo "[sweep] PAIRS_FILE $PAIRS_FILE is missing or empty" >&2; exit 1; }
   ARM="$ARM+pairs:$(basename "$PAIRS_FILE")"
@@ -64,12 +68,12 @@ if [ -n "$PAIRS_FILE" ]; then
   while read -r a b; do
     [ -n "$a" ] || continue
     for d in "$a" "$b"; do [ -f "$DIR/$d.txt" ] || { echo "[sweep] PAIRS_FILE names no $DIR/$d.txt" >&2; exit 1; }; done
-    for s in $(seq -f "s%03g" 1 "$SEEDS"); do echo "$a $b $s" >> "$OUT/jobs.txt"; echo "$b $a $s" >> "$OUT/jobs.txt"; done
+    for s in $(seq -f "${SEED_PREFIX}%03g" 1 "$SEEDS"); do echo "$a $b $s" >> "$OUT/jobs.txt"; echo "$b $a $s" >> "$OUT/jobs.txt"; done
   done < "$PAIRS_FILE"
 else
   for a in $decks; do for b in $decks; do
     [ "$a" = "$b" ] && continue
-    for s in $(seq -f "s%03g" 1 "$SEEDS"); do echo "$a $b $s" >> "$OUT/jobs.txt"; done
+    for s in $(seq -f "${SEED_PREFIX}%03g" 1 "$SEEDS"); do echo "$a $b $s" >> "$OUT/jobs.txt"; done
   done; done
 fi
 echo "[sweep] $(wc -l < "$OUT/jobs.txt") games, $WORKERS workers, arm $ARM, output $OUT — $(date -u +%H:%M:%S)"

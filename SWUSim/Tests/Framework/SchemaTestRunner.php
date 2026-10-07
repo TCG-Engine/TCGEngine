@@ -1194,7 +1194,11 @@ class SchemaTestRunner {
                 // unit/base in an N-player game (union targets).
                 // Else 'BASE' → the one opponent's base; a full mzID ('theirSpaceArena-2') is taken as-is;
                 // 'S<idx>' → cross-arena space (JTL_259); a bare number → this arena; empty → index 0.
-                if (($pt = _twSchemaSeatTarget($target)) !== null) $def = $pt;
+                // '?' → declare the attack and leave the target picker PENDING, so EXPECT can assert the
+                // offered pool (P<n>SELECTABLEEXACT) — the only way to show a target is NOT offered, since
+                // naming an unoffered target throws.
+                if ($target === '?')                     $def = '';
+                elseif (($pt = _twSchemaSeatTarget($target)) !== null) $def = $pt;
                 elseif ($target === 'BASE')              $def = 'theirBase-0';
                 elseif (_schemaIsFullMzID($target))      $def = $target;
                 elseif (str_starts_with($target, 'S'))   $def = 'theirSpaceArena-' . intval(substr($target, 1));
@@ -1208,8 +1212,10 @@ class SchemaTestRunner {
                 $atk = "mySpaceArena-" . intval($unitIdx);
                 // Twin Suns 'P<seat>...' seat-specific target (see AttackGroundArena).
                 // Else 'BASE' → the one opponent's base; a full mzID is taken as-is; 'G<idx>' →
-                // cross-arena ground (Strafing Gunship); a bare number → this arena; empty → index 0.
-                if (($pt = _twSchemaSeatTarget($target)) !== null) $def = $pt;
+                // cross-arena ground (Strafing Gunship); a bare number → this arena; empty → index 0;
+                // '?' → leave the target picker pending (see AttackGroundArena).
+                if ($target === '?')                     $def = '';
+                elseif (($pt = _twSchemaSeatTarget($target)) !== null) $def = $pt;
                 elseif ($target === 'BASE')             $def = 'theirBase-0';
                 elseif (_schemaIsFullMzID($target))     $def = $target;
                 elseif (str_starts_with($target, 'G'))   $def = 'theirGroundArena-' . intval(substr($target, 1));

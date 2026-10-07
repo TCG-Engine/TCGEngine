@@ -868,6 +868,30 @@ const SWU_BOT_PROPOSALS = [
     // ('mgbomb' was SHIPPED 2026-09-24 as feature group 'p12' — its history is in the feature comment.)
     // ('breach' was SHIPPED 2026-10-03 as feature group 'p26' — its history is in the feature comment.)
     // ('popkill' was SHIPPED 2026-10-03 as feature group 'p27' — its history is in the feature comment.)
+    // ── 2026-10-07 GAP SCREEN (the 9 real-vs-bot gap cells; .claude/tmp/ovn). Built from the per-cell diagnoses; each is
+    // screened against today's stack and confirmed on a fresh seed block before it ships.
+    // The Mando Colossus regression (bisect: 7 of 8 Mando wins -> losses vs Vader start at a 'curvemull' mulligan; it throws
+    // away 84/100 Mando hands — the rule was sized for 6 cards and the Colossus base deals 5). Guard: bot_mullfix_test.php.
+    'mullhandsize',    // curvemull: the castable requirement is max(1, hand size - 4) (6 cards -> 2, a Colossus 5 -> 1)
+    'mulleventclamp',  // curvemull: an Event's surplus counts max(0, s) at the mulligan — removal has nothing to price against
+    'mullanswer',      // curvemull: control (rank >= 3) keeps an answer (removal / wipe) plus one castable card
+    // Krennic vs Boba Fett (JTL) Blue (diagnosis .claude/tmp/diag_boba: Krennic loses the SPACE arena). Guard: bot_bobaspace_test.php.
+    'bobaspace',       // Boba Fett JTL_009 reads as a 'space' deck, so Hyperspace Disaster is kept, not resourced
+    'cravinganswer',   // resourcing: a power-strike that damages an enemy unit (Craving Power) counts as an answer
+    // Vader (JTL) Yellow vs control (diagnosis .claude/tmp/diag_vader: control plays GROUND walls into a SPACE-only Vader).
+    'wallarena',       // wall-first: a Sentinel is a wall only where the opponent has units (or vs a deck not space-flavoured). bot_wallarena_test
+    'wallkeeparena',   // resourcing vs SPACE aggro: 'wallkeep' skips a Sentinel whose arena the opponent is not in. ⚠ owner ruling
+                       // needed ("never resource a Sentinel vs aggro" — off-arena too?). bot_wallkeeparena_test
+    'indirectthreat',  // a unit's base threat adds its On Attack damage to the defending player (TIE Bomber: 3). bot_indirectthreat_test
+    'indirectsoak',    // a split share that puts my unit within the strongest enemy attacker's reach costs 0.75 x its loss, not chip.
+                       // ⚠ owner ruling needed (base or units vs indirect while the base is healthy?). bot_indirectsoak_test
+    'pilothost',       // an enemy pilotless Vehicle is worth +4/(hosts) more dead while their pilot leader is one resource from landing.
+                       // ⚠ owner ruling needed ("removal on his pilots" = kill the hosts first?). bot_pilothost_test
+    'protecteddup',    // resourcing: a SECOND copy of a protected card (space wipe, Chimaera, kept wipe) is a spare, tier 0.
+                       // ⚠ owner ruling needed (overturns the confirmed "PROTECTED above duplicates" precedence). bot_protecteddup_test
+    'claimlethal',     // initiative-for-wipe never claims when the opponent's ready attackers are lethal this round. bot_claimlethal_test
+    'wipecredit',      // a play spending a Credit the next-round wipe needs is held (Lando R4: Anakin over Disaster's Credit).
+                       // ⚠ owner ruling needed (Lando's Credits are a tempo engine, exempt from banking). bot_wipecredit_test
 ];
 
 
@@ -891,6 +915,7 @@ function SWUBotProposalList(): array {
 const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
                                  'krennicfull' => ['creditvalue', 'krennicscript'],
                                  'krennicsac'  => ['doomedtie', 'wdability'],   // HELD 2026-10-06: harmful on Krennic Splash (1:9, p=.02)
+                                 'mullfix'     => ['mullhandsize', 'mulleventclamp', 'mullanswer'],   // 2026-10-07 gap screen
                                  ];
 // ⚠ No 'creditline' group. #1098 + #1099 are one chain, but p16 shipped the waiver half as a FEATURE, so
 // plain @try-creditbank already measures "the Credit half ON TOP OF the waiver fix" — a group would just

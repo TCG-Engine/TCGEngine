@@ -913,15 +913,29 @@ function _SWUBotCurveUniqueInPlay(int $seat, string $cid): bool {
 function _SWUBotCurveMulligan(int $seat, string $style): bool {
     $aside = array_map(fn($mz) => intval(substr($mz, strlen('myHand-'))), SWUBotChooseResourceCards(['seat' => $seat, 'style' => $style], 2));
     $H = SWUBotHorizon($style, $seat);
-    $castable = 0; $surplus = 0.0; $cheap = false;
+    $castable = 0; $surplus = 0.0; $cheap = false; $answer = false; $size = 0;
+    $clamp = SWUBotProposalOn('mulleventclamp');
     foreach (GetHand($seat) as $i => $o) {
-        if ($o === null || !empty($o->removed) || in_array($i, $aside, true)) continue;
+        if ($o === null || !empty($o->removed)) continue;
+        $size++;
+        if (in_array($i, $aside, true)) continue;
         $cid = strval($o->CardID ?? '');
         $c = intval(CardCost($cid));
         if ($c <= 2) $cheap = true;
-        if ($c <= 4) { $castable++; $surplus += SWUBotCurveSurplus($seat, $cid, $H, false) ?? 0.0; }
+        if (array_intersect(SWUBotCardTags($cid), ['removal', 'wipe'])) $answer = true;
+        if ($c <= 4) {
+            $castable++;
+            $s = SWUBotCurveSurplus($seat, $cid, $H, false) ?? 0.0;
+            // '@try-mulleventclamp' (2026-10-07): a board-less event prices below its cost; it is not a reason to mulligan.
+            if ($clamp && str_contains(strval(CardType($cid)), 'Event')) $s = max(0.0, $s);
+            $surplus += $s;
+        }
     }
-    $keep = $castable >= 2 && $surplus >= 0.0 && (SWUBotStyleRank($style) > 1 || $cheap);
+    // '@try-mullhandsize' (2026-10-07): the two set aside come out of a smaller hand too — a Colossus 5-card hand needs 1 castable.
+    $need = SWUBotProposalOn('mullhandsize') ? max(1, $size - 4) : 2;
+    $keep = $castable >= $need && $surplus >= 0.0 && (SWUBotStyleRank($style) > 1 || $cheap);
+    // '@try-mullanswer' (2026-10-07): control keeps an answer and something to cast (owner, 'mullstyle': an answer AND a curve).
+    if (!$keep && SWUBotProposalOn('mullanswer') && SWUBotStyleRank($style) >= 3 && $answer && $castable >= 1) $keep = true;
     return !$keep;
 }
 

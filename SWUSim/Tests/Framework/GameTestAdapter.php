@@ -336,7 +336,8 @@ class GameTestAdapter {
             // friendly unit"). Consuming THAT with the attack target silently mis-resolves the ability and
             // swallows the test's explicit AnswerDecision; leave it pending so the next WHEN line answers it.
             $pending = $this->state->pendingDecision($player);
-            if ($pending !== null && $pending->Type === 'MZCHOOSE'
+            // An empty $targetMzID (schema '?') leaves the attack-target picker pending for EXPECT to read.
+            if ($targetMzID !== '' && $pending !== null && $pending->Type === 'MZCHOOSE'
                 && ($pending->Tooltip ?? '') === 'Choose_an_attack_target') {
                 // ⚠ VALIDATE, exactly as answerDecision() does. This injection used to hand the target
                 // straight to ExecuteStaticMethods, so a section could attack a unit the legality pool had

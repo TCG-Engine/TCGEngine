@@ -416,6 +416,13 @@ function SWUBotRuleWallFirst(array $ctx): ?array {
     if (!SWUBotOpponentIsAggroLeader($seat)) return null;
     $guarded = [];
     foreach (SWUBotUnits($seat) as $u) if (!empty($u['sentinel'])) $guarded[$u['arena']] = true;
+    // '@try-wallarena' (2026-10-07 gap screen): against a SPACE-flavoured deck, a wall stands only in an arena the opponent is in — a
+    // ground Commando played into four Vader ships blocks nothing (Aurra s012 R4; diagnosis .claude/tmp/diag_vader).
+    if (SWUBotProposalOn('wallarena') && in_array('space', SWUBotDeckFlavours(intval($ctx['opp'])), true)) {
+        $occupied = [];
+        foreach (SWUBotUnits(intval($ctx['opp'])) as $u) $occupied[$u['arena']] = true;
+        foreach (['Ground', 'Space'] as $ar) if (empty($occupied[$ar])) $guarded[$ar] = true;   // nothing to wall off there
+    }
     $plays = [];
     foreach ($ctx['actions'] as $a) {
         if (SWUBotActionKind($a) !== 'play') continue;
@@ -956,6 +963,9 @@ function SWUBotRuleInitiativeForWipe(array $ctx): ?array {
     if (SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3) return null;
     $init = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'initiative');
     if ($init === null || strval(GetInitiativeCounter() ?? '') !== 'P' . $opp . '_UNCLAIMED') return null;
+    // '@try-claimlethal' (2026-10-07 gap screen): their ready attackers already have lethal this round — the wipe next round never comes
+    // (Lando s007 R5 claimed at 9 HP into 10 ready damage; diagnosis .claude/tmp/diag_vader). Leave the round's plays to the other rules.
+    if (SWUBotProposalOn('claimlethal') && SWUBotBasePotential($opp, $seat, true) >= SWUBaseRemainingHp($seat)) return null;
     // A wipe castable NOW needs no set-up: 'control-wipe' runs earlier, and its play is in the forgone sum below.
     $gain = 0.0;
     if ($hand && ($w = _SWUBotWipeNextRound($seat)) !== null) $gain = max($gain, floatval($w['threat']));

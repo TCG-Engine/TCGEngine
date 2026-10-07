@@ -73,7 +73,11 @@ function SWUBotDeckFlavours(int $seat): array {
     $base = GetBase($seat)[0] ?? null;
     $baseID = $base !== null ? strval($base->CardID ?? '') : '';
     $aspect = $baseID !== '' ? strval(CardAspect($baseID) ?? '') : '';
-    return SWU_BOT_FLAVOURS["$leader|$baseID"] ?? SWU_BOT_FLAVOURS["$leader|$aspect"] ?? SWU_BOT_FLAVOURS["$leader|*"] ?? [];
+    $f = SWU_BOT_FLAVOURS["$leader|$baseID"] ?? SWU_BOT_FLAVOURS["$leader|$aspect"] ?? SWU_BOT_FLAVOURS["$leader|*"] ?? [];
+    // '@try-bobaspace' (2026-10-07 gap screen): Boba Fett (JTL) is a SPACE deck (owner: "space midrange, 27 of 41 units space"); with
+    // only 'burn', Krennic's resourcing read space aggro off the board and resourced Hyperspace Disaster against him (14 games, all lost).
+    if ($leader === 'JTL_009' && function_exists('SWUBotProposalOn') && SWUBotProposalOn('bobaspace') && !in_array('space', $f, true)) $f[] = 'space';
+    return $f;
 }
 
 // A card this deck should not resource while it holds filler (feature 'keep'): its answers (removal, wipe), its

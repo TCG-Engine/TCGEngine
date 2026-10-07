@@ -107,4 +107,55 @@ $check(SWUBotScoreAction($botCtx('normal'), ['playerID' => 1, 'mode' => 10001, '
     'a DECLARED friendly cost is NOT refused (scores above PASS, not the -0.5 refusal)');
 $check($stack('normal') === $pershing, 'and with no attack available the bot still draws with Pershing');
 
+// ── E. the SINGLE-target hole: a lone legal target skips the prompt, so section A's guard never saw it ──
+// Owner report 2026-10-07: "the bot wastes Tarkintown's epic base action to deal damage to its own damaged unit".
+// SOR_025 Tarkintown — "Epic Action: Deal 3 damage to a damaged non-leader unit." When the ONLY damaged non-leader
+// unit on the board is mine, SWUQueueChooseTarget queues PASSPARAMETER instead of MZCHOOSE, the lookahead resolves
+// the damage outright, and the all-mine refusal (which reads the MZCHOOSE prompt) has nothing to read. The Action
+// then kept the flat W['ability'] 0.40 — above PASS — whether the unit survived or died (a Marine's 0.5 sacrifice
+// cost vanishes under the 1.0 allowance). With TWO all-mine damaged units the prompt is up and it WAS refused.
+$EPIC = 'myBase-0!CustomInput!EpicAction';
+$tarkintown = function (array $mine, array $theirs) use ($build) {
+    $build(function ($b) use ($mine, $theirs) {
+        $b->MyLeader('SOR_014', false, false, true);     // a quiet leader: no Action, no deploy on offer
+        $b->MyBase('SOR_025', 0);
+        foreach ($mine as [$c, $dmg]) $b->WithGroundUnitForPlayer(1, $c, false, $dmg);   // exhausted: no attack competes
+        foreach ($theirs as [$c, $dmg]) $b->WithGroundUnitForPlayer(2, $c, true, $dmg);
+    });
+};
+$epicScore = fn() => SWUBotScoreAction($botCtx('normal'), ['playerID' => 1, 'mode' => 10001, 'cardID' => $EPIC], 0);
+
+// E1: my Academy Defense Walker (SOR_037, 6 HP) at 1 damage is the only damaged unit — it SURVIVES the 3.
+$tarkintown([['SOR_037', 1]], [['SOR_095', 0]]);
+$check(in_array($EPIC, $ids($botCtx('normal')['actions']), true), "fixture: Tarkintown's Epic Action is on offer");
+$check($epicScore() < 0.0, 'a lone own target that survives: the Epic Action is refused (below PASS); scored ' . $epicScore());
+$check($stack('normal') !== $EPIC, 'and the bot does not use it (normal)');
+$check($stack('control') !== $EPIC, 'same refusal on control');
+$check($stack('normal', 1, 'no-buffs') === $EPIC, '@no-buffs: it IS used — the reported mistake');
+
+// E2: my Marine (SOR_095, 3 HP) at 1 damage is the only damaged unit — the 3 damage KILLS it.
+$tarkintown([['SOR_095', 1]], [['SOR_095', 0]]);
+$check($epicScore() < 0.0, 'a lone own target that dies: the Epic Action is refused; scored ' . $epicScore());
+$check($stack('normal') !== $EPIC, 'and the bot does not use it');
+$check($stack('normal', 1, 'no-buffs') === $EPIC, '@no-buffs: it IS used — the reported mistake');
+
+// E3: control — the lone damaged unit is THEIRS, so the same auto-resolve path is a real use.
+$tarkintown([['SOR_037', 0]], [['SOR_095', 1]]);
+$check($epicScore() > 0.0, 'a lone ENEMY target: the Epic Action scores above PASS; scored ' . $epicScore());
+$check($stack('normal') === $EPIC, 'and the bot uses it — the fix is not "never use Tarkintown"');
+
+// E4: Pershing ALONE — his "deal 1 damage to a friendly unit" cost has one legal target (himself), so it
+// auto-resolves too. The card he draws is the gain; the new auto-resolve refusal must not swallow it.
+// ⚠ The deck must hold cards: drawing from an EMPTY deck deals 3 damage to my base instead, and that base change
+// alone keeps the refusal off — the section would pass with every Pershing guard removed.
+$build(function ($b) {
+    $b->MyLeader('SOR_014', false, false, true);
+    $b->WithGroundUnitForPlayer(1, 'SHD_028', true);
+    $b->WithCardInDeckForPlayer(1, 'SOR_095');
+    $b->WithCardInDeckForPlayer(1, 'SOR_095');
+});
+$check(count(GetDeck(1)) === 2, 'fixture: Pershing has a deck to draw from (an empty-deck draw would damage my base)');
+$check(SWUBotScoreAction($botCtx('normal'), ['playerID' => 1, 'mode' => 10001, 'cardID' => $pershing], 0) > 0.0,
+    'Pershing paying his cost on himself (lone auto-resolved target) is NOT refused');
+
 bot_test_finish();

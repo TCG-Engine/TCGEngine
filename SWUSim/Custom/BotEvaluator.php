@@ -227,7 +227,22 @@ function _SWUBotBasePotentialThroughSentinels(int $seat, int $defSeat, bool $rea
 function SWUBotUnitBaseThreat(int $defSeat, array $v): int {
     $guarded = _SWUBotSentinelArenas($defSeat);
     $own = (!$v['saboteur'] && ($guarded[$v['arena']] ?? false)) ? 0 : intval($v['attackPower']);
-    return $own + ((function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('aurathreat')) ? _SWUBotAuraGrantedPower($v) : 0);
+    return $own + ((function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('aurathreat')) ? _SWUBotAuraGrantedPower($v) : 0)
+                + ((function_exists('SWUBotProposalOn') && SWUBotProposalOn('indirectthreat')) ? _SWUBotOnAttackPlayerDamage($v) : 0);
+}
+
+// '@try-indirectthreat' (2026-10-07 gap screen): the damage a unit's printed On Attack deals the defending player — "Deal N indirect damage
+// to the defending player" (TIE Bomber JTL_237: 3) or "Deal N damage to (a|the defending player's) base". It lands whatever the attack is
+// forced into, so a Sentinel does not stop it (Krennic vs Boba Blue: a 0-power Bomber read as no threat; diagnosis .claude/tmp/diag_boba).
+function _SWUBotOnAttackPlayerDamage(array $v): int {
+    static $parsed = [];
+    $cid = strval($v['cardID']);
+    if (!array_key_exists($cid, $parsed)) {
+        $t = strval(CardText($cid));
+        $parsed[$cid] = preg_match("/On Attack:[^.]*?Deal (\d+) indirect damage to the defending player/i", $t, $m)
+            || preg_match("/On Attack:[^.]*?Deal (\d+) damage to (?:a|the defending player's|each enemy) base/i", $t, $m) ? intval($m[1]) : 0;
+    }
+    return $parsed[$cid];
 }
 
 // Feature 'aurathreat' (p28, shipped 2026-10-03; @no-aurathreat) — owner ruling 4 (2026-09-22): a unit's threat includes the damage it GRANTS
@@ -445,7 +460,7 @@ function SWUBotDefeatFizzles(array $v): bool {
 
 function SWUBotUnitValue(array $v): float {
     // Feature 'lockpiece' (p35): a unit whose name-lock holds a card in its victim's hand is worth more dead.
-    $lock = SWUBotLockPremium($v);
+    $lock = SWUBotLockPremium($v) + _SWUBotPilotHostPremium($v);
     if (function_exists('SWUBotProposalOn') && (SWUBotProposalOn('unitvalue') || SWUBotProposalOn('unitvalue2'))) return SWUBotUnitValueV2($v) + $lock;
     // 'aurathreat': what the unit grants its allies is worth removing too — one point of granted power per point.
     if (function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('aurathreat')) return _SWUBotUnitValueV1($v) + _SWUBotAuraGrantedPower($v) + $lock;
@@ -497,6 +512,34 @@ function _SWUBotLockBomb(array $v): ?array {
 function SWUBotLockPremium(array $v): float {
     $b = _SWUBotLockBomb($v);
     return $b === null ? 0.0 : 0.5 * $b['cost'];
+}
+
+// '@try-pilothost' (2026-10-07 gap screen): an enemy Vehicle with no Pilot is worth more dead while that side's pilot LEADER can land on it —
+// undeployed, Epic Action unused, within one resource of its threshold ("Deploy this leader as an upgrade on a friendly Vehicle"; Boba Fett
+// JTL_009 piloted a ship in 80/80 Krennic Blue losses, and a leader unit is out of reach of most removal). The +4/+4-ish a pilot brings,
+// split over the hosts it could pick. Priced from the OPPONENT's view only: the host's controller (viewer seat) adds nothing.
+const SWU_BOT_PILOT_HOST_PREMIUM = 4.0;
+function _SWUBotPilotHostPremium(array $v): float {
+    if (!function_exists('SWUBotProposalOn') || !SWUBotProposalOn('pilothost')) return 0.0;
+    $host = intval($v['controller']);
+    $viewer = $GLOBALS['SWUBotViewerSeat'] ?? null;
+    if ($viewer !== null && intval($viewer) === $host) return 0.0;
+    if (!_SWUBotIsPilotlessVehicle($v)) return 0.0;
+    $ready = false;
+    foreach (GetLeader($host) as $l) {
+        if ($l === null || !empty($l->removed) || (!empty($l->Deployed) && strval($l->Deployed) !== 'false')) continue;
+        if (!empty($l->EpicActionUsed) && strval($l->EpicActionUsed) !== 'false') continue;
+        if (!preg_match('/Deploy this leader as an upgrade on a friendly Vehicle/i', strval(CardText(strval($l->CardID ?? ''))))) continue;
+        if (SWUResourceCount($host) + 1 >= _SWUBotLeaderThreshold($host, $l)) $ready = true;
+    }
+    if (!$ready) return 0.0;
+    $hosts = count(array_filter(SWUBotUnits($host), '_SWUBotIsPilotlessVehicle'));
+    return SWU_BOT_PILOT_HOST_PREMIUM / max(1, $hosts);
+}
+function _SWUBotIsPilotlessVehicle(array $v): bool {
+    if (!str_contains(strval(CardTrait($v['cardID']) ?? ''), 'Vehicle')) return false;
+    foreach (GetUpgradesOnUnit($v['obj']) as $s) if (str_contains(strval(CardTrait(strval($s->CardID ?? '')) ?? ''), 'Pilot')) return false;
+    return true;
 }
 
 // The other half, for a kill that spends no resources (an attack) while the locked card is castable this round afterwards.
