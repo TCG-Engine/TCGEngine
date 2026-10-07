@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-07T13:42:48+00:00",
+    "generatedAt": "2026-10-07T14:12:38+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 867,
+        "cardsWithExistingFixtures": 874,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1617,
+        "cardsNeedingSemanticCoverage": 1610,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -5990,25 +5990,6 @@
             "priority": 15
         },
         {
-            "cardId": "QJHpGP4kpe",
-            "name": "Thermal Break",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "jdog5yo5gg",
             "name": "Throne-Keeper Bullfrog",
             "type": "ALLY",
@@ -9082,24 +9063,6 @@
             "priority": 14
         },
         {
-            "cardId": "cbxpjya4u1",
-            "name": "Inquisitive Magician",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "nsjukk5zk4",
             "name": "Invigorating Concoction",
             "type": "ITEM",
@@ -11332,24 +11295,6 @@
             "priority": 14
         },
         {
-            "cardId": "POD9hwHYy0",
-            "name": "Unbroken Droid",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "ye9jkvfo0x",
             "name": "Unbroken Mustang",
             "type": "ALLY",
@@ -12428,23 +12373,6 @@
             "priority": 13
         },
         {
-            "cardId": "qYH9PJP7uM",
-            "name": "Blinding Orb",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "g23WBQW2Ro",
             "name": "Blood Dragon's Pact",
             "type": "PHANTASIA",
@@ -12946,23 +12874,6 @@
             "mechanics": [
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "hPwHRfUpN2",
-            "name": "Convergent Beam",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
                 "condition"
             ],
             "existingFixtures": [],
@@ -17792,23 +17703,6 @@
                 "zone-movement",
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "lx6xwr42i6",
-            "name": "Windrider Invoker",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -24497,21 +24391,6 @@
             "cardId": "Erpyb3AGgp",
             "name": "Conjuring Fluorescence",
             "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "8hqHAU0Xj6",
-            "name": "Core Fractal",
-            "type": "TOKEN,PHANTASIA",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -44542,6 +44421,29 @@
             "priority": 35
         },
         {
+            "cardId": "QJHpGP4kpe",
+            "name": "Thermal Break",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "thermal-break-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "semanticFixtures": [
+                "thermal-break-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "y5koddlyv8",
             "name": "Undying Dreams",
             "type": "ACTION",
@@ -45031,6 +44933,28 @@
             "priority": 34
         },
         {
+            "cardId": "cbxpjya4u1",
+            "name": "Inquisitive Magician",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "inquisitive-magician-enter-reveals-two-mage-cards-for-an-enlighten-counter"
+            ],
+            "semanticFixtures": [
+                "inquisitive-magician-enter-reveals-two-mage-cards-for-an-enlighten-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "572j3oda2h",
             "name": "Kraal, Stonescale Tyrant",
             "type": "UNIQUE,ALLY",
@@ -45471,6 +45395,28 @@
             "priority": 34
         },
         {
+            "cardId": "POD9hwHYy0",
+            "name": "Unbroken Droid",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "unbroken-droid-enter-destroys-low-reserve-item-refuses-memory-only-item"
+            ],
+            "semanticFixtures": [
+                "unbroken-droid-enter-destroys-low-reserve-item-refuses-memory-only-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "ZSSegCjquB",
             "name": "Advent of the Stormcaller",
             "type": "ACTION",
@@ -45649,6 +45595,27 @@
             "priority": 33
         },
         {
+            "cardId": "qYH9PJP7uM",
+            "name": "Blinding Orb",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blinding-orb-opponent-puts-two-cards-into-memory-class-bonus-draws"
+            ],
+            "semanticFixtures": [
+                "blinding-orb-opponent-puts-two-cards-into-memory-class-bonus-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "r84E55KBLM",
             "name": "Condemning Evisceration",
             "type": "ATTACK",
@@ -45670,6 +45637,31 @@
                 "condemning-evisceration-prepare-1-declined-no-banish-offer",
                 "condemning-evisceration-prepare-1-paid-banish-floating-deals-4-more",
                 "condemning-evisceration-prepare-1-paid-skip-banish-no-extra-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "hPwHRfUpN2",
+            "name": "Convergent Beam",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "convergent-beam-with-a-fractal-deals-three-damage",
+                "convergent-beam-without-fractal-deals-one-damage",
+                "inquisitive-magician-enter-reveals-two-mage-cards-for-an-enlighten-counter"
+            ],
+            "semanticFixtures": [
+                "convergent-beam-with-a-fractal-deals-three-damage",
+                "convergent-beam-without-fractal-deals-one-damage",
+                "inquisitive-magician-enter-reveals-two-mage-cards-for-an-enlighten-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46443,6 +46435,27 @@
             ],
             "semanticFixtures": [
                 "whirlwind-threads-puts-a-quest-counter-on-your-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "lx6xwr42i6",
+            "name": "Windrider Invoker",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "windrider-invoker-enter-removes-two-enlighten-draws-and-gains-power"
+            ],
+            "semanticFixtures": [
+                "windrider-invoker-enter-removes-two-enlighten-draws-and-gains-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47444,6 +47457,25 @@
             ],
             "semanticFixtures": [
                 "chime-of-endless-dreams-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "8hqHAU0Xj6",
+            "name": "Core Fractal",
+            "type": "TOKEN,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "convergent-beam-with-a-fractal-deals-three-damage"
+            ],
+            "semanticFixtures": [
+                "convergent-beam-with-a-fractal-deals-three-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

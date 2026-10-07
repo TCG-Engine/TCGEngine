@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "FIXED. See convergent-beam-without-fractal-deals-one-damage.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[hPwHRfUpN2:0:CardActivated-1]",
-        "fixCommit": "TBD"
+        "fixCommit": "07daa346"
     }
 }

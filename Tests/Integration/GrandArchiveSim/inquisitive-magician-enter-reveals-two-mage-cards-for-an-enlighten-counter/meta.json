@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "FIXED. The Enter-1 handler filtered the undefined $mageCards (defined only in the enter body): array_filter(null) was a fatal. The handler is overridden in Custom/GeneratedAbilityOverrides.php and rebuilds the remaining Mage cards from the hand and memory.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[cbxpjya4u1:0:Enter-1]",
-        "fixCommit": "TBD"
+        "fixCommit": "07daa346"
     }
 }

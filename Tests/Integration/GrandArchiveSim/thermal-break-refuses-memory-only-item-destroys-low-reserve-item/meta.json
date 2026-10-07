@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated filter for Thermal Break called CardMemoryCost($cardID) (it takes an object) and CardReserveCost() (does not exist): a fatal as soon as an item or weapon was on the field. Overridden in Custom/GeneratedAbilityOverrides.php with ItemLowCostMatches() (explicit memory cost 0, or a real reserve cost of at most 3), including Thermal Break's activation prereq.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities/cardActivatedPrereqs[QJHpGP4kpe:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "07daa346"
     }
 }

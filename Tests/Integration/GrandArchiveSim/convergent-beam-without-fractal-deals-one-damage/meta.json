@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. Convergent Beam computed $controlsFractal in the activation body and read it (undefined) in the separate resolution handler, so the 3-damage Fractal branch could never apply. The resolution handler is overridden in Custom/GeneratedAbilityOverrides.php and checks for a Fractal object when the damage is dealt.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[hPwHRfUpN2:0:CardActivated-1]",
-        "fixCommit": "TBD"
+        "fixCommit": "07daa346"
     }
 }

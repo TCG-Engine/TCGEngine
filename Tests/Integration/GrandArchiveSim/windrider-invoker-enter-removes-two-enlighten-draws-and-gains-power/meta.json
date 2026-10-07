@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. The Enter-1 handler read $champMZ, which was only defined in the enter body: RemoveCounters ran against an empty MZ, so the cost was never paid. The handler is overridden in Custom/GeneratedAbilityOverrides.php and looks the champion up itself.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[lx6xwr42i6:0:Enter-1]",
-        "fixCommit": "TBD"
+        "fixCommit": "07daa346"
     }
 }

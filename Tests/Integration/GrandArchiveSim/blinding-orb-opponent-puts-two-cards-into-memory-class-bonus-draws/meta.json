@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. The ActivateAbility-1/2 handlers called MZMove($opponent, ...) with $opponent defined only in the ability body (null in the handler), so the opponent's two cards never moved. The ability and handlers are overridden in Custom/GeneratedAbilityOverrides.php using the decision's own $player.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php activateAbilityAbilities[qYH9PJP7uM:0] / customDQHandlers[qYH9PJP7uM:0:ActivateAbility-1,2]",
-        "fixCommit": "TBD"
+        "fixCommit": "07daa346"
     }
 }
