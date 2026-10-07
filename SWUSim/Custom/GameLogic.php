@@ -16207,9 +16207,22 @@ function _topDeckSearchBegin(int $player, int $n, callable $filter, string $cons
     // number of cards instead." Applies to every deck-search/play-from-deck routed through this funnel.
     if ($n > 0 && _SWUControlsUnitWithUpgrade($player, 'ASH_084')) $n *= 2;
     $deck = &GetDeck($player);
-    $n = min($n, count($deck));
+    // Peek the top $n LIVE cards. A card moved off the deck earlier in the same request is only MARKED removed
+    // until the next compaction, so a raw array_splice could "peek" it — and the finalize then put it back on
+    // the bottom as a live card: one card in two zones. Reached by ASH_001 The Armorer (deployed): its ramp
+    // resources the deck's top card, then JTL_098 Snap Wexley's "When played as an upgrade: search the top 5"
+    // peeked that same, already-resourced card (2026-10-06). Same rule as _SWUTopDeckFrontIdx. Removed entries
+    // stay where they are for the normal compaction.
+    $liveKeys = [];
+    foreach ($deck as $k => $c) { if (empty($c->removed)) $liveKeys[] = $k; }
+    $n = min($n, count($liveKeys));
     if ($n === 0) return;
-    $peeked = array_splice($deck, 0, $n);
+    $take   = array_flip(array_slice($liveKeys, 0, $n));
+    $peeked = [];
+    foreach ($take as $k => $_) $peeked[] = $deck[$k];
+    $rest = [];
+    foreach ($deck as $k => $c) { if (!isset($take[$k])) $rest[] = $c; }
+    $deck = $rest;
     foreach ($deck as $i => $card) { $card->mzIndex = $i; }
 
     $allIDs   = implode(',', array_map(fn($c) => $c->CardID, $peeked));
@@ -16242,7 +16255,7 @@ function _topDeckSearchBegin(int $player, int $n, callable $filter, string $cons
     // panels: a handful of top cards vs a 40-card deck to find one card in (bug report 2026-10-01, game
     // 1438045 — the top-N panel drew 45 full-size cards with its title and confirm button off-screen).
     // Additive: an older client ignores the extra segment.
-    $scope = count($deck) === 0 ? 'deck' : 'top';
+    $scope = count($liveKeys) === $n ? 'deck' : 'top';   // live cards only — see the peek above
     $param = $allIDs . '|' . $matchIDs . '|' . $constraint . '|' . $costMap
            . '|' . _swuTopDeckWireText($label) . '|' . _swuTopDeckWireText($verb) . '|' . $scope;
     DecisionQueueController::AddDecision($player, "TOPDECKSEARCH", $param, 1, tooltip: "Search_top_cards");
