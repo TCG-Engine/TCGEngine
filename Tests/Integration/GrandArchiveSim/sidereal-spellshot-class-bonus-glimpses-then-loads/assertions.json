@@ -1,0 +1,37 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Glimpse 2 (X = its power): the Fluffy Shopkeep stays on top"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myDeck-15",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "...the Dungeon Guide went to the bottom"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Subcards",
+        "value": "[\"xwwkxq0vp3\"]",
+        "semantic": true,
+        "label": "Loaded into the Aetherwing"
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

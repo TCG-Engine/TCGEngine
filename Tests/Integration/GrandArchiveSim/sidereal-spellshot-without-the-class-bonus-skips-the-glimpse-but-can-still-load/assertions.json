@@ -1,0 +1,27 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "No glimpse: the deck order is untouched"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Subcards",
+        "value": "[\"xwwkxq0vp3\"]",
+        "semantic": true,
+        "label": "The optional load still happens: the Class Bonus covers the Glimpse sentence only"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

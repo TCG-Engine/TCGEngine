@@ -221,6 +221,8 @@ class DecisionQueueController {
         // apart from the field separator. Anything living in the param (OPTIONCHOOSE / YESNO option
         // labels, the ~BUDGET~ and ~REQ~ side channels) must still be underscored by its caller.
         $tooltip = str_replace(' ', '_', $tooltip);
+        // Optional per-game normalisation of the option list (e.g. dropping duplicate targets).
+        if(function_exists('GameNormalizeDecisionParam')) $param = GameNormalizeDecisionParam($type, $param);
         $playerQueue = &GetDecisionQueue($player);
         $insertIndex = 0;
         for($i = 0; $i < count($playerQueue); $i++) {

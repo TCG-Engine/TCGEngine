@@ -31362,6 +31362,35 @@ $fixtures['vanish-from-sight-during-the-opponents-recollection-phase-grants-stea
     'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdPass(1), mrdEnd(1), mrdAns(1, 'myHand-7')], mrdPay(1, 3)), // player 1's own recollection window is passed on turn three; on turn four player 1 responds in player 2's recollection window
 ];
 
+// Seeker's Aetherwing (bf7yzaqes4): "[Class Bonus] Spellshroud. [Class Bonus] True Sight." Player 2 tries to destroy it with Ghastly Corrosion (destroy target item or weapon with memory cost 0 or reserve cost 3 or less).
+$gaSeekerSetup = function(bool $ranger) { return [
+    'testedCards' => ['bf7yzaqes4'],
+    'deck' => $GLOBALS['gaSweepDeck']('Spirit of Fire'),
+    'setup' => array_merge($ranger ? [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'RANGER']]]]] : [], [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'bf7yzaqes4'], // Seeker's Aetherwing -> player 1's myField-1
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '40xhntos3d'], // Ghastly Corrosion -> p2 myHand-7
+    ]),
+    'actions' => [],
+]; };
+$fixtures['seekers-aetherwing-class-bonus-spellshroud-cannot-be-targeted-by-a-spell'] = $gaSeekerSetup(true);
+$fixtures['seekers-aetherwing-without-the-class-bonus-can-be-targeted-by-a-spell'] = $gaSeekerSetup(false);
+$fixtures['seekers-aetherwing-class-bonus-spellshroud-cannot-be-targeted-by-a-spell']['actions'] = array_merge([mrdEnd(1), mrdPlay(2, 'myHand-7')], mrdPay(2, 4), [mrdAns(2, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Seeker\'s Aetherwing has spellshroud (Ranger champion): not a legal Spell target'])]);
+$fixtures['seekers-aetherwing-without-the-class-bonus-can-be-targeted-by-a-spell']['actions'] = array_merge([mrdEnd(1), mrdPlay(2, 'myHand-7')], mrdPay(2, 4), [mrdAns(2, 'theirField-1')]);
+
+// Sidereal Spellshot (xwwkxq0vp3): "[Class Bonus] Glimpse X. Then you may load Sidereal Spellshot into an Aetherwing weapon you control."
+$fixtures['sidereal-spellshot-class-bonus-glimpses-then-loads'] = [
+    'testedCards' => ['xwwkxq0vp3'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaRangerAstra, $gaWing, $gaHand('xwwkxq0vp3'), $gaTop(['em6eEh9q8y', 'px60u5n1do', 'em6eEh9q8y'])],
+    'actions' => [mrdPlay(1, 'myHand-7'), mrdAns(1, 'Top=px60u5n1do;Bottom=em6eEh9q8y'), mrdAns(1, 'YES')],
+];
+$fixtures['sidereal-spellshot-without-the-class-bonus-skips-the-glimpse-but-can-still-load'] = [
+    'testedCards' => ['xwwkxq0vp3'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], $gaWing, $gaHand('xwwkxq0vp3'), $gaTop(['em6eEh9q8y', 'px60u5n1do', 'em6eEh9q8y'])],
+    'actions' => [mrdPlay(1, 'myHand-7'), mrdAns(1, 'YES')],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

@@ -6152,6 +6152,14 @@ function GAInstallFieldAbilityCostPrereqs(array &$prereqTable) {
     }
 }
 
+// Core hook (DecisionQueueController::AddDecision): generated target searches concatenate several ZoneSearch results, so an object that matches two of them (a REGALIA,WEAPON matches both "ITEM/REGALIA" and
+// "WEAPON") was offered twice. A plain option list of zone objects ("myField-1&theirField-2") is de-duplicated, keeping the first occurrence's order.
+function GameNormalizeDecisionParam($type, $param) {
+    if($type !== "MZCHOOSE" && $type !== "MZMAYCHOOSE") return $param;
+    $param = strval($param);
+    if(strpos($param, "&") === false || !preg_match('/^(?:(?:my|their)[A-Za-z]+-\d+)(?:&(?:my|their)[A-Za-z]+-\d+)+$/', $param)) return $param;
+    return implode("&", array_values(array_unique(explode("&", $param))));
+}
 // cardID => ability names of field activated abilities whose generated CardActivateAbilityCount row is 0
 // (see the Key Slime Pudding / Baby Blue Slime note above). Names become the opportunity-window labels
 // ("myField-N@Activate-0@<name>") and the Activate button captions.

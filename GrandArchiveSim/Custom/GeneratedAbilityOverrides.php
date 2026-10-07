@@ -1970,3 +1970,10 @@ $cardActivatedPrereqs["ao1cfkhbp6:0"] = function($player, $mzID) { return GAIsEn
 foreach(["vm5kt3q2sv", "nvx7mnu1xh", "PR4OkzJBVr"] as $gaRecollectionOnlyID) { // Vanish from Sight, Attune with Flames, Hemorrhaged Intimidation: only during an opponent's recollection phase
     $cardActivatedPrereqs[$gaRecollectionOnlyID . ":0"] = function($player, $mzID) { return GetCurrentPhase() === "BREC" && GetTurnPlayer() != $player; };
 }
+
+// Sidereal Spellshot (xwwkxq0vp3): "[Class Bonus] Glimpse X. Then you may load Sidereal Spellshot into an Aetherwing weapon you control." The Class Bonus covers the Glimpse sentence only; the generated body returned
+// before the optional load for a non-Ranger champion (unlike every other Aethercharge card, e.g. Constellation's Blessing).
+$cardActivatedAbilities["xwwkxq0vp3:0"] = function($player) { //xwwkxq0vp3
+  if(IsClassBonusActive($player, ["RANGER"])) Glimpse($player, CardPower("xwwkxq0vp3"));
+  MayLoadIntoAetherwing($player, "xwwkxq0vp3");
+};
