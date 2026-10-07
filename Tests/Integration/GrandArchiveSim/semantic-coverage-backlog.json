@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-07T14:25:47+00:00",
+    "generatedAt": "2026-10-07T14:41:14+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 887,
+        "cardsWithExistingFixtures": 889,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1597,
+        "cardsNeedingSemanticCoverage": 1595,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -8280,24 +8280,6 @@
             "mechanics": [
                 "cost",
                 "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "WRu4cuRHOS",
-            "name": "Fran, Carmine Spark",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -18865,22 +18847,6 @@
             "mechanics": [
                 "recover",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "b1w1mvu68a",
-            "name": "Convoking Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "token"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -31286,10 +31252,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "baby-red-slime-class-bonus-on-attack-discard-fire-power"
+                "baby-red-slime-class-bonus-on-attack-discard-fire-power",
+                "fran-carmine-spark-on-attack-banishes-opponents-fire-graveyard-card-and-empowers"
             ],
             "semanticFixtures": [
-                "baby-red-slime-class-bonus-on-attack-discard-fire-power"
+                "baby-red-slime-class-bonus-on-attack-discard-fire-power",
+                "fran-carmine-spark-on-attack-banishes-opponents-fire-graveyard-card-and-empowers"
             ],
             "starterDecks": [
                 "Silvie Re:Collection, Slime Sovereign"
@@ -42425,10 +42393,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "sundering-moon-ability-1-pays-its-printed-cost"
+                "sundering-moon-ability-1-pays-its-printed-cost",
+                "sundering-moon-enter-with-two-wind-allies-gets-plus-one-power"
             ],
             "semanticFixtures": [
-                "sundering-moon-ability-1-pays-its-printed-cost"
+                "sundering-moon-ability-1-pays-its-printed-cost",
+                "sundering-moon-enter-with-two-wind-allies-gets-plus-one-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44772,6 +44742,28 @@
             "priority": 34
         },
         {
+            "cardId": "WRu4cuRHOS",
+            "name": "Fran, Carmine Spark",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fran-carmine-spark-on-attack-banishes-opponents-fire-graveyard-card-and-empowers"
+            ],
+            "semanticFixtures": [
+                "fran-carmine-spark-on-attack-banishes-opponents-fire-graveyard-card-and-empowers"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "iqzaNLhqk4",
             "name": "Genuflecting Execution",
             "type": "ACTION",
@@ -46410,10 +46402,12 @@
             ],
             "existingFixtures": [
                 "aenean-swelling-gusts-deals-damage-equal-to-wind-objects-you-control",
+                "sundering-moon-enter-with-two-wind-allies-gets-plus-one-power",
                 "windrider-invoker-enter-removes-two-enlighten-draws-and-gains-power"
             ],
             "semanticFixtures": [
                 "aenean-swelling-gusts-deals-damage-equal-to-wind-objects-you-control",
+                "sundering-moon-enter-with-two-wind-allies-gets-plus-one-power",
                 "windrider-invoker-enter-removes-two-enlighten-draws-and-gains-power"
             ],
             "starterDecks": [],
@@ -46507,6 +46501,26 @@
             ],
             "semanticFixtures": [
                 "condemned-trinket-pays-three-banishes-itself-and-omens-a-graveyard-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "b1w1mvu68a",
+            "name": "Convoking Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "token"
+            ],
+            "existingFixtures": [
+                "convoking-slime-recollection-summons-exactly-one-rested-copy"
+            ],
+            "semanticFixtures": [
+                "convoking-slime-recollection-summons-exactly-one-rested-copy"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

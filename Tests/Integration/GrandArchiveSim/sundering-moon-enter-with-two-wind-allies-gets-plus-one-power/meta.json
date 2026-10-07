@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "FIXED. SunderingMoonEnterResolve() looked the entering weapon up through GetVariable(\"currentMZID\"), which nothing ever stores, so it returned early. It now uses the enter ability's \"mzID\" macro parameter.",
         "affectedFunction": "Custom/GameLogic.php SunderingMoonEnterResolve",
-        "fixCommit": "TBD"
+        "fixCommit": "431b8adc"
     }
 }

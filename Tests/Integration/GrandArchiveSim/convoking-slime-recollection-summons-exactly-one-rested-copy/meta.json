@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. ResolveBeforeRecollectionPhaseStart() iterated `for($i = 0; $i < count($field); ++$i)` over the live field array: the copy Convoking Slime appends to it was itself visited and summoned another copy, forever (the field grew past 2000 objects before a timeout). The loop now covers only the objects present when the phase begins.",
         "affectedFunction": "Custom/GameLogic.php ResolveBeforeRecollectionPhaseStart",
-        "fixCommit": "TBD"
+        "fixCommit": "431b8adc"
     }
 }

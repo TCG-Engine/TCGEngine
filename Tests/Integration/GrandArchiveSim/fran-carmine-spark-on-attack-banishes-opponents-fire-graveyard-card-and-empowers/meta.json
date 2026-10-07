@@ -27,6 +27,6 @@
         "status": "fixed",
         "summary": "FIXED. FranCarmineSparkBanish called MZMove($obj->Owner, ...), but graveyard objects have no Owner property: the null player flipped the zone perspective (own-graveyard picks moved the opponent's card; the banished card went to the wrong side). It now moves the chosen card to the banishment on the side of the graveyard it came from.",
         "affectedFunction": "Custom/GameLogic.php FranCarmineSparkBanish",
-        "fixCommit": "TBD"
+        "fixCommit": "431b8adc"
     }
 }
