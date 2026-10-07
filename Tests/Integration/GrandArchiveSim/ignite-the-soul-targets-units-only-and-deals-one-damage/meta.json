@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. Ignite the Soul offered the opponent's WHOLE field as targets (items included, your own units excluded) and dealt the damage from an undefined source ($obj). The ability and its handler are overridden in Custom/GeneratedAbilityOverrides.php: legal targets are units (allies and champions) on either side.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[rXHo9fLU32:0] / customDQHandlers[rXHo9fLU32:0:CardActivated-1]",
-        "fixCommit": "TBD"
+        "fixCommit": "40bccd3e"
     }
 }

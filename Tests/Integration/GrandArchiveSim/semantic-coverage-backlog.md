@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **874**
+Cards linked to an existing fixture: **887**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1610**
+Implemented cards still needing semantic coverage: **1597**
 
 ## Mechanic groups
 
@@ -51,7 +51,6 @@ Implemented cards still needing semantic coverage: **1610**
 | Combustible Potion (`GPsEkAfDjy`) | ITEM | 2 | cost, targeting, damage, draw-discard, trigger, condition | — | — |
 | Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
 | Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
-| Decaying Reproach (`qXIKFip2t4`) | ACTION | 2 | cost, targeting, damage, recover, draw-discard | — | — |
 | Diffusive Block (`o7eanl1gxr`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
 | Dusklight Communion (`5upufyoz23`) | UNIQUE,PHANTASIA | 2 | cost, targeting, zone-movement, trigger, condition | — | — |
 | Dynasty Chancellor (`do1blsupu0`) | ALLY | 2 | draw-discard, zone-movement, combat, trigger, condition | — | — |
@@ -70,9 +69,10 @@ Implemented cards still needing semantic coverage: **1610**
 | Ranger Strides (`pvxb5hrfsu`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, status, trigger, condition | — | — |
 | Triumphant Mechanic (`tQTQqCnaZU`) | ALLY | 2 | recover, draw-discard, combat, trigger, condition | — | — |
 | Uther, Illustrious King (`5h8asbierp`) | UNIQUE,ALLY | 2 | targeting, zone-movement, status, combat, trigger | — | — |
-| Aenean Swelling Gusts (`nbznVwdylT`) | ACTION | 2 | cost, targeting, damage, draw-discard | — | — |
 | Alice, Whim's Monarch (`9K4etFOi4M`) | CHAMPION | 2 | zone-movement, token, trigger, condition | — | — |
 | Arcane Elemental (`wFH1kBLrWh`) | ALLY | 2 | cost, zone-movement, combat, trigger | — | — |
 | Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
 | Bottled Forgelight (`g616r0zadf`) | ITEM | 2 | targeting, damage, trigger, condition | — | — |
 | Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
+| Cinder Geyser (`stiyh3pmk3`) | ACTION | 2 | cost, targeting, damage, condition | — | — |
+| Collect Junk (`g6sW55DOgR`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement | — | — |

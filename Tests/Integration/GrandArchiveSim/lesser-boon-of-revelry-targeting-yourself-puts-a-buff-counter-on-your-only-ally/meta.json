@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. Lesser Boon of Revelry: the generated handler ($myAllies/$theirAllies) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used. The (3) activation cost was also never paid: GAFieldAbilityCostTable() now charges it.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[AOFRjoIHVe:0:ActivateAbility-1]",
-        "fixCommit": "TBD"
+        "fixCommit": "40bccd3e"
     }
 }

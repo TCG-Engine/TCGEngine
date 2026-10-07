@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-07T14:12:38+00:00",
+    "generatedAt": "2026-10-07T14:25:47+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 874,
+        "cardsWithExistingFixtures": 887,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1610,
+        "cardsNeedingSemanticCoverage": 1597,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -488,25 +488,6 @@
             "priority": 25
         },
         {
-            "cardId": "qXIKFip2t4",
-            "name": "Decaying Reproach",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "recover",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "o7eanl1gxr",
             "name": "Diffusive Block",
             "type": "ACTION",
@@ -852,24 +833,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 25
-        },
-        {
-            "cardId": "nbznVwdylT",
-            "name": "Aenean Swelling Gusts",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
         },
         {
             "cardId": "9K4etFOi4M",
@@ -2214,23 +2177,6 @@
             "priority": 23
         },
         {
-            "cardId": "akmv2ssjhu",
-            "name": "Grim Pastiche",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "MRiM1fnOWC",
             "name": "Heirloom of Libra",
             "type": "REGALIA,ITEM",
@@ -3077,22 +3023,6 @@
             "mechanics": [
                 "cost",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "AOFRjoIHVe",
-            "name": "Lesser Boon of Revelry",
-            "type": "LESSER BOON",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4806,25 +4736,6 @@
             "mechanics": [
                 "cost",
                 "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "Vl03t5rMSA",
-            "name": "Incinerator Felindroid",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
                 "zone-movement",
                 "trigger",
                 "condition"
@@ -7173,24 +7084,6 @@
             "priority": 14
         },
         {
-            "cardId": "3omh6h3a4y",
-            "name": "Carpsong Coda",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "1wl8ao8bls",
             "name": "Carter, Synthetic Reaper",
             "type": "UNIQUE,ALLY",
@@ -8659,24 +8552,6 @@
                 "combat",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "r5zs29xxoo",
-            "name": "Guarded Dissipation",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "draw-discard"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -19238,22 +19113,6 @@
             "priority": 12
         },
         {
-            "cardId": "YJacXvwTiX",
-            "name": "Discover the Divine",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "Q9b0d7fkGv",
             "name": "Dissipation",
             "type": "ACTION",
@@ -19358,22 +19217,6 @@
             "mechanics": [
                 "cost",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "RN7ueRDijA",
-            "name": "Elysian Orphan",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -20574,22 +20417,6 @@
             "mechanics": [
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "c3plbuv3fr",
-            "name": "Jueying, Shadowmare",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -21974,22 +21801,6 @@
             "priority": 12
         },
         {
-            "cardId": "KgjL9uCqm6",
-            "name": "Rhesus Eradication",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "y1utsihaxv",
             "name": "Rilewind Sentinel",
             "type": "ALLY",
@@ -23222,22 +23033,6 @@
             "priority": 12
         },
         {
-            "cardId": "x8bd7ozuj6",
-            "name": "Vanitas, Obliviate Schemer",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "Tt2Ew9RmIt",
             "name": "Varicose Amplification",
             "type": "PHANTASIA",
@@ -24275,21 +24070,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "a40EMvoqYX",
-            "name": "Cheap Sword",
-            "type": "TOKEN,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -28015,9 +27795,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "corhazi-arsonist-hit-unit-that-dies-is-banished-instead",
                 "corhazi-arsonist-prepare-stealth"
             ],
             "semanticFixtures": [
+                "corhazi-arsonist-hit-unit-that-dies-is-banished-instead",
                 "corhazi-arsonist-prepare-stealth"
             ],
             "starterDecks": [
@@ -29981,9 +29763,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "decaying-reproach-removes-wither-counters-for-extra-damage",
                 "diao-chan-idyll-corsage-enter-wither-and-flowerbud"
             ],
             "semanticFixtures": [
+                "decaying-reproach-removes-wither-counters-for-extra-damage",
                 "diao-chan-idyll-corsage-enter-wither-and-flowerbud"
             ],
             "starterDecks": [
@@ -30470,10 +30254,14 @@
                 "condition"
             ],
             "existingFixtures": [
-                "ignite-the-soul-damage"
+                "corhazi-arsonist-hit-unit-that-dies-is-banished-instead",
+                "ignite-the-soul-damage",
+                "ignite-the-soul-targets-units-only-and-deals-one-damage"
             ],
             "semanticFixtures": [
-                "ignite-the-soul-damage"
+                "corhazi-arsonist-hit-unit-that-dies-is-banished-instead",
+                "ignite-the-soul-damage",
+                "ignite-the-soul-targets-units-only-and-deals-one-damage"
             ],
             "starterDecks": [
                 "Rai Starter Deck",
@@ -31443,7 +31231,8 @@
                 "baby-blue-slime-rest-main-phase-targets-only-other-slime-allies-you-control",
                 "baby-blue-slime-rest-needs-another-slime-ally-to-activate",
                 "baby-blue-slime-rest-prevents-next-2-combat-damage-to-other-slime",
-                "baby-blue-slime-rested-cannot-activate-again"
+                "baby-blue-slime-rested-cannot-activate-again",
+                "carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard"
             ],
             "semanticFixtures": [
                 "baby-blue-slime-class-bonus-tamer-champion-plus-one-life",
@@ -31451,7 +31240,8 @@
                 "baby-blue-slime-rest-main-phase-targets-only-other-slime-allies-you-control",
                 "baby-blue-slime-rest-needs-another-slime-ally-to-activate",
                 "baby-blue-slime-rest-prevents-next-2-combat-damage-to-other-slime",
-                "baby-blue-slime-rested-cannot-activate-again"
+                "baby-blue-slime-rested-cannot-activate-again",
+                "carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard"
             ],
             "starterDecks": [
                 "Silvie Re:Collection, Slime Sovereign"
@@ -32836,10 +32626,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "juggle-knives-damage-champion"
+                "juggle-knives-damage-champion",
+                "juggle-knives-deals-one-damage-to-champion-and-class-bonus-draws"
             ],
             "semanticFixtures": [
-                "juggle-knives-damage-champion"
+                "juggle-knives-damage-champion",
+                "juggle-knives-deals-one-damage-to-champion-and-class-bonus-draws"
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
@@ -34449,11 +34241,13 @@
             ],
             "existingFixtures": [
                 "broken-promises-no-fatestone-or-fatebound-click-refused",
-                "broken-promises-sacrifice-draw-quest"
+                "broken-promises-sacrifice-draw-quest",
+                "incinerator-felindroid-enter-banishes-two-fire-cards-and-deals-three-damage"
             ],
             "semanticFixtures": [
                 "broken-promises-no-fatestone-or-fatebound-click-refused",
-                "broken-promises-sacrifice-draw-quest"
+                "broken-promises-sacrifice-draw-quest",
+                "incinerator-felindroid-enter-banishes-two-fire-cards-and-deals-three-damage"
             ],
             "starterDecks": [
                 "Guo Jia Re:Collection, Heaven's Favored"
@@ -34757,10 +34551,12 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "dante-hemomancer-empower"
+                "dante-hemomancer-empower",
+                "rhesus-eradication-deals-level-plus-two-per-elysian-object"
             ],
             "semanticFixtures": [
-                "dante-hemomancer-empower"
+                "dante-hemomancer-empower",
+                "rhesus-eradication-deals-level-plus-two-per-elysian-object"
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
@@ -36668,9 +36464,11 @@
                 "zone-movement"
             ],
             "existingFixtures": [
+                "incinerator-felindroid-enter-banishes-two-fire-cards-and-deals-three-damage",
                 "slime-eruption-decline-keeps-earned-damage"
             ],
             "semanticFixtures": [
+                "incinerator-felindroid-enter-banishes-two-fire-cards-and-deals-three-damage",
                 "slime-eruption-decline-keeps-earned-damage"
             ],
             "starterDecks": [
@@ -42471,6 +42269,29 @@
             "priority": 45
         },
         {
+            "cardId": "qXIKFip2t4",
+            "name": "Decaying Reproach",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "recover",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "decaying-reproach-removes-wither-counters-for-extra-damage"
+            ],
+            "semanticFixtures": [
+                "decaying-reproach-removes-wither-counters-for-extra-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "gn1b2sbrq9",
             "name": "Echoic Guard",
             "type": "ACTION",
@@ -42612,6 +42433,28 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 45
+        },
+        {
+            "cardId": "nbznVwdylT",
+            "name": "Aenean Swelling Gusts",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "aenean-swelling-gusts-deals-damage-equal-to-wind-objects-you-control"
+            ],
+            "semanticFixtures": [
+                "aenean-swelling-gusts-deals-damage-equal-to-wind-objects-you-control"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
         },
         {
             "cardId": "WI5oMtzP3W",
@@ -43316,6 +43159,27 @@
             "priority": 43
         },
         {
+            "cardId": "akmv2ssjhu",
+            "name": "Grim Pastiche",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "grim-pastiche-copies-an-action-omen-and-activates-the-copy-free"
+            ],
+            "semanticFixtures": [
+                "grim-pastiche-copies-an-action-omen-and-activates-the-copy-free"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "drIdaGpPJ2",
             "name": "Heirloom of Natura",
             "type": "REGALIA,ITEM",
@@ -43660,6 +43524,28 @@
                 "galestream-insight-look-six-no-spell-bottoms-all-six",
                 "galestream-insight-look-six-reveal-spell-rest-bottom",
                 "galestream-insight-player-two-look-six-reveal-spell-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "AOFRjoIHVe",
+            "name": "Lesser Boon of Revelry",
+            "type": "LESSER BOON",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-revelry-targeting-the-opponent-puts-a-buff-counter-on-their-only-ally",
+                "lesser-boon-of-revelry-targeting-yourself-puts-a-buff-counter-on-your-only-ally"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-revelry-targeting-the-opponent-puts-a-buff-counter-on-their-only-ally",
+                "lesser-boon-of-revelry-targeting-yourself-puts-a-buff-counter-on-your-only-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44159,6 +44045,29 @@
             "priority": 35
         },
         {
+            "cardId": "Vl03t5rMSA",
+            "name": "Incinerator Felindroid",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "incinerator-felindroid-enter-banishes-two-fire-cards-and-deals-three-damage"
+            ],
+            "semanticFixtures": [
+                "incinerator-felindroid-enter-banishes-two-fire-cards-and-deals-three-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "A5jpuUlwDd",
             "name": "Perilous Mend",
             "type": "ACTION",
@@ -44629,6 +44538,28 @@
             "priority": 34
         },
         {
+            "cardId": "3omh6h3a4y",
+            "name": "Carpsong Coda",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard"
+            ],
+            "semanticFixtures": [
+                "carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "q2svdv3zb9",
             "name": "Clockwork Musicbox",
             "type": "REGALIA,ITEM",
@@ -44693,9 +44624,11 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "discordia-harp-of-malice-rest-applies-level-swap-with-music-counter-x",
                 "discordia-rest-swaps-levels-by-its-music-counters-and-is-banished-at-end-phase"
             ],
             "semanticFixtures": [
+                "discordia-harp-of-malice-rest-applies-level-swap-with-music-counter-x",
                 "discordia-rest-swaps-levels-by-its-music-counters-and-is-banished-at-end-phase"
             ],
             "starterDecks": [],
@@ -44857,6 +44790,28 @@
             "semanticFixtures": [
                 "genuflecting-execution-destroys-one-rested-ally-declines-second",
                 "genuflecting-execution-destroys-two-rested-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "r5zs29xxoo",
+            "name": "Guarded Dissipation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "guarded-dissipation-prevents-damage-equal-to-greatest-sword-power-and-draws"
+            ],
+            "semanticFixtures": [
+                "guarded-dissipation-prevents-damage-equal-to-greatest-sword-power-and-draws"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45656,11 +45611,13 @@
             "existingFixtures": [
                 "convergent-beam-with-a-fractal-deals-three-damage",
                 "convergent-beam-without-fractal-deals-one-damage",
+                "grim-pastiche-copies-an-action-omen-and-activates-the-copy-free",
                 "inquisitive-magician-enter-reveals-two-mage-cards-for-an-enlighten-counter"
             ],
             "semanticFixtures": [
                 "convergent-beam-with-a-fractal-deals-three-damage",
                 "convergent-beam-without-fractal-deals-one-damage",
+                "grim-pastiche-copies-an-action-omen-and-activates-the-copy-free",
                 "inquisitive-magician-enter-reveals-two-mage-cards-for-an-enlighten-counter"
             ],
             "starterDecks": [],
@@ -46452,9 +46409,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "aenean-swelling-gusts-deals-damage-equal-to-wind-objects-you-control",
                 "windrider-invoker-enter-removes-two-enlighten-draws-and-gains-power"
             ],
             "semanticFixtures": [
+                "aenean-swelling-gusts-deals-damage-equal-to-wind-objects-you-control",
                 "windrider-invoker-enter-removes-two-enlighten-draws-and-gains-power"
             ],
             "starterDecks": [],
@@ -46568,6 +46527,46 @@
             ],
             "semanticFixtures": [
                 "crystallized-anthem-marks-each-unit-you-control"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "YJacXvwTiX",
+            "name": "Discover the Divine",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "discover-the-divine-removes-four-enlighten-counters-to-level-up"
+            ],
+            "semanticFixtures": [
+                "discover-the-divine-removes-four-enlighten-counters-to-level-up"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "RN7ueRDijA",
+            "name": "Elysian Orphan",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rhesus-eradication-deals-level-plus-two-per-elysian-object"
+            ],
+            "semanticFixtures": [
+                "rhesus-eradication-deals-level-plus-two-per-elysian-object"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46714,6 +46713,26 @@
             ],
             "semanticFixtures": [
                 "intwined-bangle-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "c3plbuv3fr",
+            "name": "Jueying, Shadowmare",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard"
+            ],
+            "semanticFixtures": [
+                "carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46962,6 +46981,26 @@
             ],
             "semanticFixtures": [
                 "revoker-bell-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "KgjL9uCqm6",
+            "name": "Rhesus Eradication",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "rhesus-eradication-deals-level-plus-two-per-elysian-object"
+            ],
+            "semanticFixtures": [
+                "rhesus-eradication-deals-level-plus-two-per-elysian-object"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47262,6 +47301,26 @@
             "priority": 32
         },
         {
+            "cardId": "x8bd7ozuj6",
+            "name": "Vanitas, Obliviate Schemer",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "discover-the-divine-removes-four-enlighten-counters-to-level-up"
+            ],
+            "semanticFixtures": [
+                "discover-the-divine-removes-four-enlighten-counters-to-level-up"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "rZSnsLUzEd",
             "name": "Vel-ocity Punch",
             "type": "ITEM",
@@ -47438,6 +47497,25 @@
                 "bygone-days-p1-controlled-cascade-recovers-then-each-player-returns-ally",
                 "bygone-days-p1-controlled-returns-opponent-owned-ally-to-owner-memory",
                 "bygone-days-p2-controlled-cascade-recovers-then-each-player-returns-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "a40EMvoqYX",
+            "name": "Cheap Sword",
+            "type": "TOKEN,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "guarded-dissipation-prevents-damage-equal-to-greatest-sword-power-and-draws"
+            ],
+            "semanticFixtures": [
+                "guarded-dissipation-prevents-damage-equal-to-greatest-sword-power-and-draws"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

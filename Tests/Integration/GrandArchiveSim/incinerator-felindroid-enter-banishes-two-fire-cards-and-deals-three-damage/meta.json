@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "FIXED. Incinerator Felindroid: the generated On Enter handler ($fireCards) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[Vl03t5rMSA:0:Enter-1]",
-        "fixCommit": "TBD"
+        "fixCommit": "40bccd3e"
     }
 }

@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "FIXED. Carpsong Coda: the generated resolution handler ($highestLife) read a variable that was only defined in the ability body that queued it (PHP closures do not share scope), so it was undefined (null) at resolution. Overridden in Custom/GeneratedAbilityOverrides.php; the value is recomputed where it is used.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[3omh6h3a4y:0:CardActivated-1]",
-        "fixCommit": "TBD"
+        "fixCommit": "40bccd3e"
     }
 }
