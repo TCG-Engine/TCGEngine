@@ -58,6 +58,6 @@ function CrosshairFollowingOrdersDeal($player, string $mzID): void
     SWUAfterAction(intval($player));
     return;
   }
-  SWUQueueChooseTarget(intval($player), $targets, "Deal_{$pow}_damage_to_an_enemy_ground_unit", "DEAL_UNIT_DAMAGE|{$pow}");
+  SWUQueueChooseTarget(intval($player), $targets, "Deal_{$pow}_damage_to_an_enemy_ground_unit", "DEAL_UNIT_DAMAGE|{$pow}|" . _SWUEncodeDamageSource($mzID));   // "This unit deals" — Crosshair is the source
   SWUQueueAfterAction(intval($player));
 }

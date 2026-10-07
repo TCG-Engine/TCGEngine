@@ -17,7 +17,7 @@ $customDQHandlers["LAW_168#0"] = function($player, $parts, $lastDecision) {
     $enemyZone = $isSpace ? "theirSpaceArena" : "theirGroundArena";
     $enemy = ZoneSearch($enemyZone, AnyUnitFilter);
     if (empty($enemy) || $power <= 0) return;
-    SWUQueueChooseTarget(intval($player), $enemy, "Deal_" . $power . "_to_an_enemy_unit_in_the_same_arena", "DEAL_UNIT_DAMAGE|" . $power);
+    SWUQueueChooseTarget(intval($player), $enemy, "Deal_" . $power . "_to_an_enemy_unit_in_the_same_arena", "DEAL_UNIT_DAMAGE|" . $power . '|' . _SWUEncodeDamageSource($lastDecision));   // the Experienced unit deals it
 };
 
 // When Played (event) — migrated from OnPlayEvent.

@@ -14,7 +14,7 @@ $customDQHandlers["SOR_107#0"] = function($player, $parts, $lastDecision) {
     $power = intval(ObjectCurrentPower($dealer));
     if ($power <= 0) return;
     SWUOfferUnitTarget($player, '', [
-        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $power, 'side' => 'their',
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $power, 'side' => 'their', 'source' => $lastDecision,
         'extraFilter' => fn($o) => !CardUnique($o->CardID),
         'prompt' => "Deal_{$power}_damage_to_a_non-unique_enemy_unit",
     ]);

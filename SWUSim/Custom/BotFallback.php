@@ -114,21 +114,51 @@ function _SWUBotIsAnswer(string $cid): bool {
     return $cid !== '' && (bool)array_intersect(SWUBotCardTags($cid), ['removal', 'wipe']);
 }
 
+// 'phaseexpiry' (p41): a kill that lands only when the defender's phase buff expires is worth most of a kill — the opponent may
+// still heal or bounce it before the phase ends.
+const SWU_BOT_PHASE_EXPIRY_KILL = 0.9;
+
 function SWUBotTargetValue(array $att, ?array $def, array $W): float {
     if ($def === null) return $W['base'] * $att['attackPower'];
+    // 'leaderdraw' (p41): the card a ready Wicket draws when this attack hits a pricier unit.
+    $draw = (SWUBotFeatureOn('leaderdraw') && intval($def['cost']) > intval($att['cost']) && _SWUBotLeaderAttackDraws(intval($att['controller'])))
+        ? $W['draw'] : 0.0;
+    return _SWUBotUnitTargetValue($att, $def, $W) + $draw;
+}
+
+// Feature 'leaderdraw' (p41): $seat has a ready, undeployed leader reading "When a friendly unit attacks a unit that costs more than
+// it: You may exhaust this leader. If you do, draw a card." (HMW_014 Wicket). Ninin vs Wicket Green R6.
+function _SWUBotLeaderAttackDraws(int $seat): bool {
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed) || !empty($l->Deployed) || empty($l->Ready)) continue;
+        if (preg_match('/When a friendly unit attacks a unit that costs more than it: You may exhaust this leader\. If you do, draw a card/i',
+                strval(CardText(strval($l->CardID ?? ''))))) return true;
+    }
+    return false;
+}
+
+// SWUBotTargetValue against a unit, before the leader draw.
+function _SWUBotUnitTargetValue(array $att, array $def, array $W): float {
     $lossF = _SWUBotLossFactor($att);
     // Only a KILL breaches, so it is priced in those two branches alone (bounce / die never pay for the scan).
     $breach = fn(): float => SWUBotFeatureOn('breach') ? $W['base'] * _SWUBotBreachOpened($att, $def) : 0.0;
-    switch (SWUBotCombatOutcome($att, $def)) {
+    $out = SWUBotCombatOutcome($att, $def); $late = false;
+    // 'phaseexpiry' (p41): a "+N/+N for this phase" runs out at the phase end and the damage stays (Ninin vs Wicket Green R4).
+    if (SWUBotFeatureOn('phaseexpiry')) [$out, $late] = _SWUBotPhaseExpiryOutcome($att, $def, $out);
+    // A phase-end kill: the defender still stands (and blocks, as a Sentinel) for the rest of this phase, can be saved by a heal
+    // or a bounce, and leaves no Overwhelm excess.
+    $killF = $late ? SWU_BOT_PHASE_EXPIRY_KILL : 1.0;
+    switch ($out) {
         case 'kill-survive':
             // 'lockpiece' (p35): an attack is a free kill — the locked bomb may still come down this round.
-            $v = $W['kill'] * (SWUBotUnitValue($def) + _SWUBotLockFreeKillExtra($def)) + _SWUBotThreatRemoved($att, $def, $W) + $breach();
+            $v = $killF * ($W['kill'] * (SWUBotUnitValue($def) + _SWUBotLockFreeKillExtra($def)) + _SWUBotThreatRemoved($att, $def, $W))
+                 + ($late ? 0.0 : $breach());
             // The Overwhelm excess reaches the base — which also makes Aggro prefer the lowest-HP kill.
-            if (SWUBotOverwhelmKills($att, $def)) $v += $W['base'] * ($att['attackPower'] - $def['remaining']);
+            if (!$late && SWUBotOverwhelmKills($att, $def)) $v += $W['base'] * ($att['attackPower'] - $def['remaining']);
             return $v;
         case 'trade':
-            return $W['kill'] * (SWUBotUnitValue($def) + _SWUBotLockFreeKillExtra($def)) + _SWUBotThreatRemoved($att, $def, $W)
-                   - $lossF * $W['loss'] * SWUBotUnitValue($att) + $breach();
+            return $killF * ($W['kill'] * (SWUBotUnitValue($def) + _SWUBotLockFreeKillExtra($def)) + _SWUBotThreatRemoved($att, $def, $W))
+                   - $lossF * $W['loss'] * SWUBotUnitValue($att) + ($late ? 0.0 : $breach()) - _SWUBotObserverTax($att, $W);
         case 'bounce':
             // Guide: pop a Shield with the smallest attacker. 'shieldtrader': a Shield for a Shield is priced as the pop is worth.
             if ($def['shields'] > 0 && !$att['saboteur'])
@@ -139,8 +169,35 @@ function SWUBotTargetValue(array $att, ?array $def, array $W): float {
         default: // 'die'
             // A popper that dies still takes the Shield with it ('popkill').
             return -$lossF * $W['loss'] * SWUBotUnitValue($att)
-                   + (SWUBotFeatureOn('popkill') && $def['shields'] > 0 && !$att['saboteur'] ? _SWUBotPopKillCredit($att, $def, $W) : 0.0);
+                   + (SWUBotFeatureOn('popkill') && $def['shields'] > 0 && !$att['saboteur'] ? _SWUBotPopKillCredit($att, $def, $W) : 0.0)
+                   - _SWUBotObserverTax($att, $W);
     }
+}
+
+// Feature 'observertax' (p41): the base damage $victim takes for each of its units defeated — the sum of N over the opponents'
+// units reading "When an enemy unit is defeated: Deal N damage to its controller's base" (LOF_130 HK-47) that still have
+// their abilities.
+function _SWUBotObserverPings(int $victim): int {
+    $n = 0;
+    foreach (OpponentsOf($victim) as $o) {
+        foreach (SWUBotUnits(intval($o)) as $u) {
+            if (function_exists('LostAbilities') && LostAbilities($u['obj'])) continue;
+            if (preg_match("/When an enemy unit is defeated: Deal (\\d+) damage to its controller's base/i", strval(CardText($u['cardID'])), $m))
+                $n += intval($m[1]);
+        }
+    }
+    return $n;
+}
+
+// Feature 'observertax' (p41): what losing attacker $att costs its base through the opponents' HK-47s — a point of base damage
+// each, and the game when the pings reach the base's remaining HP (Ninin vs Wicket Green R11: Wicket died into HK-47 at 1 HP).
+const SWU_BOT_OBSERVER_LETHAL = 100.0;
+function _SWUBotObserverTax(array $att, array $W): float {
+    if (!SWUBotFeatureOn('observertax')) return 0.0;
+    $seat = intval($att['controller']);
+    $pings = _SWUBotObserverPings($seat);
+    if ($pings <= 0) return 0.0;
+    return $pings >= SWUBaseRemainingHp($seat) ? SWU_BOT_OBSERVER_LETHAL : $W['base'] * $pings;
 }
 
 // Feature 'splitpop' (p32) — what popping one Shield on unit $v is worth, from $seat's view. Owner rule of thumb
@@ -409,7 +466,9 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 // A second copy of a unique unit I control defeats one (the uniqueness rule) — feature 'picks'.
                 // …unless the copy in play is SPENT and this cheap copy's When Played is worth playing again (feature 'uniquereplay', p31).
                 $replay = SWUBotFeatureOn('uniquereplay') && _SWUBotUniqueReplayWorthIt($seat, $cid);
-                if (SWUBotFeatureOn('picks') && !$replay && _SWUBotUniqueClash($seat, $cid)) $v -= $W['develop'] * intval(CardCost($cid)) + 1.0;
+                // 'uniquerefresh' (p41): only what is still intact of a WORN copy is lost — a fully worn one costs nothing to replace.
+                if (SWUBotFeatureOn('picks') && !$replay && _SWUBotUniqueClash($seat, $cid))
+                    $v -= ($W['develop'] * intval(CardCost($cid)) + 1.0) * (SWUBotFeatureOn('uniquerefresh') ? 1.0 - _SWUBotUniqueWear($seat, $cid) : 1.0);
                 // …and over an UNDAMAGED copy it gains nothing: held (feature 'unique'; owner report 2026-09-14, Bot
                 // Practice game 183227 — Sabine's Masterpiece played over a healthy one). A damaged copy is a heal.
                 // A refinement of 'picks', so it needs 'picks' on too (bot_picks_test compares picks on/off).
@@ -838,11 +897,65 @@ function _SWUBotWeaknessScore(int $seat, array $v, bool $enemy, int $dmg, string
             + ($shieldStopsDamage ? 0.0 : SWUBotUnitValue($v) * $W['chip'] * $dmg / max(1, $v['hp']));
     if ($enemy) {
         if ($loss >= $v['remaining']) return $kill;
-        if (SWUBotFeatureOn('setup') && !$v['isLeader'] && $v['remaining'] - $loss <= _SWUBotFinisherHPFor($seat, $v)) return max($soften, 0.8 * $kill);
-        return $soften;
+        // 'budgetsetup' (p41): what the token adds to my budget wipe's kill set — on top, since a softened body is softened either way.
+        $budget = (SWUBotFeatureOn('budgetsetup') && !$v['isLeader']) ? _SWUBotBudgetSetupValue($seat, $v, $loss, $W) : 0.0;
+        if (SWUBotFeatureOn('setup') && !$v['isLeader'] && $v['remaining'] - $loss <= _SWUBotFinisherHPFor($seat, $v)) return max($soften, 0.8 * $kill) + $budget;
+        return $soften + $budget;
     }
     if ($loss >= $v['remaining']) return SWUBotFeatureOn('fodder') ? -SWUBotSacrificeCost($v) : -SWUBotUnitValue($v);
     return -$soften;
+}
+
+// ── Feature 'budgetsetup' (p41) — Weakness as setup for a budget wipe ────────────────────────────────────────────────
+// Ninin vs Wicket Green R5-R7: three Weakness tokens and 3 damage took Luminara (7/7) to 1 HP, and Pre Vizsla's "total of 6 or
+// less remaining HP" then defeated her, Teebo and Crix Madine. The token's share of that: SWU_BOT_BUDGET_SETUP of the kill
+// weight times what it adds to the wipe's best kill set (a future, answerable kill, and the wipe may never come).
+const SWU_BOT_BUDGET_SETUP = 0.5;
+const SWU_BOT_BUDGET_SETUP_ROUNDS = 2;   // the R5 token came two rounds before the R7 Pre Vizsla: a resource a round until then
+
+// The biggest budget N among the budget wipes in my hand that I can cast within SWU_BOT_BUDGET_SETUP_ROUNDS rounds (one more
+// resource each regroup), else 0.
+function _SWUBotBudgetWipeCap(int $seat): int {
+    $res = count(array_filter(GetResources($seat), fn($o) => $o !== null && empty($o->removed)));
+    $cap = 0;
+    foreach (GetHand($seat) as $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cid = strval($o->CardID ?? '');
+        if (!preg_match('/Defeat any number of non-leader units with a total of (\d+) or less remaining HP/i', strval(CardText($cid)), $m)) continue;
+        if (intval(CardCost($cid)) > $res + SWU_BOT_BUDGET_SETUP_ROUNDS) continue;
+        $cap = max($cap, intval($m[1]));
+    }
+    return $cap;
+}
+
+// The best total value of units (['remaining' => HP, 'value' => worth]) whose remaining HP sums to <= $cap: an exact 0/1 knapsack
+// over HP (budgets are single digits). A unit at 0 HP or less is dead already and is not counted.
+function _SWUBotBudgetKillValue(array $units, int $cap): float {
+    $best = array_fill(0, max(0, $cap) + 1, 0.0);
+    foreach ($units as $u) {
+        $hp = intval($u['remaining']);
+        if ($hp <= 0 || $hp > $cap) continue;
+        for ($h = $cap; $h >= $hp; $h--) $best[$h] = max($best[$h], $best[$h - $hp] + floatval($u['value']));
+    }
+    return max($best);
+}
+
+// What a Weakness give of $loss on enemy unit $v adds to my budget wipe: SWU_BOT_BUDGET_SETUP x kill weight x (the best kill set's
+// value after the token - before it). The enemy non-leader units of every opponent, priced by SWUBotUnitValue.
+function _SWUBotBudgetSetupValue(int $seat, array $v, int $loss, array $W): float {
+    $cap = _SWUBotBudgetWipeCap($seat);
+    if ($cap <= 0) return 0.0;
+    $before = []; $after = [];
+    foreach (OpponentsOf($seat) as $o) {
+        foreach (SWUBotUnits(intval($o)) as $u) {
+            if ($u['isLeader']) continue;
+            $row = ['uid' => $u['uid'], 'remaining' => $u['remaining'], 'value' => SWUBotUnitValue($u)];
+            $before[] = $row;
+            if ($u['uid'] === $v['uid']) $row['remaining'] -= $loss;
+            $after[] = $row;
+        }
+    }
+    return SWU_BOT_BUDGET_SETUP * $W['kill'] * max(0.0, _SWUBotBudgetKillValue($after, $cap) - _SWUBotBudgetKillValue($before, $cap));
 }
 
 // A Weakness spread ("mz:n,mz:n", MZSPLITASSIGN — HMW_071 Ravage), part by part on _SWUBotWeaknessScore's scale.
@@ -1897,12 +2010,26 @@ function _SWUBotUniqueReplayWorthIt(int $seat, string $cid): bool {
 }
 
 // The copy of unique $cid I already control is at full HP (nothing to refresh). Feature 'unique'.
+// 'uniquerefresh' (p41): a copy carrying a downgrade (a Weakness token, a Bounty) is not healthy either — its current HP already
+// includes the -1, so remaining >= hp read it as untouched (Ninin vs Wicket Green R7).
 function _SWUBotUniqueCopyHealthy(int $seat, string $cid): bool {
     foreach (SWUBotUnits($seat) as $v) {
         if (CardTitle($v['cardID']) === CardTitle($cid) && strval(CardSubtitle($v['cardID'])) === strval(CardSubtitle($cid)))
-            return $v['remaining'] >= $v['hp'];
+            return $v['remaining'] >= $v['hp'] && !(SWUBotFeatureOn('uniquerefresh') && $v['downgrades'] > 0);
     }
     return false;
+}
+
+// Feature 'uniquerefresh' (p41): how worn my copy of unique $cid is — (damage + Weakness tokens) / printed HP, capped at 1. A fresh
+// copy arrives without either.
+function _SWUBotUniqueWear(int $seat, string $cid): float {
+    foreach (SWUBotUnits($seat) as $v) {
+        if (CardTitle($v['cardID']) !== CardTitle($cid) || strval(CardSubtitle($v['cardID'])) !== strval(CardSubtitle($cid))) continue;
+        $weak = 0;
+        foreach (GetUpgradesOnUnit($v['obj']) as $s) if (strval($s->CardID ?? '') === 'HMW_T02') $weak++;
+        return min(1.0, (intval($v['obj']->Damage ?? 0) + $weak) / max(1, intval(CardHp($v['cardID']))));
+    }
+    return 0.0;
 }
 
 // What an effect can change, as numbers (Phase 1b part 3). A side's value: each unit's SWUBotUnitValue scaled by the
@@ -1949,7 +2076,7 @@ function _SWUBotBoardRead(int $seat): array {
     $opps = SWUBotOpponents($seat);
     $theirs = 0.0; $theirBase = 0;
     foreach ($opps as $o) { $theirs += _SWUBotSideValue($o); $theirBase += SWUBaseRemainingHp($o); }
-    return ['theirs' => $theirs, 'mine' => _SWUBotSideValue($seat), 'theirBase' => $theirBase,
+    return ['theirs' => $theirs, 'mine' => _SWUBotSideValue($seat), 'theirBase' => $theirBase, 'myBase' => SWUBaseRemainingHp($seat),
             'owed' => (function_exists('SWUBotPendingDecisionSeat') && in_array(SWUBotPendingDecisionSeat(), $opps, true)) ? 1 : 0];
 }
 
@@ -1978,8 +2105,12 @@ function _SWUBotIsEffectEvent(string $cid): bool {
 function _SWUBotEventIsDud(int $seat, array $action, string $cid, array $W): bool {
     if (!function_exists('SWUBotLookaheadBest')) return false;
     $before = _SWUBotBoardRead($seat);
+    // 'dudheal' (p41): the HP the event heals on my base counts, a base point each (Lost and Forgotten's "heal 3 damage from
+    // your base"; Ninin vs Wicket Green R8). Only the dud gate reads it — the other lookahead callers keep their delta.
+    $heal = SWUBotFeatureOn('dudheal');
     $line = SWUBotLookaheadBest($seat, $action, fn() => _SWUBotBoardRead($seat),
-        fn(array $r) => _SWUBotBoardDelta($before, $r, $W), SWU_BOT_LOOKAHEAD_DEPTH, 12);
+        fn(array $r) => _SWUBotBoardDelta($before, $r, $W) + ($heal ? $W['base'] * max(0, $r['myBase'] - $before['myBase']) : 0.0),
+        SWU_BOT_LOOKAHEAD_DEPTH, 12);
     if ($line === null) return false;
     $enemyChanged = ($before['theirs'] - $line['theirs']) > 1e-6 || $line['theirBase'] < $before['theirBase'] || !empty($line['owed']);
     if (!$enemyChanged) return true;

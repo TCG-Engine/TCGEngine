@@ -24,7 +24,7 @@ $customDQHandlers["LAW_039#0"] = function($player, $parts, $lastDecision) {
     $power = intval(ObjectCurrentPower(GetZoneObject($mz)));
     if ($power <= 0) return;
     SWUOfferUnitTarget(intval($player), '', [
-        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $power, 'side' => 'their', 'arena' => 'Ground',
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $power, 'side' => 'their', 'arena' => 'Ground', 'source' => $mz,   // "she deals" — Latts is the source
         'prompt' => "Deal_{$power}_to_an_enemy_ground_unit",
     ]);
 };

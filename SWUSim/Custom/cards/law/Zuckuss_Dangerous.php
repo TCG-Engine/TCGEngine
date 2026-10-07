@@ -19,7 +19,7 @@ $onAttackAbilities["LAW_064:0"] = function($player, $mzID) {
     $power = intval(ObjectCurrentPowerInAttack($self));   // counts Raid / "+N for this attack"
     if ($power <= 0) return;
     SWUOfferUnitTarget(intval($player), $mzID, [
-        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $power, 'arena' => 'Ground', 'may' => true,
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $power, 'arena' => 'Ground', 'may' => true, 'source' => $mzID,
         'question' => "Deal_{$power}_to_a_ground_unit?", 'prompt' => "Deal_{$power}_damage_to_a_ground_unit",
     ]);
 };

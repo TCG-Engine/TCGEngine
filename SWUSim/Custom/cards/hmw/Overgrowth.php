@@ -30,7 +30,11 @@ $customDQHandlers["HMW_151#1"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($dealer)) return;
     // CURRENT power (upgrades, auras, tokens), not the printed value.
     $power = intval(ObjectCurrentPower($dealer));
-    if ($power > 0) SWUDealDamageToUnit($lastDecision, $power, intval($player));
+    // The DEALER is the damage's source ("a friendly unit deals damage"), so it is threaded through: every source
+    // read in the funnel depends on it — ASH_196 Gorian Shard's Corsair's "damage dealt by friendly Underworld cards
+    // is unpreventable", SEC_050 Vigil's "by another card", LOF_108 Malakili, HMW_185 Ty Yorrick. Dealt source-less,
+    // a Gorian- or Underworld-dealt Overgrowth was stopped by a Shield (verified 2026-10-07).
+    if ($power > 0) SWUDealDamageToUnit($lastDecision, $power, intval($player), $parts[0] ?? null);
 };
 
 $whenPlayedAbilities["HMW_151:0"] = function($player, $mzID = '') {

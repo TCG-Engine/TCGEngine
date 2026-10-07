@@ -66,6 +66,6 @@ $unitAbilities["TS26_15"] = function($player, $mzID) {
         }
     }
     if (empty($targets) || $pow <= 0) { SWUAfterAction(intval($player)); return; }
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_{$pow}_damage_to_another_ground_unit", "DEAL_UNIT_DAMAGE|{$pow}");
+    SWUQueueChooseTarget(intval($player), $targets, "Deal_{$pow}_damage_to_another_ground_unit", "DEAL_UNIT_DAMAGE|{$pow}|" . _SWUEncodeDamageSource($mzID));   // his own ability — C-3P0 is the source
     SWUQueueAfterAction(intval($player));
 };

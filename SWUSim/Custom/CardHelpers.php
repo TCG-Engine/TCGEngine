@@ -507,6 +507,7 @@ if (!function_exists('_SWUCollectUnitTargets')) {
 //   (all _SWUCollectUnitTargets opts, plus:)
 //   'continuation' string   REQUIRED — universal handler, e.g. 'DEFEAT_UNIT','BOUNCE_UNIT','DEAL_TARGET'
 //   'amount'       int      default 1 — appended as '|N' iff continuation is amount-taking
+//   'source'       string   mzID of the unit DEALING the damage (DEAL_UNIT_DAMAGE only) — appended as its source token
 //                           (GIVE_EXPERIENCE|GIVE_ADVANTAGE|HEAL_TARGET|DEAL_TARGET) and has no '|' yet
 //   'excludeSelf'  bool     exclude the source unit (resolves $mzID's UID → excludeUID); default false
 //   'may'          bool     default false
@@ -541,6 +542,10 @@ if (!function_exists('SWUOfferUnitTarget')) {
         $cont = (string)($opts['continuation'] ?? '');
         static $amountTaking = ['GIVE_EXPERIENCE' => 1, 'GIVE_ADVANTAGE' => 1, 'HEAL_TARGET' => 1, 'DEAL_TARGET' => 1, 'DEAL_UNIT_DAMAGE' => 1, 'DEAL_BASE_DAMAGE' => 1];
         if (strpos($cont, '|') === false && isset($amountTaking[$cont])) $cont .= "|{$amount}";
+        // 'source' (mzID): the unit that DEALS the damage — the named dealer of a "deals damage equal to its power"
+        // effect (CR 18.2a), or the card whose own ability it is (18.2b). DEAL_UNIT_DAMAGE reads it as its 2nd field.
+        if (!empty($opts['source']) && str_starts_with($cont, 'DEAL_UNIT_DAMAGE|') && substr_count($cont, '|') === 1)
+            $cont .= '|' . _SWUEncodeDamageSource((string)$opts['source']);
         $prompt   = $opts['prompt']   ?? 'Choose_a_target';
         $question = $opts['question'] ?? $prompt;
         if ($may) SWUQueueMayChooseTarget(intval($player), $targets, $question, $prompt, $cont, $block);

@@ -318,3 +318,77 @@ P2SPACEARENAUNIT:0:DAMAGE:0
 P1RESCOUNT:6
 P1RESAVAILABLE:0
 P1DISCARDCOUNT:0
+
+---
+
+# GorianDealer_DamageIsUnpreventable_BypassesShield
+#// Overgrowth's damage is dealt BY THE CHOSEN FRIENDLY UNIT ("a friendly unit deals damage equal to its power"), so
+#// ASH_196 Gorian Shard's Corsair's "Damage dealt by friendly Underworld cards is unpreventable" applies when that unit
+#// is Underworld — Gorian himself here. The handler dealt the damage source-less (no dealer threaded into
+#// SWUDealDamageToUnit), so the Shield absorbed it. Unpreventable = the full 6 lands on the 3/7 and the Shield is
+#// bypassed, not consumed (as in GorianShardsCorsair_PirateWarship.md).
+
+## GIVEN
+CommonSetup: ggw/bgw/{myBase:HMW_021;myResources:5}
+P1OnlyActions: true
+WithP1SpaceArena: ASH_196:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+WithP1Hand: HMW_151
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:6
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# OtherUnderworldDealer_WithGorian_BypassesShield
+#// Any friendly Underworld dealer counts, not just Gorian: SOR_247 (Underworld, 2 power) deals Overgrowth's damage
+#// while Gorian is in play — the 2 lands through the Shield.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myBase:HMW_021;myResources:5}
+P1OnlyActions: true
+WithP1SpaceArena: ASH_196:1:0
+WithP1GroundArena: SOR_247:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+WithP1Hand: HMW_151
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# NonUnderworldDealer_WithGorian_ShieldHolds
+#// CONTROL: Gorian in play, but the dealer is SOR_095 (not Underworld) — the damage is preventable and the Shield
+#// absorbs it: no damage, Shield consumed. Threading the dealer must not make every Overgrowth unpreventable.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myBase:HMW_021;myResources:5}
+P1OnlyActions: true
+WithP1SpaceArena: ASH_196:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+WithP1Hand: HMW_151
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0

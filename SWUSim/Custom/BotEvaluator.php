@@ -392,6 +392,38 @@ function SWUBotCombatOutcome(array $att, array $def): string {
     return 'die';
 }
 
+// Feature 'phaseexpiry' (p41): the HP $obj loses when its "for this phase" stat effects expire at the phase end — the net of
+// its phase- and attack-duration STAT_BUFF/STAT_DEBUFF HP (a round- or perm-duration one survives the expiry). Never negative:
+// a debuff that expires gives HP back, which kills nothing. Ninin vs Wicket Green R4: C-3PO's +2/+2 on Cassian = 2.
+function _SWUBotPhaseExpiryHp($obj): int {
+    if ($obj === null || !function_exists('SWUParsedTurnEffects')) return 0;
+    $net = 0;
+    foreach (SWUParsedTurnEffects($obj) as $e) {
+        if ($e['duration'] !== SWU_DUR_PHASE && $e['duration'] !== SWU_DUR_ATTACK) continue;
+        if ($e['kind'] === 'STAT_BUFF')   $net += intval($e['params'][1] ?? 0);
+        if ($e['kind'] === 'STAT_DEBUFF') $net -= intval($e['params'][1] ?? 0);
+    }
+    return max(0, $net);
+}
+
+// Feature 'phaseexpiry' (p41): SWUBotCombatOutcome, then the deaths the phase end adds — a unit whose damage reaches its HP
+// once its phase buff expires dies then. Returns [outcome, lateKill]: lateKill = the defender dies only at the phase end (no
+// Overwhelm excess, no Sentinel breach this phase, and an answer — a heal, a bounce — could still save it).
+function _SWUBotPhaseExpiryOutcome(array $att, array $def, string $out): array {
+    $kills = $out === 'kill-survive' || $out === 'trade';
+    $dies  = $out === 'trade' || $out === 'die';
+    $late = false;
+    if (!$kills && !($def['shields'] > 0 && !$att['saboteur'])) {
+        $exp = _SWUBotPhaseExpiryHp($def['obj'] ?? null);
+        if ($exp > 0 && $att['attackPower'] >= $def['remaining'] - $exp) { $kills = true; $late = true; }
+    }
+    if (!$dies && $att['shields'] <= 0) {
+        $exp = _SWUBotPhaseExpiryHp($att['obj'] ?? null);
+        if ($exp > 0 && $def['power'] >= $att['remaining'] - $exp) $dies = true;
+    }
+    return [$kills ? ($dies ? 'trade' : 'kill-survive') : ($dies ? 'die' : 'bounce'), $late];
+}
+
 // True when $att has Overwhelm and its hit defeats $def, so excess damage reaches the base (CR 7.5.7;
 // a Shield stops both the kill and the excess, 7.5.7e).
 function SWUBotOverwhelmKills(array $att, array $def): bool {

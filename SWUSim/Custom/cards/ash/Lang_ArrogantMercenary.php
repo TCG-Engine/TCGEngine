@@ -10,6 +10,6 @@ $unitAbilities["ASH_123"] = function($player, $mzID) {
     $pow  = $self ? intval(ObjectCurrentPower($self)) : 0;
     $tg = SWUAllUnits(null, GroundArena);
     if (empty($tg) || $pow <= 0) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget(intval($player), $tg, "Deal_{$pow}_to_a_ground_unit", "DEAL_UNIT_DAMAGE|{$pow}");
+    SWUQueueChooseTarget(intval($player), $tg, "Deal_{$pow}_to_a_ground_unit", "DEAL_UNIT_DAMAGE|{$pow}|" . _SWUEncodeDamageSource($mzID));   // "This unit deals" — Lang is the source
     SWUQueueAfterAction($player);
 };

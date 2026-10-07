@@ -30,7 +30,8 @@ $customDQHandlers["SOR_127#1"] = function($player, $parts, $lastDecision) {
     $fo = GetZoneObject($parts[0] ?? '');
     if (SWUObjGone($fo)) return;
     $power = intval(ObjectCurrentPower($fo));
-    if ($power > 0) SWUDealDamageToUnit($lastDecision, $power, intval($player));
+    // The dealer is the damage's SOURCE (CR 18.2a) — ASH_196 Gorian's unpreventable, SEC_050, LOF_108, HMW_185 read it (2026-10-07). LAW_008 Krennic reuses this step.
+    if ($power > 0) SWUDealDamageToUnit($lastDecision, $power, intval($player), $parts[0] ?? null);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

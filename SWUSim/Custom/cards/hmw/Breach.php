@@ -55,7 +55,7 @@ $customDQHandlers["HMW_114#0"] = function ($player, $parts, $lastDecision) {
     $enemies = ZoneSearch($enemyZone, AnyUnitFilter);
     if (empty($enemies)) return;
     SWUQueueChooseTarget(intval($player), $enemies,
-        "Deal_{$power}_damage_to_an_enemy_unit_in_that_arena", "HMW_114#1|{$power}|{$hasOverwhelm}");
+        "Deal_{$power}_damage_to_an_enemy_unit_in_that_arena", "HMW_114#1|{$power}|{$hasOverwhelm}|" . _SWUEncodeDamageSource((string)$lastDecision));
 };
 
 // STEP 2 — deal the damage, then the Overwhelm rider.
@@ -83,7 +83,8 @@ $customDQHandlers["HMW_114#1"] = function ($player, $parts, $lastDecision) {
 
     if ($uid > 0) SetSWUVar("SWU_TY_DEALT_UID_{$uid}", '');
     $tyDecider = _SWUHmw185Decider(intval($player));
-    SWUDealDamageToUnit((string)$lastDecision, $power, intval($player));
+    // The dealer is the damage's SOURCE (CR 18.2a) — ASH_196 Gorian's unpreventable, SEC_050, LOF_108, HMW_185 read it (2026-10-07).
+    SWUDealDamageToUnit((string)$lastDecision, $power, intval($player), _SWUDecodeDamageSource((string)($parts[2] ?? '')));
 
     if (!$hasOverwhelm) return;
     $playerID = intval($player);

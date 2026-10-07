@@ -15263,7 +15263,10 @@ function SWUDealSplitDamage(int $player, string $assignmentStr, string $srcTok =
         if ($amt <= 0) continue;
         $obj = GetZoneObject(trim($p[0]));
         if (SWUObjGone($obj)) continue;
-        $hits[] = ['uid' => intval($obj->UniqueID ?? 0), 'amount' => $amt];
+        // Optional 3rd field "mzID:amount:<source token>" — a hit with its OWN dealer, for effects where different
+        // units deal the shares (TWI_176 Caught in the Crossfire: each unit deals its power to the other). It
+        // overrides the event-wide $srcTok for that hit only.
+        $hits[] = ['uid' => intval($obj->UniqueID ?? 0), 'amount' => $amt, 'src' => trim((string)($p[2] ?? ''))];
     }
 
     // Split hits into those whose target has an INTERACTIVE damage-replacement (SEC_101 Queen Amidala —
@@ -15300,7 +15303,14 @@ function _SWUApplySplitHits(int $player, array $hits, string $srcTok = ''): void
     // property of the SOURCE, identical for every share.
     $sourceMzID    = _SWUDecodeDamageSource($srcTok);
     $unpreventable = ($sourceMzID !== null) && _SWUDamageUnpreventable(GetZoneObject($sourceMzID));
-    foreach ($hits as $h) {
+    // Resolved up front, while every dealer is still in play (the defeat sweep below can remove one).
+    $hitSource = [];
+    foreach ($hits as $k => $h) {
+        if (($h['src'] ?? '') === '') continue;
+        $hm = _SWUDecodeDamageSource((string)$h['src']);
+        $hitSource[$k] = [$hm, ($hm !== null) && _SWUDamageUnpreventable(GetZoneObject($hm))];
+    }
+    foreach ($hits as $k => $h) {
         $mz  = SWUFindMzByUID($h['uid']);
         if ($mz === null) continue;
         $obj = GetZoneObject($mz);
@@ -15314,8 +15324,9 @@ function _SWUApplySplitHits(int $player, array $hits, string $srcTok = ''): void
         // read the same source a single-target hit would (CR 9.12). ASH_196 skips the chain entirely,
         // mirroring the single-target funnel's unpreventable branch: no reductions, no Shield spent.
         $prevented = false; $shielded = false;
-        if (!$unpreventable) {
-            $amount = _SWUNonInteractiveDamagePrevention($obj, $amount, intval($player), $sourceMzID, $prevented, $shielded);
+        [$hSrc, $hUnprev] = $hitSource[$k] ?? [$sourceMzID, $unpreventable];
+        if (!$hUnprev) {
+            $amount = _SWUNonInteractiveDamagePrevention($obj, $amount, intval($player), $hSrc, $prevented, $shielded);
         }
         if ($shielded) {
             SWUQueuePreventedAnim($mz, intval($player));
@@ -15845,7 +15856,12 @@ $customDQHandlers["DEAL_UNIT_DAMAGE"] = function($player, $parts, $lastDecision)
     // they are, so existing active-player callers are unaffected.
     global $playerID;
     $playerID = intval($player);
-    SWUDealDamageToUnit($lastDecision, intval($parts[0] ?? 1), intval($player));
+    // Optional $parts[1] = the damage SOURCE as an _SWUEncodeDamageSource token (UID-based, so it survives the request
+    // boundary). Every "<a unit> deals damage equal to its power" effect names its dealer, and the dealer is a source
+    // (CR 18.2a); without it every source read in the funnel is blind — ASH_196 Gorian Shard's Corsair's "damage dealt
+    // by friendly Underworld cards is unpreventable", SEC_050 Vigil, LOF_108 Malakili, HMW_185 Ty Yorrick. Absent for
+    // every caller written before 2026-10-07, which keeps them source-less exactly as before.
+    SWUDealDamageToUnit($lastDecision, intval($parts[0] ?? 1), intval($player), _SWUDecodeDamageSource((string)($parts[1] ?? '')));
 };
 
 // Universal handler: give the unit at $lastDecision a "for this phase" shrink of

@@ -13,5 +13,6 @@ $customDQHandlers["ASH_102#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($dealer)) return;
     $pow = intval(ObjectCurrentPower($dealer));
     if ($pow <= 0) return;
-    SWUDealDamageToUnit($lastDecision, $pow, intval($player));
+    // The dealer is the damage's SOURCE (CR 18.2a) — ASH_196 Gorian's unpreventable, SEC_050, LOF_108, HMW_185 read it (2026-10-07).
+    SWUDealDamageToUnit($lastDecision, $pow, intval($player), $dealerMz);
 };
