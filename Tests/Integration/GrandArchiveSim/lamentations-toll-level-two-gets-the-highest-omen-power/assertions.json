@@ -1,0 +1,17 @@
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "9",
+        "semantic": true,
+        "label": "3 (Toll) + 4 (highest omen power: The Majestic Spirit) + 1 (Grande Aiguille) + 1 (Aiguille's two ally omens)"
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

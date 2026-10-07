@@ -8222,6 +8222,18 @@ function SinistreStabCommitToLineage($player, $targetPlayer) {
             $iObj->TurnEffects[] = "CURSE_TO_LINEAGE";
         }
         AddToChampionLineage($targetPlayer, "e1xj8mqr2o");
+        return;
+    }
+    // The optional "put it on the hit champion's lineage" is answered after combat damage, by which time the Stab has already left the intent for the graveyard: take it from there.
+    $graveyard = GetZone("myGraveyard");
+    for($gi = count($graveyard) - 1; $gi >= 0; --$gi) {
+        if($graveyard[$gi]->removed || $graveyard[$gi]->CardID !== "e1xj8mqr2o") continue;
+        MZMove($player, "myGraveyard-" . $gi, "myBanish");
+        DecisionQueueController::CleanupRemovedCards();
+        $banish = &GetBanish($player);
+        $last = count($banish) - 1;
+        if($last >= 0 && $banish[$last]->CardID === "e1xj8mqr2o") { $banish[$last]->removed = true; DecisionQueueController::CleanupRemovedCards(); }
+        AddToChampionLineage($targetPlayer, "e1xj8mqr2o");
         break;
     }
 }
@@ -8235,6 +8247,8 @@ function SinistreStabOnHit($player) {
     if($hitTarget === null || $hitTarget === "" || $hitTarget === "-") return;
     $hitObj = GetZoneObject($hitTarget);
     if($hitObj === null || !PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) return;
+    // The combat variables are cleared before the optional choice is answered: remember whose champion was hit now.
+    DecisionQueueController::StoreVariable("SinistreStabHitPlayer", strval($hitObj->Controller));
     DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
         tooltip:"Put_Sinistre_Stab_on_hit_champion's_lineage?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "SinistreStabChoice", 1);
@@ -8242,11 +8256,9 @@ function SinistreStabOnHit($player) {
 
 $customDQHandlers["SinistreStabChoice"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
-    $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
-    if($hitTarget === null || $hitTarget === "" || $hitTarget === "-") return;
-    $hitObj = GetZoneObject($hitTarget);
-    if($hitObj === null || !PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) return;
-    SinistreStabCommitToLineage($player, $hitObj->Controller);
+    $hitPlayer = intval(DecisionQueueController::GetVariable("SinistreStabHitPlayer"));
+    if($hitPlayer !== 1 && $hitPlayer !== 2) return;
+    SinistreStabCommitToLineage($player, $hitPlayer);
 };
 
 function EventideLurePutRestOnBottom($player) {

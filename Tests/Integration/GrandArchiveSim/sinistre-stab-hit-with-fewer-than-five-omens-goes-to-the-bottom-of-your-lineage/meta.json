@@ -1,0 +1,23 @@
+{
+    "name": "sinistre-stab-hit-with-fewer-than-five-omens-goes-to-the-bottom-of-your-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:27:59+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "e1xj8mqr2o"
+    ],
+    "notes": "Player 2 attacks with their champion's Sword (Grande Aiguille).",
+    "semanticCoverage": {
+        "testedCards": [
+            "e1xj8mqr2o"
+        ],
+        "mechanics": [
+            "on-hit",
+            "lineage",
+            "omen"
+        ],
+        "rulesClauses": [
+            "On Hit: ... Otherwise, put Sinistre Stab on the bottom of your champion's lineage."
+        ]
+    }
+}

@@ -1,0 +1,36 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "viewerPlayerID": 1,
+        "property": "Subcards",
+        "value": "[\"nn48ne8a05\",\"e1xj8mqr2o\"]",
+        "semantic": true,
+        "label": "Fewer than five omens: Sinistre Stab goes on the bottom of your champion's lineage"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "5",
+        "semantic": true,
+        "label": "The hit dealt 4 (Stab) + 1 (Grande Aiguille) damage"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The Stab is not in the graveyard"
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

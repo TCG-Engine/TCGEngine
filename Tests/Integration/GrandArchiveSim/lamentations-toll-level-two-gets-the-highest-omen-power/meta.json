@@ -1,0 +1,23 @@
+{
+    "name": "lamentations-toll-level-two-gets-the-highest-omen-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:29:49+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "1t3dvor61i"
+    ],
+    "notes": "Player 2's champion is Ciel, Omenbringer (level 2).",
+    "semanticCoverage": {
+        "testedCards": [
+            "1t3dvor61i"
+        ],
+        "mechanics": [
+            "level-gate",
+            "omen",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Level 2+] Lamentation's Toll gets +X power, where X is the highest power stat among your omens."
+        ]
+    }
+}

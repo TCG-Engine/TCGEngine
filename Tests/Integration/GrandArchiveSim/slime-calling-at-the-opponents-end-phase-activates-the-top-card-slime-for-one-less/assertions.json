@@ -1,0 +1,35 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "zgcxyky280",
+        "semantic": true,
+        "label": "The Green Slime on top of the deck was looked at, picked and activated"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Slime Calling resolved"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 14,
+        "semantic": true,
+        "label": "Deck: 16 - 3 looked at + 2 put on the bottom - 1 draw phase"
+    },
+    {
+        "step": 9,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

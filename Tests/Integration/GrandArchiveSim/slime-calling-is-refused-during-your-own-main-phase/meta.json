@@ -1,0 +1,28 @@
+{
+    "name": "slime-calling-is-refused-during-your-own-main-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:32:20+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "dc8P58gmjR"
+    ],
+    "notes": "The old 'slime-calling' fixture activated it in the owner's own main phase, which the printed restriction forbids.",
+    "semanticCoverage": {
+        "testedCards": [
+            "dc8P58gmjR"
+        ],
+        "mechanics": [
+            "timing",
+            "activation-restriction"
+        ],
+        "rulesClauses": [
+            "Activate this card only during an opponent's end phase."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Slime Calling's timing restriction was not enforced.",
+        "affectedFunction": "ActivationBlockedBeforeAnnounce / cardActivatedPrereqs",
+        "fixCommit": "TBD"
+    }
+}

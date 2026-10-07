@@ -1,0 +1,29 @@
+{
+    "name": "sinistre-stab-hit-with-five-omens-may-go-to-the-bottom-of-the-hit-champions-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:28:27+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "e1xj8mqr2o"
+    ],
+    "notes": "The optional 'put Sinistre Stab on the hit champion's lineage' (five or more omens) did nothing when answered YES: the combat variables are cleared before the YESNO resolves (CombatTarget empty) and the Stab had already left the intent for the graveyard. The hit player is now remembered when the prompt is queued and the Stab is taken from the graveyard (SinistreStabOnHit / SinistreStabChoice / SinistreStabCommitToLineage).",
+    "semanticCoverage": {
+        "testedCards": [
+            "e1xj8mqr2o"
+        ],
+        "mechanics": [
+            "on-hit",
+            "lineage",
+            "optional-effect"
+        ],
+        "rulesClauses": [
+            "On Hit: If you have five or more omens, you may put Sinistre Stab on the bottom of the hit champion's lineage."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "The optional 'put Sinistre Stab on the hit champion's lineage' (five or more omens) did nothing when answered YES: the combat variables are cleared before the YESNO resolves (CombatTarget empty) and the Stab had already left the intent for the graveyard. The hit player is now remembered when the prompt is queued and the Stab is taken from the graveyard (SinistreStabOnHit / SinistreStabChoice / SinistreStabCommitToLineage).",
+        "affectedFunction": "SinistreStabChoice",
+        "fixCommit": "TBD"
+    }
+}

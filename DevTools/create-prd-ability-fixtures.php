@@ -31234,6 +31234,90 @@ $fixtures['reverse-affliction-banishes-a-curse-from-the-lineage-as-an-omen'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'myTempZone-0')]),
 ];
 
+// Sinistre Stab (e1xj8mqr2o): "On Hit: If you have five or more omens, you may put Sinistre Stab on the bottom of the hit champion's lineage. Otherwise, put Sinistre Stab on the bottom of your champion's lineage."
+$gaP2Omen = function(string $cardID = 'em6eEh9q8y') { return ['player' => 2, 'zone' => 'myBanish', 'cardID' => $cardID, 'setProperties' => ['Counters' => ['omen' => 1]]]; };
+$fixtures['sinistre-stab-hit-with-fewer-than-five-omens-goes-to-the-bottom-of-your-lineage'] = [
+    'testedCards' => ['e1xj8mqr2o'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zhh43i1eaa', 'Subcards' => ['nn48ne8a05']]], // Ciel, Mirage's Grave (GUARDIAN, UMBRA)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '6ihv6hbvye'], // Grande Aiguille (Sword) -> theirField-1 from player 1's view
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'e1xj8mqr2o'], // Sinistre Stab -> p2 myHand-7
+    ],
+    'actions' => array_merge([mrdEnd(1), mrdAct(2, 10002, 'myHand-7!FSM!')], mrdPay(2, 3), [mrdAns(2, 'myField-1'), mrdAns(2, 'theirField-0')]), // attack with the champion's Sword: weapon, then target
+];
+$fixtures['sinistre-stab-hit-with-five-omens-may-go-to-the-bottom-of-the-hit-champions-lineage'] = [
+    'testedCards' => ['e1xj8mqr2o'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaP2Omen(), $gaP2Omen(), $gaP2Omen(), $gaP2Omen(), $gaP2Omen(), // five omens
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zhh43i1eaa', 'Subcards' => ['nn48ne8a05']]], // Ciel, Mirage's Grave (GUARDIAN, UMBRA)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '6ihv6hbvye'], // Grande Aiguille (Sword) -> theirField-1 from player 1's view
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'e1xj8mqr2o'], // Sinistre Stab -> p2 myHand-7
+    ],
+    'actions' => array_merge([mrdEnd(1), mrdAct(2, 10002, 'myHand-7!FSM!')], mrdPay(2, 3), [mrdAns(2, 'myField-1'), mrdAns(2, 'theirField-0'), mrdAns(2, 'YES')]), // attack with the champion's Sword: weapon, then target
+];
+$fixtures['sinistre-stab-hit-with-five-omens-declining-leaves-it-in-the-graveyard'] = [
+    'testedCards' => ['e1xj8mqr2o'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaP2Omen(), $gaP2Omen(), $gaP2Omen(), $gaP2Omen(), $gaP2Omen(), // five omens
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zhh43i1eaa', 'Subcards' => ['nn48ne8a05']]], // Ciel, Mirage's Grave (GUARDIAN, UMBRA)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '6ihv6hbvye'], // Grande Aiguille (Sword) -> theirField-1 from player 1's view
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'e1xj8mqr2o'], // Sinistre Stab -> p2 myHand-7
+    ],
+    'actions' => array_merge([mrdEnd(1), mrdAct(2, 10002, 'myHand-7!FSM!')], mrdPay(2, 3), [mrdAns(2, 'myField-1'), mrdAns(2, 'theirField-0'), mrdAns(2, 'NO')]), // attack with the champion's Sword: weapon, then target
+];
+
+// Lamentation's Toll (1t3dvor61i): "[Level 2+] Lamentation's Toll gets +X power, where X is the highest power stat among your omens."
+$gaTollAttack = function(string $champion) use ($gaP2Omen) { return [
+    'testedCards' => ['1t3dvor61i'],
+    'deck' => $GLOBALS['gaSweepDeck']('Spirit of Fire'),
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => $champion]],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '6ihv6hbvye'], // Grande Aiguille (Sword) -> myField-1
+        $gaP2Omen('tsvbgl6ffq'), $gaP2Omen(), // The Majestic Spirit (power 4) and Dungeon Guide (power 1) omens
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '1t3dvor61i'], // Lamentation's Toll -> p2 myHand-7
+    ],
+    'actions' => array_merge([mrdEnd(1), mrdAct(2, 10002, 'myHand-7!FSM!')], mrdPay(2, 4), [mrdAns(2, 'myField-1'), mrdAns(2, 'theirField-0')]),
+]; };
+$GLOBALS['gaSweepDeck'] = $gaSweepDeck;
+$fixtures['lamentations-toll-level-two-gets-the-highest-omen-power'] = $gaTollAttack('o69ogocemo'); // Ciel, Omenbringer (level 2)
+$fixtures['lamentations-toll-level-one-gets-no-omen-power'] = $gaTollAttack('nn48ne8a05'); // Ciel, Loyal Valet (level 1)
+
+// Overpowering Defense (14hr8i5oix): "Activate this card only if a Guardian unit you control is attacking. Negate all card activations you don't control."
+$fixtures['overpowering-defense-cannot-be-activated-without-an-attacking-guardian'] = [
+    'testedCards' => ['14hr8i5oix'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaCiel, $gaHand('14hr8i5oix')], // Ciel, Loyal Valet (GUARDIAN) is not attacking
+    'actions' => [mrdPlay(1, 'myHand-7')],
+];
+$fixtures['overpowering-defense-can-be-activated-while-a-guardian-is-attacking'] = [
+    'testedCards' => ['14hr8i5oix'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nn48ne8a05']], // Ciel, Loyal Valet (GUARDIAN)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '6ihv6hbvye'], // Grande Aiguille -> myField-1
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '14hr8i5oix'], // Overpowering Defense -> p2 myHand-7
+    ],
+    'actions' => array_merge([mrdEnd(1), mrdAct(2, 10002, 'myField-0!FSM!'), mrdAns(2, 'myField-1'), mrdAns(2, 'theirField-0'), mrdAns(2, 'myHand-7')], mrdPay(2, 2)), // attack with the Guardian champion, then respond with Overpowering Defense
+];
+
+// Slime Calling (dc8P58gmjR): "Activate this card only during an opponent's end phase. [Class Bonus] Look at the top 3+LV cards of your deck. You may activate up to two Slime ally cards from among them. Cards you activate this way cost 1 less to activate. Put the rest of the cards on the bottom of your deck in any order."
+$gaTamer = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'pNiyaGlIe7', 'Counters' => ['_overrides' => ['classes' => 'TAMER']]]]; // Spirit of Wind (enables the WIND element) as a Tamer
+$fixtures['slime-calling-is-refused-during-your-own-main-phase'] = [
+    'testedCards' => ['dc8P58gmjR'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaTamer, $gaHand('dc8P58gmjR')],
+    'actions' => [mrdPlay(1, 'myHand-7')],
+];
+$fixtures['slime-calling-at-the-opponents-end-phase-activates-the-top-card-slime-for-one-less'] = [
+    'testedCards' => ['dc8P58gmjR'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaTamer, $gaHand('dc8P58gmjR'), $gaTop(['zgcxyky280', 'em6eEh9q8y', 'em6eEh9q8y'])],
+    'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdAns(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myTempZone-2'), mrdAns(1, 'Top=;Bottom=em6eEh9q8y,em6eEh9q8y')], mrdPay(1, 2)), // pay (2), pick the Green Slime (the top card, listed last), put the rest on the bottom, pay its reduced cost (3 - 1)
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

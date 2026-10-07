@@ -2118,6 +2118,15 @@ function ActivationBlockedBeforeAnnounce($player, $sourceObject, $ignoreCost, $i
         }
     }
 
+    // "Activate this card only if / during ..." and "has a legal target / the additional cost is payable" gates. The generator emitted these into $cardActivatedPrereqs, a table nothing consulted
+    // (CanActivateCard() only reads $activateCardPrereqs), so e.g. Overpowering Defense could be activated with no Guardian attacking. Razor Broadhead and Quietus Blade are field items whose entries
+    // were misfiled the same way and are handled as field abilities instead.
+    global $cardActivatedPrereqs;
+    if(isset($cardActivatedPrereqs[$cardID . ":0"]) && $cardID !== "si9ux3ak6o" && $cardID !== "4c7XZeezka") {
+        $gaSourceMZ = method_exists($sourceObject, 'GetMzID') ? $sourceObject->GetMzID() : "";
+        if(!$cardActivatedPrereqs[$cardID . ":0"]($player, $gaSourceMZ)) return true;
+    }
+
     // 1.5 Ally Link pre-check: if the card has Ally Link, there must be at least
     // one ally on the field to link to. If not, the activation is illegal.
     global $AllyLink_Cards;
@@ -18986,6 +18995,12 @@ function CanActivateCardForSelection($player, $obj, $strict = false) {
     // A selection check never consumes a one-shot element bypass (Prismatic Codex / Pride of Demiourgos): the opportunity window evaluates this for every card in hand, which
     // used to spend the bypass before the player activated anything. The real activation consumes it (ActivationBlockedBeforeAnnounce).
     if(!CanPlayerUseCardElement($player, $obj->CardID, false, $strict)) {
+        SetFlashMessage($existingFlash);
+        return false;
+    }
+    // $cardActivatedPrereqs (see ActivationBlockedBeforeAnnounce) also gates what the opportunity window / bot offers.
+    global $cardActivatedPrereqs;
+    if(isset($cardActivatedPrereqs[$obj->CardID . ":0"]) && $obj->CardID !== "si9ux3ak6o" && $obj->CardID !== "4c7XZeezka" && !$cardActivatedPrereqs[$obj->CardID . ":0"]($player, $mzID)) {
         SetFlashMessage($existingFlash);
         return false;
     }

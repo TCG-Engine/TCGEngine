@@ -1,0 +1,22 @@
+{
+    "name": "overpowering-defense-can-be-activated-while-a-guardian-is-attacking",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:35:16+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "14hr8i5oix"
+    ],
+    "notes": "Player 2's Guardian champion attacks and responds with Overpowering Defense; there is nothing of player 1's to negate.",
+    "semanticCoverage": {
+        "testedCards": [
+            "14hr8i5oix"
+        ],
+        "mechanics": [
+            "activation-restriction",
+            "negate"
+        ],
+        "rulesClauses": [
+            "Negate all card activations you don't control."
+        ]
+    }
+}

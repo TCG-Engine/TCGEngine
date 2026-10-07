@@ -1919,3 +1919,30 @@ $activateAbilityAbilities["XbYtI0XtVH:0"] = function($player) { //Banish to empo
 $activateAbilityAbilities["Tx8noEw78s:0"] = function($player) { //Sacrifice to recover
     RecoverChampion($player, 2 + intval(DecisionQueueController::GetVariable("gaLKI_refinement")));
 };
+
+// $cardActivatedPrereqs timing gates written against phase codes the engine never reports: the opponent's end-phase opportunity window runs with the phase code "BEOP" (BeforeEndOpportunityPhase), and there is no
+// "COMBAT" phase code (combat happens during MAIN with an attack in progress). The generated gates ("END" / "COMBAT") would never be true now that these prereqs are enforced.
+$cardActivatedPrereqs["dc8P58gmjR:0"] = function($player, $mzID) { // Slime Calling: only during an opponent's end phase
+    return in_array(GetCurrentPhase(), ["BEOP", "END"], true) && GetTurnPlayer() != $player;
+};
+$cardActivatedPrereqs["VXHLfbZ6AB:0"] = function($player, $mzID) { // Break the Line: only during a combat phase
+    return IsCombatActive();
+};
+
+// Slime Calling (dc8P58gmjR): "[Class Bonus] Look at the top 3+LV cards of your deck." The generated loop moved deck indexes N..1 into the temp zone: the TOP card (index 0) was never looked at and the
+// card at index N (one below the printed range) was. Fixed to take indexes N-1..0. (Remove() only flags a slot, so descending order keeps every index valid.)
+$cardActivatedAbilities["dc8P58gmjR:0"] = function($player) { //Slime Calling -- Class Bonus deck activation
+  if(!IsClassBonusActive($player, CardClasses("dc8P58gmjR"))) return;
+  $champLevel = 1;
+  $champMZ = FindChampionMZ($player);
+  if($champMZ !== null) {
+      $champObj = GetZoneObject($champMZ);
+      if($champObj !== null) $champLevel = ObjectCurrentLevel($champObj);
+  }
+  $n = min(3 + $champLevel, count(GetDeck($player)));
+  if($n === 0) return;
+  for($i = $n - 1; $i >= 0; --$i) {
+      MZMove($player, "myDeck-" . $i, "myTempZone");
+  }
+  SlimeCallingChooseSlime($player, 1);
+};

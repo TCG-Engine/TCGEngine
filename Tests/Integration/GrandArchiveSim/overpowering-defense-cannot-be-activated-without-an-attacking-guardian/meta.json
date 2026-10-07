@@ -1,0 +1,28 @@
+{
+    "name": "overpowering-defense-cannot-be-activated-without-an-attacking-guardian",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:35:07+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "14hr8i5oix"
+    ],
+    "notes": "The generated 'Activate only if a Guardian unit you control is attacking' prereq was emitted into $cardActivatedPrereqs, a table nothing consulted, so the card could be activated any time. ActivationBlockedBeforeAnnounce() and CanActivateCardForSelection() now consult it (39 cards had prereqs in that table: legal-target gates, additional-cost payability, phase/Fatestone/Spirit restrictions).",
+    "semanticCoverage": {
+        "testedCards": [
+            "14hr8i5oix"
+        ],
+        "mechanics": [
+            "activation-restriction",
+            "combat"
+        ],
+        "rulesClauses": [
+            "Activate this card only if a Guardian unit you control is attacking."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "Overpowering Defense could be activated while no Guardian was attacking.",
+        "affectedFunction": "ActivationBlockedBeforeAnnounce / cardActivatedPrereqs",
+        "fixCommit": "TBD"
+    }
+}

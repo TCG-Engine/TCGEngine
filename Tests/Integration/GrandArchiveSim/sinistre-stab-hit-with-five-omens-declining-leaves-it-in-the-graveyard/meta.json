@@ -1,0 +1,22 @@
+{
+    "name": "sinistre-stab-hit-with-five-omens-declining-leaves-it-in-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:28:28+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "e1xj8mqr2o"
+    ],
+    "notes": "Declining the optional lineage placement.",
+    "semanticCoverage": {
+        "testedCards": [
+            "e1xj8mqr2o"
+        ],
+        "mechanics": [
+            "on-hit",
+            "optional-effect"
+        ],
+        "rulesClauses": [
+            "you may put Sinistre Stab on the bottom of the hit champion's lineage"
+        ]
+    }
+}
