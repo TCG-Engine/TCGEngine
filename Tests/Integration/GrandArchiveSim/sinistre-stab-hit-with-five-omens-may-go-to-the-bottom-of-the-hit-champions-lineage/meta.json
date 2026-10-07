@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "The optional 'put Sinistre Stab on the hit champion's lineage' (five or more omens) did nothing when answered YES: the combat variables are cleared before the YESNO resolves (CombatTarget empty) and the Stab had already left the intent for the graveyard. The hit player is now remembered when the prompt is queued and the Stab is taken from the graveyard (SinistreStabOnHit / SinistreStabChoice / SinistreStabCommitToLineage).",
         "affectedFunction": "SinistreStabChoice",
-        "fixCommit": "TBD"
+        "fixCommit": "6bcc30f1"
     }
 }

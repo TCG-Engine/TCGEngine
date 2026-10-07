@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **858**
+Cards linked to an existing fixture: **862**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1626**
+Implemented cards still needing semantic coverage: **1622**
 
 ## Mechanic groups
 
@@ -27,10 +27,7 @@ Implemented cards still needing semantic coverage: **1626**
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
 | Seeker's Aetherwing (`bf7yzaqes4`) | REGALIA,WEAPON | 1 | targeting, status, combat | Diana, Moonpiercer | — |
-| Sinistre Stab (`e1xj8mqr2o`) | ATTACK | 1 | combat, condition | Ciel, Mirage's Grave | — |
-| Lamentation's Toll (`1t3dvor61i`) | ATTACK | 1 | counter | Ciel, Mirage's Grave | — |
 | Meteoric Volley (`10u5ldz371`) | ACTION | 1 | condition | Diana, Moonpiercer | — |
-| Overpowering Defense (`14hr8i5oix`) | ACTION | 1 | condition | Ciel, Mirage's Grave | — |
 | Sidereal Spellshot (`xwwkxq0vp3`) | ACTION | 1 | unclassified | Diana, Moonpiercer | — |
 | Rescue the Heir (`t0240ykvj0`) | ACTION | 2 | cost, targeting, zone-movement, condition | — | save-the-heir |
 | Baleful Oblation (`oye74ibwo8`) | ACTION | 2 | cost, damage | — | baleful-oblation-ciel-bonus-and-effect |
@@ -76,3 +73,6 @@ Implemented cards still needing semantic coverage: **1626**
 | Ranger Strides (`pvxb5hrfsu`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, status, trigger, condition | — | — |
 | Triumphant Mechanic (`tQTQqCnaZU`) | ALLY | 2 | recover, draw-discard, combat, trigger, condition | — | — |
 | Uther, Illustrious King (`5h8asbierp`) | UNIQUE,ALLY | 2 | targeting, zone-movement, status, combat, trigger | — | — |
+| Aenean Swelling Gusts (`nbznVwdylT`) | ACTION | 2 | cost, targeting, damage, draw-discard | — | — |
+| Alice, Whim's Monarch (`9K4etFOi4M`) | CHAMPION | 2 | zone-movement, token, trigger, condition | — | — |
+| Arcane Elemental (`wFH1kBLrWh`) | ALLY | 2 | cost, zone-movement, combat, trigger | — | — |

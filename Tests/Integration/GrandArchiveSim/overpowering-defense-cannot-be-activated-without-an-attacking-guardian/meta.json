@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Overpowering Defense could be activated while no Guardian was attacking.",
         "affectedFunction": "ActivationBlockedBeforeAnnounce / cardActivatedPrereqs",
-        "fixCommit": "TBD"
+        "fixCommit": "6bcc30f1"
     }
 }

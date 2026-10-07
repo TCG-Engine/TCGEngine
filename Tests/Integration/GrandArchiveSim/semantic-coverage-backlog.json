@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-07T13:27:19+00:00",
+    "generatedAt": "2026-10-07T13:36:07+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 858,
+        "cardsWithExistingFixtures": 862,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1626,
+        "cardsNeedingSemanticCoverage": 1622,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -46,41 +46,6 @@
             "priority": 113
         },
         {
-            "cardId": "e1xj8mqr2o",
-            "name": "Sinistre Stab",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "1t3dvor61i",
-            "name": "Lamentation's Toll",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "10u5ldz371",
             "name": "Meteoric Volley",
             "type": "ACTION",
@@ -93,23 +58,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "14hr8i5oix",
-            "name": "Overpowering Defense",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -22569,22 +22517,6 @@
             "priority": 12
         },
         {
-            "cardId": "dc8P58gmjR",
-            "name": "Slime Calling",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "9Kgr2prI9E",
             "name": "Slimecall Cyclone",
             "type": "PHANTASIA",
@@ -40168,6 +40100,32 @@
             "priority": 132
         },
         {
+            "cardId": "e1xj8mqr2o",
+            "name": "Sinistre Stab",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sinistre-stab-hit-with-fewer-than-five-omens-goes-to-the-bottom-of-your-lineage",
+                "sinistre-stab-hit-with-five-omens-declining-leaves-it-in-the-graveyard",
+                "sinistre-stab-hit-with-five-omens-may-go-to-the-bottom-of-the-hit-champions-lineage"
+            ],
+            "semanticFixtures": [
+                "sinistre-stab-hit-with-fewer-than-five-omens-goes-to-the-bottom-of-your-lineage",
+                "sinistre-stab-hit-with-five-omens-declining-leaves-it-in-the-graveyard",
+                "sinistre-stab-hit-with-five-omens-may-go-to-the-bottom-of-the-hit-champions-lineage"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "3jg01o26b4",
             "name": "Slice and Dice",
             "type": "ATTACK",
@@ -41699,6 +41657,29 @@
             "priority": 131
         },
         {
+            "cardId": "1t3dvor61i",
+            "name": "Lamentation's Toll",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter"
+            ],
+            "existingFixtures": [
+                "lamentations-toll-level-one-gets-no-omen-power",
+                "lamentations-toll-level-two-gets-the-highest-omen-power"
+            ],
+            "semanticFixtures": [
+                "lamentations-toll-level-one-gets-no-omen-power",
+                "lamentations-toll-level-two-gets-the-highest-omen-power"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "NfbZ0nouSQ",
             "name": "Lorraine, Crux Knight",
             "type": "CHAMPION",
@@ -41760,6 +41741,29 @@
             ],
             "starterDecks": [
                 "Lorraine Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "14hr8i5oix",
+            "name": "Overpowering Defense",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "overpowering-defense-can-be-activated-while-a-guardian-is-attacking",
+                "overpowering-defense-cannot-be-activated-without-an-attacking-guardian"
+            ],
+            "semanticFixtures": [
+                "overpowering-defense-can-be-activated-while-a-guardian-is-attacking",
+                "overpowering-defense-cannot-be-activated-without-an-attacking-guardian"
+            ],
+            "starterDecks": [
+                "Ciel, Mirage's Grave"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -47088,6 +47092,28 @@
             ],
             "semanticFixtures": [
                 "silvie-earths-tune-enter-reveals-until-deep-tera-animal-rest-to-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "dc8P58gmjR",
+            "name": "Slime Calling",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "slime-calling-at-the-opponents-end-phase-activates-the-top-card-slime-for-one-less",
+                "slime-calling-is-refused-during-your-own-main-phase"
+            ],
+            "semanticFixtures": [
+                "slime-calling-at-the-opponents-end-phase-activates-the-top-card-slime-for-one-less",
+                "slime-calling-is-refused-during-your-own-main-phase"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Slime Calling's timing restriction was not enforced.",
         "affectedFunction": "ActivationBlockedBeforeAnnounce / cardActivatedPrereqs",
-        "fixCommit": "TBD"
+        "fixCommit": "6bcc30f1"
     }
 }

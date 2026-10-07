@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "Slime Calling never looked at the top card of the deck, and its 'only during an opponent's end phase' restriction was not enforced.",
         "affectedFunction": "dc8P58gmjR:0 / cardActivatedPrereqs",
-        "fixCommit": "TBD"
+        "fixCommit": "6bcc30f1"
     }
 }
