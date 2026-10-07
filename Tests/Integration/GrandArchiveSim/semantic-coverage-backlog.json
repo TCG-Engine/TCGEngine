@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-07T13:39:48+00:00",
+    "generatedAt": "2026-10-07T13:42:48+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 865,
+        "cardsWithExistingFixtures": 867,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1619,
+        "cardsNeedingSemanticCoverage": 1617,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,42 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "bf7yzaqes4",
-            "name": "Seeker's Aetherwing",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "xwwkxq0vp3",
-            "name": "Sidereal Spellshot",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana, Moonpiercer"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
         {
             "cardId": "t0240ykvj0",
             "name": "Rescue the Heir",
@@ -36671,6 +36635,31 @@
             "priority": 133
         },
         {
+            "cardId": "bf7yzaqes4",
+            "name": "Seeker's Aetherwing",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "seekers-aetherwing-class-bonus-spellshroud-cannot-be-targeted-by-a-spell",
+                "seekers-aetherwing-without-the-class-bonus-can-be-targeted-by-a-spell"
+            ],
+            "semanticFixtures": [
+                "seekers-aetherwing-class-bonus-spellshroud-cannot-be-targeted-by-a-spell",
+                "seekers-aetherwing-without-the-class-bonus-can-be-targeted-by-a-spell"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "7mHiO4YySz",
             "name": "Seep Into the Mind",
             "type": "ACTION",
@@ -42113,6 +42102,29 @@
             ],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "xwwkxq0vp3",
+            "name": "Sidereal Spellshot",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "sidereal-spellshot-class-bonus-glimpses-then-loads",
+                "sidereal-spellshot-without-the-class-bonus-skips-the-glimpse-but-can-still-load"
+            ],
+            "semanticFixtures": [
+                "sidereal-spellshot-class-bonus-glimpses-then-loads",
+                "sidereal-spellshot-without-the-class-bonus-skips-the-glimpse-but-can-still-load"
+            ],
+            "starterDecks": [
+                "Diana, Moonpiercer"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

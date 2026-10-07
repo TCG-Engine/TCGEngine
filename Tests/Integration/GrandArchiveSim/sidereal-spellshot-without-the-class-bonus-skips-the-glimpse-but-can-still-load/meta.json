@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "Sidereal Spellshot could not be loaded into an Aetherwing unless the champion was a Ranger.",
         "affectedFunction": "cardActivatedAbilities['xwwkxq0vp3:0']",
-        "fixCommit": "TBD"
+        "fixCommit": "196a493a"
     }
 }

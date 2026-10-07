@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **865**
+Cards linked to an existing fixture: **867**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1619**
+Implemented cards still needing semantic coverage: **1617**
 
 ## Mechanic groups
 
@@ -26,8 +26,6 @@ Implemented cards still needing semantic coverage: **1619**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Seeker's Aetherwing (`bf7yzaqes4`) | REGALIA,WEAPON | 1 | targeting, status, combat | Diana, Moonpiercer | — |
-| Sidereal Spellshot (`xwwkxq0vp3`) | ACTION | 1 | unclassified | Diana, Moonpiercer | — |
 | Rescue the Heir (`t0240ykvj0`) | ACTION | 2 | cost, targeting, zone-movement, condition | — | save-the-heir |
 | Baleful Oblation (`oye74ibwo8`) | ACTION | 2 | cost, damage | — | baleful-oblation-ciel-bonus-and-effect |
 | Incarnate Majesty (`7dl5j4lx6x`) | ACTION | 2 | cost, zone-movement | — | incarnate-majesty-banish-spirit |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **1619**
 | Alice, Whim's Monarch (`9K4etFOi4M`) | CHAMPION | 2 | zone-movement, token, trigger, condition | — | — |
 | Arcane Elemental (`wFH1kBLrWh`) | ALLY | 2 | cost, zone-movement, combat, trigger | — | — |
 | Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
+| Bottled Forgelight (`g616r0zadf`) | ITEM | 2 | targeting, damage, trigger, condition | — | — |
+| Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
