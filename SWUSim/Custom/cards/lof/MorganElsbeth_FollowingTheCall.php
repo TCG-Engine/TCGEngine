@@ -40,7 +40,9 @@ $customDQHandlers["LOF_005#0"] = function($player, $parts, $lastDecision) {
     foreach (['Ambush'=>'AMBUSH','Grit'=>'GRIT','Hidden'=>'HIDDEN','Overwhelm'=>'OVERWHELM','Saboteur'=>'SABOTEUR','Sentinel'=>'SENTINEL','Shielded'=>'SHIELDED','Raid'=>'RAID','Restore'=>'RESTORE'] as $name => $kw) {
         if (!in_array($name, $chosenKw, true) && _SWUUnitHasKeyword($chosen, $kw)) $chosenKw[] = $name;
     }
-    SWUOfferDiscountPlay(intval($player), ['discount'=>1, 'types'=>['Unit'],
+    // ownsClose: this leader Action IS the action and plays a UNIT, whose nested close is refused — without
+    // it the turn never passed and the seat took another action (game 1647080; the #1109 Dispatcher shape).
+    SWUOfferDiscountPlay(intval($player), ['discount'=>1, 'types'=>['Unit'], 'ownsClose'=>true,
         'filter'=>fn($cid)=>!empty(array_intersect($chosenKw, _SWUCardKeywordSet($cid))),
         'prompt'=>"Play_a_unit_sharing_a_keyword_(it_costs_1_less)"]);
 };

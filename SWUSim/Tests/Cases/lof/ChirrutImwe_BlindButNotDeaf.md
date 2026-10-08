@@ -81,3 +81,29 @@ WithP2GroundArena: LOF_067:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:1
 P1GROUNDARENAUNIT:0:POWER:3
+
+---
+
+# ThreeSeats_DebuffLandsOnTheActualAttacker
+#// Game 1647080: P2's Grievous attacked P3's Chirrut, P3 used the Force, and the Force was spent but the
+#// attacker was NOT debuffed — Chirrut took full damage. The attacker is stored in ITS OWN frame
+#// ("myGroundArena-0"); a two-seat my→their flip from P3 names an arbitrary opponent above two seats. P1 holds
+#// a unit at the same index so a mis-aimed debuff has somewhere to land. P2's SOR_046 (3/7) → 1 damage.
+
+## GIVEN
+CommonSetup3P: rrk/rrk/ggw
+SkipPreGame: true
+WithActivePlayer: 2
+WithP3Force: true
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: LOF_067:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:p3GroundArena-0
+- P3>AnswerDecision:YES
+
+## EXPECT
+P3NOFORCE
+P3GROUNDARENAUNIT:0:DAMAGE:1
+P2GROUNDARENAUNIT:0:DAMAGE:3

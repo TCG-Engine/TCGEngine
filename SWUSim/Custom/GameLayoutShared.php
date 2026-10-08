@@ -1547,8 +1547,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
 ]); ?>;
 </script>
 <script>
-(function (MY_PLAYER_ID) {
+(function (MY_PLAYER_ID, PERSPECTIVE_SEAT) {
     'use strict';
+    // The seat whose board is drawn at the bottom. For a player that is MY_PLAYER_ID. A spectator's
+    // MY_PLAYER_ID is 0 (intval('S')) and the server draws the seat picked in "Spectator View"
+    // (viewerPerspective), so the Twin Suns views must be built around THAT seat (owner report 2026-10-07:
+    // "when viewing as P1, they still see P1 in the home panels"). Only the views use it. Turn ownership,
+    // undo and elimination still read MY_PLAYER_ID, so a spectator never gets a seated player's controls.
+    var BOARD_SEAT = MY_PLAYER_ID || PERSPECTIVE_SEAT || 0;
 
     // ── Phase track ────────────────────────────────────────────────────────────
     var PHASE_ALIASES = {
@@ -2818,13 +2824,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // intact — the alternative was inlining `% 2` a second time, which is exactly what it forbids.
     window.swuTeamOf = swuTeamOf;
     function swuIsTeammate(seat) {
-        return !!window.SWUIsTeamGame && seat !== MY_PLAYER_ID && swuTeamOf(seat) === swuTeamOf(MY_PLAYER_ID);
+        return !!window.SWUIsTeamGame && seat !== BOARD_SEAT && swuTeamOf(seat) === swuTeamOf(BOARD_SEAT);
     }
 
     function swuBuildViews() {
         var order = String(window.LiveSeatsData || window.SeatOrderData || '').trim();
         var seats = order.length ? order.split('').map(function (c) { return parseInt(c, 10); }) : [];
-        var me = MY_PLAYER_ID;
+        var me = BOARD_SEAT;   // a spectator watching P3 gets exactly P3's views (see BOARD_SEAT)
         // ELIMINATED, BUT STILL WATCHING (owner, 2026-09-20). A player knocked out of a 3-seat game is
         // "effectively a spectator of the last 2 remaining": show them the survivors' board (P2 vs P3),
         // not the emptied board of their own dead seat, which is what falling through to `return []`
@@ -2882,8 +2888,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // treated P1 as `their` — a pairing every consumer here assumes is the same seat.
         // ⚠ The anchor is the SEATED order, not the live one, so an ELIMINATED viewer (still watching,
         // and absent from `seats`) keeps a stable rotation instead of silently falling back to ascending.
-        // A genuine SPECTATOR is not in `seatedList` at all: rank() then returns the seat number and the
-        // old ascending order is preserved for them, which is the only sensible reading with no "you".
+        // A SPECTATOR's `me` is the seat they picked (BOARD_SEAT), so they get that seat's rotation. rank()
+        // falls back to plain seat number only when `me` is in no seat order at all.
         var myIdx = seatedList.indexOf(me);
         var rank = function (s) {
             var i = seatedList.indexOf(s);
@@ -5198,7 +5204,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     } else {
         init();
     }
-})(<?php echo intval($playerID); ?>);
+})(<?php echo intval($playerID); ?>, <?php echo isset($viewerPerspective) ? intval($viewerPerspective) : 0; ?>);
 </script>
 
 <script>

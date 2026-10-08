@@ -425,3 +425,90 @@ P1SPACEARENAUNIT:0:CARDID:JTL_137
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_211
 P1RESAVAILABLE:4
+
+---
+
+# Front_PlaysUnit_TurnPassesOnce
+#// Game 1647080: Morgan's Action played a unit and her controller then took ANOTHER action (deployed Morgan)
+#// before the next seat acted. The Action is the whole action — once the played unit enters, the turn passes.
+#// Every other Front section uses P1OnlyActions, which hides TURNPLAYER (the #1109 Alliance Dispatcher shape).
+
+## GIVEN
+CommonSetup: bgk/bbk/{
+  myLeader:LOF_005;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: LOF_132:1:0
+WithP1Hand: LOF_131
+WithP1Resources: 3
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>Pass
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1LEADER:EXHAUSTED
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# Front_ThreeSeats_PlaysUnit_TurnPassesOnce
+#// The live shape (game 1647080 is 3 seats): after Morgan's Action plays the unit, the turn passes to the
+#// NEXT seat exactly once.
+
+## GIVEN
+CommonSetup3P: bgk/bbk/bbk/{myLeader:LOF_005;myBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: LOF_132:1:0
+WithP1Hand: LOF_131
+WithP1Resources: 3
+
+## WHEN
+- P1>AttackGroundArena:0:p2Base-0
+- P2>Pass
+- P3>Pass
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENACOUNT:1
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# Front_PlayedUnitHasInteractiveWhenPlayed_ClosesOnce
+#// Double-close guard: the played unit raises its OWN interactive When Played (LAW_092 Two-Faced Troig, "you
+#// may have an opponent take control of this unit"). Its close is deferred and runs by itself, so the Action
+#// must not close a second time. Troig (Sentinel) attacked; Morgan plays a second Troig (shares Sentinel).
+
+## GIVEN
+CommonSetup: bgk/bbk/{
+  myLeader:LOF_005;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: LAW_092:1:0
+WithP1Hand: LAW_092
+WithP1Resources: 8
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>Pass
+- P1>UseLeaderAbility
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:LAW_092
+TURNPLAYER:2
+NOEXTRAACTION

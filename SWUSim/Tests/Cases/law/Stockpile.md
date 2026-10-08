@@ -95,3 +95,32 @@ P1RESAVAILABLE:0
 P1DISCARDCOUNT:0
 P1HANDCOUNT:0
 P1DECKCOUNT:0
+
+---
+
+# ThreeSeats_ForeignOwnedStockpile_ResourcesTheEventNotABystandersCard
+#// Far-seat sweep. P1 uses LAW_215 Vermillion to play a P3-OWNED Stockpile off P3's deck. The spent event sits
+#// in P3's discard; the owner's "myDiscard-0" token was re-framed with a two-seat my→their swap, so in P1's
+#// frame "theirDiscard-0" named SEAT 2's pile and P2's SOR_046 was resourced instead. DISCRIMINATES:
+#// P3DISCARDCOUNT:0 (the event left its owner's pile) and P2DISCARDCOUNT:1 (the bystander's card is untouched).
+
+## GIVEN
+CommonSetup3P: bbk/bbk/bbk/{myLeader:JTL_002}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 3
+WithP1SpaceArena: LAW_215:1:0
+WithP1Deck: [SOR_237 SOR_095]
+WithP3Deck: [LAW_171 SOR_164]
+WithP2Discard: [SOR_046]
+
+## WHEN
+- P1>AttackSpaceArena:0:p2Base-0
+- P1>AnswerDecision:P3_deck
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1RESCOUNT:5
+P3DISCARDCOUNT:0
+P2DISCARDCOUNT:1

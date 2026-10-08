@@ -1,6 +1,6 @@
 # IC27 — Card Implementation Plan
 
-**⚠ PREVIEW SET.** All 19 cards (as of 2026-09-10; the first 15 below, 4 more in Phase 8) are mock entries in `AppCore/SWU/CardMocks.php` (imported via
+**⚠ PREVIEW SET.** All 21 cards (as of 2026-10-07; the first 15 below, 4 more in Phase 8, 2 more in Phase 9) are mock entries in `AppCore/SWU/CardMocks.php` (imported via
 `zzPreviewTool.php`), not official-API data. Icons 2027 Edition releases **2026-11-20**. The card
 list GROWS as previews land — re-run `swusim-generate-set-implement-doc IC27` after each import;
 the `### Already Done` line survives regeneration.
@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038, IC27_121, IC27_034
 
 ## Foundations already built — do not re-do
 
@@ -231,10 +231,37 @@ Four cards landed after the plan above was written. Derived from the `### Alread
   phase" blank has expired by the regroup draw; Imprisoned blanks her. 5 mutations, each red.
   Any future "draw N more/fewer during the regroup phase" card belongs in `_SWURegroupExtraDraws`.
 
+## Phase 9 — Third preview wave, 2026-10-07 (19 → 21 CardIDs)
+
+Derived from the `### Already Done` vs `CardMocks.php` diff. Neither card was in the engine dictionary
+on arrival — ran the three preview regens first (SWUSim + SWUDeck card dictionaries, `ProcessKeywordsSWU`).
+Both mocks checked against their preview images.
+
+- [x] **IC27_121 Kanan Jarrus (Sometimes I Hate Being Right)** — vanilla 6-cost 8/7 Ground (Aggression,
+  Heroism; Force·Jedi·Rebel·Spectre). Step-0 no-op: blank `$textData` (matches the printed card's empty
+  text box), no ability stub, in no keyword registry. No test file.
+- [x] **IC27_034 Obi-Wan's Interceptor (Nothing Too Fancy)** — done 2026-10-07, 15 sections, suite
+  13195 → 13210/0 (13212/0 at the end, +2 from another agent's concurrent LOF work). "Other friendly
+  Republic units get +0/+1": `_SWUIc27034Bonus` (card file), added in `ObjectCurrentHP`. Deliberately NOT
+  `SWUTraitCommanderBonus` — that helper reads the controller's own board only, while "friendly" in Team
+  Suns is the TEAM (user ruling 2026-08-25; HMW_006 Omega shape). Counted (a teammate's copy stacks),
+  "other" by UniqueID, "Republic" via `TraitContains` (exact — SEC_044 "New Republic" gets nothing).
+  12 mutations, each red on its own sections, except two greens that are explained: owner-vs-controller
+  (a fixture with an Interceptor on both seats — rebuilt so only one seat has it, now red) and the
+  `removed` filter (structurally covered: both defeat paths compact before the HP sweep). Both END
+  sections red when their own path's sweep is disabled (effect `_SWUSweepAfterDefeat` / combat
+  post-step-3 `SWUCheckShrinkDefeats`).
+  - ⚠ **Follow-up, not done here:** `SWUTraitCommanderBonus` (SOR_242 Dodonna, SOR_230 Veers, SEC_009
+    Mon Mothma, LOF_089 Supremacy, TS26_13 Sidious, JTL_161 Tarkin, ASH_010 Bo-Katan) and the inline
+    TWI_092 Yularen / TWI_114 Cody auras all ignore a TEAMMATE's units in Team Suns. Premier and Twin
+    Suns are unaffected. Needs a per-card audit of each card's wording ("friendly" vs "you control").
+
 ## Status
 
-**✅ IC27 IS CARD-COMPLETE AT 19 / 19 CardIDs** (2026-09-10 — re-derived at the END of the run: the
+**✅ IC27 IS CARD-COMPLETE AT 21 / 21 CardIDs** (2026-10-07 — re-derived at the END of the run: the
 `### Already Done` line diffed against the IC27 IDs in `AppCore/SWU/CardMocks.php` is empty). True only
-until the next preview import. Second wave (Phase 8): suite 11485 → **11528/0** (+43 sections), zero
-deferrals; one preview assumption flagged (IC27_038's single-instruction deck-out).
+until the next preview import. Third wave (Phase 9): +15 sections, zero deferrals, no preview assumption
+needed (the aura's only open question, "friendly" in Team Suns, is settled by the 2026-08-25 ruling).
+Second wave (Phase 8): suite 11485 → **11528/0** (+43 sections), zero deferrals; one preview assumption
+flagged (IC27_038's single-instruction deck-out).
 Prior: all 15 cards of the first preview wave implemented 2026-08-04, suite 6082 -> 6179/0, zero deferrals.

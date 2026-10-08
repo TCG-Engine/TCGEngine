@@ -120,3 +120,56 @@ P1OnlyActions: true
 P2BASEDMG:3
 P1GROUNDARENAUNIT:0:CARDID:LOF_008
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# LeaderAbility_SkipsUnitWithPersistedExperience
+#// LOF_008 Obi-Wan Kenobi (front) — a unit that ALREADY has an Experience token is not a legal target, even
+#// after the gamestate round-trips (game 1647080: a token given in an earlier request was invisible, so the
+#// unit was offered again). After the boundary the persisted subcards are arrays, not objects. SOR_046 has
+#// Experience, SOR_095 does not → SOR_095 is the only target and auto-resolves; SOR_046 keeps exactly 1.
+
+## GIVEN
+CommonSetup: bgw/bbk/{
+  myLeader:LOF_008;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Force: true
+WithP2GroundArena: [SOR_046:1:0 SOR_095:1:0]
+WithP2GroundArenaUpgrade: 0:SOR_T01
+
+## WHEN
+- P1>SimulateRequestBoundary
+- P1>UseLeaderAbility
+
+## EXPECT
+P1NODECISION
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P1NOFORCE
+
+---
+
+# DeployedOnAttack_SkipsUnitWithPersistedExperience
+#// LOF_008 Obi-Wan Kenobi (deployed) — On Attack must not offer a unit that already has an Experience token
+#// persisted from an earlier request (game 1647080: Anakin was offered a second token). The only other unit,
+#// SOR_046, has Experience → no valid target, no prompt, and it keeps exactly 1 token.
+
+## GIVEN
+CommonSetup: bgw/bbk/{myLeader:LOF_008:1:1:1;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
+
+## WHEN
+- P1>SimulateRequestBoundary
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1NODECISION
+P2BASEDMG:3
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1

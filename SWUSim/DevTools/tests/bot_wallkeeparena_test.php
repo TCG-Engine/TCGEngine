@@ -10,6 +10,8 @@ require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 foreach (['BotLegalActions', 'Custom/BotLookahead', 'Custom/BotEvaluator', 'Rl/CardTags', 'Custom/BotStyles', 'Custom/BotResourcing',
           'Custom/BotGuides', 'Custom/BotFallback', 'Custom/BotRules', 'BotHeuristic'] as $f) include_once "./SWUSim/$f.php";
 $check(in_array('wallkeeparena', SWUBotProposalList(), true) && SWUBotVariantDisabled('try-wallkeeparena') === ['try:wallkeeparena'], 'wallkeeparena is a switchable proposal');
+// 2026-10-07 canary: the four levers that pointed the right way in the gap screen run together as 'try-gapstack'.
+$check(SWUBotVariantDisabled('try-gapstack') === ['try:wallkeeparena', 'try:cravinganswer', 'try:wallarena', 'try:bobaspace'], "'try-gapstack' switches the four on");
 $LIST = [];
 foreach (file(__DIR__ . '/../../Tests/BotFixtures/ash-meta-2026-09/aurra-sing_law_data-vault.txt') as $l) {
     if (trim($l) === 'Sideboard') break;

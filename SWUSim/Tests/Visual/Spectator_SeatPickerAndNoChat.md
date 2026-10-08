@@ -22,6 +22,11 @@
 #     clipping. The seat you are currently watching from is the GOLD one; the rest are navy.
 #   • Click P4. The page reloads watching from seat 4: P4's board is now the near side, and P4's
 #     button is the gold one. Clicking P3 does the same. Both were unreachable before.
+#   • THE HOME PANELS FOLLOW THE PICKED SEAT (owner report 2026-10-07: "when viewing as P1, they still
+#     see P1 in the home panels"). Watching as P1 the strip shows P2 P3 P4 and NO P1 tile; as P3 it
+#     shows P4 P1 P2 (the same right-hand rotation P3's own player sees); as P4, P1 P2 P3. The seat on
+#     the near side must never also appear as a tile, and no tile is gold-highlighted unless that seat
+#     holds the turn. A red "Read-only — viewing P<n>" badge sits bottom-centre and names the picked seat.
 #   • In a TWO-seat game the same box shows exactly two buttons — the picker is built from the live
 #     seat list, not a fixed pair.
 #   • Bottom-left chat widget: the log and the toggle are there, and the composer row is EMPTY —
@@ -47,7 +52,9 @@
 #     fetch returns empty and the "no composer" checks pass against a blank page.
 #   • DevTools/ui-harness/swusim-spectator-picker-xbrowser.mjs — GEOMETRY in chromium + firefox +
 #     webkit: every button on screen, none overlapping, and clicking P4 really lands on
-#     viewerPerspective=4. 42 checks, 3 engines.
+#     viewerPerspective=4; and for each seat N, a spectator watching N builds exactly player N's views
+#     and tiles, with no tile for N and the read-only badge armed. 90 checks, 3 engines
+#     (SHOTS=<dir> saves a screenshot per seat per engine).
 #
 # ⚠ WHY BOTH. The HTTP test proves the buttons are in the markup; it cannot see a row that wraps out
 #   of its box. The browser gate proves they are usable; it cannot see the server refusing a POST.

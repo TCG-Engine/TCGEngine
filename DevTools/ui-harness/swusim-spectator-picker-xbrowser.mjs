@@ -79,6 +79,36 @@ for (const [name, launcher] of [['chromium', chromium], ['firefox', firefox], ['
   const chatBits = await p.$$eval('#chatText, #chatSendBtn, #chatGuestNote', els => els.length);
   if (chatBits !== 0) bad(name, `spectator sees ${chatBits} chat control(s) — expected none`); else ok();
 
+  // 6. THE HOME PANELS FOLLOW THE PICKED SEAT (owner report 2026-10-07: "when viewing as P1, they still see
+  //    P1 in the home panels"). The Twin Suns view builder keyed on the viewer's OWN seat, which is 0 for a
+  //    spectator ('S'), so every perspective built the same "seat 0" views: all four seats tiled (the bottom
+  //    board's own seat included, gold-highlighted as the home view's opponent) and the strip never
+  //    rotated. Expected is DERIVED, not literal: a spectator watching seat N gets exactly player N's views.
+  const readViews = async (pg) => pg.evaluate(() => ({
+    views: (window.swuViews || []).map(v => `${v.mode}:${v.viewSeat}v${v.oppSeat}`).join(' '),
+    tiles: [...document.querySelectorAll('#swuHomeStrips .swu-home-strip[data-seat]')].map(e => e.getAttribute('data-seat')).join(','),
+    badge: document.body.classList.contains('swu-spectating'),
+  }));
+  const settle = (pg) => pg.waitForFunction(() => (window.swuViews || []).length > 0
+    && document.querySelectorAll('#swuHomeStrips .swu-home-strip[data-seat]').length > 0, null, { timeout: 20000 }).catch(() => {});
+  for (const seat of [1, 2, 3, 4]) {
+    const sp = await b.newPage({ viewport: { width: 1440, height: 1000 } });
+    const pl = await b.newPage({ viewport: { width: 1440, height: 1000 } });
+    await sp.goto(PAGE + '&viewerPerspective=' + seat, { waitUntil: 'domcontentloaded' });
+    await pl.goto(BASE + 'NextTurn.php?folderPath=SWUSim&gameName=' + GAME + '&playerID=' + seat, { waitUntil: 'domcontentloaded' });
+    await settle(sp); await settle(pl);
+    const s = await readViews(sp), q = await readViews(pl);
+    if (!q.views || !q.tiles) bad(name, `fixture: player ${seat}'s page built no views/tiles`);
+    else if (s.views !== q.views) bad(name, `spectator as P${seat} built views [${s.views}], player ${seat} has [${q.views}]`);
+    else ok();
+    if (s.tiles !== q.tiles) bad(name, `spectator as P${seat} tiles [${s.tiles}], player ${seat} has [${q.tiles}]`); else ok();
+    if (s.tiles.split(',').includes(String(seat))) bad(name, `spectator as P${seat} still has a P${seat} home panel`); else ok();
+    // A spectator is read-only, and the badge says whose seat they are watching.
+    if (!s.badge) bad(name, `spectator as P${seat} is not marked read-only (body.swu-spectating)`); else ok();
+    if (process.env.SHOTS) await sp.screenshot({ path: `${process.env.SHOTS}/spectator-p${seat}-${name}.png` });
+    await sp.close(); await pl.close();
+  }
+
   if (errs.length) bad(name, `page errors: ${errs.slice(0, 2).join(' | ')}`); else ok();
   await b.close();
 }

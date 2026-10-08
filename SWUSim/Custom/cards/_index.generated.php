@@ -403,6 +403,7 @@ return [
     'IC27_022' => 'ic27/MoffGideon_ColdCalling.php',
     'IC27_024' => 'ic27/GrandAdmiralThrawn_ListenToMeCarefully.php',
     'IC27_026' => 'ic27/DarthSidious_MoveAgainstTheJedi.php',
+    'IC27_034' => 'ic27/ObiWansInterceptor_NothingTooFancy.php',
     'IC27_038' => 'ic27/AdmiralHoldo_WeAreTheSpark.php',
     'IC27_067' => 'ic27/DarthVader_UselessToResist.php',
     'IC27_071' => 'ic27/AvarKriss_ForLightAndLife.php',

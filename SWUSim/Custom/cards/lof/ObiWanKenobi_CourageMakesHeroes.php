@@ -11,10 +11,9 @@ $onAttackAbilities["LOF_008:0"] = function($player, $mzID) {
     // Another unit (either player) without an Experience token on it.
     SWUOfferUnitTarget($player, $mzID, [
         'continuation' => 'GIVE_EXPERIENCE', 'excludeSelf' => true, 'may' => true,
-        'extraFilter' => function($o) {
-            foreach (($o->Subcards ?? []) as $sc) { if (($sc->CardID ?? '') === 'SOR_T01') return false; }
-            return true;
-        },
+        // _CountExperienceSubcards, not a raw `$sc->CardID` loop: subcards reloaded from the gamestate are
+        // ARRAYS, so a property read saw no token and re-offered an Experienced unit (game 1647080).
+        'extraFilter' => fn($o) => _CountExperienceSubcards($o) === 0,
         'question' => "Give_an_Experience_token_to_a_unit_without_one?",
         'prompt'   => "Choose_a_unit",
     ]);
@@ -32,9 +31,7 @@ $leaderAbilities["LOF_008"] = function(int $player): void {
     // Premier is byte-identical). See memory: unqualified pools miss teammates.
     foreach (SWUAllUnits() as $mz) {
         $o = GetZoneObject($mz); if (SWUObjGone($o)) continue;
-        $hasExp = false;
-        foreach (($o->Subcards ?? []) as $sc) { if (($sc->CardID ?? '') === 'SOR_T01') { $hasExp = true; break; } }
-        if (!$hasExp) $targets[] = $mz;
+        if (_CountExperienceSubcards($o) === 0) $targets[] = $mz;   // array-safe (see the On Attack filter)
     }
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, "Give_an_Experience_token_to_a_unit_without_one", "LOF_008#0");

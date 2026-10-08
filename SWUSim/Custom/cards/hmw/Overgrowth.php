@@ -91,7 +91,8 @@ $whenPlayedAbilities["HMW_151:0"] = function($player, $mzID = '') {
     }
     if ($evMz === null) return;
     $playerID = $me;
-    if ($owner !== $me) $evMz = str_replace('myDiscard', 'theirDiscard', $evMz);
+    // SWUForeignMzID, not a my→their swap: above two seats "their" names an arbitrary opponent.
+    if ($owner !== $me) $evMz = SWUForeignMzID($me, $owner, 'Discard', intval(substr($evMz, strlen('myDiscard-'))));
     $r = MZMove($me, $evMz, "myResources");
     if ($r !== null) {
         $r->Status     = 0;

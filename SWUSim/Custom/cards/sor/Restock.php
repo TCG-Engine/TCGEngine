@@ -13,15 +13,16 @@ $customDQHandlers["SOR_252#0"] = function($player, $parts, $lastDecision) {
     // ignored (server-side rules enforcement; the UI pool legitimately shows both piles because the
     // first pick is what chooses the pile).
     $byOwner = [1 => [], 2 => []];
-    $pilePrefix = null;
+    $pileSeat = null;
     foreach (explode("&", $lastDecision) as $mz) {
         if ($mz === '' || $mz === '-' || $mz === 'PASS') continue;
-        $prefix = (strpos($mz, 'my') === 0) ? 'my' : 'their';
-        if ($pilePrefix === null) $pilePrefix = $prefix;
-        elseif ($prefix !== $pilePrefix) continue;   // cross-pile pick → not a legal choice, skip
+        // The pile is identified by its SEAT, not the my/their prefix: above two seats p2Discard and
+        // p3Discard both read as "their", which let one Restock take from two opponents' piles.
+        $owner = SWUMzOwner($mz, intval($player));   // SWUMzOwner reads the seat OUT OF the mzID; the my/their ternary named seat 2 above two seats.
+        if ($pileSeat === null) $pileSeat = $owner;
+        elseif ($owner !== $pileSeat) continue;   // cross-pile pick → not a legal choice, skip
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
-        $owner = SWUMzOwner($mz, intval($player));   // SWUMzOwner reads the seat OUT OF the mzID; the my/their ternary named seat 2 above two seats.
         $byOwner[$owner][] = $o->CardID;
         $o->removed = true;
     }

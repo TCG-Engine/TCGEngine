@@ -392,3 +392,30 @@ WithP1Hand: HMW_151
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+
+---
+
+# ThreeSeats_ForeignOwnedOvergrowth_ResourcesTheCardNotABystandersCard
+#// Far-seat sweep (same shape as the LAW_171 Stockpile section). P1 uses LAW_215 Vermillion to play a
+#// P3-OWNED Overgrowth off P3's deck (no Kashyyyk base, so only "Resource this card" happens). The two-seat
+#// my→their re-frame made P1's "theirDiscard-0" name SEAT 2's pile, resourcing P2's SOR_046 instead.
+
+## GIVEN
+CommonSetup3P: bbk/bbk/bbk/{myLeader:JTL_002}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 3
+WithP1SpaceArena: LAW_215:1:0
+WithP3Deck: [HMW_151 SOR_164]
+WithP2Discard: [SOR_046]
+
+## WHEN
+# Only P3's deck is stocked, so Vermillion's "reveal the top card of a deck" auto-picks it.
+- P1>AttackSpaceArena:0:p2Base-0
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1RESCOUNT:4
+P3DISCARDCOUNT:0
+P2DISCARDCOUNT:1

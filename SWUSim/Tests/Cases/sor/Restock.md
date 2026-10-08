@@ -162,3 +162,29 @@ SEATCOUNT:4
 P4DISCARDCOUNT:0
 P4DECKCOUNT:2
 P2DECKCOUNT:0
+
+---
+
+# ThreeSeats_MixedOpponentPiles_OnlyFirstPileHonored
+#// Far-seat sweep. "Choose up to 4 cards in A discard pile" — one pile. The one-pile check compared only the
+#// my/their prefix, and both p2Discard-0 and p3Discard-0 read as "their", so picks from TWO opponents' piles
+#// were both honored. The first pick (P2's pile) fixes the pile; P3's card stays in P3's discard.
+
+## GIVEN
+CommonSetup3P: rrw/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 3
+WithP1Hand: SOR_252
+WithP2Discard: [SOR_164]
+WithP3Discard: [SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p2Discard-0&p3Discard-0
+
+## EXPECT
+P2DISCARDCOUNT:0
+P2DECKCOUNT:1
+P3DISCARDCOUNT:1
+P3DECKCOUNT:0

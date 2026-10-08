@@ -177,6 +177,36 @@ When you heal damage from your base: Deal that much damage to an enemy unit.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/026.png',
     'imageUrlBack' => '',
   ),
+  'IC27_034' => 
+  array (
+    'title' => 'Obi-Wan\'s Interceptor',
+    'subtitle' => 'Nothing Too Fancy',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Uncommon',
+    'set' => 'IC27',
+    'cost' => 2,
+    'power' => 2,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Jedi',
+      1 => 'Republic',
+      2 => 'Vehicle',
+      3 => 'Fighter',
+    ),
+    'text' => 'Other friendly Republic units get +0/+1.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/034.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_038' => 
   array (
     'title' => 'Admiral Holdo',
@@ -411,6 +441,36 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/104.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_121' => 
+  array (
+    'title' => 'Kanan Jarrus',
+    'subtitle' => 'Sometimes I Hate Being Right',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'IC27',
+    'cost' => 6,
+    'power' => 8,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+      2 => 'Rebel',
+      3 => 'Spectre',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/121.png',
     'imageUrlBack' => '',
   ),
   'IC27_146' => 
