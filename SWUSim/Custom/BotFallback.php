@@ -509,6 +509,14 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     $tip = strval($ctx['tooltip'] ?? '');
     $type = strval($ctx['type'] ?? '');
     $head = _SWUBotContinuationHead($ctx);
+    // Feature 'tuck' (p42): Qui-Gon's return pick (front "LOF_016#0", deployed "you may" "LOF_016#2") is the unit whose return buys the
+    // best free play — never the cheapest, which "Return … to hand" read as hostile chose. A unit that buys nothing, or a losing pair,
+    // scores below PASS (0), so the deployed "you may" is declined only then.
+    if (SWUBotFeatureOn('tuck') && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#/', $head, $tm) && str_starts_with($tip, 'Return_a_friendly')
+        && ($ex = _SWUBotTuckExcluded($tm[1])) !== null && ($v = SWUBotViewForMz($seat, $c)) !== null) {
+        $g = _SWUBotTuckGainFor($seat, $v, $ex);
+        return $g === null ? -1.0 - $index * 1e-6 : $g - $index * 1e-6;
+    }
     $debuff = $head === 'APPLY_PHASE_DEBUFF' && SWUBotFeatureOn('targeting');
     $buff = $head === 'APPLY_PHASE_BUFF' && SWUBotFeatureOn('buffs');   // "+N/+N for this phase" helps its target
     $effect = (in_array($head, SWU_BOT_HOSTILE_CONTINUATIONS, true) || $debuff) ? 'hostile'
@@ -2797,8 +2805,63 @@ function _SWUBotWeaknessActionValue(int $seat, array $action, array $W): ?float 
 //     ability value, less whatever sacrifice goes beyond 1 point of value;
 //   - otherwise → the flat ability value.
 // If the lookahead cannot apply the action, the flat value stands (the pre-2026-09-13 behaviour).
+// ── Feature 'tuck' (p42) — LOF_016 Qui-Gon Jinn ─────────────────────────────────────────────────────────────────────────
+// "Return a friendly non-leader unit to its owner's hand. Play a non-Villainy unit that costs less than the returned unit from your
+// hand for free." (front Action; deployed: after a completed attack, "You may …"). The owner's loops: Yoda -> Kelleran Beq,
+// Kelleran -> Depa Billaba, Depa -> Queen Amidala, Amidala -> Captain Typho — play Yoda, tuck him, play him again for his heal.
+// What one pair is worth, in RESOURCES (the scale SWUBotUnitValue uses, ~1 per cost):
+//   + the returned unit's When Played re-bought (it is cast again later) — half its cost, when it has one (Ambush / Shielded too);
+//   + the free unit's cost (it reaches the board without paying);
+//   - the returned unit's body as it stands now (scaled by its HP left — the card comes back whole; upgrades make it dearer) and its
+//     unused attack this round.
+// Before this the bot priced the Action at the flat W['ability'] and, at the return prompt, read "Return … to hand" as HOSTILE: it
+// returned its CHEAPEST unit (24 of 120 traced uses were the 1-cost Luke, which nothing can undercut) and always declined the
+// deployed "you may". And the Action's lookahead charged the returned body as a SACRIFICE (Depa -> Amidala scored -2.7).
+const SWU_BOT_TUCK_REBUY_SHARE = 0.5;
+
+// The aspect a tuck card's free play excludes ('Villainy'), '' for none, or NULL when $cid does not tuck (front or deployed text).
+function _SWUBotTuckExcluded(string $cid): ?string {
+    $re = '/return a friendly non-leader unit to its owner\'s hand\.\s*Play an? (?:non-(\w+) )?unit that costs less than the returned unit from your hand for free/i';
+    foreach ([strval(CardText($cid)), strval(CardDeployText($cid))] as $t) if (preg_match($re, $t, $m)) return strval($m[1] ?? '');
+    return null;
+}
+
+// The gain of returning the unit $v: the best cheaper unit in hand it lets me play free. NULL when there is none.
+function _SWUBotTuckGainFor(int $seat, array $v, string $excluded): ?float {
+    if ($v['isLeader']) return null;
+    $free = null;
+    foreach (GetHand($seat) as $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cid = strval($o->CardID ?? '');
+        if (!str_contains(strval(CardType($cid)), 'Unit') || intval(CardCost($cid)) >= intval($v['cost'])) continue;
+        if ($excluded !== '' && str_contains(strval(CardAspect($cid) ?? ''), $excluded)) continue;
+        $free = max($free ?? 0, intval(CardCost($cid)));
+    }
+    if ($free === null) return null;
+    $rebuy = preg_match('/When Played|\bAmbush\b|\bShielded\b/i', strval(CardText($v['cardID']))) ? SWU_BOT_TUCK_REBUY_SHARE * intval($v['cost']) : 0.0;
+    // SWUBotUnitValue ignores damage; the returned card comes back whole, so the body that leaves is the HP it has left.
+    $body = SWUBotUnitValue($v) * max(0, intval($v['remaining'])) / max(1, intval($v['hp']));
+    return $rebuy + $free - $body - SWUBotUnusedSacPremium($v);
+}
+
+// The best pair on my board, or NULL when no unit can be returned for a cheaper free play.
+function _SWUBotTuckBest(int $seat, string $excluded): ?float {
+    $best = null;
+    foreach (SWUBotUnits($seat) as $v) {
+        $g = _SWUBotTuckGainFor($seat, $v, $excluded);
+        if ($g !== null) $best = max($best ?? $g, $g);
+    }
+    return $best;
+}
+
 function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     $seat = intval($ctx['seat']);
+    // Feature 'tuck' (p42): priced by its best pair; no pair, or a losing one, and the Action waits. Ahead of the lookahead, which
+    // charges the returned body as a sacrifice.
+    if (SWUBotFeatureOn('tuck') && ($l = _SWUBotActionLeader($seat, $action)) !== null && ($ex = _SWUBotTuckExcluded(strval($l->CardID ?? ''))) !== null) {
+        $g = _SWUBotTuckBest($seat, $ex);
+        return ($g === null || $g <= 0.0) ? -0.5 : $W['ability'] + $W['develop'] * $g;
+    }
     // PROPOSAL 'landomill' (default OFF): once Lando has flipped and come back, the Action is a spare-resource play —
     // or a skip, or the win condition when their deck is nearly out. Pre-flip it is left exactly as it was.
     if (SWUBotActionKind($action) === 'leader-ability' && ($l = _SWUBotLandoAbilityScore($ctx, $action, $W)) !== null) return $l;
