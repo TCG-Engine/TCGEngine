@@ -3250,7 +3250,7 @@ $customDQHandlers["HAN_DEFEAT_RESOURCE"] = function ($player, $parts, $lastDecis
   if ($lastDecision === null || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') {
     return; // controls no resources, or none chosen — fizzle
   }
-  SWUDefeatResource(intval($player), $lastDecision);
+  SWUDefeatResource(intval($player), $lastDecision, true);   // my own pick (CR rearrangement: an exhausted one goes)
 };
 // ── Reactive defeat / leaves-play triggers (SOR_036 Gideon, SOR_105 Krell, SOR_015 Boba) ──
 // SOR_105 General Krell granted "When Defeated: you may draw a card" follow-up.
@@ -3861,7 +3861,7 @@ function _SWURevertShd213Steals(): void
 $customDQHandlers["RESOURCE_DEFEAT_PICK"] = function ($player, $parts, $lastDecision) {
   if (SWUDecisionDeclined($lastDecision) || $lastDecision === '') return;
   global $playerID; $playerID = intval($player);
-  SWUDefeatResourcesByMzIDs(intval($player), explode('&', $lastDecision));
+  SWUDefeatResourcesByMzIDs(intval($player), explode('&', $lastDecision), true);   // my own picks (CR rearrangement)
 };
 
 // ── Staged friendly-resource defeat — _SWUQueueFriendlyResourceDefeatStage's continuation ───────
@@ -3897,6 +3897,6 @@ $customDQHandlers["RESOURCE_DEFEAT_STAGE"] = function ($player, $parts, $lastDec
     while (count($temp) > 0) array_pop($temp);
     unset($temp);
   }
-  if (!empty($picked)) SWUDefeatResourcesByMzIDs(intval($player), $picked);
+  if (!empty($picked)) SWUDefeatResourcesByMzIDs(intval($player), $picked, true);   // a teammate rearranges too (CR: "after another player declares their intent")
   _SWUQueueFriendlyResourceDefeatStage(intval($player), $seats, $idx, $remaining - count($picked), $label);
 };

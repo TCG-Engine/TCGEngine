@@ -37,7 +37,7 @@ $customDQHandlers["SHD_017#defeat"] = function($player, $parts, $lastDecision) {
 
 $customDQHandlers["SHD_017#resolve"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS') SWUDefeatResource(intval($player), $lastDecision);
+    if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS') SWUDefeatResource(intval($player), $lastDecision, true);   // my own pick (CR rearrangement)
     LandoCalrissianWithImpeccableTasteFireDeferred(intval($player), $parts);
 };
 

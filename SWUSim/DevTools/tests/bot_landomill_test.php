@@ -68,11 +68,11 @@ $check(in_array($pick, ['Command', 'Villainy'], true), 'post-flip: names the asp
 $act(1, 100, $pick);
 $check($answer('try-landomill') === "Opponent's_deck", 'post-flip: mills THEIR deck');
 
-// ── the proposal is what changes it: default still mills my own deck after the flip ────────────────
+// ── SHIPPED 2026-10-08 (owner: "turn it on", feature 'landomill', p42): the default now mills THEIR deck after the flip ────────
 $lando(true, ['JTL_081', 'JTL_081', 'JTL_085', 'SEC_213', 'SEC_078']);
 $act(1, 10001, $ability);
 $act(1, 100, $answer(''));
-$check($answer('') === 'Your_deck', 'default (shipped): still mills MY deck after the flip — the behaviour being fixed');
+$check($answer('') === "Opponent's_deck", 'default (shipped 2026-10-08): mills THEIR deck after the flip');
 
 // ── WHEN to use it post-flip: after the plays, and not when the big card is already payable ────────
 // A 5-cost card in hand with 5 resources: capacity already covers it, so the Credit buys nothing.

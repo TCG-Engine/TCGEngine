@@ -137,19 +137,30 @@ function _SWUBotCorrectBridgeAnswers(string $type, string $param, array $actions
         // first, all under SWU_BOT_SPLIT_MAX.
         $totals = [intval($m[1])];
         if ($m[3] === 'UPTO' && SWUBotFeatureOn('splitpop')) for ($t = intval($m[1]) - 1; $t >= 1; $t--) $totals[] = $t;
-        $build = function () use ($m, $totals) {
+        // Feature 'splitzero' (p42): an UPTO split may assign NOTHING ('-', "up to") — without it, a board with no enemy target forced
+        // the points onto my own units (JTL_009 Boba's pilot split, 127 traced). And the bridge enumerates in prompt order, MY units
+        // first, capped (200 per total, SWU_BOT_SPLIT_MAX in all): on a wide board the all-ENEMY splits were cut off ("one point on each
+        // of four 1-HP enemies" missing). So the enemy-only splits go first, for every total, then the mixed ones, then '-'.
+        $zero = $m[3] === 'UPTO' && SWUBotFeatureOn('splitzero');
+        $build = function () use ($m, $totals, $zero, $seat) {
             $choices = [];
             foreach (array_filter(explode('&', $m[2]), fn($v) => $v !== '') as $spec) {
                 foreach (BridgeExpandDecisionSpecChoices($spec) as $c) $choices[] = $c;
             }
             $choices = array_values(array_unique($choices));
+            $pools = [$choices];
+            if ($zero) {
+                $enemy = array_values(array_filter($choices, fn($c) => SWUBotIsEnemyMz($seat, strval($c))));
+                if (!empty($enemy) && count($enemy) < count($choices)) array_unshift($pools, $enemy);
+            }
             $out = [];
-            foreach ($totals as $t) {
-                foreach ((array)BridgeEnumerateSplitAssignResults($choices, $t) as $r) {
-                    if (count($out) >= SWU_BOT_SPLIT_MAX) break 2;
+            foreach ($pools as $pool) foreach ($totals as $t) {
+                foreach ((array)BridgeEnumerateSplitAssignResults($pool, $t) as $r) {
+                    if (count($out) >= SWU_BOT_SPLIT_MAX) break 3;
                     $out[] = $r;
                 }
             }
+            if ($zero) $out[] = '-';
             return array_values(array_unique($out));
         };
         $results = function_exists('BridgeWithPlayerPerspective') ? BridgeWithPlayerPerspective($seat, $build) : $build();

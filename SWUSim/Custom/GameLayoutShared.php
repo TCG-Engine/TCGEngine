@@ -5188,7 +5188,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // unavailable." We re-POST the original creation inputs to JoinQueue.php instead, reusing
             // the whole validated path (deck resolution, format legality, card pool).
             if (!mid && !spectator && !multiSeat && info && info.rematch) {
-                b.push({label:'Rematch', onClick:function(){
+                b.push({label:'Rematch', onClick:function(ev){
+                    // One click, one game. Creating the game takes the server seconds, and a second click in
+                    // that window created a SECOND game (owner report 2026-10-08, prod 2372 + 2373, 4s apart).
+                    // The window flag also covers a rebuilt overlay; failure leaves the page, so no unlock.
+                    if (window._swuRematchStarting) return;
+                    window._swuRematchStarting = true;
+                    var btn = ev && ev.currentTarget;
+                    if (btn) { btn.disabled = true; btn.textContent = 'Starting rematch…'; }
                     var f = new FormData();
                     f.append('rootName', 'SWUSim');
                     f.append('format',    info.rematch.format);

@@ -20,7 +20,7 @@ $leaderAbilities["LAW_013"] = function(int $player): void {
 $customDQHandlers["LAW_013#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
-    SWUDefeatResource(intval($player), $lastDecision);
+    SWUDefeatResource(intval($player), $lastDecision, true);   // my own pick (CR rearrangement: an exhausted one goes)
     DecisionQueueController::CleanupRemovedCards();
     ChewbaccaHeroofKesselPayoff(intval($player));
 };
@@ -45,7 +45,7 @@ $onAttackAbilities["LAW_013:0"] = function($player, $mzID) {
 $customDQHandlers["LAW_013#1"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
-    SWUDefeatResource(intval($player), $lastDecision);
+    SWUDefeatResource(intval($player), $lastDecision, true);   // my own pick (CR rearrangement: an exhausted one goes)
     DecisionQueueController::CleanupRemovedCards();
     ChewbaccaHeroofKesselPayoff(intval($player));
 };

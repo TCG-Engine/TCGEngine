@@ -537,7 +537,97 @@ const SWU_BOT_PART41_FEATURES = ['phaseexpiry', 'observertax', 'uniquerefresh', 
 //          the Action ready 367/300 traced games. ('piettcheat', +0 on 2026-09-22, stays a proposal.) Guard: bot_shipdiscount_test.php.
 //   deployfirst — a unit a deploy available NOW would discount ("Each Capital Ship unit you play costs 2 resources less") waits for it;
 //          'blockerfirst' hard-cast a 5-cost ship right before deploying Piett in ~25% of games. Guard: bot_shipdiscount_test.php.
-const SWU_BOT_PART42_FEATURES = ['tuck', 'doubleplay', 'unitedge', 'playdefeat', 'deployreplay', 'villainpitch', 'attackreserve', 'shipdiscount', 'deployfirst'];
+//   pilotchoice — the pilot leaders (JTL_006 Vader, JTL_009 Boba, JTL_012 Luke): "Deploy_as_Unit_or_Pilot?" is Pilot whenever a usable
+//          Vehicle exists — any host for a "When deployed as an upgrade" pilot (Boba's split, Vader's TIEs), a READY one otherwise
+//          (Vonreg's / Luke's value is the host's attack; a leader unit deploys ready); a pilot naming a trait ("If it's a Fighter",
+//          Luke) uses only such a host. Else Unit. "Choose_a_Vehicle_to_deploy_onto" takes a ready, sturdy host. 'planned-answer' defers to
+//          it on both prompts (it chose Unit 140 times with a ready Vehicle out). Was the first-listed host (a token, a 1-HP ship).
+//          Guard: bot_pilotchoice_test.php.
+//   plantruncate — a lookahead plan step that left answers UNTRIED (budget share / branch cap; the bridge lists my own units first) is
+//          marked 'truncated', and the planned-answer rule lets the fallback choose among all answers there. Talzin's -1/-1 on her own
+//          units (120), Maul LOF's pings (~340), Chewbacca's deal-2 (43) came from such plans. Guard: bot_plantruncate_test.php.
+//   twoping — LOF_009 Maul's "Deal 1 damage to a unit and 1 damage to a different unit" (both mandatory) is priced as its best pair of
+//          targets (the second on MY unit when one enemy is there; 1,807 forced self-pings), and a ping that kills is a kill for the
+//          Force gate (it read only "-N/-N"). Guard: bot_twoping_test.php.
+//   forcebuff — the 'force' gate (no empty enemy board; held when it kills nothing and another card needs the Force) judges HOSTILE
+//          use-the-Force Actions only: LOF_008 Obi-Wan's Experience was used 0 of 2,065 times on an empty enemy board. Guard:
+//          bot_forcebuff_test.php.
+//   dedra — SEC_010 Dedra's "Choose an enemy unit. Its controller may deal 2 damage to it. If they don't, draw a card": her pick is a
+//          2-damage hostile target (was the first listed, 3,636/3,636); as the opponent the bot takes the 2 only when the unit survives it
+//          or is a token (it answered YES every time — 32% of targets died to it). Guard: bot_dedra_test.php.
+//   thrawnwd — JTL_002 Thrawn: a reuse of a When Defeated that helps an opponent is declined (SEC_215's "each opponent may ready a
+//          resource" reused 95 times); while the reuse is available, a When Defeated pays back twice in what losing its unit costs.
+//          Guard: bot_thrawnwd_test.php.
+//   armorerpicks — ASH_001 The Armorer's "play an upgrade from your resources": the upgrade worth most to play, on the attach scorer's
+//          host (its host policy sends Preparation to an exhausted unit). Was the first-listed resource (163/163) and first-listed unit.
+//          Guard: bot_armorer_test.php.
+//   freekill — LAW_004 Aurra's "Defeat a non-leader unit with 1 or less remaining HP" is worth its best kill and goes before any attack
+//          (it costs no attack); nothing to kill, never used. Was a flat 0.40 (60-68% use with a target; 39 attacks into its targets).
+//          Guard: bot_freekill_test.php.
+//   advready — an Advantage token goes to a READY friendly unit first (ASH_013 Ezra gave it to exhausted units 14-20% of the time), and
+//          Ezra's exhaust is declined with no friendly unit but the attacker (the give then went to an ENEMY). Guard: bot_advready_test.php.
+//   tokenfirst — a trigger that gives the played unit a token ("…an Advantage token to that unit", ASH_017 Greef) resolves before that
+//          unit's own triggers (ASH_171 Pegasus Tri-Wing resolved first 645/645 and never saw the token). Guard: bot_greef_test.php.
+//   deploybuff — a unit play waits while a leader whose deployed side reads "When you play or create a unit: …" can deploy now (41% of
+//          Greef's deploys came after 2+ plays). Guard: bot_greef_test.php.
+//   creditdeploy — a "create a Credit token" option (LAW_019 Alliance Outpost) is taken when the Credit brings the leader's resource-cost
+//          deploy (LAW_013 Chewbacca, "Epic Action [4 resources]") within reach this round or next — the owner's R1 Credit, R2 deploy on
+//          3 + 1 (14 of 513 traced uses took the Credit). Guard: bot_chewbacca_test.php.
+//   aspectpick — LAW_018 Lando's "Choose an aspect" names the aspect most of my remaining deck has (was the first listed, 7,059/7,059);
+//          milling THEIR deck ('landomill'), their leader's color — never Heroism/Villainy (owner 2026-10-08, Lake Country).
+//          Guard: bot_lando_test.php.
+//   actionfirst — in the deploy round the same leader's front Action, while worth using, goes before the deploy (a leader deploys exhausted
+//          or not and enters ready, CR 4.329): Lando 0/1,092, Obi-Wan 0/1,011, Talzin 35/1,965 did. Not for a Support leader (its flip
+//          turn is planned), an Action that defeats a friendly unit (Krennic's strike needs it), Maul ('deployreplay') or Piett. Guard:
+//          bot_lando_test.php (+ the stacklethal / deploystrike / playdefeat / enablers tests for the exceptions).
+//   healamount — "Heal N damage from <a unit> or from your base" (ASH_005 Luke, deployed) is scored by the HP each actually restores (a base
+//          point 0.9, 1.5 at 15 HP or less, a unit point 1.0); it was the unit by value 2,202/2,202. Guard: bot_healamount_test.php.
+//   deployswing — a deploy that puts a ready leader unit on the board is worth that unit's best attack this turn (HMW_007 Vader's free
+//          deploy, scored a flat 1.5, was never taken in 24 of 47 probe games that reached 6 resources). Guard: bot_deployswing_test.php.
+//   landomill — SHIPPED 2026-10-08 (owner: "turn it on"; the 2026-09-23 proposal): Lando mills MY deck for the guaranteed Credit, and THEIRS
+//          after the flip or at 10+ resources ("Lando aims for 9 … 9 + 1 for the mill ability"), naming their leader's color. Guards:
+//          bot_landomill_test.php, bot_landoflip_test.php.
+//   landoflip — Lando never deploys with 0 Credits; with one banked the flip-round Action is skipped (6R + 3C = 9); the last banked Credit is
+//          not spent before the flip. Owner 2026-10-08. Guard: bot_landoflip_test.php.
+//   splitzero — an "up to N" damage split also offers assigning nothing ('-'): with no enemy target JTL_009 Boba's pilot split hit my own
+//          units (127 traced); and the all-enemy splits are enumerated first, so the cap cannot cut "kill all four 1-HP enemies".
+//          Guard: bot_splitzero_test.php.
+//   yodaloop — the Qui-Gon (LOF_016) Yoda loop, owner rulings 2026-10-08: the tuck waits while a castable Yoda in hand wants the Force for his
+//          heal; a Force-heal unit (Yoda) is the first one the tuck returns; a tuck deck never resources its chain pieces (Kelleran, Depa,
+//          Amidala…). Guard: bot_yodaloop_test.php.
+//   healwaste — owner 2026-10-08, "don't waste on a heal of 4 or less … that goes for other restores too": "use the Force to heal N" is declined
+//          below N damage on my base; a Restore N attack waits (by the restore it would waste) while an enemy can hit my base first.
+//          Guard: bot_healwaste_test.php.
+//   searchvalue — "Search the top N cards of your deck…" (tag 'search-top-deck', 58 cards, weight 0 before): to hand = a draw per card; into
+//          play = a draw per card + the resources saved; anything else = half a draw (owner 2026-10-08). Guard: bot_searchvalue_test.php.
+//   mandoclaim — ASH_014 The Mandalorian's claim-and-draw (owner plan 2026-10-08: "2R claim and draw · 3R a 2-drop then claim and draw…"): the
+//          claim is worth the draw, after the plays that leave its resource; a play that spends that resource is charged the draw.
+//          Guard: bot_mandoclaim_test.php.
+//   baseheal — a base hit by a "When Attack Ends: If this unit dealt combat damage to a base, heal that much damage from your base" unit
+//          (ASH_031 Hera) is also worth what it heals (owner, Mando: "Hera + Aggressive Negotiations — swing big and heal big"). AN went on
+//          the bigger Bith Brute. Guard: bot_baseheal_test.php.
+//   lciwplan — SEC_180 Let's Call It War: holding the initiative, the 3 goes where the follow-up 2 still kills another unit in that arena
+//          (owner, Mando: "clear two low-health space units"). Guard: bot_lciwplan_test.php.
+//   supportfirst — a Support leader's deploy carries the planned Support attacker's attack (+ Mando's lent initiative draw), so it goes
+//          before that unit's own attack (owner, Mando: "6R deploy and use Mando's support on any unit that stuck"). Guard: bot_supportfirst_test.php.
+//   cleanup — hard control vs an aggro leader whose board still reaches my base: an attack defeats a unit before it hits the base (owner,
+//          Mando: "prefer to clean up the board until you've stabilized against aggro's gameplan"). Guard: bot_cleanup_test.php.
+//   stabkeep — a "Give each enemy unit -N/-N" mass debuff (SEC_051 Bo-Katan) is kept vs aggro like the wipes (owner, Mando: "play leading
+//          up to Bo-Katan and SRI … to stabilize"). Guard: bot_stabkeep_test.php.
+//   pitchtarget — ASH_163 Reckless Sacrifice's discard is the unit that keeps the best 5-damage target in reach (owner, Mando: "the best
+//          Turn 2 play is Reckless Sacrifice when you have any of the Villainy 1-drops in hand"). Guard: bot_recklessturn2_test.php.
+//   anakinpitch — a "Discard a unit from your hand" play (ASH_163) is worth each LOF_070 Anakin half (Heroism / Villainy in discard) it
+//          switches on, and is not a dud with an Anakin in hand (owner: "Reckless Sacrifice + the villainy card … instantly activate
+//          Anakin"). Guard: bot_anakinpitch_test.php.
+//   bokatanres — hard control's Bo-Katan (SEC_051): resourced from a non-aggro opening hand, otherwise only when nothing weaker is left,
+//          never a second in a game (owner: "this deck thrives in the late game"). Guard: bot_bokatanres_test.php.
+//   forceregen — the Force is one token: holding it, a spender goes before a refilling Force-unit attack (LOF_023 Jedi Temple); without it,
+//          a "When Played: You may use the Force" play (Yoda) waits for that attack (leader audit: Qui-Gon). Guard: bot_forceregen_test.php.
+//   chewieattack — deployed LAW_013 Chewbacca's "On Attack: You may defeat a friendly resource …deal 2": yes only to kill, to set up a Red
+//          Five finish, or to pop a Sentinel's Shield (owner 2026-10-08). Guard: bot_chewieattack_test.php.
+//   sentinelsac — never sacrifice an ACTIVE Sentinel (printed or gained) while another body exists; a doomed one is fair game (owner:
+//          "generally, do not sac active Sentinels"). Guard: bot_krennicfodder_test.php.
+const SWU_BOT_PART42_FEATURES = ['tuck', 'doubleplay', 'unitedge', 'playdefeat', 'deployreplay', 'villainpitch', 'attackreserve', 'shipdiscount', 'deployfirst', 'pilotchoice', 'plantruncate', 'twoping', 'forcebuff', 'dedra', 'thrawnwd', 'armorerpicks', 'freekill', 'advready', 'tokenfirst', 'deploybuff', 'creditdeploy', 'aspectpick', 'actionfirst', 'healamount', 'deployswing', 'landomill', 'landoflip', 'splitzero', 'yodaloop', 'healwaste', 'searchvalue', 'mandoclaim', 'baseheal', 'lciwplan', 'supportfirst', 'cleanup', 'stabkeep', 'pitchtarget', 'anakinpitch', 'bokatanres', 'forceregen', 'chewieattack', 'sentinelsac'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,

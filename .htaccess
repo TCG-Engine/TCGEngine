@@ -8,7 +8,13 @@
 #
 # The mtime is a 9-or-more digit unix timestamp, which is what keeps this from colliding with a
 # genuine file like `jquery.min.js` or `foo.2.css`.
+#
+# Game storage is never served. <Root>/Games/<id>/ holds the full gamestate (both players' hands and decks,
+# undo snapshots, sideboard/rematch pointers) plus the GameIDCounter — all of it read by PHP from disk,
+# none of it meant for a browser. Until 2026-10-08 any of it was one GET away. 404, not 403, so a probe
+# cannot even confirm that a game id exists.
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteRule (^|/)Games(/|$) - [R=404,NC,L]
   RewriteRule ^(.+)\.[0-9]{9,}\.(css|js)$ $1.$2 [L]
 </IfModule>

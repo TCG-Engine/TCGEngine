@@ -119,7 +119,7 @@ function _SWUBotIsAnswer(string $cid): bool {
 const SWU_BOT_PHASE_EXPIRY_KILL = 0.9;
 
 function SWUBotTargetValue(array $att, ?array $def, array $W): float {
-    if ($def === null) return $W['base'] * $att['attackPower'];
+    if ($def === null) return $W['base'] * $att['attackPower'] + (SWUBotFeatureOn('baseheal') ? _SWUBotBaseHitHeal($att, $W) : 0.0);
     // 'leaderdraw' (p41): the card a ready Wicket draws when this attack hits a pricier unit.
     $draw = (SWUBotFeatureOn('leaderdraw') && intval($def['cost']) > intval($att['cost']) && _SWUBotLeaderAttackDraws(intval($att['controller'])))
         ? $W['draw'] : 0.0;
@@ -133,6 +133,52 @@ function _SWUBotLeaderAttackDraws(int $seat): bool {
         if ($l === null || !empty($l->removed) || !empty($l->Deployed) || empty($l->Ready)) continue;
         if (preg_match('/When a friendly unit attacks a unit that costs more than it: You may exhaust this leader\. If you do, draw a card/i',
                 strval(CardText(strval($l->CardID ?? ''))))) return true;
+    }
+    return false;
+}
+
+// Feature 'baseheal' (p42): a base hit by a unit reading "When Attack Ends: If this unit dealt combat damage to a base, heal that much
+// damage from your base" (ASH_031 Hera Syndulla) also heals — W['heal'] a point, up to the damage on my base. Owner, Mando Colossus:
+// "Hera + Aggressive Negotiations to swing big and heal big getting doubly ahead" (the AN went on the bigger Brute).
+function _SWUBotBaseHitHeal(array $att, array $W): float {
+    $text = $att['isLeader'] ? strval(CardDeployText($att['cardID']) ?? '') : strval(CardText($att['cardID']));
+    if (!preg_match('/When Attack Ends: If this unit dealt combat damage to a base, heal that much damage from your base/i', $text)) return 0.0;
+    $dmg = intval((GetBase(intval($att['controller']))[0] ?? null)->Damage ?? 0);
+    return $W['heal'] * min(max(0, intval($att['attackPower'])), $dmg);
+}
+
+// Feature 'cleanup' (p42), owner 2026-10-08 (Mando Colossus): "The Mandalorian plays hard control, so prefer to clean up the board until
+// you've stabilized against aggro's gameplan." For a HARD CONTROL seat facing an aggro leader (SWU_BOT_AGGRO_LEADERS) whose board can still
+// reach my base (SWUBotBasePotential > 0 — not yet stabilised), the base target is capped just under the best unit the attacker defeats
+// (a clean kill, or a trade scored ≥ 0). NULL — no cap — when there is nothing to defeat. (A lethal base hit needs no exemption: the
+// rule layer takes it first — bot_cleanup_test C.)
+function _SWUBotCleanupCap(array $ctx, array $att, array $W): ?float {
+    $seat = intval($att['controller']);
+    if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 4 || !SWUBotOpponentIsAggroLeader($seat)) return null;
+    $threat = false;
+    foreach (SWUBotOpponents($seat) as $o) if (SWUBotBasePotential($o, $seat, false) > 0) $threat = true;
+    if (!$threat) return null;
+    $best = null;
+    foreach (SWUBotAllowedTargets($ctx, $att) as [$k, $u]) {
+        if ($k === 'base' || !in_array(SWUBotCombatOutcome($att, $u), ['kill-survive', 'trade'], true)) continue;
+        $tv = SWUBotTargetValue($att, $u, $W);
+        if ($tv >= 0.0) $best = $best === null ? $tv : max($best, $tv);
+    }
+    return $best === null ? null : $best - 0.01;
+}
+
+// Feature 'chewieattack' (p42), owner 2026-10-08 (Chewbacca, LAW_013 deployed): "it should say yes to kill something, soften it up for Red
+// Five, or break a shield on a sentinel". True when $n damage on some enemy unit defeats it, leaves it in reach of a ready friendly "On
+// Attack: You may deal N damage to a damaged unit" (JTL_151 Red Five), or pops the Shield of an enemy Sentinel. (A Shield on anything else
+// just eats the hit.)
+function _SWUBotChewieOnAttackWorth(int $seat, int $n): bool {
+    $finish = 0;
+    foreach (SWUBotUnits($seat) as $v) {
+        if ($v['ready'] && preg_match('/On Attack: You may deal (\d+) damage to a damaged unit/i', strval(CardText($v['cardID'])), $m)) $finish = max($finish, intval($m[1]));
+    }
+    foreach (SWUBotOpponents($seat) as $o) foreach (SWUBotUnits($o) as $u) {
+        if ($u['shields'] > 0) { if ($u['sentinel']) return true; continue; }
+        if ($u['remaining'] <= $n || ($finish > 0 && $u['remaining'] <= $n + $finish)) return true;
     }
     return false;
 }
@@ -331,6 +377,11 @@ function _SWUBotTriggerScore(array $ctx, string $candidate): float {
     if ($e === null) return 0.0;
     $type = strval($e->TriggerType ?? '');
     if ($type === 'Ambush' || $type === 'Support') return 0.0;
+    // Feature 'tokenfirst' (p42): a trigger that gives the played unit a token ("…give an Advantage token to that unit", ASH_017 Greef)
+    // goes before the unit's own triggers, which may use it (ASH_171 Pegasus Tri-Wing: "defeat a friendly upgrade. If you do, ready this
+    // unit" — it resolved first 645 of 645 times and never saw Greef's token).
+    if (SWUBotFeatureOn('tokenfirst') && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)(#\d+)?$/', $type, $tm)
+        && preg_match('/give an? \w+ token to that unit/i', strval(CardText($tm[1])) . ' ' . strval(CardDeployText($tm[1])))) return 1.2;
     if ($type === 'Shielded') {
         $mz = explode('|', strval($e->Params ?? ''))[0];
         foreach ($stack as $o) {
@@ -362,12 +413,23 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     if (($ctx['kind'] ?? '') !== 'decision') {
         switch (SWUBotActionKind($action)) {
             case 'pass':       return 0.0;
-            case 'initiative': return $W['initiative'];
+            case 'initiative': return SWUBotFeatureOn('mandoclaim') ? _SWUBotClaimDrawInitiative($ctx, $seat, $W) : $W['initiative'];
             case 'deploy':     if (_SWUBotDeployStrikeWaits($seat)) return -0.4;   // 'deploystrike' (p39)
                                $dv = $W['deploy'] + (SWUBotFeatureOn('enablers') ? _SWUBotDeployDiscount($seat, $action, $W) : 0.0)
                                                   + (SWUBotFeatureOn('pilotdeploy') ? _SWUBotPilotDeployValue($seat, $action, $W) : 0.0)
                                                   + (SWUBotFeatureOn('plotdeploy') ? _SWUBotPlotDeployValue($seat, $W) : 0.0);
-                               return SWUBotFeatureOn('deployreplay') ? _SWUBotDeployReplayScore($ctx, $action, $dv, $W) : $dv;
+                               // Feature 'deployswing' (p42): racing, + the attack the deployed leader unit (it enters ready) makes this turn.
+                               // Before the holds below, which must still cap it.
+                               if (SWUBotFeatureOn('deployswing') && _SWUBotRaceIsOn($seat)) $dv += _SWUBotDeploySwingValue($ctx, $action, $W);
+                               // Feature 'supportfirst' (p42): a Support deploy carries the planned Support attacker's attack.
+                               if (SWUBotFeatureOn('supportfirst')) $dv += _SWUBotSupportDeployValue($ctx, $action, $W);
+                               $dv = SWUBotFeatureOn('deployreplay') ? _SWUBotDeployReplayScore($ctx, $action, $dv, $W) : $dv;
+                               // Feature 'actionfirst' (p42): the same leader's front Action, while it is worth using, goes before the deploy.
+                               if (SWUBotFeatureOn('actionfirst') && ($af = _SWUBotDeployWaitsForAction($ctx, $action)) !== null) $dv = min($dv, $af);
+                               // Feature 'landoflip' (p42): a "defeat a friendly Credit token … create 3" deploy never goes with 0 Credits.
+                               if (SWUBotFeatureOn('landoflip') && ($fl = _SWUBotActionLeaderOfDeploy($seat, $action)) !== null && _SWUBotCreditFlipLeader($fl)
+                                   && _SWUBotUsableCredits($seat) === 0) $dv = min($dv, -0.4);
+                               return $dv;
             case 'leader-ability': if (_SWUBotKeepBodyHolds($seat)) return -0.4;   // 'keepbody' (p40)
                                return _SWUBotAbilityValue($ctx, $action, $W);
             case 'unit-action': case 'base-epic': return _SWUBotAbilityValue($ctx, $action, $W);
@@ -381,8 +443,15 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 }
                 $guides = $ctx['_guides'] ?? _SWUBotGuides($ctx);
                 $score = ($best ?? 0.0) + (in_array(strval($action['cardID'] ?? ''), $guides['attackFirst'], true) ? $W['attackFirst'] : 0.0);
+                // Feature 'healwaste' (p42): a Restore N attack with less than N damage on my base wastes the restore — it waits, by what it wastes,
+                // while an enemy unit is ready to hit my base first (owner: "sometimes best to let the opponent attack first when you have 0
+                // damage on base if you can restore 1 or 2 after their hit"). Rule 8 still sends it before the round ends.
+                if (SWUBotFeatureOn('healwaste') && ($wasted = _SWUBotRestoreWasted($seat, $att)) > 0) $score -= $wasted * $W['heal'];
                 // Feature 'unitedge' (p42): the unit play that switches on "While you control more units than an opponent" goes first.
                 if (SWUBotFeatureOn('unitedge') && ($edgePlay = _SWUBotUnitEdgePlay($ctx, $att)) !== null) $score = min($score, $edgePlay - 0.01);
+                // Feature 'forceregen' (p42): holding the Force, a refilling Force-unit attack waits for the Force spender worth using now.
+                if (SWUBotFeatureOn('forceregen') && PlayerHasTheForce($seat) && _SWUBotAttackRefillsForce($seat, $att)
+                    && ($sp = _SWUBotForceSpenderScore($ctx)) !== null) $score = min($score, $sp - 0.01);
                 return $score;
             case 'play':
                 $i = intval(substr(SWUBotActionMz($action), strlen('myHand-')));
@@ -397,7 +466,10 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                     if ($h > 0 && ($swing = _SWUBotHandSwingBest($ctx, $seat, $h, $W)) !== null) return $swing;
                 }
                 // An effect event that would change nothing, or too little, on the enemy side is held (feature 'dudgate').
-                if (SWUBotFeatureOn('dudgate') && _SWUBotIsEffectEvent($cid) && _SWUBotEventIsDud($seat, $action, $cid, $W)) return -0.5;
+                // Feature 'anakinpitch' (p42): …unless it switches on an Anakin half with an Anakin in hand to cash it.
+                $anakin = SWUBotFeatureOn('anakinpitch') ? _SWUBotAnakinPitchValue($seat, $i, $cid, $W) : 0.0;
+                if (SWUBotFeatureOn('dudgate') && _SWUBotIsEffectEvent($cid) && !($anakin > 0.0 && _SWUBotAnakinInHand($seat))
+                    && _SWUBotEventIsDud($seat, $action, $cid, $W)) return -0.5;
                 // Any other event the ENGINE would log as "had no effect" (feature 'noeffect'; the Armorer fixture's
                 // round-1 Reforge with no friendly upgrade to defeat).
                 if (SWUBotFeatureOn('noeffect') && str_contains(strval(CardType($cid)), 'Event') && !_SWUBotIsEffectEvent($cid)
@@ -410,7 +482,7 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 $policyHosts = SWUBotFeatureOn('hostpolicy') ? _SWUBotPolicyHosts($seat, $cid) : null;
                 if ($policyHosts !== null && empty($policyHosts)) return -0.5;
                 if ($policyHosts === null && SWUBotFeatureOn('nogift') && _SWUBotPlayIsGift($seat, $action, $cid, $W)) return -0.5;
-                $v = _SWUBotPlayValue($seat, $cid, $W);
+                $v = _SWUBotPlayValue($seat, $cid, $W) + $anakin;
                 // Play an enabler BEFORE the unit it improves (feature 'enablerfirst').
                 if (SWUBotFeatureOn('enablerfirst')) $v += _SWUBotEnablerFirstBonus($seat, $action, $cid, $W);
                 // Feature 'discountfirst' (p40): a static cost reducer (the Krennic unit) goes before the card it makes fit.
@@ -507,8 +579,18 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 if (SWUBotFeatureOn('wipeaware') && ($per = _SWUBotShownPerUnitWipe($seat)) > 0 && _SWUBotPlayEntersWipeRange($seat, $action, $per)) return min($v, -0.5);
                 // Feature 'attackreserve' (p42): the token a ready "On Attack: You may pay N …, create a token" unit would lose.
                 if (SWUBotFeatureOn('attackreserve')) $v -= _SWUBotAttackReserveCost($seat, $obj, $W);
+                // Feature 'mandoclaim' (p42): a play that spends the resource the claim's draw needs is charged that draw.
+                if (SWUBotFeatureOn('mandoclaim') && ($cn = _SWUBotClaimDrawCost($seat)) !== null && SWUTotalPaymentCapacity($seat) >= $cn
+                    && SWUTotalPaymentCapacity($seat) - intval(SWUComputePlayCost($seat, $obj)) < $cn) $v -= floatval($W['draw'] ?? 0.0) * SWUBotDrawMultiplier($seat);
+                // Feature 'landoflip' (p42): before a "triple a Credit" leader flips, the last banked Credit is not spent.
+                if (SWUBotFeatureOn('landoflip') && _SWUBotKeepsFlipCredit($seat) && _SWUBotUsableCredits($seat) - SWUBotCreditSpendFor($seat, $cid) < 1) return min($v, -0.5);
+                // Feature 'forceregen' (p42): without the Force, a "When Played: You may use the Force" play waits for a refilling attack.
+                if (SWUBotFeatureOn('forceregen') && preg_match(SWU_BOT_FORCE_WP_RE, strval(CardText($cid))) && !PlayerHasTheForce($seat)
+                    && ($rw = _SWUBotForceRefillAttackScore($ctx, $seat)) !== null) $v = min($v, $rw - 0.01);
                 // Feature 'deployfirst' (p42): a unit a deploy on offer would discount (Piett's Capital Ships) waits for that deploy.
                 if (SWUBotFeatureOn('deployfirst') && _SWUBotDeployWouldDiscount($seat, $cid)) return min($v, -0.4);
+                // Feature 'deploybuff' (p42): …and a unit play waits for a deploy whose leader buffs every unit played (ASH_017 Greef).
+                if (SWUBotFeatureOn('deploybuff') && _SWUBotDeployBuffsPlay($seat, $cid)) return min($v, -0.4);
                 return $v;
         }
         return -$index * 1e-6;
@@ -522,7 +604,11 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     // scores below PASS (0), so the deployed "you may" is declined only then.
     if (SWUBotFeatureOn('tuck') && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#/', $head, $tm) && str_starts_with($tip, 'Return_a_friendly')
         && ($ex = _SWUBotTuckExcluded($tm[1])) !== null && ($v = SWUBotViewForMz($seat, $c)) !== null) {
-        $g = _SWUBotTuckGainFor($seat, $v, $ex);
+        // The FRONT Action's pick keeps the "swing first" rule (a ready unit that can hit the base is not the one returned); the deployed
+        // "you may" fires once, after Qui-Gon's own attack, and cannot wait.
+        $front = false;
+        foreach (GetLeader($seat) as $ql) if (is_object($ql) && strval($ql->CardID ?? '') === $tm[1] && !in_array(strval($ql->Deployed ?? 'false'), ['true', '1'], true)) $front = true;
+        $g = _SWUBotTuckGainFor($seat, $v, $ex, $front);
         return $g === null ? -1.0 - $index * 1e-6 : $g - $index * 1e-6;
     }
     // Feature 'doubleplay' (p42): Grievous's "Choose_a_unit_to_play" — each unit scores what playing it directly scores, so a play the
@@ -539,6 +625,119 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         foreach (GetLeader($seat) as $lo) if (is_object($lo) && strval($lo->CardID ?? '') === $pdm[1]) $leader = $lo;
         $v = $leader !== null ? _SWUBotPlayDefeatValue($ctx, $leader, intval($phm[1]), intval($pdd[1]), $W) : null;
         return ($v ?? -1.0) - $index * 1e-6;
+    }
+    // Feature 'aspectpick' (p42): LAW_018 Lando's "Choose an aspect, then discard a card from a deck" names the aspect most of MY remaining
+    // deck has (the deck it mills by default — my own list, never its order). Every option tied, so the first listed (Vigilance) went
+    // 7,059 of 7,059 times. ('landomill', a proposal, reads the opponent's shown cards after the flip and takes precedence when on.)
+    if (SWUBotFeatureOn('aspectpick') && $tip === 'Choose_an_aspect' && !_SWUBotLandomillOn() && (_SWUBotLandoPhase($seat)[0] ?? false)) {
+        $counts = _SWUBotAspectCounts(array_map(fn($o) => strval($o->CardID ?? ''), array_filter(GetDeck($seat), fn($o) => $o !== null && empty($o->removed))));
+        return 1.0 + 0.01 * floatval($counts[$c] ?? 0) - $index * 1e-6;
+    }
+    // Feature 'healamount' (p42): "Heal N damage from <a unit> or from your base" (HEAL_TARGET|N; ASH_005 Luke, deployed) — each worth the
+    // HP it actually restores: a unit point 1.0, a base point 0.9, or 1.5 with the base at SWU_BOT_HEAL_BASE_PRESSURE or less. Was the unit
+    // by value every time (2,202/2,202), ~16% of them a 1-damage unit.
+    if (SWUBotFeatureOn('healamount') && $head === 'HEAL_TARGET') {
+        $n = intval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[1] ?? 0);
+        if ($n > 0 && $c === 'myBase-0') {
+            $dmg = intval((GetBase($seat)[0] ?? null)->Damage ?? 0);
+            return min($n, $dmg) * (SWUBaseRemainingHp($seat) <= SWU_BOT_HEAL_BASE_PRESSURE ? 1.5 : 0.9) - $index * 1e-6;
+        }
+        if ($n > 0 && ($hv = SWUBotViewForMz($seat, $c)) !== null && !SWUBotIsEnemyMz($seat, $c)) {
+            return min($n, intval($hv['hp']) - intval($hv['remaining'])) * 1.0 - $index * 1e-6;
+        }
+    }
+    // Feature 'creditdeploy' (p42): an option to "create a Credit token" (LAW_019 Alliance Outpost) is taken when one more Credit makes my
+    // leader's resource-cost deploy ("Epic Action [N resources]: Deploy this leader", LAW_013 Chewbacca) affordable this round or next —
+    // the owner's line: a token defeated in round 1 for the Credit, Chewbacca deployed on 3 resources + the Credit. (14 of 513 traced uses
+    // took the Credit: the option pick's board read has no Credits in it.)
+    if (SWUBotFeatureOn('creditdeploy') && $type === 'OPTIONCHOOSE' && in_array('Credit', explode('&', strval($ctx['param'] ?? '')), true)
+        && _SWUBotCreditAdvancesDeploy($seat)) return $c === 'Credit' ? 1.0 : 0.0;
+    // Feature 'advready' (p42): an Advantage token (ASH_T02, +1/+0 until the unit's next attack or defense ends) goes to a READY friendly
+    // unit — it swings this round — before an exhausted one (ASH_013 Ezra: 14-20% went to an exhausted unit while a ready one stood by);
+    // and Ezra's "Exhaust … to give an Advantage token to a different unit?" is declined when no friendly unit but the attacker exists
+    // (the forced give then went to an ENEMY, 228 of 3,536 uses).
+    if (SWUBotFeatureOn('advready')) {
+        if ($head === 'GIVE_ADVANTAGE' && ($av = SWUBotViewForMz($seat, $c)) !== null) {
+            return (SWUBotIsEnemyMz($seat, $c) ? -1.0 : ($av['ready'] ? 10.0 : 1.0) + 0.1 * $av['attackPower']) - $index * 1e-6;
+        }
+        if ($type === 'YESNO' && str_starts_with($tip, 'Exhaust_') && str_contains($tip, '_give_an_Advantage_token_to_a_different_unit')) {
+            $att = SWUBotViewForMz($seat, strval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[1] ?? ''));
+            $others = array_filter(SWUBotUnits($seat), fn($u) => $att === null || $u['uid'] !== $att['uid']);
+            if (empty($others)) return $c === 'NO' ? 0.1 : 0.0;
+        }
+    }
+    // Feature 'armorerpicks' (p42): ASH_001 The Armorer — "play an upgrade from your resources" on a unit. The upgrade is the one worth
+    // most to play; the host is the attach scorer's pick (its host policy already sends Preparation — "When Played: Exhaust attached
+    // unit" — to a unit that is exhausted). Was the first-listed resource (163/163) and the first-listed unit.
+    if (SWUBotFeatureOn('armorerpicks') && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#/', $head, $am)
+        && preg_match('/play an upgrade from your resources/i', strval(CardText($am[1])) . ' ' . strval(CardDeployText($am[1])))) {
+        if (preg_match('/^myResources-(\d+)$/', $c, $rm)) {
+            $u = strval((GetResources($seat)[intval($rm[1])] ?? null)->CardID ?? '');
+            return ($u !== '' ? 0.01 + max(0.0, _SWUBotPlayValue($seat, $u, $W, 'resources')) : -1.0) - $index * 1e-6;
+        }
+        $up = strval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[1] ?? '');
+        if ($up !== '' && str_contains(strval(CardType($up)), 'Upgrade') && ($s = _SWUBotAttachScore($seat, $c, $up, $W)) !== null) return $s - $index * 1e-6;
+    }
+    // Feature 'healwaste' (p42, owner 2026-10-08: "don't waste on a heal of 4 or less [Yoda's 5]. that goes for other restores too"): "use the
+    // Force to heal N" is declined while my base carries less than N damage — the Force is kept (Qui-Gon's tuck spends it too).
+    if (SWUBotFeatureOn('healwaste') && $type === 'YESNO' && preg_match('/use_the_Force_to_heal_(\d+)/i', $tip, $hw)
+        && intval((GetBase($seat)[0] ?? null)->Damage ?? 0) < intval($hw[1])) return $c === 'NO' ? 0.1 : 0.0;
+    // Feature 'thrawnwd' (p42): JTL_002 Thrawn's "use that ability again" — declined when the When Defeated helps an opponent (SEC_215
+    // Sheathipede's "Each opponent may ready a resource" was reused 95 times). Otherwise YES, as before.
+    if (SWUBotFeatureOn('thrawnwd') && $type === 'YESNO' && $head === 'THRAWN_REUSE') {
+        $src = strval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[2] ?? '');
+        preg_match('/When Defeated:(.*)$/is', strval(CardText($src)), $wm);
+        if (_SWUBotWdHelpsOpponent(strval($wm[1] ?? ''))) return $c === 'NO' ? 0.1 : 0.0;
+    }
+    // Feature 'dedra' (p42): SEC_010 Dedra Meero — "Choose an enemy unit. Its controller may deal N damage to it. If they don't, draw a
+    // card." Her pick is an N-damage hostile target (a unit the N would defeat first: then both answers cost them); as the opponent, the
+    // N is taken only when the unit survives it, or is a token (cost 0) worth less than her card. Was first-listed / always YES.
+    if (SWUBotFeatureOn('dedra') && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#(\d+)$/', $head, $dd)
+        && preg_match("/Its controller may deal (\\d+) damage to it\\. If they don't, draw a card/i", strval(CardText($dd[1])), $dn)) {
+        if ($type === 'YESNO') {
+            $uid = intval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[2] ?? 0);
+            $mz = $uid > 0 ? SWUFindMzByUID($uid) : null;
+            $v = $mz !== null ? SWUBotUnitView(GetZoneObject($mz), str_contains($mz, 'Space') ? 'Space' : 'Ground') : null;
+            $take = $v === null || intval($v['shields']) > 0 || intval($v['remaining']) > intval($dn[1]) || intval($v['cost']) <= 0;
+            return $c === ($take ? 'YES' : 'NO') ? 0.1 : 0.0;
+        }
+        if (str_starts_with($c, 'their') || preg_match('/^p\d+/', $c)) return (_SWUBotTargetScore($seat, $c, true, intval($dn[1]), $head, $W) ?? 0.0) - $index * 1e-6;
+    }
+    // Feature 'chewieattack' (p42): LAW_013 Chewbacca deployed — "On Attack: You may defeat a friendly resource. If you do, deal 2 damage to a
+    // unit …": a resource only when the 2 is worth it (_SWUBotChewieOnAttackWorth), otherwise below PASS. Was first-listed: 98.6% accepted.
+    if (SWUBotFeatureOn('chewieattack') && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#\d+$/', $head, $cw) && preg_match('/^my(Resources)-\d+$/', $c)
+        && preg_match('/On Attack: You may defeat a friendly resource\. If you do, deal (\d+) damage to a unit/i', strval(CardDeployText($cw[1])), $cn)) {
+        return (_SWUBotChewieOnAttackWorth($seat, intval($cn[1])) ? 1.0 : -1.0) - $index * 1e-6;
+    }
+    // Feature 'lciwplan' (p42): SEC_180 Let's Call It War — "Deal 3 damage to a unit. Then, if you have the initiative, you may deal 2 damage to
+    // another unit in the same arena." While I hold the initiative the first target is worth itself plus the best 2 on another unit in its
+    // arena (owner, Mando: "clear two low-health space units"). Scored alone, the 3 went on a 1-HP TIE and the 2 only chipped a 3-HP Y-Wing.
+    if (SWUBotFeatureOn('lciwplan') && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#0$/', $head, $lw) && SWUBotIsEnemyMz($seat, $c)
+        && preg_match('/Deal (\d+) damage to a unit\. Then, if you have the initiative, you may deal (\d+) damage to another unit in the same arena/i', strval(CardText($lw[1])), $ln)
+        && function_exists('PlayerHasIniative') && PlayerHasIniative($seat) && ($first = _SWUBotTargetScore($seat, $c, true, intval($ln[1]), 'DEAL_UNIT_DAMAGE', $W)) !== null) {
+        $arena = str_contains($c, 'Space') ? 'Space' : 'Ground'; $follow = 0.0;
+        foreach (SWUBotOpponents($seat) as $o) foreach (SWUBotUnits($o) as $u) {
+            if ($u['arena'] !== $arena) continue;
+            $mz = SWUFindMzByUID($u['uid']);
+            if ($mz === null || $mz === $c) continue;
+            $follow = max($follow, _SWUBotTargetScore($seat, $mz, true, intval($ln[2]), 'DEAL_UNIT_DAMAGE', $W) ?? 0.0);
+        }
+        return $first + $follow - $index * 1e-6;
+    }
+    // Feature 'pitchtarget' (p42): ASH_163 Reckless Sacrifice — "Discard a unit from your hand. Deal 5 damage to a unit that costs more than
+    // the discarded card." The discard is the unit that keeps the best 5-damage enemy target in reach, then the one worth least to keep. Every
+    // unit scored the same, so the first listed went: a 2-cost Karis put a 2-cost Gungi out of reach and the 5 fizzled (owner, Mando: "the
+    // best Turn 2 play is Reckless Sacrifice when you have any of the Villainy 1-drops in hand").
+    if (SWUBotFeatureOn('pitchtarget') && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#0$/', $head, $pt) && preg_match('/^myHand-(\d+)$/', $c, $ph)
+        && preg_match('/Discard a unit from your hand\. Deal (\d+) damage to a unit that costs more than the discarded card/i', strval(CardText($pt[1])), $pn)
+        && ($po = GetHand($seat)[intval($ph[1])] ?? null) !== null) {
+        $gain = 0.0;
+        foreach (SWUBotOpponents($seat) as $o) foreach (SWUBotUnits($o) as $u) {
+            if (intval(CardCost($u['cardID'])) <= intval(CardCost(strval($po->CardID ?? '')))) continue;
+            $mz = SWUFindMzByUID($u['uid']);
+            if ($mz !== null) $gain = max($gain, _SWUBotTargetScore($seat, $mz, true, intval($pn[1]), 'DEAL_UNIT_DAMAGE', $W) ?? 0.0);
+        }
+        return $gain + 0.5 - 0.01 * SWUBotHandKeepValue($seat, $po, $W) - $index * 1e-6;
     }
     $debuff = $head === 'APPLY_PHASE_DEBUFF' && SWUBotFeatureOn('targeting');
     $buff = $head === 'APPLY_PHASE_BUFF' && SWUBotFeatureOn('buffs');   // "+N/+N for this phase" helps its target
@@ -662,8 +861,12 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         if ($att === null) return -$index * 1e-6;
         // 3-4 seats: between enemy bases, the HEALTHIEST — the seat between me and the win (CR 12.7). A tiny tie-break,
         // so it never outweighs the style's base-vs-unit choice. 2 seats: one base, score unchanged.
-        if (str_contains($c, 'Base-')) return SWUBotTargetValue($att, null, $W)
-            + (SeatCountForGame() > 2 ? 1e-4 * SWUBaseRemainingHp(SWUMzOwner($c, $seat)) : 0.0);
+        if (str_contains($c, 'Base-')) {
+            $bv = SWUBotTargetValue($att, null, $W) + (SeatCountForGame() > 2 ? 1e-4 * SWUBaseRemainingHp(SWUMzOwner($c, $seat)) : 0.0);
+            // Feature 'cleanup' (p42): hard control vs an aggro board still reaching my base — a unit it defeats goes first.
+            if (SWUBotFeatureOn('cleanup') && ($cap = _SWUBotCleanupCap($ctx, $att, $W)) !== null) $bv = min($bv, $cap);
+            return $bv;
+        }
         $def = SWUBotViewForMz($seat, $c);
         return $def === null ? -$index * 1e-6 : SWUBotTargetValue($att, $def, $W);
     }
@@ -756,6 +959,8 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         $s = _SWUBotOptionDelta($ctx, $action, $W);
         if ($s !== null) return $s - $index * 1e-6;
     }
+    // Feature 'pilotchoice' (p42): a pilot leader's deploy — Pilot whenever a host it can use exists, and the best such host.
+    if (SWUBotFeatureOn('pilotchoice') && ($pc = _SWUBotPilotChoiceScore($ctx, $seat, $c, $type, $tip)) !== null) return $pc - $index * 1e-6;
     if ($type === 'OPTIONCHOOSE' && strval($ctx['param'] ?? '') === 'Unit&Pilot') {
         // Guide: a Pilot goes on a ready Vehicle.
         $want = _SWUBotControlsReadyVehicle($seat) ? 'Pilot' : 'Unit';
@@ -1160,15 +1365,46 @@ function _SWUBotLandoAspectCounts(int $seat, bool $postFlip): array {
     return _SWUBotAspectCounts($ids);
 }
 
+// A seat's leader COLOR aspects — every aspect on its leader(s) but Heroism / Villainy (public: the leader is face up).
+function _SWUBotLeaderColorAspects(int $seat): array {
+    $out = [];
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed)) continue;
+        foreach (explode(',', strval(CardAspect(strval($l->CardID ?? '')) ?? '')) as $a) {
+            $a = trim($a);
+            if ($a !== '' && $a !== 'Heroism' && $a !== 'Villainy') $out[] = $a;
+        }
+    }
+    return array_values(array_unique($out));
+}
+
+// 'landomill' — SHIPPED 2026-10-08 as a p42 feature (owner: "turn it on"); '@try-landomill' still names the proposal.
+function _SWUBotLandomillOn(): bool { return SWUBotProposalOn('landomill') || SWUBotFeatureOn('landomill'); }
+
+// Lando mills THEIR deck after the flip (2026-09-23) or once he has 10+ resources (owner 2026-10-08: "Lando aims for 9 for Bo-Katan and
+// off-aspect Chimaera … no guaranteed Credits are needed when Lando has 10+ resources. 9 + 1 for the mill ability"). Credit tokens are
+// not resources (CR 3.13; SWUResourceCount skips them).
+const SWU_BOT_LANDO_MILL_THEIRS_AT = 10;
+function _SWUBotLandoMillsTheirs(int $seat, bool $postFlip): bool {
+    return $postFlip || SWUResourceCount($seat) >= SWU_BOT_LANDO_MILL_THEIRS_AT;
+}
+
 // The two prompts the Action raises. Returns null when this is not a landomill decision.
 function _SWUBotLandoDecisionScore(array $ctx, string $c, int $index): ?float {
-    if (!SWUBotProposalOn('landomill')) return null;
+    if (!_SWUBotLandomillOn()) return null;
     $seat = intval($ctx['seat']);
     [$isLando, $post] = _SWUBotLandoPhase($seat);
     if (!$isLando) return null;
+    $post = _SWUBotLandoMillsTheirs($seat, $post);   // after the flip, or at 10+ resources (owner 2026-10-08)
     $tip = strval($ctx['tooltip'] ?? '');
     if ($tip === 'Choose_an_aspect') {
         $counts = _SWUBotLandoAspectCounts($seat, $post);
+        // OWNER RULING 2026-10-08: milling THEIR deck, name one of THEIR aspects — the leader's COLOR, never Heroism / Villainy: "against a
+        // Lake Country deck, it is safe to pick the aspect that is not Hero or Villain … Boba Fett JTL Lake Country, you would mill Red
+        // off them (Aggression)" (their cards share the leader's color, not its alignment). Feature 'aspectpick'.
+        if ($post && SWUBotFeatureOn('aspectpick') && in_array($c, _SWUBotLeaderColorAspects(SWUBotOpponent($seat)), true)) {
+            return 2.0 + 0.01 * floatval($counts[$c] ?? 0) - $index * 1e-6;
+        }
         return 1.0 + 0.01 * floatval($counts[$c] ?? 0) - $index * 1e-6;
     }
     if ($tip === 'Discard_from_which_deck?') {
@@ -1184,12 +1420,12 @@ function _SWUBotLandoDecisionScore(array $ctx, string $c, int $index): ?float {
 //   - with their deck nearly out, the mill IS the win condition, so it goes FIRST;
 //   - otherwise it is a spare-resource play: below the round's real plays, above passing.
 function _SWUBotLandoAbilityScore(array $ctx, array $action, array $W): ?float {
-    if (!SWUBotProposalOn('landomill')) return null;
+    if (!_SWUBotLandomillOn()) return null;
     $seat = intval($ctx['seat']);
     $l = _SWUBotActionLeader($seat, $action);
     if ($l === null) return null;
     [$isLando, $post] = _SWUBotLandoPhase($seat, [$l]);
-    if (!$isLando || !$post) return null;
+    if (!$isLando || !_SWUBotLandoMillsTheirs($seat, $post)) return null;
     $theirDeck = count(array_filter(GetDeck(SWUBotOpponent($seat)), fn($o) => $o !== null && empty($o->removed)));
     if ($theirDeck <= SWU_BOT_LANDO_MILL_KILL) return 10.0;            // milling them out is the plan now
     $biggest = 0;
@@ -1245,7 +1481,17 @@ function SWUBotUnusedSacPremium(array $v): float {
     return SWU_BOT_UNUSED_SAC_PER_POWER * intval($v['attackPower']);
 }
 
+// Feature 'sentinelsac' (p42), owner 2026-10-08: "generally, do not sac active Sentinels. so Gideon or Koska when a token unit is present".
+// An ACTIVE Sentinel (printed or gained — the view reads the live keyword) is priced SWU_BOT_SENTINEL_SAC_PREMIUM above its own cost, so
+// every other body goes first; a doomed one (it dies anyway) is not protected. ASH_097 Moff Gideon's When Defeated payback priced him as
+// fodder: Krennic's Credit Action took him over a bare Krennic unit and over a 3/3 Battlefield Marine.
+const SWU_BOT_SENTINEL_SAC_PREMIUM = 10.0;
 function SWUBotSacrificeCost(array $v): float {
+    $cost = _SWUBotSacrificeCostBase($v);
+    if (SWUBotFeatureOn('sentinelsac') && empty($v['isLeader']) && !empty($v['sentinel']) && !SWUBotUnitIsDoomed($v)) $cost += SWU_BOT_SENTINEL_SAC_PREMIUM;
+    return $cost;
+}
+function _SWUBotSacrificeCostBase(array $v): float {
     // 'shieldtrader': a printed-Shielded cheap unit is kept while its Shield is up (priced at its full value); once it is gone, fodder (owner: "then sac it") —
     // but after a 0-power token ("I'd sac the Spy since it is weaker on defense"). JTL_032's "When Defeated" is only words in its text,
     // so only a real "When Defeated:" ability earns that discount here.
@@ -1298,9 +1544,19 @@ function _SWUBotSacrificeCostByValue(array $v): float {
     $wd = strval($m[1] ?? '');
     // The unit comes BACK (as a resource, into play, or to hand): defeating it is a gain, so it is the first fodder.
     if (preg_match('/\bresource this unit\b|\bplay this unit\b|\breturn this unit\b/i', $wd)) return -1.0;
+    // Feature 'thrawnwd' (p42): JTL_002 Thrawn's reuse available — the When Defeated pays back TWICE (one that helps an opponent is not
+    // reused, so it is not doubled).
+    $times = (SWUBotFeatureOn('thrawnwd') && function_exists('_SWUThrawnReuseMode') && _SWUThrawnReuseMode(intval($v['controller'])) !== null
+              && !_SWUBotWdHelpsOpponent($wd)) ? 2 : 1;
     // It pays something back: heal, draw, or a replacement body.
-    if (preg_match('/\bheal \d+|\bdraw (a card|\d+)|\bcreate \d+/i', $wd)) return max(0.0, $value - 2.5);
-    return max(0.0, $value - 1.5);
+    if (preg_match('/\bheal \d+|\bdraw (a card|\d+)|\bcreate \d+/i', $wd)) return max(0.0, $value - 2.5 * $times);
+    return max(0.0, $value - 1.5 * $times);
+}
+
+// A When Defeated text that hands something to an OPPONENT: SEC_215 "Each opponent may ready a resource", JTL_221 "Choose an opponent.
+// For this phase, they may play this unit …" (feature 'thrawnwd').
+function _SWUBotWdHelpsOpponent(string $wd): bool {
+    return (bool)preg_match('/\bopponents?\b[^.]*\bmay\b|Choose an opponent\.[^.]*\bthey may\b/i', $wd);
 }
 
 // Owner's draw rule (2026-09-13): draw freely in the early and mid game, but watch the deck-out clock.
@@ -1406,6 +1662,7 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
     foreach (SWUBotCardTags($cid) as $t) {
         if ($t === 'debuff-all-enemy-units' || $t === 'heal-on-enemy-defeat') continue;   // board-scaled below, never flat
         $v += ($W[$t] ?? 0.0) * ($t === 'draw' ? SWUBotDrawMultiplier($seat) : 1.0);
+        if ($t === 'search-top-deck' && SWUBotFeatureOn('searchvalue')) $v += _SWUBotSearchValue($seat, $cid, $W);
     }
     // FEATURE 'curveplay' (p38; spec 2026-10-05-swusim-curve-value-design.md §4.1): the card's curve SURPLUS — what it is worth
     // over what it costs, in resources, from the owner's prices — is ADDED on top of the cost floor and the tag sum (never
@@ -2514,6 +2771,44 @@ function _SWUBotWantsHeroismInDiscard(int $seat): bool {
     return false;
 }
 
+// ── Feature 'pilotchoice' (p42) — the pilot leaders' deploy (JTL_006 Vader, JTL_009 Boba, JTL_012 Luke) ────────────────────────
+// "Deploy_as_Unit_or_Pilot?" was a 0.2 guide (Pilot only with a READY Vehicle) and "Choose_a_Vehicle_to_deploy_onto" was never scored
+// (the first listed Vehicle took the pilot: a token, a 1-HP ship). Pilot whenever a usable host exists — any host for a "When deployed as
+// an upgrade" pilot (Boba's split, Vader's TIEs), a READY one otherwise (Vonreg's / Luke's value is the host's attack, and a leader unit
+// deploys ready). A pilot that names a trait ("If it's a Fighter, it gains …", Luke) uses only a host with that trait. Else: Unit.
+// NULL for any other prompt.
+// The deploying leader is read off the continuation ("LEADER_DEPLOY_CHOICE|<cid>|<i>" / "LEADER_DEPLOY_PILOT|<cid>|<i>").
+function _SWUBotPilotNeedsTrait(string $leaderCid): string {
+    return preg_match("/If it's an? ([\w ]+?), it gains/i", strval(CardDeployText($leaderCid)), $m) ? $m[1] : '';
+}
+function _SWUBotPilotHostScore(int $seat, string $mz, string $trait): ?float {
+    $v = SWUBotViewForMz($seat, $mz);
+    if ($v === null) return null;
+    if ($trait !== '' && !TraitContains($v['obj'], $trait)) return -1.0;
+    // Ready first (the pilot's power swings this round), then the sturdiest (the pilot dies with its host), then power. A token host
+    // is no worse in itself — a 1/1 TIE just loses on HP.
+    return 1.0 + ($v['ready'] ? 2.0 : 0.0) + 0.3 * $v['remaining'] + 0.1 * $v['power'];
+}
+function _SWUBotPilotChoiceScore(array $ctx, int $seat, string $c, string $type, string $tip): ?float {
+    $next = explode('|', strval(($ctx['following'] ?? [])[0] ?? ''));
+    if (!in_array($next[0] ?? '', ['LEADER_DEPLOY_CHOICE', 'LEADER_DEPLOY_PILOT'], true)) return null;
+    $trait = _SWUBotPilotNeedsTrait(strval($next[1] ?? ''));
+    if ($type === 'OPTIONCHOOSE' && strval($ctx['param'] ?? '') === 'Unit&Pilot') {
+        global $playerID;
+        $saved = $playerID; $playerID = $seat;
+        $hosts = function_exists('SWUGetLeaderPilotVehicles') ? (array)SWUGetLeaderPilotVehicles($seat) : [];
+        $playerID = $saved;
+        // A "When deployed as an upgrade" pilot (Boba's split, Vader's TIEs) pays off on any host; any other pilot's value is the host's
+        // attack (Vonreg's, Luke's On Attack), and a deployed leader UNIT enters ready and swings now — so it wants a READY host.
+        $anyHost = (bool)preg_match('/When deployed as an upgrade:/i', strval(CardDeployText(strval($next[1] ?? ''))));
+        $usable = array_filter($hosts, fn($mz) => ($s = _SWUBotPilotHostScore($seat, strval($mz), $trait)) !== null && $s > 0.0
+                                                  && ($anyHost || (SWUBotViewForMz($seat, strval($mz))['ready'] ?? false)));
+        return $c === (empty($usable) ? 'Unit' : 'Pilot') ? 1.0 : 0.0;
+    }
+    if ($tip === 'Choose_a_Vehicle_to_deploy_onto') return _SWUBotPilotHostScore($seat, $c, $trait);
+    return null;
+}
+
 // ── Features 'shipdiscount' + 'deployfirst' (p42) — JTL_005 Admiral Piett ──────────────────────────────────────────────────
 // Front: "Action [Exhaust]: Play a Capital Ship unit from your hand. It costs 1 resource less." The bot priced it by what it UNLOCKS, so
 // an affordable ship read the discount as nothing and was hard-cast while the Action was ready (367/300-game traces, Blue). Its value:
@@ -2556,6 +2851,167 @@ function _SWUBotDeployWouldDiscount(int $seat, string $cid): bool {
             && HasTrait($cid, $m[1])) return true;
     }
     return false;
+}
+
+// Feature 'deploybuff' (p42): a leader that can deploy NOW whose deployed side reads "When you play or create a unit: …" (ASH_017 Greef:
+// "Give an Advantage token to that unit") — a unit played before that deploy misses it (41% of Greef's deploys came after 2+ plays).
+function _SWUBotDeployBuffsPlay(int $seat, string $cid): bool {
+    if (!str_contains(strval(CardType($cid)), 'Unit')) return false;
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed) || in_array(strval($l->Deployed ?? 'false'), ['true', '1'], true)) continue;
+        if (in_array(strval($l->EpicActionUsed ?? 'false'), ['true', '1'], true) || SWUResourceCount($seat) < _SWUBotLeaderThreshold($seat, $l)) continue;
+        if (preg_match('/When you play (or create )?a unit:/i', strval(CardDeployText(strval($l->CardID ?? ''))))) return true;
+    }
+    return false;
+}
+
+// Feature 'creditdeploy' (p42): one more Credit brings an undeployed leader's "Epic Action [N resources]: Deploy this leader" within reach
+// — this round (the payment capacity now) or next (one more resource), where it is short without it.
+function _SWUBotCreditAdvancesDeploy(int $seat): bool {
+    $credits = function_exists('SWUUsableCreditTokenMzIDs') ? count(SWUUsableCreditTokenMzIDs($seat)) : 0;
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed) || in_array(strval($l->Deployed ?? 'false'), ['true', '1'], true)) continue;
+        if (in_array(strval($l->EpicActionUsed ?? 'false'), ['true', '1'], true)) continue;
+        if (!preg_match('/Epic Action \[(\d+) resources?\]: Deploy this leader/i', strval(CardText(strval($l->CardID ?? ''))), $m)) continue;
+        $n = intval($m[1]);
+        foreach ([SWUTotalPaymentCapacity($seat), SWUResourceCount($seat) + 1 + $credits] as $cap) if ($cap < $n && $cap + 1 >= $n) return true;
+    }
+    return false;
+}
+
+// Feature 'deployswing' (p42): a deploy puts a READY leader unit on the board (CR 4.329) — in a race (audit: "in a race, price a non-pilot
+// deploy as the leader unit's attack this turn"), worth its best attack this turn, priced as any attack is (SWUBotTargetValue). HMW_007 Vader's free deploy scored the flat 1.5, below most plays and attacks: in 24 of 47 probe games
+// that reached 6 resources he never deployed before the game ended. 0 when no ready leader unit appears (a pilot deploy stops at its
+// Unit/Pilot prompt) or it has nothing to attack.
+// A race is on: either side's clock on the other's base (SWUBotClock, in rounds) is SWU_BOT_DEPLOYSWING_RACE or less.
+const SWU_BOT_DEPLOYSWING_RACE = 3;
+function _SWUBotRaceIsOn(int $seat): bool {
+    foreach (SWUBotOpponents($seat) as $opp) {
+        if (SWUBotClock($seat, $opp) <= SWU_BOT_DEPLOYSWING_RACE || SWUBotClock($opp, $seat) <= SWU_BOT_DEPLOYSWING_RACE) return true;
+    }
+    return false;
+}
+
+function _SWUBotDeploySwingValue(array $ctx, array $deploy, array $W): float {
+    $seat = intval($ctx['seat']);
+    $leader = _SWUBotLeaderOfAction($seat, $deploy);
+    if ($leader === null || !function_exists('SWUBotLookahead')) return 0.0;
+    $cid = strval($leader->CardID ?? '');
+    $r = SWUBotLookahead($seat, $deploy, function () use ($ctx, $seat, $cid, $W) {
+        $best = 0.0;
+        foreach (SWUBotUnits($seat) as $v) {
+            if (!$v['isLeader'] || $v['cardID'] !== $cid || !$v['ready']) continue;
+            foreach (SWUBotAllowedTargets($ctx, $v) as [$k, $u]) $best = max($best, SWUBotTargetValue($v, $k === 'base' ? null : $u, $W));
+        }
+        return ['v' => $best];
+    });
+    return floatval($r['v'] ?? 0.0);
+}
+
+// Feature 'supportfirst' (p42): a SUPPORT leader's deploy ("When you deploy this leader, you may attack with another unit. It gains this
+// unit's other abilities for this attack") makes the planned Support attacker's attack in the same action — so the deploy is worth that
+// attack too, plus the lent "On Attack: If you have the initiative, you may draw a card" (ASH_014 The Mandalorian) while I hold it. Owner,
+// Mando: "6R deploy and use Mando's support on any unit that stuck"; at the flat 1.5 the stuck unit attacked first and the Support was lost.
+// 0 when no ready unit is there to make the attack.
+function _SWUBotSupportDeployValue(array $ctx, array $deploy, array $W): float {
+    $seat = intval($ctx['seat']);
+    $leader = _SWUBotLeaderOfAction($seat, $deploy);
+    if ($leader === null) return 0.0;
+    $dtext = strval(CardDeployText(strval($leader->CardID ?? '')));
+    if (!preg_match('/^Support \(/', $dtext) || ($uid = _SWUBotSupportPlanUid($seat)) === 0) return 0.0;
+    $best = null;
+    foreach (SWUBotUnits($seat) as $v) {
+        if ($v['uid'] !== $uid) continue;
+        foreach (SWUBotAllowedTargets($ctx, $v) as [$k, $u]) {
+            $tv = SWUBotTargetValue($v, $k === 'base' ? null : $u, $W);
+            $best = $best === null ? $tv : max($best, $tv);
+        }
+    }
+    if ($best === null) return 0.0;
+    $draw = preg_match('/On Attack: If you have the initiative, you may draw a card/i', $dtext) && function_exists('PlayerHasIniative') && PlayerHasIniative($seat)
+        ? floatval($W['draw'] ?? 0.0) * SWUBotDrawMultiplier($seat) : 0.0;
+    return max(0.0, $best) + $draw;
+}
+
+// Feature 'actionfirst' (p42): a leader deploys whether ready or exhausted, and its unit enters ready (CR 4.329) — so in the round it
+// deploys, its front Action, while worth using, comes first and costs the deploy nothing. Audit 2026-10-08: Lando 0 of 1,092 deploys
+// after his Action (47% deployed with no Credit for the When Deployed), Obi-Wan 0/1,011, Talzin 35/1,965. Left alone:
+//   - a deploy that discounts what that Action plays (JTL_005 Piett, "Each Capital Ship unit you play costs 2 resources less": deploy
+//     first — 'deployfirst' also gets there, but bot_enablers_test runs without it and pins "deploy Piett first");
+//   - a SUPPORT leader (ASH_009 Ahsoka …): its flip turn is planned by 'buffspread' / 'stacklethal' (bot_stacklethal_test);
+//   - an Action whose COST defeats a friendly unit (LAW_008 Krennic): the deploy may need that body ("another friendly unit deals
+//     damage…", 'deploystrike' — bot_deploystrike_test);
+//   - a When Deployed replay of a unit defeated this phase (HMW_016 Maul): 'deployreplay' owns that hold.
+// Returns the score the deploy must stay under, or NULL.
+function _SWUBotDeployWaitsForAction(array $ctx, array $deploy): ?float {
+    $seat = intval($ctx['seat']);
+    $leader = _SWUBotLeaderOfAction($seat, $deploy);
+    if ($leader === null) return null;
+    $dtext = strval(CardDeployText(strval($leader->CardID ?? '')));
+    if (preg_match('/Each [\w ]+? unit you play costs \d+ resources? less|\bSupport\b/i', $dtext) || preg_match(SWU_BOT_DEPLOYREPLAY_RE, $dtext)) return null;
+    if (preg_match('/Action \[[^\]]*defeat a friendly unit/i', strval(CardText(strval($leader->CardID ?? ''))))) return null;
+    foreach ((array)($ctx['actions'] ?? []) as $i => $a) {
+        if (SWUBotActionKind($a) !== 'leader-ability' || _SWUBotLeaderOfAction($seat, $a) !== $leader) continue;
+        $av = SWUBotScoreAction($ctx, $a, intval($i));
+        return $av > 0.0 ? $av - 0.01 : null;
+    }
+    return null;
+}
+
+const SWU_BOT_HEAL_BASE_PRESSURE = 15;   // 'healamount': a base this close to defeat counts its HP for more than a unit's
+
+// ── Feature 'landoflip' (p42) — LAW_018 Lando's flip: "When Deployed: You may defeat a friendly Credit token. If you do, create 3 Credit
+// tokens." Owner 2026-10-08: "before Lando flips, make sure you have 1 Credit to triple it. do not deploy Lando with 0 Credits"; with one
+// banked from 5R the 6R Action is skipped (6R + 3C = 9 for Bo-Katan / Chimaera; using it on 6R leaves 5R + 3C = 8).
+function _SWUBotCreditFlipLeader(object $l): bool {
+    return (bool)preg_match('/defeat a friendly Credit token\. If you do, create \d+ Credit tokens/i', strval(CardDeployText(strval($l->CardID ?? ''))));
+}
+function _SWUBotUsableCredits(int $seat): int {
+    return function_exists('SWUUsableCreditTokenMzIDs') ? count(SWUUsableCreditTokenMzIDs($seat)) : 0;
+}
+function _SWUBotActionLeaderOfDeploy(int $seat, array $action): ?object { return _SWUBotLeaderOfAction($seat, $action); }
+function _SWUBotLeaderCanDeployNow(int $seat, object $l): bool {
+    return !in_array(strval($l->Deployed ?? 'false'), ['true', '1'], true) && !in_array(strval($l->EpicActionUsed ?? 'false'), ['true', '1'], true)
+        && SWUResourceCount($seat) >= _SWUBotLeaderThreshold($seat, $l);
+}
+// A "triple a Credit" leader still to flip (undeployed, Epic Action unspent): its last banked Credit is kept for the flip.
+function _SWUBotKeepsFlipCredit(int $seat): bool {
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed) || !_SWUBotCreditFlipLeader($l)) continue;
+        if (!in_array(strval($l->Deployed ?? 'false'), ['true', '1'], true) && !in_array(strval($l->EpicActionUsed ?? 'false'), ['true', '1'], true)) return true;
+    }
+    return false;
+}
+
+// ── Feature 'mandoclaim' (p42) — ASH_014 The Mandalorian: "When you take the initiative: You may pay 1 resource. If you do, draw a card." ─
+// Owner plan 2026-10-08: "2R/T1 immediately claim and draw · 3R play a 2-drop then claim and draw · 4R play a 3-drop then claim and draw".
+// Taking the initiative ENDS my actions this round, so the plays that still leave the resource go first (attacks already do: the attack-first
+// guide and rule 8), then the claim. The claim is worth the draw (W['draw'] × the deck-out multiplier), kept just under those plays; a play
+// that spends that last resource is charged the draw.
+// Audit 2026-10-08: the claim was worth 0.05 — taken only when nothing else was left, 43% of the time with no resource for the draw.
+// The claim's resource cost N while the draw is on offer (an undeployed leader with the text, the initiative unclaimed) — else null.
+function _SWUBotClaimDrawCost(int $seat): ?int {
+    if (!str_contains(strval(GetInitiativeCounter() ?? ''), 'UNCLAIMED')) return null;
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed) || in_array(strval($l->Deployed ?? 'false'), ['true', '1'], true)) continue;
+        if (preg_match('/When you take the initiative: You may pay (\d+) resources?\. If you do, draw a card/i', strval(CardText(strval($l->CardID ?? ''))), $m)) return intval($m[1]);
+    }
+    return null;
+}
+function _SWUBotClaimDrawInitiative(array $ctx, int $seat, array $W): float {
+    $n = _SWUBotClaimDrawCost($seat);
+    $cap = SWUTotalPaymentCapacity($seat);
+    if ($n === null || $cap < $n) return $W['initiative'];
+    $v = $W['initiative'] + floatval($W['draw'] ?? 0.0) * SWUBotDrawMultiplier($seat);
+    foreach ((array)($ctx['actions'] ?? []) as $i => $a) {
+        // (Attacks need no cap here: the 'attack-first' guide and rule 8 "no unused attacks" already put them before the claim — test D.)
+        if (SWUBotActionKind($a) !== 'play') continue;
+        $o = GetHand($seat)[intval(substr(SWUBotActionMz($a), strlen('myHand-')))] ?? null;
+        if ($o === null || $cap - intval(SWUComputePlayCost($seat, $o)) < $n) continue;   // it spends the draw's resource: the claim may go first
+        $s = SWUBotScoreAction($ctx, $a, intval($i));
+        if ($s > 0.0) $v = min($v, $s - 0.01);
+    }
+    return $v;
 }
 
 // ── Feature 'attackreserve' (p42) — deployed HMW_010 Tarfful ───────────────────────────────────────────────────────────────
@@ -2606,6 +3062,37 @@ function _SWUBotWantsAspectInDiscard(int $seat, string $aspect): bool {
         foreach ($zone as $o) {
             if ($o !== null && empty($o->removed) && preg_match("/$aspect card in your discard pile/i", strval(CardText(strval($o->CardID ?? ''))))) return true;
         }
+    }
+    return false;
+}
+
+// Feature 'anakinpitch' (p42), owner 2026-10-08 (Mando Colossus): "Reckless Sacrifice + the villainy card is also a great way to instantly
+// activate Anakin … before the 6R turn … especially against aggro". A "Discard a unit from your hand" play (ASH_163) puts the event AND the
+// pitched unit in my discard: each Anakin half ("If there is a Heroism / Villainy card in your discard pile …") it switches on is worth
+// W['removal'] (Anakin's -3/-3, as 'heropitch' / 'villainpitch' price the pitched card). The pitch is the unit that switches on most —
+// never an Anakin (with only Anakin to pitch, the play throws away its own payoff: 0).
+const SWU_BOT_ANAKIN_ASPECTS = ['Heroism', 'Villainy'];
+function _SWUBotAnakinPitchValue(int $seat, int $i, string $cid, array $W): float {
+    if (!preg_match('/Discard a unit from your hand/i', strval(CardText($cid)))) return 0.0;
+    $want = array_values(array_filter(SWU_BOT_ANAKIN_ASPECTS, fn($a) => _SWUBotWantsAspectInDiscard($seat, $a)));
+    if (empty($want)) return 0.0;
+    $aspects = fn(string $c) => array_map('trim', explode(',', strval(CardAspect($c) ?? '')));
+    $own = $aspects($cid);
+    $best = 0;
+    foreach (GetHand($seat) as $j => $o) {
+        if ($j === $i || $o === null || !empty($o->removed) || !str_contains(strval(CardType(strval($o->CardID ?? ''))), 'Unit')) continue;
+        if (_SWUBotIsAnakinPayoff(strval($o->CardID ?? ''))) continue;   // never pitch the Anakin it is for
+        $best = max($best, count(array_intersect($want, array_merge($own, $aspects(strval($o->CardID ?? ''))))));
+    }
+    return $W['removal'] * $best;
+}
+function _SWUBotIsAnakinPayoff(string $cid): bool {
+    return (bool)preg_match('/If there is a (Heroism|Villainy) card in your discard pile/i', strval(CardText($cid)));
+}
+// An Anakin in hand to cash the pitch: then a pitch that hits nothing else is still the play (the dud gate does not hold it).
+function _SWUBotAnakinInHand(int $seat): bool {
+    foreach (GetHand($seat) as $o) {
+        if ($o !== null && empty($o->removed) && _SWUBotIsAnakinPayoff(strval($o->CardID ?? ''))) return true;
     }
     return false;
 }
@@ -2958,6 +3445,69 @@ function _SWUBotWeaknessActionValue(int $seat, array $action, array $W): ?float 
 // returned its CHEAPEST unit (24 of 120 traced uses were the 1-cost Luke, which nothing can undercut) and always declined the
 // deployed "you may". And the Action's lookahead charged the returned body as a SACRIFICE (Depa -> Amidala scored -2.7).
 const SWU_BOT_TUCK_REBUY_SHARE = 0.5;
+const SWU_BOT_FORCE_HEAL_RE = '/When Played: You may use the Force\. If you do, heal/i';   // LOF_101 Yoda ('yodaloop')
+
+// Feature 'yodaloop' (p42, owner 2026-10-08: "Yoda's heal first"): a hand unit castable NOW whose When Played spends the Force on a heal —
+// the tuck, which spends the Force too, waits for it.
+function _SWUBotCastableForceHealInHand(int $seat): bool {
+    // Owner: "no need to heal when there's nothing on base" — and "don't waste on a heal of 4 or less": only a heal that lands in FULL.
+    $dmg = intval((GetBase($seat)[0] ?? null)->Damage ?? 0);
+    $cap = SWUTotalPaymentCapacity($seat);
+    foreach (GetHand($seat) as $o) {
+        if ($o === null || !empty($o->removed) || !preg_match(SWU_BOT_FORCE_HEAL_RE, strval(CardText(strval($o->CardID ?? ''))))) continue;
+        if (!preg_match('/use the Force\. If you do, heal (\d+)/i', strval(CardText(strval($o->CardID ?? ''))), $hm) || $dmg < intval($hm[1])) continue;
+        if (intval(SWUComputePlayCost($seat, $o)) <= $cap) return true;
+    }
+    return false;
+}
+
+// Feature 'forceregen' (p42) — FORCE SEQUENCING (leader audit 2026-10-08, the Qui-Gon deck). The Force is one token; a refill while I hold
+// it does nothing. LOF_023 Jedi Temple refills it "When a friendly Force unit attacks". So: holding the Force, a spender worth using now goes
+// BEFORE a refilling attack (attacking first wasted the refill, and the tuck then ended the round with no Force); without it, a "When
+// Played: You may use the Force" play (LOF_101 Yoda's heal 5) goes AFTER one (cast first, the heal was lost).
+const SWU_BOT_FORCE_WP_RE = '/When Played: You may use the Force/i';
+function _SWUBotAttackRefillsForce(int $seat, array $att): bool {
+    return str_contains(strval(CardTrait($att['cardID']) ?? ''), 'Force')
+        && (bool)preg_match('/When a friendly Force unit attacks: The Force is with you/i', strval(CardText(strval((GetBase($seat)[0] ?? null)->CardID ?? ''))));
+}
+// The best score among the refilling attacks on offer, or NULL when none is worth making.
+function _SWUBotForceRefillAttackScore(array $ctx, int $seat): ?float {
+    $best = null;
+    foreach ((array)($ctx['actions'] ?? []) as $i => $a) {
+        if (SWUBotActionKind($a) !== 'attack' || ($v = SWUBotViewForMz($seat, SWUBotActionMz($a))) === null || !_SWUBotAttackRefillsForce($seat, $v)) continue;
+        $s = SWUBotScoreAction($ctx, $a, intval($i));
+        if ($s > 0.0) $best = $best === null ? $s : max($best, $s);
+    }
+    return $best;
+}
+// The best score among the Force spenders on offer — an Action whose cost uses the Force (LOF_016's tuck), a "When Played: You may use
+// the Force" play — or NULL when none is worth using.
+function _SWUBotForceSpenderScore(array $ctx): ?float {
+    $seat = intval($ctx['seat']); $best = null;
+    foreach ((array)($ctx['actions'] ?? []) as $i => $a) {
+        $kind = SWUBotActionKind($a);
+        if (in_array($kind, ['leader-ability', 'unit-action'], true)) $spends = (bool)preg_match('/Action \[[^\]]*use the Force/i', _SWUBotActionSourceText($seat, $a));
+        elseif ($kind === 'play') $spends = preg_match('/^myHand-(\d+)/', SWUBotActionMz($a), $hm) && preg_match(SWU_BOT_FORCE_WP_RE, strval(CardText(strval((GetHand($seat)[intval($hm[1])] ?? null)->CardID ?? ''))));
+        else continue;
+        if (!$spends) continue;
+        $s = SWUBotScoreAction($ctx, $a, intval($i));
+        if ($s > 0.0) $best = $best === null ? $s : max($best, $s);
+    }
+    return $best;
+}
+
+// Feature 'yodaloop': a TUCK deck (its leader returns a unit and plays a cheaper one free — LOF_016) and a chain piece of it: a unit that
+// is not of the excluded aspect, costs 5+, and has something to re-buy (When Played / Ambush / Shielded) — Kelleran, Depa, Amidala, Yoda.
+// Owner: "only don't resource" them.
+function _SWUBotTuckChainPiece(int $seat, string $cid): bool {
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed) || ($ex = _SWUBotTuckExcluded(strval($l->CardID ?? ''))) === null) continue;
+        return str_contains(strval(CardType($cid)), 'Unit') && intval(CardCost($cid)) >= 5
+            && ($ex === '' || !str_contains(strval(CardAspect($cid) ?? ''), $ex))
+            && (bool)preg_match('/When Played|\bAmbush\b|\bShielded\b/i', strval(CardText($cid)));
+    }
+    return false;
+}
 
 // The aspect a tuck card's free play excludes ('Villainy'), '' for none, or NULL when $cid does not tuck (front or deployed text).
 function _SWUBotTuckExcluded(string $cid): ?string {
@@ -2967,8 +3517,11 @@ function _SWUBotTuckExcluded(string $cid): ?string {
 }
 
 // The gain of returning the unit $v: the best cheaper unit in hand it lets me play free. NULL when there is none.
-function _SWUBotTuckGainFor(int $seat, array $v, string $excluded): ?float {
+function _SWUBotTuckGainFor(int $seat, array $v, string $excluded, bool $canWait = false): ?float {
     if ($v['isLeader']) return null;
+    // Feature 'yodaloop' (owner 2026-10-08: "if possible to swing to base and get the 5 damage in, then take that line"): where the tuck can
+    // WAIT (the front Action), a ready unit that can hit the enemy base swings first and is returned after.
+    if ($canWait && SWUBotFeatureOn('yodaloop') && $v['ready'] && (SWUBotAttackTargets($seat, $v)['base'] ?? false)) return null;
     $free = null;
     foreach (GetHand($seat) as $o) {
         if ($o === null || !empty($o->removed)) continue;
@@ -2979,16 +3532,19 @@ function _SWUBotTuckGainFor(int $seat, array $v, string $excluded): ?float {
     }
     if ($free === null) return null;
     $rebuy = preg_match('/When Played|\bAmbush\b|\bShielded\b/i', strval(CardText($v['cardID']))) ? SWU_BOT_TUCK_REBUY_SHARE * intval($v['cost']) : 0.0;
+    // Feature 'yodaloop' (p42, owner 2026-10-08: "tuck Yoda every round once he's used"): a Force-heal When Played (LOF_101 Yoda) is re-bought
+    // at its whole cost, so it is the first unit the tuck returns.
+    if (SWUBotFeatureOn('yodaloop') && preg_match(SWU_BOT_FORCE_HEAL_RE, strval(CardText($v['cardID'])))) $rebuy = 1.0 * intval($v['cost']);
     // SWUBotUnitValue ignores damage; the returned card comes back whole, so the body that leaves is the HP it has left.
     $body = SWUBotUnitValue($v) * max(0, intval($v['remaining'])) / max(1, intval($v['hp']));
     return $rebuy + $free - $body - SWUBotUnusedSacPremium($v);
 }
 
 // The best pair on my board, or NULL when no unit can be returned for a cheaper free play.
-function _SWUBotTuckBest(int $seat, string $excluded): ?float {
+function _SWUBotTuckBest(int $seat, string $excluded, bool $canWait = false): ?float {
     $best = null;
     foreach (SWUBotUnits($seat) as $v) {
-        $g = _SWUBotTuckGainFor($seat, $v, $excluded);
+        $g = _SWUBotTuckGainFor($seat, $v, $excluded, $canWait);
         if ($g !== null) $best = max($best ?? $g, $g);
     }
     return $best;
@@ -3021,6 +3577,19 @@ function _SWUBotDoublePlayValue(array $ctx, int $seat): float {
     $best = max(array_column($plays, 0)) - 0.01;
     foreach ($plays as $a => [$s1, $c1]) foreach ($plays as $b => [$s2, $c2]) if ($a < $b && $c1 + $c2 <= $cap) $best = max($best, $s1 + $s2);
     return $best;
+}
+
+// Feature 'healwaste' (p42): the Restore points $att's attack would waste (Restore N past my base's damage), when an enemy unit is ready to
+// hit my base before it — 0 otherwise.
+function _SWUBotRestoreWasted(int $seat, array $att): int {
+    if (!isset($att['obj']) || !function_exists('HasKeyword_Restore') || !HasKeyword_Restore($att['obj'])) return 0;
+    $n = intval(GetKeyword_Restore_Value($att['obj']));
+    $wasted = max(0, $n - intval((GetBase($seat)[0] ?? null)->Damage ?? 0));
+    if ($wasted <= 0) return 0;
+    foreach (SWUBotOpponents($seat) as $opp) {
+        foreach (SWUBotUnits($opp) as $u) if ($u['ready'] && (SWUBotAttackTargets($opp, $u)['base'] ?? false)) return $wasted;
+    }
+    return 0;
 }
 
 // ── Feature 'unitedge' (p42) — HMW_008 General Grievous, deployed ─────────────────────────────────────────────────────────
@@ -3061,6 +3630,7 @@ function _SWUBotEffectOnlyValue(int $seat, string $cid, array $W): ?float {
     $v = 0.0;
     foreach (SWUBotCardTags($cid) as $t) {
         if (!in_array($t, SWU_BOT_BODY_TAGS, true)) $v += floatval($W[$t] ?? 0.0) * ($t === 'draw' ? SWUBotDrawMultiplier($seat) : 1.0);
+        if ($t === 'search-top-deck' && SWUBotFeatureOn('searchvalue')) $v += _SWUBotSearchValue($seat, $cid, $W);
     }
     return $v;
 }
@@ -3119,8 +3689,103 @@ function _SWUBotDeployReplayScore(array $ctx, array $action, float $dv, array $W
     return $dv;
 }
 
+// ── Feature 'searchvalue' (p42) — "Search the top N cards of your deck for …" ────────────────────────────────────────────────────────
+// The 'search-top-deck' tag had no weight: every search was worth 0 (LOF_057 Owen Lars read as effect-less). OWNER RULINGS 2026-10-08:
+//   to hand ("draw it/them", "into your hand") — a draw per card it can find; into play ("play it/them") — a draw per card played PLUS the
+//   resources saved (W['develop'] each); anything else (discard it, put it on top, resource it) — half a draw. A draw = W['draw'] × the
+//   deck-out multiplier. "up to N" / "N" / "a" counts as written; "any number of" counts as 2.
+function _SWUBotSearchValue(int $seat, string $cid, array $W): float {
+    $text = str_replace("\n", ' ', strval(CardText($cid)));
+    if (!preg_match('/Search the top \d+ cards of your deck for (.*?)(?:\(|$)/i', $text, $m)) return 0.0;
+    $clause = strtolower($m[1]);
+    $words = ['a' => 1, 'an' => 1, 'one' => 1, 'two' => 2, 'three' => 3, 'four' => 4];
+    $n = 1;
+    if (preg_match('/^(?:up to )?(\d+|a|an|one|two|three|four)\b/', $clause, $c)) $n = ctype_digit($c[1]) ? intval($c[1]) : ($words[$c[1]] ?? 1);
+    elseif (str_starts_with($clause, 'any number of')) $n = 2;
+    $draw = floatval($W['draw'] ?? 0.0) * SWUBotDrawMultiplier($seat);
+    if (preg_match('/\bdraw (it|them)\b|into your hand/', $clause)) return $n * $draw;
+    if (preg_match('/\bplay (it|them|each of them)\b/', $clause)) {
+        $saved = 0;
+        if (preg_match('/costs? (\d+) resources? less/', $clause, $s)) $saved = intval($s[1]);
+        elseif (preg_match('/combined cost (\d+) or less/', $clause, $s)) $saved = intval($s[1]);
+        elseif (str_contains($clause, 'for free') && preg_match('/costs? (\d+) or less/', $clause, $s)) $saved = $n * intval($s[1]);
+        return $n * $draw + floatval($W['develop'] ?? 0.0) * $saved;
+    }
+    return 0.5 * $draw;
+}
+
+// ── Feature 'twoping' (p42) — LOF_009 Darth Maul, Sith Revealed ─────────────────────────────────────────────────────────────
+// "Deal 1 damage to a unit and 1 damage to a different unit" — BOTH mandatory. The best first target plus the best DIFFERENT second
+// one, each priced as the targeting pick prices it (_SWUBotTargetScore: an enemy hit is a gain, my own unit a loss). With one enemy
+// unit the second ping lands on mine. Returns [value, kills] (kills: a ping defeats an enemy unit), or null for any other text.
+function _SWUBotTwoPingValue(int $seat, string $text, array $W): ?array {
+    if (!preg_match('/Deal (\d+) damage to a unit and (\d+) damage to a different unit/i', $text, $m)) return null;
+    global $playerID;
+    $saved = $playerID; $playerID = $seat;
+    // The whole table: 'team*' (my units, and a teammate's in Team Suns — 'my' outside one) + 'their*'.
+    $mzs = [];
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $mzs[] = strval($mz); }
+    }
+    $playerID = $saved;
+    $score = function (string $mz, int $n) use ($seat, $W) { return _SWUBotTargetScore($seat, $mz, true, $n, '', $W) ?? 0.0; };
+    $best = null; $kills = false;
+    foreach ($mzs as $a) foreach ($mzs as $b) {
+        if ($a === $b) continue;
+        $v = $score($a, intval($m[1])) + $score($b, intval($m[2]));
+        if ($best === null || $v > $best) $best = $v;
+    }
+    foreach ($mzs as $mz) {
+        if (!str_starts_with($mz, 'their')) continue;
+        $u = SWUBotViewForMz($seat, $mz);
+        if ($u !== null && intval($u['shields']) === 0 && intval($u['remaining']) <= max(intval($m[1]), intval($m[2]))) $kills = true;
+    }
+    return $best === null ? null : [$best, $kills];
+}
+
+// ── Feature 'freekill' (p42) — LAW_004 Aurra Sing ──────────────────────────────────────────────────────────────────────────
+// "Action [Exhaust]: Defeat a non-leader unit with N or less remaining HP." Free, and it never costs an attack — every attack is still
+// there afterwards, and the one that would have spent itself on that unit can hit something else. So with a target it is the best kill's
+// value, and it goes before any attack on offer. NULL for any other text; -0.5 with nothing to kill. Audit 2026-10-08: flat 0.40, used in
+// 60-68% of the rounds with a target, 39 attacks into a unit it could have taken for free.
+function _SWUBotFreeKillValue(array $ctx, int $seat, string $text, array $W): ?float {
+    if (!preg_match('/Action \[Exhaust\]: Defeat a non-leader unit with (\d+) or less remaining HP/i', $text, $m)) return null;
+    global $playerID;
+    $saved = $playerID; $playerID = $seat;
+    $best = null;
+    foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (GetZone($z) as $i => $o) {
+            if ($o === null || !empty($o->removed)) continue;
+            $v = SWUBotViewForMz($seat, "$z-$i");
+            if ($v === null || $v['isLeader'] || intval($v['remaining']) > intval($m[1])) continue;
+            $s = SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0;   // the targeting pick's price of a kill
+            $best = max($best ?? $s, $s);
+        }
+    }
+    $playerID = $saved;
+    if ($best === null) return -0.5;
+    foreach ((array)($ctx['actions'] ?? []) as $i => $a) {
+        if (SWUBotActionKind($a) === 'attack') $best = max($best, SWUBotScoreAction($ctx, $a, intval($i)) + 0.01);
+    }
+    return $best;
+}
+
 function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     $seat = intval($ctx['seat']);
+    // Feature 'landoflip' (p42): a Credit is already banked and the flip is available now — the Action is not needed (owner: "the ability
+    // may not be necessary if you already had one banked from the 5R turn. this way you can play a 9-drop").
+    if (SWUBotFeatureOn('landoflip') && ($fl = _SWUBotActionLeader($seat, $action)) !== null && _SWUBotCreditFlipLeader($fl)
+        && _SWUBotUsableCredits($seat) >= 1 && _SWUBotLeaderCanDeployNow($seat, $fl)) return -0.5;
+    if (SWUBotFeatureOn('freekill') && SWUBotActionKind($action) === 'leader-ability'
+        && ($fk = _SWUBotFreeKillValue($ctx, $seat, _SWUBotActionSourceText($seat, $action), $W)) !== null) return $fk;
+    // Feature 'twoping' (p42): Maul's two mandatory pings, priced as a pair; no gain and it waits. A ping that kills is a kill for the
+    // Force: without one, the Force stays for another card that needs it (the 'force' gate's rule, which read kills off "-N/-N" only).
+    if (SWUBotFeatureOn('twoping') && ($tp = _SWUBotTwoPingValue($seat, _SWUBotActionSourceText($seat, $action), $W)) !== null) {
+        [$v, $kills] = $tp;
+        if ($v <= 0.0) return -0.5;
+        if (!$kills && preg_match('/use the Force/i', _SWUBotActionSourceText($seat, $action)) && _SWUBotHasOtherForceUse($seat)) return min($v, 0.02);
+        return $W['ability'] + $v;
+    }
     // Feature 'playdefeat' (p42): the best unit's effects (+ the deploy replay it sets up). None worth it: the Action waits.
     if (SWUBotFeatureOn('playdefeat') && ($l = _SWUBotActionLeader($seat, $action)) !== null && preg_match(SWU_BOT_PLAYDEFEAT_RE, strval(CardText(strval($l->CardID ?? ''))), $pm)) {
         $best = null;
@@ -3135,7 +3800,8 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     // Feature 'tuck' (p42): priced by its best pair; no pair, or a losing one, and the Action waits. Ahead of the lookahead, which
     // charges the returned body as a sacrifice.
     if (SWUBotFeatureOn('tuck') && ($l = _SWUBotActionLeader($seat, $action)) !== null && ($ex = _SWUBotTuckExcluded(strval($l->CardID ?? ''))) !== null) {
-        $g = _SWUBotTuckBest($seat, $ex);
+        if (SWUBotFeatureOn('yodaloop') && preg_match('/use the Force/i', _SWUBotActionSourceText($seat, $action)) && _SWUBotCastableForceHealInHand($seat)) return -0.5;
+        $g = _SWUBotTuckBest($seat, $ex, true);   // the front Action can wait for a swing
         return ($g === null || $g <= 0.0) ? -0.5 : $W['ability'] + $W['develop'] * $g;
     }
     // PROPOSAL 'landomill' (default OFF): once Lando has flipped and come back, the Action is a spare-resource play —
@@ -3297,7 +3963,10 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     // An Action that costs the Force (Talzin's -1/-1): never onto an empty enemy board, and held when its -N/-N kills
     // nothing while another card needs the Force (feature 'force').
     $text = _SWUBotActionSourceText($seat, $action);
-    if (SWUBotFeatureOn('force') && preg_match('/Action \[[^\]]*use the Force/i', $text)) {
+    // Feature 'forcebuff' (p42): only a HOSTILE Force Action is judged so — LOF_008 Obi-Wan's Experience needs no enemy and kills nothing
+    // by design (0 uses on 2,065 empty enemy boards).
+    $forceHostile = !SWUBotFeatureOn('forcebuff') || preg_match('/\]:.*(-\d+\/-\d+|deal \d+ damage|defeat)/is', $text);
+    if (SWUBotFeatureOn('force') && $forceHostile && preg_match('/Action \[[^\]]*use the Force/i', $text)) {
         $enemies = array_values(array_filter(SWUBotEnemyUnits($seat), fn($v) => !$v['isLeader']));
         if (empty($enemies)) return -0.5;
         $n = preg_match('/-\d+\/-(\d+)/', $text, $m) ? intval($m[1]) : 0;

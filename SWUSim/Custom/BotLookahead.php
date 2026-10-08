@@ -59,6 +59,36 @@ function _SWUBotLookaheadTransientGlobalNames(): array {
     ];
 }
 
+// The entries the undo payload does NOT carry: a zone's 'removed' objects, which production keeps in place across a
+// request — a played event stays at its hand index until its play finishes, so a prompt raised mid-play lists answers by that
+// UNCOMPACTED index. The payload restore compacts them away, so the board came back re-indexed: after the first lookahead branch every
+// sibling's answer pointed at another card (2026-10-08: Reckless Sacrifice's "myHand-3" discard ran on a 3-card hand — and the REAL
+// board, restored the same way, was left compacted under the bot's next answer). [zone => [index => object]] (captured in index order, so re-inserting in that order puts each back where it was), Versions excluded
+// (restored on their own below).
+function _SWUBotCaptureRemovedSlots(): array {
+    $out = [];
+    foreach (GetAllCompactableZones() as $name) {
+        if (str_ends_with($name, 'Versions')) continue;
+        $zone = &GetZone($name);
+        if (!is_array($zone)) { unset($zone); continue; }
+        foreach ($zone as $i => $o) {
+            if ($o !== null && method_exists($o, 'Removed') && $o->Removed()) $out[$name][$i] = clone $o;
+        }
+        unset($zone);
+    }
+    return $out;
+}
+// Put them back at their indices and re-number the zone, as the load did.
+function _SWUBotReapplyRemovedSlots(array $slots): void {
+    foreach ($slots as $name => $entries) {
+        $zone = &GetZone($name);
+        if (!is_array($zone)) { unset($zone); continue; }
+        foreach ($entries as $i => $o) array_splice($zone, min(intval($i), count($zone)), 0, [$o]);
+        foreach ($zone as $i => $o) if ($o !== null) { $o->mzIndex = $i; $o->BuildIndex(); }
+        unset($zone);
+    }
+}
+
 // Dispatch one bot action in memory. Returns false for a wire form this does not understand.
 function _SWUBotLookaheadDispatch(int $seat, array $action): bool {
     global $playerID;
@@ -94,6 +124,7 @@ function SWUBotLookahead(int $seat, array $action, callable $read): ?array {
     $GLOBALS['SWUBotLookaheadCalls'] = intval($GLOBALS['SWUBotLookaheadCalls'] ?? 0) + 1;   // cost tests + profiling
     $payload = Versions::GetSerializedZones() . '<v0>' . $gRandomCounter;
     $blocked = _SWUCaptureUndoBlocks();
+    $removedSlots = _SWUBotCaptureRemovedSlots();
     $versions = [];
     for ($p = 1; $p <= 4; $p++) {
         $versions[$p] = array_map(fn($e) => $e === null ? null : clone $e, GetVersions($p));
@@ -115,6 +146,7 @@ function SWUBotLookahead(int $seat, array $action, callable $read): ?array {
         if (function_exists('SWUBotDataExitLookahead')) SWUBotDataExitLookahead();
         ob_end_clean();
         _SWURestoreSerializedPayload($payload);
+        _SWUBotReapplyRemovedSlots($removedSlots);
         _SWUReapplyUndoBlocks($blocked);
         for ($p = 1; $p <= 4; $p++) {          // AFTER the payload restore, which uses seat 1's zone as scratch
             $z = &GetVersions($p);
@@ -169,6 +201,7 @@ function _SWUBotLookaheadContinue(int $seat, callable $read, callable $score, in
     if ($depth <= 0 || $budget <= 0 || !function_exists('SWUBotLegalActions') || SWUBotPendingDecisionSeat() !== $seat) return $leaf();
     $legal = SWUBotLegalActions(strval($GLOBALS['gameName'] ?? ''), $seat);
     $answers = array_slice((array)($legal['actions'] ?? []), 0, min(SWU_BOT_LOOKAHEAD_BRANCH, $budget));
+    $truncated = count($answers) < count((array)($legal['actions'] ?? []));
     if (($legal['kind'] ?? '') !== 'decision' || empty($answers)) return $leaf();
     $tooltip = strval($legal['decisionTooltip'] ?? '');
     $best = null; $tied = [];
@@ -193,5 +226,9 @@ function _SWUBotLookaheadContinue(int $seat, callable $read, callable $score, in
     // own zones come first. SWUBotRulePlannedAnswer lets the fallback choose among a tie. Game 1647080: Hemlock's On Attack
     // Weakness moved no clock, and the plan gave it to the bot's own Anakin.
     if ($best !== null) $best['_path'][0]['tied'] = $tied;
+    // 'truncated' (feature 'plantruncate', p42): answers were left UNTRIED — the budget share, or the branch cap. The bridge lists my own
+    // zones first, so at a hostile prompt the untried ones are the enemy targets; the planned-answer rule lets the fallback choose then.
+    // (A tie cannot catch this: an answer never tried never ties.) Leader audit 2026-10-08: Talzin / Maul (LOF) / Chewbacca self-hits.
+    if ($best !== null && $truncated && function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('plantruncate')) $best['_path'][0]['truncated'] = true;
     return $best ?? $leaf();
 }

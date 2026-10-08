@@ -20,7 +20,7 @@ $whenDefeatedAbilities["SHD_107:0"] = function($player, $mzID) {
 $customDQHandlers["SHD_107#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
-    if (!SWUDefeatResource(intval($player), $lastDecision)) return;
+    if (!SWUDefeatResource(intval($player), $lastDecision, true)) return;   // my own pick (CR rearrangement)
     $mz = _SWUFindSelfInDiscardMzID(intval($player), 'SHD_107');
     if ($mz !== null) SWURampResourceExhausted(intval($player), $mz);
 };

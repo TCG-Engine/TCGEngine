@@ -8733,7 +8733,14 @@ function SWUResourceTopOfDeck(int $player, bool $ready = false, string $reason =
 
 // Defeat the resource at $mzID, sending it to its owner's discard (From:RESOURCES).
 // Used by SOR_017 Han Solo's "defeat a resource you control" pending trigger.
-function SWUDefeatResource(int $player, string $mzID): bool {
+// $controllerChose: the resource's CONTROLLER picked it (a "defeat a friendly resource" choice). CR 1.x (resources, "rearrange"): "A
+// player may change which of their resources are ready or exhausted during a rearrangement, so long as the number of ready and exhausted
+// resources is the same" — up to the point a specific resource is chosen. So the controller always loses an EXHAUSTED one while any is
+// left (owner 2026-10-08: "in SWU defeating resources ready state does not matter"): a ready pick passes its readiness to an exhausted
+// resource in that same zone (a TEAMMATE's too: CR lets the controller rearrange "after another player declares their intent to
+// interact"). Leave it false for an opponent's or a random pick (SHD Scanning Officer, SEC Elia Kane) and for "defeat READY
+// resources" (HMW_049 Greater Sarlacc) — there the very card picked goes.
+function SWUDefeatResource(int $player, string $mzID, bool $controllerChose = false): bool {
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($player);
@@ -8743,6 +8750,15 @@ function SWUDefeatResource(int $player, string $mzID): bool {
         return false;
     }
     $cardID = $obj->CardID;
+    if ($controllerChose && intval($obj->Status ?? 0) === 1) {
+        $zone = &GetZone($mzID);
+        foreach ($zone as $o) {
+            if ($o === null || $o === $obj || !empty($o->removed) || SWUIsCreditToken(strval($o->CardID ?? '')) || intval($o->Status ?? 0) !== 0) continue;
+            $o->Status = 1;   // the rearrangement: this one is now the ready one, and the defeated card was the exhausted one
+            break;
+        }
+        unset($zone);
+    }
     // ⚠ Owner falls back to the mzID's SEAT, not the actor — a defeated TEAMMATE resource belongs in
     // THEIR discard (Team Suns, user ruling 2026-08-26), and recurring it is their business, not yours.
     $owner  = intval($obj->Owner ?? 0);
@@ -12271,7 +12287,8 @@ function _SWUQueueFriendlyResourceDefeatStage(int $chooser, array $seats, int $i
 // Defeat a set of resource mzIDs safely. SWUDefeatResource compacts the zone it touches, so process each
 // ZONE's picks in DESCENDING index order — otherwise defeating myResources-0 shifts myResources-2 down and
 // the next pick lands on the wrong card. Cross-zone picks are independent, so grouping by prefix is enough.
-function SWUDefeatResourcesByMzIDs(int $player, array $mzIDs): void {
+// $controllerChose: see SWUDefeatResource — a pick from the chooser's OWN resources keeps their ready count.
+function SWUDefeatResourcesByMzIDs(int $player, array $mzIDs, bool $controllerChose = false): void {
     global $playerID;
     $saved = $playerID; $playerID = intval($player);
     $byZone = [];
@@ -12283,7 +12300,7 @@ function SWUDefeatResourcesByMzIDs(int $player, array $mzIDs): void {
     }
     foreach ($byZone as $zone => $idxs) {
         rsort($idxs, SORT_NUMERIC);
-        foreach ($idxs as $i) SWUDefeatResource(intval($player), "{$zone}-{$i}");
+        foreach ($idxs as $i) SWUDefeatResource(intval($player), "{$zone}-{$i}", $controllerChose);
     }
     $playerID = $saved;
 }

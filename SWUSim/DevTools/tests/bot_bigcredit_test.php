@@ -8,6 +8,9 @@
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/BotHeuristic.php';
+// p42 'landoflip' (2026-10-08, owner-approved pin): a pre-flip Lando now keeps his last Credit for the flip ("do not deploy Lando with 0
+// Credits"); this file uses that Lando only as a Credit deck for another spend rule, so the flip rule is held off here (bot_landoflip_test).
+$GLOBALS['SWUBotPinnedDisabled'] = array_merge($GLOBALS['SWUBotPinnedDisabled'] ?? [], ['landoflip']);
 $check(SWUBotVariantDisabled('no-bigcredit') === ['bigcredit'], 'bigcredit is switchable');
 
 // The reported moment (seats swapped: the bot is seat 1). Krennic on Coaxium Mine, exhausted from its Action; 2 resources,

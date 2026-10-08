@@ -800,6 +800,10 @@ function SWUBotRulePlannedAnswer(array $ctx): ?array {
     $plan = $GLOBALS['SWUBotPlan'][$seat] ?? [];
     if (empty($plan)) return null;
     $step = array_shift($plan);
+    // Feature 'pilotchoice' (p42): a pilot leader's Unit/Pilot answer and host are the fallback's own rules (the audit: this rule answered
+    // Unit 140 times with a ready Vehicle out) — the plan step is dropped and the fallback decides.
+    if (SWUBotFeatureOn('pilotchoice') && in_array(strval($ctx['tooltip'] ?? ''), ['Deploy_as_Unit_or_Pilot?', 'Choose_a_Vehicle_to_deploy_onto'], true)
+        && ($ctx['tooltip'] ?? '') === $step['tooltip']) { $GLOBALS['SWUBotPlan'][$seat] = $plan; return null; }
     $pick = (($ctx['kind'] ?? '') === 'decision' && ($ctx['tooltip'] ?? '') === $step['tooltip'])
         ? _SWUBotFind($ctx, fn($a) => strval($a['cardID'] ?? '') === $step['answer']) : null;
     if ($pick === null) { unset($GLOBALS['SWUBotPlan'][$seat]); return null; }
@@ -810,6 +814,8 @@ function SWUBotRulePlannedAnswer(array $ctx): ?array {
         $among = array_values(array_filter($ctx['actions'], fn($a) => in_array(strval($a['cardID'] ?? ''), $tied, true)));
         if (count($among) > 1) $pick = SWUBotFallbackChoose(['actions' => $among] + $ctx) ?? $pick;
     }
+    // Feature 'plantruncate' (p42): a step that left answers untried has not seen them — the fallback chooses among ALL of them.
+    if (SWUBotFeatureOn('plantruncate') && !empty($step['truncated'])) $pick = SWUBotFallbackChoose($ctx) ?? $pick;
     $GLOBALS['SWUBotPlan'][$seat] = $plan;
     return $pick;
 }

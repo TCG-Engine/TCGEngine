@@ -170,8 +170,14 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         // resource if i have no board. but when my board has 3+ units, this is a big unit" (2026-09-24).
         // Proportional, not a threshold — a 9-power Clone Combat Squadron must outrank a 6-power one.
         $keep += SWU_BOT_CTXPOWER_KEEP * SWUBotContextSurplus($seat, $cid);
+        // Feature 'yodaloop' (p42, owner 2026-10-08): a tuck deck never resources its chain pieces (the free plays Qui-Gon's tuck needs).
+        // Owner: "generally good after the 5R turn" — before that, a chain piece may still be the card to resource.
+        if (SWUBotFeatureOn('yodaloop') && SWUResourceCount($seat) >= 5 && function_exists('_SWUBotTuckChainPiece') && _SWUBotTuckChainPiece($seat, $cid)) $keep += 1000.0;
         // 'disclosereserve' (p36): the last card my Condemn's disclose needs (the tiered path keeps it in tier 9).
         if (SWUBotFeatureOn('disclosereserve') && _SWUBotBreaksDiscloseReserve($seat, $i)) $keep += 100.0;
+        // Feature 'bokatanres' (p42): the hard-control late-game bomb — resourced from a non-aggro OPENING hand, otherwise only when nothing
+        // weaker is left, and never a second one in a game.
+        if (SWUBotFeatureOn('bokatanres') && ($bk = _SWUBotBokatanResKeep($ctx, $cid, $i === ($firstIndexOf[$cid] ?? $i))) !== null) $keep += $bk;
         // PROPOSAL 'sentinelkeep' (default OFF, "@try-sentinelkeep"). Owner ruling 2026-09-18: "Sentinels in
         // general are good to keep… unless you have two of the same unique unit Sentinel. then it should be safe
         // to resource one." A Sentinel is how control mitigates early damage, and the deficit is a SURVIVAL
@@ -418,6 +424,26 @@ function _SWUBotAnswersSpace(string $cid): bool {
 // ⚠ The owner calibrates rulings 6-8 as "generally true, ~75% of the time" — preferences, not laws.
 const SWU_BOT_ENGINE_KEEPS = ['ASH_052'];   // Chimaera — A Frightening Reality
 
+// Feature 'bokatanres' (p42) — owner 2026-10-08 (Mando Colossus): "as for Bo-Katan against non-aggro decks, resource her if she's in any
+// opening hands. but don't resource more than 1 in a game. if there are weaker cards to resource by the 4R turn, do those instead. this deck
+// thrives in the late game". The bomb: a "Give each enemy unit -N/-N" card (SEC_051 Bo-Katan Kryze) in a HARD CONTROL seat. The castable-soon
+// rule priced her 9 on 5 resources at −1 — the first card resourced at every regroup.
+function _SWUBotBokatanBomb(array $ctx, string $cid): bool {
+    return SWUBotStyleRank(strval($ctx['style'] ?? '')) >= 4 && (bool)preg_match('/Give each enemy unit -\d+\/-\d+/i', strval(CardText($cid)));
+}
+function _SWUBotBokatanResourced(int $seat, string $cid): bool {
+    foreach (GetResources($seat) as $r) if ($r !== null && empty($r->removed) && strval($r->CardID ?? '') === $cid) return true;
+    return false;
+}
+// The keep adjustment on the plain (non-tiered — non-aggro) resourcer, or NULL: −1000 (resource her) for the first copy in the opening hand,
+// +1000 (keep) otherwise — she goes only when every other card has gone.
+function _SWUBotBokatanResKeep(array $ctx, string $cid, bool $first): ?float {
+    if (!_SWUBotBokatanBomb($ctx, $cid)) return null;
+    $opening = strval($ctx['tooltip'] ?? '') === 'Choose_2_cards_to_resource';
+    if ($opening && $first) return -1000.0;   // the opener vs aggro is the tiered resourcer's ('stabkeep' keeps her)
+    return 1000.0;
+}
+
 // PROPOSAL 'resourcing3': leaders whose decks the meta fixtures label AGGRO (hyperaggro/aggro/softaggro) in most or
 // all of their lists. The bot cannot see an opponent's label in live play; its leader is the best proxy. Leaders that
 // also head midrange/control lists (Luke JTL_012, Piett, Maul, Talzin…) are left out: a slow matchup is the exception
@@ -481,6 +507,8 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
         // resourcing3: a capital-ship deck cheats its Capital Ships out to trade and stall (owner, Piett vs Vader);
         // they go last, the priciest first if one must go.
         if ($capitalDeck && str_contains(strval(CardTrait($cid) ?? ''), 'Capital Ship')) { $out[$i] = [8, -1.0 * $cost]; continue; }
+        // Feature 'bokatanres' (p42): never a second late-game bomb in my resources — not even as the spare duplicate below.
+        if (SWUBotFeatureOn('bokatanres') && _SWUBotBokatanBomb($ctx, $cid) && _SWUBotBokatanResourced($seat, $cid)) { $out[$i] = [9, 0.0]; continue; }
         if (($inHand[$cid] ?? 0) >= 2 && $i !== $firstIdx[$cid]) { $out[$i] = [0, 0.0]; continue; }
         // Feature 'wipekeepaggro' (p37): a relevant WIPE is kept against aggro — owner (Krennic Splash, 2026-10-06): resource "late
         // bombs vs aggro, never the wipes". Below, a 7+ card only "fit the matchup" with 3+ enemy units, so the wipe being saved for
@@ -490,6 +518,10 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
         // Q2 ruling resources Pre Vizsla against Vader (bot_owner_resourcing_test).
         if (SWUBotFeatureOn('wipekeepaggro') && $aggressive && in_array('wipe', $tags, true) && _SWUBotWipeIsRelevant($seat, $cid)
             && !preg_match('/with a total of \d+ or less/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
+        // Feature 'stabkeep' (p42): …and so is a MASS DEBUFF, "Give each enemy unit -N/-N" (SEC_051 Bo-Katan Kryze) — owner, Mando Colossus:
+        // "play leading up to Bo-Katan and SRI off-aspect for 10 resources to stabilize". Tagged 'debuff-all-enemy-units', not 'wipe', so
+        // pre-flip vs aggro she was a 7+ drop resourced first.
+        if (SWUBotFeatureOn('stabkeep') && $aggressive && preg_match('/Give each enemy unit -\d+\/-\d+/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
         // Feature 'wallkeep' (p39): Krennic (LAW) Blue, owner 2026-10-06 — vs aggro the deck stabilises with a "Sentinel wall + trades", and
         // early resourcing is "Ravager / late bombs … Never a Sentinel". Tier 2 had no Sentinel keep (the p4 'sentinelkeep' +50 is on the
         // plain path), so a 4-cost Commando or Koska looked like an uncastable card and went (~70 times in 480 traced games). A spare unique

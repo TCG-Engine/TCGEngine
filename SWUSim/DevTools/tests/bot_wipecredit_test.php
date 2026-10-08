@@ -10,6 +10,9 @@
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/BotHeuristic.php';
+// p42 'landoflip' (2026-10-08, owner-approved pin): a pre-flip Lando now keeps his last Credit for the flip ("do not deploy Lando with 0
+// Credits"); this file uses that Lando only as a Credit deck for another spend rule, so the flip rule is held off here (bot_landoflip_test).
+$GLOBALS['SWUBotPinnedDisabled'] = array_merge($GLOBALS['SWUBotPinnedDisabled'] ?? [], ['landoflip']);
 $check(in_array('wipecredit', SWUBotProposalList(), true) && SWUBotVariantDisabled('try-wipecredit') === ['try:wipecredit'], 'wipecredit is a switchable proposal');
 // Lando (LAW_018 on ASH_019), round 4, $res ready resources + 1 Credit; Hyperspace Disaster (SEC_078, 7) and Anakin (LOF_070, 6) in hand;
 // Vader (JTL_006 on ASH_026) with four ships.
