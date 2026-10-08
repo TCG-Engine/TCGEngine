@@ -364,9 +364,10 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
             case 'pass':       return 0.0;
             case 'initiative': return $W['initiative'];
             case 'deploy':     if (_SWUBotDeployStrikeWaits($seat)) return -0.4;   // 'deploystrike' (p39)
-                               return $W['deploy'] + (SWUBotFeatureOn('enablers') ? _SWUBotDeployDiscount($seat, $action, $W) : 0.0)
+                               $dv = $W['deploy'] + (SWUBotFeatureOn('enablers') ? _SWUBotDeployDiscount($seat, $action, $W) : 0.0)
                                                   + (SWUBotFeatureOn('pilotdeploy') ? _SWUBotPilotDeployValue($seat, $action, $W) : 0.0)
                                                   + (SWUBotFeatureOn('plotdeploy') ? _SWUBotPlotDeployValue($seat, $W) : 0.0);
+                               return SWUBotFeatureOn('deployreplay') ? _SWUBotDeployReplayScore($ctx, $action, $dv, $W) : $dv;
             case 'leader-ability': if (_SWUBotKeepBodyHolds($seat)) return -0.4;   // 'keepbody' (p40)
                                return _SWUBotAbilityValue($ctx, $action, $W);
             case 'unit-action': case 'base-epic': return _SWUBotAbilityValue($ctx, $action, $W);
@@ -379,7 +380,10 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                     $best = $best === null ? $tv : max($best, $tv);
                 }
                 $guides = $ctx['_guides'] ?? _SWUBotGuides($ctx);
-                return ($best ?? 0.0) + (in_array(strval($action['cardID'] ?? ''), $guides['attackFirst'], true) ? $W['attackFirst'] : 0.0);
+                $score = ($best ?? 0.0) + (in_array(strval($action['cardID'] ?? ''), $guides['attackFirst'], true) ? $W['attackFirst'] : 0.0);
+                // Feature 'unitedge' (p42): the unit play that switches on "While you control more units than an opponent" goes first.
+                if (SWUBotFeatureOn('unitedge') && ($edgePlay = _SWUBotUnitEdgePlay($ctx, $att)) !== null) $score = min($score, $edgePlay - 0.01);
+                return $score;
             case 'play':
                 $i = intval(substr(SWUBotActionMz($action), strlen('myHand-')));
                 $obj = GetHand($seat)[$i] ?? null;
@@ -501,6 +505,10 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 if (SWUBotFeatureOn('observerfirst') && _SWUBotKillWaitsForObserver($seat, $i, $cid)) return min($v, -0.4);
                 // Feature 'wipeaware' (p30): not into a shown per-unit wipe's lethal range.
                 if (SWUBotFeatureOn('wipeaware') && ($per = _SWUBotShownPerUnitWipe($seat)) > 0 && _SWUBotPlayEntersWipeRange($seat, $action, $per)) return min($v, -0.5);
+                // Feature 'attackreserve' (p42): the token a ready "On Attack: You may pay N …, create a token" unit would lose.
+                if (SWUBotFeatureOn('attackreserve')) $v -= _SWUBotAttackReserveCost($seat, $obj, $W);
+                // Feature 'deployfirst' (p42): a unit a deploy on offer would discount (Piett's Capital Ships) waits for that deploy.
+                if (SWUBotFeatureOn('deployfirst') && _SWUBotDeployWouldDiscount($seat, $cid)) return min($v, -0.4);
                 return $v;
         }
         return -$index * 1e-6;
@@ -516,6 +524,21 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         && ($ex = _SWUBotTuckExcluded($tm[1])) !== null && ($v = SWUBotViewForMz($seat, $c)) !== null) {
         $g = _SWUBotTuckGainFor($seat, $v, $ex);
         return $g === null ? -1.0 - $index * 1e-6 : $g - $index * 1e-6;
+    }
+    // Feature 'doubleplay' (p42): Grievous's "Choose_a_unit_to_play" — each unit scores what playing it directly scores, so a play the
+    // bot would hold (a duplicate unique) is held here too; PASS (0) declines when none is worth it. Was the first card in hand.
+    if (SWUBotFeatureOn('doubleplay') && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#/', $head, $dm) && preg_match('/^myHand-(\d+)$/', $c, $hm)
+        && preg_match(SWU_BOT_DOUBLEPLAY_RE, strval(CardText($dm[1])))) {
+        return _SWUBotHandPlayScore($ctx, intval($hm[1])) - $index * 1e-6;
+    }
+    // Feature 'playdefeat' (p42): Maul's "play it, then defeat it" pick — the unit's effects (+ the replay), not its body. A unit with no
+    // effect scores below PASS (0). Was the biggest body (the "Play_a_…" play-value pick below).
+    if (SWUBotFeatureOn('playdefeat') && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#/', $head, $pdm) && preg_match('/^myHand-(\d+)$/', $c, $phm)
+        && preg_match(SWU_BOT_PLAYDEFEAT_RE, strval(CardText($pdm[1])), $pdd)) {
+        $leader = null;
+        foreach (GetLeader($seat) as $lo) if (is_object($lo) && strval($lo->CardID ?? '') === $pdm[1]) $leader = $lo;
+        $v = $leader !== null ? _SWUBotPlayDefeatValue($ctx, $leader, intval($phm[1]), intval($pdd[1]), $W) : null;
+        return ($v ?? -1.0) - $index * 1e-6;
     }
     $debuff = $head === 'APPLY_PHASE_DEBUFF' && SWUBotFeatureOn('targeting');
     $buff = $head === 'APPLY_PHASE_BUFF' && SWUBotFeatureOn('buffs');   // "+N/+N for this phase" helps its target
@@ -2491,6 +2514,122 @@ function _SWUBotWantsHeroismInDiscard(int $seat): bool {
     return false;
 }
 
+// ── Features 'shipdiscount' + 'deployfirst' (p42) — JTL_005 Admiral Piett ──────────────────────────────────────────────────
+// Front: "Action [Exhaust]: Play a Capital Ship unit from your hand. It costs 1 resource less." The bot priced it by what it UNLOCKS, so
+// an affordable ship read the discount as nothing and was hard-cast while the Action was ready (367/300-game traces, Blue). Its value:
+// the ship's own play score, plus the best OTHER hand card the saved resources pay for (it fits only because of the discount). With no
+// such card it is the same outcome as the direct play, so it sits just under it. NULL when no $trait unit can be played through it.
+function _SWUBotDiscountPlayActionValue(array $ctx, int $seat, string $trait, int $discount): ?float {
+    $cap = SWUTotalPaymentCapacity($seat);
+    $hand = GetHand($seat);
+    $best = null;
+    foreach ($hand as $i => $o) {
+        $cid = strval($o->CardID ?? '');
+        if ($o === null || !empty($o->removed) || !str_contains(strval(CardType($cid)), 'Unit') || !HasTrait($cid, $trait)) continue;
+        $full = intval(SWUComputePlayCost($seat, $o));
+        $pay = max(0, $full - $discount);
+        if ($pay > $cap) continue;
+        $extra = null;
+        foreach ($hand as $j => $q) {
+            if ($j === $i || $q === null || !empty($q->removed)) continue;
+            $c = intval(SWUComputePlayCost($seat, $q));
+            if ($c > $cap - $pay || $c <= $cap - $full) continue;   // fits only thanks to the discount
+            $s = _SWUBotHandPlayScore($ctx, intval($j));
+            if ($s > 0.0) $extra = max($extra ?? $s, $s);
+        }
+        $v = _SWUBotHandPlayScore($ctx, intval($i)) + ($extra ?? ($full <= $cap ? -0.01 : 0.0));
+        $best = max($best ?? $v, $v);
+    }
+    return $best;
+}
+
+// Deployed: "Each Capital Ship unit you play costs 2 resources less." Playing such a unit while a deploy that would discount it is on
+// offer RIGHT NOW wastes the discount — 'blockerfirst' hard-cast a 5-cost ship just before deploying Piett in ~25% of traced games. True
+// when $cid is such a unit and that leader can deploy now (the play then waits; the deploy goes first). Read off the LEADER, not the
+// action list: 'blockerfirst' re-scores its plays against a list cut down to the plays alone.
+function _SWUBotDeployWouldDiscount(int $seat, string $cid): bool {
+    if (!str_contains(strval(CardType($cid)), 'Unit')) return false;
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed) || in_array(strval($l->Deployed ?? 'false'), ['true', '1'], true)) continue;
+        if (in_array(strval($l->EpicActionUsed ?? 'false'), ['true', '1'], true) || SWUResourceCount($seat) < _SWUBotLeaderThreshold($seat, $l)) continue;
+        if (preg_match('/Each ([\w ]+?) unit you play costs \d+ resources? less/i', strval(CardDeployText(strval($l->CardID ?? ''))), $m)
+            && HasTrait($cid, $m[1])) return true;
+    }
+    return false;
+}
+
+// ── Feature 'attackreserve' (p42) — deployed HMW_010 Tarfful ───────────────────────────────────────────────────────────────
+// "On Attack: You may pay 1 resource. If you do, create a Beast token." Owner, 2026-10-08: "on 7R, you can play Anakin plus Tarfful swing
+// + 1R for beast token … evaluate whether spending resources or saving 1 for a Beast token On Attack is worth more." While a READY unit
+// of mine (it can still attack this phase) reads that, playing $obj so that fewer than N resources are left costs the token — priced as
+// the play of a unit its size (develop x (power + HP) / 2 + unitPlay; a 3/3 Beast = a 3-drop). The largest such token is charged once.
+// A token UNIT's CardID by its printed title ("Beast" -> HMW_T03), or null. Token IDs are SET_T##.
+function _SWUBotTokenUnitByTitle(string $title): ?string {
+    static $cache = [];
+    if (array_key_exists($title, $cache)) return $cache[$title];
+    foreach (($GLOBALS['titleData'] ?? []) as $id => $t) {
+        if (preg_match('/_T\d+$/', strval($id)) && strcasecmp(strval($t), $title) === 0 && strval(CardType($id)) === 'Token Unit') return $cache[$title] = strval($id);
+    }
+    return $cache[$title] = null;
+}
+
+function _SWUBotAttackReserveCost(int $seat, $obj, array $W): float {
+    $cap = SWUTotalPaymentCapacity($seat);
+    $left = $cap - intval(SWUComputePlayCost($seat, $obj));
+    $cost = 0.0;
+    foreach (SWUBotUnits($seat) as $v) {
+        if (!$v['ready']) continue;
+        $text = strval(CardText($v['cardID'])) . "\n" . ($v['isLeader'] ? strval(CardDeployText($v['cardID'])) : '');
+        if (!preg_match('/On Attack: You may pay (\d+) resources?\. If you do, create an? ([\w\- ]+?) token/i', $text, $m)) continue;
+        $n = intval($m[1]);
+        if ($cap < $n || $left >= $n) continue;
+        $tok = _SWUBotTokenUnitByTitle($m[2]);
+        if ($tok === null) continue;
+        $cost = max($cost, $W['develop'] * (intval(CardPower($tok)) + intval(CardHp($tok))) / 2 + $W['unitPlay']);
+    }
+    return $cost;
+}
+
+// ── Feature 'villainpitch' (p42) — HMW_010 Tarfful, the 'heropitch' mirror ─────────────────────────────────────────────────
+// An off-aspect $aspect card ($seat cannot pay its $aspect icon) and "a card still to be played wants an $aspect card in my discard,
+// and there is none yet" — LOF_070 Anakin's two halves ("If there is a Heroism / Villainy card in your discard pile …").
+function _SWUBotOffAspectOf(int $seat, string $cid, string $aspect): bool {
+    $need = count(array_filter(array_map('trim', explode(',', strval(CardAspect($cid) ?? ''))), fn($a) => $a === $aspect));
+    if ($need === 0 || !function_exists('PlayerAspects')) return false;
+    return $need > count(array_filter((array)PlayerAspects($seat), fn($a) => $a === $aspect));
+}
+function _SWUBotWantsAspectInDiscard(int $seat, string $aspect): bool {
+    foreach (GetDiscard($seat) as $o) {
+        if ($o !== null && empty($o->removed) && str_contains(strval(CardAspect(strval($o->CardID ?? '')) ?? ''), $aspect)) return false;
+    }
+    foreach ([GetHand($seat), GetDeck($seat)] as $zone) {
+        foreach ($zone as $o) {
+            if ($o !== null && empty($o->removed) && preg_match("/$aspect card in your discard pile/i", strval(CardText(strval($o->CardID ?? ''))))) return true;
+        }
+    }
+    return false;
+}
+
+// Tarfful's "Action [N resources, Exhaust, discard a card from your hand]: Create a Beast token" is the PITCH LINE (owner ruling
+// 2026-10-08) and nothing else: an off-aspect Villainy card to pitch, the discard still wanting one, fewer than 6 resources (the flip
+// turn) — then it is taken with the last N resources, after the unit plays ("a 2-drop and then [the pitch] on the 4R or 5R turn"; in
+// round 1 the 2 resources ARE the last). NULL when $action is not such an Action.
+const SWU_BOT_PITCH_LINE = 3.0;
+const SWU_BOT_PITCH_BEFORE_RESOURCES = 6;
+function _SWUBotPitchActionValue(array $ctx, int $seat, array $action): ?float {
+    if (!preg_match('/Action \[(\d+) resources?, Exhaust, discard a card from your hand\]: Create a/i', _SWUBotActionSourceText($seat, $action), $m)) return null;
+    $pitch = false;
+    foreach (GetHand($seat) as $o) if ($o !== null && empty($o->removed) && _SWUBotOffAspectOf($seat, strval($o->CardID ?? ''), 'Villainy')) $pitch = true;
+    if (!$pitch || !_SWUBotWantsAspectInDiscard($seat, 'Villainy')) return -0.5;
+    if (count(array_filter(GetResources($seat), fn($o) => $o !== null && empty($o->removed))) >= SWU_BOT_PITCH_BEFORE_RESOURCES) return -0.5;
+    if (SWUTotalPaymentCapacity($seat) > intval($m[1])) {
+        foreach ((array)($ctx['actions'] ?? []) as $i => $a) {
+            if (SWUBotActionKind($a) === 'play' && SWUBotScoreAction($ctx, $a, intval($i)) > 0.0) return 0.02;   // the plays first
+        }
+    }
+    return SWU_BOT_PITCH_LINE;
+}
+
 // What a hand card is worth to KEEP — what discarding it gives up (feature 'discardpick'): its play value, less the aspect
 // penalty THIS seat pays for it (an off-aspect card is a worse play than its printed cost says), never below 0.
 // Feature 'heropitch' (owner 2026-10-03): an off-aspect Heroism card is "worth more in the discard to activate Anakin fully"
@@ -2498,6 +2637,7 @@ function _SWUBotWantsHeroismInDiscard(int $seat): bool {
 function SWUBotHandKeepValue(int $seat, $obj, array $W): float {
     $cid = strval($obj->CardID ?? '');
     if (SWUBotFeatureOn('heropitch') && _SWUBotOffAspectHeroism($seat, $cid) && _SWUBotWantsHeroismInDiscard($seat)) return -$W['removal'];
+    if (SWUBotFeatureOn('villainpitch') && _SWUBotOffAspectOf($seat, $cid, 'Villainy') && _SWUBotWantsAspectInDiscard($seat, 'Villainy')) return -$W['removal'];
     $penalty = function_exists('SWUComputePlayCost') ? max(0, intval(SWUComputePlayCost($seat, $obj)) - intval(CardCost($cid))) : 0;
     // Fix 2 (owner, 2026-10-06): an UNPRICED card adds no curve term, so next to a priced under-curve card it looks better
     // than it is. Keep/discard comparisons use curve value only when every card in hand is priced.
@@ -2854,8 +2994,144 @@ function _SWUBotTuckBest(int $seat, string $excluded): ?float {
     return $best;
 }
 
+// ── Feature 'doubleplay' (p42) — HMW_008 General Grievous ───────────────────────────────────────────────────────────────
+// "Action [Exhaust]: Play 2 units from your hand (one at a time, paying their costs)." Two plays for one action. Each hand unit is
+// scored EXACTLY as the free-play stack scores playing it (SWUBotScoreAction — every hold included: a duplicate unique, fodder
+// first, no gift…), so the Action and its pick can never disagree with what the bot would do with the card directly.
+const SWU_BOT_DOUBLEPLAY_RE = '/Action \[[^\]]*\]: Play 2 units from your hand \(one at a time, paying their costs\)/i';
+
+function _SWUBotHandPlayScore(array $ctx, int $i): float {
+    $c = $ctx; $c['kind'] = 'free-play';
+    return SWUBotScoreAction($c, ['playerID' => intval($ctx['seat']), 'mode' => 10002, 'cardID' => "myHand-$i!FSM!"], 0);
+}
+
+// The best two units payable together, each worth what playing it directly scores. With only one worth playing the Action is that
+// play and nothing more, so it sits just under the direct play of the same card. -0.5 when no unit is worth playing.
+function _SWUBotDoublePlayValue(array $ctx, int $seat): float {
+    $cap = SWUTotalPaymentCapacity($seat);
+    $plays = [];
+    foreach (GetHand($seat) as $i => $o) {
+        if ($o === null || !empty($o->removed) || !str_contains(strval(CardType(strval($o->CardID ?? ''))), 'Unit')) continue;
+        $cost = intval(SWUComputePlayCost($seat, $o));
+        if ($cost > $cap) continue;
+        $s = _SWUBotHandPlayScore($ctx, intval($i));
+        if ($s > 0.0) $plays[] = [$s, $cost];
+    }
+    if (empty($plays)) return -0.5;
+    $best = max(array_column($plays, 0)) - 0.01;
+    foreach ($plays as $a => [$s1, $c1]) foreach ($plays as $b => [$s2, $c2]) if ($a < $b && $c1 + $c2 <= $cap) $best = max($best, $s1 + $s2);
+    return $best;
+}
+
+// ── Feature 'unitedge' (p42) — HMW_008 General Grievous, deployed ─────────────────────────────────────────────────────────
+// "While you control more units than an opponent, this unit gets +3/+0." When $att reads that, has not got the edge yet, and a unit
+// play on offer would give it (one more unit beats the opponent with the fewest), the best such play's score — the attack waits for
+// it. NULL otherwise. Audit 2026-10-08: 7 attacks at an even count with that unit in hand.
+function _SWUBotUnitEdgePlay(array $ctx, array $att): ?float {
+    $seat = intval($ctx['seat']);
+    $text = strval(CardText($att['cardID'])) . "\n" . ($att['isLeader'] ? strval(CardDeployText($att['cardID'])) : '');
+    if (!preg_match('/While you control more units than an opponent, this unit gets \+\d+\/\+0/i', $text)) return null;
+    $mine = count(SWUBotUnits($seat));
+    $fewest = min(array_map(fn($o) => count(SWUBotUnits($o)), SWUBotOpponents($seat) ?: [0]));
+    if ($mine > $fewest || $mine + 1 <= $fewest) return null;
+    $best = null;
+    foreach ((array)($ctx['actions'] ?? []) as $i => $a) {
+        if (SWUBotActionKind($a) !== 'play') continue;
+        $o = GetHand($seat)[intval(substr(SWUBotActionMz($a), strlen('myHand-')))] ?? null;
+        if ($o === null || !str_contains(strval(CardType(strval($o->CardID ?? ''))), 'Unit')) continue;
+        $s = SWUBotScoreAction($ctx, $a, intval($i));
+        if ($s > 0.0) $best = max($best ?? $s, $s);
+    }
+    return $best;
+}
+
+// ── Features 'playdefeat' + 'deployreplay' (p42) — HMW_016 Maul, Old Master ──────────────────────────────────────────────
+// Front: "Play a unit from your hand. It costs 1 resource less. Then, defeat it." The body dies at once, so the play is worth the
+// unit's EFFECTS — its When Played and When Defeated (both still resolve) — never its body; a unit with neither is worth nothing.
+// Deployed: "When Deployed: You may play a unit that was defeated this phase from your discard pile. It costs 5 resources less." —
+// Maul's line: the Action first (the effects now), then the deploy brings the body back cheap. Audit 2026-10-08: 25 of 128 uses
+// played an effect-less unit (Mae x12), the pick took the biggest body, and 21 of 31 deploys replayed nothing.
+const SWU_BOT_PLAYDEFEAT_RE = '/Play a unit from your hand\. It costs (\d+) resources? less\. Then, defeat it/i';
+const SWU_BOT_DEPLOYREPLAY_RE = '/When Deployed: You may play a unit that was defeated this phase from your discard pile\. It costs (\d+) resources? less/i';
+const SWU_BOT_BODY_TAGS = ['ambush', 'shielded', 'grit', 'sentinel', 'saboteur', 'raid', 'restore', 'overwhelm', 'hidden'];
+
+// What $cid's When Played / When Defeated effects are worth (its tags, keywords excluded). NULL when it has neither.
+function _SWUBotEffectOnlyValue(int $seat, string $cid, array $W): ?float {
+    if (!preg_match('/When Played|When Defeated/i', strval(CardText($cid)))) return null;
+    $v = 0.0;
+    foreach (SWUBotCardTags($cid) as $t) {
+        if (!in_array($t, SWU_BOT_BODY_TAGS, true)) $v += floatval($W[$t] ?? 0.0) * ($t === 'draw' ? SWUBotDrawMultiplier($seat) : 1.0);
+    }
+    return $v;
+}
+
+// The leader object behind "myLeader-N!…" (any verb), or null.
+function _SWUBotLeaderOfAction(int $seat, array $action): ?object {
+    if (!preg_match('/^myLeader-(\d+)!/', strval($action['cardID'] ?? ''), $m)) return null;
+    $l = GetLeader($seat)[intval($m[1])] ?? null;
+    return is_object($l) && empty($l->removed) ? $l : null;
+}
+
+// Hand unit $i through a "play it, then defeat it" leader ($discount less): its effects, plus — when that leader's own deploy (offered
+// right now) replays a unit defeated this phase and the resources left cover it — the replay, which is that unit's ordinary play value.
+// NULL when the unit is not affordable or has no effect.
+function _SWUBotPlayDefeatValue(array $ctx, object $leader, int $i, int $discount, array $W): ?float {
+    $seat = intval($ctx['seat']);
+    $o = GetHand($seat)[$i] ?? null;
+    if ($o === null || !empty($o->removed) || !str_contains(strval(CardType(strval($o->CardID ?? ''))), 'Unit')) return null;
+    $cid = strval($o->CardID);
+    $cap = SWUTotalPaymentCapacity($seat);
+    $pay = max(0, intval(SWUComputePlayCost($seat, $o)) - $discount);
+    if ($pay > $cap) return null;
+    $eff = _SWUBotEffectOnlyValue($seat, $cid, $W);
+    if ($eff === null) return null;
+    if (SWUBotFeatureOn('deployreplay') && preg_match(SWU_BOT_DEPLOYREPLAY_RE, strval(CardDeployText(strval($leader->CardID))), $rm)) {
+        $deployOffered = false;
+        foreach ((array)($ctx['actions'] ?? []) as $a) {
+            if (str_ends_with(strval($a['cardID'] ?? ''), '!CustomInput!DeployLeader:Unit') && _SWUBotLeaderOfAction($seat, $a) === $leader) $deployOffered = true;
+        }
+        if ($deployOffered && $cap - $pay >= max(0, intval(CardCost($cid)) - intval($rm[1]))) $eff += _SWUBotPlayValue($seat, $cid, $W, 'discard');
+    }
+    return $eff;
+}
+
+// The deploy of a leader whose When Deployed replays a unit defeated this phase: + the best such replay the resources cover. With
+// nothing to replay yet, it waits behind that leader's own "play, then defeat" Action when that Action is worth using (it fills the
+// discard for the replay). Any other deploy: $dv unchanged.
+function _SWUBotDeployReplayScore(array $ctx, array $action, float $dv, array $W): float {
+    $seat = intval($ctx['seat']);
+    $leader = _SWUBotLeaderOfAction($seat, $action);
+    if ($leader === null || !preg_match(SWU_BOT_DEPLOYREPLAY_RE, strval(CardDeployText(strval($leader->CardID))), $rm)) return $dv;
+    $cap = SWUTotalPaymentCapacity($seat);
+    $best = 0.0;
+    foreach (GetDiscard($seat) as $o) {
+        $cid = strval($o->CardID ?? '');
+        if ($o === null || !empty($o->removed) || !str_contains(strval(CardType($cid)), 'Unit')) continue;
+        if (GlobalEffectCount($seat, 'SWU_DEFEATED_CARD_' . $cid) <= 0 || max(0, intval(CardCost($cid)) - intval($rm[1])) > $cap) continue;
+        $best = max($best, _SWUBotPlayValue($seat, $cid, $W, 'discard'));
+    }
+    if ($best > 0.0) return $dv + $best;
+    foreach ((array)($ctx['actions'] ?? []) as $i => $a) {
+        if (SWUBotActionKind($a) !== 'leader-ability' || _SWUBotLeaderOfAction($seat, $a) !== $leader) continue;
+        $av = _SWUBotAbilityValue($ctx, $a, $W);
+        if ($av > 0.0) return min($dv, $av - 0.01);
+    }
+    return $dv;
+}
+
 function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     $seat = intval($ctx['seat']);
+    // Feature 'playdefeat' (p42): the best unit's effects (+ the deploy replay it sets up). None worth it: the Action waits.
+    if (SWUBotFeatureOn('playdefeat') && ($l = _SWUBotActionLeader($seat, $action)) !== null && preg_match(SWU_BOT_PLAYDEFEAT_RE, strval(CardText(strval($l->CardID ?? ''))), $pm)) {
+        $best = null;
+        foreach (GetHand($seat) as $i => $o) {
+            $v = _SWUBotPlayDefeatValue($ctx, $l, intval($i), intval($pm[1]), $W);
+            if ($v !== null) $best = max($best ?? $v, $v);
+        }
+        return ($best === null || $best <= 0.0) ? -0.5 : $best;
+    }
+    if (SWUBotFeatureOn('doubleplay') && preg_match(SWU_BOT_DOUBLEPLAY_RE, _SWUBotActionSourceText($seat, $action))) return _SWUBotDoublePlayValue($ctx, $seat);
+    if (SWUBotFeatureOn('villainpitch') && ($pv = _SWUBotPitchActionValue($ctx, $seat, $action)) !== null) return $pv;
     // Feature 'tuck' (p42): priced by its best pair; no pair, or a losing one, and the Action waits. Ahead of the lookahead, which
     // charges the returned body as a sacrifice.
     if (SWUBotFeatureOn('tuck') && ($l = _SWUBotActionLeader($seat, $action)) !== null && ($ex = _SWUBotTuckExcluded(strval($l->CardID ?? ''))) !== null) {
@@ -2883,6 +3159,11 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
             if ($best !== null) return $best + 0.1 * intval($m[2]);
         }
     }
+    // Feature 'shipdiscount' (p42): Piett's "Play a Capital Ship unit from your hand. It costs 1 resource less" — the ship, plus the
+    // card the saved resource pays for. (Maul's "…Then, defeat it" is 'playdefeat', above.)
+    if (SWUBotFeatureOn('shipdiscount') && SWUBotActionKind($action) === 'leader-ability'
+        && preg_match('/Play an? ([A-Z][\w ]*?) unit from your hand\. It costs (\d+) resources? less\.(?!\s*Then, defeat it)/', _SWUBotActionSourceText($seat, $action), $sm)
+        && ($sv = _SWUBotDiscountPlayActionValue($ctx, $seat, $sm[1], intval($sm[2]))) !== null) return $sv;
     // Feature 'pingvalue' (p29): the lookahead stops at the discard prompt, so a discard-cost Action was a flat
     // W['ability'] with its cost unpriced — the bot pinged a base for 1 with its Chimaera.
     if (SWUBotFeatureOn('pingvalue') && ($pv = _SWUBotDiscardCostActionValue($seat, $action, $W)) !== null) return $pv;

@@ -228,6 +228,12 @@ Virtual: UpgradeCardIDs=BaseUpgradeCardIDs()
 # a placement, not secrecy — so the identities ship alongside the count and drive the hover popup.
 Virtual: CaptiveCount=BaseCaptiveCount()
 Virtual: CaptiveCardIDs=BaseCaptiveCardIDs()
+# PrintedHP feeds the static HP pip in the top-left of a Twin Suns Home Panel base thumbnail. Printed
+# value only — it never counts down (damage keeps its own token). No Counters line: the full board's
+# base is large enough to read its own printed HP.
+Virtual: PrintedHP=BasePrintedHP()
+# Aspect feeds the base health bar's fill colour (client palette SWU_ASPECT_FILL). '' = no aspect.
+Virtual: Aspect=BaseAspect()
 # ⚠ The bottom-left UpgradeCount Badge counter was REMOVED here: the count now lives in the FORTIFIED
 # tab under the base (SWUSim/Custom/GameLayout.php), which carries the same click/hover upgrade popup
 # by reusing showLineageOverflowPopup's data-lineage-subcards payload. Re-adding a Counters line here

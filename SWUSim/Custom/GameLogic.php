@@ -28051,6 +28051,25 @@ function BaseHasForce($obj): bool {
     return isset($obj->PlayerID) ? PlayerHasTheForce(intval($obj->PlayerID)) : false;
 }
 
+// The base's PRINTED HP, for the Base zone's "PrintedHP" virtual — the Twin Suns Home Panel pip
+// (feature request 2026-10-08). ⚠ STATIC by design: never subtract Damage here. The tile already shows
+// damage as its own token; the request was the card's total, readable at a glance. It is the same
+// CardHp() the base-defeat check reads (CombatLogic), so the pip cannot disagree with when a base dies.
+function BasePrintedHP($obj): int {
+    $cardID = (string)($obj->CardID ?? '');
+    return ($cardID === '' || $cardID === '-') ? 0 : intval(CardHp($cardID));
+}
+
+// The base's aspect, for the Base zone's "Aspect" virtual: the base health bar's fill colour
+// (spec 2026-10-08). '' for a base with no aspect (JTL_031 Lake Country), which the client draws light
+// grey. CardAspect() returns null for those, hence the guard.
+function BaseAspect($obj): string {
+    $cardID = (string)($obj->CardID ?? '');
+    if ($cardID === '' || $cardID === '-') return '';
+    $aspect = CardAspect($cardID);
+    return is_string($aspect) ? $aspect : '';
+}
+
 // ── Fortify: upgrades attached to a base (HMW) ──────────────────────────────────
 // Number of upgrades attached to a base ZONE OBJECT. This is the display hook: the Base zone's
 // UpgradeCount virtual feeds the bottom-left badge. Tolerates a base with no Subcards at all —

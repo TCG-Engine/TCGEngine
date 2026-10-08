@@ -11,8 +11,14 @@
 // board page (real CSS, real header markup) with GetSWUDQVar stubbed — the technique
 // ChooseOpponent_PickerShowsPlayerNames.md established for a pure function of its inputs.
 //
+// ⚠ BOTH LAYOUTS. Phones load GameLayoutMobile.php INSTEAD of GameLayout.php, each with its own copy of the
+// #swuUndoSplit rule. The 2026-09-26 fix landed in the desktop copy only, and this probe ran desktop-only, so
+// mobile Twin Suns lost Undo again unnoticed (reported 2026-10-08). Every cell now runs at desktop AND at an
+// iPhone viewport with swuLayout=mobile.
+//
 // Usage: node swusim-undo-button-xbrowser.mjs [BASE] [SHOTS_DIR]  ENGINES=chromium,firefox,webkit
-import { chromium, firefox, webkit } from 'playwright';
+//        LAYOUTS=desktop,mobile
+import { chromium, firefox, webkit, devices } from 'playwright';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -24,6 +30,16 @@ const SCHEMA = readFileSync(resolve(here, '../../SWUSim/Tests/Visual/UndoButton_
 
 const ALL = { chromium, firefox, webkit };
 const ENGINES = Object.entries(ALL).filter(([n]) => !process.env.ENGINES || process.env.ENGINES.split(',').includes(n));
+const LAYOUTS = ['desktop', 'mobile'].filter((l) => !process.env.LAYOUTS || process.env.LAYOUTS.split(',').includes(l));
+
+// Same phone setup as unit-action-menu-mobile-xbrowser.mjs: Firefox has no isMobile support in Playwright,
+// so it gets the iPhone viewport + UA only; the layout itself is forced with swuLayout=mobile either way.
+function contextOptions(engineName, layout) {
+  if (layout === 'desktop') return { viewport: { width: 1600, height: 900 } };
+  const phone = devices['iPhone 13'];
+  if (engineName === 'firefox') return { viewport: phone.viewport, userAgent: phone.userAgent };
+  return { ...phone };
+}
 
 let allOk = true;
 const results = [];
@@ -81,18 +97,24 @@ async function cell(page, { isPrivate, seats, available }) {
   }, { isPrivate, seats, available });
 }
 
-for (const [engineName, engine] of ENGINES) {
-  const browser = await engine.launch();
+for (const [engine, launcher] of ENGINES) {
+  const browser = await launcher.launch();
   try {
-    const ctx = await browser.newContext({ viewport: { width: 1600, height: 900 } });
+   for (const layout of LAYOUTS) {
+    // Every label carries the layout, so a red cell names which stylesheet is wrong.
+    const engineName = `${engine}/${layout}`;
+    const ctx = await browser.newContext(contextOptions(engine, layout));
     const page = await ctx.newPage();
     await login(page);
     let gameName;
     try { gameName = await buildGame(page); }
     catch (e) { ok(`${engineName}: board built`, false, e.message); await ctx.close(); continue; }
     await page.goto(BASE + `NextTurn.php?folderPath=SWUSim&gameName=${gameName}&playerID=1&authKey=testschema`
-      + `&viewerPerspective=1&opponentID=2`, { waitUntil: 'load' });
+      + `&viewerPerspective=1&opponentID=2&swuLayout=${layout}`, { waitUntil: 'load' });
     await page.waitForTimeout(2500);
+    // Guard the guard: a mobile pass that silently rendered the desktop board would prove nothing.
+    const isMobile = await page.evaluate(() => !!document.getElementById('swuMobileRoot'));
+    ok(`${engineName}: ${layout} layout is the one rendered`, isMobile === (layout === 'mobile'), `swuMobileRoot=${isMobile}`);
 
     for (const isPrivate of [false, true]) {
       for (const seats of [2, 3, 4]) {
@@ -154,8 +176,9 @@ for (const [engineName, engine] of ENGINES) {
 
     // Restore, then shoot the reported cell for a human look.
     await cell(page, { isPrivate: false, seats: 3, available: true });
-    await page.screenshot({ path: `${SHOTS}/swusim-undo-${engineName}-public3.png` }).catch(() => {});
+    await page.screenshot({ path: `${SHOTS}/swusim-undo-${engine}-${layout}-public3.png` }).catch(() => {});
     await ctx.close();
+   }
   } finally {
     await browser.close();
   }

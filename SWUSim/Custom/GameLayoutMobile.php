@@ -236,6 +236,11 @@
     body.swu-home .swu-sr-base .swu-mb-cardicon,
     body.swu-home .swu-sr-lead .swu-mb-cardicon { width: 11px; height: 11px; }
     body.swu-home .swu-sr-base .swu-mb-dmgcounter { width: 19px; height: 19px; font-size: 11px; }
+    /* Printed-HP pip on the phone's 46px base: the desktop HP badge scaled down (squarer than its 3:4 art, as on desktop), top-left, overhanging
+       the top edge like desktop (the row's 13px top padding holds it). */
+    body.swu-home .swu-sr-base .swu-mb-basehp { left: 1px; top: -5px; width: 12px; height: 13px; font-size: 8.5px; }
+    /* Phone row bar: badge is 12px at 1px → starts at 13px; 2px tall (spec 2026-10-08). */
+    body.swu-home .swu-sr-base .swu-hb--thin { left: 13px; height: 2px; --hb-cut: 1px; }
     body.swu-home .swu-seat-row .swu-mb-fx { width: 16px; height: 40px; margin-left: 2px; }
     body.swu-home .swu-seat-row .swu-mb-fxrow,
     body.swu-home .swu-seat-row .swu-mb-fxchip { height: 12px; border-radius: 6px; font-size: 9px; }
@@ -300,6 +305,13 @@
             rgba(var(--turn-mine-rgb),0.06) 0 50%, rgba(var(--turn-theirs-rgb),0.05) 50% 100%);
     }
     .swu-m-centers-row .swu-m-center { max-width: none; }
+    /* Phone base health bars: ABOVE both bases (they sit side by side in the middle band). Absolutely
+       placed so the base cells keep lining up with the leader cells beside them. 7px = the desktop's 12px
+       scaled to the phone's base width (spec 2026-10-08). */
+    .swu-m-center { position: relative; }
+    .swu-m-center .swu-base-health { position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(100% + 3px); }
+    .swu-m-center .swu-base-health:empty { display: none; }
+    .swu-m-center .swu-hb--full { height: 7px; --hb-cut: 4px; --hb-ci: 3.414px; }
     /* ⚠ The BASE renders taller than the leaders beside it — measured 199x143 against a leader's
        96x96 — because a base is a LANDSCAPE card and nothing capped its height. On a phone that
        vertical difference is pure cost: it sets the whole centre row's height for no extra
@@ -592,8 +604,14 @@
        GameLayout's CSS. `!important` throughout because components.css's
        `button:not(.btn):not(.switch)` is (0,2,1) and outranks a plain class, which has previously
        hijacked both `display` and `position` on newly added buttons. */
-    #swuUndoSplit { position: relative !important; display: none; align-items: stretch; }
-    #swuUndoSplit.is-split { display: inline-flex !important; }
+    /* ⚠ THE WRAPPER'S DISPLAY IS NOT `.is-split`'s BUSINESS — that class means "show the CARET", and
+       the caret's rule (`isPrivate || seats <= 2`) is FALSE in a public 3+ seat game. With the old
+       `display: none` + `.is-split { display: inline-flex !important }` pair the whole control, Undo
+       included, vanished there. Desktop was fixed 2026-09-25 (game 1310334, GameLayout.php); this copy
+       was missed and Twin Suns players on phones lost Undo (reported 2026-10-08).
+       No `!important` on display: swuUpdateUndoUI hides the control between actions with an inline
+       `style.display='none'`, which an !important rule would beat. */
+    #swuUndoSplit { position: relative !important; display: inline-flex; align-items: stretch; }
     #swuUndoSplit #swuUndoBtn { border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important; }
     #swuUndoMenuBtn {
         display: none;
@@ -828,8 +846,8 @@
     <!-- ════════ Leader/Base — one row: my leader·base | their base·leader (bases meet mid) ════════ -->
     <div class="swu-m-centers swu-m-centers-row">
         <div class="swu-m-center is-mine"><div id="myLeaderSlot"></div></div>
-        <div class="swu-m-center is-mine"><div id="myBaseSlot"></div></div>
-        <div class="swu-m-center is-theirs"><div id="theirBaseSlot"></div></div>
+        <div class="swu-m-center is-mine"><div id="myBaseHealth" class="swu-base-health"></div><div id="myBaseSlot"></div></div>
+        <div class="swu-m-center is-theirs"><div id="theirBaseHealth" class="swu-base-health"></div><div id="theirBaseSlot"></div></div>
         <div class="swu-m-center is-theirs"><div id="theirLeaderSlot"></div></div>
     </div>
 

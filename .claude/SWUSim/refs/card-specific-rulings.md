@@ -14,9 +14,10 @@
 > - **This is the FIRST place to look when a card's behaviour is ambiguous** and the card is from a
 >   RELEASED set. It settles questions the printed text does not — and it frequently contradicts the
 >   "obvious" reading, which is exactly why guessing is expensive.
-> - ⚠ **PREVIEW SETS ARE NOT HERE.** There are no HMW or IC27 entries, because the rulings database only
->   covers released cards. For a preview card, fall back to the CR + the closest released analogue, and
->   flag the assumption rather than inventing a ruling.
+> - ⚠ **PREVIEW SETS ARE NOT IN THE OFFICIAL SECTION.** The rulings database only covers released cards, so
+>   the official section has no HMW or IC27 entries. For a preview card, fall back to the CR + the closest
+>   released analogue, and flag the assumption rather than inventing a ruling. Judge clarifications the owner
+>   has relayed for such cards are kept SEPARATELY in "Judge clarifications" below — not verbatim official text.
 > - ⚠ **A card can appear under a set heading that is not its own printing** — reprints are listed where
 >   the ruling was issued. Search by CARD NAME (`### <Name>` / `### <Name> - <Subtitle>`), not by set.
 > - ⚠ Many rulings are GENERIC keyword clarifications attached to every card carrying that keyword
@@ -24,6 +25,29 @@
 >   Ambush timing, When-Attack-Ends on a dead attacker). If several cards share a phrase, treat it as the
 >   keyword's rule, not a per-card exception.
 > - The date on each bullet is the batch it was published in, not the date it took effect.
+
+---
+
+# Judge clarifications (NOT from the official database)
+
+> Rulings relayed by the owner from judges, mostly for cards the official database does not cover yet. They are
+> NOT reproduced from the gist above. When the official database publishes a ruling for one of these cards,
+> compare the two; if they differ, the official one wins — update the code, its tests and this entry.
+
+## HMW
+
+### Boga - Loyal Varactyl
+
+* 10/08/2026 (judge clarification, relayed by the owner) - Boga is played and then defeated in the same phase,
+  and both its When Played and its When Defeated choose the same unit. That unit costs 1 resource less, not 2.
+  Each ability grants a MODIFIED "play a card" action that carries its own "costs 1 resource less"; with two such
+  actions available the player uses one of them, so the discounts never add up — much like Smuggle and Piloting,
+  which cannot be used together. A separate LASTING cost reduction that is not a modification of the play action
+  (e.g. SEC_110 GNK Power Droid's "the next unit you play this phase costs 1 less") still applies on top. The
+  judge noted the line between "a separate effect" and "a modification to the play action" is nuanced in the
+  rules. SWUSim: `SWUSim/Tests/Cases/hmw/Boga_LoyalVaractyl.md` —
+  `SamePhase_PlayedThenDefeated_StillOnlyOneLess`, `SamePhase_PlayedThenDefeated_NotTwoLess`,
+  `GnkPowerDroid_TheDiscountsStack`.
 
 ---
 

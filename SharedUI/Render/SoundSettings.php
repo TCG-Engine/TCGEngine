@@ -8,13 +8,15 @@
 //   • BROWSER (localStorage, in-game) — wins locally, and is the only layer a LOGGED-OUT player has.
 // A browser choice made while signed out is promoted onto the account on first login (the `promote`
 // action), which is why "never set" is stored as absent rather than as 0.
-// Also hosts "Card language" (localized card art, images only) — setting 2, same two layers as mute.
+// Also hosts "Card language" (localized card art, images only) — setting 2, same two layers as mute — and
+// "Turn off health bars" (base health bars; the Twin Suns HP badge stays) — setting 3, same two layers again.
 require_once __DIR__ . '/../../SWUSim/PlayerSettings.php';
 
 function RenderSoundSettings(int $userId): string {
     $muted = SWUSimAccountMuted($userId) === true;
     $chk   = $muted ? ' checked' : '';
     $lang  = SWUSimAccountCardLanguage($userId) ?? 'en';
+    $hideHB = SWUSimAccountHideHealthBars($userId) === true ? ' checked' : '';
     $langs = ['en' => 'English', 'es' => 'Español', 'it' => 'Italiano', 'fr' => 'Français'];
     ob_start(); ?>
 <div class="sound-settings">
@@ -34,6 +36,12 @@ function RenderSoundSettings(int $userId): string {
   </label>
   <p class="sound-settings-hint">Shows card images in this language where a translation exists. Card names and game text stay in English.</p>
   <span id="profileCardLanguageStatus" class="sound-settings-status" role="status" aria-live="polite"></span>
+  <label class="sound-settings-row sound-settings-hb">
+    <input type="checkbox" id="profileHideHealthBars"<?= $hideHB ?>>
+    <span>Turn off health bars</span>
+  </label>
+  <p class="sound-settings-hint">Hides base health bars. The HP badge on Twin Suns Home Panels stays.</p>
+  <span id="profileHideHealthBarsStatus" class="sound-settings-status" role="status" aria-live="polite"></span>
 </div>
 <style>
   .sound-settings-row { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600; }
@@ -41,7 +49,7 @@ function RenderSoundSettings(int $userId): string {
   .sound-settings-hint { margin: 6px 0 0; opacity: 0.7; font-size: 13px; }
   .sound-settings-status { display: inline-block; margin-top: 6px; min-height: 1em; font-size: 13px; opacity: 0.85; }
   .sound-settings-status.is-error { color: #ffb3bd; }
-  .sound-settings-lang { margin-top: 14px; }
+  .sound-settings-lang, .sound-settings-hb { margin-top: 14px; }
 </style>
 <script>
 (function () {
@@ -101,6 +109,32 @@ function RenderSoundSettings(int $userId): string {
       sel.value = previous;
     };
     x.send('action=setCardLanguage&lang=' + encodeURIComponent(want));
+  });
+})();
+(function () {
+  var box = document.getElementById('profileHideHealthBars');
+  var out = document.getElementById('profileHideHealthBarsStatus');
+  if (!box) return;
+  function base() { var p = location.pathname, i = p.indexOf('/TCGEngine/'); return i >= 0 ? p.slice(0, i + 11) : '/TCGEngine/'; }
+  box.addEventListener('change', function () {
+    var want = box.checked;
+    if (out) { out.className = 'sound-settings-status'; out.textContent = 'Saving…'; }
+    // Keep this browser's layer in step, so a game open in the same browser follows the Profile change.
+    try { if (window.TCGSettings) window.TCGSettings.set('HideHealthBars', want, { rootName: 'SWUSim', type: 'boolean' }); } catch (e) {}
+    var x = new XMLHttpRequest();
+    x.open('POST', base() + 'SWUSim/PlayerSettingsApi.php', true);
+    x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    x.onload = function () {
+      var ok = false;
+      try { ok = !!JSON.parse(x.responseText).success; } catch (e) {}
+      if (out) { out.className = 'sound-settings-status' + (ok ? '' : ' is-error'); out.textContent = ok ? 'Saved.' : 'Could not save — try again.'; }
+      if (!ok) box.checked = !want;   // never show an unsaved state
+    };
+    x.onerror = function () {
+      if (out) { out.className = 'sound-settings-status is-error'; out.textContent = 'Could not save — try again.'; }
+      box.checked = !want;
+    };
+    x.send('action=setHideHealthBars&hide=' + (want ? '1' : '0'));
   });
 })();
 </script>

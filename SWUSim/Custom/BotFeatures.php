@@ -513,7 +513,31 @@ const SWU_BOT_PART41_FEATURES = ['phaseexpiry', 'observertax', 'uniquerefresh', 
 //   tuck — LOF_016 Qui-Gon's "return a friendly unit, play a cheaper non-Villainy unit free" is priced by its best (returned ->
 //          played) pair: the returned unit's When Played re-bought, the free unit's cost, less the body that leaves. 61% of 120 traced
 //          uses bounced a 1-2 drop for nothing; the deployed "you may" was declined 106/107. Guard: bot_tuck_test.php.
-const SWU_BOT_PART42_FEATURES = ['tuck'];
+//   doubleplay — HMW_008 Grievous's "Play 2 units from your hand" is worth the two plays it makes, each scored exactly as a direct play
+//          (every hold included); his "Choose_a_unit_to_play" pick is that same score. Was a flat 0.40 (used 22 of 803) and a first-in-hand
+//          pick (7 of 22 played a duplicate unique). Guard: bot_doubleplay_test.php.
+//   unitedge — a unit play that switches on "While you control more units than an opponent, this unit gets +N/+0" (deployed Grievous)
+//          goes before his attack (7 attacks at an even count). Guard: bot_unitedge_test.php.
+//   playdefeat — HMW_016 Maul's "Play a unit from your hand. It costs 1 less. Then, defeat it." is worth the unit's EFFECTS (its When
+//          Played / When Defeated tags), never its body; a unit with neither is not played. Was priced as a full "unlocked" play (25 of
+//          128 uses played an effect-less unit, Mae x12) and its pick took the biggest body. Guard: bot_playdefeat_test.php.
+//   deployreplay — Maul's "When Deployed: play a unit defeated this phase from your discard, 5 less": the deploy adds the best replay
+//          the resources cover, waits behind his own Action when that Action is worth using, and the Action counts the replay it sets
+//          up (Maul the card, then deploy it back). 21 of 31 deploys replayed nothing. Guard: bot_playdefeat_test.php.
+//   villainpitch — HMW_010 Tarfful's discard-cost Beast Action is the PITCH LINE only (owner ruling 2026-10-08): an off-aspect Villainy
+//          card pitched to half-activate Anakin (LOF_070), none in the discard yet, before 6 resources — round 1 at once, later with the
+//          last 2 resources after the unit plays. Its discard pick takes the Villainy card (the 'heropitch' mirror). Was an "unlock"-priced
+//          Action fired in round 1 in 48/48 games, pitching Chimaera 1 of 76 times. Guard: bot_villainpitch_test.php.
+//   attackreserve — while a ready unit reads "On Attack: You may pay N resource(s). If you do, create a <X> token" (deployed Tarfful's
+//          Beast), a play leaving fewer than N resources is charged that token (priced as a unit play its size). Owner: "on 7R, Anakin
+//          plus Tarfful swing + 1R for beast token … evaluate whether spending or saving 1 is worth more". 27 of 37 deployed Tarfful attacks
+//          had 0 resources. Guard: bot_attackreserve_test.php.
+//   shipdiscount — JTL_005 Piett's "Play a Capital Ship unit from your hand. It costs 1 resource less" is the ship plus the card the
+//          saved resource pays for (nothing extra: just under the direct play). Was priced by what it unlocks only — ships hard-cast with
+//          the Action ready 367/300 traced games. ('piettcheat', +0 on 2026-09-22, stays a proposal.) Guard: bot_shipdiscount_test.php.
+//   deployfirst — a unit a deploy available NOW would discount ("Each Capital Ship unit you play costs 2 resources less") waits for it;
+//          'blockerfirst' hard-cast a 5-cost ship right before deploying Piett in ~25% of games. Guard: bot_shipdiscount_test.php.
+const SWU_BOT_PART42_FEATURES = ['tuck', 'doubleplay', 'unitedge', 'playdefeat', 'deployreplay', 'villainpitch', 'attackreserve', 'shipdiscount', 'deployfirst'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,

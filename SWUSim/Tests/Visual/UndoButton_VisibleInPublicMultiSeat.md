@@ -53,6 +53,16 @@
 #   MUTATION: restoring the two old rules turns exactly those two cells red again; nothing else moves.
 #   LIVE: game 1310334 re-measured after the fix — the Undo button is visible (59px, "Undo") for seats
 #         1, 2 AND 3, where before it was 0x0 for all three.
+#
+# REGRESSED ON MOBILE (reported 2026-10-08, Twin Suns on a phone): phones load GameLayoutMobile.php INSTEAD
+# of GameLayout.php, and it carries its OWN copy of the #swuUndoSplit rule — the fix above went into the
+# desktop copy only, and the probe ran at 1600x900 only, so it could not see it. Same one-line fix applied
+# to GameLayoutMobile.php. The probe now runs every cell at desktop AND iPhone 13 + swuLayout=mobile
+# (LAYOUTS=desktop,mobile), asserting the intended layout actually rendered (#swuMobileRoot).
+#   BEFORE (mobile): public/3-seat + public/4-seat red in Chromium, Firefox and WebKit, `split=none`.
+#   AFTER: 156 PASS / 0 FAIL (3 engines x 2 layouts). MUTATION: restoring the old mobile pair turns exactly
+#   the two mobile public/3+4 cells red again. Mobile header measured: Undo 65x25 at the right of the
+#   Round/Phase row, topmost at its centre, beside the gear — the caret correctly absent.
 
 ## GIVEN
 #// Any 3-seat board; the probe drives the undo UI directly, so the board is only a host for the real

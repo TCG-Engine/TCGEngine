@@ -367,6 +367,60 @@ body.swu-home .swu-mb-cardicon { width: 16px; height: 16px; }
 /* A leader thumbnail is smaller than the base, so its icon steps down to stay a corner marker rather
    than a lid — the 75x75-on-an-84px-card mistake this file already carries a warning about. */
 body.swu-home .swu-mb-leader .swu-mb-cardicon { width: 13px; height: 13px; }
+/* Static printed-HP pip — TOP-LEFT, over the card's own printed HP (swuMbBaseHP). Drawn with the board's
+   usual HP badge art (swusim-hp_v2.png, the same token .swu-mb-hp and the schema's CurrentHP counter use;
+   owner 2026-10-08: "use our usual hp badge"). The art is 96x128 (3:4) but the box is deliberately
+   SQUARER (owner, same day: "reduce the badge height to look more square"), so the art is stretched to
+   the box (100% 100%), not contained — contain would letterbox it back to 3:4. No z-index: it comes before the damage token in the DOM, so where they touch, the
+   damage number paints on top. Click-through, like every other overlay here.
+   ⚠ It OVERHANGS the card's top edge on purpose (owner 2026-10-08: "it can fall off the card some") —
+   that is where the base health bar runs. The tile's 8px top padding (phone row: 13px) holds the
+   overhang; nothing above it clips (all overflow:visible). Lift it further and it crosses the panel. */
+.swu-mb-basehp { position: absolute; left: 2px; top: -5px; pointer-events: none;
+    width: 12px; height: 13px; display: flex; align-items: center; justify-content: center;
+    background: url('./Assets/Icons/swusim-hp_v2.png') center / 100% 100% no-repeat;
+    color: #fff; text-shadow: 0 1px 2px #000, 0 0 3px #000;
+    font: 800 8px/1 var(--swu-font-label, sans-serif); }
+body.swu-home .swu-mb-basehp { top: -7px; width: 18px; height: 20px; font-size: 11px; }
+/* ── Base health bar: New Petranaki HUD depth (spec 2026-10-08) ────────────────────────────────────
+   The main menu's chamfer primitive (SharedUI/Sites/SWUSim/css/swusim-menu-2.css, .ch / .inwrap):
+   corners cut top-left / bottom-right, a 1px WHOLE-PX steel rim (the menu's --rim-hi / --rim-lo), and a
+   sunken plane whose cut is cut − 0.586 × rim so the rim reads the same width on the diagonal. Height
+   and cut are per surface: full-size 12px desktop / 7px phone, thin 3px tile / 2px phone row.
+   ⚠ The drop-shadow filter is safe here: the bar contains no frosted glass, so the backdrop-root rule
+   in swusim-menu-2.css doesn't apply. */
+.swu-hb { --hb-cut: 7px; --hb-ci: 6.414px; --hb-c: #c9ced6;
+    position: relative; height: 12px; pointer-events: none;
+    filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.75)); }
+.swu-hb-rim { position: absolute; inset: 0;
+    clip-path: polygon(var(--hb-cut) 0, 100% 0, 100% calc(100% - var(--hb-cut)), calc(100% - var(--hb-cut)) 100%, 0 100%, 0 var(--hb-cut));
+    background: linear-gradient(180deg, rgba(196,214,238,.60), rgba(120,142,172,.18) 76%); }
+.swu-hb-plane { position: absolute; inset: 1px; overflow: hidden;
+    clip-path: polygon(var(--hb-ci) 0, 100% 0, 100% calc(100% - var(--hb-ci)), calc(100% - var(--hb-ci)) 100%, 0 100%, 0 var(--hb-ci));
+    background: linear-gradient(180deg, #232930 0%, #3a414c 55%, #454e5b 100%);
+    box-shadow: inset 0 2px 2px -1px rgba(0,0,0,.6); }
+.swu-hb-fill { position: absolute; left: 0; top: 0; bottom: 0;
+    background: linear-gradient(180deg, color-mix(in oklab, var(--hb-c) 55%, white) 0%, var(--hb-c) 42%, color-mix(in oklab, var(--hb-c) 68%, black) 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset -1px 0 0 rgba(255,255,255,.65);
+    transition: width 420ms cubic-bezier(.2,.8,.2,1); }
+body.swu-hb-still .swu-hb-fill { transition: none; }
+/* "Turn off health bars" (Profile → Game Settings / gear menu): every bar goes, full-size and tile. The
+   Twin Suns HP badge (.swu-mb-basehp) is NOT a bar and stays. Hiding the containers also gives back the
+   gap the full-size bars opened between the 1v1 bases. */
+body.swu-hb-off .swu-hb, body.swu-hb-off .swu-base-health { display: none !important; }
+/* Fill its container. ⚠ The phone layout's `.swu-m-center > div { display: flex }` makes the container a
+   flex box, and an unsized child of one shrinks to 0px wide. */
+.swu-base-health > .swu-hb { width: 100%; }
+/* Thin bars (tiles): no room for a rim at 2–3px; they keep the cut, the shading and the lift. */
+.swu-hb--thin .swu-hb-rim { display: none; }
+.swu-hb--thin .swu-hb-plane { inset: 0;
+    clip-path: polygon(var(--hb-cut) 0, 100% 0, 100% calc(100% - var(--hb-cut)), calc(100% - var(--hb-cut)) 100%, 0 100%, 0 var(--hb-cut)); }
+/* Tile bar: along the thumbnail's TOP EDGE, from the HP badge's right edge (badge left + width) to 14%
+   short of the right edge: the aspect icon starts at 88% of every base card. 2–3px keeps it above the
+   title plate (7.4% of the card's height). Compact tiles: 12px badge at 2px → starts at 14px. */
+.swu-mb-base .swu-hb--thin, .swu-sr-base .swu-hb--thin { position: absolute; top: 0; right: 14%;
+    left: 14px; height: 2px; --hb-cut: 1px; }
+body.swu-home .swu-mb-base .swu-hb--thin { left: 20px; height: 3px; --hb-cut: 2px; }
 
 /* Effects column between the base and Zoom-in: THREE fixed rows, filled in arrival order.
    ⚠ Fixed width and height ALWAYS, empty or not — row 1 must stay identical across tiles. */
@@ -2310,10 +2364,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         document.documentElement.style.setProperty('--swu-pass-reserve-h', Math.round(reserve) + 'px');
     }
     function pollGlobals() {
+        swuHbSyncMotion();
+        if (typeof window.swuApplyHealthBarVisibility === 'function') window.swuApplyHealthBarVisibility();
         syncCardSizeVar();
         swuInitPairSwitcher();   // sets window.swuSpectating BEFORE the glows read it
         updatePhaseTrack(); updatePhaseLine(); updateInitiative(); updateRound(); refreshActionGlows();
         swuRenderBaseTabs('my'); swuRenderBaseTabs('their');
+        swuRenderBaseHealth('my'); swuRenderBaseHealth('their');
         swuRenderHomeStrips();
         refreshResourceSelectionPanel();
         swuUpdateUndoUI(MY_PLAYER_ID);
@@ -2327,6 +2384,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // is up and the button is missing, so the steady-state cost is one getElementById.
         setInterval(swuEnsureEndGameToggle, 700);
         window.addEventListener('resize', syncCardSizeVar);
+        window.addEventListener('resize', function () { swuRenderBaseHealth('my'); swuRenderBaseHealth('their'); });
         var g=document.getElementById('globalStuff'); if(!g) return;
         new MutationObserver(pollGlobals).observe(g,{childList:true,subtree:true});
     }
@@ -3844,6 +3902,88 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ⚠ Effect COUNTS are deliberately not here any more — they live in the fixed three-row column
     // beside the base (swuMbFxColumn), so the base's corners are free for these two states and the
     // counts have somewhere to grow.
+    // Static printed-HP pip, top-left of a Home Panel base thumbnail (feature request 2026-10-08). The
+    // card prints its HP in that corner, but at tile size the number is ~6px tall; the pip is that same
+    // number, made bigger. ⚠ PRINTED, NOT REMAINING: PrintedHP is the schema virtual over CardHp(), so
+    // it never counts down — damage keeps its own centred token. Emitted BEFORE the damage token so,
+    // where the two meet, the live number paints on top. No value (no base yet) → no pip.
+    // ── Base health bar (spec: docs/superpowers/specs/2026-10-08-swusim-base-health-bar-design.md) ──
+    // Fill colours: SWUSim's lobby palette (SWUSim/LobbyAdapter.php). '' = no aspect (JTL_031 Lake
+    // Country), drawn light grey; a missing Aspect field (prod not regenerated) falls back to it too.
+    var SWU_ASPECT_FILL = { Vigilance: '#3b7dd8', Command: '#2e9e4f', Aggression: '#c0392b', Cunning: '#e2b13c', '': '#c9ced6' };
+    // Everything a bar needs from one base: remaining share of PRINTED HP (clamped 0..1), colour, label.
+    // ⚠ swuParseZoneCard turns '_' into ' ', so the CardID gets its underscore back here.
+    function swuHbState(baseObj) {
+        var hp = baseObj ? parseInt(baseObj.PrintedHP, 10) : NaN;
+        if (!isFinite(hp) || hp <= 0) return null;
+        var dmg = parseInt(baseObj.Damage, 10) || 0;
+        var aspect = String(baseObj.Aspect == null ? '' : baseObj.Aspect).split(',')[0].trim();
+        var share = Math.max(0, Math.min(1, (hp - dmg) / hp));
+        return {
+            card: String(baseObj.CardID || '').replace(/ /g, '_'),
+            // Seat + card: two Twin Suns opponents may share a base, and switching the zoomed board must
+            // rebuild the bar rather than slide one seat's HP into the other's.
+            key: String(baseObj.PlayerID == null ? '' : baseObj.PlayerID) + '/' + String(baseObj.CardID || '').replace(/ /g, '_'),
+            pct: Math.round(share * 10000) / 100,
+            color: Object.prototype.hasOwnProperty.call(SWU_ASPECT_FILL, aspect) ? SWU_ASPECT_FILL[aspect] : SWU_ASPECT_FILL[''],
+            title: 'Base HP ' + Math.max(0, hp - dmg) + ' of ' + hp
+        };
+    }
+    // The bar's markup. $variant 'full' (rimmed, full-size bases) or 'thin' (tiles). $fromPct, when given,
+    // is the width to START at; data-hb-to carries the target for swuHbSettle.
+    function swuBaseHealthBar(baseObj, variant, fromPct) {
+        var st = swuHbState(baseObj);
+        if (!st) return '';
+        var start = (fromPct == null) ? st.pct : fromPct;
+        return "<div class='swu-hb swu-hb--" + (variant === 'thin' ? 'thin' : 'full') + "' data-hb-card='" + st.card + "' data-hb-key='" + st.key + "'"
+             + " data-hb-to='" + st.pct + "' style='--hb-c:" + st.color + "' title='" + st.title + "'>"
+             + "<div class='swu-hb-rim'></div>"
+             + "<div class='swu-hb-plane'><div class='swu-hb-fill' style='width:" + start + "%'></div></div>"
+             + "</div>";
+    }
+    window.swuBaseHealthBar = swuBaseHealthBar;
+    // Slide only when the player has card motion on (Settings → Card motion, whose default honours the
+    // OS's reduced-motion setting). Off → body.swu-hb-still kills the transition everywhere.
+    function swuHbSyncMotion() {
+        var on = (window.TCGCardMotion && typeof window.TCGCardMotion.isEnabled === 'function')
+            ? !!window.TCGCardMotion.isEnabled('SWUSim')
+            : !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+        document.body.classList.toggle('swu-hb-still', !on);
+    }
+    // After a tile rebuild the fills sit at their PREVIOUS width (swuMbBaseHealth); move each to its
+    // data-hb-to target two frames later, so the browser has committed the old width and the transition runs.
+    function swuHbSettle(root) {
+        var bars = root ? root.querySelectorAll('.swu-hb[data-hb-to]') : [];
+        if (!bars.length) return;
+        requestAnimationFrame(function () { requestAnimationFrame(function () {
+            for (var i = 0; i < bars.length; i++) {
+                var to = bars[i].getAttribute('data-hb-to'), f = bars[i].querySelector('.swu-hb-fill');
+                if (f && f.style.width !== to + '%') f.style.width = to + '%';
+            }
+        }); });
+    }
+
+    function swuMbBaseHP(baseObj) {
+        var hp = baseObj ? parseInt(baseObj.PrintedHP, 10) : NaN;
+        if (!isFinite(hp) || hp <= 0) return '';
+        return "<span class='swu-mb-basehp' title='Base HP " + hp + " (printed)'>" + hp + "</span>";
+    }
+
+    // Thin health bar on a Home Panel base thumbnail (spec 2026-10-08). Emitted BEFORE the HP badge so the
+    // badge paints over the bar's left end.
+    // swuRenderHomeStrips rebuilds every tile with innerHTML on every poll, which would kill a CSS
+    // transition. So each seat's last width is remembered: the fill is emitted at that width and
+    // swuHbSettle moves it to the new one. First sight of a seat (page load) emits at the target: no slide.
+    var swuHbLast = {};
+    function swuMbBaseHealth(baseObj, seat) {
+        var st = swuHbState(baseObj);
+        if (!st) return '';
+        var key = String(seat) + '/' + st.card;
+        var from = Object.prototype.hasOwnProperty.call(swuHbLast, key) ? swuHbLast[key] : null;
+        swuHbLast[key] = st.pct;
+        return swuBaseHealthBar(baseObj, 'thin', from);
+    }
+
     function swuMbBaseOverlays(baseObj) {
         if (!baseObj) return '';
         var truthy = function (v) { return v === true || v === 'true' || v === 1 || v === '1'; };
@@ -4012,7 +4152,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // rules box at this size. The folder follows the card's SHAPE, never a blanket rule.
         var baseHtml = '<span class="swu-mb-card swu-mb-base" data-mz="p' + seat + 'Base-0" ' + swuMbHoverAttrs(baseRid) +
             (baseCid ? ' style="background-image:url(/TCGEngine/AppCore/SWU/Images/WebpImages/' + baseRid + '.webp)"' : '') +
-            '>' + (dmg > 0 ? '<span class="swu-mb-dmgcounter">' + dmg + '</span>' : '')
+            '>' + swuMbBaseHealth(b.baseObj, seat) + swuMbBaseHP(b.baseObj) + (dmg > 0 ? '<span class="swu-mb-dmgcounter">' + dmg + '</span>' : '')
                 + swuMbBaseOverlays(b.baseObj) + '</span>' + swuMbFxColumn(b.baseObj, 'p' + seat + 'Base-0');
         // A single unit thumbnail, tagged with its engine mzID (p{seat}{arena}Arena-{idx}) so it can be
         // highlighted + clicked as a cross-view attack/ability target (matches the seat-tagged targets
@@ -4126,7 +4266,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // show the same thing: the WHOLE landscape base card (2026-09-26). See swuRenderMiniBoard.
         var base = "<span class='swu-sr-base swu-mb-card' " + swuMbHoverAttrs(brid) +
                    (brid ? " style=\"background-image:url(/TCGEngine/AppCore/SWU/Images/WebpImages/" + brid + ".webp)\"" : "") +
-                   ">" + (dmg > 0 ? "<span class='swu-mb-dmgcounter'>" + dmg + "</span>" : "") +
+                   ">" + swuMbBaseHealth(b.baseObj, seat) + swuMbBaseHP(b.baseObj) + (dmg > 0 ? "<span class='swu-mb-dmgcounter'>" + dmg + "</span>" : "") +
                    swuMbBaseOverlays(b.baseObj) + "</span>";
         // ⚠ Fixed-width value box, same reason as desktop: rows are a COMPARISON view, so a chip that
         // grows when a seat gains credits moves everything after it and the same fact sits in a
@@ -4208,6 +4348,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                    + '" data-view="' + mi + '">' + swuRenderMiniBoard(opp, dead) + '</div>');
         });
         box.innerHTML = html;
+        swuHbSettle(box);   // tile health bars: slide from their previous width (swuMbBaseHealth)
         box.style.display = 'flex';
         // MOBILE: publish the rows' real height so the board can sit immediately beneath them. The
         // band is position:fixed, so it contributes nothing to flow — without this the root has to
@@ -4233,6 +4374,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // painted onto, so repaint AFTER innerHTML — never before.
         if (typeof window.swuPaintHomeStripPlaymats === 'function') window.swuPaintHomeStripPlaymats();
     }
+    window.swuRenderHomeStrips = swuRenderHomeStrips;   // the health-bar harness re-renders the tiles
 
     // Mark the home strip belonging to the seat whose turn it is. Called on every strip rebuild AND
     // from the TurnPlayerData setter, because the turn can pass without the strips being re-rendered
@@ -4368,6 +4510,85 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                  +  "Arrested <span class='swu-base-tab-n'>" + arrest + "</span></span>";
         }
         if (box.innerHTML !== html) box.innerHTML = html;   // avoid restarting hover state every poll
+    }
+
+    // Full-size base health bars: fixed containers beside each base (#myBaseHealth / #theirBaseHealth,
+    // the FORTIFIED-tabs pattern). While the base is the same card the bar is UPDATED IN PLACE, so the
+    // fill's width transition runs; it is rebuilt only when the card changes.
+    function swuHbApply(bar, baseObj) {
+        var st = swuHbState(baseObj);
+        if (!st) return;
+        bar.style.setProperty('--hb-c', st.color);
+        bar.setAttribute('title', st.title);
+        bar.setAttribute('data-hb-to', String(st.pct));
+        var f = bar.querySelector('.swu-hb-fill');
+        if (f && f.style.width !== st.pct + '%') f.style.width = st.pct + '%';
+    }
+    function swuRenderBaseHealth(which) {
+        swuHbSyncMotion();
+        var box = document.getElementById(which + 'BaseHealth');
+        if (!box) return;
+        var o = (typeof swuParseZoneCard === 'function') ? swuParseZoneCard(window[which + 'BaseData'] || '') : null;
+        var st = o ? swuHbState(o) : null;
+        if (!st) { if (box.innerHTML !== '') box.innerHTML = ''; return; }
+        var bar = box.querySelector('.swu-hb');
+        if (bar && bar.getAttribute('data-hb-key') === st.key) swuHbApply(bar, o);
+        else box.innerHTML = swuBaseHealthBar(o, 'full');
+        swuHbWatch(which);
+        // Size and place from the CARD ELEMENT (#myBase-0 / #theirBase-0), which is what the player sees.
+        // ⚠ Not the <img>: the art is transform-scaled 1.1x inside the card, which clips it (overflow
+        // hidden, 7px radius), so the img box overshoots the visible card by ~8px all round (measured 203px
+        // vs 185px). The card also clips its damage token, so nothing pokes past it. ⚠ Wait for a LOADED
+        // image: before that the card has no size (measuring early gave a 4px bar), and pollGlobals only
+        // re-runs on data changes.
+        var img = document.querySelector('#' + which + 'BaseSlot img');
+        var card = document.getElementById(which + 'Base-0');
+        if (!img || !card) return;
+        if (!img.complete) {
+            // Still loading. 'error' too: a base whose art fails (a preview card with no image yet) must
+            // still get a placed bar, sized from the card element.
+            if (!img.__hbOnLoad) {
+                img.__hbOnLoad = true;
+                var again = function () { swuRenderBaseHealth(which); };
+                img.addEventListener('load', again, { once: true });
+                img.addEventListener('error', again, { once: true });
+            }
+            return;
+        }
+        swuHbPlace(box, which, card);   // loaded, or failed (complete with no naturalWidth): place from the card
+    }
+    window.swuRenderBaseHealth = swuRenderBaseHealth;
+    function swuHbPlace(box, which, card) {
+        var ir = card.getBoundingClientRect();
+        if (!ir.width) return;
+        var w = Math.round(ir.width) + 'px';
+        if (box.style.width !== w) box.style.width = w;
+        if (getComputedStyle(box).position === 'absolute') {
+            // Phone: above the card inside its cell, 3px clear of the card's top, centred on it.
+            var host = box.offsetParent;
+            if (!host) return;
+            var hr = host.getBoundingClientRect();
+            box.style.bottom = Math.round(hr.bottom - ir.top + 3) + 'px';
+            box.style.left = Math.round(ir.left - hr.left + ir.width / 2) + 'px';
+        } else {
+            // Desktop: in flow on the midline side, 4px from the card's edge, lined up with its left edge.
+            var pr = box.parentElement.getBoundingClientRect();
+            box.style.marginLeft = Math.round(ir.left - pr.left) + 'px';
+            box.style.marginRight = '0px';
+            // Signed: the card's edge can sit inside or outside its slot depending on the layout.
+            var sr = document.getElementById(which + 'BaseSlot').getBoundingClientRect();
+            if (which === 'their') box.style.marginTop = Math.round(ir.bottom - sr.bottom + 4) + 'px';
+            else box.style.marginBottom = Math.round(sr.top - ir.top + 4) + 'px';
+        }
+    }
+    // Re-place when the slot's layout changes (window resize, the max-height:680px row layout, art swaps).
+    var swuHbObserved = {};
+    function swuHbWatch(which) {
+        if (swuHbObserved[which] || typeof ResizeObserver !== 'function') return;
+        var slot = document.getElementById(which + 'BaseSlot');
+        if (!slot) return;
+        swuHbObserved[which] = true;
+        new ResizeObserver(function () { swuRenderBaseHealth(which); }).observe(slot);
     }
 
     // The end-game panel's minimise/restore control. Injected rather than shipped in markup because
@@ -4593,6 +4814,56 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             x.open('POST', swuAppBase() + 'SWUSim/PlayerSettingsApi.php', true);
             x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             x.send('action=promote&mute=' + (local ? '1' : '0'));
+        } catch (e) {}
+    })();
+
+    // "Turn off health bars" (owner request 2026-10-08). Same two layers as mute: the per-BROWSER choice
+    // when this browser has made one (the only layer a logged-out player has), else the ACCOUNT value
+    // (Profile → Game Settings), else off. Hides every base health bar; the Twin Suns HP badge stays.
+    function swuHealthBarsHidden() {
+        try {
+            if (window.TCGSettings && typeof window.TCGSettings.get === 'function') {
+                var local = window.TCGSettings.get('HideHealthBars', { rootName: 'SWUSim', type: 'boolean', defaultValue: null });
+                if (local === true || local === false) return local;
+            }
+        } catch (e) {}
+        return window.SWU_ACCOUNT_HIDE_HEALTH_BARS === true;
+    }
+    window.swuHealthBarsHidden = swuHealthBarsHidden;
+    function swuApplyHealthBarVisibility() {
+        if (document.body) document.body.classList.toggle('swu-hb-off', swuHealthBarsHidden());
+    }
+    window.swuApplyHealthBarVisibility = swuApplyHealthBarVisibility;
+    // Write both layers (browser always; account when signed in), then apply at once.
+    function swuSetHealthBarsHidden(hide) {
+        try { if (window.TCGSettings) window.TCGSettings.set('HideHealthBars', !!hide, { rootName: 'SWUSim', type: 'boolean' }); } catch (e) {}
+        if (window.SWU_LOGGED_IN) {
+            window.SWU_ACCOUNT_HIDE_HEALTH_BARS = !!hide;
+            try {
+                var x = new XMLHttpRequest();
+                x.open('POST', swuAppBase() + 'SWUSim/PlayerSettingsApi.php', true);
+                x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                x.send('action=setHideHealthBars&hide=' + (hide ? '1' : '0'));
+            } catch (e) {}
+        }
+        swuApplyHealthBarVisibility();
+    }
+    window.swuSetHealthBarsHidden = swuSetHealthBarsHidden;
+    // Carry a logged-out browser choice onto the account at login — only onto an account that has never
+    // set it (SWU_ACCOUNT_HIDE_HEALTH_BARS === null). The server re-checks, so two tabs can't double-promote.
+    (function swuPromoteBrowserHealthBarsOnLogin() {
+        if (!window.SWU_LOGGED_IN || window.SWU_ACCOUNT_HIDE_HEALTH_BARS !== null) return;
+        var local = null;
+        try {
+            if (window.TCGSettings) local = window.TCGSettings.get('HideHealthBars', { rootName: 'SWUSim', type: 'boolean', defaultValue: null });
+        } catch (e) {}
+        if (local !== true && local !== false) return;
+        window.SWU_ACCOUNT_HIDE_HEALTH_BARS = local;
+        try {
+            var x = new XMLHttpRequest();
+            x.open('POST', swuAppBase() + 'SWUSim/PlayerSettingsApi.php', true);
+            x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            x.send('action=promoteHideHealthBars&hide=' + (local ? '1' : '0'));
         } catch (e) {}
     })();
 
@@ -6038,6 +6309,8 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   // Card language (localized card art): the ACCOUNT value, or null when there is none. Same null
   // contract as mute: null is what lets a browser-side choice be promoted onto the account.
   $swuGearCardLang = SWUSimAccountCardLanguage($swuGearUid);
+  // Turn off health bars: the ACCOUNT value, or null (guest / never set) — same null contract as mute.
+  $swuGearHideHB = SWUSimAccountHideHealthBars($swuGearUid);
   $swuGearLogged = ($swuGearUid !== '' && $swuGearUid !== null && intval($swuGearUid) > 0);
 
   // Seat -> public username, for every seat whose player is LOGGED IN.
@@ -6097,6 +6370,7 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   window.SWU_LOGGED_IN   = <?= $swuGearLogged ? 'true' : 'false' ?>;
   window.SWU_ACCOUNT_MUTE = <?= $swuGearMute === null ? 'null' : ($swuGearMute ? 'true' : 'false') ?>;
   window.SWU_ACCOUNT_CARD_LANGUAGE = <?= $swuGearCardLang === null ? 'null' : json_encode($swuGearCardLang) ?>;
+  window.SWU_ACCOUNT_HIDE_HEALTH_BARS = <?= $swuGearHideHB === null ? 'null' : ($swuGearHideHB ? 'true' : 'false') ?>;
   // Always an object (never undefined) so a consumer can index it without a guard. Empty = a game
   // in which nobody is logged in, or one played outside the match system.
   window.SWU_SEAT_USERNAMES = <?= json_encode((object)$swuSeatNames, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
@@ -6315,6 +6589,8 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
         </select></label>
       <label class="swu-settings-row"><span>Card motion</span>
         <input type="checkbox" id="swuSetCardMotion"></label>
+      <label class="swu-settings-row"><span>Turn off health bars</span>
+        <input type="checkbox" id="swuSetHideHealthBars"></label>
       <?php if ($swuGearCos !== null): ?>
         <label class="swu-settings-row swu-settings-row--stack"><span>Background</span>
           <?= SWUCosmeticSelectHtml('background', $swuGearCos['background']['id'], 'swu-gear-cos') ?></label>
@@ -6389,6 +6665,9 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     // Card motion (zone slides + attack lunge). Read through TCGCardMotion.isEnabled rather than
     // TCGSettings directly: its default honours prefers-reduced-motion, so a player who has asked the
     // OS for reduced motion sees this unchecked without ever having touched it.
+    // Turn off health bars shows the EFFECTIVE value (browser choice, else account), like mute.
+    var hhb = document.getElementById('swuSetHideHealthBars');
+    if (hhb && typeof window.swuHealthBarsHidden === 'function') hhb.checked = window.swuHealthBarsHidden();
     var cm = document.getElementById('swuSetCardMotion');
     if (cm && window.TCGCardMotion) cm.checked = window.TCGCardMotion.isEnabled('SWUSim');
     // Match actions are player-only (hidden for spectators / non-players).
@@ -6558,6 +6837,11 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     if (e.target && e.target.id === 'swuSetShowPlaymats') {
       if (window.TCGSettings) window.TCGSettings.set('ShowPlaymats', e.target.checked, { rootName:'SWUSim', type:'boolean' });
       if (typeof window.ApplyCosmeticPlaymats === 'function') window.ApplyCosmeticPlaymats();
+      return;
+    }
+    if (e.target && e.target.id === 'swuSetHideHealthBars') {
+      // Writes this browser and (when signed in) the account, then shows/hides every bar at once.
+      if (typeof window.swuSetHealthBarsHidden === 'function') window.swuSetHealthBarsHidden(e.target.checked);
       return;
     }
     if (e.target && e.target.id === 'swuSetCardMotion') {

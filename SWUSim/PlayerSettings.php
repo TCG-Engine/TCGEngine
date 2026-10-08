@@ -17,9 +17,11 @@
 //   REGISTRY
 //     1 = Mute sounds (0/1)
 //     2 = Card language (0=en 1=es 2=it 3=fr) — settingValue is an INT column, so languages are codes
-//     -- next free: 3 --
+//     3 = Turn off health bars (0/1) — hides the base health bars; the Twin Suns HP badge stays (2026-10-08)
+//     -- next free: 4 --
 if (!defined('SWUSIM_SET_MUTE')) define('SWUSIM_SET_MUTE', 1);
 if (!defined('SWUSIM_SET_CARD_LANGUAGE')) define('SWUSIM_SET_CARD_LANGUAGE', 2);
+if (!defined('SWUSIM_SET_HIDE_HEALTH_BARS')) define('SWUSIM_SET_HIDE_HEALTH_BARS', 3);
 
 require_once __DIR__ . '/../Database/ConnectionManager.php';
 require_once __DIR__ . '/../Database/functions.inc.php';
@@ -59,6 +61,15 @@ if (!function_exists('SWUSimSetSetting')) {
 if (!function_exists('SWUSimAccountMuted')) {
     function SWUSimAccountMuted($userId): ?bool {
         $v = SWUSimGetSetting($userId, SWUSIM_SET_MUTE);
+        return $v === null ? null : ($v === '1');
+    }
+}
+
+// "Turn off health bars": null = no account-level answer (guest, or never set), exactly like mute. The client
+// then falls back to its per-browser value — see swuHealthBarsHidden().
+if (!function_exists('SWUSimAccountHideHealthBars')) {
+    function SWUSimAccountHideHealthBars($userId): ?bool {
+        $v = SWUSimGetSetting($userId, SWUSIM_SET_HIDE_HEALTH_BARS);
         return $v === null ? null : ($v === '1');
     }
 }

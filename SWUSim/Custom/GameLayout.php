@@ -850,6 +850,13 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-base-tab-arrest:hover, .swu-base-tab-arrest:focus-visible {
         background: rgba(218,165,32,0.9); color: #fff; outline: none; }
     .swu-base-tab-n { font-size: 11px; font-weight: 900; }
+    /* Base health bar containers: their bar UNDER their base, mine OVER mine, so both sit on the midline
+       side. In flow inside .swu-base-slot-wrap: their height opens the gap between the two bases. The
+       renderer sets the width to the base card's. */
+    .swu-base-health { margin: 0 auto; }
+    .swu-base-health:empty { display: none; }
+    .swu-center-col-top .swu-base-health { margin-top: 4px; }
+    .swu-center-col-bot .swu-base-health { margin-bottom: 4px; }
 
     /* ── Stacked-token count badge ("x30") ──────────────────────────────────────────────────────
        A run of 4+ of the SAME groupable token (Experience / Advantage / Weakness — NOT Shields)
@@ -2063,6 +2070,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     <!-- Their base (closest to midline) -->
     <div class="swu-base-slot-wrap">
         <div id="theirBaseSlot" class="swu-zone swu-center-inner"></div>
+        <!-- Base health bar: on the MIDLINE side of their base, so the two bars face each other across
+             the middle (spec 2026-10-08). INSIDE the wrapper, not beside it: at max-height 680px the
+             column becomes a row of flex:1 cells, and a sibling would turn into a third column.
+             Populated by swuRenderBaseHealth(); empty (and hidden) with no base. -->
+        <div id="theirBaseHealth" class="swu-base-health"></div>
     </div>
 
 </div>
@@ -2072,6 +2084,8 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     <!-- My base (closest to midline) -->
     <div class="swu-base-slot-wrap">
+        <!-- Base health bar, ABOVE my base (see the mirror of this on their half) -->
+        <div id="myBaseHealth" class="swu-base-health"></div>
         <div id="myBaseSlot" class="swu-zone swu-center-inner"></div>
     </div>
 
