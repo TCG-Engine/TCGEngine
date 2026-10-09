@@ -299,6 +299,7 @@ checkContains('cosmetics playmat has None', $cos, '>None<');
 checkContains('cosmetics has preview', $cos, "class='cos-preview'");
 checkContains('cosmetics has show-playmats toggle', $cos, "id='cos-show-playmats'");
 checkContains('cosmetics has card-motion toggle', $cos, "id='cos-card-motion'");
+checkContains('cosmetics has reduce-board-animations toggle', $cos, "id='cos-reduce-board-anim'");
 checkContains('cosmetics posts to endpoint', $cos, 'SWUSim/Cosmetics.php');
 // cosmetics now shares a pane with sounds, so it appears as 'cosmetics+sounds' — assert the
 // PANEL is enabled rather than the exact entry string, which is a grouping decision.

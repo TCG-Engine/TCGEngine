@@ -69,9 +69,11 @@ $check($pickRet('no-yodaloop') === 'LAW_224', 'T fixture: today the first-listed
 $check($pickRet('') === 'LOF_101', 'T: Yoda goes back (to be cast again for his heal); got ' . $pickRet(''));
 
 // T2) Swing first: Yoda READY with the base open (no Sentinel) and Kelleran in hand — the tuck waits for his attack (today it returns him).
+// (Owner-approved 2026-10-09: Yoda carries 7 damage, 2 HP left — at the shipped re-buy share 0.25 a HEALTHY Yoda is no longer worth
+// tucking even without 'yodaloop', so the fixture arm uses a worn one, which is.)
 $build(function ($b) {
     $b->MyLeader('LOF_016', true); $b->MyBase('LOF_023', 8); $b->WithForceForPlayer(1); $b->WithCurrentRoundBeing(8);
-    $b->WithGroundUnitForPlayer(1, 'LOF_101', true); $b->WithCardInHandForPlayer(1, 'LOF_100');
+    $b->WithGroundUnitForPlayer(1, 'LOF_101', true, 7); $b->WithCardInHandForPlayer(1, 'LOF_100');
     $b->WithSpaceUnitForPlayer(2, 'SOR_225', false);
     for ($k = 0; $k < 30; $k++) { $b->WithCardInDeckForPlayer(1, 'SOR_095'); $b->WithCardInDeckForPlayer(2, 'SOR_095'); }
 });
