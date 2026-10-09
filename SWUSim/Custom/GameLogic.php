@@ -2620,15 +2620,24 @@ function _SWUAllKeywordNames(): array {
     }
     return $names;
 }
-function _SWUCountDistinctKeywords($obj): int {
-    if ($obj === null) return 0;
-    $n = 0;
+// The keywords $obj has RIGHT NOW (printed + conditional + granted by upgrades/effects), as canonical names
+// ('Bounty', 'Raid', …). THE one answer for "which keywords does this unit have" — The Darksaber (TS26_22),
+// Amnesty Officer (ASH_214) and Morgan Elsbeth (LOF_005) used to keep their own lists and each missed some
+// (Darksaber: Smuggle/Coordinate/Exploit/Piloting/Plot/Support; Amnesty: Coordinate; Morgan: every GRANTED
+// keyword outside nine, incl. Bounty — Discord report 2026-10-09). Multiple instances of one keyword
+// (Raid 1 + Raid 2, printed + granted Bounty) are ONE keyword (Maul / Darksaber / Gallius Rax rulings).
+function _SWUUnitKeywordSet($obj): array {
+    if ($obj === null) return [];
+    $out = [];
     foreach (_SWUAllKeywordNames() as $kw) {
         $has = "HasKeyword_{$kw}"; $val = "GetKeyword_{$kw}_Value";   // function names are case-insensitive
         if ((function_exists($has) && $has($obj))
-            || (function_exists($val) && intval($val($obj) ?? 0) > 0)) $n++;
+            || (function_exists($val) && intval($val($obj) ?? 0) > 0)) $out[] = ucfirst($kw);
     }
-    return $n;
+    return $out;
+}
+function _SWUCountDistinctKeywords($obj): int {
+    return count(_SWUUnitKeywordSet($obj));
 }
 
 // ASH_100 Gallius Rax — "Other friendly units with 2+ different keywords get +2/+2." +2 for $obj if its

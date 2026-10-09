@@ -567,6 +567,16 @@ body .swu-preview-tabs button.swu-preview-tab.is-active {
 #tcg-chat-panel #tcgc-send { height: 34px; padding: 0 14px; }
 
 #tcg-chat-panel .tcgc-row { padding: 3px 0 3px 9px; }
+/* Chat send time (owner 2026-10-09) — SWUSim skin only; ChatPanel.php sets data-time on chat rows and its
+   neutral base draws nothing, so FaBSim's panel is unchanged. Same look as the board's .chatMsg time. */
+/* At the RIGHT of the row's first line, floated so the message wraps around it. Same recipe as the
+   board's .swu-log-CHAT rows (GameLayoutShared.php); flow-root contains the float in a one-line row. */
+#tcg-chat-panel .tcgc-row[data-time] { display: flow-root; }
+#tcg-chat-panel .tcgc-row[data-time]::before {
+  content: attr(data-time); float: right; margin: 0 4px 0 8px;
+  font-size: 10.5px; font-weight: 400; font-style: normal;
+  color: rgba(226, 232, 240, 0.45); font-variant-numeric: tabular-nums;
+}
 #tcg-chat-panel .tcgc-row.tcgc-log { color: rgba(226, 232, 240, 0.66); }
 #tcg-chat-panel .tcgc-loghead {
   font-family: 'Barlow', sans-serif;

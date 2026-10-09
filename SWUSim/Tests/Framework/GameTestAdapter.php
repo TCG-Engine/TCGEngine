@@ -845,8 +845,14 @@ class GameTestAdapter {
      * one player at a time via the `Drain` WHEN verb, then answers the interactive follow-up.
      */
     public function drainQueue(int $player): void {
+        // Drain seat N's queue IN SEAT N's FRAME, as production does (ProcessGoldfishAutomation, fixed
+        // 2026-09-14). Without this `- P2>Drain` resolved "my/their" relative to seat 1, so a P2 choice over
+        // enemy units counted 0 targets and was silently skipped — a card read as never firing (found while
+        // investigating HMW_160 Noxious Refinery, 2026-10-09).
+        global $playerID;
+        $saved = $playerID;
+        $playerID = $player;
         ob_start();
-        $this->_drainDQ($player);
-        ob_end_clean();
+        try { $this->_drainDQ($player); } finally { ob_end_clean(); $playerID = $saved; }
     }
 }

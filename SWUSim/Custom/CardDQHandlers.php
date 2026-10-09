@@ -1417,25 +1417,11 @@ $customDQHandlers["DEFEAT_UNIT"] = function ($player, $parts, $lastDecision) {
 // onto a supported attacker (SupportOnAttack/SupportOnAttackEnd → the same closures, $mzID = the lent
 // attacker). "this unit" / "the defender" therefore resolve correctly for both own and lent attacks.
 
-// True if $obj has one or more keywords (innate / granted / conditional). Checks the full SWU keyword set.
+// True if $obj has one or more keywords (innate / granted / conditional). Uses the shared keyword set
+// (GameLogic.php _SWUUnitKeywordSet); the hand-kept list it replaced missed Coordinate.
 function _SWUUnitHasAnyKeyword($obj): bool
 {
-  if ($obj === null)
-    return false;
-  foreach (['Sentinel', 'Ambush', 'Overwhelm', 'Grit', 'Saboteur', 'Shielded', 'Bounty', 'Hidden', 'Smuggle', 'Plot', 'Piloting', 'Support'] as $kw) {
-    $fn = "HasKeyword_{$kw}";
-    if (function_exists($fn) && $fn($obj))
-      return true;
-  }
-  foreach (['Raid', 'Restore', 'Exploit'] as $vkw) {
-    $fn = "GetKeyword_{$vkw}_Value";
-    if (function_exists($fn)) {
-      $v = $fn($obj);
-      if ($v !== null && intval($v) > 0)
-        return true;
-    }
-  }
-  return false;
+  return $obj !== null && _SWUCountDistinctKeywords($obj) > 0;
 }
 
 // ASH_128 Bothan-5 — reactive (a friendly non-Vehicle unit was defeated): may capture that just-defeated

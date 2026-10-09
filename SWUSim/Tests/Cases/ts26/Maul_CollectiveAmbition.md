@@ -543,3 +543,205 @@ WithP2GroundArena: ASH_036:1:0
 P2GROUNDARENAUNIT:0:CARDID:ASH_036
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Front_PrintedBountyIsAKeyword
+#// TS26_03 Maul (front) — Bounty is a keyword (CR 7.5.13). SHD_195 Cartel Turncoat's ONLY keyword is a
+#// printed "Bounty — Draw a card", with no Experience: 1 > 0 fires (+1 Experience, 1 damage).
+#// Player report 2026-10-09: "Maul / The Darksaber don't count Bounty as a keyword."
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SHD_195:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SHD_195
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Front_PrintedBountyWithOneExperience_NoEffect
+#// TS26_03 Maul (front) — boundary partner of Front_PrintedBountyIsAKeyword: SHD_195 (1 keyword, Bounty)
+#// already has 1 Experience, so 1 > 1 is false — no new Experience, no damage.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SHD_195:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# Front_BountyAndGritAreTwoKeywords_OneExperience_Fires
+#// TS26_03 Maul (front) — Bounty counts IN ADDITION to another keyword. SHD_027 Hylobon Enforcer prints
+#// Grit + Bounty (2 different keywords) and has 1 Experience: 2 > 1 fires (Experience 1 -> 2, 1 damage).
+#// If Bounty were dropped from the count this would read 1 > 1 and do nothing.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SHD_027:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SHD_027
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Front_UpgradeGrantedBountyIsAKeyword
+#// TS26_03 Maul (front) — a Bounty GRANTED by an upgrade counts (CR 7.5.3: the unit is considered to have
+#// that keyword). SOR_095 Battlefield Marine is vanilla; SHD_176 Death Mark gives it "Bounty — Draw 2
+#// cards" = 1 keyword, 0 Experience: 1 > 0 fires (upgrades 1 -> 2, 1 damage).
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:SHD_176
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Front_PhaseGrantedBountyIsAKeyword
+#// TS26_03 Maul (front) — a Bounty granted by a lasting EFFECT counts. SHD_031 The Client's Action gives
+#// the vanilla enemy SOR_095 "Bounty — Heal 5 damage from a base" for this phase; Maul then targets it:
+#// 1 keyword, 0 Experience → +1 Experience and 1 damage.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SHD_031:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Deployed_OnAttackPrintedBountyIsAKeyword
+#// TS26_03 Maul (deployed) — On Attack, same rule: Maul attacks LAW_124 and targets the enemy SHD_211
+#// Fugitive Wookiee, whose only keyword is a printed Bounty: 1 > 0 → +1 Experience and 1 damage.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03:1:1}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: [LAW_124:1:0 SHD_211:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:theirGroundArena-1
+
+## EXPECT
+P2GROUNDARENAUNIT:1:CARDID:SHD_211
+P2GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:1:DAMAGE:1
+
+---
+
+# Front_LeaderActionGrantedBountyIsAKeyword
+#// TS26_03 Maul (front) — a Bounty granted by a leader's lasting effect counts. P2's SHD_006 Jabba the
+#// Hutt gives P2's own vanilla SOR_095 "Bounty — the next unit you play this phase costs 1 less" for this
+#// phase; P1's Maul then targets it: 1 keyword, 0 Experience → +1 Experience and 1 damage.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03;theirLeader:SHD_006}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P2>UseLeaderAbility
+- P2>AnswerDecision:myGroundArena-0
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:HASKEYWORD:Bounty
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Front_ConditionalBountyWhileExhausted_TwoKeywords_Fires
+#// TS26_03 Maul (front) — a CONDITIONAL Bounty counts while its condition holds. SHD_165 Unlicensed
+#// Headhunter prints Saboteur and, while exhausted, gains "Bounty — Heal 5 damage from your base". Exhausted
+#// with 1 Experience: Saboteur + Bounty = 2 > 1 → Experience 1 -> 2 and 1 damage.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SHD_165:0:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Front_ConditionalBountyWhileReady_Absent_NoEffect
+#// TS26_03 Maul (front) — boundary partner: the same SHD_165 READY has no Bounty, only Saboteur = 1
+#// keyword vs 1 Experience → 1 > 1 is false, nothing happens.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SHD_165:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:0

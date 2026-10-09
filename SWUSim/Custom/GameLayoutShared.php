@@ -1543,6 +1543,16 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
    in its sender's colour (owner, 2026-09-26: "include that text coloring for Whisper chats. keep the
    italics."). */
 .chatMsg-whisper, .swu-log-CHAT.chatMsg-whisper { font-style: italic; background: rgba(160,110,255,0.10); }
+/* Chat send time (owner 2026-10-09), desktop AND phone board — both load this file. Drawn from the row's
+   data-time (Core/jsInclude.js _AppendChatMessage) so it is NOT a child: the seat-colour name rules key on
+   `> span:first-child`. Muted and upright so it never reads as part of the message (whispers are italic). */
+.chatMsg[data-time]::before { content: attr(data-time); margin-right: 6px; font-size: 10.5px; font-weight: 400;
+    font-style: normal; color: rgba(226,232,240,0.45); font-variant-numeric: tabular-nums; }
+/* In the merged log panel the time sits at the RIGHT of the row's first line (owner 2026-10-09): floated,
+   so the message wraps around it and keeps the full width below. flow-root makes the row contain the float
+   (a one-line row would otherwise let it hang into the next row). */
+.swu-log-CHAT.chatMsg[data-time] { display: flow-root; }
+.swu-log-CHAT.chatMsg[data-time]::before { float: right; margin: 0 4px 0 8px; }
 /* The PUBLIC piece of a whisper — the redacted stub every non-party sees ("P2 whispered something to
    P1 and P4"). Owner, 2026-09-26: "for all public pieces of whispers, keep the backwash to a grey hue
    now". It is the neutral log grey (#aab6c4), the same family as the game-log rows it sits between,

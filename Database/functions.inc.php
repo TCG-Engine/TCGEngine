@@ -14,14 +14,11 @@ function emptyInputSignup($username, $email, $pwd, $pwdRepeat)
 }
 
 // Check invalid username
+// The character rule lives in AccountFiles/UsernameRules.php, shared with SignupAPI and Discord onboarding.
+require_once __DIR__ . '/../AccountFiles/UsernameRules.php';
 function invalidUid($username)
 {
-	if (!ctype_alnum($username)) {
-		$result = true;
-	} else {
-		$result = false;
-	}
-	return $result;
+	return !UsernameIsValid($username);
 }
 
 // Check invalid email

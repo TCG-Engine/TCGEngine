@@ -135,8 +135,8 @@ function InitializeGamestate() {
   $gUniqueIDCounter = 0;
   $gEffectStack = [];
   $gGameLog = "-";
-  $gMatchReplayInitialState = "";
-  $gMatchReplayCommands = "";
+  $gMatchReplayInitialState = "-";
+  $gMatchReplayCommands = "-";
   $currentPlayer = 1;
   $updateNumber = 1;
   $gRandomCounter = 0;

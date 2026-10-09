@@ -47,3 +47,23 @@ P1OnlyActions: true
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:EXHAUSTED
+
+---
+
+# CoordinateIsAKeyword_CanExhaust
+#// ASH_214 Amnesty Officer — "a unit with one or more keywords": Coordinate is a keyword (CR 7.5.15) even
+#// while its Coordinate condition is unmet. P2's lone TWI_106 Coruscant Guard (Coordinate — Ambush; P2
+#// controls 1 unit so no Ambush) still has Coordinate → it is offered and exhausted.
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:2;handCardIds:ASH_214}
+WithP2GroundArena: TWI_106:1:0
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:TWI_106
+P2GROUNDARENAUNIT:0:EXHAUSTED

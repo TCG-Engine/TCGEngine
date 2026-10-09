@@ -3,6 +3,7 @@
 require_once __DIR__ . '/AccountSessionAPI.php';
 require_once __DIR__ . '/AccountDatabaseAPI.php';
 require_once __DIR__ . '/../Database/ConnectionManager.php';
+require_once __DIR__ . '/UsernameRules.php';
 
 const DISCORD_OAUTH_CLIENT_ID = '1338995198730043432';
 
@@ -226,7 +227,7 @@ function DiscordOAuthUsernameExists(mysqli $conn, string $username): bool {
 }
 
 function DiscordOAuthSuggestedUsername(mysqli $conn, string $discordName): string {
-    $base = preg_replace('/[^A-Za-z0-9]/', '', $discordName) ?: 'DiscordUser';
+    $base = UsernameStripInvalidChars($discordName) ?: 'DiscordUser';   // AccountFiles/UsernameRules.php
     $base = substr($base, 0, 118);
     $candidate = $base;
     for ($suffix = 2; DiscordOAuthUsernameExists($conn, $candidate); $suffix++) $candidate = $base . $suffix;

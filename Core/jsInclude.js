@@ -987,6 +987,17 @@ function _ChatJoinNames(names) {
 }
 
 // Label for a readable row. Public: "Alice:". Whisper (sender/recipient): "Alice → you, Dana:".
+// A chat message's send time ('ts' / legacy 'time', Unix seconds) as the VIEWER's local clock: short for
+// the row ("2:32 PM" / "14:32", following their locale), full for the hover title. null when unusable.
+function _ChatTimeLabel(ts) {
+  var n = parseFloat(ts);
+  if (!isFinite(n) || n <= 0) return null;
+  var d = new Date(n * 1000);
+  try {
+    return { short: d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }), full: d.toLocaleString() };
+  } catch (e) { return null; }
+}
+
 function _ChatMessageLabel(msg) {
   if (!Array.isArray(msg.to) || msg.to.length === 0) return _ChatPlayerLabel(msg) + ":";
   var viewer = _ChatViewerSeat();
@@ -1065,6 +1076,11 @@ function _AppendChatMessage(msg, notify) {
   // else simply ignores the attribute. ADDITIVE -- nothing else about the element changes.
   var _cts = (msg.ts !== undefined && msg.ts !== null) ? msg.ts : msg.time;
   if (_cts !== undefined && _cts !== null && !isNaN(parseFloat(_cts))) div.setAttribute('data-ts', _cts);
+  // Send time for display (owner request 2026-10-09). An ATTRIBUTE, drawn by a CSS ::before, never a
+  // child element: the per-seat name colour rules match `> span:first-child`, so a leading time span
+  // would steal the name's colour. Hosts that don't style [data-time] show nothing new.
+  var _ctl = _ChatTimeLabel(_cts);
+  if (_ctl) { div.setAttribute('data-time', _ctl.short); div.title = _ctl.full; }
   div.style.cssText = "padding:2px 4px; word-break:break-word; font-size:13px;";
   var isWhisper = Array.isArray(msg.to) && msg.to.length > 0;
   if (isWhisper && msg.redacted) {

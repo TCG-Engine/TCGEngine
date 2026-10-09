@@ -4337,10 +4337,17 @@ body:has(.home-header) #tcg-chat-panel::after {
    ⚠ 1-2-1 (`.sb-row #tcg-chat-panel`) so it beats the drawer rule above at 1-1-1 on purpose, not
    by source order. It undoes every drawer property: fixed, the off-screen transform, the 100vh
    height and the 86vw width. */
+/* The WAITING ROOM gets the same treatment (owner, 2026-10-09: "no clear way to minimize this chat on
+   mobile in a waiting room ... i want the chat to be at the bottom like we did for the in-game chat").
+   Its wrapper is .wr-with-chat (SharedUI/Render/WaitingRoom.php), whose inline style sets only
+   display:flex + align-items, so flex-direction here applies; the panel's align-self:stretch beats the
+   inline align-items. Same 1-2-1 specificity as the Sideboard rule. */
 @media (max-width: 900px) {
-  body:has(.sb-row) .sb-row { flex-direction: column; }
+  body:has(.sb-row) .sb-row,
+  body:has(.wr-with-chat) .wr-with-chat { flex-direction: column; }
   body:has(.sb-row) .sb-row .sb-main { order: 1; }
-  body:has(.sb-row) .sb-row #tcg-chat-panel {
+  body:has(.sb-row) .sb-row #tcg-chat-panel,
+  body:has(.wr-with-chat) .wr-with-chat #tcg-chat-panel {
     order: 2;                      /* the markup puts the panel FIRST; this moves it last */
     /* ⚠ ChatPanel sets align-self: flex-start so the panel hugs its content as a desktop COLUMN.
        In a column flex row that is the cross axis, so it shrank the panel to 156px of a 390px
@@ -4358,7 +4365,11 @@ body:has(.home-header) #tcg-chat-panel::after {
     z-index: auto;
   }
   /* the launcher has nothing to launch once the panel is on the page */
-  body:has(.sb-row) #tcg-chat-toggle { display: none; }
+  body:has(.sb-row) #tcg-chat-toggle,
+  body:has(.wr-with-chat) #tcg-chat-toggle { display: none; }
+  /* The room card above ends flush (its row-wrapper has no bottom gutter), so without this the chat
+     card's chamfer sat touching it. The Sideboard's main column already ends with its own spacing. */
+  body:has(.wr-with-chat) .wr-with-chat #tcg-chat-panel { margin-block-start: var(--s-4); }
 }
 
 /* Interior pages' content sits on the same gutter as the menu's. Previews and

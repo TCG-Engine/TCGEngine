@@ -1,8 +1,9 @@
 // The chat panel on the Waiting Room and the Sideboard, in Chromium, Firefox and WebKit.
 //   Waiting Room: pinned left at 18% (clamped 180-320px), seat-tinted rails, composer at the bottom,
 //   roster still 2x2, autoscroll only when already at the bottom, guest gets no composer, and below
-//   900px it collapses to a 💬 drawer. Sideboard: the same panel plus the previous game's log,
-//   rendered with plain card names.
+//   900px it becomes a full-width card at the BOTTOM of the page — no 💬 drawer, no launcher (owner:
+//   Sideboard 2026-09-26, Waiting Room 2026-10-09). Sideboard: the same panel plus the previous game's
+//   log, rendered with plain card names.
 // Spec: docs/superpowers/specs/2026-09-22-chat-panel-waiting-room-sideboard-design.md
 // Visual: SWUSim/Tests/Visual/ChatPanel_WaitingRoom.md · ChatPanel_Sideboard.md
 // Usage: node chatpanel-xbrowser.mjs [baseURL]   ENGINES=chromium,firefox,webkit (default all)
@@ -26,6 +27,23 @@ const WR = (lobby) => `${BASE}SharedUI/Sites/SWUSim/WaitingRoom.php?lobby=${lobb
 
 // The expected pinned width: clamp(180px, 18vw, 320px). At 1700 that is 306.
 const expectedWidth = (vw) => Math.min(320, Math.max(180, Math.round(vw * 0.18)));
+
+// ≤900px: the panel is the LAST block on the page — below `mainSel`, full width, in the flow (not a
+// fixed drawer), no 💬 launcher, no sideways scroll. Shared by the Waiting Room and the Sideboard.
+const bottomLayout = (page, mainSel) => page.evaluate((sel) => {
+  const p = document.getElementById('tcg-chat-panel'), t = document.getElementById('tcg-chat-toggle');
+  const main = document.querySelector(sel);
+  const pr = p.getBoundingClientRect(), mr = main ? main.getBoundingClientRect() : null;
+  return {
+    below: !!mr && pr.top >= mr.bottom - 1,
+    wide: pr.width >= window.innerWidth * 0.8 && pr.left >= 0 && pr.right <= window.innerWidth + 0.5,
+    inFlow: getComputedStyle(p).position !== 'fixed',
+    noToggle: !t || getComputedStyle(t).display === 'none',
+    noHScroll: document.documentElement.scrollWidth <= window.innerWidth + 1,
+    gap: mr ? Math.round(pr.top - mr.bottom) : null, width: Math.round(pr.width)
+  };
+}, mainSel);
+const bottomLayoutOk = (m) => m.below && m.wide && m.inFlow && m.noToggle && m.noHScroll;
 
 async function login(ctx, user) {
   await ctx.request.post(BASE + 'AccountFiles/AttemptPasswordLogin.php',
@@ -188,24 +206,15 @@ async function run(engineName, launcher) {
     ok(engineName, 'a guest is told why', /log in/i.test(guestComposer.note), guestComposer.note);
     await cg.close();
 
-    // ── narrow: the drawer ────────────────────────────────────────────────────────────────────
+    // ── narrow: chat at the BOTTOM of the page (no drawer, no launcher) ───────────────────────
     await page1.setViewportSize({ width: 390, height: 844 });
     await page1.waitForTimeout(400);
-    const collapsed = await page1.evaluate(() => {
-      const p = document.getElementById('tcg-chat-panel');
-      const t = document.getElementById('tcg-chat-toggle');
-      return { off: p.getBoundingClientRect().right <= 1, toggleShown: getComputedStyle(t).display !== 'none',
-               hScroll: document.body.scrollWidth > window.innerWidth + 1 };
-    });
-    ok(engineName, 'at 390px the panel is off-screen', collapsed.off);
-    ok(engineName, 'at 390px the 💬 toggle is shown', collapsed.toggleShown);
-    ok(engineName, 'no horizontal page scroll at 390px', !collapsed.hScroll);
-
-    await page1.click('#tcg-chat-toggle');
-    await page1.waitForTimeout(400);
-    const opened = await page1.evaluate(() => document.getElementById('tcg-chat-panel').getBoundingClientRect().left >= -1);
-    ok(engineName, 'tapping the toggle slides the drawer in', opened);
-    await page1.screenshot({ path: `${SHOTS}/chatpanel-wr-${engineName}-mobile.png` });
+    const wrNarrow = await bottomLayout(page1, '.wr-panel');
+    ok(engineName, 'at 390px the chat is below the room, full width, in the flow', wrNarrow.below && wrNarrow.wide && wrNarrow.inFlow, JSON.stringify(wrNarrow));
+    ok(engineName, 'at 390px there is no 💬 launcher', wrNarrow.noToggle);
+    ok(engineName, 'at 390px the chat card does not touch the room card', wrNarrow.gap >= 8, `gap ${wrNarrow.gap}px`);
+    ok(engineName, 'no horizontal page scroll at 390px', wrNarrow.noHScroll);
+    await page1.screenshot({ path: `${SHOTS}/chatpanel-wr-${engineName}-mobile.png`, fullPage: true });
 
     await c1.request.post(BASE + 'APIs/Lobbies/LeaveQueue.php',
       { form: { rootName: 'SWUSim', lobbyID: host.lobbyID, playerID: String(host.playerID), authKey: host.authKey } });
@@ -275,13 +284,9 @@ async function run(engineName, launcher) {
     await s1.pg.screenshot({ path: `${SHOTS}/chatpanel-sb-${engineName}-desktop.png` });
     await s1.pg.setViewportSize({ width: 390, height: 844 });
     await s1.pg.waitForTimeout(400);
-    const sbNarrow = await s1.pg.evaluate(() => ({
-      off: document.getElementById('tcg-chat-panel').getBoundingClientRect().right <= 1,
-      toggleShown: getComputedStyle(document.getElementById('tcg-chat-toggle')).display !== 'none',
-      hScroll: document.body.scrollWidth > window.innerWidth + 1
-    }));
-    ok(engineName, 'sideboard at 390px: panel off-screen, toggle shown, no h-scroll',
-       sbNarrow.off && sbNarrow.toggleShown && !sbNarrow.hScroll, JSON.stringify(sbNarrow));
+    const sbNarrow = await bottomLayout(s1.pg, '.sb-main');
+    ok(engineName, 'sideboard at 390px: chat at the bottom, full width, no launcher, no h-scroll',
+       bottomLayoutOk(sbNarrow), JSON.stringify(sbNarrow));
     await s1.pg.screenshot({ path: `${SHOTS}/chatpanel-sb-${engineName}-mobile.png` });
     await s1.ctx.close(); await s2.ctx.close();
   } finally {

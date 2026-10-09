@@ -206,6 +206,15 @@ function _ChatPanelScript(): string {
     var row = document.createElement('div');
     row.className = 'tcgc-row ' + cls;
     row.innerHTML = (who ? '<span class="tcgc-who">' + esc(who) + '</span> ' : '') + esc(text);
+    // Chat rows carry their send time as data-time (viewer's local clock). The BASE draws nothing with it,
+    // so FaBSim is unchanged; the SWUSim skin (swusim-overrides.css) shows it. Game-log rows get none.
+    if (who && isFinite(ts) && ts > 0) {
+      try {
+        var d = new Date(ts * 1000);
+        row.setAttribute('data-time', d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }));
+        row.title = d.toLocaleString();
+      } catch (e) {}
+    }
     insertByTs(row, ts, false);   // a chat row is never history
     if (pinned) stream.scrollTop = stream.scrollHeight;
   }

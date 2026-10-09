@@ -36,10 +36,8 @@ $customDQHandlers["LOF_005#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($chosen)) { SWUAfterAction(intval($player)); return; }
     // The chosen unit is IN PLAY, so it counts its CURRENT keywords (printed + conditional + granted). The
     // hand candidates count PRINTED keywords only (cards don't have abilities / conditional keywords in hand).
-    $chosenKw = _SWUCardKeywordSet($chosen->CardID ?? '');
-    foreach (['Ambush'=>'AMBUSH','Grit'=>'GRIT','Hidden'=>'HIDDEN','Overwhelm'=>'OVERWHELM','Saboteur'=>'SABOTEUR','Sentinel'=>'SENTINEL','Shielded'=>'SHIELDED','Raid'=>'RAID','Restore'=>'RESTORE'] as $name => $kw) {
-        if (!in_array($name, $chosenKw, true) && _SWUUnitHasKeyword($chosen, $kw)) $chosenKw[] = $name;
-    }
+    // Shared set (GameLogic.php _SWUUnitKeywordSet): the old 9-entry granted list ignored a granted Bounty etc.
+    $chosenKw = array_values(array_unique(array_merge(_SWUCardKeywordSet($chosen->CardID ?? ''), _SWUUnitKeywordSet($chosen))));
     // ownsClose: this leader Action IS the action and plays a UNIT, whose nested close is refused — without
     // it the turn never passed and the seat took another action (game 1647080; the #1109 Dispatcher shape).
     SWUOfferDiscountPlay(intval($player), ['discount'=>1, 'types'=>['Unit'], 'ownsClose'=>true,

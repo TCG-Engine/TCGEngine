@@ -559,7 +559,7 @@ function _WaitingRoomScript(array $cfg): string {
   var botAddDeadline = 0;
   function botWaitSecs() { return botAddDeadline ? Math.max(0, Math.ceil((botAddDeadline - Date.now()) / 1000)) : 0; }
   function fillLabel(wait) { return wait > 0 ? 'Fill Seat with Bot (' + wait + 's)' : 'Fill Seat with Bot'; }
-  var FILL_WAIT_TITLE = 'In a public room, bots can be added once nobody new has joined for a minute';
+  var FILL_WAIT_TITLE = 'In a public room, bots can be added once nobody new has joined for a while';
   function tickFill() {
     Array.prototype.forEach.call(document.querySelectorAll('.wr-fill-bot'), function (b) {
       var wait = botWaitSecs(), label = fillLabel(wait);

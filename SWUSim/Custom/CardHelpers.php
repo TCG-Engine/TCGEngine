@@ -741,6 +741,24 @@ if (!function_exists('SWUNestedPlay')) {
     }
 }
 
+// After a leader/unit ACTION's SWUNestedPlay: must the CALLER end the action now? Capture
+// $refusedBefore = $GLOBALS['gSWUNestedCloseRefusals'] BEFORE the play.
+//   • the play completed and its own close was refused as nested → yes, nothing else will close it;
+//   • a BARE SWU_TRIGGER_RESUME is queued (the played unit's entry trigger — e.g. AMBUSH — is still
+//     pending) → no: that resume ends the action once the trigger resolves. Closing here passed the turn
+//     BEFORE the Ambush prompt appeared and then closed twice (Discord report 2026-10-09, SHD_016 / HMW_018 /
+//     ASH_002 playing an Ambush unit; tests: interactions/Fennec_AmbushNoSecondAttack.md RED_*);
+//   • the actor still owes a blocking pick (e.g. the uniqueness choice) → no: that pick re-closes itself;
+//   • otherwise the play fizzled (e.g. unaffordable) → yes, or the turn would stay with the actor.
+if (!function_exists('_SWUNestedPlayLeftCloseToOuter')) {
+    function _SWUNestedPlayLeftCloseToOuter(int $player, int $refusedBefore): bool {
+        if (intval($GLOBALS['gSWUNestedCloseRefusals'] ?? 0) > $refusedBefore) return true;
+        if (_SWUBareTriggerResumePending()) return false;
+        if (_SWUPlayerHasBlockingDecision($player)) return false;
+        return true;
+    }
+}
+
 // ─── SWUNestedPlayUnit — "play a unit from <zone>" as part of another card's resolution, IN FULL ─────
 // SWUNestedPlay enters at ActivateCard, which is only the SECOND HALF of playing a card: everything
 // SWUBeginPlayCard owns before payment is skipped — every additional cost (Exploit, HMW_048 Vernestra

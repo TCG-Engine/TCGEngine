@@ -627,7 +627,14 @@ const SWU_BOT_PART41_FEATURES = ['phaseexpiry', 'observertax', 'uniquerefresh', 
 //          Five finish, or to pop a Sentinel's Shield (owner 2026-10-08). Guard: bot_chewieattack_test.php.
 //   sentinelsac — never sacrifice an ACTIVE Sentinel (printed or gained) while another body exists; a doomed one is fair game (owner:
 //          "generally, do not sac active Sentinels"). Guard: bot_krennicfodder_test.php.
-const SWU_BOT_PART42_FEATURES = ['tuck', 'doubleplay', 'unitedge', 'playdefeat', 'deployreplay', 'villainpitch', 'attackreserve', 'shipdiscount', 'deployfirst', 'pilotchoice', 'plantruncate', 'twoping', 'forcebuff', 'dedra', 'thrawnwd', 'armorerpicks', 'freekill', 'advready', 'tokenfirst', 'deploybuff', 'creditdeploy', 'aspectpick', 'actionfirst', 'healamount', 'deployswing', 'landomill', 'landoflip', 'splitzero', 'yodaloop', 'healwaste', 'searchvalue', 'mandoclaim', 'baseheal', 'lciwplan', 'supportfirst', 'cleanup', 'stabkeep', 'pitchtarget', 'anakinpitch', 'bokatanres', 'forceregen', 'chewieattack', 'sentinelsac'];
+//   selectivewipe — 'wipeinit' no longer holds unit plays for a SELECTIVE wipe ("Defeat any number of …", ASH_053 Pre Vizsla): it never takes
+//          mine (user report 2026-10-09, Krennic Blue idle at 7 resources). Guard: bot_selectivewipe_test.php.
+//   mitigation — a planned wipe no longer holds this round's damage mitigation: a Sentinel where the opponent can still hit my base (a ready
+//          attacker, or a leader able to deploy), an Ambush kill, Krennic fodder (owner 2026-10-09). Removal was never held (shrink-first
+//          plays it before the wipe's initiative claim). Guard: bot_mitigation_test.php.
+//   wallstack — hard control vs an aggro leader keeps putting Sentinels down in rounds 1-4 even with one already up ('wallfirst' stopped at
+//          one per arena) — owner, Mando vs aggro 2026-10-09: "sentinel up most turns". Guard: bot_wallstack_test.php.
+const SWU_BOT_PART42_FEATURES = ['tuck', 'doubleplay', 'unitedge', 'playdefeat', 'deployreplay', 'villainpitch', 'attackreserve', 'shipdiscount', 'deployfirst', 'pilotchoice', 'plantruncate', 'twoping', 'forcebuff', 'dedra', 'thrawnwd', 'armorerpicks', 'freekill', 'advready', 'tokenfirst', 'deploybuff', 'creditdeploy', 'aspectpick', 'actionfirst', 'healamount', 'deployswing', 'landomill', 'landoflip', 'splitzero', 'yodaloop', 'healwaste', 'searchvalue', 'mandoclaim', 'baseheal', 'lciwplan', 'supportfirst', 'cleanup', 'stabkeep', 'pitchtarget', 'anakinpitch', 'bokatanres', 'forceregen', 'chewieattack', 'sentinelsac', 'selectivewipe', 'mitigation', 'wallstack'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
@@ -1008,9 +1015,10 @@ const SWU_BOT_PROPOSALS = [
                        // ⚠ owner ruling needed (Lando's Credits are a tempo engine, exempt from banking). bot_wipecredit_test
     // ── 2026-10-08 OVERNIGHT LEVER SCREEN (owner: "50 brand new levers … based on the stuff we worked on today") — alternatives to
     // the p42 features; each is screened against the full stack on its focus deck (.claude/tmp/lever-screen-20261008/run_all.sh, gitignored).
-    // 2026-10-09: tuckrebuyq SHIPPED (share 0.25); 16 dead / harmful / faded levers DELETED (results: memory lever-screen-2026-10-09).
+    // 2026-10-09: the tuck re-buy share SHIPPED at 0.25 (0.1 / 0 probed better but switch off the owner's loops); 16 dead / harmful /
+    // faded levers DELETED (results: memory lever-screen-2026-10-09).
     // Numeric levers (an alternative value of a p42 knob — SWU_BOT_LEVER_VALUES below):
-    'mandoclaimhalf', 'mandoclaimx2', 'supporthalf', 'basehealx2', 'basehealhalf', 'anakinpitchx2', 'anakinpitchhalf', 'sentsac2', 'barefodder1', 'yodaloop4', 'yodaloop6', 'pitchline15', 'pitchline7', 'attackreservehalf', 'race2', 'race4', 'healpress20', 'healpress10', 'healunit075', 'searchhalf', 'searchx2', 'tuckrebuy01', 'tuckrebuy0',
+    'mandoclaimhalf', 'mandoclaimx2', 'supporthalf', 'basehealx2', 'basehealhalf', 'anakinpitchx2', 'anakinpitchhalf', 'sentsac2', 'barefodder1', 'yodaloop4', 'yodaloop6', 'pitchline15', 'pitchline7', 'attackreservehalf', 'race2', 'race4', 'healpress20', 'healpress10', 'healunit075', 'searchhalf', 'searchx2',
     // Behaviour levers (a p42 rule read another way — gated at their site with SWUBotProposalOn):
     'cleanupkillonly', 'cleanupall', 'cleanupclock', 'bokatan4r', 'pitchdeck', 'stabkeepdup', 'sentsacdoomed', 'forcerefillonly', 'forcespendonly', 'yodapartial', 'landoflipaction', 'deployswingall', 'doubleplaycost',
 ];
@@ -1040,8 +1048,6 @@ const SWU_BOT_LEVER_VALUES = [
     'healunit075' => ['HEAL_UNIT_RATE', 0.75],
     'searchhalf' => ['SEARCH_MULT', 0.5],
     'searchx2' => ['SEARCH_MULT', 2.0],
-    'tuckrebuy01' => ['TUCK_REBUY_SHARE', 0.1],   // 2026-10-09 probe below the shipped 0.25
-    'tuckrebuy0' => ['TUCK_REBUY_SHARE', 0.0],
 ];
 function SWUBotLeverNum(string $knob, float $default): float {
     foreach (SWU_BOT_LEVER_VALUES as $p => [$k, $v]) if ($k === $knob && SWUBotProposalOn($p)) return $v;

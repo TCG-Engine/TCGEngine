@@ -177,7 +177,11 @@ function _SWUBotChewieOnAttackWorth(int $seat, int $n): bool {
     foreach (SWUBotUnits($seat) as $v) {
         if ($v['ready'] && preg_match('/On Attack: You may deal (\d+) damage to a damaged unit/i', strval(CardText($v['cardID'])), $m)) $finish = max($finish, intval($m[1]));
     }
+    // OWNER RULING 2026-10-09 (the restricted rule lost 4 / 20 paired games vs aggro leaders, p=.0015; neutral otherwise): "Vs aggro: always
+    // yes" — against an aggro leader the race wants the 2 damage and the Credit whenever an enemy unit is there to hit.
+    $vsAggro = SWUBotOpponentIsAggroLeader($seat);
     foreach (SWUBotOpponents($seat) as $o) foreach (SWUBotUnits($o) as $u) {
+        if ($vsAggro) return true;
         if ($u['shields'] > 0) { if ($u['sentinel']) return true; continue; }
         if ($u['remaining'] <= $n || ($finish > 0 && $u['remaining'] <= $n + $finish)) return true;
     }
@@ -564,7 +568,12 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 $guides = $ctx['_guides'] ?? _SWUBotGuides($ctx);
                 if ($guides['maxUnits'] === strval($action['cardID'] ?? '')) $v += $W['maxUnits'];
                 // Feature 'wipeinit' (p36): a unit played into the arena of the wipe I am setting up for next round dies to it.
+                // Feature 'selectivewipe' (p42): …unless that wipe is SELECTIVE ("Defeat any number of …", ASH_053 Pre Vizsla) — its player
+                // picks the units, so it never takes mine (user report 2026-10-09: Krennic Blue took the initiative at 7 resources with units in hand).
                 if (SWUBotFeatureOn('wipeinit') && str_contains(strval(CardType($cid)), 'Unit') && ($wp = _SWUBotWipeNextRound($seat)) !== null
+                    && !(SWUBotFeatureOn('selectivewipe') && _SWUBotWipeIsSelective($wp['cid']))
+                    // Feature 'mitigation' (p42): …nor a unit that mitigates THIS round's damage (a Sentinel, an Ambush kill, Krennic fodder).
+                    && !(SWUBotFeatureOn('mitigation') && _SWUBotMitigationPlay($seat, $cid))
                     && in_array(_SWUBotPlayArena($cid), $wp['arenas'], true)) return min($v, -0.4);
                 // Feature 'disclosereserve' (p36): playing the last card my Condemn's disclose needs gives back the -6/-0.
                 if (SWUBotFeatureOn('disclosereserve') && ($pts = _SWUBotDiscloseReserveCost($seat, $i)) > 0) $v -= $W['base'] * $pts;
@@ -3359,6 +3368,47 @@ function _SWUBotBlankedBombWaits(int $seat, string $cid): bool {
     return false;
 }
 
+// Feature 'selectivewipe' (p42): a wipe whose player CHOOSES the units ("Defeat any number of …" — ASH_053 Pre Vizsla, HMW_094 Sando Aqua
+// Monster): it never has to take a friendly unit.
+function _SWUBotWipeIsSelective(string $cid): bool {
+    return (bool)preg_match('/Defeat any number of/i', strval(CardText($cid)));
+}
+
+// ── Feature 'mitigation' (p42) — owner 2026-10-09: "planning for a wipe should not prevent damage mitigation for the current round/board
+// state". The opponent can still hurt me THIS round in $arena: a ready enemy unit there that reaches my base, or their leader able to deploy
+// now (a deployed leader unit enters ready — "their leader might deploy and swing the base for free if you just claim initiative").
+function _SWUBotThreatThisRound(int $seat, string $arena): bool {
+    foreach (SWUBotOpponents($seat) as $o) {
+        foreach (SWUBotUnits($o) as $u) if ($u['arena'] === $arena && $u['ready'] && SWUBotUnitBaseThreat($seat, $u) > 0) return true;
+        foreach (GetLeader($o) as $l) {
+            if ($l === null || !empty($l->removed) || ($arena !== strval(CardLeaderUnitArena(strval($l->CardID ?? '')) ?: 'Ground'))) continue;
+            if (function_exists('_SWUBotLeaderCanDeployNow') && _SWUBotLeaderCanDeployNow($o, $l)) return true;
+        }
+    }
+    return false;
+}
+// A unit play that MITIGATES this round (owner: "put down a Sentinel to slow down my opponent", "ambush units to slow them down", and "as
+// Director Krennic (LAW) … still play units that benefit from getting sac'd so i can do that before i wipe"): a Sentinel into an arena
+// under threat this round; an Ambush unit that defeats a ready enemy unit in its arena; or, with my leader's "Action [Exhaust, defeat a
+// friendly unit]" ready, a non-Sentinel unit that is fodder for it (_SWUBotFodderRank).
+function _SWUBotMitigationPlay(int $seat, string $cid): bool {
+    if (!str_contains(strval(CardType($cid)), 'Unit')) return false;
+    $text = strval(CardText($cid)); $arena = _SWUBotPlayArena($cid);
+    if ((_SWUBotHasPrintedSentinel($cid) || preg_match('/\bgains Sentinel\b/i', $text)) && _SWUBotThreatThisRound($seat, $arena)) return true;
+    if (preg_match('/\bAmbush\b/', $text)) {
+        foreach (SWUBotOpponents($seat) as $o) foreach (SWUBotUnits($o) as $u) {
+            if ($u['arena'] === $arena && $u['ready'] && intval($u['shields']) === 0 && intval(CardPower($cid)) >= intval($u['remaining'])) return true;
+        }
+    }
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed) || empty($l->Ready) || in_array(strval($l->Deployed ?? 'false'), ['true', '1'], true)) continue;
+        if (preg_match('/Action \[Exhaust, defeat a friendly unit\]/i', strval(CardText(strval($l->CardID ?? ''))))
+            && !_SWUBotHasPrintedSentinel($cid)   // never a Sentinel as fodder (owner: "do not sac active Sentinels"; "NOT Moff Gideon")
+            && function_exists('_SWUBotFodderRank') && _SWUBotFodderRank($cid, intval(CardCost($cid))) !== null) return true;
+    }
+    return false;
+}
+
 // The arena a unit card enters ('Ground' | 'Space'), from its printed arena. Feature 'wipeinit' (p36).
 function _SWUBotPlayArena(string $cid): string {
     return stripos(strval(CardArena($cid)), 'Space') !== false ? 'Space' : 'Ground';
@@ -3445,8 +3495,10 @@ function _SWUBotWeaknessActionValue(int $seat, array $action, array $W): ?float 
 // Before this the bot priced the Action at the flat W['ability'] and, at the return prompt, read "Return … to hand" as HOSTILE: it
 // returned its CHEAPEST unit (24 of 120 traced uses were the 1-cost Luke, which nothing can undercut) and always declined the
 // deployed "you may". And the Action's lookahead charged the returned body as a SACRIFICE (Depa -> Amidala scored -2.7).
-// SHIPPED 0.25 (was 0.5) 2026-10-09: overnight lever screen 0.25 / 0.5 / 1.0 → Qui-Gon 30.7 / 28.0 / 26.1%; confirmed on fresh seeds
-// 27.7 vs 22.5% (+5.2pp, paired 94/41, p < .0001). Guard: bot_tuckrebuy_test.php.
+// SHIPPED 0.25 (was 0.5) 2026-10-09: screen 1.0 / 0.5 / 0.25 → Qui-Gon 26.1 / 28.0 / 30.7%; 0.25 vs 0.5 confirmed +5.2pp (94/41,
+// p<.0001). Lower still measured better (0.1 / 0: +1.9 / +2.5pp vs 0.25) but switches off the owner's loops (Depa → Amidala no longer
+// pays) — owner 2026-10-09: keep 0.25 and fix the tuck's pricing instead (the free play's own effects are not counted). Guard:
+// bot_tuckrebuy_test.php.
 const SWU_BOT_TUCK_REBUY_SHARE = 0.25;
 const SWU_BOT_FORCE_HEAL_RE = '/When Played: You may use the Force\. If you do, heal/i';   // LOF_101 Yoda ('yodaloop')
 
@@ -3534,7 +3586,7 @@ function _SWUBotTuckGainFor(int $seat, array $v, string $excluded, bool $canWait
         $free = max($free ?? 0, intval(CardCost($cid)));
     }
     if ($free === null) return null;
-    $rebuy = preg_match('/When Played|\bAmbush\b|\bShielded\b/i', strval(CardText($v['cardID']))) ? SWUBotLeverNum('TUCK_REBUY_SHARE', SWU_BOT_TUCK_REBUY_SHARE) * intval($v['cost']) : 0.0;
+    $rebuy = preg_match('/When Played|\bAmbush\b|\bShielded\b/i', strval(CardText($v['cardID']))) ? SWU_BOT_TUCK_REBUY_SHARE * intval($v['cost']) : 0.0;
     // Feature 'yodaloop' (p42, owner 2026-10-08: "tuck Yoda every round once he's used"): a Force-heal When Played (LOF_101 Yoda) is re-bought
     // at its whole cost, so it is the first unit the tuck returns.
     if (SWUBotFeatureOn('yodaloop') && preg_match(SWU_BOT_FORCE_HEAL_RE, strval(CardText($v['cardID'])))) $rebuy = 1.0 * intval($v['cost']);

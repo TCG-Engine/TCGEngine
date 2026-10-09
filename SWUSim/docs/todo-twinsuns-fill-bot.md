@@ -20,8 +20,8 @@ needs at least 3 players to start.
 4. **Play strength:** reuse Arenabot's existing play scoring. Don't write a deliberately weaker or new bot.
 5. **When a bot can be added (owner, 2026-10-01, session 132):**
    - **Private room:** immediately. It's invite-only, so there is nobody to wait for.
-   - **Public room:** only once **60s have passed since the last HUMAN joined**. The wait restarts on every
-     human join, so bots are offered only after the room has gone quiet.
+   - **Public room:** only once **30s have passed since the last HUMAN joined** (60s until the owner shortened it,
+     2026-10-09). The wait restarts on every human join, so bots are offered only after the room has gone quiet.
    - Mechanics: `max(joinedAt)` over the non-bot seats; the room creator's `joinedAt` counts as a join. Bot
      seats never restart the wait. The "Fill Seat with Bot" control counts down in place, like the Remove
      button. Enforce it server-side in `LobbyAddBot`/the adapter as well, not only in the UI.

@@ -12,7 +12,8 @@ class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAd
 
     // ── Twin Suns "Fill Seat with Bot" (SWUSim/docs/todo-twinsuns-fill-bot.md) ──────────────────────────────────
     // A PUBLIC room offers bots only once nobody new has joined for this long (Decision 5); a private room at once.
-    public const BOT_ADD_WAIT_PUBLIC = 60;
+    // 30s (was 60s) — owner, 2026-10-09.
+    public const BOT_ADD_WAIT_PUBLIC = 30;
 
     // Free-for-all Twin Suns rooms only. Team Suns is out of scope for v1: the bot would read its teammate as an
     // opponent, and the room's team/seat picking has no bot path.

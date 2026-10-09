@@ -27,7 +27,7 @@ function RenderSignupError(): string {
     $error = (string)($_GET['error'] ?? '');
     $messages = [
         'emptyinput' => 'Fill in all fields!',
-        'invaliduid' => 'Choose a username using only letters and numbers.',
+        'invaliduid' => 'Choose a username of up to ' . USERNAME_MAX_LENGTH . ' characters using only letters, numbers, periods (.), dashes (-) and underscores (_).',
         'invalidemail' => 'Choose a valid email address.',
         'passwordsdontmatch' => 'Passwords do not match!',
         'stmtfailed' => 'Something went wrong. Please try again.',
@@ -41,6 +41,7 @@ function RenderSignupFields(array $def, string $safeRedirect = '', string $error
     $redirect = htmlspecialchars($safeRedirect, ENT_QUOTES, 'UTF-8');
     $returnInput = $errorReturn === '' ? '' : '<input type="hidden" name="signup_return" value="' . htmlspecialchars($errorReturn, ENT_QUOTES, 'UTF-8') . '">';
     $discordButton = RenderDiscordAuthButton($def, 'signup', $safeRedirect);
+    $uidMax = USERNAME_MAX_LENGTH;   // AccountFiles/UsernameRules.php (= the usersUid column); the server re-checks
     if ($arena) {
         return <<<HTML
 <div class="signup-form-form">
@@ -51,7 +52,7 @@ function RenderSignupFields(array $def, string $safeRedirect = '', string $error
     <div class="auth__fields">
       <div class="auth__field">
         <label class="flabel" for="uid">Username</label>
-        <span class="inwrap ch"><input class="input" id="uid" type="text" name="uid" autocomplete="username" required></span>
+        <span class="inwrap ch"><input class="input" id="uid" type="text" name="uid" maxlength="$uidMax" autocomplete="username" required></span>
       </div>
       <div class="auth__field">
         <label class="flabel" for="email">Email</label>
@@ -78,7 +79,7 @@ HTML;
     <input type="hidden" name="redirect" value="$redirect">
     $returnInput
     <label for="uid">Username</label>
-    <input id="uid" type="text" name="uid" autocomplete="username" required>
+    <input id="uid" type="text" name="uid" maxlength="$uidMax" autocomplete="username" required>
     <label for="email">Email</label>
     <input id="email" type="email" name="email" placeholder="name@example.com" autocomplete="email" inputmode="email" required>
     <label for="pwd">Password</label>

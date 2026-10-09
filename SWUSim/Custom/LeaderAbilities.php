@@ -187,7 +187,7 @@ $leaderActionForceCost = [
 // from your hand that shares a keyword with the chosen unit. It costs 1 resource less.
 function _SWUCardKeywordSet(string $cardID): array {
     $kws = [];
-    foreach (['Ambush','Bounty','Coordinate','Exploit','Grit','Hidden','Overwhelm','Piloting','Plot','Raid','Restore','Saboteur','Sentinel','Shielded','Smuggle'] as $kw) {
+    foreach (['Ambush','Bounty','Coordinate','Exploit','Grit','Hidden','Overwhelm','Piloting','Plot','Raid','Restore','Saboteur','Sentinel','Shielded','Smuggle','Support'] as $kw) {
         $reg = $GLOBALS[$kw . '_Cards'] ?? null;
         if (is_array($reg) && isset($reg[$cardID])) $kws[] = $kw;
     }
@@ -200,10 +200,9 @@ function _SWULof005SharesKeywordWithFriendly(int $player, string $cardID): bool 
     if (empty($myKw)) return false;
     foreach (GetUnitsInPlay($player) as $u) {
         if (!empty($u->removed)) continue;
-        $uKw = _SWUCardKeywordSet($u->CardID ?? '');
-        foreach (['Ambush'=>'AMBUSH','Grit'=>'GRIT','Hidden'=>'HIDDEN','Overwhelm'=>'OVERWHELM','Saboteur'=>'SABOTEUR','Sentinel'=>'SENTINEL','Shielded'=>'SHIELDED','Raid'=>'RAID','Restore'=>'RESTORE'] as $name => $kw) {
-            if (!in_array($name, $uKw, true) && _SWUUnitHasKeyword($u, $kw)) $uKw[] = $name;
-        }
+        // Printed + every CURRENT keyword (shared set, GameLogic.php) — the old 9-entry granted list ignored a
+        // granted Bounty, Coordinate, Smuggle, Exploit, Piloting, Plot and Support.
+        $uKw = array_values(array_unique(array_merge(_SWUCardKeywordSet($u->CardID ?? ''), _SWUUnitKeywordSet($u))));
         if (!empty(array_intersect($myKw, $uKw))) return true;
     }
     return false;

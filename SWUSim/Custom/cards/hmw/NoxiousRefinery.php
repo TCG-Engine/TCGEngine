@@ -33,15 +33,17 @@ function _SWUHmw160ResolveOne(int $p): void {
     global $playerID;
     $saved = $playerID;
     $playerID = $p;
-    $deck = GetDeck($p);
-    $top  = null;
-    foreach ($deck as $d) { if (empty($d->removed)) { $top = $d; break; } }
-    if ($top === null) { $playerID = $saved; return; }        // empty deck — nothing to reveal
-    $topID = $top->CardID ?? '';
+    $topIdx = _SWUTopDeckFrontIdx($p);
+    if ($topIdx === -1) { $playerID = $saved; return; }       // empty deck — nothing to reveal
+    $topID = GetDeck($p)[$topIdx]->CardID ?? '';
     // ⚠ Was written with visibility 0 — which matches NO seat tag and is not 'ALL', so nobody (not
     // even the revealing player) ever saw it. A reveal is public.
     AddGameLogEntry('REVEAL', 'P' . $p . ' revealed ' . GameLogCardRef($topID)
         . ' from the top of their deck (' . GameLogCardRef('HMW_160') . ')', 'ALL');
+    // SHOW it (reveal popup), not just log it. Discord report 2026-10-09 "did not let me proc it": the
+    // trigger fired, but a non-Aggression reveal did nothing visible and a lone enemy target auto-resolved,
+    // so it read as never happening. false = we wrote our own log line above (Thrawn SOR's pattern).
+    DoRevealCard($p, "myDeck-{$topIdx}", false);
     if (strpos(CardAspect($topID) ?? '', 'Aggression') !== false) {
         // "an ENEMY unit" — relative to the base's controller. Mandatory, so a plain choose; it
         // fizzles cleanly when that seat's opponents control nothing.

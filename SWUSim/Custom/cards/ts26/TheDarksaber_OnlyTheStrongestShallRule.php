@@ -8,14 +8,13 @@
 $whenPlayedAbilities["TS26_22:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $found = [];
-    $boolKw = ['Sentinel', 'Ambush', 'Overwhelm', 'Grit', 'Saboteur', 'Shielded', 'Hidden', 'Bounty'];
-    $valKw  = ['Raid', 'Restore'];
+    // Every keyword counts, via the shared set (GameLogic.php _SWUUnitKeywordSet). This used a hand-kept
+    // 10-keyword list that missed Smuggle, Coordinate, Exploit, Piloting, Plot and Support.
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if (SWUObjGone($o)) continue;
-            foreach ($boolKw as $kw) { $fn = "HasKeyword_{$kw}"; if (function_exists($fn) && $fn($o)) $found[$kw] = true; }
-            foreach ($valKw as $kw)  { $fn = "GetKeyword_{$kw}_Value"; if (function_exists($fn) && intval($fn($o) ?? 0) > 0) $found[$kw] = true; }
+            foreach (_SWUUnitKeywordSet($o) as $kw) $found[$kw] = true;
         }
     }
     if (count($found) >= 4) OnReadyCard(intval($player), $mzID);

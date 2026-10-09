@@ -428,7 +428,13 @@ function SWUBotRuleWallFirst(array $ctx): ?array {
         if (SWUBotActionKind($a) !== 'play') continue;
         $o = _SWUBotHandObject($seat, $a);
         $cid = $o !== null ? strval($o->CardID) : '';
-        if ($cid !== '' && str_contains(strval(CardType($cid)), 'Unit') && _SWUBotHasPrintedSentinel($cid) && empty($guarded[_SWUBotPlayArena($cid)])) $plays[] = $a;
+        // Feature 'wallstack' (p42): HARD CONTROL keeps stacking — a Sentinel goes down even where one already stands (owner, Mando vs
+        // aggro 2026-10-09: "sentinel up most turns. T2 Loth wolf · T3 another Loth wolf or droid laser turret · … Zeb for 5R").
+        // Only in an arena the opponent is IN: against space ("early let's call it wars, direct hit on 5R … survive … HSD") a second ground
+        // wall blocks nothing.
+        $stack = SWUBotFeatureOn('wallstack') && SWUBotStyleRank(strval($ctx['style'] ?? '')) >= 4 && $cid !== ''
+                 && (bool)array_filter(SWUBotUnits(intval($ctx['opp'])), fn($u) => $u['arena'] === _SWUBotPlayArena($cid));
+        if ($cid !== '' && str_contains(strval(CardType($cid)), 'Unit') && _SWUBotHasPrintedSentinel($cid) && ($stack || empty($guarded[_SWUBotPlayArena($cid)]))) $plays[] = $a;
     }
     if (empty($plays)) return null;
     $sub = array_merge($ctx, ['actions' => $plays]); $sub['_guides'] = _SWUBotGuides($sub);

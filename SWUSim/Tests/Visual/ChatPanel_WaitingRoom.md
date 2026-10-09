@@ -43,6 +43,12 @@
 #   • A message from each seat lands in the panel with a seat-tinted left RAIL and a matching name
 #     colour: P1 #6fb8ff · P2 #ff9b6f · P3 #7fd88f · P4 #d79bff. Same palette as the in-game log, so
 #     players meet one visual language.
+#   • PHONE (≤900px, 2026-10-09): NO 💬 bubble and NO drawer. The chat is a full-width card at the BOTTOM
+#     of the page, 16px below the room card, like the in-game phone chat and the Sideboard
+#     (swusim-menu-2.css, `body:has(.wr-with-chat)`). Long conversations scroll inside it (70vh cap).
+#   • SEND TIME (2026-10-09): each chat row shows a small muted local time ("4:27 PM"), hover for
+#     the full date; log rows have none. It sits at the RIGHT of the first line; the text wraps around it. Drawn by the SWUSim skin (swusim-overrides.css) from data-time —
+#     the shared base draws nothing, so FaBSim's panel must stay WITHOUT a time.
 #   • The composer is a fixed row at the BOTTOM, always visible, never stretched to fill.
 #   • ★ AUTOSCROLL: scrolled to the bottom, a new message keeps the panel pinned. Scroll UP first,
 #     then send from the other seat — the panel must NOT yank you back down. The rule is the in-game

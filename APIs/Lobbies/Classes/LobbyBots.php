@@ -20,7 +20,7 @@ function LobbyAddBot(object $lobby, string $authKey, string $profile, ?int $requ
     }
     if ($adapter instanceof LobbyBotPolicyAdapter) {
         $wait = $adapter->botAddWaitSeconds($lobby, time());
-        if ($wait > 0) throw new InvalidArgumentException("Bots can be added in {$wait}s, once nobody new has joined for a minute.");
+        if ($wait > 0) throw new InvalidArgumentException("Bots can be added in {$wait}s, once nobody new has joined the room for a while.");
         if ($deck !== null && empty($deck['validation']['ok'])) {
             $why = strval($deck['validation']['message'] ?? '');
             throw new InvalidArgumentException('That deck cannot be used' . ($why !== '' ? ": $why" : '.'));

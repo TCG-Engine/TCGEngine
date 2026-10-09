@@ -1,17 +1,22 @@
 # Self-play fixture — "Vader (HMW) Yellow" (Darth Vader, Might of the Empire - Mos Eisley)
-# Source: the HMW-meta list of Force Fam member Ninin (NininTCG), given by the owner 2026-10-05 as JSON — her latest.
-#   Converted 2026-10-05. 51 main-deck cards, 7 sideboard. Third list that day:
-#   v1 (soft aggro) -> v2: -3 Garnac, -3 Expendable Mercenary, -3 Tireless Magnaguard, -1 Sandtrooper Squad;
+# Source: the HMW-meta list of Force Fam member Ninin (NininTCG), given by the owner as JSON — her latest (v4, 2026-10-09).
+#   51 main-deck cards, 9 sideboard. History:
+#   v1 (soft aggro) -> v2 (2026-10-05): -3 Garnac, -3 Expendable Mercenary, -3 Tireless Magnaguard, -1 Sandtrooper Squad;
 #     +3 Eager Escort Fighter, +2 Victor Squadron, +2 Dedra Meero, +1 Thrawn, +1 Inferno Squad, +1 Nihil Marauder.
-#   v2 -> v3 (this): -1 Eager Escort Fighter (to the sideboard), -1 Thrawn; +2 Tandem Assault.
+#   v2 -> v3 (2026-10-05): -1 Eager Escort Fighter (to the sideboard), -1 Thrawn; +2 Tandem Assault.
+#   v3 -> v4 (2026-10-09, this): -2 Peridea Bandit, -3 General Grievous, -3 Nihil Marauder, -2 Dedra Meero, -2 Tandem Assault,
+#     -1 Moff Gideon, -1 Stolen AT-Hauler (to the sideboard); +3 Marrok's Fiend Fighter, +3 Lurking Snub Fighter, +3 Aurra Sing,
+#     +3 Secessionist Convert, +2 Maim. Sideboard: +1 Stolen AT-Hauler, +1 Maim.
 #   Base trait: Mos Eisley is Tatooine, but no card in the deck cares, so the trait is not part of its name.
 # Author: Ninin
-# Archetype (owner's label, 2026-10-05): Soft aggro — take fewer trades, more swings to base. 49 units + 2 Tandem
-#   Assault; the leader gives Raid 1 to each unit costing 3+. Curve peaks at 3 (23 cards), no 1-cost units, four 6-drops,
-#   10 Ambush units, so the list alone reads closer to midrange; the owner first called it "midrange aggro tempo", then
-#   chose soft aggro for its PLAN. No tempo flavour: tempo trades.
-#   Her game vs Wicket (HMW) Blue: Tandem Assault dealt 12 base damage in one round for 1 resource (Hauler 5 + Knight of
-#   Ren 4+1+2). Plan vs Wicket: bait Aggressive Negotiations onto a unit or discard it with Remnant Lookouts.
+# Archetype (owner's label, 2026-10-05): Soft aggro — take fewer trades, more swings to base. The leader gives Raid 1 to each unit
+#   costing 3+. v4: 47 units + 2 Maim + 2 Craving Power; curve 1-cost 2 · 2-cost 12 · 3-cost 24 · 4-cost 6 · 5-cost 5 · 6-cost 2 (lower
+#   than v3: the 6-cost Dedra Meeros and the 1-cost Tandem Assaults are gone). Label RE-CONFIRMED for v4 (owner 2026-10-09: "this
+#   plays soft aggro with a little bit of tempo pieces" — the tempo pieces being HAND HATE and EXHAUST effects: 3 Remnant Lookouts,
+#   2 Maim, 3 Lurking Snub Fighter). The deck-style classifier's shape scan reads the list as midrange (1.86) — it cannot see the plan.
+#   v3 notes (Tandem Assault is no longer in the list): her game vs Wicket (HMW) Blue — Tandem Assault dealt 12 base damage in one
+#   round for 1 resource (Hauler 5 + Knight of Ren 4+1+2). Plan vs Wicket: bait Aggressive Negotiations onto a unit or discard it with
+#   Remnant Lookouts.
 # Style: softaggro
 
 Leader
@@ -23,23 +28,23 @@ Base
 Deck
 3 SEC_080
 3 ASH_191
-2 ASH_190
-3 SEC_187
-3 ASH_097
+2 ASH_097
 3 LOF_084
 3 ASH_192
 3 ASH_220
 3 LOF_183
-3 JTL_221
+2 JTL_221
 3 ASH_194
 3 ASH_222
-3 HMW_202
 2 LOF_091
-3 LOF_182
 2 HMW_203
-2 SEC_087
 2 JTL_112
-2 JTL_124
+3 ASH_241
+2 HMW_207
+3 SEC_189
+3 LOF_179
+3 HMW_106
+3 HMW_202
 
 Sideboard
 1 LOF_091
@@ -47,3 +52,5 @@ Sideboard
 1 HMW_203
 2 SEC_193
 1 JTL_112
+1 JTL_221
+1 HMW_207

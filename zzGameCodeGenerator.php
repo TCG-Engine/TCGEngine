@@ -2669,6 +2669,12 @@ function AddGetNextTurnForPlayer($player) {
           $getNextTurn .= "    if(\$logVis === 'ALL' || (!\$viewerInfo[\"isSpectator\"] && in_array(\$vSeatTag, array_map('trim', explode(',', \$logVis)), true))) \$visibleLog[] = \$logEntry;\r\n";
           $getNextTurn .= "  }\r\n";
           $getNextTurn .= "  echo(implode('<NL>', \$visibleLog));\r\n";
+        } else if (in_array($zone->Name, MatchReplayModuleFields(), true)) {
+          // The replay's initial gamestate (BOTH decks in order, BOTH hands) and its input log are
+          // server-only: APIs/MatchReplay.php reads them from the gamestate, and no client reads them
+          // from the poll. Echoing them leaked hidden information to every viewer mid-game. The
+          // position stays (the remote-frontend guide documents it), carrying the empty value.
+          $getNextTurn .= "  echo('-');\r\n";
         } else {
           $getNextTurn .= "  echo(\$g" . $zone->Name . ");\r\n";
         }
@@ -3557,6 +3563,13 @@ function GetModule($type) {
     if($modules[$i]->Name == $type) return $modules[$i];
   }
   return null;
+}
+
+// The zone names `Module: MatchReplay=<initial>,<commands>` stores the replay in — never sent to a client.
+function MatchReplayModuleFields() {
+  $module = GetModule("MatchReplay");
+  if ($module === null || $module->Parameters === "") return [];
+  return array_values(array_filter(array_map('trim', explode(",", $module->Parameters)), 'strlen'));
 }
 
 function SchemaOwnsRandomCounter() {
