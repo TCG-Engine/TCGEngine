@@ -1275,13 +1275,16 @@ function SetBotControllerState(state) {
   }) : [];
   var pendingPlayer = parseInt(state.pendingPlayer || 0, 10);
   if (players.indexOf(pendingPlayer) === -1) pendingPlayer = 0;
+  var stepDelayMs = parseInt(state.stepDelayMs || 0, 10);
+  if (Number.isNaN(stepDelayMs) || stepDelayMs < 0) stepDelayMs = 0;
 
   window.BotController = {
     enabled: state.enabled === true && players.length > 0,
     mode: typeof state.mode === "string" ? state.mode : "",
     folderPath: typeof state.folderPath === "string" ? state.folderPath : "",
     players: players,
-    pendingPlayer: pendingPlayer
+    pendingPlayer: pendingPlayer,
+    stepDelayMs: Math.min(10000, stepDelayMs)
   };
 
   if (!window.BotController.enabled || pendingPlayer === 0) {
@@ -1291,6 +1294,10 @@ function SetBotControllerState(state) {
     if (window.__botControllerRetryTimer) {
       window.clearTimeout(window.__botControllerRetryTimer);
       window.__botControllerRetryTimer = null;
+    }
+    if (window.__botControllerPaceTimer) {
+      window.clearTimeout(window.__botControllerPaceTimer);
+      window.__botControllerPaceTimer = null;
     }
   }
 }
@@ -1332,6 +1339,21 @@ function MaybeRunBotControllerStep() {
   if (botPlayers.indexOf(pendingPlayer) === -1) return;
   if (window.__botControllerStepInFlight) {
     window.__botControllerRunRequested = true;
+    return;
+  }
+
+  // Pacing (stepDelayMs from the server, Core/BotController.php): wait once per rendered update so the human
+  // sees each bot move before the next one. Retries of the same update are not paced again — they have
+  // their own backoff. A render arriving while the pace timer runs is absorbed by it.
+  var stepDelayMs = parseInt(controller.stepDelayMs || 0, 10);
+  var renderedUpdate = (typeof _lastUpdate === "number") ? _lastUpdate : 0;
+  if (stepDelayMs > 0 && window.__botControllerPacedUpdate !== renderedUpdate) {
+    if (window.__botControllerPaceTimer) return;
+    window.__botControllerPaceTimer = window.setTimeout(function() {
+      window.__botControllerPaceTimer = null;
+      window.__botControllerPacedUpdate = (typeof _lastUpdate === "number") ? _lastUpdate : 0;
+      MaybeRunBotControllerStep();
+    }, stepDelayMs);
     return;
   }
 

@@ -172,7 +172,7 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         $keep += SWU_BOT_CTXPOWER_KEEP * SWUBotContextSurplus($seat, $cid);
         // Feature 'yodaloop' (p42, owner 2026-10-08): a tuck deck never resources its chain pieces (the free plays Qui-Gon's tuck needs).
         // Owner: "generally good after the 5R turn" — before that, a chain piece may still be the card to resource.
-        if (SWUBotFeatureOn('yodaloop') && SWUResourceCount($seat) >= 5 && function_exists('_SWUBotTuckChainPiece') && _SWUBotTuckChainPiece($seat, $cid)) $keep += 1000.0;
+        if (SWUBotFeatureOn('yodaloop') && SWUResourceCount($seat) >= SWUBotLeverNum('YODALOOP_FROM', 5) && function_exists('_SWUBotTuckChainPiece') && _SWUBotTuckChainPiece($seat, $cid)) $keep += 1000.0;
         // 'disclosereserve' (p36): the last card my Condemn's disclose needs (the tiered path keeps it in tier 9).
         if (SWUBotFeatureOn('disclosereserve') && _SWUBotBreaksDiscloseReserve($seat, $i)) $keep += 100.0;
         // Feature 'bokatanres' (p42): the hard-control late-game bomb — resourced from a non-aggro OPENING hand, otherwise only when nothing
@@ -440,7 +440,8 @@ function _SWUBotBokatanResourced(int $seat, string $cid): bool {
 function _SWUBotBokatanResKeep(array $ctx, string $cid, bool $first): ?float {
     if (!_SWUBotBokatanBomb($ctx, $cid)) return null;
     $opening = strval($ctx['tooltip'] ?? '') === 'Choose_2_cards_to_resource';
-    if ($opening && $first) return -1000.0;   // the opener vs aggro is the tiered resourcer's ('stabkeep' keeps her)
+    if ($opening && $first) return -1000.0;
+    if (SWUBotProposalOn('bokatan4r') && intval(GetTurnNumber()) <= 4) return null;   // lever: an ordinary card until the 4R turn   // the opener vs aggro is the tiered resourcer's ('stabkeep' keeps her)
     return 1000.0;
 }
 
@@ -509,6 +510,8 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
         if ($capitalDeck && str_contains(strval(CardTrait($cid) ?? ''), 'Capital Ship')) { $out[$i] = [8, -1.0 * $cost]; continue; }
         // Feature 'bokatanres' (p42): never a second late-game bomb in my resources — not even as the spare duplicate below.
         if (SWUBotFeatureOn('bokatanres') && _SWUBotBokatanBomb($ctx, $cid) && _SWUBotBokatanResourced($seat, $cid)) { $out[$i] = [9, 0.0]; continue; }
+        // Lever 'stabkeepdup' (2026-10-08 screen): the SECOND mass-debuff copy is kept vs aggro too (not the spare duplicate).
+        if (SWUBotProposalOn('stabkeepdup') && $aggressive && preg_match('/Give each enemy unit -\d+\/-\d+/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
         if (($inHand[$cid] ?? 0) >= 2 && $i !== $firstIdx[$cid]) { $out[$i] = [0, 0.0]; continue; }
         // Feature 'wipekeepaggro' (p37): a relevant WIPE is kept against aggro — owner (Krennic Splash, 2026-10-06): resource "late
         // bombs vs aggro, never the wipes". Below, a 7+ card only "fit the matchup" with 3+ enemy units, so the wipe being saved for

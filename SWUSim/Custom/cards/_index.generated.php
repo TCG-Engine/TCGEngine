@@ -1563,6 +1563,7 @@ return [
     'TWI_047' => 'twi/SatineKryze_CommittedToPeace.php',
     'TWI_048' => 'twi/ObiWansAethersprite_ThisIsWhyIHateFlying.php',
     'TWI_049' => 'twi/KnightOfTheRepublic.php',
+    'TWI_050' => 'twi/LuminaraUnduli_SoftspokenMaster.php',
     'TWI_052' => 'twi/HelloThere.php',
     'TWI_053' => 'twi/Finn_OnTheRun.php',
     'TWI_055' => 'twi/Equalize.php',

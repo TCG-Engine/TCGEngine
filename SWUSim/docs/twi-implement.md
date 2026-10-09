@@ -29,7 +29,7 @@ TWI_020, TWI_021, TWI_023, TWI_024, TWI_026, TWI_027, TWI_029, TWI_030, TWI_037,
   - TWI_251 Drop In: Create 2 Clone Trooper tokens.
 
 ## Phase 2 — Coordinate abilities (autonomous)
-- [x] **Batch 2.1 — TWI_045, TWI_050, TWI_051, TWI_061** — done, 2776/0. TWI_045 Coordinate +0/+3 (new `ObjectCurrentHP` self-buff gated on `IsCoordinateActive`); TWI_050 Grit / TWI_061 Sentinel already-wired (guard tests); TWI_051 grants Coordinate-Restore 2 (new `GetConditionalKeyword_Restore_Value` line) + costs -2 with 3+ Republic units (new `$playCostModifiers`).
+- [x] **Batch 2.1 — TWI_045, TWI_050, TWI_051, TWI_061** — done, 2776/0. TWI_045 Coordinate +0/+3 (new `ObjectCurrentHP` self-buff gated on `IsCoordinateActive`); TWI_050 Grit / TWI_061 Sentinel already-wired (guard tests) — ⚠ TWI_050's SECOND line ("When Played: Choose a base. Heal 1 damage from it for each unit you control.", independent of Coordinate) was dropped by the one-line text quote below and shipped unimplemented; fixed 2026-10-09 in `cards/twi/LuminaraUnduli_SoftspokenMaster.php` (+10 sections); TWI_051 grants Coordinate-Restore 2 (new `GetConditionalKeyword_Restore_Value` line) + costs -2 with 3+ Republic units (new `$playCostModifiers`).
   - TWI_045 41st Elite Corps: Coordinate - This unit gets +0/+3. (Gain this ability while you control 3 or more units.)
   - TWI_050 Luminara Unduli: ⟳ Coordinate - Grit (Gain this keyword while you control 3 or more units. This unit gets +1/+0 for each damage on her
   - TWI_051 For The Republic: ⟳ If you control 3 or more Republic units, this upgrade costs 2 resources less to play. Attached unit gains: "Coordin

@@ -1006,8 +1006,53 @@ const SWU_BOT_PROPOSALS = [
     'claimlethal',     // initiative-for-wipe never claims when the opponent's ready attackers are lethal this round. bot_claimlethal_test
     'wipecredit',      // a play spending a Credit the next-round wipe needs is held (Lando R4: Anakin over Disaster's Credit).
                        // ⚠ owner ruling needed (Lando's Credits are a tempo engine, exempt from banking). bot_wipecredit_test
+    // ── 2026-10-08 OVERNIGHT LEVER SCREEN (owner: "50 brand new levers … based on the stuff we worked on today") — alternatives to
+    // the p42 features; each is screened against the full stack on its focus deck (.claude/tmp/lever-screen-20261008/run_all.sh, gitignored).
+    // Numeric levers (an alternative value of a p42 knob — SWU_BOT_LEVER_VALUES below):
+    'mandoclaimhalf', 'mandoclaimx2', 'supporthalf', 'supportnodraw', 'basehealx2', 'basehealhalf', 'anakinpitchx2', 'anakinpitchhalf', 'sentsac2', 'barefodder1', 'barefodder0', 'tuckrebuy1', 'tuckrebuyq', 'restorewastehalf', 'yodaloop4', 'yodaloop6', 'landomill9', 'landomill11', 'landoflip2', 'pitchline15', 'pitchline7', 'attackreservehalf', 'race2', 'race4', 'healpress20', 'healpress10', 'healunit075', 'searchhalf', 'searchx2', 'searchother1',
+    // Behaviour levers (a p42 rule read another way — gated at their site with SWUBotProposalOn):
+    'cleanupkillonly', 'cleanupall', 'cleanupclock', 'cleanupsoftc', 'bokatan4r', 'pitchdeck', 'lciwkillonly', 'mandoclaimnocap', 'stabkeepdup', 'sentsacdoomed', 'forcerefillonly', 'forcespendonly', 'yodapartial', 'tuckfirst', 'chewiechip', 'chewiefinishnext', 'creditdeploynow', 'landoflipaction', 'deployswingall', 'doubleplaycost',
 ];
 
+
+// The numeric levers of the 2026-10-08 screen: proposal => [knob, value]. Code reads a knob with SWUBotLeverNum(knob, default): the
+// default (the shipped p42 value) unless one of that knob's proposals is on.
+const SWU_BOT_LEVER_VALUES = [
+    'mandoclaimhalf' => ['CLAIM_DRAW_MULT', 0.5],
+    'mandoclaimx2' => ['CLAIM_DRAW_MULT', 2.0],
+    'supporthalf' => ['SUPPORT_ATTACK_SHARE', 0.5],
+    'supportnodraw' => ['SUPPORT_DRAW_SHARE', 0.0],
+    'basehealx2' => ['BASEHEAL_MULT', 2.0],
+    'basehealhalf' => ['BASEHEAL_MULT', 0.5],
+    'anakinpitchx2' => ['ANAKIN_PITCH_MULT', 2.0],
+    'anakinpitchhalf' => ['ANAKIN_PITCH_MULT', 0.5],
+    'sentsac2' => ['SENTINEL_SAC_PREMIUM', 2.0],
+    'barefodder1' => ['BARE_FODDER_DISCOUNT', 1.0],
+    'barefodder0' => ['BARE_FODDER_DISCOUNT', 0.0],
+    'tuckrebuy1' => ['TUCK_REBUY_SHARE', 1.0],
+    'tuckrebuyq' => ['TUCK_REBUY_SHARE', 0.25],
+    'restorewastehalf' => ['RESTORE_WASTE_MULT', 0.5],
+    'yodaloop4' => ['YODALOOP_FROM', 4.0],
+    'yodaloop6' => ['YODALOOP_FROM', 6.0],
+    'landomill9' => ['LANDO_MILL_THEIRS_AT', 9.0],
+    'landomill11' => ['LANDO_MILL_THEIRS_AT', 11.0],
+    'landoflip2' => ['LANDO_FLIP_CREDITS', 2.0],
+    'pitchline15' => ['PITCH_LINE', 1.5],
+    'pitchline7' => ['PITCH_BEFORE_RESOURCES', 7.0],
+    'attackreservehalf' => ['ATTACK_RESERVE_MULT', 0.5],
+    'race2' => ['DEPLOYSWING_RACE', 2.0],
+    'race4' => ['DEPLOYSWING_RACE', 4.0],
+    'healpress20' => ['HEAL_BASE_PRESSURE', 20.0],
+    'healpress10' => ['HEAL_BASE_PRESSURE', 10.0],
+    'healunit075' => ['HEAL_UNIT_RATE', 0.75],
+    'searchhalf' => ['SEARCH_MULT', 0.5],
+    'searchx2' => ['SEARCH_MULT', 2.0],
+    'searchother1' => ['SEARCH_OTHER_SHARE', 1.0],
+];
+function SWUBotLeverNum(string $knob, float $default): float {
+    foreach (SWU_BOT_LEVER_VALUES as $p => [$k, $v]) if ($k === $knob && SWUBotProposalOn($p)) return $v;
+    return $default;
+}
 
 function SWUBotProposalList(): array {
     return SWU_BOT_PROPOSALS;
