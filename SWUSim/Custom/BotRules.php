@@ -553,7 +553,7 @@ function _SWUBotKrennicPlanOn(array $ctx, string $part = ''): bool {
 // Defeated unit. Lower is better; null = not fodder.
 function _SWUBotFodderRank(string $cid, int $cost): ?int {
     if (stripos(strval(CardText($cid)), 'When Defeated: You may resource this unit') !== false) return 0;
-    $wd = SWUBotProposalOn('wdability') ? (bool)preg_match('/When Defeated:/i', strval(CardText($cid))) : stripos(strval(CardText($cid)), 'When Defeated') !== false;
+    $wd = stripos(strval(CardText($cid)), 'When Defeated') !== false;
     if ($cost <= 2 || $wd) return 1 + $cost;
     return null;
 }

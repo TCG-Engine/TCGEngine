@@ -878,12 +878,6 @@ const SWU_BOT_PROPOSALS = [
     // Behaviour arms — the family every shipped win came from (sequencing and keeping, not valuation):
     'killfirst',       // take a kill-and-survive attack before a base attack, within the turn
     'blockerfirst',    // behind on units: play a body before attacking
-    'doomedtie',       // HELD 2026-10-06 (measured HARMFUL): doomed units sacrificed cheapest-first (0.5 + 0.01 x value) instead of tying
-                       // at a flat 0.5, where the first listed went — Krennic's Credit Action sacrificed the Director Krennic unit over a
-                       // Spy token (17 of 60 traced games vs Ahsoka Blue); the owner never sacrifices it. With 'wdability', on Krennic
-                       // Splash's 15 screen pairs: 34.3% vs 37.0%, paired 1 game won / 9 lost (sign p=.02). Guard: bot_doomedtie_test.php.
-    'wdability',       // HELD 2026-10-06 (same measurement): a sacrifice's When Defeated payback is the ABILITY ("When Defeated:"), not the
-                       // words — JTL_032's "a unit that has a 'When Defeated' ability" priced it as its own fodder.
     'tradewhenbehind', // behind on units: an even trade is worth taking (owner Q10, made conditional)
     // ('leaderrisk' was SHIPPED 2026-10-03 in feature group 'p28' — see the Part 28 comment.)
     'removalready',    // spend removal on READY enemies; an exhausted one cannot attack this round
@@ -1034,7 +1028,6 @@ function SWUBotProposalList(): array {
 // history of these groups is therefore PRE-p16 and not reproducible as written.
 const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
                                  'krennicfull' => ['creditvalue', 'krennicscript'],
-                                 'krennicsac'  => ['doomedtie', 'wdability'],   // HELD 2026-10-06: harmful on Krennic Splash (1:9, p=.02)
                                  'mullfix'     => ['mullhandsize', 'mulleventclamp', 'mullanswer'],   // 2026-10-07 gap screen
                                  // 2026-10-07 canary: the four gap-screen levers that pointed the right way (unconfirmed at 60 g/cell).
                                  'gapstack'    => ['wallkeeparena', 'cravinganswer', 'wallarena', 'bobaspace'],

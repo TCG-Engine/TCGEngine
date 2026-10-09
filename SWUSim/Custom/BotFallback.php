@@ -1488,7 +1488,7 @@ function SWUBotUnusedSacPremium(array $v): float {
 const SWU_BOT_SENTINEL_SAC_PREMIUM = 10.0;
 function SWUBotSacrificeCost(array $v): float {
     $cost = _SWUBotSacrificeCostBase($v);
-    if (SWUBotFeatureOn('sentinelsac') && empty($v['isLeader']) && !empty($v['sentinel']) && !SWUBotUnitIsDoomed($v)) $cost += SWU_BOT_SENTINEL_SAC_PREMIUM;
+    if (SWUBotFeatureOn('sentinelsac') && !empty($v['sentinel']) && !SWUBotUnitIsDoomed($v)) $cost += SWU_BOT_SENTINEL_SAC_PREMIUM;
     return $cost;
 }
 function _SWUBotSacrificeCostBase(array $v): float {
@@ -1509,9 +1509,7 @@ function _SWUBotSacrificeCostBase(array $v): float {
         } elseif (SWUBotUnitIsDoomed($v)) {
             // 2b: dying anyway — unless the When Defeated pricing below already makes it cheaper still.
             $byValue = _SWUBotSacrificeCostByValue($v);
-            // Feature 'doomedtie' (p37): ordered by value among the doomed. The flat 0.5 tied them, and the FIRST listed went: Krennic's
-            // Credit Action sacrificed the Director Krennic unit over a Spy token (17 of 60 traced games vs Ahsoka Blue).
-            return min(SWU_BOT_DOOMED_SAC_COST, $byValue) + (SWUBotProposalOn('doomedtie') ? 0.01 * max(0.0, $byValue) : 0.0);
+            return min(SWU_BOT_DOOMED_SAC_COST, $byValue);
         }
     }
     return _SWUBotSacrificeCostByValue($v);
@@ -1530,9 +1528,7 @@ function _SWUBotSacrificeCostByValue(array $v): float {
     $value = SWUBotUnitValue($v);
     if (SWUBotFeatureOn('spentetb') && _SWUBotOnlySpentWhenPlayed($v['cardID'])) $value = min($value, _SWUBotUnitStatsValue($v));
     $text = strval(CardText($v['cardID']));
-    // Feature 'wdability' (p37): a When Defeated ABILITY ("When Defeated:"), not the words: JTL_032 Director Krennic's "the first unit you
-    // play each round that has a 'When Defeated' ability costs 1 less" read as its own payback, so the deck's engine priced as fodder.
-    $hasWd = SWUBotProposalOn('wdability') ? (bool)preg_match('/When Defeated:/i', $text) : stripos($text, 'When Defeated') !== false;
+    $hasWd = stripos($text, 'When Defeated') !== false;
     if (!$hasWd) return $value;
     if (!SWUBotFeatureOn('fodder')) return max(0.0, $value - 1.5);
     // Feature 'fodder': price the When Defeated by WHAT IT DOES, not a flat allowance. The flat 1.5 collapsed the

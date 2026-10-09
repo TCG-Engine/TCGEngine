@@ -85,7 +85,12 @@ $pairPick = function (string $variant, string $other = 'ASH_030') use ($build, $
     $v = SWUBotViewForMz(1, strval($p['cardID'] ?? ''));
     return $v['cardID'] ?? strval($p['cardID'] ?? '');
 };
+// (Owner-approved 2026-10-08: this arm pins p42 'sentinelsac' off — "never sacrifice an active Sentinel" protects Marrok by itself — so
+// it still isolates what 'spentetb' alone changes.)
+$savedPin = $GLOBALS['SWUBotPinnedDisabled'] ?? [];
+$GLOBALS['SWUBotPinnedDisabled'] = array_merge($savedPin, ['sentinelsac']);
 $check($pairPick('no-spentetb') === 'ASH_030', 'E fixture: today Marrok (first, same printed cost) is the price; got ' . $pairPick('no-spentetb'));
+$GLOBALS['SWUBotPinnedDisabled'] = $savedPin;
 $check($pairPick('') === 'HMW_154', 'E: the spent Solar Sailer is the price; got ' . $pairPick(''));
 
 // F) Only a SPENT When Played is discounted: LOF_033 Nameless Terror is the Sailer's twin (3-cost 3/3, a When Played) but also has
