@@ -587,24 +587,38 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            not .swu-col-sep, is what actually drew the vertical line beside the leader/base.
            Hiding .swu-col-sep alone left these behind. The corner brackets (::before) still
            paint all four corners, so the HUD read survives. */
-        border: 1px solid rgba(var(--accent-rgb),0.22);
+        /* STATIC at the pulse's dimmest values. The pulse itself is the .swu-arena-glow child below. */
+        border: 1px solid rgba(var(--accent-rgb),0.18);
         border-radius: 4px;
-        box-shadow: 0 0 6px rgba(var(--accent-rgb),0.10),
-                    inset 0 0 14px rgba(var(--accent-rgb),0.08);
-        animation: swuArenaPulse 3.2s ease-in-out infinite;
+        box-shadow: 0 0 5px rgba(var(--accent-rgb),0.08),
+                    inset 0 0 12px rgba(var(--accent-rgb),0.05);
     }
-    /* ⚠ The pulse animates border-COLOR only (never border-width/style), so the `border-right:0`
-       / `border-left:0` above survive it — an animation that set the shorthand would put the
-       inner edge back on every frame. */
-    @keyframes swuArenaPulse {
-        0%, 100% { border-color: rgba(var(--accent-rgb),0.18);
-                   box-shadow: 0 0 5px rgba(var(--accent-rgb),0.08), inset 0 0 12px rgba(var(--accent-rgb),0.05); }
-        50%      { border-color: rgba(var(--accent-rgb),0.42);
-                   box-shadow: 0 0 13px rgba(var(--accent-rgb),0.28), inset 0 0 18px rgba(var(--accent-rgb),0.13); }
+    /* ── The HUD pulse: a pre-drawn PEAK layer that only fades ──────────────────
+       ⚠ PERFORMANCE (2026-10-09). The pulse used to animate border-color + box-shadow on these two
+       arena-sized frames and filter:drop-shadow on their brackets, forever. None of those can run on
+       the compositor, so both frames were repainted on every display refresh, idle or not: ~75% of a
+       core on an idle board with GPU acceleration, ~240% without it (fan-noise report). Now the frame
+       and brackets above are static at the trough, and this child holds the peak look (the extra
+       border/glow plus a second, brighter-glowing copy of the brackets) and animates OPACITY only,
+       which the compositor runs without repainting anything.
+       Alphas are the peak MINUS the static trough, composited (a = (peak − trough) / (1 − trough)),
+       so trough + glow at opacity 1 ≈ the old 50% keyframe. */
+    .swu-arena-glow {
+        position: absolute; inset: -1px; z-index: 1; pointer-events: none;
+        border: 1px solid rgba(var(--accent-rgb),0.29);
+        border-radius: 4px;
+        opacity: 0; will-change: opacity;
+        animation: swuArenaGlow 3.2s ease-in-out infinite;
+    }
+    @keyframes swuArenaGlow {
+        0%, 100% { opacity: 0; }
+        50%      { opacity: 1; }
     }
     /* Bright cyan L-brackets at all four corners. Eight gradient slices (one
-       horizontal + one vertical arm per corner) painted on a single pseudo. */
-    .swu-arena-bg::before {
+       horizontal + one vertical arm per corner) painted on a single pseudo. The glow child repeats
+       them with the PEAK drop-shadow, so the bracket glow pulses by fading that copy in. */
+    .swu-arena-bg::before,
+    .swu-arena-bg > .swu-arena-glow::before {
         content: ''; position: absolute; inset: -1px; z-index: 1; pointer-events: none;
         --c:   var(--accent-strong);   /* bracket color (theme accent) */
         /* ⚠ SCALES WITH THE BOARD, not fixed px — same fixed-px-on-a-growing-container bug as the
@@ -619,8 +633,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            above it grow. */
         --len: max(26px, calc(var(--swu-cardsize, 80px) * 0.325));   /* arm length    */
         --th:  max(3px,  calc(var(--swu-cardsize, 80px) * 0.0375)); /* arm thickness */
-        filter: drop-shadow(0 0 4px rgba(var(--accent-rgb),0.75));   /* light glow on the brackets */
-        animation: swuArenaBracketPulse 3.2s ease-in-out infinite;
+        filter: drop-shadow(0 0 3px rgba(var(--accent-rgb),0.45));   /* light glow on the brackets (pulse trough) */
         background:
             linear-gradient(var(--c),var(--c)) left  top    / var(--len) var(--th) no-repeat,
             linear-gradient(var(--c),var(--c)) left  top    / var(--th)  var(--len) no-repeat,
@@ -637,29 +650,15 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        Offsetting the inset glow along x pushes it off the inner edge while keeping the interior
        glow on the other three, so the HUD look survives without the line beside leader/base. */
     .swu-arena-bg-space  { left: calc(var(--swu-space-left)  + var(--swu-arena-margin)); border-right: 0;
-        box-shadow: -6px 0 6px -2px rgba(var(--accent-rgb),0.10), inset 10px 0 14px -6px rgba(var(--accent-rgb),0.08); }
+        box-shadow: -6px 0 5px -2px rgba(var(--accent-rgb),0.08), inset 10px 0 12px -6px rgba(var(--accent-rgb),0.05); }
     .swu-arena-bg-ground { left: calc(var(--swu-ground-left) + var(--swu-arena-margin)); border-left: 0;
-        box-shadow: 6px 0 6px -2px rgba(var(--accent-rgb),0.10), inset -10px 0 14px -6px rgba(var(--accent-rgb),0.08); }
-    /* Same for the animated frames — the pulse re-asserts box-shadow every frame, so the
-       per-side override has to be repeated inside the keyframes or the line comes back. */
-    .swu-arena-bg-space  { animation-name: swuArenaPulseSpace; }
-    .swu-arena-bg-ground { animation-name: swuArenaPulseGround; }
-    @keyframes swuArenaPulseSpace {
-        0%, 100% { border-color: rgba(var(--accent-rgb),0.18);
-                   box-shadow: -6px 0 5px -2px rgba(var(--accent-rgb),0.08), inset 10px 0 12px -6px rgba(var(--accent-rgb),0.05); }
-        50%      { border-color: rgba(var(--accent-rgb),0.42);
-                   box-shadow: -6px 0 13px -2px rgba(var(--accent-rgb),0.28), inset 10px 0 18px -6px rgba(var(--accent-rgb),0.13); }
-    }
-    @keyframes swuArenaPulseGround {
-        0%, 100% { border-color: rgba(var(--accent-rgb),0.18);
-                   box-shadow: 6px 0 5px -2px rgba(var(--accent-rgb),0.08), inset -10px 0 12px -6px rgba(var(--accent-rgb),0.05); }
-        50%      { border-color: rgba(var(--accent-rgb),0.42);
-                   box-shadow: 6px 0 13px -2px rgba(var(--accent-rgb),0.28), inset -10px 0 18px -6px rgba(var(--accent-rgb),0.13); }
-    }
-    @keyframes swuArenaBracketPulse {
-        0%, 100% { filter: drop-shadow(0 0 3px rgba(var(--accent-rgb),0.45)); }
-        50%      { filter: drop-shadow(0 0 8px rgba(var(--accent-rgb),0.95)); }
-    }
+        box-shadow: 6px 0 5px -2px rgba(var(--accent-rgb),0.08), inset -10px 0 12px -6px rgba(var(--accent-rgb),0.05); }
+    /* The glow layer needs the same per-side treatment, or it re-draws the inner edge at the peak. */
+    .swu-arena-bg-space  > .swu-arena-glow { right: 0; border-right: 0;
+        box-shadow: -6px 0 13px -2px rgba(var(--accent-rgb),0.22), inset 10px 0 18px -6px rgba(var(--accent-rgb),0.09); }
+    .swu-arena-bg-ground > .swu-arena-glow { left: 0; border-left: 0;
+        box-shadow: 6px 0 13px -2px rgba(var(--accent-rgb),0.22), inset -10px 0 18px -6px rgba(var(--accent-rgb),0.09); }
+    .swu-arena-bg > .swu-arena-glow::before { filter: drop-shadow(0 0 8px rgba(var(--accent-rgb),0.95)); }
 
     /* ── Arena columns ───────────────────────────────────────────────────────── */
     /* --swu-rot-bleed: an EXHAUSTED card is rotated 9° (RotationRules), which makes its
@@ -2040,6 +2039,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 <?php endif; ?>
 <!-- ═══════════════════ SPACE ARENA — LEFT COLUMN ══════════════════════════════ -->
 <div id="spaceArenaBg" class="swu-arena-bg swu-arena-bg-space">
+    <div class="swu-arena-glow" aria-hidden="true"></div>
     <div id="theirSpaceArenaSlot" class="swu-arena-col swu-arena-col-space swu-arena-col-top">
     </div>
     <div id="mySpaceArenaSlot" class="swu-arena-col swu-arena-col-space swu-arena-col-bot">
@@ -2048,6 +2048,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
 <!-- ═══════════════════ GROUND ARENA — RIGHT COLUMN ═══════════════════════════ -->
 <div id="groundArenaBg" class="swu-arena-bg swu-arena-bg-ground">
+    <div class="swu-arena-glow" aria-hidden="true"></div>
     <div id="theirGroundArenaSlot" class="swu-arena-col swu-arena-col-ground swu-arena-col-top">
     </div>
     <div id="myGroundArenaSlot" class="swu-arena-col swu-arena-col-ground swu-arena-col-bot">

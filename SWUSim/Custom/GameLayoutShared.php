@@ -408,6 +408,15 @@ body.swu-hb-still .swu-hb-fill { transition: none; }
    Twin Suns HP badge (.swu-mb-basehp) is NOT a bar and stays. Hiding the containers also gives back the
    gap the full-size bars opened between the 1v1 bases. */
 body.swu-hb-off .swu-hb, body.swu-hb-off .swu-base-health { display: none !important; }
+/* "Reduce board animations" (gear menu, owner 2026-10-09): stops the two pulses that run for the whole
+   game — the arena HUD frame glow (.swu-arena-glow, desktop + phone) and the turn-indicator glyphs.
+   Any never-ending animation keeps the browser compositing a frame on every display refresh, which on a
+   machine without GPU acceleration measured ~100% of a core on an idle board with both running. The
+   frame stays at its static dim look (glow hidden); the turn glyphs stay fully visible, just still. */
+body.swu-board-calm .swu-arena-glow { animation: none !important; opacity: 0 !important; }
+body.swu-board-calm #turn-miasma-overlay .turn-edge-core,
+body.swu-board-calm #turn-miasma-overlay .turn-edge-glyph::before,
+body.swu-board-calm #turn-miasma-overlay .turn-edge-glyph::after { animation: none !important; }
 /* Fill its container. ⚠ The phone layout's `.swu-m-center > div { display: flex }` makes the container a
    flex box, and an unsized child of one shrinks to 0px wide. */
 .swu-base-health > .swu-hb { width: 100%; }
@@ -2366,6 +2375,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     function pollGlobals() {
         swuHbSyncMotion();
         if (typeof window.swuApplyHealthBarVisibility === 'function') window.swuApplyHealthBarVisibility();
+        if (typeof window.swuApplyBoardAnimationPref === 'function') window.swuApplyBoardAnimationPref();
         syncCardSizeVar();
         swuInitPairSwitcher();   // sets window.swuSpectating BEFORE the glows read it
         updatePhaseTrack(); updatePhaseLine(); updateInitiative(); updateRound(); refreshActionGlows();
@@ -4849,6 +4859,26 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         swuApplyHealthBarVisibility();
     }
     window.swuSetHealthBarsHidden = swuSetHealthBarsHidden;
+
+    // "Reduce board animations" (owner 2026-10-09). Per-BROWSER only, like Card motion: what it fixes is
+    // the device's cost (fans / laggy animation on a weak or GPU-less machine), so a player can turn it on
+    // for that laptop without changing their desktop. Default follows the OS reduced-motion preference.
+    function swuBoardAnimationsReduced() {
+        var osReduce = false;
+        try { osReduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (e) {}
+        try {
+            if (window.TCGSettings && typeof window.TCGSettings.get === 'function') {
+                return window.TCGSettings.get('ReduceBoardAnimations', { rootName: 'SWUSim', type: 'boolean', defaultValue: osReduce }) === true;
+            }
+        } catch (e) {}
+        return osReduce;
+    }
+    window.swuBoardAnimationsReduced = swuBoardAnimationsReduced;
+    function swuApplyBoardAnimationPref() {
+        if (document.body) document.body.classList.toggle('swu-board-calm', swuBoardAnimationsReduced());
+    }
+    window.swuApplyBoardAnimationPref = swuApplyBoardAnimationPref;
+    swuApplyBoardAnimationPref();
     // Carry a logged-out browser choice onto the account at login — only onto an account that has never
     // set it (SWU_ACCOUNT_HIDE_HEALTH_BARS === null). The server re-checks, so two tabs can't double-promote.
     (function swuPromoteBrowserHealthBarsOnLogin() {
@@ -6596,6 +6626,8 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
         </select></label>
       <label class="swu-settings-row"><span>Card motion</span>
         <input type="checkbox" id="swuSetCardMotion"></label>
+      <label class="swu-settings-row" title="Stops the arena frame and turn indicator from pulsing. Lowers CPU/GPU use on slower computers."><span>Reduce board animations</span>
+        <input type="checkbox" id="swuSetReduceBoardAnim"></label>
       <label class="swu-settings-row"><span>Turn off health bars</span>
         <input type="checkbox" id="swuSetHideHealthBars"></label>
       <?php if ($swuGearCos !== null): ?>
@@ -6677,6 +6709,9 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     if (hhb && typeof window.swuHealthBarsHidden === 'function') hhb.checked = window.swuHealthBarsHidden();
     var cm = document.getElementById('swuSetCardMotion');
     if (cm && window.TCGCardMotion) cm.checked = window.TCGCardMotion.isEnabled('SWUSim');
+    // Reduce board animations: EFFECTIVE value (browser choice, else the OS reduced-motion preference).
+    var rba = document.getElementById('swuSetReduceBoardAnim');
+    if (rba && typeof window.swuBoardAnimationsReduced === 'function') rba.checked = window.swuBoardAnimationsReduced();
     // Match actions are player-only (hidden for spectators / non-players).
     var ms = document.getElementById('swuSettingsMatchSection');
     if (ms) {
@@ -6853,6 +6888,11 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     }
     if (e.target && e.target.id === 'swuSetCardMotion') {
       if (window.TCGSettings) window.TCGSettings.set('EnableCardMotion', e.target.checked, { rootName:'SWUSim', type:'boolean' });
+      return;
+    }
+    if (e.target && e.target.id === 'swuSetReduceBoardAnim') {
+      if (window.TCGSettings) window.TCGSettings.set('ReduceBoardAnimations', e.target.checked, { rootName:'SWUSim', type:'boolean' });
+      if (typeof window.swuApplyBoardAnimationPref === 'function') window.swuApplyBoardAnimationPref();
       return;
     }
     var sel = e.target && e.target.closest ? e.target.closest('.swu-gear-cos') : null;

@@ -251,27 +251,37 @@
        non-scrolling col wrapper so the brackets stay put while the slot scrolls. */
     .swu-m-arena-col {
         position: relative; isolation: isolate; flex: 1 1 0; min-width: 0; padding: 4px;
-        border: 1px solid rgba(var(--accent-rgb),0.22); border-radius: 4px;
-        box-shadow: 0 0 6px rgba(var(--accent-rgb),0.10), inset 0 0 14px rgba(var(--accent-rgb),0.08);
-        animation: swuMArenaPulse 3.2s ease-in-out infinite;
+        /* STATIC at the pulse's dimmest values; the pulse is the .swu-arena-glow child (see the
+           desktop .swu-arena-glow note in GameLayout.php — the old border/box-shadow/filter pulse
+           repainted every column on every display refresh). */
+        border: 1px solid rgba(var(--accent-rgb),0.18); border-radius: 4px;
+        box-shadow: 0 0 5px rgba(var(--accent-rgb),0.08), inset 0 0 12px rgba(var(--accent-rgb),0.05);
     }
-    @keyframes swuMArenaPulse {
-        0%, 100% { border-color: rgba(var(--accent-rgb),0.18);
-                   box-shadow: 0 0 5px rgba(var(--accent-rgb),0.08), inset 0 0 12px rgba(var(--accent-rgb),0.05); }
-        50%      { border-color: rgba(var(--accent-rgb),0.42);
-                   box-shadow: 0 0 13px rgba(var(--accent-rgb),0.28), inset 0 0 18px rgba(var(--accent-rgb),0.13); }
+    /* Pre-drawn PEAK layer that animates opacity only. z-index 0 + first child: under the cards
+       (z-index 1) and under the shared ::after wash, exactly where the old element's own shadow sat.
+       Higher specificity than `.swu-m-arena-col > *` below, which would otherwise make it relative. */
+    .swu-m-arena-col > .swu-arena-glow {
+        position: absolute; inset: -1px; z-index: 0; pointer-events: none;
+        border: 1px solid rgba(var(--accent-rgb),0.29); border-radius: 4px;
+        box-shadow: 0 0 13px rgba(var(--accent-rgb),0.22), inset 0 0 18px rgba(var(--accent-rgb),0.09);
+        opacity: 0; will-change: opacity;
+        animation: swuMArenaGlow 3.2s ease-in-out infinite;
+    }
+    @keyframes swuMArenaGlow {
+        0%, 100% { opacity: 0; }
+        50%      { opacity: 1; }
     }
     /* The blue HUD darkening (.swu-m-arena-col::after) is a SHARED style, defined in
        GameLayoutShared.php so desktop (.swu-arena-bg) and mobile use one definition.
        Card content sits above it; brackets stay on top of everything. */
     .swu-m-arena-col > * { position: relative; z-index: 1; }
-    .swu-m-arena-col::before {
+    .swu-m-arena-col::before,
+    .swu-m-arena-col > .swu-arena-glow::before {
         content: ''; position: absolute; inset: -1px; z-index: 3; pointer-events: none;
         --c: var(--accent-strong);   /* bracket color (theme accent) */
         --len: 18px;                   /* arm length    */
         --th: 3px;                     /* arm thickness */
-        filter: drop-shadow(0 0 4px rgba(var(--accent-rgb),0.75));   /* light glow on the brackets */
-        animation: swuMArenaBracketPulse 3.2s ease-in-out infinite;
+        filter: drop-shadow(0 0 3px rgba(var(--accent-rgb),0.45));   /* light glow on the brackets (pulse trough) */
         background:
             linear-gradient(var(--c),var(--c)) left  top    / var(--len) var(--th) no-repeat,
             linear-gradient(var(--c),var(--c)) left  top    / var(--th)  var(--len) no-repeat,
@@ -282,10 +292,8 @@
             linear-gradient(var(--c),var(--c)) right bottom / var(--len) var(--th) no-repeat,
             linear-gradient(var(--c),var(--c)) right bottom / var(--th)  var(--len) no-repeat;
     }
-    @keyframes swuMArenaBracketPulse {
-        0%, 100% { filter: drop-shadow(0 0 3px rgba(var(--accent-rgb),0.45)); }
-        50%      { filter: drop-shadow(0 0 8px rgba(var(--accent-rgb),0.95)); }
-    }
+    /* The glow's bracket copy carries the PEAK glow; it fades in with its parent. */
+    .swu-m-arena-col > .swu-arena-glow::before { filter: drop-shadow(0 0 8px rgba(var(--accent-rgb),0.95)); }
 
     /* ── Leader / Base row ───────────────────────────────────────────────────── */
     .swu-m-centers {
@@ -837,9 +845,9 @@
     <div class="swu-m-section is-theirs" id="theirHandSection"><div class="swu-m-label">Their Hand</div>
         <div id="theirHandSlot" class="swu-m-scroll"></div></div>
     <div class="swu-m-arena-row is-theirs">
-        <div class="swu-m-arena-col"><div class="swu-m-label">Their Space</div>
+        <div class="swu-m-arena-col"><div class="swu-arena-glow" aria-hidden="true"></div><div class="swu-m-label">Their Space</div>
             <div id="theirSpaceArenaSlot" class="swu-m-scroll"></div></div>
-        <div class="swu-m-arena-col"><div class="swu-m-label">Their Ground</div>
+        <div class="swu-m-arena-col"><div class="swu-arena-glow" aria-hidden="true"></div><div class="swu-m-label">Their Ground</div>
             <div id="theirGroundArenaSlot" class="swu-m-scroll"></div></div>
     </div>
 
@@ -853,9 +861,9 @@
 
     <!-- ════════ MY arenas / hand ════════ -->
     <div class="swu-m-arena-row is-mine">
-        <div class="swu-m-arena-col"><div class="swu-m-label">My Space</div>
+        <div class="swu-m-arena-col"><div class="swu-arena-glow" aria-hidden="true"></div><div class="swu-m-label">My Space</div>
             <div id="mySpaceArenaSlot" class="swu-m-scroll"></div></div>
-        <div class="swu-m-arena-col"><div class="swu-m-label">My Ground</div>
+        <div class="swu-m-arena-col"><div class="swu-arena-glow" aria-hidden="true"></div><div class="swu-m-label">My Ground</div>
             <div id="myGroundArenaSlot" class="swu-m-scroll"></div></div>
     </div>
     <div class="swu-m-section is-mine"><div class="swu-m-label">My Hand</div>
