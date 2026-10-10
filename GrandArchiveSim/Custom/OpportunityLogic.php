@@ -903,7 +903,7 @@ function ResolveOpportunitySelection($player, $selection) {
     // pay reserve from memory); never fall through to the generic reserve-paying ActivateCard() below.
     if(is_string($selection) && strpos($selection, "myMemory-") === 0) {
         $memObj = GetZoneObject($selection);
-        if($memObj !== null && empty($memObj->removed) && $memObj->CardID === "z5exbwdp7q") {
+        if($memObj !== null && empty($memObj->removed) && MemoryTrapConfig($memObj->CardID) !== null) {
             TryStiflingTrapMemory($player, $selection);
             ResumeIdleEffectStackIfNeeded();
             return true;
@@ -1186,26 +1186,40 @@ function GetPlayableFastCards($player) {
  * activation gate still apply (checked here, without side effects, so the counters are never spent on
  * an activation that would then be refused). Reaction speed is what lets it be used in a priority window.
  */
-function StiflingTrapAlternateCostPayable($player) {
+// The same alternate cost exists on the other Traps ("[Class Bonus] If it's not your turn, you may remove a preparation counter from your champion to activate this card from your memory without paying its
+// reserve cost"): Scorching Trap (wjbqjdmthh) and Collapsing Trap (v2214upufo) remove ONE counter. 'target' is the "is there anything to target" precheck so the counters are never spent on a refused activation.
+function MemoryTrapConfig($cardID) {
+    switch($cardID) {
+        case "z5exbwdp7q": return ['counters' => 2, 'target' => fn() => !empty(array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"])))];
+        case "wjbqjdmthh": return ['counters' => 1, 'target' => fn() => function_exists('IsCombatActive') && IsCombatActive()];
+        case "v2214upufo": return ['counters' => 1, 'target' => fn() => true];
+    }
+    return null;
+}
+
+function StiflingTrapAlternateCostPayable($player, $cardID = "z5exbwdp7q") {
     if($player == GetTurnPlayer()) return false;
+    $config = MemoryTrapConfig($cardID);
+    if($config === null) return false;
     global $playerID;
     $savedPlayerID = $playerID;
     $playerID = $player;
-    $classBonus = IsClassBonusActive($player, explode(",", CardClasses("z5exbwdp7q")));
+    $classBonus = IsClassBonusActive($player, explode(",", CardClasses($cardID)));
     $champMZ = $classBonus ? FindChampionMZ($player) : null;
     $champObj = $champMZ !== null ? GetZoneObject($champMZ) : null;
-    $payable = $champObj !== null && empty($champObj->removed) && GetCounterCount($champObj, "preparation") >= 2;
+    $payable = $champObj !== null && empty($champObj->removed) && GetCounterCount($champObj, "preparation") >= $config['counters'];
     $playerID = $savedPlayerID;
     return $payable;
 }
 
 function CanUseStiflingTrapMemoryActivation($player, $mzID, $obj) {
     if($obj === null || (isset($obj->removed) && $obj->removed)) return false;
-    if($obj->CardID !== "z5exbwdp7q") return false;
-    if(!StiflingTrapAlternateCostPayable($player)) return false;
+    $config = MemoryTrapConfig($obj->CardID);
+    if($config === null) return false;
+    if(!StiflingTrapAlternateCostPayable($player, $obj->CardID)) return false;
     if(!CanActivateOpportunityCard($player, $mzID, $obj)) return false;
-    // "Deal 2 damage to target ally": the counters must not be spent on an activation with no ally anywhere to target.
-    if(empty(array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"])))) return false;
+    // The counters must not be spent on an activation with nothing to target (Stifling Trap: an ally; Scorching Trap: an attacking unit).
+    if(!$config['target']()) return false;
     // Pre-announcement gates with ignoreCost (the reserve cost is the part being waived).
     return !ActivationRefusedBeforeStart($player, $obj, true, true);
 }
@@ -1219,11 +1233,11 @@ function CanUseStiflingTrapMemoryActivation($player, $mzID, $obj) {
 function TryStiflingTrapMemory($player, $mzID) {
     if(strpos($mzID, "myMemory-") !== 0) return false;
     $obj = GetZoneObject($mzID);
-    if($obj === null || !empty($obj->removed) || $obj->CardID !== "z5exbwdp7q") return false;
+    if($obj === null || !empty($obj->removed) || MemoryTrapConfig($obj->CardID) === null) return false;
     if(!CanUseStiflingTrapMemoryActivation($player, $mzID, $obj)) return false;
     $champMZ = FindChampionMZ($player);
     if($champMZ === null) return false;
-    RemoveCounters($player, $champMZ, "preparation", 2);
+    RemoveCounters($player, $champMZ, "preparation", MemoryTrapConfig($obj->CardID)['counters']);
     DecisionQueueController::StoreVariable("activationSourceZoneOverride", "myMemory");
     MZMove($player, $mzID, "myHand");
     $hand = &GetHand($player);

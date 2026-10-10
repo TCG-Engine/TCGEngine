@@ -1,0 +1,45 @@
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "The champion's single preparation counter was removed as the alternate cost"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Collapsing Trap left memory"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "... and resolved into the graveyard"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "The Dungeon Guide entered the field rested"
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

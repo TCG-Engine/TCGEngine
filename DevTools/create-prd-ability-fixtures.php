@@ -31787,6 +31787,29 @@ $fixtures['sword-saint-of-everflame-graveyard-ability-pays-two-and-gives-fire-al
     'actions' => array_merge([mrdPlay(1, 'myGraveyard-0'), mrdAns(1, 'myField-1')], mrdPay(1, 2)),
 ];
 
+// Collapsing Trap (v2214upufo): "[Class Bonus] If it's not your turn, you may remove a preparation counter from your champion to activate this card from your memory without paying its reserve cost. The next time
+// one or more allies would enter the field this turn, they enter the field rested instead." The memory alternate cost existed only for Stifling Trap (the other Traps had a TODO). Tristan (Assassin) has the
+// counter and a Water lineage; player 2 plays a Dungeon Guide and player 1 answers from memory.
+$gaCollapsingTristan = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'tafqldAGRF'], 'Counters' => ['preparation' => 1]]];
+$fixtures['collapsing-trap-memory-alt-cost-removes-one-counter-and-allies-enter-rested'] = [
+    'testedCards' => ['v2214upufo'],
+    'deck' => $tristanDeck,
+    'setup' => [$gaCollapsingTristan, ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'v2214upufo']],
+    'actions' => array_merge($stiflingTrapOpening, $stiflingTrapOpponentPlaysDungeonGuide, [
+        mrdAns(1, 'myMemory-0'), // player 1 activates Collapsing Trap FROM MEMORY (alternate cost: remove one preparation counter)
+        mrdPass(1), mrdPass(2), // both pass: Collapsing Trap resolves, then the Dungeon Guide enters
+    ]),
+];
+// Collapsing Trap in memory is NOT offered without the preparation counter: the Dungeon Guide enters awake.
+$fixtures['collapsing-trap-memory-alt-cost-without-a-counter-is-not-offered'] = [
+    'testedCards' => ['v2214upufo'],
+    'deck' => $tristanDeck,
+    'setup' => [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gt7lh9v221', 'Subcards' => ['bjlwabipl6', 'tafqldAGRF']]], ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'v2214upufo']],
+    'actions' => array_merge($stiflingTrapOpening, $stiflingTrapOpponentPlaysDungeonGuide, [
+        mrdAns(2, 'NO'), // no window is offered to player 1 (no preparation counter): the Dungeon Guide enters awake and player 2 declines its On Enter
+    ]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
