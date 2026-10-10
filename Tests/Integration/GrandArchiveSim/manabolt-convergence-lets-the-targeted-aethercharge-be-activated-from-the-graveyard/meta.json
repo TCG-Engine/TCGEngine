@@ -27,6 +27,6 @@
         "status": "fixed",
         "summary": "FIXED. Manabolt Convergence's 'you may activate target Aethercharge card in your graveyard' sentence was a TODO stub.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[smse0zjalx:0]; Custom/GameLogic.php ManaboltGraveyardActivationGranted + FSM myGraveyard branch",
-        "fixCommit": "TBD"
+        "fixCommit": "0c04e8e7"
     }
 }

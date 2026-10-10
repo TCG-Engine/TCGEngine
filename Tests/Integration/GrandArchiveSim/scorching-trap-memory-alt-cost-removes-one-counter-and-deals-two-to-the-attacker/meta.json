@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "FIXED. Scorching Trap used the raw attacker-relative CombatAttacker variable, so a defending player's activation dealt its 2 damage to nothing.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php GAResolveAttackingUnitForController / cardActivatedAbilities[wjbqjdmthh:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "2009bb34"
     }
 }

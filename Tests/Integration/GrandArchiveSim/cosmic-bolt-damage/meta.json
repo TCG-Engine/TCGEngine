@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. Cosmic Bolt counted itself in its own graveyard count (6 damage instead of 4).",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php customDQHandlers[vpmu6gvnta:0:CardActivated-1]",
-        "fixCommit": "TBD"
+        "fixCommit": "2009bb34"
     }
 }

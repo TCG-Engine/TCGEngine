@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-10T18:20:14+00:00",
+    "generatedAt": "2026-10-10T19:40:13+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 921,
+        "cardsWithExistingFixtures": 931,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1584,
+        "cardsNeedingSemanticCoverage": 1574,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1333,24 +1333,6 @@
                 "targeting",
                 "draw-discard",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "r3i9nmxhnb",
-            "name": "Crossroads Specter",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2819,23 +2801,6 @@
             "mechanics": [
                 "zone-movement",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "vm4kj3q2sv",
-            "name": "Shadow's Claw",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat",
                 "condition"
             ],
             "existingFixtures": [],
@@ -5237,25 +5202,6 @@
             "priority": 15
         },
         {
-            "cardId": "gN8uFKSip0",
-            "name": "Lost Promises",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "xyan7zbtxi",
             "name": "Lu Bu, Indomitable Titan",
             "type": "UNIQUE,ALLY",
@@ -5786,25 +5732,6 @@
                 "draw-discard",
                 "zone-movement",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "wjbqjdmthh",
-            "name": "Scorching Trap",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -17446,23 +17373,6 @@
             "priority": 13
         },
         {
-            "cardId": "tZtoAl4ojK",
-            "name": "Visceral Inversion",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "W3FveBmY0Z",
             "name": "Volcanic Crescendo",
             "type": "ACTION",
@@ -20680,22 +20590,6 @@
             "priority": 12
         },
         {
-            "cardId": "smse0zjalx",
-            "name": "Manabolt Convergence",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "5ckzgqa186",
             "name": "Mandate of Honor",
             "type": "REGALIA,ITEM",
@@ -20768,22 +20662,6 @@
             "mechanics": [
                 "cost",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "k0xhi5jnsl",
-            "name": "Mercenary's Blade",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -22184,22 +22062,6 @@
             "priority": 12
         },
         {
-            "cardId": "FUCJA8IAMi",
-            "name": "Spirit of Purity",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "cQlxapCsxQ",
             "name": "Spontaneous Combustion",
             "type": "ACTION",
@@ -22272,22 +22134,6 @@
             "mechanics": [
                 "counter",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "sbierp5k1v",
-            "name": "Steady Verse",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -26730,21 +26576,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "e1jCu0neWY",
-            "name": "Windfall Check",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -31218,10 +31049,14 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "charge-the-soul-deals-one-damage-to-target-unit"
+                "charge-the-soul-cannot-be-activated-from-the-graveyard-without-manabolt-convergence",
+                "charge-the-soul-deals-one-damage-to-target-unit",
+                "manabolt-convergence-lets-the-targeted-aethercharge-be-activated-from-the-graveyard"
             ],
             "semanticFixtures": [
-                "charge-the-soul-deals-one-damage-to-target-unit"
+                "charge-the-soul-cannot-be-activated-from-the-graveyard-without-manabolt-convergence",
+                "charge-the-soul-deals-one-damage-to-target-unit",
+                "manabolt-convergence-lets-the-targeted-aethercharge-be-activated-from-the-graveyard"
             ],
             "starterDecks": [
                 "Diana, Moonpiercer"
@@ -31518,11 +31353,15 @@
             ],
             "existingFixtures": [
                 "craggy-fatestone-buff-counter-from-hand-materialize",
-                "craggy-fatestone-rest-transform-two-buff"
+                "craggy-fatestone-rest-transform-two-buff",
+                "craggy-fatestone-transform-is-refused-with-only-one-buff-counter",
+                "craggy-fatestone-transform-needs-an-awake-fatestone"
             ],
             "semanticFixtures": [
                 "craggy-fatestone-buff-counter-from-hand-materialize",
-                "craggy-fatestone-rest-transform-two-buff"
+                "craggy-fatestone-rest-transform-two-buff",
+                "craggy-fatestone-transform-is-refused-with-only-one-buff-counter",
+                "craggy-fatestone-transform-needs-an-awake-fatestone"
             ],
             "starterDecks": [
                 "Guo Jia Re:Collection, Heaven's Favored"
@@ -31694,10 +31533,14 @@
                 "condition"
             ],
             "existingFixtures": [
-                "diana-moonpiercer-becoming-distant-glimpses-two"
+                "diana-moonpiercer-becoming-distant-glimpses-two",
+                "diana-moonpiercer-negate-mode-defending-attacker-declines-to-pay-combat-ends",
+                "diana-moonpiercer-negate-mode-defending-attacker-pays-two-combat-continues"
             ],
             "semanticFixtures": [
-                "diana-moonpiercer-becoming-distant-glimpses-two"
+                "diana-moonpiercer-becoming-distant-glimpses-two",
+                "diana-moonpiercer-negate-mode-defending-attacker-declines-to-pay-combat-ends",
+                "diana-moonpiercer-negate-mode-defending-attacker-pays-two-combat-continues"
             ],
             "starterDecks": [
                 "Diana, Moonpiercer"
@@ -38770,10 +38613,16 @@
                 "condition"
             ],
             "existingFixtures": [
-                "mist-resonance-allies-life"
+                "mist-resonance-allies-life",
+                "mist-resonance-harmonize-allies-assign-damage-with-life",
+                "mist-resonance-harmonize-needs-the-class-bonus",
+                "mist-resonance-without-a-melody-this-turn-allies-still-assign-damage-with-power"
             ],
             "semanticFixtures": [
-                "mist-resonance-allies-life"
+                "mist-resonance-allies-life",
+                "mist-resonance-harmonize-allies-assign-damage-with-life",
+                "mist-resonance-harmonize-needs-the-class-bonus",
+                "mist-resonance-without-a-melody-this-turn-allies-still-assign-damage-with-power"
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
@@ -42446,6 +42295,28 @@
             "priority": 44
         },
         {
+            "cardId": "r3i9nmxhnb",
+            "name": "Crossroads Specter",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crossroads-specter-champion-hit-opponent-banishes-a-material-card"
+            ],
+            "semanticFixtures": [
+                "crossroads-specter-champion-hit-opponent-banishes-a-material-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "vzmnt0orxj",
             "name": "Fabled Sapphire Fatestone",
             "type": "REGALIA,ITEM",
@@ -43232,6 +43103,29 @@
             "priority": 43
         },
         {
+            "cardId": "vm4kj3q2sv",
+            "name": "Shadow's Claw",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shadows-claw-activates-from-the-material-deck-with-four-preparation-counters",
+                "shadows-claw-is-not-activated-from-the-material-deck-with-only-three-preparation-counters"
+            ],
+            "semanticFixtures": [
+                "shadows-claw-activates-from-the-material-deck-with-four-preparation-counters",
+                "shadows-claw-is-not-activated-from-the-material-deck-with-only-three-preparation-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "7wKegim9Yl",
             "name": "SignalTech One",
             "type": "ITEM",
@@ -43986,6 +43880,29 @@
             "priority": 35
         },
         {
+            "cardId": "gN8uFKSip0",
+            "name": "Lost Promises",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lost-promises-defender-deals-three-to-the-attacker-and-ends-combat"
+            ],
+            "semanticFixtures": [
+                "lost-promises-defender-deals-three-to-the-attacker-and-ends-combat"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "A5jpuUlwDd",
             "name": "Perilous Mend",
             "type": "ACTION",
@@ -44101,6 +44018,29 @@
             ],
             "semanticFixtures": [
                 "scepter-of-lumina-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "wjbqjdmthh",
+            "name": "Scorching Trap",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "scorching-trap-memory-alt-cost-removes-one-counter-and-deals-two-to-the-attacker"
+            ],
+            "semanticFixtures": [
+                "scorching-trap-memory-alt-cost-removes-one-counter-and-deals-two-to-the-attacker"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46433,6 +46373,27 @@
             "priority": 33
         },
         {
+            "cardId": "tZtoAl4ojK",
+            "name": "Visceral Inversion",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "visceral-inversion-defender-shrinks-the-attacking-ally"
+            ],
+            "semanticFixtures": [
+                "visceral-inversion-defender-shrinks-the-attacking-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "jmaPje9XgG",
             "name": "Where Futures Stir",
             "type": "PHANTASIA",
@@ -46922,6 +46883,50 @@
             "priority": 32
         },
         {
+            "cardId": "smse0zjalx",
+            "name": "Manabolt Convergence",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting"
+            ],
+            "existingFixtures": [
+                "manabolt-convergence-lets-the-targeted-aethercharge-be-activated-from-the-graveyard"
+            ],
+            "semanticFixtures": [
+                "manabolt-convergence-lets-the-targeted-aethercharge-be-activated-from-the-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "k0xhi5jnsl",
+            "name": "Mercenary's Blade",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mercenarys-blade-activates-from-the-material-deck-by-removing-a-preparation-counter",
+                "mercenarys-blade-is-not-activated-from-the-material-deck-without-a-preparation-counter",
+                "mercenarys-blade-is-not-activated-from-the-material-deck-without-the-class-bonus"
+            ],
+            "semanticFixtures": [
+                "mercenarys-blade-activates-from-the-material-deck-by-removing-a-preparation-counter",
+                "mercenarys-blade-is-not-activated-from-the-material-deck-without-a-preparation-counter",
+                "mercenarys-blade-is-not-activated-from-the-material-deck-without-the-class-bonus"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "9tmr8iel1m",
             "name": "Nameless Champion",
             "type": "CHAMPION",
@@ -47321,6 +47326,26 @@
             "priority": 32
         },
         {
+            "cardId": "FUCJA8IAMi",
+            "name": "Spirit of Purity",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-purity-lineage-release-each-player-banishes-two-from-their-graveyard"
+            ],
+            "semanticFixtures": [
+                "spirit-of-purity-lineage-release-each-player-banishes-two-from-their-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "c4sy8u49sk",
             "name": "Stabilizing Capacitance",
             "type": "ACTION",
@@ -47335,6 +47360,28 @@
             ],
             "semanticFixtures": [
                 "stabilizing-capacitance-decline-second-pick-still-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "sbierp5k1v",
+            "name": "Steady Verse",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "mist-resonance-harmonize-allies-assign-damage-with-life",
+                "mist-resonance-harmonize-needs-the-class-bonus"
+            ],
+            "semanticFixtures": [
+                "mist-resonance-harmonize-allies-assign-damage-with-life",
+                "mist-resonance-harmonize-needs-the-class-bonus"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48032,6 +48079,25 @@
             ],
             "semanticFixtures": [
                 "waterfall-veiler-champion-hit-opponent-mills-four"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "e1jCu0neWY",
+            "name": "Windfall Check",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "windfall-check-champion-hit-opponent-banishes-three-from-their-graveyard"
+            ],
+            "semanticFixtures": [
+                "windfall-check-champion-hit-opponent-banishes-three-from-their-graveyard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

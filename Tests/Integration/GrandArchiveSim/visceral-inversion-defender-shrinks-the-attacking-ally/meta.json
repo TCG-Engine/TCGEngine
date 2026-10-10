@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. Visceral Inversion resolved the attacking ally in the wrong frame when used by the defending player.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php GAResolveAttackingUnitForController / cardActivatedAbilities[tZtoAl4ojK:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "2009bb34"
     }
 }

@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "FIXED. Mist Resonance's Harmonize clause (allies assign damage with life instead of power) was not implemented at all.",
         "affectedFunction": "Custom/CombatLogic.php CombatDamageStat; Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[hw8dxKAnMX:0]; Custom/GameLogic.php doesGlobalEffectApply[hw8dxKAnMX_HARMONIZE]",
-        "fixCommit": "TBD"
+        "fixCommit": "0c04e8e7"
     }
 }

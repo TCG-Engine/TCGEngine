@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "FIXED. Hit triggers that resolved after trigger ordering ran with CombatTarget/CombatAttacker already cleared, so every 'On Champion Hit' body that reads them silently did nothing.",
         "affectedFunction": "Custom/GameLogic.php QueueHitTriggeredAbility; Custom/OpportunityLogic.php ResolveTopOfEffectStack (ON_HIT)",
-        "fixCommit": "TBD"
+        "fixCommit": "2009bb34"
     }
 }

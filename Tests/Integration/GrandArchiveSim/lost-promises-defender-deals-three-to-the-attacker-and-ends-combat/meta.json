@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. Lost Promises damaged the wrong object when used by the defending player.",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php GAResolveAttackingUnitForController / cardActivatedAbilities[gN8uFKSip0:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "2009bb34"
     }
 }
