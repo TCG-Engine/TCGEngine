@@ -2,10 +2,10 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-10T16:19:15+00:00",
+    "generatedAt": "2026-10-10T16:21:20+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 911,
+        "cardsWithExistingFixtures": 916,
         "cardsInStarterDecks": 619,
         "cardsNeedingSemanticCoverage": 1585,
         "mechanics": {
@@ -67,6 +67,25 @@
             "priority": 43
         },
         {
+            "cardId": "UC9byG4aD5",
+            "name": "Lesser Boon of Zerusa",
+            "type": "LESSER BOON",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-zerusa-costs-one-more-each-time-it-is-activated"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 43
+        },
+        {
             "cardId": "oye74ibwo8",
             "name": "Baleful Oblation",
             "type": "ACTION",
@@ -96,6 +115,24 @@
             ],
             "existingFixtures": [
                 "incarnate-majesty-banish-spirit"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 42
+        },
+        {
+            "cardId": "UI0lAtGQBb",
+            "name": "Lesser Boon of Bullets",
+            "type": "LESSER BOON",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet"
             ],
             "semanticFixtures": [],
             "starterDecks": [],
@@ -245,6 +282,26 @@
             "priority": 34
         },
         {
+            "cardId": "ao8bki6fxx",
+            "name": "Steel Slug",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 34
+        },
+        {
             "cardId": "w0y6isxy5l",
             "name": "Synthetic Core",
             "type": "REGALIA,ITEM",
@@ -375,6 +432,24 @@
             "priority": 32
         },
         {
+            "cardId": "fJJBJ9M4c4",
+            "name": "Lesser Boon of Rosen",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "token"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-rosen-pays-three-summons-a-powercell-once-only"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 32
+        },
+        {
             "cardId": "mvfcd0ukk6",
             "name": "Molten Arrow",
             "type": "ITEM",
@@ -483,6 +558,23 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 32
+        },
+        {
+            "cardId": "V8aPGgLyh5",
+            "name": "Lesser Boon of Rakko",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-rakko-pays-three-each-time-and-only-twice"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 31
         },
         {
             "cardId": "PboHrwPZgP",
@@ -2391,23 +2483,6 @@
             "priority": 23
         },
         {
-            "cardId": "UC9byG4aD5",
-            "name": "Lesser Boon of Zerusa",
-            "type": "LESSER BOON",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "DNbIpzVgde",
             "name": "Lost Providence",
             "type": "REGALIA,ITEM",
@@ -3170,22 +3245,6 @@
             "mechanics": [
                 "cost",
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "UI0lAtGQBb",
-            "name": "Lesser Boon of Bullets",
-            "type": "LESSER BOON",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10800,24 +10859,6 @@
                 "cost",
                 "status",
                 "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "ao8bki6fxx",
-            "name": "Steel Slug",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "combat",
                 "condition"
             ],
             "existingFixtures": [],
@@ -20473,22 +20514,6 @@
             "priority": 12
         },
         {
-            "cardId": "fJJBJ9M4c4",
-            "name": "Lesser Boon of Rosen",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "v0gu8efq08",
             "name": "Lingering Banshee",
             "type": "ALLY",
@@ -25395,21 +25420,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "V8aPGgLyh5",
-            "name": "Lesser Boon of Rakko",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -47485,7 +47495,8 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "bauble-of-scarcity-ability-1-pays-its-printed-cost"
+                "bauble-of-scarcity-ability-1-pays-its-printed-cost",
+                "bauble-of-scarcity-makes-each-player-discard-a-card"
             ],
             "semanticFixtures": [
                 "bauble-of-scarcity-ability-1-pays-its-printed-cost"
