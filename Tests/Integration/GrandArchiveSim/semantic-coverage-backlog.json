@@ -2,10 +2,10 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-10T16:21:20+00:00",
+    "generatedAt": "2026-10-10T16:49:04+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 916,
+        "cardsWithExistingFixtures": 919,
         "cardsInStarterDecks": 619,
         "cardsNeedingSemanticCoverage": 1585,
         "mechanics": {
@@ -376,6 +376,25 @@
             "priority": 33
         },
         {
+            "cardId": "ek7r2d7uz4",
+            "name": "Restorative Flame",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "restorative-flame-banishes-three-fire-cards-one-by-one-and-recovers-six"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 33
+        },
+        {
             "cardId": "oCqKBEPemA",
             "name": "Aenean Flux Generator",
             "type": "ITEM",
@@ -504,6 +523,24 @@
             "priority": 32
         },
         {
+            "cardId": "OylAWd6Tew",
+            "name": "Pouvoir Absolu",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "pouvoir-absolu-banishes-ten-cards-with-omen-counters-and-lets-you-activate-them"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 32
+        },
+        {
             "cardId": "lD0sK81PZT",
             "name": "Scars of Old",
             "type": "ACTION",
@@ -534,6 +571,24 @@
             ],
             "existingFixtures": [
                 "sneaky-raccoon-stealth"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 32
+        },
+        {
+            "cardId": "9cy4wipw4k",
+            "name": "Tabula of Salvage",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "tabula-of-salvage-puts-chosen-graveyard-cards-on-the-bottom-of-the-deck"
             ],
             "semanticFixtures": [],
             "starterDecks": [],
@@ -15962,23 +16017,6 @@
             "priority": 13
         },
         {
-            "cardId": "ek7r2d7uz4",
-            "name": "Restorative Flame",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "e5r6eVzpkD",
             "name": "Reverent Seraphim",
             "type": "ALLY",
@@ -21394,22 +21432,6 @@
             "priority": 12
         },
         {
-            "cardId": "OylAWd6Tew",
-            "name": "Pouvoir Absolu",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "uesdu6o6ea",
             "name": "Powered Bishop",
             "type": "ALLY",
@@ -22474,22 +22496,6 @@
             "mechanics": [
                 "cost",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "9cy4wipw4k",
-            "name": "Tabula of Salvage",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -34206,7 +34212,8 @@
             ],
             "existingFixtures": [
                 "ciel-loyal-valet-end-phase-banishes-a-hand-card-as-an-omen",
-                "ciel-loyal-valet-end-phase-decline-adds-no-omen"
+                "ciel-loyal-valet-end-phase-decline-adds-no-omen",
+                "pouvoir-absolu-banishes-ten-cards-with-omen-counters-and-lets-you-activate-them"
             ],
             "semanticFixtures": [
                 "ciel-loyal-valet-end-phase-banishes-a-hand-card-as-an-omen",
@@ -35912,6 +35919,7 @@
             "existingFixtures": [
                 "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow",
                 "redslime-ondeath-sweep-stack-order-choice",
+                "restorative-flame-banishes-three-fire-cards-one-by-one-and-recovers-six",
                 "sword-saint-of-everflame-graveyard-ability-pays-two-and-gives-fire-ally-plus-two-power"
             ],
             "semanticFixtures": [
@@ -46940,7 +46948,8 @@
             ],
             "existingFixtures": [
                 "orb-of-regret-ability-1-pays-its-printed-cost",
-                "orb-of-regret-decline-still-draws"
+                "orb-of-regret-decline-still-draws",
+                "orb-of-regret-shuffles-three-chosen-cards-into-the-deck-and-draws-three"
             ],
             "semanticFixtures": [
                 "orb-of-regret-ability-1-pays-its-printed-cost",

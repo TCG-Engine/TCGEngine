@@ -1,7 +1,7 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **916**
+Cards linked to an existing fixture: **919**
 Implemented cards in an official starter deck: **619**
 Implemented cards still needing semantic coverage: **1585**
 
@@ -44,6 +44,7 @@ Implemented cards still needing semantic coverage: **1585**
 | Escharotomy (`CIU4gT14EE`) | ACTION | 1 | cost, targeting, recover | — | escharotomy-prevents-recover, escharotomy-recover |
 | Fatestone of Progress (`2sn7hlyrkw`) | ITEM | 3 | counter, trigger, condition | — | — |
 | Lesser Boon of Allurement (`JuKoCVIvCG`) | LESSER BOON | 3 | cost, draw-discard, condition | — | — |
+| Restorative Flame (`ek7r2d7uz4`) | ACTION | 1 | damage, recover, zone-movement | — | restorative-flame-banishes-three-fire-cards-one-by-one-and-recovers-six |
 | Aenean Flux Generator (`oCqKBEPemA`) | ITEM | 2 | targeting, damage, draw-discard, trigger | — | — |
 | Gawain, Chivalrous Thief (`du50pcescf`) | UNIQUE,ALLY | 1 | draw-discard, condition | — | plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant, yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally, yuan-shao-refused-with-only-two-unique-opposing-allies |
 | Intricate Longbow (`1a49w5gmf7`) | REGALIA,WEAPON | 1 | combat, condition | — | molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow |
@@ -51,8 +52,10 @@ Implemented cards still needing semantic coverage: **1585**
 | Molten Arrow (`mvfcd0ukk6`) | ITEM | 1 | targeting, zone-movement | — | molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow |
 | Parcenet, Royal Maid (`xxoo7dl5j4`) | UNIQUE,ALLY | 1 | targeting, status | — | yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally |
 | PlasmaTech Blaster (`PAymR7JsNp`) | ITEM | 1 | status, condition | — | plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant |
+| Pouvoir Absolu (`OylAWd6Tew`) | ACTION | 1 | zone-movement, counter | — | pouvoir-absolu-banishes-ten-cards-with-omen-counters-and-lets-you-activate-them |
 | Scars of Old (`lD0sK81PZT`) | ACTION | 1 | draw-discard, counter | — | scars-of-old-buff-counters, scars-of-old-draw-discard |
 | Sneaky Raccoon (`jH6F9XYrL5`) | ALLY | 1 | status, condition | — | sneaky-raccoon-stealth |
+| Tabula of Salvage (`9cy4wipw4k`) | REGALIA,ITEM | 1 | targeting, zone-movement | — | tabula-of-salvage-puts-chosen-graveyard-cards-on-the-bottom-of-the-deck |
 | Yuan Shao, Crown General (`x8o84m37ti`) | UNIQUE,ALLY | 1 | targeting, condition | — | yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally, yuan-shao-refused-with-only-two-unique-opposing-allies |
 | Lesser Boon of Rakko (`V8aPGgLyh5`) | LESSER BOON | 1 | draw-discard | — | lesser-boon-of-rakko-pays-three-each-time-and-only-twice |
 | Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
@@ -73,6 +76,3 @@ Implemented cards still needing semantic coverage: **1585**
 | Endura, Reimagined (`X7rh3Yi26A`) | REGALIA,ITEM | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | — | — |
 | Gloamspire Prowler (`igpck2z4rs`) | ALLY | 2 | cost, recover, draw-discard, trigger, condition | — | — |
 | Hunt, Weiss King (`Y6PZntlVDl`) | UNIQUE,ALLY | 2 | cost, targeting, draw-discard, counter, combat, condition | — | — |
-| Idle Fatestone (`qiv63tpshe`) | ITEM | 2 | cost, zone-movement, counter, trigger, condition | — | — |
-| Labyrinth, Jeweled Opus (`A58xZJJMz6`) | UNIQUE,PHANTASIA | 2 | cost, targeting, draw-discard, status, condition | — | — |
-| Lunar Conduit (`0yetaebjlw`) | REGALIA,ITEM | 2 | cost, targeting, damage, counter, trigger | — | — |
