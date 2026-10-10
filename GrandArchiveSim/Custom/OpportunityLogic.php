@@ -1815,9 +1815,21 @@ function ResolveTopOfEffectStack() {
         DecisionQueueController::CleanupRemovedCards();
     } else if($triggerType === "ON_HIT") {
         $cardID = $topObj->CardID ?? "";
+        // Put the combat participants captured when the hit happened back for this resolution only (see QueueHitTriggeredAbility()); live values, when combat is still running, win.
+        $restoredHitState = [];
+        foreach(['CombatTarget' => 'HitCombatTarget', 'CombatTargetUniqueID' => 'HitCombatTargetUniqueID', 'CombatAttacker' => 'HitCombatAttacker', 'CombatAttackerPlayer' => 'HitCombatAttackerPlayer'] as $liveVar => $snapVar) {
+            $snapValue = DecisionQueueController::GetVariable($snapVar);
+            DecisionQueueController::ClearVariable($snapVar);
+            $liveValue = DecisionQueueController::GetVariable($liveVar);
+            if($snapValue !== null && $snapValue !== "" && ($liveValue === null || $liveValue === "" || $liveValue === "-")) {
+                DecisionQueueController::StoreVariable($liveVar, $snapValue);
+                $restoredHitState[] = $liveVar;
+            }
+        }
         if(function_exists("FireHitTriggeredAbility")) {
             FireHitTriggeredAbility($cardOwner, $cardID);
         }
+        foreach($restoredHitState as $liveVar) DecisionQueueController::ClearVariable($liveVar);
         $topObj->Remove();
         DecisionQueueController::CleanupRemovedCards();
     } else if($triggerType === "ON_KILL") {

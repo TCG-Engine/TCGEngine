@@ -1,5 +1,5 @@
 [
-    {"step":5,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"6","semantic":true,"label":"Base 4 damage plus 2 for Cosmic Bolt's own copy already sitting in the graveyard"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"4","semantic":true,"label":"Base 4 damage: the resolving Cosmic Bolt is on the effect stack, not in the graveyard, so it does not count itself"},
     {"step":5,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"vpmu6gvnta","semantic":true,"label":"Cosmic Bolt resolves to its controller's graveyard after activation"},
     {"step":5,"type":"decision_queue_empty","player":"all"}
 ]

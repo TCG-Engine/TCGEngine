@@ -1,0 +1,29 @@
+{
+    "name": "Visceral Inversion: the defender shrinks the attacking ally by 5 POWER so the attack deals no damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:15:27+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "tZtoAl4ojK"
+    ],
+    "notes": "Player 1 answers player 2's Dungeon Guide attack (power 1) with Visceral Inversion from hand. The handler read the attacker-relative CombatAttacker variable in the defender's frame and never found the attacker; the Dungeon Guide now gets -5 POWER until end of turn and the attack deals nothing.",
+    "semanticCoverage": {
+        "testedCards": [
+            "tZtoAl4ojK"
+        ],
+        "mechanics": [
+            "targeting",
+            "combat",
+            "status"
+        ],
+        "rulesClauses": [
+            "Target attacking ally gets -5 POWER until end of turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Visceral Inversion resolved the attacking ally in the wrong frame when used by the defending player.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php GAResolveAttackingUnitForController / cardActivatedAbilities[tZtoAl4ojK:0]",
+        "fixCommit": "TBD"
+    }
+}

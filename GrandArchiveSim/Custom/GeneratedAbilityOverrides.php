@@ -2354,6 +2354,57 @@ $activationCostModifierAbilities["2XWNCcPN6o:0"] = function($player, $subjectObj
   return -3;
 };
 
+// The defender's reaction cards read the raw CombatAttacker variable, which is stored relative to the ATTACKER ("myField-1" for attacking player 2). Resolved by the defender it pointed at the defender's own
+// field-1 (or nothing), so the attacking unit was never hit / shrunk. GetCombatAttackerMZ() re-localizes it through CombatAttackerPlayer and NormalizeMzIDForController() puts it in the ability controller's
+// frame (the Arrow Trap override above documents the convention). Scorching Trap wjbqjdmthh, Visceral Inversion tZtoAl4ojK, Lost Promises gN8uFKSip0.
+function GAResolveAttackingUnitForController($player) {
+    $attackerMZ = GetCombatAttackerMZ();
+    if($attackerMZ === null) return null;
+    $attackerMZ = NormalizeMzIDForController($attackerMZ, $player);
+    $attackerObj = GetZoneObject($attackerMZ);
+    if($attackerObj === null || $attackerObj->removed) return null;
+    return $attackerMZ;
+}
+$cardActivatedAbilities["wjbqjdmthh:0"] = function($player) { //Scorching Trap: 2 damage to target attacking unit
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $attackerMZ = GAResolveAttackingUnitForController($player);
+  if($attackerMZ === null) return;
+  DealDamage($player, $mzID, $attackerMZ, 2);
+};
+$cardActivatedAbilities["tZtoAl4ojK:0"] = function($player) { //Visceral Inversion: target attacking ally gets -5 POWER (-5 LIFE if ephemeral)
+  $attackerMZ = GAResolveAttackingUnitForController($player);
+  if($attackerMZ === null) return;
+  if(!PropertyContains(EffectiveCardType(GetZoneObject($attackerMZ)), "ALLY")) return;
+  AddTurnEffect($attackerMZ, DecisionQueueController::GetVariable("wasEphemerated") === "YES" ? "tZtoAl4ojK_LIFE" : "tZtoAl4ojK_POWER");
+};
+$cardActivatedAbilities["gN8uFKSip0:0"] = function($player) { //Lost Promises: [Alice Bonus] 3 damage to target attacking unit, end combat
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  if(!IsAliceBonusActive($player)) return;
+  $attackerMZ = GAResolveAttackingUnitForController($player);
+  if($attackerMZ === null) return;
+  DealDamage($player, $mzID, $attackerMZ, 3);
+  EndCombat($player);
+};
+
+// Cosmic Bolt (vpmu6gvnta): "Deal 4 damage to target unit plus an additional 2 for each card named CARDNAME in your graveyard and banishment." The resolving Cosmic Bolt is not in the graveyard yet
+// (rules: it is on the effect stack), so it does not count itself -- it dealt 6 instead of 4.
+$customDQHandlers["vpmu6gvnta:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Deal scaling damage to a unit
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DecisionQueueController::StoreVariable("target", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "vpmu6gvnta:0:CardActivated-1")) return;
+  $target = $lastDecision;
+  $count = 0;
+  $resolvingIdx = GAResolvingGraveyardIndex($player);
+  foreach(GetGraveyard($player) as $gi => $obj) {
+      if($gi !== $resolvingIdx && !$obj->removed && $obj->CardID === "vpmu6gvnta") ++$count;
+  }
+  foreach(GetBanish($player) as $obj) {
+      if(!$obj->removed && $obj->CardID === "vpmu6gvnta") ++$count;
+  }
+  DealDamage($player, $mzID, $target, 4 + 2 * $count);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

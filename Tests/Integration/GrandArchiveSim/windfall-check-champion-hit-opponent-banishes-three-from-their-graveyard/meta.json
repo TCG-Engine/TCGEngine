@@ -1,0 +1,31 @@
+{
+    "name": "Windfall Check: On Champion Hit the opponent banishes three cards from their own graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:18:49+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "e1jCu0neWY"
+    ],
+    "notes": "A Pawn Piece performs the Command Chessman attack with Windfall Check. Two hit triggers (the Pawn Piece's own and Windfall Check's) are ordered by player 1 and resolve from the effect stack AFTER the combat state variables were cleared, so Windfall Check's body found no CombatTarget and never asked the opponent for anything. The hit's combat participants are now frozen into the trigger when it is queued and replayed during its resolution. Player 2 then banishes three of its four graveyard cards, choosing in its own frame (myGraveyard-N).",
+    "semanticCoverage": {
+        "testedCards": [
+            "e1jCu0neWY"
+        ],
+        "mechanics": [
+            "trigger",
+            "combat",
+            "zone-movement",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Command Chessman",
+            "On Champion Hit: That opponent banishes three cards from their graveyard."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Hit triggers that resolved after trigger ordering ran with CombatTarget/CombatAttacker already cleared, so every 'On Champion Hit' body that reads them silently did nothing.",
+        "affectedFunction": "Custom/GameLogic.php QueueHitTriggeredAbility; Custom/OpportunityLogic.php ResolveTopOfEffectStack (ON_HIT)",
+        "fixCommit": "TBD"
+    }
+}

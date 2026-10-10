@@ -9677,6 +9677,12 @@ function QueueHitTriggeredAbility($controller, $cardID, $mzID) {
         'mzID' => NormalizeMzIDForController($mzID, $controller),
         'wasPrepared' => GAWasPreparedForTrigger($mzID),
         'CombatDamageAmount' => strval(DecisionQueueController::GetVariable("CombatDamageAmount") ?? "0"),
+        // The hit's combat participants, frozen now: when 2+ hit triggers are ordered (or a window runs) the stack resolves AFTER the combat state variables were cleared, and every "On Champion Hit"
+        // body reads CombatTarget (Windfall Check, Crossroads Specter, ...). ResolveTopOfEffectStack() puts them back for the duration of the resolution only.
+        'HitCombatTarget' => strval(DecisionQueueController::GetVariable("CombatTarget") ?? ""),
+        'HitCombatTargetUniqueID' => strval(DecisionQueueController::GetVariable("CombatTargetUniqueID") ?? ""),
+        'HitCombatAttacker' => strval(DecisionQueueController::GetVariable("CombatAttacker") ?? ""),
+        'HitCombatAttackerPlayer' => strval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? ""),
     ];
     $selfUniqueID = GetFieldObjectUniqueID($mzID, $controller);
     if ($selfUniqueID !== null) $context['selfUniqueID'] = strval($selfUniqueID);

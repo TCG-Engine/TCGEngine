@@ -1,0 +1,31 @@
+{
+    "name": "Scorching Trap: the defender activates it from memory (removing one preparation counter) and deals 2 to the attacking unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:13:23+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "wjbqjdmthh"
+    ],
+    "notes": "Player 1 (ASSASSIN, one preparation counter) answers player 2's Dungeon Guide attack with Scorching Trap from MEMORY: the alternate cost removes the counter and waives the reserve cost. CombatAttacker is stored relative to the attacker, so the generated body resolved the wrong object for the defending player and the Dungeon Guide took no damage; it now takes 2 (the attack still lands for 1 afterwards).",
+    "semanticCoverage": {
+        "testedCards": [
+            "wjbqjdmthh"
+        ],
+        "mechanics": [
+            "cost",
+            "targeting",
+            "damage",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If it's not your turn, you may remove a preparation counter from your champion to activate this card from your memory without paying its reserve cost.",
+            "Deal 2 damage to target attacking unit."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Scorching Trap used the raw attacker-relative CombatAttacker variable, so a defending player's activation dealt its 2 damage to nothing.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php GAResolveAttackingUnitForController / cardActivatedAbilities[wjbqjdmthh:0]",
+        "fixCommit": "TBD"
+    }
+}

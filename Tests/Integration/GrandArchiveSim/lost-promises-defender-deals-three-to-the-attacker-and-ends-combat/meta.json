@@ -1,0 +1,30 @@
+{
+    "name": "Lost Promises: the defender deals 3 to the attacking unit and ends the combat phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:15:30+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "gN8uFKSip0"
+    ],
+    "notes": "Alice Bonus is active (Alice, Golden Queen in the champion's lineage). Player 1 answers player 2's Dungeon Guide attack with Lost Promises from hand: the attacker takes 3 damage (and is destroyed) and the combat phase ends. The handler used the attacker-relative CombatAttacker variable unconverted, so the defending player's copy never hit anything.",
+    "semanticCoverage": {
+        "testedCards": [
+            "gN8uFKSip0"
+        ],
+        "mechanics": [
+            "targeting",
+            "damage",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] Deal 3 damage to target attacking unit, then end the combat phase."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Lost Promises damaged the wrong object when used by the defending player.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php GAResolveAttackingUnitForController / cardActivatedAbilities[gN8uFKSip0:0]",
+        "fixCommit": "TBD"
+    }
+}

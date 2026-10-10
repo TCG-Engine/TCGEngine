@@ -1,0 +1,26 @@
+[
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "1",
+        "label": "The attacker paid, so combat continued and Diana took 1 damage",
+        "semantic": true
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "label": "The attacking player put two cards into memory to pay (2)",
+        "semantic": true
+    },
+    {
+        "step": 10,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true
+    }
+]

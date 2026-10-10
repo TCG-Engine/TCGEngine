@@ -1,0 +1,24 @@
+{
+    "name": "Diana, Moonpiercer negate mode: the attacker declines to pay (2) and the combat phase ends",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:17:05+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "v3vfjtwm7g"
+    ],
+    "notes": "Diana, Moonpiercer (RANGER) defends a Dungeon Guide attack; player 1 answers with Ranger Boots (Diana becomes distant) and picks the negate mode. Because Diana is defending, the attacking player is asked to pay (2); declining ends the combat phase, so the Dungeon Guide rests but Diana takes no damage.",
+    "semanticCoverage": {
+        "testedCards": [
+            "v3vfjtwm7g"
+        ],
+        "mechanics": [
+            "trigger",
+            "combat",
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Negate each card activation that targets Diana unless its controller pays (2). Then if Diana is defending, end the combat phase unless the attacking player pays (2)."
+        ]
+    }
+}

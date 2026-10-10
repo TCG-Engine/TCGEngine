@@ -32054,6 +32054,155 @@ $fixtures['cyclical-breeze-cannot-return-itself-while-resolving'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4)),
 ];
 
+// Scorching Trap (wjbqjdmthh): "[Class Bonus] If it's not your turn, you may remove a preparation counter from your champion to activate this card from your memory without paying its reserve cost.
+// Deal 2 damage to target attacking unit." Player 1's champion is Spirit of Fire with the ASSASSIN class and one preparation counter; player 2 attacks with a Dungeon Guide and player 1 answers from memory.
+$fixtures['scorching-trap-memory-alt-cost-removes-one-counter-and-deals-two-to-the-attacker'] = [
+    'testedCards' => ['wjbqjdmthh'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN'], 'preparation' => 1]]],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'wjbqjdmthh'], // Scorching Trap in MEMORY -> p1 myMemory-0
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, the attacker -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn
+        mrdPlay(2, 'myField-1'), // player 2 attacks with the Dungeon Guide
+        mrdAns(2, 'theirField-0'), // ... targeting player 1's champion
+        mrdAns(1, 'myMemory-0'), // player 1 activates Scorching Trap FROM MEMORY (alternate cost: remove one preparation counter)
+    ],
+];
+
+// Visceral Inversion (tZtoAl4ojK): "Target attacking ally gets -5 POWER until end of turn." Used by the DEFENDING player: CombatAttacker is stored relative to the attacker, so the handler
+// resolved the wrong object (or nothing) when player 1 answered player 2's attack and the Dungeon Guide never shrank.
+$gaCombatClericUmbra = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc'], 'Counters' => ['_overrides' => ['classes' => 'CLERIC']]]]; // UMBRA lineage + CLERIC class
+$fixtures['visceral-inversion-defender-shrinks-the-attacking-ally'] = [
+    'testedCards' => ['tZtoAl4ojK'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaCombatClericUmbra,
+        $gaHand('tZtoAl4ojK'), // Visceral Inversion -> p1 myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, the attacker (power 1) -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn
+        mrdPass(1), mrdPass(1), // player 1 passes the two end-of-turn windows
+        mrdPlay(2, 'myField-1'), // player 2 attacks with the Dungeon Guide
+        mrdAns(2, 'theirField-0'), // ... targeting player 1's champion
+        mrdAns(1, 'myHand-7'), // player 1 answers from the priority window with Visceral Inversion
+        ...mrdPay(1, 1), mrdPass(1), // reserve 1, then pass so it resolves
+    ],
+];
+
+// Lost Promises (gN8uFKSip0): "[Alice Bonus] Deal 3 damage to target attacking unit, then end the combat phase." Same defender-frame defect as Visceral Inversion / Scorching Trap.
+$fixtures['lost-promises-defender-deals-three-to-the-attacker-and-ends-combat'] = [
+    'testedCards' => ['gN8uFKSip0'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc', 'daip7s9ztd'], 'Counters' => ['_overrides' => ['classes' => 'CLERIC']]]], // UMBRA + Alice lineage, CLERIC
+        $gaHand('gN8uFKSip0'), // Lost Promises -> p1 myHand-7
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, the attacker -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn
+        mrdPass(1), mrdPass(1), // player 1 passes the two end-of-turn windows
+        mrdPlay(2, 'myField-1'), // player 2 attacks with the Dungeon Guide
+        mrdAns(2, 'theirField-0'), // ... targeting player 1's champion
+        mrdAns(1, 'myHand-7'), // player 1 answers from the priority window with Lost Promises
+        ...mrdPay(1, 2), mrdPass(1), mrdPass(1), // reserve 2, then pass the two windows so it resolves
+    ],
+];
+
+// Diana, Moonpiercer (v3vfjtwm7g): "Whenever Diana becomes distant, choose one-- Negate each card activation that targets Diana unless its controller pays (2). Then if Diana is defending, end the combat
+// phase unless the attacking player pays (2). / Glimpse 2." Negate mode, Diana defending: player 2 attacks Diana with a Dungeon Guide and player 1 answers by making her distant (Ranger Boots).
+$fixtures['diana-moonpiercer-negate-mode-defending-attacker-declines-to-pay-combat-ends'] = [
+    'testedCards' => ['v3vfjtwm7g'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaMoonpiercer,
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fbs9qzo3f6'], // Ranger Boots -> p1 field-1 (makes the champion distant)
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, the attacker -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn
+        mrdPass(1), mrdPass(1), // player 1 passes the two end-of-turn windows
+        mrdPlay(2, 'myField-1'), // player 2 attacks with the Dungeon Guide
+        mrdAns(2, 'theirField-0'), // ... targeting Diana
+        mrdAns(1, 'myField-1@Activate-0@Distant'), // player 1 answers with Ranger Boots: Diana becomes distant
+        mrdAns(1, 'YES'), // Diana's trigger: choose the negate mode
+        mrdAns(2, 'NO'), // player 2 (attacking) declines to pay (2): the combat phase ends
+    ],
+];
+
+// ... and when the attacking player does pay (2), combat carries on and Diana takes the hit.
+$fixtures['diana-moonpiercer-negate-mode-defending-attacker-pays-two-combat-continues'] = [
+    'testedCards' => ['v3vfjtwm7g'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        $gaMoonpiercer,
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fbs9qzo3f6'], // Ranger Boots -> p1 field-1 (makes the champion distant)
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, the attacker -> p2 field-1
+    ],
+    'actions' => [
+        mrdEnd(1), // end player 1 turn
+        mrdPass(1), mrdPass(1), // player 1 passes the two end-of-turn windows
+        mrdPlay(2, 'myField-1'), // player 2 attacks with the Dungeon Guide
+        mrdAns(2, 'theirField-0'), // ... targeting Diana
+        mrdAns(1, 'myField-1@Activate-0@Distant'), // player 1 answers with Ranger Boots: Diana becomes distant
+        mrdAns(1, 'YES'), // Diana's trigger: choose the negate mode
+        mrdAns(2, 'YES'), // player 2 (attacking) pays (2) to continue combat
+        ...mrdPay(2, 2),
+    ],
+];
+
+// Windfall Check (e1jCu0neWY): "Command Chessman. On Champion Hit: That opponent banishes three cards from their graveyard." The banish choice belongs to the OPPONENT (player 2), so it is offered in
+// player 2's own frame ("myGraveyard-N").
+$fixtures['windfall-check-champion-hit-opponent-banishes-three-from-their-graveyard'] = [
+    'testedCards' => ['e1jCu0neWY'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'CLERIC']]]], // CLERIC class (the champion is Spirit of Wind)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Rpr6yCQKU6'], // Pawn Piece (CHESSMAN ally), the commanded attacker -> p1 field-1
+        $gaHand('e1jCu0neWY'), // Windfall Check -> p1 myHand-7
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 graveyard-0
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p2 graveyard-1
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 graveyard-2
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p2 graveyard-3
+    ],
+    'actions' => array_merge([mrdEnd(1), mrdEnd(2), mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myField-1'), mrdAns(1, 'theirField-0'), mrdAns(1, 'myField-1'), mrdPass(1), mrdAns(2, 'myGraveyard-0'), mrdAns(2, 'myGraveyard-0'), mrdAns(2, 'myGraveyard-0')]), // order the two hit triggers, pass so they resolve; player 2 then banishes three from THEIR graveyard
+];
+
+// Crossroads Specter (r3i9nmxhnb): "On Champion Hit: That opponent banishes a card from their material deck." The choice is the OPPONENT's, written in player 2's own frame ("myMaterial-N").
+$fixtures['crossroads-specter-champion-hit-opponent-banishes-a-material-card'] = [
+    'testedCards' => ['r3i9nmxhnb'],
+    'deck' => "# Material\n1 Spirit of Fire\n1 Backup Charger\n1 Purifying Thurible\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'r3i9nmxhnb'], // Crossroads Specter -> p1 field-1
+    ],
+    'actions' => [mrdEnd(1), mrdEnd(2), mrdPass(1), mrdPlay(1, 'myField-1'), mrdAns(1, 'theirField-0'), mrdAns(2, 'myMaterial-1')], // player 2 banishes its second material card (Backup Charger/Purifying Thurible); player 1 declines the materialize offer at the start of its turn, then attacks
+];
+
+// Spirit of Purity (FUCJA8IAMi): "Lineage Release -- Each player banishes two cards from their graveyard." Each player makes their own choices, in their own frame ("myGraveyard-N").
+$fixtures['spirit-of-purity-lineage-release-each-player-banishes-two-from-their-graveyard'] = [
+    'testedCards' => ['FUCJA8IAMi'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['FUCJA8IAMi']]], // Spirit of Purity in the champion's inner lineage
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p1 graveyard-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p1 graveyard-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p1 graveyard-2
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p2 graveyard-0
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide -> p2 graveyard-1
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'], // Fluffy Shopkeep -> p2 graveyard-2
+    ],
+    'actions' => [
+        mrdAct(1, 10001, 'myField-0!CustomInput!Activate:0'), // activate the Lineage Release
+        mrdAns(1, 'myGraveyard-0'), mrdAns(1, 'myGraveyard-0'), // player 1 banishes two from their graveyard
+        mrdAns(2, 'myGraveyard-0'), mrdAns(2, 'myGraveyard-0'), // player 2 banishes two from THEIR graveyard
+    ],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

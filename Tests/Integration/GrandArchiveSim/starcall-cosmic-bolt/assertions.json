@@ -9,14 +9,14 @@
         "type": "card_property_equals",
         "mzId": "p1Field-3",
         "property": "Damage",
-        "value": "22"
+        "value": "20"
     },
     {
         "step": 5,
         "type": "card_property_equals",
         "mzId": "p1Field-3",
         "property": "Counters",
-        "value": "{\"quest\":3,\"_champDamageThisTurn\":6}"
+        "value": "{\"quest\":3,\"_champDamageThisTurn\":4}"
     },
     {
         "step": 5,
