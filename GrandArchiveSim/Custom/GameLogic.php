@@ -25263,9 +25263,13 @@ function ApplyGeneratedReserveLikeCostModifiers($player, $subjectObj, $currentCo
     if($mode === "play") $evaluators[] = "EvaluatePlayCostModifier";
     if($mode === "activate") $evaluators[] = "EvaluateActivationCostModifier";
 
+    // The subject is also offered to its own modifiers as their "source". A card still in hand / on the effect stack has no Controller property (generated modifiers read it: "Undefined property: Hand::$Controller"),
+    // so the self source carries the activating player as its controller.
+    $selfSource = $subjectObj;
+    if(!property_exists($subjectObj, "Controller")) { $selfSource = clone $subjectObj; $selfSource->Controller = $player; }
     foreach($evaluators as $evaluator) {
         if(!function_exists($evaluator)) continue;
-        $currentCost += $evaluator($subjectObj->CardID, $player, $subjectObj, $currentCost, $subjectObj);
+        $currentCost += $evaluator($subjectObj->CardID, $player, $subjectObj, $currentCost, $selfSource);
 
         foreach([1, 2] as $fieldPlayer) {
             foreach(GetField($fieldPlayer) as $fieldObj) {

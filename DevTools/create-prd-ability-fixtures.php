@@ -32025,6 +32025,14 @@ $fixtures['tabula-of-salvage-puts-chosen-graveyard-cards-on-the-bottom-of-the-de
     'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myGraveyard-2'), mrdAns(1, 'myGraveyard-1'), mrdAns(1, 'myGraveyard-0'), mrdPass(1)],
 ];
 
+// VelTech QA Tester (2XWNCcPN6o): playing it from hand crashed in its own cost modifier (the card being activated was offered as the discount source, an object without GetMZID()).
+$fixtures['veltech-qa-tester-can-be-played-from-hand-and-enters-the-field'] = [
+    'testedCards' => ['2XWNCcPN6o'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'WARRIOR']]]], $gaHand('2XWNCcPN6o')],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1)]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

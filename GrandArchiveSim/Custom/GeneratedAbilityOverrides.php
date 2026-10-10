@@ -2344,6 +2344,16 @@ $onHitAbilities["r3i9nmxhnb:0"] = function($player) { //Crossroads Specter
   DecisionQueueController::AddDecision($opp, "MZMOVE", "{<-}->myBanish", 1);
 };
 
+// VelTech QA Tester (2XWNCcPN6o): "On Enter: The next VelTech item card you activate targeting CARDNAME this turn costs 3 less." The discount source is the QA Tester ON THE FIELD; the generated modifier also ran against the
+// card itself while it was being activated (an object with no GetMZID(): a fatal error the moment the QA Tester was played).
+$activationCostModifierAbilities["2XWNCcPN6o:0"] = function($player, $subjectObj, $currentValue, $sourceObj) { //VelTech item discount
+  if($sourceObj === null || $sourceObj->removed || !($sourceObj instanceof Field)) return 0;
+  if($sourceObj->CardID !== "2XWNCcPN6o") return 0;
+  if($sourceObj->GetMZID() !== VelTechQATesterDiscountSourceMZ($player)) return 0;
+  if(!IsVelTechItemCardID($subjectObj->CardID)) return 0;
+  return -3;
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)
