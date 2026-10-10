@@ -1,7 +1,7 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **905**
+Cards linked to an existing fixture: **911**
 Implemented cards in an official starter deck: **619**
 Implemented cards still needing semantic coverage: **1585**
 
@@ -27,12 +27,14 @@ Implemented cards still needing semantic coverage: **1585**
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
 | Rescue the Heir (`t0240ykvj0`) | ACTION | 2 | cost, targeting, zone-movement, condition | — | save-the-heir |
+| Glassgale Flock (`KRNYwHCOVM`) | PHANTASIA | 2 | token, trigger, condition | — | glassgale-flock-pays-two-rests-and-summons-a-memorite-shardwing, glassgale-flock-with-a-shardwing-already-pays-but-summons-nothing |
 | Baleful Oblation (`oye74ibwo8`) | ACTION | 2 | cost, damage | — | baleful-oblation-ciel-bonus-and-effect |
 | Incarnate Majesty (`7dl5j4lx6x`) | ACTION | 2 | cost, zone-movement | — | incarnate-majesty-banish-spirit |
 | Cardiac Vessel (`5xjzPh6l2M`) | UNIQUE,PHANTASIA | 3 | cost, damage, draw-discard, trigger, condition | — | — |
 | Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |
 | Stellarion Shift (`ms2x2v4qe3`) | ACTION | 3 | targeting, damage, prevention, draw-discard, zone-movement, status, condition | — | — |
 | Vengeful Paramour (`4vjkezn49t`) | ALLY | 1 | cost, targeting, damage, trigger, condition | — | rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter |
+| Morgan, Soul Guide (`ka5av43ehj`) | UNIQUE,ALLY | 1 | damage, prevention, recover, condition | — | yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally, yuan-shao-refused-with-only-two-unique-opposing-allies |
 | Rosewinged Hollow (`6S1LLrBfBU`) | ALLY | 1 | targeting, zone-movement, counter, condition | — | rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter |
 | Seaside Rangefinder (`5qyee9vkp8`) | ALLY | 1 | targeting, zone-movement, status, condition | — | seaside-rangefinder-graveyard-ability-pays-two-banishes-itself-and-makes-a-unit-distant, seaside-rangefinder-graveyard-ability-refused-without-the-ranger-class |
 | Synthetic Core (`w0y6isxy5l`) | REGALIA,ITEM | 1 | zone-movement, token, trigger, condition | — | synthetic-core-smoke |
@@ -40,10 +42,14 @@ Implemented cards still needing semantic coverage: **1585**
 | Fatestone of Progress (`2sn7hlyrkw`) | ITEM | 3 | counter, trigger, condition | — | — |
 | Lesser Boon of Allurement (`JuKoCVIvCG`) | LESSER BOON | 3 | cost, draw-discard, condition | — | — |
 | Aenean Flux Generator (`oCqKBEPemA`) | ITEM | 2 | targeting, damage, draw-discard, trigger | — | — |
+| Gawain, Chivalrous Thief (`du50pcescf`) | UNIQUE,ALLY | 1 | draw-discard, condition | — | plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant, yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally, yuan-shao-refused-with-only-two-unique-opposing-allies |
 | Intricate Longbow (`1a49w5gmf7`) | REGALIA,WEAPON | 1 | combat, condition | — | molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow |
 | Molten Arrow (`mvfcd0ukk6`) | ITEM | 1 | targeting, zone-movement | — | molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow |
+| Parcenet, Royal Maid (`xxoo7dl5j4`) | UNIQUE,ALLY | 1 | targeting, status | — | yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally |
+| PlasmaTech Blaster (`PAymR7JsNp`) | ITEM | 1 | status, condition | — | plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant |
 | Scars of Old (`lD0sK81PZT`) | ACTION | 1 | draw-discard, counter | — | scars-of-old-buff-counters, scars-of-old-draw-discard |
 | Sneaky Raccoon (`jH6F9XYrL5`) | ALLY | 1 | status, condition | — | sneaky-raccoon-stealth |
+| Yuan Shao, Crown General (`x8o84m37ti`) | UNIQUE,ALLY | 1 | targeting, condition | — | yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally, yuan-shao-refused-with-only-two-unique-opposing-allies |
 | Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
 | Oasis Trading Post (`uy4xippor7`) | DOMAIN | 3 | token | — | — |
 | Recurring Aethercharge (`MG8QoeZBXY`) | ACTION | 1 | unclassified | — | recurring-aethercharge-graveyard-ability-pays-three-and-loads-into-the-aetherwing |
@@ -70,9 +76,3 @@ Implemented cards still needing semantic coverage: **1585**
 | Nightmare Coil (`3fe3c97s71`) | ACTION | 2 | damage, draw-discard, status, trigger, condition | — | — |
 | Overlord Mk III (`sl7ddcgw05`) | UNIQUE,ALLY | 2 | cost, draw-discard, zone-movement, counter, combat, condition | — | — |
 | Queen's Gambit (`NGAy4rNwUo`) | UNIQUE,PHANTASIA | 2 | cost, draw-discard, token, trigger, condition | — | — |
-| Quickstep Treads (`rZ6LEFqqIS`) | REGALIA,ITEM | 2 | cost, draw-discard, status, trigger, condition | — | — |
-| Ranger Strides (`pvxb5hrfsu`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, status, trigger, condition | — | — |
-| Triumphant Mechanic (`tQTQqCnaZU`) | ALLY | 2 | recover, draw-discard, combat, trigger, condition | — | — |
-| Uther, Illustrious King (`5h8asbierp`) | UNIQUE,ALLY | 2 | targeting, zone-movement, status, combat, trigger | — | — |
-| Alice, Whim's Monarch (`9K4etFOi4M`) | CHAMPION | 2 | zone-movement, token, trigger, condition | — | — |
-| Arcane Elemental (`wFH1kBLrWh`) | ALLY | 2 | cost, zone-movement, combat, trigger | — | — |

@@ -2,10 +2,10 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-10T15:58:05+00:00",
+    "generatedAt": "2026-10-10T16:19:15+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 905,
+        "cardsWithExistingFixtures": 911,
         "cardsInStarterDecks": 619,
         "cardsNeedingSemanticCoverage": 1585,
         "mechanics": {
@@ -45,6 +45,26 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 44
+        },
+        {
+            "cardId": "KRNYwHCOVM",
+            "name": "Glassgale Flock",
+            "type": "PHANTASIA",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "glassgale-flock-pays-two-rests-and-summons-a-memorite-shardwing",
+                "glassgale-flock-with-a-shardwing-already-pays-but-summons-nothing"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 43
         },
         {
             "cardId": "oye74ibwo8",
@@ -161,6 +181,27 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 35
+        },
+        {
+            "cardId": "ka5av43ehj",
+            "name": "Morgan, Soul Guide",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "recover",
+                "condition"
+            ],
+            "existingFixtures": [
+                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
+                "yuan-shao-refused-with-only-two-unique-opposing-allies"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 34
         },
         {
             "cardId": "6S1LLrBfBU",
@@ -296,6 +337,26 @@
             "priority": 32
         },
         {
+            "cardId": "du50pcescf",
+            "name": "Gawain, Chivalrous Thief",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant",
+                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
+                "yuan-shao-refused-with-only-two-unique-opposing-allies"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 32
+        },
+        {
             "cardId": "1a49w5gmf7",
             "name": "Intricate Longbow",
             "type": "REGALIA,WEAPON",
@@ -325,6 +386,42 @@
             ],
             "existingFixtures": [
                 "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 32
+        },
+        {
+            "cardId": "xxoo7dl5j4",
+            "name": "Parcenet, Royal Maid",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status"
+            ],
+            "existingFixtures": [
+                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 32
+        },
+        {
+            "cardId": "PAymR7JsNp",
+            "name": "PlasmaTech Blaster",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant"
             ],
             "semanticFixtures": [],
             "starterDecks": [],
@@ -362,6 +459,25 @@
             ],
             "existingFixtures": [
                 "sneaky-raccoon-stealth"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 32
+        },
+        {
+            "cardId": "x8o84m37ti",
+            "name": "Yuan Shao, Crown General",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
+                "yuan-shao-refused-with-only-two-unique-opposing-allies"
             ],
             "semanticFixtures": [],
             "starterDecks": [],
@@ -2216,23 +2332,6 @@
                 "targeting",
                 "status",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "KRNYwHCOVM",
-            "name": "Glassgale Flock",
-            "type": "PHANTASIA",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9369,24 +9468,6 @@
                 "status",
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "ka5av43ehj",
-            "name": "Morgan, Soul Guide",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "recover",
                 "condition"
             ],
             "existingFixtures": [],
@@ -19672,22 +19753,6 @@
             "priority": 12
         },
         {
-            "cardId": "du50pcescf",
-            "name": "Gawain, Chivalrous Thief",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "4dys05p49w",
             "name": "Gem of Sorority",
             "type": "REGALIA,ITEM",
@@ -21208,22 +21273,6 @@
             "priority": 12
         },
         {
-            "cardId": "xxoo7dl5j4",
-            "name": "Parcenet, Royal Maid",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "CvvgJR4fNa",
             "name": "Patient Rogue",
             "type": "ALLY",
@@ -21247,22 +21296,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "PAymR7JsNp",
-            "name": "PlasmaTech Blaster",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -23167,22 +23200,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "x8o84m37ti",
-            "name": "Yuan Shao, Crown General",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
                 "condition"
             ],
             "existingFixtures": [],
