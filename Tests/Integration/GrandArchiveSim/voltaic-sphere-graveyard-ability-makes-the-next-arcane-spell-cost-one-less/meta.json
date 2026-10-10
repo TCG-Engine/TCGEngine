@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. The engine had no route from a graveyard click to the generated ability bodies (only hand-coded per-card blocks), so this ability could not be used / was never paid. GAFieldAbilityCostTable() entries flagged 'graveyard' now pay the (N) and banish the card, and ActionMap() routes the click through ActivateAbility. The discount is a global effect applied (and consumed when paid) in ApplyGeneratedReserveLikeCostModifiers via GAVoltaicSphereDiscount().",
         "affectedFunction": "Custom/GameLogic.php ActionMap / GAFieldAbilityCostTable; Custom/GeneratedAbilityOverrides.php",
-        "fixCommit": "TBD"
+        "fixCommit": "95728b43"
     }
 }

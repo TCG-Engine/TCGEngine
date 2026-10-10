@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-07T14:41:14+00:00",
+    "generatedAt": "2026-10-10T14:50:46+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 889,
+        "cardsWithExistingFixtures": 893,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1595,
+        "cardsNeedingSemanticCoverage": 1591,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -226,22 +226,6 @@
                 "damage",
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "mes4idoihs",
-            "name": "Proof of Life",
-            "type": "ACTION",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6141,25 +6125,6 @@
                 "status",
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "0op3nq0ymv",
-            "name": "Voltaic Sphere",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -14219,23 +14184,6 @@
             "priority": 13
         },
         {
-            "cardId": "WvWRLuPmDG",
-            "name": "Induction Strike",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "91jnc6v71t",
             "name": "Infusion of Crescent Jade",
             "type": "ACTION",
@@ -16251,23 +16199,6 @@
                 "cost",
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "eirpdm44nt",
-            "name": "Seaside Ringleader",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -27657,9 +27588,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "induction-strike-graveyard-ability-pays-one-and-adds-a-static-counter",
                 "storm-slime-enter-damage-equal-banished-slimes"
             ],
             "semanticFixtures": [
+                "induction-strike-graveyard-ability-pays-one-and-adds-a-static-counter",
                 "storm-slime-enter-damage-equal-banished-slimes"
             ],
             "starterDecks": [
@@ -31198,7 +31131,8 @@
                 "baby-blue-slime-rest-needs-another-slime-ally-to-activate",
                 "baby-blue-slime-rest-prevents-next-2-combat-damage-to-other-slime",
                 "baby-blue-slime-rested-cannot-activate-again",
-                "carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard"
+                "carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard",
+                "seaside-ringleader-graveyard-ability-draws-into-memory-and-buffs-animal-allies"
             ],
             "semanticFixtures": [
                 "baby-blue-slime-class-bonus-tamer-champion-plus-one-life",
@@ -31207,7 +31141,8 @@
                 "baby-blue-slime-rest-needs-another-slime-ally-to-activate",
                 "baby-blue-slime-rest-prevents-next-2-combat-damage-to-other-slime",
                 "baby-blue-slime-rested-cannot-activate-again",
-                "carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard"
+                "carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard",
+                "seaside-ringleader-graveyard-ability-draws-into-memory-and-buffs-animal-allies"
             ],
             "starterDecks": [
                 "Silvie Re:Collection, Slime Sovereign"
@@ -36773,10 +36708,12 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "surged-coordinator-class-bonus-counters"
+                "surged-coordinator-class-bonus-counters",
+                "voltaic-sphere-deals-five-to-an-ally"
             ],
             "semanticFixtures": [
-                "surged-coordinator-class-bonus-counters"
+                "surged-coordinator-class-bonus-counters",
+                "voltaic-sphere-deals-five-to-an-ally"
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
@@ -41167,10 +41104,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "jin-undying-resolve-immortality-survives-lethal"
+                "jin-undying-resolve-immortality-survives-lethal",
+                "proof-of-life-from-hand-costs-its-printed-one"
             ],
             "semanticFixtures": [
-                "jin-undying-resolve-immortality-survives-lethal"
+                "jin-undying-resolve-immortality-survives-lethal",
+                "proof-of-life-from-hand-costs-its-printed-one"
             ],
             "starterDecks": [
                 "Jin Starter Deck"
@@ -41515,10 +41454,16 @@
                 "unclassified"
             ],
             "existingFixtures": [
-                "rai-storm-seer-level-per-arcane-mage-spell-banished"
+                "rai-storm-seer-level-per-arcane-mage-spell-banished",
+                "voltaic-sphere-deals-five-to-an-ally",
+                "voltaic-sphere-deals-three-to-a-champion",
+                "voltaic-sphere-graveyard-ability-makes-the-next-arcane-spell-cost-one-less"
             ],
             "semanticFixtures": [
-                "rai-storm-seer-level-per-arcane-mage-spell-banished"
+                "rai-storm-seer-level-per-arcane-mage-spell-banished",
+                "voltaic-sphere-deals-five-to-an-ally",
+                "voltaic-sphere-deals-three-to-a-champion",
+                "voltaic-sphere-graveyard-ability-makes-the-next-arcane-spell-cost-one-less"
             ],
             "starterDecks": [
                 "Rai Starter Deck",
@@ -42212,6 +42157,28 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 53
+        },
+        {
+            "cardId": "mes4idoihs",
+            "name": "Proof of Life",
+            "type": "ACTION",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "proof-of-life-from-hand-costs-its-printed-one",
+                "proof-of-life-graveyard-ability-wakes-the-champion"
+            ],
+            "semanticFixtures": [
+                "proof-of-life-from-hand-costs-its-printed-one",
+                "proof-of-life-graveyard-ability-wakes-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 52
         },
         {
             "cardId": "2ha4dk88zq",
@@ -44369,6 +44336,33 @@
             "priority": 35
         },
         {
+            "cardId": "0op3nq0ymv",
+            "name": "Voltaic Sphere",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "voltaic-sphere-deals-five-to-an-ally",
+                "voltaic-sphere-deals-three-to-a-champion",
+                "voltaic-sphere-graveyard-ability-makes-the-next-arcane-spell-cost-one-less"
+            ],
+            "semanticFixtures": [
+                "voltaic-sphere-deals-five-to-an-ally",
+                "voltaic-sphere-deals-three-to-a-champion",
+                "voltaic-sphere-graveyard-ability-makes-the-next-arcane-spell-cost-one-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "9cef7aknvn",
             "name": "Wuji of Lingering Fate",
             "type": "PHANTASIA",
@@ -45751,6 +45745,27 @@
             "priority": 33
         },
         {
+            "cardId": "WvWRLuPmDG",
+            "name": "Induction Strike",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "induction-strike-graveyard-ability-pays-one-and-adds-a-static-counter"
+            ],
+            "semanticFixtures": [
+                "induction-strike-graveyard-ability-pays-one-and-adds-a-static-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "pal7cpvn96",
             "name": "Intrepid Spearman",
             "type": "ALLY",
@@ -46187,6 +46202,27 @@
             ],
             "semanticFixtures": [
                 "salamanders-breath-decline-second-banish-still-applies-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "eirpdm44nt",
+            "name": "Seaside Ringleader",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "seaside-ringleader-graveyard-ability-draws-into-memory-and-buffs-animal-allies"
+            ],
+            "semanticFixtures": [
+                "seaside-ringleader-graveyard-ability-draws-into-memory-and-buffs-animal-allies"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

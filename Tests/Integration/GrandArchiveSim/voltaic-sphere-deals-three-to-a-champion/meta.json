@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. See voltaic-sphere-deals-five-to-an-ally.",
         "affectedFunction": "Custom/GameLogic.php ActionMap / GAFieldAbilityCostTable; Custom/GeneratedAbilityOverrides.php",
-        "fixCommit": "TBD"
+        "fixCommit": "95728b43"
     }
 }

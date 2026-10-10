@@ -23,6 +23,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated activationCostModifier for the graveyard ability set the card's own hand activation cost to (2); neutralised in Custom/GeneratedAbilityOverrides.php (same for Stellarion Shift).",
         "affectedFunction": "Custom/GeneratedAbilityOverrides.php activationCostModifierAbilities[mes4idoihs:0]",
-        "fixCommit": "TBD"
+        "fixCommit": "95728b43"
     }
 }

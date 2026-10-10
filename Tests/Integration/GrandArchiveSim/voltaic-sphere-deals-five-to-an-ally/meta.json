@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. The generated body only offered allies, dealt 3 to phantasias and 5 to everything else, and could not target champions; overridden in Custom/GeneratedAbilityOverrides.php.",
         "affectedFunction": "Custom/GameLogic.php ActionMap / GAFieldAbilityCostTable; Custom/GeneratedAbilityOverrides.php",
-        "fixCommit": "TBD"
+        "fixCommit": "95728b43"
     }
 }

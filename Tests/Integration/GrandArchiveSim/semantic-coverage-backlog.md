@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **889**
+Cards linked to an existing fixture: **893**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1595**
+Implemented cards still needing semantic coverage: **1591**
 
 ## Mechanic groups
 
@@ -37,7 +37,6 @@ Implemented cards still needing semantic coverage: **1595**
 | Fatestone of Progress (`2sn7hlyrkw`) | ITEM | 3 | counter, trigger, condition | — | — |
 | Lesser Boon of Allurement (`JuKoCVIvCG`) | LESSER BOON | 3 | cost, draw-discard, condition | — | — |
 | Aenean Flux Generator (`oCqKBEPemA`) | ITEM | 2 | targeting, damage, draw-discard, trigger | — | — |
-| Proof of Life (`mes4idoihs`) | ACTION | 3 | damage, zone-movement | — | — |
 | Scars of Old (`lD0sK81PZT`) | ACTION | 1 | draw-discard, counter | — | scars-of-old-buff-counters, scars-of-old-draw-discard |
 | Sneaky Raccoon (`jH6F9XYrL5`) | ALLY | 1 | status, condition | — | sneaky-raccoon-stealth |
 | Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **1595**
 | Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
 | Cinder Geyser (`stiyh3pmk3`) | ACTION | 2 | cost, targeting, damage, condition | — | — |
 | Collect Junk (`g6sW55DOgR`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement | — | — |
+| Crossroads Specter (`r3i9nmxhnb`) | ALLY | 2 | zone-movement, counter, trigger, condition | — | — |
