@@ -1,0 +1,29 @@
+{
+    "name": "voltaic-sphere-deals-three-to-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T14:49:47+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "0op3nq0ymv"
+    ],
+    "notes": "Voltaic Sphere: 3 damage to a non-ally unit (the opposing champion).",
+    "semanticCoverage": {
+        "testedCards": [
+            "0op3nq0ymv",
+            "g92bHLtTNl"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 3 damage to target unit. If that unit is an ally, deal 5 damage to it instead."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. See voltaic-sphere-deals-five-to-an-ally.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap / GAFieldAbilityCostTable; Custom/GeneratedAbilityOverrides.php",
+        "fixCommit": "TBD"
+    }
+}

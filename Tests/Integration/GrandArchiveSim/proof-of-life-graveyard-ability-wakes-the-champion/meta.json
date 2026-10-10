@@ -1,0 +1,29 @@
+{
+    "name": "proof-of-life-graveyard-ability-wakes-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T14:49:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "mes4idoihs"
+    ],
+    "notes": "Proof of Life: [Damage 40+] (2), banish from the graveyard: wake up your champion. Pre-fix unusable (and the body banished the card itself without paying).",
+    "semanticCoverage": {
+        "testedCards": [
+            "mes4idoihs"
+        ],
+        "mechanics": [
+            "graveyard-ability",
+            "cost",
+            "wake"
+        ],
+        "rulesClauses": [
+            "[Damage 40+] (2), Banish this card from your graveyard: Wake up your champion."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The engine had no route from a graveyard click to the generated ability bodies (only hand-coded per-card blocks), so this ability could not be used / was never paid. GAFieldAbilityCostTable() entries flagged 'graveyard' now pay the (N) and banish the card, and ActionMap() routes the click through ActivateAbility.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap / GAFieldAbilityCostTable; Custom/GeneratedAbilityOverrides.php",
+        "fixCommit": "TBD"
+    }
+}

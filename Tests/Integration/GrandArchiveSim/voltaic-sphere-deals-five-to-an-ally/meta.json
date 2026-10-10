@@ -1,0 +1,30 @@
+{
+    "name": "voltaic-sphere-deals-five-to-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T14:50:22+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "0op3nq0ymv"
+    ],
+    "notes": "Voltaic Sphere: 5 damage to an ally (3 to other units). Pre-fix the body only offered allies and read the target as an array.",
+    "semanticCoverage": {
+        "testedCards": [
+            "0op3nq0ymv",
+            "6eWmfzAmWr",
+            "g92bHLtTNl"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 3 damage to target unit. If that unit is an ally, deal 5 damage to it instead."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated body only offered allies, dealt 3 to phantasias and 5 to everything else, and could not target champions; overridden in Custom/GeneratedAbilityOverrides.php.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap / GAFieldAbilityCostTable; Custom/GeneratedAbilityOverrides.php",
+        "fixCommit": "TBD"
+    }
+}

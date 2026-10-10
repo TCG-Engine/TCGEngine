@@ -1,0 +1,35 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The second Voltaic Sphere (reserve 2) cost only 1 after the first was banished from the graveyard"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The graveyard copy was banished"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "The discounted Sphere resolved (3 damage)"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

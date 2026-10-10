@@ -31682,6 +31682,73 @@ $fixtures['convoking-slime-recollection-summons-exactly-one-rested-copy'] = [
     'actions' => [mrdEnd(1), mrdEnd(2)],
 ];
 
+// --- Graveyard-activated abilities ("(N), Banish this card from your graveyard: ..."): the engine had no route from a graveyard click to the generated ability bodies, so these were unusable (or, for Induction
+// Strike / Proof of Life / Stellarion Shift, never paid). They now go through ActivateAbility with the (N) and the banish paid as the cost. ---
+
+// Seaside Ringleader (eirpdm44nt): "[Class Bonus] [Element Bonus] (2), Banish this card from your graveyard: Draw a card into your memory. Until end of turn, Animal and Beast ally cards you activate this turn
+// enter the field with an additional buff counter on them." A Baby Blue Slime (Animal) is then activated and enters with a buff counter.
+$fixtures['seaside-ringleader-graveyard-ability-draws-into-memory-and-buffs-animal-allies'] = [
+    'testedCards' => ['eirpdm44nt', '9ggfiy38t2'],
+    'deck' => $gaSweepDeck('Spirit of Water'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'TAMER']]]], // Tamer champion: the Class Bonus applies
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'eirpdm44nt'], // Seaside Ringleader -> myGraveyard-0
+        $gaHand('9ggfiy38t2'), // Baby Blue Slime (ANIMAL) -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myGraveyard-0')], mrdPay(1, 2), [mrdPlay(1, 'myHand-5')], mrdPay(1, 2)),
+];
+// Induction Strike (WvWRLuPmDG): "(1), Banish this card from your graveyard: Put a static counter on target arcane element object you control and each object linked to it." The ability never paid the (1)
+// nor banished the card. A Storm Slime (arcane ally) is the target.
+$fixtures['induction-strike-graveyard-ability-pays-one-and-adds-a-static-counter'] = [
+    'testedCards' => ['WvWRLuPmDG', 'blqryebvwj'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'WvWRLuPmDG'], // Induction Strike -> myGraveyard-0
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE) -> myField-1
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myGraveyard-0')], mrdPay(1, 1), [mrdAns(1, 'myField-1')]),
+];
+// Proof of Life (mes4idoihs): "[Damage 40+] (2), Banish this card from your graveyard: Wake up your champion." Its generated cost modifier also set the HAND activation cost to (2) (printed reserve cost 1).
+$fixtures['proof-of-life-graveyard-ability-wakes-the-champion'] = [
+    'testedCards' => ['mes4idoihs'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Status' => 1, 'Damage' => 40]], // a rested champion with 40 damage
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mes4idoihs'], // Proof of Life -> myGraveyard-0
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myGraveyard-0')], mrdPay(1, 2)),
+];
+$fixtures['proof-of-life-from-hand-costs-its-printed-one'] = [
+    'testedCards' => ['mes4idoihs'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaHand('mes4idoihs'), ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'c4yrrtv7o1']]], // Jin, Undying Resolve (EXIA Warrior) can use the Exia card
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 1)),
+];
+// Voltaic Sphere (0op3nq0ymv): "Deal 3 damage to target unit. If that unit is an ally, deal 5 damage to it instead." and "[Class Bonus] Banish CARDNAME from your graveyard: The next arcane element Spell card you activate
+// this turn costs 1 less to activate." (the generated body only offered allies, dealt 3 to phantasias / 5 to the rest, and the graveyard ability was not implemented).
+$fixtures['voltaic-sphere-deals-five-to-an-ally'] = [
+    'testedCards' => ['0op3nq0ymv'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaHand('0op3nq0ymv'), ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'g92bHLtTNl']], ['player' => 2, 'zone' => 'myField', 'cardID' => '6eWmfzAmWr']], // Rai, Storm Seer (ARCANE Mage) casts; an opposing Surged Coordinator (4 life: 5 damage kills it, 3 would not) -> theirField-1
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'theirField-1')]),
+];
+$fixtures['voltaic-sphere-deals-three-to-a-champion'] = [
+    'testedCards' => ['0op3nq0ymv'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaHand('0op3nq0ymv'), ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'g92bHLtTNl']]], // Rai, Storm Seer (ARCANE Mage)
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'theirField-0')]),
+];
+$fixtures['voltaic-sphere-graveyard-ability-makes-the-next-arcane-spell-cost-one-less'] = [
+    'testedCards' => ['0op3nq0ymv'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'g92bHLtTNl']], // Rai, Storm Seer (ARCANE Mage)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '0op3nq0ymv'], // Voltaic Sphere -> myGraveyard-0
+        $gaHand('0op3nq0ymv'), // a second Voltaic Sphere (arcane Spell, reserve cost 2) -> myHand-7
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myGraveyard-0')], [mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'theirField-0')]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

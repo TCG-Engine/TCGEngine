@@ -1,0 +1,33 @@
+{
+    "name": "seaside-ringleader-graveyard-ability-draws-into-memory-and-buffs-animal-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T14:49:43+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "eirpdm44nt",
+        "9ggfiy38t2"
+    ],
+    "notes": "Seaside Ringleader: (2), banish from the graveyard: draw into memory; Animal/Beast allies activated this turn enter with a buff counter.",
+    "semanticCoverage": {
+        "testedCards": [
+            "eirpdm44nt",
+            "9ggfiy38t2"
+        ],
+        "mechanics": [
+            "graveyard-ability",
+            "cost",
+            "draw",
+            "counters",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Element Bonus] (2), Banish this card from your graveyard: Draw a card into your memory. Until end of turn, Animal and Beast ally cards you activate this turn enter the field with an additional buff counter on them."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The engine had no route from a graveyard click to the generated ability bodies (only hand-coded per-card blocks), so this ability could not be used / was never paid. GAFieldAbilityCostTable() entries flagged 'graveyard' now pay the (N) and banish the card, and ActionMap() routes the click through ActivateAbility. Its generated body was an empty 'BLOCKED' stub; it now draws into memory and registers an end-of-turn effect applied when an Animal/Beast ally card resolves onto the field.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap / GAFieldAbilityCostTable; Custom/GeneratedAbilityOverrides.php",
+        "fixCommit": "TBD"
+    }
+}

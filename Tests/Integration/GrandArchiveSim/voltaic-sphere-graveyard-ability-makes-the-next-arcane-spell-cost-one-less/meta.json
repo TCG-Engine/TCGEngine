@@ -1,0 +1,30 @@
+{
+    "name": "voltaic-sphere-graveyard-ability-makes-the-next-arcane-spell-cost-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T14:49:48+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "0op3nq0ymv"
+    ],
+    "notes": "Voltaic Sphere graveyard ability: Class Bonus, banish from the graveyard: the next arcane Spell costs 1 less. Pre-fix not implemented.",
+    "semanticCoverage": {
+        "testedCards": [
+            "0op3nq0ymv",
+            "g92bHLtTNl"
+        ],
+        "mechanics": [
+            "graveyard-ability",
+            "cost-reduction",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Banish CARDNAME from your graveyard: The next arcane element Spell card you activate this turn costs 1 less to activate."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The engine had no route from a graveyard click to the generated ability bodies (only hand-coded per-card blocks), so this ability could not be used / was never paid. GAFieldAbilityCostTable() entries flagged 'graveyard' now pay the (N) and banish the card, and ActionMap() routes the click through ActivateAbility. The discount is a global effect applied (and consumed when paid) in ApplyGeneratedReserveLikeCostModifiers via GAVoltaicSphereDiscount().",
+        "affectedFunction": "Custom/GameLogic.php ActionMap / GAFieldAbilityCostTable; Custom/GeneratedAbilityOverrides.php",
+        "fixCommit": "TBD"
+    }
+}

@@ -1615,6 +1615,15 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                     }
                 }
             }
+            // Generic graveyard-activated abilities (GAFieldAbilityCostTable() entries flagged 'graveyard'): prerequisites, (N) and the banish are paid through the normal ActivateAbility pipeline.
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $gyAbilityObj = GetZoneObject($actionCard);
+                $gyAbilitySpec = ($gyAbilityObj !== null && !$gyAbilityObj->removed) ? GAFieldAbilityCostSpec($gyAbilityObj->CardID, 0) : null;
+                if($gyAbilitySpec !== null && !empty($gyAbilitySpec['graveyard']) && CanActivateAbility($playerID, $actionCard, 0)) {
+                    ActivateAbility($playerID, $actionCard, 0);
+                    return "PLAY";
+                }
+            }
             // Generic Ephemerate: activate card from graveyard by paying ephemerate cost
             $gyObj = GetZoneObject($actionCard);
             if($gyObj !== null && !$gyObj->removed && CanPayEphemerate($playerID, $gyObj->CardID)
@@ -6001,6 +6010,12 @@ function GAFieldAbilityCostTable() {
         "j68m69iq4d:0" => ['rest' => true], // Sentinel Fabricator (its body pays the (3))
         "7yacwhzzfb:0" => ['reserve' => 2, 'rest' => true], // Focusing Round
         "swy2NJ4q6O:0" => ['reserve' => 2, 'rest' => true], // Scarlet Tassel
+        // Graveyard-activated abilities ("(N), Banish this card from your graveyard: ..."): clicked from the graveyard in ActionMap(); the card is banished as part of the cost.
+        "eirpdm44nt:0" => ['reserve' => 2, 'graveyard' => true, 'noAutoRest' => true, 'bonus' => 'classelement'], // Seaside Ringleader
+        "ms2x2v4qe3:0" => ['reserve' => 2, 'graveyard' => true, 'noAutoRest' => true], // Stellarion Shift (its generated prereq checks the Class/Element Bonus and a distant champion)
+        "mes4idoihs:0" => ['reserve' => 2, 'graveyard' => true, 'noAutoRest' => true], // Proof of Life (its generated prereq checks Damage 40+)
+        "WvWRLuPmDG:0" => ['reserve' => 1, 'graveyard' => true, 'noAutoRest' => true], // Induction Strike
+        "0op3nq0ymv:0" => ['graveyard' => true, 'noAutoRest' => true, 'bonus' => 'class'], // Voltaic Sphere
         "AOFRjoIHVe:0" => ['reserve' => 3], // Lesser Boon of Revelry
         "V8aPGgLyh5:0" => ['reserve' => 3], // Lesser Boon of Rakko (twice; its prereq counts the uses)
         "fJJBJ9M4c4:0" => ['reserve' => 3], // Lesser Boon of Rosen (once; the override in GeneratedAbilityOverrides.php counts the use)
@@ -6093,6 +6108,7 @@ function GAFieldAbilityReserveAmount($player, $mzID, $spec) {
 function GAFieldAbilityBonusActive($player, $bonus, $cardID) {
     switch($bonus) {
         case 'class': return IsClassBonusActive($player, CardClasses($cardID));
+        case 'classelement': return IsClassBonusActive($player, CardClasses($cardID)) && IsElementBonusActive($player, $cardID);
         case 'ciel': return IsCielBonusActive($player);
         case 'guojia': return IsGuoJiaBonus($player);
         case 'jin': return IsJinBonus($player);
@@ -6108,6 +6124,10 @@ function GAPayFieldAbilityCost($player, $mzCard, $cardID, $abilityIndex, $spec) 
     if($obj === null) return;
     foreach(($spec['lki'] ?? []) as $lkiCounter) DecisionQueueController::StoreVariable("gaLKI_" . $lkiCounter, strval(GetCounterCount($obj, $lkiCounter)));
     if(!empty($spec['rest'])) $obj->Status = 1;
+    if(!empty($spec['graveyard'])) { // "Banish this card from your graveyard"
+        MZMove($player, $mzCard, "myBanish");
+        DecisionQueueController::CleanupRemovedCards();
+    }
     foreach(($spec['removeSelfCounters'] ?? []) as $counterName => $counterAmount) RemoveCounters($player, $mzCard, $counterName, $counterAmount);
     $reserve = GAFieldAbilityReserveAmount($player, $mzCard, $spec);
     for($ri = 0; $ri < $reserve; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
@@ -6176,6 +6196,7 @@ function GameNormalizeDecisionParam($type, $param) {
 // ("myField-N@Activate-0@<name>") and the Activate button captions.
 function GAActivateAbilityCountOverrides() {
     return [
+        "0op3nq0ymv" => ["Cheaper arcane spell"], // Voltaic Sphere (graveyard)
         "4wuq20gvcg" => ["Banish"],  // Key Slime Pudding
         "fbs9qzo3f6" => ["Distant"], // Ranger Boots
         "9ggfiy38t2" => ["Prevent"], // Baby Blue Slime
@@ -6740,6 +6761,10 @@ function OnCardActivated($player, $mzCard) {
     if(PropertyContains($cardType, "ALLY")) {
         $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
+        // Seaside Ringleader (eirpdm44nt): until end of turn, Animal and Beast ally cards you activate enter the field with an additional buff counter.
+        if(GlobalEffectCount($player, "eirpdm44nt") > 0 && (PropertyContains(CardSubtypes($obj->CardID), "ANIMAL") || PropertyContains(CardSubtypes($obj->CardID), "BEAST"))) {
+            AddCounters($player, $obj->GetMzID(), "buff", 1);
+        }
     } else if(PropertyContains($cardType, "WEAPON")) {
         // Weapons enter the field like allies (main-deck weapons with reserve cost)
         $obj = MoveEffectStackCardToField($player, $mzCard);
@@ -25152,7 +25177,26 @@ function ApplyGeneratedReserveLikeCostModifiers($player, $subjectObj, $currentCo
         }
     }
 
+    if($mode === "activate") $currentCost += GAVoltaicSphereDiscount($player, $subjectObj);
     return max(0, $currentCost);
+}
+
+// Voltaic Sphere (0op3nq0ymv), banished from the graveyard: "The next arcane element Spell card you activate this turn costs 1 less to activate." A global effect with the card's own id;
+// the generated cost-modifier count data has no row for it, so it is applied here (consumed only when the cost is actually paid, see ConsumeModifierSource()).
+function GAVoltaicSphereDiscount($player, $subjectObj) {
+    if($subjectObj === null || !PropertyContains(CardSubtypes($subjectObj->CardID), "SPELL") || !PropertyContains(CardElement($subjectObj->CardID), "ARCANE")) return 0;
+    foreach([1, 2] as $effectPlayer) {
+        if($effectPlayer != $player) continue;
+        foreach(GetGlobalEffects($effectPlayer) as $effectObj) {
+            if(!empty($effectObj->removed) || $effectObj->CardID !== "0op3nq0ymv") continue;
+            $effectSource = clone $effectObj;
+            $effectSource->Controller = $effectPlayer;
+            $effectSource->_sourceZone = "GlobalEffects";
+            ConsumeModifierSource($effectSource);
+            return -1;
+        }
+    }
+    return 0;
 }
 
 function NefariousTimepieceEnter($player, $timepieceMZ) {

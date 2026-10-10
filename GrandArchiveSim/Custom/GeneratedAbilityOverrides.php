@@ -2211,6 +2211,48 @@ $customDQHandlers["qXIKFip2t4:0:CardActivated-1"] = function($player, $parts, $l
   DealDamage($player, $mzID, $lastDecision, 3 + 2 * $removed);
 };
 
+// ---------------------------------------------------------------------------------------------
+// Graveyard-activated abilities ("(N), Banish this card from your graveyard: ..."). The engine had no route from a graveyard click to $activateAbilityAbilities (only hand-coded blocks per card), so these
+// were unusable: Seaside Ringleader (empty "BLOCKED" body), Stellarion Shift, Proof of Life, Induction Strike (never paid), Voltaic Sphere (not implemented). They are now flagged 'graveyard' in
+// GAFieldAbilityCostTable() (the (N) and the banish are paid by the cost spec, and ActionMap() routes the click through ActivateAbility); the bodies below hold only the effects.
+// ---------------------------------------------------------------------------------------------
+$activateAbilityAbilities["eirpdm44nt:0"] = function($player) { //Seaside Ringleader: draw into memory; Animal and Beast ally cards you activate this turn enter with an additional buff counter
+  DrawIntoMemory($player, 1);
+  AddGlobalEffects($player, "eirpdm44nt");
+};
+$activateAbilityAbilities["ms2x2v4qe3:0"] = function($player) { //Stellarion Shift (graveyard): stealth and prevent the next 4 non-combat damage
+  $champMZ = FindChampionMZ($player);
+  if($champMZ === null) return;
+  AddTurnEffect($champMZ, "STEALTH");
+  AddTurnEffect($champMZ, "PREVENT_NONCOMBAT_4");
+};
+$activateAbilityAbilities["mes4idoihs:0"] = function($player) { //Proof of Life (graveyard): wake up your champion
+  $champMZ = FindChampionMZ($player);
+  if($champMZ !== null) WakeupCard($player, $champMZ);
+};
+$activateAbilityAbilities["0op3nq0ymv:0"] = function($player) { //Voltaic Sphere (graveyard): the next arcane element Spell card you activate this turn costs 1 less
+  AddGlobalEffects($player, "0op3nq0ymv");
+};
+// Voltaic Sphere: "Deal 3 damage to target unit. If that unit is an ally, deal 5 damage to it instead." The generated body only offered allies, dealt 3 to phantasias and 5 to everything else, and read the
+// target as an array.
+$cardActivatedAbilities["0op3nq0ymv:0"] = function($player) { //Voltaic Sphere
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $targets = FilterSpellshroudTargets(array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION"]), ZoneSearch("theirField", ["ALLY", "CHAMPION"])));
+  if(empty($targets)) return;
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "Deal_3_damage_(5_to_an_ally)_to_target_unit");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "0op3nq0ymv:0:CardActivated-1", 1);
+};
+$customDQHandlers["0op3nq0ymv:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Voltaic Sphere
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $targetObj = GetZoneObject($lastDecision);
+  if($targetObj === null) return;
+  DealDamage($player, $mzID, $lastDecision, PropertyContains(EffectiveCardType($targetObj), "ALLY") ? 5 : 3);
+};
+
+// The generated "Graveyard wake cost" / "Graveyard ability cost" modifiers set the card's own HAND activation cost to (2) (Proof of Life's printed reserve cost is 1); the (2) belongs to the graveyard ability.
+$activationCostModifierAbilities["mes4idoihs:0"] = function($player, $subjectObj, $currentValue, $sourceObj) { return 0; };
+$activationCostModifierAbilities["ms2x2v4qe3:0"] = function($player, $subjectObj, $currentValue, $sourceObj) { return 0; };
+
 // Lesser Boon of Rosen fJJBJ9M4c4: "(3): Summon a Powercell token rested. Activate this ability only once." The once-only limit was never enforced (and the (3) is paid via GAFieldAbilityCostTable()).
 $activateAbilityAbilities["fJJBJ9M4c4:0"] = function($player) { //Rosen: summon a rested Powercell, once
   $mzID = DecisionQueueController::GetVariable("mzID");

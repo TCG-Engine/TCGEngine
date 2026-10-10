@@ -1,0 +1,31 @@
+{
+    "name": "induction-strike-graveyard-ability-pays-one-and-adds-a-static-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T14:49:24+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "WvWRLuPmDG",
+        "blqryebvwj"
+    ],
+    "notes": "Induction Strike: (1), banish from the graveyard: static counter on target arcane object. Pre-fix unusable.",
+    "semanticCoverage": {
+        "testedCards": [
+            "WvWRLuPmDG",
+            "blqryebvwj"
+        ],
+        "mechanics": [
+            "graveyard-ability",
+            "cost",
+            "counters"
+        ],
+        "rulesClauses": [
+            "(1), Banish this card from your graveyard: Put a static counter on target arcane element object you control and each object linked to it."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The engine had no route from a graveyard click to the generated ability bodies (only hand-coded per-card blocks), so this ability could not be used / was never paid. GAFieldAbilityCostTable() entries flagged 'graveyard' now pay the (N) and banish the card, and ActionMap() routes the click through ActivateAbility.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap / GAFieldAbilityCostTable; Custom/GeneratedAbilityOverrides.php",
+        "fixCommit": "TBD"
+    }
+}

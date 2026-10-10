@@ -1,0 +1,16 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The 4-life ally took 5 damage and died (3 would not have killed it)"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

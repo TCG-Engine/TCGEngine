@@ -1,0 +1,26 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Proof of Life costs its printed reserve cost 1 from hand"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"PROOF_OF_LIFE_DOUBLE\",\"vz4kc558yx-ACTION_ACTIVATED\"]",
+        "semantic": true,
+        "label": "The champion will take double damage next time"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

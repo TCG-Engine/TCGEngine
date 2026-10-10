@@ -1,0 +1,28 @@
+{
+    "name": "proof-of-life-from-hand-costs-its-printed-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T14:49:44+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "mes4idoihs"
+    ],
+    "notes": "Proof of Life from hand costs 1. Pre-fix a generated 'Graveyard wake cost' modifier forced the hand activation cost to 2.",
+    "semanticCoverage": {
+        "testedCards": [
+            "mes4idoihs",
+            "c4yrrtv7o1"
+        ],
+        "mechanics": [
+            "cost"
+        ],
+        "rulesClauses": [
+            "The next time your champion would take damage this turn, double that damage."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The generated activationCostModifier for the graveyard ability set the card's own hand activation cost to (2); neutralised in Custom/GeneratedAbilityOverrides.php (same for Stellarion Shift).",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php activationCostModifierAbilities[mes4idoihs:0]",
+        "fixCommit": "TBD"
+    }
+}
