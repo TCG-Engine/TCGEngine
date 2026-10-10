@@ -224,6 +224,7 @@ DECK,
     // static-counter target, and a copy of Fulgurite Coordinator already in the graveyard to
     // serve as the graveyard-activation source.
     'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['element' => 'ARCANE']]]], // the champion's element must match Fulgurite Coordinator's (ARCANE) for the Element Bonus
         ['player' => 1, 'zone' => 'myField', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE ally) - counter target
         ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '7aZwqrfbzO'], // Fulgurite Coordinator - GY activation source
     ],
@@ -17865,7 +17866,7 @@ $fixtures['peacock-of-prosperity-reveal-memory-to-field'] = [
 DECK,
     'setup' => [
         // Guo Jia (TAMER, matching Peacock's own class) + LUXEM lineage for Uncover the Plot.
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['UAF6Nr7GUE']]],
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['UAF6Nr7GUE'], 'Counters' => ['_overrides' => ['element' => 'LUXEM']]]], // the champion's element must match the card's (LUXEM) for the Element Bonus
         // Two copies of Peacock of Prosperity in memory.
         ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'cl1mvb9q96'],
         ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'cl1mvb9q96'],
@@ -17896,7 +17897,7 @@ $fixtures['advent-of-the-shenju-reveal-banish-memory-draw'] = [
 10 Dungeon Guide
 DECK,
     'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['UAF6Nr7GUE']]],
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt', 'Subcards' => ['UAF6Nr7GUE'], 'Counters' => ['_overrides' => ['element' => 'LUXEM']]]], // the champion's element must match the card's (LUXEM) for the Element Bonus
         ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'c53tomoaw3'],
         ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
         ['player' => 1, 'patchMzId' => 'myHand-0', 'setProperties' => ['CardID' => '4zkTRt8qXn']],
@@ -19792,7 +19793,7 @@ $fixtures['slime-king-on-leave-returns-banished-slimes'] = [
 4 Windslice
 DECK,
     'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock (Element Bonus active)
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1'], 'Counters' => ['_overrides' => ['element' => 'TERA']]]], // TERA lineage/element unlock (Element Bonus active: the champion's element must match Slime King's)
         ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE)
         ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE)
         ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'ejvddohjdu'], // Lustrous Slime (LUXEM)
@@ -19842,7 +19843,7 @@ $fixtures['slime-king-on-leave-resolves-when-retaliation-declined'] = [
 4 Windslice
 DECK,
     'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock (Element Bonus active)
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1'], 'Counters' => ['_overrides' => ['element' => 'TERA']]]], // TERA lineage/element unlock (Element Bonus active: the champion's element must match Slime King's)
         ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // Red Slime (FIRE)
         ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE)
         ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'ejvddohjdu'], // Lustrous Slime (LUXEM)
@@ -31747,6 +31748,43 @@ $fixtures['voltaic-sphere-graveyard-ability-makes-the-next-arcane-spell-cost-one
         $gaHand('0op3nq0ymv'), // a second Voltaic Sphere (arcane Spell, reserve cost 2) -> myHand-7
     ],
     'actions' => array_merge([mrdPlay(1, 'myGraveyard-0')], [mrdPlay(1, 'myHand-7')], mrdPay(1, 1), [mrdAns(1, 'theirField-0')]),
+];
+
+// Arrest Lightning (9e3B8EHQak): "[Class Bonus] [Element Bonus] (1), Banish this card from your graveyard: Put a static counter on target arcane element object you control and each object linked to it." With the Warrior class
+// bonus and an ARCANE champion (Lorraine, Arclight Saber) the graveyard ability costs one reserve and banishes itself.
+$fixtures['arrest-lightning-graveyard-static-counter'] = [
+    'testedCards' => ['9e3B8EHQak', 'blqryebvwj'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'WARRIOR', 'element' => 'ARCANE']]]], // a Warrior champion whose element matches Arrest Lightning's (ARCANE)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE ally) -> myField-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9e3B8EHQak'], // Arrest Lightning -> myGraveyard-0
+    ],
+    'actions' => [mrdPlay(1, 'myGraveyard-0'), mrdAns(1, 'myHand-0'), mrdAns(1, 'myField-1')], // pay the (1), then choose the arcane object
+];
+// Arrest Lightning: without a matching champion element the graveyard ability is refused (the Element Bonus gate).
+$fixtures['arrest-lightning-graveyard-ability-refused-without-matching-element'] = [
+    'testedCards' => ['9e3B8EHQak', '7aZwqrfbzO'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'WARRIOR']]]], // class matches, element (FIRE) does not
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7aZwqrfbzO'],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '9e3B8EHQak'],
+    ],
+    'actions' => [mrdPlay(1, 'myGraveyard-0'), mrdAns(1, 'myField-0')],
+];
+
+// Sword Saint of Everflame (lpy7ie4v8n): "[Class Bonus] (2), Banish this card from your graveyard: Target fire element weapon or ally gets +2 POWER until end of turn." The (2) was never paid (the queued ReserveCard was
+// popped as if it were the answered decision). A Warrior champion; Red Slime (fire ally) is the target.
+$fixtures['sword-saint-of-everflame-graveyard-ability-pays-two-and-gives-fire-ally-plus-two-power'] = [
+    'testedCards' => ['lpy7ie4v8n', 'mttsvbgl6f'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'WARRIOR']]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mttsvbgl6f'], // Red Slime (fire ally) -> myField-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'lpy7ie4v8n'], // Sword Saint of Everflame -> myGraveyard-0
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myGraveyard-0'), mrdAns(1, 'myField-1')], mrdPay(1, 2)),
 ];
 
 // Filter if --fixture specified

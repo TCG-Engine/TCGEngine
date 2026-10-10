@@ -1,16 +1,36 @@
 {
-    "name": "Arrest Lightning adds a static counter from the graveyard",
+    "name": "arrest-lightning-graveyard-static-counter",
     "rootName": "GrandArchiveSim",
-    "createdBy": "Codex",
+    "createdAt": "2026-10-10T15:02:54+00:00",
+    "createdBy": "Claude Sonnet 5.5",
     "testedCards": [
-        "9e3B8EHQak"
+        "9e3B8EHQak",
+        "blqryebvwj"
     ],
+    "notes": "Arrest Lightning from the graveyard with the Warrior class bonus and an ARCANE champion: (1), banish itself, static counter on the arcane object. The (1) is actually paid.",
     "semanticCoverage": {
-        "testedCards": ["9e3B8EHQak"],
-        "mechanics": ["class-bonus", "element-bonus", "graveyard-activation", "cost", "banish", "targeting", "counter"],
+        "testedCards": [
+            "9e3B8EHQak",
+            "7aZwqrfbzO"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "element-bonus",
+            "graveyard-activation",
+            "cost",
+            "banish",
+            "targeting",
+            "counter"
+        ],
         "rulesClauses": [
             "With Warrior class bonus and Arcane element bonus, Arrest Lightning can activate from the graveyard for one reserve and banishing itself.",
             "The graveyard ability puts one static counter on the targeted Arcane object controlled by that player."
         ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Hand-coded graveyard activations (Arrest Lightning, Sword Saint of Everflame, Seaside Rangefinder, Recurring Aethercharge, ...) queued their (N) payment as static ReserveCard entries at the head of the queue and returned without running it; the next answer popped 'ReserveCard' as if it were the answered decision, so the cost was never paid. ActionMap() now runs the queue's static entries after a graveyard click.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap",
+        "fixCommit": "TBD"
     }
 }

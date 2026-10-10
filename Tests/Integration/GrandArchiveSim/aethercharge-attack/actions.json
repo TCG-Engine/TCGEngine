@@ -43,15 +43,7 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "myTempZone-3",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "Top=0w5bp5nuae,bx25s7kiln,gnfbp3g8iw;Bottom=",
+        "cardID": "Top=0w5bp5nuae,bx25s7kiln,gnfbp3g8iw,xwwkxq0vp3;Bottom=",
         "chkInput": [],
         "inputText": ""
     }

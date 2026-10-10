@@ -1,0 +1,32 @@
+{
+    "name": "sword-saint-of-everflame-graveyard-ability-pays-two-and-gives-fire-ally-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T15:03:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "lpy7ie4v8n",
+        "mttsvbgl6f"
+    ],
+    "notes": "Sword Saint of Everflame: (2), banish from graveyard: a fire ally gets +2 power. The (2) is paid.",
+    "semanticCoverage": {
+        "testedCards": [
+            "lpy7ie4v8n",
+            "mttsvbgl6f"
+        ],
+        "mechanics": [
+            "graveyard-ability",
+            "cost",
+            "power",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] (2), Banish this card from your graveyard: Target fire element weapon or ally gets +2 POWER until end of turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Same root cause as arrest-lightning-graveyard-static-counter: the queued ReserveCard entries were never run before the next answer popped them.",
+        "affectedFunction": "Custom/GameLogic.php ActionMap",
+        "fixCommit": "TBD"
+    }
+}

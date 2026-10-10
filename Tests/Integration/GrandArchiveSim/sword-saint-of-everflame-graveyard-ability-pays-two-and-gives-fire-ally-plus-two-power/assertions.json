@@ -1,0 +1,42 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The (2) was paid (it used to be free)"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Sword Saint banished itself"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "graveyard empty"
+    },
+    {
+        "step": 4,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 5,
+        "semantic": true,
+        "label": "Red Slime has +2 POWER until end of turn"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

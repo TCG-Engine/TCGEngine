@@ -1,0 +1,30 @@
+{
+    "name": "arrest-lightning-graveyard-ability-refused-without-matching-element",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T14:59:54+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "9e3B8EHQak",
+        "7aZwqrfbzO"
+    ],
+    "notes": "Arrest Lightning's graveyard ability needs the Element Bonus: a Warrior with a FIRE champion cannot use it.",
+    "semanticCoverage": {
+        "testedCards": [
+            "9e3B8EHQak",
+            "7aZwqrfbzO"
+        ],
+        "mechanics": [
+            "element-bonus",
+            "graveyard-activation"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Element Bonus] (1), Banish this card from your graveyard: Put a static counter on target arcane element object you control and each object linked to it."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. IsElementBonusActive() was hard-wired to return true ('TODO: Delete this'), so every [Element Bonus] always applied. It now requires the champion's element to match the card's element.",
+        "affectedFunction": "Custom/GameLogic.php IsElementBonusActive",
+        "fixCommit": "TBD"
+    }
+}

@@ -1398,7 +1398,21 @@ function CanActivateAttackCardNow($player, $cardID, $setFlash = true) {
 }
 
 //TODO: Add this to a schema
+// FSM clicks on a graveyard card: several hand-coded activations queue their (N) payment as static CUSTOM entries (ReserveCard ...) at the head of the queue and return without running it, so the next answer
+// popped the head ("ReserveCard") as if it were the answered decision and the cost was never paid (Arrest Lightning, Sword Saint of Everflame, Seaside Rangefinder, Recurring Aethercharge ...).
+// Running the queue's static entries after the click leaves the first real prompt (the payment choice) on top.
 function ActionMap($actionCard, $allowDuringDecisionQueue = false)
+{
+    $result = ActionMapInner($actionCard, $allowDuringDecisionQueue);
+    if($result === "PLAY" && strpos(strval($actionCard), "myGraveyard-") === 0) {
+        global $playerID;
+        $dqAfterGraveyardClick = new DecisionQueueController();
+        if(!$dqAfterGraveyardClick->AllQueuesEmpty()) $dqAfterGraveyardClick->ExecuteStaticMethods($playerID, "-");
+    }
+    return $result;
+}
+
+function ActionMapInner($actionCard, $allowDuringDecisionQueue = false)
 {
     global $playerID;
     $turnPlayer = &GetTurnPlayer();
@@ -20595,14 +20609,18 @@ function IsClassBonusActive($player, $classes=null) {
  * @return bool  True if the champion's element matches the card's element
  */
 function IsElementBonusActive($player, $cardID) {
-    return true;//TODO: Delete this
-    $cardElement = CardElement($cardID);
-    if($cardElement === null || $cardElement === "NORM") return false;
-    $field = &GetField($player);
-    foreach($field as $obj) {
+    // "[Element Bonus] ... Apply this effect only if your champion's element matches this card's element."
+    $cardElements = array_values(array_filter(array_map('trim', explode(",", strval(CardElement($cardID)))), fn($e) => $e !== ""));
+    if(empty($cardElements)) return false;
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    foreach(GetZone($zone) as $obj) {
         if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller == $player) {
-            $champElement = EffectiveCardElement($obj);
-            return $champElement === $cardElement;
+            $champElements = array_filter(array_map('trim', explode(",", strval(EffectiveCardElement($obj)))), fn($e) => $e !== "");
+            // EXALTED is not an element of the champion itself: compare the real elements (a card that is only EXALTED compares as written).
+            $compareCard = array_values(array_filter($cardElements, fn($e) => $e !== "EXALTED")) ?: $cardElements;
+            foreach($compareCard as $cardElement) if(in_array($cardElement, $champElements, true)) return true;
+            return false;
         }
     }
     return false;
