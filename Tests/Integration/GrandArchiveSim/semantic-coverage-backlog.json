@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-10T17:00:14+00:00",
+    "generatedAt": "2026-10-10T17:22:52+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 920,
@@ -34286,6 +34286,7 @@
                 "damage"
             ],
             "existingFixtures": [
+                "cone-of-frost-effect-still-resolves-after-passing-the-opportunity-window",
                 "cone-of-frost-level1-damage",
                 "cone-of-frost-level3-decline-first-target-still-offers-second"
             ],
