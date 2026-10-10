@@ -2279,6 +2279,20 @@ $activateAbilityAbilities["qYH9PJP7uM:0"] = function($player) { //Blinding Orb
 };
 
 // ---------------------------------------------------------------------------------------------
+// Glassgale Flock (KRNYwHCOVM): "[Merlin Bonus] [Sheen 6+] (2), [REST]: If you don't control an ally named Memorite Shardwing, summon a Memorite Shardwing token." The Shardwing condition is part of the EFFECT,
+// not of the activation restriction: the generated prereq refused the activation outright while you controlled one. Only the printed restrictions (Merlin Bonus, Sheen 6+) gate the activation.
+$activateAbilityPrereqs["KRNYwHCOVM:0"] = function($player, $mzID, $abilityIndex) { //KRNYwHCOVM prereq
+  if(!IsMerlinBonusActive($player)) {
+      SetFlashMessage("Glassgale Flock requires Merlin bonus.");
+      return false;
+  }
+  if(GetSheenCount($player) < 6) {
+      SetFlashMessage("Glassgale Flock requires 6 sheen.");
+      return false;
+  }
+  return true;
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

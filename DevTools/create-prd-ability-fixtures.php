@@ -31891,6 +31891,66 @@ $fixtures['rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-s
     'actions' => array_merge([mrdPlay(1, 'myGraveyard-0'), mrdAns(1, 'myField-1')], mrdPay(1, 2)),
 ];
 
+// PlasmaTech Blaster (PAymR7JsNp): "Ally Link. Linked ally has ranged 2 and true sight. (3), [REST]: If linked ally is a Ranger, it becomes distant." Gawain, Chivalrous Thief (Ranger ally) is the linked ally.
+$fixtures['plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant'] = [
+    'testedCards' => ['PAymR7JsNp', 'du50pcescf'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'du50pcescf'], // Gawain (Ranger ally) -> myField-1
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Subcards' => ['PAymR7JsNp']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'PAymR7JsNp'], // PlasmaTech Blaster -> myField-2
+        ['player' => 1, 'patchMzId' => 'myField-2', 'setProperties' => ['Counters' => ['linkedToAlly' => 'du50pcescf']]],
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-2!CustomInput!Activate:0')], mrdPay(1, 3), [mrdPass(1)]),
+];
+// Yuan Shao, Crown General (x8o84m37ti): "[Level 2+] (3), [REST]: As a Spell, gain control of target unique ally. Activate this ability only if there are three or more unique allies on the field you don't control."
+$fixtures['yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally'] = [
+    'testedCards' => ['x8o84m37ti', 'du50pcescf', 'ka5av43ehj', 'xxoo7dl5j4'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 2]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'x8o84m37ti'], // Yuan Shao -> myField-1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'du50pcescf'], // three unique opposing allies -> theirField-1..3
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'ka5av43ehj'],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'xxoo7dl5j4'],
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 3), [mrdAns(1, 'theirField-1')]),
+];
+$fixtures['yuan-shao-refused-with-only-two-unique-opposing-allies'] = [
+    'testedCards' => ['x8o84m37ti', 'du50pcescf', 'ka5av43ehj'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 2]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'x8o84m37ti'],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'du50pcescf'],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'ka5av43ehj'],
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')],
+];
+// Glassgale Flock (KRNYwHCOVM): "[Merlin Bonus] [Sheen 6+] (2), [REST]: If you don't control an ally named Memorite Shardwing, summon a Memorite Shardwing token."
+$fixtures['glassgale-flock-pays-two-rests-and-summons-a-memorite-shardwing'] = [
+    'testedCards' => ['KRNYwHCOVM'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '6R8XmWoKLn']], // Merlin, Memorite Vassal
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'UAJGQFbXjs', 'setProperties' => ['Counters' => ['sheen' => 6]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'KRNYwHCOVM'], // Glassgale Flock -> myField-1 (placing it ran its On Enter, which summoned a Shardwing -> myField-2)
+        ['player' => 1, 'patchMzId' => 'myField-2', 'setProperties' => ['CardID' => 'em6eEh9q8y']], // ... turned into a Dungeon Guide so the ability's own summon is what is tested
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 2)),
+];
+// With a Shardwing already on the field the ability may still be activated (the condition is part of the effect): the (2) and [REST] are paid and nothing is summoned.
+$fixtures['glassgale-flock-with-a-shardwing-already-pays-but-summons-nothing'] = [
+    'testedCards' => ['KRNYwHCOVM'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '6R8XmWoKLn']],
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'UAJGQFbXjs', 'setProperties' => ['Counters' => ['sheen' => 6]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'KRNYwHCOVM'], // its On Enter summoned the Shardwing -> myField-2
+    ],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 2)),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
