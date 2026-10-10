@@ -31951,6 +31951,43 @@ $fixtures['glassgale-flock-with-a-shardwing-already-pays-but-summons-nothing'] =
     'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 2)),
 ];
 
+// Lesser Boon of Zerusa (UC9byG4aD5): "(2): Put a preparation counter on your champion. This ability costs (1) more to activate for each time you've activated it this game." Second activation costs (3).
+$fixtures['lesser-boon-of-zerusa-costs-one-more-each-time-it-is-activated'] = [
+    'testedCards' => ['UC9byG4aD5'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'UC9byG4aD5']], // -> myField-1
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 2), [mrdPass(1)], [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 3), [mrdPass(1)]),
+];
+// Lesser Boon of Bullets (UI0lAtGQBb): "(2): Materialize a Bullet card from your material deck. This ability costs (1) more to activate for each time you've activated it this game." Steel Slug is the Bullet.
+$fixtures['lesser-boon-of-bullets-pays-two-and-materializes-a-bullet'] = [
+    'testedCards' => ['UI0lAtGQBb', 'ao8bki6fxx'],
+    'deck' => "# Material\n1 Spirit of Fire\n1 Steel Slug\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'UI0lAtGQBb']],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 2), [mrdAns(1, 'myMaterial-0'), mrdPass(1)]),
+];
+// Lesser Boon of Rosen (fJJBJ9M4c4): "(3): Summon a Powercell token rested. Activate this ability only once." The second activation is refused.
+$fixtures['lesser-boon-of-rosen-pays-three-summons-a-powercell-once-only'] = [
+    'testedCards' => ['fJJBJ9M4c4'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'fJJBJ9M4c4']],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 3), [mrdPass(1)], [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')]),
+];
+// Lesser Boon of Rakko (V8aPGgLyh5): "(3): Activate this ability only twice. Depending on D6+D6 ..." Two activations are paid, the third is refused.
+$fixtures['lesser-boon-of-rakko-pays-three-each-time-and-only-twice'] = [
+    'testedCards' => ['V8aPGgLyh5'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'V8aPGgLyh5']],
+    'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 3), [mrdPass(1)], [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')], mrdPay(1, 3), [mrdAns(1, 'myHand-1'), mrdAns(2, 'myHand-0'), mrdPass(1)], [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0')]), // the second roll (2) makes each player discard
+];
+
+// Bauble of Scarcity (24ansclpqc): "Banish CARDNAME: Each player discards a card." The opponent's choice list was built from the ACTIVATING player's hand, so the opponent's discard prompt offered the wrong hand.
+$fixtures['bauble-of-scarcity-makes-each-player-discard-a-card'] = [
+    'testedCards' => ['24ansclpqc'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => '24ansclpqc']],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-3'), mrdAns(2, 'myHand-6'), mrdPass(1)],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

@@ -19512,9 +19512,14 @@ function ZoneCardSearch($zoneName, $cardID) {
     return $results;
 }
 
+// The cards to choose from are $player's own hand, written from that player's side ("myHand-N" is relative to the decision's owner). Reading "myHand" here listed the ACTING player's hand, so an
+// opponent's forced discard (Bauble of Scarcity, Lesser Boon of Rakko, ...) offered indices of the wrong hand and the opponent could not pick a valid card.
 function DiscardCards($player, $amount=1) {
     for($i = 0; $i < $amount; ++$i) {
-        DecisionQueueController::AddDecision($player, "MZCHOOSE", ZoneMZIndices("myHand"), 1);
+        $discardHand = &GetHand($player);
+        $discardChoices = [];
+        for($hi = 0; $hi < count($discardHand); ++$hi) if(!$discardHand[$hi]->removed) $discardChoices[] = "myHand-" . $hi;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $discardChoices), 1);
         DecisionQueueController::AddDecision($player, "CUSTOM", "DiscardChosenCard", 1);
     }
 }
