@@ -20,6 +20,6 @@
         "status": "fixed",
         "summary": "FIXED. The resolving Action card sat in the graveyard while its effect ran, so graveyard effects could target or count it.",
         "affectedFunction": "Custom/GameLogic.php GAMarkResolvingAction/ZoneSearch; Custom/OpportunityLogic.php PostResolutionCheck",
-        "fixCommit": "TBD"
+        "fixCommit": "fed78026"
     }
 }

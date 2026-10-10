@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-10T17:22:52+00:00",
+    "generatedAt": "2026-10-10T18:20:14+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 920,
+        "cardsWithExistingFixtures": 921,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1585,
+        "cardsNeedingSemanticCoverage": 1584,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -7550,24 +7550,6 @@
                 "targeting",
                 "damage",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "3cmrkv3y16",
-            "name": "Cyclical Breeze",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -44593,6 +44575,28 @@
                 "coup-de-grace-prepare-4-paid-critical-4-doubles-damage",
                 "coup-de-grace-prepare-4-paid-non-assassin-no-critical",
                 "coup-de-grace-three-counters-cannot-pay-prepare-4"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "3cmrkv3y16",
+            "name": "Cyclical Breeze",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cyclical-breeze-cannot-return-itself-while-resolving"
+            ],
+            "semanticFixtures": [
+                "cyclical-breeze-cannot-return-itself-while-resolving"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
