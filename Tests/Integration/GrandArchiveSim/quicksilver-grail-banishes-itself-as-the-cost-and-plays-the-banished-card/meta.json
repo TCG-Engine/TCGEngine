@@ -1,0 +1,29 @@
+{
+    "name": "quicksilver-grail-banishes-itself-as-the-cost-and-plays-the-banished-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T15:08:26+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "cxyky280mt"
+    ],
+    "notes": "Quicksilver Grail: On Enter banishes a material card face down; 'Banish CARDNAME' (a cost) lets you play it. Pre-fix the Grail was never banished and could be reused indefinitely.",
+    "semanticCoverage": {
+        "testedCards": [
+            "cxyky280mt"
+        ],
+        "mechanics": [
+            "cost",
+            "banish",
+            "play-from-banish"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: You may play the banished card. (You still pay for its costs.)"
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. 'Banish CARDNAME' is the ability's cost but nothing paid it (no GAFieldAbilityCostTable() entry): the Grail stayed on the field and the ability was repeatable. Added the spec.",
+        "affectedFunction": "Custom/GameLogic.php GAFieldAbilityCostTable",
+        "fixCommit": "TBD"
+    }
+}

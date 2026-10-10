@@ -31810,6 +31810,36 @@ $fixtures['collapsing-trap-memory-alt-cost-without-a-counter-is-not-offered'] = 
     ]),
 ];
 
+// Quicksilver Grail (cxyky280mt): "On Enter: Banish a non-champion card from your material deck face down. Banish CARDNAME: You may play the banished card. (You still pay for its costs.)" The activation never
+// banished the Grail (the cost) so it could be used over and over.
+$fixtures['quicksilver-grail-banishes-itself-as-the-cost-and-plays-the-banished-card'] = [
+    'testedCards' => ['cxyky280mt'],
+    'deck' => "# Material\n1 Spirit of Fire\n1 Backup Charger\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'cxyky280mt']], // Quicksilver Grail -> myField-1 (its On Enter asks which material card to banish)
+    'actions' => [mrdAns(1, 'myMaterial-0'), mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'YES'), mrdPass(1)],
+];
+
+// Discharger (wAq6lxxwBA): "Banish CARDNAME: Remove four static counters from target object." and Legendary Saddle (AXE6sCzjZU): "Banish CARDNAME: Draw a card into your memory. Activate this ability only if you control
+// three or more Horse allies." Neither banished itself: both abilities were free and repeatable.
+$fixtures['discharger-banishes-itself-and-removes-four-static-counters'] = [
+    'testedCards' => ['wAq6lxxwBA'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'wAq6lxxwBA'], // Discharger -> myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['static' => 5]]], // a Dungeon Guide with 5 static counters -> myField-2
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myField-1'), mrdPass(1)],
+];
+$fixtures['legendary-saddle-banishes-itself-and-draws-into-memory-with-three-horses'] = [
+    'testedCards' => ['AXE6sCzjZU', 'r5uyjq37zh'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'r5uyjq37zh'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'r5uyjq37zh'], ['player' => 1, 'zone' => 'myField', 'cardID' => 'r5uyjq37zh'], // three Caretaker Horses -> myField-1..3
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'AXE6sCzjZU'], // Legendary Saddle -> myField-4
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-4!CustomInput!Activate:0'), mrdPass(1)],
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

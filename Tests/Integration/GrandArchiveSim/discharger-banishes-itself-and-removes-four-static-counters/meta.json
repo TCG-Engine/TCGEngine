@@ -1,0 +1,29 @@
+{
+    "name": "discharger-banishes-itself-and-removes-four-static-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T15:09:43+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "wAq6lxxwBA"
+    ],
+    "notes": "Discharger: banish it to remove four static counters from target object.",
+    "semanticCoverage": {
+        "testedCards": [
+            "wAq6lxxwBA"
+        ],
+        "mechanics": [
+            "cost",
+            "banish",
+            "counters"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Remove four static counters from target object."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. 'Banish CARDNAME' is the ability's cost but nothing paid it (no GAFieldAbilityCostTable() entry): the item stayed on the field and the ability was free and repeatable. Added the spec.",
+        "affectedFunction": "Custom/GameLogic.php GAFieldAbilityCostTable",
+        "fixCommit": "TBD"
+    }
+}

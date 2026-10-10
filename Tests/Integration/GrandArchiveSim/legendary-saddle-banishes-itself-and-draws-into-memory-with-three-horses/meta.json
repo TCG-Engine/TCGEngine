@@ -1,0 +1,31 @@
+{
+    "name": "legendary-saddle-banishes-itself-and-draws-into-memory-with-three-horses",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T15:09:44+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "AXE6sCzjZU",
+        "r5uyjq37zh"
+    ],
+    "notes": "Legendary Saddle: banish it to draw into memory (needs three Horse allies).",
+    "semanticCoverage": {
+        "testedCards": [
+            "AXE6sCzjZU",
+            "r5uyjq37zh"
+        ],
+        "mechanics": [
+            "cost",
+            "banish",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Draw a card into your memory. Activate this ability only if you control three or more Horse allies."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. 'Banish CARDNAME' is the ability's cost but nothing paid it (no GAFieldAbilityCostTable() entry): the item stayed on the field and the ability was free and repeatable. Added the spec.",
+        "affectedFunction": "Custom/GameLogic.php GAFieldAbilityCostTable",
+        "fixCommit": "TBD"
+    }
+}

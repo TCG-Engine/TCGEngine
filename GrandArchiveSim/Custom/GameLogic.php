@@ -6030,6 +6030,9 @@ function GAFieldAbilityCostTable() {
         "mes4idoihs:0" => ['reserve' => 2, 'graveyard' => true, 'noAutoRest' => true], // Proof of Life (its generated prereq checks Damage 40+)
         "WvWRLuPmDG:0" => ['reserve' => 1, 'graveyard' => true, 'noAutoRest' => true], // Induction Strike
         "0op3nq0ymv:0" => ['graveyard' => true, 'noAutoRest' => true, 'bonus' => 'class'], // Voltaic Sphere
+        "wAq6lxxwBA:0" => ['banish' => true], // Discharger
+        "AXE6sCzjZU:0" => ['banish' => true], // Legendary Saddle
+        "cxyky280mt:0" => ['banish' => true], // Quicksilver Grail ("Banish CARDNAME:" is the cost)
         "AOFRjoIHVe:0" => ['reserve' => 3], // Lesser Boon of Revelry
         "V8aPGgLyh5:0" => ['reserve' => 3], // Lesser Boon of Rakko (twice; its prereq counts the uses)
         "fJJBJ9M4c4:0" => ['reserve' => 3], // Lesser Boon of Rosen (once; the override in GeneratedAbilityOverrides.php counts the use)
