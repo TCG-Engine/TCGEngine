@@ -253,12 +253,38 @@ function _DisplayDiscordOAuth(array $def): string {
     return ob_get_clean();
 }
 
+// --- SWUStats link (Petranaki; docs/superpowers/specs/2026-10-10-petranaki-swustats-link-design.md §1) ---
+function _DisplaySWUStatsLink(array $def): string {
+    require_once __DIR__ . '/../../SWUSim/SWUStatsLink.php';
+    $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
+    $profileReturn = '/TCGEngine/SharedUI/Sites/' . ($def['identity']['rootName'] ?? 'SWUSim') . '/Profile.php';
+    $uid = (int)($_SESSION['userid'] ?? 0);
+    $link = null;
+    if ($uid > 0) {
+        $conn = GetLocalMySQLConnection();
+        try { if (SWUStatsLinkReady($conn)) $link = SWUStatsGetLink($conn, $uid); } finally { $conn->close(); }
+    }
+    $err = trim((string)($_GET['swustats_error'] ?? ''));
+    $out = '<div class="swustats-link"><h3>SWUStats</h3>'
+         . ($err !== '' ? '<p class="swustats-link__err" role="alert">' . $e($err) . '</p>' : '');
+    if (!$link) {
+        $start = '/TCGEngine/AccountFiles/SWUStatsOAuthStart.php?' . http_build_query(['redirect' => $profileReturn]);
+        return $out . '<p>Link your SWUStats account to pick your hearted decks in every deck picker and count your games toward your deck stats.</p>'
+             . '<a class="swu2-btn ch" href="' . $e($start) . '">Connect SWUStats</a></div>';
+    }
+    $off = '/TCGEngine/AccountFiles/DisconnectOAuth.php?' . http_build_query(['type' => 'swustats', 'redirect' => $profileReturn]);
+    $who = (string)$link['swustatsUsername'] !== '' ? (string)$link['swustatsUsername'] : ('account #' . (int)$link['swustatsUserId']);
+    return $out . '<p>Connected as <b>' . $e($who) . '</b>.</p>'
+         . '<a class="swu2-btn swu2-btn--quiet ch" href="' . $e($off) . '">Disconnect SWUStats</a></div>';
+}
+
 // The "Welcome {user}!" panel: greeting + Patreon (when configured) + Discord (when configured).
 function _ProfileWelcome(array $def, array $ctx): string {
     $out = "<div class='fav-decks container bg-black'>\n<h2>Welcome " . ($ctx['username'] ?? '') . "!</h2>\n    ";
     $parts = [];
     if (!empty($def['profile']['patreonFinalPage'])) $parts[] = _DisplayPatreon($def);
     if (!empty($def['profile']['discordOAuth']))      $parts[] = _DisplayDiscordOAuth($def);
+    if (!empty($def['profile']['swustatsLink']))      $parts[] = _DisplaySWUStatsLink($def);
     $out .= implode("<hr style='border:0;border-top:1px solid rgba(255,255,255,0.14);margin:18px 0;'>", $parts);
     $out .= "\n\n</div>\n";
     return $out;

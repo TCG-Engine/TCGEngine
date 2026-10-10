@@ -117,6 +117,6 @@ echo json_encode([
     'convertRequestedByOpp' => $isSpectator ? false : !empty($convReq[strval($oppSeat)]),
     'seriesOver'  => $seriesOver,
     'isSpectator' => $isSpectator,
-    'statsStatus' => strval($m['statsStatus'] ?? ''), // '', 'success', 'skipped_early', or 'failed'
+    'statsStatus' => strval($m['statsStatus'] ?? ''), // '', 'success', 'submitted_without_owner', 'skipped_early', 'skipped_multiplayer', or 'failed'
     'statsHtml'   => SWUBuildStatsHtml($m, $gameRec, $isSpectator ? null : $seat),
 ]);

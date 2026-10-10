@@ -13,6 +13,7 @@ include_once __DIR__ . '/../../../SWUSim/Mod/DevGate.php';   // SWUBotPracticeAl
 require_once __DIR__ . '/../../Render/DeckLibrary.php';
 require_once __DIR__ . '/../../../SWUSim/Custom/SetupPanels.php';   // the setup modals' REAL data
 require_once __DIR__ . '/../../../SWUSim/Custom/MenuLobbyStats.php'; // the mode cards' REAL counts
+require_once __DIR__ . '/../../../SWUSim/SWUStatsLink.php';         // SWUStatsIsLinked — the deck-source toggle gate
 
 include_once __DIR__ . '/Header.php';
 
@@ -21,6 +22,9 @@ $swuLoggedIn = isset($_SESSION['userid']);
 // The four setup modals were built from mockup fixtures: three invented saved decks, and one of
 // the four Twin Suns pre-cons that were already in TwinSunsPreCons.json. These are the real ones.
 $swuSetupSaved   = SWUSetupSavedDecks($swuLoggedIn ? (int)$_SESSION['userid'] : 0);
+// Linked to SWUStats → every deck picker gets the SWUStats / Saved toggle (spec 2026-10-10 §2). Unlinked and
+// guests get today's markup byte-for-byte.
+$swuSSLinked     = $swuLoggedIn && SWUStatsIsLinked((int)$_SESSION['userid']);
 $swuSetupTSPre   = SWUSetupTwinSunsPreCons();
 $swuSetupBotPre  = SWUSetupBotPreCons();
 // Saved decks are per-account, so the empty state is the honest one for a guest — and the copy
@@ -199,12 +203,20 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           </div>
 
           <div class="tabpanel" id="ga-info-panel-replays" role="tabpanel" aria-labelledby="ga-info-tab-replays" tabindex="0" hidden>
-            <div class="empty">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4.5V10h5.5"/><path d="M12 8.5V12l2.8 1.8"/>
-              </svg>
-              <p class="empty__t">No replays yet</p>
-              <p class="empty__s">Finished games show up here for 30 days.</p>
+            <div class="swupgn-replays">
+              <div id="swupgnDrop" class="swupgn-drop">
+                <button type="button" id="swupgnOpenBtn" class="swu2-btn swu2-btn--block ch">Open .swupgn</button>
+                <input type="file" id="swupgnFileInput" accept=".swupgn,text/plain" hidden>
+                <p class="empty__s">…or drop a .swupgn file here.</p>
+              </div>
+              <ul class="games" id="swupgnReplayList" aria-label="Opened replays"></ul>
+              <div class="empty" id="swupgnReplayEmpty">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4.5V10h5.5"/><path d="M12 8.5V12l2.8 1.8"/>
+                </svg>
+                <p class="empty__t">No replays yet</p>
+                <p class="empty__s">Open a .swupgn file to watch it on the board.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -317,8 +329,8 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
              the four fixture links and run detection on it. -->
         </div>
         <div>
-          <label class="flabel" for="pvp-saved">Saved Decks</label>
-          <?php echo SWUSetupDeckPicker('pvp-saved', $swuSetupSaved); ?>
+          <?php echo SWUSetupDeckLabel('pvp-saved', $swuSSLinked) . "\n"; /* ?> eats the newline the old literal <label> line had */ ?>
+          <?php echo SWUSetupDeckSourcePicker('pvp-saved', $swuSetupSaved, $swuSSLinked); ?>
           <p class="note note--under"><?php echo htmlspecialchars($swuSavedNote, ENT_QUOTES, "UTF-8"); ?></p>
         </div>
             <div class="prow">
@@ -396,8 +408,8 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <!-- MOCKUP SCAFFOLDING, not product. See the PvP copy. -->
         </div>
         <div>
-          <label class="flabel" for="ts-saved">Saved Decks</label>
-          <?php echo SWUSetupDeckPicker('ts-saved', $swuSetupSaved); ?>
+          <?php echo SWUSetupDeckLabel('ts-saved', $swuSSLinked) . "\n"; /* ?> eats the newline the old literal <label> line had */ ?>
+          <?php echo SWUSetupDeckSourcePicker('ts-saved', $swuSetupSaved, $swuSSLinked); ?>
           <p class="note note--under"><?php echo htmlspecialchars($swuSavedNote, ENT_QUOTES, "UTF-8"); ?></p>
         </div>
             <fieldset class="fs">
@@ -481,8 +493,8 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           <button data-act="save" class="swu2-btn ch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4.5h11l4 4v11h-15Z"/><path d="M8 4.5v5h7"/><path d="M8 19.5v-6h8v6"/></svg>Save Deck</button>
         </div>
         <div>
-          <label class="flabel" for="ab-saved">Saved Decks<span class="u-vh"> for your deck</span></label>
-          <?php echo SWUSetupDeckPicker('ab-saved', $swuSetupSaved); ?>
+          <?php echo SWUSetupDeckLabel('ab-saved', $swuSSLinked, ' for your deck') . "\n"; /* ?> eats the newline the old literal <label> line had */ ?>
+          <?php echo SWUSetupDeckSourcePicker('ab-saved', $swuSetupSaved, $swuSSLinked); ?>
           <p class="note note--under"><?php echo htmlspecialchars($swuSavedNote, ENT_QUOTES, "UTF-8"); ?></p>
         </div>
         <div class="drow">
@@ -496,8 +508,8 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           <button data-act="save" class="swu2-btn ch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4.5h11l4 4v11h-15Z"/><path d="M8 4.5v5h7"/><path d="M8 19.5v-6h8v6"/></svg>Save Deck</button>
         </div>
         <div>
-          <label class="flabel" for="ab-bot-saved">Saved Decks<span class="u-vh"> for the bot's deck</span></label>
-          <?php echo SWUSetupDeckPicker('ab-bot-saved', $swuSetupSaved,
+          <?php echo SWUSetupDeckLabel('ab-bot-saved', $swuSSLinked, " for the bot's deck") . "\n"; /* ?> eats the newline the old literal <label> line had */ ?>
+          <?php echo SWUSetupDeckSourcePicker('ab-bot-saved', $swuSetupSaved, $swuSSLinked,
                     'No saved decks yet — use a pre-con below',
                     '— Use one of your saved decks or use a pre-con below —'); ?>
           <p class="note note--under">One list, the same one as above &mdash; a saved deck here, or a pre-con below, never both.</p>
@@ -609,8 +621,8 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           <button data-act="save" class="swu2-btn ch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4.5h11l4 4v11h-15Z"/><path d="M8 4.5v5h7"/><path d="M8 19.5v-6h8v6"/></svg>Save Deck</button>
         </div>
         <div>
-          <label class="flabel" for="sp-saved">Saved Decks</label>
-          <?php echo SWUSetupDeckPicker('sp-saved', $swuSetupSaved); ?>
+          <?php echo SWUSetupDeckLabel('sp-saved', $swuSSLinked) . "\n"; /* ?> eats the newline the old literal <label> line had */ ?>
+          <?php echo SWUSetupDeckSourcePicker('sp-saved', $swuSetupSaved, $swuSSLinked); ?>
           <p class="note note--under"><?php echo htmlspecialchars($swuSavedNote, ENT_QUOTES, "UTF-8"); ?></p>
         </div>
             <div class="hot">
@@ -626,8 +638,8 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           <button data-act="save" class="swu2-btn ch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4.5h11l4 4v11h-15Z"/><path d="M8 4.5v5h7"/><path d="M8 19.5v-6h8v6"/></svg>Save Deck</button>
         </div>
         <div>
-          <label class="flabel" for="sp-saved-2">Saved Decks<span class="u-vh"> for the second seat</span></label>
-          <?php echo SWUSetupDeckPicker('sp-saved-2', $swuSetupSaved, 'No saved decks yet', '', 'bot'); ?>
+          <?php echo SWUSetupDeckLabel('sp-saved-2', $swuSSLinked, ' for the second seat') . "\n"; /* ?> eats the newline the old literal <label> line had */ ?>
+          <?php echo SWUSetupDeckSourcePicker('sp-saved-2', $swuSetupSaved, $swuSSLinked, 'No saved decks yet', '', 'bot'); ?>
           <p class="note note--under">Both seats are stored on this device only.</p>
         </div>
             </div>
@@ -659,7 +671,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
 
 
 <script src="<?php echo _VersionAsset('/TCGEngine/Core/MatchReplayClient.js'); ?>"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/SWUSim/SwuPgnReplays.js'); ?>"></script>
 <script src="<?php echo _VersionAsset('/TCGEngine/SharedUI/js/private-invite.js'); ?>"></script>
+<?php if ($swuSSLinked): ?><script src="<?php echo _VersionAsset('/TCGEngine/SharedUI/js/swusim-deck-source.js'); ?>"></script><?php endif; ?>
 
 
 <script>
@@ -2744,7 +2758,8 @@ function GUEST_BUILD_PICKER(host, decks) {
 function DECK_PICKERS_REBUILD(decks, choose) {
   if (!decks || !decks.length) return null;  /* leave the empty state exactly as rendered */
   var chosenSel = null;
-  document.querySelectorAll('.deckpick').forEach(function (host) {
+  /* the SWUStats panels hold a different list — SWUSTATS_FILL owns them */
+  document.querySelectorAll('.deckpick:not([data-source="swustats"])').forEach(function (host) {
     var old = host.querySelector('select');
     var keep = old ? old.value : '';
     var selId = host.getAttribute('data-select-id') || (old && old.id) || '';
@@ -2777,6 +2792,58 @@ function GUEST_RENDER_ALL(choose) {
   return DECK_PICKERS_REBUILD(GUEST_DECKS.load(), choose);
 }
 GUEST_RENDER_ALL();
+
+// ── SWUStats deck source (docs/superpowers/specs/2026-10-10-petranaki-swustats-link-design.md §2) ─────
+// One fetch fills every SWUStats panel on the page, built by GUEST_BUILD_PICKER so its markup is the
+// server builder's. A refresh rebuilds them in place, keeping each picker's choice.
+function SWUSTATS_FILL(res) {
+  document.querySelectorAll('.decksrc__panel[data-src="swustats"] .decksrc__host').forEach(function (wrap) {
+    var proto = wrap.querySelector('.deckpick');
+    if (!proto) return;
+    var old = proto.querySelector('select');
+    var selId = proto.getAttribute('data-select-id') || (old && old.id) || '';
+    var slot = proto.getAttribute('data-slot') || 'own';
+    var noneLabel = proto.getAttribute('data-none-label') || '';
+    var keep = old ? old.value : '';
+    var oldList = selId && document.getElementById(selId + '-list');
+    if (oldList && oldList.closest('.lb__wrap')) oldList.closest('.lb__wrap').remove();
+
+    var fresh = document.createElement('div');
+    fresh.className = 'deckpick deckpick--empty';
+    fresh.setAttribute('data-source', 'swustats');
+    fresh.setAttribute('data-slot', slot);
+    fresh.setAttribute('data-select-id', selId);
+    fresh.setAttribute('data-none-label', noneLabel);
+    wrap.innerHTML = '';
+    wrap.appendChild(fresh);
+
+    var msg = SWUDeckSource.stateHtml(res);
+    if (msg) {
+      fresh.setAttribute('data-empty', '');
+      fresh.innerHTML = '<p class="deckpick__empty">' + msg + '</p>';
+      return;
+    }
+    var built = GUEST_BUILD_PICKER(fresh, res.decks);
+    built.setAttribute('data-source', 'swustats');
+    built.removeAttribute('data-guest');
+    var sel = built.querySelector('select');
+    if (sel && keep && [].some.call(sel.options, function (o) { return o.value === keep; })) sel.value = keep;
+    if (typeof window.BUILD_LISTBOX === 'function') window.BUILD_LISTBOX(built, 'deck');
+  });
+}
+if (window.SWUDeckSource && document.querySelector('[data-decksrc]')) {
+  SWUDeckSource.load(false).then(SWUSTATS_FILL);
+  SWUDeckSource.onRefresh(SWUSTATS_FILL);
+  // Switching source by hand is choosing that list: the newly visible pick becomes the played deck,
+  // through the ordinary pick path (SETUP_BIND_PICKERS), exactly as if it had been picked.
+  SWUDeckSource.onSwitch(function (root) {
+    var dlg = root && root.closest('dialog.setup, .setup');
+    var pick = root && root.querySelector('.decksrc__panel:not([hidden]) .deckpick');
+    if (!dlg || !pick) return;
+    var sel = SETUP_SELECT_FOR(dlg, pick.getAttribute('data-slot') || 'own');
+    if (sel) sel.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+}
 
 // ── "Last deck used" (owner, 2026-09-25) ──────────────────────────────────────
 // Auto-fill the Deck Link box with the deck you last STARTED A GAME with; if that deck is no
@@ -2909,10 +2976,23 @@ LAST_DECK_VERIFY();   // start the round trip now, so an opening modal rarely wa
 // well. Whichever the player touched LAST is the one they meant, so each control clears the
 // others in its slot (see SETUP_BIND_PICKERS) and this simply reads whatever survived. Without
 // this the pickers were decoration — they changed the preview and not the deck that was played.
+// With the deck-source toggle a slot has TWO selects, one per panel (spec 2026-10-10 §2). The visible
+// panel's is the one that counts; without a toggle this is the slot's only select, as before.
+function SETUP_SELECT_FOR(dlg, slot) {
+  var all = dlg.querySelectorAll('select[data-slot="' + slot + '"]');
+  for (var i = 0; i < all.length; i++) {
+    var p = all[i].closest('.decksrc__panel');
+    if (!p || !p.hidden) return all[i];
+  }
+  // Every select is in a HIDDEN panel (the visible one is loading / empty / errored): there is no pick.
+  // Falling back to all[0] here would play the hidden list's deck.
+  return null;
+}
+
 function SETUP_DECK_FOR(dlg, slot, linkEl) {
   var typed = linkEl ? String(linkEl.value || '').trim() : '';
   if (typed) return typed;
-  var sel = dlg.querySelector('select[data-slot="' + slot + '"]');
+  var sel = SETUP_SELECT_FOR(dlg, slot);
   if (sel && sel.selectedIndex >= 0) {
     var o = sel.options[sel.selectedIndex];
     var v = o && o.getAttribute('data-deck-input');
@@ -2926,7 +3006,7 @@ function SETUP_DECK_FOR(dlg, slot, linkEl) {
 // Link box never disagree about what is about to be played. When the link is not one of the
 // saved decks, the picker says so rather than leaving its default sitting there looking chosen.
 function SYNC_PICKER_TO_LINK(dlg, link) {
-  var sel = dlg.querySelector('select[data-slot="own"]');
+  var sel = SETUP_SELECT_FOR(dlg, 'own');
   if (!sel) return;
   var match = null, i;
   for (i = 0; i < sel.options.length; i++) {
@@ -3006,13 +3086,13 @@ function PICK_SAY(dlg, slot, text) {
         }
       }
     } else {
-      var sel = dlg.querySelector('select[data-slot="' + slot + '"]');
-      if (sel) {
+      // a pre-con clears the slot's pick in BOTH deck-source panels, or the hidden one would still look chosen
+      dlg.querySelectorAll('select[data-slot="' + slot + '"]').forEach(function (sel) {
         var none = sel.querySelector('option[value="none"]');
         if (none) sel.value = 'none';
         else sel.selectedIndex = -1;
         LB_SYNC(sel);
-      }
+      });
       // a pre-con is a full deck list, not a link — there is nothing to put in the box
       if (linkEl) linkEl.value = '';
       PICK_SAY(dlg, slot, 'Playing the ' + label + ' pre-con' +

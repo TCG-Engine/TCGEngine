@@ -12,6 +12,7 @@
 // Pure data + markup. No session, no DB connection of its own: the caller passes the user id.
 
 require_once __DIR__ . '/../../Database/functions.inc.php';   // LoadSavedDecks()
+require_once __DIR__ . '/DeckSource.php';                      // SWUDeckSourceToggle() — the SWUStats / Saved toggle
 
 // "TS26_02" -> "Anakin Skywalker, Protect Her At All Costs". The comma form is what the mockup
 // used and what the pre-con rows read as. An id we cannot name is returned as-is rather than
@@ -199,8 +200,10 @@ function _SWUSetupCards(array $leaders, string $base): string {
 // deck a player PICKS is the deck they play.
 // $noneLabel, when given, adds a leading "no deck chosen" row — the Arenabot bot picker needs
 // one, because leaving the bot's deck empty is a real choice (it then plays the pre-con below).
+// $withMsg: the toggle (SWUSetupDeckSourcePicker) has TWO pickers per slot, but PICK_SAY() reads the FIRST
+// [data-pickmsg] — so there it must sit outside both panels, once, and the pickers omit their own.
 function SWUSetupDeckPicker(string $selectId, array $decks, string $emptyLabel = 'No saved decks yet',
-                            string $noneLabel = '', string $slot = ''): string {
+                            string $noneLabel = '', string $slot = '', bool $withMsg = true): string {
     $e = function ($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); };
     $sid = $e($selectId);
     if ($slot === '') $slot = _SWUSetupSlot($selectId);
@@ -219,7 +222,7 @@ function SWUSetupDeckPicker(string $selectId, array $decks, string $emptyLabel =
         return '<div class="deckpick deckpick--empty" data-empty data-slot="' . $e($slot) . '"'
              . ' data-select-id="' . $sid . '" data-none-label="' . $e($noneLabel) . '">'
              . '<p class="deckpick__empty">' . $e($emptyLabel) . '</p></div>'
-             . SWUSetupPickMsg($slot);
+             . ($withMsg ? SWUSetupPickMsg($slot) : '');
     }
 
     $opts = '';
@@ -259,6 +262,33 @@ function SWUSetupDeckPicker(string $selectId, array $decks, string $emptyLabel =
          . '<select class="select" id="' . $sid . '" name="' . $sid . '"'
          . ' data-slot="' . $e($slot) . '">' . $opts . '</select>'
          . '</span>' . $rows . '</div>'
+         . ($withMsg ? SWUSetupPickMsg($slot) : '');
+}
+
+// A setup-modal picker's label. Unlinked: today's <label>, byte-identical ($vh is a trusted literal from
+// the template — it is NOT escaped, because the bot's label carries a raw apostrophe). Linked: the toggle
+// names the list, so this is just "Decks", a <span> that labels the toggle (its <select> may be hidden).
+function SWUSetupDeckLabel(string $selectId, bool $linked, string $vh = ''): string {
+    $tail = $vh !== '' ? '<span class="u-vh">' . $vh . '</span>' : '';
+    if (!$linked) return '<label class="flabel" for="' . $selectId . '">Saved Decks' . $tail . '</label>';
+    return '<span class="flabel" id="' . $selectId . '-lbl">Decks' . $tail . '</span>';
+}
+
+// A setup-modal deck picker with the SWUStats / Saved source toggle (docs/superpowers/specs/2026-10-10-
+// petranaki-swustats-link-design.md §2). Unlinked (and guests): exactly SWUSetupDeckPicker() — byte-identical.
+// Linked: the SWUStats panel holds an EMPTY host the client fills from SWUSim/SWUStatsDecks.php, carrying the
+// same data-* GUEST_BUILD_PICKER builds from.
+function SWUSetupDeckSourcePicker(string $selectId, array $decks, bool $linked, string $emptyLabel = 'No saved decks yet',
+                                  string $noneLabel = '', string $slot = ''): string {
+    if (!$linked) return SWUSetupDeckPicker($selectId, $decks, $emptyLabel, $noneLabel, $slot);
+    $e = function ($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); };
+    if ($slot === '') $slot = _SWUSetupSlot($selectId);
+    $host = '<div class="deckpick deckpick--empty" data-empty data-source="swustats" data-slot="' . $e($slot) . '"'
+          . ' data-select-id="' . $e($selectId . '-ss') . '" data-none-label="' . $e($noneLabel) . '">'
+          . '<p class="deckpick__empty">Loading SWUStats decks…</p></div>';
+    return SWUDeckSourceToggle($selectId, $host,
+                               SWUSetupDeckPicker($selectId, $decks, $emptyLabel, $noneLabel, $slot, false),
+                               $selectId . '-lbl')
          . SWUSetupPickMsg($slot);
 }
 

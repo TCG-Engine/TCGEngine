@@ -58,7 +58,19 @@ function _WaitingRoomDeckLibrary(array $cfg): string {
     if (!function_exists('RenderDeckLibrary')) return '';
     $lib = DeckLibraryConfigFromSiteDef(['deckLibrary' => $cfg['deckLibrary'],
                                          'identity'    => ['rootName' => $cfg['rootName']]]);
-    return RenderDeckLibrary($uid, $lib);
+    $saved = RenderDeckLibrary($uid, $lib);
+    // SWUSim only (SiteDef deckLibrary.swustatsTabs): a linked player picks from SWUStats or Saved
+    // (docs/superpowers/specs/2026-10-10-petranaki-swustats-link-design.md §2). Everyone else: unchanged.
+    if (empty($cfg['deckLibrary']['swustatsTabs'])) return $saved;
+    require_once __DIR__ . '/../../SWUSim/SWUStatsLink.php';
+    require_once __DIR__ . '/../../SWUSim/Custom/DeckSource.php';
+    require_once __DIR__ . '/AssetVersion.php';
+    if (!SWUStatsIsLinked($uid)) return $saved;
+    $ss = '<select class="dl-select" data-source="swustats" disabled aria-label="SWUStats decks">'
+        . '<option value="">Loading SWUStats decks…</option></select>'
+        . '<div class="decksrc__msg deck-library-empty" hidden></div>';
+    return SWUDeckSourceToggle('wr-lib', $ss, $saved)
+         . '<script src="' . htmlspecialchars(_VersionAsset('/TCGEngine/SharedUI/js/swusim-deck-source.js'), ENT_QUOTES) . '"></script>';
 }
 
 // The shell. Everything inside #wr-root is drawn by the script from the poll payload — the server
@@ -607,17 +619,29 @@ function _WaitingRoomScript(array $cfg): string {
     var preIds = ids.filter(function (id) { return (botProfiles[id] || {}).deck === 'precon'; });
     // The saved decks are the page's own library dropdown (rendered for a signed-in viewer), copied rather than
     // re-fetched — same options, same data-queue-input chosenDeck() already reads.
-    var libSel = document.querySelector('#wr-deck-library .dl-select');
+    var libSel = document.querySelector('#wr-deck-library .dl-select:not([data-source])');
+    var ssSel = document.querySelector('#wr-deck-library .dl-select[data-source="swustats"]');
     var secs = '';
     if (pasteId) {
       secs += '<div class="wr-botdlg-sec"><label class="wr-botdlg-lbl" for="wr-botdlg-paste">Deck link or list</label>' +
         '<textarea id="wr-botdlg-paste" class="wr-botdlg-paste" spellcheck="false"' +
         ' placeholder="A swudb link, or the deck JSON / text export"></textarea></div>';
+      var savedSel = '';
       if (libSel) {
         var has = libSel.options.length > 1;
-        secs += '<div class="wr-botdlg-sec"><label class="wr-botdlg-lbl" for="wr-botdlg-saved">Saved Decks</label>' +
-          '<select id="wr-botdlg-saved" class="wr-botdlg-saved"' + (has ? '' : ' disabled') + '>' +
-          (has ? libSel.innerHTML : '<option value="">No saved decks yet</option>') + '</select></div>';
+        savedSel = '<select id="wr-botdlg-saved" class="wr-botdlg-saved"' + (has ? '' : ' disabled') + '>' +
+          (has ? libSel.innerHTML : '<option value="">No saved decks yet</option>') + '</select>';
+      }
+      if (ssSel && window.SWUDeckSource) {
+        // spec 2026-10-10 §2: the same SWUStats / Saved toggle as the page's own library
+        var ssHas = ssSel.options.length > 1 && !ssSel.disabled;
+        var ssInner = '<select id="wr-botdlg-ss" class="wr-botdlg-saved" data-source="swustats"' + (ssHas ? '' : ' disabled') + '>' +
+          (ssHas ? ssSel.innerHTML : '<option value="">No SWUStats decks</option>') + '</select>';
+        secs += '<div class="wr-botdlg-sec"><span class="wr-botdlg-lbl" id="wr-botdlg-decks-lbl">Decks</span>' +
+          SWUDeckSource.toggleHtml('wr-botdlg', ssInner,
+            savedSel || '<div class="deck-library-empty">No saved decks yet</div>', 'wr-botdlg-decks-lbl') + '</div>';
+      } else if (libSel) {
+        secs += '<div class="wr-botdlg-sec"><label class="wr-botdlg-lbl" for="wr-botdlg-saved">Saved Decks</label>' + savedSel + '</div>';
       }
     }
     if (preIds.length) {
@@ -645,19 +669,31 @@ function _WaitingRoomScript(array $cfg): string {
       '<button type="button" class="btn btn-primary wr-botdlg-add">Add Bot</button></div></div>';
     var close = function () { o.remove(); document.removeEventListener('keydown', onKey, true); };
     var onKey = function (e) { if (e.key === 'Escape') { e.preventDefault(); close(); } };
-    var paste = o.querySelector('.wr-botdlg-paste'), saved = o.querySelector('.wr-botdlg-saved');
+    var paste = o.querySelector('.wr-botdlg-paste');
+    var savedSels = o.querySelectorAll('.wr-botdlg-saved');
+    var activeSaved = function () {
+      for (var i = 0; i < savedSels.length; i++) {
+        var p = savedSels[i].closest('.decksrc__panel');
+        if (!p || !p.hidden) return savedSels[i];
+      }
+      return null;
+    };
+    var resetSaved = function () { Array.prototype.forEach.call(savedSels, function (s) { s.selectedIndex = 0; }); };
+    if (window.SWUDeckSource) SWUDeckSource.show(o.querySelector('[data-decksrc]'), SWUDeckSource.preferred());
     var radios = o.querySelectorAll('input[name=wr-botdlg-pick]');
     var clearRadios = function () { Array.prototype.forEach.call(radios, function (r) { r.checked = false; }); };
     if (paste) paste.addEventListener('input', function () {
       if (!paste.value.trim()) return;
-      clearRadios(); if (saved) saved.selectedIndex = 0;
+      clearRadios(); resetSaved();
     });
-    if (saved) saved.addEventListener('change', function () {
-      if (saved.selectedIndex <= 0) return;
-      clearRadios(); if (paste) paste.value = '';
+    Array.prototype.forEach.call(savedSels, function (s) {
+      s.addEventListener('change', function () {
+        if (s.selectedIndex <= 0) return;
+        clearRadios(); if (paste) paste.value = '';
+      });
     });
     Array.prototype.forEach.call(radios, function (r) {
-      r.addEventListener('change', function () { if (paste) paste.value = ''; if (saved) saved.selectedIndex = 0; });
+      r.addEventListener('change', function () { if (paste) paste.value = ''; resetSaved(); });
     });
     o.querySelector('.wr-botdlg-cancel').onclick = close;
     o.addEventListener('mousedown', function (e) { if (e.target === o) close(); });
@@ -665,6 +701,7 @@ function _WaitingRoomScript(array $cfg): string {
       var add = this, err = o.querySelector('.wr-botdlg-err');
       var profile = '', deck = '';
       var typed = paste ? paste.value.trim() : '';
+      var saved = activeSaved();
       var savedOpt = saved && saved.selectedIndex > 0 ? saved.options[saved.selectedIndex] : null;
       var picked = o.querySelector('input[name=wr-botdlg-pick]:checked');
       if (typed) { profile = pasteId; deck = typed; }
@@ -941,8 +978,38 @@ function _WaitingRoomScript(array $cfg): string {
   // ── Actions ────────────────────────────────────────────────────────────────────────────────────
   // The chosen deck: a saved-library selection wins over the paste box, since picking from the list
   // is the more deliberate act.
+  // SWUStats deck source (spec 2026-10-10 §2): with the toggle the library has TWO selects; the visible one counts.
+  function activeLibSelect() {
+    var all = document.querySelectorAll('#wr-deck-library .dl-select');
+    for (var i = 0; i < all.length; i++) {
+      var p = all[i].closest('.decksrc__panel');
+      if (!p || !p.hidden) return all[i];
+    }
+    return null;   // only hidden-panel selects: the visible tab has no list, so there is no pick
+  }
+  function fillSWUStatsLibrary(res) {
+    var sel = document.querySelector('#wr-deck-library .dl-select[data-source="swustats"]');
+    if (!sel) return;
+    var keep = sel.value, decks = res.decks || [];
+    var opts = '<option value="">-- Select a SWUStats deck --</option>';
+    decks.forEach(function (d) {
+      opts += '<option value="' + esc(d.key) + '" data-id="' + esc(d.input) + '" data-queue-input="' + esc(d.input) +
+              '" data-name="' + esc(d.name) + '">' + esc(d.name) + '</option>';
+    });
+    sel.innerHTML = opts;
+    sel.disabled = !decks.length;
+    if (keep) sel.value = keep;
+    var msg = document.querySelector('#wr-deck-library .decksrc__msg');
+    var state = window.SWUDeckSource.stateHtml(res);
+    if (msg) { msg.innerHTML = state; msg.hidden = !state; }
+  }
+  if (window.SWUDeckSource && document.querySelector('#wr-deck-library [data-decksrc]')) {
+    SWUDeckSource.load(false).then(fillSWUStatsLibrary);
+    SWUDeckSource.onRefresh(fillSWUStatsLibrary);
+  }
+
   function chosenDeck() {
-    var sel = document.querySelector('#wr-deck-library .dl-select');
+    var sel = activeLibSelect();
     if (sel && sel.selectedIndex > 0) {
       var o = sel.options[sel.selectedIndex];
       var v = o.getAttribute('data-queue-input') || o.getAttribute('data-id') || '';

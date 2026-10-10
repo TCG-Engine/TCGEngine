@@ -3500,6 +3500,31 @@ button.ch:not(.btn):not(.switch) {
   color: var(--ink-3, rgba(226, 232, 240, 0.66));
 }
 
+/* SWUStats / Saved deck-source toggle (docs/superpowers/specs/2026-10-10-petranaki-swustats-link-design.md §2).
+   The toggle itself is the canonical .seg (pattern 4) — only the layout around it lives here. */
+.decksrc { display: grid; gap: 8px; }
+.decksrc__panel { display: grid; gap: 6px; }
+.decksrc__panel[hidden] { display: none !important; }   /* legacy panel rules must not un-hide the inactive list */
+.decksrc__refresh {
+  justify-self: end;
+  background: none; border: 0; padding: 2px 0; cursor: pointer;
+  font: inherit; font-size: var(--t-13, 13px); color: var(--ink-3, rgba(226, 232, 240, 0.66));
+  text-decoration: underline; text-underline-offset: 2px;
+}
+.decksrc__refresh:hover, .decksrc__refresh:focus-visible { color: var(--ink-1, #f1f5f9); }
+.deckpick__empty a, .deckpick__empty .decksrc__retry {
+  background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 2px;
+}
+/* These two are LINKS that happen to be <button>s. The legacy button rules (components.css: uppercase,
+   letter-spacing, weight) and this sheet's chamfer rim (a positioned ::before on every button) would turn
+   them into boxed buttons — the menu has no small-button pattern, so they must not look like one. */
+.decksrc button.decksrc__refresh, .deckpick__empty button.decksrc__retry {
+  text-transform: none; letter-spacing: normal; font-weight: 400; min-height: 0; box-shadow: none; clip-path: none;
+}
+.decksrc button.decksrc__refresh::before, .decksrc button.decksrc__refresh::after,
+.deckpick__empty button.decksrc__retry::before, .deckpick__empty button.decksrc__retry::after { content: none; }
+
 /* 6 ─ TWO CHAMFER SYSTEMS ON ONE BUTTON.
    components.css paints every bare <button> with its own chamfer — ::before
    is the rim, ::after the fill, both driven by --btn-* tokens — at 0-2-1.
@@ -5344,3 +5369,13 @@ body:has(.home-header) .tcgc-card {
 }
 body:has(.sb-row) .tcgc-card:hover,
 body:has(.home-header) .tcgc-card:hover { color: var(--gold-hi); text-decoration: underline; }
+
+/* Replays tab — Open .swupgn drop zone and opened-file rows (SWUSim/SwuPgnReplays.js) */
+.swupgn-drop { display: grid; gap: 6px; padding: 10px; border: 1px dashed rgba(255,255,255,.25); border-radius: 8px; margin-bottom: 8px; }
+.swupgn-drop.is-drag { border-color: var(--gold, #f5c542); background: rgba(245,197,66,.08); }
+#swupgnReplayList .match { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 6px; }
+#swupgnReplayList .match__seats, #swupgnReplayList .match__meta { grid-column: 1 / -1; overflow-wrap: anywhere; }
+/* .empty sets display, which beats the UA [hidden] rule — say it explicitly. */
+#swupgnReplayEmpty[hidden] { display: none; }
+/* .match__meta is a single uppercase line in the games list; here it wraps instead of clipping. */
+#swupgnReplayList .match__meta { white-space: normal; overflow: visible; text-overflow: clip; }

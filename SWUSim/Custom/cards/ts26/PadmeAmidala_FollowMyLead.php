@@ -11,7 +11,7 @@ $onAttackEndAbilities["TS26_04:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $self = GetZoneObject($mzID);
     $selfUID = SWUObjUID($self);
-    $tg = _SWUEnteredThisPhaseUnits(intval($player), $selfUID);
+    $tg = _SWUEnteredThisPhaseUnits(intval($player), $selfUID);   // own units only: "attack with" is controller-only
     if (empty($tg)) return;
     SWUQueueMayChooseTarget(intval($player), $tg, "Attack_with_another_unit_that_entered_this_phase_(no_bases)?", "Choose_a_unit", "CHAINED_ATTACK|0|1");
 };
@@ -27,6 +27,8 @@ $leaderAbilities["TS26_04"] = function(int $player): void {
     // both meant a 2-unit turn where one entrant died or was stolen silently failed the gate.
     // RULING (2026-08-09): this Action costs nothing but [Exhaust], so it is always usable as a soft pass —
     // falling through here still exhausts Padmé and simply does nothing.
+    // The GATE spans the Team Suns team ("friendly"); the ATTACKER pool is own units only, because
+    // "attack with" is a controller-only verb — you cannot attack with a teammate's unit.
     $entered = _SWUEnteredThisPhaseUnits(intval($player));
     if (_SWUEnteredThisPhaseCount(intval($player)) < 2 || empty($entered)) {
         SWUAfterAction(intval($player)); return;

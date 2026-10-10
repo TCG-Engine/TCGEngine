@@ -1,0 +1,146 @@
+[Game "SWU-PGN/1.0"]
+[GameId "viewer-fixture"]
+[Date "2026-06-16T00:00:00Z"]
+[CardPool "SOR,JTL,LOF"]
+[Engine "petranaki@test"]
+[Seed "0"]
+[P1Id "sha256:aaaa"]
+[P2Id "sha256:bbbb"]
+[P1 "Player 1"]
+[P2 "Player 2"]
+[P1Leader "SOR#010"]
+[P1Base "SOR#020"]
+[P2Leader "SOR#005"]
+[P2Base "SOR#028"]
+[Result "Incomplete"]
+[Reason "Fixture"]
+[Rounds "2"]
+[Perspective "P1"]
+
+%%% DECKS
+{"p":1,"leader":"SOR#010","base":"SOR#020","deck":[["SOR#108",5],["JTL#095",1],["LOF#091",1],["JTL#058",1]]}
+{"p":2,"leader":"SOR#005","base":"SOR#028","deck":[["SOR#045",4],["JTL#032",2],["ZZZ#999",1],["JTL#095",1]]}
+
+%%% CARDS
+{"id":"SOR#010","name":"Darth Vader, Dark Lord of the Sith"}
+{"id":"SOR#005","name":"Luke Skywalker, Faithful Friend"}
+{"id":"SOR#020","name":"Capital City"}
+{"id":"SOR#028","name":"Jedha City"}
+{"id":"SOR#108","name":"Vanguard Infantry","kind":"unit"}
+{"id":"SOR#045","name":"Yoda, Old Master","kind":"unit"}
+{"id":"JTL#095","name":"Phoenix Squadron A-Wing","kind":"unit"}
+{"id":"JTL#058","name":"Academy Graduate","kind":"unit"}
+{"id":"JTL#032","name":"Director Krennic","kind":"unit"}
+{"id":"LOF#091","name":"Craving Power","kind":"upgrade"}
+{"id":"ZZZ#999","name":"Mystery <b>Card</b>","kind":"unit"}
+{"id":"TOKEN:shield#8752877738","name":"Shield","kind":"upgrade"}
+{"id":"TOKEN:experience#2007868442","name":"Experience","kind":"upgrade"}
+{"id":"TOKEN:advantage#5844562972","name":"Advantage","kind":"upgrade"}
+{"id":"TOKEN:credit#8015500527","name":"Credit"}
+{"id":"TOKEN:the-force#4571900905","name":"The Force"}
+
+%%% SETUP
+{"seq":"R1.S.0","t":"INIT","p1DeckOrder":["SOR#108","SOR#108:2","SOR#108:3","JTL#095","LOF#091","JTL#058","SOR#108:4","SOR#108:5"],"p2DeckOrder":["SOR#045","SOR#045:2","SOR#045:3","JTL#032","ZZZ#999","JTL#095:2","SOR#045:4","JTL#032:2"]}
+
+%%% EVENTS
+{"seq":"R0.S.start","t":"PHASE_START","phase":"setup"}
+{"seq":"R0.S.0a","t":"MOVE","card":"SOR#108","from":"deck","to":"hand","p":1}
+{"seq":"R0.S.0b","t":"MOVE","card":"SOR#108:2","from":"deck","to":"hand","p":1}
+{"seq":"R0.S.0c","t":"MOVE","card":"SOR#108:3","from":"deck","to":"hand","p":1}
+{"seq":"R0.S.0d","t":"MOVE","card":"JTL#095","from":"deck","to":"hand","p":1}
+{"seq":"R0.S.0e","t":"MOVE","card":"LOF#091","from":"deck","to":"hand","p":1}
+{"seq":"R0.S.0f","t":"MOVE","card":"JTL#058","from":"deck","to":"hand","p":1}
+{"seq":"R0.S.0g","t":"DRAW","p":1,"count":6,"cards":["SOR#108","SOR#108:2","SOR#108:3","JTL#095","LOF#091","JTL#058"]}
+{"seq":"R0.S.0h","t":"MOVE","card":"SOR#045","from":"deck","to":"hand","p":2}
+{"seq":"R0.S.0i","t":"MOVE","card":"SOR#045:2","from":"deck","to":"hand","p":2}
+{"seq":"R0.S.0j","t":"MOVE","card":"SOR#045:3","from":"deck","to":"hand","p":2}
+{"seq":"R0.S.0k","t":"MOVE","card":"JTL#032","from":"deck","to":"hand","p":2}
+{"seq":"R0.S.0l","t":"MOVE","card":"ZZZ#999","from":"deck","to":"hand","p":2}
+{"seq":"R0.S.0m","t":"MOVE","card":"JTL#095:2","from":"deck","to":"hand","p":2}
+{"seq":"R0.S.0n","t":"DRAW","p":2,"count":6,"cards":[]}
+{"seq":"R0.S.1","t":"KEEP_HAND","p":1}
+{"seq":"R0.S.2","t":"KEEP_HAND","p":2}
+{"seq":"R0.S.2a","t":"MOVE","card":"SOR#108:2","from":"hand","to":"resource","p":1,"for":"R0.S.3"}
+{"seq":"R0.S.3","t":"RESOURCE","p":1,"card":"SOR#108:2"}
+{"seq":"R0.S.3a","t":"MOVE","card":"SOR#108:3","from":"hand","to":"resource","p":1,"for":"R0.S.4"}
+{"seq":"R0.S.4","t":"RESOURCE","p":1,"card":"SOR#108:3"}
+{"seq":"R0.S.4a","t":"MOVE","card":"SOR#045:2","from":"hand","to":"resource","p":2,"for":"R0.S.5"}
+{"seq":"R0.S.5","t":"RESOURCE","p":2,"card":"SOR#045:2"}
+{"seq":"R0.S.5a","t":"MOVE","card":"SOR#045:3","from":"hand","to":"resource","p":2,"for":"R0.S.6"}
+{"seq":"R0.S.6","t":"RESOURCE","p":2,"card":"SOR#045:3"}
+{"seq":"R0.S.end","t":"PHASE_END","phase":"setup"}
+{"seq":"R1.start","t":"ROUND_START","round":1,"keyframe":{"round":1,"phase":"action","initiative":1,"players":{"1":{"seat":1,"baseHp":30,"baseMaxHp":30,"handSize":4,"hand":["SOR#108","JTL#095","LOF#091","JTL#058"],"resourcesReady":2,"resourcesExhausted":0,"credits":0,"hasForce":false,"discard":[],"cards":[],"resources":["SOR#108:2","SOR#108:3"],"deckSize":2,"leader":{"id":"SOR#010","deployed":false,"exhausted":false,"epicActionUsed":false}},"2":{"seat":2,"baseHp":25,"baseMaxHp":25,"handSize":4,"hand":["SOR#045","JTL#032","ZZZ#999","JTL#095:2"],"resourcesReady":2,"resourcesExhausted":0,"credits":0,"hasForce":false,"discard":[],"cards":[],"resources":["SOR#045:2","SOR#045:3"],"deckSize":2,"leader":{"id":"SOR#005","deployed":false,"exhausted":false,"epicActionUsed":false}}},"initiativeTaken":false,"active":1}}
+{"seq":"R1.A.start","t":"PHASE_START","phase":"action"}
+{"seq":"R1.A.0a","t":"EXHAUST_RESOURCES","p":1,"amount":1,"for":"R1.A.1"}
+{"seq":"R1.A.0b","t":"MOVE","card":"SOR#108","from":"hand","to":"ground","p":1,"kind":"unit","for":"R1.A.1"}
+{"seq":"R1.A.0c","t":"STATS","card":"SOR#108","power":1,"hp":2,"keywords":[],"for":"R1.A.1"}
+{"seq":"R1.A.1","t":"PLAY","p":1,"card":"SOR#108","zone":"ground","cost":1}
+{"seq":"R1.A.1a","t":"EXHAUST","card":"SOR#108"}
+{"seq":"R1.A.1b","t":"MOVE","card":"TOKEN:shield#8752877738","from":"outsideTheGame","to":"ground","p":1,"kind":"upgrade","attachedTo":"SOR#108"}
+{"seq":"R1.A.1c","t":"SHIELD_GAIN","card":"SOR#108"}
+{"seq":"R1.A.1d","t":"EXHAUST_RESOURCES","p":2,"amount":1,"for":"R1.A.2"}
+{"seq":"R1.A.1e","t":"MOVE","card":"SOR#045","from":"hand","to":"ground","p":2,"kind":"unit","for":"R1.A.2"}
+{"seq":"R1.A.1f","t":"STATS","card":"SOR#045","power":2,"hp":4,"keywords":["restore 1"],"for":"R1.A.2"}
+{"seq":"R1.A.2","t":"PLAY","p":2,"card":"SOR#045","zone":"ground","cost":1}
+{"seq":"R1.A.2a","t":"EXHAUST","card":"SOR#045"}
+{"seq":"R1.A.2b","t":"MOVE","card":"TOKEN:experience#2007868442","from":"outsideTheGame","to":"ground","p":2,"kind":"upgrade","attachedTo":"SOR#045"}
+{"seq":"R1.A.2c","t":"EXPERIENCE_GAIN","card":"SOR#045","count":1}
+{"seq":"R1.A.2d","t":"STATS","card":"SOR#045","power":3,"hp":5,"keywords":["restore 1"]}
+{"seq":"R1.A.2e","t":"EXHAUST_RESOURCES","p":1,"amount":1,"for":"R1.A.3"}
+{"seq":"R1.A.2f","t":"MOVE","card":"LOF#091","from":"hand","to":"ground","p":1,"kind":"upgrade","attachedTo":"SOR#108","for":"R1.A.3"}
+{"seq":"R1.A.2g","t":"STATS","card":"SOR#108","power":3,"hp":4,"keywords":[],"for":"R1.A.3"}
+{"seq":"R1.A.3","t":"PLAY_UPGRADE","p":1,"card":"LOF#091","zone":"ground","target":"SOR#108","cost":1}
+{"seq":"R1.A.3a","t":"MOVE","card":"TOKEN:advantage#5844562972","from":"outsideTheGame","to":"ground","p":1,"kind":"upgrade","attachedTo":"SOR#108"}
+{"seq":"R1.A.3b","t":"STATUS_TOKEN","card":"SOR#108","token":"advantage","count":1}
+{"seq":"R1.A.3c","t":"MOVE","card":"TOKEN:credit#8015500527","from":"outsideTheGame","to":"base","p":1}
+{"seq":"R1.A.4","t":"PASS","p":2}
+{"seq":"R1.A.4a","t":"MOVE","card":"TOKEN:the-force#4571900905","from":"outsideTheGame","to":"base","p":2}
+{"seq":"R1.A.5","t":"CLAIM_INITIATIVE","p":1}
+{"seq":"R1.A.6","t":"PASS","p":2}
+{"seq":"R1.A.end","t":"PHASE_END","phase":"action"}
+{"seq":"R1.G.start","t":"PHASE_START","phase":"regroup"}
+{"seq":"R1.G.0a","t":"MOVE","card":"SOR#108:4","from":"deck","to":"hand","p":1}
+{"seq":"R1.G.0b","t":"MOVE","card":"SOR#108:5","from":"deck","to":"hand","p":1}
+{"seq":"R1.G.0c","t":"DRAW","p":1,"count":2,"cards":["SOR#108:4","SOR#108:5"]}
+{"seq":"R1.G.0d","t":"MOVE","card":"SOR#045:4","from":"deck","to":"hand","p":2}
+{"seq":"R1.G.0e","t":"MOVE","card":"JTL#032:2","from":"deck","to":"hand","p":2}
+{"seq":"R1.G.0f","t":"DRAW","p":2,"count":2,"cards":[]}
+{"seq":"R1.G.0g","t":"MOVE","card":"SOR#108:4","from":"hand","to":"resource","p":1,"for":"R1.G.1"}
+{"seq":"R1.G.1","t":"RESOURCE","p":1,"card":"SOR#108:4"}
+{"seq":"R1.G.1a","t":"MOVE","card":"SOR#045:4","from":"hand","to":"resource","p":2,"for":"R1.G.2"}
+{"seq":"R1.G.2","t":"RESOURCE","p":2,"card":"SOR#045:4"}
+{"seq":"R1.G.3","t":"READY","card":"SOR#108"}
+{"seq":"R1.G.4","t":"READY","card":"SOR#045"}
+{"seq":"R1.G.5","t":"READY_RESOURCES","p":1,"amount":2}
+{"seq":"R1.G.6","t":"READY_RESOURCES","p":2,"amount":1}
+{"seq":"R1.G.end","t":"PHASE_END","phase":"regroup"}
+{"seq":"R1.end","t":"ROUND_END","round":1,"keyframe":{"round":1,"phase":"regroup","initiative":1,"players":{"1":{"seat":1,"baseHp":30,"baseMaxHp":30,"handSize":3,"hand":["JTL#095","JTL#058","SOR#108:5"],"resourcesReady":3,"resourcesExhausted":0,"credits":1,"hasForce":false,"discard":[],"cards":[{"id":"SOR#108","zone":"ground","damage":0,"exhausted":false,"upgrades":["LOF#091"],"shields":1,"experience":0,"statusTokens":{"advantage":1},"captured":[],"power":3,"hp":4,"keywords":[]}],"resources":["SOR#108:2","SOR#108:3","SOR#108:4"],"deckSize":0,"leader":{"id":"SOR#010","deployed":false,"exhausted":false,"epicActionUsed":false}},"2":{"seat":2,"baseHp":25,"baseMaxHp":25,"handSize":4,"hand":["JTL#032","ZZZ#999","JTL#095:2","JTL#032:2"],"resourcesReady":3,"resourcesExhausted":0,"credits":0,"hasForce":true,"discard":[],"cards":[{"id":"SOR#045","zone":"ground","damage":0,"exhausted":false,"upgrades":[],"shields":0,"experience":1,"statusTokens":{},"captured":[],"power":3,"hp":5,"keywords":["restore 1"]}],"resources":["SOR#045:2","SOR#045:3","SOR#045:4"],"deckSize":0,"leader":{"id":"SOR#005","deployed":false,"exhausted":false,"epicActionUsed":false}}},"initiativeTaken":true,"active":1}}
+{"seq":"R2.start","t":"ROUND_START","round":2,"keyframe":{"round":2,"phase":"action","initiative":1,"players":{"1":{"seat":1,"baseHp":30,"baseMaxHp":30,"handSize":3,"hand":["JTL#095","JTL#058","SOR#108:5"],"resourcesReady":3,"resourcesExhausted":0,"credits":1,"hasForce":false,"discard":[],"cards":[{"id":"SOR#108","zone":"ground","damage":0,"exhausted":false,"upgrades":["LOF#091"],"shields":1,"experience":0,"statusTokens":{"advantage":1},"captured":[],"power":3,"hp":4,"keywords":[]}],"resources":["SOR#108:2","SOR#108:3","SOR#108:4"],"deckSize":0,"leader":{"id":"SOR#010","deployed":false,"exhausted":false,"epicActionUsed":false}},"2":{"seat":2,"baseHp":25,"baseMaxHp":25,"handSize":4,"hand":["JTL#032","ZZZ#999","JTL#095:2","JTL#032:2"],"resourcesReady":3,"resourcesExhausted":0,"credits":0,"hasForce":true,"discard":[],"cards":[{"id":"SOR#045","zone":"ground","damage":0,"exhausted":false,"upgrades":[],"shields":0,"experience":1,"statusTokens":{},"captured":[],"power":3,"hp":5,"keywords":["restore 1"]}],"resources":["SOR#045:2","SOR#045:3","SOR#045:4"],"deckSize":0,"leader":{"id":"SOR#005","deployed":false,"exhausted":false,"epicActionUsed":false}}},"initiativeTaken":false,"active":1}}
+{"seq":"R2.A.start","t":"PHASE_START","phase":"action"}
+{"seq":"R2.A.0a","t":"MOVE","card":"SOR#010","from":"base","to":"ground","p":1,"kind":"unit","for":"R2.A.1"}
+{"seq":"R2.A.0b","t":"STATS","card":"SOR#010","power":5,"hp":8,"keywords":[],"for":"R2.A.1"}
+{"seq":"R2.A.1","t":"DEPLOY_LEADER","p":1,"card":"SOR#010","zone":"ground","epic":true}
+{"seq":"R2.A.1a","t":"EXHAUST_RESOURCES","p":2,"amount":2,"for":"R2.A.2"}
+{"seq":"R2.A.1b","t":"MOVE","card":"JTL#032","from":"hand","to":"ground","p":2,"kind":"unit","for":"R2.A.2"}
+{"seq":"R2.A.1c","t":"STATS","card":"JTL#032","power":2,"hp":2,"keywords":[],"for":"R2.A.2"}
+{"seq":"R2.A.2","t":"PLAY","p":2,"card":"JTL#032","zone":"ground","cost":2}
+{"seq":"R2.A.2a","t":"EXHAUST","card":"JTL#032"}
+{"seq":"R2.A.2b","t":"MOVE","card":"JTL#032","from":"ground","to":"capture","p":2,"kind":"unit"}
+{"seq":"R2.A.2c","t":"CAPTURE","p":1,"card":"JTL#032","by":"SOR#010"}
+{"seq":"R2.A.2d","t":"EXHAUST_RESOURCES","p":1,"amount":2,"for":"R2.A.3"}
+{"seq":"R2.A.2e","t":"MOVE","card":"JTL#095","from":"hand","to":"space","p":1,"kind":"unit","for":"R2.A.3"}
+{"seq":"R2.A.2f","t":"STATS","card":"JTL#095","power":3,"hp":2,"keywords":[],"for":"R2.A.3"}
+{"seq":"R2.A.3","t":"PLAY","p":1,"card":"JTL#095","zone":"space","cost":2}
+{"seq":"R2.A.3a","t":"EXHAUST","card":"JTL#095"}
+{"seq":"R2.A.3b","t":"EXHAUST_RESOURCES","p":1,"amount":1,"for":"R2.A.4"}
+{"seq":"R2.A.3c","t":"MOVE","card":"JTL#058","from":"hand","to":"space","p":1,"kind":"upgrade","attachedTo":"JTL#095","for":"R2.A.4"}
+{"seq":"R2.A.3d","t":"STATS","card":"JTL#095","power":4,"hp":4,"keywords":[],"for":"R2.A.4"}
+{"seq":"R2.A.4","t":"PLAY_UPGRADE","p":1,"card":"JTL#058","zone":"space","target":"JTL#095","cost":1}
+{"seq":"R2.A.4a","t":"MOVE","card":"ZZZ#999","from":"hand","to":"ground","p":2,"kind":"unit","for":"R2.A.5"}
+{"seq":"R2.A.4b","t":"STATS","card":"ZZZ#999","power":1,"hp":1,"keywords":[],"for":"R2.A.5"}
+{"seq":"R2.A.5","t":"PLAY","p":2,"card":"ZZZ#999","zone":"ground","cost":0}
+{"seq":"R2.A.5a","t":"EXHAUST","card":"ZZZ#999"}
+{"seq":"R2.A.5b","t":"CHOICE","p":1,"prompt":"Vanguard Infantry","offered":["base@2"],"chose":0,"for":"R2.A.6"}
+{"seq":"R2.A.5c","t":"EXHAUST","card":"SOR#108","for":"R2.A.6"}
+{"seq":"R2.A.6","t":"ATTACK","p":1,"atk":"SOR#108","def":"base@2","defenderType":"base"}
+{"seq":"R2.A.6a","t":"DAMAGE","src":"SOR#108","tgt":"base@2","amt":3,"damageType":"combat","hp":22}

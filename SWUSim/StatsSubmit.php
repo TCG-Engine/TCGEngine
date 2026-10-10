@@ -2,6 +2,7 @@
 // Assemble the SWUDeck/SubmitGameResult payload from per-game telemetry and submit it,
 // once, on final match completion.
 include_once __DIR__ . '/Match.php';
+include_once __DIR__ . '/SWUStatsLink.php';   // owner tokens (spec 2026-10-10 §3)
 
 // Map a SWUSim CardID (SET_NNN) to the stats/SWUDeck card identifier (the FFG UID / documentId that
 // the SWUDeck stats tables are keyed on). GetCardUUID reads $cardUUIDData from the generated dict
@@ -97,6 +98,73 @@ function SWUBuildGameResultPayload($match, $game) {
     ];
 }
 
+// Owner credit (docs/superpowers/specs/2026-10-10-petranaki-swustats-link-design.md §3): a seat whose
+// Petranaki account is linked to SWUStats sends its token. SubmitGameResult credits the deck's OWNER only
+// when the token's user owns the deck in pXDeckLink; any other deck still lands in community stats.
+// A seat whose token cannot be made valid is left out rather than sent a stale one — a bad token
+// rejects the whole game. Returns the seats that got a token.
+function SWUAttachOwnerTokens(array &$payload, array $match): array {
+    $seats = [];
+    foreach (['1', '2'] as $s) {
+        $uid = intval($match['players'][$s]['userId'] ?? 0);
+        if ($uid <= 0) continue;
+        // This runs inside the player's last game action: a DB or refresh failure costs this seat its owner
+        // credit, never the action request.
+        try { $t = SWUStatsAccessToken($uid); }
+        catch (Throwable $e) { error_log('SWU stats submit: owner token lookup failed seat=' . $s . ': ' . $e->getMessage()); continue; }
+        if ($t['status'] === 'ok' && $t['token']) {
+            $payload['p' . $s . 'SWUStatsToken'] = $t['token'];
+            $seats[] = $s;
+        }
+    }
+    return $seats;
+}
+
+// One SubmitGameResult POST. ok = 2xx and not {"success": false}.
+function SWUPostGameResult(string $url, array $payload): array {
+    $r = SWUStatsHttp('POST', $url, json_encode($payload), ['Content-Type: application/json'], 10);
+    $ok = $r['status'] >= 200 && $r['status'] < 300;
+    if ($ok && is_array($r['body']) && array_key_exists('success', $r['body']) && $r['body']['success'] === false) $ok = false;
+    return ['ok' => $ok, 'code' => (int)$r['status'], 'raw' => (string)($r['raw'] ?? ''), 'error' => (string)($r['error'] ?? '')];
+}
+
+// Submit one decided game: 'ok' | 'ok_without_owner' | 'failed'. SubmitGameResult answers 401 for the
+// WHOLE game when any token is bad, so a rejected owner token is retried once without tokens — the game
+// still reaches community stats.
+function SWUSubmitOneGame(array $m, array $g, string $statsUrl, string $apiKey): string {
+    $payload = SWUBuildGameResultPayload($m, $g);
+    $payload['apiKey'] = $apiKey;
+    $owned = SWUAttachOwnerTokens($payload, $m);
+    $r = SWUPostGameResult($statsUrl, $payload);
+    if (!$r['ok'] && $r['code'] === 401 && $owned) {
+        error_log('SWU stats submit: owner token rejected game=' . strval($g['gameName'] ?? '?')
+            . ' seats=' . implode(',', $owned) . ' — retrying without tokens');
+        foreach ($owned as $s) unset($payload['p' . $s . 'SWUStatsToken']);
+        $r = SWUPostGameResult($statsUrl, $payload);
+        if ($r['ok']) return 'ok_without_owner';
+    }
+    // Log WHY on failure. Without this the only trace of a rejected submission is statsStatus
+    // ='failed' on the match — no status code, no error body — so "stats aren't publishing"
+    // arrives with nothing to diagnose from and every theory has to be tested against prod.
+    // The response body carries the endpoint's own reason (bad identifier, maintenance 503,
+    // rejected key), which is exactly what distinguishes those cases. apiKey is NOT logged.
+    if (!$r['ok']) {
+        error_log('SWU stats submit FAILED game=' . strval($g['gameName'] ?? '?')
+            . ' http=' . $r['code']
+            . ($r['error'] !== '' ? ' curl=' . $r['error'] : '')
+            . ' format=' . strval($payload['format'] ?? '?')
+            . ' resp=' . substr($r['raw'], 0, 400));
+    }
+    return $r['ok'] ? 'ok' : 'failed';
+}
+
+// Outcome for the end-game "sent to SWUStats" banner.
+function SWUStatsSubmitStatus(int $attempted, int $failed, int $withoutOwner): string {
+    if ($attempted === 0) return 'skipped_early';   // every decided game ended before Round 2
+    if ($failed > 0) return 'failed';
+    return $withoutOwner > 0 ? 'submitted_without_owner' : 'success';
+}
+
 // Submit one result per decided game, ONCE, on final match completion (convert-to-Bo3 re-opens a
 // "complete" Bo1, so submission must only fire when the match truly ends — guarded by statsSubmitted).
 function SWUSubmitMatchResults($matchId) {
@@ -120,39 +188,18 @@ function SWUSubmitMatchResults($matchId) {
     // the host's :3100 mapping. DEVENV is set only in the local docker-compose override.
     $statsBase = (getenv('DEVENV') === 'true') ? 'http://host.docker.internal:3100' : 'https://swustats.net';
     $statsUrl = $statsBase . '/TCGEngine/APIs/SubmitGameResult.php';
-    $attempted = 0; $succeeded = 0; $failed = 0;
+    $attempted = 0; $failed = 0; $withoutOwner = 0;
     foreach (($m['games'] ?? []) as $g) {
         if (($g['winner'] ?? null) === null) continue;
         // Don't record a game that ended before Round 2 (an early concede/abandon). GetTurnNumber is
         // the round counter; a game conceded during Round 1 has turns < 2 and must not pollute stats.
         if (intval($g['detail']['turns'] ?? 0) < 2) continue;
         $attempted++;
-        $payload = SWUBuildGameResultPayload($m, $g);
-        $payload['apiKey'] = $apiKey;
-        $ch=curl_init($statsUrl);
-        curl_setopt_array($ch,[CURLOPT_RETURNTRANSFER=>true,CURLOPT_POST=>true,CURLOPT_TIMEOUT=>10,
-            CURLOPT_POSTFIELDS=>json_encode($payload),CURLOPT_HTTPHEADER=>['Content-Type: application/json']]);
-        $resp = curl_exec($ch); $code = intval(curl_getinfo($ch, CURLINFO_HTTP_CODE));
-        $curlErr = curl_error($ch); curl_close($ch);
-        $ok = ($resp !== false && $code >= 200 && $code < 300);
-        if ($ok) { $j = json_decode($resp, true); if (is_array($j) && array_key_exists('success', $j) && $j['success'] === false) $ok = false; }
-        // Log WHY on failure. Without this the only trace of a rejected submission is statsStatus
-        // ='failed' on the match — no status code, no error body — so "stats aren't publishing"
-        // arrives with nothing to diagnose from and every theory has to be tested against prod.
-        // The response body carries the endpoint's own reason (bad identifier, maintenance 503,
-        // rejected key), which is exactly what distinguishes those cases. apiKey is NOT logged.
-        if (!$ok) {
-            error_log('SWU stats submit FAILED game=' . strval($g['gameName'] ?? '?')
-                . ' http=' . $code
-                . ($curlErr !== '' ? ' curl=' . $curlErr : '')
-                . ' format=' . strval($payload['format'] ?? '?')
-                . ' resp=' . substr((string)$resp, 0, 400));
-        }
-        $ok ? $succeeded++ : $failed++;
+        $r = SWUSubmitOneGame($m, $g, $statsUrl, $apiKey);
+        if ($r === 'failed') $failed++;
+        elseif ($r === 'ok_without_owner') $withoutOwner++;
     }
-    // Outcome for the end-game "sent to SWUStats" banner: skipped_early = every decided game ended
-    // before Round 2 (nothing submitted); failed = at least one POST failed; success otherwise.
-    $status = ($attempted === 0) ? 'skipped_early' : (($failed > 0) ? 'failed' : 'success');
+    $status = SWUStatsSubmitStatus($attempted, $failed, $withoutOwner);
     SWUWithMatchLock($matchId, function(&$mm) use ($status) { $mm['statsStatus'] = $status; });
 }
 

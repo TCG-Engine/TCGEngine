@@ -1613,6 +1613,7 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 .swu-pile-count[hidden] { display: none; }
 .swu-m-pile .swu-pile-count { font-size: 11px; bottom: 2px; padding: 0 5px; min-width: 18px; }
 </style>
+<script src="./SWUSim/SwuPgnViewerClient.js?v=<?= filemtime(__DIR__ . '/../SwuPgnViewerClient.js') ?>"></script><?php /* SWU-PGN replay viewer controls; inert unless ?swupgnViewer=1 */ ?>
 <script>
 window.SWU_PILOT_LEADERS = <?php echo json_encode([
     'JTL_001','JTL_003','JTL_006','JTL_008','JTL_009',
@@ -2178,13 +2179,21 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         panel.insertBefore(node, first);
     }
 
-    window.TCGChatMessageSink = function(el) {
+    window.TCGChatMessageSink = function(el, msg) {
         var toggle = document.getElementById('chatToggleBtn');
         if (toggle && toggle.getClientRects().length > 0) return false;
         var panel = document.getElementById('swuLogPanel');
         if (!panel) return false;
         el.style.cssText = '';                       // drop Core's inline sizing; SWUSim styles it
-        el.classList.add('swu-log-entry', 'swu-log-CHAT');
+        if (msg && String(msg.playerID) === '0' && el.children.length === 2) {
+            // A seat-0 row is a SYSTEM notice ("alice left the game." — AnnounceLeave.php; the Sideboard
+            // countdown), not somebody talking: a plain grey log line, without the "Game:" label that the
+            // floating chat and the Sideboard panel still show.
+            el.removeChild(el.firstElementChild);
+            el.classList.add('swu-log-entry', 'swu-log-NOTICE');
+        } else {
+            el.classList.add('swu-log-entry', 'swu-log-CHAT');
+        }
         var nearBottom = (panel.scrollHeight - panel.scrollTop - panel.clientHeight) < 60;
         swuLogInsertByTs(panel, el, parseFloat(el.getAttribute('data-ts')), false);   // chat: never history
         if (nearBottom) panel.scrollTop = panel.scrollHeight;
@@ -5093,7 +5102,24 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ── Match-aware end-game menu ─────────────────────────────────────────────
     // The root SharedUI/MainMenu.php pointer renders whatever Sites/<ActiveSite>/ is set (SWUSim here);
     // there is NO MainMenu.php at the TCGEngine root, so the old './MainMenu.php' fallback 404'd.
-    function SWUGoMainMenu() { window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php'; }
+    function SWUGoMainMenu() { SWUAnnounceLeave(); window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php'; }
+    // Tell the table this seat left, so whoever is still on the end-game screen knows whether chatting is
+    // still worth it (owner request 2026-10-10). A BEACON, because the page is navigating away in the same
+    // tick and an ordinary request would be cancelled. The server composes the text and dedupes per seat.
+    function SWUAnnounceLeave() {
+        var seat = parseInt(window.SWU_VIEWER_SEAT, 10);
+        if (!(seat >= 1)) return;                          // spectators don't announce
+        var gnEl = document.getElementById('gameName'), akEl = document.getElementById('authKey');
+        if (!gnEl || !gnEl.value) return;
+        var f = new FormData();
+        f.append('gameName', gnEl.value);
+        f.append('playerID', String(seat));
+        f.append('authKey', akEl ? akEl.value : '');
+        try {
+            if (navigator.sendBeacon && navigator.sendBeacon('./SWUSim/AnnounceLeave.php', f)) return;
+            fetch('./SWUSim/AnnounceLeave.php', { method: 'POST', body: f, keepalive: true }).catch(function(){});
+        } catch (e) {}
+    }
     function SWUReportBug() {
       // Close the gear settings overlay first — it sits at a much higher z-index than the shared bug
       // report modal (z-index 3001), so leaving it open renders the modal BEHIND it. Harmless no-op
@@ -5425,6 +5451,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     if (existingSt) existingSt.remove();
                     var stMap = {
                         success:       ['Game sent to SWUStats successfully!', '#7CFC9E'],
+                        submitted_without_owner: ['Game sent to SWUStats (deck-owner stats were not recorded)', '#F0B429'],
                         skipped_early: ['Game not sent to SWUStats due to ending before Round 2', '#F0B429'],
                         skipped_multiplayer: ['Multiplayer games are not sent to SWUStats', '#F0B429'],
                         failed:        ['Game failed to send to SWUStats', '#E06666']

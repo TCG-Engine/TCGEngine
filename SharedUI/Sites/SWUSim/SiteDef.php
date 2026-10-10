@@ -52,6 +52,7 @@
   'deckLibrary' => [
     'storage'  => 'account',
     'endpoint' => 'SWUSim/SavedDecks.php',
+    'swustatsTabs' => true,   // Waiting Room library gets the SWUStats / Saved toggle for linked players (spec 2026-10-10 §2)
   ],
   // Opts Login/Signup into the redesigned single-card layout (SharedUI/Render/Auth.php).
   // The renderers are shared with FaBSim, HellbreakSim, SWUDeck and HellbreakDeck; without this
@@ -109,5 +110,6 @@
     'oauthAppLabel'    => 'Petranaki Arena',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
     'discordOAuth'     => true,
+    'swustatsLink'     => true,   // Petranaki ↔ SWUStats link (spec 2026-10-10 §1) — Welcome panel
   ],
 ];

@@ -14,6 +14,7 @@ include_once __DIR__ . '/GameLogEvents.php';  // game-log source context + logge
 include_once __DIR__ . '/UndoStack.php';      // per-game multi-step undo log (player 1's Versions zone)
 include_once __DIR__ . '/BookmarkStore.php';  // gamestate bookmarks + the undo cursor (player 2's Versions zone)
 include_once __DIR__ . '/CardHelpers.php';
+include_once __DIR__ . '/SwuPgnViewerGame.php';  // read-only SWU-PGN replay viewer games
 include_once __DIR__ . '/CardLogic.php';
 include_once __DIR__ . '/CombatLogic.php';
 include_once __DIR__ . '/CardDQHandlers.php';
@@ -26164,10 +26165,14 @@ function ObjectCurrentHPDisplay($obj) {
 // hide for cards with no power/HP stat; the counter's ShowNegative=false suppresses
 // that sentinel.
 function ObjectPowerBadgeValue($obj) {
+    $stated = SwuPgnViewerStat($obj, 'p');   // a replay viewer game shows the file's stated value
+    if ($stated !== null) return $stated;
     if (CardPower($obj->CardID) == -1) return -1; // no power stat → no badge
     return ObjectCurrentPower($obj);
 }
 function ObjectHPBadgeValue($obj) {
+    $stated = SwuPgnViewerStat($obj, 'h');
+    if ($stated !== null) return $stated;
     if (CardHp($obj->CardID) == -1) return -1;    // no HP stat → no badge
     return ObjectCurrentHP($obj);
 }
@@ -30323,7 +30328,7 @@ function SWUArenaDisplayCardID($obj): string {
     // Reprint substitution FIRST, then the board's own suffix rule: "_back" has to be appended to the
     // printing we are actually showing, or the art path points at a file that does not exist.
     $cardID = SWUDisplayCardID($cardID);
-    if(strpos(CardType($cardID), 'Leader') !== false) return $cardID . "_back";
+    if(strpos(CardType($cardID) ?? '', 'Leader') !== false) return $cardID . "_back";   // ?? '': a replay viewer's unknown card has no type
     return $cardID;
 }
 

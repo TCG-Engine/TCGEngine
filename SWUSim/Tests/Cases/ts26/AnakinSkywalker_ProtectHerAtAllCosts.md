@@ -369,3 +369,138 @@ P1GROUNDARENACOUNT:1
 P1NODECISION
 P2BASEDMG:4
 P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# TeamSuns_Front_ATeammatesEntrantCountsTowardTheTwo_AndIsAShieldTarget
+#// TS26_02 Anakin (front) in Team Suns (seats 1+3 vs 2+4). "Friendly" spans the TEAM (owner ruling,
+#// IBH_095), so P1's SEC_080 plus teammate P3's SOR_095 are TWO friendly entrants: the gate is met and
+#// both are Shield targets. Enemy P2 also plays a unit this phase, and it must NOT be offered.
+#// BUG THIS PINS: the gate counted only P1's own entry flags (1 here, so no Shield) and the pool read
+#// only P1's arenas, so a teammate's entrant could neither count nor be shielded.
+## GIVEN
+CommonSetup4P: bbw/ggw/ggw/ggw/{myLeader:TS26_02;myResources:14}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithP1Hand: SEC_080
+WithP2Resources: 10
+WithP2Hand: SOR_095
+WithP3Resources: 10
+WithP3Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P3>PlayHand:0
+- P4>Pass
+- P1>UseLeaderAbility
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:myGroundArena-0&p3GroundArena-0
+P1DECISIONTOOLTIP:Give_a_Shield_to_a_unit_that_entered_this_phase
+
+---
+
+# TeamSuns_Front_ENEMYEntrantsDoNotCount
+#// TS26_02 Anakin (front) in Team Suns — the negative partner. P1 plays one unit and BOTH enemies (P2, P4)
+#// play one each; the teammate plays nothing. Only one FRIENDLY unit entered, so the gate fails: no
+#// Shield, no decision, and Anakin still exhausts (soft-pass ruling). Catches a gate widened past the team.
+## GIVEN
+CommonSetup4P: bbw/ggw/ggw/ggw/{myLeader:TS26_02;myResources:14}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithP1Hand: SEC_080
+WithP2Resources: 10
+WithP2Hand: SOR_095
+WithP4Resources: 10
+WithP4Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P3>Pass
+- P4>PlayHand:0
+- P1>UseLeaderAbility
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P1LEADER:EXHAUSTED
+P1NODECISION
+
+---
+
+# TeamSuns_Deployed_ATeammatesEntrantIsAShieldTarget
+#// TS26_02 Anakin (deployed) in Team Suns — "On Attack: give a Shield token to another FRIENDLY unit that
+#// entered play this phase." Teammate P3 plays SOR_095; when P1's Anakin attacks, that unit is the offer.
+#// Before the fix the pool read only P1's arenas, so nothing was offered.
+## GIVEN
+CommonSetup4P: bbw/ggw/ggw/ggw/{myLeader:TS26_02:1:1;myResources:14}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 3
+WithP3Resources: 10
+WithP3Hand: SOR_095
+## WHEN
+- P3>PlayHand:0
+- P4>Pass
+- P1>AttackGroundArena:0:P2B
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:p3GroundArena-0
+
+---
+
+# TwinSuns3P_Front_OPPONENTEntrantsDoNotCount
+#// TS26_02 Anakin (front), free-for-all Twin Suns (no teams). P1 plays one unit and each opponent plays
+#// one. With no teammates, "friendly" is P1 alone, so the gate sees one entrant and fails: no Shield, no
+#// decision, Anakin exhausts. Confirms the team widening leaves free-for-all untouched.
+## GIVEN
+CommonSetup3P: bbw/ggw/ggw/{myLeader:TS26_02;myResources:14}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: SEC_080
+WithP2Resources: 10
+WithP2Hand: SOR_095
+WithP3Resources: 10
+WithP3Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P3>PlayHand:0
+- P1>UseLeaderAbility
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P1LEADER:EXHAUSTED
+P1NODECISION
+
+---
+
+# TwinSuns4P_Front_OwnTwoEntrantsCount_OpponentsAreNotOffered
+#// TS26_02 Anakin (front), free-for-all Twin Suns at 4P. P1 plays two units across two turns while all
+#// three opponents play one each. The gate is met by P1's own two, and the offer is EXACTLY those two:
+#// none of the three opponents' entrants is friendly.
+## GIVEN
+CommonSetup4P: bbw/ggw/ggw/ggw/{myLeader:TS26_02;myResources:14}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: [SEC_080 SOR_095]
+WithP2Resources: 10
+WithP2Hand: SOR_095
+WithP3Resources: 10
+WithP3Hand: SOR_095
+WithP4Resources: 10
+WithP4Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P3>PlayHand:0
+- P4>PlayHand:0
+- P1>PlayHand:0
+- P2>Pass
+- P3>Pass
+- P4>Pass
+- P1>UseLeaderAbility
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1

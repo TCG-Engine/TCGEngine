@@ -318,11 +318,13 @@ function IsCoordinateActive(int $player): bool {
 // without Coordinate shows neither. Return 1/0 for the Image counters (ShowZero=false
 // hides 0); the two are mutually exclusive so only one icon ever renders.
 function ObjectCoordinateActive($obj): int {
+    if (SwuPgnIsViewerGame()) return 0;   // replay viewer: nothing is derived
     if (!HasKeyword_Coordinate($obj)) return 0;
     $player = intval($obj->Controller ?? $obj->Owner ?? $obj->PlayerID ?? 0);
     return ($player > 0 && IsCoordinateActive($player)) ? 1 : 0;
 }
 function ObjectCoordinateInactive($obj): int {
+    if (SwuPgnIsViewerGame()) return 0;   // replay viewer: nothing is derived
     if (!HasKeyword_Coordinate($obj)) return 0;
     $player = intval($obj->Controller ?? $obj->Owner ?? $obj->PlayerID ?? 0);
     return ($player > 0 && IsCoordinateActive($player)) ? 0 : 1;
@@ -333,6 +335,7 @@ function ObjectCoordinateInactive($obj): int {
 // the defender's shields). Static keyword, no board-state condition. Returns 1/0 for the Image
 // counter (ShowZero=false hides 0).
 function ObjectHasSaboteur($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'saboteur'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Saboteur($obj)) ? 1 : 0;
 }
 
@@ -341,6 +344,7 @@ function ObjectHasSaboteur($obj): int {
 // defending player's base). Static keyword, no board-state condition. Returns 1/0 for the Image
 // counter (ShowZero=false hides 0).
 function ObjectHasOverwhelm($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'overwhelm'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Overwhelm($obj)) ? 1 : 0;
 }
 
@@ -348,12 +352,14 @@ function ObjectHasOverwhelm($obj): int {
 // the Grit keyword (printed or granted; CR — gets +1/+1 for each damage on it). Shown whenever
 // the unit has Grit, regardless of its current damage. Returns 1/0 (ShowZero=false hides 0).
 function ObjectHasGrit($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'grit'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Grit($obj)) ? 1 : 0;
 }
 
 // Tech-wall overlay flag (schema Virtual: HasSentinel + Overlay rule). 1 when the unit has the
 // Sentinel keyword (printed or granted). Returns 1/0 for the overlay rule (shown when == 1).
 function ObjectHasSentinel($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'sentinel'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Sentinel($obj)) ? 1 : 0;
 }
 
@@ -361,18 +367,21 @@ function ObjectHasSentinel($obj): int {
 // has the Hidden keyword (printed or granted), REGARDLESS of whether it's currently unattackable.
 // (The separate smoke overlay keeps its own unattackable-only logic — see ObjectHiddenUnattackable.)
 function ObjectHasHidden($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'hidden'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Hidden($obj)) ? 1 : 0;
 }
 
 // Per-unit Ambush indicator for the card counter (schema Virtual: HasAmbush). 1 when the unit has
 // the Ambush keyword (printed or granted). Returns 1/0 (ShowZero=false hides 0).
 function ObjectHasAmbush($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'ambush'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Ambush($obj)) ? 1 : 0;
 }
 
 // Per-unit Bounty indicator for the card counter (schema Virtual: HasBounty). 1 when the unit has
 // the Bounty keyword (printed, granted by an upgrade, or granted by an effect). Returns 1/0.
 function ObjectHasBounty($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'bounty'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Bounty($obj)) ? 1 : 0;
 }
 
@@ -383,6 +392,7 @@ function ObjectHasBounty($obj): int {
 // (ShowZero=false hides 0). HasKeyword_Raid routes through SWUKeywordSuppressed, so a blanked unit
 // (LostAbilities) correctly shows nothing.
 function ObjectHasRaid($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'raid'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Raid($obj)) ? 1 : 0;
 }
 
@@ -390,6 +400,7 @@ function ObjectHasRaid($obj): int {
 // the Restore keyword (printed or granted; CR — heals X damage from its controller's base on
 // attack). Presence-only for the same reason as Raid above. Returns 1/0 (ShowZero=false hides 0).
 function ObjectHasRestore($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'restore'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Restore($obj)) ? 1 : 0;
 }
 
@@ -399,6 +410,7 @@ function ObjectHasRestore($obj): int {
 // _SWUHiddenBlocksAttack so the overlay is shown exactly while the unit can't be attacked,
 // and vanishes once the phase ends and the flag clears. Self-contained (no CombatLogic dep).
 function ObjectHiddenUnattackable($obj): int {
+    if (SwuPgnIsViewerGame()) return 0;   // replay viewer: nothing is derived
     if ($obj === null || !HasKeyword_Hidden($obj)) return 0;
     // ⚠ MUST MATCH _SWUHiddenBlocksAttack EXACTLY — the overlay claiming protection the attack gate
     // does not grant (or the reverse) is worse than no overlay. Same flag, same reason: CR 18.a is

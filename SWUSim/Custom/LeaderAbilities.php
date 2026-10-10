@@ -821,24 +821,27 @@ function _SWUShd017HasTarget(int $player): bool {
    
 
 // ── TS26 leaders ────────────────────────────────────────────────────────────────
-// TARGET pool: mzIDs of units that are FRIENDLY RIGHT NOW and entered play this phase; optionally exclude
-// one UID. Used by TS26_02 Anakin and TS26_04 Padmé (both sides).
+// TARGET pool: mzIDs of units in play RIGHT NOW that entered play this phase; optionally exclude one UID.
+// Used by TS26_02 Anakin and TS26_04 Padmé (both sides).
+// $friendly picks the pool by the CARD'S VERB, not its noun — both cards say "friendly":
+//   true  -> SWUFriendlyUnits(): you + your Team Suns teammate. TS26_02 "give a Shield token to" one.
+//   false -> SWUControlledUnits(): you only. TS26_04 "ATTACK WITH" one — a controller-only verb; you
+//            cannot attack with a teammate's unit (see the Team Suns friendly-pool ruling, IBH_095).
+// Outside a team game the two pools are identical.
 // ⚠ Checks EVERY seat's flag, not just $player's. The flag is stamped under whoever controlled the unit
 // AT ENTRY, so a unit that entered under the OPPONENT's control and has since come across (Change of
 // Heart, No Glory) still "entered play this phase" and is a legal target now that it is friendly.
 // The mirror case needs no handling: a unit that entered under my control but is now the enemy's simply
 // is not in my arenas, so it drops out on its own.
-function _SWUEnteredThisPhaseUnits(int $player, int $excludeUID = -1): array {
+function _SWUEnteredThisPhaseUnits(int $player, int $excludeUID = -1, bool $friendly = false): array {
     global $playerID; $playerID = intval($player);
     $out = [];
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if (SWUObjGone($o)) continue;
-            $uid = intval($o->UniqueID ?? -1);
-            if ($uid === $excludeUID) continue;
-            if (_SWUUnitEnteredThisPhase($uid)) $out[] = $mz;
-        }
+    foreach (($friendly ? SWUFriendlyUnits() : SWUControlledUnits()) as $mz) {
+        $o = GetZoneObject($mz);
+        if (SWUObjGone($o)) continue;
+        $uid = intval($o->UniqueID ?? -1);
+        if ($uid === $excludeUID) continue;
+        if (_SWUUnitEnteredThisPhase($uid)) $out[] = $mz;
     }
     return $out;
 }
@@ -852,17 +855,24 @@ function _SWUUnitEnteredThisPhase(int $uid): bool {
     return false;
 }
 
-// GATE count: how many units entered play this phase UNDER $player's control — a historical tally, and
-// deliberately NOT a scan of the current board.
-// ⚠ "2 or more friendly units entered play this phase" is a fact about the past that a later defeat or
-// control change cannot undo. Counting live arena units instead broke it two ways: a 2-unit turn where
-// one entrant DIED failed the gate (so the survivor never got its Shield), and an entrant that was later
-// STOLEN stopped counting too. The flag is stamped per entry-controller and cleared at the phase
-// boundary, so tallying the flags themselves is the honest reading.
-function _SWUEnteredThisPhaseCount(int $player): int {
+// GATE count: how many FRIENDLY units entered play this phase — a historical tally, and deliberately NOT a
+// scan of the current board. Used by TS26_02 Anakin, TS26_04 Padmé and HMW_103 Disposable B1.
+// ⚠ "Friendly units entered play this phase" is a fact about the past that a later defeat or control
+// change cannot undo. Counting live arena units instead broke it two ways: a 2-unit turn where one
+// entrant DIED failed the gate (so the survivor never got its Shield), and an entrant that was later
+// STOLEN stopped counting too; B1 missed a defeated entrant the same way (game 1647080). The flag is
+// stamped per entry-controller and cleared at the phase boundary, so tallying the flags is the honest
+// reading.
+// "Friendly" spans the Team Suns TEAM, so a teammate's entrants (stamped on the teammate's seat) count;
+// SWUTeammatesOf is empty outside a team game. $excludeUID drops one unit's own entry ("ANOTHER").
+function _SWUEnteredThisPhaseCount(int $player, int $excludeUID = -1): int {
+    $exclude = 'SWU_ENTERED_PHASE_' . $excludeUID;
     $n = 0;
-    foreach (GetGlobalEffects(intval($player)) as $e) {
-        if (strpos((string)($e->CardID ?? ''), 'SWU_ENTERED_PHASE_') === 0) $n++;
+    foreach (array_merge([intval($player)], SWUTeammatesOf(intval($player))) as $seat) {
+        foreach (GetGlobalEffects($seat) as $e) {
+            $flag = (string)($e->CardID ?? '');
+            if (strpos($flag, 'SWU_ENTERED_PHASE_') === 0 && $flag !== $exclude) $n++;
+        }
     }
     return $n;
 }
