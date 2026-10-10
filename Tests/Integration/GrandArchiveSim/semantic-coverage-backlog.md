@@ -1,7 +1,7 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **919**
+Cards linked to an existing fixture: **920**
 Implemented cards in an official starter deck: **619**
 Implemented cards still needing semantic coverage: **1585**
 
@@ -32,6 +32,7 @@ Implemented cards still needing semantic coverage: **1585**
 | Baleful Oblation (`oye74ibwo8`) | ACTION | 2 | cost, damage | — | baleful-oblation-ciel-bonus-and-effect |
 | Incarnate Majesty (`7dl5j4lx6x`) | ACTION | 2 | cost, zone-movement | — | incarnate-majesty-banish-spirit |
 | Lesser Boon of Bullets (`UI0lAtGQBb`) | LESSER BOON | 2 | cost, condition | — | lesser-boon-of-bullets-pays-two-and-materializes-a-bullet |
+| VelTech QA Tester (`2XWNCcPN6o`) | ALLY | 2 | cost, trigger | — | veltech-qa-tester-can-be-played-from-hand-and-enters-the-field |
 | Cardiac Vessel (`5xjzPh6l2M`) | UNIQUE,PHANTASIA | 3 | cost, damage, draw-discard, trigger, condition | — | — |
 | Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |
 | Stellarion Shift (`ms2x2v4qe3`) | ACTION | 3 | targeting, damage, prevention, draw-discard, zone-movement, status, condition | — | — |
@@ -75,4 +76,3 @@ Implemented cards still needing semantic coverage: **1585**
 | Dynasty Chancellor (`do1blsupu0`) | ALLY | 2 | draw-discard, zone-movement, combat, trigger, condition | — | — |
 | Endura, Reimagined (`X7rh3Yi26A`) | REGALIA,ITEM | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | — | — |
 | Gloamspire Prowler (`igpck2z4rs`) | ALLY | 2 | cost, recover, draw-discard, trigger, condition | — | — |
-| Hunt, Weiss King (`Y6PZntlVDl`) | UNIQUE,ALLY | 2 | cost, targeting, draw-discard, counter, combat, condition | — | — |
