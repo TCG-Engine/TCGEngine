@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-10T15:04:19+00:00",
+    "generatedAt": "2026-10-10T15:07:04+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 894,
+        "cardsWithExistingFixtures": 895,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1590,
+        "cardsNeedingSemanticCoverage": 1589,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -7202,24 +7202,6 @@
                 "cost",
                 "targeting",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "v2214upufo",
-            "name": "Collapsing Trap",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -44532,6 +44514,30 @@
             "semanticFixtures": [
                 "clockwork-musicbox-activates-an-affordable-banished-card",
                 "clockwork-musicbox-unaffordable-banished-card-is-not-activatable-and-stays-banished"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "v2214upufo",
+            "name": "Collapsing Trap",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "collapsing-trap-memory-alt-cost-removes-one-counter-and-allies-enter-rested",
+                "collapsing-trap-memory-alt-cost-without-a-counter-is-not-offered"
+            ],
+            "semanticFixtures": [
+                "collapsing-trap-memory-alt-cost-removes-one-counter-and-allies-enter-rested",
+                "collapsing-trap-memory-alt-cost-without-a-counter-is-not-offered"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "FIXED. The memory alternate cost was implemented for Stifling Trap only (OpportunityLogic.php); Scorching Trap and Collapsing Trap carried a TODO and could only be cast from hand. MemoryTrapConfig() now parameterises the cost (counters removed, target precheck) for all three.",
         "affectedFunction": "Custom/OpportunityLogic.php MemoryTrapConfig / StiflingTrapAlternateCostPayable",
-        "fixCommit": "TBD"
+        "fixCommit": "d470ace6"
     }
 }
