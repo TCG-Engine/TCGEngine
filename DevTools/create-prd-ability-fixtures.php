@@ -15018,15 +15018,9 @@ DECK,
         // Opportunity window: lets the effect stack resolve and reach OnCardActivated's dispatch,
         // where the now-correctly-classified $cardActivatedAbilities["xpnjvt9y59:0"] closure fires.
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        // First MZCHOOSE pick: a SEPARATE, pre-existing bug in this card's own ability body (not
-        // part of the dispatch-classification fix under test here) computes this first offer's
-        // zone name ("theirGraveyard-N") relative to the CASTER's $playerID at queue time, but
-        // player 2 answers it with THEIR OWN $playerID active, so it resolves against player 1's
-        // graveyard instead (banishing Cleansing Reunion itself, which is sitting there having just
-        // resolved) rather than player 2's graveyard. See meta.json notes.
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirGraveyard-0', 'chkInput' => [], 'inputText' => ''],
-        // The chained re-queue (CleansingReunionBanish, run under player 2's own $playerID) offers
-        // "myGraveyard-N" correctly relative to player 2 for the remaining picks.
+        // First MZCHOOSE pick, written in player 2's own frame (it was 'theirGraveyard-N', which player 2 resolved against the CASTER's graveyard, banishing Cleansing Reunion itself).
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+        // The chained re-queue (CleansingReunionBanish) offers "myGraveyard-N" relative to player 2 for the remaining picks.
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
     ],
@@ -31986,6 +31980,49 @@ $fixtures['bauble-of-scarcity-makes-each-player-discard-a-card'] = [
     'deck' => $gaSweepDeck('Spirit of Fire'),
     'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => '24ansclpqc']],
     'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-3'), mrdAns(2, 'myHand-6'), mrdPass(1)],
+];
+
+// Pouvoir Absolu (OylAWd6Tew): "[Ciel Bonus] Banish the top ten cards of your deck and put an omen counter on each of them. For the rest of the game, you may activate your omens." The generated body called a
+// method that does not exist on a zone (fatal error) and never granted the omen activation. Ciel, Loyal Valet (UMBRA by override) is the champion; thirteen hand cards pay the (13); afterwards the first omen (a deck card) is played.
+$fixtures['pouvoir-absolu-banishes-ten-cards-with-omen-counters-and-lets-you-activate-them'] = [
+    'testedCards' => ['OylAWd6Tew', 'nn48ne8a05'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => array_merge([
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nn48ne8a05', 'Subcards' => ['he6kd7hocc'], 'Counters' => ['_overrides' => ['element' => 'UMBRA']]]],
+        $gaHand('OylAWd6Tew'), // -> myHand-7
+    ], array_fill(0, 12, $gaHand($GA_DG))),
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 13), [mrdPass(1), mrdPass(2)], [mrdPlay(1, 'myBanish-0')], mrdPay(1, 3), [mrdAns(1, 'NO')]),
+];
+
+// Multi-pick abilities whose next pick was offered right after MZMove() and before the zone was compacted: the later candidate lists were off by the cards already moved (a real card skipped, an index past the end).
+// The writer now remaps pending choice lists (EngineRemapZoneForSave) and the purge re-indexes them (GameOnZoneElementSpliced, all zones). Each fixture takes the LAST card each time, the case that used to fail.
+// Restorative Flame (ek7r2d7uz4): "Banish up to three fire element cards from your graveyard. For each card banished this way, recover 2." Cleric/Mage champion, FIRE.
+$fixtures['restorative-flame-banishes-three-fire-cards-one-by-one-and-recovers-six'] = [
+    'testedCards' => ['ek7r2d7uz4', 'mttsvbgl6f'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 10, 'Counters' => ['_overrides' => ['classes' => 'CLERIC']]]],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // fire, non-fire, fire, fire -> myGraveyard-0..3
+        $gaHand('ek7r2d7uz4'),
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myGraveyard-3'), mrdAns(1, 'myGraveyard-2'), mrdAns(1, 'myGraveyard-0'), mrdPass(1)]),
+];
+// Orb of Regret (BY0E8si926): "Banish CARDNAME: Shuffle up to three cards from your hand into your deck, then draw that many cards." Picks the last hand card each time.
+$fixtures['orb-of-regret-shuffles-three-chosen-cards-into-the-deck-and-draws-three'] = [
+    'testedCards' => ['BY0E8si926'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'BY0E8si926']],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myHand-6'), mrdAns(1, 'myHand-5'), mrdAns(1, 'myHand-4'), mrdPass(1)],
+];
+// Tabula of Salvage (9cy4wipw4k): "Banish: Choose up to five cards from your graveyard and put them on the bottom of your deck in any order." Takes the last graveyard card first.
+$fixtures['tabula-of-salvage-puts-chosen-graveyard-cards-on-the-bottom-of-the-deck'] = [
+    'testedCards' => ['9cy4wipw4k'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '9cy4wipw4k'],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'px60u5n1do'],
+    ],
+    'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdAns(1, 'myGraveyard-2'), mrdAns(1, 'myGraveyard-1'), mrdAns(1, 'myGraveyard-0'), mrdPass(1)],
 ];
 
 // Filter if --fixture specified

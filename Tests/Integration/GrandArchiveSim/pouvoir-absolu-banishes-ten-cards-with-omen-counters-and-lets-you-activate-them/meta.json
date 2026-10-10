@@ -1,0 +1,10 @@
+{
+    "name": "pouvoir-absolu-banishes-ten-cards-with-omen-counters-and-lets-you-activate-them",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T16:29:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OylAWd6Tew",
+        "nn48ne8a05"
+    ]
+}

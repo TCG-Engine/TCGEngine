@@ -1,0 +1,9 @@
+{
+    "name": "tabula-of-salvage-puts-chosen-graveyard-cards-on-the-bottom-of-the-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T16:42:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9cy4wipw4k"
+    ]
+}

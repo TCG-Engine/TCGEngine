@@ -2065,6 +2065,7 @@ $customDQHandlers["lx6xwr42i6:0:Enter-1"] = function($player, $parts, $lastDecis
 $customDQHandlers["qYH9PJP7uM:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) { //Blinding Orb: the opponent's first card
   if($lastDecision === "-" || $lastDecision === "" || $lastDecision === null) return;
   MZMove($player, $lastDecision, "myMemory");
+  DecisionQueueController::CleanupRemovedCards(); // close the hand up so the second list holds real indices
   $handCards = ZoneSearch("myHand", forPlayer: $player);
   if(empty($handCards)) return;
   DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $handCards), 1, "Put_a_second_card_from_your_hand_into_memory");
@@ -2291,6 +2292,56 @@ $activateAbilityPrereqs["KRNYwHCOVM:0"] = function($player, $mzID, $abilityIndex
       return false;
   }
   return true;
+};
+
+// Pouvoir Absolu (OylAWd6Tew): "[Ciel Bonus] Banish the top ten cards of your deck and put an omen counter on each of them. For the rest of the game, you may activate your omens." The generated body moved the cards to the
+// graveyard and then called a method that does not exist on a zone (a fatal error), and never granted the omen activation. The omens are now banished with their counters and "OMENS_ACTIVATABLE" lets ActionMap
+// activate a banished card that carries an omen counter.
+$playCardAbilities["OylAWd6Tew:0"] = function($player) { //Pouvoir Absolu
+  if(!IsCielBonusActive($player)) return;
+  for($omenIdx = 0; $omenIdx < 10; ++$omenIdx) {
+      if(count(array_filter(GetDeck($player), fn($c) => !$c->removed)) == 0) break;
+      BanishWithOmenCounter($player, "myDeck-0");
+      DecisionQueueController::CleanupRemovedCards();
+  }
+  AddGlobalEffects($player, "OMENS_ACTIVATABLE");
+};
+
+// Opponent-side choices must be written in the OPPONENT's frame ("myGraveyard-N" = the decision owner's own graveyard). These generated bodies picked "myX"/"theirX" by comparing the opponent with the ambient
+// viewer, so when the opponent answered, "theirGraveyard-N" / "theirMaterial-N" meant the ACTIVATING player's zone: the first banish hit the wrong card (Cleansing Reunion banished itself from its caster's graveyard).
+//   Cleansing Reunion xpnjvt9y59   Windfall Check e1jCu0neWY (On Champion Hit)   Crossroads Specter r3i9nmxhnb (On Champion Hit: banish from material deck)
+$cardActivatedAbilities["xpnjvt9y59:0"] = function($player) { //Cleansing Reunion
+  $isImbued = DecisionQueueController::GetVariable("isImbued");
+  $banishCount = ($isImbued === "YES") ? 6 : 3;
+  $opponent = ($player == 1) ? 2 : 1;
+  $gyCards = ZoneSearch("myGraveyard", forPlayer: $opponent);
+  if(empty($gyCards)) return;
+  DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", $gyCards), 1, tooltip:"Banish_a_card_from_graveyard_(1/" . $banishCount . ")");
+  DecisionQueueController::AddDecision($opponent, "CUSTOM", "CleansingReunionBanish|" . ($banishCount - 1), 1);
+};
+$onHitAbilities["e1jCu0neWY:0"] = function($player) { //Windfall Check
+  $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+  if($hitTarget === null || $hitTarget === "" || $hitTarget === "-") return;
+  $hitObj = GetZoneObject($hitTarget);
+  if($hitObj === null || $hitObj->removed) return;
+  if(!PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) return;
+  $opponent = ($player == 1) ? 2 : 1;
+  $gyCards = ZoneSearch("myGraveyard", forPlayer: $opponent);
+  if(empty($gyCards)) return;
+  DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", $gyCards), 1, tooltip:"Banish_a_card_from_graveyard");
+  DecisionQueueController::AddDecision($opponent, "CUSTOM", "WindfallCheckBanish|2", 1);
+};
+$onHitAbilities["r3i9nmxhnb:0"] = function($player) { //Crossroads Specter
+  $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+  if($hitTarget === null || $hitTarget === "-" || $hitTarget === "") return;
+  $hitObj = GetZoneObject($hitTarget);
+  if($hitObj === null || $hitObj->removed) return;
+  if(!PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) return;
+  $opp = ($player == 1) ? 2 : 1;
+  $matCards = ZoneSearch("myMaterial", forPlayer: $opp);
+  if(empty($matCards)) return;
+  DecisionQueueController::AddDecision($opp, "MZCHOOSE", implode("&", $matCards), 1, tooltip:"Banish_a_card_from_your_material_deck");
+  DecisionQueueController::AddDecision($opp, "MZMOVE", "{<-}->myBanish", 1);
 };
 
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.

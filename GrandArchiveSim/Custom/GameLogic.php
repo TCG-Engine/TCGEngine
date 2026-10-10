@@ -1776,6 +1776,13 @@ function ActionMapInner($actionCard, $allowDuringDecisionQueue = false)
                     }
                 }
             }
+            // Pouvoir Absolu (OylAWd6Tew): "For the rest of the game, you may activate your omens."
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer && GlobalEffectCount($playerID, "OMENS_ACTIVATABLE") > 0) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && GetCounterCount($bObj, "omen") > 0) {
+                    if(ActivateBanishedCard($playerID, $actionCard)) return "PLAY";
+                }
+            }
             // Ignition Draw (RhSPMn8Lix): activate Aethercharge from banishment this turn
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
@@ -9449,13 +9456,19 @@ function FireLeaveFieldTriggeredAbility($controller, $cardID) {
  */
 function GameOnZoneElementSpliced($zoneName, $index) {
     global $playerID;
-    if($zoneName !== "myField" && $zoneName !== "theirField") return;
+    // Every per-player zone (field, hand, graveyard, memory, banishment, material deck, ...) shifts the same way when a removed card is purged, and generated multi-pick abilities ("banish up to three
+    // fire cards from your graveyard", "shuffle up to three cards from your hand into your deck", ...) offer the next pick right after MZMove() and before the purge: those lists went stale and the
+    // later picks addressed the wrong cards / indices past the end. So the re-indexing is not limited to the field.
+    if(strpos($zoneName, "my") === 0) { $zoneSuffix = substr($zoneName, 2); $zoneIsMine = true; }
+    else if(strpos($zoneName, "their") === 0) { $zoneSuffix = substr($zoneName, 5); $zoneIsMine = false; }
+    else return;
+    if($zoneSuffix === "" || $zoneSuffix === "GlobalEffects") return;
     $viewer = intval($playerID);
     if($viewer !== 1 && $viewer !== 2) return;
-    $zoneOwner = ($zoneName === "myField") ? $viewer : ($viewer === 1 ? 2 : 1);
+    $zoneOwner = $zoneIsMine ? $viewer : ($viewer === 1 ? 2 : 1);
     for($queuePlayer = 1; $queuePlayer <= 2; ++$queuePlayer) {
         // Decision params are written in their own player's perspective.
-        $specZone = ($queuePlayer === $zoneOwner) ? "myField" : "theirField";
+        $specZone = ($queuePlayer === $zoneOwner ? "my" : "their") . $zoneSuffix;
         $queue = &GetDecisionQueue($queuePlayer);
         if(!is_array($queue)) continue;
         foreach($queue as $decision) {
@@ -9490,6 +9503,80 @@ function GAReindexFieldSpecsAfterSplice($specList, $specZone, $removedIndex) {
     }
     if(empty($out) && $dropped) return $specZone . "-999999";
     return implode("&", $out);
+}
+
+// ── Save-time index remap for pending target choices ─────────────────────────────────────────────
+//
+// WriteGamestate serializes a zone WITHOUT its removed tombstones, so the next ParseGamestate renumbers every zone 0..N-1 over the survivors. A pending target choice stores its candidates as absolute
+// `zone-index` mzIDs, so any candidate sitting after a tombstone is off by the number of tombstones ahead of it the moment the game is saved -- which is every time an interactive decision is presented.
+// Generated multi-pick abilities ("banish up to three fire cards from your graveyard", "shuffle up to three cards from your hand into your deck", Ma Chao, Orb of Hubris, Tabula of Salvage, Illuminating
+// Charge ...) offer each next pick right after MZMove() and before the purge, so the list skipped a real card and ran past the end. The writer is the only place that knows a compaction is about to
+// happen, so the writer owns the references into it (same hook SWUSim uses). Returns a transformed COPY: memory keeps its tombstones.
+function EngineRemapZoneForSave(array $zone, string $zoneName, int $seat): array {
+    if($zoneName !== 'DecisionQueue' || $seat <= 0) return $zone;
+    global $playerID;
+    $savedPID = $playerID;
+    $playerID = $seat; // relative names ("myHand") resolve in the queue owner's frame
+    $maps = [];
+    $out = [];
+    foreach($zone as $d) {
+        $type = ($d === null) ? '' : strtoupper((string)($d->Type ?? ''));
+        // Only the target-choice types carry a candidate mzID list in Param; every other Param is an arbitrary string that only sometimes contains an mzID.
+        if(!in_array($type, ['MZCHOOSE', 'MZMAYCHOOSE', 'MZMULTICHOOSE'], true)) { $out[] = $d; continue; }
+        $param = (string)($d->Param ?? '');
+        $prefix = '';
+        if($type === 'MZMULTICHOOSE' && preg_match('/^(\d+\|\d+\|)(.*)$/s', $param, $mm)) {
+            $prefix = $mm[1]; // "min|max|" is not part of the candidate list
+            $param = $mm[2];
+        }
+        $remapped = [];
+        foreach(explode('&', $param) as $tok) {
+            $tok = trim($tok);
+            if($tok === '') continue;
+            $mz = GARemapMzIDForSave($tok, $seat, $maps);
+            if($mz !== '') $remapped[] = $mz;
+        }
+        $newParam = $prefix . implode('&', $remapped);
+        if($newParam === (string)($d->Param ?? '')) { $out[] = $d; continue; }
+        $copy = clone $d; // never mutate the live decision
+        $copy->Param = $newParam;
+        $out[] = $copy;
+    }
+    $playerID = $savedPID;
+    return $out;
+}
+
+// One candidate mzID from pre- to post-compaction coordinates. '' means "drop it": the card itself is being discarded by this save, or the index runs past the compacted zone. A bare zone spec
+// ("myHand", no index), a spec with a ":filter" suffix is rewritten keeping the suffix, and anything that is not a real zone is left alone.
+function GARemapMzIDForSave(string $mzID, int $seat, array &$maps): string {
+    $suffix = '';
+    if(preg_match('/^(.*?)((?:\.u\d+)?(?::.*|@.*)?)$/s', $mzID, $sm) && $sm[2] !== '') { $mzID = $sm[1]; $suffix = $sm[2]; }
+    $dash = strrpos($mzID, '-');
+    if($dash === false) return $mzID . $suffix;
+    $zoneName = substr($mzID, 0, $dash);
+    $idxStr = substr($mzID, $dash + 1);
+    if($idxStr === '' || !ctype_digit($idxStr)) return $mzID . $suffix;
+    $key = $seat . '|' . $zoneName;
+    if(!array_key_exists($key, $maps)) {
+        $zoneArr = &GetZone($zoneName);
+        if(!is_array($zoneArr)) {
+            $maps[$key] = null; // not a real zone -- leave the token alone
+        } else {
+            $map = []; $next = 0;
+            foreach($zoneArr as $i => $obj) {
+                // EXACTLY the writer's own skip predicate -- the map has to stay in lockstep with it.
+                if($obj == null || $obj->Removed()) { $map[$i] = null; continue; }
+                $map[$i] = $next++;
+            }
+            $maps[$key] = $map;
+        }
+        unset($zoneArr);
+    }
+    if($maps[$key] === null) return $mzID . $suffix;
+    $old = intval($idxStr);
+    if(!array_key_exists($old, $maps[$key])) return ''; // past the end once compacted
+    $new = $maps[$key][$old];
+    return $new === null ? '' : ($zoneName . '-' . $new . $suffix);
 }
 
 /**
@@ -20067,6 +20154,8 @@ $foreverEffects["wr42i6eifn"] = true;
 $foreverEffects["FREYDIS_PERMANENT_DISTANT"] = true;
 // Ignis Deus: for the rest of the game, non-Spirit champions you control can't level up
 $foreverEffects["IGNIS_DEUS_LOCK"] = true;
+// Pouvoir Absolu: for the rest of the game the player may activate their omens
+$foreverEffects["OMENS_ACTIVATABLE"] = true;
 // Verita (4qc47amgpp) On Death: Suited allies get +1 POWER until end of next turn
 // PENDING survives end-of-turn cleanup; converted to VERITA_POWER in WakeUpPhase
 $foreverEffects["OBSEQUIOUS_BLOW_COST"] = true;
@@ -20406,6 +20495,7 @@ $doesGlobalEffectApply["ASTROLABE_FREE_STARCALLING"] = function($obj) { return f
 $doesGlobalEffectApply["yBDxSHkT1s"] = function($obj) { return false; };
 $foreverEffects["yBDxSHkT1s"] = true;
 $doesGlobalEffectApply["oz23yfzk96"] = function($obj) { return false; }; // Scry the Stars dynamic starcalling
+$doesGlobalEffectApply["OMENS_ACTIVATABLE"] = function($obj) { return false; }; // Pouvoir Absolu: permission flag only
 $doesGlobalEffectApply["IGNIS_DEUS_LOCK"] = function($obj) { return false; }; // Ignis Deus lock: global level-up restriction only
 
 // Foretold Bloom (lnhzj43qiw): flag only â€” herb-sacrifice glimpse handled in DoSacrificeFighter/BrewFinalizeHerbs

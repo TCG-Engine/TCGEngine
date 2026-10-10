@@ -4153,6 +4153,7 @@ function AegisOfDawnTrigger($player) {
 
 function RadiantOriginGuardianTrigger($sourceMZ, $amount) {
     if(intval($amount) < 4) return;
+    if($sourceMZ === null || $sourceMZ === "") return; // source-less damage (a card effect with no unit behind it)
     $sourceObj = GetZoneObject($sourceMZ);
     if($sourceObj === null || $sourceObj->removed || HasNoAbilities($sourceObj)) return;
     if(!PropertyContains(EffectiveCardType($sourceObj), "ALLY") && !PropertyContains(EffectiveCardType($sourceObj), "CHAMPION")) return;
@@ -7169,9 +7170,8 @@ function SpiritOfPurityBanishLoop($player, $targetPlayer, $remaining) {
         }
         return;
     }
-    global $playerID;
-    $gravZone = $targetPlayer == $playerID ? "myGraveyard" : "theirGraveyard";
-    $gy = ZoneSearch($gravZone);
+    // The target player's own graveyard, written in THEIR frame (they make the choice).
+    $gy = ZoneSearch("myGraveyard", forPlayer: $targetPlayer);
     if(empty($gy)) {
         if($targetPlayer === $player) {
             $opponent = ($player == 1) ? 2 : 1;
