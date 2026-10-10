@@ -1,7 +1,7 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **899**
+Cards linked to an existing fixture: **905**
 Implemented cards in an official starter deck: **619**
 Implemented cards still needing semantic coverage: **1585**
 
@@ -32,15 +32,21 @@ Implemented cards still needing semantic coverage: **1585**
 | Cardiac Vessel (`5xjzPh6l2M`) | UNIQUE,PHANTASIA | 3 | cost, damage, draw-discard, trigger, condition | — | — |
 | Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |
 | Stellarion Shift (`ms2x2v4qe3`) | ACTION | 3 | targeting, damage, prevention, draw-discard, zone-movement, status, condition | — | — |
+| Vengeful Paramour (`4vjkezn49t`) | ALLY | 1 | cost, targeting, damage, trigger, condition | — | rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter |
+| Rosewinged Hollow (`6S1LLrBfBU`) | ALLY | 1 | targeting, zone-movement, counter, condition | — | rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter |
+| Seaside Rangefinder (`5qyee9vkp8`) | ALLY | 1 | targeting, zone-movement, status, condition | — | seaside-rangefinder-graveyard-ability-pays-two-banishes-itself-and-makes-a-unit-distant, seaside-rangefinder-graveyard-ability-refused-without-the-ranger-class |
 | Synthetic Core (`w0y6isxy5l`) | REGALIA,ITEM | 1 | zone-movement, token, trigger, condition | — | synthetic-core-smoke |
 | Escharotomy (`CIU4gT14EE`) | ACTION | 1 | cost, targeting, recover | — | escharotomy-prevents-recover, escharotomy-recover |
 | Fatestone of Progress (`2sn7hlyrkw`) | ITEM | 3 | counter, trigger, condition | — | — |
 | Lesser Boon of Allurement (`JuKoCVIvCG`) | LESSER BOON | 3 | cost, draw-discard, condition | — | — |
 | Aenean Flux Generator (`oCqKBEPemA`) | ITEM | 2 | targeting, damage, draw-discard, trigger | — | — |
+| Intricate Longbow (`1a49w5gmf7`) | REGALIA,WEAPON | 1 | combat, condition | — | molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow |
+| Molten Arrow (`mvfcd0ukk6`) | ITEM | 1 | targeting, zone-movement | — | molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow |
 | Scars of Old (`lD0sK81PZT`) | ACTION | 1 | draw-discard, counter | — | scars-of-old-buff-counters, scars-of-old-draw-discard |
 | Sneaky Raccoon (`jH6F9XYrL5`) | ALLY | 1 | status, condition | — | sneaky-raccoon-stealth |
 | Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
 | Oasis Trading Post (`uy4xippor7`) | DOMAIN | 3 | token | — | — |
+| Recurring Aethercharge (`MG8QoeZBXY`) | ACTION | 1 | unclassified | — | recurring-aethercharge-graveyard-ability-pays-three-and-loads-into-the-aetherwing |
 | Trained Birdroid (`84lj40Kyhv`) | ALLY | 2 | status, combat, trigger | — | — |
 | Quadrille's Gryphon (`84e2rfex54`) | ALLY | 2 | counter, trigger | — | — |
 | Aenean Guttering Flames (`JGQ9LO5DFv`) | PHANTASIA | 2 | cost, damage, draw-discard, trigger, condition | — | — |
@@ -70,9 +76,3 @@ Implemented cards still needing semantic coverage: **1585**
 | Uther, Illustrious King (`5h8asbierp`) | UNIQUE,ALLY | 2 | targeting, zone-movement, status, combat, trigger | — | — |
 | Alice, Whim's Monarch (`9K4etFOi4M`) | CHAMPION | 2 | zone-movement, token, trigger, condition | — | — |
 | Arcane Elemental (`wFH1kBLrWh`) | ALLY | 2 | cost, zone-movement, combat, trigger | — | — |
-| Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
-| Bottled Forgelight (`g616r0zadf`) | ITEM | 2 | targeting, damage, trigger, condition | — | — |
-| Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
-| Cinder Geyser (`stiyh3pmk3`) | ACTION | 2 | cost, targeting, damage, condition | — | — |
-| Collect Junk (`g6sW55DOgR`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement | — | — |
-| Crossroads Specter (`r3i9nmxhnb`) | ALLY | 2 | zone-movement, counter, trigger, condition | — | — |

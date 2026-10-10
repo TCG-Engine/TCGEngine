@@ -2,10 +2,10 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-10T15:10:14+00:00",
+    "generatedAt": "2026-10-10T15:58:05+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 899,
+        "cardsWithExistingFixtures": 905,
         "cardsInStarterDecks": 619,
         "cardsNeedingSemanticCoverage": 1585,
         "mechanics": {
@@ -142,6 +142,68 @@
             "priority": 35
         },
         {
+            "cardId": "4vjkezn49t",
+            "name": "Vengeful Paramour",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 35
+        },
+        {
+            "cardId": "6S1LLrBfBU",
+            "name": "Rosewinged Hollow",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 34
+        },
+        {
+            "cardId": "5qyee9vkp8",
+            "name": "Seaside Rangefinder",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "seaside-rangefinder-graveyard-ability-pays-two-banishes-itself-and-makes-a-unit-distant",
+                "seaside-rangefinder-graveyard-ability-refused-without-the-ranger-class"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 34
+        },
+        {
             "cardId": "w0y6isxy5l",
             "name": "Synthetic Core",
             "type": "REGALIA,ITEM",
@@ -234,6 +296,42 @@
             "priority": 32
         },
         {
+            "cardId": "1a49w5gmf7",
+            "name": "Intricate Longbow",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 32
+        },
+        {
+            "cardId": "mvfcd0ukk6",
+            "name": "Molten Arrow",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 32
+        },
+        {
             "cardId": "lD0sK81PZT",
             "name": "Scars of Old",
             "type": "ACTION",
@@ -297,6 +395,23 @@
                 "token"
             ],
             "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 31
+        },
+        {
+            "cardId": "MG8QoeZBXY",
+            "name": "Recurring Aethercharge",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "recurring-aethercharge-graveyard-ability-pays-three-and-loads-into-the-aetherwing"
+            ],
             "semanticFixtures": [],
             "starterDecks": [],
             "needsSemanticCoverage": true,
@@ -6061,25 +6176,6 @@
             "priority": 15
         },
         {
-            "cardId": "4vjkezn49t",
-            "name": "Vengeful Paramour",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "12XYNDPi49",
             "name": "Vestal Priestess",
             "type": "ALLY",
@@ -10020,24 +10116,6 @@
             "priority": 14
         },
         {
-            "cardId": "6S1LLrBfBU",
-            "name": "Rosewinged Hollow",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "h68dr63eo5",
             "name": "Rouge, Ace of Hearts",
             "type": "UNIQUE,ALLY",
@@ -10173,24 +10251,6 @@
                 "targeting",
                 "damage",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "5qyee9vkp8",
-            "name": "Seaside Rangefinder",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -20188,22 +20248,6 @@
             "priority": 12
         },
         {
-            "cardId": "1a49w5gmf7",
-            "name": "Intricate Longbow",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "u2Peefob8w",
             "name": "Ionized Asceticism",
             "type": "ACTION",
@@ -20692,22 +20736,6 @@
             "mechanics": [
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "mvfcd0ukk6",
-            "name": "Molten Arrow",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -25976,21 +26004,6 @@
             "cardId": "NaGi9nBjJA",
             "name": "Reckless Slash",
             "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "MG8QoeZBXY",
-            "name": "Recurring Aethercharge",
-            "type": "ACTION",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -35870,6 +35883,7 @@
                 "condition"
             ],
             "existingFixtures": [
+                "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow",
                 "redslime-ondeath-sweep-stack-order-choice",
                 "sword-saint-of-everflame-graveyard-ability-pays-two-and-gives-fire-ally-plus-two-power"
             ],
@@ -46190,6 +46204,7 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "recurring-aethercharge-graveyard-ability-pays-three-and-loads-into-the-aetherwing",
                 "salamanders-breath-decline-second-banish-still-applies-power"
             ],
             "semanticFixtures": [
