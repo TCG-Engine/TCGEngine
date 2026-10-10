@@ -1,0 +1,26 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "CardID",
+        "value": "h8n1520m2d",
+        "label": "Still Craggy Fatestone",
+        "semantic": true
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "Status",
+        "value": "2",
+        "label": "Still awake: the REST cost was not paid",
+        "semantic": true
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true
+    }
+]

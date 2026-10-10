@@ -1,0 +1,17 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "label": "Charge the Soul stays in the graveyard",
+        "semantic": true
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true
+    }
+]

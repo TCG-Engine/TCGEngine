@@ -1,0 +1,23 @@
+{
+    "name": "Mercenary's Blade cannot be activated from the material deck without the Class Bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:36:58+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "k0xhi5jnsl"
+    ],
+    "notes": "The champion has two preparation counters but is not an Assassin, so the [Class Bonus] alternate cost is unavailable: the click is a no-op and the counters stay.",
+    "semanticCoverage": {
+        "testedCards": [
+            "k0xhi5jnsl"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] You may remove a preparation counter from your champion to activate this card from your material deck."
+        ]
+    }
+}

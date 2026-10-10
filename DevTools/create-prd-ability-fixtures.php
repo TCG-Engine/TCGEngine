@@ -32203,6 +32203,127 @@ $fixtures['spirit-of-purity-lineage-release-each-player-banishes-two-from-their-
     ],
 ];
 
+// Craggy Fatestone (h8n1520m2d): "[Guo Jia Bonus] [REST]: Transform CARDNAME. Activate this ability only if there are two or more buff counters on CARDNAME." With ONE buff counter the activation is refused
+// (it neither rests nor transforms); with two it transforms and the rest cost is paid.
+$gaCraggyDeck = "# Material\n1 Spirit of Fire\n# Main\n10 Dungeon Guide\n";
+$fixtures['craggy-fatestone-transform-is-refused-with-only-one-buff-counter'] = [
+    'testedCards' => ['h8n1520m2d'],
+    'deck' => $gaCraggyDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']], // Guo Jia lineage
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d', 'setProperties' => ['Counters' => ['buff' => 1]]], // Craggy Fatestone with ONE buff counter -> myField-1
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // refused: the transform needs two buff counters (the click is a silent no-op)
+    ],
+];
+$fixtures['craggy-fatestone-transform-needs-an-awake-fatestone'] = [
+    'testedCards' => ['h8n1520m2d'],
+    'deck' => $gaCraggyDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'j6dkdoxyqt']], // Guo Jia lineage
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h8n1520m2d', 'setProperties' => ['Counters' => ['buff' => 2], 'Status' => 1]], // Craggy Fatestone already RESTED, two buff counters
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // refused: a rested Craggy Fatestone cannot pay the [REST] cost (the click is a silent no-op)
+    ],
+];
+
+// Shadow's Claw (vm4kj3q2sv): "As long as you have four or more preparation counters on your champion, you may activate this card from your material deck." Mercenary's Blade (k0xhi5jnsl): "[Class Bonus] You may
+// remove a preparation counter from your champion to activate this card from your material deck." Clicking the material card in the main phase puts it onto the field (GameLogic.php FSM, myMaterial case).
+$gaPrepMaterialDeck = "# Material\n1 Spirit of Fire\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n";
+$gaPrepChampion = function(int $prep) { return ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc'], 'Counters' => ['_overrides' => ['classes' => 'ASSASSIN'], 'preparation' => $prep]]]; }; // UMBRA lineage, ASSASSIN, N preparation counters
+$fixtures['shadows-claw-activates-from-the-material-deck-with-four-preparation-counters'] = [
+    'testedCards' => ['vm4kj3q2sv'],
+    'deck' => $gaPrepMaterialDeck,
+    'setup' => [$gaPrepChampion(4), ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'vm4kj3q2sv']], // Shadow's Claw -> p1 myMaterial-0
+    'actions' => [mrdPlay(1, 'myMaterial-0')],
+];
+$fixtures['shadows-claw-is-not-activated-from-the-material-deck-with-only-three-preparation-counters'] = [
+    'testedCards' => ['vm4kj3q2sv'],
+    'deck' => $gaPrepMaterialDeck,
+    'setup' => [$gaPrepChampion(3), ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'vm4kj3q2sv']],
+    'actions' => [mrdPlay(1, 'myMaterial-0')], // refused: a silent no-op
+];
+$fixtures['mercenarys-blade-activates-from-the-material-deck-by-removing-a-preparation-counter'] = [
+    'testedCards' => ['k0xhi5jnsl'],
+    'deck' => $gaPrepMaterialDeck,
+    'setup' => [$gaPrepChampion(2), ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'k0xhi5jnsl']], // Mercenary's Blade -> p1 myMaterial-0
+    'actions' => [mrdPlay(1, 'myMaterial-0')],
+];
+$fixtures['mercenarys-blade-is-not-activated-from-the-material-deck-without-a-preparation-counter'] = [
+    'testedCards' => ['k0xhi5jnsl'],
+    'deck' => $gaPrepMaterialDeck,
+    'setup' => [$gaPrepChampion(0), ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'k0xhi5jnsl']],
+    'actions' => [mrdPlay(1, 'myMaterial-0')], // refused: a silent no-op
+];
+$fixtures['mercenarys-blade-is-not-activated-from-the-material-deck-without-the-class-bonus'] = [
+    'testedCards' => ['k0xhi5jnsl'],
+    'deck' => $gaPrepMaterialDeck,
+    'setup' => [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 2]]], ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'k0xhi5jnsl']], // a champion that is not an Assassin
+    'actions' => [mrdPlay(1, 'myMaterial-0')], // refused: a silent no-op
+];
+
+// Mist Resonance (hw8dxKAnMX): "[Class Bonus] Harmonize -- If you've activated a Melody card this turn, allies you control assign damage with their life stat instead of power stat until end of turn." Harmonize was
+// not implemented. A Dungeon Guide (printed power 1) attacks after Steady Verse (a Melody) and Mist Resonance: with +1 LIFE from Mist Resonance its life stat is the damage it assigns.
+$gaMistTamer = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz'], 'Counters' => ['_overrides' => ['classes' => 'TAMER']]]]; // Nico (WATER lineage), TAMER class
+$gaMistTurnTwo = [mrdEnd(1), mrdPass(1), mrdPass(1), mrdEnd(2), mrdPass(1), mrdPass(1), mrdPass(1)]; // to player 1's second turn (a fast card in hand opens a window at every turn boundary; seeded units can attack from turn 2)
+$gaMistDeck = "# Material\n1 Spirit of Fire\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n";
+$fixtures['mist-resonance-harmonize-allies-assign-damage-with-life'] = [
+    'testedCards' => ['hw8dxKAnMX', 'sbierp5k1v'],
+    'deck' => $gaMistDeck,
+    'setup' => [
+        $gaMistTamer,
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (power 1) -> p1 field-1
+        $gaHand('sbierp5k1v'), // Steady Verse (a Melody) -> p1 myHand-7
+        $gaHand('hw8dxKAnMX'), // Mist Resonance -> p1 myHand-8
+    ],
+    'actions' => array_merge($gaMistTurnTwo, [mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdPass(1), mrdPlay(1, 'myHand-5')], mrdPay(1, 5), [mrdPass(1), mrdPlay(1, 'myField-1'), mrdAns(1, 'theirField-0')]), // Steady Verse (Melody), Mist Resonance, then the Dungeon Guide attacks
+];
+
+$fixtures['mist-resonance-without-a-melody-this-turn-allies-still-assign-damage-with-power'] = [
+    'testedCards' => ['hw8dxKAnMX'],
+    'deck' => $gaMistDeck,
+    'setup' => [
+        $gaMistTamer,
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (power 1) -> p1 field-1
+        $gaHand('hw8dxKAnMX'), // Mist Resonance -> p1 myHand-7
+    ],
+    'actions' => array_merge($gaMistTurnTwo, [mrdPlay(1, 'myHand-7')], mrdPay(1, 5), [mrdPass(1), mrdPlay(1, 'myField-1'), mrdAns(1, 'theirField-0')]), // no Melody was activated: Harmonize is off
+];
+$fixtures['mist-resonance-harmonize-needs-the-class-bonus'] = [
+    'testedCards' => ['hw8dxKAnMX', 'sbierp5k1v'],
+    'deck' => $gaMistDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // Nico (WATER lineage) but NOT a Tamer champion
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (power 1) -> p1 field-1
+        $gaHand('sbierp5k1v'), // Steady Verse (a Melody) -> p1 myHand-7
+        $gaHand('hw8dxKAnMX'), // Mist Resonance -> p1 myHand-8
+    ],
+    'actions' => array_merge($gaMistTurnTwo, [mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdPass(1), mrdPlay(1, 'myHand-5')], mrdPay(1, 5), [mrdPass(1), mrdPlay(1, 'myField-1'), mrdAns(1, 'theirField-0')]),
+];
+
+// Manabolt Convergence (smse0zjalx): "Until end of turn, you may activate target Aethercharge card in your graveyard. (You still pay its costs.) You may load Manabolt Convergence into an Aetherwing weapon you control."
+// The first sentence was a stub. Charge the Soul (ra9950o14t, an Aethercharge, reserve 1: deal 1 damage to target unit) sits in the graveyard; Manabolt Convergence targets it and it is then activated from there.
+$gaManaboltSetup = [
+    ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'RANGER']]]],
+    ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'ra9950o14t'], // Charge the Soul -> p1 graveyard-0
+    $gaHand('smse0zjalx'), // Manabolt Convergence -> p1 myHand-7
+];
+$fixtures['manabolt-convergence-lets-the-targeted-aethercharge-be-activated-from-the-graveyard'] = [
+    'testedCards' => ['smse0zjalx', 'ra9950o14t'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => $gaManaboltSetup,
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myGraveyard-0')], [mrdPlay(1, 'myGraveyard-0')], mrdPay(1, 1), [mrdAns(1, 'theirField-0')], [mrdPlay(1, 'myGraveyard-1')]), // target Charge the Soul, click it in the graveyard, pay 1, hit the opposing champion; the grant is spent, so a second click on it is refused
+];
+
+$fixtures['charge-the-soul-cannot-be-activated-from-the-graveyard-without-manabolt-convergence'] = [
+    'testedCards' => ['ra9950o14t'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'ra9950o14t']],
+    'actions' => [mrdPlay(1, 'myGraveyard-0')], // refused: no Manabolt Convergence grant (a silent no-op)
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

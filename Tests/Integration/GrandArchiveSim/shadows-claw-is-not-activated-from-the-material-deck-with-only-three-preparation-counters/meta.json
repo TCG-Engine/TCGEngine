@@ -1,0 +1,23 @@
+{
+    "name": "Shadow's Claw cannot be activated from the material deck with only three preparation counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:36:53+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "vm4kj3q2sv"
+    ],
+    "notes": "Three preparation counters are one short of the four the clause needs: the click is a no-op and Shadow's Claw stays in the material deck.",
+    "semanticCoverage": {
+        "testedCards": [
+            "vm4kj3q2sv"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition",
+            "counter"
+        ],
+        "rulesClauses": [
+            "As long as you have four or more preparation counters on your champion, you may activate this card from your material deck."
+        ]
+    }
+}

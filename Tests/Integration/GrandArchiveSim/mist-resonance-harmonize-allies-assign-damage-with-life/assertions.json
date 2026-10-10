@@ -1,0 +1,33 @@
+[
+    {
+        "step": 20,
+        "type": "computed_life_equals",
+        "mzId": "p1Field-1",
+        "value": 4,
+        "label": "The Dungeon Guide has 3 life +1 from Mist Resonance",
+        "semantic": true
+    },
+    {
+        "step": 20,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 1,
+        "label": "Its power stat is untouched (still 1)",
+        "semantic": true
+    },
+    {
+        "step": 20,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "4",
+        "label": "It assigned damage with its LIFE stat (4), not its power (1)",
+        "semantic": true
+    },
+    {
+        "step": 20,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true
+    }
+]

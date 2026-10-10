@@ -1,0 +1,31 @@
+{
+    "name": "Mist Resonance Harmonize: after a Melody, allies assign combat damage with their life stat",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:33:48+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "hw8dxKAnMX",
+        "sbierp5k1v"
+    ],
+    "notes": "A Tamer champion (WATER lineage) activates Steady Verse (a Melody) and then Mist Resonance. Harmonize is on, so the Dungeon Guide (power 1, life 3, +1 LIFE from Mist Resonance = 4) assigns 4 combat damage to the opposing champion instead of 1.",
+    "semanticCoverage": {
+        "testedCards": [
+            "hw8dxKAnMX",
+            "sbierp5k1v"
+        ],
+        "mechanics": [
+            "condition",
+            "combat",
+            "status"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Harmonize -- If you've activated a Melody card this turn, allies you control assign damage with their life stat instead of power stat until end of turn."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Mist Resonance's Harmonize clause (allies assign damage with life instead of power) was not implemented at all.",
+        "affectedFunction": "Custom/CombatLogic.php CombatDamageStat; Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[hw8dxKAnMX:0]; Custom/GameLogic.php doesGlobalEffectApply[hw8dxKAnMX_HARMONIZE]",
+        "fixCommit": "TBD"
+    }
+}

@@ -1631,6 +1631,19 @@ function ActionMapInner($actionCard, $allowDuringDecisionQueue = false)
                     return "PLAY";
                 }
             }
+            // Manabolt Convergence (smse0zjalx): a targeted Aethercharge card may be activated from the graveyard until end of turn (you still pay its costs).
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $manaboltObj = GetZoneObject($actionCard);
+                if($manaboltObj !== null && !$manaboltObj->removed && ManaboltGraveyardActivationGranted($playerID, $manaboltObj->CardID)
+                    && !ActivationBlockedBeforeAnnounce($playerID, $manaboltObj, false, false, false)
+                    && (!function_exists("CanActivateCard") || CanActivateCard($playerID, $actionCard, false))) {
+                    ManaboltConsumeGraveyardGrant($playerID, $manaboltObj->CardID);
+                    MZMove($playerID, $actionCard, "myHand");
+                    $manaboltHand = &GetHand($playerID);
+                    ActivateCard($playerID, "myHand-" . (count($manaboltHand) - 1), false);
+                    return "PLAY";
+                }
+            }
             // Generic Ephemerate: activate card from graveyard by paying ephemerate cost
             $gyObj = GetZoneObject($actionCard);
             if($gyObj !== null && !$gyObj->removed && CanPayEphemerate($playerID, $gyObj->CardID)
@@ -6743,6 +6756,28 @@ function GameSeedNativeRandom() {
 // must not see it among "cards in your graveyard" (Restorative Flame could banish itself, count effects included itself). The resolving card's graveyard slot is kept in the DQ variable
 // "GAResolvingGY" ("seat:index:cardID", it has to survive the requests the effect's decisions take; GameOnZoneElementSpliced keeps the index current) and ZoneSearch skips that slot unless the
 // caller passes includeResolving (the card's own "banish CARDNAME" lookups). PostResolutionCheck (queued after every resolution's own decisions) and ExpireEffects clear it.
+// Manabolt Convergence (smse0zjalx): "Until end of turn, you may activate target Aethercharge card in your graveyard." One global effect "smse0zjalx_GY" per target (it never applies to an object -- see
+// $doesGlobalEffectApply) and the targeted card names in the DQ variable ManaboltGYCards; activating a granted card from the graveyard spends one grant.
+function ManaboltGraveyardActivationGranted($player, $cardID) {
+    if(GlobalEffectCount($player, "smse0zjalx_GY") <= 0) return false;
+    if(!PropertyContains(CardSubtypes($cardID), "AETHERCHARGE")) return false;
+    return in_array($cardID, explode(",", strval(DecisionQueueController::GetVariable("ManaboltGYCards") ?? "")), true);
+}
+function ManaboltAddGraveyardGrant($player, $cardID) {
+    $granted = array_values(array_filter(explode(",", strval(DecisionQueueController::GetVariable("ManaboltGYCards") ?? "")), fn($c) => $c !== ""));
+    $granted[] = $cardID;
+    DecisionQueueController::StoreVariable("ManaboltGYCards", implode(",", $granted));
+    AddGlobalEffects($player, "smse0zjalx_GY");
+}
+function ManaboltConsumeGraveyardGrant($player, $cardID) {
+    $granted = array_values(array_filter(explode(",", strval(DecisionQueueController::GetVariable("ManaboltGYCards") ?? "")), fn($c) => $c !== ""));
+    $idx = array_search($cardID, $granted, true);
+    if($idx !== false) array_splice($granted, $idx, 1);
+    if(empty($granted)) DecisionQueueController::ClearVariable("ManaboltGYCards");
+    else DecisionQueueController::StoreVariable("ManaboltGYCards", implode(",", $granted));
+    RemoveGlobalEffect($player, "smse0zjalx_GY");
+}
+
 function GAMarkResolvingAction($player, $obj) {
     if($obj === null) return;
     $gy = GetGraveyard($player);
@@ -19112,7 +19147,8 @@ $backendOnlyTurnEffects = [
     "XUCHANG_COST_INCREASE",
     "OBSEQUIOUS_BLOW_COST",
     "DISTANT",
-    "RANGED_4"
+    "RANGED_4",
+    "hw8dxKAnMX_HARMONIZE"
 ];
 
 function CardCurrentEffects($obj) {
@@ -19344,6 +19380,10 @@ function EphemerateMeta($obj) {
     }
 
     if(CanActivateArrestLightningFromGraveyard($turnPlayer, $obj->CardID)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    if (ManaboltGraveyardActivationGranted($turnPlayer, $obj->CardID)) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
@@ -19685,6 +19725,7 @@ function WarriorFaeRealmCanActivateBanished($bObj) {
 
 function ExpireEffects($isEndTurn=true) {
     GAClearResolvingActions();
+    if($isEndTurn) DecisionQueueController::ClearVariable("ManaboltGYCards"); // Manabolt Convergence's grants end with the turn (its global effect expires below)
     $turnPlayer = &GetTurnPlayer();
     global $untilBeginTurnEffects, $foreverEffects;
     //Global effects
@@ -20346,6 +20387,14 @@ $doesGlobalEffectApply["fMv7tIOZwL-LIF"] = function($obj) { //Aqueous Enchanting
 };
 
 $doesGlobalEffectApply["hw8dxKAnMX"] = function($obj) { //Mist Resonance: allies get +1 LIFE until end of turn
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
+};
+
+$doesGlobalEffectApply["smse0zjalx_GY"] = function($obj) { //Manabolt Convergence grant marker: never applies to an object
+    return false;
+};
+
+$doesGlobalEffectApply["hw8dxKAnMX_HARMONIZE"] = function($obj) { //Mist Resonance Harmonize: allies assign damage with their LIFE instead of POWER until end of turn (see CombatDamageStat())
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 

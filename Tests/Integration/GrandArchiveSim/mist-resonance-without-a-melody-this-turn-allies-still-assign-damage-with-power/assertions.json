@@ -1,0 +1,25 @@
+[
+    {
+        "step": 16,
+        "type": "computed_life_equals",
+        "mzId": "p1Field-1",
+        "value": 4,
+        "label": "Mist Resonance resolved: 3 life +1",
+        "semantic": true
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "1",
+        "label": "No Melody this turn: damage is assigned with power (1)",
+        "semantic": true
+    },
+    {
+        "step": 16,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true
+    }
+]

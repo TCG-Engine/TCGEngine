@@ -245,11 +245,23 @@ function GetIntentCards($player) {
 }
 
 /**
+ * The stat a unit assigns combat damage with: its POWER, or its LIFE while Mist Resonance's Harmonize effect (hw8dxKAnMX_HARMONIZE: "allies you control assign damage with their life stat instead of
+ * power stat until end of turn") applies to it. Only the unit's own stat is swapped; attack cards and weapons keep adding their own power.
+ */
+function CombatDamageStat($obj) {
+    if($obj === null) return 0;
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && in_array("hw8dxKAnMX_HARMONIZE", explode(",", CardCurrentEffects($obj)), true)) {
+        return max(0, ObjectCurrentHP($obj));
+    }
+    return ObjectCurrentPower($obj);
+}
+
+/**
  * Calculate the total attack power for a combat:
  *   base unit power  +  sum of power from all attack cards in the attacker's intent.
  */
 function GetTotalAttackPower($attackerObj, $player, $ignoredIntentMZ = null) {
-    $totalPower = ObjectCurrentPower($attackerObj);
+    $totalPower = CombatDamageStat($attackerObj);
     $intentCards = GetIntentCards($player);
     foreach($intentCards as $mzID) {
         if($ignoredIntentMZ !== null && $mzID === $ignoredIntentMZ) continue;
@@ -3516,7 +3528,7 @@ $customDQHandlers["Retaliate"] = function($player, $parts, $lastDecision) {
     $defender = &GetZoneObject($lastDecision);
     // Track the retaliating unit so passive power bonuses (e.g. Intrepid Highwayman) can check it
     DecisionQueueController::StoreVariable("CombatRetaliator", $lastDecision);
-    $defenderPower = ObjectCurrentPower($defender);
+    $defenderPower = CombatDamageStat($defender);
     DecisionQueueController::ClearVariable("CombatRetaliator");
     if($defenderPower > 0 && $defender->Damage < ObjectCurrentHP($defender)) {
         // Rest the retaliator as the cost to retaliate (before dealing damage), unless it has Steadfast

@@ -1,0 +1,32 @@
+{
+    "name": "Manabolt Convergence lets the targeted Aethercharge card be activated from the graveyard until end of turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:38:37+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "smse0zjalx",
+        "ra9950o14t"
+    ],
+    "notes": "Manabolt Convergence targets Charge the Soul (an Aethercharge) in the graveyard; clicking it there then activates it (paying its reserve cost of 1) and its 1 damage hits the opposing champion. The permission is spent by that activation, so a second click on the card in the graveyard is refused.",
+    "semanticCoverage": {
+        "testedCards": [
+            "smse0zjalx",
+            "ra9950o14t"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "targeting",
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Until end of turn, you may activate target Aethercharge card in your graveyard. (You still pay its costs.)"
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Manabolt Convergence's 'you may activate target Aethercharge card in your graveyard' sentence was a TODO stub.",
+        "affectedFunction": "Custom/GeneratedAbilityOverrides.php cardActivatedAbilities[smse0zjalx:0]; Custom/GameLogic.php ManaboltGraveyardActivationGranted + FSM myGraveyard branch",
+        "fixCommit": "TBD"
+    }
+}

@@ -2405,6 +2405,27 @@ $customDQHandlers["vpmu6gvnta:0:CardActivated-1"] = function($player, $parts, $l
   DealDamage($player, $mzID, $target, 4 + 2 * $count);
 };
 
+// Mist Resonance (hw8dxKAnMX): "Allies you control get +1 LIFE until end of turn. [Class Bonus] Harmonize -- If you've activated a Melody card this turn, allies you control assign damage with their life stat
+// instead of power stat until end of turn." The Harmonize sentence was a code comment saying it was not implemented. It is a second global effect, read by CombatDamageStat() (CombatLogic.php).
+$cardActivatedAbilities["hw8dxKAnMX:0"] = function($player) { //Allies get +1 LIFE until end of turn; [CB] Harmonize
+  AddGlobalEffects($player, "hw8dxKAnMX");
+  if(IsClassBonusActive($player, explode(",", CardClasses("hw8dxKAnMX"))) && IsHarmonizeActive($player)) AddGlobalEffects($player, "hw8dxKAnMX_HARMONIZE");
+};
+
+// Manabolt Convergence (smse0zjalx): "Until end of turn, you may activate target Aethercharge card in your graveyard. You may load Manabolt Convergence into an Aetherwing weapon you control." The first sentence was a
+// TODO stub. The target is chosen here; the grant is spent when that card is activated from the graveyard (GameLogic.php, ManaboltGraveyardActivationGranted()).
+$cardActivatedAbilities["smse0zjalx:0"] = function($player) { //Target Aethercharge in GY becomes activatable until end of turn, may load self into Aetherwing
+  $targets = ZoneSearch("myGraveyard", cardSubtypes: ["AETHERCHARGE"]);
+  if(empty($targets)) { MayLoadIntoAetherwing($player, "smse0zjalx"); return; }
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Choose_an_Aethercharge_card_in_your_graveyard");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "ManaboltConvergenceTarget", 1);
+};
+$customDQHandlers["ManaboltConvergenceTarget"] = function($player, $parts, $lastDecision) {
+  $targetObj = GetZoneObject($lastDecision);
+  if($targetObj !== null && !$targetObj->removed) ManaboltAddGraveyardGrant($player, $targetObj->CardID);
+  MayLoadIntoAetherwing($player, "smse0zjalx");
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)
