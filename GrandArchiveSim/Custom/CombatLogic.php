@@ -4001,7 +4001,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     }
 
     // Potion Infusion: Frostbite — next water damage to this unit +4
-    $sourceObj = GetZoneObject($source);
+    $sourceObj = ($source === null || $source === "") ? null : GetZoneObject($source); // (damage with no source object, e.g. Storm Tyrant's Eye, is not an element-tagged hit)
     if($sourceObj !== null && CardElement($sourceObj->CardID) === "WATER") {
         if(in_array("FROSTBITE_WATER_VULN", $targetObj->TurnEffects ?? [])) {
             $amount += 4;

@@ -6416,7 +6416,7 @@ function TrackMacroGameOpponentChampionDamage($source, $target, $amount, $defaul
 
     $sourceController = $defaultSourceController !== null ? intval($defaultSourceController) : 0;
     $sourceCardID = "";
-    $sourceObj = GetZoneObject($source);
+    $sourceObj = ($source === null || $source === "") ? null : GetZoneObject($source);
     if($sourceObj !== null && !$sourceObj->removed) {
         $sourceController = intval($sourceObj->Controller ?? $sourceController);
         $sourceCardID = strval($sourceObj->CardID ?? "");
