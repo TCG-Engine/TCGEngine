@@ -6739,6 +6739,35 @@ function GameSeedNativeRandom() {
     mt_srand(hexdec(substr(hash('sha256', EngineDeterministicHashMaterial()), 0, 8)));
 }
 
+// An Action card is put into the graveyard before its effect runs (the engine moves it off the stack first), but the rules put it there only once it has finished resolving, so its own effect
+// must not see it among "cards in your graveyard" (Restorative Flame could banish itself, count effects included itself). The resolving card's graveyard slot is kept in the DQ variable
+// "GAResolvingGY" ("seat:index:cardID", it has to survive the requests the effect's decisions take; GameOnZoneElementSpliced keeps the index current) and ZoneSearch skips that slot unless the
+// caller passes includeResolving (the card's own "banish CARDNAME" lookups). PostResolutionCheck (queued after every resolution's own decisions) and ExpireEffects clear it.
+function GAMarkResolvingAction($player, $obj) {
+    if($obj === null) return;
+    $gy = GetGraveyard($player);
+    $idx = count($gy) - 1;
+    if($idx < 0 || $gy[$idx]->CardID !== $obj->CardID) return;
+    DecisionQueueController::StoreVariable("GAResolvingGY", $player . ":" . $idx . ":" . $obj->CardID);
+}
+
+function GAClearResolvingActions() {
+    $current = DecisionQueueController::GetVariable("GAResolvingGY");
+    if($current !== null && $current !== "") DecisionQueueController::ClearVariable("GAResolvingGY");
+}
+
+// The graveyard slot (of $seat) currently held back as the still-resolving Action, or -1.
+function GAResolvingGraveyardIndex($seat) {
+    $current = DecisionQueueController::GetVariable("GAResolvingGY");
+    if($current === null || $current === "" || $current === "-") return -1;
+    $parts = explode(":", $current, 3);
+    if(count($parts) < 3 || intval($parts[0]) !== intval($seat)) return -1;
+    $idx = intval($parts[1]);
+    $gy = GetGraveyard($seat);
+    if(!isset($gy[$idx]) || !empty($gy[$idx]->removed) || $gy[$idx]->CardID !== $parts[2]) return -1;
+    return $idx;
+}
+
 function OnCardActivated($player, $mzCard) {
     global $cardActivatedAbilities, $enterAbilities;
     $obj = GetZoneObject($mzCard);
@@ -6967,6 +6996,7 @@ function OnCardActivated($player, $mzCard) {
             $obj = MZMove($player, $mzCard, "myMaterial");
         } else {
             $obj = MZMove($player, $mzCard, "myGraveyard");
+            GAMarkResolvingAction($player, $obj);
         }
     } else if(PropertyContains($cardType, "ATTACK")) {
         // Attack cards resolve and enter the champion's intent zone
@@ -9466,6 +9496,7 @@ function GameOnZoneElementSpliced($zoneName, $index) {
     $viewer = intval($playerID);
     if($viewer !== 1 && $viewer !== 2) return;
     $zoneOwner = $zoneIsMine ? $viewer : ($viewer === 1 ? 2 : 1);
+    if($zoneSuffix === "Graveyard") GAShiftResolvingGraveyardIndex($zoneOwner, intval($index));
     for($queuePlayer = 1; $queuePlayer <= 2; ++$queuePlayer) {
         // Decision params are written in their own player's perspective.
         $specZone = ($queuePlayer === $zoneOwner ? "my" : "their") . $zoneSuffix;
@@ -9485,6 +9516,17 @@ function GameOnZoneElementSpliced($zoneName, $index) {
         }
         unset($decision);
     }
+}
+
+// A card left the graveyard of $seat at slot $removedIndex: the still-resolving Action's slot (see GAMarkResolvingAction) moves down with the cards behind it, or is dropped if it was the one removed.
+function GAShiftResolvingGraveyardIndex($seat, $removedIndex) {
+    $current = DecisionQueueController::GetVariable("GAResolvingGY");
+    if($current === null || $current === "" || $current === "-") return;
+    $parts = explode(":", $current, 3);
+    if(count($parts) < 3 || intval($parts[0]) !== intval($seat)) return;
+    $idx = intval($parts[1]);
+    if($removedIndex === $idx) DecisionQueueController::ClearVariable("GAResolvingGY");
+    else if($removedIndex < $idx) DecisionQueueController::StoreVariable("GAResolvingGY", $parts[0] . ":" . ($idx - 1) . ":" . $parts[2]);
 }
 
 // Rewrites one "&"-delimited candidate spec list ("myField-1&myField-2:filter&myHand") for the
@@ -17413,7 +17455,7 @@ $customDQHandlers["WindyLeapReturn"] = function($player, $parts, $lastDecision) 
 // "Banish CARDNAME": by the time a spell's effect runs it has already left the effect stack for the graveyard, so the variable "mzID" (the stack slot) points at nothing -- the card is looked up
 // in its controller's graveyard instead.
 function BanishResolvedSpellFromGraveyard($player, $cardID) {
-    $graveyard = ZoneSearch("myGraveyard", forPlayer:$player);
+    $graveyard = ZoneSearch("myGraveyard", forPlayer:$player, includeResolving:true);
     for($i = count($graveyard) - 1; $i >= 0; --$i) {
         $obj = GetZoneObjectForPlayerPerspective($player, $graveyard[$i]);
         if($obj !== null && !$obj->removed && $obj->CardID === $cardID) {
@@ -19549,7 +19591,7 @@ function GetZoneObjectForPlayerPerspective($player, $mzID) {
     return GetZoneObject($mzID);
 }
 
-function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null, $excludeSubtypes=null, $forPlayer=null, $cardClasses=null) {
+function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null, $excludeSubtypes=null, $forPlayer=null, $cardClasses=null, $includeResolving=false) {
     global $playerID;
     // $forPlayer: when specified and different from $playerID, flip the zone name so we
     // search the zone that corresponds to "my..." from $forPlayer's perspective. Results
@@ -19562,8 +19604,14 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
         elseif (substr($searchZone, 0, 5) === "their") $searchZone = "my"    . substr($searchZone, 5);
     }
     $results = [];
+    $hideIdx = -1;
+    if(!$includeResolving && substr($searchZone, -9) === "Graveyard") {
+        $searchSeat = (substr($searchZone, 0, 2) === "my") ? intval($playerID) : (intval($playerID) === 1 ? 2 : 1);
+        $hideIdx = GAResolvingGraveyardIndex($searchSeat);
+    }
     $zoneArr = &GetZone($searchZone);
     foreach($zoneArr as $i => $obj) {
+        if($i === $hideIdx) continue;
         $cardTypeStr = EffectiveCardType($obj);
         $cardTypes_arr = $cardTypeStr ? explode(",", $cardTypeStr) : [];
         $cardSubtypesStr = EffectiveCardSubtypes($obj);
@@ -19630,6 +19678,7 @@ function WarriorFaeRealmCanActivateBanished($bObj) {
 }
 
 function ExpireEffects($isEndTurn=true) {
+    GAClearResolvingActions();
     $turnPlayer = &GetTurnPlayer();
     global $untilBeginTurnEffects, $foreverEffects;
     //Global effects

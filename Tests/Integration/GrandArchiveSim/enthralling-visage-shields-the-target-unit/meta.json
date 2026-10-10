@@ -6,7 +6,7 @@
     "testedCards": [
         "ycwz9gv4vm"
     ],
-    "notes": "Enthralling Visage: shield your champion and choose the graveyard card to banish when the damage is prevented. The effect used to never run, and once running the shield tag lost the graveyard card's owner (graveyard objects have no Owner), so nothing would have been banished.",
+    "notes": "Enthralling Visage: shield your champion and choose the graveyard card to banish when the damage is prevented. The effect used to never run, and once running the shield tag lost the graveyard card's owner (graveyard objects have no Owner), so nothing would have been banished. The resolving Visage is no longer a legal graveyard target (it only reaches the graveyard once resolved), so the fixture seeds a Baby Red Slime as the banish target.",
     "semanticCoverage": {
         "testedCards": [
             "ycwz9gv4vm"

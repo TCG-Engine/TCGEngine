@@ -1340,6 +1340,7 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
     if($pendingNegateTarget !== null && $pendingNegateTarget !== "") {
         return;
     }
+    GAClearResolvingActions();
     DecisionQueueController::StoreVariable("isImbued", "NO");
     ClearDamageSourcesDealtThisResolution();
     ReconcileEffectStackSourceZones();

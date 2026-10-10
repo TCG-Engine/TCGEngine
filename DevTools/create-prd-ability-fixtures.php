@@ -28418,9 +28418,10 @@ $fixtures['enthralling-visage-shields-the-target-unit'] = [
     'deck' => $gaSweepDeck('Spirit of Water'),
     'setup' => [
         ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'GUARDIAN']]]], // GUARDIAN class
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'r7oifozaog'], // Baby Red Slime -> myGraveyard-0 (the resolving Visage is not a legal target: it only reaches the graveyard once it has finished resolving)
         $gaHand('ycwz9gv4vm'), // Enthralling Visage -> myHand-7
     ],
-    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myField-0'), mrdAns(1, 'myGraveyard-0')]), // shield your own champion; the only graveyard card (Enthralling Visage itself) is the card banished when the damage is prevented
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdAns(1, 'myField-0'), mrdAns(1, 'myGraveyard-0')]), // shield your own champion; the Baby Red Slime is the card banished when the damage is prevented
 ];
 
 
@@ -32042,6 +32043,15 @@ $fixtures['cone-of-frost-effect-still-resolves-after-passing-the-opportunity-win
         ['player' => 1, 'zone' => 'myHand', 'cardID' => 'i7sbjy86ep'],
     ],
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdPass(1), mrdAns(1, 'theirField-0')]),
+];
+
+// An Action card sits in the graveyard only once it has finished resolving; while it resolves its own effect cannot see it. Cyclical Breeze (3cmrkv3y16): "Return target wind element Spell card from your graveyard
+// to your hand." It is itself a wind Spell, so with no other card in the graveyard it used to offer (and return) itself; now there is no legal target, the effect does nothing and the card stays in the graveyard.
+$fixtures['cyclical-breeze-cannot-return-itself-while-resolving'] = [
+    'testedCards' => ['3cmrkv3y16'],
+    'deck' => $gaSweepDeck('Spirit of Wind'),
+    'setup' => [$gaHand('3cmrkv3y16')], // Cyclical Breeze -> myHand-7
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 4)),
 ];
 
 // Filter if --fixture specified

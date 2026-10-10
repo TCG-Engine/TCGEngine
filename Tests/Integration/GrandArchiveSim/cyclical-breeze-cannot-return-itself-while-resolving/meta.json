@@ -1,0 +1,25 @@
+{
+    "name": "cyclical-breeze-cannot-return-itself-while-resolving",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T18:19:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3cmrkv3y16"
+    ],
+    "notes": "An Action card was put into the graveyard before its effect ran, so graveyard effects could pick or count the card that was resolving (Cyclical Breeze returning itself, Restorative Flame/Erupting Rhapsody/Lost in Thought banishing themselves, ...). The resolving Action's graveyard slot is now held back from ZoneSearch (DQ variable GAResolvingGY, kept current by GameOnZoneElementSpliced, cleared by PostResolutionCheck/ExpireEffects); its own 'banish CARDNAME' lookups opt in with includeResolving.",
+    "semanticCoverage": {
+        "testedCards": [
+            "3cmrkv3y16"
+        ],
+        "mechanics": [
+            "resolving-action-not-in-graveyard"
+        ],
+        "rulesClauses": []
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. The resolving Action card sat in the graveyard while its effect ran, so graveyard effects could target or count it.",
+        "affectedFunction": "Custom/GameLogic.php GAMarkResolvingAction/ZoneSearch; Custom/OpportunityLogic.php PostResolutionCheck",
+        "fixCommit": "TBD"
+    }
+}

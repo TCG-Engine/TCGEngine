@@ -5,9 +5,9 @@
         "mzId": "myField-0",
         "viewerPlayerID": 1,
         "property": "TurnEffects",
-        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"ycwz_1_ycwz9gv4vm\"]",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"ycwz_1_r7oifozaog\"]",
         "semantic": true,
-        "label": "Your champion carries the prevent-2 shield, tagged with the graveyard card (owner 1) to banish when it prevents damage"
+        "label": "Your champion carries the prevent-2 shield, tagged with the graveyard card (owner 1, the Baby Red Slime) to banish when it prevents damage"
     },
     {
         "step": 5,
