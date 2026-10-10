@@ -1698,6 +1698,10 @@ function ResolveTopOfEffectStack() {
     global $playerID;
     $savedPlayerID = $playerID;
     $playerID = $cardOwner;
+    // The decisions this resolution queues are new work: they must not inherit the PASS the response window was answered with (the window handlers that call this run inside an
+    // ExecuteStaticMethods() pass whose last answer is "PASS", and a queued CUSTOM/SYSTEM entry is skipped on PASS -- Cone of Frost's whole effect vanished whenever its caster passed the window
+    // because its champion had an activatable ability). A leading PASSPARAMETER "-" resets the running answer for everything the ability queues after it.
+    DecisionQueueController::AddDecision($cardOwner, "PASSPARAMETER", "-", 0);
     DecisionQueueController::StoreVariable("isImbued", $topIsImbued ? "YES" : "NO");
     DecisionQueueController::StoreVariable("ResolvingEffectStack", "YES");
     ClearDamageSourcesDealtThisResolution();

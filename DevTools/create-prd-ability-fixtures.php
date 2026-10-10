@@ -32033,6 +32033,17 @@ $fixtures['veltech-qa-tester-can-be-played-from-hand-and-enters-the-field'] = [
     'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 3), [mrdPass(1)]),
 ];
 
+// Cone of Frost (i7sbjy86ep) when the caster's champion has an activatable ability: the Opportunity window that opens after payment is answered with PASS. Passing the window must NOT cancel the spell's own effect.
+$fixtures['cone-of-frost-effect-still-resolves-after-passing-the-opportunity-window'] = [
+    'testedCards' => ['i7sbjy86ep'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'enxi6tshtu', 'Subcards' => ['tafqldAGRF'], 'Counters' => ['level' => 7, 'enlighten' => 3, '_overrides' => ['classes' => 'MAGE', 'element' => 'WATER']]]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'i7sbjy86ep'],
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myHand-7')], mrdPay(1, 2), [mrdPass(1), mrdAns(1, 'theirField-0')]),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {
