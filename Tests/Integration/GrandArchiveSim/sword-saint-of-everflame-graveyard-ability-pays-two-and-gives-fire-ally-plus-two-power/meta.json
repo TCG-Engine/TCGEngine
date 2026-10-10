@@ -27,6 +27,6 @@
         "status": "fixed",
         "summary": "FIXED. Same root cause as arrest-lightning-graveyard-static-counter: the queued ReserveCard entries were never run before the next answer popped them.",
         "affectedFunction": "Custom/GameLogic.php ActionMap",
-        "fixCommit": "TBD"
+        "fixCommit": "5d20637d"
     }
 }

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-10T14:50:46+00:00",
+    "generatedAt": "2026-10-10T15:04:19+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 893,
+        "cardsWithExistingFixtures": 894,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1591,
+        "cardsNeedingSemanticCoverage": 1590,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -22450,22 +22450,6 @@
             "priority": 12
         },
         {
-            "cardId": "lpy7ie4v8n",
-            "name": "Sword Saint of Everflame",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "a7lr70xglo",
             "name": "Sword Saint of Eveswind",
             "type": "ALLY",
@@ -27137,9 +27121,11 @@
                 "counter"
             ],
             "existingFixtures": [
+                "arrest-lightning-graveyard-ability-refused-without-matching-element",
                 "arrest-lightning-graveyard-static-counter"
             ],
             "semanticFixtures": [
+                "arrest-lightning-graveyard-ability-refused-without-matching-element",
                 "arrest-lightning-graveyard-static-counter"
             ],
             "starterDecks": [
@@ -34885,11 +34871,13 @@
                 "counter"
             ],
             "existingFixtures": [
-                "fulgurite-coordinator-static-counter",
+                "arrest-lightning-graveyard-ability-refused-without-matching-element",
+                "arrest-lightning-graveyard-static-counter",
                 "fulgurite-enters-static-counter"
             ],
             "semanticFixtures": [
-                "fulgurite-coordinator-static-counter"
+                "arrest-lightning-graveyard-ability-refused-without-matching-element",
+                "arrest-lightning-graveyard-static-counter"
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
@@ -35968,10 +35956,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "redslime-ondeath-sweep-stack-order-choice"
+                "redslime-ondeath-sweep-stack-order-choice",
+                "sword-saint-of-everflame-graveyard-ability-pays-two-and-gives-fire-ally-plus-two-power"
             ],
             "semanticFixtures": [
-                "redslime-ondeath-sweep-stack-order-choice"
+                "redslime-ondeath-sweep-stack-order-choice",
+                "sword-saint-of-everflame-graveyard-ability-pays-two-and-gives-fire-ally-plus-two-power"
             ],
             "starterDecks": [
                 "Silvie Re:Collection, Slime Sovereign"
@@ -47325,6 +47315,26 @@
             ],
             "semanticFixtures": [
                 "suzaku-vermillion-phoenix-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "lpy7ie4v8n",
+            "name": "Sword Saint of Everflame",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "sword-saint-of-everflame-graveyard-ability-pays-two-and-gives-fire-ally-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "sword-saint-of-everflame-graveyard-ability-pays-two-and-gives-fire-ally-plus-two-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

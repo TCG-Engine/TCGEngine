@@ -25,6 +25,6 @@
         "status": "fixed",
         "summary": "FIXED. IsElementBonusActive() was hard-wired to return true ('TODO: Delete this'), so every [Element Bonus] always applied. It now requires the champion's element to match the card's element.",
         "affectedFunction": "Custom/GameLogic.php IsElementBonusActive",
-        "fixCommit": "TBD"
+        "fixCommit": "5d20637d"
     }
 }

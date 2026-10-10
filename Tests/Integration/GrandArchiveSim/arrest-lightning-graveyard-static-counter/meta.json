@@ -31,6 +31,6 @@
         "status": "fixed",
         "summary": "FIXED. Hand-coded graveyard activations (Arrest Lightning, Sword Saint of Everflame, Seaside Rangefinder, Recurring Aethercharge, ...) queued their (N) payment as static ReserveCard entries at the head of the queue and returned without running it; the next answer popped 'ReserveCard' as if it were the answered decision, so the cost was never paid. ActionMap() now runs the queue's static entries after a graveyard click.",
         "affectedFunction": "Custom/GameLogic.php ActionMap",
-        "fixCommit": "TBD"
+        "fixCommit": "5d20637d"
     }
 }
