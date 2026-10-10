@@ -1,0 +1,10 @@
+{
+    "name": "recurring-aethercharge-graveyard-ability-pays-three-and-loads-into-the-aetherwing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T15:56:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MG8QoeZBXY",
+        "mob9nu6lal"
+    ]
+}

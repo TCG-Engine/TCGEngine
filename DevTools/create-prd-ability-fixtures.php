@@ -31840,6 +31840,57 @@ $fixtures['legendary-saddle-banishes-itself-and-draws-into-memory-with-three-hor
     'actions' => [mrdAct(1, 10001, 'myField-4!CustomInput!Activate:0'), mrdPass(1)],
 ];
 
+// Seaside Rangefinder (5qyee9vkp8): "[Class Bonus] [Element Bonus] (2), Banish this card from your graveyard: Target unit becomes distant." A Ranger champion with a WATER element (override).
+$gaRangerWater = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'RANGER', 'element' => 'WATER']]]];
+$fixtures['seaside-rangefinder-graveyard-ability-pays-two-banishes-itself-and-makes-a-unit-distant'] = [
+    'testedCards' => ['5qyee9vkp8'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [$gaRangerWater, ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '5qyee9vkp8']],
+    'actions' => array_merge([mrdPlay(1, 'myGraveyard-0'), mrdAns(1, 'theirField-0')], mrdPay(1, 2)),
+];
+$fixtures['seaside-rangefinder-graveyard-ability-refused-without-the-ranger-class'] = [
+    'testedCards' => ['5qyee9vkp8'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'WARRIOR', 'element' => 'WATER']]]], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '5qyee9vkp8']],
+    'actions' => [mrdPlay(1, 'myGraveyard-0'), mrdAns(1, 'theirField-0')],
+];
+// Recurring Aethercharge (MG8QoeZBXY): "[Class Bonus] (3): Load this card from your graveyard into an Aetherwing weapon you control." Salamander's Breath is the Aetherwing.
+$fixtures['recurring-aethercharge-graveyard-ability-pays-three-and-loads-into-the-aetherwing'] = [
+    'testedCards' => ['MG8QoeZBXY', 'mob9nu6lal'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'RANGER']]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mob9nu6lal'], // Salamander's Breath (Aetherwing) -> myField-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'MG8QoeZBXY'],
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myGraveyard-0')], mrdPay(1, 3)),
+];
+// Molten Arrow (mvfcd0ukk6): "Banish three other fire element cards from your graveyard: Load the card from your graveyard into target unloaded Bow weapon you control." The arrow is the LAST graveyard card, so
+// its index shifts as the three fire cards below it are banished.
+$fixtures['molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow'] = [
+    'testedCards' => ['mvfcd0ukk6', '1a49w5gmf7', 'mttsvbgl6f'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '1a49w5gmf7'], // Intricate Longbow (unloaded Bow) -> myField-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // three Red Slimes (FIRE)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mvfcd0ukk6'], // Molten Arrow -> myGraveyard-3
+    ],
+    'actions' => [mrdPlay(1, 'myGraveyard-3'), mrdAns(1, 'myGraveyard-0'), mrdAns(1, 'myGraveyard-0'), mrdAns(1, 'myGraveyard-0')],
+];
+// Rosewinged Hollow (6S1LLrBfBU): "[Alice Bonus] [Element Bonus] (2), Banish this card from your graveyard: Put a haunt counter on your Phantasmagoria. Then if there are six or more haunt counters on it, choose a Specter ally
+// you control and it gets +2 POWER until end of turn." Phantasmagoria starts with 5 haunt counters, Vengeful Paramour is the Specter ally.
+$fixtures['rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter'] = [
+    'testedCards' => ['6S1LLrBfBU', '4vjkezn49t'],
+    'deck' => $gaSweepDeck('Spirit of Fire'),
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['LMyKyVC2O9', 'daip7s9ztd'], 'Counters' => ['_overrides' => ['element' => 'FIRE']]]], // Alice lineage, FIRE
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'D3rexaXCBo', 'setProperties' => ['Counters' => ['haunt' => 5]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4vjkezn49t'], // Vengeful Paramour (Specter) -> myField-1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '6S1LLrBfBU'],
+    ],
+    'actions' => array_merge([mrdPlay(1, 'myGraveyard-0'), mrdAns(1, 'myField-1')], mrdPay(1, 2)),
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

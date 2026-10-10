@@ -700,19 +700,32 @@ $customDQHandlers["FerventLancerBanish"] = function($player, $parts, $lastDecisi
     }
 };
 
-// Molten Arrow GY ability: banish 3 fire GY cards sequentially, then load into bow
-$customDQHandlers["MoltenArrowGYBanish1"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "") return;
-    MZMove($player, $lastDecision, "myBanish");
-    DecisionQueueController::CleanupRemovedCards();
+// Molten Arrow GY ability: banish 3 fire GY cards sequentially, then load into bow.
+// The arrow's own graveyard index is kept in "MoltenArrowGYMZ" and moved down whenever a banished card sat below it (the graveyard closes up after each banish);
+// the arrow itself is the one card that cannot pay for its own ability, but other copies of it are fire cards like any other.
+function MoltenArrowFireGraveyardChoices($player) {
+    $arrowMZ = DecisionQueueController::GetVariable("MoltenArrowGYMZ");
     $fireGY = [];
     $gy = GetZone("myGraveyard");
     for($gi = 0; $gi < count($gy); ++$gi) {
-        if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE"
-            && $gy[$gi]->CardID !== "mvfcd0ukk6") {
+        if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE" && "myGraveyard-" . $gi !== $arrowMZ) {
             $fireGY[] = "myGraveyard-" . $gi;
         }
     }
+    return $fireGY;
+}
+function MoltenArrowBanishFireCard($player, $banishedMZ) {
+    $arrowMZ = DecisionQueueController::GetVariable("MoltenArrowGYMZ");
+    $banishedIdx = intval(explode("-", $banishedMZ)[1]);
+    $arrowIdx = intval(explode("-", $arrowMZ)[1]);
+    MZMove($player, $banishedMZ, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    if($banishedIdx < $arrowIdx) DecisionQueueController::StoreVariable("MoltenArrowGYMZ", "myGraveyard-" . ($arrowIdx - 1));
+}
+$customDQHandlers["MoltenArrowGYBanish1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MoltenArrowBanishFireCard($player, $lastDecision);
+    $fireGY = MoltenArrowFireGraveyardChoices($player);
     if(count($fireGY) < 2) return;
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fireGY), 1, tooltip:"Banish_fire_card_2_of_3");
     DecisionQueueController::AddDecision($player, "CUSTOM", "MoltenArrowGYBanish2", 1);
@@ -720,16 +733,8 @@ $customDQHandlers["MoltenArrowGYBanish1"] = function($player, $parts, $lastDecis
 
 $customDQHandlers["MoltenArrowGYBanish2"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
-    MZMove($player, $lastDecision, "myBanish");
-    DecisionQueueController::CleanupRemovedCards();
-    $fireGY = [];
-    $gy = GetZone("myGraveyard");
-    for($gi = 0; $gi < count($gy); ++$gi) {
-        if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE"
-            && $gy[$gi]->CardID !== "mvfcd0ukk6") {
-            $fireGY[] = "myGraveyard-" . $gi;
-        }
-    }
+    MoltenArrowBanishFireCard($player, $lastDecision);
+    $fireGY = MoltenArrowFireGraveyardChoices($player);
     if(count($fireGY) < 1) return;
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fireGY), 1, tooltip:"Banish_fire_card_3_of_3");
     DecisionQueueController::AddDecision($player, "CUSTOM", "MoltenArrowGYBanish3", 1);
@@ -737,8 +742,7 @@ $customDQHandlers["MoltenArrowGYBanish2"] = function($player, $parts, $lastDecis
 
 $customDQHandlers["MoltenArrowGYBanish3"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
-    MZMove($player, $lastDecision, "myBanish");
-    DecisionQueueController::CleanupRemovedCards();
+    MoltenArrowBanishFireCard($player, $lastDecision);
     // Now load Molten Arrow from GY into an unloaded Bow
     $arrowMZ = DecisionQueueController::GetVariable("MoltenArrowGYMZ");
     $bows = GetUnloadedBows($player);

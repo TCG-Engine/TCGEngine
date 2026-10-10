@@ -1601,17 +1601,10 @@ function ActionMapInner($actionCard, $allowDuringDecisionQueue = false)
                 }
                 // Molten Arrow (mvfcd0ukk6): Banish 3 other fire GY cards to load from GY into unloaded Bow.
                 if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "mvfcd0ukk6") {
-                    $fireGY = [];
-                    $gy = GetZone("myGraveyard");
-                    for($gi = 0; $gi < count($gy); ++$gi) {
-                        if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE"
-                            && $gy[$gi]->CardID !== "mvfcd0ukk6") {
-                            $fireGY[] = "myGraveyard-" . $gi;
-                        }
-                    }
+                    DecisionQueueController::StoreVariable("MoltenArrowGYMZ", $actionCard);
+                    $fireGY = MoltenArrowFireGraveyardChoices($playerID);
                     $bows = GetUnloadedBows($playerID);
                     if(count($fireGY) >= 3 && !empty($bows)) {
-                        DecisionQueueController::StoreVariable("MoltenArrowGYMZ", $actionCard);
                         DecisionQueueController::AddDecision($playerID, "MZCHOOSE", implode("&", $fireGY), 1, tooltip:"Banish_fire_card_1_of_3");
                         DecisionQueueController::AddDecision($playerID, "CUSTOM", "MoltenArrowGYBanish1", 1);
                         return "PLAY";
