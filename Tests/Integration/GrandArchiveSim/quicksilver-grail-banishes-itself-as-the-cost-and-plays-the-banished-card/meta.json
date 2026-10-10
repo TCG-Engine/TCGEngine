@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. 'Banish CARDNAME' is the ability's cost but nothing paid it (no GAFieldAbilityCostTable() entry): the Grail stayed on the field and the ability was repeatable. Added the spec.",
         "affectedFunction": "Custom/GameLogic.php GAFieldAbilityCostTable",
-        "fixCommit": "TBD"
+        "fixCommit": "c8e5c91d"
     }
 }

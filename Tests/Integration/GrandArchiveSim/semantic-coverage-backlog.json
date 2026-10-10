@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-10T15:07:04+00:00",
+    "generatedAt": "2026-10-10T15:10:14+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 895,
+        "cardsWithExistingFixtures": 899,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1589,
+        "cardsNeedingSemanticCoverage": 1585,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1188,24 +1188,6 @@
                 "cost",
                 "draw-discard",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "AXE6sCzjZU",
-            "name": "Legendary Saddle",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -2408,23 +2390,6 @@
                 "targeting",
                 "damage",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "cxyky280mt",
-            "name": "Quicksilver Grail",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12330,23 +12295,6 @@
             "priority": 13
         },
         {
-            "cardId": "r5uyjq37zh",
-            "name": "Caretaker Horse",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "v0yuddp71s",
             "name": "Castling Boon",
             "type": "ACTION",
@@ -18952,22 +18900,6 @@
             "mechanics": [
                 "combat",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "wAq6lxxwBA",
-            "name": "Discharger",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -42650,6 +42582,28 @@
             "priority": 44
         },
         {
+            "cardId": "AXE6sCzjZU",
+            "name": "Legendary Saddle",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "legendary-saddle-banishes-itself-and-draws-into-memory-with-three-horses"
+            ],
+            "semanticFixtures": [
+                "legendary-saddle-banishes-itself-and-draws-into-memory-with-three-horses"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "fIQR28QmYg",
             "name": "Lucia, Reclaimed Blight",
             "type": "UNIQUE,ALLY",
@@ -43217,6 +43171,27 @@
                 "peer-the-depths-look-four-opponent-banish-one-rest-bottom",
                 "peer-the-depths-not-offered-to-non-turn-player-in-opponents-recollection",
                 "peer-the-depths-player-two-look-four-opponent-banish-one-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "cxyky280mt",
+            "name": "Quicksilver Grail",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "quicksilver-grail-banishes-itself-as-the-cost-and-plays-the-banished-card"
+            ],
+            "semanticFixtures": [
+                "quicksilver-grail-banishes-itself-as-the-cost-and-plays-the-banished-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45553,6 +45528,27 @@
             "priority": 33
         },
         {
+            "cardId": "r5uyjq37zh",
+            "name": "Caretaker Horse",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "legendary-saddle-banishes-itself-and-draws-into-memory-with-three-horses"
+            ],
+            "semanticFixtures": [
+                "legendary-saddle-banishes-itself-and-draws-into-memory-with-three-horses"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "r84E55KBLM",
             "name": "Condemning Evisceration",
             "type": "ATTACK",
@@ -46573,6 +46569,26 @@
             ],
             "semanticFixtures": [
                 "crystallized-anthem-marks-each-unit-you-control"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "wAq6lxxwBA",
+            "name": "Discharger",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "discharger-banishes-itself-and-removes-four-static-counters"
+            ],
+            "semanticFixtures": [
+                "discharger-banishes-itself-and-removes-four-static-counters"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

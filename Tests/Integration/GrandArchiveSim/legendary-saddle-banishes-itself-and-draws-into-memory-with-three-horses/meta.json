@@ -26,6 +26,6 @@
         "status": "fixed",
         "summary": "FIXED. 'Banish CARDNAME' is the ability's cost but nothing paid it (no GAFieldAbilityCostTable() entry): the item stayed on the field and the ability was free and repeatable. Added the spec.",
         "affectedFunction": "Custom/GameLogic.php GAFieldAbilityCostTable",
-        "fixCommit": "TBD"
+        "fixCommit": "c8e5c91d"
     }
 }
