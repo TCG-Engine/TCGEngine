@@ -198,7 +198,7 @@ DECK
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'Status', '1')
     ->expectProperty('p1Graveyard-0', 'CardID', '4V6qKuM7xs')
-    ->expectDamage('p2Field-0', 1)
+    ->expectDamage('p2Field-0', 1, 'The attack dealt its 1 POWER to the opposing champion')
     ->expectProperty('p2Field-0', 'Counters', '{"_champDamageThisTurn":1}')
     ->expectProperty('p2Field-0', 'TurnEffects', '["DAMAGED_SINCE_LAST_TURN"]')
     ->expectZoneCount('myHand', 5, 1)

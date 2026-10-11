@@ -9,14 +9,18 @@
         "type": "card_property_equals",
         "mzId": "p1Field-1",
         "property": "TurnEffects",
-        "value": "[\"qyQLlDYBlr\"]"
+        "value": "[\"qyQLlDYBlr\"]",
+        "semantic": true,
+        "label": "On Enter: the targeted ally gets a +1 POWER effect until end of turn"
     },
     {
         "step": 4,
         "type": "card_property_equals",
         "mzId": "p1Field-2",
         "property": "CardID",
-        "value": "qyQLlDYBlr"
+        "value": "qyQLlDYBlr",
+        "semantic": true,
+        "label": "Ornamental Greatsword materialized onto the field"
     },
     {
         "step": 4,

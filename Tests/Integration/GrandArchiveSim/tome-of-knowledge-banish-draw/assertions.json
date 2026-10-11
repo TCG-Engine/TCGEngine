@@ -37,7 +37,9 @@
         "type": "card_property_equals",
         "mzId": "p1Banish-0",
         "property": "CardID",
-        "value": "yDARN8eV6B"
+        "value": "yDARN8eV6B",
+        "semantic": true,
+        "label": "Tome of Knowledge banished itself as the cost"
     },
     {
         "step": 3,

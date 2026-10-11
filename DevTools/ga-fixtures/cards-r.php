@@ -289,7 +289,7 @@ DECK
     ->tested('Rai, Spellcrafter')
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'CardID', 'gPKTJKqvOI')
-    ->expectProperty('p1Field-0', 'Counters', '{"enlighten":2}')
+    ->expectProperty('p1Field-0', 'Counters', '{"enlighten":2}', 'On Enter: two enlighten counters were put on Rai')
     ->expectProperty('p1Field-0', 'TurnEffects', '["ENTERED_THIS_TURN"]')
     ->expectProperty('p1Banish-0', 'CardID', 'n8wyfG9hbY')
     ->expectProperty('p1Banish-0', 'Counters', '[]')

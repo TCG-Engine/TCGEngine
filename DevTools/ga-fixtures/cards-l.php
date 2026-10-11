@@ -311,7 +311,7 @@ DECK
     ->tested('Lorraine, Blademaster')
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'CardID', 'TJTeWcZnsQ')
-    ->expectProperty('p1Field-0', 'TurnEffects', '["ENTERED_THIS_TURN","TJTeWcZnsQ"]')
+    ->expectProperty('p1Field-0', 'TurnEffects', '["ENTERED_THIS_TURN","TJTeWcZnsQ"]', 'On Enter tagged the champion: its attacks get +2 POWER and On Kill: draw a card this turn')
     ->expectProperty('p1Banish-0', 'CardID', 'em6eEh9q8y')
     ->expectProperty('p1Banish-0', 'Counters', '[]')
     ->expectProperty('p1Banish-0', 'TurnEffects', '[]')

@@ -37,7 +37,9 @@
         "type": "card_property_equals",
         "mzId": "p1Banish-0",
         "property": "CardID",
-        "value": "IC3OU6vCnF"
+        "value": "IC3OU6vCnF",
+        "semantic": true,
+        "label": "Mana Limiter banished itself as the cost"
     },
     {
         "step": 3,

@@ -16,7 +16,9 @@
         "type": "card_property_equals",
         "mzId": "p1Field-2",
         "property": "CardID",
-        "value": "rPpLwLPGaL"
+        "value": "rPpLwLPGaL",
+        "semantic": true,
+        "label": "Phalanx Captain entered play after 4 reserve payments (5 - 1 for one Human ally)"
     },
     {
         "step": 6,
@@ -65,6 +67,8 @@
         "type": "zone_count",
         "zone": "myMemory",
         "viewerPlayerID": 1,
-        "value": 4
+        "value": 4,
+        "semantic": true,
+        "label": "Four cards were paid into memory, one less than the printed 5"
     }
 ]
