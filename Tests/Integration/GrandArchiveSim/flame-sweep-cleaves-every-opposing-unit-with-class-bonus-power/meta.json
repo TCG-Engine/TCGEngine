@@ -1,0 +1,24 @@
+{
+    "name": "flame-sweep-cleaves-every-opposing-unit-with-class-bonus-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:34:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "FGvq4eQPbP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "FGvq4eQPbP"
+        ],
+        "mechanics": [
+            "combat",
+            "cleave",
+            "class-bonus",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "Cleave (Attack all units a chosen opponent controls.)",
+            "[Class Bonus] [Level 2+] CARDNAME gets +1 [POWER]."
+        ]
+    }
+}

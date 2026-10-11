@@ -1,0 +1,22 @@
+{
+    "name": "firebloom-flourish-class-bonus-damages-the-opposing-champion-at-recollection",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "prbwzihwyh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "prbwzihwyh"
+        ],
+        "mechanics": [
+            "trigger",
+            "damage",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your recollection phase, deal 1 damage to target champion."
+        ]
+    }
+}

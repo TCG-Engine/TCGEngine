@@ -1,0 +1,22 @@
+{
+    "name": "fiery-momentum-class-bonus-gets-plus-one-power-per-fire-card-in-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:34:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "LUfgfsWTTO"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "LUfgfsWTTO"
+        ],
+        "mechanics": [
+            "combat",
+            "class-bonus",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 [POWER] for each fire element card in your graveyard."
+        ]
+    }
+}

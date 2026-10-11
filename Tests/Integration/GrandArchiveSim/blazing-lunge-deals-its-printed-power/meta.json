@@ -1,0 +1,20 @@
+{
+    "name": "blazing-lunge-deals-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:34:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wewvlfkfp7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wewvlfkfp7"
+        ],
+        "mechanics": [
+            "combat"
+        ],
+        "rulesClauses": [
+            "Blazing Lunge attacks for its printed 4 POWER."
+        ]
+    }
+}

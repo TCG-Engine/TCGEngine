@@ -1,0 +1,22 @@
+{
+    "name": "lesser-boon-of-vritra-draws-and-damages-champions-with-influence-over-seven",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Kf0t7qyLaH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Kf0t7qyLaH"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "damage",
+            "influence"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, each player draws a card. Then deal 2 damage to each champion controlled by players with influence more than seven."
+        ]
+    }
+}

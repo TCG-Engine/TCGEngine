@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "[Class Bonus] At the beginning of your recollection phase: 1 damage to the opposing champion"
+    }
+]

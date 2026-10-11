@@ -5,10 +5,12 @@
 //
 //   php DevTools/ga-autoplay.php --test=<slug> [--root=GrandArchiveSim] [--max=40] [--yes=YES|NO]
 //
-// Answers: first option of every MZ choice, YES (or --yes) for YESNO, 1 for numbers, PASS otherwise.
+// Answers: first option of every MZ choice, YES (or --yes) for YESNO, 1 for numbers, PASS otherwise; priority windows are
+// declined unless --activate, which takes the first offered '@Activate' ability.
 require_once __DIR__ . '/../Core/EngineActionRunner.php';
 
-$args = getopt('', ['root::', 'test::', 'max::', 'yes::']);
+$args = getopt('', ['root::', 'test::', 'max::', 'yes::', 'activate']);
+$takeActivation = isset($args['activate']);
 $root = (string)($args['root'] ?? 'GrandArchiveSim');
 $test = (string)($args['test'] ?? '');
 $max = intval($args['max'] ?? 40);
@@ -75,7 +77,12 @@ for ($n = 0; $n < $max; ++$n) {
         $first = trim(explode('@', explode('&', $optStr)[0])[0]);
         $answer = $first !== '' ? $first : 'PASS';
         if ($answer !== 'PASS' && strpos($answer, '-') === false) $answer .= '-0'; // reserve payment lists the zone name only
-        if (stripos(strval($d->Tooltip ?? ''), 'fast_action') !== false) $answer = 'PASS';   // priority window: decline
+        if (stripos(strval($d->Tooltip ?? ''), 'fast_action') !== false) {                      // priority window: decline...
+            $answer = 'PASS';
+            if ($takeActivation) {                                                              // ...or, with --activate, use the first ability offered
+                foreach (explode('&', $optStr) as $opt) if (strpos($opt, '@Activate') !== false) { $answer = $opt; break; }
+            }
+        }
     } elseif ($type === 'MZMODAL') {
         $pp = explode('|', $param, 3);   // min|max|options: answer with the first min mode indexes ("0" or "0,1")
         $answer = implode(',', range(0, max(1, intval($pp[0] ?? 1)) - 1));

@@ -1,0 +1,22 @@
+{
+    "name": "flametech-shield-links-to-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "U7pILTDm3s"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "U7pILTDm3s"
+        ],
+        "mechanics": [
+            "link",
+            "on-enter",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Ally Link. On Enter: Draw a card, then discard a card."
+        ]
+    }
+}

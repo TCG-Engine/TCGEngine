@@ -405,33 +405,6 @@ function AdvanceGoldfishTurnIfIdle() {
     $playerID = $turnPlayer;
     if(GlobalEffectCount($turnPlayer, "DIVINE_COMEDY_EVEN_LOCK") > 0) RemoveGlobalEffect($turnPlayer, "DIVINE_COMEDY_EVEN_LOCK");
 
-    // Leran, Pastoral Hymns: punish the active player for high influence.
-    $leranDamage = max(0, GetInfluence($turnPlayer) - 7);
-    if($leranDamage > 0) {
-        for($owner = 1; $owner <= 2; ++$owner) {
-            foreach(GetField($owner) as $leranObj) {
-                if($leranObj !== null && !$leranObj->removed && $leranObj->CardID === "CGdu1Vmlok" && !HasNoAbilities($leranObj)) {
-                    $champMZ = FindChampionMZ($turnPlayer);
-                    if($champMZ !== null) DealDamage($owner, $leranObj->GetMzID(), $champMZ, $leranDamage);
-                }
-            }
-        }
-    }
-
-    // Where Futures Stir: optionally rest a base-power-0 ally to train it.
-    $endField = GetField($turnPlayer);
-    for($wfs = 0; $wfs < count($endField); ++$wfs) {
-        if($endField[$wfs]->removed || $endField[$wfs]->CardID !== "jmaPje9XgG" || HasNoAbilities($endField[$wfs])) continue;
-        $targets = [];
-        foreach(ZoneSearch("myField", ["ALLY"]) as $allyMZ) {
-            $allyObj = GetZoneObject($allyMZ);
-            if($allyObj !== null && intval(CardPower($allyObj->CardID)) === 0 && intval($allyObj->Status ?? 0) === 2) $targets[] = $allyMZ;
-        }
-        if(empty($targets)) continue;
-        DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", $targets), 1, tooltip:"Rest_a_base-power-0_ally_to_add_training?");
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WhereFuturesStirTrain|myField-" . $wfs, 1);
-    }
-
     if(GetCurrentPhase() === "MAIN") {
         AdvanceAndExecute("PASS");
         AutoAdvanceAndExecute();
@@ -13209,6 +13182,39 @@ function EndPhase() {
             break;
         }
     }
+
+    // Leran, Pastoral Hymns (CGdu1Vmlok): at the beginning of each player's end phase, if that player's influence is eight or
+    // more, deal X-7 damage to that player's champion. Where Futures Stir (jmaPje9XgG): optionally rest a base-power-0 ally to
+    // train it. Both used to be coded only inside the goldfish turn-advance helper, so they never ran in a real end phase.
+    global $playerID;
+    $endPhaseSavedPlayerID = $playerID;
+    $playerID = $turnPlayer;
+    $leranDamage = max(0, GetInfluence($turnPlayer) - 7);
+    if($leranDamage > 0) {
+        for($owner = 1; $owner <= 2; ++$owner) {
+            foreach(GetField($owner) as $leranObj) {
+                if($leranObj !== null && !$leranObj->removed && $leranObj->CardID === "CGdu1Vmlok" && !HasNoAbilities($leranObj)) {
+                    $champMZ = FindChampionMZ($turnPlayer);
+                    if($champMZ !== null) DealDamage($owner, $leranObj->GetMzID(), $champMZ, $leranDamage);
+                }
+            }
+        }
+    }
+
+    $endField = GetField($turnPlayer);
+    for($wfs = 0; $wfs < count($endField); ++$wfs) {
+        if($endField[$wfs]->removed || $endField[$wfs]->CardID !== "jmaPje9XgG" || HasNoAbilities($endField[$wfs])) continue;
+        $targets = [];
+        foreach(ZoneSearch("myField", ["ALLY"]) as $allyMZ) {
+            $allyObj = GetZoneObject($allyMZ);
+            if($allyObj !== null && intval(CardPower($allyObj->CardID)) === 0 && intval($allyObj->Status ?? 0) === 2) $targets[] = $allyMZ;
+        }
+        if(empty($targets)) continue;
+        DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", $targets), 1, tooltip:"Rest_a_base-power-0_ally_to_add_training?");
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WhereFuturesStirTrain|myField-" . $wfs, 1);
+    }
+
+    $playerID = $endPhaseSavedPlayerID;
 
     // Diao Chan, Dreaming Wish (pknaxnn0xo): Inherited â€” at the beginning of your end phase,
     // if glimmer counters < phantasia count, put the difference as glimmer counters

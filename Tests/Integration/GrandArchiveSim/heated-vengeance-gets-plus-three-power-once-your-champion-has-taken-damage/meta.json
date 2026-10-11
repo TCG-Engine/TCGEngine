@@ -1,0 +1,24 @@
+{
+    "name": "heated-vengeance-gets-plus-three-power-once-your-champion-has-taken-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:34:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "td460e8ig0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "td460e8ig0"
+        ],
+        "mechanics": [
+            "combat",
+            "damage",
+            "condition",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "As long as your champion has taken damage this turn, CARDNAME gets +3 [POWER].",
+            "[Class Bonus] On Attack: You may have CARDNAME deal 3 damage to your champion."
+        ]
+    }
+}

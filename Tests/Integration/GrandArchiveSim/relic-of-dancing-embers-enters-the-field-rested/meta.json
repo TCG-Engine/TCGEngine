@@ -1,0 +1,21 @@
+{
+    "name": "relic-of-dancing-embers-enters-the-field-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i8g5013x9j"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i8g5013x9j"
+        ],
+        "mechanics": [
+            "keyword",
+            "status"
+        ],
+        "rulesClauses": [
+            "Hindered (This object entered the field rested.)"
+        ]
+    }
+}

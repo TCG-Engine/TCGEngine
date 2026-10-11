@@ -1,0 +1,22 @@
+{
+    "name": "incendiary-fractal-class-bonus-enter-deals-four-damage-to-an-opposing-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "igka5av43e"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "igka5av43e"
+        ],
+        "mechanics": [
+            "on-enter",
+            "damage",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "On Enter: Deal 2 damage to target ally you don't control. Class Bonus: Deal 4 damage to that ally instead."
+        ]
+    }
+}

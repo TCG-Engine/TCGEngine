@@ -1,0 +1,22 @@
+{
+    "name": "volnia-sacrifice-deals-one-damage-to-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CjWMdce0Ke"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CjWMdce0Ke"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "damage",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "Sacrifice CARDNAME: As a Spell, deal 1 damage to target unit."
+        ]
+    }
+}

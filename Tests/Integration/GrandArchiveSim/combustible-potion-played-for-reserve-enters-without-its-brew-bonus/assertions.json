@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "GPsEkAfDjy",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Combustible Potion is on the field"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Not brewed: no cards drawn (8 - 1 - 4 = 3)"
+    }
+]

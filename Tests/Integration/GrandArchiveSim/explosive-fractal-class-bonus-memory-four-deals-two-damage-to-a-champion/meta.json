@@ -1,0 +1,23 @@
+{
+    "name": "explosive-fractal-class-bonus-memory-four-deals-two-damage-to-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1d47o7eanl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1d47o7eanl"
+        ],
+        "mechanics": [
+            "on-enter",
+            "damage",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Memory 4+] On Enter: Deal 2 damage to target champion."
+        ]
+    }
+}

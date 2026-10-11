@@ -1,0 +1,22 @@
+{
+    "name": "coiled-fatestone-enter-discards-two-cards-at-random",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ulh4lplwqe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ulh4lplwqe"
+        ],
+        "mechanics": [
+            "on-enter",
+            "discard",
+            "random"
+        ],
+        "rulesClauses": [
+            "On Enter: Discard two cards at random. For each fire element card discarded this way, draw a card."
+        ]
+    }
+}

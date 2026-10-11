@@ -1,0 +1,22 @@
+{
+    "name": "combustible-potion-played-for-reserve-enters-without-its-brew-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GPsEkAfDjy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GPsEkAfDjy"
+        ],
+        "mechanics": [
+            "brew",
+            "on-enter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: If CARDNAME was brewed, draw two cards and discard a card."
+        ]
+    }
+}

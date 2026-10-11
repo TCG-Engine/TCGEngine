@@ -1,0 +1,22 @@
+{
+    "name": "blazing-charge-class-bonus-gets-plus-two-power-and-arms-the-next-turn-trigger",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:34:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s5jwsl7ded"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s5jwsl7ded"
+        ],
+        "mechanics": [
+            "combat",
+            "class-bonus",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +2 [POWER]."
+        ]
+    }
+}

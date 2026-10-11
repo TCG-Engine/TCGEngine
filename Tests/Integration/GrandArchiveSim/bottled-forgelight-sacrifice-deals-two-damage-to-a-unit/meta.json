@@ -1,0 +1,22 @@
+{
+    "name": "bottled-forgelight-sacrifice-deals-two-damage-to-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "g616r0zadf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "g616r0zadf"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "damage",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "Sacrifice CARDNAME: Deal 2 damage to target unit."
+        ]
+    }
+}

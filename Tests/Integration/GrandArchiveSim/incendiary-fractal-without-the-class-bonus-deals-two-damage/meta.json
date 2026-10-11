@@ -1,0 +1,23 @@
+{
+    "name": "incendiary-fractal-without-the-class-bonus-deals-two-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "igka5av43e"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "igka5av43e"
+        ],
+        "mechanics": [
+            "on-enter",
+            "damage",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: Deal 2 damage to target ally you don't control."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "devastating-blow-below-level-three-deals-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:34:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "At1UNRG7F0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "At1UNRG7F0"
+        ],
+        "mechanics": [
+            "combat",
+            "class-bonus",
+            "level-gate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 3+] CARDNAME gets +4 [POWER] and can't be retaliated."
+        ]
+    }
+}
