@@ -330,6 +330,35 @@ $customDQHandlers["FrameworkSidearmAfterPay"] = function($player, $parts, $lastD
     DoMaterialize($player, $materialMZ);
 };
 
+// Main-phase activation from the material deck (click the card, see the myMaterial case of the FSM in GameLogic.php) for the cards the materialize phase already offers: a player who declines the ordinary
+// materialize at the start of the turn (which skips the *_MATERIAL_CHECK offers) can still activate them later. These mirror the conditions of the *_MATERIAL_CHECK handlers.
+function GAEventideSpearMaterialActivatable($player, $obj) {
+    if($obj === null || $obj->removed || $obj->CardID !== "xjkdokzfd9") return false;
+    if(!IsClassBonusActive($player, ["WARRIOR"]) || !CanPlayerUseCardElement($player, $obj->CardID, false, false)) return false;
+    global $playerID;
+    $oppFieldZone = ($player == $playerID) ? "theirField" : "myField";
+    $rested = 0;
+    foreach(GetZone($oppFieldZone) as $rObj) {
+        if(!$rObj->removed && $rObj->Status == 1) ++$rested;
+    }
+    return $rested >= 2;
+}
+function GAVaruckanMaterialActivatable($player, $obj) {
+    if($obj === null || $obj->removed || $obj->CardID !== "9ox7u6wzh9") return false;
+    if(!IsClassBonusActive($player, ["ASSASSIN"]) || !IsElementBonusActive($player, "9ox7u6wzh9")) return false;
+    if(!CanPlayerUseCardElement($player, $obj->CardID, false, false)) return false;
+    return count(ZoneSearch("myGraveyard", cardElements: ["FIRE"])) >= 3;
+}
+function GACapacitanceMaterialActivatable($player, $obj) {
+    if($obj === null || $obj->removed || $obj->CardID !== "FjklZcbjPV") return false;
+    if(!IsLorraineBonusActive($player) || !CanPlayerUseCardElement($player, $obj->CardID, false, false)) return false;
+    $arcane = 0;
+    foreach(GetBanish($player) as $bObj) {
+        if(!$bObj->removed && PropertyContains(CardElement($bObj->CardID), "ARCANE")) ++$arcane;
+    }
+    return $arcane >= 6;
+}
+
 function ReciprocityMaterialActivationCost($player) {
     return max(0, 6 - (3 * CountNonTokenDomainsControlled($player)));
 }

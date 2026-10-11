@@ -1,0 +1,23 @@
+{
+    "name": "Varuckan Soulknife cannot be activated from the material deck with only two fire cards in the graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T00:37:14+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "9ox7u6wzh9"
+    ],
+    "notes": "Two fire cards cannot pay the cost of three: the click is a no-op and nothing is banished.",
+    "semanticCoverage": {
+        "testedCards": [
+            "9ox7u6wzh9"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Element Bonus] You may banish three fire element cards from your graveyard to activate this card from your material deck."
+        ]
+    }
+}

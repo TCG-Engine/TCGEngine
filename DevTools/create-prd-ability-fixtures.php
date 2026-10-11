@@ -32324,6 +32324,72 @@ $fixtures['charge-the-soul-cannot-be-activated-from-the-graveyard-without-manabo
     'actions' => [mrdPlay(1, 'myGraveyard-0')], // refused: no Manabolt Convergence grant (a silent no-op)
 ];
 
+// Eventide Spear / Varuckan Soulknife / Capacitance X Psycho: the materialize phase offers their "activate from your material deck" clause only when the player takes part in the ordinary materialize; a player
+// who declines can still click the card in the material deck during the main phase.
+$fixtures['eventide-spear-activates-from-the-material-deck-in-the-main-phase-against-two-rested-units'] = [
+    'testedCards' => ['xjkdokzfd9'],
+    'deck' => $gaPrepMaterialDeck = "# Material\n1 Spirit of Water\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'WARRIOR']]]],
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'xjkdokzfd9'], // Eventide Spear -> p1 myMaterial-0
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 1]], // rested Dungeon Guide
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 2, 'patchMzId' => 'myField-2', 'setProperties' => ['Status' => 1]], // rested Dungeon Guide
+    ],
+    'actions' => [mrdPlay(1, 'myMaterial-0')],
+];
+$fixtures['eventide-spear-is-not-activated-from-the-material-deck-against-only-one-rested-unit'] = [
+    'testedCards' => ['xjkdokzfd9'],
+    'deck' => "# Material\n1 Spirit of Water\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'WARRIOR']]]],
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'xjkdokzfd9'],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 1]],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // an awake Dungeon Guide
+    ],
+    'actions' => [mrdPlay(1, 'myMaterial-0')], // refused: a silent no-op
+];
+$fixtures['varuckan-soulknife-activates-from-the-material-deck-in-the-main-phase-by-banishing-three-fire-cards'] = [
+    'testedCards' => ['9ox7u6wzh9'],
+    'deck' => "# Material\n1 Spirit of Fire\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]],
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => '9ox7u6wzh9'], // Varuckan Soulknife -> p1 myMaterial-0
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], // three Red Slimes (fire)
+    ],
+    'actions' => [mrdPlay(1, 'myMaterial-0'), mrdAns(1, 'myGraveyard-0'), mrdAns(1, 'myGraveyard-0'), mrdAns(1, 'myGraveyard-0'), mrdAns(1, 'myMaterial-0')], // click the Soulknife, banish three fire cards, confirm the materialize
+];
+$fixtures['varuckan-soulknife-is-not-activated-from-the-material-deck-with-only-two-fire-cards-in-the-graveyard'] = [
+    'testedCards' => ['9ox7u6wzh9'],
+    'deck' => "# Material\n1 Spirit of Fire\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'ASSASSIN']]]],
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => '9ox7u6wzh9'],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'], ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'mttsvbgl6f'],
+    ],
+    'actions' => [mrdPlay(1, 'myMaterial-0')], // refused: a silent no-op
+];
+
+$gaCapacitanceSetup = function(int $arcane) {
+    $rows = [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['TJTeWcZnsQ', 'x9sSpjpP3G']]], // Lorraine, Blademaster (Lorraine Bonus) and Lorraine, Arclight Saber (ARCANE element access) in the lineage
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'FjklZcbjPV'], // Capacitance X Psycho -> p1 myMaterial-0
+    ];
+    for ($i = 0; $i < $arcane; ++$i) $rows[] = ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'wFH1kBLrWh']; // Arcane Elemental (arcane)
+    return $rows;
+};
+$fixtures['capacitance-x-psycho-activates-from-the-material-deck-in-the-main-phase-entering-rested'] = [
+    'testedCards' => ['FjklZcbjPV'],
+    'deck' => "# Material\n1 Spirit of Fire\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => $gaCapacitanceSetup(6),
+    'actions' => [mrdPlay(1, 'myMaterial-0')],
+];
+$fixtures['capacitance-x-psycho-is-not-activated-from-the-material-deck-with-only-five-arcane-cards-banished'] = [
+    'testedCards' => ['FjklZcbjPV'],
+    'deck' => "# Material\n1 Spirit of Fire\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n",
+    'setup' => $gaCapacitanceSetup(5),
+    'actions' => [mrdPlay(1, 'myMaterial-0')], // refused: a silent no-op
+];
+
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

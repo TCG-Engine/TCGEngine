@@ -1,0 +1,28 @@
+{
+    "name": "Eventide Spear can be activated from the material deck in the main phase while an opponent controls two rested units",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T00:37:11+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "xjkdokzfd9"
+    ],
+    "notes": "A Warrior champion clicks Eventide Spear in the material deck while the opponent controls two rested Dungeon Guards. The materialize phase only offers this clause to a player who takes part in the ordinary materialize (declining it skips the offer), so the card is also activatable by clicking it in the material deck during the main phase.",
+    "semanticCoverage": {
+        "testedCards": [
+            "xjkdokzfd9"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as an opponent controls two or more rested units, you may activate this card from your material deck."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Eventide Spear could only be activated from the material deck through the materialize-phase offer, which a declined ordinary materialize skips; it had no main-phase activation.",
+        "affectedFunction": "Custom/MaterializeLogic.php GAEventideSpearMaterialActivatable/GAVaruckanMaterialActivatable/GACapacitanceMaterialActivatable; Custom/GameLogic.php FSM myMaterial case",
+        "fixCommit": "TBD"
+    }
+}

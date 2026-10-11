@@ -1966,6 +1966,23 @@ function ActionMapInner($actionCard, $allowDuringDecisionQueue = false)
                     }
                 }
             }
+            // Eventide Spear (xjkdokzfd9) / Varuckan Soulknife (9ox7u6wzh9) / Capacitance X Psycho (FjklZcbjPV): the same material-deck activations the materialize phase offers, available any time in the main phase
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                global $customDQHandlers;
+                $mObj = GetZoneObject($actionCard);
+                if(GAEventideSpearMaterialActivatable($playerID, $mObj)) {
+                    $customDQHandlers["MATERIALIZE"]($playerID, ["NOCOST"], $actionCard);
+                    return "PLAY";
+                }
+                if(GAVaruckanMaterialActivatable($playerID, $mObj)) {
+                    $customDQHandlers["VaruckanMaterialFromDeck"]($playerID, [], $actionCard);
+                    return "PLAY";
+                }
+                if(GACapacitanceMaterialActivatable($playerID, $mObj)) {
+                    $customDQHandlers["CapacitanceMaterialActivate"]($playerID, [], $actionCard);
+                    return "PLAY";
+                }
+            }
             // Framework Sidearm (p4lgdlx7md): [Class Bonus] pay (3) to activate from material deck
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $mObj = GetZoneObject($actionCard);
@@ -19457,6 +19474,11 @@ function MaterialSelectionMetadata($obj) {
         if($champObj !== null && !$champObj->removed && GetCounterCount($champObj, "preparation") >= 1) {
             return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
         }
+    }
+
+    // Eventide Spear / Varuckan Soulknife / Capacitance X Psycho: main-phase material-deck activation (see GAEventideSpearMaterialActivatable() & co)
+    if (GAEventideSpearMaterialActivatable($turnPlayer, $obj) || GAVaruckanMaterialActivatable($turnPlayer, $obj) || GACapacitanceMaterialActivatable($turnPlayer, $obj)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
     // Framework Sidearm (p4lgdlx7md): [Class Bonus] pay (3) to activate from material deck
