@@ -1362,6 +1362,7 @@ DECK
     ->expectZoneCount('myBanish', 1, 1, 'Alkahest was banished as the cost')
     ->expectZoneCount('myField', 1, 1, 'Only the champion is left on player 1\'s field')
     ->expectZoneCount('theirField', 2, 1, 'Player 2\'s champion and the memory-only Scepter remain: the Forest Cake (reserve cost 2) was destroyed')
+    ->covers(['activated-ability', 'destroy', 'cost-filter', 'level-gate'], '[Level 4+] Banish CARDNAME: Destroy target item or weapon with memory cost 0 or reserve cost 4 or less.')
     ->register();
 
 // Advantageous Perch (oLzsAj9mKl): "Your champion becomes distant. Then return up to one target Ranger action card from your graveyard to your hand. Banish CARDNAME."
@@ -1383,6 +1384,7 @@ DECK
     ->seed('myGraveyard', 'Charge the Soul')
     ->seed('myHand', 'Advantageous Perch')
     ->castSpell('Advantageous Perch', pay: 2, target: 'myGraveyard-0')
+    ->covers(['banish-self', 'return-from-graveyard'], 'Your champion becomes distant.', 'Return up to one target Ranger action card from your graveyard to your hand.', 'Banish CARDNAME.')
     ->register();
 
 // Agni's Signet (yIozXMrdqr): "(2), [REST], Banish Agni's Signet: As a Spell, destroy target damaged ally."

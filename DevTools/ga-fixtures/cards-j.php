@@ -186,6 +186,7 @@ DECK
     ->seed('myField', 'Dungeon Guide')
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->target('myField-2')
     ->tested('Judas, Claret Intercessor')
+    ->covers(['activated-ability', 'additional-cost-sacrifice', 'auto-rest'], '[Class Bonus] Sacrifice another ally: CARDNAME gains spellshroud until end of turn.', 'An activated ability only rests its source when its cost includes [REST].')
     ->register();
 
 gaScenario('jinzhuo-scavenges-a-beast-ally-and-puts-power-quest-counters-on-the-champion')

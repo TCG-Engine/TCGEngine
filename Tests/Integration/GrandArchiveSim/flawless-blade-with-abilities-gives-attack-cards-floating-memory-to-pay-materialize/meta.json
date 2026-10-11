@@ -17,6 +17,8 @@
             "floating-memory",
             "static-ability"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Attack cards in your graveyard have floating memory."
+        ]
     }
 }

@@ -327,6 +327,7 @@ DECK
     ->expectZoneCount('myBanish', 1, 1, 'Nocturne\'s Oblivion banished itself')
     ->expectZoneCount('myGraveyard', 0, 1, 'It is not left in the graveyard')
     ->expectDqEmpty()
+    ->covers(['destroy', 'banish-self'], 'Destroy target non-champion object. Banish Nocturne\'s Oblivion.')
     ->register();
 
 // Nullifying Mirror (pol1nz0j1n): "[REST]: Until end of turn, cards in target opponent's memory are norm element."

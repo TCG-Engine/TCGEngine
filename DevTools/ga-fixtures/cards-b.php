@@ -1443,6 +1443,7 @@ DECK
     ->champion(classes: 'RANGER')
     ->seed('myHand', 'Burning Aethercharge')
     ->castSpell('Burning Aethercharge', pay: 2, target: 'theirField-0')
+    ->covers(['actions-resolve-generated-enter-effect'], 'Deal 2 damage to target champion.')
     ->register();
 
 // Bellona's Runestone (clgolelsra): "Banish Bellona's Runestone: Target weapon you control gets +2 POWER until end of turn. Put a durability counter on that weapon."

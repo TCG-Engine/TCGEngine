@@ -14,7 +14,10 @@
         "mechanics": [
             "resolving-action-not-in-graveyard"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Return target wind element Spell card from your graveyard to your hand.",
+            "An Action card that is resolving is not yet in the graveyard, so graveyard effects cannot pick or count it."
+        ]
     },
     "engineBug": {
         "status": "fixed",

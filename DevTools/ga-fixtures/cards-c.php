@@ -1403,6 +1403,7 @@ DECK
     ->champion(lineage: ['Spirit of Water'], level: 3)
     ->seed('myHand', 'Cone of Frost')
     ->castSpell('Cone of Frost', pay: 3, window: 'me', target: 'theirField-0')
+    ->covers(['optional-choice-decline', 'level-gated-effects'], '[Level 1+] Deal 2 damage to up to one target unit.', '[Level 3+] Deal 2 damage to up to one target unit.')
     ->register();
 
 // Clarent, Reimagined (kINobk9KQA): "[Lorraine Bonus] While paying for this card's memory cost, you may banish a card named Clarent, Sword of Peace and up
@@ -1430,6 +1431,7 @@ DECK
     ->endTurn(2)
     ->endTurn(2)->target('myMaterial-0')->pass(1)
     ->tested('Clarent, Reimagined')
+    ->covers(['optional-choice-decline', 'materialize-cost'], '[Lorraine Bonus] While paying for this card\'s memory cost, you may banish a card named Clarent, Sword of Peace and up to one other Sword Regalia card from your material deck.')
     ->register();
 
 // Crystal Accretion (HDeEE7YPTl): "Put a sheen counter on each unit with a sheen counter on it."
@@ -1454,6 +1456,7 @@ DECK
     ->seed('myField', 'Fluffy Shopkeep')
     ->seed('myHand', 'Crystal Accretion')
     ->castSpell('Crystal Accretion', pay: 2)
+    ->covers(['actions-resolve-generated-enter-effect'], 'Put a sheen counter on each unit with a sheen counter on it.')
     ->register();
 
 // Crystallized Anthem (XfAJlQt9hH): "Prevent the next 2 damage that would be dealt to each unit you control this turn. ..."
@@ -1475,6 +1478,7 @@ DECK
     ->seed('myField', 'Dungeon Guide')
     ->seed('myHand', 'Crystallized Anthem')
     ->castSpell('Crystallized Anthem', pay: 2)
+    ->covers(['actions-resolve-generated-enter-effect'], 'Prevent the next 2 damage that would be dealt to each unit you control this turn.')
     ->register();
 
 // Castling (tFOpmUdi2W): "Until end of turn, up to two target Chessman allies gain spellshroud and taunt, and get +2 LIFE." Declining the first target (PASS) used to skip CastlingFirstTarget, so the second target was never offered.
@@ -1498,6 +1502,7 @@ DECK
     ->seed('myField', 'Pawn Piece')
     ->seed('myHand', 'Castling')
     ->castSpell('Castling', pay: 4, window: 'me', target: 'myField-2')
+    ->covers(['optional-choice-decline', 'up-to-two-targets'], 'Until end of turn, up to two target Chessman allies gain spellshroud and taunt, and get +2 [LIFE].')
     ->register();
 
 // Notes carried over from the original definition:
@@ -1518,6 +1523,7 @@ DECK
     ->seed('myBanish', 'Dungeon Guide', properties: ['Counters' => ['_musicbox' => 1]])
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->target('myBanish-0')
     ->tested('Clockwork Musicbox')
+    ->covers(['activated-ability', 'activate-from-banishment', 'cost-validation'], '[REST]: You may activate a card banished by CARDNAME. (You still pay its costs.)')
     ->register();
 
 gaScenario('clockwork-musicbox-activates-an-affordable-banished-card')
@@ -1535,6 +1541,7 @@ DECK
     ->seed('myBanish', 'Dungeon Guide', properties: ['Counters' => ['_musicbox' => 1]])
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->target('myBanish-0')->pay(3)->answer(1, 'NO')
     ->tested('Clockwork Musicbox')
+    ->covers(['activated-ability', 'activate-from-banishment'], '[REST]: You may activate a card banished by CARDNAME. (You still pay its costs.)')
     ->register();
 
 gaScenario('coronal-of-rejuvenation-unaffordable-banished-card-is-not-playable-and-stays-banished')
@@ -1553,6 +1560,7 @@ DECK
     ->seed('myBanish', 'Dungeon Guide', properties: ['Counters' => ['_coronal' => 1]])
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->target('myBanish-0')
     ->tested('Coronal of Rejuvenation')
+    ->covers(['activated-ability', 'activate-from-banishment', 'cost-validation'], '[REST]: You may play a card banished by CARDNAME. Activate this ability only at slow speed.')
     ->register();
 
 gaScenario('coronal-of-rejuvenation-plays-an-affordable-banished-card')
@@ -1570,6 +1578,7 @@ DECK
     ->seed('myBanish', 'Dungeon Guide', properties: ['Counters' => ['_coronal' => 1]])
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->target('myBanish-0')->pay(3)->answer(1, 'NO')
     ->tested('Coronal of Rejuvenation')
+    ->covers(['activated-ability', 'activate-from-banishment'], '[REST]: You may play a card banished by CARDNAME. Activate this ability only at slow speed.')
     ->register();
 
 // Cell Forging (pufooz13xf): "Choose one -- Put two durability counters on target weapon. / Summon a Powercell token." Not choosing a weapon (PASS) is the Powercell mode: it used to do nothing at all.
@@ -1591,6 +1600,7 @@ DECK
     ->seed('myField', 'Clarent, Sword of Peace')
     ->seed('myHand', 'Cell Forging')
     ->castSpell('Cell Forging', pay: 3, window: 'me')
+    ->covers(['optional-choice-decline', 'modal-spell'], 'Choose one— Put two durability counters on target weapon. / Summon a Powercell token.')
     ->register();
 
 // Conflagrant Sentinel (puyzn48srd): "On Enter: You may discard a card. If you do, put a buff counter on it."
@@ -1609,6 +1619,7 @@ DECK
     ->champion(classes: 'GUARDIAN')
     ->seed('myHand', 'Conflagrant Sentinel')
     ->castSpell('Conflagrant Sentinel', pay: 4)
+    ->covers(['on-enter', 'optional-choice', 'counter'], 'On Enter: You may discard a card. If you do, put a buff counter on Conflagrant Sentinel.')
     ->register();
 
 gaScenario('conflagrant-sentinel-enter-declined-discard-gets-no-buff-counter')
@@ -1624,6 +1635,7 @@ DECK
     ->champion(classes: 'GUARDIAN')
     ->seed('myHand', 'Conflagrant Sentinel')
     ->castSpell('Conflagrant Sentinel', pay: 3, window: 'me')
+    ->covers(['on-enter', 'optional-choice-decline'], 'On Enter: You may discard a card. If you do, put a buff counter on Conflagrant Sentinel.')
     ->register();
 
 // Charge the Soul (ra9950o14t): "Deal 1 damage to target unit. Then you may load it into an Aetherwing weapon you control."
@@ -1642,6 +1654,7 @@ DECK
     ->champion(classes: 'RANGER')
     ->seed('myHand', 'Charge the Soul')
     ->castSpell('Charge the Soul', pay: 1, target: 'theirField-0')
+    ->covers(['damage', 'targeting'], 'Deal 1 damage to target unit.')
     ->register();
 
 // Coy Bouclier (vo1qr9bkme): "[Level 2+] This card costs 2 less to activate." (5 -> 3 reserve payments)
@@ -1660,6 +1673,7 @@ DECK
     ->champion(level: 2, classes: 'GUARDIAN')
     ->seed('myHand', 'Coy Bouclier')
     ->castSpell('Coy Bouclier', pay: 3)
+    ->covers(['cost-modification', 'level-gate'], '[Level 2+] This card costs 2 less to activate.')
     ->register();
 
 // Corsair Captain (4e1gqwah01): "Ranged 2 (as long as this unit is distant, its attacks get +2 POWER). [Class Bonus] Floating Memory."
@@ -2074,6 +2088,7 @@ DECK
     ->expectZoneCount('myGraveyard', 1, 1, 'Cyclical Breeze finished resolving and is in the graveyard; it was not offered (or returned) as its own target')
     ->expectZoneCount('myHand', 3, 1, 'Nothing came back to the hand (8 cards - Breeze - 4 paid)')
     ->expectDqEmpty()
+    ->covers(['resolving-action-not-in-graveyard'], 'Return target wind element Spell card from your graveyard to your hand.', 'An Action card that is resolving is not yet in the graveyard, so graveyard effects cannot pick or count it.')
     ->register();
 
 // Crossroads Specter (r3i9nmxhnb): "On Champion Hit: That opponent banishes a card from their material deck." The choice is the OPPONENT's, written in player 2's own frame ("myMaterial-N").

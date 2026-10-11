@@ -71,6 +71,7 @@ foreach (['natura' => 'Heirloom of Natura', 'spectra' => 'Heirloom of Spectra'] 
         ->seed('myField', $gaHeirloomName)
         ->action(1, 10001, 'myField-1!CustomInput!Activate:1')->pay(3) // (3), banish: draw a card into your memory
         ->tested($gaHeirloomName)
+        ->covers(['activated-ability', 'cost', 'banish-self'], '(3), Banish CARDNAME: Draw a card into your memory.')
         ->register();
 }
 

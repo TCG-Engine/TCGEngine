@@ -286,6 +286,7 @@ DECK
     ->seed('myField', 'Pawn Piece')
     ->seed('myHand', 'Veiled Gambit')
     ->play('Veiled Gambit')->target('myField-1')->pay(1)->target('theirField-0')
+    ->covers(['actions-resolve-generated-enter-effect', 'additional-cost-sacrifice'], 'As an additional cost to activate this card, sacrifice a Chessman ally.', 'Prevent the next 4 damage that would be dealt to your champion and up to one other target unit until end of turn.')
     ->register();
 
 // Verdant Slime (kkbbu08s5r): "On Enter: Destroy up to one target regalia with memory cost 0. If you don't, put two buff counters on CARDNAME." Declining the target (PASS) skipped the generated continuation, whose decline branch
@@ -308,6 +309,7 @@ DECK
     ->seed('myField', 'Alkahest', player: 2)
     ->seed('myHand', 'Verdant Slime')
     ->castSpell('Verdant Slime', pay: 2, window: 'me')
+    ->covers(['optional-choice-decline', 'if-you-dont'], 'On Enter: Destroy up to one target regalia with memory cost 0. If you don\'t, put two buff counters on CARDNAME.')
     ->register();
 
 // Notes carried over from the original definition:

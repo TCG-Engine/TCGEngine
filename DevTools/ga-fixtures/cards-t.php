@@ -1274,6 +1274,7 @@ gaScenario('thieving-cut-prepared-still-draws-after-opponent-activates-an-unprep
     ->expectZoneCount('myDeck', 9, 2, 'One card left the deck')
     ->expectZoneCount('myGraveyard', 1, 1, 'Fishing Accident resolved and went to player 1\'s graveyard')
     ->expectDqEmpty()
+    ->covers(['prepare', 'on-hit', 'stale-flag'], 'Prepare 1', 'On Hit: If CARDNAME was prepared, draw a card.')
     ->register();
 
 // Tribute Singer (ne6qXGbr4c): "On Enter: Reveal the top five cards of your deck. You may activate a non-advanced element Harmony or Melody card from among the revealed cards or your memory. That card costs (3) less to activate
@@ -1306,6 +1307,7 @@ DECK
     ->expectZoneCount('myTempZone', 0, 1, 'The five revealed cards left the temp zone')
     ->expectZoneCount('myDeck', 19, 1, 'Five cards back on the bottom of the deck')
     ->expectDqEmpty()
+    ->covers(['activate-from-zone', 'cost-validation', 'tribute-singer'], '[Level 1+] On Enter: Reveal the top five cards of your deck. You may activate a non-advanced element Harmony or Melody card from among the revealed cards or your memory. That card costs (3) less to activate this way. Put the rest of the revealed cards on the bottom of your deck in any order.')
     ->register();
 
 // Tempered Steel (vyRjDql0TR): "Put a durability counter on target weapon you control."
@@ -1326,6 +1328,7 @@ DECK
     ->seed('myField', 'Clarent, Sword of Peace')
     ->seed('myHand', 'Tempered Steel')
     ->castSpell('Tempered Steel', pay: 1, target: 'myField-1')
+    ->covers(['counter', 'targeting'], 'Put a durability counter on target weapon you control.')
     ->register();
 
 // Treasure of the Depths (4Kxe6pSt6C): "(3), [REST]: Draw a card into your memory. Activate this ability only if there are three or more refinement counters on CARDNAME."

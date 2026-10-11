@@ -15,6 +15,8 @@
             "glimpse",
             "distant"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Glimpse 3. Your champion becomes distant."
+        ]
     }
 }

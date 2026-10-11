@@ -12,7 +12,9 @@
             "optional-choice-decline",
             "modal-spell"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Each chosen mode resolves in order; declining an optional choice in one mode does not skip the modes after it."
+        ]
     },
     "engineBug": {
         "status": "fixed",

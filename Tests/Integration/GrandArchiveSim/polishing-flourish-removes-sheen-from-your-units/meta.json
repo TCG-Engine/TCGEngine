@@ -14,7 +14,9 @@
         "mechanics": [
             "actions-resolve-generated-enter-effect"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Remove all sheen counters from units you control."
+        ]
     },
     "engineBug": {
         "status": "fixed",

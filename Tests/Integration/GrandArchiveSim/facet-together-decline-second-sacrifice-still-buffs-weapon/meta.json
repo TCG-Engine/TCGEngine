@@ -16,7 +16,10 @@
             "sacrifice",
             "action-resolution"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Activate this card only during an opponent's turn.",
+            "Sacrifice any amount of Memorite objects. Target weapon you control gets +X [POWER] until the end of your next turn, where X is the amount of objects sacrificed this way."
+        ]
     },
     "engineBug": {
         "status": "fixed",

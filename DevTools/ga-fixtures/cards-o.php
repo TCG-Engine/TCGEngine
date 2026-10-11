@@ -267,6 +267,7 @@ DECK
     ->seed('myBanish', 'Fluffy Shopkeep', properties: ['Counters' => ['omen' => 1]])
     ->seed('myHand', 'Ombreux Chevalier')
     ->play('Ombreux Chevalier')->pay(3)->target('myBanish-0')->pay(1)
+    ->covers(['on-enter', 'omen', 'zone-movement'], 'On Enter: Return one of your omens to your hand. If you do, banish a card from your hand and put an omen counter on it.')
     ->register();
 
 // Negative twin of 'ornamental-greatsword-enter-ally-power': the champion's class does not match, so the [Class Bonus] must NOT apply.

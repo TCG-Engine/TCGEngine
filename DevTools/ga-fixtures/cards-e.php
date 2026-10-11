@@ -867,6 +867,7 @@ DECK
     ->seed('myGraveyard', 'Baby Red Slime')
     ->seed('myHand', 'Erupting Rhapsody')
     ->play('Erupting Rhapsody')->pay(2)->target('myGraveyard-0')->pass(1)
+    ->covers(['optional-choice-decline', 'turn-effect'], 'Banish any amount of fire element cards from your graveyard. Your champion gets +1 level until end of turn for each card banished this way.')
     ->register();
 
 // Enthralling Visage (ycwz9gv4vm): "The next time damage would be dealt to target unit this turn, prevent 2 of that damage. When damage is prevented this way, banish target card in a graveyard."
@@ -888,6 +889,7 @@ DECK
     ->seed('myGraveyard', 'Baby Red Slime')
     ->seed('myHand', 'Enthralling Visage')
     ->play('Enthralling Visage')->pay(2)->target('myField-0')->target('myGraveyard-0')
+    ->covers(['actions-resolve-generated-enter-effect', 'graveyard-owner'], 'The next time damage would be dealt to target unit this turn, prevent 2 of that damage. When damage is prevented this way, banish target card in a graveyard.')
     ->register();
 
 gaAbilitySandbox('exquisite-dessert-ability-1-pays-its-printed-cost', 'Exquisite Dessert', classes: 'CLERIC', cardPatch: ['Status' => 2])

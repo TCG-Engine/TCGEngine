@@ -1257,6 +1257,7 @@ DECK
     ->patch('myField-1', ['Counters' => ['sheen' => 2]], player: 2)
     ->seed('myHand', 'Polishing Flourish')
     ->castSpell('Polishing Flourish', pay: 2)
+    ->covers(['actions-resolve-generated-enter-effect'], 'Remove all sheen counters from units you control.')
     ->register();
 
 // Phantasmagoria (D3rexaXCBo): "Non-Specter cards in your graveyard lose all abilities." A graveyard card's Floating Memory is one of those abilities: with Phantasmagoria, Fast Cure in your graveyard cannot be banished to pay for
@@ -1292,6 +1293,7 @@ DECK
     ->expectZoneCount('myField', 2, 1, 'Arondight was materialized with the two memory cards')
     ->expectZoneCount('myGraveyard', 1, 1, 'The Fast Cure stayed in the graveyard: it lost its Floating Memory')
     ->expectDqEmpty()
+    ->covers(['floating-memory', 'ability-loss', 'phantasmagoria'], 'Non-Specter cards in your graveyard lose all abilities.')
     ->register();
 
 // Portside Pirate (6p3p5iqigc): "[Class Bonus] Banish a card with floating memory from your graveyard: Put a buff counter on CARDNAME and it gains stealth until end of turn." The printed cost has no [REST], but every
@@ -1315,6 +1317,7 @@ DECK
     ->seed('myGraveyard', 'Fast Cure')
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->target('myGraveyard-0')
     ->tested('Portside Pirate')
+    ->covers(['activated-ability', 'auto-rest'], '[Class Bonus] Banish a card with floating memory from your graveyard: Put a buff counter on CARDNAME and it gains stealth until end of turn.', 'An activated ability only rests its source when its cost includes [REST].')
     ->register();
 
 // Purification (k8ao8bki6f): "Recover 2. Then choose up to two Curse cards from your champion's lineage and discard them. For each card discarded this way, recover 2." The Curse cards are staged in the temp zone to be picked from;
@@ -1335,6 +1338,7 @@ DECK
     ->patch('myField-0', ['Damage' => 6, 'Subcards' => ['f15joh300z', 'f15joh300z'], 'Counters' => ['_overrides' => ['classes' => 'CLERIC']]])
     ->seed('myHand', 'Purification')
     ->play('Purification')->pay(1)->target('myTempZone-0')->pass(1)
+    ->covers(['optional-choice-decline', 'lineage-curse'], 'Recover 2. Then choose up to two Curse cards from your champion\'s lineage and discard them. For each card discarded this way, recover 2.')
     ->register();
 
 // Phantom Veil (fviga4cmti): "Ally Link. (2): Linked ally gains stealth until end of turn."

@@ -16,7 +16,9 @@
             "sacrifice",
             "upkeep"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Upkeep \u2014 At the beginning of your recollection phase, you may banish a fire element card from your graveyard. If you don't, sacrifice CARDNAME."
+        ]
     },
     "engineBug": {
         "status": "fixed",

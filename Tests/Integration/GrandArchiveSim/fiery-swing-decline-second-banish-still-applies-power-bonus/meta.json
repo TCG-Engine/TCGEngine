@@ -16,7 +16,9 @@
             "class-bonus",
             "on-attack"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may banish up to six fire element cards from your graveyard. For each card banished this way, CARDNAME gets +1 [POWER]."
+        ]
     },
     "engineBug": {
         "status": "fixed",

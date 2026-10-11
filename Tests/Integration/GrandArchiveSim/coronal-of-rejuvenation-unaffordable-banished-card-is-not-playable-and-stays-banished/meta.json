@@ -16,7 +16,9 @@
             "activate-from-banishment",
             "cost-validation"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[REST]: You may play a card banished by CARDNAME. Activate this ability only at slow speed."
+        ]
     },
     "engineBug": {
         "status": "fixed",

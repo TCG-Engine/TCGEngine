@@ -1490,6 +1490,7 @@ gaScenario('graveyard-refused-click-keeps-undo-snapshot')
     ->expectZoneCount('myHand', 0, 1, 'Nothing moved: the hand is still empty')
     ->expectZoneCount('myField', 2, 1, 'Champion + Dungeon Guide only: the refused click did nothing')
     ->expectDqEmpty()
+    ->covers(['zone-movement'], 'A refused click on the graveyard does not change the game state, so it must not replace the stored undo snapshot.')
     ->register();
 
 // Same contract for the material deck: clicking a material card that has no special activation permission is refused and
@@ -1516,6 +1517,7 @@ gaScenario('material-refused-click-keeps-undo-snapshot')
     ->expectZoneCount('myHand', 0, 1, 'Nothing moved: the hand is still empty')
     ->expectZoneCount('myField', 2, 1, 'Champion + Dungeon Guide only: the refused click did nothing')
     ->expectDqEmpty()
+    ->covers(['zone-movement'], 'A refused click on the material deck does not change the game state, so it must not replace the stored undo snapshot.')
     ->register();
 
 // Dichroic Scorch (TlhsnnRhGK): "As an additional cost, discard a fire element card. Remove all sheen counters from all units on the field. Then deal X damage to each unit except for your
@@ -1544,6 +1546,7 @@ DECK
     ->seed('myHand', 'Baby Red Slime')
     ->seed('myHand', 'Dichroic Scorch')
     ->play('Dichroic Scorch')->target('myHand-7')->pay(3)
+    ->covers(['actions-resolve-generated-enter-effect', 'reference-aliasing'], 'As an additional cost to activate this card, discard a fire element card.', 'Remove all sheen counters from all units on the field. Then deal X damage to each unit except for your champion, where X is the amount of counters removed this way.')
     ->register();
 
 // Drown in Aether (gnfbp3g8iw): "Target rested ally gets -3 LIFE until end of turn."
@@ -1565,6 +1568,7 @@ DECK
     ->patch('myField-1', ['Status' => 1], player: 2)
     ->seed('myHand', 'Drown in Aether')
     ->castSpell('Drown in Aether', pay: 2, target: 'theirField-1')
+    ->covers(['targeting', 'stat-change'], 'Target rested ally gets -3 [LIFE] until end of turn.')
     ->register();
 
 // Discordia, Harp of Malice (5LoOprBJay): "[REST]: Target champion gets -X level and your champion gets +X level until end of turn, where X is the amount of music counters on CARDNAME. At the beginning of the next end phase, banish CARDNAME."

@@ -1433,6 +1433,7 @@ DECK
     ->patch('myField-0', ['Damage' => 3, 'Counters' => ['_overrides' => ['classes' => 'RANGER']]])
     ->seed('myHand', 'Mirrored Confrontation')
     ->play('Mirrored Confrontation')->pay(2)->answer(1, 'YES')->answer(2, 'NO')
+    ->covers(['actions-resolve-generated-enter-effect'], 'Each player may reveal a champion card with base level 3 from their material deck. Each player that does draws a card into their memory and recovers 2.')
     ->register();
 
 gaScenario('flawless-blade-with-abilities-gives-attack-cards-floating-memory-to-pay-materialize')
@@ -1460,6 +1461,7 @@ DECK
     ->expectZoneCount('myGraveyard', 0, 1, 'The Emberslash was banished as floating memory')
     ->expectZoneCount('myBanish', 1, 1, 'The banished Emberslash')
     ->expectDqEmpty()
+    ->covers(['floating-memory', 'static-ability'], 'Attack cards in your graveyard have floating memory.')
     ->register();
 
 gaScenario('flawless-blade-without-abilities-attack-cards-have-no-floating-memory')
@@ -1487,6 +1489,7 @@ DECK
     ->expectZoneCount('myField', 1, 1, 'Arondight was not materialized: nothing could pay its memory cost', step: 8)
     ->expectZoneCount('myMaterial', 1, 1, 'Arondight is still in the material deck', step: 8)
     ->expectZoneCount('myGraveyard', 1, 1, 'The Emberslash stayed in the graveyard', step: 8)
+    ->covers(['floating-memory', 'static-ability', 'ability-loss'], 'Attack cards in your graveyard have floating memory.', 'An object that loses all abilities no longer grants its static effects.')
     ->register();
 
 // Modulating Cadence (p5p0azskw4): "Look at the top eight cards of your deck. You may reveal a Harmony or Melody card from among them and put it into your hand. Put the rest on the bottom of your deck in any order."
@@ -1514,6 +1517,7 @@ DECK
     ->expectZoneCount('myDeck', 21, 1, 'All eight cards are back in the deck (on the bottom)')
     ->expectZoneCount('myHand', 3, 1, 'Nothing was put into hand: eight, minus Modulating Cadence, minus four paid')
     ->expectDqEmpty()
+    ->covers(['optional-choice-decline', 'look-at-top'], 'Look at the top eight cards of your deck. You may reveal a Harmony or Melody card from among them and put it into your hand. Put the rest on the bottom of your deck in any order.')
     ->register();
 
 // Magnificent Banquet (TQoTD8eGQH): "Recover 5. Then put CARDNAME into its owner's material deck preserved."
@@ -1533,6 +1537,7 @@ DECK
     ->patch('myField-0', ['Damage' => 8, 'Subcards' => ['7x2v4tdop1'], 'Counters' => ['_overrides' => ['classes' => 'CLERIC']]])
     ->seed('myHand', 'Magnificent Banquet')
     ->castSpell('Magnificent Banquet', pay: 2)
+    ->covers(['recover', 'return-to-material-deck'], 'Recover 5. Then put CARDNAME into its owner\'s material deck preserved.')
     ->register();
 
 // Manxome Armoire (fm894uc4ij): "[Ciel Bonus] Banish Manxome Armoire: Return one of your omens to your hand. If you do, banish a card from your hand and put an omen counter on it."

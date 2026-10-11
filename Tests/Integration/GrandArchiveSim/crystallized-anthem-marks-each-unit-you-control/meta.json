@@ -14,7 +14,9 @@
         "mechanics": [
             "actions-resolve-generated-enter-effect"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Prevent the next 2 damage that would be dealt to each unit you control this turn."
+        ]
     },
     "engineBug": {
         "status": "fixed",

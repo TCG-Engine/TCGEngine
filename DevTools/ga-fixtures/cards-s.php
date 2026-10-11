@@ -4084,6 +4084,7 @@ gaScenario('silvergale-monstrosity-call-prepare-2-paid-splits-some-sheen-over-tw
     ->endTurn()
     ->play('Silvergale Monstrosity\'s Call', 2)->pay(3, 2)->pass(1)->answer(2, 'YES')
     ->answer(2, 'myField-1:1,myField-2:3')
+    ->covers(['prepare', 'sheen', 'split-assign'], 'Summon a Memorite Obelith token. If CARDNAME was prepared, move any amount of sheen counters from your Fractured Memories onto any amount of allies named Memorite Obelith you control.')
     ->register();
 
 gaScenario('silvergale-monstrosity-call-prepare-2-declined-obelith-no-sheen')
@@ -4407,6 +4408,7 @@ DECK
     ->expectZoneCount('myMemory', 3, 1, 'One card went to the bottom of the deck and one was drawn into memory: memory is back to 3 (the Capacitance itself entered memory when paid)')
     ->expectZoneCount('myDeck', 13, 1, 'The deck is back to its starting size: one card on the bottom, one drawn')
     ->expectDqEmpty()
+    ->covers(['optional-choice-decline', 'draw-into-memory'], 'Put any amount of cards from your memory on the bottom of your deck in any order. Then draw that many cards into your memory.')
     ->register();
 
 // Suffocating Miasma (coxpnjvt9y): "At the beginning of each opponent's recollection phase, that player puts a debuff counter on an ally they control.
@@ -4431,6 +4433,7 @@ DECK
     ->endTurn(2)
     ->endTurn()->pass(2)
     ->tested('Suffocating Miasma')
+    ->covers(['optional-choice-decline', 'unpreventable-damage'], 'At the beginning of each opponent\'s recollection phase, that player puts a debuff counter on an ally they control. If they don\'t, deal 2 unpreventable damage to their champion.')
     ->register();
 
 // Salamander's Breath (mob9nu6lal): "[Diana Bonus] On Attack: You may banish up to X fire element cards from your graveyard where X is the amount of Aethercharge cards in the attacker's intent. This attack gets +1 POWER for each card banished this way."
@@ -4461,6 +4464,7 @@ DECK
     ->action(2, 10002, 'myField-0!FSM!')->answer(2, 'myField-1')->answer(2, 'theirField-0')
     ->answer(2, 'myGraveyard-0')->pass(2)
     ->tested('Salamander\'s Breath')
+    ->covers(['optional-choice-decline', 'diana-bonus', 'on-attack'], '[Diana Bonus] On Attack: You may banish up to X fire element cards from your graveyard where X is the amount of Aethercharge cards in the attacker\'s intent. This attack gets +1 [POWER] for each card banished this way.')
     ->register();
 
 gaScenario('sacrifice-play-sacrificing-two-chessman-allies-gives-plus-four-power')
@@ -4481,6 +4485,7 @@ DECK
     ->endTurn()
     ->endTurn(2)->answer(1, '-')
     ->play('Sacrifice Play')->answer(1, 'myField-1&myField-2')->pay(3)->target('myField-1')->target('theirField-0')
+    ->covers(['additional-cost-sacrifice', 'command-chessman'], 'As an additional cost to activate this card, sacrifice up to two awake Chessman allies.', 'CARDNAME enters the intent with +2 [POWER] for each ally sacrificed this way.')
     ->register();
 
 gaScenario('sacrifice-play-declined-sacrifice-still-pays-reserve-for-base-power')
@@ -4501,6 +4506,7 @@ DECK
     ->endTurn()
     ->endTurn(2)->answer(1, '-')
     ->play('Sacrifice Play')->pass(1)->pay(3)->target('myField-1')->target('theirField-0')
+    ->covers(['optional-choice-decline', 'additional-cost-sacrifice'], 'As an additional cost to activate this card, sacrifice up to two awake Chessman allies.')
     ->register();
 
 // Notes carried over from the original definition:
@@ -4529,6 +4535,7 @@ DECK
     ->expectZoneCount('theirField', 2, 2, 'Player 1\'s champion and the memory-only Scepter remain: the Forest Cake (reserve cost 2) was destroyed')
     ->expectZoneCount('myGraveyard', 1, 2, 'Both fire cards left the graveyard; only the resolved Smashing Force is there')
     ->expectZoneCount('myBanish', 2, 2, 'The two banished fire cards')
+    ->covers(['on-attack', 'class-bonus', 'destroy', 'cost-filter'], '[Class Bonus] On Attack: You may banish two fire element cards from your graveyard. When you do, destroy target item or weapon with memory cost 0 or reserve cost 4 or less.')
     ->register();
 
 gaScenario('smashing-force-declined-banish-keeps-the-fire-cards-and-the-item')
@@ -4553,6 +4560,7 @@ DECK
     ->expectZoneCount('myBanish', 0, 2, 'Nothing was banished')
     ->expectZoneCount('theirField', 3, 2, 'Player 1\'s champion, Scepter and Forest Cake are all untouched')
     ->expectDqEmpty()
+    ->covers(['on-attack', 'optional-choice-decline'], '[Class Bonus] On Attack: You may banish two fire element cards from your graveyard. When you do, destroy target item or weapon with memory cost 0 or reserve cost 4 or less.')
     ->register();
 
 // Sinister Mindreaver (jozihslnhz): "On Champion Hit: Look at that opponent's memory. You may discard up to two cards from it. If you do, they draw that many cards into their memory." Discard one memory card, decline the second:
@@ -4585,6 +4593,7 @@ DECK
     ->expectZoneCount('myGraveyard', 1, 1, 'The discarded memory card')
     ->expectZoneCount('myDeck', 12, 1, 'One card was drawn into memory')
     ->expectDqEmpty()
+    ->covers(['optional-choice-decline', 'on-hit'], 'On Champion Hit: Look at that opponent\'s memory. You may discard up to two cards from it. If you do, they draw that many cards into their memory.')
     ->register();
 
 // Stifling Trap (z5exbwdp7q): "Deal 2 damage to target ally, then negate all on enter triggers from that ally." With no ally anywhere to target (the opponent's Dungeon Guide is still on the stack) the Class Bonus alternate cost must not
@@ -4600,6 +4609,7 @@ gaScenario('stifling-trap-memory-alt-cost-not-offered-without-a-target-ally')
     ->endTurn()
     ->playSlot(0, 2)->pay(3, 2)->target('myMemory-0')->pass(1)->answer(2, 'NO')
     ->tested('Stifling Trap')
+    ->covers(['alternate-cost', 'legal-target', 'cost-validation'], '[Class Bonus] If it\'s not your turn, you may remove two preparation counters from your champion to activate this card from your memory without paying its reserve cost.', 'Deal 2 damage to target ally.')
     ->register();
 
 // Notes carried over from the original definition:
@@ -4625,6 +4635,7 @@ DECK
     ->castSpell('Spark Alight', pay: 2)
     ->rejects(1, 'theirField-1', 'Aquamirage Whisper has spellshroud: not a legal target for Spark Alight')
     ->target('theirField-2')
+    ->covers(['spellshroud', 'target-filter'], 'Deal 2 unpreventable damage to target unit.', 'Units with spellshroud can\'t be targeted by Spells.')
     ->register();
 
 // Sojourner's Hunt (aqlbuznsz4): "[REST]: Sojourner's Hunt becomes a weapon subtype of your choice in addition to its other types until end of turn."

@@ -1408,6 +1408,7 @@ DECK
     ->expectZoneCount('myDeck', 12, 1, 'The [Level 1+] draw happened')
     ->expectZoneCount('myHand', 6, 1, 'Eight cards, minus Reveal the Hidden, minus two paid, plus one drawn')
     ->expectDqEmpty()
+    ->covers(['actions-resolve-generated-enter-effect'], 'Each unit loses stealth until end of turn. Those units can\'t gain stealth this turn.', '[Level 1+] Draw a card.')
     ->register();
 
 // Reckless Conversion (gJ2dsgywEs): "Draw two cards into your memory then banish four cards at random from it." The generated body picked the cards with PHP's rand(), which no replay or undo can
@@ -1443,6 +1444,7 @@ DECK
     ->expectZoneCount('myHand', 10, 1, 'Eight cards, minus Reckless Conversion, plus the three survivors')
     ->expectZoneCount('myDeck', 11, 1, 'Two cards were drawn into memory')
     ->expectDqEmpty()
+    ->covers(['randomness', 'determinism'], 'Draw two cards into your memory then banish four cards at random from it.', 'Replaying the same action from the same state must produce the same result.')
     ->register();
 
 // Regal Inquisition (KVbuQJyWsU): "Look at target opponent's hand and memory. Discard any amount of cards from among them. For each card discarded this way, that opponent reveals the top card of their deck and puts it into
@@ -1466,6 +1468,7 @@ DECK
     ->expectZoneCount('myTempZone', 0, 1, 'The staged copies of the opponent\'s hand and memory were cleared')
     ->expectZoneCount('theirHand', 7, 1, 'Nothing was discarded from the opponent\'s hand')
     ->expectDqEmpty()
+    ->covers(['optional-choice-decline', 'hidden-information'], 'Look at target opponent\'s hand and memory. Discard any amount of cards from among them. For each card discarded this way, that opponent reveals the top card of their deck and puts it into their hand.')
     ->register();
 
 // Ranger Boots (fbs9qzo3f6): "[Class Bonus] [REST], Banish Ranger Boots: Your champion becomes distant."
@@ -1486,6 +1489,7 @@ DECK
     ->patch('myField-1', ['Status' => 2])
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')
     ->tested('Ranger Boots')
+    ->covers(['activated-ability', 'distant', 'banish-self'], '[Class Bonus] [REST], Banish Ranger Boots: Your champion becomes distant.')
     ->register();
 
 // Refluxal Ribbon (vm4xg2hedp): "(2), Banish Refluxal Ribbon: Load target Aethercharge card from your graveyard into an Aetherwing weapon you control."

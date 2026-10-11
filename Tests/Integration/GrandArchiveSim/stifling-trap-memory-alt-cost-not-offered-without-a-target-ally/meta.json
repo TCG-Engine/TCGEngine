@@ -16,7 +16,10 @@
             "legal-target",
             "cost-validation"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[Class Bonus] If it's not your turn, you may remove two preparation counters from your champion to activate this card from your memory without paying its reserve cost.",
+            "Deal 2 damage to target ally."
+        ]
     },
     "engineBug": {
         "status": "fixed",

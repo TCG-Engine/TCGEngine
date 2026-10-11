@@ -15,7 +15,9 @@
             "optional-choice-decline",
             "hidden-information"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Look at target opponent's hand and memory. Discard any amount of cards from among them. For each card discarded this way, that opponent reveals the top card of their deck and puts it into their hand."
+        ]
     },
     "engineBug": {
         "status": "fixed",

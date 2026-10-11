@@ -15,7 +15,10 @@
             "actions-resolve-generated-enter-effect",
             "additional-cost-sacrifice"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice a Chessman ally.",
+            "Prevent the next 4 damage that would be dealt to your champion and up to one other target unit until end of turn."
+        ]
     },
     "engineBug": {
         "status": "fixed",

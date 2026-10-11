@@ -410,6 +410,7 @@ DECK
     ->expectZoneCount('myField', 1, 1, 'Hulao Gate was sacrificed: only the champion is left on the field')
     ->expectZoneCount('myGraveyard', 2, 1, 'The sacrificed Gate joined the fire card in the graveyard (the declined banish took nothing)')
     ->expectDqEmpty()
+    ->covers(['optional-choice-decline', 'sacrifice', 'upkeep'], 'Upkeep — At the beginning of your recollection phase, you may banish a fire element card from your graveyard. If you don\'t, sacrifice CARDNAME.')
     ->register();
 
 // Heart of the Frost (7NlaXYtNM6): "[REST], Banish Heart of the Frost: As a Spell, deal 2 damage to target ally if it's rested. Otherwise, rest it."

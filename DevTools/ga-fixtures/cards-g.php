@@ -1167,6 +1167,7 @@ DECK
     ->expectZoneCount('myGraveyard', 2, 1, 'Gleaming Smolder and the discarded card')
     ->expectZoneCount('myDeck', 12, 1, 'One card was drawn')
     ->expectDqEmpty()
+    ->covers(['actions-resolve-generated-enter-effect'], 'Draw a card and discard a card.')
     ->register();
 
 // Negative twin of 'gaias-songbird-class-bonus-enter-reveal-beast': the champion's class does not match, so the [Class Bonus] must NOT apply.

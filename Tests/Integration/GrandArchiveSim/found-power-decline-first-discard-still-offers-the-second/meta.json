@@ -14,7 +14,9 @@
         "mechanics": [
             "optional-choice-decline"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "If you control an object named Proto Key Crest, discard up to two cards, then draw that many cards."
+        ]
     },
     "engineBug": {
         "status": "fixed",

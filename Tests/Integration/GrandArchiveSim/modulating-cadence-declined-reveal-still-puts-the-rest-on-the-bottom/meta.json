@@ -15,7 +15,9 @@
             "optional-choice-decline",
             "look-at-top"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Look at the top eight cards of your deck. You may reveal a Harmony or Melody card from among them and put it into your hand. Put the rest on the bottom of your deck in any order."
+        ]
     },
     "engineBug": {
         "status": "fixed",

@@ -1420,6 +1420,7 @@ DECK
     ->endTurn()
     ->endTurn(2)->answer(1, '-')
     ->play('Fiery Swing')->pay(6)->target('theirField-0')->target('myGraveyard-0')->pass(1)
+    ->covers(['optional-choice-decline', 'class-bonus', 'on-attack'], '[Class Bonus] On Attack: You may banish up to six fire element cards from your graveyard. For each card banished this way, CARDNAME gets +1 [POWER].')
     ->register();
 
 // Facet Together (XmsEbk19Iu): "Sacrifice any amount of Memorite objects. Target weapon you control gets +X POWER until the end of your next turn, where X is
@@ -1450,6 +1451,7 @@ DECK
     ->playSlot(0, 2)->pay(3, 2)->target('myHand-7')->pay(1)->target('myField-2')->pass(1)->target('myField-1')
     ->answer(2, 'NO')
     ->tested('Facet Together')
+    ->covers(['optional-choice-decline', 'sacrifice', 'action-resolution'], 'Activate this card only during an opponent\'s turn.', 'Sacrifice any amount of Memorite objects. Target weapon you control gets +X [POWER] until the end of your next turn, where X is the amount of objects sacrificed this way.')
     ->register();
 
 // Freezing Gambit (fgBpQZe0js): "As an additional cost to activate this card, sacrifice a Chessman ally. Choose one or both-- Negate target card activation unless its controller pays (2); Target unit's attacks get -3 POWER until end of turn."
@@ -1471,6 +1473,7 @@ DECK
     ->seed('myField', 'Pawn Piece')
     ->seed('myHand', 'Freezing Gambit')
     ->play('Freezing Gambit')->target('myField-1')->pay(2)->target('theirField-0')
+    ->covers(['actions-resolve-generated-enter-effect', 'additional-cost-sacrifice'], 'As an additional cost to activate this card, sacrifice a Chessman ally.', 'Target unit\'s attacks get -3 [POWER] until end of turn.')
     ->register();
 
 // Found Power (8pIXnuI1Df): "discard up to two cards, then draw that many." Each of the two discard offers is its own optional prompt: declining the FIRST (PASS) must still offer the second.
@@ -1495,6 +1498,7 @@ DECK
     ->expectZoneCount('myDeck', 12, 1, 'One card was drawn for the one discard')
     ->expectZoneCount('myHand', 6, 1, 'Eight, minus Found Power, minus one paid, minus one discarded, plus one drawn')
     ->expectDqEmpty()
+    ->covers(['optional-choice-decline'], 'If you control an object named Proto Key Crest, discard up to two cards, then draw that many cards.')
     ->register();
 
 // Spells that build their target list without FilterSpellshroudTargets() are filtered once, centrally (GASpellshroudFilterNewDecisions). Opposing Aquamirage Whisper (printed spellshroud) must be refused as a target, a Dungeon Guide accepted.
@@ -1521,6 +1525,7 @@ DECK
     ->castSpell('Fireball', pay: 2)
     ->rejects(1, 'theirField-1', 'Aquamirage Whisper has spellshroud: not a legal target for Fireball')
     ->target('theirField-2')
+    ->covers(['spellshroud', 'target-filter'], 'Deal 1+LV damage to target unit.', 'Units with spellshroud can\'t be targeted by Spells.')
     ->register();
 
 // Notes carried over from the original definition:
@@ -1546,6 +1551,7 @@ DECK
     ->castSpell('Freezing Hail', pay: 2)
     ->rejects(1, 'theirField-1', 'Aquamirage Whisper has spellshroud: not a legal target for Freezing Hail')
     ->target('theirField-2')
+    ->covers(['spellshroud', 'target-filter'], 'Deal 2 damage to target unit.', 'Units with spellshroud can\'t be targeted by Spells.')
     ->register();
 
 // Notes carried over from the original definition:
@@ -1571,6 +1577,7 @@ DECK
     ->castSpell('Focused Flames', pay: 1)
     ->rejects(1, 'theirField-1', 'Aquamirage Whisper has spellshroud: not a legal target for Focused Flames')
     ->target('theirField-2')
+    ->covers(['spellshroud', 'target-filter'], 'Deal 4 damage to target ally.', 'Units with spellshroud can\'t be targeted by Spells.')
     ->register();
 
 // Flamme Sorcel (j6er6z99sv): "Draw a card, then discard a card. If the reserve cost of the discarded card is equal to the reserve cost of one of your omens, draw another card."
@@ -1594,6 +1601,7 @@ DECK
     ->expectZoneCount('myDeck', 11, 1, 'One card for the spell and another because the discarded card matched an omen\'s reserve cost')
     ->expectZoneCount('myGraveyard', 2, 1, 'Flamme Sorcel and the discarded card')
     ->expectDqEmpty()
+    ->covers(['draw-discard', 'omen', 'condition'], 'Draw a card, then discard a card. If the reserve cost of the discarded card is equal to the reserve cost of one of your omens, draw another card.')
     ->register();
 
 // Foresight Lens (drnxdiltx3): "Banish Foresight Lens: Glimpse 2. If your champion is distant, glimpse 4 instead."

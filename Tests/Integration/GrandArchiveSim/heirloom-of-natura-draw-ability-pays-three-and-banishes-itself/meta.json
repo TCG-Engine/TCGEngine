@@ -16,7 +16,9 @@
             "cost",
             "banish-self"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "(3), Banish CARDNAME: Draw a card into your memory."
+        ]
     },
     "engineBug": {
         "status": "fixed",

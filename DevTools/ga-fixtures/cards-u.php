@@ -221,6 +221,7 @@ DECK
     ->champion(lineage: ['Spirit of Water'], classes: 'RANGER')
     ->seed('myHand', 'Undercurrent Vantage')
     ->play('Undercurrent Vantage')->pay(2)->answer(1, 'Top=em6eEh9q8y,em6eEh9q8y,px60u5n1do;Bottom=')
+    ->covers(['glimpse', 'distant'], 'Glimpse 3. Your champion becomes distant.')
     ->register();
 
 // Unbridled Flare (hXERTZPM0w): "[REST]: As a Spell, deal 1 damage to target champion."

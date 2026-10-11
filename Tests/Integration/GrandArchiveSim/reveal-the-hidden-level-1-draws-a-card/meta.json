@@ -14,7 +14,10 @@
         "mechanics": [
             "actions-resolve-generated-enter-effect"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Each unit loses stealth until end of turn. Those units can't gain stealth this turn.",
+            "[Level 1+] Draw a card."
+        ]
     },
     "engineBug": {
         "status": "fixed",

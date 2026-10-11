@@ -15,6 +15,9 @@
             "counter",
             "condition"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Put a quest counter on your champion.",
+            "If an object was suppressed this turn, put Whirlwind Threads into your memory."
+        ]
     }
 }

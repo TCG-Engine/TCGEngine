@@ -501,4 +501,5 @@ DECK
     ->expectZoneCount('myField', 2, 1, 'The Dungeon Guide was activated and entered the field')
     ->expectZoneCount('myHand', 0, 1, 'Every hand card was spent')
     ->expectDqEmpty()
+    ->covers(['cost-modification', 'card-name'], 'Choose a card name. Until the beginning of your next turn, cards with the chosen name cost 2 more to activate.')
     ->register();

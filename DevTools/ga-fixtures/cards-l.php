@@ -1096,6 +1096,7 @@ DECK
     ->seed('myHand', 'Sacrifice Play')
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->target('myHand-7')->pay(2)->target('myField-2')
     ->tested('Lucenia\'s Reign')
+    ->covers(['activated-ability', 'additional-cost-discard', 'auto-rest'], '(2), Discard a Chessman Command card: Target Chessman ally you control gets +1 [LIFE] until end of turn. Draw a card into your memory.', 'An activated ability only rests its source when its cost includes [REST].')
     ->register();
 
 // Leporine Masque (pgysz2zfji): "(6), Banish Leporine Masque: Draw a card into your memory. This ability costs (X) less where X is the amount of omens you have."
@@ -1121,6 +1122,7 @@ DECK
     ->expectZoneCount('myBanish', 3, 1, 'Two omens and Leporine Masque')
     ->expectZoneCount('myHand', 3, 1, 'Seven cards minus four payments')
     ->expectDqEmpty()
+    ->covers(['activated-ability', 'cost', 'omen'], '(6), Banish Leporine Masque: Draw a card into your memory. This ability costs (X) less to activate, where X is the amount of omens you have.')
     ->register();
 
 gaScenario('lurid-dreaming-at-the-opponents-end-phase-wakes-the-champion-and-draws-into-memory')

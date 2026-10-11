@@ -15,6 +15,8 @@
             "cost-modification",
             "card-name"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Choose a card name. Until the beginning of your next turn, cards with the chosen name cost 2 more to activate."
+        ]
     }
 }

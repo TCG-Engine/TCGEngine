@@ -788,6 +788,7 @@ DECK
     ->champion(classes: 'TAMER')
     ->seed('myHand', 'Whirlwind Threads')
     ->castSpell('Whirlwind Threads', pay: 1)
+    ->covers(['counter', 'condition'], 'Put a quest counter on your champion.', 'If an object was suppressed this turn, put Whirlwind Threads into your memory.')
     ->register();
 
 // Whimsy's Warden (cworak5y4y): "Intercept. As long as you have two or more omens, Whimsy's Warden gets +2 POWER."
