@@ -1,0 +1,22 @@
+{
+    "name": "blazing-destrier-attacked-deals-two-to-the-attacker-and-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:14:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ptY1FUlbbs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ptY1FUlbbs"
+        ],
+        "mechanics": [
+            "combat",
+            "damage",
+            "steadfast"
+        ],
+        "rulesClauses": [
+            "Whenever CARDNAME is attacked, deal 2 damage to the attacker and your champion."
+        ]
+    }
+}

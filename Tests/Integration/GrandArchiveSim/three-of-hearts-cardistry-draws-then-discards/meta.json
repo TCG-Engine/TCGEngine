@@ -1,0 +1,22 @@
+{
+    "name": "three-of-hearts-cardistry-draws-then-discards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:23:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1db8hz4prm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1db8hz4prm"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cardistry",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Cardistry -- (3): Draw a card, then discard a card."
+        ]
+    }
+}

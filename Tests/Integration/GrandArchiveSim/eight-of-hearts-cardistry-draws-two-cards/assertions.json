@@ -1,0 +1,20 @@
+[
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "9 - 7 paid + 2 drawn"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "Cardistry cost (8) minus one = (7) paid"
+    }
+]

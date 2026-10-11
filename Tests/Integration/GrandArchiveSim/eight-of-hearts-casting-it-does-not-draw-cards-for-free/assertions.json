@@ -1,0 +1,20 @@
+[
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "YGz8gN8M69",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Eight of Hearts resolved onto the field"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "10 - Eight of Hearts - 8 reserve = 1: the Cardistry draw is an activated ability, not a play effect"
+    }
+]

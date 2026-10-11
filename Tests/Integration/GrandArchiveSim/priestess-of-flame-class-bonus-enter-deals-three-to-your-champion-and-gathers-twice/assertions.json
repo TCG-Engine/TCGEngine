@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "[Class Bonus] On Enter: it dealt 3 damage to your champion"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Gather twice: two tokens joined the champion and Priestess of Flame"
+    }
+]

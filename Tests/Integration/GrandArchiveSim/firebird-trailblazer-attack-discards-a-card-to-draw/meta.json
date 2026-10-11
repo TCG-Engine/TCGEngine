@@ -3,9 +3,13 @@
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-10-11T22:20:44+00:00",
     "createdBy": "batch-script",
-    "testedCards": [],
+    "testedCards": [
+        "ouj0b2l3gl"
+    ],
     "semanticCoverage": {
-        "testedCards": [],
+        "testedCards": [
+            "ouj0b2l3gl"
+        ],
         "mechanics": [
             "on-attack",
             "draw-discard",

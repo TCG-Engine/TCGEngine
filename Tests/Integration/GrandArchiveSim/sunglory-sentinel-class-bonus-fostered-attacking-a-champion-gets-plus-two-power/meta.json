@@ -1,0 +1,23 @@
+{
+    "name": "sunglory-sentinel-class-bonus-fostered-attacking-a-champion-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:23:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a3v1ybmvpb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a3v1ybmvpb"
+        ],
+        "mechanics": [
+            "foster",
+            "combat",
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "As long as Sunglory Sentinel is fostered and is attacking a champion, it gets +2 [POWER]."
+        ]
+    }
+}

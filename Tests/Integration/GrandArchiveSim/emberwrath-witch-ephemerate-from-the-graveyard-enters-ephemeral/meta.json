@@ -1,0 +1,22 @@
+{
+    "name": "emberwrath-witch-ephemerate-from-the-graveyard-enters-ephemeral",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:21:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PptfA8gG6h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PptfA8gG6h"
+        ],
+        "mechanics": [
+            "ephemerate",
+            "graveyard-activation",
+            "ephemeral"
+        ],
+        "rulesClauses": [
+            "Ephemerate -- (2) (You may activate this card from your graveyard by paying this cost. Ally cards played this way become ephemeral as they enter the field.)"
+        ]
+    }
+}

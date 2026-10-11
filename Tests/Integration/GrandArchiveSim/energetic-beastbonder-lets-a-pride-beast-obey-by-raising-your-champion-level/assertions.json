@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "Level 1 + 1 = 2 with a Beast ally: Pride 2 is satisfied and the Slime attacked for 3"
+    }
+]

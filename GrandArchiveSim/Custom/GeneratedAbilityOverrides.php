@@ -2462,6 +2462,25 @@ $cardActivatedAbilities["hdvpug4d5m:0"] = function($player) {
     if(IsClassBonusActive($player, ["CLERIC"])) AddTurnEffect($champions[0], "SEARING_REBUKE_CB");
 };
 
+// Eight of Hearts (YGz8gN8M69): "Cardistry -- (8): Draw two cards. ... Activate this ability only once." The generator filed the draw
+// under $cardActivatedAbilities (the PLAY-effect table) with a 0 ability-count row, so the field ability did not exist and casting
+// the ally drew two cards for free. It is now a real Cardistry field ability like its sibling cards; the count/name row is in
+// GAActivateAbilityCountOverrides() and the (8) cost with its Suited-object discount comes from $Cardistry_Cards.
+$cardActivatedAbilities["YGz8gN8M69:0"] = function($player) { // Eight of Hearts: no on-play effect
+};
+$activateAbilityAbilities["YGz8gN8M69:0"] = function($player) {
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    $obj = &GetZoneObject($mzID);
+    if(!is_array($obj->Counters)) $obj->Counters = [];
+    $obj->Counters['cardistry_used'] = 1;
+    Draw($player, 2);
+};
+$activateAbilityPrereqs["YGz8gN8M69:0"] = function($player, $mzID, $abilityIndex) {
+    $sourceObject = GetZoneObject($mzID);
+    if($sourceObject === null) return false;
+    return !isset($sourceObject->Counters['cardistry_used']);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

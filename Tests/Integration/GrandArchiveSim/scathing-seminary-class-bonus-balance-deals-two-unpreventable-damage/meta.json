@@ -1,0 +1,23 @@
+{
+    "name": "scathing-seminary-class-bonus-balance-deals-two-unpreventable-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:23:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aL5pGBcr7i"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aL5pGBcr7i"
+        ],
+        "mechanics": [
+            "on-enter",
+            "balance",
+            "damage",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Balance -- On Enter: As a Spell, if the amount of cards in your hand and memory are equal, deal 2 unpreventable damage to target unit."
+        ]
+    }
+}

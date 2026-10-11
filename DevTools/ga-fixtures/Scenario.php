@@ -373,6 +373,9 @@ class GaScenario {
             'actions' => $this->actions,
         ];
         if ($this->baseFixture !== null) $def['baseFixture'] = $this->baseFixture;
+        if (isset($this->meta['semanticCoverage']) && empty($def['testedCards'])) {
+            throw new RuntimeException("GaScenario[{$this->slug}]: covers() but no tested cards -- add ->tested('Card Name') (a scenario that only seeds the card never plays it)");
+        }
         if (!empty($this->meta)) {
             $meta = $this->meta;
             if (isset($meta['semanticCoverage'])) {

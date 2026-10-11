@@ -1,0 +1,21 @@
+{
+    "name": "emberwrath-witch-is-sacrificed-at-the-beginning-of-your-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:16:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PptfA8gG6h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PptfA8gG6h"
+        ],
+        "mechanics": [
+            "end-phase",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, sacrifice CARDNAME."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "spark-fairy-enter-target-object-deals-one-unpreventable-damage-to-your-champion-each-recollection",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:27:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "FWnxKjSeB1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "FWnxKjSeB1"
+        ],
+        "mechanics": [
+            "on-enter",
+            "granted-ability",
+            "recollection-phase",
+            "damage"
+        ],
+        "rulesClauses": [
+            "On Enter: Target non-champion object gains \"At the beginning of your recollection phase, deal 1 unpreventable damage to your champion\" for as long as you control CARDNAME."
+        ]
+    }
+}

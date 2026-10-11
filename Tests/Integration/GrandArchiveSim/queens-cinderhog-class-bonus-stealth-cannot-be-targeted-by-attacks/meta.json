@@ -1,0 +1,22 @@
+{
+    "name": "queens-cinderhog-class-bonus-stealth-cannot-be-targeted-by-attacks",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:25:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9fZMLbyRWd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9fZMLbyRWd"
+        ],
+        "mechanics": [
+            "keyword",
+            "stealth",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Stealth (This unit can't be targeted by attacks unless permitted by true sight.)"
+        ]
+    }
+}

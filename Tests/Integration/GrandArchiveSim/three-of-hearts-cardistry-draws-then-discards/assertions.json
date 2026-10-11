@@ -1,0 +1,29 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "A card was discarded after drawing"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Cardistry cost (3) minus one = (2) paid"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "7 - 2 paid + 1 drawn - 1 discarded"
+    }
+]

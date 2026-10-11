@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "PptfA8gG6h",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Ephemerate (2): the Witch came back from the graveyard"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"EPHEMERAL\",\"PptfA8gG6h-ENDPHASE_SACRIFICE\"]",
+        "semantic": true,
+        "label": "It entered ephemeral"
+    }
+]

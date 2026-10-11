@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-11T22:39:09+00:00",
+    "generatedAt": "2026-10-11T23:30:22+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1054,
+        "cardsWithExistingFixtures": 1095,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1423,
+        "cardsNeedingSemanticCoverage": 1382,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2914,22 +2914,6 @@
             "priority": 21
         },
         {
-            "cardId": "zzH1XYFSP7",
-            "name": "Inflamed Bladehand",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 1,
-            "mechanics": [
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 20
-        },
-        {
             "cardId": "YDjxpBd8Fm",
             "name": "Aenean Crystallization",
             "type": "ACTION",
@@ -2940,25 +2924,6 @@
                 "zone-movement",
                 "status",
                 "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "d53zc9p4lp",
-            "name": "Airship Cannoneer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -3097,25 +3062,6 @@
                 "recover",
                 "draw-discard",
                 "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "gKVMTAeLXQ",
-            "name": "Blazing Direwolf",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -4117,25 +4063,6 @@
             "priority": 15
         },
         {
-            "cardId": "2vQVsdHJqI",
-            "name": "Inferno Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "wpbhigka5a",
             "name": "Innervate Fury",
             "type": "ACTION",
@@ -4966,25 +4893,6 @@
             "priority": 15
         },
         {
-            "cardId": "FWnxKjSeB1",
-            "name": "Spark Fairy",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "99sx6q3p6i",
             "name": "Spellshield: Wind",
             "type": "ACTION",
@@ -5688,24 +5596,6 @@
             "priority": 14
         },
         {
-            "cardId": "inQV2nZfdJ",
-            "name": "Alizarin Longbowman",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "5kt3q2svd5",
             "name": "Amorphous Strike",
             "type": "ATTACK",
@@ -5786,24 +5676,6 @@
             "mechanics": [
                 "counter",
                 "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "b65hiv400w",
-            "name": "Ash Filcher",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -6040,24 +5912,6 @@
                 "status",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "ptY1FUlbbs",
-            "name": "Blazing Destrier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "status",
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6678,24 +6532,6 @@
             "priority": 14
         },
         {
-            "cardId": "W1vZwOXfG3",
-            "name": "Embertail Squirrel",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "JQQXhhIla9",
             "name": "Embryonic Hemosynth",
             "type": "ALLY",
@@ -7020,80 +6856,8 @@
             "priority": 14
         },
         {
-            "cardId": "wc8tuhuy4x",
-            "name": "Fiery Duelist",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "ouj0b2l3gl",
-            "name": "Firebird Trailblazer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "x8gbz5Qli9",
             "name": "Firebird Trailblazer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "Ox449xU5yO",
-            "name": "Flagrant Guide",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "qmyn2rz308",
-            "name": "Flameblessed Trainee",
             "type": "ALLY",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -7119,24 +6883,6 @@
                 "targeting",
                 "damage",
                 "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "kuz07nk45s",
-            "name": "Forgelight Shieldmaiden",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -7660,24 +7406,6 @@
                 "status",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "26ya6zaae8",
-            "name": "Incinerated Templar",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8406,24 +8134,6 @@
             "priority": 14
         },
         {
-            "cardId": "opvc8sugly",
-            "name": "Priestess of Flame",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "az2b8nfh95",
             "name": "Primal Whip",
             "type": "REGALIA,WEAPON",
@@ -8503,24 +8213,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "3WQKmqDgtA",
-            "name": "Rampant Bladehand",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
                 "combat",
                 "trigger",
                 "condition"
@@ -8874,24 +8566,6 @@
             "priority": 14
         },
         {
-            "cardId": "aL5pGBcr7i",
-            "name": "Scathing Seminary",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "2zh208013h",
             "name": "Scepter of Awakening",
             "type": "REGALIA,ITEM",
@@ -8901,24 +8575,6 @@
                 "cost",
                 "targeting",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "o4h8cfo21a",
-            "name": "Scorchfire Assassin",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -9189,24 +8845,6 @@
                 "cost",
                 "targeting",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "f28y5rn0dt",
-            "name": "Sly Songstress",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -9819,24 +9457,6 @@
                 "zone-movement",
                 "counter",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "m3n9yvn1uo",
-            "name": "Volatile Fusilier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "status",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -10914,23 +10534,6 @@
             "priority": 13
         },
         {
-            "cardId": "lgdlx7mdk0",
-            "name": "Cinderbloom Tender",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "bqjdmthh88",
             "name": "City Protector",
             "type": "ALLY",
@@ -11560,23 +11163,6 @@
             "priority": 13
         },
         {
-            "cardId": "q2okpDFJw5",
-            "name": "Energetic Beastbonder",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "kkz07nau5s",
             "name": "Engineered Slime",
             "type": "ALLY",
@@ -11781,23 +11367,6 @@
             "priority": 13
         },
         {
-            "cardId": "1i6ierdDjq",
-            "name": "Flamelash Subduer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "0s4xe169m2",
             "name": "Floating Peace",
             "type": "ACTION",
@@ -11892,23 +11461,6 @@
                 "cost",
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "xgax8bbjqj",
-            "name": "Four of Hearts",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13141,23 +12693,6 @@
             "priority": 13
         },
         {
-            "cardId": "wtHBZAdTSv",
-            "name": "Nether Dodobird",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "5bbae3z4py",
             "name": "Nico, Whiplash Allure",
             "type": "CHAMPION",
@@ -14306,23 +13841,6 @@
                 "targeting",
                 "counter",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "nduIoPhZr1",
-            "name": "Seven of Hearts",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -16482,22 +16000,6 @@
             "priority": 12
         },
         {
-            "cardId": "vvfwwa13y9",
-            "name": "Cheetah of Bound Fury",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "881gacexpv",
             "name": "Chibi, Battle of Red Cliffs",
             "type": "UNIQUE,DOMAIN",
@@ -16914,22 +16416,6 @@
             "priority": 12
         },
         {
-            "cardId": "YGz8gN8M69",
-            "name": "Eight of Hearts",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "3DCP7WmBpx",
             "name": "Elysian Test Subject",
             "type": "TOKEN,ALLY",
@@ -16937,22 +16423,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "xhi5jnsl7d",
-            "name": "Embershield Keeper",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
                 "condition"
             ],
             "existingFixtures": [],
@@ -17146,22 +16616,6 @@
             "mechanics": [
                 "cost",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "5yw862q547",
-            "name": "Flamebolt Arbalist",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -17370,22 +16824,6 @@
             "mechanics": [
                 "damage",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "r3bmriltuw",
-            "name": "Fumant Shieldmaiden",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -18850,22 +18288,6 @@
             "priority": 12
         },
         {
-            "cardId": "CvvgJR4fNa",
-            "name": "Patient Rogue",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "ir99sx6q3p",
             "name": "Plea for Peace",
             "type": "ACTION",
@@ -19017,22 +18439,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "9fZMLbyRWd",
-            "name": "Queen's Cinderhog",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -19458,22 +18864,6 @@
             "priority": 12
         },
         {
-            "cardId": "vwktc1c3kn",
-            "name": "Silent Firebrand",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "ZENwsneT5Y",
             "name": "Silvergale Obelith's Call",
             "type": "ACTION",
@@ -19810,22 +19200,6 @@
             "priority": 12
         },
         {
-            "cardId": "a3v1ybmvpb",
-            "name": "Sunglory Sentinel",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "sm68d3we64",
             "name": "Sunken Battle Priest",
             "type": "ALLY",
@@ -19962,22 +19336,6 @@
             "mechanics": [
                 "cost",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "1db8hz4prm",
-            "name": "Three of Hearts",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -20839,21 +20197,6 @@
             "priority": 11
         },
         {
-            "cardId": "vUq1XBaQtU",
-            "name": "Ashfletched Bowman",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "8yzADlgx4R",
             "name": "Assassin's Ripper",
             "type": "REGALIA,WEAPON",
@@ -21679,21 +21022,6 @@
             "priority": 11
         },
         {
-            "cardId": "PptfA8gG6h",
-            "name": "Emberwrath Witch",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "wljhyokktb",
             "name": "Emergent Dagger",
             "type": "REGALIA,WEAPON",
@@ -21971,21 +21299,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "59ueoujs9f",
-            "name": "Flamewing Fowl",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -23766,21 +23079,6 @@
         {
             "cardId": "mzwTQzuXZa",
             "name": "Two of Diamonds",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "rufki4o41y",
-            "name": "Two of Hearts",
             "type": "ALLY",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -41388,6 +40686,53 @@
             "priority": 41
         },
         {
+            "cardId": "zzH1XYFSP7",
+            "name": "Inflamed Bladehand",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 1,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "inflamed-bladehand-class-bonus-gets-plus-two-power-when-your-champion-attacks",
+                "inflamed-bladehand-without-the-class-bonus-keeps-its-printed-power-when-your-champion-attacks"
+            ],
+            "semanticFixtures": [
+                "inflamed-bladehand-class-bonus-gets-plus-two-power-when-your-champion-attacks",
+                "inflamed-bladehand-without-the-class-bonus-keeps-its-printed-power-when-your-champion-attacks"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 40
+        },
+        {
+            "cardId": "d53zc9p4lp",
+            "name": "Airship Cannoneer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "airship-cannoneer-class-bonus-distant-attack-gets-plus-four-power",
+                "airship-cannoneer-without-the-class-bonus-distant-attack-has-base-power"
+            ],
+            "semanticFixtures": [
+                "airship-cannoneer-class-bonus-distant-attack-gets-plus-four-power",
+                "airship-cannoneer-without-the-class-bonus-distant-attack-has-base-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "KdlhoQ1evn",
             "name": "Augustine, Votary of Yore",
             "type": "UNIQUE,ALLY",
@@ -41406,6 +40751,29 @@
             ],
             "semanticFixtures": [
                 "augustine-cascade-two-destroys-low-cost-item-opponent-summons-core-fractal"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "gKVMTAeLXQ",
+            "name": "Blazing Direwolf",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blazing-direwolf-class-bonus-on-attack-deals-two-damage-to-a-unit"
+            ],
+            "semanticFixtures": [
+                "blazing-direwolf-class-bonus-on-attack-deals-two-damage-to-a-unit"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41844,6 +41212,31 @@
             "priority": 35
         },
         {
+            "cardId": "2vQVsdHJqI",
+            "name": "Inferno Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "inferno-slime-class-bonus-on-death-banishes-two-fire-cards-to-deal-four-to-each-champion",
+                "pride-beast-does-not-obey-without-the-level"
+            ],
+            "semanticFixtures": [
+                "inferno-slime-class-bonus-on-death-banishes-two-fire-cards-to-deal-four-to-each-champion",
+                "pride-beast-does-not-obey-without-the-level"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "hd0sxpu7cp",
             "name": "Intensified Pyre",
             "type": "ACTION",
@@ -42226,6 +41619,31 @@
             "priority": 35
         },
         {
+            "cardId": "FWnxKjSeB1",
+            "name": "Spark Fairy",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "spark-fairy-enter-target-object-deals-one-unpreventable-damage-to-your-champion-each-recollection",
+                "spark-fairy-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "semanticFixtures": [
+                "spark-fairy-enter-target-object-deals-one-unpreventable-damage-to-your-champion-each-recollection",
+                "spark-fairy-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "coxpnjvt9y",
             "name": "Suffocating Miasma",
             "type": "PHANTASIA",
@@ -42468,6 +41886,28 @@
             "priority": 34
         },
         {
+            "cardId": "inQV2nZfdJ",
+            "name": "Alizarin Longbowman",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "alizarin-longbowman-class-bonus-ranged-three-distant-attack-gets-plus-three-power"
+            ],
+            "semanticFixtures": [
+                "alizarin-longbowman-class-bonus-ranged-three-distant-attack-gets-plus-three-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "xfpk9xycwz",
             "name": "Alkahest",
             "type": "REGALIA,ITEM",
@@ -42534,6 +41974,28 @@
             "priority": 34
         },
         {
+            "cardId": "b65hiv400w",
+            "name": "Ash Filcher",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ash-filcher-class-bonus-attack-banishes-a-fire-card-for-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "ash-filcher-class-bonus-attack-banishes-a-fire-card-for-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "oqhB00zhaD",
             "name": "Battery Core X",
             "type": "REGALIA,ITEM",
@@ -42572,6 +42034,28 @@
             ],
             "semanticFixtures": [
                 "blazing-charge-class-bonus-gets-plus-two-power-and-arms-the-next-turn-trigger"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "ptY1FUlbbs",
+            "name": "Blazing Destrier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "status",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "blazing-destrier-attacked-deals-two-to-the-attacker-and-your-champion"
+            ],
+            "semanticFixtures": [
+                "blazing-destrier-attacked-deals-two-to-the-attacker-and-your-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42814,6 +42298,28 @@
             "priority": 34
         },
         {
+            "cardId": "W1vZwOXfG3",
+            "name": "Embertail Squirrel",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "embertail-squirrel-class-bonus-attack-discards-a-fire-card-for-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "embertail-squirrel-class-bonus-attack-discards-a-fire-card-for-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "ycwz9gv4vm",
             "name": "Enthralling Visage",
             "type": "ACTION",
@@ -42950,6 +42456,28 @@
             "priority": 34
         },
         {
+            "cardId": "wc8tuhuy4x",
+            "name": "Fiery Duelist",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fiery-duelist-enter-discarding-a-fire-card-draws-and-becomes-distant"
+            ],
+            "semanticFixtures": [
+                "fiery-duelist-enter-discarding-a-fire-card-draws-and-becomes-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "gt2zqtgs42",
             "name": "Fiery Interference",
             "type": "ACTION",
@@ -43018,6 +42546,28 @@
             "priority": 34
         },
         {
+            "cardId": "ouj0b2l3gl",
+            "name": "Firebird Trailblazer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "firebird-trailblazer-attack-discards-a-card-to-draw"
+            ],
+            "semanticFixtures": [
+                "firebird-trailblazer-attack-discards-a-card-to-draw"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "sx6q3p6i0i",
             "name": "Fireworks Display",
             "type": "ACTION",
@@ -43034,6 +42584,50 @@
             ],
             "semanticFixtures": [
                 "fireworks-display-deals-one-damage-to-all-of-a-players-units"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "Ox449xU5yO",
+            "name": "Flagrant Guide",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flagrant-guide-enter-levels-up-your-champion-and-deals-unpreventable-damage"
+            ],
+            "semanticFixtures": [
+                "flagrant-guide-enter-levels-up-your-champion-and-deals-unpreventable-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "qmyn2rz308",
+            "name": "Flameblessed Trainee",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flameblessed-trainee-class-bonus-attacking-an-ally-discards-a-fire-card-for-plus-three"
+            ],
+            "semanticFixtures": [
+                "flameblessed-trainee-class-bonus-attacking-an-ally-discards-a-fire-card-for-plus-three"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43058,6 +42652,28 @@
             ],
             "semanticFixtures": [
                 "flametech-manual-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "kuz07nk45s",
+            "name": "Forgelight Shieldmaiden",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "forgelight-shieldmaiden-foster-draws-two-and-discards-one"
+            ],
+            "semanticFixtures": [
+                "forgelight-shieldmaiden-foster-draws-two-and-discards-one"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43312,6 +42928,28 @@
             "semanticFixtures": [
                 "incendiary-fractal-class-bonus-enter-deals-four-damage-to-an-opposing-ally",
                 "incendiary-fractal-without-the-class-bonus-deals-two-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "26ya6zaae8",
+            "name": "Incinerated Templar",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "incinerated-templar-class-bonus-enter-returns-a-specter-ally-as-ephemeral"
+            ],
+            "semanticFixtures": [
+                "incinerated-templar-class-bonus-enter-returns-a-specter-ally-as-ephemeral"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43602,6 +43240,28 @@
             "priority": 34
         },
         {
+            "cardId": "opvc8sugly",
+            "name": "Priestess of Flame",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "priestess-of-flame-class-bonus-enter-deals-three-to-your-champion-and-gathers-twice"
+            ],
+            "semanticFixtures": [
+                "priestess-of-flame-class-bonus-enter-deals-three-to-your-champion-and-gathers-twice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "yT32RI6pqt",
             "name": "Radiant Origin of Guardian",
             "type": "PHANTASIA",
@@ -43668,6 +43328,28 @@
             "semanticFixtures": [
                 "radiant-origin-of-tamer-ability-1-pays-its-printed-cost",
                 "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "3WQKmqDgtA",
+            "name": "Rampant Bladehand",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rampant-bladehand-class-bonus-attack-removes-a-durability-counter-for-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "rampant-bladehand-class-bonus-attack-removes-a-durability-counter-for-plus-one-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43752,9 +43434,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "rococo-enter-deals-two-damage-with-low-influence",
                 "rococo-enter-does-nothing-with-high-influence"
             ],
             "semanticFixtures": [
+                "rococo-enter-deals-two-damage-with-low-influence",
                 "rococo-enter-does-nothing-with-high-influence"
             ],
             "starterDecks": [],
@@ -43778,6 +43462,50 @@
             ],
             "semanticFixtures": [
                 "rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "aL5pGBcr7i",
+            "name": "Scathing Seminary",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "scathing-seminary-class-bonus-balance-deals-two-unpreventable-damage"
+            ],
+            "semanticFixtures": [
+                "scathing-seminary-class-bonus-balance-deals-two-unpreventable-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "o4h8cfo21a",
+            "name": "Scorchfire Assassin",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "scorchfire-assassin-class-bonus-attack-spends-preparation-counters-for-power"
+            ],
+            "semanticFixtures": [
+                "scorchfire-assassin-class-bonus-attack-spends-preparation-counters-for-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43954,6 +43682,28 @@
             ],
             "semanticFixtures": [
                 "singed-emotions-sets-up-the-level-up-punisher"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "f28y5rn0dt",
+            "name": "Sly Songstress",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sly-songstress-class-bonus-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "semanticFixtures": [
+                "sly-songstress-class-bonus-stealth-cannot-be-targeted-by-attacks"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44279,6 +44029,28 @@
             ],
             "semanticFixtures": [
                 "vermilion-decree-not-imbued-chooses-one-mode"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "m3n9yvn1uo",
+            "name": "Volatile Fusilier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "volatile-fusilier-class-bonus-enter-deals-four-to-your-champion-and-becomes-distant"
+            ],
+            "semanticFixtures": [
+                "volatile-fusilier-class-bonus-enter-deals-four-to-your-champion-and-becomes-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44702,6 +44474,27 @@
             "priority": 33
         },
         {
+            "cardId": "lgdlx7mdk0",
+            "name": "Cinderbloom Tender",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cinderbloom-tender-class-bonus-gather-deals-one-damage-to-each-champion"
+            ],
+            "semanticFixtures": [
+                "cinderbloom-tender-class-bonus-gather-deals-one-damage-to-each-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "r84E55KBLM",
             "name": "Condemning Evisceration",
             "type": "ATTACK",
@@ -44884,6 +44677,27 @@
             "priority": 33
         },
         {
+            "cardId": "q2okpDFJw5",
+            "name": "Energetic Beastbonder",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "energetic-beastbonder-lets-a-pride-beast-obey-by-raising-your-champion-level"
+            ],
+            "semanticFixtures": [
+                "energetic-beastbonder-lets-a-pride-beast-obey-by-raising-your-champion-level"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "CIU4gT14EE",
             "name": "Escharotomy",
             "type": "ACTION",
@@ -44998,6 +44812,27 @@
             "priority": 33
         },
         {
+            "cardId": "1i6ierdDjq",
+            "name": "Flamelash Subduer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flamelash-subduer-lets-a-pride-beast-obey-by-raising-your-champion-level"
+            ],
+            "semanticFixtures": [
+                "flamelash-subduer-lets-a-pride-beast-obey-by-raising-your-champion-level"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "fqxo9o8yeq",
             "name": "Flickering Cinder",
             "type": "ACTION",
@@ -45057,6 +44892,27 @@
             ],
             "semanticFixtures": [
                 "focal-intensity-deals-one-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "xgax8bbjqj",
+            "name": "Four of Hearts",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "four-of-hearts-cardistry-draws-into-memory-and-puts-a-suited-ally-onto-the-field"
+            ],
+            "semanticFixtures": [
+                "four-of-hearts-cardistry-draws-into-memory-and-puts-a-suited-ally-onto-the-field"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45405,6 +45261,27 @@
             ],
             "semanticFixtures": [
                 "necklace-of-hindsight-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "wtHBZAdTSv",
+            "name": "Nether Dodobird",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "nether-dodobird-sacrifice-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "nether-dodobird-sacrifice-draws-a-card-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45839,6 +45716,27 @@
             ],
             "semanticFixtures": [
                 "servant-s-obligation-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "nduIoPhZr1",
+            "name": "Seven of Hearts",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "seven-of-hearts-cardistry-deals-two-damage-to-each-unit-the-opponent-controls"
+            ],
+            "semanticFixtures": [
+                "seven-of-hearts-cardistry-deals-two-damage-to-each-unit-the-opponent-controls"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46405,6 +46303,26 @@
             "priority": 32
         },
         {
+            "cardId": "vvfwwa13y9",
+            "name": "Cheetah of Bound Fury",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat"
+            ],
+            "existingFixtures": [
+                "cheetah-of-bound-fury-on-hit-banishes-and-returns-as-fatestone"
+            ],
+            "semanticFixtures": [
+                "cheetah-of-bound-fury-on-hit-banishes-and-returns-as-fatestone"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "21oy1nd4nw",
             "name": "Condemned Trinket",
             "type": "REGALIA,ITEM",
@@ -46505,6 +46423,28 @@
             "priority": 32
         },
         {
+            "cardId": "YGz8gN8M69",
+            "name": "Eight of Hearts",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "eight-of-hearts-cardistry-draws-two-cards",
+                "eight-of-hearts-casting-it-does-not-draw-cards-for-free"
+            ],
+            "semanticFixtures": [
+                "eight-of-hearts-cardistry-draws-two-cards",
+                "eight-of-hearts-casting-it-does-not-draw-cards-for-free"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "RN7ueRDijA",
             "name": "Elysian Orphan",
             "type": "ALLY",
@@ -46519,6 +46459,26 @@
             ],
             "semanticFixtures": [
                 "rhesus-eradication-deals-level-plus-two-per-elysian-object"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "xhi5jnsl7d",
+            "name": "Embershield Keeper",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "embershield-keeper-class-bonus-fostered-gets-plus-two-life"
+            ],
+            "semanticFixtures": [
+                "embershield-keeper-class-bonus-fostered-gets-plus-two-life"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46583,6 +46543,28 @@
             ],
             "semanticFixtures": [
                 "flame-sweep-cleaves-every-opposing-unit-with-class-bonus-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "5yw862q547",
+            "name": "Flamebolt Arbalist",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flamebolt-arbalist-distant-attack-gets-plus-four-power",
+                "flamebolt-arbalist-not-distant-attack-has-base-power"
+            ],
+            "semanticFixtures": [
+                "flamebolt-arbalist-distant-attack-gets-plus-four-power",
+                "flamebolt-arbalist-not-distant-attack-has-base-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46665,6 +46647,26 @@
             "semanticFixtures": [
                 "found-power-decline-first-discard-still-offers-the-second",
                 "found-power-decline-second-discard-still-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "r3bmriltuw",
+            "name": "Fumant Shieldmaiden",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fumant-shieldmaiden-on-death-draws-for-each-player-with-low-influence"
+            ],
+            "semanticFixtures": [
+                "fumant-shieldmaiden-on-death-draws-for-each-player-with-low-influence"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47133,6 +47135,26 @@
             "priority": 32
         },
         {
+            "cardId": "CvvgJR4fNa",
+            "name": "Patient Rogue",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "patient-rogue-gets-plus-three-power-at-the-beginning-of-your-recollection-phase"
+            ],
+            "semanticFixtures": [
+                "patient-rogue-gets-plus-three-power-at-the-beginning-of-your-recollection-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "lcy0lw1veb",
             "name": "Peppered Chef",
             "type": "ALLY",
@@ -47227,6 +47249,26 @@
             ],
             "semanticFixtures": [
                 "powered-bishop-gets-plus-one-power-with-four-memory-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "9fZMLbyRWd",
+            "name": "Queen's Cinderhog",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "queens-cinderhog-class-bonus-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "semanticFixtures": [
+                "queens-cinderhog-class-bonus-stealth-cannot-be-targeted-by-attacks"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47525,6 +47567,26 @@
             "priority": 32
         },
         {
+            "cardId": "vwktc1c3kn",
+            "name": "Silent Firebrand",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "silent-firebrand-class-bonus-kindle-two-pays-with-graveyard-fire-cards"
+            ],
+            "semanticFixtures": [
+                "silent-firebrand-class-bonus-kindle-two-pays-with-graveyard-fire-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "lsLd8ADGAe",
             "name": "Silvergale Monstrosity's Call",
             "type": "ACTION",
@@ -47756,6 +47818,26 @@
             "priority": 32
         },
         {
+            "cardId": "a3v1ybmvpb",
+            "name": "Sunglory Sentinel",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sunglory-sentinel-class-bonus-fostered-attacking-a-champion-gets-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "sunglory-sentinel-class-bonus-fostered-attacking-a-champion-gets-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "42mdt7ge5d",
             "name": "Suzaku, Vermillion Phoenix",
             "type": "ALLY",
@@ -47850,6 +47932,26 @@
             ],
             "semanticFixtures": [
                 "temper-in-flames-puts-a-durability-counter-on-a-weapon"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "1db8hz4prm",
+            "name": "Three of Hearts",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "three-of-hearts-cardistry-draws-then-discards"
+            ],
+            "semanticFixtures": [
+                "three-of-hearts-cardistry-draws-then-discards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47957,6 +48059,25 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 32
+        },
+        {
+            "cardId": "vUq1XBaQtU",
+            "name": "Ashfletched Bowman",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "ashfletched-bowman-ranged-three-distant-attack-gets-plus-three-power"
+            ],
+            "semanticFixtures": [
+                "ashfletched-bowman-ranged-three-distant-attack-gets-plus-three-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
         },
         {
             "cardId": "24ansclpqc",
@@ -48262,6 +48383,27 @@
             "priority": 31
         },
         {
+            "cardId": "PptfA8gG6h",
+            "name": "Emberwrath Witch",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "emberwrath-witch-ephemerate-from-the-graveyard-enters-ephemeral",
+                "emberwrath-witch-is-sacrificed-at-the-beginning-of-your-end-phase"
+            ],
+            "semanticFixtures": [
+                "emberwrath-witch-ephemerate-from-the-graveyard-enters-ephemeral",
+                "emberwrath-witch-is-sacrificed-at-the-beginning-of-your-end-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "LUfgfsWTTO",
             "name": "Fiery Momentum",
             "type": "ATTACK",
@@ -48277,6 +48419,25 @@
             "semanticFixtures": [
                 "fiery-momentum-class-bonus-gets-plus-one-power-per-fire-card-in-the-graveyard",
                 "fiery-momentum-without-the-class-bonus-deals-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "59ueoujs9f",
+            "name": "Flamewing Fowl",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "flamewing-fowl-class-bonus-attacking-a-champion-deals-four"
+            ],
+            "semanticFixtures": [
+                "flamewing-fowl-class-bonus-attacking-a-champion-deals-four"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48707,6 +48868,25 @@
             ],
             "semanticFixtures": [
                 "the-looking-glass-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "rufki4o41y",
+            "name": "Two of Hearts",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "two-of-hearts-cardistry-gets-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "two-of-hearts-cardistry-gets-plus-two-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

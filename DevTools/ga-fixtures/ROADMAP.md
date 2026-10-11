@@ -221,3 +221,26 @@ verified by regenerating and comparing by meaning.
 - Not yet done in Fire: remaining allies (about 60: Cardistry hearts, Kindle/Imbue costs, stealth/ranged keywords, Pride allies),
   weapons, regalia items, champions and the ten odd actions (Attune with Flames, Oppressive Presence, Suffocating Ash,
   Tether in Flames, Surge Protector, Suzaku's Command, Innervate Fury, Feu Awakening, Molten Echo, Ignis Deus).
+
+### Phase 3a (Fire) continued -- allies batches 3 and 4 (2026-10-11)
+- 33 more allies fixtured (`fire-allies-b.php`, `fire-allies-c.php`): ranged/distant, stealth, Cardistry hearts, foster, Kindle,
+  Pride/level, Priestess/Cinderbloom gather, Templar/Witch/Ephemerate. Nine earlier fixtures had no `->tested()` card and so counted
+  for nothing in the audit; fixed, and `Scenario::build()` now throws when `covers()` is used with no tested card. Covered cards 1,071 -> 1,112.
+- Engine bugs fixed (each with a fixture):
+  - Hand-maintained keyword registries were missing cards, so the printed keyword silently did nothing: Ranged (Ashfletched Bowman,
+    VelTech Armiger, Nimble Longbowman, Huang Zhong, Acheron Express Officer, Rampart Defender), Ephemerate (Emberwrath Witch, Peer
+    Beyond, Classical Opening, Distort Reality), Kindle (Silent Firebrand), Cardistry (Eight of Hearts), Imbue (Tempestuous Seraphim).
+  - Eight of Hearts' Cardistry draw was filed as a play effect: casting it drew two cards for free and the field ability did not exist.
+  - Emberwrath Witch only tagged itself at Enter; nothing ever sacrificed it at the end phase.
+  - Generated `OnAttack` macro listeners were never dispatched (Inflamed Bladehand, Brooch X Ultra, AquaTech Shell); now dispatched
+    from `OnAttackTrigger`.
+- New `DevTools/audit-ga-keyword-registries.php` cross-checks every card's printed Ranged/Ephemerate/Kindle/Cardistry/Imbue/Link keyword
+  against those registries. It lists three open gaps: Steady Sharpshooter (aim counters), Calculated Foresight (champion ranged 3) and
+  Reconnaissance Field (REST ability), plus Ritai Stablemaster's "Horse cards have kindle 3".
+- Open engine findings to review together once Fire is finished (see the end-of-Fire report):
+  - Generated macro listeners for `AllyDestroyed` (Turbulent Bounty Hunter), `ActivateAbility` (Trained Birdroid) and `CardBanish`
+    (Evaporation Synchron) are still never dispatched.
+  - Eight of Hearts' alternative payment (sacrifice up to two Suited allies, 3 each) is not implemented.
+  - Abnegation's conditional Ephemerate has no "activation negated this turn" tracker.
+  - `[Class Bonus] Kindle` is not gated on the class bonus (Silent Firebrand, Burning Aethercharge, Glowering Conflagration).
+  - Molten Impact sacrifices at resolution rather than as a cost.

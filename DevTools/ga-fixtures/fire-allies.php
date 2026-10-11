@@ -262,6 +262,7 @@ gaScenario('rococo-enter-deals-two-damage-with-low-influence')
     ->playSlot(1)->pay(1)->target('theirField-0')
     ->expectDamage('p2Field-0', 2, 'Influence (hand + memory) is 1: On Enter deals 2 damage to the champion')
     ->expectDqEmpty()
+    ->tested('Rococo, Explosive Maven')
     ->covers(['on-enter', 'damage', 'condition'], 'On Enter: If your influence is four or less, deal 2 damage to target champion.')
     ->register();
 
@@ -283,6 +284,7 @@ gaScenario('flamewing-fowl-class-bonus-attacking-a-champion-deals-four')
     ->reachTurnThree()
     ->attack('myField-1', 'theirField-0')
     ->expectDamage('p2Field-0', 4, '[Class Bonus] Attacking a champion: 3 POWER + 1 = 4 damage')
+    ->tested('Flamewing Fowl')
     ->covers(['combat', 'class-bonus', 'condition'], '[Class Bonus] As long as CARDNAME is attacking a champion, it gets +1 [POWER].')
     ->register();
 
@@ -296,6 +298,7 @@ gaScenario('ash-filcher-class-bonus-attack-banishes-a-fire-card-for-plus-two-pow
     ->answer(1, 'myGraveyard-0')
     ->expectDamage('p2Field-0', 3, '[Class Bonus] On Attack: banishing a fire card gave +2 POWER: 1 + 2 = 3 damage')
     ->expectZoneCount('myBanish', 1, 1, 'The fire card was banished from the graveyard')
+    ->tested('Ash Filcher')
     ->covers(['on-attack', 'banish', 'stat-change', 'class-bonus'], '[Class Bonus] On Attack: You may banish a fire element card from your graveyard. If you do, this attack gets +2 [POWER].')
     ->register();
 
@@ -309,6 +312,7 @@ gaScenario('embertail-squirrel-class-bonus-attack-discards-a-fire-card-for-plus-
     ->answer(1, 'myHand-7')
     ->expectDamage('p2Field-0', 4, '[Class Bonus] On Attack: discarding a fire card gave +2 POWER: 2 + 2 = 4 damage')
     ->expectZoneCount('myGraveyard', 1, 1, 'The fire card was discarded')
+    ->tested('Embertail Squirrel')
     ->covers(['on-attack', 'discard', 'stat-change', 'class-bonus'], '[Class Bonus] On Attack: You may discard a fire element card. If you do, CARDNAME gets +2 [POWER] until end of turn.')
     ->register();
 
@@ -322,6 +326,7 @@ gaScenario('rampant-bladehand-class-bonus-attack-removes-a-durability-counter-fo
     ->answer(1, 'myField-2')
     ->expectDamage('p2Field-0', 4, '[Class Bonus] On Attack: removing a durability counter gave +1 POWER: 3 + 1 = 4 damage')
     ->expectProperty('p1Field-2', 'Counters', '{"durability":1}', 'A durability counter was removed from the weapon (2 -> 1)')
+    ->tested('Rampant Bladehand')
     ->covers(['on-attack', 'counter', 'stat-change', 'class-bonus'], '[Class Bonus] On Attack: You may remove a durability counter from a weapon you control. If you do, this attack gets +1 [POWER].')
     ->register();
 
@@ -334,6 +339,7 @@ gaScenario('scorchfire-assassin-class-bonus-attack-spends-preparation-counters-f
     ->attack('myField-1', 'theirField-0')
     ->answer(1, 'YES')->answer(1, 'YES')
     ->expectDamage('p2Field-0', 5, '[Class Bonus] On Attack: removing 2 preparation counters gave +4 POWER: 1 + 4 = 5 damage')
+    ->tested('Scorchfire Assassin')
     ->covers(['on-attack', 'counter', 'stat-change', 'class-bonus'], '[Class Bonus] On Attack: You may remove up to three preparation counters from your champion. For each counter removed this way, this attack gets +2 [POWER].')
     ->register();
 
@@ -347,6 +353,7 @@ gaScenario('flameblessed-trainee-class-bonus-attacking-an-ally-discards-a-fire-c
     ->attack('myField-1', 'theirField-1')
     ->answer(1, 'myHand-7')->answer(2, 'PASS')
     ->expectProperty('p2Graveyard-0', 'CardID', 'em6eEh9q8y', '[Class Bonus] Attacking an ally and discarding a fire card gave +3 POWER: 1 + 3 = 4 kills the 3-life Dungeon Guide')
+    ->tested('Flameblessed Trainee')
     ->covers(['on-attack', 'discard', 'stat-change', 'class-bonus'], '[Class Bonus] On Attack: If CARDNAME is attacking an ally, you may discard a fire element card. If you do, this attack gets +3 [POWER].')
     ->register();
 
@@ -359,6 +366,7 @@ gaScenario('firebird-trailblazer-attack-discards-a-card-to-draw')
     ->answer(1, 'YES')->answer(1, 'myHand-0')
     ->expectZoneCount('myGraveyard', 1, 1, 'One card was discarded')
     ->expectDamage('p2Field-0', 2, 'The attack dealt its 2 POWER')
+    ->tested('Firebird Trailblazer')
     ->covers(['on-attack', 'draw-discard', 'optional-choice'], 'On Attack: You may discard a card. If you do, draw a card.')
     ->register();
 
@@ -381,6 +389,7 @@ gaScenario('nether-dodobird-sacrifice-draws-a-card-into-memory')
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')
     ->expectZoneCount('myMemory', 1, 1, 'Not ephemeral: a card was drawn into memory')
     ->expectProperty('p1Graveyard-0', 'CardID', 'wtHBZAdTSv', 'Nether Dodobird was sacrificed as the cost')
+    ->tested('Nether Dodobird')
     ->covers(['activated-ability', 'sacrifice', 'draw-discard'], 'Sacrifice CARDNAME: If CARDNAME was not ephemeral, draw a card into your memory.')
     ->register();
 

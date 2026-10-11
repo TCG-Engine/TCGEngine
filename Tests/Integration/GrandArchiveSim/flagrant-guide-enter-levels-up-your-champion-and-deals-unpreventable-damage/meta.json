@@ -1,0 +1,22 @@
+{
+    "name": "flagrant-guide-enter-levels-up-your-champion-and-deals-unpreventable-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:23:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Ox449xU5yO"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Ox449xU5yO"
+        ],
+        "mechanics": [
+            "on-enter",
+            "level-up",
+            "damage"
+        ],
+        "rulesClauses": [
+            "On Enter: You may level up your champion. If you do, deal 6+X unpreventable damage to it, where X is four times that champion's base level."
+        ]
+    }
+}

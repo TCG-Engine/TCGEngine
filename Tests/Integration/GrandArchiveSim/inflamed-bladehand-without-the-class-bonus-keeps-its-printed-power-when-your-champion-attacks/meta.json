@@ -1,0 +1,22 @@
+{
+    "name": "inflamed-bladehand-without-the-class-bonus-keeps-its-printed-power-when-your-champion-attacks",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:18:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zzH1XYFSP7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zzH1XYFSP7"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever your champion attacks, CARDNAME gets +2 [POWER] until end of turn."
+        ]
+    }
+}

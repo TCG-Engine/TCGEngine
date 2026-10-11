@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Kindle 2: two graveyard fire cards were banished to pay for (2)"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Only the remaining (2) was paid from hand"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "vwktc1c3kn",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Silent Firebrand resolved onto the field"
+    }
+]

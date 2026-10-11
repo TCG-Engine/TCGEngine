@@ -1,0 +1,22 @@
+{
+    "name": "cheetah-of-bound-fury-on-hit-banishes-and-returns-as-fatestone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:23:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vvfwwa13y9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vvfwwa13y9"
+        ],
+        "mechanics": [
+            "on-hit",
+            "banish",
+            "transform"
+        ],
+        "rulesClauses": [
+            "On Hit: You may banish Cheetah of Bound Fury, then return it to the field under its owner's control. (It enters the field as Fatestone of Unrelenting.)"
+        ]
+    }
+}

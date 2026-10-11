@@ -1,0 +1,23 @@
+{
+    "name": "incinerated-templar-class-bonus-enter-returns-a-specter-ally-as-ephemeral",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:14:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "26ya6zaae8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "26ya6zaae8"
+        ],
+        "mechanics": [
+            "on-enter",
+            "reanimate",
+            "ephemeral",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Put target Specter ally card with reserve cost 3 or less from your graveyard onto the field. It becomes ephemeral."
+        ]
+    }
+}

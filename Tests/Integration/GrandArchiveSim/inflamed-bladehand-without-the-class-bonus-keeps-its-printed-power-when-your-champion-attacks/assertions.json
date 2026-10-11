@@ -1,0 +1,10 @@
+[
+    {
+        "step": 6,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 2,
+        "semantic": true,
+        "label": "Control: the same champion attack without the Class Bonus"
+    }
+]

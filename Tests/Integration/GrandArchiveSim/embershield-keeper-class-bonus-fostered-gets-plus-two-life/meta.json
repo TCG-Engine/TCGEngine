@@ -1,0 +1,22 @@
+{
+    "name": "embershield-keeper-class-bonus-fostered-gets-plus-two-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:16:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xhi5jnsl7d"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xhi5jnsl7d"
+        ],
+        "mechanics": [
+            "foster",
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as CARDNAME is fostered, it gets +2 [LIFE]."
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "PptfA8gG6h",
+        "semantic": true,
+        "label": "Sacrificed at the beginning of the end phase"
+    }
+]

@@ -1,0 +1,21 @@
+{
+    "name": "pride-beast-does-not-obey-without-the-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:21:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2vQVsdHJqI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2vQVsdHJqI"
+        ],
+        "mechanics": [
+            "pride",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Pride 2 (This ally won't obey you unless your champion is level 2 or higher.)"
+        ]
+    }
+}

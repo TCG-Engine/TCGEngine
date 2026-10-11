@@ -1,0 +1,22 @@
+{
+    "name": "sly-songstress-class-bonus-stealth-cannot-be-targeted-by-attacks",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:23:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "f28y5rn0dt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "f28y5rn0dt"
+        ],
+        "mechanics": [
+            "keyword",
+            "stealth",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Stealth (This unit can't be targeted by attacks unless permitted by true sight.)"
+        ]
+    }
+}

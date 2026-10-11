@@ -1,0 +1,22 @@
+{
+    "name": "eight-of-hearts-cardistry-draws-two-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:23:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YGz8gN8M69"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YGz8gN8M69"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cardistry",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Cardistry -- (8): Draw two cards."
+        ]
+    }
+}

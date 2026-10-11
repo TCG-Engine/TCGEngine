@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "CardID",
+        "value": "DpHDGaX2Pn",
+        "semantic": true,
+        "label": "The champion leveled up into Lorraine, Wandering Warrior"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "10",
+        "semantic": true,
+        "label": "On Enter: 6 + 4 x base level 1 = 10 unpreventable damage to the leveled-up champion"
+    }
+]

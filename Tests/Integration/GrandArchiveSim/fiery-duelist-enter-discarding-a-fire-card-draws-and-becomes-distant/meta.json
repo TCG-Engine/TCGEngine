@@ -1,0 +1,23 @@
+{
+    "name": "fiery-duelist-enter-discarding-a-fire-card-draws-and-becomes-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:14:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wc8tuhuy4x"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wc8tuhuy4x"
+        ],
+        "mechanics": [
+            "on-enter",
+            "discard",
+            "draw-discard",
+            "distant"
+        ],
+        "rulesClauses": [
+            "On Enter: You may discard a fire element card. If you do, draw a card and CARDNAME becomes distant."
+        ]
+    }
+}

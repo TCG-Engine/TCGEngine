@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "rufki4o41y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Suited ally came from memory onto the field"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "3 paid + 1 drawn into memory - 1 put onto the field... plus the seeded card left: 4"
+    }
+]

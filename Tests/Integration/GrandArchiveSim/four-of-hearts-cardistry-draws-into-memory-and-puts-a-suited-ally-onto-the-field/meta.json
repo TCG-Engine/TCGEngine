@@ -1,0 +1,23 @@
+{
+    "name": "four-of-hearts-cardistry-draws-into-memory-and-puts-a-suited-ally-onto-the-field",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:23:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xgax8bbjqj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xgax8bbjqj"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cardistry",
+            "draw-discard",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Cardistry -- (4): Draw a card into your memory, then put a fire or norm element Suited ally card with reserve cost 3 or less from your memory onto the field."
+        ]
+    }
+}

@@ -1825,6 +1825,9 @@ function OnAttackTrigger($player, $mzID) {
     // pass during any of that would otherwise still see (and skip) an object that no longer needs
     // protecting, silently leaving it uncompacted with nothing left to purge it until much later.
     ClearProtectedRemovedCardUniqueIDs();
+    // Generated "Whenever ... attacks" listeners (Inflamed Bladehand, Brooch X Ultra, AquaTech Shell). Nothing dispatched the
+    // OnAttack macro listeners before, so those three abilities never ran.
+    DispatchMacroListeners("OnAttack", $player, ["mzID" => $mzID], ["Field"]);
     // Majestic Spirit's Crest (Tx6iJQNSA6): TurnEffect on champion — when champion attacks, draw 1
     if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         if(in_array("Tx6iJQNSA6", $obj->TurnEffects)) {

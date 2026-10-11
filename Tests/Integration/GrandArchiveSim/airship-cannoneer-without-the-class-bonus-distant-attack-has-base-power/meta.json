@@ -1,0 +1,23 @@
+{
+    "name": "airship-cannoneer-without-the-class-bonus-distant-attack-has-base-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:16:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d53zc9p4lp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "d53zc9p4lp"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Ranged 4 (As long as this unit is distant, its attacks get +4 [POWER].)"
+        ]
+    }
+}

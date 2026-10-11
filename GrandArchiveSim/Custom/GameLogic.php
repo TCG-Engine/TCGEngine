@@ -475,6 +475,7 @@ $Imbue_Cards["a3pmmloejo"] = 2; // Blessed Clergy (WIND) - Imbue 2
 $Imbue_Cards["xpnjvt9y59"] = 2; // Cleansing Reunion (WIND) - Imbue 2
 $Imbue_Cards["taug52u81v"] = 2; // Eternal Magistrate (WIND) - Imbue 2
 $Imbue_Cards["TYlWgIYsq3"] = 2; // Cauterizing Seraphim (FIRE) - Advanced Imbue 2
+$Imbue_Cards["HYFtrEXYFi"] = 2; // Tempestuous Seraphim (WIND) - Advanced Imbue 2 (was missing: it could never become imbued)
 $Imbue_Cards["92mnQJPfR8"] = ['threshold' => 1, 'matcher' => 'advanced']; // Angel Attendant (NORM) - Advanced Imbue 1
 $Imbue_Cards["aKjX6INGkV"] = ['threshold' => 2, 'matcher' => 'advanced']; // Angelic Vanguard - Advanced Imbue 2
 $Imbue_Cards["b9lli2PE7I"] = ['threshold' => 3, 'matcher' => 'advanced']; // Nuriel, Seraphic Paladin - Advanced Imbue 3
@@ -900,6 +901,7 @@ $Kindle_Cards["4ms1r3hjxp"] = 6; // Jianye, Dawn's Keep (FIRE) - Kindle 6
 $Kindle_Cards["FnTT1G4OQg"] = 4; // Restoring Embers (FIRE) - Kindle 4
 $Kindle_Cards["znk6g5o8ys"] = 3; // Dazzling Courtesan (FIRE) - Kindle 3
 $Kindle_Cards["s3bqtjayfn"] = 2; // Tinderflare Pivot (FIRE) - Kindle 2
+$Kindle_Cards["vwktc1c3kn"] = 2; // Silent Firebrand (FIRE) - [Class Bonus] Kindle 2 (was missing: Kindle was never offered)
 
 // --- Cardistry Cards Registry ---
 // Maps cardID => base reserve cost for the Cardistry activated ability.
@@ -996,6 +998,7 @@ $Cardistry_Cards["EIpkYYSP3s"] = 6; // Senaris, Six of Diamonds
 $Cardistry_Cards["DKoSnhjX18"] = 7; // Chance, Seven of Spades
 $Cardistry_Cards["nduIoPhZr1"] = 7; // Seven of Hearts
 $Cardistry_Cards["d43C0Hk6qH"] = 8; // Eight of Spades
+$Cardistry_Cards["YGz8gN8M69"] = 8; // Eight of Hearts (was missing: its Cardistry ability could not be activated)
 $Cardistry_Cards["0mf1ug6yfi"] = 10; // Wonderland's Reign
 $Cardistry_Cards["NsnBhlVzTV"] = 4; // Four of Diamonds
 $Cardistry_Cards["mzwTQzuXZa"] = 2; // Two of Diamonds
@@ -6318,6 +6321,7 @@ function GAActivateAbilityCountOverrides() {
     return [
         "0op3nq0ymv" => ["Cheaper arcane spell"], // Voltaic Sphere (graveyard)
         "4wuq20gvcg" => ["Banish"],  // Key Slime Pudding
+        "YGz8gN8M69" => ["Cardistry"], // Eight of Hearts
         "fbs9qzo3f6" => ["Distant"], // Ranger Boots
         "9ggfiy38t2" => ["Prevent"], // Baby Blue Slime
         "0z2snsdwmx" => ["Return"], // Scale of Souls
@@ -13018,10 +13022,11 @@ function EndPhase() {
         }
     }
 
-    // Direwolf (jev2kkxuq2): At beginning of your end phase, sacrifice Direwolf
+    // Direwolf (jev2kkxuq2), Emberwrath Witch (PptfA8gG6h): At beginning of your end phase, sacrifice CARDNAME
+    // (the Witch's generated Enter ability only tagged it; nothing ever acted on the tag)
     $field = &GetField($turnPlayer);
     for($i = count($field) - 1; $i >= 0; --$i) {
-        if(!$field[$i]->removed && $field[$i]->CardID === "jev2kkxuq2" && !HasNoAbilities($field[$i])) {
+        if(!$field[$i]->removed && ($field[$i]->CardID === "jev2kkxuq2" || $field[$i]->CardID === "PptfA8gG6h") && !HasNoAbilities($field[$i])) {
             AllyDestroyed($turnPlayer, "myField-" . $i);
             DecisionQueueController::CleanupRemovedCards();
         }
@@ -20194,6 +20199,15 @@ $ephemerateCards["tizLamFGPS"] = ['cost' => 3, 'condition' => function($player) 
     return IsMerlinBonusActive($player) && GetSheenCount($player) >= 6;
 }]; // Luster's Shroud
 
+// Printed Ephemerate that was missing from this registry (Abnegation's is conditional on a negated activation this turn
+// and has no tracker, so it is still missing).
+$ephemerateCards["PptfA8gG6h"] = ['cost' => 2]; // Emberwrath Witch
+$ephemerateCards["54ebGqHpLO"] = ['cost' => 1]; // Peer Beyond
+$ephemerateCards["RSf7n45fhX"] = ['cost' => 3]; // Classical Opening
+$ephemerateCards["PhaEcpabC2"] = ['cost' => 15, 'condition' => function($player) {
+    return IsAliceBonusActive($player);
+}]; // Distort Reality
+
 function GetEphemerateCost($player, $cardID) {
     global $ephemerateCards;
     if(!isset($ephemerateCards[$cardID])) {
@@ -25214,6 +25228,13 @@ $rangedCardValues = [
     "lClyP34mj6" => [2, true, ["RANGER"]], // Mistral Ranger
     "ann23jkuys" => [2, true, ["RANGER"]], // Yunzhou Cavalry
     "fta5isdgrk" => [2, false, []], // Veteran Aerotheurge (base Ranged 2; CB adds +2 dynamically)
+    // Printed Ranged that was missing from this table
+    "vUq1XBaQtU" => [3, false, []], // Ashfletched Bowman
+    "5v9mCHv2qG" => [3, false, []], // VelTech Armiger
+    "tMy4zMpqcH" => [1, false, []], // Nimble Longbowman
+    "XikXt8WyNp" => [2, false, []], // Huang Zhong, Unerring Aim
+    "9fRWmhqsNS" => [3, false, []], // Acheron Express Officer
+    "Znvu05tvWC" => [3, true, ["GUARDIAN", "RANGER"]], // Rampart Defender
 ];
 
 /**
