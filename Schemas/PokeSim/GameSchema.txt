@@ -15,6 +15,7 @@ Macro: Name=Attack(mzID,attackIndex); ChoiceFunction=PokeOnAttack; SourceParam=m
 Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=PokeOnActivateAbility; PrereqFunction=PokeGeneratedCanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
 Macro: Name=EnergyAttached(mzID,energyID); ChoiceFunction=PokeOnEnergyAttached; SourceParam=mzID; Action={}
 Macro: Name=PokemonBenched(mzID); ChoiceFunction=PokeOnPokemonBenched; SourceParam=mzID; Action={}
+Macro: Name=PokemonEvolved(mzID); ChoiceFunction=PokeOnPokemonEvolved; SourceParam=mzID; Action={}
 Macro: Name=DamageCounterProtection(subjectObj,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
 Macro: Name=BenchDamageProtection(subjectObj,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
 Macro: Name=DragonPsychicWeakness(subjectObj,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0

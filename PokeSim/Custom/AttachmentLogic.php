@@ -39,6 +39,19 @@ function PokeReturnPokemonStack(int $player,string $ref,string $zone): void {
     if (PokeVar('resolvingAbility',false)) PokeResolveKnockouts();
 }
 function PokeAbilityUnused(string $ref): bool { return (GetZoneObject($ref)->Counters['abilityTurn']??-1)!==GetTurnNumber(); }
+function PokeMetalTargets(int $player): string {
+    return implode('&', array_filter(PokeFieldRefs($player), fn($ref)=>in_array('Metal', explode(',', EffectiveCardElement(GetZoneObject($ref))), true)));
+}
+function PokeAttachDiscardMetal(int $player, string $source, string $target): void {
+    $energy=GetZoneObject($source); $pokemon=GetZoneObject($target);
+    if (!$energy || $energy->Removed() || !$pokemon || $pokemon->Removed()) return;
+    if (!str_starts_with($source, "p{$player}Discard-") || $pokemon->Controller !== $player
+        || CardType($energy->CardID) !== 'Energy' || CardEnergyType($energy->CardID) !== 'Normal'
+        || !in_array('Metal', PokeEnergyTypes($energy->CardID), true)
+        || !in_array('Metal', explode(',', EffectiveCardElement($pokemon)), true)) return;
+    $id=$energy->CardID; $pokemon->Energy[]=$id; $energy->Remove();
+    EnergyAttached($player, $target, $id);
+}
 function PokeMarkAbilityUsed(string $ref): void { GetZoneObject($ref)->Counters['abilityTurn']=GetTurnNumber(); }
 function PokeMovedToActiveThisTurn(string $ref): bool { return (GetZoneObject($ref)->Counters['movedActiveTurn']??-1)===GetTurnNumber(); }
 function PokeCountEx(int $player): int { return count(array_filter(PokeFieldRefs($player),fn($ref)=>preg_match('/ ex$/i',CardName(GetZoneObject($ref)->CardID)??'')===1)); }

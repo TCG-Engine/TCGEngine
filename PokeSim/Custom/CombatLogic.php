@@ -30,6 +30,7 @@ function PokeDealAttackDamage(int $player, string $sourceRef, int $damage, bool 
     $types = explode(',', EffectiveCardElement($source));
     $weaknesses=$target->Location==='Active'?(CardWeaknesses($target->CardID)??[]):[];
     if ($target->Location==='Active' && PokeFieldModifier('DragonPsychicWeakness',$player,$target,$source)>0) $weaknesses=[['type'=>'Psychic','value'=>'×2']];
+    if (($target->TurnEffects['noWeaknessThrough'] ?? -1) >= GetTurnNumber()) $weaknesses=[];
     foreach ($weaknesses as $weakness) {
         if (!in_array($weakness['type'], $types, true)) continue;
         $value = $weakness['value'] ?? '×2';

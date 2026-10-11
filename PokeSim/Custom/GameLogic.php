@@ -147,6 +147,7 @@ function PokeEvolve(int $player, string $handRef, string $targetRef): void {
     $pokemon->Evolutions[] = $pokemon->CardID; $pokemon->CardID = $card->CardID;
     $pokemon->EvolvedTurn = GetTurnNumber(); $pokemon->Conditions = []; $pokemon->TurnEffects = [];
     $card->Remove(); PokeLog('evolve', ['player' => $player, 'card' => $pokemon->CardID]);
+    if (!HasNoAbilities($pokemon)) PokemonEvolved($player, $targetRef);
 }
 function PokeSwitch(int $player, string $benchRef, bool $clear = true): void {
     $bench = GetZoneObject($benchRef);
@@ -165,6 +166,7 @@ function PokeSwitch(int $player, string $benchRef, bool $clear = true): void {
 function PokeCanPlayTrainer(int $player, string $ref): bool {
     $obj = GetZoneObject($ref);
     if (!$obj || !PokeCardImplemented($obj->CardID) || CardType($obj->CardID) !== 'Trainer') return false;
+    if (CardTrainerType($obj->CardID) === 'Item' && PokeVar('itemLock:'.$player, -1) === GetTurnNumber()) return false;
     if (CardTrainerType($obj->CardID) === 'Supporter' && (GetSupporterUsed($player) || ($player === GetFirstPlayer() && GetPlayerTurns($player) === 1))) return false;
     if (CardTrainerType($obj->CardID) === 'Stadium' && (PokeVar('stadiumPlayed:'.$player) === GetTurnNumber() || (PokeStadium() && CardName(PokeStadium()->CardID) === CardName($obj->CardID)))) return false;
     return !function_exists('PokeGeneratedCanPlayTrainer') || PokeGeneratedCanPlayTrainer($player, $ref);
@@ -415,7 +417,7 @@ function PokeObservation(int $viewer = 1): array {
             if (GetCurrentPhase() === 'SETUP' && $seat !== $viewer && in_array($zone, ['Active','Bench'], true)) continue;
             foreach (PokeObjects($seat, $zone) as $i => $obj) {
                 $row[$zone][] = ['ref'=>PokeRef($seat,$zone,$i),'id'=>$obj->CardID,'name'=>CardName($obj->CardID),
-                    'damage'=>$obj->Damage ?? 0,'hp'=>CardHp($obj->CardID),'energy'=>$obj->Energy ?? [],'conditions'=>$obj->Conditions ?? [], 'evolutions'=>$obj->Evolutions ?? [],'tool'=>$obj->Tool??'-','toolName'=>isset($obj->Tool)&&$obj->Tool!=='-'?CardName($obj->Tool):null,'counters'=>$obj->Counters??[],
+                    'damage'=>$obj->Damage ?? 0,'hp'=>CardHp($obj->CardID),'energy'=>$obj->Energy ?? [],'conditions'=>$obj->Conditions ?? [], 'evolutions'=>$obj->Evolutions ?? [],'tool'=>$obj->Tool??'-','toolName'=>isset($obj->Tool)&&$obj->Tool!=='-'?CardName($obj->Tool):null,'counters'=>$obj->Counters??[], 'turnEffects'=>$obj->TurnEffects??[],
                     'attachedEnergy'=>array_map(fn($id)=>['id'=>$id,'name'=>CardName($id)??$id],$obj->Energy??[]),
                     'attacks'=>CardAttacks($obj->CardID) ?? [],'abilities'=>CardAbilities($obj->CardID) ?? [],'effect'=>CardEffect($obj->CardID) ?? ''];
             }

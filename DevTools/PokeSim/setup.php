@@ -11,6 +11,7 @@ require_once 'CardEditor/Database/CardAbilityRepository.php';
 $repository = OpenCardAbilityRepository($rootName);
 $authored = require 'PokeSim/CardCode/DeckAbilities.php';
 $authored = array_replace($authored, require 'PokeSim/CardCode/LopunnyAbilities.php');
+$authored = array_replace($authored, require 'PokeSim/CardCode/MeowthAbilities.php');
 $authored = array_replace($authored, require 'PokeSim/CardCode/RelicanthAbilities.php');
 $authored = array_replace($authored, require 'PokeSim/CardCode/RelicanthDrawAbilities.php');
 $authored = array_replace($authored, require 'PokeSim/CardCode/RelicanthColressAbilities.php');

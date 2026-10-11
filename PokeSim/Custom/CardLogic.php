@@ -35,6 +35,10 @@ function PokeOnActivateAbility($player, $mzID, $abilityIndex): string {
     PokeMacro('ActivateAbility', $player, GetZoneObject($mzID)->CardID, $abilityIndex, ['mzID' => $mzID, 'abilityIndex' => $abilityIndex]);
     return 'ACTIVATED';
 }
+function PokeOnPokemonEvolved($player, $mzID): string {
+    PokeMacro('PokemonEvolved', $player, GetZoneObject($mzID)->CardID, 0, ['mzID'=>$mzID]);
+    return 'EVOLVED';
+}
 function PokeOnEnergyAttached($player, $mzID, $energyID): string {
     PokeMacro('EnergyAttached', $player, $energyID, 0, ['mzID' => $mzID, 'energyID' => $energyID]);
     return 'ATTACHED';
@@ -49,7 +53,7 @@ function PokeCardImplemented(string $id): bool {
     }
     foreach (CardAbilities($id) ?? [] as $i => $ability) {
         if (($ability['name'] ?? '') === "Hide 'n' Sneak" && isset($GLOBALS['attackEffectProtectionAbilities'][$id . ':0'])) continue;
-        foreach (['activateAbility','pokemonBenched','benchDamageProtection','selfKnockoutAbilityLock','dragonPsychicWeakness','attackCopyAllowed'] as $macro) {
+        foreach (['activateAbility','pokemonBenched','pokemonEvolved','benchDamageProtection','selfKnockoutAbilityLock','dragonPsychicWeakness','attackCopyAllowed'] as $macro) {
             if (isset($GLOBALS[$macro.'Abilities'][$id.':'.$i])) continue 2;
         }
         return false;
@@ -80,6 +84,7 @@ function PokeCandidates(int $player, string $zone, string $filter = 'any'): stri
             'supporter' => CardTrainerType($id) === 'Supporter',
             'rocketSupporter' => CardTrainerType($id) === 'Supporter' && str_contains(CardName($id), 'Team Rocket'),
             'basicEnergy' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal',
+            'basicMetal' => EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal' && in_array('Metal', PokeEnergyTypes($id), true),
             'pokemonOrEnergy' => EffectiveCardType($obj) === 'Pokemon' || (EffectiveCardType($obj) === 'Energy' && CardEnergyType($id) === 'Normal'),
             'basicPsychic' => EffectiveCardType($obj) === 'Pokemon' && CardStage($id) === 'Basic' && in_array('Psychic', explode(',', EffectiveCardElement($obj)), true),
             'fanCall' => EffectiveCardType($obj) === 'Pokemon' && str_contains(EffectiveCardElement($obj), 'Colorless') && (int)CardHp($id) <= 100,
