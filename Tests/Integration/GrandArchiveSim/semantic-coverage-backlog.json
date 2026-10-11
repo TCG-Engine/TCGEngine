@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-11T22:33:24+00:00",
+    "generatedAt": "2026-10-11T22:39:09+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1029,
+        "cardsWithExistingFixtures": 1054,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1448,
+        "cardsNeedingSemanticCoverage": 1423,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -203,25 +203,6 @@
             "priority": 30
         },
         {
-            "cardId": "JGQ9LO5DFv",
-            "name": "Aenean Guttering Flames",
-            "type": "PHANTASIA",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "OVoHxVwodU",
             "name": "Awaken Ombre",
             "type": "ACTION",
@@ -252,45 +233,6 @@
                 "zone-movement",
                 "status",
                 "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "ulh4lplwqe",
-            "name": "Coiled Fatestone",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "GPsEkAfDjy",
-            "name": "Combustible Potion",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "draw-discard",
                 "trigger",
                 "condition"
             ],
@@ -731,24 +673,6 @@
                 "draw-discard",
                 "zone-movement",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "g616r0zadf",
-            "name": "Bottled Forgelight",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -2815,22 +2739,6 @@
             "priority": 22
         },
         {
-            "cardId": "CjWMdce0Ke",
-            "name": "Volnia",
-            "type": "TOKEN,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "kk39i1f0ht",
             "name": "Academy Guide",
             "type": "ALLY",
@@ -3760,25 +3668,6 @@
             "priority": 15
         },
         {
-            "cardId": "yorsltrnu3",
-            "name": "Explosive Concoction",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "draw-discard",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "bfg5ubeczk",
             "name": "Extorting Blackjack",
             "type": "ATTACK",
@@ -3836,25 +3725,6 @@
             "priority": 15
         },
         {
-            "cardId": "prbwzihwyh",
-            "name": "Firebloom Flourish",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "j4lx6xwr42",
             "name": "Firetongue",
             "type": "REGALIA,WEAPON",
@@ -3864,25 +3734,6 @@
                 "zone-movement",
                 "counter",
                 "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "U7pILTDm3s",
-            "name": "FlameTech Shield",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "zone-movement",
                 "trigger",
                 "condition"
             ],
@@ -4198,25 +4049,6 @@
                 "prevention",
                 "status",
                 "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "FqFdOEOTbJ",
-            "name": "Hot Cake",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -6216,24 +6048,6 @@
             "priority": 14
         },
         {
-            "cardId": "s5jwsl7ded",
-            "name": "Blazing Charge",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "ptY1FUlbbs",
             "name": "Blazing Destrier",
             "type": "ALLY",
@@ -7026,42 +6840,6 @@
             "priority": 14
         },
         {
-            "cardId": "1d47o7eanl",
-            "name": "Explosive Fractal",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "1bqry41lw9",
-            "name": "Explosive Rune",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "991ovfr8o0",
             "name": "Expose Darkness",
             "type": "ACTION",
@@ -7440,24 +7218,6 @@
             "priority": 14
         },
         {
-            "cardId": "5pw07bh5wf",
-            "name": "Fractal of Sparks",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "qVtWCAx3zb",
             "name": "Fractal of Waves",
             "type": "PHANTASIA",
@@ -7800,24 +7560,6 @@
             "priority": 14
         },
         {
-            "cardId": "td460e8ig0",
-            "name": "Heated Vengeance",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "RfQhLQ539Z",
             "name": "Hexbound Blade",
             "type": "ATTACK",
@@ -7926,24 +7668,6 @@
             "priority": 14
         },
         {
-            "cardId": "igka5av43e",
-            "name": "Incendiary Fractal",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "26ya6zaae8",
             "name": "Incinerated Templar",
             "type": "ALLY",
@@ -7954,24 +7678,6 @@
                 "targeting",
                 "zone-movement",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "byyw53xbld",
-            "name": "Indiscriminate Gyre",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8959,24 +8665,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "i8g5013x9j",
-            "name": "Relic of Dancing Embers",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
                 "status",
                 "trigger",
                 "condition"
@@ -10861,23 +10549,6 @@
                 "targeting",
                 "damage",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "wewvlfkfp7",
-            "name": "Blazing Lunge",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "zone-movement",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12994,23 +12665,6 @@
             "priority": 13
         },
         {
-            "cardId": "CGdu1Vmlok",
-            "name": "Leran, Pastoral Hymns",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "GlqhpkmflM",
             "name": "Lesser Boon of Isis",
             "type": "LESSER BOON",
@@ -13674,23 +13328,6 @@
             "priority": 13
         },
         {
-            "cardId": "aebjvwbciz",
-            "name": "Overwhelming Swing",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "WShYN9M3lU",
             "name": "Owl Familiar",
             "type": "ALLY",
@@ -14176,23 +13813,6 @@
                 "zone-movement",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "pjdsfqbgit",
-            "name": "Ravenous Pyre",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -17526,22 +17146,6 @@
             "mechanics": [
                 "cost",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "FGvq4eQPbP",
-            "name": "Flame Sweep",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -21910,21 +21514,6 @@
             "priority": 11
         },
         {
-            "cardId": "At1UNRG7F0",
-            "name": "Devastating Blow",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "wzh973fdt8",
             "name": "Develop Mana",
             "type": "ACTION",
@@ -22337,21 +21926,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "LUfgfsWTTO",
-            "name": "Fiery Momentum",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -23192,21 +22766,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "Kf0t7qyLaH",
-            "name": "Lesser Boon of Vritra",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -39779,6 +39338,29 @@
             "priority": 52
         },
         {
+            "cardId": "JGQ9LO5DFv",
+            "name": "Aenean Guttering Flames",
+            "type": "PHANTASIA",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "aenean-guttering-flames-enter-draws-then-discards"
+            ],
+            "semanticFixtures": [
+                "aenean-guttering-flames-enter-draws-then-discards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "2ha4dk88zq",
             "name": "Cloak of Stillwater",
             "type": "REGALIA,ITEM",
@@ -39796,6 +39378,53 @@
             ],
             "semanticFixtures": [
                 "cloak-of-stillwater-rest-and-banish-a-floating-memory-card-prevents-three-champion-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "ulh4lplwqe",
+            "name": "Coiled Fatestone",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "coiled-fatestone-enter-discards-two-cards-at-random"
+            ],
+            "semanticFixtures": [
+                "coiled-fatestone-enter-discards-two-cards-at-random"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "GPsEkAfDjy",
+            "name": "Combustible Potion",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "combustible-potion-played-for-reserve-enters-without-its-brew-bonus"
+            ],
+            "semanticFixtures": [
+                "combustible-potion-played-for-reserve-enters-without-its-brew-bonus"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40054,6 +39683,28 @@
             "semanticFixtures": [
                 "bolster-ranks-class-bonus-costs-two-summons-buffed-drone",
                 "bolster-ranks-no-class-bonus-costs-printed-three-buffs-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "g616r0zadf",
+            "name": "Bottled Forgelight",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bottled-forgelight-sacrifice-deals-two-damage-to-a-unit"
+            ],
+            "semanticFixtures": [
+                "bottled-forgelight-sacrifice-deals-two-damage-to-a-unit"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41637,6 +41288,26 @@
             "priority": 42
         },
         {
+            "cardId": "CjWMdce0Ke",
+            "name": "Volnia",
+            "type": "TOKEN,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "volnia-sacrifice-deals-one-damage-to-a-unit"
+            ],
+            "semanticFixtures": [
+                "volnia-sacrifice-deals-one-damage-to-a-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "dlx7mdk0xh",
             "name": "Atmos Armor Type-Hermes",
             "type": "UNIQUE,ALLY",
@@ -41889,6 +41560,29 @@
             "priority": 35
         },
         {
+            "cardId": "yorsltrnu3",
+            "name": "Explosive Concoction",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "draw-discard",
+                "status"
+            ],
+            "existingFixtures": [
+                "explosive-concoction-enters-the-field-rested"
+            ],
+            "semanticFixtures": [
+                "explosive-concoction-enters-the-field-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "1gxrpx8jyp",
             "name": "Fanatical Devotee",
             "type": "ALLY",
@@ -41908,6 +41602,52 @@
             "semanticFixtures": [
                 "fanatical-devotee-gets-plus-one-power-with-four-memory-cards",
                 "fanatical-devotee-with-three-memory-cards-has-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "prbwzihwyh",
+            "name": "Firebloom Flourish",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "firebloom-flourish-class-bonus-damages-the-opposing-champion-at-recollection"
+            ],
+            "semanticFixtures": [
+                "firebloom-flourish-class-bonus-damages-the-opposing-champion-at-recollection"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "U7pILTDm3s",
+            "name": "FlameTech Shield",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flametech-shield-links-to-an-ally"
+            ],
+            "semanticFixtures": [
+                "flametech-shield-links-to-an-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41981,6 +41721,29 @@
             ],
             "semanticFixtures": [
                 "golden-bishop-charge-counter-prevent-does-not-rest"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "FqFdOEOTbJ",
+            "name": "Hot Cake",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hot-cake-enters-the-field"
+            ],
+            "semanticFixtures": [
+                "hot-cake-enters-the-field"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42793,6 +42556,28 @@
             "priority": 34
         },
         {
+            "cardId": "s5jwsl7ded",
+            "name": "Blazing Charge",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blazing-charge-class-bonus-gets-plus-two-power-and-arms-the-next-turn-trigger"
+            ],
+            "semanticFixtures": [
+                "blazing-charge-class-bonus-gets-plus-two-power-and-arms-the-next-turn-trigger"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "vrK16VZ2zU",
             "name": "Burning Aethercharge",
             "type": "ACTION",
@@ -43073,6 +42858,52 @@
             "priority": 34
         },
         {
+            "cardId": "1d47o7eanl",
+            "name": "Explosive Fractal",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "explosive-fractal-class-bonus-memory-four-deals-two-damage-to-a-champion",
+                "explosive-fractal-with-fewer-than-four-memory-cards-does-nothing-on-enter"
+            ],
+            "semanticFixtures": [
+                "explosive-fractal-class-bonus-memory-four-deals-two-damage-to-a-champion",
+                "explosive-fractal-with-fewer-than-four-memory-cards-does-nothing-on-enter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "1bqry41lw9",
+            "name": "Explosive Rune",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "explosive-rune-banish-deals-one-damage-to-an-ally"
+            ],
+            "semanticFixtures": [
+                "explosive-rune-banish-deals-one-damage-to-an-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "Tx8noEw78s",
             "name": "Extinguishing Synchron",
             "type": "REGALIA,ITEM",
@@ -43233,6 +43064,28 @@
             "priority": 34
         },
         {
+            "cardId": "5pw07bh5wf",
+            "name": "Fractal of Sparks",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fractal-of-sparks-class-bonus-rest-deals-one-damage-to-a-champion"
+            ],
+            "semanticFixtures": [
+                "fractal-of-sparks-class-bonus-rest-deals-one-damage-to-a-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "WRu4cuRHOS",
             "name": "Fran, Carmine Spark",
             "type": "UNIQUE,ALLY",
@@ -43347,6 +43200,30 @@
             "priority": 34
         },
         {
+            "cardId": "td460e8ig0",
+            "name": "Heated Vengeance",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "heated-vengeance-declining-the-self-damage-deals-its-printed-power",
+                "heated-vengeance-gets-plus-three-power-once-your-champion-has-taken-damage"
+            ],
+            "semanticFixtures": [
+                "heated-vengeance-declining-the-self-damage-deals-its-printed-power",
+                "heated-vengeance-gets-plus-three-power-once-your-champion-has-taken-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "DNe5dvCNA1",
             "name": "Hoarfrost Hold",
             "type": "PHANTASIA",
@@ -43411,6 +43288,52 @@
                 "ignited-stab-prepare-1-declined-base-power",
                 "ignited-stab-prepare-1-paid-non-assassin-no-class-bonus",
                 "ignited-stab-prepare-1-paid-plus-2-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "igka5av43e",
+            "name": "Incendiary Fractal",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "incendiary-fractal-class-bonus-enter-deals-four-damage-to-an-opposing-ally",
+                "incendiary-fractal-without-the-class-bonus-deals-two-damage"
+            ],
+            "semanticFixtures": [
+                "incendiary-fractal-class-bonus-enter-deals-four-damage-to-an-opposing-ally",
+                "incendiary-fractal-without-the-class-bonus-deals-two-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "byyw53xbld",
+            "name": "Indiscriminate Gyre",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "indiscriminate-gyre-class-bonus-attack-deals-two-damage-to-all-allies"
+            ],
+            "semanticFixtures": [
+                "indiscriminate-gyre-class-bonus-attack-deals-two-damage-to-all-allies"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43745,6 +43668,28 @@
             "semanticFixtures": [
                 "radiant-origin-of-tamer-ability-1-pays-its-printed-cost",
                 "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "i8g5013x9j",
+            "name": "Relic of Dancing Embers",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "relic-of-dancing-embers-enters-the-field-rested"
+            ],
+            "semanticFixtures": [
+                "relic-of-dancing-embers-enters-the-field-rested"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44629,6 +44574,27 @@
             "priority": 33
         },
         {
+            "cardId": "wewvlfkfp7",
+            "name": "Blazing Lunge",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "zone-movement",
+                "combat"
+            ],
+            "existingFixtures": [
+                "blazing-lunge-deals-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "blazing-lunge-deals-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "iohZMWh5v5",
             "name": "Blazing Throw",
             "type": "ACTION",
@@ -45269,6 +45235,29 @@
             "priority": 33
         },
         {
+            "cardId": "CGdu1Vmlok",
+            "name": "Leran, Pastoral Hymns",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "leran-pastoral-hymns-end-phase-damages-a-champion-with-influence-eight",
+                "leran-pastoral-hymns-end-phase-with-influence-seven-does-nothing"
+            ],
+            "semanticFixtures": [
+                "leran-pastoral-hymns-end-phase-damages-a-champion-with-influence-eight",
+                "leran-pastoral-hymns-end-phase-with-influence-seven-does-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "egbscxwjbq",
             "name": "Lost in Thought",
             "type": "ACTION",
@@ -45441,6 +45430,27 @@
                 "nico-raptures-embrace-enter-look-two-graveyard-first-bottom-second",
                 "nico-raptures-embrace-enter-look-two-graveyard-one-bottom-other",
                 "nico-raptures-embrace-player-two-enter-look-two-graveyard-one-bottom-other"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "aebjvwbciz",
+            "name": "Overwhelming Swing",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "overwhelming-swing-deals-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "overwhelming-swing-deals-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45638,6 +45648,27 @@
             ],
             "semanticFixtures": [
                 "rapid-combustion-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "pjdsfqbgit",
+            "name": "Ravenous Pyre",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "ravenous-pyre-class-bonus-enter-draws-then-discards"
+            ],
+            "semanticFixtures": [
+                "ravenous-pyre-class-bonus-enter-draws-then-discards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46532,6 +46563,26 @@
             "semanticFixtures": [
                 "eventide-spear-activates-from-the-material-deck-in-the-main-phase-against-two-rested-units",
                 "eventide-spear-is-not-activated-from-the-material-deck-against-only-one-rested-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "FGvq4eQPbP",
+            "name": "Flame Sweep",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flame-sweep-cleaves-every-opposing-unit-with-class-bonus-power"
+            ],
+            "semanticFixtures": [
+                "flame-sweep-cleaves-every-opposing-unit-with-class-bonus-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48167,6 +48218,27 @@
             "priority": 31
         },
         {
+            "cardId": "At1UNRG7F0",
+            "name": "Devastating Blow",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "devastating-blow-below-level-three-deals-its-printed-power",
+                "devastating-blow-class-bonus-level-three-gets-plus-four-power"
+            ],
+            "semanticFixtures": [
+                "devastating-blow-below-level-three-deals-its-printed-power",
+                "devastating-blow-class-bonus-level-three-gets-plus-four-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "TLqUZgBeg7",
             "name": "Divining Streams",
             "type": "ACTION",
@@ -48184,6 +48256,27 @@
                 "divining-streams-look-three-first-to-graveyard-last-on-top",
                 "divining-streams-look-three-graveyard-top-bottom",
                 "divining-streams-player-two-look-three-graveyard-top-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "LUfgfsWTTO",
+            "name": "Fiery Momentum",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "fiery-momentum-class-bonus-gets-plus-one-power-per-fire-card-in-the-graveyard",
+                "fiery-momentum-without-the-class-bonus-deals-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "fiery-momentum-class-bonus-gets-plus-one-power-per-fire-card-in-the-graveyard",
+                "fiery-momentum-without-the-class-bonus-deals-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48317,6 +48410,27 @@
             ],
             "semanticFixtures": [
                 "lesser-boon-of-territories-scavenge-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "Kf0t7qyLaH",
+            "name": "Lesser Boon of Vritra",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-vritra-draws-and-damages-champions-with-influence-over-seven",
+                "lesser-boon-of-vritra-spares-a-champion-with-low-influence"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-vritra-draws-and-damages-champions-with-influence-over-seven",
+                "lesser-boon-of-vritra-spares-a-champion-with-low-influence"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

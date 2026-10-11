@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1029**
+Cards linked to an existing fixture: **1054**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1448**
+Implemented cards still needing semantic coverage: **1423**
 
 ## Mechanic groups
 
@@ -36,11 +36,8 @@ Implemented cards still needing semantic coverage: **1448**
 | Oasis Trading Post (`uy4xippor7`) | DOMAIN | 3 | token | — | — |
 | Trained Birdroid (`84lj40Kyhv`) | ALLY | 2 | status, combat, trigger | — | — |
 | Quadrille's Gryphon (`84e2rfex54`) | ALLY | 2 | counter, trigger | — | — |
-| Aenean Guttering Flames (`JGQ9LO5DFv`) | PHANTASIA | 2 | cost, damage, draw-discard, trigger, condition | — | — |
 | Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |
 | Cao Cao, Aspirant of Chaos (`d5og6z31q9`) | UNIQUE,ALLY | 2 | cost, damage, zone-movement, status, combat, trigger, condition | — | — |
-| Coiled Fatestone (`ulh4lplwqe`) | ITEM | 2 | damage, draw-discard, counter, trigger, condition | — | — |
-| Combustible Potion (`GPsEkAfDjy`) | ITEM | 2 | cost, targeting, damage, draw-discard, trigger, condition | — | — |
 | Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
 | Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
 | Diffusive Block (`o7eanl1gxr`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
@@ -64,7 +61,6 @@ Implemented cards still needing semantic coverage: **1448**
 | Alice, Whim's Monarch (`9K4etFOi4M`) | CHAMPION | 2 | zone-movement, token, trigger, condition | — | — |
 | Arcane Elemental (`wFH1kBLrWh`) | ALLY | 2 | cost, zone-movement, combat, trigger | — | — |
 | Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
-| Bottled Forgelight (`g616r0zadf`) | ITEM | 2 | targeting, damage, trigger, condition | — | — |
 | Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
 | Collect Junk (`g6sW55DOgR`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement | — | — |
 | Crystallized Destiny (`l36wwe3d5c`) | ACTION | 2 | cost, damage, prevention, condition | — | — |
@@ -76,3 +72,7 @@ Implemented cards still needing semantic coverage: **1448**
 | Escape the Wreckage (`q2svd53zc9`) | ACTION | 2 | targeting, draw-discard, zone-movement, condition | — | — |
 | Flowing Oubli (`vcxw3yh2t4`) | ACTION | 2 | cost, zone-movement, counter, condition | — | — |
 | Focusing Gem (`SpENiP3jbN`) | REGALIA,ITEM | 2 | cost, zone-movement, status, condition | — | — |
+| Gemini Starbearer (`NyPQW7hkAq`) | ALLY | 2 | targeting, damage, token, trigger | — | — |
+| Horn of Beastcalling (`6e7lRnczfL`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, condition | — | — |
+| Merciless Toss (`ZIU4bH6D9q`) | ACTION | 2 | cost, targeting, damage, condition | — | — |
+| Merlin, Surreal Figment (`P8RBSywC30`) | UNIQUE,ALLY | 2 | targeting, counter, combat, trigger | — | — |
