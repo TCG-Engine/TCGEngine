@@ -101,13 +101,19 @@ Exit (met 2026-10-11 for the shapes that proved regular): `castSpell` (407 scena
   relied on a decision appearing (Flute's pass answered the Glimpse prompt, so the glimpse never ran). Each now asserts
   the drawn card and has a negative twin. A Weaponsmith note that claimed the trigger fired three times was wrong
   (the weapon enters with 2 durability counters).
-- **204 legacy fixtures**: add semantic assertions; prioritise cards also in starter decks.
-- **478 lint flags**: triage into real under-testing (add assertions) versus lint false positives (fix the lint; the
-  slug-contains-"level" false positive is the known one).
-- **28 cards with only a legacy fixture** become real semantic fixtures.
-- Add a mutation spot-check script: for a sample of fixtures, flip one expectation and confirm the generator fails.
-
-Exit: complete semantic contracts 100% of fixtures; lint at zero warnings; audit `--strict` enabled in CI.
+- **478 lint flags -> 11**. DONE 2026-10-11 for the heuristic: the slug-keyword check now skips fixtures that have a complete
+  semantic contract, which removed 357 false positives; 22 of the remaining 33 were zero-assertion fixtures and got observable
+  assertions plus contracts. The last 11 are hand-maintained snapshot fixtures (below).
+- **Cards with only a legacy fixture: 28 -> 0**. DONE 2026-10-11: 6 were left after the contract work; each now has semantic
+  fixtures with negative twins (`legacy-only-cards.php`).
+- **Mutation spot-check**. DONE 2026-10-11: `php DevTools/mutation-spot-check.php --sample=N --seed=S` changes one expected
+  value in a sampled fixture's semantic assertions and requires the replay to fail. 72 sampled mutants, 72 killed.
+- **182 legacy fixtures (no semantic contract)**. OPEN. 178 are hand-maintained snapshot fixtures (generated from the
+  rich-board template or by the original author) with no notes and large boards, so each one needs its card read and its
+  state interpreted by hand. The 11 still flagged by lint are among them. Their cards already have semantic coverage from
+  other fixtures except where noted, so this is quality work rather than coverage. Recommendation: do it opportunistically
+  (when a fixture breaks or its card is touched) and put the effort into Phase 3.
+Exit: complete semantic contracts on every fixture that is not a legacy snapshot (met); lint at zero warnings (11 left, all legacy snapshots); audit `--strict` enabled in CI (needs CI, Phase 5).
 
 ## Phase 3: Cover all 1,542 uncovered cards, batched by element
 

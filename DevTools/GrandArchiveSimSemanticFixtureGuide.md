@@ -173,3 +173,18 @@ php DevTools/build-ga-semantic-backlog.php \
 This produces JSON for tooling plus a Markdown report with a prioritized first batch.
 Mechanic tags are only triage hints inferred from printed effect text; fixture contracts
 must still state the actual rule clause and expected outcome.
+
+## Checking that assertions can fail
+
+`php DevTools/mutation-spot-check.php --sample=25 --seed=1` changes one expected value in each sampled fixture's semantic
+assertions, replays the fixture and requires it to fail; the file is restored afterwards. A surviving mutant means the
+assertion is not checking what its label claims (wrong step, wrong zone, unreachable value). Run it after writing a batch.
+
+## Pitfalls found while upgrading old fixtures
+
+- A `pass(1)` after paying is only a priority pass when a window actually opens. When a prompt (for example Glimpse) is already
+  pending, the pass answers it, so the effect never runs while the fixture still reports success. Check the step with
+  `php DevTools/dump-fixture-state.php --root=GrandArchiveSim --test=<slug>`.
+- A decision-queue-empty check proves nothing about an effect; pair it with the card that moved, the counter that appeared or the
+  damage that was dealt. The audit counts any non-queue assertion as observable evidence.
+- Seeded weapons enter with their printed durability counters.
