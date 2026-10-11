@@ -1,0 +1,25 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Hand: 8 - 1 - 3 + 1 drawn = 5"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "The opponent drew a card: 7 + 1"
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

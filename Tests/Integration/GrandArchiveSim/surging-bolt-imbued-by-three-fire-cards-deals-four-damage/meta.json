@@ -1,0 +1,22 @@
+{
+    "name": "surging-bolt-imbued-by-three-fire-cards-deals-four-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:13:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "08kkz07nau"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "08kkz07nau"
+        ],
+        "mechanics": [
+            "damage",
+            "imbue",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Imbue 3. Deal 3 damage to target champion. If CARDNAME is imbued, deal 4 damage to that champion instead."
+        ]
+    }
+}

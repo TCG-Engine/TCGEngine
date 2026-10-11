@@ -1,0 +1,20 @@
+{
+    "name": "fiery-warcry-draws-then-discards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:09:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ippor7ch2b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ippor7ch2b"
+        ],
+        "mechanics": [
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Draw a card, then discard a card."
+        ]
+    }
+}

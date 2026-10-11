@@ -1,0 +1,21 @@
+{
+    "name": "glowering-conflagration-deals-one-plus-the-number-of-phantasias",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:10:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1ym2py8u7q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1ym2py8u7q"
+        ],
+        "mechanics": [
+            "damage",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "Deal 1+X damage to target champion, where X is the amount of phantasias you control."
+        ]
+    }
+}

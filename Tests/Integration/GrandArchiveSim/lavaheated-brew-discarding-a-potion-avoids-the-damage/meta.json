@@ -1,0 +1,22 @@
+{
+    "name": "lavaheated-brew-discarding-a-potion-avoids-the-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:11:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o98vn1voy5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o98vn1voy5"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you didn't discard a Potion item card, deal 3 damage to your champion."
+        ]
+    }
+}

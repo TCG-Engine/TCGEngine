@@ -1,0 +1,21 @@
+{
+    "name": "intensified-pyre-deals-six-damage-with-eight-graveyard-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:10:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hd0sxpu7cp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hd0sxpu7cp"
+        ],
+        "mechanics": [
+            "damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If that champion's controller has eight or more cards in their graveyard, deal 6 damage to that champion instead."
+        ]
+    }
+}

@@ -286,6 +286,20 @@ class GaScenario {
         return $this->expectProperty($mzId, 'Damage', strval($damage), $label, $step);
     }
 
+    // Computed (modifier-aware) POWER / LIFE of a unit, e.g. after "+2 POWER until end of turn".
+    public function expectPower(string $mzId, int $power, ?string $label = null, ?int $step = null): self {
+        return $this->expect(['type' => 'computed_power_equals', 'mzId' => $mzId, 'value' => $power], $label, $step);
+    }
+
+    public function expectLife(string $mzId, int $life, ?string $label = null, ?int $step = null): self {
+        return $this->expect(['type' => 'computed_life_equals', 'mzId' => $mzId, 'value' => $life], $label, $step);
+    }
+
+    // A card (by name, or '#<id>') is present in a zone such as 'myField' or 'theirGraveyard'.
+    public function expectCardExists(string $zone, string $cardName, ?string $label = null, int $viewer = 1, ?int $step = null): self {
+        return $this->expect(['type' => 'card_exists', 'zone' => $zone, 'cardID' => self::id($cardName), 'viewerPlayerID' => $viewer], $label, $step);
+    }
+
     public function expectDqEmpty(?int $step = null): self {
         return $this->expect(['type' => 'decision_queue_empty', 'player' => 'all'], null, $step);
     }

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-11T21:25:26+00:00",
+    "generatedAt": "2026-10-11T22:08:37+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 936,
+        "cardsWithExistingFixtures": 968,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1541,
+        "cardsNeedingSemanticCoverage": 1509,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -776,24 +776,6 @@
             "priority": 24
         },
         {
-            "cardId": "stiyh3pmk3",
-            "name": "Cinder Geyser",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "g6sW55DOgR",
             "name": "Collect Junk",
             "type": "ACTION",
@@ -920,24 +902,6 @@
             "priority": 24
         },
         {
-            "cardId": "dZJBqul1Em",
-            "name": "Equanimity's Ashes",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "q2svd53zc9",
             "name": "Escape the Wreckage",
             "type": "ACTION",
@@ -946,24 +910,6 @@
             "mechanics": [
                 "targeting",
                 "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "ls6g7xgwve",
-            "name": "Excoriate",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
                 "zone-movement",
                 "condition"
             ],
@@ -1575,23 +1521,6 @@
                 "cost",
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "BTapvu1Zvd",
-            "name": "Aenean Pointed Flare",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2255,23 +2184,6 @@
                 "zone-movement",
                 "counter",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "CHU96qWwaS",
-            "name": "Shield Fragmentation",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -7029,24 +6941,6 @@
             "priority": 14
         },
         {
-            "cardId": "7iak6hyh6b",
-            "name": "Demolition",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "o0qtb31x97",
             "name": "Diana, Cursebreaker",
             "type": "CHAMPION",
@@ -7605,24 +7499,6 @@
             "priority": 14
         },
         {
-            "cardId": "gt2zqtgs42",
-            "name": "Fiery Interference",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "recover",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "ippor7ch2b",
             "name": "Fiery Warcry",
             "type": "ACTION",
@@ -8019,24 +7895,6 @@
             "priority": 14
         },
         {
-            "cardId": "eAoEELWtHi",
-            "name": "Gilded Pyre",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "mr1lmsbjcf",
             "name": "Glacial Evocation",
             "type": "ACTION",
@@ -8415,24 +8273,6 @@
             "priority": 14
         },
         {
-            "cardId": "rovbfpf7al",
-            "name": "Infernal Manastreak",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "dfchplzf6m",
             "name": "Ingress of Sanguine Ire",
             "type": "ACTION",
@@ -8785,24 +8625,6 @@
                 "recover",
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "a8mmiv2ptn",
-            "name": "Manaflare Barrage",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9801,24 +9623,6 @@
             "priority": 14
         },
         {
-            "cardId": "pfstbz0i63",
-            "name": "Searing Truth",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "v9d2242357",
             "name": "Seiryuu's Command",
             "type": "ACTION",
@@ -10135,24 +9939,6 @@
                 "draw-discard",
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "vjonmi9jjq",
-            "name": "Smoke Out",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -11182,23 +10968,6 @@
             "priority": 13
         },
         {
-            "cardId": "cm1pdhFEz7",
-            "name": "Aenean Spark Alight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "vNrkfKLlt6",
             "name": "Aenean Tailwind Boost",
             "type": "ACTION",
@@ -11590,23 +11359,6 @@
             "priority": 13
         },
         {
-            "cardId": "iyvrYzBHVg",
-            "name": "Blaze Alight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "qry41lw9n0",
             "name": "Blazing Bowman",
             "type": "ALLY",
@@ -11650,23 +11402,6 @@
                 "damage",
                 "zone-movement",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "iohZMWh5v5",
-            "name": "Blazing Throw",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12372,23 +12107,6 @@
             "priority": 13
         },
         {
-            "cardId": "EFelNCz3Zv",
-            "name": "Crumbling Reign",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "cy3gme0xxw",
             "name": "Cultivate",
             "type": "ACTION",
@@ -12542,23 +12260,6 @@
             "priority": 13
         },
         {
-            "cardId": "ek6gdmh8zh",
-            "name": "Dire Requiem",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "2d7rgchttu",
             "name": "Dissonant Fractal",
             "type": "PHANTASIA",
@@ -12670,23 +12371,6 @@
                 "combat",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "k2d3ca13yr",
-            "name": "Embercrypt Burn",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13027,40 +12711,6 @@
                 "targeting",
                 "damage",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "fqxo9o8yeq",
-            "name": "Flickering Cinder",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "pVHGi99Svy",
-            "name": "Fling Food",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13605,23 +13255,6 @@
                 "cost",
                 "recover",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "267kgpwjmc",
-            "name": "Ignite Fate",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -14421,23 +14054,6 @@
                 "status",
                 "combat",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "7Pc1aiu3Bq",
-            "name": "Molten Impact",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -15891,23 +15507,6 @@
             "priority": 13
         },
         {
-            "cardId": "YFCfIOwNQ5",
-            "name": "Singeing Leap",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "IcxG2jsqmu",
             "name": "Sinister Composure",
             "type": "ACTION",
@@ -17154,38 +16753,6 @@
             "mechanics": [
                 "cost",
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "6Sv5qIpglQ",
-            "name": "Aenean Flurry of Fire",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "50m1nBduUZ",
-            "name": "Aenean Scorching Comet",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -19466,22 +19033,6 @@
             "priority": 12
         },
         {
-            "cardId": "yuvuxnrw8q",
-            "name": "Hone by Fire",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "k6d4367ixj",
             "name": "Horse Archer",
             "type": "ALLY",
@@ -19745,22 +19296,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "7K9pWqEc20",
-            "name": "Lavastorm",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -21226,22 +20761,6 @@
             "priority": 12
         },
         {
-            "cardId": "gvXQa57cxe",
-            "name": "Shout at Your Pets",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "Qx0kV7SbsN",
             "name": "Sift",
             "type": "ACTION",
@@ -21362,22 +20881,6 @@
             "mechanics": [
                 "cost",
                 "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "PUgqk3lxq6",
-            "name": "Spark Link",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -21746,22 +21249,6 @@
             "mechanics": [
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "wjzg76zofp",
-            "name": "Temper in Flames",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -25103,21 +24590,6 @@
             "priority": 11
         },
         {
-            "cardId": "3iG6h4jAPl",
-            "name": "Ordained Charisma",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "hAAokl4hnU",
             "name": "Overcharged Droid",
             "type": "ALLY",
@@ -25215,21 +24687,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "4wiffei7ch",
-            "name": "Pyroclastic Flow",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -41670,6 +41127,32 @@
             "priority": 44
         },
         {
+            "cardId": "stiyh3pmk3",
+            "name": "Cinder Geyser",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cinder-geyser-class-bonus-costs-two-less-with-four-opposing-memory-cards",
+                "cinder-geyser-class-bonus-with-three-opposing-memory-cards-pays-full",
+                "cinder-geyser-deals-four-damage"
+            ],
+            "semanticFixtures": [
+                "cinder-geyser-class-bonus-costs-two-less-with-four-opposing-memory-cards",
+                "cinder-geyser-class-bonus-with-three-opposing-memory-cards-pays-full",
+                "cinder-geyser-deals-four-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "14bepZKPlK",
             "name": "Crackling Incineration",
             "type": "ACTION",
@@ -41710,6 +41193,56 @@
             ],
             "semanticFixtures": [
                 "crossroads-specter-champion-hit-opponent-banishes-a-material-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "dZJBqul1Em",
+            "name": "Equanimity's Ashes",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "equanimitys-ashes-class-bonus-deals-four-more-to-a-lightly-damaged-champion",
+                "equanimitys-ashes-deals-three-damage-to-a-champion",
+                "equanimitys-ashes-level-three-costs-three-less"
+            ],
+            "semanticFixtures": [
+                "equanimitys-ashes-class-bonus-deals-four-more-to-a-lightly-damaged-champion",
+                "equanimitys-ashes-deals-three-damage-to-a-champion",
+                "equanimitys-ashes-level-three-costs-three-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "ls6g7xgwve",
+            "name": "Excoriate",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "excoriate-destroys-an-ally-with-reserve-cost-four-or-less",
+                "excoriate-level-two-costs-one-less"
+            ],
+            "semanticFixtures": [
+                "excoriate-destroys-an-ally-with-reserve-cost-four-or-less",
+                "excoriate-level-two-costs-one-less"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42139,6 +41672,29 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 44
+        },
+        {
+            "cardId": "BTapvu1Zvd",
+            "name": "Aenean Pointed Flare",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "aenean-pointed-flare-deals-four-damage-to-a-champion",
+                "aenean-pointed-flare-level-three-costs-two-less"
+            ],
+            "semanticFixtures": [
+                "aenean-pointed-flare-deals-four-damage-to-a-champion",
+                "aenean-pointed-flare-level-three-costs-two-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
         },
         {
             "cardId": "u817uqlk1j",
@@ -42614,6 +42170,27 @@
             "semanticFixtures": [
                 "shadows-claw-activates-from-the-material-deck-with-four-preparation-counters",
                 "shadows-claw-is-not-activated-from-the-material-deck-with-only-three-preparation-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "CHU96qWwaS",
+            "name": "Shield Fragmentation",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "shield-fragmentation-sacrifices-a-shield-and-deals-four-damage"
+            ],
+            "semanticFixtures": [
+                "shield-fragmentation-sacrifices-a-shield-and-deals-four-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44142,6 +43719,30 @@
             "priority": 34
         },
         {
+            "cardId": "7iak6hyh6b",
+            "name": "Demolition",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "demolition-class-bonus-costs-one-less",
+                "demolition-deals-three-damage-to-a-unit"
+            ],
+            "semanticFixtures": [
+                "demolition-class-bonus-costs-one-less",
+                "demolition-deals-three-damage-to-a-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "5LoOprBJay",
             "name": "Discordia, Harp of Malice",
             "type": "REGALIA,ITEM",
@@ -44256,6 +43857,30 @@
             "priority": 34
         },
         {
+            "cardId": "gt2zqtgs42",
+            "name": "Fiery Interference",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "recover",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fiery-interference-on-an-ally-does-not-stop-recovering",
+                "fiery-interference-stops-a-damaged-champion-recovering"
+            ],
+            "semanticFixtures": [
+                "fiery-interference-on-an-ally-does-not-stop-recovering",
+                "fiery-interference-stops-a-damaged-champion-recovering"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "ijkyboiopv",
             "name": "Fiery Swing",
             "type": "ATTACK",
@@ -44348,6 +43973,30 @@
             "priority": 34
         },
         {
+            "cardId": "eAoEELWtHi",
+            "name": "Gilded Pyre",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gilded-pyre-deals-four-damage-to-a-unit-with-a-buff-counter",
+                "gilded-pyre-deals-two-damage"
+            ],
+            "semanticFixtures": [
+                "gilded-pyre-deals-four-damage-to-a-unit-with-a-buff-counter",
+                "gilded-pyre-deals-two-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "r5zs29xxoo",
             "name": "Guarded Dissipation",
             "type": "ACTION",
@@ -44434,6 +44083,30 @@
                 "ignited-stab-prepare-1-declined-base-power",
                 "ignited-stab-prepare-1-paid-non-assassin-no-class-bonus",
                 "ignited-stab-prepare-1-paid-plus-2-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "rovbfpf7al",
+            "name": "Infernal Manastreak",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "infernal-manastreak-deals-three-damage-while-distant",
+                "infernal-manastreak-deals-two-damage"
+            ],
+            "semanticFixtures": [
+                "infernal-manastreak-deals-three-damage-while-distant",
+                "infernal-manastreak-deals-two-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44552,6 +44225,30 @@
             "semanticFixtures": [
                 "majestic-spirits-crest-class-bonus-banish-grants-the-champion-an-on-attack-draw",
                 "majestic-spirits-crest-without-the-class-bonus-cannot-activate"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "a8mmiv2ptn",
+            "name": "Manaflare Barrage",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "manaflare-barrage-deals-three-damage-while-distant",
+                "manaflare-barrage-deals-two-damage-to-all-other-units"
+            ],
+            "semanticFixtures": [
+                "manaflare-barrage-deals-three-damage-while-distant",
+                "manaflare-barrage-deals-two-damage-to-all-other-units"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44726,6 +44423,30 @@
             "priority": 34
         },
         {
+            "cardId": "pfstbz0i63",
+            "name": "Searing Truth",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "searing-truth-deals-two-damage",
+                "searing-truth-guo-jia-bonus-puts-a-quest-counter-on-the-champion"
+            ],
+            "semanticFixtures": [
+                "searing-truth-deals-two-damage",
+                "searing-truth-guo-jia-bonus-puts-a-quest-counter-on-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "5qyee9vkp8",
             "name": "Seaside Rangefinder",
             "type": "ALLY",
@@ -44826,6 +44547,30 @@
                 "shackled-theurgist-p2-controlled-opponent-declines-sacrifice-returns-ephemeral",
                 "shackled-theurgist-p2-controlled-opponent-has-no-ally-returns-ephemeral",
                 "shackled-theurgist-p2-controlled-opponent-sacrifices-own-ally-stays-dead"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "vjonmi9jjq",
+            "name": "Smoke Out",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "smoke-out-deals-four-damage-to-a-unit-with-stealth",
+                "smoke-out-deals-one-damage"
+            ],
+            "semanticFixtures": [
+                "smoke-out-deals-four-damage-to-a-unit-with-stealth",
+                "smoke-out-deals-one-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45064,6 +44809,29 @@
             "priority": 33
         },
         {
+            "cardId": "cm1pdhFEz7",
+            "name": "Aenean Spark Alight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "aenean-spark-alight-class-bonus-level-three-deals-three",
+                "aenean-spark-alight-deals-two-unpreventable-damage"
+            ],
+            "semanticFixtures": [
+                "aenean-spark-alight-class-bonus-level-three-deals-three",
+                "aenean-spark-alight-deals-two-unpreventable-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "1mvv1f83ls",
             "name": "Aethercloak Sentinel",
             "type": "ALLY",
@@ -45219,6 +44987,50 @@
             "priority": 33
         },
         {
+            "cardId": "iyvrYzBHVg",
+            "name": "Blaze Alight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blaze-alight-class-bonus-deals-five-instead",
+                "blaze-alight-deals-three-unpreventable-damage"
+            ],
+            "semanticFixtures": [
+                "blaze-alight-class-bonus-deals-five-instead",
+                "blaze-alight-deals-three-unpreventable-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "iohZMWh5v5",
+            "name": "Blazing Throw",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "blazing-throw-sacrifices-a-weapon-and-deals-four-damage"
+            ],
+            "semanticFixtures": [
+                "blazing-throw-sacrifices-a-weapon-and-deals-four-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "qYH9PJP7uM",
             "name": "Blinding Orb",
             "type": "REGALIA,ITEM",
@@ -45338,6 +45150,27 @@
             "priority": 33
         },
         {
+            "cardId": "EFelNCz3Zv",
+            "name": "Crumbling Reign",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crumbling-reign-destroys-an-item-or-weapon"
+            ],
+            "semanticFixtures": [
+                "crumbling-reign-destroys-an-item-or-weapon"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "HDeEE7YPTl",
             "name": "Crystal Accretion",
             "type": "ACTION",
@@ -45353,6 +45186,48 @@
             ],
             "semanticFixtures": [
                 "crystal-accretion-adds-sheen-to-units-with-sheen"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "ek6gdmh8zh",
+            "name": "Dire Requiem",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dire-requiem-summons-a-direwolf"
+            ],
+            "semanticFixtures": [
+                "dire-requiem-summons-a-direwolf"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "k2d3ca13yr",
+            "name": "Embercrypt Burn",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "embercrypt-burn-banishes-a-graveyard-card-and-damages-each-champion"
+            ],
+            "semanticFixtures": [
+                "embercrypt-burn-banishes-a-graveyard-card-and-damages-each-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45452,6 +45327,50 @@
             "priority": 33
         },
         {
+            "cardId": "fqxo9o8yeq",
+            "name": "Flickering Cinder",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "status"
+            ],
+            "existingFixtures": [
+                "flickering-cinder-deals-one-damage-and-makes-your-champion-distant"
+            ],
+            "semanticFixtures": [
+                "flickering-cinder-deals-one-damage-and-makes-your-champion-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "pVHGi99Svy",
+            "name": "Fling Food",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "fling-food-is-refused-without-a-food-item",
+                "fling-food-sacrifices-a-food-and-deals-four-damage"
+            ],
+            "semanticFixtures": [
+                "fling-food-is-refused-without-a-food-item",
+                "fling-food-sacrifices-a-food-and-deals-four-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "iqcknwa2vl",
             "name": "Frozen Quill",
             "type": "ITEM",
@@ -45488,6 +45407,27 @@
             ],
             "semanticFixtures": [
                 "gleaming-smolder-draws-then-discards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "267kgpwjmc",
+            "name": "Ignite Fate",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "ignite-fate-deals-two-damage-to-each-champion"
+            ],
+            "semanticFixtures": [
+                "ignite-fate-deals-two-damage-to-each-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45643,6 +45583,27 @@
                 "malevolent-vow-decline-first-discard-still-recovers-and-lineages",
                 "malevolent-vow-decline-second-discard-still-recovers",
                 "malevolent-vow-decline-third-discard-still-recovers"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "7Pc1aiu3Bq",
+            "name": "Molten Impact",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "molten-impact-deals-two-plus-the-sacrificed-weapons-durability"
+            ],
+            "semanticFixtures": [
+                "molten-impact-deals-two-plus-the-sacrificed-weapons-durability"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46022,6 +45983,27 @@
             "priority": 33
         },
         {
+            "cardId": "YFCfIOwNQ5",
+            "name": "Singeing Leap",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "status"
+            ],
+            "existingFixtures": [
+                "singeing-leap-damages-your-champion-and-makes-it-distant"
+            ],
+            "semanticFixtures": [
+                "singeing-leap-damages-your-champion-and-makes-it-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "jozihslnhz",
             "name": "Sinister Mindreaver",
             "type": "ALLY",
@@ -46242,6 +46224,54 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 33
+        },
+        {
+            "cardId": "6Sv5qIpglQ",
+            "name": "Aenean Flurry of Fire",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "aenean-flurry-of-fire-class-bonus-level-five-deals-four",
+                "aenean-flurry-of-fire-deals-one-damage-twice"
+            ],
+            "semanticFixtures": [
+                "aenean-flurry-of-fire-class-bonus-level-five-deals-four",
+                "aenean-flurry-of-fire-deals-one-damage-twice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "50m1nBduUZ",
+            "name": "Aenean Scorching Comet",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "aenean-scorching-comet-class-bonus-level-six-deals-six",
+                "aenean-scorching-comet-class-bonus-level-three-deals-four",
+                "aenean-scorching-comet-deals-two-damage",
+                "aenean-scorching-comet-level-three-without-the-class-bonus-deals-two"
+            ],
+            "semanticFixtures": [
+                "aenean-scorching-comet-class-bonus-level-six-deals-six",
+                "aenean-scorching-comet-class-bonus-level-three-deals-four",
+                "aenean-scorching-comet-deals-two-damage",
+                "aenean-scorching-comet-level-three-without-the-class-bonus-deals-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
         },
         {
             "cardId": "fjpimrl974",
@@ -46630,6 +46660,28 @@
             "priority": 32
         },
         {
+            "cardId": "yuvuxnrw8q",
+            "name": "Hone by Fire",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter"
+            ],
+            "existingFixtures": [
+                "hone-by-fire-class-bonus-adds-a-durability-counter",
+                "hone-by-fire-gives-a-sword-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "hone-by-fire-class-bonus-adds-a-durability-counter",
+                "hone-by-fire-gives-a-sword-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "1a49w5gmf7",
             "name": "Intricate Longbow",
             "type": "REGALIA,WEAPON",
@@ -46708,6 +46760,26 @@
                 "kind-beastcaller-enter-look-five-decline-all-five-bottom",
                 "kind-beastcaller-enter-look-five-no-animal-all-five-bottom",
                 "kind-beastcaller-enter-look-five-reveal-deep-animal-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "7K9pWqEc20",
+            "name": "Lavastorm",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lavastorm-destroys-all-allies"
+            ],
+            "semanticFixtures": [
+                "lavastorm-destroys-all-allies"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47210,6 +47282,26 @@
             "priority": 32
         },
         {
+            "cardId": "gvXQa57cxe",
+            "name": "Shout at Your Pets",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shout-at-your-pets-gives-level-with-an-animal"
+            ],
+            "semanticFixtures": [
+                "shout-at-your-pets-gives-level-with-an-animal"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "vFvhZeunOc",
             "name": "SignalTech X Ultra",
             "type": "REGALIA,ITEM",
@@ -47319,6 +47411,26 @@
             "semanticFixtures": [
                 "sneaky-raccoon-has-stealth-while-the-opponent-graveyard-is-empty",
                 "sneaky-raccoon-loses-stealth-once-the-opponent-has-a-graveyard-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "PUgqk3lxq6",
+            "name": "Spark Link",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "spark-link-each-player-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "spark-link-each-player-draws-a-card-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47501,6 +47613,26 @@
             ],
             "semanticFixtures": [
                 "tabula-of-salvage-puts-chosen-graveyard-cards-on-the-bottom-of-the-deck"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "wjzg76zofp",
+            "name": "Temper in Flames",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter"
+            ],
+            "existingFixtures": [
+                "temper-in-flames-puts-a-durability-counter-on-a-weapon"
+            ],
+            "semanticFixtures": [
+                "temper-in-flames-puts-a-durability-counter-on-a-weapon"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48080,6 +48212,44 @@
             ],
             "semanticFixtures": [
                 "obstinate-cragback-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "3iG6h4jAPl",
+            "name": "Ordained Charisma",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "ordained-charisma-gains-control-of-a-weak-ally"
+            ],
+            "semanticFixtures": [
+                "ordained-charisma-gains-control-of-a-weak-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "4wiffei7ch",
+            "name": "Pyroclastic Flow",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "pyroclastic-flow-deals-two-damage-to-all-units"
+            ],
+            "semanticFixtures": [
+                "pyroclastic-flow-deals-two-damage-to-all-units"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

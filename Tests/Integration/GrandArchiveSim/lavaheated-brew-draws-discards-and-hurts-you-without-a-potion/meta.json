@@ -1,0 +1,22 @@
+{
+    "name": "lavaheated-brew-draws-discards-and-hurts-you-without-a-potion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:11:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o98vn1voy5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o98vn1voy5"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Draw a card, then discard a card. If you didn't discard a Potion item card, deal 3 damage to your champion."
+        ]
+    }
+}

@@ -1,0 +1,16 @@
+[
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The domain was destroyed; only the opposing champion remains"
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,16 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Torching Reach and the discarded card are in the graveyard"
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,21 @@
+{
+    "name": "under-fire-makes-your-champion-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:10:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5sw9f8uqrp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5sw9f8uqrp"
+        ],
+        "mechanics": [
+            "distant",
+            "optional-choice-decline"
+        ],
+        "rulesClauses": [
+            "Your champion becomes distant. Then you may have CARDNAME deal 4 damage to your champion."
+        ]
+    }
+}

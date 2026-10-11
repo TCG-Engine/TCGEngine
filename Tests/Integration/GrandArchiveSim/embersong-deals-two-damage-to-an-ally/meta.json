@@ -1,0 +1,21 @@
+{
+    "name": "embersong-deals-two-damage-to-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:10:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "XMb6pSHFJg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "XMb6pSHFJg"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 2 damage to up to one target ally."
+        ]
+    }
+}

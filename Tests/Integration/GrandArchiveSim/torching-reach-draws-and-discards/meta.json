@@ -1,0 +1,22 @@
+{
+    "name": "torching-reach-draws-and-discards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:10:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kHhxq4UZTe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kHhxq4UZTe"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "condition",
+            "distant"
+        ],
+        "rulesClauses": [
+            "Draw a card, then discard a card. Then if your champion is distant, draw another card."
+        ]
+    }
+}

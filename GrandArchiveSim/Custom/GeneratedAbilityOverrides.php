@@ -2437,3 +2437,17 @@ unset($gaClassBonusTables);
 
 // Printed-cost prereqs for the abilities in GAFieldAbilityCostTable() (Custom/GameLogic.php): wraps the final $activateAbilityPrereqs closures.
 GAInstallFieldAbilityCostPrereqs($activateAbilityPrereqs);
+
+// Absolving Flames (3fbpyhm271): "[Class Bonus] You may banish four fire element cards from your graveyard. If you do, draw a
+// card." The generated body re-read ZoneSearch() after every MZMove() without compacting the zone, so the same graveyard card
+// was moved four times: one card was banished (not four) and the draw still happened.
+$customDQHandlers["3fbpyhm271:0:CardActivated-1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    for($i = 0; $i < 4; ++$i) {
+        $fireCards = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+        if(empty($fireCards)) break;
+        MZMove($player, $fireCards[0], "myBanish");
+        DecisionQueueController::CleanupRemovedCards();
+    }
+    Draw($player, 1);
+};

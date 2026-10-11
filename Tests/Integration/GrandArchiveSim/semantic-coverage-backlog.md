@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **936**
+Cards linked to an existing fixture: **968**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1541**
+Implemented cards still needing semantic coverage: **1509**
 
 ## Mechanic groups
 
@@ -66,7 +66,6 @@ Implemented cards still needing semantic coverage: **1541**
 | Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
 | Bottled Forgelight (`g616r0zadf`) | ITEM | 2 | targeting, damage, trigger, condition | — | — |
 | Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
-| Cinder Geyser (`stiyh3pmk3`) | ACTION | 2 | cost, targeting, damage, condition | — | — |
 | Collect Junk (`g6sW55DOgR`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement | — | — |
 | Crystallized Destiny (`l36wwe3d5c`) | ACTION | 2 | cost, damage, prevention, condition | — | — |
 | Curse Amplification (`x9z2k2a5ig`) | ACTION | 2 | cost, damage, recover, condition | — | — |
@@ -74,5 +73,6 @@ Implemented cards still needing semantic coverage: **1541**
 | Dorumegian Foundry (`CzwVavXMQU`) | DOMAIN | 2 | cost, counter, token, trigger | — | — |
 | Engulf (`IPmK09iEIT`) | ACTION | 2 | cost, targeting, combat, condition | — | — |
 | Enveloping Soulmist (`kYG1EDltdI`) | ACTION | 2 | cost, counter, status, condition | — | — |
-| Equanimity's Ashes (`dZJBqul1Em`) | ACTION | 2 | cost, targeting, damage, condition | — | — |
 | Escape the Wreckage (`q2svd53zc9`) | ACTION | 2 | targeting, draw-discard, zone-movement, condition | — | — |
+| Flowing Oubli (`vcxw3yh2t4`) | ACTION | 2 | cost, zone-movement, counter, condition | — | — |
+| Focusing Gem (`SpENiP3jbN`) | REGALIA,ITEM | 2 | cost, zone-movement, status, condition | — | — |

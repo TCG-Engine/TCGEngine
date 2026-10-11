@@ -1,0 +1,21 @@
+{
+    "name": "blazing-cindercharge-deals-three-damage-to-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:10:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "e48axaql3n"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "e48axaql3n"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 3 damage to target champion."
+        ]
+    }
+}

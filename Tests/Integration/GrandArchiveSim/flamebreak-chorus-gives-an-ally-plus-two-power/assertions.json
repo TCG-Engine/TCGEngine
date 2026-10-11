@@ -1,0 +1,15 @@
+[
+    {
+        "step": 4,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 3,
+        "semantic": true,
+        "label": "The Dungeon Guide got +2 POWER (1 + 2)"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

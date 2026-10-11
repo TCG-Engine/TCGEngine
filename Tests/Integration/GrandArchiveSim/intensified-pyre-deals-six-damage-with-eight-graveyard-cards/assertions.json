@@ -1,0 +1,16 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "6",
+        "semantic": true,
+        "label": "Eight cards in the champion's controller's graveyard: 6 damage instead"
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

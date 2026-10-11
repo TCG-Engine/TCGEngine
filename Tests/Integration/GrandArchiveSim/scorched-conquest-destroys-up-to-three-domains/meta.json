@@ -1,0 +1,21 @@
+{
+    "name": "scorched-conquest-destroys-up-to-three-domains",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:11:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "HPDawzCDdr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "HPDawzCDdr"
+        ],
+        "mechanics": [
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Destroy up to three target domains."
+        ]
+    }
+}

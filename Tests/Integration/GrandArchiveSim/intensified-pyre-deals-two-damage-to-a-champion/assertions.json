@@ -1,0 +1,16 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "Fewer than eight cards in the controller's graveyard: 2 damage"
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

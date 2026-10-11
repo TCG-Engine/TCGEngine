@@ -1,0 +1,21 @@
+{
+    "name": "focal-intensity-deals-one-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:10:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "IM2SpTAKfp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "IM2SpTAKfp"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 1 damage to target unit."
+        ]
+    }
+}
