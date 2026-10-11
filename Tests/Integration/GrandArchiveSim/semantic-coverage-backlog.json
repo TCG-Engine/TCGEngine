@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-11T17:20:37+00:00",
+    "generatedAt": "2026-10-11T21:25:26+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 935,
+        "cardsWithExistingFixtures": 936,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1570,
+        "cardsNeedingSemanticCoverage": 1541,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,137 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "t0240ykvj0",
-            "name": "Rescue the Heir",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [
-                "save-the-heir"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 44
-        },
-        {
-            "cardId": "KRNYwHCOVM",
-            "name": "Glassgale Flock",
-            "type": "PHANTASIA",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [
-                "glassgale-flock-pays-two-rests-and-summons-a-memorite-shardwing",
-                "glassgale-flock-with-a-shardwing-already-pays-but-summons-nothing"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 43
-        },
-        {
-            "cardId": "UC9byG4aD5",
-            "name": "Lesser Boon of Zerusa",
-            "type": "LESSER BOON",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [
-                "lesser-boon-of-zerusa-costs-one-more-each-time-it-is-activated"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 43
-        },
-        {
-            "cardId": "oye74ibwo8",
-            "name": "Baleful Oblation",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage"
-            ],
-            "existingFixtures": [
-                "baleful-oblation-ciel-bonus-and-effect"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 42
-        },
-        {
-            "cardId": "7dl5j4lx6x",
-            "name": "Incarnate Majesty",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [
-                "incarnate-majesty-banish-spirit"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 42
-        },
-        {
-            "cardId": "UI0lAtGQBb",
-            "name": "Lesser Boon of Bullets",
-            "type": "LESSER BOON",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [
-                "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 42
-        },
-        {
-            "cardId": "2XWNCcPN6o",
-            "name": "VelTech QA Tester",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "trigger"
-            ],
-            "existingFixtures": [
-                "veltech-qa-tester-can-be-played-from-hand-and-enters-the-field"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 42
-        },
         {
             "cardId": "5xjzPh6l2M",
             "name": "Cardiac Vessel",
@@ -217,149 +86,6 @@
             "priority": 35
         },
         {
-            "cardId": "4vjkezn49t",
-            "name": "Vengeful Paramour",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [
-                "rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 35
-        },
-        {
-            "cardId": "ka5av43ehj",
-            "name": "Morgan, Soul Guide",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "recover",
-                "condition"
-            ],
-            "existingFixtures": [
-                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
-                "yuan-shao-refused-with-only-two-unique-opposing-allies"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 34
-        },
-        {
-            "cardId": "6S1LLrBfBU",
-            "name": "Rosewinged Hollow",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [
-                "rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 34
-        },
-        {
-            "cardId": "5qyee9vkp8",
-            "name": "Seaside Rangefinder",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [
-                "seaside-rangefinder-graveyard-ability-pays-two-banishes-itself-and-makes-a-unit-distant",
-                "seaside-rangefinder-graveyard-ability-refused-without-the-ranger-class"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 34
-        },
-        {
-            "cardId": "ao8bki6fxx",
-            "name": "Steel Slug",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [
-                "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 34
-        },
-        {
-            "cardId": "w0y6isxy5l",
-            "name": "Synthetic Core",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [
-                "synthetic-core-smoke"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 34
-        },
-        {
-            "cardId": "CIU4gT14EE",
-            "name": "Escharotomy",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "recover"
-            ],
-            "existingFixtures": [
-                "escharotomy-prevents-recover",
-                "escharotomy-recover"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 33
-        },
-        {
             "cardId": "2sn7hlyrkw",
             "name": "Fatestone of Progress",
             "type": "ITEM",
@@ -394,25 +120,6 @@
             "priority": 33
         },
         {
-            "cardId": "ek7r2d7uz4",
-            "name": "Restorative Flame",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "zone-movement"
-            ],
-            "existingFixtures": [
-                "restorative-flame-banishes-three-fire-cards-one-by-one-and-recovers-six"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 33
-        },
-        {
             "cardId": "oCqKBEPemA",
             "name": "Aenean Flux Generator",
             "type": "ITEM",
@@ -429,225 +136,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 32
-        },
-        {
-            "cardId": "du50pcescf",
-            "name": "Gawain, Chivalrous Thief",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [
-                "plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant",
-                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
-                "yuan-shao-refused-with-only-two-unique-opposing-allies"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "1a49w5gmf7",
-            "name": "Intricate Longbow",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [
-                "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "fJJBJ9M4c4",
-            "name": "Lesser Boon of Rosen",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "token"
-            ],
-            "existingFixtures": [
-                "lesser-boon-of-rosen-pays-three-summons-a-powercell-once-only"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "mvfcd0ukk6",
-            "name": "Molten Arrow",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [
-                "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "xxoo7dl5j4",
-            "name": "Parcenet, Royal Maid",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status"
-            ],
-            "existingFixtures": [
-                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "PAymR7JsNp",
-            "name": "PlasmaTech Blaster",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [
-                "plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "OylAWd6Tew",
-            "name": "Pouvoir Absolu",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [
-                "pouvoir-absolu-banishes-ten-cards-with-omen-counters-and-lets-you-activate-them"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "lD0sK81PZT",
-            "name": "Scars of Old",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [
-                "scars-of-old-buff-counters",
-                "scars-of-old-draw-discard"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "jH6F9XYrL5",
-            "name": "Sneaky Raccoon",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [
-                "sneaky-raccoon-stealth"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "9cy4wipw4k",
-            "name": "Tabula of Salvage",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [
-                "tabula-of-salvage-puts-chosen-graveyard-cards-on-the-bottom-of-the-deck"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "x8o84m37ti",
-            "name": "Yuan Shao, Crown General",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [
-                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
-                "yuan-shao-refused-with-only-two-unique-opposing-allies"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
-        },
-        {
-            "cardId": "V8aPGgLyh5",
-            "name": "Lesser Boon of Rakko",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [
-                "lesser-boon-of-rakko-pays-three-each-time-and-only-twice"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 31
         },
         {
             "cardId": "PboHrwPZgP",
@@ -676,23 +164,6 @@
                 "token"
             ],
             "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 31
-        },
-        {
-            "cardId": "MG8QoeZBXY",
-            "name": "Recurring Aethercharge",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [
-                "recurring-aethercharge-graveyard-ability-pays-three-and-loads-into-the-aetherwing"
-            ],
             "semanticFixtures": [],
             "starterDecks": [],
             "needsSemanticCoverage": true,
@@ -18155,22 +17626,6 @@
             "priority": 12
         },
         {
-            "cardId": "i5jnsl7ddc",
-            "name": "Automaton Beastkeeper",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "41WnFOT5YS",
             "name": "Avalon, Cursed Isle",
             "type": "UNIQUE,DOMAIN",
@@ -33978,7 +33433,8 @@
             ],
             "semanticFixtures": [
                 "ciel-loyal-valet-end-phase-banishes-a-hand-card-as-an-omen",
-                "ciel-loyal-valet-end-phase-decline-adds-no-omen"
+                "ciel-loyal-valet-end-phase-decline-adds-no-omen",
+                "pouvoir-absolu-banishes-ten-cards-with-omen-counters-and-lets-you-activate-them"
             ],
             "starterDecks": [
                 "Ciel, Mirage's Grave"
@@ -34050,6 +33506,7 @@
                 "cone-of-frost-level3-decline-first-target-still-offers-second"
             ],
             "semanticFixtures": [
+                "cone-of-frost-effect-still-resolves-after-passing-the-opportunity-window",
                 "cone-of-frost-level1-damage",
                 "cone-of-frost-level3-decline-first-target-still-offers-second"
             ],
@@ -34215,10 +33672,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "deep-sea-beastbonder-level-while-animal-beast"
+                "deep-sea-beastbonder-level-while-animal-beast",
+                "deep-sea-beastbonder-without-an-animal-or-beast-has-no-level-bonus"
             ],
             "semanticFixtures": [
-                "deep-sea-beastbonder-level-while-animal-beast"
+                "deep-sea-beastbonder-level-while-animal-beast",
+                "deep-sea-beastbonder-without-an-animal-or-beast-has-no-level-bonus"
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
@@ -35685,7 +35144,9 @@
                 "sword-saint-of-everflame-graveyard-ability-pays-two-and-gives-fire-ally-plus-two-power"
             ],
             "semanticFixtures": [
+                "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow",
                 "redslime-ondeath-sweep-stack-order-choice",
+                "restorative-flame-banishes-three-fire-cards-one-by-one-and-recovers-six",
                 "sword-saint-of-everflame-graveyard-ability-pays-two-and-gives-fire-ally-plus-two-power"
             ],
             "starterDecks": [
@@ -38523,11 +37984,13 @@
             "existingFixtures": [
                 "melodious-flute-class-bonus-banish-marks-the-next-harmony-action-as-a-melody",
                 "melodious-flute-level-while-animal-beast",
+                "melodious-flute-without-an-animal-or-beast-has-no-level-bonus",
                 "melodious-flute-without-the-class-bonus-cannot-activate"
             ],
             "semanticFixtures": [
                 "melodious-flute-class-bonus-banish-marks-the-next-harmony-action-as-a-melody",
                 "melodious-flute-level-while-animal-beast",
+                "melodious-flute-without-an-animal-or-beast-has-no-level-bonus",
                 "melodious-flute-without-the-class-bonus-cannot-activate"
             ],
             "starterDecks": [
@@ -40234,10 +39697,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "beastbond-ears-level-while-animal-beast"
+                "beastbond-ears-level-while-animal-beast",
+                "beastbond-ears-without-an-animal-or-beast-has-no-level-bonus"
             ],
             "semanticFixtures": [
-                "beastbond-ears-level-while-animal-beast"
+                "beastbond-ears-level-while-animal-beast",
+                "beastbond-ears-without-an-animal-or-beast-has-no-level-bonus"
             ],
             "starterDecks": [
                 "Silvie Starter Deck",
@@ -42515,6 +41980,31 @@
             "priority": 44
         },
         {
+            "cardId": "t0240ykvj0",
+            "name": "Rescue the Heir",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rescue-the-heir-costs-one-less-with-a-unique-ally-at-level-one",
+                "rescue-the-heir-returns-an-ally-to-memory-and-costs-one-without-a-unique-ally",
+                "save-the-heir"
+            ],
+            "semanticFixtures": [
+                "rescue-the-heir-costs-one-less-with-a-unique-ally-at-level-one",
+                "rescue-the-heir-returns-an-ally-to-memory-and-costs-one-without-a-unique-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "j9fkuzgg9i",
             "name": "Sleety Retreat",
             "type": "ACTION",
@@ -42866,6 +42356,29 @@
             "priority": 43
         },
         {
+            "cardId": "KRNYwHCOVM",
+            "name": "Glassgale Flock",
+            "type": "PHANTASIA",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "glassgale-flock-pays-two-rests-and-summons-a-memorite-shardwing",
+                "glassgale-flock-with-a-shardwing-already-pays-but-summons-nothing"
+            ],
+            "semanticFixtures": [
+                "glassgale-flock-pays-two-rests-and-summons-a-memorite-shardwing",
+                "glassgale-flock-with-a-shardwing-already-pays-but-summons-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "FQigf17dCr",
             "name": "Grave Gateau",
             "type": "ITEM",
@@ -42988,6 +42501,27 @@
             "semanticFixtures": [
                 "kindling-flare-decline-all-herbs-pays-reserve-cost",
                 "kindling-flare-decline-further-herb-pays-reserve-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "UC9byG4aD5",
+            "name": "Lesser Boon of Zerusa",
+            "type": "LESSER BOON",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-zerusa-costs-one-more-each-time-it-is-activated"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-zerusa-costs-one-more-each-time-it-is-activated"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43214,6 +42748,27 @@
             "priority": 43
         },
         {
+            "cardId": "oye74ibwo8",
+            "name": "Baleful Oblation",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage"
+            ],
+            "existingFixtures": [
+                "baleful-oblation-ciel-bonus-and-effect",
+                "baleful-oblation-ciel-bonus-costs-two-less-and-deals-the-lowest-omen-cost"
+            ],
+            "semanticFixtures": [
+                "baleful-oblation-ciel-bonus-costs-two-less-and-deals-the-lowest-omen-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "rw8qq1uwq8",
             "name": "Corhazi Outlook",
             "type": "ALLY",
@@ -43296,6 +42851,47 @@
                 "galestream-insight-look-six-no-spell-bottoms-all-six",
                 "galestream-insight-look-six-reveal-spell-rest-bottom",
                 "galestream-insight-player-two-look-six-reveal-spell-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "7dl5j4lx6x",
+            "name": "Incarnate Majesty",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "incarnate-majesty-banish-spirit",
+                "incarnate-majesty-puts-the-majestic-spirit-onto-the-field-for-less-per-banished-weapon"
+            ],
+            "semanticFixtures": [
+                "incarnate-majesty-puts-the-majestic-spirit-onto-the-field-for-less-per-banished-weapon"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "UI0lAtGQBb",
+            "name": "Lesser Boon of Bullets",
+            "type": "LESSER BOON",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43440,6 +43036,26 @@
             ],
             "semanticFixtures": [
                 "turm-schwartz-rook-alice-bonus-on-leave-buff-transfer"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "2XWNCcPN6o",
+            "name": "VelTech QA Tester",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "veltech-qa-tester-can-be-played-from-hand-and-enters-the-field"
+            ],
+            "semanticFixtures": [
+                "veltech-qa-tester-can-be-played-from-hand-and-enters-the-field"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44194,6 +43810,29 @@
             "priority": 35
         },
         {
+            "cardId": "4vjkezn49t",
+            "name": "Vengeful Paramour",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter"
+            ],
+            "semanticFixtures": [
+                "rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "pc0y3xneg7",
             "name": "Viridescent Aetherstreak",
             "type": "ACTION",
@@ -44919,6 +44558,30 @@
             "priority": 34
         },
         {
+            "cardId": "ka5av43ehj",
+            "name": "Morgan, Soul Guide",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "recover",
+                "condition"
+            ],
+            "existingFixtures": [
+                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
+                "yuan-shao-refused-with-only-two-unique-opposing-allies"
+            ],
+            "semanticFixtures": [
+                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
+                "yuan-shao-refused-with-only-two-unique-opposing-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "D3rexaXCBo",
             "name": "Phantasmagoria",
             "type": "MASTERY",
@@ -45041,6 +44704,52 @@
             "priority": 34
         },
         {
+            "cardId": "6S1LLrBfBU",
+            "name": "Rosewinged Hollow",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter"
+            ],
+            "semanticFixtures": [
+                "rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "5qyee9vkp8",
+            "name": "Seaside Rangefinder",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "seaside-rangefinder-graveyard-ability-pays-two-banishes-itself-and-makes-a-unit-distant",
+                "seaside-rangefinder-graveyard-ability-refused-without-the-ranger-class"
+            ],
+            "semanticFixtures": [
+                "seaside-rangefinder-graveyard-ability-pays-two-banishes-itself-and-makes-a-unit-distant",
+                "seaside-rangefinder-graveyard-ability-refused-without-the-ranger-class"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "3gygojwk0p",
             "name": "Seeker's Rifle",
             "type": "REGALIA,WEAPON",
@@ -45147,6 +44856,28 @@
             "priority": 34
         },
         {
+            "cardId": "ao8bki6fxx",
+            "name": "Steel Slug",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "TDI5DOrWB5",
             "name": "Stillshard Strike",
             "type": "ATTACK",
@@ -45187,6 +44918,31 @@
             ],
             "semanticFixtures": [
                 "supernova-divination-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "w0y6isxy5l",
+            "name": "Synthetic Core",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "synthetic-core-banishes-itself-to-return-a-dead-automaton-to-memory",
+                "synthetic-core-declined-leaves-the-dead-automaton-in-the-graveyard",
+                "synthetic-core-smoke"
+            ],
+            "semanticFixtures": [
+                "synthetic-core-banishes-itself-to-return-a-dead-automaton-to-memory",
+                "synthetic-core-declined-leaves-the-dead-automaton-in-the-graveyard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45597,6 +45353,28 @@
             ],
             "semanticFixtures": [
                 "crystal-accretion-adds-sheen-to-units-with-sheen"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "CIU4gT14EE",
+            "name": "Escharotomy",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "recover"
+            ],
+            "existingFixtures": [
+                "escharotomy-prevents-recover",
+                "escharotomy-recover"
+            ],
+            "semanticFixtures": [
+                "escharotomy-prevents-recover"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46158,6 +45936,27 @@
             "priority": 33
         },
         {
+            "cardId": "ek7r2d7uz4",
+            "name": "Restorative Flame",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "restorative-flame-banishes-three-fire-cards-one-by-one-and-recovers-six"
+            ],
+            "semanticFixtures": [
+                "restorative-flame-banishes-three-fire-cards-one-by-one-and-recovers-six"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "mob9nu6lal",
             "name": "Salamander's Breath",
             "type": "REGALIA,WEAPON",
@@ -46173,6 +45972,7 @@
                 "salamanders-breath-decline-second-banish-still-applies-power"
             ],
             "semanticFixtures": [
+                "recurring-aethercharge-graveyard-ability-pays-three-and-loads-into-the-aetherwing",
                 "salamanders-breath-decline-second-banish-still-applies-power"
             ],
             "starterDecks": [],
@@ -46476,6 +46276,28 @@
             "priority": 32
         },
         {
+            "cardId": "i5jnsl7ddc",
+            "name": "Automaton Beastkeeper",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "synthetic-core-banishes-itself-to-return-a-dead-automaton-to-memory",
+                "synthetic-core-declined-leaves-the-dead-automaton-in-the-graveyard"
+            ],
+            "semanticFixtures": [
+                "synthetic-core-banishes-itself-to-return-a-dead-automaton-to-memory",
+                "synthetic-core-declined-leaves-the-dead-automaton-in-the-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "67CIhG8hmG",
             "name": "Avatar of Genbu",
             "type": "UNIQUE,ALLY",
@@ -46722,6 +46544,30 @@
             "priority": 32
         },
         {
+            "cardId": "du50pcescf",
+            "name": "Gawain, Chivalrous Thief",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant",
+                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
+                "yuan-shao-refused-with-only-two-unique-opposing-allies"
+            ],
+            "semanticFixtures": [
+                "plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant",
+                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
+                "yuan-shao-refused-with-only-two-unique-opposing-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "Zw0T2GmowK",
             "name": "Greater Boon of Shou",
             "type": "GREATER BOON",
@@ -46778,6 +46624,26 @@
             "semanticFixtures": [
                 "heavenly-drake-printed-spellshroud-spell-cannot-target-it",
                 "redslime-ondeath-sweep-stack-order-choice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "1a49w5gmf7",
+            "name": "Intricate Longbow",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
+            ],
+            "semanticFixtures": [
+                "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46868,6 +46734,26 @@
             "priority": 32
         },
         {
+            "cardId": "fJJBJ9M4c4",
+            "name": "Lesser Boon of Rosen",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "token"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-rosen-pays-three-summons-a-powercell-once-only"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-rosen-pays-three-summons-a-powercell-once-only"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "rSIXf50oBc",
             "name": "Lesser Boon of Shou",
             "type": "LESSER BOON",
@@ -46932,6 +46818,26 @@
             "priority": 32
         },
         {
+            "cardId": "mvfcd0ukk6",
+            "name": "Molten Arrow",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
+            ],
+            "semanticFixtures": [
+                "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "9tmr8iel1m",
             "name": "Nameless Champion",
             "type": "CHAMPION",
@@ -46970,7 +46876,8 @@
             ],
             "semanticFixtures": [
                 "orb-of-regret-ability-1-pays-its-printed-cost",
-                "orb-of-regret-decline-still-draws"
+                "orb-of-regret-decline-still-draws",
+                "orb-of-regret-shuffles-three-chosen-cards-into-the-deck-and-draws-three"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46997,6 +46904,46 @@
             "priority": 32
         },
         {
+            "cardId": "xxoo7dl5j4",
+            "name": "Parcenet, Royal Maid",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status"
+            ],
+            "existingFixtures": [
+                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally"
+            ],
+            "semanticFixtures": [
+                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "PAymR7JsNp",
+            "name": "PlasmaTech Blaster",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant"
+            ],
+            "semanticFixtures": [
+                "plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "D79VKF2uOg",
             "name": "Polishing Flourish",
             "type": "ACTION",
@@ -47011,6 +46958,26 @@
             ],
             "semanticFixtures": [
                 "polishing-flourish-removes-sheen-from-your-units"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "OylAWd6Tew",
+            "name": "Pouvoir Absolu",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "pouvoir-absolu-banishes-ten-cards-with-omen-counters-and-lets-you-activate-them"
+            ],
+            "semanticFixtures": [
+                "pouvoir-absolu-banishes-ten-cards-with-omen-counters-and-lets-you-activate-them"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47199,6 +47166,30 @@
             "priority": 32
         },
         {
+            "cardId": "lD0sK81PZT",
+            "name": "Scars of Old",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "scars-of-old-buff-counters",
+                "scars-of-old-class-bonus-buffs-each-damaged-ally",
+                "scars-of-old-draw-discard",
+                "scars-of-old-draws-a-card-then-discards-a-card"
+            ],
+            "semanticFixtures": [
+                "scars-of-old-class-bonus-buffs-each-damaged-ally",
+                "scars-of-old-draws-a-card-then-discards-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "XbYtI0XtVH",
             "name": "Seed of Empowerment",
             "type": "REGALIA,ITEM",
@@ -47305,6 +47296,29 @@
             "semanticFixtures": [
                 "slime-calling-at-the-opponents-end-phase-activates-the-top-card-slime-for-one-less",
                 "slime-calling-is-refused-during-your-own-main-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "jH6F9XYrL5",
+            "name": "Sneaky Raccoon",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sneaky-raccoon-has-stealth-while-the-opponent-graveyard-is-empty",
+                "sneaky-raccoon-loses-stealth-once-the-opponent-has-a-graveyard-card",
+                "sneaky-raccoon-stealth"
+            ],
+            "semanticFixtures": [
+                "sneaky-raccoon-has-stealth-while-the-opponent-graveyard-is-empty",
+                "sneaky-raccoon-loses-stealth-once-the-opponent-has-a-graveyard-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47473,6 +47487,26 @@
             "priority": 32
         },
         {
+            "cardId": "9cy4wipw4k",
+            "name": "Tabula of Salvage",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "tabula-of-salvage-puts-chosen-graveyard-cards-on-the-bottom-of-the-deck"
+            ],
+            "semanticFixtures": [
+                "tabula-of-salvage-puts-chosen-graveyard-cards-on-the-bottom-of-the-deck"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "zrBBvgIvt6",
             "name": "Tide Diviner",
             "type": "ALLY",
@@ -47533,6 +47567,28 @@
             "priority": 32
         },
         {
+            "cardId": "x8o84m37ti",
+            "name": "Yuan Shao, Crown General",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
+                "yuan-shao-refused-with-only-two-unique-opposing-allies"
+            ],
+            "semanticFixtures": [
+                "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
+                "yuan-shao-refused-with-only-two-unique-opposing-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "vxzsjRxMIn",
             "name": "ZENA, Echo Weaver",
             "type": "UNIQUE,ALLY",
@@ -47567,7 +47623,8 @@
                 "bauble-of-scarcity-makes-each-player-discard-a-card"
             ],
             "semanticFixtures": [
-                "bauble-of-scarcity-ability-1-pays-its-printed-cost"
+                "bauble-of-scarcity-ability-1-pays-its-printed-cost",
+                "bauble-of-scarcity-makes-each-player-discard-a-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47852,6 +47909,25 @@
             "priority": 31
         },
         {
+            "cardId": "V8aPGgLyh5",
+            "name": "Lesser Boon of Rakko",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-rakko-pays-three-each-time-and-only-twice"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-rakko-pays-three-each-time-and-only-twice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "ZpM7gliLxm",
             "name": "Lesser Boon of Territories",
             "type": "LESSER BOON",
@@ -48004,6 +48080,25 @@
             ],
             "semanticFixtures": [
                 "obstinate-cragback-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "MG8QoeZBXY",
+            "name": "Recurring Aethercharge",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "recurring-aethercharge-graveyard-ability-pays-three-and-loads-into-the-aetherwing"
+            ],
+            "semanticFixtures": [
+                "recurring-aethercharge-graveyard-ability-pays-three-and-loads-into-the-aetherwing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -1,0 +1,25 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "[Class Bonus] The damaged Dungeon Guide got a buff counter"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "The undamaged Fluffy Shopkeep got none"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

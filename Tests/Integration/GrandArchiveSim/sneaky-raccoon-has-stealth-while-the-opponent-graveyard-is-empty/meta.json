@@ -1,0 +1,22 @@
+{
+    "name": "sneaky-raccoon-has-stealth-while-the-opponent-graveyard-is-empty",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:24:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jH6F9XYrL5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jH6F9XYrL5"
+        ],
+        "mechanics": [
+            "stealth",
+            "condition",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "As long as an opponent has no cards in their graveyard, CARDNAME has stealth."
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "synthetic-core-banishes-itself-to-return-a-dead-automaton-to-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:24:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w0y6isxy5l",
+        "i5jnsl7ddc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w0y6isxy5l",
+            "i5jnsl7ddc"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "Whenever a non-token Automaton ally you control dies, you may banish Synthetic Core. If you do, return that ally to your memory."
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "name": "scars-of-old-draws-a-card-then-discards-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:23:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lD0sK81PZT"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lD0sK81PZT"
+        ],
+        "mechanics": [
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Draw a card, then discard a card."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "baleful-oblation-ciel-bonus-costs-two-less-and-deals-the-lowest-omen-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:23:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oye74ibwo8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oye74ibwo8"
+        ],
+        "mechanics": [
+            "damage",
+            "cost-modification",
+            "omen"
+        ],
+        "rulesClauses": [
+            "Deal X damage to all units except for your champion, where X is the lowest reserve cost among your omens.",
+            "[Ciel Bonus] This card costs 2 less to activate."
+        ]
+    }
+}

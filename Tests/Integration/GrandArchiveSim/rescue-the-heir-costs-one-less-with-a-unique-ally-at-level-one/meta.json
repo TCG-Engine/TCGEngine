@@ -1,0 +1,22 @@
+{
+    "name": "rescue-the-heir-costs-one-less-with-a-unique-ally-at-level-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:23:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "t0240ykvj0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "t0240ykvj0"
+        ],
+        "mechanics": [
+            "cost-modification",
+            "level-gate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 1+] As long as you control a unique ally, this card costs 1 less to activate."
+        ]
+    }
+}
