@@ -1070,27 +1070,7 @@ gaScenario('turbo-charge-no-powercell-click-refused')
 // Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon
 // becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade,
 // answering with the holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - The Looking Glass -> p2 field-1
-//   - Mirrordepth's Blade -> p2 field-2
-//   - Fracturize -> p1 myHand-7
-//   - player 1 plays Fracturize
-//   - the Mirrordepth's Blade is the legal target
-gaScenario('the-looking-glass-printed-omnishroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'The Looking Glass', player: 2)
-    ->seed('myField', 'Mirrordepth\'s Blade', player: 2)
-    ->seed('myHand', 'Fracturize')
-    ->castSpell('Fracturize', pay: 2)
-    ->rejects(1, 'theirField-1', 'The Looking Glass (fln04uv297) has spellshroud: not a legal target for the opposing Fracturize')
-    ->target('theirField-2')
-    ->tested('The Looking Glass')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left The Looking Glass (fln04uv297) untouched: Omnishroud stops the opposing Fracturize from targeting it', step: 4)
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2}', 'The refused answers did not apply Fracturize to the Mirrordepth\'s Blade either (prompt still pending)', step: 4)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The Looking Glass (fln04uv297) is unaffected by the resolved Fracturize')
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2,"_overrides":{"type":"PHANTASIA","subtypes":"CLERIC,FRACTAL","classes":"CLERIC","NO_ABILITIES":true,"granted_keywords":["Reservable"],"FRACTURIZED":true}}', 'The only legal target, Mirrordepth\'s Blade, became a Cleric Fractal phantasia (Fracturize override)')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'cpvn96659y', 'Fracturize resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('the-looking-glass-printed-omnishroud-spell-cannot-target-it', ['The Looking Glass'], 'Fracturize', word: 'Omnishroud')
     ->register();
 
 // --- Tome of Abyssal Heaven: "Other objects you control have spellshroud" -- shrouds the other weapon, not

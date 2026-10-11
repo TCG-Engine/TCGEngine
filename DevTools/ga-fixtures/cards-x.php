@@ -15,19 +15,5 @@
 // Player 2 controls the holder plus a Ominous Shadow; player 1 plays Disenchant ("Destroy target phantasia", a
 // Spell): the target prompt offers ONLY the Ominous Shadow, answering with the holder is refused
 // (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Xukong, Shifted Fates -> p2 field-1
-//   - Ominous Shadow -> p2 field-2
-//   - Disenchant -> p1 myHand-7
-//   - player 1 plays Disenchant
-//   - the Ominous Shadow is the legal target
-gaScenario('xukong-shifted-fates-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Xukong, Shifted Fates', player: 2)
-    ->seed('myField', 'Ominous Shadow', player: 2)
-    ->seed('myHand', 'Disenchant')
-    ->castSpell('Disenchant', pay: 2)
-    ->rejects(1, 'theirField-1', 'Xukong, Shifted Fates (Epmh7VncaR) has spellshroud: not a legal target for the opposing Disenchant')
-    ->target('theirField-2')
-    ->tested('Xukong, Shifted Fates')
+gaSpellshroudCase('xukong-shifted-fates-printed-spellshroud-spell-cannot-target-it', ['Xukong, Shifted Fates'], 'Disenchant')
     ->register();

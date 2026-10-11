@@ -335,32 +335,7 @@ gaScenario('haunting-demise-champion-hit-lineage-curse-recollection-damage')
 // Player 2 controls the holders plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff
 // counter on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with
 // each holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Heavenly Drake -> p2 field-1
-//   - Heavenly Drake -> p2 field-2
-//   - Dungeon Guide -> p2 field-3
-//   - Liturgy of Corruption -> p1 myHand-7
-//   - player 1 plays Liturgy of Corruption
-//   - the Dungeon Guide is the legal target
-gaScenario('heavenly-drake-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Heavenly Drake', player: 2)
-    ->seed('myField', '#loSCQzxqi1', player: 2)
-    ->seed('myField', 'Dungeon Guide', player: 2)
-    ->seed('myHand', 'Liturgy of Corruption')
-    ->castSpell('Liturgy of Corruption', pay: 2)
-    ->rejects(1, 'theirField-1', 'Heavenly Drake (jej8y91lkg) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->rejects(1, 'theirField-2', 'Heavenly Drake (loSCQzxqi1) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->target('theirField-3')
-    ->tested('Heavenly Drake', '#loSCQzxqi1')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left Heavenly Drake (jej8y91lkg) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 5)
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'The refused answers left Heavenly Drake (loSCQzxqi1) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 5)
-    ->expectProperty('p2Field-3', 'Counters', '[]', 'The refused answers did not apply Liturgy of Corruption to the Dungeon Guide either (prompt still pending)', step: 5)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'Heavenly Drake (jej8y91lkg) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'Heavenly Drake (loSCQzxqi1) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-3', 'Counters', '{"buff":1}', 'The only legal target, Dungeon Guide, received the buff counter')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'BZMKfFZ22T', 'Liturgy of Corruption resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('heavenly-drake-printed-spellshroud-spell-cannot-target-it', ['Heavenly Drake', '#loSCQzxqi1'], 'Liturgy of Corruption')
     ->register();
 
 // --- Hoarfrost Hold: declining a further banish still puts a frost counter per Suited Spell already banished (dontSkipOnPass regression) ---

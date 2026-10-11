@@ -923,21 +923,7 @@ gaScenario('possessed-reaping-onallykill-return-as-spirit')
 // Player 2 controls the holder plus a Ominous Shadow; player 1 plays Disenchant ("Destroy target phantasia", a
 // Spell): the target prompt offers ONLY the Ominous Shadow, answering with the holder is refused
 // (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Pantheon Barrier -> p2 field-1
-//   - Ominous Shadow -> p2 field-2
-//   - Disenchant -> p1 myHand-7
-//   - player 1 plays Disenchant
-//   - the Ominous Shadow is the legal target
-gaScenario('pantheon-barrier-printed-omnishroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Pantheon Barrier', player: 2)
-    ->seed('myField', 'Ominous Shadow', player: 2)
-    ->seed('myHand', 'Disenchant')
-    ->castSpell('Disenchant', pay: 2)
-    ->rejects(1, 'theirField-1', 'Pantheon Barrier (WyNvyDHFdB) has spellshroud: not a legal target for the opposing Disenchant')
-    ->target('theirField-2')
-    ->tested('Pantheon Barrier')
+gaSpellshroudCase('pantheon-barrier-printed-omnishroud-spell-cannot-target-it', ['Pantheon Barrier'], 'Disenchant')
     ->register();
 
 // --- Piccarda, Night Rider: [Class Bonus] Spellshroud -- already implemented, pinned (Class Bonus met: player

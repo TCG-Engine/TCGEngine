@@ -70,7 +70,9 @@ Each step collapses an existing family and is proven with the guard and verifier
    classes:, cardPatch:, champion:)` builds the shared board and `expectCostFootprint(hand:, memory:, banish:,
    graveyard:, field:)` the five zone-size assertions; all 67 regenerate to HEAD by meaning (2,665 lines became 136).
    The footprint labels still carry template text ("(N)", "CARDNAME"); making them card-specific is a Phase 2 item.
-3. **Spellshroud family** (20 `…-spell-cannot-target-it`): one table of (spell, target zone).
+3. **Spellshroud family** (20 `…-spell-cannot-target-it`). DONE 2026-10-11: `gaSpellshroudCase(slug, holders, spell,
+   holderCounters:, word:, oppChampion:)` with three spell kits (Liturgy of Corruption, Fracturize, Disenchant); 19 of 20
+   regenerate to HEAD by meaning. Left hand-written: the Rhongomiant own-spell variant (the controller's own spell is refused).
 4. **Declined-optional family** ("decline first target still offers second", ~15): `declines(step)` verb.
 5. **Class-bonus / level-threshold family** ("level N costs less", "class bonus …"): `atLevel(n)`, `withClassBonus()`.
 6. **Coverage in code:** `covers()` currently appears in 3 scenarios. Add `expect*` helpers that auto-derive

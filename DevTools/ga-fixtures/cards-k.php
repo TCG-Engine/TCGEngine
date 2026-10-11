@@ -314,27 +314,7 @@ gaScenario('key-slime-pudding-banish-effect-ends-at-end-of-turn')
 // Player 2 controls the holder plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff counter
 // on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with the
 // holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Kraal, Stonescale Tyrant -> p2 field-1
-//   - Dungeon Guide -> p2 field-2
-//   - Liturgy of Corruption -> p1 myHand-7
-//   - player 1 plays Liturgy of Corruption
-//   - the Dungeon Guide is the legal target
-gaScenario('kraal-stonescale-tyrant-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Kraal, Stonescale Tyrant', player: 2)
-    ->seed('myField', 'Dungeon Guide', player: 2)
-    ->seed('myHand', 'Liturgy of Corruption')
-    ->castSpell('Liturgy of Corruption', pay: 2)
-    ->rejects(1, 'theirField-1', 'Kraal, Stonescale Tyrant (572j3oda2h) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->target('theirField-2')
-    ->tested('Kraal, Stonescale Tyrant')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left Kraal, Stonescale Tyrant (572j3oda2h) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 4)
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'The refused answers did not apply Liturgy of Corruption to the Dungeon Guide either (prompt still pending)', step: 4)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'Kraal, Stonescale Tyrant (572j3oda2h) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-2', 'Counters', '{"buff":1}', 'The only legal target, Dungeon Guide, received the buff counter')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'BZMKfFZ22T', 'Liturgy of Corruption resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('kraal-stonescale-tyrant-printed-spellshroud-spell-cannot-target-it', ['Kraal, Stonescale Tyrant'], 'Liturgy of Corruption')
     ->register();
 
 // --- Kindling Flare: declining to sacrifice another Herb still pays the reserve cost and resolves (dontSkipOnPass regression) ---

@@ -1266,27 +1266,7 @@ gaScenario('broken-promises-no-fatestone-or-fatebound-click-refused')
 // Player 2 controls the holder plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff counter
 // on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with the
 // holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Briar, Schwartz King -> p2 field-1
-//   - Dungeon Guide -> p2 field-2
-//   - Liturgy of Corruption -> p1 myHand-7
-//   - player 1 plays Liturgy of Corruption
-//   - the Dungeon Guide is the legal target
-gaScenario('briar-schwartz-king-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Briar, Schwartz King', player: 2)
-    ->seed('myField', 'Dungeon Guide', player: 2)
-    ->seed('myHand', 'Liturgy of Corruption')
-    ->castSpell('Liturgy of Corruption', pay: 2)
-    ->rejects(1, 'theirField-1', 'Briar, Schwartz King (r1zd9ys1qc) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->target('theirField-2')
-    ->tested('Briar, Schwartz King')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left Briar, Schwartz King (r1zd9ys1qc) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 4)
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'The refused answers did not apply Liturgy of Corruption to the Dungeon Guide either (prompt still pending)', step: 4)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'Briar, Schwartz King (r1zd9ys1qc) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-2', 'Counters', '{"buff":1}', 'The only legal target, Dungeon Guide, received the buff counter')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'BZMKfFZ22T', 'Liturgy of Corruption resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('briar-schwartz-king-printed-spellshroud-spell-cannot-target-it', ['Briar, Schwartz King'], 'Liturgy of Corruption')
     ->register();
 
 // --- Byakko, White Tiger: printed Spellshroud -- an opposing spell cannot target it ---
@@ -1301,32 +1281,7 @@ gaScenario('briar-schwartz-king-printed-spellshroud-spell-cannot-target-it')
 // Player 2 controls the holders plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff
 // counter on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with
 // each holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Byakko, White Tiger -> p2 field-1
-//   - Byakko, White Tiger -> p2 field-2
-//   - Dungeon Guide -> p2 field-3
-//   - Liturgy of Corruption -> p1 myHand-7
-//   - player 1 plays Liturgy of Corruption
-//   - the Dungeon Guide is the legal target
-gaScenario('byakko-white-tiger-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Byakko, White Tiger', player: 2)
-    ->seed('myField', '#mhilppwfgx', player: 2)
-    ->seed('myField', 'Dungeon Guide', player: 2)
-    ->seed('myHand', 'Liturgy of Corruption')
-    ->castSpell('Liturgy of Corruption', pay: 2)
-    ->rejects(1, 'theirField-1', 'Byakko, White Tiger (kkkcxq93ul) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->rejects(1, 'theirField-2', 'Byakko, White Tiger (mhilppwfgx) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->target('theirField-3')
-    ->tested('Byakko, White Tiger', '#mhilppwfgx')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left Byakko, White Tiger (kkkcxq93ul) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 5)
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'The refused answers left Byakko, White Tiger (mhilppwfgx) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 5)
-    ->expectProperty('p2Field-3', 'Counters', '[]', 'The refused answers did not apply Liturgy of Corruption to the Dungeon Guide either (prompt still pending)', step: 5)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'Byakko, White Tiger (kkkcxq93ul) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'Byakko, White Tiger (mhilppwfgx) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-3', 'Counters', '{"buff":1}', 'The only legal target, Dungeon Guide, received the buff counter')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'BZMKfFZ22T', 'Liturgy of Corruption resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('byakko-white-tiger-printed-spellshroud-spell-cannot-target-it', ['Byakko, White Tiger', '#mhilppwfgx'], 'Liturgy of Corruption')
     ->register();
 
 // Ownership: the controller controls an ally OWNED by the opponent. "Returns it to its OWNER's memory": it goes to the OPPONENT's memory.

@@ -199,32 +199,7 @@ DECK
 // Player 2 controls the holders plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff
 // counter on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with
 // each holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Obstinate Cragback -> p2 field-1
-//   - Obstinate Cragback -> p2 field-2
-//   - Dungeon Guide -> p2 field-3
-//   - Liturgy of Corruption -> p1 myHand-7
-//   - player 1 plays Liturgy of Corruption
-//   - the Dungeon Guide is the legal target
-gaScenario('obstinate-cragback-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Obstinate Cragback', player: 2)
-    ->seed('myField', '#WZKo8sYPxS', player: 2)
-    ->seed('myField', 'Dungeon Guide', player: 2)
-    ->seed('myHand', 'Liturgy of Corruption')
-    ->castSpell('Liturgy of Corruption', pay: 2)
-    ->rejects(1, 'theirField-1', 'Obstinate Cragback (40oe1wf79p) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->rejects(1, 'theirField-2', 'Obstinate Cragback (WZKo8sYPxS) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->target('theirField-3')
-    ->tested('Obstinate Cragback', '#WZKo8sYPxS')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left Obstinate Cragback (40oe1wf79p) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 5)
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'The refused answers left Obstinate Cragback (WZKo8sYPxS) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 5)
-    ->expectProperty('p2Field-3', 'Counters', '[]', 'The refused answers did not apply Liturgy of Corruption to the Dungeon Guide either (prompt still pending)', step: 5)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'Obstinate Cragback (40oe1wf79p) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'Obstinate Cragback (WZKo8sYPxS) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-3', 'Counters', '{"buff":1}', 'The only legal target, Dungeon Guide, received the buff counter')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'BZMKfFZ22T', 'Liturgy of Corruption resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('obstinate-cragback-printed-spellshroud-spell-cannot-target-it', ['Obstinate Cragback', '#WZKo8sYPxS'], 'Liturgy of Corruption')
     ->register();
 
 // --- Orb of Regret: declining a further shuffle still draws for the cards already shuffled (dontSkipOnPass regression) ---

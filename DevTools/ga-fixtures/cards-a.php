@@ -976,27 +976,7 @@ gaScenario('arrow-trap-prepare-declined-returns-attacking-ally')
 // Player 2 controls the holder plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff counter
 // on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with the
 // holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Aethercloak Sentinel -> p2 field-1
-//   - Dungeon Guide -> p2 field-2
-//   - Liturgy of Corruption -> p1 myHand-7
-//   - player 1 plays Liturgy of Corruption
-//   - the Dungeon Guide is the legal target
-gaScenario('aethercloak-sentinel-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Aethercloak Sentinel', player: 2)
-    ->seed('myField', 'Dungeon Guide', player: 2)
-    ->seed('myHand', 'Liturgy of Corruption')
-    ->castSpell('Liturgy of Corruption', pay: 2)
-    ->rejects(1, 'theirField-1', 'Aethercloak Sentinel (1mvv1f83ls) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->target('theirField-2')
-    ->tested('Aethercloak Sentinel')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left Aethercloak Sentinel (1mvv1f83ls) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 4)
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'The refused answers did not apply Liturgy of Corruption to the Dungeon Guide either (prompt still pending)', step: 4)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'Aethercloak Sentinel (1mvv1f83ls) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-2', 'Counters', '{"buff":1}', 'The only legal target, Dungeon Guide, received the buff counter')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'BZMKfFZ22T', 'Liturgy of Corruption resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('aethercloak-sentinel-printed-spellshroud-spell-cannot-target-it', ['Aethercloak Sentinel'], 'Liturgy of Corruption')
     ->register();
 
 // --- Atmos Armor Type-Hermes: printed Spellshroud -- an opposing spell cannot target it ---
@@ -1011,27 +991,7 @@ gaScenario('aethercloak-sentinel-printed-spellshroud-spell-cannot-target-it')
 // Player 2 controls the holder plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff counter
 // on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with the
 // holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Atmos Armor Type-Hermes -> p2 field-1
-//   - Dungeon Guide -> p2 field-2
-//   - Liturgy of Corruption -> p1 myHand-7
-//   - player 1 plays Liturgy of Corruption
-//   - the Dungeon Guide is the legal target
-gaScenario('atmos-armor-type-hermes-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Atmos Armor Type-Hermes', player: 2)
-    ->seed('myField', 'Dungeon Guide', player: 2)
-    ->seed('myHand', 'Liturgy of Corruption')
-    ->castSpell('Liturgy of Corruption', pay: 2)
-    ->rejects(1, 'theirField-1', 'Atmos Armor Type-Hermes (dlx7mdk0xh) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->target('theirField-2')
-    ->tested('Atmos Armor Type-Hermes')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left Atmos Armor Type-Hermes (dlx7mdk0xh) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 4)
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'The refused answers did not apply Liturgy of Corruption to the Dungeon Guide either (prompt still pending)', step: 4)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'Atmos Armor Type-Hermes (dlx7mdk0xh) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-2', 'Counters', '{"buff":1}', 'The only legal target, Dungeon Guide, received the buff counter')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'BZMKfFZ22T', 'Liturgy of Corruption resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('atmos-armor-type-hermes-printed-spellshroud-spell-cannot-target-it', ['Atmos Armor Type-Hermes'], 'Liturgy of Corruption')
     ->register();
 
 // --- Aquamirage Whisper: printed Spellshroud -- an opposing spell cannot target it ---
@@ -1046,27 +1006,7 @@ gaScenario('atmos-armor-type-hermes-printed-spellshroud-spell-cannot-target-it')
 // Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon
 // becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade,
 // answering with the holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Aquamirage Whisper -> p2 field-1
-//   - Mirrordepth's Blade -> p2 field-2
-//   - Fracturize -> p1 myHand-7
-//   - player 1 plays Fracturize
-//   - the Mirrordepth's Blade is the legal target
-gaScenario('aquamirage-whisper-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Aquamirage Whisper', player: 2)
-    ->seed('myField', 'Mirrordepth\'s Blade', player: 2)
-    ->seed('myHand', 'Fracturize')
-    ->castSpell('Fracturize', pay: 2)
-    ->rejects(1, 'theirField-1', 'Aquamirage Whisper (3n5x9fbkn0) has spellshroud: not a legal target for the opposing Fracturize')
-    ->target('theirField-2')
-    ->tested('Aquamirage Whisper')
-    ->expectProperty('p2Field-1', 'Counters', '{"durability":3}', 'The refused answers left Aquamirage Whisper (3n5x9fbkn0) untouched: Spellshroud stops the opposing Fracturize from targeting it', step: 4)
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2}', 'The refused answers did not apply Fracturize to the Mirrordepth\'s Blade either (prompt still pending)', step: 4)
-    ->expectProperty('p2Field-1', 'Counters', '{"durability":3}', 'Aquamirage Whisper (3n5x9fbkn0) is unaffected by the resolved Fracturize')
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2,"_overrides":{"type":"PHANTASIA","subtypes":"CLERIC,FRACTAL","classes":"CLERIC","NO_ABILITIES":true,"granted_keywords":["Reservable"],"FRACTURIZED":true}}', 'The only legal target, Mirrordepth\'s Blade, became a Cleric Fractal phantasia (Fracturize override)')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'cpvn96659y', 'Fracturize resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('aquamirage-whisper-printed-spellshroud-spell-cannot-target-it', ['Aquamirage Whisper'], 'Fracturize', holderCounters: ['{"durability":3}'])
     ->register();
 
 // --- Ashen Riffle: declining the optional banish still puts ALL FOUR revealed cards back on the bottom of the deck (dontSkipOnPass regression;

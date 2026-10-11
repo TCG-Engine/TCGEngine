@@ -1096,27 +1096,7 @@ gaScenario('frost-shard-graveyard-activation-affordable-still-activates')
 // Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon
 // becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade,
 // answering with the holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Fabled Emerald Fatestone -> p2 field-1
-//   - Mirrordepth's Blade -> p2 field-2
-//   - Fracturize -> p1 myHand-7
-//   - player 1 plays Fracturize
-//   - the Mirrordepth's Blade is the legal target
-gaScenario('fabled-emerald-fatestone-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Fabled Emerald Fatestone', player: 2)
-    ->seed('myField', 'Mirrordepth\'s Blade', player: 2)
-    ->seed('myHand', 'Fracturize')
-    ->castSpell('Fracturize', pay: 2)
-    ->rejects(1, 'theirField-1', 'Fabled Emerald Fatestone (jz7odeqku4) has spellshroud: not a legal target for the opposing Fracturize')
-    ->target('theirField-2')
-    ->tested('Fabled Emerald Fatestone')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left Fabled Emerald Fatestone (jz7odeqku4) untouched: Spellshroud stops the opposing Fracturize from targeting it', step: 4)
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2}', 'The refused answers did not apply Fracturize to the Mirrordepth\'s Blade either (prompt still pending)', step: 4)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'Fabled Emerald Fatestone (jz7odeqku4) is unaffected by the resolved Fracturize')
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2,"_overrides":{"type":"PHANTASIA","subtypes":"CLERIC,FRACTAL","classes":"CLERIC","NO_ABILITIES":true,"granted_keywords":["Reservable"],"FRACTURIZED":true}}', 'The only legal target, Mirrordepth\'s Blade, became a Cleric Fractal phantasia (Fracturize override)')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'cpvn96659y', 'Fracturize resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('fabled-emerald-fatestone-printed-spellshroud-spell-cannot-target-it', ['Fabled Emerald Fatestone'], 'Fracturize')
     ->register();
 
 // --- Fabled Ruby Fatestone: printed Spellshroud -- an opposing spell cannot target it ---
@@ -1131,27 +1111,7 @@ gaScenario('fabled-emerald-fatestone-printed-spellshroud-spell-cannot-target-it'
 // Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon
 // becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade,
 // answering with the holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Fabled Ruby Fatestone -> p2 field-1
-//   - Mirrordepth's Blade -> p2 field-2
-//   - Fracturize -> p1 myHand-7
-//   - player 1 plays Fracturize
-//   - the Mirrordepth's Blade is the legal target
-gaScenario('fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Fabled Ruby Fatestone', player: 2)
-    ->seed('myField', 'Mirrordepth\'s Blade', player: 2)
-    ->seed('myHand', 'Fracturize')
-    ->castSpell('Fracturize', pay: 2)
-    ->rejects(1, 'theirField-1', 'Fabled Ruby Fatestone (mzf5dmpqbc) has spellshroud: not a legal target for the opposing Fracturize')
-    ->target('theirField-2')
-    ->tested('Fabled Ruby Fatestone')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left Fabled Ruby Fatestone (mzf5dmpqbc) untouched: Spellshroud stops the opposing Fracturize from targeting it', step: 4)
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2}', 'The refused answers did not apply Fracturize to the Mirrordepth\'s Blade either (prompt still pending)', step: 4)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'Fabled Ruby Fatestone (mzf5dmpqbc) is unaffected by the resolved Fracturize')
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2,"_overrides":{"type":"PHANTASIA","subtypes":"CLERIC,FRACTAL","classes":"CLERIC","NO_ABILITIES":true,"granted_keywords":["Reservable"],"FRACTURIZED":true}}', 'The only legal target, Mirrordepth\'s Blade, became a Cleric Fractal phantasia (Fracturize override)')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'cpvn96659y', 'Fracturize resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it', ['Fabled Ruby Fatestone'], 'Fracturize')
     ->register();
 
 // --- Fabled Sapphire Fatestone: printed Spellshroud -- an opposing spell cannot target it ---
@@ -1166,27 +1126,7 @@ gaScenario('fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it')
 // Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon
 // becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade,
 // answering with the holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Fabled Sapphire Fatestone -> p2 field-1
-//   - Mirrordepth's Blade -> p2 field-2
-//   - Fracturize -> p1 myHand-7
-//   - player 1 plays Fracturize
-//   - the Mirrordepth's Blade is the legal target
-gaScenario('fabled-sapphire-fatestone-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Fabled Sapphire Fatestone', player: 2)
-    ->seed('myField', 'Mirrordepth\'s Blade', player: 2)
-    ->seed('myHand', 'Fracturize')
-    ->castSpell('Fracturize', pay: 2)
-    ->rejects(1, 'theirField-1', 'Fabled Sapphire Fatestone (vzmnt0orxj) has spellshroud: not a legal target for the opposing Fracturize')
-    ->target('theirField-2')
-    ->tested('Fabled Sapphire Fatestone')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left Fabled Sapphire Fatestone (vzmnt0orxj) untouched: Spellshroud stops the opposing Fracturize from targeting it', step: 4)
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2}', 'The refused answers did not apply Fracturize to the Mirrordepth\'s Blade either (prompt still pending)', step: 4)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'Fabled Sapphire Fatestone (vzmnt0orxj) is unaffected by the resolved Fracturize')
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2,"_overrides":{"type":"PHANTASIA","subtypes":"CLERIC,FRACTAL","classes":"CLERIC","NO_ABILITIES":true,"granted_keywords":["Reservable"],"FRACTURIZED":true}}', 'The only legal target, Mirrordepth\'s Blade, became a Cleric Fractal phantasia (Fracturize override)')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'cpvn96659y', 'Fracturize resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('fabled-sapphire-fatestone-printed-spellshroud-spell-cannot-target-it', ['Fabled Sapphire Fatestone'], 'Fracturize')
     ->register();
 
 // --- Fabled Azurite Fatestone: regression pin -- the pre-existing Spellshroud holder still blocks spells ---

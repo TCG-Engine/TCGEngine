@@ -3516,32 +3516,7 @@ gaScenario('banish-activation-refused-click-keeps-undo-snapshot')
 // Player 2 controls the holders plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff
 // counter on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with
 // each holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Seiryuu, Azure Dragon -> p2 field-1
-//   - Seiryuu, Azure Dragon -> p2 field-2
-//   - Dungeon Guide -> p2 field-3
-//   - Liturgy of Corruption -> p1 myHand-7
-//   - player 1 plays Liturgy of Corruption
-//   - the Dungeon Guide is the legal target
-gaScenario('seiryuu-azure-dragon-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', '#fcfxhkqda6', player: 2)
-    ->seed('myField', '#GKKYGv6t3R', player: 2)
-    ->seed('myField', 'Dungeon Guide', player: 2)
-    ->seed('myHand', 'Liturgy of Corruption')
-    ->castSpell('Liturgy of Corruption', pay: 2)
-    ->rejects(1, 'theirField-1', 'Seiryuu, Azure Dragon (fcfxhkqda6) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->rejects(1, 'theirField-2', 'Seiryuu, Azure Dragon (GKKYGv6t3R) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->target('theirField-3')
-    ->tested('#fcfxhkqda6', '#GKKYGv6t3R')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left Seiryuu, Azure Dragon (fcfxhkqda6) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 5)
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'The refused answers left Seiryuu, Azure Dragon (GKKYGv6t3R) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 5)
-    ->expectProperty('p2Field-3', 'Counters', '[]', 'The refused answers did not apply Liturgy of Corruption to the Dungeon Guide either (prompt still pending)', step: 5)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'Seiryuu, Azure Dragon (fcfxhkqda6) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'Seiryuu, Azure Dragon (GKKYGv6t3R) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-3', 'Counters', '{"buff":1}', 'The only legal target, Dungeon Guide, received the buff counter')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'BZMKfFZ22T', 'Liturgy of Corruption resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('seiryuu-azure-dragon-printed-spellshroud-spell-cannot-target-it', ['#fcfxhkqda6', '#GKKYGv6t3R'], 'Liturgy of Corruption')
     ->register();
 
 // --- Suzaku, Vermillion Phoenix: printed Spellshroud -- an opposing spell cannot target it ---
@@ -3556,32 +3531,7 @@ gaScenario('seiryuu-azure-dragon-printed-spellshroud-spell-cannot-target-it')
 // Player 2 controls the holders plus a Dungeon Guide; player 1 plays Liturgy of Corruption ("Put a buff
 // counter on target ally ...", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, answering with
 // each holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Suzaku, Vermillion Phoenix -> p2 field-1
-//   - Suzaku, Vermillion Phoenix -> p2 field-2
-//   - Dungeon Guide -> p2 field-3
-//   - Liturgy of Corruption -> p1 myHand-7
-//   - player 1 plays Liturgy of Corruption
-//   - the Dungeon Guide is the legal target
-gaScenario('suzaku-vermillion-phoenix-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Suzaku, Vermillion Phoenix', player: 2)
-    ->seed('myField', '#h57jayq7l2', player: 2)
-    ->seed('myField', 'Dungeon Guide', player: 2)
-    ->seed('myHand', 'Liturgy of Corruption')
-    ->castSpell('Liturgy of Corruption', pay: 2)
-    ->rejects(1, 'theirField-1', 'Suzaku, Vermillion Phoenix (42mdt7ge5d) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->rejects(1, 'theirField-2', 'Suzaku, Vermillion Phoenix (h57jayq7l2) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
-    ->target('theirField-3')
-    ->tested('Suzaku, Vermillion Phoenix', '#h57jayq7l2')
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'The refused answers left Suzaku, Vermillion Phoenix (42mdt7ge5d) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 5)
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'The refused answers left Suzaku, Vermillion Phoenix (h57jayq7l2) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it', step: 5)
-    ->expectProperty('p2Field-3', 'Counters', '[]', 'The refused answers did not apply Liturgy of Corruption to the Dungeon Guide either (prompt still pending)', step: 5)
-    ->expectProperty('p2Field-1', 'Counters', '[]', 'Suzaku, Vermillion Phoenix (42mdt7ge5d) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-2', 'Counters', '[]', 'Suzaku, Vermillion Phoenix (h57jayq7l2) is unaffected by the resolved Liturgy of Corruption')
-    ->expectProperty('p2Field-3', 'Counters', '{"buff":1}', 'The only legal target, Dungeon Guide, received the buff counter')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'BZMKfFZ22T', 'Liturgy of Corruption resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('suzaku-vermillion-phoenix-printed-spellshroud-spell-cannot-target-it', ['Suzaku, Vermillion Phoenix', '#h57jayq7l2'], 'Liturgy of Corruption')
     ->register();
 
 // --- Supernova Divination: printed Spellshroud -- an opposing spell cannot target it ---
@@ -3595,21 +3545,7 @@ gaScenario('suzaku-vermillion-phoenix-printed-spellshroud-spell-cannot-target-it
 // Player 2 controls the holder plus a Ominous Shadow; player 1 plays Disenchant ("Destroy target phantasia", a
 // Spell): the target prompt offers ONLY the Ominous Shadow, answering with the holder is refused
 // (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Supernova Divination -> p2 field-1
-//   - Ominous Shadow -> p2 field-2
-//   - Disenchant -> p1 myHand-7
-//   - player 1 plays Disenchant
-//   - the Ominous Shadow is the legal target
-gaScenario('supernova-divination-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Supernova Divination', player: 2)
-    ->seed('myField', 'Ominous Shadow', player: 2)
-    ->seed('myHand', 'Disenchant')
-    ->castSpell('Disenchant', pay: 2)
-    ->rejects(1, 'theirField-1', 'Supernova Divination (qhBecpDUO9) has spellshroud: not a legal target for the opposing Disenchant')
-    ->target('theirField-2')
-    ->tested('Supernova Divination')
+gaSpellshroudCase('supernova-divination-printed-spellshroud-spell-cannot-target-it', ['Supernova Divination'], 'Disenchant')
     ->register();
 
 // --- Seeker's Rifle: [Class Bonus] Spellshroud -- active (Class Bonus met: player 2's champion is a Ranger
@@ -3622,29 +3558,7 @@ gaScenario('supernova-divination-printed-spellshroud-spell-cannot-target-it')
 // holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon becomes a Cleric
 // Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade, the holder answer
 // is refused (expectFailure) and the legal answer resolves.
-// Notes carried over from the original definition:
-//   - player 2 champion -> Diana, Keen Huntress (level 1 RANGER)
-//   - Seeker's Rifle -> p2 field-1
-//   - Mirrordepth's Blade -> p2 field-2
-//   - Fracturize -> p1 myHand-7
-//   - player 1 plays Fracturize
-//   - the Mirrordepth's Blade is the legal target
-gaScenario('seekers-rifle-class-bonus-spellshroud-ranger-champion-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->champion(cardName: 'Diana, Keen Huntress', player: 2)
-    ->seed('myField', 'Seeker\'s Rifle', player: 2)
-    ->seed('myField', 'Mirrordepth\'s Blade', player: 2)
-    ->seed('myHand', 'Fracturize')
-    ->castSpell('Fracturize', pay: 2)
-    ->rejects(1, 'theirField-1', 'Seeker\'s Rifle (3gygojwk0p) has spellshroud: not a legal target for the opposing Fracturize')
-    ->target('theirField-2')
-    ->tested('Seeker\'s Rifle')
-    ->expectProperty('p2Field-1', 'Counters', '{"durability":2}', 'The refused answers left Seeker\'s Rifle (3gygojwk0p) untouched: Spellshroud stops the opposing Fracturize from targeting it', step: 4)
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2}', 'The refused answers did not apply Fracturize to the Mirrordepth\'s Blade either (prompt still pending)', step: 4)
-    ->expectProperty('p2Field-1', 'Counters', '{"durability":2}', 'Seeker\'s Rifle (3gygojwk0p) is unaffected by the resolved Fracturize')
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2,"_overrides":{"type":"PHANTASIA","subtypes":"CLERIC,FRACTAL","classes":"CLERIC","NO_ABILITIES":true,"granted_keywords":["Reservable"],"FRACTURIZED":true}}', 'The only legal target, Mirrordepth\'s Blade, became a Cleric Fractal phantasia (Fracturize override)')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'cpvn96659y', 'Fracturize resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('seekers-rifle-class-bonus-spellshroud-ranger-champion-spell-cannot-target-it', ['Seeker\'s Rifle'], 'Fracturize', holderCounters: ['{"durability":2}'], oppChampion: 'Diana, Keen Huntress')
     ->register();
 
 // --- Seeker's Rifle: [Class Bonus] Spellshroud -- negative control (Class Bonus NOT met: player 2's champion

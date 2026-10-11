@@ -760,27 +760,7 @@ gaScenario('echoic-guard-no-class-bonus-costs-printed-three')
 // Player 2 controls the holder plus a Mirrordepth's Blade; player 1 plays Fracturize ("Target item or weapon
 // becomes a Cleric Fractal phantasia ...", a Spell): the target prompt offers ONLY the Mirrordepth's Blade,
 // answering with the holder is refused (expectFailure) and the legal answer then resolves.
-// Notes carried over from the original definition:
-//   - Excalibur, Reflected Edge -> p2 field-1
-//   - Mirrordepth's Blade -> p2 field-2
-//   - Fracturize -> p1 myHand-7
-//   - player 1 plays Fracturize
-//   - the Mirrordepth's Blade is the legal target
-gaScenario('excalibur-reflected-edge-printed-spellshroud-spell-cannot-target-it')
-    ->deck($mordredDeck)
-    ->seed('myField', 'Excalibur, Reflected Edge', player: 2)
-    ->seed('myField', 'Mirrordepth\'s Blade', player: 2)
-    ->seed('myHand', 'Fracturize')
-    ->castSpell('Fracturize', pay: 2)
-    ->rejects(1, 'theirField-1', 'Excalibur, Reflected Edge (u1a1s4ys44) has spellshroud: not a legal target for the opposing Fracturize')
-    ->target('theirField-2')
-    ->tested('Excalibur, Reflected Edge')
-    ->expectProperty('p2Field-1', 'Counters', '{"durability":2}', 'The refused answers left Excalibur, Reflected Edge (u1a1s4ys44) untouched: Spellshroud stops the opposing Fracturize from targeting it', step: 4)
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2}', 'The refused answers did not apply Fracturize to the Mirrordepth\'s Blade either (prompt still pending)', step: 4)
-    ->expectProperty('p2Field-1', 'Counters', '{"durability":2}', 'Excalibur, Reflected Edge (u1a1s4ys44) is unaffected by the resolved Fracturize')
-    ->expectProperty('p2Field-2', 'Counters', '{"durability":2,"_overrides":{"type":"PHANTASIA","subtypes":"CLERIC,FRACTAL","classes":"CLERIC","NO_ABILITIES":true,"granted_keywords":["Reservable"],"FRACTURIZED":true}}', 'The only legal target, Mirrordepth\'s Blade, became a Cleric Fractal phantasia (Fracturize override)')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'cpvn96659y', 'Fracturize resolved into player 1\'s graveyard')
-    ->expectDqEmpty()
+gaSpellshroudCase('excalibur-reflected-edge-printed-spellshroud-spell-cannot-target-it', ['Excalibur, Reflected Edge'], 'Fracturize', holderCounters: ['{"durability":2}'])
     ->register();
 
 // --- Eventide Lure: declining the reveal still puts the looked-at cards on the bottom of the deck (dontSkipOnPass regression) ---

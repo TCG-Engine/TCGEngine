@@ -364,6 +364,53 @@ function gaAbilitySandbox(string $slug, string $cardName, string $classes = 'WAR
     return $s;
 }
 
+// The `…-spell-cannot-target-it` family: player 2 controls one or more shrouded $holders plus a legal decoy; player 1
+// casts a targeting spell, every holder is refused as an answer (the engine must reject it), and the decoy is then chosen
+// and resolves. $spell picks the kit: 'Liturgy of Corruption' (buff counter on an ally, decoy Dungeon Guide), 'Fracturize'
+// (item/weapon becomes a phantasia, decoy Mirrordepth's Blade) or 'Disenchant' (decoy Ominous Shadow; the refusals are
+// the only evidence). $holderCounters is each holder's Counters JSON (default none); $word is the keyword in the labels
+// ('Spellshroud' or 'Omnishroud'); $oppChampion replaces player 2's champion (class-dependent shroud).
+function gaSpellshroudCase(string $slug, array $holders, string $spell, array $holderCounters = [], string $word = 'Spellshroud', ?string $oppChampion = null): GaScenario {
+    global $mordredDeck;
+    $kits = [
+        'Liturgy of Corruption' => ['decoy' => 'Dungeon Guide', 'pre' => '[]', 'post' => '{"buff":1}', 'grave' => 'BZMKfFZ22T',
+            'postLabel' => 'The only legal target, Dungeon Guide, received the buff counter'],
+        'Fracturize' => ['decoy' => 'Mirrordepth\'s Blade', 'pre' => '{"durability":2}', 'grave' => 'cpvn96659y',
+            'post' => '{"durability":2,"_overrides":{"type":"PHANTASIA","subtypes":"CLERIC,FRACTAL","classes":"CLERIC","NO_ABILITIES":true,"granted_keywords":["Reservable"],"FRACTURIZED":true}}',
+            'postLabel' => 'The only legal target, Mirrordepth\'s Blade, became a Cleric Fractal phantasia (Fracturize override)'],
+        'Disenchant' => ['decoy' => 'Ominous Shadow'],
+    ];
+    if (!isset($kits[$spell])) throw new RuntimeException("gaSpellshroudCase[{$slug}]: unknown spell kit '{$spell}'");
+    $kit = $kits[$spell];
+    $n = count($holders);
+    $s = gaScenario($slug)->deck($mordredDeck);
+    if ($oppChampion !== null) $s->champion(cardName: $oppChampion, player: 2);
+    foreach ($holders as $h) $s->seed('myField', $h, player: 2);
+    $s->seed('myField', $kit['decoy'], player: 2)
+      ->seed('myHand', $spell)
+      ->castSpell($spell, pay: 2);
+    $names = [];
+    foreach ($holders as $i => $h) {
+        $id = GaScenario::id($h);
+        $names[$i] = CardName($id) . " ({$id})";
+        $s->rejects(1, 'theirField-' . ($i + 1), "{$names[$i]} has spellshroud: not a legal target for the opposing {$spell}");
+    }
+    $step = $n + 3;
+    $s->target('theirField-' . ($n + 1))->tested(...$holders);
+    if (!isset($kit['pre'])) return $s;
+    $hc = fn($i) => $holderCounters[$i] ?? '[]';
+    foreach ($holders as $i => $h) {
+        $s->expectProperty('p2Field-' . ($i + 1), 'Counters', $hc($i), "The refused answers left {$names[$i]} untouched: {$word} stops the opposing {$spell} from targeting it", step: $step);
+    }
+    $s->expectProperty('p2Field-' . ($n + 1), 'Counters', $kit['pre'], "The refused answers did not apply {$spell} to the {$kit['decoy']} either (prompt still pending)", step: $step);
+    foreach ($holders as $i => $h) {
+        $s->expectProperty('p2Field-' . ($i + 1), 'Counters', $hc($i), "{$names[$i]} is unaffected by the resolved {$spell}");
+    }
+    return $s->expectProperty('p2Field-' . ($n + 1), 'Counters', $kit['post'], $kit['postLabel'])
+        ->expectProperty('p1Graveyard-0', 'CardID', $kit['grave'], "{$spell} resolved into player 1's graveyard")
+        ->expectDqEmpty();
+}
+
 // Add a built definition to the generator's $fixtures. If an inline definition of the same slug still exists
 // (mid-migration), the two must produce the same fixture -- setup, actions, deck and tested cards -- or the run stops.
 function gaRegisterFixture(string $slug, array $def): void {
