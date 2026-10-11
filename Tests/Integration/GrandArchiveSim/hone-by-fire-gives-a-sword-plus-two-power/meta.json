@@ -1,0 +1,21 @@
+{
+    "name": "hone-by-fire-gives-a-sword-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yuvuxnrw8q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yuvuxnrw8q"
+        ],
+        "mechanics": [
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target Sword weapon you control gets +2 [POWER] until end of turn."
+        ]
+    }
+}

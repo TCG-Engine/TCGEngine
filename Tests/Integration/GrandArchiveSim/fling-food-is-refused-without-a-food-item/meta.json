@@ -1,0 +1,21 @@
+{
+    "name": "fling-food-is-refused-without-a-food-item",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:06:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pVHGi99Svy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pVHGi99Svy"
+        ],
+        "mechanics": [
+            "additional-cost-sacrifice",
+            "cost-validation"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice a Food item."
+        ]
+    }
+}

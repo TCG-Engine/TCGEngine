@@ -3370,6 +3370,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "BlazingThrowCost|" . $reserveCost, 100);
     }
 
+    // 1.3 Declaring Costs — cards whose printed additional cost is "sacrifice a <permanent> you control" and whose
+    // generated ability body never pays it (Fling Food, Shield Fragmentation): the sacrifice is chosen first, then
+    // the reserve cost is paid, the same order as Blazing Throw.
+    $hasGenericSacrificeCost = false;
+    if(!$ignoreCost && function_exists('GenericSacrificeCostCandidates') && GenericSacrificeCostCandidates($obj->CardID) !== null) {
+        $sacrificeCandidates = GenericSacrificeCostCandidates($obj->CardID);
+        if(empty($sacrificeCandidates)) {
+            SetFlashMessage(CardName($obj->CardID) . " requires a permanent to sacrifice.");
+            return;
+        }
+        $hasGenericSacrificeCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $sacrificeCandidates), 100, tooltip:"Sacrifice_a_permanent");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "GenericSacrificeCost|" . $reserveCost . "|" . $obj->CardID, 100);
+    }
+
     // 1.3 Declaring Costs — Converge Reflections (TBVLLRPiwP): "As an additional cost to
     // activate this card, sacrifice a non-token item or weapon you control." Eligibility here
     // mirrors activateCardPrereqs["TBVLLRPiwP:0"]'s own legality check (GeneratedCode/
@@ -3447,7 +3463,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasSacrificePlayCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasGenericSacrificeCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasSacrificePlayCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -3525,6 +3541,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // When $hasUndeniableTruthCost is true, UndeniableTruthCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasBlazingThrowCost is true, BlazingThrowCost handles sacrifice,
+    // reserve payments, and EffectStackOpportunity.
+    // When $hasGenericSacrificeCost is true, GenericSacrificeCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasConvergeReflectionsCost is true, ConvergeReflectionsCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
@@ -3769,6 +3787,32 @@ $customDQHandlers["BlazingThrowCost"] = function($player, $parts, $lastDecision)
     DecisionQueueController::StoreVariable("isImbued", "NO");
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
+
+$customDQHandlers["GenericSacrificeCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    $cardID = $parts[1];
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $candidates = GenericSacrificeCostCandidates($cardID);
+    if($candidates === null || !in_array($lastDecision, $candidates, true)) return;
+
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    for($i = 0; $i < $baseReserve; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+// The permanents a card's "sacrifice a <permanent>" additional cost may pay with, or null when the card has no such
+// cost handled here. Fling Food: a Food item. Shield Fragmentation: a Shield item.
+function GenericSacrificeCostCandidates($cardID) {
+    switch($cardID) {
+        case "pVHGi99Svy": return ZoneSearch("myField", ["ITEM"], cardSubtypes: ["FOOD"]);
+        case "CHU96qWwaS": return ZoneSearch("myField", ["ITEM"], cardSubtypes: ["SHIELD"]);
+    }
+    return null;
+}
 
 $customDQHandlers["ConvergeReflectionsCost"] = function($player, $parts, $lastDecision) {
     $baseReserve = intval($parts[0]);

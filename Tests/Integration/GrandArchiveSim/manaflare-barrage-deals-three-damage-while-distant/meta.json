@@ -1,0 +1,23 @@
+{
+    "name": "manaflare-barrage-deals-three-damage-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a8mmiv2ptn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a8mmiv2ptn"
+        ],
+        "mechanics": [
+            "damage",
+            "sweep",
+            "condition",
+            "distant"
+        ],
+        "rulesClauses": [
+            "If your champion is distant, deal 3 damage to those units instead."
+        ]
+    }
+}

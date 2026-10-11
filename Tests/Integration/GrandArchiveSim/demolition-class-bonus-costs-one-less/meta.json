@@ -1,0 +1,21 @@
+{
+    "name": "demolition-class-bonus-costs-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7iak6hyh6b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7iak6hyh6b"
+        ],
+        "mechanics": [
+            "cost-modification",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate."
+        ]
+    }
+}

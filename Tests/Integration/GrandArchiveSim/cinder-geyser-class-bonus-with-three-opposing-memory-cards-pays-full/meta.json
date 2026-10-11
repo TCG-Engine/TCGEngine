@@ -1,0 +1,22 @@
+{
+    "name": "cinder-geyser-class-bonus-with-three-opposing-memory-cards-pays-full",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "stiyh3pmk3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "stiyh3pmk3"
+        ],
+        "mechanics": [
+            "cost-modification",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as an opponent has four or more cards in their memory, this card costs 2 less to activate."
+        ]
+    }
+}

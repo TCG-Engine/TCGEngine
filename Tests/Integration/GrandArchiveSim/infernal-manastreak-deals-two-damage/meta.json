@@ -1,0 +1,22 @@
+{
+    "name": "infernal-manastreak-deals-two-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rovbfpf7al"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rovbfpf7al"
+        ],
+        "mechanics": [
+            "damage",
+            "condition",
+            "distant"
+        ],
+        "rulesClauses": [
+            "Deal 2 damage to target unit. If your champion is distant, deal 3 damage to that unit instead."
+        ]
+    }
+}

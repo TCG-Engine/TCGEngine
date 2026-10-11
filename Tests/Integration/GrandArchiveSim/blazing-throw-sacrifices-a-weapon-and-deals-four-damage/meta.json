@@ -1,0 +1,23 @@
+{
+    "name": "blazing-throw-sacrifices-a-weapon-and-deals-four-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iohZMWh5v5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iohZMWh5v5"
+        ],
+        "mechanics": [
+            "damage",
+            "additional-cost-sacrifice",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice a weapon.",
+            "Deal 4 damage to target unit."
+        ]
+    }
+}

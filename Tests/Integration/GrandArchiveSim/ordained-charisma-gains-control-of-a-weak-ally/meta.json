@@ -1,0 +1,22 @@
+{
+    "name": "ordained-charisma-gains-control-of-a-weak-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3iG6h4jAPl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3iG6h4jAPl"
+        ],
+        "mechanics": [
+            "gain-control",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Gain control of target ally with 2 [POWER] or less until end of turn. Wake up that ally."
+        ]
+    }
+}

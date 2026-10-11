@@ -1,0 +1,22 @@
+{
+    "name": "manaflare-barrage-deals-two-damage-to-all-other-units",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a8mmiv2ptn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a8mmiv2ptn"
+        ],
+        "mechanics": [
+            "damage",
+            "sweep",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Deal 2 damage to all units except for your champion."
+        ]
+    }
+}

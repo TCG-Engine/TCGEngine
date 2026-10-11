@@ -1,0 +1,21 @@
+{
+    "name": "cinder-geyser-deals-four-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:02:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "stiyh3pmk3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "stiyh3pmk3"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 4 damage to target unit."
+        ]
+    }
+}

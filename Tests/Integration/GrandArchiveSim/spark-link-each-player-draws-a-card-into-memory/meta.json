@@ -1,0 +1,21 @@
+{
+    "name": "spark-link-each-player-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PUgqk3lxq6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PUgqk3lxq6"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Each player draws a card into their memory."
+        ]
+    }
+}
