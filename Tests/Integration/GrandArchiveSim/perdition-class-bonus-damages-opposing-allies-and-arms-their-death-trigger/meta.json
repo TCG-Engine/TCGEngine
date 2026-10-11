@@ -1,0 +1,23 @@
+{
+    "name": "perdition-class-bonus-damages-opposing-allies-and-arms-their-death-trigger",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nlf619svrr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nlf619svrr"
+        ],
+        "mechanics": [
+            "damage",
+            "sweep",
+            "trigger-grant",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Each ally target opponent controls gains \"On Death: Deal 1 damage to each unit you control\" until end of turn. Then deal 1 damage to each ally that opponent controls."
+        ]
+    }
+}

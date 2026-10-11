@@ -1,0 +1,25 @@
+{
+    "name": "fireblooded-oath-class-bonus-banishes-three-fire-cards-then-levels-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bmoqk2c7wk"
+    ],
+    "notes": "Regression: the printed additional cost (banish three fire element cards from your graveyard) was never paid, so the Oath levelled the champion up for free and kept the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "bmoqk2c7wk"
+        ],
+        "mechanics": [
+            "level-up",
+            "additional-cost-banish",
+            "class-bonus",
+            "cost-modification"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, banish three fire element cards from your graveyard.",
+            "Level up your champion."
+        ]
+    }
+}

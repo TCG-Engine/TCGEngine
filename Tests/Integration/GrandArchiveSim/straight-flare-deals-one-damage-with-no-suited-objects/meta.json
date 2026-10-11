@@ -1,0 +1,21 @@
+{
+    "name": "straight-flare-deals-one-damage-with-no-suited-objects",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "28bjn8g50v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "28bjn8g50v"
+        ],
+        "mechanics": [
+            "damage",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "Deal X damage to target unit, where X is the amount of Suited objects you control with different costs plus 1."
+        ]
+    }
+}

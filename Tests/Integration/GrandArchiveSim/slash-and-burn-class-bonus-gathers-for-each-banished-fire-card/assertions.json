@@ -1,0 +1,25 @@
+[
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Three fire cards were banished"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "One gather for the card itself plus one per banished card: four herb tokens joined the champion"
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,16 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[]",
+        "semantic": true,
+        "label": "No Class Bonus: the opponent can still recover"
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

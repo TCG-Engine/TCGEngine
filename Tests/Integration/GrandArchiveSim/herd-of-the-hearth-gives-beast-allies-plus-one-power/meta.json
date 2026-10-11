@@ -1,0 +1,21 @@
+{
+    "name": "herd-of-the-hearth-gives-beast-allies-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wXsHpcrH3P"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wXsHpcrH3P"
+        ],
+        "mechanics": [
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Animal and Beast allies you control get +1 [POWER] until end of turn."
+        ]
+    }
+}

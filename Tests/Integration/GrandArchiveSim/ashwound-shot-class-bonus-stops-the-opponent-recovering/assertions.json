@@ -1,0 +1,16 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"CANT_RECOVER\"]",
+        "semantic": true,
+        "label": "[Class Bonus] The target opponent can't recover until end of turn"
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

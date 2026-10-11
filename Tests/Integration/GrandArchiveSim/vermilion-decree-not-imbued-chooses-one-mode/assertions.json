@@ -1,0 +1,16 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "Mode A: 3 damage to the target champion"
+    },
+    {
+        "step": 9,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "slash-and-burn-class-bonus-gathers-for-each-banished-fire-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o0nkly21ee"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o0nkly21ee"
+        ],
+        "mechanics": [
+            "gather",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Gather. Then you may banish up to three fire element cards from your graveyard. For each card banished this way, gather."
+        ]
+    }
+}

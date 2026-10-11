@@ -2426,18 +2426,6 @@ $customDQHandlers["ManaboltConvergenceTarget"] = function($player, $parts, $last
   MayLoadIntoAetherwing($player, "smse0zjalx");
 };
 
-// KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
-// ---------------------------------------------------------------------------------------------
-// (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)
-$gaClassBonusTables = [&$customDQHandlers, &$cardActivatedAbilities, &$enterAbilities, &$activateAbilityAbilities, &$activateAbilityPrereqs, &$activationCostModifierAbilities, &$onAttackAbilities,
-    &$onHitAbilities, &$onKillAbilities, &$allyDestroyedAbilities, &$activateCardAbilities, &$activateCardPrereqs, &$cardActivatedPrereqs, &$memoryCostModifierAbilities, &$leaveFieldAbilities,
-    &$playCardAbilities, &$onFosterAbilities, &$enterPrereqs, &$reserveCostModifierAbilities, &$dealDamageAbilities, &$onAttackPrereqs, &$onBanishAbilities, &$restCardAbilities, &$revealAbilities];
-GAInstallClassBonusSourceWrappers($gaClassBonusTables);
-unset($gaClassBonusTables);
-
-// Printed-cost prereqs for the abilities in GAFieldAbilityCostTable() (Custom/GameLogic.php): wraps the final $activateAbilityPrereqs closures.
-GAInstallFieldAbilityCostPrereqs($activateAbilityPrereqs);
-
 // Absolving Flames (3fbpyhm271): "[Class Bonus] You may banish four fire element cards from your graveyard. If you do, draw a
 // card." The generated body re-read ZoneSearch() after every MZMove() without compacting the zone, so the same graveyard card
 // was moved four times: one card was banished (not four) and the draw still happened.
@@ -2462,3 +2450,26 @@ $customDQHandlers["lcy0lw1veb:0:Enter-1"] = function($player, $parts, $lastDecis
     DoSacrificeFighter($player, $lastDecision);
     DecisionQueueController::CleanupRemovedCards();
 };
+
+// Searing Rebuke (hdvpug4d5m): "Prevent the next 3 damage that would be dealt to your champion this turn. [Class Bonus] Whenever
+// damage is prevented this way, deal 3 damage to target champion you don't control." The generated body dealt the 3 damage
+// immediately, whether or not anything was ever prevented. It now only arms the prevention (SEARING_REBUKE_3, plus
+// SEARING_REBUKE_CB with the Class Bonus); CombatLogic's damage prevention deals the 3 when damage is actually prevented.
+$cardActivatedAbilities["hdvpug4d5m:0"] = function($player) {
+    $champions = ZoneSearch("myField", ["CHAMPION"]);
+    if(empty($champions)) return;
+    AddTurnEffect($champions[0], "SEARING_REBUKE_3");
+    if(IsClassBonusActive($player, ["CLERIC"])) AddTurnEffect($champions[0], "SEARING_REBUKE_CB");
+};
+
+// KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
+// ---------------------------------------------------------------------------------------------
+// (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)
+$gaClassBonusTables = [&$customDQHandlers, &$cardActivatedAbilities, &$enterAbilities, &$activateAbilityAbilities, &$activateAbilityPrereqs, &$activationCostModifierAbilities, &$onAttackAbilities,
+    &$onHitAbilities, &$onKillAbilities, &$allyDestroyedAbilities, &$activateCardAbilities, &$activateCardPrereqs, &$cardActivatedPrereqs, &$memoryCostModifierAbilities, &$leaveFieldAbilities,
+    &$playCardAbilities, &$onFosterAbilities, &$enterPrereqs, &$reserveCostModifierAbilities, &$dealDamageAbilities, &$onAttackPrereqs, &$onBanishAbilities, &$restCardAbilities, &$revealAbilities];
+GAInstallClassBonusSourceWrappers($gaClassBonusTables);
+unset($gaClassBonusTables);
+
+// Printed-cost prereqs for the abilities in GAFieldAbilityCostTable() (Custom/GameLogic.php): wraps the final $activateAbilityPrereqs closures.
+GAInstallFieldAbilityCostPrereqs($activateAbilityPrereqs);

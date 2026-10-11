@@ -1,0 +1,16 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"ECx3KFWqFD\",\"EMPOWERED\",\"EMPOWER_PLUS_3\",\"vz4kc558yx-ACTION_ACTIVATED\"]",
+        "semantic": true,
+        "label": "Empower 3: the next Spell resolves as if the champion had +3 level"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

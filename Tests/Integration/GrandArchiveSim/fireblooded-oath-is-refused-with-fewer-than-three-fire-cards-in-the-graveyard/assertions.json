@@ -1,0 +1,25 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "The Oath stays in hand: only two fire cards are in the graveyard"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was banished"
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,21 @@
+{
+    "name": "ashwound-shot-class-bonus-stops-the-opponent-recovering",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v9zfscdxzn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v9zfscdxzn"
+        ],
+        "mechanics": [
+            "recover",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Until end of turn, target opponent can't recover."
+        ]
+    }
+}

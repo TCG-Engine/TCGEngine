@@ -1,0 +1,21 @@
+{
+    "name": "calamity-cannon-arms-the-first-gun-attack-for-plus-ten-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lwabipl6gt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lwabipl6gt"
+        ],
+        "mechanics": [
+            "stat-change",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Your champion's first attack using a Gun weapon during your next turn gets +10 [POWER]."
+        ]
+    }
+}

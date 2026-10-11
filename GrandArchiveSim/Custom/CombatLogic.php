@@ -4469,6 +4469,18 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                 }
             }
         }
+        // Searing Rebuke (hdvpug4d5m): prevent the next 3 damage to your champion; [Class Bonus] whenever damage is prevented this
+        // way, deal 3 damage to target champion you don't control.
+        if(in_array("SEARING_REBUKE_3", $targetObj->TurnEffects)) {
+            $rebukePrevented = min(3, $amount);
+            $amount -= $rebukePrevented;
+            $rebukeCB = in_array("SEARING_REBUKE_CB", $targetObj->TurnEffects);
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "SEARING_REBUKE_3" && $e !== "SEARING_REBUKE_CB"));
+            if($rebukePrevented > 0 && $rebukeCB) {
+                $rebukeOpponent = ($targetObj->Controller == 1) ? 2 : 1;
+                DealChampionDamage($rebukeOpponent, 3, $targetObj->Controller);
+            }
+        }
         foreach($targetObj->TurnEffects as $te) {
             if(strpos($te, "NASCENT_BARRIER_") === 0) {
                 $preventAmount = intval(substr($te, strlen("NASCENT_BARRIER_")));

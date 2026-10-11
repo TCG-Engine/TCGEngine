@@ -2317,6 +2317,9 @@ function MandatoryActivationCostBlocker($player, $sourceObject) {
         case "iohZMWh5v5": // Blazing Throw: sacrifice a weapon
             if(empty(ZoneSearch("myField", ["WEAPON"]))) return "Blazing Throw requires a weapon to sacrifice.";
             break;
+        case "bmoqk2c7wk": // Fireblooded Oath: banish three fire element cards from your graveyard
+            if(count(ZoneSearch("myGraveyard", cardElements: ["FIRE"])) < 3) return "Fireblooded Oath requires three fire element cards in your graveyard to banish.";
+            break;
         case "TBVLLRPiwP": // Converge Reflections: sacrifice a non-token item or weapon
             $itemsWeapons = array_merge(ZoneSearch("myField", ["ITEM", "REGALIA"]), ZoneSearch("myField", ["WEAPON"]));
             foreach($itemsWeapons as $mz) {
@@ -3386,6 +3389,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "GenericSacrificeCost|" . $reserveCost . "|" . $obj->CardID, 100);
     }
 
+    // 1.3 Declaring Costs — "As an additional cost to activate this card, banish N <element> cards from your graveyard"
+    // (Fireblooded Oath): the cards are chosen one at a time before the reserve cost is paid.
+    $hasGenericGraveyardBanishCost = false;
+    if(!$ignoreCost && function_exists('GenericGraveyardBanishCostSpec') && GenericGraveyardBanishCostSpec($obj->CardID) !== null) {
+        $banishSpec = GenericGraveyardBanishCostSpec($obj->CardID);
+        $banishCandidates = ZoneSearch("myGraveyard", cardElements: $banishSpec["elements"]);
+        if(count($banishCandidates) < $banishSpec["count"]) {
+            SetFlashMessage(CardName($obj->CardID) . " requires " . $banishSpec["count"] . " " . strtolower(implode("/", $banishSpec["elements"])) . " element cards in your graveyard to banish.");
+            return;
+        }
+        $hasGenericGraveyardBanishCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $banishCandidates), 100, tooltip:"Banish_a_card_from_your_graveyard");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "GenericGraveyardBanishCost|" . $reserveCost . "|" . $obj->CardID . "|" . $banishSpec["count"], 100);
+    }
+
     // 1.3 Declaring Costs — Converge Reflections (TBVLLRPiwP): "As an additional cost to
     // activate this card, sacrifice a non-token item or weapon you control." Eligibility here
     // mirrors activateCardPrereqs["TBVLLRPiwP:0"]'s own legality check (GeneratedCode/
@@ -3463,7 +3482,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasGenericSacrificeCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasSacrificePlayCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasGenericSacrificeCost && !$hasGenericGraveyardBanishCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasSacrificePlayCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -3543,6 +3562,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // When $hasBlazingThrowCost is true, BlazingThrowCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasGenericSacrificeCost is true, GenericSacrificeCost handles sacrifice,
+    // reserve payments, and EffectStackOpportunity.
+    // When $hasGenericGraveyardBanishCost is true, GenericGraveyardBanishCost handles the banishing,
     // reserve payments, and EffectStackOpportunity.
     // When $hasConvergeReflectionsCost is true, ConvergeReflectionsCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
@@ -3810,6 +3831,41 @@ function GenericSacrificeCostCandidates($cardID) {
     switch($cardID) {
         case "pVHGi99Svy": return ZoneSearch("myField", ["ITEM"], cardSubtypes: ["FOOD"]);
         case "CHU96qWwaS": return ZoneSearch("myField", ["ITEM"], cardSubtypes: ["SHIELD"]);
+    }
+    return null;
+}
+
+$customDQHandlers["GenericGraveyardBanishCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    $cardID = $parts[1];
+    $remaining = intval($parts[2]);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $spec = GenericGraveyardBanishCostSpec($cardID);
+    if($spec === null) return;
+    $candidates = ZoneSearch("myGraveyard", cardElements: $spec["elements"]);
+    if(!in_array($lastDecision, $candidates, true)) return;
+
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    --$remaining;
+    if($remaining > 0) {
+        $candidates = ZoneSearch("myGraveyard", cardElements: $spec["elements"]);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $candidates), 100, tooltip:"Banish_a_card_from_your_graveyard");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "GenericGraveyardBanishCost|" . $baseReserve . "|" . $cardID . "|" . $remaining, 100);
+        return;
+    }
+    for($i = 0; $i < $baseReserve; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+// "Banish N <element> cards from your graveyard" additional costs handled by GenericGraveyardBanishCost, or null.
+// Fireblooded Oath: three fire element cards.
+function GenericGraveyardBanishCostSpec($cardID) {
+    switch($cardID) {
+        case "bmoqk2c7wk": return ["count" => 3, "elements" => ["FIRE"]];
     }
     return null;
 }

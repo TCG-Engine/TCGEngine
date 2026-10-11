@@ -1,0 +1,21 @@
+{
+    "name": "fireblooded-oath-is-refused-with-fewer-than-three-fire-cards-in-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bmoqk2c7wk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bmoqk2c7wk"
+        ],
+        "mechanics": [
+            "additional-cost-banish",
+            "cost-validation"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, banish three fire element cards from your graveyard."
+        ]
+    }
+}

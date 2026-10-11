@@ -1,0 +1,21 @@
+{
+    "name": "demons-bargain-gains-control-when-the-opponent-declines",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nRtmc2wmBI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nRtmc2wmBI"
+        ],
+        "mechanics": [
+            "gain-control",
+            "optional-choice-decline"
+        ],
+        "rulesClauses": [
+            "Gain control of target ally you don't control unless its controller has you draw two cards."
+        ]
+    }
+}
