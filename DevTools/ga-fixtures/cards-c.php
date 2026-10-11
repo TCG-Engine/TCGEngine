@@ -272,9 +272,13 @@ gaScenario('crest-of-the-alliance-fostered-ally-dies-draw')
 gaScenario('cosmic-astroscope-rest-glimpse')
     ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
     ->seed('myField', 'Cosmic Astroscope')
-    ->endTurn()->answer(1, '-')->answer(1, 'myField-1@Activate-0@Glimpse')->answer(1, 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y;Bottom=')
+    ->deckTop(['Fluffy Shopkeep', 'Fluffy Shopkeep', 'Dungeon Guide'])
+    ->endTurn()->answer(1, '-')->answer(1, 'myField-1@Activate-0@Glimpse')->answer(1, 'Top=em6eEh9q8y;Bottom=px60u5n1do,px60u5n1do')
     ->tested('Cosmic Astroscope')
     ->expectDqEmpty(step: 4)
+    ->expectProperty('p1Deck-0', 'CardID', 'em6eEh9q8y', 'Glimpse 3 looked at the top three cards (Fluffy Shopkeep, Fluffy Shopkeep, Dungeon Guide) and the reorder was applied: the Dungeon Guide is now on top', step: 4)
+    ->expectProperty('p1Field-1', 'Status', '1', 'The REST cost rested Cosmic Astroscope', step: 4)
+    ->covers(['activated-ability', 'glimpse'], '[REST]: Glimpse 3.')
     ->register();
 
 // --- Condensed Supernova: Brew (Silvershine + 2 Adjuvants + 2 Catalysts); Sacrifice: LV damage to all, Glimpse 4 ---

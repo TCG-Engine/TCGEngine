@@ -360,9 +360,26 @@ gaScenario('beastbond-ears-level-while-animal-beast')
     ->seed('myField', 'Beastbond Ears')
     ->seed('myField', 'Gray Wolf')
     ->seed('myHand', 'Scry the Skies')
-    ->play('Scry the Skies')->pay(1)->answer(1, 'Top=em6eEh9q8y;Bottom=')
+    ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep'])
+    ->play('Scry the Skies')->pay(1)->answer(1, 'Top=;Bottom=em6eEh9q8y')
     ->tested('Beastbond Ears')
     ->expectDqEmpty()
+    ->expectProperty('p1Memory-1', 'CardID', 'px60u5n1do', 'The +1 level made Glimpse LV look at one card: the Dungeon Guide on top went to the bottom, so the card drawn into memory is the Fluffy Shopkeep beneath it')
+    ->covers(['static-ability', 'condition'], 'Your champion gets +1 level as long as you control an Animal or Beast ally.')
+    ->register();
+
+// Negative twin: with no Animal or Beast ally the champion stays level 0, Glimpse LV looks at nothing (no decision), and the
+// Dungeon Guide on top is drawn into memory.
+gaScenario('beastbond-ears-without-an-animal-or-beast-has-no-level-bonus')
+    ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
+    ->seed('myField', 'Beastbond Ears')
+    ->seed('myHand', 'Scry the Skies')
+    ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep'])
+    ->play('Scry the Skies')->pay(1)
+    ->tested('Beastbond Ears')
+    ->expectDqEmpty()
+    ->expectProperty('p1Memory-1', 'CardID', 'em6eEh9q8y', 'Without an Animal or Beast ally the champion stays level 0: Glimpse LV looks at nothing and the Dungeon Guide on top is drawn into memory')
+    ->covers(['static-ability', 'condition'], 'Your champion gets +1 level as long as you control an Animal or Beast ally.')
     ->register();
 
 // --- Blissful Calling: look at top 5, may reveal an Animal or Beast card to hand ---

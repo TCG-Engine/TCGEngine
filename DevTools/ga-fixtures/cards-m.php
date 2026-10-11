@@ -173,21 +173,38 @@ gaScenario('meadowbloom-dryad-class-bonus-enter-buff')
 // out-of-scope ability. Same indirect Glimpse-LV proof technique as beastbond-ears-level-
 // while-animal-beast: Gray Wolf (a BEAST ally) is seeded alongside it, then Scry the Skies'
 // Glimpse LV surfaces a real MZREARRANGE decision (invisible at the default level 0) proving
-// the effective level is 1.
+// the effective level is 1. The Dungeon Guide on top is sent to the bottom, so the card drawn into
+// memory by Scry the Skies is the Fluffy Shopkeep beneath it. (The earlier version of this fixture
+// passed once after paying: no priority window exists there, so that pass answered the Glimpse
+// prompt and the glimpse never took effect.)
 // Notes carried over from the original definition:
 //   - Melodious Flute
 //   - Gray Wolf (BEAST)
-//   - Decline the fast-opportunity offer of Melodious Flute's own [Class Bonus] Banish ability
-//   - (unrelated -- out of scope here) so Scry the Skies proceeds to its own resolution.
 //   - MZREARRANGE response: keep original order -- only exists because the effective level is 1.
 gaScenario('melodious-flute-level-while-animal-beast')
     ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
     ->seed('myField', 'Melodious Flute')
     ->seed('myField', 'Gray Wolf')
     ->seed('myHand', 'Scry the Skies')
-    ->play('Scry the Skies')->pay(1)->pass(1)->answer(1, 'Top=em6eEh9q8y;Bottom=')
+    ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep'])
+    ->play('Scry the Skies')->pay(1)->answer(1, 'Top=;Bottom=em6eEh9q8y')
     ->tested('Melodious Flute')
     ->expectDqEmpty()
+    ->expectProperty('p1Memory-1', 'CardID', 'px60u5n1do', 'The +1 level made Glimpse LV look at one card: the Dungeon Guide on top went to the bottom, so the card drawn into memory is the Fluffy Shopkeep beneath it')
+    ->covers(['static-ability', 'condition'], 'Your champion gets +1 level as long as you control an Animal or Beast ally.')
+    ->register();
+
+// Negative twin: with no Animal or Beast ally the champion stays level 0 and Glimpse LV looks at nothing.
+gaScenario('melodious-flute-without-an-animal-or-beast-has-no-level-bonus')
+    ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
+    ->seed('myField', 'Melodious Flute')
+    ->seed('myHand', 'Scry the Skies')
+    ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep'])
+    ->play('Scry the Skies')->pay(1)
+    ->tested('Melodious Flute')
+    ->expectDqEmpty()
+    ->expectProperty('p1Memory-1', 'CardID', 'em6eEh9q8y', 'Without an Animal or Beast ally the champion stays level 0: Glimpse LV looks at nothing and the Dungeon Guide on top is drawn into memory')
+    ->covers(['static-ability', 'condition'], 'Your champion gets +1 level as long as you control an Animal or Beast ally.')
     ->register();
 
 // --- Magus Disciple: [Class Bonus] On Death: draw a card ---
@@ -220,6 +237,7 @@ gaScenario('magus-disciple-class-bonus-on-death-draw')
     ->expectZoneCount('myField', 1, 1)
     ->expectZoneCount('myGraveyard', 2, 1)
     ->expectZoneCount('myMemory', 1, 1)
+    ->expectZoneCount('myHand', 8, 1, "[Class Bonus] On Death: Magus Disciple drew a card. Hand: 8 seeded cards - Undeniable Truth - 1 reserve + 1 (Undeniable Truth's draw) + 1 (Magus Disciple) = 8; without the trigger it would be 7")
     ->register();
 
 // --- Mana Limiter: Activate: draw a card ---

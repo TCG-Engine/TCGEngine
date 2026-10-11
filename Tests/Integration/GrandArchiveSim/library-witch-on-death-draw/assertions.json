@@ -66,5 +66,14 @@
         "zone": "myMemory",
         "viewerPlayerID": 1,
         "value": 1
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "On Death: Library Witch drew a card. Hand: 8 seeded cards - Undeniable Truth - 1 reserve + 1 (Undeniable Truth's draw) + 1 (Library Witch) = 8; without the trigger it would be 7"
     }
 ]

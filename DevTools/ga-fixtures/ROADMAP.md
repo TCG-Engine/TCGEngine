@@ -94,7 +94,13 @@ Exit (met 2026-10-11 for the shapes that proved regular): `castSpell` (407 scena
 
 ## Phase 2: Raise quality of what already exists
 
-- **162 incomplete contracts** (phase 1 step 6 clears most; finish by hand).
+- **162 incomplete contracts**. DONE 2026-10-11, 0 left. Causes and fixes: 76 had no rules clause (written from card text);
+  43 were wrongly reported because the audit did not count `card_exists` / computed power / life as observable evidence
+  (tool fixed); 43 had recorded state but no semantic label (labelled, with 8 given new observable assertions). Three
+  fixtures proved nothing and were rebuilt: the Beastbond Ears / Deep Sea Beastbonder / Melodious Flute level bonus proofs
+  relied on a decision appearing (Flute's pass answered the Glimpse prompt, so the glimpse never ran). Each now asserts
+  the drawn card and has a negative twin. A Weaponsmith note that claimed the trigger fired three times was wrong
+  (the weapon enters with 2 durability counters).
 - **204 legacy fixtures**: add semantic assertions; prioritise cards also in starter decks.
 - **478 lint flags**: triage into real under-testing (add assertions) versus lint false positives (fix the lint; the
   slug-contains-"level" false positive is the known one).

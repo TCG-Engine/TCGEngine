@@ -800,6 +800,9 @@ DECK
     ->endTurn(2)->pass(1)
     ->endTurn()->pass(2)
     ->play('Smash with Obelisk', 2)->answer(2, 'myField-1')->answer(2, 'myHand-8')->answer(2, 'myHand-8')->answer(2, 'myHand-8')->answer(2, 'theirField-0')->pass(1)
+    ->expectDamage('p1Field-0', 10, 'The attack dealt 10: the printed 6 POWER plus 4, the reserve cost of the sacrificed Wool Brook')
+    ->expectProperty('p2Graveyard-0', 'CardID', 'lcCGyyNGuM', 'Wool Brook was sacrificed as the additional cost')
+    ->covers(['cost', 'additional-cost-sacrifice', 'power-modification'], 'As an additional cost to activate this card, sacrifice a domain you control.', 'CARDNAME gets +X [POWER] where X is the reserve cost of the sacrificed domain.')
     ->register();
 
 // --- Synth Disrupter: banish, Automaton allies enter the field rested until end of turn ---

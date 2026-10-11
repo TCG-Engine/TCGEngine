@@ -329,9 +329,27 @@ gaScenario('deep-sea-beastbonder-level-while-animal-beast')
     ->seed('myField', 'Gray Wolf')
     ->seed('myHand', 'Deep Sea Beastbonder')
     ->seed('myHand', 'Scry the Skies')
+    ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep'])
     ->castSpell('Deep Sea Beastbonder', pay: 4)
-    ->playSlot(3)->pay(1)->answer(1, 'Top=em6eEh9q8y;Bottom=')
+    ->playSlot(3)->pay(1)->answer(1, 'Top=;Bottom=em6eEh9q8y')
     ->expectDqEmpty()
+    ->expectProperty('p1Memory-5', 'CardID', 'px60u5n1do', 'The +1 level made Glimpse LV look at one card: the Dungeon Guide on top went to the bottom, so the card drawn into memory is the Fluffy Shopkeep beneath it')
+    ->covers(['static-ability', 'condition'], 'Your champion gets +1 level as long as you control an Animal or Beast ally.')
+    ->register();
+
+// Negative twin: with no Animal or Beast ally the champion stays level 0 and Glimpse LV looks at nothing.
+gaScenario('deep-sea-beastbonder-without-an-animal-or-beast-has-no-level-bonus')
+    ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
+    ->champion(lineage: ['Nico, Rapture\'s Embrace'])
+    ->seed('myHand', 'Deep Sea Beastbonder')
+    ->seed('myHand', 'Scry the Skies')
+    ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep'])
+    ->castSpell('Deep Sea Beastbonder', pay: 4)
+    ->playSlot(3)->pay(1)
+    ->tested('Deep Sea Beastbonder')
+    ->expectDqEmpty()
+    ->expectProperty('p1Memory-5', 'CardID', 'em6eEh9q8y', 'Without an Animal or Beast ally (the Beastbonder is itself neither) the champion stays level 0: Glimpse LV looks at nothing and the Dungeon Guide on top is drawn into memory')
+    ->covers(['static-ability', 'condition'], 'Your champion gets +1 level as long as you control an Animal or Beast ally.')
     ->register();
 
 // --- Dewdrop Hares: [Class Bonus] Floating Memory ---

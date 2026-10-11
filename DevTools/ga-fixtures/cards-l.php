@@ -274,6 +274,7 @@ gaScenario('library-witch-on-death-draw')
     ->expectZoneCount('myField', 1, 1)
     ->expectZoneCount('myGraveyard', 2, 1)
     ->expectZoneCount('myMemory', 1, 1)
+    ->expectZoneCount('myHand', 8, 1, "On Death: Library Witch drew a card. Hand: 8 seeded cards - Undeniable Truth - 1 reserve + 1 (Undeniable Truth's draw) + 1 (Library Witch) = 8; without the trigger it would be 7")
     ->register();
 
 // --- Lorraine, Blademaster: On Enter, attacks +2 POWER and gain On Kill: Draw a card ---
