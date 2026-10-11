@@ -1,0 +1,34 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"level\":3}",
+        "semantic": true,
+        "label": "The champion is level 3, which is what unlocks the discount"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "At level 3+ Thunderclap costs 2 less: only 2 reserve are paid (2 cards in memory)"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "The discounted Thunderclap still deals its 4 damage and destroys the ally"
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

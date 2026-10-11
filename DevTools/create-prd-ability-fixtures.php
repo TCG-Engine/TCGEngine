@@ -773,36 +773,6 @@ DECK,
     ],
 ];
 
-// --- Mend Flesh: Damage 25+ discount + Recover 8 ---
-$fixtures['mend-flesh-damage25-recover'] = [
-    'testedCards' => ['ju2d98w3j0'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Mend Flesh
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Mend Flesh is an EXIA (advanced element) ACTION card, so the starting champion's Subcards
-    // are patched with a real EXIA champion (Dante, Hemomancer) to unlock element access. The
-    // starting champion's Damage is pre-set to 25 to both reach the [Damage 25+] discount
-    // condition (activationCostModifierAbilities, GeneratedMacroCode.php) and make the
-    // unconditional Recover 8 observable as a Damage decrease.
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['4FtNBFaOJp'], 'Damage' => 25]], // EXIA lineage/element unlock + discount/recover precondition
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ju2d98w3j0'], // Mend Flesh, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
 // --- Penetrator Round: load into an unloaded Gun weapon ---
 $fixtures['penetrator-round-load-gun'] = [
     'testedCards' => ['97n2jnltv5'],
@@ -1596,40 +1566,6 @@ DECK,
     ],
 ];
 
-// --- Dwarf Star's Glow: deal 2 damage to target unit ---
-$fixtures['dwarf-stars-glow-damage'] = [
-    'testedCards' => ['zVubkJC3ce'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Dwarf Star's Glow
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Dwarf Star's Glow is an ASTRA (advanced element) ACTION card, so the starting champion's
-    // Subcards are patched with a real ASTRA champion (Arisanna, Astral Zenith) to unlock element
-    // access. Targets the opponent's champion directly for a straightforward damage assertion.
-    // The Starcalling alternate-cost clause and the "if starcalled, put into memory" clause are
-    // tied to the separate glimpse subsystem and are out of scope (this fixture pays the normal
-    // reserve cost).
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], // ASTRA lineage/element unlock
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zVubkJC3ce'], // Dwarf Star's Glow, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
 // --- Exploit Vulnerability: draw a card (Prepare 1 optional cost not exercised) ---
 $fixtures['exploit-vulnerability-draw'] = [
     'testedCards' => ['hy83sghwfi'],
@@ -1658,40 +1594,6 @@ DECK,
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Cosmic Bolt: deal 4 damage to target unit ---
-$fixtures['cosmic-bolt-damage'] = [
-    'testedCards' => ['vpmu6gvnta'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Cosmic Bolt
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Cosmic Bolt is an ASTRA (advanced element) ACTION card, so the starting champion's Subcards
-    // are patched with a real ASTRA champion (Arisanna, Astral Zenith), same as
-    // dwarf-stars-glow-damage. Targets the opponent's champion directly. With no other copies of
-    // Cosmic Bolt in the graveyard/banishment, the damage resolves to the base 4 (no +2 bonus).
-    // The Starcalling alternate-cost clause is tied to the glimpse subsystem and is out of scope.
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], // ASTRA lineage/element unlock
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vpmu6gvnta'], // Cosmic Bolt, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -1829,39 +1731,6 @@ DECK,
     ],
 ];
 
-// --- Ignite the Soul: deal 1 damage to target unit ---
-$fixtures['ignite-the-soul-damage'] = [
-    'testedCards' => ['rXHo9fLU32'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Ignite the Soul
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Ignite the Soul's element is FIRE (matching the starting champion), so no lineage patch is
-    // needed. Its target pool is any object on the opponent's field (not filtered to ALLY/
-    // CHAMPION), so it targets the opponent's champion directly. The [Class Bonus] Floating
-    // Memory clause is a passive/reusable-elsewhere property, not a triggered ability, and is out
-    // of scope.
-    'setup' => [
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rXHo9fLU32'], // Ignite the Soul, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
 // --- Imperial Countermeasure: prevent the next 4 damage to target unit + draw into memory ---
 $fixtures['imperial-countermeasure-prevent-draw'] = [
     'testedCards' => ['HRPSt74B7g'],
@@ -1894,78 +1763,6 @@ DECK,
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Leeching Bolt: deal champion-level damage to target unit + Recover 2 ---
-$fixtures['leeching-bolt-damage-recover'] = [
-    'testedCards' => ['hs1mzjzexc'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Leeching Bolt
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Leeching Bolt is a TERA (advanced element) ACTION card, so the starting champion's Subcards
-    // are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock element access. The
-    // champion's Counters are also patched with 2 level counters (so "deal LV damage" resolves to
-    // a nonzero, observable 2, instead of the default level-0 no-op) and its Damage is pre-set to
-    // 5 (so Recover 2 is observable as a decrease). The damage targets the opponent's champion
-    // while Recover 2 heals our own, so the two effects are independently assertable. The [Class
-    // Bonus] empowered/preserved clause is out of scope.
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1'], 'Counters' => ['level' => 2], 'Damage' => 5]], // TERA lineage/element unlock + LV damage scaling + recover precondition
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hs1mzjzexc'], // Leeching Bolt, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Entrenched Fortress: On Enter deals 3 damage to target unit ---
-$fixtures['entrenched-fortress-enter-damage'] = [
-    'testedCards' => ['PWkXI6rMl3'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Entrenched Fortress
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Entrenched Fortress is a TERA (advanced element) DOMAIN card, so the starting champion's
-    // Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock element
-    // access. Like other DOMAIN cards (see stocked-outpost-enter-draw-memory), it materializes
-    // onto the field like any other permanent -- there's no separate domain zone in this schema.
-    // Only the On Enter damage is covered; Taunt is a combat-targeting-priority passive that
-    // requires a real attack declaration and is out of scope.
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'PWkXI6rMl3'], // Entrenched Fortress, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -2102,43 +1899,6 @@ DECK,
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Cometfall: deal 3 damage to all non-Astra units ---
-$fixtures['cometfall-sweep-damage'] = [
-    'testedCards' => ['4d5vettczb'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Cometfall
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Cometfall is an ASTRA (advanced element) ACTION card, so the starting champion's Subcards
-    // are patched with a real ASTRA champion (Arisanna, Astral Zenith) to unlock element access --
-    // note this only grants element ACCESS, it doesn't change the champion's own element (both
-    // starting champions remain FIRE, so both take the sweep damage). No targeting decision is
-    // needed since the effect hits all non-Astra units unconditionally. Without the [Class Bonus]
-    // (CLERIC), the damage is the base 3, not the boosted 4. The Starcalling alternate-cost clause
-    // is tied to the glimpse subsystem and is out of scope.
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], // ASTRA lineage/element unlock
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4d5vettczb'], // Cometfall, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -2430,39 +2190,6 @@ DECK,
     ],
 ];
 
-// --- Aenean Frostlance: deal 2 damage to target unit ---
-$fixtures['aenean-frostlance-damage'] = [
-    'testedCards' => ['NXGaB1dYwL'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Aenean Frostlance
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Aenean Frostlance's element is WATER, so the starting champion's Subcards are patched with
-    // a real WATER champion (Spirit of Water, reused from coriolis-ward-prevent-level/
-    // perfect-repulsion-prevent-x). Only the base 2-damage clause is covered; the [Class Bonus]
-    // [Level 3+]/[Level 6+] scaled-damage-to-a-rested-unit branches aren't reached.
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'NXGaB1dYwL'], // Aenean Frostlance, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
 // --- Worn Gearblade: Class Bonus + remove durability counter to prevent 1 damage ---
 $fixtures['worn-gearblade-durability-prevent'] = [
     'testedCards' => ['r1o0qtb31x'],
@@ -2555,41 +2282,6 @@ DECK,
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-4!FSM!', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Fireball: deal 1+level damage to target unit ---
-$fixtures['fireball-scaling-damage'] = [
-    'testedCards' => ['RIVahUIQVD'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Fireball
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Fireball's element is FIRE (matching the starting champion), so no lineage patch is needed.
-    // The starting champion's Counters are patched with 2 level counters so "deal 1+LV damage"
-    // resolves to a nonzero-interesting 3, instead of the default level-0 base of 1. Without the
-    // [Class Bonus] discount, the full 4-reserve cost is paid.
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 2]]], // LV damage scaling
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'RIVahUIQVD'], // Fireball, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -2827,38 +2519,6 @@ DECK,
     ],
 ];
 
-// --- Focused Flames: deal 4 damage to target ally ---
-$fixtures['focused-flames-damage'] = [
-    'testedCards' => ['145y6KBhxe'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Focused Flames
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Focused Flames' element is FIRE (matching the starting champion), so no lineage patch is
-    // needed. Dungeon Guide is seeded onto the opponent's field as the required ally target
-    // (unlike most other damage cards in this backlog, this one can't target a champion). Without
-    // the [Class Bonus] discount, the full 2-reserve cost is paid.
-    'setup' => [
-        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - damage target
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => '145y6KBhxe'], // Focused Flames, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
 // --- Forging Heat: put a durability counter and +1 power on target Sword weapon ---
 $fixtures['forging-heat-sword-buff'] = [
     'testedCards' => ['tjmzM6t9R5'],
@@ -2917,40 +2577,6 @@ DECK,
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Give Bath: remove all temporary damage from target ally ---
-$fixtures['give-bath-remove-damage'] = [
-    'testedCards' => ['XeXek4dKav'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Give Bath
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Give Bath's element is WATER, so the starting champion's Subcards are patched with a real
-    // WATER champion (Spirit of Water, reused from coriolis-ward-prevent-level/
-    // perfect-repulsion-prevent-x/aenean-frostlance-damage). Dungeon Guide is seeded onto the
-    // opponent's field with 1 pre-existing Damage so the "remove all damage" effect is observable
-    // as a decrease to 0. The [Class Bonus] Floating Memory clause is out of scope.
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
-        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Damage' => 2]], // Dungeon Guide, pre-damaged - remove-damage target
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'XeXek4dKav'], // Give Bath, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -3190,35 +2816,6 @@ DECK,
     ],
 ];
 
-// --- Juggle Knives: deal 1 damage to target champion ---
-$fixtures['juggle-knives-damage-champion'] = [
-    'testedCards' => ['7VxRE6HgZC'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Juggle Knives
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    'setup' => [
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => '7VxRE6HgZC'], // Juggle Knives, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
 // --- Alpha Philterbeast: Brew - Three Herbs, ages if brewed ---
 $fixtures['alpha-philterbeast-brew-age-counters'] = [
     'testedCards' => ['NwK5wge8wy'],
@@ -3286,67 +2883,6 @@ DECK,
     ],
 ];
 
-// --- Lightweaver's Assault: reveal memory, split damage equal to cards revealed ---
-$fixtures['lightweavers-assault-split-damage'] = [
-    'testedCards' => ['zxB4tzy9iy'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Lightweaver's Assault
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]], // LUXEM lineage/element unlock
-        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory fuel 1/2
-        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // memory fuel 2/2
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zxB4tzy9iy'], // Lightweaver's Assault, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0:6', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Mark the Target: deal 1 damage to target unit ---
-$fixtures['mark-the-target-damage'] = [
-    'testedCards' => ['LRsgl92Iqa'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Mark the Target
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    'setup' => [
-        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - damage target
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'LRsgl92Iqa'], // Mark the Target, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
 // --- Meteor Strike: not starcalled, destroy target non-champion object ---
 $fixtures['meteor-strike-destroy'] = [
     'testedCards' => ['dwavcoxpnj'],
@@ -3373,67 +2909,6 @@ DECK,
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Nascent Blast: deal 3 damage to target unit ---
-$fixtures['nascent-blast-damage'] = [
-    'testedCards' => ['vajycopxgf'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Nascent Blast
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    'setup' => [
-        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - damage target
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vajycopxgf'], // Nascent Blast, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Planted Explosive: deal 2 damage to target unit (not prepared) ---
-$fixtures['planted-explosive-damage'] = [
-    'testedCards' => ['5X5W2Uda5a'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Planted Explosive
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    'setup' => [
-        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - damage target
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => '5X5W2Uda5a'], // Planted Explosive, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
@@ -3849,37 +3324,6 @@ DECK,
     ],
 ];
 
-// --- Flourishing Qi: deal LV (+charge) damage to target unit ---
-$fixtures['flourishing-qi-damage'] = [
-    'testedCards' => ['MDu0e3tib8'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Flourishing Qi
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['mdwbkuhtjm'], 'Counters' => ['level' => 2]]], // TERA lineage/element unlock + level 2 for nonzero LV damage
-        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - damage target
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'MDu0e3tib8'], // Flourishing Qi, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
 // --- Nascent Barrier: [Level 3+] Glimpse 3 ---
 $fixtures['nascent-barrier-glimpse'] = [
     'testedCards' => ['6bc3ogf0o8'],
@@ -3996,60 +3440,6 @@ DECK,
     ],
 ];
 
-// --- Clumsy Apprentice: On Enter, deal 2 damage to your champion, draw a card ---
-$fixtures['clumsy-apprentice-enter-damage-draw'] = [
-    'testedCards' => ['LZ8JpWj27h'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Clumsy Apprentice
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    'setup' => [
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'LZ8JpWj27h'], // Clumsy Apprentice, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Solar Pinnacle: deal 2 damage to target unit, Empower 2 ---
-$fixtures['solar-pinnacle-damage-empower'] = [
-    'testedCards' => ['zeig1e49wb'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Solar Pinnacle
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    'setup' => [
-        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - damage target
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zeig1e49wb'], // Solar Pinnacle, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
 // --- Regenerate: draw a card into memory ---
 $fixtures['regenerate-draw'] = [
     'testedCards' => ['v9ngjjadj4'],
@@ -4071,42 +3461,6 @@ DECK,
     ],
     'actions' => [
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Purge in Flames: deal 2 damage to all units except your champion ---
-$fixtures['purge-in-flames-damage'] = [
-    'testedCards' => ['uTBsOYf15p'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Purge in Flames
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'MAGE']]]], // MAGE champion: the [Class Bonus] is active (a bare class-bonus gate used to be always true)
-        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - AoE target 1/2
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 1/2
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 2/2
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uTBsOYf15p'], // Purge in Flames, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-9!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
     ],
@@ -4714,89 +4068,6 @@ DECK,
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Cone of Frost: level-conditional multi-target damage (Level 1+ step) ---
-$fixtures['cone-of-frost-level1-damage'] = [
-    'testedCards' => ['i7sbjy86ep'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Cone of Frost
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Regression test for a fixed engine crash: activating Cone of Frost at champion level 1+
-    // called DecisionQueueController::AddDecision(..., lastDecision:"-"), a named argument that
-    // didn't exist on that method's signature, which fatally crashed every PHP 8 request that hit
-    // it. AddDecision() now accepts (and ignores) that argument. Cone of Frost's element is WATER,
-    // so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water)
-    // to unlock element access, and its Counters are patched with a level-1 counter so the
-    // [Level 1+] clause is active (only the base level-1 step is exercised here; [Level 3+] and
-    // [Level 5+] add further MZMAYCHOOSE rounds out of scope for this fixture). Without a [Class
-    // Bonus] discount, the full 3-reserve cost is paid; completing the 3rd reserve payment
-    // cascades directly into the level-1 MZMAYCHOOSE (no separate opportunity-window PASS needed
-    // for this card), which offers our own champion as an optional damage target.
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF'], 'Counters' => ['level' => 1]]], // WATER lineage/element unlock, level 1
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'i7sbjy86ep'], // Cone of Frost, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Relentless Outburst: for every 6 damage counters on your champion, deal 1 damage to all other units ---
-$fixtures['relentless-outburst-damage-burst'] = [
-    'testedCards' => ['oobp8g4cpe'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Relentless Outburst
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Regression test for a fixed engine crash: activating Relentless Outburst called the
-    // previously-undefined GetChampionDamage() function (see GrandArchiveSim/Custom/GameLogic.php),
-    // which fatally crashed the game. GetChampionDamage() is now an alias for the existing
-    // ChampionDamageCounters() helper, matching every other "[Damage N+]" card's convention.
-    // Relentless Outburst's element is EXIA, so the starting champion's Subcards are patched with
-    // a real EXIA champion (Dante, Hemomancer) to unlock element access, and the champion's
-    // Damage is pre-patched to 6 so intdiv(6, 6) = exactly 1 damage burst. A Dungeon Guide (ALLY)
-    // is seeded onto our own field so the "all other units" clause has a same-side target to
-    // distinguish from our own excluded champion. Without a [Class Bonus] discount, the full
-    // 3-reserve cost is paid; completing the 3rd reserve payment cascades directly into the
-    // ability's own MZCHOOSE (which champion the [Class Bonus][Damage 35+] retaliation-buff
-    // clause would apply to, out of scope here since Class Bonus is inactive) with no separate
-    // opportunity-window PASS needed for this card.
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['4FtNBFaOJp'], 'Damage' => 6]], // EXIA lineage/element unlock, 6 damage counters so 1 burst
-        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - same-side burst target
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'oobp8g4cpe'], // Relentless Outburst, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -7432,78 +6703,6 @@ DECK,
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Umbra Sight: Draw a card; may draw into memory + curse lineage for damage ---
-$fixtures['umbra-sight-curse-lineage-damage'] = [
-    'testedCards' => ['f15joh300z'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Umbra Sight
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Umbra Sight is UMBRA (advanced element), so the starting champion's Subcards are patched
-    // with a real UMBRA champion (Tristan, Shadowdancer) to unlock element access. Its reserve
-    // cost is a real printed 0 (not the "-1 = no reserve type" sentinel), so no reserve-payment
-    // decision is queued at all -- straight into the unconditional draw, then a YESNO for the
-    // optional draw-into-memory + curse-lineage effect. Choosing YES adds it to the champion's
-    // lineage and deals 2 unpreventable damage per curse in lineage (2, counting itself).
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]], // UMBRA lineage/element unlock
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'f15joh300z'], // Umbra Sight, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
-// --- Umbral Tithe: each player draws 2 into memory, then damage to high-memory champions ---
-$fixtures['umbral-tithe-memory-damage'] = [
-    'testedCards' => ['2snsdwmxz1'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Umbral Tithe
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    // Umbral Tithe is UMBRA (advanced element); same lineage patch as Umbra Sight. Its 5-reserve
-    // cost is discounted 1 per Curse in either champion's lineage -- with none seeded here the
-    // full 5 reps of the myHand-0 reserve-payment decision are needed. Player 1's memory is
-    // pre-seeded with 4 cards so the two drawn by this effect push them to 6+, triggering the
-    // 4-damage clause; player 2 starts at 0 and stays under the threshold.
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]], // UMBRA lineage/element unlock
-        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
-        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
-        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
-        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2snsdwmxz1'], // Umbral Tithe, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -29735,42 +28934,6 @@ DECK,
     ],
 ];
 
-// Negative twin of 'purge-in-flames-damage': the champion's class does not match, so the [Class Bonus] must NOT apply.
-$fixtures['purge-in-flames-without-the-class-bonus-deals-two-damage'] = [
-    'testedCards' => ['uTBsOYf15p'],
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Fire
-1 Lorraine, Wandering Warrior
-1 Clarent, Sword of Peace
-1 Backup Charger
-1 Purifying Thurible
-# Main
-4 Purge in Flames
-4 Dungeon Guide
-4 Fairy Whispers
-4 Fluffy Shopkeep
-DECK,
-    
-'setup' => [
-        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - AoE target 1/2
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 1/2
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 2/2
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uTBsOYf15p'], // Purge in Flames, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-9!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
-    ],
-];
-
 // Negative twin of 'gaias-songbird-class-bonus-enter-reveal-beast': the champion's class does not match, so the [Class Bonus] must NOT apply.
 $fixtures['gaias-songbird-without-the-class-bonus-does-not-reveal'] = [
     'testedCards' => ['sHzSmygjWY'],
@@ -32392,6 +31555,13 @@ $fixtures['capacitance-x-psycho-is-not-activated-from-the-material-deck-with-onl
 
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
+// Scenario-builder definitions (DevTools/ga-fixtures/): fluent descriptions in card names that expand to the same
+// array shape as the inline definitions above. They register into $fixtures; see Scenario.php.
+require_once __DIR__ . '/ga-fixtures/Scenario.php';
+foreach (glob(__DIR__ . '/ga-fixtures/*.php') as $scenarioFile) {
+    if (basename($scenarioFile) !== 'Scenario.php') require_once $scenarioFile;
+}
+
 if ($onlyFixture) {
     if (!isset($fixtures[$onlyFixture])) {
         echo "Unknown fixture: $onlyFixture\n";
@@ -32680,7 +31850,7 @@ foreach ($fixtures as $slug => $def) {
 
         file_put_contents(
             $fixtureDir . '/assertions.json',
-            json_encode($keptAssertionsJson ?? [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+            json_encode($def['assertions'] ?? $keptAssertionsJson ?? [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
         );
 
         $generatedMeta = [
@@ -32690,9 +31860,10 @@ foreach ($fixtures as $slug => $def) {
             'createdBy' => 'batch-script',
             'testedCards' => $def['testedCards'],
         ];
-        if ($keptMeta !== null) {
-            // The earlier record wins (createdAt/createdBy, notes, semanticCoverage, engineBug, ...); the identity and the tested cards follow the definition.
-            $generatedMeta = array_merge($generatedMeta, $keptMeta, [
+        if ($keptMeta !== null || !empty($def['meta'])) {
+            // The earlier record wins (createdAt/createdBy, notes, semanticCoverage, engineBug, ...), except that a scenario-builder
+            // definition's own notes / semanticCoverage ($def['meta']) win over it; the identity and the tested cards follow the definition.
+            $generatedMeta = array_merge($generatedMeta, $keptMeta ?? [], $def['meta'] ?? [], [
                 'name' => $slug,
                 'rootName' => $rootName,
                 'testedCards' => $def['testedCards'],

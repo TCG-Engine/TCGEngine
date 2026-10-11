@@ -72,6 +72,46 @@ selected to prove a printed clause. A `decision_queue_empty` assertion may verif
 interaction finished, but it never completes a positive semantic contract by itself. Pair
 it with an observable card, zone, counter, status, damage, or global-effect assertion.
 
+## Writing fixtures with the scenario builder
+
+New fixtures should be written as scenarios in `DevTools/ga-fixtures/*.php` (builder: `Scenario.php`)
+instead of as raw `setup` / `actions` / `assertions` rows. A scenario describes the game in card names
+and expands to exactly the array shape `create-prd-ability-fixtures.php` already consumes, so the
+generator, the runner and the fixture files are unchanged.
+
+```php
+gaScenario('thunderclap-level-three-costs-two-less')
+    ->standardDeck('Thunderclap')
+    ->champion(level: 3)
+    ->seed('theirField', 'Dungeon Guide')
+    ->seed('myHand', 'Thunderclap')
+    ->play('Thunderclap')->pay(2)->passBoth()->target('theirField-1')
+    ->expectZoneCount('myMemory', 2, 1, 'At level 3+ the card costs 2 less')
+    ->expectProperty('p2Graveyard-0', 'CardID', 'em6eEh9q8y', 'The ally was destroyed')
+    ->expectDqEmpty()
+    ->notes('...')
+    ->covers(['cost', 'targeting', 'damage'], '[Level 3+] This card costs 2 less to activate.')
+    ->register();
+```
+
+- **Names, not IDs or slots.** `seed('myHand', 'Name')` records which hand slot the card lands in, and
+  `play('Name')` uses it. `champion(lineage:, level:, damage:, classes:)` patches the starting champion.
+- **Actions.** `play`, `pay(n)`, `pass(p)`, `passBoth()`, `answer(p, mz)`, `target(mz)`, `endTurn()`,
+  and `rejects(p, mz, label)` for a deliberately illegal answer (the negative path).
+  `rawSetup()` / `rawAction()` are escape hatches for anything without a verb.
+- **Expectations** default to the last action's step: `expectDamage`, `expectProperty`,
+  `expectZoneCount`, `expectDqEmpty`. A label marks the assertion `"semantic": true`.
+- **Meta.** `covers(mechanics, ...clauses)` writes `semanticCoverage` (with `testedCards` filled in from the
+  cards played) and `notes()` writes the notes; both win over a kept `meta.json`.
+- **A scenario's expectations replace `assertions.json`** when it declares any; otherwise the existing file
+  is carried over as before.
+
+Generate with `php DevTools/create-prd-ability-fixtures.php --fixture=<slug>`. Check the corpus with
+`php DevTools/verify-ga-scenarios.php [slug ...]`: it regenerates each scenario fixture, compares every file
+with HEAD by meaning (JSON decoded, CRLF ignored, `meta.json` `name` ignored) and restores the committed files,
+so converting an inline definition to a scenario is provably behaviour-preserving. While a fixture is being
+migrated, `register()` also refuses to run if the scenario differs from the inline definition of the same slug.
+
 ## Review and migration
 
 Run:
