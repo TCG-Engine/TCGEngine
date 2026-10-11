@@ -1,0 +1,16 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "Influence is above four: no damage"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

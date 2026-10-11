@@ -219,6 +219,23 @@ class GaScenario {
         return $this->act($player, 10002, 'myHand-' . $slot . '!FSM!');
     }
 
+    // A harmless action (answering with the champion when nothing is pending) for fixtures that only inspect seeded
+    // state, such as a static ability's computed POWER / LIFE: the generator needs at least one action to record.
+    public function observe(int $player = 1): self {
+        return $this->answer($player, 'myField-0');
+    }
+
+    // Player 1's first turn cannot attack (rule 1.h): both players end a turn, then player 1 declines the materialize offer
+    // of their own turn 3 and is back in the main phase with the board unchanged.
+    public function reachTurnThree(): self {
+        return $this->endTurn(1)->endTurn(2)->pass(1);
+    }
+
+    // Declare an attack with the unit in $attackerMz (e.g. 'myField-1') against $targetMz (e.g. 'theirField-0').
+    public function attack(string $attackerMz, string $targetMz, int $player = 1): self {
+        return $this->act($player, 10002, $attackerMz . '!FSM!')->answer($player, $targetMz);
+    }
+
     // Any other action row: $mode is the engine input mode (100 answer, 10001 turn buttons, 10002 FSM click, ...).
     public function action(int $player, int $mode, string $card): self {
         return $this->act($player, $mode, $card);

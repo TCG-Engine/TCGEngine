@@ -1,0 +1,19 @@
+{
+    "name": "ash-filcher-class-bonus-attack-banishes-a-fire-card-for-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:20:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [],
+    "semanticCoverage": {
+        "testedCards": [],
+        "mechanics": [
+            "on-attack",
+            "banish",
+            "stat-change",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may banish a fire element card from your graveyard. If you do, this attack gets +2 [POWER]."
+        ]
+    }
+}

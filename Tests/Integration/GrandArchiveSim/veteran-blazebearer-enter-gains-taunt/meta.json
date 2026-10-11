@@ -1,0 +1,21 @@
+{
+    "name": "veteran-blazebearer-enter-gains-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "23yfzk96yd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "23yfzk96yd"
+        ],
+        "mechanics": [
+            "on-enter",
+            "taunt"
+        ],
+        "rulesClauses": [
+            "On Enter: CARDNAME gains taunt until the beginning of your next turn."
+        ]
+    }
+}

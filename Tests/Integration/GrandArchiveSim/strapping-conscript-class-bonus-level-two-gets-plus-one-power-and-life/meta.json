@@ -1,0 +1,22 @@
+{
+    "name": "strapping-conscript-class-bonus-level-two-gets-plus-one-power-and-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "csMiEObm2l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "csMiEObm2l"
+        ],
+        "mechanics": [
+            "static-ability",
+            "class-bonus",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] CARDNAME gets +1 [POWER] and +1 [LIFE]."
+        ]
+    }
+}

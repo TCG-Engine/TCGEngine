@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Not ephemeral: a card was drawn into memory"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "wtHBZAdTSv",
+        "semantic": true,
+        "label": "Nether Dodobird was sacrificed as the cost"
+    }
+]

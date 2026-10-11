@@ -1,0 +1,23 @@
+{
+    "name": "flamelash-beastmaster-class-bonus-enter-gives-a-beast-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mvgmaalpko"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mvgmaalpko"
+        ],
+        "mechanics": [
+            "on-enter",
+            "stat-change",
+            "targeting",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Target Beast ally you control gets +3 [POWER] until end of turn."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "cemetery-sentry-enter-discards-a-fire-card-to-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hDUP6BY5Cx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hDUP6BY5Cx"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw-discard",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "On Enter: You may discard a fire element card. If you do, draw a card."
+        ]
+    }
+}

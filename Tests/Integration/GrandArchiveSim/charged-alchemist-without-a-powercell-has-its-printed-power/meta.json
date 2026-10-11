@@ -1,0 +1,22 @@
+{
+    "name": "charged-alchemist-without-a-powercell-has-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v4vm4kj3q2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v4vm4kj3q2"
+        ],
+        "mechanics": [
+            "static-ability",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as you control a Powercell, CARDNAME gets +1 [POWER]."
+        ]
+    }
+}

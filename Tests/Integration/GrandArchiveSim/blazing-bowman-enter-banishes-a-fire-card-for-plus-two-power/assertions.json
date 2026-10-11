@@ -1,0 +1,19 @@
+[
+    {
+        "step": 5,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 4,
+        "semantic": true,
+        "label": "On Enter: banishing a fire card gave +2 POWER: 2 + 2"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The fire card was banished from the graveyard"
+    }
+]

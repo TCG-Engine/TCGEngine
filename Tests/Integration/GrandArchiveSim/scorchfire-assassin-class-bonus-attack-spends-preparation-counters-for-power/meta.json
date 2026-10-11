@@ -1,0 +1,19 @@
+{
+    "name": "scorchfire-assassin-class-bonus-attack-spends-preparation-counters-for-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:20:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [],
+    "semanticCoverage": {
+        "testedCards": [],
+        "mechanics": [
+            "on-attack",
+            "counter",
+            "stat-change",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may remove up to three preparation counters from your champion. For each counter removed this way, this attack gets +2 [POWER]."
+        ]
+    }
+}

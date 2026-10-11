@@ -2451,3 +2451,14 @@ $customDQHandlers["3fbpyhm271:0:CardActivated-1"] = function($player, $parts, $l
     }
     Draw($player, 1);
 };
+
+// Peppered Chef (lcy0lw1veb): "On Enter: You may sacrifice another ally. If you do, Peppered Chef gets +2 POWER until end of
+// turn." The generated body sacrificed first and then tagged the Chef through the mz id it had when it entered; the
+// sacrifice compacts the field, so that id pointed at an empty slot (or another card) and the Chef never got the power.
+$customDQHandlers["lcy0lw1veb:0:Enter-1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    AddTurnEffect($mzID, "lcy0lw1veb");
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+};

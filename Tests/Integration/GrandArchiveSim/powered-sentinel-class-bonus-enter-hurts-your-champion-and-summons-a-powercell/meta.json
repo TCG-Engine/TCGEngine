@@ -1,0 +1,23 @@
+{
+    "name": "powered-sentinel-class-bonus-enter-hurts-your-champion-and-summons-a-powercell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nbrfnrow8i"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nbrfnrow8i"
+        ],
+        "mechanics": [
+            "on-enter",
+            "damage",
+            "summon",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Deal 3 damage to your champion and summon a Powercell token rested."
+        ]
+    }
+}

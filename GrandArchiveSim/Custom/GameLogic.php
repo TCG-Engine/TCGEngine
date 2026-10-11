@@ -15225,15 +15225,6 @@ function ObjectCurrentPower($obj) {
             case "CbPHWJ8Upd": // Stabilizing BladeCore: class bonus linked Sword gets +2 POWER
                 if(IsClassBonusActive($linkedObj->Controller, CardClasses($linkedObj->CardID))) $power += 2;
                 break;
-            case "bhhdb7x044": // Tricky Chimps: [CB] On Enter +2 POWER until end of turn
-                $power += 2;
-                break;
-            case "b65hiv400w": // Ash Filcher: [CB] On Attack banish fire from GY +2 POWER
-                $power += 2;
-                break;
-            case "az2b8nfh95": // Primal Whip: [CB][Lv2+] On Attack +1 POWER to non-Human ally
-                $power += 1;
-                break;
             case "oh5n2sjk0u": // Tailwind's Blessing: allies get +1 POWER until EOT
                 $power += 1;
                 break;
@@ -15242,12 +15233,6 @@ function ObjectCurrentPower($obj) {
                 break;
             case "aKgdkLSBza": // Wilderness Harpist: +1 level (actually power) from Melody/Harmony activation
                 $power += 1;
-                break;
-            case "yrm3xibmoz": // Stolid Vanguard: Equestrian On Enter +2 POWER until end of turn
-                $power += 2;
-                break;
-            case "qry41lw9n0": // Blazing Bowman: On Enter banish fire from GY +2 POWER
-                $power += 2;
                 break;
             case "3jg01o26b4": // Slice and Dice: copy from additional attack gets +3 POWER
                 if(in_array("3jg01o26b4-COPY_POWER", $obj->TurnEffects)) {
@@ -15364,6 +15349,12 @@ function ObjectCurrentPower($obj) {
         if(strpos($te, "CRYSTALLIZED_ANTHEM_POWER_") === 0) {
             $power += intval(substr($te, strlen("CRYSTALLIZED_ANTHEM_POWER_")));
         }
+    }
+    // "+N POWER until end of turn" tags that a unit carries from its own On Enter / On Attack effect (the tag is the source card's
+    // id). These used to sit in the linked-card switch above, which only looks at the CardIDs of linked objects, so the bonus was
+    // never applied.
+    foreach(["bhhdb7x044" => 2, "b65hiv400w" => 2, "qry41lw9n0" => 2, "yrm3xibmoz" => 2, "az2b8nfh95" => 1] as $selfPowerTag => $selfPowerBonus) {
+        if(in_array($selfPowerTag, $obj->TurnEffects)) $power += $selfPowerBonus;
     }
     // Peppered Chef (lcy0lw1veb): On Enter sacrifice ally â†’ +2 POWER until end of turn
     if(in_array("lcy0lw1veb", $obj->TurnEffects)) {
@@ -19914,7 +19905,8 @@ function AddTurnEffect($mzCard, $effectID) {
         }
     }
     // Striking Illuminance (2lukkhisu5): one "+1 POWER" marker per luxem card revealed from memory (ObjectCurrentPower counts them), so they must stack.
-    $isStackingEffect = strpos($effectID, "RANGED_") === 0 || $effectID === "qzzadf9q1v-POWER" || $effectID === "2lukkhisu5_REVEAL_POWER";
+    // Scorchfire Assassin (o4h8cfo21a): +2 POWER marker per preparation counter removed, so they must stack too.
+    $isStackingEffect = strpos($effectID, "RANGED_") === 0 || $effectID === "qzzadf9q1v-POWER" || $effectID === "2lukkhisu5_REVEAL_POWER" || $effectID === "o4h8cfo21a";
     if($isStackingEffect || !in_array($effectID, $obj->TurnEffects)) {
         array_push($obj->TurnEffects, $effectID);
     }

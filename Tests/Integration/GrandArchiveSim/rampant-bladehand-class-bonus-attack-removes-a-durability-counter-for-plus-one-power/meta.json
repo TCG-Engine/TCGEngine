@@ -1,0 +1,19 @@
+{
+    "name": "rampant-bladehand-class-bonus-attack-removes-a-durability-counter-for-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:20:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [],
+    "semanticCoverage": {
+        "testedCards": [],
+        "mechanics": [
+            "on-attack",
+            "counter",
+            "stat-change",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may remove a durability counter from a weapon you control. If you do, this attack gets +1 [POWER]."
+        ]
+    }
+}

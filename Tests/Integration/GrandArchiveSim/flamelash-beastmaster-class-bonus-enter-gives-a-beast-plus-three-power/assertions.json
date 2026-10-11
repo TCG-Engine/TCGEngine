@@ -1,0 +1,15 @@
+[
+    {
+        "step": 4,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 6,
+        "semantic": true,
+        "label": "[Class Bonus] On Enter: the Beast got +3 POWER: 3 + 3"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

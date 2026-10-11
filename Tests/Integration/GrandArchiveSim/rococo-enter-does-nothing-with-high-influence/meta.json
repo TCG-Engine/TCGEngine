@@ -1,0 +1,21 @@
+{
+    "name": "rococo-enter-does-nothing-with-high-influence",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:18:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "m6h38lrj52"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "m6h38lrj52"
+        ],
+        "mechanics": [
+            "on-enter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: If your influence is four or less, deal 2 damage to target champion."
+        ]
+    }
+}

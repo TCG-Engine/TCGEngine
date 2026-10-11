@@ -1,0 +1,21 @@
+{
+    "name": "captivating-cutthroat-class-bonus-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7lh9v2214u"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7lh9v2214u"
+        ],
+        "mechanics": [
+            "static-ability",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 [POWER]."
+        ]
+    }
+}

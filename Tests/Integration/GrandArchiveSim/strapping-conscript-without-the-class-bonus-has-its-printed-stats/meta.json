@@ -1,0 +1,22 @@
+{
+    "name": "strapping-conscript-without-the-class-bonus-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "csMiEObm2l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "csMiEObm2l"
+        ],
+        "mechanics": [
+            "static-ability",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] CARDNAME gets +1 [POWER] and +1 [LIFE]."
+        ]
+    }
+}

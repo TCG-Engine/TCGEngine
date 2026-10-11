@@ -1,0 +1,22 @@
+{
+    "name": "powered-sentinel-without-the-class-bonus-does-nothing-on-enter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nbrfnrow8i"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nbrfnrow8i"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Deal 3 damage to your champion and summon a Powercell token rested."
+        ]
+    }
+}

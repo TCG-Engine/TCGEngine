@@ -1,0 +1,22 @@
+{
+    "name": "varuckan-acolyte-enter-destroys-a-memory-cost-zero-regalia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a4dk88zq9o"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a4dk88zq9o"
+        ],
+        "mechanics": [
+            "on-enter",
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "On Enter: Destroy target regalia with memory cost 0."
+        ]
+    }
+}
