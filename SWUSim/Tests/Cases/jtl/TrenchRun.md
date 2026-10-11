@@ -117,3 +117,59 @@ P2BASEDMG:6
 P1SPACEARENAUNIT:0:DAMAGE:1
 P1SPACEARENAUNIT:1:DAMAGE:0
 P2DECKCOUNT:0
+
+---
+
+# ThreeSeat_DiscardsFromTheSEATAttacked_NotSeatTwo
+#// Same determined-defending-seat rule as SEC_205: "discard 2 cards from THE DEFENDING PLAYER's deck".
+#// The fighter attacks SEAT 3's base, so seat 3's deck is milled — not seat 2's, which
+#// `OtherPlayer($player)` named for any seat-1 attacker.
+
+## GIVEN
+CommonSetup3P: bbk/bbk/bbk/{
+  myLeader:JTL_001
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: JTL_156
+WithP1Resources: 5
+WithP1SpaceArena: SOR_237:1:0
+WithP2Deck: [SOR_225 SOR_237]
+WithP3Deck: [SOR_225 SOR_237]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p3Base-0
+
+## EXPECT
+SEATCOUNT:3
+P3DECKCOUNT:0
+P2DECKCOUNT:2
+
+---
+
+# FourSeat_DiscardsFromTheSEATAttacked_TwoBystandersUntouched
+#// 4P sibling of the section above — the fighter hits SEAT 4's base, so only seat 4's deck loses cards.
+
+## GIVEN
+CommonSetup4P: bbk/bbk/bbk/bbk/{
+  myLeader:JTL_001
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: JTL_156
+WithP1Resources: 5
+WithP1SpaceArena: SOR_237:1:0
+WithP2Deck: [SOR_225 SOR_237]
+WithP3Deck: [SOR_225 SOR_237]
+WithP4Deck: [SOR_225 SOR_237]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p4Base-0
+
+## EXPECT
+SEATCOUNT:4
+P4DECKCOUNT:0
+P2DECKCOUNT:2
+P3DECKCOUNT:2

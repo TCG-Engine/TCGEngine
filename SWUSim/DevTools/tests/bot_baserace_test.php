@@ -8,6 +8,7 @@ require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/BotHeuristic.php';
 $ids = fn($acts) => array_map(fn($a) => strval($a['cardID']), $acts);
+$sorted = function ($a) { sort($a); return $a; };
 $check(SWUBotVariantDisabled('no-baserace') === ['baserace'], 'baserace is switchable');
 
 // Racing: 8 left / 4 → 2 rounds, their clock 30 / 3 → 10.
@@ -16,13 +17,15 @@ $raiseAttack(1, 'myGroundArena-0');
 $check(SWUBotIsRacing(1, 2) === true, 'fixture: seat 1 is racing');
 $check($ids(SWUBotStyleFilter($botCtx('control'))) === ['theirBase-0'], 'Control racing: the base (Aggro\'s rule)');
 SWUBotSetDisabledFeatures(['baserace']);
-$check($ids(SWUBotStyleFilter($botCtx('control'))) === ['theirGroundArena-0'], '@no-baserace: the unit, as before');
+$check($sorted($ids(SWUBotStyleFilter($botCtx('control')))) === ['theirBase-0', 'theirGroundArena-0'],
+    '@no-baserace: no racing shift, but the base is still a candidate — the filter never excludes it');
 SWUBotSetDisabledFeatures([]);
 
 // Not racing (30 / 4 → 8 rounds): Control's rule is unchanged.
 $build(function ($b) { $b->WithGroundUnitForPlayer(1, 'LOF_084', true); $b->WithGroundUnitForPlayer(2, 'SOR_095', true); });
 $raiseAttack(1, 'myGroundArena-0');
 $check(SWUBotIsRacing(1, 2) === false, 'fixture: seat 1 is not racing');
-$check($ids(SWUBotStyleFilter($botCtx('control'))) === ['theirGroundArena-0'], 'Control not racing: the unit only');
+$check($sorted($ids(SWUBotStyleFilter($botCtx('control')))) === ['theirBase-0', 'theirGroundArena-0'],
+    'Control not racing: the unit AND the base — excluding the base was the bug');
 
 bot_test_finish();

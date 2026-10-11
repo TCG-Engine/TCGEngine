@@ -12,9 +12,11 @@ $customDQHandlers["SHD_016#play"] = function($player, $parts, $lastDecision) {
     $o  = ($mz !== '' && str_contains($mz, '-')) ? GetZoneObject($mz) : null;
     if (SWUObjGone($o)) { SWUAfterAction(intval($player)); return; }
     $gPlayGrantTurnEffect = 'SEC_007';   // reuse the "played unit gains Ambush this phase" marker
+    $refusedBefore = intval($GLOBALS['gSWUNestedCloseRefusals'] ?? 0);
     SWUNestedPlay(intval($player), $mz, false, 0);   // pays the unit's cost
     $gPlayGrantTurnEffect = null;
-    SWUAfterAction(intval($player));
+    // Not unconditionally: a pending Ambush owns the close (CardHelpers.php _SWUNestedPlayLeftCloseToOuter).
+    if (_SWUNestedPlayLeftCloseToOuter(intval($player), $refusedBefore)) SWUAfterAction(intval($player));
 };
 
 $leaderAbilities["SHD_016"] = function(int $player): void {

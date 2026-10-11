@@ -400,3 +400,117 @@ WithP1Deck: [SOR_095 SOR_095]
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:0
+
+---
+
+# TeamSuns_Front_ATeammatesEntrantCountsTowardTheTwo_ButOnlyYourOwnUnitAttacks
+#// TS26_04 Padmé (front) in Team Suns (seats 1+3 vs 2+4). The GATE says "friendly", which spans the team
+#// (owner ruling, IBH_095): P1's SOR_095 plus teammate P3's SOR_095 are two friendly entrants. The
+#// ATTACKER is a controller-only verb ("attack with") so only P1's own entrant can swing. It attacks
+#// enemy P2's LAW_124 (the only non-base target) for 3 and dies to the counter.
+#// BUG THIS PINS: the gate counted only P1's own flags (1 here), so the Action soft-passed.
+## GIVEN
+CommonSetup4P: ggw/ggw/ggw/ggw/{myLeader:TS26_04;myResources:18}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithP1Hand: SOR_095
+WithP2GroundArena: LAW_124:1:0
+WithP3Resources: 10
+WithP3Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P2>Pass
+- P3>PlayHand:0
+- P4>Pass
+- P1>UseLeaderAbility
+## EXPECT
+SEATCOUNT:4
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENACOUNT:0
+P3GROUNDARENACOUNT:1
+P1LEADER:EXHAUSTED
+
+---
+
+# TeamSuns_Front_ATeammatesUnitCannotBeTheAttacker
+#// TS26_04 Padmé (front) in Team Suns — the attacker pool stays P1's own. Teammate P3 plays SEC_097 Beloved
+#// Orator, which puts TWO units into play (itself + a Spy token): the team-wide gate is met, but P1 has no
+#// entrant of its own to attack with, so the Action resolves with no attack (soft pass): no decision,
+#// LAW_124 untouched, Padmé exhausted. Catches an attacker pool widened to the team.
+## GIVEN
+CommonSetup4P: ggw/ggw/ggw/ggw/{myLeader:TS26_04;myResources:18}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 3
+WithP2GroundArena: LAW_124:1:0
+WithP3Resources: 10
+WithP3Hand: SEC_097
+## WHEN
+- P3>PlayHand:0
+- P4>Pass
+- P1>UseLeaderAbility
+## EXPECT
+SEATCOUNT:4
+P3GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1LEADER:EXHAUSTED
+P1NODECISION
+
+---
+
+# TwinSuns3P_Front_OPPONENTEntrantsDoNotCount
+#// TS26_04 Padmé (front), free-for-all Twin Suns (no teams). P1 plays one unit and each opponent plays one.
+#// With no teammates the gate sees one friendly entrant and fails: no attack, LAW_124 untouched, Padmé
+#// exhausts. Confirms the team widening leaves free-for-all untouched.
+## GIVEN
+CommonSetup3P: ggw/ggw/ggw/{myLeader:TS26_04;myResources:18}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: SOR_095
+WithP2GroundArena: LAW_124:1:0
+WithP2Resources: 10
+WithP2Hand: SOR_095
+WithP3Resources: 10
+WithP3Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P3>PlayHand:0
+- P1>UseLeaderAbility
+## EXPECT
+SEATCOUNT:3
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1LEADER:EXHAUSTED
+P1NODECISION
+
+---
+
+# TwinSuns4P_Front_OwnTwoEntrantsCount_OpponentsAreNotOffered
+#// TS26_04 Padmé (front), free-for-all Twin Suns at 4P. P1 plays two units across two turns while all three
+#// opponents play one each. The gate is met by P1's own two, and the attacker offer is EXACTLY those two.
+## GIVEN
+CommonSetup4P: ggw/ggw/ggw/ggw/{myLeader:TS26_04;myResources:18}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: [SOR_095 SEC_080]
+WithP2GroundArena: LAW_124:1:0
+WithP2Resources: 10
+WithP2Hand: SOR_095
+WithP3Resources: 10
+WithP3Hand: SOR_095
+WithP4Resources: 10
+WithP4Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P3>PlayHand:0
+- P4>PlayHand:0
+- P1>PlayHand:0
+- P2>Pass
+- P3>Pass
+- P4>Pass
+- P1>UseLeaderAbility
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1

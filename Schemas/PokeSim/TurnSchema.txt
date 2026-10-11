@@ -1,0 +1,11 @@
+DecisionQueue: Enabled
+Setup; SETUP; PokeSetupPhase
+AUTO -> SETUP
+READY -> MAIN
+Main; MAIN; PokeMainPhase
+AUTO -> MAIN
+END -> CHECKUP
+Checkup; CHECKUP; PokeCheckupPhase
+AUTO -> MAIN
+GameOver; GAME_OVER; PokeGameOverPhase
+AUTO -> GAME_OVER

@@ -21,12 +21,11 @@ $customDQHandlers["SOR_005#0"] = function($player, $parts, $lastDecision) {
 $onAttackAbilities["SOR_005:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $targets = array_values(array_filter(array_merge(
-        ZoneSearch('myGroundArena',    AnyUnitFilter),
-        ZoneSearch('mySpaceArena',     AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter),
-        ZoneSearch('theirSpaceArena',  AnyUnitFilter)
-    ), fn($mz) => $mz !== $mzID));
+    // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+    // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+    // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+    // Premier is byte-identical). See memory: unqualified pools miss teammates.
+    $targets = array_values(array_filter(SWUAllUnits(), fn($mz) => $mz !== $mzID));
     SWUQueueMayChooseTarget(intval($player), $targets,
         'Give_a_shield_to_another_unit?', 'Choose_a_unit_to_give_a_shield_to', 'GIVE_SHIELD', 0);
 };

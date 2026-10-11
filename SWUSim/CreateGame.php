@@ -7,6 +7,7 @@ include_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/TurnController.php';
 include_once __DIR__ . '/Custom/GameLogic.php';
 include_once __DIR__ . '/Custom/DeckImport.php';
+include_once __DIR__ . '/GameSetupRules.php';   // SWUCardPoolFor — the card pool a game records
 include_once __DIR__ . '/../Core/CoreZoneModifiers.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
 include_once __DIR__ . '/../Core/GameAuth.php';
@@ -26,7 +27,7 @@ $ttl = 600;
 function SWUSetupGame($lobby, $opts = []) {
     global $gameName;
     // ⚠ SWUSim ALWAYS needs its game directory, even though it is apcu-mode. Unlike the other sims,
-    // SWUSim's generated WriteGamestate does a durable WRITE-THROUGH: it stores to APCu *and* always
+    // SWUSim's generated WriteGamestate normally does a durable WRITE-THROUGH: it stores to APCu *and*
     // writes Games/<id>/Gamestate.txt, because the APCu entry has a 600s TTL and ParseGamestate falls
     // back to that file — so a game idle for >10 minutes (or an FPM restart) would otherwise be lost.
     // `createGameDirectory: !GamestateUsesMemoryStorage()` is correct for GrandArchiveSim/AzukiSim
@@ -63,14 +64,59 @@ function SWUSetupGame($lobby, $opts = []) {
         // The live bot's chooser (SWUBotActiveChooserProfile reads SWUBotProfile): the heuristic stack for
         // the Play Style the menu sent (APIs/Lobbies/JoinQueue.php → $lobby->botStyle). Missing or unknown
         // means Normal — never the first-legal fallback. The bot's flavours come from its own leader + base.
+        // The five archetypes plus the three legacy names (see APIs/Lobbies/JoinQueue.php) — each is a registered
+        // chooser, "heuristic-<style>" (SWUSim/BotHeuristic.php).
         $botStyle = strtolower(strval($lobby->botStyle ?? ''));
-        if (!in_array($botStyle, ['aggro', 'normal', 'control'], true)) $botStyle = 'normal';
+        if (!in_array($botStyle, ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 'hardcontrol', 'aggro', 'normal', 'control'], true)) $botStyle = 'normal';
         DecisionQueueController::StoreVariable('SWUBotProfile', 'heuristic-' . $botStyle);
     }
-    // Team Suns (2v2). A separate never-cleared flag rather than a value of $mode, because it is
+    // Room games with BOT SEATS (Twin Suns "Fill Seat with Bot", SWUSim/docs/todo-twinsuns-fill-bot.md): a lobby seat
+    // with a botProfile is driven by the bot. Its GAME seat is its array position, the same mapping the deck loop
+    // below uses, and that position is final here: StartRoom has already compacted and sorted the seats.
+    // Not a game mode (SWUMarkBotSeats): the humans keep the inactivity clock and undo consent.
+    // Every room bot plays Arenabot's Normal stack for now; the lobby profile only chooses its deck.
+    if ($mode === '') {
+        $botSeats = []; $botNames = [];
+        $seat = 1;
+        foreach (($lobby->players ?? []) as $p) {
+            if (is_object($p) && method_exists($p, 'getBotProfile') && $p->getBotProfile() !== '') {
+                $botSeats[$seat] = 'heuristic-normal';
+                $botNames[$seat] = method_exists($p, 'getUsername') ? strval($p->getUsername()) : '';   // "Arenabot Gamma"
+            }
+            ++$seat;
+        }
+        if (!empty($botSeats)) SWUMarkBotSeats($botSeats);
+        foreach ($botNames as $s => $name) if ($name !== '') DecisionQueueController::StoreVariable('SWUBotName_' . $s, $name);
+    }
+    // Team rules (2v2). A separate never-cleared flag rather than a value of $mode, because it is
     // orthogonal: SWUGameMode() answers "goldfish/hotseat/normal" and must keep returning '' here.
-    if (isset($lobby->format) && strtolower((string)$lobby->format) === 'teamsuns') {
+    // ⚠ Follows the format's CONFIGURATION ('teams' in AppCore/SWU/Formats.php), never the literal id: the old
+    // `=== 'teamsuns'` would load every Team Suns Preview game as a four-player free-for-all (2026-09-16).
+    if (isset($lobby->format) && SWUFormatIsTeamFormat(strtolower((string)$lobby->format))) {
         AddGlobalEffects(1, 'SWU_MODE_TEAMS');
+    }
+    // Every game records its card pool (docs/superpowers/specs/2026-09-16-swusim-format-menu-design.md §2): an Arenabot game
+    // its chosen pool, Goldfish and Hotseat 'open', everything else its own format. Read through SWUGameCardPool().
+    DecisionQueueController::StoreVariable('SWUCardPool', SWUCardPoolFor(strval($lobby->format ?? ''),
+        isset($lobby->cardPool) ? strval($lobby->cardPool) : null));
+
+    // Rematch inputs (spec 2026-09-23 §3). ⚠ An Arenabot game sets isGoldfish and so creates NO Match
+    // record — the deck links exist only on this lobby, right now. Persist them here or the end-game
+    // menu has nothing to offer a rematch from. Inputs only: no authKey, no userId (JoinQueue.php mints
+    // fresh credentials for the new game).
+    if ($mode === 'botpractice') {
+        require_once __DIR__ . '/BotDataRematch.php';
+        $links = [];
+        foreach (($lobby->players ?? []) as $p) {
+            $links[] = method_exists($p, 'getDeckLink') ? strval($p->getDeckLink()) : '';
+        }
+        SWUBotDataWriteRematch(__DIR__ . '/Games/' . $gameName, [
+            'deckLink'  => strval($links[0] ?? ''),
+            'deckLink2' => strval($links[1] ?? ''),
+            'botStyle'  => strval($botStyle ?? ''),
+            'cardPool'  => SWUCardPoolFor(strval($lobby->format ?? ''),
+                               isset($lobby->cardPool) ? strval($lobby->cardPool) : null),
+        ]);
     }
 
     // Optional fixed per-game RNG seed. Normally LoadPlayerDeck() mints one from random_bytes() the
@@ -157,6 +203,12 @@ function SWUSetupGame($lobby, $opts = []) {
         QueuePregameSetup($firstPlayer);
         AdvanceAndExecute("PASS");
         AutoAdvanceAndExecute();
+        // A seat whose base forbids the mulligan (JTL_028 Nabat Village) has no YESNO in front, so its
+        // pregame statics (PushPregameSnapshot, ChooseStartingResource) ARE its front decision — and
+        // GetNextTurn never runs statics, so the game stalled in setup. Drain them now so that seat opens
+        // on its resource pick; a seat with a mulligan stops at its YESNO, unchanged.
+        // DevTools/tdd-regression/test_nabat_pregame_front_decision.php.
+        if (function_exists('ProcessGoldfishAutomation')) ProcessGoldfishAutomation();
         SaveUndoVersion($firstPlayer, "Start of Game");
     }
 

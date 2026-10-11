@@ -109,7 +109,7 @@ server.tool(
 // ---------------------------------------------------------------------------
 server.tool(
   "get_card_abilities",
-  "Read all abilities (macro implementations, listener implementations, and code) currently saved for a specific card. Returns macro/listener metadata, PHP code body, optional prerequisite code, optional ability name, and implementation status for each ability on the card.",
+  "Read all abilities (macro implementations, listener implementations, and code) currently saved for a specific card. Returns macro/listener metadata, PHP code body, optional prerequisite code, optional ability name, and implementation status for each ability on the card. A variant printing ID (e.g. a borderless or alt-art number) returns its base card's abilities; the response's cardId is the base card and requestedCardId is the ID you passed.",
   {
     root: z.string().describe("The root/game name"),
     cardId: z.string().describe("The card ID to load abilities for"),
@@ -130,7 +130,7 @@ server.tool(
 // ---------------------------------------------------------------------------
 server.tool(
   "save_card_abilities",
-  "Save or update abilities for a card. By default (overwrite=false) only updates/inserts the provided abilities without deleting others — safe for adding a single new ability. Set overwrite=true to replace ALL abilities for the card (any previously saved abilities not included will be deleted). Each ability needs a macroName (from get_macros) and abilityCode (PHP function body). Include the 'id' field for existing abilities to update them rather than creating duplicates.",
+  "Save or update abilities for a card. By default (overwrite=false) only updates/inserts the provided abilities without deleting others — safe for adding a single new ability. Set overwrite=true to replace ALL abilities for the card (any previously saved abilities not included will be deleted). Each ability needs a macroName (from get_macros) and abilityCode (PHP function body). Include the 'id' field for existing abilities to update them rather than creating duplicates. Saving through a variant printing ID writes to its base card, which every printing shares.",
   {
     root: z.string().describe("The root/game name"),
     cardId: z.string().describe("The card ID to save abilities for"),

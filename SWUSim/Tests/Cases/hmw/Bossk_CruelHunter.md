@@ -426,6 +426,74 @@ P2GROUNDARENAUNIT:1:DAMAGE:0
 
 ---
 
+# Deployed_Offer_IncludesExperienceAndAdvantage_NotJustTheReminderPair
+#// ⚠ THE OFFER, for the token upgrades the reminder text does NOT name. Deployed_Offer_…_BothSides
+#// pins the pool using only Shield and Weakness — the two the reminder happens to list — so a
+#// reminder-shaped filter would satisfy it completely. Deployed_ExperienceIsATokenUpgradeToo does
+#// cover Experience, but it ANSWERS the decision rather than reading the pool, so it pins the damage
+#// rather than the choice being OFFERED at all.
+#//
+#// This is the distinction a player actually reports: not "the damage went to the wrong unit" but
+#// "it doesn't give me the option". Reported against another SWU implementation for a unit wearing an
+#// Experience token; Petranaki already targets by rules CATEGORY (CardType 'Token Upgrade') so it was
+#// correct, and this section is what keeps it that way.
+#//
+#// CR 3.7 enumerates the category and the reminder does not narrow it: §3.7.5 Experience, §3.7.6
+#// Shield, §3.7.15 Advantage are each "a type of token upgrade". Advantage (ASH_T02) is pinned here
+#// for the first time — nothing else in this file touches it.
+#//
+#// SOR_128 is bare and must NOT be offered, so the pool cannot be satisfied by "offer everything".
+#// The decision is left pending so the pool itself is the assertion.
+
+## GIVEN
+CommonSetup: yyk/rrk/{
+  myLeader:HMW_015;
+  myLeaderDeployed:true
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_128:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
+WithP2GroundArenaUpgrade: 1:ASH_T02
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HASDECISION
+# Experience and Advantage are both offered; the bare unit is not.
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1
+
+---
+
+# Deployed_Offer_CrossSetExperienceReprintIsAlsoOffered
+#// The category is read off card DATA, so every set's Experience reprint qualifies — SOR_T01, SHD_T01,
+#// JTL_T03, LOF_T01, SEC_T02, LAW_T02 and TS26_T03 are all typed 'Token Upgrade'. LOF_T01 stands in
+#// for the whole family here: an implementation that special-cased the SOR printing would pass every
+#// other section in this file and fail this one.
+
+## GIVEN
+CommonSetup: yyk/rrk/{
+  myLeader:HMW_015;
+  myLeaderDeployed:true
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2GroundArenaUpgrade: 0:LOF_T01
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:theirGroundArena-0
+
+---
+
 # Deployed_NoUnitHasATokenUpgrade_NoPrompt
 #// HMW_015 deployed side — the no-valid-target cell. With nothing on the table wearing a token upgrade
 #// there is nothing to offer, so the attack resolves with no decision raised at all. The board is

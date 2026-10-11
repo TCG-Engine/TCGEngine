@@ -11,21 +11,32 @@
     'tagline'        => 'Fan-made Star Wars: Unlimited simulator',
     'homeHref'       => '/TCGEngine/SharedUI/Sites/SWUSim/MainMenu.php',
     'favicon'        => '/TCGEngine/SharedUI/Sites/SWUSim/assets/petranaki-favicon.png',
+    // Header emblem (also the faint watermark on the menu's Welcome card). The SVG is solid black; the menu CSS tints it
+    // gold with a filter (swusim-overrides.css .title-logo, swusim-menu.css .swu-welcome__mark).
+    'logo'           => '/TCGEngine/SharedUI/Sites/SWUSim/assets/stadium.svg',
     'showBanner'     => false,
     'menuOverlay'    => true,   // renders the burger button + overlay (see MenuBar.php); paired with burger-menu.js below
     'disclaimerName' => 'Petranaki Arena',
   ],
   'head' => [
     'styles'  => [   // shared stack derived from `theme` (hud); only the app override remains
+      // ⚠ BEFORE the override file, which uses its tokens. The recipe is split out so the
+      // in-game board (GameLayout.php, which never loads swusim-overrides.css) can share it.
+      '/TCGEngine/SharedUI/Sites/SWUSim/css/petranaki-glass.css',
       '/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-overrides.css',
+      // The redesigned menu. UNLAYERED and LAST on purpose: menuStyles.css's unlayered
+      // bare-element resets would beat a layered stylesheet regardless of specificity.
+      '/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-menu-2.css',
     ],
     'scripts' => ['/TCGEngine/Core/AppSettings.js',
                   '/TCGEngine/SharedUI/js/burger-menu.js'],
-    'fonts'   => ['Barlow', 'Teko'],
+    // Archivo is the menu redesign's typeface; Barlow and Teko stay for the game board and the
+    // other pages, which are still set in them.
+    'fonts'   => ['Barlow', 'Teko', 'Archivo'],
   ],
   'nav' => [
     ['label'=>'Previews','href'=>'/TCGEngine/SharedUI/Sites/SWUSim/Previews.php'],
-    ['label'=>'Support','href'=>'https://www.patreon.com/c/OotTheMonk','target'=>'_blank'],
+    ['label'=>'Support','href'=>'https://www.patreon.com/c/ninintcg','target'=>'_blank'],
     ['label'=>'Profile','href'=>'/TCGEngine/SharedUI/Sites/SWUSim/Profile.php','visibility'=>'loggedIn'],
     ['label'=>'Log Out','href'=>'/TCGEngine/AccountFiles/LogoutUser.php','visibility'=>'loggedIn'],
     ['label'=>'Sign Up','href'=>'/TCGEngine/SharedUI/Sites/SWUSim/Signup.php','visibility'=>'loggedOut'],
@@ -41,6 +52,19 @@
   'deckLibrary' => [
     'storage'  => 'account',
     'endpoint' => 'SWUSim/SavedDecks.php',
+    'swustatsTabs' => true,   // Waiting Room library gets the SWUStats / Saved toggle for linked players (spec 2026-10-10 §2)
+  ],
+  // Opts Login/Signup into the redesigned single-card layout (SharedUI/Render/Auth.php).
+  // The renderers are shared with FaBSim, HellbreakSim, SWUDeck and HellbreakDeck; without this
+  // key they render exactly what they always did, which RunRenderTests asserts positively.
+  'auth' => [
+    'layout' => 'arena',
+  ],
+  // Terms of Use / Privacy Policy render bare prose from templates/*.tmpl -- no wrapper at all,
+  // so without this they land as direct children of <body> and run the full width of the screen.
+  // Opting in frames them in the redesign's own .row-wrapper + .card.ga-glass-card.
+  'legal' => [
+    'layout' => 'arena',
   ],
   // Opts this sim into the shared WaitingRoom page (SharedUI/Render/WaitingRoom.php).
   // Presence of this block IS the opt-in — the adapter supplies everything sim-specific (routing
@@ -73,9 +97,19 @@
   'pipelineActionsOrder' => ['site', 'turn', 'game', 'cards', 'keywords'],
 
   'profile' => [
-    'sections'         => ['welcome+changePassword','savedDecks+blockedUsers','cosmetics','sounds'],
+    // 'arena' drops RenderProfile's injected flex-row layout so swusim-menu-2.css can lay the
+    // panes out in columns; the pane-neutralisation half of that style is kept for every site.
+    'layout'           => 'arena',
+    // One pane per TASK, ordered so the columns balance. Cosmetics and sounds are merged
+    // because they are the same thing to a player — how the game looks and sounds — and were
+    // only ever separate because the config grew that way. Saved Decks stands alone (it is the
+    // substantial one) and Blocked Users stands alone (it is two controls).
+    // The Meta Premier rating (own rating only, never a leaderboard) shares a pane with Blocked Users so the columns
+    // still balance. The pinned list in SharedUI/Render/Tests/RunRenderTests.php must match.
+    'sections'         => ['savedDecks','welcome+changePassword','cosmetics+sounds','metaPremierRating+blockedUsers'],
     'oauthAppLabel'    => 'Petranaki Arena',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
     'discordOAuth'     => true,
+    'swustatsLink'     => true,   // Petranaki ↔ SWUStats link (spec 2026-10-10 §1) — Welcome panel
   ],
 ];

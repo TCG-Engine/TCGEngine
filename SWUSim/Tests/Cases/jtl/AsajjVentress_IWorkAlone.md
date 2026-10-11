@@ -255,6 +255,68 @@ P1LEADER:EXHAUSTED
 
 ---
 
+# LeaderAction_EnemyHalfFiresWhenNumaPreventsTheWholePing
+#// JTL_001 Asajj Ventress (leader) × HMW_088 Numa, Still Fighting ("If this unit would be dealt damage,
+#// prevent 1 of that damage"). Numa is the only friendly unit, so the 1-damage self-ping is reduced to
+#// ZERO with NO observable side effect at all — unlike the shield case above, nothing is consumed and
+#// Numa's DAMAGE never moves off 0. The "if you do" half must STILL fire (judge ruling 2026-09-14:
+#// prevented damage still satisfies "If you do"), so the same-arena enemy SOR_095 takes 1.
+#// This is the case reported against the reference implementation; it is the pure-prevention sibling of
+#// LeaderAction_EnemyHalfFiresWhenFriendlyShieldPops, which pops a token and so could pass on its own.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: HMW_088:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:HMW_088
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P1LEADER:EXHAUSTED
+
+---
+
+# OnAttackPilot_EnemyHalfFiresWhenNumaPreventsTheWholePing
+#// JTL_001 Asajj Ventress deployed as a PILOT × HMW_088 Numa — the same "If you do" question on the
+#// OTHER site (the granted "On Attack: You may deal 1 damage to a friendly unit. If you do, deal 1
+#// damage to an enemy unit in the same arena"). Host = SOR_165 Occupier Siege Tank (ground Vehicle) at
+#// ground index 0, which is where the fixture builder attaches the pilot; Numa sits at ground index 1.
+#// The host attacks P2's base, the grant's "you may" is answered with Numa, Numa prevents the whole
+#// 1-damage ping (DAMAGE stays 0) — and the enemy half must STILL fire, so ground SOR_095 takes 1.
+#// The enemy SPACE unit is untouched, pinning "same arena" to the DAMAGED FRIENDLY's arena.
+
+## GIVEN
+CommonSetup: yrk/grw/{myResources:6;myLeader:JTL_001;myLeaderDeployedPilot:true}
+P1OnlyActions: true
+WithP1GroundArena: SOR_165:1:0
+WithP1GroundArena: HMW_088:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:HMW_088
+P1GROUNDARENAUNIT:1:DAMAGE:0
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P2SPACEARENAUNIT:0:DAMAGE:0
+
+---
+
 # DeployedAsGroundUnit_HasGrit
 #// JTL_001 Asajj Ventress deployed as a normal GROUND leader unit (not a Pilot) gains Grit. Printed 4/6;
 #// seeded with 2 damage, Grit makes her effective POWER = 4 + 2 = 6. Verifies the keyword and stat.

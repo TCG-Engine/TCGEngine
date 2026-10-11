@@ -33,7 +33,12 @@ function _SWUHmw230GateOpen(int $player, string $selfMzID): bool {
 // "A ground unit" carries no controller qualifier, so a FRIENDLY unit is a legal target too — this is
 // the same collector shape as SHD_201 Principled Outlaw, whose clause is word-for-word identical.
 //
-// ⚠ ['myGroundArena','theirGroundArena'] is NOT a two-seat hardcode, which is easy to assume and wrong.
+// ⚠ ['teamGroundArena','theirGroundArena'] is NOT a two-seat hardcode, which is easy to assume and wrong.
+// ⚠ THIS NOTE USED TO SAY 'myGroundArena' AND WAS HALF RIGHT — which is exactly how the defect survived.
+// "their<Zone>" does fan out (below), but "my<Zone>" is NOT its complement in a TEAM game: it is the
+// caller's own zone only, so a TEAMMATE's units fell between the two and were never offered, even though
+// "exhaust a ground unit" is unqualified. The own side must therefore be "team<Zone>". Pinned by
+// core/TeamSuns_UnqualifiedPoolsIncludeTeammates.md::ZoneListShape_*.
 // ZoneSearch itself fans "their<Zone>" out across every live opponent at 3+ seats, returning
 // seat-addressed p{n}GroundArena-{i} mzIDs (the Twin Suns Phase 3 change; at two seats it stays a plain
 // "their…" search, byte-identical). Verified here by running the four-seat sections against BOTH this
@@ -46,7 +51,11 @@ function _SWUHmw230GateOpen(int $player, string $selfMzID): bool {
 function _SWUHmw230ReadyGroundUnits(int $player): array {
     global $playerID; $playerID = $player;
     $out = [];
-    foreach (['myGroundArena', 'theirGroundArena'] as $z) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'theirGroundArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) $out[] = $mz;

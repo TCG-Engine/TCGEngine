@@ -14,10 +14,16 @@ $onAttackAbilities["LOF_005:0"] = function($player, $mzID) {
 $leaderAbilities["LOF_005"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $attacked = [];
-    foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    foreach (SWUFriendlyUnits(null, AnyUnitFilter) as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
-        if (GlobalEffectCount($player, 'SWU_ATTACKED_' . intval($o->UniqueID ?? -1)) > 0) $attacked[] = $mz;
+        // ⚠ The POOL above was widened to the team but this flag read was not, so a teammate's
+        // attacker was OFFERED-then-filtered-out: SWU_ATTACKED_{uid} lives on the ATTACKER'S
+        // controller's seat, never the caster's. Any-seat read, which also survives a control change.
+        if (SWUUnitAttackedThisPhaseAnySeat($o)) $attacked[] = $mz;
     }
     if (empty($attacked)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $attacked, "Choose_a_friendly_unit_that_attacked_this_phase", "LOF_005#0");
@@ -30,11 +36,11 @@ $customDQHandlers["LOF_005#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($chosen)) { SWUAfterAction(intval($player)); return; }
     // The chosen unit is IN PLAY, so it counts its CURRENT keywords (printed + conditional + granted). The
     // hand candidates count PRINTED keywords only (cards don't have abilities / conditional keywords in hand).
-    $chosenKw = _SWUCardKeywordSet($chosen->CardID ?? '');
-    foreach (['Ambush'=>'AMBUSH','Grit'=>'GRIT','Hidden'=>'HIDDEN','Overwhelm'=>'OVERWHELM','Saboteur'=>'SABOTEUR','Sentinel'=>'SENTINEL','Shielded'=>'SHIELDED','Raid'=>'RAID','Restore'=>'RESTORE'] as $name => $kw) {
-        if (!in_array($name, $chosenKw, true) && _SWUUnitHasKeyword($chosen, $kw)) $chosenKw[] = $name;
-    }
-    SWUOfferDiscountPlay(intval($player), ['discount'=>1, 'types'=>['Unit'],
+    // Shared set (GameLogic.php _SWUUnitKeywordSet): the old 9-entry granted list ignored a granted Bounty etc.
+    $chosenKw = array_values(array_unique(array_merge(_SWUCardKeywordSet($chosen->CardID ?? ''), _SWUUnitKeywordSet($chosen))));
+    // ownsClose: this leader Action IS the action and plays a UNIT, whose nested close is refused — without
+    // it the turn never passed and the seat took another action (game 1647080; the #1109 Dispatcher shape).
+    SWUOfferDiscountPlay(intval($player), ['discount'=>1, 'types'=>['Unit'], 'ownsClose'=>true,
         'filter'=>fn($cid)=>!empty(array_intersect($chosenKw, _SWUCardKeywordSet($cid))),
         'prompt'=>"Play_a_unit_sharing_a_keyword_(it_costs_1_less)"]);
 };

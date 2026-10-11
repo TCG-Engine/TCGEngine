@@ -177,3 +177,31 @@ P1DECISIONTOOLTIP:Keep_2_cards_-_discard_the_rest
 P2DECISIONTOOLTIP:Keep_2_cards_-_discard_the_rest
 P1SELECTABLEEXACT:myHand-0&myHand-1&myHand-2
 P2SELECTABLEEXACT:myHand-0&myHand-1&myHand-2&myHand-3
+
+---
+
+# KeepPicks_NothingDiscardedUntilEveryoneHasChosen
+#// CR v9.0 7.1.a — hidden information: each player chooses independently, then all resolve simultaneously. P1 has
+#// answered its keep-2, but while P2 is still choosing NOTHING has left P1's hand yet (3 cards; only the event in
+#// P1's discard). Discarding P1's surplus at once let P2 see it before choosing. (Board of BothPlayersDiscardToTwo.)
+## GIVEN
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: SOR_174
+WithP1Hand: SOR_095
+WithP1Hand: SOR_095
+WithP1Hand: SOR_095
+WithP1Resources: 7
+WithP2Hand: SOR_095
+WithP2Hand: SOR_095
+WithP2Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-0&myHand-1
+## EXPECT
+P1HANDCOUNT:3
+P1DISCARDCOUNT:1
+P2HASDECISION

@@ -18,11 +18,16 @@ require_once __DIR__ . '/Custom/BotFlavours.php';
 require_once __DIR__ . '/Custom/BotStyles.php';
 require_once __DIR__ . '/Custom/BotResourcing.php';
 require_once __DIR__ . '/Custom/BotGuides.php';
+require_once __DIR__ . '/Custom/BotNameCard.php';
 require_once __DIR__ . '/Custom/BotFallback.php';
+require_once __DIR__ . '/Custom/BotCardValue.php';  // proposal 'cardvalue' — board-aware card valuation
+require_once __DIR__ . '/Custom/BotCurveValue.php';  // curve value: a card in hand priced against its cost (spec 2026-10-05)
 require_once __DIR__ . '/Custom/BotRules.php';
 require_once __DIR__ . '/Custom/BotLookahead.php';   // the fallback judges Actions by applying them (BotFallback.php)
 require_once __DIR__ . '/Rl/SwuKeys.php';            // RL Phase 3: swu-v1 state and move keys
 require_once __DIR__ . '/Rl/SwuPolicy.php';          // RL Phase 3: the learned layer ('@rl' variant)
+require_once __DIR__ . '/Rl/SwuValueFeatures.php';  // the learned value model's features (spec 2026-09-19)
+require_once __DIR__ . '/Rl/SwuValue.php';            // the @value chooser
 
 if (!isset($GLOBALS['SWUBotChoosers'])) $GLOBALS['SWUBotChoosers'] = [];
 
@@ -57,6 +62,11 @@ function SWUBotActiveChooserProfile(int $seat = 0) {
     if ($seat > 0 && $bySeat !== null && strval($bySeat) !== '') return strval($bySeat);
     $forced = $GLOBALS['SWUBotForcedChooserProfile'] ?? null;
     if ($forced !== null && strval($forced) !== '') return strval($forced);
+    // A room game's bot seat carries its own profile (SWUMarkBotSeats).
+    if ($seat > 0 && class_exists('DecisionQueueController')) {
+        $own = DecisionQueueController::GetVariable('SWUBotProfile_' . $seat);
+        if ($own !== null && $own !== '') return strval($own);
+    }
     $value = class_exists('DecisionQueueController')
         ? DecisionQueueController::GetVariable('SWUBotProfile') : null;
     return ($value !== null && $value !== '') ? strval($value) : 'first-legal';
@@ -150,11 +160,18 @@ function SWUBotHeuristicChoose(string $style, array $actions, array $legal, stri
     SWUBotSetDisabledFeatures(SWUBotVariantDisabled($variant) ?? []);
     $GLOBALS['SWUBotLastDecisionDisabled'] = $GLOBALS['SWUBotDisabledFeatures'];
     $GLOBALS['SWURlOn'] = ($variant === 'rl');   // the learned layer (SWUSim/Rl/SwuPolicy.php), fallback decisions only
+    $prevValue = $GLOBALS['SWUValueOn'] ?? false;
+    $GLOBALS['SWUValueOn'] = ($variant === 'value');   // the learned value model (SWUSim/Rl/SwuValue.php)
+    // The deciding seat, for valuations that read a hand: feature 'lockpiece' (p35) prices a name-lock only from the locked seat.
+    $prevViewer = $GLOBALS['SWUBotViewerSeat'] ?? null;
+    $GLOBALS['SWUBotViewerSeat'] = intval($legal['playerID'] ?? 0);
     try {
         return _SWUBotHeuristicChooseStack($style, $actions, $legal);
     } finally {
         SWUBotSetDisabledFeatures($prev);
         $GLOBALS['SWURlOn'] = $prevRl;
+        $GLOBALS['SWUValueOn'] = $prevValue;
+        if ($prevViewer === null) unset($GLOBALS['SWUBotViewerSeat']); else $GLOBALS['SWUBotViewerSeat'] = $prevViewer;
     }
 }
 
@@ -164,12 +181,16 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
             'kind' => strval($legal['kind'] ?? ''), 'type' => strval($legal['decisionType'] ?? ''),
             'param' => strval($legal['decisionParam'] ?? ''), 'tooltip' => strval($legal['decisionTooltip'] ?? ''),
             'following' => (array)($legal['following'] ?? []), 'actions' => array_values($actions)];
+    SWUValueLogPosition($ctx);   // value-model data collection (spec 2026-09-19); a no-op unless SWU_VALUE_LOG is set
     $inSet = function ($pick) use (&$ctx) {
         foreach ($ctx['actions'] as $a) { if (($a['cardID'] ?? null) === ($pick['cardID'] ?? '')) return true; }
         return false;
     };
     $run = function (array $rules) use (&$ctx, $inSet, $seat) {
         foreach ($rules as $name => $fn) {
+            // Rule-level bisection ("@no-rule:<name>", BotFeatures.php). Default-on: with no variant the
+            // disabled set is empty, so every rule runs and behaviour is unchanged.
+            if (!SWUBotFeatureOn("rule:$name")) continue;
             $pick = $fn($ctx);
             if ($pick === null) continue;
             if (!$inSet($pick)) { SWUBotRecordCoverage($seat, "invalid:$name"); continue; }
@@ -180,26 +201,66 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
         return null;
     };
     $all = $ctx['actions'];
-    if (($p = $run(SWUBotRulesBeforeFilter())) !== null) return SWUBotTrace($ctx, $all, $p, 'rule');
+    if (($p = $run(SWUBotRulesBeforeFilter())) !== null) return SWUBotTrace($ctx, $all, SWUBotRandomiseClass($ctx, $p), 'rule');
     $ctx['actions'] = SWUBotStyleFilter($ctx);
+    // Proposal 'krennicplan' (BotRules.php): bank Credits for 7+ cards, attack before sacrificing. Inert unless enabled.
+    $kp = SWUBotKrennicPlanFilter($ctx);
+    if (count($kp) !== count($ctx['actions'])) { SWUBotRecordCoverage($seat, 'filter:krennic-plan'); $ctx['actions'] = $kp; }
     // Rule 10, the resourcing floor, as a fixed constraint: it removes PASS below the leader's deploy threshold
     // and leaves WHICH card to the fallback's keep values (and to the learned layer in training).
     $floored = SWUBotResourceFloorFilter($ctx);
     if (count($floored) !== count($ctx['actions'])) { SWUBotRecordCoverage($seat, 'filter:resource-floor'); $ctx['actions'] = $floored; }
-    if (($p = $run(array_merge(SWUBotRulesAfterFilter(), $GLOBALS['SWUBotTestExtraRules'] ?? []))) !== null) return SWUBotTrace($ctx, $all, $p, 'rule');
+    if (($p = $run(array_merge(SWUBotRulesAfterFilter(), $GLOBALS['SWUBotTestExtraRules'] ?? []))) !== null) return SWUBotTrace($ctx, $all, SWUBotRandomiseClass($ctx, $p), 'rule');
     SWUBotRecordCoverage($seat, 'fallback');
     $pick = SWUBotFallbackChoose($ctx);
     // Layer 3 — the learned layer replaces ONLY the fallback's choice (spec Section 2).
     if (!empty($GLOBALS['SWURlOn'])) $pick = SWURlChoose($ctx, $pick);
+    if (!empty($GLOBALS['SWUValueOn'])) $pick = SWUValueChoose($ctx, $pick);
     // Which guide (BotGuides.php) favoured the pick, if any — so sweeps can report how often each one decides.
     $g = _SWUBotGuides($ctx); $pc = strval($pick['cardID'] ?? '');
     if (in_array($pc, $g['attackFirst'], true)) SWUBotRecordCoverage($seat, 'guide:attack-first');
     elseif ($pc !== '' && $g['maxUnits'] === $pc) SWUBotRecordCoverage($seat, 'guide:max-units');
     elseif ($pc === 'PASS' && SWUBotAtResourceStop($ctx)) SWUBotRecordCoverage($seat, 'guide:stop');
+    // "@rand:<class>" (BotFeatures.php): the decision-class diagnostic. Inert unless the variant is active.
+    $pick = SWUBotRandomiseClass($ctx, $pick);
     return SWUBotTrace($ctx, $all, $pick, 'fallback');
 }
 
-// Debug trace, OFF unless the SWUBOT_TRACE environment variable names a file. Pass it through the container
+// Where a run's trace goes when nobody names a file. DevTools/SWUSimBotSelfPlayTest.php calls these so that
+// EVERY self-play run saves its decision trace (2026-09-29): tracing used to be opt-in per invocation, and the
+// measurement scripts that did not pass SWUBOT_TRACE produced runs whose gameplan could not be reconstructed
+// afterwards — a 2000-game canary and a 10x500 field run kept only their one-line SWUBOT_METRICS, so answering
+// "how often did it play Koska Reeves after a trade" needed a fresh 200-game run on a DIFFERENT seed block,
+// which cannot be cross-referenced against the games whose win rates were measured.
+//
+// The path carries everything that makes a game: both decks, both chooser profiles, the seed and the first
+// player. That is what keeps concurrent sweep workers off each other's files and, critically, keeps two ARMS
+// of the same seed block apart — an arm rides the chooser profile ('heuristic-softcontrol@try-creditbank'),
+// so baseline and proposal traces of seed kx0001 land in different directories instead of interleaving.
+// SWUBOT_TRACE_DIR relocates the root (tests point it at a temp dir).
+function SWUBotTraceDefaultDir(): string {
+    $d = getenv('SWUBOT_TRACE_DIR');
+    return ($d !== false && $d !== '') ? rtrim($d, '/') : __DIR__ . '/DevTools/traces';
+}
+// A path component: a deck's basename without .txt, or a chooser profile. '@' and '+' survive because they
+// carry the variant ('@try-creditbank', '@no-p6'); everything else outside [A-Za-z0-9._-] collapses to '-'.
+function SWUBotTraceSlug(string $s): string {
+    $s = preg_replace('/\.txt$/', '', basename(trim($s)));
+    $s = trim(preg_replace('/[^A-Za-z0-9._@+-]+/', '-', $s), '-');
+    return $s === '' ? 'unnamed' : $s;
+}
+function SWUBotTracePathFor(?string $deck1, ?string $deck2, string $chooser1, string $chooser2,
+                            string $seed, int $firstPlayer): string {
+    // deck2 defaults to deck1 for the same reason the harness does: a mirror is one deck named once.
+    $d1 = SWUBotTraceSlug($deck1 ?? 'builtin');
+    $d2 = SWUBotTraceSlug($deck2 ?? ($deck1 ?? 'builtin'));
+    return SWUBotTraceDefaultDir() . '/' . $d1 . '__' . $d2
+         . '__' . SWUBotTraceSlug($chooser1) . '__' . SWUBotTraceSlug($chooser2)
+         . '/' . SWUBotTraceSlug($seed) . '.fp' . max(1, $firstPlayer) . '.jsonl';
+}
+
+// Debug trace, ON for every self-play run (the harness names the file; see SWUBotTracePathFor above) and
+// otherwise OFF unless the SWUBOT_TRACE environment variable names one. Pass it through the container
 // with `docker exec -e SWUBOT_TRACE=/tmp/trace.jsonl …`. Appends one JSON line per decision the stack answers:
 // round, seat, style, decision, the candidates (hand plays show their card and current play cost), the pick,
 // and the layer that answered. Read-only; changes no behaviour.
@@ -240,6 +301,20 @@ function SWUBotTrace(array $ctx, array $all, ?array $pick, string $layer): ?arra
             'turn' => $turn, 'stack' => $stack,
             'candidates' => array_map($show, $all), 'pick' => $pick === null ? null : $show($pick), 'layer' => $layer,
             'rule' => $layer === 'rule' ? ($GLOBALS['SWUBotLastRule'] ?? null) : null];
+    // SWUBOT_TRACE_BOARD=1 adds the whole board (read-only), so a traced decision can be shown as a position: both
+    // bases, every unit, resources, the opponent's hand SIZE, the initiative. Added 2026-09-19 for loss mining.
+    if (getenv('SWUBOT_TRACE_BOARD')) {
+        $side = function (int $p) {
+            return ['hpLeft' => SWUBaseRemainingHp($p), 'base' => strval((GetBase($p)[0] ?? null)->CardID ?? ''),
+                    'res' => SWUResourceCount($p) . '/' . SWUResourceCount($p, true) . 'r',
+                    'handSize' => count(array_filter(GetHand($p), fn($o) => $o !== null && empty($o->removed))),
+                    'deck' => count(array_filter(GetDeck($p), fn($o) => $o !== null && empty($o->removed))),
+                    'units' => array_map(fn($v) => $v['cardID'] . ' ' . $v['arena'][0] . ' ' . $v['power'] . '/' . $v['remaining']
+                                          . ($v['ready'] ? '' : ' exh') . ($v['sentinel'] ? ' SENT' : '') . ($v['upgrades'] ? " +{$v['upgrades']}up" : '')
+                                          . ($v['isLeader'] ? ' LDR' : ''), SWUBotUnits($p))];
+        };
+        $rec['board'] = ['me' => $side($seat), 'opp' => $side(SWUBotOpponent($seat)), 'init' => strval(GetInitiativeCounter() ?? '')];
+    }
     @file_put_contents($path, json_encode($rec, JSON_UNESCAPED_SLASHES) . "\n", FILE_APPEND);
     return $pick;
 }
@@ -249,7 +324,9 @@ function SWUBotRecordCoverage(int $seat, string $key): void {
 }
 function SWUBotResetCoverage(): void { $GLOBALS['SWUBotCoverage'] = []; }
 
-foreach (['aggro', 'normal', 'control'] as $style) {
+// The five archetypes (SWUSim/Custom/BotArchetypes.php) plus the three legacy names, which must keep
+// resolving: botStyle is a POST field on APIs/Lobbies/JoinQueue.php and is stored on saved lobbies.
+foreach (array_merge(SWU_BOT_ARCHETYPES, array_keys(SWU_BOT_STYLE_ALIASES)) as $style) {
     SWUBotRegisterChooser("heuristic-$style", fn(array $actions, array $legal) => SWUBotHeuristicChoose($style, $actions, $legal));
     // Variant profiles for the strength test (BotFeatures.php): "heuristic-<style>@base", "heuristic-<style>@no-<feature>".
     foreach (SWUBotVariants() as $v) {
@@ -257,4 +334,6 @@ foreach (['aggro', 'normal', 'control'] as $style) {
     }
     // The learned layer (RL Phase 3): "heuristic-<style>@rl", configured by SWU_RL_* (SWUSim/Rl/SwuPolicy.php).
     SWUBotRegisterChooser("heuristic-$style@rl", fn(array $actions, array $legal) => SWUBotHeuristicChoose($style, $actions, $legal, 'rl'));
+    // The learned value model (spec 2026-09-19): "heuristic-<style>@value", configured by SWU_VALUE_MODEL.
+    SWUBotRegisterChooser("heuristic-$style@value", fn(array $actions, array $legal) => SWUBotHeuristicChoose($style, $actions, $legal, 'value'));
 }

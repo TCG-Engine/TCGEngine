@@ -35,7 +35,9 @@ $shd091JabbasRancor = function ($player, $mzID) {
   $self = GetZoneObject($mzID);
   $selfUID = ($self !== null) ? intval($self->UniqueID ?? 0) : 0;
   $friendly = [];
-  foreach (ZoneSearch('myGroundArena', AnyUnitFilter) as $mz) {
+  // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly.
+  // Arena-scoped, so the ground filter is kept explicitly. Degrades to 'my' outside a team game.
+  foreach (SWUFriendlyUnits('Ground') as $mz) {
     $o = GetZoneObject($mz);
     if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUID)
       $friendly[] = $mz;

@@ -67,7 +67,7 @@ Rotation: Status=1:9
 Counters: Damage=Image(Path=Assets/Icons/damage-counter.webp,Position=TopRight,ShowZero=false,Size=25,TextColor=White)
 Counters: LocationSlot=Badge(Color=Purple,Position=BottomLeft,ShowZero=false)
 
-Assets - CardID:string, Status:number=2, Owner:number=0, Controller:number=0, UniqueID:number=0, TurnEffects:array[string], Counters:json
+Assets - CardID:string, Status:number=2, Owner:number=0, Controller:number=0, UniqueID:number=0, AttachedTo:number=0, TurnEffects:array[string], Counters:json
 Display: Visibility=Public, Mode=All, BindTo=AssetsSlot
 Index: TurnEffects
 Overlay: Status=1:exhausted

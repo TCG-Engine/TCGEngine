@@ -670,13 +670,56 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $result['recordAction'] = false;
       }
       break;
+    // ── Inactivity kick vote (SWUSim). cardID = the TARGET seat. ────────────────────────────────
+    // 10021 = "Kick <name>" (record this seat's Yes; perform the removal when the vote carries)
+    // 10022 = "Wait another 20 seconds"
+    // A vote is PRESENCE state, not gamestate: a vote that has not yet carried writes no gamestate and
+    // bumps no update counter — the presence vote-version wakes the other polls instead.
+    case 10021:
+    case 10022:
+      $result['writeGamestate'] = false;
+      $result['updateCache'] = false;
+      $result['recordAction'] = false;
+      if (!function_exists('SWUVoterSeatsFor') || !function_exists('PresenceRecordVote')) {
+        $result['success'] = false; $result['message'] = 'Voting is not available in this game.'; break;
+      }
+      $kickTarget = intval($cardID);
+      $kickVoter  = intval($playerID);
+      $kickVotes  = PresenceRead(strval($gameName))['votes'] ?? [];
+      if (!SWUClockIsActive() || !isset($kickVotes[$kickTarget])) {
+        $result['success'] = false; $result['message'] = 'There is no open vote for that player.'; break;
+      }
+      if (!in_array($kickVoter, SWUVoterSeatsFor($kickTarget), true)) {
+        $result['success'] = false; $result['message'] = 'You cannot vote on that player.'; break;
+      }
+      if ($mode === 10022) {
+        PresenceExtendVote(strval($gameName), $kickTarget, time(), SWU_CLOCK_WAIT_SECONDS);
+        $result['message'] = 'OK';
+        break;
+      }
+      PresenceRecordVote(strval($gameName), $kickTarget, $kickVoter, time());
+      $kickVote = PresenceRead(strval($gameName))['votes'][$kickTarget] ?? [];
+      if (SWUVoteIsCarried($kickVote, $kickTarget)) {
+        // Carried: remove the player HERE, on the normal action path, so the after-action stats hook runs.
+        SWUApplyKick($kickTarget);
+        PresenceClearVote(strval($gameName), $kickTarget);
+        // The seat count / game-over state just changed: refresh the cached facts in THIS request, or
+        // the poll's cheap path would re-open the vote from facts that still say the game is live.
+        PresenceWriteFacts(strval($gameName), SWUClockFacts());
+        $result['writeGamestate'] = true;
+        $result['updateCache'] = true;
+      }
+      $result['message'] = 'OK';
+      break;
     case 10008:
       // Approve undo request (called by the opponent)
-      if (function_exists('SWUApproveUndo')) SWUApproveUndo();
+      // Pass the ANSWERING seat: any opponent may answer (owner ruling 2026-09-26) and the seat is
+      // what both the eligibility check and the game-log line are built from.
+      if (function_exists('SWUApproveUndo')) SWUApproveUndo(intval($playerID));
       break;
     case 10009:
       // Deny undo request (called by the opponent)
-      if (function_exists('SWUDenyUndo')) SWUDenyUndo();
+      if (function_exists('SWUDenyUndo')) SWUDenyUndo(intval($playerID));
       break;
     case 10010:
       // Block future undo requests permanently (called by the opponent)
@@ -707,16 +750,35 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       if (function_exists('SetShortcutPreferencesState')) {
         SetShortcutPreferencesState($playerID, $inputText);
       }
-      $result['updateCache'] = false;
+      // FaBSim may advance priority immediately when a shortcut is enabled.
+      $result['updateCache'] = ($folderPath === 'FaBSim');
       $result['recordAction'] = false;
       break;
     case 10017:
-      if (function_exists('ProcessBotControllerStep')) {
+      $expectedUpdate = $options['botStepExpectedUpdate'] ?? null;
+      if ($expectedUpdate !== null && intval($expectedUpdate) !== intval($updateNumber)) {
+        // Stale step: the asking browser rendered an older update, so another browser (or a human)
+        // already moved the game on. No move — its next render asks again with the current token.
+        // See Core/GameWriteLock.php.
+        $result['success'] = true;
+        $result['message'] = 'Bot step skipped: the game has moved on.';
+        $result['writeGamestate'] = false;
+        $result['updateCache'] = false;
+        $result['recordAction'] = false;
+        $result['botStepApplied'] = false;
+        $result['botStepRetryable'] = true;
+        $result['botStepStale'] = true;
+      } else if (function_exists('ProcessBotControllerStep')) {
         $botResult = ProcessBotControllerStep($playerID, $folderPath, $gameName);
         $result['success'] = !empty($botResult['success']);
         $result['message'] = strval($botResult['message'] ?? '');
-        $result['writeGamestate'] = !empty($botResult['writeGamestate']);
-        $result['updateCache'] = !empty($botResult['updateCache']);
+        // The bot's move ran through a NESTED EngineExecuteLoadedAction, which already wrote the gamestate, the frame-animation
+        // cache and the update marker. The wrapper must not commit again: echoing the nested flags here published update N+1
+        // with the SAME $frameAnimations, so a browser that polled between the two writes played the bot's attack twice
+        // (owner report 2026-10-04), and GameAfterEngineAction / goldfish automation ran twice.
+        // Guard: SWUSim/DevTools/tests/bot_step_single_update_test.php.
+        $result['writeGamestate'] = false;
+        $result['updateCache'] = false;
         $result['recordAction'] = false;
         $result['botStepApplied'] = !empty($botResult['applied']);
         $result['botStepRetryable'] = !array_key_exists('retryable', $botResult) || !empty($botResult['retryable']);
@@ -1078,6 +1140,33 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       GameLogCommitFrame($gameName, $updateNumber, $action, $result);
     }
     WriteGamestate('./' . $folderPath . '/');
+    // ── Inactivity clock (SWUSim) ────────────────────────────────────────────────────────────────
+    // Stamp the acting seat's clock ONLY when the game actually moved AND the seat does not still owe
+    // a decision it just created. That second condition is what stops an ATTACK DECLARATION (or any
+    // play that hands its own chooser back) from buying another full timeout — answering the prompt
+    // stamps instead. See docs/superpowers/specs/2026-09-17-swusim-inactivity-timer-and-kick-design.md
+    // Never let this throw into the action path: a failed stamp gives a player MORE time, never less.
+    if (function_exists('SWUProgressFingerprint') && function_exists('PresenceStampAction')
+        && function_exists('SWUClockIsActive') && SWUClockIsActive()
+        && !in_array($mode, [10004, 10005, 10008, 10009, 10010, 10011, 10018, 10019, 10017], true)
+        && $mode < 11000) {
+      $fpBefore = $GLOBALS['gEngineProgressFingerprintBefore'] ?? null;
+      $fpAfter  = SWUProgressFingerprint();
+      $seat     = intval($playerID);
+      // Refresh the cached facts on EVERY action, not only when the board moved, so the poll's cheap
+      // path can evaluate the clock without parsing the gamestate (stage 2).
+      // ⚠ Unconditional on purpose: ending the game (a concede, or a kick) changes 'active' WITHOUT
+      // changing the fingerprint, and stale facts saying "still live" let the cheap path re-open a
+      // vote on a finished game.
+      if (function_exists('SWUClockFacts') && function_exists('PresenceWriteFacts')) {
+        PresenceWriteFacts(strval($gameName), SWUClockFacts());
+      }
+      if ($fpBefore !== null && $fpBefore !== $fpAfter) {
+        if ($seat >= 1 && !SWUSeatOwesDecision($seat)) {
+          PresenceStampAction(strval($gameName), $seat, time(), SWUSeatsOnTheClock());
+        }
+      }
+    }
     // SWUSim-only Bo3 match advance (function exists only when MatchFlow is loaded; no-op for other sims).
     if (function_exists('SWUAfterActionMatchHook')) {
       SWUAfterActionMatchHook($folderPath, $gameName);
@@ -1098,7 +1187,10 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       SetFrameAnimationCache($gameName, $frameAnimations);
       GamestateUpdated($gameName);
       if (function_exists('TouchActiveGame')) {
-        TouchActiveGame($folderPath, $gameName);
+        // The gamestate globals are loaded here, so the round counter is free to read. A sim
+        // without one passes null and the index entry keeps whatever it had.
+        TouchActiveGame($folderPath, $gameName,
+                        isset($GLOBALS['gTurnNumber']) ? intval($GLOBALS['gTurnNumber']) : null);
       }
     }
     if ($result['recordAction'] && RegressionIsRecordingActive($folderPath, $gameName)) {

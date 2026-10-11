@@ -16,6 +16,11 @@ $leaderAbilities["LAW_012"] = function(int $player): void {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $friendly[] = $mz; }
     if (empty($friendly)) { SWUAfterAction($player); return; }   // costs paid; no legal target → no Raid granted
     SWUQueueChooseTarget($player, $friendly, "A_friendly_unit_gains_Raid_1_for_this_phase", "LAW_012#0");
+    // Paying the [discard a card from your deck] cost IS "you discard a card from your deck" — LAW_176
+    // Sebulba's Podracer bagged its may-ready above. A leader Action finishes through SWUAfterAction, which
+    // never flushes the bag, so the trigger was dropped at end of request (the SHD_163 Migs family). Flush
+    // it here: after the Raid pick (the ability resolves first), before the action closes.
+    FlushTriggerBag($player);
     SWUQueueAfterAction($player);
 };
 

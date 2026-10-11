@@ -14,7 +14,11 @@ $leaderActionResourceCosts["LAW_010"] = 2;
 $leaderAbilities["LAW_010"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $units = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $units[] = $mz; }
     if (empty($units)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $units, "Give_a_unit_+1/+1_per_different_aspect_it_has", "LAW_010#0");
@@ -35,7 +39,7 @@ $customDQHandlers["LAW_010#0"] = function($player, $parts, $lastDecision) {
 $whenPlayedAbilities["LAW_010:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $units = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $units[] = $mz; }
     if (empty($units)) return;
     SWUQueueChooseTarget(intval($player), $units, "Give_Experience_tokens_(=_distinct_aspects_you_control)_to_a_unit", "LAW_010#1");

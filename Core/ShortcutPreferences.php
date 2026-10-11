@@ -80,6 +80,7 @@ function NormalizeShortcutPreferencesPayload($payload) {
 
   return [
     'version' => 1,
+    'holdPriority' => !empty($payload['holdPriority']),
     'windows' => $normalizedWindows,
   ];
 }
@@ -123,7 +124,7 @@ function ShouldAutoPassShortcutWindow($player, $windowId) {
   if (!array_key_exists($windowId, $registry)) return false;
 
   $prefs = GetShortcutPreferencesState($player);
-  return !empty($prefs['windows'][$windowId]);
+  return empty($prefs['holdPriority']) && !empty($prefs['windows'][$windowId]);
 }
 
 ?>

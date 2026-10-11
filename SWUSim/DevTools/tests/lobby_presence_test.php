@@ -27,7 +27,7 @@ $now = 1000000;
 // hidden tab still beats once a minute, so Away means "actually gone" — the signal a host needs
 // before deciding to kick.
 check(SWU_LOBBY_AWAY_AFTER === 90, 'away threshold is 90s');
-check(SWU_LOBBY_HOST_AWAY_AFTER === 300, 'host migration threshold is 300s');
+check(SWU_LOBBY_HOST_AWAY_AFTER === 120, 'host migration threshold is 120s');
 
 $r = mkroom([1, 2, 3]);
 foreach ($r->players as $p) $p->touch($now);
@@ -61,12 +61,12 @@ foreach ($h->players as $p) $p->touch($now);
 check(SWUMigrateHostIfAway($h, $now) === false, 'a present host keeps the room');
 check($h->hostPlayerID === 1,                   'hostPlayerID unchanged');
 
-$h->players[0]->touch($now - 200);   // away by the 90s rule, but not yet by the 300s host rule
-check(SWUMigrateHostIfAway($h, $now) === false, 'an away host keeps the room until 300s');
+$h->players[0]->touch($now - 100);   // away by the 90s rule, but not yet by the 120s host rule
+check(SWUMigrateHostIfAway($h, $now) === false, 'an away host keeps the room until 120s');
 check($h->hostPlayerID === 1,                   'a coffee break does not cost you the room');
 
-$h->players[0]->touch($now - 301);
-check(SWUMigrateHostIfAway($h, $now) === true, 'a host away past 300s hands the room over');
+$h->players[0]->touch($now - 121);
+check(SWUMigrateHostIfAway($h, $now) === true, 'a host away past 120s hands the room over');
 check($h->hostPlayerID === 2,                  'the lowest present playerID inherits');
 
 // Lowest-NUMBERED, not lowest-JOINED — team rooms reorder $lobby->players on every pick.

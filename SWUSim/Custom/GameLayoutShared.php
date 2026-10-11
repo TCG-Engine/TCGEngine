@@ -22,6 +22,38 @@
     border-radius: 4px; cursor: pointer;
 }
 
+/* Attack / Ability chooser popup for a glowing .unit-action unit (showUnitActionMenu below).
+   Same history as the glows above: this sat in desktop GameLayout.php only, so on a phone the menu
+   rendered unstyled — position static at the top-left of <body>, hidden under the fixed top control
+   band — and a unit with an Action could neither attack nor use it (game 505707, Poe on a vehicle).
+   Guarded by DevTools/ui-harness/unit-action-menu-mobile-xbrowser.mjs. */
+.swu-unit-action-menu {
+    position: fixed;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 4px;
+    background: var(--panel-scrim);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+.swu-uam-btn {
+    background: var(--surface-sunken);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 5px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.swu-uam-btn:hover {
+    background: var(--surface-raised);
+    border-color: var(--accent);
+}
+
 /* ── Arena HUD darkening overlay (shared: desktop + mobile) ─────────────────────
    Blue cyan-interface wash inside each arena box, clipped to the box (behind the
    cards, below the corner brackets). Kept here so both layouts share one definition.
@@ -54,6 +86,13 @@
     border-radius: 7px;
     transition: box-shadow 0.3s ease;
 }
+/* Resource-box narrowing while a decision is picking resources (swuApplyResourcePanelFilter).
+   Lives here, not in GameLayout.php, because the JS that sets these classes is shared by the
+   desktop AND mobile layouts — a desktop-only rule would leave the phone box unfiltered. */
+#myResourcesSlot .swu-res-not-offered { display: none !important; }
+/* Outranks the plain `.swu-resource-panel::before` label in both layouts (id + class beats class),
+   so the narrowed box says why it is short rather than looking like resources went missing. */
+#myResourcesSlot.is-filtered::before { content: "SELECTABLE RESOURCES"; }
 #myResourcesSlot .smuggle-available {
     box-shadow: 0 0 10px 2px rgba(60,220,90,0.65), 0 0 3px 1px rgba(60,220,90,0.35);
     border-radius: 4px;
@@ -64,6 +103,18 @@
     box-shadow: 0 0 8px 3px var(--accent-strong, #f0c040), inset 0 0 4px var(--accent-strong, #f0c040);
     border-radius: 4px;
 }
+/* The same glow inside the discard POPUP (count bubble / Twin Suns discard chip) — the only place a
+   playable card that is not on top of its pile is rendered. On the IMAGE, not the wrapper span: the
+   popup stretches each span to its grid cell, so a span glow draws a box around empty space, while the
+   image carries the card's own rounded corners. Without this rule the class was applied and invisible.
+   The GOLD of the pile's own .has-action glow, not --accent-strong: that token is a pale theme accent
+   (grey-blue in the default theme) which read as a faint white halo, and the pile the player just
+   clicked glows gold — so the card it is glowing for should too. */
+#popupContainer .discard-playable img:not(.counter-image-icon) {
+    box-shadow: 0 0 14px 4px rgba(240,192,64,0.85), 0 0 3px 2px rgba(240,192,64,0.95);
+    border-radius: 8px;
+}
+#popupContainer .discard-playable { cursor: pointer; }
 #myDiscardSlot.has-action,
 #theirDiscardSlot.has-action {
     box-shadow: 0 0 14px 3px rgba(240,192,64,0.70), 0 0 4px 1px rgba(240,192,64,0.40);
@@ -129,6 +180,11 @@ body.swu-spectating #swuPassControl { display: none !important; }
     background: rgba(222,72,72,0.85); color: #fff; font: 700 11px/1 var(--swu-font-label, sans-serif);
     letter-spacing: 0.06em; pointer-events: none; }
 body.swu-spectating .swu-spectate-badge { display: block; }
+/* ⚠ On the HOME view the badge and the strip both want the top of the screen: the badge is fixed at 48px
+   and .swu-home-strips starts at 52px, so the badge lands on the first tiles and covers a Zoom In button.
+   They never collided before 2026-09-25 because an eliminated viewer was given a MATCHUP, never the home
+   panels. Dock it to the bottom in home mode — the strip owns the top there. */
+body.swu-home .swu-spectate-badge { top: auto; bottom: 10px; }
 
 /* 3-player home view — two minimal opponent status strips across the top (gateways into their matchup). */
 .swu-home-strips { position: fixed; top: 52px; left: 0; right: 0; z-index: 39;
@@ -168,6 +224,69 @@ body.swu-spectating .swu-spectate-badge { display: block; }
    ⚠ Deliberately NOT colour-only: .is-active-turn also prints a "TURN" pill next to the seat number,
    so the state survives a colourblind viewer and a screenshot. The ring uses box-shadow, not a border
    width change, so the strip does not reflow by a pixel when the turn passes. */
+/* ── A DEFEATED SEAT'S PANEL (owner ruling 2026-09-25) ────────────────────────────────────────
+   "keep the players' home panels up but with their units disappeared and then their leaders and base
+   greyed out. people like this view already."
+   The units are not drawn at all (swuRenderMiniBoard skips them when defeated), so nothing here needs to
+   hide them — this file only has to say "inactive". Greyscale + dim rather than opacity on the whole
+   tile, so the seat label and the numbers stay READABLE: the panel is still a record of where that
+   player finished, it is just not live any more.
+   ⚠ filter, not opacity, on the CARDS specifically. An opacity on the tile would fade the text too and
+   at this size the chips become unreadable — measured on the 4P board, where three tiles compete. */
+/* GRAYSCALE THE WHOLE TILE, including its PLAYMAT. Measured on the 4P board: greying only the cards left
+   the dead seats sitting on full-colour playmat art, so at a glance they read as the LIVELIEST tiles on
+   the strip — the opposite of the intent. Grayscale alone (no brightness drop) desaturates the art while
+   leaving the seat label and the numbers at full contrast, which is why the dimming below is applied to
+   the CARDS and CHIPS individually rather than to this element. */
+.swu-home-strip.is-defeated,
+.swu-seat-row.is-defeated { filter: grayscale(1); }
+.swu-home-strip.is-defeated .swu-mb-card,
+.swu-seat-row.is-defeated .swu-mb-card {
+    filter: brightness(0.45) contrast(0.9);
+}
+/* The chips grey WITH the leader and base (owner choice 2026-09-25) so the whole tile reads inactive. */
+.swu-home-strip.is-defeated .swu-mb-r2,
+.swu-home-strip.is-defeated .swu-mb-seat,
+.swu-seat-row.is-defeated .swu-sr-b,
+.swu-seat-row.is-defeated .swu-sr-seat { opacity: 0.55; }
+/* The empty arenas keep their frame — the panel must still read as a BOARD, just a cleared one. */
+.swu-home-strip.is-defeated .swu-mb-arena { opacity: 0.5; }
+/* Zoom In stays (owner choice 2026-09-25: it opens their emptied board) but must not look live. */
+.swu-home-strip.is-defeated .swu-mb-zoom { opacity: 0.7; }
+
+/* ZOOM IN on a defeated seat: the FULL board gets the same treatment as the tile. The opponent half is
+   greyed and its units are hidden — the server may still hold that seat's units, and a dead board must
+   not offer a clickable target. `my` zones are untouched: this is THEIR defeat, not yours. */
+body.swu-opp-defeated #theirLeaderSlot,
+body.swu-opp-defeated #theirBaseSlot,
+body.swu-opp-defeated #theirBaseTabs,
+body.swu-opp-defeated #theirPileRow,
+body.swu-opp-defeated #theirResourcesSlot {
+    filter: grayscale(1) brightness(0.5);
+}
+body.swu-opp-defeated #theirGroundArenaSlot > *,
+body.swu-opp-defeated #theirSpaceArenaSlot > * { display: none !important; }
+/* ...and their PLAYMAT with them. Same lesson as the tile: greying only the cards leaves the dead half
+   sitting on full-colour art, which reads as more alive than the living half. .swu-playmat-top is the
+   opponent side by construction (ApplyCosmeticPlaymats paints it from the current view's oppSeat), so
+   this follows the view automatically and never touches the viewer's own mat. */
+body.swu-opp-defeated .swu-playmat-top,
+body.swu-opp-defeated .swu-m-arena-row.is-theirs { filter: grayscale(1); }
+
+/* THE VIEWER'S OWN half, when THEY are the one who is out (owner ruling 2026-09-25: "keep them in the
+   home panels page. with themselves greyed out"). Mirror image of the block above — same treatment, `my`
+   selectors — so a dead player's board reads exactly like a dead opponent's rather than like a live one. */
+body.swu-self-defeated #myLeaderSlot,
+body.swu-self-defeated #myBaseSlot,
+body.swu-self-defeated #myBaseTabs,
+body.swu-self-defeated #myPileRow,
+body.swu-self-defeated #myResourcesSlot,
+body.swu-self-defeated #myHandSlot { filter: grayscale(1) brightness(0.5); }
+body.swu-self-defeated #myGroundArenaSlot > *,
+body.swu-self-defeated #mySpaceArenaSlot > * { display: none !important; }
+body.swu-self-defeated .swu-playmat-bot,
+body.swu-self-defeated .swu-m-arena-row.is-mine { filter: grayscale(1); }
+
 .swu-home-strip.is-active-turn {
     border-color: rgba(240,192,64,0.55);
     /* ⚠ Two BLURRED layers and no hard ring — the same idiom as 2P's .has-action glow
@@ -209,6 +328,15 @@ body.swu-spectating .swu-spectate-badge { display: block; }
 .swu-home-strip { position: relative; flex-direction: column; align-items: stretch; gap: 6px; padding: 8px; max-width: 46%; cursor: default; }
 .swu-mb-r1 { display: flex; align-items: center; gap: 5px; }
 .swu-mb-seat { font-weight: 800; color: #eef; margin-right: 2px; }
+/* A named seat label (swuSeatLabelHtml): "username P3". The name truncates so a long one cannot push the
+   leaders, base and Zoom button off the tile; the full "username (P3)" is in the title tooltip. */
+.swu-mb-seat.has-name, .swu-sr-seat.has-name { display: inline-flex; align-items: baseline; gap: 4px; min-width: 0; }
+.swu-seat-name { display: inline-block; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Phone row: the label is the one item allowed to SHRINK, so a long name gives way to the leaders, base, arena
+   counts and Zoom button instead of pushing Zoom off the row (measured: a fixed 84px cap overflowed a 400px row). */
+.swu-sr-seat.has-name { flex: 0 1 auto; overflow: hidden; }
+.swu-sr-seat .swu-seat-name { max-width: 84px; min-width: 0; flex: 0 1 auto; }
+.swu-seat-pn { font-weight: 600; font-size: 0.78em; opacity: 0.7; }
 .swu-mb-spacer { flex: 1 1 auto; }
 .swu-mb-card { position: relative; border-radius: 3px; border: 1px solid #10151f;
     background-size: cover; background-position: center; box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
@@ -216,7 +344,13 @@ body.swu-spectating .swu-spectate-badge { display: block; }
    unit's shape, not a leader's; the art was cropped to fit it. Keep the ratio if you retune the size. */
 .swu-mb-leader { --swu-mb-leader-w: 40px;
     width: var(--swu-mb-leader-w); height: calc(var(--swu-mb-leader-w) * 0.717); }
-.swu-mb-base   { width: 44px; height: 30px; display: flex; align-items: center; justify-content: center; }
+/* LANDSCAPE, ~628:450 — the real proportions of a BASE card, same treatment as the leader above.
+   It was 44x30 (ratio 1.467) holding the 450x450 concat crop, so cover discarded 29% of the image's
+   height. The thumbnail now draws the WHOLE card from WebpImages (628x450), and deriving the height
+   from the width means cover has nothing left to crop. Keep the ratio if you retune the size. */
+.swu-mb-base   { --swu-mb-base-w: 44px;
+    width: var(--swu-mb-base-w); height: calc(var(--swu-mb-base-w) * 0.717);
+    display: flex; align-items: center; justify-content: center; }
 /* SQUARE, 1:1 — a unit thumbnail draws the concat crop (450x450), not the portrait card. See the
    folder choice in unitHtml(). --swu-mb-unit is the single knob; the arena grid below derives its
    track height and floor from it, so retuning the size never needs a second edit. */
@@ -233,6 +367,69 @@ body.swu-home .swu-mb-cardicon { width: 16px; height: 16px; }
 /* A leader thumbnail is smaller than the base, so its icon steps down to stay a corner marker rather
    than a lid — the 75x75-on-an-84px-card mistake this file already carries a warning about. */
 body.swu-home .swu-mb-leader .swu-mb-cardicon { width: 13px; height: 13px; }
+/* Static printed-HP pip — TOP-LEFT, over the card's own printed HP (swuMbBaseHP). Drawn with the board's
+   usual HP badge art (swusim-hp_v2.png, the same token .swu-mb-hp and the schema's CurrentHP counter use;
+   owner 2026-10-08: "use our usual hp badge"). The art is 96x128 (3:4) but the box is deliberately
+   SQUARER (owner, same day: "reduce the badge height to look more square"), so the art is stretched to
+   the box (100% 100%), not contained — contain would letterbox it back to 3:4. No z-index: it comes before the damage token in the DOM, so where they touch, the
+   damage number paints on top. Click-through, like every other overlay here.
+   ⚠ It OVERHANGS the card's top edge on purpose (owner 2026-10-08: "it can fall off the card some") —
+   that is where the base health bar runs. The tile's 8px top padding (phone row: 13px) holds the
+   overhang; nothing above it clips (all overflow:visible). Lift it further and it crosses the panel. */
+.swu-mb-basehp { position: absolute; left: 2px; top: -5px; pointer-events: none;
+    width: 12px; height: 13px; display: flex; align-items: center; justify-content: center;
+    background: url('./Assets/Icons/swusim-hp_v2.png') center / 100% 100% no-repeat;
+    color: #fff; text-shadow: 0 1px 2px #000, 0 0 3px #000;
+    font: 800 8px/1 var(--swu-font-label, sans-serif); }
+body.swu-home .swu-mb-basehp { top: -7px; width: 18px; height: 20px; font-size: 11px; }
+/* ── Base health bar: New Petranaki HUD depth (spec 2026-10-08) ────────────────────────────────────
+   The main menu's chamfer primitive (SharedUI/Sites/SWUSim/css/swusim-menu-2.css, .ch / .inwrap):
+   corners cut top-left / bottom-right, a 1px WHOLE-PX steel rim (the menu's --rim-hi / --rim-lo), and a
+   sunken plane whose cut is cut − 0.586 × rim so the rim reads the same width on the diagonal. Height
+   and cut are per surface: full-size 12px desktop / 7px phone, thin 3px tile / 2px phone row.
+   ⚠ The drop-shadow filter is safe here: the bar contains no frosted glass, so the backdrop-root rule
+   in swusim-menu-2.css doesn't apply. */
+.swu-hb { --hb-cut: 7px; --hb-ci: 6.414px; --hb-c: #c9ced6;
+    position: relative; height: 12px; pointer-events: none;
+    filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.75)); }
+.swu-hb-rim { position: absolute; inset: 0;
+    clip-path: polygon(var(--hb-cut) 0, 100% 0, 100% calc(100% - var(--hb-cut)), calc(100% - var(--hb-cut)) 100%, 0 100%, 0 var(--hb-cut));
+    background: linear-gradient(180deg, rgba(196,214,238,.60), rgba(120,142,172,.18) 76%); }
+.swu-hb-plane { position: absolute; inset: 1px; overflow: hidden;
+    clip-path: polygon(var(--hb-ci) 0, 100% 0, 100% calc(100% - var(--hb-ci)), calc(100% - var(--hb-ci)) 100%, 0 100%, 0 var(--hb-ci));
+    background: linear-gradient(180deg, #232930 0%, #3a414c 55%, #454e5b 100%);
+    box-shadow: inset 0 2px 2px -1px rgba(0,0,0,.6); }
+.swu-hb-fill { position: absolute; left: 0; top: 0; bottom: 0;
+    background: linear-gradient(180deg, color-mix(in oklab, var(--hb-c) 55%, white) 0%, var(--hb-c) 42%, color-mix(in oklab, var(--hb-c) 68%, black) 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset -1px 0 0 rgba(255,255,255,.65);
+    transition: width 420ms cubic-bezier(.2,.8,.2,1); }
+body.swu-hb-still .swu-hb-fill { transition: none; }
+/* "Turn off health bars" (Profile → Game Settings / gear menu): every bar goes, full-size and tile. The
+   Twin Suns HP badge (.swu-mb-basehp) is NOT a bar and stays. Hiding the containers also gives back the
+   gap the full-size bars opened between the 1v1 bases. */
+body.swu-hb-off .swu-hb, body.swu-hb-off .swu-base-health { display: none !important; }
+/* "Reduce board animations" (gear menu, owner 2026-10-09): stops the two pulses that run for the whole
+   game — the arena HUD frame glow (.swu-arena-glow, desktop + phone) and the turn-indicator glyphs.
+   Any never-ending animation keeps the browser compositing a frame on every display refresh, which on a
+   machine without GPU acceleration measured ~100% of a core on an idle board with both running. The
+   frame stays at its static dim look (glow hidden); the turn glyphs stay fully visible, just still. */
+body.swu-board-calm .swu-arena-glow { animation: none !important; opacity: 0 !important; }
+body.swu-board-calm #turn-miasma-overlay .turn-edge-core,
+body.swu-board-calm #turn-miasma-overlay .turn-edge-glyph::before,
+body.swu-board-calm #turn-miasma-overlay .turn-edge-glyph::after { animation: none !important; }
+/* Fill its container. ⚠ The phone layout's `.swu-m-center > div { display: flex }` makes the container a
+   flex box, and an unsized child of one shrinks to 0px wide. */
+.swu-base-health > .swu-hb { width: 100%; }
+/* Thin bars (tiles): no room for a rim at 2–3px; they keep the cut, the shading and the lift. */
+.swu-hb--thin .swu-hb-rim { display: none; }
+.swu-hb--thin .swu-hb-plane { inset: 0;
+    clip-path: polygon(var(--hb-cut) 0, 100% 0, 100% calc(100% - var(--hb-cut)), calc(100% - var(--hb-cut)) 100%, 0 100%, 0 var(--hb-cut)); }
+/* Tile bar: along the thumbnail's TOP EDGE, from the HP badge's right edge (badge left + width) to 14%
+   short of the right edge: the aspect icon starts at 88% of every base card. 2–3px keeps it above the
+   title plate (7.4% of the card's height). Compact tiles: 12px badge at 2px → starts at 14px. */
+.swu-mb-base .swu-hb--thin, .swu-sr-base .swu-hb--thin { position: absolute; top: 0; right: 14%;
+    left: 14px; height: 2px; --hb-cut: 1px; }
+body.swu-home .swu-mb-base .swu-hb--thin { left: 20px; height: 3px; --hb-cut: 2px; }
 
 /* Effects column between the base and Zoom-in: THREE fixed rows, filled in arrival order.
    ⚠ Fixed width and height ALWAYS, empty or not — row 1 must stay identical across tiles. */
@@ -391,6 +588,27 @@ body.swu-home .swu-mb-base .swu-mb-dmgcounter { width: 34px; height: 34px; font-
     box-shadow: 0 1px 3px rgba(0,0,0,0.8);
     font: 800 calc(var(--swu-mb-unit) * 0.155)/1 var(--swu-font-label, sans-serif); }
 .swu-mb-upgcount:hover { background: #fff; border-color: var(--accent-strong, #f0c040); }
+/* ── Captive count badge ─────────────────────────────────────────────────────────────────────────
+   A GOLDENROD CIRCLE directly under the upgrade pill. Captives are split out of the upgrade count
+   because a held card is not a buff, and the colour is the same goldenrod as the base tile's ARRESTED
+   chip (.swu-mb-fxchip-arrest) and the full board's .swu-base-tab-arrest, so "someone is being held"
+   reads identically wherever it appears.
+   ⚠ Shape carries the meaning as much as the colour does: the upgrade badge is a PILL, this is a
+   CIRCLE, so the two are distinguishable at thumbnail size and by a colour-blind player.
+   ⚠ Stacked below the upgrade pill — top(0.03) + pill height(0.235) + a 0.02 gap = 0.285, which still
+   clears the centred damage token's top edge at ~0.29. Keep that sum under 0.29 if either is retuned.
+   ⚠ A circle cannot grow for a 2-digit count without becoming an oval, and it does not need to: a unit
+   holding 10+ captives does not exist. It is sized to the pill's height so the two align. */
+.swu-mb-capcount { position: absolute; z-index: 6; cursor: pointer; box-sizing: border-box;
+    top: calc(var(--swu-mb-unit) * 0.285); right: calc(var(--swu-mb-unit) * 0.035);
+    width: calc(var(--swu-mb-unit) * 0.235); height: calc(var(--swu-mb-unit) * 0.235);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(218,165,32,0.92); color: #1a1205;
+    border: 1px solid rgba(0,0,0,0.75);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    font: 800 calc(var(--swu-mb-unit) * 0.155)/1 var(--swu-font-label, sans-serif); }
+.swu-mb-capcount:hover { background: rgba(245,196,80,1); border-color: var(--accent-strong, #f0c040); }
 /* Full-card overlays. inset:0 rather than width/height:100% so they track the card's border box
    whatever --swu-mb-unit is, and they sit BELOW the damage token and badge strip by DOM order. */
 .swu-mb-ov { position: absolute; inset: 0; z-index: 2; pointer-events: none; border-radius: 3px;
@@ -474,9 +692,12 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
    content, and on the short mobile tile both arenas duly shrank to 10px — padding and border, no
    cards — while looking fine on the roomy desktop tile. Leaving min-height at its `auto` default
    floors each arena at label + one card row, so the split stays even AND nothing disappears. */
-/* ⚠ GRID, NOT WRAPPING FLEX. The arena fills DOWN then ACROSS: `grid-auto-flow: column` with a fixed
-   row count lays unit 0 above unit 1, then starts a new column — so --swu-mb-rows literally is "how
-   many rows this arena shows", and everything past the visible width is reached by scrolling sideways.
+/* ⚠ GRID, NOT WRAPPING FLEX. The arena fills ACROSS then DOWN (owner request 2026-10-03; it was down-
+   then-across): a fixed row count plus an explicit column count of ceil(units / rows), flowing by ROW,
+   so unit 1 sits right of unit 0. --swu-mb-rows literally is "how many rows this arena shows", and
+   everything past the visible width is reached by scrolling sideways. The column count comes inline from
+   swuMbRowOpen() as --swu-mb-c1 / --swu-mb-c2 (CSS cannot round inside repeat()); which one applies is
+   chosen beside the --swu-mb-rows rules below — keep those two pairs in step.
    ⚠ `flex-flow: column wrap` expresses the same intent and was rejected: a column-wrap flex container
    does not reliably grow its SCROLLABLE width in Gecko/WebKit, so the overflow columns exist but
    cannot be scrolled to — the exact failure this layout must not have. A grid container's scroll width
@@ -502,7 +723,8 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
 .swu-mb-row { display: grid; padding-bottom: calc(var(--swu-mb-unit) * 0.14); flex: 1 1 auto;
     padding-left: calc(var(--swu-mb-unit) * 0.09); padding-right: calc(var(--swu-mb-unit) * 0.09);
     column-gap: calc(var(--swu-mb-unit) * 0.16); row-gap: calc(var(--swu-mb-unit) * 0.16);
-    grid-auto-flow: column; grid-auto-columns: max-content;
+    grid-auto-flow: row; grid-auto-columns: max-content;
+    grid-template-columns: repeat(var(--swu-mb-c1, 1), max-content);   /* --swu-mb-rows: 1 (the :root default) */
     grid-template-rows: repeat(var(--swu-mb-rows, 1), calc(var(--swu-mb-unit) + 6px));
     justify-content: start; align-content: start;
     overflow-x: auto; overflow-y: hidden;
@@ -536,6 +758,14 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
     box-shadow: 0 0 9px 3px rgba(46,204,113,0.9); filter: none; z-index: 3;
     animation: swuGoBackPulse 1.2s ease-in-out infinite; }
 .swu-mb-card.mini-selectable:hover { outline-color: #6cff9a; box-shadow: 0 0 13px 4px rgba(46,204,113,1); }
+/* A SUBCARD HOST: the offered target is an upgrade/token ON this tile, not the tile itself (bug
+   #1068). It glows like any other target — it IS the way to reach that upgrade — but clicking it opens
+   the attached-card panel instead of submitting, so the cue says "there is something here to pick"
+   rather than promising the unit is the answer. Dashed, to read as "opens something" the way the
+   solid ring reads as "is the target".
+   ⚠ The upgrade/captive badges must stay clickable in their own right, so the host's cue must never
+   cover them: an outline, never an overlay. */
+.swu-mb-card.mini-selectable.mini-subcard-host { outline-style: dashed; }
 /* An ALREADY-PICKED mini card in a multi-select. Amber, matching the main board's .selected-inline
    (--highlight-color rgba(255,198,46,1)), so a pick reads the same whether it was made on the board
    or from a preview tile. The pulse is dropped: a chosen target is settled, not still asking. */
@@ -564,7 +794,10 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
    layout's own zone geometry). Only applies on the home view (body.swu-home). */
 body.swu-home .swu-home-strip { max-width: none; justify-content: center; }
 body.swu-home .swu-mb-leader { --swu-mb-leader-w: 61px; }   /* landscape, ~628:450 (see .swu-mb-leader) */
-body.swu-home .swu-mb-base   { width: 66px; height: 46px; }
+/* ⚠ Set the WIDTH ONLY. The height derives from it in .swu-mb-base above (* 0.717) so the box keeps a
+   base card's 628:450 ratio and the whole card shows. An explicit height here re-introduces the crop
+   the 2026-09-26 change removed — it was `width: 66px; height: 46px`, i.e. ratio 1.435. */
+body.swu-home .swu-mb-base   { --swu-mb-base-w: 66px; }
 /* The home view REPLACES the opponent's whole board region with these tiles, so the space is there to
    be used — the old 34x48 thumbnails left most of each arena box empty (and a 15-unit board still
    scrolled). Two rows of a much larger square crop is the same footprint spent on legibility.
@@ -582,6 +815,9 @@ body.swu-home .swu-mb-base   { width: 66px; height: 46px; }
    enormous window does not produce absurd thumbnails. */
 body.swu-home { --swu-mb-unit: clamp(52px, 7.1vh, 92px); --swu-mb-rows: 2; }
 @media (max-height: 900px) { body.swu-home { --swu-mb-unit: clamp(52px, 11.0vh, 110px); --swu-mb-rows: 1; } }
+/* Column count to match each row count above (left→right fill, see .swu-mb-row). Change one, change both. */
+body.swu-home .swu-mb-row { grid-template-columns: repeat(var(--swu-mb-c2, 1), max-content); }
+@media (max-height: 900px) { body.swu-home .swu-mb-row { grid-template-columns: repeat(var(--swu-mb-c1, 1), max-content); } }
 body.swu-home .swu-mb-basedmg { font-size: 18px; }
 body.swu-home .swu-mb-dmg { font-size: 10px; }
 
@@ -1007,8 +1243,8 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 }
 #topdecksearch-panel button::after, #scry-panel button::after, #revealarrange-panel button::after,
 #yesno-decision-modal button::after, .optchoose-btn::after {
-    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
-    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
+    content: '' !important; position: absolute !important; inset: 2px !important; z-index: -1 !important;   /* whole px: see petranaki-hud --btn-rim-width */
+    clip-path: polygon(6.83px 0, 100% 0, 100% calc(100% - 6.83px), calc(100% - 6.83px) 100%, 0 100%, 0 6.83px) !important;
     background: var(--btn-fill) !important;
 }
 #topdecksearch-panel button:hover, #scry-panel button:hover, #revealarrange-panel button:hover,
@@ -1018,6 +1254,37 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 #topdecksearch-panel button:hover::before, #scry-panel button:hover::before, #revealarrange-panel button:hover::before,
 #yesno-decision-modal button:hover::before, .optchoose-btn:hover::before {
     background: var(--accent-strong) !important;
+}
+
+/* ── The YESNO prompt's highlighted target ─────────────────────────────────────
+   A prompt about an already-chosen unit rings that unit on the board, so the player can see WHICH one the
+   question is about (reported 2026-09-28, SEC_010 Dedra Meero: "Deal 2 damage to your own unit?" named
+   nothing, and the popup covers the board). The class is applied by ApplyYesNoDecisionHighlight
+   (Core/UILibraries20261001.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
+   the overlay dim to 15% — a ring under a 50% black wash would not have been visible.
+   ⚠ z-index is DELIBERATELY NOT raised above the overlay (5000). Escaping a full-screen overlay's stacking
+   context depends on every ancestor of the card, and the arenas clip and transform — the lighter dim is
+   what makes this visible, and it cannot be clipped. Keep it that way.
+   The glow is drawn with box-shadow rather than border so it costs no layout: a border would resize the
+   card and shift the whole arena row while the prompt is open.
+   ⚠ TWO BLURRED LAYERS, NO HARD RING — the board's `.has-action` idiom (0 0 14px 3px + 0 0 4px 1px of the
+   accent, see #myBaseSlot.has-action above), scaled up slightly for a card-sized target. The first version
+   here was a crisp `outline: 3px solid` and read as a BORDER, not a selection glow (owner 2026-09-28); the
+   `.swu-home-strip.is-active-turn` note below records the same mistake being made and corrected with a
+   zero-blur `0 0 0 2px` spread, which paints an equally crisp ring. Keep every layer blurred if you retune
+   this — a zero-blur spread is a different visual language from the rest of the board.
+   ⚠ STATIC with a transition, and `rgba(var(--accent-rgb), a)` with NO fallback — both to match the
+   .has-action glows above, which are the board's only other accent glows. A @keyframes pulse and a
+   `var(--accent-rgb, 90,160,255)` fallback were both tried and dropped on 2026-09-28. Each was briefly
+   SUSPECTED of a WebKit-only failure; neither was the cause, and both were dropped for house consistency
+   alone, so do not read a browser bug into their absence. (The actual WebKit oddity was in the probe's
+   reading of one card's computed style, not in the style — see swusim-yesno-prompt-length-xbrowser.mjs.)
+   tokens.css is loaded by NextTurn.php on every board, so the variable is always defined anyway. */
+.yesno-decision-target {
+    border-radius: 5px !important;
+    box-shadow: 0 0 18px 5px rgba(var(--accent-rgb),0.75),
+                0 0 6px 2px rgba(var(--accent-rgb),0.45) !important;
+    transition: box-shadow 0.3s ease !important;
 }
 
 /* ── Mulligan opening-hand preview ─────────────────────────────────────────────
@@ -1173,8 +1440,8 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 .numchoose-confirm::after, .numchoose-btn-minus::after, .numchoose-btn-plus::after, .twosided-slider-confirm::after,
 .mzrearrange-btn-submit::after, .mzrearrange-btn-reset::after, .namecard-modal button::after,
 #selection-message > button:not([id])::after {
-    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
-    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
+    content: '' !important; position: absolute !important; inset: 2px !important; z-index: -1 !important;   /* whole px: see petranaki-hud --btn-rim-width */
+    clip-path: polygon(6.83px 0, 100% 0, 100% calc(100% - 6.83px), calc(100% - 6.83px) 100%, 0 100%, 0 6.83px) !important;
     background: var(--btn-fill) !important;
 }
 .numchoose-confirm:hover, .numchoose-btn-minus:hover, .numchoose-btn-plus:hover, .twosided-slider-confirm:hover,
@@ -1202,8 +1469,8 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px) !important;
 }
 .mzsplit-btn-minus::after, .mzsplit-btn-plus::after {
-    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
-    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
+    content: '' !important; position: absolute !important; inset: 2px !important; z-index: -1 !important;   /* whole px: see petranaki-hud --btn-rim-width */
+    clip-path: polygon(6.83px 0, 100% 0, 100% calc(100% - 6.83px), calc(100% - 6.83px) 100%, 0 100%, 0 6.83px) !important;
 }
 .mzsplit-btn-minus            { color: var(--on-danger) !important; text-shadow: 0 0 6px rgba(0,0,0,0.5) !important; filter: drop-shadow(0 0 4px var(--danger)) !important; }
 .mzsplit-btn-minus::before    { background: var(--danger) !important; }
@@ -1232,7 +1499,121 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
    9998 (Core/Styles/ScreenAnimations.css); lowered here (SWUSim-scoped) to just under the modal
    tier. Still well above the board, so the turn glyphs stay visible during normal play. */
 #turn-miasma-overlay { z-index: 4999 !important; }
+/* ── Whisper chat (spec docs/superpowers/specs/2026-09-17-swusim-twinsuns-whisper-chat-design.md) ──
+   Shared, not desktop-only: GameLayoutMobile.php does not inherit GameLayout.php's CSS. */
+.swu-whisper-row {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 4px 5px;
+    width: 100%; min-width: 0; box-sizing: border-box; padding: 4px 2px;
+    font-family: barlow, sans-serif;   /* the composer's font; the row otherwise falls back to the UA serif */
+    font-size: 12px; line-height: 1.2; color: rgba(255,255,255,0.72);
+}
+.swu-whisper-row .swu-whisper-head {
+    font-weight: 700; font-size: 10px; letter-spacing: 0.06em; margin-right: 1px; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+}
+.swu-whisper-row.is-active .swu-whisper-head { color: #c9a2ff; }
+/* Each target is a pill toggle; .is-on is set by the change handler (not :has(), for older engines). */
+.swu-whisper-row label {
+    display: inline-flex; align-items: center; gap: 4px; cursor: pointer; user-select: none;
+    max-width: 100%; min-width: 0; box-sizing: border-box; padding: 2px 7px 2px 4px;
+    border: 1px solid rgba(255,255,255,0.16); border-radius: 999px; background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.78); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+.swu-whisper-row label:hover { border-color: rgba(201,162,255,0.55); color: #fff; }
+.swu-whisper-row label.is-on {
+    background: rgba(160,110,255,0.26); border-color: #b98cff; color: #f3eaff;
+}
+.swu-whisper-row input[type=checkbox] {
+    -webkit-appearance: none; appearance: none; margin: 0; flex: 0 0 auto; cursor: pointer;
+    width: 12px; height: 12px; border-radius: 3px; box-sizing: border-box;
+    border: 1.5px solid rgba(255,255,255,0.45); background: transparent;
+    background-position: center; background-repeat: no-repeat; background-size: 10px 10px;
+}
+.swu-whisper-row input[type=checkbox]:focus { outline: none; }
+/* Keyboard focus only — a mouse click must not leave a ring around the pill. */
+.swu-whisper-row input[type=checkbox]:focus-visible { outline: 2px solid #e2ccff; outline-offset: 2px; }
+.swu-whisper-row input[type=checkbox]:checked {
+    border-color: #c9a2ff; background-color: #c9a2ff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.3l2.3 2.3 4.7-5' fill='none' stroke='%23180c2c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+@media (prefers-reduced-motion: reduce) { .swu-whisper-row label { transition: none; } }
+/* A whisper you can READ: italics plus a faint wash. ⚠ It must never set `color` — the seat colour
+   reaches whisper text by INHERITING from .chatMsg-p{N} on the row, which is what makes a whisper read
+   in its sender's colour (owner, 2026-09-26: "include that text coloring for Whisper chats. keep the
+   italics."). */
+.chatMsg-whisper, .swu-log-CHAT.chatMsg-whisper { font-style: italic; background: rgba(160,110,255,0.10); }
+/* Chat send time (owner 2026-10-09), desktop AND phone board — both load this file. Drawn from the row's
+   data-time (Core/jsInclude.js _AppendChatMessage) so it is NOT a child: the seat-colour name rules key on
+   `> span:first-child`. Muted and upright so it never reads as part of the message (whispers are italic). */
+.chatMsg[data-time]::before { content: attr(data-time); margin-right: 6px; font-size: 10.5px; font-weight: 400;
+    font-style: normal; color: rgba(226,232,240,0.45); font-variant-numeric: tabular-nums; }
+/* In the merged log panel the time sits at the RIGHT of the row's first line (owner 2026-10-09): floated,
+   so the message wraps around it and keeps the full width below. flow-root makes the row contain the float
+   (a one-line row would otherwise let it hang into the next row). */
+.swu-log-CHAT.chatMsg[data-time] { display: flow-root; }
+.swu-log-CHAT.chatMsg[data-time]::before { float: right; margin: 0 4px 0 8px; }
+/* The PUBLIC piece of a whisper — the redacted stub every non-party sees ("P2 whispered something to
+   P1 and P4"). Owner, 2026-09-26: "for all public pieces of whispers, keep the backwash to a grey hue
+   now". It is the neutral log grey (#aab6c4), the same family as the game-log rows it sits between,
+   because a stub IS an announcement rather than a message. This also retires a real collision: the
+   purple wash above is the same hue as P4's seat colour #d79bff, so purple used to mean both "private"
+   and "P4 said it". The stub rule follows the whisper rule on purpose — equal specificity, later wins. */
+.chatMsg-whisperStub, .swu-log-CHAT.chatMsg-whisperStub { opacity: 0.72; background: rgba(170,182,196,0.10); }
+/* ── Inactivity clock + kick vote ──
+   z-index 4990: just BELOW the decision-modal tier (5000), because the stalled player is still allowed
+   to act and their own prompt must always win. Fixed-position and outside the zone containers, so a
+   board re-render (ClearSelectionMode) cannot wipe it. */
+.swu-kick-host {
+    position: fixed; z-index: 4990; left: 50%; transform: translateX(-50%); top: 12px;
+    display: none; flex-direction: column; align-items: center; gap: 6px;
+    width: max-content; max-width: calc(100vw - 24px); box-sizing: border-box;
+    font-family: barlow, sans-serif; pointer-events: none;
+}
+.swu-kick-host.is-open { display: flex; }
+.swu-kick-clock {
+    background: rgba(0,0,0,0.82); border: 1px solid #555; border-radius: 6px; color: #e6e6e6;
+    padding: 4px 10px; font-size: 13px; line-height: 1.3; text-align: center;
+}
+.swu-kick-clock.is-you { border-color: #ffb648; color: #ffd9a0; }
+.swu-kick-prompt {
+    pointer-events: auto;
+    background: rgba(14,12,20,0.95); border: 1px solid #b98cff; border-radius: 8px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.55); padding: 10px 14px; text-align: center; color: #f3eaff;
+    max-width: 100%; box-sizing: border-box;
+}
+.swu-kick-title { font-size: 14px; line-height: 1.35; }
+.swu-kick-tally { font-size: 12px; opacity: 0.8; margin-top: 3px; }
+.swu-kick-actions {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; margin-top: 8px;
+}
+.swu-kick-actions button {
+    font-family: barlow, sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;
+    border-radius: 5px; padding: 5px 10px; margin: 0; box-shadow: none; white-space: nowrap;
+}
+.swu-kick-yes  { background: #7a2f3a; border: 1px solid #ff8fa3; color: #ffe6ea; }
+.swu-kick-yes:hover { background: #933845; }
+.swu-kick-wait { background: #2a2a33; border: 1px solid #777; color: #e6e6e6; }
+.swu-kick-wait:hover { background: #363642; }
+.swu-kick-voted { font-size: 12px; opacity: 0.85; }
+/* Deck count badge (updateDeckCount below). Sits at the bottom-centre of the pile, over the card art, above the
+   stack layers (their z-index tops out at 9). Desktop .swu-pile is already position:relative; the mobile pile is
+   made so here. pointer-events:none keeps the pile's own click (the zone popup) working through it. */
+.swu-m-pile { position: relative; }
+.swu-pile-count {
+    position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%); z-index: 30;
+    min-width: 24px; padding: 1px 7px; box-sizing: border-box; text-align: center;
+    border-radius: 10px;
+    background: rgba(12, 15, 20, 0.88);
+    border: 1px solid rgba(196, 208, 220, 0.45);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    font: 700 13px/1.35 'Barlow', sans-serif; color: #eef2f6; letter-spacing: 0.02em;
+    pointer-events: none;
+}
+.swu-pile-count[hidden] { display: none; }
+.swu-m-pile .swu-pile-count { font-size: 11px; bottom: 2px; padding: 0 5px; min-width: 18px; }
 </style>
+<script src="./SWUSim/SwuPgnViewerClient.js?v=<?= filemtime(__DIR__ . '/../SwuPgnViewerClient.js') ?>"></script><?php /* SWU-PGN replay viewer controls; inert unless ?swupgnViewer=1 */ ?>
 <script>
 window.SWU_PILOT_LEADERS = <?php echo json_encode([
     'JTL_001','JTL_003','JTL_006','JTL_008','JTL_009',
@@ -1240,8 +1621,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
 ]); ?>;
 </script>
 <script>
-(function (MY_PLAYER_ID) {
+(function (MY_PLAYER_ID, PERSPECTIVE_SEAT) {
     'use strict';
+    // The seat whose board is drawn at the bottom. For a player that is MY_PLAYER_ID. A spectator's
+    // MY_PLAYER_ID is 0 (intval('S')) and the server draws the seat picked in "Spectator View"
+    // (viewerPerspective), so the Twin Suns views must be built around THAT seat (owner report 2026-10-07:
+    // "when viewing as P1, they still see P1 in the home panels"). Only the views use it. Turn ownership,
+    // undo and elimination still read MY_PLAYER_ID, so a spectator never gets a seated player's controls.
+    var BOARD_SEAT = MY_PLAYER_ID || PERSPECTIVE_SEAT || 0;
 
     // ── Phase track ────────────────────────────────────────────────────────────
     var PHASE_ALIASES = {
@@ -1408,9 +1795,22 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (_planBtn)  _planBtn.hidden  = !(canAct && _ad.planAvailable);
         var _passBtn = document.getElementById('swuPassBtn');
         if (_passBtn) {
-            var _mustCounter = canAct && (_ad.blastAvailable || _ad.planAvailable);
-            _passBtn.disabled = !!_mustCounter;
-            _passBtn.title = _mustCounter ? 'You must take a counter before passing' : 'Pass (Space)';
+            // CR §12.6.1.a — "players may only pass if there are no counters available to take".
+            //
+            // ⚠ THE SERVER DECIDES (myActionsData.passAvailable), for two reasons. It counts the
+            // INITIATIVE counter, which the old blast/plan-only test here missed — so at three seats,
+            // where the last free counter is very often the initiative, Pass stayed offered exactly
+            // when the rules forbid it. And it is the same predicate CustomInput enforces, so the
+            // button and the server can never disagree.
+            //
+            // HIDDEN, not disabled (owner, 2026-09-20): a disabled button that silently swallows the
+            // click reads as a broken button. Layout is safe — syncPassReserveVar already reserves the
+            // worst case (two rows) precisely so the lane does not re-flow as buttons come and go.
+            // Absent key (premier / 1P, or an older payload) ⇒ true ⇒ unchanged behaviour.
+            var _passOk = (_ad.passAvailable === undefined) ? true : !!_ad.passAvailable;
+            _passBtn.hidden = !_passOk;
+            _passBtn.disabled = false;
+            _passBtn.title = 'Pass (Space)';
         }
     }
 
@@ -1430,11 +1830,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     window.swuTakePlanCounter = function () {
         SubmitInput('10001', '&cardID=' + encodeURIComponent('PlanCounter-0!CustomInput!TakeCounter'));
     };
-    // Twin Suns pass rule (CR §12.5): a seat may only pass if no counter is available to take. False in
-    // 2-player (the keys are absent) so premier passing is unchanged.
+    // Twin Suns pass rule (CR §12.6.1.a): a seat may only pass if no counter is available to take.
+    // Guards the Pass BUTTON's click handler and the Space-key shortcut, so neither can route around a
+    // hidden button.
+    // ⚠ Reads the server's own verdict rather than re-deriving it. The previous version tested only
+    // blast/plan and so missed the INITIATIVE counter — the common last-counter case at three seats.
+    // Absent key (premier / 1P, older payload) ⇒ passing is allowed ⇒ unchanged.
     window.swuMustTakeCounter = function () {
         var ad = window.myActionsData || {};
-        return !!(ad.blastAvailable || ad.planAvailable);
+        return ad.passAvailable === undefined ? false : !ad.passAvailable;
     };
 
     // Hotseat: one person plays both seats from one browser (shared authKey). Switch reloads the
@@ -1536,6 +1940,42 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         new MutationObserver(function() {
             updateResCounterFromData(dataVar, countElId);
         }).observe(slot, {childList: true, subtree: true, attributes: true});
+    }
+
+    // ── Deck count badge (player report 2026-09-21: "can't see own deck size") ─────────────────
+    // The deck renders as a Stacked single zone, and Core's renderer deliberately zeroes the card's own
+    // count bubble in that mode (the stack depth stands in for it — CreateVisualSingleZoneStackHTML), so no
+    // number was shown for either deck. The count is in the zone data: a private zone arrives as ONE
+    // "CardBack <count> -" entry. The badge lives on the pile (the slot's PARENT), because the renderer
+    // replaces the slot's whole contents on every update. Works on desktop (.swu-pile) and mobile
+    // (.swu-m-pile) alike, and shows 1 too — the stack draws no layers for a single card, which is exactly
+    // when the number matters most (deck-out).
+    function swuDeckCountFromData(dataVar) {
+        var raw = String(window[dataVar] || '').trim();
+        if (!raw) return 0;
+        var n = parseInt(raw.split(' ')[1], 10);
+        return isFinite(n) && n > 0 ? n : 0;
+    }
+    function updateDeckCount(slotId, dataVar) {
+        var slot = document.getElementById(slotId); if (!slot || !slot.parentElement) return;
+        var pile = slot.parentElement;
+        var badge = pile.querySelector(':scope > .swu-pile-count');
+        if (!badge) {
+            badge = document.createElement('span');
+            badge.className = 'swu-pile-count';
+            badge.setAttribute('aria-label', 'Cards in deck');
+            pile.appendChild(badge);
+        }
+        var n = swuDeckCountFromData(dataVar);
+        badge.textContent = String(n);
+        badge.hidden = n === 0;              // an empty deck already reads "Empty" on the pile frame
+        badge.title = n + (n === 1 ? ' card' : ' cards') + ' in deck';
+    }
+    function watchDeckCount(slotId, dataVar) {
+        updateDeckCount(slotId, dataVar);
+        var slot = document.getElementById(slotId); if (!slot) return;
+        new MutationObserver(function() { updateDeckCount(slotId, dataVar); })
+            .observe(slot, {childList: true, subtree: true});
     }
 
     // ── Resource panel toggle (mine only) ─────────────────────────────────────
@@ -1700,24 +2140,62 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ── Chat merged INTO the game log ─────────────────────────────────────────
     // ONE stream, no Log/Chat tabs. Players were not discovering that the panel could be switched,
     // so chat arrived in a tab nobody had open. Core's _AppendChatMessage builds the element and
-    // hands it here; we drop it into #swuLogPanel, where it interleaves with game events in
-    // ARRIVAL order (log entries carry no timestamp — "TYPE|VISIBILITY|text" — so true chronological
-    // interleaving is not available; on first load the chat backlog therefore lands after the log
-    // backlog, and everything after that is genuinely in order because both ride the same poll).
+    // hands it here; we drop it into #swuLogPanel.
+    //
+    // ⚠ MERGED BY TIME, NOT BY ARRIVAL (owner, 2026-09-26: "i send a chat, then refreshed and it
+    // moved to the top"). Both streams carry wall-clock microtime now — a log entry as
+    // '@<microtime>' in field 2 (AddGameLogEntry) and a chat row as `ts` (SubmitChat) — so the two
+    // can finally be ordered against each other. An UNSTAMPED row is history from before that
+    // change: it goes above everything stamped rather than on the end, which is what used to throw
+    // a fresh message to the top of an old game's log.
     // ⚠ Returns FALSE in floating-chat mode — the <800px desktop breakpoint hides #swuSidebar (and
     //   with it the log panel) and restores the "💬 Chat" launcher, so #chatLog + its toast are the
     //   only visible surface there. Core then falls back to them. Detected via a VISIBLE
     //   #chatToggleBtn rather than a width test: the mobile layout kills that button outright, so
     //   mobile always takes the merged path even while its drawer is closed.
-    window.TCGChatMessageSink = function(el) {
+    // Place a row among rows that carry data-ts. Scans from the END because rows normally arrive
+    // in order. An unstamped row is older than anything we can place, so it goes above the stamped
+    // ones (and after any unstamped rows already there, keeping their order).
+    function swuLogInsertByTs(panel, node, ts, isHistory) {
+        // ⚠ WHAT AN UNSTAMPED ROW MEANS DEPENDS ON WHICH KIND IT IS.
+        // A LOG entry with no stamp is HISTORY -- a game played before 2026-09-26 -- and belongs
+        // above anything we can place. A CHAT row with no stamp just ARRIVED, and belongs at the
+        // bottom. One rule for both sent every unstamped message to the top of the panel.
+        if (isNaN(ts)) {
+            if (!isHistory) { panel.appendChild(node); return; }
+            var firstStamped = null;
+            for (var j = 0; j < panel.children.length; j++) {
+                if (!isNaN(parseFloat(panel.children[j].getAttribute('data-ts')))) { firstStamped = panel.children[j]; break; }
+            }
+            panel.insertBefore(node, firstStamped);   // null => append, right when nothing is stamped
+            return;
+        }
+        for (var i = panel.children.length - 1; i >= 0; i--) {
+            var t = parseFloat(panel.children[i].getAttribute('data-ts'));
+            if (!isNaN(t) && t <= ts) { panel.insertBefore(node, panel.children[i].nextSibling); return; }
+        }
+        var first = panel.firstChild;
+        while (first && first.nodeType === 1 && isNaN(parseFloat(first.getAttribute('data-ts')))) first = first.nextSibling;
+        panel.insertBefore(node, first);
+    }
+
+    window.TCGChatMessageSink = function(el, msg) {
         var toggle = document.getElementById('chatToggleBtn');
         if (toggle && toggle.getClientRects().length > 0) return false;
         var panel = document.getElementById('swuLogPanel');
         if (!panel) return false;
         el.style.cssText = '';                       // drop Core's inline sizing; SWUSim styles it
-        el.classList.add('swu-log-entry', 'swu-log-CHAT');
+        if (msg && String(msg.playerID) === '0' && el.children.length === 2) {
+            // A seat-0 row is a SYSTEM notice ("alice left the game." — AnnounceLeave.php; the Sideboard
+            // countdown), not somebody talking: a plain grey log line, without the "Game:" label that the
+            // floating chat and the Sideboard panel still show.
+            el.removeChild(el.firstElementChild);
+            el.classList.add('swu-log-entry', 'swu-log-NOTICE');
+        } else {
+            el.classList.add('swu-log-entry', 'swu-log-CHAT');
+        }
         var nearBottom = (panel.scrollHeight - panel.scrollTop - panel.clientHeight) < 60;
-        panel.appendChild(el);
+        swuLogInsertByTs(panel, el, parseFloat(el.getAttribute('data-ts')), false);   // chat: never history
         if (nearBottom) panel.scrollTop = panel.scrollHeight;
         return true;
     };
@@ -1745,9 +2223,17 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var raw = window.GameLogData || '';
         if (!raw || raw === '-') return;
         var entries = raw.split('<NL>');
-        // Log shrank (undo) — rebuild from scratch instead of appending.
+        // Log shrank (undo, or the match advanced to a new game) — rebuild it.
+        //
+        // ⚠ REMOVE ONLY THE ROWS THIS RENDERER MADE. `panel.innerHTML = ''` also destroyed every
+        // CHAT row: chat lives in this panel but comes from the chat poll, which only ever sends
+        // messages NEWER than lastId -- so once wiped, the conversation never came back. At the
+        // end of a game the match advances to a fresh, shorter log, this branch fired, and the
+        // whole panel emptied: "if i refresh while the You Won screen pops up, then all the chats
+        // and gamelogs disappear completely" (owner, 2026-09-26).
         if (entries.length < _swuLogRenderedCount) {
-            panel.innerHTML = '';
+            var stale = panel.querySelectorAll('.swu-log-entry:not(.swu-log-CHAT)');
+            for (var d = 0; d < stale.length; d++) stale[d].remove();
             _swuLogRenderedCount = 0;
         }
         if (entries.length <= _swuLogRenderedCount) return;
@@ -1761,14 +2247,21 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             var parts = entry.split('|');
             if (parts.length < 3) continue;
             var type = parts[0];
-            var text = parts.slice(2).join('|');
+            // ⚠ Field 2 is the '@<microtime>' stamp on entries written since 2026-09-26; on any
+            // gamestate saved before that it is the TEXT. Both shapes have to render.
+            var stamped = parts[2].charAt(0) === '@' && !isNaN(parseFloat(parts[2].slice(1)));
+            var text = parts.slice(stamped ? 3 : 2).join('|');
             var div  = document.createElement('div');
             div.className = 'swu-log-entry swu-log-' + type;
-            div.innerHTML = swuParseLogText(text.replace(/</g, '&lt;'));
-            frag.appendChild(div);
+            if (stamped) div.setAttribute('data-ts', parts[2].slice(1));
+            div.innerHTML = swuParseLogText(swuNameSeatsInLog(text.replace(/</g, '&lt;')));
+            // ⚠ PLACED, not appended. On a refresh the chat poll normally resolves before this
+            // runs, so appending a fragment dropped the whole game log BELOW the chat -- which is
+            // exactly "i send a chat, then refreshed and it moved to the top", measured on a live
+            // game. Log entries are history: unstamped ones sort above anything stamped.
+            swuLogInsertByTs(panel, div, stamped ? parseFloat(parts[2].slice(1)) : NaN, true);
         }
         _swuLogRenderedCount = entries.length;
-        panel.appendChild(frag);
 
         if (wasNearBottom) panel.scrollTop = panel.scrollHeight;
     };
@@ -1787,6 +2280,52 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // Resources live behind a collapsed badge, so a board-level MZCHOOSE would otherwise
     // have nothing visible to click. We only auto-close a panel we ourselves opened, so a
     // panel the player opened manually is left alone.
+    // While such a decision is open the panel also NARROWS to the resources actually being offered
+    // (see swuOfferedResourceIndices): a player asked to defeat one Credit should not have to find it
+    // among twenty near-identical resource cards. The pool the server sent IS the filter, so this can
+    // never hide a legal choice or show an illegal one — there is no second list to drift out of sync.
+    // A whole-zone offer ("myResources", no index) means every resource is legal, so nothing is hidden.
+    //
+    // Returns a {index: true} map of the offered resources, or null when the panel must show them all.
+    function swuOfferedResourceIndices() {
+        var sel = window.SelectionMode;
+        if (!sel || !sel.active || !Array.isArray(sel.allowedZones)) return null;
+        var specs = sel.allowedZones.filter(function(z) { return z && z.zone === 'myResources'; });
+        if (specs.length === 0) return null;
+        var offered = {};
+        for (var i = 0; i < specs.length; i++) {
+            var idx = specs[i].specificIndex;
+            if (typeof idx !== 'number' || isNaN(idx)) return null;   // whole-zone offer → show everything
+            offered[idx] = true;
+        }
+        return offered;
+    }
+
+    // Hide the resource cards outside the offer. The engine re-renders the zone on every update and
+    // that wipes these classes, so this re-runs from pollGlobals and from an observer on the slot.
+    var _swuResFilterBusy = false;
+    function swuApplyResourcePanelFilter(panel) {
+        if (_swuResFilterBusy) return;
+        _swuResFilterBusy = true;
+        try {
+            var offered = swuOfferedResourceIndices();
+            var cards = panel.querySelectorAll('[data-mzid]');
+            var hidden = 0;
+            for (var i = 0; i < cards.length; i++) {
+                var m = /^myResources-(\d+)$/.exec(cards[i].getAttribute('data-mzid') || '');
+                if (!m) continue;                                   // subcards etc. are not resource cards
+                var hide = !!offered && !offered[parseInt(m[1], 10)];
+                cards[i].classList.toggle('swu-res-not-offered', hide);
+                if (hide) hidden++;
+            }
+            // Relabels the panel header, so a narrowed box reads as deliberate rather than as
+            // resources having gone missing.
+            panel.classList.toggle('is-filtered', hidden > 0);
+        } finally {
+            _swuResFilterBusy = false;
+        }
+    }
+
     function refreshResourceSelectionPanel() {
         var panel = document.getElementById('myResourcesSlot'); if (!panel) return;
         var sel = window.SelectionMode;
@@ -1801,6 +2340,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             panel.classList.remove('is-open');
             window.__swuAutoOpenedResPanel = false;
         }
+        swuApplyResourcePanelFilter(panel);
+    }
+
+    // Re-apply after the engine repaints the zone (a repaint can land between polls, and it drops
+    // every class we set). Toggling a class to the value it already has mutates nothing, so this
+    // cannot feed itself; the busy flag is belt-and-braces.
+    function watchResourcePanelFilter() {
+        var panel = document.getElementById('myResourcesSlot'); if (!panel) return;
+        new MutationObserver(function() { swuApplyResourcePanelFilter(panel); })
+            .observe(panel, { childList: true, subtree: true });
     }
 
     // The Force token is rendered inside the base card by the core Card() renderer
@@ -1843,10 +2392,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         document.documentElement.style.setProperty('--swu-pass-reserve-h', Math.round(reserve) + 'px');
     }
     function pollGlobals() {
+        swuHbSyncMotion();
+        if (typeof window.swuApplyHealthBarVisibility === 'function') window.swuApplyHealthBarVisibility();
+        if (typeof window.swuApplyBoardAnimationPref === 'function') window.swuApplyBoardAnimationPref();
         syncCardSizeVar();
         swuInitPairSwitcher();   // sets window.swuSpectating BEFORE the glows read it
         updatePhaseTrack(); updatePhaseLine(); updateInitiative(); updateRound(); refreshActionGlows();
         swuRenderBaseTabs('my'); swuRenderBaseTabs('their');
+        swuRenderBaseHealth('my'); swuRenderBaseHealth('their');
         swuRenderHomeStrips();
         refreshResourceSelectionPanel();
         swuUpdateUndoUI(MY_PLAYER_ID);
@@ -1860,6 +2413,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // is up and the button is missing, so the steady-state cost is one getElementById.
         setInterval(swuEnsureEndGameToggle, 700);
         window.addEventListener('resize', syncCardSizeVar);
+        window.addEventListener('resize', function () { swuRenderBaseHealth('my'); swuRenderBaseHealth('their'); });
         var g=document.getElementById('globalStuff'); if(!g) return;
         new MutationObserver(pollGlobals).observe(g,{childList:true,subtree:true});
     }
@@ -2016,11 +2570,62 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         }
     }
 
+    // Clicking the PILE opens the full discard viewer (owner, 2026-10-02: players did not realise the
+    // only way in was the small count bubble). Runs after handleDiscardClick, so a glowing playable TOP
+    // card still plays in one click (that handler preventDefault()s when it acts). Stands aside for
+    // anything that owns the click: an active target selection, a selectable card, or a CHOOSEZONE
+    // binding on the pile — those listeners sit below this capture-phase one and would never fire.
+    // Covers the count bubble too, and stopPropagation keeps the bubble's own toggle from shutting the
+    // viewer this just opened. The card's default CardClick → FSM is a no-op for a discard card
+    // (ActionMap has no discard case), so nothing is lost by not letting it through.
+    function openDiscardPileFromSlot(e, zone) {
+        if (e.defaultPrevented) return;
+        if (window.SelectionMode && window.SelectionMode.active) return;
+        var slot = e.currentTarget;
+        var t = e.target;
+        if (t && t.closest && (t.closest('.selectable-card') || t.closest('.choosezone-selectable'))) return;
+        if (slot.classList.contains('choosezone-selectable') || slot.querySelector('.choosezone-selectable')
+            || (slot.closest && slot.closest('.choosezone-selectable'))) return;
+        if (!slot.querySelector('[data-mzid]')) return;              // empty pile: nothing to show
+        if (typeof ShowZonePopup !== 'function') return;
+        e.stopPropagation();
+        e.preventDefault();
+        ShowZonePopup(zone);
+    }
+
     function setupDiscardClick() {
         var mySlot = document.getElementById('myDiscardSlot');
-        if (mySlot) mySlot.addEventListener('click', function(e) { handleDiscardClick(e, 'mine'); }, true);
+        if (mySlot) mySlot.addEventListener('click', function(e) {
+            handleDiscardClick(e, 'mine');
+            openDiscardPileFromSlot(e, 'myDiscard');
+        }, true);
         var theirSlot = document.getElementById('theirDiscardSlot');
-        if (theirSlot) theirSlot.addEventListener('click', function(e) { handleDiscardClick(e, 'opp'); }, true);
+        if (theirSlot) theirSlot.addEventListener('click', function(e) {
+            handleDiscardClick(e, 'opp');
+            openDiscardPileFromSlot(e, 'theirDiscard');
+        }, true);
+        // The discard POPUP (count bubble / Twin Suns discard chip). A discard slot is
+        // Mode=Single(Latest) and renders only its TOP card, so a playable card anywhere else in the
+        // pile exists ONLY in the popup. With the click bound to the slots alone, that card fell
+        // through to the generic CardClick → FSM and nothing happened — the permission silently worked
+        // only while the card happened to be on top (game 1438045: Stolen AT-Hauler under a
+        // Sheathipede). CAPTURE phase so this runs before the card's inline CardClick; the owner is
+        // read off the card's own zone, so one listener serves every pile.
+        var popups = document.getElementById('popupContainer');
+        if (popups) {
+            popups.addEventListener('click', function(e) {
+                var card = e.target && e.target.closest ? e.target.closest('.discard-playable[data-mzid]') : null;
+                if (!card) return;
+                var mine = /^myDiscard-/.test(card.getAttribute('data-mzid') || '');
+                handleDiscardClick(e, mine ? 'mine' : 'opp');
+                if (typeof ClosePopup === 'function') ClosePopup();   // the pile is about to change
+            }, true);
+            // The popup is built asynchronously (fetch → innerHTML), after the last glow pass ran.
+            if (typeof MutationObserver === 'function') {
+                new MutationObserver(function() { refreshDiscardCardGlows(); })
+                    .observe(popups, { childList: true });
+            }
+        }
     }
 
     // Clicking a unit that has an available Action (glowing .unit-action) is ambiguous:
@@ -2164,6 +2769,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         setupHandCollapse();
         watchResZone('myResourcesSlot',    'swuMyResCount',    'myResourcesData');
         watchResZone('theirResourcesSlot', 'swuTheirResCount', 'theirResourcesData');
+        watchDeckCount('myDeckSlot',    'myDeckData');
+        watchDeckCount('theirDeckSlot', 'theirDeckData');
+        watchResourcePanelFilter();
         // (Initiative token is a status badge now — taking it lives on the Take/Keep button
         //  in the player's own controls, wired via inline onclick → window.swuTakeInitiative.)
         var passBtn = document.getElementById('swuPassBtn');
@@ -2298,18 +2906,90 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // downstream branch degenerates to Twin Suns behaviour.
     // ⚠ Keep the parity rule HERE ONLY, as it is server-side. Do not inline `% 2` anywhere else.
     function swuTeamOf(seat) { return window.SWUIsTeamGame ? (seat % 2) : seat; }
+    // Exported because swuUpdateUndoUI (a top-level function, outside this scope) needs the same rule to
+    // decide who is asked to answer an undo request. Exporting keeps the "HERE ONLY" instruction above
+    // intact — the alternative was inlining `% 2` a second time, which is exactly what it forbids.
+    window.swuTeamOf = swuTeamOf;
     function swuIsTeammate(seat) {
-        return !!window.SWUIsTeamGame && seat !== MY_PLAYER_ID && swuTeamOf(seat) === swuTeamOf(MY_PLAYER_ID);
+        return !!window.SWUIsTeamGame && seat !== BOARD_SEAT && swuTeamOf(seat) === swuTeamOf(BOARD_SEAT);
     }
 
     function swuBuildViews() {
         var order = String(window.LiveSeatsData || window.SeatOrderData || '').trim();
         var seats = order.length ? order.split('').map(function (c) { return parseInt(c, 10); }) : [];
-        var me = MY_PLAYER_ID;
-        if (seats.length <= 2) return [];
-        var opps = seats.filter(function (s) { return s !== me; });
-        var views = [{ viewSeat: me, oppSeat: opps[0], mode: 'home', opps: opps, label: 'Home' }];
-        opps.forEach(function (o) {
+        var me = BOARD_SEAT;   // a spectator watching P3 gets exactly P3's views (see BOARD_SEAT)
+        // ELIMINATED, BUT STILL WATCHING (owner, 2026-09-20). A player knocked out of a 3-seat game is
+        // "effectively a spectator of the last 2 remaining": show them the survivors' board (P2 vs P3),
+        // not the emptied board of their own dead seat, which is what falling through to `return []`
+        // gave them. Giving viewSeat to a seat that is NOT them is exactly what swuApplySpectate() keys
+        // on, so the read-only badge and the board click guard arm themselves with no extra wiring.
+        //   • SeatOrder decides "were you ever a player here" and LiveSeats "are you still in it", so a
+        //     genuine SPECTATOR (never seated, seat 0) is untouched and keeps its own path.
+        //   • EXACTLY two survivors. At 3+ the existing branch below already builds a home view and a
+        //     matchup per survivor, which an eliminated player can page through (owner: keep 4P as-is).
+        //     At 1 the game is over and there is no matchup to show.
+        //   • Hands need nothing here: the server gates them on "the viewer IS seat N"
+        //     ($canSeePrivatePlayerN), so another seat's hand is never sent to this viewer whatever the
+        //     client renders. Face-down backs still show, which is the hand SIZE everyone can see.
+        var seatedEver = String(window.SeatOrderData || '').trim();
+        // ⚠ AN ELIMINATED PLAYER GETS THE HOME PANELS TOO (owner ruling 2026-09-25): "even for those
+        // defeated. keep them in the home panels page. with themselves greyed out."
+        // This used to short-circuit to a single `P{a} vs P{b}` matchup of the two survivors, which is why
+        // a knocked-out player saw "Read-only — viewing P1 vs P2" instead of the strip everyone likes.
+        // They now fall through to the SAME home + matchup build as a live player; their own board is
+        // greyed by body.swu-self-defeated and read-only is armed by swuViewerIsEliminated() rather than
+        // by handing them someone else's viewSeat.
+        // ⚠ DO NOT COLLAPSE A MULTI-SEAT GAME TO THE 2-PLAYER VIEW (owner ruling 2026-09-25). This was
+        // `if (seats.length <= 2) return [];`, which "zoomed in" on the last two survivors: the Home view
+        // and its preview tiles vanished and the board re-framed itself as a plain 1v1. Owner: "people
+        // actually like the Home panels" — so a 4P game that loses TWO seats and a 3P game that loses ONE
+        // both keep the multi-seat chrome, with the 4P -> 3P shift as the baseline. Eliminated seats drop
+        // out of `opps` and stop being tiled, which is exactly what already happens at 4P -> 3P.
+        //   • seats.length <= 1 — the game is over, there is no matchup left to build.
+        //   • A GENUINE two-player game (SeatOrder of 2) still returns [] and renders as it always has;
+        //     that is what `seatedEver.length <= 2` protects. Only a game that SEATED 3+ keeps the chrome.
+        if (seats.length <= 1) return [];
+        if (seats.length <= 2 && seatedEver.length <= 2) return [];
+        // A DEFEATED SEAT KEEPS ITS PANEL (owner ruling 2026-09-25): "keep the players' home panels up but
+        // with their units disappeared and then their leaders and base greyed out. people like this view
+        // already." So the strip tiles every seat that was ever SEATED, not just the live ones, and each
+        // dead seat also keeps a matchup view so Zoom In still opens its emptied board.
+        // ⚠ `opps` stays LIVE-ONLY. It also supplies the home view's oppSeat, and a dead seat there would
+        // make swuRenderedZoneForSeat resolve a corpse as 'their' — the shape of bug #4160. `tiles` is the
+        // render list; `opps` remains the live-opponent list every other reader expects.
+        // ⚠ Fall back to the live order when SeatOrderData is missing (games older than Twin Suns ship
+        // neither field), or a 3+ seat game would suddenly tile nothing.
+        var seatedSrc = seatedEver.length ? seatedEver : order;
+        var seatedList = seatedSrc.split('').map(function (c) { return parseInt(c, 10); });
+
+        // OPPONENT ORDER IS RELATIVE TO THE VIEWER (owner request 2026-09-26). Both lists used to be
+        // plain ascending seat order with yourself filtered out, so P2 read "P1 P3 P4" — a sequence with
+        // a hole in it that tells you nothing about the table. They now START AT THE SEAT TO YOUR RIGHT
+        // and wrap:  P1 → P2 P3 P4 · P2 → P3 P4 P1 · P3 → P4 P1 P2 · P4 → P1 P2 P3.
+        // Reading the strip left to right is then the same walk as "the player to your right" (the
+        // adjacency TS26_80 Reveal Intentions and friends are worded in), and the last tile is the seat
+        // that comes back round to you.
+        // ⚠ ONE ranking drives BOTH lists on purpose. `tiles` orders the strip and the matchup carousel;
+        // `opps[0]` is the home view's oppSeat, i.e. the one opponent whose zones resolve as `their…`.
+        // Rotating the strip alone would leave P2 looking at a strip led by P3 while the board still
+        // treated P1 as `their` — a pairing every consumer here assumes is the same seat.
+        // ⚠ The anchor is the SEATED order, not the live one, so an ELIMINATED viewer (still watching,
+        // and absent from `seats`) keeps a stable rotation instead of silently falling back to ascending.
+        // A SPECTATOR's `me` is the seat they picked (BOARD_SEAT), so they get that seat's rotation. rank()
+        // falls back to plain seat number only when `me` is in no seat order at all.
+        var myIdx = seatedList.indexOf(me);
+        var rank = function (s) {
+            var i = seatedList.indexOf(s);
+            if (i === -1 || myIdx === -1) return s;
+            return (i - myIdx + seatedList.length) % seatedList.length;
+        };
+        var byRight = function (a, b) { return rank(a) - rank(b); };
+
+        var opps  = seats.filter(function (s) { return s !== me; }).sort(byRight);
+        var tiles = seatedList.filter(function (s) { return s !== me; }).sort(byRight);
+        var isDead = function (s) { return seats.indexOf(s) === -1; };
+        var views = [{ viewSeat: me, oppSeat: opps[0], mode: 'home', opps: opps, tiles: tiles, label: 'Home' }];
+        tiles.forEach(function (o) {
             // Team Suns: your teammate is not an opponent, so "vs P3" is wrong for them. ONLY the label
             // changes — the view list, its order, viewSeat/oppSeat/mode and the home view's `opps` array
             // are all untouched, so the board and preview tiles render exactly as in Twin Suns.
@@ -2317,8 +2997,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // home view and their entry from the carousel, breaking Zoom In on your own teammate — the
             // opposite of USER RULING 2026-08-25 (the home view stays as it is; Zoom In is how you look
             // at your ally's board).
-            views.push({ viewSeat: me, oppSeat: o, mode: 'matchup',
-                         label: (swuIsTeammate(o) ? 'P' : 'vs P') + o });
+            views.push({ viewSeat: me, oppSeat: o, mode: 'matchup', defeated: isDead(o),
+                         label: (swuIsTeammate(o) ? '' : 'vs ') + swuSeatName(o) });
         });
         return views;
     }
@@ -2327,6 +3007,25 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // A target mzID is seat-tagged server-side as `p{n}<Zone>-{i}`; on the client only the two seats on
     // the CURRENT view render (as `my…`/`their…`). These map an mzID to its owning seat and to the frame
     // the current view would render it in.
+    // ShowZonePopup hook (Core/jsInclude.js). The board repaints `my…`/`their…` from the CURRENT view's seats,
+    // but a popup is fetched from the server by NAME, and the server resolves `their…` to the HOME view's
+    // oppSeat (swuViews[0]) — so in "you vs P3" the discard slot drew P3's top card while tapping it opened
+    // P2's pile (mobile report 2026-10-03, desktop identical). Rename to the seat-tagged zone the home tiles
+    // already open (`p3Discard`) whenever the view's seat differs from the server's.
+    // ⚠ PUBLIC ZONES ONLY — the allowlist below is deliberate; do not add a hidden zone to it.
+    // Unchanged (byte-identical) for 2 seats and for the home view's own opponent, which keeps the
+    // playable-from-popup discard flow on its `theirDiscard-N` ids.
+    var SWU_POPUP_REMAP_PUBLIC = { Discard: 1 };
+    window.SimRemapPopupZone = function (zoneName) {
+        var v = window.swuView, home = (window.swuViews || [])[0];
+        if (!v || !home) return zoneName;
+        var m = /^(my|their)(.+)$/.exec(String(zoneName || ''));
+        if (!m || !SWU_POPUP_REMAP_PUBLIC[m[2]]) return zoneName;
+        var seat = (m[1] === 'their') ? v.oppSeat : v.viewSeat;
+        var serverSeat = (m[1] === 'their') ? home.oppSeat : home.viewSeat;
+        return (seat && seat !== serverSeat) ? ('p' + seat + m[2]) : zoneName;
+    };
+
     function swuSeatOfMzid(mzid) {
         var s = String(mzid || '');
         var pm = s.match(/^p(\d+)/);
@@ -2341,9 +3040,12 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     }
     function swuRenderedZoneForSeat(seat) {
         var v = window.swuView;
-        // ⚠ NO VIEW ≠ NO MAPPING. swuBuildViews returns [] once there are two or fewer LIVE seats, so a
-        // Twin Suns game that has narrowed by elimination renders exactly like a 2-player game and has
-        // no swuView at all. The SERVER does not narrow with it: ZoneSearch's seat-tagged fan-out is
+        // ⚠ NO VIEW ≠ NO MAPPING. This branch is now reached only by a GENUINE two-player game and by a
+        // multi-seat game narrowed to its last single seat — since 2026-09-25 a Twin Suns game that has
+        // narrowed to two LIVE seats KEEPS its views (see swuBuildViews: the owner wants the Home panels),
+        // so it no longer falls through here. The branch is kept because the reasoning below still holds
+        // for the cases that do reach it, and because it is the safety net if views ever go missing.
+        // The SERVER does not narrow with the client: ZoneSearch's seat-tagged fan-out is
         // gated on SeatCountForGame(), which counts SEAT ORDER, so it keeps emitting `p3GroundArena-0`
         // for the rest of the game. Returning null here left those specs untranslated, and
         // IsSelectableCard compares spec.zone to the rendered zone as an EXACT string — so nothing on
@@ -2390,6 +3092,31 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             if (!/^p\d+/.test(spec.zone)) { inlineNormalized.push(spec); return; }   // already my/their
             var seat = parseInt((spec.zone.match(/^p(\d+)/) || [])[1], 10);
             var frame = swuRenderedZoneForSeat(seat);                                // 'my' | 'their' | null
+            // ⚠ A POPUP zone is NOT view-dependent, so it must never be held out as "off-view".
+            // The off-view holdout means "we cannot draw this here — show an arrow badge and let them
+            // Zoom In and click it". That is right for an arena unit, and useless for a hidden zone
+            // (a HAND, a deck): no view renders one as cards, so there is nothing to badge and nothing
+            // to click — the spec lands in neither inlineSpecs nor popupCards and the decision gets NO
+            // UI AT ALL. Reported 2026-09-25 (game 1310334): "play Remnant Lookouts, choose P2, nothing
+            // happens." It only appeared to work if you happened to be zoomed into the picked seat.
+            // ⚠ AND ZOOMING IN IS NOT THE ANSWER (owner, 2026-09-25): players do essentially everything
+            // from the Home panels, so a prompt that is only reachable after a Zoom In is a prompt they
+            // never see. Keep the seat-tagged spec here and let CategorizeMZChooseSpecs route it to the
+            // popup, which draws over the Home view just as happily.
+            if (frame === null && typeof window.ShouldUseMZChoosePopupForSpec === 'function'
+                && window.ShouldUseMZChoosePopupForSpec(spec)) {
+                inlineNormalized.push(spec);                                          // popup handles it
+                return;
+            }
+            // ⚠ The same holds for a PILE (a discard — DisplayMode Single): an off-view seat's pile is not on
+            // screen, and even on screen only its latest card is drawn, so there is nothing to badge. Flag it
+            // for the popup (IsMZChooseSpecUndrawnPileCard honours forcePopup). Reported 2026-10-03: TWI_040 A
+            // Fine Addition could take an upgrade from P2's discard (on view) but never from P3's.
+            if (frame === null && typeof window.GetZoneData === 'function'
+                && String((window.GetZoneData(spec.zone) || {}).DisplayMode || '').toLowerCase() === 'single') {
+                inlineNormalized.push(Object.assign({}, spec, { forcePopup: true }));  // seat-tagged; popup draws it
+                return;
+            }
             if (frame === null) { offViewSpecs.push(spec); return; }                 // off-view → badge only
             var suffix = spec.zone.replace(/^p\d+/, '');                             // 'GroundArena' | 'Base' | 'SpaceArena'
             inlineNormalized.push(Object.assign({}, spec, { zone: frame + suffix }));// originalSpec preserved
@@ -2420,16 +3147,40 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // you can read/inspect it but not act — you're not that seat. Only a view whose bottom board is YOU
     // (viewSeat === MY_PLAYER_ID) is interactive. Cross-view targeting (below) selectively re-enables
     // clicking a legal target on such a view.
+    // Was this viewer SEATED in this game and is no longer live? Seat 0 (a true spectator, never seated)
+    // is NOT eliminated — it keeps its own path and must not be greyed as if it had lost.
+    function swuViewerIsEliminated() {
+        var seated = String(window.SeatOrderData || '').trim();
+        var live   = String(window.LiveSeatsData || seated).trim();
+        if (!seated || MY_PLAYER_ID < 1) return false;
+        return seated.indexOf(String(MY_PLAYER_ID)) !== -1 && live.indexOf(String(MY_PLAYER_ID)) === -1;
+    }
+    window.swuViewerIsEliminated = swuViewerIsEliminated;
+
     function swuApplySpectate() {
-        var spectating = !!(window.swuView && window.swuView.viewSeat !== MY_PLAYER_ID);
+        // ⚠ TWO ways to be read-only. Viewing someone else's seat is one; being ELIMINATED is the other,
+        // and it is not implied by the first — since 2026-09-25 a knocked-out player views their OWN seat
+        // on the home panels, so viewSeat === MY_PLAYER_ID and the old test alone would hand a dead player
+        // a live board.
+        var eliminated = swuViewerIsEliminated();
+        var spectating = !!(window.swuView && window.swuView.viewSeat !== MY_PLAYER_ID) || eliminated;
         window.swuSpectating = spectating;
         document.body.classList.toggle('swu-spectating', spectating);
         // Home "replace" mode: on the home view the preview windows take over the opponent's board
         // region entirely (opponent zones hidden via body.swu-home CSS).
         document.body.classList.toggle('swu-home', !!(window.swuView && window.swuView.mode === 'home'));
+        // Zoom In on a DEFEATED seat: the full board gets the same treatment as its tile — units gone,
+        // leader and base greyed. Owner ruling 2026-09-25.
+        document.body.classList.toggle('swu-opp-defeated', !!(window.swuView && window.swuView.defeated));
+        // The viewer's OWN half greys when they are the one who is out (owner ruling 2026-09-25).
+        document.body.classList.toggle('swu-self-defeated', eliminated);
         var badge = document.getElementById('swuSpectateBadge');
         if (badge && window.swuView) {
-            badge.textContent = '👁 Read-only — viewing P' + window.swuView.viewSeat + ' vs P' + window.swuView.oppSeat;
+            // On the home view "viewing P1 vs P2" is meaningless — there is no single opponent. Say what
+            // is actually true instead, and say WHY it is read-only when the viewer has been knocked out.
+            badge.textContent = (window.swuView.mode === 'home')
+                ? (eliminated ? '👁 Read-only — you were eliminated' : '👁 Read-only — viewing ' + swuSeatName(window.swuView.viewSeat))
+                : '👁 Read-only — viewing ' + swuSeatName(window.swuView.viewSeat) + ' vs ' + swuSeatName(window.swuView.oppSeat);
         }
     }
 
@@ -2437,7 +3188,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var views = window.swuViews || [];
         if (!views.length || index < 0 || index >= views.length) return;
         var v = views[index];
-        window.swuView = { viewSeat: v.viewSeat, oppSeat: v.oppSeat, mode: v.mode, opps: v.opps, index: index };
+        window.swuView = { viewSeat: v.viewSeat, oppSeat: v.oppSeat, mode: v.mode, opps: v.opps,
+                           tiles: v.tiles, defeated: !!v.defeated, index: index };
         swuApplySpectate();
         // Cross-view targeting: RenderUpdate ALWAYS ClearSelectionMode()s and re-establishes selection only
         // from the response's decision data — but we repaint from the CACHED (pre-decision) responseArr, so
@@ -2618,18 +3370,37 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             return 0;
         }
         var legal = {};   // "p{seat}{Suffix}-{idx}" (exact) or "p{seat}{Suffix}-*" (whole zone)
+        // ⚠ A SUBCARD SPEC NAMES AN UPGRADE, NOT ITS HOST ("p3GroundArena-0.u0" — see the parser's
+        // `subIndex`). Folding it into `legal` lit the HOST tile up as a target and
+        // swuPreviewTargetClick then submitted the bare host mzID, which the server refuses
+        // ("Invalid selection.", Core/EngineActionRunner.php) — bug #1068, LAW_078 Sabine Wren's
+        // "defeat an upgrade" against a Shield on seat 3. The home view is the ONLY rendering of a far
+        // seat, and its upgrades are a count badge, so that made EVERY subcard effect unplayable from
+        // the view the game defaults to. Subcard specs are bucketed separately: their host tile is
+        // reachable, but clicking it opens the panel (which addresses the upgrade) instead of
+        // submitting the unit.
+        var subHosts = {};
         specs.forEach(function (sp) {
             if (!sp || !sp.zone || sp.actionPayload) return;
             var seat = seatOfZone(sp.zone); if (!seat) return;
             var suffix = String(sp.zone).replace(/^(p\d+|my|their)/, '');   // GroundArena / SpaceArena / Base
+            if (sp.subIndex !== null && sp.subIndex !== undefined) {
+                // Only a SPECIFIC host can carry a subcard, so a whole-zone subcard spec cannot exist.
+                if (sp.isSpecificCard) subHosts['p' + seat + suffix + '-' + sp.specificIndex] = true;
+                return;
+            }
             if (sp.isSpecificCard) legal['p' + seat + suffix + '-' + sp.specificIndex] = true;
             else                   legal['p' + seat + suffix + '-*'] = true;
         });
         cards.forEach(function (el) {
             var mz = el.getAttribute('data-mz');                 // p{seat}{Suffix}-{idx}
             var m = /^(p\d+[A-Za-z]+)-(\d+)$/.exec(mz);
-            var hit = !!m && (!!legal[m[1] + '-' + m[2]] || !!legal[m[1] + '-*']);
-            el.classList.toggle('mini-selectable', hit);
+            var hit    = !!m && (!!legal[m[1] + '-' + m[2]] || !!legal[m[1] + '-*']);
+            // A tile glows for its OWN offered subcards only — never for merely HAVING upgrades, which
+            // would promise a click that opens a panel with nothing selectable in it.
+            var subHit = !!m && !!subHosts[m[1] + '-' + m[2]];
+            el.classList.toggle('mini-selectable', hit || subHit);
+            el.classList.toggle('mini-subcard-host', !hit && subHit);
         });
     }
     window.swuHighlightPreviewTargets = swuHighlightPreviewTargets;
@@ -2641,6 +3412,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var sm = window.SelectionMode;
         if (!(sm && sm.active)) return;
         var mz = cardEl.getAttribute('data-mz'); if (!mz) return;
+        // SUBCARD HOST (bug #1068): the offered target is an upgrade/token ON this tile, so the tile
+        // itself is not a legal answer. Open the attached-card panel — its entries carry the full
+        // "<host>.u<sub>" mzIDs — and let the pick come from there. The captive panel is tried as well,
+        // because a captive is a subcard too and an effect may name one.
+        if (cardEl.classList && cardEl.classList.contains('mini-subcard-host')) {
+            var badge = (cardEl.querySelector && (cardEl.querySelector('.swu-mb-upgcount')
+                                               || cardEl.querySelector('.swu-mb-capcount'))) || null;
+            if (badge && typeof window.swuClickPanel === 'function') window.swuClickPanel(badge);
+            return;
+        }
         // ⚠ A MULTI-SELECT IS ACCUMULATED, NOT SUBMITTED. OnSelectableCardClick branches on
         // inlineMultiActive before it ever reaches SelectionMode.callback; this path used to skip
         // straight to the callback, which is the single-target submit — and an MZMULTI_INLINE
@@ -2654,6 +3435,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // zone (body.swu-home), and seats past opps[0] are off-view entirely, so their units exist
         // nowhere on the board — only as preview tiles. A single-target-only preview click makes an
         // "up to N" effect unplayable from the view the game defaults to.
+        swuSubmitPreviewTarget(mz);
+    }
+
+    // Accumulate (inline-multi) or submit ONE preview-view target mzID. Split out of
+    // swuPreviewTargetClick so the attached-card panel's subcard picks go through exactly the same
+    // path — a subcard target must honour an "up to N" accumulation just like a unit target does.
+    // `mz` is the engine's seat-tagged id, optionally with a ".u<sub>" subcard tail.
+    function swuSubmitPreviewTarget(mz) {
+        var sm = window.SelectionMode;
+        if (!(sm && sm.active) || !mz) return;
         var inlineMultiActive = !!(Array.isArray(sm.multiSelected) && Number(sm.multiMax) > 0
             && document.getElementById('inline-multi-confirm'));
         if (inlineMultiActive) {
@@ -2673,9 +3464,41 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             return;
         }
         if (typeof sm.callback !== 'function') return;
-        var m = /^(.+)-(\d+)$/.exec(mz);
+        // ⚠ The ZONE is arg 1, and the regex has to tolerate the ".u<sub>" tail or a subcard mzID would
+        // pass the whole address as its own zone name.
+        var m = /^(.+)-(\d+)(?:\.u\d+)?$/.exec(mz);
         sm.callback(m ? m[1] : mz, mz, sm.decisionIndex);
     }
+
+    // ── Attached-card panel: subcard picking (bug #1068) ────────────────────────────────────────
+    // The panel (showLineageOverflowPopup) renders one entry per attached card. When its payload
+    // carries `mzids`, Core asks these two hooks whether an entry is a legal target and what to do
+    // when it is clicked — which is how a Shield token on a far seat's unit becomes reachable from the
+    // home view at all. Both are no-ops outside an active decision, so the panel stays a read-only
+    // glance the rest of the time.
+    // ⚠ Legality is read from _twAllSpecs (the RAW, seat-tagged specs), NOT from IsSelectableSubcard,
+    // which matches against inlineSpecs — those are remapped into the CURRENT view's my/their frame and
+    // a far seat is not in it at all.
+    window.PanelSubcardSelectable = function (mz) {
+        var sm = window.SelectionMode;
+        if (!(sm && sm.active) || !mz) return false;
+        var specs = sm._twAllSpecs || sm.allowedZones || [];
+        var m = /^(.+)-(\d+)\.u(\d+)$/.exec(String(mz)); if (!m) return false;
+        var zone = m[1], idx = parseInt(m[2], 10), sub = parseInt(m[3], 10);
+        for (var i = 0; i < specs.length; i++) {
+            var sp = specs[i];
+            if (!sp || !sp.zone || sp.actionPayload) continue;
+            if (sp.subIndex === null || sp.subIndex === undefined) continue;
+            if (sp.zone !== zone || sp.specificIndex !== idx || sp.subIndex !== sub) continue;
+            return true;
+        }
+        return false;
+    };
+    window.PanelSubcardPick = function (mz) {
+        if (!window.PanelSubcardSelectable(mz)) return;
+        if (typeof hideLineageOverflowPopup === 'function') hideLineageOverflowPopup();
+        swuSubmitPreviewTarget(mz);
+    };
 
     // ── Split-assign (MZSPLITASSIGN) target → element ──────────────────────────────────────────
     // Which DOM node should carry a target's −/+ overlay. Three places a target can live, tried in
@@ -2734,8 +3557,24 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             return;
         }
         if (!window.swuView) window.swuView = { viewSeat: window.swuViews[0].viewSeat,
-            oppSeat: window.swuViews[0].oppSeat, mode: window.swuViews[0].mode, opps: window.swuViews[0].opps, index: 0 };
+            oppSeat: window.swuViews[0].oppSeat, mode: window.swuViews[0].mode, opps: window.swuViews[0].opps,
+            tiles: window.swuViews[0].tiles, defeated: !!window.swuViews[0].defeated, index: 0 };
         swuApplySpectate();
+        // ⚠ ESTABLISHING A VIEW HAS TO REPAINT. This function runs from pollGlobals (on data change),
+        // which is AFTER the render that just drew the board — so adopting a view here changed
+        // window.swuView but left the pixels drawn against the PREVIOUS one. For a normal player that
+        // was invisible (their first view is viewSeat = themselves, which is what was already drawn).
+        // It is very visible for a player who has just been ELIMINATED: their first view is the two
+        // survivors, so without this they keep staring at their own emptied board and their own hand.
+        // Repaint only when the applied pair actually changed, so a steady board never re-renders in a
+        // loop; swuSetView() does its own repaint and is unaffected.
+        var _vk = window.swuView.viewSeat + 'v' + window.swuView.oppSeat;
+        if (window.__swuAppliedViewKey !== _vk) {
+            window.__swuAppliedViewKey = _vk;
+            if (window.swuLastResponseArr && typeof RenderUpdate === 'function') {
+                RenderUpdate(window.swuLastResponseArr, window.__lastRenderedGameUpdate || 0);
+            }
+        }
         // Read-only guard: swallow clicks on the board zones (capture phase, before the framework's
         // attack/activate handlers) when spectating a board that isn't yours. Hover-to-inspect still
         // works (only click is blocked). Wired once. The pair-switcher arrows/dots/strips + order strip
@@ -2900,8 +3739,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         return html;
     }
 
-    // ── Attached-upgrade badge ───────────────────────────────────────────────────────────────────
-    // ONE count badge per unit; clicking it opens the full list.
+    // ── Attached-card badges ─────────────────────────────────────────────────────────────────────
+    // TWO count badges per unit — upgrades (neutral) and captives (goldenrod) — each opening its own
+    // panel. They are the unit-tile echo of the base tile's FORTIFIED / ARRESTED chips (swuMbFxColumn),
+    // and split for the same reason: a captive is not an upgrade, it is a card this unit is HOLDING, so
+    // one lumped total answered neither "how buffed is that unit" nor "who is being held".
     //
     // ⚠ THIS REPLACED A PER-UPGRADE RAIL (a vertical strip of art chips down the card's right edge).
     // The rail worked and was fully tested, and it still looked bad: at ~17px a concat crop is not
@@ -2917,22 +3759,31 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ⚠ SUBCARD CardIDs ARRIVE SPACE-DELIMITED. swuParseZoneCard rewrites every '_' in the zone JSON to
     // a space, so "SOR_T01" reaches us as "SOR T01" and every popup image 404s unless the underscore is
     // put back — the same trap the base's FORTIFIED payload documents.
-    function swuMbUnitUpgrades(u) {
+    // $hostMz is the tile's own seat-tagged mzID ("p3GroundArena-0"); each entry's "<host>.u<raw>" is
+    // carried in the payload so the panel can submit it as a target (bug #1068).
+    // ⚠ THE INDEX IS THE RAW Subcards KEY, including entries this render skips. It is the index space
+    // the server addresses (SWUQueueMoveUpgrade / SWUQueueDefeatUpgrade emit "<hostMz>.u<i>"), so it
+    // must NOT be re-derived from the filtered list.
+    function swuMbUnitUpgrades(u, hostMz) {
         var subs = (u && Array.isArray(u.Subcards)) ? u.Subcards : [];
         if (!subs.length) return '';
-        var ids = [];
+        var upg = { ids: [], mzids: [] }, cap = { ids: [], mzids: [] };
         for (var i = 0; i < subs.length; i++) {
             var sc = subs[i];
             if (sc && (sc.removed === true || sc.removed === 'true')) continue;
             var id = (typeof sc === 'string') ? sc : (sc && sc.CardID ? sc.CardID : null);
             if (!id || id === '-') continue;
-            ids.push(String(id).replace(/ /g, '_'));      // ⚠ underscores back, see above
+            var isCaptive = !!(sc && (sc.IsCaptive === true || sc.IsCaptive === 'true'));
+            var bucket = isCaptive ? cap : upg;
+            bucket.ids.push(String(id).replace(/ /g, '_'));      // ⚠ underscores back, see above
+            bucket.mzids.push(hostMz ? (hostMz + '.u' + i) : null);
         }
-        if (!ids.length) return '';
+        if (!upg.ids.length && !cap.ids.length) return '';
         // EVERY attached card counts and is listed — real upgrades, token upgrades (Experience, Shield,
         // Weakness…), captives, unit PILOTS and pilot LEADERS. A pilot is attached as an upgrade and is
         // exactly what an opponent needs to see, so nothing is filtered out and nothing is collapsed:
-        // the number is the honest total of what is on that unit.
+        // the number is the honest total of what is on that unit. Captives are COUNTED SEPARATELY (see
+        // the header) but nothing is hidden — a captive is open information (CR 1077.1 / 207.1).
         //
         // ⚠ A PILOT DOES NOT SHOW ITS CONCAT FACE. Mirrors Core/UILibraries' board rule exactly:
         //   leader flown as a pilot -> WebpImages/<id>_back.webp  (its UNIT side; the leader front is
@@ -2944,7 +3795,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // dictionaries are published to the client; if either is missing we fall through to concat
         // rather than guessing a filename that would 404.
         var folder = swuBaseArtRoot();
-        var srcs = ids.map(function (id) {
+        function srcFor(id) {
             var rid = (typeof resolveCardImageID === 'function') ? resolveCardImageID(id) : id;
             var ty = (window.typeData  && window.typeData[id])  ? String(window.typeData[id])  : '';
             var tr = (window.traitData && window.traitData[id]) ? String(window.traitData[id]) : '';
@@ -2952,13 +3803,21 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             if (isPilot && ty.indexOf('Leader') !== -1) return './' + folder + '/WebpImages/' + rid + '_back.webp';
             if (isPilot && ty.indexOf('Unit')   !== -1) return './' + folder + '/WebpImages/' + rid + '.webp';
             return './' + folder + '/concat/' + rid + '.webp';
-        });
-        var payload = encodeURIComponent(JSON.stringify({
-            subcards: ids, srcs: srcs, folder: folder, size: 150, title: 'Attached Upgrades'
-        }));
-        return "<span class='swu-mb-upgcount' data-lineage-subcards='" + payload + "' tabindex='0'" +
-               " title='" + ids.length + " attached \u2014 click to view'" +
-               " onclick='event.stopPropagation(); swuClickPanel(this);'>" + ids.length + "</span>";
+        }
+        function badge(bucket, cls, title, noun) {
+            if (!bucket.ids.length) return '';
+            var payload = encodeURIComponent(JSON.stringify({
+                subcards: bucket.ids, srcs: bucket.ids.map(srcFor), mzids: bucket.mzids,
+                folder: folder, size: 150, title: title
+            }));
+            return "<span class='" + cls + "' data-lineage-subcards='" + payload + "' tabindex='0'" +
+                   " title='" + bucket.ids.length + " " + noun + " \u2014 click to view'" +
+                   " onclick='event.stopPropagation(); swuClickPanel(this);'>" + bucket.ids.length + "</span>";
+        }
+        // Captive badge second so it stacks BELOW the upgrade badge \u2014 the same order the base tile's
+        // fx column uses (Fortify above Arrest).
+        return badge(upg, 'swu-mb-upgcount', 'Attached Upgrades', 'attached')
+             + badge(cap, 'swu-mb-capcount', 'Captured Units', 'captured');
     }
 
     function swuMbUnitOverlays(u) {
@@ -3072,6 +3931,88 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ⚠ Effect COUNTS are deliberately not here any more — they live in the fixed three-row column
     // beside the base (swuMbFxColumn), so the base's corners are free for these two states and the
     // counts have somewhere to grow.
+    // Static printed-HP pip, top-left of a Home Panel base thumbnail (feature request 2026-10-08). The
+    // card prints its HP in that corner, but at tile size the number is ~6px tall; the pip is that same
+    // number, made bigger. ⚠ PRINTED, NOT REMAINING: PrintedHP is the schema virtual over CardHp(), so
+    // it never counts down — damage keeps its own centred token. Emitted BEFORE the damage token so,
+    // where the two meet, the live number paints on top. No value (no base yet) → no pip.
+    // ── Base health bar (spec: docs/superpowers/specs/2026-10-08-swusim-base-health-bar-design.md) ──
+    // Fill colours: SWUSim's lobby palette (SWUSim/LobbyAdapter.php). '' = no aspect (JTL_031 Lake
+    // Country), drawn light grey; a missing Aspect field (prod not regenerated) falls back to it too.
+    var SWU_ASPECT_FILL = { Vigilance: '#3b7dd8', Command: '#2e9e4f', Aggression: '#c0392b', Cunning: '#e2b13c', '': '#c9ced6' };
+    // Everything a bar needs from one base: remaining share of PRINTED HP (clamped 0..1), colour, label.
+    // ⚠ swuParseZoneCard turns '_' into ' ', so the CardID gets its underscore back here.
+    function swuHbState(baseObj) {
+        var hp = baseObj ? parseInt(baseObj.PrintedHP, 10) : NaN;
+        if (!isFinite(hp) || hp <= 0) return null;
+        var dmg = parseInt(baseObj.Damage, 10) || 0;
+        var aspect = String(baseObj.Aspect == null ? '' : baseObj.Aspect).split(',')[0].trim();
+        var share = Math.max(0, Math.min(1, (hp - dmg) / hp));
+        return {
+            card: String(baseObj.CardID || '').replace(/ /g, '_'),
+            // Seat + card: two Twin Suns opponents may share a base, and switching the zoomed board must
+            // rebuild the bar rather than slide one seat's HP into the other's.
+            key: String(baseObj.PlayerID == null ? '' : baseObj.PlayerID) + '/' + String(baseObj.CardID || '').replace(/ /g, '_'),
+            pct: Math.round(share * 10000) / 100,
+            color: Object.prototype.hasOwnProperty.call(SWU_ASPECT_FILL, aspect) ? SWU_ASPECT_FILL[aspect] : SWU_ASPECT_FILL[''],
+            title: 'Base HP ' + Math.max(0, hp - dmg) + ' of ' + hp
+        };
+    }
+    // The bar's markup. $variant 'full' (rimmed, full-size bases) or 'thin' (tiles). $fromPct, when given,
+    // is the width to START at; data-hb-to carries the target for swuHbSettle.
+    function swuBaseHealthBar(baseObj, variant, fromPct) {
+        var st = swuHbState(baseObj);
+        if (!st) return '';
+        var start = (fromPct == null) ? st.pct : fromPct;
+        return "<div class='swu-hb swu-hb--" + (variant === 'thin' ? 'thin' : 'full') + "' data-hb-card='" + st.card + "' data-hb-key='" + st.key + "'"
+             + " data-hb-to='" + st.pct + "' style='--hb-c:" + st.color + "' title='" + st.title + "'>"
+             + "<div class='swu-hb-rim'></div>"
+             + "<div class='swu-hb-plane'><div class='swu-hb-fill' style='width:" + start + "%'></div></div>"
+             + "</div>";
+    }
+    window.swuBaseHealthBar = swuBaseHealthBar;
+    // Slide only when the player has card motion on (Settings → Card motion, whose default honours the
+    // OS's reduced-motion setting). Off → body.swu-hb-still kills the transition everywhere.
+    function swuHbSyncMotion() {
+        var on = (window.TCGCardMotion && typeof window.TCGCardMotion.isEnabled === 'function')
+            ? !!window.TCGCardMotion.isEnabled('SWUSim')
+            : !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+        document.body.classList.toggle('swu-hb-still', !on);
+    }
+    // After a tile rebuild the fills sit at their PREVIOUS width (swuMbBaseHealth); move each to its
+    // data-hb-to target two frames later, so the browser has committed the old width and the transition runs.
+    function swuHbSettle(root) {
+        var bars = root ? root.querySelectorAll('.swu-hb[data-hb-to]') : [];
+        if (!bars.length) return;
+        requestAnimationFrame(function () { requestAnimationFrame(function () {
+            for (var i = 0; i < bars.length; i++) {
+                var to = bars[i].getAttribute('data-hb-to'), f = bars[i].querySelector('.swu-hb-fill');
+                if (f && f.style.width !== to + '%') f.style.width = to + '%';
+            }
+        }); });
+    }
+
+    function swuMbBaseHP(baseObj) {
+        var hp = baseObj ? parseInt(baseObj.PrintedHP, 10) : NaN;
+        if (!isFinite(hp) || hp <= 0) return '';
+        return "<span class='swu-mb-basehp' title='Base HP " + hp + " (printed)'>" + hp + "</span>";
+    }
+
+    // Thin health bar on a Home Panel base thumbnail (spec 2026-10-08). Emitted BEFORE the HP badge so the
+    // badge paints over the bar's left end.
+    // swuRenderHomeStrips rebuilds every tile with innerHTML on every poll, which would kill a CSS
+    // transition. So each seat's last width is remembered: the fill is emitted at that width and
+    // swuHbSettle moves it to the new one. First sight of a seat (page load) emits at the target: no slide.
+    var swuHbLast = {};
+    function swuMbBaseHealth(baseObj, seat) {
+        var st = swuHbState(baseObj);
+        if (!st) return '';
+        var key = String(seat) + '/' + st.card;
+        var from = Object.prototype.hasOwnProperty.call(swuHbLast, key) ? swuHbLast[key] : null;
+        swuHbLast[key] = st.pct;
+        return swuBaseHealthBar(baseObj, 'thin', from);
+    }
+
     function swuMbBaseOverlays(baseObj) {
         if (!baseObj) return '';
         var truthy = function (v) { return v === true || v === 'true' || v === 1 || v === '1'; };
@@ -3091,17 +4032,35 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ⚠ The column is ALWAYS rendered at a fixed size, even when empty. Row 1 of every tile has to stay
     // the same width — the tiles are a comparison view — so this must not grow when a seat gains an
     // effect, exactly like the static RES chip on row 2.
-    function swuMbFxColumn(baseObj) {
+    // $hostMz ("p3Base-0") lets each chip carry its entries' "<host>.u<raw>" mzIDs, so a FORTIFY upgrade
+    // on a far seat's base is a reachable target from the home view (bug #1068 — same defect class as
+    // the unit tiles, and Fortify upgrades live ONLY on a base).
+    // ⚠ The mzIDs come from baseObj.Subcards (the raw index space the server addresses). The
+    // UpgradeCardIDs / CaptiveCardIDs counter strings are a display list with no indices, so when
+    // Subcards is absent the chip still renders — just without selectability.
+    function swuMbFxColumn(baseObj, hostMz) {
         var rows = [];
         if (baseObj) {
             var fort   = parseInt(baseObj.UpgradeCount, 10) || 0;
             var arrest = parseInt(baseObj.CaptiveCount, 10)  || 0;
+            var subs   = Array.isArray(baseObj.Subcards) ? baseObj.Subcards : [];
+            var fortMz = [], arrestMz = [];
+            for (var si = 0; si < subs.length; si++) {
+                var sc = subs[si];
+                if (sc && (sc.removed === true || sc.removed === 'true')) continue;
+                var scid = (typeof sc === 'string') ? sc : (sc && sc.CardID ? sc.CardID : null);
+                if (!scid || scid === '-') continue;
+                var mz = hostMz ? (hostMz + '.u' + si) : null;
+                if (sc && (sc.IsCaptive === true || sc.IsCaptive === 'true')) arrestMz.push(mz);
+                else                                                          fortMz.push(mz);
+            }
             // Order is arrival order. Nothing records which landed first, so this is the stable
             // fallback: Fortify (a persistent upgrade) above Arrest (which clears every regroup).
             if (fort > 0)   rows.push({cls: 'fort',   n: fort,   t: 'Fortify upgrades on this base',
-                                       ids: String(baseObj.UpgradeCardIDs || '')});
+                                       ids: String(baseObj.UpgradeCardIDs || ''), mzids: fortMz});
             if (arrest > 0) rows.push({cls: 'arrest', n: arrest, t: 'Units arrested and held under this base',
-                                       ids: String(baseObj.CaptiveCardIDs || ''), title: 'Captured Units'});
+                                       ids: String(baseObj.CaptiveCardIDs || ''), title: 'Captured Units',
+                                       mzids: arrestMz});
         }
         var html = "<span class='swu-mb-fx'>";
         for (var i = 0; i < 3; i++) {
@@ -3116,8 +4075,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 if (ids.length) {
                     // Same contract as the full board's tab: a data-lineage-subcards payload driven by
                     // showLineageOverflowPopup, so the tile and the zoomed board show the same panel.
+                    // mzids only when the raw Subcards list backed them AND it lines up with the
+                    // display list — a mismatch would address the wrong subcard, which is worse than
+                    // not offering the pick at all.
+                    var mzids = (Array.isArray(rows[i].mzids) && rows[i].mzids.length === ids.length
+                                 && rows[i].mzids.every(function (x) { return !!x; }))
+                        ? rows[i].mzids : null;
                     var payload = encodeURIComponent(JSON.stringify({
-                        subcards: ids, folder: swuBaseArtRoot(), size: 150,
+                        subcards: ids, mzids: mzids, folder: swuBaseArtRoot(), size: 150,
                         title: rows[i].title || 'Attached Upgrades'
                     }));
                     extra = " data-lineage-subcards='" + payload + "' tabindex='0'"
@@ -3131,7 +4096,52 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         return html + "</span>";
     }
 
-    function swuRenderMiniBoard(seat) {
+    // The seat label on a Twin Suns preview (desktop tile and mobile row): the player's username followed by
+    // their seat, "alice P3", so a table of four reads as people rather than numbers (owner request
+    // 2026-09-22). A guest, or a game outside the match system, has no entry in SWU_SEAT_USERNAMES (only real
+    // accounts go in) and keeps the bare "P3". The username is escaped: it lands in innerHTML.
+    // Escape a username for innerHTML / an attribute. [ and ] too: the game log turns [[id|name]] into a card link.
+    function swuEscName(t) {
+        return String(t).replace(/[&<>"'\[\]]/g, function (c) { return '&#' + c.charCodeAt(0) + ';'; });
+    }
+
+    // Plain-text seat name. A logged-in seat is its username — "alice (P3)" at a multiplayer table
+    // (CHAT_SEAT_SUFFIX, 3+ seats), plain "alice" in 1v1. Any other seat of a match game takes its display name
+    // from the server: "Guest P3" for a guest (the site-wide pattern), "Arenabot" for the bot. A game with no
+    // match record (goldfish, hotseat, a test board) has neither, and keeps "P3". Used by the game log, the
+    // matchup labels, the read-only badge and the Zoom tooltips. Escape it (swuEscName) before it goes into HTML.
+    function swuSeatName(seat) {
+        var s = String(seat);
+        var name = (window.SWU_SEAT_USERNAMES || {})[s];
+        if (name) return window.CHAT_SEAT_SUFFIX === true ? String(name) + ' (P' + s + ')' : String(name);
+        var shown = (window.SWU_SEAT_DISPLAY_NAMES || {})[s];
+        return shown ? String(shown) : 'P' + s;
+    }
+
+    // The game log is written server-side with bare seat numbers ("P1 took the initiative", "P3's Grogu") and
+    // each one is shown by name at render (swuSeatName), in 1v1 and multiplayer alike (owner request 2026-09-22).
+    // The stored log keeps "P1", so replays and the match record are unchanged. Card links ([[id|name]]) are
+    // left alone. Takes and returns HTML-escaped text (swuRenderGameLog has already escaped "<").
+    function swuNameSeatsInLog(text) {
+        return text.split(/(\[\[[^\]]*\]\])/).map(function (seg, i) {
+            if (i % 2 === 1) return seg;
+            return seg.replace(/\bP([1-9])\b/g, function (m, s) { return swuEscName(swuSeatName(s)); });
+        }).join('');
+    }
+
+    function swuSeatLabelHtml(seat, cls) {
+        var s = String(seat);
+        var name = (window.SWU_SEAT_USERNAMES || {})[s];
+        // No account: the server's display name ("Guest P3") already carries the seat; else the bare "P3".
+        if (!name) return '<span class="' + cls + '">' + swuEscName(swuSeatName(s)) + '</span>';
+        var esc = swuEscName(name);
+        return '<span class="' + cls + ' has-name" title="' + esc + ' (P' + s + ')">' +
+               '<span class="swu-seat-name">' + esc + '</span><span class="swu-seat-pn">P' + s + '</span></span>';
+    }
+
+    // $defeated (owner ruling 2026-09-25): this seat is eliminated. Its panel STAYS, but its units are
+    // not drawn at all and CSS greys the leader/base/chips (.swu-home-strip.is-defeated).
+    function swuRenderMiniBoard(seat, defeated) {
         var b = swuReadSeatBlock(seat) || { leaders: [], baseObj: null, groundUnits: [], spaceUnits: [] };
         // Leaders
         var leadHtml = b.leaders.map(function (ld) {
@@ -3162,10 +4172,17 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var dmg = b.baseObj ? (parseInt(b.baseObj.Damage, 10) || 0) : 0;
         var baseCid = b.baseObj ? String(b.baseObj.CardID || '').replace(/ /g, '_') : '';
         var baseRid = baseCid ? ((typeof resolveCardImageID === 'function') ? resolveCardImageID(baseCid) : baseCid) : '';
+        // WebpImages, NOT concat — the same decision as the leaders above and for the same reason.
+        // A base card is natively LANDSCAPE (628x450), so the whole card fits the box's own ratio:
+        // title, HP shield and aspect icon included. concat/ is the 450x450 SQUARE art crop, and
+        // cover threw away 29% of its height to fit this box — the title and the HP were simply
+        // outside the thumbnail. Owner, 2026-09-26: "use the whole base image instead of a crop."
+        // ⚠ Units stay on concat/ (see unitHtml): their WebpImages is the PORTRAIT card, two thirds
+        // rules box at this size. The folder follows the card's SHAPE, never a blanket rule.
         var baseHtml = '<span class="swu-mb-card swu-mb-base" data-mz="p' + seat + 'Base-0" ' + swuMbHoverAttrs(baseRid) +
-            (baseCid ? ' style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + baseRid + '.webp)"' : '') +
-            '>' + (dmg > 0 ? '<span class="swu-mb-dmgcounter">' + dmg + '</span>' : '')
-                + swuMbBaseOverlays(b.baseObj) + '</span>' + swuMbFxColumn(b.baseObj);
+            (baseCid ? ' style="background-image:url(/TCGEngine/AppCore/SWU/Images/WebpImages/' + baseRid + '.webp)"' : '') +
+            '>' + swuMbBaseHealth(b.baseObj, seat) + swuMbBaseHP(b.baseObj) + (dmg > 0 ? '<span class="swu-mb-dmgcounter">' + dmg + '</span>' : '')
+                + swuMbBaseOverlays(b.baseObj) + '</span>' + swuMbFxColumn(b.baseObj, 'p' + seat + 'Base-0');
         // A single unit thumbnail, tagged with its engine mzID (p{seat}{arena}Arena-{idx}) so it can be
         // highlighted + clicked as a cross-view attack/ability target (matches the seat-tagged targets
         // SWUGetAllValidAttackTargets emits for Twin Suns).
@@ -3184,21 +4201,25 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 // Stacking order is DOM order, deliberately, so it cannot drift out of step with the
                 // schema's DrawOrder: full-card overlays underneath, then the centred damage token,
                 // then the keyword badge strip on top along the bottom edge.
-                return '<span class="' + cls + '" data-mz="p' + seat + arena + 'Arena-' + i + '" ' + swuMbHoverAttrs(urid) + ' ' +
+                var hostMz = 'p' + seat + arena + 'Arena-' + i;
+                return '<span class="' + cls + '" data-mz="' + hostMz + '" ' + swuMbHoverAttrs(urid) + ' ' +
                     'style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + urid + '.webp)">' +
                     swuMbUnitOverlays(u) + badge + swuMbUnitStats(u) + swuMbUnitBadges(u) +
-                    swuMbUnitUpgrades(u) + swuMbUnitEffects(u) + '</span>';
+                    swuMbUnitUpgrades(u, hostMz) + swuMbUnitEffects(u) + '</span>';
             };
         }
-        var spaceHtml  = b.spaceUnits.map(unitHtml('Space')).join('');
-        var groundHtml = b.groundUnits.map(unitHtml('Ground')).join('');
+        // ⚠ Emitted as NOTHING for a defeated seat rather than hidden with CSS, so "their units
+        // disappeared" holds whether or not the server still ships this seat's units after elimination —
+        // and so a stale unit can never be clicked as a cross-view target from a dead board.
+        var spaceHtml  = defeated ? '' : b.spaceUnits.map(unitHtml('Space')).join('');
+        var groundHtml = defeated ? '' : b.groundUnits.map(unitHtml('Ground')).join('');
         // Layout: [Leader1 Leader2 Base … Zoom in] / [Space arena] / [Ground arena]. The Zoom-in button
         // opens the you-vs-P{seat} matchup; the cards are clickable targets during a decision.
         return '' +
             '<div class="swu-mb-r1">' +
-                '<span class="swu-mb-seat">P' + seat + '</span>' + leadHtml + baseHtml +
+                swuSeatLabelHtml(seat, 'swu-mb-seat') + leadHtml + baseHtml +
                 '<span class="swu-mb-spacer"></span>' +
-                '<button type="button" class="swu-mb-zoom" title="Open the you-vs-P' + seat + ' board">🔍 Zoom in</button>' +
+                '<button type="button" class="swu-mb-zoom" title="Open your board vs ' + swuEscName(swuSeatName(seat)) + '">🔍 Zoom in</button>' +
             '</div>' +
             // Row 2 — the numbers you would otherwise have to zoom in to read: resources as
             // ready/total (+credits when they hold any), deck size, discard size.
@@ -3234,8 +4255,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // repeat what the layout already says. The arenas keep a NON-COLOUR distinction — their
             // fixed vertical ORDER, space above ground, exactly as on the full board — so the silver /
             // sand borders reinforce that reading rather than being the only carrier of it.
-            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--space"><div class="swu-mb-row">' + spaceHtml + '</div></div>' +
-            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--ground"><div class="swu-mb-row">' + groundHtml + '</div></div>';
+            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--space">' + swuMbRowOpen(defeated ? 0 : b.spaceUnits.length) + spaceHtml + '</div></div>' +
+            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--ground">' + swuMbRowOpen(defeated ? 0 : b.groundUnits.length) + groundHtml + '</div></div>';
+    }
+
+    // The arena grid fills LEFT→RIGHT then TOP→BOTTOM, so it needs its column count — ceil(units / rows).
+    // The row count is CSS (--swu-mb-rows: 1 or 2, by window height) and CSS cannot round inside repeat(),
+    // so emit the column count for BOTH row counts; the .swu-mb-row rules beside --swu-mb-rows pick one.
+    function swuMbRowOpen(n) {
+        n = Math.max(1, parseInt(n, 10) || 0);   // repeat(0, …) is invalid — an empty arena still gets one track
+        return '<div class="swu-mb-row" style="--swu-mb-c1:' + n + ';--swu-mb-c2:' + Math.ceil(n / 2) + '">';
     }
 
     // 3-player home view: one mini board per opponent, each a gateway button into that opponent's
@@ -3246,9 +4275,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // unreadable, and a card small enough to fit is too small to tap. Targeting drills in instead
     // (spec D1/D2). Reads the SAME seat block the desktop tiles read, so the two views cannot
     // disagree about what a seat holds.
-    function swuRenderSeatRow(seat, viewIndex) {
+    // $defeated (owner ruling 2026-09-25): the mobile mirror of the desktop tile's defeated state —
+    // the row STAYS, its GROUND/SPACE counts read 0 (the units are gone, not merely hidden) and CSS
+    // greys it via .swu-seat-row.is-defeated.
+    function swuRenderSeatRow(seat, viewIndex, defeated) {
         var b = swuReadSeatBlock(seat) || {leaders:[], baseObj:null, groundCount:0, spaceCount:0,
                                            res:{ready:0,total:0,credits:0}, deckCount:0, discardCount:0};
+        if (defeated) { b = Object.assign({}, b, { groundCount: 0, spaceCount: 0 }); }
         var lead = b.leaders.map(function (ld) {
             var cid = String(ld).trim().split(' ')[0];
             var rid = (typeof resolveCardImageID === 'function') ? resolveCardImageID(cid) : cid;
@@ -3258,9 +4291,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var baseCid = b.baseObj ? String(b.baseObj.CardID || '').replace(/ /g, '_') : '';
         var brid = baseCid ? ((typeof resolveCardImageID === 'function') ? resolveCardImageID(baseCid) : baseCid) : '';
         var dmg = b.baseObj ? (parseInt(b.baseObj.Damage, 10) || 0) : 0;
+        // WebpImages, NOT concat — the phone's Home Panel is the desktop tile's other layout and must
+        // show the same thing: the WHOLE landscape base card (2026-09-26). See swuRenderMiniBoard.
         var base = "<span class='swu-sr-base swu-mb-card' " + swuMbHoverAttrs(brid) +
-                   (brid ? " style=\"background-image:url(/TCGEngine/AppCore/SWU/Images/concat/" + brid + ".webp)\"" : "") +
-                   ">" + (dmg > 0 ? "<span class='swu-mb-dmgcounter'>" + dmg + "</span>" : "") +
+                   (brid ? " style=\"background-image:url(/TCGEngine/AppCore/SWU/Images/WebpImages/" + brid + ".webp)\"" : "") +
+                   ">" + swuMbBaseHealth(b.baseObj, seat) + swuMbBaseHP(b.baseObj) + (dmg > 0 ? "<span class='swu-mb-dmgcounter'>" + dmg + "</span>" : "") +
                    swuMbBaseOverlays(b.baseObj) + "</span>";
         // ⚠ Fixed-width value box, same reason as desktop: rows are a COMPARISON view, so a chip that
         // grows when a seat gains credits moves everything after it and the same fact sits in a
@@ -3277,10 +4312,12 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // ⚠ data-view is what the Zoom button's click delegate reads to know which matchup to open —
         // the same contract the desktop tile carries. A row without it renders fine and its Zoom
         // button silently does nothing.
-        return "<div class='swu-seat-row' data-seat='" + seat + "' data-view='" + (parseInt(viewIndex, 10) || 0) + "'>" +
+        return "<div class='swu-seat-row" + (defeated ? ' is-defeated' : '') + "' data-seat='" + seat + "' data-view='" + (parseInt(viewIndex, 10) || 0) + "'>" +
                  "<div class='swu-sr-a'>" +
-                   "<span class='swu-sr-seat'>P" + seat + "</span>" + lead + base +
-                   swuMbFxColumn(b.baseObj) +
+                   swuSeatLabelHtml(seat, 'swu-sr-seat') + lead + base +
+                   // Same host address as the desktop tile: the mobile row's fortify/arrest bubbles
+                   // open the same panel, so a Fortify upgrade is pickable on a phone too.
+                   swuMbFxColumn(b.baseObj, 'p' + seat + 'Base-0') +
                    // Ground/Space moved up here from row B, stacked, so row B holds only the four
                    // ZONE counts (Res/Hand/Deck/Discard) and this row holds what is ON the board. Row B
                    // had grown to six chips and wrapped at phone width; splitting it by KIND rather
@@ -3296,7 +4333,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                      "<span class='swu-sr-stat'><span class='swu-sr-lbl'>Space</span>" + b.spaceCount + "</span>" +
                    "</span>" +
                    "<span class='swu-sr-pills'></span>" +
-                   "<button type='button' class='swu-sr-zoom' title='Open the you-vs-P" + seat + " board'>&#128269;</button>" +
+                   "<button type='button' class='swu-sr-zoom' title='Open your board vs " + swuEscName(swuSeatName(seat)) + "'>&#128269;</button>" +
                  "</div>" +
                  // Row B is now the ZONE counts only — Ground/Space moved up to row A above.
                  "<div class='swu-sr-b'>" +
@@ -3317,7 +4354,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (!v || v.mode !== 'home' || !v.opps) { box.style.display = 'none'; return; }
         var views = window.swuViews || [];
         var html = '';
-        v.opps.forEach(function (opp) {
+        // `tiles` includes DEFEATED seats (owner ruling 2026-09-25); `opps` is live-only. Older cached
+        // views may predate `tiles`, so fall back rather than render an empty strip.
+        var liveRaw = String(window.LiveSeatsData || window.SeatOrderData || '').trim();
+        (v.tiles || v.opps).forEach(function (opp) {
+            var dead = liveRaw !== '' && liveRaw.indexOf(String(opp)) === -1;
             var mi = 0;
             for (var i = 0; i < views.length; i++) if (views[i].mode === 'matchup' && views[i].oppSeat === opp) { mi = i; break; }
             // ⚠ The tile's PLAYMAT is deliberately NOT written here. It used to be emitted as an
@@ -3331,10 +4372,12 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // class in place rather than re-rendering, so a turn change never wipes the target chips.
             // Mobile gets stacked summary ROWS; desktop keeps the side-by-side tiles unchanged.
             html += (window.SWU_MOBILE_LAYOUT === true)
-                ? swuRenderSeatRow(opp, mi)
-                : ('<div class="swu-home-strip" data-seat="' + opp + '" data-view="' + mi + '">' + swuRenderMiniBoard(opp) + '</div>');
+                ? swuRenderSeatRow(opp, mi, dead)
+                : ('<div class="swu-home-strip' + (dead ? ' is-defeated' : '') + '" data-seat="' + opp
+                   + '" data-view="' + mi + '">' + swuRenderMiniBoard(opp, dead) + '</div>');
         });
         box.innerHTML = html;
+        swuHbSettle(box);   // tile health bars: slide from their previous width (swuMbBaseHealth)
         box.style.display = 'flex';
         // MOBILE: publish the rows' real height so the board can sit immediately beneath them. The
         // band is position:fixed, so it contributes nothing to flow — without this the root has to
@@ -3360,6 +4403,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // painted onto, so repaint AFTER innerHTML — never before.
         if (typeof window.swuPaintHomeStripPlaymats === 'function') window.swuPaintHomeStripPlaymats();
     }
+    window.swuRenderHomeStrips = swuRenderHomeStrips;   // the health-bar harness re-renders the tiles
 
     // Mark the home strip belonging to the seat whose turn it is. Called on every strip rebuild AND
     // from the TurnPlayerData setter, because the turn can pass without the strips being re-rendered
@@ -3497,6 +4541,85 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (box.innerHTML !== html) box.innerHTML = html;   // avoid restarting hover state every poll
     }
 
+    // Full-size base health bars: fixed containers beside each base (#myBaseHealth / #theirBaseHealth,
+    // the FORTIFIED-tabs pattern). While the base is the same card the bar is UPDATED IN PLACE, so the
+    // fill's width transition runs; it is rebuilt only when the card changes.
+    function swuHbApply(bar, baseObj) {
+        var st = swuHbState(baseObj);
+        if (!st) return;
+        bar.style.setProperty('--hb-c', st.color);
+        bar.setAttribute('title', st.title);
+        bar.setAttribute('data-hb-to', String(st.pct));
+        var f = bar.querySelector('.swu-hb-fill');
+        if (f && f.style.width !== st.pct + '%') f.style.width = st.pct + '%';
+    }
+    function swuRenderBaseHealth(which) {
+        swuHbSyncMotion();
+        var box = document.getElementById(which + 'BaseHealth');
+        if (!box) return;
+        var o = (typeof swuParseZoneCard === 'function') ? swuParseZoneCard(window[which + 'BaseData'] || '') : null;
+        var st = o ? swuHbState(o) : null;
+        if (!st) { if (box.innerHTML !== '') box.innerHTML = ''; return; }
+        var bar = box.querySelector('.swu-hb');
+        if (bar && bar.getAttribute('data-hb-key') === st.key) swuHbApply(bar, o);
+        else box.innerHTML = swuBaseHealthBar(o, 'full');
+        swuHbWatch(which);
+        // Size and place from the CARD ELEMENT (#myBase-0 / #theirBase-0), which is what the player sees.
+        // ⚠ Not the <img>: the art is transform-scaled 1.1x inside the card, which clips it (overflow
+        // hidden, 7px radius), so the img box overshoots the visible card by ~8px all round (measured 203px
+        // vs 185px). The card also clips its damage token, so nothing pokes past it. ⚠ Wait for a LOADED
+        // image: before that the card has no size (measuring early gave a 4px bar), and pollGlobals only
+        // re-runs on data changes.
+        var img = document.querySelector('#' + which + 'BaseSlot img');
+        var card = document.getElementById(which + 'Base-0');
+        if (!img || !card) return;
+        if (!img.complete) {
+            // Still loading. 'error' too: a base whose art fails (a preview card with no image yet) must
+            // still get a placed bar, sized from the card element.
+            if (!img.__hbOnLoad) {
+                img.__hbOnLoad = true;
+                var again = function () { swuRenderBaseHealth(which); };
+                img.addEventListener('load', again, { once: true });
+                img.addEventListener('error', again, { once: true });
+            }
+            return;
+        }
+        swuHbPlace(box, which, card);   // loaded, or failed (complete with no naturalWidth): place from the card
+    }
+    window.swuRenderBaseHealth = swuRenderBaseHealth;
+    function swuHbPlace(box, which, card) {
+        var ir = card.getBoundingClientRect();
+        if (!ir.width) return;
+        var w = Math.round(ir.width) + 'px';
+        if (box.style.width !== w) box.style.width = w;
+        if (getComputedStyle(box).position === 'absolute') {
+            // Phone: above the card inside its cell, 3px clear of the card's top, centred on it.
+            var host = box.offsetParent;
+            if (!host) return;
+            var hr = host.getBoundingClientRect();
+            box.style.bottom = Math.round(hr.bottom - ir.top + 3) + 'px';
+            box.style.left = Math.round(ir.left - hr.left + ir.width / 2) + 'px';
+        } else {
+            // Desktop: in flow on the midline side, 4px from the card's edge, lined up with its left edge.
+            var pr = box.parentElement.getBoundingClientRect();
+            box.style.marginLeft = Math.round(ir.left - pr.left) + 'px';
+            box.style.marginRight = '0px';
+            // Signed: the card's edge can sit inside or outside its slot depending on the layout.
+            var sr = document.getElementById(which + 'BaseSlot').getBoundingClientRect();
+            if (which === 'their') box.style.marginTop = Math.round(ir.bottom - sr.bottom + 4) + 'px';
+            else box.style.marginBottom = Math.round(sr.top - ir.top + 4) + 'px';
+        }
+    }
+    // Re-place when the slot's layout changes (window resize, the max-height:680px row layout, art swaps).
+    var swuHbObserved = {};
+    function swuHbWatch(which) {
+        if (swuHbObserved[which] || typeof ResizeObserver !== 'function') return;
+        var slot = document.getElementById(which + 'BaseSlot');
+        if (!slot) return;
+        swuHbObserved[which] = true;
+        new ResizeObserver(function () { swuRenderBaseHealth(which); }).observe(slot);
+    }
+
     // The end-game panel's minimise/restore control. Injected rather than shipped in markup because
     // #game-over-overlay is SHARED (Core), and this collapse behaviour is SWUSim's panel-not-takeover
     // treatment. Idempotent: called from the poll, so it survives the overlay being torn down and
@@ -3524,7 +4647,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var btn = document.getElementById('swuEndGameToggle');
         if (!ov || !btn) return;
         var min = ov.classList.contains('is-minimized');
-        btn.textContent = min ? '\u25A1' : '\u2013';                 // □ restore / – minimise
+        btn.textContent = min ? '+' : '\u2013';                      // + restore / – minimise
         btn.title       = min ? 'Restore the results panel' : 'Minimise the results panel';
         btn.setAttribute('aria-label', btn.title);
     }
@@ -3602,6 +4725,30 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 var el = (entry.owner ? document.getElementById('p' + entry.owner + 'Discard-' + entry.idx) : null)
                       || document.getElementById('theirDiscard-' + entry.idx);
                 if (el) el.classList.add('discard-playable');
+            });
+        }
+        // The same cards inside an open discard POPUP — the only place a playable card that is not on
+        // top of its pile is rendered (see setupDiscardClick). Matched by data-mzid, never by id: the
+        // top card's id exists in BOTH the slot and the popup, so getElementById finds the slot copy.
+        var popups = document.getElementById('popupContainer');
+        if (popups) {
+            popups.querySelectorAll('.discard-playable').forEach(function(el) {
+                el.classList.remove('discard-playable');
+            });
+            var mark = function(mzid) {
+                popups.querySelectorAll('[data-mzid="' + mzid + '"]').forEach(function(el) {
+                    el.classList.add('discard-playable');
+                });
+            };
+            (d.playableDiscards || []).forEach(function(entry) { mark('myDiscard-' + entry.idx); });
+            // An opponent entry names its pile's seat. A Twin Suns seat popup is p{n}Discard; the
+            // theirDiscard popup is the opponent currently in view, so it only takes that seat's entries
+            // (2-player has no view seat and keeps the one opponent).
+            var viewOpp = window.swuView && window.swuView.oppSeat ? parseInt(window.swuView.oppSeat, 10) : 0;
+            (d.opponentPlayableDiscards || []).forEach(function(entry) {
+                var owner = parseInt(entry.owner, 10) || 0;
+                if (owner) mark('p' + owner + 'Discard-' + entry.idx);
+                if (!owner || !viewOpp || owner === viewOpp) mark('theirDiscard-' + entry.idx);
             });
         }
     }
@@ -3696,6 +4843,76 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             x.open('POST', swuAppBase() + 'SWUSim/PlayerSettingsApi.php', true);
             x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             x.send('action=promote&mute=' + (local ? '1' : '0'));
+        } catch (e) {}
+    })();
+
+    // "Turn off health bars" (owner request 2026-10-08). Same two layers as mute: the per-BROWSER choice
+    // when this browser has made one (the only layer a logged-out player has), else the ACCOUNT value
+    // (Profile → Game Settings), else off. Hides every base health bar; the Twin Suns HP badge stays.
+    function swuHealthBarsHidden() {
+        try {
+            if (window.TCGSettings && typeof window.TCGSettings.get === 'function') {
+                var local = window.TCGSettings.get('HideHealthBars', { rootName: 'SWUSim', type: 'boolean', defaultValue: null });
+                if (local === true || local === false) return local;
+            }
+        } catch (e) {}
+        return window.SWU_ACCOUNT_HIDE_HEALTH_BARS === true;
+    }
+    window.swuHealthBarsHidden = swuHealthBarsHidden;
+    function swuApplyHealthBarVisibility() {
+        if (document.body) document.body.classList.toggle('swu-hb-off', swuHealthBarsHidden());
+    }
+    window.swuApplyHealthBarVisibility = swuApplyHealthBarVisibility;
+    // Write both layers (browser always; account when signed in), then apply at once.
+    function swuSetHealthBarsHidden(hide) {
+        try { if (window.TCGSettings) window.TCGSettings.set('HideHealthBars', !!hide, { rootName: 'SWUSim', type: 'boolean' }); } catch (e) {}
+        if (window.SWU_LOGGED_IN) {
+            window.SWU_ACCOUNT_HIDE_HEALTH_BARS = !!hide;
+            try {
+                var x = new XMLHttpRequest();
+                x.open('POST', swuAppBase() + 'SWUSim/PlayerSettingsApi.php', true);
+                x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                x.send('action=setHideHealthBars&hide=' + (hide ? '1' : '0'));
+            } catch (e) {}
+        }
+        swuApplyHealthBarVisibility();
+    }
+    window.swuSetHealthBarsHidden = swuSetHealthBarsHidden;
+
+    // "Reduce board animations" (owner 2026-10-09). Per-BROWSER only, like Card motion: what it fixes is
+    // the device's cost (fans / laggy animation on a weak or GPU-less machine), so a player can turn it on
+    // for that laptop without changing their desktop. Default follows the OS reduced-motion preference.
+    function swuBoardAnimationsReduced() {
+        var osReduce = false;
+        try { osReduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (e) {}
+        try {
+            if (window.TCGSettings && typeof window.TCGSettings.get === 'function') {
+                return window.TCGSettings.get('ReduceBoardAnimations', { rootName: 'SWUSim', type: 'boolean', defaultValue: osReduce }) === true;
+            }
+        } catch (e) {}
+        return osReduce;
+    }
+    window.swuBoardAnimationsReduced = swuBoardAnimationsReduced;
+    function swuApplyBoardAnimationPref() {
+        if (document.body) document.body.classList.toggle('swu-board-calm', swuBoardAnimationsReduced());
+    }
+    window.swuApplyBoardAnimationPref = swuApplyBoardAnimationPref;
+    swuApplyBoardAnimationPref();
+    // Carry a logged-out browser choice onto the account at login — only onto an account that has never
+    // set it (SWU_ACCOUNT_HIDE_HEALTH_BARS === null). The server re-checks, so two tabs can't double-promote.
+    (function swuPromoteBrowserHealthBarsOnLogin() {
+        if (!window.SWU_LOGGED_IN || window.SWU_ACCOUNT_HIDE_HEALTH_BARS !== null) return;
+        var local = null;
+        try {
+            if (window.TCGSettings) local = window.TCGSettings.get('HideHealthBars', { rootName: 'SWUSim', type: 'boolean', defaultValue: null });
+        } catch (e) {}
+        if (local !== true && local !== false) return;
+        window.SWU_ACCOUNT_HIDE_HEALTH_BARS = local;
+        try {
+            var x = new XMLHttpRequest();
+            x.open('POST', swuAppBase() + 'SWUSim/PlayerSettingsApi.php', true);
+            x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            x.send('action=promoteHideHealthBars&hide=' + (local ? '1' : '0'));
         } catch (e) {}
     })();
 
@@ -3885,7 +5102,24 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ── Match-aware end-game menu ─────────────────────────────────────────────
     // The root SharedUI/MainMenu.php pointer renders whatever Sites/<ActiveSite>/ is set (SWUSim here);
     // there is NO MainMenu.php at the TCGEngine root, so the old './MainMenu.php' fallback 404'd.
-    function SWUGoMainMenu() { window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php'; }
+    function SWUGoMainMenu() { SWUAnnounceLeave(); window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php'; }
+    // Tell the table this seat left, so whoever is still on the end-game screen knows whether chatting is
+    // still worth it (owner request 2026-10-10). A BEACON, because the page is navigating away in the same
+    // tick and an ordinary request would be cancelled. The server composes the text and dedupes per seat.
+    function SWUAnnounceLeave() {
+        var seat = parseInt(window.SWU_VIEWER_SEAT, 10);
+        if (!(seat >= 1)) return;                          // spectators don't announce
+        var gnEl = document.getElementById('gameName'), akEl = document.getElementById('authKey');
+        if (!gnEl || !gnEl.value) return;
+        var f = new FormData();
+        f.append('gameName', gnEl.value);
+        f.append('playerID', String(seat));
+        f.append('authKey', akEl ? akEl.value : '');
+        try {
+            if (navigator.sendBeacon && navigator.sendBeacon('./SWUSim/AnnounceLeave.php', f)) return;
+            fetch('./SWUSim/AnnounceLeave.php', { method: 'POST', body: f, keepalive: true }).catch(function(){});
+        } catch (e) {}
+    }
     function SWUReportBug() {
       // Close the gear settings overlay first — it sits at a much higher z-index than the shared bug
       // report modal (z-index 3001), so leaving it open renders the modal BEHIND it. Harmless no-op
@@ -4011,7 +5245,52 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var multiSeat = !!(info && info.seatCount > 2);
         if (spectator || !mid) {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
-            if (!mid && !spectator && !multiSeat) b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
+            // Arenabot (spec 2026-09-23 §3): one click into a fresh game with the same two decks, the
+            // same Play Style and the same card pool — how a 100-game data session is survivable.
+            //
+            // ⚠ This REPLACES 'Quick Rematch' here, which cannot work for a local-mode game: mode 10013
+            // needs SWUReadMatchRef() to find a match, and an Arenabot/Goldfish/Hotseat game sets
+            // isGoldfish so JoinQueue never creates one — the button was always answering "Rematch
+            // unavailable." We re-POST the original creation inputs to JoinQueue.php instead, reusing
+            // the whole validated path (deck resolution, format legality, card pool).
+            if (!mid && !spectator && !multiSeat && info && info.rematch) {
+                b.push({label:'Rematch', onClick:function(ev){
+                    // One click, one game. Creating the game takes the server seconds, and a second click in
+                    // that window created a SECOND game (owner report 2026-10-08, prod 2372 + 2373, 4s apart).
+                    // The window flag also covers a rebuilt overlay; failure leaves the page, so no unlock.
+                    if (window._swuRematchStarting) return;
+                    window._swuRematchStarting = true;
+                    var btn = ev && ev.currentTarget;
+                    if (btn) { btn.disabled = true; btn.textContent = 'Starting rematch…'; }
+                    var f = new FormData();
+                    f.append('rootName', 'SWUSim');
+                    f.append('format',    info.rematch.format);
+                    f.append('queueType', 'bo1');
+                    f.append('deckLink',  info.rematch.deckLink);
+                    f.append('deckLink2', info.rematch.deckLink2);
+                    f.append('botStyle',  info.rematch.botStyle);
+                    f.append('cardPool',  info.rematch.cardPool);
+                    fetch('./APIs/Lobbies/JoinQueue.php', {method:'POST', body:f})
+                      .then(function(r){ return r.json(); })
+                      .then(function(j){
+                          if (j && j.success && j.gameName) {
+                              // Same navigation the waiting room uses (SharedUI/Render/WaitingRoom.php:764):
+                              // NextTurn.php with folderPath, and the auth key in the lastAuthKey COOKIE —
+                              // not in the URL.
+                              try {
+                                  document.cookie = 'lastAuthKey=' + encodeURIComponent(j.authKey)
+                                      + '; max-age=' + (30*24*60*60) + '; path=/; SameSite=Lax';
+                              } catch (e) {}
+                              window.location = './NextTurn.php?gameName=' + encodeURIComponent(j.gameName)
+                                  + '&playerID=' + encodeURIComponent(j.playerID)
+                                  + '&folderPath=SWUSim';
+                          } else { SWUGoMainMenu(); }
+                      })
+                      .catch(function(){ SWUGoMainMenu(); });
+                }});
+            } else if (!mid && !spectator && !multiSeat) {
+                b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
+            }
             b.push({label:'Report Bug', onClick: SWUReportBug});
             return b;
         }
@@ -4039,8 +5318,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             b.push({label:'Forfeit Best of 3', onClick:function(){ if(typeof confirmConcedeMatch==='function') confirmConcedeMatch(); }});
         } else if (bestOf === 1 && seriesOver) {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
-            b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
-            b.push({label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=1'); }});
+            // Meta Premier (rated): no rematch — players re-queue. The server refuses these too.
+            if (!info.rated) {
+                b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
+                b.push({label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=1'); }});
+            }
             if (info.convertible) {
                 var cv = SWUConvertButtonState(info); // {label, disabled}
                 b.push({id:'swu-convert-btn', label:cv.label, disabled:cv.disabled,
@@ -4050,9 +5332,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // Bo3 finished — rematch with a Bo1/Bo3 toggle.
             var fmt = { v: 3 };
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
-            b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=' + fmt.v); }});
-            b.push({id:'swu-rematch-btn', label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=' + fmt.v); }});
-            b.push({id:'swu-bestof-btn', label:'Bo3', onClick:function(ev){ fmt.v = (fmt.v===3?1:3); ev.target.textContent = 'Bo' + fmt.v; }});
+            if (!info.rated) {   // Meta Premier (rated): no rematch — players re-queue
+                b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=' + fmt.v); }});
+                b.push({id:'swu-rematch-btn', label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=' + fmt.v); }});
+                b.push({id:'swu-bestof-btn', label:'Bo3', onClick:function(ev){ fmt.v = (fmt.v===3?1:3); ev.target.textContent = 'Bo' + fmt.v; }});
+            }
         } else {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
         }
@@ -4108,9 +5392,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 // locally-known winner — not a match menu whose buttons (Rematch / Next Game) don't apply.
                 if (!info || !info.isMatch) {
                     var ws = SWULocalGameWinners();
+                    // ⚠ This branch passes NULL buttons, which is why SWUBuildEndGameButtons' own
+                    // `!mid` arm was unreachable dead code — and why nobody noticed its 'Quick Rematch'
+                    // could never work here (mode 10013 needs a match record; a local-mode game has
+                    // none). An Arenabot game DOES have something to offer, so build the buttons when
+                    // EndGameInfo handed back rematch inputs, and keep the previous null for every
+                    // other local mode (goldfish / hotseat / harness), whose behaviour is unchanged.
+                    var localBtns = (info && info.rematch) ? SWUBuildEndGameButtons(info) : null;
                     // No match layer ⇒ goldfish / harness game, always 2 seats: no winners line.
                     ShowGameOver(ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
-                                 null, SWUWinnersLine(ws, null, 2));
+                                 localBtns, SWUWinnersLine(ws, null, 2));
                     return;
                 }
                 // Prefer the match record's winner set; fall back to the gamestate's if this record
@@ -4160,6 +5451,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     if (existingSt) existingSt.remove();
                     var stMap = {
                         success:       ['Game sent to SWUStats successfully!', '#7CFC9E'],
+                        submitted_without_owner: ['Game sent to SWUStats (deck-owner stats were not recorded)', '#F0B429'],
                         skipped_early: ['Game not sent to SWUStats due to ending before Round 2', '#F0B429'],
                         skipped_multiplayer: ['Multiplayer games are not sent to SWUStats', '#F0B429'],
                         failed:        ['Game failed to send to SWUStats', '#E06666']
@@ -4257,7 +5549,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     } else {
         init();
     }
-})(<?php echo intval($playerID); ?>);
+})(<?php echo intval($playerID); ?>, <?php echo isset($viewerPerspective) ? intval($viewerPerspective) : 0; ?>);
 </script>
 
 <script>
@@ -4674,11 +5966,21 @@ function swuUpdateUndoUI(myPlayerID) {
     btn.disabled = isBlocked;
     btn.title = isBlocked ? 'Your opponent has blocked undo requests.' : '';
 
-    // Undo request popup: show to the opponent of PENDING_UNDO_FROM
+    // Undo request popup: show to EVERY opponent of PENDING_UNDO_FROM.
+    // ⚠ OWNER RULING 2026-09-26: the request goes to all opponents and the first Allow or Deny settles
+    // it — it is not a vote. `otherPlayer = myPlayerID === 1 ? 2 : 1` asked exactly one seat, so above
+    // two seats a request from seat 3 was shown to nobody (and a request from seat 1 was shown only to
+    // seat 2, leaving seats 3 and 4 unable to answer a request they never saw).
+    // Mirrors the server's OpponentsOf(): not me, and — in a team game — not my teammate, whose answer
+    // the server would refuse anyway. swuTeamOf() returns the seat itself outside a team game, so this
+    // is "every other live seat" in Twin Suns and byte-identical to the old behaviour at two seats.
     var pendingFrom = GetSWUDQVar('PENDING_UNDO_FROM');
-    var otherPlayer = myPlayerID === 1 ? 2 : 1;
-    if (pendingFrom !== '' && parseInt(pendingFrom, 10) === otherPlayer) {
-        swuShowUndoRequestPopup(otherPlayer);
+    var requesterSeat = pendingFrom !== '' ? parseInt(pendingFrom, 10) : 0;
+    var iMayAnswer = requesterSeat >= 1 && requesterSeat !== myPlayerID
+        && (typeof window.swuTeamOf !== 'function'
+            || window.swuTeamOf(requesterSeat) !== window.swuTeamOf(myPlayerID));
+    if (iMayAnswer) {
+        swuShowUndoRequestPopup(requesterSeat);
     } else {
         var reqModal = document.getElementById('swu-undo-request-modal');
         if (reqModal) reqModal.remove();
@@ -5078,6 +6380,11 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   // eligible for promotion onto the account. See PlayerSettings.php.
   require_once __DIR__ . '/../PlayerSettings.php';
   $swuGearMute   = SWUSimAccountMuted($swuGearUid);
+  // Card language (localized card art): the ACCOUNT value, or null when there is none. Same null
+  // contract as mute: null is what lets a browser-side choice be promoted onto the account.
+  $swuGearCardLang = SWUSimAccountCardLanguage($swuGearUid);
+  // Turn off health bars: the ACCOUNT value, or null (guest / never set) — same null contract as mute.
+  $swuGearHideHB = SWUSimAccountHideHealthBars($swuGearUid);
   $swuGearLogged = ($swuGearUid !== '' && $swuGearUid !== null && intval($swuGearUid) > 0);
 
   // Seat -> public username, for every seat whose player is LOGGED IN.
@@ -5085,23 +6392,34 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   // (Core/jsInclude.js _ChatPlayerLabel) and SWUBuildBlockPlayerWidget above. Until now nothing in
   // the repo assigned window.SWU_SEAT_USERNAMES, so chat always fell back to "P1"/"P2" and the
   // Block Player widget returned null for everybody (it bails when the viewer has no name).
-  // ⚠ ONLY REAL USERNAMES GO IN. MatchSeatDisplayNames substitutes "Player N" for an anonymous seat,
+  // ⚠ ONLY REAL USERNAMES GO IN. MatchSeatDisplayNames substitutes "Guest PN" for an anonymous seat,
   // and both consumers read a MISSING entry as "this seat is not logged in" — publishing the
   // fallback would label a guest as an account and offer a Block button that cannot work. So the
   // seat list is gated on userId > 0 rather than on the display string.
   $swuSeatNames = [];
+  // Every seat's DISPLAY name, guests included ("Guest PN") — for UI that just labels a seat (the player picker).
+  // Kept apart from $swuSeatNames because that map's missing entries MEAN "not logged in".
+  $swuSeatDisplayNames = [];
   require_once __DIR__ . '/../MatchFlow.php';
   if (isset($gameName) && function_exists('SWUReadMatchRef') && function_exists('MatchSeatDisplayNames')) {
       $swuRef = SWUReadMatchRef($gameName);
       $swuMatch = ($swuRef !== null && !empty($swuRef['matchId'])) ? SWUReadMatch($swuRef['matchId']) : null;
       if (is_array($swuMatch) && !empty($swuMatch['players'])) {
           $swuNames = MatchSeatDisplayNames($swuMatch);
+          foreach ($swuNames as $swuSeat => $swuName) $swuSeatDisplayNames[strval($swuSeat)] = strval($swuName);
           foreach ($swuMatch['players'] as $swuSeatKey => $swuPlayer) {
               $swuSeat = intval($swuSeatKey);
               if ($swuSeat < 1 || intval($swuPlayer['userId'] ?? 0) <= 0) continue;   // guest seat
               $swuName = strval($swuNames[$swuSeat] ?? '');
               if ($swuName !== '') $swuSeatNames[strval($swuSeat)] = $swuName;
           }
+      }
+  }
+  // A bot seat has no account, so MatchSeatDisplayNames calls it "Guest P2". Name it for what it is — in the log
+  // and the player picker. DISPLAY names only: it is not an account (no Block button, not in $swuSeatNames).
+  if (function_exists('GetSWUBotPlayers')) {
+      foreach (GetSWUBotPlayers() as $swuBotSeat) {
+          if (intval($swuBotSeat) >= 1) $swuSeatDisplayNames[strval(intval($swuBotSeat))] = SWUBotSeatDisplayName(intval($swuBotSeat));
       }
   }
   // MATCHLESS games (goldfish / hotseat) never create a match record — SWUReadMatchRef returns null
@@ -5125,10 +6443,181 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
 <script>
   window.SWU_LOGGED_IN   = <?= $swuGearLogged ? 'true' : 'false' ?>;
   window.SWU_ACCOUNT_MUTE = <?= $swuGearMute === null ? 'null' : ($swuGearMute ? 'true' : 'false') ?>;
+  window.SWU_ACCOUNT_CARD_LANGUAGE = <?= $swuGearCardLang === null ? 'null' : json_encode($swuGearCardLang) ?>;
+  window.SWU_ACCOUNT_HIDE_HEALTH_BARS = <?= $swuGearHideHB === null ? 'null' : ($swuGearHideHB ? 'true' : 'false') ?>;
   // Always an object (never undefined) so a consumer can index it without a guard. Empty = a game
   // in which nobody is logged in, or one played outside the match system.
   window.SWU_SEAT_USERNAMES = <?= json_encode((object)$swuSeatNames, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+  // Seat -> display name for EVERY seat of a match game ("Guest PN" for a guest); empty outside the match system.
+  window.SWU_SEAT_DISPLAY_NAMES = <?= json_encode((object)$swuSeatDisplayNames, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
   window.SWU_VIEWER_SEAT = <?= intval($playerID) ?>;   // 0 for a spectator ('S')
+  // Chat names read "username (PN)" at a multiplayer table (owner request 2026-09-22); 1v1 keeps the bare name.
+  window.CHAT_SEAT_SUFFIX = <?= (function_exists('GetSeatOrderArray') && count(GetSeatOrderArray()) >= 3) ? 'true' : 'false' ?>;
+  <?php
+    // Whisper chat (spec 2026-09-17-swusim-twinsuns-whisper-chat-design.md). Other seats come from SeatOrder,
+    // NOT LiveSeats, so eliminated players stay whisperable. Empty for spectators and < 3-seat games.
+    $swuWhisperSeats = [];
+    $swuWhisperViewer = ctype_digit(strval($playerID)) ? intval($playerID) : 0;
+    if ($swuWhisperViewer > 0 && function_exists('GetSeatOrderArray')) {
+        $swuWhisperAll = GetSeatOrderArray();
+        if (count($swuWhisperAll) >= 3) {
+            foreach ($swuWhisperAll as $swuWhisperSeat) {
+                if ($swuWhisperSeat !== $swuWhisperViewer) $swuWhisperSeats[] = $swuWhisperSeat;
+            }
+        }
+    }
+    $swuWhisperTeam = function_exists('SWUIsTeamGame') && SWUIsTeamGame();
+  ?>
+  window.SWU_WHISPER = <?= json_encode(['seats' => $swuWhisperSeats, 'team' => $swuWhisperTeam]) ?>;
+  (function () {
+    var cfg = window.SWU_WHISPER || { seats: [], team: false };
+    if (!cfg.seats || cfg.seats.length === 0) return;
+    var viewer = parseInt(window.SWU_VIEWER_SEAT, 10) || 0;
+    function seatName(s) { return (typeof _ChatPlayerLabel === 'function') ? _ChatPlayerLabel({ playerID: s, playerLabel: 'P' + s }) : 'P' + s; }
+    function build() {
+      var controls = document.getElementById('chatWidgetControls');
+      var input = document.getElementById('chatText');
+      if (!controls || !input || document.getElementById('swuWhisperRow')) return;   // muted chat has no input
+      var row = document.createElement('div');
+      row.id = 'swuWhisperRow';
+      row.className = 'swu-whisper-row';
+      var boxes = [];
+      function addBox(text, seats) {
+        var lab = document.createElement('label');
+        var cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.setAttribute('data-seats', seats.join(','));
+        cb.addEventListener('change', function () { lab.classList.toggle('is-on', cb.checked); refresh(); });
+        lab.appendChild(cb);
+        lab.appendChild(document.createTextNode(text));
+        row.appendChild(lab);
+        boxes.push({ cb: cb, seats: seats });
+      }
+      if (cfg.team) {
+        // Team Suns: seat parity (1,3 red · 2,4 blue) — same rule as SWUTeamOf / ChatWhisperPolicy.
+        var mates = cfg.seats.filter(function (s) { return (s % 2) === (viewer % 2); });
+        if (mates.length === 0) return;
+        addBox('Team only', mates);
+      } else {
+        var head = document.createElement('span');
+        head.className = 'swu-whisper-head';
+        head.textContent = 'Whisper:';
+        row.appendChild(head);
+        cfg.seats.forEach(function (s) { addBox(seatName(s), [s]); });
+      }
+      function selected() {
+        var seen = {};
+        boxes.forEach(function (b) { if (b.cb.checked) b.seats.forEach(function (s) { seen[s] = true; }); });
+        return Object.keys(seen).map(function (s) { return parseInt(s, 10); }).sort(function (a, b) { return a - b; });
+      }
+      function refresh() {
+        var t = selected();
+        row.classList.toggle('is-active', t.length > 0);
+        if (input.disabled) return;                       // leave the "Chat disabled" placeholder alone
+        input.placeholder = t.length > 0 ? 'Whisper to ' + t.map(seatName).join(', ') + '…' : 'Message...';
+        input.title = '';
+      }
+      window.TCGChatWhisperTargets = selected;
+      // (the kick-vote overlay is set up further down, in its own IIFE)
+      controls.parentNode.insertBefore(row, controls);   // sticky: nothing clears the boxes after a send
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+    else build();
+  })();
+
+  // ── Inactivity clock + kick vote (spec 2026-09-17-swusim-inactivity-timer-and-kick-design.md) ──
+  // The prompt is deliberately NOT a decision-queue entry: AllQueuesEmpty() scans every seat, so a DQ
+  // prompt would freeze the table AND block the stalled player from acting — and acting is exactly how
+  // they cancel the vote. So it is a fixed-position overlay OUTSIDE the zone containers (ClearSelectionMode
+  // removes decision modals on EVERY board update; this survives) kept alive by an idempotent ensure()
+  // on a light interval, the same pattern as swuEnsureEndGameToggle.
+  (function () {
+    var state = null;          // last presence payload
+    var localDeadline = 0;     // ms epoch, for smooth local ticking between polls
+    var HOST_ID = 'swuKickVote';
+
+    window.TCGPresenceSink = function (presence) {
+      if (!presence || typeof presence !== 'object') { state = null; render(); return; }
+      if (typeof NotePresenceVersion === 'function') NotePresenceVersion(presence.v);
+      state = presence;
+      localDeadline = (presence.onClock && presence.onClock.remaining >= 0)
+        ? Date.now() + (parseInt(presence.onClock.remaining, 10) * 1000) : 0;
+      render();
+    };
+
+    function host() {
+      var el = document.getElementById(HOST_ID);
+      if (el) return el;
+      el = document.createElement('div');
+      el.id = HOST_ID;
+      el.className = 'swu-kick-host';
+      document.body.appendChild(el);
+      return el;
+    }
+
+    function secondsLeft() {
+      if (!localDeadline) return null;
+      return Math.max(0, Math.round((localDeadline - Date.now()) / 1000));
+    }
+
+    function render() {
+      var el = host();
+      if (!state) { el.innerHTML = ''; el.classList.remove('is-open'); return; }
+      var vote = state.vote;
+      var clock = state.onClock;
+      var viewer = parseInt(window.SWU_VIEWER_SEAT, 10) || 0;
+      var html = '';
+
+      // The waiting line: who the game is waiting on, and how long they have left.
+      if (clock && clock.seat) {
+        var left = secondsLeft();
+        var mine = (parseInt(clock.seat, 10) === viewer);
+        // The target is warned in their last 20s (SWU_CLOCK_WARN_SECONDS); everyone else sees the quiet
+        // waiting line a little earlier (30s), so a stall is visible BEFORE any prompt appears.
+        var showFrom = mine ? 20 : 30;
+        if (left !== null && (clock.warn || left <= showFrom || vote)) {
+          html += '<div class="swu-kick-clock' + (mine ? ' is-you' : '') + '">'
+                + (mine ? 'You have <b>' + left + 's</b> to act — the other players can vote to remove you'
+                        : 'Waiting for <b>' + escapeName(clock.name) + '</b> — ' + left + 's')
+                + '</div>';
+        }
+      }
+
+      // The vote prompt: only for seats allowed to vote on this target.
+      if (vote && vote.canVote) {
+        var title = (vote.reason === 'disconnect')
+          ? '<b>' + escapeName(vote.name) + '</b> disconnected. Kick them?'
+          : 'Kick <b>' + escapeName(vote.name) + '</b>?';
+        var tally = (vote.needed > 1)
+          ? '<div class="swu-kick-tally">' + (vote.yes || []).length + ' of ' + vote.needed + ' votes</div>' : '';
+        html += '<div class="swu-kick-prompt" role="dialog" aria-live="polite">'
+              + '<div class="swu-kick-title">' + title + '</div>' + tally
+              + '<div class="swu-kick-actions">'
+              + (vote.youVoted
+                  ? '<span class="swu-kick-voted">You voted to kick — waiting for the others</span>'
+                  : '<button id="swuKickYes" type="button" class="swu-kick-yes">Kick ' + escapeName(vote.name) + '</button>')
+              + '<button id="swuKickWait" type="button" class="swu-kick-wait">Wait another '
+              + (parseInt(vote.waitSeconds, 10) || 20) + ' seconds</button>'
+              + '</div></div>';
+      }
+
+      el.innerHTML = html;
+      el.classList.toggle('is-open', html !== '');
+      var yes = document.getElementById('swuKickYes');
+      if (yes) yes.onclick = function () { SubmitInput(10021, '&cardID=' + encodeURIComponent(state.vote.target)); };
+      var wait = document.getElementById('swuKickWait');
+      if (wait) wait.onclick = function () { SubmitInput(10022, '&cardID=' + encodeURIComponent(state.vote.target)); };
+    }
+
+    function escapeName(n) {
+      return String(n == null ? '' : n).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // Tick locally so the countdown moves between polls, and re-assert the overlay if a re-render
+    // removed it (belt and braces: it lives outside the zone containers, but the board can be rebuilt).
+    window.setInterval(function () { if (state) render(); }, 1000);
+    window.swuKickVoteState = function () { return state; };   // read by the cross-browser probe
+  })();
 </script>
 <div id="swuSettingsOverlay" class="swu-settings-overlay" style="display:none;" onclick="if(event.target===this)swuCloseSettings()">
   <div class="swu-settings-panel" role="dialog" aria-modal="true">
@@ -5165,8 +6654,19 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
         <input type="checkbox" id="swuSetShowPlaymats"></label>
       <label class="swu-settings-row"><span>Mute sounds</span>
         <input type="checkbox" id="swuSetMuteSounds"></label>
+      <label class="swu-settings-row"><span>Card language</span>
+        <select id="swuSetCardLanguage">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="it">Italiano</option>
+          <option value="fr">Français</option>
+        </select></label>
       <label class="swu-settings-row"><span>Card motion</span>
         <input type="checkbox" id="swuSetCardMotion"></label>
+      <label class="swu-settings-row" title="Stops the arena frame and turn indicator from pulsing. Lowers CPU/GPU use on slower computers."><span>Reduce board animations</span>
+        <input type="checkbox" id="swuSetReduceBoardAnim"></label>
+      <label class="swu-settings-row"><span>Turn off health bars</span>
+        <input type="checkbox" id="swuSetHideHealthBars"></label>
       <?php if ($swuGearCos !== null): ?>
         <label class="swu-settings-row swu-settings-row--stack"><span>Background</span>
           <?= SWUCosmeticSelectHtml('background', $swuGearCos['background']['id'], 'swu-gear-cos') ?></label>
@@ -5235,11 +6735,20 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     // deliberately no "following your profile" hint: the box itself is the mute status.
     var m = document.getElementById('swuSetMuteSounds');
     if (m && typeof window.swuSoundsMuted === 'function') m.checked = window.swuSoundsMuted();
+    // Card language shows the EFFECTIVE value (browser choice, else account, else English), like mute.
+    var cl = document.getElementById('swuSetCardLanguage');
+    if (cl && window.SWUCardI18n) cl.value = window.SWUCardI18n.effectiveLanguage();
     // Card motion (zone slides + attack lunge). Read through TCGCardMotion.isEnabled rather than
     // TCGSettings directly: its default honours prefers-reduced-motion, so a player who has asked the
     // OS for reduced motion sees this unchecked without ever having touched it.
+    // Turn off health bars shows the EFFECTIVE value (browser choice, else account), like mute.
+    var hhb = document.getElementById('swuSetHideHealthBars');
+    if (hhb && typeof window.swuHealthBarsHidden === 'function') hhb.checked = window.swuHealthBarsHidden();
     var cm = document.getElementById('swuSetCardMotion');
     if (cm && window.TCGCardMotion) cm.checked = window.TCGCardMotion.isEnabled('SWUSim');
+    // Reduce board animations: EFFECTIVE value (browser choice, else the OS reduced-motion preference).
+    var rba = document.getElementById('swuSetReduceBoardAnim');
+    if (rba && typeof window.swuBoardAnimationsReduced === 'function') rba.checked = window.swuBoardAnimationsReduced();
     // Match actions are player-only (hidden for spectators / non-players).
     var ms = document.getElementById('swuSettingsMatchSection');
     if (ms) {
@@ -5399,13 +6908,28 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
       if (typeof window.swuSetSoundsMuted === 'function') window.swuSetSoundsMuted(e.target.checked);
       return;
     }
+    if (e.target && e.target.id === 'swuSetCardLanguage') {
+      // Writes this browser and (when signed in) the account, then re-points every card image on screen.
+      if (window.SWUCardI18n) window.SWUCardI18n.setLanguage(e.target.value);
+      return;
+    }
     if (e.target && e.target.id === 'swuSetShowPlaymats') {
       if (window.TCGSettings) window.TCGSettings.set('ShowPlaymats', e.target.checked, { rootName:'SWUSim', type:'boolean' });
       if (typeof window.ApplyCosmeticPlaymats === 'function') window.ApplyCosmeticPlaymats();
       return;
     }
+    if (e.target && e.target.id === 'swuSetHideHealthBars') {
+      // Writes this browser and (when signed in) the account, then shows/hides every bar at once.
+      if (typeof window.swuSetHealthBarsHidden === 'function') window.swuSetHealthBarsHidden(e.target.checked);
+      return;
+    }
     if (e.target && e.target.id === 'swuSetCardMotion') {
       if (window.TCGSettings) window.TCGSettings.set('EnableCardMotion', e.target.checked, { rootName:'SWUSim', type:'boolean' });
+      return;
+    }
+    if (e.target && e.target.id === 'swuSetReduceBoardAnim') {
+      if (window.TCGSettings) window.TCGSettings.set('ReduceBoardAnimations', e.target.checked, { rootName:'SWUSim', type:'boolean' });
+      if (typeof window.swuApplyBoardAnimationPref === 'function') window.swuApplyBoardAnimationPref();
       return;
     }
     var sel = e.target && e.target.closest ? e.target.closest('.swu-gear-cos') : null;

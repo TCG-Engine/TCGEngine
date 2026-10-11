@@ -62,6 +62,25 @@ try {
         throw new RuntimeException('The workbook import produced no cards.');
     }
     printHellbreakImportSummary($report);
+
+    // "Re-download the public workbook" also refreshes card art from HellbreakHub, which is the
+    // better source for some cards and the only source for those the workbook has no image for.
+    // Deliberately non-fatal: the workbook import is the job, and a hub outage must not fail it.
+    if (!empty($_POST['refreshArt'])) {
+        echo "\n--- Card art refresh (HellbreakHub) ---\n";
+        try {
+            require_once __DIR__ . '/import-research-art.php';
+            require_once __DIR__ . '/../../HellbreakSim/GeneratedCode/GeneratedCardDictionaries.php';
+            $sourceDir = dirname(__DIR__, 2) . '/HellbreakSim' . HELLBREAK_RESEARCH_IMAGE_DIR;
+            ensureDirectory($sourceDir);
+            $download = hellbreakDownloadResearchArt($sourceDir);
+            $art = hellbreakImportResearchArt(['source' => $sourceDir, 'preferBetter' => true]);
+            echo hellbreakSummariseResearchArt($art, $download) . "\n";
+        } catch (Throwable $error) {
+            echo 'Card art refresh failed (the workbook import above still succeeded): '
+                . $error->getMessage() . "\n";
+        }
+    }
 } catch (InvalidArgumentException $error) {
     http_response_code(400);
     echo 'ERROR: ' . $error->getMessage() . "\n";

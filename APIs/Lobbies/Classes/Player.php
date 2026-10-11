@@ -10,6 +10,11 @@
     private $authKey;
     private $gamePlayerID; // This is the ID used in the game, not the lobby
     private $userId; // account id of the human who created this seat (null for guests/bots)
+    // ⚠ DECLARED, NOT DYNAMIC. Assigning an undeclared property is deprecated in PHP 8.2, and the
+    // notice PRINTS — straight into the JSON body of every lobby endpoint, ahead of the payload, so
+    // json_decode returns null and every caller reads a successful join as a failure with no message.
+    // An unserialized lobby from before this field existed simply has '' here.
+    private $username = ''; // account name for the seat tile; '' for a guest (the page writes "Guest PN")
     private $deckOk = false; // Twin Suns room roster: whether this seat's current deck passed format legality
     private $seat = null;  // Table position 1..4. NULL until a team is picked. Team Suns reassigns
                            // this freely; $playerID must NOT move, because endpoints authenticate on it.
@@ -25,6 +30,10 @@
                            // replaced deleted people who were still sitting in the room. Removal from a
                            // private room is always a human act (Leave, or the host's Remove control).
                            // Set at JOIN too, so a seat that has not polled yet does not read as away.
+    private $joinedAt = 0;  // Unix ts this seat was CREATED (stamped in the constructor). The host cannot Remove a
+                           // seat during its first SWU_SEAT_KICK_ARM_AFTER seconds (owner, 2026-10-01). NOT
+                           // touch(): a reload or a reclaim keeps the same seat object, so it must not restart the
+                           // clock. 0 = a seat from a lobby serialized before this field existed (removable).
     private $ready = false; // Seat has pressed Ready. CLEARED whenever the seat's deck changes — a
                            // deck swapped after readying is not the deck anyone agreed to.
     private $identityCards = []; // [['id','name','url','kind'], …] — the roster's identity strip, built
@@ -41,6 +50,7 @@
         $this->preconstructedDeck = $preconstructedDeck;
         $this->userId = $userId;
         $this->authKey = bin2hex(random_bytes(16)); // Generate a unique auth key
+        $this->joinedAt = time();
     }
 
     public function getPlayerID() {
@@ -62,6 +72,30 @@
     public function getUserId() {
         return $this->userId;
     }
+
+    // Attach an account to a seat that was taken anonymously. A guest who signs in mid-room (to
+    // chat, which is the one thing an account is required for) keeps their seat and gains the
+    // identity, so deck stats attribute to them and a later block check can see who they are.
+    // ⚠ ONE WAY ONLY: a seat that already belongs to an account never changes hands, or presenting
+    // a stale authKey after signing out would transfer someone's seat to a different person.
+    public function setUserId($userId) {
+        if ($this->userId !== null && intval($this->userId) > 0) return false;
+        $this->userId = ($userId === null) ? null : intval($userId);
+        return true;
+    }
+
+    // The account name shown on this seat's tile, or '' for a guest.
+    //
+    // ⚠ CACHED, AND RESOLVED WHERE THE SESSION IS — at join, in JoinQueue.php. PollLobbyUpdates runs
+    // every 1.5s for every open page and this value cannot change between polls, so looking it up
+    // there would be a per-seat DB query per client per second for a constant.
+    //
+    // ⚠ ACCOUNTS ONLY. A guest keeps '' and the PAGE composes "Guest PN" from the seat number it is
+    // already drawing. Storing the guest string here would make a guest indistinguishable from an
+    // account to every consumer — the same contract window.SWU_SEAT_USERNAMES carries, where a
+    // missing entry is what MEANS "not logged in".
+    public function getUsername() { return is_string($this->username ?? null) ? $this->username : ''; }
+    public function setUsername($name) { $this->username = ($name === null) ? '' : strval($name); }
 
     public function getGamePlayerID() {
         return $this->gamePlayerID;
@@ -112,6 +146,9 @@
     // LEGAL — a legal deck you are still swapping is not a deck you are ready to play.
     public function getLastSeen() { return intval($this->lastSeen); }
     public function touch($now = null) { $this->lastSeen = ($now === null) ? time() : intval($now); }
+
+    public function getJoinedAt() { return intval($this->joinedAt ?? 0); }
+    public function setJoinedAt($ts) { $this->joinedAt = intval($ts); }
 
     public function getReady() { return !empty($this->ready); }
     public function setReady($v) { $this->ready = (bool)$v; }

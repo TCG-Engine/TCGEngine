@@ -6,6 +6,8 @@ services:
   web-server:
     build:
       target: dev
+      args:
+        DEV_ML: "1"   # numpy + scikit-learn for the bot value model (Dockerfile dev stage)
     volumes:
       - "../DevTools/xdebug/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:Z"
       - "../DevTools/xdebug/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini:Z"

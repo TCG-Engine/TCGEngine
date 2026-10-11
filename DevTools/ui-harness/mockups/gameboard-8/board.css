@@ -1,0 +1,701 @@
+/* ═══════════════════════════════════════════════════════════════════════════════════════════════
+   board.css — eight desktop gameboard STRUCTURES for SWUSim, all in the shipped Petranaki world.
+
+   ⚠ MOCKUP, NOT SHIPPED UI.
+
+   This file owns two things and keeps them apart on purpose:
+     1. THE BOARD LANGUAGE (§2–§5): the unit tile, the wound meter, the pile, the rail, the seat
+        chip. Identical in all eight concepts, so the only variable a reader is comparing is the
+        LAYOUT. Where a concept's thesis is specifically about the tile (C1 keeps today's centred
+        damage disc; C7 strips the tile to bare art), it says so in its own block and nowhere else.
+     2. THE EIGHT LAYOUTS (§6): one block each, `.b1` … `.b8`. Each block may only set grid,
+        placement and scale. A layout block that reaches into `.u` is a layout block doing the
+        tile's job.
+
+   Everything paints from swusim-menu-2.css's tokens (--ground, --ink, --gold, --s-*, --t-*,
+   --pane-*, --edge, --rim-hi …) and its shipped .ch / .gl chamfer classes. Nothing here invents a
+   colour. The empty `.home-header` in the HTML is load-bearing: the menu sheet scopes the page
+   ground, the milled-steel mesh and every --pane token to `body:has(.home-header)`.
+
+   ⚠ CROSS-ENGINE RULES INHERITED FROM THE MENU SHEET, and broken here at your peril:
+     · never put filter / clip-path / isolation / container-type on an ancestor of a .gl surface —
+       each one becomes the backdrop root and the blur goes inert while every geometry assertion
+       still passes;
+     · at most ONE color-mix() operand may itself be a color-mix() (WebKit hard-crashes on two);
+     · the glass pseudos live at z-index 0 with content lifted to 1. Do not "tidy" that.
+   ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* ── §1  PAGE SHELL — the contact sheet the eight boards sit on ─────────────────────────────── */
+
+.home-header { display: none; }
+
+body {
+  margin: 0;
+  font-family: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--ink);
+}
+
+/* The browser surfaces we did not draw still carry the design. */
+::selection            { background: var(--gold); color: var(--gold-ink); }
+:focus-visible         { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+* { scrollbar-width: thin; scrollbar-color: rgba(150, 163, 176, 0.45) transparent; }
+*::-webkit-scrollbar          { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb    { background: rgba(150, 163, 176, 0.42); }
+*::-webkit-scrollbar-track    { background: rgba(0, 0, 0, 0.22); }
+
+.page { width: 1640px; margin: 0 auto; padding: 0 var(--s-5) 96px; }
+
+.masthead { padding: var(--s-7) 0 var(--s-5); }
+.masthead h1 {
+  margin: 0 0 var(--s-3);
+  font-size: var(--t-28);
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-variation-settings: "wdth" 112;
+}
+.masthead p { margin: 0; max-width: 72ch; font-size: var(--t-15); line-height: 1.6; color: var(--ink-2); }
+.masthead p + p { margin-top: var(--s-3); }
+.masthead b { color: var(--ink); font-weight: 600; }
+
+/* Jump nav. Sticky, because a 12 000px contact sheet without one is a scroll hunt. */
+.jump {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; flex-wrap: wrap; gap: var(--s-2);
+  margin: var(--s-5) 0 0;
+  padding: var(--s-3) var(--s-4);
+  background: var(--pane-bar);
+  -webkit-backdrop-filter: var(--frost-bar);
+  backdrop-filter: var(--frost-bar);
+  box-shadow: inset 0 -1px 0 var(--edge), 0 12px 24px -18px rgba(0, 0, 0, 0.9);
+}
+.jump a {
+  display: inline-flex; align-items: baseline; gap: 7px;
+  padding: 7px 12px;
+  font-size: var(--t-12); font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase;
+  color: var(--ink-2); text-decoration: none;
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 0 0 1px var(--edge);
+  transition: color 160ms var(--ease), background-color 160ms var(--ease), box-shadow 160ms var(--ease);
+}
+.jump a i { font-style: normal; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+@media (hover: hover) and (pointer: fine) {
+  .jump a:hover { color: var(--ink); background: rgba(255, 255, 255, 0.075); box-shadow: inset 0 0 0 1px var(--edge-strong); }
+}
+.jump a.is-dealt { color: var(--gold-hi); box-shadow: inset 0 0 0 1px rgba(233, 184, 102, 0.45); }
+.jump a.is-dealt i { color: var(--gold); }
+
+/* One concept = one sheet: number, name, thesis, then the board at full size. */
+.sheet { padding-block: var(--s-7) 0; scroll-margin-top: 72px; }
+.sheet__head { display: grid; grid-template-columns: 96px 1fr; gap: 0 var(--s-5); margin-bottom: var(--s-4); }
+.sheet__n {
+  font-size: 4.25rem; line-height: 0.82; font-weight: 700;
+  letter-spacing: -0.04em; color: rgba(150, 163, 176, 0.30);
+  font-variation-settings: "wdth" 88;
+}
+.sheet h2 {
+  margin: 0 0 var(--s-2);
+  font-size: var(--t-24); font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase;
+  font-variation-settings: "wdth" 112;
+}
+.sheet .thesis { margin: 0; max-width: 88ch; font-size: var(--t-15); line-height: 1.62; color: var(--ink-2); }
+.sheet .thesis + .thesis { margin-top: var(--s-2); }
+.sheet .thesis b { color: var(--ink); font-weight: 600; }
+.sheet .fixes {
+  display: flex; flex-wrap: wrap; gap: var(--s-2);
+  margin-top: var(--s-3); padding: 0; list-style: none;
+}
+.sheet .fixes li {
+  font-size: var(--t-11); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-3); padding: 5px 9px; box-shadow: inset 0 0 0 1px var(--edge);
+}
+.sheet .fixes li.risk { color: #f0b48a; box-shadow: inset 0 0 0 1px rgba(240, 180, 138, 0.30); }
+.sheet--dealt .sheet__n { color: rgba(233, 184, 102, 0.42); }
+
+/* ── §2  THE BOARD SUBSTRATE ─────────────────────────────────────────────────────────────────
+   The arena art sits UNDER a flat scrim so text contrast never depends on what the artwork is
+   doing at that spot, exactly as the menu stacks it. 1600×1100 is the user's own screenshot
+   aspect (2848×1986), so density here is density there. */
+
+.board {
+  position: relative;
+  inline-size: 1600px; block-size: 1100px;
+  overflow: hidden;
+  padding: var(--s-3);
+  background:
+    radial-gradient(120% 70% at 50% 50%, transparent 30%, rgba(6, 9, 13, 0.55) 100%),
+    linear-gradient(180deg, rgba(9, 12, 17, 0.72), rgba(9, 12, 17, 0.86)),
+    url("/TCGEngine/Assets/Boards/SWUSim/default.webp") 50% 40% / cover no-repeat,
+    var(--ground);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9), inset 0 0 0 1px var(--edge);
+}
+
+/* Seat identity. Ownership is CO0L vs WARM, not green vs red: SWU already spends green on
+   Command and red on Aggression, and the shipped board's ownership glows collide with both.
+   These two hues are the ones the chat stream already uses for seats, so the board and the log
+   finally agree about who is who. */
+.seat-me   { --tint: #6fb8ff; --tint-dim: rgba(111, 184, 255, 0.16); }
+.seat-them { --tint: #ffa06f; --tint-dim: rgba(255, 160, 111, 0.16); }
+
+/* ── §3  THE UNIT TILE ───────────────────────────────────────────────────────────────────────
+   One tile, eight layouts. --uw is the only thing a layout may change.
+
+   Three departures from the shipped tile, and the reason for each:
+     · DAMAGE IS A METER, NOT A DISC. The shipped board stamps a red disc over the middle of the
+       art, which costs the art, the name and the cost pip to say a number that still does not
+       answer the only question being asked — how close is this to dying. The meter fills
+       damage/HP along the foot of the tile and carries the number in the corner, so "5" on a
+       7-HP Grogu and "5" on a 5-HP fighter no longer look identical.
+     · UPGRADES ARE A NAMED STRIP, NOT A SLIVER. Yoda's Lightsaber is a 3px sliver on the shipped
+       board. Here each attachment is a row with its own art chip and the stat delta it grants.
+     · EXHAUSTED IS LIT, NOT TILTED. A 6° tilt reads as a rendering accident at 104px. The tile
+       keeps a small tilt and adds what actually carries the state: the rim goes out and the whole
+       tile drops to 62% brightness, so a ready unit is the lit one. */
+
+.u {
+  --uw: 104px;
+  position: relative;
+  inline-size: var(--uw);
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: linear-gradient(180deg, rgba(38, 46, 58, 0.94), rgba(22, 28, 36, 0.96));
+  box-shadow:
+    inset 0 0 0 1px rgba(196, 208, 220, 0.20),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14),
+    0 2px 4px rgba(0, 0, 0, 0.45),
+    0 8px 16px -8px rgba(0, 0, 0, 0.7);
+  transition: box-shadow 160ms var(--ease), transform 160ms var(--ease), filter 160ms var(--ease);
+}
+/* The live seat's units carry a rim in the seat tint. One rim, no halo: a zero-offset coloured
+   glow is decoration, and the shipped board has two of them stacked. */
+.u--mine  { box-shadow: inset 0 0 0 1px rgba(111, 184, 255, 0.55), inset 0 1px 0 0 rgba(255, 255, 255, 0.16), 0 2px 4px rgba(0, 0, 0, 0.45), 0 8px 18px -8px rgba(0, 0, 0, 0.72); }
+.u--theirs{ box-shadow: inset 0 0 0 1px rgba(255, 160, 111, 0.42), inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 2px 4px rgba(0, 0, 0, 0.45), 0 8px 18px -8px rgba(0, 0, 0, 0.72); }
+
+.u__head {
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 5px;
+  padding: 4px 5px 3px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent);
+}
+.u__cost {
+  inline-size: 17px; block-size: 17px;
+  display: grid; place-items: center;
+  font-size: var(--t-11); font-weight: 700; line-height: 1;
+  color: #0d1117; background: #c9d3de;
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+}
+.u__name {
+  min-inline-size: 0;
+  font-size: var(--t-10); font-weight: 700; line-height: 1.12;
+  letter-spacing: 0.01em; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.u__sub {
+  display: block;
+  font-size: var(--t-9); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-3);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.u__art { position: relative; aspect-ratio: 5 / 4; overflow: hidden; background: #0c1016 50% / cover; }
+.u__art img { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 26%; display: block; }
+
+/* Tokens ride the art's top-right in a single column, drawn, never emoji. */
+.u__toks { position: absolute; inset-block-start: 3px; inset-inline-end: 3px; display: grid; gap: 3px; }
+.tok {
+  inline-size: 19px; block-size: 19px; display: grid; place-items: center;
+  font-size: var(--t-9); font-weight: 700; line-height: 1;
+  background: rgba(12, 16, 22, 0.86);
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.34);
+}
+.tok svg { inline-size: 12px; block-size: 12px; display: block; }
+.tok--shield  { color: #8fd0ff; box-shadow: inset 0 0 0 1px rgba(143, 208, 255, 0.62); }
+.tok--xp      { color: #ffd998; box-shadow: inset 0 0 0 1px rgba(255, 217, 152, 0.55); }
+
+/* The wound meter. Sits ON the foot rule so it costs no extra height. */
+.u__foot { position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 4px; padding: 4px 5px 5px; }
+.u__foot::before {
+  content: ""; position: absolute; inset-block-start: 0; inset-inline: 0; block-size: 3px;
+  background: rgba(255, 255, 255, 0.10);
+}
+.u__foot::after {
+  content: ""; position: absolute; inset-block-start: 0; inset-inline-start: 0; block-size: 3px;
+  inline-size: var(--wound, 0%);
+  background: linear-gradient(90deg, #d0563f, #ff7b5a);
+}
+.u__pow, .u__hp {
+  min-inline-size: 18px; text-align: center;
+  font-size: var(--t-12); font-weight: 700; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.u__pow { color: #ff8e72; }
+.u__hp  { color: #8fd0ff; }
+.u__pow s, .u__hp s { text-decoration: none; font-size: var(--t-9); font-weight: 600; color: var(--ink-3); }
+.u__dmg {
+  justify-self: center;
+  font-size: var(--t-11); font-weight: 700; line-height: 1;
+  color: #ff9d80; font-variant-numeric: tabular-nums;
+}
+.u__dmg::before { content: "−"; margin-inline-end: 1px; }
+.u__dmg:empty { display: none; }
+
+/* Upgrades. A row per attachment, with the delta it grants. */
+.u__ups { display: grid; gap: 1px; padding: 0 3px 3px; }
+.up {
+  display: grid; grid-template-columns: 16px 1fr auto; align-items: center; gap: 4px;
+  padding: 2px 3px;
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.12);
+}
+.up img { inline-size: 16px; block-size: 12px; object-fit: cover; object-position: 50% 30%; display: block; }
+.up b {
+  min-inline-size: 0; font-size: var(--t-9); font-weight: 600; letter-spacing: 0.03em; color: var(--ink-2);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.up i { font-style: normal; font-size: var(--t-9); font-weight: 700; color: #9ee6b4; }
+
+/* States. A tilt alone reads as a rendering accident at 104px and, worse, a tilted tile overlaps
+   its neighbours in a seven-unit row. So the tilt stays small and the state is carried by light:
+   a ready unit is the LIT one. */
+.u.is-exhausted { transform: rotate(2.5deg); filter: brightness(0.52) saturate(0.35); }
+.u.is-exhausted .u__head { background: none; }
+.u.is-exhausted::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(135deg, rgba(8, 11, 16, 0.55) 0 3px, transparent 3px 7px);
+  pointer-events: none;
+}
+.u.is-target {
+  box-shadow: inset 0 0 0 2px var(--gold-hi), 0 2px 4px rgba(0, 0, 0, 0.45), 0 10px 22px -8px rgba(0, 0, 0, 0.8);
+}
+@media (hover: hover) and (pointer: fine) {
+  .u:hover { transform: translateY(-3px); }
+  .u.is-exhausted:hover { transform: rotate(5deg) translateY(-3px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .u, .jump a { transition: none; }
+  .u:hover, .u.is-exhausted:hover { transform: none; }
+}
+
+/* ── §4  LEADER, BASE, PILE, HAND ────────────────────────────────────────────────────────────
+   Leaders and bases are landscape whole cards (628×450); units are portrait art cropped to the
+   tile. That split is the shipped rule and it stays. */
+
+.card-l, .card-b {
+  position: relative; align-self: start; justify-self: center;
+  inline-size: var(--lw, 208px);
+  aspect-ratio: 628 / 450;
+  background: #0c1016 50% / cover no-repeat;
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.24), 0 6px 14px -6px rgba(0, 0, 0, 0.8);
+}
+.card-l img, .card-b img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+
+/* The base carries the one meter on this board that decides the game. It reads as a fuel gauge
+   because that is what it is: 23 of 33 spent. */
+.base {
+  inline-size: var(--lw, 208px);
+  display: grid; gap: 0;
+  align-self: start; justify-self: center;
+}
+.base__meter {
+  position: relative; block-size: 22px;
+  background: rgba(8, 11, 16, 0.86);
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.20);
+  display: grid; align-items: center;
+}
+.base__fill {
+  position: absolute; inset-block: 0; inset-inline-start: 0; inline-size: var(--wound, 0%);
+  background: linear-gradient(90deg, rgba(208, 86, 63, 0.9), rgba(255, 123, 90, 0.95));
+}
+.base__meter b {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 8px;
+  padding-inline: 7px;
+  font-size: var(--t-10); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+}
+.base__meter b span { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink-3); }
+.base__meter b s {
+  text-decoration: none; letter-spacing: 0; font-size: var(--t-13); color: var(--ink);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.base__meter b s i { font-style: normal; font-size: var(--t-10); color: var(--ink-3); }
+/* The last 5 damage before the base falls. Nothing else on this board is allowed to pulse. */
+.base--critical .base__fill { background: linear-gradient(90deg, #d0563f, #ff9d5a); }
+.base--critical .base__meter { box-shadow: inset 0 0 0 1px rgba(255, 157, 90, 0.7); }
+
+.pile { display: grid; gap: 4px; justify-items: center; align-content: center; }
+/* In a seat rail there is no room for a stacked label, so the pile goes side-on. */
+.b1__rail .pile, .b6__rail .pile, .b8__rail .pile, .b4__strip .pile {
+  grid-auto-flow: column; align-items: center; gap: 7px;
+}
+.pile__card {
+  position: relative;
+  inline-size: var(--pw, 54px); aspect-ratio: 450 / 628;
+  background: #0c1016 50% / cover no-repeat;
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.22), 2px 2px 0 -1px rgba(255, 255, 255, 0.06), 0 5px 12px -5px rgba(0, 0, 0, 0.85);
+}
+.pile__card img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+.pile__back {
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.045) 0 2px, transparent 2px 6px),
+    linear-gradient(160deg, rgba(58, 68, 82, 0.95), rgba(24, 30, 38, 0.98));
+  display: grid; place-items: center;
+}
+.pile__back::after {
+  content: ""; inline-size: 40%; aspect-ratio: 1;
+  background: rgba(196, 208, 220, 0.22);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+.pile__k {
+  display: flex; align-items: baseline; gap: 5px;
+  font-size: var(--t-9); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.pile__k b { font-size: var(--t-13); letter-spacing: 0; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* Hand. Cards overlap by a fixed negative margin rather than fanning: a fan costs readability and
+   buys theatre the deck-tester does not want. */
+.hand { display: flex; align-items: flex-end; justify-content: center; }
+.hand .h {
+  inline-size: var(--hw, 124px); aspect-ratio: 450 / 628;
+  margin-inline-start: -18px;
+  background: #0c1016 50% / cover no-repeat;
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.28), 0 -3px 12px -4px rgba(0, 0, 0, 0.8);
+  transition: transform 160ms var(--ease);
+}
+.hand .h:first-child { margin-inline-start: 0; }
+.hand .h img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+.hand .h.is-playable { box-shadow: inset 0 0 0 2px rgba(233, 184, 102, 0.85), 0 -3px 14px -4px rgba(0, 0, 0, 0.85); }
+@media (hover: hover) and (pointer: fine) { .hand .h:hover { transform: translateY(-14px); } }
+@media (prefers-reduced-motion: reduce) { .hand .h { transition: none; } .hand .h:hover { transform: none; } }
+
+/* Their hand: backs only, fanned tight, with the count on the stack — the number is the only
+   thing about it you can act on. */
+.hand--theirs { position: relative; align-items: flex-start; }
+.hand--theirs .h {
+  inline-size: var(--hw, 58px); margin-inline-start: -38px;
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0 2px, transparent 2px 6px),
+    linear-gradient(160deg, rgba(58, 68, 82, 0.95), rgba(22, 28, 36, 0.98));
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.20), 0 4px 10px -4px rgba(0, 0, 0, 0.85);
+}
+.hand--theirs .h::after {
+  content: ""; position: absolute; inset-block-start: 38%; inset-inline-start: 50%;
+  inline-size: 26%; aspect-ratio: 1; transform: translateX(-50%);
+  background: rgba(196, 208, 220, 0.20);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+.hand--theirs .h { position: relative; }
+.hand--theirs .n {
+  align-self: center; margin-inline-start: var(--s-3);
+  font-size: var(--t-11); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-3); white-space: nowrap;
+}
+.hand--theirs .n b { font-size: var(--t-15); letter-spacing: 0; color: var(--ink); }
+
+/* ── §5  RAILS, LABELS, CONTROLS ─────────────────────────────────────────────────────────────── */
+
+.lbl {
+  font-size: var(--t-10); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.seat {
+  display: grid; gap: 1px; min-inline-size: 0;
+}
+.seat__k { font-size: var(--t-10); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase; color: var(--tint); }
+.seat__n {
+  font-size: var(--t-17); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.05;
+  font-variation-settings: "wdth" 110; color: var(--ink);
+}
+
+/* The resource badge. The shipped one is a webp with the number laid over it; this reads the
+   spent/available split the badge never showed. */
+.res { display: grid; gap: 3px; }
+.res__pips { display: flex; gap: 2px; }
+.res__pips i {
+  inline-size: 9px; block-size: 15px; background: rgba(196, 208, 220, 0.18);
+  clip-path: polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px);
+}
+.res__pips i.on { background: linear-gradient(180deg, #d7e2ee, #8f9dad); }
+.res__n { display: flex; align-items: baseline; gap: 5px; font-size: var(--t-11); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); }
+.res__n b { font-size: var(--t-17); letter-spacing: 0; color: var(--ink); }
+
+/* Initiative. THE one gold thing on the board besides the primary action, because it is the one
+   fact that decides who may act. A seat without it gets the steel ghost, never a second gold chip. */
+.init {
+  display: inline-flex; align-items: center; gap: 7px;
+  block-size: 30px; padding-inline: 12px;
+  font-size: var(--t-11); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase;
+  color: var(--gold-ink); background: linear-gradient(180deg, var(--gold-hi), var(--gold));
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+.init--ghost { color: var(--ink-3); background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1px var(--edge); }
+
+.btn {
+  block-size: 34px; padding-inline: 16px; border: 0;
+  font-family: inherit; font-size: var(--t-12); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink); background: var(--btn-fill);
+  box-shadow: inset 0 0 0 1px var(--edge-strong), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
+  cursor: pointer;
+  transition: transform 150ms var(--ease), background 150ms var(--ease);
+}
+.btn--go { color: var(--gold-ink); background: linear-gradient(180deg, var(--gold-hi), var(--gold)); box-shadow: none; }
+.btn:active { transform: scale(0.97); }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:active { transform: none; } }
+
+/* The turn block: round, phase, whose action. The shipped board says this in 10px grey in a
+   corner; every concept here gives it a fixed, findable home. */
+.turn { display: grid; gap: 2px; }
+.turn__r { display: flex; align-items: baseline; gap: 7px; }
+.turn__r b { font-size: var(--t-20); font-weight: 700; line-height: 1; font-variation-settings: "wdth" 104; }
+.turn__p { display: flex; align-items: center; gap: 6px; white-space: nowrap; font-size: var(--t-11); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase; color: var(--gold); }
+.turn__p::before { content: ""; inline-size: 7px; block-size: 7px; background: currentColor; clip-path: polygon(2px 0, 100% 0, 100% calc(100% - 2px), calc(100% - 2px) 100%, 0 100%, 0 2px); }
+
+/* Sidebar log + chat. One stream, seat-tinted, exactly as the shipped chat architecture has it. */
+.side { display: grid; grid-template-rows: auto auto 1fr auto; gap: var(--s-3); padding: var(--s-3); min-block-size: 0; }
+.side__top { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--s-3); }
+.log { display: grid; align-content: start; gap: 5px; overflow: auto; min-block-size: 0; padding-inline-end: 4px; }
+.log p { margin: 0; font-size: var(--t-12); line-height: 1.45; color: var(--ink-2); }
+.log p b { font-weight: 700; }
+.log .s1 { color: #6fb8ff; }
+.log .s2 { color: #ffa06f; }
+.log .sys { color: var(--ink-3); }
+.log .sys em { font-style: normal; color: var(--ink); }
+.chatbar { display: grid; grid-template-columns: 1fr auto; gap: var(--s-2); }
+.chatbar input {
+  min-inline-size: 0; block-size: 34px; padding-inline: 10px; border: 0;
+  font-family: inherit; font-size: var(--t-13); color: var(--ink);
+  background: rgba(8, 11, 16, 0.6); box-shadow: inset 0 0 0 1px var(--edge);
+}
+.chatbar input::placeholder { color: var(--ink-3); }
+
+/* An arena's identity: a tracked word in the gutter, never a box. */
+.arena-k {
+  display: flex; align-items: center; gap: 8px;
+  font-size: var(--t-10); font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-3);
+}
+.arena-k::after { content: ""; block-size: 1px; flex: 1; background: var(--edge); }
+.arena-k b { color: var(--ink-2); font-weight: 700; }
+
+/* A row of units. Wraps to a second line rather than clipping — the shipped board clips. */
+.units { display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start; justify-content: center; }
+.units--bot { align-content: flex-end; }
+/* C5 is the exception: on the instrument wall a unit's position must not move when its neighbour
+   dies, so its rows anchor left and stay there. */
+.b5 .units { justify-content: flex-start; }
+
+/* The midline. Where the two seats meet, and on most of these boards the only decoration. */
+.mid {
+  position: relative; block-size: 2px; overflow: visible; contain: none;
+  background: linear-gradient(90deg, transparent, var(--edge-strong) 12%, var(--edge-strong) 88%, transparent);
+}
+.mid__chip {
+  position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%);
+  padding: 4px 12px; background: var(--ground);
+  font-size: var(--t-10); font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-3);
+  white-space: nowrap;
+}
+
+/* The chamfered panel used wherever a concept wants a plate. Thin wrapper over the shipped .gl. */
+.plate { position: relative; --cut: 14px; --rim: 1px; padding: var(--s-3); min-block-size: 0; }
+/* Glass on the board comes from petranaki-glass.css's .pa-glass — the reusable recipe that
+   file exists for. menu-2's .gl assumes the menu's own markup and paints its frosted plane
+   over loose inline content, which is what greyed out half the log in the first cut. */
+.pa-glass > * { position: relative; }
+.plate > .lbl { display: block; margin-block-end: var(--s-2); }
+
+/* Cockpit brackets — C5's signature, defined here because C2 and C6 borrow the live-plate marker. */
+.brk { position: absolute; inset: 0; pointer-events: none; }
+.brk i { position: absolute; inline-size: 14px; block-size: 14px; border: 0 solid rgba(196, 208, 220, 0.30); }
+.brk i:nth-child(1) { inset-block-start: 3px; inset-inline-start: 3px;  border-block-start-width: 2px; border-inline-start-width: 2px; }
+.brk i:nth-child(2) { inset-block-start: 3px; inset-inline-end: 3px;    border-block-start-width: 2px; border-inline-end-width: 2px; }
+.brk i:nth-child(3) { inset-block-end: 3px;  inset-inline-start: 3px;  border-block-end-width: 2px;  border-inline-start-width: 2px; }
+.brk i:nth-child(4) { inset-block-end: 3px;  inset-inline-end: 3px;    border-block-end-width: 2px;  border-inline-end-width: 2px; }
+.is-live > .brk i { border-color: var(--gold); }
+
+/* ════════════════════════════════════════════════════════════════════════════════════════════
+   §6  THE EIGHT LAYOUTS.  Grid, placement and scale only.
+   ════════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* ── C1 · MIRROR MAT — today's topology, rebuilt. Space left · spine centre · ground right,
+      mirrored across a midline, sidebar right. The baseline every other card is measured against.
+      C1 alone keeps the shipped centred damage DISC, so the meter can be judged against it. ── */
+.b1 { display: grid; grid-template-columns: 1fr 300px; gap: var(--s-3); }
+.b1__play { display: grid; grid-template-rows: 58px 1fr 2px 1fr 58px 172px; gap: var(--s-2); min-block-size: 0; }
+.b1__rail { display: flex; align-items: center; gap: var(--s-4); padding-inline: var(--s-3); background: rgba(7, 10, 15, 0.72); box-shadow: inset 0 0 0 1px var(--edge); }
+.b1__rail .res { margin-inline-start: auto; }
+.b1__rail .piles { display: flex; gap: var(--s-3); }
+.b1__half { display: grid; grid-template-columns: 1fr 232px 1fr; gap: var(--s-3); min-block-size: 0; }
+.b1__half > * { min-inline-size: 0; }
+.b1__col { display: grid; grid-template-rows: auto 1fr; gap: 5px; }
+.b1__spine { display: grid; gap: 5px; justify-items: center; align-content: center; }
+.b1__hand { display: grid; grid-template-columns: auto 1fr auto; align-items: end; gap: var(--s-4); }
+.b1__acts { display: grid; gap: var(--s-2); }
+/* C1 keeps the incumbent damage disc, on purpose, as the control in this experiment. */
+.b1 .u__foot::after { display: none; }
+.b1 .u__dmg:empty { display: none; }
+.b1 .u__dmg:not(:empty) {
+  position: absolute; inset-block-start: -48px; inset-inline-start: 50%; transform: translateX(-50%);
+  inline-size: 34px; block-size: 34px; display: grid; place-items: center;
+  font-size: var(--t-15); color: #fff;
+  background: radial-gradient(circle at 38% 32%, #e2604a, #a32b1c);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(10, 12, 16, 0.85), 0 3px 8px rgba(0, 0, 0, 0.7);
+}
+.b1 .u__dmg::before { content: none; }
+
+/* ── C2 · TWO THEATRES — split the screen by ARENA, not by player. A full-width SPACE theatre
+      over a full-width GROUND theatre, each with its own midline; leaders and bases move to an
+      outboard command pylon on the left. Every attack becomes a short vertical hop. ── */
+.b2 { display: grid; grid-template-columns: 216px 1fr 292px; gap: var(--s-3); }
+.b2__pylon { display: grid; grid-template-rows: auto auto 1fr auto auto; gap: var(--s-2); align-content: start; }
+.b2__theatres { display: grid; grid-template-rows: 0.9fr 1.1fr 172px; gap: var(--s-3); min-block-size: 0; }
+.b2__th { position: relative; display: grid; grid-template-rows: auto 1fr 2px 1fr; gap: 6px; padding: var(--s-3); min-block-size: 0; }
+.b2__th > .units { overflow: auto; }
+.b2__th--space  { background: linear-gradient(180deg, rgba(20, 34, 52, 0.55), rgba(6, 9, 14, 0.62)); box-shadow: inset 0 0 0 1px var(--edge); }
+.b2__th--ground { background: linear-gradient(180deg, rgba(44, 36, 22, 0.55), rgba(10, 8, 5, 0.62)); box-shadow: inset 0 0 0 1px var(--edge); }
+.b2__thk { display: flex; align-items: center; gap: var(--s-3); }
+.b2__thk h3 { margin: 0; font-size: var(--t-13); font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-2); }
+.b2__thk .tally { margin-inline-start: auto; font-size: var(--t-11); font-weight: 700; letter-spacing: 0.14em; color: var(--ink-3); }
+
+/* ── C3 · THE SPINE — a full-height command column down the centre owns both leaders, both bases
+      and the whole turn state; the two arenas become continuous vertical LANES either side, each
+      holding both players. You read the board by column. ── */
+.b3 { display: grid; grid-template-columns: 1fr 268px 1fr 286px; grid-template-rows: 1fr 172px; gap: var(--s-3); }
+.b3 > .side { grid-column: 4; grid-row: 1 / 3; }
+.b3__lane { display: grid; grid-template-rows: auto 1fr 2px 1fr; gap: 6px; padding: var(--s-3) var(--s-2); min-block-size: 0; }
+.b3__lane--space  { background: linear-gradient(180deg, rgba(20, 34, 52, 0.55), rgba(6, 9, 14, 0.58)); box-shadow: inset 0 0 0 1px var(--edge); }
+.b3__lane--ground { background: linear-gradient(180deg, rgba(44, 36, 22, 0.55), rgba(10, 8, 5, 0.58)); box-shadow: inset 0 0 0 1px var(--edge); }
+/* The chamfer eats the top-left and bottom-right corners, so the two seat rows are inset past the
+   cut rather than run to the panel's edge — otherwise the cut takes a bite out of a player's name. */
+.b3__spine { display: grid; grid-template-rows: auto auto auto 1fr auto auto auto; gap: var(--s-2);
+  padding: var(--s-5) var(--s-3); justify-items: center; align-content: space-between;
+  min-block-size: 0; overflow: hidden; }
+.b3__turn { display: grid; gap: var(--s-2); justify-items: center; inline-size: 100%; padding: var(--s-3) 0; }
+.b3__hand { grid-column: 1 / 4; }
+
+/* ── C4 · THE CONSOLE — asymmetric. A left command column owns everything of yours that is
+      static: seat, resources, piles, leader, base, controls, turn and the stream. The board itself
+      carries no chrome at all, and the opponent gets one compact strip. ── */
+.b4 { display: grid; grid-template-columns: 330px 1fr; gap: var(--s-3); }
+.b4__cmd { display: grid; grid-template-rows: auto auto auto auto 1fr auto; gap: var(--s-3); padding: var(--s-4); min-block-size: 0; }
+.b4__cmdrow { display: flex; align-items: center; gap: var(--s-3); }
+.b4__cmdrow .res { margin-inline-start: auto; }
+.b4__board { display: grid; grid-template-rows: 124px 1fr 2px 1fr 176px; gap: var(--s-3); min-block-size: 0; }
+/* The board column has no rail, so the hand centres on the BOARD rather than on the window. */
+.b4 .b1__hand { grid-template-columns: 1fr auto 1fr; }
+.b4 .b1__hand > .hand { grid-column: 2; }
+.b4 .b1__acts { grid-column: 3; justify-self: end; }
+.b4__strip { display: flex; align-items: center; gap: var(--s-4); padding-inline: var(--s-3); background: rgba(7, 10, 15, 0.68); box-shadow: inset 0 0 0 1px var(--edge); }
+.b4__strip .piles { display: flex; gap: var(--s-3); margin-inline-start: auto; }
+.b4__arenas { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); min-block-size: 0; }
+.b4__ar { display: grid; grid-template-rows: auto 1fr; gap: 6px; min-block-size: 0; }
+
+/* ── C5 · THE INSTRUMENT WALL — absolute positional constancy. Every zone is a labelled plate at
+      a fixed grid box that never moves and never resizes; overflow scrolls INSIDE its plate
+      instead of shoving a neighbour. Corner brackets light on the plate that is live. ── */
+.b5 { display: grid; grid-template-columns: repeat(12, 1fr) 274px; grid-template-rows: 154px 1fr 56px 1fr 154px 118px; gap: var(--s-2); }
+.b5 .plate { background: rgba(7, 10, 15, 0.66); box-shadow: inset 0 0 0 1px var(--edge); overflow: hidden; }
+.b5 .plate > .lbl { display: flex; align-items: center; gap: 6px; }
+.b5 .plate--arena { display: grid; grid-template-rows: auto 1fr; gap: 6px; }
+.b5 .plate--arena .units { overflow: auto; }
+.b5__cell { display: flex; align-items: center; gap: var(--s-3); }
+.b5__eng {
+  grid-column: 1 / 13;
+  display: flex; align-items: center; gap: var(--s-5); padding-inline: var(--s-4);
+  background: linear-gradient(90deg, rgba(233, 184, 102, 0.10), transparent 40%, transparent 60%, rgba(233, 184, 102, 0.10));
+  box-shadow: inset 0 0 0 1px rgba(233, 184, 102, 0.28);
+}
+.b5__side { grid-column: 13; grid-row: 1 / 7; background: rgba(7, 10, 15, 0.72); box-shadow: inset 0 0 0 1px var(--edge); }
+
+/* ── C6 · FOCUS MAT — the board spends its space on the decision in front of you. The arena you
+      can act in runs at full size; the other collapses to a one-line summary you can still read
+      unit by unit, and re-open with one click. Shown mid-game with GROUND live. ── */
+.b6 { display: grid; grid-template-columns: 1fr 286px; gap: var(--s-3); }
+.b6__play { display: grid; grid-template-rows: 48px 56px 1fr 2px 1fr 56px 48px 172px; gap: var(--s-2); min-block-size: 0; }
+.b6__rail { display: flex; align-items: center; gap: var(--s-4); padding-inline: var(--s-3); }
+.b6__rail .res { margin-inline-start: auto; }
+.b6__fold {
+  display: flex; align-items: center; gap: var(--s-3); padding: 0 var(--s-3);
+  background: rgba(7, 10, 15, 0.68); box-shadow: inset 0 0 0 1px var(--edge);
+  cursor: pointer;
+}
+.b6__fold h3 { margin: 0; font-size: var(--t-11); font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-3); min-inline-size: 78px; }
+.b6__minis { display: flex; gap: 5px; overflow: hidden; }
+.b6__open { position: relative; display: grid; grid-template-rows: auto 1fr; gap: 6px; padding: var(--s-3); min-block-size: 0; background: linear-gradient(180deg, rgba(44, 36, 22, 0.52), rgba(10, 8, 5, 0.58)); box-shadow: inset 0 0 0 1px var(--edge); }
+.b6__open .units { overflow: auto; }
+.b6__hint { margin-inline-start: auto; font-size: var(--t-10); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); }
+
+/* The collapsed unit: name initial, wound meter, power/hp. Legible, not a dot. */
+.mini {
+  inline-size: 74px; display: grid; gap: 2px; padding: 4px 5px;
+  background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1px var(--edge);
+}
+.mini b { font-size: var(--t-9); font-weight: 700; letter-spacing: 0.02em; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mini .bar { position: relative; block-size: 3px; background: rgba(255, 255, 255, 0.12); }
+.mini .bar i { position: absolute; inset-block: 0; inset-inline-start: 0; inline-size: var(--wound, 0%); background: #ff7b5a; }
+.mini s { text-decoration: none; display: flex; justify-content: space-between; font-size: var(--t-9); font-weight: 700; }
+.mini s em { font-style: normal; color: #ff8e72; }
+.mini s u { text-decoration: none; color: #8fd0ff; }
+.mini.is-exhausted { filter: brightness(0.6); }
+
+/* ── C7 · CLEAN MAT — the cards ARE the interface. No plates, no rails, no panels. An arena is a
+      hairline and a tracked word; every piece of state collapses into two near-transparent edge
+      bars. Buys roughly 22% more card per pixel than any other card here. ── */
+.b7 { display: grid; grid-template-rows: 40px 1fr 2px 1fr 40px 178px; gap: var(--s-3); }
+.b7__edge {
+  display: flex; align-items: center; gap: var(--s-6); padding-inline: var(--s-4);
+  background: linear-gradient(180deg, rgba(8, 11, 16, 0.42), transparent);
+  font-size: var(--t-11); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase; color: var(--ink-3);
+}
+.b7__edge--bot { background: linear-gradient(0deg, rgba(8, 11, 16, 0.42), transparent); }
+.b7__edge b { color: var(--ink); letter-spacing: 0.04em; }
+.b7__edge .sp { margin-inline-start: auto; }
+.b7__half { display: grid; grid-template-columns: 1fr 44px 260px 44px 1fr; gap: 0; align-items: center; min-block-size: 0; }
+.b7__gut { display: grid; place-items: center; }
+.b7__gut span { writing-mode: vertical-rl; font-size: var(--t-10); font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(196, 208, 220, 0.34); }
+.b7__ctr { display: grid; gap: 5px; justify-items: center; }
+.b7__hand { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; }
+.b7 .u {
+  background: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5), 0 12px 24px -10px rgba(0, 0, 0, 0.8);
+}
+.b7 .u__head { background: linear-gradient(180deg, rgba(8, 11, 16, 0.9), rgba(8, 11, 16, 0.55)); }
+.b7 .u__foot { background: linear-gradient(0deg, rgba(8, 11, 16, 0.9), rgba(8, 11, 16, 0.55)); }
+.b7 .u--mine, .b7 .u--theirs { box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5), 0 12px 24px -10px rgba(0, 0, 0, 0.8); }
+.b7 .u--mine   .u__head { box-shadow: inset 0 2px 0 rgba(111, 184, 255, 0.85); }
+.b7 .u--theirs .u__head { box-shadow: inset 0 2px 0 rgba(255, 160, 111, 0.7); }
+
+/* ── C8 · DEPTH TABLE — model the table. Your half sits forward, full size, under the key light;
+      the opponent's half recedes — smaller, cooler, dimmer, tipped away in Z, exactly as it does
+      across a real table. Depth carries ownership, which frees the colour budget entirely. ── */
+.b8 { display: grid; grid-template-rows: 1fr 30px 1fr 192px; gap: 0; perspective: 1700px;
+      padding-inline-end: calc(292px + var(--s-3)); }
+.b8__far {
+  transform: perspective(1700px) rotateX(11deg) scale(0.9);
+  transform-origin: 50% 100%;
+  filter: brightness(0.74) saturate(0.82) contrast(0.96);
+  display: grid; grid-template-rows: 48px 1fr; gap: var(--s-2); min-block-size: 0;
+}
+.b8__near { display: grid; grid-template-rows: 1fr 52px; gap: var(--s-2); min-block-size: 0; }
+.b8__edge {
+  align-self: center;
+  block-size: 3px;
+  background: linear-gradient(90deg, transparent, rgba(196, 208, 220, 0.5) 15%, rgba(255, 255, 255, 0.72) 50%, rgba(196, 208, 220, 0.5) 85%, transparent);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 -10px 30px -12px rgba(255, 255, 255, 0.12);
+}
+.b8__row { display: grid; grid-template-columns: 1fr 236px 1fr; gap: var(--s-4); align-items: center; min-block-size: 0; }
+.b8__rail { display: flex; align-items: center; gap: var(--s-4); padding-inline: var(--s-4); }
+.b8__rail .res { margin-inline-start: auto; }
+.b8__ctr { display: grid; gap: 5px; justify-items: center; }
+.b8__hand { display: grid; grid-template-columns: 300px 1fr 300px; align-items: end; gap: var(--s-4); padding-top: var(--s-3); }
+/* Ownership tint is OFF here: depth is doing that job, and the aspect colours on the cards get
+   their contrast back. */
+.b8 .u--mine, .b8 .u--theirs {
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 3px 6px rgba(0, 0, 0, 0.5), 0 10px 20px -8px rgba(0, 0, 0, 0.75);
+}
+.b8__side { position: absolute; inset-block: var(--s-3); inset-inline-end: var(--s-3); inline-size: 280px; }

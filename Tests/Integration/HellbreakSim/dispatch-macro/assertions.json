@@ -1,0 +1,36 @@
+[
+    {
+        "step": 5,
+        "type": "scalar_zone_equals",
+        "zone": "myMalice",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "InitiativeAssigned DISPATCHED: Dracula's 'when you win initiative, you may gain 1 malice' fired on winning the bid, and taking it moved P1 from 0 to 1 malice"
+    },
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myCharacters",
+        "viewerPlayerID": 1,
+        "cardID": "DOT_025",
+        "semantic": true,
+        "label": "The Bloodsucking Bat entered play at the chosen location"
+    },
+    {
+        "step": 9,
+        "type": "scalar_zone_equals",
+        "zone": "theirBlood",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Played DISPATCHED: the Bat's 'Initiative Blood Drain' fired as it entered play, taking the opponent from 2 blood to 1. This is the assertion the unit suites structurally cannot make — they invoke ability bodies directly, and so can never prove the engine calls them at the right moment."
+    },
+    {
+        "step": 9,
+        "type": "phase_is",
+        "value": "HORROR",
+        "semantic": true,
+        "label": "All of it happened inside a real Horror phase, not a hand-built board"
+    }
+]

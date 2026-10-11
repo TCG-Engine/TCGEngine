@@ -10,7 +10,7 @@ $customDQHandlers["TWI_101#0"] = function($player, $parts, $lastDecision) {
     if ($mz === null) return;
     OnExhaustCard(intval($player), $mz);
     if (count(GetDeck(intval($player))) === 0) return;
-    DoTopDeckSearch(intval($player), 4, fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false, 1);
+    DoTopDeckSearch(intval($player), 4, fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false, 1, 'units');
 };
 
 function Twi101Reaction(int $player, int $uid): void

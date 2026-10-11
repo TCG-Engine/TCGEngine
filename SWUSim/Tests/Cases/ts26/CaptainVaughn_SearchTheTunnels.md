@@ -18,10 +18,13 @@ P1HANDCOUNT:1
 
 ---
 
-# DecliningTheDrawStillPutsACardOnTop
-#// TS26_39 Captain Vaughn — the draw is optional, the top-of-deck step is not. Declining the search leaves
-#// the three cards where they were, then SEC_080 goes from hand onto the deck: hand 0, deck back up to 4.
-
+# DecliningStillDraws_ThenACardGoesOnTop
+#// TS26_39 Captain Vaughn — "Search the top 3 cards of your deck for a card and draw it. Then, put a card from
+#// your hand on top of your deck." P1 answers the search with no pick: SOR_095 (the top card) is still drawn,
+#// the other two go to the bottom, then P1 puts SEC_080 from hand on top. Hand 1, deck 3 with SEC_080 on top.
+#// CR v9.0 8.26.1: only a search that SPECIFIES AN ATTRIBUTE may come up empty (the deck is hidden from the
+#// opponent); "for a card" has none, so declining still takes a card — the first one (owner ruling 2026-10-03).
+#// Before v9 this section asserted that taking nothing was allowed.
 ## GIVEN
 CommonSetup: bbw/rrk/{handCardIds:SEC_080}
 SkipPreGame: true
@@ -37,8 +40,8 @@ WithP1Deck: [SOR_095 SOR_046 SOR_128]
 
 ## EXPECT
 P1DECKTOPCARD:SEC_080
-P1HANDCOUNT:0
-P1DECKCOUNT:4
+P1HANDCOUNT:1
+P1DECKCOUNT:3
 
 ---
 

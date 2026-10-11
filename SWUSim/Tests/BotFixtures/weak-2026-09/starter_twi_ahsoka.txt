@@ -1,0 +1,47 @@
+# BAD-DECK fixture — Starter deck
+# Source: Twilight of the Republic starter — Ahsoka Tano (Spencer Stephens)
+#   The WEAK set (added 2026-09-15): deliberately poor decks, for the deck-advantage conversion test —
+#   a strong pilot should beat a clearly worse deck nearly every time, and that measure has none of the
+#   field-skew that makes bot-vs-tournament win rates misleading.
+#   ⚠ NOT Premier legal: a pre-JTL starter deck, built to a low power level. Never add this set to a strength gate or to the tournament-backed sets.
+# Shape: 50 cards, avg cost 2.86, 35 units (17 at 1-2, 4 at 6+), 0 removal, 0 wipe, 12 events, 3 upgrades
+# Style: aggro
+#   ⚠ auto-derived from deck shape, not reviewed.
+# Flavours: none
+
+Leader
+1 TWI_011
+
+Base
+1 TWI_024
+
+Deck
+3 TWI_240
+1 TWI_094
+1 TWI_090
+3 TWI_147
+1 TWI_091
+1 TWI_141
+2 TWI_171
+2 TWI_126
+2 TWI_158
+3 TWI_241
+1 TWI_244
+2 TWI_111
+1 TWI_114
+2 TWI_243
+2 TWI_159
+1 TWI_106
+2 TWI_123
+1 TWI_109
+1 TWI_144
+1 TWI_246
+2 TWI_107
+3 TWI_174
+2 TWI_251
+1 TWI_092
+1 TWI_142
+3 TWI_248
+1 TWI_164
+1 TWI_099
+3 TWI_097

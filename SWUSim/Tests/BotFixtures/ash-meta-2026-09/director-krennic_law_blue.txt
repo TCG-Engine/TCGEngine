@@ -1,0 +1,46 @@
+# Real-deck self-play fixture — Director Krennic, Amidst My Achievement - Fortress of the Great Mothers
+# Source: melee.gg 438966, #1 of 72 (8-0-2) — the event winner
+#   https://melee.gg/Decklist/View/5681125d-f7a1-4c75-87ca-b4bc0160f8a6 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   Added 2026-10-01 at the owner's request: Krennic (LAW) Blue 30HP is the MOST-PLAYED archetype of the 53-event field
+#   in real_matchups.json (315 of 3,206 decks, 54.2% game WR) and had no fixture. The best-finishing list of the
+#   archetype there: the largest event it won. Every card checked against the melee list by name (50 + 10, 0 mismatches).
+# Archetype (owner's label, 2026-10-01): Soft control, like the Krennic Blue Splash list — credit ramp
+# Style: softcontrol
+# Flavours: credit-ramp
+
+Leader
+1 LAW_008
+
+Base
+1 ASH_019
+
+Deck
+3 ASH_116
+3 JTL_032
+3 LAW_159
+3 ASH_079
+3 LAW_039
+3 ASH_097
+3 LOF_059
+3 ASH_053
+2 SEC_087
+2 ASH_048
+2 LAW_097
+2 ASH_133
+1 SEC_111
+3 ASH_052
+2 LAW_101
+2 JTL_033
+1 SEC_088
+1 ASH_102
+3 JTL_043
+1 SEC_078
+3 LOF_091
+1 SEC_038
+
+Sideboard
+3 LAW_132
+2 SEC_078
+2 LAW_149
+2 ASH_135
+1 JTL_041

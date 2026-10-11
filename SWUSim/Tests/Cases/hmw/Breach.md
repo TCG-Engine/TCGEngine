@@ -329,3 +329,45 @@ SEATCOUNT:4
 P4GROUNDARENACOUNT:0
 P4BASEDMG:1
 P2BASEDMG:0
+
+---
+
+# Overwhelm_WithTyYorrickDeclined_ExcessStillSpills
+#// HMW_114 Breach with HMW_185 Ty Yorrick in play. Ty's "+1?" question DEFERS the unit damage, so the Overwhelm rider
+#// must wait for it: it used to check "did the target die?" before the damage had been dealt, find it alive, and drop
+#// the excess entirely. Wampa (4/5, Overwhelm) deals 4 to the 1-HP SOR_128 (Ty declined): excess 3 to P2's base (Ty
+#// declined again for the base damage).
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: HMW_114
+WithP1GroundArena: [SOR_164:1:0 HMW_185:1:0]
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:NO
+- P1>AnswerDecision:NO
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:3
+
+---
+
+# Overwhelm_WithTyYorrickAccepted_TheBoostedDamageIsWhatSpills
+#// Same board, Ty's +1 ACCEPTED on the unit damage: Breach deals 5 to the 1-HP SOR_128, so the excess is 4 (from the
+#// damage actually dealt, not from Wampa's printed power). Ty declined for the base damage → 4.
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: HMW_114
+WithP1GroundArena: [SOR_164:1:0 HMW_185:1:0]
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:NO
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:4

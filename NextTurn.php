@@ -17,7 +17,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
       crossorigin="anonymous"></script>
     <script src="./Core/StyledDialog.js?v=<?php echo filemtime('./Core/StyledDialog.js'); ?>"></script>
-    <script src="./Core/UILibraries20260910.js?v=<?php echo filemtime('./Core/UILibraries20260910.js'); ?>"></script>
+    <script src="./Core/UILibraries20261001.js?v=<?php echo filemtime('./Core/UILibraries20261001.js'); ?>"></script>
     <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
     <script src="./Core/MZRearrangePopup.js?v=<?php echo filemtime('./Core/MZRearrangePopup.js'); ?>"></script>
     <script src="./Core/MZSplitAssignUI.js?v=<?php echo filemtime('./Core/MZSplitAssignUI.js'); ?>"></script>
@@ -243,17 +243,6 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     }
 
     if (!SimGameValidateViewerAuth($folderPath, $gameName, $viewerInfo, $authKey)) {
-      // SWUSim public spectating requires a logged-in account: send anonymous spectators to the
-      // login page with a return link back to this spectate URL (rather than the generic "link
-      // invalid" page, which would be misleading — nothing is wrong with the link). This file has
-      // already emitted markup by now (output buffering is off), so a header() redirect can't work
-      // — use a client-side redirect, the same way SimGameRenderInvalidAuthPage renders post-output.
-      if (SimGameSpectatorLoginRequiredMissing($folderPath, $gameName, $viewerInfo)) {
-        $loginUrl = './SharedUI/LoginPage.php?redirect=' . urlencode($_SERVER['REQUEST_URI'] ?? '');
-        echo '<script>window.location.replace(' . json_encode($loginUrl) . ');</script>';
-        echo '<noscript><meta http-equiv="refresh" content="0;url=' . htmlspecialchars($loginUrl, ENT_QUOTES, 'UTF-8') . '"></noscript>';
-        exit;
-      }
       SimGameRenderInvalidAuthPage($folderPath, $gameName, $playerID);
     }
 
@@ -384,6 +373,14 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         $__themePath = "/TCGEngine/SharedUI/Themes/$__theme.tokens.css";
         if ($__theme !== 'neutral' && @file_exists(($_SERVER['DOCUMENT_ROOT'] ?? '') . $__themePath)) {
           $__board[] = $__themePath;
+        }
+        // SWUSim's New Petranaki HUD glass TOKENS + the .pa-glass layers, so the in-game sidebar can
+        // be the same surface as the rest of the site (owner, 2026-09-22).
+        // ⚠ Deliberately NOT swusim-overrides.css: that file carries per-surface selectors for SITE
+        // pages (nav chips, .container panels, the waiting-room card) which have no business running
+        // on a game board. css/petranaki-glass.css is the tokens and the reusable class only.
+        if ($folderPath === 'SWUSim') {
+          $__board[] = '/TCGEngine/SharedUI/Sites/SWUSim/css/petranaki-glass.css';
         }
         foreach ($__board as $__f) {
           echo '      <link rel="stylesheet" href="' . _VersionAsset($__f) . "\">\n";
@@ -537,6 +534,9 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     </script>
 
     <script src="./Core/jsInclude.js?v=<?php echo filemtime('./Core/jsInclude.js'); ?>"></script>
+    <?php if ($folderPath === 'SWUSim'): /* localized card art (images only): rewrites SWU card-art URLs */ ?>
+    <script src="./Core/SWUCardI18n.js?v=<?php echo filemtime('./Core/SWUCardI18n.js'); ?>"></script>
+    <?php endif; ?>
     <script src="./<?php
       $generateFilename = glob("./" . $folderPath . "/GeneratedUI*.js")[0];
       $lastSlashPos = strrpos($generateFilename, '/');
@@ -648,52 +648,17 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       }
     ?>
 
-    <?php echo (CreatePopup("inactivityWarningPopup", [], 0, 0, "⚠️ Inactivity Warning ⚠️", 1, "", "", true, true, "Interact with the screen in the next 30 seconds or you could be kicked for inactivity.")); ?>
-    <?php echo (CreatePopup("inactivePopup", [], 0, 0, "⚠️ You are Inactive ⚠️", 1, "", "", true, true, "You are inactive. Your opponent is able to claim victory. Interact with the screen to clear this.")); ?>
-
+    <?php /* The legacy 30-second idle timer, its two "kicked for inactivity" popups and the
+         SubmitInput("100005"/"100006") posts lived here and were DELETED on 2026-09-17, replaced by the
+         real inactivity clock (spec docs/superpowers/specs/2026-09-17-swusim-inactivity-timer-and-kick-design.md).
+         They were inert three times over: gated on an #iconHolder element that exists nowhere, posting
+         two modes with no server handler, and calling a forfeit function with no callers — and they
+         reset on document.onmousemove, so merely moving the pointer counted as playing.
+         The clock now lives server-side (Core/GamePresence.php + SWUSim/Custom/InactivityClock.php) and
+         only a state-changing ACTION resets it. */ ?>
     <script>
-      var IDLE_TIMEOUT = 30; //seconds
-      var _idleSecondsCounter = 0;
-      var _idleState = 0; //0 = not idle, 1 = idle warning, 2 = idle
       var _lastUpdate = 0;
-
-      var activityFunction = function() {
-        var oldIdleState = _idleState;
-        _idleSecondsCounter = 0;
-        _idleState = 0;
-        var inactivityPopup = document.getElementById('inactivityWarningPopup');
-        if (inactivityPopup) inactivityPopup.style.display = "none";
-        var inactivePopup = document.getElementById('inactivePopup');
-        if (inactivePopup) inactivePopup.style.display = "none";
-        if (oldIdleState == 2) SubmitInput("100005", "");
-      };
-
-      document.onclick = activityFunction;
-
-      document.onmousemove = activityFunction;
-
-      document.onkeydown = activityFunction;
-
-      window.setInterval(CheckIdleTime, 1000);
-
-      function CheckIdleTime() {
-        if (document.getElementById("iconHolder") == null || document.getElementById("iconHolder").innerText != "ready.png") return;
-        _idleSecondsCounter++;
-        if (_idleSecondsCounter >= IDLE_TIMEOUT) {
-          if (_idleState == 0) {
-            _idleState = 1;
-            _idleSecondsCounter = 0;
-            var inactivityPopup = document.getElementById('inactivityWarningPopup');
-            if (inactivityPopup) inactivityPopup.style.display = "inline";
-          } else if (_idleState == 1) {
-            _idleState = 2;
-            var inactivityPopup = document.getElementById('inactivityWarningPopup');
-            if (inactivityPopup) inactivityPopup.style.display = "none";
-            var inactivePopup = document.getElementById('inactivePopup');
-            if (inactivePopup) inactivePopup.style.display = "inline";
-            SubmitInput("100006", "");
-          }
-        }
+    </script>
       }
     </script>
     <!-- Your-turn chime (SWUSim: played by swuPlayTurnChime in GameLayoutShared.php).
@@ -1445,8 +1410,11 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         var lastCurrentPlayer = "&lastCurrentPlayer=" + (!lcpEl ? "0" : lcpEl.innerHTML);
         var lastChatVersion = "&lastChatVersion=" + encodeURIComponent(_lastChatVersion);
         var lastChatID = "&lastChatID=" + encodeURIComponent(_lastChatID);
+        // Inactivity clock: wakes the long poll when a kick vote opens or changes (SWUSim; harmless
+        // elsewhere — other sims' GetNextTurn.php never reads the param).
+        var lastPresenceVersion = (typeof ChatPresenceVersionParam === "function") ? ChatPresenceVersionParam() : "";
         if (lastUpdate == "NaN") window.location.replace("https://www.petranaki.net/Arena/MainMenu.php");
-        else xmlhttp.open("GET", "./<?php echo($folderPath);?>/GetNextTurn.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo urlencode($playerID); ?>&viewerPerspective=<?php echo($viewerPerspective); ?>&opponentID=<?php echo intval($opponentID); ?>&lastUpdate=" + lastUpdate + "&authKey=<?php echo urlencode($authKey); ?>" + lastChatVersion + lastChatID + dimensions, true);
+        else xmlhttp.open("GET", "./<?php echo($folderPath);?>/GetNextTurn.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo urlencode($playerID); ?>&viewerPerspective=<?php echo($viewerPerspective); ?>&opponentID=<?php echo intval($opponentID); ?>&lastUpdate=" + lastUpdate + "&authKey=<?php echo urlencode($authKey); ?>" + lastChatVersion + lastChatID + lastPresenceVersion + dimensions, true);
         xmlhttp.send();
       }
 
@@ -2217,7 +2185,25 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                         font-family:barlow,sans-serif; height:160px; overflow-y:auto; padding:4px 6px;'></div>
         </div>
         <div id='chatWidgetControls' style='display:flex; gap:4px; align-items:center;'>
-        <?php if (!IsChatMuted()): ?>
+        <?php if ($isSpectatorViewer): ?>
+            <!-- SPECTATORS CANNOT CHAT (owner, 2026-09-26). Render NOTHING — no input, no send button,
+                 and deliberately NO explanation: a spectator is a guest of the table, not someone being
+                 refused something they were promised. Contrast the guest branch below, which DOES explain
+                 itself because logging in is an action the reader can take; there is nothing a spectator
+                 could do about this, so a notice would only be noise.
+                 Omitting #chatText also keeps the whisper row (GameLayoutShared.php) and the chat hotkeys
+                 out of the way, exactly as the guest branch does.
+                 SubmitChat.php enforces it server-side via SWUSim/Custom/ChatPolicy.php — this branch only
+                 hides a control that would not work. -->
+        <?php elseif ($folderPath === 'SWUSim' && intval($_SESSION['userid'] ?? 0) <= 0): ?>
+            <!-- SWUSim guests can read chat but not send (owner, 2026-09-21); SubmitChat.php enforces it. No #chatText,
+                 so the whisper row (GameLayoutShared.php) and the chat hotkeys stay out of the way too. -->
+            <div id='chatGuestNote'
+                 style='flex:1; background:#111; color:#bbb; font-size:13px; font-family:barlow,sans-serif; height:30px;
+                        line-height:30px; border:1px solid #555; border-radius:5px; padding:0 8px; white-space:nowrap;'>
+              <a href='/TCGEngine/SharedUI/LoginPage.php' target='_blank' rel='noopener' style='color:inherit; text-decoration:underline;'>Log in</a> to chat
+            </div>
+        <?php elseif (!IsChatMuted()): ?>
             <div id='chatComposer'>
                 <input id='chatText'
                       style='flex:1; background:#111; color:white; font-size:14px; font-family:barlow,sans-serif;
@@ -2285,23 +2271,47 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <?php endif; ?>
 
     <?php if ($isSpectatorViewer): ?>
+    <?php
+      // WHICH SEATS A SPECTATOR MAY WATCH FROM. This used to be two hardcoded buttons, so a Twin Suns
+      // spectator simply could not see the game as P3 or P4 — the two far seats were unreachable from
+      // the UI even though the backend already accepted any perspective >= 1
+      // (Core/ViewerIdentity.php NormalizeViewerPerspective). The clamp was purely in this picker.
+      //
+      // Derived from the LIVE seat list, not the seat order: once a seat is eliminated its board has
+      // been cleaned out (units set aside, base removed), so a camera pointed at it would show an
+      // empty half-board. GetLiveSeatsArray() is SWUSim's, hence function_exists — this page serves
+      // every sim, and a 2-seat sim has no such function and needs no such choice.
+      $specSeats = [1, 2];
+      if (function_exists('GetLiveSeatsArray')) {
+          $live = array_values(array_filter(array_map('intval', (array)GetLiveSeatsArray()), fn($s) => $s >= 1));
+          if (count($live) >= 2) $specSeats = $live;
+      }
+    ?>
     <div id='spectatorControls'
-         style='position:fixed; top:16px; left:16px; z-index:12000; background:rgba(7, 18, 30, 0.92); color:#f0e6c8; border:1px solid #c9a84c; border-radius:10px; padding:10px 12px; box-shadow:0 8px 24px rgba(0,0,0,0.35);'>
+         style='position:fixed; top:16px; left:16px; z-index:12000; background:rgba(7, 18, 30, 0.92); color:#f0e6c8; border:1px solid #c9a84c; border-radius:6px; padding:10px 12px; font-family:barlow,sans-serif; font-size:13px;'>
+      <?php /* ⚠ LABELS ARE "P3", NOT "As P3". This box is a FIXED overlay and already sits on top of
+              the viewer's own home-strip stats (measured: it covers Hand/Deck/Discard at y=78). Going
+              from two seats to four widened it by ~94px and made that worse, so the labels carry only
+              the seat number — the "Spectator View" heading already supplies the verb. Where this
+              overlay BELONGS is a gameboard-design question, deliberately left for that review. */ ?>
       <div style='font-weight:700; margin-bottom:8px;'>Spectator View</div>
-      <div style='display:flex; gap:8px; align-items:center;'>
+      <div style='display:flex; gap:8px; align-items:center; flex-wrap:wrap;'>
+        <?php foreach ($specSeats as $specSeat): ?>
         <button type='button'
-                onclick='SetSpectatorPerspective(1)'
-                style='padding:6px 10px; <?php echo($viewerPerspective === 1 ? "background:#c9a84c; color:#0d1b2a;" : "background:#1d3a5e; color:#f0e6c8;"); ?>'>View P1 Side</button>
-        <button type='button'
-                onclick='SetSpectatorPerspective(2)'
-                style='padding:6px 10px; <?php echo($viewerPerspective === 2 ? "background:#c9a84c; color:#0d1b2a;" : "background:#1d3a5e; color:#f0e6c8;"); ?>'>View P2 Side</button>
+                onclick='SetSpectatorPerspective(<?php echo intval($specSeat); ?>)'
+                style='padding:6px 10px; <?php echo($viewerPerspective === $specSeat ? "background:#c9a84c; color:#0d1b2a;" : "background:#1d3a5e; color:#f0e6c8;"); ?> border:1px solid #c9a84c; border-radius:4px; cursor:pointer;'>P<?php echo intval($specSeat); ?></button>
+        <?php endforeach; ?>
       </div>
     </div>
     <script>
+      var SPECTATOR_SEATS = <?php echo json_encode(array_map('intval', $specSeats)); ?>;
       function SetSpectatorPerspective(perspective) {
+        // Only a seat this game actually has. An out-of-range value would be accepted by the server
+        // (perspective >= 1) and render a board nobody is sitting at.
+        var seat = SPECTATOR_SEATS.indexOf(perspective) >= 0 ? perspective : SPECTATOR_SEATS[0];
         var url = new URL(window.location.href);
         url.searchParams.set('playerID', 'S');
-        url.searchParams.set('viewerPerspective', perspective === 2 ? '2' : '1');
+        url.searchParams.set('viewerPerspective', String(seat));
         window.location.replace(url.toString());
       }
     </script>

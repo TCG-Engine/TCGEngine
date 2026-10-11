@@ -6,7 +6,10 @@
 $customDQHandlers["LAW_178#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision) || $lastDecision === 'Pass') return;
-    $zones = ($lastDecision === 'Space') ? ["mySpaceArena", "theirSpaceArena"] : ["myGroundArena", "theirGroundArena"];
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+    // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+    // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+    $zones = ($lastDecision === 'Space') ? ["teamSpaceArena", "theirSpaceArena"] : ["teamGroundArena", "theirGroundArena"];
     $uids = [];
     foreach ($zones as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {

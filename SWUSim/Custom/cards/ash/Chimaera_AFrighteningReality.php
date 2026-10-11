@@ -8,7 +8,10 @@
 // Reactions.) Two sequential picks; declining the first cancels both.
 $whenPlayedAbilities["ASH_052:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $friendly = SWUAllUnits('my');
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    $friendly = SWUFriendlyUnits();
     $enemy = array_merge(ZoneSearch("theirGroundArena", NonLeaderUnitFilter), ZoneSearch("theirSpaceArena", NonLeaderUnitFilter));
     if (empty($friendly) || empty($enemy)) return;   // needs both → otherwise can't "choose ... and ..."
     SWUQueueMayChooseTarget(intval($player), $friendly, "Defeat_a_friendly_and_an_enemy_unit?", "Choose_a_friendly_unit", "ASH_052#0");

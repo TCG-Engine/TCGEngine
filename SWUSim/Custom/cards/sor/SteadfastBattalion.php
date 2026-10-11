@@ -11,10 +11,10 @@ $onAttackAbilities["SOR_116:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
     if (!SWUControlsLeaderUnit(intval($player))) return;
-    $targets = array_values(array_merge(
-        ZoneSearch('myGroundArena', AnyUnitFilter),
-        ZoneSearch('mySpaceArena',  AnyUnitFilter)
-    ));
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    $targets = array_values(SWUFriendlyUnits(null, AnyUnitFilter));
     if (empty($targets)) return;
     if (count($targets) === 1) {
         DecisionQueueController::AddDecision($player, 'PASSPARAMETER', $targets[0], 1);

@@ -19,7 +19,7 @@ $whenPlayedAbilities["SHD_154:0"] = function($player, $mzID) {
 $customDQHandlers["SHD_154#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
-    if (!SWUDefeatResource(intval($player), $lastDecision)) return;
+    if (!SWUDefeatResource(intval($player), $lastDecision, true)) return;   // my own pick (CR rearrangement)
     SWUOfferUnitTarget(intval($player), '', [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 5, 'side' => 'any', 'arena' => 'Ground',
         'prompt' => "Deal_5_to_a_ground_unit",

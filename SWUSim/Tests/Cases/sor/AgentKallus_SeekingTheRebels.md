@@ -60,7 +60,12 @@ P1NODECISION
 # OncePerRound
 #// SOR_115 Agent Kallus — "Use this ability only once each round." Two enemy UNIQUE units are defeated
 #// in the same round; Kallus draws only for the FIRST. Kallus (4/4) kills SOR_079 (1/4) → draw (YES);
-#// then LAW_124 (4/7) kills SOR_109 (2/3) → no second offer. P1 drew exactly 1 (deck 2 → 1).
+#// then LAW_124 (4/7) kills SOR_109 (2/3) → the second defeat must not pay. P1 drew exactly 1 (deck 2 → 1).
+#// ⚠ THIS SECTION WAS VACUOUS until 2026-09-28: it stopped after the second ATTACK and never answered the
+#// second offer, so P1HANDCOUNT:1 held no matter what the gate did. It sat green over a once-each-round
+#// budget that was NEVER SPENT BY ANY PATH (DispatchTrigger read the uid from $extra[0] while the arm site
+#// passes it in the mzID slot, so SOR_115#0's `if ($uid > 0) SWUConsumeUse(...)` never ran). The trailing
+#// YES below is what makes the assertion mean something — a stopped action list is not a negative result.
 
 ## GIVEN
 CommonSetup: ggw/rrk
@@ -76,6 +81,7 @@ WithP1Deck: SOR_237
 - P1>AttackGroundArena:0:0
 - P1>AnswerDecision:YES
 - P1>AttackGroundArena:1:0
+- P1>AnswerDecision:YES
 
 ## EXPECT
 P2GROUNDARENACOUNT:0
@@ -236,3 +242,42 @@ WithP1Deck: SOR_237
 P2GROUNDARENACOUNT:0
 P1DECKCOUNT:1
 P1HANDCOUNT:1
+
+---
+
+# OncePerRound_SimultaneousDefeats_StillOnlyOneDraw
+#// SOR_115 Agent Kallus — the gap OncePerRound above cannot see. That section defeats two unique units in
+#// two SEPARATE attacks, so the first YES has already spent the use before the second defeat is even
+#// queued. Here BOTH unique units are defeated in the SAME batch (a mutual-kill trade: combat damage is
+#// simultaneous), so both triggers are queued while the budget still reads unspent.
+#// SWUHasUseAvailable() is checked when the trigger is ARMED but SWUConsumeUse() only runs in SOR_115#0 on
+#// the accepted YES, so N co-defeats all pass the gate and Kallus draws N times. Live report 2026-09-28,
+#// "Agent Kallus triggering multiple times per phase instead of once".
+#// Uniqueness is PER PLAYER, so both seats may field HMW_135 Arena Reek (4/4, vanilla): 4 power against
+#// 4 HP each way kills both. Kallus is a bystander at index 0 and survives, so nothing here depends on
+#// the observer's own defeat.
+#// TWO OFFERS, ONE DRAW is the correct shape (owner 2026-09-23): each trigger instance carries its own
+#// declinable offer and the budget is re-read when each RESOLVES, so P1 is asked twice and the SECOND YES
+#// must draw NOTHING. Both YESes are answered here on purpose — that is the whole assertion. Under the bug
+#// the hand goes to 2 and the deck to 0.
+#// ⚠ The root cause was NOT the gate's placement: AddTrigger's 4th argument is mzID and its 5th is
+#// extraParams, and the arm site passes the Kallus UniqueID 4th (correct — FlushTriggerBag drops
+#// extraParams), while DispatchTrigger's SOR_115 case read $extra[0]. So the uid was ALWAYS 0, SOR_115#0's
+#// `if ($uid > 0) SWUConsumeUse(...)` never ran, and the round was NEVER spent by any path.
+## GIVEN
+CommonSetup: ggw/rrk
+P1OnlyActions: true
+WithP1GroundArena: SOR_115:1:0
+WithP1GroundArena: HMW_135:1:0
+WithP2GroundArena: HMW_135:1:0
+WithP1Deck: SOR_128
+WithP1Deck: SOR_237
+## WHEN
+- P1>AttackGroundArena:1:0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:YES
+## EXPECT
+P1GROUNDARENACOUNT:1
+P2GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1DECKCOUNT:1

@@ -302,7 +302,8 @@ def build_content(doc):
         ("15", "Turn number"), ("16", "First player"), ("17", "Turn player"), ("18", "Current phase"),
         ("19", "Phase parameters"), ("20", "Flash message"), ("21", "Decision queue variables JSON"),
         ("22", "Effect stack"), ("23", "Macro turn index"), ("24", "Unique-ID counter"),
-        ("25", "Macro game index"), ("26", "Replay initial state"), ("27", "Replay commands"),
+        ("25", "Macro game index"), ("26", "Replay initial state — always '-' (server-only; save replays via APIs/MatchReplay.php)"),
+        ("27", "Replay commands — always '-' (server-only)"),
     ], [1800, 7560])
     add_paragraph(doc, "Perspective mapping: the wire response always emits the Player 1 block first and Player 2 block second. A player-facing UI should map the viewer's own raw block to my* and the other block to their*. A spectator can choose which player-facing orientation to render with viewerPerspective, but remains read-only.", "Perspective mapping:")
 
@@ -363,7 +364,7 @@ def build_content(doc):
     add_bullet(doc, "AzukiSim/GetNextTurn.php: board serialization, authentication, long-poll behavior, and Azuki-specific zone order.")
     add_bullet(doc, "AzukiSim/NextTurnRender.php: exact response-array indexes and player-perspective remapping used by the bundled frontend.")
     add_bullet(doc, "ProcessInput.php and Core/EngineActionRunner.php: action validation, DECISION normalization, and JSON acknowledgement behavior.")
-    add_bullet(doc, "Core/jsInclude.js and Core/UILibraries20260910.js: current browser action serialization, decision UI, chat behavior, and zone rendering conventions.")
+    add_bullet(doc, "Core/jsInclude.js and Core/UILibraries20261001.js: current browser action serialization, decision UI, chat behavior, and zone rendering conventions.")
     add_bullet(doc, "Core/GameAuth.php and Core/ViewerIdentity.php: seat/spectator identity and authorization rules.")
 
     add_heading(doc, "Quick start reference", 1)

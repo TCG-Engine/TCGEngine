@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+ <defs><linearGradient id="jade" x2=".4" y2="1"><stop stop-color="#d9fff3"/><stop offset=".5" stop-color="#71cfcb"/><stop offset="1" stop-color="#267089"/></linearGradient></defs>
+ <path d="M20 2C16 11 5 17 5 25a15 13 0 0 0 30 0C35 17 24 11 20 2Z" fill="#122e37" stroke="url(#jade)" stroke-width="2"/>
+ <path d="M21 9C9 21 11 30 21 31c8 0 10-9 3-12 4 7-5 12-8 5-2-5 2-9 5-15Z" fill="url(#jade)"/>
+</svg>

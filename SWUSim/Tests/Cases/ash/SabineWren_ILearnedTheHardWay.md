@@ -139,3 +139,140 @@ P1NODECISION
 P1GROUNDARENAUNIT:0:CARDID:ASH_208
 P1GROUNDARENAUNIT:0:READY
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# UpgradeAttach_ClosesTheAction_TurnPasses
+#// PLAYER REPORT (Twin Suns, no game id): "played Mastery on Sabine - I could exhaust someone like
+#// intended but it automatically gave me another action. After having played Mastery, I could attack."
+#//
+#// EVERY SECTION ABOVE USES `P1OnlyActions: true`, WHICH IS WHY THIS SHIPPED. That directive claims
+#// initiative and makes the other seats auto-pass, so TURNPLAYER is unobservable - a turn that never
+#// moved looks identical to one that moved and came back. This section drops it.
+#//
+#// ROOT CAUSE: _SWUFinalizeUpgradeAttach counts Sabine's attach trigger in $triggered and therefore
+#// SKIPS its own SWUAfterAction(), handing the close to whatever resolves the trigger. Sabine queues
+#// the generic EXHAUST_UNIT continuation - a UNIVERSAL handler that exhausts and returns, closing
+#// nothing. The action stays open and the player keeps the turn.
+#//
+#// THE CARD CHOICE IS LOAD-BEARING. LAW_129 Mastery has NO ability of its own (its only text is a cost
+#// reduction), so Sabine's trigger is the sole thing that "triggered" and the missing close is exposed.
+#// My first attempt used LAW_127 Kill Switch and PASSED - Kill Switch has its own "When Played: Exhaust
+#// attached unit", whose trigger closes the action and masks this completely.
+#// Mastery does not prompt for a host here (one legal target), so the first pending decision after the
+#// play is already Sabine's exhaust offer.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myResources:5}
+SkipPreGame: true
+WithP1Hand: LAW_129
+WithP1GroundArena: ASH_208:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:EXHAUSTED
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# UpgradeAttach_DECLINED_StillClosesTheAction
+#// The other half: the exhaust is a "you may", and declining must close the action just the same.
+#// This is the branch a naive fix breaks - a close queued behind the offer is skipped when the player
+#// answers PASS unless it is flagged dontSkipOnPass (the sticky-PASS trap), leaving the decline path
+#// still handing out a free action.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myResources:5}
+SkipPreGame: true
+WithP1Hand: LAW_129
+WithP1GroundArena: ASH_208:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:READY
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# UpgradeWithItsOwnTrigger_ClosesExactlyOnce
+#// CONTROL, and the section that guards the FIX rather than the bug. LAW_127 Kill Switch brings its own
+#// "When Played: Exhaust attached unit", so two things want to end this action: Kill Switch's trigger
+#// and Sabine's. Exactly one close may happen - NOEXTRAACTION reads the close ledger directly, so a fix
+#// that queues an unconditional second close reds here even though the turn still looks right.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myResources:5}
+SkipPreGame: true
+WithP1Hand: LAW_127
+WithP1GroundArena: ASH_208:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# ShieldOnPlay_ClosesExactlyOnce
+#// The OTHER path into Sabine's trigger, and the one the fix must not disturb: her own Shielded gives
+#// her a Shield as she enters play, which is an upgrade attaching. That route goes through
+#// DoGiveShieldToken, not _SWUFinalizeUpgradeAttach, and the PLAY already owns the close - so adding a
+#// close to the attach path must not produce a second one here.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myResources:5;handCardIds:ASH_208}
+SkipPreGame: true
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P2GROUNDARENAUNIT:0:EXHAUSTED
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# TwinSuns_UpgradeAttach_ClosesTheAction_TurnPasses
+#// The reported FORMAT. The defect is seat-count independent, but Twin Suns is where it actually hurts:
+#// "in premier this would be fine since I could just pass but in ts you can't".
+
+## GIVEN
+CommonSetup3P: yyw/yyk/yyk/{myResources:5}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: LAW_129
+WithP1GroundArena: ASH_208:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p2GroundArena-0
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:EXHAUSTED
+TURNPLAYER:2
+NOEXTRAACTION

@@ -213,3 +213,68 @@ P2SPACEARENAUNIT:0:EXHAUSTED
 P2HANDCOUNT:0
 P2DISCARDCOUNT:1
 P1NODECISION
+
+---
+
+# ThreeSeat_Discard_ChoosesWhichOpponent
+#// "AN OPPONENT discards a random card" — the caster picks which one above two seats. P1 picks SEAT 3,
+#// so seat 3 loses its only card and seat 2 keeps its own.
+#// The mode called the shared helper with no target, which defaults to OtherPlayer() — seat 2 always.
+
+## GIVEN
+CommonSetup3P: ggw/brw/brw/{
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: SOR_203
+WithP1Resources: 8
+WithP1GroundArena: SEC_080:1:0
+WithP2Hand: SOR_095
+WithP3Hand: SOR_095
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Discard
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:BuffUnit
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+SEATCOUNT:3
+P3HANDCOUNT:0
+P3DISCARDCOUNT:1
+P2HANDCOUNT:1
+P2DISCARDCOUNT:0
+
+---
+
+# FourSeat_Discard_ChoosesAmongTHREEOpponents
+#// 4P sibling: a three-wide menu; picking seat 4 must leave seats 2 and 3 holding their cards.
+
+## GIVEN
+CommonSetup4P: ggw/brw/brw/brw/{
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: SOR_203
+WithP1Resources: 8
+WithP1GroundArena: SEC_080:1:0
+WithP2Hand: SOR_095
+WithP3Hand: SOR_095
+WithP4Hand: SOR_095
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Discard
+- P1>AnswerDecision:P4
+- P1>AnswerDecision:BuffUnit
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+SEATCOUNT:4
+P4HANDCOUNT:0
+P4DISCARDCOUNT:1
+P2HANDCOUNT:1
+P3HANDCOUNT:1

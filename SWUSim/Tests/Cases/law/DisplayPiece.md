@@ -183,3 +183,28 @@ WithP1Hand: LAW_103
 P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1&theirSpaceArena-0
 P2GROUNDARENACOUNT:3
 P2GROUNDARENAUNIT:2:ISLEADERUNIT
+
+---
+
+# ThreeSeats_StolenUnit_ResourcedFromTheOWNERSDiscard
+#// Far-seat sweep. P3 controls SEC_213 OWNED by P2; P1's Display Piece defeats it into P2's discard and P3
+#// resources it from there. The owner's "myDiscard-N" token was re-framed with a two-seat my→their swap, so
+#// in P3's frame "theirDiscard-0" named SEAT 1's pile — where the spent Display Piece itself sits. The wrong
+#// card was resourced and the defeated unit stayed in P2's discard.
+
+## GIVEN
+CommonSetup3P: bbk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 4
+WithP1Hand: LAW_103
+WithP3SpaceArenaControlled: SEC_213:2
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P3SPACEARENACOUNT:0
+P3RESCOUNT:1
+P2DISCARDCOUNT:0
+P1DISCARDCOUNT:1

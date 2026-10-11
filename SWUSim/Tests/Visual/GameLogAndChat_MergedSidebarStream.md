@@ -30,6 +30,14 @@
 #   • Each chat row carries a seat-tinted left RAIL and a matching coloured name:
 #       P1 #6fb8ff · P2 #ff9b6f · P3 #7fd88f · P4 #d79bff
 #     ⚠ The rail is what separates conversation from game events at a glance; the tint is secondary.
+#   • SEND TIME (2026-10-09): every chat row — whispers and whisper stubs too — shows a small muted
+#     time in the VIEWER's local clock ("4:29 PM" / "16:29"), upright even on an italic whisper; hover
+#     shows the full date and time. Game-log rows have NO time. The NAME must keep its seat colour: the
+#     time is a ::before from data-time precisely so it never becomes the row's `> span:first-child`.
+#     The time sits at the RIGHT of the row's FIRST line (a float): the message wraps around it and uses the
+#     full width below; a one-line row must still contain it (no time hanging into the next row). Same on
+#     ?swuLayout=mobile. Verified Chromium/Firefox/WebKit (⚠ Firefox's getComputedStyle reports
+#     the ::before content as "attr(data-time)" — look at it, don't measure it).
 #   • The composer (input + Send) is a fixed row at the BOTTOM of the sidebar, always visible — it no
 #     longer stretches to fill the panel (#chatWidget is flex:0 0 auto and #chatExpanded is hidden,
 #     because the history now renders upstream in the log).

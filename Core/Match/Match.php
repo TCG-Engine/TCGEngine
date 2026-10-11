@@ -72,7 +72,16 @@ function MatchWithLock($rootName, $matchId, callable $fn) {
     return $match;
 }
 
-function MatchCreate($rootName, $format, $queueType, $players, $isPrivate = false) {
+// Publish "this match's chat lives at <chatId>" so an 'm:<matchId>' scope token (the Sideboard's)
+// resolves to the same bucket the games use. No-op when the match has no chatId — a pre-existing
+// match, which correctly keeps the legacy per-game buckets.
+function MatchPublishChatConversation($matchId, $chatId) {
+    if ($chatId === null || $chatId === '') return false;
+    include_once dirname(__DIR__) . '/ChatConversation.php';
+    return ChatPublishConversationForGame($matchId, $chatId);
+}
+
+function MatchCreate($rootName, $format, $queueType, $players, $isPrivate = false, $chatId = null) {
     $qt = MatchGetQueueType($queueType);
     $bestOf = $qt ? intval($qt['bestOf']) : 1;
     $winsNeeded = intval(floor($bestOf / 2)) + 1;
@@ -107,7 +116,17 @@ function MatchCreate($rootName, $format, $queueType, $players, $isPrivate = fals
         'createdAt'         => time(),
         'updatedAt'         => time(),
     ];
+    // The conversation this match's chat belongs to (Core/ChatConversation.php). Stamped from the
+    // originating lobby so the waiting-room conversation continues into every game and sideboard.
+    // ⚠ ABSENT, not empty, when there is none: every match created before this feature has no such
+    // key, and its games must keep falling back to the legacy per-game chat bucket. Writing '' here
+    // instead would be indistinguishable from "a lobby with a blank id" at the read site.
+    if ($chatId !== null && $chatId !== '') $match['chatId'] = strval($chatId);
     MatchWrite($match);
+    // ⚠ PUBLISH THE MATCH'S OWN REDIRECT TOO, not just each game's. The Sideboard addresses the
+    // conversation as 'm:<matchId>', but a match created from a lobby ADOPTS 'l:<lobbyID>' — without
+    // this the sideboard reads an empty bucket while the whole conversation sits under the lobby id.
+    MatchPublishChatConversation($matchId, $match['chatId'] ?? null);
     return $matchId;
 }
 
@@ -128,10 +147,10 @@ function MatchWinner(array $match) {
 }
 
 // Human-readable name per seat: the player's PUBLIC username when they were logged in, otherwise
-// the neutral "Player N". Used by the end-game overlay, which has to name winners in a game with
-// more than two seats ("Player 2" alone is meaningless when there are four of them).
+// "Guest PN" (owner, 2026-09-21 — guests can play every SWUSim format, so they need a name). Used by
+// the end-game overlay, the kick vote, and the in-game player picker.
 // Best-effort by design: no DB (schema-test harness, local dev without MySQL), no userId (guest),
-// or a deleted account all degrade to "Player N" rather than failing the whole endpoint.
+// or a deleted account all degrade to "Guest PN" rather than failing the whole endpoint.
 // Returns [seat(int) => name(string)] for every seat present in the match.
 function MatchSeatDisplayNames(array $match) {
     $names = [];
@@ -140,7 +159,7 @@ function MatchSeatDisplayNames(array $match) {
     foreach (array_keys($match['players'] ?? []) as $seatKey) {
         $seat = intval($seatKey);
         if ($seat < 1) continue;
-        $names[$seat] = 'Player ' . $seat;
+        $names[$seat] = 'Guest P' . $seat;
         $userId = intval($match['players'][$seatKey]['userId'] ?? 0);
         if ($userId <= 0) continue;                      // not logged in → keep the seat name
         if (!$tried) {                                   // connect at most once, and only if needed
@@ -239,6 +258,10 @@ function MatchGameIsSealed($match, $gameName) {
 
 // ── Sideboarding (Bo3 between-games) ──────────────────────────────────────────
 if (!defined('MATCH_SIDEBOARD_SECONDS')) define('MATCH_SIDEBOARD_SECONDS', 180);
+// Seconds-remaining marks at which the sideboard warns the players (owner, 2026-09-26). DESCENDING,
+// because a clock that jumps from 120s to 10s between two polls must emit both, in order — a hidden
+// tab does exactly that. Emitted by MatchSideboardWarningCheck in MatchFlow.php.
+if (!defined('MATCH_SIDEBOARD_WARN_MARKS')) define('MATCH_SIDEBOARD_WARN_MARKS', [90, 30]);
 // A spawn-claim older than this (seconds) is considered stale (spawner crashed) and may be retaken,
 // so a mid-spawn failure can never strand both players in sideboarding forever.
 if (!defined('MATCH_SPAWN_CLAIM_TTL')) define('MATCH_SPAWN_CLAIM_TTL', 15);

@@ -44,7 +44,7 @@ two tools can never drift apart. A card is included when it is:
 - **referenced by a QUOTED CardID** anywhere under `SWUSim/Custom/` — a per-card file, a monolith, or an
   engine file (a `GameLogic` passive, a `CombatLogic` reactive hook, a `KeywordEffects` grant).
 
-⚠ Data files that merely LIST CardIDs — `CardMocks.php`, `CardTraitSupplement.php` — are excluded via
+⚠ Data files that merely LIST CardIDs — `CardMocks.php`, `CardDataSupplement.php` — are excluded via
 their `SCAFFOLD-IGNORE` marker. Without that they would mark every mocked card "implemented" and the
 page would advertise cards that silently do nothing in game. **Any new data file listing CardIDs must
 carry the marker.** Quoting is required, so an unquoted `// HMW_206` header comment never counts.

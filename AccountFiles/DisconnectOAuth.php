@@ -45,6 +45,12 @@ if ($type == "discord") {
   } else {
     $response->error = "Error disconnecting patreon connection.";
   }
+} else if ($type == "swustats") {
+  // Petranaki ↔ SWUStats link (spec 2026-10-10 §1). SWUStats has no revoke endpoint; the local tokens are dropped.
+  include_once '../SWUSim/SWUStatsLink.php';
+  $conn = GetLocalMySQLConnection();
+  if (SWUStatsLinkReady($conn)) SWUStatsClearLink($conn, (int)$userid);
+  $response->success = "Successfully disconnected swustats.";
 }
 
 

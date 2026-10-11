@@ -9,7 +9,11 @@ $whenPlayedAsUpgradeAbilities["JTL_145:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
     $resUnits = [];
-    foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {
+    // ⚠ "Ready a Resistance unit" is UNQUALIFIED — the whole table, either side. The only
+    // "friendly" on this card is in the PILOTING reminder ("play this as an upgrade on a friendly
+    // Vehicle"), which governs where BB-8 ATTACHES, not what this clause may ready. The pool was
+    // 'my', which was too narrow in every format, not just Team Suns.
+    foreach (SWUAllUnits(null, null, AnyUnitFilter) as $mz) {
         $o = GetZoneObject($mz);
         if ($o !== null && HasTrait($o->CardID ?? '', 'Resistance')) $resUnits[] = $mz;
     }
@@ -25,7 +29,7 @@ $customDQHandlers["JTL_145#0"] = function($player, $parts, $lastDecision) {
     if (SWUTotalPaymentCapacity(intval($player)) < 2) return;
     SWUPayCost(intval($player), 2, 0, false);   // effect cost, not halved by JTL_105
     $resUnits = [];
-    foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {
+    foreach (SWUAllUnits(null, null, AnyUnitFilter) as $mz) {
         $o = GetZoneObject($mz);
         if ($o !== null && HasTrait($o->CardID ?? '', 'Resistance')) $resUnits[] = $mz;
     }

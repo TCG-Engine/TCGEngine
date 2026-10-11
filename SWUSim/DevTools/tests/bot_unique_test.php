@@ -30,8 +30,10 @@ $board = function (int $damage) {
 };
 $build($board(0));
 $check(_SWUBotUniqueClash(1, 'JTL_250'), 'fixture: the copy in hand clashes with the one in play');
-SWUBotSetDisabledFeatures(['unique']); $old = $playScore('normal'); SWUBotSetDisabledFeatures([]);
-$check($old !== null && $old > 0.0, 'fixture: without the rule the duplicate beats Pass; scored ' . json_encode($old));
+// (Removed 2026-10-01, owner: a premise check "without the rule the duplicate BEATS Pass" — it never did. The play
+// value and the part-2 clash dock are both 1.9, so the duplicate TIES Pass; the check passed only on float noise,
+// 1.9000000000000001 vs 1.8999999999999999, and went red when retiring the `damage` tag reordered the sum. The
+// premise that matters — without the rule the bot DOES play it — is the @no-unique check below.)
 $check($stack('normal')[0] !== 'myHand-0!FSM!', 'the second copy is not played over a healthy first copy');
 $check($stack('normal', 1, 'no-unique')[0] === 'myHand-0!FSM!', '@no-unique: it was played (the reported mistake)');
 $check($playScore('normal') === -0.5, 'the duplicate play scores below Pass');

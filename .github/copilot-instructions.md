@@ -18,6 +18,11 @@ This document provides a concise developer-oriented guide to the repository, wit
 3. The frontend includes `InitialLayout.php` and the generated `GeneratedUI_*.js`. The `GeneratedUI_*.js` contains `GetZoneData()`, `OverlayRules`, `CounterRules`, and other generated helpers.
 4. `Core/UILibraries.js` (client) uses those helpers to render zones (`PopulateZone`) and per-card HTML (`createCardHTML`). We inject counters and overlays at well-known insertion points in `createCardHTML`.
 
+SWUSim's generated `WriteGamestate()` keeps its durable file write by default. A CLI harness may define
+`EngineShouldPersistGamestateFile($rootName, $gameName)` to return false for a game it keeps in APCu;
+the generated writer then requires a successful cache store. SWUSim's headless self-play runner uses
+this only with `--memory-only`, and writes one final state file if a game fails.
+
 If you change the schema or generator, re-run the generator and hard-refresh the browser so the client receives the updated `GeneratedUI_*.js` (the generator deletes old `GeneratedUI_*.js` files and writes a new timestamped one).
 
 ## Decision Queue — server-side (how it works)
@@ -519,4 +524,25 @@ Manual `GameLogic.php` edits are still appropriate for:
 - Cross-card framework rules that affect many cards at once.
 - Costs that are not simple scalar modifiers, such as `REST`, sacrifice, banish, discard, reveal, or multi-step alternative payment flows.
 - Cases where the current generated macro surface cannot represent the rule without awkward or fragile workarounds.
+
+### FaBSim damage prevention generation
+
+`FaBSim/Custom/CodeGeneration.php` preprocesses saved FaB abilities before await
+compilation, inserting the shared interactive prevention window before standalone
+or assigned `DoDamage`, `FaBARCDealArcane`, `FaBELEDealArcane`, and `FaBUPRDeal`
+calls. Other game roots are unaffected. Calls nested inside expressions and
+native PHP helper bodies are not transformed. New interactive card damage should
+use a supported saved-macro statement; combat uses its own pre-damage queue hook.
+Edit these sources and regenerate, never edit the generated prevention blocks.
+
+### FaBSim EVO integration
+
+Bright Lights sources and regression commands are documented in
+`DevTools/FaB/README.md`. Edit `build_evo_abilities.py` and the native EVO helpers,
+then import `evo_abilities.json` and regenerate. Preserve `previousCodeHash`
+when rebuilding an unchanged macro so revision-checked imports remain usable.
+Evo material arrays live in `SUBCARDS`; use `FaBEVOCounter` for noninteger
+counter values, and preserve underlying cards through transformations.
+Dash's Deck view is generated from an authenticated own-seat check. Never
+expose her top card to an opponent or spectator to make it clickable.
 

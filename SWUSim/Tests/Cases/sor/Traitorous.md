@@ -163,15 +163,16 @@ P2DISCARDCOUNT:1
 
 ---
 
-# HostBecomesLeaderUnit_DefeatedInsteadOfRevert
-#// Intended: per CR 3.4.6/3.4.7, if the unattach trigger would hand control of a unit that has
-#// BECOME a leader unit to another player, the unit is DEFEATED instead. P1's Traitorous takes
-#// P2's Millennium Falcon (cost 3, non-leader at that moment). P1 then deploys Darth Vader as a
-#// Pilot onto the stolen Falcon, making it P1's leader unit. When P2's Confiscate defeats
-#// Traitorous, "the unit's owner takes control" would move a leader unit to P2 — so the Falcon
-#// is defeated instead: it goes to its owner P2's discard, and Vader returns to P1's leader
-#// zone exhausted and undeployed. (Vader's deploy-as-upgrade rider made 2 TIE Fighter tokens —
-#// they survive the Falcon's defeat and are all that is left in P1's space arena.)
+# HostMadeLeaderUnit_StillRevertsToOwner_PilotStaysAttached
+#// P1's Traitorous takes P2's Millennium Falcon; P1 deploys Darth Vader (JTL_006) as a Pilot onto it, making it a
+#// leader unit. P2's Confiscate defeats Traitorous, so "the unit's owner takes control": the Falcon returns to
+#// P2 carrying P1's Vader. Vader's deploy rider made 2 TIE Fighter tokens, which stay with P1.
+#// CR v9.0 3.4.7 (rewritten 2026): "Some abilities make non-leader units leader units ... it doesn't follow
+#// rules 3.4.1-3.4.6. ... it can change control or move to an out-of-play zone". A unit made a leader by a
+#// Pilot leader is NOT defeated instead (that is 3.4.6, for real leader units). Judges' discussion
+#// 2026-10-01: "you're giving control of the unit, and not the leader upgrade" — the Pilot leader stays
+#// attached, still controlled by its own player, so that leader stays DEPLOYED. (Before v9 this section
+#// asserted the unit was defeated instead.)
 
 ## GIVEN
 CommonSetup: grw/ggk/{myLeader:JTL_006}
@@ -193,11 +194,11 @@ WithP2Resources: 1
 P1SPACEARENACOUNT:2
 P1SPACEARENAUNIT:0:CARDID:JTL_T01
 P1SPACEARENAUNIT:1:CARDID:JTL_T01
-P2SPACEARENACOUNT:0
-P2DISCARDCOUNT:2
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_193
+P2SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1DISCARDCOUNT:1
-P1LEADER:NOTDEPLOYED
-P1LEADER:EXHAUSTED
+P1LEADER:DEPLOYED
 P2NODECISION
 P1NODECISION
 

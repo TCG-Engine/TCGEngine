@@ -6,6 +6,8 @@ function SWUCosmeticCatalog() {
     $builtins = [
         'background' => [
             'default' => ['label'=>'Default',        'asset'=>'./Assets/Boards/SWUSim/default.webp',        'isDefault'=>true],
+            'death-star' => ['label'=>'Death Star',     'asset'=>'./Assets/Boards/SWUSim/death-star.webp',     'isDefault'=>false],
+            'echo-base' => ['label'=>'Echo Base',      'asset'=>'./Assets/Boards/SWUSim/echo-base.webp',      'isDefault'=>false],
             'sor-starfield' => ['label'=>'SOR Starfield',  'asset'=>'./Assets/Boards/SWUSim/sor-starfield.webp',  'isDefault'=>false],
             'shd-starfield' => ['label'=>'SHD Starfield',  'asset'=>'./Assets/Boards/SWUSim/shd-starfield.webp',  'isDefault'=>false],
             'twi-starfield' => ['label'=>'TWI Starfield',  'asset'=>'./Assets/Boards/SWUSim/twi-starfield.webp',  'isDefault'=>false],
@@ -15,9 +17,7 @@ function SWUCosmeticCatalog() {
             'ibh-starfield' => ['label'=>'IBH Starfield', 'asset'=>'./Assets/Boards/SWUSim/ibh-starfield.webp', 'isDefault'=>false],
             'law-starfield' => ['label'=>'LAW Starfield', 'asset'=>'./Assets/Boards/SWUSim/law-starfield.webp', 'isDefault'=>false],
             'ash-starfield' => ['label'=>'ASH Starfield', 'asset'=>'./Assets/Boards/SWUSim/ash-starfield.webp', 'isDefault'=>false],
-            'death-star' => ['label'=>'Death Star',     'asset'=>'./Assets/Boards/SWUSim/death-star.webp',     'isDefault'=>false],
-            'echo-base' => ['label'=>'Echo Base',      'asset'=>'./Assets/Boards/SWUSim/echo-base.webp',      'isDefault'=>false],
-            'default-2' => ['label'=>'Default', 'asset'=>'./Assets/Boards/SWUSim/default-2.webp', 'isDefault'=>false],
+            'hmw-starfield' => ['label'=>'HMW Starfield', 'asset'=>'./Assets/Boards/SWUSim/hmw-starfield.webp', 'isDefault'=>false],
             //new backgrounds above this line
         ],
         'cardback' => [
@@ -101,6 +101,8 @@ function SWUCosmeticCatalog() {
         ],
         'playmat' => [
             'none' => ['label'=>'None', 'asset'=>null, 'isDefault'=>true],
+            'home-one' => ['label'=>'Home One', 'asset'=>'./Assets/Playmats/SWUSim/home-one.webp', 'isDefault'=>false],
+            'overwhelming-barrage' => ['label'=>'Overwhelming Barrage', 'asset'=>'./Assets/Playmats/SWUSim/overwhelming-barrage.webp', 'isDefault'=>false],
             'sor-key-art' => ['label'=>'SOR Key Art', 'asset'=>'./Assets/Playmats/SWUSim/sor-key-art.webp', 'isDefault'=>false],
             'shd-key-art' => ['label'=>'SHD Key Art', 'asset'=>'./Assets/Playmats/SWUSim/shd-key-art.webp', 'isDefault'=>false],
             'twi-key-art' => ['label'=>'TWI Key Art', 'asset'=>'./Assets/Playmats/SWUSim/twi-key-art.webp', 'isDefault'=>false],
@@ -110,8 +112,7 @@ function SWUCosmeticCatalog() {
             'ibh-key-art' => ['label'=>'IBH Key Art', 'asset'=>'./Assets/Playmats/SWUSim/ibh-key-art.webp', 'isDefault'=>false],
             'law-key-art' => ['label'=>'LAW Key Art', 'asset'=>'./Assets/Playmats/SWUSim/law-key-art.webp', 'isDefault'=>false],
             'ash-key-art' => ['label'=>'ASH Key Art', 'asset'=>'./Assets/Playmats/SWUSim/ash-key-art.webp', 'isDefault'=>false],
-            'home-one' => ['label'=>'Home One', 'asset'=>'./Assets/Playmats/SWUSim/home-one.webp', 'isDefault'=>false],
-            'overwhelming-barrage' => ['label'=>'Overwhelming Barrage', 'asset'=>'./Assets/Playmats/SWUSim/overwhelming-barrage.webp', 'isDefault'=>false],
+            'hmw-key-art' => ['label'=>'HMW Key Art', 'asset'=>'./Assets/Playmats/SWUSim/hmw-key-art.webp', 'isDefault'=>false],
             //new playmats above this line
         ],
     ];

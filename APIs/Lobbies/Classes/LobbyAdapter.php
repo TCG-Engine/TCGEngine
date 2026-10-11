@@ -19,6 +19,20 @@ interface LobbyBotAdapter {
     public function configureBot(object $lobby, Player $player, string $profile): void;
 }
 
+// Optional, on top of LobbyBotAdapter: room-bot RULES a sim can opt into (SWUSim Twin Suns rooms,
+// SWUSim/docs/todo-twinsuns-fill-bot.md). A sim without it keeps the plain LobbyBotAdapter behaviour
+// (FaB: bots are added at once, take no deck input, and never give up their seat).
+interface LobbyBotPolicyAdapter {
+    // Seconds until the host may add a bot; 0 = now.
+    public function botAddWaitSeconds(object $lobby, int $now): int;
+    // Is a bot a PLACEHOLDER — does a joining human take a bot's seat when the room is otherwise full?
+    public function botsYieldToHumans(object $lobby): bool;
+    // The deck input a bot of this profile plays. $posted is the host's pasted list (used by a profile that
+    // takes one). '' = the profile has no deck. Validated by validateDeck() BEFORE the room lock, like a
+    // human's, because resolving it may hit the network.
+    public function botDeckInput(object $lobby, string $profile, string $posted): string;
+}
+
 interface LobbyAdapter {
     // ROUTING. True iff this lobby gets a WaitingRoom page: private, and not a local/solo format.
     public function wantsWaitingRoom(object $lobby): bool;
@@ -44,6 +58,33 @@ interface LobbyAdapter {
 // waitingRoom.class explicitly. require_once + a class-name lookup is deliberate: having the adapter
 // file `return new X()` instead would re-execute and fatally redeclare the class the second time a
 // caller required it directly (which the tests do).
+// `require` the adapter, then publish whatever it defined at FILE scope as real globals.
+//
+// ⚠ THIS IS NOT A STYLE CHOICE. An `include`/`require` runs in the scope of the statement that
+// issued it, all the way down the chain — so a plain `require_once $path` inside LobbyAdapterFor()
+// binds every top-level `$var = ...` in the adapter AND everything it pulls in to this function's
+// LOCALS, which are discarded on return. SWUSim's adapter pulls in Custom/DeckImport.php ->
+// GeneratedCode/GeneratedCardDictionaries.php, ~20 dictionaries assigned exactly that way and read
+// back through `global $titleData` from IsSWUCardID() / CardTitle() / CardAspect(). The result was
+// an adapter that ran the whole deck importer against an EMPTY card dictionary in any endpoint that
+// had not already included the dictionary at global scope — UpdateLobbyDeck.php rejecting legal
+// Twin Suns lists in production while JoinQueue.php (which does include it up top) accepted the
+// same link. Guarded by SWUSim/DevTools/tests/lobby_adapter_deck_scope_test.php.
+//
+// An existing global is never overwritten: a caller that already loaded the dictionary at global
+// scope keeps its own copy, and require_once makes the second load a no-op anyway. Arrays are
+// copy-on-write, so publishing them costs a refcount, not a copy.
+function _LobbyRequireAtGlobalScope(string $__lobbyAdapterPath): void {
+    $__lobbyAdapterBefore = get_defined_vars();
+    require_once $__lobbyAdapterPath;
+    foreach (get_defined_vars() as $__lobbyAdapterKey => $__lobbyAdapterValue) {
+        if (array_key_exists($__lobbyAdapterKey, $__lobbyAdapterBefore)) continue;   // our own locals
+        if ($__lobbyAdapterKey === '__lobbyAdapterBefore') continue;
+        if (array_key_exists($__lobbyAdapterKey, $GLOBALS)) continue;                // never clobber
+        $GLOBALS[$__lobbyAdapterKey] = $__lobbyAdapterValue;
+    }
+}
+
 function LobbyAdapterFor(string $rootName): ?LobbyAdapter {
     static $cache = [];
     if (array_key_exists($rootName, $cache)) return $cache[$rootName];
@@ -60,7 +101,7 @@ function LobbyAdapterFor(string $rootName): ?LobbyAdapter {
 
     $path = __DIR__ . '/../../../' . $adapterPath;
     if (!is_file($path)) return null;
-    require_once $path;
+    _LobbyRequireAtGlobalScope($path);
 
     $class = $def['waitingRoom']['class'] ?? (preg_replace('/Sim$/', '', $rootName) . 'LobbyAdapter');
     if (!is_string($class) || !class_exists($class)) return null;

@@ -17,19 +17,19 @@ function FaBArakniReactionEvent(int $p,bool $attackReaction): void {
  $s=FaBGetState();if($s['window']!=='REACTION')return;
  $key=FaBArakniReactionKey($p);$s['arakniReactionSteps'][$key]=true;
  if($attackReaction)$s['arakniAttackReactions'][$key]=true;FaBSetState($s);
- if($attackReaction)foreach(FaBOpponents($p) as $seat)foreach(FaBCRUEquipment($seat,'leap_frog_slime_skin') as $r)FaBRunSourceMacro('ResolveAbility',$seat,'leap_frog_slime_skin',['mzID'=>$r]);
+ if($attackReaction)foreach(FaBOpponents($p) as $seat)foreach(['leap_frog_slime_skin','leap_frog_gloves','leap_frog_leggings','leap_frog_vocal_sac'] as $id)foreach(FaBCRUEquipment($seat,$id) as $r)FaBRunSourceMacro('ResolveAbility',$seat,$id,['mzID'=>$r]);
 }
 function FaBArakniPlayed(int $p,object $o): void {FaBArakniReactionEvent($p,FaBHasType($o,'Attack Reaction'));}
 function FaBArakniDaggers(int $p): string {
  $s=FaBGetState();$out=[];$active=FaBFindUID(intval($s['attackUID']));$weapon=$active?intval(FaBObjectCounters($active['object'])['WEAPON_UID']??0):0;
- foreach(FaBChoiceRefs($p,'Weapons',['type'=>'Dagger']) as $r)if(intval(FaBIdentityFromMZ($r)['object']->UniqueID)!==$weapon)$out[]=$r;
+ foreach(array_filter(explode('&',FaBHNTDaggers($p))) as $r){$o=FaBIdentityFromMZ($r)['object'];if(intval($o->UniqueID)!==$weapon&&intval($o->UniqueID)!==intval($s['attackUID']))$out[]=$r;}
  return implode('&',$out);
 }
 function FaBArakniThrow(int $p,string $r): void {
  if(!in_array($r,explode('&',FaBArakniDaggers($p)),true))return;
  $f=FaBIdentityFromMZ($r);$uid=intval($f['object']->UniqueID);$victim=intval(FaBGetState()['defender']);
  $n=DoDamage($p,$r,$victim,1,'PHYSICAL');
- if($n>0){$s=FaBGetState();$s['daggerHits']=intval($s['daggerHits']??0)+1;FaBSetState($s);if($f['object']->CardID==='spiders_bite')FaBDYNAdd($victim,'SPIDER');}
+ FaBHNTPseudoHit($p,$uid,$victim,$n);
  FaBMONDestroy($uid);
 }
 function FaBArakniLeap(int $uid): void {
@@ -48,6 +48,6 @@ function FaBArakniStringsUpkeep(int $p,int $uid,string $r): void {
  if(in_array($r,FaBMONArena($p,'silver'),true)){FaBDYNDestroyChoice($r);return;}
  FaBARCToDeck($p,$uid,false);DoDrawCard($p,1);
 }
-function FaBArakniRetrieveTargets(int $p): string {return FaBArakniWeaponSpace($p)&&FaBAvailablePitch($p)>=1?implode('&',FaBChoiceRefs($p,'Graveyard',['type'=>'Dagger'])):'';}
+function FaBArakniRetrieveTargets(int $p): string {return FaBArakniWeaponSpace($p)&&FaBAvailablePitch($p)>=1?FaBHNTEqpDaggers($p,'Graveyard'):'';}
 function FaBArakniWeaponSpace(int $p): bool {$n=count(FaBChoiceRefs($p,'Equipment',['type'=>'Quiver']));foreach(FaBChoiceRefs($p,'Weapons') as $r){$o=FaBIdentityFromMZ($r)['object'];$n+=FaBHasType($o,'2H')?2:1;}return $n<2;}
 function FaBArakniRetrieve(int $p,int $uid): void {$f=FaBFindUID($uid);if($f&&$f['player']===$p&&$f['zone']==='Graveyard'&&FaBArakniWeaponSpace($p))FaBMoveUID($uid,'Weapons',$p);}

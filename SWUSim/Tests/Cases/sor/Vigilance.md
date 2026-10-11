@@ -190,3 +190,66 @@ WithP2GroundArena: LAW_124:1:4
 ## EXPECT
 P1HASDECISION
 P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# ThreeSeat_Discard6_ChoosesWhichOpponentsDeck
+#// "Discard 6 cards from AN OPPONENT's deck" — with more than one opponent the caster CHOOSES which
+#// (official ruling). Here P1 picks SEAT 3, so seat 3 loses 6 and seat 2 keeps its whole deck.
+#// The mode milled `OtherPlayer($player)` with no prompt, so seat 2 was emptied regardless.
+
+## GIVEN
+CommonSetup3P: bbk/brw/brw/{
+  myBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: SOR_058
+WithP1Resources: 4
+WithP1GroundArena: SEC_080:1:0
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Discard6
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:Shield
+
+## EXPECT
+SEATCOUNT:3
+P3DECKCOUNT:2
+P3DISCARDCOUNT:6
+P2DECKCOUNT:8
+P2DISCARDCOUNT:0
+
+---
+
+# FourSeat_Discard6_ChoosesAmongTHREEOpponents
+#// 4P sibling: the menu is three opponents wide and picking seat 4 must leave both others whole.
+
+## GIVEN
+CommonSetup4P: bbk/brw/brw/brw/{
+  myBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: SOR_058
+WithP1Resources: 4
+WithP1GroundArena: SEC_080:1:0
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP4Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Discard6
+- P1>AnswerDecision:P4
+- P1>AnswerDecision:Shield
+
+## EXPECT
+SEATCOUNT:4
+P4DECKCOUNT:2
+P4DISCARDCOUNT:6
+P2DECKCOUNT:8
+P3DECKCOUNT:8

@@ -192,8 +192,14 @@
         font: 700 11px/1.2 var(--swu-font-label, sans-serif); color: var(--text, #dde);
     }
     .swu-sr-seat  { font-weight: 800; color: #eef; min-width: 22px; flex: 0 0 auto; }
+    /* LANDSCAPE, ~628:450 — leaders AND bases are both landscape cards, and both are drawn from
+       WebpImages (the whole card). The height DERIVES from the width so background-size:cover has
+       nothing to crop; it was a flat 31px (ratio 1.419) and shaved the card's edges. Keep the ratio
+       if you retune the width. Owner, 2026-09-26: "use the whole base image instead of a crop." */
     .swu-sr-lead,
-    .swu-sr-base  { width: 44px; height: 31px; border-radius: 3px; flex: 0 0 auto; position: relative;
+    .swu-sr-base  { --swu-sr-card-w: 44px;
+                    width: var(--swu-sr-card-w); height: calc(var(--swu-sr-card-w) * 0.717);
+                    border-radius: 3px; flex: 0 0 auto; position: relative;
                     background-size: cover; background-position: center; border: 1px solid #10151f; }
     .swu-sr-base  { display: flex; align-items: center; justify-content: center; }
     .swu-sr-stat  { display: inline-flex; align-items: baseline; gap: 3px; padding: 2px 5px; flex: 0 0 auto;
@@ -230,6 +236,11 @@
     body.swu-home .swu-sr-base .swu-mb-cardicon,
     body.swu-home .swu-sr-lead .swu-mb-cardicon { width: 11px; height: 11px; }
     body.swu-home .swu-sr-base .swu-mb-dmgcounter { width: 19px; height: 19px; font-size: 11px; }
+    /* Printed-HP pip on the phone's 46px base: the desktop HP badge scaled down (squarer than its 3:4 art, as on desktop), top-left, overhanging
+       the top edge like desktop (the row's 13px top padding holds it). */
+    body.swu-home .swu-sr-base .swu-mb-basehp { left: 1px; top: -5px; width: 12px; height: 13px; font-size: 8.5px; }
+    /* Phone row bar: badge is 12px at 1px → starts at 13px; 2px tall (spec 2026-10-08). */
+    body.swu-home .swu-sr-base .swu-hb--thin { left: 13px; height: 2px; --hb-cut: 1px; }
     body.swu-home .swu-seat-row .swu-mb-fx { width: 16px; height: 40px; margin-left: 2px; }
     body.swu-home .swu-seat-row .swu-mb-fxrow,
     body.swu-home .swu-seat-row .swu-mb-fxchip { height: 12px; border-radius: 6px; font-size: 9px; }
@@ -240,27 +251,37 @@
        non-scrolling col wrapper so the brackets stay put while the slot scrolls. */
     .swu-m-arena-col {
         position: relative; isolation: isolate; flex: 1 1 0; min-width: 0; padding: 4px;
-        border: 1px solid rgba(var(--accent-rgb),0.22); border-radius: 4px;
-        box-shadow: 0 0 6px rgba(var(--accent-rgb),0.10), inset 0 0 14px rgba(var(--accent-rgb),0.08);
-        animation: swuMArenaPulse 3.2s ease-in-out infinite;
+        /* STATIC at the pulse's dimmest values; the pulse is the .swu-arena-glow child (see the
+           desktop .swu-arena-glow note in GameLayout.php — the old border/box-shadow/filter pulse
+           repainted every column on every display refresh). */
+        border: 1px solid rgba(var(--accent-rgb),0.18); border-radius: 4px;
+        box-shadow: 0 0 5px rgba(var(--accent-rgb),0.08), inset 0 0 12px rgba(var(--accent-rgb),0.05);
     }
-    @keyframes swuMArenaPulse {
-        0%, 100% { border-color: rgba(var(--accent-rgb),0.18);
-                   box-shadow: 0 0 5px rgba(var(--accent-rgb),0.08), inset 0 0 12px rgba(var(--accent-rgb),0.05); }
-        50%      { border-color: rgba(var(--accent-rgb),0.42);
-                   box-shadow: 0 0 13px rgba(var(--accent-rgb),0.28), inset 0 0 18px rgba(var(--accent-rgb),0.13); }
+    /* Pre-drawn PEAK layer that animates opacity only. z-index 0 + first child: under the cards
+       (z-index 1) and under the shared ::after wash, exactly where the old element's own shadow sat.
+       Higher specificity than `.swu-m-arena-col > *` below, which would otherwise make it relative. */
+    .swu-m-arena-col > .swu-arena-glow {
+        position: absolute; inset: -1px; z-index: 0; pointer-events: none;
+        border: 1px solid rgba(var(--accent-rgb),0.29); border-radius: 4px;
+        box-shadow: 0 0 13px rgba(var(--accent-rgb),0.22), inset 0 0 18px rgba(var(--accent-rgb),0.09);
+        opacity: 0; will-change: opacity;
+        animation: swuMArenaGlow 3.2s ease-in-out infinite;
+    }
+    @keyframes swuMArenaGlow {
+        0%, 100% { opacity: 0; }
+        50%      { opacity: 1; }
     }
     /* The blue HUD darkening (.swu-m-arena-col::after) is a SHARED style, defined in
        GameLayoutShared.php so desktop (.swu-arena-bg) and mobile use one definition.
        Card content sits above it; brackets stay on top of everything. */
     .swu-m-arena-col > * { position: relative; z-index: 1; }
-    .swu-m-arena-col::before {
+    .swu-m-arena-col::before,
+    .swu-m-arena-col > .swu-arena-glow::before {
         content: ''; position: absolute; inset: -1px; z-index: 3; pointer-events: none;
         --c: var(--accent-strong);   /* bracket color (theme accent) */
         --len: 18px;                   /* arm length    */
         --th: 3px;                     /* arm thickness */
-        filter: drop-shadow(0 0 4px rgba(var(--accent-rgb),0.75));   /* light glow on the brackets */
-        animation: swuMArenaBracketPulse 3.2s ease-in-out infinite;
+        filter: drop-shadow(0 0 3px rgba(var(--accent-rgb),0.45));   /* light glow on the brackets (pulse trough) */
         background:
             linear-gradient(var(--c),var(--c)) left  top    / var(--len) var(--th) no-repeat,
             linear-gradient(var(--c),var(--c)) left  top    / var(--th)  var(--len) no-repeat,
@@ -271,10 +292,8 @@
             linear-gradient(var(--c),var(--c)) right bottom / var(--len) var(--th) no-repeat,
             linear-gradient(var(--c),var(--c)) right bottom / var(--th)  var(--len) no-repeat;
     }
-    @keyframes swuMArenaBracketPulse {
-        0%, 100% { filter: drop-shadow(0 0 3px rgba(var(--accent-rgb),0.45)); }
-        50%      { filter: drop-shadow(0 0 8px rgba(var(--accent-rgb),0.95)); }
-    }
+    /* The glow's bracket copy carries the PEAK glow; it fades in with its parent. */
+    .swu-m-arena-col > .swu-arena-glow::before { filter: drop-shadow(0 0 8px rgba(var(--accent-rgb),0.95)); }
 
     /* ── Leader / Base row ───────────────────────────────────────────────────── */
     .swu-m-centers {
@@ -294,6 +313,13 @@
             rgba(var(--turn-mine-rgb),0.06) 0 50%, rgba(var(--turn-theirs-rgb),0.05) 50% 100%);
     }
     .swu-m-centers-row .swu-m-center { max-width: none; }
+    /* Phone base health bars: ABOVE both bases (they sit side by side in the middle band). Absolutely
+       placed so the base cells keep lining up with the leader cells beside them. 7px = the desktop's 12px
+       scaled to the phone's base width (spec 2026-10-08). */
+    .swu-m-center { position: relative; }
+    .swu-m-center .swu-base-health { position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(100% + 3px); }
+    .swu-m-center .swu-base-health:empty { display: none; }
+    .swu-m-center .swu-hb--full { height: 7px; --hb-cut: 4px; --hb-ci: 3.414px; }
     /* ⚠ The BASE renders taller than the leaders beside it — measured 199x143 against a leader's
        96x96 — because a base is a LANDSCAPE card and nothing capped its height. On a phone that
        vertical difference is pure cost: it sets the whole centre row's height for no extra
@@ -506,9 +532,9 @@
         transition: filter 150ms, color 150ms, transform 110ms;
     }
     .swu-init-pass-btn::before {
-        content: ''; position: absolute; inset: 1.5px; z-index: 0;
+        content: ''; position: absolute; inset: 2px; z-index: 0;   /* whole px — see petranaki-hud --btn-rim-width */
         background: var(--btn-fill);   /* flat fill */
-        clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+        clip-path: polygon(7.83px 0, 100% 0, 100% calc(100% - 7.83px), calc(100% - 7.83px) 100%, 0 100%, 0 7.83px);
         transition: background 150ms;
     }
     .swu-init-pass-btn > span { position: relative; z-index: 1; }
@@ -586,8 +612,14 @@
        GameLayout's CSS. `!important` throughout because components.css's
        `button:not(.btn):not(.switch)` is (0,2,1) and outranks a plain class, which has previously
        hijacked both `display` and `position` on newly added buttons. */
-    #swuUndoSplit { position: relative !important; display: none; align-items: stretch; }
-    #swuUndoSplit.is-split { display: inline-flex !important; }
+    /* ⚠ THE WRAPPER'S DISPLAY IS NOT `.is-split`'s BUSINESS — that class means "show the CARET", and
+       the caret's rule (`isPrivate || seats <= 2`) is FALSE in a public 3+ seat game. With the old
+       `display: none` + `.is-split { display: inline-flex !important }` pair the whole control, Undo
+       included, vanished there. Desktop was fixed 2026-09-25 (game 1310334, GameLayout.php); this copy
+       was missed and Twin Suns players on phones lost Undo (reported 2026-10-08).
+       No `!important` on display: swuUpdateUndoUI hides the control between actions with an inline
+       `style.display='none'`, which an !important rule would beat. */
+    #swuUndoSplit { position: relative !important; display: inline-flex; align-items: stretch; }
     #swuUndoSplit #swuUndoBtn { border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important; }
     #swuUndoMenuBtn {
         display: none;
@@ -635,18 +667,91 @@
     }
     #swuLogPanel { max-height: 34vh; overflow-y: auto; font-size: 12px; }
 
+    /* ── Game-log palette ────────────────────────────────────────────────────────
+       ⚠ A VERBATIM COPY of the :root block in GameLayout.php. This layout does NOT load that file, so
+       until 2026-09-26 none of these existed here: every log line fell back to the panel's inherited
+       near-white, which made the LOG louder than the CHAT and inverted the whole hierarchy of the
+       merged panel (owner, looking at the phone board: "the chat patterns did not carry over").
+       Values are pinned to the desktop board's by
+       SWUSim/DevTools/tests/log_panel_desktop_mobile_parity_test.php — change them in BOTH files. */
+    :root {
+        --swu-log-default:    rgba(255,255,255,0.78);
+        --swu-log-phase:      #9b59b6;
+        --swu-log-overwhelm:  #e05050;
+        --swu-log-reveal:     #f0c040;
+        --swu-log-disclose:   var(--swu-log-reveal); /* disclose IS a reveal — share its color */
+        --swu-log-ability:    var(--swu-log-default);
+        --swu-log-play:       var(--swu-log-default);
+        --swu-log-draw:       var(--swu-log-default);
+        --swu-log-discard:    var(--swu-log-default);
+        --swu-log-defeat:     var(--swu-log-default);
+        --swu-log-attack:     var(--swu-log-default);
+        --swu-log-resource:   var(--swu-log-default);
+        --swu-log-namecard:   var(--swu-log-default);
+        --swu-log-pass:       var(--swu-log-default);
+        --swu-log-initiative: var(--swu-log-default);
+        /* Deliberately RED — see the desktop palette in GameLayout.php for why. Kept in step with it;
+           these two stylesheets are the only surfaces that define the log palette. */
+        --swu-log-eliminated: #e05050;
+        /* Kicked / conceded — plain on purpose; see the desktop palette for why. */
+        --swu-log-removed:    var(--swu-log-default);
+        --swu-log-undone-opacity: 0.45;
+        --swu-log-chat:       rgba(255,255,255,0.92);
+    }
+
+    /* The row: a SEPARATOR under each entry, not a box around it. A phone panel is the narrowest
+       place this log is ever read, so knowing where one entry ends matters more here than anywhere.
+       ⚠ Not on the LAST row — a trailing rule reads as a message that failed to render. */
+    .swu-log-entry {
+        color: var(--swu-log-default);
+        padding: 3px 0;
+        word-break: break-word;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.14);
+    }
+    .swu-log-entry:last-child { border-bottom: 0; }
+    .swu-log-PHASE { color: var(--swu-log-phase); font-style: italic; padding: 4px 0 2px; }
+    /* One rule per log type → its var, exactly as the desktop board does it. */
+    .swu-log-OVERWHELM  { color: var(--swu-log-overwhelm); }
+    .swu-log-REVEAL     { color: var(--swu-log-reveal); }
+    .swu-log-DISCLOSE   { color: var(--swu-log-disclose); }
+    .swu-log-ABILITY    { color: var(--swu-log-ability); }
+    .swu-log-PLAY       { color: var(--swu-log-play); }
+    .swu-log-DRAW       { color: var(--swu-log-draw); }
+    .swu-log-DISCARD    { color: var(--swu-log-discard); }
+    .swu-log-DEFEAT     { color: var(--swu-log-defeat); }
+    .swu-log-ATTACK     { color: var(--swu-log-attack); }
+    .swu-log-RESOURCE   { color: var(--swu-log-resource); }
+    .swu-log-NAMECARD   { color: var(--swu-log-namecard); }
+    .swu-log-PASS       { color: var(--swu-log-pass); }
+    .swu-log-INITIATIVE { color: var(--swu-log-initiative); }
+    .swu-log-ELIMINATED { color: var(--swu-log-eliminated); font-weight: 600; }
+    .swu-log-REMOVED    { color: var(--swu-log-removed); }
+
+    /* Card names are links here too. `color: inherit` is what keeps a card named inside a CHAT line
+       in that seat's colour instead of snapping back to the log default. */
+    .swu-card-link {
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        cursor: pointer;
+        color: inherit;
+    }
+    .swu-card-link:hover { opacity: 0.8; }
+
     /* Chat lines inside the combined log — a seat-tinted rail so a run of chat reads as
        conversation rather than as game events. Mirrors the desktop rule set. */
     .swu-log-CHAT {
-        color: rgba(255,255,255,0.94); font-size: 12px;
+        color: var(--swu-log-chat); font-size: 12px;
         padding: 2px 0 2px 7px; margin: 1px 0;
         border-left: 2px solid rgba(255,255,255,0.18);
     }
     .swu-log-CHAT > span:first-child { color: rgba(255,255,255,0.70); }
-    .swu-log-CHAT.chatMsg-p1 { border-left-color: #6fb8ff; }
-    .swu-log-CHAT.chatMsg-p2 { border-left-color: #ff9b6f; }
-    .swu-log-CHAT.chatMsg-p3 { border-left-color: #7fd88f; }
-    .swu-log-CHAT.chatMsg-p4 { border-left-color: #d79bff; }
+    /* Seat colour on the ROW so the message BODY inherits it, matching the desktop board. ⚠ The hexes
+       here are a COPY of --swu-chat-p1..p4 in GameLayout.php; chat_seat_colour_surfaces_test.php pins
+       the two together, because a palette change applied to one board only looks complete. */
+    .swu-log-CHAT.chatMsg-p1 { border-left-color: #6fb8ff; color: #6fb8ff; }
+    .swu-log-CHAT.chatMsg-p2 { border-left-color: #ff9b6f; color: #ff9b6f; }
+    .swu-log-CHAT.chatMsg-p3 { border-left-color: #7fd88f; color: #7fd88f; }
+    .swu-log-CHAT.chatMsg-p4 { border-left-color: #d79bff; color: #d79bff; }
     .swu-log-CHAT.chatMsg-p1 > span:first-child { color: #6fb8ff; }
     .swu-log-CHAT.chatMsg-p2 > span:first-child { color: #ff9b6f; }
     .swu-log-CHAT.chatMsg-p3 > span:first-child { color: #7fd88f; }
@@ -654,7 +759,7 @@
 
     /* An undone line — struck through + dimmed. Mirrors the desktop rule (this layout does not load
        GameLayout's CSS). */
-    .swu-log-UNDONE { opacity: 0.45; text-decoration: line-through; text-decoration-thickness: 1px; }
+    .swu-log-UNDONE { opacity: var(--swu-log-undone-opacity); text-decoration: line-through; text-decoration-thickness: 1px; }
 
     /* Chat — only the COMPOSER lives in the drawer now; the messages go into the log above.
        mountChat() (shared) reparents #chatWidget into #swuChatMount; these overrides un-float it.
@@ -740,25 +845,25 @@
     <div class="swu-m-section is-theirs" id="theirHandSection"><div class="swu-m-label">Their Hand</div>
         <div id="theirHandSlot" class="swu-m-scroll"></div></div>
     <div class="swu-m-arena-row is-theirs">
-        <div class="swu-m-arena-col"><div class="swu-m-label">Their Space</div>
+        <div class="swu-m-arena-col"><div class="swu-arena-glow" aria-hidden="true"></div><div class="swu-m-label">Their Space</div>
             <div id="theirSpaceArenaSlot" class="swu-m-scroll"></div></div>
-        <div class="swu-m-arena-col"><div class="swu-m-label">Their Ground</div>
+        <div class="swu-m-arena-col"><div class="swu-arena-glow" aria-hidden="true"></div><div class="swu-m-label">Their Ground</div>
             <div id="theirGroundArenaSlot" class="swu-m-scroll"></div></div>
     </div>
 
     <!-- ════════ Leader/Base — one row: my leader·base | their base·leader (bases meet mid) ════════ -->
     <div class="swu-m-centers swu-m-centers-row">
         <div class="swu-m-center is-mine"><div id="myLeaderSlot"></div></div>
-        <div class="swu-m-center is-mine"><div id="myBaseSlot"></div></div>
-        <div class="swu-m-center is-theirs"><div id="theirBaseSlot"></div></div>
+        <div class="swu-m-center is-mine"><div id="myBaseHealth" class="swu-base-health"></div><div id="myBaseSlot"></div></div>
+        <div class="swu-m-center is-theirs"><div id="theirBaseHealth" class="swu-base-health"></div><div id="theirBaseSlot"></div></div>
         <div class="swu-m-center is-theirs"><div id="theirLeaderSlot"></div></div>
     </div>
 
     <!-- ════════ MY arenas / hand ════════ -->
     <div class="swu-m-arena-row is-mine">
-        <div class="swu-m-arena-col"><div class="swu-m-label">My Space</div>
+        <div class="swu-m-arena-col"><div class="swu-arena-glow" aria-hidden="true"></div><div class="swu-m-label">My Space</div>
             <div id="mySpaceArenaSlot" class="swu-m-scroll"></div></div>
-        <div class="swu-m-arena-col"><div class="swu-m-label">My Ground</div>
+        <div class="swu-m-arena-col"><div class="swu-arena-glow" aria-hidden="true"></div><div class="swu-m-label">My Ground</div>
             <div id="myGroundArenaSlot" class="swu-m-scroll"></div></div>
     </div>
     <div class="swu-m-section is-mine"><div class="swu-m-label">My Hand</div>

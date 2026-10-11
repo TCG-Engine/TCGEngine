@@ -38,10 +38,12 @@ $customDQHandlers["HMW_018#0"] = function($player, $parts, $lastDecision) {
 
     // Nested play: neutralise the inner ActivateCard's own turn advance (JTL_089#1 save/restore), so the
     // leader action advances the turn exactly once, below.
+    $refusedBefore = intval($GLOBALS['gSWUNestedCloseRefusals'] ?? 0);
     SWUNestedPlay(intval($player), $mz, false, 0);   // "(paying its cost)" — no discount
     $gPlayGrantTurnEffect = null;
 
-    SWUAfterAction(intval($player));
+    // Not unconditionally: a pending Ambush owns the close (CardHelpers.php _SWUNestedPlayLeftCloseToOuter).
+    if (_SWUNestedPlayLeftCloseToOuter(intval($player), $refusedBefore)) SWUAfterAction(intval($player));
 };
 
 $leaderAbilities["HMW_018"] = function(int $player): void {

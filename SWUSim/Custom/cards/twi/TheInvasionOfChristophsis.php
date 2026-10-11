@@ -16,10 +16,17 @@ $customDQHandlers["TWI_078#0"] = function($player, $parts, $lastDecision) {
             if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? -1);
         }
     }
+    // One simultaneous defeat, walked a unit at a time. This is a ONE-SIDED wipe, so an observer on the
+    // CASTER's side (ASH_052 Chimaera, SOR_002 Iden Versio) is never a casualty and counts correctly
+    // either way — but TS26_13 Darth Sidious's "when a non-token unit is defeated" fires for FRIENDLY as
+    // well as enemy defeats, so a Sidious belonging to the CHOSEN player is wiped alongside the units he
+    // is owed a droid for. See SWUSimulDefeatBegin (GameLogic.php).
+    SWUSimulDefeatBegin();
     foreach ($uids as $uid) {
         $mz = SWUFindMzByUID($uid);
         if ($mz !== null) SWUDefeatUnit(intval($player), $mz);
     }
+    SWUSimulDefeatEnd();
 };
 
 // When Played (event) — migrated from OnPlayEvent.
@@ -37,10 +44,14 @@ $whenPlayedAbilities["TWI_078:0"] = function($player, $mzID = '') {
                         if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? -1);
                     }
                 }
+                // Same simultaneous-defeat window as the Twin Suns branch below — see the note on the
+                // TWI_078#0 handler for why a one-sided wipe still needs it (TS26_13 Darth Sidious).
+                SWUSimulDefeatBegin();
                 foreach ($uids as $uid) {
                     $mz = SWUFindMzByUID($uid);
                     if ($mz !== null) SWUDefeatUnit(intval($player), $mz);
                 }
+                SWUSimulDefeatEnd();
                 return;
             }
             // Twin Suns: choose ONE opponent, then defeat only that player's units (a bare ZoneSearch

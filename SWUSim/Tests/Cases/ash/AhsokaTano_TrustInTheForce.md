@@ -115,3 +115,41 @@ WithP1GroundArena: SOR_095:1:0
 P2BASEDMG:6
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P1GROUNDARENAUNIT:1:POWER:5
+
+---
+
+# Deployed_OnAttack_WithRaid_NeverOffersItself
+#// ASH_009 Ahsoka Tano (deployed) — "give a unit with less power than THIS unit +2/+0": a unit never has less power than
+#// itself. ⚠ Found 2026-10-02 (bot work on the flip turn): the threshold is her IN-ATTACK power (Raid included, ruling
+#// 07/21/2026) while each candidate is read at its CURRENT power, so with SEC_099 Naboo Royal Starship's lent Raid 2 she is
+#// 7 in the attack and 5 as a candidate — and she was offered to herself. The Starship (2 < 7) is a real target.
+## GIVEN
+CommonSetup: ggw/brk/{myLeader:ASH_009:1:1:1}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SEC_099:1:0
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P1SELECTABLEHAS:mySpaceArena-0
+P1SELECTABLENOT:myGroundArena-0
+
+---
+
+# Support_GrantedOnAttack_WithRaid_NeverOffersTheAttacker
+#// ASH_009 Ahsoka Tano — the On Attack her Support lends uses the ATTACKER as "this unit", and the attacker also borrows
+#// the Starship's Raid 2 (Support lends gained abilities): SOR_232 AT-ST is 8 in the attack, 6 as a candidate, and was
+#// offered to itself. The Marine (3 < 8) is a real target.
+## GIVEN
+CommonSetup: ggw/brk/{myLeader:ASH_009;myResources:12}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_232:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SEC_099:1:0
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1SELECTABLEHAS:myGroundArena-1
+P1SELECTABLENOT:myGroundArena-0

@@ -1,0 +1,40 @@
+# Self-play fixture — "Ruby Ted 'Theodor' Logan" (Qui-Gon Jinn, Student of the Living Force - Jedi Temple)
+# Source: the HMW-meta list of wazzer (export author "wazzer131978"), given by the owner 2026-10-07 as JSON.
+#   Converted 2026-10-07. 51 main-deck cards, 10 sideboard.
+# Author: wazzer
+# Archetype (owner's label, 2026-10-07): Midrange
+# Style: midrange
+
+Leader
+1 LOF_016
+
+Base
+1 LOF_023
+
+Deck
+2 LOF_199
+3 LOF_195
+2 SEC_101
+2 LAW_224
+3 LOF_193
+2 ASH_114
+3 HMW_210
+2 LOF_100
+2 ASH_234
+3 JTL_096
+3 LAW_067
+3 LOF_101
+3 HMW_208
+3 LAW_237
+3 LOF_128
+3 ASH_109
+3 JTL_201
+3 ASH_219
+3 HMW_048
+
+Sideboard
+2 SEC_204
+2 LOF_096
+2 JTL_078
+2 ASH_135
+2 LOF_215

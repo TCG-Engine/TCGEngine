@@ -28,6 +28,7 @@ $rule = function (string $name, string $style, int $seat = 1) use ($rules, $botC
     return $pick === null ? null : strval($pick['cardID']);
 };
 $ids = fn($acts) => array_map(fn($a) => strval($a['cardID']), $acts);
+$sorted = function ($a) { sort($a); return $a; };
 // The whole stack, for the GUIDES (owner ruling 2026-09-13: moved out of layer 2): returns [pick, coverage keys].
 $stack = function (string $style, int $seat = 1, string $variant = '') use (&$gameName) {
     SWUBotResetCoverage(); $legal = SWUBotLegalActions($gameName, $seat);
@@ -69,9 +70,11 @@ $c = $botCtx('control');
 // Owner ruling 2026-09-14 (feature 'baserace'): this board is a race Control wins, so its filter now keeps the base
 // too. The premise below is about the unit-only filter, so it is pinned to @no-baserace.
 SWUBotSetDisabledFeatures(['baserace']);
-$check($ids(SWUBotStyleFilter($c)) === ['theirGroundArena-0'], 'fixture: Control\'s filter alone would drop the base');
+$check($sorted($ids(SWUBotStyleFilter($c))) === ['theirBase-0', 'theirGroundArena-0'],
+    'fixture: with the racing shift off, Control keeps the unit AND the base (it no longer drops the base)');
 SWUBotSetDisabledFeatures([]);
-$check(in_array('theirBase-0', $ids(SWUBotStyleFilter($c)), true), 'baserace: racing, Control\'s filter keeps the base');
+$check($ids(SWUBotStyleFilter($c)) === ['theirBase-0'],
+    'baserace: racing, Control shifts to the aggro wing — the base ONLY');
 $check($rule('lethal-now', 'control') === 'theirBase-0', 'rule 2 (target prompt): the exhausted attacker\'s 4 still counts → the base');
 $build(function ($b) use ($quietLeader) {
     $quietLeader($b); $b->TheirBase('SOR_020', 22);
@@ -86,7 +89,9 @@ $build(function ($b) { foreach (['SOR_095', 'SOR_046', 'LOF_084', 'SOR_164'] as 
 DecisionQueueController::AddDecision(1, "CUSTOM", "ChooseStartingResource", 50);
 ob_start(); (new DecisionQueueController())->ExecuteStaticMethods(1, '-'); ob_end_clean();
 $check($botCtx('aggro')['tooltip'] === 'Choose_2_cards_to_resource', 'fixture: the opening two-card resource prompt');
-$check($stack('aggro') === ['myHand-1&myHand-3', ['fallback']], 'opening (guide): Aggro resources its two most expensive');
+// p28 'mgcost' (owner 2026-10-03): costs are what THIS seat pays — under the bootstrap leader 2 / 6 / 5 / 4 (the Consular and
+// the Knight are off-aspect, +2), so the two most expensive are now the Consular and the Knight.
+$check($stack('aggro') === ['myHand-1&myHand-2', ['fallback']], 'opening (guide): Aggro resources its two most expensive (seat costs)');
 $check($stack('control')[0] === 'myHand-0&myHand-2', 'opening (guide): Control — every card is castable soon (≤ 4), so the two cheapest go; the bomb and the other 4 stay');
 
 // ── Rule 3 — initiative for lethal next round ────────────────────────────────────────────────────
@@ -162,7 +167,7 @@ $build(function ($b) use ($facing) {
     $b->WithGroundUnitForPlayer(1, 'LOF_084', false); $b->WithGroundUnitForPlayer(1, 'SOR_164', false);
 });
 $check($stack('normal')[1] === ['rule:initiative-for-lethal'], 'priority: rule 3 beats rule 4');
-// Cost bound — sweep run 3 timed out twice (games aggro_ahsoka_blue.aggro_vader_yellow s032 and s072): facing
+// Cost bound — sweep run 3 timed out twice (games ahsoka-tano_ash_blue.darth-vader_jtl_yellow s032 and s072): facing
 // lethal, rule 4 searched every candidate's every answer three prompts deep before abstaining (62 s at a Name-a-card
 // prompt, 17 s at a 4-target attack prompt). Eight ready Marines against five: no single attack breaks 15 power
 // into 4 left, and unbounded this board costs 8 × (the attack + 6 target answers) = 56 lookaheads.
@@ -295,7 +300,8 @@ $check($rule('no-unused-attacks', 'normal') === 'myGroundArena-0!FSM!', 'rule 8:
 $build($develop('SOR_095'));
 $check($rule('no-unused-attacks', 'normal') === null, 'rule 8 abstains while a play is on offer');
 $build(function ($b) use ($quietLeader) { $quietLeader($b); $b->WithGroundUnitForPlayer(1, 'SOR_095', true); $b->WithGroundUnitForPlayer(2, 'LOF_084', true); });
-$check($rule('no-unused-attacks', 'control') === null, 'rule 8 abstains when the only attack is a losing trade');
+$check($rule('no-unused-attacks', 'control') !== null,
+    'rule 8 now attacks the BASE when the only unit attack would be a losing trade (owner, 2026-09-18)');
 
 // ── Rule 9 — nothing left ────────────────────────────────────────────────────────────────────────
 $build(function ($b) use ($quietLeader) { $quietLeader($b); });
@@ -317,20 +323,32 @@ $check(!in_array('PASS', $ids(SWUBotResourceFloorFilter($botCtx('aggro'))), true
 $check($stack('aggro') === ['myHand-1', ['filter:resource-floor', 'fallback']], '… and the card is the guide\'s keep-value pick (Aggro: the most expensive)');
 $build($regroup('SOR_014', 4)); $toRegroup();
 $check(in_array('PASS', $ids(SWUBotResourceFloorFilter($botCtx('aggro'))), true), 'rule 10 lets PASS stay at the threshold');
-// Resource stops as GUIDES (owner ruling 2026-09-14: "aggro stops at 6 or 7. midrange/normal stops at 8 or 9.
-// control stops at 9 - 11 …"); the deck decides within its range (SWUBotResourceStop). This deck tops out at 4.
+// Resource stops as GUIDES (spec: the five archetypes stop at 6 / 7 / 8 / 9 / 11 — hyper aggro stops
+// earliest, hard control banks for its bombs and its answer pair); the deck decides within its range
+// (SWUBotResourceStop). This deck tops out at 4.
 $build($regroup('SOR_014', 6)); $toRegroup();
-$check([SWUBotResourceStop(1, 'aggro'), SWUBotResourceStop(1, 'normal'), SWUBotResourceStop(1, 'control')] === [6, 8, 9], 'a deck topping out at 4: stops 6 / 8 / 9');
-$check($stack('aggro') === ['PASS', ['fallback', 'guide:stop']], 'stop (guide): Aggro at 6 resources passes');
+$check([SWUBotResourceStop(1, 'hyperaggro'), SWUBotResourceStop(1, 'softaggro'), SWUBotResourceStop(1, 'midrange'),
+        SWUBotResourceStop(1, 'softcontrol'), SWUBotResourceStop(1, 'hardcontrol')] === [6, 7, 8, 9, 11],
+    'a deck topping out at 4: stops 6 / 7 / 8 / 9 / 11 across the five archetypes');
+$check($stack('hyperaggro') === ['PASS', ['fallback', 'guide:stop']], 'stop (guide): hyper aggro at 6 resources passes');
+$check($stack('softaggro')[0] === 'myHand-1', 'soft aggro at 6 keeps resourcing — its stop is 7');
 $check($stack('aggro', 1, 'no-stop')[0] === 'myHand-1', '@no-stop: Aggro keeps resourcing');
-$check($stack('normal')[0] === 'myHand-1', 'Normal at 6 keeps resourcing');
+// The point here is that Normal does NOT pass at 6 (its stop is 8). The INDEX moved 1 -> 0 with p12
+// 'mgbomb', which resources the cheapest card rather than the most expensive.
+$check($stack('normal')[0] !== 'PASS', 'Normal at 6 keeps resourcing — its stop is 8');
+// p28 'mgcost': the Consular costs this seat 6, so it is no longer an efficient body (3 + 7 < 2 x 6) and loses p11's +100 —
+// the efficient Marines (202) now outrank the bomb (200), and the Consular is the one resourced. '@no-mgcost' keeps myHand-0.
+$check($stack('normal')[0] === 'myHand-1', '… and at its seat cost (6) the Consular is no efficient body: it is the pick');
+$check($stack('normal', 1, 'no-mgcost')[0] === 'myHand-0', '@no-mgcost: p12 makes that pick the cheapest card, not the dearest');
 $build($regroup('SOR_014', 5)); $toRegroup();
 $check($stack('aggro')[0] === 'myHand-1', 'Aggro at 5 still resources');
 $build($regroup('SOR_014', 8)); $toRegroup();
 $check($stack('normal')[0] === 'PASS' && $stack('control')[0] !== 'PASS', 'Normal stops at 8; Control (9) does not');
 $build(function ($b) use ($regroup) { ($regroup('SOR_014', 10))($b); $b->WithCardInDeckForPlayer(1, 'JTL_041'); }); $toRegroup();
 $check(SWUBotResourceStop(1, 'control') === 11 && $stack('control')[0] !== 'PASS', 'an 11-cost card in the deck: Control resources on toward 11');
-$build(function ($b) use ($regroup) { ($regroup('SOR_014', 9))($b); $b->WithCardInDeckForPlayer(1, 'LAW_133'); $b->WithCardInDeckForPlayer(1, 'JTL_043'); }); $toRegroup();
+// A Vigilance/Villainy leader (SOR_002 Iden Versio): with p28 'mgcost' both answers must be on-aspect to cost 6 and 5 —
+// under Sabine they would cost 8 and 9 and not count as cheap answers at all.
+$build(function ($b) use ($regroup) { ($regroup('SOR_002', 9))($b); $b->WithCardInDeckForPlayer(1, 'LAW_133'); $b->WithCardInDeckForPlayer(1, 'JTL_043'); }); $toRegroup();
 $check(SWUBotResourceStop(1, 'control') === 11, 'Lost and Forgotten (6) + No Glory (5) in one round: Control stops at 11');
 $build($regroup('LOF_007', 7)); $toRegroup();
 $check($stack('aggro')[0] === 'myHand-1', 'the floor beats the stop: Avar Kriss (9) at 7 resources keeps resourcing');

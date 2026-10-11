@@ -1,0 +1,48 @@
+# Self-play fixture — "STAR WARS DAD Hemlock Yellow" (Doctor Hemlock, Emotion Has No Place Here - Otoh Gunga)
+# Source: a PREDICTED list for the HMW meta by the creator StarWarsDad, from doctor-hemlock_HMW_yellow_naboo.json (kept alongside).
+#   Converted 2026-10-01. 51 main-deck cards, 10 sideboard.
+#   Base trait: Otoh Gunga is Naboo, and the deck cares (2 Torrent), so the trait is part of its name.
+# Author: Star Wars Dad
+# Archetype (owner's label, 2026-10-01): Soft control
+# Style: softcontrol
+# Flavours: tempo
+
+Leader
+1 HMW_003
+
+Base
+1 HMW_033
+
+Deck
+3 ASH_048
+2 HMW_204
+2 ASH_194
+3 JTL_043
+2 LAW_133
+2 HMW_062
+3 ASH_052
+3 JTL_033
+2 HMW_100
+2 LAW_118
+1 SEC_038
+3 HMW_197
+3 ASH_079
+1 LAW_101
+3 LAW_097
+2 HMW_202
+3 HMW_198
+3 HMW_055
+3 ASH_053
+1 LAW_086
+2 LOF_070
+2 SEC_078
+
+Sideboard
+1 HMW_204
+1 JTL_041
+1 SEC_038
+2 LAW_044
+1 LAW_101
+2 SEC_186
+1 LAW_086
+1 SEC_078

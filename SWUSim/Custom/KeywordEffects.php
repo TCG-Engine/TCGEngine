@@ -186,6 +186,31 @@ function OtherPlayer(int $player): int {
     return $player === 1 ? 2 : 1;
 }
 
+// EVERY unit controlled by ANY opponent of $ctrl, already filtered to non-removed.
+//
+// ⚠ THIS IS THE SEAM FOR "an enemy unit …" / "an opponent controls …" KEYWORD CONDITIONS. They were
+// all written as GetUnitsInPlay(OtherPlayer($ctrl)), which is a TWO-SEAT read: OtherPlayer() answers 2
+// for seat 1 and 1 for every other seat, so at three or four seats one opponent is checked and the
+// rest are invisible. That shipped as a live bug — game 850132, where a Duchess's Champion never
+// gained Sentinel because the only seat that met its condition was the one OtherPlayer() skips.
+//
+// OpponentsOf() is seat-count-aware AND team-aware, so every caller inherits both for free: in Team
+// Suns a teammate is never an opponent, and their units can therefore never satisfy an "enemy" clause.
+//
+// ⚠ Existence vs COUNT. Most callers ask "is there an enemy unit that …" and just need the wider pool.
+// SEC_171 Punishing One asks "for EACH damaged enemy unit" and SUMS — for it a one-seat read is wrong
+// even when that seat has a qualifying unit, because the total is short rather than absent.
+function _SWUAllEnemyUnits(int $ctrl): array {
+    $out = [];
+    if ($ctrl <= 0) return $out;
+    foreach (OpponentsOf($ctrl) as $opp) {
+        foreach (GetUnitsInPlay($opp) as $u) {
+            if (empty($u->removed)) $out[] = $u;
+        }
+    }
+    return $out;
+}
+
 // Returns all non-removed unit objects in one arena for a player.
 // $arena is 'Ground' or 'Space'.
 function GetUnitsInArena(int $player, string $arena): array {
@@ -293,11 +318,13 @@ function IsCoordinateActive(int $player): bool {
 // without Coordinate shows neither. Return 1/0 for the Image counters (ShowZero=false
 // hides 0); the two are mutually exclusive so only one icon ever renders.
 function ObjectCoordinateActive($obj): int {
+    if (SwuPgnIsViewerGame()) return 0;   // replay viewer: nothing is derived
     if (!HasKeyword_Coordinate($obj)) return 0;
     $player = intval($obj->Controller ?? $obj->Owner ?? $obj->PlayerID ?? 0);
     return ($player > 0 && IsCoordinateActive($player)) ? 1 : 0;
 }
 function ObjectCoordinateInactive($obj): int {
+    if (SwuPgnIsViewerGame()) return 0;   // replay viewer: nothing is derived
     if (!HasKeyword_Coordinate($obj)) return 0;
     $player = intval($obj->Controller ?? $obj->Owner ?? $obj->PlayerID ?? 0);
     return ($player > 0 && IsCoordinateActive($player)) ? 0 : 1;
@@ -308,6 +335,7 @@ function ObjectCoordinateInactive($obj): int {
 // the defender's shields). Static keyword, no board-state condition. Returns 1/0 for the Image
 // counter (ShowZero=false hides 0).
 function ObjectHasSaboteur($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'saboteur'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Saboteur($obj)) ? 1 : 0;
 }
 
@@ -316,6 +344,7 @@ function ObjectHasSaboteur($obj): int {
 // defending player's base). Static keyword, no board-state condition. Returns 1/0 for the Image
 // counter (ShowZero=false hides 0).
 function ObjectHasOverwhelm($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'overwhelm'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Overwhelm($obj)) ? 1 : 0;
 }
 
@@ -323,12 +352,14 @@ function ObjectHasOverwhelm($obj): int {
 // the Grit keyword (printed or granted; CR — gets +1/+1 for each damage on it). Shown whenever
 // the unit has Grit, regardless of its current damage. Returns 1/0 (ShowZero=false hides 0).
 function ObjectHasGrit($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'grit'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Grit($obj)) ? 1 : 0;
 }
 
 // Tech-wall overlay flag (schema Virtual: HasSentinel + Overlay rule). 1 when the unit has the
 // Sentinel keyword (printed or granted). Returns 1/0 for the overlay rule (shown when == 1).
 function ObjectHasSentinel($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'sentinel'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Sentinel($obj)) ? 1 : 0;
 }
 
@@ -336,18 +367,21 @@ function ObjectHasSentinel($obj): int {
 // has the Hidden keyword (printed or granted), REGARDLESS of whether it's currently unattackable.
 // (The separate smoke overlay keeps its own unattackable-only logic — see ObjectHiddenUnattackable.)
 function ObjectHasHidden($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'hidden'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Hidden($obj)) ? 1 : 0;
 }
 
 // Per-unit Ambush indicator for the card counter (schema Virtual: HasAmbush). 1 when the unit has
 // the Ambush keyword (printed or granted). Returns 1/0 (ShowZero=false hides 0).
 function ObjectHasAmbush($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'ambush'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Ambush($obj)) ? 1 : 0;
 }
 
 // Per-unit Bounty indicator for the card counter (schema Virtual: HasBounty). 1 when the unit has
 // the Bounty keyword (printed, granted by an upgrade, or granted by an effect). Returns 1/0.
 function ObjectHasBounty($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'bounty'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Bounty($obj)) ? 1 : 0;
 }
 
@@ -358,6 +392,7 @@ function ObjectHasBounty($obj): int {
 // (ShowZero=false hides 0). HasKeyword_Raid routes through SWUKeywordSuppressed, so a blanked unit
 // (LostAbilities) correctly shows nothing.
 function ObjectHasRaid($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'raid'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Raid($obj)) ? 1 : 0;
 }
 
@@ -365,6 +400,7 @@ function ObjectHasRaid($obj): int {
 // the Restore keyword (printed or granted; CR — heals X damage from its controller's base on
 // attack). Presence-only for the same reason as Raid above. Returns 1/0 (ShowZero=false hides 0).
 function ObjectHasRestore($obj): int {
+    $v = SwuPgnViewerKeyword($obj, 'restore'); if ($v !== null) return $v;   // replay viewer: the file's stated keywords
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Restore($obj)) ? 1 : 0;
 }
 
@@ -374,6 +410,7 @@ function ObjectHasRestore($obj): int {
 // _SWUHiddenBlocksAttack so the overlay is shown exactly while the unit can't be attacked,
 // and vanishes once the phase ends and the flag clears. Self-contained (no CombatLogic dep).
 function ObjectHiddenUnattackable($obj): int {
+    if (SwuPgnIsViewerGame()) return 0;   // replay viewer: nothing is derived
     if ($obj === null || !HasKeyword_Hidden($obj)) return 0;
     // ⚠ MUST MATCH _SWUHiddenBlocksAttack EXACTLY — the overlay claiming protection the attack gate
     // does not grant (or the reverse) is worse than no overlay. Same flag, same reason: CR 18.a is
@@ -571,12 +608,23 @@ function HasConditionalKeyword_Ambush($obj) {
             return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Command', $obj->UniqueID);
         case 'SOR_249': // Frontier AT-RT — while you control a Vehicle unit
             return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Vehicle', $obj->UniqueID);
+        case 'HMW_131': // Soaring Can-Cell — while you control a Kashyyyk base (the CONTROLLER's base)
+            return _SWUControlsBaseWithTrait($ctrl, 'Kashyyyk');
         case 'TWI_081': // Droid Commando — while you control a Separatist unit
             return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Separatist', $obj->UniqueID);
-        case 'TWI_194': // Ahsoka Tano — while you control fewer units than the opponent
-            return count(GetUnitsInPlay($obj->Controller)) < count(GetUnitsInPlay(OtherPlayer($obj->Controller)));
-        case 'LOF_118': // Terentatek — while an OPPONENT controls a Force unit
-            return PlayerHasUnitWithTraitInPlay(OtherPlayer($ctrl), 'Force');
+        case 'TWI_194': // Ahsoka Tano — "while you control fewer units than AN opponent (including
+                        // this unit)". ANY ONE opponent above you satisfies it, so compare against the
+                        // LARGEST opponent rather than a single hardcoded seat.
+            $mine194 = count(GetUnitsInPlay($obj->Controller));
+            foreach (OpponentsOf(intval($obj->Controller)) as $opp194) {
+                if ($mine194 < count(GetUnitsInPlay($opp194))) return true;
+            }
+            return false;
+        case 'LOF_118': // Terentatek — "while AN opponent controls a Force unit": any one of them.
+            foreach (OpponentsOf(intval($ctrl)) as $opp118) {
+                if (PlayerHasUnitWithTraitInPlay($opp118, 'Force')) return true;
+            }
+            return false;
         case 'ASH_113': // Mandalorian Flagship — while you control a leader unit
             foreach (GetUnitsInPlay($ctrl) as $u) {
                 if (empty($u->removed) && IsLeaderUnit($u)) return true;
@@ -666,6 +714,8 @@ function HasConditionalKeyword_Grit($obj) {
     if (_SWUUnitHasActiveUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Speeder')) return true;
     // LOF_238 Darth Revan's Lightsabers: "If attached unit is a Sith, it gains Grit."
     if (_SWUUnitHasActiveUpgrade($obj, 'LOF_238') && HasTrait($obj->CardID ?? '', 'Sith')) return true;
+    // HMW_191 Hunter's Instinct: "If attached unit is a Creature, it gains Grit." Object-aware trait read.
+    if (_SWUUnitHasActiveUpgrade($obj, 'HMW_191') && TraitContains($obj, 'Creature')) return true;
     // HMW_006 Omega (deployed): "Other friendly Heroism units gain Grit." Team-wide, live, Omega-active —
     // see cards/hmw/Omega_CloseYourEyesAndFocus.php.
     if (function_exists('_SWUHmw006GrantsGrit') && _SWUHmw006GrantsGrit($obj)) return true;
@@ -696,6 +746,10 @@ function HasConditionalKeyword_Grit($obj) {
             return count(GetUpgradesOnUnit($obj)) > 0;
         case 'LOF_050': // Plo Koon — "While the Force is with you, this unit gains Grit."
             return PlayerHasTheForce(intval($obj->Controller ?? 0));
+        case 'HMW_090': // Opee Sea Killer — "While you control a Naboo base, this unit gains Grit."
+                        // "You" = the CONTROLLER (a stolen Opee reads the thief's base); the base is
+                        // matched by TRAIT, so every Naboo printing counts.
+            return _SWUControlsBaseWithTrait(intval($obj->Controller ?? 0), 'Naboo');
     }
 
     return false;
@@ -837,7 +891,8 @@ function HasConditionalKeyword_Saboteur($obj) {
     // link by source UID and therefore sees a BD-1 ability COPIED onto another unit (TS26_34 Fives).
     if (_SWULof191BuffCount($obj) > 0) return true;
     // TWI_143 Jyn Erso — "While an enemy unit has been defeated this phase, this unit gains Saboteur."
-    if (($obj->CardID ?? '') === 'TWI_143' && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_ENEMY_DEFEATED') > 0) return true;
+    if (($obj->CardID ?? '') === 'TWI_143'
+        && SWUEnemyUnitsDefeatedThisPhase(intval($obj->Controller ?? 0)) > 0) return true;
     // SHD_190 Zuckuss: each friendly unit named 4-LOM gains Saboteur.
     if (SWUObjectTitle($obj) === '4-LOM'
         && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'SHD_190') > 0) return true;
@@ -991,6 +1046,13 @@ function HasConditionalKeyword_Sentinel($obj) {
                 if (empty($u->removed) && !IsLeaderUnit($u) && intval($u->UniqueID ?? 0) !== $self) return false;
             }
             return true;
+        case 'HMW_137': { // V-19 Skirmisher — while you control 3 or more units (itself included; seat only)
+            $n137 = 0;
+            foreach (GetUnitsInPlay($ctrl) as $u) { if (empty($u->removed)) $n137++; }
+            return $n137 >= 3;
+        }
+        case 'HMW_259': // Pack Guardian — while this unit is ready
+            return intval($obj->Status ?? 0) === 1;
         case 'HMW_142': // Wookiee Rangers — while you control another Wookiee unit OR a Kashyyyk base
             foreach (GetUnitsInPlay($ctrl) as $u) {
                 if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $self && TraitContains($u, 'Wookiee')) return true;
@@ -999,10 +1061,15 @@ function HasConditionalKeyword_Sentinel($obj) {
         case 'SEC_079': // Corrupt Politician — while you control MORE units than an opponent
             if ($ctrl <= 0) return false;
             $mine = 0;   foreach (GetUnitsInPlay($ctrl) as $u)              { if (empty($u->removed)) $mine++; }
-            $theirs = 0; foreach (GetUnitsInPlay(OtherPlayer($ctrl)) as $u) { if (empty($u->removed)) $theirs++; }
-            return $mine > $theirs;
-        case 'SHD_052': // Sugi — while an OPPONENT has an upgraded unit
-            foreach (GetUnitsInPlay(OtherPlayer($obj->Controller)) as $u) {
+            // ANY ONE opponent below you satisfies it, so compare against the SMALLEST opponent
+            // rather than a single hardcoded seat.
+            foreach (OpponentsOf(intval($ctrl)) as $opp079) {
+                $theirs = 0; foreach (GetUnitsInPlay($opp079) as $u) { if (empty($u->removed)) $theirs++; }
+                if ($mine > $theirs) return true;
+            }
+            return false;
+        case 'SHD_052': // Sugi — "while AN ENEMY UNIT is upgraded": every opponent's units.
+            foreach (_SWUAllEnemyUnits(intval($obj->Controller)) as $u) {
                 if (count(GetUpgradesOnUnit($u)) > 0) return true;
             }
             return false;
@@ -1022,8 +1089,20 @@ function HasConditionalKeyword_Sentinel($obj) {
             return PlayerHasTheForce($ctrl);
         case 'TWI_061': // Infantry of the 212th — while YOUR Coordinate is active
             return IsCoordinateActive($obj->Controller);
-        case 'TWI_054': // Duchess's Champion — while the OPPONENT's Coordinate is active
-            return IsCoordinateActive(OtherPlayer($obj->Controller));
+        case 'TWI_054': // Duchess's Champion — "While AN OPPONENT controls 3 or more units" (which is
+                        // that opponent's Coordinate condition).
+                        // ⚠ EVERY opponent, not OtherPlayer(). "An opponent" is satisfied by ANY one of
+                        // them, and OtherPlayer() is a TWO-SEAT helper — it answers 2 for seat 1 and 1
+                        // for every other seat, so at 3+ seats the far seat is invisible to it. Live
+                        // (game 850132): P1's Champion never gained Sentinel while P3 sat on 4 units,
+                        // because P2 — the only seat OtherPlayer() looks at — held 2.
+                        // OpponentsOf() is the seat-count-aware list and is TEAM-AWARE for free: a Team
+                        // Suns teammate is never an opponent, so their unit count cannot arm this.
+                        // Same trap the Galen note at the top of this file describes.
+            foreach (OpponentsOf(intval($obj->Controller)) as $opp054) {
+                if (IsCoordinateActive($opp054)) return true;
+            }
+            return false;
         case 'HMW_074': { // Yord Fandar — while A BASE has 15 or more damage on it.
                           // ⚠ "a base" carries NO controller qualifier, so it means EITHER player's
                           // base — the same wording (and the same both-sides scan) as SOR_148 Guerilla
@@ -1071,7 +1150,7 @@ function HasConditionalKeyword_Shielded($obj) {
         case 'SHD_212': // Privateer Scyk — while you have a Cunning unit
             return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Cunning', $obj->UniqueID);
         case 'SHD_186': { // Hunter of the Haxion Brood — while opponent has a Bounty unit
-            foreach (GetUnitsInPlay(OtherPlayer($obj->Controller)) as $u) {
+            foreach (_SWUAllEnemyUnits(intval($obj->Controller)) as $u) {
                 if (HasKeyword_Bounty($u)) return true;
             }
             return false;
@@ -1280,6 +1359,10 @@ function GetConditionalKeyword_Raid_Value($obj) {
     // _SWUCountFriendlyTraitUnits excludes the source by UniqueID (she is herself a Tusken, so a count
     // that forgets that reads one too many) and uses TraitContains + GetUnitsInPlay, so a GRANTED Tusken
     // trait counts and a deployed leader unit counts as a unit.
+    // HMW_138 Commander Gree — "While there are 3 or more Command aspect icons among friendly units (including
+    // this one) and upgrades, this unit gains Raid 4." See cards/hmw/CommanderGree_OfThe41stEliteCorps.php.
+    if (($obj->CardID ?? '') === 'HMW_138' && function_exists('_SWUHmw138CommandIcons')
+        && _SWUHmw138CommandIcons(intval($obj->Controller ?? 0)) >= 3) $amount += 4;
     if (($obj->CardID ?? '') === 'HMW_212') {
         $amount += _SWUCountFriendlyTraitUnits(intval($obj->Controller ?? 0), 'Tusken', intval($obj->UniqueID ?? 0));
     }
@@ -1361,13 +1444,14 @@ function GetConditionalKeyword_Raid_Value($obj) {
             }
             break;
         case 'SEC_171': // Punishing One — Raid 1 for each damaged enemy unit
-            foreach (GetUnitsInPlay(OtherPlayer(intval($obj->Controller ?? 0))) as $eu) {
-                if (empty($eu->removed) && intval($eu->Damage ?? 0) > 0) $amount += 1;
+            // ⚠ COUNTS, so a one-seat read was SHORT rather than absent — see _SWUAllEnemyUnits.
+            foreach (_SWUAllEnemyUnits(intval($obj->Controller ?? 0)) as $eu) {
+                if (intval($eu->Damage ?? 0) > 0) $amount += 1;
             }
             break;
         case 'SEC_134': // Hunting Assassin Droid — Raid 2 while an enemy unit is damaged
-            foreach (GetUnitsInPlay(OtherPlayer(intval($obj->Controller ?? 0))) as $eu) {
-                if (empty($eu->removed) && intval($eu->Damage ?? 0) > 0) { $amount += 2; break; }
+            foreach (_SWUAllEnemyUnits(intval($obj->Controller ?? 0)) as $eu) {
+                if (intval($eu->Damage ?? 0) > 0) { $amount += 2; break; }
             }
             break;
         case 'SEC_249': // High Command Councilor — Raid 2 while you control another Official unit
@@ -1392,8 +1476,8 @@ function GetConditionalKeyword_Raid_Value($obj) {
             if (PlayerHasUnitWithAspectInPlay($obj->Controller, 'Aggression', $obj->UniqueID)) $amount += 2;
             break;
         case 'LOF_212': // Life Wind Sage — Raid 2 while an enemy unit is exhausted
-            foreach (GetUnitsInPlay(OtherPlayer(intval($obj->Controller ?? 0))) as $eu) {
-                if (empty($eu->removed) && intval($eu->Status ?? 0) !== 1) { $amount += 2; break; }
+            foreach (_SWUAllEnemyUnits(intval($obj->Controller ?? 0)) as $eu) {
+                if (intval($eu->Status ?? 0) !== 1) { $amount += 2; break; }
             }
             break;
         case 'SOR_188': // Chopper — Raid 1 while you control ANOTHER Spectre unit
@@ -1441,6 +1525,7 @@ function GetConditionalKeyword_Raid_Value($obj) {
                 $amount += 1;
                 break;
             case 'TWI_169': // Clone Cohort — "Attached unit gains Raid 2." (per copy)
+            case 'HMW_190': // Enraged — "Attached unit gains Raid 2." (per copy; Raid stacks, CR 7.5.8.b)
                 $amount += 2;
                 break;
             case 'LOF_261': // Constructed Lightsaber — "If attached unit is a Villainy unit, it gains Raid 2."
@@ -1506,8 +1591,8 @@ function GetConditionalKeyword_Restore_Value($obj) {
     if (($obj->CardID ?? '') === 'ASH_122' && HasInitiative(intval($obj->Controller ?? 0))) $amount += 2;
     // ASH_057 Lothal E-Wing — "While an enemy unit is upgraded, this unit gains Restore 2."
     if (($obj->CardID ?? '') === 'ASH_057') {
-        foreach (GetUnitsInPlay(OtherPlayer(intval($obj->Controller ?? 0))) as $eu) {
-            if (empty($eu->removed) && _SWUIsUpgraded($eu)) { $amount += 2; break; }
+        foreach (_SWUAllEnemyUnits(intval($obj->Controller ?? 0)) as $eu) {
+            if (_SWUIsUpgraded($eu)) { $amount += 2; break; }
         }
     }
     // TWI_051 For The Republic — "Attached unit gains: 'Coordinate - Restore 2.'"

@@ -92,3 +92,47 @@ WithP2Deck: [SEC_080 SEC_080 SEC_080]
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SEC_170
 P2GROUNDARENAUNIT:0:READY
+
+---
+
+# ThreeSeat_ANYOpponentWithNoGround_EntersReady
+#// "If AN OPPONENT controls no ground units" — EXISTENTIAL: it is enough that ONE opponent has none.
+#// Seat 2 fields a ground unit, seat 3 fields nothing, so the Hounds enter READY.
+#// The check counted `OtherPlayer($player)` — seat 2 — saw its unit and entered exhausted.
+
+## GIVEN
+CommonSetup3P: rrk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 5
+WithP1Hand: SEC_170
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENAUNIT:0:READY
+
+---
+
+# FourSeat_ONLYTheFarthestOpponentIsEmpty_EntersReady
+#// 4P sibling: seats 2 AND 3 field ground units and only SEAT 4 is empty — so the existential is
+#// satisfied by the farthest seat alone, which is the hardest case for a one-seat read.
+
+## GIVEN
+CommonSetup4P: rrk/rrk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 5
+WithP1Hand: SEC_170
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:READY

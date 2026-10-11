@@ -1,7 +1,8 @@
 # WhenDefeated_PutOnTopOfDeck_HealTwo
 #// HMW_056 Yoda, Trickster In Exile (Unit, Ground, cost 3, 4/4, [Cunning][Vigilance][Heroism],
 #// Force/Fringe/Jedi, unique) — "Hidden / When Defeated: You may put this card from your discard pile on
-#// top of your deck. If you do, heal 2 damage from your base."
+#// top of your deck. If you do, heal 2 damage from a base."
+#// (Official text, 2026-09-16 flip — the preview mock read "your base"; every YES now also picks the base.)
 #//
 #// COVERAGE: offer=WhenDefeated_OfferIsAYesNo (the optional half has no target, so the "offer" is the
 #//           pending YESNO itself — asserted by tooltip) · decline=WhenDefeated_Decline_StaysInDiscard ·
@@ -9,8 +10,8 @@
 #//           damage) · control=StolenYoda_LandsInItsOWNERsDiscard_NothingHappens (owner ≠ controller: the
 #//           card is not in the resolver's pile, and the resolver's OWN older Yoda must not stand in) ·
 #//           reqboundary=RequestBoundary_BeforeTheAnswer ·
-#//           modes=2P only — every reference is "your" (self-scoped); no player reference, no
-#//           friendly/enemy wording.
+#//           heal target=HealBase_OfferIsEveryBase + HealsAnEnemyBase ("a base" is unqualified)
+#//           modes=2P,TwinSuns — "a base" spans every seat: TwinSuns_HealOfferSpansEverySeat
 #//
 #// Hidden needs no code (HMW_056 is in $Hidden_Cards; generic coverage in keywords/Hidden.md).
 #// This section: Yoda attacks Industrious Team (4/7) and dies to the 4 counter-damage — the attacker
@@ -27,6 +28,7 @@ WithP2GroundArena: LAW_124:1:0
 ## WHEN
 - P1>AttackGroundArena:0:0
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:myBase-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:0
@@ -56,7 +58,7 @@ WithP2GroundArena: LAW_124:1:0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
-P1DECISIONTOOLTIP:Put_Yoda_on_top_of_your_deck?_If_you_do,_heal_2_damage_from_your_base.
+P1DECISIONTOOLTIP:Put_Yoda_on_top_of_your_deck?_If_you_do,_heal_2_damage_from_a_base.
 P1DISCARDUNIT:0:CARDID:HMW_056
 
 ---
@@ -98,6 +100,7 @@ WithP2GroundArena: LAW_124:1:0
 ## WHEN
 - P1>AttackGroundArena:0:0
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:myBase-0
 
 ## EXPECT
 P1DECKTOPCARD:HMW_056
@@ -119,6 +122,7 @@ WithP2GroundArena: LAW_124:1:0
 ## WHEN
 - P1>AttackGroundArena:0:0
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:myBase-0
 
 ## EXPECT
 P1DECKCOUNT:3
@@ -143,6 +147,7 @@ WithP2GroundArena: LAW_124:1:0
 - P2>AttackGroundArena:0:0
 - P1>Drain
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:myBase-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:0
@@ -167,6 +172,7 @@ WithP1Deck: [SOR_095 SOR_046]
 - P2>PlayHand:0
 - P1>Drain
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:myBase-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:0
@@ -217,6 +223,7 @@ WithP2GroundArena: LAW_124:1:0
 ## WHEN
 - P1>AttackGroundArena:0:0
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:myBase-0
 
 ## EXPECT
 P1DECKCOUNT:1
@@ -239,6 +246,7 @@ WithP2GroundArena: LAW_124:1:0
 ## WHEN
 - P1>AttackGroundArena:0:0
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:myBase-0
 
 ## EXPECT
 P1DISCARDCOUNT:1
@@ -287,6 +295,7 @@ WithP2GroundArena: LAW_124:1:0
 - P1>AttackGroundArena:0:0
 - P1>SimulateRequestBoundary
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:myBase-0
 
 ## EXPECT
 P1DECKCOUNT:3
@@ -317,6 +326,7 @@ WithP2GroundArena: HMW_056:1:0
 - P2>AnswerDecision:theirGroundArena-0
 - P1>Drain
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:myBase-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:0
@@ -324,3 +334,69 @@ P2GROUNDARENACOUNT:1
 P1DECKTOPCARD:TWI_116
 P1DECKCOUNT:3
 P1BASEDMG:1
+
+---
+
+# HealBase_OfferIsEveryBase
+
+## GIVEN
+CommonSetup: ybw/rrk/{myBaseDamage:3;theirBaseDamage:3}
+P1OnlyActions: true
+WithP1GroundArena: HMW_056:1:0
+WithP1Deck: [SOR_095 SOR_046]
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1DECKTOPCARD:HMW_056
+P1HASDECISION
+P1SELECTABLEEXACT:myBase-0&theirBase-0
+
+---
+
+# HealsAnEnemyBase
+
+## GIVEN
+CommonSetup: ybw/rrk/{myBaseDamage:3;theirBaseDamage:3}
+P1OnlyActions: true
+WithP1GroundArena: HMW_056:1:0
+WithP1Deck: [SOR_095 SOR_046]
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P1BASEDMG:3
+P2BASEDMG:1
+P1NODECISION
+
+---
+
+# TwinSuns_HealOfferSpansEverySeat
+
+## GIVEN
+CommonSetup: ybw/rrk/{myBaseDamage:3}
+SkipPreGame: true
+WithSeatOrder: 123
+WithLiveSeats: 123
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP3Base: SOR_021:2
+WithP1GroundArena: HMW_056:1:0
+WithP1Deck: [SOR_095 SOR_046]
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:p2GroundArena-0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myBase-0&p2Base-0&p3Base-0

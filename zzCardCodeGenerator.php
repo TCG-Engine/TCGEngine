@@ -8,6 +8,7 @@ include "./Core/HTTPLibraries.php";
 include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./Database/ConnectionManager.php";
 include_once "./CardEditor/Database/CardAbilityRepository.php";
+include_once "./Core/CardBaseMap.php";
 
 // Support CLI invocation: parse arguments into $_GET if not running under HTTP (mirrors
 // zzGameCodeGenerator.php's bridge — needed so TryGET("rootName", ...) below sees CLI args
@@ -51,14 +52,28 @@ function logLine($msg) {
 
 $rootName = TryGET("rootName", "");
 
+// Card data snapshot mode (SWU apps; see AppCore/SWU/CardDataSnapshot.php). Both default OFF:
+// without them a regen is byte-identical. snapshot= writes a caller-chosen path, so it is CLI-only.
+$mocksMode = TryGET("mocks", "1");
+if(!in_array($mocksMode, ["0", "1", "prefer"], true)) $mocksMode = "1";
+if($mocksMode === "prefer" && $rootName !== "SWUSim") $mocksMode = "1";
+$snapshotPath = $isHTTPRequest ? "" : TryGET("snapshot", "");
+
 // Optional override for card database path (useful when multiple roots share card data)
 $cardDBOverride = TryGET("CardDBOverride", "");
 // When withPreview=1, fetch fresh data from the external API (use when previewing new cards).
 // Default (withPreview omitted) skips the API and rebuilds dictionaries from the saved cache.
 $withPreview = (TryGET("withPreview", "") === "1" || TryGET("withPreview", "") === "true");
 // When overwriteImages=1, delete and re-download all images (webp, concat, crop) even if they exist.
-$overwriteImages = (TryGET("overwriteImages", "") === "1");
-logLine("=== Generator starting: rootName=" . $rootName . " | PHP " . PHP_VERSION . " | memory_limit=" . ini_get('memory_limit') . " | max_exec_time=" . ini_get('max_execution_time') . "s ===");
+// overwriteImages=<SET> (e.g. HMW) does the same for that one set only; see ImageOverwriteSpec() in
+// zzImageConverter.php. Each CheckImage call asks ImageOverwriteRequested() for its own card ID.
+$overwriteImagesSpec = ImageOverwriteSpec(TryGET("overwriteImages", ""));
+if ($overwriteImagesSpec['error'] !== null) {
+  logLine("ERROR: " . $overwriteImagesSpec['error']);
+  exit();
+}
+logLine("=== Generator starting: rootName=" . $rootName . " | PHP " . PHP_VERSION . " | memory_limit=" . ini_get('memory_limit') . " | max_exec_time=" . ini_get('max_execution_time') . "s"
+  . " | overwriteImages=" . ($overwriteImagesSpec['mode'] === 'set' ? $overwriteImagesSpec['set'] : $overwriteImagesSpec['mode']) . " ===");
 
 $schemaFile = "./Schemas/" . $rootName . "/ImportSchema.txt";
 $handler = fopen($schemaFile, "r");
@@ -156,6 +171,16 @@ for($i=0; $i<count($properties); ++$i) {
 }
 
 $cacheFile = "./$rootName/GeneratedCode/cardArrayCache.json";
+
+// TCGdex's REST catalog contains brief records. The adapter imports full GraphQL
+// records and local artwork before this shared generator emits the dictionaries.
+if (($importOptions['sourceAdapter'] ?? '') === 'tcgdex') {
+  require_once __DIR__ . '/PokeSim/Import/TCGdex.php';
+  if ($withPreview || !is_file($cacheFile) || $downloadImportedImages) {
+    PokeTCGdexImport($withPreview, null, $downloadImportedImages);
+  }
+  $withPreview = false; // The adapter has produced the normalized cache.
+}
 
 // Hellbreak's source is an XLSX workbook, not a JSON API. Its dedicated importer normalizes
 // the workbook into this cache and extracts embedded images before the generic generator runs.
@@ -357,6 +382,9 @@ if(!$withPreview && file_exists($cacheFile)) {
       $cardID = $card->id;
     } else if($rootName == "FaBSim") {
       $cardID = FaBCardIdentifier($card->name ?? '', $card->pitch ?? 0);
+      // IAR release notes correct the preview feed's blue Darkest Hour value.
+      if($cardID === 'darkest_hour_blue')foreach(['functional_text','functional_text_plain'] as $field)
+        if(isset($card->$field))$card->$field=str_replace('+1{p}','+2{p}',$card->$field);
       if($cardID === '') {
         $pageSkipped++; $totalSkipped++;
         continue;
@@ -475,7 +503,7 @@ if(!$withPreview && file_exists($cacheFile)) {
       if($derived !== null) $artCardID = $derived;
     }
     if($thisImageUrl !== null && $downloadImportedImages) {
-      CheckImage($artCardID, $thisImageUrl, $cardType, "", rootPath:$artRootPath, squareCards:$squareCards, overwriteImages:$overwriteImages);
+      CheckImage($artCardID, $thisImageUrl, $cardType, "", rootPath:$artRootPath, squareCards:$squareCards, overwriteImages:ImageOverwriteRequested($overwriteImagesSpec, $artCardID));
     } else if($thisImageUrl === null) {
       logLine("WARNING: No image URL for $cardID — skipping download.");
     }
@@ -512,7 +540,7 @@ if(!$withPreview && file_exists($cacheFile)) {
           }
         }
       }
-      CheckImage($backCardID, $thisBackImageUrl, $backType, "", rootPath:$artRootPath, squareCards:$squareCards, overwriteImages:$overwriteImages);
+      CheckImage($backCardID, $thisBackImageUrl, $backType, "", rootPath:$artRootPath, squareCards:$squareCards, overwriteImages:ImageOverwriteRequested($overwriteImagesSpec, $backCardID));
     }
 
     // Drop heavy API fields that NO later phase reads (verified: 0 references), so the
@@ -604,9 +632,15 @@ if($supplementalCardCount > 0) {
 // Both SWU apps: SWUDeck needs the same preview cards in its dictionary so an HMW/IC27 deck can be
 // searched, validated and rendered in the deckbuilder. The mock row carries both Strapi shapes
 // (see SWUMockToImportRow) because the two apps' GetPropertyValue branches read different ones.
+// mocks=0 skips the merge (snapshot mode's official-only view); MockCardMerge.php is still loaded
+// because later phases call SWULoadMockCards()/SWUIsMockCardID() for every SWU regen.
+$mockAddedIDs = [];
 if($rootName == "SWUSim" || $rootName == "SWUDeck") {
   require_once __DIR__ . '/AppCore/SWU/MockCardMerge.php';
-  $mockResult = SWUMergeMockCards($cardArray, true);
+}
+if(($rootName == "SWUSim" || $rootName == "SWUDeck") && $mocksMode !== "0") {
+  $mockResult = SWUMergeMockCards($cardArray, true, '', $mocksMode === "prefer");
+  $mockAddedIDs = $mockResult['added'];
   $count = count($cardArray);
   foreach($mockResult['superseded'] as $supersededID) {
     logLine("mock " . $supersededID . " superseded by official data — safe to remove");
@@ -619,12 +653,12 @@ if($rootName == "SWUSim" || $rootName == "SWUDeck") {
   // art once the real card downloads. CheckImage handles webp conversion, concat and crops — and
   // the Imagick-not-GD path prod requires.
   $mockDefs = SWULoadMockCards();
-  foreach($mockResult['added'] as $mockID) {
+  foreach(($snapshotPath === "" ? $mockResult['added'] : []) as $mockID) {
     $def = $mockDefs[$mockID] ?? [];
     $front = trim((string)($def['imageUrl'] ?? ''));
     $back  = trim((string)($def['imageUrlBack'] ?? ''));
     if($front !== '') {
-      CheckImage("mock_" . $mockID, $front, $def['type'] ?? "", "", rootPath:$artRootPath, overwriteImages:$overwriteImages);
+      CheckImage("mock_" . $mockID, $front, $def['type'] ?? "", "", rootPath:$artRootPath, overwriteImages:ImageOverwriteRequested($overwriteImagesSpec, "mock_" . $mockID));
     }
     if($back !== '') {
       // A mock leader's back is its deployed unit side (portrait), EXCEPT for a flip leader whose
@@ -634,7 +668,7 @@ if($rootName == "SWUSim" || $rootName == "SWUDeck") {
       $mockBackType = (($def['type'] ?? '') === 'Leader')
           ? ($mockIsFlipLeader ? "Leader" : "LeaderUnit")
           : ($def['type'] ?? "");
-      CheckImage("mock_" . $mockID . "_back", $back, $mockBackType, "", rootPath:$artRootPath, overwriteImages:$overwriteImages);
+      CheckImage("mock_" . $mockID . "_back", $back, $mockBackType, "", rootPath:$artRootPath, overwriteImages:ImageOverwriteRequested($overwriteImagesSpec, "mock_" . $mockID . "_back"));
     }
   }
 }
@@ -643,8 +677,8 @@ if($rootName == "SWUSim" || $rootName == "SWUDeck") {
 // wrong SET_NNN name (before Phase 1 got the early re-ID logic). For each token in the
 // card array, if WebpImages/SET_NNN.webp exists but WebpImages/SET_T##.webp does not,
 // rename it so the token art lands at the correct path and the real card can be
-// downloaded fresh by the next generator run.
-if($rootName == "SWUSim") {
+// downloaded fresh by the next generator run. Skipped in snapshot mode, which must write nothing.
+if($rootName == "SWUSim" && $snapshotPath === "") {
   $tokenCountersPhase1b = [];
   $tokenMigrateCount = 0;
   $tokenTypes1b = ['Token Unit', 'Token Upgrade', 'Force Token', 'Credit Token'];
@@ -756,20 +790,39 @@ for ($i = 0; $i < count($cardArray); ++$i) {
   }
 }
 
-// Trait supplement: the upstream API publishes NO traits for bases (all 91 come back empty) even
-// though every base prints one. Fill those gaps from tracked source BEFORE the dictionaries +
-// client JS are written, so CardTrait()/TraitContains() and the browse UI all see the same data.
-// Fill-gaps only: anything the API did provide is left untouched.
+// Card data supplement: the upstream API omits some printed data — traits for EVERY base, and the
+// deployed side of a leader that prints its own name/traits (HMW_004 -> The Death Star). Fill those
+// blanks from tracked source (AppCore/SWU/CardDataSupplement.php) BEFORE the dictionaries + client
+// JS are written, so CardTrait()/TraitContains()/SWUObjectTitle() and the browse UI all see the same
+// data. Fill-blanks only: anything the API (or a mock) provided is left untouched.
 //
-// Applies to EVERY SWU app that builds a dictionary, not just SWUSim. This used to be gated on
-// `$rootName == "SWUSim"` with the helper living under SWUSim/DevTools/, which left all 91 bases
-// in SWUDeck's dictionary (server AND client JS) carrying an empty trait list while SWUSim's were
-// correct — the same "both apps need the same card data" argument that put MockCardMerge.php in
-// AppCore/SWU/. Non-SWU roots simply have no supplement file entry to match, so this is inert.
+// Applies to BOTH SWU apps. The trait supplement was once gated to SWUSim, which left every base in
+// SWUDeck's dictionary with an empty trait list. Fields an app lacks (SWUDeck: leaderUnit*) skip.
+$supplementResult = ['filled' => [], 'unknownCard' => [], 'unknownField' => []];
 if($rootName == "SWUSim" || $rootName == "SWUDeck") {
-  require_once __DIR__ . '/AppCore/SWU/TraitSupplement.php';
-  $traitFilled = SWUApplyTraitSupplement($associativeArrays["trait"]);
-  if($traitFilled > 0) logLine("Trait supplement: filled " . $traitFilled . " card(s) the API left empty.");
+  require_once __DIR__ . '/AppCore/SWU/CardDataSupplementApply.php';
+  $supplementResult = SWUApplyCardDataSupplement($associativeArrays);
+  $filledByField = [];
+  foreach($supplementResult['filled'] as $filledFields) {
+    foreach(array_keys($filledFields) as $filledField) $filledByField[$filledField] = ($filledByField[$filledField] ?? 0) + 1;
+  }
+  foreach($filledByField as $filledField => $filledCount) {
+    logLine("Card data supplement: filled " . $filledField . " for " . $filledCount . " card(s) the API left blank.");
+  }
+  if(count($supplementResult['unknownCard']) > 0) {
+    logLine("Card data supplement: " . count($supplementResult['unknownCard']) . " entr(ies) name a CardID not in this dictionary (skipped): " . implode(", ", $supplementResult['unknownCard']));
+  }
+  if($snapshotPath !== "") {
+    require_once __DIR__ . '/AppCore/SWU/CardDataSnapshot.php';
+    $snapshot = SWUBuildCardDataSnapshot($rootName, $mocksMode, $associativeArrays, $properties, $mockAddedIDs, $supplementResult);
+    $snapshotJson = json_encode($snapshot, JSON_INVALID_UTF8_SUBSTITUTE);
+    if($snapshotJson === false || file_put_contents($snapshotPath, $snapshotJson) === false) {
+      logLine("ERROR: could not write card data snapshot to " . $snapshotPath);
+      exit(1);
+    }
+    logLine("Card data snapshot (mocks=" . $mocksMode . ") written to " . $snapshotPath . " — stopping before Phase 3; nothing else written.");
+    exit(0);
+  }
 }
 
 // Process keywords file if it exists
@@ -831,12 +884,15 @@ try {
   $databaseRoot = !empty($cardDBOverride) ? $cardDBOverride : $rootName;
   $cardAbilityDB = OpenCardAbilityRepository($databaseRoot);
 
+  // Variant printings share their base card's abilities, so they get no rows of their own.
+  $abilityCardIds = array_values(array_unique(array_map(fn($cardId) => ResolveBaseCardID($rootName, (string)$cardId), $allCardIds)));
+
   $existingCount = 0;
   if (method_exists($cardAbilityDB, 'ensureCards')) {
-    $cardAbilityDB->ensureCards($databaseRoot, $allCardIds);
-    $existingCount = count($allCardIds);
+    $cardAbilityDB->ensureCards($databaseRoot, $abilityCardIds);
+    $existingCount = count($abilityCardIds);
   } else {
-    foreach($allCardIds as $cardId) {
+    foreach($abilityCardIds as $cardId) {
       // Check if this card already has abilities in the database (using the appropriate database root)
       if(!$cardAbilityDB->cardHasAbilities($databaseRoot, $cardId)) {
         // Create placeholder entry for this card so it shows up in the editor
@@ -1311,7 +1367,15 @@ for ($i = 0; $i < count($properties); ++$i) {
 }
 fwrite($handler, "      case \"specificcards\":\r\n");
 fwrite($handler, "        var cardArr = thisValue.split(',');\r\n");
-fwrite($handler, "        if(cardArr.indexOf(cardID) === -1) return true;\r\n");
+if($rootName == "SWUDeck") {
+  // ElasticSearch and public APIs return legacy UIDs, while browse zones now hold SET_NNN.
+  // Translate at the client boundary so the API's existing wire format remains stable.
+  fwrite($handler, "        var normalizedCardID = String(SWUNormalizeDictionaryKey(cardID));\r\n");
+  fwrite($handler, "        var foundCard = cardArr.some(function(id) { return String(SWUNormalizeDictionaryKey(id.trim())) === normalizedCardID; });\r\n");
+  fwrite($handler, "        if(!foundCard) return true;\r\n");
+} else {
+  fwrite($handler, "        if(cardArr.indexOf(cardID) === -1) return true;\r\n");
+}
 fwrite($handler, "        break;\r\n");
 // NOTE: the old standalone "c" case (a naive per-character substring loop) was removed. `c` is
 // now a plain alias for `aspect` (see _filterAliases above), and the aspect case routes through
@@ -1638,7 +1702,7 @@ function ImportOptionList($importOptions, $key)
 
 function AppendSupplementalImportCards(&$cardArray, $sources)
 {
-  global $rootName, $artRootPath, $overwriteImages;
+  global $rootName, $artRootPath, $overwriteImagesSpec;
   if(empty($sources)) return 0;
 
   $seenCardIds = [];
@@ -1681,7 +1745,7 @@ function AppendSupplementalImportCards(&$cardArray, $sources)
       ++$sourceAdded;
 
       if(isset($row->image_url) && trim((string)$row->image_url) !== "") {
-        CheckImage($cardID, trim((string)$row->image_url), "", "", rootPath:$artRootPath, overwriteImages:$overwriteImages);
+        CheckImage($cardID, trim((string)$row->image_url), "", "", rootPath:$artRootPath, overwriteImages:ImageOverwriteRequested($overwriteImagesSpec, $cardID));
       }
     }
 
@@ -1856,6 +1920,11 @@ function GetPropertyValue($card, $property)
 {
   global $rootName;
   switch($rootName) {
+    case "PokeSim":
+      $value = $card->$property ?? null;
+      if (is_object($value) || is_array($value)) return json_decode(json_encode($value), true);
+      if ($property === 'energyType' && $card->id === 'me03-088') return 'Special';
+      return $value;
     case "SWUDeck":
       switch($property) {
         case "rarity":

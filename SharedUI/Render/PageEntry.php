@@ -41,6 +41,7 @@ function _ComputeSafeRedirect(): string {
     return $safeRedirect;
 }
 
+
 function RenderSitePage(string $site, string $page): void {
     $def = LoadSiteDef($site);   // throws clearly if the SiteDef is missing
 
@@ -118,7 +119,7 @@ function RenderSitePage(string $site, string $page): void {
             echo "\n";
             echo RenderHeader($def);
             echo "\n";
-            echo RenderTemplate('PrivacyPolicy', $def);
+            echo RenderLegalPage($def, 'PrivacyPolicy');
             echo "\n";
             echo RenderTemplate('Disclaimer', $def);
             return;
@@ -129,7 +130,7 @@ function RenderSitePage(string $site, string $page): void {
             echo "\n";
             echo RenderHeader($def);
             echo "\n";
-            echo RenderTemplate('TermsOfUse', $def);
+            echo RenderLegalPage($def, 'TermsOfUse');
             echo "\n";
             echo RenderTemplate('Disclaimer', $def);
             return;

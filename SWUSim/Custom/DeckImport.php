@@ -2,6 +2,7 @@
 
 include_once __DIR__ . '/../GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/DeckTextParser.php';
+include_once __DIR__ . '/../../AppCore/SWU/DeckLinkImport.php'; // shared deck-builder link import (melee.gg, swubase, …)
 include_once __DIR__ . '/../../AppCore/SWU/Overrides.php'; // CardIDOverride — reprint → earliest printing
 include_once __DIR__ . '/../../AppCore/SWU/Formats.php'; // SWUGetFormat / SWUFormatLegalSets / config
 include_once __DIR__ . '/../../AppCore/SWU/DeckValidation.php'; // shared legality validator: SWUCheckFormat / SWUCardHasLegalPrint / SWUReprintGroup / SWUCardSet / SWUIsDeckLegal
@@ -34,7 +35,7 @@ function SWUResolveToImplementedPrint($cardID) {
 /**
  * Validate a deck link or paste without fully loading the deck.
  */
-function SWUValidateDeckForQueue($deckLink, $preconstructedDeck = '') {
+function SWUValidateDeckForQueue($deckLink, $preconstructedDeck = '', $formatId = 'premier') {
     $input = trim($deckLink) !== '' ? trim($deckLink) : $preconstructedDeck;
     if ($input === '') {
         return ['success' => false, 'message' => 'No deck provided.'];
@@ -52,12 +53,15 @@ function SWUValidateDeckForQueue($deckLink, $preconstructedDeck = '') {
         return ['success' => false, 'message' => 'Deck is missing a base.'];
     }
 
-    // Structural minimum (base may modify it; same modifiers as ValidateDeck.php).
-    // Format-specific legality (legal sets, banlist, copy limits) is layered on later.
-    $minDeck = 50;
-    $baseModifiers = ['JTL_024' => +10, 'JTL_025' => -5];
-    if (isset($baseModifiers[$resolved['base']])) {
-        $minDeck += $baseModifiers[$resolved['base']];
+    // Deck-size floor comes from the FORMAT (base may modify it). This used to be a hardcoded 50,
+    // which refused every short list in Open / Goldfish / Hotseat / Arenabot — formats that enforce
+    // no deck size at all — and under-checked Twin Suns (80). An unrestricted format has minDeck 0
+    // and no deck-size modifiers. Other legality (sets, banlist, copies) is layered on later.
+    $fmt = SWUGetFormat($formatId) ?? SWUGetFormat('premier');
+    $minDeck = $fmt['minDeck'];
+    $baseCanon = CardIDOverride($resolved['base']);
+    if (isset($fmt['deckSizeModifiers'][$baseCanon])) {
+        $minDeck += $fmt['deckSizeModifiers'][$baseCanon];
     }
     $deckSize = is_array($resolved['mainDeck']) ? count($resolved['mainDeck']) : 0;
     if ($deckSize < $minDeck) {
@@ -79,6 +83,32 @@ function SWUValidateDeckForQueue($deckLink, $preconstructedDeck = '') {
  *   sideboard  string[] expanded card IDs
  *   unresolved string[] names/IDs that could not be resolved
  */
+// May this input be SAVED to a deck library? Owner, 2026-09-25: only a LINK may be.
+//
+// A pasted JSON blob or a free-text list has no source to go back to. Saving one stores a
+// snapshot that can never be re-synced with the deck it came from, and there is nothing to show
+// in the Deck Link box when the player picks it later — which is the whole point of the saved
+// list. Links (and the bare friendly code, which is a link in short form) are re-resolvable.
+//
+// ⚠ Keep the branch order below in step with SWUResolveDeckInput(): this must say yes ONLY to
+// inputs that function routes to a link importer, or the library fills with links it cannot
+// read back.
+function SWUDeckInputIsLink($input): bool {
+    $input = trim((string)$input);
+    if ($input === '') return false;
+    if ($input[0] === '{') return false;                                  // pasted JSON
+    if (strpos($input, "\n") !== false || strpos($input, "\r") !== false) return false;  // free text
+
+    foreach (['swudeck.com', 'swudb.com', 'swustats.net'] as $host) {
+        if (stripos($input, $host) !== false) return true;
+    }
+    // The localhost form SWUResolveDeckInput accepts is dev-only and deliberately NOT savable:
+    // a library entry pointing at a loopback address is worthless on any other machine.
+    if (SWUDeckLinkParse($input) !== null) return true;                   // melee.gg, swubase, …
+    if (preg_match('/^[A-Za-z]{12}$/', $input)) return true;              // bare friendly code
+    return false;
+}
+
 function SWUResolveDeckInput($deckLink) {
     $deckLink = trim($deckLink);
     if ($deckLink === '') {
@@ -124,12 +154,18 @@ function SWUResolveDeckInput($deckLink) {
         return SWUImportFromSWUStats($deckLink);
     }
 
+    // ── Other deck builders (shared with SWUDeck) ─────────────────────────────
+    // melee.gg, swubase, protectthepod, swucardhub, swuforge, swumetastats, sw-unlimited-db.
+    if (SWUDeckLinkParse($deckLink) !== null) {
+        return SWUImportFromDeckLink($deckLink);
+    }
+
     // ── Bare friendly deck code (the short code on its own, no URL) ────────────
     if (preg_match('/^[A-Za-z]{12}$/', $deckLink)) {
         return SWUImportFromSWUStats($deckLink);
     }
 
-    return SWUDeckError('Unsupported deck format. Paste a deck list, JSON, or a SWUDeck / SWUDB / SWUStats URL.');
+    return SWUDeckError('Unsupported deck format. Paste a deck list, JSON, or a deck link from SWUStats, SWUDB, melee.gg, SWUBase, Protect the Pod, SWU Card Hub, SWUForge, SWU Meta Stats or SW-Unlimited-DB.');
 }
 
 // ─── Source: standardized SWU JSON ───────────────────────────────────────────
@@ -146,9 +182,16 @@ function SWUResolveDeckInput($deckLink) {
  */
 // Accept a card ID if it passes the dictionary check OR matches the SET_NNN pattern.
 // Deck sources like SWUDB already guarantee valid IDs; pure format matching is safe here.
+//
+// ⚠ A SET CODE MAY CONTAIN DIGITS. The fallback used to demand `[A-Z]{2,5}`, which matches no TS26_
+// or IC27_ card at all — so whenever the dictionary was unreachable (see
+// SWUSim/DevTools/tests/lobby_adapter_deck_scope_test.php) a Twin Suns list silently lost its TS26
+// leader and every TS26 card, and reported itself as "1 leader, 79 cards". The generated
+// DecomposeCardID() has always used `[A-Z0-9]{2,5}`; this now agrees with it, less the token forms
+// (SET_T##), which are never deck entries. The leading letter keeps a purely numeric "set" out.
 function SWUIsAcceptableCardID($cardId) {
     if (function_exists('IsSWUCardID') && IsSWUCardID($cardId)) return true;
-    return (bool)preg_match('/^[A-Z]{2,5}_\d{2,4}$/', $cardId);
+    return (bool)preg_match('/^[A-Z][A-Z0-9]{1,4}_\d{2,4}$/', $cardId);
 }
 
 function SWUNormalizeStandardJSON($data) {
@@ -265,6 +308,21 @@ function SWUImportFromSWUDB($url) {
     return SWUNormalizeStandardJSON($data);
 }
 
+// ─── Source: other deck builders (AppCore/SWU/DeckLinkImport.php) ────────────
+
+function SWUImportFromDeckLink($url) {
+    $fetched = SWUDeckLinkFetch($url);
+    if (!$fetched['success']) {
+        return SWUDeckError($fetched['message']);
+    }
+    $result = SWUNormalizeStandardJSON($fetched['deck']);
+    // melee.gg names that matched no card — report them instead of silently shipping a short deck.
+    if ($result['success'] && !empty($fetched['unresolved'])) {
+        $result['unresolved'] = array_values(array_unique(array_merge($result['unresolved'], $fetched['unresolved'])));
+    }
+    return $result;
+}
+
 // ─── Source: SWUStats / SWUDeck game link ────────────────────────────────────
 
 /**
@@ -355,7 +413,13 @@ function SWUNormalizeSWUDBLegacy($data) {
  *   e.g.  "3 K-2SO"  or  "1x Sabine Wren (SOR_014)"  or  "SOR_014"
  */
 function SWUParseFreeText($text) {
-    $leader    = '';
+    // Leaders are COLLECTED, not first-wins. A Twin Suns / Team Suns list has two, and this parser
+    // used to keep only the first and silently drop the rest — so a Twin Suns deck could not be
+    // expressed as text at all, and every such list failed format-checking with "requires exactly 2
+    // leaders; found 1". The swudb JSON path (see the `secondleader` handling above) has always
+    // returned both, and SWUDeckSuccess already documents $leader as "a single CardID or an array of
+    // 2", so this only brings the text path up to a contract the rest of the file already keeps.
+    $leaders   = [];
     $base      = '';
     $mainDeck  = [];
     $sideboard = [];
@@ -416,7 +480,11 @@ function SWUParseFreeText($text) {
         for ($i = 0; $i < $quantity; ++$i) {
             switch ($section) {
                 case 'leader':
-                    if ($leader === '') $leader = $cardId;
+                    // Deduped: "2 SOR_001" in a Leader section is one leader listed with a quantity,
+                    // never the same leader twice (no format allows that). Two DIFFERENT lines give
+                    // two leaders. Not capped here — SWUCheckFormat owns leaderCount, so a 3-leader
+                    // list must reach it as 3 and be rejected with a real message.
+                    if (!in_array($cardId, $leaders, true)) $leaders[] = $cardId;
                     break;
                 case 'base':
                     if ($base === '') $base = $cardId;
@@ -429,6 +497,10 @@ function SWUParseFreeText($text) {
             }
         }
     }
+
+    // Collapse to the shape every consumer already handles: a bare CardID for a one-leader deck
+    // (unchanged for every standard format), an ARRAY once there are two or more.
+    $leader = count($leaders) > 1 ? $leaders : (string)($leaders[0] ?? '');
 
     if ($leader === '' && $base === '' && empty($mainDeck)) {
         return SWUDeckError('Unable to parse the deck list. Please check the format.');

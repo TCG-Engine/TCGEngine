@@ -7,5 +7,5 @@
 // combined cost 5 or less and play each for free.
 $whenPlayedAbilities["LAW_063:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    DoTopDeckPlay(intval($player), 10, fn($c) => CardType($c) === 'Unit' && HasTrait($c, 'Droid'), 5);
+    DoTopDeckPlay(intval($player), 10, fn($c) => CardType($c) === 'Unit' && HasTrait($c, 'Droid'), 5, 'Droid units');
 };

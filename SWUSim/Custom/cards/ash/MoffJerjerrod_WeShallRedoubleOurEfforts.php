@@ -34,4 +34,5 @@ $customDQHandlers["ASH_094#0"] = function ($player, $parts, $lastDecision) {
     if ($upgradeToken !== '' && $mz !== null)
       _SWUApplyTokenRider(intval($player), $mz, $upgradeToken);
   }
+  _SWUAfterTokensCreated();   // the doubled tokens meet any continuous shrink too (SHD_037 / HMW_065)
 };

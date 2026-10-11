@@ -7,5 +7,5 @@
 $onAttackAbilities["LOF_068:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     DoTopDeckSearch(intval($player), 5,
-        fn($c) => strpos(CardType($c) ?? '', 'Upgrade') !== false && HasTrait($c, 'Item'), 1);
+        fn($c) => strpos(CardType($c) ?? '', 'Upgrade') !== false && HasTrait($c, 'Item'), 1, 'Item upgrades');
 };

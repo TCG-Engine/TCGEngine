@@ -65,3 +65,43 @@ P1HASDECISION
 P1DECISIONTOOLTIP:Choose_a_player_to_deal_indirect_damage
 P1OPTIONHAS:You
 P1OPTIONHAS:Opponent
+
+---
+
+# ThreeSeat_RadiantOnAFarSeat_StillDebuffs
+#// The aura is resolved FROM THE AFFECTED UNIT's side: for each unit, is there a Radiant VII among ITS
+#// enemies? P1's damaged SOR_046 has the Radiant on SEAT 3 — `OtherPlayer(1)` is seat 2, so the search
+#// looked at the wrong board and the debuff silently vanished.
+#// ⚠ Note the mirror case (Radiant on seat 1, victim on seat 3) accidentally WORKS, because
+#// OtherPlayer(3) == 1. The victim must be on seat 1 for the bug to show.
+
+## GIVEN
+CommonSetup3P: bbk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_046:1:2
+WithP3SpaceArena: JTL_226:1:0
+
+## WHEN
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENAUNIT:0:POWER:1
+
+---
+
+# FourSeat_RadiantOnTheFarthestSeat_StillDebuffs
+#// 4P sibling: the Radiant sits on SEAT 4.
+
+## GIVEN
+CommonSetup4P: bbk/bbk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_046:1:2
+WithP4SpaceArena: JTL_226:1:0
+
+## WHEN
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:POWER:1

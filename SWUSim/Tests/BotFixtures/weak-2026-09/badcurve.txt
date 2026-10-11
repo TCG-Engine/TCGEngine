@@ -1,0 +1,36 @@
+# BAD-DECK fixture — Bad curve
+# Source: owner-supplied (ninin) — top-heavy with no early plays
+#   The WEAK set (added 2026-09-15): deliberately poor decks, for the deck-advantage conversion test —
+#   a strong pilot should beat a clearly worse deck nearly every time, and that measure has none of the
+#   field-skew that makes bot-vs-tournament win rates misleading.
+#   ⚠ not Premier legal: HMW base. Never add this set to a strength gate or to the tournament-backed sets.
+# Shape: 54 cards, avg cost 6.94, 48 units (0 at 1-2, 36 at 6+), 12 removal, 9 wipe, 6 events, 0 upgrades
+# Style: control
+#   ⚠ auto-derived from deck shape, not reviewed.
+# Flavours: none
+
+Leader
+1 SEC_010
+
+Base
+1 HMW_020
+
+Deck
+3 JTL_041
+3 SEC_037
+3 SEC_034
+3 ASH_052
+3 SEC_244
+3 JTL_143
+3 SEC_142
+3 LAW_099
+3 LAW_100
+3 ASH_146
+3 LAW_101
+3 ASH_148
+3 JTL_043
+3 LAW_178
+3 ASH_053
+3 ASH_049
+3 LAW_044
+3 ASH_147

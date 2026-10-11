@@ -32,6 +32,9 @@ $customDQHandlers["HMW_185#0"] = function($player, $parts, $lastDecision) {
     $srcTok = (string)($parts[3] ?? '');
     $skipPrevent = intval($parts[4] ?? 0) === 1;
     if (_SWUHmw185Accepted($lastDecision)) $amount += 1;
+    // The amount actually dealt to this target, for an ability that still has to react to it once the deferred
+    // damage lands (HMW_114 Breach's Overwhelm excess is computed from the damage DEALT, +1 included).
+    if ($uid > 0) SetSWUVar("SWU_TY_DEALT_UID_{$uid}", strval($amount));
     if ($amount <= 0 || $dealer <= 0) return;
     $playerID = $dealer;
     $mz = SWUFindMzByUID($uid);

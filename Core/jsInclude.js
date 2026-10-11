@@ -29,6 +29,10 @@ var AZUKISIM_CARD_DETAIL_HOVER_MS = 400;
 var CARD_DETAIL_TOUCH_VIEWPORT_W = 0.92;
 var CARD_DETAIL_TOUCH_VIEWPORT_H = 0.90;
 var cardDetailPersistent = false;
+// A DESKTOP preview opened by a click (the deck top-card eye, PinTopCardPeek). cardDetailPersistent is the
+// touch twin and is dismissed by touchstart, which a mouse never fires, so a click needs its own flag:
+// while pinned, hovers cannot replace the preview and mouseout cannot close it; the next click does.
+var cardDetailPinned = false;
 
 function TrackCardDetailMouse(e) {
   if (!e || typeof e.clientX !== "number" || typeof e.clientY !== "number") return;
@@ -37,7 +41,7 @@ function TrackCardDetailMouse(e) {
 }
 
 function IsCardDetailSuppressed() {
-  return !!window._suppressCardDetail || freezeCardDetailUntilMouseMove;
+  return !!window._suppressCardDetail || freezeCardDetailUntilMouseMove || cardDetailPinned;
 }
 
 function IsCardDetailOpen() {
@@ -75,7 +79,7 @@ function CardDetailHoverDelay(options) {
   var el = document.getElementById("folderPath");
   var folderPath = el ? el.value : "";
   if (folderPath == "SWUDeck" || folderPath == "AzukiDeck") return SWUDECK_CARD_DETAIL_HOVER_MS;
-  if (folderPath == "SWUSim") return 850;
+  if (folderPath == "SWUSim") return 400;
   if (folderPath == "AzukiSim" || folderPath == "FaBSim") return AZUKISIM_CARD_DETAIL_HOVER_MS;
   if (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim") return 100;
   return 1;
@@ -274,7 +278,7 @@ function CardDetailControlStyle(extra) {
 // `place` re-centres the preview after a flip, since the two faces can differ in aspect ratio.
 // `token` is the caller's cardDetailRequestToken: the asset probe is async, so without it a slow
 // probe could append a flip button onto a preview the user has since replaced with another card.
-function AddCardDetailControls(el, imgSource, place, token) {
+function AddCardDetailControls(el, imgSource, place, token, closeOnly) {
   var current = function() { return token === cardDetailRequestToken && cardDetailPersistent; };
   var close = document.createElement("button");
   close.type = "button";
@@ -286,8 +290,16 @@ function AddCardDetailControls(el, imgSource, place, token) {
     "font-size:16px; line-height:1; display:flex; align-items:center; justify-content:center; z-index:2;");
   close.addEventListener("click", function(ev) { ev.stopPropagation(); HideCardDetail(true); });
   el.appendChild(close);
+  if (closeOnly) return;   // a two-faced leader preview already shows both sides: nothing to flip
 
   var opposite = CardDetailOppositeFace(imgSource);
+  // opposite is built by toggling "_back" on imgSource as a plain string, so if imgSource was already
+  // localized (i18n/<lang>/...) that prefix carries over unchecked — including onto a face the
+  // localized manifest never listed. Re-run it through SWUCardI18n so a localized front with no
+  // localized back correctly falls back to the (existing) English back instead of 404ing the probe.
+  if (opposite && window.SWUCardI18n && typeof window.SWUCardI18n.currentUrl === "function") {
+    opposite = window.SWUCardI18n.currentUrl(opposite);
+  }
   if (!opposite || opposite === imgSource) return;
 
   ProbeCardDetailFace(opposite, function(exists) {
@@ -329,7 +341,118 @@ function AddCardDetailControls(el, imgSource, place, token) {
   });
 }
 
-function ShowDetail(e, imgSource, avoidEl, requestToken) {
+// ── SWUSim + SWUDeck: a LEADER previews as BOTH faces, side by side ───────────────────────────
+// Owner, 2026-10-01: hovering any leader — in a Leader zone, a deployed Leader unit, a leader attached
+// as a PILOT (ShowSubcardDetail), or SWUDeck's card panel and identity banner — shows the leader side
+// AND the Leader Unit side at once (the approach SWUniversity's CardPreview.tsx takes).
+// The leader is identified from the card dictionary (Cardtype), never by probing: a probe would be a
+// 404 on every non-leader hover. A deployed leader's tile is "<CardID>_back", so either face hovered
+// resolves to the same pair, front first.
+// Orientation is read from the LOADED images, not from a table: the front is landscape, the back is
+// portrait when it is a unit side — but a double-sided leader's back is another landscape leader face
+// (TWI_017 Palpatine -> Darth Sidious). Both faces share their SHORT EDGE so they read at one card
+// scale: the landscape front's height equals the portrait back's width.
+// SWUSim and SWUDeck only — the two apps on the shared SWU art corpus (other apps' leaders are not
+// two-faced like this). SWUDeck's Cardtype normalises a stored FFG UID itself; SWUSim's ids are SET_NNN.
+var CARD_DETAIL_PAIR_MAX_FACE = 400;   // desktop: each face keeps the single-card preview's 400px ceiling
+var CARD_DETAIL_PAIR_GAP = 8;
+
+function CardDetailLeaderFaces(src) {
+  var fp = document.getElementById("folderPath");
+  if (!fp || (fp.value !== "SWUSim" && fp.value !== "SWUDeck") || typeof Cardtype !== "function") return null;
+  var m = /\/([^\/?#]+?)(_back)?\.(webp|png|jpg)(\?|#|$)/i.exec(src || "");
+  if (!m) return null;
+  var id = m[1].replace(/^mock_/, "");
+  if (String(Cardtype(id) || "").indexOf("Leader") === -1) return null;
+  var front = m[2] ? src.replace(/_back(\.[a-z0-9]+)/i, "$1") : src;
+  var back = CardDetailOppositeFace(front);
+  // A localized front may have no localized back: let the i18n layer pick the URL that exists.
+  if (window.SWUCardI18n && typeof window.SWUCardI18n.currentUrl === "function") back = window.SWUCardI18n.currentUrl(back);
+  return back && back !== front ? [front, back] : null;
+}
+
+// Each face's size at a shared short edge `s` (natural sizes in, display sizes out). `exact` skips the
+// pixel rounding — the layout measures sizes PER PIXEL of short edge (s = 1), where rounding 628/450 to 1
+// made every face read as square and the fit came out ~40% too big.
+function CardDetailPairFaceSizes(imgs, s, exact) {
+  var r = exact ? function(x) { return x; } : Math.round;
+  return imgs.map(function(im) {
+    var landscape = im.width > im.height;
+    return landscape ? { width: r(s * im.width / im.height), height: s }
+                     : { width: s, height: r(s * im.height / im.width) };
+  });
+}
+
+// Lay the pair out side by side — or stacked, on a touch screen that is taller than wide — at the
+// largest shared short edge that fits (desktop: the one that puts the LONGEST face side at exactly the single-card
+// 400px ceiling — ~286.6px for SWU's 628x450 art — shrunk only for a narrow window).
+function CardDetailPairLayout(imgs, touch) {
+  var stack = touch && window.innerHeight > window.innerWidth;
+  var availW = touch ? window.innerWidth * CARD_DETAIL_TOUCH_VIEWPORT_W : window.innerWidth - 10;
+  var availH = touch ? window.innerHeight * CARD_DETAIL_TOUCH_VIEWPORT_H : window.innerHeight - 10;
+  var unit = CardDetailPairFaceSizes(imgs, 1, true);   // sizes per 1px of short edge, unrounded
+  var w1 = stack ? Math.max(unit[0].width, unit[1].width) : unit[0].width + unit[1].width;
+  var h1 = stack ? unit[0].height + unit[1].height : Math.max(unit[0].height, unit[1].height);
+  var s = Math.min((availW - CARD_DETAIL_PAIR_GAP) / w1, (availH - CARD_DETAIL_PAIR_GAP) / h1);
+  if (!touch) {
+    // Derived, not a fixed 286: a whole-pixel short edge put a portrait back at 399px, not 400.
+    var longRatio = Math.max.apply(null, imgs.map(function(im) { return Math.max(im.width, im.height) / Math.min(im.width, im.height); }));
+    s = Math.min(s, CARD_DETAIL_PAIR_MAX_FACE / longRatio);
+  }
+  // never upscale past either face's natural short edge — blown-up art reads blurry
+  s = Math.min(s, Math.min(imgs[0].width, imgs[0].height), Math.min(imgs[1].width, imgs[1].height));
+  s = Math.round(s * 100) / 100;   // a fractional short edge; each face's long side is rounded to a whole pixel
+  var sizes = CardDetailPairFaceSizes(imgs, s);
+  var gap = CARD_DETAIL_PAIR_GAP;
+  return { stack: stack, sizes: sizes,
+           width: stack ? Math.max(sizes[0].width, sizes[1].width) : sizes[0].width + gap + sizes[1].width,
+           height: stack ? sizes[0].height + gap + sizes[1].height : Math.max(sizes[0].height, sizes[1].height) };
+}
+
+function ShowLeaderFacesDetail(e, faces, fallbackSource, avoidEl, requestToken) {
+  var el = document.getElementById("cardDetail");
+  var cx = e.clientX, cy = e.clientY;
+  var touch = IsTouchPreviewEvent(e);
+  if (touch) cardDetailPersistent = true;   // claimed now, as in ShowDetail (see there)
+  el.style.display = "none";
+  el.style.zIndex = 100000;
+  var imgs = [new Image(), new Image()], loaded = 0, failed = false, finished = false;
+  var done = function() {
+    if (finished || requestToken !== cardDetailRequestToken) return;
+    // A face with no art (a leader whose back was never scanned): fall back to the ordinary one-card
+    // preview of what was hovered — once, however many of the two loads report in after.
+    if (failed) { finished = true; ShowDetail(e, fallbackSource, avoidEl, requestToken, true); return; }
+    if (++loaded < 2) return;
+    finished = true;
+    var L = CardDetailPairLayout(imgs, touch);
+    el.innerHTML = "<div data-card-detail-pair style='display:flex; flex-direction:" + (L.stack ? "column" : "row") +
+      "; gap:" + CARD_DETAIL_PAIR_GAP + "px; align-items:" + (L.stack ? "center" : "flex-start") + ";'>" +
+      faces.map(function(src, i) {
+        return "<img data-card-face='" + (i ? "back" : "front") + "' style='height:" + L.sizes[i].height + "px; width:" +
+          L.sizes[i].width + "px;' src='" + src + "' />";
+      }).join("") + "</div>";
+    PlaceCardDetail(el, cx, cy, L.width, L.height, avoidEl, touch);
+    if (touch) {
+      el.style.pointerEvents = "none";
+      ShowCardDetailScrim();
+      AddCardDetailControls(el, faces[0], null, requestToken, true);   // a close X; no flip — both faces show
+    }
+    el.style.display = "inline";
+    el.style.opacity = 0;
+    showDetailTimeout = setTimeout(function() {
+      if (requestToken !== cardDetailRequestToken) return;
+      el.style.transition = "opacity 0.5s";
+      el.style.opacity = 1;
+    }, 100);
+  };
+  imgs.forEach(function(im, i) {
+    im.onload = done;
+    im.onerror = function() { failed = true; done(); };
+    im.src = faces[i];
+  });
+}
+
+function ShowDetail(e, imgSource, avoidEl, requestToken, singleFace) {
   if (IsCardDetailSuppressed()) return;
   if (typeof requestToken !== "number") requestToken = ++cardDetailRequestToken;
   TrackCardDetailMouse(e);
@@ -339,6 +462,8 @@ function ShowDetail(e, imgSource, avoidEl, requestToken) {
   imgSource = imgSource.replace("_concat", "");
   imgSource = imgSource.replace("/concat/", "/WebpImages/");
   imgSource = imgSource.replace(".png", ".webp");
+  var leaderFaces = singleFace ? null : CardDetailLeaderFaces(imgSource);
+  if (leaderFaces) { ShowLeaderFacesDetail(e, leaderFaces, originalSource, avoidEl, requestToken); return; }
   var el = document.getElementById("cardDetail");
   var cx = e.clientX, cy = e.clientY; // capture: pointer may move before the image loads
   var touch = IsTouchPreviewEvent(e);
@@ -407,6 +532,10 @@ function ShowSubcardDetail(e, imgEl, options) {
     // Transform concat URL to WebpImages for the popup
     src = src.replace('/concat/', '/WebpImages/');
     src = src.replace('.webp', '.webp'); // Keep as webp
+    // A leader attached as a PILOT renders its "_back" (Leader Unit) face here; preview both faces like
+    // any other leader (owner 2026-10-01). Hover and long-press both come through this function.
+    var pilotFaces = CardDetailLeaderFaces(src);
+    if (pilotFaces) { ShowLeaderFacesDetail(e, pilotFaces, src, null, requestToken); return; }
     var el = document.getElementById('cardDetail');
     // Subcards have no natural dimensions to hand ComputeCardDetailSize (the image is not
     // preloaded here), so feed it the standard SWU portrait ratio: 0.71 wide per 1 tall.
@@ -474,6 +603,25 @@ function ShowTopCardPeek(e, el, options) {
   ShowCardDetailByCardID(e, el.getAttribute('data-topcard-peek') || '', options);
 }
 
+// CLICK on the eye badge: open the top card NOW and keep it up until the next click (owner ruling, game
+// 1459263). The badge's click used to call ShowTopCardPeek — the hover path, a 400ms dwell then a preview
+// that closes on mouseout — so once a hover had opened it, a click visibly did nothing. A second click on
+// the badge closes it. A TAP (a click right after a touchstart) goes through the existing touch preview
+// instead: phone sizing + scrim, dismissed by the next tap in BeginCardDetailLongPress.
+function PinTopCardPeek(e, el) {
+  if (!el || typeof el.getAttribute !== 'function') return;
+  if (cardDetailPinned) { HideCardDetail(true); return; }
+  var src = SwuCardArtSrc(el.getAttribute('data-topcard-peek') || '');
+  if (!src) return;
+  clearTimeout(showDetailTimeout);   // drop the focus/hover dwell this same click started
+  if (Date.now() < suppressMouseCardDetailUntil) {
+    ShowDetail({ type: "touchlongpress", target: el, clientX: e.clientX, clientY: e.clientY }, src, null);
+    return;
+  }
+  ShowDetail(e, src, el);
+  cardDetailPinned = true;   // AFTER ShowDetail — it refuses to open while pinned (IsCardDetailSuppressed)
+}
+
 // Twin Suns mini-board thumbnails (leaders / base / units in the home preview tiles). They are
 // background-image spans, so they get the same blow-up-on-hover the full board gives its cards.
 function ShowMiniCardDetail(e, el, options) {
@@ -489,7 +637,7 @@ function HideCardDetail(force) {
   // finger moves between cards; without this guard that stray event closes a preview the user
   // just opened, so the second and later long-presses flash and vanish. ShowCardDetail already
   // guards the mirror case via suppressMouseCardDetailUntil.
-  if (!force && cardDetailPersistent) return;
+  if (!force && (cardDetailPersistent || cardDetailPinned)) return;
   cardDetailRequestToken++;
   clearTimeout(showDetailTimeout);
   var el = document.getElementById("cardDetail");
@@ -504,8 +652,19 @@ function HideCardDetail(force) {
     if (stale[i].parentNode) stale[i].parentNode.removeChild(stale[i]);
   }
   cardDetailPersistent = false;
+  cardDetailPinned = false;
   HideCardDetailScrim();
 }
+
+// The click that ends a pinned preview. Capture phase, so a target that stops propagation (most board
+// cards do) still dismisses it; the click itself is NOT consumed and goes on to do whatever it does. The
+// badge is exempt — its own onclick toggles the pin, and closing here first would reopen it there.
+document.addEventListener("click", function(e) {
+  if (!cardDetailPinned) return;
+  if (e && e.target && typeof e.target.closest === "function" &&
+      e.target.closest(".topcard-peek-badge, [data-card-detail-control]")) return;
+  HideCardDetail(true);
+}, true);
 
 document.addEventListener("mousemove", function(e) {
   if (!freezeCardDetailUntilMouseMove) {
@@ -717,6 +876,19 @@ function SubmitChat() {
   ajaxLink += "&authKey="  + encodeURIComponent(document.getElementById("authKey").value);
   ajaxLink += "&folderPath=" + encodeURIComponent(document.getElementById("folderPath").value);
   ajaxLink += "&chatText="  + encodeURIComponent(text);
+  // Optional host hook (SWUSim whisper checkboxes). No hook / no targets = today's public request.
+  var whisperTargets = (typeof window.TCGChatWhisperTargets === "function") ? window.TCGChatWhisperTargets() : null;
+  var isWhisper = Array.isArray(whisperTargets) && whisperTargets.length > 0;
+  if (isWhisper) {
+    ajaxLink += "&whisperTo=" + encodeURIComponent(whisperTargets.join(","));
+    // A refused whisper must not silently eat the message: put the text back if the box is still empty.
+    xmlhttp.onload = function() {
+      if (String(xmlhttp.responseText || "").trim() !== "OK" && chatBox.value === "") {
+        chatBox.value = text;
+        chatBox.title = String(xmlhttp.responseText || "").trim();
+      }
+    };
+  }
   xmlhttp.open("GET", ajaxLink, true);
   xmlhttp.send();
 }
@@ -765,7 +937,24 @@ function ApplyChatPayload(payload) {
       if (ci.dataset.ph !== undefined) ci.placeholder = ci.dataset.ph;
     }
   }
+  // Optional host sink for the inactivity clock / kick vote (SWUSim). It rides the chat payload because
+  // that piece is already parsed on BOTH poll branches (see ParseChatPayload in NextTurn.php).
+  if (typeof window.TCGPresenceSink === "function"
+      && Object.prototype.hasOwnProperty.call(payload, "presence")) {
+    try { window.TCGPresenceSink(payload.presence); } catch (e) {}
+  }
   return msgs.length > 0 || version > 0;
+}
+
+// Echoed back to the poll as lastPresenceVersion, so a vote opening or changing wakes the long poll.
+// Set by the host sink; 0 when no sim uses the clock.
+var _lastPresenceVersion = 0;
+function ChatPresenceVersionParam() {
+  return "&lastPresenceVersion=" + encodeURIComponent(_lastPresenceVersion);
+}
+function NotePresenceVersion(v) {
+  var parsed = parseInt(v || 0, 10);
+  if (!Number.isNaN(parsed) && parsed > _lastPresenceVersion) _lastPresenceVersion = parsed;
 }
 
 function _ChatPlayerLabel(msg) {
@@ -775,7 +964,50 @@ function _ChatPlayerLabel(msg) {
   var seat = String(msg.playerID == null ? "" : msg.playerID);
   var seatName = (window.SWU_SEAT_USERNAMES && /^[0-9]+$/.test(seat))
     ? window.SWU_SEAT_USERNAMES[seat] : null;
-  return seatName ? seatName : (msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID));
+  if (!seatName) return msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID);
+  // A host that sets CHAT_SEAT_SUFFIX (SWUSim, at 3+ seats) gets "alice (P3)", so a multiplayer table can
+  // match a name to a seat. Unset, the label is the bare username, as before.
+  return window.CHAT_SEAT_SUFFIX === true ? seatName + " (P" + seat + ")" : seatName;
+}
+
+function _ChatViewerSeat() {
+  var el = document.getElementById("playerID");
+  var seat = el ? parseInt(el.value, 10) : NaN;
+  return Number.isNaN(seat) ? 0 : seat;
+}
+
+function _ChatSeatLabel(seat) {
+  return _ChatPlayerLabel({ playerID: seat, playerLabel: "P" + seat });
+}
+
+// "A" · "A and B" · "A, B and C"
+function _ChatJoinNames(names) {
+  if (names.length <= 1) return names.join("");
+  return names.slice(0, -1).join(", ") + " and " + names[names.length - 1];
+}
+
+// Label for a readable row. Public: "Alice:". Whisper (sender/recipient): "Alice → you, Dana:".
+// A chat message's send time ('ts' / legacy 'time', Unix seconds) as the VIEWER's local clock: short for
+// the row ("2:32 PM" / "14:32", following their locale), full for the hover title. null when unusable.
+function _ChatTimeLabel(ts) {
+  var n = parseFloat(ts);
+  if (!isFinite(n) || n <= 0) return null;
+  var d = new Date(n * 1000);
+  try {
+    return { short: d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }), full: d.toLocaleString() };
+  } catch (e) { return null; }
+}
+
+function _ChatMessageLabel(msg) {
+  if (!Array.isArray(msg.to) || msg.to.length === 0) return _ChatPlayerLabel(msg) + ":";
+  var viewer = _ChatViewerSeat();
+  var names = msg.to.map(function(s) { return parseInt(s, 10) === viewer ? "you" : _ChatSeatLabel(s); });
+  return _ChatPlayerLabel(msg) + " → " + names.join(", ") + ":";
+}
+
+// The only thing a non-party ever renders for a whisper. No text exists client-side to show.
+function _ChatWhisperStubText(msg) {
+  return _ChatPlayerLabel(msg) + " whispered something to " + _ChatJoinNames(msg.to.map(_ChatSeatLabel));
 }
 
 function _ChatHistoryIsOpen() {
@@ -818,7 +1050,7 @@ function _ShowChatToast(msg) {
   toast.title = "Open chat history";
   var label = document.createElement("span");
   label.className = "chatToastLabel";
-  label.textContent = _ChatPlayerLabel(msg) + ":";
+  label.textContent = _ChatMessageLabel(msg);
   var body = document.createElement("span");
   body.textContent = msg.text;
   toast.appendChild(label);
@@ -839,15 +1071,35 @@ function _ShowChatToast(msg) {
 function _AppendChatMessage(msg, notify) {
   var div = document.createElement("div");
   div.className = "chatMsg chatMsg-p" + msg.playerID;
+  // The sink is handed the ELEMENT, not the message, so the send time rides along on it. A host
+  // that merges chat into a timestamped game log needs this to order the two streams; anything
+  // else simply ignores the attribute. ADDITIVE -- nothing else about the element changes.
+  var _cts = (msg.ts !== undefined && msg.ts !== null) ? msg.ts : msg.time;
+  if (_cts !== undefined && _cts !== null && !isNaN(parseFloat(_cts))) div.setAttribute('data-ts', _cts);
+  // Send time for display (owner request 2026-10-09). An ATTRIBUTE, drawn by a CSS ::before, never a
+  // child element: the per-seat name colour rules match `> span:first-child`, so a leading time span
+  // would steal the name's colour. Hosts that don't style [data-time] show nothing new.
+  var _ctl = _ChatTimeLabel(_cts);
+  if (_ctl) { div.setAttribute('data-time', _ctl.short); div.title = _ctl.full; }
   div.style.cssText = "padding:2px 4px; word-break:break-word; font-size:13px;";
-  var label = document.createElement("span");
-  label.style.cssText = "font-weight:700; margin-right:4px;";
-  // Prefer the seat's username (SWUSim) so chat reads from real names; fall back to P#/label.
-  label.textContent = _ChatPlayerLabel(msg) + ":";
-  var body = document.createElement("span");
-  body.textContent = msg.text;
-  div.appendChild(label);
-  div.appendChild(body);
+  var isWhisper = Array.isArray(msg.to) && msg.to.length > 0;
+  if (isWhisper && msg.redacted) {
+    // Non-party: "Alice whispered something to Bob and Dana" — one span, no body, never toasts.
+    div.className += " chatMsg-whisper chatMsg-whisperStub";
+    var stub = document.createElement("span");
+    stub.textContent = _ChatWhisperStubText(msg);
+    div.appendChild(stub);
+  } else {
+    if (isWhisper) div.className += " chatMsg-whisper";
+    var label = document.createElement("span");
+    label.style.cssText = "font-weight:700; margin-right:4px;";
+    // Prefer the seat's username (SWUSim) so chat reads from real names; fall back to P#/label.
+    label.textContent = _ChatMessageLabel(msg);
+    var body = document.createElement("span");
+    body.textContent = msg.text;
+    div.appendChild(label);
+    div.appendChild(body);
+  }
 
   // Optional host sink: a sim that merges chat into another surface (SWUSim renders chat inside its
   // game log, one stream instead of two tabs) takes the element and places it itself. Returning
@@ -862,7 +1114,7 @@ function _AppendChatMessage(msg, notify) {
   if (!log) return;
   log.appendChild(div);
   log.scrollTop = log.scrollHeight;
-  if (notify && !_ChatHistoryIsOpen()) {
+  if (notify && !msg.redacted && !_ChatHistoryIsOpen()) {
     _ShowChatToast(msg);
   }
 }
@@ -984,6 +1236,33 @@ function SubmitEngineInput(mode, params, options) {
   });
 }
 
+// Surface a refused engine action to the player.
+//
+// ⚠ A REFUSAL RESOLVES, IT DOES NOT REJECT. ProcessInput answers one with HTTP 200 and the reason as the
+// response BODY (ProcessInputReply's non-JSON branch just echoes $message), so SubmitInput's .catch never
+// sees it — and SubmitInput discarded the resolved value entirely. Every refusal was therefore invisible:
+// the board simply did not change and the player was told nothing.
+//
+// That is what produced a live bug report. On a hosted game the seat auth keys live ONLY in APCu
+// (SimGameReadAuthKeys has no disk fallback, and SimGameRequiresManagedAuth('SWUSim') is true), so after
+// an APCu eviction or an httpd restart every action is answered "Invalid auth key" — and the player sees
+// absolutely nothing. Reported 2026-09-25 as "clicking Ability did nothing".
+//
+// What counts as a refusal: a SUCCESSFUL action's body is '' (EngineActionRunner's default) or 'OK'.
+// Every other string on this channel is a reason the action did not happen — "Nothing to undo.",
+// "Spectators are view-only.", "Invalid selection." — all of which were equally silent before.
+function ShowEngineRefusal(result) {
+  var msg = '';
+  if (typeof result === 'string') msg = result.trim();
+  else if (result && typeof result === 'object' && result.success === false) msg = String(result.message || '').trim();
+  if (msg === '' || msg === 'OK') return;
+  // Auth is the one refusal the player can actually act on, and reloading genuinely fixes it (the page
+  // re-authenticates from the lastAuthKey cookie), so say so rather than leaving them stuck.
+  if (/auth key/i.test(msg)) msg += ' — reload the page to reconnect.';
+  if (typeof showFlashMessage === 'function') showFlashMessage(msg, 6000);
+  else if (window.console && console.error) console.error(msg);
+}
+
 function SubmitInput(mode, params, fullRefresh = false) {
   // A submitted answer ends the current prompt immediately. Reset the delayed
   // undo affordance here so a following identical prompt gets its own delay.
@@ -991,11 +1270,14 @@ function SubmitInput(mode, params, fullRefresh = false) {
       && typeof ResetDelayedDecisionUndoAffordance === 'function') {
     ResetDelayedDecisionUndoAffordance();
   }
-  SubmitEngineInput(mode, params, { fullRefresh: fullRefresh }).then(function() {
+  SubmitEngineInput(mode, params, { fullRefresh: fullRefresh }).then(function(result) {
+    ShowEngineRefusal(result);
     if (!fullRefresh && typeof window.QueueGameUpdate === "function") window.QueueGameUpdate();
     if(_openPopup != null) RefreshPopupContent(_openPopup);
   }).catch(function(error) {
     if (window.console && console.error) console.error(error);
+    // A transport failure was silent too — same dead end from the player's side.
+    if (typeof showFlashMessage === 'function') showFlashMessage('That action could not be sent. Check your connection and try again.', 6000);
   });
 }
 
@@ -1009,13 +1291,16 @@ function SetBotControllerState(state) {
   }) : [];
   var pendingPlayer = parseInt(state.pendingPlayer || 0, 10);
   if (players.indexOf(pendingPlayer) === -1) pendingPlayer = 0;
+  var stepDelayMs = parseInt(state.stepDelayMs || 0, 10);
+  if (Number.isNaN(stepDelayMs) || stepDelayMs < 0) stepDelayMs = 0;
 
   window.BotController = {
     enabled: state.enabled === true && players.length > 0,
     mode: typeof state.mode === "string" ? state.mode : "",
     folderPath: typeof state.folderPath === "string" ? state.folderPath : "",
     players: players,
-    pendingPlayer: pendingPlayer
+    pendingPlayer: pendingPlayer,
+    stepDelayMs: Math.min(10000, stepDelayMs)
   };
 
   if (!window.BotController.enabled || pendingPlayer === 0) {
@@ -1025,6 +1310,10 @@ function SetBotControllerState(state) {
     if (window.__botControllerRetryTimer) {
       window.clearTimeout(window.__botControllerRetryTimer);
       window.__botControllerRetryTimer = null;
+    }
+    if (window.__botControllerPaceTimer) {
+      window.clearTimeout(window.__botControllerPaceTimer);
+      window.__botControllerPaceTimer = null;
     }
   }
 }
@@ -1069,6 +1358,21 @@ function MaybeRunBotControllerStep() {
     return;
   }
 
+  // Pacing (stepDelayMs from the server, Core/BotController.php): wait once per rendered update so the human
+  // sees each bot move before the next one. Retries of the same update are not paced again — they have
+  // their own backoff. A render arriving while the pace timer runs is absorbed by it.
+  var stepDelayMs = parseInt(controller.stepDelayMs || 0, 10);
+  var renderedUpdate = (typeof _lastUpdate === "number") ? _lastUpdate : 0;
+  if (stepDelayMs > 0 && window.__botControllerPacedUpdate !== renderedUpdate) {
+    if (window.__botControllerPaceTimer) return;
+    window.__botControllerPaceTimer = window.setTimeout(function() {
+      window.__botControllerPaceTimer = null;
+      window.__botControllerPacedUpdate = (typeof _lastUpdate === "number") ? _lastUpdate : 0;
+      MaybeRunBotControllerStep();
+    }, stepDelayMs);
+    return;
+  }
+
   var folderPath = controller.folderPath || (typeof window.rootPath === "string" ? window.rootPath.replace(/^(\.\/|\/)/, "").replace(/\/.*$/, "") : "");
   if (folderPath === "") {
     if (window.console && console.warn) console.warn("Bot controller folder path is not available.");
@@ -1077,7 +1381,10 @@ function MaybeRunBotControllerStep() {
 
   window.__botControllerStepInFlight = true;
   window.__botControllerRunRequested = false;
-  SubmitEngineInput(10017, "", {
+  // Every human browser steps the bot. Sending the update this browser rendered lets the server refuse
+  // a step another browser already took (the reply is flagged botStepStale). See Core/GameWriteLock.php.
+  var stepParams = (typeof _lastUpdate === "number" && _lastUpdate > 0) ? "lastUpdate=" + _lastUpdate : "";
+  SubmitEngineInput(10017, stepParams, {
     folderPath: folderPath,
     responseFormat: "json"
   }).then(function(response) {
@@ -1091,6 +1398,11 @@ function MaybeRunBotControllerStep() {
     if (response.botStepApplied === true) {
       window.__botControllerRetryCount = 0;
       if (typeof window.QueueGameUpdate === "function") window.QueueGameUpdate();
+    } else if (response.botStepStale === true && typeof window.QueueGameUpdate === "function") {
+      // The game moved on under this browser. Fetch it; that render asks again with the current
+      // token. No backoff: a stale step says nothing is wrong, only that this view is behind.
+      if (response.botController) SetBotControllerState(response.botController);
+      window.QueueGameUpdate();
     } else {
       if (response.botController) SetBotControllerState(response.botController);
       if ((window.BotController || {}).pendingPlayer) ScheduleBotControllerRetry();
@@ -1224,6 +1536,9 @@ function ShowZonePopup(cardId) {
         (visibility === "Self" && isOpponentZone);
       if (displayMode === "Single" && hiddenFromViewer) return;
     }
+    // A sim whose board can show a seat other than the server's `my`/`their` (SWUSim Twin Suns matchups)
+    // renames the zone to the one it is actually showing. Undefined everywhere else → no change.
+    if (typeof window.SimRemapPopupZone === "function") zoneName = window.SimRemapPopupZone(zoneName) || zoneName;
     TogglePopup(zoneName);
   }
 }

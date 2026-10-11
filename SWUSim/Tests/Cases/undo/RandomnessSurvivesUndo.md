@@ -103,7 +103,9 @@ WithP2Deck: SOR_077
 
 ## EXPECT
 P2DISCARDCOUNT:1
-P2DISCARDUNIT:0:CARDID:SOR_077
+#// The pinned card is just the seed's output: it moved SOR_077 -> SOR_049 on 2026-10-01 when When Played
+#// triggers began carrying their unit's UID in queued params (bug #1110) — queue contents are RNG hash material.
+P2DISCARDUNIT:0:CARDID:SOR_049
 
 ---
 
@@ -132,4 +134,6 @@ WithP2Deck: SOR_077
 
 ## EXPECT
 P2DISCARDCOUNT:1
-P2DISCARDUNIT:0:CARDID:SOR_077
+#// The pinned card is just the seed's output: it moved SOR_077 -> SOR_049 on 2026-10-01 when When Played
+#// triggers began carrying their unit's UID in queued params (bug #1110) — queue contents are RNG hash material.
+P2DISCARDUNIT:0:CARDID:SOR_049

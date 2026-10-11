@@ -11,7 +11,11 @@ $whenPlayedAbilities["JTL_039:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $self = $mzID;
     $targets = [];
-    foreach (SWUAllUnits('my') as $mz) {
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): in Team Suns a teammate's
+    // unit is friendly, so the pool is SWUFriendlyUnits() ('team'), not 'my'. ⚠ NOT the same as "a unit you control",
+    // which stays 'my' — control is per-player. 'team' degrades to 'my' outside a team game, so
+    // Premier is byte-identical. See memory: unqualified pools miss teammates.
+    foreach (SWUFriendlyUnits() as $mz) {
         if ($mz === $self) continue;
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
@@ -39,6 +43,10 @@ $customDQHandlers["JTL_039#0"] = function($player, $parts, $lastDecision) {
     if (HasWhenDefeatedAbility($obj->CardID)) $options[] = null;
     foreach ($granted as $g) $options[] = $g;
     if (empty($options)) return;
+    // The chosen unit is ALIVE — it was not defeated at all. Refresh the slot's defeat information to describe it
+    // (not defeated by combat; its CURRENT power), so a value left over from an earlier unit defeated in the same
+    // slot can't leak in (ASH_028 Paz's combat check, JTL_104 Raddus's power).
+    SWUPrepareLivingWhenDefeatedUse((string)$lastDecision);
     if (count($options) === 1) {
         SWUUseWhenDefeatedAbility(intval($player), $obj->CardID, $lastDecision, $options[0]);
         return;

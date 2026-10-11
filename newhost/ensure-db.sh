@@ -60,7 +60,7 @@ MYSQL_BIN="${MYSQL_BIN:-$LAMPP_ROOT/bin/mysql}"
 MYSQL_HOST="${MYSQL_HOST:-127.0.0.1}"
 DB_USER="${DB_USER:-root}"
 DB_PASS="${DB_PASS:-}"
-ACTIVE_SITE="${ACTIVE_SITE:-$SCRIPT_DIR/../SharedUI/ActiveSite.php}"
+SITE_REGISTRY="${SITE_REGISTRY:-$SCRIPT_DIR/../Database/SiteRegistry.php}"
 
 log()  { printf '\033[1;36m==>\033[0m %s\n' "$*"; }
 ok()   { printf '\033[1;32m  ok\033[0m %s\n' "$*"; }
@@ -94,16 +94,18 @@ for db in "${DBS[@]}"; do
 done
 
 # The app resolves BOTH the DB connection and the rendered site from MYSQL_DATABASE_NAME
-# (SharedUI/ActiveSite.php). A database whose name is not in that map throws at runtime
-# rather than falling back — so a typo here surfaces as a site-wide 500, not a default page.
-# Warn now, when it costs nothing to fix.
-if [ -f "$ACTIVE_SITE" ]; then
+# (SharedUI/ActiveSite.php, which reads Database/SiteRegistry.php). A database with no entry
+# there throws at runtime rather than falling back — so a typo here surfaces as a site-wide 500,
+# not a default page. Warn now, when it costs nothing to fix.
+# (This used to grep a $dbToSite map inside ActiveSite.php; that map moved to the registry, so the
+# old check warned for EVERY database, real or not.)
+if [ -f "$SITE_REGISTRY" ]; then
   for db in "${DBS[@]}"; do
-    grep -Eq "^[[:space:]]*'$db'[[:space:]]*=>" "$ACTIVE_SITE" \
-      || warn "'$db' is not in the \$dbToSite map in SharedUI/ActiveSite.php — ActiveSite will THROW for it. Add it before serving that hostname."
+    grep -Eq "'db'[[:space:]]*=>[[:space:]]*'$db'[[:space:]]*,[[:space:]]*'site'[[:space:]]*=>[[:space:]]*true" "$SITE_REGISTRY" \
+      || warn "'$db' has no site=true entry in Database/SiteRegistry.php — ActiveSite will THROW for it. Add it before serving that hostname."
   done
 else
-  warn "could not read $ACTIVE_SITE — skipping the site-map check."
+  warn "could not read $SITE_REGISTRY — skipping the site-map check."
 fi
 
 [ "$APPLY" -eq 1 ] || log "DRY RUN — nothing will be changed. Re-run with --apply to execute."

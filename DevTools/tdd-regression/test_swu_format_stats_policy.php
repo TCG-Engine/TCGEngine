@@ -20,7 +20,7 @@ foreach (['premier', 'eternal', 'twinsuns', 'padawan'] as $f) {
     $checks["'$f' produces stats"] = in_array($f, $stats, true);
 }
 // Preview formats are first-class formats separated by their own key.
-foreach (['preview', 'twinsuns-preview', 'padawan-preview', 'eternal-preview'] as $f) {
+foreach (['preview', 'twinsuns-preview', 'teamsuns-preview', 'padawan-preview', 'eternal-preview'] as $f) {
     $checks["preview '$f' produces stats"] = in_array($f, $stats, true);
 }
 // Open and the local/solo MODES never do. Goldfish is one player; Hotseat is one person on both seats.

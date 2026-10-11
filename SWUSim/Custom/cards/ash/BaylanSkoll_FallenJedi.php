@@ -20,7 +20,7 @@ $onAttackEndAbilities["ASH_039:0"] = function($player, $mzID) {
             'prompt' => "Give_an_Advantage_token_to_a_unit",
         ]);
     }
-    if (GlobalEffectCount(intval($player), 'SWU_FRIENDLY_UPGRADE_DEFEATED') > 0) {
+    if (SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_UPGRADE_DEFEATED') > 0) {
         SWUOfferUnitTarget($player, $mzID, [
             'continuation' => 'EXHAUST_UNIT', 'may' => true,
             'question' => "Exhaust_a_unit?", 'prompt' => "Choose_a_unit",

@@ -1,0 +1,51 @@
+# Self-play fixture — "Hemlock Red" (Doctor Hemlock, Emotion Has No Place Here - Bioweapons Lab)
+# Source: the HMW-meta list of Force Fam member Ninin (NininTCG), given by the owner 2026-10-04 as JSON. Replaces her earlier
+#   Hemlock Red (doctor-hemlock_hmw_red_naboo, 2026-10-01). Converted 2026-10-04. 51 main-deck cards, 10 sideboard.
+#   No base trait in the name: Torrent (the Naboo payoff) is out, and no card left cares about the base's trait.
+# Author: Ninin
+# Archetype (owner's label, 2026-10-04): Soft control — RELABELLED 2026-10-04 from midrange after Ninin's human games
+#   (vs Lando Blue, Maul Blue): heal to full with Chimaera / Lost and Forgotten, stop resourcing ~11, hold answers, close
+#   with General Grievous. Her earlier list measured soft control 83% vs midrange 68% vs Krennic Splash in self-play.
+# Style: softcontrol
+# Flavours: tempo
+
+Leader
+1 HMW_003
+
+Base
+1 HMW_027
+
+Deck
+2 JTL_140
+2 JTL_143
+3 LOF_130
+3 LAW_174
+3 ASH_030
+3 ASH_048
+3 ASH_052
+3 ASH_053
+3 HMW_062
+1 LAW_133
+3 LAW_097
+3 LAW_172
+2 LOF_070
+2 ASH_146
+1 HMW_071
+2 JTL_043
+2 LAW_044
+2 JTL_144
+2 SEC_078
+2 HMW_159
+2 ASH_148
+2 HMW_154
+
+Sideboard
+1 LOF_070
+1 JTL_143
+1 JTL_043
+1 SEC_078
+2 SEC_180
+1 HMW_071
+1 LAW_044
+1 JTL_140
+1 LAW_133

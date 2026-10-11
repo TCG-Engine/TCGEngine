@@ -10,6 +10,7 @@ $whenPlayedAbilities["SHD_127:0"] = function($player, $mzID = '') {
             global $playerID; $playerID = intval($player);
             if (count(GetDeck($player)) === 0) return;
             DoTopDeckSearch(intval($player), 10,
-                fn($c) => HasTrait($c, 'Bounty Hunter') || HasTrait($c, 'Item') || HasTrait($c, 'Transport'), 1);
+                fn($c) => HasTrait($c, 'Bounty Hunter') || HasTrait($c, 'Item') || HasTrait($c, 'Transport'), 1,
+                'Bounty Hunter, Item or Transport cards');
             return;
 };

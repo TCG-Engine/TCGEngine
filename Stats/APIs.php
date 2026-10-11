@@ -196,7 +196,7 @@ include_once "../SharedUI/Header.php";
 
     <div class="api-section">
         <h2>Deck Edit API</h2>
-        <p>Modify a deck you own (add or remove cards). This endpoint requires OAuth authentication with the 'decks' scope and the caller must be the deck owner.</p>
+        <p>Modify cards in a deck you own. Both endpoints require an OAuth access token with the <code>editdecks</code> scope and verify deck ownership.</p>
         <div class="api-endpoint">
             <h3>Edit Deck Card</h3>
             <p><span class="method post">POST</span> <code>/TCGEngine/APIs/EditDeckCard.php</code></p>
@@ -207,26 +207,28 @@ include_once "../SharedUI/Header.php";
                 <li><strong>Authorization header:</strong> <code>Authorization: Bearer {access_token}</code></li>
                 <li><strong>JSON body:</strong> <code>{"access_token": "{access_token}"}</code> (recommended for local testing where Authorization headers may be stripped)</li>
             </ul>
-            <p><strong>Required scope:</strong> <code>decks</code> — the token must include the <code>decks</code> scope or the API will return HTTP 403 (insufficient_scope).</p>
+            <p><strong>Required scope:</strong> <code>editdecks</code> — the token must include the <code>editdecks</code> scope or the API will return HTTP 403 (insufficient_scope).</p>
 
             <h4>Request Body (JSON):</h4>
             <pre><code>{
     "access_token": "your_oauth_token",    // or provide in Authorization header
     "deckID": 123,                          // integer deck id
     "action": "add|remove",               // add or remove
-    "cardID": "CARD_UID",                 // card id used in gamestate
+    "cardID": "7965404100",               // SET_NNN or numeric FFG UID (required)
     "count": 1,                             // number to add/remove (optional, default 1)
     "zone": "main|side"                   // zone to change (optional, default "main")
 }</code></pre>
+            <p><code>cardID</code> accepts an internal <code>SET_NNN</code> ID (for example, <code>SOR_033</code>) or a numeric FFG UID (for example, <code>7965404100</code>). Known UIDs are mapped to internal IDs, then alternate printings are folded to the earliest printing. The same normalization is used to match cards already stored in the deck. Responses return the canonical internal ID. <code>count</code> defaults to 1 and values below 1 are treated as 1. <code>action</code> and <code>zone</code> are lowercased. Only <code>main</code> selects the main deck; every other <code>zone</code> value selects the sideboard, although clients should send <code>main</code> or <code>side</code>.</p>
+            <p>For <code>remove</code>, the endpoint removes up to <code>count</code> matching copies. It returns success with the actual <code>removed</code> count if at least one copy was found; zero matches return HTTP 404. An <code>add</code> response contains <code>added</code> instead.</p>
+            <p>For <code>add</code>, the endpoint enforces the deck format's copy limit across the main deck and sideboard combined. The limit includes card-specific exceptions and is unlimited for unrestricted formats. An add that exceeds the limit returns HTTP 400 with <code>error: "Copy limit exceeded"</code>, <code>cardID</code>, <code>existingCopies</code>, <code>requestedCount</code>, and <code>maxCopies</code>.</p>
 
             <h4>Example Responses:</h4>
             <h5>Success (HTTP 200)</h5>
-            <pre><code>POST /TCGEngine/APIs/EditDeckCard.php
-{
+            <pre><code>{
     "success": true,
     "deckID": 123,
     "action": "remove",
-    "cardID": "CARD_UID",
+    "cardID": "SOR_033",
     "zone": "main",
     "removed": 1
 }
@@ -260,7 +262,7 @@ include_once "../SharedUI/Header.php";
             <pre><code>{
     "success": false,
     "error": "insufficient_scope",
-    "required": "decks"
+    "required": "editdecks"
 }
 </code></pre>
 
@@ -270,7 +272,65 @@ include_once "../SharedUI/Header.php";
     "error": "Card not found in specified zone"
 }
 </code></pre>
+            <p>Other errors include HTTP 400 for a missing or invalid <code>deckID</code>, <code>action</code>, or <code>cardID</code>; HTTP 404 when the deck does not exist; and HTTP 500 for an ownership database query error.</p>
         </div>
+        <div class="api-endpoint">
+            <h3>Edit Deck Cards (Bulk)</h3>
+            <p><span class="method post">POST</span> <code>/TCGEngine/APIs/EditDeckCards.php</code></p>
+            <p>Apply several card changes to a deck you own in a single request. Authentication, scope, ownership, and card ID normalization follow Edit Deck Card. The endpoint validates all entries before editing and writes the gamestate once after applying the batch.</p>
+
+            <h4>Request Body (JSON):</h4>
+            <pre><code>{
+    "access_token": "your_oauth_token",    // or provide in Authorization header
+    "deckID": 123,                          // integer deck id
+    "overwrite": false,                     // optional, default false; when true the deck's
+                                            // main deck and sideboard are cleared first and
+                                            // only "add" entries are allowed
+    "cards": [                              // array of changes (max 200 per request)
+        {
+            "action": "add|remove",         // optional, default "add"
+            "cardID": "7965404100",         // SET_NNN or numeric FFG UID (required)
+            "count": 1,                     // optional, default 1
+            "zone": "main|side"             // optional, default "main"
+        }
+    ]
+}</code></pre>
+            <p>Each <code>cardID</code> accepts a <code>SET_NNN</code> ID or a numeric FFG UID, as described for Edit Deck Card. With <code>"overwrite": true</code>, <code>cards</code> may be omitted or empty to clear the main deck and sideboard. The accepted true values are JSON <code>true</code>, <code>1</code>, <code>"1"</code>, and <code>"true"</code> (case insensitive). Each <code>count</code> below 1 is treated as 1; <code>action</code> and <code>zone</code> are lowercased. Unlike Edit Deck Card, this endpoint rejects zones other than <code>main</code> or <code>side</code>.</p>
+            <p>Without overwrite, each remove entry is checked independently against the deck as loaded, before any changes are applied. If one entry requests more copies than exist, HTTP 404 is returned without writing. Multiple remove entries for the same card and zone are not checked as a combined total, so a later entry may remove fewer copies than requested. A remove entry also cannot rely on a card added earlier in the same request.</p>
+            <p>The final batch result must respect the deck format's copy limit across the main deck and sideboard combined. This includes card-specific exceptions and unrestricted formats. A batch that increases a card beyond its limit returns HTTP 400 without writing, with <code>error: "Copy limit exceeded"</code>, <code>cardID</code>, <code>existingCopies</code>, <code>resultingCopies</code>, and <code>maxCopies</code>. An existing over-limit deck can still have that card reduced or edited without increasing its total.</p>
+
+            <h4>Example Responses:</h4>
+            <h5>Success (HTTP 200)</h5>
+            <pre><code>{
+    "success": true,
+    "deckID": 123,
+    "overwrite": false,
+    "changes": [
+        {"index": 0, "action": "add", "cardID": "SOR_033", "zone": "main", "added": 2},
+        {"index": 1, "action": "remove", "cardID": "SOR_034", "zone": "side", "removed": 1}
+    ]
+}
+</code></pre>
+
+            <h5>Remove Entry Exceeds Available Copies (HTTP 404, nothing written)</h5>
+            <pre><code>{
+    "success": false,
+    "error": "Card not found in specified zone",
+    "index": 1,
+    "cardID": "SOR_034",
+    "zone": "side"
+}
+</code></pre>
+
+            <h5>Remove With Overwrite (HTTP 400)</h5>
+            <pre><code>{
+    "success": false,
+    "error": "Invalid action in cards[0]; only 'add' is allowed with overwrite"
+}
+</code></pre>
+            <p>HTTP 400 also covers a missing or invalid <code>deckID</code>, missing <code>cards</code> without overwrite, a non-array <code>cards</code> value, more than 200 entries, malformed entries, missing <code>cardID</code>, or an invalid <code>action</code> or <code>zone</code>. Authentication, scope, and ownership errors use the same response shapes as Edit Deck Card.</p>
+        </div>
+        <p>During a full SWUDeck maintenance pause, either endpoint returns HTTP 503 before processing the request and includes a <code>Retry-After</code> header.</p>
     </div>
 
     <div class="api-section">
@@ -852,7 +912,7 @@ include_once "../SharedUI/Header.php";
                 <tr>
                     <td>request</td>
                     <td>string</td>
-                    <td>The natural language card search query (URL encoded)</td>
+                    <td>The card search query (URL encoded). Optional discrete pre-filters such as <code>aspect:Aggression cost&lt;=3 type:Unit shield</code> are applied before semantic ranking. Supported keys: aspect, cost, hp, power, upgradeHp, upgradePower, trait, arena, type, unique. Returns up to 10 cards.</td>
                 </tr>
                 <tr>
                     <td>access_token</td>
@@ -863,7 +923,7 @@ include_once "../SharedUI/Header.php";
             
             <h4>Example Response:</h4>
             <pre><code>{
-    "message": "specificCards=uuid1,uuid2,uuid3,uuid4,uuid5"
+    "message": "specificCards=uuid1,uuid2,uuid3"
 }</code></pre>
         </div>
     </div>

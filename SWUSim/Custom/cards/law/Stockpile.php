@@ -36,7 +36,8 @@ $whenPlayedAbilities["LAW_171:0"] = function($player, $mzID = '') {
             }
             if ($evMz !== null) {
                 $playerID = intval($player);
-                if ($owner !== intval($player)) $evMz = str_replace('myDiscard', 'theirDiscard', $evMz);
+                // SWUForeignMzID, not a my→their swap: above two seats "their" names an arbitrary opponent.
+                if ($owner !== intval($player)) $evMz = SWUForeignMzID($me, $owner, 'Discard', intval(substr($evMz, strlen('myDiscard-'))));
                 $r = MZMove(intval($player), $evMz, "myResources");
                 if ($r !== null) { $r->Status = 0; $r->Owner = $owner; $r->Controller = intval($player); }
             }

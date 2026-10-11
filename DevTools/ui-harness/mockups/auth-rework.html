@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auth Rework</title>
+<!-- ⚠ THE REAL STYLESHEET STACK, in SiteDef order. This mockup cannot drift from the product:
+     whatever it looks like here is what the design system actually does. -->
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/system.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/menuStyles.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/tokens.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/components.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/Themes/petranaki-hud.tokens.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUSim/css/petranaki-glass.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-overrides.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-menu-2.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap" rel="stylesheet">
+
+<style>
+/* ══ PROPOSED: the auth pages ══════════════════════════════════════════════
+   Everything below is what would move into swusim-menu-2.css. The markup it
+   styles is what RenderLoginPage()/RenderSignup() would emit for SWUSim only,
+   behind a SiteDef opt-in — those renderers are shared with FaBSim,
+   HellbreakSim, SWUDeck and HellbreakDeck, which must be untouched. */
+
+  .auth {
+    display: grid;
+    place-items: center;
+    padding: clamp(24px, 6vh, 72px) var(--s-4);
+    flex: 1 0 auto;
+  }
+  /* ⚠ a class-level `display` beats the UA's [hidden] rule, so state it back */
+  .auth[hidden] { display: none; }
+  .auth__in { inline-size: min(100%, 440px); display: grid; gap: var(--s-3); }
+
+  /* the card: the same frosted, chamfered surface as a setup modal */
+  .auth__card {
+    --cut: 16px;
+    display: grid;
+    gap: var(--s-4);
+    padding: clamp(22px, 4vw, 34px);
+  }
+  .auth__head { display: grid; gap: 4px; }
+  .auth__title {
+    margin: 0; font-size: var(--t-26); font-weight: 700;
+    letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink);
+  }
+  .auth__sub { margin: 0; font-size: var(--t-13); color: var(--ink-3); }
+
+  /* Discord keeps its brand colour — it is a recognition cue, not our accent —
+     but takes the chamfer so it belongs to the page. */
+  .auth__oauth {
+    --cut: 10px; --rim: 1px;
+    --plane: #5865f2; --plane-art: linear-gradient(135deg, #6b77f5, #4d5ae8);
+    --rim-hi: rgba(160, 172, 255, 0.72); --rim-lo: rgba(60, 72, 180, 0.4);
+    display: flex; align-items: center; justify-content: center; gap: var(--s-2);
+    min-block-size: var(--tap); padding-inline: var(--s-4);
+    font-size: var(--t-14); font-weight: 600; letter-spacing: 0.02em;
+    color: #fff; text-decoration: none;
+  }
+  .auth__oauth img, .auth__oauth svg { inline-size: 18px; block-size: 18px; }
+  .auth__oauth:hover { --plane-art: linear-gradient(135deg, #7b86f8, #5a67ee); }
+
+  .auth__or {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    gap: var(--s-3); font-size: var(--t-12); color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .auth__or::before, .auth__or::after { content: ""; block-size: 1px; background: var(--edge); }
+
+  .auth__fields { display: grid; gap: var(--s-3); }
+  .auth__field  { display: grid; gap: 6px; }
+
+  /* a real checkbox, chamfered like everything else */
+  .auth__check { display: flex; align-items: center; gap: var(--s-2); min-block-size: var(--tap); }
+  .auth__box {
+    --cut: 5px; --rim: 1px;
+    --plane: var(--e-sunk); --plane-art: none;
+    --rim-hi: var(--edge-strong); --rim-lo: var(--edge);
+    position: relative; inline-size: 20px; block-size: 20px; flex: none; cursor: pointer;
+  }
+  .auth__box input { position: absolute; inset: 0; opacity: 0; cursor: pointer; margin: 0; }
+  .auth__box svg {
+    position: absolute; inset: 3px; color: var(--gold);
+    opacity: 0; scale: 0.7; transition: opacity 120ms var(--ease), scale 120ms var(--ease);
+  }
+  .auth__box:has(input:checked) { --plane: var(--e3); --rim-hi: var(--gold); }
+  .auth__box:has(input:checked) svg { opacity: 1; scale: 1; }
+  .auth__box:has(input:focus-visible) { --rim: 2px; --rim-hi: var(--gold-hi); }
+  .auth__check label { font-size: var(--t-13); color: var(--ink-2); cursor: pointer; }
+
+  .auth__submit { inline-size: 100%; }
+
+  .auth__alt {
+    margin: 0; padding-block-start: var(--s-3); border-block-start: 1px solid var(--edge);
+    font-size: var(--t-13); color: var(--ink-3); text-align: center;
+  }
+  .auth__alt a { color: var(--ink-2); text-decoration: underline;
+                 text-decoration-color: color-mix(in oklch, var(--ink) 30%, transparent);
+                 text-underline-offset: 3px; }
+  .auth__alt a:hover { color: var(--ink); }
+
+  /* the consent copy is a NOTE, not a second panel competing with the form */
+  .auth__note {
+    margin: 0; font-size: var(--t-12); line-height: 1.6; color: var(--ink-3); text-align: center;
+  }
+  .auth__note a { color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* mockup only */
+  .mk { position: fixed; inset-block-start: 84px; inset-inline-start: 16px; z-index: 9;
+        display: flex; gap: 6px; }
+</style>
+</head>
+<body>
+
+<header class="home-header">
+  <a href="#" class="title has-logo">
+    <img class="title-logo" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/stadium.svg" alt="" aria-hidden="true">
+    <h1>Petranaki Arena</h1>
+    <p>Fan-made Star Wars: Unlimited simulator</p>
+  </a>
+</header>
+<nav class="nav-bar" aria-label="Main">
+  <div class="nav-bar-user"><ul class="rightnav">
+    <li><a href="#" class="NavBarItem"><span>Previews</span></a></li>
+    <li><a href="#" class="NavBarItem"><span>Support</span></a></li>
+    <li><a href="#" class="NavBarItem"><span>Sign Up</span></a></li>
+    <li><a href="/TCGEngine/SharedUI/Sites/SWUSim/LoginPage.php" class="NavBarItem"><span>Log In</span></a></li>
+  </ul></div>
+  <div class="nav-bar-links"><ul>
+    <li><a href="#"><img src="/TCGEngine/Assets/Images/icons/discord.svg" alt="" aria-hidden="true"></a></li>
+    <li><a href="#"><img src="/TCGEngine/Assets/Images/icons/github.svg" alt="" aria-hidden="true"></a></li>
+  </ul></div>
+</nav>
+
+<div class="mk">
+  <button class="swu2-btn ch" type="button" onclick="show('login')">Log In</button>
+  <button class="swu2-btn ch" type="button" onclick="show('signup')">Sign Up</button>
+</div>
+
+<!-- ═════ LOG IN ═════ -->
+<main class="auth" id="login">
+  <div class="auth__in">
+    <div class="auth__card ch gl">
+      <div class="auth__head">
+        <h2 class="auth__title">Log In</h2>
+        <p class="auth__sub">Use your username, not your email.</p>
+      </div>
+
+      <a class="auth__oauth ch" href="#">
+        <img src="/TCGEngine/Assets/Images/icons/discord.svg" alt="" aria-hidden="true">
+        <span>Continue with Discord</span>
+      </a>
+      <p class="auth__or"><span>or</span></p>
+
+      <div class="auth__fields">
+        <div class="auth__field">
+          <label class="flabel" for="u1">Username</label>
+          <span class="inwrap ch"><input class="input" id="u1" type="text" autocomplete="username"></span>
+        </div>
+        <div class="auth__field">
+          <label class="flabel" for="p1">Password</label>
+          <span class="inwrap ch"><input class="input" id="p1" type="password" autocomplete="current-password"></span>
+        </div>
+        <div class="auth__check">
+          <span class="auth__box ch">
+            <input type="checkbox" id="rm" checked>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>
+          </span>
+          <label for="rm">Keep me signed in</label>
+        </div>
+      </div>
+
+      <button class="swu2-btn ch auth__submit" type="button">Log In</button>
+      <p class="auth__alt">Need an account? <a href="#" onclick="show('signup');return false">Create one</a></p>
+    </div>
+    <p class="auth__note">Keeping you signed in stores a cookie in this browser so we can recognise
+      your account next visit. <a href="#">Privacy Policy</a></p>
+  </div>
+</main>
+
+<!-- ═════ SIGN UP ═════ -->
+<main class="auth" id="signup" hidden>
+  <div class="auth__in">
+    <div class="auth__card ch gl">
+      <div class="auth__head">
+        <h2 class="auth__title">Sign Up</h2>
+        <p class="auth__sub">Everything plays in the browser. No install.</p>
+      </div>
+
+      <a class="auth__oauth ch" href="#">
+        <img src="/TCGEngine/Assets/Images/icons/discord.svg" alt="" aria-hidden="true">
+        <span>Continue with Discord</span>
+      </a>
+      <p class="auth__or"><span>or</span></p>
+
+      <div class="auth__fields">
+        <div class="auth__field">
+          <label class="flabel" for="u2">Username</label>
+          <span class="inwrap ch"><input class="input" id="u2" type="text" autocomplete="username"></span>
+        </div>
+        <div class="auth__field">
+          <label class="flabel" for="e2">Email</label>
+          <span class="inwrap ch"><input class="input" id="e2" type="email" placeholder="name@example.com" autocomplete="email"></span>
+        </div>
+        <div class="auth__field">
+          <label class="flabel" for="p2">Password</label>
+          <span class="inwrap ch"><input class="input" id="p2" type="password" autocomplete="new-password"></span>
+        </div>
+        <div class="auth__field">
+          <label class="flabel" for="p3">Repeat Password</label>
+          <span class="inwrap ch"><input class="input" id="p3" type="password" autocomplete="new-password"></span>
+        </div>
+      </div>
+
+      <button class="swu2-btn ch auth__submit" type="button">Create Account</button>
+      <p class="auth__alt">Already have an account? <a href="#" onclick="show('login');return false">Log in</a></p>
+    </div>
+    <p class="auth__note">Creating an account uses essential cookies to keep you signed in, and means
+      you agree to the <a href="#">Terms of Use</a>. See the <a href="#">Privacy Policy</a> for how we
+      handle your information.</p>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="disclaimer">
+    <p>Petranaki Arena is in no way affiliated with Fantasy Flight Games, Disney. Star Wars Unlimited characters, cards, logos, and art are property of Fantasy Flight Games, Disney.
+      &nbsp;<a href="#">Terms of Use</a>&nbsp;<a href="#">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<script>
+function show(which) {
+  document.getElementById('login').hidden  = which !== 'login';
+  document.getElementById('signup').hidden = which !== 'signup';
+}
+</script>
+</body>
+</html>

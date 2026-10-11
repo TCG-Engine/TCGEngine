@@ -20,6 +20,9 @@
 // opting in is one key.
 require_once __DIR__ . '/../../Database/functions.inc.php';
 require_once __DIR__ . '/DeckLibrary.php';
+// The chat panel, for EVERY sim with a waiting room (owner, 2026-09-22: "both sims get it"). It is
+// inert until the page's poll has resolved the lobbyID and this seat's authKey and calls attach().
+require_once __DIR__ . '/ChatPanel.php';
 
 // Returns null when the sim has not opted in. Null is a normal answer, not an error.
 function WaitingRoomConfigFromSiteDef(array $def): ?array {
@@ -55,7 +58,19 @@ function _WaitingRoomDeckLibrary(array $cfg): string {
     if (!function_exists('RenderDeckLibrary')) return '';
     $lib = DeckLibraryConfigFromSiteDef(['deckLibrary' => $cfg['deckLibrary'],
                                          'identity'    => ['rootName' => $cfg['rootName']]]);
-    return RenderDeckLibrary($uid, $lib);
+    $saved = RenderDeckLibrary($uid, $lib);
+    // SWUSim only (SiteDef deckLibrary.swustatsTabs): a linked player picks from SWUStats or Saved
+    // (docs/superpowers/specs/2026-10-10-petranaki-swustats-link-design.md §2). Everyone else: unchanged.
+    if (empty($cfg['deckLibrary']['swustatsTabs'])) return $saved;
+    require_once __DIR__ . '/../../SWUSim/SWUStatsLink.php';
+    require_once __DIR__ . '/../../SWUSim/Custom/DeckSource.php';
+    require_once __DIR__ . '/AssetVersion.php';
+    if (!SWUStatsIsLinked($uid)) return $saved;
+    $ss = '<select class="dl-select" data-source="swustats" disabled aria-label="SWUStats decks">'
+        . '<option value="">Loading SWUStats decks…</option></select>'
+        . '<div class="decksrc__msg deck-library-empty" hidden></div>';
+    return SWUDeckSourceToggle('wr-lib', $ss, $saved)
+         . '<script src="' . htmlspecialchars(_VersionAsset('/TCGEngine/SharedUI/js/swusim-deck-source.js'), ENT_QUOTES) . '"></script>';
 }
 
 // The shell. Everything inside #wr-root is drawn by the script from the poll payload — the server
@@ -91,6 +106,10 @@ function _WaitingRoomStyles(): string {
 .wr-pill-away     { color: #8b97a5; }
 .wr-seat-away     { opacity: .62; }
 .wr-kick { margin-left: 6px; font-size: 11px; padding: 1px 6px; line-height: 1.6; }
+/* Warm rather than destructive-red: casting a Yes is not final by itself (it takes 2 of 2 or 2 of
+   3), so this should read as "raise your hand", not "delete". */
+.wr-hostkick { border-color: #d9a441; color: #d9a441; }
+.wr-hostkick:disabled { opacity: .55; }
 .wr-seat-foot { display: flex; align-items: center; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
 /* An EXPLICIT shared height, not align-items:stretch. The input and the button have different
    intrinsic heights (the input carries a 1px border; the button carries none and draws its edge with
@@ -165,6 +184,71 @@ function _WaitingRoomStyles(): string {
 .wr-teamcol { flex: 1 1 340px; min-width: 0; }
 .wr-teamhdr { font-weight: bold; margin-bottom: 8px; }
 .wr-teamcol .wr-seat { margin-bottom: 10px; }
+
+/* "Fill Seat with Bot" popup (a sim whose bot profiles carry a deck — SWUSim Twin Suns rooms). Its own wr- classes on
+   purpose: the page's legacy and site stylesheets style bare .modal/.dialog names (see the class-namespace memory). */
+.wr-botdlg-overlay { position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center;
+                     background: rgba(0,0,0,.72); padding: 16px; box-sizing: border-box;
+                     -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.wr-botdlg { width: min(100%, 720px); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); display: flex;
+             flex-direction: column; box-sizing: border-box; color: var(--text, #fff);
+             /* OPAQUE. Site themes use translucent "glass" surfaces (Petranaki: rgba(16,31,48,.72)), and a popup over the
+                roster read the seats through itself. The theme tint is layered over a solid base instead. */
+             background: linear-gradient(var(--surface-raised, #2b2f36), var(--surface-raised, #2b2f36)), #0b1622;
+             border: 1px solid var(--border, #454545); border-radius: var(--radius, 5px); box-shadow: 0 18px 50px rgba(0,0,0,.5); }
+.wr-botdlg-head { padding: 18px 20px 8px; font-weight: bold; font-size: 18px; text-transform: uppercase; letter-spacing: .06em; }
+.wr-botdlg-body { padding: 4px 20px; overflow-y: auto; min-height: 0; }
+/* Three ways to name the bot's deck, top to bottom: a pasted list, a saved deck, a pre-con. Exactly one is chosen at a
+   time — picking in one clears the other two (the main menu's Twin Suns setup follows the same rule). */
+.wr-botdlg-sec { margin: 0 0 14px; }
+.wr-botdlg-lbl { display: block; margin: 0 0 6px; font-size: 12px; font-weight: bold; letter-spacing: .12em;
+                 text-transform: uppercase; opacity: .8; }
+.wr-botdlg-note { margin: -2px 0 6px; font-size: 13px; opacity: .7; }
+.wr-botdlg-paste, .wr-botdlg-saved { width: 100%; box-sizing: border-box; margin: 0; font-size: 16px; /* 16px: no iOS zoom */
+                   background: var(--surface-sunken, #394452); color: var(--text, #fff); border: 1px solid var(--border, #454545);
+                   border-radius: var(--radius, 5px); padding: 8px; }
+.wr-botdlg-paste { min-height: 64px; resize: vertical; }
+.wr-botdlg-saved:disabled { opacity: .6; }
+/* The pre-cons: a SUNKEN WELL of chamfered rows, the main menu's Twin Suns pre-con list (swusim-menu-2.css .pool/.pc__row)
+   rebuilt in wr- classes — that stylesheet is not on this page, and its bare class names would collide here anyway.
+   Each row's rim is the row's own background showing through a 1px inset ::before plane cut to the SAME chamfer, so
+   the diagonal corners get a rim too (a border or inset shadow would leave them bare). */
+.wr-botdlg-well { padding: 5px; background: rgba(4, 8, 13, .62); border: 1px solid rgba(120, 142, 172, .16);
+                  border-radius: 3px; box-shadow: inset 0 2px 8px rgba(0, 0, 0, .45); }
+.wr-botdlg-pcs { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px;
+                 max-height: clamp(150px, 42vh, 320px); overflow: hidden auto; overscroll-behavior: contain; }
+.wr-botdlg-pc { display: grid; min-width: 0; }
+.wr-botdlg-pcin { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden;
+                  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.wr-botdlg-pcrow { --cut: 9px; --plane: #18222e; --rim: rgba(160, 182, 210, .22);
+                   position: relative; isolation: isolate; display: grid; grid-template-columns: auto minmax(0, 1fr);
+                   align-items: center; column-gap: 14px; padding: 8px 12px; cursor: pointer; background: var(--rim);
+                   clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut)); }
+.wr-botdlg-pcrow::before { content: ''; position: absolute; inset: 1px; z-index: -1; background: var(--plane);
+                   clip-path: polygon(calc(var(--cut) - 1px) 0, 100% 0, 100% calc(100% - var(--cut) + 1px),
+                                      calc(100% - var(--cut) + 1px) 100%, 0 100%, 0 calc(var(--cut) - 1px)); }
+.wr-botdlg-pcrow:hover { --plane: #1e2a38; --rim: rgba(190, 210, 236, .42); }
+.wr-botdlg-pcin:checked + .wr-botdlg-pcrow { --plane: #222a2c; --rim: rgba(226, 184, 92, .8); }
+.wr-botdlg-pcin:focus-visible + .wr-botdlg-pcrow { --rim: #f0c96a; outline: none; }
+.wr-botdlg-pccards { display: flex; align-items: center; gap: 3px; }
+.wr-botdlg-pccards .wr-cardwrap { padding: 1px; border-radius: 3px; }
+.wr-botdlg-pccards .wr-card { width: 44px; border-radius: 2px; }
+.wr-botdlg-pccards .wr-cardwrap:last-child { margin-left: 5px; }
+.wr-botdlg-pccards .wr-card-base { width: 36px; }
+.wr-botdlg-pctext { display: grid; gap: 2px; min-width: 0; }
+.wr-botdlg-pcname { font-weight: 600; font-size: 15px; line-height: 1.25; }
+.wr-botdlg-pcmeta { font-size: 13px; line-height: 1.35; opacity: .72; }
+.wr-botdlg-pcmeta b { font-weight: 600; }
+/* Selection is never colour alone: a gold check comes on beside the name too. */
+.wr-botdlg-mark { display: inline-block; width: 15px; height: 15px; margin-left: 7px; vertical-align: -2px;
+                  color: #e2b85c; opacity: 0; transition: opacity 150ms ease; }
+.wr-botdlg-mark svg { width: 100%; height: 100%; display: block; }
+.wr-botdlg-pcin:checked + .wr-botdlg-pcrow .wr-botdlg-mark { opacity: 1; }
+@media (max-width: 480px) {
+  .wr-botdlg-pcrow { grid-template-columns: minmax(0, 1fr); row-gap: 6px; }
+}
+.wr-botdlg-err { color: #ff6b6b; font-size: 13px; min-height: 18px; padding: 4px 20px 0; }
+.wr-botdlg-actions { display: flex; justify-content: flex-end; gap: 10px; padding: 12px 20px 18px; }
 </style>
 CSS;
 }
@@ -175,8 +259,14 @@ function _WaitingRoomMarkup(array $cfg): string {
     $libBlock = $lib === '' ? '' :
         '<div id="wr-deck-library" style="margin-bottom:8px;">' . $lib . '</div>';
     $css = _WaitingRoomStyles();
+    // Pinned LEFT, with the room itself in the remaining space. align-items:flex-start so the panel's
+    // sticky positioning has something to stick within rather than being stretched to row height.
+    $chat = RenderChatPanel(['mode' => 'chat', 'title' => 'CHAT', 'folderPath' => $cfg['rootName']]);
     return <<<HTML
 {$css}
+<div class="wr-with-chat" style="display:flex; align-items:flex-start; gap:0;">
+{$chat}
+<div style="flex:1 1 auto; min-width:0;">
 <div class="row-wrapper">
   <div class="card ga-glass-card wr-panel" style="color:var(--text);">
     <div id="wr-root" data-root-name="{$root}" data-state="loading">
@@ -217,6 +307,8 @@ function _WaitingRoomMarkup(array $cfg): string {
     </div>
   </div>
 </div>
+</div>
+</div>
 HTML;
 }
 
@@ -252,6 +344,10 @@ function _WaitingRoomScript(array $cfg): string {
   // its card art once a second as the fresh elements repainted. Re-render only when something the
   // roster actually shows has changed.
   var lastSig = '';
+  // A seat's first minute is protected from Remove (SWUSeatKickableIn). The roster sends `kickableIn` (seconds) on
+  // every poll; it becomes a LOCAL deadline here and is kept OUT of the redraw signature — a number that falls every
+  // poll would otherwise redraw the whole roster for a minute. tickKicks() updates the buttons in place.
+  var kickDeadline = {};
 
   function appBase() { var p = location.pathname, i = p.indexOf('/TCGEngine/'); return i >= 0 ? p.slice(0, i + 11) : '/TCGEngine/'; }
   function qs(k) { return new URLSearchParams(location.search).get(k) || ''; }
@@ -314,8 +410,22 @@ function _WaitingRoomScript(array $cfg): string {
     // No "(you)" here — the green ring on your own tile already says it, and repeating it in text
     // was two signals for one fact. It IS kept in the unassigned holding line below, where there is
     // no tile and therefore no ring to read it from.
-    var who = 'P' + entry.playerID + (entry.isHost ? ' (host)' : '');
-    if (entry.botProfile) who += ' · ' + ((botProfiles[entry.botProfile] || {}).name || 'Bot');
+    // THE NAME, not the seat number — the tile's own label already says "Seat N" right above this.
+    //
+    // ⚠ "Guest PN" IS COMPOSED HERE, from `seatNo` — the number this tile is DRAWING — and never from
+    // entry.playerID. The two diverge as soon as anybody leaves: ids go 1, 3, 4 and the next joiner is
+    // playerID 5 while sitting on the tile labelled "Seat 4", so a playerID would print "Guest P5"
+    // under "Seat 4". seatNo is also the number they will actually hold in the game, because
+    // StartRoom compacts ids in this same order. The server deliberately sends no guest string
+    // (PollLobbyUpdates) — a username there means an ACCOUNT, and guests must stay distinguishable.
+    //
+    // esc() is applied by the caller, which matters here: this is the first user-controlled string
+    // the roster renders.
+    var bp = botProfiles[entry.botProfile] || {};
+    var who = entry.botProfile
+      ? (bp.deck ? (entry.username || 'Arenabot') + ' · ' + (bp.deckName || (bp.deck === 'paste' ? 'your decklist' : bp.name))   // SWUSim: the bot's own name
+                 : ('P' + entry.playerID + ' · ' + (bp.name || 'Bot')))
+      : (entry.username || ('Guest P' + seatNo)) + (entry.isHost ? ' (host)' : '');
     // deckOk, ready and away are THREE different facts. A legal deck you are still swapping is not a
     // deck you are ready to play, and a ready deck whose owner has closed their browser is not a
     // player. Away NEVER blocks Start — it is what the host reads before deciding to Remove.
@@ -325,8 +435,11 @@ function _WaitingRoomScript(array $cfg): string {
     var away = entry.away ? '<span class="wr-pill wr-pill-away">AWAY</span>' : '';
     var deck = entry.deckOk ? '<span style="color:#6fcf97;font-size:12px;">deck ✓</span>'
                             : '<span style="color:#ff6b6b;font-size:12px;">deck missing/invalid</span>';
+    var kickWait = kickWaitSecs(entry.playerID);
     var kick = (iAmHost && entry.playerID !== myPlayerID)
-      ? '<button type="button" class="btn wr-kick" data-kick="' + entry.playerID + '">Remove</button>' : '';
+      ? '<button type="button" class="btn wr-kick" data-kick="' + entry.playerID + '"' +
+        (kickWait > 0 ? ' disabled title="A player can be removed one minute after they join"' : '') + '>' +
+        kickLabel(kickWait) + '</button>' : '';
     if (entry.botProfile) deck = '<span style="font-size:12px;">' + esc((botProfiles[entry.botProfile] || {}).description || '') + '</span>';
     return '<div class="wr-seat-label">Seat ' + seatNo + '</div>' +
            '<div class="wr-seat-who">' + esc(who) + kick + '</div>' + strip(entry) +
@@ -397,7 +510,9 @@ function _WaitingRoomScript(array $cfg): string {
       var holding = unassigned.length
         ? '<div style="margin-top:4px;font-size:12px;color:#aab6c4;">Not on a team yet: ' +
           unassigned.map(function (r) {
-            return esc('P' + r.playerID + (r.playerID === myPlayerID ? ' (you)' : ''));
+            // No tile means no seat number to build a guest label from, so an unnamed seat stays "PN"
+            // here. It is the one place that number is the only handle anyone has on this player.
+            return esc((r.username || ('P' + r.playerID)) + (r.playerID === myPlayerID ? ' (you)' : ''));
           }).join(', ') + '</div>'
         : '';
 
@@ -428,6 +543,9 @@ function _WaitingRoomScript(array $cfg): string {
     }
     host.innerHTML = '<div class="wr-grid">' + rows.join('') + '</div>';
     bindKicks(host);
+    Array.prototype.forEach.call(host.querySelectorAll('.wr-fill-bot'), function (button) {
+      button.onclick = function () { if (botWaitSecs() <= 0) openFillBotDialog(button.getAttribute('data-bot-seat')); };
+    });
     Array.prototype.forEach.call(host.querySelectorAll('.wr-add-bot'), function (button) {
       button.onclick = function () {
         var profile = button.parentNode.querySelector('select').value;
@@ -443,20 +561,187 @@ function _WaitingRoomScript(array $cfg): string {
     });
   }
 
+  // Does this room's bot carry a deck (SWUSim Twin Suns: a pre-con or a pasted list)? Then an empty seat gets the
+  // "Fill Seat with Bot" button and its popup; otherwise the original profile picker (FaB), unchanged.
+  function botsTakeDecks() {
+    return Object.keys(botProfiles).some(function (id) { return !!(botProfiles[id] && botProfiles[id].deck); });
+  }
+  // A public room waits a quiet minute before bots (the poll's botAddableIn, a duration → a local deadline, kept out
+  // of the redraw signature exactly like a seat's kickableIn).
+  var botAddDeadline = 0;
+  function botWaitSecs() { return botAddDeadline ? Math.max(0, Math.ceil((botAddDeadline - Date.now()) / 1000)) : 0; }
+  function fillLabel(wait) { return wait > 0 ? 'Fill Seat with Bot (' + wait + 's)' : 'Fill Seat with Bot'; }
+  var FILL_WAIT_TITLE = 'In a public room, bots can be added once nobody new has joined for a while';
+  function tickFill() {
+    Array.prototype.forEach.call(document.querySelectorAll('.wr-fill-bot'), function (b) {
+      var wait = botWaitSecs(), label = fillLabel(wait);
+      if (b.textContent !== label) b.textContent = label;
+      if (b.disabled !== (wait > 0)) b.disabled = wait > 0;
+      if (wait > 0) b.title = FILL_WAIT_TITLE; else b.removeAttribute('title');
+    });
+  }
+  setInterval(tickFill, 1000);
+
   function botPicker(d, seat) {
     var profiles = Object.keys(botProfiles);
     if (!iAmHost || d.state !== 'open' || !profiles.length) return 'Waiting…';
+    if (botsTakeDecks()) {
+      var wait = botWaitSecs();
+      return '<button type="button" class="btn wr-fill-bot" data-bot-seat="' + seat + '"' +
+             (wait > 0 ? ' disabled title="' + FILL_WAIT_TITLE + '"' : '') + '>' + fillLabel(wait) + '</button>';
+    }
     return '<label>Bot <select aria-label="Bot type">' + profiles.map(function (id) {
       return '<option value="' + esc(id) + '">' + esc(botProfiles[id].name) + '</option>';
     }).join('') + '</select></label> <button type="button" class="btn wr-add-bot" data-bot-seat="' + seat + '">Add bot</button>';
+  }
+
+  // The "Fill Seat with Bot" popup (owner Decision 3, SWUSim/docs/todo-twinsuns-fill-bot.md). Top to bottom: paste a
+  // list, pick a saved deck, or pick a pre-con — one at a time, so choosing in one clears the other two. A pasted list
+  // and a saved deck both ride the 'paste' profile; the server validates either exactly like a human's deck
+  // (AddBot.php → validateDeck), so any refusal is shown here and the popup stays open to fix it.
+  // Appended to <body>, so the 1.5s roster redraw never touches it.
+  var BOTDLG_MARK = '<span class="wr-botdlg-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+    ' stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>';
+  // "Leader · Leader / Base · 80 cards · singleton" — the main menu's pre-con meta line, from the profile's cards.
+  function preconMeta(p) {
+    var cards = p.cards || [], names = function (k) {
+      return cards.filter(function (c) { return c.kind === k; }).map(function (c) { return esc(c.name); });
+    };
+    var meta = names('leader').join(' · '), base = names('base');
+    if (base.length) meta += ' / ' + base.join(' · ');
+    if (p.count) meta += ' · <b>' + Number(p.count) + ' cards</b> · singleton';
+    return meta;
+  }
+  function openFillBotDialog(seat) {
+    if (document.querySelector('.wr-botdlg-overlay')) return;
+    var ids = Object.keys(botProfiles);
+    var pasteId = ids.filter(function (id) { return (botProfiles[id] || {}).deck === 'paste'; })[0] || '';
+    var preIds = ids.filter(function (id) { return (botProfiles[id] || {}).deck === 'precon'; });
+    // The saved decks are the page's own library dropdown (rendered for a signed-in viewer), copied rather than
+    // re-fetched — same options, same data-queue-input chosenDeck() already reads.
+    var libSel = document.querySelector('#wr-deck-library .dl-select:not([data-source])');
+    var ssSel = document.querySelector('#wr-deck-library .dl-select[data-source="swustats"]');
+    var secs = '';
+    if (pasteId) {
+      secs += '<div class="wr-botdlg-sec"><label class="wr-botdlg-lbl" for="wr-botdlg-paste">Deck link or list</label>' +
+        '<textarea id="wr-botdlg-paste" class="wr-botdlg-paste" spellcheck="false"' +
+        ' placeholder="A swudb link, or the deck JSON / text export"></textarea></div>';
+      var savedSel = '';
+      if (libSel) {
+        var has = libSel.options.length > 1;
+        savedSel = '<select id="wr-botdlg-saved" class="wr-botdlg-saved"' + (has ? '' : ' disabled') + '>' +
+          (has ? libSel.innerHTML : '<option value="">No saved decks yet</option>') + '</select>';
+      }
+      if (ssSel && window.SWUDeckSource) {
+        // spec 2026-10-10 §2: the same SWUStats / Saved toggle as the page's own library
+        var ssHas = ssSel.options.length > 1 && !ssSel.disabled;
+        var ssInner = '<select id="wr-botdlg-ss" class="wr-botdlg-saved" data-source="swustats"' + (ssHas ? '' : ' disabled') + '>' +
+          (ssHas ? ssSel.innerHTML : '<option value="">No SWUStats decks</option>') + '</select>';
+        secs += '<div class="wr-botdlg-sec"><span class="wr-botdlg-lbl" id="wr-botdlg-decks-lbl">Decks</span>' +
+          SWUDeckSource.toggleHtml('wr-botdlg', ssInner,
+            savedSel || '<div class="deck-library-empty">No saved decks yet</div>', 'wr-botdlg-decks-lbl') + '</div>';
+      } else if (libSel) {
+        secs += '<div class="wr-botdlg-sec"><label class="wr-botdlg-lbl" for="wr-botdlg-saved">Saved Decks</label>' + savedSel + '</div>';
+      }
+    }
+    if (preIds.length) {
+      secs += '<div class="wr-botdlg-sec"><div class="wr-botdlg-lbl" id="wr-botdlg-pclbl">Pre-Cons</div>' +
+        '<div class="wr-botdlg-note">' + preIds.length + ' pre-con' + (preIds.length === 1 ? '' : 's') +
+        ', each a complete Twin Suns deck.</div>' +
+        '<div class="wr-botdlg-well"><ul class="wr-botdlg-pcs" role="radiogroup" aria-labelledby="wr-botdlg-pclbl">' +
+        preIds.map(function (id, i) {
+          var p = botProfiles[id] || {}, rid = 'wr-botdlg-pc-' + i;
+          return '<li class="wr-botdlg-pc"><input class="wr-botdlg-pcin" type="radio" name="wr-botdlg-pick" id="' + rid + '"' +
+            ' value="' + esc(id) + '"' + (i === 0 ? ' checked' : '') + '>' +
+            '<label class="wr-botdlg-pcrow" for="' + rid + '">' +
+            '<span class="wr-botdlg-pccards">' + (p.cards || []).map(thumb).join('') + '</span>' +
+            '<span class="wr-botdlg-pctext"><span class="wr-botdlg-pcname">' + esc(p.deckName || p.name) + BOTDLG_MARK + '</span>' +
+            '<span class="wr-botdlg-pcmeta">' + preconMeta(p) + '</span></span></label></li>';
+        }).join('') + '</ul></div></div>';
+    }
+    var o = document.createElement('div');
+    o.className = 'wr-botdlg-overlay';
+    o.innerHTML = '<div class="wr-botdlg" role="dialog" aria-modal="true" aria-labelledby="wr-botdlg-title">' +
+      '<div class="wr-botdlg-head" id="wr-botdlg-title">Fill Seat ' + esc(seat) + ' with Bot</div>' +
+      '<div class="wr-botdlg-body">' + secs + '</div>' +
+      '<div class="wr-botdlg-err" role="alert"></div>' +
+      '<div class="wr-botdlg-actions"><button type="button" class="btn wr-botdlg-cancel">Cancel</button>' +
+      '<button type="button" class="btn btn-primary wr-botdlg-add">Add Bot</button></div></div>';
+    var close = function () { o.remove(); document.removeEventListener('keydown', onKey, true); };
+    var onKey = function (e) { if (e.key === 'Escape') { e.preventDefault(); close(); } };
+    var paste = o.querySelector('.wr-botdlg-paste');
+    var savedSels = o.querySelectorAll('.wr-botdlg-saved');
+    var activeSaved = function () {
+      for (var i = 0; i < savedSels.length; i++) {
+        var p = savedSels[i].closest('.decksrc__panel');
+        if (!p || !p.hidden) return savedSels[i];
+      }
+      return null;
+    };
+    var resetSaved = function () { Array.prototype.forEach.call(savedSels, function (s) { s.selectedIndex = 0; }); };
+    if (window.SWUDeckSource) SWUDeckSource.show(o.querySelector('[data-decksrc]'), SWUDeckSource.preferred());
+    var radios = o.querySelectorAll('input[name=wr-botdlg-pick]');
+    var clearRadios = function () { Array.prototype.forEach.call(radios, function (r) { r.checked = false; }); };
+    if (paste) paste.addEventListener('input', function () {
+      if (!paste.value.trim()) return;
+      clearRadios(); resetSaved();
+    });
+    Array.prototype.forEach.call(savedSels, function (s) {
+      s.addEventListener('change', function () {
+        if (s.selectedIndex <= 0) return;
+        clearRadios(); if (paste) paste.value = '';
+      });
+    });
+    Array.prototype.forEach.call(radios, function (r) {
+      r.addEventListener('change', function () { if (paste) paste.value = ''; resetSaved(); });
+    });
+    o.querySelector('.wr-botdlg-cancel').onclick = close;
+    o.addEventListener('mousedown', function (e) { if (e.target === o) close(); });
+    o.querySelector('.wr-botdlg-add').onclick = function () {
+      var add = this, err = o.querySelector('.wr-botdlg-err');
+      var profile = '', deck = '';
+      var typed = paste ? paste.value.trim() : '';
+      var saved = activeSaved();
+      var savedOpt = saved && saved.selectedIndex > 0 ? saved.options[saved.selectedIndex] : null;
+      var picked = o.querySelector('input[name=wr-botdlg-pick]:checked');
+      if (typed) { profile = pasteId; deck = typed; }
+      else if (savedOpt) { profile = pasteId; deck = savedOpt.getAttribute('data-queue-input') || savedOpt.getAttribute('data-id') || ''; }
+      else if (picked) profile = picked.value;
+      if (!profile || (profile === pasteId && !deck)) {
+        err.textContent = 'Paste a deck, pick a saved deck, or choose a pre-con.'; return;
+      }
+      add.disabled = true; err.textContent = 'Checking the deck…';
+      post('APIs/Lobbies/AddBot.php', 'lobbyID=' + encodeURIComponent(lobbyID) +
+        '&authKey=' + encodeURIComponent(loadKey(lobbyID)) + '&botProfile=' + encodeURIComponent(profile) +
+        '&botDeck=' + encodeURIComponent(deck) + '&seat=' + encodeURIComponent(seat), function (r) {
+          add.disabled = false;
+          if (!r || !r.success) { err.textContent = (r && r.message) || 'Could not add the bot.'; return; }
+          close();
+          lastSig = '';   // the roster just changed
+          if (typeof Toast === 'function') Toast('Bot added to seat ' + seat + '.', { type: 'success' });
+        });
+    };
+    document.addEventListener('keydown', onKey, true);
+    document.body.appendChild(o);
+    o.querySelector('.wr-botdlg-add').focus();
   }
 
   function renderInvite(d) {
     var host = el('wr-invite'); if (!host) return;
     if (!d.inviteCode) { host.innerHTML = ''; return; }
     var link = location.origin + appBase() + 'SharedUI/Sites/' + encodeURIComponent(ROOT) + '/WaitingRoom.php?invite=' + encodeURIComponent(d.inviteCode);
-    host.innerHTML = 'Invite: <strong>' + esc(d.inviteCode) + '</strong> ' +
-                     '<button id="wr-copy" type="button" class="btn" style="margin-left:8px;">Copy Invite Link</button>';
+    // A PUBLIC room (Twin Suns only — nothing else has a public waiting room) shows the button alone.
+    // The code is not a secret there: anyone can reach the room through matchmaking, so it is an
+    // address, not a password, and printing 24 hex characters next to the button is noise. A PRIVATE
+    // room keeps the code visible — there it IS the secret, and people read it out to each other.
+    // Owner, 2026-09-26: "a strict copy link would be nice."
+    // ⚠ d.isPrivate may be undefined when an older poll response is in flight; default to the
+    // private presentation, which is the shape this page has always had.
+    var isPublicRoom = d.isPrivate === false;
+    var label = isPublicRoom ? 'Copy Link' : 'Copy Invite Link';
+    host.innerHTML = (isPublicRoom ? '' : 'Invite: <strong>' + esc(d.inviteCode) + '</strong> ') +
+                     '<button id="wr-copy" type="button" class="btn"' +
+                     (isPublicRoom ? '' : ' style="margin-left:8px;"') + '>' + esc(label) + '</button>';
     el('wr-copy').onclick = function () {
       var b = el('wr-copy');
       // Never a native dialog — StyledDialog.js loads on every SiteDef site (Head.php) and provides
@@ -465,14 +750,14 @@ function _WaitingRoomScript(array $cfg): string {
       // whose clipboard was blocked can still copy the link by hand.
       var manual = function () {
         if (typeof StyledPrompt === 'function') {
-          StyledPrompt('Your browser blocked the clipboard. Copy this invite link:',
-                       { title: 'Invite Link', initial: link, confirmLabel: 'Done' });
+          StyledPrompt('Your browser blocked the clipboard. Copy this ' + (isPublicRoom ? 'link' : 'invite link') + ':',
+                       { title: isPublicRoom ? 'Room Link' : 'Invite Link', initial: link, confirmLabel: 'Done' });
         }
       };
       var copied = function () {
         b.textContent = 'Copied!';
-        setTimeout(function () { b.textContent = 'Copy Invite Link'; }, 1200);
-        if (typeof Toast === 'function') Toast('Invite link copied.', { type: 'success' });
+        setTimeout(function () { b.textContent = label; }, 1200);
+        if (typeof Toast === 'function') Toast((isPublicRoom ? 'Room' : 'Invite') + ' link copied.', { type: 'success' });
       };
       // WebKit needs the write inside the click turn, so nothing async may run before writeText.
       try {
@@ -482,12 +767,60 @@ function _WaitingRoomScript(array $cfg): string {
     };
   }
 
+  // How many seats this room draws. One reader, so "4" in a message can never disagree with the grid.
+  function seatCount(d) { return (d.seatModel && d.seatModel.maxPlayers) || d.maxPlayers || 2; }
+
+  // A way back into matchmaking, so no refusal is a wall. Rendered only when the server says the
+  // format is queueable (`canRequeue`), because a private room has no public queue to fall back to.
+  function requeueButton(d, label) {
+    if (!d || !d.canRequeue) return '';
+    return ' <button id="wr-requeue" type="button" class="btn" style="font-size:12px;">' + esc(label) + '</button>';
+  }
+  function bindRequeue(d) {
+    var b = el('wr-requeue'); if (!b) return;
+    b.onclick = function () { doRequeue(d); };
+  }
+
+  // Queue for a DIFFERENT room in the same format, with the deck already chosen here. Going through
+  // JoinQueue rather than bouncing to the main menu keeps the deck they just picked — being told "that
+  // room is full" and then having to re-pick a deck on another page is the same dead end with extra
+  // steps. The seat they are not sitting in needs no releasing, and LobbyReleaseOtherSeats handles the
+  // case where they were.
+  function doRequeue(d) {
+    var deck = chosenDeck();
+    var msg = el('wr-deck-msg');
+    if (!deck) {
+      if (msg) { msg.style.color = '#ff6b6b'; msg.textContent = 'Pick a deck first, then search for another room.'; }
+      return;
+    }
+    var b = el('wr-requeue'); if (b) { b.disabled = true; b.textContent = 'Searching…'; }
+    post('APIs/Lobbies/JoinQueue.php',
+      'rootName=' + encodeURIComponent(ROOT) + '&format=' + encodeURIComponent(d.format || '') +
+      '&queueType=' + encodeURIComponent((d.seatModel && d.seatModel.queueType) || 'bo1') +
+      '&deckLink=' + encodeURIComponent(deck) + '&preconstructedDeck=&game_type=',
+      function (r) {
+        if (!r.success) {
+          if (b) { b.disabled = false; b.textContent = 'Find another room'; }
+          if (msg) { msg.style.color = '#ff6b6b'; msg.textContent = r.message || 'Could not find another room.'; }
+          return;
+        }
+        navigating = true;
+        if (r.authKey && r.lobbyID) saveKey(r.lobbyID, r.authKey);
+        // A full page load, not an in-place swap: every piece of this page's state (lobbyID, myPlayerID,
+        // inviteCode, lastSig, the poll timer) belongs to the room we are leaving.
+        location.href = r.gameName
+          ? appBase() + 'NextTurn.php?gameName=' + encodeURIComponent(r.gameName) +
+            '&playerID=' + encodeURIComponent(r.playerID || 1) + '&folderPath=' + encodeURIComponent(ROOT)
+          : location.pathname + '?lobby=' + encodeURIComponent(r.lobbyID || '');
+      });
+  }
+
   function renderControls(d, seated) {
     var head = el('wr-head-actions'), left = el('wr-actions-left'), right = el('wr-actions-right');
     if (!head || !left || !right) return;
     var me = (d.roster || []).filter(function (r) { return r.playerID === myPlayerID; })[0];
     var isHost = !!(me && me.isHost);
-    var full = (d.numPlayers || 0) >= ((d.seatModel && d.seatModel.maxPlayers) || d.maxPlayers || 2);
+    var full = (d.numPlayers || 0) >= seatCount(d);
 
     if (!seated) {
       // Nothing to leave yet, Start is not yours, and joining is ALREADY the deck bar's button —
@@ -495,11 +828,29 @@ function _WaitingRoomScript(array $cfg): string {
       // that is where the deck you are joining with is chosen.
       head.innerHTML = '';
       right.innerHTML = '';
-      left.innerHTML = '';
       el('wr-ready-slot').innerHTML = '';   // nothing to ready until you hold a seat
       var jb = el('wr-deck-btn');
       if (jb) jb.disabled = full;
-      el('wr-hint').textContent = full ? 'Lobby is full.' : 'Paste or pick a deck to join this lobby.';
+      // ⚠ A FULL ROOM IS NOT A DEAD END, and this is the whole point of the page staying live. The poll
+      // keeps running, `full` is recomputed on every render, and the button re-enables itself the moment
+      // somebody leaves — so the honest thing to say is that we are waiting, not that the door is shut.
+      // "Lobby is full." was accurate and told them nothing about what to do with that.
+      // ⚠ THE COUNT IS NOT REPEATED HERE. #wr-status draws it beside the people icon immediately to the
+      // left of this sentence, and the blockers line already follows that rule for the same reason:
+      // "4/4  This room is full (4/4)" reads as noise. The COUNT belongs to the icon; this line's job
+      // is what it MEANS and what happens next. (The server's refusal message does name the numbers —
+      // it is shown with no icon beside it.)
+      el('wr-hint').textContent = full
+        ? 'This room is full. Waiting for a seat to open — you will be able to join as soon as one does.'
+        : 'Pick a deck to take a seat.';
+      // The spectator promise, and it is a PROMISE the server keeps: if the host starts before a seat
+      // opens, PollLobbyUpdates answers `spectator` and the poll below sends playerID=S rather than
+      // dropping them (owner, 2026-09-26). Only worth saying while they cannot act.
+      left.innerHTML = '<div style="font-size:12px;color:#aab6c4;">' +
+        (full ? 'You are not seated. If the game starts before a seat opens, you will watch as a spectator.'
+              : 'You are not seated yet.') +
+        '</div>' + requeueButton(d, 'Find another room');
+      bindRequeue(d);
       return;
     }
     var blockers = d.blockers || [];
@@ -509,9 +860,18 @@ function _WaitingRoomScript(array $cfg): string {
     // (bottom right). Both are always rendered so it is obvious which one belongs to you.
     head.innerHTML  = '<button id="wr-leave" type="button" class="btn">Leave</button>';
     // Ready lives NEXT TO the deck button, not on its own row: loading a deck auto-readies you, so
-    // the two are one thought — "this is my deck, and I'm good to go". #wr-actions-left stays empty
-    // here and is reserved for the GONE state's way out.
-    left.innerHTML = '';
+    // the two are one thought — "this is my deck, and I'm good to go". #wr-actions-left is otherwise
+    // empty, and is where the Kick Host vote lives once its window is open: a host who is present
+    // but not starting the room, in a 3+ human room that has sat unchanged for
+    // SWU_HOSTVOTE_ARM_AFTER, can be voted out by everyone else (same rule as the in-game kick
+    // vote — 2 of 2 at three seats, 2 of 3 at four). The host never sees this button; there is
+    // nobody to remove it FROM if there is no host, so it is host-relative rather than "not you".
+    var hv = d.hostVote || {};
+    left.innerHTML = (hv.open && !isHost)
+      ? '<button id="wr-hostkick" type="button" class="btn wr-hostkick"' + (hv.canVote ? '' : ' disabled') + '>' +
+        esc((hv.youVoted ? 'Voted to remove host' : 'Vote to remove host') + ' (' + hv.yesCount + '/' + hv.needed + ')') +
+        '</button>'
+      : '';
     el('wr-ready-slot').innerHTML =
       '<button id="wr-ready" type="button" class="btn"' + (me && me.deckOk ? '' : ' disabled') + '>' +
       (amReady ? 'Unready' : 'Ready') + '</button>';
@@ -528,15 +888,35 @@ function _WaitingRoomScript(array $cfg): string {
       ? '<button id="wr-start" type="button" class="btn wr-btn-start' +
           (canStart ? ' btn-success' : '') + '"' + (canStart ? '' : ' disabled') + '>Start Game</button>'
       : '';
+    // ⚠ THE BLOCKERS SPEAK FOR THEMSELVES — do not append to them. A "share the room link to fill it
+    // faster" nudge was tried here and cut (owner, 2026-09-27): the Copy Link button sits at the top of
+    // this same page, so the line was telling people to use a control they were already looking at, in
+    // the voice of a growth prompt. The seat-count icon and the empty tiles carry "you are early"
+    // without anyone being told to do anything.
     el('wr-hint').textContent = blockers.length
       ? blockers.join('; ')
       : (isHost ? 'Everyone is ready — press Start.' : 'Everyone is ready — waiting for the host.');
     el('wr-ready').onclick = function () { doSetReady(!amReady); };
     if (el('wr-start')) el('wr-start').onclick = doStart;   // absent for non-hosts
+    if (el('wr-hostkick')) el('wr-hostkick').onclick = doVoteKickHost;
     el('wr-leave').onclick = doLeave;
   }
 
   function render(d) {
+    // Attach the chat panel ONCE, as soon as the poll has told us which lobby this is and we hold a
+    // key for it. ⚠ The room poll runs every 1.5s forever; attaching per render would stack another
+    // 2s chat poll on every tick.
+    if (!window.__tcgChatAttached && lobbyID && window.TCGChatPanel) {
+      window.__tcgChatAttached = true;
+      window.TCGChatPanel.attach({
+        scope: { lobbyID: lobbyID },
+        playerID: myPlayerID || 1,
+        authKey: loadKey(lobbyID) || '',
+        folderPath: ROOT,
+        canSend: !!d.canChat,
+        cannotSendReason: d.cannotChatReason || ''
+      });
+    }
     var seated = !!(myPlayerID && (d.roster || []).some(function (r) { return r.playerID === myPlayerID; }));
     iAmHost = (d.roster || []).some(function (r) { return r.isHost && r.playerID === myPlayerID; });
     setState(seated ? 'seated' : 'notseated');
@@ -559,27 +939,77 @@ function _WaitingRoomScript(array $cfg): string {
     renderControls(d, seated);
   }
 
-  function renderGone(msg) {
+  // The room cannot be reached. `d` carries the reason's context (canRequeue, format) when the poll
+  // supplied one; a bare call keeps the old behaviour for the callers that have nothing to add.
+  function renderGone(msg, d) {
     setState('gone');
     if (lobbyID) clearKey(lobbyID);
     el('wr-state').innerHTML = '<div style="color:#ff6b6b;">' + esc(msg || 'This lobby has ended.') + '</div>';
     el('wr-invite').innerHTML = '';
     el('wr-roster').innerHTML = '';
-    el('wr-deck').style.display = 'none';
     el('wr-head-actions').innerHTML = '';
     el('wr-actions-right').innerHTML = '';
-    el('wr-actions-left').innerHTML =
-      '<a href="' + appBase() + 'SharedUI/MainMenu.php"><button type="button" class="btn">Back to menu</button></a>';
-    el('wr-hint').textContent = '';
     el('wr-ready-slot').innerHTML = '';
     el('wr-status').style.display = 'none';   // no lobby, so no seat count to report
+    // ⚠ THE DECK PICKER STAYS UP when there is a queue to fall back to, because the way out of this
+    // page is "find me another room" and that needs a deck. Sending them to the main menu to re-pick
+    // the deck they already chose is the same dead end with extra steps. The deck bar's own "Use this
+    // deck" button is hidden: it would post against the room that just told us it is gone.
+    var canRequeue = !!(d && d.canRequeue);
+    var deckBtn = el('wr-deck-btn');
+    if (deckBtn) deckBtn.style.display = canRequeue ? 'none' : '';
+    el('wr-deck').style.display = canRequeue ? '' : 'none';
+    // ⚠ NOT #wr-hint. It lives INSIDE #wr-status, which this function hides two lines down (there is no
+    // lobby left to report a seat count for), so guidance written there is invisible — the first cut
+    // put it there and the screenshot is what caught it. #wr-deck-msg sits directly under the deck bar,
+    // which is where the next action is anyway.
+    el('wr-hint').textContent = '';
+    var goneMsg = el('wr-deck-msg');
+    if (goneMsg) {
+      goneMsg.style.color = '#aab6c4';
+      goneMsg.textContent = canRequeue ? 'Pick a deck and search for another room.' : '';
+    }
+    el('wr-actions-left').innerHTML =
+      '<a href="' + appBase() + 'SharedUI/MainMenu.php"><button type="button" class="btn">Back to menu</button></a>' +
+      requeueButton(d, 'Find another room');
+    bindRequeue(d);
   }
 
   // ── Actions ────────────────────────────────────────────────────────────────────────────────────
   // The chosen deck: a saved-library selection wins over the paste box, since picking from the list
   // is the more deliberate act.
+  // SWUStats deck source (spec 2026-10-10 §2): with the toggle the library has TWO selects; the visible one counts.
+  function activeLibSelect() {
+    var all = document.querySelectorAll('#wr-deck-library .dl-select');
+    for (var i = 0; i < all.length; i++) {
+      var p = all[i].closest('.decksrc__panel');
+      if (!p || !p.hidden) return all[i];
+    }
+    return null;   // only hidden-panel selects: the visible tab has no list, so there is no pick
+  }
+  function fillSWUStatsLibrary(res) {
+    var sel = document.querySelector('#wr-deck-library .dl-select[data-source="swustats"]');
+    if (!sel) return;
+    var keep = sel.value, decks = res.decks || [];
+    var opts = '<option value="">-- Select a SWUStats deck --</option>';
+    decks.forEach(function (d) {
+      opts += '<option value="' + esc(d.key) + '" data-id="' + esc(d.input) + '" data-queue-input="' + esc(d.input) +
+              '" data-name="' + esc(d.name) + '">' + esc(d.name) + '</option>';
+    });
+    sel.innerHTML = opts;
+    sel.disabled = !decks.length;
+    if (keep) sel.value = keep;
+    var msg = document.querySelector('#wr-deck-library .decksrc__msg');
+    var state = window.SWUDeckSource.stateHtml(res);
+    if (msg) { msg.innerHTML = state; msg.hidden = !state; }
+  }
+  if (window.SWUDeckSource && document.querySelector('#wr-deck-library [data-decksrc]')) {
+    SWUDeckSource.load(false).then(fillSWUStatsLibrary);
+    SWUDeckSource.onRefresh(fillSWUStatsLibrary);
+  }
+
   function chosenDeck() {
-    var sel = document.querySelector('#wr-deck-library .dl-select');
+    var sel = activeLibSelect();
     if (sel && sel.selectedIndex > 0) {
       var o = sel.options[sel.selectedIndex];
       var v = o.getAttribute('data-queue-input') || o.getAttribute('data-id') || '';
@@ -596,8 +1026,16 @@ function _WaitingRoomScript(array $cfg): string {
     // rather than assuming: this function also runs from the button's click handler.
     var btn = el('wr-deck-btn');
     if (btn) btn.disabled = true;
+    // ⚠ PRESENT THE SEAT KEY WE ALREADY HOLD, if there is one. Without it the server cannot tell
+    // that this browser is ALREADY sitting in the room and mints a second seat — which is exactly
+    // what a guest hit when they signed in so they could chat and came back to the same invite URL
+    // (reported 2026-09-26). Their seat carries userId NULL, so after signing in the account no
+    // longer matches it and this key is the ONLY thing that can identify them. lobbyID is read from
+    // the URL on boot, so it is known here on a return visit even before the first poll.
+    var heldKey = lobbyID ? loadKey(lobbyID) : '';
     post('APIs/Lobbies/JoinQueue.php',
       'rootName=' + encodeURIComponent(ROOT) + '&privateInviteCode=' + encodeURIComponent(inviteCode) +
+      (heldKey ? '&authKey=' + encodeURIComponent(heldKey) : '') +
       '&deckLink=' + encodeURIComponent(deck) + '&preconstructedDeck=&game_type=',
       function (r) {
         if (!r.success) {
@@ -663,17 +1101,62 @@ function _WaitingRoomScript(array $cfg): string {
       });
   }
 
+  // Cast (or re-affirm) a Yes vote to remove the host. Unlike doSetReady this has no local toggle —
+  // a Yes cannot be retracted (same rule as the in-game kick vote) — so the button just disables
+  // itself optimistically and waits for the next poll's r.hostVote to confirm the real tally.
+  function doVoteKickHost() {
+    var b = el('wr-hostkick'); if (b) b.disabled = true;
+    post('APIs/Lobbies/VoteKickHost.php',
+      'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)),
+      function (r) {
+        if (!r.success) { el('wr-hint').textContent = r.message || 'Could not record your vote.'; if (b) b.disabled = false; }
+        lastSig = '';   // force the next poll to redraw the tally (or the roster, if it carried)
+      });
+  }
+
   // Remove a seat. Host-only and always deliberate: nothing removes a player automatically any more,
   // because the automatic version removed people who were still sitting in the room.
+  function kickWaitSecs(pid) {
+    var d = kickDeadline[pid];
+    return d ? Math.max(0, Math.ceil((d - Date.now()) / 1000)) : 0;
+  }
+  function kickLabel(wait) { return wait > 0 ? 'Remove (' + wait + 's)' : 'Remove'; }
+  function noteKickDeadlines(roster) {
+    kickDeadline = {};
+    (roster || []).forEach(function (e) {
+      var k = Number(e && e.kickableIn) || 0;
+      if (k > 0) kickDeadline[e.playerID] = Date.now() + k * 1000;
+    });
+  }
+  function rosterForSig(roster) {
+    return (roster || []).map(function (e) {
+      var c = {}; for (var k in e) if (k !== 'kickableIn') c[k] = e[k]; return c;
+    });
+  }
+  // In place, once a second: count down, and enable the button the moment the seat's first minute is up.
+  function tickKicks() {
+    Array.prototype.forEach.call(document.querySelectorAll('.wr-kick'), function (b) {
+      if (b.getAttribute('data-busy')) return;   // a removal request is in flight
+      var wait = kickWaitSecs(b.getAttribute('data-kick'));
+      var label = kickLabel(wait);
+      if (b.textContent !== label) b.textContent = label;
+      if (b.disabled !== (wait > 0)) b.disabled = wait > 0;
+      if (wait > 0) b.title = 'A player can be removed one minute after they join'; else b.removeAttribute('title');
+    });
+  }
+  setInterval(tickKicks, 1000);
+
   function bindKicks(host) {
     Array.prototype.forEach.call(host.querySelectorAll('.wr-kick'), function (b) {
       b.onclick = function () {
-        b.disabled = true;
+        if (kickWaitSecs(b.getAttribute('data-kick')) > 0) return;
+        b.disabled = true; b.setAttribute('data-busy', '1');
         post('APIs/Lobbies/KickSeat.php',
           'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)) +
           '&targetPlayerID=' + encodeURIComponent(b.getAttribute('data-kick')),
           function (r) {
-            if (!r.success) { el('wr-hint').textContent = r.message || 'Could not remove that player.'; b.disabled = false; }
+            b.removeAttribute('data-busy');
+            if (!r.success) { el('wr-hint').textContent = r.message || 'Could not remove that player.'; b.disabled = false; tickKicks(); }
             lastSig = '';   // the roster just changed; force a redraw
           });
       };
@@ -710,7 +1193,7 @@ function _WaitingRoomScript(array $cfg): string {
                  '&authKey=' + encodeURIComponent(key);
     post('APIs/Lobbies/PollLobbyUpdates.php', params, function (r) {
       if (navigating) return;
-      if (r.gone) { renderGone(r.message); return; }
+      if (r.gone) { renderGone(r.message, r); return; }
 
       if (r.lobbyID && r.lobbyID !== lobbyID) { lobbyID = r.lobbyID; rewriteUrl(); }
       // ADOPT the room's invite code from the payload. It is only ever read from ?invite= at boot,
@@ -726,14 +1209,24 @@ function _WaitingRoomScript(array $cfg): string {
         // pressed Start and everyone watched it happen.
         navigating = true;
         setState('started');
-        el('wr-state').textContent = 'Starting…';
+        // ⚠ A VIEWER WITH NO SEAT IS A SPECTATOR, NOT PLAYER 0. `r.playerID` is sent only for a seat the
+        // server recognised, so anyone watching a room they had not joined fell back to myPlayerID —
+        // which is 0 until you join — and was redirected to NextTurn.php?playerID=0. That is not a seat
+        // and not 'S': NormalizeViewerIdentity returns an empty viewerID for it, so the board came up
+        // broken instead of showing them the game they had been waiting for. The server now says which
+        // of the two this is (`spectator`), because only it knows whether the authKey holds a seat.
+        var spectating = !!r.spectator;
+        el('wr-state').textContent = spectating
+          ? (r.message || 'The game started without you — you are watching as a spectator.')
+          : 'Starting…';
         el('wr-head-actions').innerHTML = '';
         el('wr-actions-left').innerHTML = '';
         el('wr-actions-right').innerHTML = '';
         el('wr-status').style.display = 'none';
-        var seat = r.playerID || myPlayerID;
+        var seat = spectating ? 'S' : (r.playerID || myPlayerID);
         var k = loadKey(lobbyID);
-        if (k && ['1','2','3','4'].indexOf(String(seat)) >= 0) {
+        // Never for a spectator: lastAuthKey names a SEAT for a later rejoin, and they hold none.
+        if (!spectating && k && ['1','2','3','4'].indexOf(String(seat)) >= 0) {
           try { document.cookie = 'lastAuthKey=' + encodeURIComponent(k) + '; max-age=' + (30*24*60*60) + '; path=/; SameSite=Lax'; } catch (e) {}
         }
         location.href = appBase() + 'NextTurn.php?gameName=' + encodeURIComponent(r.gameName) +
@@ -757,7 +1250,14 @@ function _WaitingRoomScript(array $cfg): string {
         el('wr-removed').style.display = r.removed ? '' : 'none';
         // Only the fields the roster renders go into the signature; myPlayerID is in it because
         // the own-seat ring and the Join/Start controls depend on which seat we are.
-        var sig = JSON.stringify([r.roster, r.seatModel, r.botProfiles, r.state, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed]);
+        // ⚠ r.hostVote MUST be here. It has no roster/blockers footprint of its own — the window
+        // opening (or a fellow seat's Yes landing) changes nothing else in this array — so without
+        // it the Kick Host button would only ever appear on a render some OTHER field's change
+        // happened to trigger, rather than live as the timer elapses or votes come in.
+        noteKickDeadlines(r.roster);
+        var bw = Number(r.botAddableIn) || 0;
+        botAddDeadline = bw > 0 ? Date.now() + bw * 1000 : 0;
+        var sig = JSON.stringify([rosterForSig(r.roster), r.seatModel, r.botProfiles, r.state, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed, r.hostVote]);
         if (sig !== lastSig) { lastSig = sig; render(r); }
       }
       pollTimer = setTimeout(poll, POLL_MS);

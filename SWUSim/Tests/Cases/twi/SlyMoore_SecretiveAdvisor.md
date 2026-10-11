@@ -18,21 +18,15 @@ P1GROUNDARENAUNIT:1:READY
 
 ---
 
-# WhenPlayed_TokenIsLeaderUnit_DefeatedInsteadOfStolen
-#// TWI_211 Sly Moore — "Take control of an enemy token unit." Her target filter has no "non-leader"
-#// qualifier, so an enemy TOKEN that has been made a LEADER UNIT (its controller deployed a Pilot leader
-#// onto it) is still a legal target — but the take-control cannot happen. CR 3.4.6: "If an ability would
-#// cause a Leader Unit to move to an out-of-play zone or change control for any reason, it is DEFEATED
-#// instead." So the token is defeated rather than stolen, and per CR 3.4.5 the Leader Upgrade flips back
-#// to its owner's leader zone EXHAUSTED. P2 ends with an empty ground arena and an undeployed, exhausted
-#// leader; P1 keeps only Sly Moore herself — she gains nothing.
-#// ⚠ This section deliberately does NOT assert P2's discard: SWUSim currently sends a defeated TOKEN to
-#// the discard pile instead of having it cease to exist. That is a separate, PRE-EXISTING issue (a plain
-#// Vanquish on a token behaves the same way), independent of the leader-unit rule proved here.
-#// REGRESSION GUARD (engine, 2026-08-02): SWUTakeControlOfUnit transferred leader units outright, which
-#// handed a player a unit still carrying the OPPONENT's leader — an illegal state. The guard now lives at
-#// that shared chokepoint, so it covers every take-control caller AND the return half of a temporary
-#// steal (see LiberatedByDarkness::StolenUnitBecomesLeaderUnit_DefeatedAtRegroup).
+# WhenPlayed_TokenMadeLeaderUnit_IsStolen_PilotStaysAttached
+#// TWI_211 Sly Moore — "Take control of an enemy token unit." P2's TIE token carries P2's Pilot leader JTL_008,
+#// which makes it a leader unit. Sly Moore still takes it: P1 gains the token, P2's Pilot leader rides along.
+#// CR v9.0 3.4.7 (rewritten 2026): "Some abilities make non-leader units leader units ... it doesn't follow
+#// rules 3.4.1-3.4.6. ... it can change control or move to an out-of-play zone". A unit made a leader by a
+#// Pilot leader is NOT defeated instead (that is 3.4.6, for real leader units). Judges' discussion
+#// 2026-10-01: "you're giving control of the unit, and not the leader upgrade" — the Pilot leader stays
+#// attached, still controlled by its own player, so that leader stays DEPLOYED. (Before v9 this section
+#// asserted the unit was defeated instead.)
 
 ## GIVEN
 CommonSetup: yyk/bbw/{
@@ -48,8 +42,10 @@ WithP2GroundArena: JTL_T01:0:0
 - P1>PlayHand:0
 
 ## EXPECT
-P1GROUNDARENACOUNT:1
+P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:0:CARDID:TWI_211
+P1GROUNDARENAUNIT:1:CARDID:JTL_T01
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
 P2GROUNDARENACOUNT:0
-P2LEADER:NOTDEPLOYED
-P2LEADER:EXHAUSTED
+P2LEADER:DEPLOYED
+

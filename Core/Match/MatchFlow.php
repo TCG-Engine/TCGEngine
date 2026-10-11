@@ -5,6 +5,14 @@
 // prefix stripped, $rootName threaded, game-specific work routed through hooks.
 require_once __DIR__ . '/Match.php';
 require_once __DIR__ . '/Hooks.php';
+// ⚠ AT FILE SCOPE, NOT INSIDE THE FUNCTION THAT NEEDS IT. MatchSideboardWarningCheck posts to the
+// match conversation via ChatAppendMessage, which lives here. An include placed INSIDE a function
+// still declares that file's functions globally but makes its top-level variables FUNCTION-LOCAL —
+// so `$APCuEnabled = extension_loaded('apcu')` (line 7 there) never reaches the global scope, and
+// GetChatMessagesSince, which reads `global $APCuEnabled`, then silently returns [] for everyone.
+// Measured exactly that way. Safe here: this library declares functions and that one assignment,
+// emits no output, and nothing in its include chain reaches back into MatchFlow.
+require_once __DIR__ . '/../NetworkingLibraries.php';
 
 // A lobby-player stand-in for spawning child games (mid-match, no real lobby).
 class MatchSyntheticPlayer {
@@ -27,11 +35,111 @@ function MatchRefPath($rootName, $gameName) {
     if ($gameName === '') return '';
     return MatchGamesDir($rootName) . '/' . $gameName . '/MatchRef.json';
 }
+// Are the two participants of this MATCH blocked from each other? The per-game check cannot answer
+// for the Sideboard, which sits BETWEEN games and is addressed by a matchId. Same userIds, same
+// answer — this just reaches them through the match record instead of a gamestate.
+//
+// ⚠ A LOBBY needs no equivalent: JoinQueue.php's SWUJoinBlockedFromLobby already refuses a blocked
+// player a seat, so two mutually-blocked players can never be in one room to begin with. That held
+// only at TWO seats until 2026-09-26 — the check tested the HOST alone, so at 3-4 seats a block pair
+// could meet through a third-party host. It now tests every seated player, which is what makes the
+// claim above true for Twin Suns / Team Suns as well.
+function MatchArePlayersBlocked($rootName, $matchId) {
+    $m = MatchRead($rootName, $matchId);
+    if (!is_array($m)) return false;
+    $ids = [];
+    foreach (($m['players'] ?? []) as $p) { $u = intval($p['userId'] ?? 0); if ($u > 0) $ids[] = $u; }
+    if (count($ids) < 2) return false;
+    include_once MatchRepoRoot() . '/APIs/Lobbies/JoinQueue_blocklib.php';
+    return function_exists('SWUJoinBlocked') && SWUJoinBlocked($ids[0], $ids[1]);
+}
+
+// The conversation id for a lobby. One place, so the waiting room, the match and the sidecar can
+// never disagree about what a lobby's stream is called.
+function ChatLobbyConversationId($lobby) {
+    $id = strval(is_object($lobby) ? ($lobby->id ?? '') : '');
+    $id = preg_replace('/[^A-Za-z0-9_-]/', '', $id);
+    return $id === '' ? null : 'l:' . $id;
+}
+
+// ── Durable invite index (private lobbies) ───────────────────────────────────────────────────────
+// A lobby lives in APCu under LOBBY_TTL_SECONDS (900), and that TTL is refreshed ONLY by the waiting
+// room's own poll — PollLobbyUpdates' heartbeat. Once the match starts, every client navigates into
+// the game and nothing polls the lobby again, so the lobby and its `invite:<code>` index both age out
+// about 15 minutes into a match that routinely runs an hour. The invite link then resolves to nothing
+// and the room reports "That invite is invalid or has expired." (reported live 2026-09-25, game 2 of a
+// private Bo3). So the code is ALSO published here, on disk beside the match, which outlives every
+// game in it. This is a FALLBACK: APCu stays the fast path while the lobby is still alive.
+//
+// ⚠ Resolve through the MATCH, never through the lobby. `$lobby->gameName` is only ever set to GAME 1
+// (MatchCreateFromLobby); later games are spawned from a synthetic player with no lobby in sight. A
+// lobby-based fallback would therefore send a game-2 refresh into a FINISHED game 1 — worse than the
+// error it replaces.
+function MatchInvitesDir($rootName) {
+    $dir = MatchesDir($rootName) . '/invites';
+    if (!is_dir($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) return '';
+    return $dir;
+}
+function MatchInviteIndexPath($rootName, $code) {
+    // Same sanitising shape as MatchPath/MatchRefPath: an invite code is bin2hex(random_bytes(12)),
+    // so stripping to [A-Za-z0-9] is lossless for a real code and makes traversal impossible.
+    $code = preg_replace('/[^A-Za-z0-9]/', '', strval($code));
+    if ($code === '') return '';
+    $dir = MatchInvitesDir($rootName);
+    return $dir === '' ? '' : $dir . '/' . $code . '.json';
+}
+function MatchPublishInviteCode($rootName, $matchId, $code) {
+    $path = MatchInviteIndexPath($rootName, $code);
+    if ($path === '' || strval($matchId) === '') return false;
+    return file_put_contents($path, json_encode(['matchId' => strval($matchId)]), LOCK_EX) !== false;
+}
+// The match an invite code belongs to, or null. Returns the match ARRAY (not just the id) because
+// every caller needs its state and games to decide where to send the viewer.
+function MatchFindByInviteCode($rootName, $code) {
+    $path = MatchInviteIndexPath($rootName, $code);
+    if ($path === '' || !is_file($path)) return null;
+    $d = json_decode(strval(@file_get_contents($path)), true);
+    $matchId = is_array($d) ? strval($d['matchId'] ?? '') : '';
+    if ($matchId === '') return null;
+    $m = MatchRead($rootName, $matchId);
+    return is_array($m) ? $m : null;
+}
+// The game a viewer should be sent to right now: the most recently spawned one.
+// ⚠ During 'sideboarding' this is the game that just FINISHED, and that is correct — its end-game
+// screen is what follows the sideboard pointer (MatchSideboardPointerPath) on to the next game.
+function MatchCurrentGameName(array $match) {
+    $games = $match['games'] ?? [];
+    if (!is_array($games) || empty($games)) return '';
+    $last = $games[count($games) - 1];
+    return strval((is_array($last) ? ($last['gameName'] ?? '') : ''));
+}
+// Which seat holds this authKey, or 0. The key is a bearer token, so compare in constant time and
+// never treat an empty presented key as a match against a seat whose key is also somehow empty.
+function MatchSeatForAuthKey(array $match, $authKey) {
+    $authKey = trim(strval($authKey));
+    if ($authKey === '') return 0;
+    foreach (($match['players'] ?? []) as $seat => $p) {
+        if (!is_array($p)) continue;
+        $seatKey = strval($p['authKey'] ?? '');
+        if ($seatKey !== '' && hash_equals($seatKey, $authKey)) return intval($seat);
+    }
+    return 0;
+}
+
 function MatchWriteRef($rootName, $gameName, $matchId, $gameNumber) {
     $path = MatchRefPath($rootName, $gameName);
     if ($path === '') return false;
     $directory = dirname($path);
     if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) return false;
+    // Publish this game's chat redirect once, HERE, because this is the one function every game of
+    // every match passes through exactly once — game 1 from MatchCreateFromLobby and each later game
+    // from MatchSpawnNextGame. Resolving it on a POLL instead would put a file read in the hot path
+    // of GetChat.php, which every open client hits continuously.
+    // A match with no chatId (every match that predates this feature) publishes nothing, and its
+    // games therefore keep the legacy per-game bucket.
+    include_once MatchRepoRoot() . '/Core/ChatConversation.php';
+    $m = MatchRead($rootName, $matchId);
+    if (is_array($m) && !empty($m['chatId'])) ChatPublishConversationForGame($gameName, $m['chatId']);
     return file_put_contents($path, json_encode(['matchId' => strval($matchId), 'gameNumber' => intval($gameNumber)]), LOCK_EX) !== false;
 }
 function MatchReadRef($rootName, $gameName) {
@@ -134,12 +242,28 @@ function MatchCreateFromLobby($rootName, $lobby) {
         if (empty($wrapper)) return null; // every present seat must have resolved
     }
 
-    $matchId = MatchCreate($rootName, $format, $queueType, $resolved, !empty($lobby->isPrivate));
+    // The match ADOPTS the lobby's stream rather than copying its messages into a new one: a copy is
+    // a one-way snapshot, so anything said in the room after Start (a late joiner, a spectator's
+    // "gl") would be orphaned in a bucket nobody reads again.
+    $matchId = MatchCreate($rootName, $format, $queueType, $resolved, !empty($lobby->isPrivate),
+                           ChatLobbyConversationId($lobby));
     if (isset($lobby->shareAnonymizedGameplayData)) {
         $shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData);
         MatchWithLock($rootName, $matchId, function (&$m) use ($shareAnonymizedGameplayData) {
             $m['shareAnonymizedGameplayData'] = $shareAnonymizedGameplayData;
         });
+    }
+
+    // Carry the private lobby's invite code onto the match so the link keeps resolving after the
+    // lobby's APCu entry has expired — see the durable invite index above.
+    // ⚠ ABSENT, not empty, when there is none (public queues, bot/goldfish lobbies), matching how
+    // 'chatId' is handled: a '' here would be indistinguishable from "a lobby with a blank code".
+    $inviteCode = preg_replace('/[^A-Za-z0-9]/', '', strval($lobby->inviteCode ?? ''));
+    if ($inviteCode !== '') {
+        MatchWithLock($rootName, $matchId, function (&$m) use ($inviteCode) {
+            $m['inviteCode'] = $inviteCode;
+        });
+        MatchPublishInviteCode($rootName, $matchId, $inviteCode);
     }
 
     // Spawn game 1 from the real lobby, injecting the already-resolved decks. matchId/gameNumber are
@@ -216,6 +340,69 @@ function MatchSideboardTimeoutCheck($rootName, $matchId) {
     MatchMaybeSpawnAfterSideboard($rootName, $matchId);
 }
 
+// The sideboard countdown warnings (owner, 2026-09-26). The deadline auto-submits an un-ready seat's
+// PRIOR deck and nothing used to say it was coming — the deadline was computed server-side and never
+// surfaced anywhere at all.
+//
+// ⚠ DRIVEN FROM A READ, so it is called constantly and by both seats at once. GetChat.php's match
+// branch is the only tick that runs while NEITHER player has submitted: SubmitSideboard's poll only
+// starts after you submit, and a spectator's GetNextTurn poll may not exist. (GetNextTurn.php
+// already ticks MatchSideboardTimeoutCheck from a read for the same reason.) Everything below is
+// therefore written to be idempotent under concurrent callers rather than merely "called once".
+function MatchSideboardWarningCheck($rootName, $matchId) {
+    $m = MatchRead($rootName, $matchId);
+    if (!is_array($m) || ($m['state'] ?? '') !== 'sideboarding') return;
+    // A PRIVATE match never gets a deadline (MatchBeginSideboarding leaves it unset), so there is
+    // nothing to count down to. This is the whole private-match carve-out, inherited for free.
+    // ⚠ MEASURED REDUNDANT, AND KEPT ANYWAY. Deleting this line leaves every assertion green,
+    // because a missing deadline reads as 0 and the `$remaining < 0` guard below then catches it.
+    // It stays because that is an accident of integer arithmetic, not an expression of the rule:
+    // relying on it would make private-match safety depend on `0 - time()` staying negative and on
+    // that second guard never being loosened to `<= 0`. Neither guard can be pinned individually
+    // for the private case — each one covers it alone — so this is recorded, not faked.
+    $deadline = intval($m['sideboardDeadline'] ?? 0);
+    if ($deadline <= 0) return;
+    $remaining = $deadline - time();
+    // Past the deadline the auto-submit has already taken over; a warning then is noise about a
+    // decision the player no longer has.
+    if ($remaining < 0) return;
+
+    // ⚠ CHECKED *BEFORE* CLAIMING ANYTHING. Claiming a mark and then discovering we cannot post
+    // would CONSUME it and send nothing — the warning lost for good, because the mark reads as
+    // already sent forever after. The library is required at the top of this file, so this is a
+    // backstop rather than the load; it must still sit above the claim.
+    if (!function_exists('ChatAppendMessage')) return;
+
+    // ⚠ CLAIM THE MARKS UNDER THE LOCK, POST OUTSIDE IT. Two polls landing in the same second both
+    // see "90s not yet sent"; only the one that wins the lock gets a non-empty $due, so the message
+    // is posted exactly once. Deciding outside and writing inside would post twice.
+    $due = [];
+    MatchWithLock($rootName, $matchId, function (&$mm) use ($remaining, &$due) {
+        if (($mm['state'] ?? '') !== 'sideboarding') return;      // re-read: it may have advanced
+        $sent = array_map('intval', (array)($mm['sideboardWarned'] ?? []));
+        foreach (MATCH_SIDEBOARD_WARN_MARKS as $mark) {
+            if ($remaining > $mark || in_array($mark, $sent, true)) continue;
+            $sent[] = $mark;
+            $due[]  = $mark;
+        }
+        if (!empty($due)) $mm['sideboardWarned'] = $sent;
+    });
+
+    if (empty($due)) return;
+    // playerID 0: the chat panel maps any seat outside 1-4 to its existing `tcgc-log` class, so this
+    // renders as a log line rather than as somebody's chat message. No CSS needed.
+    foreach ($due as $mark) {
+        ChatAppendMessage('m:' . $matchId, 0, 'Sideboard', MatchSideboardWarningText(intval($mark)));
+    }
+}
+
+// The wording, in one place so the test and the player read the same sentence.
+function MatchSideboardWarningText(int $mark): string {
+    return $mark <= 30
+        ? '30 seconds left — your current deck will be submitted automatically.'
+        : $mark . ' seconds left to submit your deck.';
+}
+
 // Spawn the next game once both sideboards are in (or a timeout forced them). Idempotent.
 // Concurrency-safe: both seats' submit/poll may call this at once — an atomic spawn-claim ensures
 // exactly ONE caller spawns the next game (else two games would spawn and the players desync). The
@@ -258,7 +445,10 @@ function MatchMaybeSpawnAfterSideboard($rootName, $matchId) {
                 $mm['players'][$s]['currentDeck'] = $decks[intval($s)];
             }
         }
-        unset($mm['sideboard'], $mm['sideboardDeadline'], $mm['pendingFirstPlayer'], $mm['spawnClaimedAt']);
+        // ⚠ sideboardWarned goes WITH the deadline it belongs to. Leaving it behind makes a Bo3's
+        // SECOND sideboard silent: both marks already read as sent.
+        unset($mm['sideboard'], $mm['sideboardDeadline'], $mm['sideboardWarned'],
+              $mm['pendingFirstPlayer'], $mm['spawnClaimedAt']);
     });
     return $next;
 }
@@ -266,8 +456,9 @@ function MatchMaybeSpawnAfterSideboard($rootName, $matchId) {
 // Rematch: create a NEW match between the same players (mutual agreement). Each seat records its
 // chosen bestOf (1|3) + sideboard preference; both must agree on bestOf to pair.
 function MatchRequestRematch($rootName, $oldMatchId, $seat, $bestOf, $sideboard) {
-    return MatchWithLock($rootName, $oldMatchId, function (&$m) use ($seat, $bestOf, $sideboard) {
+    return MatchWithLock($rootName, $oldMatchId, function (&$m) use ($rootName, $seat, $bestOf, $sideboard) {
         if (($m['state'] ?? '') !== 'complete') return;
+        if (MatchHook($rootName, 'allowsSeriesChange', $m) === false) return;   // e.g. a rated format: re-queue instead
         if ($seat !== 1 && $seat !== 2) return;
         if (!isset($m['rematchRequests'])) $m['rematchRequests'] = [];
         $m['rematchRequests'][strval($seat)] = ['bestOf' => (intval($bestOf) === 3 ? 3 : 1), 'sideboard' => (bool)$sideboard];
@@ -277,6 +468,7 @@ function MatchRequestRematch($rootName, $oldMatchId, $seat, $bestOf, $sideboard)
 function MatchAcceptRematch($rootName, $oldMatchId) {
     $m = MatchRead($rootName, $oldMatchId);
     if (!is_array($m) || ($m['state'] ?? '') !== 'complete') return null;
+    if (MatchHook($rootName, 'allowsSeriesChange', $m) === false) return null;
     $r1 = $m['rematchRequests']['1'] ?? null;
     $r2 = $m['rematchRequests']['2'] ?? null;
     if (!$r1 || !$r2) return null;
@@ -289,6 +481,15 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
         1 => ['originalDeck' => $m['players']['1']['originalDeck'] ?? [], 'authKey' => $m['players']['1']['authKey'] ?? ''],
         2 => ['originalDeck' => $m['players']['2']['originalDeck'] ?? [], 'authKey' => $m['players']['2']['authKey'] ?? ''],
     ], !empty($m['isPrivate']));   // a private match rematches private (no forced sideboard timer)
+    // A rematch has no originating lobby, so it opens its OWN conversation keyed on itself. Stamped
+    // here rather than passed to MatchCreate because the id does not exist until MatchCreate returns.
+    // ⚠ This must land BEFORE any MatchWriteRef below: that is where the per-game sidecar is
+    // published, and it reads this field. Without it a rematch Bo3 would silently fall back to a
+    // fresh chat bucket per game — the very reset this feature removes.
+    MatchWithLock($rootName, $newId, function (&$newMatch) use ($newId) {
+        $newMatch['chatId'] = 'm:' . $newId;
+    });
+    MatchPublishChatConversation($newId, 'm:' . $newId);   // so 'm:<id>' resolves, same as for games
     if (array_key_exists('shareAnonymizedGameplayData', $m)) {
         $shareAnonymizedGameplayData = !empty($m['shareAnonymizedGameplayData']);
         MatchWithLock($rootName, $newId, function (&$newMatch) use ($shareAnonymizedGameplayData) {
@@ -313,8 +514,9 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
 
 // Convert a finished Bo1 into a Bo3 (mutual agreement). Records a per-seat request.
 function MatchRequestConvertToBo3($rootName, $matchId, $seat) {
-    return MatchWithLock($rootName, $matchId, function (&$m) use ($seat) {
+    return MatchWithLock($rootName, $matchId, function (&$m) use ($rootName, $seat) {
         if (($m['state'] ?? '') !== 'complete' || intval($m['bestOf'] ?? 1) !== 1) return;
+        if (MatchHook($rootName, 'allowsSeriesChange', $m) === false) return;
         if (!isset($m['convertRequests'])) $m['convertRequests'] = [];
         if ($seat === 1 || $seat === 2) $m['convertRequests'][strval($seat)] = true;
     });
@@ -323,6 +525,7 @@ function MatchRequestConvertToBo3($rootName, $matchId, $seat) {
 function MatchAcceptConvertToBo3($rootName, $matchId) {
     $m = MatchRead($rootName, $matchId);
     if (!is_array($m) || intval($m['bestOf'] ?? 1) !== 1) return null;
+    if (MatchHook($rootName, 'allowsSeriesChange', $m) === false) return null;
     if (empty($m['convertRequests']['1']) || empty($m['convertRequests']['2'])) return null;
     MatchWithLock($rootName, $matchId, function (&$mm) {
         $mm['bestOf'] = 3; $mm['winsNeeded'] = 2; $mm['state'] = 'in_progress';
@@ -337,12 +540,13 @@ function MatchAcceptConvertToBo3($rootName, $matchId) {
     return $matchId;
 }
 
-// Disconnect policy: an inactive player in a match game forfeits THAT GAME (not the whole match).
-// Declaring the opponent the game winner lets the normal hook advance/sideboard the match.
-function MatchInactivityForfeit($rootName, $gameName, $inactiveSeat) {
-    if ($inactiveSeat !== 1 && $inactiveSeat !== 2) return;
-    MatchHook($rootName, 'declareGameWinner', ($inactiveSeat === 1) ? 2 : 1);
-}
+// Disconnect / inactivity policy now lives in the inactivity clock, not here:
+// spec docs/superpowers/specs/2026-09-17-swusim-inactivity-timer-and-kick-design.md.
+// MatchInactivityForfeit() was DELETED on 2026-09-17: it never had a single caller, was hardcoded to
+// seats 1-2, ignored $gameName, and bypassed TriggerGameOver()'s Twin Suns branch — so it would have
+// handed a 4-seat game to one seat. A kick now calls SWUApplyKick() (SWUSim/Custom/InactivityClock.php),
+// which routes through TriggerGameOver / SWUEliminateSeat / SWUDeclareTwinSunsWinners per mode and keeps
+// the normal after-action stats chain.
 
 // Orphaned-match reaper: delete Matches/ dirs whose Match.json is complete (or abandoned) and older
 // than $maxAgeSeconds. Cheap GC — call opportunistically, never on the hot path. Logs the count.
@@ -359,6 +563,16 @@ function MatchReapStale($rootName, $maxAgeSeconds = 86400, $nowTs = null) {
         $age = $now - intval($m['updatedAt'] ?? 0);
         if ($age < $maxAgeSeconds) continue;
         if ($state !== 'complete' && $state !== 'abandoned') continue;
+        // Take the durable invite index entry with the match. Read it BEFORE the directory goes: the
+        // code only exists inside Match.json, so after the unlink there is nothing left to find it by
+        // and the entry would sit there forever pointing at a directory that no longer exists.
+        // (A lookup through an orphan still degrades correctly — MatchRead fails and the caller reports
+        // the invite expired — so this is about not leaking files, not about correctness.)
+        $staleInvite = strval($m['inviteCode'] ?? '');
+        if ($staleInvite !== '') {
+            $idxPath = MatchInviteIndexPath($rootName, $staleInvite);
+            if ($idxPath !== '' && is_file($idxPath)) @unlink($idxPath);
+        }
         array_map('unlink', glob($mDir . '/*') ?: []);
         @rmdir($mDir);
         $reaped++;
@@ -368,8 +582,10 @@ function MatchReapStale($rootName, $maxAgeSeconds = 86400, $nowTs = null) {
 }
 
 // Concede the whole match: award the opponent the wins needed to clinch. Idempotent.
-function MatchConcede($rootName, $matchId, $concedingSeat) {
-    return MatchWithLock($rootName, $matchId, function (&$m) use ($rootName, $concedingSeat) {
+// $gameDetail: the open game's captured detail when the caller has the live gamestate (the in-game concede input);
+// null from paths that do not (the block-forfeit API). Stored on the open game with endReason forced to 'concede'.
+function MatchConcede($rootName, $matchId, $concedingSeat, ?array $gameDetail = null) {
+    $result = MatchWithLock($rootName, $matchId, function (&$m) use ($rootName, $concedingSeat, $gameDetail) {
         if (($m['state'] ?? '') === 'complete') return;       // idempotent
         $opp = ($concedingSeat === 1) ? 2 : 1;
         // Count the in-progress game (if any) as a decisive loss for the conceding seat.
@@ -377,6 +593,9 @@ function MatchConcede($rootName, $matchId, $concedingSeat) {
             if (($g['winner'] ?? null) === null) {
                 $m['games'][$i]['winner'] = $opp;
                 $m['games'][$i]['statsRecorded'] = true;   // seal: same contract as MatchRecordGameResult
+                // No live gamestate (the block-opponent forfeit): nobody can say whether pregame had finished.
+                $m['games'][$i]['detail'] = array_merge($m['games'][$i]['detail'] ?? [],
+                    $gameDetail ?? ['pregameUnknown' => true], ['endReason' => 'concede']);
                 $rds = $GLOBALS['MATCH_HOOKS'][$rootName]['recordDeckStats'] ?? null;
                 if (is_callable($rds)) { $rds($m, $opp); }
                 break;
@@ -385,8 +604,12 @@ function MatchConcede($rootName, $matchId, $concedingSeat) {
         $m['wins'][strval($opp)] = intval($m['winsNeeded'] ?? 1); // clinch
         $m['state'] = 'complete';
         $m['winner'] = $opp;
-        unset($m['sideboard'], $m['sideboardDeadline'], $m['pendingFirstPlayer']);
+        $m['concededBy'] = intval($concedingSeat);
+        unset($m['sideboard'], $m['sideboardDeadline'], $m['sideboardWarned'], $m['pendingFirstPlayer']);
     });
+    // After the lock is released: a whole-match concede never reaches the after-action submitResults branch.
+    MatchHook($rootName, 'rateMatch', $matchId);
+    return $result;
 }
 
 // Post-action: if this game belongs to a match and just ended, advance the match.
@@ -417,11 +640,23 @@ function MatchAfterActionHook($rootName, $gameName) {
     $m = MatchRead($rootName, $ref['matchId']);
     if (!is_array($m)) return;
 
+    // A game that should end the whole series (SWUSim: an abandon in a rated match) — the sim names the seat that
+    // forfeits it, and the match ends here instead of going to sideboarding.
+    if (!MatchIsOver($m)) {
+        $forfeitSeat = MatchHook($rootName, 'endSeriesAfterGame', $m);
+        if (is_int($forfeitSeat) && $forfeitSeat > 0) {
+            MatchConcede($rootName, $ref['matchId'], $forfeitSeat);
+            $m = MatchRead($rootName, $ref['matchId']);
+            if (!is_array($m)) return;
+        }
+    }
+
     if (MatchIsOver($m)) {
         // Match complete — the flashMatchResult hook carries the series result to the client.
         MatchHook($rootName, 'flashMatchResult', $gameName, MatchWinner($m), $m);
         if (function_exists('RemoveActiveGame')) RemoveActiveGame($rootName, $gameName);
         MatchHook($rootName, 'submitResults', $ref['matchId']);
+        MatchHook($rootName, 'rateMatch', $ref['matchId']);   // rated formats only; idempotent
         return;
     }
     // Not over — begin sideboarding; both clients move to the sideboard screen. 2-seat Bo3 only:

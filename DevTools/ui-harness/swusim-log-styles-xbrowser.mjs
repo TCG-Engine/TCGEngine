@@ -26,9 +26,11 @@ let allOk = true;
 const results = [];
 const ok = (name, cond, extra = '') => { if (!cond) allOk = false; results.push([name, !!cond, extra]); };
 
+const LOGIN_USER = 'claudebot1';
+
 async function login(page) {
   await page.goto(BASE + 'SharedUI/LoginPage.php', { waitUntil: 'domcontentloaded' });
-  await page.fill('input[name="userID"]', 'claudebot1');
+  await page.fill('input[name="userID"]', LOGIN_USER);
   await page.fill('input[name="password"]', 'pass');
   await Promise.all([page.waitForNavigation({ waitUntil: 'load' }).catch(() => {}), page.click('button[type="submit"]')]);
 }
@@ -46,8 +48,14 @@ async function buildGame(page) {
 }
 
 async function measure(page) {
-  return page.evaluate((gold) => {
+  return page.evaluate(([gold, LOGIN_USER]) => {
     const rows = Array.from(document.querySelectorAll('.swu-log-entry'));
+    // ⚠ SEAT 1 IS NAMED, NOT "P1". This harness logs in (the editor endpoints need it), and the log renders a
+    // logged-in seat by USERNAME (swuNameSeatsInLog, GameLayoutShared.php — owner request 2026-09-22): on a
+    // matchless board the viewer's own seat is filled from their session, so these lines read "claudebot1 played
+    // …". Match either form, so the file keeps working logged in OR out, and under any account name.
+    const P1 = '(?:P1|' + LOGIN_USER + ')';
+    const rx = (body) => new RegExp(body.replace(/@P1@/g, P1));
     const pick = (re) => rows.find(r => re.test(r.textContent || ''));
     const info = (r) => r ? {
       cls: r.className, text: (r.textContent || '').trim().slice(0, 90),
@@ -56,14 +64,14 @@ async function measure(page) {
     } : null;
     return {
       n: rows.length,
-      undone:   info(pick(/^\s*\(undone\) P1 played/)),
-      livePlay: info(rows.find(r => /P1 played/.test(r.textContent) && !/\(undone\)/.test(r.textContent) && !/Recruit/.test(r.textContent))),
-      undoLine: info(pick(/P1 undid their last action/)),
-      reveal:   info(pick(/P1 revealed and drew/)),
-      bottom:   info(pick(/P1 put 4 cards on the bottom of their deck/)),
+      undone:   info(pick(rx('^\\s*\\(undone\\) @P1@ played'))),
+      livePlay: info(rows.find(r => rx('@P1@ played').test(r.textContent) && !/\(undone\)/.test(r.textContent) && !/Recruit/.test(r.textContent))),
+      undoLine: info(pick(rx('@P1@ undid their last action'))),
+      reveal:   info(pick(rx('@P1@ revealed and drew'))),
+      bottom:   info(pick(rx('@P1@ put 4 cards on the bottom of their deck'))),
       gold,
     };
-  }, GOLD);
+  }, [GOLD, LOGIN_USER]);
 }
 
 for (const [engineName, engine] of Object.entries({ chromium, firefox, webkit })) {

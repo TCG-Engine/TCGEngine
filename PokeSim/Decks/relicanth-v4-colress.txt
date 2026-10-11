@@ -1,0 +1,24 @@
+Pokémon: 4
+4 Relicanth PBL 17
+
+Trainer: 47
+4 Antique Armor Fossil PBL 72
+4 Antique Jaw Fossil POR 68
+1 Antique Plume Fossil WHT 79
+2 Antique Root Fossil SCR 130
+4 Fossil Quarry PBL 76
+3 Colress's Tenacity SFA 57
+4 Lillie's Determination ASC 192
+4 Poké Pad 30C 126
+4 Night Stretcher ASC 196
+1 Unfair Stamp TWM 165
+4 Boss's Orders ASC 183
+3 Lacey PRE 114
+3 Lucky Helmet TWM 158
+1 Energy Retrieval WHT 82
+2 Iris's Fighting Spirit ASC 190
+3 Brave Bangle WHT 80
+
+Energy: 9
+5 Water Energy MEE 3
+4 Spiky Energy JTG 159

@@ -105,6 +105,142 @@ P1GROUNDARENAUNIT:3:CARDID:TS26_T01
 
 ---
 
+# AbilityDamageTokenDefeat_MakesNoDroid
+#// TS26_13 Darth Sidious — the token exclusion on the ABILITY-DAMAGE funnel. Every other token section
+#// in this file kills the token by COMBAT or by a direct "defeat a unit" effect; those route through
+#// CollectCombatStep3Triggers / SWUDefeatUnit-on-a-healthy-unit. Damage that reduces a token to 0
+#// remaining HP is a third funnel (SWUDealDamageToUnit -> SWUDefeatUnit). LAW_206 That's a Rock kills
+#// the enemy Battle Droid token; no droid is created, so P1's ground stays at 1 (Sidious alone).
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:4}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: LAW_206
+WithP1GroundArena: TS26_13:1:0
+WithP2GroundArena: TS26_T01:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:1
+
+---
+
+# ShrinkDefeatsToken_MakesNoDroid
+#// TS26_13 Darth Sidious — the token exclusion on the STATE-CHECK funnel. SHD_037 Supreme Leader Snoke
+#// gives each enemy non-leader unit -2/-2, which kills P1's 2/2 Clone Trooper token outright via
+#// SWUCheckShrinkDefeats (no damage, no combat, no targeted effect). Sidious sits on P2's side next to
+#// Snoke, so P2's ground must stay at exactly 2 — a spurious droid would make it 3.
+
+## GIVEN
+CommonSetup: rrk/bbk/{theirResources:9}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: TS26_T02:1:0
+WithP2GroundArena: [SHD_037:1:0 TS26_13:1:0]
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:2
+
+---
+
+# TokenAttackerDies_MakesNoDroid
+#// TS26_13 Darth Sidious — the token exclusion when the token dies as the ATTACKER. Every other token
+#// section kills it as the defender or by an effect; an attacker dying to counter-damage is collected
+#// from the other side of CollectCombatStep3Triggers. P2's Clone Trooper token (2/2) attacks P1's
+#// SOR_128 (3/1) and dies to the 3 counter-damage; P1's ground stays at 2 (Sidious + a damaged 128).
+
+## GIVEN
+CommonSetup: bbk/rrk
+SkipPreGame: true
+P2OnlyActions: true
+WithP1GroundArena: [TS26_13:1:0 SOR_128:1:0]
+WithP2GroundArena: TS26_T02:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:1
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:2
+
+---
+
+# AbilityDamageNonTokenDefeat_MakesExactlyOneDroid
+#// ⚠ RED — REAL BUG (found 2026-09-18, NOT the reported token issue; left failing per the never-delete
+#// -a-failing-test rule). A NON-token unit killed by ABILITY DAMAGE creates TWO Battle Droids, not one.
+#// LAW_206 That's a Rock kills SOR_128 (3/1, vanilla) with one Sidious in play, so P1's ground must go
+#// 1 -> 2. It goes to 3.
+#//
+#// ROOT CAUSE (traced): on the effect-defeat path SWUDefeatUnit collects the leave-play reactions
+#// (CombatLogic.php:781) BEFORE it marks the unit removed — the ordering is deliberate and documented
+#// at GameLogic.php:11796. Sidious's droid is created inside that collection, and SWUCreateUnitToken
+#// runs _SWUAfterTokensCreated -> SWUCheckShrinkDefeats, whose sweep still sees the dying unit sitting
+#// in the arena at 0 remaining HP and DEFEATS IT A SECOND TIME -> a second collection -> a second droid.
+#// The observed trace:
+#//   SWUDealDamageToUnit > SWUDefeatUnit > CollectWhenDefeatedTriggers > SWUCollectLeavePlayReactions
+#//     > SWUCreateUnitToken > _SWUAfterTokensCreated > SWUCheckShrinkDefeats > SWUDefeatUnit(again)
+#// It stops at two because the outer SWUDefeatUnit's re-read (CombatLogic.php:784) then sees `removed`.
+#//
+#// WHY ONLY THIS FUNNEL: combat marks its dead removed before collecting, and a direct "defeat a unit"
+#// effect (SHD_079 Rival's Fall) leaves the unit at full HP so the shrink sweep does not re-defeat it.
+#// Only DAMAGE leaves a still-in-arena unit at <= 0 remaining HP during the collection. Guarded both
+#// ways by DirectDefeatEffect... and the combat sections above.
+#// The shrink sweep's re-entrancy guard (gSWUInShrinkSweep, GameLogic.php:2912) does not help: the
+#// outer call came from SWUDealDamageToUnit, not from a sweep, so no sweep is in progress.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:4}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: LAW_206
+WithP1GroundArena: TS26_13:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:TS26_T01
+
+---
+
+# DirectDefeatEffectNonToken_MakesExactlyOneDroid
+#// TS26_13 Darth Sidious — the NEGATIVE partner of the RED section above, and the one that pins the
+#// root cause to DAMAGE rather than to effect-defeats in general. SHD_079 Rival's Fall ("Defeat a
+#// unit") defeats SOR_128 while it is still at full HP, so the shrink sweep triggered by the droid's
+#// creation finds nothing to re-defeat and exactly one droid is created.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:8}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SHD_079
+WithP1GroundArena: TS26_13:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:TS26_T01
+
+---
+
 # PilotedTokenDefeat_MakesNoDroid
 #// TS26_13 Darth Sidious — attaching a Pilot does not stop a token being a token. P2's TIE Fighter token
 #// (JTL_T01) carries Clone Pilot (JTL_108) as an upgrade; Rival's Fall defeats the whole unit and no
@@ -196,3 +332,84 @@ WithP2SpaceArena: JTL_T01:1:0
 ## EXPECT
 P2SPACEARENACOUNT:1
 P1GROUNDARENACOUNT:1
+
+---
+
+# MassDefeat_SidiousAmongTheVictims_OneDroidPerUnit
+#// TS26_13 Darth Sidious — "When a non-token unit is defeated: create a Battle Droid token" fires for
+#// FRIENDLY as well as enemy defeats (GameLogic.php's collector: "for ANY non-token unit defeat"), so a
+#// wipe of Sidious's OWN side owes him one droid per unit, himself included.
+#// P1 casts TWI_078 The Invasion of Christophsis choosing P2, whose board is Sidious + two Battlefield
+#// Marines: 3 non-token units defeated -> 3 Battle Droids for P2, and the droids are created after the
+#// UID snapshot so they are not themselves wiped.
+#// ⚠ TWI_078 walks the chosen player's ground arena in index order, so Sidious (index 0) is removed BEFORE
+#// the other two defeats are collected. Each defeat is its own single-element batch, so without a
+#// SWUSimulDefeatBegin/End window he only ever sees the batch he died in and P2 gets ONE droid.
+#// P1 controls nothing, so Exploit 4 auto-skips.
+## GIVEN
+CommonSetup: bbk/ggk/{myResources:15;handCardIds:TWI_078}
+P1OnlyActions: true
+WithP2GroundArena: [TS26_13:1:0 SOR_095:1:0 SOR_095:1:0]
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P2GROUNDARENACOUNT:3
+P2GROUNDARENAUNIT:0:CARDID:TS26_T01
+P2GROUNDARENAUNIT:2:CARDID:TS26_T01
+
+---
+
+# TwinSuns3P_MassDefeat_SidiousAmongTheVictims_OneDroidPerUnit
+#// TS26_13 Darth Sidious — the section above drives TWI_078's TWO-PLAYER branch
+#// (SeatCountForGame() <= 2, an inline ZoneSearch of 'their'). At 3+ seats the card takes a completely
+#// different path: SWUQueueChooseOpponent -> the TWI_078#0 handler, which walks p{n}GroundArena/p{n}SpaceArena
+#// for the ONE chosen opponent. That branch needs its own simultaneous-defeat window and its own guard —
+#// mutating it while only the 2-seat section existed changed NOTHING.
+#// P1 chooses P2, whose board is Sidious + two Battlefield Marines: 3 non-token units defeated -> 3 Battle
+#// Droids for P2. P3 is a bystander and must keep its unit, which is what pins "only the CHOSEN opponent".
+## GIVEN
+CommonSetup3P: bbk/ggk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Resources: 15
+WithP1Hand: TWI_078
+WithP2GroundArena: [TS26_13:1:0 SOR_095:1:0 SOR_095:1:0]
+WithP3GroundArena: SOR_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P2
+## EXPECT
+SEATCOUNT:3
+P2GROUNDARENACOUNT:3
+P2GROUNDARENAUNIT:0:CARDID:TS26_T01
+P2GROUNDARENAUNIT:2:CARDID:TS26_T01
+P3GROUNDARENACOUNT:1
+
+---
+
+# TwinSuns4P_MassDefeat_SidiousAmongTheVictims_OneDroidPerUnit
+#// TS26_13 Darth Sidious — the 4-seat twin of the section above. Four seats is where a count or a fan-out
+#// that silently collapses to "the other seat" separates from a correct per-seat one, so the droid total
+#// and the two untouched bystanders are both asserted.
+#// P1 chooses P2 (Sidious + two Marines -> 3 droids); P3 and P4 keep their units.
+## GIVEN
+CommonSetup4P: bbk/ggk/rrk/bgw
+SkipPreGame: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Resources: 15
+WithP1Hand: TWI_078
+WithP2GroundArena: [TS26_13:1:0 SOR_095:1:0 SOR_095:1:0]
+WithP3GroundArena: SOR_095:1:0
+WithP4GroundArena: SOR_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P2
+## EXPECT
+SEATCOUNT:4
+P2GROUNDARENACOUNT:3
+P2GROUNDARENAUNIT:0:CARDID:TS26_T01
+P2GROUNDARENAUNIT:2:CARDID:TS26_T01
+P3GROUNDARENACOUNT:1
+P4GROUNDARENACOUNT:1

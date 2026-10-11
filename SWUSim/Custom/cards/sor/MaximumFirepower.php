@@ -9,6 +9,10 @@ $customDQHandlers["SOR_234#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
     $imp1Mz = $lastDecision;
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): in Team Suns a teammate's
+    // unit is friendly, so the pool is SWUFriendlyUnits() ('team'), not 'my'. ⚠ NOT the same as "a unit you control",
+    // which stays 'my' — control is per-player. 'team' degrades to 'my' outside a team game, so
+    // Premier is byte-identical. See memory: unqualified pools miss teammates.
     $targets = SWUAllUnits();
     if (empty($targets)) return;
     // The damage is the chosen Imperial's CURRENT power. "Choose the target unit" gave the player no way
@@ -32,10 +36,11 @@ $customDQHandlers["SOR_234#1"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($imp1) || SWUObjGone($target)) return;
     $imp1UID   = intval($imp1->UniqueID ?? -1);
     $targetUID = intval($target->UniqueID ?? -1);
-    SWUDealDamageToUnit($lastDecision, intval(ObjectCurrentPower($imp1)), intval($player));
+    // The dealer is the damage's SOURCE (CR 18.2a) — ASH_196 Gorian's unpreventable, SEC_050, LOF_108, HMW_185 read it (2026-10-07).
+    SWUDealDamageToUnit($lastDecision, intval(ObjectCurrentPower($imp1)), intval($player), $imp1Mz);
     // Another friendly Imperial (≠ imp1, re-resolved after possible index shifts).
     $imp2 = [];
-    foreach (SWUAllUnits('my') as $mz) {
+    foreach (SWUFriendlyUnits() as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
         if (intval($o->UniqueID ?? -2) === $imp1UID) continue;        // exclude the first Imperial
@@ -62,7 +67,7 @@ $customDQHandlers["SOR_234#2"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($imp2)) return;
     $targetMz = SWUFindMzByUID(intval($parts[0] ?? -1));              // same unit — may already be defeated
     if ($targetMz === null) return;
-    SWUDealDamageToUnit($targetMz, intval(ObjectCurrentPower($imp2)), intval($player));
+    SWUDealDamageToUnit($targetMz, intval(ObjectCurrentPower($imp2)), intval($player), $lastDecision);   // the 2nd Imperial is the source
 };
 
 // When Played (event) — migrated from OnPlayEvent.

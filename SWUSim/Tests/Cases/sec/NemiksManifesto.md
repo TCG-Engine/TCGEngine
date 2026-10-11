@@ -115,3 +115,55 @@ P2BASEDMG:0
 P1GROUNDARENACOUNT:1
 P2GROUNDARENACOUNT:1
 P1DISCARDCOUNT:2
+
+---
+
+# ThreeSeat_DamagesEACHEnemyBase_NotJustSeatTwo
+#// SEC_156 — "Deal 1 damage to EACH ENEMY BASE for each other friendly Rebel unit." Every opponent's
+#// base. Host A (Rebel by grant) has two other friendly Rebels, so 2 damage to seat 2's base AND 2 to
+#// seat 3's. `SWUDealDamageToBase($rebels, OtherPlayer($player))` hit exactly one base — seat 2's for a
+#// seat-1 host — so at 3+ seats the rest of the table took nothing.
+
+## GIVEN
+CommonSetup3P: rrk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:SEC_156
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 1:SEC_156
+WithP1GroundArena: SOR_095:1:0
+WithP3GroundArena: SOR_039:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:P3G0
+
+## EXPECT
+SEATCOUNT:3
+P2BASEDMG:2
+P3BASEDMG:2
+
+---
+
+# FourSeat_DamagesALLTHREEEnemyBases
+#// The 4P sibling: "each enemy base" is THREE bases here, so 1-of-N and N-of-N finally differ.
+
+## GIVEN
+CommonSetup4P: rrk/rrk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:SEC_156
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 1:SEC_156
+WithP1GroundArena: SOR_095:1:0
+WithP3GroundArena: SOR_039:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:P3G0
+
+## EXPECT
+SEATCOUNT:4
+P2BASEDMG:2
+P3BASEDMG:2
+P4BASEDMG:2

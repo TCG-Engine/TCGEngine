@@ -206,3 +206,29 @@ WithP2GroundArenaUpgrade: 0:SEC_052
 ## EXPECT
 P2LEADER:DEPLOYED
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# ThreeSeats_DebuffLandsOnTheActualAttacker
+#// Far-seat sweep (sibling of LOF_067 Chirrut, game 1647080). The attacker is stored in ITS OWN frame
+#// ("myGroundArena-0"); the handler flipped my→their from the DEFENDER's frame, which above two seats names
+#// an arbitrary opponent. P2 attacks P3's host; P3 discloses; the -2/-0 must land on P2's attacker, not on
+#// P1's unit at the same index. Host (5/9) takes only 1 (3-2) and counters 5.
+
+## GIVEN
+CommonSetup3P: ggw/ggw/ggw
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP3GroundArenaUpgrade: 0:SEC_052
+WithP3Hand: [SOR_046 SOR_046]
+
+## WHEN
+- P2>AttackGroundArena:0:p3GroundArena-0
+- P3>AnswerDecision:myHand-0&myHand-1
+
+## EXPECT
+P3GROUNDARENAUNIT:0:DAMAGE:1
+P2GROUNDARENAUNIT:0:DAMAGE:5

@@ -253,12 +253,38 @@ function _DisplayDiscordOAuth(array $def): string {
     return ob_get_clean();
 }
 
+// --- SWUStats link (Petranaki; docs/superpowers/specs/2026-10-10-petranaki-swustats-link-design.md §1) ---
+function _DisplaySWUStatsLink(array $def): string {
+    require_once __DIR__ . '/../../SWUSim/SWUStatsLink.php';
+    $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
+    $profileReturn = '/TCGEngine/SharedUI/Sites/' . ($def['identity']['rootName'] ?? 'SWUSim') . '/Profile.php';
+    $uid = (int)($_SESSION['userid'] ?? 0);
+    $link = null;
+    if ($uid > 0) {
+        $conn = GetLocalMySQLConnection();
+        try { if (SWUStatsLinkReady($conn)) $link = SWUStatsGetLink($conn, $uid); } finally { $conn->close(); }
+    }
+    $err = trim((string)($_GET['swustats_error'] ?? ''));
+    $out = '<div class="swustats-link"><h3>SWUStats</h3>'
+         . ($err !== '' ? '<p class="swustats-link__err" role="alert">' . $e($err) . '</p>' : '');
+    if (!$link) {
+        $start = '/TCGEngine/AccountFiles/SWUStatsOAuthStart.php?' . http_build_query(['redirect' => $profileReturn]);
+        return $out . '<p>Link your SWUStats account to pick your hearted decks in every deck picker and count your games toward your deck stats.</p>'
+             . '<a class="swu2-btn ch" href="' . $e($start) . '">Connect SWUStats</a></div>';
+    }
+    $off = '/TCGEngine/AccountFiles/DisconnectOAuth.php?' . http_build_query(['type' => 'swustats', 'redirect' => $profileReturn]);
+    $who = (string)$link['swustatsUsername'] !== '' ? (string)$link['swustatsUsername'] : ('account #' . (int)$link['swustatsUserId']);
+    return $out . '<p>Connected as <b>' . $e($who) . '</b>.</p>'
+         . '<a class="swu2-btn swu2-btn--quiet ch" href="' . $e($off) . '">Disconnect SWUStats</a></div>';
+}
+
 // The "Welcome {user}!" panel: greeting + Patreon (when configured) + Discord (when configured).
 function _ProfileWelcome(array $def, array $ctx): string {
     $out = "<div class='fav-decks container bg-black'>\n<h2>Welcome " . ($ctx['username'] ?? '') . "!</h2>\n    ";
     $parts = [];
     if (!empty($def['profile']['patreonFinalPage'])) $parts[] = _DisplayPatreon($def);
     if (!empty($def['profile']['discordOAuth']))      $parts[] = _DisplayDiscordOAuth($def);
+    if (!empty($def['profile']['swustatsLink']))      $parts[] = _DisplaySWUStatsLink($def);
     $out .= implode("<hr style='border:0;border-top:1px solid rgba(255,255,255,0.14);margin:18px 0;'>", $parts);
     $out .= "\n\n</div>\n";
     return $out;
@@ -285,8 +311,12 @@ function _ProfilePanelRegistry(): array {
         },
         'sounds'           => function($def, $ctx, $ud) {
             require_once __DIR__ . '/SoundSettings.php';
-            return "<div class='soundSettings container bg-black'><h2>Sounds</h2>"
+            return "<div class='soundSettings container bg-black'><h2>Game Settings</h2>"
                  . RenderSoundSettings((int)($ctx['userId'] ?? 0)) . "</div>";
+        },
+        'metaPremierRating' => function($def, $ctx, $ud) {
+            require_once __DIR__ . '/MetaPremierRating.php';
+            return RenderMetaPremierRating((int)($ctx['userId'] ?? 0));
         },
         'blockedUsers'     => function($def, $ctx, $ud) {
             require_once __DIR__ . '/BlockedUsers.php';
@@ -298,7 +328,24 @@ function _ProfilePanelRegistry(): array {
 
 // CSS so two panels combined with '+' merge into a single pane (one bordered box) with a divider,
 // instead of showing as two nested boxes. Injected once by RenderProfile; app-agnostic.
-function _ProfilePaneStyle(): string {
+// $arena drops the LAYOUT half of this style — the flex row and the `margin: 0 !important` on
+// every pane. A site whose stylesheet lays the profile out itself (SWUSim puts the panes in
+// columns) needs that margin override gone, or the gap between stacked panes is stripped.
+// The pane-NEUTRALISATION half is kept either way: it is what makes two panels joined with '+'
+// read as one box rather than a card inside a card, which is not a layout choice.
+function _ProfilePaneStyle(bool $arena = false): string {
+    if ($arena) {
+        return "<style>\n"
+             . ".profile-pane > .container { background: transparent !important; backdrop-filter: none !important;"
+             . " -webkit-backdrop-filter: none !important; border: 0 !important; border-radius: 0 !important;"
+             . " box-shadow: none !important; margin: 0 !important; padding: 0 !important; }\n"
+             . ".profile-pane > .profile-pane-sep { border: 0; border-top: 1px solid rgba(255,255,255,0.14); margin: 18px 0; }\n"
+             . "</style>\n";
+    }
+    return _ProfilePaneStyleLegacy();
+}
+
+function _ProfilePaneStyleLegacy(): string {
     // The pane is the single box (keeps .container's own padding); the two inner panels contribute
     // only their content — no box chrome, no padding — so a+b read as ONE container, not two cards.
     return "<style>\n"
@@ -332,7 +379,7 @@ function RenderProfile(array $def, array $ctx, array $userData): string {
     $sections = $def['profile']['sections'] ?? [];
     $registry = _ProfilePanelRegistry();
     $out  = "<div id=\"cardDetail\" style=\"z-index:100000; display:none; position:fixed;\"></div>\n\n\n\n";
-    $out .= _ProfilePaneStyle();
+    $out .= _ProfilePaneStyle(($def['profile']['layout'] ?? '') === 'arena');
     $out .= "<div class=\"core-wrapper\">\n\n";
     foreach ($sections as $entry) {
         // An entry may combine up to 2 panels with '+' → one pane with a divider between them.

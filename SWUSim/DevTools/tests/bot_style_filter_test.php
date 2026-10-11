@@ -17,7 +17,14 @@ $build(function ($b) { $b->WithGroundUnitForPlayer(1, 'LOF_084', true); $b->With
 $raiseAttack(1, 'myGroundArena-0');
 $check($sorted($ids($botCtx('aggro')['actions'])) === ['theirBase-0', 'theirGroundArena-0'], 'fixture: two candidates, base and the Marine');
 $check($ids(SWUBotStyleFilter($botCtx('aggro'))) === ['theirBase-0'], 'Aggro: base only');
-$check($ids(SWUBotStyleFilter($botCtx('control'))) === ['theirGroundArena-0'], 'Control: the unit only');
+// The base is now a CANDIDATE for control too (spec: "The attack filter stops excluding the base"); the weights
+// decide. The old expectation survives behind the feature switch.
+$check($sorted($ids(SWUBotStyleFilter($botCtx('control')))) === ['theirBase-0', 'theirGroundArena-0'],
+    'Control: the base is a candidate alongside the unit');
+SWUBotSetDisabledFeatures(['baserace']);
+$check($sorted($ids(SWUBotStyleFilter($botCtx('control')))) === ['theirBase-0', 'theirGroundArena-0'],
+    'Control: the base stays a candidate even with the racing shift off — the filter no longer excludes it');
+SWUBotSetDisabledFeatures([]);
 $check(SWUBotAttackerMz($botCtx('aggro')) === 'myGroundArena-0', 'the attacker is read from the following SWUResolveAttack param');
 
 // ── Aggro keeps an Overwhelm kill alongside the base ─────────────────────────────────────────────
@@ -38,22 +45,24 @@ $check($ids(SWUBotStyleFilter($botCtx('normal'))) === ['theirBase-0'], 'Normal r
 $build(function ($b) { $b->WithGroundUnitForPlayer(1, 'LOF_084', true); $b->WithGroundUnitForPlayer(2, 'SOR_095', true); });
 $raiseAttack(1, 'myGroundArena-0');
 $check(SWUBotIsRacing(1, 2) === false, 'fixture: seat 1 is not racing (30 / 4 → 8 rounds)');
-$check($ids(SWUBotStyleFilter($botCtx('normal'))) === ['theirGroundArena-0'], 'Normal not racing: the favourable trade only');
+$check($sorted($ids(SWUBotStyleFilter($botCtx('normal')))) === ['theirBase-0', 'theirGroundArena-0'],
+    'Normal not racing: the favourable trade, and the base is always a candidate');
 
 $build(function ($b) { $b->WithGroundUnitForPlayer(1, 'SOR_095', true); $b->WithGroundUnitForPlayer(2, 'SOR_046', true); });
 $raiseAttack(1, 'myGroundArena-0');
-$check($sorted($ids(SWUBotStyleFilter($botCtx('normal')))) === ['theirBase-0', 'theirGroundArena-0'],
-    'Normal not racing, no favourable trade (3/3 into 3/7 bounces): unchanged');
+$check($ids(SWUBotStyleFilter($botCtx('normal'))) === ['theirBase-0'],
+    'Normal not racing, no favourable trade (3/3 into 3/7 bounces): the base only — it no longer falls back to offering the pointless bounce');
 
 // A trade is favourable only into something that COST more: Marine (2) into a damaged Knight of Ren (3)
 // trades up and is kept; Marine into Marine is an even trade and leaves the choice open.
 $build(function ($b) { $b->WithGroundUnitForPlayer(1, 'SOR_095', true); $b->WithGroundUnitForPlayer(2, 'LOF_084', true, 1); });
 $raiseAttack(1, 'myGroundArena-0');
-$check($ids(SWUBotStyleFilter($botCtx('normal'))) === ['theirGroundArena-0'], 'Normal: a trade into a costlier unit is favourable');
+$check($sorted($ids(SWUBotStyleFilter($botCtx('normal')))) === ['theirBase-0', 'theirGroundArena-0'],
+    'Normal: a trade into a costlier unit is favourable, alongside the base');
 $build(function ($b) { $b->WithGroundUnitForPlayer(1, 'SOR_095', true); $b->WithGroundUnitForPlayer(2, 'SOR_095', true); });
 $raiseAttack(1, 'myGroundArena-0');
-$check($sorted($ids(SWUBotStyleFilter($botCtx('normal')))) === ['theirBase-0', 'theirGroundArena-0'],
-    'Normal: an even-cost trade is not favourable → unchanged');
+$check($ids(SWUBotStyleFilter($botCtx('normal'))) === ['theirBase-0'],
+    'Normal: an even-cost trade is not favourable → the base only');
 
 // ── A non-attack-target decision, and free play, are left alone ──────────────────────────────────
 $build(function ($b) { $b->WithGroundUnitForPlayer(1, 'SOR_095', true); $b->WithGroundUnitForPlayer(2, 'LOF_084', true); });
@@ -79,16 +88,50 @@ $check(SWUBotSelectionCount(['cardID' => 'PASS']) === 0 && SWUBotSelectionCount(
 // Free attacks: the Marine (3/3) against a 4/4 — Aggro may hit the base (free); Control may only attack
 // the 4/4 and would die doing it (not free).
 $check($ids(SWUBotFreeAttacks($botCtx('aggro'))) === ['myGroundArena-0!FSM!'], 'Aggro: the base makes the attack free');
-$check(SWUBotFreeAttacks($botCtx('control')) === [], 'Control: its only allowed target is a losing trade → no free attack');
+// ⚠ A control unit that could only lose a trade now has a free attack, because the base is never a losing trade.
+// This feeds the attackFirst guide at weight 6.0 — a larger lever than any target value (spec, "Consequence to expect").
+$check($ids(SWUBotFreeAttacks($botCtx('control'))) === ['myGroundArena-0!FSM!'],
+    'Control: the base makes the attack free');
 
 // ── Weights: Normal switches to Aggro's column while racing ──────────────────────────────────────
-$check(SWUBotWeights('aggro', 1)['base'] === 1.0 && SWUBotWeights('control', 1)['wipe'] === 1.5, 'weight table columns');
+$check(SWUBotWeights('softaggro', 1)['base'] === 0.6 && SWUBotWeights('hardcontrol', 1)['wipe'] === 1.8, 'weight table columns');
 $build(function ($b) {
     $b->WithGroundUnitForPlayer(1, 'LOF_084', true); $b->TheirBase('SOR_020', 22);
     $b->WithGroundUnitForPlayer(2, 'SOR_095', true);
 });
-$check(SWUBotWeights('normal', 1)['base'] === 1.0, 'Normal racing → Aggro weights');
+// ⚠ ASYMMETRY, and it is deliberate. p13 'mgkill' scales the kill weight by 0.6 for MIDRANGE, gated on the
+// ARCHETYPE rank (SWUBotStyleRank), not the racing rank — same gate as 'mgtrade'. So a hard-control seat that
+// is RACING borrows midrange's COLUMN (kill 0.90) but NOT p13's scaling, while a midrange seat gets the
+// scaling whichever column it is racing in. That is exactly the behaviour the 2026-09-25 screen measured.
+$check(SWUBotWeights('hardcontrol', 1)['kill'] === 0.90,
+    'hard control racing shifts exactly 2 ranks, to midrange\'s column kill 0.90 — and p13 does NOT follow it there');
 $build(function ($b) { $b->WithGroundUnitForPlayer(1, 'LOF_084', true); });
-$check(SWUBotWeights('normal', 1)['base'] === 0.6, 'Normal not racing → its own weights');
+$check(SWUBotWeights('normal', 1)['kill'] === 0.54, 'Normal not racing → its own weights, p13-scaled (0.90 x 0.6 = 0.54)');
+SWUBotSetDisabledFeatures(['mgkill']);
+$check(SWUBotWeights('normal', 1)['kill'] === 0.90, '@no-mgkill → the pre-p13 value (0.90)');
+SWUBotSetDisabledFeatures([]);
+
+// ── The base is a candidate for every archetype; only RULES remove it ─────────────────────────────
+$build(function ($b) { $b->WithGroundUnitForPlayer(1, 'LOF_084', true); $b->WithGroundUnitForPlayer(2, 'SOR_095', true); });
+$raiseAttack(1, 'myGroundArena-0');
+foreach (['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 'hardcontrol'] as $s) {
+    $check(in_array('theirBase-0', $ids(SWUBotStyleFilter($botCtx($s))), true), "$s: the base is a candidate");
+}
+// Sentinel is a RULE, not a preference: it makes the base an illegal target for everyone.
+// NOTE: ASH_079 Koska Reeves' Sentinel is CONDITIONAL ("While you control a token unit") — with no token
+// she never grants it, so she does not exercise this path. And a single active Sentinel is the arena's only
+// legal target, which the engine auto-resolves without ever raising Choose_an_attack_target at all (verified
+// empirically), so this rule can only be observed at a live decision with 2+ Sentinels forcing a real choice.
+// SOR_063 Cloud City Wing Guard carries unconditional Sentinel, so two of them do that.
+$build(function ($b) {
+    $b->WithGroundUnitForPlayer(1, 'LOF_084', true);
+    $b->WithGroundUnitForPlayer(2, 'SOR_063', true);
+    $b->WithGroundUnitForPlayer(2, 'SOR_063', true);
+});
+$raiseAttack(1, 'myGroundArena-0');
+foreach (['hyperaggro', 'hardcontrol'] as $s) {
+    $check($sorted($ids(SWUBotStyleFilter($botCtx($s)))) === ['theirGroundArena-0', 'theirGroundArena-1'],
+        "$s: Sentinel (SOR_063 Cloud City Wing Guard) still forces a unit, never the base — the filter keeps enforcing rules");
+}
 
 bot_test_finish();

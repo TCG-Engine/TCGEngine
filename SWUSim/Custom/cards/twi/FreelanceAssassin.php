@@ -10,7 +10,10 @@ $whenPlayedAbilities["TWI_212:0"] = function($player, $mzID) {
     // Offer only when the player can pay 2 AND there is a unit to damage.
     if (SWUTotalPaymentCapacity(intval($player)) < 2) return; // ready resources
     $anyUnit = false;
-    foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+    // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+    // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+    foreach (["teamGroundArena", "teamSpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
         if (!empty(ZoneSearch($z, AnyUnitFilter))) { $anyUnit = true; break; }
     }
     if (!$anyUnit) return;

@@ -152,10 +152,17 @@ function SWURoomStartBlockers($lobby, array $leaderSets = []) {
             : "Need {$minSeats} players to start.";
     }
 
+    // ⚠ ONLY A SEATED FORMAT HAS A SEAT NUMBER TO NAME. This read `"Seat " . ($p->getSeat() ?? '?')`,
+    // and getSeat() is null for every Twin Suns player — LobbyUsesFixedSeats() is FaBSim/upf only and
+    // SWURoomAssignTeam only runs in a TEAM format — so in the format this blocker is seen in most, it
+    // printed the literal string "Seat ?" and named nobody. Team Suns and UPF do carry a seat, and
+    // there the number is the whole point, so both wordings are kept.
     foreach ($players as $p) {
-        if (!$p->getDeckOk()) {
-            $blockers[] = "Seat " . ($p->getSeat() ?? '?') . " has an illegal or unreadable deck.";
-        }
+        if ($p->getDeckOk()) continue;
+        $seat = $p->getSeat();
+        $blockers[] = $seat === null
+            ? "A player has an illegal or unreadable deck."
+            : "Seat {$seat} has an illegal or unreadable deck.";
     }
 
     // Everyone must be Ready. Loading a legal deck readies you automatically, so this only blocks when
@@ -230,7 +237,28 @@ if (!defined('SWU_LOBBY_AWAY_AFTER')) define('SWU_LOBBY_AWAY_AFTER', 90);
 // How long the HOST may be away before the room is handed to somebody who is still in it. Longer
 // than the away threshold on purpose: a coffee break should not cost you your own room, but a closed
 // laptop must not leave a room nobody can kick from and nobody can start.
-if (!defined('SWU_LOBBY_HOST_AWAY_AFTER')) define('SWU_LOBBY_HOST_AWAY_AFTER', 300);
+//
+// Matches SWU_HOSTVOTE_ARM_AFTER (HostVote.php) — an away host (browser gone quiet) loses the room
+// silently at the same deadline a present-but-idle one becomes votable by a Kick Host vote. Was
+// 300s; shortened to match (owner, 2026-09-30) so the two remedies for a stalled room agree on how
+// long "too long" is, rather than one being three times more patient than the other.
+if (!defined('SWU_LOBBY_HOST_AWAY_AFTER')) define('SWU_LOBBY_HOST_AWAY_AFTER', 120);
+
+// How long a newly seated player is protected from the host's Remove control (owner, 2026-10-01: "someone can
+// kick a seat as soon as they join"). Long enough to load a deck and say hello; short against the room's other
+// clocks (away 90s, host migration / Kick Host vote 120s).
+if (!defined('SWU_SEAT_KICK_ARM_AFTER')) define('SWU_SEAT_KICK_ARM_AFTER', 60);
+
+// Seconds until the host may Remove this seat; 0 = now. A BOT seat is exempt (the host added it on purpose), as is
+// a seat with no join time (a lobby from before the rule). KickSeat.php enforces it; the roster sends it as
+// `kickableIn` so the page can count down — computed HERE, so a skewed client clock cannot shorten it.
+function SWUSeatKickableIn($player, ?int $now = null): int {
+    if (!($player instanceof Player)) return 0;
+    if ($player->getBotProfile() !== '') return 0;
+    $joined = $player->getJoinedAt();
+    if ($joined <= 0) return 0;
+    return max(0, $joined + SWU_SEAT_KICK_ARM_AFTER - ($now ?? time()));
+}
 
 // Has this seat stopped polling? A seat with lastSeen === 0 has never polled — it JUST joined, so it
 // counts as present (same reasoning the reaper used).

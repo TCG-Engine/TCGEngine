@@ -74,7 +74,15 @@ doc is written, so batches only ever covered what existed then (HMW's plan read 
 implemented" with 30 cards mocked and HMW_003 unimplemented). **Derive the remaining cards from the
 diff:** the tracker's `### Already Done` line vs the set's CardIDs in `AppCore/SWU/CardMocks.php`
 (`grep -oE "'HMW_[0-9T]+'"`), then confirm anything that surfaces with the quoted-CardID-under-`Custom/`
-check. Order the diff yourself (simplest first unless the user says otherwise) and state the order at
+check.
+
+⚠ **After a set FLIPS to official FFG data (HMW, 2026-09-16) its mocks are DELETED, so the CardMocks diff
+returns nothing.** The oracle is then **`php SWUSim/DevTools/scaffold-cards.php <SET> --dry`** (as
+`docker exec -e DEVENV=true …`): it lists every CardID with text beyond keywords and no handler. Vanilla /
+keyword-only cards, tokens and reprint bases never appear there — they need no code, so do not batch
+them. Every other mention of the CardMocks diff in this skill applies only while the set is mocked.
+
+Order the diff yourself (simplest first unless the user says otherwise) and state the order at
 the start of the run.
 
 ## Step 1 — Orient
@@ -202,6 +210,8 @@ A single card's ruling is almost never a single card's fix. When one lands mid-r
 | Calling a red test a "harness limitation" | Suspect a **bad EXPECT** first — defeated non-token upgrades go to discard; a player's OWN defeated units go to THEIR discard; double-pip aspect cards cost +4 off-aspect. Verify before blaming the harness. |
 | Running a retro after every phase | Only two retros: at the autonomous→pair-programmed handoff and at the very end. Don't retro per-phase. |
 | Updating the plan but not the set tracker (or vice-versa) | Both: plan checkbox **and** `SWUSim/docs/{set}-implement.md`. |
+| Declaring a set card-complete from "the rest are auto-wired" | **Prove it per card, then diff the TRACKER against the full DICTIONARY** (every `<SET>_` CardID, tokens included), not against CardMocks (empty after a flip) and not against `scaffold-cards --dry` alone (it only lists cards with non-keyword text and no handler). HMW, 2026-09-17: the "auto-wired" list hid an unverified upgrade keyword grant (Devotion — works only via its SOR_070 reprint alias) and the tracker was missing 12 vanilla cards. See `swusim-implement-card` ★★ HMW Phase R for the three per-card checks. |
+| Treating "implemented" as "released" | They are separate switches. HMW was card-complete while still listed as a PREVIEW set in three places (`AppCore/SWU/Formats.php` `$previewSets`, `AppCore/SWU/PreviewSets.php`, absent from `$premierSets`/`$eternalSets`), so Premier/Eternal decks could not use it and its games wrote no stats. When a set's run finishes, say plainly whether it is released in config, and ask — release is the owner's call. |
 | Spawning subagents to "go faster" | Run batches inline — the loop is sequential by design (each batch's green regression gates the next). |
 | Typing a "play a unit from your HAND" offer as a mandatory `MZCHOOSE` | **Always `SWUQueueMayChooseTarget`, even with no printed "you may"** (user ruling 2026-08-15): the hand is a HIDDEN zone, so a player can never be forced to reveal they held a playable card. Applies to events, leader/unit Actions, Epic Actions and When Playeds alike. Does NOT extend to discard/resource plays (public zones — type those from the printed text). Declining still costs the activation price, and the conversion adds a prompt, so re-count answers in every existing section of that card. |
 | Running ahead in `--iterative` mode — implementing the next card before the user has reviewed the last | The whole point of the mode is that a review can change how the NEXT card is built. Stop means stop: update both docs, hand off, wait. Batching "just two, they're both simple" defeats it. |

@@ -31,8 +31,29 @@ function SWULogClearSource(): void {
     if (GetSWUVar('SWU_LOG_LASTPLAY', '') !== '') SetSWUVar('SWU_LOG_LASTPLAY', '');
 }
 
-// [player, cardID] of the ability currently resolving, or [0, ''] when none is.
+// An ability resolving INLINE inside another one: a non-interactive "when an enemy unit is defeated"
+// observer (ASH_052 Chimaera's heal, LOF_130 HK-47's ping, …) runs in the middle of the card that did the
+// defeating, so the stored source still names THAT card — the log read "P2's Single Reactor Ignition healed
+// 2 damage from P1's base" for P1's Chimaera (~650 lines in the 2026-10-01 bot baseline). This names the
+// observer for the effect lines it writes, then restores whatever was there.
+// LOG-ONLY: an in-request override, never stored. Game logic that reads the stored source — the nested-draw
+// deferral and SWUFinishTopDeckSearch's reveal — calls SWULogStoredSource(), so it sees exactly what it saw
+// before and gameplay is unchanged. (Unlike SWULogWithSource below, which SETS the stored source.)
+function SWULogInlineSource(int $player, string $cardID, callable $fn) {
+    $prev = $GLOBALS['gSWULogSrcOverride'] ?? null;
+    $GLOBALS['gSWULogSrcOverride'] = [$player, $cardID];
+    try { return $fn(); } finally { $GLOBALS['gSWULogSrcOverride'] = $prev; }
+}
+
+// [player, cardID] of the ability currently resolving, or [0, ''] when none is. Honours the inline override.
 function SWULogSource(): array {
+    $o = $GLOBALS['gSWULogSrcOverride'] ?? null;
+    if (is_array($o) && intval($o[0]) > 0 && strval($o[1]) !== '') return [intval($o[0]), strval($o[1])];
+    return SWULogStoredSource();
+}
+
+// The STORED source only (no inline override) — for game logic, which must not move with log wording.
+function SWULogStoredSource(): array {
     $v = GetSWUVar('SWU_LOG_SRC', '');
     if ($v === '' || strpos($v, ',') === false) return [0, ''];
     [$p, $c] = explode(',', $v, 2);
@@ -61,6 +82,9 @@ function SWULogSourceSuffix(): string {
 function SWULogTriggerSource(string $triggerType, string $cardID): string {
     if ($triggerType === 'SWU_PLOT_WINDOW' || $triggerType === 'AdvantageShed') return '';
     if ($triggerType === 'JTL_169G') return 'JTL_169';        // Shadow Caster re-using a GRANTED When Defeated
+    // SEC_002 Jabba (deployed): the entry's CardID is the DAMAGED unit (so the ordering prompt can tell two
+    // of his triggers apart), but the ABILITY doing the work is Jabba's — the log must say so.
+    if ($triggerType === 'SEC_002') return 'SEC_002';
     $c = preg_replace('/#\d+$/', '', $cardID);
     if ($c === '') return '';
     if (CardTitle($c) !== null && CardTitle($c) !== '') return $c;
@@ -92,6 +116,7 @@ function _SWULogCardFromHandler(string $handler): string {
 // that card, its player is kept: a cross-player continuation (the opponent's pick inside the caster's
 // ability) runs on the OTHER seat, and must not re-attribute the caster's card to that seat.
 function GameBeforeCustomHandler(int $player, string $handlerName, string $fullParam = ''): void {
+    $GLOBALS['gSWULogHandlerSeats'][] = $player;   // FIRST: every return below must still push (popped by the After hook)
     $card = _SWULogCardFromHandler($handlerName);
     if ($card === '') { SWULogRestoreQueuedSource($player, $fullParam); return; }
     [, $cur] = SWULogSource();
@@ -101,6 +126,20 @@ function GameBeforeCustomHandler(int $player, string $handlerName, string $fullP
     // dispatched for, NOT the seat running this CUSTOM.
     $owner = intval(GetSWUVar('SWU_LOG_SRCP_' . $card, '0'));
     SWULogSetSource($owner > 0 ? $owner : $player, $card);
+}
+
+// Core hook, paired with GameBeforeCustomHandler (called in a finally). Handlers nest — one can drain another
+// queue inline — so the running seats are a STACK, never a single value that an inner handler would leave behind.
+function GameAfterCustomHandler(int $player): void {
+    if (!empty($GLOBALS['gSWULogHandlerSeats'])) array_pop($GLOBALS['gSWULogHandlerSeats']);
+}
+
+// The seat whose queue is running the current CUSTOM handler — the seat that answered the pick it continues — or 0
+// outside any handler (an action's inline resolution). A pick is always answered on the picker's own queue, and its
+// continuation runs on that same queue, so this names who CHOSE.
+function SWULogHandlerSeat(): int {
+    $s = $GLOBALS['gSWULogHandlerSeats'] ?? [];
+    return empty($s) ? 0 : intval(end($s));
 }
 
 // QUEUED-SOURCE STAMP (user decision 2026-09-11, gamelog-updates #6). A UNIVERSAL continuation
@@ -318,8 +357,17 @@ function SWULogDiscard(int $owner, string $cardID, string $from): void {
     $ref  = GameLogCardRef($cardID);
     $zone = ($from === 'DECK') ? 'deck' : 'hand';
     [$sp] = SWULogSource();
-    if ($sp > 0 && $sp !== $owner) {
-        // Another player's ability took it: "P1's [[Garindan]] discarded X from P2's hand".
+    // WHO CHOSE (Twin Suns log review, 2026-10-03): the seat whose queue is running the handler that discards —
+    // a pick is answered on the picker's own queue and continued there. 0 = inline, no pick.
+    $by = SWULogHandlerSeat();
+    if ($by > 0 && $by !== $owner && $by !== $sp) {
+        // A third party picked from another player's hand — TS26_80 Reveal Intentions, where each player discards
+        // from the hand of the player to their right: "P2 discarded X from P1's hand (Reveal Intentions)".
+        $text = "P{$by} discarded {$ref} from P{$owner}'s {$zone}" . SWULogSourceSuffix();
+    } elseif ($sp > 0 && $sp !== $owner && $by !== $owner) {
+        // Another player's ability took it, and that player (or no one) picked: "P1's [[Garindan]] discarded X
+        // from P2's hand". When the OWNER picked ("each opponent discards a card" — SHD_244 No Bargain) it falls
+        // through to the owner's own line below, which used to credit their pick to the caster.
         $text = SWULogSourcePhrase() . " discarded {$ref} from P{$owner}'s {$zone}";
     } else {
         $text = "P{$owner} discarded {$ref}" . ($from === 'DECK' ? ' from their deck' : '') . SWULogSourceSuffix();
@@ -382,6 +430,25 @@ function SWULogUpgradeRefusal($host, string $upgradeCardID, string $verb): void 
     if ($host === null || $upgradeCardID === '') return;
     $what = GameLogCardRef($upgradeCardID) . ' on ' . SWULogObjRef($host);
     SWULogEffect('EFFECT', "couldn't {$verb} {$what}", "{$what} was unaffected");
+}
+
+// A base heal a "bases can't be healed" lock stopped (SOR_160 Wolffe / LAW_197 Shifty Suspects for the
+// phase, TWI_132 Confederate Tri-Fighter / HMW_159 General Grievous continuously). OnHealBase returns
+// silently, so the ability that asked for the heal printed its "P1 used X's Action" line and nothing
+// else — indistinguishable from the ability misfiring, and the source of a live bug report on game
+// 1310526. $byCardID is the locking card; '' when it cannot be attributed.
+// NO combat/non-combat split, unlike the prevention helpers above. A Restore blocked mid-attack writes
+// its own line ABOVE the ATTACK summary rather than becoming a note on it: base heals never run inside
+// the combat-damage log window (instrumented across all 12832 suite sections — the branch was reached
+// zero times), so a split here would be untestable decoration. Printing above the summary is the same
+// ordering the user already ruled correct for On Attack effect lines.
+// ⚠ The caller must only reach here when a heal would otherwise have removed damage. On an undamaged
+// base the heal is a no-op regardless of the lock, and a line would both mislead and repeat on every
+// Restore for the rest of the game.
+function SWULogBaseHealBlocked(int $owner, string $byCardID): void {
+    if ($owner <= 0) return;
+    $by = $byCardID !== '' ? ' (' . GameLogCardRef($byCardID) . ')' : '';
+    SWULogEffect('EFFECT', "couldn't heal P{$owner}'s base{$by}", "P{$owner}'s base couldn't be healed{$by}");
 }
 
 // " — P2's X's Shield token prevented the damage" notes collected during a combat, appended to its ATTACK
@@ -663,19 +730,26 @@ function SWULogCarryUndone(array $before, int $seat, callable $describe): void {
     }
     // This player's undo lines at the END of what was erased are the earlier presses of this same undo run:
     // drop them and count them into the new line instead.
+    // ⚠ MATCH THROUGH THE PARSER, never a hand-rolled prefix. This read `^UNDO\|ALL\|P{seat} undid `,
+    // which stopped matching the moment the '@<microtime>' field was inserted between the visibility and
+    // the text (a54a2ef5, 2026-09-25): every fold silently failed and three presses wrote three lines.
+    // The same rule the loop below already follows — see AddGameLogEntry's "nothing else may split these
+    // by hand", and note the parser also accepts the legacy 3-field shape every saved gamestate holds.
     $n = 1;
     while (!empty($carried)) {
-        $last = end($carried);
-        if (!preg_match('/^UNDO\|ALL\|P' . $seat . ' undid /', $last)) break;
+        $lp = SWUParseGameLogEntry(end($carried));
+        if ($lp['type'] !== 'UNDO' || !preg_match('/^P' . $seat . ' undid /', $lp['text'])) break;
         array_pop($carried);
-        $n += preg_match('/their last (\d+) actions/', $last, $m) ? intval($m[1]) : 1;
+        $n += preg_match('/their last (\d+) actions/', $lp['text'], $m) ? intval($m[1]) : 1;
     }
     foreach ($carried as $e) {
-        $p = explode('|', $e, 3);
-        if (count($p) < 3) continue;
-        // Already-carried lines (an earlier undo's) and other undo lines keep their form.
-        AddGameLogEntry(in_array($p[0], ['UNDONE', 'UNDO'], true) ? $p[0] : 'UNDONE',
-            in_array($p[0], ['UNDONE', 'UNDO'], true) ? $p[2] : '(undone) ' . $p[2], $p[1]);
+        // ⚠ Through the parser, not a hand split: field 2 is the TIMESTAMP now, so $p[2] would
+        // re-log "@1790368123.4567" as the message text.
+        $p = SWUParseGameLogEntry($e);
+        if ($p['text'] === '' && $p['type'] === '') continue;
+        $isUndo = in_array($p['type'], ['UNDONE', 'UNDO'], true);
+        AddGameLogEntry($isUndo ? $p['type'] : 'UNDONE',
+            $isUndo ? $p['text'] : '(undone) ' . $p['text'], $p['visibility']);
     }
     AddGameLogEntry('UNDO', $describe($n), 'ALL');
 }
@@ -687,7 +761,14 @@ function SWULogCarryUndone(array $before, int $seat, callable $describe): void {
 // both combat resolvers call after their ATTACK (and Overwhelm) lines.
 function SWULogGameEndLine(string $type, string $text): void {
     AddGameLogEntry($type, $text, 'ALL');
-    if (_SWULogInCombatDamage()) $GLOBALS['gSWULogGameEndToMove'][] = $type . '|ALL|' . $text;
+    if (!_SWULogInCombatDamage()) return;
+    // ⚠ Remember the entry EXACTLY AS STORED, by reading it back. This used to rebuild the string as
+    // "{$type}|ALL|{$text}", which the flush below looks up with a strict array_search — so when the
+    // '@<microtime>' field was inserted (a54a2ef5, 2026-09-25) the lookup stopped finding anything and
+    // the WIN line was silently left ABOVE the attack that won the game. Reading it back cannot drift
+    // with the entry format again.
+    $entries = SWULogEntries();
+    if (!empty($entries)) $GLOBALS['gSWULogGameEndToMove'][] = end($entries);
 }
 
 function SWULogFlushGameEndLines(): void {
@@ -754,6 +835,11 @@ function SWULogForce(int $player, bool $gained): void {
     AddGameLogEntry('FORCE', ($gained ? 'The Force is with P' . $player : 'P' . $player . ' used the Force') . SWULogSourceSuffix(), 'ALL');
 }
 
+// The Force token defeated WITHOUT Using the Force (a cost such as "[defeat a friendly token]").
+function SWULogForceDefeated(int $player): void {
+    AddGameLogEntry('FORCE', 'P' . $player . ' defeated their Force token' . SWULogSourceSuffix(), 'ALL');
+}
+
 // Leader / unit / base Actions: "P1 used [[JTL_016|Admiral Ackbar]]'s Action" — and it becomes the source
 // of everything that Action does. Called at each invocation point (the direct path and the alternative-
 // payment continuations are separate sites, so each logs exactly once).
@@ -789,4 +875,49 @@ function SWULogDeckPlacement(int $player, int $bottom, int $top = -1): void {
     // Source suffix (user decision 2026-09-11, gamelog-updates #5): one style for every deck placement —
     // "P1 put 1 card on the bottom of their deck (Yoda)", matching SWULogToDeck's hand-origin line.
     AddGameLogEntry('REVEAL', 'P' . $player . ' ' . implode(' and ', $parts) . ' of their deck' . SWULogSourceSuffix(), 'ALL');
+}
+
+// ─── Reading the log back out ──────────────────────────────────────────────────────────────────
+//
+// THE game-log visibility rule: a line is visible when its visibility field is 'ALL', or when the
+// viewer is a seated player named in the field's comma list.
+//
+// ⚠ A SECOND COPY OF THIS RULE LIVES IN GENERATED SWUSim/GetNextTurn.php and cannot be removed —
+// that file is produced by zzGameCodeGenerator.php and must never be hand-edited. The two are pinned
+// against each other by SWUSim/DevTools/tests/gamelog_visibility_parity_test.php. If you change one,
+// change zzGameCodeGenerator.php too and re-run that test; a silent divergence means the Sideboard
+// log starts showing a player their opponent's private draws.
+//
+// ⚠ A MISSING visibility field defaults to ALL, matching the generated reader exactly. Do not
+// "harden" that to deny-by-default here alone — it would diverge, and the parity test would fail.
+// THE one reader of a game-log entry's fields. Handles both shapes:
+//   current: type|visibility|@<microtime>|text
+//   legacy:  type|visibility|text            (every gamestate saved before 2026-09-26)
+// Returns ['type','visibility','ts','text'] with ts === null for a legacy entry.
+//
+// ⚠ Split with a LIMIT so the text keeps its own pipes -- GameLogCardRef() emits [[id|title]].
+function SWUParseGameLogEntry(string $entry): array {
+    $p = explode('|', $entry, 4);
+    if (count($p) < 3) return ['type' => $p[0] ?? '', 'visibility' => 'ALL', 'ts' => null, 'text' => ''];
+    $stamped = isset($p[2]) && $p[2] !== '' && $p[2][0] === '@' && is_numeric(substr($p[2], 1));
+    if ($stamped) {
+        return ['type' => $p[0], 'visibility' => $p[1],
+                'ts' => (float)substr($p[2], 1), 'text' => $p[3] ?? ''];
+    }
+    // legacy: field 2 IS the text, and a limit-4 split may have cut it -- rejoin.
+    $rest = explode('|', $entry, 3);
+    return ['type' => $p[0], 'visibility' => $p[1], 'ts' => null, 'text' => $rest[2] ?? ''];
+}
+
+function SWUFilterGameLogForViewer($rawLog, $viewerSeat, $isSpectator) {
+    $out = [];
+    $vSeatTag = 'P' . intval($viewerSeat);
+    foreach (explode('<NL>', strval($rawLog)) as $entry) {
+        if ($entry === '') continue;
+        $logVis = explode('|', $entry, 3)[1] ?? 'ALL';
+        if ($logVis === 'ALL' || (!$isSpectator && in_array($vSeatTag, array_map('trim', explode(',', $logVis)), true))) {
+            $out[] = $entry;
+        }
+    }
+    return $out;
 }

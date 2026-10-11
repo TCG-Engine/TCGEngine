@@ -151,6 +151,19 @@ check(empty($self['success']), 'the host cannot kick themselves');
 // Kick the seat jar3 holds, so the assertion below can poll AS the victim with the right key.
 $victim = ($poll($k3, $jar3))['playerID'] ?? null;
 check($victim !== null && $victim !== $hostRow['playerID'], 'the victim is a real non-host seat');
+// A seat's FIRST MINUTE is protected (owner 2026-10-01, SWUSeatKickableIn): the roster counts it down and the
+// endpoint refuses. The victim joined seconds ago, so the host's Remove is refused and nobody leaves.
+$victimRow = null; foreach ($r['roster'] as $row) if (($row['playerID'] ?? null) === $victim) $victimRow = $row;
+check(($victimRow['kickableIn'] ?? 0) > 0 && ($victimRow['kickableIn'] ?? 0) <= 60,
+      'the roster counts down a just-joined seat: kickableIn=' . json_encode($victimRow['kickableIn'] ?? null));
+$early = hit($L . 'KickSeat.php', ['lobbyID' => $lobby, 'authKey' => $k1, 'targetPlayerID' => $victim], $jarHost);
+check(empty($early['success']) && str_contains(strval($early['message'] ?? ''), 'just joined'),
+      'kicking within the first minute is refused: ' . ($early['message'] ?? ''));
+check(in_array($victim, $ids($poll($k1, $jarHost)), true), 'the refused kick removed nobody');
+// Move the victim's join time back past the minute instead of sleeping 60s, then kick as before.
+$stored = apcu_fetch($lobby);
+foreach (($stored->players ?? []) as $sp) if ($sp instanceof Player && intval($sp->getPlayerID()) === $victim) $sp->setJoinedAt(time() - 61);
+apcu_store($lobby, $stored);
 $kick = hit($L . 'KickSeat.php', ['lobbyID' => $lobby, 'authKey' => $k1, 'targetPlayerID' => $victim], $jarHost);
 check(!empty($kick['success']), 'the host kicks a seat: ' . ($kick['message'] ?? ''));
 $r2 = $poll($k1, $jarHost);

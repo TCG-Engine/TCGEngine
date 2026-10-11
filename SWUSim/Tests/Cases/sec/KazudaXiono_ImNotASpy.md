@@ -32,3 +32,44 @@ WithP1GroundArena: SEC_151:1:0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:2
+
+---
+
+# ThreeSeat_AFarOpponentHasMoreResources_Buffs
+#// "While you control fewer resources than AN OPPONENT" — existential over every opponent. P1 has 1;
+#// seat 2 also has 1 (not more), but SEAT 3 has 5. The buff must apply → power 4.
+#// The comparison read `OtherPlayer($controller)` — seat 2 — and saw a tie, so the buff never armed.
+
+## GIVEN
+CommonSetup3P: rrw/rrk/rrk/{myResources:1}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP2Resources: 1
+WithP3Resources: 5
+WithP1GroundArena: SEC_151:1:0
+
+## WHEN
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENAUNIT:0:POWER:4
+
+---
+
+# FourSeat_ONLYTheFarthestOpponentHasMore_Buffs
+#// 4P sibling: seats 2 and 3 tie with P1 and only SEAT 4 is ahead.
+
+## GIVEN
+CommonSetup4P: rrw/rrk/rrk/rrk/{myResources:1}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP2Resources: 1
+WithP3Resources: 1
+WithP4Resources: 5
+WithP1GroundArena: SEC_151:1:0
+
+## WHEN
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:POWER:4

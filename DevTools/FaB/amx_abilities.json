@@ -1,0 +1,81 @@
+[
+  {
+    "cardId": "bank_breaker",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n\n$weaponUID = intval(FaBObjectCounters(FaBIdentityFromMZ($mzID)['object'])['WEAPON_UID'] ?? 0);\n\n$previews = FaBEVOUnderPreview($player, $weaponUID);\n\n$chosen = 'PASS';\n\nif ($previews !== '') {\n $chosen = await $player.MZMultiChoose($previews, 0, 1, \"Banish_Bank_Breaker_material\");\n \n}\n\nFaBAMXBanishMaterial($player, $uid, $weaponUID, $chosen, $previews);\n\n",
+        "isImplemented": true,
+        "previousCodeHash": "321b599a43dd427a9f00059af7a7ba985bee73ba1c1c204c8b190774b8525571"
+      }
+    ]
+  },
+  {
+    "cardId": "breaker_helm_protos",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n\n$refs = FaBEVORefs($player, 'Hand', 'driver');\n\n$chosen = 'PASS';\n\nif ($refs !== '') {\n $chosen = await $player.MZMayChoose($refs, \"Discard_Hyper_Driver_for_defense\");\n \n}\n\nFaBAMXHelm($player, $uid, $chosen);\n\n",
+        "isImplemented": true,
+        "previousCodeHash": "bf2a5b127ea2413b7ad5535edd4afc4b435223016cc47c0722d89df5e525d267"
+      }
+    ]
+  },
+  {
+    "cardId": "clamp_press_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBARCEnterItem($player, FaBIdentityFromMZ($mzID)['object']);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "StartTurn",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n\n$steam = intval(FaBObjectCounters(FaBIdentityFromMZ($mzID)['object'])['STEAM'] ?? 0);\n\n$mode = '1';\n\nif ($steam > 0) {\n $mode = await $player.Modal(1, 1, \"Remove_steam&Destroy_item\", \"Maintain_item\");\n \n}\n\nif ($mode === '0') {\n FaBEVOSteam(FaBDTDSource($uid), -1);\n \n}\n else {\n FaBMONDestroy($uid);\n \n}\n\n",
+        "isImplemented": true,
+        "previousCodeHash": "18eb9a715d109f40cd1cd9eea6943119943e8d93803b99233cbae8449526ca0b"
+      }
+    ]
+  },
+  {
+    "cardId": "construct_bank_breaker_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n\n$refs = FaBAMXWrenches($player);\n\n$wrench = 'PASS';\n\nif ($refs !== '') {\n $wrench = await $player.MZChoose($refs, \"Choose_wrench_to_transform\");\n \n}\n\n$drivers = FaBEVOItemTargets($player, 'driver', false, true);\n\n$chosen = '-';\n\nif (count(array_filter(explode('&', $drivers))) >= 3) {\n\n    $chosen = await $player.MZMultiChoose($drivers, 3, 3, \"Transform_three_Hyper_Drivers\");\n\n\n}\n\nFaBAMXConstruct($player, $uid, $wrench, $chosen);\n\n",
+        "isImplemented": true,
+        "previousCodeHash": "0c70e456aa30837374509ccaa40329d6fb05e15268f4e045c94852605012c8bf"
+      }
+    ]
+  },
+  {
+    "cardId": "drive_brake",
+    "abilities": []
+  },
+  {
+    "cardId": "fist_pump",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "\n$refs = FaBAMXWrenches($player);\n\nif ($refs !== '') {\n\n    $chosen = await $player.MZChoose($refs, \"Empower_wrench\");\n\n    FaBDYNTag($chosen, 'WTR_POWER:1');\n\n\n}\n\n",
+        "isImplemented": true,
+        "previousCodeHash": "bd1aaee69dea6b3cb130496aec6d3946f160f3324ea34d2347caec2dcbe029e3"
+      }
+    ]
+  },
+  {
+    "cardId": "puffer_jacket",
+    "abilities": []
+  },
+  {
+    "cardId": "twintek_charging_station_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "\nFaBEVOAdd($player, 'NEXT_BOOST', 3);\n\n$refs = FaBEVORefs($player, 'Graveyard', 'driver');\n\n$chosen = 'PASS';\n\nif ($refs !== '') {\n $chosen = await $player.MZMayChoose($refs, \"Recycle_Hyper_Driver\");\n \n}\n\nFaBAMXRecycle($player, $chosen);\n\n",
+        "isImplemented": true,
+        "previousCodeHash": "5ff45d2539a62123dee8285a4bd4cf1259b69c1429495b4f587fb7eeb8fa58db"
+      }
+    ]
+  }
+]

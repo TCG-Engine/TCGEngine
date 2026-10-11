@@ -88,6 +88,26 @@ function LobbyKeyForInvite(string $code, string $rootName = ''): ?string {
 }
 
 /**
+ * Did the room this invite code names EXIST and then close?
+ *
+ * The delete in LobbyMutate removes the lobby key and leaves `invite:<code>` behind, so an index entry
+ * pointing at a lobby that is no longer there is evidence the room was real and is now gone. That is
+ * what separates "that room has closed" from "that link isn't valid" — the two causes the one old
+ * message ("invalid or has expired") could not distinguish.
+ *
+ * ⚠ BEST EFFORT, AND THE DEGRADATION IS ONE-WAY. The index carries the same TTL as the lobby it was
+ * written with, so once it expires a closed room becomes indistinguishable from a code that never
+ * existed and reads as the weaker message. Never the reverse: a live lobby is resolved by
+ * LobbyKeyForInvite long before this is consulted, so this cannot call a working room closed.
+ */
+function LobbyInviteWasClosed(string $code): bool {
+    if ($code === '' || !function_exists('apcu_fetch')) return false;
+    $hit = apcu_fetch('invite:' . $code);
+    if (!is_string($hit) || $hit === '') return false;
+    return !is_object(apcu_fetch($hit));
+}
+
+/**
  * Commit what game creation wrote onto the lobby, after the fact.
  *
  * Game creation is I/O (it writes the gamestate, the match record and the auth-keys file), so it runs

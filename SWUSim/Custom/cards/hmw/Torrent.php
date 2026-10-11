@@ -27,8 +27,11 @@ $whenPlayedAbilities["HMW_100:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
     $targets = _SWUAllUnitsOnly(intval($player));
     if (empty($targets)) return;   // no units in play: clean fizzle, no prompt
-    SWUQueueChooseTarget(intval($player), $targets,
-        "Give_a_Weakness_token_to_a_unit", "HMW_100#0");
+    // The prompt NAMES the count it will give (the player sees "2", and the bot's picker reads it for the kill it makes).
+    // The continuation still re-reads the base at resolution, as above.
+    $prompt = _SWUControlsBaseWithTrait(intval($player), 'Naboo')
+        ? "Give_2_Weakness_tokens_to_a_unit" : "Give_a_Weakness_token_to_a_unit";
+    SWUQueueChooseTarget(intval($player), $targets, $prompt, "HMW_100#0");
 };
 
 $customDQHandlers["HMW_100#0"] = function($player, $parts, $lastDecision) {

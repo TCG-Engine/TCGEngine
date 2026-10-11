@@ -250,3 +250,39 @@ WithP4Base: SOR_021:0
 SEATCOUNT:4
 P3HASDECISION
 P3SELECTABLEEXACT:p4Base-0&p4GroundArena-0
+
+---
+
+# ThreeSeat_AllTriggersOnAFarSeat_PromptGoesToThatSeat
+#// ENGINE GUARD, not a card guard. When a trigger batch belongs ENTIRELY to a non-active seat, the
+#// trigger-ordering code picked that seat as `activePlayer === 1 ? 2 : 1` — a two-seat literal. Here
+#// seat 1 plays a card and BOTH Krayt Dragons belong to seat 3, so the ordering MZCHOOSE must go to
+#// SEAT 3. The old code sent it to seat 2, who owns neither trigger.
+#//
+#// ⚠ THE FAILURE IS A STALL, NOT A WRONG NUMBER. FlushEntryTriggerBag's comments say it: the prompt and
+#// the resume ride different queues, so the resume "re-fires immediately, re-queues itself, and loops
+#// forever", or the chain "stalls on the unanswered copy". Five sites shared the literal
+#// (FlushEntryTriggerBag, FlushCombatTriggerBag ×2, _SWUResumeSpinGuard, SWU_TRIGGER_ORDER_CHOICE).
+#//
+#// ⚠ TWO Krayts on purpose: with ONE trigger the batch takes the `$count === 1` auto-dispatch path and
+#// never reaches the seat-picking branch at all. Every other section in this file has a single trigger.
+#//
+#// ⚠ TWO SEATS CANNOT OBSERVE THIS — there, `OtherPlayer(active)` IS the only other seat, which is why
+#// all six sections above pass against the broken code.
+
+## GIVEN
+CommonSetup3P: rrk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 6
+WithP1Hand: SEC_080
+WithP3GroundArena: SHD_172:1:0
+WithP3GroundArena: SHD_172:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:3
+P3HASDECISION
+P2NODECISION

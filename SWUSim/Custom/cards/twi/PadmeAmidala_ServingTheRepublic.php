@@ -10,7 +10,7 @@
 $onAttackAbilities["TWI_008:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     if (!IsCoordinateActive(intval($player))) return;
-    if (count(GetDeck(intval($player))) > 0) DoTopDeckSearch(intval($player), 3, fn($c) => HasTrait($c, 'Republic'), 1);
+    if (count(GetDeck(intval($player))) > 0) DoTopDeckSearch(intval($player), 3, fn($c) => HasTrait($c, 'Republic'), 1, 'Republic cards');
     // Combat owns the after-action.
 };
 
@@ -20,6 +20,6 @@ $leaderActionResourceCosts["TWI_008"] = 1;
 
 $leaderAbilities["TWI_008"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (count(GetDeck($player)) > 0) DoTopDeckSearch($player, 3, fn($c) => HasTrait($c, 'Republic'), 1);
+    if (count(GetDeck($player)) > 0) DoTopDeckSearch($player, 3, fn($c) => HasTrait($c, 'Republic'), 1, 'Republic cards');
     SWUQueueAfterAction($player);
 };

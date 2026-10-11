@@ -57,3 +57,36 @@ WithP1GroundArena: SOR_095:1:0
 
 ## EXPECT
 P2BASEDMG:3
+
+---
+
+# MoffGideon_Deployed_VsBase_NoBuff
+#// ⚠ THE DISPUTED READING, PINNED. A player reported (2026-09-21) that "the +1 to units costed 3 or less
+#// wasn't active — on his unit side", believing the +1/+0 is unconditional and separate from the
+#// attacking-a-unit clause. They later agreed they had misread it.
+#//
+#// We parse "Each friendly unit that costs 3 or less gets +1/+0 and gains Overwhelm WHILE ATTACKING AN
+#// ENEMY UNIT" as the trailing clause governing BOTH halves, so the +1/+0 is combat-time and applies only
+#// against a unit. His FRONT side settles the ambiguity by saying it explicitly — "If it's attacking a
+#// unit, it gets +1/+0 for this attack" — and a deployed side that read differently would contradict it.
+#//
+#// ⚠ This combination was the one gap in the file: MoffGideon_Deployed_LowCostBuffAndOverwhelm covers
+#// deployed-vs-UNIT (buff applies) and MoffGideon_Front_VsBase_NoBuff covers front-vs-BASE (no buff), so
+#// nothing pinned deployed-vs-BASE — precisely what was questioned. Because the buff never shows on
+#// displayed power, a wrong reading here is invisible except as base damage.
+#//
+#// SOR_095 costs 2 (≤3) and has power 3. No enemy units, so it attacks the base for 3, NOT 4.
+
+## GIVEN
+CommonSetup: ggk/ggk/{myLeader:SHD_007;myResources:5}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+# 3, not 4 — the deployed +1/+0 is conditional on attacking an enemy UNIT.
+P2BASEDMG:3

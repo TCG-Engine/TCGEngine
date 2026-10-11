@@ -478,3 +478,29 @@ P2GROUNDARENAUNIT:0:DAMAGE:0
 P1CREDITCOUNT:0
 P1RESAVAILABLE:1
 P1NODECISION
+
+---
+
+# TwoLeaders_FrontReturnsADeployedUnderworldLeader_DefeatedInstead_StillCredit
+#// LAW_015 Jabba (front) — "Action [1 resource, Exhaust, return a friendly Underworld unit to its owner's hand]".
+#// Twin Suns: P1's other leader, SHD_010 Bossk (Underworld), is deployed and is P1's only Underworld unit. CR
+#// 3.4.6: a leader unit that would go to hand "is defeated instead … a replacement effect" — the cost is still
+#// paid (CR 8.9.2's reasoning: the replaced text counts as resolved), so the Credit is created and Bossk returns
+#// to his leader zone. Nothing reaches P1's hand.
+## GIVEN
+CommonSetup: byk/bbk/{
+  myLeader:LAW_015;
+  myLeader2:SHD_010:true:true;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 1
+## WHEN
+- P1>UseLeaderAbility:0
+## EXPECT
+P1CREDITCOUNT:1
+P1RESAVAILABLE:0
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:0

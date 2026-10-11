@@ -25,7 +25,7 @@ $unitAbilities["ASH_230"] = function($player, $mzID) {
     SWUConsumeUnitActionSubcardUse($host, _SWUUnitActionProviderPick($host)['subIndex']);
     _topDeckSearchBegin(intval($player), 3,
         fn($cid) => strpos(CardType($cid) ?? '', 'Unit') !== false && CardArena($cid) === 'Ground',
-        "count:1", "ASH_230#0|{$hostUID}");
+        "count:1", "ASH_230#0|{$hostUID}", 'ground units', 'Discard');
 };
 
 $customDQHandlers["ASH_230#0"] = function($player, $parts, $lastDecision) {

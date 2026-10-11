@@ -9,5 +9,5 @@
 $whenPlayedAbilities["SHD_198:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     if (count(GetDeck(intval($player))) === 0) return;
-    DoTopDeckSearch(intval($player), 5, fn($c) => HasTrait($c, 'Clone'), 1);
+    DoTopDeckSearch(intval($player), 5, fn($c) => HasTrait($c, 'Clone'), 1, 'Clone cards');
 };

@@ -1,0 +1,15 @@
+ahsoka-tano_ash_blue director-krennic_law_blue-splash
+aurra-sing_law_data-vault director-krennic_law_blue-splash
+boba-fett_jtl_blue director-krennic_law_blue-splash
+boba-fett_jtl_lake-country director-krennic_law_blue-splash
+darth-maul_lof_blue-force director-krennic_law_blue-splash
+darth-vader_jtl_yellow director-krennic_law_blue-splash
+dedra-meero_sec_colossus director-krennic_law_blue-splash
+director-krennic_law_blue director-krennic_law_blue-splash
+director-krennic_law_blue-splash greef-karga_ash_data-vault
+director-krennic_law_blue-splash greef-karga_ash_red
+director-krennic_law_blue-splash lando-calrissian_law_blue
+director-krennic_law_blue-splash luke-skywalker_ash_data-vault
+director-krennic_law_blue-splash luke-skywalker_jtl_data-vault
+director-krennic_law_blue-splash mother-talzin_lof_red-force
+director-krennic_law_blue-splash the-mandalorian_ash_colossus

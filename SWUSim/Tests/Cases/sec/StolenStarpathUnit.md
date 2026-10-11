@@ -1,7 +1,8 @@
 # OnAttack_NameCard_SpyPerCopy
 #// SEC_210 Stolen Starpath Unit (Upgrade) — Attached unit gains "On Attack: Name a card. The defending
 #//   player reveals their hand. For each card with that name, create a Spy token." Host SOR_095 bears
-#//   SEC_210, attacks the base; name "Battlefield Marine"; P2 hand has 2 → create 2 Spy tokens.
+#//   SEC_210, attacks the base; name "Battlefield Marine"; P2 hand has 2 → create 2 Spy tokens. The revealed hand is
+#//   shown behind an OK (see OnAttack_RevealsTheDefendersHand).
 
 ## GIVEN
 CommonSetup: yyk/rrk
@@ -14,11 +15,37 @@ WithP2Hand: SOR_095
 ## WHEN
 - P1>AttackGroundArena:0
 - P1>AnswerDecision:Battlefield Marine
+- P1>AnswerDecision:OK
 
 ## EXPECT
 P2BASEDMG:4
 P1GROUNDARENACOUNT:3
 P1NODECISION
+
+---
+
+# OnAttack_RevealsTheDefendersHand
+#// SEC_210 Stolen Starpath Unit — "The defending player REVEALS their hand." ⚠ Found 2026-10-02: the copies were counted
+#//   SILENTLY — the hand was never shown or logged (the same miss SEC_260 Inspector's Shuttle had). After naming, the
+#//   attacker is shown the defender's hand (both Marines) behind an OK.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SEC_210
+WithP2Hand: SOR_095
+WithP2Hand: SOR_046
+
+## WHEN
+- P1>AttackGroundArena:0
+- P1>AnswerDecision:Wampa
+
+## EXPECT
+P1HASDECISION
+P1OPTIONHAS:@SOR_095
+P1OPTIONHAS:@SOR_046
+P1OPTIONHAS:OK
 
 ---
 
@@ -38,6 +65,7 @@ WithP2Hand: SOR_095
 ## WHEN
 - P1>AttackGroundArena:0
 - P1>AnswerDecision:Wampa
+- P1>AnswerDecision:OK
 
 ## EXPECT
 P2BASEDMG:4

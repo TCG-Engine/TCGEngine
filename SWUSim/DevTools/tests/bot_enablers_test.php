@@ -1,5 +1,5 @@
 <?php
-// Phase 1b part 2, Task 7 — enablers (feature 'enablers'). Diagnosis 2026-09-14 (normal_piett_red): a 5-cost ship
+// Phase 1b part 2, Task 7 — enablers (feature 'enablers'). Diagnosis 2026-09-14 (admiral-piett_jtl_red-splash): a 5-cost ship
 // hard-cast before deploying Piett 46 times in 80 games (deploy 1.5 tied the play's 0.3 × 5 and lost the index
 // tie-break); Piett's front Action — "Play a Capital Ship unit from your hand. It costs 1 resource less." — scored
 // a flat 0.4 and lost even to a 2-drop.
@@ -7,6 +7,10 @@
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/BotHeuristic.php';
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // isolates this file's feature from curve value (p38, 2026-10-06)
+// …and from p42's Piett features (2026-10-08, owner-approved): 'shipdiscount' / 'deployfirst' fix these same two boards on their own, so
+// '@no-enablers' alone no longer shows the old play. They are proven in bot_shipdiscount_test.php.
+$GLOBALS['SWUBotPinnedDisabled'] = array_merge($GLOBALS['SWUBotPinnedDisabled'], ['shipdiscount', 'deployfirst']);
 $ids = fn($acts) => array_map(fn($a) => strval($a['cardID']), $acts);
 $stack = function (string $style, int $seat = 1, string $variant = '') use (&$gameName) {
     SWUBotResetCoverage(); $legal = SWUBotLegalActions($gameName, $seat);

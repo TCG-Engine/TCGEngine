@@ -197,3 +197,31 @@ WithP1Hand: LAW_045
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LAW_045
 P1HANDCOUNT:0
+
+---
+
+# CunningLeaderOnItsCardIsNotAUnit_DealsThree
+#// LAW_045 Zeb Orrelios — "If you control a Command or Cunning UNIT, you may deal 5 instead." Game 1485163
+#// (reported 2026-10-03): P1 led with TWI_017 Chancellor Palpatine (Cunning/Villainy/Heroism, a flip leader that
+#// never becomes a unit) and expected 5. Their Cunning unit, HMW_055 Mae, had been defeated by P4's Devastating
+#// Gunship two seconds before Zeb was played, and the rest of the board was Villainy/Vigilance, Heroism and
+#// Aggression. NOT A BUG: a leader on its card is not a unit, so Zeb deals 3.
+#// The board mirrors the report: Palpatine leading, SHD_028 Doctor Pershing (Villainy/Vigilance) in play.
+#// ⚠ 9 resources: Palpatine does not cover Zeb's Vigilance/Aggression, so he costs 9 here. At 5 he is never
+#//   played and the target reads 0 damage, which proves nothing. P1HANDCOUNT:0 pins that he was played.
+
+## GIVEN
+CommonSetup: brw/bgw/{myLeader:TWI_017;myResources:9}
+WithP1GroundArena: SHD_028:1:0
+WithP2GroundArena: SOR_164:1:0
+WithP1Hand: LAW_045
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1HANDCOUNT:0
+P1LEADER:NOTDEPLOYED
+P2GROUNDARENAUNIT:0:CARDID:SOR_164
+P2GROUNDARENAUNIT:0:DAMAGE:3

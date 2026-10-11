@@ -13,7 +13,10 @@ $customDQHandlers["JTL_228#0"] = function($player, $parts, $lastDecision) {
     BeginSWUAttack(intval($player), $lastDecision);
     // After completing the attack: may exhaust a space unit (EXHAUST_UNIT validates the chosen target).
     $spaceUnits = array_values(array_merge(
-        ZoneSearch('mySpaceArena',    AnyUnitFilter),
+        // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+        // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+        // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+        ZoneSearch('teamSpaceArena',    AnyUnitFilter),
         ZoneSearch('theirSpaceArena', AnyUnitFilter)
     ));
     if (!empty($spaceUnits)) {

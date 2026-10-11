@@ -12,7 +12,7 @@ $reset = function () {
     foreach ([1,2,3,4] as $seat) {
         AddHero($seat, CardID:'rhinar', Owner:$seat, Controller:$seat);
         AddHealth($seat,20); AddActionPoints($seat,1);
-        SetShortcutPreferencesState($seat, ['windows'=>['BLOCK'=>false,'ATTACK_REACTION'=>false,'DEFENSE_REACTION'=>false,'INSTANT_PRIORITY'=>false]]);
+        SetShortcutPreferencesState($seat, ['windows'=>array_fill_keys(array_keys(GetShortcutWindowRegistry()), false)]);
     }
 };
 $reset();

@@ -6,7 +6,7 @@
 #// FIXED 2026-09-13 (all RED sections green; full suite 11895/0): DoGiveAdvantageToken (GameLogic.php) calls
 #//   _SWUAsh208OnUpgradeAttach like the Shield and Experience givers.
 #//
-#// FOUND BY: sweep retro #3 of run 2 (2026-09-13): ORDER ASH_017 + ASH_208:Shielded (60×), aggro_greef.
+#// FOUND BY: sweep retro #3 of run 2 (2026-09-13): ORDER ASH_017 + ASH_208:Shielded (60×), greef-karga_ash_data-vault.
 #//
 #// ★ WAS RED (3 sections) — candidate engine bug, a bypassed observer (memory "parallel funnels skip the shared
 #//   chain"). DoGiveShieldToken, DoGiveExperienceToken and the generic token attach all call
@@ -38,7 +38,7 @@ WithP2GroundArena: SEC_028:1:0
 - P1>AnswerDecision:YES
 ## EXPECT
 P1HASDECISION
-P1DECISIONTOOLTIP:Choose_a_ground_unit
+P1DECISIONTOOLTIP:Exhaust_a_ground_unit?
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:1
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
 
@@ -63,7 +63,7 @@ WithP2GroundArena: SEC_028:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P1HASDECISION
-P1DECISIONTOOLTIP:Choose_a_ground_unit
+P1DECISIONTOOLTIP:Exhaust_a_ground_unit?
 
 ---
 
@@ -82,7 +82,7 @@ WithP2GroundArena: SOR_095:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:1
 P1HASDECISION
-P1DECISIONTOOLTIP:Choose_a_ground_unit
+P1DECISIONTOOLTIP:Exhaust_a_ground_unit?
 
 ---
 
@@ -101,4 +101,4 @@ WithP2GroundArena: SOR_095:1:0
 - P1>AnswerDecision:myGroundArena-0
 ## EXPECT
 P1HASDECISION
-P1DECISIONTOOLTIP:Choose_a_ground_unit
+P1DECISIONTOOLTIP:Exhaust_a_ground_unit?

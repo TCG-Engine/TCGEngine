@@ -8,8 +8,35 @@ $authKey = strval($_GET['authKey'] ?? '');
 $isSpectator = ($seatStr === 'S');
 $seat = intval($seatStr);
 
+include_once __DIR__ . '/BotDataRematch.php';
+include_once __DIR__ . '/../Core/GameAuth.php';
+
+// Does THIS seat hold THIS game's auth key? The match branch below authenticates against the match
+// record; an Arenabot game has none (isGoldfish skips match creation), so it defers to the SAME
+// validator the game page itself uses (NextTurn.php:245) — SimGameValidateSeatAuth.
+//
+// ⚠ Deliberately NOT a hand-rolled SimGameReadAuthLookup() comparison, which was the first version.
+// That lookup is APCu-only with a TTL and no disk fallback — a documented trap in this codebase
+// (GameLogic.php:21502) — so after an FPM restart it returns empty keys, the check fails closed, and
+// the Rematch button silently disappears mid-session with no diagnosable symptom. The canonical
+// validator recovers from the game envelope and handles the no-keys case the way the page does.
+// Exposure is unchanged either way: this only ever returns deck links for a game whose FULL gamestate
+// the same viewer is already authorised to open.
+function _SWUEndGameSeatAuthed(string $gameName, int $seat, string $authKey): bool {
+    if ($seat < 1 || $seat > 4) return false;
+    return SimGameValidateSeatAuth('SWUSim', $gameName, $seat, $authKey);
+}
+
 $ref = SWUReadMatchRef($gameName);
-if ($ref === null) { echo json_encode(['isMatch'=>false]); exit; }
+if ($ref === null) {
+    // An Arenabot game has NO match record, so this is its ONLY end-game response — the rematch offer
+    // has to ride on it rather than on the match payload below. Gated on the seat's own auth key: the
+    // deck links are not a secret in a local game, but this must not become an unauthenticated read.
+    $rematch = (!$isSpectator && _SWUEndGameSeatAuthed($gameName, $seat, $authKey))
+        ? SWUBotDataReadRematch(__DIR__ . '/Games/' . $gameName) : null;
+    echo json_encode(['isMatch'=>false, 'rematch'=>$rematch]);
+    exit;
+}
 $m = SWUReadMatch($ref['matchId']);
 if (!is_array($m)) { echo json_encode(['isMatch'=>false]); exit; }
 
@@ -41,6 +68,9 @@ foreach (array_keys($m['players'] ?? []) as $s) $winsBySeat[strval($s)] = intval
 $bestOf = intval($m['bestOf'] ?? 1);
 $state = strval($m['state'] ?? '');
 $seriesOver = ($state === 'complete');
+// Meta Premier: a rated match offers no Rematch / Quick Rematch / Convert — players re-queue (spec §4.5; the server
+// refuses them too, via the allowsSeriesChange hook).
+$rated = function_exists('SWUFormatIsRated') && SWUFormatIsRated(strval($m['format'] ?? ''));
 
 // Per-seat convert-to-Bo3 requests, so the menu can show a two-step mutual confirmation
 // ("Convert" → "Waiting on opponent" for the initiator; "Confirm Convert" for the other).
@@ -81,11 +111,12 @@ echo json_encode([
     'matchWinner' => intval($m['winner'] ?? 0),
     // Rematch / Quick Rematch / convert-to-Bo3 are all 2-seat flows (they sideboard a pair and
     // respawn one opponent). Twin Suns is Bo1-only with four seats, so the menu offers neither.
-    'convertible' => ($bestOf === 1 && $seriesOver && $seatCount <= 2),
+    'convertible' => ($bestOf === 1 && $seriesOver && $seatCount <= 2 && !$rated),
+    'rated'       => $rated,                              // additive: a rated (Meta Premier) match — no rematch buttons
     'convertRequestedByMe'  => $isSpectator ? false : !empty($convReq[strval($seat)]),
     'convertRequestedByOpp' => $isSpectator ? false : !empty($convReq[strval($oppSeat)]),
     'seriesOver'  => $seriesOver,
     'isSpectator' => $isSpectator,
-    'statsStatus' => strval($m['statsStatus'] ?? ''), // '', 'success', 'skipped_early', or 'failed'
+    'statsStatus' => strval($m['statsStatus'] ?? ''), // '', 'success', 'submitted_without_owner', 'skipped_early', 'skipped_multiplayer', or 'failed'
     'statsHtml'   => SWUBuildStatsHtml($m, $gameRec, $isSpectator ? null : $seat),
 ]);

@@ -1,0 +1,59 @@
+/* system.css — the design-system token tier.
+ *
+ * Loaded FIRST in every theme stack, consumed deliberately. Nothing here can break an existing
+ * page, and that is by construction: UNLAYERED CSS BEATS LAYERED CSS in the cascade, so all the
+ * legacy stylesheets keep winning until a file is moved into a layer on purpose. That property
+ * is what makes the migration incremental instead of a cutover.
+ *
+ * ⚠ A color-mix() may have AT MOST ONE operand that is itself a color-mix(). Two mix operands
+ *   hard-crash the WebKit renderer — a blank page, not a mis-paint. Build ramps one step at a
+ *   time. RunRenderTests.php asserts this; see SharedUI/css/README.md for the support table.
+ *
+ * ⚠ Never place container-type, filter, clip-path, isolation or a z-index stacking context on an
+ *   ancestor of a frosted surface: each makes that element a backdrop root and silently kills
+ *   backdrop-filter on every descendant, in all three engines.
+ */
+@layer tokens, base, components, utilities;
+
+@layer tokens {
+  :root {
+    /* One hue drives the neutral ramp, so the whole chrome re-tints from a single value. */
+    --sys-hue: 253;
+
+    /* Elevation. Each step is a real surface a component can sit on, not a shade of the last. */
+    --sys-surface-1: oklch(0.17 0.020 var(--sys-hue));
+    --sys-surface-2: oklch(0.22 0.022 var(--sys-hue));
+    --sys-surface-3: oklch(0.27 0.024 var(--sys-hue));
+
+    /* Ink. 1 is body text, 3 is the quietest thing still required to pass AA on surface-1. */
+    --sys-ink-1: oklch(0.96 0.005 var(--sys-hue));
+    --sys-ink-2: oklch(0.82 0.010 var(--sys-hue));
+    --sys-ink-3: oklch(0.66 0.012 var(--sys-hue));
+
+    /* Steel accent, matching the petranaki-hud buttons (rgb(70,80,92) -> rgb(46,54,64)). */
+    --sys-accent:    oklch(0.72 0.030 var(--sys-hue));
+    --sys-accent-hi: oklch(0.84 0.028 var(--sys-hue));
+    --sys-edge:      oklch(0.88 0.010 var(--sys-hue) / 0.16);
+
+    /* Derived states. Depth 1 only — see the warning above. */
+    --sys-surface-2-hover: color-mix(in oklch, var(--sys-surface-2) 88%, white);
+    --sys-surface-2-press: color-mix(in oklch, var(--sys-surface-2) 88%, black);
+    --sys-accent-hover:    color-mix(in oklch, var(--sys-accent) 86%, white);
+    --sys-accent-press:    color-mix(in oklch, var(--sys-accent) 84%, black);
+    --sys-ink-disabled:    color-mix(in oklch, var(--sys-ink-2) 55%, transparent);
+
+    /* The warm highlight. Rationed: primary action and active state ONLY. */
+    --sys-signal:    #e9b866;
+    --sys-signal-hi: #ffd998;
+
+    /* ── Star Wars: Unlimited aspects ─────────────────────────────────────────
+       CARD DATA ONLY. These never appear as chrome — if an aspect colour is on a
+       button, a rim or a panel, the meaning "this is what the card is" is gone. */
+    --aspect-vigilance:  oklch(0.620 0.150 252);
+    --aspect-command:    oklch(0.665 0.145 149);
+    --aspect-aggression: oklch(0.595 0.195 26);
+    --aspect-cunning:    oklch(0.840 0.155 96);
+    --aspect-heroism:    oklch(0.940 0.015 95);
+    --aspect-villainy:   oklch(0.240 0.020 280);
+  }
+}

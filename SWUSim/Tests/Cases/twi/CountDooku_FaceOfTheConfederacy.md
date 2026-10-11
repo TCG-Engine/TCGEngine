@@ -190,3 +190,84 @@ P1LEADER:EXHAUSTED
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:TWI_037
 P1RESAVAILABLE:8
+
+---
+
+# Leader_AffordableONLYViaTheExploitItGrants_IsStillOffered
+#// ⚠ THE REPORTED BUG (player, 2026-09-21): "a friend tried to play a 3 drop separatist with the action
+#// t1 with a unit out and 2 resources and the action did nothing."
+#//
+#// This is Leader_PlaysSeparatist_GrantsExploit1 with 2 resources instead of 5 — the ONE difference that
+#// matters. The Action grants Exploit 1, worth 2 resources (`$exploitDiscount = 2 * $count`), so a 3-cost
+#// Separatist costs 1 and IS payable from 2 resources. But `_SWUSeparatistHandPlayables` built its pool
+#// with `$cost <= $ready` using the PLAIN cost: `$gPlayGrantedExploit` is not set until the play actually
+#// begins, long after the pool is built. So the card was filtered out, the pool came back empty, and the
+#// leader ability fell through to SWUAfterAction — the action was SPENT and nothing happened.
+#//
+#// ⚠ Why nothing upstream caught it: SWULeaderActionAffordable deliberately does NOT gate TWI_005
+#// (CR 6.4.587.c — the [Exhaust] cost changes game state, so the Action stays usable). That is correct,
+#// and it means the ONLY gate is this pool. A too-narrow pool therefore reads to the player as a dead
+#// button rather than as a refusal.
+#//
+#// Same board as the 5-resource section otherwise: Dooku (Command+Villainy) + SOR_023 (Command) cover
+#// TWI_230's Villainy, so no aspect penalty and the cost really is 3. Defeating the SEC_080 fodder takes
+#// it to 1; 2 - 1 = 1 resource left.
+
+## GIVEN
+CommonSetup: ggk/ggk/{
+  myLeader:TWI_005;
+  myBase:SOR_023
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2:SOR_095
+WithP1Hand: TWI_230
+WithP1GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1LEADER:EXHAUSTED
+# The fodder was exploited and the Droid took its place.
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:TWI_230
+# Paid 1 of 2, not 3 — and NOT "nothing happened", which is what the pool bug produced.
+P1RESAVAILABLE:1
+P1HANDCOUNT:0
+
+---
+
+# Leader_NoFodderToExploit_TheExpensiveCardIsNotInTheOFFER
+#// ⚠ THE NEGATIVE CONTROL for the section above — and it has to read the POOL, not the outcome.
+#//
+#// A first cut of this section had no fodder, one unaffordable card, and asserted "it stays in hand".
+#// That was DECORATIVE: mutating the fodder cap to a constant (always grant the discount) left it GREEN,
+#// because the card is admitted, auto-resolves, and then simply fails to pay — so it stays in hand
+#// either way. The outcome is identical; only the OFFER differs. Mutation caught it, nothing else could.
+#//
+#// So: three Separatists in hand and NO fodder. The two 2-cost ones are affordable outright; TWI_230 at
+#// cost 3 is not, because with no unit to defeat Exploit is worth 0. The pool must be exactly the first
+#// two, which makes it an MZCHOOSE we can read. The decision is left PENDING on purpose.
+
+## GIVEN
+CommonSetup: ggk/ggk/{
+  myLeader:TWI_005;
+  myBase:SOR_023
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2:SOR_095
+WithP1Hand: TWI_080
+WithP1Hand: TWI_080
+WithP1Hand: TWI_230
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1LEADER:EXHAUSTED
+P1HASDECISION
+# The 3-cost Droid (myHand-2) is absent: no fodder means no Exploit discount to reach it.
+P1SELECTABLEEXACT:myHand-0&myHand-1

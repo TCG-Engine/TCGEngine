@@ -19,7 +19,7 @@ $customDQHandlers["LOF_219#0"] = function($player, $parts, $lastDecision) {
     _topDeckSearchBegin($searcher, 5, function($cid) use ($want, $searcher) {
         foreach ($want as $w) { if (_SWUCardHasTrait($searcher, $cid, $w)) return true; }
         return false;
-    }, "count:1", "TOPDECKSEARCH_FINALIZE");
+    }, "count:1", "TOPDECKSEARCH_FINALIZE", 'cards sharing a trait with the chosen card', 'Take');
 };
 
 // When Played (event) — migrated from OnPlayEvent.

@@ -1,0 +1,52 @@
+# Self-play fixture — "Krennic Blue Splash" (Director Krennic, Amidst My Achievement - Coaxium Mine)
+# Source: the HMW-meta list of Force Fam member Ninin (NininTCG), given by the owner 2026-10-01 as JSON.
+#   Converted 2026-10-01. 51 main-deck cards, 10 sideboard.
+#   Same file name as ash-meta-2026-09/director-krennic_law_blue-splash.txt (the ASH tournament list) — a different
+#   deck in a different group; the pre-con picker keys each entry by group AND file.
+# Author: Ninin
+# Archetype (owner's label, 2026-10-01): Soft control
+# Style: softcontrol
+# Flavours: credit-ramp
+
+Leader
+1 LAW_008
+
+Base
+1 LAW_021
+
+Deck
+3 ASH_116
+2 LOF_084
+3 LAW_044
+3 ASH_097
+3 JTL_033
+3 LAW_038
+3 JTL_032
+1 SEC_038
+2 LAW_039
+1 JTL_078
+3 LAW_159
+3 ASH_048
+2 ASH_079
+2 JTL_043
+2 LOF_091
+2 SEC_087
+2 LAW_133
+2 SEC_078
+2 ASH_052
+2 LAW_101
+2 ASH_053
+1 HMW_102
+2 HMW_109
+
+Sideboard
+1 JTL_078
+1 JTL_043
+1 SEC_038
+1 ASH_079
+1 LOF_091
+1 HMW_110
+1 HMW_113
+1 ASH_053
+1 LAW_039
+1 ASH_052

@@ -16,7 +16,7 @@ $onAttackEndAbilities["LAW_074:0"] = function($player, $mzID) {
     _topDeckSearchBegin(intval($player), 5,
         fn($cid) => CardType($cid) === 'Unit' && HasTrait($cid, 'Underworld')
                     && max(0, SWUComputePlayCost(intval($player), (object)['CardID' => $cid]) - 4) <= $ready,
-        "count:1", "LAW_074#0");
+        "count:1", "LAW_074#0", 'Underworld units', 'Play');
 };
 
 $customDQHandlers["LAW_074#0"] = function($player, $parts, $lastDecision) {

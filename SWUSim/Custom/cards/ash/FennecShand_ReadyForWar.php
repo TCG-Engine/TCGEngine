@@ -24,9 +24,11 @@ $customDQHandlers["ASH_002#1"] = function($player, $parts, $lastDecision) {
     global $playerID, $gTurnPlayer, $gForceEnterReady; $playerID = intval($player);
     if (!$lastDecision || !str_contains($lastDecision, '-')) { SWUAfterAction($player); return; }
     $gForceEnterReady = true;
+    $refusedBefore = intval($GLOBALS['gSWUNestedCloseRefusals'] ?? 0);
     SWUNestedPlay(intval($player), $lastDecision, false, 0);   // play from hand, paying its cost
     $gForceEnterReady = null;
-    SWUAfterAction($player);
+    // Not unconditionally: a pending Ambush owns the close (CardHelpers.php _SWUNestedPlayLeftCloseToOuter).
+    if (_SWUNestedPlayLeftCloseToOuter(intval($player), $refusedBefore)) SWUAfterAction($player);
 };
 
 $unitActionCostKind["ASH_002"] = 'none';

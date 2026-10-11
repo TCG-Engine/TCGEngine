@@ -32,6 +32,11 @@ function BuildBotControllerClientState($folderPath = '', $gameName = '') {
     : 0;
 
   if (!in_array($pendingPlayer, $players, true)) $pendingPlayer = 0;
+  // Optional pacing: a game may define GameBotControllerStepDelayMs() so the client waits that long after
+  // rendering before it steps the bot, letting a human see each bot move. Games that don't define it step at once.
+  $stepDelayMs = $mode !== '' && function_exists('GameBotControllerStepDelayMs')
+    ? max(0, min(10000, intval(GameBotControllerStepDelayMs())))
+    : 0;
 
   return [
     'enabled' => $mode !== '' && !empty($players),
@@ -39,6 +44,7 @@ function BuildBotControllerClientState($folderPath = '', $gameName = '') {
     'folderPath' => strval($folderPath),
     'players' => $players,
     'pendingPlayer' => $pendingPlayer,
+    'stepDelayMs' => $stepDelayMs,
   ];
 }
 

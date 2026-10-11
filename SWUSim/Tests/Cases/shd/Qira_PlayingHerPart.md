@@ -140,3 +140,53 @@ WithP1Resources: 1:SHD_111:1,4:SOR_251:1
 
 ## EXPECT
 P1SPACEARENACOUNT:0
+
+---
+
+# ThreeSeat_QiraOnAFarSeat_SurchargeStillApplies
+#// "each card with that name costs 3 resources more for YOUR OPPONENTS" — so from the PAYER's side the
+#// question is "does ANY of my opponents control a Qi'ra that named this card?". Here Qi'ra sits on
+#// SEAT 3 and P1 is the payer: SOR_063 (cost 3) must cost 6, consuming all of P1's 6 resources.
+#//
+#// ⚠ HALF-FIXED BEFORE THIS. The scan for a live Qi'ra already looped every seat, but the named-card
+#// flag beside it was still read from `GetGlobalEffects(OtherPlayer($player))` — one seat — so the two
+#// halves disagreed and a Qi'ra on seat 3 or 4 imposed nothing. Same offer/gate drift as LOF_005.
+
+## GIVEN
+CommonSetup3P: bbk/bbk/yyk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 6
+WithP1Hand: SOR_063
+WithP3GroundArena: SHD_202:1:0
+WithP3GlobalEffect: SWU_SHD202_NAMED|SOR_063
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENAUNIT:0:CARDID:SOR_063
+P1RESAVAILABLE:0
+
+---
+
+# FourSeat_QiraOnTheFarthestSeat_SurchargeStillApplies
+#// 4P sibling: Qi'ra on SEAT 4.
+
+## GIVEN
+CommonSetup4P: bbk/bbk/bbk/yyk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 6
+WithP1Hand: SOR_063
+WithP4GroundArena: SHD_202:1:0
+WithP4GlobalEffect: SWU_SHD202_NAMED|SOR_063
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:CARDID:SOR_063
+P1RESAVAILABLE:0

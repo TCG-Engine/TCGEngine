@@ -67,16 +67,21 @@ export const mobileContextOpts = (over = {}) =>
 export const desktopContextOpts = (over = {}) =>
   ({ viewport: { width: 1600, height: 950 }, deviceScaleFactor: 1, ...over });
 
+// POSTs the login form's own request to the account endpoint rather than driving the form: SWUDeck has no
+// SharedUI/Sites/SWUDeck/LoginPage.php (removed in 844be404), so SharedUI/LoginPage.php renders only an include
+// warning there and every suite failed at login with nothing wrong in the code under test. The session cookie
+// lands in the page's context, which is all the suites need.
 export async function login(page, user = 'Drixx', pass = 'pass') {
-  const resp = await page.goto(`${BASE}/SharedUI/LoginPage.php`);
-  if (resp && resp.status() >= 400) throw new EnvError(`login page HTTP ${resp.status()} — is the stack up at ${BASE}?`);
+  let r;
   try {
-    await page.fill('input[name="userID"]', user);
-    await page.fill('input[name="password"]', pass);
-    await Promise.all([page.waitForNavigation(), page.click('button[type="submit"]')]);
+    r = await page.context().request.post(`${BASE}/AccountFiles/AttemptPasswordLogin.php`,
+      { form: { submit: '1', userID: user, password: pass }, maxRedirects: 0 });
   } catch (e) {
-    throw new EnvError(`login as ${user} failed (${e.message.split('\n')[0]})`);
+    throw new EnvError(`login as ${user} failed — is the stack up at ${BASE}? (${e.message.split('\n')[0]})`);
   }
+  // a good login redirects (302) to the main menu; a bad one redirects back to the login page with an error
+  const to = r.headers()['location'] || '';
+  if (r.status() !== 302 || /LoginPage|error/i.test(to)) throw new EnvError(`login as ${user} failed (HTTP ${r.status()} -> ${to})`);
 }
 
 // Card-ish elements the suites anchor to. A rendered board always has these; used as the

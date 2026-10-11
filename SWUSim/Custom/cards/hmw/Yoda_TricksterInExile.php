@@ -4,7 +4,7 @@
 // Traits: Force, Fringe, Jedi - unique
 // Text: Hidden
 //       When Defeated: You may put this card from your discard pile on top of your deck. If you do, heal 2
-//       damage from your base.
+//       damage from a base. (Official text, 2026-09-16 flip — the preview mock read "your base".)
 //
 // Hidden needs no code ($Hidden_Cards; enforced by _SWUHiddenBlocksAttack).
 //
@@ -18,13 +18,15 @@
 //     TWI_116 in the discard, so _SWUFindSelfInDiscardMzID (newest first, Clone-aware) finds the card.
 //   • "IF YOU DO": the heal is gated on the card actually having moved, re-found at answer time.
 //   • Always offered when the card is there, even on an undamaged base — recurring Yoda is the point;
-//     the heal is a rider, clamped at 0 by OnHealBase.
+//     the heal is a rider, clamped at 0.
+//   • "A base" is unqualified: once the card has moved, the player CHOOSES any base (either side, every seat
+//     at 3-4 players) — mandatory, since "if you do" already gated it.
 $whenDefeatedAbilities["HMW_056:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     if (GlobalEffectCount(intval($player), 'SWU_DEFEATED_CARD_HMW_056') <= 0) return;   // not the owner
     if (_SWUFindSelfInDiscardMzID(intval($player), 'HMW_056') === null) return;
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
-        tooltip: "Put_Yoda_on_top_of_your_deck?_If_you_do,_heal_2_damage_from_your_base.");
+        tooltip: "Put_Yoda_on_top_of_your_deck?_If_you_do,_heal_2_damage_from_a_base.");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "HMW_056#0", 1);
 };
 
@@ -35,5 +37,5 @@ $customDQHandlers["HMW_056#0"] = function($player, $parts, $lastDecision) {
     $o = $mz !== null ? GetZoneObject($mz) : null;
     if (SWUObjGone($o)) return;                         // left the discard before the answer — no heal
     SWUMoveCardToDeck(intval($player), $mz, 'top');   // TOP of the deck is index 0; public zone, named
-    OnHealBase(intval($player), intval($player), 2);
+    SWUQueueChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'), "Heal_2_damage_from_a_base", "HEAL_TARGET|2");
 };

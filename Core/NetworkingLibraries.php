@@ -1,6 +1,8 @@
 <?php
 
 include_once __DIR__ . '/GameAuth.php';
+include_once __DIR__ . '/ChatWhisper.php';
+include_once __DIR__ . '/GamePresence.php';
 
 $APCuEnabled = extension_loaded('apcu');
 
@@ -182,21 +184,33 @@ function IncrementCachePiece($gameName, $piece)
   return $oldVal+1;
 }
 
-function GetChatMessagesCacheKey($gameName)
+// ⚠ THE PARAMETER IS A SCOPE TOKEN, NOT NECESSARILY A GAME NAME. It may be a numeric gameName
+// (every existing caller, including generated GetNextTurn.php) or an explicit l:/m: conversation id
+// (the Waiting Room and the Sideboard). Resolving INSIDE these two functions is what lets a matched
+// game join its match's stream with no change to any caller — and therefore no generator edit and
+// no regeneration of GetNextTurn.php. See Core/ChatConversation.php.
+// Returns null for an unusable token; every caller must treat null as "no chat here".
+include_once __DIR__ . '/ChatConversation.php';
+
+function GetChatMessagesCacheKey($scopeToken)
 {
-  return "chat_" . strval($gameName);
+  $key = ChatScopeKey($scopeToken);
+  return $key === null ? null : "chat_" . $key;
 }
 
-function GetChatVersionCacheKey($gameName)
+function GetChatVersionCacheKey($scopeToken)
 {
-  return "chat_version_" . strval($gameName);
+  $key = ChatScopeKey($scopeToken);
+  return $key === null ? null : "chat_version_" . $key;
 }
 
 function GetChatUpdateVersion($gameName)
 {
   global $APCuEnabled;
   if(!$APCuEnabled || !function_exists('apcu_fetch')) return 0;
-  $version = apcu_fetch(GetChatVersionCacheKey($gameName));
+  $key = GetChatVersionCacheKey($gameName);
+  if($key === null) return 0;
+  $version = apcu_fetch($key);
   if($version === false) return 0;
   return intval($version);
 }
@@ -212,6 +226,7 @@ function IncrementChatUpdateVersion($gameName)
   if(!$APCuEnabled || !function_exists('apcu_inc') || !function_exists('apcu_store')) return 0;
   $success = false;
   $key = GetChatVersionCacheKey($gameName);
+  if($key === null) return 0;
   $newVersion = apcu_inc($key, 1, $success, 3600);
   if(!$success) {
     apcu_store($key, 1, 3600);
@@ -220,16 +235,65 @@ function IncrementChatUpdateVersion($gameName)
   return intval($newVersion);
 }
 
-function GetChatMessagesSince($gameName, $lastChatID = 0)
+// Append one message to a chat scope and bump its version. THE SINGLE WRITER — extracted from
+// SubmitChat.php 2026-09-26 so the schema DSL's WithChat: directive seeds rows through the very code
+// the endpoint uses, instead of hand-building an array that drifts the first time a field is added.
+//
+// ⚠ THE ROW SHAPE IS A CONTRACT with GetChatMessagesSince() and the poll's CHATONLY branch:
+//   id, playerID, playerLabel, text, time, ts — and 'to' ONLY on a whisper. Readers branch on the
+//   ABSENCE of 'to' to mean "public", so a public row must never carry an empty one.
+// 'ts' is the microtime the merged sidebar panel orders chat against game-log entries by; whole-second
+// 'time' cannot separate a message from the log lines around it, and stays untouched for old readers.
+//
+// Validation is the CALLER's job: SubmitChat.php applies the login / spectator / block / whisper-policy
+// gates before calling this, and the fixture directive applies its own. This function stores.
+// Returns the new message id, or 0 when the scope token is unusable or APCu is unavailable.
+function ChatAppendMessage($scopeToken, $playerID, $label, $text, array $whisperTo = [])
+{
+  if (!extension_loaded('apcu') || !apcu_enabled()) return 0;
+  $cacheKey = GetChatMessagesCacheKey($scopeToken);
+  if ($cacheKey === null) return 0;
+
+  $existing = apcu_fetch($cacheKey);
+  $messages = ($existing !== false) ? $existing : [];
+  $nextId   = empty($messages) ? 1 : (end($messages)['id'] + 1);
+
+  $row = [
+    'id'          => $nextId,
+    'playerID'    => $playerID,
+    'playerLabel' => $label,
+    'text'        => $text,
+    'time'        => time(),
+    'ts'          => round(microtime(true), 4),
+  ];
+  if (!empty($whisperTo)) $row['to'] = $whisperTo;   // public rows keep today's exact shape
+  $messages[] = $row;
+
+  // Keep at most 100 messages
+  if (count($messages) > 100) $messages = array_slice($messages, -100);
+
+  apcu_store($cacheKey, $messages, 3600);
+  IncrementChatUpdateVersion($scopeToken);
+  return $nextId;
+}
+
+function GetChatMessagesSince($gameName, $lastChatID = 0, $viewerInfo = null)
 {
   global $APCuEnabled;
   if(!$APCuEnabled || !function_exists('apcu_fetch')) return [];
-  $messages = apcu_fetch(GetChatMessagesCacheKey($gameName));
+  $key = GetChatMessagesCacheKey($gameName);
+  if($key === null) return [];
+  $messages = apcu_fetch($key);
   if($messages === false || !is_array($messages)) return [];
   $lastChatID = intval($lastChatID);
-  return array_values(array_filter($messages, function($message) use ($lastChatID) {
-    return isset($message['id']) && intval($message['id']) > $lastChatID;
-  }));
+  // Whisper rows are redacted for anyone who is not the sender or a recipient. $viewerInfo === null
+  // (GetChat.php, or a GetNextTurn.php not yet regenerated) is a NON-party — deny by default.
+  $out = [];
+  foreach ($messages as $message) {
+    if (!isset($message['id']) || intval($message['id']) <= $lastChatID) continue;
+    $out[] = ChatRowForViewer($message, $viewerInfo);
+  }
+  return $out;
 }
 
 function GamestateUpdated($gameName)
@@ -264,7 +328,11 @@ function WriteActiveGameIndex($index, $ttl = 60)
   apcu_store(ActiveGameIndexKey(), $index, $ttl);
 }
 
-function RegisterActiveGame($rootName, $gameName, $isPrivate = false)
+// $round is OPTIONAL and additive: a sim that does not pass one keeps whatever the entry already
+// held, so the five sims that share this index are unaffected. SWUSim's menu reads it to print
+// "Round 4" on a game chip -- the alternative was parsing each running game's full gamestate on a
+// 20s poll, when the engine is already writing this index on every action anyway.
+function RegisterActiveGame($rootName, $gameName, $isPrivate = false, $round = null)
 {
   if($rootName === "" || $gameName === "") return;
   $now = time();
@@ -278,22 +346,24 @@ function RegisterActiveGame($rootName, $gameName, $isPrivate = false)
     'casterMode' => SimGameIsCasterMode($rootName, $gameName),
     'createdAt' => isset($existing['createdAt']) ? intval($existing['createdAt']) : $now,
     'lastUpdatedAt' => $now,
+    'round' => $round === null ? intval($existing['round'] ?? 0) : max(0, intval($round)),
   ];
   WriteActiveGameIndex($index);
 }
 
-function TouchActiveGame($rootName, $gameName)
+function TouchActiveGame($rootName, $gameName, $round = null)
 {
   if($rootName === "" || $gameName === "") return;
   $key = strval($rootName) . ":" . strval($gameName);
   $index = ReadActiveGameIndex();
   if(!isset($index[$key]) || !is_array($index[$key])) {
-    RegisterActiveGame($rootName, $gameName, SimGameIsPrivateGame($rootName, $gameName));
+    RegisterActiveGame($rootName, $gameName, SimGameIsPrivateGame($rootName, $gameName), $round);
     return;
   }
   $index[$key]['isPrivate'] = SimGameIsPrivateGame($rootName, $gameName);
   $index[$key]['casterMode'] = SimGameIsCasterMode($rootName, $gameName);
   $index[$key]['lastUpdatedAt'] = time();
+  if($round !== null) $index[$key]['round'] = max(0, intval($round));
   WriteActiveGameIndex($index);
 }
 

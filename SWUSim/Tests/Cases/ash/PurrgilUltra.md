@@ -159,3 +159,23 @@ WithP2GroundArena: SEC_028:1:0
 
 ## EXPECT
 P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0
+
+---
+
+# WhenPlayed_ReturnATokenUnit_SetAside_DealsZero
+#// CR v9.0 3.7.3: a token that would leave play is set aside instead — a replacement effect, so "If you do" still
+#// resolves (CR 8.9.2). P1 returns its Beast token (HMW_T03, cost 0) with Purrgil Ultra's When Played: the token is
+#// set aside (nothing in hand) and the damage "equal to the returned unit's cost" is 0.
+## GIVEN
+CommonSetup: gyk/gyk/{myResources:8;handCardIds:ASH_038}
+WithP1GroundArena: HMW_T03:1:0
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:0
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:0

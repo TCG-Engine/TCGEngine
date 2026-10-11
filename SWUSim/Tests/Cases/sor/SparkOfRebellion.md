@@ -133,3 +133,98 @@ P2DISCARDCOUNT:1
 P2DISCARDUNIT:0:CARDID:SOR_095
 P2DISCARDUNIT:0:FROM:HAND
 P1DISCARDCOUNT:1
+
+---
+
+# TwinSuns4P_CasterPicksWhichOpponentsHand
+#// SOR_200 Spark of Rebellion — "Look at AN OPPONENT's hand …": the CASTER picks whose. Bug report 2026-10-01
+#// ("Spark of Rebellion in Twin Suns, not letting me pick the player"): the card called SWUOfferDiscard with no
+#// seat, so it always read the legacy single opponent. Now SWUOfferDiscardFromAnOpponent asks first.
+#// P2 and P3 both hold cards; P1 picks P3 and discards from P3's hand. P2 — the seat the old code always read —
+#// must be untouched. ⚠ A 2-player version cannot fail: one opponent means no choice to get wrong.
+
+## GIVEN
+CommonSetup: yyw/yyw/{myResources:2}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: SOR_200
+WithP2Hand: [SOR_171 SOR_128]
+WithP3Hand: [SOR_095 SEC_080]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:p3Hand-0
+
+## EXPECT
+SEATCOUNT:4
+P3HANDCOUNT:1
+P3DISCARDCOUNT:1
+P3DISCARDUNIT:0:FROM:HAND
+P2HANDCOUNT:2
+P2DISCARDCOUNT:0
+
+---
+
+# TwinSuns3P_CasterPicksWhichOpponentsHand
+#// The same pick on a 3-seat board (Twin Suns tests need 3P AND 4P: seat-count bugs differ between them).
+
+## GIVEN
+CommonSetup: yyw/yyw/{myResources:2}
+SkipPreGame: true
+WithSeatOrder: 123
+WithLiveSeats: 123
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: SOR_200
+WithP2Hand: [SOR_171 SOR_128]
+WithP3Hand: [SOR_095 SEC_080]
+WithP3Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:p3Hand-0
+
+## EXPECT
+SEATCOUNT:3
+P3HANDCOUNT:1
+P3DISCARDCOUNT:1
+P2HANDCOUNT:2
+P2DISCARDCOUNT:0
+
+---
+
+# TwinSuns4P_OnlyOpponentsHoldingCardsAreOffered
+#// An empty hand has nothing to look at and nothing to discard — a choice among nothing — so the picker offers
+#// only opponents holding a card. P4's hand is empty: the menu is P2 and P3, never P4.
+
+## GIVEN
+CommonSetup: yyw/yyw/{myResources:2}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: SOR_200
+WithP2Hand: [SOR_171]
+WithP3Hand: [SOR_095]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1DECISIONTOOLTIP:Choose an opponent whose hand to look at
+P1OPTIONHAS:P2
+P1OPTIONHAS:P3
+P1OPTIONNOT:P4

@@ -261,11 +261,15 @@ $rarityErr = SWUCheckFormat('padawan', $pLeader, $pBase, $rareDeck, []);
 $checks['rarity error names the rarity'] = _errHas($rarityErr, 'Common printing');
 $checks['rarity error is not a set error'] = !_errHas($rarityErr, 'not legal in');
 
-// 12. PADAWAN PREVIEW accepts HMW commons; plain Padawan does not.
+// 12. HMW is RELEASED (owner, 2026-09-16): plain Padawan now accepts an HMW Common, and Padawan Preview still does.
+//     The preview window is IC27 only, but no IC27 Common has been previewed (all 19 mocks are Uncommon or higher), so
+//     the preview-only half is pinned by rarity: an IC27 Uncommon is refused.
 $hmwDeck = _padawanMain(); $hmwDeck[0] = 'HMW_059';          // Clone X Assassin, Common
-$checks['padawan rejects HMW card']          = !empty(SWUCheckFormat('padawan', $pLeader, $pBase, $hmwDeck, []));
+$checks['padawan accepts HMW common (released)'] = SWUCheckFormat('padawan', $pLeader, $pBase, $hmwDeck, []) === [];
 $checks['padawan-preview accepts HMW card']  = SWUCheckFormat('padawan-preview', $pLeader, $pBase, $hmwDeck, []) === [];
 $checks['padawan-preview accepts HMW base']  = SWUCheckFormat('padawan-preview', $pLeader, 'HMW_019', _padawanMain(), []) === [];
+$ic27Deck = _padawanMain(); $ic27Deck[0] = 'IC27_022';       // Uncommon
+$checks['padawan-preview refuses an IC27 Uncommon (rarity)'] = !empty(SWUCheckFormat('padawan-preview', $pLeader, $pBase, $ic27Deck, []));
 
 // 13. NO REGRESSION: the rarity code path must not alter any pre-existing format's verdict.
 $checks['premier verdict unchanged'] = SWUCheckFormat('premier', $leader, $base, _legalMain(), []) === [];

@@ -16,7 +16,10 @@
 #//           modes=2P only — "your discard pile" names no other player: self-only in every format, so
 #//                 TwinSuns/TeamSuns sections would run the identical path and could not fail.
 #//
-#// PREVIEW SET — no official ruling. Readings (from the CR + released analogues):
+#// PREVIEW SET — no official ruling yet. One JUDGE clarification (2026-10-08, refs/card-specific-rulings.md →
+#// "Judge clarifications" → HMW): played and defeated in the same phase, both triggers choosing the same unit,
+#// it still costs only 1 less — SamePhase_PlayedThenDefeated_StillOnlyOneLess / _NotTwoLess.
+#// Other readings (from the CR + released analogues):
 #//   • The permission is TWI_201 Aid from the Innocent's ("for this phase, you may play … it costs 2
 #//     less") at 1: an at-cost discard modifier, cleared at regroup start. Stamped 'TPP1U' — 'U' =
 #//     UNIT-ONLY: "play that UNIT", and a Pilot played by a "play a unit" ability may only be played as a
@@ -446,3 +449,63 @@ CommonSetup: ggw/rrk/{myResources:7;myhandCardIds:HMW_122;discardCardIds:SOR_095
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
 TURNPLAYER:2
 NOEXTRAACTION
+
+---
+
+# SamePhase_PlayedThenDefeated_StillOnlyOneLess
+#// JUDGE RULING (HMW_122, 2026-10-08 — .claude/SWUSim/refs/card-specific-rulings.md, HMW): Boga is played and
+#// defeated in the SAME phase, and both its When Played and its When Defeated choose the same unit. That
+#// unit does NOT cost 2 less. Each trigger grants a MODIFIED play-a-card action that carries its own "1
+#// less"; with two such actions available the player uses one of them — the discounts never add up (like
+#// Smuggle and Piloting, which cannot be combined). A separate LASTING cost reduction (GNK Power Droid,
+#// GnkPowerDroid_TheDiscountsStack) is not part of the action and does still apply on top.
+#//
+#// P1 plays Boga (7 resources → 1 left), When Played picks SOR_095 (the only legal unit). P2's own Boga (6/6)
+#// attacks P1's and both die; P1's When Defeated is queued on P1's side (Drain runs it, as production's
+#// post-action automation does) and picks SOR_095 again. The entry keeps ONE 'TPP1U', and SOR_095 (2) plays
+#// for 1 with the 1 resource left.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:7;myhandCardIds:HMW_122;discardCardIds:SOR_095}
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP2GroundArena: HMW_122:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P2>AttackGroundArena:0:0
+- P1>Drain
+- P1>PlayFromDiscard:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:HMW_122
+P1RESAVAILABLE:0
+
+---
+
+# SamePhase_PlayedThenDefeated_NotTwoLess
+#// The half that would catch the discounts adding up. 6 resources: Boga leaves 0. After BOTH grants the entry
+#// still reads 'TPP1U', and SOR_095 (2) still costs 1, so it cannot be played. At "2 less" it would cost 0 and play.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:6;myhandCardIds:HMW_122;discardCardIds:SOR_095}
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP2GroundArena: HMW_122:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P2>AttackGroundArena:0:0
+- P1>Drain
+- P1>PlayFromDiscard:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:2
+P1DISCARDUNIT:0:CARDID:SOR_095
+P1DISCARDUNIT:0:MODIFIER:TPP1U
+P1DISCARDUNIT:1:CARDID:HMW_122
+P1DISCARDPLAYABLENOT:0

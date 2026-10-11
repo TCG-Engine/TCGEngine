@@ -7,7 +7,7 @@ function FaBOUTSource(int $uid): string {return FaBFindUID($uid)['mzID']??'';}
 function FaBOUTHero(int $p,string $id): bool {return FaBMONHero($p,$id);}
 function FaBOUTNames(object $o): array {
  $owner=intval($o->Owner??0)?:intval(FaBFindUID(intval($o->UniqueID??0))['player']??$o->Controller??0);if($owner&&FaBOUTCount($owner,'AMNESIA'))return [];
- $names=[(string)CardName($o->CardID)];foreach((array)($o->TurnEffects??[]) as $t)if(str_starts_with($t,'OUT_NAME:'))$names[]=substr($t,9);return array_unique($names);
+ $names=(array)FaBARCCard(intval($o->UniqueID??0),'penNames',[(string)CardName($o->CardID)]);foreach((array)($o->TurnEffects??[]) as $t)if(str_starts_with($t,'OUT_NAME:'))$names[]=substr($t,9);return array_unique($names);
 }
 function FaBOUTNamed(object $o,string $name): bool {return in_array($name,FaBOUTNames($o),true);}
 function FaBOUTCombo(int $p,string $kind,?object $o=null): bool {
@@ -23,7 +23,7 @@ function FaBOUTTargets(int $p,string $kind): string {
  $s=FaBGetState();$f=FaBFindUID(intval($s['attackUID']));if(!$f||intval($s['attacker'])!==$p||$f['zone']!=='CombatChain')return '';$o=$f['object'];
  $ok=match($kind){'stealth'=>FaBWTRIsAttackAction($o)&&FaBHasKeyword($o,'Stealth'),'small'=>FaBWTRIsAttackAction($o)&&intval(CardPower($o->CardID))<=2,'tiny'=>intval(CardPower($o->CardID))<=1,'dagger'=>FaBHasType($o,'Dagger'),'hybrid'=>FaBWTRIsAttackAction($o)&&(FaBHasType($o,'Ninja')||FaBHasType($o,'Assassin')),'combo'=>FaBWTRIsAttackAction($o)&&FaBHasKeyword($o,'Combo'),'short'=>FaBHasType($o,'Dagger')||(FaBWTRIsAttackAction($o)&&intval(CardPower($o->CardID))<=2),'aa'=>FaBWTRIsAttackAction($o),default=>true};return $ok?$f['mzID']:'';
 }
-function FaBOUTToken(int $p,string $token,int $n=1): void {if(!FaBSeatIsLive($p))return;for($i=0;$i<$n;++$i)FaBWTRCreateArena($p,$token);}
+function FaBOUTToken(int $p,string $token,int $n=1): void {FaBHVYToken($p,$token,$n);}
 function FaBOUTDisease(int $victim,string $choice): void {FaBOUTToken($victim,['frailty','inertia','bloodrot_pox'][intval($choice)]??'frailty');}
 function FaBOUTNext(int $p,string $kind,int $power=0,string $tag='',bool $chain=false): void {FaBOUTAdd($p,'NEXT',$power,['kind'=>$kind,'tag'=>$tag,'chain'=>$chain]);}
 function FaBOUTNextMatches(object $o,string $from,string $kind): bool {return match($kind){'arrow'=>FaBHasType($o,'Arrow'),'stealth'=>FaBHasKeyword($o,'Stealth'),'dagger'=>FaBHasType($o,'Dagger'),'small'=>FaBWTRIsAttackAction($o)&&intval(CardPower($o->CardID))<=2,'arsenal'=>FaBWTRIsAttackAction($o)&&$from==='Arsenal','hybrid'=>FaBWTRIsAttackAction($o)&&(FaBHasType($o,'Assassin')||FaBHasType($o,'Ranger')),'aa'=>FaBWTRIsAttackAction($o),default=>FaBWTRIsAttackAction($o)||FaBWTRIsWeapon($o)};}

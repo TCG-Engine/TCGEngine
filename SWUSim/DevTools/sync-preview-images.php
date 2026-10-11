@@ -13,7 +13,7 @@
 // can never disagree: a card counts as playable when it is a token (engine-generic), or vanilla /
 // keyword-only (auto-wired by the dictionaries), or referenced by QUOTED CardID somewhere under
 // SWUSim/Custom/ (per-card file, monolith, or engine file). Data files that merely LIST CardIDs
-// (CardMocks.php, CardTraitSupplement.php) opt out via the SCAFFOLD-IGNORE marker.
+// (CardMocks.php, CardDataSupplement.php) opt out via the SCAFFOLD-IGNORE marker.
 //
 // The sync is a MIRROR, not an append: a mock_*.webp in the destination whose card is no longer playable
 // — or whose source art is gone, which is what the preview-cleanup path does once official data lands —

@@ -1,0 +1,10 @@
+{
+    "name": "dispatch-played",
+    "rootName": "HellbreakSim",
+    "createdAt": "2026-09-16T19:01:43+00:00",
+    "createdBy": "DevTools/Hellbreak/make-fixture.php",
+    "deck": "GAMA demo decks (Dracula vs Jaws)",
+    "autoSeats": [
+        2
+    ]
+}

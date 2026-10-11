@@ -1,6 +1,11 @@
 <?php
 
 function CustomWidgetInput($playerID, $actionCard, $action = '') {
+    // BotData recorder (spec 2026-09-23): the ONLY place the in-flight action's identity exists. The
+    // seam that records it, _SWUOpenAction(), is reached via SaveUndoVersion($playerID) from ~15 sites
+    // below and sees no arguments at all, so the identity is stashed here instead of threaded through
+    // every one of them. Overwritten by the next action; never read outside one.
+    $GLOBALS['SWUBotDataInFlight'] = ['mz' => strval($actionCard), 'verb' => strval($action)];
     $cardArr = explode("-", $actionCard);
     $zone = $cardArr[0];
     switch ($zone) {
@@ -19,6 +24,17 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
         $dqController = new DecisionQueueController();
         if (!$dqController->AllQueuesEmpty()) {
             SetFlashMessage("Cannot pass while decisions are pending.");
+            break;
+        }
+        // Twin Suns (CR §12.6.1.a): Pass is NOT a free alternative to acting. "Players may only pass if
+        // there are no counters available to take" — so while initiative, blast or plan is still on the
+        // table, the player must take one (or act). The client hides the button, and this refuses the
+        // request, because a hidden button is cosmetic: a stale tab or a direct ProcessInput call would
+        // otherwise skip a forced action.
+        // ⚠ Never blocks the FORCED pass — a seat that already took a counter must pass, and
+        // SWUPassActionAllowed() returns true for it. Two-player games are unaffected.
+        if (function_exists('SWUPassActionAllowed') && !SWUPassActionAllowed(intval($playerID))) {
+            SetFlashMessage("You must take an action or an available counter — you can only pass once every counter is taken.");
             break;
         }
         $currentPhase = GetCurrentPhase();

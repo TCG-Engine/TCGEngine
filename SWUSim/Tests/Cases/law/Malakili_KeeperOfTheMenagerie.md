@@ -227,7 +227,7 @@ WithP1Discard: [SOR_164 SOR_095]
 - P1>PlayHand:0
 
 ## EXPECT
-P1DECISIONTOOLTIP:Choose_a_card
+P1DECISIONTOOLTIP:Return_an_Underworld_card_from_your_discard?
 P1SELECTABLEEXACT:myDiscard-0
 
 ---

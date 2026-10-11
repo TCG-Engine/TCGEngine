@@ -207,3 +207,22 @@ WithP1SpaceArena: SHD_036:1:0
 
 ## EXPECT
 P2BASEDMG:27
+
+---
+
+# DoublePower_AppliedLast_AfterAWhileAttackingABasePenalty
+#// CR v9.0 8.15.2: "When calculating a modified value, apply additive modifiers, then subtractive modifiers, then
+#// multiplicative modifiers." Dryden's "double this unit's power for this attack" is multiplicative, so it applies
+#// LAST. He carries ASH_054 Pointless to Resist ("-3/-0 while attacking a base") and attacks a base: 2 − 3 is
+#// treated as 0 (CR 8.15.4), then doubled → 0 damage. (Also the card ruling: he "doubles whatever his power is".)
+#// Before this the double was added as a flat +2 snapshot up front, so the −3 was subtracted from a doubled 4.
+## GIVEN
+CommonSetup: rrk/rrk
+WithActivePlayer: 1
+WithP1GroundArena: SEC_137:1:0
+WithP1GroundArenaUpgrade: 0:ASH_054
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:YES
+## EXPECT
+P2BASEDMG:0

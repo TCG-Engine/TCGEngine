@@ -40,7 +40,11 @@ $whenPlayedAbilities["TWI_249:0"] = function($player, $mzID = '') {
                           // unit. Give each chosen unit +2/+2 and Saboteur for this phase."
             global $playerID; $playerID = intval($player);
             $rep = []; $sep = [];
-            foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+            // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+            // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+            // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+            // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+            foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
                 foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
                     $o = GetZoneObject($mz);
                     if (SWUObjGone($o)) continue;

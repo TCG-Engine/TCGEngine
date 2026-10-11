@@ -1,0 +1,80 @@
+/* FaBSim only. Native checkboxes keep keyboard and touch switches consistent. */
+.fab-shortcut-ui {
+  color: #eee8dc;
+  font: 500 13px/1.4 "Segoe UI", system-ui, sans-serif;
+  --shortcut-gold: #e2b85f;
+  --shortcut-muted: #b3b4ad;
+}
+.fab-shortcut-ui * { box-sizing: border-box; }
+#fab-shortcut-dock { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; justify-content: center; }
+.fab-overlay-toolbar { align-items: center; justify-content: center; flex-wrap: wrap; width: max-content; max-width: calc(100vw - 24px); }
+.fab-upf-tools { align-items: center; }
+#fab-shortcut-toggle {
+  display: flex; align-items: center; gap: 9px;
+  min-height: 32px; padding: 5px 9px;
+  border: 1px solid #a58645; border-radius: 11px;
+  background: linear-gradient(135deg, #30291b, #151b1c);
+  color: #f1d294; font: 650 12px/1.4 "Segoe UI", system-ui, sans-serif;
+  box-shadow: 0 4px 18px #0009, inset 0 1px #ffffff0c;
+  cursor: pointer; touch-action: manipulation;
+}
+#fab-shortcut-toggle:hover, #fab-shortcut-toggle[aria-expanded="true"] { border-color: #f0ce8a; background: #302b20; }
+.fab-shortcut-bolt { width: 21px; height: 24px; flex: none; fill: currentColor; }
+#fab-shortcut-count { padding: 3px 6px; border-radius: 5px; background: #e2b85f19; color: #e9c989; font-size: 10px; letter-spacing: .04em; }
+.fab-shortcut-ui.is-holding #fab-shortcut-toggle { background: #1b2329; border-color: #78848e; color: #dae2e8; }
+.fab-shortcut-ui.is-holding #fab-shortcut-count { background: #cad9e21a; color: #cad9e2; }
+#fab-shortcut-panel {
+  position: fixed; z-index: 1900;
+  width: 350px; max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 100px);
+  display: flex; flex-direction: column;
+  overflow: hidden; border: 1px solid #887044; border-radius: 16px;
+  background: linear-gradient(150deg, #202526, #111719 65%);
+  box-shadow: 0 18px 60px #000b, inset 0 1px #ffffff0a;
+}
+#fab-shortcut-panel[hidden] { display: none; }
+.fab-shortcut-header { display: flex; align-items: center; gap: 11px; padding: 17px 16px; flex: none; border-bottom: 1px solid #e2b85f24; }
+.fab-shortcut-emblem { display: grid; place-items: center; width: 39px; height: 43px; flex: none; color: var(--shortcut-gold); background: #e2b85f0e; border: 1px solid #e2b85f40; border-radius: 10px; }
+.fab-shortcut-eyebrow { display: block; color: #bfa774; font-size: 8px; font-weight: 700; letter-spacing: .16em; }
+#fab-shortcut-title { margin: 3px 0 0; color: #f3e5c9; font: 650 18px/1.2 "Segoe UI", system-ui, sans-serif; }
+.fab-shortcut-ui .fab-shortcut-close { margin-left: auto; padding: 0; width: 30px; height: 30px; flex: none; border: 1px solid #ffffff1c; border-radius: 8px; background: #ffffff06; color: #ccc7bd; cursor: pointer; font: 22px/1 system-ui; }
+.fab-shortcut-ui .fab-shortcut-close:hover { background: #ffffff16; color: #fff; }
+.fab-shortcut-body { padding: 14px 16px; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #756342 #151b1c; }
+.fab-shortcut-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 38px; cursor: pointer; }
+.fab-shortcut-row > span { min-width: 0; }
+.fab-shortcut-master { min-height: 32px; padding: 5px 9px; gap: 9px; border: 1px solid #e2b85f45; border-radius: 9px; background: #151b1cf5; white-space: nowrap; font-size: 12px; -webkit-user-select: none; user-select: none; }
+.fab-shortcut-ui.is-holding .fab-shortcut-master { border-color: #9cadbd; background: #26313a; }
+.fab-shortcut-status { margin: 10px 0 14px; color: #dac086; font-size: 11px; }
+.fab-shortcut-ui.is-holding .fab-shortcut-status { color: #cad9e2; }
+.fab-shortcut-group { padding: 0; margin: 0 0 14px; border: 0; min-width: 0; }
+.fab-shortcut-group legend, .fab-shortcut-choices h3 { padding: 0; margin: 0 0 5px; color: #d5bd86; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.fab-shortcut-group .fab-shortcut-row + .fab-shortcut-row { border-top: 1px solid #ffffff07; }
+.fab-shortcut-group:disabled { opacity: .5; }
+.fab-shortcut-group:disabled .fab-shortcut-row { cursor: default; }
+.fab-shortcut-ui .fab-shortcut-switch {
+  -webkit-appearance: none; appearance: none;
+  width: 38px; height: 22px; min-width: 38px; margin: 0; padding: 0; flex: none;
+  border: 1px solid #697174; border-radius: 20px;
+  background: radial-gradient(circle at 10px 50%, #cad0d1 0 7px, transparent 7.5px), #30393d;
+  cursor: pointer; transition: background-color .15s, border-color .15s;
+}
+.fab-shortcut-ui .fab-shortcut-switch:checked {
+  border-color: #e2b85f;
+  background: radial-gradient(circle at 26px 50%, #fff4d9 0 7px, transparent 7.5px), #9c752a;
+}
+.fab-shortcut-ui .fab-shortcut-switch:disabled { cursor: default; }
+.fab-shortcut-ui :is(button, input):focus-visible { outline: 2px solid #ffe0a0; outline-offset: 3px; }
+.fab-shortcut-note { color: var(--shortcut-muted); font-size: 11px; line-height: 1.55; font-weight: 400; margin: 0; }
+.fab-shortcut-choices { margin-top: 16px; padding-top: 13px; border-top: 1px solid #ffffff15; }
+.fab-shortcut-footer { padding: 10px 16px; flex: none; border-top: 1px solid #ffffff0d; color: #949e9f; text-align: center; font-size: 10px; }
+@media (pointer: coarse) {
+  #fab-shortcut-toggle { min-height: 44px; }
+  .fab-shortcut-row { min-height: 44px; }
+  .fab-shortcut-ui .fab-shortcut-close { width: 40px; height: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fab-shortcut-ui .fab-shortcut-switch { transition: none; }
+}
+@media (forced-colors: active) {
+  .fab-shortcut-ui .fab-shortcut-switch { appearance: auto; }
+}

@@ -1,0 +1,21 @@
+# Experimental Relicanth draw: bangle-1
+4 Relicanth PBL 17
+4 Antique Armor Fossil PBL 72
+4 Antique Plume Fossil WHT 79
+2 Antique Skull Fossil PBL 73
+2 Antique Root Fossil SCR 130
+2 Antique Cover Fossil SCR 129
+4 Fossil Quarry PBL 76
+4 Poké Pad POR 81
+4 Lillie's Determination MEG 119
+4 Lacey SCR 139
+3 Iris's Fighting Spirit ASC 190
+1 Judge POR 76
+4 Night Stretcher ASC 196
+3 Energy Search POR 72
+2 Energy Retrieval WHT 82
+3 sv06-158
+1 Boss's Orders MEG 114
+7 Water Energy MEE 3
+1 sv06-167
+1 Brave Bangle WHT 80

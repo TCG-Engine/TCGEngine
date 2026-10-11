@@ -1,0 +1,37 @@
+/* Loaded only by FaBSim's layout, for both duel and multiplayer games.
+ * Target controls and zones, not the whole board: multiplayer mounts chat
+ * and game events inside the board on small screens. Keep descriptions,
+ * logs, and other reading surfaces selectable by default.
+ */
+.prevent-select,
+button,
+[role="button"],
+.widget-button-pass,
+.fab-zone,
+.fab-upf-zone,
+.fab-upf-seat-header,
+.fab-upf-summary,
+.fab-upf-bar,
+.fab-window-header,
+.fab-upf-panel > header,
+.fab-combat-progress,
+.fab-chain-card,
+.fab-chain-total,
+.fab-shortcut-row,
+[data-fab-drag-handle] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Explicit escape hatch for copyable content nested in a protected surface.
+ * Use text rather than auto, which can retain the parent's none behavior.
+ */
+.allow-select,
+input,
+textarea,
+[contenteditable=""],
+[contenteditable="true"],
+[contenteditable="plaintext-only"] {
+  -webkit-user-select: text;
+  user-select: text;
+}

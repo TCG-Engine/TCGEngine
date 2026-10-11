@@ -2,6 +2,7 @@
 include_once __DIR__ . '/../Core/GameAuth.php';
 include __DIR__ . '/Custom/CustomInput.php';
 include __DIR__ . '/Custom/GameLogic.php';
+include __DIR__ . '/Custom/InactivityClock.php';
 include __DIR__ . '/TurnController.php';
 include __DIR__ . '/GeneratedCode/GeneratedMacroCode.php';
 include __DIR__ . '/GeneratedCode/GeneratedKeywordCode.php';
@@ -134,8 +135,8 @@ function InitializeGamestate() {
   $gUniqueIDCounter = 0;
   $gEffectStack = [];
   $gGameLog = "-";
-  $gMatchReplayInitialState = "";
-  $gMatchReplayCommands = "";
+  $gMatchReplayInitialState = "-";
+  $gMatchReplayCommands = "-";
   $currentPlayer = 1;
   $updateNumber = 1;
   $gRandomCounter = 0;
@@ -276,10 +277,13 @@ function WriteGamestate($filepath="./") {
   $gamestateText .= $gMatchReplayCommands . "\r\n";
   $gamestateText .= $gRandomCounter . "\r\n";
   global $gTelemetry; $gamestateText .= (($gTelemetry === null || $gTelemetry === '') ? '-' : $gTelemetry) . "\r\n";
+  $gamestateCached = false;
   if(GamestateUsesMemoryStorage() && function_exists("SimGameWriteGamestateCache")) {
-    SimGameWriteGamestateCache('SWUSim', $gameName, $gamestateText);
+    $gamestateCached = SimGameWriteGamestateCache('SWUSim', $gameName, $gamestateText);
   }
-  file_put_contents($filename, $gamestateText);
+  $persistToFile = PHP_SAPI !== 'cli' || !function_exists('EngineShouldPersistGamestateFile') || EngineShouldPersistGamestateFile('SWUSim', $gameName);
+  if(!$persistToFile && !$gamestateCached) throw new RuntimeException('Memory-only gamestate cache write failed.');
+  if($persistToFile) file_put_contents($filename, $gamestateText);
 
 }
 

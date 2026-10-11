@@ -39,10 +39,10 @@ $onAttackAbilities["SOR_011:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $self = GetZoneObject($mzID);
     $selfUID = ($self !== null) ? intval($self->UniqueID ?? 0) : 0;
-    $targets = array_values(array_filter(array_merge(
-        ZoneSearch('myGroundArena', AnyUnitFilter),
-        ZoneSearch('mySpaceArena',  AnyUnitFilter)
-    ), function($mz) use ($selfUID) {
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    $targets = array_values(array_filter(SWUFriendlyUnits(null, AnyUnitFilter), function($mz) use ($selfUID) {
         $o = GetZoneObject($mz);
         return $o !== null && intval($o->UniqueID ?? 0) !== $selfUID && intval(ObjectCurrentPower($o)) <= 3;
     }));
@@ -72,10 +72,7 @@ $customDQHandlers["SOR_011#1"] = function($player, $parts, $lastDecision) {
 $leaderAbilities["SOR_011"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
-    $targets = array_values(array_filter(array_merge(
-        ZoneSearch('myGroundArena', AnyUnitFilter),
-        ZoneSearch('mySpaceArena',  AnyUnitFilter)
-    ), function($mz) { $o = GetZoneObject($mz); return $o !== null && intval(ObjectCurrentPower($o)) <= 3; }));
+    $targets = array_values(array_filter(SWUFriendlyUnits(null, AnyUnitFilter), function($mz) { $o = GetZoneObject($mz); return $o !== null && intval(ObjectCurrentPower($o)) <= 3; }));
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, 'Deal_2_damage_to_a_friendly_unit_(3_or_less_power)_and_ready_it', 'SOR_011#0');
     SWUQueueAfterAction($player);

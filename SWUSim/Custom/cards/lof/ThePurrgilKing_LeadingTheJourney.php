@@ -7,7 +7,11 @@
 $whenPlayedAbilities["LOF_121:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $count = 0;
-    foreach (SWUAllUnits('my') as $mz) {
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): in Team Suns a teammate's
+    // unit is friendly, so the pool is SWUFriendlyUnits() ('team'), not 'my'. ⚠ NOT the same as "a unit you control",
+    // which stays 'my' — control is per-player. 'team' degrades to 'my' outside a team game, so
+    // Premier is byte-identical. See memory: unqualified pools miss teammates.
+    foreach (SWUFriendlyUnits() as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
         if (intval(ObjectCurrentHP($o)) - intval($o->Damage ?? 0) >= 7) $count++;

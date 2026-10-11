@@ -305,3 +305,72 @@ P1GROUNDARENAUNIT:0:HP:9
 P2GROUNDARENAUNIT:0:POWER:3
 P2GROUNDARENAUNIT:0:HP:7
 P2NODECISION
+
+---
+
+# FennRau_WhenPlayed_PlaysAPilotAsAnUpgrade_TwoLess
+#// "Play an upgrade from your hand" includes Pilots — a Piloting unit played through a "play an upgrade" ability
+#// can only be played as an upgrade (Piloting ruling, 03/06/2025; The Armorer's ruling says the same of its "play an
+#// upgrade"). The offer used to filter the hand by printed type 'Upgrade', and a Pilot is printed as a Unit, so it was
+#// never offered (found 2026-10-06 alongside the ASH_001 The Armorer fix). JTL_048 Cassian Andor (unit 3 / Piloting 2) goes
+#// onto the friendly A-Wing as a Pilot. P1RESAVAILABLE pins the price: Fenn Rau takes 6 of the 12; Cassian is played
+#// at his PILOTING cost 2 (+2 for his uncovered Heroism pip) less Fenn's 2 = 2, so 4 stay ready. Priced as a UNIT
+#// (3 +2 -2) would leave 3; undiscounted (2 +2) would leave 2.
+
+## GIVEN
+CommonSetup: bgk/bgk/{myResources:12}
+P1OnlyActions: true
+WithP1Hand: SHD_067
+WithP1Hand: JTL_048
+WithP1SpaceArena: SEC_213:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SHD_067
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_048
+P1HANDCOUNT:0
+P1RESAVAILABLE:4
+
+---
+
+# FennRau_WhenPlayed_OfferIncludesPilotsWithAHost
+#// The offer pool with a friendly Vehicle in play: the upgrade (SOR_120) AND the Pilot (JTL_108) are offered; the plain
+#// unit (SOR_095, no Piloting) still is not. Decision left PENDING.
+
+## GIVEN
+CommonSetup: bgk/bgk/{myResources:12}
+P1OnlyActions: true
+WithP1Hand: SHD_067
+WithP1Hand: SOR_120
+WithP1Hand: JTL_108
+WithP1Hand: SOR_095
+WithP1SpaceArena: SEC_213:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myHand-0&myHand-1
+
+---
+
+# FennRau_WhenPlayed_PilotNotOfferedWithoutAFriendlyVehicle
+#// CONTROL: no friendly Vehicle, so the Pilot has no legal host and is not offered — only the upgrade is.
+
+## GIVEN
+CommonSetup: bgk/bgk/{myResources:12}
+P1OnlyActions: true
+WithP1Hand: SHD_067
+WithP1Hand: SOR_120
+WithP1Hand: JTL_108
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myHand-0

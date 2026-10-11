@@ -133,3 +133,36 @@ WithP2SpaceArena: LAW_124:1:0
 ## EXPECT
 P1SPACEARENAUNIT:0:DAMAGE:1
 P2SPACEARENAUNIT:0:DAMAGE:6
+
+---
+
+# ThreeSeat_DeadSeatDoesNotHIDETheLivingOnesTargets
+#// ⚠ THE FIXTURE THIS NEEDED `WithEliminatedSeats` FOR. The attacker pool filters on "does this unique
+#// unit have ANY legal attack target", and that gate read
+#// `SWUGetValidAttackTargets(OtherPlayer($player), …)` — ONE seat. Normally that hides nothing, because
+#// an opponent's BASE is always a legal target, so the gate is satisfied whichever seat it looks at.
+#//
+#// It only breaks when the seat OtherPlayer() names is DEAD. Here the caster is seat 1, so
+#// OtherPlayer(1) is SEAT 2 — eliminated, base removed, board empty — and the gate concluded there was
+#// nothing to attack and offered NO unique unit at all, while seat 3 sat there perfectly attackable.
+#//
+#// That is why `WithLiveSeats` alone could not express this test: it leaves the dead seat's base
+#// readable, so the gate would still find a target and the bug would stay invisible.
+
+## GIVEN
+CommonSetup3P: ggk/rrk/rrk
+SkipPreGame: true
+WithEliminatedSeats: 2
+WithActivePlayer: 1
+WithP1Resources: 3
+WithP1Hand: TS26_59
+WithP1GroundArena: SOR_242:1:0
+WithP3GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:3
+SEATLIVE:2:false
+P1SELECTABLEEXACT:myGroundArena-0

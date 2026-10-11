@@ -1,0 +1,45 @@
+# Self-play fixture — "Ahsoka Yellow" (Ahsoka Tano, Trust in the Force - Otoh Gunga)
+# Source: the HMW-meta list of Force Fam member Ninin (NininTCG), given by the owner 2026-10-01 as JSON.
+#   Converted 2026-10-01. 50 main-deck cards, 6 sideboard.
+#   Base trait: Otoh Gunga is Naboo, but no card in the deck cares, so the trait is not part of its name.
+#   Owner, 2026-10-01: "Ninin's Ahsoka Yellow is actually a hyperaggro deck and not softaggro" — it races the base
+#   (38 of 39 attacks in 5 Karabast games) and stops resourcing at 6 to keep cards for Aggressive Negotiations.
+# Author: Ninin
+# Archetype (owner's label, 2026-10-01): Hyper aggro
+# Style: hyperaggro
+# Flavours: mixed-space
+
+Leader
+1 ASH_009
+
+Base
+1 HMW_033
+
+Deck
+3 HMW_213
+3 SEC_213
+3 JTL_203
+3 LOF_096
+3 SEC_098
+3 SEC_099
+3 SEC_111
+2 ASH_110
+3 ASH_201
+3 ASH_203
+2 ASH_109
+1 JTL_231
+3 JTL_095
+3 JTL_212
+3 SEC_215
+3 HMW_256
+3 SEC_101
+2 JTL_103
+1 SEC_179
+
+Sideboard
+1 LOF_191
+1 LAW_223
+1 LAW_233
+1 ASH_135
+1 JTL_103
+1 SEC_179

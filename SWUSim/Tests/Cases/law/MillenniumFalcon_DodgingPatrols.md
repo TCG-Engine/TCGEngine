@@ -40,7 +40,7 @@ WithP2GroundArena: SHD_029:1:0
 - P1>AttackSpaceArena:0:BASE
 
 ## EXPECT
-P1DECISIONTOOLTIP:Choose_a_space_unit
+P1DECISIONTOOLTIP:Give_a_space_unit_-2/-0?
 P1SELECTABLEEXACT:mySpaceArena-0&mySpaceArena-1&theirSpaceArena-0
 
 ---
@@ -63,7 +63,7 @@ WithP2GroundArena: SHD_029:1:0
 - P1>AnswerDecision:mySpaceArena-0
 
 ## EXPECT
-P1DECISIONTOOLTIP:Choose_a_ground_unit
+P1DECISIONTOOLTIP:Give_a_ground_unit_+2/+0?
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&theirGroundArena-0&theirGroundArena-1
 
 ---
@@ -243,7 +243,7 @@ WithP2GroundArena: SHD_029:1:0
 - P1>AnswerDecision:-
 
 ## EXPECT
-P1DECISIONTOOLTIP:Choose_a_ground_unit
+P1DECISIONTOOLTIP:Give_a_ground_unit_+2/+0?
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&theirGroundArena-0&theirGroundArena-1
 
 ---

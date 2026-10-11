@@ -425,3 +425,213 @@ P1SPACEARENAUNIT:0:CARDID:JTL_137
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_211
 P1RESAVAILABLE:4
+
+---
+
+# Front_PlaysUnit_TurnPassesOnce
+#// Game 1647080: Morgan's Action played a unit and her controller then took ANOTHER action (deployed Morgan)
+#// before the next seat acted. The Action is the whole action — once the played unit enters, the turn passes.
+#// Every other Front section uses P1OnlyActions, which hides TURNPLAYER (the #1109 Alliance Dispatcher shape).
+
+## GIVEN
+CommonSetup: bgk/bbk/{
+  myLeader:LOF_005;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: LOF_132:1:0
+WithP1Hand: LOF_131
+WithP1Resources: 3
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>Pass
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1LEADER:EXHAUSTED
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# Front_ThreeSeats_PlaysUnit_TurnPassesOnce
+#// The live shape (game 1647080 is 3 seats): after Morgan's Action plays the unit, the turn passes to the
+#// NEXT seat exactly once.
+
+## GIVEN
+CommonSetup3P: bgk/bbk/bbk/{myLeader:LOF_005;myBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: LOF_132:1:0
+WithP1Hand: LOF_131
+WithP1Resources: 3
+
+## WHEN
+- P1>AttackGroundArena:0:p2Base-0
+- P2>Pass
+- P3>Pass
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENACOUNT:1
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# Front_PlayedUnitHasInteractiveWhenPlayed_ClosesOnce
+#// Double-close guard: the played unit raises its OWN interactive When Played (LAW_092 Two-Faced Troig, "you
+#// may have an opponent take control of this unit"). Its close is deferred and runs by itself, so the Action
+#// must not close a second time. Troig (Sentinel) attacked; Morgan plays a second Troig (shares Sentinel).
+
+## GIVEN
+CommonSetup: bgk/bbk/{
+  myLeader:LOF_005;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: LAW_092:1:0
+WithP1Hand: LAW_092
+WithP1Resources: 8
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>Pass
+- P1>UseLeaderAbility
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:LAW_092
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# Deployed_UpgradeGrantedBountyShared_GivesDiscount
+#// LOF_005 Morgan (deployed) — Bounty is a keyword (CR 7.5.13), and a keyword GRANTED by an upgrade is a
+#// live keyword (CR 7.5.3). The friendly SOR_237 Alliance X-Wing (vanilla) wears SHD_176 Death Mark
+#// ("Bounty — Draw 2 cards"), so it has Bounty; SHD_211 Fugitive Wookiee in hand prints Bounty → they share
+#// a keyword and the armed discount applies: 6 resources − (2 + 2 off-aspect − 1) = 3 left.
+#// Player report 2026-10-09 ("Bounty isn't counted as a keyword"). Partners:
+#// Deployed_PrintedBountyShared_GivesDiscount (printed Bounty — passes) and
+#// Deployed_NoBountyOnBoard_NoDiscount (no Bounty — 2 left).
+
+## GIVEN
+CommonSetup: bgk/bbk/{myLeader:LOF_005:1:1:1;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SHD_211
+WithP1Resources: 6
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArenaUpgrade: 0:SHD_176
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:HASKEYWORD:Bounty
+P1GROUNDARENAUNIT:1:CARDID:SHD_211
+P1RESAVAILABLE:3
+
+---
+
+# Deployed_PrintedBountyShared_GivesDiscount
+#// LOF_005 Morgan (deployed) — partner of Deployed_UpgradeGrantedBountyShared_GivesDiscount: the friendly
+#// SHD_195 Cartel Turncoat PRINTS Bounty, which the printed-keyword table already covers → discount, 3 left.
+
+## GIVEN
+CommonSetup: bgk/bbk/{myLeader:LOF_005:1:1:1;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SHD_211
+WithP1Resources: 6
+WithP1GroundArena: SHD_195:1:0
+
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:LOF_005
+P1GROUNDARENAUNIT:2:CARDID:SHD_211
+P1RESAVAILABLE:3
+
+---
+
+# Deployed_NoBountyOnBoard_NoDiscount
+#// LOF_005 Morgan (deployed) — partner: the friendly SOR_237 has no keyword at all, so SHD_211 (Bounty)
+#// shares nothing and pays full: 6 − (2 + 2 off-aspect) = 2 left.
+
+## GIVEN
+CommonSetup: bgk/bbk/{myLeader:LOF_005:1:1:1;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SHD_211
+WithP1Resources: 6
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SHD_211
+P1RESAVAILABLE:2
+
+---
+
+# Front_UpgradeGrantedBountyShared_CanPlay
+#// LOF_005 Morgan (front) — the chosen attacker SOR_095 Battlefield Marine (vanilla) wears SHD_176 Death
+#// Mark, so it has Bounty; SHD_211 Fugitive Wookiee in hand prints Bounty → shares a keyword, so it can be
+#// played for 1 less. Partner: Front_PrintedBountyShared_CanPlay (printed Bounty attacker — passes).
+
+## GIVEN
+CommonSetup: bgk/bbk/{myLeader:LOF_005;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SHD_176
+WithP1Hand: SHD_211
+WithP1Resources: 5
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>UseLeaderAbility
+
+## EXPECT
+P1GROUNDARENAUNIT:0:HASKEYWORD:Bounty
+P1LEADER:EXHAUSTED
+P1HANDCOUNT:0
+P1GROUNDARENAUNIT:1:CARDID:SHD_211
+
+---
+
+# Front_PrintedBountyShared_CanPlay
+#// LOF_005 Morgan (front) — partner of Front_UpgradeGrantedBountyShared_CanPlay: the chosen attacker
+#// SHD_195 Cartel Turncoat PRINTS Bounty, so SHD_211 (Bounty) shares it and is played.
+
+## GIVEN
+CommonSetup: bgk/bbk/{myLeader:LOF_005;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SHD_195:1:0
+WithP1Hand: SHD_211
+WithP1Resources: 5
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>UseLeaderAbility
+
+## EXPECT
+P1LEADER:EXHAUSTED
+P1HANDCOUNT:0
+P1GROUNDARENAUNIT:1:CARDID:SHD_211

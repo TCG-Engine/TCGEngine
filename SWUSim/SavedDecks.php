@@ -11,6 +11,7 @@ require_once __DIR__ . '/../Database/ConnectionManager.php';
 require_once __DIR__ . '/../Database/functions.inc.php';
 require_once __DIR__ . '/Custom/DeckImport.php';   // SWUResolveDeckInput (pure lib)
 require_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php';   // titleData for matchup labels
+require_once __DIR__ . '/Custom/SetupPanels.php';   // SWUSetupSavedDecks / SWUSetupCardLabel — the save response's picker list
 
 $respond = function($arr) use ($__test) {
     if ($__test) return $arr;
@@ -26,6 +27,10 @@ $action = $_POST['action'] ?? '';
 if ($action === 'save') {
     $input = trim($_POST['deckInput'] ?? '');
     if ($input === '') return $respond(['success'=>false,'error'=>'empty']);
+    // Owner, 2026-09-25: only a LINK may be saved — a pasted JSON blob or a free-text list has
+    // no source to return to. Enforced HERE and not only in the UI, because the UI is not a
+    // boundary: an older client (or a direct POST) will keep sending whatever it likes.
+    if (!SWUDeckInputIsLink($input)) return $respond(['success'=>false,'error'=>'not_a_link']);
     $resolved = SWUResolveDeckInput($input);
     // Resolved shape: {success, message, leader, base, mainDeck, sideboard, unresolved} — no name/format.
     if (empty($resolved['success']) || empty($resolved['leader'])) {
@@ -40,8 +45,26 @@ if ($action === 'save') {
     $content  = (strpos($decklink, 'raw:') === 0) ? base64_encode($input) : null;
     $ok = AddSavedDeck($uid, $decklink, $name, $leader, $base, $format, $content);
     if (!$ok) return $respond(['success'=>false,'error'=>'db_insert_failed']);
-    return $respond(['success'=>true,'decklink'=>$decklink,'leader'=>$leader,'base'=>$base]);
+    // The menu rebuilds its saved-deck pickers IN PLACE from this (owner, 2026-10-04: saving used to reload the page, which
+    // closed the setup modal and left the new deck unselected). `decks` is SWUSetupSavedDecks() — exactly what the page
+    // renders on load — plus each deck's leader/base names, and `key` is the new deck's picker key in that list.
+    // Additive: the existing fields are unchanged.
+    $decks = array_map(function ($d) {
+        $labels = array_map('SWUSetupCardLabel', array_merge((array)$d['leaders'], $d['base'] !== '' ? [$d['base']] : []));
+        return $d + ['subtitle' => implode(' · ', $labels)];
+    }, SWUSetupSavedDecks($uid));
+    return $respond(['success'=>true,'decklink'=>$decklink,'leader'=>$leader,'base'=>$base,
+                     'key'=>substr(sha1($decklink), 0, 12), 'decks'=>$decks]);
 }
+// The menu's "last deck used" pointer. Written when a game actually STARTS, and forgotten when
+// the remembered link stops resolving. Guests never reach here — theirs lives in localStorage.
+if ($action === 'lastdeck') {
+    $input = trim($_POST['deckInput'] ?? '');
+    if ($input === '') return $respond(['success'=>false,'error'=>'empty']);
+    $ok = SetLastDeck($uid, $input, $_POST['format'] ?? '', (int)($_POST['leaders'] ?? 1), $_POST['deckName'] ?? '');
+    return $respond(['success'=>$ok] + ($ok ? [] : ['error'=>'not_a_link']));
+}
+if ($action === 'forgetlastdeck') return $respond(['success'=>DeleteLastDeck($uid)]);
 if ($action === 'favorite') return $respond(['success'=>SetSavedDeckFavorite($uid, $_POST['decklink'] ?? '', (int)($_POST['value'] ?? 1))]);
 if ($action === 'rename')   return $respond(['success'=>RenameSavedDeck($uid, $_POST['decklink'] ?? '', trim($_POST['name'] ?? ''))]);
 if ($action === 'delete')   return $respond(['success'=>DeleteSavedDeck($uid, $_POST['decklink'] ?? '')]);

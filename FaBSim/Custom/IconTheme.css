@@ -1,0 +1,101 @@
+/* FaBSim icon counters; values and interactions remain engine-owned. */
+/* Card-art sizing rules must not stretch schema-rendered counter icons. */
+[data-counter-field="EnergyCounters"] > img.counter-image-icon,
+[data-counter-field="DefenseCounters"] > img.counter-image-icon {
+  width:100%!important;height:100%!important;object-fit:contain!important;
+  border-radius:0!important;box-shadow:none!important;
+}
+[data-counter-field="EnergyCounters"] > div,
+[data-counter-field="DefenseCounters"] > div {
+  font:900 15px/1 "Segoe UI",sans-serif!important;
+  -webkit-text-stroke:3px #071014;paint-order:stroke fill;
+}
+#fab-duel-layout .fab-zone[hidden]{display:none!important}
+#fab-duel-layout .fab-stat-inactive{visibility:hidden}
+#fab-duel-layout .fab-stat-inactive .widget-button-pass{visibility:visible}
+.fab-upf-ap-inactive{visibility:hidden}
+.fab-upf-ap-inactive .widget-button-pass{visibility:visible}
+#fab-duel-layout .fab-stat{
+  width:40px;height:40px;box-sizing:border-box;border:0;border-radius:0;
+  background:none;box-shadow:none;color:#fff;font:900 21px/1 "Segoe UI",sans-serif;
+  font-variant-numeric:tabular-nums;
+}
+#fab-duel-layout .fab-stat[data-label="Life"]{--stat-icon:url('../Assets/Icons/health.png')}
+#fab-duel-layout .fab-stat[data-label="Pitch"]{--stat-icon:url('../Assets/Icons/resource.png')}
+#fab-duel-layout .fab-stat[data-label="Chi"]{--stat-icon:url('../Assets/Icons/chi.svg')}
+#fab-duel-layout .fab-stat[data-label="AP"]{--stat-icon:url('../Assets/Icons/action.svg')}
+#fab-duel-layout .fab-stat:before{
+  content:"";display:block;position:absolute;inset:0;width:100%;height:100%;
+  transform:none;margin:0;padding:0;opacity:.85;z-index:0;
+  background:var(--stat-icon) center/contain no-repeat;filter:drop-shadow(0 2px 3px #000);
+}
+#fab-duel-layout .fab-stat>div{position:relative;z-index:1;box-sizing:border-box;padding:0}
+#fab-duel-layout .fab-stat>div>span{flex-wrap:nowrap!important;align-items:center;width:100%;height:100%}
+#fab-duel-layout .fab-stat>div>span>span{padding:0!important;margin:0!important}
+#fab-duel-layout .fab-stat>div>span>div{width:0;padding:0!important;font-size:0}
+#fab-duel-layout .fab-stat[data-life]>div{visibility:hidden}
+#fab-duel-layout .fab-stat[data-life]:after{padding:0;font:inherit;color:inherit;z-index:1}
+/* A dark outline keeps both one- and two-digit values readable on the artwork. */
+#fab-duel-layout .fab-stat>div>span>span,
+#fab-duel-layout .fab-stat[data-life]:after,
+.fab-chain-card [data-counter-field="CombatPower"],
+.fab-chain-card [data-counter-field="CombatDefense"],
+.fab-chain-total>span,
+button.fab-chain-link>span{
+  text-shadow:-1px -1px 0 #071014,1px -1px 0 #071014,-1px 1px 0 #071014,1px 1px 0 #071014,0 2px 3px #000;
+  -webkit-text-stroke:3px #071014;paint-order:stroke fill;
+}
+.fab-chain-card [data-counter-field="CombatPower"],
+.fab-chain-card [data-counter-field="CombatDefense"]{
+  --counter-icon:url('../Assets/Icons/attack.png');isolation:isolate;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  width:29px!important;height:29px!important;padding:0!important;box-sizing:border-box;
+  border:0!important;border-radius:0!important;background:none!important;color:#fff!important;
+  font:900 15px/1 "Segoe UI",sans-serif!important;box-shadow:none!important;
+}
+.fab-chain-card [data-counter-field="CombatDefense"]{--counter-icon:url('../Assets/Icons/defense.png')}
+.fab-chain-card [data-counter-field="CombatPower"]{left:0!important;right:auto!important;bottom:0!important;top:auto!important;transform:translate(-15%,15%)!important}
+.fab-chain-card [data-counter-field="CombatDefense"]{right:0!important;left:auto!important;bottom:0!important;top:auto!important;transform:translate(15%,15%)!important}
+.fab-chain-card [data-counter-field="CombatPower"]:before,
+.fab-chain-card [data-counter-field="CombatDefense"]:before{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:.9;
+  background:var(--counter-icon) center/contain no-repeat;filter:drop-shadow(0 1px 2px #000);
+}
+.fab-chain-totals .fab-chain-total{
+  position:relative;display:grid;place-items:center;min-width:34px;height:34px;
+  padding:0;border:0;border-radius:0;background:none;box-shadow:none;color:#fff;font-weight:900;
+}
+.fab-chain-total .fab-total-icon{position:absolute;inset:0;width:34px;height:34px;object-fit:contain;opacity:.85;filter:drop-shadow(0 1px 2px #000)}
+.fab-chain-total>span{position:relative;z-index:1}
+.fab-chain-total small{position:absolute;left:36px;top:10px}
+.fab-chain-total:has(small){margin-right:20px}
+button.fab-chain-link{position:relative;min-height:36px}
+.fab-chain-link .fab-link-icon{width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 2px 2px #0009)}
+button.fab-chain-link>span{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font:bold 13px system-ui;pointer-events:none}
+/* Match the duel counters in both expanded and compact multiplayer fields. */
+#fab-upf-board .fab-upf-zone[hidden]{display:none!important}
+#fab-upf-board .fab-upf-seat{--fab-upf-counter-size:40px;--fab-upf-counter-font:21px}
+#fab-upf-board .fab-upf-seat.is-summary{--fab-upf-counter-size:28px;--fab-upf-counter-font:16px}
+#fab-upf-board .fab-upf-summary-counter{
+  display:grid;place-items:center;width:var(--fab-upf-counter-size);min-width:0;
+  height:var(--fab-upf-counter-size);padding:0;border:0;border-radius:0;box-shadow:none;
+  background:var(--upf-stat-icon) center/contain no-repeat;color:#fff;
+  font:900 var(--fab-upf-counter-font)/1 "Segoe UI",sans-serif;font-variant-numeric:tabular-nums;
+  text-shadow:-1px -1px #071014,1px -1px #071014,-1px 1px #071014,1px 1px #071014,0 2px 3px #000;
+  -webkit-text-stroke:3px #071014;paint-order:stroke fill;
+}
+#fab-upf-board .fab-upf-summary-counter:before{display:none}
+#fab-upf-board .fab-upf-summary-counter[hidden]{display:none}
+#fab-upf-board [data-stat="health"]{--upf-stat-icon:url('../Assets/Icons/health.png');left:50%;right:auto;top:auto;bottom:-10px;transform:translateX(-50%)}
+#fab-upf-board [data-stat="resource"]{--upf-stat-icon:url('../Assets/Icons/resource.png');left:50%;right:auto;top:50%;bottom:auto;transform:translate(-50%,-50%)}
+#fab-upf-board [data-stat="chi"]{--upf-stat-icon:url('../Assets/Icons/chi.svg');left:0;right:auto;top:auto;bottom:-10px;transform:translateX(-50%)}
+#fab-upf-board .fab-upf-zone[data-zone="Chi"]{display:none}
+#fab-upf-board .fab-upf-seat .fab-upf-zone[data-zone="ActionPoints"]{border:0;border-radius:0;background:none;box-shadow:none;padding:0}
+#fab-upf-board .fab-upf-seat [id$="ActionPoints"]>span{
+  position:relative;display:grid;place-items:center;flex:0 0 40px;min-width:40px;height:40px;
+  color:#fff;font:900 21px/1 "Segoe UI",sans-serif;
+  background:url('../Assets/Icons/action.svg') center/contain no-repeat;
+  text-shadow:-1px -1px #071014,1px -1px #071014,-1px 1px #071014,1px 1px #071014,0 2px 3px #000;
+  -webkit-text-stroke:3px #071014;paint-order:stroke fill;
+}
+#fab-upf-board .fab-upf-seat [id$="ActionPoints"]>span:after{display:none}

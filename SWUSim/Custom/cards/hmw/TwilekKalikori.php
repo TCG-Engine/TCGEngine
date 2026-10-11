@@ -31,5 +31,5 @@ $whenPlayedAbilities["HMW_265:0"] = function($player, $mzID = '') {
     // "any number of Twi'lek UNITS with a combined cost 5 or less" — both conjuncts of the filter are
     // load-bearing and each has its own refusal guard (NonTwilekPickIsRefused, TwilekLeaderPickIsRefused).
     DoTopDeckPlay(intval($player), 8,
-        fn($c) => CardType($c) === 'Unit' && HasTrait($c, "Twi'lek"), 5);
+        fn($c) => CardType($c) === 'Unit' && HasTrait($c, "Twi'lek"), 5, "Twi'lek units");
 };

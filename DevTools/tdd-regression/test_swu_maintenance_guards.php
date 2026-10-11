@@ -115,7 +115,7 @@ $checks['no stale entries in the allow-list'] = count($staleAllows) === 0;
 $MUST_BE_GATED = [
     'APIs/SubmitGameResult.php', 'APIs/SubmitManualGameResult.php', 'SWUDeck/ClearStats.php',
     'APIs/FindOrImportMeleeTournament.php', 'Stats/MeleeTournamentParserAPI.php',
-    'APIs/EditDeckCard.php', 'SWUDeck/CreateDeck.php', 'SWUDeck/Initialize.php',
+    'APIs/EditDeckCard.php', 'APIs/EditDeckCards.php', 'SWUDeck/CreateDeck.php', 'SWUDeck/Initialize.php',
     'SWUDeck/RefreshImport.php', 'SWUDeck/DeleteVersion.php', 'APIs/MatchReplay.php',
     'zzModPage.php', 'zzSWUDeckMatrix.php', 'zzMigrateOwnerStatsToCommunity.php',
 ];

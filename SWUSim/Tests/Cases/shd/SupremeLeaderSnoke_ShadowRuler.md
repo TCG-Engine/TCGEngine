@@ -95,3 +95,27 @@ P1GROUNDARENAUNIT:0:POWER:1
 P1GROUNDARENAUNIT:0:HP:1
 P3GROUNDARENAUNIT:0:CARDID:SHD_037
 P3GROUNDARENAUNIT:0:POWER:6
+
+---
+
+# EnemyTokensCreatedUnderSnoke_AreDefeatedAtOnce
+#// SHD_037 — a CREATED token is an enemy non-leader unit too, and creation is its own route into play.
+#// Until 2026-09-15 token creation never ran the "no remaining HP" state check (every other entry route
+#// did — play, smuggle, take-control), so P2's two 1/1 Battle Droids from TWI_237 Droid Deployment sat in
+#// play at -1/-1 under P1's Snoke. Found building HMW_065 Clone of the Zillo Beast (the friendly-side mirror
+#// of this aura); the fix is _SWUAfterTokensCreated in GameLogic.php, and this is its guard on a RELEASED
+#// card. TWI_237 is Villainy, 2 — on-aspect under P2's bbk.
+
+## GIVEN
+CommonSetup: bbk/bbk/{theirResources:2}
+WithActivePlayer: 2
+WithP1GroundArena: SHD_037:1:0
+WithP2Hand: TWI_237
+
+## WHEN
+- P2>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2DISCARDCOUNT:1
+P2DISCARDUNIT:0:CARDID:TWI_237

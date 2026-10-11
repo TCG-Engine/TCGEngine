@@ -30,7 +30,7 @@ $unitAbilities["JTL_013"] = function($player, $mzID) {
     $playerID = intval($player);
 
     // Once-per-round guard.
-    if (!SWUHasUseAvailable(SWUGetLeader(intval($player)))) {
+    if (!SWUHasUseAvailable(SWUFindLeaderByCardID(intval($player), 'JTL_013'))) {
         SWUAfterAction($player);
         return;
     }
@@ -68,7 +68,7 @@ $unitAbilities["JTL_013"] = function($player, $mzID) {
     }
 
     // Mark once-per-round used BEFORE queuing the attach (so it's set even if we auto-attach).
-    SWUConsumeUse(SWUGetLeader(intval($player))); // once/round hop via leader NumUses
+    SWUConsumeUse(SWUFindLeaderByCardID(intval($player), 'JTL_013')); // once/round hop via leader NumUses
 
     if (count($targets) === 1) {
         // Auto-attach to the single eligible Vehicle — route through the chokepoint.

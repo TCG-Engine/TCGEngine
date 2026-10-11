@@ -950,3 +950,73 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 ## EXPECT
 P1DISCARDCOUNT:1
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# ReportedBoard_AxeWovesDiscardsAxeWoves_TheTurnPassesOnce
+#// Game 505692 (2026-09-17): Axe Woves (LOF_062, "+1/+1 for each upgrade on him") wearing Improvised Identity
+#// discards ANOTHER Axe Woves and attacks. The doubled buff was right (2 + 1 own + 1 transplanted = 4) but the
+#// player kept the turn: the transplant rides the SUPPORT_GRANT carrier, and BeginSWUAttack read that marker as
+#// "a Support bonus attack nested in a play/deploy action whose resume owns the close" — so the combat stood
+#// down and nothing closed this standalone unit action. No P1OnlyActions: that fixture hides TURNPLAYER.
+## GIVEN
+CommonSetup: yyk/yyk
+WithActivePlayer: 1
+WithP1GroundArena: LOF_062:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [LOF_062 SOR_063 SOR_063]
+WithP2Deck: [SOR_095 SOR_095]
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:LOF_062
+- P1>AnswerDecision:YES
+## EXPECT
+P1DISCARDCOUNT:1
+P2BASEDMG:4
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# CONTROL_NoGroundUnitDiscarded_TheTurnPassesOnce
+#// The same attack with nothing discarded carries no SUPPORT_GRANT marker — the turn passes normally.
+## GIVEN
+CommonSetup: yyk/yyk
+WithActivePlayer: 1
+WithP1GroundArena: LOF_062:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [SOR_225 SOR_225 SOR_225]
+WithP2Deck: [SOR_095 SOR_095]
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:-
+- P1>AnswerDecision:YES
+## EXPECT
+P2BASEDMG:3
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# ReportedBoard_TargetChoiceAcrossARequestBoundary_TheTurnStillPassesOnce
+#// The skip flag this bug came from exists for the request boundary a mid-attack decision creates. With an
+#// enemy unit on the board the defender is a real choice; the answer arrives in a fresh request and the combat
+#// must still own — and run — the single close.
+## GIVEN
+CommonSetup: yyk/yyk
+WithActivePlayer: 1
+WithP1GroundArena: LOF_062:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [LOF_062 SOR_063 SOR_063]
+WithP2GroundArena: SOR_046:1:0
+WithP2Deck: [SOR_095 SOR_095]
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:LOF_062
+- P1>AnswerDecision:YES
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P2BASEDMG:4
+TURNPLAYER:2
+NOEXTRAACTION

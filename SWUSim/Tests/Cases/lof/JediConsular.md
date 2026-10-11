@@ -119,3 +119,26 @@ P1GROUNDARENAUNIT:1:CARDID:JTL_203
 P1SPACEARENAUNIT:0:UPGRADECOUNT:0
 P1RESAVAILABLE:1
 P1NODECISION
+
+---
+
+# Action_PlaysAUnit_TurnPassesOnce
+#// Bug #1109 family. LOF_094 Jedi Consular's Action plays a unit from hand (−2); it must end the action —
+#// the turn passes to P2 once. It stranded the turn. No P1OnlyActions, so TURNPLAYER is observable.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:4;handCardIds:SOR_095}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Force: true
+WithP1GroundArena: LOF_094:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+TURNPLAYER:2
+NOEXTRAACTION

@@ -168,3 +168,51 @@ P1SPACEARENACOUNT:0
 P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:SOR_110
 P2BASEDMG:0
+
+---
+
+# ThreeSeat_OnlyAFarSeatHasAUnit_ActionStillAvailable
+#// The Shuttle's attacker pool needs an enemy NON-BASE target — "it can't attack bases" — so the gate
+#// asks specifically whether an enemy UNIT exists. Seat 2's ground arena is empty and only SEAT 3 has a
+#// unit, but the action must still be available and the Marine must still attack.
+#//
+#// ⚠ The gate read the raw `GetZone("their{$arena}")` accessor, which is the two-player `$playerID == 1
+#// ? 2 : 1` spelling — seat 2 for a seat-1 caster. With seat 2 empty it concluded there was nothing to
+#// attack and made the whole action a silent no-op while a legal target sat one seat further out.
+
+## GIVEN
+CommonSetup3P: ggw/ggw/ggw
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1SpaceArena: SOR_110:0:0
+WithP1GroundArena: SOR_095:0:0
+WithP3GroundArena: SHD_028:1:0
+
+## WHEN
+- P1>UseUnitAbility:mySpaceArena-0
+
+## EXPECT
+SEATCOUNT:3
+P1SPACEARENACOUNT:0
+P3GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# FourSeat_OnlyTheFarthestSeatHasAUnit_ActionStillAvailable
+#// 4P sibling: seats 2 and 3 are empty and only SEAT 4 offers a non-base target.
+
+## GIVEN
+CommonSetup4P: ggw/ggw/ggw/ggw
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1SpaceArena: SOR_110:0:0
+WithP1GroundArena: SOR_095:0:0
+WithP4GroundArena: SHD_028:1:0
+
+## WHEN
+- P1>UseUnitAbility:mySpaceArena-0
+
+## EXPECT
+SEATCOUNT:4
+P1SPACEARENACOUNT:0
+P4GROUNDARENAUNIT:0:DAMAGE:3

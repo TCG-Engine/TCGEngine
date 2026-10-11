@@ -29,6 +29,8 @@ P2GROUNDARENAUNIT:0:DAMAGE:1
 # DiscardedFromHandDealsOne
 #// LAW_206 That's a Rock — "When this event is discarded from your hand or deck: You may deal 1 damage
 #// to a unit." LAW_204 forces P1 to discard LAW_206 from hand, triggering its may-deal-1.
+#// CR v9.0 7.1.a: "each player discards" is chosen independently and resolved simultaneously, so LAW_206 is
+#// not discarded (and does not trigger) until P2 has chosen too — P2 answers first, then P1's may-deal-1.
 
 ## GIVEN
 CommonSetup: rrk/bgw/{myResources:1}
@@ -41,8 +43,8 @@ WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirGroundArena-0
 - P2>AnswerDecision:myHand-0
+- P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:1

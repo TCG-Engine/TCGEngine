@@ -8,7 +8,12 @@ if (!isset($GLOBALS['MATCH_HOOKS'])) { $GLOBALS['MATCH_HOOKS'] = []; }
 // Hooks the framework will call as callables (vs. plain config values).
 const MATCH_REQUIRED_HOOKS = ['resolveLobbyDecks', 'validateDeck', 'setupGame'];
 const MATCH_OPTIONAL_HOOKS = ['recordDeckStats', 'captureGameDetail', 'submitResults',
-                              'buildStatsHtml', 'flashMatchResult', 'arePlayersBlocked'];
+                              'buildStatsHtml', 'flashMatchResult', 'arePlayersBlocked',
+                              // rateMatch(matchId): rate a finished match (idempotent). allowsSeriesChange(match): false
+                              // refuses Rematch / Quick Rematch / Convert-to-Bo3 for that match (SWUSim: rated formats).
+                              'rateMatch', 'allowsSeriesChange',
+                              // endSeriesAfterGame(match): a seat number to forfeit the rest of the series, else 0.
+                              'endSeriesAfterGame'];
 
 function MatchRegisterHooks($rootName, array $hooks) {
     $GLOBALS['MATCH_HOOKS'][$rootName] = $hooks;

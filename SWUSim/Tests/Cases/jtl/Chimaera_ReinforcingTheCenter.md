@@ -565,3 +565,34 @@ WithP2SpaceArena: JTL_087:1:0
 P1HASDECISION
 P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0
 P1SPACEARENAUNIT:2:CARDID:JTL_039
+
+---
+
+# UseALivingRaddus_UsesItsCurrentPower_NotAnEarlierRaddussDefeatSnapshot
+#// JTL_039 Chimaera uses the "When Defeated" of a LIVING friendly unit — it was never defeated, so the ability must
+#// read the unit as it is now. The "power at defeat" snapshot is stored per board SLOT: an earlier Raddus (power 10
+#// with 2 Experience) defeated in mySpaceArena-0 left 10 there, and a fresh Raddus (power 8) later in the same slot
+#// used Chimaera's reuse to deal that stale 10. CR v9.0 7.6.14.d's Last Known Information applies only to a unit
+#// defeated in the current action; a living unit is just itself. Krayt Dragon (10 HP) takes 8 and survives.
+## GIVEN
+CommonSetup: gbk/rrk/{myResources:30}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [SOR_078 JTL_104 JTL_039]
+WithP1SpaceArena: JTL_104:1:0
+WithP1SpaceArenaUpgrade: 0:SOR_T01
+WithP1SpaceArenaUpgrade: 0:SOR_T01
+WithP2GroundArena: [SHD_172:1:0 SOR_095:1:0]
+WithP2GroundArenaUpgrade: 0:SHD_072
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-0
+- P1>AnswerDecision:theirGroundArena-1
+- P1>PlayHand:0
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SHD_172
+P2GROUNDARENAUNIT:0:DAMAGE:8

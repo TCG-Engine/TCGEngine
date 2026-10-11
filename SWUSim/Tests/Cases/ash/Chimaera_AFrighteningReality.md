@@ -215,3 +215,203 @@ P1OnlyActions: true
 P1SPACEARENACOUNT:0
 P2GROUNDARENACOUNT:0
 P1BASEDMG:3
+
+---
+
+# Reactive_MassDefeat_SingleReactorIgnition_ChimaeraStillHeals
+#// ASH_052 Chimaera — LAW_044 Single Reactor Ignition ("Defeat all units") is SOR_043 Superlaser Blast's
+#// sibling above: the same snapshot-the-UIDs-then-defeat-one-at-a-time loop. It never opened the
+#// simultaneous-defeat window, so SWUAllUnits() (own side first) removed Chimaera BEFORE either enemy
+#// defeat was collected, every later defeat arrived as its own single-element batch, and the heal was
+#// silently dropped. Live report 2026-09-28.
+#// TWO enemy units, so the heal is 2 apiece: base 6 -> 2. That also separates "healed once" from
+#// "healed per enemy unit defeated".
+#// LAW_044 is Vigilance/Aggression/Villainy — Aggression is off-aspect for this bbk deck, so its printed
+#// cost 8 is 10 here.
+#// P2BASEDMG:2 is LAW_044's own "1 damage per enemy unit defeated this way", which proves the wipe ran.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:10;handCardIds:LAW_044;myBaseDamage:6}
+WithP1SpaceArena: ASH_052:1:0
+WithP2GroundArena: [SOR_095:1:0 SOR_095:1:0]
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1SPACEARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1BASEDMG:2
+P2BASEDMG:2
+
+---
+
+# Reactive_MassDefeat_SuperlaserBlast_IdenPlusChimaera_Heals3PerEnemyUnit
+#// ASH_052 Chimaera — TWO stacked "when an enemy unit is defeated" observers, both caught in the blast,
+#// against EIGHT enemy units (owner's scenario 2026-09-28). SOR_002 Iden Versio's DEPLOYED side heals 1
+#// and Chimaera heals 2, so every Battle Droid defeated is worth 3: 8 x 3 = 24, base 25 -> 1.
+#// SOR_043 Superlaser Blast walks teamGround -> teamSpace -> theirGround, so BOTH observers are removed
+#// before the first droid's defeat is collected. Only the pre-effect snapshot can answer this; a live
+#// count heals 0 and a "+ this batch" supplement heals at most once.
+#// ⚠ Chimaera is EXHAUSTED here on purpose: exhaustion gates ACTION abilities, not triggered ones, so
+#// the heal must be unaffected.
+#// P1GROUNDARENACOUNT:0 is the deployed Iden leaving play with the rest of the board.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:8;handCardIds:SOR_043;myBaseDamage:25;myLeader:SOR_002:1:1}
+WithP1SpaceArena: ASH_052:0:0
+WithP2GroundArena: [TWI_T01:1:0 TWI_T01:1:0 TWI_T01:1:0 TWI_T01:1:0 TWI_T01:1:0 TWI_T01:1:0 TWI_T01:1:0 TWI_T01:1:0]
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1BASEDMG:1
+
+---
+
+# Reactive_MassDefeat_HyperspaceDisaster_ChimaeraStillHeals
+#// ASH_052 Chimaera — SEC_078 Hyperspace Disaster ("Defeat all space units"), the same
+#// snapshot-then-defeat-one-at-a-time loop. Chimaera IS a space unit, so it is always among the
+#// casualties and can never observe from safety. Two enemy space units -> heal 4, base 6 -> 2.
+#// SEC_078 is Vigilance — on-aspect for this bbk deck, so 7 resources pay it exactly.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:7;handCardIds:SEC_078;myBaseDamage:6}
+WithP1SpaceArena: ASH_052:1:0
+WithP2SpaceArena: [JTL_251:1:0 JTL_251:1:0]
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1SPACEARENACOUNT:0
+P2SPACEARENACOUNT:0
+P1BASEDMG:2
+
+---
+
+# Reactive_MassDefeat_NebulaIgnition_ChimaeraStillHeals
+#// ASH_052 Chimaera — JTL_080 Nebula Ignition ("Defeat each unit that isn't upgraded"). Nothing on this
+#// board carries an upgrade, so it is a full wipe and Chimaera dies with it.
+#// Two enemy units -> heal 4, base 6 -> 2. JTL_080 is Vigilance, on-aspect: 9 resources.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:9;handCardIds:JTL_080;myBaseDamage:6}
+WithP1SpaceArena: ASH_052:1:0
+WithP2GroundArena: [SOR_095:1:0 SOR_095:1:0]
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1SPACEARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1BASEDMG:2
+
+---
+
+# Reactive_MassDefeat_SummaVerminoth_ChimaeraStillHeals
+#// ASH_052 Chimaera — ASH_083 Summa-verminoth's "On Attack: Defeat all other space units" is a wipe that
+#// the ATTACKER survives ("all OTHER"), so the observer dying while the wiper lives is the shape here.
+#// Summa is space index 0 and attacks the enemy base; the On Attack resolves first, defeating Chimaera
+#// (space index 1) and both enemy space units. Two enemy units -> heal 4, base 6 -> 2.
+#// P1SPACEARENACOUNT:1 is Summa itself; P2BASEDMG:15 is its swing landing afterwards.
+## GIVEN
+CommonSetup: bbk/bbk/{myBaseDamage:6}
+WithP1SpaceArena: [ASH_083:1:0 ASH_052:1:0]
+WithP2SpaceArena: [JTL_251:1:0 JTL_251:1:0]
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+## EXPECT
+P1SPACEARENACOUNT:1
+P2SPACEARENACOUNT:0
+P1BASEDMG:2
+
+---
+
+# Reactive_MassDefeat_RhydoniumDetonation_ChimaeraStillHeals
+#// ASH_052 Chimaera — LAW_096 Rhydonium Detonation ("Each player may return a non-leader unit to its
+#// owner's hand. Then, defeat all non-leader units."). BOTH players decline the save, so the mass defeat
+#// takes Chimaera and both enemy ground units. Two enemy units -> heal 4, base 6 -> 2.
+#// LAW_096 is Cunning/Vigilance — Cunning is off-aspect for this bbk deck, so its cost 7 is 9 here.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:9;myBaseDamage:6}
+WithActivePlayer: 1
+WithP1Hand: LAW_096
+WithP1SpaceArena: ASH_052:1:0
+WithP2GroundArena: [SOR_095:1:0 SOR_095:1:0]
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+- P2>AnswerDecision:-
+## EXPECT
+P1SPACEARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1BASEDMG:2
+
+---
+
+# Reactive_MassDefeat_GovernorsShuttle_ChimaeraStillHeals
+#// ASH_052 Chimaera — LAW_099 Governor's Shuttle's "Each player chooses a unit they control. Defeat those
+#// units." is the smallest simultaneous defeat that CROSSES SEATS: one of mine and one of theirs, defeated
+#// together. P1 gives up Chimaera, P2 gives up its Battlefield Marine, so Chimaera dies alongside the one
+#// enemy unit it is meant to observe -> heal 2, base 6 -> 4.
+#// P1SPACEARENACOUNT:1 is the Shuttle itself, which P1 chose not to feed to its own ability.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:5;myBaseDamage:6}
+WithActivePlayer: 1
+WithP1Hand: LAW_099
+WithP1SpaceArena: ASH_052:1:0
+WithP2GroundArena: SOR_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-0
+- P2>AnswerDecision:myGroundArena-0
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:LAW_099
+P2GROUNDARENACOUNT:0
+P1BASEDMG:4
+
+---
+
+# Reactive_MassDefeat_DarthSidiousTPM_ChimaeraStillHeals
+#// ASH_052 Chimaera — LOF_039 Darth Sidious's "defeat each non-Sith unit with 3 or less remaining HP" is a
+#// CONDITIONAL wipe, and the observer only joins the batch when it is damaged enough to qualify. Chimaera
+#// is 6/6 with 3 damage (3 remaining) and non-Sith, so it goes with the two enemy units it is watching:
+#// heal 4, base 6 -> 2. Sidious himself is Sith and 8 HP, so he survives and does the wiping.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:12;handCardIds:LOF_039;myBaseDamage:6}
+P1OnlyActions: true
+WithP1Force: true
+WithP1SpaceArena: ASH_052:1:3
+WithP2GroundArena: [SOR_128:1:0 SEC_080:1:0]
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+## EXPECT
+P1SPACEARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1BASEDMG:2
+
+---
+
+# Reactive_OneSidedWipe_InvasionOfChristophsis_ChimaeraWatchesFromSafety
+#// ASH_052 Chimaera — TWI_078 The Invasion of Christophsis ("Choose an opponent. Defeat each unit that
+#// player controls") is a ONE-SIDED wipe: only the chosen opponent's units are defeated, so Chimaera is
+#// never among the casualties and the live observer count is correct WITHOUT a simultaneous-defeat window.
+#// This section pins that as a measured fact rather than an argument, and it is the control for the
+#// windowed wipes above: the observer watching from safety is the case that passes either way.
+#// Two enemy units -> heal 4, base 6 -> 2. TWI_078 is Vigilance, on-aspect for bbk, cost 15.
+#// ⚠ Exploit 4 must be DECLINED explicitly here: with Chimaera on the board it is an exploitable unit, so
+#// the prompt is pending and the wipe never resolves without the decline.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:15;handCardIds:TWI_078;myBaseDamage:6}
+P1OnlyActions: true
+WithP1SpaceArena: ASH_052:1:0
+WithP2GroundArena: [SOR_095:1:0 SOR_095:1:0]
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+## EXPECT
+P1SPACEARENACOUNT:1
+P2GROUNDARENACOUNT:0
+P1BASEDMG:2

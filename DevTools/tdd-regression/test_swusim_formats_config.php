@@ -7,19 +7,19 @@ $checks = [];
 
 // Premier baseline unchanged.
 $premier = SWUGetFormat('premier');
-$checks['premier sets'] = $premier['legalSets'] === ['JTL','LOF','SEC','IBH','LAW','ASH'];
+$checks['premier sets'] = $premier['legalSets'] === ['JTL','LOF','SEC','IBH','LAW','ASH','HMW'];   // HMW released 2026-09-16
 $checks['premier copyEx'] = ($premier['copyExceptions']['JTL_256'] ?? null) === 15;
 
 // '*' resolves to all printed sets (includes SOR and ASH).
 $eternalSets = SWUFormatLegalSets('eternal');
 $checks['eternal has SOR'] = in_array('SOR', $eternalSets, true);
 $checks['eternal has ASH'] = in_array('ASH', $eternalSets, true);
-// Open resolves '*' to every set in AllSets.php, which INCLUDES the preview sets (HMW, IC27);
+// Open resolves '*' to every set in AllSets.php, which INCLUDES the preview sets (IC27 since HMW's release, 2026-09-16);
 // Eternal is the released-only list. The divergence is intentional — see AppCore/SWU/PreviewSets.php.
 $openSets = SWUFormatLegalSets('open');
 $checks['open is a superset of eternal'] = empty(array_diff($eternalSets, $openSets));
-$checks['open includes preview sets eternal excludes'] = in_array('HMW', $openSets, true)
-                                                      && !in_array('HMW', $eternalSets, true);
+$checks['open includes preview sets eternal excludes'] = in_array('IC27', $openSets, true)
+                                                      && !in_array('IC27', $eternalSets, true);
 
 // Open has no bans; defaults fill missing keys.
 $open = SWUGetFormat('open');
@@ -91,7 +91,7 @@ $checks['padawan keeps vulture exception'] = ($padawan['copyExceptions']['JTL_25
 $padawanPreview = SWUGetFormat('padawan-preview');
 $checks['padawan-preview resolves']  = $padawanPreview !== null;
 $checks['padawan-preview rarities']  = $padawanPreview['legalRarities'] === ['Common'];
-$checks['padawan-preview adds HMW']  = in_array('HMW', SWUFormatLegalSets('padawan-preview'), true);
+$checks['padawan-preview adds IC27'] = in_array('IC27', SWUFormatLegalSets('padawan-preview'), true);   // HMW released 2026-09-16
 $checks['padawan-preview keeps eternal'] =
     empty(array_diff(SWUFormatLegalSets('eternal'), SWUFormatLegalSets('padawan-preview')));
 
@@ -117,6 +117,7 @@ $previewBases = [
     'eternal-preview'  => 'eternal',
     'padawan-preview'  => 'padawan',
     'twinsuns-preview' => 'twinsuns',
+    'teamsuns-preview' => 'teamsuns',   // owner, 2026-09-16: Team Suns offers Standard and Preview
 ];
 // Keys that define HOW the format plays. legalSets is deliberately excluded — it is the entire
 // difference. displayName/enabled are presentation. Everything else must match the base exactly,
@@ -150,8 +151,10 @@ foreach (array_keys(SWUListFormats()) as $f) {
     if (!SWUFormatIsPreview($f)) continue;
     $checks["preview format '$f' is covered by \$previewBases"] = isset($previewBases[$f]);
 }
-$checks['no teamsuns-preview (deliberate — Team Suns previews are not offered)'] =
-    SWUGetFormat('teamsuns-preview') === null;
+// Reversed 2026-09-16 (owner: "add both options to Team Suns as well"). The family check above now requires it to
+// mirror Team Suns on every rule key, which is what stops it shipping with the wrong seat count.
+$checks['teamsuns-preview exists (Team Suns offers Standard and Preview)'] =
+    SWUGetFormat('teamsuns-preview') !== null;
 
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
 echo empty($fails) ? "PASS (" . count($checks) . " checks)\n" : "FAIL: " . implode(', ', $fails) . "\n";

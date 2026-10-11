@@ -14,14 +14,22 @@ cd /var/www/html/TCGEngine
 # OLD defaults to 'base' only when the argument is MISSING: an explicit "" means the full stack (no variant).
 # (It was ${2:-base}, which also turned "" into @base — the 2026-09-15 learned-policy evaluation compared against
 # the pre-part-2 stack by mistake.)
-NEW=${1:-}; OLD=${2-base}; SEEDS=${3:-10}; WORKERS=${4:-8}; OUT=${5:-/tmp/strength}; DIR=${6:-SWUSim/Tests/BotFixtures/meta-2026-09}
+NEW=${1:-}; OLD=${2-base}; SEEDS=${3:-10}; WORKERS=${4:-8}; OUT=${5:-/tmp/strength}; DIR=${6:-SWUSim/Tests/BotFixtures/ash-meta-2026-09}
 mkdir -p "$OUT/games"
-export NEW OLD DIR OUT
+export NEW OLD DIR OUT SEED_PREFIX
 decks=${DECKS:-$(ls "$DIR"/*.txt | xargs -n1 basename | sed 's/\.txt$//')}
 : > "$OUT/jobs.txt"
+# FOCUS="deckA deckB" keeps only pairings where at least one side is a focus deck. A change that touches a few decks
+# (a flavour, a deck-specific rule) is otherwise drowned: with 4 of 22 decks affected, most mirrored pairs are
+# identical in both arms and can only dilute the result.
 for a in $decks; do for b in $decks; do
   [ "$a" = "$b" ] && continue
-  for s in $(seq -f "s%03g" 1 "$SEEDS"); do echo "$a $b $s 1" >> "$OUT/jobs.txt"; echo "$a $b $s 2" >> "$OUT/jobs.txt"; done
+  if [ -n "${FOCUS:-}" ]; then
+    case " $FOCUS " in *" $a "*|*" $b "*) ;; *) continue ;; esac
+  fi
+  # SEED_PREFIX (env, default "s") — a FRESH seed block: games are deterministic per (seed, first player), so a change
+  # tuned on the s-block must be measured on another (spec 2026-10-05-swusim-curve-value-design.md §6.5).
+  for s in $(seq -f "${SEED_PREFIX:-s}%03g" 1 "$SEEDS"); do echo "$a $b $s 1" >> "$OUT/jobs.txt"; echo "$a $b $s 2" >> "$OUT/jobs.txt"; done
 done; done
 echo "[strength] new='$NEW' old='$OLD' — $(wc -l < "$OUT/jobs.txt") games, $WORKERS workers — $(date -u +%H:%M:%S)"
 

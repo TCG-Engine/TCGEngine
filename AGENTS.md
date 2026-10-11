@@ -48,6 +48,7 @@ Start only the ones you need:
 | AzukiSim | `azukisim` | 3300 | 5103 | 6484 |
 | SWUSim | `swusim` | 3400 | 5104 | 6485 |
 | HellbreakSim | `hellbreaksim` | 3500 | 5105 | 6486 |
+| FaBSim | `fabsim` | 3600 | 5106 | 6487 |
 
 MySQL creds: root/secret. Databases named after the game (e.g. `swusim`).
 

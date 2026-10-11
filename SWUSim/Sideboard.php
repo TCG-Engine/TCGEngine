@@ -1,10 +1,23 @@
 <?php // SWUSim/Sideboard.php — between-games sideboard screen (card-image editor)
 include_once __DIR__ . '/MatchFlow.php';
+// LoggedInUser() is not otherwise defined on this standalone page — needed below for the card
+// language wiring (Step 5, localized card art).
+include_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php'; // CardTitle/CardSubtitle
 // The one seam that knows where SWU art lives and how it is named. This page is STANDALONE — it does
 // not load Core's Card()/resolveCardImageID — so without it the art paths get hand-built relative to
 // /TCGEngine/SWUSim/ and preview (mock_-prefixed) cards never resolve.
 include_once __DIR__ . '/../AppCore/SWU/CardImagePath.php';
+require_once __DIR__ . '/PlayerSettings.php';
+// Login state MUST be resolved here, before any HTML is echoed below. LoggedInUser() -> CheckSession()
+// only calls session_start() when !headers_sent() (AccountFiles/AccountSessionAPI.php), and by the
+// time this page reaches the <script> globals near the bottom, ~5KB of static HTML has already
+// flushed past output_buffering=4096 — headers are sent, so a session started only there would never
+// see the login cookie. Call CheckSession() explicitly up front (this page starts no session of its
+// own) and snapshot both values now; they are only ever PRINTED later, not recomputed.
+CheckSession();
+$sbLoggedIn = function_exists('LoggedInUser') && intval(LoggedInUser()) > 0;
+$sbCardLang = function_exists('LoggedInUser') ? SWUSimAccountCardLanguage(LoggedInUser()) : null;
 $matchId = preg_replace('/[^A-Za-z0-9_]/','', $_GET['matchId'] ?? '');
 $seat    = intval($_GET['playerID'] ?? 0);
 $m = SWUReadMatch($matchId);
@@ -14,6 +27,16 @@ if (!is_array($m) || ($seat!==1 && $seat!==2)) { http_response_code(404); echo '
 // the game-1 configuration and discarded everything the player did before game 2.
 $__p  = $m['players'][strval($seat)] ?? [];
 $deck = $__p['currentDeck'] ?? $__p['originalDeck'] ?? ['leader'=>'','base'=>'','mainDeck'=>[],'sideboard'=>[]];
+
+// Chat + the previous game's log, pinned left (owner, 2026-09-22). The panel is shared with the
+// Waiting Room; only the mode and the scope differ.
+require_once __DIR__ . '/../SharedUI/Render/ChatPanel.php';
+require_once __DIR__ . '/../Core/ChatPolicy.php';
+$sbAuthKey = strval($_GET['authKey'] ?? '');
+// A sideboard seat is always an authenticated match participant, so this is effectively always
+// allowed — asked through the policy anyway so this screen can never drift from the send endpoint.
+$sbChatRefusal = ChatSendRefusal('SWUSim', ['viewerSeat' => $seat, 'isSpectator' => false,
+                                            'userId' => intval(LoggedInUser())], 'm:' . $matchId);
 
 $mainCounts = array_count_values($deck['mainDeck'] ?? []);
 $sideCounts = array_count_values($deck['sideboard'] ?? []);
@@ -29,81 +52,34 @@ $titles = [];
 foreach (array_merge(array_keys($mainCounts), array_keys($sideCounts), [$deck['leader'], $deck['base']]) as $id) {
     if ($id !== '' && !isset($titles[$id])) $titles[$id] = $titleFor($id);
 }
-?><!doctype html><html><head><meta charset="utf-8"><title>Sideboard</title>
-<style>
-  /* SWUSim HUD aesthetic — cyan-on-navy, chamfered panels/buttons. Self-contained
-     (this is a standalone page, so the in-game CSS vars aren't available here). */
-  :root {
-    --swu-bg:        #0b0f14;
-    --swu-rim:       rgba(140,210,255,0.85);
-    --swu-fill:      rgba(20,42,70,0.95);
-    --swu-cyan:      rgba(205,238,255,0.98);
-    --swu-cyan-soft: rgba(160,200,235,0.78);
-    --swu-font-ui:    "Aptos","Segoe UI Variable","Trebuchet MS",sans-serif;
-    --swu-font-label: "Bahnschrift","Aptos Display","Franklin Gothic Medium",sans-serif;
-  }
-  body {
-    margin:0; padding:28px; min-height:100vh; box-sizing:border-box;
-    background:
-      radial-gradient(1100px 560px at 50% -12%, rgba(46,98,150,0.28), transparent 62%),
-      linear-gradient(180deg, #0c1622, var(--swu-bg));
-    color: rgba(225,238,250,0.92); font-family: var(--swu-font-ui);
-  }
-  h2 {
-    margin:0 0 6px; font-family: var(--swu-font-label);
-    text-transform:uppercase; letter-spacing:0.14em; font-size:22px; font-weight:700;
-    color: var(--swu-cyan); text-shadow:0 0 12px rgba(120,200,255,0.35);
-  }
-  .hint { color: var(--swu-cyan-soft); margin:0 0 20px; font-size:13px; }
-  .fixed { display:flex; gap:16px; align-items:flex-end; margin-bottom:18px; flex-wrap:wrap; }
-  .fixed .slot { text-align:center; }
-  .fixed .slot img { height:96px; border-radius:6px; display:block;
-                     border:1px solid rgba(120,200,255,0.25); box-shadow:0 0 10px rgba(0,0,0,.5); }
-  .fixed .slot .lbl { font-family:var(--swu-font-label); text-transform:uppercase; letter-spacing:0.12em;
-                      font-size:11px; color: var(--swu-cyan-soft); margin-top:6px; }
-  .section { margin-bottom:24px; }
-  .section h3 { margin:0 0 10px; font-family:var(--swu-font-label); text-transform:uppercase; letter-spacing:0.12em;
-                font-size:15px; font-weight:700; color: rgba(195,228,255,0.95); display:flex; align-items:center; gap:8px; }
-  .section h3 .ct { color: rgba(150,185,220,0.65); font-weight:normal; letter-spacing:0.06em; font-size:12px; }
-  .grid { display:flex; flex-wrap:wrap; gap:10px; min-height:150px; align-content:flex-start;
-          border:1px solid rgba(120,200,255,0.28); border-radius:8px; padding:14px;
-          background: linear-gradient(180deg, rgba(18,34,54,0.62), rgba(12,22,34,0.62));
-          box-shadow: inset 0 0 24px rgba(8,18,30,0.6); }
-  .card { position:relative; width:104px; cursor:pointer; transition:transform .08s; }
-  .card:hover { transform:translateY(-3px); }
-  .card img { width:100%; border-radius:6px; display:block; box-shadow:0 2px 6px rgba(0,0,0,.5); }
-  .card .qty { position:absolute; bottom:6px; right:6px; min-width:20px; height:20px; line-height:20px;
-               padding:0 5px; border-radius:11px; background:rgba(11,22,34,0.95); color:#fff; font-size:13px; font-weight:bold;
-               text-align:center; border:1px solid rgba(120,200,255,0.45); box-shadow:0 1px 3px rgba(0,0,0,.6); }
-  .empty { color: rgba(120,160,200,0.55); font-style:italic; align-self:center; }
-  /* Chamfered HUD button — ::before = cyan rim, ::after = flat fill, text on top. */
-  #submit {
-    position:relative; z-index:0; isolation:isolate; border:0; border-radius:0; background:transparent; box-shadow:none;
-    padding:11px 26px; cursor:pointer; font-family:var(--swu-font-label); font-weight:700; font-size:14px;
-    text-transform:uppercase; letter-spacing:0.12em; color: var(--swu-cyan);
-    text-shadow:0 0 6px rgba(120,200,255,0.5); filter:drop-shadow(0 0 5px rgba(110,190,255,0.45));
-    transition: filter 150ms, color 150ms, transform 110ms;
-  }
-  #submit::before { content:''; position:absolute; inset:0; z-index:-2; background: var(--swu-rim);
-    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
-  #submit::after { content:''; position:absolute; inset:1.5px; z-index:-1; background: var(--swu-fill);
-    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px); }
-  #submit:not(:disabled):hover { color:#fff; filter:drop-shadow(0 0 10px rgba(125,205,255,0.65)); transform:translateY(-1px); }
-  #submit:not(:disabled):hover::before { background: rgba(180,228,255,1); }
-  #submit:not(:disabled):active { transform:translateY(1px); filter:drop-shadow(0 0 4px rgba(110,190,255,0.4)); }
-  #submit:disabled { opacity:.4; filter:none; transform:none; cursor:default; color: rgba(200,225,245,0.7); }
-  #submit:disabled::before { background: rgba(120,200,255,0.30); }
-  #status { margin-left:14px; color: var(--swu-cyan-soft); font-family:var(--swu-font-label); letter-spacing:0.06em; font-size:13px; }
-  #sbPreview { position:fixed; display:none; pointer-events:none; z-index:9999; max-height:70vh; max-width:340px;
-    width:auto; height:auto; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,0.75); }
-</style></head>
+?><?php
+// The theme comes from the SITE, not from a private copy. This page carried its own
+// self-contained cyan-on-navy CSS (--swu-cyan, Aptos/Bahnschrift) and so sat out the whole
+// Petranaki redesign -- it 404s without a live match, so nobody opened it.
+// RenderHead gives it the same font + stylesheet stack every other page gets; RenderHeader gives
+// it the title plate, which is ALSO the scope hook (`body:has(.home-header)`) that the redesign's
+// rules and the Petranaki chat skin key off.
+// ⚠ The MENU BAR is deliberately NOT rendered: you are mid-match here, and a nav link out of a
+// sideboard abandons the game.
+require_once __DIR__ . '/../SharedUI/Render/SiteDef.php';
+require_once __DIR__ . '/../SharedUI/Render/Head.php';
+require_once __DIR__ . '/../SharedUI/Render/Header.php';
+$sbDef = LoadSiteDef('SWUSim');
+$sbDef['branding'] = ['headTitle' => 'Sideboard'] + $sbDef['branding'];
+echo RenderHead($sbDef);
+?>
 <body>
+<?= RenderHeader($sbDef) ?>
+<div class="sb-row">
+<?php /* ⚠ A PLAIN & — RenderChatPanel htmlspecialchars() the title, so passing "&amp;" prints "&amp;amp;". */ ?>
+<?= RenderChatPanel(['mode' => 'chat+log', 'title' => 'GAME LOG & CHAT', 'folderPath' => 'SWUSim']) ?>
+<div class="sb-main">
 <h2>Sideboard — game <?= count($m['games'])+1 ?> of best-of-<?= intval($m['bestOf']) ?></h2>
 <p class="hint">Click a Deck card to move one copy to your Sideboard. Click a Sideboard card to move it back. Then submit — the next game starts when both players are ready.</p>
 
 <div class="fixed">
-  <div class="slot"><img data-card-id="<?= htmlspecialchars($deck['leader']) ?>" src="<?= htmlspecialchars(SWUCardImagePath($deck['leader'], 'tile')) ?>" alt="<?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>" title="<?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>"><div class="lbl">Leader</div></div>
-  <div class="slot"><img data-card-id="<?= htmlspecialchars($deck['base']) ?>" src="<?= htmlspecialchars(SWUCardImagePath($deck['base'], 'tile')) ?>" alt="<?= htmlspecialchars($titles[$deck['base']] ?? $deck['base']) ?>" title="<?= htmlspecialchars($titles[$deck['base']] ?? $deck['base']) ?>"><div class="lbl">Base</div></div>
+  <div class="slot"><img data-card-id="<?= htmlspecialchars($deck['leader']) ?>" src="<?= htmlspecialchars(SWUCardImagePath($deck['leader'], 'card')) ?>" alt="Leader: <?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>" title="<?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>"></div>
+  <div class="slot"><img data-card-id="<?= htmlspecialchars($deck['base']) ?>" src="<?= htmlspecialchars(SWUCardImagePath($deck['base'], 'card')) ?>" alt="Base: <?= htmlspecialchars($titles[$deck['base']] ?? $deck['base']) ?>" title="<?= htmlspecialchars($titles[$deck['base']] ?? $deck['base']) ?>"></div>
 </div>
 
 <div class="section">
@@ -115,8 +91,8 @@ foreach (array_merge(array_keys($mainCounts), array_keys($sideCounts), [$deck['l
   <div class="grid" id="sideGrid"></div>
 </div>
 
-<div style="margin-top:4px;">
-  <button id="submit">Submit &amp; Ready</button> <span id="status"></span>
+<div class="sb-actions">
+  <button id="submit" class="swu2-btn swu2-btn--primary ch" type="button">Submit &amp; Ready</button> <span id="status"></span>
 </div>
 
 <script>
@@ -129,6 +105,14 @@ var leader=<?= json_encode($deck['leader']) ?>, base=<?= json_encode($deck['base
 var titles=<?= json_encode($titles, JSON_UNESCAPED_UNICODE) ?>;
 </script>
 <?= SWUCardArtScript(false) /* lite: SWUSim ids are already SET_NNN, so the UUID map is dead weight */ ?>
+<script>
+  window.SWU_LOGGED_IN = <?= $sbLoggedIn ? 'true' : 'false' ?>;
+  window.SWU_ACCOUNT_CARD_LANGUAGE = <?= $sbCardLang === null ? 'null' : json_encode($sbCardLang) ?>;
+  // The composer's visibility comes from the SAME seam SubmitChat.php enforces (Core/ChatPolicy.php).
+  var SB_CAN_CHAT = <?= json_encode($sbChatRefusal === null) ?>;
+  var SB_CANNOT_CHAT_REASON = <?= json_encode($sbChatRefusal ?? '') ?>;
+</script>
+<script src="../Core/SWUCardI18n.js?v=<?= filemtime(__DIR__ . '/../Core/SWUCardI18n.js') ?>"></script>
 <script>
 var deck=<?= json_encode((object)array_map('intval',$mainCounts), JSON_FORCE_OBJECT) ?>;
 var side=<?= json_encode((object)array_map('intval',$sideCounts), JSON_FORCE_OBJECT) ?>;
@@ -234,4 +218,60 @@ function poll(){ // re-submit is a no-op (first-submit-wins) but returns nextGam
         .catch(function(){ setTimeout(poll,2000); });
 }
 if(alreadyAdvanced && advancedGameName){ go(advancedGameName); } else { render(); }
-</script></body></html>
+
+// ── Chat + the log of the game just played ───────────────────────────────────────────────────────
+// ⚠ Card ids render as PLAIN NAMES. This page is standalone and does not load Core's Card()
+// renderer, so a raw [[SOR_014]] would reach the reader as an id.
+// ⚠ The names come from the ENDPOINT, not from this page's `titles`: `titles` only covers cards in
+// YOUR deck, so the opponent's whole board — most of what a log is about — would stay as raw ids.
+// `titles` remains the fallback, then the id itself.
+// Split a log entry into {text, ts}, keeping its [[SET_NNN]] tokens INTACT -- the panel turns those
+// into hoverable elements, given the name map.
+//
+// ⚠ Field 2 is '@<microtime>' on entries written since 2026-09-26 and the TEXT on anything saved
+// before that. The stamp is what lets the panel interleave this log with the chat instead of
+// showing one block after the other; a legacy line has no ts and simply keeps its arrival order.
+function sbLogLine(entry){
+  var parts = entry.split('|');
+  if (parts.length < 3) return { text: entry, ts: NaN };
+  var stamped = parts[2].charAt(0) === '@' && !isNaN(parseFloat(parts[2].slice(1)));
+  return { text: parts.slice(stamped ? 3 : 2).join('|'),
+           ts: stamped ? parseFloat(parts[2].slice(1)) : NaN };
+}
+
+// Hover a card named in the log and get the same preview the deck grid gives. Delegated, because
+// the log arrives after this runs and grows as the panel polls.
+document.addEventListener('mouseover', function(ev){
+  var el = ev.target.closest && ev.target.closest('.tcgc-card[data-card-id]');
+  if (el) showSbPreview(el.getAttribute('data-card-id'), ev);
+});
+document.addEventListener('mousemove', function(ev){
+  if (ev.target.closest && ev.target.closest('.tcgc-card[data-card-id]')) positionSbPreview(ev);
+});
+document.addEventListener('mouseout', function(ev){
+  if (ev.target.closest && ev.target.closest('.tcgc-card[data-card-id]')) hideSbPreview();
+});
+
+window.TCGChatPanel.attach({
+  scope: { matchId: matchId },
+  playerID: seat,
+  authKey: authKey,
+  folderPath: 'SWUSim',
+  canSend: SB_CAN_CHAT,
+  cannotSendReason: SB_CANNOT_CHAT_REASON
+});
+
+// The log is fetched ONCE — the previous game is over and its log cannot change.
+fetch('./GetGameLog.php?matchId=' + encodeURIComponent(matchId) +
+      '&playerID=' + encodeURIComponent(seat) + '&authKey=' + encodeURIComponent(authKey))
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if(!d || !d.lines || !d.lines.length) return;
+    // d.names covers every card in the lines THIS SEAT may see -- including the opponent's, which
+    // `titles` (built from your own deck) cannot. Merged so a token is never left as a raw id.
+    var cards = Object.assign({}, titles, d.names || {});
+    window.TCGChatPanel.appendLog('GAME ' + d.gameNumber + ' LOG',
+      d.lines.map(sbLogLine), { cards: cards });
+  })
+  .catch(function(){ /* no log is a normal state, not an error to put in front of the player */ });
+</script></div></div></body></html>

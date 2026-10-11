@@ -7,8 +7,7 @@
 // create 2 Mandalorian tokens. The combat-vs-effect distinction is the SWU_COMBATDEF_ snapshot.
 $whenDefeatedAbilities["ASH_028:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $fromCombat = !empty($GLOBALS['gCombatDefeatByMz'][$mzID] ?? false);
-    unset($GLOBALS['gCombatDefeatByMz'][$mzID]);
-    if ($fromCombat) return;   // defeated by combat damage → no tokens
+    // Not consumed: a reuse in the same action (JTL_002 Thrawn) resolves with the same Last Known Information.
+    if (SWUDefeatedByCombat((string)$mzID)) return;   // defeated by combat damage → no tokens
     SWUCreateUnitTokens(intval($player), 'ASH_T01', 2);
 };

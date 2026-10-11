@@ -44,7 +44,10 @@ $customDQHandlers["LAW_216#0"] = function($player, $parts, $lastDecision) {
         $o = GetZoneObject($oppGround[0]);
         $uid = SWUObjUID($o, 0);
         $playerID = intval($player);
-        DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Deal_7_damage_to_that_unit?");
+        // Name it: the caster never picked this one (it is the opponent's only ground unit), so "that
+        // unit" is unguessable behind the popup. $o is an OBJECT — the frame has just flipped back.
+        DecisionQueueController::AddDecision(intval($player), "YESNO", SWUPromptHighlightParam($o), 1,
+            tooltip: 'Deal 7 damage to ' . SWUPromptUnitLabel($o) . '?');
         DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_216#2|{$uid}", 1);
         return;
     }
@@ -68,7 +71,10 @@ $customDQHandlers["LAW_216#1"] = function($player, $parts, $lastDecision) {
     $uid = ($o !== null) ? intval($o->UniqueID ?? 0) : 0;
     if ($uid === 0) { $playerID = $caster; return; }
     $playerID = $caster;
-    DecisionQueueController::AddDecision($caster, "YESNO", "-", 1, tooltip: "Deal_7_damage_to_that_unit?");
+    // Name it: same as the single-target branch. $o was resolved under the OPPONENT's frame above, so it
+    // is passed as an object — an mzID would resolve to the wrong unit now that the frame is the caster's.
+    DecisionQueueController::AddDecision($caster, "YESNO", SWUPromptHighlightParam($o), 1,
+        tooltip: 'Deal 7 damage to ' . SWUPromptUnitLabel($o) . '?');
     DecisionQueueController::AddDecision($caster, "CUSTOM", "LAW_216#2|{$uid}", 1);
 };
 

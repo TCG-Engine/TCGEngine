@@ -53,19 +53,29 @@ function RhydoniumDetonationDefeatAllNonLeader(int $caster): void
   global $playerID;
   $playerID = $caster;
   $uids = [];
-  foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $zone) {
+  // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+  // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+  // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+  foreach (["teamGroundArena", "teamSpaceArena", "theirGroundArena", "theirSpaceArena"] as $zone) {
     foreach (ZoneSearch($zone, NonLeaderUnitFilter) as $mz) {
       $o = GetZoneObject($mz);
       if ($o !== null && empty($o->removed))
         $uids[] = intval($o->UniqueID);
     }
   }
+  // One simultaneous defeat, walked a unit at a time — so "when an enemy unit is defeated" observers
+  // caught in the wipe (ASH_052 Chimaera, SOR_002 Iden Versio, TS26_13 Darth Sidious) must be judged
+  // against the pre-effect board. Without the window each defeat is its own single-element batch and an
+  // observer removed early stops counting. Note the saves resolve BEFORE this, so a returned observer is
+  // correctly out of the snapshot. See SWUSimulDefeatBegin (GameLogic.php).
+  SWUSimulDefeatBegin();
   foreach ($uids as $uid) {
     $playerID = $caster;
     $mz = SWUFindMzByUID($uid);
     if ($mz !== null)
       SWUDefeatUnit($caster, $mz);
   }
+  SWUSimulDefeatEnd();
 }
 
 // When Played (event) — migrated from OnPlayEvent.

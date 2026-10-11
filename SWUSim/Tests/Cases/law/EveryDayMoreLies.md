@@ -83,3 +83,49 @@ WithP2Hand: [SOR_095 SOR_237]
 ## EXPECT
 P2SELECTABLEEXACT:myHand-0&myHand-1
 P2HANDCOUNT:2
+
+---
+
+# BothChooseIndependently_NothingDiscardedUntilBothHaveChosen
+#// CR v9.0 7.1.a: "If an ability involves a choice made about hidden information (such as each player discarding a
+#// card from their hand), each player makes their choice independently, and then all players resolve the ability
+#// simultaneously." Both players have a real choice (P1's hand-0 is the event itself). P1 picks first — but while P2 is still choosing, P1's pick is
+#// still in P1's HAND (nothing is public yet). Discarding P1's pick on the spot let P2 see it before choosing.
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:1}
+WithActivePlayer: 1
+WithP1Hand: LAW_204
+WithP1Hand: SEC_080
+WithP1Hand: SOR_095
+WithP2Hand: SOR_095
+WithP2Hand: SOR_237
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-1
+## EXPECT
+P1HANDCOUNT:2
+P1DISCARDCOUNT:1
+P2HASDECISION
+
+---
+
+# BothChooseIndependently_ThenBothDiscardTogether
+#// Same board, finished: once P2 has chosen too, both picks are discarded together.
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:1}
+WithActivePlayer: 1
+WithP1Hand: LAW_204
+WithP1Hand: SEC_080
+WithP1Hand: SOR_095
+WithP2Hand: SOR_095
+WithP2Hand: SOR_237
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-1
+- P2>AnswerDecision:myHand-1
+## EXPECT
+P1HANDCOUNT:1
+P1DISCARDCOUNT:2
+P2HANDCOUNT:1
+P2DISCARDCOUNT:1
+P2DISCARDUNIT:0:CARDID:SOR_237

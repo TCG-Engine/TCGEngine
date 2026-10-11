@@ -130,3 +130,23 @@ P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:SOR_076
 P2DISCARDCOUNT:1
 P2DISCARDUNIT:0:CARDID:SOR_189
+
+---
+
+# CantinaBraggart_CR8_15_4_AttacksForZero
+#// CR 8.15.4 — the CR's own example: "A value cannot be modified below 0 … However, any new modifiers applied after a
+#// value is treated as 0 will still account for any previous modifiers applied to that value." Make an Opening gives
+#// SOR_157 Cantina Braggart (0/3) -2/-2: its power is treated as 0. When it then attacks, Raid 2 gives +2/+0 — but the
+#// -2 still counts, so it "attacks with 0 total power". (The attack calculation used to floor the -2 away first and
+#// then add Raid, dealing 2.)
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:3;handCardIds:SOR_076}
+P1OnlyActions: true
+WithP1GroundArena: SOR_157:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_157
+P2BASEDMG:0

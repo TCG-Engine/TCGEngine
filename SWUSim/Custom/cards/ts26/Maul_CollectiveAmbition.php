@@ -20,12 +20,10 @@ $customDQHandlers["TS26_03#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS' && str_contains($lastDecision, '-')) {
         $o = GetZoneObject($lastDecision);
         if ($o !== null && empty($o->removed)) {
-            $found = [];
-            $boolKw = ['Sentinel', 'Ambush', 'Overwhelm', 'Grit', 'Saboteur', 'Shielded', 'Hidden', 'Bounty'];
-            $valKw  = ['Raid', 'Restore'];
-            foreach ($boolKw as $kw) { $fn = "HasKeyword_{$kw}"; if (function_exists($fn) && $fn($o)) $found[$kw] = true; }
-            foreach ($valKw as $kw)  { $fn = "GetKeyword_{$kw}_Value"; if (function_exists($fn) && intval($fn($o) ?? 0) > 0) $found[$kw] = true; }
-            $K = count($found);
+            // EVERY keyword counts, once each (ruling: Raid 1 + Raid 2 is one keyword) — the shared counter
+            // derives the set from the generated keyword functions. A private list of ten here missed Smuggle,
+            // Coordinate, Exploit, Fortify, Piloting, Plot and Support (SHD_032 Lom Pyke got nothing).
+            $K = _SWUCountDistinctKeywords($o);
             $E = 0;
             foreach (($o->Subcards ?? []) as $sc) {
                 $scid = is_array($sc) ? ($sc['CardID'] ?? '') : ($sc->CardID ?? '');

@@ -9,7 +9,7 @@
 // TWI_006 Wat Tambor (deployed) — "On Attack: If a friendly unit was defeated this phase, you may give
 // another unit +2/+2 for this phase."
 $onAttackAbilities["TWI_006:0"] = function($player, $mzID) {
-    if (GlobalEffectCount(intval($player), 'SWU_FRIENDLY_DEFEATED') <= 0) return;
+    if (SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_DEFEATED') <= 0) return;
     SWUOfferUnitTarget(intval($player), $mzID, [
         'continuation' => 'APPLY_PHASE_BUFF|2|2|TWI_006', 'side' => 'any', 'excludeSelf' => true, 'may' => true,
         'question' => "Give_another_unit_+2/+2_this_phase?", 'prompt' => "Choose_another_unit",

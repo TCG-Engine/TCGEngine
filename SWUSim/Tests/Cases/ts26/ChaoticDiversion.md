@@ -192,3 +192,62 @@ WithP1Deck: [SOR_095 SOR_095]
 P1DISCARDCOUNT:1
 P1HANDCOUNT:0
 P1NODECISION
+
+---
+
+# TwinSuns_ReadiedUnit_IsNotOfferedTheProtectedSeat
+#// TS26_31 Chaotic Diversion at 3 seats (Discord report 2026-10-07: "the enemy unit is still attacking my
+#// base or unit"). Seat 1 readies seat 2's exhausted Wampa; when the Wampa attacks, only seat 3's unit and
+#// base are offered. Seat 1's base and its shielded Marine ("…or units you control") are not.
+#// RED before the fix: with two opponents the directional marker can't be a hard no-op (seat 3 is still
+#// fair game), and the per-opponent target enumeration never dropped the protected seat. The Wampa was
+#// offered p1Base-0 and p1GroundArena-0 and hit seat 1's base for 4.
+
+## GIVEN
+CommonSetup3P: ryk/rrk/rrk/{myResources:1}
+SkipPreGame: true
+WithP1Hand: TS26_31
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_164:0:0
+WithP3GroundArena: SOR_095:0:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p2GroundArena-0
+- P1>AnswerDecision:myGroundArena-0
+- P2>AttackGroundArena:0:?
+
+## EXPECT
+P2SELECTABLEEXACT:p3GroundArena-0&p3Base-0
+P1BASEDMG:0
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# TwinSuns_ReadiedUnit_CanStillAttackTheOtherOpponent
+#// TS26_31 Chaotic Diversion at 3 seats — the restriction names seat 1 only. The readied Wampa attacks
+#// seat 3's base for 4. Guards the fix against becoming a blanket "can't attack".
+
+## GIVEN
+CommonSetup3P: ryk/rrk/rrk/{myResources:1}
+SkipPreGame: true
+WithP1Hand: TS26_31
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_164:0:0
+WithP3GroundArena: SOR_095:0:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p2GroundArena-0
+- P1>AnswerDecision:myGroundArena-0
+- P2>AttackGroundArena:0:P3B
+
+## EXPECT
+P3BASEDMG:4
+P1BASEDMG:0

@@ -4,24 +4,15 @@
 // Text: On Attack: You may give an Experience token to another non-leader unit that shares a Trait with a friendly leader.
 
 // LAW_152 C-3PO — On Attack: you may give an Experience token to another non-leader unit that shares a
-// Trait with a friendly leader. "A friendly leader" = the (undeployed) zone leader OR any friendly
-// arena LEADER UNIT (deployed leader, leader-Pilot host, ASH_135 Darksaber host — IsLeaderUnit). The
+// Trait with a friendly leader. "A friendly leader" = SWUFriendlyLeaderObjects: EVERY undeployed leader
+// in the team's leader zones (both slots of a two-leader seat — bug #1101) OR any friendly LEADER UNIT
+// (deployed leader, leader-Pilot host, ASH_135 Darksaber host — IsLeaderUnit). The
 // share reads LIVE traits on BOTH sides via TraitContains (upgrade grants like LAW_150 Fulcrum's
 // Rebel, phase strips like LOF_033's Force loss), over the union of both sides' printed traits plus
 // the grantable/strippable specials.
 $onAttackAbilities["LAW_152:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $leaders = [];
-    $zoneLeader = SWUGetLeader(intval($player));
-    $zlDeployed = $zoneLeader !== null
-        && (($zoneLeader->Deployed ?? false) === true || ($zoneLeader->Deployed ?? '') === 'true');
-    if ($zoneLeader !== null && !$zlDeployed) $leaders[] = $zoneLeader; // deployed face is read from the ARENA object below
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $lmz) {
-            $lo = GetZoneObject($lmz);
-            if (!SWUObjGone($lo) && IsLeaderUnit($lo)) $leaders[] = $lo;
-        }
-    }
+    $leaders = SWUFriendlyLeaderObjects(intval($player));
     if (empty($leaders)) return;
     $leaderPrinted = [];
     foreach ($leaders as $L) {

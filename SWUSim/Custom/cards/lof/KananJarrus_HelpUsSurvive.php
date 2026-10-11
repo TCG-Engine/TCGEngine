@@ -9,8 +9,11 @@
 $leaderAbilities["LOF_004"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $targets = [];
-    foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
-                         ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)) as $mz) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+    // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+    // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+    // Premier is byte-identical). See memory: unqualified pools miss teammates.
+    foreach (SWUAllUnits() as $mz) {
         $o = GetZoneObject($mz); if (SWUObjGone($o)) continue;
         if (TraitContains($o, 'Creature') || HasTrait($o->CardID ?? '', 'Spectre')) $targets[] = $mz;
     }

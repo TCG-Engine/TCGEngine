@@ -8,27 +8,27 @@
 //
 // Three words in that sentence each pick a different helper, and getting any of them wrong is silent:
 //
-//   "ENTERED PLAY"  -> SWUUnitEnteredPlayThisPhase (SWU_ENTERED_PHASE_), NOT SWUUnitPlayedThisPhase.
+//   "ENTERED PLAY"  -> the SWU_ENTERED_PHASE_ flags, NOT SWU_PLAYED_UNIT_ (SWUUnitPlayedThisPhase).
 //                      The printed parenthetical "(including leader and token units)" IS this
 //                      distinction: a deployed leader and a created token both ENTER play without
 //                      being PLAYED, so SWU_PLAYED_UNIT_ — which only ActivateCard sets — never sees
 //                      them. Pinned by TokenUnitCounts and DeployedLeaderCounts, which are exactly the
 //                      two cases where the flags disagree.
-//   "FRIENDLY"      -> SWUFriendlyUnitObjects, which spans the TEAM in Team Suns. "You control" would
-//                      be GetUnitsInPlay; a teammate's unit is friendly but you do not control it.
+//   "FRIENDLY"      -> this seat's entries plus each Team Suns TEAMMATE's. The flag is stamped on the
+//                      unit's controller at entry, so a teammate's entrant lives on the teammate's seat.
 //   "ANOTHER"       -> exclude THIS unit by UniqueID. CollectEntryTriggers stamps SWU_ENTERED_PHASE_ on
 //                      the entering unit BEFORE it dispatches the When Played, so B1's own flag is
 //                      already set when this runs — without the self-exclusion the condition would be
 //                      true every single time it is played. Pinned by NoOtherUnitEnteredThisPhase_NoDraw.
+//
+// ⚠ TALLY THE FLAGS, DON'T SCAN THE BOARD (bug report game 1647080). "Entered play this phase" is a fact
+// about the past: a TIE Fighter played and then defeated before B1 still entered play. Asking each unit
+// IN PLAY whether it entered could never see it, so B1 drew nothing. _SWUEnteredThisPhaseCount is the
+// shared tally (also the TS26_02/TS26_04 gate). Pinned by EntrantDefeatedBeforeB1_StillCounts.
 $whenPlayedAbilities["HMW_103:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $self    = GetZoneObject($mzID);
-    $selfUID = intval($self->UniqueID ?? -1);
-    foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
-        if (SWUObjGone($u)) continue;
-        if (intval($u->UniqueID ?? -2) === $selfUID) continue;      // "ANOTHER"
-        if (!SWUUnitEnteredPlayThisPhase($u)) continue;
-        DoDrawCard(intval($player), 1);
-        return;                                                     // one card, however many qualify
+    $self = GetZoneObject($mzID);
+    if (_SWUEnteredThisPhaseCount(intval($player), intval($self->UniqueID ?? -1)) > 0) {
+        DoDrawCard(intval($player), 1);                             // one card, however many qualify
     }
 };

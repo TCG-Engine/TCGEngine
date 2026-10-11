@@ -4,6 +4,12 @@
 // Text: Action [Exhaust]: Play a Separatist card from your hand. It gains Exploit 1. (You may defeat 1 unit you control. If you do, that card costs 2 resources less.)
 // DeployText: Overwhelm (When attacking an enemy unit, deal excess damage to the opponent's base.) / On Attack: The next Separatist card you play this phase gains Exploit 3.
 // Epic Action: If you control 7 or more resources, deploy this leader.
+//
+// ⚠ THE `Text:` LINE ABOVE PREDATES AN ERRATA and is a copy of the generated dictionary, which is the
+// real source (never hand-edit it — it is regenerated). Official ruling 2025-07-14 restates the Action
+// as "… It gains Exploit 1 FOR THIS PHASE". Behaviourally inert for us: Exploit is only ever read while
+// the card is being played, so a duration on it changes nothing, and $gPlayGrantedExploit is captured
+// and cleared within the single play. Re-check if Exploit ever becomes readable outside a play.
 
 // TWI_005 Count Dooku (deployed Leader Unit) — On Attack: the next Separatist card
 // you play this phase gains Exploit 3 (additive with any printed Exploit).
@@ -28,9 +34,18 @@ $customDQHandlers["TWI_005#0"] = function($player, $parts, $lastDecision) {
 };
 
 // TWI_005 Count Dooku — Leader Action [Exhaust]: Play a Separatist card from your hand.
-// It gains Exploit 1. Affordability (≥1 affordable Separatist in hand) is checked in
-// SWULeaderActionAffordable. The deployed-unit side uses the same TWI_005 handler
-// via $unitAbilities["TWI_005"] in CardDQHandlers.php.
+// It gains Exploit 1.
+//
+// ⚠ THIS ACTION IS DELIBERATELY *NOT* GATED BY SWULeaderActionAffordable (CR 6.4.587.c: the [Exhaust]
+// cost changes game state, so the Action stays usable even with nothing playable). An earlier version
+// of this comment claimed the opposite — "affordability is checked in SWULeaderActionAffordable" — and
+// that is precisely the wrong place to look: `_SWUSeparatistHandPlayables` below is the ONLY gate, so a
+// pool that is too narrow reads to the player as a dead button rather than a refusal. That is exactly
+// how the 2026-09-21 report ("the action did nothing") happened.
+//
+// ⚠ There is NO $unitAbilities["TWI_005"]. A previous comment claimed the deployed side reused this
+// handler; it does not, and must not — his deployed text has no Action at all, only Overwhelm and the
+// On Attack above.
 $leaderAbilities["TWI_005"] = function(int $player): void {
     global $playerID;
     $playerID = $player;

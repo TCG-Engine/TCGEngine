@@ -7,5 +7,5 @@
 // and draw it. (The "Trick events cost 1 less" passive lives in $playCostFieldModifiers.)
 $whenPlayedAbilities["SOR_181:0"] = function($player, $mzID) {
     DoTopDeckSearch(intval($player), 8,
-        fn($c) => HasTrait($c, 'Trick') && stripos(CardType($c) ?? '', 'Event') !== false, 1);
+        fn($c) => HasTrait($c, 'Trick') && stripos(CardType($c) ?? '', 'Event') !== false, 1, 'Trick events');
 };

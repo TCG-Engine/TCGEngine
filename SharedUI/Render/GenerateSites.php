@@ -34,7 +34,13 @@ if (!$all) {
 }
 
 $STANDARD_PAGES = ['Disclaimer','Header','LoginPage','MenuBar','MobileViewport','Patreons','PrivacyPolicy','Profile','Signup','TermsOfUse','WaitingRoom'];
-$ROOT_POINTERS  = ['MainMenu','Profile','LoginPage','Signup','WaitingRoom'];
+$ROOT_POINTERS  = ['MainMenu','Profile','LoginPage','Signup','WaitingRoom',
+                   // The legal pages were emitted PER SITE but never as root pointers, so
+                   // /TCGEngine/SharedUI/TermsOfUse.php stayed the original hand-written page
+                   // with "SWU Stats" hardcoded in it -- and that is the URL every footer,
+                   // signup notice and profile disclaimer links to. Every non-SWUStats site
+                   // was sending its users to another product's terms.
+                   'PrivacyPolicy','TermsOfUse'];
 
 $written = [];
 

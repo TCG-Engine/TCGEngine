@@ -8,5 +8,5 @@
 $whenPlayedAbilities["LAW_229:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     if (count(GetDeck(intval($player))) === 0) return;
-    DoTopDeckSearch(intval($player), 8, fn($c) => HasTrait($c, 'Gambit'), 1);
+    DoTopDeckSearch(intval($player), 8, fn($c) => HasTrait($c, 'Gambit'), 1, 'Gambit cards');
 };

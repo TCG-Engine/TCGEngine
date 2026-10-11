@@ -1,0 +1,57 @@
+[
+  {
+    "cardId": "blue_fin_harpoon_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "$supFishRepeats = FaBSUPCount($player, 'CATCH') > 0 ? 2 : 1;\n for ($supFish = 0; $supFish < $supFishRepeats; $supFish = $supFish + 1) {\n $seaPlayer = $player;\n\nif (FaBFaiHeroHit()) {\n\n $victim = intval(FaBGetState()['defender']);\n\n$cannon = FaBSEACount($seaPlayer, 'CANNON') > 0;\n\n $chooser = $cannon ? $seaPlayer : $victim;\n\n $fishRefs = FaBSEAFishChoices($seaPlayer, $victim, $cannon);\n\n if ($fishRefs !== '') {\n\n $chosen = await $chooser.MZChoose($fishRefs, \"Go_Fish_choose_and_reveal\");\n\n FaBSEAGoFish($seaPlayer, $victim, $chosen, 'blue_fin_harpoon', $cannon);\n\n \n\n}\n\n \n\n}\n\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "536abf17f933a975f763952c1e58846dc008b3888833be5bccae3d2da37c4045"
+      }
+    ]
+  },
+  {
+    "cardId": "king_kraken_harpoon_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "$supFishRepeats = FaBSUPCount($player, 'CATCH') > 0 ? 2 : 1;\n for ($supFish = 0; $supFish < $supFishRepeats; $supFish = $supFish + 1) {\n $seaPlayer = $player;\n\nif (FaBFaiHeroHit()) {\n\n $victim = intval(FaBGetState()['defender']);\n\n$cannon = FaBSEACount($seaPlayer, 'CANNON') > 0;\n\n $chooser = $cannon ? $seaPlayer : $victim;\n\n $fishRefs = FaBSEAFishChoices($seaPlayer, $victim, $cannon);\n\n if ($fishRefs !== '') {\n\n $chosen = await $chooser.MZChoose($fishRefs, \"Go_Fish_choose_and_reveal\");\n\n FaBSEAGoFish($seaPlayer, $victim, $chosen, 'king_kraken_harpoon', $cannon);\n\n \n\n}\n\n \n\n}\n\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "899db730f2bf2273b96e5053900a7da50d0bf11d23c0c926ee4aff685fb0cc16"
+      }
+    ]
+  },
+  {
+    "cardId": "king_shark_harpoon_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "$supFishRepeats = FaBSUPCount($player, 'CATCH') > 0 ? 2 : 1;\n for ($supFish = 0; $supFish < $supFishRepeats; $supFish = $supFish + 1) {\n $seaPlayer = $player;\n\nif (FaBFaiHeroHit()) {\n\n $victim = intval(FaBGetState()['defender']);\n\n$cannon = FaBSEACount($seaPlayer, 'CANNON') > 0;\n\n $chooser = $cannon ? $seaPlayer : $victim;\n\n $fishRefs = FaBSEAFishChoices($seaPlayer, $victim, $cannon);\n\n if ($fishRefs !== '') {\n\n $chosen = await $chooser.MZChoose($fishRefs, \"Go_Fish_choose_and_reveal\");\n\n FaBSEAGoFish($seaPlayer, $victim, $chosen, 'king_shark_harpoon', $cannon);\n\n \n\n}\n\n \n\n}\n\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "d0daf57f7a45ca70a227ad79f9a2b685e8c8f7b0fab060f88c76022562657795"
+      }
+    ]
+  },
+  {
+    "cardId": "red_fin_harpoon_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "$supFishRepeats = FaBSUPCount($player, 'CATCH') > 0 ? 2 : 1;\n for ($supFish = 0; $supFish < $supFishRepeats; $supFish = $supFish + 1) {\n $seaPlayer = $player;\n\nif (FaBFaiHeroHit()) {\n\n $victim = intval(FaBGetState()['defender']);\n\n$cannon = FaBSEACount($seaPlayer, 'CANNON') > 0;\n\n $chooser = $cannon ? $seaPlayer : $victim;\n\n $fishRefs = FaBSEAFishChoices($seaPlayer, $victim, $cannon);\n\n if ($fishRefs !== '') {\n\n $chosen = await $chooser.MZChoose($fishRefs, \"Go_Fish_choose_and_reveal\");\n\n FaBSEAGoFish($seaPlayer, $victim, $chosen, 'red_fin_harpoon', $cannon);\n\n \n\n}\n\n \n\n}\n\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "53bd2461768b720c3554300ac4b6eca123997bcc319b7f9fd27d1dc0dfd93f63"
+      }
+    ]
+  },
+  {
+    "cardId": "yellow_fin_harpoon_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "$supFishRepeats = FaBSUPCount($player, 'CATCH') > 0 ? 2 : 1;\n for ($supFish = 0; $supFish < $supFishRepeats; $supFish = $supFish + 1) {\n $seaPlayer = $player;\n\nif (FaBFaiHeroHit()) {\n\n $victim = intval(FaBGetState()['defender']);\n\n$cannon = FaBSEACount($seaPlayer, 'CANNON') > 0;\n\n $chooser = $cannon ? $seaPlayer : $victim;\n\n $fishRefs = FaBSEAFishChoices($seaPlayer, $victim, $cannon);\n\n if ($fishRefs !== '') {\n\n $chosen = await $chooser.MZChoose($fishRefs, \"Go_Fish_choose_and_reveal\");\n\n FaBSEAGoFish($seaPlayer, $victim, $chosen, 'yellow_fin_harpoon', $cannon);\n\n \n\n}\n\n \n\n}\n\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "30430beabc132fd206852e639a46e2ef45a912254e66632a76013a26047034c0"
+      }
+    ]
+  }
+]

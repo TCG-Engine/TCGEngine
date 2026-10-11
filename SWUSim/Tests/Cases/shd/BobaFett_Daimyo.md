@@ -470,3 +470,24 @@ P1GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:0:DAMAGE:1
 P2GROUNDARENAUNIT:0:CARDID:TWI_054
 P2GROUNDARENAUNIT:0:DAMAGE:4
+
+---
+
+# Deployed_AuraBuffsACoordinateUnitBecauseCoordinateIsAKeyword
+#// SHD_008 Boba Fett (deployed) — Coordinate is a keyword even while it is INACTIVE. Only Boba and TWI_106
+#// Coruscant Guard (3 power; its one keyword is Coordinate, "+1/+0" when active) are in play: 2 friendly
+#// units, so Coordinate is OFF and the Guard's own +1 does not apply. Its 4 power is therefore Boba's +1
+#// alone — which needs Coordinate counted as a keyword. The shared keyword counter used to omit Coordinate
+#// (and Fortify). (A third friendly unit would switch Coordinate on and mask the aura entirely.)
+
+## GIVEN
+CommonSetup: bbk/bbk/{myLeader:SHD_008;myLeaderDeployed:true}
+WithP1GroundArena: TWI_106:1:0
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:TWI_106
+P1GROUNDARENAUNIT:0:POWER:4

@@ -187,7 +187,7 @@ $leaderActionForceCost = [
 // from your hand that shares a keyword with the chosen unit. It costs 1 resource less.
 function _SWUCardKeywordSet(string $cardID): array {
     $kws = [];
-    foreach (['Ambush','Bounty','Coordinate','Exploit','Grit','Hidden','Overwhelm','Piloting','Plot','Raid','Restore','Saboteur','Sentinel','Shielded','Smuggle'] as $kw) {
+    foreach (['Ambush','Bounty','Coordinate','Exploit','Grit','Hidden','Overwhelm','Piloting','Plot','Raid','Restore','Saboteur','Sentinel','Shielded','Smuggle','Support'] as $kw) {
         $reg = $GLOBALS[$kw . '_Cards'] ?? null;
         if (is_array($reg) && isset($reg[$cardID])) $kws[] = $kw;
     }
@@ -200,10 +200,9 @@ function _SWULof005SharesKeywordWithFriendly(int $player, string $cardID): bool 
     if (empty($myKw)) return false;
     foreach (GetUnitsInPlay($player) as $u) {
         if (!empty($u->removed)) continue;
-        $uKw = _SWUCardKeywordSet($u->CardID ?? '');
-        foreach (['Ambush'=>'AMBUSH','Grit'=>'GRIT','Hidden'=>'HIDDEN','Overwhelm'=>'OVERWHELM','Saboteur'=>'SABOTEUR','Sentinel'=>'SENTINEL','Shielded'=>'SHIELDED','Raid'=>'RAID','Restore'=>'RESTORE'] as $name => $kw) {
-            if (!in_array($name, $uKw, true) && _SWUUnitHasKeyword($u, $kw)) $uKw[] = $name;
-        }
+        // Printed + every CURRENT keyword (shared set, GameLogic.php) — the old 9-entry granted list ignored a
+        // granted Bounty, Coordinate, Smuggle, Exploit, Piloting, Plot and Support.
+        $uKw = array_values(array_unique(array_merge(_SWUCardKeywordSet($u->CardID ?? ''), _SWUUnitKeywordSet($u))));
         if (!empty(array_intersect($myKw, $uKw))) return true;
     }
     return false;
@@ -482,24 +481,6 @@ function _SWULaw015AfterPay(int $player, bool $paidOk): void {
 // Each defeatable token becomes a distinct OPTIONCHOOSE option decodable back to the token to defeat.
 // (Subcards and the Force token aren't zone objects, so they can't be MZCHOOSE targets — hence a menu.)
 // Field separator '~' avoids the ':' / '&' the DSL uses for args/lists; host mzIDs keep their '-'.
-function _SWULaw017TokenOptions(int $player): array {
-    global $playerID; $playerID = $player;
-    $opts = [];
-    if (PlayerHasTheForce($player)) $opts[] = 'Force';
-    $c = 0;
-    foreach (SWUUsableCreditTokenMzIDs($player) as $mz) { $opts[] = 'Credit' . $c; $c++; }
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz); if (SWUObjGone($o)) continue;
-            $ex = _CountExperienceSubcards($o); for ($k = 0; $k < $ex; $k++) $opts[] = 'Exp~' . $mz . '~' . $k;
-            $sh = _SWUCountShieldSubcards($o);  for ($k = 0; $k < $sh; $k++) $opts[] = 'Shield~' . $mz . '~' . $k;
-        }
-    }
-    foreach (['myGroundArena', 'mySpaceArena'] as $z)
-        foreach (ZoneSearch($z, ["Token Unit"]) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $opts[] = 'Unit~' . $mz; }
-    return $opts;
-}
-
 function _SWULaw017DealNToUnit(int $player, int $n): void {
     if ($n <= 0) return;
     SWUOfferUnitTarget($player, '', ['continuation'=>'DEAL_UNIT_DAMAGE','amount'=>$n,'prompt'=>"Deal_{$n}_damage_to_a_unit"]);
@@ -511,6 +492,10 @@ function _SWULaw017FinishDeployed(int $player): void {
     $n = intval(GetSWUVar("LAW017_CNT_{$player}", '0'));
     SetSWUVar("LAW017_CNT_{$player}", '0');
     _SWULaw017DealNToUnit($player, $n);
+    // Last thing the ability does: release the When-Defeated triggers its cost parked (see the
+    // SWUBeginDeferWhenDefeated call in the On Attack). Queued even when $n is 0 — declining every
+    // token still ends the ability, and a parked trigger that never flushes is lost silently.
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_017#2", 1);
 }
 
 
@@ -538,11 +523,13 @@ function _SWULaw017FinishDeployed(int $player): void {
 // (its UID is passed via the trigger extra).
 function Ash017Trigger($player, $uid): void {
     global $playerID; $playerID = intval($player);
-    if ($uid <= 0 || SWUFindMzByUID($uid) === null) return;
+    if ($uid <= 0 || ($mzGreef = SWUFindMzByUID($uid)) === null) return;
     // Checked HERE, at resolution: a second Greef trigger bagged while he was ready (two units from one
     // play, or a unit played inside another's When Played) must not offer an exhaust he can no longer pay.
     if (!_SWULeaderReadyUndeployed(intval($player), 'ASH_017')) return;
-    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Greef_to_give_that_unit_an_Advantage_token?");
+    // Name it: "that unit" is the just-played/created unit, hidden behind the prompt popup.
+    DecisionQueueController::AddDecision(intval($player), "YESNO", SWUPromptHighlightParam($mzGreef), 1,
+        tooltip: 'Exhaust Greef to give ' . SWUPromptUnitLabel($mzGreef) . ' an Advantage token?');
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_017#0|{$uid}", 1);
 }
 
@@ -560,8 +547,10 @@ function Ash017DeployedTrigger($player, $uid): void {
 // ASH_018 Grogu — triggered (play a uq unit costing 4+): if Grogu is ready, you may deploy him.
 function Ash018Trigger($player): void {
     global $playerID; $playerID = intval($player);
+    // Carry Grogu's OWN leader slot: in Twin Suns he may be the second leader (see ASH_018#0).
+    $idx = _SWULiveLeaderIndexOf(intval($player), 'ASH_018') ?? 0;
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Deploy_Grogu?");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_018#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_018#0|{$idx}", 1);
 }
 
 
@@ -572,7 +561,10 @@ function Ash005Trigger($player, $mzID): void {
     $self = GetZoneObject($mzID);
     if (SWUObjGone($self)) return;   // attacker left play → nothing to heal
     if (intval($self->Damage ?? 0) <= 0) return;            // no damage on it → no benefit, skip the offer
-    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Luke_to_heal_1_from_that_unit?");
+    // Name it: "that unit" is the unit whose attack just ended; its damage is in the label, which is
+    // exactly what decides whether healing 1 is worth exhausting Luke.
+    DecisionQueueController::AddDecision(intval($player), "YESNO", SWUPromptHighlightParam($self), 1,
+        tooltip: 'Exhaust Luke to heal 1 from ' . SWUPromptUnitLabel($self) . '?');
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_005#0|{$mzID}", 1);
 }
 
@@ -678,9 +670,13 @@ function Ash013DeployedTrigger($player, $mzID): void {
 function Ash016DeployedTrigger($player, $mzID, $baseDmg): void {
     global $playerID; $playerID = intval($player);
     if ($baseDmg <= 0) return;                                  // no base damage → nothing costs "less than 0"
-    if (!SWUHasUseAvailable(SWUGetLeader(intval($player)))) return;   // once-per-round already spent
+    if (!SWUHasUseAvailable(SWUFindLeaderByCardID(intval($player), 'ASH_016'))) return;   // once-per-round already spent
     $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID ?? '')) < $baseDmg) $targets[] = $mz;
@@ -703,7 +699,7 @@ function Ash016Trigger($player, $mzID, $baseDmg): void {
     global $playerID; $playerID = intval($player);
     if ($baseDmg <= 0) return;   // no base damage → nothing costs "less than 0"
     $any = false;
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID ?? '')) < $baseDmg) { $any = true; break 2; }
@@ -741,7 +737,7 @@ function Ash016Trigger($player, $mzID, $baseDmg): void {
 function _SWUShd006AllUnits(int $player): array {
     global $playerID; $playerID = $player;
     $out = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed)) $out[] = $mz;
@@ -825,24 +821,27 @@ function _SWUShd017HasTarget(int $player): bool {
    
 
 // ── TS26 leaders ────────────────────────────────────────────────────────────────
-// TARGET pool: mzIDs of units that are FRIENDLY RIGHT NOW and entered play this phase; optionally exclude
-// one UID. Used by TS26_02 Anakin and TS26_04 Padmé (both sides).
+// TARGET pool: mzIDs of units in play RIGHT NOW that entered play this phase; optionally exclude one UID.
+// Used by TS26_02 Anakin and TS26_04 Padmé (both sides).
+// $friendly picks the pool by the CARD'S VERB, not its noun — both cards say "friendly":
+//   true  -> SWUFriendlyUnits(): you + your Team Suns teammate. TS26_02 "give a Shield token to" one.
+//   false -> SWUControlledUnits(): you only. TS26_04 "ATTACK WITH" one — a controller-only verb; you
+//            cannot attack with a teammate's unit (see the Team Suns friendly-pool ruling, IBH_095).
+// Outside a team game the two pools are identical.
 // ⚠ Checks EVERY seat's flag, not just $player's. The flag is stamped under whoever controlled the unit
 // AT ENTRY, so a unit that entered under the OPPONENT's control and has since come across (Change of
 // Heart, No Glory) still "entered play this phase" and is a legal target now that it is friendly.
 // The mirror case needs no handling: a unit that entered under my control but is now the enemy's simply
 // is not in my arenas, so it drops out on its own.
-function _SWUEnteredThisPhaseUnits(int $player, int $excludeUID = -1): array {
+function _SWUEnteredThisPhaseUnits(int $player, int $excludeUID = -1, bool $friendly = false): array {
     global $playerID; $playerID = intval($player);
     $out = [];
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if (SWUObjGone($o)) continue;
-            $uid = intval($o->UniqueID ?? -1);
-            if ($uid === $excludeUID) continue;
-            if (_SWUUnitEnteredThisPhase($uid)) $out[] = $mz;
-        }
+    foreach (($friendly ? SWUFriendlyUnits() : SWUControlledUnits()) as $mz) {
+        $o = GetZoneObject($mz);
+        if (SWUObjGone($o)) continue;
+        $uid = intval($o->UniqueID ?? -1);
+        if ($uid === $excludeUID) continue;
+        if (_SWUUnitEnteredThisPhase($uid)) $out[] = $mz;
     }
     return $out;
 }
@@ -856,17 +855,24 @@ function _SWUUnitEnteredThisPhase(int $uid): bool {
     return false;
 }
 
-// GATE count: how many units entered play this phase UNDER $player's control — a historical tally, and
-// deliberately NOT a scan of the current board.
-// ⚠ "2 or more friendly units entered play this phase" is a fact about the past that a later defeat or
-// control change cannot undo. Counting live arena units instead broke it two ways: a 2-unit turn where
-// one entrant DIED failed the gate (so the survivor never got its Shield), and an entrant that was later
-// STOLEN stopped counting too. The flag is stamped per entry-controller and cleared at the phase
-// boundary, so tallying the flags themselves is the honest reading.
-function _SWUEnteredThisPhaseCount(int $player): int {
+// GATE count: how many FRIENDLY units entered play this phase — a historical tally, and deliberately NOT a
+// scan of the current board. Used by TS26_02 Anakin, TS26_04 Padmé and HMW_103 Disposable B1.
+// ⚠ "Friendly units entered play this phase" is a fact about the past that a later defeat or control
+// change cannot undo. Counting live arena units instead broke it two ways: a 2-unit turn where one
+// entrant DIED failed the gate (so the survivor never got its Shield), and an entrant that was later
+// STOLEN stopped counting too; B1 missed a defeated entrant the same way (game 1647080). The flag is
+// stamped per entry-controller and cleared at the phase boundary, so tallying the flags is the honest
+// reading.
+// "Friendly" spans the Team Suns TEAM, so a teammate's entrants (stamped on the teammate's seat) count;
+// SWUTeammatesOf is empty outside a team game. $excludeUID drops one unit's own entry ("ANOTHER").
+function _SWUEnteredThisPhaseCount(int $player, int $excludeUID = -1): int {
+    $exclude = 'SWU_ENTERED_PHASE_' . $excludeUID;
     $n = 0;
-    foreach (GetGlobalEffects(intval($player)) as $e) {
-        if (strpos((string)($e->CardID ?? ''), 'SWU_ENTERED_PHASE_') === 0) $n++;
+    foreach (array_merge([intval($player)], SWUTeammatesOf(intval($player))) as $seat) {
+        foreach (GetGlobalEffects($seat) as $e) {
+            $flag = (string)($e->CardID ?? '');
+            if (strpos($flag, 'SWU_ENTERED_PHASE_') === 0 && $flag !== $exclude) $n++;
+        }
     }
     return $n;
 }

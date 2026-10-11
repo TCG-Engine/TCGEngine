@@ -12,8 +12,13 @@ $customDQHandlers["TWI_223#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($o)) return;
     $o->Remove();
     SWUAddToDiscard(intval($player), $o->CardID, 'HAND'); // discard the chosen own card
-    SWUOfferDiscard($player, ['from'=>'opp', 'prompt'=>"Discard_a_card_from_the_opponent's_hand"]);
+    SWUOfferDiscardFromAnOpponent(intval($player), '_SWUOppDiscardOpts_TWI_223');   // "AN opponent": the caster picks (Twin Suns)
 };
+
+// The discard options, shared by the play and by the post-pick continuation (SWUOfferDiscardFromAnOpponent).
+function _SWUOppDiscardOpts_TWI_223(): array {
+    return ['from'=>'opp', 'prompt'=>"Discard_a_card_from_the_opponent's_hand"];
+}
 
 // When Played (event) — migrated from OnPlayEvent. ($cardID hardcoded: the played event still sits
 // in hand until block 10 and must be excluded from "discard a card from your hand".)

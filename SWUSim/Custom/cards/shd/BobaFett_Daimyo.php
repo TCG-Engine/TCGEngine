@@ -24,7 +24,10 @@ function Shd008FrontReaction($player): void
   $playerID = intval($player);
   if (!_SWULeaderReadyUndeployed(intval($player), 'SHD_008'))
     return;
-  $friendly = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter));
+  // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+  // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+  // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+  $friendly = SWUFriendlyUnits(null, AnyUnitFilter);
   if (empty($friendly))
     return;   // nothing to buff → don't bother offering the exhaust
   DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Boba_Fett_to_give_a_friendly_unit_+1/+0?");

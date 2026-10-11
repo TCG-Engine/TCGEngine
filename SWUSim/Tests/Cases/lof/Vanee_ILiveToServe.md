@@ -64,7 +64,7 @@ WithP2SpaceArenaUpgrade: 0:SOR_T01
 - P1>PlayHand:0
 
 ## EXPECT
-P1DECISIONTOOLTIP:Choose_a_unit
+P1DECISIONTOOLTIP:Defeat_an_Experience_token_on_a_friendly_unit?
 P1SELECTABLEEXACT:myGroundArena-0
 
 ---

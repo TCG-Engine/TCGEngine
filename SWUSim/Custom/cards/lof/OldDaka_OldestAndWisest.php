@@ -8,7 +8,10 @@
 $whenPlayedAbilities["LOF_036:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $targets = [];
-    foreach (SWUAllUnits('my') as $mz) {
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    foreach (SWUFriendlyUnits() as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o) || ($o->CardID ?? '') === 'LOF_036') continue;
         if (HasTrait($o->CardID ?? '', 'Night')) $targets[] = $mz;
@@ -24,7 +27,10 @@ $customDQHandlers["LOF_036#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($o)) return;
     $cardID = $o->CardID;
     SWUDefeatUnit(intval($player), $lastDecision); // → discard
-    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "Play_that_unit_from_your_discard_for_free?");
+    // Name it: the unit was defeated into the discard a line ago, so "that unit" has no on-screen referent
+    // while the prompt popup is up. Off-board, so SWUPromptCardName (no live stats to quote).
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+        tooltip: 'Play ' . SWUPromptCardName($cardID) . ' from your discard for free?');
     DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_036#1|{$cardID}", 1);
 };
 

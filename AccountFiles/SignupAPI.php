@@ -24,8 +24,8 @@
   }
 
 	// Proper username chosen
-  if (!ctype_alnum($username)) {
-    $response->error = "The username must contain only letters or numbers.";
+  if (invalidUid($username)) {
+    $response->error = UsernameRuleMessage();
     echo(json_encode($response));
     exit;
   }

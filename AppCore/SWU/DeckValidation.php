@@ -309,3 +309,44 @@ function SWUIsDeckLegal($formatId, $leader, $base, array $mainDeck, array $sideb
 function SWUCheckPremierFormat($leader, $base, array $mainDeck, array $sideboard) {
     return SWUCheckFormat('premier', $leader, $base, $mainDeck, $sideboard);
 }
+
+// ── Format detection from a deck (owner spec, 2026-09-25) ────────────────────────────────────
+//
+// The menu detects a deck's format when its link resolves, so the player does not pick a pool by
+// hand. The rule is MOST RESTRICTIVE FIRST, first legal wins:
+//
+//   twinsuns -> twinsuns-preview -> padawan -> padawan-preview
+//            -> premier -> preview -> eternal -> eternal-preview -> open
+//
+// Each preview variant sits immediately after its base, so a deck carrying IC27 cards fails the
+// base (IC27 is not in its legalSets) and lands on the preview — no separate "does it contain a
+// preview card" test is needed, the set lists already encode it. Likewise a deck of all commons
+// passes padawan on legalRarities; one with a rare does not and falls through.
+//
+// ⚠ OPEN IS THE FLOOR and matches everything, so detection NEVER fails. There is no
+//   "illegal deck" branch: a list with banned cards simply lands on Open. A link that will not
+//   PARSE is a different concern and is handled by the caller.
+//
+// teamsuns is deliberately absent: it has the same two-leader shape as twinsuns, and free-for-all
+// vs teams is a separate control the player sets. Detecting it would fight that toggle.
+function SWUDetectFormatOrder(): array {
+    return [
+        'twinsuns', 'twinsuns-preview',
+        'padawan',  'padawan-preview',
+        'premier',  'preview',
+        'eternal',  'eternal-preview',
+        'open',
+    ];
+}
+
+// $leaderID is a single CardID, or an array of two for Twin Suns.
+// Returns a format id — always, because 'open' terminates the ladder.
+function SWUDetectFormat($leaderID, $baseID, array $mainDeck, array $sideboard = []): string {
+    foreach (SWUDetectFormatOrder() as $formatId) {
+        $def = SWUGetFormat($formatId);
+        if ($def === null) continue;                       // a disabled preview window, say
+        $errors = SWUCheckFormat($formatId, $leaderID, $baseID, $mainDeck, $sideboard);
+        if (empty($errors)) return $formatId;
+    }
+    return 'open';                                          // unreachable; the ladder ends at open
+}

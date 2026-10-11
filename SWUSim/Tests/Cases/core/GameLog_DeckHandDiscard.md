@@ -179,3 +179,113 @@ P1GROUNDARENACOUNT:0
 LOGCONTAINS:dealt 2 damage to P2's base
 LOGCONTAINS:P1 drew 2 cards
 LOGCOUNT:0:drew 2 cards (
+
+---
+
+# NoBargain_TheOpponentChoosesTheirOwnDiscard
+#// SHD_244 No Bargain: "Each opponent discards a card from their hand." The OPPONENT picks the card, so the
+#// line names them: "P2 discarded X (No Bargain)". It used to read "P1's No Bargain discarded X from P2's
+#// hand", which credits the pick to P1 — the reading Garindan (above) really does have, where the caster
+#// picks. Twin Suns log review, 2026-10-03.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:3}
+P1OnlyActions: true
+WithP1Hand: SHD_244
+WithP2Hand: [SOR_095 SEC_080]
+WithP1Deck: [SOR_046 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+- P2>AnswerDecision:myHand-0
+
+## EXPECT
+P2HANDCOUNT:1
+LOGCONTAINS:P2 discarded [[SOR_095|Battlefield Marine]] ([[SHD_244|No Bargain]])
+LOGCOUNT:0:[[SHD_244|No Bargain]] discarded
+LOGCOUNT:1:discarded
+
+---
+
+# PursueTheLead_OpponentChosen_NamesTheOpponent
+#// SEC_178 Pursue the Lead: "Choose a player. That player discards a card from their hand." P1 chooses the
+#// opponent; P2 then picks their own card, through DoDiscardCard (not SWUAddToDiscard), so this pins the
+#// second discard funnel: "P2 discarded X (Pursue the Lead)".
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: SEC_178
+WithP2Hand: [SOR_095 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Opponent
+- P2>AnswerDecision:myHand-0
+
+## EXPECT
+P2HANDCOUNT:1
+LOGCONTAINS:P2 discarded [[SOR_095|Battlefield Marine]] ([[SEC_178|Pursue the Lead]])
+LOGCOUNT:0:[[SEC_178|Pursue the Lead]] discarded
+LOGCOUNT:1:discarded
+
+---
+
+# RevealIntentions_EachChooserIsNamed
+#// TS26_80 Reveal Intentions: "each player discards a card from the hand of the player to their right." Each
+#// pick is made by a player who does NOT own the card. P1 (the caster) picks from P2's hand — the caster
+#// reading, unchanged. P2 picks from P1's hand: P1 is both the OWNER and the caster, so the old line read
+#// "P1 discarded X (Reveal Intentions)" — as if P1 had chosen to throw away their own card. The chooser is
+#// named: "P2 discarded X from P1's hand (Reveal Intentions)".
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:3}
+WithActivePlayer: 1
+WithP1Hand: [TS26_80 SOR_095 SOR_046]
+WithP2Hand: [SOR_095 SOR_046]
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirHand-0
+- P2>AnswerDecision:theirHand-0
+
+## EXPECT
+P1DISCARDCOUNT:2
+P2DISCARDCOUNT:1
+LOGCONTAINS:P1's [[TS26_80|Reveal Intentions]] discarded [[SOR_095|Battlefield Marine]] from P2's hand
+LOGCONTAINS:P2 discarded [[SOR_095|Battlefield Marine]] from P1's hand ([[TS26_80|Reveal Intentions]])
+LOGCOUNT:2:discarded
+
+---
+
+# ChooserDoesNotOutliveItsPick_LaterRandomDiscardStaysTheCasters
+#// End to end: a pick by one seat, then a discard nobody chose. P2 first picks a card for SHD_244 No Bargain (a
+#// handler on P2's queue). P1 then plays SOR_190 Lothal Insurgent (the second card this phase satisfies its
+#// gate): P2 draws, then discards AT RANDOM. That line stays the caster's, never "P2 discarded X".
+#// ⚠ This does NOT guard the chooser stack's pop: Lothal's discard runs inside a handler on P1's own queue, whose
+#//   push masks a stale P2 below it (verified — it stays green with the pop removed). The stack is pinned by
+#//   SWUSim/DevTools/tests/gamelog_handler_seat_test.php, which drives CUSTOM decisions through the controller.
+#// ⚠ 8 resources: No Bargain 3 + Lothal 2 + 2 for Heroism under a Villainy leader. Short of that, Lothal is never
+#//   played; P1HANDCOUNT:1 (only No Bargain's draw left) pins that it was.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:8}
+P1OnlyActions: true
+WithP1Hand: [SHD_244 SOR_190]
+WithP2Hand: [SOR_095 SEC_080]
+WithP2Deck: SOR_046
+WithP1Deck: [SOR_046 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+- P2>AnswerDecision:myHand-0
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:1
+LOGCONTAINS:P2 discarded [[SOR_095|Battlefield Marine]] ([[SHD_244|No Bargain]])
+LOGCONTAINS:P1's [[SOR_190|Lothal Insurgent]] discarded
+LOGCONTAINS:from P2's hand (at random)
+LOGCOUNT:2:discarded

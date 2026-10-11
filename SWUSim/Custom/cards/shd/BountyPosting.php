@@ -49,6 +49,6 @@ $whenPlayedAbilities["SHD_228:0"] = function($player, $mzID = '') {
             if ($deckSize === 0) return;
             _topDeckSearchBegin(intval($player), $deckSize,
                 fn($cid) => CardType($cid) === 'Upgrade' && stripos(CardText($cid) ?? '', 'Bounty') !== false,
-                "count:1", "SHD_228#0");
+                "count:1", "SHD_228#0", 'Bounty upgrades', 'Take');
             return;
 };

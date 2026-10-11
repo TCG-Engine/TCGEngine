@@ -182,3 +182,141 @@ P1HANDCOUNT:0
 P2HANDCOUNT:1
 P1RESAVAILABLE:0
 P1NODECISION
+
+---
+
+# ThreeSeats_PlaysRex_TurnPassesOnce
+#// Bug #1109 (game 1438045, 3 seats). Dispatcher's Action plays HMW_141 Rex from hand (4 after the discount). The
+#// ACTION must end there: the turn passes to P2 exactly once. Live, P1 was handed another action (claim
+#// initiative / blast / plan). Every other section here uses P1OnlyActions, which hides TURNPLAYER.
+
+## GIVEN
+CommonSetup3P: grw/grw/grw/{myLeader:TWI_007;myResources:4}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_093:1:0
+WithP1Hand: HMW_141
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:HMW_141
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# ThreeSeats_PlaysAVanillaUnit_TurnPassesOnce
+#// Control for the Rex section: the same 3-seat Dispatcher action playing SOR_095 Battlefield Marine.
+
+## GIVEN
+CommonSetup3P: grw/grw/grw/{myLeader:TWI_007;myResources:4}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_093:1:0
+WithP1Hand: SOR_095
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# TwoSeats_PlaysRex_TurnPassesOnce
+#// The Rex case at two seats.
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:TWI_007;myResources:4}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_093:1:0
+WithP1Hand: HMW_141
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:HMW_141
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# TwoSeats_PlaysAVanillaUnit_TurnPassesOnce
+#// The vanilla control at two seats.
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:TWI_007;myResources:4}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_093:1:0
+WithP1Hand: SOR_095
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# DeferredPlay_ExploitPicker_TurnPassesOnceAfterThePick
+#// The DEFERRED close leg (bug #1109). Hailfire Tank has Exploit 2, so its play STOPS at the Exploit picker
+#// before the unit enters — the play finishes in a later request. The action must still close exactly once,
+#// after the pick: Dispatcher (idx 0) plays the Tank from hand (8 − 1 Dispatcher − 2 per exploited unit),
+#// P1 exploits the SEC_080 fodder (idx 1), the Tank enters, and the turn passes to P2 once. (7 resources: the
+#// offer prices the Tank at 8 − 1 = 7 before Exploit; the Exploit then brings the charge down to 5, leaving 2.)
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:7;handCardIds:TWI_233}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: [SOR_093:1:0 SEC_080:1:0]
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:TWI_233
+P1RESAVAILABLE:2
+TURNPLAYER:2
+NOEXTRAACTION
+
+---
+
+# PlayedUnitsOwnWhenPlayedDecision_TurnPassesOnceAfterIt
+#// The played unit raises its OWN interactive When Played (LAW_092 Two-Faced Troig: "you may have an
+#// opponent take control of this unit"). P1 declines it; the action then ends once — the turn passes to P2.
+
+## GIVEN
+CommonSetup: bbw/grw/{myResources:4;handCardIds:LAW_092}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_093:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:LAW_092
+TURNPLAYER:2
+NOEXTRAACTION

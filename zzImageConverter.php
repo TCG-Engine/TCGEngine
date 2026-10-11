@@ -80,6 +80,33 @@ function _normalizeCardCanvas($image, $definedType)
     _resizeCover($image, $targetW, $targetH);
 }
 
+// overwriteImages scoping, shared by zzCardCodeGenerator.php and zzCardI18nImageGenerator.php.
+//   ""/"0"        -> replace nothing (only missing images are downloaded)
+//   "1"/"true"    -> replace every image
+//   "HMW"         -> replace only that set's images. ONE set code (2-5 letters/digits, uppercased).
+// Anything else is an error rather than a guess: a typo must not silently replace nothing (or everything).
+// Parse once per run with ImageOverwriteSpec(), then ask ImageOverwriteRequested() per CheckImage call.
+function ImageOverwriteSpec($raw)
+{
+    $value = strtoupper(trim((string)($raw ?? '')));
+    if ($value === '' || $value === '0') return ['mode' => 'none', 'set' => null, 'error' => null];
+    if ($value === '1' || $value === 'TRUE') return ['mode' => 'all', 'set' => null, 'error' => null];
+    if (preg_match('/^[A-Z0-9]{2,5}$/', $value)) return ['mode' => 'set', 'set' => $value, 'error' => null];
+    return ['mode' => 'none', 'set' => null,
+        'error' => "overwriteImages must be 1 or a single set code such as HMW (got '" . htmlspecialchars((string)$raw, ENT_QUOTES, 'UTF-8') . "')."];
+}
+
+// A set scope matches by CardID prefix: HMW_001, HMW_001_back, token HMW_T01, and preview art mock_HMW_004.
+// Ids with no SET_ prefix (other games) only ever match mode 'all'.
+function ImageOverwriteRequested(array $spec, $cardID)
+{
+    if ($spec['mode'] === 'all') return true;
+    if ($spec['mode'] !== 'set') return false;
+    $id = (string)$cardID;
+    if (strpos($id, 'mock_') === 0) $id = substr($id, 5);
+    return strpos($id, $spec['set'] . '_') === 0;
+}
+
 // Card dimensions after resize: 450×628 (portrait) or 628×450 (landscape for Leader/Base).
 //
 // Concat crop specs (all produce 450×450 output from a 450×628 portrait card):

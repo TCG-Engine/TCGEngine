@@ -31,6 +31,23 @@ $gameName = 'bottest_' . getmypid(); $playerID = 1;
 $GLOBALS['BOT_TEST_FAILS'] = 0;
 $check = function ($ok, $msg) { echo ($ok ? 'PASS' : 'FAIL') . ": $msg\n"; if (!$ok) $GLOBALS['BOT_TEST_FAILS']++; };
 
+// ⚠ TESTS WRITE INTO THE PRODUCTION CORPUS. A botpractice fixture records to SWUSim/BotData/<gameName>
+// — the same directory the owner's real Arenabot games land in. bot_test_finish() cleans up, but a run
+// that FAILS partway or fatals never reaches it, and two such runs left `bottest_*` games sitting in a
+// real 5-game corpus, where they showed up in the analysis report as a sixth game with an unknown bot
+// style. A shutdown hook cleans up on every exit path, and it only ever removes a directory whose name
+// starts with the harness prefix, so it can never touch a real game.
+register_shutdown_function(function () {
+    $g = preg_replace('/[^A-Za-z0-9_]/', '', strval($GLOBALS['gameName'] ?? ''));
+    if ($g === '' || strpos($g, 'bottest_') !== 0) return;
+    // Relative to the chdir() this bootstrap performs above — __DIR__ is three levels deep
+    // (SWUSim/DevTools/tests/fixtures) and an off-by-one there silently cleans nothing.
+    $dir = './SWUSim/BotData/' . $g;
+    if (!is_dir($dir)) return;
+    array_map('unlink', glob($dir . '/*') ?: []);
+    @rmdir($dir);
+});
+
 // Build and load a board (seat 1 active, action phase), then settle the pregame the way the harness does.
 $build = function (callable $setup) {
     $b = new GameStateBuilder(); CommonSetup($b, 'grw', 'brk', [], []);

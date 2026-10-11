@@ -131,12 +131,37 @@ function _SWUBotCorrectBridgeAnswers(string $type, string $param, array $actions
         // treats "spec|UPTO" as a zone and appends an index, yielding "theirSpaceArena-0|UPTO-0".)
         if (!preg_match('/^(\d+)\|(.*)\|([A-Za-z_]+)$/', $param, $m)) return $actions;
         if (!function_exists('BridgeEnumerateSplitAssignResults') || !function_exists('BridgeExpandDecisionSpecChoices')) return $actions;
-        $build = function () use ($m) {
+        // An "up to N" split (UPTO) may assign FEWER than N, but the bridge only enumerates splits of exactly N — so a
+        // point that could only be wasted (a 2nd point on a Shielded unit: one instance pops one Shield) or spent on my
+        // own unit had no way to go unassigned. With 'splitpop' (p32), also enumerate every smaller total, the full one
+        // first, all under SWU_BOT_SPLIT_MAX.
+        $totals = [intval($m[1])];
+        if ($m[3] === 'UPTO' && SWUBotFeatureOn('splitpop')) for ($t = intval($m[1]) - 1; $t >= 1; $t--) $totals[] = $t;
+        // Feature 'splitzero' (p42): an UPTO split may assign NOTHING ('-', "up to") — without it, a board with no enemy target forced
+        // the points onto my own units (JTL_009 Boba's pilot split, 127 traced). And the bridge enumerates in prompt order, MY units
+        // first, capped (200 per total, SWU_BOT_SPLIT_MAX in all): on a wide board the all-ENEMY splits were cut off ("one point on each
+        // of four 1-HP enemies" missing). So the enemy-only splits go first, for every total, then the mixed ones, then '-'.
+        $zero = $m[3] === 'UPTO' && SWUBotFeatureOn('splitzero');
+        $build = function () use ($m, $totals, $zero, $seat) {
             $choices = [];
             foreach (array_filter(explode('&', $m[2]), fn($v) => $v !== '') as $spec) {
                 foreach (BridgeExpandDecisionSpecChoices($spec) as $c) $choices[] = $c;
             }
-            return BridgeEnumerateSplitAssignResults(array_values(array_unique($choices)), intval($m[1]));
+            $choices = array_values(array_unique($choices));
+            $pools = [$choices];
+            if ($zero) {
+                $enemy = array_values(array_filter($choices, fn($c) => SWUBotIsEnemyMz($seat, strval($c))));
+                if (!empty($enemy) && count($enemy) < count($choices)) array_unshift($pools, $enemy);
+            }
+            $out = [];
+            foreach ($pools as $pool) foreach ($totals as $t) {
+                foreach ((array)BridgeEnumerateSplitAssignResults($pool, $t) as $r) {
+                    if (count($out) >= SWU_BOT_SPLIT_MAX) break 3;
+                    $out[] = $r;
+                }
+            }
+            if ($zero) $out[] = '-';
+            return array_values(array_unique($out));
         };
         $results = function_exists('BridgeWithPlayerPerspective') ? BridgeWithPlayerPerspective($seat, $build) : $build();
         return array_map(fn($r) => ['playerID' => $seat, 'mode' => 100, 'buttonInput' => '', 'cardID' => $r, 'chkInput' => [], 'inputText' => ''], (array)$results);
@@ -145,7 +170,7 @@ function _SWUBotCorrectBridgeAnswers(string $type, string $param, array $actions
     $subcards = [];
     foreach (explode('&', $param) as $spec) {
         $spec = explode(':', $spec)[0];
-        if (preg_match('/^(my|their)[A-Za-z]+-\d+\.u\d+$/', $spec)) $subcards[] = $spec;
+        if (preg_match('/^(my|their|p\d+)[A-Za-z]+-\d+\.u\d+$/', $spec)) $subcards[] = $spec;   // p{n}: 3-4 seats
     }
     if (empty($subcards)) return $actions;
     $out = []; $pass = null; $have = [];
@@ -160,6 +185,99 @@ function _SWUBotCorrectBridgeAnswers(string $type, string $param, array $actions
     }
     if ($pass !== null) $out[] = $pass;   // PASS stays last, as the bridge orders it
     return $out;
+}
+
+// "Name a card": the bridge offers only the seat's OWN titles, but nine of the ten emitters target an OPPONENT
+// (BotNameCard.php). Their titles — what they have shown, plus the meta for their leader — are appended after the
+// bridge's own titles and before the decline, so a chooser that takes the first candidate behaves exactly as before.
+function _SWUBotNameCardPool(array $actions, int $seat): array {
+    if (!function_exists('SWUBotOpponentNameCandidates')) require_once __DIR__ . '/Custom/BotNameCard.php';
+    $have = []; $decline = []; $out = [];
+    foreach ($actions as $a) {
+        $c = strval($a['cardID'] ?? '');
+        if ($c === '-') { $decline[] = $a; continue; }
+        $have[$c] = true; $out[] = $a;
+    }
+    foreach (SWUBotOpponentNameCandidates($seat) as $t) {
+        if (!isset($have[$t])) $out[] = ['playerID' => $seat, 'mode' => 100, 'buttonInput' => '', 'cardID' => $t, 'chkInput' => [], 'inputText' => ''];
+    }
+    return array_merge($out, $decline);
+}
+
+// The Param of the live entry queued right behind $seat's pending decision — its continuation ('' when none).
+function _SWUBotNextDecisionParam(int $seat): string {
+    $seenHead = false;
+    foreach (GetDecisionQueue($seat) as $entry) {
+        if ($entry === null || !empty($entry->removed)) continue;
+        if (!$seenHead) { $seenHead = true; continue; }
+        return strval($entry->Param ?? '');
+    }
+    return '';
+}
+
+// Giving a Weakness token (HMW_T02, -1/-1): owner ruling 2026-10-06 — "weakness tokens are considered 'bad' upgrades or
+// 'downgrades'. so you always want to put it on an enemy unit. only if there are no enemy units would you pass on this
+// opportunity to shrink". So when an enemy unit is offered, ONLY enemy units are legal for the bot (no friendly host, no
+// decline); with none, it declines; a MANDATORY give with only friendly hosts is left alone (refusing would stall).
+// A hard constraint here rather than a scorer preference because the scorer is not the only layer that answers: game
+// 1647080's planned-answer rule gave Hemlock's Weakness to the bot's own Anakin while the fallback scored it -1.35.
+// Recognised by the tooltip ("Give…Weakness…" — Hemlock, Torrent's "Give_N_Weakness_tokens…") or the GIVE_WEAKNESS
+// continuation behind it. Multi-picks keep only all-enemy answers.
+function _SWUBotWeaknessEnemyOnly(string $type, string $tooltip, array $actions, int $seat): array {
+    if (!in_array($type, ['MZCHOOSE', 'MZMAYCHOOSE', 'MZMULTICHOOSE'], true) || !function_exists('SWUBotIsEnemyMz')) return $actions;
+    $isGive = (bool)preg_match('/give.*weakness/i', $tooltip) || str_starts_with(_SWUBotNextDecisionParam($seat), 'GIVE_WEAKNESS');
+    if (!$isGive) return $actions;
+    $enemy = []; $decline = [];
+    foreach ($actions as $a) {
+        $c = strval($a['cardID'] ?? '');
+        if ($c === '-' || $c === 'PASS' || $c === '') { $decline[] = $a; continue; }
+        $parts = array_filter(explode('&', $c), fn($m) => $m !== '');
+        $allEnemy = !empty($parts);
+        foreach ($parts as $mz) if (!SWUBotIsEnemyMz($seat, $mz) || !str_contains($mz, 'Arena-')) { $allEnemy = false; break; }
+        if ($allEnemy) $enemy[] = $a;
+    }
+    if (!empty($enemy)) return $enemy;
+    return !empty($decline) ? $decline : $actions;
+}
+
+// The Exploit picker ("Defeat_up_to_N_units_(Exploit)", continuation EXPLOIT_RESOLVE): keep only the answers that
+// leave the play PAYABLE. An Exploit card is offered at its best-case price (CanAffordActivationReserve subtracts 2
+// per available fodder), but the fallback prices every friendly defeat as a loss, so it answered '-' and the play was
+// refused at FULL cost in ActivateCard — "Not enough ready resources (need 8)", written to the shared FlashMessage the
+// human opponent sees (Discord, Twin Suns Arenabots, 2026-10-06). A zero-pick answer skips the resolver's own abort
+// (_SWUResolveExploitPicks only probes when something was picked), so nothing downstream catches it.
+// Priced by the engine's own probe, _SWUPlayIsPayableAtDiscount, with the resolver's optimistic discount (2 per valid
+// pick up to Exploit X, +1 per Droid for SEC_122), so the filter and the resolver cannot disagree. Which payable answer
+// to take (fewest / cheapest bodies) stays with the choosers. If no answer is payable the list is left alone.
+function _SWUBotExploitPayableAnswers(array $actions, int $seat): array {
+    if (!function_exists('_SWUPlayIsPayableAtDiscount') || !function_exists('SWUExploitFodder')) return $actions;
+    $p = explode('|', _SWUBotNextDecisionParam($seat));
+    if (($p[0] ?? '') !== 'EXPLOIT_RESOLVE') return $actions;
+    $handMz = strval($p[1] ?? ''); $maxDefeats = intval($p[3] ?? 0); $playDiscount = intval($p[4] ?? 0);
+    $check = function () use ($actions, $seat, $handMz, $maxDefeats, $playDiscount) {
+        $played = GetZoneObject($handMz);
+        if ($played === null || !empty($played->removed)) return $actions;
+        $isVuutun = ($played->CardID ?? '') === 'SEC_122';
+        $fodder = array_flip(SWUExploitFodder($seat));
+        $out = [];
+        foreach ($actions as $a) {
+            $c = strval($a['cardID'] ?? '');
+            $uids = []; $droids = 0;
+            foreach (($c === '-' || $c === 'PASS') ? [] : explode('&', $c) as $mz) {
+                if ($mz === '' || !isset($fodder[$mz]) || count($uids) >= $maxDefeats) continue;
+                $o = GetZoneObject($mz);
+                if ($o === null || !empty($o->removed)) continue;
+                $uids[] = intval($o->UniqueID ?? 0);
+                if ($isVuutun && HasTrait($o->CardID ?? '', 'Droid')) $droids++;
+            }
+            if (_SWUPlayIsPayableAtDiscount($seat, $handMz, 2 * count($uids) + $droids + $playDiscount, $uids)) $out[] = $a;
+        }
+        return empty($out) ? $actions : $out;
+    };
+    if (function_exists('BridgeWithPlayerPerspective')) return BridgeWithPlayerPerspective($seat, $check);
+    global $playerID;
+    $saved = $playerID; $playerID = $seat;
+    try { return $check(); } finally { $playerID = $saved; }
 }
 
 function SWUBotLegalActions($gameName, $seat) {
@@ -177,6 +295,9 @@ function SWUBotLegalActions($gameName, $seat) {
         $legal = BridgeEnumerateLegalActionsLoaded('SWUSim', strval($gameName));
         $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
         $actions = _SWUBotCorrectBridgeAnswers(strval($legal['decisionType'] ?? ''), strval($legal['decisionParam'] ?? ''), $actions, $seat);
+        if (strval($legal['decisionType'] ?? '') === 'NAMECARD') $actions = _SWUBotNameCardPool($actions, $seat);
+        if (strval($legal['decisionType'] ?? '') === 'MZMULTICHOOSE') $actions = _SWUBotExploitPayableAnswers($actions, $seat);
+        $actions = _SWUBotWeaknessEnemyOnly(strval($legal['decisionType'] ?? ''), strval($legal['decisionTooltipRaw'] ?? ''), $actions, $seat);
         if (empty($actions)) {
             $front = null;
             foreach (GetDecisionQueue($seat) as $entry) {
@@ -237,7 +358,7 @@ function SWUBotLegalActions($gameName, $seat) {
 //    all, so $actionValue is '', which hits the switch's default (no-op) — the action would be
 //    SILENTLY SWALLOWED, never reaching ActionMap. Confirmed against SWUSim's own generated
 //    client dispatch (GeneratedUI_20260903180200.js GetZoneClickActions() returns
-//    [{"Action":"FSM","Parameters":[]}] for every zone, and Core/UILibraries20260910.js'
+//    [{"Action":"FSM","Parameters":[]}] for every zone, and Core/UILibraries20261001.js'
 //    CardClick() builds the cardID as `cardId + "!" + Action + "!" + Parameters.join(",")`) and
 //    against GrandArchiveSim/BotLegalActions.php, the sibling this file mirrors, which already
 //    does exactly this ("myHand-$i!FSM!", "myField-$i!FSM!"). Fixed below.
@@ -501,6 +622,23 @@ function SWUBotFreePlayActions($gameName, $seat) {
     if (!str_ends_with($initiativeCounter, '_CLAIMED')) {
         $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'InitiativeCounter-0!CustomInput!TakeInitiative'];
     }
+    // Twin Suns blast / plan counters — the OTHER two "take an available counter" actions. Wire form is
+    // the client's own (GameLayoutShared.php:1544/1547); handler is CustomInput's BlastCounter /
+    // PlanCounter case, which re-checks turn player, empty queues, MAIN and one-counter-per-round.
+    //
+    // ⚠ THESE ARE LOAD-BEARING FOR TERMINATION, not a feature. Pass is gated below by CR §12.6.1.a, so
+    // in Twin Suns it is NOT always legal any more — and the retry loop's guarantee used to rest
+    // entirely on Pass being unconditional. Taking a counter is always legal for a seat that has not
+    // taken one, so listing all three counters is what restores "there is always a terminating action".
+    // Remove these and a Twin Suns bot facing available counters would propose only refused actions.
+    if (SeatCountForGame() > 2 && !_SWUSeatTookCounterThisRound($seat)) {
+        if (GetBlastCounter() === 'AVAILABLE') {
+            $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'BlastCounter-0!CustomInput!TakeCounter'];
+        }
+        if (GetPlanCounter() === 'AVAILABLE') {
+            $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'PlanCounter-0!CustomInput!TakeCounter'];
+        }
+    }
 
     // ── Pass / end action ────────────────────────────────────────────────────
     // Inlined rather than gated on SWUBotEnsureBridgeLoaded(): BridgePassActionForRoot('SWUSim', …)
@@ -512,14 +650,20 @@ function SWUBotFreePlayActions($gameName, $seat) {
     // (:8, :25) — so, absent a still-open effect stack (a rare case the retry loop can still
     // absorb), Pass is genuinely legal and unconditional here, which is what guarantees
     // BotController's retry loop terminates.
-    $actions[] = [
-        'playerID'    => $seat,
-        'mode'        => 10001,
-        'buttonInput' => '',
-        'cardID'      => 'myHealth-0!CustomInput!Pass',
-        'chkInput'    => [],
-        'inputText'   => '',
-    ];
+    // ⚠ NO LONGER UNCONDITIONAL IN TWIN SUNS (CR §12.6.1.a): "players may only pass if there are no
+    // counters available to take". Offering it anyway would hand the retry loop an action the server
+    // refuses. The termination guarantee still holds — when this is false a counter IS available, and
+    // the three counter actions added above are legal for any seat that has not taken one.
+    if (!function_exists('SWUPassActionAllowed') || SWUPassActionAllowed($seat)) {
+        $actions[] = [
+            'playerID'    => $seat,
+            'mode'        => 10001,
+            'buttonInput' => '',
+            'cardID'      => 'myHealth-0!CustomInput!Pass',
+            'chkInput'    => [],
+            'inputText'   => '',
+        ];
+    }
 
     $playerID = $savedPlayerID;
 

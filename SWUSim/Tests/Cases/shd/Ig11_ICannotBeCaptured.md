@@ -251,3 +251,62 @@ P1GROUNDARENAUNIT:1:CARDID:SHD_120
 P1GROUNDARENAUNIT:1:DAMAGE:3
 P1GROUNDARENAUNIT:1:UPGRADECOUNT:0
 P1NODECISION
+
+---
+
+# ThreeSeat_CaptureReplacement_HitsEACHEnemyGroundUnit
+#// "deal 3 damage to EACH ENEMY ground unit" — the enemies of IG-11's CONTROLLER, which above two seats
+#// is more than one board. Seat 2 captures IG-11 (seat 1's), so seat 2's AND seat 3's ground units must
+#// each take 3; seat 1's own units take nothing.
+#// The replacement resolved everything in `OtherPlayer($captive->Controller)`'s frame — a single seat —
+#// so at three seats half the enemies were never touched.
+
+## GIVEN
+CommonSetup3P: rrk/ggk/ggk
+SkipPreGame: true
+WithActivePlayer: 2
+WithP2Resources: 5
+WithP1GroundArena: SHD_170:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP2Hand: SHD_120
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:p1GroundArena-0
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P3GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# FourSeat_CaptureReplacement_HitsALLTHREEEnemyBoards
+#// 4P sibling: three enemy ground boards must each take 3.
+
+## GIVEN
+CommonSetup4P: rrk/ggk/ggk/ggk
+SkipPreGame: true
+WithActivePlayer: 2
+WithP2Resources: 5
+WithP1GroundArena: SHD_170:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+WithP2Hand: SHD_120
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:p1GroundArena-0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P3GROUNDARENAUNIT:0:DAMAGE:3
+P4GROUNDARENAUNIT:0:DAMAGE:3

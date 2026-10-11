@@ -6,5 +6,5 @@
 // SEC_112 Orn Free Taa — When Played: search the top 10 of your deck for a Law card, reveal+draw it.
 $whenPlayedAbilities["SEC_112:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    DoTopDeckSearch(intval($player), 10, fn($c) => HasTrait($c, 'Law'), 1);
+    DoTopDeckSearch(intval($player), 10, fn($c) => HasTrait($c, 'Law'), 1, 'Law cards');
 };

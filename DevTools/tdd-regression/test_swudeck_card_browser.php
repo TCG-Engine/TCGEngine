@@ -63,7 +63,9 @@ $checks['preview mocks reach the dictionary']  = $expectedMocks > 0;
 $checks['token mocks are excluded from tiles'] = $expectedMocks <= count($mocks)
     && count(array_filter(array_keys($mocks), fn($k) => preg_match('/_T\d\d$/', $k) && in_array($k, $ids, true))) === 0;
 $checks['badge count matches dictionary mocks'] = substr_count($html, 'data-mock="1"') === $expectedMocks;
-$checks['mock art uses the mock_ prefix']       = strpos($html, 'concat/mock_HMW_004.webp') !== false;
+// IC27_001 (a preview leader mock). Was mock_HMW_004 until 2026-09-16, when HMW flipped to official data
+// and its mocks were retired.
+$checks['mock art uses the mock_ prefix']       = strpos($html, 'concat/mock_IC27_001.webp') !== false;
 $checks['a released card is not badged']        =
     preg_match('/data-mock="1"[^>]*data-id="SOR_033"/', $html) === 0;
 
@@ -130,7 +132,7 @@ $checks['no hardcoded folder swap in js'] =
 // (the mock_ prefix, _back suffixes) that a string match would sail past.
 $fullMismatch = [];
 $fullMissing  = [];
-foreach (['SOR_033', 'SOR_001', 'HMW_004', 'JTL_001'] as $probe) {
+foreach (['SOR_033', 'SOR_001', 'HMW_004', 'JTL_001', 'IC27_001'] as $probe) {   // IC27_001: a mock_ stem
     if (!in_array($probe, $ids, true)) { $fullMismatch[] = "$probe not in dictionary"; continue; }
     $expected = SWUCardImagePath($probe, 'card');
     if (strpos($html, 'data-full="' . htmlspecialchars($expected, ENT_QUOTES, 'UTF-8') . '"') === false) {

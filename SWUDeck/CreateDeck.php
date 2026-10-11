@@ -14,6 +14,7 @@ SWUMaintenanceRequire('SWUDeck', 'deck');
   // Include the new helper file with card identifier functions
   include_once './Custom/CardIdentifiers.php';
   include_once './Custom/DeckFormats.php';
+  include_once __DIR__ . '/../AppCore/SWU/DeckLinkImport.php';
 
   include_once '../Database/ConnectionManager.php';
   include_once '../AccountFiles/AccountDatabaseAPI.php';
@@ -67,178 +68,17 @@ SWUMaintenanceRequire('SWUDeck', 'deck');
       $errorMessage = curl_error($curl);
       curl_close($curl);
       $json = $apiDeck;
-    } else if(str_contains($deckLink, "melee.gg/Decklist")) {
-      // Use the original URL for melee.gg decklists
-      $decklinkArr = explode("/", $deckLink);
-      $assetSource = 2;
-      $assetSourceID = substr(trim($decklinkArr[count($decklinkArr) - 1]), 0, 31);
-
-      // Fetch the HTML content from melee.gg
-      $curl = curl_init();
-      curl_setopt($curl, CURLOPT_URL, $deckLink);
-      curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
-      $htmlContent = curl_exec($curl);
-      $apiInfo = curl_getinfo($curl);
-      $errorMessage = curl_error($curl);
-      curl_close($curl);
-
-      if(!empty($htmlContent)) {
-        // Create a DOM parser
-        $dom = new DOMDocument();
-        @$dom->loadHTML($htmlContent);
-        $xpath = new DOMXPath($dom);
-
-        // Create the structure that matches our expected format
-        $deckObj = new stdClass();
-
-        // Extract deck title
-        $deckTitleNodes = $xpath->query("//div[@class='decklist-title']");
-        $deckTitle = "";
-        if($deckTitleNodes->length > 0) {
-          $deckTitle = trim($deckTitleNodes->item(0)->nodeValue);
-
-          // Add metadata with the deck name
-          $deckObj->metadata = new stdClass();
-          $deckObj->metadata->name = $deckTitle;
-
-          // Parse deck name to identify leader and base
-          $deckNameParts = explode(" - ", $deckTitle);
-
-          if(count($deckNameParts) >= 2) {
-            // Create leader object - from title
-            $deckObj->leader = new stdClass();
-            $leaderName = $deckNameParts[0];
-            // Use the shared helper function
-            $leaderSetCode = FindCardSetCode($leaderName);
-            if($leaderSetCode != null) {
-              $deckObj->leader->id = $leaderSetCode;
-              $deckObj->leader->count = 1;
-            }
-
-            // Create base object - from title
-            $deckObj->base = new stdClass();
-            $baseName = $deckNameParts[1];
-            // Use the shared helper function
-            $baseSetCode = FindCardSetCode($baseName);
-            if($baseSetCode != null) {
-              $deckObj->base->id = $baseSetCode;
-              $deckObj->base->count = 1;
-            }
-          }
-        }
-
-        // Extract cards from the HTML
-        $deckObj->deck = [];
-        $deckObj->sideboard = [];
-
-        // Find all card categories
-        $categoryNodes = $xpath->query("//div[@class='decklist-category']");
-        foreach($categoryNodes as $categoryNode) {
-          // Get category title
-          $categoryTitleNodes = $xpath->query(".//div[@class='decklist-category-title']", $categoryNode);
-          $categoryTitle = "";
-          if($categoryTitleNodes->length > 0) {
-            $categoryTitle = trim($categoryTitleNodes->item(0)->nodeValue);
-          }
-
-          // Skip processing if we already have leader and base from title
-          if($categoryTitle == "Leader (1)" || $categoryTitle == "Base (1)") {
-            // If leader wasn't found in the title, try to extract it here
-            if($categoryTitle == "Leader (1)" && (!isset($deckObj->leader) || !isset($deckObj->leader->id))) {
-              $cardNodes = $xpath->query(".//div[@class='decklist-record']", $categoryNode);
-              if($cardNodes->length > 0) {
-                $cardNode = $cardNodes->item(0);
-                $nameNodes = $xpath->query(".//a[@class='decklist-record-name']", $cardNode);
-                if($nameNodes->length > 0) {
-                  $cardName = trim($nameNodes->item(0)->nodeValue);
-                  $deckObj->leader = new stdClass();
-                  // Use the shared helper function
-                  $leaderSetCode = FindCardSetCode($cardName);
-                  if($leaderSetCode != null) {
-                    $deckObj->leader->id = $leaderSetCode;
-                    $deckObj->leader->count = 1;
-                  }
-                }
-              }
-            }
-
-            // If base wasn't found in the title, try to extract it here
-            if($categoryTitle == "Base (1)" && (!isset($deckObj->base) || !isset($deckObj->base->id))) {
-              $cardNodes = $xpath->query(".//div[@class='decklist-record']", $categoryNode);
-              if($cardNodes->length > 0) {
-                $cardNode = $cardNodes->item(0);
-                $nameNodes = $xpath->query(".//a[@class='decklist-record-name']", $cardNode);
-                if($nameNodes->length > 0) {
-                  $cardName = trim($nameNodes->item(0)->nodeValue);
-                  $deckObj->base = new stdClass();
-                  // Use the shared helper function
-                  $baseSetCode = FindCardSetCode($cardName);
-                  if($baseSetCode != null) {
-                    $deckObj->base->id = $baseSetCode;
-                    $deckObj->base->count = 1;
-                  }
-                }
-              }
-            }
-            continue;
-          }
-
-          // Process cards in this category
-          $cardNodes = $xpath->query(".//div[@class='decklist-record']", $categoryNode);
-          foreach($cardNodes as $cardNode) {
-            $quantityNodes = $xpath->query(".//span[@class='decklist-record-quantity']", $cardNode);
-            $nameNodes = $xpath->query(".//a[@class='decklist-record-name']", $cardNode);
-
-            if($quantityNodes->length > 0 && $nameNodes->length > 0) {
-              $quantity = intval(trim($quantityNodes->item(0)->nodeValue));
-              $cardName = trim($nameNodes->item(0)->nodeValue);
-
-              // Find card ID - use the shared helper function
-              $cardSetCode = FindCardSetCode($cardName);
-              if($cardSetCode != null) {
-                $cardObject = new stdClass();
-                $cardObject->id = $cardSetCode;
-                $cardObject->count = $quantity;
-
-                // Add to appropriate list based on category
-                if(stripos($categoryTitle, "Sideboard") !== false) {
-                  $deckObj->sideboard[] = $cardObject;
-                } else {
-                  $deckObj->deck[] = $cardObject;
-                }
-              } else {
-                // Log cards that weren't found (for debugging)
-                error_log("Card not found: " . $cardName . " in category: " . $categoryTitle);
-              }
-            }
-          }
-        }
-
-        // Convert back to JSON string
-        $json = json_encode($deckObj);
+    } else if(SWUDeckLinkParse($deckLink) !== null) {
+      // melee.gg, swubase, protectthepod, swucardhub, swuforge, swumetastats, sw-unlimited-db —
+      // see AppCore/SWU/DeckLinkImport.php. On a failed fetch $json stays unset (no import).
+      $fetched = SWUDeckLinkFetch($deckLink);
+      if($fetched['success']) {
+        $assetSource = $fetched['source'];
+        $assetSourceID = $fetched['sourceID'];
+        $json = json_encode($fetched['deck']);
+      } else {
+        error_log("CreateDeck: deck link import failed for '" . $deckLink . "': " . $fetched['message']);
       }
-    } else if(str_contains($deckLink, "swubase.com")) {
-        $decklinkArr = explode("/", $deckLink);
-        $assetSource = 3;
-        $assetSourceID = trim($decklinkArr[count($decklinkArr) - 1]);
-
-        /**
-         * Swubase IDs are guids with 36 characters
-         *  - to fit into `assetSourceID` 32 character limit, we remove dashes (that will make it exactly 32 characters long).
-         *  - swubase API was updated to also accept IDs without dashes
-         */
-        $assetSourceID = str_replace('-', '', $assetSourceID);
-
-        $deckLink = "https://swubase.com/api/deck/" . $assetSourceID . "/json";
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $deckLink);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $apiDeck = curl_exec($curl);
-        $apiInfo = curl_getinfo($curl);
-        $errorMessage = curl_error($curl);
-        curl_close($curl);
-        $json = $apiDeck;
     } else $json = $deckLink;
     if(isset($json) && $json != "") {
       SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID, $format);//assetType 1 = Deck

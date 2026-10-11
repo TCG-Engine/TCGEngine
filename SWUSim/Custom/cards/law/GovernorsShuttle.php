@@ -36,19 +36,29 @@ if (!function_exists('_SWULaw099Ask')) {
 if (!function_exists('_SWULaw099Defeat')) {
     function _SWULaw099Defeat(int $caster, array $uids): void {
         global $playerID; $playerID = $caster;
+        // Both players' picks are defeated SIMULTANEOUSLY (see the note above), but the loop walks them one
+        // at a time, so each defeat arrives as its own single-element batch. A "when an enemy unit is
+        // defeated" observer that was itself one of the two picks (ASH_052 Chimaera, SOR_002 Iden Versio,
+        // TS26_13 Darth Sidious) is removed before its co-victim's defeat is collected and stops counting.
+        // The window judges the whole pair against the pre-effect board. See SWUSimulDefeatBegin.
+        SWUSimulDefeatBegin();
         foreach ($uids as $uid) {
             $uid = intval($uid);
             if ($uid <= 0) continue;
             $mz = SWUFindMzByUID($uid);
             if ($mz !== null) SWUDefeatUnit($caster, $mz);
         }
+        SWUSimulDefeatEnd();
     }
 }
 
 $whenPlayedAbilities["LAW_099:0"] = function($player, $mzID) {
-    _SWULaw099Ask(intval($player), SWUSeatsInPlayerOrder(intval($player)), []);
+    // Shared with TWI_238 Merciless Contest (CR v9.0 7.1.a — choose in turn, then defeat together).
+    SWUEachPlayerChoosesOwnUnitToDefeat(intval($player), false, "Choose_a_unit_you_control_to_defeat");
 };
 
+// Kept so a game saved mid-choice under the old continuation key still resolves; new plays use the shared
+// EACH_PLAYER_DEFEAT_PICK chain (CardHelpers.php).
 $customDQHandlers["LAW_099#PICK"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $caster    = intval($parts[0] ?? $player);

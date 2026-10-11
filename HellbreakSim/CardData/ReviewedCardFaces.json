@@ -7,6 +7,18 @@
     "scheme": "ordered PROWL, FORESEE, and HAUNT icons",
     "text": "Rules text only; reminder and flavor text are omitted"
   },
+  "baseCards": {
+    "DOT_245": "DOT_045",
+    "DOT_262": "DOT_062",
+    "DOT_273": "DOT_073",
+    "DOT_429": "DOT_045",
+    "DOT_433": "DOT_129",
+    "DOT_436": "DOT_169",
+    "DOT_437": "DOT_209",
+    "DOT_439": "DOT_001",
+    "DOT_440": "DOT_006",
+    "DOT_455": "DOT_167"
+  },
   "cards": {
     "DOT_001": {
       "faces": {
@@ -141,6 +153,7 @@
     "DOT_158": {"combat": 2, "health": 3, "traits": ["Human", "Criminal"], "scheme": [{"type": "PROWL", "value": 2}, {"type": "FORESEE", "value": 1}], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Revenant": 1}}, "text": "Played — You may add a minion in a crypt to its owner's hand.", "unique": false},
     "DOT_159": {"combat": 2, "health": 4, "traits": ["Human"], "scheme": [{"type": "PROWL", "value": 1}, {"type": "HAUNT", "value": 2}], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Revenant": 1}}, "text": "Played — You may choose another allied minion here. If you do, move it and this card. Jumpscare — Move an allied minion.", "unique": false},
     "DOT_160": {"combat": 2, "health": 4, "traits": ["Human"], "scheme": [{"type": "PROWL", "value": 2}, {"type": "FORESEE", "value": 1}, {"type": "HAUNT", "value": 1}], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Revenant": 1}}, "text": "When an allied Dog enters this location, you may gain 1 blood. Limit once per round. Attack or Scheme — You may move an allied Dog.", "unique": false},
+    "DOT_161": {"combat": 1, "health": 4, "traits": ["Undead", "Vampire", "Bride"], "scheme": [{"type": "HAUNT", "value": 1}], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Revenant": 1}}, "text": "This card costs 1 blood less to play for each allied Bride minion. Attack / Scheme — You may discard 1 card from the top of your deck and collect its resource icons.", "unique": true},
     "DOT_163": {"combat": 3, "health": 4, "traits": ["Demon"], "scheme": [{"type": "HAUNT", "value": 2}], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Revenant": 1}}, "text": "Action — If this card entered your crypt this phase, play it from your crypt, paying its cost.", "unique": false},
     "DOT_165": {"combat": 2, "health": 4, "traits": ["Undead", "Vampire", "Bride"], "scheme": [], "resources": {"blood": 2, "malice": 0, "draw": 0, "aspects": {"Revenant": 1}}, "text": "This card costs 1 blood less to play for each allied Bride minion. Attack — Deal up to 2 damage to a minion here.", "unique": true},
     "DOT_166": {"combat": 2, "health": 6, "traits": ["Human"], "scheme": [{"type": "PROWL", "value": 2}, {"type": "HAUNT", "value": 2}], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Revenant": 1}}, "text": "First Strike. When this card deals combat damage to a minion, you may terrify that minion.", "unique": true},
@@ -160,10 +173,7 @@
     "DOT_204": {"combat": 3, "health": 5, "traits": ["Undead", "Demon"], "scheme": [{"type": "PROWL", "value": 1}, {"type": "HAUNT", "value": 2}], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Void": 1}}, "text": "Overkill. When you take control of this location, you may deal 1 damage to a character here.", "unique": false},
     "DOT_205": {"combat": 2, "health": 7, "traits": ["Human", "Abbott"], "scheme": [{"type": "PROWL", "value": 2}, {"type": "FORESEE", "value": 1}, {"type": "HAUNT", "value": 1}], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Void": 1}}, "text": "Guardian. Stealth. This card gets +1 combat and +1 prowl for each damage on it. Jumpscare — A minion gains Guardian and Stealth this phase.", "unique": true},
     "DOT_209": {"combat": 6, "health": 6, "traits": ["Undead", "Demon", "Slasher"], "scheme": [{"type": "PROWL", "value": 6}], "resources": {"blood": 0, "malice": 0, "draw": 1, "aspects": {"Void": 1}}, "text": "First Strike. Played or Moved — Terrify any number of minions and/or Upgrades here with a total cost of 8 blood or less. Jumpscare — Pay 2 malice: Add this card to your hand.", "unique": true},
-    "DOT_245": {"combat": 6, "health": 8, "traits": ["Undead", "Vampire"], "scheme": [{"type": "PROWL", "value": 2}, {"type": "HAUNT", "value": 3}], "resources": {"blood": 0, "malice": 0, "draw": 1, "aspects": {"Cursed": 1}}, "text": "Fearsome. Played or Moved — You may kill a minion here. Jumpscare — Pay 2 malice: Add this card to your hand.", "unique": true},
-    "DOT_436": {"combat": 4, "health": 8, "traits": ["Undead", "Construct", "Bride"], "scheme": [{"type": "FORESEE", "value": 3}, {"type": "HAUNT", "value": 3}], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Revenant": 1}}, "text": "Played — Each enemy minion here gets -3 combat this phase. If this card wasn't played from your hand, each enemy minion here gets -3 health this phase. Jumpscare — Pay 2 malice: Add this card to your hand.", "unique": true},
-    "DOT_437": {"combat": 6, "health": 6, "traits": ["Undead", "Demon", "Slasher"], "scheme": [{"type": "PROWL", "value": 6}], "resources": {"blood": 0, "malice": 0, "draw": 1, "aspects": {"Void": 1}}, "text": "First Strike. Played or Moved — Terrify any number of minions and/or Upgrades here with a total cost of 8 blood or less. Jumpscare — Pay 2 malice: Add this card to your hand.", "unique": true},
-    "DOT_455": {"combat": 3, "health": 6, "traits": ["Undead", "Vampire"], "scheme": [{"type": "PROWL", "value": 2}, {"type": "HAUNT", "value": 2}], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Revenant": 1}}, "text": "Attack or Moved — You may deal 1 damage to a minion here. If it's a Human, gain 1 blood. When this card deals combat damage to a player's monster, you may take 1 blood from them.", "unique": true},
+    "DOT_167": {"combat": 3, "health": 6, "traits": ["Undead", "Vampire"], "scheme": [{"type": "PROWL", "value": 2}, {"type": "HAUNT", "value": 2}], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Revenant": 1}}, "text": "Attack or Moved — You may deal 1 damage to a minion here. If it's a Human, gain 1 blood. When this card deals combat damage to a player's monster, you may take 1 blood from them.", "unique": true},
     "DOT_047": {"traits": ["Upgrade", "Item", "Mask"], "scheme": [], "resources": {"blood": 2, "malice": 0, "draw": 0, "aspects": {"Cursed": 1}}, "text": "Attach to a character. When this card is attached to a Human, draw 1. Attached card gains Bloodlust 1.", "unique": false},
     "DOT_050": {"traits": ["Upgrade", "Item"], "scheme": [], "resources": {"blood": 2, "malice": 0, "draw": 0, "aspects": {"Cursed": 1}}, "text": "Attach to a character. It gets +1 health. If you control Dracula, this card costs 1 blood less to play.", "unique": true},
     "DOT_091": {"traits": ["Upgrade", "Item", "Weapon"], "scheme": [], "resources": {"blood": 2, "malice": 0, "draw": 0, "aspects": {"Deranged": 1}}, "text": "Attach to a character. Attached card gains: Attack — You may pay 2 malice. If you do, deal 2 damage to a minion here.", "unique": false},
@@ -202,6 +212,6 @@
     "DOT_222": {"traits": ["Tactic"], "scheme": [], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Void": 1}}, "text": "Reveal cards from the top of an opponent's deck until 2 non-minions are revealed. Deal damage to a minion equal to the number of cards revealed this way. That opponent puts those cards on the bottom of their deck in a random order.", "unique": false},
     "DOT_223": {"traits": ["Spell"], "scheme": [], "resources": {"blood": 2, "malice": 0, "draw": 0, "aspects": {"Void": 1}}, "text": "Banish a minion, then put it at a location under its owner's control and exhaust it. If it's a Demon, you may ready it.", "unique": false},
     "DOT_224": {"traits": ["Spell"], "scheme": [], "resources": {"blood": 2, "malice": 0, "draw": 0, "aspects": {"Void": 1}}, "text": "If you control a Witch, gain 2 blood or 2 malice. Search the top 9 cards of your deck for up to 2 minions with a total cost of 9 blood or less and play them each for 0 blood. Put the rest on the bottom of your deck in a random order. Ready each Demon played this way.", "unique": false},
-    "DOT_262": {"traits": ["Spell"], "scheme": [], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Cursed": 1}}, "text": "Lurking Action — Take control of a minion that costs 3 blood or less.", "unique": false}
+    "DOT_062": {"traits": ["Spell"], "scheme": [], "resources": {"blood": 1, "malice": 1, "draw": 0, "aspects": {"Cursed": 1}}, "text": "Lurking Action — Take control of a minion that costs 3 blood or less.", "unique": false}
   }
 }

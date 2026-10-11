@@ -9,6 +9,7 @@ node_modules
 .claude/skills/blast-radius/output/
 docs/superpowers/
 .superpowers/
+.impeccable/
 docs/history/
 McpServer/dist
 Lorcana
@@ -48,6 +49,13 @@ GrandArchiveSim/Matches
 */TurnController.php
 */Models
 DevTools/rl/artifacts/
+# Per-game bot decision traces. Every self-play run writes one file per game here
+# (DevTools/SWUSimBotSelfPlayTest.php -> SWUBotTracePathFor, SWUSim/BotHeuristic.php). ~60 KB/game with
+# the board snapshot, so a 2,000-game canary is ~120 MB and a 10x500 field run ~600 MB — prune with
+# SWUSim/DevTools/prune-bot-traces.sh. Pattern is */DevTools/traces/, not DevTools/traces/: a pattern
+# containing a slash is anchored to THIS file's directory, so the unanchored form would only have matched a
+# root-level DevTools/traces and left every real trace file untracked-but-visible.
+*/DevTools/traces/
 CardEditor/Assets
 # Scratch fixture dir written by Core/Match framework tests (test_match_core / test_match_flow)
 MatchTestSim/
@@ -63,6 +71,7 @@ SWUSim/crops
 SWUSim/WebpImages
 SWUSim/Games
 SWUSim/Matches
+SWUSim/BotData
 SWUSim/GeneratedCode
 SWUSim/TempImages
 SWUSim/GamestateParser.php
@@ -101,6 +110,8 @@ SharedUI/Profile.php
 SharedUI/LoginPage.php
 SharedUI/Signup.php
 SharedUI/WaitingRoom.php
+SharedUI/PrivacyPolicy.php
+SharedUI/TermsOfUse.php
 
 # --- Local dev DB snapshot tooling (kept local for now) ---
 DevTools/snapshot-prod-db.sh
@@ -144,11 +155,18 @@ AppCore/SWU/Images/TempImages
 !AppCore/SWU/Images/WebpImages/mock_*
 !AppCore/SWU/Images/concat/mock_*
 !AppCore/SWU/Images/crops/mock_*
+# Localized card art (zzCardI18nImageGenerator.php). Generated per locale, like the English corpus above.
+AppCore/SWU/Images/i18n/
 # SET_NNN migration SQL is GENERATED per box (tools/materialize-id-map.php, tools/build-rekey-sql.php)
 # and encodes one box's card dictionary and schema at one moment. Committing it guarantees someone
 # eventually applies a stale map. The generators are tracked; their output is not.
 AppCore/SWU/migrations/0*.sql
 
+# Hellbreak research scratch: third-party card art mirrored from hellbreakhub.com (~80MB) plus its
+# manifest. Reference material for reviewing card data, not app source — never ship it.
+HellbreakSim/_research/
+
 # Maintenance-mode flag (zzMaintenanceMode.php). Runtime operational state, per box — its ABSENCE
 # means "normal service", so it must never ship in a deploy and freeze a healthy site.
 */maintenance.json
+SWUDeck/SimulationConfig.local.php

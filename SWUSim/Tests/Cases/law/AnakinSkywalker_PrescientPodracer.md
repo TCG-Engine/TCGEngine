@@ -163,3 +163,49 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LAW_088
 P1HANDCOUNT:1
 P1BASEDMG:0
+
+---
+
+# ReturnADeployedLeader_DefeatedInstead_StillHeals
+#// LAW_088 — "When a friendly unit's attack ends: … you may return it to its owner's hand. If you do, heal 2."
+#// The attacker is P1's deployed LEADER unit (ground index 1 — the fixture seats it after LAW_088).
+#// The default leader SOR_016 Thrawn's unit side has "On Attack: You may reveal…" — declined first (NO). CR 3.4.6: a leader unit that would move to an out-of-play zone "is
+#// defeated instead. This is considered a replacement effect." So the leader goes back to its leader zone,
+#// exhausted (CR 3.4.5) — and CR 8.9.2: a replacement of the text before "If you do" still counts as resolved,
+#// so the base is still healed 2. (Before this the return was silently refused: leader stayed, no heal.)
+## GIVEN
+CommonSetup: byk/bgw/{myBaseDamage:2;myLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: LAW_088:1:0
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:NO
+- P1>AnswerDecision:YES
+## EXPECT
+P1LEADER:NOTDEPLOYED
+P1LEADER:EXHAUSTED
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_088
+P1HANDCOUNT:0
+P1BASEDMG:0
+
+---
+
+# ReturnATokenUnit_SetAside_StillHeals
+#// CR v9.0 3.7.3: "If a token would leave play for any reason, set it aside instead (it is still considered to have
+#// left play). This is considered a replacement effect." — and the CR's own example is THIS card: return a token
+#// unit with LAW_088 and "the token is set aside instead of being added to your hand, but you still heal 2 damage
+#// from your base." HMW_T03 (a Beast token) attacks and is returned: it is gone, nothing reaches the hand, base healed.
+## GIVEN
+CommonSetup: byk/bgw/{myBaseDamage:2}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_088:1:0 HMW_T03:1:0]
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:YES
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_088
+P1HANDCOUNT:0
+P1DISCARDCOUNT:0
+P1BASEDMG:0

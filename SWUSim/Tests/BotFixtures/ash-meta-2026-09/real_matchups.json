@@ -1,0 +1,13012 @@
+{
+ "archetypes": {
+  "admiral-piett_jtl_blue": {
+   "fieldDecks": 26,
+   "gameWinPct": 0.5512,
+   "key": "JTL_005|grp:Standard:Blue",
+   "label": "Admiral Piett (JTL) \u00b7 Blue 30HP"
+  },
+  "admiral-piett_jtl_red-splash": {
+   "fieldDecks": 26,
+   "gameWinPct": 0.5403,
+   "key": "JTL_005|grp:Splash:Red",
+   "label": "Admiral Piett (JTL) \u00b7 Red Splash"
+  },
+  "ahsoka-tano_ash_blue": {
+   "fieldDecks": 268,
+   "gameWinPct": 0.526,
+   "key": "ASH_009|grp:Standard:Blue",
+   "label": "Ahsoka Tano (ASH) \u00b7 Blue 30HP"
+  },
+  "ahsoka-tano_ash_yellow": {
+   "fieldDecks": 52,
+   "gameWinPct": 0.4941,
+   "key": "ASH_009|grp:Standard:Yellow",
+   "label": "Ahsoka Tano (ASH) \u00b7 Yellow 30HP"
+  },
+  "aurra-sing_law_data-vault": {
+   "fieldDecks": 46,
+   "gameWinPct": 0.5399,
+   "key": "LAW_004|JTL_024",
+   "label": "Aurra Sing (LAW) \u00b7 Data Vault"
+  },
+  "aurra-sing_law_red": {
+   "fieldDecks": 14,
+   "gameWinPct": 0.5236,
+   "key": "LAW_004|grp:Standard:Red",
+   "label": "Aurra Sing (LAW) \u00b7 Red 30HP"
+  },
+  "boba-fett_jtl_blue": {
+   "fieldDecks": 57,
+   "gameWinPct": 0.4886,
+   "key": "JTL_009|grp:Standard:Blue",
+   "label": "Boba Fett (JTL) \u00b7 Blue 30HP"
+  },
+  "boba-fett_jtl_lake-country": {
+   "fieldDecks": 127,
+   "gameWinPct": 0.5127,
+   "key": "JTL_009|JTL_031",
+   "label": "Boba Fett (JTL) \u00b7 Lake Country"
+  },
+  "chewbacca_law_alliance-outpost": {
+   "fieldDecks": 20,
+   "gameWinPct": 0.5265,
+   "key": "LAW_013|LAW_019",
+   "label": "Chewbacca (LAW) \u00b7 Alliance Outpost"
+  },
+  "darth-maul_lof_blue-force": {
+   "fieldDecks": 182,
+   "gameWinPct": 0.5076,
+   "key": "LOF_009|grp:Force:Blue",
+   "label": "Darth Maul (LOF) \u00b7 Blue Force"
+  },
+  "darth-vader_jtl_yellow": {
+   "fieldDecks": 193,
+   "gameWinPct": 0.4919,
+   "key": "JTL_006|grp:Standard:Yellow",
+   "label": "Darth Vader (JTL) \u00b7 Yellow 30HP"
+  },
+  "dedra-meero_sec_colossus": {
+   "fieldDecks": 109,
+   "gameWinPct": 0.5306,
+   "key": "SEC_010|JTL_021",
+   "label": "Dedra Meero (SEC) \u00b7 Colossus"
+  },
+  "director-krennic_law_blue": {
+   "fieldDecks": 315,
+   "gameWinPct": 0.5423,
+   "key": "LAW_008|grp:Standard:Blue",
+   "label": "Director Krennic (LAW) \u00b7 Blue 30HP"
+  },
+  "director-krennic_law_blue-splash": {
+   "fieldDecks": 88,
+   "gameWinPct": 0.5387,
+   "key": "LAW_008|grp:Splash:Blue",
+   "label": "Director Krennic (LAW) \u00b7 Blue Splash"
+  },
+  "ezra-bridger_ash_yellow": {
+   "fieldDecks": 47,
+   "gameWinPct": 0.4564,
+   "key": "ASH_013|grp:Standard:Yellow",
+   "label": "Ezra Bridger (ASH) \u00b7 Yellow 30HP"
+  },
+  "grand-admiral-thrawn_jtl_data-vault": {
+   "fieldDecks": 23,
+   "gameWinPct": 0.5231,
+   "key": "JTL_002|JTL_024",
+   "label": "Grand Admiral Thrawn (JTL) \u00b7 Data Vault"
+  },
+  "grand-admiral-thrawn_jtl_yellow": {
+   "fieldDecks": 46,
+   "gameWinPct": 0.461,
+   "key": "JTL_002|grp:Standard:Yellow",
+   "label": "Grand Admiral Thrawn (JTL) \u00b7 Yellow 30HP"
+  },
+  "greef-karga_ash_data-vault": {
+   "fieldDecks": 63,
+   "gameWinPct": 0.5061,
+   "key": "ASH_017|JTL_024",
+   "label": "Greef Karga (ASH) \u00b7 Data Vault"
+  },
+  "greef-karga_ash_red": {
+   "fieldDecks": 71,
+   "gameWinPct": 0.4695,
+   "key": "ASH_017|grp:Standard:Red",
+   "label": "Greef Karga (ASH) \u00b7 Red 30HP"
+  },
+  "lando-calrissian_law_blue": {
+   "fieldDecks": 107,
+   "gameWinPct": 0.5602,
+   "key": "LAW_018|grp:Standard:Blue",
+   "label": "Lando Calrissian (LAW) \u00b7 Blue 30HP"
+  },
+  "luke-skywalker_ash_data-vault": {
+   "fieldDecks": 86,
+   "gameWinPct": 0.4632,
+   "key": "ASH_005|JTL_024",
+   "label": "Luke Skywalker (ASH) \u00b7 Data Vault"
+  },
+  "luke-skywalker_jtl_data-vault": {
+   "fieldDecks": 232,
+   "gameWinPct": 0.5081,
+   "key": "JTL_012|JTL_024",
+   "label": "Luke Skywalker (JTL) \u00b7 Data Vault"
+  },
+  "mother-talzin_lof_red-force": {
+   "fieldDecks": 84,
+   "gameWinPct": 0.5156,
+   "key": "LOF_002|grp:Force:Red",
+   "label": "Mother Talzin (LOF) \u00b7 Red Force"
+  },
+  "mother-talzin_lof_yellow-force": {
+   "fieldDecks": 46,
+   "gameWinPct": 0.5202,
+   "key": "LOF_002|grp:Force:Yellow",
+   "label": "Mother Talzin (LOF) \u00b7 Yellow Force"
+  },
+  "obi--wan-kenobi_lof_vergence-temple": {
+   "fieldDecks": 23,
+   "gameWinPct": 0.5118,
+   "key": "LOF_008|LOF_019",
+   "label": "Obi-Wan Kenobi (LOF) \u00b7 Vergence Temple"
+  },
+  "the-armorer_ash_nabat-village": {
+   "fieldDecks": 18,
+   "gameWinPct": 0.438,
+   "key": "ASH_001|JTL_028",
+   "label": "The Armorer (ASH) \u00b7 Nabat Village"
+  },
+  "the-mandalorian_ash_colossus": {
+   "fieldDecks": 71,
+   "gameWinPct": 0.5423,
+   "key": "ASH_014|JTL_021",
+   "label": "The Mandalorian (ASH) \u00b7 Colossus"
+  }
+ },
+ "cells": {
+  "admiral-piett_jtl_blue": {
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.2152,
+     0.7848
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     4,
+     4,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.3345,
+     0.6411
+    ],
+    "gameWinPct": 0.4865,
+    "games": [
+     18,
+     19,
+     0
+    ],
+    "matchWinPct": 0.4667,
+    "matches": [
+     7,
+     8,
+     0
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.3589,
+     0.9178
+    ],
+    "gameWinPct": 0.7143,
+    "games": [
+     5,
+     2,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.0945,
+     0.9055
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     1,
+     1,
+     1
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     0,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.4782,
+     0.8136
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     18,
+     9,
+     0
+    ],
+    "matchWinPct": 0.7273,
+    "matches": [
+     8,
+     3,
+     0
+    ],
+    "thin": false
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.3862,
+     0.797
+    ],
+    "gameWinPct": 0.6111,
+    "games": [
+     11,
+     7,
+     0
+    ],
+    "matchWinPct": 0.7143,
+    "matches": [
+     5,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.2834,
+     0.6763
+    ],
+    "gameWinPct": 0.4762,
+    "games": [
+     10,
+     11,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     4,
+     4,
+     1
+    ],
+    "thin": true
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.0889,
+     0.5323
+    ],
+    "gameWinPct": 0.25,
+    "games": [
+     3,
+     9,
+     3
+    ],
+    "matchWinPct": 0.2857,
+    "matches": [
+     1,
+     4,
+     2
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.3094,
+     0.5882
+    ],
+    "gameWinPct": 0.4444,
+    "games": [
+     20,
+     25,
+     1
+    ],
+    "matchWinPct": 0.475,
+    "matches": [
+     8,
+     9,
+     3
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.1381,
+     0.6094
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     4,
+     8,
+     7
+    ],
+    "matchWinPct": 0.3571,
+    "matches": [
+     1,
+     3,
+     3
+    ],
+    "thin": true
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.4902,
+     0.9433
+    ],
+    "gameWinPct": 0.8,
+    "games": [
+     8,
+     2,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     4,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.3589,
+     0.9178
+    ],
+    "gameWinPct": 0.7143,
+    "games": [
+     5,
+     2,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.2025,
+     0.5548
+    ],
+    "gameWinPct": 0.36,
+    "games": [
+     9,
+     16,
+     0
+    ],
+    "matchWinPct": 0.3636,
+    "matches": [
+     4,
+     7,
+     0
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.552,
+     0.953
+    ],
+    "gameWinPct": 0.8333,
+    "games": [
+     10,
+     2,
+     1
+    ],
+    "matchWinPct": 0.8333,
+    "matches": [
+     4,
+     0,
+     2
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.7302,
+     0.9895
+    ],
+    "gameWinPct": 0.9412,
+    "games": [
+     16,
+     1,
+     3
+    ],
+    "matchWinPct": 0.9444,
+    "matches": [
+     8,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.3127,
+     0.8318
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     6,
+     4,
+     0
+    ],
+    "matchWinPct": 0.6,
+    "matches": [
+     3,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.0456,
+     0.6994
+    ],
+    "gameWinPct": 0.25,
+    "games": [
+     1,
+     3,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     0,
+     1,
+     1
+    ],
+    "thin": true
+   }
+  },
+  "admiral-piett_jtl_red-splash": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.2152,
+     0.7848
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     4,
+     4,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.2244,
+     0.4785
+    ],
+    "gameWinPct": 0.34,
+    "games": [
+     17,
+     33,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     7,
+     14,
+     0
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.3755,
+     0.9638
+    ],
+    "gameWinPct": 0.8,
+    "games": [
+     4,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     2,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.15,
+     0.85
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     2,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.3862,
+     0.797
+    ],
+    "gameWinPct": 0.6111,
+    "games": [
+     11,
+     7,
+     0
+    ],
+    "matchWinPct": 0.7143,
+    "matches": [
+     5,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.3707,
+     0.7333
+    ],
+    "gameWinPct": 0.56,
+    "games": [
+     14,
+     11,
+     0
+    ],
+    "matchWinPct": 0.5455,
+    "matches": [
+     6,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.3003,
+     0.665
+    ],
+    "gameWinPct": 0.48,
+    "games": [
+     12,
+     13,
+     0
+    ],
+    "matchWinPct": 0.4545,
+    "matches": [
+     5,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.4329,
+     0.8188
+    ],
+    "gameWinPct": 0.65,
+    "games": [
+     13,
+     7,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     6,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.3794,
+     0.6625
+    ],
+    "gameWinPct": 0.5227,
+    "games": [
+     23,
+     21,
+     0
+    ],
+    "matchWinPct": 0.4722,
+    "matches": [
+     8,
+     9,
+     1
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.2138,
+     0.6741
+    ],
+    "gameWinPct": 0.4286,
+    "games": [
+     6,
+     8,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     3,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.4869,
+     0.9743
+    ],
+    "gameWinPct": 0.8571,
+    "games": [
+     6,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     3,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.3,
+     0.9032
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     4,
+     2,
+     3
+    ],
+    "matchWinPct": 0.8333,
+    "matches": [
+     2,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.2138,
+     0.6741
+    ],
+    "gameWinPct": 0.4286,
+    "games": [
+     6,
+     8,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     3,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.4093,
+     0.9285
+    ],
+    "gameWinPct": 0.75,
+    "games": [
+     6,
+     2,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     3,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.3655,
+     0.7553
+    ],
+    "gameWinPct": 0.5714,
+    "games": [
+     12,
+     9,
+     0
+    ],
+    "matchWinPct": 0.625,
+    "matches": [
+     5,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.5341,
+     0.839
+    ],
+    "gameWinPct": 0.7097,
+    "games": [
+     22,
+     9,
+     3
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     10,
+     3,
+     1
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.2666,
+     0.8112
+    ],
+    "gameWinPct": 0.5556,
+    "games": [
+     5,
+     4,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.15,
+     0.85
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     2,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.0362,
+     0.6245
+    ],
+    "gameWinPct": 0.2,
+    "games": [
+     1,
+     4,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.2914,
+     0.7679
+    ],
+    "gameWinPct": 0.5385,
+    "games": [
+     7,
+     6,
+     0
+    ],
+    "matchWinPct": 0.6,
+    "matches": [
+     3,
+     2,
+     0
+    ],
+    "thin": true
+   }
+  },
+  "ahsoka-tano_ash_blue": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.3589,
+     0.6655
+    ],
+    "gameWinPct": 0.5135,
+    "games": [
+     19,
+     18,
+     0
+    ],
+    "matchWinPct": 0.5333,
+    "matches": [
+     8,
+     7,
+     0
+    ],
+    "thin": false
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.5215,
+     0.7756
+    ],
+    "gameWinPct": 0.66,
+    "games": [
+     33,
+     17,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     14,
+     7,
+     0
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.4869,
+     0.7034
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     45,
+     30,
+     9
+    ],
+    "matchWinPct": 0.6618,
+    "matches": [
+     21,
+     10,
+     3
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.3033,
+     0.5584
+    ],
+    "gameWinPct": 0.4259,
+    "games": [
+     23,
+     31,
+     0
+    ],
+    "matchWinPct": 0.3636,
+    "matches": [
+     7,
+     13,
+     2
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.3601,
+     0.7839
+    ],
+    "gameWinPct": 0.5882,
+    "games": [
+     10,
+     7,
+     0
+    ],
+    "matchWinPct": 0.5714,
+    "matches": [
+     4,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.6496,
+     0.8448
+    ],
+    "gameWinPct": 0.7606,
+    "games": [
+     54,
+     17,
+     3
+    ],
+    "matchWinPct": 0.7969,
+    "matches": [
+     25,
+     6,
+     1
+    ],
+    "thin": false
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.5172,
+     0.6576
+    ],
+    "gameWinPct": 0.5892,
+    "games": [
+     109,
+     76,
+     3
+    ],
+    "matchWinPct": 0.5987,
+    "matches": [
+     45,
+     30,
+     1
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.3263,
+     0.6737
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     14,
+     14,
+     3
+    ],
+    "matchWinPct": 0.4231,
+    "matches": [
+     5,
+     7,
+     1
+    ],
+    "thin": false
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.316,
+     0.444
+    ],
+    "gameWinPct": 0.3779,
+    "games": [
+     82,
+     135,
+     9
+    ],
+    "matchWinPct": 0.3211,
+    "matches": [
+     29,
+     63,
+     3
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.4764,
+     0.6018
+    ],
+    "gameWinPct": 0.5397,
+    "games": [
+     129,
+     110,
+     3
+    ],
+    "matchWinPct": 0.5928,
+    "matches": [
+     57,
+     39,
+     1
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.4331,
+     0.6057
+    ],
+    "gameWinPct": 0.52,
+    "games": [
+     65,
+     60,
+     14
+    ],
+    "matchWinPct": 0.5339,
+    "matches": [
+     28,
+     24,
+     7
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.391,
+     0.4857
+    ],
+    "gameWinPct": 0.4378,
+    "games": [
+     183,
+     235,
+     18
+    ],
+    "matchWinPct": 0.4139,
+    "matches": [
+     71,
+     102,
+     7
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.3765,
+     0.5514
+    ],
+    "gameWinPct": 0.4628,
+    "games": [
+     56,
+     65,
+     12
+    ],
+    "matchWinPct": 0.4352,
+    "matches": [
+     21,
+     28,
+     5
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.3447,
+     0.6167
+    ],
+    "gameWinPct": 0.4792,
+    "games": [
+     23,
+     25,
+     0
+    ],
+    "matchWinPct": 0.5263,
+    "matches": [
+     10,
+     9,
+     0
+    ],
+    "thin": false
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3799,
+     0.7016
+    ],
+    "gameWinPct": 0.5455,
+    "games": [
+     18,
+     15,
+     0
+    ],
+    "matchWinPct": 0.5385,
+    "matches": [
+     7,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.3958,
+     0.6337
+    ],
+    "gameWinPct": 0.5156,
+    "games": [
+     33,
+     31,
+     0
+    ],
+    "matchWinPct": 0.5769,
+    "matches": [
+     15,
+     11,
+     0
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.3917,
+     0.5973
+    ],
+    "gameWinPct": 0.4943,
+    "games": [
+     43,
+     44,
+     12
+    ],
+    "matchWinPct": 0.475,
+    "matches": [
+     17,
+     19,
+     4
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.4318,
+     0.6295
+    ],
+    "gameWinPct": 0.5319,
+    "games": [
+     50,
+     44,
+     6
+    ],
+    "matchWinPct": 0.5641,
+    "matches": [
+     21,
+     16,
+     2
+    ],
+    "thin": false
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.3233,
+     0.4791
+    ],
+    "gameWinPct": 0.3986,
+    "games": [
+     59,
+     89,
+     7
+    ],
+    "matchWinPct": 0.3387,
+    "matches": [
+     19,
+     39,
+     4
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.4882,
+     0.6804
+    ],
+    "gameWinPct": 0.5876,
+    "games": [
+     57,
+     40,
+     7
+    ],
+    "matchWinPct": 0.6047,
+    "matches": [
+     24,
+     15,
+     4
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.5269,
+     0.6347
+    ],
+    "gameWinPct": 0.5818,
+    "games": [
+     185,
+     133,
+     15
+    ],
+    "matchWinPct": 0.6259,
+    "matches": [
+     82,
+     48,
+     5
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.267,
+     0.4385
+    ],
+    "gameWinPct": 0.3478,
+    "games": [
+     40,
+     75,
+     6
+    ],
+    "matchWinPct": 0.3163,
+    "matches": [
+     14,
+     32,
+     3
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.2667,
+     0.4975
+    ],
+    "gameWinPct": 0.375,
+    "games": [
+     24,
+     40,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     9,
+     18,
+     0
+    ],
+    "thin": false
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.4423,
+     0.7847
+    ],
+    "gameWinPct": 0.6296,
+    "games": [
+     17,
+     10,
+     0
+    ],
+    "matchWinPct": 0.7273,
+    "matches": [
+     8,
+     3,
+     0
+    ],
+    "thin": false
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.3096,
+     0.7384
+    ],
+    "gameWinPct": 0.5294,
+    "games": [
+     9,
+     8,
+     0
+    ],
+    "matchWinPct": 0.5714,
+    "matches": [
+     4,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.5923,
+     0.7894
+    ],
+    "gameWinPct": 0.7,
+    "games": [
+     56,
+     24,
+     6
+    ],
+    "matchWinPct": 0.7714,
+    "matches": [
+     26,
+     7,
+     2
+    ],
+    "thin": false
+   }
+  },
+  "ahsoka-tano_ash_yellow": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.0362,
+     0.6245
+    ],
+    "gameWinPct": 0.2,
+    "games": [
+     1,
+     4,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.2966,
+     0.5131
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     30,
+     45,
+     9
+    ],
+    "matchWinPct": 0.3382,
+    "matches": [
+     10,
+     21,
+     3
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.0968,
+     0.7
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     2,
+     4,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.5004,
+     0.8619
+    ],
+    "gameWinPct": 0.7143,
+    "games": [
+     15,
+     6,
+     3
+    ],
+    "matchWinPct": 0.6818,
+    "matches": [
+     7,
+     3,
+     1
+    ],
+    "thin": false
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.3484,
+     0.6803
+    ],
+    "gameWinPct": 0.5161,
+    "games": [
+     16,
+     15,
+     3
+    ],
+    "matchWinPct": 0.6071,
+    "matches": [
+     8,
+     5,
+     1
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.4489,
+     0.8119
+    ],
+    "gameWinPct": 0.6522,
+    "games": [
+     15,
+     8,
+     0
+    ],
+    "matchWinPct": 0.6364,
+    "matches": [
+     7,
+     4,
+     0
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.2785,
+     0.5781
+    ],
+    "gameWinPct": 0.4211,
+    "games": [
+     16,
+     22,
+     3
+    ],
+    "matchWinPct": 0.3824,
+    "matches": [
+     6,
+     10,
+     1
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.2733,
+     0.6829
+    ],
+    "gameWinPct": 0.4737,
+    "games": [
+     9,
+     10,
+     1
+    ],
+    "matchWinPct": 0.4375,
+    "matches": [
+     3,
+     4,
+     1
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.3761,
+     0.5982
+    ],
+    "gameWinPct": 0.4865,
+    "games": [
+     36,
+     38,
+     3
+    ],
+    "matchWinPct": 0.4667,
+    "matches": [
+     13,
+     15,
+     2
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.3421,
+     0.7418
+    ],
+    "gameWinPct": 0.55,
+    "games": [
+     11,
+     9,
+     3
+    ],
+    "matchWinPct": 0.6111,
+    "matches": [
+     5,
+     3,
+     1
+    ],
+    "thin": true
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.2801,
+     0.7873
+    ],
+    "gameWinPct": 0.5455,
+    "games": [
+     6,
+     5,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     3,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3755,
+     0.9638
+    ],
+    "gameWinPct": 0.8,
+    "games": [
+     4,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     2,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.6226,
+     0.9838
+    ],
+    "gameWinPct": 0.9091,
+    "games": [
+     10,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     5,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.2161,
+     0.6399
+    ],
+    "gameWinPct": 0.4118,
+    "games": [
+     7,
+     10,
+     1
+    ],
+    "matchWinPct": 0.3571,
+    "matches": [
+     2,
+     4,
+     1
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.4375,
+     0.8372
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     12,
+     6,
+     0
+    ],
+    "matchWinPct": 0.7143,
+    "matches": [
+     5,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.2759,
+     0.6269
+    ],
+    "gameWinPct": 0.4444,
+    "games": [
+     12,
+     15,
+     0
+    ],
+    "matchWinPct": 0.4545,
+    "matches": [
+     5,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.2924,
+     0.6704
+    ],
+    "gameWinPct": 0.4783,
+    "games": [
+     11,
+     12,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     5,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.2447,
+     0.6117
+    ],
+    "gameWinPct": 0.4167,
+    "games": [
+     10,
+     14,
+     4
+    ],
+    "matchWinPct": 0.4545,
+    "matches": [
+     4,
+     5,
+     2
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.4375,
+     0.8372
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     12,
+     6,
+     3
+    ],
+    "matchWinPct": 0.6111,
+    "matches": [
+     5,
+     3,
+     1
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.3538,
+     0.8483
+    ],
+    "gameWinPct": 0.6364,
+    "games": [
+     7,
+     4,
+     0
+    ],
+    "matchWinPct": 0.6,
+    "matches": [
+     3,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.3,
+     0.9032
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     4,
+     2,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     2,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.0659,
+     0.4301
+    ],
+    "gameWinPct": 0.1875,
+    "games": [
+     3,
+     13,
+     0
+    ],
+    "matchWinPct": 0.0714,
+    "matches": [
+     0,
+     6,
+     1
+    ],
+    "thin": true
+   }
+  },
+  "aurra-sing_law_data-vault": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.0822,
+     0.6411
+    ],
+    "gameWinPct": 0.2857,
+    "games": [
+     2,
+     5,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.15,
+     0.85
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     2,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.4416,
+     0.6967
+    ],
+    "gameWinPct": 0.5741,
+    "games": [
+     31,
+     23,
+     0
+    ],
+    "matchWinPct": 0.6364,
+    "matches": [
+     13,
+     7,
+     2
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.3,
+     0.9032
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     4,
+     2,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.1682,
+     0.6873
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     4,
+     6,
+     1
+    ],
+    "matchWinPct": 0.375,
+    "matches": [
+     1,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.4375,
+     0.8372
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     12,
+     6,
+     0
+    ],
+    "matchWinPct": 0.6875,
+    "matches": [
+     5,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.3907,
+     0.7349
+    ],
+    "gameWinPct": 0.5714,
+    "games": [
+     16,
+     12,
+     0
+    ],
+    "matchWinPct": 0.5769,
+    "matches": [
+     7,
+     5,
+     1
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.4525,
+     0.7707
+    ],
+    "gameWinPct": 0.625,
+    "games": [
+     20,
+     12,
+     0
+    ],
+    "matchWinPct": 0.7692,
+    "matches": [
+     10,
+     3,
+     0
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.1416,
+     0.556
+    ],
+    "gameWinPct": 0.3125,
+    "games": [
+     5,
+     11,
+     1
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     4,
+     4
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.3511,
+     0.5802
+    ],
+    "gameWinPct": 0.4638,
+    "games": [
+     32,
+     37,
+     4
+    ],
+    "matchWinPct": 0.4861,
+    "matches": [
+     14,
+     15,
+     7
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.1061,
+     0.4076
+    ],
+    "gameWinPct": 0.2222,
+    "games": [
+     6,
+     21,
+     1
+    ],
+    "matchWinPct": 0.0833,
+    "matches": [
+     0,
+     10,
+     2
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.4093,
+     0.9285
+    ],
+    "gameWinPct": 0.75,
+    "games": [
+     6,
+     2,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     3,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.3127,
+     0.8318
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     6,
+     4,
+     0
+    ],
+    "matchWinPct": 0.625,
+    "matches": [
+     2,
+     1,
+     1
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.4535,
+     0.8828
+    ],
+    "gameWinPct": 0.7143,
+    "games": [
+     10,
+     4,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     5,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.2801,
+     0.7873
+    ],
+    "gameWinPct": 0.5455,
+    "games": [
+     6,
+     5,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.3589,
+     0.6655
+    ],
+    "gameWinPct": 0.5135,
+    "games": [
+     19,
+     18,
+     4
+    ],
+    "matchWinPct": 0.4737,
+    "matches": [
+     6,
+     7,
+     6
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.1982,
+     0.6425
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     6,
+     9,
+     0
+    ],
+    "matchWinPct": 0.4286,
+    "matches": [
+     3,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.4774,
+     0.7061
+    ],
+    "gameWinPct": 0.597,
+    "games": [
+     40,
+     27,
+     1
+    ],
+    "matchWinPct": 0.6379,
+    "matches": [
+     18,
+     10,
+     1
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.4805,
+     0.891
+    ],
+    "gameWinPct": 0.7333,
+    "games": [
+     11,
+     4,
+     1
+    ],
+    "matchWinPct": 0.7857,
+    "matches": [
+     5,
+     1,
+     1
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.5353,
+     0.8745
+    ],
+    "gameWinPct": 0.7391,
+    "games": [
+     17,
+     6,
+     0
+    ],
+    "matchWinPct": 0.9444,
+    "matches": [
+     8,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.3755,
+     0.9638
+    ],
+    "gameWinPct": 0.8,
+    "games": [
+     4,
+     1,
+     3
+    ],
+    "matchWinPct": 0.8333,
+    "matches": [
+     2,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.2307,
+     0.8824
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     3,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.0975,
+     0.5657
+    ],
+    "gameWinPct": 0.2727,
+    "games": [
+     3,
+     8,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     1,
+     4,
+     1
+    ],
+    "thin": true
+   }
+  },
+  "aurra-sing_law_red": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.0945,
+     0.9055
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     1,
+     1,
+     1
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     0,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.2161,
+     0.6399
+    ],
+    "gameWinPct": 0.4118,
+    "games": [
+     7,
+     10,
+     0
+    ],
+    "matchWinPct": 0.4286,
+    "matches": [
+     3,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.1888,
+     0.7334
+    ],
+    "gameWinPct": 0.4444,
+    "games": [
+     4,
+     5,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.1078,
+     0.6032
+    ],
+    "gameWinPct": 0.3,
+    "games": [
+     3,
+     7,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     1,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.3171,
+     0.7267
+    ],
+    "gameWinPct": 0.5263,
+    "games": [
+     10,
+     9,
+     0
+    ],
+    "matchWinPct": 0.5556,
+    "matches": [
+     4,
+     3,
+     2
+    ],
+    "thin": true
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.444,
+     0.8584
+    ],
+    "gameWinPct": 0.6875,
+    "games": [
+     11,
+     5,
+     0
+    ],
+    "matchWinPct": 0.8333,
+    "matches": [
+     5,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.1888,
+     0.7334
+    ],
+    "gameWinPct": 0.4444,
+    "games": [
+     4,
+     5,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.1933,
+     0.6805
+    ],
+    "gameWinPct": 0.4167,
+    "games": [
+     5,
+     7,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     2,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.3,
+     0.9032
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     4,
+     2,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.5101,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     4,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     2,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.0,
+     1.0
+    ],
+    "gameWinPct": null,
+    "games": [
+     0,
+     0,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     0,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.3,
+     0.9032
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     4,
+     2,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.1206,
+     0.6458
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     3,
+     6,
+     3
+    ],
+    "matchWinPct": 0.4,
+    "matches": [
+     1,
+     2,
+     2
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3575,
+     0.8018
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     9,
+     6,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     4,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.4093,
+     0.9285
+    ],
+    "gameWinPct": 0.75,
+    "games": [
+     6,
+     2,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     3,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.2307,
+     0.8824
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     3,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   }
+  },
+  "boba-fett_jtl_blue": {
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.1552,
+     0.3504
+    ],
+    "gameWinPct": 0.2394,
+    "games": [
+     17,
+     54,
+     3
+    ],
+    "matchWinPct": 0.2031,
+    "matches": [
+     6,
+     25,
+     1
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.1381,
+     0.4996
+    ],
+    "gameWinPct": 0.2857,
+    "games": [
+     6,
+     15,
+     3
+    ],
+    "matchWinPct": 0.3182,
+    "matches": [
+     3,
+     7,
+     1
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.3127,
+     0.8318
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     6,
+     4,
+     1
+    ],
+    "matchWinPct": 0.625,
+    "matches": [
+     2,
+     1,
+     1
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.2666,
+     0.8112
+    ],
+    "gameWinPct": 0.5556,
+    "games": [
+     5,
+     4,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.3731,
+     0.7241
+    ],
+    "gameWinPct": 0.5556,
+    "games": [
+     15,
+     12,
+     0
+    ],
+    "matchWinPct": 0.4545,
+    "matches": [
+     5,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.3402,
+     0.593
+    ],
+    "gameWinPct": 0.4643,
+    "games": [
+     26,
+     30,
+     6
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     12,
+     12,
+     2
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.2511,
+     0.5237
+    ],
+    "gameWinPct": 0.3778,
+    "games": [
+     17,
+     28,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     6,
+     12,
+     0
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.5077,
+     0.8272
+    ],
+    "gameWinPct": 0.6897,
+    "games": [
+     20,
+     9,
+     3
+    ],
+    "matchWinPct": 0.7143,
+    "matches": [
+     9,
+     3,
+     2
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.4648,
+     0.6718
+    ],
+    "gameWinPct": 0.5714,
+    "games": [
+     48,
+     36,
+     3
+    ],
+    "matchWinPct": 0.6111,
+    "matches": [
+     21,
+     13,
+     2
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.5657,
+     0.885
+    ],
+    "gameWinPct": 0.76,
+    "games": [
+     19,
+     6,
+     0
+    ],
+    "matchWinPct": 0.8636,
+    "matches": [
+     9,
+     1,
+     1
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.4805,
+     0.891
+    ],
+    "gameWinPct": 0.7333,
+    "games": [
+     11,
+     4,
+     0
+    ],
+    "matchWinPct": 0.8333,
+    "matches": [
+     5,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.3538,
+     0.8483
+    ],
+    "gameWinPct": 0.6364,
+    "games": [
+     7,
+     4,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     3,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.3259,
+     0.7862
+    ],
+    "gameWinPct": 0.5714,
+    "games": [
+     8,
+     6,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     3,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.0,
+     0.3903
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     6,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.5212,
+     0.8334
+    ],
+    "gameWinPct": 0.7,
+    "games": [
+     21,
+     9,
+     1
+    ],
+    "matchWinPct": 0.7692,
+    "matches": [
+     9,
+     2,
+     2
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.3906,
+     0.8619
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     8,
+     4,
+     0
+    ],
+    "matchWinPct": 0.6,
+    "matches": [
+     3,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3145,
+     0.5385
+    ],
+    "gameWinPct": 0.4225,
+    "games": [
+     30,
+     41,
+     0
+    ],
+    "matchWinPct": 0.4333,
+    "matches": [
+     13,
+     17,
+     0
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.3003,
+     0.665
+    ],
+    "gameWinPct": 0.48,
+    "games": [
+     12,
+     13,
+     0
+    ],
+    "matchWinPct": 0.4,
+    "matches": [
+     4,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.2456,
+     0.6628
+    ],
+    "gameWinPct": 0.4444,
+    "games": [
+     8,
+     10,
+     0
+    ],
+    "matchWinPct": 0.4286,
+    "matches": [
+     3,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.268,
+     0.732
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     7,
+     7,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     2
+    ],
+    "thin": true
+   }
+  },
+  "boba-fett_jtl_lake-country": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.1864,
+     0.5218
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     9,
+     18,
+     0
+    ],
+    "matchWinPct": 0.2727,
+    "matches": [
+     3,
+     8,
+     0
+    ],
+    "thin": false
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.203,
+     0.6138
+    ],
+    "gameWinPct": 0.3889,
+    "games": [
+     7,
+     11,
+     0
+    ],
+    "matchWinPct": 0.2857,
+    "matches": [
+     2,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.3424,
+     0.4828
+    ],
+    "gameWinPct": 0.4108,
+    "games": [
+     76,
+     109,
+     3
+    ],
+    "matchWinPct": 0.4013,
+    "matches": [
+     30,
+     45,
+     1
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.3197,
+     0.6516
+    ],
+    "gameWinPct": 0.4839,
+    "games": [
+     15,
+     16,
+     3
+    ],
+    "matchWinPct": 0.3929,
+    "matches": [
+     5,
+     8,
+     1
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.1628,
+     0.5625
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     6,
+     12,
+     0
+    ],
+    "matchWinPct": 0.3125,
+    "matches": [
+     2,
+     5,
+     1
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.3968,
+     0.8922
+    ],
+    "gameWinPct": 0.7,
+    "games": [
+     7,
+     3,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     3,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.2759,
+     0.6269
+    ],
+    "gameWinPct": 0.4444,
+    "games": [
+     12,
+     15,
+     0
+    ],
+    "matchWinPct": 0.5455,
+    "matches": [
+     6,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.1518,
+     0.5829
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     5,
+     10,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     2,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.5883,
+     0.7567
+    ],
+    "gameWinPct": 0.6783,
+    "games": [
+     78,
+     37,
+     3
+    ],
+    "matchWinPct": 0.7812,
+    "matches": [
+     37,
+     10,
+     1
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.3776,
+     0.5798
+    ],
+    "gameWinPct": 0.4778,
+    "games": [
+     43,
+     47,
+     3
+    ],
+    "matchWinPct": 0.4605,
+    "matches": [
+     17,
+     20,
+     1
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.4477,
+     0.6725
+    ],
+    "gameWinPct": 0.5634,
+    "games": [
+     40,
+     31,
+     0
+    ],
+    "matchWinPct": 0.5484,
+    "matches": [
+     17,
+     14,
+     0
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.3564,
+     0.5023
+    ],
+    "gameWinPct": 0.4277,
+    "games": [
+     74,
+     99,
+     12
+    ],
+    "matchWinPct": 0.4026,
+    "matches": [
+     29,
+     44,
+     4
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.3895,
+     0.7446
+    ],
+    "gameWinPct": 0.5769,
+    "games": [
+     15,
+     11,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     5,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.1078,
+     0.6032
+    ],
+    "gameWinPct": 0.3,
+    "games": [
+     3,
+     7,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     1,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.3087,
+     0.6355
+    ],
+    "gameWinPct": 0.4688,
+    "games": [
+     15,
+     17,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     7,
+     7,
+     0
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.4219,
+     0.7215
+    ],
+    "gameWinPct": 0.5789,
+    "games": [
+     22,
+     16,
+     0
+    ],
+    "matchWinPct": 0.6429,
+    "matches": [
+     9,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.4131,
+     0.6815
+    ],
+    "gameWinPct": 0.551,
+    "games": [
+     27,
+     22,
+     0
+    ],
+    "matchWinPct": 0.6,
+    "matches": [
+     12,
+     8,
+     0
+    ],
+    "thin": false
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.3875,
+     0.6125
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     36,
+     36,
+     6
+    ],
+    "matchWinPct": 0.5172,
+    "matches": [
+     14,
+     13,
+     2
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.4659,
+     0.7091
+    ],
+    "gameWinPct": 0.5932,
+    "games": [
+     35,
+     24,
+     0
+    ],
+    "matchWinPct": 0.5769,
+    "matches": [
+     15,
+     11,
+     0
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3169,
+     0.4723
+    ],
+    "gameWinPct": 0.3919,
+    "games": [
+     58,
+     90,
+     0
+    ],
+    "matchWinPct": 0.3417,
+    "matches": [
+     20,
+     39,
+     1
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.3139,
+     0.6557
+    ],
+    "gameWinPct": 0.4828,
+    "games": [
+     14,
+     15,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     6,
+     6,
+     1
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.2357,
+     0.5759
+    ],
+    "gameWinPct": 0.3929,
+    "games": [
+     11,
+     17,
+     6
+    ],
+    "matchWinPct": 0.4286,
+    "matches": [
+     5,
+     7,
+     2
+    ],
+    "thin": false
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.3895,
+     0.7446
+    ],
+    "gameWinPct": 0.5769,
+    "games": [
+     15,
+     11,
+     0
+    ],
+    "matchWinPct": 0.6,
+    "matches": [
+     6,
+     4,
+     0
+    ],
+    "thin": false
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.1176,
+     0.7693
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     2,
+     3,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.5338,
+     0.7879
+    ],
+    "gameWinPct": 0.6735,
+    "games": [
+     33,
+     16,
+     3
+    ],
+    "matchWinPct": 0.6818,
+    "matches": [
+     14,
+     6,
+     2
+    ],
+    "thin": false
+   }
+  },
+  "chewbacca_law_alliance-outpost": {
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.3263,
+     0.6737
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     14,
+     14,
+     3
+    ],
+    "matchWinPct": 0.5769,
+    "matches": [
+     7,
+     5,
+     1
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.4171,
+     0.8482
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     10,
+     5,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     4,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.047,
+     0.448
+    ],
+    "gameWinPct": 0.1667,
+    "games": [
+     2,
+     10,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.413,
+     0.8269
+    ],
+    "gameWinPct": 0.6471,
+    "games": [
+     11,
+     6,
+     0
+    ],
+    "matchWinPct": 0.8333,
+    "matches": [
+     5,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.4018,
+     0.6785
+    ],
+    "gameWinPct": 0.5435,
+    "games": [
+     25,
+     21,
+     0
+    ],
+    "matchWinPct": 0.5263,
+    "matches": [
+     10,
+     9,
+     0
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.3127,
+     0.8318
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     6,
+     4,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.15,
+     0.85
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     2,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.4902,
+     0.9433
+    ],
+    "gameWinPct": 0.8,
+    "games": [
+     8,
+     2,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     4,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.3552,
+     0.8229
+    ],
+    "gameWinPct": 0.6154,
+    "games": [
+     8,
+     5,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     4,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.2692,
+     0.6534
+    ],
+    "gameWinPct": 0.4545,
+    "games": [
+     10,
+     12,
+     0
+    ],
+    "matchWinPct": 0.4444,
+    "matches": [
+     4,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.1517,
+     0.6462
+    ],
+    "gameWinPct": 0.3636,
+    "games": [
+     4,
+     7,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     1,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.0822,
+     0.6411
+    ],
+    "gameWinPct": 0.2857,
+    "games": [
+     2,
+     5,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.3589,
+     0.9178
+    ],
+    "gameWinPct": 0.7143,
+    "games": [
+     5,
+     2,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   }
+  },
+  "darth-maul_lof_blue-force": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.203,
+     0.6138
+    ],
+    "gameWinPct": 0.3889,
+    "games": [
+     7,
+     11,
+     0
+    ],
+    "matchWinPct": 0.2857,
+    "matches": [
+     2,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.2667,
+     0.6293
+    ],
+    "gameWinPct": 0.44,
+    "games": [
+     11,
+     14,
+     0
+    ],
+    "matchWinPct": 0.4545,
+    "matches": [
+     5,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.556,
+     0.684
+    ],
+    "gameWinPct": 0.6221,
+    "games": [
+     135,
+     82,
+     9
+    ],
+    "matchWinPct": 0.6789,
+    "matches": [
+     63,
+     29,
+     3
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.1881,
+     0.5511
+    ],
+    "gameWinPct": 0.3478,
+    "games": [
+     8,
+     15,
+     0
+    ],
+    "matchWinPct": 0.3636,
+    "matches": [
+     4,
+     7,
+     0
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.2651,
+     0.6093
+    ],
+    "gameWinPct": 0.4286,
+    "games": [
+     12,
+     16,
+     0
+    ],
+    "matchWinPct": 0.4231,
+    "matches": [
+     5,
+     7,
+     1
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.2733,
+     0.6829
+    ],
+    "gameWinPct": 0.4737,
+    "games": [
+     9,
+     10,
+     0
+    ],
+    "matchWinPct": 0.4444,
+    "matches": [
+     3,
+     4,
+     2
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.407,
+     0.6598
+    ],
+    "gameWinPct": 0.5357,
+    "games": [
+     30,
+     26,
+     6
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     12,
+     12,
+     2
+    ],
+    "thin": false
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.2433,
+     0.4117
+    ],
+    "gameWinPct": 0.3217,
+    "games": [
+     37,
+     78,
+     3
+    ],
+    "matchWinPct": 0.2188,
+    "matches": [
+     10,
+     37,
+     1
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.552,
+     0.953
+    ],
+    "gameWinPct": 0.8333,
+    "games": [
+     10,
+     2,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     5,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.3576,
+     0.5348
+    ],
+    "gameWinPct": 0.4444,
+    "games": [
+     52,
+     65,
+     9
+    ],
+    "matchWinPct": 0.4216,
+    "matches": [
+     20,
+     28,
+     3
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.2265,
+     0.424
+    ],
+    "gameWinPct": 0.3171,
+    "games": [
+     26,
+     56,
+     1
+    ],
+    "matchWinPct": 0.3077,
+    "matches": [
+     10,
+     25,
+     4
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.4066,
+     0.5212
+    ],
+    "gameWinPct": 0.4634,
+    "games": [
+     133,
+     154,
+     15
+    ],
+    "matchWinPct": 0.4444,
+    "matches": [
+     50,
+     64,
+     12
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.3563,
+     0.5526
+    ],
+    "gameWinPct": 0.4526,
+    "games": [
+     43,
+     52,
+     4
+    ],
+    "matchWinPct": 0.4405,
+    "matches": [
+     15,
+     20,
+     7
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.5017,
+     0.7758
+    ],
+    "gameWinPct": 0.6512,
+    "games": [
+     28,
+     15,
+     0
+    ],
+    "matchWinPct": 0.7222,
+    "matches": [
+     13,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3862,
+     0.797
+    ],
+    "gameWinPct": 0.6111,
+    "games": [
+     11,
+     7,
+     0
+    ],
+    "matchWinPct": 0.5556,
+    "matches": [
+     5,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.5457,
+     0.8193
+    ],
+    "gameWinPct": 0.7,
+    "games": [
+     28,
+     12,
+     0
+    ],
+    "matchWinPct": 0.7368,
+    "matches": [
+     14,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.2769,
+     0.5559
+    ],
+    "gameWinPct": 0.4091,
+    "games": [
+     18,
+     26,
+     0
+    ],
+    "matchWinPct": 0.4118,
+    "matches": [
+     7,
+     10,
+     0
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.4423,
+     0.7063
+    ],
+    "gameWinPct": 0.58,
+    "games": [
+     29,
+     21,
+     3
+    ],
+    "matchWinPct": 0.5952,
+    "matches": [
+     12,
+     8,
+     1
+    ],
+    "thin": false
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.3746,
+     0.5563
+    ],
+    "gameWinPct": 0.4643,
+    "games": [
+     52,
+     60,
+     1
+    ],
+    "matchWinPct": 0.47,
+    "matches": [
+     22,
+     25,
+     3
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.4185,
+     0.6541
+    ],
+    "gameWinPct": 0.5385,
+    "games": [
+     35,
+     30,
+     0
+    ],
+    "matchWinPct": 0.5536,
+    "matches": [
+     14,
+     11,
+     3
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3966,
+     0.5367
+    ],
+    "gameWinPct": 0.466,
+    "games": [
+     89,
+     102,
+     9
+    ],
+    "matchWinPct": 0.4573,
+    "matches": [
+     36,
+     43,
+     3
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.314,
+     0.5514
+    ],
+    "gameWinPct": 0.4286,
+    "games": [
+     27,
+     36,
+     0
+    ],
+    "matchWinPct": 0.4259,
+    "matches": [
+     11,
+     15,
+     1
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.3983,
+     0.6929
+    ],
+    "gameWinPct": 0.55,
+    "games": [
+     22,
+     18,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     9,
+     9,
+     0
+    ],
+    "thin": false
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.413,
+     0.8269
+    ],
+    "gameWinPct": 0.6471,
+    "games": [
+     11,
+     6,
+     0
+    ],
+    "matchWinPct": 0.6429,
+    "matches": [
+     4,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.1634,
+     0.6124
+    ],
+    "gameWinPct": 0.3571,
+    "games": [
+     5,
+     9,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     2,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.1952,
+     0.4354
+    ],
+    "gameWinPct": 0.3019,
+    "games": [
+     16,
+     37,
+     7
+    ],
+    "matchWinPct": 0.2292,
+    "matches": [
+     4,
+     17,
+     3
+    ],
+    "thin": false
+   }
+  },
+  "darth-vader_jtl_yellow": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.3237,
+     0.7166
+    ],
+    "gameWinPct": 0.5238,
+    "games": [
+     11,
+     10,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     4,
+     4,
+     1
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.335,
+     0.6997
+    ],
+    "gameWinPct": 0.52,
+    "games": [
+     13,
+     12,
+     0
+    ],
+    "matchWinPct": 0.5455,
+    "matches": [
+     6,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.3982,
+     0.5236
+    ],
+    "gameWinPct": 0.4603,
+    "games": [
+     110,
+     129,
+     3
+    ],
+    "matchWinPct": 0.4072,
+    "matches": [
+     39,
+     57,
+     1
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.4219,
+     0.7215
+    ],
+    "gameWinPct": 0.5789,
+    "games": [
+     22,
+     16,
+     3
+    ],
+    "matchWinPct": 0.6176,
+    "matches": [
+     10,
+     6,
+     1
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.2293,
+     0.5475
+    ],
+    "gameWinPct": 0.375,
+    "games": [
+     12,
+     20,
+     0
+    ],
+    "matchWinPct": 0.2308,
+    "matches": [
+     3,
+     10,
+     0
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.1416,
+     0.556
+    ],
+    "gameWinPct": 0.3125,
+    "games": [
+     5,
+     11,
+     0
+    ],
+    "matchWinPct": 0.1667,
+    "matches": [
+     1,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.4763,
+     0.7489
+    ],
+    "gameWinPct": 0.6222,
+    "games": [
+     28,
+     17,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     12,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.4202,
+     0.6224
+    ],
+    "gameWinPct": 0.5222,
+    "games": [
+     47,
+     43,
+     3
+    ],
+    "matchWinPct": 0.5395,
+    "matches": [
+     20,
+     17,
+     1
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.1731,
+     0.587
+    ],
+    "gameWinPct": 0.3529,
+    "games": [
+     6,
+     11,
+     0
+    ],
+    "matchWinPct": 0.1667,
+    "matches": [
+     1,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.4652,
+     0.6424
+    ],
+    "gameWinPct": 0.5556,
+    "games": [
+     65,
+     52,
+     9
+    ],
+    "matchWinPct": 0.5784,
+    "matches": [
+     28,
+     20,
+     3
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.3796,
+     0.5605
+    ],
+    "gameWinPct": 0.469,
+    "games": [
+     53,
+     60,
+     8
+    ],
+    "matchWinPct": 0.4375,
+    "matches": [
+     19,
+     25,
+     4
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.36,
+     0.4756
+    ],
+    "gameWinPct": 0.4167,
+    "games": [
+     115,
+     161,
+     7
+    ],
+    "matchWinPct": 0.3696,
+    "matches": [
+     41,
+     71,
+     3
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.3983,
+     0.6295
+    ],
+    "gameWinPct": 0.5147,
+    "games": [
+     35,
+     33,
+     2
+    ],
+    "matchWinPct": 0.5357,
+    "matches": [
+     14,
+     12,
+     2
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.4125,
+     0.6859
+    ],
+    "gameWinPct": 0.5532,
+    "games": [
+     26,
+     21,
+     0
+    ],
+    "matchWinPct": 0.5789,
+    "matches": [
+     11,
+     8,
+     0
+    ],
+    "thin": false
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.335,
+     0.6997
+    ],
+    "gameWinPct": 0.52,
+    "games": [
+     13,
+     12,
+     0
+    ],
+    "matchWinPct": 0.4545,
+    "matches": [
+     4,
+     5,
+     2
+    ],
+    "thin": false
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.3071,
+     0.6017
+    ],
+    "gameWinPct": 0.45,
+    "games": [
+     18,
+     22,
+     0
+    ],
+    "matchWinPct": 0.4118,
+    "matches": [
+     7,
+     10,
+     0
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.3511,
+     0.5802
+    ],
+    "gameWinPct": 0.4638,
+    "games": [
+     32,
+     37,
+     0
+    ],
+    "matchWinPct": 0.4643,
+    "matches": [
+     13,
+     15,
+     0
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.3778,
+     0.5971
+    ],
+    "gameWinPct": 0.4868,
+    "games": [
+     37,
+     39,
+     0
+    ],
+    "matchWinPct": 0.4667,
+    "matches": [
+     14,
+     16,
+     0
+    ],
+    "thin": false
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.1713,
+     0.3496
+    ],
+    "gameWinPct": 0.25,
+    "games": [
+     22,
+     66,
+     12
+    ],
+    "matchWinPct": 0.1585,
+    "matches": [
+     4,
+     32,
+     5
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.4704,
+     0.676
+    ],
+    "gameWinPct": 0.5765,
+    "games": [
+     49,
+     36,
+     4
+    ],
+    "matchWinPct": 0.5676,
+    "matches": [
+     20,
+     15,
+     2
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3607,
+     0.4936
+    ],
+    "gameWinPct": 0.4258,
+    "games": [
+     89,
+     120,
+     10
+    ],
+    "matchWinPct": 0.4301,
+    "matches": [
+     38,
+     51,
+     4
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.4114,
+     0.624
+    ],
+    "gameWinPct": 0.5185,
+    "games": [
+     42,
+     39,
+     6
+    ],
+    "matchWinPct": 0.5556,
+    "matches": [
+     19,
+     15,
+     2
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.3462,
+     0.6325
+    ],
+    "gameWinPct": 0.4884,
+    "games": [
+     21,
+     22,
+     6
+    ],
+    "matchWinPct": 0.4211,
+    "matches": [
+     7,
+     10,
+     2
+    ],
+    "thin": false
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.3628,
+     0.7686
+    ],
+    "gameWinPct": 0.5789,
+    "games": [
+     11,
+     8,
+     0
+    ],
+    "matchWinPct": 0.625,
+    "matches": [
+     5,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.3,
+     0.9032
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     4,
+     2,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.2972,
+     0.5182
+    ],
+    "gameWinPct": 0.4028,
+    "games": [
+     29,
+     43,
+     9
+    ],
+    "matchWinPct": 0.3906,
+    "matches": [
+     11,
+     18,
+     3
+    ],
+    "thin": false
+   }
+  },
+  "dedra-meero_sec_colossus": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.4677,
+     0.9111
+    ],
+    "gameWinPct": 0.75,
+    "games": [
+     9,
+     3,
+     3
+    ],
+    "matchWinPct": 0.7143,
+    "matches": [
+     4,
+     1,
+     2
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.1812,
+     0.5671
+    ],
+    "gameWinPct": 0.35,
+    "games": [
+     7,
+     13,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     3,
+     6,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.3943,
+     0.5669
+    ],
+    "gameWinPct": 0.48,
+    "games": [
+     60,
+     65,
+     14
+    ],
+    "matchWinPct": 0.4661,
+    "matches": [
+     24,
+     28,
+     7
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.3171,
+     0.7267
+    ],
+    "gameWinPct": 0.5263,
+    "games": [
+     10,
+     9,
+     1
+    ],
+    "matchWinPct": 0.5625,
+    "matches": [
+     4,
+     3,
+     1
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.444,
+     0.8584
+    ],
+    "gameWinPct": 0.6875,
+    "games": [
+     11,
+     5,
+     1
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     4,
+     1,
+     4
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.1728,
+     0.4923
+    ],
+    "gameWinPct": 0.3103,
+    "games": [
+     9,
+     20,
+     3
+    ],
+    "matchWinPct": 0.2857,
+    "matches": [
+     3,
+     9,
+     2
+    ],
+    "thin": false
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.3275,
+     0.5523
+    ],
+    "gameWinPct": 0.4366,
+    "games": [
+     31,
+     40,
+     0
+    ],
+    "matchWinPct": 0.4516,
+    "matches": [
+     14,
+     17,
+     0
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.576,
+     0.7735
+    ],
+    "gameWinPct": 0.6829,
+    "games": [
+     56,
+     26,
+     1
+    ],
+    "matchWinPct": 0.6923,
+    "matches": [
+     25,
+     10,
+     4
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.4395,
+     0.6204
+    ],
+    "gameWinPct": 0.531,
+    "games": [
+     60,
+     53,
+     8
+    ],
+    "matchWinPct": 0.5625,
+    "matches": [
+     25,
+     19,
+     4
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.4294,
+     0.5911
+    ],
+    "gameWinPct": 0.5105,
+    "games": [
+     73,
+     70,
+     9
+    ],
+    "matchWinPct": 0.5347,
+    "matches": [
+     32,
+     27,
+     13
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.1915,
+     0.5896
+    ],
+    "gameWinPct": 0.3684,
+    "games": [
+     7,
+     12,
+     3
+    ],
+    "matchWinPct": 0.4091,
+    "matches": [
+     4,
+     6,
+     1
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.3681,
+     0.7437
+    ],
+    "gameWinPct": 0.5652,
+    "games": [
+     13,
+     10,
+     0
+    ],
+    "matchWinPct": 0.6,
+    "matches": [
+     6,
+     4,
+     0
+    ],
+    "thin": false
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.0362,
+     0.6245
+    ],
+    "gameWinPct": 0.2,
+    "games": [
+     1,
+     4,
+     1
+    ],
+    "matchWinPct": 0.1667,
+    "matches": [
+     0,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.1517,
+     0.6462
+    ],
+    "gameWinPct": 0.3636,
+    "games": [
+     4,
+     7,
+     1
+    ],
+    "matchWinPct": 0.4167,
+    "matches": [
+     2,
+     3,
+     1
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.2984,
+     0.6201
+    ],
+    "gameWinPct": 0.4545,
+    "games": [
+     15,
+     18,
+     3
+    ],
+    "matchWinPct": 0.4062,
+    "matches": [
+     6,
+     9,
+     1
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.3407,
+     0.6593
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     17,
+     17,
+     0
+    ],
+    "matchWinPct": 0.5385,
+    "matches": [
+     7,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.351,
+     0.6131
+    ],
+    "gameWinPct": 0.4808,
+    "games": [
+     25,
+     27,
+     4
+    ],
+    "matchWinPct": 0.4615,
+    "matches": [
+     10,
+     12,
+     4
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.2989,
+     0.5896
+    ],
+    "gameWinPct": 0.439,
+    "games": [
+     18,
+     23,
+     0
+    ],
+    "matchWinPct": 0.4737,
+    "matches": [
+     8,
+     9,
+     2
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.4493,
+     0.6165
+    ],
+    "gameWinPct": 0.5338,
+    "games": [
+     71,
+     62,
+     6
+    ],
+    "matchWinPct": 0.5526,
+    "matches": [
+     28,
+     22,
+     7
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.5383,
+     0.796
+    ],
+    "gameWinPct": 0.6809,
+    "games": [
+     32,
+     15,
+     0
+    ],
+    "matchWinPct": 0.7619,
+    "matches": [
+     16,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.3057,
+     0.8632
+    ],
+    "gameWinPct": 0.625,
+    "games": [
+     5,
+     3,
+     0
+    ],
+    "matchWinPct": 0.625,
+    "matches": [
+     2,
+     1,
+     1
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.0822,
+     0.6411
+    ],
+    "gameWinPct": 0.2857,
+    "games": [
+     2,
+     5,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.4841,
+     0.828
+    ],
+    "gameWinPct": 0.68,
+    "games": [
+     17,
+     8,
+     0
+    ],
+    "matchWinPct": 0.8889,
+    "matches": [
+     8,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.2468,
+     0.5632
+    ],
+    "gameWinPct": 0.3939,
+    "games": [
+     13,
+     20,
+     0
+    ],
+    "matchWinPct": 0.3824,
+    "matches": [
+     6,
+     10,
+     1
+    ],
+    "thin": false
+   }
+  },
+  "director-krennic_law_blue": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.4118,
+     0.6906
+    ],
+    "gameWinPct": 0.5556,
+    "games": [
+     25,
+     20,
+     1
+    ],
+    "matchWinPct": 0.525,
+    "matches": [
+     9,
+     8,
+     3
+    ],
+    "thin": false
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.3375,
+     0.6206
+    ],
+    "gameWinPct": 0.4773,
+    "games": [
+     21,
+     23,
+     0
+    ],
+    "matchWinPct": 0.5278,
+    "matches": [
+     9,
+     8,
+     1
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.5143,
+     0.609
+    ],
+    "gameWinPct": 0.5622,
+    "games": [
+     235,
+     183,
+     18
+    ],
+    "matchWinPct": 0.5861,
+    "matches": [
+     102,
+     71,
+     7
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.4018,
+     0.6239
+    ],
+    "gameWinPct": 0.5135,
+    "games": [
+     38,
+     36,
+     3
+    ],
+    "matchWinPct": 0.5333,
+    "matches": [
+     15,
+     13,
+     2
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.4198,
+     0.6489
+    ],
+    "gameWinPct": 0.5362,
+    "games": [
+     37,
+     32,
+     4
+    ],
+    "matchWinPct": 0.5139,
+    "matches": [
+     15,
+     14,
+     7
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.2666,
+     0.8112
+    ],
+    "gameWinPct": 0.5556,
+    "games": [
+     5,
+     4,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.3282,
+     0.5352
+    ],
+    "gameWinPct": 0.4286,
+    "games": [
+     36,
+     48,
+     3
+    ],
+    "matchWinPct": 0.3889,
+    "matches": [
+     13,
+     21,
+     2
+    ],
+    "thin": false
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.4977,
+     0.6436
+    ],
+    "gameWinPct": 0.5723,
+    "games": [
+     99,
+     74,
+     12
+    ],
+    "matchWinPct": 0.5974,
+    "matches": [
+     44,
+     29,
+     4
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.3215,
+     0.5982
+    ],
+    "gameWinPct": 0.4565,
+    "games": [
+     21,
+     25,
+     0
+    ],
+    "matchWinPct": 0.4737,
+    "matches": [
+     9,
+     10,
+     0
+    ],
+    "thin": false
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.4788,
+     0.5934
+    ],
+    "gameWinPct": 0.5366,
+    "games": [
+     154,
+     133,
+     15
+    ],
+    "matchWinPct": 0.5556,
+    "matches": [
+     64,
+     50,
+     12
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.5244,
+     0.64
+    ],
+    "gameWinPct": 0.5833,
+    "games": [
+     161,
+     115,
+     7
+    ],
+    "matchWinPct": 0.6304,
+    "matches": [
+     71,
+     41,
+     3
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.4089,
+     0.5706
+    ],
+    "gameWinPct": 0.4895,
+    "games": [
+     70,
+     73,
+     9
+    ],
+    "matchWinPct": 0.4653,
+    "matches": [
+     27,
+     32,
+     13
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.3295,
+     0.5023
+    ],
+    "gameWinPct": 0.4132,
+    "games": [
+     50,
+     71,
+     4
+    ],
+    "matchWinPct": 0.4182,
+    "matches": [
+     19,
+     28,
+     8
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.2807,
+     0.5188
+    ],
+    "gameWinPct": 0.3934,
+    "games": [
+     24,
+     37,
+     0
+    ],
+    "matchWinPct": 0.3846,
+    "matches": [
+     10,
+     16,
+     0
+    ],
+    "thin": false
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.392,
+     0.7262
+    ],
+    "gameWinPct": 0.5667,
+    "games": [
+     17,
+     13,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     6,
+     6,
+     3
+    ],
+    "thin": false
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.4245,
+     0.6725
+    ],
+    "gameWinPct": 0.5517,
+    "games": [
+     32,
+     26,
+     3
+    ],
+    "matchWinPct": 0.6111,
+    "matches": [
+     15,
+     9,
+     3
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.5293,
+     0.744
+    ],
+    "gameWinPct": 0.6438,
+    "games": [
+     47,
+     26,
+     0
+    ],
+    "matchWinPct": 0.7097,
+    "matches": [
+     22,
+     9,
+     0
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.4568,
+     0.6373
+    ],
+    "gameWinPct": 0.5487,
+    "games": [
+     62,
+     51,
+     6
+    ],
+    "matchWinPct": 0.5816,
+    "matches": [
+     27,
+     19,
+     3
+    ],
+    "thin": false
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.387,
+     0.5397
+    ],
+    "gameWinPct": 0.4625,
+    "games": [
+     74,
+     86,
+     14
+    ],
+    "matchWinPct": 0.4605,
+    "matches": [
+     26,
+     32,
+     18
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.5223,
+     0.6983
+    ],
+    "gameWinPct": 0.614,
+    "games": [
+     70,
+     44,
+     1
+    ],
+    "matchWinPct": 0.6429,
+    "matches": [
+     30,
+     16,
+     3
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.5213,
+     0.6267
+    ],
+    "gameWinPct": 0.5749,
+    "games": [
+     192,
+     142,
+     9
+    ],
+    "matchWinPct": 0.5935,
+    "matches": [
+     81,
+     55,
+     3
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.422,
+     0.5849
+    ],
+    "gameWinPct": 0.5035,
+    "games": [
+     71,
+     70,
+     0
+    ],
+    "matchWinPct": 0.4914,
+    "matches": [
+     26,
+     27,
+     5
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.3923,
+     0.6667
+    ],
+    "gameWinPct": 0.5319,
+    "games": [
+     25,
+     22,
+     3
+    ],
+    "matchWinPct": 0.5435,
+    "matches": [
+     11,
+     9,
+     3
+    ],
+    "thin": false
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.3895,
+     0.7446
+    ],
+    "gameWinPct": 0.5769,
+    "games": [
+     15,
+     11,
+     4
+    ],
+    "matchWinPct": 0.5833,
+    "matches": [
+     6,
+     4,
+     2
+    ],
+    "thin": false
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.1628,
+     0.5625
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     6,
+     12,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     2,
+     6,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.4135,
+     0.6058
+    ],
+    "gameWinPct": 0.51,
+    "games": [
+     51,
+     49,
+     6
+    ],
+    "matchWinPct": 0.52,
+    "matches": [
+     22,
+     20,
+     8
+    ],
+    "thin": false
+   }
+  },
+  "director-krennic_law_blue-splash": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.3906,
+     0.8619
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     8,
+     4,
+     7
+    ],
+    "matchWinPct": 0.6429,
+    "matches": [
+     3,
+     1,
+     3
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.3259,
+     0.7862
+    ],
+    "gameWinPct": 0.5714,
+    "games": [
+     8,
+     6,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     3,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.4486,
+     0.6235
+    ],
+    "gameWinPct": 0.5372,
+    "games": [
+     65,
+     56,
+     12
+    ],
+    "matchWinPct": 0.5648,
+    "matches": [
+     28,
+     21,
+     5
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.2582,
+     0.6579
+    ],
+    "gameWinPct": 0.45,
+    "games": [
+     9,
+     11,
+     3
+    ],
+    "matchWinPct": 0.3889,
+    "matches": [
+     3,
+     5,
+     1
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.5924,
+     0.8939
+    ],
+    "gameWinPct": 0.7778,
+    "games": [
+     21,
+     6,
+     1
+    ],
+    "matchWinPct": 0.9167,
+    "matches": [
+     10,
+     0,
+     2
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.3195,
+     0.8067
+    ],
+    "gameWinPct": 0.5833,
+    "games": [
+     7,
+     5,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     4,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.115,
+     0.4343
+    ],
+    "gameWinPct": 0.24,
+    "games": [
+     6,
+     19,
+     0
+    ],
+    "matchWinPct": 0.1364,
+    "matches": [
+     1,
+     9,
+     1
+    ],
+    "thin": false
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.2554,
+     0.6105
+    ],
+    "gameWinPct": 0.4231,
+    "games": [
+     11,
+     15,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     5,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.1682,
+     0.6873
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     4,
+     6,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.4474,
+     0.6437
+    ],
+    "gameWinPct": 0.5474,
+    "games": [
+     52,
+     43,
+     4
+    ],
+    "matchWinPct": 0.5595,
+    "matches": [
+     20,
+     15,
+     7
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.3705,
+     0.6017
+    ],
+    "gameWinPct": 0.4853,
+    "games": [
+     33,
+     35,
+     2
+    ],
+    "matchWinPct": 0.4643,
+    "matches": [
+     12,
+     14,
+     2
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.4104,
+     0.8085
+    ],
+    "gameWinPct": 0.6316,
+    "games": [
+     12,
+     7,
+     3
+    ],
+    "matchWinPct": 0.5909,
+    "matches": [
+     6,
+     4,
+     1
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.4977,
+     0.6705
+    ],
+    "gameWinPct": 0.5868,
+    "games": [
+     71,
+     50,
+     4
+    ],
+    "matchWinPct": 0.5818,
+    "matches": [
+     28,
+     19,
+     8
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.413,
+     0.8269
+    ],
+    "gameWinPct": 0.6471,
+    "games": [
+     11,
+     6,
+     0
+    ],
+    "matchWinPct": 0.7143,
+    "matches": [
+     5,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.2152,
+     0.7848
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     4,
+     4,
+     3
+    ],
+    "matchWinPct": 0.375,
+    "matches": [
+     1,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.3012,
+     0.7519
+    ],
+    "gameWinPct": 0.5333,
+    "games": [
+     8,
+     7,
+     0
+    ],
+    "matchWinPct": 0.4167,
+    "matches": [
+     2,
+     3,
+     1
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.2708,
+     0.5658
+    ],
+    "gameWinPct": 0.4103,
+    "games": [
+     16,
+     23,
+     0
+    ],
+    "matchWinPct": 0.3571,
+    "matches": [
+     5,
+     9,
+     0
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.2357,
+     0.5759
+    ],
+    "gameWinPct": 0.3929,
+    "games": [
+     11,
+     17,
+     0
+    ],
+    "matchWinPct": 0.2727,
+    "matches": [
+     3,
+     8,
+     0
+    ],
+    "thin": false
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.4104,
+     0.7011
+    ],
+    "gameWinPct": 0.561,
+    "games": [
+     23,
+     18,
+     1
+    ],
+    "matchWinPct": 0.6579,
+    "matches": [
+     12,
+     6,
+     1
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.4951,
+     0.7787
+    ],
+    "gameWinPct": 0.65,
+    "games": [
+     26,
+     14,
+     0
+    ],
+    "matchWinPct": 0.6389,
+    "matches": [
+     11,
+     6,
+     1
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3132,
+     0.5326
+    ],
+    "gameWinPct": 0.4189,
+    "games": [
+     31,
+     43,
+     0
+    ],
+    "matchWinPct": 0.4333,
+    "matches": [
+     12,
+     16,
+     2
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.4295,
+     0.8027
+    ],
+    "gameWinPct": 0.6364,
+    "games": [
+     14,
+     8,
+     0
+    ],
+    "matchWinPct": 0.6,
+    "matches": [
+     6,
+     4,
+     0
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.5353,
+     0.8745
+    ],
+    "gameWinPct": 0.7391,
+    "games": [
+     17,
+     6,
+     0
+    ],
+    "matchWinPct": 0.9444,
+    "matches": [
+     8,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.2127,
+     0.7199
+    ],
+    "gameWinPct": 0.4545,
+    "games": [
+     5,
+     6,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.6212,
+     0.9626
+    ],
+    "gameWinPct": 0.8667,
+    "games": [
+     13,
+     2,
+     0
+    ],
+    "matchWinPct": 0.8571,
+    "matches": [
+     6,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.09,
+     0.4522
+    ],
+    "gameWinPct": 0.2222,
+    "games": [
+     4,
+     14,
+     3
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     2,
+     7,
+     1
+    ],
+    "thin": false
+   }
+  },
+  "ezra-bridger_ash_yellow": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.0257,
+     0.5131
+    ],
+    "gameWinPct": 0.1429,
+    "games": [
+     1,
+     6,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.3833,
+     0.6553
+    ],
+    "gameWinPct": 0.5208,
+    "games": [
+     25,
+     23,
+     0
+    ],
+    "matchWinPct": 0.4737,
+    "matches": [
+     9,
+     10,
+     0
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.2127,
+     0.7199
+    ],
+    "gameWinPct": 0.4545,
+    "games": [
+     5,
+     6,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     1,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.0715,
+     0.5907
+    ],
+    "gameWinPct": 0.25,
+    "games": [
+     2,
+     6,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     1,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.0968,
+     0.7
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     2,
+     4,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.109,
+     0.5195
+    ],
+    "gameWinPct": 0.2667,
+    "games": [
+     4,
+     11,
+     0
+    ],
+    "matchWinPct": 0.1667,
+    "matches": [
+     1,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.3968,
+     0.8922
+    ],
+    "gameWinPct": 0.7,
+    "games": [
+     7,
+     3,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     3,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.15,
+     0.85
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     2,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.2242,
+     0.4983
+    ],
+    "gameWinPct": 0.3488,
+    "games": [
+     15,
+     28,
+     0
+    ],
+    "matchWinPct": 0.2778,
+    "matches": [
+     5,
+     13,
+     0
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.3141,
+     0.5875
+    ],
+    "gameWinPct": 0.4468,
+    "games": [
+     21,
+     26,
+     0
+    ],
+    "matchWinPct": 0.4211,
+    "matches": [
+     8,
+     11,
+     0
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.2563,
+     0.6319
+    ],
+    "gameWinPct": 0.4348,
+    "games": [
+     10,
+     13,
+     0
+    ],
+    "matchWinPct": 0.4,
+    "matches": [
+     4,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.4812,
+     0.7193
+    ],
+    "gameWinPct": 0.6066,
+    "games": [
+     37,
+     24,
+     0
+    ],
+    "matchWinPct": 0.6154,
+    "matches": [
+     16,
+     10,
+     0
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.1731,
+     0.587
+    ],
+    "gameWinPct": 0.3529,
+    "games": [
+     6,
+     11,
+     0
+    ],
+    "matchWinPct": 0.2857,
+    "matches": [
+     2,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.1876,
+     0.8124
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     3,
+     3,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.1368,
+     0.6943
+    ],
+    "gameWinPct": 0.375,
+    "games": [
+     3,
+     5,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.0822,
+     0.6411
+    ],
+    "gameWinPct": 0.2857,
+    "games": [
+     2,
+     5,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.203,
+     0.6138
+    ],
+    "gameWinPct": 0.3889,
+    "games": [
+     7,
+     11,
+     0
+    ],
+    "matchWinPct": 0.375,
+    "matches": [
+     3,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.2025,
+     0.5548
+    ],
+    "gameWinPct": 0.36,
+    "games": [
+     9,
+     16,
+     0
+    ],
+    "matchWinPct": 0.2222,
+    "matches": [
+     2,
+     7,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.1328,
+     0.5313
+    ],
+    "gameWinPct": 0.2941,
+    "games": [
+     5,
+     12,
+     0
+    ],
+    "matchWinPct": 0.1429,
+    "matches": [
+     1,
+     6,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.2635,
+     0.5651
+    ],
+    "gameWinPct": 0.4054,
+    "games": [
+     15,
+     22,
+     3
+    ],
+    "matchWinPct": 0.375,
+    "matches": [
+     5,
+     9,
+     2
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.1719,
+     0.5463
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     7,
+     14,
+     0
+    ],
+    "matchWinPct": 0.2222,
+    "matches": [
+     2,
+     7,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.1381,
+     0.6094
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     4,
+     8,
+     0
+    ],
+    "matchWinPct": 0.2,
+    "matches": [
+     1,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.0968,
+     0.7
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     2,
+     4,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.6097,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     6,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     3,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   }
+  },
+  "grand-admiral-thrawn_jtl_data-vault": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.2984,
+     0.6201
+    ],
+    "gameWinPct": 0.4545,
+    "games": [
+     15,
+     18,
+     0
+    ],
+    "matchWinPct": 0.4615,
+    "matches": [
+     6,
+     7,
+     0
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.0362,
+     0.6245
+    ],
+    "gameWinPct": 0.2,
+    "games": [
+     1,
+     4,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.203,
+     0.6138
+    ],
+    "gameWinPct": 0.3889,
+    "games": [
+     7,
+     11,
+     0
+    ],
+    "matchWinPct": 0.4444,
+    "matches": [
+     4,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.3003,
+     0.665
+    ],
+    "gameWinPct": 0.48,
+    "games": [
+     12,
+     13,
+     0
+    ],
+    "matchWinPct": 0.5455,
+    "matches": [
+     5,
+     4,
+     2
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.3755,
+     0.9638
+    ],
+    "gameWinPct": 0.8,
+    "games": [
+     4,
+     1,
+     1
+    ],
+    "matchWinPct": 0.8333,
+    "matches": [
+     2,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.2738,
+     0.608
+    ],
+    "gameWinPct": 0.4333,
+    "games": [
+     13,
+     17,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     6,
+     6,
+     3
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.2152,
+     0.7848
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     4,
+     4,
+     3
+    ],
+    "matchWinPct": 0.625,
+    "matches": [
+     2,
+     1,
+     1
+    ],
+    "thin": true
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.1876,
+     0.8124
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     3,
+     3,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.3589,
+     0.9178
+    ],
+    "gameWinPct": 0.7143,
+    "games": [
+     5,
+     2,
+     3
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     2,
+     0,
+     2
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.3542,
+     0.8794
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     6,
+     3,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     3,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.3127,
+     0.8318
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     6,
+     4,
+     0
+    ],
+    "matchWinPct": 0.6,
+    "matches": [
+     3,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.2481,
+     0.6988
+    ],
+    "gameWinPct": 0.4667,
+    "games": [
+     7,
+     8,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     2
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.2153,
+     0.5577
+    ],
+    "gameWinPct": 0.3704,
+    "games": [
+     10,
+     17,
+     0
+    ],
+    "matchWinPct": 0.3182,
+    "matches": [
+     3,
+     7,
+     1
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.1582,
+     0.7495
+    ],
+    "gameWinPct": 0.4286,
+    "games": [
+     3,
+     4,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.413,
+     0.8269
+    ],
+    "gameWinPct": 0.6471,
+    "games": [
+     11,
+     6,
+     0
+    ],
+    "matchWinPct": 0.7143,
+    "matches": [
+     5,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.3006,
+     0.9544
+    ],
+    "gameWinPct": 0.75,
+    "games": [
+     3,
+     1,
+     1
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     1,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     3
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     0,
+     1,
+     1
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.3906,
+     0.8619
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     8,
+     4,
+     0
+    ],
+    "matchWinPct": 0.8333,
+    "matches": [
+     5,
+     1,
+     0
+    ],
+    "thin": true
+   }
+  },
+  "grand-admiral-thrawn_jtl_yellow": {
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.3663,
+     0.6042
+    ],
+    "gameWinPct": 0.4844,
+    "games": [
+     31,
+     33,
+     0
+    ],
+    "matchWinPct": 0.4231,
+    "matches": [
+     11,
+     15,
+     0
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.0162,
+     0.3774
+    ],
+    "gameWinPct": 0.0909,
+    "games": [
+     1,
+     10,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.1682,
+     0.6873
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     4,
+     6,
+     0
+    ],
+    "matchWinPct": 0.375,
+    "matches": [
+     1,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.1517,
+     0.6462
+    ],
+    "gameWinPct": 0.3636,
+    "games": [
+     4,
+     7,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     1,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.3645,
+     0.6913
+    ],
+    "gameWinPct": 0.5312,
+    "games": [
+     17,
+     15,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     7,
+     7,
+     0
+    ],
+    "thin": false
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.1807,
+     0.4543
+    ],
+    "gameWinPct": 0.3,
+    "games": [
+     12,
+     28,
+     0
+    ],
+    "matchWinPct": 0.2632,
+    "matches": [
+     5,
+     14,
+     0
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.3983,
+     0.6929
+    ],
+    "gameWinPct": 0.55,
+    "games": [
+     22,
+     18,
+     0
+    ],
+    "matchWinPct": 0.5882,
+    "matches": [
+     10,
+     7,
+     0
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.3538,
+     0.8483
+    ],
+    "gameWinPct": 0.6364,
+    "games": [
+     7,
+     4,
+     1
+    ],
+    "matchWinPct": 0.5833,
+    "matches": [
+     3,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.3275,
+     0.5755
+    ],
+    "gameWinPct": 0.4483,
+    "games": [
+     26,
+     32,
+     3
+    ],
+    "matchWinPct": 0.3889,
+    "matches": [
+     9,
+     15,
+     3
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.2481,
+     0.6988
+    ],
+    "gameWinPct": 0.4667,
+    "games": [
+     7,
+     8,
+     0
+    ],
+    "matchWinPct": 0.5833,
+    "matches": [
+     3,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.3057,
+     0.8632
+    ],
+    "gameWinPct": 0.625,
+    "games": [
+     5,
+     3,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.15,
+     0.85
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     2,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.4093,
+     0.9285
+    ],
+    "gameWinPct": 0.75,
+    "games": [
+     6,
+     2,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     3,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.0955,
+     0.4726
+    ],
+    "gameWinPct": 0.2353,
+    "games": [
+     4,
+     13,
+     0
+    ],
+    "matchWinPct": 0.1875,
+    "matches": [
+     1,
+     6,
+     1
+    ],
+    "thin": true
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.4088,
+     0.7925
+    ],
+    "gameWinPct": 0.619,
+    "games": [
+     13,
+     8,
+     0
+    ],
+    "matchWinPct": 0.6,
+    "matches": [
+     6,
+     4,
+     0
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.4007,
+     0.6829
+    ],
+    "gameWinPct": 0.5455,
+    "games": [
+     24,
+     20,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     9,
+     9,
+     1
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.2903,
+     0.7097
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     9,
+     9,
+     0
+    ],
+    "matchWinPct": 0.4286,
+    "matches": [
+     3,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.3372,
+     0.7544
+    ],
+    "gameWinPct": 0.5556,
+    "games": [
+     10,
+     8,
+     0
+    ],
+    "matchWinPct": 0.5714,
+    "matches": [
+     4,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.0362,
+     0.6245
+    ],
+    "gameWinPct": 0.2,
+    "games": [
+     1,
+     4,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.0822,
+     0.6411
+    ],
+    "gameWinPct": 0.2857,
+    "games": [
+     2,
+     5,
+     0
+    ],
+    "matchWinPct": 0.1667,
+    "matches": [
+     0,
+     2,
+     1
+    ],
+    "thin": true
+   }
+  },
+  "greef-karga_ash_data-vault": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.0567,
+     0.5098
+    ],
+    "gameWinPct": 0.2,
+    "games": [
+     2,
+     8,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.0968,
+     0.7
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     2,
+     4,
+     3
+    ],
+    "matchWinPct": 0.1667,
+    "matches": [
+     0,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.4027,
+     0.6083
+    ],
+    "gameWinPct": 0.5057,
+    "games": [
+     44,
+     43,
+     12
+    ],
+    "matchWinPct": 0.525,
+    "matches": [
+     19,
+     17,
+     4
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.3601,
+     0.7839
+    ],
+    "gameWinPct": 0.5882,
+    "games": [
+     10,
+     7,
+     1
+    ],
+    "matchWinPct": 0.6429,
+    "matches": [
+     4,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.1172,
+     0.5465
+    ],
+    "gameWinPct": 0.2857,
+    "games": [
+     4,
+     10,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.0,
+     0.4899
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     4,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.2138,
+     0.6741
+    ],
+    "gameWinPct": 0.4286,
+    "games": [
+     6,
+     8,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     3,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.2785,
+     0.5781
+    ],
+    "gameWinPct": 0.4211,
+    "games": [
+     16,
+     22,
+     0
+    ],
+    "matchWinPct": 0.3571,
+    "matches": [
+     5,
+     9,
+     0
+    ],
+    "thin": false
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.4441,
+     0.7231
+    ],
+    "gameWinPct": 0.5909,
+    "games": [
+     26,
+     18,
+     0
+    ],
+    "matchWinPct": 0.5882,
+    "matches": [
+     10,
+     7,
+     0
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.4198,
+     0.6489
+    ],
+    "gameWinPct": 0.5362,
+    "games": [
+     37,
+     32,
+     0
+    ],
+    "matchWinPct": 0.5357,
+    "matches": [
+     15,
+     13,
+     0
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.3799,
+     0.7016
+    ],
+    "gameWinPct": 0.5455,
+    "games": [
+     18,
+     15,
+     3
+    ],
+    "matchWinPct": 0.5938,
+    "matches": [
+     9,
+     6,
+     1
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.256,
+     0.4707
+    ],
+    "gameWinPct": 0.3562,
+    "games": [
+     26,
+     47,
+     0
+    ],
+    "matchWinPct": 0.2903,
+    "matches": [
+     9,
+     22,
+     0
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.4342,
+     0.7292
+    ],
+    "gameWinPct": 0.5897,
+    "games": [
+     23,
+     16,
+     0
+    ],
+    "matchWinPct": 0.6429,
+    "matches": [
+     9,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.3589,
+     0.9178
+    ],
+    "gameWinPct": 0.7143,
+    "games": [
+     5,
+     2,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.0822,
+     0.6411
+    ],
+    "gameWinPct": 0.2857,
+    "games": [
+     2,
+     5,
+     3
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     0,
+     2,
+     2
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.15,
+     0.85
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     2,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.4601,
+     0.8464
+    ],
+    "gameWinPct": 0.6842,
+    "games": [
+     13,
+     6,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     6,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.2738,
+     0.608
+    ],
+    "gameWinPct": 0.4333,
+    "games": [
+     13,
+     17,
+     0
+    ],
+    "matchWinPct": 0.4286,
+    "matches": [
+     6,
+     8,
+     0
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.1915,
+     0.5896
+    ],
+    "gameWinPct": 0.3684,
+    "games": [
+     7,
+     12,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     2,
+     6,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3977,
+     0.6023
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     44,
+     44,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     18,
+     18,
+     0
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.1848,
+     0.6136
+    ],
+    "gameWinPct": 0.375,
+    "games": [
+     6,
+     10,
+     0
+    ],
+    "matchWinPct": 0.2857,
+    "matches": [
+     2,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.2666,
+     0.8112
+    ],
+    "gameWinPct": 0.5556,
+    "games": [
+     5,
+     4,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.15,
+     0.85
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     2,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.3589,
+     0.9178
+    ],
+    "gameWinPct": 0.7143,
+    "games": [
+     5,
+     2,
+     3
+    ],
+    "matchWinPct": 0.625,
+    "matches": [
+     2,
+     1,
+     1
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.3873,
+     0.7674
+    ],
+    "gameWinPct": 0.5909,
+    "games": [
+     13,
+     9,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     6,
+     3,
+     0
+    ],
+    "thin": true
+   }
+  },
+  "greef-karga_ash_red": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.0822,
+     0.6411
+    ],
+    "gameWinPct": 0.2857,
+    "games": [
+     2,
+     5,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.3259,
+     0.7862
+    ],
+    "gameWinPct": 0.5714,
+    "games": [
+     8,
+     6,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     3,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.3705,
+     0.5682
+    ],
+    "gameWinPct": 0.4681,
+    "games": [
+     44,
+     50,
+     6
+    ],
+    "matchWinPct": 0.4359,
+    "matches": [
+     16,
+     21,
+     2
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.1628,
+     0.5625
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     6,
+     12,
+     0
+    ],
+    "matchWinPct": 0.2857,
+    "matches": [
+     2,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.2127,
+     0.7199
+    ],
+    "gameWinPct": 0.4545,
+    "games": [
+     5,
+     6,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.0,
+     1.0
+    ],
+    "gameWinPct": null,
+    "games": [
+     0,
+     0,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     0,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.6097,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     6,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     3,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.3185,
+     0.5869
+    ],
+    "gameWinPct": 0.449,
+    "games": [
+     22,
+     27,
+     0
+    ],
+    "matchWinPct": 0.4,
+    "matches": [
+     8,
+     12,
+     0
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.0567,
+     0.5098
+    ],
+    "gameWinPct": 0.2,
+    "games": [
+     2,
+     8,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.2937,
+     0.5577
+    ],
+    "gameWinPct": 0.42,
+    "games": [
+     21,
+     29,
+     3
+    ],
+    "matchWinPct": 0.4048,
+    "matches": [
+     8,
+     12,
+     1
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.4029,
+     0.6222
+    ],
+    "gameWinPct": 0.5132,
+    "games": [
+     39,
+     37,
+     0
+    ],
+    "matchWinPct": 0.5333,
+    "matches": [
+     16,
+     14,
+     0
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.3407,
+     0.6593
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     17,
+     17,
+     0
+    ],
+    "matchWinPct": 0.4615,
+    "matches": [
+     6,
+     7,
+     0
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.3627,
+     0.5432
+    ],
+    "gameWinPct": 0.4513,
+    "games": [
+     51,
+     62,
+     6
+    ],
+    "matchWinPct": 0.4184,
+    "matches": [
+     19,
+     27,
+     3
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.4241,
+     0.7643
+    ],
+    "gameWinPct": 0.6071,
+    "games": [
+     17,
+     11,
+     0
+    ],
+    "matchWinPct": 0.7273,
+    "matches": [
+     8,
+     3,
+     0
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.3862,
+     0.797
+    ],
+    "gameWinPct": 0.6111,
+    "games": [
+     11,
+     7,
+     0
+    ],
+    "matchWinPct": 0.625,
+    "matches": [
+     5,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.1206,
+     0.6458
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     3,
+     6,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     1,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.0715,
+     0.5907
+    ],
+    "gameWinPct": 0.25,
+    "games": [
+     2,
+     6,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     1,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.1536,
+     0.5399
+    ],
+    "gameWinPct": 0.3158,
+    "games": [
+     6,
+     13,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     2,
+     6,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.2993,
+     0.7007
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     10,
+     10,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     4,
+     4,
+     1
+    ],
+    "thin": true
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.4232,
+     0.7541
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     18,
+     12,
+     0
+    ],
+    "matchWinPct": 0.6071,
+    "matches": [
+     8,
+     5,
+     1
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.2733,
+     0.4792
+    ],
+    "gameWinPct": 0.3704,
+    "games": [
+     30,
+     51,
+     1
+    ],
+    "matchWinPct": 0.3286,
+    "matches": [
+     11,
+     23,
+     1
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.413,
+     0.8269
+    ],
+    "gameWinPct": 0.6471,
+    "games": [
+     11,
+     6,
+     0
+    ],
+    "matchWinPct": 0.7143,
+    "matches": [
+     5,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.3873,
+     0.7674
+    ],
+    "gameWinPct": 0.5909,
+    "games": [
+     13,
+     9,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     6,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.231,
+     0.6682
+    ],
+    "gameWinPct": 0.4375,
+    "games": [
+     7,
+     9,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     3,
+     3,
+     0
+    ],
+    "thin": true
+   }
+  },
+  "lando-calrissian_law_blue": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.4452,
+     0.7975
+    ],
+    "gameWinPct": 0.64,
+    "games": [
+     16,
+     9,
+     0
+    ],
+    "matchWinPct": 0.6364,
+    "matches": [
+     7,
+     4,
+     0
+    ],
+    "thin": false
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.0715,
+     0.5907
+    ],
+    "gameWinPct": 0.25,
+    "games": [
+     2,
+     6,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.5209,
+     0.6767
+    ],
+    "gameWinPct": 0.6014,
+    "games": [
+     89,
+     59,
+     7
+    ],
+    "matchWinPct": 0.6613,
+    "matches": [
+     39,
+     19,
+     4
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.3731,
+     0.7241
+    ],
+    "gameWinPct": 0.5556,
+    "games": [
+     15,
+     12,
+     0
+    ],
+    "matchWinPct": 0.5455,
+    "matches": [
+     6,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.3345,
+     0.6411
+    ],
+    "gameWinPct": 0.4865,
+    "games": [
+     18,
+     19,
+     4
+    ],
+    "matchWinPct": 0.5263,
+    "matches": [
+     7,
+     6,
+     6
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.0968,
+     0.7
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     2,
+     4,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.1666,
+     0.4788
+    ],
+    "gameWinPct": 0.3,
+    "games": [
+     9,
+     21,
+     1
+    ],
+    "matchWinPct": 0.2308,
+    "matches": [
+     2,
+     9,
+     2
+    ],
+    "thin": false
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.3875,
+     0.6125
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     36,
+     36,
+     6
+    ],
+    "matchWinPct": 0.4828,
+    "matches": [
+     13,
+     14,
+     2
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.1771,
+     0.6448
+    ],
+    "gameWinPct": 0.3846,
+    "games": [
+     5,
+     8,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     2,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.4437,
+     0.6254
+    ],
+    "gameWinPct": 0.5357,
+    "games": [
+     60,
+     52,
+     1
+    ],
+    "matchWinPct": 0.53,
+    "matches": [
+     25,
+     22,
+     3
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.6504,
+     0.8287
+    ],
+    "gameWinPct": 0.75,
+    "games": [
+     66,
+     22,
+     12
+    ],
+    "matchWinPct": 0.8415,
+    "matches": [
+     32,
+     4,
+     5
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.3869,
+     0.649
+    ],
+    "gameWinPct": 0.5192,
+    "games": [
+     27,
+     25,
+     4
+    ],
+    "matchWinPct": 0.5385,
+    "matches": [
+     12,
+     10,
+     4
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.4603,
+     0.613
+    ],
+    "gameWinPct": 0.5375,
+    "games": [
+     86,
+     74,
+     14
+    ],
+    "matchWinPct": 0.5395,
+    "matches": [
+     32,
+     26,
+     18
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.2989,
+     0.5896
+    ],
+    "gameWinPct": 0.439,
+    "games": [
+     18,
+     23,
+     1
+    ],
+    "matchWinPct": 0.3421,
+    "matches": [
+     6,
+     12,
+     1
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.4452,
+     0.7975
+    ],
+    "gameWinPct": 0.64,
+    "games": [
+     16,
+     9,
+     0
+    ],
+    "matchWinPct": 0.7778,
+    "matches": [
+     7,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.1682,
+     0.6873
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     4,
+     6,
+     0
+    ],
+    "matchWinPct": 0.4,
+    "matches": [
+     2,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.5274,
+     0.9045
+    ],
+    "gameWinPct": 0.7647,
+    "games": [
+     13,
+     4,
+     0
+    ],
+    "matchWinPct": 0.8125,
+    "matches": [
+     6,
+     1,
+     1
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.392,
+     0.7262
+    ],
+    "gameWinPct": 0.5667,
+    "games": [
+     17,
+     13,
+     0
+    ],
+    "matchWinPct": 0.5714,
+    "matches": [
+     8,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.2993,
+     0.7007
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     10,
+     10,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     4,
+     4,
+     1
+    ],
+    "thin": true
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.5077,
+     0.8272
+    ],
+    "gameWinPct": 0.6897,
+    "games": [
+     20,
+     9,
+     0
+    ],
+    "matchWinPct": 0.7308,
+    "matches": [
+     9,
+     3,
+     1
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.5382,
+     0.7244
+    ],
+    "gameWinPct": 0.6364,
+    "games": [
+     63,
+     36,
+     3
+    ],
+    "matchWinPct": 0.6905,
+    "matches": [
+     28,
+     12,
+     2
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.4631,
+     0.7298
+    ],
+    "gameWinPct": 0.6042,
+    "games": [
+     29,
+     19,
+     2
+    ],
+    "matchWinPct": 0.6429,
+    "matches": [
+     12,
+     6,
+     3
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.28,
+     0.72
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     8,
+     8,
+     0
+    ],
+    "matchWinPct": 0.4286,
+    "matches": [
+     3,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.3318,
+     0.769
+    ],
+    "gameWinPct": 0.5625,
+    "games": [
+     9,
+     7,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     3,
+     3,
+     1
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.1176,
+     0.7693
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     2,
+     3,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.3337,
+     0.5841
+    ],
+    "gameWinPct": 0.4561,
+    "games": [
+     26,
+     31,
+     2
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     10,
+     10,
+     7
+    ],
+    "thin": false
+   }
+  },
+  "luke-skywalker_ash_data-vault": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.047,
+     0.448
+    ],
+    "gameWinPct": 0.1667,
+    "games": [
+     2,
+     10,
+     1
+    ],
+    "matchWinPct": 0.1667,
+    "matches": [
+     0,
+     4,
+     2
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.2447,
+     0.6345
+    ],
+    "gameWinPct": 0.4286,
+    "games": [
+     9,
+     12,
+     0
+    ],
+    "matchWinPct": 0.375,
+    "matches": [
+     3,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.3196,
+     0.5118
+    ],
+    "gameWinPct": 0.4124,
+    "games": [
+     40,
+     57,
+     7
+    ],
+    "matchWinPct": 0.3953,
+    "matches": [
+     15,
+     24,
+     4
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.3296,
+     0.7076
+    ],
+    "gameWinPct": 0.5217,
+    "games": [
+     12,
+     11,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     5,
+     5,
+     0
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.3575,
+     0.8018
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     9,
+     6,
+     0
+    ],
+    "matchWinPct": 0.5714,
+    "matches": [
+     4,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.3542,
+     0.8794
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     6,
+     3,
+     3
+    ],
+    "matchWinPct": 0.6,
+    "matches": [
+     2,
+     1,
+     2
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.1381,
+     0.6094
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     4,
+     8,
+     0
+    ],
+    "matchWinPct": 0.4,
+    "matches": [
+     2,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.2909,
+     0.5341
+    ],
+    "gameWinPct": 0.4068,
+    "games": [
+     24,
+     35,
+     0
+    ],
+    "matchWinPct": 0.4231,
+    "matches": [
+     11,
+     15,
+     0
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.3459,
+     0.5815
+    ],
+    "gameWinPct": 0.4615,
+    "games": [
+     30,
+     35,
+     0
+    ],
+    "matchWinPct": 0.4464,
+    "matches": [
+     11,
+     14,
+     3
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.324,
+     0.5296
+    ],
+    "gameWinPct": 0.4235,
+    "games": [
+     36,
+     49,
+     4
+    ],
+    "matchWinPct": 0.4324,
+    "matches": [
+     15,
+     20,
+     2
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.4104,
+     0.7011
+    ],
+    "gameWinPct": 0.561,
+    "games": [
+     23,
+     18,
+     0
+    ],
+    "matchWinPct": 0.5263,
+    "matches": [
+     9,
+     8,
+     2
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.3017,
+     0.4777
+    ],
+    "gameWinPct": 0.386,
+    "games": [
+     44,
+     70,
+     1
+    ],
+    "matchWinPct": 0.3571,
+    "matches": [
+     16,
+     30,
+     3
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.2213,
+     0.5049
+    ],
+    "gameWinPct": 0.35,
+    "games": [
+     14,
+     26,
+     0
+    ],
+    "matchWinPct": 0.3611,
+    "matches": [
+     6,
+     11,
+     1
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.4687,
+     0.8672
+    ],
+    "gameWinPct": 0.7059,
+    "games": [
+     12,
+     5,
+     0
+    ],
+    "matchWinPct": 0.8571,
+    "matches": [
+     6,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3012,
+     0.7519
+    ],
+    "gameWinPct": 0.5333,
+    "games": [
+     8,
+     7,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     2
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.2075,
+     0.5912
+    ],
+    "gameWinPct": 0.381,
+    "games": [
+     8,
+     13,
+     0
+    ],
+    "matchWinPct": 0.4,
+    "matches": [
+     4,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.4104,
+     0.8085
+    ],
+    "gameWinPct": 0.6316,
+    "games": [
+     12,
+     7,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     6,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.2459,
+     0.5768
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     12,
+     18,
+     0
+    ],
+    "matchWinPct": 0.3929,
+    "matches": [
+     5,
+     8,
+     1
+    ],
+    "thin": false
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.1728,
+     0.4923
+    ],
+    "gameWinPct": 0.3103,
+    "games": [
+     9,
+     20,
+     0
+    ],
+    "matchWinPct": 0.2692,
+    "matches": [
+     3,
+     9,
+     1
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.4685,
+     0.6658
+    ],
+    "gameWinPct": 0.5699,
+    "games": [
+     53,
+     40,
+     0
+    ],
+    "matchWinPct": 0.6053,
+    "matches": [
+     23,
+     15,
+     0
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.1719,
+     0.5463
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     7,
+     14,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     2,
+     6,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.09,
+     0.4522
+    ],
+    "gameWinPct": 0.2222,
+    "games": [
+     4,
+     14,
+     0
+    ],
+    "matchWinPct": 0.125,
+    "matches": [
+     1,
+     7,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.1634,
+     0.6124
+    ],
+    "gameWinPct": 0.3571,
+    "games": [
+     5,
+     9,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     2,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.3,
+     0.9032
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     4,
+     2,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     2,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.3819,
+     0.6953
+    ],
+    "gameWinPct": 0.5429,
+    "games": [
+     19,
+     16,
+     0
+    ],
+    "matchWinPct": 0.5333,
+    "matches": [
+     8,
+     7,
+     0
+    ],
+    "thin": false
+   }
+  },
+  "luke-skywalker_jtl_data-vault": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.0105,
+     0.2698
+    ],
+    "gameWinPct": 0.0588,
+    "games": [
+     1,
+     16,
+     3
+    ],
+    "matchWinPct": 0.0556,
+    "matches": [
+     0,
+     8,
+     1
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.161,
+     0.4659
+    ],
+    "gameWinPct": 0.2903,
+    "games": [
+     9,
+     22,
+     3
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     3,
+     10,
+     1
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.3653,
+     0.4731
+    ],
+    "gameWinPct": 0.4182,
+    "games": [
+     133,
+     185,
+     15
+    ],
+    "matchWinPct": 0.3741,
+    "matches": [
+     48,
+     82,
+     5
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.3883,
+     0.7553
+    ],
+    "gameWinPct": 0.5833,
+    "games": [
+     14,
+     10,
+     4
+    ],
+    "matchWinPct": 0.5455,
+    "matches": [
+     5,
+     4,
+     2
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.2939,
+     0.5226
+    ],
+    "gameWinPct": 0.403,
+    "games": [
+     27,
+     40,
+     1
+    ],
+    "matchWinPct": 0.3621,
+    "matches": [
+     10,
+     18,
+     1
+    ],
+    "thin": false
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.1982,
+     0.6425
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     6,
+     9,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     2,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.4615,
+     0.6855
+    ],
+    "gameWinPct": 0.5775,
+    "games": [
+     41,
+     30,
+     0
+    ],
+    "matchWinPct": 0.5667,
+    "matches": [
+     17,
+     13,
+     0
+    ],
+    "thin": false
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.5277,
+     0.6831
+    ],
+    "gameWinPct": 0.6081,
+    "games": [
+     90,
+     58,
+     0
+    ],
+    "matchWinPct": 0.6583,
+    "matches": [
+     39,
+     20,
+     1
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.3466,
+     0.7308
+    ],
+    "gameWinPct": 0.5455,
+    "games": [
+     12,
+     10,
+     0
+    ],
+    "matchWinPct": 0.5556,
+    "matches": [
+     5,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.4633,
+     0.6034
+    ],
+    "gameWinPct": 0.534,
+    "games": [
+     102,
+     89,
+     9
+    ],
+    "matchWinPct": 0.5427,
+    "matches": [
+     43,
+     36,
+     3
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.5064,
+     0.6393
+    ],
+    "gameWinPct": 0.5742,
+    "games": [
+     120,
+     89,
+     10
+    ],
+    "matchWinPct": 0.5699,
+    "matches": [
+     51,
+     38,
+     4
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.3835,
+     0.5507
+    ],
+    "gameWinPct": 0.4662,
+    "games": [
+     62,
+     71,
+     6
+    ],
+    "matchWinPct": 0.4474,
+    "matches": [
+     22,
+     28,
+     7
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.3733,
+     0.4787
+    ],
+    "gameWinPct": 0.4251,
+    "games": [
+     142,
+     192,
+     9
+    ],
+    "matchWinPct": 0.4065,
+    "matches": [
+     55,
+     81,
+     3
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.4674,
+     0.6868
+    ],
+    "gameWinPct": 0.5811,
+    "games": [
+     43,
+     31,
+     0
+    ],
+    "matchWinPct": 0.5667,
+    "matches": [
+     16,
+     12,
+     2
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.4349,
+     0.7365
+    ],
+    "gameWinPct": 0.5946,
+    "games": [
+     22,
+     15,
+     3
+    ],
+    "matchWinPct": 0.625,
+    "matches": [
+     9,
+     5,
+     2
+    ],
+    "thin": false
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.4423,
+     0.7847
+    ],
+    "gameWinPct": 0.6296,
+    "games": [
+     17,
+     10,
+     0
+    ],
+    "matchWinPct": 0.6818,
+    "matches": [
+     7,
+     3,
+     1
+    ],
+    "thin": false
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.3171,
+     0.5993
+    ],
+    "gameWinPct": 0.4545,
+    "games": [
+     20,
+     24,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     9,
+     9,
+     1
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.3977,
+     0.6023
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     44,
+     44,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     18,
+     18,
+     0
+    ],
+    "thin": false
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.5208,
+     0.7267
+    ],
+    "gameWinPct": 0.6296,
+    "games": [
+     51,
+     30,
+     1
+    ],
+    "matchWinPct": 0.6714,
+    "matches": [
+     23,
+     11,
+     1
+    ],
+    "thin": false
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.2756,
+     0.4618
+    ],
+    "gameWinPct": 0.3636,
+    "games": [
+     36,
+     63,
+     3
+    ],
+    "matchWinPct": 0.3095,
+    "matches": [
+     12,
+     28,
+     2
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.3342,
+     0.5315
+    ],
+    "gameWinPct": 0.4301,
+    "games": [
+     40,
+     53,
+     0
+    ],
+    "matchWinPct": 0.3947,
+    "matches": [
+     15,
+     23,
+     0
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.4526,
+     0.6517
+    ],
+    "gameWinPct": 0.5543,
+    "games": [
+     51,
+     41,
+     0
+    ],
+    "matchWinPct": 0.5897,
+    "matches": [
+     23,
+     16,
+     0
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.4333,
+     0.7162
+    ],
+    "gameWinPct": 0.5814,
+    "games": [
+     25,
+     18,
+     1
+    ],
+    "matchWinPct": 0.6176,
+    "matches": [
+     10,
+     6,
+     1
+    ],
+    "thin": false
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.4537,
+     0.8281
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     14,
+     7,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     6,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.3589,
+     0.9178
+    ],
+    "gameWinPct": 0.7143,
+    "games": [
+     5,
+     2,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.3392,
+     0.5469
+    ],
+    "gameWinPct": 0.4405,
+    "games": [
+     37,
+     47,
+     1
+    ],
+    "matchWinPct": 0.4429,
+    "matches": [
+     15,
+     19,
+     1
+    ],
+    "thin": false
+   }
+  },
+  "mother-talzin_lof_red-force": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.1682,
+     0.6873
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     4,
+     6,
+     0
+    ],
+    "matchWinPct": 0.4,
+    "matches": [
+     2,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.1888,
+     0.7334
+    ],
+    "gameWinPct": 0.4444,
+    "games": [
+     4,
+     5,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.5615,
+     0.733
+    ],
+    "gameWinPct": 0.6522,
+    "games": [
+     75,
+     40,
+     6
+    ],
+    "matchWinPct": 0.6837,
+    "matches": [
+     32,
+     14,
+     3
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.1628,
+     0.5625
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     6,
+     12,
+     3
+    ],
+    "matchWinPct": 0.3889,
+    "matches": [
+     3,
+     5,
+     1
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.109,
+     0.5195
+    ],
+    "gameWinPct": 0.2667,
+    "games": [
+     4,
+     11,
+     1
+    ],
+    "matchWinPct": 0.2143,
+    "matches": [
+     1,
+     5,
+     1
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.0715,
+     0.5907
+    ],
+    "gameWinPct": 0.25,
+    "games": [
+     2,
+     6,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     1,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.335,
+     0.6997
+    ],
+    "gameWinPct": 0.52,
+    "games": [
+     13,
+     12,
+     0
+    ],
+    "matchWinPct": 0.6,
+    "matches": [
+     6,
+     4,
+     0
+    ],
+    "thin": false
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.3443,
+     0.6861
+    ],
+    "gameWinPct": 0.5172,
+    "games": [
+     15,
+     14,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     6,
+     6,
+     1
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.3538,
+     0.8483
+    ],
+    "gameWinPct": 0.6364,
+    "games": [
+     7,
+     4,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     3,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.4486,
+     0.686
+    ],
+    "gameWinPct": 0.5714,
+    "games": [
+     36,
+     27,
+     0
+    ],
+    "matchWinPct": 0.5741,
+    "matches": [
+     15,
+     11,
+     1
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.376,
+     0.5886
+    ],
+    "gameWinPct": 0.4815,
+    "games": [
+     39,
+     42,
+     6
+    ],
+    "matchWinPct": 0.4444,
+    "matches": [
+     15,
+     19,
+     2
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.204,
+     0.4617
+    ],
+    "gameWinPct": 0.3191,
+    "games": [
+     15,
+     32,
+     0
+    ],
+    "matchWinPct": 0.2381,
+    "matches": [
+     5,
+     16,
+     0
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.4151,
+     0.578
+    ],
+    "gameWinPct": 0.4965,
+    "games": [
+     70,
+     71,
+     0
+    ],
+    "matchWinPct": 0.5086,
+    "matches": [
+     27,
+     26,
+     5
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.1973,
+     0.5705
+    ],
+    "gameWinPct": 0.3636,
+    "games": [
+     8,
+     14,
+     0
+    ],
+    "matchWinPct": 0.4,
+    "matches": [
+     4,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.4537,
+     0.8281
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     14,
+     7,
+     0
+    ],
+    "matchWinPct": 0.7778,
+    "matches": [
+     7,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.2505,
+     0.8418
+    ],
+    "gameWinPct": 0.5714,
+    "games": [
+     4,
+     3,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.2903,
+     0.7097
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     9,
+     9,
+     0
+    ],
+    "matchWinPct": 0.5714,
+    "matches": [
+     4,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.3864,
+     0.8152
+    ],
+    "gameWinPct": 0.625,
+    "games": [
+     10,
+     6,
+     0
+    ],
+    "matchWinPct": 0.7143,
+    "matches": [
+     5,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.1731,
+     0.587
+    ],
+    "gameWinPct": 0.3529,
+    "games": [
+     6,
+     11,
+     0
+    ],
+    "matchWinPct": 0.2857,
+    "matches": [
+     2,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.2702,
+     0.5369
+    ],
+    "gameWinPct": 0.3958,
+    "games": [
+     19,
+     29,
+     2
+    ],
+    "matchWinPct": 0.3571,
+    "matches": [
+     6,
+     12,
+     3
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.4537,
+     0.8281
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     14,
+     7,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     6,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3483,
+     0.5474
+    ],
+    "gameWinPct": 0.4457,
+    "games": [
+     41,
+     51,
+     0
+    ],
+    "matchWinPct": 0.4103,
+    "matches": [
+     16,
+     23,
+     0
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.28,
+     0.72
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     8,
+     8,
+     0
+    ],
+    "matchWinPct": 0.4286,
+    "matches": [
+     3,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.0975,
+     0.5657
+    ],
+    "gameWinPct": 0.2727,
+    "games": [
+     3,
+     8,
+     0
+    ],
+    "matchWinPct": 0.2,
+    "matches": [
+     1,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.15,
+     0.85
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     2,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.3838,
+     0.6896
+    ],
+    "gameWinPct": 0.5405,
+    "games": [
+     20,
+     17,
+     4
+    ],
+    "matchWinPct": 0.5263,
+    "matches": [
+     9,
+     8,
+     2
+    ],
+    "thin": false
+   }
+  },
+  "mother-talzin_lof_yellow-force": {
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.15,
+     0.85
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     2,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.5025,
+     0.7333
+    ],
+    "gameWinPct": 0.625,
+    "games": [
+     40,
+     24,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     18,
+     9,
+     0
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.1517,
+     0.6462
+    ],
+    "gameWinPct": 0.3636,
+    "games": [
+     4,
+     7,
+     0
+    ],
+    "matchWinPct": 0.4,
+    "matches": [
+     2,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.1255,
+     0.4647
+    ],
+    "gameWinPct": 0.2609,
+    "games": [
+     6,
+     17,
+     0
+    ],
+    "matchWinPct": 0.0556,
+    "matches": [
+     0,
+     8,
+     1
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.3372,
+     0.7544
+    ],
+    "gameWinPct": 0.5556,
+    "games": [
+     10,
+     8,
+     0
+    ],
+    "matchWinPct": 0.5714,
+    "matches": [
+     4,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.4241,
+     0.7643
+    ],
+    "gameWinPct": 0.6071,
+    "games": [
+     17,
+     11,
+     6
+    ],
+    "matchWinPct": 0.5714,
+    "matches": [
+     7,
+     5,
+     2
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.3589,
+     0.9178
+    ],
+    "gameWinPct": 0.7143,
+    "games": [
+     5,
+     2,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.3071,
+     0.6017
+    ],
+    "gameWinPct": 0.45,
+    "games": [
+     18,
+     22,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     9,
+     9,
+     0
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.3675,
+     0.6538
+    ],
+    "gameWinPct": 0.5116,
+    "games": [
+     22,
+     21,
+     6
+    ],
+    "matchWinPct": 0.5789,
+    "matches": [
+     10,
+     7,
+     2
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.1368,
+     0.6943
+    ],
+    "gameWinPct": 0.375,
+    "games": [
+     3,
+     5,
+     0
+    ],
+    "matchWinPct": 0.375,
+    "matches": [
+     1,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.3333,
+     0.6077
+    ],
+    "gameWinPct": 0.4681,
+    "games": [
+     22,
+     25,
+     3
+    ],
+    "matchWinPct": 0.4565,
+    "matches": [
+     9,
+     11,
+     3
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.1255,
+     0.4647
+    ],
+    "gameWinPct": 0.2609,
+    "games": [
+     6,
+     17,
+     0
+    ],
+    "matchWinPct": 0.0556,
+    "matches": [
+     0,
+     8,
+     1
+    ],
+    "thin": true
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.3906,
+     0.8619
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     8,
+     4,
+     0
+    ],
+    "matchWinPct": 0.8,
+    "matches": [
+     4,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.1731,
+     0.587
+    ],
+    "gameWinPct": 0.3529,
+    "games": [
+     6,
+     11,
+     0
+    ],
+    "matchWinPct": 0.2857,
+    "matches": [
+     2,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.2456,
+     0.6628
+    ],
+    "gameWinPct": 0.4444,
+    "games": [
+     8,
+     10,
+     0
+    ],
+    "matchWinPct": 0.4286,
+    "matches": [
+     3,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.1888,
+     0.7334
+    ],
+    "gameWinPct": 0.4444,
+    "games": [
+     4,
+     5,
+     3
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.2326,
+     0.6127
+    ],
+    "gameWinPct": 0.4091,
+    "games": [
+     9,
+     13,
+     0
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     2,
+     6,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.28,
+     0.72
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     8,
+     8,
+     0
+    ],
+    "matchWinPct": 0.5714,
+    "matches": [
+     4,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.5478,
+     0.91
+    ],
+    "gameWinPct": 0.7778,
+    "games": [
+     14,
+     4,
+     0
+    ],
+    "matchWinPct": 0.875,
+    "matches": [
+     7,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.2838,
+     0.5667
+    ],
+    "gameWinPct": 0.4186,
+    "games": [
+     18,
+     25,
+     1
+    ],
+    "matchWinPct": 0.3824,
+    "matches": [
+     6,
+     10,
+     1
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.28,
+     0.72
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     8,
+     8,
+     0
+    ],
+    "matchWinPct": 0.5714,
+    "matches": [
+     4,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.552,
+     0.953
+    ],
+    "gameWinPct": 0.8333,
+    "games": [
+     10,
+     2,
+     0
+    ],
+    "matchWinPct": 0.8333,
+    "matches": [
+     5,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.2366,
+     0.7634
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     5,
+     5,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     1
+    ],
+    "thin": true
+   }
+  },
+  "obi--wan-kenobi_lof_vergence-temple": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.3755,
+     0.9638
+    ],
+    "gameWinPct": 0.8,
+    "games": [
+     4,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     2,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.2153,
+     0.5577
+    ],
+    "gameWinPct": 0.3704,
+    "games": [
+     10,
+     17,
+     0
+    ],
+    "matchWinPct": 0.2727,
+    "matches": [
+     3,
+     8,
+     0
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.0968,
+     0.7
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     2,
+     4,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.0362,
+     0.6245
+    ],
+    "gameWinPct": 0.2,
+    "games": [
+     1,
+     4,
+     3
+    ],
+    "matchWinPct": 0.1667,
+    "matches": [
+     0,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.2554,
+     0.6105
+    ],
+    "gameWinPct": 0.4231,
+    "games": [
+     11,
+     15,
+     0
+    ],
+    "matchWinPct": 0.4,
+    "matches": [
+     4,
+     6,
+     0
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.1731,
+     0.587
+    ],
+    "gameWinPct": 0.3529,
+    "games": [
+     6,
+     11,
+     0
+    ],
+    "matchWinPct": 0.3571,
+    "matches": [
+     2,
+     4,
+     1
+    ],
+    "thin": true
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.2314,
+     0.6372
+    ],
+    "gameWinPct": 0.4211,
+    "games": [
+     8,
+     11,
+     0
+    ],
+    "matchWinPct": 0.375,
+    "matches": [
+     3,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.3589,
+     0.9178
+    ],
+    "gameWinPct": 0.7143,
+    "games": [
+     5,
+     2,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.2554,
+     0.6105
+    ],
+    "gameWinPct": 0.4231,
+    "games": [
+     11,
+     15,
+     4
+    ],
+    "matchWinPct": 0.4167,
+    "matches": [
+     4,
+     6,
+     2
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.2801,
+     0.7873
+    ],
+    "gameWinPct": 0.5455,
+    "games": [
+     6,
+     5,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.3,
+     0.9032
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     4,
+     2,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     2,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.0456,
+     0.6994
+    ],
+    "gameWinPct": 0.25,
+    "games": [
+     1,
+     3,
+     1
+    ],
+    "matchWinPct": 0.25,
+    "matches": [
+     0,
+     1,
+     1
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.3755,
+     0.9638
+    ],
+    "gameWinPct": 0.8,
+    "games": [
+     4,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     2,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.15,
+     0.85
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     2,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.231,
+     0.6682
+    ],
+    "gameWinPct": 0.4375,
+    "games": [
+     7,
+     9,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     3,
+     3,
+     1
+    ],
+    "thin": true
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.3876,
+     0.8366
+    ],
+    "gameWinPct": 0.6429,
+    "games": [
+     9,
+     5,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     4,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.1719,
+     0.5463
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     7,
+     14,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     3,
+     6,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.4343,
+     0.9025
+    ],
+    "gameWinPct": 0.7273,
+    "games": [
+     8,
+     3,
+     0
+    ],
+    "matchWinPct": 0.8,
+    "matches": [
+     4,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.047,
+     0.448
+    ],
+    "gameWinPct": 0.1667,
+    "games": [
+     2,
+     10,
+     0
+    ],
+    "matchWinPct": 0.1667,
+    "matches": [
+     1,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.4805,
+     0.891
+    ],
+    "gameWinPct": 0.7333,
+    "games": [
+     11,
+     4,
+     3
+    ],
+    "matchWinPct": 0.6875,
+    "matches": [
+     5,
+     2,
+     1
+    ],
+    "thin": true
+   }
+  },
+  "the-armorer_ash_nabat-village": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.0,
+     0.6576
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.2616,
+     0.6904
+    ],
+    "gameWinPct": 0.4706,
+    "games": [
+     8,
+     9,
+     0
+    ],
+    "matchWinPct": 0.4286,
+    "matches": [
+     3,
+     4,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.1176,
+     0.7693
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     2,
+     3,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.1176,
+     0.7693
+    ],
+    "gameWinPct": 0.4,
+    "games": [
+     2,
+     3,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.2307,
+     0.8824
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     3,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.3876,
+     0.8366
+    ],
+    "gameWinPct": 0.6429,
+    "games": [
+     9,
+     5,
+     0
+    ],
+    "matchWinPct": 0.6667,
+    "matches": [
+     4,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.0968,
+     0.7
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     2,
+     4,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.172,
+     0.5159
+    ],
+    "gameWinPct": 0.32,
+    "games": [
+     8,
+     17,
+     0
+    ],
+    "matchWinPct": 0.1111,
+    "matches": [
+     1,
+     8,
+     0
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.4375,
+     0.8372
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     12,
+     6,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     6,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.0374,
+     0.3788
+    ],
+    "gameWinPct": 0.1333,
+    "games": [
+     2,
+     13,
+     0
+    ],
+    "matchWinPct": 0.1429,
+    "matches": [
+     1,
+     6,
+     0
+    ],
+    "thin": true
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.0,
+     0.3903
+    ],
+    "gameWinPct": 0.0,
+    "games": [
+     0,
+     6,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.3424,
+     1.0
+    ],
+    "gameWinPct": 1.0,
+    "games": [
+     2,
+     0,
+     3
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     1,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.0822,
+     0.6411
+    ],
+    "gameWinPct": 0.2857,
+    "games": [
+     2,
+     5,
+     3
+    ],
+    "matchWinPct": 0.375,
+    "matches": [
+     1,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.2307,
+     0.8824
+    ],
+    "gameWinPct": 0.6,
+    "games": [
+     3,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.0968,
+     0.7
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     2,
+     4,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.0822,
+     0.6411
+    ],
+    "gameWinPct": 0.2857,
+    "games": [
+     2,
+     5,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.15,
+     0.85
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     2,
+     2,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     1,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.0615,
+     0.7923
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     1,
+     2,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     1,
+     0
+    ],
+    "thin": true
+   },
+   "the-mandalorian_ash_colossus": {
+    "gameWinCI95": [
+     0.0968,
+     0.7
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     2,
+     4,
+     0
+    ],
+    "matchWinPct": 0.0,
+    "matches": [
+     0,
+     2,
+     0
+    ],
+    "thin": true
+   }
+  },
+  "the-mandalorian_ash_colossus": {
+   "admiral-piett_jtl_blue": {
+    "gameWinCI95": [
+     0.3006,
+     0.9544
+    ],
+    "gameWinPct": 0.75,
+    "games": [
+     3,
+     1,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     1,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "admiral-piett_jtl_red-splash": {
+    "gameWinCI95": [
+     0.2321,
+     0.7086
+    ],
+    "gameWinPct": 0.4615,
+    "games": [
+     6,
+     7,
+     0
+    ],
+    "matchWinPct": 0.4,
+    "matches": [
+     2,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "ahsoka-tano_ash_blue": {
+    "gameWinCI95": [
+     0.2106,
+     0.4077
+    ],
+    "gameWinPct": 0.3,
+    "games": [
+     24,
+     56,
+     6
+    ],
+    "matchWinPct": 0.2286,
+    "matches": [
+     7,
+     26,
+     2
+    ],
+    "thin": false
+   },
+   "ahsoka-tano_ash_yellow": {
+    "gameWinCI95": [
+     0.5699,
+     0.9341
+    ],
+    "gameWinPct": 0.8125,
+    "games": [
+     13,
+     3,
+     0
+    ],
+    "matchWinPct": 0.9286,
+    "matches": [
+     6,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_data-vault": {
+    "gameWinCI95": [
+     0.4343,
+     0.9025
+    ],
+    "gameWinPct": 0.7273,
+    "games": [
+     8,
+     3,
+     0
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     4,
+     1,
+     1
+    ],
+    "thin": true
+   },
+   "aurra-sing_law_red": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_blue": {
+    "gameWinCI95": [
+     0.268,
+     0.732
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     7,
+     7,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     2
+    ],
+    "thin": true
+   },
+   "boba-fett_jtl_lake-country": {
+    "gameWinCI95": [
+     0.2121,
+     0.4662
+    ],
+    "gameWinPct": 0.3265,
+    "games": [
+     16,
+     33,
+     3
+    ],
+    "matchWinPct": 0.3182,
+    "matches": [
+     6,
+     14,
+     2
+    ],
+    "thin": false
+   },
+   "chewbacca_law_alliance-outpost": {
+    "gameWinCI95": [
+     0.0822,
+     0.6411
+    ],
+    "gameWinPct": 0.2857,
+    "games": [
+     2,
+     5,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     1,
+     2,
+     0
+    ],
+    "thin": true
+   },
+   "darth-maul_lof_blue-force": {
+    "gameWinCI95": [
+     0.5646,
+     0.8048
+    ],
+    "gameWinPct": 0.6981,
+    "games": [
+     37,
+     16,
+     7
+    ],
+    "matchWinPct": 0.7708,
+    "matches": [
+     17,
+     4,
+     3
+    ],
+    "thin": false
+   },
+   "darth-vader_jtl_yellow": {
+    "gameWinCI95": [
+     0.4818,
+     0.7028
+    ],
+    "gameWinPct": 0.5972,
+    "games": [
+     43,
+     29,
+     9
+    ],
+    "matchWinPct": 0.6094,
+    "matches": [
+     18,
+     11,
+     3
+    ],
+    "thin": false
+   },
+   "dedra-meero_sec_colossus": {
+    "gameWinCI95": [
+     0.4368,
+     0.7532
+    ],
+    "gameWinPct": 0.6061,
+    "games": [
+     20,
+     13,
+     0
+    ],
+    "matchWinPct": 0.6176,
+    "matches": [
+     10,
+     6,
+     1
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue": {
+    "gameWinCI95": [
+     0.3942,
+     0.5865
+    ],
+    "gameWinPct": 0.49,
+    "games": [
+     49,
+     51,
+     6
+    ],
+    "matchWinPct": 0.48,
+    "matches": [
+     20,
+     22,
+     8
+    ],
+    "thin": false
+   },
+   "director-krennic_law_blue-splash": {
+    "gameWinCI95": [
+     0.5478,
+     0.91
+    ],
+    "gameWinPct": 0.7778,
+    "games": [
+     14,
+     4,
+     3
+    ],
+    "matchWinPct": 0.75,
+    "matches": [
+     7,
+     2,
+     1
+    ],
+    "thin": false
+   },
+   "ezra-bridger_ash_yellow": {
+    "gameWinCI95": [
+     0.2077,
+     0.9385
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     2,
+     1,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     1,
+     0,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_data-vault": {
+    "gameWinCI95": [
+     0.1381,
+     0.6094
+    ],
+    "gameWinPct": 0.3333,
+    "games": [
+     4,
+     8,
+     0
+    ],
+    "matchWinPct": 0.1667,
+    "matches": [
+     1,
+     5,
+     0
+    ],
+    "thin": true
+   },
+   "grand-admiral-thrawn_jtl_yellow": {
+    "gameWinCI95": [
+     0.3589,
+     0.9178
+    ],
+    "gameWinPct": 0.7143,
+    "games": [
+     5,
+     2,
+     0
+    ],
+    "matchWinPct": 0.8333,
+    "matches": [
+     2,
+     0,
+     1
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_data-vault": {
+    "gameWinCI95": [
+     0.2326,
+     0.6127
+    ],
+    "gameWinPct": 0.4091,
+    "games": [
+     9,
+     13,
+     0
+    ],
+    "matchWinPct": 0.3333,
+    "matches": [
+     3,
+     6,
+     0
+    ],
+    "thin": true
+   },
+   "greef-karga_ash_red": {
+    "gameWinCI95": [
+     0.3318,
+     0.769
+    ],
+    "gameWinPct": 0.5625,
+    "games": [
+     9,
+     7,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     3,
+     3,
+     0
+    ],
+    "thin": true
+   },
+   "lando-calrissian_law_blue": {
+    "gameWinCI95": [
+     0.4159,
+     0.6663
+    ],
+    "gameWinPct": 0.5439,
+    "games": [
+     31,
+     26,
+     2
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     10,
+     10,
+     7
+    ],
+    "thin": false
+   },
+   "luke-skywalker_ash_data-vault": {
+    "gameWinCI95": [
+     0.3047,
+     0.6181
+    ],
+    "gameWinPct": 0.4571,
+    "games": [
+     16,
+     19,
+     0
+    ],
+    "matchWinPct": 0.4667,
+    "matches": [
+     7,
+     8,
+     0
+    ],
+    "thin": false
+   },
+   "luke-skywalker_jtl_data-vault": {
+    "gameWinCI95": [
+     0.4531,
+     0.6608
+    ],
+    "gameWinPct": 0.5595,
+    "games": [
+     47,
+     37,
+     1
+    ],
+    "matchWinPct": 0.5571,
+    "matches": [
+     19,
+     15,
+     1
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_red-force": {
+    "gameWinCI95": [
+     0.3104,
+     0.6162
+    ],
+    "gameWinPct": 0.4595,
+    "games": [
+     17,
+     20,
+     4
+    ],
+    "matchWinPct": 0.4737,
+    "matches": [
+     8,
+     9,
+     2
+    ],
+    "thin": false
+   },
+   "mother-talzin_lof_yellow-force": {
+    "gameWinCI95": [
+     0.2366,
+     0.7634
+    ],
+    "gameWinPct": 0.5,
+    "games": [
+     5,
+     5,
+     0
+    ],
+    "matchWinPct": 0.5,
+    "matches": [
+     2,
+     2,
+     1
+    ],
+    "thin": true
+   },
+   "obi--wan-kenobi_lof_vergence-temple": {
+    "gameWinCI95": [
+     0.109,
+     0.5195
+    ],
+    "gameWinPct": 0.2667,
+    "games": [
+     4,
+     11,
+     3
+    ],
+    "matchWinPct": 0.3125,
+    "matches": [
+     2,
+     5,
+     1
+    ],
+    "thin": true
+   },
+   "the-armorer_ash_nabat-village": {
+    "gameWinCI95": [
+     0.3,
+     0.9032
+    ],
+    "gameWinPct": 0.6667,
+    "games": [
+     4,
+     2,
+     0
+    ],
+    "matchWinPct": 1.0,
+    "matches": [
+     2,
+     0,
+     0
+    ],
+    "thin": true
+   }
+  }
+ },
+ "source": {
+  "decks": 3239,
+  "events": 53,
+  "meleeIds": [
+   424026,
+   433701,
+   437510,
+   437625,
+   437630,
+   437735,
+   437850,
+   437895,
+   438433,
+   438507,
+   438546,
+   438778,
+   438831,
+   438901,
+   438966,
+   438980,
+   439042,
+   439051,
+   439275,
+   439947,
+   440379,
+   441467,
+   441468,
+   441471,
+   441488,
+   441523,
+   441533,
+   441564,
+   441718,
+   442352,
+   442451,
+   442508,
+   442689,
+   442747,
+   442766,
+   442828,
+   443207,
+   443333,
+   443438,
+   444362,
+   445115,
+   446903,
+   448251,
+   449469,
+   450386,
+   450494,
+   453090,
+   462395,
+   462550,
+   462979,
+   464234,
+   468839,
+   471654
+  ],
+  "note": "Premier, ASH set, after the 2026-08-31 Cad Bane (ASH) suspension, >32 players, per swu-competitivehub.com; Redlands 449449 and Malmo 467453 excluded (owner). Cells count Swiss AND top cut; mirrors and byes excluded. thin = fewer than 10 matches."
+ }
+}

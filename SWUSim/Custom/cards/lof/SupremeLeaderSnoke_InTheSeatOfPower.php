@@ -11,7 +11,10 @@
 $onAttackAbilities["LOF_006:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $villainy = [];
-    foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    foreach (SWUFriendlyUnits(null, AnyUnitFilter) as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
         if (strpos(CardAspect($o->CardID ?? '') ?? '', 'Villainy') !== false) $villainy[] = $mz;
@@ -30,7 +33,7 @@ $onAttackAbilities["LOF_006:0"] = function($player, $mzID) {
 $leaderAbilities["LOF_006"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $villainy = [];
-    foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {
+    foreach (SWUFriendlyUnits(null, AnyUnitFilter) as $mz) {
         $o = GetZoneObject($mz); if (SWUObjGone($o)) continue;
         if (strpos(CardAspect($o->CardID ?? '') ?? '', 'Villainy') !== false) $villainy[] = $mz;
     }

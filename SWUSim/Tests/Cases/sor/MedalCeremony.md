@@ -237,3 +237,107 @@ P1GROUNDARENAUNIT:0:POWER:4
 P1GROUNDARENAUNIT:0:HP:8
 P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:2:UPGRADECOUNT:0
+
+---
+
+# ThreeSeat_CasterAtSeat3_OwnRebelAttacker_InPool
+#// REPORTED BUG — local game 1310532, a 3-seat table. P3's Rebels (Red Five, Sabine Wren) attacked and
+#// P3's Medal Ceremony still logged "had no effect". The attacked-this-phase read was hardcoded to
+#// GlobalEffectCount(1, …) || GlobalEffectCount(2, …) — seats 1 and 2 ONLY — but SWU_ATTACKED_{uid} is
+#// stamped on the ATTACKER'S CONTROLLER's seat, so at 3+ seats every seat-3/4 attacker was invisible and
+#// the event fizzled for the whole far half of the table.
+#//
+#// ⚠ Two seats CANNOT observe this: "seat 1 or seat 2" is the entire table there, so every 2-seat
+#// section above (including the cross-seat EnemyRebelAttacker_* pair) passes against the broken read.
+#// This is the minimum board that discriminates.
+
+## GIVEN
+CommonSetup3P: bbk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 3
+WithP3Resources: 6
+WithP3GroundArena: SOR_046:1:0
+WithP3Hand: SOR_245
+
+## WHEN
+- P3>AttackGroundArena:0:P1B
+- P1>Pass
+- P2>Pass
+- P3>PlayHand:0
+
+## EXPECT
+P3SELECTABLEEXACT:myGroundArena-0
+
+---
+
+# ThreeSeat_FarSeatRebelAttacker_InPool_NonAttackerExcluded
+#// The same seat-hardcode seen from the CASTER's side: P1 plays Medal Ceremony while the only Rebel that
+#// attacked sits at seat 3. P2 also fields a Rebel that never attacked, so the pool has to discriminate
+#// rather than just "be non-empty" — exactly p3GroundArena-0.
+
+## GIVEN
+CommonSetup3P: bbk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 3
+WithP1Resources: 6
+WithP1Hand: SOR_245
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+
+## WHEN
+- P3>AttackGroundArena:0:P1B
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:p3GroundArena-0
+
+---
+
+# ThreeSeat_FarSeatRebelAttacker_GetsExperience
+#// Resolution half of the pair: the seat-3 attacker actually receives the Experience token, and the
+#// seat-2 Rebel that never attacked stays bare.
+
+## GIVEN
+CommonSetup3P: bbk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 3
+WithP1Resources: 6
+WithP1Hand: SOR_245
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+
+## WHEN
+- P3>AttackGroundArena:0:P1B
+- P1>PlayHand:0
+- P1>AnswerDecision:p3GroundArena-0
+
+## EXPECT
+P3GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P3GROUNDARENAUNIT:0:POWER:4
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# FourSeat_FarSeatRebelAttacker_InPool_TwoNonAttackersExcluded
+#// 4P sibling. The only Rebel that attacked sits on SEAT 4; seats 2 AND 3 field Rebels that did not.
+#// `OtherPlayer()` answers 1 for seat 3 and seat 4 alike, so a four-seat board is the only place a
+#// seat-4 attacker is distinguishable from a seat-3 one, and two non-attackers make the pool assertion
+#// discriminate in both directions at once.
+
+## GIVEN
+CommonSetup4P: bbk/bbk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 4
+WithP1Resources: 6
+WithP1Hand: SOR_245
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+
+## WHEN
+- P4>AttackGroundArena:0:P1B
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:p4GroundArena-0

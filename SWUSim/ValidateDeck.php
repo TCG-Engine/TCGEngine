@@ -40,6 +40,12 @@ $baseName   = $baseID   ? (CardTitle($baseID)   ?: $baseID)   : '';
 // ── Premier format validation ─────────────────────────────────────────────────
 $formatErrors = SWUCheckFormat($format, $leaderID, $baseID, $mainDeck, $sideboard);
 
+// ── Format detection (owner spec, 2026-09-25) ────────────────────────────────
+// ADDITIVE: an extra response field, so every existing consumer is byte-compatible.
+// Most restrictive first, first legal wins, Open is the floor — so this never fails.
+// The menu uses it to set the card-pool chip when a deck link resolves.
+$detectedFormat = SWUDetectFormat($leaderID, $baseID, $mainDeck, $sideboard);
+
 // ── Import warnings (unresolved cards, missing slots) ────────────────────────
 $warnings = [];
 if (!$leaderID)      $warnings[] = 'No leader found.';
@@ -51,9 +57,19 @@ if (!empty($unresolved)) {
     $warnings[] = count($unresolved) . ' card(s) not recognized: ' . implode(', ', $sample) . $extra;
 }
 
+// ── May this input be saved to a deck library? (owner, 2026-09-25) ───────────
+// ADDITIVE, like detectedFormat above: existing consumers are byte-compatible.
+// The rule lives in SWUDeckInputIsLink() so the client never re-implements it — a second copy
+// in JS would drift from the resolver the first time a deck site is added.
+$savable  = SWUDeckInputIsLink($deckLink);
+$deckName = trim((string)($result['name'] ?? ''));
+
 echo json_encode([
     'success'      => true,
     'format'       => $format,
+    'detectedFormat' => $detectedFormat,
+    'savable'      => $savable,
+    'deckName'     => $deckName,
     'leaderID'     => $leaderID,
     'leaderName'   => $leaderName,
     'baseID'       => $baseID,

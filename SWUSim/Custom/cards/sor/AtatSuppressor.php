@@ -8,7 +8,10 @@ $whenPlayedAbilities["SOR_039:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
     foreach (array_merge(
-        ZoneSearch('myGroundArena',    AnyUnitFilter),
+        // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+        // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+        // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+        ZoneSearch('teamGroundArena',    AnyUnitFilter),
         ZoneSearch('theirGroundArena', AnyUnitFilter)
     ) as $mz) {
         $o = GetZoneObject($mz);

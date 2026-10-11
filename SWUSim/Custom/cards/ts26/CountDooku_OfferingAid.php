@@ -21,6 +21,7 @@ $leaderAbilities["TS26_01"] = function(int $player): void {
     $seats = GetLiveSeatsArray();
     if (count($seats) > 2) {
         SWUQueueChoosePlayer(intval($player), 'TS26_01#P1', "First_player_to_heal_and_create_a_droid?", $seats);
+        // SWUAfterAction defers itself behind both picks (they are on this seat's queue) — see its header.
         SWUAfterAction(intval($player));
         return;
     }

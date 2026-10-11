@@ -31,7 +31,7 @@ $checks['preview set list is non-empty'] = is_array($previewSets) && count($prev
 $checks['SWUFormatIsPreview() exists'] = function_exists('SWUFormatIsPreview');
 if ($checks['SWUFormatIsPreview() exists']) {
     // Every format that DECLARES an unreleased set in its pool is a preview format.
-    foreach (['preview', 'twinsuns-preview', 'padawan-preview'] as $f) {
+    foreach (['preview', 'twinsuns-preview', 'teamsuns-preview', 'padawan-preview'] as $f) {
         $checks["$f is preview"] = SWUFormatIsPreview($f) === true;
     }
     // The released formats each preview format is derived from are NOT preview.
@@ -125,7 +125,7 @@ $createdGids = [];
 // write at all. The old synthetic-format control existed only to provide that proof and is gone:
 // unregistered formats are now rejected outright, and 'padawan' + disableMetaStats could not serve
 // either — disableMetaStats sets $explicitOptOut, which suppresses the completedgame row too.
-foreach (['preview', 'twinsuns-preview', 'padawan-preview', 'eternal-preview'] as $fmt) {
+foreach (['preview', 'twinsuns-preview', 'teamsuns-preview', 'padawan-preview', 'eternal-preview'] as $fmt) {
     wipeDeck($conn, $deckID);
     $since = maxGid($conn);
     $resp  = postJson($endpoint, payload($apiKey, $deckID, $fmt, $sentinel));

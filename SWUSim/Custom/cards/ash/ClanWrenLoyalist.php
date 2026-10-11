@@ -18,5 +18,5 @@ $whenPlayedAbilities["ASH_107:0"] = function($player, $mzID) {
     DoTopDeckSearch(intval($player), 5, function($cid) use ($traitKeys) {
         foreach ($traitKeys as $t) { if (HasTrait($cid, $t)) return true; }
         return false;
-    }, 1);
+    }, 1, 'cards sharing a trait with a unit you control');
 };

@@ -74,3 +74,24 @@ WithP3Leader: SHD_014:1:1
 SEATCOUNT:4
 P1HANDCOUNT:0
 P1RESAVAILABLE:0
+
+---
+
+# EpicAction_PlaysAUnit_TurnPassesOnce
+#// Bug #1109 family. TS26_10 Dooku's Palace's Epic Action plays a unit from hand; it must end the action —
+#// the turn passes to P2 once. It stranded the turn. No P1OnlyActions, so TURNPLAYER is observable.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myBase:TS26_10;myResources:4;handCardIds:SOR_095}
+SkipPreGame: true
+WithActivePlayer: 1
+
+## WHEN
+- P1>UseBaseAbility
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+TURNPLAYER:2
+NOEXTRAACTION

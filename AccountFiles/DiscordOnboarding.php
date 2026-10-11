@@ -41,10 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: ' . $redirect);
             exit();
         }
-        if ($username === '' || !ctype_alnum($username)) {
-            throw new RuntimeException('The username must contain only letters or numbers.');
+        if (!UsernameIsValid($username)) {
+            throw new RuntimeException(UsernameRuleMessage());
         }
-        if (strlen($username) > 128) throw new RuntimeException('The username is too long.');
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) throw new RuntimeException('Enter a valid email address.');
         if (empty($_POST['acceptTerms'])) throw new RuntimeException('Accept the Terms of Use and Privacy Policy to continue.');
         $redirect = DiscordOAuthSafeReturn($pending['redirect'] ?? '', $pending['site'] ?? 'SWUDeck');
@@ -97,7 +96,7 @@ $discordEmailLocked = !empty($pending['emailVerified']) && !empty($pending['emai
             <input type="hidden" name="csrf" value="<?= $esc($pending['csrf']) ?>">
             <input type="hidden" name="mode" value="create">
             <label>Username
-                <input name="username" value="<?= $esc($username) ?>" maxlength="128" autocomplete="username" required autofocus>
+                <input name="username" value="<?= $esc($username) ?>" maxlength="<?= USERNAME_MAX_LENGTH ?>" autocomplete="username" required autofocus>
             </label>
             <label>Email
                 <input name="email" type="email" value="<?= $esc($email) ?>" autocomplete="email" required <?= $discordEmailLocked ? 'readonly' : '' ?>>

@@ -18,7 +18,18 @@ $customDQHandlers["SOR_115#0"] = function($player, $parts, $lastDecision) {
     if ($uid > 0) {
         $mz = SWUFindMzByUID($uid);
         $ku = ($mz !== null) ? GetZoneObject($mz) : null;
-        if ($ku !== null && empty($ku->removed)) SWUConsumeUse($ku);
+        if ($ku !== null && empty($ku->removed)) {
+            // ⚠ RE-CHECK the budget at RESOLVE, not just where the trigger was armed. N unique units
+            // defeated in ONE batch each arm their own trigger, and they all DISPATCH before the first
+            // offer is answered, so every offer reads an unspent round. Only the first accepted YES may
+            // pay; a later one draws NOTHING. This is the owner's 2026-09-23 shape: one declinable offer
+            // per trigger instance, budget re-read when each RESOLVES. Without it Kallus drew once per
+            // co-defeat (live report 2026-09-28).
+            if (!SWUHasUseAvailable($ku)) return;
+            SWUConsumeUse($ku);
+        }
+        // A missing/removed Kallus keeps the ORIGINAL behaviour (draw, nothing to charge) — the arm site
+        // refuses a removed Kallus, so this is near-unreachable and is deliberately not changed here.
     }
     DoDrawCard(intval($player), 1);
 };

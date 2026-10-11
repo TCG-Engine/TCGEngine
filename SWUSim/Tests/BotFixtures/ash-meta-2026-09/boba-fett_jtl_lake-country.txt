@@ -1,0 +1,47 @@
+# Real-deck self-play fixture — Boba Fett, Any Methods Necessary - Lake Country
+# Source: melee.gg 438966, #2 of 72 (8-2-0)
+#   https://melee.gg/Decklist/View/cba6340b-a26b-4cd3-8dac-b4bc0178bbda — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard in the Sideboard section)
+#   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (16 entries).
+# Archetype (owner's label): Burn (soft aggro: indirect + effect damage to the base)
+#   Relabelled hyper aggro by the owner 2026-10-01: "Boba LC with 18 burn cards should be hyper aggro" — a list
+#   that heavy in burn is racing the base, not playing a less all-in aggro.
+# Style: hyperaggro
+# Flavours: burn
+
+Leader
+1 JTL_009
+
+Base
+1 JTL_031
+
+Deck
+3 LAW_174
+3 LAW_173
+3 SEC_172
+2 JTL_133
+2 LOF_130
+2 SEC_163
+2 SEC_133
+1 JTL_142
+3 JTL_143
+3 JTL_162
+3 JTL_240
+3 JTL_140
+3 ASH_146
+3 JTL_237
+2 JTL_137
+1 SEC_171
+1 JTL_242
+3 SEC_179
+3 SEC_183
+2 SEC_182
+1 JTL_181
+1 JTL_175
+
+Sideboard
+3 LAW_191
+2 JTL_165
+2 JTL_181
+1 SEC_163
+1 JTL_242
+1 JTL_175

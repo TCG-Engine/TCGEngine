@@ -64,7 +64,8 @@ async function login(page, cred) {
 async function createLobby(page, format) {
   await page.goto(BASE + 'SharedUI/MainMenu.php', { waitUntil: 'load' });
   await page.waitForTimeout(600);
-  await page.selectOption('#swu-format-select', format);
+  // The menu's three dropdowns now write a hidden #swu-format-select (2026-09-16), which selectOption cannot target.
+  if (!(await page.evaluate((f) => swuSelectFormat(f, '', false), format))) throw new Error('the menu offers no path to ' + format);
   await page.click('#tab-text');                       // free-text deck entry
   await page.fill('#deck-text', DECK);
   await Promise.all([

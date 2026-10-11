@@ -2,15 +2,15 @@
 // HMW_147
 // Cost 2 - Beast Lair - [Command] - Upgrade - Trait: Fortification - NON-unique
 // Text: Fortify (Attach this to your base, not a unit.)
-//       Attached base gains: "When the action phase starts: You discard a card from your hand. If you
-//       do, create a Beast token."
+//       Attached base gains: "When the action phase starts: You may discard a card from your hand. If you
+//       do, create a Beast token." (Official text, 2026-09-16 flip — the preview mock read "You discard".)
 //
 // The Fortify half needs no code (generator registry + SWUGetUpgradeValidTargets' Fortify branch).
 // The granted half is a BASE-hosted ACTION-phase-start trigger — the phase-mirror of HMW_070 Dark
 // Sanctum's regroup trigger, hung off ActionPhaseStart (call site there; body here with the card).
 //
-// "You discard a card from your hand" is MANDATORY, but WHICH card is the controller's choice — so each
-// copy queues a hand-pick on the base controller's queue. "If you do" gates the Beast on the discard
+// "You may discard a card from your hand" is OPTIONAL — each copy queues a declinable hand-pick
+// (MZMAYCHOOSE) on the base controller's queue; declining creates no Beast. "If you do" gates the Beast on the discard
 // actually happening: an empty hand at fire time is a clean no-op. Fires once PER ATTACHED COPY
 // (non-unique), and each copy re-checks the hand at ITS OWN fire time — the first copy's discard can
 // empty the hand for the second.
@@ -39,7 +39,7 @@ $customDQHandlers["HMW_147#0"] = function ($player, $parts, $lastDecision) {
         if ($o !== null && empty($o->removed)) $targets[] = $mz;
     }
     if (empty($targets)) return;   // "if you do" — nothing to discard, no Beast
-    SWUQueueChooseTarget(intval($player), $targets, "Discard_a_card_(Beast_Lair)", "HMW_147#1");
+    SWUQueueMayChooseTarget(intval($player), $targets, "Discard_a_card_to_create_a_Beast?", "Discard_a_card_(Beast_Lair)", "HMW_147#1");
 };
 
 $customDQHandlers["HMW_147#1"] = function ($player, $parts, $lastDecision) {

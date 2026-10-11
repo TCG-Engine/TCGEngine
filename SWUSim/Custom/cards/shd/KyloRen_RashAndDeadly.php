@@ -20,10 +20,11 @@ $customDQHandlers["SHD_011#cost"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || !str_contains($lastDecision, '-')) { SWUAfterAction(intval($player)); return; }
     DoDiscardCard(intval($player), $lastDecision);
     DecisionQueueController::CleanupRemovedCards();
-    $targets = array_values(array_filter(array_merge(
-        ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)
-    ), fn($mz) => ($o = GetZoneObject($mz)) !== null && empty($o->removed)));
+    // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+    // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+    // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+    // Premier is byte-identical). See memory: unqualified pools miss teammates.
+    $targets = array_values(array_filter(SWUAllUnits(), fn($mz) => ($o = GetZoneObject($mz)) !== null && empty($o->removed)));
     if (empty($targets)) { SWUAfterAction(intval($player)); return; }
     SWUQueueChooseTarget(intval($player), $targets, "Give_a_unit_+2/+0_this_phase", "APPLY_PHASE_BUFF|2|0|SHD_011");
     SWUQueueAfterAction(intval($player));

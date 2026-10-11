@@ -10,5 +10,14 @@ $customDQHandlers["ASH_018#0"] = function($player, $parts, $lastDecision) {
     // $isAction=false: this deploy is a REACTION to playing a unit, not the player's action for the turn.
     // The play that triggered it already runs its own After Action; letting the deploy run a second one
     // swapped the turn twice and handed the player a free extra action (live bug report #963).
-    SWUDeployLeader(intval($player), 'Unit', '', 0, false);   // the ASH_018 gate branch only requires Grogu ready
+    // Deploy GROGU's slot, not leader 0. With Grogu as the SECOND leader (Twin Suns) a hard-coded 0 deployed the
+    // other leader instead (player report 2026-09-21: "it flipped my Bail Organa leader"). The trigger passes his
+    // live index; re-resolve if the leaders shifted since the prompt was queued.
+    $idx = intval($parts[0] ?? 0);
+    $at  = SWUGetLeaderByIndex(intval($player), $idx);
+    if ($at === null || ($at->CardID ?? '') !== 'ASH_018' || !empty($at->Deployed)) {
+        $idx = _SWULiveLeaderIndexOf(intval($player), 'ASH_018');
+        if ($idx === null) return;   // Grogu is gone or already deployed: nothing to deploy
+    }
+    SWUDeployLeader(intval($player), 'Unit', '', $idx, false);   // the ASH_018 gate branch only requires Grogu ready
 };

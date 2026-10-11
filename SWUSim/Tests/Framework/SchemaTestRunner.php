@@ -174,6 +174,20 @@ class SchemaTestRunner {
         // Unterminated block: flush what we have so it surfaces downstream instead of vanishing.
         if ($braceBuf !== null && $current !== null) $sections[$current][] = trim($braceBuf);
 
+        // ⚠ NO GIVEN DIRECTIVES IS AN ERROR, NOT AN EMPTY BOARD. This used to return ok unconditionally,
+        // so three different mistakes — no '## GIVEN' heading, the heading with nothing under it, and a
+        // GIVEN whose lines are all commented out — all handed _buildInitialState an empty list, which
+        // builds the DEFAULT TWO-PLAYER state. In the Test Schema Editor that is a silent 200 and a game
+        // id: on screen, two empty arenas and "Card" placeholders, i.e. indistinguishable from a broken
+        // board. The owner pasted a Tests/Visual doc (all '#' comments) and got four of them before
+        // asking what was wrong. A parse that found no directives has not parsed a schema; say so.
+        if (empty($sections['given'])) {
+            return ['ok' => false, 'error' =>
+                'No GIVEN directives found. A schema needs a "## GIVEN" section with at least one '
+                . 'directive (e.g. "CommonSetup: bbw/rrk"). Check the heading is exactly "## GIVEN" and '
+                . 'that its lines are not all comments — a Tests/Visual doc is not a loadable schema.'];
+        }
+
         return ['ok' => true] + $sections;
     }
 
@@ -212,7 +226,8 @@ class SchemaTestRunner {
                              'WithP1ResourceControlled',    'WithP2ResourceControlled',
                              'WithP3ResourceControlled',    'WithP4ResourceControlled',
                              'WithP1Deck',                'WithP2Deck',
-                             'WithP3Deck',                'WithP4Deck'];
+                             'WithP3Deck',                'WithP4Deck',
+                             'WithGameLog',               'WithChat'];
         // List-valued keys accept either one spec per line OR a bracketed, whitespace-separated
         // array on a single line — e.g. "WithP2Deck: [SOR_225 SEC_080 SOR_128]" or
         // "WithP1GroundArena: [ASH_048:1:0 SEC_098:0:3]". Each token becomes its own accumulated
@@ -307,8 +322,10 @@ class SchemaTestRunner {
             'SkipPreGame', 'P1OnlyActions', 'P2OnlyActions', 'P3OnlyActions', 'P4OnlyActions',
             'P1LeaderBase', 'P2LeaderBase', 'P3LeaderBase', 'P4LeaderBase',
             'WithActivePlayer', 'WithInitiativePlayer', 'WithInitiativeClaimed', 'WithGamePhase',
-            'WithSeatOrder', 'WithLiveSeats', 'WithDefeatedPlayer', 'WithPrivateGame', 'WithRound',
+            'WithSeatOrder', 'WithLiveSeats', 'WithEliminatedSeats', 'WithDefeatedPlayer',
+            'WithPrivateGame', 'WithRound',
             'InitChoice', 'InitRng', 'DeckSeed', 'WithTeams',
+            'WithGameLog', 'WithChat',
         ];
         static $perSeat = [
             'Deck', 'Hand', 'Discard', 'Resources', 'Credits', 'Force', 'Base', 'Leader', 'Leader2',
@@ -323,6 +340,110 @@ class SchemaTestRunner {
         throw new RuntimeException(
             "Unknown GIVEN directive '{$k}' — it would have been silently ignored. "
             . "Check the spelling, or add it to SchemaTestRunner::_assertKnownGivenKey() if it is new.");
+    }
+
+    /**
+     * Seed the GAME LOG and the CHAT stream — the two streams the board's merged sidebar panel
+     * interleaves. Added 2026-09-26 so a log/chat board can be a LOADABLE SCHEMA instead of a CLI
+     * fixture; Tests/Visual/Chat_4P_WhisperMatrix.md was the 1-in-5 Visual doc that would not open in
+     * the Test Schema Editor, and pasting it silently produced an empty two-seat game.
+     *
+     *   WithGameLog: TYPE|VISIBILITY|text        e.g. ATTACK|ALL|P1's [[SOR_046|Rebel Trooper]] attacked
+     *   WithChat:    SEAT|text                   a public message from that seat
+     *   WithChat:    SEAT>TARGETS|text           a whisper, e.g. "2>1,4|P1 and P4 — P3 is the threat"
+     *
+     * ⚠ WALKS THE RAW ORDERED LINES, NOT _parseGiven's MAP. The panel merges the two streams by
+     * TIMESTAMP alone, so the ONLY thing that makes a fixture useful is that chat and log can be
+     * declared in the order they should appear. A key→values map cannot express "chat, log, chat" —
+     * it would apply each key in its own pass and the board would show two clumps.
+     *
+     * ⚠ PIPES ARE LIMITED-SPLIT because the TEXT contains them: GameLogCardRef() emits [[id|title]].
+     * Same reason AddGameLogEntry() puts its timestamp in field 2 rather than last.
+     *
+     * ⚠ Both writes go through the functions PRODUCTION calls — AddGameLogEntry() and
+     * ChatAppendMessage() (the row builder SubmitChat.php uses) — so neither shape can drift here.
+     * The 200µs pause is what guarantees a distinct stamp: entries are stamped to 4 decimal places
+     * (100µs), and two entries sharing a stamp make the panel's ordering arbitrary.
+     */
+    private static function _applyChatAndLogDirectives(array $givenLines): void {
+        $seats = function_exists('SeatCountForGame') ? max(2, intval(SeatCountForGame())) : 2;
+
+        foreach ($givenLines as $line) {
+            $pos = strpos($line, ':');
+            if ($pos === false) continue;
+            $key = trim(substr($line, 0, $pos));
+            $val = trim(substr($line, $pos + 1));
+
+            if ($key === 'WithGameLog') {
+                $parts = explode('|', $val, 3);
+                if (count($parts) !== 3 || trim($parts[0]) === '' || trim($parts[1]) === '') {
+                    throw new RuntimeException(
+                        "WithGameLog needs three '|' fields — TYPE|VISIBILITY|text (e.g. "
+                        . "\"ATTACK|ALL|P1's base took 3 damage\"). Got: \"{$val}\"");
+                }
+                [$type, $vis, $text] = [trim($parts[0]), trim($parts[1]), $parts[2]];
+                if ($text === '') throw new RuntimeException("WithGameLog has an empty text field: \"{$val}\"");
+                if (!preg_match('/^(ALL|P\d(,P\d)*)$/', $vis)) {
+                    throw new RuntimeException(
+                        "WithGameLog visibility must be 'ALL' or a seat-tag list like 'P1,P3'. Got: \"{$vis}\"");
+                }
+                AddGameLogEntry($type, $text, $vis);
+                usleep(200);
+                continue;
+            }
+
+            if ($key !== 'WithChat') continue;
+
+            $parts = explode('|', $val, 2);
+            if (count($parts) !== 2) {
+                throw new RuntimeException(
+                    "WithChat needs a '|' between the sender and the message — SEAT|text, or "
+                    . "SEAT>TARGETS|text for a whisper. Got: \"{$val}\"");
+            }
+            [$who, $text] = [trim($parts[0]), $parts[1]];
+            if (trim($text) === '') throw new RuntimeException("WithChat has an empty message: \"{$val}\"");
+
+            $whisperTo  = [];
+            $targetSpec = '';
+            if (strpos($who, '>') !== false) [$who, $targetSpec] = array_map('trim', explode('>', $who, 2));
+
+            if (!ctype_digit($who) || intval($who) < 1 || intval($who) > $seats) {
+                throw new RuntimeException(
+                    "WithChat: seat '{$who}' does not exist — this game has {$seats} seat(s).");
+            }
+            $senderSeat = intval($who);
+
+            if ($targetSpec !== '') {
+                // The production parser, so the stored 'to' array is byte-identical to a real whisper's
+                // (it rejects self-targets, out-of-range seats and duplicates, and it sorts).
+                $whisperTo = function_exists('ChatParseWhisperTargets')
+                    ? ChatParseWhisperTargets($targetSpec, $senderSeat, $seats) : null;
+                if ($whisperTo === null || count($whisperTo) === 0) {
+                    throw new RuntimeException(
+                        "WithChat: \"{$targetSpec}\" is not a valid whisper target list for seat "
+                        . "{$senderSeat} in a {$seats}-seat game.");
+                }
+            }
+
+            // A chat row lives in APCu under the GAME's scope token, so this needs a game name and a
+            // live APCu. Both hold in the Test Schema Editor (it runs in the web SAPI and allocates the
+            // game before building). Under the CLI regression runner neither does — and a directive
+            // that silently wrote nothing there is exactly the failure this whole change removes.
+            $scope = strval($GLOBALS['gameName'] ?? '');
+            if ($scope === '' || !function_exists('ChatAppendMessage')) {
+                throw new RuntimeException(
+                    'WithChat needs a game scope (a $gameName) and Core/NetworkingLibraries.php. It is '
+                    . 'meant for the Test Schema Editor / a Tests/Visual board, not the CLI runner.');
+            }
+            $label = function_exists('NormalizeViewerIdentity')
+                ? NormalizeViewerIdentity((string)$senderSeat, $seats)['label'] : 'P' . $senderSeat;
+            if (ChatAppendMessage($scope, (string)$senderSeat, $label, $text, $whisperTo) === 0) {
+                throw new RuntimeException(
+                    "WithChat could not store a message for game '{$scope}' — APCu is off "
+                    . '(the CLI needs -d apc.enable_cli=1) or the scope token is unusable.');
+            }
+            usleep(200);
+        }
     }
 
     private static function _parseDeckList(string $val): array {
@@ -414,6 +535,13 @@ class SchemaTestRunner {
             $p2HandCount = max(0, $p2Drew - $resourced[2]);
             $p1DeckLeft  = max(0, count($p1Deck) - $p1Drew);
             $p2DeckLeft  = max(0, count($p2Deck) - $p2Drew);
+            // This form fills hand, resources AND deck from the FIRST card (homogeneous deck assumed), so a
+            // mixed list would silently become a one-card deck. Refuse it rather than mislead.
+            foreach ([1 => $p1Deck, 2 => $p2Deck] as $pn => $list) {
+                if (count(array_unique($list)) > 1)
+                    throw new RuntimeException("P{$pn}Deck: lists different cards, but without SkipPreGame it builds "
+                        . "every card from the first one. Use SkipPreGame / CommonSetup (literal deck) or WithP{$pn}Deck:.");
+            }
         }
 
         // WithRound: N — the game's round counter (TurnNumber). CreateGame seeds it at 1 and
@@ -455,8 +583,9 @@ class SchemaTestRunner {
         for ($i = 0; $i < $p1HandCount && $p1Card !== ''; $i++) $b->WithCardInHandForPlayer(1, $p1Card);
         for ($i = 0; $i < $p2HandCount && $p2Card !== ''; $i++) $b->WithCardInHandForPlayer(2, $p2Card);
 
-        for ($i = 0; $i < $p1DeckLeft && $p1Card !== ''; $i++) $b->WithCardInDeckForPlayer(1, $p1Card);
-        for ($i = 0; $i < $p2DeckLeft && $p2Card !== ''; $i++) $b->WithCardInDeckForPlayer(2, $p2Card);
+        // SkipPreGame: the list IS the deck, top first (a mixed list used to become N copies of its first card).
+        for ($i = 0; $i < $p1DeckLeft && $p1Card !== ''; $i++) $b->WithCardInDeckForPlayer(1, $skipPre ? $p1Deck[$i] : $p1Card);
+        for ($i = 0; $i < $p2DeckLeft && $p2Card !== ''; $i++) $b->WithCardInDeckForPlayer(2, $skipPre ? $p2Deck[$i] : $p2Card);
 
         // Arena units from GIVEN directives.
         foreach ($given['WithP1GroundArena'] ?? [] as $spec) {
@@ -587,6 +716,23 @@ class SchemaTestRunner {
         }
         if (isset($given['WithSeatOrder'])) $b->WithSeatOrder(trim($given['WithSeatOrder']));
         if (isset($given['WithLiveSeats'])) $b->WithLiveSeats(trim($given['WithLiveSeats']));
+        // WithEliminatedSeats runs the REAL elimination at the end of build(). It is the complement of
+        // WithLiveSeats, not a synonym: one is the resulting STATE, the other is the ACTION plus its
+        // board cleanup. Giving both lets a fixture claim a live-seat list that the elimination then
+        // contradicts, so refuse rather than silently pick a winner between them.
+        if (isset($given['WithEliminatedSeats'])) {
+            if (isset($given['WithLiveSeats'])) {
+                throw new RuntimeException(
+                    "WithEliminatedSeats and WithLiveSeats are mutually exclusive: the first DERIVES the "
+                    . "live-seat list by eliminating, the second states it outright. Keep one.");
+            }
+            $elim = trim($given['WithEliminatedSeats']);
+            if (!preg_match('/^[1-4]+$/', $elim)) {
+                throw new RuntimeException(
+                    "WithEliminatedSeats takes a digit string of seats, e.g. '3' or '34' — got '{$elim}'.");
+            }
+            $b->WithEliminatedSeats($elim);
+        }
 
         // Explicit hand cards (multi-value: WithP1Hand / WithP2Hand).
         // Explicit hand / discard / deck cards (multi-value). Seats 3/4 (Twin Suns) supported.
@@ -967,6 +1113,25 @@ class SchemaTestRunner {
     // A target choice stores its candidates in Param as an '&'-joined mzID list; MZMULTICHOOSE prefixes
     // it with "min|max|" (e.g. "1|2|theirGroundArena-0&theirSpaceArena-1"). Non-target decisions
     // (OPTIONCHOOSE labels, YESNO, TOPDECKSEARCH) return [] — SELECTABLE asserts don't apply to them.
+    // ── Game-log entry fields ────────────────────────────────────────────────
+    // A log entry is `type|visibility|@<microtime>|text`, and the TEXT ITSELF CONTAINS PIPES
+    // (GameLogCardRef emits `[[id|title]]`), so it can only be read with the engine's own parser.
+    // The four LOG assertions used to do `explode('|', $entry, 3)` and take field 2 as the text, which
+    // was right until the timestamp was inserted (a54a2ef5, 2026-09-25) and then silently returned
+    // "@1790430211.6202|P1's …" as the text. Substring needles kept matching, so nothing went red —
+    // only the failure messages gave it away — but any needle meant to sit at the START of a line was
+    // quietly unmatchable, and that is exactly what the two WIN/undo reds needed to express.
+    // ⚠ Guarded by function_exists so the framework still loads if it is ever used without the engine.
+    private static function _logField(string $entry, string $field): string {
+        if (function_exists('SWUParseGameLogEntry')) {
+            $p = SWUParseGameLogEntry($entry);
+            return (string)($p[$field] ?? '');
+        }
+        $p = explode('|', $entry, 3);                     // legacy 3-field fallback
+        return (string)($field === 'visibility' ? ($p[1] ?? 'ALL') : ($p[2] ?? ''));
+    }
+    private static function _logText(string $entry): string { return self::_logField($entry, 'text'); }
+
     private static function _selectableTargets(object $pending): array {
         $type  = strtoupper((string)($pending->Type ?? ''));
         // MZSPLITASSIGN ("total|target[:cap]&…|MODE|STEP"): its assignable targets are the pool. Added
@@ -1029,7 +1194,11 @@ class SchemaTestRunner {
                 // unit/base in an N-player game (union targets).
                 // Else 'BASE' → the one opponent's base; a full mzID ('theirSpaceArena-2') is taken as-is;
                 // 'S<idx>' → cross-arena space (JTL_259); a bare number → this arena; empty → index 0.
-                if (($pt = _twSchemaSeatTarget($target)) !== null) $def = $pt;
+                // '?' → declare the attack and leave the target picker PENDING, so EXPECT can assert the
+                // offered pool (P<n>SELECTABLEEXACT) — the only way to show a target is NOT offered, since
+                // naming an unoffered target throws.
+                if ($target === '?')                     $def = '';
+                elseif (($pt = _twSchemaSeatTarget($target)) !== null) $def = $pt;
                 elseif ($target === 'BASE')              $def = 'theirBase-0';
                 elseif (_schemaIsFullMzID($target))      $def = $target;
                 elseif (str_starts_with($target, 'S'))   $def = 'theirSpaceArena-' . intval(substr($target, 1));
@@ -1043,8 +1212,10 @@ class SchemaTestRunner {
                 $atk = "mySpaceArena-" . intval($unitIdx);
                 // Twin Suns 'P<seat>...' seat-specific target (see AttackGroundArena).
                 // Else 'BASE' → the one opponent's base; a full mzID is taken as-is; 'G<idx>' →
-                // cross-arena ground (Strafing Gunship); a bare number → this arena; empty → index 0.
-                if (($pt = _twSchemaSeatTarget($target)) !== null) $def = $pt;
+                // cross-arena ground (Strafing Gunship); a bare number → this arena; empty → index 0;
+                // '?' → leave the target picker pending (see AttackGroundArena).
+                if ($target === '?')                     $def = '';
+                elseif (($pt = _twSchemaSeatTarget($target)) !== null) $def = $pt;
                 elseif ($target === 'BASE')             $def = 'theirBase-0';
                 elseif (_schemaIsFullMzID($target))     $def = $target;
                 elseif (str_starts_with($target, 'G'))   $def = 'theirGroundArena-' . intval(substr($target, 1));
@@ -1153,6 +1324,12 @@ class SchemaTestRunner {
                 // concede outcome (2-player: opponent wins; Twin Suns: the seat is eliminated and
                 // scoring defers to the phase boundary) rather than a test-only shortcut. No args.
                 TriggerGameOver($player);
+                break;
+
+            case 'Kick':
+                // $player is removed for inactivity — the SAME entry production's voting request uses
+                // (SWUApplyKick, SWUSim/Custom/InactivityClock.php). No args.
+                SWUApplyKick($player);
                 break;
 
             case 'SimulateRequestBoundary':
@@ -1265,9 +1442,14 @@ class SchemaTestRunner {
      */
     public static function applyPostSetupDirectives(array $givenLines): void {
         $given = self::_parseGiven($givenLines);
+        self::_applyChatAndLogDirectives($givenLines);
         // WithPrivateGame: true -> SimGameIsPrivateGame returns true, so undo is always free (no consent).
         // Default public (false). Reset every test so it never leaks across cases in one process.
         $GLOBALS['SWU_TEST_FORCE_PRIVATE'] = strtolower($given['WithPrivateGame'] ?? 'false') === 'true';
+        // A schema test is never a developer's browser session, even when the suite itself is driven over HTTP from
+        // localhost (curl …:3400/zzRegressionSWUSim.php): SWUUndoConsentDisabledForLocalDev must stand down, or every
+        // consent case (undo/ConsentGating, undo/RequestApprove, core/GameLog_Undo …) silently loses its consent step.
+        $GLOBALS['SWU_TEST_SCHEMA_RUN'] = true;
         for ($oaSeat = 1; $oaSeat <= 4; ++$oaSeat) {
             if (strtolower($given["P{$oaSeat}OnlyActions"] ?? '') !== 'true') continue;
             $oaHolder = ($oaSeat === 1) ? 2 : 1;   // any OTHER seat; 2 for seat 1 keeps P1OnlyActions identical
@@ -1415,6 +1597,37 @@ class SchemaTestRunner {
                 if ($actual !== $expected)
                     $failures[] = "{$line}: expected winners [" . implode(',', $expected)
                                 . "], got [" . implode(',', $actual) . "]";
+
+            } elseif (preg_match('/^GAMEOVERREASON:(win|concede|abandon)$/', $line, $m)) {
+                // Meta Premier (spec §4.2): how the game ended, as the rating layer will read it.
+                // Absent GAMEOVER_REASON means an ordinary win.
+                $actual = DecisionQueueController::GetVariable('GAMEOVER_REASON') ?? 'win';
+                if ($actual !== $m[1])
+                    $failures[] = "{$line}: expected '{$m[1]}', got '{$actual}'";
+
+            } elseif (preg_match('/^GAMEDETAIL:(\w+):(.*)$/', $line, $m)) {
+                // One scalar of SWUCaptureCurrentGameDetail() — what the Match layer stores per game (and the
+                // Meta Premier rating layer reads). Booleans compare as 'true'/'false'.
+                if (!function_exists('SWUCaptureCurrentGameDetail')) require_once __DIR__ . '/../../StatsSubmit.php';
+                $d = SWUCaptureCurrentGameDetail();
+                $v = $d[$m[1]] ?? null;
+                $actual = is_bool($v) ? ($v ? 'true' : 'false') : (is_scalar($v) ? (string)$v : json_encode($v));
+                if ($actual !== $m[2])
+                    $failures[] = "{$line}: expected '{$m[2]}', got '{$actual}'";
+
+            } elseif (preg_match('/^DQVARABSENT:([A-Za-z0-9_]+)$/', $line, $m)) {
+                // A DecisionQueueVariables key that must NOT exist. That zone is deterministic-RNG hash material
+                // (Core/DeterministicRNG.php EngineSnapshotState), so a bookkeeping flag stored there would shift every
+                // game's random stream from the moment it is written.
+                $v = DecisionQueueController::GetVariable($m[1]);
+                if ($v !== null)
+                    $failures[] = "{$line}: expected no {$m[1]}, got '" . strval($v) . "'";
+
+            } elseif (preg_match('/^PREGAMEDONE:([01])$/', $line, $m)) {
+                // Meta Premier (spec §4.3): has the first action phase opened (mulligans + resources done)?
+                $actual = SWUPregameDone() ? '1' : '0';
+                if ($actual !== $m[1])
+                    $failures[] = "{$line}: expected '{$m[1]}', got '{$actual}'";
 
             } elseif (preg_match('/^OPPONENTSOF:(\d+):(.*)$/', $line, $m)) {
                 // Twin Suns (Phase 3): the live opponents of a seat, as a comma-joined list.
@@ -1581,6 +1794,48 @@ class SchemaTestRunner {
                 if ($pending === null)
                     $failures[] = "{$line}: expected a pending decision, but none found";
 
+            } elseif (preg_match('/^P(\d+)DECISIONTYPE:(\w+)$/', $line, $m)) {
+                // The pending decision's TYPE — e.g. MZCHOOSE (mandatory) vs MZMAYCHOOSE (declinable). The
+                // only way to pin "you must choose one": a decline answer to a mandatory choice is refused by
+                // the harness before it runs, so it cannot be written as a WHEN line, and the candidate set
+                // (SELECTABLEEXACT) is identical for both types.
+                $p       = intval($m[1]);
+                $pending = $g->state->pendingDecision($p);
+                if ($pending === null)
+                    $failures[] = "{$line}: expected a pending {$m[2]} decision, but none found";
+                elseif (($pending->Type ?? '') !== $m[2])
+                    $failures[] = "{$line}: expected decision type {$m[2]}, got " . ($pending->Type ?? '?');
+
+            } elseif (preg_match('/^P(\d+)DECISIONHIGHLIGHT:(.+)$/', $line, $m)) {
+                // The board unit a prompt is pointing AT, asserted by CardID rather than by the raw param.
+                // A prompt about an already-chosen unit carries "hilite:<UniqueID>" so the client can ring it
+                // (SWUPromptHighlightParam / ApplyYesNoDecisionHighlight) — see
+                // SWUSim/Tests/Cases/sec/DedraMeero_NotWastingTime.md. Asserting the CardID keeps the test
+                // readable and stable: a UniqueID is an allocation order, so pinning the literal would make
+                // every section here break the moment a fixture gains a unit.
+                // Expect "-" to assert that NO highlight is sent.
+                $p       = intval($m[1]);
+                $want    = trim($m[2]);
+                $pending = $g->state->pendingDecision($p);
+                if ($pending === null) {
+                    $failures[] = "{$line}: expected a pending decision, but none found";
+                } else {
+                    $param = (string)($pending->Param ?? '');
+                    if ($want === '-') {
+                        if (preg_match('/(?:^|\|)hilite:/', $param))
+                            $failures[] = "{$line}: expected NO highlight, got param '{$param}'";
+                    } elseif (!preg_match('/(?:^|\|)hilite:(\d+)/', $param, $hm)) {
+                        $failures[] = "{$line}: expected a hilite target, got param '{$param}'";
+                    } else {
+                        $mzHi  = SWUFindMzByUID(intval($hm[1]));
+                        $objHi = ($mzHi !== null) ? MZResolveObject($mzHi) : null;
+                        $gotID = is_object($objHi) ? (string)($objHi->CardID ?? '') : '';
+                        if ($gotID !== $want)
+                            $failures[] = "{$line}: expected the highlight to point at {$want}, got "
+                                        . ($gotID !== '' ? $gotID : "UniqueID {$hm[1]} (not on the board)");
+                    }
+                }
+
             } elseif (preg_match('/^P(\d+)DECISIONTOOLTIP:(.+)$/', $line, $m)) {
                 // Exact-match the pending decision's tooltip — lets a test assert an offered pool/amount
                 // that is embedded in the prompt (e.g. "Distribute_up_to_6_Advantage_among_friendly_units")
@@ -1600,6 +1855,17 @@ class SchemaTestRunner {
                     $failures[] = "{$line}: expected a pending decision, but none found";
                 elseif ($norm($pending->Tooltip ?? '') !== $norm($m[2]))
                     $failures[] = "{$line}: expected tooltip '{$m[2]}', got '" . ($pending->Tooltip ?? '') . "'";
+
+            } elseif (preg_match('/^P(\d+)DECISIONPARAM:(.+)$/', $line, $m)) {
+                // Exact-match the pending decision's Param — for a prompt whose OFFER lives in the Param rather
+                // than in mzIDs (REVEALARRANGE's "ids|MAX", SCRY's peeked list), so a test can pin what was
+                // revealed and any limit (2026-10-01: LAW_237 Qui-Gon's top 3 with a discard limit of 1).
+                $p       = intval($m[1]);
+                $pending = $g->state->pendingDecision($p);
+                if ($pending === null)
+                    $failures[] = "{$line}: expected a pending decision, but none found";
+                elseif ((string)($pending->Param ?? '') !== trim($m[2]))
+                    $failures[] = "{$line}: expected param '" . trim($m[2]) . "', got '" . ($pending->Param ?? '') . "'";
 
             } elseif (preg_match('/^P(\d+)SEARCHPLAYABLE(HAS|NOT):(.+)$/', $line, $m)) {
                 // Assert membership in a pending TOPDECKSEARCH's *playable* set (the matchIDs field —
@@ -1630,6 +1896,29 @@ class SchemaTestRunner {
                         $failures[] = "{$line}: '{$cardID}' not in playable set [" . implode(',', $playable) . "]";
                     if (!$wantHas && $present)
                         $failures[] = "{$line}: '{$cardID}' unexpectedly in playable set [" . implode(',', $playable) . "]";
+                }
+
+            } elseif (preg_match('/^P(\d+)SEARCH(LABEL|VERB):(.+)$/', $line, $m)) {
+                // Assert the caller-supplied wording on a pending TOPDECKSEARCH (param segments 4 and 5).
+                // The panel is SHARED by ~65 callers and the filter is a PHP closure that cannot cross the
+                // request boundary, so the client has nothing to describe the selection with unless the
+                // caller says. Before this channel existed the cost-budget subtitle hardcoded SOR_087
+                // Vader's own wording ("Villainy units") and lied for every other caller — ASH_110 Ackbar
+                // searches for SPACE units. Both fields are underscored on the wire (a DecisionQueue row is
+                // space-delimited); compare normalised, exactly like P{n}DECISIONTOOLTIP.
+                $p       = intval($m[1]);
+                $which   = ($m[2] === 'LABEL') ? 4 : 5;
+                $norm    = fn($t) => str_replace('_', ' ', (string)$t);
+                $pending = $g->state->pendingDecision($p);
+                if ($pending === null) {
+                    $failures[] = "{$line}: expected a pending TOPDECKSEARCH decision, but none found";
+                } elseif (($pending->Type ?? '') !== 'TOPDECKSEARCH') {
+                    $failures[] = "{$line}: pending decision is '" . ($pending->Type ?? '') . "', not TOPDECKSEARCH";
+                } else {
+                    $fields = explode('|', $pending->Param ?? '');
+                    $got    = $norm($fields[$which] ?? '');
+                    if ($got !== $norm($m[3]))
+                        $failures[] = "{$line}: expected {$m[2]} '{$m[3]}', got '{$got}'";
                 }
 
             } elseif (preg_match('/^P(\d+)OPTION(HAS|NOT):(.+)$/', $line, $m)) {
@@ -2123,12 +2412,35 @@ class SchemaTestRunner {
                 $entries = $rawLog !== '' ? explode('<NL>', $rawLog) : [];
                 $found   = false;
                 foreach ($entries as $entry) {
-                    $parts = explode('|', $entry, 3);
-                    $text  = $parts[2] ?? '';
-                    if (str_contains($text, $needle)) { $found = true; break; }
+                    if (str_contains(self::_logText($entry), $needle)) { $found = true; break; }
                 }
                 if (!$found)
                     $failures[] = "{$line}: no log entry whose text contains '{$needle}'";
+
+            // LOGTYPE:<TYPE>:<text> — the entry whose text contains <text> carries log type <TYPE>.
+            //
+            // The type is NOT cosmetic: the client builds the row's class as 'swu-log-' + type with no
+            // whitelist (GameLayoutShared.php), so the type IS the styling, and since 2026-09-26 it also
+            // carries meaning — ELIMINATED is red to signal "the game is ending this phase", while an
+            // administrative exit (kick / concede) must stay neutral.
+            // ⚠ THE OTHER LOG ASSERTIONS CANNOT EXPRESS THIS. They all match the entry TEXT and never
+            // its TYPE| prefix, so `LOGCOUNT:0:ELIMINATED|` is vacuously true and a build that reddened
+            // every removal would pass every one of them.
+            } elseif (preg_match('/^LOGTYPE:([A-Z_]+):(.+)$/', $line, $m)) {
+                $wantType = $m[1];
+                $needle   = trim($m[2]);
+                $rawLog   = $g->state->gameLog();
+                $entries  = $rawLog !== '' ? explode('<NL>', $rawLog) : [];
+                $seen     = [];
+                foreach ($entries as $entry) {
+                    if (!str_contains(self::_logText($entry), $needle)) continue;
+                    $seen[] = self::_logField($entry, 'type');
+                }
+                if (empty($seen))
+                    $failures[] = "{$line}: no log entry whose text contains '{$needle}'";
+                elseif (!in_array($wantType, $seen, true))
+                    $failures[] = "{$line}: entr" . (count($seen) === 1 ? 'y has' : 'ies have')
+                                . " type [" . implode(',', $seen) . "], expected {$wantType}";
 
             // LOGCOUNT:<n>:<text> — exactly N log entries whose text contains <text>. The duplicate guard
             // for the game-log sweep: a central log line plus a leftover per-card one reads fine under
@@ -2140,8 +2452,7 @@ class SchemaTestRunner {
                 $entries = $rawLog !== '' ? explode('<NL>', $rawLog) : [];
                 $n = 0;
                 foreach ($entries as $entry) {
-                    $parts = explode('|', $entry, 3);
-                    if (str_contains($parts[2] ?? '', $needle)) $n++;
+                    if (str_contains(self::_logText($entry), $needle)) $n++;
                 }
                 if ($n !== $want)
                     $failures[] = "{$line}: expected {$want} log entr" . ($want === 1 ? 'y' : 'ies') . " containing '{$needle}', found {$n}";
@@ -2156,10 +2467,9 @@ class SchemaTestRunner {
                 $entries = $rawLog !== '' ? explode('<NL>', $rawLog) : [];
                 $sees = false;
                 foreach ($entries as $entry) {
-                    $parts = explode('|', $entry, 3);
-                    $vis   = $parts[1] ?? 'ALL';
-                    $ok    = $vis === 'ALL' || in_array($seat, array_map('trim', explode(',', $vis)), true);
-                    if ($ok && str_contains($parts[2] ?? '', $needle)) { $sees = true; break; }
+                    $vis = self::_logField($entry, 'visibility');
+                    $ok  = $vis === 'ALL' || in_array($seat, array_map('trim', explode(',', $vis)), true);
+                    if ($ok && str_contains(self::_logText($entry), $needle)) { $sees = true; break; }
                 }
                 if ($m[2] === 'SEES' && !$sees)
                     $failures[] = "{$line}: {$seat} cannot see any log entry containing '{$needle}'";
@@ -2171,8 +2481,7 @@ class SchemaTestRunner {
                 $rawLog  = $g->state->gameLog();
                 $entries = $rawLog !== '' ? array_filter(explode('<NL>', $rawLog)) : [];
                 $last    = end($entries);
-                $parts   = $last !== false ? explode('|', $last, 3) : [];
-                $text    = $parts[2] ?? '';
+                $text    = $last !== false ? self::_logText($last) : '';
                 if (!str_contains($text, $needle))
                     $failures[] = "{$line}: last log entry text '{$text}' does not contain '{$needle}'";
 

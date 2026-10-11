@@ -1,0 +1,603 @@
+{
+ "data": [
+  {
+   "attributes": {
+    "cardUid": "2579145458",
+    "cardNumber": 5,
+    "title": "Luke Skywalker",
+    "artFront": {
+     "data": {
+      "id": 1677,
+      "attributes": {
+       "name": "SWH01es_005_Luke_Skywalker_Leader.png",
+       "alternativeText": null,
+       "caption": null,
+       "width": 419,
+       "height": 300,
+       "formats": {
+        "card": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/card_SWH_01es_005_Luke_Skywalker_Leader_5b9a10ad59.png",
+         "hash": "card_SWH_01es_005_Luke_Skywalker_Leader_5b9a10ad59",
+         "mime": "image/png",
+         "name": "card_SWH01es_005_Luke_Skywalker_Leader.png",
+         "path": null,
+         "size": 232.48,
+         "width": 400,
+         "height": 286
+        },
+        "xsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xsmall_SWH_01es_005_Luke_Skywalker_Leader_5b9a10ad59.png",
+         "hash": "xsmall_SWH_01es_005_Luke_Skywalker_Leader_5b9a10ad59",
+         "mime": "image/png",
+         "name": "xsmall_SWH01es_005_Luke_Skywalker_Leader.png",
+         "path": null,
+         "size": 138.75,
+         "width": 300,
+         "height": 215
+        },
+        "xxsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xxsmall_SWH_01es_005_Luke_Skywalker_Leader_5b9a10ad59.png",
+         "hash": "xxsmall_SWH_01es_005_Luke_Skywalker_Leader_5b9a10ad59",
+         "mime": "image/png",
+         "name": "xxsmall_SWH01es_005_Luke_Skywalker_Leader.png",
+         "path": null,
+         "size": 66.24,
+         "width": 200,
+         "height": 143
+        },
+        "xxxsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xxxsmall_SWH_01es_005_Luke_Skywalker_Leader_5b9a10ad59.png",
+         "hash": "xxxsmall_SWH_01es_005_Luke_Skywalker_Leader_5b9a10ad59",
+         "mime": "image/png",
+         "name": "xxxsmall_SWH01es_005_Luke_Skywalker_Leader.png",
+         "path": null,
+         "size": 39.02,
+         "width": 150,
+         "height": 107
+        },
+        "thumbnail": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/thumbnail_SWH_01es_005_Luke_Skywalker_Leader_5b9a10ad59.png",
+         "hash": "thumbnail_SWH_01es_005_Luke_Skywalker_Leader_5b9a10ad59",
+         "mime": "image/png",
+         "name": "thumbnail_SWH01es_005_Luke_Skywalker_Leader.png",
+         "path": null,
+         "size": 99.53,
+         "width": 250,
+         "height": 179
+        }
+       },
+       "hash": "SWH_01es_005_Luke_Skywalker_Leader_5b9a10ad59",
+       "ext": ".png",
+       "mime": "image/png",
+       "size": 64.04,
+       "url": "https://cdn.starwarsunlimited.com/SWH_01es_005_Luke_Skywalker_Leader_5b9a10ad59.png",
+       "previewUrl": null,
+       "provider": "aws-s3",
+       "provider_metadata": null,
+       "createdAt": "2024-01-05T18:18:52.800Z",
+       "updatedAt": "2024-01-05T18:18:52.800Z"
+      }
+     }
+    },
+    "artBack": {
+     "data": {
+      "id": 1656,
+      "attributes": {
+       "name": "SWH01es_005_Luke_Skywalker_Leader_Unit.png",
+       "alternativeText": null,
+       "caption": null,
+       "width": 300,
+       "height": 419,
+       "formats": {
+        "card": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/card_SWH_01es_005_Luke_Skywalker_Leader_Unit_20ef4784ed.png",
+         "hash": "card_SWH_01es_005_Luke_Skywalker_Leader_Unit_20ef4784ed",
+         "mime": "image/png",
+         "name": "card_SWH01es_005_Luke_Skywalker_Leader_Unit.png",
+         "path": null,
+         "size": 226.24,
+         "width": 286,
+         "height": 400
+        },
+        "xsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xsmall_SWH_01es_005_Luke_Skywalker_Leader_Unit_20ef4784ed.png",
+         "hash": "xsmall_SWH_01es_005_Luke_Skywalker_Leader_Unit_20ef4784ed",
+         "mime": "image/png",
+         "name": "xsmall_SWH01es_005_Luke_Skywalker_Leader_Unit.png",
+         "path": null,
+         "size": 136.33,
+         "width": 215,
+         "height": 300
+        },
+        "xxsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xxsmall_SWH_01es_005_Luke_Skywalker_Leader_Unit_20ef4784ed.png",
+         "hash": "xxsmall_SWH_01es_005_Luke_Skywalker_Leader_Unit_20ef4784ed",
+         "mime": "image/png",
+         "name": "xxsmall_SWH01es_005_Luke_Skywalker_Leader_Unit.png",
+         "path": null,
+         "size": 65.18,
+         "width": 143,
+         "height": 200
+        },
+        "xxxsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xxxsmall_SWH_01es_005_Luke_Skywalker_Leader_Unit_20ef4784ed.png",
+         "hash": "xxxsmall_SWH_01es_005_Luke_Skywalker_Leader_Unit_20ef4784ed",
+         "mime": "image/png",
+         "name": "xxxsmall_SWH01es_005_Luke_Skywalker_Leader_Unit.png",
+         "path": null,
+         "size": 38.48,
+         "width": 107,
+         "height": 150
+        },
+        "thumbnail": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/thumbnail_SWH_01es_005_Luke_Skywalker_Leader_Unit_20ef4784ed.png",
+         "hash": "thumbnail_SWH_01es_005_Luke_Skywalker_Leader_Unit_20ef4784ed",
+         "mime": "image/png",
+         "name": "thumbnail_SWH01es_005_Luke_Skywalker_Leader_Unit.png",
+         "path": null,
+         "size": 97.94,
+         "width": 179,
+         "height": 250
+        }
+       },
+       "hash": "SWH_01es_005_Luke_Skywalker_Leader_Unit_20ef4784ed",
+       "ext": ".png",
+       "mime": "image/png",
+       "size": 60.65,
+       "url": "https://cdn.starwarsunlimited.com/SWH_01es_005_Luke_Skywalker_Leader_Unit_20ef4784ed.png",
+       "previewUrl": null,
+       "provider": "aws-s3",
+       "provider_metadata": null,
+       "createdAt": "2024-01-05T18:18:52.125Z",
+       "updatedAt": "2024-01-05T18:18:52.125Z"
+      }
+     }
+    }
+   }
+  },
+  {
+   "attributes": {
+    "cardUid": "2524528997",
+    "cardNumber": 229,
+    "title": "Guardia de bloque de celdas",
+    "artFront": {
+     "data": {
+      "id": 1589,
+      "attributes": {
+       "name": "SWH01es_229_Guardia_de_bloque_de_celdas.png",
+       "alternativeText": null,
+       "caption": null,
+       "width": 300,
+       "height": 419,
+       "formats": {
+        "card": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/card_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+         "hash": "card_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+         "mime": "image/png",
+         "name": "card_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+         "path": null,
+         "size": 228.87,
+         "width": 286,
+         "height": 400
+        },
+        "xsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+         "hash": "xsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+         "mime": "image/png",
+         "name": "xsmall_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+         "path": null,
+         "size": 137.99,
+         "width": 215,
+         "height": 300
+        },
+        "xxsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xxsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+         "hash": "xxsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+         "mime": "image/png",
+         "name": "xxsmall_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+         "path": null,
+         "size": 65.94,
+         "width": 143,
+         "height": 200
+        },
+        "xxxsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xxxsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+         "hash": "xxxsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+         "mime": "image/png",
+         "name": "xxxsmall_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+         "path": null,
+         "size": 39.09,
+         "width": 107,
+         "height": 150
+        },
+        "thumbnail": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/thumbnail_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+         "hash": "thumbnail_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+         "mime": "image/png",
+         "name": "thumbnail_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+         "path": null,
+         "size": 99.39,
+         "width": 179,
+         "height": 250
+        }
+       },
+       "hash": "SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+       "ext": ".png",
+       "mime": "image/png",
+       "size": 62.95,
+       "url": "https://cdn.starwarsunlimited.com/SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+       "previewUrl": null,
+       "provider": "aws-s3",
+       "provider_metadata": null,
+       "createdAt": "2024-01-04T21:41:38.513Z",
+       "updatedAt": "2024-01-04T21:41:38.513Z"
+      }
+     }
+    },
+    "artBack": {
+     "data": null
+    }
+   }
+  },
+  {
+   "attributes": {
+    "cardUid": "8129465864",
+    "cardNumber": 29,
+    "title": "Torre de administración",
+    "artFront": {
+     "data": {
+      "id": 1667,
+      "attributes": {
+       "name": "SWH01es_029_Torre_de_administración_Base.png",
+       "alternativeText": null,
+       "caption": null,
+       "width": 419,
+       "height": 300,
+       "formats": {
+        "card": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/card_SWH_01es_029_Torre_de_administracion_Base_be56bb88f3.png",
+         "hash": "card_SWH_01es_029_Torre_de_administracion_Base_be56bb88f3",
+         "mime": "image/png",
+         "name": "card_SWH01es_029_Torre_de_administración_Base.png",
+         "path": null,
+         "size": 215.08,
+         "width": 400,
+         "height": 286
+        },
+        "xsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xsmall_SWH_01es_029_Torre_de_administracion_Base_be56bb88f3.png",
+         "hash": "xsmall_SWH_01es_029_Torre_de_administracion_Base_be56bb88f3",
+         "mime": "image/png",
+         "name": "xsmall_SWH01es_029_Torre_de_administración_Base.png",
+         "path": null,
+         "size": 130.23,
+         "width": 300,
+         "height": 215
+        },
+        "xxsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xxsmall_SWH_01es_029_Torre_de_administracion_Base_be56bb88f3.png",
+         "hash": "xxsmall_SWH_01es_029_Torre_de_administracion_Base_be56bb88f3",
+         "mime": "image/png",
+         "name": "xxsmall_SWH01es_029_Torre_de_administración_Base.png",
+         "path": null,
+         "size": 63.25,
+         "width": 200,
+         "height": 143
+        },
+        "xxxsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xxxsmall_SWH_01es_029_Torre_de_administracion_Base_be56bb88f3.png",
+         "hash": "xxxsmall_SWH_01es_029_Torre_de_administracion_Base_be56bb88f3",
+         "mime": "image/png",
+         "name": "xxxsmall_SWH01es_029_Torre_de_administración_Base.png",
+         "path": null,
+         "size": 37.73,
+         "width": 150,
+         "height": 107
+        },
+        "thumbnail": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/thumbnail_SWH_01es_029_Torre_de_administracion_Base_be56bb88f3.png",
+         "hash": "thumbnail_SWH_01es_029_Torre_de_administracion_Base_be56bb88f3",
+         "mime": "image/png",
+         "name": "thumbnail_SWH01es_029_Torre_de_administración_Base.png",
+         "path": null,
+         "size": 94.43,
+         "width": 250,
+         "height": 179
+        }
+       },
+       "hash": "SWH_01es_029_Torre_de_administracion_Base_be56bb88f3",
+       "ext": ".png",
+       "mime": "image/png",
+       "size": 54.35,
+       "url": "https://cdn.starwarsunlimited.com/SWH_01es_029_Torre_de_administracion_Base_be56bb88f3.png",
+       "previewUrl": null,
+       "provider": "aws-s3",
+       "provider_metadata": null,
+       "createdAt": "2024-01-05T18:18:52.449Z",
+       "updatedAt": "2024-01-05T18:18:52.449Z"
+      }
+     }
+    },
+    "artBack": {
+     "data": null
+    }
+   }
+  },
+  {
+   "attributes": {
+    "cardUid": "8752877738",
+    "cardNumber": 2,
+    "title": "Escudo",
+    "artFront": {
+     "data": {
+      "id": 1691,
+      "attributes": {
+       "name": "SWH01es_T02_Escudo.png",
+       "alternativeText": null,
+       "caption": null,
+       "width": 300,
+       "height": 419,
+       "formats": {
+        "card": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/card_SWH_01es_T02_Escudo_13d1f7a398.png",
+         "hash": "card_SWH_01es_T02_Escudo_13d1f7a398",
+         "mime": "image/png",
+         "name": "card_SWH01es_T02_Escudo.png",
+         "path": null,
+         "size": 197.5,
+         "width": 286,
+         "height": 400
+        },
+        "xsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xsmall_SWH_01es_T02_Escudo_13d1f7a398.png",
+         "hash": "xsmall_SWH_01es_T02_Escudo_13d1f7a398",
+         "mime": "image/png",
+         "name": "xsmall_SWH01es_T02_Escudo.png",
+         "path": null,
+         "size": 119.31,
+         "width": 215,
+         "height": 300
+        },
+        "xxsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xxsmall_SWH_01es_T02_Escudo_13d1f7a398.png",
+         "hash": "xxsmall_SWH_01es_T02_Escudo_13d1f7a398",
+         "mime": "image/png",
+         "name": "xxsmall_SWH01es_T02_Escudo.png",
+         "path": null,
+         "size": 57.56,
+         "width": 143,
+         "height": 200
+        },
+        "xxxsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xxxsmall_SWH_01es_T02_Escudo_13d1f7a398.png",
+         "hash": "xxxsmall_SWH_01es_T02_Escudo_13d1f7a398",
+         "mime": "image/png",
+         "name": "xxxsmall_SWH01es_T02_Escudo.png",
+         "path": null,
+         "size": 34.28,
+         "width": 107,
+         "height": 150
+        },
+        "thumbnail": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/thumbnail_SWH_01es_T02_Escudo_13d1f7a398.png",
+         "hash": "thumbnail_SWH_01es_T02_Escudo_13d1f7a398",
+         "mime": "image/png",
+         "name": "thumbnail_SWH01es_T02_Escudo.png",
+         "path": null,
+         "size": 85.95,
+         "width": 179,
+         "height": 250
+        }
+       },
+       "hash": "SWH_01es_T02_Escudo_13d1f7a398",
+       "ext": ".png",
+       "mime": "image/png",
+       "size": 56.11,
+       "url": "https://cdn.starwarsunlimited.com/SWH_01es_T02_Escudo_13d1f7a398.png",
+       "previewUrl": null,
+       "provider": "aws-s3",
+       "provider_metadata": null,
+       "createdAt": "2024-01-05T18:19:32.232Z",
+       "updatedAt": "2024-01-05T18:19:32.232Z"
+      }
+     }
+    },
+    "artBack": {
+     "data": null
+    }
+   }
+  },
+  {
+   "cardUid": "2524528997",
+   "cardNumber": 229,
+   "title": "Guardia de bloque de celdas",
+   "artFront": {
+    "name": "SWH01es_229_Guardia_de_bloque_de_celdas.png",
+    "alternativeText": null,
+    "caption": null,
+    "width": 300,
+    "height": 419,
+    "formats": {
+     "card": {
+      "ext": ".png",
+      "url": "https://cdn.starwarsunlimited.com/card_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+      "hash": "card_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+      "mime": "image/png",
+      "name": "card_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+      "path": null,
+      "size": 228.87,
+      "width": 286,
+      "height": 400
+     },
+     "xsmall": {
+      "ext": ".png",
+      "url": "https://cdn.starwarsunlimited.com/xsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+      "hash": "xsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+      "mime": "image/png",
+      "name": "xsmall_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+      "path": null,
+      "size": 137.99,
+      "width": 215,
+      "height": 300
+     },
+     "xxsmall": {
+      "ext": ".png",
+      "url": "https://cdn.starwarsunlimited.com/xxsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+      "hash": "xxsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+      "mime": "image/png",
+      "name": "xxsmall_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+      "path": null,
+      "size": 65.94,
+      "width": 143,
+      "height": 200
+     },
+     "xxxsmall": {
+      "ext": ".png",
+      "url": "https://cdn.starwarsunlimited.com/xxxsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+      "hash": "xxxsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+      "mime": "image/png",
+      "name": "xxxsmall_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+      "path": null,
+      "size": 39.09,
+      "width": 107,
+      "height": 150
+     },
+     "thumbnail": {
+      "ext": ".png",
+      "url": "https://cdn.starwarsunlimited.com/thumbnail_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+      "hash": "thumbnail_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+      "mime": "image/png",
+      "name": "thumbnail_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+      "path": null,
+      "size": 99.39,
+      "width": 179,
+      "height": 250
+     }
+    },
+    "hash": "SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+    "ext": ".png",
+    "mime": "image/png",
+    "size": 62.95,
+    "url": "https://cdn.starwarsunlimited.com/SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+    "previewUrl": null,
+    "provider": "aws-s3",
+    "provider_metadata": null,
+    "createdAt": "2024-01-04T21:41:38.513Z",
+    "updatedAt": "2024-01-04T21:41:38.513Z"
+   },
+   "artBack": null
+  },
+  {
+   "attributes": {
+    "cardUid": "0000000000",
+    "cardNumber": 999,
+    "title": "Nadie",
+    "artFront": {
+     "data": {
+      "id": 1589,
+      "attributes": {
+       "name": "SWH01es_229_Guardia_de_bloque_de_celdas.png",
+       "alternativeText": null,
+       "caption": null,
+       "width": 300,
+       "height": 419,
+       "formats": {
+        "card": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/card_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+         "hash": "card_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+         "mime": "image/png",
+         "name": "card_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+         "path": null,
+         "size": 228.87,
+         "width": 286,
+         "height": 400
+        },
+        "xsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+         "hash": "xsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+         "mime": "image/png",
+         "name": "xsmall_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+         "path": null,
+         "size": 137.99,
+         "width": 215,
+         "height": 300
+        },
+        "xxsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xxsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+         "hash": "xxsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+         "mime": "image/png",
+         "name": "xxsmall_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+         "path": null,
+         "size": 65.94,
+         "width": 143,
+         "height": 200
+        },
+        "xxxsmall": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/xxxsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+         "hash": "xxxsmall_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+         "mime": "image/png",
+         "name": "xxxsmall_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+         "path": null,
+         "size": 39.09,
+         "width": 107,
+         "height": 150
+        },
+        "thumbnail": {
+         "ext": ".png",
+         "url": "https://cdn.starwarsunlimited.com/thumbnail_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+         "hash": "thumbnail_SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+         "mime": "image/png",
+         "name": "thumbnail_SWH01es_229_Guardia_de_bloque_de_celdas.png",
+         "path": null,
+         "size": 99.39,
+         "width": 179,
+         "height": 250
+        }
+       },
+       "hash": "SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608",
+       "ext": ".png",
+       "mime": "image/png",
+       "size": 62.95,
+       "url": "https://cdn.starwarsunlimited.com/SWH_01es_229_Guardia_de_bloque_de_celdas_bf6b2e3608.png",
+       "previewUrl": null,
+       "provider": "aws-s3",
+       "provider_metadata": null,
+       "createdAt": "2024-01-04T21:41:38.513Z",
+       "updatedAt": "2024-01-04T21:41:38.513Z"
+      }
+     }
+    },
+    "artBack": null
+   }
+  }
+ ]
+}

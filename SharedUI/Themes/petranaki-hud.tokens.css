@@ -33,12 +33,12 @@
   /* Button: chamfered HUD, semi-solid steel (a touch lighter than the panels so it pops) */
   --btn-chamfer-content: '';        /* turns the chamfer pseudos ON */
   --btn-cut:        6px;
-  --btn-cut-inner:  5px;
+  --btn-cut-inner:  4.83px;   /* = cut − 0.586 × rim: keeps the rim as thick on the diagonal as on the straight edges */
   /* Keep the ELEMENT box background transparent even for semantic variants: the ::after
      pseudo (--btn-fill, chamfer-clipped) carries the fill, so nothing bleeds past the
      chamfer corners. We do NOT clip the element itself (that would clip the hover glow). */
   --btn-el-bg:      transparent;
-  --btn-rim-width:  1.5px;
+  --btn-rim-width:  2px;      /* WHOLE pixels: a 1.5px inset snaps to 2px top/left but 1px bottom/right, so every cut corner looked lopsided */
   --btn-bw:         0;
   --btn-surface:    transparent;    /* pseudos supply the fill */
   --btn-shadow:     none;

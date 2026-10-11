@@ -42,8 +42,11 @@ function FaBELECanPlay(int $p,array $f): bool {
 }
 function FaBELEPower(int $p,object $o): int {
     $n=0;$b=FaBWTRBase($o->CardID);$aa=FaBWTRIsAttackAction($o);
-    if($aa)$n+=3*count(FaBMONArena($p,'channel_mount_heroic'))+FaBELECount($p,'AA_POWER');
-    $n+=FaBELECount($p,'CHAIN_POWER');
+    if($aa){
+        $n+=FaBPENPowerGain($o,3)*count(FaBMONArena($p,'channel_mount_heroic'));
+        foreach(FaBWTREffects($p) as $e)if(($e['type']??'')==='ELE_AA_POWER')$n+=FaBPENPowerGain($o,intval($e['amount']??0));
+    }
+    foreach(FaBWTREffects($p) as $e)if(($e['type']??'')==='ELE_CHAIN_POWER')$n+=FaBPENPowerGain($o,intval($e['amount']??0));
     if($b==='stir_the_wildwood'&&FaBCRUArcane($p,true))$n+=2;
     if($b==='titans_fist')foreach(FaBChoiceRefs($p,'Pitch',['minCost'=>3]) as $r){++$n;break;}
     if($b==='duskblade'){$f=FaBFindUID(intval(FaBObjectCounters($o)['WEAPON_UID']??$o->UniqueID));if($f)$n+=intval(FaBObjectCounters($f['object'])['POWER']??0);}
@@ -85,7 +88,7 @@ function FaBELEPlayed(int $p,object $o,string $from): void {
     if($attack&&FaBELECount($p,'ENTANGLE')){FaBWTRTag($o,'WTR_POWER:-2');FaBELEClear($p,'ENTANGLE');}
 }
 function FaBELEDamageBonus(int $p,string $ref,int $n,string $type): int {
-    $f=FaBIdentityFromMZ($ref);if(!$f||$n<=0)return $n;$o=$f['object'];
+    $f=FaBIdentityFromMZ($ref);if(!$f||$n<=0)return $n;$o=$f['object'];if($type==='ARCANE'&&FaBSEAArcaneCapped(intval($o->UniqueID)))return $n;
     if(FaBHasType($o,'Action')&&FaBELEElement($o,'Lightning|Elemental'))foreach(FaBLiveSeats() as $seat)$n+=FaBELECount($seat,'BALL');
     if(FaBWTRIsAttackAction($o)||FaBWTRIsWeapon($o))$n+=FaBELECount($p,'FRAZZLE');
     if($type==='ARCANE'&&FaBHasType($o,'Action'))$n+=FaBELECount($p,'FLICKER')+FaBEVRCount($p,'WILDFIRE');return $n;
@@ -190,5 +193,5 @@ function FaBELEFlowCounters($o): int {return intval(FaBObjectCounters($o)['FLOW'
 function FaBELEBindCounters($o): int {return intval(FaBObjectCounters($o)['BIND']??0);}
 
 function FaBELEAwakeningHeroes(int $p): string {
-    $refs=[];foreach(FaBOpponents($p) as $other)if(intval(GetHealth($other))>intval(GetHealth($p)))$refs=array_merge($refs,FaBChoiceRefs($other,'Hero'));return implode('&',$refs);
+    $refs=[];foreach(FaBOpponents($p) as $other)if(FaBPENLifeMore($other,$p))$refs=array_merge($refs,FaBChoiceRefs($other,'Hero'));return implode('&',$refs);
 }

@@ -155,3 +155,54 @@ WithP1Deck: [SOR_095 SOR_095]
 P2GROUNDARENAUNIT:0:READY
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:3
+
+---
+
+# ThreeSeat_HostOnAFarSeat_StillReadies
+#// "When AN ENEMY UNIT readies during the action phase: ready this unit." The host wearing the DC-17s is
+#// on SEAT 3, and the unit that readies belongs to SEAT 1. Seat 3 is an enemy of seat 1, so the host
+#// must ready.
+#// ⚠ The lookup computed the host's seat as `OtherPlayer($readied->Controller)` — seat 2 for a seat-1
+#// readied unit — and scanned the wrong board entirely. The mirror arrangement happens to work
+#// (OtherPlayer(3) == 1), so the READIED unit must be on seat 1 for the bug to show.
+
+## GIVEN
+CommonSetup3P: rrk/rrk/ryk
+SkipPreGame: true
+WithActivePlayer: 3
+WithP3Resources: 1
+WithP3Hand: TS26_31
+WithP3GroundArena: SEC_080:0:0
+WithP3GroundArenaUpgrade: 0:TS26_63
+WithP1GroundArena: SOR_128:0:0
+
+## WHEN
+- P3>PlayHand:0
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENAUNIT:0:READY
+P3GROUNDARENAUNIT:0:READY
+
+---
+
+# FourSeat_HostOnTheFarthestSeat_StillReadies
+#// 4P sibling: the host sits on SEAT 4 while the readied unit is on seat 1.
+
+## GIVEN
+CommonSetup4P: rrk/rrk/rrk/ryk
+SkipPreGame: true
+WithActivePlayer: 4
+WithP4Resources: 1
+WithP4Hand: TS26_31
+WithP4GroundArena: SEC_080:0:0
+WithP4GroundArenaUpgrade: 0:TS26_63
+WithP1GroundArena: SOR_128:0:0
+
+## WHEN
+- P4>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:READY
+P4GROUNDARENAUNIT:0:READY

@@ -134,24 +134,31 @@ function SWUMockIsSuperseded(string $cardID): bool {
 // Append every mock whose CardID is absent from $cardArray. Present == official data exists,
 // which always wins; those are reported as superseded so the caller can log them.
 // $asObjects: true for zzCardCodeGenerator (objects), false for ProcessKeywordsSWU (arrays).
-function SWUMergeMockCards(array &$cardArray, bool $asObjects, string $path = ''): array {
+// $preferMocks: the MOCK replaces an existing official row instead (reported as added). Only the
+// generator's snapshot mode (mocks=prefer) uses it — flip-audit needs the mock's own values.
+function SWUMergeMockCards(array &$cardArray, bool $asObjects, string $path = '', bool $preferMocks = false): array {
     $mocks = SWULoadMockCards($path);
     if (empty($mocks)) return ['added' => [], 'superseded' => []];
 
-    $seen = [];
-    foreach ($cardArray as $c) {
+    $seen = [];   // CardID => index in $cardArray
+    foreach ($cardArray as $i => $c) {
         $id = is_object($c) ? ($c->id ?? '') : ($c['id'] ?? '');
-        if ($id !== '') $seen[(string)$id] = true;
+        if ($id !== '') $seen[(string)$id] = $i;
     }
 
     $added = [];
     $superseded = [];
     foreach ($mocks as $cardID => $mock) {
         if (!is_array($mock)) continue;
-        if (isset($seen[$cardID])) { $superseded[] = $cardID; continue; }
+        if (isset($seen[$cardID]) && !$preferMocks) { $superseded[] = $cardID; continue; }
         $row = SWUMockToImportRow($cardID, $mock);
-        $cardArray[] = $asObjects ? json_decode(json_encode($row)) : $row;
-        $seen[$cardID] = true;
+        $row = $asObjects ? json_decode(json_encode($row)) : $row;
+        if (isset($seen[$cardID])) {
+            $cardArray[$seen[$cardID]] = $row;
+        } else {
+            $cardArray[] = $row;
+            $seen[$cardID] = array_key_last($cardArray);
+        }
         $added[] = $cardID;
     }
     return ['added' => $added, 'superseded' => $superseded];

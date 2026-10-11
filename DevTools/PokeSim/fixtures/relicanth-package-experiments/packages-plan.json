@@ -1,0 +1,126 @@
+{
+  "baseline": "4 Relicanth PBL 17\n4 Antique Armor Fossil PBL 72\n4 Antique Plume Fossil WHT 79\n2 Antique Skull Fossil PBL 73\n2 Antique Root Fossil SCR 130\n2 Antique Cover Fossil SCR 129\n4 Fossil Quarry PBL 76\n4 Pok\u00e9 Pad POR 81\n4 Lillie's Determination MEG 119\n4 Lacey SCR 139\n3 Iris's Fighting Spirit ASC 190\n2 Judge POR 76\n4 Night Stretcher ASC 196\n3 Energy Search POR 72\n2 Energy Retrieval WHT 82\n3 sv06-158\n1 Boss's Orders MEG 114\n7 Water Energy MEE 3\n1 sv06-167\n",
+  "variants": {
+    "baseline": {},
+    "blank-two": {
+      "me03-076": -2
+    },
+    "blank-five": {
+      "me03-076": -2,
+      "sv07-129": -1,
+      "sv10.5w-079": -1,
+      "me05-076": -1
+    },
+    "bangle-1": {
+      "me03-076": -1,
+      "sv10.5w-080": 1
+    },
+    "helmet-to-bangle-1": {
+      "sv06-158": -1,
+      "sv10.5w-080": 1
+    },
+    "bangle-2": {
+      "me03-076": -2,
+      "sv10.5w-080": 2
+    },
+    "helmet-to-bangle-2": {
+      "sv06-158": -2,
+      "sv10.5w-080": 2
+    },
+    "bangle-3": {
+      "me03-076": -2,
+      "sv07-129": -1,
+      "sv10.5w-080": 3
+    },
+    "helmet-to-bangle-3": {
+      "sv06-158": -3,
+      "sv10.5w-080": 3
+    },
+    "candy-1-bast-1": {
+      "me03-076": -2,
+      "me01-125": 1,
+      "me05-062": 1
+    },
+    "candy-2-bast-1": {
+      "me03-076": -2,
+      "sv07-129": -1,
+      "me01-125": 2,
+      "me05-062": 1
+    },
+    "candy-2-bast-2": {
+      "me03-076": -2,
+      "sv07-129": -1,
+      "sv10.5w-079": -1,
+      "me01-125": 2,
+      "me05-062": 2
+    },
+    "candy-3-bast-2": {
+      "me03-076": -2,
+      "sv07-129": -1,
+      "sv10.5w-079": -1,
+      "me05-076": -1,
+      "me01-125": 3,
+      "me05-062": 2
+    },
+    "candy-4-bast-2": {
+      "me03-076": -2,
+      "sv07-129": -1,
+      "sv10.5w-079": -1,
+      "me05-076": -1,
+      "me05-073": -1,
+      "me01-125": 4,
+      "me05-062": 2
+    },
+    "candy-2-bast-1-bangle-1": {
+      "me03-076": -2,
+      "sv07-129": -1,
+      "sv10.5w-079": -1,
+      "me01-125": 2,
+      "me05-062": 1,
+      "sv10.5w-080": 1
+    },
+    "candy-2-bast-2-bangle-1": {
+      "me03-076": -2,
+      "sv07-129": -1,
+      "sv10.5w-079": -1,
+      "me05-076": -1,
+      "me01-125": 2,
+      "me05-062": 2,
+      "sv10.5w-080": 1
+    },
+    "candy-3-bast-2-bangle-1": {
+      "me03-076": -2,
+      "sv07-129": -1,
+      "sv10.5w-079": -1,
+      "me05-076": -1,
+      "me05-073": -1,
+      "me01-125": 3,
+      "me05-062": 2,
+      "sv10.5w-080": 1
+    },
+    "candy-2-bast-2-bangle-2": {
+      "me03-076": -2,
+      "sv07-129": -1,
+      "sv10.5w-079": -1,
+      "me05-076": -1,
+      "me05-073": -1,
+      "me01-125": 2,
+      "me05-062": 2,
+      "sv10.5w-080": 2
+    }
+  },
+  "opponents": [
+    "dhelmise-v2",
+    "brisbane-lopunny"
+  ],
+  "cuts": [
+    "me03-076",
+    "me03-076",
+    "sv07-129",
+    "sv10.5w-079",
+    "me05-076",
+    "me05-073",
+    "me01-114",
+    "sv10.5w-082"
+  ]
+}

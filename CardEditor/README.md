@@ -6,6 +6,11 @@ Card ability code can remain in local MySQL (the default) or use the hosted API 
 `CardEditor/API/CardCodeService.php`. The hosted database is the source of truth; generation still
 runs in each developer checkout from a remote snapshot.
 
+Developer requests send the token in the `X-Card-Code-Token` HTTPS header. The hosted API also
+accepts `Authorization: Bearer <token>` for existing clients. Deploy the updated hosted API before
+updating developer checkouts; no Apache Authorization-header forwarding setting is needed for the
+dedicated header.
+
 An approved moderator creates tokens from the **Hosted Card Code access** panel in
 `zzCodeGeneratorMain.php`. Select the app, choose **Generate token**, then choose a role and an
 expiration (1–365 days). The secret is shown once; send it through a secure channel and store it in

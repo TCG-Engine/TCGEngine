@@ -955,6 +955,34 @@ function BridgeEnumerateDecisionActions($decision, $player) {
               ++$emitted;
             }
           }
+          // The BIGGEST picks the cap cut off — legal subsets by size then combined cost, descending — up to 20 more.
+          // Smallest-first under the cap meant a ten-card peek offered 10 singles + 30 pairs and NOTHING bigger: Admiral
+          // Ackbar's "any number of space units with combined cost 5 or less" could never take four 1-2 drops (SWUSim bot
+          // feature 'searchpick', 2026-10-04 — 51 of 125 traced Ackbar searches took fewer ships than the best legal pick).
+          // Appended AFTER the existing list, so every earlier candidate keeps its position. 2^n subsets: n <= 12 only.
+          $n = count($matchIDs);
+          if ($n <= 12) {
+            $seen = [];
+            foreach ($actions as $a) $seen[strval($a['cardID'] ?? '')] = true;
+            $legal = [];
+            for ($mask = 1; $mask < (1 << $n); ++$mask) {
+              $cnt = 0; $total = 0; $ids = [];
+              for ($k = 0; $k < $n; ++$k) {
+                if (!($mask & (1 << $k))) continue;
+                $cnt++; $total += intval($costs[$matchIDs[$k]] ?? 0); $ids[] = $matchIDs[$k];
+              }
+              if ($cnt > $maxPicks || ($maxCost !== null && $total > $maxCost)) continue;
+              $legal[] = [$cnt, $total, implode(',', $ids)];
+            }
+            usort($legal, fn($x, $y) => [$y[0], $y[1]] <=> [$x[0], $x[1]]);
+            $added = 0;
+            foreach ($legal as [$cnt, $total, $key]) {
+              if ($added >= 20) break;
+              if (isset($seen[$key])) continue;
+              $seen[$key] = true; ++$added;
+              $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $key, 'chkInput' => [], 'inputText' => ''];
+            }
+          }
           // Taking nothing is always legal (the validator accepts '' for every non-MZCHOOSE type),
           // and it is the answer of last resort — listed last so a chooser that scans in order only
           // reaches it when no real pick is available.
@@ -1149,7 +1177,12 @@ function BridgeEnumerateDecisionActions($decision, $player) {
         //
         // Found by DevTools/SWUSimBotSelfPlayTest.php: 2 of 24 probe-deck games stalled here.
         {
-          $revealed = array_values(array_filter(explode(',', strval($decision->Param ?? '')), fn($v) => $v !== ''));
+          // Param "ids" or "ids|MAX" — MAX caps the DISCARDED half (LAW_237 Qui-Gon Jinn: "you may discard 1").
+          // Answers past it are refused server-side, so they must never be offered: discard-all (generated
+          // second, below) would otherwise be an illegal first pick for a bot.
+          $raPartsB  = explode('|', strval($decision->Param ?? ''), 2);
+          $revealed  = array_values(array_filter(explode(',', $raPartsB[0]), fn($v) => $v !== ''));
+          $maxDiscard = (isset($raPartsB[1]) && $raPartsB[1] !== '') ? max(0, intval($raPartsB[1])) : null;
           $count    = count($revealed);
           if ($count === 0) {
             $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => '', 'chkInput' => [], 'inputText' => ''];
@@ -1180,6 +1213,7 @@ function BridgeEnumerateDecisionActions($decision, $player) {
               if ($mask & (1 << $i)) $discarded[] = $revealed[$i];
               else                   $kept[] = $revealed[$i];
             }
+            if ($maxDiscard !== null && count($discarded) > $maxDiscard) continue;
             $addAnswer($kept, $discarded);
           }
           foreach (array_keys($answers) as $answer) {
@@ -2016,6 +2050,9 @@ function BridgeEnumerateModalResults($param) {
   }
   if (empty($labels)) return ['-'];
 
+  // Answers are INDICES, matching what Core/MZModalUI.js submits (`indices.join(',')`). Labels look
+  // friendlier but handlers read the answer as an index (HellbreakSim validates `^\d+$`), so a
+  // label is silently rejected and the prompt is consumed with nothing done.
   $results = [];
   $n = count($labels);
   for ($k = $min; $k <= min($max, $n); ++$k) {
@@ -2023,10 +2060,15 @@ function BridgeEnumerateModalResults($param) {
       $results[] = '-';
       continue;
     }
-    // first-k deterministic selection
-    $results[] = implode('&', array_slice($labels, 0, $k));
-    // last-k deterministic selection
-    $results[] = implode('&', array_slice($labels, $n - $k, $k));
+    if ($k === 1) {
+      // Single-select: offer every option. Sampling first/last hides the middle ones, and those are
+      // real choices (a Hellbreak horror prompt lists Play Card, Attack, Scheme, Ability, Pass...).
+      for ($i = 0; $i < $n; ++$i) $results[] = (string)$i;
+      continue;
+    }
+    // Multi-select: keep the deterministic first-k / last-k sample; every combination explodes.
+    $results[] = implode(',', range(0, $k - 1));
+    $results[] = implode(',', range($n - $k, $n - 1));
   }
   return array_values(array_unique($results));
 }
@@ -2064,12 +2106,25 @@ function BridgeIsStaticDecision($decision) {
  * queue. Drain those cross-player continuations before self-play asks for its
  * next interactive action.
  */
+// The seats whose decision queues the bridge reads. A root with a seat order (SWUSim: Twin Suns seats 3-4) lists
+// every seat in it; every other root keeps 1-2, unchanged. Hardcoding 1-2 here meant a seat-3/4 prompt was never
+// seen, so the enumerator fell through to the TURN player's free-play actions — every one a no-op for the seat that
+// actually owed the answer (found by DevTools/SWUSimTwinSunsSelfPlay.php; SWUSim/DevTools/tests/twinsuns_bot_seats_test.php).
+function BridgeDecisionSeats(): array {
+  if (function_exists('GetSeatOrderArray')) {
+    $seats = array_values(array_unique(array_map('intval', GetSeatOrderArray())));
+    sort($seats);
+    if (!empty($seats)) return $seats;
+  }
+  return [1, 2];
+}
+
 function BridgeDrainStaticDecisionQueuesLoaded($maxPasses = 32) {
   $dqController = new DecisionQueueController();
   $drainedPasses = 0;
   for ($pass = 0; $pass < max(1, intval($maxPasses)); ++$pass) {
     $progressed = false;
-    for ($player = 1; $player <= 2; ++$player) {
+    foreach (BridgeDecisionSeats() as $player) {
       $decision = $dqController->NextDecision($player);
       if (!BridgeIsStaticDecision($decision)) continue;
       $dqController->ExecuteStaticMethods($player, '-');
@@ -2083,7 +2138,7 @@ function BridgeDrainStaticDecisionQueuesLoaded($maxPasses = 32) {
 
 function BridgeEnumerateLegalActionsLoaded($root, $gameName) {
   $dqController = new DecisionQueueController();
-  for ($player = 1; $player <= 2; ++$player) {
+  foreach (BridgeDecisionSeats() as $player) {
     $decision = $dqController->NextDecision($player);
     if ($decision !== null) {
       return [

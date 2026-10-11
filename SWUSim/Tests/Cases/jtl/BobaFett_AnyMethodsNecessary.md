@@ -275,3 +275,40 @@ P2GROUNDARENAUNIT:1:DAMAGE:2
 P2BASEDMG:1
 P1NODECISION
 P2NODECISION
+
+---
+
+# NonCombatDamage_IndirectToUnit_ReactionOffered
+#// JTL_009 Boba Fett (undeployed leader) — the reaction must fire when the indirect damage lands on a
+#// UNIT, not only when it lands on a base. Owner report 2026-09-16 (Bot Practice game 469688): Boba's
+#// deck played JTL_240 Fett's Firespray for 3 indirect (2 with Boba + 1 from JTL_165 Hunting Aggressor),
+#// the opponent assigned all of it to a unit, and Boba was never offered — he was still ready afterwards.
+#// Ruling (card database, "Boba Fett - Any Methods Necessary"): "Non-combat damage is any damage dealt
+#// outside the deal-combat-damage step of an attack", so indirect damage qualifies wherever it lands.
+#// The base half works because SWUDealDamageToBase calls the collector; the unit half writes ->Damage
+#// directly in SWUApplyIndirectAssignment, which fires its observers explicitly and missed this one.
+#// The offer is left PENDING and asserted by tooltip, so the section fails if it is never queued.
+
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:JTL_009;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP1Resources: 8
+WithP1Hand: JTL_240
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Opponent
+- P2>AnswerDecision:myGroundArena-0:2
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P2BASEDMG:0
+P1LEADER:READY
+P1DECISIONTOOLTIP:Exhaust_Boba_Fett_to_deal_1_indirect_damage?

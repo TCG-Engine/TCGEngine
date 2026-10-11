@@ -27,6 +27,7 @@ class GameStateBuilder {
     private int    $_nextUID         = 1;
     private ?string $_seatOrder      = null; // Twin Suns: clockwise seat list "123"; null = leave default "12"
     private ?string $_liveSeats      = null; // Twin Suns: non-eliminated seat list; null = mirror seat order
+    private array   $_eliminatedSeats = []; // seats to run the REAL elimination on, after the board is built
 
     // ── Turn context ─────────────────────────────────────────────
 
@@ -65,6 +66,25 @@ class GameStateBuilder {
 
     public function WithLiveSeats(string $liveSeats): self {
         $this->_liveSeats = $liveSeats;
+        return $this;
+    }
+
+    // Seats that were ALREADY ELIMINATED when the fixture starts. Digit string, like the two above
+    // ("3", "34"). Applied at the very END of build() by calling the engine's own SWUEliminateSeat(),
+    // so the dead seat's board is cleaned up exactly as a real elimination cleans it: units owned by
+    // that seat set aside (captives rescued first), units it merely CONTROLLED returned to their
+    // owners' discards, its base marked removed, its decision queue and TempZone drained, and any
+    // Blast/Plan/Initiative counter it held released back to centre.
+    //
+    // ⚠ NOT the same as WithLiveSeats, which writes the live-seat LIST and nothing else. A fixture
+    // using WithLiveSeats alone leaves the dead seat's units standing in its arena and its base
+    // readable — fine for consumers that filter by LiveSeats, invisible drift for consumers that read
+    // a seat's board directly. Use this one whenever the test can observe the dead seat's BOARD.
+    public function WithEliminatedSeats(string $seats): self {
+        foreach (str_split(trim($seats)) as $ch) {
+            if ($ch === '') continue;
+            $this->_eliminatedSeats[] = intval($ch);
+        }
         return $this;
     }
 
@@ -595,8 +615,14 @@ class GameStateBuilder {
             for ($i = 0; $i < count($base); $i++) {
                 if (isset($base[$i]->removed) && $base[$i]->removed) continue;
                 $base[$i]->Damage = intval(CardHp($base[$i]->CardID));
-                global $gWinner;
-                $gWinner = $dp === 1 ? 2 : 1;
+                // ⚠ A full base declares a WINNER only at TWO seats. This read `$dp === 1 ? 2 : 1`,
+                // so a defeated seat 3 or 4 crowned seat 1 out of nowhere and any winner assertion in
+                // such a fixture was meaningless. Above two seats a defeated base means that seat is
+                // ELIMINATED, not that anyone has won — use WithEliminatedSeats for that.
+                if (SeatCountForGame() <= 2) {
+                    global $gWinner;
+                    $gWinner = OtherPlayer($dp);
+                }
                 break;
             }
         }
@@ -614,5 +640,29 @@ class GameStateBuilder {
         // Sync unique ID counter so NextUniqueID() doesn't collide
         global $gUniqueIDCounter;
         $gUniqueIDCounter = $this->_nextUID;
+
+        // ── Already-eliminated seats ──────────────────────────────────────────────────────────────
+        // LAST, and through the ENGINE's own SWUEliminateSeat() — the cleanup can only remove what has
+        // already been placed, and routing through production means a fixture can never drift from what
+        // an elimination really does. A hand-rolled "mark it dead" here is precisely the fake whose
+        // shape becomes part of the contract.
+        if (!empty($this->_eliminatedSeats)) {
+            if (SeatCountForGame() <= 2) {
+                throw new RuntimeException(
+                    "WithEliminatedSeats needs a Twin Suns board: SWUEliminateSeat() is a no-op at two "
+                    . "seats, so the directive would be SILENTLY IGNORED. Use CommonSetup3P/4P.");
+            }
+            foreach ($this->_eliminatedSeats as $seat) {
+                if (!in_array($seat, GetLiveSeatsArray(), true)) {
+                    throw new RuntimeException("WithEliminatedSeats: seat {$seat} is not a live seat to begin with.");
+                }
+                SWUEliminateSeat($seat, null);   // null killer = no 5-heal; nobody "did" this kill
+            }
+            if (count(GetLiveSeatsArray()) < 2) {
+                throw new RuntimeException(
+                    "WithEliminatedSeats left fewer than 2 live seats — the game ends before the WHEN "
+                    . "steps run. Eliminate fewer seats, or add more with CommonSetup4P.");
+            }
+        }
     }
 }

@@ -115,3 +115,38 @@ P2DISCARDCOUNT:1
 P2DISCARDUNIT:0:CARDID:SOR_171
 P2DISCARDUNIT:0:FROM:HAND
 LOGCONTAINS:looked at
+
+---
+
+# TwinSuns4P_CasterPicksWhichOpponentsHand_FilterAppliesToThatHand
+#// SOR_201 — "look at AN OPPONENT's hand and discard a NON-UNIT card from it": the caster picks whose, and the
+#// non-unit filter applies to THAT hand (the filter crosses the pick through the card's options function,
+#// _SWUOppDiscardOpts_SOR_201 — a closure cannot ride the decision queue). P3 holds one non-unit (SOR_171) and a
+#// unit; P2 holds a non-unit too. P1 picks P3: P3's event is discarded (the single legal target auto-resolves),
+#// P3 keeps the unit, P2 is untouched.
+
+## GIVEN
+CommonSetup: yyw/yyw/{myResources:3}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: SOR_201
+WithP2Hand: [SOR_171]
+WithP3Hand: [SOR_171 SOR_095]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P3
+
+## EXPECT
+SEATCOUNT:4
+P3HANDCOUNT:1
+P3DISCARDCOUNT:1
+P3DISCARDUNIT:0:CARDID:SOR_171
+P2HANDCOUNT:1
+P2DISCARDCOUNT:0

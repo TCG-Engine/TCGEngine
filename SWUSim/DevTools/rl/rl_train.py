@@ -5,7 +5,7 @@ Runs INSIDE the SWUSim container:
     docker exec -d -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 \\
         python3 SWUSim/DevTools/rl/rl_train.py --out /tmp/rl_run1 --hours 8 --workers 8 --batch 240
 
-Stage 1 of the spec's schedule (Section 4): each style trains against FIXED heuristic opponents of all three styles.
+Stage 1 of the spec's schedule (Section 4): each of the five archetypes trains against FIXED heuristic opponents of every style.
 Every game: a learner deck (its fixture style, the '@rl' chooser in train mode) vs any other fixture deck (the plain
 heuristic of its own style); the learner's seat alternates. Games run through the self-play harness with the pairing's
 round cap. After each batch the episodes are folded into the table (rl_merge.py), the checkpoint is written atomically,
@@ -17,17 +17,31 @@ from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rl_merge import merge_batch
+from rl_ab import merge_batch_ab, significant_ab
+from collections import Counter
 
 ROOT = '/var/www/html/TCGEngine'
-FIXTURES = 'SWUSim/Tests/BotFixtures/meta-2026-09'
+FIXTURES = 'SWUSim/Tests/BotFixtures/ash-meta-2026-09'
 # Spec Section 4: 1.5x the top of each pairing's expected range.
 CAPS = {('aggro', 'aggro'): 12, ('aggro', 'normal'): 18, ('aggro', 'control'): 24,
         ('normal', 'normal'): 23, ('control', 'normal'): 27, ('control', 'control'): 30}
-STYLES = ['aggro', 'normal', 'control']
+# The five archetypes (SWUSim/Custom/BotArchetypes.php, since 2026-09-17), which is what every fixture's "# Style:"
+# header now says. The learner's policy is keyed by this style (SwuPolicy.php reads $ctx['style'], the chooser's own
+# style). Until 2026-09-19 this list held the OLD three names, so no fixture matched a learner style and make_jobs()
+# crashed on its first rng.choice — the trainer had been dead since the rename.
+STYLES = ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 'hardcontrol']
+# The round caps above are per OLD bucket; each archetype maps onto the bucket it grew out of (the permanent aliases
+# in BotArchetypes.php: aggro -> softaggro, normal -> midrange, control -> softcontrol).
+BUCKET = {'hyperaggro': 'aggro', 'softaggro': 'aggro', 'midrange': 'normal', 'softcontrol': 'control',
+          'hardcontrol': 'control', 'aggro': 'aggro', 'normal': 'normal', 'control': 'control'}
 
 
 def pairing(a, b):
     return tuple(sorted((a, b)))
+
+
+def cap(a, b):
+    return CAPS[pairing(BUCKET[a], BUCKET[b])]
 
 
 def deck_styles():
@@ -47,10 +61,11 @@ def deck_styles():
 def make_jobs(batch, n, decks, rng):
     jobs = []
     for i in range(n):
-        ls = STYLES[i % 3]
+        live = [st for st in STYLES if any(s == st for s in decks.values())]   # a --decks subset may lack a style
+        ls = live[i % len(live)]
         ld = rng.choice([d for d, s in decks.items() if s == ls])
         od = rng.choice([d for d in decks if d != ld])
-        seat = 1 if (i // 3) % 2 == 0 else 2
+        seat = 1 if (i // len(live)) % 2 == 0 else 2
         jobs.append({'id': f'b{batch}-{i}', 'seed': f'b{batch}-{i}', 'learnerSeat': seat, 'learnerStyle': ls,
                      'learnerDeck': ld, 'opponentDeck': od, 'opponentStyle': decks[od]})
     return jobs
@@ -67,7 +82,7 @@ def run_job(job, policy, epdir, eps, timeout):
     cmd = ['php', '-d', 'apc.enable_cli=1', '-d', 'xdebug.mode=off', '-d', 'memory_limit=1G',
            'DevTools/SWUSimBotSelfPlayTest.php', '--games=1', '--seed=' + job['seed'], '--first-player=1', '--verbose',
            '--chooser=' + ch[0], '--chooser2=' + ch[1], f'--deck={FIXTURES}/{decks[0]}.txt', f'--deck2={FIXTURES}/{decks[1]}.txt',
-           f'--max-rounds={CAPS[pairing(*styles)]}']
+           f'--max-rounds={cap(*styles)}']
     metrics, game = None, None
     try:
         out = subprocess.run(cmd, cwd=ROOT, env=env, capture_output=True, text=True, timeout=timeout).stdout
@@ -108,15 +123,30 @@ def main():
     ap.add_argument('--epsilon', type=float, default=0.1)
     ap.add_argument('--timeout', type=int, default=150)
     ap.add_argument('--snapshot-every', type=int, default=20)
+    ap.add_argument('--decks', default='', help='space-separated fixture names to train on (default: every fixture) — '
+                                                'leave some out to keep a held-out set for evaluation')
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
     epdir = os.path.join(a.out, 'ep'); os.makedirs(epdir, exist_ok=True)
     ckpt = os.path.join(a.out, 'checkpoint.json')
-    state = {'version': 'swu-v1', 'batches': 0, 'games': 0, 'table': {}}
+    # swu-v2: 'ab' is the randomised comparison (rl_ab.py) that decides overrides; 'table' (the plain Monte Carlo means)
+    # is kept for diagnostics only — RL run 3 showed it is biased by the heuristic's own choices.
+    state = {'version': 'swu-v2', 'batches': 0, 'games': 0, 'table': {}, 'ab': {}}
     if os.path.exists(ckpt):
         with open(ckpt) as fh:
             state = json.load(fh)
+        if 'ab' not in state:
+            sys.exit(f'[rl] {ckpt} is a swu-v1 checkpoint: its games did not record how each move was chosen, so the '
+                     'randomised comparison cannot use them. Start a new --out directory.')
     decks = deck_styles()
+    if a.decks.split():
+        unknown = sorted(set(a.decks.split()) - set(decks))
+        if unknown:
+            sys.exit(f'[rl] unknown fixture(s): {" ".join(unknown)}')
+        decks = {d: s for d, s in decks.items() if d in a.decks.split()}
+    unlabelled = sorted(d for d, s in decks.items() if s not in BUCKET)
+    if unlabelled:
+        sys.exit(f'[rl] fixture(s) with an unknown "# Style:": {" ".join(unlabelled)}')
     deadline = time.time() + a.hours * 3600
     log = open(os.path.join(a.out, 'train.log'), 'a')
     print(f'[rl] {len(decks)} decks, resume at batch {state["batches"]}, {a.workers} workers, {a.batch} games/batch', flush=True)
@@ -131,11 +161,12 @@ def main():
                 frozen[s] = ''   # SWURlPolicy() returns an empty table without reading anything
                 continue
             frozen[s] = os.path.join(a.out, f'policy_frozen_{s}.json')
-            write_json_atomic(frozen[s], {'version': 'swu-v1', 'table': {s: state['table'].get(s, {})}})
+            write_json_atomic(frozen[s], {'version': 'swu-v2', 'ab': {s: state['ab'].get(s, {})}})
         jobs = make_jobs(b, a.batch, decks, random.Random(f'rl-{b}'))
         with ThreadPoolExecutor(max_workers=a.workers) as pool:
             results = list(pool.map(lambda j: run_job(j, frozen[j['learnerStyle']], epdir, a.epsilon, a.timeout), jobs))
         stats = merge_batch(state['table'], results)
+        ab_stats = merge_batch_ab(state['ab'], results)
         state['batches'] = b
         state['games'] += stats['games']
         write_json_atomic(ckpt, state)
@@ -148,6 +179,8 @@ def main():
                 'median_rounds': {p: statistics.median(r) for p, r in sorted(stats['rounds'].items())},
                 'decisions_per_game': round(stats['decisions'] / max(1, stats['games']), 1),
                 'new_states_per_decision': round(stats['new_states'] / max(1, stats['decisions']), 3),
+                'explored_per_game': round(ab_stats['explored'] / max(1, stats['games']), 2),
+                'ab_significant': {s: n for s, n in sorted(Counter(p[0] for p in significant_ab(state['ab'], 3.0, 100)).items())},
                 'states': {s: len(t) for s, t in state['table'].items()},
                 'total_games': state['games']}
         log.write(json.dumps(line) + '\n'); log.flush()

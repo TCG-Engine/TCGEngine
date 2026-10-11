@@ -58,8 +58,8 @@ function PerformConversationalSearch($usersRequest) {
     }
     
     // Format the response message
-    if (isset($responseObj->semanticPostfilter) && $responseObj->semanticPostfilter != "N/A") {
-        $response->message = "specificCards=" . str_replace(' ', '', $responseObj->semanticPostfilter);
+    if (isset($responseObj->semanticPostfilter)) {
+        $response->message = "specificCards=" . ($responseObj->semanticPostfilter === 'N/A' ? '' : str_replace(' ', '', $responseObj->semanticPostfilter));
     } elseif (isset($responseObj->staticFilter)) {
         $response->message = str_replace(";", " ", $responseObj->staticFilter);
     } else {

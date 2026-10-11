@@ -20,6 +20,10 @@ $customDQHandlers["JTL_018#0"] = function($player, $parts, $lastDecision) {
 $onAttackAbilities["JTL_018:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
+    // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+    // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+    // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+    // Premier is byte-identical). See memory: unqualified pools miss teammates.
     $targets = SWUAllUnits('my');
     if (empty($targets)) return;
     DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
@@ -56,10 +60,7 @@ $whenPlayedAbilities["JTL_244:0"] = function($player, $mzID = '') {
                           // can't gain abilities for this round."
             global $playerID;
             $playerID = intval($player);
-            $units = array_values(array_merge(
-                ZoneSearch('myGroundArena',    AnyUnitFilter), ZoneSearch('mySpaceArena',    AnyUnitFilter),
-                ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)
-            ));
+            $units = SWUAllUnits();
             if (empty($units)) return;
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|3|" . implode("&", $units), 1, "Choose_up_to_3_units_to_lose_abilities");
             DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_244#0", 1, dontSkipOnPass: 1);

@@ -148,6 +148,35 @@ P1DECKCOUNT:1
 
 ---
 
+# EntrantDefeatedBeforeB1_StillCounts
+#// Bug report game 1647080. "Entered play this phase" is a fact about the PAST: an entrant that has
+#// since LEFT play still entered. P1 plays the First Order TIE Fighter (space), P2 defeats it with
+#// Vanquish (the only non-leader unit, so it auto-targets), then P1 plays B1 into an otherwise empty
+#// board. B1 must draw. Scanning the units in play for the SWU_ENTERED_PHASE_ flag cannot see the
+#// TIE (it is in the discard pile), so that implementation answers "no other unit" and skips the
+#// draw; the tally of the flags themselves still holds the TIE's entry. Same lesson as the TS26_02 /
+#// TS26_04 gate (_SWUEnteredThisPhaseCount). Turns alternate, so no P1OnlyActions.
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:8;theirResources:8;theirhandCardIds:SOR_078}
+SkipPreGame: true
+WithP1Hand: JTL_081
+WithP1Hand: HMW_103
+WithP1Deck: [SOR_095 SOR_095]
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P1>PlayHand:0
+## EXPECT
+P1SPACEARENACOUNT:0
+P1DISCARDCOUNT:1
+P2DISCARDCOUNT:1
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:HMW_103
+P1HANDCOUNT:1
+P1DECKCOUNT:1
+
+---
+
 # TeamSuns_ATeammatesEntrantIsFRIENDLY
 #// "FRIENDLY" spans the TEAM in Team Suns (seats 1+3 are one team, 2+4 the other), so a unit that
 #// entered play under P1's TEAMMATE satisfies "another friendly unit entered play this phase" even
@@ -181,5 +210,61 @@ WithP1Deck: [SOR_095 SOR_095]
 SEATCOUNT:4
 P1GROUNDARENACOUNT:1
 P3GROUNDARENACOUNT:1
+P1HANDCOUNT:1
+P1DECKCOUNT:1
+
+---
+
+# TwinSuns3P_OPPONENTEntrantsDoNotCount
+#// Free-for-all Twin Suns (no teams): both opponents play a unit this phase, then P1 plays B1 onto an
+#// empty board. With no teammates "friendly" is P1 alone, so no other friendly unit entered: no draw.
+## GIVEN
+CommonSetup3P: ggk/ggw/ggw/{myResources:4}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1Hand: HMW_103
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Resources: 10
+WithP2Hand: SOR_095
+WithP3Resources: 10
+WithP3Hand: SOR_095
+## WHEN
+- P2>PlayHand:0
+- P3>PlayHand:0
+- P1>PlayHand:0
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENACOUNT:1
+P1HANDCOUNT:0
+P1DECKCOUNT:2
+
+---
+
+# TwinSuns4P_DefeatedOwnEntrantCounts_OpponentsDoNot
+#// Free-for-all Twin Suns at 4P, the game-1647080 shape. P1 plays the TIE Fighter, P2 defeats it with
+#// Vanquish (the only non-leader unit, so it auto-targets), P3 and P4 each play a unit, then P1 plays B1.
+#// The defeated TIE is P1's own entrant and still counts, so B1 draws exactly one.
+## GIVEN
+CommonSetup4P: ggk/bbw/ggw/ggw/{myResources:8}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: [JTL_081 HMW_103]
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Resources: 10
+WithP2Hand: SOR_078
+WithP3Resources: 10
+WithP3Hand: SOR_095
+WithP4Resources: 10
+WithP4Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P3>PlayHand:0
+- P4>PlayHand:0
+- P1>PlayHand:0
+## EXPECT
+SEATCOUNT:4
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:1
 P1HANDCOUNT:1
 P1DECKCOUNT:1

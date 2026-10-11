@@ -7,6 +7,7 @@
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/BotHeuristic.php';
+$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART38_FEATURES;   // isolates this file's feature from curve value (p38, 2026-10-06)
 $ids = fn($acts) => array_map(fn($a) => strval($a['cardID']), $acts);
 $stack = function (string $style, int $seat = 1, string $variant = '') use (&$gameName) {
     SWUBotResetCoverage(); $legal = SWUBotLegalActions($gameName, $seat);

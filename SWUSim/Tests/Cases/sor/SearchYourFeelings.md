@@ -1,6 +1,9 @@
-# ChooseNone
-#// SOR_042 Search Your Feelings — the searcher may choose to draw nothing; the deck is reshuffled and
-#// stays at 3, no card enters hand.
+# ChooseNone_NotAllowed_StillTakesACard
+#// SOR_042 Search Your Feelings — "Search your deck for a card and draw it." The search specifies NO attribute, so
+#// CR v9.0 8.26.1 does not let it come up empty ("If the search ability specifies a specific attribute … the player
+#// may choose to resolve the ability as though no appropriate card was found" — and only that kind, because the
+#// deck is hidden from the opponent; owner ruling 2026-10-03). The panel won't confirm an empty pick; an empty
+#// answer anyway still takes a card. (Before v9 this section asserted that drawing nothing was allowed.)
 
 ## GIVEN
 CommonSetup: bbk/brw/{
@@ -20,10 +23,9 @@ WithP1Deck: SOR_237
 - P1>AnswerDecision:
 
 ## EXPECT
-P1HANDCOUNT:0
-P1DECKCOUNT:3
+P1HANDCOUNT:1
+P1DECKCOUNT:2
 P1DISCARDCOUNT:1
-
 ---
 
 # DrawsChosenCard

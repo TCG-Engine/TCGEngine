@@ -20,7 +20,7 @@ $leaderAbilities["LAW_013"] = function(int $player): void {
 $customDQHandlers["LAW_013#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
-    SWUDefeatResource(intval($player), $lastDecision);
+    SWUDefeatResource(intval($player), $lastDecision, true);   // my own pick (CR rearrangement: an exhausted one goes)
     DecisionQueueController::CleanupRemovedCards();
     ChewbaccaHeroofKesselPayoff(intval($player));
 };
@@ -45,7 +45,7 @@ $onAttackAbilities["LAW_013:0"] = function($player, $mzID) {
 $customDQHandlers["LAW_013#1"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
-    SWUDefeatResource(intval($player), $lastDecision);
+    SWUDefeatResource(intval($player), $lastDecision, true);   // my own pick (CR rearrangement: an exhausted one goes)
     DecisionQueueController::CleanupRemovedCards();
     ChewbaccaHeroofKesselPayoff(intval($player));
 };
@@ -57,7 +57,11 @@ function ChewbaccaHeroofKesselPayoff(int $player): void {   // after the resourc
     global $playerID; $playerID = $player;
     SWUCreateCreditToken($player, 1);
     $units = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $units[] = $mz; }
     if (empty($units)) return;
     SWUQueueChooseTarget($player, $units, "Deal_2_damage_to_a_unit", "DEAL_UNIT_DAMAGE|2");

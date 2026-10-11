@@ -41,7 +41,7 @@ function CardCodeTestConnection(array $connection): array
     $curl = curl_init($url);
     curl_setopt_array($curl, [
         CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $connection['token'], 'Accept: application/json'],
+        CURLOPT_HTTPHEADER => ['X-Card-Code-Token: ' . $connection['token'], 'Accept: application/json'],
         CURLOPT_TIMEOUT => 20,
         CURLOPT_CONNECTTIMEOUT => 8,
     ]);
@@ -124,4 +124,3 @@ try {
     error_log('AdminCardCodeConnections error: ' . $error->getMessage());
     CardCodeConnectionJson(502, ['success' => false, 'error' => $error->getMessage()]);
 }
-

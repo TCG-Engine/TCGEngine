@@ -189,7 +189,7 @@ function _DeckLibraryScript(array $config = []): string {
     if(!opt || !opt.getAttribute('data-id')){ box.textContent = box.getAttribute('data-empty'); return; }
     var w = parseInt(opt.getAttribute('data-wins')||'0',10), l = parseInt(opt.getAttribute('data-losses')||'0',10);
     var total = w + l;
-    var head = total===0 ? 'No games yet'
+    var head = total===0 ? 'No Premier match stats'
       : (w+' win'+(w===1?'':'s')+' - '+l+' loss'+(l===1?'':'es')+' - '+Math.round(w*100/total)+'%');
     box.innerHTML = '<div class=\"dl-stats-overall\">'+head+'</div><div class=\"dl-stats-matchups\">...</div>';
     var mu = box.querySelector('.dl-stats-matchups');

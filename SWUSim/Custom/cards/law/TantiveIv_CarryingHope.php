@@ -6,5 +6,5 @@
 // LAW_109 Tantive IV — Restore 2 + When Played: if a friendly unit was defeated this phase, heal 4 from base.
 $whenPlayedAbilities["LAW_109:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (GlobalEffectCount(intval($player), 'SWU_FRIENDLY_DEFEATED') > 0) OnHealBase(intval($player), intval($player), 4);
+    if (SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_DEFEATED') > 0) OnHealBase(intval($player), intval($player), 4);
 };

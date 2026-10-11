@@ -4,25 +4,283 @@
 /* Main-menu backdrop: the sandy Petranaki arena, replacing the shared gamebg.jpg
    (menuStyles.css) so the menu matches the petranaki-hud palette. */
 body {
-  background-image: url('/TCGEngine/Assets/Images/petranaki-arena.webp') !important;
+  /* !important dropped: the redesigned menu (swusim-menu-2.css, loaded last) sets its own
+     arena plate scoped to body:has(.swu2-arena-wrap). Other SWUSim pages still get this. */
+  background-image: url('/TCGEngine/Assets/Images/petranaki-arena.webp');
 }
 
-/* The title sits directly on the sandy arena art and washes out. Back it with a
-   themed pill panel (same scrim + gold frame as the petranaki-hud dialogs) so the
-   text stays legible. The pill is anchored flush to the left viewport edge and
-   rounds into a cap on the right — margin-left cancels the header's 40px left pad. */
-.home-header .title {
-  display: inline-block;
-  margin-left: -40px;                 /* cancel .home-header's 40px left padding → flush left */
-  padding: 12px 44px 16px 40px;       /* inner inset; extra right pad balances the round cap */
-  background: var(--panel-scrim);
-  border: 1px solid rgba(var(--accent-rgb), 0.35);
-  border-left: 0;                     /* seamless against the viewport edge */
-  border-radius: 0 999px 999px 0;     /* square left, full pill cap on the right */
+/* ── Petranaki GLASS ("New Petranaki HUD", owner's name) — one look for the header plate, both nav chips, the main-menu
+   cards, the waiting-room panel and the site pages' panels (2026-09-21) ──────────
+   Frosted stone-grey glass (the in-game button grey) with a 1px steel hairline, a lit top edge and shaded bottom, gold
+   corner glows at top-left + bottom-right where the corners are cut, and a soft drop shadow. Every surface is built the
+   same way — the ELEMENT is unclipped and unpainted so its shadow can fall outside it:
+     ::after  (z -2) the shadow: box-shadows off a rounded box inset by the cut, so no square corner ever shows past a cut.
+     ::before (z -1) the glass, clipped to the cut: backdrop blur, fill, shading, hairline, corner glows.
+   ⚠ Never put a `filter` on an ancestor of the glass: it becomes the backdrop root and the blur then sees nothing.
+   ⚠ The glow SVGs are drawn for a 14px cut at 90×90 — keep --pa-cut at 14px or the diagonal stroke misses the cut. */
+/* ⚠ THE TOKENS AND THE .pa-glass LAYERS NOW LIVE IN css/petranaki-glass.css, which SiteDef loads
+   immediately BEFORE this file (and which the in-game board loads on its own). Only the per-surface
+   selector lists below remain here — they must not run on the board. */
+
+/* The site pages' panels (Login, Signup, Profile, Previews — see "Site pages" below) join the same glass. A notice
+   NESTED in another panel is a sunken well instead (no glass-in-glass), so it is excluded here with :not().
+
+   ⚠ THE WAITING ROOM PANEL AND THE CHAT PANEL ARE NO LONGER IN THESE LISTS. They were the last two surfaces
+   drawn by this corner-glint recipe (--pa-glow-tl / --pa-glow-br), which the 2026-09-25 redesign replaced with a
+   plain chamfered rim ring; recolouring the glints steel had made them quieter without making them the same panel,
+   and the owner spotted the difference. Both now come from swusim-menu-2.css, "INTERIOR PANELS GET THE MENU'S
+   PANEL". Do not add them back: two panel systems on one page is what this removes. */
+body .container.bg-black:not(.container .container)::before, body .container.bg-blue:not(.container .container)::before,
+body .card.ga-glass-card:not(.swu-panel):not(.wr-panel)::before,
+.home-header .title::before,
+.nav-bar-user::before, .nav-bar-links::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  clip-path: var(--pa-glass-clip);
+  -webkit-backdrop-filter: blur(16px) saturate(115%) brightness(0.82);
+  backdrop-filter: blur(16px) saturate(115%) brightness(0.82);
   box-shadow:
-    0 0 14px rgba(var(--accent-rgb), 0.16),
-    inset 0 0 30px rgba(var(--accent-rgb), 0.05),
-    0 10px 30px rgba(0, 0, 0, 0.55);
+    inset 0 0 0 1px var(--pa-line),
+    inset 0 2px 0 -1px rgba(255, 255, 255, 0.16),
+    inset 0 -30px 40px -24px rgba(0, 0, 0, 0.45);
+  background:
+    var(--pa-glow-tl) top left / 90px 90px no-repeat,
+    var(--pa-glow-br) bottom right / 90px 90px no-repeat,
+    radial-gradient(ellipse 90% 70% at 30% 0%, rgba(255, 255, 255, 0.075), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0, transparent 30%, transparent 65%, rgba(0, 0, 0, 0.22) 100%),
+    var(--pa-glass);
+}
+body .container.bg-black:not(.container .container)::after, body .container.bg-blue:not(.container .container)::after,
+body .card.ga-glass-card:not(.swu-panel):not(.wr-panel)::after,
+.home-header .title::after,
+.nav-bar-user::after, .nav-bar-links::after {
+  content: '';
+  position: absolute;
+  inset: var(--pa-cut);
+  z-index: -2;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 8px 10px rgba(0, 0, 0, 0.30),
+    0 18px 30px 8px rgba(0, 0, 0, 0.50),
+    0 34px 56px 0 rgba(0, 0, 0, 0.42);
+  pointer-events: none;
+  /* Cut the glass's own shape OUT of the shadow layer (evenodd: a big outer ring, then the glass outline as a hole) —
+     otherwise the frosted blur picks the shadow up and a dark rounded box shows through the glass. The box is
+     inset by the cut, so in its coordinates the glass outline sits one cut OUTSIDE it. */
+  clip-path: polygon(evenodd,
+    -300px -300px, calc(100% + 300px) -300px, calc(100% + 300px) calc(100% + 300px), -300px calc(100% + 300px), -300px -300px,
+    0 calc(-1 * var(--pa-cut)), calc(100% + var(--pa-cut)) calc(-1 * var(--pa-cut)), calc(100% + var(--pa-cut)) 100%,
+    100% calc(100% + var(--pa-cut)), calc(-1 * var(--pa-cut)) calc(100% + var(--pa-cut)), calc(-1 * var(--pa-cut)) 0,
+    0 calc(-1 * var(--pa-cut)));
+}
+
+/* ── Header plate: left edge ALIGNED WITH THE MENU PANELS below it (owner, 2026-09-22).
+   It used to sit flush at x=0, which read fine while the title was a rounded PILL; as a chamfered
+   plate the mismatch against the panel column at 16px is obvious. 16px is .swu-menu-grid's own
+   margin-left, and it also matches the ~14px the nav chips keep on the right, so the page stays
+   symmetric.
+   Kept COMPACT (owner, 2026-09-21: early feedback said the title bar "demands too much attention"): about the height of
+   the nav chips, not a banner. menuStyles.css pins .home-header to 140px, so the height is released here.
+   Optional emblem: branding.logo (SiteDef) renders img.title-logo and adds .has-logo. */
+.home-header { height: auto; min-height: 0; padding: 14px 0 12px 40px; }
+.home-header .title {
+  position: relative;
+  isolation: isolate;
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  align-items: center;
+  /* .home-header pads 40px; -24px leaves the plate at 16px = .swu-menu-grid's margin-left.
+     ⚠ These two numbers are a PAIR — change .home-header's padding and this must follow. */
+  margin-left: -24px;
+  padding: 10px 40px 10px 28px;
+  background: transparent;
+}
+.home-header .title h1 {
+  grid-column: 2; grid-row: 1;
+  margin: 0 0 3px;
+  font-size: 30px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-weight: 500;
+  line-height: 1;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+}
+.home-header .title p { grid-column: 2; grid-row: 2; margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: rgba(226, 232, 240, 0.78); }
+.home-header .title:not(.has-logo) h1, .home-header .title:not(.has-logo) p { grid-column: 1 / -1; }
+.home-header .title-logo {
+  grid-column: 1; grid-row: 1 / span 2;
+  width: 52px; height: 52px;
+  display: block;
+  /* stadium.svg is solid black: flatten to black, then shift to the sandy gold (≈ #e9b866), then a faint glow. */
+  filter: brightness(0) saturate(100%) invert(80%) sepia(38%) saturate(640%) hue-rotate(345deg) brightness(98%) contrast(90%)
+          drop-shadow(0 0 4px rgba(233, 184, 102, 0.25));
+}
+
+/* ── Nav: the link list and the icon links as two glass chips (desktop; below 769px they live in the burger panel) ── */
+@media (min-width: 769px) {
+  .nav-bar { display: flex; align-items: stretch; gap: 12px; top: 14px; right: 14px; }
+  .nav-bar-user, .nav-bar-links {
+    position: relative;
+    isolation: isolate;
+    margin: 0;
+    padding: 10px 28px;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;             /* the glass is ::before; an element blur would be a rectangle */
+    -webkit-backdrop-filter: none;
+  }
+  .nav-bar-links { padding: 10px 20px; }
+  .nav-bar-user ul, .nav-bar-links ul { display: flex; align-items: center; margin: 0; padding: 0; height: 100%; }
+  .nav-bar-user li + li { border-left: 1px solid rgba(196, 208, 220, 0.30); }
+  .nav-bar-user .NavBarItem { display: block; padding: 2px 18px; font-size: 17px; letter-spacing: 0.03em; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5); }
+  .nav-bar-user li:first-child .NavBarItem { padding-left: 0; }
+  .nav-bar-user li:last-child .NavBarItem { padding-right: 0; }
+  .nav-bar-user .NavBarItem:hover { text-decoration: none; color: #ffd998; }
+  .nav-bar-links ul { gap: 14px; }
+  .nav-bar-links img { width: 26px; height: 26px; display: block; }
+}
+@media (max-width: 768px) {
+  .nav-bar-user::before, .nav-bar-links::before, .nav-bar-user::after, .nav-bar-links::after { content: none; }
+}
+
+/* ── Waiting room (SharedUI/Render/WaitingRoom.php) in the New Petranaki HUD style (2026-09-21) ────────────────────
+   The shared renderer (also used by FaBSim) prints its own <style> in the BODY, after this file, so equal specificity
+   would lose: everything here is scoped under #wr-root or `.row-wrapper > .card.wr-panel`. Only SWUSim loads this file,
+   so FaBSim's room is untouched. Ids and classes are the renderer's; nothing in its markup changed. */
+.row-wrapper > .card.wr-panel {
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;                /* the glass is ::before — an element blur is a rectangle */
+  -webkit-backdrop-filter: none;
+  padding: 26px 28px 24px;
+  color: #eef2f6 !important;
+}
+.row-wrapper > .card.wr-panel * { color: inherit; }
+/* The #wr-root block that stood here (the 2026-09-21 HUD pass: title, invite, seats, pills, deck bar,
+   buttons, status strip) has MOVED to css/swusim-menu-2.css, section "THE WAITING ROOM".
+   It was written with ID specificity to beat the renderer's body <style>, which meant it also beat the
+   later redesign: the chamfer landed and this block then drew a 1px border and a 3px radius back on top
+   of it. One sheet owns the page now. The .row-wrapper > .card.wr-panel glass above is UNCHANGED — the
+   panel itself was never the problem, and it shares its selector list with the other site pages. */
+
+/* ── Site pages — Login, Signup, Profile, Previews — in the New Petranaki HUD style (2026-09-21) ──────────────────────
+   Their panels are three shared classes: `.container.bg-black` (Login / Signup / Profile panes, Cosmetics, Sounds),
+   `.container.bg-blue` (the cookie notice, Signup's disclosures) and `.card.ga-glass-card` (Previews). The renderers are
+   shared with other sites, so the restyle lives here (SWUSim only) and is written `body …` to outrank their own rules.
+   The glass itself is the shared recipe above; this block strips the old paint and styles the contents. */
+body .container.bg-black:not(.container .container), body .container.bg-blue:not(.container .container),
+body .card.ga-glass-card:not(.swu-panel):not(.wr-panel) {
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;               /* the glass is ::before — an element blur is a rectangle */
+  -webkit-backdrop-filter: none;
+  color: #eef2f6;
+}
+body .card.ga-glass-card:not(.swu-panel):not(.wr-panel) * { color: inherit; }
+/* A panel NESTED in a panel (Profile's Welcome / Change Password / Saved Decks / Blocked Users sections) is just a
+   section of its pane: no glass of its own, no frame — glass-in-glass drew stray corners and shadows. */
+body .container .container.bg-black {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+/* A notice inside a panel: a sunken well, like the menu's inner boxes. */
+body .container .container.bg-blue {
+  background: rgba(14, 17, 22, 0.34);
+  border: 1px solid rgba(196, 208, 220, 0.14);
+  border-radius: 4px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.30);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+/* The 2026-09-21 title rule stood here -- Barlow, spaced, uppercase, on every heading inside a
+   site-page panel, at 0-4-2. Every page it claimed (Login, Signup, Profile, Previews) has since
+   been redesigned and styles its own headings, and its specificity then beat those: a legal page
+   heading asking for the redesign's Archivo at 0-2-2 lost to it and rendered in Barlow.
+   Retired rather than layered over -- see the same call for the waiting room above. */
+/* Fields: sunken wells with a gold focus ring. */
+body .container input[type=text], body .container input[type=password], body .container input[type=email],
+body .container input:not([type]), body .container select, body .container textarea {
+  min-height: 40px; box-sizing: border-box;
+  padding: 8px 12px;
+  background-color: rgba(14, 17, 22, 0.58);
+  color: #eef2f6;
+  border: 1px solid rgba(196, 208, 220, 0.26);
+  border-bottom-color: rgba(196, 208, 220, 0.40);
+  border-radius: 3px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(0, 0, 0, 0.35);
+  font: 500 15px/1.3 'Barlow', sans-serif;
+  outline: none;
+}
+body .container input::placeholder, body .container textarea::placeholder { color: rgba(226, 232, 240, 0.42); }
+body .container input:focus, body .container select:focus, body .container textarea:focus {
+  border-color: #e9b866;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(233, 184, 102, 0.35), 0 0 12px rgba(233, 184, 102, 0.25);
+}
+body .container select {
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  padding-right: 36px; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1.5 1.5 7 7l5.5-5.5' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+body .container select option { background: #2c333c; color: #eef2f6; }
+/* Buttons: the menu's chamfered steel; a form's submit is the gold primary. Brand buttons (Discord, Patreon) and
+   switches keep their own look — they are links / .switch, not bare buttons. */
+body .container button:not(.switch):not(.btn), body .card.ga-glass-card:not(.swu-panel):not(.wr-panel) button:not(.switch) {
+  --btn-rim: rgba(196, 208, 220, 0.55);
+  --btn-fill: linear-gradient(135deg, rgba(70, 80, 92, 0.94), rgba(40, 47, 56, 0.94));
+  --btn-cut: 8px; --btn-cut-inner: 6.83px; --btn-rim-width: 2px;
+  --btn-glow: 8px; --btn-glow-color: rgba(196, 208, 220, 0.35);
+  --btn-pad: 8px 16px;
+  letter-spacing: 0.08em;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.45));
+}
+body .container button[type=submit]:not(.switch):not(.btn), body .container input[type=submit] {
+  --btn-rim: linear-gradient(135deg, #ffd998, #e9b866 50%, #b98534);
+  --btn-fill: linear-gradient(135deg, rgba(74, 70, 64, 0.97), rgba(40, 40, 42, 0.97));
+  --btn-glow: 12px; --btn-glow-color: rgba(233, 184, 102, 0.65);
+  --btn-pad: 9px 22px;
+  color: #ffd998;
+}
+/* Signup is taller than the auth pages' fixed-height wrapper (menuStyles.css .core-wrapper), so the form ran over the
+   disclaimer footer (pre-existing; found in this pass). Let the auth wrapper grow with its content. */
+body .core-wrapper.auth-page { height: auto; min-height: 0; }
+body .core-wrapper.auth-page .flex-wrapper { overflow: visible; padding-bottom: 24px; }
+/* Profile on phones: each pane was locked to 320px with overflow:hidden, which CUT OFF the first pane's Change Password
+   form (pre-existing; found in this pass — measured scrollHeight 476 in a 320 box). Stacked panes size to content. */
+@media (max-width: 900px) {
+  body .core-wrapper > .container.profile-pane,
+  body .core-wrapper > .container.cosmetics,
+  body .core-wrapper > .container.soundSettings { height: auto !important; min-height: 0 !important; overflow: visible !important; }
+}
+/* Previews: the tabs become the menu's tabs (gold rim on the active one). */
+body .swu-preview-tabs button.swu-preview-tab {
+  --btn-rim: rgba(196, 208, 220, 0.42);
+  --btn-fill: linear-gradient(135deg, rgba(62, 71, 82, 0.92), rgba(38, 45, 54, 0.92));
+  --btn-cut: 8px; --btn-cut-inner: 7.41px; --btn-rim-width: 1px;
+  background: transparent; border: 0;
+  color: rgba(226, 232, 240, 0.72);
+}
+body .swu-preview-tabs button.swu-preview-tab.is-active {
+  --btn-rim: linear-gradient(135deg, #ffd998, #e9b866 45%, rgba(233, 184, 102, 0.55));
+  --btn-fill: linear-gradient(135deg, rgba(78, 86, 96, 0.96), rgba(48, 54, 62, 0.96));
+  --btn-rim-width: 2px; --btn-cut-inner: 6.83px;
+  color: #fff;
+  filter: drop-shadow(0 0 6px rgba(233, 184, 102, 0.45));
 }
 
 /* Frosted menu panel — the grey the main menu's cards sit on: --surface-raised from the
@@ -55,11 +313,28 @@ body {
      wrapping ~64px of content. height:auto lets it collapse to what it actually holds. */
   .home-header               { height: auto !important; min-height: 0 !important;
                                padding: 10px 0 10px 16px !important; }
-  .home-header h1, h1.h1     { font-size: 28px !important; line-height: 1.1 !important; }
+  .home-header h1, h1.h1     { font-size: 24px !important; line-height: 1.1 !important; }
   .home-header p             { font-size: 12px !important; margin: 2px 0 0 0 !important; }
-  .card                      { padding: 12px !important; }
+  .home-header .title        { padding: 8px 32px 8px 40px; column-gap: 12px; }
+  .home-header .title-logo   { width: 42px; height: 42px; }
+  /* .legal-page is excluded: this block is the small-screen MAIN MENU trim (see its heading),
+     and 12px on a wall of legal prose puts the text against the panel edge. */
+  .card:not(.legal-page)     { padding: 12px !important; }
   .card h2, h2.h2            { font-size: 18px !important; }
   .row-wrapper               { gap: 10px !important; }
+}
+/* Mid widths: the desktop nav chips (top-right) are wide enough to cover the header plate, so the plate drops below
+   them. Below 769px the nav is the burger panel instead. */
+@media (min-width: 769px) and (max-width: 1180px) {
+  .home-header { padding-top: 70px !important; }
+}
+/* Phones: the burger button sits top-right, so the header plate stops short of it. */
+@media (max-width: 768px) {
+  /* .home-header's left padding is 16px here, so the plate cancels 16px, not the desktop 40px — that spare 24px is what
+     let the title wrap onto two lines. One line each for title and tagline. */
+  .home-header .title        { max-width: calc(100vw - 72px); box-sizing: border-box; margin-left: -16px; padding: 8px 26px 8px 16px; }
+  .home-header h1, h1.h1     { font-size: 21px !important; letter-spacing: 0.05em !important; white-space: nowrap; }
+  .home-header .title p      { font-size: 11px !important; white-space: nowrap; }
 }
 
 /* ── Mobile burger menu ───────────────────────────────────────────────────────
@@ -98,8 +373,8 @@ body {
   background: var(--accent);
 }
 .burger-menu::after {
-  content: ''; position: absolute; inset: 1.5px; z-index: 0;
-  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  content: ''; position: absolute; inset: 2px; z-index: 0;   /* whole px: see petranaki-hud --btn-rim-width */
+  clip-path: polygon(4.83px 0, 100% 0, 100% calc(100% - 4.83px), calc(100% - 4.83px) 100%, 0 100%, 0 4.83px);
   background: var(--panel-scrim, rgba(20, 14, 8, 0.96));
 }
 .burger-menu span {
@@ -194,3 +469,123 @@ body {
    full-width line restores the panes at every width, mobile and desktop. */
 .core-wrapper { flex-wrap: wrap; }
 .core-wrapper > .disclaimer { flex: 0 0 100%; width: 100%; margin-top: 8px; }
+
+/* Info tooltip next to a form label (first use: the supported deck-link sites, 2026-09-21). The bubble is
+   positioned against .swu-label-row — the full card width — not the icon, so it never overflows on a phone.
+   Opens on hover, on keyboard focus, and on .is-open (a tap: WebKit does not focus a button on click).
+   ⚠ The icon selectors are deliberately heavy: components.css styles every raw menu button through
+   `button:not(.btn):not(.switch)` (0,3,1 with :hover), which beats a single class and turned the icon into a borderless,
+   padded, uppercase chip. `.swu-label-row > button.swu-info-tip:not(.btn)` outranks it without touching the shared file. */
+.swu-label-row { position: relative; display: flex; align-items: center; gap: 6px; }
+.swu-label-row > button.swu-info-tip:not(.btn) {
+  flex: 0 0 auto;
+  width: 18px; height: 18px; min-width: 0; padding: 0; margin: 0;
+  border-radius: 50%;
+  border: 1px solid var(--text-muted);
+  background: transparent;
+  color: var(--text-muted);
+  font: italic 700 12px/16px Georgia, 'Times New Roman', serif;
+  text-transform: none; letter-spacing: 0;
+  box-shadow: none;
+  cursor: help;
+}
+.swu-label-row > button.swu-info-tip:not(.btn)::before,
+.swu-label-row > button.swu-info-tip:not(.btn)::after { content: none !important; }   /* no HUD chamfer pseudos on a glyph */
+.swu-label-row > button.swu-info-tip:not(.btn):hover,
+.swu-label-row > button.swu-info-tip:not(.btn):focus-visible,
+.swu-label-row > button.swu-info-tip:not(.btn).is-open {
+  color: var(--text); border-color: var(--accent); outline: none; transform: none; filter: none;
+}
+.swu-info-tip__bubble {
+  position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 20;
+  padding: 8px 10px;
+  background: var(--panel-scrim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 12px; font-weight: 400; line-height: 1.4;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  visibility: hidden; opacity: 0;
+  transition: opacity 120ms ease, visibility 0s linear 120ms;
+}
+.swu-info-tip:hover + .swu-info-tip__bubble,
+.swu-info-tip:focus-visible + .swu-info-tip__bubble,
+.swu-info-tip.is-open + .swu-info-tip__bubble {
+  visibility: visible; opacity: 1;
+  transition: opacity 120ms ease, visibility 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .swu-info-tip__bubble, .swu-info-tip:hover + .swu-info-tip__bubble { transition: none; }
+}
+
+/* ── Chat panel (SharedUI/Render/ChatPanel.php) in the New Petranaki HUD style (2026-09-22) ────────
+   THE RE-SKIN SEAM. The component is shared with FaBSim and ships a neutral, legible base; this file
+   is SWUSim-only, so everything Petranaki lives here and nothing in the component changed. Because
+   the skin is scoped to the component's own id, EVERY SWUSim screen that mounts it looks identical
+   for free — the waiting room and the sideboard today, anything added later with no extra work.
+   That is the whole point of the split (owner, 2026-09-22: "base component plus able to re-skin").
+
+   ⚠ The component's own <style> is printed in the BODY, after this file, so equal specificity would
+   LOSE. Everything here is id-scoped (#tcg-chat-panel …), which outranks it.
+   ⚠ The glass itself is the shared ::before / ::after recipe — this panel is simply added to both
+   selector lists above. Do not re-declare the blur or the glows here; they would drift from every
+   other surface. */
+#tcg-chat-panel {
+  position: relative;          /* the sticky above already positions it; this is for the pseudos */
+  isolation: isolate;          /* keeps ::before's z-index:-1 inside the panel, not behind the page */
+  background: transparent;     /* the glass is ::before — an element blur is a plain rectangle and
+                                  would square off the chamfer */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border: 0;
+  border-radius: 0;
+  padding: 18px 18px 16px;
+  color: #eef2f6;
+}
+/* The chamfer eats the top-left and bottom-right corners, so the label and the composer need to sit
+   clear of the cut or they collide with it. --pa-cut is 14px. */
+#tcg-chat-panel .tcgc-label {
+  padding-left: calc(var(--pa-cut) - 8px);
+  font-family: 'Barlow', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.64);
+}
+#tcg-chat-panel #tcgc-composer { padding-right: calc(var(--pa-cut) - 8px); }
+
+/* Sunken well + gold focus rim, matching the room's deck field and the Games in Progress chips. */
+#tcg-chat-panel #tcgc-input {
+  background: rgba(14, 17, 22, 0.42);
+  border: 1px solid rgba(196, 208, 220, 0.14);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 2px 6px rgba(0, 0, 0, 0.42);
+  color: #eef2f6;
+}
+#tcg-chat-panel #tcgc-input:focus {
+  border-color: rgba(233, 184, 102, 0.75);
+  box-shadow: inset 0 0 0 1px rgba(233, 184, 102, 0.28), inset 0 2px 6px rgba(0, 0, 0, 0.42);
+}
+#tcg-chat-panel #tcgc-send { height: 34px; padding: 0 14px; }
+
+#tcg-chat-panel .tcgc-row { padding: 3px 0 3px 9px; }
+/* Chat send time (owner 2026-10-09) — SWUSim skin only; ChatPanel.php sets data-time on chat rows and its
+   neutral base draws nothing, so FaBSim's panel is unchanged. Same look as the board's .chatMsg time. */
+/* At the RIGHT of the row's first line, floated so the message wraps around it. Same recipe as the
+   board's .swu-log-CHAT rows (GameLayoutShared.php); flow-root contains the float in a one-line row. */
+#tcg-chat-panel .tcgc-row[data-time] { display: flow-root; }
+#tcg-chat-panel .tcgc-row[data-time]::before {
+  content: attr(data-time); float: right; margin: 0 4px 0 8px;
+  font-size: 10.5px; font-weight: 400; font-style: normal;
+  color: rgba(226, 232, 240, 0.45); font-variant-numeric: tabular-nums;
+}
+#tcg-chat-panel .tcgc-row.tcgc-log { color: rgba(226, 232, 240, 0.66); }
+#tcg-chat-panel .tcgc-loghead {
+  font-family: 'Barlow', sans-serif;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.52);
+}
+#tcg-chat-toggle {
+  background: var(--pa-glass);
+  border: 1px solid var(--pa-line);
+  color: rgba(233, 184, 102, 0.95);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}

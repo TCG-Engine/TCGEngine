@@ -1,13 +1,12 @@
 <?php
-// Bot Practice is admin-only outside local dev (owner, 2026-09-15: "update the Bot Practice local dev gate to now be
-// an admin-only gate … for other admins to try out and give me feedback"). "Admin" = the approved moderators
-// (AccountFiles/AccountSessionAPI.php ApprovedModeratorUserNames(), the same list CheckLoggedInUserMod() gates the admin
-// tools with). Local dev keeps working exactly as before (SWUIsLocalDevRequest: a localhost Host, or DEVENV=true).
+// Arenabot is open to EVERYONE, guests included (owner, 2026-09-21: "we can remove the account requirement").
+// History: admin-only from 2026-09-15 (moderator trial), every logged-in player from 2026-09-18.
+// Tested OUTSIDE local dev — a production Host with DEVENV off — because local dev was always allowed, so a check made
+// there cannot tell an open gate from a closed one.
 // The menu (SharedUI/Sites/SWUSim/MainMenu.php) and the endpoint (APIs/Lobbies/JoinQueue.php) use the same helper.
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d xdebug.mode=off SWUSim/DevTools/tests/bot_practice_gate_test.php
 chdir(dirname(__DIR__, 3));
 require_once './SWUSim/Mod/DevGate.php';
-require_once './AccountFiles/AccountSessionAPI.php';
 $fails = 0;
 $check = function ($ok, $msg) use (&$fails) { echo ($ok ? 'PASS' : 'FAIL') . ": $msg\n"; if (!$ok) $fails++; };
 
@@ -17,22 +16,15 @@ $as = function (string $host, ?string $user) {
     if ($user === null) unset($_SESSION['useruid']); else $_SESSION['useruid'] = $user;
     return SWUBotPracticeAllowed();
 };
-$mod = ApprovedModeratorUserNames()[0];
-$check($as('localhost:3400', null) === true, 'local dev, logged out: allowed (unchanged)');
-$check($as('swustats.net', null) === false, 'production, logged out: not allowed');
-$check($as('swustats.net', 'someplayer') === false, 'production, an ordinary account: not allowed');
-$check($as('swustats.net', $mod) === true, "production, an approved moderator ($mod): allowed");
-putenv('DEVENV=true');
-$check($as('swustats.net', null) === true, 'DEVENV=true still counts as local dev');
-putenv('DEVENV=false');
+$check($as('swustats.net', null) === true, 'production, logged out: ALLOWED (opened to guests 2026-09-21)');
+$check($as('swustats.net', '') === true, 'production, an empty useruid: allowed');
+$check($as('swustats.net', 'someplayer') === true, 'production, an ordinary account: allowed');
 
 // The endpoint's refusal (APIs/Lobbies/JoinQueue.php calls SWUBotPracticeRefusal before anything else reads the format).
 // Tested here in the CLI: the local container's Apache runs with DEVENV=true, so over HTTP every request is local dev.
-$as('swustats.net', 'someplayer');
-$check(SWUBotPracticeRefusal('botpractice') === 'Bot Practice is currently limited to approved testers.', 'a non-admin Bot Practice request gets the refusal');
+$as('swustats.net', null);
+$check(SWUBotPracticeRefusal('botpractice') === null, 'a LOGGED-OUT Arenabot request in production is not refused');
 $check(SWUBotPracticeRefusal('premier') === null && SWUBotPracticeRefusal('hotseat') === null, 'other formats are never refused by it');
-$as('swustats.net', $mod);
-$check(SWUBotPracticeRefusal('botpractice') === null, 'an approved moderator is not refused');
 
 // Over HTTP (local dev): a Bot Practice request still creates a game.
 $post = function (string $host) {
@@ -44,7 +36,15 @@ $post = function (string $host) {
 };
 $r = $post('localhost');
 $check(is_object($r) && ($r->success ?? false) === true, 'endpoint: from local dev it still creates a game');
-if (is_object($r) && !empty($r->gameName)) { array_map('unlink', glob("./SWUSim/Games/{$r->gameName}/*") ?: []); @rmdir("./SWUSim/Games/{$r->gameName}"); }
+// ⚠ Clean BotData too, not just Games. This creates a REAL Arenabot game, which the recorder now
+// captures into SWUSim/BotData — the same directory the owner's real games land in. Leaving it there
+// put a stray one-row game into a live 5-game corpus and it surfaced in the analysis report.
+if (is_object($r) && !empty($r->gameName)) {
+    foreach (["./SWUSim/Games/{$r->gameName}", "./SWUSim/BotData/{$r->gameName}"] as $d) {
+        array_map('unlink', glob("$d/*") ?: []);
+        @rmdir($d);
+    }
+}
 
 echo $fails === 0 ? "\nALL PASS\n" : "\n$fails FAILED\n";
 exit($fails ? 1 : 0);

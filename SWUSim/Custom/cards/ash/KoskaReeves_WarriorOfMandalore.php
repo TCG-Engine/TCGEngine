@@ -7,5 +7,5 @@
 // token. (Conditional Sentinel passive lives in KeywordEffects.) Uses the SWU_FRIENDLY_DEFEATED flag.
 $whenPlayedAbilities["ASH_079:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (GlobalEffectCount(intval($player), 'SWU_FRIENDLY_DEFEATED') > 0) SWUCreateUnitToken(intval($player), 'ASH_T01');
+    if (SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_DEFEATED') > 0) SWUCreateUnitToken(intval($player), 'ASH_T01');
 };

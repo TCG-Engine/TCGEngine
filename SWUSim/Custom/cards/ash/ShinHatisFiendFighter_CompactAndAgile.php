@@ -8,7 +8,7 @@
 // unit wasn't defeated by COMBAT damage, give 3 instead. (gCombatDefeatByMz marks combat defeats — same
 // signal as ASH_028.)
 $whenDefeatedAbilities["ASH_191:0"] = function($player, $mzID) {
-    $fromCombat = !empty($GLOBALS['gCombatDefeatByMz'][$mzID] ?? false);
+    $fromCombat = SWUDefeatedByCombat((string)$mzID);
     $n = $fromCombat ? 2 : 3;
     GiveTokenUpgrade($player, '', [
         'token' => 'ADVANTAGE', 'amount' => $n, 'may' => true, 'friendlyOnly' => false,

@@ -13,7 +13,7 @@ $whenPlayedAbilities["SOR_051:0"] = function($player, $mzID) {
         ZoneSearch('theirGroundArena', AnyUnitFilter),
         ZoneSearch('theirSpaceArena',  AnyUnitFilter)
     );
-    $amount = GlobalEffectCount(intval($player), 'SWU_FRIENDLY_DEFEATED') > 0 ? 6 : 3;
+    $amount = SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_DEFEATED') > 0 ? 6 : 3;
     SWUQueueChooseTarget(intval($player), $enemies,
         "Give_an_enemy_unit_-{$amount}/-{$amount}_for_this_phase", "APPLY_PHASE_DEBUFF|{$amount}|{$amount}|SOR_051");
 };

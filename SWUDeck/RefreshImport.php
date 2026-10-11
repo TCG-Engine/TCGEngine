@@ -12,6 +12,7 @@ SWUMaintenanceRequire('SWUDeck', 'deck');
   include_once './GeneratedCode/GeneratedCardDictionaries.php';
   include_once '../Core/HTTPLibraries.php';
   include_once './Custom/CardIdentifiers.php';
+  include_once __DIR__ . '/../AppCore/SWU/DeckLinkImport.php';
 
   include_once '../Core/NetworkingLibraries.php';
 
@@ -34,33 +35,17 @@ SWUMaintenanceRequire('SWUDeck', 'deck');
     exit();
   }
 
-  $deckLink = "https://swudb.com/api/getDeckJson/" . $assetSourceID;
-  if($assetSource == 2) {
-      $deckLink = "https://melee.gg/Decklist/View/" . $assetSourceID;
-  }
-  else if($assetSource == 3) {
-      $deckLink = "https://swubase.com/api/deck/" . $assetSourceID . "/json";
-  }
-  $curl = curl_init();
-  curl_setopt($curl, CURLOPT_URL, $deckLink);
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-  $apiDeck = curl_exec($curl);
-  $apiInfo = curl_getinfo($curl);
-  $errorMessage = curl_error($curl);
-  curl_close($curl);
-
-  if($apiDeck === false) {
+  // Every source (incl. melee.gg, which is scraped) comes back in the standard deck shape — see
+  // AppCore/SWU/DeckLinkImport.php. Melee ids stored before the shared importer were cut to 31
+  // chars and cannot be fetched; those refreshes fail here rather than load the wrong deck.
+  $fetched = SWUDeckLinkFetchBySource($assetSource, $assetSourceID);
+  if(!$fetched['success']) {
+    error_log("RefreshImport: source $assetSource id '$assetSourceID' failed: " . $fetched['message']);
     header("location: ../SharedUI/ErrorPage.php?error=DeckFetchFailed");
     exit();
   }
 
-  $json = $apiDeck;
-  $deckObj = json_decode($json);
-
-  if($deckObj === null) {
-    header("location: ../SharedUI/ErrorPage.php?error=InvalidDeckData");
-    exit();
-  }
+  $deckObj = json_decode(json_encode($fetched['deck']));
 
   ParseGamestate();
 

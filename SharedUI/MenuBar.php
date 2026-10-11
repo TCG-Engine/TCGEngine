@@ -47,7 +47,7 @@ $isMobile = IsMobile();
     <div class='nav-bar-user'>
       <ul class='rightnav'>
         <?php
-        echo "<li><a href='https://www.patreon.com/c/OotTheMonk' target='_blank' class='NavBarItem'>Support</a></li>";
+        echo "<li><a href='https://www.patreon.com/c/ninintcg' target='_blank' class='NavBarItem'>Support</a></li>";
         echo "<li><a href='/TCGEngine/Stats/APIs.php' class='NavBarItem'>APIs</a></li>";
         echo "<li><a href='/TCGEngine/Stats/Decks.php' class='NavBarItem'>Decks</a></li>";
         

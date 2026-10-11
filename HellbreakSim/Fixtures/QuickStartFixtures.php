@@ -121,11 +121,15 @@ function HellbreakReviewedCard(string $cardID): ?array
 
 function HellbreakFixtureCard(string $cardID): ?array
 {
-    $cards = HellbreakFixtureCards();
-    $fixture = $cards[$cardID] ?? [];
+    // The hardcoded fixture values are TEACHING values (Dracula feeds 0 blood so the lesson can
+    // hand out resources itself), so they apply only to the tutorial. Every other game — including
+    // the GAMA demo decks, which use the same monsters — plays the printed card. This file is
+    // loaded by GameLogic.php in every game, so without the tutorial check the 14 fixture cards
+    // silently replaced real card data everywhere.
+    $tutorial = function_exists('HellbreakTutorialIsActive') && HellbreakTutorialIsActive();
+    $fixture = $tutorial ? (HellbreakFixtureCards()[$cardID] ?? []) : [];
     $reviewed = HellbreakReviewedCard($cardID);
-    // Existing deterministic fixture overrides remain intentionally stable for engine tests;
-    // reviewed values fill every card/field that the fixture does not override.
+    // Reviewed values reach the engine in BOTH modes; the fixture overrides only what it names.
     if($reviewed !== null) return array_replace($reviewed, $fixture);
     return $fixture ?: null;
 }
@@ -197,9 +201,9 @@ function HellbreakGamaDemoDeck(string $archetype): array
         'monster' => 'DOT_001',
         'locations' => ['DOT_016', 'DOT_015'],
         'deck' => HellbreakExpandCardCounts($counts),
-        // The checklist identifies the card, but neither its standard nor
-        // borderless row currently has a source image in the imported assets.
-        'knownMissingImages' => ['DOT_161'],
+        // DOT_161's art and rules were recovered from the HellbreakHub mirror on 2026-09-16
+        // (import-research-art.php), so the deck has no missing images left.
+        'knownMissingImages' => [],
     ];
 }
 

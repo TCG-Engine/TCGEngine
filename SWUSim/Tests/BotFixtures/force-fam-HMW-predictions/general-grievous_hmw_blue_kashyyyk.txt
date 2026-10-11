@@ -1,0 +1,43 @@
+# Self-play fixture — "Grievous Blue" (General Grievous, Separatist Warlord - Kachirho)
+# Source: the HMW-meta list of Force Fam member Ninin (NininTCG), given by the owner 2026-10-04 as JSON.
+#   Converted 2026-10-04. 51 main-deck cards, 8 sideboard.
+#   Base trait: Kachirho is Kashyyyk, and the deck cares, so the trait is part of its name.
+# Author: Ninin
+# Archetype (owner's label, 2026-10-04): Midrange
+# Style: midrange
+
+Leader
+1 HMW_008
+
+Base
+1 HMW_021
+
+Deck
+2 LAW_133
+3 LOF_091
+3 ASH_097
+3 LAW_037
+3 ASH_048
+3 SEC_082
+3 HMW_103
+3 LOF_084
+3 ASH_052
+3 HMW_104
+3 ASH_053
+3 HMW_136
+2 HMW_151
+3 SEC_111
+3 LAW_097
+2 HMW_109
+3 JTL_081
+3 SEC_057
+
+Sideboard
+1 JTL_112
+1 JTL_078
+1 SEC_078
+1 LAW_044
+1 LAW_133
+1 HMW_111
+1 JTL_043
+1 ASH_102

@@ -30,7 +30,11 @@ $customDQHandlers["HMW_151#1"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($dealer)) return;
     // CURRENT power (upgrades, auras, tokens), not the printed value.
     $power = intval(ObjectCurrentPower($dealer));
-    if ($power > 0) SWUDealDamageToUnit($lastDecision, $power, intval($player));
+    // The DEALER is the damage's source ("a friendly unit deals damage"), so it is threaded through: every source
+    // read in the funnel depends on it — ASH_196 Gorian Shard's Corsair's "damage dealt by friendly Underworld cards
+    // is unpreventable", SEC_050 Vigil's "by another card", LOF_108 Malakili, HMW_185 Ty Yorrick. Dealt source-less,
+    // a Gorian- or Underworld-dealt Overgrowth was stopped by a Shield (verified 2026-10-07).
+    if ($power > 0) SWUDealDamageToUnit($lastDecision, $power, intval($player), $parts[0] ?? null);
 };
 
 $whenPlayedAbilities["HMW_151:0"] = function($player, $mzID = '') {
@@ -41,7 +45,10 @@ $whenPlayedAbilities["HMW_151:0"] = function($player, $mzID = '') {
     // ── Clause 1 — GATED on controlling a Kashyyyk base. Needs both a dealer and a target; with
     // either pool empty the clause simply fizzles (it is mandatory, so no "may" anywhere).
     if (_SWUControlsBaseWithTrait($me, 'Kashyyyk')) {
-        $friendly = SWUAllUnits('my');
+        // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+        // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+        // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+        $friendly = SWUFriendlyUnits();
         $enemy    = SWUAllUnits('their');
         // USER RULING 2026-09-14: when EVERY friendly unit has 0 power the strike can only deal 0, so it is
         // skipped outright (no dealer / target prompts). A 0-power unit is still a legal dealer when another
@@ -84,7 +91,8 @@ $whenPlayedAbilities["HMW_151:0"] = function($player, $mzID = '') {
     }
     if ($evMz === null) return;
     $playerID = $me;
-    if ($owner !== $me) $evMz = str_replace('myDiscard', 'theirDiscard', $evMz);
+    // SWUForeignMzID, not a my→their swap: above two seats "their" names an arbitrary opponent.
+    if ($owner !== $me) $evMz = SWUForeignMzID($me, $owner, 'Discard', intval(substr($evMz, strlen('myDiscard-'))));
     $r = MZMove($me, $evMz, "myResources");
     if ($r !== null) {
         $r->Status     = 0;

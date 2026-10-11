@@ -205,3 +205,62 @@ P2GROUNDARENAUNIT:2:DAMAGE:2
 P2SPACEARENAUNIT:0:DAMAGE:0
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# ThreeSeat_DamagesEACHOpponentsGround_NotJustSeatTwo
+#// LAW_201 — "deal 2 damage to EACH ENEMY ground unit". Every opponent's ground units, not one seat's.
+#// ⚠ SEAT 3 ATTACKS — the host must be READY when it dies (ExhaustedDefeat_NoBlast above pins that an
+#// EXHAUSTED host does not blast), and a unit that attacks is exhausted by attacking. So P1's host is the
+#// DEFENDER here. Seat 3's attacker ends on 4 damage: 2 from the host's counter + 2 from the blast — and
+#// seat 3's attacker ends on 6: 4 from the 4/4 host's counter + 2 from the blast. The trailing P1>Pass
+#// drains the cross-player When Defeated — without it the blast never runs at all.
+#// The trigger read `OtherPlayer($player)` — seat 2 for a seat-1 host — so at 3+ seats every other
+#// opponent's board was untouched. Two seats cannot show it.
+
+## GIVEN
+CommonSetup3P: rrk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 3
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_201
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_039:1:0
+
+## WHEN
+- P3>AttackGroundArena:0:P1G0
+- P1>Pass
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P3GROUNDARENAUNIT:0:DAMAGE:6
+
+---
+
+# FourSeat_DamagesALLTHREEOpponentsGround
+#// The 4P sibling, and the one that separates "one opponent" from "EVERY opponent": three enemy boards
+#// must each take 2. At three seats a fix that iterated and a fix that just took $opps[0] look the same;
+#// here they do not.
+
+## GIVEN
+CommonSetup4P: rrk/rrk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 3
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_201
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_039:1:0
+WithP4GroundArena: SOR_046:1:0
+
+## WHEN
+- P3>AttackGroundArena:0:P1G0
+- P1>Pass
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P3GROUNDARENAUNIT:0:DAMAGE:6
+P4GROUNDARENAUNIT:0:DAMAGE:2

@@ -9,7 +9,9 @@ $whenPlayedAbilities["SOR_099:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
     SWUQueueMayChooseTarget(intval($player),
-        ZoneSearch('myGroundArena', NonLeaderUnitFilter), // non-leader ground
+        // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly.
+        // Arena-scoped, so the ground filter is kept explicitly. Degrades to 'my' outside a team game.
+        SWUFriendlyUnits('Ground', NonLeaderUnitFilter),
         'Return_a_friendly_ground_unit_to_hand_(then_draw)?', 'Choose_a_friendly_ground_unit_to_return', 'SOR_099#0');
 };
 

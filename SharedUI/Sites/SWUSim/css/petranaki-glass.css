@@ -1,0 +1,68 @@
+/* petranaki-glass.css — the New Petranaki HUD glass RECIPE, on its own so more than one page stack
+   can use it.
+   ⚠ EXTRACTED 2026-09-22 FROM swusim-overrides.css, which SiteDef loads on SITE pages only. The
+   in-game board is rendered by SWUSim/Custom/GameLayout.php with its own <style> and never pulls
+   that file, so skinning the board meant either copying this recipe — which is exactly how the gold
+   corner glows and the 14px cut drift apart — or splitting it out. This is the split.
+   ⚠ THIS FILE HOLDS ONLY THE TOKENS AND A REUSABLE `.pa-glass` CLASS. The PER-SURFACE selector lists
+   (.wr-panel, the site-page panels, #tcg-chat-panel …) deliberately stay in swusim-overrides.css:
+   the board loads this file too, and site-page selectors have no business running there.
+   ⚠ Never put a `filter` on an ancestor of the glass: it becomes the backdrop root and the blur then
+   sees nothing. ⚠ The glow SVGs are drawn for a 14px cut at 90×90 — keep --pa-cut at 14px or the
+   diagonal stroke misses the cut. */
+
+:root {
+  --pa-cut:        14px;
+  --pa-line:       rgba(196, 208, 220, 0.24);
+  --pa-glass:      linear-gradient(165deg, rgba(62, 70, 81, 0.50) 0%, rgba(30, 36, 44, 0.70) 100%);
+  --pa-glow-tl:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cdefs%3E%3CradialGradient id='g' cx='7' cy='7' r='84' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ffd998'/%3E%3Cstop offset='.35' stop-color='%23e9b866' stop-opacity='.8'/%3E%3Cstop offset='1' stop-color='%23e9b866' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cfilter id='b' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeGaussianBlur stdDeviation='2.6'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M1 90V14L14 1H90' fill='none' stroke='url(%23g)' stroke-width='5' filter='url(%23b)'/%3E%3Cpath d='M.9 90V14L14 .9H90' fill='none' stroke='url(%23g)' stroke-width='1.6'/%3E%3C/svg%3E");
+  --pa-glow-br:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cdefs%3E%3CradialGradient id='g' cx='83' cy='83' r='84' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ffd998'/%3E%3Cstop offset='.35' stop-color='%23e9b866' stop-opacity='.8'/%3E%3Cstop offset='1' stop-color='%23e9b866' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cfilter id='b' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeGaussianBlur stdDeviation='2.6'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M89 0V76L76 89H0' fill='none' stroke='url(%23g)' stroke-width='5' filter='url(%23b)'/%3E%3Cpath d='M89.1 0V76L76 89.1H0' fill='none' stroke='url(%23g)' stroke-width='1.6'/%3E%3C/svg%3E");
+  --pa-glass-clip: polygon(var(--pa-cut) 0, 100% 0, 100% calc(100% - var(--pa-cut)), calc(100% - var(--pa-cut)) 100%, 0 100%, 0 var(--pa-cut));
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root { --pa-glass: linear-gradient(165deg, rgba(58, 66, 77, 0.92) 0%, rgba(30, 36, 44, 0.95) 100%); }
+}
+
+/* ── .pa-glass — the recipe as a reusable class ───────────────────────────────────────────────────
+   Put it on any element that should BE a Petranaki panel; it keeps the element itself unpainted so
+   its shadow can fall outside it. Surfaces already wired through swusim-overrides.css's selector
+   lists do not need it — this is for stacks that file never reaches, starting with the in-game board.
+   Per-surface overrides: set --pa-glass-clip for a different corner pair and re-place the glow
+   layers, as the in-game sidebar does (its visible corners are both on the LEFT, facing the board). */
+.pa-glass { position: relative; isolation: isolate; background: transparent; border: 0; border-radius: 0; }
+.pa-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  clip-path: var(--pa-glass-clip);
+  -webkit-backdrop-filter: blur(16px) saturate(115%) brightness(0.82);
+  backdrop-filter: blur(16px) saturate(115%) brightness(0.82);
+  box-shadow:
+    inset 0 0 0 1px var(--pa-line),
+    inset 0 2px 0 -1px rgba(255, 255, 255, 0.16),
+    inset 0 -30px 40px -24px rgba(0, 0, 0, 0.45);
+  background:
+    var(--pa-glow-tl) top left / 90px 90px no-repeat,
+    var(--pa-glow-br) bottom right / 90px 90px no-repeat,
+    radial-gradient(ellipse 90% 70% at 30% 0%, rgba(255, 255, 255, 0.075), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0, transparent 30%, transparent 65%, rgba(0, 0, 0, 0.22) 100%),
+    var(--pa-glass);
+}
+.pa-glass::after {
+  content: '';
+  position: absolute;
+  inset: var(--pa-cut);
+  z-index: -2;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 8px 10px rgba(0, 0, 0, 0.30),
+    0 18px 30px 8px rgba(0, 0, 0, 0.50),
+    0 34px 56px 0 rgba(0, 0, 0, 0.42);
+  pointer-events: none;
+  clip-path: polygon(evenodd,
+    -300px -300px, calc(100% + 300px) -300px, calc(100% + 300px) calc(100% + 300px), -300px calc(100% + 300px), -300px -300px,
+    0 calc(-1 * var(--pa-cut)), calc(100% + var(--pa-cut)) calc(-1 * var(--pa-cut)), calc(100% + var(--pa-cut)) 100%,
+    100% calc(100% + var(--pa-cut)), calc(-1 * var(--pa-cut)) calc(100% + var(--pa-cut)), calc(-1 * var(--pa-cut)) 0,
+    0 calc(-1 * var(--pa-cut)));
+}

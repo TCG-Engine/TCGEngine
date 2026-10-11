@@ -5,6 +5,7 @@
 
 include_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
 include_once('../Database/CardAbilityRepository.php');
+include_once __DIR__ . '/../../Core/CardBaseMap.php';
 
 header('Content-Type: application/json');
 
@@ -43,6 +44,10 @@ try {
         exit;
     }
     
+    // A variant printing's abilities live on its base card; saving through the variant writes there.
+    $resolution = CardBaseResolution((string)$rootName, (string)$cardId);
+    $cardId = $resolution['cardId'];
+
     $db = OpenCardAbilityRepository($rootName);
 
     $result = $db->replaceCardAbilities($rootName, $cardId, $abilities, (bool)$cardImplemented, $baseRevision);
@@ -52,7 +57,7 @@ try {
         'saved' => $result['abilities'] ?? [],
         'revision' => $result['revision'] ?? '',
         'cardImplemented' => $cardImplemented,
-    ]);
+    ] + $resolution);
     $db->close();
 
 } catch (CardCodeConflictException $e) {

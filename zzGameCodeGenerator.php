@@ -210,6 +210,7 @@ while(!feof($handler)) {
         $headerElement->Link = "";
         $headerElement->Module = "";
         $headerElement->Target = "";
+        $headerElement->Access = "";
         $elementArr = explode(",", $lineValue);
         for($i=0; $i<count($elementArr); ++$i) {
           $elementArr[$i] = trim($elementArr[$i]);
@@ -508,7 +509,7 @@ while(!feof($handler)) {
       default://This is a new zone
         if($zoneObj != null) array_push($zones, $zoneObj);
         $zone = str_replace(' ', '', $line);
-        $zoneArr = explode("-", $zone);
+        $zoneArr = explode("-", $zone, 2);
         $zoneName = $zoneArr[0];
         if ($zoneName === 'DecisionQueue') {
           $hasDecisionQueue = true;
@@ -876,6 +877,34 @@ for($i=0; $i<count($zones); ++$i) {
 }
 fwrite($handler, "  ];\r\n");
 fwrite($handler, "}\r\n\r\n");
+
+// Multi-seat apps only: the zone list CleanupRemovedCards compacts. "my"/"their" name only TWO seats
+// ($playerID and its 1<->2 partner), so a card marked removed in any OTHER seat's zone was never spliced
+// out mid-request and its stale entry kept being offered as a target (SWUSim bug #1102: a bounced seat-3
+// Vermillion offered back to seat 3 by Rhydonium Detonation, bricking the game).
+// ⚠ A SEPARATE function, not a change to GetAllZones: GetAllZones is also the deterministic-RNG hash
+// material (Core/DeterministicRNG.php EngineSnapshotState), so renaming its entries would move every
+// game's shuffle stream. 2-seat apps emit nothing here and keep compacting via GetAllZones.
+if ($maxSeats > 2) {
+  fwrite($handler, "// Every seat's zones, for CleanupRemovedCards (see zzGameCodeGenerator.php).\r\n");
+  fwrite($handler, "function GetAllCompactableZones() {\r\n");
+  fwrite($handler, "  return [\r\n");
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $zoneName = $zone->Name;
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if ($zone->DisplayMode == 'Value') continue;
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "    \"" . $zoneName . "\",\r\n");
+    } else {
+      $seatZones = [];
+      for ($s = 1; $s <= $maxSeats; ++$s) $seatZones[] = "\"p" . $s . $zoneName . "\"";
+      fwrite($handler, "    " . implode(", ", $seatZones) . ",\r\n");
+    }
+  }
+  fwrite($handler, "  ];\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
 
 fwrite($handler, "function MZMove(\$player, \$mzIndex, \$toZone) {\r\n");
 fwrite($handler, "  global \$playerID;\r\n");
@@ -1695,7 +1724,7 @@ fwrite($handler, "function GetAssetReflectionPath() {\r\n");
 fwrite($handler, "  return \"" . ($assetReflection === null ? "" : $assetReflection) . "\";\r\n");
 fwrite($handler, "}\r\n\r\n");
 // Function to control whether regression recording tools should be exposed
-$supportsRegressionRecording = in_array($rootName, ["GrandArchiveSim", "RBSim", "GudnakSim", "SoulMastersSim", "AzukiSim"], true) ? "true" : "false";
+$supportsRegressionRecording = in_array($rootName, ["GrandArchiveSim", "RBSim", "GudnakSim", "SoulMastersSim", "AzukiSim", "HellbreakSim"], true) ? "true" : "false";
 fwrite($handler, "function SupportsRegressionRecording() {\r\n");
 fwrite($handler, "  return " . $supportsRegressionRecording . ";\r\n");
 fwrite($handler, "}\r\n\r\n");
@@ -1953,24 +1982,59 @@ fwrite($handler, "if(!SimGameValidateViewerAuth('" . $rootName . "', \$gameName,
 fwrite($handler, "  echo(\"Invalid auth key.\");\r\n");
 fwrite($handler, "  exit;\r\n");
 fwrite($handler, "}\r\n");
+// Inactivity clock (SWUSim only): the poll IS the heartbeat. Emitted after the auth check so an
+// unauthenticated request cannot mark a seat present. Other sims emit nothing here.
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "// Inactivity clock: the poll IS the heartbeat. Seated viewers only — a spectator poll must\r\n");
+  fwrite($handler, "// never make an absent player look present. Throttled inside PresenceTouchSeat.\r\n");
+  fwrite($handler, "if (empty(\$viewerInfo['isSpectator']) && function_exists('PresenceTouchSeat')) {\r\n");
+  fwrite($handler, "  PresenceTouchSeat(strval(\$gameName), intval(\$viewerInfo['viewerSeat'] ?? 0), time());\r\n");
+  fwrite($handler, "}\r\n");
+}
 fwrite($handler, "\$lastUpdate = TryGet(\"lastUpdate\", 0);\r\n");
 fwrite($handler, "\$lastChatVersion = TryGet(\"lastChatVersion\", 0);\r\n");
 fwrite($handler, "\$lastChatID = TryGet(\"lastChatID\", 0);\r\n");
+// Inactivity clock (SWUSim): the client echoes back the VOTE version, so a vote opening/changing wakes
+// the poll. Heartbeats bump a different counter and deliberately wake nobody.
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "\$lastPresenceVersion = TryGet(\"lastPresenceVersion\", 0);\r\n");
+}
 fwrite($handler, "\$count = 0;\r\n");
-fwrite($handler, "while(!CheckUpdate(\$gameName, \$lastUpdate) && !HasChatUpdate(\$gameName, \$lastChatVersion) && \$count < 100) {\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "while(!CheckUpdate(\$gameName, \$lastUpdate) && !HasChatUpdate(\$gameName, \$lastChatVersion) && !PresenceHasVoteUpdate(\$gameName, \$lastPresenceVersion) && \$count < 100) {\r\n");
+} else {
+  fwrite($handler, "while(!CheckUpdate(\$gameName, \$lastUpdate) && !HasChatUpdate(\$gameName, \$lastChatVersion) && \$count < 100) {\r\n");
+}
 fwrite($handler, "  usleep(25000); //25 milliseconds\r\n");
 fwrite($handler, "  ++\$count;\r\n");
 fwrite($handler, "}\r\n");
 fwrite($handler, "\$boardChanged = CheckUpdate(\$gameName, \$lastUpdate);\r\n");
 fwrite($handler, "\$chatChanged = HasChatUpdate(\$gameName, \$lastChatVersion);\r\n");
-fwrite($handler, "if(!\$boardChanged && !\$chatChanged) {\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  // Cheap path: evaluate the inactivity clock from the FACTS CACHED BY THE LAST ACTION, so a stall or a
+  // disconnect is noticed (and its vote opened) without parsing the gamestate on every poll.
+  fwrite($handler, "\$swuPresence = function_exists('SWUPresenceLight')\r\n");
+  fwrite($handler, "  ? SWUPresenceLight(strval(\$gameName), intval(\$viewerInfo['viewerSeat'] ?? 0), time())\r\n");
+  fwrite($handler, "  : ['v' => 0, 'onClock' => null, 'vote' => null];\r\n");
+  fwrite($handler, "\$presenceChanged = PresenceHasVoteUpdate(\$gameName, \$lastPresenceVersion);\r\n");
+  fwrite($handler, "if(!\$boardChanged && !\$chatChanged && !\$presenceChanged) {\r\n");
+} else {
+  fwrite($handler, "if(!\$boardChanged && !\$chatChanged) {\r\n");
+}
 fwrite($handler, "  echo(\"KEEPALIVE\");\r\n");
 fwrite($handler, "  exit;\r\n");
 fwrite($handler, "}\r\n");
-fwrite($handler, "if(!\$boardChanged && \$chatChanged) {\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "if(!\$boardChanged && (\$chatChanged || \$presenceChanged)) {\r\n");
+} else {
+  fwrite($handler, "if(!\$boardChanged && \$chatChanged) {\r\n");
+}
 fwrite($handler, "  \$chatPayload = json_encode([\r\n");
 fwrite($handler, "    \"version\" => GetChatUpdateVersion(\$gameName),\r\n");
-fwrite($handler, "    \"messages\" => GetChatMessagesSince(\$gameName, \$lastChatID),\r\n");
+fwrite($handler, "    \"messages\" => GetChatMessagesSince(\$gameName, \$lastChatID, \$viewerInfo),\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "    \"presence\" => \$swuPresence,\r\n");
+}
 fwrite($handler, "  ]);\r\n");
 fwrite($handler, "  if(\$chatPayload === false) \$chatPayload = '{\"version\":0,\"messages\":[]}';\r\n");
 fwrite($handler, "  echo(\"CHATONLY<~>\");\r\n");
@@ -2106,7 +2170,12 @@ fwrite($handler, "}\r\n");
 fwrite($handler, "echo(\"<~>\");\r\n");
 fwrite($handler, "\$chatPayload = json_encode([\r\n");
 fwrite($handler, "  \"version\" => GetChatUpdateVersion(\$gameName),\r\n");
-fwrite($handler, "  \"messages\" => GetChatMessagesSince(\$gameName, \$lastChatID),\r\n");
+fwrite($handler, "  \"messages\" => GetChatMessagesSince(\$gameName, \$lastChatID, \$viewerInfo),\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "  \"presence\" => function_exists('SWUPresencePayload')\r\n");
+  fwrite($handler, "    ? SWUPresencePayload(strval(\$gameName), intval(\$viewerInfo['viewerSeat'] ?? 0), time())\r\n");
+  fwrite($handler, "    : ['v' => 0, 'onClock' => null, 'vote' => null],\r\n");
+}
 fwrite($handler, "]);\r\n");
 fwrite($handler, "if(\$chatPayload === false) \$chatPayload = '{\"version\":0,\"messages\":[]}';\r\n");
 fwrite($handler, "echo(\$chatPayload);\r\n");
@@ -2352,15 +2421,25 @@ function AddWriteGamestate() {
     // Plan D: append per-game telemetry as the final field (backward-compat: absent -> '-').
     $writeGamestate .= "  global \$gTelemetry; \$gamestateText .= ((\$gTelemetry === null || \$gTelemetry === '') ? '-' : \$gTelemetry) . \"\\r\\n\";\r\n";
   }
+  if($rootName === 'SWUSim') $writeGamestate .= "  \$gamestateCached = false;\r\n";
   $writeGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"SimGameWriteGamestateCache\")) {\r\n";
-  $writeGamestate .= "    SimGameWriteGamestateCache('" . $rootName . "', \$gameName, \$gamestateText);\r\n";
+  $writeGamestate .= "    " . ($rootName === 'SWUSim' ? "\$gamestateCached = " : "")
+    . "SimGameWriteGamestateCache('" . $rootName . "', \$gameName, \$gamestateText);\r\n";
   $writeGamestate .= "  }\r\n";
   // Durable write-through for EVERY root, not just SWUSim: in apcu mode the cache is an accelerator,
   // but the file is the durable copy. A root that never writes the file (e.g. running in a CLI test
   // harness where apcu_store is unavailable) would otherwise persist NOTHING, so every action re-read
   // the stale initial state and multi-step flows (attacks, transforms) silently fizzled. ParseGamestate
   // already falls back to this file when the cache misses, so writing both keeps the two sides consistent.
-  $writeGamestate .= "  file_put_contents(\$filename, \$gamestateText);\r\n";
+  if($rootName === 'SWUSim') {
+    // SWUSim's CLI self-play harness can keep a game in process-local APCu. Web requests always
+    // write durably, and a failed cache store must never silently discard a memory-only state.
+    $writeGamestate .= "  \$persistToFile = PHP_SAPI !== 'cli' || !function_exists('EngineShouldPersistGamestateFile') || EngineShouldPersistGamestateFile('SWUSim', \$gameName);\r\n";
+    $writeGamestate .= "  if(!\$persistToFile && !\$gamestateCached) throw new RuntimeException('Memory-only gamestate cache write failed.');\r\n";
+    $writeGamestate .= "  if(\$persistToFile) file_put_contents(\$filename, \$gamestateText);\r\n";
+  } else {
+    $writeGamestate .= "  file_put_contents(\$filename, \$gamestateText);\r\n";
+  }
   return $writeGamestate;
 }
 
@@ -2419,11 +2498,18 @@ function AddGetNextTurnForPlayer($player) {
           ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
           : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         }
-        $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        if ($rootName === 'FaBSim' && $zone->Name === 'Graveyard') {
+          $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1 && !\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard('CardBack'));\r\n";
+          $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        } else $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         $getNextTurn .= "  }\r\n";
       } else if($zone->Visibility == "Private") {
         //Single Private
-        if($rootName == "SWUSim" && $zone->Name == "Deck") {
+        if($rootName == "FaBSim" && $zone->Name == "Deck") {
+          $getNextTurn .= "  \$_dashTop = FaBEVODeckView(" . $player . ", \$canSeePrivatePlayer" . $player . ");\r\n";
+          $getNextTurn .= "  if(\$_dashTop !== null) { ComputeVirtualProperties(\$_dashTop); echo(ClientRenderedCard(\$_dashTop->CardID, counters:count(\$" . $zoneName . "), cardJSON:json_encode(\$_dashTop))); }\r\n";
+          $getNextTurn .= "  else echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";
+        } else if($rootName == "SWUSim" && $zone->Name == "Deck") {
           // "You may look at the top card of your deck at any time" (LAW_094 / HMW_205). The identity of
           // the top card is sent ONLY to the seat that holds the permission and only for its OWN deck —
           // never to the opponent and never to a spectator, so this cannot leak hidden information. The
@@ -2499,12 +2585,24 @@ function AddGetNextTurnForPlayer($player) {
         // SHOW their unit side ("{CardID}_back") while on the battlefield.
         if($rootName == "SWUSim" && ($zone->Name == "GroundArena" || $zone->Name == "SpaceArena")) {
           $getNextTurn .= "    \$displayID = SWUArenaDisplayCardID(\$obj);\r\n";
+        } else if($rootName == "SWUSim" && $zone->Name == "Leader") {
+          // TWI_017 "Flipatine" is a double-leader-face FLIP card with NO unit side — its Deployed flag
+          // IS the flipped Villainy face, so the LEADER SLOT itself must show "{CardID}_back".
+          // ⚠ This arm exists in the DisplayMode=="Single" branch too, but SWUSim's Leader zone is
+          // declared `Display: Visibility=Public, Mode=All` — so that copy is NEVER emitted and
+          // SWULeaderDisplayCardID() had no caller at all. Reported as "Palpatine exhausted but never
+          // flipped to the Villainy side" (game 506505): the engine HAD flipped him, the payload kept
+          // shipping the front CardID. Pinned by DevTools/tdd-regression/test_swusim_flipatine_leader_art.php.
+          $getNextTurn .= "    \$displayID = SWULeaderDisplayCardID(\$obj);\r\n";
         } else {
           $getNextTurn .= $swuCardApp
           ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
           : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         }
-        if ($rootName === 'FaBSim' && $zone->Name === 'Banish') {
+        if ($rootName === 'FaBSim' && in_array($zone->Name, ['Equipment','Graveyard'], true)) {
+          $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1 && !\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard('CardBack'));\r\n";
+          $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        } else if ($rootName === 'FaBSim' && $zone->Name === 'Banish') {
           $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1) echo(ClientRenderedCard('CardBack'));\r\n";
           $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         } else {
@@ -2571,6 +2669,12 @@ function AddGetNextTurnForPlayer($player) {
           $getNextTurn .= "    if(\$logVis === 'ALL' || (!\$viewerInfo[\"isSpectator\"] && in_array(\$vSeatTag, array_map('trim', explode(',', \$logVis)), true))) \$visibleLog[] = \$logEntry;\r\n";
           $getNextTurn .= "  }\r\n";
           $getNextTurn .= "  echo(implode('<NL>', \$visibleLog));\r\n";
+        } else if (in_array($zone->Name, MatchReplayModuleFields(), true)) {
+          // The replay's initial gamestate (BOTH decks in order, BOTH hands) and its input log are
+          // server-only: APIs/MatchReplay.php reads them from the gamestate, and no client reads them
+          // from the poll. Echoing them leaked hidden information to every viewer mid-game. The
+          // position stays (the remote-frontend guide documents it), carrying the empty value.
+          $getNextTurn .= "  echo('-');\r\n";
         } else {
           $getNextTurn .= "  echo(\$g" . $zone->Name . ");\r\n";
         }
@@ -2622,7 +2726,49 @@ function AddNextTurn() {
     $header .= "\$__vp = intval(\$viewerPerspective);\r\n";
     $header .= "\$__opp = isset(\$opponentID) ? intval(\$opponentID) : (isset(\$_GET['opponentID']) ? intval(\$_GET['opponentID']) : 0);\r\n";
     $header .= "if (\$__opp <= 0 || \$__opp === \$__vp || !IsSeatLive(\$__opp)) \$__opp = NextLiveSeat(\$__vp);\r\n";
-    $header .= "echo(\"var otherPlayerIndex = (window.swuView && window.swuView.oppSeat) ? window.swuView.oppSeat : \" . \$__opp . \";\");\r\n";
+    // ⚠ THE CLIENT OVERRIDE MUST CHECK LIVENESS TOO. The PHP fallback one line up already refuses a
+    // dead seat (`!IsSeatLive($__opp) -> NextLiveSeat($__vp)`); the swuView override used to not, and
+    // it WINS when set. So a viewer whose swuView still named the seat that just died kept rendering
+    // that seat as their opponent — an empty enemy arena and a bare "Base" placeholder, because
+    // _SWUEliminationCleanup has cleared the dead seat's base and arenas. Reported on game 846502:
+    // P3 attacked P1's base (so P3's swuView.oppSeat was 1), P1 was eliminated by that attack, and the
+    // board stayed on "P3 vs P1". swuInitPairSwitcher() does clear swuView once LiveSeats drops to 2,
+    // but it returns early WITHOUT repainting, so the stale board survives until something else
+    // re-renders — which is why a page RELOAD fixes it and a snapshot never reproduces it.
+    // ⚠ THE LIVE-SEAT LIST MUST COME FROM responseArr, AND NOTHING ELSE. Two wrong sources, both tried
+    // and both measured failing against the real repro:
+    //   • `window.LiveSeatsData` — assigned ~35 lines BELOW this one, so on the very poll that reports
+    //     the elimination it still holds the PREVIOUS value and the dead seat reads as alive.
+    //   • a server-baked PHP literal — NextTurn.php includes this file ONCE, at page load, so the list
+    //     freezes there and every later RenderUpdate re-runs this function with the page-load value.
+    // responseArr is the render's own input and is fresh on every repaint, so read the LiveSeats slot
+    // straight out of it. Falling back to window.LiveSeatsData covers a short/absent slot; an EMPTY
+    // list means a pre-Twin-Suns game, where swuView is never set anyway, so the permissive branch
+    // keeps 2-player byte-identical.
+    $__liveIdx = -1;
+    for ($zi = 0; $zi < count($zones); ++$zi) {
+      if (($zones[$zi]->Name ?? '') === 'LiveSeats') { $__liveIdx = $zi + $startPiece; break; }
+    }
+    // ⚠ AND THE FALLBACK HAS TO BE PER-RENDER TOO. $__opp is a PHP literal, so it freezes at page load
+    // exactly like the list did. In the repro it froze at 1 — NextLiveSeat(3) with all three seats
+    // alive — so after the elimination the guard correctly REJECTED the stale swuView.oppSeat=1 and
+    // then fell back to a baked 1 anyway. Both branches named the dead seat and the board stayed blank.
+    // So mirror NextLiveSeat() in JS over the fresh list; the baked value survives only as the
+    // last-resort default for a game that ships no list at all (pre-Twin-Suns, where it is correct).
+    $__liveExpr = ($__liveIdx >= 0)
+      ? "String((responseArr && responseArr[" . $__liveIdx . "] != null) ? responseArr[" . $__liveIdx . "] : (window.LiveSeatsData || ''))"
+      : "String(window.LiveSeatsData || '')";
+    $header .= "echo(\"var otherPlayerIndex = (function(){\");\r\n";
+    $header .= "echo(\"  var _l = " . $__liveExpr . ";\");\r\n";
+    $header .= "echo(\"  var _v = window.swuView && window.swuView.oppSeat;\");\r\n";
+    $header .= "echo(\"  if (_v && (!_l || _l.indexOf(String(_v)) !== -1)) return _v;\");\r\n";
+    $header .= "echo(\"  if (_l) {\");\r\n";
+    $header .= "echo(\"    var _s = _l.split('').map(Number), _i = _s.indexOf(currentPlayerIndex);\");\r\n";
+    $header .= "echo(\"    if (_i !== -1 && _s.length > 1) return _s[(_i + 1) % _s.length];\");\r\n";
+    $header .= "echo(\"    for (var _k = 0; _k < _s.length; ++_k) if (_s[_k] !== currentPlayerIndex) return _s[_k];\");\r\n";
+    $header .= "echo(\"  }\");\r\n";
+    $header .= "echo(\"  return \" . \$__opp . \";\");\r\n";
+    $header .= "echo(\"})();\");\r\n";
   } else {
     $header .= "echo(\"var currentPlayerIndex = playerID;\");\r\n";
     $header .= "echo(\"var otherPlayerIndex = playerID == 1 ? 2 : 1;\");\r\n";
@@ -2675,6 +2821,18 @@ function AddNextTurn() {
     } else {
       $setData .= "echo(\"window.my" . $zone->Name . "Data = responseArr[" . $index . " + (currentPlayerIndex-1)*" . count($zones) . "];\");\r\n";
       $setData .= "echo(\"window.their" . $zone->Name . "Data = responseArr[" . $index . " + (otherPlayerIndex-1)*" . count($zones) . "];\");\r\n";
+      // ── Per-SEAT aliases: window.p{n}<Zone>Data, for every seat in the payload ──────────────────
+      // "my"/"their" name only the two boards the current VIEW renders. Above two seats the server
+      // addresses a target by seat ("p2Hand-0"), and anything that resolves a spec by name — the
+      // MZChoose popup does exactly `window[spec.zone + 'Data']` — found nothing and silently drew
+      // no cards. Reported 2026-09-25 (game 1310334): choosing which opponent's hand to look at
+      // opened an EMPTY picker unless you happened to be zoomed into that seat.
+      // ⚠ This leaks nothing. It renames data the client already holds: responseArr is published whole
+      // as window.swuLastResponseArr, and each slot was already redacted per viewer server-side (the
+      // $canSee<Zone>Player{n} reveal gates). A hidden zone the viewer may not see is card backs here
+      // exactly as it is there.
+      $setData .= "echo(\"for (var _ps = 1; _ps * " . count($zones) . " <= responseArr.length; _ps++) "
+                . "window['p' + _ps + '" . $zone->Name . "Data'] = responseArr[" . $index . " + (_ps-1)*" . count($zones) . "];\");\r\n";
     }
   }
 
@@ -3268,6 +3426,14 @@ function WriteInitialLayout() {
     fwrite($handler, "echo(\"<div class='flex-item' style='flex-basis: 20px; background-color: #2a2a2a; color: #fff; padding: 0px; display: flex; align-items: left; justify-content: left;'>\");\r\n");
     for ($i = 0; $i < count($headerElements); ++$i) {
       $headerElement = $headerElements[$i];
+      if ($headerElement->Access === "Moderator") {
+        fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountSessionAPI.php';\r\n");
+        if ($rootName === "SWUDeck") {
+          fwrite($handler, "if (IsUserLoggedIn() && CheckLoggedInUserModStrict() === '' && isset(\$assetData['assetOwner']) && (string)\$assetData['assetOwner'] === (string)LoggedInUser()) {\r\n");
+        } else {
+          fwrite($handler, "if (IsUserLoggedIn() && CheckLoggedInUserModStrict() === '') {\r\n");
+        }
+      }
       if($headerElement->Module != "") {
         fwrite($handler, "echo(\"<div style='padding: 3px; margin: 5px;' id='" . $headerElement->Module . "'>\");\r\n");
         switch($headerElement->Module) {
@@ -3341,6 +3507,7 @@ function WriteInitialLayout() {
         fwrite($handler, "echo(\"<span style='vertical-align: middle;'>" . $headerElement->Title . "</span>\");\r\n");
         fwrite($handler, "echo(\"</button>\");\r\n");
       }
+      if ($headerElement->Access === "Moderator") fwrite($handler, "}\r\n");
     }
     fwrite($handler, "echo(\"</div>\");\r\n");
   }
@@ -3396,6 +3563,13 @@ function GetModule($type) {
     if($modules[$i]->Name == $type) return $modules[$i];
   }
   return null;
+}
+
+// The zone names `Module: MatchReplay=<initial>,<commands>` stores the replay in — never sent to a client.
+function MatchReplayModuleFields() {
+  $module = GetModule("MatchReplay");
+  if ($module === null || $module->Parameters === "") return [];
+  return array_values(array_filter(array_map('trim', explode(",", $module->Parameters)), 'strlen'));
 }
 
 function SchemaOwnsRandomCounter() {
@@ -4795,6 +4969,7 @@ function GenerateMacroCode() {
         foreach ($abilities as $ability) {
           $cardId = $ability['card_id'];
           $code = $ability['ability_code'];
+          if ($rootName === 'FaBSim') { require_once __DIR__ . '/FaBSim/Custom/CodeGeneration.php'; $code = FaBPrepareDamageCode(FaBPrepareHeroCreationCode($code,$cardId)); }
           $prereqCode = $ability['prereq_code'] ?? '';
           $name = $ability['ability_name'] ?? $cardId;
 
@@ -4822,7 +4997,7 @@ function GenerateMacroCode() {
             $handlerPrefix = $abilityKey . ":" . $macroName;
             // FaB choices keep scalar identity/payment locals across even a flat
             // sequence of awaits. The legacy flat compiler only restores params.
-            $forceAwaitFrame = $rootName === 'FaBSim' && stripos($code, 'await') !== false;
+            $forceAwaitFrame = in_array($rootName, ['FaBSim', 'PokeSim'], true) && stripos($code, 'await') !== false;
             $transformedCode = TransformAwaitCode($code, $handlerPrefix, $name, $continuationHandlers, $macroParams, $forceAwaitFrame);
 
             // Merge generated resume handlers into global collection
@@ -4926,6 +5101,10 @@ function GenerateMacroCode() {
         if (!empty($macroMeta['prereqFunction'])) {
           $prereqVarName = "\$" . lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Prereqs";
           $prereqFunction = $macroMeta['prereqFunction'];
+          // FaBSim owns the complete play/timing gate; card prereqs extend it.
+          if ($rootName === 'FaBSim' && $macroName === 'PlayCard') {
+            $prereqFunction = 'FaBGeneratedCanPlayCard';
+          }
           $sourceParam = $macroMeta['sourceParam'] ?? null;
           $selectedIndexParam = $macroMeta['selectedIndexParam'] ?? null;
           $signatureParams = ['$player'];

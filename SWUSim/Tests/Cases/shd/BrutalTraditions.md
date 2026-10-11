@@ -50,3 +50,36 @@ P1GROUNDARENAUNIT:0:HP:9
 P1GROUNDARENAUNIT:0:DAMAGE:3
 P1DISCARDCOUNT:0
 P1RESAVAILABLE:2
+
+---
+
+# EnemyDefeatedItsOwnUnit_StillPlayable
+#// SHD_038 — "If AN ENEMY UNIT was defeated this phase" is EXISTENTIAL: the enemy unit does not have to
+#// have been defeated BY YOU. Here P2 defeats their own Battle Droid token as TWI_182's Exploit 1 cost;
+#// P1 takes no part. Brutal Traditions must still become playable from discard.
+#//
+#// ⚠ Why this was broken: SWU_ENEMY_DEFEATED is stamped only under `if ($owner !== $player)`
+#// (CombatLogic 811/848), so a controller defeating their OWN unit stamps it on nobody. Both existing
+#// sections defeat the enemy through P1's own attack, which is the one path that does stamp it — so
+#// neither can observe this. TWO SEATS, no multiplayer needed.
+
+## GIVEN
+CommonSetup: brk/yyk/{myResources:4;discardCardIds:SHD_038}
+WithActivePlayer: 2
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: TWI_T01:1:0
+WithP2Hand: TWI_182
+WithP2Resources: 6
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
+- P1>PlayFromDiscard:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SHD_038
+P1DISCARDCOUNT:0
+P1RESAVAILABLE:2

@@ -37,9 +37,34 @@ $customDQHandlers["TWI_176#1"] = function($player, $parts, $lastDecision) {
     $fp = intval(ObjectCurrentPower($fo)); // each deals its power to the other (simultaneous)
     $sp = intval(ObjectCurrentPower($so));
     $assign = [];
-    if ($fp > 0) $assign[] = "{$lastDecision}:{$fp}"; // first deals to second
-    if ($sp > 0) $assign[] = "{$fmz}:{$sp}";          // second deals to first
-    if (!empty($assign)) SWUDealSplitDamage(intval($player), implode(',', $assign));
+    // Each hit carries its OWN dealer as the source (3rd field — see SWUDealSplitDamage): "each of those units deals
+    // damage equal to its power to the other" names two different dealers (CR 18.2a), so ASH_196 Gorian's
+    // unpreventable applies to an Underworld dealer's hit only (2026-10-07).
+    if ($fp > 0) $assign[] = "{$lastDecision}:{$fp}:" . _SWUEncodeDamageSource($fmz);   // first deals to second
+    if ($sp > 0) $assign[] = "{$fmz}:{$sp}:" . _SWUEncodeDamageSource($lastDecision);   // second deals to first
+    if (empty($assign)) return;
+    // HMW_185 Ty Yorrick — the divided-damage funnel never offers him, so ask here. Owner ruling 2026-10-07: ONE question;
+    // accepted, EACH hit is +1. Nothing changes the board before the answer, so the hits' mzIDs stay valid.
+    $ty = _SWUHmw185Decider(intval($player));
+    if ($ty > 0) { _SWUHmw185Defer($ty, "TWI_176#2|" . intval($player) . "|" . implode(',', $assign)); return; }
+    SWUDealSplitDamage(intval($player), implode(',', $assign));
+};
+
+// Resume after Ty's question. parts: caster seat | hits ("mz:amount:sourceToken", ,-joined).
+$customDQHandlers["TWI_176#2"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $caster = intval($parts[0] ?? 0);
+    if ($caster <= 0) return;
+    $plus = _SWUHmw185Accepted($lastDecision) ? 1 : 0;
+    $hits = [];
+    foreach (array_filter(explode(',', (string)($parts[1] ?? ''))) as $h) {
+        $f = explode(':', $h);
+        if (count($f) < 2) continue;
+        $f[1] = intval($f[1]) + $plus;
+        $hits[] = implode(':', $f);
+    }
+    $playerID = $caster;
+    if (!empty($hits)) SWUDealSplitDamage($caster, implode(',', $hits));
 };
 
 // When Played (event) — migrated from OnPlayEvent.

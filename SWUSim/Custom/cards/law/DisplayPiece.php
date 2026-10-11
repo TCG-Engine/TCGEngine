@@ -20,12 +20,13 @@ $customDQHandlers["LAW_103#0"] = function($player, $parts, $lastDecision) {
     SWUDefeatUnit(intval($player), $lastDecision);   // → owner's discard
     // Controller resources it from the OWNER's discard. _SWUFindDiscardMzID scans the owner's pile by
     // seat but returns a frame-relative "myDiscard-N" token; MZMove below runs in the CONTROLLER's
-    // frame, so for a stolen unit (owner ≠ controller) the token must be re-framed to "theirDiscard-N"
+    // frame, so for a stolen unit (owner ≠ controller) the token must be re-framed to the OWNER's pile
     // or the lookup misses and the card is stranded (the cross-seat relative-token family).
+    // SWUForeignMzID, not a my→their swap: above two seats "their" names an arbitrary opponent.
     $dmz = _SWUFindDiscardMzID($owner, $cardID);
     if ($dmz === null) return;
     $playerID = $controller;
-    if ($owner !== $controller) $dmz = str_replace('myDiscard', 'theirDiscard', $dmz);
+    if ($owner !== $controller) $dmz = SWUForeignMzID($controller, $owner, 'Discard', intval(substr($dmz, strlen('myDiscard-'))));
     $newRes = MZMove($controller, $dmz, "myResources");
     if ($newRes !== null) {
         $newRes->Status     = 0;            // plain "resources it" → enters exhausted

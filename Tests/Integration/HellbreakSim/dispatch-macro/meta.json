@@ -1,0 +1,10 @@
+{
+    "name": "dispatch-macro",
+    "rootName": "HellbreakSim",
+    "createdAt": "2026-09-16T19:03:38+00:00",
+    "createdBy": "DevTools/Hellbreak/make-fixture.php",
+    "deck": "engine fixture decks",
+    "autoSeats": [
+        2
+    ]
+}

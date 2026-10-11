@@ -159,3 +159,79 @@ WithP1Hand: SOR_251
 P1GROUNDARENACOUNT:0
 P1CREDITCOUNT:0
 P2CREDITCOUNT:0
+
+---
+
+# ThreeSeat_ChoosesWhichOpponentGetsTheCredits
+#// "AN OPPONENT creates Credit tokens equal to this unit's cost." With more than one opponent the
+#// controlling player CHOOSES which one (official ruling), and here that choice matters: the Credits are
+#// a gift to the enemy, so handing them to the wrong seat is a real loss.
+#//
+#// ⚠ The trigger called `SWUCreateCreditToken(OtherPlayer($player), $cost)` — seat 2, with no prompt,
+#// for any seat-1 host. Seat 2 got free Credits without being involved in the combat at all. Two seats
+#// cannot show it, which is why OppCreditsOnDefeat above passes either way.
+
+## GIVEN
+CommonSetup3P: rrk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_141
+WithP3GroundArena: SOR_039:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:P3G0
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENACOUNT:0
+P1HASDECISION
+P2CREDITCOUNT:0
+P3CREDITCOUNT:0
+
+---
+
+# ThreeSeat_CreditsGoToThePickedSeat
+#// Resolution half: P1 picks seat 3, so seat 3 creates the 2 Credits (SEC_080's cost) and seat 2 — whom
+#// the old one-seat read would have paid — gets nothing.
+
+## GIVEN
+CommonSetup3P: rrk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_141
+WithP3GroundArena: SOR_039:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:P3G0
+- P1>AnswerDecision:P3
+
+## EXPECT
+SEATCOUNT:3
+P3CREDITCOUNT:2
+P2CREDITCOUNT:0
+
+---
+
+# FourSeat_CreditsGoToThePickedSeatOfTHREE
+#// 4P sibling: the pick is now a real menu of THREE opponents, and picking seat 4 must leave both other
+#// opponents at zero. At three seats "the chosen one" and "the only other one" cannot be told apart.
+
+## GIVEN
+CommonSetup4P: rrk/rrk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_141
+WithP3GroundArena: SOR_039:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:P3G0
+- P1>AnswerDecision:P4
+
+## EXPECT
+SEATCOUNT:4
+P4CREDITCOUNT:2
+P2CREDITCOUNT:0
+P3CREDITCOUNT:0

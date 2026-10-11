@@ -336,7 +336,8 @@ class GameTestAdapter {
             // friendly unit"). Consuming THAT with the attack target silently mis-resolves the ability and
             // swallows the test's explicit AnswerDecision; leave it pending so the next WHEN line answers it.
             $pending = $this->state->pendingDecision($player);
-            if ($pending !== null && $pending->Type === 'MZCHOOSE'
+            // An empty $targetMzID (schema '?') leaves the attack-target picker pending for EXPECT to read.
+            if ($targetMzID !== '' && $pending !== null && $pending->Type === 'MZCHOOSE'
                 && ($pending->Tooltip ?? '') === 'Choose_an_attack_target') {
                 // ⚠ VALIDATE, exactly as answerDecision() does. This injection used to hand the target
                 // straight to ExecuteStaticMethods, so a section could attack a unit the legality pool had
@@ -421,12 +422,14 @@ class GameTestAdapter {
     /** Opponent approves a pending undo request (public-queue consent flow). */
     public function approveUndo(int $player): void {
         global $playerID; $saved = $playerID; $playerID = $player;
-        ob_start(); SWUApproveUndo(); $this->_drainDQ($player); ob_end_clean();
+        ob_start(); SWUApproveUndo($player); $this->_drainDQ($player); ob_end_clean();
         $playerID = $saved;
     }
     /** Opponent denies a pending undo request. */
     public function denyUndo(int $player): void {
-        ob_start(); SWUDenyUndo(); ob_end_clean();
+        // ⚠ Pass the seat, like production (EngineActionRunner case 10009). This helper never even set
+        // $playerID, so without the argument the denier was whatever seat happened to be current.
+        ob_start(); SWUDenyUndo($player); ob_end_clean();
     }
 
     /** Use a leader's action ability (exhausts the leader, fires its handler). */
@@ -684,6 +687,9 @@ class GameTestAdapter {
      */
     private function _mirrorProductionPostAction(): void {
         SWUFlushDeferredReplacements();
+        // Production's per-action hook (ProcessGoldfishAutomation) ends with this: a Twin Suns seat eliminated during
+        // its own action hands the turn on (core/TwinSuns_EliminatedOnOwnAction_TurnMovesOn.md). No-op otherwise.
+        if (function_exists('_SWUMoveTurnOffEliminatedSeat')) _SWUMoveTurnOffEliminatedSeat();
     }
 
     private function _drainDQ(int $player): void {
@@ -839,8 +845,14 @@ class GameTestAdapter {
      * one player at a time via the `Drain` WHEN verb, then answers the interactive follow-up.
      */
     public function drainQueue(int $player): void {
+        // Drain seat N's queue IN SEAT N's FRAME, as production does (ProcessGoldfishAutomation, fixed
+        // 2026-09-14). Without this `- P2>Drain` resolved "my/their" relative to seat 1, so a P2 choice over
+        // enemy units counted 0 targets and was silently skipped — a card read as never firing (found while
+        // investigating HMW_160 Noxious Refinery, 2026-10-09).
+        global $playerID;
+        $saved = $playerID;
+        $playerID = $player;
         ob_start();
-        $this->_drainDQ($player);
-        ob_end_clean();
+        try { $this->_drainDQ($player); } finally { ob_end_clean(); $playerID = $saved; }
     }
 }

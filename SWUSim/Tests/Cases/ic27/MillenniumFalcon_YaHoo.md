@@ -198,3 +198,56 @@ P1SPACEARENAUNIT:0:DAMAGE:2
 P1RESAVAILABLE:2
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
+
+---
+
+# ReturnsAUnitMadeLeaderByTheDarksaber_DarksaberDefeated
+#// IC27_158 — "return a friendly unit that costs 3 or less". ASH_135 The Darksaber makes its unit a leader unit,
+#// but CR v9.0 3.4.7: a unit MADE a leader "can ... move to an out-of-play zone" (the text does not say
+#// non-leader). So the cost-2 Marine is returned; as it leaves play its upgrades are defeated (CR 1.5.5.d) and
+#// the Darksaber goes to P1's discard. Free replay declined, so the Marine stays in hand.
+## GIVEN
+CommonSetup: yyw/yyw/{}
+P1OnlyActions: true
+WithP1SpaceArena: IC27_158:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:ASH_135
+WithP1Resources: 3:SOR_046:1
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:NO
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:ASH_135
+
+---
+
+# ReturnsAShipWithALeaderPilot_LeaderGoesHome
+#// IC27_158 — a cost-2 X-Wing carrying P1's Pilot leader JTL_018 Kazuda ("Attached unit is a leader unit") is a
+#// unit MADE a leader, so (CR v9.0 3.4.7) it can be returned. Its upgrades are defeated as it leaves play: the
+#// leader upgrade returns to the leader zone exhausted (CR 3.4.5). Free replay declined.
+## GIVEN
+CommonSetup: byw/yyw/{
+  myLeader:JTL_018
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1SpaceArena: [SOR_237:1:0 IC27_158:1:0]
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:mySpaceArena-0
+- P1>AttackSpaceArena:1:BASE
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:NO
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:IC27_158
+P1HANDCOUNT:1
+P1LEADER:NOTDEPLOYED
+P1LEADER:EXHAUSTED
+P1DISCARDCOUNT:0

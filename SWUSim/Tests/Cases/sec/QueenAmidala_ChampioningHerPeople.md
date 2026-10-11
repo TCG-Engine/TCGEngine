@@ -425,3 +425,178 @@ P2GROUNDARENACOUNT:1
 P2DISCARDCOUNT:1
 P1NODECISION
 P2NODECISION
+
+---
+
+# OverwhelmingBarrage_SevenSplit_SpySacrificeSavesHerFromLethal
+#// OWNER-REQUESTED 2026-09-29 (1/6). Sibling of PreventsSplitDamage_SOR092 above, which splits 1/2/2 onto an
+#// ALREADY-DAMAGED Amidala. Here she is at FULL HP and the hit aimed at her is exactly lethal, so the
+#// prevention is the only thing between her and death — the case a reporter actually hits.
+#// P1 buffs ASH_061 Strike Team Vanguard (5/5 vanilla, Rebel/Trooper — shares nothing with her, so it can
+#// never be the prevent cost) to 7/7 with SOR_092 Overwhelming Barrage and divides its 7 power: 3 to Amidala
+#// (5/3 at full → lethal), 2 to each Spy (SEC_T01 0/2 → lethal). Divided damage is simultaneous (CR 34/35.5),
+#// so P2 is offered the replacement BEFORE any of it is applied and defeats a Spy (Official) to prevent the 3.
+#// ⚠ The sacrificed Spy was ALSO a target: its own 2 is then simply skipped, and the OTHER Spy still dies to
+#// its 2. So both Spies go and Amidala survives UNDAMAGED — she never took the 3 at all.
+## GIVEN
+CommonSetup: ggk/ggw/{myResources:5;handCardIds:SOR_092}
+P1OnlyActions: true
+WithP1GroundArena: ASH_061:1:0
+WithP2GroundArena: SEC_101:1:0
+WithP2GroundArena: SEC_T01:1:0
+WithP2GroundArena: SEC_T01:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0:3,theirGroundArena-1:2,theirGroundArena-2:2
+- P2>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_101
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENACOUNT:1
+P2NODECISION
+
+---
+
+# OverwhelmingBarrage_ThreeOnHerAlone_NoFodder_Dies
+#// OWNER-REQUESTED 2026-09-29 (2/6). The same SOR_092 funnel with NO LEGAL PREVENT COST. The owner's wording
+#// was "no other OFFICIALS OR NABOO units on the board", which is the sharper case than "she is alone": P2
+#// DOES have another unit — SOR_095 Battlefield Marine, [Rebel, Trooper] — it simply shares neither of her
+#// traits, so it cannot pay for the replacement and no offer is made at all.
+#// ⚠ That is what makes this section LOAD-BEARING rather than decorative: with Amidala alone, deleting the
+#// trait check in _SWUAmidalaPreventTargets changes nothing (there is still no candidate) and the section
+#// passes on broken code. With a non-sharing friendly present it goes RED, because the Marine would wrongly
+#// become fodder. Verified by mutation 2026-09-29.
+#// P1 buffs TWI_057 Warrior Drone (1/4 vanilla Separatist) to 3/6 and puts its whole 3 on Amidala — the split
+#// lets you give a target nothing, so the Marine takes none. 3 on a 3-HP unit is lethal: she dies unprevented.
+#// (NoTraitSharer_NoPreventPrompt_Dies above proves the same gate on the SINGLE-TARGET funnel, via Open Fire.
+#// This is the SPLIT funnel.)
+## GIVEN
+CommonSetup: ggk/ggw/{myResources:5;handCardIds:SOR_092}
+P1OnlyActions: true
+WithP1GroundArena: TWI_057:1:0
+WithP2GroundArena: SEC_101:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0:3
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:POWER:3
+P2NODECISION
+
+---
+
+# LukeAsh_ThreeToEachEnemy_SpySacrificeSavesHer
+#// OWNER-REQUESTED 2026-09-29 (3/6). ASH_112 Luke Skywalker: "When Played: If you control at least 4 units,
+#// deal 3 damage to each enemy unit." P1 already has 3 units, so Luke himself is the fourth and the condition
+#// is met as he enters play.
+#// "Damage to EACH" is dealt through the SPLIT funnel, so all three hits are simultaneous and P2 gets the
+#// replacement offer before any land: 3 on Amidala (5/3 → lethal), 3 on each Spy (0/2 → lethal). P2 defeats a
+#// Spy (Official) and Amidala takes NOTHING. The sacrificed Spy's own 3 is skipped; the other Spy still dies.
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:6;handCardIds:ASH_112}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: TWI_057:1:0
+WithP2GroundArena: SEC_101:1:0
+WithP2GroundArena: SEC_T01:1:0
+WithP2GroundArena: SEC_T01:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P2>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1GROUNDARENACOUNT:4
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_101
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2NODECISION
+
+---
+
+# LukeAsh_ThreeToEachEnemy_SheIsAlone_Dies
+#// OWNER-REQUESTED 2026-09-29 (4/6). The same ASH_112 trigger with Amidala as P2's only unit: no trait-sharer
+#// to defeat, so no offer, and her 3 lands on a 3-HP body. The control for the section above — it proves the
+#// Spy sacrifice there is what saved her, not the trigger failing to reach her.
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:6;handCardIds:ASH_112}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: TWI_057:1:0
+WithP2GroundArena: SEC_101:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:4
+P2GROUNDARENACOUNT:0
+P2NODECISION
+
+---
+
+# Kelnacca_PayTwelve_EightOnHerAndFourOnEachSpy_SpySacrificeSavesHer
+#// OWNER-REQUESTED 2026-09-29 (5/6). HMW_036 Kelnacca is 4/5: "When Played: pay any number of resources. For
+#// every 3 paid, deal damage equal to this unit's power to an enemy unit." Kelnacca costs 4 and the payment
+#// comes out of READY resources afterwards, so 12 paid needs SIXTEEN.
+#// 12 paid = intdiv(12,3) = FOUR strikes of 4 = a 16 pool, assigned in one MZSPLITASSIGN with step 4:
+#// 8 on Amidala (two strikes) and 4 on each Spy. Several strikes on one unit are ONE instance (CR 34.1.a), so
+#// her hit is a single 8 — and one Spy sacrifice prevents ALL of it, not 4 of it. The sacrificed Spy's own 4
+#// is skipped; the other Spy dies to its 4.
+## GIVEN
+CommonSetup: gbw/gbw/{myResources:16}
+P1OnlyActions: true
+WithP1Hand: HMW_036
+WithP2GroundArena: SEC_101:1:0
+WithP2GroundArena: SEC_T01:1:0
+WithP2GroundArena: SEC_T01:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:12
+- P1>AnswerDecision:theirGroundArena-0:8,theirGroundArena-1:4,theirGroundArena-2:4
+- P2>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:HMW_036
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_101
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2NODECISION
+
+---
+
+# Kelnacca_PayThree_FourOnHerAlone_Dies
+#// OWNER-REQUESTED 2026-09-29 (6/6). Kelnacca with 7 resources pays 3 for ONE strike of 4. Amidala is P2's
+#// only unit, so she is the only legal target and the pool auto-applies with no assign prompt — and with no
+#// trait-sharer to defeat there is no prevention offer either. 4 on a 3-HP body kills her.
+#// ⚠ This is the exact board from the 2026-09-29 report ("Kelnacca when you pay the resources it won't do 4
+#// damage to Queen … no Spies were left on board"). It PASSES, so that report is not this scenario: the
+#// likely causes are a non-Spy Naboo/Official unit paying the cost, or fewer than 7 resources (Kelnacca
+#// prompts nothing below 3 READY after its own cost, and Credits deliberately do not count).
+## GIVEN
+CommonSetup: gbw/gbw/{myResources:7}
+P1OnlyActions: true
+WithP1Hand: HMW_036
+WithP2GroundArena: SEC_101:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:3
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:HMW_036
+P1GROUNDARENAUNIT:0:POWER:4
+P2GROUNDARENACOUNT:0
+P2NODECISION

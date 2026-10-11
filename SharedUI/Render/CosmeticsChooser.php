@@ -26,6 +26,7 @@ function RenderCosmeticsChooser(int $userId): string {
       . "<div class='cos-row'><label>Playmat</label>"         . $select('playmat')    . "</div>"
       . "<div class='cos-row'><label><input type='checkbox' id='cos-show-playmats' checked> Show playmats in-game</label></div>"
       . "<div class='cos-row'><label><input type='checkbox' id='cos-card-motion' checked> Card motion (slides &amp; attack lunge)</label></div>"
+      . "<div class='cos-row'><label title='Stops the arena frame and turn indicator from pulsing. Lowers CPU/GPU use on slower computers.'><input type='checkbox' id='cos-reduce-board-anim'> Reduce board animations (arena &amp; turn pulse)</label></div>"
       // Live preview laid out like a real board: game background behind your playmat (which
       // fills the lower half, your side), with a square card-back deck pile parked on the
       // right of each side. The playmat honors the Show-playmats toggle.
@@ -122,6 +123,11 @@ function _CosmeticsChooserScript(): string {
       if (window.TCGSettings && typeof window.TCGSettings.set==='function')
         window.TCGSettings.set('EnableCardMotion', cm.checked, { rootName:'SWUSim', type:'boolean' });
     }
+    var rb = e.target.closest('#cos-reduce-board-anim');
+    if (rb) {
+      if (window.TCGSettings && typeof window.TCGSettings.set==='function')
+        window.TCGSettings.set('ReduceBoardAnimations', rb.checked, { rootName:'SWUSim', type:'boolean' });
+    }
   });
   // reflect persisted toggle (checkbox + preview playmat visibility)
   try { if (window.TCGSettings) { var t=document.getElementById('cos-show-playmats');
@@ -133,5 +139,11 @@ function _CosmeticsChooserScript(): string {
   try { if (window.TCGSettings) { var c=document.getElementById('cos-card-motion');
     if (c) { var motionDefault = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
       c.checked = window.TCGSettings.get('EnableCardMotion', { rootName:'SWUSim', type:'boolean', defaultValue:motionDefault }) !== false; } } } catch(e){}
+  // Reduce board animations — the SAME browser setting as the in-game gear menu toggle
+  // (swuBoardAnimationsReduced in SWUSim/Custom/GameLayoutShared.php), with the same default: on when the
+  // OS asks for reduced motion. Keep the two defaults identical or this box and the game will disagree.
+  try { if (window.TCGSettings) { var r=document.getElementById('cos-reduce-board-anim');
+    if (r) { var osReduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      r.checked = window.TCGSettings.get('ReduceBoardAnimations', { rootName:'SWUSim', type:'boolean', defaultValue:osReduce }) === true; } } } catch(e){}
 })();</script>";
 }

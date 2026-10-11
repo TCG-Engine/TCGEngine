@@ -14,7 +14,7 @@ $onAttackEndAbilities["JTL_089:0"] = function($player, $mzID) {
     $playerID = intval($player);
     _topDeckSearchBegin(intval($player), 8,
         fn($c) => stripos(CardType($c) ?? '', 'Unit') !== false && HasTrait($c, 'Droid'),
-        "count:1", "JTL_089#0");
+        "count:1", "JTL_089#0", 'Droid units', 'Take');
 };
 
 // Draw the chosen Droid to hand (like TOPDECKSEARCH_FINALIZE), put the rest on the deck bottom, then —

@@ -34,6 +34,9 @@
 #//   it is silently dropped, P1 has no Force, and Vernestra's "you may use the Force" correctly never
 #//   prompts — which makes section 2 below pass for entirely the wrong reason.
 
+#// ⚠ ANSWER SHAPE (2026-10-01): Qui-Gon's look is ONE REVEALARRANGE step ("keptTopFirst|discarded", discard
+#//   limit 1) since "put the rest back on top in any order" was implemented — `SOR_095,SOR_095|SOR_095` = discard the top card,
+#//   keep the rest in deck order (what the old `myTempZone-0` answer did).
 ## GIVEN
 CommonSetup: gyw/bbw/{
   myResources:9;
@@ -51,7 +54,7 @@ WithP2Deck: [SOR_095 SOR_046 SEC_080]
 - P1>PlayHand:0
 - P1>AnswerDecision:LAW_237,LOF_195
 - P1>AnswerDecision:EffectStack-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:SOR_095,SOR_095|SOR_095
 - P1>Drain
 - P1>AnswerDecision:YES
 - P1>AttackGroundArena:2:BASE
@@ -95,7 +98,7 @@ WithP2Deck: [SOR_095 SOR_046 SEC_080]
 - P1>PlayHand:0
 - P1>AnswerDecision:LAW_237,LOF_195
 - P1>AnswerDecision:EffectStack-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:SOR_095,SOR_095|SOR_095
 - P1>Drain
 
 ## EXPECT
@@ -126,7 +129,7 @@ WithP2Deck: [SOR_095 SOR_046 SEC_080]
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:LAW_237
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:SOR_095,SOR_095|SOR_095
 - P1>Drain
 
 ## EXPECT
@@ -179,7 +182,7 @@ WithP2Deck: [SOR_095 SOR_046 SEC_080]
 - P1>AnswerDecision:LAW_237,LOF_195
 - P1>AnswerDecision:EffectStack-1
 - P1>AnswerDecision:YES
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:SOR_095,SOR_095|SOR_095
 
 ## EXPECT
 TURNPLAYER:2

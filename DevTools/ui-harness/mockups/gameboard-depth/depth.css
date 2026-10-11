@@ -1,0 +1,491 @@
+/* ═══════════════════════════════════════════════════════════════════════════════════════════════
+   depth.css — THE TABLE, v4. Concept 8 of gameboard-8/, reworked against the owner's notes.
+
+   ⚠ MOCKUP, NOT SHIPPED UI.
+
+   ⚠ THE Z-AXIS RECESSION IS GONE (owner, v4). Concept 8 originally tipped the opponent's half away
+     in Z, smaller and dimmer, so that DEPTH carried ownership and no colour had to. With the slant
+     removed, both halves render identically and ownership rests on what is left: position across
+     the lit table edge, and the two labelled seat rails that bracket the board. That is how a
+     physical table does it and how most sims do it, and it is why no seat tint has been added back
+     — but it IS the signal now, so anything that weakens the rails or the edge weakens ownership.
+     The file and the URL keep the `depth` name so the link the owner has open does not break.
+
+   KEPT, because the owner named them: leaders and bases centred; the base health bar; resource
+   pips instead of the badge webp; player names off to the side; initiative as a chamfered chip,
+   not the hexagon; action buttons bottom right; full WebpImages card art for units in play.
+
+   v3 CHANGES:
+     1. SQUARE HAND, DECK AND DISCARD. Card backs in Assets/CardBacks/SWUSim/ are square (400×400)
+        and player-chosen, so every slot that can hold a face-down card has to be square or the back
+        distorts. The hand can hold hidden cards, the deck is nothing but backs, and the discard
+        sits beside the deck, so all three are square. Units in play are never face down, so they
+        keep the whole portrait card.
+     2. THE SHIPPED COUNTERS ARE BACK; THE STAT STRIP IS GONE. Power reads from a red chip at the
+        bottom-left of the unit GROUP, HP from a blue one at the bottom-right, damage from the
+        centred disc — the three counters the board already uses, in the places players already
+        look. The black bar that replaced them in v2 is deleted.
+     3. SUBCARDS SIT BELOW THE UNIT, as they do on the live board: each attachment peeks out under
+        the card as its own band, and the power and HP chips belong to the bottom of the whole
+        group rather than to the card. Shield stays a marker on the art, because it is a state and
+        not a card.
+     4. THE HEALTH BAR MOVED TO THE MIDLINE SIDE OF THE BASE, leaving the leader side free for the
+        Fortified / Arrested tabs.
+     5. CREDITS ARE A GOLD PIP ROW under the resource row: same shape, different metal.
+     6. DECK AND DISCARD ARE A VERTICAL CASCADE — label, image, count badge.
+
+   Everything paints from the shipped Petranaki tokens (swusim-menu-2.css) and petranaki-glass.css's
+   .pa-glass. Nothing here invents a colour.
+
+   ⚠ .pa-glass, never menu-2's .gl: .gl assumes the menu's own markup and paints its frosted plane
+     over loose board content. ⚠ Never put a filter on an ancestor of a .pa-glass surface — the far
+     half carries one, which is exactly why the sidebar lives outside it.
+   ⚠ CLASS NAMES ARE A SHARED NAMESPACE HERE. This page loads four shipped stylesheets, and
+     `.arena`, `.rail`, `.seat`, `.card` and `.btn` all already exist in them. The shipped `.arena`
+     carries a 32px padding-top, which silently pushed every unit row down and dropped the last
+     Battle Droid onto the seat rail — in all three engines, with every alignment rule here
+     computing exactly as written. This file therefore uses `.field`, `.seatbar`, `.who`, `.lbcard`
+     and `.act`, each verified absent from all four sheets. Grep before you add a generic name.
+   ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* ── §1  PAGE SHELL ─────────────────────────────────────────────────────────────────────────── */
+
+.home-header { display: none; }
+
+body {
+  margin: 0;
+  font-family: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--ink);
+}
+::selection    { background: var(--gold); color: var(--gold-ink); }
+:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+* { scrollbar-width: thin; scrollbar-color: rgba(150, 163, 176, 0.45) transparent; }
+*::-webkit-scrollbar       { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: rgba(150, 163, 176, 0.42); }
+*::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.22); }
+
+.page { width: 1640px; margin: 0 auto; padding: 0 var(--s-5) 96px; }
+.masthead { padding: var(--s-7) 0 var(--s-5); }
+.masthead h1 {
+  margin: 0 0 var(--s-3);
+  font-size: var(--t-28); font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase;
+  font-variation-settings: "wdth" 112;
+}
+.masthead p { margin: 0; max-width: 74ch; font-size: var(--t-15); line-height: 1.6; color: var(--ink-2); }
+.masthead p + p { margin-top: var(--s-3); }
+.masthead b { color: var(--ink); font-weight: 600; }
+.changes { margin: var(--s-5) 0 0; padding: 0; list-style: none; display: grid; gap: var(--s-2); max-width: 96ch; }
+.changes li {
+  display: grid; grid-template-columns: 124px 1fr; gap: var(--s-4);
+  padding: var(--s-3) 0; box-shadow: inset 0 1px 0 var(--edge);
+  font-size: var(--t-14); line-height: 1.55; color: var(--ink-2);
+}
+.changes b {
+  font-size: var(--t-10); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase;
+  color: var(--ink-3); padding-top: 3px;
+}
+.changes li.kept b { color: #7fd39a; }
+.changes li em { font-style: normal; color: var(--ink); font-weight: 600; }
+.caption { margin: var(--s-5) 0 var(--s-3); font-size: var(--t-13); line-height: 1.55; color: var(--ink-3); max-width: 96ch; }
+.caption b { color: var(--ink-2); font-weight: 600; }
+
+/* ── §2  THE TABLE ──────────────────────────────────────────────────────────────────────────────
+   Measured, not fluid. A `1fr` row has min-height:auto, so a seven-unit field that wraps to a
+   second line grows past its box and lands on the seat rail:
+     far  = 122 rail + 8 + 306 row     near = 318 row + 8 + 122 rail
+     row  = 1fr | 190 centre | 1fr     units 124px (104 tall), four to a line
+     centre column = 136 + 136 + 20 bar + 2 gaps = 302, inside the 306 far row
+   1600×1100 is the reference screenshot's own aspect, so density here is density there. */
+
+.board {
+  position: relative;
+  inline-size: 1600px; block-size: 1100px;
+  overflow: hidden;
+  padding: var(--s-3);
+  padding-inline-end: calc(286px + var(--s-3) * 2);
+  background:
+    radial-gradient(120% 70% at 50% 46%, transparent 26%, rgba(6, 9, 13, 0.58) 100%),
+    linear-gradient(180deg, rgba(9, 12, 17, 0.74), rgba(9, 12, 17, 0.88)),
+    var(--board-art, url("/TCGEngine/Assets/Boards/SWUSim/default.webp")) 50% 40% / cover no-repeat,
+    var(--ground);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9), inset 0 0 0 1px var(--edge);
+
+  display: grid;
+  grid-template-rows: 436px 24px 448px 144px;
+  gap: var(--s-2);
+}
+
+/* Their half and yours are now the same board, at the same scale, under the same light. */
+.far  { display: grid; grid-template-rows: 122px 1fr; gap: var(--s-2); min-block-size: 0; }
+.near { display: grid; grid-template-rows: 1fr 122px; gap: var(--s-2); min-block-size: 0; }
+
+/* ── COSMETIC PLAYMATS ─────────────────────────────────────────────────────────────────────────
+   The live board has three cosmetic slots, and this design had only accounted for two. The third
+   is the PLAYMAT: per-seat, default "none", toggled by the viewer's "Show playmats" setting, and
+   painted by ApplyCosmeticPlaymats() into two fixed divs — `.swu-playmat-top` (the opponent's) and
+   `.swu-playmat-bot` (yours) — each covering its half of the viewport, inset by the arena margin,
+   at z-index 10 (above the background, below the zones), `cover` from `center top`, under a flat
+   `rgba(10,10,10,0.67)` tint, with `--swu-playmat-radius: 64px` and a 1px light border.
+
+   Two things follow for this redesign and both are cheap:
+     · The radius is already a CSS variable, so the mat adopts the chamfer by retuning one token
+       rather than by touching the paint code.
+     · The mat's own tint is what you see, because it paints OVER the board background — so the
+       board scrim underneath does not stack with it and nothing has to be re-balanced.
+   A mat also gives each half a drawn boundary, which is worth noting now that the Z-recession is
+   gone: with mats on, ownership has a third signal; with mats off (the default) it is still just
+   position, the rails and the table edge. */
+.mat {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  --cut: 26px;
+  background:
+    linear-gradient(rgba(10, 10, 10, 0.67), rgba(10, 10, 10, 0.67)),
+    var(--mat) center top / cover no-repeat;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+}
+.far, .near { position: relative; }
+.far > .seatbar, .far > .row, .near > .seatbar, .near > .row { position: relative; z-index: 1; }
+
+/* The table edge. With the recession gone this line and the two seat rails are the whole
+   ownership signal, so it stays bright. */
+.edge {
+  align-self: center; block-size: 3px;
+  background: linear-gradient(90deg, transparent, rgba(196, 208, 220, 0.42) 12%,
+              rgba(255, 255, 255, 0.72) 50%, rgba(196, 208, 220, 0.42) 88%, transparent);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.75), 0 -12px 32px -14px rgba(255, 255, 255, 0.14);
+}
+
+.row { display: grid; grid-template-columns: 1fr 190px 1fr; gap: var(--s-4); min-block-size: 0; }
+.row > .lb { align-self: center; }
+.row > .field { min-inline-size: 0; min-block-size: 0; }
+
+/* ⚠ A .field left to size itself resolves to MAX-CONTENT height, not its row's — measured 421px
+   inside a 360px row. It fills the row; align-content alone decides which edge the lines hug. */
+.field {
+  display: flex; flex-wrap: wrap; gap: 11px 10px; justify-content: center;
+  block-size: 100%; min-block-size: 0;
+  align-content: flex-start;               /* your units pack UP to the table edge */
+}
+.far .field { align-content: flex-end; }   /* theirs pack DOWN to it */
+
+/* ── §3  THE SEAT RAIL ──────────────────────────────────────────────────────────────────────────
+   Name and initiative at the left. At the right, the state column the owner asked for, read top to
+   bottom: resources, then credits, then deck and discard — with the two action buttons directly
+   beneath them in the hand row, so the whole right edge is one column. */
+
+.seatbar { display: flex; align-items: center; gap: var(--s-4); padding-inline: var(--s-4); }
+/* Resources, then credits, then the piles: one column, top to bottom, with the two action
+   buttons landing directly under it in the hand row. */
+.seatbar .state { margin-inline-start: auto; display: grid; gap: var(--s-1); justify-items: end; }
+.meters { display: grid; gap: 4px; justify-items: end; }
+
+.who { display: grid; gap: 1px; }
+.who__k { font-size: var(--t-10); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase; color: var(--ink-3); }
+.who__n {
+  font-size: var(--t-20); font-weight: 700; letter-spacing: 0.045em; text-transform: uppercase;
+  line-height: 1.05; font-variation-settings: "wdth" 110; color: var(--ink);
+}
+
+/* Resources in steel, Credits in gold: the same pip, a different metal, so the two economies read
+   as one shape you glance at rather than two widgets you decode. */
+.pips { display: flex; align-items: center; gap: 8px; }
+.pips__row { display: flex; gap: 3px; }
+.pips__row i {
+  inline-size: 10px; block-size: 16px; background: rgba(196, 208, 220, 0.14);
+  clip-path: polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px);
+}
+.pips__row i.on { background: linear-gradient(180deg, #dce6f2, #94a2b2); }
+.pips--credit .pips__row i.on { background: linear-gradient(180deg, var(--gold-hi), var(--gold)); }
+.pips__n {
+  font-size: var(--t-10); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase;
+  color: var(--ink-3); min-inline-size: 86px;
+}
+.pips__n b { font-size: var(--t-15); letter-spacing: 0; color: var(--ink); }
+.pips--credit .pips__n b { color: var(--gold-hi); }
+
+/* Deck and discard: label, image, count badge, stacked. Both square, because the deck is nothing
+   but card backs and the discard has to match the pile beside it. */
+.piles { display: flex; gap: var(--s-4); }
+.pile { display: grid; gap: 2px; justify-items: center; }
+.pile__k { font-size: var(--t-9); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase; color: var(--ink-3); }
+.pile__img {
+  display: block; position: relative; inline-size: 36px; aspect-ratio: 1;
+  background: #0c1016; overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.26), 2px 2px 0 -1px rgba(255, 255, 255, 0.05);
+}
+.pile__img img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+.pile__n {
+  min-inline-size: 28px; padding: 1px 6px; text-align: center;
+  font-size: var(--t-12); font-weight: 700; line-height: 1.35; color: var(--ink);
+  background: rgba(6, 9, 13, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.30);
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+}
+
+/* THEIR HAND, IN THE RAIL. Face-down cards filling the band between their name and their
+   resources, which was the emptiest part of the board. Square, because the back is — and it wears
+   the seat's own chosen back, as does that seat's deck, so the cosmetic reads at a glance. */
+.rhand {
+  margin-inline: auto;
+  display: flex; align-items: center; justify-content: center; gap: var(--s-3);
+}
+.rhand .h {
+  display: block; position: relative;
+  inline-size: var(--hw, 104px); aspect-ratio: 1; flex: 0 0 auto;
+  margin-inline-start: calc(-1 * var(--ov, 12px));
+  background: #0c1016; overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.24), 0 4px 12px -4px rgba(0, 0, 0, 0.85);
+}
+.rhand .h:first-child { margin-inline-start: 0; }
+.rhand .h img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+.rhand__n {
+  font-size: var(--t-10); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase;
+  color: var(--ink-3); white-space: nowrap;
+}
+.rhand__n b { font-size: var(--t-15); letter-spacing: 0; color: var(--ink); }
+
+/* Initiative: a chamfered chip, not a hexagon. Gold is spent on exactly three things here — this,
+   the primary action, and the credit pips — because each one is a fact you act on. */
+.init {
+  display: inline-flex; align-items: center; block-size: 30px; padding-inline: 14px;
+  font-size: var(--t-11); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase;
+  color: var(--gold-ink); background: linear-gradient(180deg, var(--gold-hi), var(--gold));
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+.init--ghost { color: var(--ink-3); background: rgba(255, 255, 255, 0.045); box-shadow: inset 0 0 0 1px var(--edge); }
+.hcount { font-size: var(--t-10); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase; color: var(--ink-3); }
+.hcount b { font-size: var(--t-15); letter-spacing: 0; color: var(--ink); }
+
+/* ── §4  A UNIT IS ITS CARD ────────────────────────────────────────────────────────────────────
+   Whole portrait art, subcards banded underneath, and the board's own three counters: power chip
+   at the bottom-left of the GROUP, HP chip at the bottom-right, damage disc on the art. */
+
+.u {
+  --cw: 124px;
+  --subs: 0;
+  display: block; position: relative;
+  inline-size: var(--cw);
+  padding-block-end: calc(var(--subs) * 17px);
+  flex: 0 0 auto;
+  transition: transform 160ms var(--ease), filter 160ms var(--ease);
+}
+/* A unit is its SQUARE concat/ rendering: the card with the rules box removed, which is what the
+   live board already uses in play. On the whole 450×628 card the printed power and HP gems ride
+   the trait line directly under the art, and the art's height is not constant — a regular unit
+   puts that row at 62–68% of the card, a TOKEN unit with no rules box at 84–92% — so no overlay
+   position could sit on both. On the square they are always at the bottom corners, so the live
+   counters cover the printed ones instead of arguing with them. */
+.cardw {
+  display: block; position: relative; inline-size: 100%; aspect-ratio: 1;
+  overflow: hidden;
+  background: #0c1016;
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.22), 0 3px 6px rgba(0, 0, 0, 0.55), 0 12px 24px -10px rgba(0, 0, 0, 0.8);
+}
+.cardw > img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+
+/* Subcards BELOW the unit — the generated UI's own `"SubcardFlow":"Below"`. Each attachment shows
+   its BOTTOM sliver, because on a concat square that is the band carrying the trait line and the
+   stat gems, which is what the attachment actually grants; its title is up at the top, out of
+   sight, and worth less here than the numbers. */
+.u__subs { position: absolute; inset-block-end: 0; inset-inline: 5px; block-size: calc(var(--subs) * 17px); overflow: hidden; }
+.u__subs .sub {
+  position: absolute; inset-inline: 0; inset-block-end: var(--b);
+  aspect-ratio: 1; overflow: hidden;
+  background: #0c1016;
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.30), 0 3px 7px -2px rgba(0, 0, 0, 0.8);
+}
+.u__subs .sub img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+
+/* THE THREE SHIPPED COUNTERS, drawn with the board's own art rather than re-invented.
+   Straight out of the generated UI's CounterRules for SpaceArena / GroundArena:
+     CurrentPower → Assets/Icons/swusim-power_v2.png, BottomLeft,  white text
+     CurrentHP    → Assets/Icons/swusim-hp_v2.png,    BottomRight, white text
+     Damage       → Assets/Icons/swusim-damage.png,   Center,      white text
+   ⚠ ONE NUMBER, NEVER A BASE PLUS A MODIFIER. CurrentPower and CurrentHP are
+   ObjectPowerBadgeValue() / ObjectHPBadgeValue(), which resolve every modifier already, so a buffed
+   unit prints its total and nothing else. The gems sit over the printed ones on the concat square,
+   which is why the printed base value never appears beside the live one. */
+.ct {
+  position: absolute; inset-block-end: -2px; z-index: 3;
+  inline-size: 28px; aspect-ratio: 96 / 128;   /* the icon's own proportions */
+  display: grid; place-items: center;
+  background: center / contain no-repeat;
+  font-size: var(--t-15); font-weight: 700; line-height: 1; color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85), 0 0 4px rgba(0, 0, 0, 0.5);
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+}
+.ct--pw { inset-inline-start: -3px; background-image: url("/TCGEngine/Assets/Icons/swusim-power_v2.png"); }
+.ct--hp { inset-inline-end: -3px;   background-image: url("/TCGEngine/Assets/Icons/swusim-hp_v2.png"); }
+
+/* Damage: the shipped disc, on the art. It is the number that decides whether a trade works, so it
+   keeps the one shape nothing else on this board uses. */
+.dmg {
+  position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%);
+  z-index: 3;
+  inline-size: 42px; block-size: 42px; display: grid; place-items: center;
+  background: url("/TCGEngine/Assets/Icons/swusim-damage.png") center / contain no-repeat;
+  font-size: var(--t-20); font-weight: 700; line-height: 1; color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+}
+
+/* Shield stays a marker on the art: it is a state, not a card. */
+.marks { position: absolute; inset-block-start: 4px; inset-inline-end: 4px; z-index: 3; display: grid; gap: 3px; }
+.mark {
+  inline-size: 21px; block-size: 21px; display: grid; place-items: center;
+  background: rgba(6, 9, 13, 0.86);
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.32);
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+}
+.mark svg { inline-size: 13px; block-size: 13px; display: block; }
+.mark--shield { color: #8fd0ff; box-shadow: inset 0 0 0 1px rgba(143, 208, 255, 0.60); }
+
+/* Exhausted: dimmed, and that is the whole treatment (owner). The small tilt stays because the
+   shipped board rotates an exhausted unit too — 9° there, kept shallow here only so a tilted card
+   does not climb over its neighbour in a seven-unit row. */
+.u.is-exhausted { transform: rotate(2.5deg); filter: brightness(0.52) saturate(0.55); }
+@media (hover: hover) and (pointer: fine) {
+  .u:hover { transform: translateY(-5px); }
+  .u.is-exhausted:hover { transform: rotate(2.5deg) translateY(-5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .u, .hand .h { transition: none; }
+  .u:hover, .u.is-exhausted:hover, .hand .h:hover { transform: none; }
+}
+
+/* ── §5  THE CENTRE COLUMN ──────────────────────────────────────────────────────────────────────
+   Bases face each other across the table edge, leaders outboard. The health bar sits on the
+   MIDLINE side of the base; the Fortified / Arrested tabs take the leader side, which is where the
+   live board already puts them. */
+
+.lb { display: grid; gap: 5px; justify-items: center; align-content: center; }
+.lbcard {
+  display: block; position: relative; inline-size: 190px; aspect-ratio: 628 / 450;
+  background: #0c1016;
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.24), 0 5px 12px -5px rgba(0, 0, 0, 0.85);
+}
+.lbcard img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+
+/* The one meter on this board that decides the game, so it keeps the bar the units gave up. */
+.hpbar {
+  position: relative; inline-size: 190px; block-size: 20px;
+  display: grid; align-items: center; overflow: hidden;
+  background: rgba(6, 9, 13, 0.88);
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.20);
+}
+.hpbar__fill { position: absolute; inset-block: 0; inset-inline-start: 0; inline-size: var(--wound, 0%); background: linear-gradient(90deg, rgba(176, 62, 44, 0.95), rgba(224, 96, 70, 0.95)); }
+.hpbar b {
+  position: relative; display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 8px;
+  padding-inline: 8px;
+  font-size: var(--t-10); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+}
+.hpbar b span { color: var(--ink-3); }
+.hpbar b s { text-decoration: none; letter-spacing: 0; font-size: var(--t-13); color: var(--ink); }
+.hpbar b s i { font-style: normal; font-size: var(--t-10); color: var(--ink-3); }
+.hpbar--critical { box-shadow: inset 0 0 0 1px rgba(255, 157, 90, 0.72); }
+
+/* The Fortified / Arrested tab slot, on the leader side of the base. Empty in this state, and it
+   renders as nothing rather than as an advertised blank — but the row exists, so the geometry
+   already accounts for it. */
+.tabs { display: flex; gap: 4px; min-block-size: 0; }
+.tabs:empty { display: none; }
+.tab {
+  padding: 3px 9px;
+  font-size: var(--t-9); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-2);
+  background: rgba(6, 9, 13, 0.8);
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.26);
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+}
+
+/* ── §6  SQUARE SLOTS: HAND, DECK, DISCARD ─────────────────────────────────────────────────────
+   Anything that can hold a face-down card is square, because the backs are (400×400, and the
+   player picks which one). Nothing is cropped to get there: the concat/ rendering is already the
+   square card, so the hand shows whole cards rather than windows onto them. */
+
+.handrow {
+  display: grid; grid-template-columns: 1fr auto; gap: var(--s-5);
+  align-items: end; padding-inline: var(--s-4);
+}
+.hand { display: flex; align-items: flex-end; justify-content: center; min-inline-size: 0; }
+.hand .h {
+  display: block; position: relative;
+  inline-size: var(--hw, 132px); aspect-ratio: 1; flex: 0 0 auto;
+  margin-inline-start: calc(-1 * var(--ov, 12px));
+  background: #0c1016; overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(196, 208, 220, 0.26), 0 -4px 14px -5px rgba(0, 0, 0, 0.85);
+  transition: transform 160ms var(--ease);
+}
+.hand .h:first-child { margin-inline-start: 0; }
+.hand .h img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+.hand .h.is-playable { box-shadow: inset 0 0 0 2px rgba(233, 184, 102, 0.88), 0 -4px 16px -5px rgba(0, 0, 0, 0.9); }
+@media (hover: hover) and (pointer: fine) { .hand .h:hover { transform: translateY(-16px); } }
+
+.acts { display: flex; gap: var(--s-3); align-items: flex-end; }
+
+/* ⚠ EVERY BUTTON HERE CARRIES `.btn` AS WELL AS `.act`, AND MUST.
+   components.css styles `button:not(.btn):not(.switch)` — the bare-element menu alias — at
+   specificity (0,2,1), because each :not() contributes its argument's. A plain `<button class="act">`
+   therefore loses its chamfer, its uppercase and its gold to that alias while block-size and the
+   other properties the alias does not set still come through, so the button half-renders and looks
+   merely wrong rather than unstyled. `.btn` is the shipped opt-out; `.act` is this page's skin on
+   top of it, and wins on source order. */
+.act {
+  block-size: 40px; padding-inline: 22px; border: 0;
+  font-family: inherit; font-size: var(--t-13); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink); background: var(--btn-fill);
+  box-shadow: inset 0 0 0 1px var(--edge-strong), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  cursor: pointer;
+  transition: transform 150ms var(--ease), background 150ms var(--ease);
+}
+.act--go { color: var(--gold-ink); background: linear-gradient(180deg, var(--gold-hi), var(--gold)); box-shadow: none; }
+.act--sm { block-size: 30px; padding-inline: 14px; font-size: var(--t-11); }
+.act:active { transform: scale(0.97); }
+@media (prefers-reduced-motion: reduce) { .act { transition: none; } .act:active { transform: none; } }
+
+/* ── §7  THE STREAM ─────────────────────────────────────────────────────────────────────────────
+   Round and phase are stated HERE and nowhere else on the board. */
+
+.side {
+  position: absolute; inset-block: var(--s-3); inset-inline-end: var(--s-3); inline-size: 286px;
+  display: grid; grid-template-rows: auto auto 1fr auto; gap: var(--s-3); padding: var(--s-4);
+}
+.side__top { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--s-3); }
+.turn { display: grid; gap: 2px; }
+.turn__r { display: flex; align-items: baseline; gap: 8px; }
+.turn__r span { font-size: var(--t-10); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase; color: var(--ink-3); }
+.turn__r b { font-size: var(--t-24); font-weight: 700; line-height: 1; font-variation-settings: "wdth" 104; }
+.turn__p {
+  display: flex; align-items: center; gap: 7px; white-space: nowrap;
+  font-size: var(--t-11); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase; color: var(--gold);
+}
+.turn__p::before { content: ""; inline-size: 7px; block-size: 7px; background: currentColor; clip-path: polygon(2px 0, 100% 0, 100% calc(100% - 2px), calc(100% - 2px) 100%, 0 100%, 0 2px); }
+.lbl { font-size: var(--t-10); font-weight: 700; letter-spacing: 0.185em; text-transform: uppercase; color: var(--ink-3); }
+.log { display: grid; align-content: start; gap: 6px; overflow: auto; min-block-size: 0; padding-inline-end: 4px; }
+.log p { margin: 0; font-size: var(--t-12); line-height: 1.45; color: var(--ink-2); }
+.log .s1 { color: #6fb8ff; font-weight: 700; }
+.log .s2 { color: #ffa06f; font-weight: 700; }
+.log .sys { color: var(--ink-3); }
+.log .sys em { font-style: normal; color: var(--ink); }
+.chatbar { display: grid; grid-template-columns: 1fr auto; gap: var(--s-2); }
+.chatbar input {
+  min-inline-size: 0; block-size: 34px; padding-inline: 10px; border: 0;
+  font-family: inherit; font-size: var(--t-13); color: var(--ink);
+  background: rgba(6, 9, 13, 0.6); box-shadow: inset 0 0 0 1px var(--edge);
+}
+.chatbar input::placeholder { color: var(--ink-3); }
+.pa-glass > * { position: relative; }
+
+/* ── §8  THE EIGHT-CARD HAND ────────────────────────────────────────────────────────────────────
+   The claim the main board cannot make with a one-card hand: the row the removed round indicator
+   paid for. Same widths, same overlap, a full grip. */
+.handproof {
+  inline-size: 1600px; block-size: 196px; padding: var(--s-4) var(--s-3);
+  display: grid; grid-template-rows: auto 1fr; gap: var(--s-2);
+  background: linear-gradient(180deg, rgba(9, 12, 17, 0.82), rgba(9, 12, 17, 0.92)), var(--ground);
+  box-shadow: inset 0 0 0 1px var(--edge);
+}
+.handproof > .lbl { padding-inline: var(--s-4); }

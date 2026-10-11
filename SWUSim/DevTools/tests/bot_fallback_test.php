@@ -121,16 +121,23 @@ $check($choose('normal') === 'EffectStack-0', 'Tyranus: no kill-survive Ambush �
 // broken by index — compare the two candidates' scores directly.
 $c = $botCtx('normal');
 $check(SWUBotScoreAction($c, $c['actions'][1], 1) < SWUBotScoreAction($c, $c['actions'][0], 0), 'an Ambush trigger scores below a buff trigger');
+// HMW_216 Insurgent Camp readies the unit just played. The Ambush readies it anyway, so a Camp resolved first is
+// spent for nothing: the Camp waits for that unit's Ambush (then readies it after the attack).
+$build(function ($b) { $b->FillResourcesForPlayer(1, 'SOR_095', 8); $b->WithUpgradeOnBaseForPlayer(1, 'HMW_216'); $b->WithCardInHandForPlayer(1, 'LOF_208'); $b->WithGroundUnitForPlayer(2, 'SEC_028', true); });
+$act(1, 10002, 'myHand-0!FSM!');
+$types = array_map(fn($a) => strval(GetEffectStack()[intval(substr($a['cardID'], strlen('EffectStack-')))]->TriggerType), $botCtx('normal')['actions']);
+$check($botCtx('normal')['tooltip'] === 'Choose_trigger_to_resolve' && $types === ['Ambush', 'HMW_216'], 'fixture: Ambush listed before Insurgent Camp');
+$check($choose('normal') === 'EffectStack-0', 'Insurgent Camp: the Ambush goes first, so the Camp readies the unit after its attack');
 
 // ── Free play ────────────────────────────────────────────────────────────────────────────────────
-// A losing attack (Marine into a 4/4, Control may only hit the unit) scores below passing. The leader is
+// The attack (Marine into a 4/4) now also hits the base — it is no longer a pure losing trade. The leader is
 // exhausted so its Action is not on offer.
 $build(function ($b) { $b->MyLeader('SOR_014', false); $b->WithGroundUnitForPlayer(1, 'SOR_095', true); $b->WithGroundUnitForPlayer(2, 'LOF_084', true); });
 $c = $botCtx('control');
 $check($ids($c['actions']) === ['myGroundArena-0!FSM!', 'InitiativeCounter-0!CustomInput!TakeInitiative', 'myHealth-0!CustomInput!Pass'],
     'fixture: attack, initiative, pass');
-$check(strval(SWUBotFallbackChoose($c)['cardID']) === 'InitiativeCounter-0!CustomInput!TakeInitiative',
-    'Control: a losing attack is not taken; the initiative (small bonus) beats passing');
+$check(strval(SWUBotFallbackChoose($c)['cardID']) === 'myGroundArena-0!FSM!',
+    'Control: the attack is taken now — it hits the BASE rather than losing a trade');
 $check(strval(SWUBotFallbackChoose($botCtx('aggro'))['cardID']) === 'myGroundArena-0!FSM!', 'Aggro: the same attack hits the base → taken');
 $check(SWUBotFallbackChoose(array_merge($c, ['actions' => []])) === null, 'an empty candidate list → null');
 // The opponent already claimed the initiative: only the attack and Pass remain, and the losing attack
@@ -141,7 +148,17 @@ $build(function ($b) {
 });
 $c = $botCtx('control');
 $check($ids($c['actions']) === ['myGroundArena-0!FSM!', 'myHealth-0!CustomInput!Pass'], 'fixture: attack, pass (initiative claimed)');
-$check(strval(SWUBotFallbackChoose($c)['cardID']) === 'myHealth-0!CustomInput!Pass', 'Control: passing beats a losing attack');
+$check(strval(SWUBotFallbackChoose($c)['cardID']) === 'myGroundArena-0!FSM!',
+    'Control: attacking the base beats passing — a doomed unit still deals base damage');
+
+// A losing attack is still declined when the base itself is not a legal target: an unconditional Sentinel
+// (SOR_063 Cloud City Wing Guard) forces the attack onto the unit, and that attack still loses.
+$build(function ($b) {
+    $b->MyLeader('SOR_014', false); $b->WithGroundUnitForPlayer(1, 'SOR_227', true); $b->WithGroundUnitForPlayer(2, 'SOR_063', true);
+});
+$c = $botCtx('control');
+$check(strval(SWUBotFallbackChoose($c)['cardID']) !== 'myGroundArena-0!FSM!',
+    'Control: with a Sentinel blocking the base, a losing attack is still declined');
 
 // ── "You may": taken by default, declined when it would only hurt me (owner, 2026-09-13) ──────────────
 // Daimyo's Palace (LAW_020): "Epic Action: Play a card from your hand, ignoring 1 of its … aspect
@@ -212,11 +229,18 @@ $c = $botCtx('control');
 $check(_SWUBotTooltipEffect($c['tooltip']) === 'sacrifice' && $ids($c['actions']) === ['myGroundArena-0', 'myGroundArena-1'], 'fixture: the sacrifice choice');
 $check(strval(SWUBotFallbackChoose($c)['cardID']) === 'myGroundArena-1', 'the cheap When Defeated unit is the one sacrificed');
 
-// An OPTIONAL sacrifice behind neutral wording: Chimaera (ASH_052) "You may choose a friendly unit and an
-// enemy non-leader unit. If you do, defeat those units." prompts only "Choose_a_friendly_unit". Giving up
-// a 4-cost unit (or the Chimaera itself) is declined; cheap When Defeated fodder is taken. SOR_060 Distant
-// Patroller (2 cost, space, When Defeated: give a Shield) nets 0.5 — between declining (−1) and neutral (0),
-// so the case pins both the −1 PASS and the When Defeated credit.
+// An OPTIONAL sacrifice: Chimaera (ASH_052) "You may choose a friendly unit and an enemy non-leader unit. If
+// you do, defeat those units." Giving up a 4-cost unit (or the Chimaera itself) is declined; cheap When
+// Defeated fodder is taken. SOR_060 Distant Patroller (2 cost, space, When Defeated: give a Shield) nets 0.5 —
+// between declining (−1) and neutral (0), so the case pins both the −1 PASS and the When Defeated credit.
+//
+// ⚠ THIS SECTION NO LONGER COVERS *NEUTRAL* WORDING. It used to: the prompt was the contentless
+// "Choose_a_friendly_unit", which reached BotFallback's `$effect === ''` fallback (~line 262) where the CARD'S
+// printed text decides. The contentless-prompt fix (2026-09-27) replaced it with the card's own question,
+// "Defeat_a_friendly_and_an_enemy_unit?", which _SWUBotTooltipEffect now reads as 'sacrifice' directly — so the
+// behaviour below is pinned through a different path than when it was written, and the neutral-prompt path lost
+// its only live fixture. Re-aimed rather than deleted (owner call 2026-09-28); if that fallback needs coverage
+// again it wants a card whose prompt matches none of the hostile/beneficial/sacrifice wordings.
 $chimaera = function (string $mine, bool $space) {
     return function ($b) use ($mine, $space) {
         $b->MyLeader('SOR_014', false); $b->FillResourcesForPlayer(1, 'SOR_095', 12); $b->WithCardInHandForPlayer(1, 'ASH_052');
@@ -226,7 +250,7 @@ $chimaera = function (string $mine, bool $space) {
 };
 $build($chimaera('SOR_046', false)); $act(1, 10002, 'myHand-0!FSM!');
 $c = $botCtx('control');
-$check($c['tooltip'] === 'Choose_a_friendly_unit' && $c['type'] === 'MZMAYCHOOSE', 'fixture: Chimaera\'s neutral-worded optional pick');
+$check($c['tooltip'] === 'Defeat_a_friendly_and_an_enemy_unit?' && $c['type'] === 'MZMAYCHOOSE', 'fixture: Chimaera\'s optional sacrifice prompt');
 $check(strval(SWUBotFallbackChoose($c)['cardID']) === 'PASS', 'Chimaera: a 4-cost unit is not given up');
 $build($chimaera('SOR_060', true)); $act(1, 10002, 'myHand-0!FSM!');
 $c = $botCtx('control');
@@ -253,6 +277,8 @@ $scoreDraw = function () use ($botCtx) {
 };
 $build($decks(40, 40, true)); $early = $scoreDraw();
 $build($decks(11, 20, true)); $late = $scoreDraw();
-$check($early !== null && $late !== null && abs(($early - $late) - 2.4) < 1e-9, 'Heroic Sacrifice (draw) is worth W.draw × 2 less once drawing would deck me out first (1.2 → −1.2)');
+$Wd = SWUBotWeights('control', 1)['draw'];
+$check($early !== null && $late !== null && abs(($early - $late) - 2.0 * $Wd) < 1e-9,
+    'Heroic Sacrifice (draw) is worth W.draw × 2 less once drawing would deck me out first');
 
 bot_test_finish();

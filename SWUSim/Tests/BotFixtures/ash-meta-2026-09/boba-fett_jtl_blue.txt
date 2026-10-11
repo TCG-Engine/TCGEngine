@@ -1,0 +1,47 @@
+# Real-deck self-play fixture — Boba Fett, Any Methods Necessary - Fortress of the Great Mothers
+# Source: melee.gg 437510, #1 of 81 (8-1-1) — the event winner
+#   https://melee.gg/Decklist/View/87f3d3dd-650f-45f6-911a-b4c300f31970 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   Added 2026-10-01 at the owner's request. Boba Fett (JTL) Blue 30HP: 57 of 3,206 decks in the 53-event field, 48.9% game WR.
+#   The best-finishing list there (its largest win). Every card checked against the melee list by name (50 + 10, 0 mismatches).
+#   27 of its 41 units are SPACE; it curves out on 2-drops and tops out with 3 Devastator, 2 Chimaera and 2 Single Reactor Ignition.
+#   ⚠ The style classifier's shape scan reads it as softaggro (0.95, on its 14 cheap cards); the owner's label is midrange.
+# Archetype (owner's label): Midrange (space midrange)
+# Style: midrange
+# Flavours: burn
+
+Leader
+1 JTL_009
+
+Base
+1 ASH_019
+
+Deck
+3 LOF_130
+3 ASH_030
+2 SEC_172
+2 SEC_163
+2 ASH_032
+1 LAW_191
+1 ASH_048
+3 JTL_143
+3 JTL_162
+3 JTL_240
+3 JTL_140
+3 JTL_033
+3 JTL_136
+3 JTL_237
+2 ASH_052
+2 ASH_146
+1 ASH_071
+1 ASH_081
+3 SEC_183
+2 SEC_179
+2 JTL_078
+2 LAW_044
+
+Sideboard
+3 JTL_176
+3 JTL_175
+2 ASH_048
+1 LAW_191
+1 LAW_044

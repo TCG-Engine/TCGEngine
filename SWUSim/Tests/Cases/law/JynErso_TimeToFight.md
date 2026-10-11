@@ -447,11 +447,13 @@ P1SEARCHPLAYABLENOT:SOR_128
 
 ---
 
-# FrontSearch_TakeNothing
-#// LAW_005 Jyn Erso (front) — "search ... for a card and draw it" still allows taking nothing. A friendly
-#// Rebel (SOR_095) dies attacking the 8/8 SOR_039; Jyn's action searches, and P1 DECLINES the pick: no
-#// card is drawn, the deck keeps its 3 cards, and the [1 resource, Exhaust] cost stays paid.
-
+# FrontSearch_DeclineStillTakesACard
+#// LAW_005 Jyn Erso (front) — "search the top 3 cards of your deck for a card and draw it". A friendly Rebel
+#// (SOR_095) dies attacking the 8/8 SOR_039; Jyn's action searches and P1 answers with no pick: the top card
+#// (SOR_046) is still drawn, the other two go to the bottom, and the [1 resource, Exhaust] cost stays paid.
+#// CR v9.0 8.26.1: only a search that SPECIFIES AN ATTRIBUTE may come up empty (the deck is hidden from the
+#// opponent); "for a card" has none, so declining still takes a card — the first one (owner ruling 2026-10-03).
+#// Before v9 this section asserted that taking nothing was allowed.
 ## GIVEN
 CommonSetup: ybw/grw/{
   myLeader:LAW_005;
@@ -472,8 +474,8 @@ WithP1Deck: SOR_128
 - P1>AnswerDecision:-
 
 ## EXPECT
-P1HANDCOUNT:0
-P1DECKCOUNT:3
+P1HANDCOUNT:1
+P1DECKCOUNT:2
 P1RESAVAILABLE:1
 P1LEADER:EXHAUSTED
 P1NODECISION

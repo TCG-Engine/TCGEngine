@@ -13,7 +13,7 @@ $customDQHandlers["SOR_013#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;   // declined → the round is NOT spent
     global $playerID;
     $playerID = intval($player);
-    SWUConsumeUse(SWUGetLeader(intval($player)));   // once/round via leader NumUses
+    SWUConsumeUse(SWUFindLeaderByCardID(intval($player), 'SOR_013'));   // once/round via leader NumUses
     DoDrawCard(intval($player), 1);
 };
 

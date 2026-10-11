@@ -13,7 +13,9 @@ $onAttackAbilities["ASH_009:0"] = function($player, $mzID) {
     // include temporary modifiers". Also covers the Support attacker that gains this ability.
     $selfPow = intval(ObjectCurrentPowerInAttack($self));
     SWUOfferUnitTarget($player, $mzID, [
-        'continuation' => 'APPLY_PHASE_BUFF|2|0|ASH_009', 'side' => 'any', 'may' => true,
+        // A unit never has less power than itself — but the threshold is the in-attack power (Raid) and each candidate's
+        // is its current power, so with a lent Raid the attacker passed its own test (found 2026-10-02).
+        'continuation' => 'APPLY_PHASE_BUFF|2|0|ASH_009', 'side' => 'any', 'may' => true, 'excludeSelf' => true,
         'extraFilter' => fn($o) => intval(ObjectCurrentPower($o)) < $selfPow,
         'question' => "Buff_a_weaker_unit?",
         'prompt' => "Give_+2/+0_to_a_unit_with_less_power_than_this_unit",
@@ -33,7 +35,11 @@ $leaderAbilities["ASH_009"] = function(int $player): void {
     }
     if ($maxF < 0) { SWUAfterAction($player); return; }
     $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && intval(ObjectCurrentPower($o)) < $maxF) $targets[] = $mz;

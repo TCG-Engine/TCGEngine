@@ -216,3 +216,70 @@ P2BASEDMG:2
 P4BASEDMG:2
 P3BASEDMG:0
 P1BASEDMG:0
+
+---
+
+# Villainy_PlayedUpgrade_CountsAndFlipsBack
+#// ⚠ BUG REPORT (game 506505, 2026-09-17): "now the Villainy side flipping back to Heroism is failing —
+#// i played Craving Power, so it should have counted to satisfy his condition."
+#// LOF_091 Craving Power is a Command/VILLAINY **Upgrade**. The card says "if you played a Villainy
+#// CARD this phase" — any type. But SWU_PLAYED_VILLAINY was armed inside the UNIT-ENTRY branch of the
+#// play pipeline only (its own comment: "an event, an upgrade, and a Piloting card played as a pilot do
+#// not" reach it), so an upgrade or event armed nothing and the Villainy face could never flip back.
+#// The existing Villainy_ConditionMet_TokenBaseFlip section plays a UNIT, which is why it always passed —
+#// same shape, different funnel.
+#// Craving Power attaches to a friendly unit and deals damage equal to its power, so SOR_032 (2/3) is
+#// seeded as the host and the 2 damage lands on P2's unit; the Action then flips Palpatine back.
+## GIVEN
+CommonSetup: brk/bbw/{myLeader:TWI_017:1;myLeaderFlipped:true;myResources:6;handCardIds:LOF_091}
+P1OnlyActions: true
+WithP1GroundArena: SOR_032:1:0
+WithP2GroundArena: SOR_034:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>UseLeaderAbility
+## EXPECT
+P1LEADER:EXHAUSTED
+P1LEADER:NOTDEPLOYED
+P2BASEDMG:2
+P1GROUNDARENAUNIT:1:CARDID:TWI_T02
+
+---
+
+# Villainy_PlayedEvent_CountsAndFlipsBack
+#// The same defect through the EVENT funnel: SOR_138 Force Lightning is an Aggression/VILLAINY event
+#// (cost 1). Playing it must arm the condition, so the Action creates the Clone Trooper, deals 2 to each
+#// enemy base and flips back to the Heroism face.
+## GIVEN
+CommonSetup: brk/bbw/{myLeader:TWI_017:1;myLeaderFlipped:true;myResources:4;handCardIds:SOR_138}
+P1OnlyActions: true
+WithP2GroundArena: SOR_034:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>UseLeaderAbility
+## EXPECT
+P1LEADER:EXHAUSTED
+P1LEADER:NOTDEPLOYED
+P2BASEDMG:2
+P1GROUNDARENAUNIT:0:CARDID:TWI_T02
+
+---
+
+# Villainy_PlayedNonVillainyUpgrade_DoesNotCount
+#// The CONTROL for the two sections above: a NON-Villainy upgrade must NOT arm the condition, so the
+#// Action resolves nothing and the leader stays on the Villainy face. Without this, widening the flag to
+#// "any card play" could pass by arming on every play whatsoever.
+#// LAW_180 is the non-Villainy card the sibling aspect sections already use.
+## GIVEN
+CommonSetup: brk/bbw/{myLeader:TWI_017:1;myLeaderFlipped:true;myResources:6;handCardIds:LAW_180}
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>UseLeaderAbility
+## EXPECT
+P1LEADER:EXHAUSTED
+P1LEADER:DEPLOYED
+P2BASEDMG:0

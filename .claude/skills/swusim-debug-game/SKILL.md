@@ -277,6 +277,19 @@ Handy assertions seen in cases: `P1NODECISION` (no pending decision — proves a
 ## Common mistakes
 
 - **Fixing before reproducing.** No `.md` repro, no fix — the failing test is what proves you found the actual bug, not a plausible-looking one.
+- **Guessing whether a REPLAY/UI report is server or client.** Split it first, by recording and replaying the exact
+  action list on the server (2026-09-17, "the replay didn't register my Opponent pick"): build the board with the
+  schema `GameStateBuilder`, `WriteGamestate` it into a real game dir, drive the actions through
+  `EngineExecuteLoadedAction` (play = mode 10002 `myHand-N!FSM!`, answer = mode 100), then import the payload
+  into a fresh game and step it with mode 11101. The server replayed "Opponent" correctly, so the bug was the
+  client: `ClearSelectionMode()` (Core/UILibraries*.js) hid every decision popup except OPTIONCHOOSE and
+  TWOSIDEDSLIDER. A live click hides your own popup, so only click-less paths (replay, auto-resolve) expose a
+  teardown gap. Guard with a Playwright harness over an imported replay fixture
+  (`DevTools/ui-harness/replay-optionchoose-xbrowser.mjs`) and mutation-check it; bump the bundle stamp.
+- **Missing an extra-action bug because every section uses `P1OnlyActions`.** It makes `TURNPLAYER` unobservable.
+  Game 505692's extra action (ASH_230 reusing Support's `SUPPORT_GRANT` marker, which told combat to skip its
+  close) sat behind a file where every section used it. For any "extra action" report, the red section drops
+  `P1OnlyActions` and asserts `TURNPLAYER:2` + `NOEXTRAACTION`, with a no-trigger CONTROL beside it.
 - **Trusting a `curl` full-suite 500 as "the suite is broken."** It's the gateway timeout. Use the helper.
 - **Trusting `zzRunSWUSimTests.php`'s failure count.** Missing stubs → phantom fails. Use the helper.
 - **Editing a generated file.** The next regen wipes it. Fix the `Custom/` handler (or the generator, gated by `$rootName`).

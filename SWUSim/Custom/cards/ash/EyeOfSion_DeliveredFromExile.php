@@ -9,7 +9,7 @@ $unitAbilities["ASH_245"] = function($player, $mzID) {
     $pow  = $self ? intval(ObjectCurrentPower($self)) : 0;
     _topDeckSearchBegin(intval($player), 8,
         fn($cid) => strpos(CardType($cid) ?? '', 'Unit') !== false && intval(CardCost($cid)) <= $pow,
-        "count:1", "ASH_245#0");
+        "count:1", "ASH_245#0", "units costing {$pow} or less", 'Play');
 };
 
 $customDQHandlers["ASH_245#0"] = function($player, $parts, $lastDecision) {

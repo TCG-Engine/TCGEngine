@@ -17,6 +17,9 @@
   'use strict';
 
   const NUMBER_CHOOSE_STYLES = `
+    /* ⚠ Center-anchored like .optchoose-banner, with the same consequence: overflow spills off BOTH
+       edges and cannot be scrolled back. It must wrap, not grow. This one had NO max-width at all, so
+       at 390px it already ran past the viewport with its default label + stepper. */
     .numchoose-banner {
       position: fixed;
       bottom: 16px;
@@ -25,8 +28,12 @@
       z-index: 9999;
       display: flex;
       align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
       gap: 18px;
       padding: 16px 32px;
+      max-width: min(92vw, 760px);
+      box-sizing: border-box;
       background: linear-gradient(145deg, #0D1B2A, #162d44);
       border: 1.5px solid rgba(180,100,255,0.45);
       border-radius: 14px;
@@ -39,7 +46,15 @@
       color: #e0d0ff;
       font-size: 14px;
       max-width: 260px;
+      min-width: 0;
       text-align: center;
+    }
+
+    /* Phone: the prompt takes its own row, the stepper keeps its circular buttons below it. */
+    @media (max-width: 640px) {
+      .numchoose-banner  { max-width: 94vw; padding: 12px 14px; gap: 10px; }
+      .numchoose-label   { flex-basis: 100%; max-width: 100%; }
+      .numchoose-stepper { flex-basis: 100%; justify-content: center; }
     }
 
     .numchoose-stepper {

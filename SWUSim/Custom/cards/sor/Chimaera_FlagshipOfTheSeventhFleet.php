@@ -40,6 +40,7 @@ $customDQHandlers["SOR_185#0"] = function($player, $parts, $lastDecision) {
     $refs = [];
     foreach ($oppHand as $card) { if (empty($card->removed)) $refs[] = GameLogCardRef($card->CardID); }
     AddGameLogEntry('REVEAL', "P{$opp} revealed their hand: " . (empty($refs) ? '(empty)' : implode(', ', $refs)), 'ALL');
+    SWURecordHandSeen($opp, range(1, SeatCountForGame()));   // a public reveal: every other seat has seen it
     // The name is logged centrally when the NAMECARD answer is applied (GameOnDecisionAnswered).
 
     // Show the opponent's hand to the player as an acknowledge popup (SOR_201 Bodhi Rook style).

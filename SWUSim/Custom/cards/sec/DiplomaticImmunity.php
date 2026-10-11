@@ -10,8 +10,10 @@ $onDefenseFromUpgradeAbilities["SEC_052"] = function($player, $hostMzID) {
 
 $customDQHandlers["SEC_052#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    $atk = GetSWUVar('SWU_CURRENT_ATTACKER', '');
-    if ($atk === '' || $atk === null) return;
-    $atkDef = preg_replace('/^my/', 'their', $atk); // attacker stored in attacker frame; flip to defender frame
-    AddTurnEffect($atkDef, SWUMakeTurnEffect('SWUDEBUFF', [2, 0], SWU_DUR_ATTACK));
+    // Re-find the attacker by UniqueID in THIS (defender's) frame — same fix as LOF_067 Chirrut. The stored
+    // SWU_CURRENT_ATTACKER is in the attacker's frame, and a my→their flip names the wrong seat above two.
+    $uid = intval(GetSWUVar('SWU_CURRENT_ATTACKER_UID', '0'));
+    $atkMz = $uid > 0 ? SWUFindMzByUID($uid) : null;
+    if ($atkMz === null) return;
+    AddTurnEffect($atkMz, SWUMakeTurnEffect('SWUDEBUFF', [2, 0], SWU_DUR_ATTACK));
 };

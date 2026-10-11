@@ -11,23 +11,28 @@ function SWUIsLocalDevRequest(): bool {
         || str_starts_with($host, '[::1]');
 }
 
-// Who may start a Bot Practice game (owner, 2026-09-15: admin-only, so other admins can try it and give feedback).
-// Local dev exactly as before (SWUIsLocalDevRequest); elsewhere a logged-in approved moderator — the same list
-// CheckLoggedInUserMod() gates the admin tools with (AccountFiles/AccountSessionAPI.php ApprovedModeratorUserNames).
-// Used by the menu (SharedUI/Sites/SWUSim/MainMenu.php) AND the endpoint (APIs/Lobbies/JoinQueue.php), so a hand-built
-// request cannot bypass the menu. Reads the session directly: the caller has already started it.
+// Who may start an Arenabot game. OPEN TO EVERYONE, GUESTS INCLUDED (owner, 2026-09-21: "we can remove the account
+// requirement"). History: admin-only from 2026-09-15 (moderator trial), every logged-in player from 2026-09-18.
+// A guest needs no identity here — Goldfish and Hotseat already run guests down the same solo path.
+// Kept as a function, not deleted, because it is the one switch that closes Arenabot again: the menu
+// (SharedUI/Sites/SWUSim/MainMenu.php) AND the endpoint (APIs/Lobbies/JoinQueue.php) both consult it, so a
+// hand-built request cannot bypass the menu.
+//
+// ⚠ Bot games must stay OUT of real stats, and two independent layers keep them there — neither is affected
+// by opening this gate, but both must hold if that ever changes: (1) 'botpractice' is localMode + enabled=false
+// in AppCore/SWU/Formats.php, so SWUStatsFormats() excludes it; (2) the solo branch of JoinQueue calls
+// SWUSetupGame() directly and never creates a MATCH, and only the match hook submits stats.
 // Test: SWUSim/DevTools/tests/bot_practice_gate_test.php.
 function SWUBotPracticeAllowed(): bool {
-    if (SWUIsLocalDevRequest()) return true;
-    $user = strval($_SESSION['useruid'] ?? '');
-    if ($user === '') return false;
-    require_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
-    return in_array($user, ApprovedModeratorUserNames(), true);
+    return true;
 }
 
 // JoinQueue's refusal for a Bot Practice request that SWUBotPracticeAllowed() rejects: the message, or null to proceed.
 // A function so the refusal path is testable without a production web server (the local container's Apache runs with
 // DEVENV=true, so every local HTTP request is "local dev").
 function SWUBotPracticeRefusal(string $format): ?string {
-    return ($format === 'botpractice' && !SWUBotPracticeAllowed()) ? 'Bot Practice is currently limited to approved testers.' : null;
+    // "Arenabot" is the player-facing name of the botpractice format (owner, 2026-09-16); the id and this gate keep their names.
+    // Unreachable while the gate is open to everyone (2026-09-21); if it closes again, signing in would not help, so the
+    // message does not say to.
+    return ($format === 'botpractice' && !SWUBotPracticeAllowed()) ? 'Arenabot is not available right now.' : null;
 }

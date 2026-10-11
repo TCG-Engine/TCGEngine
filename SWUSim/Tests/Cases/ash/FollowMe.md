@@ -50,3 +50,53 @@ P1OnlyActions: true
 P1SPACEARENAUNIT:0:ADVANTAGECOUNT:0
 P2BASEDMG:0
 P1NODECISION
+
+---
+
+# AttackerAlreadyHasAdvantage_ShedFirst_KeepsTheThreeNew
+#// Bug #1103 family. SOR_095 already carries one Advantage token (+1 → 4 power) when Follow Me attacks
+#// with it. Two "attack ends" effects meet: the old token's "Defeat THIS upgrade" and Follow Me's "give 3
+#// Advantage tokens to a unit" (here: the attacker). Only the token attached when the attack ENDED is
+#// shed, so the attacker ends with exactly the 3 new ones — not 0 (the shed used to defeat every
+#// Advantage on the unit, including the three that arrived after the attack ended).
+#// Trigger order: the token shed resolves FIRST (old token gone), then Follow Me gives 3.
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:1;handCardIds:ASH_184}
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:ASH_T02
+WithP1SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P2BASEDMG:4
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:3
+P1NODECISION
+
+---
+
+# AttackerAlreadyHasAdvantage_GrantFirst_KeepsTheThreeNew
+#// Bug #1103 family. SOR_095 already carries one Advantage token (+1 → 4 power) when Follow Me attacks
+#// with it. Two "attack ends" effects meet: the old token's "Defeat THIS upgrade" and Follow Me's "give 3
+#// Advantage tokens to a unit" (here: the attacker). Only the token attached when the attack ENDED is
+#// shed, so the attacker ends with exactly the 3 new ones — not 0 (the shed used to defeat every
+#// Advantage on the unit, including the three that arrived after the attack ended).
+#// Trigger order: Follow Me resolves FIRST (4 tokens on the unit), then the shed defeats only the old one.
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:1;handCardIds:ASH_184}
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:ASH_T02
+WithP1SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P2BASEDMG:4
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:3
+P1NODECISION

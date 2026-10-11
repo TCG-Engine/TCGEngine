@@ -67,3 +67,24 @@ P1GROUNDARENACOUNT:0
 P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:TWI_215
 P1RESAVAILABLE:0
+
+---
+
+# SearchPanelNamesSpaceUnits_NotVillainy
+#// ASH_110 Admiral Ackbar — the TOPDECKSEARCH panel is SHARED by every top-deck search, and its filter is a
+#// PHP closure that cannot cross the request boundary. The cost-budget subtitle used to hardcode the wording
+#// of its FIRST caller (SOR_087 Vader, "any number of Villainy units"), so Ackbar's search — which is for
+#// SPACE units — told the player to select Villainy units. The wording is now a required argument, carried
+#// on the wire as param segments 4 (label) and 5 (verb). Leave the search pending so the param can be read.
+## GIVEN
+CommonSetup: ggw/ggk/{myResources:5;handCardIds:ASH_110}
+WithP1Deck: [SOR_225 SOR_237]
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Search_top_cards
+P1SEARCHLABEL:space units
+P1SEARCHVERB:Play

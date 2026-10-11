@@ -1,0 +1,46 @@
+# BAD-DECK fixture — Starter deck
+# Source: Shadows of the Galaxy two-player starter — The Mandalorian (DotGG-44)
+#   The WEAK set (added 2026-09-15): deliberately poor decks, for the deck-advantage conversion test —
+#   a strong pilot should beat a clearly worse deck nearly every time, and that measure has none of the
+#   field-skew that makes bot-vs-tournament win rates misleading.
+#   ⚠ NOT Premier legal: a pre-JTL starter deck, built to a low power level. Never add this set to a strength gate or to the tournament-backed sets.
+# Shape: 50 cards, avg cost 2.52, 30 units (12 at 1-2, 2 at 6+), 1 removal, 0 wipe, 4 events, 16 upgrades
+# Style: normal
+#   ⚠ auto-derived from deck shape, not reviewed.
+# Flavours: none
+
+Leader
+1 SHD_018
+
+Base
+1 SOR_021
+
+Deck
+1 SHD_258
+1 SHD_064
+3 SHD_043
+1 SHD_068
+2 SHD_223
+1 SHD_047
+2 SHD_261
+1 SHD_078
+1 SHD_073
+1 SHD_074
+1 SHD_066
+1 SOR_220
+2 SHD_221
+1 SHD_253
+2 SHD_247
+3 SHD_044
+1 SHD_220
+2 SHD_069
+2 SHD_070
+2 SHD_216
+3 SHD_245
+3 SHD_196
+3 SHD_060
+1 SHD_041
+1 SHD_206
+3 SHD_056
+2 SHD_040
+3 SHD_251

@@ -35,6 +35,13 @@ $grandArchiveStatsSourceVersion = "unknown"; // deployed commit SHA or release i
 $bugReportApiKey = "";
 $bugReportApiUrl = "https://soulmastersdb.net/TCGEngine-Discord/APIs/BugReportAPI.php";
 
+// Petranaki ↔ SWUStats link (SWUSim/SWUStatsLink.php). Register "Petranaki Arena" in SWUStats
+// APIs/OAuth/manage_clients.php with redirect URI
+// https://petranaki.net/TCGEngine/AccountFiles/SWUStatsOAuthCallback.php and scopes "profile decks".
+// Env SWUSTATS_CLIENT_ID / SWUSTATS_CLIENT_SECRET override these.
+$swustatsClientID = '';
+$swustatsClientSecret = '';
+
 $isProduction = false;
 
 const OPENAI_API_KEY = "";

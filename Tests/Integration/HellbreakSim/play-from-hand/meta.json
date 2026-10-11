@@ -1,0 +1,10 @@
+{
+    "name": "play-from-hand",
+    "rootName": "HellbreakSim",
+    "createdAt": "2026-09-16T00:36:09+00:00",
+    "createdBy": "DevTools/Hellbreak/make-fixture.php",
+    "deck": "GAMA demo decks (Dracula vs Jaws)",
+    "autoSeats": [
+        2
+    ]
+}

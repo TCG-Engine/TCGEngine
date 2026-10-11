@@ -6,5 +6,5 @@
 // SOR_084 Grand Moff Tarkin — "When Played: Search the top 5 cards for up to 2 Imperial cards,
 //   reveal and draw them. Put the rest on the bottom in a random order."
 $whenPlayedAbilities["SOR_084:0"] = function($player, $mzID) {
-    DoTopDeckSearch($player, 5, fn($c) => HasTrait($c, 'Imperial'), 2);
+    DoTopDeckSearch($player, 5, fn($c) => HasTrait($c, 'Imperial'), 2, 'Imperial cards');
 };
