@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-10T19:40:13+00:00",
+    "generatedAt": "2026-10-11T00:38:33+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 931,
+        "cardsWithExistingFixtures": 934,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1574,
+        "cardsNeedingSemanticCoverage": 1571,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -12409,23 +12409,6 @@
             "priority": 13
         },
         {
-            "cardId": "FjklZcbjPV",
-            "name": "Capacitance X Psycho",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "tnl3qr42vp",
             "name": "Captivating Opulence",
             "type": "UNIQUE,PHANTASIA",
@@ -19270,22 +19253,6 @@
             "mechanics": [
                 "cost",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "xjkdokzfd9",
-            "name": "Eventide Spear",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -26456,21 +26423,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "9ox7u6wzh9",
-            "name": "Varuckan Soulknife",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -45524,6 +45476,29 @@
             "priority": 33
         },
         {
+            "cardId": "FjklZcbjPV",
+            "name": "Capacitance X Psycho",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "capacitance-x-psycho-activates-from-the-material-deck-in-the-main-phase-entering-rested",
+                "capacitance-x-psycho-is-not-activated-from-the-material-deck-with-only-five-arcane-cards-banished"
+            ],
+            "semanticFixtures": [
+                "capacitance-x-psycho-activates-from-the-material-deck-in-the-main-phase-entering-rested",
+                "capacitance-x-psycho-is-not-activated-from-the-material-deck-with-only-five-arcane-cards-banished"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "r5uyjq37zh",
             "name": "Caretaker Horse",
             "type": "ALLY",
@@ -46669,6 +46644,28 @@
             "semanticFixtures": [
                 "enhance-hearing-look-three-decline-all-three-bottom",
                 "enhance-hearing-look-three-reveal-deep-wind-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "xjkdokzfd9",
+            "name": "Eventide Spear",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "eventide-spear-activates-from-the-material-deck-in-the-main-phase-against-two-rested-units",
+                "eventide-spear-is-not-activated-from-the-material-deck-against-only-one-rested-unit"
+            ],
+            "semanticFixtures": [
+                "eventide-spear-activates-from-the-material-deck-in-the-main-phase-against-two-rested-units",
+                "eventide-spear-is-not-activated-from-the-material-deck-against-only-one-rested-unit"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48060,6 +48057,27 @@
             "semanticFixtures": [
                 "vanish-from-sight-during-the-opponents-recollection-phase-grants-stealth",
                 "vanish-from-sight-is-refused-during-your-own-main-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "9ox7u6wzh9",
+            "name": "Varuckan Soulknife",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "varuckan-soulknife-activates-from-the-material-deck-in-the-main-phase-by-banishing-three-fire-cards",
+                "varuckan-soulknife-is-not-activated-from-the-material-deck-with-only-two-fire-cards-in-the-graveyard"
+            ],
+            "semanticFixtures": [
+                "varuckan-soulknife-activates-from-the-material-deck-in-the-main-phase-by-banishing-three-fire-cards",
+                "varuckan-soulknife-is-not-activated-from-the-material-deck-with-only-two-fire-cards-in-the-graveyard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

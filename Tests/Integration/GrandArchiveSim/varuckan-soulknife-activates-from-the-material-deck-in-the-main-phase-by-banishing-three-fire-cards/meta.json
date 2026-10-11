@@ -24,6 +24,6 @@
         "status": "fixed",
         "summary": "FIXED. Varuckan Soulknife could only be activated from the material deck through the materialize-phase offer, which a declined ordinary materialize skips; it had no main-phase activation.",
         "affectedFunction": "Custom/MaterializeLogic.php GAEventideSpearMaterialActivatable/GAVaruckanMaterialActivatable/GACapacitanceMaterialActivatable; Custom/GameLogic.php FSM myMaterial case",
-        "fixCommit": "TBD"
+        "fixCommit": "cd2bf7f3"
     }
 }
