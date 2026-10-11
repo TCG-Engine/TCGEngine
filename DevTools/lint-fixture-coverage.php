@@ -251,7 +251,10 @@ foreach ($slugs as $slug) {
     //     card. Each matched mechanic is checked independently — an assertion
     //     proving one mechanic must not "pay for" a different, co-occurring
     //     mechanic that needs a different property. ---
-    if (!empty($mechanicHits)) {
+    // A complete semantic contract already states what is proved (hand-labelled observable assertions), so the
+    // slug-keyword heuristic only applies to fixtures without one.
+    $hasCompleteContract = $semanticContract !== null && GaSemanticContractIsComplete($meta, $assertions, $actions);
+    if (!empty($mechanicHits) && !$hasCompleteContract) {
         $expectedProperties = LintExpectedPropertiesForMechanics($mechanicHits);
         $candidateAssertions = array_values(array_filter($assertions, function ($a) use ($expectedProperties) {
             return is_array($a)
