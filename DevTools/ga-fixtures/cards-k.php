@@ -34,8 +34,8 @@ gaScenario('keen-tidebinder-first-empower')
     ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
     ->champion(cardName: 'Dante, Hemomancer')
     ->seed('myField', 'Keen Tidebinder')
-    ->endTurn()->answer(1, '-')
-    ->endTurn(2)->answer(1, '-')->answer(1, '-')->answer(1, 'myField-0@Activate-0@Empower')->answer(1, '1')->pay(1)
+    ->endTurn()->answer(1, '-')->answer(1, '-')
+    ->endTurn(2)->answer(1, '-')->answer(1, '-')->answer(1, '-')->answer(1, 'myField-0@Activate-0@Empower')->answer(1, '1')->pay(1)
     ->tested('Keen Tidebinder')
     ->expectDamage('myField-0', 1, 'Dante takes the unpreventable damage from his own activated ability (X=1)', step: 10)
     ->expectProperty('myField-1', 'TurnEffects', '["ZmBQAOb9gj_POWER"]', 'Keen Tidebinder gets its first-empower-of-the-turn +2 POWER flag', step: 10)
@@ -258,7 +258,7 @@ gaScenario('key-slime-pudding-banish-extra-counter-adds-to-green-slime-enter-cou
     ->endTurn(2)->target('myMaterial-3')->pass(1)
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')
     ->play('Green Slime')->pay(3)
-    ->tested('Key Slime Pudding')
+    ->tested('Key Slime Pudding', 'Green Slime')
     ->register();
 
 // Negative: a non-Slime ally entering after the activation gets no extra counter.

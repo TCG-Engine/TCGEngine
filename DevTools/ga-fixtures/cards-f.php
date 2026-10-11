@@ -180,7 +180,7 @@ gaScenario('flute-of-taming-champion-level')
     ->standardDeck('Flute of Taming')
     ->seed('myHand', 'Flute of Taming')
     ->playSlot(5)
-    ->action(1, 10001, 'myField-1!CustomInput!Activate:1')->pass(1)
+    ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pass(1)->pass(2)
     ->tested('Flute of Taming')
     ->register();
 

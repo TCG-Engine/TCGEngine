@@ -150,35 +150,6 @@ DECK;
 
 
 
-// --- Fractal of Insight: On Enter -- decline to rest self, Glimpse does not happen ---
-$fixtures['fractal-of-insight-decline-no-glimpse'] = [
-    'testedCards' => ['rp5k1vt1cn'],
-    'baseFixture' => 'fractal-of-insight-rest-glimpse-2',
-    'deck' => <<<'DECK'
-# Material
-1 Spirit of Water
-1 Diao Chan, Enchantress
-1 Backup Charger
-1 Cleric Robes
-1 Scepter of Fascination
-# Main
-4 Fractal of Insight
-4 Dungeon Guide
-4 Fluffy Shopkeep
-4 Frostbinder Apostle
-4 Awakened Deacon
-DECK,
-    'setup' => [
-        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '00xbh8oc00']], // Diao Chan, Enchantress
-        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rp5k1vt1cn'], // Fractal of Insight, seeded to a known hand slot
-    ],
-    'actions' => [
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Fractal of Insight
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline to rest Fractal of Insight
-    ],
-];
 
 
 // NOTE: An additional fixture proving [Diao Chan Bonus]'s "activated from memory" draw was
@@ -617,51 +588,6 @@ $gaTheurgistDeck = <<<'DECK'
 10 Dungeon Guide
 10 Fluffy Shopkeep
 DECK;
-// Seating helper: $ctrl controls the Theurgist (field-1) and the OTHER player ($opp) kills it with Drenching Finish. The
-// controller also has its own Dungeon Guide ally (field-2) -- the opponent must never be offered THAT ally to sacrifice.
-// $oppAlly: whether the opponent (the killer) has a Dungeon Guide ally of its own (-> the "Sacrifice an ally?" prompt exists).
-$gaTheurgistSetup = function(int $ctrl, bool $oppAlly = true) {
-    $opp = $ctrl == 1 ? 2 : 1;
-    $rows = [
-        ['player' => $ctrl, 'zone' => 'myField', 'cardID' => 'vkqzk1jik7'], // Shackled Theurgist -> controller field-1
-        ['player' => $ctrl, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // controller's own Dungeon Guide ally -> field-2 (must NOT be offered for sacrifice)
-    ];
-    if ($oppAlly) $rows[] = ['player' => $opp, 'zone' => 'myField', 'cardID' => 'px60u5n1do']; // opponent's Fluffy Shopkeep ally -> opponent field-1 (the only legal sacrifice)
-    $rows[] = ['player' => $opp, 'zone' => 'myHand', 'cardID' => 'en3DD836cp']; // Drenching Finish -> opponent myHand-7
-    return $rows;
-};
-// Opening actions: the killer ($opp) plays Drenching Finish for real, pays 2 reserve and attacks the Theurgist (field-1 of the other side).
-$gaTheurgistKill = function(int $ctrl) {
-    $opp = $ctrl == 1 ? 2 : 1;
-    $lead = $opp == 1 ? [mrdEnd(1), mrdEnd(2)] : [mrdEnd(1)]; // player 1 attacks on its turn 3, player 2 on its turn 2
-    return array_merge($lead, [mrdPlay($opp, 'myHand-7')], mrdPay($opp, 2), [mrdAns($opp, 'theirField-1')]);
-};
-foreach ([2, 1] as $gaTheurgistCtrl) {
-    $gaTheurgistOpp = $gaTheurgistCtrl == 1 ? 2 : 1;
-    $gaTheurgistTag = 'p' . $gaTheurgistCtrl . '-controlled';
-    $fixtures["shackled-theurgist-$gaTheurgistTag-opponent-declines-sacrifice-returns-ephemeral"] = [
-        'testedCards' => ['vkqzk1jik7'],
-        'deck' => $gaTheurgistDeck,
-        'setup' => $gaTheurgistSetup($gaTheurgistCtrl),
-        'actions' => array_merge($gaTheurgistKill($gaTheurgistCtrl), [mrdAns($gaTheurgistOpp, 'NO')]),
-    ];
-    $fixtures["shackled-theurgist-$gaTheurgistTag-opponent-sacrifices-own-ally-stays-dead"] = [
-        'testedCards' => ['vkqzk1jik7'],
-        'deck' => $gaTheurgistDeck,
-        'setup' => $gaTheurgistSetup($gaTheurgistCtrl),
-        'actions' => array_merge($gaTheurgistKill($gaTheurgistCtrl), [
-            mrdAns($gaTheurgistOpp, 'YES'),
-            mrdAns($gaTheurgistOpp, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => "The controller's own Dungeon Guide was never offered: the opponent can only sacrifice ITS OWN ally"]),
-            mrdAns($gaTheurgistOpp, 'myField-1'), // sacrifice the opponent's own Fluffy Shopkeep
-        ]),
-    ];
-    $fixtures["shackled-theurgist-$gaTheurgistTag-opponent-has-no-ally-returns-ephemeral"] = [
-        'testedCards' => ['vkqzk1jik7'],
-        'deck' => $gaTheurgistDeck,
-        'setup' => $gaTheurgistSetup($gaTheurgistCtrl, false),
-        'actions' => $gaTheurgistKill($gaTheurgistCtrl),
-    ];
-}
 
 // --- Bygone Days (wXNDSNQ2x2): "At the beginning of your recollection phase, cascade -- 1: Recover 2. 2: Recover 1.
 // 3: Each player chooses an ally they control and returns it to its owner's memory. Sacrifice CARDNAME." ---
@@ -673,42 +599,6 @@ $gaBygoneDeck = <<<'DECK'
 10 Dungeon Guide
 10 Fluffy Shopkeep
 DECK;
-// $ctrl controls Bygone Days (played for real). Setup: controller champion damaged 5; controller ally = Dungeon Guide (field-1),
-// opponent allies = Fluffy Shopkeep (field-1) + Dungeon Guide (field-2).
-$gaBygoneSetup = function(int $ctrl) {
-    $opp = $ctrl == 1 ? 2 : 1;
-    return [
-        ['player' => $ctrl, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 5]], // controller champion damaged 5 (Recover 2 -> 3, Recover 1 -> 2)
-        ['player' => $ctrl, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // controller Dungeon Guide -> field-1
-        ['player' => $opp, 'zone' => 'myField', 'cardID' => 'px60u5n1do'], // opponent Fluffy Shopkeep -> field-1
-        ['player' => $opp, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // opponent Dungeon Guide -> field-2
-        ['player' => $ctrl, 'zone' => 'myHand', 'cardID' => 'wXNDSNQ2x2'], // Bygone Days -> controller myHand-7
-    ];
-};
-// Actions to reach the controller's Nth recollection phase after playing the card: play + 2 reserve, then pass turns.
-$gaBygoneToCascade = function(int $ctrl, int $n) {
-    $rows = $ctrl == 1 ? [mrdPlay(1, 'myHand-7')] : [mrdEnd(1), mrdPlay(2, 'myHand-7')];
-    $rows = array_merge($rows, mrdPay($ctrl, 2));
-    for ($i = 0; $i < $n; ++$i) {
-        $rows[] = mrdEnd($ctrl);
-        $rows[] = mrdEnd($ctrl == 1 ? 2 : 1);
-    }
-    return $rows;
-};
-foreach ([1, 2] as $gaBygoneCtrl) {
-    $gaBygoneOpp = $gaBygoneCtrl == 1 ? 2 : 1;
-    $fixtures["bygone-days-p$gaBygoneCtrl-controlled-cascade-recovers-then-each-player-returns-ally"] = [
-        'testedCards' => ['wXNDSNQ2x2'],
-        'deck' => $gaBygoneDeck,
-        'setup' => $gaBygoneSetup($gaBygoneCtrl),
-        'actions' => array_merge($gaBygoneToCascade($gaBygoneCtrl, 3), [
-            mrdAns($gaBygoneCtrl, 'myField-1'), // the controller returns its own Dungeon Guide to its memory
-            mrdAns($gaBygoneOpp, 'myField-0', ['expectFailure' => true, 'semantic' => true, 'label' => "The opponent's champion is not an ally (and was never offered): it cannot be chosen"]),
-            // the opponent returns one of ITS OWN two allies (player 1 as opponent: its 2nd ally, player 2 as opponent: its 1st)
-            mrdAns($gaBygoneOpp, $gaBygoneOpp == 2 ? 'myField-2' : 'myField-1'),
-        ]),
-    ];
-}
 
 // =====================================================================================================================
 // Fixed-index move-loop sweep (Remove()/MZMove only FLAG a slot removed; the splice happens in CleanupRemovedCards()).
@@ -1134,37 +1024,8 @@ $gaOmen = function(string $cardID = 'em6eEh9q8y') { return ['player' => 1, 'zone
 $gaCiel = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nn48ne8a05']]; // Ciel, Loyal Valet (GUARDIAN champion named Ciel: the Ciel Bonus)
 
 
-$fixtures['zz-probe-0z2snsdwmx'] = ['testedCards' => ['0z2snsdwmx'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => '0z2snsdwmx'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-21oy1nd4nw'] = ['testedCards' => ['21oy1nd4nw'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => '21oy1nd4nw'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-sZlDgmVTD7'] = ['testedCards' => ['sZlDgmVTD7'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'sZlDgmVTD7'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-yxk7e8opr6'] = ['testedCards' => ['yxk7e8opr6'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'yxk7e8opr6'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-gyk90s0hst'] = ['testedCards' => ['gyk90s0hst'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'gyk90s0hst'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-h1njd7z5j3'] = ['testedCards' => ['h1njd7z5j3'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'h1njd7z5j3'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-drIdaGpPJ2'] = ['testedCards' => ['drIdaGpPJ2'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'drIdaGpPJ2'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-fviga4cmti'] = ['testedCards' => ['fviga4cmti'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'fviga4cmti'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-l7pnn9jw7c'] = ['testedCards' => ['l7pnn9jw7c'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'l7pnn9jw7c'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-RP37sLrsxr'] = ['testedCards' => ['RP37sLrsxr'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'RP37sLrsxr'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-m6c8xy4cje'] = ['testedCards' => ['m6c8xy4cje'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'm6c8xy4cje'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-vm4xg2hedp'] = ['testedCards' => ['vm4xg2hedp'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'vm4xg2hedp'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-znavmjiefw'] = ['testedCards' => ['znavmjiefw'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'znavmjiefw'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-Y8s7XGHqHk'] = ['testedCards' => ['Y8s7XGHqHk'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'Y8s7XGHqHk'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-u8LjHnH6iC'] = ['testedCards' => ['u8LjHnH6iC'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'u8LjHnH6iC'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-4Kxe6pSt6C'] = ['testedCards' => ['4Kxe6pSt6C'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => '4Kxe6pSt6C'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-7e22tk3ir1'] = ['testedCards' => ['7e22tk3ir1'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => '7e22tk3ir1'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-aZzm2GEWEu'] = ['testedCards' => ['aZzm2GEWEu'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'aZzm2GEWEu'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
-$fixtures['zz-probe-EB5sNiPNvA'] = ['testedCards' => ['EB5sNiPNvA'], 'deck' => $gaSweepDeck('Spirit of Fire'), 'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => 'EB5sNiPNvA'], ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4, '_overrides' => ['classes' => 'RANGER']]]]], 'actions' => [mrdAct(1, 10001, 'myField-1!CustomInput!Activate:0'), mrdPass(1), mrdPass(1), mrdPass(1)]];
 
 
-// Heirloom of Natura / Spectra (drIdaGpPJ2, 0sVdvpQKXq): the second ability is "(3), Banish CARDNAME: Draw a card into your memory." The (3) was never paid (and Spectra's ability never banished the Heirloom, leaving it
-// on the field to be used again).
-foreach (['drIdaGpPJ2' => ['natura', 'Natura'], '0sVdvpQKXq' => ['spectra', 'Spectra']] as $gaHeirloomID => [$gaHeirloomSlug, $gaHeirloomName]) {
-    $fixtures["heirloom-of-$gaHeirloomSlug-draw-ability-pays-three-and-banishes-itself"] = [
-        'testedCards' => [$gaHeirloomID],
-        'deck' => $gaSweepDeck('Spirit of Fire'),
-        'setup' => [['player' => 1, 'zone' => 'myField', 'cardID' => $gaHeirloomID]], // Heirloom of $gaHeirloomName -> myField-1
-        'actions' => array_merge([mrdAct(1, 10001, 'myField-1!CustomInput!Activate:1')], mrdPay(1, 3)), // (3), banish: draw a card into your memory
-    ];
-}
 
 // --- Starter-deck coverage batch 3: regalia items whose activated abilities were missing or misfiled ---
 
@@ -1210,23 +1071,6 @@ $gaMoonpiercer = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => 
 $gaDilettanteDeck = "# Material\n1 Spirit of Fire\n1 Diana, Aether Dilettante\n1 Salamander's Breath\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n";
 // Pleiades, Celestial Genesis (rsps1qnzfl): "[Class Bonus] On Enter: Glimpse 3."
 $gaPleiadesDeck = "# Material\n1 Spirit of Fire\n1 Pleiades, Celestial Genesis\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n";
-// Sinistre Stab (e1xj8mqr2o): "On Hit: If you have five or more omens, you may put Sinistre Stab on the bottom of the hit champion's lineage. Otherwise, put Sinistre Stab on the bottom of your champion's lineage."
-$gaP2Omen = function(string $cardID = 'em6eEh9q8y') { return ['player' => 2, 'zone' => 'myBanish', 'cardID' => $cardID, 'setProperties' => ['Counters' => ['omen' => 1]]]; };
-// Lamentation's Toll (1t3dvor61i): "[Level 2+] Lamentation's Toll gets +X power, where X is the highest power stat among your omens."
-$gaTollAttack = function(string $champion) use ($gaP2Omen) { return [
-    'testedCards' => ['1t3dvor61i'],
-    'deck' => $GLOBALS['gaSweepDeck']('Spirit of Fire'),
-    'setup' => [
-        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => $champion]],
-        ['player' => 2, 'zone' => 'myField', 'cardID' => '6ihv6hbvye'], // Grande Aiguille (Sword) -> myField-1
-        $gaP2Omen('tsvbgl6ffq'), $gaP2Omen(), // The Majestic Spirit (power 4) and Dungeon Guide (power 1) omens
-        ['player' => 2, 'zone' => 'myHand', 'cardID' => '1t3dvor61i'], // Lamentation's Toll -> p2 myHand-7
-    ],
-    'actions' => array_merge([mrdEnd(1), mrdAct(2, 10002, 'myHand-7!FSM!')], mrdPay(2, 4), [mrdAns(2, 'myField-1'), mrdAns(2, 'theirField-0')]),
-]; };
-$GLOBALS['gaSweepDeck'] = $gaSweepDeck;
-$fixtures['lamentations-toll-level-two-gets-the-highest-omen-power'] = $gaTollAttack('o69ogocemo'); // Ciel, Omenbringer (level 2)
-$fixtures['lamentations-toll-level-one-gets-no-omen-power'] = $gaTollAttack('nn48ne8a05'); // Ciel, Loyal Valet (level 1)
 
 // Slime Calling (dc8P58gmjR): "Activate this card only during an opponent's end phase. [Class Bonus] Look at the top 3+LV cards of your deck. You may activate up to two Slime ally cards from among them. Cards you activate this way cost 1 less to activate. Put the rest of the cards on the bottom of your deck in any order."
 $gaTamer = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'pNiyaGlIe7', 'Counters' => ['_overrides' => ['classes' => 'TAMER']]]]; // Spirit of Wind (enables the WIND element) as a Tamer
@@ -1235,20 +1079,6 @@ $gaP2RangerAstra = ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' =
 $gaP2Wing = ['player' => 2, 'zone' => 'myField', 'cardID' => 'mob9nu6lal', 'setProperties' => ['Subcards' => ['wd7nuab7f3']]]; // Salamander's Breath loaded with Aether's Embrace -> p2 myField-1
 // Lurid Dreaming (ps8unuy20m): "Activate this card only during an opponent's end phase. Wake up your champion. If you do, draw a card into your memory."
 $gaCleric = ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Status' => 1, 'Counters' => ['_overrides' => ['classes' => 'CLERIC']]]]; // rested Cleric champion
-// Seeker's Aetherwing (bf7yzaqes4): "[Class Bonus] Spellshroud. [Class Bonus] True Sight." Player 2 tries to destroy it with Ghastly Corrosion (destroy target item or weapon with memory cost 0 or reserve cost 3 or less).
-$gaSeekerSetup = function(bool $ranger) { return [
-    'testedCards' => ['bf7yzaqes4'],
-    'deck' => $GLOBALS['gaSweepDeck']('Spirit of Fire'),
-    'setup' => array_merge($ranger ? [['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'RANGER']]]]] : [], [
-        ['player' => 1, 'zone' => 'myField', 'cardID' => 'bf7yzaqes4'], // Seeker's Aetherwing -> player 1's myField-1
-        ['player' => 2, 'zone' => 'myHand', 'cardID' => '40xhntos3d'], // Ghastly Corrosion -> p2 myHand-7
-    ]),
-    'actions' => [],
-]; };
-$fixtures['seekers-aetherwing-class-bonus-spellshroud-cannot-be-targeted-by-a-spell'] = $gaSeekerSetup(true);
-$fixtures['seekers-aetherwing-without-the-class-bonus-can-be-targeted-by-a-spell'] = $gaSeekerSetup(false);
-$fixtures['seekers-aetherwing-class-bonus-spellshroud-cannot-be-targeted-by-a-spell']['actions'] = array_merge([mrdEnd(1), mrdPlay(2, 'myHand-7')], mrdPay(2, 4), [mrdAns(2, 'theirField-1', ['expectFailure' => true, 'semantic' => true, 'label' => 'Seeker\'s Aetherwing has spellshroud (Ranger champion): not a legal Spell target'])]);
-$fixtures['seekers-aetherwing-without-the-class-bonus-can-be-targeted-by-a-spell']['actions'] = array_merge([mrdEnd(1), mrdPlay(2, 'myHand-7')], mrdPay(2, 4), [mrdAns(2, 'theirField-1')]);
 
 // --- Generated handlers that read a variable only defined in the ability body that queued them (closures do not share scope): the value was null at resolution. Each card below is
 // played / activated end to end; pre-fix the effect did nothing (or the wrong amount). ---

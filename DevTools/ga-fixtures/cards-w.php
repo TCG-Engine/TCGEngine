@@ -171,7 +171,7 @@ gaScenario('wind-resonance-bauble-banish-draw')
     ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
     ->champion(lineage: ['Spirit of Wind'], player: 2)
     ->seed('myField', 'Wind Resonance Bauble')
-    ->endTurn()->answer(1, 'myField-1@Activate-0@Banish')->pass(2)->pass(2)
+    ->endTurn()->answer(1, '-')->pass(2)->answer(1, 'myField-1@Activate-0@Banish')->pass(2)->pass(2)
     ->tested('Wind Resonance Bauble')
     ->register();
 

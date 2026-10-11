@@ -272,7 +272,7 @@ gaScenario('crest-of-the-alliance-fostered-ally-dies-draw')
 gaScenario('cosmic-astroscope-rest-glimpse')
     ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
     ->seed('myField', 'Cosmic Astroscope')
-    ->endTurn()->answer(1, 'myField-1@Activate-0@Glimpse')->answer(1, 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y;Bottom=')
+    ->endTurn()->answer(1, '-')->answer(1, 'myField-1@Activate-0@Glimpse')->answer(1, 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y;Bottom=')
     ->tested('Cosmic Astroscope')
     ->expectDqEmpty(step: 4)
     ->register();

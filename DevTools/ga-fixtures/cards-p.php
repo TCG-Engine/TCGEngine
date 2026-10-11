@@ -234,7 +234,7 @@ DECK
     ->seed('myField', 'Shadow\'s Twin')
     ->seed('myField', 'Plated Bullet')
     ->endTurn()
-    ->endTurn(2)->pass(1)
+    ->endTurn(2)->pass(1)->pass(1)
     ->action(1, 10001, 'myField-2!CustomInput!Activate:0')->target('myField-1')
     ->tested('Plated Bullet', 'Shadow\'s Twin')
     ->register();
@@ -383,7 +383,7 @@ gaScenario('prototype-staff-rest-bottom-draw')
     ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
     ->champion(level: 4)
     ->seed('myField', 'Prototype Staff')
-    ->endTurn()->answer(1, 'myField-1@Activate-0@8c9htu9agw')->pay(1)
+    ->endTurn()->answer(1, '-')->answer(1, 'myField-1@Activate-0@8c9htu9agw')->pay(1)
     ->tested('Prototype Staff')
     ->expectZoneCount('myMemory', 1, 1, 'Putting a hand card on the bottom of the deck draws a card into memory', step: 4)
     ->register();
@@ -469,9 +469,7 @@ gaScenario('phalanx-captain-class-bonus-human-discount')
     ->champion(cardName: 'Lorraine, Blademaster', lineage: ['Spirit of Wind'])
     ->seed('myField', 'Dungeon Guide')
     ->seed('myHand', 'Phalanx Captain')
-    ->endTurn()
-    ->endTurn(2)->pass(1)
-    ->play('Phalanx Captain')->pay(4)->passBoth()
+    ->play('Phalanx Captain')->pay(4)->pass(1)
     ->expectDqEmpty(step: 6)
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ALLY_ACTIVATED"]', step: 6)
     ->expectProperty('p1Field-2', 'CardID', 'rPpLwLPGaL', step: 6)
@@ -576,30 +574,6 @@ gaScenario('powered-defender-dealt-damage-summons-powercell')
     ->expectZoneCount('myField', 3, 1, 'Champion + Powered Defender + the newly summoned Powercell token')
     ->register();
 
-// --- Pouvoir Absolu: banish top 10 own deck, add omen counters ([Ciel Bonus]) (OylAWd6Tew) ---
-// Notes carried over from the original definition:
-//   - UMBRA unlock
-gaScenario('pouvoir-absolu-banish-top10-omen')
-    ->deck($bigFillerDeck)
-    ->globalEffect('PRISMATIC_CODEX_IGNORE_ELEMENT')
-    ->seed('myHand', 'Dungeon Guide')
-    ->seed('myHand', 'Dungeon Guide')
-    ->seed('myHand', 'Dungeon Guide')
-    ->seed('myHand', 'Dungeon Guide')
-    ->seed('myHand', 'Fluffy Shopkeep')
-    ->seed('myHand', 'Fluffy Shopkeep')
-    ->seed('myHand', 'Fluffy Shopkeep')
-    ->seed('myHand', 'Fluffy Shopkeep')
-    ->seed('myHand', 'Stocked Outpost')
-    ->seed('myHand', 'Stocked Outpost')
-    ->seed('myHand', 'Stocked Outpost')
-    ->seed('myHand', 'Stocked Outpost')
-    ->seed('myHand', 'Fairy Whispers')
-    ->seed('myHand', 'Fairy Whispers')
-    ->seed('myHand', 'Pouvoir Absolu')
-    ->play('Pouvoir Absolu')->pay(13)->passBoth()->passBoth()
-    ->register();
-
 // --- Photic Blade: gets +1 POWER for each refinement counter on it ---
 // Photic Blade's element is LUXEM, but it is seeded directly onto the field (materialize flow
 // out of scope, same pattern as necklace-of-foresight-banish-glimpse), so no lineage patch is
@@ -650,7 +624,7 @@ gaScenario('piquant-shieldbearer-taunt-forces-target')
     ->endTurn()
     ->action(2, 10002, 'myField-1!FSM!')
     ->rejects(2, 'theirField-0', 'Cannot target the champion directly while an awake Taunt unit is present')
-    ->answer(2, 'theirField-1')
+    ->answer(2, 'theirField-1')->answer(1, '-')
     ->tested('Piquant Shieldbearer')
     ->expectDqEmpty(step: 5)
     ->expectDamage('p1Field-1', 1, 'Combat lands on the Taunt unit itself once a legal target is chosen', step: 5)

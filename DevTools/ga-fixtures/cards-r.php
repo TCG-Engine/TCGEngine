@@ -214,7 +214,7 @@ gaScenario('rousing-slam-class-bonus-level-2-on-attack-vigor-taunt')
     ->standardDeck('Rousing Slam')
     ->champion(cardName: 'Tonoris, Might of Humanity', lineage: ['Spirit of Wind'], player: 2)
     ->seed('myHand', 'Rousing Slam', player: 2)
-    ->endTurn()->pass(2)
+    ->endTurn()->pass(2)->pass(2)
     ->play('Rousing Slam', 2)->pay(4, 2)->pass(2)->answer(2, 'theirField-0')->pass(2)
     ->expectDqEmpty(step: 11)
     ->expectDamage('p1Field-0', 4, 'Rousing Slam\'s own 4 POWER resolves as a real attack', step: 11)
@@ -394,7 +394,7 @@ gaScenario('redslime-ondeath-sweep-stack-order-choice')
     ->endTurn()
     ->endTurn(2)->target('myHand-7')->pay(1)->pass(1)->target('myField-2')
     ->playSlot(6)->pay(1)->target('myField-2')->target('myGraveyard-3')
-    ->tested('Red Slime')
+    ->tested('Red Slime', 'Golden Pawn', '#loSCQzxqi1')
     ->register();
 
 // --- Rebounding Gust: move target ally to its controller's memory (9e0z7hb9id) ---

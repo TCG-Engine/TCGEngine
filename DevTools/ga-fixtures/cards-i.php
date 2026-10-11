@@ -222,7 +222,7 @@ gaScenario('imperial-sentry-class-bonus-intercept')
 gaScenario('ingredient-pouch-rest-gather')
     ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
     ->seed('myField', 'Ingredient Pouch')
-    ->endTurn()->answer(1, 'myField-1@Activate-0@Gather')->pay(1)->pass(1)->pass(1)
+    ->endTurn()->answer(1, '-')->answer(1, 'myField-1@Activate-0@Gather')->pay(1)->pass(1)->pass(1)
     ->tested('Ingredient Pouch')
     ->register();
 

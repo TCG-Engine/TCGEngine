@@ -34,6 +34,7 @@ class GaScenario {
     private array $testedCards = [];
     private ?array $testedOverride = null;
     private array $meta = [];
+    private ?string $baseFixture = null;
     // player => [cardName => hand index] for cards seeded into myHand, and the next free hand index.
     private array $handIndex = [];
     private array $nextHandIndex = [];
@@ -253,6 +254,12 @@ class GaScenario {
         return $this;
     }
 
+    // Derive this fixture from another one's recorded initial state (written to meta.json as baseFixture).
+    public function base(string $baseFixtureSlug): self {
+        $this->baseFixture = $baseFixtureSlug;
+        return $this;
+    }
+
     // ---- meta.json ---------------------------------------------------------------------------
 
     public function notes(string $notes): self {
@@ -277,6 +284,7 @@ class GaScenario {
             'setup' => $this->setup,
             'actions' => $this->actions,
         ];
+        if ($this->baseFixture !== null) $def['baseFixture'] = $this->baseFixture;
         if (!empty($this->meta)) {
             $meta = $this->meta;
             if (isset($meta['semanticCoverage'])) {
@@ -294,8 +302,8 @@ class GaScenario {
         return $def;
     }
 
-    public function register(): void {
-        gaRegisterFixture($this->slug, $this->build());
+    public function register(?string $slug = null): void {
+        gaRegisterFixture($slug ?? $this->slug, $this->build());
     }
 }
 
@@ -308,7 +316,7 @@ function gaScenario(string $slug): GaScenario {
 function gaRegisterFixture(string $slug, array $def): void {
     global $fixtures;
     if (isset($fixtures[$slug])) {
-        foreach (['testedCards', 'deck', 'setup', 'actions'] as $key) {
+        foreach (['testedCards', 'deck', 'setup', 'actions', 'baseFixture'] as $key) {
             $inlineValue = $fixtures[$slug][$key] ?? ($key === 'setup' ? [] : null); // a definition without 'setup' means no setup rows
             if (gaCanonical($inlineValue) !== gaCanonical($def[$key] ?? null)) {
                 fwrite(STDERR, "ga-fixtures: scenario '{$slug}' differs from the inline definition in '{$key}'\n");
