@@ -2481,6 +2481,33 @@ $activateAbilityPrereqs["YGz8gN8M69:0"] = function($player, $mzID, $abilityIndex
     return !isset($sourceObject->Counters['cardistry_used']);
 };
 
+// Firetongue (j4lx6xwr42): "[Class Bonus] On Attack: You may banish a fire element card from your graveyard. If you do, put a
+// durability counter on CARDNAME." A weapon's On Attack runs with the ATTACKER's mz id as "mzID", so the generated body put the
+// counter on the attacking champion. The counter belongs on the weapon being used for the attack.
+$customDQHandlers["j4lx6xwr42:0:OnAttack-1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+    $weaponMZ = GetCombatWeapon();
+    if($weaponMZ !== null) AddCounters($player, $weaponMZ, "durability", 1);
+};
+
+// Dragon's Dawn (9f92917r84): "[Class Bonus] On Attack: You may discard a fire element card and have CARDNAME deal 2 unpreventable
+// damage to your champion. If you do, this attack gets +2 [POWER] and gains 'On Champion Hit: Draw a card.'" A weapon's On Attack
+// runs with the ATTACKER's mz id as "mzID", so the generated body tagged the champion; the power bonus (ObjectCurrentPower) and the
+// On Champion Hit draw (CombatLogic) both read the tags from the WEAPON, so neither ever happened.
+$customDQHandlers["9f92917r84:0:OnAttack-2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    DoDiscardCard($player, $lastDecision);
+    $champMZ = FindChampionMZ($player);
+    if($champMZ !== null) DealUnpreventableDamage($player, $mzID, $champMZ, 2);
+    $weaponMZ = GetCombatWeapon();
+    if($weaponMZ !== null) {
+        AddTurnEffect($weaponMZ, "9f92917r84-POWER");
+        AddTurnEffect($weaponMZ, "9f92917r84-ONCHIT_DRAW");
+    }
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)
