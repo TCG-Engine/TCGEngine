@@ -5,5 +5,18 @@
     "createdBy": "batch-script",
     "testedCards": [
         "24ansclpqc"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "24ansclpqc"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "discard",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Each player discards a card."
+        ]
+    }
 }

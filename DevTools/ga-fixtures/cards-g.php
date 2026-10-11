@@ -1365,6 +1365,10 @@ DECK
     ->patch('myField-2', ['CardID' => 'em6eEh9q8y'])
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(2)
     ->tested('Glassgale Flock')
+    ->expectProperty('p1Field-3', 'CardID', 'LxF5riNjnL', 'A Memorite Shardwing token was summoned')
+    ->expectProperty('p1Field-1', 'Status', '1', '[REST] was paid: Glassgale Flock is rested')
+    ->expectZoneCount('myMemory', 2, 1, '(2) was paid')
+    ->covers(['activated-ability', 'summon', 'condition', 'cost'], '[Merlin Bonus] [Sheen 6+] (2), [REST]: If you don\'t control an ally named Memorite Shardwing, summon a Memorite Shardwing token.')
     ->register();
 
 // With a Shardwing already on the field the ability may still be activated (the condition is part of the effect): the (2) and [REST] are paid and nothing is summoned.
@@ -1385,4 +1389,8 @@ DECK
     ->seed('myField', 'Glassgale Flock')
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(2)
     ->tested('Glassgale Flock')
+    ->expectZoneCount('myField', 3, 1, 'No second Memorite Shardwing was summoned (champion, Glassgale Flock, the existing Shardwing)')
+    ->expectProperty('p1Field-1', 'Status', '1', 'The cost was still paid: Glassgale Flock is rested')
+    ->expectZoneCount('myMemory', 2, 1, '(2) was still paid')
+    ->covers(['activated-ability', 'summon', 'condition', 'cost'], '[Merlin Bonus] [Sheen 6+] (2), [REST]: If you don\'t control an ally named Memorite Shardwing, summon a Memorite Shardwing token.')
     ->register();

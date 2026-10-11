@@ -1,1 +1,29 @@
-[]
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Mastery-0",
+        "property": "Counters",
+        "value": "{\"haunt\":6}",
+        "semantic": true,
+        "label": "A haunt counter was put on Phantasmagoria (5 -> 6)"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"6S1LLrBfBU\"]",
+        "semantic": true,
+        "label": "With six haunt counters the Specter ally got the +2 POWER effect"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Rosewinged Hollow banished itself as the cost"
+    }
+]

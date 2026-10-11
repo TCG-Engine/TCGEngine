@@ -5,5 +5,17 @@
     "createdBy": "batch-script",
     "testedCards": [
         "2XWNCcPN6o"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2XWNCcPN6o"
+        ],
+        "mechanics": [
+            "on-enter",
+            "cost-modification"
+        ],
+        "rulesClauses": [
+            "On Enter: The next VelTech item card you activate targeting CARDNAME this turn costs 3 less to activate."
+        ]
+    }
 }

@@ -43,12 +43,13 @@ DECK
     ->expectProperty('p1Hand-2', 'CardID', 'em6eEh9q8y')
     ->expectProperty('p1Hand-3', 'CardID', 'px60u5n1do')
     ->expectProperty('p1Hand-4', 'CardID', 'px60u5n1do')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'CIU4gT14EE')
+    ->expectProperty('p1Graveyard-0', 'CardID', 'CIU4gT14EE', 'Escharotomy resolved into the graveyard')
     ->expectProperty('p1Memory-0', 'CardID', 'px60u5n1do')
-    ->expectProperty('p2GlobalEffects-0', 'CardID', 'CANT_RECOVER')
+    ->expectProperty('p2GlobalEffects-0', 'CardID', 'CANT_RECOVER', 'Choosing the opponent applied a can\'t-recover effect to them')
     ->expectZoneCount('myHand', 5, 1)
     ->expectZoneCount('myGraveyard', 1, 1)
     ->expectZoneCount('myMemory', 1, 1)
+    ->covers(['recover','global-effect','targeting'], 'Target player can\'t recover until end of turn.')
     ->register();
 
 // --- Elysian Aura: Elysian Aspirant enters, passive should be active ---

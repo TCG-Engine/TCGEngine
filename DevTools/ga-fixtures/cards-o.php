@@ -357,4 +357,8 @@ DECK
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->target('myHand-6')->target('myHand-5')->target('myHand-4')
     ->pass(1)
     ->tested('Orb of Regret')
+    ->expectZoneCount('myBanish', 1, 1, 'Orb of Regret banished itself as the cost')
+    ->expectZoneCount('myHand', 7, 1, 'Three cards were shuffled away and three drawn: the hand is back to 7')
+    ->expectZoneCount('myDeck', 13, 1, '...and the deck is back to 13')
+    ->covers(['activated-ability', 'shuffle', 'draw-discard'], 'Banish CARDNAME: Shuffle up to three cards from your hand into your deck, then draw that many cards.')
     ->register();

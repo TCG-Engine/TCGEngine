@@ -5,5 +5,18 @@
     "createdBy": "batch-script",
     "testedCards": [
         "i7sbjy86ep"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i7sbjy86ep"
+        ],
+        "mechanics": [
+            "optional-choice",
+            "level-gated-effects",
+            "priority-window"
+        ],
+        "rulesClauses": [
+            "[Level 1+] Deal 2 damage to up to one target unit."
+        ]
+    }
 }

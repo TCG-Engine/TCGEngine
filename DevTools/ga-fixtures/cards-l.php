@@ -1242,6 +1242,10 @@ DECK
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(2)->pass(1)
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(3)->pass(1)
     ->tested('Lesser Boon of Zerusa')
+    ->expectProperty('p1Field-0', 'Counters', '{"preparation":2}', 'Each activation put a preparation counter on the champion')
+    ->expectProperty('p1Field-1', 'Counters', '{"UC9byG4aD5_uses":2}', 'Two activations were recorded')
+    ->expectZoneCount('myMemory', 5, 1, 'The first activation cost (2) and the second (3): 5 cards in memory')
+    ->covers(['activated-ability', 'cost-modification', 'counter'], '(2): Put a preparation counter on your champion. This ability costs (1) more to activate for each time you\'ve activated it this game.')
     ->register();
 
 // Lesser Boon of Bullets (UI0lAtGQBb): "(2): Materialize a Bullet card from your material deck. This ability costs (1) more to activate for each time you've activated it this game." Steel Slug is the Bullet.
@@ -1259,6 +1263,9 @@ DECK
     ->seed('myField', 'Lesser Boon of Bullets')
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(2)->target('myMaterial-0')->pass(1)
     ->tested('Lesser Boon of Bullets', 'Steel Slug')
+    ->expectProperty('p1Field-2', 'CardID', 'ao8bki6fxx', 'Steel Slug was materialized onto the field')
+    ->expectZoneCount('myMaterial', 0, 1, 'The Bullet left the material deck')
+    ->covers(['activated-ability', 'materialize', 'cost'], '(2): Materialize a Bullet card from your material deck.')
     ->register();
 
 // Lesser Boon of Rosen (fJJBJ9M4c4): "(3): Summon a Powercell token rested. Activate this ability only once." The second activation is refused.
@@ -1276,6 +1283,11 @@ DECK
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(3)->pass(1)
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')
     ->tested('Lesser Boon of Rosen')
+    ->expectProperty('p1Field-2', 'CardID', 'qzzadf9q1v', 'A Powercell token was summoned')
+    ->expectProperty('p1Field-2', 'Status', '1', 'The Powercell enters rested')
+    ->expectProperty('p1Field-1', 'Counters', '{"fJJBJ9M4c4_used":1}', 'The ability is recorded as used once; the second activation was refused')
+    ->expectZoneCount('myMemory', 3, 1, 'Only the first activation paid (3)')
+    ->covers(['activated-ability', 'summon', 'activation-limit'], '(3): Summon a Powercell token rested. Activate this ability only once.')
     ->register();
 
 // Lesser Boon of Rakko (V8aPGgLyh5): "(3): Activate this ability only twice. Depending on D6+D6 ..." Two activations are paid, the third is refused.
@@ -1294,6 +1306,9 @@ DECK
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(3)->target('myHand-1')->pay(1, 2)->pass(1)
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')
     ->tested('Lesser Boon of Rakko')
+    ->expectProperty('p1Field-1', 'Counters', '{"V8aPGgLyh5_uses":2}', 'Two activations were recorded; the third was refused')
+    ->expectZoneCount('myMemory', 6, 1, 'Each of the two activations paid (3)')
+    ->covers(['activated-ability', 'cost', 'activation-limit'], '(3): Activate this ability only twice.')
     ->register();
 
 // Lost Promises (gN8uFKSip0): "[Alice Bonus] Deal 3 damage to target attacking unit, then end the combat phase." Same defender-frame defect as Visceral Inversion / Scorching Trap.

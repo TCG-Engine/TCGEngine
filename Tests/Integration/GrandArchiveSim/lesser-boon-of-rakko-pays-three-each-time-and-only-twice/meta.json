@@ -5,5 +5,18 @@
     "createdBy": "batch-script",
     "testedCards": [
         "V8aPGgLyh5"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "V8aPGgLyh5"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost",
+            "activation-limit"
+        ],
+        "rulesClauses": [
+            "(3): Activate this ability only twice."
+        ]
+    }
 }

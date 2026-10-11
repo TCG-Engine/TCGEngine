@@ -5,5 +5,18 @@
     "createdBy": "batch-script",
     "testedCards": [
         "CIU4gT14EE"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CIU4gT14EE"
+        ],
+        "mechanics": [
+            "recover",
+            "global-effect",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target player can't recover until end of turn."
+        ]
+    }
 }

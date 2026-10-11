@@ -8,5 +8,22 @@
         "du50pcescf",
         "ka5av43ehj",
         "xxoo7dl5j4"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x8o84m37ti",
+            "du50pcescf",
+            "ka5av43ehj",
+            "xxoo7dl5j4"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "gain-control",
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 2+] (3), [REST]: As a Spell, gain control of target unique ally. Activate this ability only if there are three or more unique allies on the field you don't control."
+        ]
+    }
 }

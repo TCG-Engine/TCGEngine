@@ -7,5 +7,20 @@
         "mvfcd0ukk6",
         "1a49w5gmf7",
         "mttsvbgl6f"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mvfcd0ukk6",
+            "1a49w5gmf7",
+            "mttsvbgl6f"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost",
+            "load"
+        ],
+        "rulesClauses": [
+            "Banish three other fire element cards from your graveyard: Load the card from your graveyard into target unloaded Bow weapon you control."
+        ]
+    }
 }

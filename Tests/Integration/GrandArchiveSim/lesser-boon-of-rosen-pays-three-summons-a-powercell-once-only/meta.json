@@ -5,5 +5,18 @@
     "createdBy": "batch-script",
     "testedCards": [
         "fJJBJ9M4c4"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fJJBJ9M4c4"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "summon",
+            "activation-limit"
+        ],
+        "rulesClauses": [
+            "(3): Summon a Powercell token rested. Activate this ability only once."
+        ]
+    }
 }

@@ -6,5 +6,20 @@
     "testedCards": [
         "MG8QoeZBXY",
         "mob9nu6lal"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MG8QoeZBXY",
+            "mob9nu6lal"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost",
+            "load",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] (3): Load this card from your graveyard into an Aetherwing weapon you control."
+        ]
+    }
 }

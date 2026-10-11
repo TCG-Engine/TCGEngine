@@ -5,5 +5,18 @@
     "createdBy": "batch-script",
     "testedCards": [
         "5qyee9vkp8"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5qyee9vkp8"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "class-bonus",
+            "cost-validation"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Element Bonus] (2), Banish this card from your graveyard: Target unit becomes distant. Activate this ability only if your champion's class matches this card's class."
+        ]
+    }
 }

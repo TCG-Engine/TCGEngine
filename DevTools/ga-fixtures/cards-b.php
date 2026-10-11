@@ -1557,4 +1557,8 @@ DECK
     ->seed('myField', 'Bauble of Scarcity')
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->target('myHand-3')->answer(2, 'myHand-6')->pass(1)
     ->tested('Bauble of Scarcity')
+    ->expectZoneCount('myBanish', 1, 1, 'Bauble of Scarcity banished itself as the cost')
+    ->expectZoneCount('myGraveyard', 1, 1, 'The activating player discarded a card')
+    ->expectZoneCount('theirGraveyard', 1, 1, "The opponent discarded a card from their own hand (the bug offered the activating player's hand)")
+    ->covers(['activated-ability', 'discard', 'banish-self'], 'Banish CARDNAME: Each player discards a card.')
     ->register();

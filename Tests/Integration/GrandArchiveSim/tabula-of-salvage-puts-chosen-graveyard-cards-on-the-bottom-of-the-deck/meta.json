@@ -5,5 +5,18 @@
     "createdBy": "batch-script",
     "testedCards": [
         "9cy4wipw4k"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9cy4wipw4k"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "zone-movement",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "Banish Tabula of Salvage: Choose up to five cards from your graveyard and put them on the bottom of your deck in any order."
+        ]
+    }
 }

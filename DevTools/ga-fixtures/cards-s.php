@@ -5050,6 +5050,10 @@ DECK
     ->seed('myGraveyard', 'Seaside Rangefinder')
     ->action(1, 10002, 'myGraveyard-0!FSM!')->target('theirField-0')->pay(2)
     ->tested('Seaside Rangefinder')
+    ->expectProperty('p2Field-0', 'TurnEffects', '["DISTANT"]', 'The targeted unit became distant')
+    ->expectZoneCount('myBanish', 1, 1, 'Seaside Rangefinder banished itself from the graveyard as the cost')
+    ->expectZoneCount('myMemory', 2, 1, '(2) was paid')
+    ->covers(['activated-ability', 'distant', 'class-bonus', 'cost'], '[Class Bonus] [Element Bonus] (2), Banish this card from your graveyard: Target unit becomes distant.')
     ->register();
 
 gaScenario('seaside-rangefinder-graveyard-ability-refused-without-the-ranger-class')
@@ -5066,6 +5070,10 @@ DECK
     ->seed('myGraveyard', 'Seaside Rangefinder')
     ->action(1, 10002, 'myGraveyard-0!FSM!')->target('theirField-0')
     ->tested('Seaside Rangefinder')
+    ->expectZoneCount('myGraveyard', 1, 1, 'Seaside Rangefinder stays in the graveyard: the ability is refused without the Ranger class')
+    ->expectZoneCount('myMemory', 0, 1, 'Nothing was paid')
+    ->expectProperty('p2Field-0', 'TurnEffects', '[]', 'The targeted unit did not become distant')
+    ->covers(['activated-ability', 'class-bonus', 'cost-validation'], '[Class Bonus] [Element Bonus] (2), Banish this card from your graveyard: Target unit becomes distant. Activate this ability only if your champion\'s class matches this card\'s class.')
     ->register();
 
 // Scorching Trap (wjbqjdmthh): "[Class Bonus] If it's not your turn, you may remove a preparation counter from your champion to activate this card from your memory without paying its reserve cost.

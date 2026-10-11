@@ -39,6 +39,10 @@ DECK
     ->seed('myField', 'Parcenet, Royal Maid', player: 2)
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(3)->target('theirField-1')
     ->tested('Yuan Shao, Crown General', 'Gawain, Chivalrous Thief', 'Morgan, Soul Guide', 'Parcenet, Royal Maid')
+    ->expectProperty('p2Field-1', 'Controller', '1', 'Gawain, Chivalrous Thief is now controlled by player 1')
+    ->expectProperty('p1Field-1', 'Status', '1', '[REST] was paid: Yuan Shao is rested')
+    ->expectZoneCount('myMemory', 3, 1, '(3) was paid')
+    ->covers(['activated-ability', 'gain-control', 'cost', 'condition'], '[Level 2+] (3), [REST]: As a Spell, gain control of target unique ally. Activate this ability only if there are three or more unique allies on the field you don\'t control.')
     ->register();
 
 gaScenario('yuan-shao-refused-with-only-two-unique-opposing-allies')
@@ -57,4 +61,8 @@ DECK
     ->seed('myField', 'Morgan, Soul Guide', player: 2)
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')
     ->tested('Yuan Shao, Crown General', 'Gawain, Chivalrous Thief', 'Morgan, Soul Guide')
+    ->expectProperty('p1Field-1', 'Status', '2', 'Yuan Shao stays awake: the ability was refused before any cost')
+    ->expectZoneCount('myMemory', 0, 1, 'Nothing was paid')
+    ->expectProperty('p2Field-1', 'Controller', '2', 'The opposing Gawain keeps its owner as controller')
+    ->covers(['activated-ability', 'condition', 'cost-validation'], 'Activate this ability only if there are three or more unique allies on the field you don\'t control.')
     ->register();

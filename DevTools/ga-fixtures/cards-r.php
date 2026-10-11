@@ -1692,6 +1692,10 @@ DECK
     ->seed('myGraveyard', 'Recurring Aethercharge')
     ->action(1, 10002, 'myGraveyard-0!FSM!')->pay(3)
     ->tested('Recurring Aethercharge', 'Salamander\'s Breath')
+    ->expectProperty('p1Field-1', 'Subcards', '["MG8QoeZBXY"]', "Recurring Aethercharge was loaded into Salamander's Breath")
+    ->expectZoneCount('myGraveyard', 0, 1, 'It left the graveyard')
+    ->expectZoneCount('myMemory', 3, 1, '(3) was paid')
+    ->covers(['activated-ability', 'cost', 'load', 'class-bonus'], '[Class Bonus] (3): Load this card from your graveyard into an Aetherwing weapon you control.')
     ->register();
 
 // Rosewinged Hollow (6S1LLrBfBU): "[Alice Bonus] [Element Bonus] (2), Banish this card from your graveyard: Put a haunt counter on your Phantasmagoria. Then if there are six or more haunt counters on it, choose a Specter ally
@@ -1715,6 +1719,10 @@ DECK
     ->seed('myGraveyard', 'Rosewinged Hollow')
     ->action(1, 10002, 'myGraveyard-0!FSM!')->target('myField-1')->pay(2)
     ->tested('Rosewinged Hollow', 'Vengeful Paramour')
+    ->expectProperty('p1Mastery-0', 'Counters', '{"haunt":6}', 'A haunt counter was put on Phantasmagoria (5 -> 6)')
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","6S1LLrBfBU"]', 'With six haunt counters the Specter ally got the +2 POWER effect')
+    ->expectZoneCount('myBanish', 1, 1, 'Rosewinged Hollow banished itself as the cost')
+    ->covers(['activated-ability', 'counter', 'condition', 'banish-self'], '[Alice Bonus] [Element Bonus] (2), Banish this card from your graveyard: Put a haunt counter on your Phantasmagoria. Then if there are six or more haunt counters on it, choose a Specter ally you control and it gets +2 POWER until end of turn.')
     ->register();
 
 // Multi-pick abilities whose next pick was offered right after MZMove() and before the zone was compacted: the later candidate lists were off by the cards already moved (a real card skipped, an index past the end).
@@ -1741,4 +1749,8 @@ DECK
     ->play('Restorative Flame')->pay(2)->target('myGraveyard-3')->target('myGraveyard-2')->target('myGraveyard-0')
     ->pass(1)
     ->tested('Restorative Flame', 'Red Slime')
+    ->expectDamage('p1Field-0', 4, 'Three fire cards banished: recover 2 each = 6, so the 10 damage drops to 4')
+    ->expectZoneCount('myBanish', 3, 1, 'All three fire cards were banished, taking the last card each time')
+    ->expectZoneCount('myGraveyard', 2, 1, 'The Dungeon Guide and Restorative Flame remain in the graveyard')
+    ->covers(['recover', 'banish', 'multi-pick'], 'Banish up to three fire element cards from your graveyard. For each card banished this way, recover 2.')
     ->register();

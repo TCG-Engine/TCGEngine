@@ -1,1 +1,20 @@
-[]
+[
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"V8aPGgLyh5_uses\":2}",
+        "semantic": true,
+        "label": "Two activations were recorded; the third was refused"
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Each of the two activations paid (3)"
+    }
+]

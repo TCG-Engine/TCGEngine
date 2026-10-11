@@ -1506,6 +1506,10 @@ DECK
     ->patch('myField-2', ['Counters' => ['linkedToAlly' => 'du50pcescf']])
     ->action(1, 10001, 'myField-2!CustomInput!Activate:0')->pay(3)->pass(1)
     ->tested('PlasmaTech Blaster', 'Gawain, Chivalrous Thief')
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT"]', 'The linked Ranger (Gawain) became distant')
+    ->expectProperty('p1Field-2', 'Status', '1', '[REST] was paid: PlasmaTech Blaster is rested')
+    ->expectZoneCount('myMemory', 3, 1, '(3) was paid')
+    ->covers(['activated-ability', 'distant', 'condition', 'cost'], '(3), [REST]: If linked ally is a Ranger, it becomes distant.')
     ->register();
 
 // Pouvoir Absolu (OylAWd6Tew): "[Ciel Bonus] Banish the top ten cards of your deck and put an omen counter on each of them. For the rest of the game, you may activate your omens." The generated body called a
@@ -1539,4 +1543,9 @@ DECK
     ->castSpell('Pouvoir Absolu', pay: 13, window: 'both')
     ->action(1, 10002, 'myBanish-0!FSM!')->pay(3)->answer(1, 'NO')
     ->tested('Pouvoir Absolu', 'Ciel, Loyal Valet')
+    ->expectZoneCount('myBanish', 9, 1, 'Ten cards were banished and the first omen was then activated, leaving nine')
+    ->expectProperty('p1Banish-0', 'Counters', '{"omen":1}', 'The banished cards carry omen counters')
+    ->expectProperty('p1Field-1', 'CardID', 'em6eEh9q8y', 'The first omen (a Dungeon Guide) was activated onto the field')
+    ->expectProperty('p1Graveyard-0', 'CardID', 'OylAWd6Tew', 'Pouvoir Absolu resolved')
+    ->covers(['omen', 'banish', 'zone-movement'], '[Ciel Bonus] Banish the top ten cards of your deck and put an omen counter on each of them. For the rest of the game, you may activate your omens.')
     ->register();

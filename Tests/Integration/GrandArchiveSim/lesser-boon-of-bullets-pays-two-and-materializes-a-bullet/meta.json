@@ -6,5 +6,19 @@
     "testedCards": [
         "UI0lAtGQBb",
         "ao8bki6fxx"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UI0lAtGQBb",
+            "ao8bki6fxx"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "materialize",
+            "cost"
+        ],
+        "rulesClauses": [
+            "(2): Materialize a Bullet card from your material deck."
+        ]
+    }
 }

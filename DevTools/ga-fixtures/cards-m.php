@@ -1760,6 +1760,10 @@ DECK
     ->action(1, 10002, 'myGraveyard-3!FSM!')->target('myGraveyard-0')->target('myGraveyard-0')
     ->target('myGraveyard-0')
     ->tested('Molten Arrow', 'Intricate Longbow', 'Red Slime')
+    ->expectProperty('p1Field-1', 'Subcards', '["mvfcd0ukk6"]', 'Molten Arrow was loaded into the Intricate Longbow')
+    ->expectZoneCount('myBanish', 3, 1, 'The three other fire cards were banished as the cost')
+    ->expectZoneCount('myGraveyard', 0, 1, 'The arrow left the graveyard')
+    ->covers(['activated-ability', 'cost', 'load'], 'Banish three other fire element cards from your graveyard: Load the card from your graveyard into target unloaded Bow weapon you control.')
     ->register();
 
 gaScenario('mercenarys-blade-activates-from-the-material-deck-by-removing-a-preparation-counter')

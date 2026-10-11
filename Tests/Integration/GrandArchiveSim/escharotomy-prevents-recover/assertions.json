@@ -44,7 +44,9 @@
         "type": "card_property_equals",
         "mzId": "p1Graveyard-0",
         "property": "CardID",
-        "value": "CIU4gT14EE"
+        "value": "CIU4gT14EE",
+        "semantic": true,
+        "label": "Escharotomy resolved into the graveyard"
     },
     {
         "step": 5,
@@ -58,7 +60,9 @@
         "type": "card_property_equals",
         "mzId": "p2GlobalEffects-0",
         "property": "CardID",
-        "value": "CANT_RECOVER"
+        "value": "CANT_RECOVER",
+        "semantic": true,
+        "label": "Choosing the opponent applied a can't-recover effect to them"
     },
     {
         "step": 5,

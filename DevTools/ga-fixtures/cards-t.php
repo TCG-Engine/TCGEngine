@@ -1577,4 +1577,8 @@ DECK
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->target('myGraveyard-2')->target('myGraveyard-1')
     ->target('myGraveyard-0')->pass(1)
     ->tested('Tabula of Salvage')
+    ->expectZoneCount('myDeck', 16, 1, 'The three chosen graveyard cards went to the deck (13 + 3)')
+    ->expectZoneCount('myGraveyard', 0, 1, 'The graveyard is empty')
+    ->expectZoneCount('myBanish', 1, 1, 'Tabula of Salvage banished itself as the cost')
+    ->covers(['activated-ability', 'zone-movement', 'banish-self'], 'Banish Tabula of Salvage: Choose up to five cards from your graveyard and put them on the bottom of your deck in any order.')
     ->register();

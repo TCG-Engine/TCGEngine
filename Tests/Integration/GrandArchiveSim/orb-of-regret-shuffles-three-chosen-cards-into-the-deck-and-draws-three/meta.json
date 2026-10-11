@@ -5,5 +5,18 @@
     "createdBy": "batch-script",
     "testedCards": [
         "BY0E8si926"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "BY0E8si926"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "shuffle",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Shuffle up to three cards from your hand into your deck, then draw that many cards."
+        ]
+    }
 }

@@ -2073,6 +2073,8 @@ DECK
     ->patch('myField-0', ['CardID' => 'enxi6tshtu', 'Subcards' => ['tafqldAGRF'], 'Counters' => ['level' => 7, 'enlighten' => 3, '_overrides' => ['classes' => 'MAGE', 'element' => 'WATER']]])
     ->seed('myHand', 'Cone of Frost')
     ->castSpell('Cone of Frost', pay: 2, window: 'me', target: 'theirField-0')
+    ->expectDamage('p2Field-0', 2, 'Passing the opportunity window did not cancel the spell: the level-1 effect dealt 2 damage to the opposing champion')
+    ->covers(['optional-choice', 'level-gated-effects', 'priority-window'], '[Level 1+] Deal 2 damage to up to one target unit.')
     ->register();
 
 // An Action card sits in the graveyard only once it has finished resolving; while it resolves its own effect cannot see it. Cyclical Breeze (3cmrkv3y16): "Return target wind element Spell card from your graveyard

@@ -513,6 +513,9 @@ DECK
     ->champion(classes: 'WARRIOR')
     ->seed('myHand', 'VelTech QA Tester')
     ->castSpell('VelTech QA Tester', pay: 3, window: 'me')
+    ->expectProperty('p1Field-1', 'CardID', '2XWNCcPN6o', 'VelTech QA Tester resolves onto the field (regression: its own cost modifier crashed on the card being activated)')
+    ->expectZoneCount('myMemory', 3, 1, 'Its reserve cost of 3 was paid')
+    ->covers(['on-enter', 'cost-modification'], 'On Enter: The next VelTech item card you activate targeting CARDNAME this turn costs 3 less to activate.')
     ->register();
 
 // Notes carried over from the original definition:
