@@ -242,7 +242,7 @@ const SWU_BOT_PART16_FEATURES = ['aspectwaiver'];
 const SWU_BOT_PART17_FEATURES = ['hostpolicy'];
 
 // Part 18 (2026-10-01): 'doomedsac' — a unit that is going to die anyway is cheap to sacrifice. Owner rulings, from the
-// Karabast Krennic games (the human sent their own deployed Krennic back with Chimaera):
+// human Krennic games (the human sent their own deployed Krennic back with Chimaera):
 //   2a a DEPLOYED LEADER is a sacrifice (Chimaera's friendly pick) when it is Condemned (SEC_038 — sending it back
 //      restores its front side) or has 2 or less HP left and the opponent can deal with it — but only when no other
 //      fodder is available, so it is priced above a 2-cost body (SWU_BOT_DOOMED_LEADER_SAC_COST).
@@ -266,7 +266,7 @@ const SWU_BOT_PART18_FEATURES = ['doomedsac', 'unusedsac'];
 // SHIPPED on the owner's request, not on an A/B. Guard: SWUSim/DevTools/tests/bot_weakness_test.php.
 const SWU_BOT_PART19_FEATURES = ['weakness'];
 
-// Part 20 (2026-10-02): owner rulings from Ninin's Ahsoka Yellow (ASH_009) Karabast games.
+// Part 20 (2026-10-02): owner rulings from Ninin's Ahsoka Yellow (ASH_009) human games.
 // 'buffspread' — a Support leader's flip turn SPREADS its "+N for this phase" buffs so every one lands on a unit that
 //   still attacks: "+2 Raid from the Naboo ship onto the Supported unit, +2 from Jar Jar to this or another unit, +2
 //   Supported attack buffs someone else (or Ahsoka), then +2 Raid from Ahsoka attacking and another +2 on her own On
@@ -1018,9 +1018,52 @@ const SWU_BOT_PROPOSALS = [
     // 2026-10-09: the tuck re-buy share SHIPPED at 0.25 (0.1 / 0 probed better but switch off the owner's loops); 16 dead / harmful /
     // faded levers DELETED (results: memory lever-screen-2026-10-09).
     // Numeric levers (an alternative value of a p42 knob — SWU_BOT_LEVER_VALUES below):
-    'mandoclaimhalf', 'mandoclaimx2', 'supporthalf', 'basehealx2', 'basehealhalf', 'anakinpitchx2', 'anakinpitchhalf', 'sentsac2', 'barefodder1', 'yodaloop4', 'yodaloop6', 'pitchline15', 'pitchline7', 'attackreservehalf', 'race2', 'race4', 'healpress20', 'healpress10', 'healunit075', 'searchhalf', 'searchx2',
+    // 2026-10-11: 'mandoclaimx2' (CLAIM_DRAW_MULT 2.0) DELETED — the 2026-10-10 overnight screen measured it −8.8pp on Mando Colossus
+    // (5:28 paired, p .0001); the shipped multiplier 1.0 stands.
+    'mandoclaimhalf', 'supporthalf', 'basehealx2', 'basehealhalf', 'anakinpitchx2', 'anakinpitchhalf', 'sentsac2', 'barefodder1', 'yodaloop4', 'yodaloop6', 'pitchline15', 'pitchline7', 'attackreservehalf', 'race2', 'race4', 'healpress20', 'healpress10', 'healunit075', 'searchhalf', 'searchx2',
     // Behaviour levers (a p42 rule read another way — gated at their site with SWUBotProposalOn):
     'cleanupkillonly', 'cleanupall', 'cleanupclock', 'bokatan4r', 'pitchdeck', 'stabkeepdup', 'sentsacdoomed', 'forcerefillonly', 'forcespendonly', 'yodapartial', 'landoflipaction', 'deployswingall', 'doubleplaycost',
+    // ── 2026-10-10 HUMAN-GAME LEVER SCREEN. New levers derived from Ninin's human-vs-human logs (private + public games), NOT
+    // from bot traces (those games never hit BotData). Each is screened against the full stack on its focus deck; default OFF;
+    // each has a mutation-checked guard test. See memory `swusim-human-game-levers-2026-10-10`.
+    // Fatigue / deck-out (CR §6.1, 3 damage per undrawable card, 2 drawn per regroup). Maul vs Hemlock was decided by a
+    // deck-out finish — nothing modelled the opponent's deck-out as a clock. The three arms each enable the behaviour AND set
+    // the horizon (opp deck size at which it activates): fatiguewin = 5, fatiguehorizon3 = 3, fatiguehorizon8 = 8.
+    'fatiguewin', 'fatiguehorizon3', 'fatiguehorizon8',
+    'fatigueself',      // my deck about to deck-out + I have a board: stop drawing, close (SWUBotDrawMultiplier)
+    'millcredit',       // milling THEIR deck is worth its deck-out damage (3/card) when their deck is low
+    // Heal as race equity (Chimaera/Owen Lars Restore out-races Boba burn; the bot "can't close vs a healing deck"). A seat's
+    // recurring base-heal (Restore N) raises ITS effective base HP in the race math — symmetric, so it covers both "don't count
+    // damage the opponent heals back as progress" (attacking a healer) and "my heal is survival equity" (racing while I heal).
+    'healrace',
+    // Tempo layer (owner-wanted, deferred): value an exhaust effect by the enemy attack it denies this round (Vane/Hemlock tempo).
+    'exhaustlock',      // scale the 'exhaust' tag by the opponent's best ready attacker — big threat = worth more, empty board = ~0
+    // "Take control of a unit, then defeat it" (JTL_043 No Glory, Only Results): the stolen unit dies under MY control, so its When
+    // Defeated fires for me. Kyzzy (Hemlock) stole Ninin's Annihilator and its When Defeated killed Anakin and stripped the other Anakin
+    // from hand. The take-control picker ranked targets by unit value alone.
+    'noglorywd',
+    // ── 2026-10-11 KRENNIC WORKSHOP — owner rulings answering memory `krennic-underperformance-2026-10-11` (bot Krennic 25% vs the exact
+    // bot Hemlock list the owner beat 4/5; it deploys R6 vs the owner's R11 and claims initiative ~2x as often per round).
+    'krennicdeploy', 'krennicdeploy4', 'krennicdeploy6',   // Q1: deploy LAW_008 only for a BIG strike from a host that sticks (power
+                                                           // >= 5 / 4 / 6) or once stabilised — "saving for a big unit in play that i
+                                                           // know would stick … or if i knew i was already stabilized i deployed to apply pressure"
+    'claimspent',       // Q2: control wing PASSES instead of claiming initiative while the opponent can still act (claiming forfeits the rest
+                        // of the round; 239 of 279 traced Krennic claims came from the fallback's flat +0.05 over pass)
+    'claimbomb',        // Q2: claim early when I hold next-round removal for their bomb (cost >= 5) and they are spent — "they just played a
+                        // bomb and i know they won't play anything else or attack with anything else"
+    'nogideon',         // Q3: ASH_097 Moff Gideon is never sacrificed (Credit Action, Chimaera, any sacrifice pick)
+    'chimaeraweakest',  // Q3: Chimaera's friendly pick is the WEAKEST unit (lowest unit value), not the cheapest after When Defeated payback
+    // ── 2026-10-11 SWU FORGE RESOURCING — Ninin's 22 SWU Forge games on Krennic Blue Splash v2 vs 600 bot games on the same list
+    // (memory `krennic-v2-swuforge-resourcing-gap-2026-10-11`): the bot's OPENING resource pick banks the cards she wins with.
+    'stylemap',         // "is the opponent aggro" read from the meta's leader + BASE map (BotOpponentStyles.php), not SWU_BOT_AGGRO_LEADERS. bot_stylemap_test
+    'rampres',          // credit-ramp control seat: keep answers + ramp pieces, Lawbringer vs aggro, HSD resourced unless space. bot_rampres_test
+    // Levers considered and DROPPED after grounding against the real scorer (kept as notes so they are not re-proposed):
+    //   legacysplitkill — _SWUBotSplitScore already scores W['kill'] x value + 0.5 per killed target, plus 'splitlethal'.
+    //   debuffkill      — _SWUBotWeaknessScore already returns a KILL when a -X/-X's loss >= the target's remaining HP (~line 1159).
+    //   graveyardtheft  — _SWUBotPlayValue already prices a play-from-discard ('discard' route); opponent-discard theft is a ~2-card niche.
+    //   handhate        — there is no opponent-hand-discard CARD TAG; only the YESNO picker prices it (flat 0.5). Needs a text detector.
+    //   recursionwipe   — no "overcommit into the opponent's wipe" penalty exists to discount; would need a new penalty built first.
+    //   saboteurgrant   — needs a dedicated board computation (does the grant give a specific attacker lethal through a Sentinel).
 ];
 
 
@@ -1028,7 +1071,6 @@ const SWU_BOT_PROPOSALS = [
 // default (the shipped p42 value) unless one of that knob's proposals is on.
 const SWU_BOT_LEVER_VALUES = [
     'mandoclaimhalf' => ['CLAIM_DRAW_MULT', 0.5],
-    'mandoclaimx2' => ['CLAIM_DRAW_MULT', 2.0],
     'supporthalf' => ['SUPPORT_ATTACK_SHARE', 0.5],
     'basehealx2' => ['BASEHEAL_MULT', 2.0],
     'basehealhalf' => ['BASEHEAL_MULT', 0.5],
@@ -1054,6 +1096,27 @@ function SWUBotLeverNum(string $knob, float $default): float {
     return $default;
 }
 
+// 2026-10-10 human-game screen. The fatigue (deck-out) behaviour is enabled by any of its three arms, each carrying its own
+// horizon (the opponent deck size at which deck-out damage starts counting as a clock). Kept as one on/off helper so the hook
+// sites read the same gate.
+function SWUBotFatigueOn(): bool {
+    return SWUBotProposalOn('fatiguewin') || SWUBotProposalOn('fatiguehorizon3') || SWUBotProposalOn('fatiguehorizon8');
+}
+// 2026-10-11 Krennic workshop: the deploy rule is enabled by any of its three arms; each carries its "big host" power bar.
+function SWUBotKrennicDeployOn(): bool {
+    return SWUBotProposalOn('krennicdeploy') || SWUBotProposalOn('krennicdeploy4') || SWUBotProposalOn('krennicdeploy6');
+}
+function SWUBotKrennicDeployBig(): int {
+    if (SWUBotProposalOn('krennicdeploy4')) return 4;
+    if (SWUBotProposalOn('krennicdeploy6')) return 6;
+    return 5;
+}
+function SWUBotFatigueHorizon(): int {
+    if (SWUBotProposalOn('fatiguehorizon3')) return 3;
+    if (SWUBotProposalOn('fatiguehorizon8')) return 8;
+    return 5;
+}
+
 function SWUBotProposalList(): array {
     return SWU_BOT_PROPOSALS;
 }
@@ -1076,6 +1139,8 @@ const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
                                  'mullfix'     => ['mullhandsize', 'mulleventclamp', 'mullanswer'],   // 2026-10-07 gap screen
                                  // 2026-10-07 canary: the four gap-screen levers that pointed the right way (unconfirmed at 60 g/cell).
                                  'gapstack'    => ['wallkeeparena', 'cravinganswer', 'wallarena', 'bobaspace'],
+                                 // 2026-10-11 Krennic workshop: all five owner rulings together.
+                                 'krennicws'   => ['krennicdeploy', 'claimspent', 'claimbomb', 'nogideon', 'chimaeraweakest'],
                                  ];
 // ⚠ No 'creditline' group. #1098 + #1099 are one chain, but p16 shipped the waiver half as a FEATURE, so
 // plain @try-creditbank already measures "the Credit half ON TOP OF the waiver fix" — a group would just

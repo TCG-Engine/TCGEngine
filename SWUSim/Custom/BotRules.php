@@ -244,12 +244,24 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
 //     out of that sum — attackFirst's flat 6.00 is a SEQUENCING bonus, not a value.
 // Placed ahead of rule 8 on purpose: scenario (b) leaves only attack / pass / initiative, which rule 8 answers
 // with the free attack before the fallback ever sees the initiative.
+// 2026-10-11 Krennic workshop, proposal 'claimbomb' — the owner's version of this rule (Q2): "in a control deck i sometimes claim early if i
+// have removal in hand and they just played a bomb and i know they won't play anything else or attack with anything else." The proposal
+// above lost three times; it never asked whether the opponent was DONE, so its claim gave up a round the opponent kept using. Under
+// 'claimbomb' (and not 'initiative'): only while the opponent is spent (_SWUBotOpponentSpent), only for a bomb (printed cost >= 5), and
+// whichever seat holds the still-unclaimed initiative — a spent opponent can still take it, which is why the owner claims early.
+const SWU_BOT_CLAIM_BOMB_COST = 5;
 function SWUBotRuleInitiativeForAnswer(array $ctx): ?array {
-    if (!SWUBotProposalOn('initiative') || !_SWUBotIsFreePlay($ctx)) return null;
+    $bombOnly = SWUBotProposalOn('claimbomb') && !SWUBotProposalOn('initiative');
+    if ((!SWUBotProposalOn('initiative') && !$bombOnly) || !_SWUBotIsFreePlay($ctx)) return null;
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
     if (SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3) return null;
     $init = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'initiative');
-    if ($init === null || strval(GetInitiativeCounter() ?? '') !== 'P' . $opp . '_UNCLAIMED') return null;
+    if ($init === null) return null;
+    $counter = strval(GetInitiativeCounter() ?? '');
+    // (An already-CLAIMED initiative needs no check: the engine stops offering the action, so $init is null above.)
+    if ($bombOnly) {
+        if (!_SWUBotOpponentSpent($seat)) return null;
+    } elseif ($counter !== 'P' . $opp . '_UNCLAIMED') return null;
     $W = SWUBotWeights(strval($ctx['style']), $seat);
     $capNow = SWUTotalPaymentCapacity($seat);
     $capNext = SWUResourceCount($seat) + 1 + count(SWUUsableCreditTokenMzIDs($seat));
@@ -259,6 +271,7 @@ function SWUBotRuleInitiativeForAnswer(array $ctx): ?array {
         $cost = intval(SWUComputePlayCost($seat, $o));
         if ($cost <= $capNow || $cost > $capNext) continue;
         foreach (SWUBotUnits($opp) as $u) {
+            if ($bombOnly && intval($u['cost']) < SWU_BOT_CLAIM_BOMB_COST) continue;   // 'claimbomb': their bomb, not any threat
             if (SWUBotHandCardKills(strval($o->CardID), $u)) $threat = max($threat, SWUBotUnitBaseThreat($seat, $u));
         }
     }

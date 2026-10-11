@@ -243,6 +243,19 @@ if (isset($lobby) && is_object($lobby)) {
  * Resolve and load a deck for one player.
  * Returns true on success, false on failure (caller should abort game setup).
  */
+// Per-game secret RNG seed — established ONCE (idempotent across the per-player calls), before any
+// shuffle, so the deterministic shuffles (Task 3) are unpredictable yet reproducible for undo.
+// RNG_V 2: the RNG material leaves out $updateNumber (Core/DeterministicRNG.php), which Undo cannot roll
+// back — without it, mulligan → Undo → mulligan redrew a different hand. Versioned so games created
+// before it, and their input replays, keep the old formula.
+function SWUEnsureRandomnessSeed(): void
+{
+    if (GetSWUVar('RNG_SEED', '') === '') {
+        SetSWUVar('RNG_SEED', bin2hex(random_bytes(16)));
+    }
+    if (GetSWUVar('RNG_V', '') === '') SetSWUVar('RNG_V', '2');
+}
+
 function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '', $resolved = null) {
     if ($resolved === null) {
         if (empty($deckLink)) {
@@ -297,11 +310,7 @@ function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '', $resolve
         array_push($baseZone, $newBase);
     }
 
-    // Per-game secret RNG seed — established ONCE (idempotent across the per-player calls), before any
-    // shuffle, so the deterministic shuffles (Task 3) are unpredictable yet reproducible for undo.
-    if (GetSWUVar('RNG_SEED', '') === '') {
-        SetSWUVar('RNG_SEED', bin2hex(random_bytes(16)));
-    }
+    SWUEnsureRandomnessSeed();
 
     // Main deck → Deck zone (shuffled)
     if (!empty($resolved['mainDeck'])) {

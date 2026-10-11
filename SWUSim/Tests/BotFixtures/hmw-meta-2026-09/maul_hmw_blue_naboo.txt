@@ -1,0 +1,45 @@
+# Real-deck self-play fixture — Maul, Old Master - Great Grass Plains
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #28 of 39 (2-4-0), player FF_LordBuckethead
+#   https://melee.gg/Decklist/View/87a19baf-9ac2-47c9-b9d7-b4de015ae68a — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Maul (HMW) Blue (Naboo) archetype in this event — the only list of it.
+#   Base trait (Naboo) is part of the archetype: a card in the deck or sideboard cares about a Naboo base.
+#   Main 54 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): softcontrol — the classifier read softcontrol (shape, high confidence: shape score 2.88 (avg cost 3.96, 12 cheap, 10 big, 11 removal, 3 wipe, 0 draw))
+# Style: softcontrol
+
+Leader
+1 HMW_016
+
+Base
+1 HMW_020
+
+Deck
+3 LOF_070
+3 LAW_118
+3 ASH_048
+3 ASH_219
+3 LOF_057
+3 LAW_237
+3 LOF_242
+2 ASH_192
+2 ASH_053
+3 ASH_052
+3 JTL_184
+3 JTL_033
+3 ASH_194
+3 LOF_034
+3 LOF_213
+3 JTL_043
+2 LAW_133
+1 SEC_078
+3 HMW_198
+2 HMW_204
+
+Sideboard
+2 JTL_041
+2 SEC_186
+2 ASH_220
+1 SEC_078
+1 LAW_133
+1 LAW_096
+1 HMW_094

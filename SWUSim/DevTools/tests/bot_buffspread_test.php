@@ -1,6 +1,6 @@
 <?php
 // Part 20 'buffspread' — a Support leader's flip turn spreads its "+N for this phase" buffs so every one lands on a unit
-// that still attacks. Owner rulings 2026-10-02, from Ninin's Ahsoka Yellow (ASH_009 Ahsoka Tano, Otoh Gunga) Karabast games:
+// that still attacks. Owner rulings 2026-10-02, from Ninin's Ahsoka Yellow (ASH_009 Ahsoka Tano, Otoh Gunga) human games:
 //   "it's best to spread the buffs to get a +10 that turn. +2 Raid from Naboo ship onto the Supported unit, +2 from Jar Jar
 //    to this or another unit, +2 Supported attack buffs someone else (or Ahsoka), then +2 Raid from Ahsoka attacking and
 //    another +2 buff on her own On Attack"

@@ -1,0 +1,13 @@
+{
+ "frozen": "2026-10-11T23:04:36Z",
+ "gitHead": "2c43fbfe",
+ "treeDirty": true,
+ "arm": "superset+seeds:tb+pairs:pairs.txt",
+ "games": 19647,
+ "failed": 9,
+ "matches": 9924,
+ "run": ".claude/tmp/tourney-baseline/run",
+ "note": "First ASH meta baseline (owner 2026-10-11). Full stack (no variant), superset decks (main + sideboard), both seats, seed tb001. Game code = HEAD 2c43fbfe exactly (committed 2026-10-11 18:46 UTC, before the 19:42 UTC run start; includes the default-OFF Krennic-workshop and human-game levers). treeDirty = only SWUSim/DevTools sweep scripts (the results-gather fix), no game effect.",
+ "startedUtc": "2026-10-11T19:42:31Z",
+ "finishedUtc": "2026-10-11T22:15:30Z"
+}

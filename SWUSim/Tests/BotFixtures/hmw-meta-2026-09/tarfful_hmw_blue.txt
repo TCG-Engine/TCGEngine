@@ -1,0 +1,45 @@
+# Real-deck self-play fixture — Tarfful, Fighting from the Shadowlands - Great Grass Plains
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #37 of 39 (1-3-0), player Deowag
+#   https://melee.gg/Decklist/View/7bc60ff8-6b3d-4593-a25e-b4df007b7a71 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Tarfful (HMW) Blue archetype in this event — the only list of it.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): midrange — the classifier read softcontrol (shape, high confidence: shape score 3.03 (avg cost 5.04, 0 cheap, 13 big, 11 removal, 2 wipe, 0 draw))
+# Style: midrange
+
+Leader
+1 HMW_010
+
+Base
+1 HMW_020
+
+Deck
+3 LOF_070
+3 SEC_051
+3 LOF_096
+2 SEC_098
+2 JTL_103
+2 LOF_046
+2 SEC_046
+2 LOF_100
+2 ASH_079
+2 LAW_039
+2 SEC_101
+2 ASH_133
+1 ASH_053
+1 ASH_077
+1 ASH_062
+3 JTL_096
+3 ASH_109
+2 ASH_052
+3 LAW_133
+3 LOF_128
+2 JTL_043
+1 SEC_078
+3 HMW_151
+
+Sideboard
+2 JTL_112
+2 ASH_112
+2 LAW_041
+2 LAW_149
+2 LAW_040

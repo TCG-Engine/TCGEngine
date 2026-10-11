@@ -3,7 +3,7 @@
 #   Converted 2026-10-01. 50 main-deck cards, 6 sideboard.
 #   Base trait: Otoh Gunga is Naboo, but no card in the deck cares, so the trait is not part of its name.
 #   Owner, 2026-10-01: "Ninin's Ahsoka Yellow is actually a hyperaggro deck and not softaggro" — it races the base
-#   (38 of 39 attacks in 5 Karabast games) and stops resourcing at 6 to keep cards for Aggressive Negotiations.
+#   (38 of 39 attacks in 5 human games) and stops resourcing at 6 to keep cards for Aggressive Negotiations.
 # Author: Ninin
 # Archetype (owner's label, 2026-10-01): Hyper aggro
 # Style: hyperaggro

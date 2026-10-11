@@ -1,0 +1,15 @@
+{
+ "meta": "hmw",
+ "events": 1,
+ "dates": "2026-10-10",
+ "eyebrow": "SWUSim meta baseline \u00b7 HMW (Nexus Open: Homeworlds)",
+ "matrixTitle": "HMW Bot vs Real Matchups",
+ "curatedFixtures": "SWUSim/Tests/BotFixtures/hmw-meta-2026-09",
+ "source": "melee 480807 \u2014 Nexus Open: Homeworlds (2026-10-10, 39 players, 26 public lists); the first HMW set, \"for now\" (owner 2026-10-11)",
+ "superset": true,
+ "seedPrefix": "tb",
+ "matrixArtifact": "https://claude.ai/artifact/7WWPM4jigHT6ss89YGwV7a",
+ "decks": 24,
+ "analyzeArgs": "--min 3 --cell-min 2",
+ "matrixArgs": "--min 1"
+}

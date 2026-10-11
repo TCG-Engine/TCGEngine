@@ -1,0 +1,45 @@
+# Real-deck self-play fixture — Poggle the Lesser, Let the Executions Begin - Shield Generator Complex
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #34 of 39 (2-4-0), player Porg
+#   https://melee.gg/Decklist/View/e43178c7-b3d6-47f7-bb37-b4de0142040a — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Poggle the Lesser (HMW) Blue (Endor) archetype in this event — the only list of it.
+#   Base trait (Endor) is part of the archetype: a card in the deck or sideboard cares about a Endor base.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): midrange — the classifier read midrange (shape, medium confidence: shape score 1.74 (avg cost 3.16, 12 cheap, 4 big, 0 removal, 0 wipe, 0 draw))
+# Style: midrange
+
+Leader
+1 HMW_012
+
+Base
+1 JTL_020
+
+Deck
+3 LAW_173
+3 LOF_130
+3 ASH_030
+3 LOF_063
+3 ASH_032
+2 LAW_191
+2 ASH_079
+2 SEC_179
+2 LAW_202
+2 LOF_139
+2 LAW_129
+2 SEC_069
+3 HMW_177
+3 HMW_156
+3 HMW_182
+3 HMW_064
+2 HMW_065
+2 HMW_159
+2 HMW_188
+2 HMW_193
+1 HMW_155
+
+Sideboard
+2 SEC_170
+2 JTL_043
+2 SEC_163
+2 ASH_090
+1 LOF_139
+1 LAW_129

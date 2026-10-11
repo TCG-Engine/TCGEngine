@@ -46,9 +46,10 @@ $check($size('darth-vader_jtl_yellow') === 60, 'Vader yellow 50 + 10 = 60 → ' 
 $check($size('grand-admiral-thrawn_jtl_data-vault') === 70, 'Thrawn Data Vault 60 + 10 = 70 → ' . $size('grand-admiral-thrawn_jtl_data-vault'));
 $check($size('the-mandalorian_ash_colossus') === 75, 'Mando Colossus 65 + 10 = 75 (with the 3 Zebs restored) → ' . $size('the-mandalorian_ash_colossus'));
 
-// A deck WITHOUT a sideboard is refused (null), never silently played as its game-1 list.
-$weak = glob('./SWUSim/Tests/BotFixtures/weak-2026-09/*.txt')[0] ?? '';
-$check($weak !== '' && SWUBotFixtureSuperset((string)file_get_contents($weak)) === null,
-    'a fixture with no Sideboard section folds to null, so --superset refuses it: ' . basename($weak));
+// A deck WITHOUT a sideboard is refused (null), never silently played as its game-1 list. (This read a weak-2026-09 fixture until that
+// directory was removed, 2026-10-11 — the owner dropped its assertions; the rule itself is pinned here on inline text.)
+$noSideboard = "# Style: midrange\n\nLeader\n1 SOR_014\n\nBase\n1 SOR_020\n\nDeck\n3 SOR_095\n";
+$check(SWUBotFixtureSuperset($noSideboard) === null, 'a fixture with no Sideboard section folds to null, so --superset refuses it');
+$check(SWUBotFixtureSuperset($noSideboard . "\nSideboard\n") !== null, '...while an EMPTY Sideboard section folds (to the main deck alone)');
 
 bot_test_finish();

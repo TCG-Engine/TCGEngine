@@ -1,0 +1,43 @@
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Mos Eisley
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #23 of 39 (3-3-0), player tractix
+#   https://melee.gg/Decklist/View/d7bf5e28-1103-4326-b11e-b4de012f1c5e — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Ahsoka Tano (ASH) Yellow (Tatooine) archetype in this event — the only list of it.
+#   Base trait (Tatooine) is part of the archetype: a card in the deck or sideboard cares about a Tatooine base.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): softaggro — the classifier read softaggro (shape, medium confidence: shape score 0.67 (avg cost 3.08, 20 cheap, 4 big, 0 removal, 0 wipe, 0 draw); nearest labelled list ahsoka-tano_ash_yellow is only 38%)
+# Style: softaggro
+# Flavours: mixed-space
+
+Leader
+1 ASH_009
+
+Base
+1 JTL_030
+
+Deck
+3 LOF_191
+3 SEC_098
+3 SEC_111
+3 LAW_067
+3 ASH_248
+3 SEC_101
+3 LAW_223
+2 LAW_146
+3 SEC_213
+3 SEC_099
+2 SEC_204
+2 JTL_096
+3 HMW_254
+3 HMW_136
+3 HMW_213
+2 HMW_117
+2 HMW_208
+2 HMW_124
+2 HMW_234
+
+Sideboard
+3 HMW_267
+2 SEC_233
+2 ASH_112
+2 ASH_222
+1 HMW_048

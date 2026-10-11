@@ -1,0 +1,46 @@
+# Real-deck self-play fixture — Poe Dameron, I Can Fly Anything - Bright Tree Village
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #20 of 39 (3-3-0), player Niccolo
+#   https://melee.gg/Decklist/View/0444123a-b2e0-4b4e-a970-b4de013c489a — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Poe Dameron (JTL) Green (Endor) archetype in this event — the only list of it.
+#   Base trait (Endor) is part of the archetype: a card in the deck or sideboard cares about a Endor base.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): hyperaggro — the classifier read hyperaggro (shape, high confidence: shape score 0.08 (avg cost 3.12, 15 cheap, 3 big, 0 removal, 0 wipe, 0 draw))
+# Style: hyperaggro
+
+Leader
+1 JTL_013
+
+Base
+1 HMW_023
+
+Deck
+3 SEC_098
+3 JTL_103
+2 JTL_094
+1 SEC_148
+1 LOF_100
+3 JTL_147
+3 JTL_096
+3 JTL_249
+3 ASH_171
+3 JTL_151
+3 JTL_149
+3 ASH_253
+2 LOF_147
+2 JTL_104
+2 JTL_250
+3 JTL_123
+1 SEC_179
+1 JTL_131
+3 HMW_177
+3 HMW_163
+2 HMW_193
+
+Sideboard
+2 LOF_100
+2 JTL_180
+2 JTL_130
+1 JTL_127
+1 JTL_094
+1 JTL_104
+1 JTL_131

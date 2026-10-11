@@ -1,0 +1,46 @@
+# Real-deck self-play fixture — Boba Fett, Any Methods Necessary - Research Station 9
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #7 of 39 (4-2-0), player Wylde77
+#   https://melee.gg/Decklist/View/32136005-4d47-4c37-aa7e-b4df0042414c — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Boba Fett (JTL) Yellow (Endor) archetype in this event — the only list of it.
+#   Base trait (Endor) is part of the archetype: a card in the deck or sideboard cares about a Endor base.
+#   Main 51 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): hyperaggro — the classifier read hyperaggro (shape, low confidence: shape score 0.45 (avg cost 3.78, 13 cheap, 7 big, 0 removal, 3 wipe, 0 draw); nearest labelled list boba-fett_jtl_lake-country is only 37%)
+# Style: hyperaggro
+# Flavours: burn
+
+Leader
+1 JTL_009
+
+Base
+1 HMW_034
+
+Deck
+3 ASH_192
+3 ASH_142
+3 LAW_237
+2 ASH_219
+2 LAW_084
+1 SEC_163
+3 JTL_162
+3 JTL_140
+3 ASH_146
+3 JTL_237
+3 JTL_183
+2 JTL_143
+2 JTL_221
+3 SEC_183
+2 JTL_180
+2 JTL_181
+3 HMW_177
+3 HMW_193
+2 HMW_051
+2 HMW_203
+1 HMW_159
+
+Sideboard
+2 LAW_191
+2 JTL_164
+2 JTL_242
+2 IBH_052
+1 JTL_143
+1 SEC_163

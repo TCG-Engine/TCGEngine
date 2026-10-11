@@ -418,7 +418,13 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     if (($ctx['kind'] ?? '') !== 'decision') {
         switch (SWUBotActionKind($action)) {
             case 'pass':       return 0.0;
-            case 'initiative': return SWUBotFeatureOn('mandoclaim') ? _SWUBotClaimDrawInitiative($ctx, $seat, $W) : $W['initiative'];
+            case 'initiative':
+                // 2026-10-11 Krennic workshop, proposal 'claimspent' (owner Q2): a control-wing seat claims only when it is free — the
+                // opponent has nothing left this round — and otherwise PASSES, keeping the right to answer what they do next. The fallback's
+                // flat +0.05 over pass made 239 of 279 traced Krennic claims. A claim-draw leader (Mando: owner-ruled claim plan) is exempt.
+                if (SWUBotProposalOn('claimspent') && _SWUBotClaimDrawCost($seat) === null
+                    && SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) >= 3 && !_SWUBotOpponentSpent($seat)) return -0.01;
+                return SWUBotFeatureOn('mandoclaim') ? _SWUBotClaimDrawInitiative($ctx, $seat, $W) : $W['initiative'];
             case 'deploy':     if (_SWUBotDeployStrikeWaits($seat)) return -0.4;   // 'deploystrike' (p39)
                                $dv = $W['deploy'] + (SWUBotFeatureOn('enablers') ? _SWUBotDeployDiscount($seat, $action, $W) : 0.0)
                                                   + (SWUBotFeatureOn('pilotdeploy') ? _SWUBotPilotDeployValue($seat, $action, $W) : 0.0)
@@ -761,7 +767,7 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     // non-leader unit. If you do, defeat those units." A card that deals N damage or gives -N/-N is hostile.
     // ⚠ A PAIRED defeat ("a friendly unit AND an enemy … defeat those units") is a TRADE, not a sacrifice: declining
     // the friendly pick cancels the enemy kill too. Priced as a pure sacrifice, Chimaera's When Played resolved in only
-    // 19% of 3,895 baseline plays (2026-10-01, found from the owner's Karabast logs). $pairedGain = the best enemy kill.
+    // 19% of 3,895 baseline plays (2026-10-01, found from the owner's human-game logs). $pairedGain = the best enemy kill.
     $pairedGain = null;
     if ($effect === '' && preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#/', $head, $m)) {
         if (stripos($tip, 'friendly') !== false && preg_match('/\bdefeat\b/i', strval(CardText($m[1])))) $effect = 'sacrifice';
@@ -865,6 +871,11 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         if (SWUBotFeatureOn('upgradepicks') && ($uv = _SWUBotUpgradeValue($c)) !== null) return -$uv;
         $v = str_starts_with($c, 'my') ? SWUBotViewForMz($seat, $c) : null;
         // A one-time trade can't wait: an unused unit only loses ties ('unusedsac').
+        // 'chimaeraweakest' (2026-10-11 Krennic workshop, owner Q3: "Chimaera's friendly pick: the weakest"): price the friendly half by plain
+        // unit value instead of the When-Defeated-discounted sacrifice cost — a protected unit (nogideon) stays out of it either way.
+        if ($v !== null && $pairedGain !== null && SWUBotProposalOn('chimaeraweakest')) {
+            return $pairedGain - max(SWUBotUnitValue($v), SWUBotSacrificeCost($v) >= SWU_BOT_NEVER_SAC_COST ? SWU_BOT_NEVER_SAC_COST : 0.0) - 0.01 * SWUBotUnusedSacPremium($v);
+        }
         if ($v !== null && $pairedGain !== null) return $pairedGain - SWUBotSacrificeCost($v) - 0.01 * SWUBotUnusedSacPremium($v);   // the trade: what dies on their side, less what I give
         return $v === null ? -$index * 1e-6 : -(SWUBotSacrificeCost($v) + SWUBotUnusedSacPremium($v));
     }
@@ -1080,7 +1091,11 @@ function _SWUBotTSUnitPick(int $seat, string $c, string $tip, string $head, stri
     }
     // 5 — capture / take control: the most valuable enemy unit.
     if (preg_match('/\bcaptur|\btake control\b/', $t) || str_starts_with($head, 'CAPTURE')) {
-        return $hostileVs(SWUBotUnitValue($v));
+        $metric = SWUBotUnitValue($v);
+        // 2026-10-10 human-game screen, proposal 'noglorywd': "take control of …, then defeat it" — the unit dies under MY control, so its
+        // When Defeated fires for me (a plain capture/steal keeps the unit, so it gets nothing here).
+        if ($enemy && SWUBotProposalOn('noglorywd') && preg_match('/\btake control\b/', $t) && preg_match('/\bdefeat\b/', $t)) $metric += _SWUBotStolenWdValue($seat, $v);
+        return $hostileVs($metric);
     }
     // 3 — exhaust: the highest-power READY enemy unit (exhausting an exhausted one does nothing).
     if ($head === 'EXHAUST_UNIT' || preg_match('/^exhaust\b|\bexhaust (a|an|another|up to|the|target)\b/', $t)) {
@@ -1499,7 +1514,12 @@ function SWUBotUnusedSacPremium(array $v): float {
 // every other body goes first; a doomed one (it dies anyway) is not protected. ASH_097 Moff Gideon's When Defeated payback priced him as
 // fodder: Krennic's Credit Action took him over a bare Krennic unit and over a 3/3 Battlefield Marine.
 const SWU_BOT_SENTINEL_SAC_PREMIUM = 10.0;
+// 2026-10-11 Krennic workshop, proposal 'nogideon' (owner Q3: "yes" to never sacrificing Gideon, both Krennic lists). ASH_097 Moff Gideon's
+// When Defeated payback priced him as fodder: the Credit Action took him 34 times in 200 traced games, Chimaera 4. Priced out of every
+// sacrifice pick — and a sacrifice Action whose only fodder is Gideon is not worth using.
+const SWU_BOT_NEVER_SAC_COST = 1000.0;
 function SWUBotSacrificeCost(array $v): float {
+    if (SWUBotProposalOn('nogideon') && strval($v['cardID'] ?? '') === 'ASH_097') return SWU_BOT_NEVER_SAC_COST;
     $cost = _SWUBotSacrificeCostBase($v);
     if (SWUBotFeatureOn('sentinelsac') && !empty($v['sentinel']) && (SWUBotProposalOn('sentsacdoomed') || !SWUBotUnitIsDoomed($v))) $cost += SWUBotLeverNum('SENTINEL_SAC_PREMIUM', SWU_BOT_SENTINEL_SAC_PREMIUM);
     return $cost;
@@ -1568,6 +1588,33 @@ function _SWUBotWdHelpsOpponent(string $wd): bool {
     return (bool)preg_match('/\bopponents?\b[^.]*\bmay\b|Choose an opponent\.[^.]*\bthey may\b/i', $wd);
 }
 
+// 2026-10-10 human-game screen, proposal 'noglorywd'. What an enemy unit's When Defeated is worth to ME when I take control of it and
+// then defeat it — it fires for its controller at that moment, which is me. SWUBotUnitValue's currency, on the fodder rule's scale:
+//   removal — the best OTHER enemy non-leader it kills (at least 1.5): "defeat a/an … unit" any of them; "deal N damage to a unit" only
+//             an unshielded one with N or less HP left (2 damage into an 11-cost ship is chip, not that ship's value)
+//   heal / draw / create — 2.5;  anything else — 1.5;  one that hands an opponent something (now: them) — 0.
+function _SWUBotStolenWdValue(int $seat, array $v): float {
+    if (!preg_match('/When Defeated:(.*)$/is', strval(CardText($v['cardID'])), $m)) return 0.0;
+    $wd = strval($m[1]);
+    if (_SWUBotWdHelpsOpponent($wd)) return 0.0;
+    $cap = preg_match('/\bdefeat (a|an|another|up to)\b/i', $wd) ? PHP_INT_MAX
+         : (preg_match('/\bdeal (\d+) damage to (a|an|another)\b/i', $wd, $dm) ? intval($dm[1]) : null);
+    if ($cap !== null) {
+        $best = 0.0;
+        if (function_exists('_SWUAllEnemyUnits')) {
+            foreach (_SWUAllEnemyUnits($seat) as $u) {
+                $e = SWUBotUnitView($u);
+                if (!empty($e['isLeader']) || strval($e['uid'] ?? '') === strval($v['uid'] ?? '')) continue;   // not the stolen unit itself
+                if ($cap !== PHP_INT_MAX && (intval($e['shields']) > 0 || intval($e['remaining']) > $cap)) continue;   // damage that doesn't kill
+                $best = max($best, SWUBotUnitValue($e));
+            }
+        }
+        return max(1.5, $best);
+    }
+    if (preg_match('/\bheal \d+|\bdraw (a card|\d+)|\bcreate (a|an|\d+)\b/i', $wd)) return 2.5;
+    return 1.5;
+}
+
 // Owner's draw rule (2026-09-13): draw freely in the early and mid game, but watch the deck-out clock.
 // An empty deck costs 3 damage per card not drawn, so 6 per regroup. Measured after drawing $k more, against
 // the OPPONENT's deck — a Data Vault deck starts 10 cards deeper, so a long game there ends with me decking first.
@@ -1579,6 +1626,10 @@ function SWUBotDrawMultiplier(int $seat, int $k = 2): float {
     $live = fn($p) => count(array_filter(GetDeck($p), fn($o) => $o !== null && empty($o->removed)));
     $mine = $live($seat) - $k;
     $theirs = $live(SWUBotOpponent($seat));
+    // 2026-10-10 human-game screen, proposal 'fatigueself': once this draw would empty my deck (deck-out next regroup) and I
+    // have a board to close with, draw is actively harmful — I take 3/card at the regroup. Push the bot off draw toward closing.
+    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('fatigueself') && $mine <= 0
+        && SWUBotBasePotential($seat, SWUBotOpponent($seat), false) > 0) return -2.0;
     if ($mine >= 12 + max(0, $theirs - $mine)) return 1.0;
     if ($mine >= 12) return 0.0;
     return $mine >= $theirs ? 0.25 : -1.0;
@@ -1655,6 +1706,16 @@ function _SWUBotEarlyRemovalAdjust(int $seat, string $cid, float $v, array $W): 
     return $v;
 }
 
+// 2026-10-10 human-game screen, proposal 'millcredit'. Cards milled off an opponent's deck ("Mill N cards from an opponent's
+// deck": SOR_058, TWI_047, JTL_208, HMW_223). Parsed once per CardID.
+function _SWUBotOppMillAmount(string $cid): int {
+    static $parsed = [];
+    if (!array_key_exists($cid, $parsed)) {
+        $parsed[$cid] = preg_match("/(?:mill|mills|discard) (\\d+) cards? from an opponent'?s deck/i", strval(CardText($cid)), $m) ? intval($m[1]) : 0;
+    }
+    return $parsed[$cid];
+}
+
 function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = 'hand', string $route = 'paid'): float {
     // PROPOSAL 'cardvalue' (default OFF): the whole valuation comes from BotCardValue.php instead — Body +
     // Effect - SelfCost, read off the board, in expected base damage. It already includes the
@@ -1710,6 +1771,21 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
         $p = SWUBotPowerStrikePower($seat, $cid);
         if ($p <= 0) $v -= ($W['damage-enemy-unit'] ?? 0.0) * (in_array('damage-enemy-unit', SWUBotCardTags($cid), true) ? 1.0 : 0.0);
         elseif (SWUBotPowerStrikeCanKill($seat, $p)) $v += $W['kill'];
+    }
+    // 2026-10-10 human-game screen, proposal 'millcredit': milling the opponent's deck brings their deck-out (CR §6.1, 3
+    // damage/undrawable card) forward. Worth ~3 base-damage equivalents per card milled once their deck is at/below the
+    // fatigue horizon; nothing while their deck is deep (milling a healthy deck is near-worthless to a racing bot).
+    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('millcredit') && ($milled = _SWUBotOppMillAmount($cid)) > 0) {
+        $oppDeck = count(array_filter(GetDeck(SWUBotOpponent($seat)), fn($o) => $o !== null && empty($o->removed)));
+        if ($oppDeck <= SWUBotFatigueHorizon()) $v += ($W['base'] ?? 0.6) * 3 * $milled;
+    }
+    // 2026-10-10 human-game screen, proposal 'exhaustlock': an exhaust effect denies the opponent's best ready attacker its swing
+    // this round — worth ~the base damage that attack threatened (Vane/Hemlock tempo). The flat 'exhaust' weight stays; this is a
+    // board-scaled bonus on top, zero against an empty/exhausted enemy board.
+    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('exhaustlock') && in_array('exhaust', SWUBotCardTags($cid), true)) {
+        $bestReady = 0;
+        foreach (SWUBotUnits(SWUBotOpponent($seat)) as $u) if (!empty($u['ready'])) $bestReady = max($bestReady, intval($u['attackPower']));
+        $v += ($W['base'] ?? 0.6) * $bestReady;
     }
     // PROPOSAL 'creditbank' (default OFF): paying for this card out of BANKED CREDITS is a real cost when
     // those Credits are part of a line (owner 2026-09-29, #1099: 6R + 2 Credits + the waiver casts SRI).
@@ -1877,10 +1953,60 @@ function _SWUBotEnablerFirstBonus(int $seat, array $action, string $cid, array $
 // 366 deploys. A Shield absorbs the strike, so a shielded enemy is not a kill.
 const SWU_BOT_DEPLOY_STRIKE_LEADERS = ['LAW_008'];
 function _SWUBotDeployStrikeWaits(int $seat): bool {
+    // 2026-10-11 Krennic workshop, proposal 'krennicdeploy' (+4/+6). Owner Q1: "saving for a big unit in play that i know would stick so i
+    // can do a big power strike. or if i knew i was already stabilized i deployed to apply pressure." Replaces the any-kill gate below,
+    // which deployed at R6 in 75% of games (the owner: R11 median vs the same Hemlock) — deploying also ends the front-side Credit engine.
+    if (function_exists('SWUBotKrennicDeployOn') && SWUBotKrennicDeployOn() && strval((GetLeader($seat)[0] ?? null)->CardID ?? '') === 'LAW_008') {
+        return !_SWUBotKrennicBigStrikeReady($seat) && !_SWUBotStabilised($seat);
+    }
     if (!SWUBotFeatureOn('deploystrike') || !in_array(strval((GetLeader($seat)[0] ?? null)->CardID ?? ''), SWU_BOT_DEPLOY_STRIKE_LEADERS, true)) return false;
     $power = 0;
     foreach (SWUBotUnits($seat) as $v) if (!$v['isLeader']) $power = max($power, intval($v['power']));
     foreach (SWUBotEnemyUnits($seat) as $e) if (intval($e['shields']) === 0 && $power > 0 && $power >= intval($e['remaining'])) return false;
+    return true;
+}
+
+// 'krennicdeploy': a BIG strike from a host that STICKS — a friendly non-leader unit with power >= the arm's bar (5 / 4 / 6) that no single
+// enemy unit in its arena can defeat (a Shield, or more HP left than the strongest enemy there hits for), with an enemy non-leader unit to
+// strike at.
+function _SWUBotKrennicBigStrikeReady(int $seat): bool {
+    $enemies = SWUBotEnemyUnits($seat);
+    if (empty(array_filter($enemies, fn($e) => empty($e['isLeader'])))) return false;
+    foreach (SWUBotUnits($seat) as $v) {
+        if (!empty($v['isLeader']) || intval($v['power']) < SWUBotKrennicDeployBig()) continue;
+        $reach = 0;
+        foreach ($enemies as $e) if ($e['arena'] === $v['arena']) $reach = max($reach, intval($e['power']));
+        if (intval($v['shields']) > 0 || intval($v['remaining']) > $reach) return true;
+    }
+    return false;
+}
+
+// 'krennicdeploy': "stabilised" = the opponent's board needs SWU_BOT_STABILISED_CLOCK+ rounds to kill me AND my units out-power theirs —
+// I hold the board, so a deploy is pressure, not a body thrown into a race.
+const SWU_BOT_STABILISED_CLOCK = 4;
+function _SWUBotStabilised(int $seat): bool {
+    $opp = SWUBotOpponent($seat);
+    if (SWUBotClock($opp, $seat) < SWU_BOT_STABILISED_CLOCK) return false;
+    $mine = 0; $theirs = 0;
+    foreach (SWUBotUnits($seat) as $v) if (empty($v['isLeader'])) $mine += intval($v['attackPower']);
+    foreach (SWUBotUnits($opp) as $v) $theirs += intval($v['attackPower']);
+    return $mine > $theirs;
+}
+
+// 2026-10-11 Krennic workshop ('claimspent' / 'claimbomb'): the opponent has nothing left to do this round — no ready resource or usable
+// Credit, no ready unit that can attack, and no ready undeployed leader with an Action. Claiming the initiative then costs nothing.
+function _SWUBotOpponentSpent(int $seat): bool {
+    foreach (SWUBotOpponents($seat) as $o) {
+        $o = intval($o);
+        if (SWUResourceCount($o, true) > 0) return false;
+        if (function_exists('SWUUsableCreditTokenMzIDs') && count(SWUUsableCreditTokenMzIDs($o)) > 0) return false;
+        foreach (SWUBotUnits($o) as $u) if (!empty($u['ready']) && intval($u['attackPower']) > 0) return false;
+        foreach (GetLeader($o) as $l) {
+            if ($l === null || !empty($l->removed)) continue;
+            $cid = strval($l->CardID ?? '');
+            if (_SWULeaderReadyUndeployed($o, $cid) && preg_match('/\bAction \[/', strval(CardText($cid)))) return false;
+        }
+    }
     return true;
 }
 

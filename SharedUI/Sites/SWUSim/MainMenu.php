@@ -215,7 +215,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
                   <path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4.5V10h5.5"/><path d="M12 8.5V12l2.8 1.8"/>
                 </svg>
                 <p class="empty__t">No replays yet</p>
-                <p class="empty__s">Open a .swupgn file to watch it on the board.</p>
+                <p class="empty__s">Save a finished game with Save Replay, or open a .swupgn file.</p>
               </div>
             </div>
           </div>

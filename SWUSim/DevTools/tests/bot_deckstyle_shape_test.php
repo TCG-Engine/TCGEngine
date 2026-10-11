@@ -6,6 +6,9 @@ chdir(dirname(__DIR__, 3));
 require_once './SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
 require_once './SWUSim/Rl/CardTags.php';
 require_once './SWUSim/Custom/BotDeckStyle.php';
+// BotDeckStyle.php stopped loading BotResourcing.php when the leader term left the classifier (2026-10-11); the assertion that the
+// BOT's aggro-leader list still has Boba Fett (JTL) reads SWU_BOT_AGGRO_LEADERS, so this test loads it itself.
+require_once './SWUSim/Custom/BotResourcing.php';
 $fails = 0;
 $check = function ($ok, $msg, $detail = '') use (&$fails) {
     echo ($ok ? 'PASS' : 'FAIL') . ": $msg" . (!$ok && $detail !== '' ? "  [got: $detail]" : '') . "\n";

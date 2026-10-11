@@ -1,0 +1,48 @@
+# Real-deck self-play fixture — Luke Skywalker, I Can Save Him - Origin Tree
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #36 of 39 (1-5-0), player Scullery13
+#   https://melee.gg/Decklist/View/68d15d53-82a2-4ee8-b604-b4df006f58c7 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Luke Skywalker (ASH) Green (Kashyyyk) archetype in this event — the only list of it.
+#   Base trait (Kashyyyk) is part of the archetype: a card in the deck or sideboard cares about a Kashyyyk base.
+#   Main 54 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): midrange — the classifier read softcontrol (shape, low confidence: shape score 2.58 (avg cost 4.09, 13 cheap, 8 big, 6 removal, 1 wipe, 3 draw); nearest labelled list luke-skywalker_ash_data-vault is only 50%)
+# Style: midrange
+
+Leader
+1 ASH_005
+
+Base
+1 HMW_024
+
+Deck
+3 ASH_105
+3 ASH_056
+3 ASH_079
+3 LAW_039
+3 SEC_094
+3 LOF_045
+2 SEC_051
+2 LOF_100
+2 LOF_096
+2 SEC_101
+2 ASH_062
+1 LOF_093
+3 ASH_124
+2 JTL_096
+2 ASH_109
+2 LAW_133
+2 LAW_041
+2 LOF_128
+1 SEC_078
+3 HMW_151
+2 HMW_035
+2 HMW_124
+2 HMW_119
+1 HMW_036
+1 HMW_142
+
+Sideboard
+2 SEC_078
+2 LAW_149
+2 ASH_077
+2 ASH_135
+2 LAW_132

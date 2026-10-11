@@ -1,0 +1,8 @@
+RUN .claude/tmp/hmw-meta-runs/baseline-v1: 42/42 real matches replayed, 84 games (0 failed), median 7.0 rounds, seat-1 win 47.6%
+
+######## THIS RUN vs REAL
+ARCHETYPES (30+ matches): 0   Pearson +nan   Spearman +nan   MAE nan (constant 50%: nan)   spread SD real nanpp / bot nanpp
+STYLE BIAS (bot − real game WR, match-weighted): 
+most under-performing:
+most over-performing:
+MATCHUP CELLS (ordered, 10+ matches): 0   Pearson +nan   MAE nan (constant 50%: nan)   favourite right 0%

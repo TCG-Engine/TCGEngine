@@ -10,8 +10,10 @@ Screenshots: /tmp/swupgn-viewer-<engine>-<desktop|mobile>.png, /tmp/swupgn-repla
 
 ## WHAT TO LOOK AT
 1. Desktop: the replay controls are docked in the right sidebar, clear of the board and of both hands. Phone: the controls
-   are a bar at the bottom, and the board scrolls clear of it.
-2. No "Waiting for the other player" pill and no dimming over the board.
+   are a bar at the bottom and the whole phone layout ends above it — your hand and the ⚙ row are never under it.
+2. No "Waiting for the other player" pill, no dimming over the board, and stepping never pops up a "-" message box.
+2b. ⚙ → Settings has a "Replay" section with Return to Main Menu (desktop and phone), and the settings panel sits above
+   the replay bar.
 3. At the last step: Vanguard Infantry (ground) is exhausted at 3/4 and carries Craving Power, a Shield and an Advantage;
    the A-Wing (space) is exhausted at 4/4 and carries Academy Graduate; Darth Vader is deployed (5/8) and holds Director
    Krennic captive; Jedha City shows 3 damage.
@@ -25,6 +27,7 @@ Screenshots: /tmp/swupgn-viewer-<engine>-<desktop|mobile>.png, /tmp/swupgn-repla
    still plays, and the ⓘ button reads "ⓘ ⚠ 1".
 8. Replays tab: Open .swupgn, then rows with "<leader> vs <leader>", the result, the date and the source; a leader name
    containing markup shows as text. Play SWUPGN reopens it (the same viewer game while it lives — no new upload);
-   Delete removes the row. The "No replays yet" note is gone
+   Delete removes the row. A game saved in-game with "Save Replay" is listed too ("Saved game #…", winner, date,
+   action count) — Play opens it in the replay player, Delete removes it. The "No replays yet" note is gone
    once a row exists, and nothing in a row is clipped on a phone.
 Check Chromium, Firefox AND Safari/WebKit.

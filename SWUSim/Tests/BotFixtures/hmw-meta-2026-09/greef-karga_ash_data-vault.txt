@@ -1,0 +1,47 @@
+# Real-deck self-play fixture — Greef Karga, Gracious Magistrate - Data Vault
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #14 of 39 (4-2-0), player Penfold1000MOP
+#   https://melee.gg/Decklist/View/ddde3edb-3f39-4ae9-b828-b4df0030f17e — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Greef Karga (ASH) Data Vault archetype in this event — 3 lists of it; the others finished #18 (3-3-0), #33 (2-4-0).
+#   Main 61 (base minimum 60), sideboard 10.
+# Archetype (owner's label, 2026-10-11): softaggro — the classifier read midrange (shape, low confidence: shape score 1.58 (avg cost 3.98, 15 cheap, 9 big, 0 removal, 0 wipe, 2 draw); nearest labelled list greef-karga_ash_data-vault is only 62%)
+# Style: softaggro
+# Flavours: go-wide, mixed
+
+Leader
+1 ASH_017
+
+Base
+1 JTL_024
+
+Deck
+3 ASH_110
+3 JTL_203
+3 LAW_067
+3 SEC_101
+3 ASH_208
+2 JTL_103
+2 LOF_100
+2 ASH_112
+1 LAW_149
+3 JTL_096
+3 JTL_217
+3 SEC_215
+3 LOF_192
+3 ASH_201
+3 JTL_095
+3 JTL_221
+3 ASH_222
+3 ASH_253
+2 SEC_204
+2 ASH_207
+2 JTL_102
+2 IBH_052
+2 HMW_124
+2 HMW_232
+
+Sideboard
+2 SEC_233
+2 JTL_235
+2 LAW_168
+2 HMW_050
+2 HMW_267

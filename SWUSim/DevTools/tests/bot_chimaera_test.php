@@ -3,7 +3,7 @@
 // The card asks for the FRIENDLY unit first, and declining it cancels the enemy kill too. The bot priced that first pick
 // as a pure sacrifice (PASS -1.0 vs -SacrificeCost(friendly)) and never counted the enemy unit it buys, so across the
 // 2026-10-01 baseline (7,020 games) Chimaera's When Played resolved in only 19% of 3,895 plays — found from the owner's
-// Karabast logs, where it resolved 3 of 3 and decided games. A PAIRED defeat must weigh what it kills.
+// human game logs, where it resolved 3 of 3 and decided games. A PAIRED defeat must weigh what it kills.
 // Driven through the real play path (hand -> When Played prompt -> the heuristic stack's own choice).
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d apc.enable_cli=1 -d xdebug.mode=off SWUSim/DevTools/tests/bot_chimaera_test.php
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';

@@ -87,10 +87,14 @@ foreach ($bots as $i => $p) {
     check("bot pre-con $i RESOLVES", !empty($r['success']),
         $p['name'] . ': ' . ($r['message'] ?? '?'));
     if (!empty($r['success'])) {
+        // Compared as the SAME CARD: the resolver plays a reprint as a printing the sim implements (SWUResolveToImplementedPrint), so a
+        // reprint-legal list resolves to its earliest printing — the Force Fam Vader (HMW) list's Mos Eisley HMW_032 plays as JTL_030
+        // (owner 2026-10-11: "we should be able to use that base since it is reprint-legal").
+        $sameCard = fn($a, $b) => CardIDOverride((string)$a) === CardIDOverride((string)$b);
         check("bot pre-con $i resolves to its labelled leader",
-            (is_array($r['leader']) ? ($r['leader'][0] ?? '') : $r['leader']) === $p['leader'],
+            $sameCard(is_array($r['leader']) ? ($r['leader'][0] ?? '') : $r['leader'], $p['leader']),
             $p['name'] . ': ' . json_encode($r['leader']) . ' vs ' . $p['leader']);
-        check("bot pre-con $i resolves to its labelled base", $r['base'] === $p['base'],
+        check("bot pre-con $i resolves to its labelled base", $sameCard($r['base'], $p['base']),
             $p['name'] . ": {$r['base']} vs {$p['base']}");
         check("bot pre-con $i resolves the card count it advertises",
             count($r['mainDeck']) === $p['count'],

@@ -1,5 +1,5 @@
 <?php
-// Feature 'doomedsac' (p18) — owner rulings 2026-10-01, from the Karabast Krennic games:
+// Feature 'doomedsac' (p18) — owner rulings 2026-10-01, from the human Krennic games:
 //   2a  a deployed leader is Chimaera's friendly pick when it is Condemned, or has 2 or less HP left and the opponent
 //       can deal with it — only when no other fodder is available.
 //   2b  a unit with 2 or less HP left that an enemy unit can finish (a high-HP Sentinel on HP-1/HP-2) is cheap fodder

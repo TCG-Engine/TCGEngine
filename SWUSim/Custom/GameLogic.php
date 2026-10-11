@@ -6955,6 +6955,9 @@ function _SWUTs26063OnEnemyReady($readied): void {
 $customDQHandlers["PushPregameSnapshot"] = function($player, $parts, $lastDecision) {
     $seat = isset($parts[0]) ? intval($parts[0]) : intval($player);
     PushUndoSnapshot($seat, 'pregame-step');
+    // The step it guards (ChooseStartingResource) re-takes this record once its prompt exists — see
+    // SWURetakePregameSnapshot. Request-scoped on purpose: never in the gamestate (RNG material).
+    $GLOBALS['SWU_PREGAME_SNAPSHOT_AT'][$seat] = UndoCursor();
 };
 
 $customDQHandlers["MulliganDecision"] = function($player, $parts, $lastDecision) {
@@ -7013,7 +7016,7 @@ $customDQHandlers["ChooseStartingResource"] = function($player, $parts, $lastDec
 
     $want = max(0, 2 - SWUResourceCount(intval($player)));
     $n = min($want, $liveHand);
-    if ($n <= 0) return;
+    if ($n <= 0) { SWURetakePregameSnapshot(intval($player)); return; }
 
     // Use zone reference ("myHand") rather than specific indices so the choice
     // remains valid after WriteGamestate rewrites the hand. WriteGamestate strips
@@ -7024,6 +7027,7 @@ $customDQHandlers["ChooseStartingResource"] = function($player, $parts, $lastDec
     DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "{$n}|{$n}|myHand", 40,
         "Choose_2_cards_to_resource");
     DecisionQueueController::AddDecision($player, "CUSTOM", "ApplyStartingResource", 40);
+    SWURetakePregameSnapshot(intval($player));
 };
 
 // Answer is the '&'-joined mzID list from the MZMULTICHOOSE. MZMove tombstones the source rather
@@ -21877,6 +21881,25 @@ function PushUndoSnapshot($actingSeat, $boundary = 'action', $name = '') {
     _SWUStampUndoAvailable();
 
     $playerID = $savedPlayerID;
+}
+
+// Re-take the 'pregame-step' snapshot PushPregameSnapshot took for $seat a moment ago, now that the step it
+// guards has built its prompt. Taken BEFORE, it held the half-built step (a pending CUSTOM
+// ChooseStartingResource) instead of the prompt the player sees, so it never byte-matched the live state:
+// SWUComputeUndoTarget's no-op skip could not fire, and the first Undo after a mulligan restored that
+// half-built step — which rebuilt the same prompt and looked like nothing happened. Leaves the record alone
+// if anything else was recorded since.
+function SWURetakePregameSnapshot(int $seat): void {
+    global $gRandomCounter;
+    $at = $GLOBALS['SWU_PREGAME_SNAPSHOT_AT'][$seat] ?? null;
+    unset($GLOBALS['SWU_PREGAME_SNAPSHOT_AT'][$seat]);
+    if ($at === null || $at !== UndoCursor()) return;
+    $line = UndoStackRead($at);
+    if ($line === null) return;
+    $r = UndoRecordParse($line);
+    if ($r['boundary'] !== 'pregame-step') return;
+    UndoStackWrite($at, UndoRecordBuild($r['seat'], $r['phase'], $r['boundary'], $r['revealed'] ? 1 : 0, $r['name'],
+        Versions::GetSerializedZones() . '<v0>' . $gRandomCounter));
 }
 
 // Backward-compatible alias — the ~15 existing 'action' call sites keep working unchanged.

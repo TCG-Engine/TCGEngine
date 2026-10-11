@@ -15,9 +15,15 @@ const SWU_LABEL_STYLES = ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 
 // 'classify' — whether the deck-style classifier may label a player's list from this group's decks. Only the
 // reviewed tournament set does (bot_decklabels_test); a creator's predictions are offered to play against, not
 // used as ground truth.
+// 'menu' => false — the group stays in BotDeckLabels.json (so the classifier, BotNameCard's meta knowledge and the bot tooling still
+// read it) but the Arenabot picker does not offer it (SWUSetupBotPreConGroups). Omitted = shown.
 const SWU_PRECON_GROUPS = [
-    ['id' => 'ash-meta-2026-09',          'label' => 'ASH Meta September 2026',   'classify' => true],
-    ['id' => 'force-fam-HMW-predictions', 'label' => 'Force Fam HMW Predictions', 'classify' => false],
+    // Owner 2026-10-11: the HMW meta set leads the menu (melee 480807, owner-labelled styles).
+    ['id' => 'hmw-meta-2026-09',          'label' => 'HMW Meta September 2026',           'classify' => false],
+    ['id' => 'force-fam-HMW-predictions', 'label' => 'Force Fam HMW Predictions',         'classify' => false],
+    // Owner 2026-10-11: RETIRED from the menu, KEPT in the repo — it is still the classifier's reviewed label set and the ASH meta
+    // baseline's curated styles, and the bots keep being tuned against that tournament data.
+    ['id' => 'ash-meta-2026-09',          'label' => 'ASH Meta September 2026',           'classify' => true, 'menu' => false],
 ];
 $out = []; $groups = [];
 foreach (SWU_PRECON_GROUPS as $g) {

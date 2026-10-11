@@ -61,6 +61,12 @@ function EngineSnapshotState() {
     'randomCounter' => GetDeterministicRandomCounter(),
     'zones' => []
   ];
+  // RNG version 2 (a SWUSim game seeded since 2026-10-10, SWUEnsureRandomnessSeed): no update number.
+  // It is the client sync counter — every request bumps it and Undo can never roll it back — so with it,
+  // the same action re-taken after an Undo (a mulligan) reshuffled differently. Games without the marker,
+  // every other root among them, keep the historical material byte for byte, so their recorded input
+  // replays still reproduce their shuffles.
+  if (EngineRngVersion() >= 2) unset($snapshot['updateNumber']);
 
   // Replay bookkeeping deliberately differs while the same gameplay action
   // is being replayed. It must not influence gameplay randomness. Playback
@@ -85,6 +91,11 @@ function EngineSnapshotState() {
 
   ksort($snapshot['zones']);
   return $snapshot;
+}
+
+// The game's RNG formula version: 2 when the game says so (SWUSim's RNG_V), else 1 (the historical one).
+function EngineRngVersion(): int {
+  return function_exists('GetSWUVar') ? max(1, intval(GetSWUVar('RNG_V', '1'))) : 1;
 }
 
 function EngineDeterministicHashMaterial() {

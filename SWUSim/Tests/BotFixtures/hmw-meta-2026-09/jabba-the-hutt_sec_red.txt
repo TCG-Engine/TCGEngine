@@ -1,0 +1,56 @@
+# Real-deck self-play fixture — Jabba the Hutt, Wonderful Human Being - Dragonsnake Bog
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #38 of 39 (1-5-0), player stormtrooper
+#   https://melee.gg/Decklist/View/7d49ec87-c11f-4318-9a06-b4de014233fc — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Jabba the Hutt (SEC) Red archetype in this event — the only list of it.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): midrange — the classifier read midrange (shape, medium confidence: shape score 2.32 (avg cost 3.58, 9 cheap, 6 big, 5 removal, 2 wipe, 0 draw))
+# Style: midrange
+
+Leader
+1 SEC_002
+
+Base
+1 ASH_024
+
+Deck
+3 LAW_049
+3 SEC_057
+2 SEC_034
+2 ASH_243
+2 ASH_047
+2 ASH_030
+2 ASH_168
+2 ASH_147
+1 LAW_191
+1 JTL_036
+1 ASH_142
+1 ASH_148
+1 ASH_053
+3 JTL_033
+2 SEC_138
+2 ASH_146
+1 JTL_143
+1 ASH_149
+1 SEC_171
+2 LAW_102
+2 LOF_043
+1 LAW_130
+1 SEC_040
+1 SEC_247
+1 LAW_179
+1 LAW_043
+3 SEC_070
+2 SEC_069
+1 SEC_039
+1 LAW_201
+1 ASH_183
+
+Sideboard
+3 JTL_136
+1 SEC_037
+1 LAW_102
+1 JTL_074
+1 SEC_244
+1 ASH_149
+1 ASH_245
+1 LAW_178

@@ -1,5 +1,5 @@
 <?php
-// Feature 'unusedsac' (p18) — task 3 from the owner's Karabast Krennic games: the human never sacrificed a unit that had
+// Feature 'unusedsac' (p18) — task 3 from the owner's human Krennic games: the human never sacrificed a unit that had
 // not attacked yet that round (0%); the bot did 31% of the time. A sacrifice that can WAIT (Krennic's repeatable Action)
 // charges a still-ready unit for the attack it throws away, so the bot attacks first and cashes the body in after. A
 // one-time trade (Chimaera) only breaks ties on it — a good trade is never declined over it.

@@ -1,0 +1,13 @@
+{
+ "meta": "ash",
+ "events": 53,
+ "dates": "2026-09-05 to 2026-09-28",
+ "eyebrow": "SWUSim meta baseline \u00b7 ASH Premier",
+ "matrixTitle": "Bot vs Real Matchups",
+ "matrixArtifact": "https://claude.ai/artifact/MrQcLgewzYmV57W7MiQxnk",
+ "curatedFixtures": "SWUSim/Tests/BotFixtures/ash-meta-2026-09",
+ "source": "53 melee events after the 2026-08-31 Cad Bane (ASH) suspension, >32 players, Premier (swu-competitivehub); imported into the local SWUStats DB",
+ "decks": 3207,
+ "superset": true,
+ "seedPrefix": "tb"
+}

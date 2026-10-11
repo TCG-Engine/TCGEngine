@@ -1,0 +1,48 @@
+# Real-deck self-play fixture — Dedra Meero, Not Wasting Time - Colossus
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #17 of 39 (3-3-0), player BN_TeeMouse
+#   https://melee.gg/Decklist/View/ad074d67-0081-44c0-b07e-b4de014373e7 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Dedra Meero (SEC) Colossus archetype in this event — the only list of it.
+#   Main 60 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): hardcontrol — the classifier read hardcontrol (shape, high confidence: shape score 3.83 (avg cost 4.40, 8 cheap, 9 big, 13 removal, 10 wipe, 3 draw); nearest labelled list dedra-meero_sec_colossus is only 53%)
+# Style: hardcontrol
+# Flavours: hard
+
+Leader
+1 SEC_010
+
+Base
+1 JTL_021
+
+Deck
+3 ASH_048
+3 ASH_030
+3 ASH_053
+3 SEC_133
+2 LAW_191
+2 LAW_049
+2 SEC_163
+1 ASH_148
+3 ASH_052
+2 JTL_143
+2 ASH_146
+3 SEC_182
+3 LAW_208
+3 SEC_180
+3 LAW_133
+3 JTL_043
+3 ASH_151
+3 LAW_044
+2 SEC_246
+2 LAW_131
+2 LAW_132
+1 SEC_078
+3 SEC_038
+3 HMW_180
+
+Sideboard
+2 LAW_217
+2 ASH_148
+2 JTL_181
+2 SEC_077
+1 LAW_191
+1 JTL_143

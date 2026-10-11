@@ -1,0 +1,11 @@
+{
+ "frozen": "2026-10-12T01:02:02Z",
+ "gitHead": "2c43fbfe",
+ "treeDirty": true,
+ "arm": "superset+seeds:tb+pairs:pairs.txt",
+ "games": 84,
+ "failed": 0,
+ "matches": 42,
+ "run": ".claude/tmp/hmw-meta-runs/baseline-v1",
+ "note": "First HMW meta baseline (owner 2026-10-11): melee 480807 Nexus Open: Homeworlds, the 42 matches where both lists are public (84 games). Full stack, superset, both seats, seed tb001. Styles = the owner's deck-by-deck labels (hmw-meta-2026-09). Archetypes keyed by the fixture-style name (Homeworlds trait read off main + sideboard). Game code = HEAD 2c43fbfe plus an uncommitted BotDeckStyle.php naming change (sideboard-aware traits, ASCII slugs; no gameplay effect); another session had uncommitted BotFeatures/BotResourcing edits in the tree during the run."
+}

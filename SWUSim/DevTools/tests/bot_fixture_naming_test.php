@@ -34,6 +34,9 @@ foreach ($examples as $old => [$lead, $base, $wantFile, $wantName]) {
 // Owner, 2026-09-29. LOF_008 is Obi-Wan Kenobi, so a single '-' could not tell the word break from the
 // name's own hyphen. The double form makes the slug REVERSIBLE, which is what lets the two derivations
 // (from card ids, and from the filename) be checked against each other below.
+// Accented letters fold to ASCII instead of being dropped (HMW meta set, 2026-10-11): Sabé was slugged 'sab' and read back as 'Sab'.
+$check(SWUBotFixtureSlug('Sabé') === 'sabe' && SWUBotFixtureSlug('Padmé Amidala') === 'padme-amidala',
+    "accents fold to ASCII in a slug: 'Sabé' -> 'sabe' (got '" . SWUBotFixtureSlug('Sabé') . "')");
 $obi = SWUBotDeckDisplayName('LOF_008', 'LOF_019');
 $check($obi === 'Obi-Wan Kenobi (LOF) Vergence Temple', "internal hyphen and set survive: got '{$obi}'");
 $check(SWUBotFixtureFileName('LOF_008', 'LOF_019') === 'obi--wan-kenobi_lof_vergence-temple',
@@ -94,6 +97,15 @@ $check(SWUBotDeckDisplayName('HMW_003', 'HMW_033', ['SEC_026' => 3]) === 'Doctor
     'the SAME base with no card that cares carries NO trait — the trait is the deck\'s, not the base\'s');
 $check(SWUBotDeckDisplayName('HMW_016', 'JTL_020', ['HMW_100' => 2]) === 'Maul (HMW) Blue',
     'an Endor base with only a NABOO carer: the trait must MATCH the base, so no "(Endor)" and no "(Naboo)"');
+// The SIDEBOARD counts too (owner 2026-10-11): "check the tournament deck's base first, then verify it needs the trait in parenthesis
+// from reading the main deck and sideboard cards' text". Torrent in the sideboard alone still makes the deck a Naboo deck —
+// hmw-meta-2026-09/maul_hmw_blue_naboo is that case (its only Naboo carer is a sideboard card).
+$sbOnly = ['leader' => 'HMW_003', 'base' => 'HMW_033', 'cards' => ['SEC_026' => 3], 'sideboard' => ['HMW_100' => 2]];
+$check(SWUBotNamingCards($sbOnly) === ['SEC_026' => 3, 'HMW_100' => 2], 'SWUBotNamingCards: the main deck plus the sideboard');
+$check(SWUBotFixtureDisplayName($sbOnly) === 'Doctor Hemlock (HMW) Yellow (Naboo)',
+    "a Naboo carer in the SIDEBOARD only -> '(Naboo)' (got '" . SWUBotFixtureDisplayName($sbOnly) . "')");
+$check(SWUBotFixtureDisplayName(['leader' => 'HMW_003', 'base' => 'HMW_033', 'cards' => ['SEC_026' => 3], 'sideboard' => ['SEC_026' => 1]]) === 'Doctor Hemlock (HMW) Yellow',
+    'a sideboard with no carer adds nothing');
 $check(SWUBotDeckDisplayName('HMW_003', 'HMW_033') === 'Doctor Hemlock (HMW) Yellow',
     'no cards passed -> the pre-2026-10-01 three-part name, so old callers are unchanged');
 // The wording, on synthetic text: only YOUR base counts. (No printed card has the single-trait opponent form, so
@@ -124,7 +136,7 @@ $check(SWUBotFixtureDisplayNameFromFile('a_b_c_d_e') === '' && SWUBotFixtureDisp
 // outside the convention by design (attribution, and defect-encoding names, respectively).
 // force-fam-HMW-predictions/ follows the convention (owner, 2026-10-01) — it is where the base-trait 4th field was
 // introduced.
-foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions'] as $dir) {
+foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions', 'hmw-meta-2026-09'] as $dir) {
     $byName = []; $misnamed = [];
     // ⚠ An EMPTY or renamed directory would make every check below pass vacuously — the owner renamed
     // star-wars-dad-HMW-predictions/ to force-fam-HMW-predictions/ mid-session, and this test kept passing on nothing.
@@ -133,7 +145,7 @@ foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions'] as $dir) {
     foreach ($files as $path) {
         $stem = basename($path, '.txt');
         $d = SWUBotDeckFromFixtureText((string)file_get_contents($path));
-        $n = SWUBotFixtureFileName(strval($d['leader'] ?? ''), strval($d['base'] ?? ''), $d['cards'] ?? []);
+        $n = SWUBotFixtureFileName(strval($d['leader'] ?? ''), strval($d['base'] ?? ''), SWUBotNamingCards($d));   // main + sideboard (owner 2026-10-11)
         $check($n !== '', "{$dir}/{$stem}: resolves to a name");
         $byName[$n][] = $stem;
         if ($n !== $stem) $misnamed[] = "{$stem} (should be {$n})";
@@ -154,9 +166,10 @@ foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions'] as $dir) {
     foreach ($byName as $newStem => $olds) {
         $path = "./SWUSim/Tests/BotFixtures/{$dir}/{$olds[0]}.txt";
         $d = SWUBotDeckFromFixtureText((string)file_get_contents($path));
-        $fromCards = SWUBotDeckDisplayName(strval($d['leader'] ?? ''), strval($d['base'] ?? ''), $d['cards'] ?? []);
+        $fromCards = SWUBotDeckDisplayName(strval($d['leader'] ?? ''), strval($d['base'] ?? ''), SWUBotNamingCards($d));
         $fromFile  = SWUBotFixtureDisplayNameFromFile($newStem);
-        if ($fromCards !== $fromFile) $bad[] = "{$newStem}: cards='{$fromCards}' file='{$fromFile}'";
+        // Accents cannot round-trip through a filename (Sabé -> sabe_… -> 'Sabe'), so the card name is compared accent-folded (owner 2026-10-11).
+        if (SWUBotAsciiFold($fromCards) !== $fromFile) $bad[] = "{$newStem}: cards='{$fromCards}' file='{$fromFile}'";
     }
     $check(empty($bad), "{$dir}: card-derived and filename-derived display names agree for all "
         . count($byName) . (empty($bad) ? '' : ' — MISMATCH: ' . implode('; ', array_slice($bad, 0, 4))));
@@ -182,11 +195,6 @@ $known = ['ahsoka-tano_ash_yellow' => 'Ninin', 'doctor-hemlock_hmw_red' => 'Nini
 $wrong = array_filter($known, fn($a, $f) => ($authors[$f] ?? null) !== $a, ARRAY_FILTER_USE_BOTH);
 $check(empty($wrong), 'each known creator deck credits the right author', json_encode(array_map(fn($f) => $authors[$f] ?? '(missing)', array_keys($wrong))));
 
-// ⚠ weak-2026-09 is deliberately NOT in that list. Its names encode the DEFECT under test (badcurve,
-// neutralunits, noremoval) and three of them share one leader+base, so the convention would both destroy
-// the only information in the name and collide 3 ways. Asserted so nobody "completes" the rename later.
-$weak = array_map(fn($p) => basename($p, '.txt'), glob('./SWUSim/Tests/BotFixtures/weak-2026-09/*.txt') ?: []);
-$check(in_array('badcurve', $weak, true) && in_array('noremoval', $weak, true),
-    'weak-2026-09 keeps its defect-named fixtures (badcurve, noremoval) — NOT renamed');
+// (weak-2026-09 — defect-named fixtures exempt from the convention — was removed 2026-10-11; its assertion went with it, owner.)
 
 bot_test_finish();

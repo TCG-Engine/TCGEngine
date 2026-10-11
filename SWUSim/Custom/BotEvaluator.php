@@ -266,12 +266,49 @@ function _SWUBotAuraGrantedPower(array $v): int {
     return $n * $others;
 }
 
+// 2026-10-10 human-game screen, proposal 'fatiguewin' (+ fatiguehorizon3/8). Deck-out damage a player will take at upcoming
+// regroups: CR §6.1 deals 3 damage per card they cannot draw, and a regroup draws 2. Projected over horizon/2 regroups — the window
+// IS the horizon: a deck larger than the horizon cannot run dry inside it, so it contributes 0 with no separate gate (a mutation
+// check proved an explicit "deck > horizon" early return was dead code).
+function SWUBotFatigueDamageSoon(int $defSeat): int {
+    $h = SWUBotFatigueHorizon();
+    $live = count(array_filter(GetDeck($defSeat), fn($o) => $o !== null && empty($o->removed)));
+    $regroups = max(1, intdiv($h + 1, 2));   // horizon is in cards, 2 drawn per regroup: 3->2, 5->3, 8->4 regroups projected
+    $dmg = 0; $deck = $live;
+    for ($r = 0; $r < $regroups; $r++) { $dmg += 3 * max(0, 2 - $deck); $deck = max(0, $deck - 2); }
+    return $dmg;
+}
+
+// 2026-10-10 human-game screen, proposal 'healrace'. A seat's recurring base-heal (Restore N: "When this unit attacks, heal N
+// damage from your base") makes its base effectively tankier in a race — the owner out-races aggro with Chimaera/Owen Lars
+// heal, and the bot "cannot close against a healing deck". Summed over the seat's units.
+function _SWUBotRecurringBaseHeal(int $seat): int {
+    static $parsed = [];
+    $total = 0;
+    foreach (SWUBotUnits($seat) as $v) {
+        $cid = strval($v['cardID']);
+        if (!array_key_exists($cid, $parsed)) $parsed[$cid] = preg_match('/\bRestore (\d+)\b/i', strval(CardText($cid)), $m) ? intval($m[1]) : 0;
+        $total += $parsed[$cid];
+    }
+    return $total;
+}
+
+// $defSeat's base HP as the race/lethal math should see it: their printed remaining HP, less the deck-out damage they are
+// about to take (proposal 'fatiguewin'), plus the base they will heal back over a short race (proposal 'healrace', ~2 race
+// rounds of Restore). Never drops below 1 from fatigue alone — deck-out is a separate loss the engine applies.
+function SWUBotEffectiveBaseHp(int $defSeat): int {
+    $hp = SWUBaseRemainingHp($defSeat);
+    if (function_exists('SWUBotFatigueOn') && SWUBotFatigueOn()) $hp = max(1, $hp - SWUBotFatigueDamageSoon($defSeat));
+    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('healrace')) $hp += 2 * _SWUBotRecurringBaseHeal($defSeat);
+    return $hp;
+}
+
 // Rounds for $seat's board to reduce $defSeat's base to 0. Counts exhausted units: everything readies at
 // the regroup (CR 5.5.1d).
 function SWUBotClock(int $seat, int $defSeat): int {
     $pot = SWUBotBasePotential($seat, $defSeat, false);
     if ($pot <= 0) return SWU_BOT_NO_CLOCK;
-    return max(1, intdiv(SWUBaseRemainingHp($defSeat) + $pot - 1, $pot));
+    return max(1, intdiv(SWUBotEffectiveBaseHp($defSeat) + $pot - 1, $pot));
 }
 
 // THE DAMAGE BUDGET (proposal 'dmgbudget', BotFeatures.php). Owner ruling 2026-09-18: "control wants to minimize
@@ -320,7 +357,7 @@ function SWUBotLethalRaceSafe(int $seat, int $defSeat): bool {
 }
 
 function SWUBotLethalNextRound(int $seat, int $defSeat): bool {
-    return SWUBotBasePotential($seat, $defSeat, false) >= SWUBaseRemainingHp($defSeat);
+    return SWUBotBasePotential($seat, $defSeat, false) >= SWUBotEffectiveBaseHp($defSeat);
 }
 
 // Normal's clock test (spec Section 2): race when my clock is 3 or less AND faster than theirs; on a tie

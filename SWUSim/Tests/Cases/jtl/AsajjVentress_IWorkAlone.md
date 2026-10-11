@@ -261,7 +261,7 @@ P1LEADER:EXHAUSTED
 #// ZERO with NO observable side effect at all — unlike the shield case above, nothing is consumed and
 #// Numa's DAMAGE never moves off 0. The "if you do" half must STILL fire (judge ruling 2026-09-14:
 #// prevented damage still satisfies "If you do"), so the same-arena enemy SOR_095 takes 1.
-#// This is the case reported against the reference implementation; it is the pure-prevention sibling of
+#// This is the pure-prevention case — the sibling of
 #// LeaderAction_EnemyHalfFiresWhenFriendlyShieldPops, which pops a token and so could pass on its own.
 
 ## GIVEN

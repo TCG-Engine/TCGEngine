@@ -1,0 +1,20 @@
+RUN .claude/tmp/tourney-baseline/run: 9924/9933 real matches replayed, 19647 games (9 failed), median 7 rounds, seat-1 win 49.8%
+
+######## THIS RUN vs REAL
+ARCHETYPES (30+ matches): 69   Pearson -0.02   Spearman -0.07   MAE 0.102 (constant 50%: 0.046)   spread SD real 5.9pp / bot 10.7pp
+STYLE BIAS (bot − real game WR, match-weighted): hyperaggro +9.7pp   softaggro +7.4pp   midrange +0.6pp   softcontrol -8.4pp   hardcontrol -12.4pp
+most under-performing:
+   Director Krennic (LAW) · Forward Command Post  softcontrol real 61%  bot 26%  gap -35.0  (n=38)
+   Kylo Ren (LOF) · Data Vault                    softcontrol real 57%  bot 26%  gap -31.2  (n=35)
+   Leia Organa (SEC) · Data Vault                 midrange    real 53%  bot 23%  gap -29.6  (n=80)
+   Chewbacca (LAW) · Alliance Outpost             hyperaggro  real 53%  bot 25%  gap -27.2  (n=114)
+   Mother Talzin (LOF) · Green Force              softcontrol real 56%  bot 38%  gap -18.1  (n=33)
+   Lando Calrissian (LAW) · Colossus              softcontrol real 57%  bot 40%  gap -16.8  (n=114)
+most over-performing:
+   Grand Admiral Sloane (ASH) · Blue Splash       midrange    real 40%  bot 61%  gap +21.3  (n=53)
+   Hera Syndulla (LAW) · Blue Splash              midrange    real 34%  bot 53%  gap +18.9  (n=38)
+   Darth Vader (JTL) · Yellow 30HP                hyperaggro  real 49%  bot 67%  gap +18.2  (n=1176)
+   Ahsoka Tano (ASH) · Yellow 30HP                hyperaggro  real 49%  bot 65%  gap +15.8  (n=311)
+   Wedge Antilles (JTL) · Yellow 30HP             hyperaggro  real 41%  bot 55%  gap +13.7  (n=31)
+   Baylan Skoll (ASH) · Red 30HP                  midrange    real 44%  bot 57%  gap +13.4  (n=36)
+MATCHUP CELLS (ordered, 10+ matches): 338   Pearson +0.18   MAE 0.169 (constant 50%: 0.086)   favourite right 53%

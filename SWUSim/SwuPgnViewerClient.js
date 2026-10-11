@@ -27,16 +27,18 @@
     window.RenderCardHTML = wrapped;
   }
 
+  // z-index 10000: above the board, below the gear menu's settings panel (10001) and the bug report.
   function injectStyles() {
-    const css = `#swupgnViewerBar{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:30000;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+    const css = `#swupgnViewerBar{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:10000;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
       max-width:min(960px,calc(100vw - 24px));padding:8px 10px;background:rgba(10,14,22,.92);border:1px solid rgba(255,255,255,.18);border-radius:10px;color:#e8eef6;font:13px/1.3 system-ui,sans-serif;box-sizing:border-box}
       #swupgnViewerBar button,#swupgnViewerBar select{background:#1d2735;color:#e8eef6;border:1px solid rgba(255,255,255,.25);border-radius:6px;padding:4px 8px;font:inherit;cursor:pointer}
       #swupgnScrub{flex:1 1 160px;min-width:120px}
       #swupgnCaption{flex:1 1 100%;min-height:1.3em;overflow-wrap:anywhere}
       .swupgn-round[aria-current="true"]{border-color:#f5c542!important}
-      #swupgnInfoPanel{position:fixed;right:12px;bottom:110px;z-index:30001;max-width:min(420px,calc(100vw - 24px));max-height:60vh;overflow:auto;background:rgba(10,14,22,.96);color:#e8eef6;border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px;font:13px/1.4 system-ui,sans-serif}
+      #swupgnInfoPanel{position:fixed;right:12px;bottom:110px;z-index:10000;max-width:min(420px,calc(100vw - 24px));max-height:60vh;overflow:auto;background:rgba(10,14,22,.96);color:#e8eef6;border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px;font:13px/1.4 system-ui,sans-serif}
       .swupgn-ph-name{position:absolute;left:4%;right:4%;top:40%;background:rgba(0,0,0,.75);color:#fff;font:600 11px/1.2 system-ui,sans-serif;text-align:center;padding:2px;border-radius:4px;overflow-wrap:anywhere}
-      @media (max-width:700px){#swupgnViewerBar{left:8px;right:8px;transform:none;max-width:none;bottom:8px}}
+      @media (max-width:700px){#swupgnViewerBar{left:8px;right:8px;transform:none;max-width:none;bottom:8px}
+        #swupgnCaption{max-height:4em;overflow:auto}}
       /* Desktop: dock in the right sidebar (a viewer game's log is empty), clear of the board and both hands. */
       #swupgnViewerBar.swupgn-dock{left:auto;right:6px;transform:none;bottom:auto;top:170px;width:calc(var(--swu-sidebar-w, 200px) - 12px);max-width:none;max-height:calc(100vh - 190px);overflow:auto}
       #swupgnViewerBar.swupgn-dock #swupgnScrub{flex-basis:100%}
@@ -143,6 +145,7 @@
     document.body.appendChild(bar);
     placeBar(bar);
     const spectator = document.getElementById('spectatorControls'); if (spectator) spectator.style.display = 'none';
+    addMenuExit();
     document.addEventListener('keydown', (e) => {
       if (e.target && /input|select|textarea/i.test(e.target.tagName)) return;
       if (e.key === 'ArrowRight') { e.preventDefault(); document.querySelector('[data-swupgn="next"]').click(); }
@@ -150,11 +153,31 @@
     });
   }
 
-  // Desktop with a sidebar → dock in it; phones → bottom bar, with the board padded so nothing hides under it.
+  // The gear menu's Match section (with its Return to Main Menu) is for seated players; a viewer is a
+  // spectator, so give the menu its own way out. One settings panel serves desktop and phone layouts.
+  function addMenuExit() {
+    const match = document.getElementById('swuSettingsMatchSection');
+    if (!match || document.getElementById('swupgnSettingsSection')) return;
+    const section = el('div', { class: 'swu-settings-section', id: 'swupgnSettingsSection', style: 'border-top:1px solid var(--border);' });
+    section.appendChild(el('div', { class: 'swu-settings-section-title' }, 'Replay'));
+    const back = el('button', { type: 'button', class: 'btn btn-primary swu-settings-action', 'data-swupgn': 'menu' }, 'Return to Main Menu');
+    back.onclick = () => {
+      stopPlay();
+      if (typeof window.SWUGoMainMenu === 'function') window.SWUGoMainMenu();
+      else location.href = location.pathname.replace(/[^/]*$/, '') + 'SharedUI/MainMenu.php';
+    };
+    section.appendChild(back);
+    match.insertAdjacentElement('afterend', section);
+  }
+
+  // Desktop with a sidebar → dock in it; phones → bottom bar, with the phone layout ending above it.
+  // ⚠ Not padding-bottom: the layout root is a fixed scroll box whose hand footer is position:sticky, so
+  // nothing padded could ever scroll clear — and WebKit leaves a flex scroller's bottom padding out of
+  // its scroll range anyway. Moving the root's bottom edge works in every engine.
   function placeBar(bar) {
     const mobileRoot = document.getElementById('swuMobileRoot');
     if (mobileRoot) {
-      const pad = () => { mobileRoot.style.paddingBottom = (bar.offsetHeight + 16) + 'px'; };
+      const pad = () => { mobileRoot.style.bottom = (bar.offsetHeight + 16) + 'px'; };
       pad();
       if (window.ResizeObserver) new ResizeObserver(pad).observe(bar);
       return;

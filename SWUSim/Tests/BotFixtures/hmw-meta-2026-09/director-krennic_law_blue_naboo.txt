@@ -1,0 +1,50 @@
+# Real-deck self-play fixture — Director Krennic, Amidst My Achievement - Great Grass Plains
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #39 of 39 (0-4-0), player Reader_DSP
+#   https://melee.gg/Decklist/View/90c81f7c-8a70-4593-8cbf-b4de015fcb44 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Director Krennic (LAW) Blue (Naboo) archetype in this event — the only list of it.
+#   Base trait (Naboo) is part of the archetype: a card in the deck or sideboard cares about a Naboo base.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): midrange — the classifier read softcontrol (label, high confidence: matches director-krennic_law_blue (80% of cards))
+# Style: midrange
+# Flavours: credit-ramp
+
+Leader
+1 LAW_008
+
+Base
+1 HMW_020
+
+Deck
+3 ASH_116
+3 JTL_032
+3 LAW_159
+3 LAW_097
+3 ASH_097
+3 LOF_059
+3 ASH_053
+2 LOF_070
+2 SEC_087
+2 ASH_048
+2 ASH_079
+2 LAW_039
+1 LAW_149
+1 ASH_133
+3 ASH_052
+1 LAW_101
+3 JTL_043
+1 SEC_078
+1 LAW_133
+1 LAW_044
+2 SEC_038
+2 LOF_091
+2 HMW_110
+1 HMW_094
+
+Sideboard
+2 SEC_078
+2 ASH_090
+2 ASH_077
+1 LOF_091
+1 SEC_088
+1 LAW_149
+1 ASH_133

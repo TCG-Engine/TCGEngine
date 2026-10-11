@@ -1,0 +1,47 @@
+# Real-deck self-play fixture — Sabé, Queen's Shadow - Data Vault
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #16 of 39 (3-3-0), player kimptonjack
+#   https://melee.gg/Decklist/View/617a1839-7a2a-42a9-9bf2-b4de0137fa29 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Sabé (SEC) Data Vault archetype in this event — the only list of it.
+#   Main 60 (base minimum 60), sideboard 10.
+# Archetype (owner's label, 2026-10-11): midrange — the classifier read midrange (shape, low confidence: shape score 2.41 (avg cost 3.35, 12 cheap, 0 big, 2 removal, 0 wipe, 3 draw))
+# Style: midrange
+
+Leader
+1 SEC_017
+
+Base
+1 JTL_024
+
+Deck
+3 SEC_098
+3 JTL_103
+3 JTL_203
+3 LAW_067
+3 ASH_220
+2 SEC_101
+2 LAW_223
+3 JTL_096
+3 SEC_199
+3 SEC_207
+3 LAW_068
+3 JTL_221
+3 ASH_222
+2 SEC_215
+2 LOF_192
+2 JTL_095
+3 SEC_179
+3 SEC_233
+2 SEC_234
+2 SEC_211
+2 IBH_052
+3 LOF_215
+2 SEC_256
+
+Sideboard
+2 SEC_198
+2 JTL_235
+2 LAW_221
+1 SEC_234
+1 SEC_215
+1 LAW_237
+1 JTL_210

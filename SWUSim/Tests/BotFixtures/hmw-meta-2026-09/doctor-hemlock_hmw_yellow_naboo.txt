@@ -1,0 +1,43 @@
+# Real-deck self-play fixture — Doctor Hemlock, Emotion Has No Place Here - Otoh Gunga
+# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #4 of 39 (5-1-0), player MotoTaleric_DSP
+#   https://melee.gg/Decklist/View/0a6698fc-cb4c-48e8-bd91-b4df00798aa3 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Doctor Hemlock (HMW) Yellow (Naboo) archetype in this event — the only list of it.
+#   Base trait (Naboo) is part of the archetype: a card in the deck or sideboard cares about a Naboo base.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype (owner's label, 2026-10-11): softcontrol — the classifier read softcontrol (shape, medium confidence: shape score 2.75 (avg cost 4.26, 6 cheap, 11 big, 6 removal, 4 wipe, 0 draw))
+# Style: softcontrol
+# Flavours: tempo
+
+Leader
+1 HMW_003
+
+Base
+1 HMW_033
+
+Deck
+3 ASH_192
+3 SEC_186
+3 ASH_048
+3 ASH_079
+3 LOF_057
+3 ASH_053
+1 LAW_086
+3 ASH_052
+3 ASH_194
+1 LAW_101
+3 LAW_217
+3 JTL_043
+2 SEC_038
+3 HMW_202
+3 HMW_055
+3 HMW_204
+3 HMW_062
+3 HMW_064
+1 HMW_094
+
+Sideboard
+2 JTL_041
+2 JTL_235
+2 JTL_184
+2 SEC_078
+2 ASH_042
