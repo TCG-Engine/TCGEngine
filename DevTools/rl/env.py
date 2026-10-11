@@ -33,8 +33,8 @@ class GrandArchiveSelfPlayEnv:
         c2 = p2.get("champion", {})
         p1_dq = p1.get("decisionQueue", {})
         p2_dq = p2.get("decisionQueue", {})
-        p1_next_dq = p1_dq.get("next", {}) if isinstance(p1_dq, dict) else {}
-        p2_next_dq = p2_dq.get("next", {}) if isinstance(p2_dq, dict) else {}
+        p1_next_dq = (p1_dq.get("next") if isinstance(p1_dq, dict) else None) or {}
+        p2_next_dq = (p2_dq.get("next") if isinstance(p2_dq, dict) else None) or {}
         scalars = {
             "activePlayer": int(snapshot.get("activePlayer", 0)),
             "turnPlayer": int(snapshot.get("turnPlayer", 0)),
