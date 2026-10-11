@@ -21,7 +21,7 @@ gaScenario('otherworldly-possessions-enlighten')
 //   - LUXEM lineage/element unlock
 gaScenario('optical-control-choose-type')
     ->standardDeck('Optical Control')
-    ->champion(lineage: ['Zander, Blinding Steel'])
+    ->readyFor('Optical Control')
     ->seed('myHand', 'Optical Control')
     ->play('Optical Control')->pay(3)->answer(1, '2')
     ->register();

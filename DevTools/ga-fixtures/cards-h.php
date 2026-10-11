@@ -156,7 +156,7 @@ gaScenario('heavy-swing-class-bonus-discount')
 //   - rested Dungeon Guide - the only legal target after the fix
 gaScenario('hypothermia-target-rested-ally-life')
     ->standardDeck('Hypothermia')
-    ->champion(lineage: ['Spirit of Water'])
+    ->readyFor('Hypothermia')
     ->seed('theirField', 'Dungeon Guide', properties: ['Status' => 1])
     ->seed('myHand', 'Hypothermia')
     ->castSpell('Hypothermia', pay: 2, target: 'theirField-1')

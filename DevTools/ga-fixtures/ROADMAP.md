@@ -73,14 +73,24 @@ Each step collapses an existing family and is proven with the guard and verifier
 3. **Spellshroud family** (20 `…-spell-cannot-target-it`). DONE 2026-10-11: `gaSpellshroudCase(slug, holders, spell,
    holderCounters:, word:, oppChampion:)` with three spell kits (Liturgy of Corruption, Fracturize, Disenchant); 19 of 20
    regenerate to HEAD by meaning. Left hand-written: the Rhongomiant own-spell variant (the controller's own spell is refused).
-4. **Declined-optional family** ("decline first target still offers second", ~15): `declines(step)` verb.
-5. **Class-bonus / level-threshold family** ("level N costs less", "class bonus …"): `atLevel(n)`, `withClassBonus()`.
-6. **Coverage in code:** `covers()` currently appears in 3 scenarios. Add `expect*` helpers that auto-derive
-   `semanticCoverage` from the verbs used (cost -> `cost`, `target` -> `targeting`, `expectDamage` -> `damage`),
-   leaving `covers()` for rules text only. This closes most of the 162 incomplete contracts for free.
-7. **`expectRaw`** for the 575 scenarios that still carry hand-written assertion JSON.
+4. **Declined-optional family**. DROPPED (2026-10-11): 102 slugs mention "decline", but a decline is the same input as a
+   priority pass (`pass(1)`), so a `declines()` verb would only rename it, and telling a decline from a window pass needs
+   per-fixture judgment. No mechanical payoff; the prompts that matter are covered by `rejects()` and `answer()`.
+5. **`readyFor(card, classBonus:, level:, damage:)`**. DONE 2026-10-11, replacing the planned `atLevel` / `withClassBonus`
+   (`champion(level:)` already exists; the real saving is not looking up which lineage card unlocks an element or which
+   class a card needs). It derives element access from the card's element (table of one lineage card per advanced
+   element) and the class bonus from its class. 50 existing scenarios converted and regenerate to HEAD. Phase 3 starts every
+   fixture with it.
+6. **Coverage in code**. REVISED. Measured: the 162 incomplete contracts are missing rules clauses (76), semantic labels on
+   assertions (43) or observable evidence beyond a queue-empty check (43). None are missing `mechanics`, so deriving
+   mechanics from verbs would not close any, and a derived `covers()` would rewrite meta that the generator keeps by hand.
+   Done instead: `DevTools/ga-card-info.php "Card" ...` prints id, element, type, classes, costs, stats and effect text, so
+   the clause text for a fixture comes from card data. Closing the 162 is Phase 2 hand work.
+7. **`expectRaw`**. DEFERRED to Phase 2: the 575 scenarios with hand-written assertion JSON keep it in the fixture files,
+   so the generator preserves it today. Moving it into the scenarios makes them the only source of truth (no drift) but is
+   large mechanical churn with no behaviour change; do it when a scenario file is touched anyway.
 
-Exit: top 10 shapes (284 fixtures today) are each expressible in one statement; regenerating everything is still byte-identical by meaning.
+Exit (met 2026-10-11 for the shapes that proved regular): `castSpell` (407 scenarios), `gaAbilitySandbox` (67), `gaSpellshroudCase` (19), `readyFor` (50). Regenerating everything is still identical by meaning.
 
 ## Phase 2: Raise quality of what already exists
 

@@ -62,7 +62,7 @@ gaScenario('novice-mechanist-on-foster-summon-drone')
 //   - NEOS lineage/element unlock
 gaScenario('neos-sight-eight-objects-memory-draw')
     ->standardDeck('Neos Sight')
-    ->champion(lineage: ['Tonoris, Creation\'s Will'])
+    ->readyFor('Neos Sight')
     ->seed('myField', 'Dungeon Guide')
     ->seed('myField', 'Dungeon Guide')
     ->seed('myField', 'Dungeon Guide')

@@ -22,7 +22,7 @@
 //   - Kongming, Fel Eidolon (MAGE CHAMPION), physically seeded for Class Bonus
 gaScenario('vernal-talisman-preserve-draw')
     ->standardDeck('Vernal Talisman')
-    ->champion(lineage: ['Kongming, Fel Eidolon'])
+    ->readyFor('Vernal Talisman')
     ->seed('myField', 'Kongming, Fel Eidolon')
     ->seed('myHand', 'Vernal Talisman')
     ->playSlot(3)
@@ -98,7 +98,7 @@ gaScenario('veteran-soldier-floating-memory')
 //   - Dungeon Guide - confirms "all units" isn't champion-only
 gaScenario('violet-haze-distant-lineage')
     ->standardDeck('Violet Haze')
-    ->champion(lineage: ['Tristan, Shadowdancer'])
+    ->readyFor('Violet Haze')
     ->seed('myField', 'Dungeon Guide')
     ->seed('myHand', 'Violet Haze')
     ->castSpell('Violet Haze', pay: 2, window: 'me', target: 'myField-0')

@@ -118,7 +118,7 @@ gaScenario('bauble-of-abundance-draw')
 //   - Bauble of Abundance (REGALIA) - second draw source
 gaScenario('blood-surge-no-draw')
     ->standardDeck('Blood Surge')
-    ->champion(lineage: ['Dante, Hemomancer'])
+    ->readyFor('Blood Surge')
     ->seed('myField', 'Bauble of Abundance')
     ->seed('myHand', 'Blood Surge')
     ->castSpell('Blood Surge', pay: 2, window: 'me')

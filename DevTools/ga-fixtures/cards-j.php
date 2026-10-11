@@ -10,7 +10,7 @@
 //   - Clarent, Sword of Peace (Sword weapon) - link target
 gaScenario('jovian-hilt-link-buff')
     ->standardDeck('Jovian Hilt X Ultra')
-    ->champion(lineage: ['Lorraine, Arclight Saber'])
+    ->readyFor('Jovian Hilt X Ultra')
     ->seed('myField', 'Clarent, Sword of Peace')
     ->seed('myHand', 'Jovian Hilt X Ultra')
     ->playSlot(4)->target('myField-1')

@@ -15,7 +15,7 @@
 //   - Dungeon Guide (ALLY) - return-to-hand target
 gaScenario('reclaim-return-ally')
     ->standardDeck('Reclaim')
-    ->champion(lineage: ['Spirit of Wind'])
+    ->readyFor('Reclaim')
     ->seed('myField', 'Dungeon Guide')
     ->seed('myHand', 'Reclaim')
     ->castSpell('Reclaim', pay: 2, window: 'both', target: 'myField-1')
@@ -33,7 +33,7 @@ gaScenario('reclaim-return-ally')
 //   - Kongming, Fel Eidolon (MAGE CHAMPION) - Class Bonus source
 gaScenario('ruinous-pillars-of-qidao-enter-empower')
     ->standardDeck('Ruinous Pillars of Qidao')
-    ->champion(lineage: ['Kongming, Fel Eidolon'])
+    ->readyFor('Ruinous Pillars of Qidao')
     ->seed('myField', 'Kongming, Fel Eidolon')
     ->seed('myHand', 'Ruinous Pillars of Qidao')
     ->castSpell('Ruinous Pillars of Qidao', pay: 3)

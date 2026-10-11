@@ -114,7 +114,7 @@ gaScenario('tome-of-sorcery-enter-draw-empower')
 //   - rested Dungeon Guide - damage target
 gaScenario('tsunami-of-nanyue-damage')
     ->standardDeck('Tsunami of Nanyue')
-    ->champion(lineage: ['Spirit of Water'])
+    ->readyFor('Tsunami of Nanyue')
     ->seed('theirField', 'Dungeon Guide', properties: ['Status' => 1])
     ->seed('myHand', 'Tsunami of Nanyue')
     ->castSpell('Tsunami of Nanyue', pay: 5, window: 'both')

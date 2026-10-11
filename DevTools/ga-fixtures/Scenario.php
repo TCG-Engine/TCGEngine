@@ -26,6 +26,13 @@ require_once __DIR__ . '/decks.php';
 const GA_SCENARIO_STARTING_HAND = 7;
 
 class GaScenario {
+    // The lineage card the fixtures use to unlock each advanced element (readyFor()).
+    private const ELEMENT_LINEAGE = [
+        'WATER' => 'Spirit of Water', 'WIND' => 'Spirit of Wind', 'TERA' => 'Kongming, Fel Eidolon',
+        'ASTRA' => 'Arisanna, Astral Zenith', 'UMBRA' => 'Tristan, Shadowdancer', 'ARCANE' => 'Lorraine, Arclight Saber',
+        'LUXEM' => 'Zander, Blinding Steel', 'NEOS' => 'Tonoris, Creation\'s Will', 'EXIA' => 'Dante, Hemomancer',
+        'CRUX' => 'Lorraine, Crux Knight',
+    ];
     private string $slug;
     private string $deck = '';
     private array $setup = [];
@@ -93,6 +100,21 @@ class GaScenario {
         if ($damage !== null) $props['Damage'] = $damage;
         $this->setup[] = ['player' => $player, 'patchMzId' => 'myField-0', 'setProperties' => $props];
         return $this;
+    }
+
+    // Element access and class bonus derived from the card under test, as one champion patch: a champion whose lineage
+    // unlocks the card's element (none needed for FIRE/NORM, the starting champion's), optionally with the card's own
+    // class so its [Class Bonus] applies. $level / $damage are passed through (a second champion() patch would clobber
+    // the Counters this one writes).
+    public function readyFor(string $cardName, bool $classBonus = false, ?int $level = null, ?int $damage = null, int $player = 1): self {
+        $id = self::id($cardName);
+        $lineage = [];
+        foreach (explode(',', CardElement($id)) as $element) {
+            if (isset(self::ELEMENT_LINEAGE[$element])) { $lineage[] = self::ELEMENT_LINEAGE[$element]; break; }
+        }
+        $classes = $classBonus ? CardClasses($id) : null;
+        if (empty($lineage) && $level === null && $damage === null && $classes === null) return $this;
+        return $this->champion(lineage: $lineage, level: $level, damage: $damage, classes: $classes, player: $player);
     }
 
     // Shorthand for a champion patch that only unlocks an element through its lineage cards.

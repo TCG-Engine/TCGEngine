@@ -34,7 +34,7 @@ gaScenario('worn-diary-page-counters-draw')
 //   - WIND lineage/element unlock
 gaScenario('winds-of-retribution-ally-buff')
     ->standardDeck('Winds of Retribution')
-    ->champion(lineage: ['Spirit of Wind'])
+    ->readyFor('Winds of Retribution')
     ->seed('myHand', 'Winds of Retribution')
     ->castSpell('Winds of Retribution', pay: 6)
     ->register();
@@ -66,7 +66,7 @@ gaScenario('worn-gearblade-durability-prevent')
 //   - WATER lineage/element unlock
 gaScenario('water-barrier-prevent-tag')
     ->standardDeck('Water Barrier')
-    ->champion(lineage: ['Spirit of Water'])
+    ->readyFor('Water Barrier')
     ->seed('myHand', 'Water Barrier')
     ->castSpell('Water Barrier', pay: 3, window: 'both')
     ->register();

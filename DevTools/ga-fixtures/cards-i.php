@@ -55,7 +55,7 @@ gaScenario('imperial-countermeasure-prevent-draw')
 //   - Backup Charger (REGALIA,ITEM) - On Enter optional target
 gaScenario('intangible-geist-banish-to-material')
     ->standardDeck('Intangible Geist')
-    ->champion(lineage: ['Lorraine, Crux Knight'])
+    ->readyFor('Intangible Geist')
     ->seed('myBanish', 'Backup Charger')
     ->seed('myHand', 'Intangible Geist')
     ->castSpell('Intangible Geist', pay: 4, target: 'myBanish-0')

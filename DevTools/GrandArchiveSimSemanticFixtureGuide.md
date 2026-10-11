@@ -100,6 +100,11 @@ gaScenario('thunderclap-level-three-costs-two-less')
   `'me'`, `'opp'` or none) + the target answer in one statement; use the pieces (`play`, `pay(n)`, `pass(p)`, `passBoth()`, `answer(p, mz)`, `target(mz)`, `endTurn()`) when a fixture needs steps in between,
   and `rejects(p, mz, label)` for a deliberately illegal answer (the negative path).
   `rawSetup()` / `rawAction()` are escape hatches for anything without a verb.
+- **Card-derived setup.** `readyFor('Card', classBonus: true, level: n, damage: n)` patches the champion so the card's
+  element is unlocked (one lineage card per advanced element) and, with `classBonus`, its class applies. Look a card up with
+  `php DevTools/ga-card-info.php "Card Name"` (id, element, classes, costs, stats, effect text).
+- **Families.** Repeated shapes have helpers in `Scenario.php`: `gaAbilitySandbox` + `expectCostFootprint` (printed
+  activation costs), `gaSpellshroudCase` (spell cannot target a shrouded unit).
 - **Expectations** default to the last action's step: `expectDamage`, `expectProperty`,
   `expectZoneCount`, `expectDqEmpty`. A label marks the assertion `"semantic": true`.
 - **Meta.** `covers(mechanics, ...clauses)` writes `semanticCoverage` (with `testedCards` filled in from the

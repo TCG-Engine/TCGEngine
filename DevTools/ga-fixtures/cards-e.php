@@ -108,7 +108,7 @@ DECK
 //   - Dungeon Guide (ALLY) - On Enter banish target
 gaScenario('entrancing-filigree-enter-banish')
     ->standardDeck('Entrancing Filigree')
-    ->champion(lineage: ['Kongming, Fel Eidolon'])
+    ->readyFor('Entrancing Filigree')
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Entrancing Filigree')
     ->playSlot(2)->target('theirField-1')
@@ -125,7 +125,7 @@ gaScenario('entrancing-filigree-enter-banish')
 //   - LUXEM lineage/element unlock
 gaScenario('elucidate-plans-prep-counters')
     ->standardDeck('Elucidate Plans')
-    ->champion(lineage: ['Zander, Blinding Steel'])
+    ->readyFor('Elucidate Plans')
     ->seed('myHand', 'Elucidate Plans')
     ->castSpell('Elucidate Plans', pay: 2, window: 'both')
     ->expectProperty('p1Field-0', 'Counters', '{"preparation":2}', 'Elucidate Plans puts 2 preparation counters on the champion')
@@ -191,7 +191,7 @@ gaScenario('equinox-hour-banish-draw')
 //   - EXIA lineage/element unlock
 gaScenario('exia-sight-draw')
     ->standardDeck('Exia Sight')
-    ->champion(lineage: ['Dante, Hemomancer'])
+    ->readyFor('Exia Sight')
     ->seed('myHand', 'Exia Sight')
     ->play('Exia Sight')
     ->register();

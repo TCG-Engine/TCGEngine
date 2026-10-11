@@ -22,7 +22,7 @@
 //   - Zander, Blinding Steel (LUXEM CHAMPION) - lineage/element unlock
 gaScenario('luxem-sight-draw')
     ->standardDeck('Luxem Sight')
-    ->champion(lineage: ['Zander, Blinding Steel'])
+    ->readyFor('Luxem Sight')
     ->seed('myHand', 'Luxem Sight')
     ->play('Luxem Sight')
     ->register();
