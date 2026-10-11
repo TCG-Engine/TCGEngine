@@ -1,0 +1,22 @@
+{
+    "name": "smoke-out-deals-four-damage-to-a-unit-with-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vjonmi9jjq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vjonmi9jjq"
+        ],
+        "mechanics": [
+            "damage",
+            "condition",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "If that unit has stealth, deal 4 damage to it instead."
+        ]
+    }
+}

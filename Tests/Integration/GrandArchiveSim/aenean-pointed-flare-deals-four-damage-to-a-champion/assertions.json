@@ -1,0 +1,25 @@
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "4",
+        "semantic": true,
+        "label": "The opposing champion took 4 damage"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Below level 3 the full 4 reserve is paid"
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

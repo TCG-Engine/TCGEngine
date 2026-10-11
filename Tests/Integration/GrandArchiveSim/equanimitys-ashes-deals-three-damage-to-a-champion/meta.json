@@ -1,0 +1,21 @@
+{
+    "name": "equanimitys-ashes-deals-three-damage-to-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dZJBqul1Em"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dZJBqul1Em"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 3 damage to target champion."
+        ]
+    }
+}

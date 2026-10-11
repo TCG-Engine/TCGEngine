@@ -1,0 +1,16 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "A buff counter makes it 4 damage: the buffed Dungeon Guide (4 life) is destroyed"
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

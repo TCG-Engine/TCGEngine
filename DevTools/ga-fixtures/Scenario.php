@@ -109,9 +109,12 @@ class GaScenario {
     public function readyFor(string $cardName, bool $classBonus = false, ?int $level = null, ?int $damage = null, int $player = 1): self {
         $id = self::id($cardName);
         $lineage = [];
-        foreach (explode(',', CardElement($id)) as $element) {
+        $elements = explode(',', CardElement($id));
+        foreach ($elements as $element) {
             if (isset(self::ELEMENT_LINEAGE[$element])) { $lineage[] = self::ELEMENT_LINEAGE[$element]; break; }
         }
+        // Exalted cards need another ADVANCED element enabled (water, wind and fire are basic).
+        if (empty($lineage) && in_array('EXALTED', $elements, true)) $lineage[] = self::ELEMENT_LINEAGE['TERA'];
         $classes = $classBonus ? CardClasses($id) : null;
         if (empty($lineage) && $level === null && $damage === null && $classes === null) return $this;
         return $this->champion(lineage: $lineage, level: $level, damage: $damage, classes: $classes, player: $player);

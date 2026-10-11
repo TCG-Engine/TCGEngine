@@ -1,0 +1,16 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "6",
+        "semantic": true,
+        "label": "[Class Bonus][Level 6+] 6 damage instead"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

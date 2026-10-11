@@ -1,0 +1,22 @@
+{
+    "name": "excoriate-destroys-an-ally-with-reserve-cost-four-or-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ls6g7xgwve"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ls6g7xgwve"
+        ],
+        "mechanics": [
+            "destroy",
+            "targeting",
+            "cost-filter"
+        ],
+        "rulesClauses": [
+            "Destroy target ally with reserve cost 4 or less."
+        ]
+    }
+}

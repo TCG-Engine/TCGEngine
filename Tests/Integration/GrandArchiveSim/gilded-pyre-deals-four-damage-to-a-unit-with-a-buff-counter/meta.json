@@ -1,0 +1,22 @@
+{
+    "name": "gilded-pyre-deals-four-damage-to-a-unit-with-a-buff-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "eAoEELWtHi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "eAoEELWtHi"
+        ],
+        "mechanics": [
+            "damage",
+            "condition",
+            "counter"
+        ],
+        "rulesClauses": [
+            "If that unit has a buff counter on it, deal 4 damage to it instead."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "excoriate-level-two-costs-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ls6g7xgwve"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ls6g7xgwve"
+        ],
+        "mechanics": [
+            "cost-modification",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "[Level 2+] This card costs 1 less to activate."
+        ]
+    }
+}

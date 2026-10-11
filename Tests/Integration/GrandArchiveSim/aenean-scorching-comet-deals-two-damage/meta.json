@@ -1,0 +1,21 @@
+{
+    "name": "aenean-scorching-comet-deals-two-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "50m1nBduUZ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "50m1nBduUZ"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 2 damage to target unit."
+        ]
+    }
+}

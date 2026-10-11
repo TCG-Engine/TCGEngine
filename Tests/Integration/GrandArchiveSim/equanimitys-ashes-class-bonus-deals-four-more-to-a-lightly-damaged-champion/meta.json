@@ -1,0 +1,22 @@
+{
+    "name": "equanimitys-ashes-class-bonus-deals-four-more-to-a-lightly-damaged-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:01:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dZJBqul1Em"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dZJBqul1Em"
+        ],
+        "mechanics": [
+            "damage",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Then if that champion has five or less damage counters on them, deal an additional 4 damage to them."
+        ]
+    }
+}

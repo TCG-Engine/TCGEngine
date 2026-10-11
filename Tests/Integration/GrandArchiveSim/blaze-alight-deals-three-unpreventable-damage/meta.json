@@ -1,0 +1,22 @@
+{
+    "name": "blaze-alight-deals-three-unpreventable-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:58:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iyvrYzBHVg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iyvrYzBHVg"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting",
+            "unpreventable"
+        ],
+        "rulesClauses": [
+            "Deal 3 unpreventable damage to target unit."
+        ]
+    }
+}

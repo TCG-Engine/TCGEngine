@@ -1,0 +1,22 @@
+{
+    "name": "aenean-scorching-comet-class-bonus-level-three-deals-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "50m1nBduUZ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "50m1nBduUZ"
+        ],
+        "mechanics": [
+            "damage",
+            "class-bonus",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 3+] Deal 4 damage to that unit instead."
+        ]
+    }
+}
