@@ -269,6 +269,17 @@ class GaScenario {
         return $this->expect(['type' => 'zone_count', 'zone' => $zone, 'viewerPlayerID' => $viewer, 'value' => $count], $label, $step);
     }
 
+    // Zone sizes after an ability's printed cost has been paid in the ability sandbox (see gaAbilitySandbox).
+    // Labels are the generic ones the family has always used.
+    public function expectCostFootprint(int $hand, int $memory, int $banish, int $graveyard, int $field): self {
+        return $this
+            ->expectZoneCount('myHand', $hand, 1, 'Hand after paying the printed (N) reserve cost (and any draws the ability makes)')
+            ->expectZoneCount('myMemory', $memory, 1, 'Memory after the reserve payments / draws into memory')
+            ->expectZoneCount('myBanish', $banish, 1, 'Banishment after the printed banish costs')
+            ->expectZoneCount('myGraveyard', $graveyard, 1, 'Graveyard after the printed sacrifice / banish costs')
+            ->expectZoneCount('myField', $field, 1, 'Field after the printed Banish / Sacrifice / Return CARDNAME cost');
+    }
+
     // Override the tested cards (by '#<id>' or name) when they are not simply the cards the scenario plays.
     public function tested(string ...$cards): self {
         $this->testedOverride = array_map([self::class, 'id'], $cards);
@@ -330,6 +341,27 @@ class GaScenario {
 
 function gaScenario(string $slug): GaScenario {
     return new GaScenario($slug);
+}
+
+// The "ability sandbox" behind the `…-ability-N-pays-its-printed-cost` family: a crowded, fully-stocked board so any
+// printed cost (reserve, banish, sacrifice, return, discard) has something to pay with. The card under test is the
+// first myField seed (myField-1, behind the patched champion at myField-0); `$cardPatch` patches it (Status, training
+// counters...). `$champion` / `$classes` set the champion card and its class override. The board holds allies and a
+// Powercell, an opposing ally, fire / floating-memory / water cards in the graveyard, a Bow weapon, a non-Human Slime
+// ally, and reserve fuel in hand.
+function gaAbilitySandbox(string $slug, string $cardName, string $classes = 'WARRIOR', array $cardPatch = [], string $champion = 'enxi6tshtu'): GaScenario {
+    $s = gaScenario($slug)
+        ->deck("# Material\n1 Spirit of Fire\n# Main\n10 Dungeon Guide\n10 Fluffy Shopkeep\n")
+        ->patch('myField-0', ['CardID' => $champion, 'Counters' => ['_overrides' => ['classes' => $classes], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]])
+        ->seed('myField', $cardName);
+    if ($cardPatch) $s->patch('myField-1', $cardPatch);
+    foreach ([['myField', 'Dungeon Guide'], ['myField', 'Fluffy Shopkeep'], ['myField', 'Powercell'], ['theirField', 'Dungeon Guide'],
+              ['myGraveyard', 'Baby Red Slime'], ['myGraveyard', 'Fast Cure'], ['myGraveyard', 'Baby Blue Slime'],
+              ['myMemory', 'Dungeon Guide'], ['myMemory', 'Fluffy Shopkeep'], ['myField', 'Sojourner\'s Hunt'], ['myField', 'Baby Blue Slime']] as [$zone, $name]) {
+        $s->seed($zone, $name);
+    }
+    for ($i = 0; $i < 6; ++$i) $s->seed('myHand', 'Dungeon Guide');
+    return $s;
 }
 
 // Add a built definition to the generator's $fixtures. If an inline definition of the same slug still exists

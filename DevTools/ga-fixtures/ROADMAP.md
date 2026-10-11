@@ -66,7 +66,10 @@ Each step collapses an existing family and is proven with the guard and verifier
    `play`/`pay`/`pass`/`target` chains (28 damage fixtures first, then every other scenario file); the full verifier
    still matches HEAD for 1,260 of 1,261 (the one miss was a stale slug in my list). The `expect` builders
    (`damage(n)`, `destroyed`, `moved(zone)`, `drew(n)`, `counter(name, n)`) are folded into step 6 with the derived `covers()`.
-2. **Printed-cost family** (67 `…-pays-its-printed-cost`): `costFodder()` helper plus a table of (card, cost).
+2. **Printed-cost family** (67 `…-ability-N-pays-its-printed-cost`). DONE 2026-10-11: `gaAbilitySandbox(slug, card,
+   classes:, cardPatch:, champion:)` builds the shared board and `expectCostFootprint(hand:, memory:, banish:,
+   graveyard:, field:)` the five zone-size assertions; all 67 regenerate to HEAD by meaning (2,665 lines became 136).
+   The footprint labels still carry template text ("(N)", "CARDNAME"); making them card-specific is a Phase 2 item.
 3. **Spellshroud family** (20 `…-spell-cannot-target-it`): one table of (spell, target zone).
 4. **Declined-optional family** ("decline first target still offers second", ~15): `declines(step)` verb.
 5. **Class-bonus / level-threshold family** ("level N costs less", "class bonus …"): `atLevel(n)`, `withClassBonus()`.

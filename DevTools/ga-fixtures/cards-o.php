@@ -315,50 +315,10 @@ DECK
     ->tested('Ornamental Greatsword')
     ->register();
 
-// Notes carried over from the original definition:
-//   - Orb of Regret -> myField-1
-//   - allies and a Powercell
-//   - an opposing ally
-//   - fire, floating-memory and water cards
-//   - a Bow weapon and a non-Human Slime ally
-//   - reserve fuel
-gaScenario('orb-of-regret-ability-1-pays-its-printed-cost')
-    ->deck(<<<'DECK'
-# Material
-1 Spirit of Fire
-# Main
-10 Dungeon Guide
-10 Fluffy Shopkeep
-
-DECK
-    )
-    ->patch('myField-0', ['CardID' => 'enxi6tshtu', 'Counters' => ['_overrides' => ['classes' => 'CLERIC'], 'preparation' => 2, 'quest' => 9, 'enlighten' => 3, 'charge' => 3]])
-    ->seed('myField', 'Orb of Regret')
-    ->patch('myField-1', ['Status' => 2])
-    ->seed('myField', 'Dungeon Guide')
-    ->seed('myField', 'Fluffy Shopkeep')
-    ->seed('myField', 'Powercell')
-    ->seed('theirField', 'Dungeon Guide')
-    ->seed('myGraveyard', 'Baby Red Slime')
-    ->seed('myGraveyard', 'Fast Cure')
-    ->seed('myGraveyard', 'Baby Blue Slime')
-    ->seed('myMemory', 'Dungeon Guide')
-    ->seed('myMemory', 'Fluffy Shopkeep')
-    ->seed('myField', 'Sojourner\'s Hunt')
-    ->seed('myField', 'Baby Blue Slime')
-    ->seed('myHand', 'Dungeon Guide')
-    ->seed('myHand', 'Dungeon Guide')
-    ->seed('myHand', 'Dungeon Guide')
-    ->seed('myHand', 'Dungeon Guide')
-    ->seed('myHand', 'Dungeon Guide')
-    ->seed('myHand', 'Dungeon Guide')
+gaAbilitySandbox('orb-of-regret-ability-1-pays-its-printed-cost', 'Orb of Regret', classes: 'CLERIC', cardPatch: ['Status' => 2])
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(3)->pass(1)
     ->tested('Orb of Regret')
-    ->expectZoneCount('myHand', 13, 1, 'Hand after paying the printed (N) reserve cost (and any draws the ability makes)')
-    ->expectZoneCount('myMemory', 2, 1, 'Memory after the reserve payments / draws into memory')
-    ->expectZoneCount('myBanish', 1, 1, 'Banishment after the printed banish costs')
-    ->expectZoneCount('myGraveyard', 3, 1, 'Graveyard after the printed sacrifice / banish costs')
-    ->expectZoneCount('myField', 6, 1, 'Field after the printed Banish / Sacrifice / Return CARDNAME cost')
+    ->expectCostFootprint(hand: 13, memory: 2, banish: 1, graveyard: 3, field: 6)
     ->register();
 
 // Overpowering Defense (14hr8i5oix): "Activate this card only if a Guardian unit you control is attacking. Negate all card activations you don't control."
