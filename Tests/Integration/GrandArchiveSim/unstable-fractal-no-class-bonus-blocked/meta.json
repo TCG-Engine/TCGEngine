@@ -1,0 +1,17 @@
+{
+    "name": "unstable-fractal-no-class-bonus-blocked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Negative-path companion to unstable-fractal-class-bonus-destroy-item. The champion is left as the deck's only Lv 0 Material champion (Spirit of Water, tafqldAGRF, class SPIRIT) instead of being patched to Diao Chan, so IsClassBonusActive($player, ['CLERIC']) is false. activateAbilityAbilities['2o82fwl22v:0'] itself (GeneratedMacroCode.php) opens with 'if(!IsClassBonusActive($player, [\"CLERIC\"])) return;'. Verified live that the 'Activate:0' CustomInput click is accepted by the engine as a legal action (unlike, e.g., Piquant Shieldbearer's illegal Taunt-bypass target choice, which the engine actually rejects) -- but the ability body returns immediately before doing anything, so no MZCHOOSE target decision is ever queued and nothing on the board changes: Unstable Fractal stays on the field, awake (Status 2, never rested or sacrificed), and the Backup Charger target (a legal target that does exist, isolating Class Bonus as the only blocker) stays on the opponent's field untouched.",
+    "testedCards": [
+        "2o82fwl22v"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["2o82fwl22v"],
+        "mechanics": ["condition", "cost", "targeting"],
+        "rulesClauses": [
+            "[Class Bonus] (3), [REST], Sacrifice CARDNAME: As a Spell, destroy target item with memory cost 0 or reserve cost 5 or less. (without Class Bonus, the ability does not activate at all)"
+        ]
+    }
+}

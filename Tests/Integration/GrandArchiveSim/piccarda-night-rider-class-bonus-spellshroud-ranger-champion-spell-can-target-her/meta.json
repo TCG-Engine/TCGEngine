@@ -1,0 +1,22 @@
+{
+    "name": "piccarda-night-rider-class-bonus-spellshroud-ranger-champion-spell-can-target-her",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:18:58+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ooGvrzxTmr"
+    ],
+    "notes": "Piccarda, Night Rider: [Class Bonus] Spellshroud -- negative control (Class Bonus NOT met: player 2's champion is a Ranger (Diana, Keen Huntress); Piccarda is Assassin/Warrior). Piccarda, Night Rider (ooGvrzxTmr): \"[Class Bonus] Spellshroud, Stealth\". Negative control for the Class Bonus gate: Class Bonus NOT met: player 2's champion is a Ranger (Diana, Keen Huntress); Piccarda is Assassin/Warrior, so the holder has NO Spellshroud and the opposing Liturgy of Corruption offers it: both the holder and the Dungeon Guide are legal targets and answering with the holder resolves on it.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ooGvrzxTmr"
+        ],
+        "mechanics": [
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Spellshroud applies only while the champion's class matches; otherwise the object can be targeted by spells."
+        ]
+    }
+}

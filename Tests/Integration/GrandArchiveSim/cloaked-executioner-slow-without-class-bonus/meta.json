@@ -1,0 +1,22 @@
+{
+    "name": "cloaked-executioner-slow-without-class-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:21+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "itwys9kf4r"
+    ],
+    "notes": "Cloaked Executioner (itwys9kf4r): Fast Activation is a [Class Bonus] clause. With the starting champion Spirit of Wind (no Assassin) it is a plain slow ally, so playing it from hand during player 2's main phase does nothing: it stays in hand and no ally enters.",
+    "semanticCoverage": {
+        "testedCards": [
+            "itwys9kf4r"
+        ],
+        "mechanics": [
+            "condition",
+            "status"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Fast Activation (only with the Class Bonus); otherwise slow speed."
+        ]
+    }
+}

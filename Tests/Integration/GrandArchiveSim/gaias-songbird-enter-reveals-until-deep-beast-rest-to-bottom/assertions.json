@@ -1,0 +1,75 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "Hand after the play, one payment and the Beast taken"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myHand-6",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "hJ2xh9lNMR",
+        "semantic": true,
+        "label": "The Beast ally (Gray Wolf), 4th card from the top, is in hand"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 17,
+        "semantic": true,
+        "label": "Deck size"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "ra9950o14t",
+        "semantic": true,
+        "label": "The marker is the new top card: all three revealed non-Beast cards left the top"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myDeck-14",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Bottom slot 1: first revealed card"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myDeck-15",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Bottom slot 2: second revealed card"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myDeck-16",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "n8wyfG9hbY",
+        "semantic": true,
+        "label": "Bottom slot 3: third revealed card"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

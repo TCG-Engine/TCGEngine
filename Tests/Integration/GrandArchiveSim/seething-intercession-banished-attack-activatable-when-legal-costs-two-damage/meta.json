@@ -1,0 +1,24 @@
+{
+    "name": "seething-intercession-banished-attack-activatable-when-legal-costs-two-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:54:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "5Xfg69S1XX"
+    ],
+    "notes": "Seething Intercession (5Xfg69S1XX), positive pin for the validate-first banish activation: the same seeded Striking Tides on player 2's turn 2 (no first-turn lock). The click costs 2 unpreventable damage to player 2's champion (step 2), 3 reserve payments (steps 3-5) and the attack hits player 1's champion for 4 (step 6). Guards against the refusal gates over-refusing a legal activation. CAVEAT: the permission tag is seeded.",
+    "semanticCoverage": {
+        "testedCards": [
+            "5Xfg69S1XX"
+        ],
+        "mechanics": [
+            "cost",
+            "damage",
+            "combat",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate each of those cards, deal 2 unpreventable damage to your champion."
+        ]
+    }
+}

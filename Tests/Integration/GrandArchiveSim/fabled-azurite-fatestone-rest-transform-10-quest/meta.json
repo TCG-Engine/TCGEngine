@@ -1,0 +1,17 @@
+{
+    "name": "fabled-azurite-fatestone-rest-transform-10-quest",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Fabled Azurite Fatestone (6ce5rzrjd9, GeneratedMacroCode.php activateAbilityAbilities/customDQHandlers[\"6ce5rzrjd9:0:ActivateAbility-1\"]): \"[REST]: You may remove ten quest counters from your champion. If you do, wake up and transform CARDNAME.\" The champion is seeded with exactly 10 quest counters and the Fatestone itself is seeded rested (Status 1). Verified live: after answering YES, the champion's quest counters are removed (Counters {} ), the card wakes up (Status 1 -> 2), and it transforms from 6ce5rzrjd9 into tf5f2n38g0 (Seiryuu, Azure Dragon). Break/restore verified: commenting out RemoveQuestCounters()/WakeupCard()/TransformCard() makes the fixture fail and restoring it passes again. (The other three clauses on this card -- Immortality/Spellshroud keywords, the [Guo Jia Bonus] end-phase random-memory-banish-and-draw trigger, and the [Guo Jia Bonus] whenever-you-banish-from-memory quest-counter trigger -- are not covered by this fixture.)",
+    "testedCards": [
+        "6ce5rzrjd9"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["6ce5rzrjd9"],
+        "mechanics": ["cost", "counter", "status", "zone-movement"],
+        "rulesClauses": [
+            "[REST]: You may remove ten quest counters from your champion. If you do, wake up and transform CARDNAME."
+        ]
+    }
+}

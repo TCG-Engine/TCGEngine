@@ -744,7 +744,7 @@ function BrewingKitLookTop6($player) {
     $potions = ZoneSearch("myTempZone", cardSubtypes: ["POTION"]);
     if(!empty($potions)) {
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $potions), 1, tooltip:"Reveal_a_Potion_and_put_into_hand?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "BrewingKitPotionPick", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BrewingKitPotionPick", 1, dontSkipOnPass:1);
     } else {
         BrewingKitCleanup($player);
     }

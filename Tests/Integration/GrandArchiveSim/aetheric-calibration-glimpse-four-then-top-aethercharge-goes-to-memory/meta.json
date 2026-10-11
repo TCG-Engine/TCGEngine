@@ -1,0 +1,24 @@
+{
+    "name": "aetheric-calibration-glimpse-four-then-top-aethercharge-goes-to-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:21:55+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "7l9th23niu"
+    ],
+    "notes": "Glimpse 4 keeping the order, then the top card (Aethercharge) goes to memory, then the optional load.",
+    "semanticCoverage": {
+        "testedCards": [
+            "7l9th23niu"
+        ],
+        "mechanics": [
+            "glimpse",
+            "reveal",
+            "zone-movement",
+            "load"
+        ],
+        "rulesClauses": [
+            "Glimpse 4. Then reveal the top card of your deck. If that card is an Aethercharge card, put it into your memory. You may load Aetheric Calibration into an Aetherwing weapon you control."
+        ]
+    }
+}

@@ -1,0 +1,13 @@
+[
+    {"step":5,"type":"zone_count","zone":"myMemory","viewerPlayerID":2,"value":3,"semantic":true,"label":"Two reserve payments plus the revealed Spell"},
+    {"step":5,"type":"card_property_equals","mzId":"myMemory-2","viewerPlayerID":2,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"The revealed Spell card is in player 2 memory"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":2,"value":6,"semantic":true,"label":"Hand after drawing, playing Lucia and paying 2"},
+    {"step":5,"type":"zone_count","zone":"myDeck","viewerPlayerID":2,"value":19,"semantic":true,"label":"Player 2 deck: 21 minus the draw minus the revealed Spell"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-0","viewerPlayerID":2,"property":"CardID","value":"ra9950o14t","semantic":true,"label":"The marker is the new top card"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-14","viewerPlayerID":2,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom slot 1 of 5"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-15","viewerPlayerID":2,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom slot 2 of 5"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-16","viewerPlayerID":2,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"Bottom slot 3 of 5"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-17","viewerPlayerID":2,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom slot 4 of 5"},
+    {"step":5,"type":"card_property_equals","mzId":"myDeck-18","viewerPlayerID":2,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom slot 5 of 5"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

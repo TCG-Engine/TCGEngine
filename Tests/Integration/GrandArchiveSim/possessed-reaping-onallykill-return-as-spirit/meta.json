@@ -1,0 +1,17 @@
+{
+    "name": "Possessed Reaping's On Ally Kill trigger -- a genuine combat kill returns the ally as a rested Spirit under the attacker's control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T00:00:00+00:00",
+    "createdBy": "Claude",
+    "notes": "Possessed Reaping's element is CRUX, so the champion is patched directly to Merlin, Brilliant Vestige (2TCyILvBYa, itself CRUX) -- an already-leveled precondition, not retesting that card's own Enter here -- to satisfy the element requirement. A Dungeon Guide (1 POWER / 3 LIFE, no counters) is seeded onto the opponent's (player 1's) own field as a genuinely killable defender: Possessed Reaping's printed POWER (4) exceeds its 3 LIFE, so attacking it for real (not just declaring the attack) actually kills it during replay -- the On Ally Kill trigger (onKillAbilities['oqDz2jIBZI:0'] -> PossessedReapingOnKill() in GameLogic.php) is dispatched from OnKillTrigger() in CombatLogic.php only off a genuine combat kill, not merely a declared or blocked attack. ATTACK cards can't be activated by the game's first player on turn 1 (CanActivateAttackCardNow/IsFirstTurnAttackLocked in GameLogic.php), so player 1 ends turn 1 first and player 2 plays Possessed Reaping on their own turn 1 instead (same shape as thieving-cut-prepare-onhit-draw). Unlike attacking a champion directly (which resolves synchronously, e.g. thieving-cut-prepare-onhit-draw), declaring an attack on a non-champion ally target opens a priority window before combat damage resolves: player 1 must explicitly decline the MZMAYCHOOSE prompt offered over their own about-to-be-attacked Dungeon Guide, then player 2 answers the follow-up YESNO the same way (both submitted as mode=100 cardID=PASS), after which the decision queue actually empties and combat resolves -- confirmed live via RunnerPendingDecisionSummary against this exact deck/seed. PossessedReapingOnKill() then moves the killed Dungeon Guide from its owner's (player 1's) graveyard onto Possessed Reaping's controller's (player 2's) field (myField-1), rested (Status 1), and tags it with the SPIRIT subtype in addition to its printed MAGE/HUMAN subtypes via the persistent-override mechanism (stored under Counters['_overrides']['subtypes'], read back by EffectiveCardSubtypes()). The opponent's field (theirField) drops to just their champion and their graveyard stays at 0 -- the killed ally never lingers there, confirming the trigger pulls it straight back out. Possessed Reaping itself goes to its controller's graveyard as normal (it has no self-relocating clause, unlike Spirit Blade: Terminus), and myMemory holds the 3 cards paid for its own 3-reserve activation cost.",
+    "testedCards": [
+        "oqDz2jIBZI"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["oqDz2jIBZI"],
+        "mechanics": ["combat", "kill", "zone-movement", "condition"],
+        "rulesClauses": [
+            "On Ally Kill: Return the killed ally from its owner's graveyard to the field under your control rested. It becomes a Spirit in addition to its other types."
+        ]
+    }
+}

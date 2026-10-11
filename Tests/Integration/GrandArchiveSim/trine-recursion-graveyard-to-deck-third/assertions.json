@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"p1Deck-2","property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"Targeted graveyard card (Fluffy Shopkeep) lands exactly third from the top of its owner's deck"},
+    {"step":3,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":6,"semantic":true,"label":"Deck grows by exactly the one card moved out of the graveyard"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"dwZvL9K0Ke","semantic":true,"label":"The targeted card actually leaves the graveyard -- only the spell itself (which resolves there after activating) remains"}
+]

@@ -1,0 +1,24 @@
+{
+    "name": "warrior-of-the-fae-realm-enter-banish-sword-from-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "eRcqucBKhX"
+    ],
+    "notes": "Warrior of the Fae Realm (eRcqucBKhX): \"You may banish a Sword attack card from your hand or memory.\" A Striking Tides is seeded in player 1's MEMORY (the hand holds no Sword attack): the On Enter offers the memory card, banishes it (tagged _warriorFaeRealm) and draws a card into memory, so memory still holds 4 cards (1 seeded - 1 banished + 3 reserve payments + 1 drawn).",
+    "semanticCoverage": {
+        "testedCards": [
+            "eRcqucBKhX"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "On Enter: You may banish a Sword attack card from your hand OR MEMORY.",
+            "If you do, draw a card into your memory."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "blinding-lapse-opponent-influence-eight-does-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T17:07:42+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "rKKDhaLJ8w"
+    ],
+    "notes": "Blinding Lapse (rKKDhaLJ8w): the opponent has influence 8 (< 9), so nothing happens.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rKKDhaLJ8w"
+        ],
+        "mechanics": [
+            "memory",
+            "banish"
+        ],
+        "rulesClauses": [
+            "Target opponent with influence nine or more puts all cards from their hand into their memory. Then that player banishes three cards at random from their memory."
+        ]
+    }
+}

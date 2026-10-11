@@ -1,0 +1,24 @@
+{
+    "name": "tristan-hired-blade-levelup-enter-draw-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:21+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "gt7lh9v221"
+    ],
+    "notes": "Tristan, Hired Blade (gt7lh9v221, CHAMPION, level 2): \"On Enter: If Hired Blade has two or more preparation counters on her, draw a card. Then if she has four or more preparation counters on her, draw an additional card.\" The starting champion is patched directly to Tristan, Underhanded (level 1, a legal predecessor; CanChampionLevelUpIntoCard only checks printed level) with 2 preparation counters, then player 1 performs a real level-up in the materialize phase, so enterAbilities[\"gt7lh9v221:0\"] fires for real and counts the counters on the champion object that is now Hired Blade. Player 1's hand is 7 at the start of the materialize phase; the normal turn draw adds 1 and the On Enter draw adds the rest, so the final hand size is 9 (compare the 8-card hand after the draw-less Tristan, Underhanded level-up in tristan-underhanded-levelup-enter-prep-counter): two preparation counters satisfy only the first threshold (>= 2): exactly one card is drawn.",
+    "semanticCoverage": {
+        "testedCards": [
+            "gt7lh9v221"
+        ],
+        "mechanics": [
+            "trigger",
+            "draw-discard",
+            "condition",
+            "counter"
+        ],
+        "rulesClauses": [
+            "If Tristan, Hired Blade has two or more preparation counters, draw a card."
+        ]
+    }
+}

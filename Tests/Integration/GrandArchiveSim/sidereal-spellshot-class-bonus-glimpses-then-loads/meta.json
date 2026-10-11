@@ -1,0 +1,23 @@
+{
+    "name": "sidereal-spellshot-class-bonus-glimpses-then-loads",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:41:46+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "xwwkxq0vp3"
+    ],
+    "notes": "X is taken as the card's power (2), as the generated body does.",
+    "semanticCoverage": {
+        "testedCards": [
+            "xwwkxq0vp3"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "glimpse",
+            "load"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Glimpse X. Then you may load Sidereal Spellshot into an Aetherwing weapon you control."
+        ]
+    }
+}

@@ -38,5 +38,14 @@
         "zone": "myMemory",
         "viewerPlayerID": 1,
         "value": 2
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Scry the Skies' Glimpse 4 only looks and reorders, then draws one card into memory -- answering the rearrange with exactly the offered cards leaves 5 - 1 = 4 cards in the deck"
     }
 ]

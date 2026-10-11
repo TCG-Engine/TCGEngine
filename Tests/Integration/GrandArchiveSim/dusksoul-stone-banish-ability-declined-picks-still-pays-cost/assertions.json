@@ -1,0 +1,8 @@
+[
+    {"step":3,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the Stone is in the banishment zone: declining the optional picks banished no graveyard card"},
+    {"step":3,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"u25fuv184p","semantic":true,"label":"The Banish CARDNAME cost was paid up front even though no graveyard card was chosen"},
+    {"step":3,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the champion remains on the field"},
+    {"step":3,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"My graveyard was untouched"},
+    {"step":3,"type":"zone_count","zone":"theirGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"The opponent's graveyard was untouched"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

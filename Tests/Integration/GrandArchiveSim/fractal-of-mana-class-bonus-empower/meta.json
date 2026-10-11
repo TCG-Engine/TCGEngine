@@ -1,0 +1,16 @@
+{
+    "name": "fractal-of-mana-class-bonus-empower",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:39:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "szeb8zzj86"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["szeb8zzj86"],
+        "mechanics": ["cost", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] [REST]: Empower 1."
+        ]
+    }
+}

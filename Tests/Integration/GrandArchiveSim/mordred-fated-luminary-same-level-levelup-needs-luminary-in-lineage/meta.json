@@ -1,0 +1,22 @@
+{
+    "name": "mordred-fated-luminary-same-level-levelup-needs-luminary-in-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:14+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "KqBosnU7pU"
+    ],
+    "notes": "Mordred, Fated Luminary (KqBosnU7pU): the same-level level-up exists only \"for Mordred\" with this lineage card. The champion is Aurelian Regent whose lineage does NOT contain Fated Luminary: choosing Fated Luminary (another level 3 champion) from the material deck is rejected by the engine, the champion stays Aurelian Regent and no card is drawn.",
+    "semanticCoverage": {
+        "testedCards": [
+            "KqBosnU7pU"
+        ],
+        "mechanics": [
+            "condition",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Only a Mordred with Fated Luminary in the lineage can level up into a champion of the same base level."
+        ]
+    }
+}

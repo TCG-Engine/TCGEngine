@@ -1,0 +1,17 @@
+{
+    "name": "slime-totem-slime-allies-have-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T03:52:42+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Slime Totem (jwanjcy453, REGALIA,ITEM): \"Slime allies you control have vigor. (These units wake up at the beginning of your end phase.)\" This is a purely static ability with no activatable ability of its own (no entry in any of GeneratedCode/GeneratedMacroCode.php's ability dictionaries). It's implemented inside HasVigor() (Custom/GameLogic.php ~22070-22080): for any ALLY/SLIME-subtype object, it scans that object's controller's own field for a live, unsuppressed Slime Totem and grants Vigor if found. EndPhase() (Custom/GameLogic.php ~10730, specifically ~11364-11368) reads HasVigor() for every object on the TURN PLAYER's field at the end of their turn and sets Status=2 (ready) for any that qualify -- the mechanical difference from a normal rested unit, which would otherwise stay rested through the opponent's entire turn and only recover at the START of its own controller's NEXT turn.\n\nSlime Totem is seeded directly onto the field (REGALIA/ITEM cards are redirected out of hand into the material deck by HandAddReplacement(), so seeding it onto myField directly -- same technique as bauble-of-mending-banish-draw-class-bonus-life -- is the correct way to reach a field-resident REGALIA precondition; it has no ability of its own to exercise via a real activation anyway). Red Slime (mttsvbgl6f, ALLY/SLIME) is seeded directly onto the field with Status patched to 1 (rested) via setProperties -- a precondition no in-game action naturally produces at game start, so direct seeding is the only way to reach it; this doesn't violate the silent-fake-pass rule since Slime Totem's static ability isn't a triggered closure that needs to 'fire' from a real action -- it's a continuously-queried condition, and the REAL exercised behavior under test is EndPhase()'s Status-reset logic responding to it. Player 1 then ends their own turn 1 for real (CustomInput Pass); confirmed live, Red Slime's Status flips from 1 to 2 as part of player 1's OWN EndPhase() processing (before TurnPlayer even changes to 2), proving Vigor was actually granted. Break/restore verified: temporarily short-circuiting the HasVigor() Slime Totem branch with `if(false && ...)` made the fixture's own Status==2 assertion fail (actual value stayed 1, i.e. the normal rested state); restoring the branch made it pass again. Full suite re-run clean after restoring.",
+    "testedCards": [
+        "jwanjcy453"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["jwanjcy453"],
+        "mechanics": ["status", "condition"],
+        "rulesClauses": [
+            "Slime allies you control have vigor. (These units wake up at the beginning of your end phase.)"
+        ]
+    }
+}

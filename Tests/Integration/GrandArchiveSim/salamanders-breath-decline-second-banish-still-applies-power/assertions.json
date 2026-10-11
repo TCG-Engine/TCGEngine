@@ -1,0 +1,26 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "4",
+        "semantic": true,
+        "label": "The attack deals its power with the +1 for the one banished fire card even though the second banish was declined"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 3,
+        "semantic": true,
+        "label": "One Baby Red Slime is left in the graveyard plus the two loaded Aethercharge cards that went to the intent and then the graveyard (one slime was banished)"
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

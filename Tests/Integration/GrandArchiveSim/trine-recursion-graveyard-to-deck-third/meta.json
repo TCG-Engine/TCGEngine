@@ -1,0 +1,17 @@
+{
+    "name": "trine-recursion-graveyard-to-deck-third",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Trine Recursion is ASTRA, an advanced element (GetAdvancedElementNames, GameLogic.php ~593) -- without unlocking it, playing the card from hand via a plain FSM click silently no-ops (success:true, nothing queued, no state change at all), so the champion is CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, CLERIC/ASTRA) to unlock ASTRA access. A distinguishable card (Fluffy Shopkeep, n8wyfG9hbY) is seeded into player 1's own graveyard as the sole other graveyard occupant at the time of targeting (the spell itself also lands in the graveyard as part of its own resolution, so the MZCHOOSE offers both -- myGraveyard-0 is confirmed to still resolve to the seeded target, not the resolving spell). customDQHandlers['dwZvL9K0Ke:0:CardActivated-1'] removes the target and splices its CardID into the owner's deck at index min(2, count) -- verified live: deck went from [em6eEh9q8y, em6eEh9q8y, em6eEh9q8y, n8wyfG9hbY, px60u5n1do] (5) to [em6eEh9q8y, em6eEh9q8y, n8wyfG9hbY, em6eEh9q8y, n8wyfG9hbY, px60u5n1do] (6), with the seeded Fluffy Shopkeep now sitting exactly third from the top (deck index 2), and the graveyard's remaining occupant is the spell itself (dwZvL9K0Ke), not the original target.",
+    "testedCards": [
+        "dwZvL9K0Ke"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["dwZvL9K0Ke"],
+        "mechanics": ["targeting", "zone-movement"],
+        "rulesClauses": [
+            "Put target card in a graveyard into its owner's deck third from the top."
+        ]
+    }
+}

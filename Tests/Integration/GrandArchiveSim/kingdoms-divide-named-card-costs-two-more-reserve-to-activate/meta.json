@@ -1,0 +1,20 @@
+{
+    "name": "kingdoms-divide-named-card-costs-two-more-reserve-to-activate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:08:48+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qy34r8gffr"
+    ],
+    "notes": "Kingdom's Divide naming Dungeon Guide: the next Dungeon Guide costs 2 more to activate, so its 3 reserve cost takes 5 payments (a sixth action would have no payment to answer).",
+    "semanticCoverage": {
+        "testedCards": [
+            "qy34r8gffr"
+        ],
+        "mechanics": [
+            "cost-modification",
+            "card-name"
+        ],
+        "rulesClauses": []
+    }
+}

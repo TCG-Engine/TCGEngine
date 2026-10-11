@@ -1,0 +1,20 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "CardID",
+        "value": "h8n1520m2d",
+        "semantic": true,
+        "label": "Craggy Fatestone is still in P1's field slot after P2's materialize"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "Craggy Fatestone's buff counter goes 0 -> 1 from the opponent's real from-hand materialize of a memory-cost-0 card, with no Guo Jia Bonus active for either player"
+    }
+]

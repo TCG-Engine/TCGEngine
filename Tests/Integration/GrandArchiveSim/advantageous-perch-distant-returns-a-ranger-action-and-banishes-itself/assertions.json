@@ -1,0 +1,46 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"DISTANT\",\"vz4kc558yx-ACTION_ACTIVATED\"]",
+        "semantic": true,
+        "label": "The champion became distant"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myBanish-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "oLzsAj9mKl",
+        "semantic": true,
+        "label": "Advantageous Perch banished itself"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myHand-5",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "ra9950o14t",
+        "semantic": true,
+        "label": "Charge the Soul was returned to the hand"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing left in the graveyard"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,17 @@
+{
+    "name": "protective-fractal-rest-prevent-1-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Protective Fractal (1lw9n0wpbh, PHANTASIA/CLERIC) is seeded directly onto PLAYER 2's field, already awake -- its activated [REST] ability has no Class Bonus or element-access gate (unlike Unstable Fractal/Fractal of Refreshment), so no champion patch is needed. Player 2 is the activating/attacking player throughout so the activation and the resulting damage happen in the SAME turn (TurnEffects are not persistent across turn boundaries here, unlike Torpid Fractal's FROZEN_BY_TORPID), and to avoid Rule 1.h's restriction on the true first player (player 1) attacking on turn 1. Verified live: any awake Reservable/PHANTASIA card generates a recurring 'Take_a_fast_action?' MZMAYCHOOSE opportunity offer for its controller whenever priority would otherwise pass (the same family as Fairy Whispers' Opportunity prompt) -- declining it ('-') is required at each such prompt; this setup needed exactly two declines to let player 1's turn-1 end fully resolve into player 2's own turn, one more after activating Protective Fractal (now rested, but still re-offered), and one more after the attack's target confirmation, which is what actually triggers combat damage resolution here (no separate Retaliate decision -- this champion has no Retaliate keyword). Activating via CustomInput 'Activate:0' (DoActivatedAbility -> activateAbilityAbilities['1lw9n0wpbh:0'], GeneratedMacroCode.php) auto-rests it as the [REST] cost and queues an MZCHOOSE over all champions; targeting player 1's champion runs customDQHandlers['1lw9n0wpbh:0:ActivateAbility-1'], which tags it with the 'lw9n0wpbh' TurnEffect. A Dungeon Guide ALLY on player 2's field has Counters.potion_animate_power=3 (ObjectCurrentPower's override, GameLogic.php -- same technique as the shred-to-ribbons/reaping-legacy precedents) so its real declared attack deals a controlled 3 power. CombatLogic.php's OnDealDamage (~line 4506-4512) calls GetProtectiveFractalPrevention and applies exactly 1 point of prevention, consuming the TurnEffect, leaving the champion's final Damage at 2 -- neither the un-prevented 3 (proving the clause fired) nor 0 (proving it prevents only 1 point, not the whole instance).",
+    "testedCards": [
+        "1lw9n0wpbh"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["1lw9n0wpbh"],
+        "mechanics": ["cost", "targeting", "prevention", "damage", "condition"],
+        "rulesClauses": [
+            "Reservable. [REST]: Prevent the next 1 damage that would be dealt to target champion this turn."
+        ]
+    }
+}

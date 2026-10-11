@@ -1,0 +1,54 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "The phantasia is not rested: its cost has no [REST]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-2",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"zrvvwz3ww9_LIFE\"]",
+        "semantic": true,
+        "label": "The Pawn Piece got +1 LIFE until end of turn"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The discarded Sacrifice Play"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "One memory from the seeded On Enter, two reserve payments, and the card drawn into memory"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Eight cards minus the discard minus the two paid"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

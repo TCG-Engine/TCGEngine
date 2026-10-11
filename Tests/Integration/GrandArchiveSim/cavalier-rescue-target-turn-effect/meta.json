@@ -1,0 +1,23 @@
+{
+    "name": "cavalier-rescue-target-turn-effect",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T20:37:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "75uhspxqme"
+    ],
+    "notes": "Engine fix coverage: playCardAbilities[\"75uhspxqme:0\"] was unreachable before bf25c65c for the same reason as qtzsekkjn3 (see vainglory-retribution-play-card-trigger).",
+    "semanticCoverage": {
+        "testedCards": [
+            "75uhspxqme"
+        ],
+        "mechanics": [
+            "trigger",
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "On play, target ally gains +3 LIFE until end of turn (tracked via a turn effect)."
+        ]
+    }
+}

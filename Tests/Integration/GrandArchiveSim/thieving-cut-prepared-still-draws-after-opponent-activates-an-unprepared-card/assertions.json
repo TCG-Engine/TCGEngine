@@ -1,0 +1,34 @@
+[
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 2,
+        "value": 7,
+        "semantic": true,
+        "label": "Player 2 drew a card from the prepared Thieving Cut's On Hit: 6 + 1"
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 2,
+        "value": 9,
+        "semantic": true,
+        "label": "One card left the deck"
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Fishing Accident resolved and went to player 1's graveyard"
+    },
+    {
+        "step": 12,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

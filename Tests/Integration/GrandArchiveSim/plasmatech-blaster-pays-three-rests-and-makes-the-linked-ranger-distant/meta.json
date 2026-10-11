@@ -1,0 +1,10 @@
+{
+    "name": "plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T16:17:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PAymR7JsNp",
+        "du50pcescf"
+    ]
+}

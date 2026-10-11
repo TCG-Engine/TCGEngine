@@ -1,0 +1,22 @@
+{
+    "name": "reaping-legacy-class-bonus-sword-banishment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-24T01:06:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "XDVIiIfKZk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "XDVIiIfKZk"
+        ],
+        "mechanics": [
+            "combat",
+            "condition",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Reaping Legacy gets +1POWER for each Sword regalia weapon card in your banishment."
+        ]
+    }
+}

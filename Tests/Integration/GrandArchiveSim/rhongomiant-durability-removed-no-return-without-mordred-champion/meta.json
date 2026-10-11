@@ -1,0 +1,24 @@
+{
+    "name": "rhongomiant-durability-removed-no-return-without-mordred-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:52+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "clS3E0HrZL"
+    ],
+    "notes": "Rhongomiant (clS3E0HrZL): the memory-return clause is \"[Mordred Bonus]\". With a non-Mordred champion (Tristan, Shadowdancer, whose UMBRA lineage enables the Exalted element) the weapon still loses its durability counter in the attack (3 -> 2) but no memory card is offered: all three memory cards stay in memory and the attack finishes with nothing pending.",
+    "semanticCoverage": {
+        "testedCards": [
+            "clS3E0HrZL"
+        ],
+        "mechanics": [
+            "counter",
+            "trigger",
+            "condition",
+            "combat"
+        ],
+        "rulesClauses": [
+            "The memory-return trigger is a [Mordred Bonus]: no prompt without a Mordred champion."
+        ]
+    }
+}

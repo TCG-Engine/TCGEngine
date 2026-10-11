@@ -1,0 +1,23 @@
+{
+    "name": "snow-fairy-stealth-cannot-be-attacked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4s0c9XgLg7"
+    ],
+    "notes": "Snow Fairy (4s0c9XgLg7): \"Stealth (This unit can't be targeted by attacks unless permitted by true sight.)\" Player 2 attacks with a Dungeon Guide; the attack-target prompt lists only player 1's champion and answering with Snow Fairy is rejected, so the attack is aimed at the champion.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4s0c9XgLg7"
+        ],
+        "mechanics": [
+            "combat",
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "Stealth: this unit can't be targeted by attacks."
+        ]
+    }
+}

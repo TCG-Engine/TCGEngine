@@ -145,7 +145,7 @@ tkdky3sxao
 ulh4lplwqe 2 1 0 1 - eyJhZ2UiOjF9 - -1
 v4gtq1ibth 2 1 0 1 - - - -1
 vi1uyifw6s 2 1 0 1 - - - -1
-enxi6tshtu 2 1 22 1 DAMAGED_SINCE_LAST_TURN eyJxdWVzdCI6MywiX2NoYW1wRGFtYWdlVGhpc1R1cm4iOjZ9 WyI1OWlwcWE5MXIyIiwiajZka2RveHlxdCIsIjhtcmp0cnp4NXQiXQ== -1
+enxi6tshtu 2 1 20 1 DAMAGED_SINCE_LAST_TURN eyJxdWVzdCI6MywiX2NoYW1wRGFtYWdlVGhpc1R1cm4iOjR9 WyI1OWlwcWE5MXIyIiwiajZka2RveHlxdCIsIjhtcmp0cnp4NXQiXQ== -1
 wsycqp2l90 2 1 0 1 - - - -1
 h8n1520m2d 2 1 0 1 - eyJidWZmIjozfQ== - -1
 d3e311f211 1 1 0 1 - eyJidWZmIjoxfQ== - -1

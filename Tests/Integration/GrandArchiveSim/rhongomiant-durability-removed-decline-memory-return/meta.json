@@ -1,0 +1,24 @@
+{
+    "name": "rhongomiant-durability-removed-decline-memory-return",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:51+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "clS3E0HrZL"
+    ],
+    "notes": "Rhongomiant (clS3E0HrZL): \"you MAY return a card from your memory to your hand\". Same flow as rhongomiant-durability-removed-return-memory-card-to-hand, but the optional choice is answered PASS: the durability counter is still removed (3 -> 2) while all three memory cards stay in memory.",
+    "semanticCoverage": {
+        "testedCards": [
+            "clS3E0HrZL"
+        ],
+        "mechanics": [
+            "counter",
+            "trigger",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "You MAY return a card from memory: declining leaves memory untouched (the durability counter is still removed)."
+        ]
+    }
+}

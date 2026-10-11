@@ -1,0 +1,54 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":2}",
+        "label": "Prepare 2 is only a pending YES/NO",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "[]",
+        "label": "Prepare 2 paid",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Intent-0",
+        "property": "TurnEffects",
+        "value": "[\"PREPARED\"]",
+        "label": "Tagged PREPARED",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "2",
+        "label": "The attack went straight to player 1's champion for 2 damage",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "0",
+        "label": "Swift Recruit was never offered/used as an interceptor",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "No interceptor prompt was queued (can't be intercepted)",
+        "semantic": true
+    }
+]

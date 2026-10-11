@@ -1,0 +1,10 @@
+[
+    {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":2,"value":8,"semantic":true,"label":"The revealed ally is in player 2 hand (7 + 1)"},
+    {"step":3,"type":"card_property_equals","mzId":"myHand-7","viewerPlayerID":2,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The revealed ally is Dungeon Guide"},
+    {"step":3,"type":"zone_count","zone":"myDeck","viewerPlayerID":2,"value":16,"semantic":true,"label":"Player 2 deck: 17 minus the revealed ally"},
+    {"step":3,"type":"card_property_equals","mzId":"myDeck-0","viewerPlayerID":2,"property":"CardID","value":"ra9950o14t","semantic":true,"label":"The marker is the new top card"},
+    {"step":3,"type":"card_property_equals","mzId":"myDeck-14","viewerPlayerID":2,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"Bottom slot 1 of 2"},
+    {"step":3,"type":"card_property_equals","mzId":"myDeck-15","viewerPlayerID":2,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom slot 2 of 2"},
+    {"step":3,"type":"zone_count","zone":"myBanish","viewerPlayerID":2,"value":1,"semantic":true,"label":"SignalTech X Ultra was sacrificed"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

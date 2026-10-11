@@ -1,0 +1,25 @@
+{
+    "name": "Mist Resonance Harmonize needs the Class Bonus: a non-Tamer champion's allies still assign damage with power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:35:39+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "hw8dxKAnMX",
+        "sbierp5k1v"
+    ],
+    "notes": "A Melody was activated but the champion is not a Tamer, so the [Class Bonus] Harmonize clause does not apply: the Dungeon Guide assigns 1 damage.",
+    "semanticCoverage": {
+        "testedCards": [
+            "hw8dxKAnMX",
+            "sbierp5k1v"
+        ],
+        "mechanics": [
+            "condition",
+            "combat",
+            "status"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Harmonize -- If you've activated a Melody card this turn, allies you control assign damage with their life stat instead of power stat until end of turn."
+        ]
+    }
+}

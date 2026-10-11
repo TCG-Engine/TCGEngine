@@ -1,0 +1,70 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "semantic": true,
+        "label": "Both of the top two cards were banished"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myBanish-0",
+        "viewerPlayerID": 2,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "First banished card (the turn-start draw took the card above it)"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myBanish-1",
+        "viewerPlayerID": 2,
+        "property": "CardID",
+        "value": "n8wyfG9hbY",
+        "semantic": true,
+        "label": "Second banished card -- pre-fix it stayed on top of the deck"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myBanish-0",
+        "viewerPlayerID": 2,
+        "property": "TurnEffects",
+        "value": "[\"_desperateCavalier\"]",
+        "semantic": true,
+        "label": "First banished card is tagged so it may be activated"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myBanish-1",
+        "viewerPlayerID": 2,
+        "property": "TurnEffects",
+        "value": "[\"_desperateCavalier\"]",
+        "semantic": true,
+        "label": "Second banished card is tagged as well"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 2,
+        "value": 14,
+        "semantic": true,
+        "label": "Exactly two cards left the deck"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 2,
+        "property": "CardID",
+        "value": "ra9950o14t",
+        "semantic": true,
+        "label": "The marker is the new top card of the attacker's deck"
+    }
+]

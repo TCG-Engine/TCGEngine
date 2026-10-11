@@ -1,0 +1,26 @@
+{
+    "name": "stillshard-strike-prepare-1-declined-no-recover",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "TDI5DOrWB5"
+    ],
+    "notes": "Stillshard Strike (TDI5DOrWB5, WATER ASSASSIN ATTACK, reserve 2, printed power 3): \"Prepare 1. On Attack: If Stillshard Strike was prepared, recover 1+X, where X is the total amount of sheen counters on each defending unit.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with extra lineage cards to unlock the card's element; ATTACK cards cannot be played by the first player on turn 1, so player 1 ends turn 1 and player 2 plays the card with real actions (10002 FSM play, 100 reserve payments / YES-NO answer / attack target). Player 2's champion starts with 6 damage; player 1's champion carries 2 sheen counters (X = 2), so a prepared attack recovers 1+2 = 3. Player 2 declines Prepare 1: no recovery (6 damage stays), 3 damage dealt, counter untouched.",
+    "semanticCoverage": {
+        "testedCards": [
+            "TDI5DOrWB5"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition",
+            "recover"
+        ],
+        "rulesClauses": [
+            "Prepare 1.",
+            "On Attack: If Stillshard Strike was prepared, recover 1+X, where X is the total amount of sheen counters on each defending unit."
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "shifting-mirage-no-class-bonus-costs-printed-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:31:38+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "hmjr33ijq6"
+    ],
+    "notes": "Shifting Mirage (hmjr33ijq6, printed reserve 3): \"[Class Bonus] This card costs 1 less to activate.\" Negative case: the champion is patched to Diana, Duskstalker (UMBRA so the card is playable, but class RANGER, not ASSASSIN, and no Tristan lineage), so neither the Class Bonus discount nor the [Tristan Bonus] Ominous Shadow applies. The caster must pay all THREE reserve cards (still unresolved after two, resolved after the third: memory 3, hand 8 - 1 - 3 = 4); the opponent declines the (2) payment and Diana gains STEALTH; no token is summoned.",
+    "semanticCoverage": {
+        "testedCards": [
+            "hmjr33ijq6"
+        ],
+        "mechanics": [
+            "cost",
+            "status",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate. (inactive: no discount)",
+            "[Tristan Bonus] Summon an Ominous Shadow token. (inactive: no token)"
+        ]
+    }
+}

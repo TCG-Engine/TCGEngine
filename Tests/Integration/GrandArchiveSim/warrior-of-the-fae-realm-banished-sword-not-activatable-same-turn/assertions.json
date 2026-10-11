@@ -1,0 +1,12 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p1Banish-0","property":"TurnEffects","value":"[\"_warriorFaeRealm\"]","semantic":true,"label":"On Enter banishes the Striking Tides with only the first-stage permission tag (no later-turn stamp yet)"},
+    {"step":8,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":4,"semantic":true,"label":"Memory holds the 3 reserve payments plus the card drawn into memory"},
+    {"step":9,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"The Striking Tides banished THIS turn stays in banishment when clicked (no activation)"},
+    {"step":9,"type":"card_property_equals","mzId":"p1Banish-0","property":"TurnEffects","value":"[\"_warriorFaeRealm\"]","semantic":true,"label":"The click does not stamp or consume the permission: still only the first-stage tag"},
+    {"step":9,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Still exactly one card in banishment after the same-turn click"},
+    {"step":9,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":4,"semantic":true,"label":"No reserve payment was requested or made by the same-turn click"},
+    {"step":9,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"Nothing was activated (graveyard stays empty)"},
+    {"step":9,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"0","semantic":true,"label":"The opposing champion took no damage from a same-turn activation"},
+    {"step":9,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"eRcqucBKhX","semantic":true,"label":"The Warrior is on the field, so only the 'later turn' timing blocks the activation"},
+    {"step":9,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,17 @@
+{
+    "name": "guo-jia-heavens-favored-enter-recover-3",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Guo Jia, Heaven's Favored (enxi6tshtu, GeneratedMacroCode.php enterAbilities[\"enxi6tshtu:0\"] / customDQHandlers[\"enxi6tshtu:0:Enter-1\"]): \"On Enter: You may put three quest counters on CARDNAME. If you don't, recover 3.\" The champion is patched directly to Guo Jia, Blessed Scion (level 2) with 5 pre-existing damage -- representing already having leveled up twice WITHOUT re-testing those cards' own On Enter clauses -- so a single REAL level-up (2 -> 3, paid with 3 memory filler cards seeded the same turn) reaches Heaven's Favored and fires its genuine On Enter. Verified live: answering NO to \"Put 3 quest counters on Guo Jia?\" (taking the recover branch) reduces the champion's Damage from 5 to 2. Break/restore verified: commenting out the RecoverChampion() call in the NO branch makes the fixture fail (Damage stays 5) and restoring it passes again. (The separate 'As long as you control a Shenju ally, this card costs 3 less to materialize' cost-reduction clause and the quest-counter YES branch are not covered by this fixture.)",
+    "testedCards": [
+        "enxi6tshtu"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["enxi6tshtu"],
+        "mechanics": ["cost", "recover", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: You may put three quest counters on CARDNAME. If you don't, recover 3."
+        ]
+    }
+}

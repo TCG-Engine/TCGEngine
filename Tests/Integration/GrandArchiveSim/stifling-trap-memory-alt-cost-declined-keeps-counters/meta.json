@@ -1,0 +1,22 @@
+{
+    "name": "stifling-trap-memory-alt-cost-declined-keeps-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:51:53+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "z5exbwdp7q"
+    ],
+    "notes": "Stifling Trap (z5exbwdp7q): \"[Class Bonus] If it's not your turn, you may remove two preparation counters from your champion to activate this card from your memory without paying its reserve cost.\" Decline case (\"you may\"); a control that passes with or without the fix (before the fix the window never opened, and the unanswerable PASS is a no-op), so it pins the decline end state rather than the fix. Player 1's champion is Tristan, Hired Blade (ASSASSIN, so the Class Bonus is active) with exactly 2 preparation counters; player 2 has a seeded Dungeon Guide on its field (the Trap's target) and plays another Dungeon Guide from hand on its own turn, which opens a priority window for player 1. Stifling Trap sits in memory and is offered in player 2's Dungeon Guide window, but player 1 passes: nothing is paid or activated -- both preparation counters stay, the Trap stays in memory, nothing hits the seeded Dungeon Guide and the Dungeon Guide resolves normally (player 2 then answers its own On Enter prompt).",
+    "semanticCoverage": {
+        "testedCards": [
+            "z5exbwdp7q"
+        ],
+        "mechanics": [
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If it's not your turn, you may remove two preparation counters from your champion to activate this card from your memory without paying its reserve cost."
+        ]
+    }
+}

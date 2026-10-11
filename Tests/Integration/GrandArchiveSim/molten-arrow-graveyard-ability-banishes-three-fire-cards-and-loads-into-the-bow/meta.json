@@ -1,0 +1,11 @@
+{
+    "name": "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T15:56:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mvfcd0ukk6",
+        "1a49w5gmf7",
+        "mttsvbgl6f"
+    ]
+}

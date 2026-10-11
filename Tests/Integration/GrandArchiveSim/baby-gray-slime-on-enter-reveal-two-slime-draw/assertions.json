@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"0hsncz1fz2","semantic":true,"label":"Baby Gray Slime materializes onto the field"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"Revealing 2 Slime cards from hand drew a card (7 remaining after cost/reveal setup + 1 draw = 8)"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

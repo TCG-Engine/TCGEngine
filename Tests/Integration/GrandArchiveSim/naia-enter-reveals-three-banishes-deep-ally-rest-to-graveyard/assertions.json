@@ -1,0 +1,92 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myTempZone",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "No revealed card is left stranded in the temp zone"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Exactly one revealed card was banished"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The other two revealed cards went to the graveyard"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myGraveyard-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Graveyard slot 1: the unbanished first card"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myGraveyard-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Graveyard slot 2: the unbanished second card"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 14,
+        "semantic": true,
+        "label": "Deck size"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "ra9950o14t",
+        "semantic": true,
+        "label": "The fourth card (marker) is the new top card: exactly three were revealed"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Champion and Naia"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myBanish-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "bx4k3akqx7",
+        "semantic": true,
+        "label": "The third revealed card (Hidden Longbowman) was the one banished -- it could only be offered if all three were revealed"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

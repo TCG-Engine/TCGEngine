@@ -1,0 +1,22 @@
+{
+    "name": "rhongomiant-no-power-bonus-without-mordred-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:49+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "clS3E0HrZL"
+    ],
+    "notes": "Rhongomiant (clS3E0HrZL): both clauses are \"[Mordred Bonus]\". With a non-Mordred champion (Tristan, Shadowdancer, whose UMBRA lineage also enables the Exalted element) the weapon (materialized for real, memory cost 2) keeps its printed power 2 even though player 2 holds 8 cards (influence 8).",
+    "semanticCoverage": {
+        "testedCards": [
+            "clS3E0HrZL"
+        ],
+        "mechanics": [
+            "condition",
+            "combat"
+        ],
+        "rulesClauses": [
+            "The +4 POWER is a [Mordred Bonus]: it needs a Mordred champion."
+        ]
+    }
+}

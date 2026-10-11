@@ -1,0 +1,23 @@
+{
+    "name": "corhazi-lightblade-reveal-luxem-critical",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T19:04:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2Ch1Gp3jEL"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2Ch1Gp3jEL"
+        ],
+        "mechanics": [
+            "damage",
+            "combat",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: Reveal a card from your memory at random. If a luxem element card was revealed, CARDNAME gains critical 1 until end of turn."
+        ]
+    }
+}

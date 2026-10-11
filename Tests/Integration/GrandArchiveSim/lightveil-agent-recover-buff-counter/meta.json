@@ -1,0 +1,16 @@
+{
+    "name": "lightveil-agent-recover-buff-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:41:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jcaLgesx0e"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["jcaLgesx0e"],
+        "mechanics": ["recover", "counter", "status", "trigger"],
+        "rulesClauses": [
+            "Whenever you recover, put a buff counter on CARDNAME."
+        ]
+    }
+}

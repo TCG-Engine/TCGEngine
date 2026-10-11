@@ -1,0 +1,43 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Four of the seven memory cards were banished"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The [Class Bonus] returned the three survivors to hand"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 10,
+        "semantic": true,
+        "label": "Eight cards, minus Reckless Conversion, plus the three survivors"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 11,
+        "semantic": true,
+        "label": "Two cards were drawn into memory"
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,125 @@
+[
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "CardID",
+        "value": "rp5k1vt1cn"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "Answering YES to 'Rest_Fractal_of_Insight?' exhausted Fractal of Insight itself (Status 2 -> 1), the 'may rest CARDNAME' half of the clause"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "x7u6wzh973"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "rp5k1vt1cn"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "c9p4lpnvx7"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-4",
+        "property": "CardID",
+        "value": "rp5k1vt1cn"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "rp5k1vt1cn"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "c9p4lpnvx7"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Deck-0",
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Glimpse 2 looked at the deck's actual top two cards (px60u5n1do, em6eEh9q8y, confirmed via direct probe) and queued a real MZREARRANGE decision -- submitting a deliberate reorder (bottom px60u5n1do, keep em6eEh9q8y on top) rather than the no-op default proves Glimpse(2) really ran and the response was applied: the new top-of-deck card differs from the pre-glimpse top card, which would be impossible if the YES branch's Glimpse(2) call never executed"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Deck-12",
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "The card that was on top before the glimpse (px60u5n1do) was moved to the bottom of the deck by the MZREARRANGE response, confirming Glimpse(2)'s rearrange actually moved the correct card"
+    }
+]

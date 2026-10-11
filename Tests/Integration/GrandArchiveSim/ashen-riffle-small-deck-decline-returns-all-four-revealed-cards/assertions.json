@@ -1,0 +1,11 @@
+[
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"All five cards are back in the deck (none stranded in the temp zone)"},
+    {"step":4,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"No revealed card is left stranded in the temp zone"},
+    {"step":4,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":0,"semantic":true,"label":"Declining banishes nothing"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-0","viewerPlayerID":1,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"The 5th card was never revealed: it is still the top card of the deck"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-1","viewerPlayerID":1,"property":"CardID","value":"wbjc9t8ycp","semantic":true,"label":"Revealed card #1 is on the bottom in its original relative order"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-2","viewerPlayerID":1,"property":"CardID","value":"wbjc9t8ycp","semantic":true,"label":"Revealed card #2 on the bottom"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-3","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Revealed card #3 on the bottom"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-4","viewerPlayerID":1,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"Revealed card #4 is on the very bottom"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

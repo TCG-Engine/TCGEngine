@@ -1,0 +1,7 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"OWCdWq3mXY","semantic":true,"label":"The real level-up into Mordred, Burnished Avenger completed"},
+    {"step":4,"type":"card_exists","zone":"myHand","cardID":"qrxQGA1pc6","viewerPlayerID":1,"semantic":true,"label":"The declined Striking Tides stayed on top of the deck and was drawn in the draw step"},
+    {"step":4,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Nothing was banished except the level-up memory-cost card"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"Status","value":"2","semantic":true,"label":"The freshly leveled champion is awake"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

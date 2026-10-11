@@ -1,0 +1,24 @@
+{
+    "name": "mordred-burnished-avenger-no-discount-without-levelup-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:34+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "OWCdWq3mXY"
+    ],
+    "notes": "Mordred, Burnished Avenger (OWCdWq3mXY): the inherited effect only applies \"as long as Mordred has leveled up this turn\". Same lineage as mordred-burnished-avenger-inherited-first-attack- costs-two-less but the materialize offer is declined (no level-up this turn): Striking Tides (printed reserve 3) costs its full THREE reserve payments.",
+    "semanticCoverage": {
+        "testedCards": [
+            "OWCdWq3mXY"
+        ],
+        "mechanics": [
+            "cost",
+            "condition",
+            "combat",
+            "damage"
+        ],
+        "rulesClauses": [
+            "The first-attack discount applies only as long as Mordred has leveled up THIS turn."
+        ]
+    }
+}

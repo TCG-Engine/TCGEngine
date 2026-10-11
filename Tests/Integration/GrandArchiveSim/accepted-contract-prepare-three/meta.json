@@ -1,0 +1,16 @@
+{
+    "name": "accepted-contract-prepare-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:22:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uZCyXDNJ6I"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["uZCyXDNJ6I"],
+        "mechanics": ["unclassified"],
+        "rulesClauses": [
+            "Put three preparation counters on your champion."
+        ]
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "mordred-aurelian-regent-levelup-enter-next-attack-plus-three-and-recover",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:11+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "XPl2UAO9se"
+    ],
+    "notes": "Mordred, Aurelian Regent (XPl2UAO9se, CHAMPION level 3, LUXEM): \"On Enter: Mordred's next attack this turn gets +3 POWER and gains 'On Hit: Recover 3.' Whenever you activate a luxem element card, delevel Mordred.\" The champion is patched to Mordred, Flawless Blade (level 2, carrying 5 damage) and performs a REAL level-up into Aurelian Regent (3 memory cards), so its On Enter fires. Striking Tides (WATER, not luxem: no delevel) is then activated (1 reserve payment: the first-attack discount inherited from Burnished Avenger after a level-up) and hits player 2's champion for 4 + 3 = 7 while the On Hit recovers 3 of Mordred's damage (5 -> 2).",
+    "semanticCoverage": {
+        "testedCards": [
+            "XPl2UAO9se"
+        ],
+        "mechanics": [
+            "trigger",
+            "combat",
+            "damage",
+            "recover",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: Mordred's next attack this turn gets +3 POWER and gains 'On Hit: Recover 3.'",
+            "Whenever you activate a luxem element card, delevel Mordred (a non-luxem card does not)."
+        ]
+    }
+}

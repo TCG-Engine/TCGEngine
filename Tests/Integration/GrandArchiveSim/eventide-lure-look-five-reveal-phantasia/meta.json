@@ -1,0 +1,17 @@
+{
+    "name": "eventide-lure-look-five-reveal-phantasia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T19:28:33+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Eventide Lure's On Enter (enterAbilities[\"eg771cn2q1:0\"], GeneratedMacroCode.php:10992) delegates to hand-authored EventideLureEnter() (Custom/CardDQHandlers.php). ENGINE BUG FOUND AND FIXED (see PR/commit notes): the original implementation looped `MZMove($player, \"myDeck-0\", \"myTempZone\")` lookCount times, but Remove() (ZoneClasses.php) only sets removed=true and never splices/reindexes the underlying array, so GetZoneObject('myDeck-0') (a literal array-index lookup) kept resolving to the SAME now-removed slot on every iteration after the first -- MZMove's own 'already removed' guard then silently no-op'd every iteration past the first. This meant the printed 'Look at the top five cards of your deck' only ever actually looked at the single true top card, and the 4-cards-to-bottom clause was unreachable/unfixturable as printed. Fixed minimally by replacing the loop with array_shift() on the live deck reference (identical pattern to the already-proven Glimpse() implementation, GameLogic.php ~15643-15647), which correctly pulls the true top N cards regardless of soft-delete indexing. This fix was necessary to exercise the card's printed 'top five' behavior at all; without it there was no way to test the 4-cards-to-bottom half of the clause. The deck's top 5 are stacked deterministically via 'patchMzId' directly on myDeck-0..4 (already-real post-shuffle/opening-hand-draw deck objects, patched before any other draw disturbs them) to exactly ONE known phantasia -- Hydrating Fractal (LAfJuHgUbm, WATER PHANTASIA, no On Enter/passive text) -- at slot 3, sandwiched between 4 non-phantasia filler cards (em6eEh9q8y/px60u5n1do). Final state: Hydrating Fractal is in memory (not deck), the deck shrank by exactly 1 (13->12), and the 4 filler cards are on the bottom (myDeck-8..11) in their original relative order.",
+    "testedCards": [
+        "eg771cn2q1"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["eg771cn2q1"],
+        "mechanics": ["zone-movement", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: Look at the top five cards of your deck. You may reveal a phantasia card from among them and put it into your memory. Put the rest on the bottom of your deck in any order."
+        ]
+    }
+}

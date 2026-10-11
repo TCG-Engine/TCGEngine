@@ -1,0 +1,22 @@
+{
+    "name": "An Aethercharge card in the graveyard cannot be activated without Manabolt Convergence",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:39:00+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "ra9950o14t"
+    ],
+    "notes": "Control fixture for Manabolt Convergence: with no grant, clicking Charge the Soul in the graveyard is a no-op.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ra9950o14t"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Until end of turn, you may activate target Aethercharge card in your graveyard."
+        ]
+    }
+}

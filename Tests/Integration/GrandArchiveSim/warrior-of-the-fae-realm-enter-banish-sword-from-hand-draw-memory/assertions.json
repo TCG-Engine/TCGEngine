@@ -1,0 +1,8 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"eRcqucBKhX","semantic":true,"label":"Warrior of the Fae Realm entered the field (played for real)"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"The Sword attack card (Striking Tides) was banished from hand"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Banish-0","property":"TurnEffects","value":"[\"_warriorFaeRealm\"]","semantic":true,"label":"The banished card carries the Warrior's activation permission tag"},
+    {"step":5,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":4,"semantic":true,"label":"Memory 4 = 3 reserve payments + 1 card drawn INTO MEMORY"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":4,"semantic":true,"label":"Hand 4 = 7 + 2 seeded - Warrior - 3 payments - banished Sword: the extra card went to memory, not hand"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,29 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Band of Burning Verdict's On Enter draws a card, reducing the deck from 3 to 2"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-2",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]",
+        "semantic": true,
+        "label": "The [Class Bonus][REST] buff does NOT auto-fire on Enter even with a legal Tamer champion and Animal/Beast ally present -- Band of Burning Verdict itself carries no buff-related TurnEffects"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]",
+        "semantic": true,
+        "label": "The Cheerful Slime (Animal ally) is untouched -- no power-buff or TRUE_SIGHT TurnEffect from an auto-fired REST ability"
+    }
+]

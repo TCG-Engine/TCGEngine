@@ -1,0 +1,17 @@
+{
+    "name": "undeniable-truth-sac-draw-prep",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T22:19:26+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Undeniable Truth (UaUfw7yFTW, GameLogic.php's DoActivateCard 'Declaring Costs' section ~line 2852 / customDQHandlers[\"UndeniableTruthCost\"], GeneratedMacroCode.php cardActivatedAbilities[\"UaUfw7yFTW:0\"]): \"As an additional cost to activate this card, sacrifice an ally. Draw a card, then put a preparation counter on your champion.\" An ally (Dungeon Guide) is seeded on the field. Playing the card from hand queues a mandatory MZCHOOSE to sacrifice an ally BEFORE the 1-reserve cost is paid; choosing the seeded ally sacrifices it (DoSacrificeFighter), then reserve is paid, then the card's own effect (Draw + AddPrepCounter) resolves. Verified live: the ally lands in the graveyard and the champion gains a preparation counter. Break/restore verified: commenting out the AddPrepCounter() call in cardActivatedAbilities[\"UaUfw7yFTW:0\"] leaves the champion's Counters empty and the fixture fails; restoring it passes again.",
+    "testedCards": [
+        "UaUfw7yFTW"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["UaUfw7yFTW"],
+        "mechanics": ["cost", "draw-discard", "zone-movement", "counter"],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice an ally. Draw a card, then put a preparation counter on your champion."
+        ]
+    }
+}

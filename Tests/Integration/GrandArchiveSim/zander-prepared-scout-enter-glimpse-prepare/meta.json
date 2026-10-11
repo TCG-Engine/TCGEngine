@@ -1,0 +1,16 @@
+{
+    "name": "zander-prepared-scout-enter-glimpse-prepare",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T18:41:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "T3CIBknts0"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["T3CIBknts0"],
+        "mechanics": ["zone-movement", "counter", "trigger"],
+        "rulesClauses": [
+            "On Enter: Glimpse 2. Put a preparation counter on CARDNAME."
+        ]
+    }
+}

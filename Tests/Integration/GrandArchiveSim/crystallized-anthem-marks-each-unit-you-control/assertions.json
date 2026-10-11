@@ -1,0 +1,27 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"CRYSTALLIZED_ANTHEM_2\",\"vz4kc558yx-ACTION_ACTIVATED\"]",
+        "semantic": true,
+        "label": "Your champion is shielded (prevent the next 2 damage)"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"CRYSTALLIZED_ANTHEM_2\"]",
+        "semantic": true,
+        "label": "Your Dungeon Guide is shielded as well"
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

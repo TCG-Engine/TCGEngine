@@ -1,0 +1,17 @@
+{
+    "name": "convalescent-tonic-sacrifice-bottom-draw-recover",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Convalescent Tonic is seeded directly onto the field (its own Sacrifice ability doesn't care how it got there, and Brewing isn't the clause under test). activateAbilityAbilities['l8ao8bls6g:0'] offers an MZMULTICHOOSE of up to 2 hand cards (submitted as the '&'-joined 'myHand-0&myHand-1' response, same shape as essence-crucible-razorgale-calling); customDQHandlers['l8ao8bls6g:0:ActivateAbility-1'] moves the chosen cards to the bottom of the deck, then draws that many back, then RecoverChampion($player, 3). The champion is pre-damaged to 5 so Recover 3 leaves 2 damage remaining. Verified live: initial deck [em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY,px60u5n1do] (5) ends at [em6eEh9q8y,n8wyfG9hbY,px60u5n1do,px60u5n1do,n8wyfG9hbY] (still 5) -- the two chosen hand cards (px60u5n1do, n8wyfG9hbY) are appended at the BOTTOM (the final two slots), and 2 fresh cards were drawn back into hand from the old deck top.",
+    "testedCards": [
+        "l8ao8bls6g"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["l8ao8bls6g"],
+        "mechanics": ["recover", "draw-discard", "zone-movement"],
+        "rulesClauses": [
+            "Sacrifice Convalescent Tonic: Put up to two cards from your hand on the bottom of your deck then draw that many cards. Recover 3."
+        ]
+    }
+}

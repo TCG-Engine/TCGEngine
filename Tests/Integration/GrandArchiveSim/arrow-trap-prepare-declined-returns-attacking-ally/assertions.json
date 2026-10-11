@@ -1,0 +1,8 @@
+[
+    {"step":9,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"uoQGe5xGDQ","semantic":true,"label":"Arrow Trap was activated and paid for (it reached the graveyard)"},
+    {"step":9,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"{\"preparation\":1}","semantic":true,"label":"Prepare 1 was declined: the champion keeps its preparation counter"},
+    {"step":9,"type":"zone_count","zone":"theirField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Not prepared, so the attacking Dungeon Guide left the opponent's field (only their champion remains)"},
+    {"step":9,"type":"zone_count","zone":"theirHand","viewerPlayerID":1,"value":9,"semantic":true,"label":"[Class Bonus] does not apply when not prepared: the ally was RETURNED to its owner's hand (8 + 1)"},
+    {"step":9,"type":"zone_count","zone":"theirGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"It was not destroyed: the opponent's graveyard is empty"},
+    {"step":9,"type":"decision_queue_empty","player":"all"}
+]

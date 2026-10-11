@@ -1,0 +1,22 @@
+{
+    "name": "corsair-captain-not-distant-has-base-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:57:32+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4e1gqwah01"
+    ],
+    "notes": "Control for Ranged 2.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4e1gqwah01"
+        ],
+        "mechanics": [
+            "keyword",
+            "distant"
+        ],
+        "rulesClauses": [
+            "Ranged 2"
+        ]
+    }
+}

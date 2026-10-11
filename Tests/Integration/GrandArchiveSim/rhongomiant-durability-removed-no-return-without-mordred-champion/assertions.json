@@ -1,0 +1,7 @@
+[
+    {"step":11,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"durability\":2}","semantic":true,"label":"The durability counter was removed (3 -> 2) as part of the attack"},
+    {"step":11,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"2","semantic":true,"label":"Without the Mordred Bonus Rhongomiant hits for its printed 2"},
+    {"step":11,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"No memory card was offered or returned"},
+    {"step":11,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":4,"semantic":true,"label":"Hand 4 = 7 + draw - Dungeon Guide - 3 payments"},
+    {"step":11,"type":"decision_queue_empty","player":"all"}
+]

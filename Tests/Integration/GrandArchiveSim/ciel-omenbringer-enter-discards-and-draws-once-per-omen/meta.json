@@ -1,0 +1,24 @@
+{
+    "name": "ciel-omenbringer-enter-discards-and-draws-once-per-omen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:23:27+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "o69ogocemo"
+    ],
+    "notes": "Level-up on turn three; the memory cost uses the seeded memory cards; recollection then returns the cards drawn into memory.",
+    "semanticCoverage": {
+        "testedCards": [
+            "o69ogocemo"
+        ],
+        "mechanics": [
+            "on-enter",
+            "discard",
+            "draw-into-memory",
+            "omen"
+        ],
+        "rulesClauses": [
+            "On Enter: For each omen you have, discard a card from your hand or memory and draw a card into your memory."
+        ]
+    }
+}

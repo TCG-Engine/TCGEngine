@@ -1,0 +1,17 @@
+{
+    "name": "green-slime-on-enter-two-buff-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T02:50:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Green Slime (zgcxyky280, ALLY): \"On Enter: Put two buff counters on Green Slime.\" Implemented as enterAbilities['zgcxyky280:0'] (GeneratedCode/GeneratedMacroCode.php), a plain AddCounters($player, $mzID, 'buff', 2). Green Slime's element is WIND, not native to the 'Spirit of Fire' starting champion, so the champion's Subcards are patched with a real WIND champion (Spirit of Wind, pNiyaGlIe7) purely to unlock element access -- the same technique already established for deployment-beacon-summon-drone (CanPlayerMeetCardElementRequirements() gates any non-NORM element this way, not only the nine 'advanced' ones).\n\nGreen Slime is played for real from hand via a plain FSM action (mode=10002), paying its 3 reserve cost from three of the seven existing filler cards already in hand -- not seeded directly onto the field -- so the Enter trigger genuinely fires per the project's silent-fake-pass rule. Verified live: it materializes at myField-1 with Counters={\"buff\":2}.\n\nOnly the base Enter clause is covered here; the separate [Class Bonus] On Leave transfer clause is covered by its own fixture, green-slime-class-bonus-on-leave-transfer-buff.",
+    "testedCards": [
+        "zgcxyky280"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zgcxyky280"],
+        "mechanics": ["trigger", "counter"],
+        "rulesClauses": [
+            "On Enter: Put two buff counters on Green Slime."
+        ]
+    }
+}

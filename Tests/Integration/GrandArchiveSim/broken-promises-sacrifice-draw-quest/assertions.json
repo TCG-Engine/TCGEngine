@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Counters",
+        "value": "{\"quest\":1}",
+        "semantic": true,
+        "label": "[Guo Jia Bonus] Broken Promises puts a quest counter on the Guo Jia champion"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "h8n1520m2d",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The sacrificed Craggy Fatestone (Fatestone item) was moved to the graveyard as the additional cost"
+    }
+]

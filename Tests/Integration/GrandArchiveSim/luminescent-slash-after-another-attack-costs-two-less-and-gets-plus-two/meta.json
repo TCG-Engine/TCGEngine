@@ -1,0 +1,25 @@
+{
+    "name": "luminescent-slash-after-another-attack-costs-two-less-and-gets-plus-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:10+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "y8BNOi4rwD"
+    ],
+    "notes": "Luminescent Slash (y8BNOi4rwD): \"[Mordred Bonus] This card costs 2 less to activate for each other attack card you've activated this turn. [Mordred Bonus] +2 POWER for each other attack card you've activated this turn.\" The champion is Aurelian Regent. Dauntless Assault (its [Mordred Bonus] On Attack wakes the champion up) is activated first (3 reserve, 4 damage); then Luminescent Slash costs 5 - 2 = THREE reserve payments and deals 6 + 2 = 8: player 2's champion has taken 4 + 8 = 12 damage in total.",
+    "semanticCoverage": {
+        "testedCards": [
+            "y8BNOi4rwD"
+        ],
+        "mechanics": [
+            "cost",
+            "combat",
+            "condition",
+            "damage"
+        ],
+        "rulesClauses": [
+            "[Mordred Bonus] This card costs 2 less to activate for each other attack card you've activated this turn.",
+            "[Mordred Bonus] Luminescent Slash gets +2 POWER for each other attack card you've activated this turn."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "flawless-spirit-of-mordred-cannot-level-up-into-non-mordred",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "cXEI5vo6iG"
+    ],
+    "notes": "Flawless Spirit of Mordred (cXEI5vo6iG): \"CARDNAME can only level up into a 'Mordred' champion.\" The material deck holds Mordred, Burnished Avenger and Tristan, Underhanded (both level 1). After both glimpses are answered and the turns pass, in player 1's turn-3 materialize phase choosing Tristan, Underhanded is refused by the engine (DoMaterialize returns without leveling): the champion stays the Spirit, the material deck keeps both cards and the seeded memory card is not spent (it is returned to hand by recollection).",
+    "semanticCoverage": {
+        "testedCards": [
+            "cXEI5vo6iG"
+        ],
+        "mechanics": [
+            "condition",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Flawless Spirit of Mordred can only level up into a \"Mordred\" champion."
+        ]
+    }
+}

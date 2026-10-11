@@ -1,0 +1,23 @@
+{
+    "name": "dusksoul-stone-phantasias-have-spellshroud",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:05+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "u25fuv184p"
+    ],
+    "notes": "Dusksoul Stone (u25fuv184p): \"Phantasias you control have spellshroud. (Objects with spellshroud can't be targeted by Spells.)\" Player 1 controls the Stone and an Ominous Shadow (a phantasia ally); player 2 plays Disenchant (\"Destroy target phantasia\", a Spell) for real. Disenchant's target list goes through FilterSpellshroudTargets(), which consults HasSpellshroud() (the Stone's static clause in Custom/GameLogic.php), so the Shadow is not a legal target, the ability finds no target and resolves without a prompt: the Shadow survives and the decision queue is empty (without the Stone the same Disenchant would prompt for a target).",
+    "semanticCoverage": {
+        "testedCards": [
+            "u25fuv184p"
+        ],
+        "mechanics": [
+            "targeting",
+            "prevention",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Phantasias you control have spellshroud."
+        ]
+    }
+}

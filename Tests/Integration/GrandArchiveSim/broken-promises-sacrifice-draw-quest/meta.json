@@ -1,0 +1,19 @@
+{
+    "name": "broken-promises-sacrifice-draw-quest",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Broken Promises (re911j7fo4, GeneratedMacroCode.php cardActivatedAbilities[\"re911j7fo4:0\"]; additional-cost sacrifice wired in Custom/GameLogic.php ~2813 (BrokenPromisesCost)): \"As an additional cost to activate this card, sacrifice a Fatestone item or Fatebound ally. Draw a card into your memory. [Guo Jia Bonus] Put a quest counter on your champion.\" The champion is patched to Guo Jia, Chosen Disciple with Spirit of Fire kept in Subcards (a real level-up would preserve it there too) so CanPlayerUseCardElement() grants FIRE access for this FIRE card, and IsGuoJiaBonus() reads true. A Craggy Fatestone (ITEM, FATESTONE subtype) is seeded onto the field to satisfy the mandatory sacrifice. Verified live: after playing Broken Promises, sacrificing the Craggy Fatestone (myField-1, moved to graveyard), and paying the 1-reserve cost, the champion's Counters go from {} to {\"quest\":1} and a card moves from deck into memory. Break/restore verified: commenting out DrawIntoMemory()/AddQuestCounters() makes the fixture fail and restoring it passes again.",
+    "testedCards": [
+        "re911j7fo4"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["re911j7fo4"],
+        "mechanics": ["cost", "draw-discard", "counter"],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice a Fatestone item or a Fatebound ally.",
+            "Draw a card into your memory.",
+            "[Guo Jia Bonus] Put a quest counter on your champion."
+        ]
+    }
+}

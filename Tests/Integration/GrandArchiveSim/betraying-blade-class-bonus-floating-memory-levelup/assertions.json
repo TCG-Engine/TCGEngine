@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"qwxvzfkpaj","semantic":true,"label":"Betraying Blade was banished from the graveyard as a floating-memory payment"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Banish-1","property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"The remaining memory point was paid with the real memory card"},
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"The graveyard is empty: Betraying Blade left it"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"gt7lh9v221","semantic":true,"label":"The level-up into Tristan, Hired Blade completed with a 1+1 payment"}
+]

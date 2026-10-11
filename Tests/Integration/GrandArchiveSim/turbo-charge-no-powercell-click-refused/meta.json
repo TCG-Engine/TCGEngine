@@ -1,0 +1,22 @@
+{
+    "name": "turbo-charge-no-powercell-click-refused",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:21:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "cnqsm3n9yv"
+    ],
+    "notes": "Turbo Charge (cnqsm3n9yv, CLERIC skill, reserve 3) needs a Powercell to sacrifice; none is on the field and three payers are in hand. REGRESSION PIN, not a failing-first repro: the hand click already consults the generated activate prerequisite (CanActivateCard) before the card moves, so Turbo Charge / Atmos Armor / Overlord Mk III were never stranded by the dead post-announce Powercell check on the hand-click path (it is reachable only through direct DoActivateCard callers that skip the prerequisite). Pins the refusal on state so it stays refused if the prerequisite ever changes.",
+    "semanticCoverage": {
+        "testedCards": [
+            "cnqsm3n9yv"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate Turbo Charge, sacrifice a Powercell."
+        ]
+    }
+}

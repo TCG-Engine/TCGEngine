@@ -1,0 +1,7 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-0","property":"Counters","value":"{\"preparation\":1,\"_champCombatDamageDealtThisTurn\":2}","semantic":true,"label":"Paying (2) put exactly one preparation counter on the attacking champion (the other counter is the engine's combat-damage bookkeeping)"},
+    {"step":8,"type":"zone_count","zone":"theirMemory","viewerPlayerID":1,"value":4,"semantic":true,"label":"Four hand cards reached memory: 2 for the reserve cost of Betraying Blade plus the 2 paid for the On Attack"},
+    {"step":8,"type":"card_property_equals","mzId":"p2Graveyard-0","property":"CardID","value":"qwxvzfkpaj","semantic":true,"label":"Betraying Blade resolved and went to the graveyard"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"2","semantic":true,"label":"The 2-POWER attack still hit player 1's champion"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

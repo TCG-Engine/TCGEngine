@@ -1,0 +1,93 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myTempZone",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "No looked-at card is left stranded in the temp zone"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The sacrificed omen and Spring Cleaning itself"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the newly banished card remains in the banish zone (the old omen went to the graveyard)"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myBanish-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "n8wyfG9hbY",
+        "semantic": true,
+        "label": "The third looked-at card (Fairy Whispers) was banished -- it could only be offered if all three were looked at"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myBanish-0",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "{\"omen\":1}",
+        "semantic": true,
+        "label": "It carries an omen counter"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 16,
+        "semantic": true,
+        "label": "Deck size: the two unbanished looked-at cards went to the bottom"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "ra9950o14t",
+        "semantic": true,
+        "label": "The marker is the new top card: exactly three were looked at"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myDeck-14",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Bottom slot 1: the first looked-at card, original order"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myDeck-15",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Bottom slot 2: the second looked-at card, original order"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

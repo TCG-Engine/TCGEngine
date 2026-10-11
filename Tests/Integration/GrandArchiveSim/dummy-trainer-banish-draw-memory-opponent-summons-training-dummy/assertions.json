@@ -1,0 +1,9 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"QCUld5Xidm","semantic":true,"label":"Dummy Trainer banished itself as part of the cost"},
+    {"step":8,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Dummy Trainer left player 1's field (only the champion remains)"},
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-1","property":"CardID","value":"EeFXEYMmF3","semantic":true,"label":"The OPPONENT summoned a Training Dummy token"},
+    {"step":8,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":2,"semantic":true,"label":"The opponent's field holds the champion plus exactly one Training Dummy"},
+    {"step":8,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":4,"semantic":true,"label":"Memory 4 = 3 reserve payments + 1 card drawn INTO MEMORY"},
+    {"step":8,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":5,"semantic":true,"label":"Hand 5 = 7 + the turn draw - 3 reserve payments (the extra card went to memory, not hand)"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

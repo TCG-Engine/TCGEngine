@@ -1,0 +1,23 @@
+{
+    "name": "snow-fairy-ally-wakes-up-after-snow-fairy-leaves",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:56+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4s0c9XgLg7"
+    ],
+    "notes": "Snow Fairy (4s0c9XgLg7): the freeze lasts only \"as long as you control CARDNAME\". Player 2 has two Dungeon Guides: A (plain) is rested by Snow Fairy's On Enter, B carries two buff counters (3 power). On player 1's next turn Snow Fairy attacks the awake B and dies to its retaliation (3 damage vs 2 life). In player 2's following wake up phase A is no longer frozen: the engine drops the FROZEN_BY_SNOW_FAIRY effect and A wakes up normally.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4s0c9XgLg7"
+        ],
+        "mechanics": [
+            "status",
+            "condition",
+            "combat"
+        ],
+        "rulesClauses": [
+            "The freeze lasts only as long as you control Snow Fairy: once it has left the field the ally wakes up normally."
+        ]
+    }
+}

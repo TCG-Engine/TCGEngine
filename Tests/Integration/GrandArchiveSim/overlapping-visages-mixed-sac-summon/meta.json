@@ -1,0 +1,17 @@
+{
+    "name": "overlapping-visages-mixed-sac-summon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T22:19:26+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Overlapping Visages (PYAnl70edq, GeneratedMacroCode.php cardActivatedAbilities[\"PYAnl70edq:0\"] / CardDQHandlers.php OverlappingVisages_Start/QueueOpponent/Finish): \"Each player sacrifices an ally. If at least one non-Distortion ally and at least one Distortion ally were sacrificed this way, you summon a Lost Being token.\" Merlin, Surreal Figment (P8RBSywC30, a real DISTORTION ally) is seeded on our field and a plain Dungeon Guide ally on the opponent's. Playing the card (4 reserve) first has the activator choose their own ally to sacrifice, then queues the opponent's own MZCHOOSE for their ally. Since one Distortion and one non-Distortion ally were sacrificed, a Lost Being token (duzpl7mqXl) is summoned on the activating player's field. Break/restore verified: commenting out the SummonMemorite() call in OverlappingVisages_Finish leaves no Lost Being token on the field and the fixture fails; restoring it passes again.",
+    "testedCards": [
+        "PYAnl70edq"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["PYAnl70edq"],
+        "mechanics": ["token", "condition"],
+        "rulesClauses": [
+            "Each player sacrifices an ally. If at least one non-Distortion ally and at least one Distortion ally were sacrificed this way, you summon a Lost Being token."
+        ]
+    }
+}

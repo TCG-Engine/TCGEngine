@@ -1,6 +1,7 @@
 1
 0
-4
+5
+em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
 n8wyfG9hbY
@@ -41,9 +42,8 @@ hJ2xh9lNMR 2 1 0 1 ENTERED_THIS_TURN - - 4
 LMyKyVC2O9 2 2 0 2 - - - 2
 0
 0
-2
+1
 px60u5n1do
-em6eEh9q8y
 0
 4
 DpHDGaX2Pn

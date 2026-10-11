@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-1","property":"Counters","value":"{\"buff\":1}","semantic":true,"label":"NEGATIVE CONTROL: Piccarda, Night Rider (ooGvrzxTmr) has no Spellshroud while the Class Bonus is off, so it was offered and received the buff counter"},
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-2","property":"Counters","value":"[]","semantic":true,"label":"Dungeon Guide was not the chosen target and is untouched"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"BZMKfFZ22T","semantic":true,"label":"Liturgy of Corruption resolved into player 1's graveyard"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

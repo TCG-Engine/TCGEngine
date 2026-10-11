@@ -1,0 +1,4 @@
+[
+    {"step":1,"type":"card_property_equals","mzId":"p1GlobalEffects-0","property":"CardID","value":"yBDxSHkT1s","semantic":true,"label":"Sacrificing Twinstar Tonic sets the permanent starcall-copy global effect flag"},
+    {"step":1,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"yBDxSHkT1s","semantic":true,"label":"Sacrifice moves Twinstar Tonic itself to the graveyard"}
+]

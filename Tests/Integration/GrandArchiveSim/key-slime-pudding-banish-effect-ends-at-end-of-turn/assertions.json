@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"card_exists","zone":"myGlobalEffects","viewerPlayerID":1,"cardID":"4wuq20gvcg","semantic":true,"label":"Activating sets the extra-buff global effect"},
+    {"step":6,"type":"turn_player_is","value":2,"semantic":true,"label":"The turn passed to player 2"},
+    {"step":6,"type":"zone_count","zone":"myGlobalEffects","viewerPlayerID":1,"value":0,"semantic":true,"label":"The extra-buff effect expired with the turn (player 1 has no global effects)"}
+]

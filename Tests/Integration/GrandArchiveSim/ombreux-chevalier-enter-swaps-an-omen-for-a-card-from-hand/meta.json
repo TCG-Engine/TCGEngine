@@ -1,0 +1,21 @@
+{
+    "name": "ombreux-chevalier-enter-swaps-an-omen-for-a-card-from-hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:16:46+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "crv1etn4g3"
+    ],
+    "notes": "Ombreux Chevalier: On Enter returns an omen to hand, then banishes a card from hand as a new omen.",
+    "semanticCoverage": {
+        "testedCards": [
+            "crv1etn4g3"
+        ],
+        "mechanics": [
+            "on-enter",
+            "omen",
+            "zone-movement"
+        ],
+        "rulesClauses": []
+    }
+}

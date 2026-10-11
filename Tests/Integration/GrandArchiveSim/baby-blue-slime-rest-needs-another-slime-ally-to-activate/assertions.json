@@ -1,0 +1,7 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-2","property":"Status","value":"2","semantic":true,"label":"No legal target: Baby Blue Slime is not rested by the failed activation"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\"]","semantic":true,"label":"The non-Slime ally was not shielded"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-2","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\"]","semantic":true,"label":"Baby Blue Slime was not shielded either"},
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\"]","semantic":true,"label":"The opponent's Slime was not shielded"},
+    {"step":4,"type":"decision_queue_empty","player":"all","semantic":true,"label":"No target prompt or other decision was opened"}
+]

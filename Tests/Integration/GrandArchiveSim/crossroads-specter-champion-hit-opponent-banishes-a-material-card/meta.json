@@ -1,0 +1,23 @@
+{
+    "name": "Crossroads Specter: On Champion Hit the opponent banishes a card of their choice from their material deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:20:56+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "r3i9nmxhnb"
+    ],
+    "notes": "Crossroads Specter hits player 2's champion; the banish choice belongs to the opponent and is written in player 2's own frame (myMaterial-N). Player 2 picks the second material card, which leaves the material deck for their banishment (the first stays).",
+    "semanticCoverage": {
+        "testedCards": [
+            "r3i9nmxhnb"
+        ],
+        "mechanics": [
+            "trigger",
+            "combat",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "On Champion Hit: That opponent banishes a card from their material deck."
+        ]
+    }
+}

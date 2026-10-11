@@ -1,0 +1,6 @@
+[
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"KqBosnU7pU","semantic":true,"label":"The champion really leveled up this turn (Flawless Blade -> Fated Luminary)"},
+    {"step":7,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"4","semantic":true,"label":"Invigorated Slash dealt 2 + 2 = 4 damage"},
+    {"step":7,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"Exactly 2 reserve payments (printed cost 2; the three level-up memory cards were banished)"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

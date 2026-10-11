@@ -1,0 +1,23 @@
+{
+    "name": "diana-moonpiercer-becoming-distant-glimpses-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:24:55+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "v3vfjtwm7g"
+    ],
+    "notes": "The distant trigger asks YES (negate mode) / NO (Glimpse 2 mode); NO is answered here. The negate / end-combat mode needs a defending Diana and is not exercised.",
+    "semanticCoverage": {
+        "testedCards": [
+            "v3vfjtwm7g"
+        ],
+        "mechanics": [
+            "trigger",
+            "modal",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "Whenever Diana becomes distant, choose one -- ... / Glimpse 2."
+        ]
+    }
+}

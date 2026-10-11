@@ -1,0 +1,19 @@
+{
+    "name": "blossoming-denial-cost-reduction-token-negate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T20:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Three of Blossoming Denial's clauses proven in one pass. (1) [Class Bonus] cost reduction: activationCostModifierAbilities[\"1nnpbddblx:0\"] (GeneratedMacroCode.php ~8125) returns -3 when IsClassBonusActive($player, [\"CLERIC\"]) (true: Diao Chan, Enchantress, seeded as a second field object since starting-champion selection always prefers a level-0 Material Spirit) AND count(GetMemory($opponent)) >= 5 (player 1's myMemory seeded with 5 cards) -- the printed 3-reserve cost drops to 0, observed as zero reserve-payment actions between playing it and its own MZMAYCHOOSE. (2) Real negate: cardActivatedAbilities[\"1nnpbddblx:0\"] (~14982) offers an optional MZMAYCHOOSE negate target via \"NegateActivationResolve|default|3\". The bait is Mastermind Scheme (9lbewemius, ACTION, NORM, reserve 6, no targeting of its own) instead of the usual Escharotomy specifically so its controller (player 1) is down to only 1 payable hand card by the time the negate resolves -- CountAvailableReservePayments(player 1) = 1 < 3, so NegateActivationResolve (OpportunityLogic.php ~388) takes its SYNCHRONOUS insufficient-funds branch and calls NegateCardActivation(..., \"default\") immediately, in the same action as the MZMAYCHOOSE selection (deliberately avoiding a genuine engine race confirmed while investigating Acquiescing Rejection's negative path -- see the comment above Glimmering Refusal's fixture in create-prd-ability-fixtures.php -- where a DEFERRED YES/NO negate choice loses to customDQHandlers[\"PostResolutionCheck\"]'s immediate stack continuation). (3) Unconditional token summon: customDQHandlers[\"BlossomingDenialFinal\"] (OpportunityLogic.php ~586), queued at a later block than the negate so it always runs, summons two Flowerbud tokens (yn78t73w1p) onto the opponent's field in the SAME resolution as the real negate above -- proving the token clause is unconditional, not just a fallback for a declined/skipped negate. The [Level 5+] Recover X clause is not covered by this fixture (would need the caster's champion at level 5+; left as a gap).",
+    "testedCards": [
+        "1nnpbddblx"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["1nnpbddblx"],
+        "mechanics": ["cost", "condition", "targeting", "zone-movement", "token", "trigger"],
+        "rulesClauses": [
+            "[Class Bonus] If an opponent has 5+ cards in memory, costs 3 less.",
+            "Negate up to one target card activation unless its controller pays (3).",
+            "Each opponent summons two Flowerbud tokens."
+        ]
+    }
+}

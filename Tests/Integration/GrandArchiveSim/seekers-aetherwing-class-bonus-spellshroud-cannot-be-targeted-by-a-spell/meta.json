@@ -1,0 +1,23 @@
+{
+    "name": "seekers-aetherwing-class-bonus-spellshroud-cannot-be-targeted-by-a-spell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:40:44+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "bf7yzaqes4"
+    ],
+    "notes": "Ranger champion: no prompt is offered (the only candidate is spellshrouded).",
+    "semanticCoverage": {
+        "testedCards": [
+            "bf7yzaqes4"
+        ],
+        "mechanics": [
+            "spellshroud",
+            "class-bonus",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Spellshroud"
+        ]
+    }
+}

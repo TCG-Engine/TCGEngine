@@ -1,0 +1,17 @@
+{
+    "name": "shred-to-ribbons-class-bonus-attack-ally-5-life-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Shred to Ribbons's [Class Bonus] (GameLogic.php ~11658, inside the per-CardID POWER switch) adds +3 POWER to the ATTACK card's intent-loaded power when [Class Bonus] (GUARDIAN or WARRIOR) is active and DecisionQueueController::GetVariable('CombatTarget') resolves to an ALLY with 5+ current LIFE (ObjectCurrentHP). Playing this WIND-element ATTACK card for real from hand goes through an unrelated reserve/rearrange side-quest (a reveal-based alternate payment plus a deck-rearrange decision) that isn't part of its own ability, so instead Shred to Ribbons is seeded directly into myIntent via the zone setup primitive -- BridgeAddToZone only auto-populates Controller/Owner for zones matching */Field, so those are set explicitly via setProperties so IsClassBonusActive($obj->Controller, ...) resolves the correct player. P2 is patched to a WARRIOR champion (Lorraine, Wandering Warrior); a Dungeon Guide ALLY is seeded onto P1's field with Counters overridden to potion_animate_life=5 (Dungeon Guide's printed LIFE is only 3) as the attack target. P1 passes turn 1 (Rule 1.h), then P2's champion (0 printed power, no weapon) declares a real attack -- legal only because the seeded Intent card supplies positive power -- targeting the seeded ally; P1 declines the Retaliate? MZMAYCHOOSE. Total attack power is Shred to Ribbons's printed 2 + 3 from the Class Bonus = 5, exactly lethal to the LIFE-5 target (which dies and moves to the graveyard), vs. only 2 damage and survival without the bonus.",
+    "testedCards": [
+        "5j36gn1b2s"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["5j36gn1b2s"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "[Class Bonus] As long as the attacker is attacking an ally with 5 [LIFE] or more, CARDNAME gets +3 [POWER]. (Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

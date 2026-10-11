@@ -1,0 +1,26 @@
+{
+    "name": "sirocco-operative-enter-class-bonus-draw-memory-and-automaton-prep",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:59+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "t7ru41pzgg"
+    ],
+    "notes": "Sirocco Operative (t7ru41pzgg, WIND ALLY, ASSASSIN/AUTOMATON, reserve 3): \"[Class Bonus] On Enter: Draw a card into your memory. On Enter: If you control another Automaton ally, put a preparation counter on your champion.\" The champion is patched to Tristan, Hired Blade (ASSASSIN) for the Class Bonus and a Shimmercloak Assassin (an Automaton) is seeded as the 'other Automaton'. Sirocco is played for real (3 reserve payments), so enterAbilities['t7ru41pzgg:0'] genuinely fires: DrawIntoMemory(1) adds a 4th card to memory and AddPrepCounter() puts one preparation counter on the champion.",
+    "semanticCoverage": {
+        "testedCards": [
+            "t7ru41pzgg"
+        ],
+        "mechanics": [
+            "trigger",
+            "draw-discard",
+            "counter",
+            "condition",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Draw a card into your memory.",
+            "On Enter: If you control another Automaton ally, put a preparation counter on your champion."
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "baby-blue-slime-class-bonus-tamer-champion-plus-one-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:20:41+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "notes": "Baby Blue Slime (9ggfiy38t2, WATER ALLY, TAMER/ANIMAL/SLIME, reserve 2, POWER 1 / LIFE 2): \"[Class Bonus] CARDNAME gets +1 LIFE. [REST]: Prevent the next 2 damage that would be dealt to another target Slime ally you control this turn.\" Baby Blue Slime is played for real from hand (FSM play + 2 reserve payments); WATER is unlocked by patching a Nico lineage into the champion and the deck is colorless so no fast-spell windows interrupt the flow. The champion is patched to Silvie, With the Pack (TAMER), matching Baby Blue Slime's class, so [Class Bonus] applies: LIFE 2 + 1 = 3. Playing it also queues no prompt (guards the former auto-firing play effect). Proved functionally too: player 2 attacks it with a 2-power Dungeon Guide (1 buff counter) and Baby Blue Slime survives with exactly 2 damage on LIFE 3 (without the bonus, LIFE 2 would die).",
+    "testedCards": [
+        "9ggfiy38t2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9ggfiy38t2"
+        ],
+        "mechanics": [
+            "condition",
+            "status",
+            "combat",
+            "damage"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 LIFE."
+        ]
+    }
+}

@@ -1,0 +1,74 @@
+[
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "2o82fwl22v",
+        "semantic": true,
+        "label": "Unstable Fractal itself was sacrificed to its own graveyard, paying the '[REST], Sacrifice CARDNAME' cost of the printed clause"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "CardID",
+        "value": "9gv4vm4kj3",
+        "semantic": true,
+        "label": "The targeted Backup Charger (memory cost 0, a legal target) was destroyed and left play -- landing in the opponent's Banish rather than Graveyard because REGALIA cards are redirected there by GraveyardAddReplacement, a real generic engine rule, not a bug in this ability"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1
+    }
+]

@@ -87,7 +87,7 @@ function ResumeIdleEffectStackIfNeeded() {
     if($priorityPlayer <= 0) $priorityPlayer = intval(GetTurnPlayer());
     if($priorityPlayer <= 0) return false;
 
-    DecisionQueueController::AddDecision($priorityPlayer, "CUSTOM", "EffectStackOpportunity", 100);
+    DecisionQueueController::AddDecision($priorityPlayer, "CUSTOM", "EffectStackOpportunity", 100, dontSkipOnPass:1);
     $dqController->ExecuteStaticMethods($priorityPlayer, "-");
     return true;
 }
@@ -358,6 +358,24 @@ function NegateCardActivation($player, $targetMZ, $destinationMode = "default") 
     return true;
 }
 
+/**
+ * Re-arm PostResolutionCheck for $player after a deferred "negate unless X" decision
+ * (pendingNegateTarget) has just been settled by whichever controller answered it.
+ *
+ * PostResolutionCheck guards itself against running while pendingNegateTarget is set (it
+ * would otherwise resolve the next EffectStack entry before the answer determining that
+ * entry's own fate — negated-and-banished vs. left to resolve normally — has come back from
+ * the OTHER player's queue, which drains independently and is not visible to $player's
+ * ExecuteStaticMethods loop). Once the Resolve/PayChoice handler clears pendingNegateTarget,
+ * it must call this to actually continue $player's EffectStack processing — otherwise it
+ * silently stalls forever, since the guarded-out PostResolutionCheck was already popped and
+ * nothing else re-queues it.
+ */
+function ResumeEffectStackPostResolutionCheck($player) {
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PostResolutionCheck", 200);
+    (new DecisionQueueController())->ExecuteStaticMethods($player, "-");
+}
+
 function QueueNegateActivation($player, $filters = [], $destinationMode = "default", $payAmount = -1, $handler = "NegateActivationResolve") {
     $targets = GetEffectStackActivationTargets($player, $filters);
     if(empty($targets)) return;
@@ -497,6 +515,7 @@ $customDQHandlers["NegateActivationPayChoice"] = function($payingPlayer, $parts,
     DecisionQueueController::ClearVariable("pendingNegateTarget");
     DecisionQueueController::ClearVariable("pendingNegateDestination");
     DecisionQueueController::ClearVariable("pendingNegatePayAmount");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["NegateActivationReserveSelected"] = function($payingPlayer, $parts, $lastDecision) {
@@ -511,6 +530,7 @@ $customDQHandlers["NegateActivationReserveSelected"] = function($payingPlayer, $
     DecisionQueueController::ClearVariable("pendingNegateTarget");
     DecisionQueueController::ClearVariable("pendingNegateDestination");
     DecisionQueueController::ClearVariable("pendingNegatePayAmount");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["NegateActivationTetherChoice"] = function($player, $parts, $lastDecision) {
@@ -533,6 +553,7 @@ $customDQHandlers["NegateActivationTetherResolve"] = function($controller, $part
         NegateCardActivation($negatingPlayer, $targetMZ, "default");
     }
     DecisionQueueController::ClearVariable("pendingNegateTarget");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["NegateActivationDrawChoice"] = function($player, $parts, $lastDecision) {
@@ -554,6 +575,7 @@ $customDQHandlers["NegateActivationDrawResolve"] = function($controller, $parts,
         NegateCardActivation($negatingPlayer, $targetMZ, "banish");
     }
     DecisionQueueController::ClearVariable("pendingNegateTarget");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["NegateActivationSuffocatingChoice"] = function($player, $parts, $lastDecision) {
@@ -581,6 +603,7 @@ $customDQHandlers["NegateActivationSuffocatingResolve"] = function($controller, 
         NegateCardActivation($negatingPlayer, $targetMZ, "default");
     }
     DecisionQueueController::ClearVariable("pendingNegateTarget");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["BlossomingDenialFinal"] = function($player, $parts, $lastDecision) {
@@ -633,6 +656,7 @@ $customDQHandlers["ImperialAccordPayChoice"] = function($payingPlayer, $parts, $
     DecisionQueueController::ClearVariable("pendingNegateTarget");
     DecisionQueueController::ClearVariable("pendingNegateDestination");
     DecisionQueueController::ClearVariable("pendingNegatePayAmount");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["ImperialAccordReserveSelected"] = function($payingPlayer, $parts, $lastDecision) {
@@ -649,6 +673,7 @@ $customDQHandlers["ImperialAccordReserveSelected"] = function($payingPlayer, $pa
     DecisionQueueController::ClearVariable("pendingNegateTarget");
     DecisionQueueController::ClearVariable("pendingNegateDestination");
     DecisionQueueController::ClearVariable("pendingNegatePayAmount");
+    ResumeEffectStackPostResolutionCheck($negatingPlayer);
 };
 
 $customDQHandlers["ImperialAccordMayBanish"] = function($player, $parts, $lastDecision) {
@@ -777,6 +802,7 @@ function GetPlayableFastAbilities($player) {
             if(isset($Cardistry_Cards[$obj->CardID]) && isset($obj->Counters['cardistry_used'])) continue;
 
             $mzID = $zonePrefix . "-" . $i;
+            GAApplyActivateAbilityCountOverrides();
             $staticAbilityCount = CardActivateAbilityCount($obj->CardID);
             $staticAbilityNames = CardActivateAbilityCountNames($obj->CardID);
 
@@ -871,6 +897,17 @@ function ResolveOpportunitySelection($player, $selection) {
     if(TryResolveOpportunityActionMapSelection($player, $selection)) {
         ResumeIdleEffectStackIfNeeded();
         return true;
+    }
+
+    // A Stifling Trap picked from memory can only ever be the Class Bonus alternate cost (it has no way to
+    // pay reserve from memory); never fall through to the generic reserve-paying ActivateCard() below.
+    if(is_string($selection) && strpos($selection, "myMemory-") === 0) {
+        $memObj = GetZoneObject($selection);
+        if($memObj !== null && empty($memObj->removed) && MemoryTrapConfig($memObj->CardID) !== null) {
+            TryStiflingTrapMemory($player, $selection);
+            ResumeIdleEffectStackIfNeeded();
+            return true;
+        }
     }
 
     if(TryLostPromisesMemory($player, $selection) || TryGlimmerCast($player, $selection)) {
@@ -1100,6 +1137,19 @@ function GetPlayableFastCards($player) {
         }
     }
 
+    // Stifling Trap (z5exbwdp7q): [Class Bonus] if it's not your turn, remove two preparation counters
+    // from your champion to activate it from MEMORY without paying its reserve cost.
+    if($player != $turnPlayer) {
+        $memory = &GetMemory($player);
+        for($mi = 0; $mi < count($memory); ++$mi) {
+            if($memory[$mi] === null || (isset($memory[$mi]->removed) && $memory[$mi]->removed)) continue;
+            $memMzID = "myMemory-" . $mi;
+            if(CanUseStiflingTrapMemoryActivation($player, $memMzID, $memory[$mi])) {
+                $fastCards[] = $memMzID;
+            }
+        }
+    }
+
     $graveyard = GetZone("myGraveyard");
     for($gi = 0; $gi < count($graveyard); ++$gi) {
         $gyObj = $graveyard[$gi];
@@ -1128,6 +1178,73 @@ function GetPlayableFastCards($player) {
 // After a card enters the EffectStack, the player who activated it gets priority
 // first (they can chain more fast cards), then the opponent. Both must pass for
 // the topmost card to resolve.
+
+/**
+ * Stifling Trap (z5exbwdp7q): "[Class Bonus] If it's not your turn, you may remove two preparation
+ * counters from your champion to activate this card from your memory without paying its reserve cost."
+ * The alternate cost only waives the RESERVE cost: element requirement, lockdowns and every other
+ * activation gate still apply (checked here, without side effects, so the counters are never spent on
+ * an activation that would then be refused). Reaction speed is what lets it be used in a priority window.
+ */
+// The same alternate cost exists on the other Traps ("[Class Bonus] If it's not your turn, you may remove a preparation counter from your champion to activate this card from your memory without paying its
+// reserve cost"): Scorching Trap (wjbqjdmthh) and Collapsing Trap (v2214upufo) remove ONE counter. 'target' is the "is there anything to target" precheck so the counters are never spent on a refused activation.
+function MemoryTrapConfig($cardID) {
+    switch($cardID) {
+        case "z5exbwdp7q": return ['counters' => 2, 'target' => fn() => !empty(array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"])))];
+        case "wjbqjdmthh": return ['counters' => 1, 'target' => fn() => function_exists('IsCombatActive') && IsCombatActive()];
+        case "v2214upufo": return ['counters' => 1, 'target' => fn() => true];
+    }
+    return null;
+}
+
+function StiflingTrapAlternateCostPayable($player, $cardID = "z5exbwdp7q") {
+    if($player == GetTurnPlayer()) return false;
+    $config = MemoryTrapConfig($cardID);
+    if($config === null) return false;
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+    $classBonus = IsClassBonusActive($player, explode(",", CardClasses($cardID)));
+    $champMZ = $classBonus ? FindChampionMZ($player) : null;
+    $champObj = $champMZ !== null ? GetZoneObject($champMZ) : null;
+    $payable = $champObj !== null && empty($champObj->removed) && GetCounterCount($champObj, "preparation") >= $config['counters'];
+    $playerID = $savedPlayerID;
+    return $payable;
+}
+
+function CanUseStiflingTrapMemoryActivation($player, $mzID, $obj) {
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return false;
+    $config = MemoryTrapConfig($obj->CardID);
+    if($config === null) return false;
+    if(!StiflingTrapAlternateCostPayable($player, $obj->CardID)) return false;
+    if(!CanActivateOpportunityCard($player, $mzID, $obj)) return false;
+    // The counters must not be spent on an activation with nothing to target (Stifling Trap: an ally; Scorching Trap: an attacking unit).
+    if(!$config['target']()) return false;
+    // Pre-announcement gates with ignoreCost (the reserve cost is the part being waived).
+    return !ActivationRefusedBeforeStart($player, $obj, true, true);
+}
+
+/**
+ * Activate Stifling Trap from memory via the Class Bonus alternate cost: remove two preparation counters
+ * from the champion, then move the card to hand and activate it with ignoreCost (same shape as the
+ * Diao Chan glimmer cast; the source zone is forced to memory for "from memory" checks).
+ * Returns true if the activation was initiated.
+ */
+function TryStiflingTrapMemory($player, $mzID) {
+    if(strpos($mzID, "myMemory-") !== 0) return false;
+    $obj = GetZoneObject($mzID);
+    if($obj === null || !empty($obj->removed) || MemoryTrapConfig($obj->CardID) === null) return false;
+    if(!CanUseStiflingTrapMemoryActivation($player, $mzID, $obj)) return false;
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return false;
+    RemoveCounters($player, $champMZ, "preparation", MemoryTrapConfig($obj->CardID)['counters']);
+    DecisionQueueController::StoreVariable("activationSourceZoneOverride", "myMemory");
+    MZMove($player, $mzID, "myHand");
+    $hand = &GetHand($player);
+    $handIdx = count($hand) - 1;
+    ActivateCard($player, "myHand-" . $handIdx, true);
+    return true;
+}
 
 /**
  * Try to activate Lost Promises (gN8uFKSip0) from memory via the banish-6 alternate cost.
@@ -1207,9 +1324,23 @@ $customDQHandlers["EffectStackOpponentResponse"] = function($player, $parts, $la
  * If stack is non-empty, grant Opportunity (turn player gets priority first after resolution).
  * If stack is empty, check for a pending Opportunity window (combat/ability) and re-grant it.
  *
- * Uses high block (200) so it runs after any ability decisions (block 1-100).
+ * Uses high block (200) so it runs after any ability decisions queued on THIS SAME player's
+ * queue (block 1-100). That's not enough on its own for a "negate unless X" effect
+ * (NegateActivationDrawChoice/PayChoice/TetherChoice/SuffocatingChoice, ImperialAccordNegate):
+ * those defer the actual YES/NO to the TARGET's controller, which is queued on a different
+ * player's queue and drains independently — invisible to this player's ExecuteStaticMethods
+ * loop, which would otherwise fall straight through to resolving the next EffectStack entry
+ * (deciding the very target's fate the deferred answer was supposed to control) before that
+ * answer ever comes back. So also bail here while pendingNegateTarget is set; the
+ * Resolve/PayChoice handler that eventually clears it calls ResumeEffectStackPostResolutionCheck()
+ * to pick this back up once the target's fate is actually settled.
  */
 $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecision) {
+    $pendingNegateTarget = DecisionQueueController::GetVariable("pendingNegateTarget");
+    if($pendingNegateTarget !== null && $pendingNegateTarget !== "") {
+        return;
+    }
+    GAClearResolvingActions();
     DecisionQueueController::StoreVariable("isImbued", "NO");
     ClearDamageSourcesDealtThisResolution();
     ReconcileEffectStackSourceZones();
@@ -1252,6 +1383,286 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
 };
 
 /**
+ * Normalize a "my"/"their"-prefixed mzID string so it's unambiguous regardless of who's
+ * the ambient viewer at the moment it's read back.
+ *
+ * "my"/"their" zone names are only meaningful relative to whatever the ambient global
+ * $playerID happens to be *at the moment they're resolved*, not to who they were written
+ * down by. ResolveTopOfEffectStack() always sets $playerID = $cardOwner (the trigger's
+ * controller) right before firing a deferred ability -- so any mzID captured into a
+ * QueueTriggeredAbility() context must be re-expressed relative to that same controller
+ * *at capture time*, or it can silently flip meaning once replayed under a different
+ * ambient $playerID than was active when it was captured.
+ *
+ * @param string $mzID       A "my"/"their"-prefixed zone reference (or a global zone, unaffected).
+ * @param int    $controller The player this trigger's ability will run as (matches the
+ *                            Controller passed to QueueTriggeredAbility).
+ */
+function NormalizeMzIDForController($mzID, $controller) {
+    global $playerID;
+    return (intval($controller) === intval($playerID)) ? $mzID : FlipZonePerspective($mzID);
+}
+
+/*
+ * CONVENTION for an mzID parked in a DecisionQueueController variable (or any other stored
+ * context) that a DIFFERENT player's decision handler will read later -- e.g. "unless an
+ * opponent pays (N)" cards, where the stored object belongs to the caster/attacker but the
+ * handler runs inside the opponent's own action (ambient $playerID == the handler's $player):
+ *   - STORE it expressed relative to the player whose handler will read it:
+ *         StoreVariable("X", NormalizeMzIDForController($mzRelativeToAmbient, $handlerPlayer));
+ *     (so "myField-0" written by the caster becomes "theirField-0" for the opponent's handler).
+ *   - READ it back through NormalizeMZForPlayerPerspective($player, $stored) (GameLogic.php), which
+ *     is a no-op when the handler's $player is the ambient $playerID and flips otherwise.
+ * Never store a raw "myX-N"/"theirX-N" and resolve it unconverted in another player's handler:
+ * it silently points at the wrong object (Shifting Mirage's stealth landed on the opponent's
+ * champion; Gloamspire Headhunter destroyed itself instead of the hit ally). Combat's own
+ * CombatAttacker/CombatTarget/CombatWeapon variables follow the attacker-relative variant of the
+ * same idea: read them through GetCombatAttackerMZ()/GetCombatTargetMZ(), which re-localize via
+ * CombatAttackerPlayer.
+ */
+
+/**
+ * Generic helper to queue a triggered ability onto the EffectStack instead of firing it
+ * synchronously. This is the shared primitive for moving a trigger type off the old
+ * "look up the dispatch table and call it immediately" pattern and onto the stack, so
+ * both players get a real Opportunity window (and, for simultaneous triggers, proper
+ * turn-order stacking) before it resolves.
+ *
+ * $context is an associative array of ambient DQ variables (e.g. "mzID", or a card-specific
+ * snapshot value like a counter count read off the source object before it left the field)
+ * that the deferred ability closure will need. It's captured here -- at queue time, while the
+ * relevant game state is still fresh -- and stored on the stack entry's own Counters slot
+ * (a free-form JSON field, unused by any real card mechanic on EffectStack objects), then
+ * replayed into DQ variables by ResolveTopOfEffectStack() right before the closure runs.
+ * This avoids the entries clobbering each other's ambient state when multiple triggers of
+ * different kinds are queued back to back. Any "my"/"their"-prefixed mzID in $context must
+ * already be normalized via NormalizeMzIDForController() before being passed in here.
+ *
+ * If called between BeginTriggeredAbilityBatch()/EndTriggeredAbilityBatch(), the push is deferred:
+ * see those functions' docblocks for why (letting the controller choose stacking order among
+ * their own simultaneous triggers) and how (grouping by controller, an interactive choice for
+ * any group of 2+, immediate push for groups of 1 -- identical to the unbatched path below).
+ *
+ * @param int         $player      The ability's controller.
+ * @param string      $cardID      The source card's ID (dispatch tables are keyed by CardID).
+ * @param string      $triggerType A tag ResolveTopOfEffectStack() switches on (e.g. "ALLY_DESTROYED").
+ * @param array       $context     Ambient DQ variables to snapshot and replay at resolution time.
+ * @param string|null $sourceMZ    The triggering source's own currently-resolvable zone location,
+ *                                 used ONLY to render an ordering choice when this entry ends up
+ *                                 batched alongside another simultaneous trigger for the same
+ *                                 controller (see BeginTriggeredAbilityBatch()). Several dispatchers
+ *                                 (e.g. OnAttackTrigger) intentionally store the same shared mzID in
+ *                                 $context for ability-replay purposes even though the attacker,
+ *                                 intent card, and weapon are three distinct objects -- $sourceMZ
+ *                                 lets the choice UI tell them apart regardless. Defaults to
+ *                                 $context['mzID'] when omitted, which is already correct for
+ *                                 dispatchers where each candidate's own mzID *is* distinct.
+ * @return bool True if a stack entry was queued (or buffered for a batch).
+ */
+function QueueTriggeredAbility($player, $cardID, $triggerType, $context = [], $sourceMZ = null) {
+    global $__pendingTriggerBatch;
+    if (($__pendingTriggerBatch['depth'] ?? 0) > 0) {
+        $__pendingTriggerBatch['entries'][] = [
+            'player' => $player,
+            'cardID' => $cardID,
+            'triggerType' => $triggerType,
+            'context' => $context,
+            'sourceMZ' => $sourceMZ ?? ($context['mzID'] ?? null),
+        ];
+        return true;
+    }
+    return PushTriggeredAbilityNow($player, $cardID, $triggerType, $context);
+}
+
+/**
+ * Push a single stack entry and, if nothing is already mid-resolution, kick off its Opportunity
+ * window. This is exactly QueueTriggeredAbility()'s old unconditional body -- factored out so both
+ * the unbatched path and EndTriggeredAbilityBatch()'s single-entry-group case share one immediate-
+ * push behavior, byte-identical to pre-batching QueueTriggeredAbility().
+ */
+function PushTriggeredAbilityNow($player, $cardID, $triggerType, $context = []) {
+    $stackObj = AddEffectStack(
+        CardID: $cardID,
+        Controller: $player,
+        TriggerType: $triggerType,
+        Counters: $context
+    );
+    if($stackObj === null) return false;
+
+    if(DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES") {
+        // dontSkipOnPass:1 is load-bearing. When the push happens from inside a handler that is itself
+        // running in an ExecuteStaticMethods() loop whose $lastDecision is "PASS" (e.g. CombatApplyAttackerDamage
+        // after the defender declined "Retaliate?"), the nested ExecuteStaticMethods() below is a no-op (same
+        // player already executing) and the outer loop would silently SKIP an unflagged EffectStackOpportunity,
+        // stranding the trigger on the EffectStack forever.
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100, dontSkipOnPass:1);
+        $dqController = new DecisionQueueController();
+        $dqController->ExecuteStaticMethods($player, "-");
+    }
+    return true;
+}
+
+/**
+ * Open a batching window: QueueTriggeredAbility() calls made before the matching
+ * EndTriggeredAbilityBatch() are buffered instead of pushed immediately.
+ *
+ * Why this exists: several dispatchers (OnAttackTrigger, OnHitTrigger, OnKillTrigger,
+ * OnDiscardCard, DestroyObjectSelection) make more than one QueueTriggeredAbility call in a row
+ * for triggers that all fire from the *same* game event (e.g. one attack's attacker + intent card
+ * + weapon, or one "destroy all" resolving several allies at once). Per rules, when 2+ of a
+ * player's own abilities would trigger simultaneously, that player chooses the order they go on
+ * the stack. Pushing each one immediately -- the pre-batch behavior -- pre-empts that choice with
+ * whatever order happened to be hardcoded at the call site, and worse, that order wasn't even
+ * consistent: if nobody had a fast response available, each push's own Opportunity check resolved
+ * it synchronously before the next call in the loop even ran (so they landed in *declaration*
+ * order), but the moment either player had something to respond with, the first push's Opportunity
+ * window paused instead of resolving, so the rest of the loop piled its pushes on top of it and
+ * they resolved in reverse-of-declaration (LIFO) order instead. Same event, same cards, two
+ * different outcomes depending on unrelated board state -- never the controller's choice either way.
+ *
+ * Batching fixes this by deferring every push in the window until EndTriggeredAbilityBatch(), which
+ * groups the buffered entries by controller and, for any controller with 2+ entries, asks them to
+ * choose. A lone entry (the overwhelming majority of dispatches -- most events only ever trigger
+ * one of a player's cards) is pushed immediately via PushTriggeredAbilityNow(), so single-trigger
+ * behavior is untouched.
+ *
+ * Calls nest via a depth counter: only the outermost End() flushes, so an inner batch (e.g.
+ * OnKillTrigger's own attacker/intent/weapon dispatch) can run inside an outer one (e.g.
+ * DispatchCombatKillTriggers batching an entire multi-kill Cleave swing) without either
+ * prematurely flushing the other's entries.
+ */
+function BeginTriggeredAbilityBatch() {
+    global $__pendingTriggerBatch;
+    if (!is_array($__pendingTriggerBatch)) $__pendingTriggerBatch = ['depth' => 0, 'entries' => []];
+    $__pendingTriggerBatch['depth']++;
+}
+
+/**
+ * Close a batching window opened by BeginTriggeredAbilityBatch(). See that function's docblock
+ * for why this exists. No-op until the outermost matching call (depth reaches 0).
+ */
+function EndTriggeredAbilityBatch() {
+    global $__pendingTriggerBatch;
+    if (!is_array($__pendingTriggerBatch) || $__pendingTriggerBatch['depth'] <= 0) return;
+    $__pendingTriggerBatch['depth']--;
+    if ($__pendingTriggerBatch['depth'] > 0) return;
+
+    $entries = $__pendingTriggerBatch['entries'];
+    $__pendingTriggerBatch['entries'] = [];
+    if (empty($entries)) return;
+
+    // Group by controller, preserving each controller's first-appearance order in $entries.
+    $controllerOrder = [];
+    $byController = [];
+    foreach ($entries as $e) {
+        $c = intval($e['player']);
+        if (!isset($byController[$c])) { $byController[$c] = []; $controllerOrder[] = $c; }
+        $byController[$c][] = $e;
+    }
+
+    foreach ($controllerOrder as $controller) {
+        $group = $byController[$controller];
+        if (count($group) === 1) {
+            PushTriggeredAbilityNow($group[0]['player'], $group[0]['cardID'], $group[0]['triggerType'], $group[0]['context']);
+        } else {
+            QueueTriggerStackOrderChoice($controller, $group);
+        }
+    }
+}
+
+/**
+ * Ask $controller to choose the resolution order for 2+ of their own abilities that just
+ * triggered simultaneously (see BeginTriggeredAbilityBatch()). Presents the remaining candidates
+ * as an MZCHOOSE over each entry's sourceMZ ("pick the one that resolves next"); the pick is
+ * appended to an already-chosen list and, once one candidate remains, the whole order is pushed.
+ *
+ * Falls back to auto-resolving in original (declaration) order -- no prompt -- if any candidate's
+ * sourceMZ is missing or two candidates share one (can't render a choice that isn't unambiguous).
+ */
+function QueueTriggerStackOrderChoice($controller, $group) {
+    $sourceMZs = array_map(fn($e) => $e['sourceMZ'], $group);
+    if (in_array(null, $sourceMZs, true) || in_array("", $sourceMZs, true) || count(array_unique($sourceMZs)) !== count($sourceMZs)) {
+        PushOrderedTriggeredAbilities($group);
+        return;
+    }
+    DecisionQueueController::StoreVariable("PendingTriggerOrderGroup", base64_encode(json_encode($group)));
+    DecisionQueueController::StoreVariable("PendingTriggerOrderChosen", base64_encode(json_encode([])));
+    QueueNextTriggerOrderPick($controller);
+}
+
+function QueueNextTriggerOrderPick($controller) {
+    $group = json_decode(base64_decode(DecisionQueueController::GetVariable("PendingTriggerOrderGroup") ?? "", true) ?: "[]", true) ?: [];
+    if (count($group) <= 1) {
+        FinishTriggerOrderChoice($controller);
+        return;
+    }
+    $choices = array_map(fn($e) => $e['sourceMZ'], $group);
+    DecisionQueueController::AddDecision($controller, "MZCHOOSE", implode("&", $choices), 100, "Choose_the_ability_to_resolve_next");
+    DecisionQueueController::AddDecision($controller, "CUSTOM", "TriggerOrderPickResolve", 100);
+}
+
+$customDQHandlers["TriggerOrderPickResolve"] = function($player, $parts, $lastDecision) {
+    $group = json_decode(base64_decode(DecisionQueueController::GetVariable("PendingTriggerOrderGroup") ?? "", true) ?: "[]", true) ?: [];
+    $chosen = json_decode(base64_decode(DecisionQueueController::GetVariable("PendingTriggerOrderChosen") ?? "", true) ?: "[]", true) ?: [];
+
+    $pickedIdx = null;
+    foreach ($group as $idx => $e) {
+        if (($e['sourceMZ'] ?? null) === $lastDecision) { $pickedIdx = $idx; break; }
+    }
+    if ($pickedIdx === null) $pickedIdx = 0; // defensive: malformed/unrecognized selection, don't stall the queue
+
+    $chosen[] = $group[$pickedIdx];
+    unset($group[$pickedIdx]);
+    $group = array_values($group);
+
+    DecisionQueueController::StoreVariable("PendingTriggerOrderGroup", base64_encode(json_encode($group)));
+    DecisionQueueController::StoreVariable("PendingTriggerOrderChosen", base64_encode(json_encode($chosen)));
+
+    if (count($group) <= 1) {
+        FinishTriggerOrderChoice($player);
+    } else {
+        QueueNextTriggerOrderPick($player);
+    }
+};
+
+function FinishTriggerOrderChoice($controller) {
+    $group = json_decode(base64_decode(DecisionQueueController::GetVariable("PendingTriggerOrderGroup") ?? "", true) ?: "[]", true) ?: [];
+    $chosen = json_decode(base64_decode(DecisionQueueController::GetVariable("PendingTriggerOrderChosen") ?? "", true) ?: "[]", true) ?: [];
+    DecisionQueueController::ClearVariable("PendingTriggerOrderGroup");
+    DecisionQueueController::ClearVariable("PendingTriggerOrderChosen");
+    // $chosen is in resolve-first..resolve-last order (earliest pick resolves first);
+    // any single leftover candidate resolves last, so it's appended, not prepended.
+    PushOrderedTriggeredAbilities(array_merge($chosen, $group));
+}
+
+/**
+ * Push every entry in $orderedEntries (resolve-first..resolve-last) onto the stack, then kick off
+ * exactly one Opportunity window -- mirroring PushTriggeredAbilityNow(), but for a whole batch at
+ * once so no earlier push in the list can synchronously resolve before a later one is even on the
+ * stack (which would silently re-serialize a "simultaneous" batch back into declaration order).
+ * Pushed in reverse ($orderedEntries[0], the one that should resolve first, goes on LAST) so the
+ * stack's own LIFO draw naturally resolves them in the chosen order.
+ */
+function PushOrderedTriggeredAbilities($orderedEntries) {
+    $pushed = false;
+    $lastPlayer = null;
+    foreach (array_reverse($orderedEntries) as $e) {
+        $stackObj = AddEffectStack(
+            CardID: $e['cardID'],
+            Controller: $e['player'],
+            TriggerType: $e['triggerType'],
+            Counters: $e['context']
+        );
+        if ($stackObj !== null) { $pushed = true; $lastPlayer = $e['player']; }
+    }
+    if ($pushed && DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES") {
+        DecisionQueueController::AddDecision($lastPlayer, "CUSTOM", "EffectStackOpportunity", 100, dontSkipOnPass:1);
+        $dqController = new DecisionQueueController();
+        $dqController->ExecuteStaticMethods($lastPlayer, "-");
+    }
+}
+
+/**
  * Resolve the top card of the EffectStack.
  *
  * Swaps $playerID to match the card owner so that all my/their zone references
@@ -1288,10 +1699,36 @@ function ResolveTopOfEffectStack() {
     global $playerID;
     $savedPlayerID = $playerID;
     $playerID = $cardOwner;
+    // The decisions this resolution queues are new work: they must not inherit the PASS the response window was answered with (the window handlers that call this run inside an
+    // ExecuteStaticMethods() pass whose last answer is "PASS", and a queued CUSTOM/SYSTEM entry is skipped on PASS -- Cone of Frost's whole effect vanished whenever its caster passed the window
+    // because its champion had an activatable ability). A leading PASSPARAMETER "-" resets the running answer for everything the ability queues after it.
+    DecisionQueueController::AddDecision($cardOwner, "PASSPARAMETER", "-", 0);
     DecisionQueueController::StoreVariable("isImbued", $topIsImbued ? "YES" : "NO");
     DecisionQueueController::StoreVariable("ResolvingEffectStack", "YES");
     ClearDamageSourcesDealtThisResolution();
 
+    // Restore any ambient DQ variables (e.g. "mzID", or a card-specific snapshot value)
+    // that were captured into this entry's Counters slot when it was queued -- ability
+    // code reads these as ambient context, and since resolution is now deferred (an
+    // Opportunity window may have run, other things may have happened), they can't be
+    // recomputed live and must be replayed from what was true when the trigger fired.
+    $triggerContext = is_array($topObj->Counters) ? $topObj->Counters : [];
+    foreach($triggerContext as $ctxKey => $ctxValue) {
+        DecisionQueueController::StoreVariable($ctxKey, is_string($ctxValue) ? $ctxValue : strval($ctxValue));
+    }
+
+    // Batched (BeginTriggeredAbilityBatch()) so that whatever this entry's own resolution does --
+    // whether a hand-written Fire*TriggeredAbility dispatcher or a generated ability/macro closure
+    // (invoked below via CardActivated(), or transitively via any of the Fire*TriggeredAbility calls) --
+    // any QueueTriggeredAbility() calls it makes for the SAME controller are grouped into one
+    // stacking-order choice instead of landing in whatever order the closure happened to call them.
+    // This is what covers a generated closure's OWN self-contained multi-kill/multi-trigger effect
+    // (e.g. Red Slime's On Death dealing power damage to all allies, which can chain-kill several of
+    // its controller's own other allies in one synchronous sweep: each of THEIR On Death triggers
+    // queues here, inside this same window) without touching or regenerating any generated code.
+    // Nests safely inside any dispatcher's own inner batch (e.g. OnKillTrigger's attacker/intent/
+    // weapon batch) via BeginTriggeredAbilityBatch()'s depth counter.
+    BeginTriggeredAbilityBatch();
     if($triggerType === "ENTER") {
         $cardID = $topObj->CardID ?? "";
         $sourceUniqueID = intval($topObj->TriggerSourceUniqueID ?? 0);
@@ -1313,6 +1750,95 @@ function ResolveTopOfEffectStack() {
         }
         $topObj->Remove();
         DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ALLY_DESTROYED") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireAllyDestroyedTriggeredAbility")) {
+            FireAllyDestroyedTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "LEAVE_FIELD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireLeaveFieldTriggeredAbility")) {
+            FireLeaveFieldTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ON_BANISH") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireOnBanishTriggeredAbility")) {
+            FireOnBanishTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "DISCARD_CARD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireDiscardCardTriggeredAbility")) {
+            FireDiscardCardTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "REVEAL_CARD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireRevealTriggeredAbility")) {
+            FireRevealTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "PLAY_CARD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FirePlayCardTriggeredAbility")) {
+            FirePlayCardTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "REST_CARD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireRestCardTriggeredAbility")) {
+            FireRestCardTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "DEAL_DAMAGE") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireDealDamageTriggeredAbility")) {
+            FireDealDamageTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ON_ATTACK") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireAttackTriggeredAbility")) {
+            FireAttackTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ON_HIT") {
+        $cardID = $topObj->CardID ?? "";
+        // Put the combat participants captured when the hit happened back for this resolution only (see QueueHitTriggeredAbility()); live values, when combat is still running, win.
+        $restoredHitState = [];
+        foreach(['CombatTarget' => 'HitCombatTarget', 'CombatTargetUniqueID' => 'HitCombatTargetUniqueID', 'CombatAttacker' => 'HitCombatAttacker', 'CombatAttackerPlayer' => 'HitCombatAttackerPlayer'] as $liveVar => $snapVar) {
+            $snapValue = DecisionQueueController::GetVariable($snapVar);
+            DecisionQueueController::ClearVariable($snapVar);
+            $liveValue = DecisionQueueController::GetVariable($liveVar);
+            if($snapValue !== null && $snapValue !== "" && ($liveValue === null || $liveValue === "" || $liveValue === "-")) {
+                DecisionQueueController::StoreVariable($liveVar, $snapValue);
+                $restoredHitState[] = $liveVar;
+            }
+        }
+        if(function_exists("FireHitTriggeredAbility")) {
+            FireHitTriggeredAbility($cardOwner, $cardID);
+        }
+        foreach($restoredHitState as $liveVar) DecisionQueueController::ClearVariable($liveVar);
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ON_KILL") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireKillTriggeredAbility")) {
+            FireKillTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
     } else {
         // Call the generated CardActivated() wrapper, which:
         //  - Stores mzID variable for ability code
@@ -1321,6 +1847,7 @@ function ResolveTopOfEffectStack() {
         //  - Calls ExecuteStaticMethods to process any ability decisions
         CardActivated($cardOwner, $topMZ);
     }
+    EndTriggeredAbilityBatch();
     ReconcileEffectStackSourceZones();
 
     // Queue PostResolutionCheck to run after all ability interactions (block 200)
@@ -1523,7 +2050,7 @@ $customDQHandlers["AbilityOpportunity"] = function($player, $parts, $lastDecisio
     if(!empty($effectStack)) {
         // An activated ability can resolve while another effect is still on the
         // stack. In that case resume the normal stack-priority flow.
-        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100, dontSkipOnPass:1);
         return;
     }
 

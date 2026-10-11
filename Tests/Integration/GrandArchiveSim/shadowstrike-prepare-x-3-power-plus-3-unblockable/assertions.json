@@ -1,0 +1,11 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-0","property":"Counters","value":"{\"preparation\":3}","label":"Prepare X is only a pending YES/NO at this point: all 3 preparation counters are still on the champion (cost not yet paid)","semantic":true},
+    {"step":6,"type":"card_property_equals","mzId":"p2Field-0","property":"Counters","value":"[]","label":"Prepare X with X=3: exactly 3 preparation counter(s) were removed (0 left)","semantic":true},
+    {"step":6,"type":"computed_power_equals","mzId":"p2Intent-0","value":7,"label":"Shadowstrike gets +X POWER: printed 4 + X=3 = 7","semantic":true},
+    {"step":6,"type":"card_property_equals","mzId":"p2Intent-0","property":"TurnEffects","value":"[\"o191zv86la_POWER_3\",\"PREPARED\"]","label":"Shadowstrike carries the +3 POWER effect and is tagged PREPARED (X was paid)","semantic":true},
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"7","label":"The attack deals 4 + X = 7 damage to player 1's champion","semantic":true},
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"0","label":"[Class Bonus] prepared Shadowstrike has unblockable: Swift Recruit (Intercept) was never offered the attack and took no damage","semantic":true},
+    {"step":7,"type":"card_property_equals","mzId":"p2Graveyard-0","property":"CardID","value":"o191zv86la","label":"Shadowstrike was played, attacked and resolved","semantic":true},
+    {"step":7,"type":"zone_count","zone":"theirMemory","viewerPlayerID":1,"value":2,"label":"Only the 2 reserve payments reached memory (the Prepare cost is counters, not reserve)","semantic":true},
+    {"step":7,"type":"decision_queue_empty","player":"all","label":"No interceptor prompt was queued for player 1 (unblockable) and nothing else is pending","semantic":true}
+]

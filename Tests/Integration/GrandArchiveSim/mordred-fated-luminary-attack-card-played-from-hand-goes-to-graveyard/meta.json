@@ -1,0 +1,23 @@
+{
+    "name": "mordred-fated-luminary-attack-card-played-from-hand-goes-to-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:51:58+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "KqBosnU7pU"
+    ],
+    "notes": "Mordred, Fated Luminary (KqBosnU7pU): only attack cards played via EPHEMERATE (from the graveyard) become ephemeral. Guard for the ephemeral-intent tagging added with the Ephemerate fix: a Striking Tides played for real from the HAND (printed reserve cost 3 paid, player 2's champion hit for 4) goes to the graveyard after combat, it is not banished.",
+    "semanticCoverage": {
+        "testedCards": [
+            "KqBosnU7pU"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Only attack cards played via Ephemerate are ephemeral: an attack card played normally from hand returns to the graveyard."
+        ]
+    }
+}

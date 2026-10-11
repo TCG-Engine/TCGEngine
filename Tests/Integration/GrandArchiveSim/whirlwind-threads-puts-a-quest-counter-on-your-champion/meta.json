@@ -1,0 +1,20 @@
+{
+    "name": "whirlwind-threads-puts-a-quest-counter-on-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:14:07+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "p7nkdqnzzg"
+    ],
+    "notes": "Whirlwind Threads: quest counter on your champion; with nothing suppressed this turn it stays in the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "p7nkdqnzzg"
+        ],
+        "mechanics": [
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": []
+    }
+}

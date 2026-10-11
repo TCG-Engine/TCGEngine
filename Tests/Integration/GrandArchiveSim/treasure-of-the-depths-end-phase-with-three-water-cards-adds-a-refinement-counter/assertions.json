@@ -1,0 +1,12 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "{\"refinement\":1}",
+        "semantic": true,
+        "label": "Deluge 3 met: a refinement counter is added at the beginning of the end phase"
+    }
+]

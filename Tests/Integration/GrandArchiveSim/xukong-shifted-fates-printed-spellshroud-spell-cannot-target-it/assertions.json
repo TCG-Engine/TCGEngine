@@ -1,0 +1,9 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-1","property":"Counters","value":"[]","semantic":true,"label":"The refused answers left Xukong, Shifted Fates (Epmh7VncaR) untouched: Spellshroud stops the opposing Disenchant from targeting it"},
+    {"step":4,"type":"zone_count","zone":"theirField","value":3,"semantic":true,"label":"Nothing was destroyed by the refused answers: player 2's field is still champion + 1 holder(s) + Ominous Shadow"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-1","property":"Counters","value":"[]","semantic":true,"label":"Xukong, Shifted Fates (Epmh7VncaR) is unaffected by the resolved Disenchant"},
+    {"step":5,"type":"zone_count","zone":"theirField","value":2,"semantic":true,"label":"The only legal target, Ominous Shadow, was destroyed; every Spellshroud/Omnishroud holder survived (champion + 1 holder(s) remain)"},
+    {"step":5,"type":"card_exists","zone":"theirField","cardID":"Epmh7VncaR","semantic":true,"label":"Xukong, Shifted Fates (Epmh7VncaR) is still on the field"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"zd83net7x0","semantic":true,"label":"Disenchant resolved into player 1's graveyard"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

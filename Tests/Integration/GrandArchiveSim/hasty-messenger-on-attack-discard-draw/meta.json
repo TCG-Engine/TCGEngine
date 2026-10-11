@@ -1,0 +1,16 @@
+{
+    "name": "hasty-messenger-on-attack-discard-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T18:37:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "DsiRzt0trX"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["DsiRzt0trX"],
+        "mechanics": ["draw-discard", "combat", "trigger"],
+        "rulesClauses": [
+            "On Attack: You may discard a card. If you do, draw a card."
+        ]
+    }
+}

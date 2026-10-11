@@ -1,0 +1,27 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1}",
+        "label": "Declined: counter remains",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"sheen\":3}",
+        "label": "Not prepared: exactly 3 sheen counters",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "Nothing pending",
+        "semantic": true
+    }
+]

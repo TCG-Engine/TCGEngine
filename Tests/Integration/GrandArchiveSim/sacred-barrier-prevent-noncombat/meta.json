@@ -1,0 +1,16 @@
+{
+    "name": "sacred-barrier-prevent-noncombat",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:35:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hYDqthNDpB"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["hYDqthNDpB"],
+        "mechanics": ["damage", "prevention"],
+        "rulesClauses": [
+            "The next time each ally would be dealt non-combat damage this turn, prevent 4 of that damage."
+        ]
+    }
+}

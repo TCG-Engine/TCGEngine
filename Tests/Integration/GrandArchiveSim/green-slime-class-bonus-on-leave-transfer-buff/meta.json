@@ -1,0 +1,30 @@
+{
+    "name": "green-slime-class-bonus-on-leave-transfer-buff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T03:10:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Green Slime (zgcxyky280, ALLY): \"[Class Bonus] On Leave: Put the buff counters that were on Green Slime on target ally you control.\" ENGINE BUG (FIXED): this fixture originally pinned the ability silently failing to transfer its buff counters, even with Class Bonus active and buff counters present on Green Slime at the moment it left the field. It now asserts the CORRECT behavior.\n\nROOT CAUSE (live-traced, re-confirmed on HEAD eb73560a): Green Slime's leaveFieldAbilities closure computes its transfer-target mzID ('myField-2', Red Slime) WHILE Green Slime still occupies myField-1 (the departing object is deliberately kept readable at its old slot during LEAVE_FIELD resolution, because the generated closure reads its own counters through GetZoneObject($mzID)). The queued MZCHOOSE is only validated AFTER the caller's MZMove() and CleanupRemovedCards() splice Green Slime out of myField, shifting Red Slime to myField-1; MZCountChoices('myField-2') then found 0 choices, ExecuteStaticMethods auto-PASSed the MZCHOOSE, and the paired CUSTOM GreenSlimeTransfer was skipped (its CUSTOM case short-circuits on lastDecision===PASS). (An earlier theory blaming a missing mzID restore in FireLeaveFieldTriggeredAbility was disproven: OpportunityLogic's EffectStackOpportunity handler already replays the captured mzID for every trigger type.)\n\nFIX: Core's CleanupRemovedCards() now calls an optional per-sim hook GameOnZoneElementSpliced($zone, $index) right after each physical splice (no-op for sims that do not define it). GrandArchiveSim/Custom/GameLogic.php implements it: for field zones it re-indexes the candidate mzIDs of every pending MZCHOOSE/MZMAYCHOOSE/MZMULTICHOOSE decision (slots above the spliced index shift down one; a candidate that was the spliced object is dropped). Patching at the splice itself is exact regardless of timing (synchronous, deferred through an Opportunity window, or protected-removed objects) and fixes every On Leave ability that offers another field object, with no edits to generated code.\n\nWhat this fixture now asserts: after Excoriate destroys Green Slime, the On Leave MZCHOOSE is genuinely PRESENTED to the player (not auto-passed) with Red Slime as the sole legal target at its post-splice slot myField-1; choosing it (step 6) puts all 3 buff counters on Red Slime and leaves no pending decision.\n\nGreen Slime's own Enter-trigger coverage lives in the separate fixture green-slime-on-enter-two-buff-counters.\n\nSetup notes: champion CardID patched to Silvie, With the Pack (TAMER, base level 2) for the Class Bonus precondition, with Spirit of Fire (LMyKyVC2O9) layered into Subcards purely to keep FIRE enabled (confirmed live: without this, CanPlayerUseCardElement rejects Excoriate with flash message 'Element not enabled: FIRE') -- same 'CardID for class, Subcards for element' layering used in freezing-hail-blue-slime-class-bonus-buff. Green Slime is seeded directly onto the field with 3 buff counters pre-set (its Enter trigger is proven separately, so this is supporting setup for the DIFFERENT Leave trigger under test here, not a silent-fake-pass violation). The actual leave event is real: Excoriate (ls6g7xgwve, FIRE, reserve 4, 'Destroy target ally with reserve cost 4 or less', discounted to 3 by Silvie's base level 2) is played for real from hand and targets Green Slime, genuinely destroying it and dispatching leaveFieldAbilities.",
+    "testedCards": [
+        "zgcxyky280",
+        "ls6g7xgwve"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zgcxyky280"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Leave: Put the buff counters that were on Green Slime on target ally you control."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. A leaveFieldAbilities closure that offers another on-field object as a target addressed it by its pre-departure positional mzID (the departing object still occupies its slot while the closure runs). The departing object is spliced out of the zone before the resulting MZCHOOSE is validated, shifting later indices down, so the captured mzID went stale; MZCountChoices() resolved 0 choices, ExecuteStaticMethods() auto-PASSed the MZCHOOSE, and the paired CUSTOM follow-up was skipped. Fix: Core/DecisionQueueController.php CleanupRemovedCards() invokes optional hook GameOnZoneElementSpliced($zoneName, $index) after each splice; GrandArchiveSim/Custom/GameLogic.php implements it to re-index (and drop the spliced object from) the candidate mzIDs of pending MZCHOOSE/MZMAYCHOOSE/MZMULTICHOOSE decisions in field zones, in each decision owner's perspective. Class-wide: covers any On Leave ability (or other pending field-targeting decision) without touching generated closures.",
+        "affectedFunction": "Core/DecisionQueueController.php CleanupRemovedCards() + GrandArchiveSim/Custom/GameLogic.php GameOnZoneElementSpliced()/GAReindexFieldSpecsAfterSplice()",
+        "fixCommit": "1342f13f"
+    }
+}

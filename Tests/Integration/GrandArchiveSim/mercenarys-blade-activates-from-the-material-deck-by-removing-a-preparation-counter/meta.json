@@ -1,0 +1,24 @@
+{
+    "name": "Mercenary's Blade can be activated from the material deck by removing a preparation counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:36:55+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "k0xhi5jnsl"
+    ],
+    "notes": "An Assassin champion with two preparation counters clicks Mercenary's Blade in the material deck: one counter is removed as the cost and the Blade enters the field.",
+    "semanticCoverage": {
+        "testedCards": [
+            "k0xhi5jnsl"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "cost",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] You may remove a preparation counter from your champion to activate this card from your material deck."
+        ]
+    }
+}

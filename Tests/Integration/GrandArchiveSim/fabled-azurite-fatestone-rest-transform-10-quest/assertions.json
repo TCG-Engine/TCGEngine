@@ -1,0 +1,29 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "The 10 quest counters are removed from the champion"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "CardID",
+        "value": "tf5f2n38g0",
+        "semantic": true,
+        "label": "Fabled Azurite Fatestone transforms into Seiryuu, Azure Dragon"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "The card wakes up as part of the transform"
+    }
+]

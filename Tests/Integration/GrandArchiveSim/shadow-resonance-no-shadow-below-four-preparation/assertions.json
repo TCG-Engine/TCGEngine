@@ -1,0 +1,8 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"3","semantic":true,"label":"Recover 2 removed two of the five damage counters"},
+    {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":6,"semantic":true,"label":"Hand: 8 - 1 (played) - 2 (reserve) + 1 (drawn) = 6"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"10rsagp9m8","semantic":true,"label":"Shadow Resonance resolved"},
+    {"step":3,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only Tristan on the field: no Ominous Shadow with three preparation counters"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"{\"preparation\":3}","semantic":true,"label":"Shadow Resonance does not consume preparation counters"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

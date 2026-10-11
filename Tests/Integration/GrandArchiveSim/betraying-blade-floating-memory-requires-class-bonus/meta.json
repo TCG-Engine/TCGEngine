@@ -1,0 +1,23 @@
+{
+    "name": "betraying-blade-floating-memory-requires-class-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:42+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qwxvzfkpaj"
+    ],
+    "notes": "Betraying Blade (qwxvzfkpaj): Floating Memory is a [Class Bonus] clause. With the starting champion Spirit of Wind (no Assassin class) the 1-point level-up into Tristan, Underhanded is paid directly from memory without ever offering the graveyard Betraying Blade: the Blade stays in the graveyard and the memory card is the one banished. (The same level-up with an Assassin champion offers the floating payment: see betraying-blade-class-bonus-floating-memory-levelup.)",
+    "semanticCoverage": {
+        "testedCards": [
+            "qwxvzfkpaj"
+        ],
+        "mechanics": [
+            "cost",
+            "condition",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Floating Memory (only while the Class Bonus is active)."
+        ]
+    }
+}

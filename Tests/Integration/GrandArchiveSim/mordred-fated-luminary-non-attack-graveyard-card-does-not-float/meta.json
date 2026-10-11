@@ -1,0 +1,22 @@
+{
+    "name": "mordred-fated-luminary-non-attack-graveyard-card-does-not-float",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:51:51+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "KqBosnU7pU"
+    ],
+    "notes": "Mordred, Fated Luminary (KqBosnU7pU): only ATTACK cards in the graveyard have floating memory. The champion is Fated Luminary and the graveyard holds only a Dungeon Guide (an ally): the same-level level-up into Aurelian Regent (memory cost 3) is NOT payable by floating -- with only two memory cards the payment is refused (\"Cannot pay costs ... Action undone\"), the champion stays Fated Luminary and the Dungeon Guide stays in the graveyard. Negative counterpart of mordred-fated-luminary-graveyard-attack-card-floats-for-memory-cost.",
+    "semanticCoverage": {
+        "testedCards": [
+            "KqBosnU7pU"
+        ],
+        "mechanics": [
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Only ATTACK cards in the graveyard have floating memory under Fated Luminary: a Dungeon Guide cannot make up the missing memory point."
+        ]
+    }
+}

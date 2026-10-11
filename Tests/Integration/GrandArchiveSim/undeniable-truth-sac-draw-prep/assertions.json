@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1}",
+        "semantic": true,
+        "label": "Champion gains a preparation counter after the ally is sacrificed"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "cardID": "em6eEh9q8y",
+        "semantic": true,
+        "label": "The sacrificed ally lands in the graveyard"
+    }
+]

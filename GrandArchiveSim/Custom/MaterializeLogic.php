@@ -44,22 +44,22 @@ function MaterializePhase() {
     }
 }
 
+// The choices are offered to $player in $player's own coordinate space ("my..." = $player's zones), whoever the request's viewer ($playerID) is: ZoneSearch(forPlayer:) searches the right zone and flips the
+// results back, and the field objects are scanned in the viewer's field array but reported as "myField-N".
 function GetMaterializeFloatingChoices($player) {
-    $choices = ZoneSearch("myGraveyard", floatingMemoryOnly:true);
+    $choices = ZoneSearch("myGraveyard", floatingMemoryOnly:true, forPlayer:$player);
     if(GlobalEffectCount($player, "pwscn0esog_ACTIVE") > 0) {
-        global $playerID;
-        $oppGY = ($player == $playerID) ? "theirGraveyard" : "myGraveyard";
-        $choices = array_merge($choices, ZoneSearch($oppGY, floatingMemoryOnly:true));
+        $choices = array_merge($choices, ZoneSearch("theirGraveyard", floatingMemoryOnly:true, forPlayer:$player));
     }
     // Art of War (fjne9ri261): while paying memory cost, you may banish it to pay for 1.
     global $playerID;
-    $myField = ($player == $playerID) ? "myField" : "theirField";
-    $field = GetZone($myField);
+    $fieldArrayName = ($player == $playerID) ? "myField" : "theirField";
+    $field = GetZone($fieldArrayName);
     for($i = 0; $i < count($field); ++$i) {
         if($field[$i]->removed) continue;
         if($field[$i]->CardID !== "fjne9ri261") continue;
         if(HasNoAbilities($field[$i])) continue;
-        $choices[] = $myField . "-" . $i;
+        $choices[] = "myField-" . $i;
     }
     // VelTech Presidential Card: while paying a VelTech card's memory cost,
     // it may be banished from the field to pay for one.
@@ -68,7 +68,7 @@ function GetMaterializeFloatingChoices($player) {
     if($pendingObj !== null && PropertyContains(CardSubtypes($pendingObj->CardID), "VELTECH")) {
         for($i = 0; $i < count($field); ++$i) {
             if($field[$i]->removed || $field[$i]->CardID !== "S84TY03uxj" || HasNoAbilities($field[$i])) continue;
-            $choices[] = $myField . "-" . $i;
+            $choices[] = "myField-" . $i;
         }
     }
     return implode("&", $choices);
@@ -329,6 +329,35 @@ $customDQHandlers["FrameworkSidearmAfterPay"] = function($player, $parts, $lastD
     if($obj === null || $obj->removed || $obj->CardID !== "p4lgdlx7md") return;
     DoMaterialize($player, $materialMZ);
 };
+
+// Main-phase activation from the material deck (click the card, see the myMaterial case of the FSM in GameLogic.php) for the cards the materialize phase already offers: a player who declines the ordinary
+// materialize at the start of the turn (which skips the *_MATERIAL_CHECK offers) can still activate them later. These mirror the conditions of the *_MATERIAL_CHECK handlers.
+function GAEventideSpearMaterialActivatable($player, $obj) {
+    if($obj === null || $obj->removed || $obj->CardID !== "xjkdokzfd9") return false;
+    if(!IsClassBonusActive($player, ["WARRIOR"]) || !CanPlayerUseCardElement($player, $obj->CardID, false, false)) return false;
+    global $playerID;
+    $oppFieldZone = ($player == $playerID) ? "theirField" : "myField";
+    $rested = 0;
+    foreach(GetZone($oppFieldZone) as $rObj) {
+        if(!$rObj->removed && $rObj->Status == 1) ++$rested;
+    }
+    return $rested >= 2;
+}
+function GAVaruckanMaterialActivatable($player, $obj) {
+    if($obj === null || $obj->removed || $obj->CardID !== "9ox7u6wzh9") return false;
+    if(!IsClassBonusActive($player, ["ASSASSIN"]) || !IsElementBonusActive($player, "9ox7u6wzh9")) return false;
+    if(!CanPlayerUseCardElement($player, $obj->CardID, false, false)) return false;
+    return count(ZoneSearch("myGraveyard", cardElements: ["FIRE"])) >= 3;
+}
+function GACapacitanceMaterialActivatable($player, $obj) {
+    if($obj === null || $obj->removed || $obj->CardID !== "FjklZcbjPV") return false;
+    if(!IsLorraineBonusActive($player) || !CanPlayerUseCardElement($player, $obj->CardID, false, false)) return false;
+    $arcane = 0;
+    foreach(GetBanish($player) as $bObj) {
+        if(!$bObj->removed && PropertyContains(CardElement($bObj->CardID), "ARCANE")) ++$arcane;
+    }
+    return $arcane >= 6;
+}
 
 function ReciprocityMaterialActivationCost($player) {
     return max(0, 6 - (3 * CountNonTokenDomainsControlled($player)));
@@ -606,7 +635,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
                 "0|" . $maxChoices . "|" . $clarentChoices, 1,
                 tooltip:"Banish_Clarent,_Sword_of_Peace_and_up_to_1_other_Sword_Regalia");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ClarentReimaginedMatCost|" . $mzCard . "|" . $memoryCost, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ClarentReimaginedMatCost|" . $mzCard . "|" . $memoryCost, 1, dontSkipOnPass:1);
             return;
         }
     }
@@ -727,6 +756,7 @@ $customDQHandlers["SealedBladeFloatingCost"] = function($player, $parts, $lastDe
         Materialize($player, $mzCard);
         return;
     }
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $floating = ZoneSearch("myGraveyard", floatingMemoryOnly:true);
     if(empty($floating)) return;
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $floating), 1,
@@ -743,6 +773,7 @@ $customDQHandlers["DragonsDawnBanish"] = function($player, $parts, $lastDecision
     $count = intval($parts[1]);
     $memoryCost = intval($parts[2]);
     if($count < 3) {
+        DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
         $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
         $remaining = 3 - $count;
         if(count($fireGY) < $remaining) return; // Can't pay remaining cost
@@ -829,6 +860,7 @@ $customDQHandlers["CoronalMaterializeCost"] = function($player, $parts, $lastDec
 };
 
 $customDQHandlers["ClarentReimaginedMatCost"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $mzCard = $parts[0] ?? "";
     $remainingCost = intval($parts[1] ?? 0);
     if($mzCard === "") return;
@@ -1019,6 +1051,34 @@ $customDQHandlers["FINISHPAYMATERIALIZE"] = function($player, $parts, $lastDecis
     }
 };
 
+/**
+ * Craggy Fatestone (h8n1520m2d): "Whenever an opponent materializes a card with memory cost 0,
+ * put a buff counter on Craggy Fatestone." Printed with no Guo Jia Bonus restriction -- only the
+ * card's own separate [REST] transform ability is tagged [Guo Jia Bonus] (that gate lives on
+ * activateAbilityAbilities/activateAbilityPrereqs["h8n1520m2d:0"] in GeneratedMacroCode.php and
+ * is untouched here). Called from both materialize paths so the trigger fires for real:
+ *  - DoMaterialize() below, for the from-material-zone / champion-lineage path.
+ *  - MoveEffectStackCardToField() (GameLogic.php), for the ordinary from-hand-via-effect-stack
+ *    path, which is the overwhelmingly common case and previously had no equivalent check at all.
+ * Those two paths are mutually exclusive per materialize event (see the telemetry comments at
+ * both call sites), so this can't double-fire for a single materialize.
+ * @param int $player The player who just materialized a card (the trigger checks THEIR opponent's
+ *                     field for Craggy Fatestone, since it fires off an opponent's materialize).
+ * @param int|null $memoryCost The resolved memory cost of the card that was just materialized.
+ */
+function CraggyFatestoneMaterializeTrigger($player, $memoryCost) {
+    if($memoryCost === null || $memoryCost != 0) return;
+    $opponent = ($player == 1) ? 2 : 1;
+    global $playerID;
+    $oppZone = $opponent == $playerID ? "myField" : "theirField";
+    $oppField = GetZone($oppZone);
+    for($ci = 0; $ci < count($oppField); ++$ci) {
+        if(!$oppField[$ci]->removed && $oppField[$ci]->CardID === "h8n1520m2d" && !HasNoAbilities($oppField[$ci])) {
+            AddCounters($opponent, $oppZone . "-" . $ci, "buff", 1);
+        }
+    }
+}
+
 function DoMaterialize($player, $mzCard) {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
@@ -1075,6 +1135,12 @@ function DoMaterialize($player, $mzCard) {
             return;
         }
 
+        // Mordred/Tristan Lineage: "can level up into champions of the SAME base level. When he/she
+        // does, draw two cards." The draw belongs only to that same-base-level level-up, not to an
+        // ordinary level N -> N+1 level-up (even one that lands on Fated Luminary / Shadowreaver).
+        $sameBaseLevelLevelUp = $existingChampionCardID !== null
+            && intval(CardLevel($existingChampionCardID)) === intval(CardLevel($sourceId));
+
         // Snow White, Weiss Queen (5u5m8xblmd): [Level 1+] If a rested champion you
         // don't control would level up, return that card to its owner's material deck instead.
         if($existingChampionIdx >= 0 && intval(CardLevel($existingChampionCardID)) === 2) {
@@ -1100,8 +1166,8 @@ function DoMaterialize($player, $mzCard) {
             }
         }
 
-        // Nameless Champion (0794z3ffck): This champion can't level up.
-        if($existingChampionIdx >= 0 && $existingChampionCardID === "0794z3ffck"
+        // Nameless Champion (every printing): This champion can't level up.
+        if($existingChampionIdx >= 0 && IsNamelessChampionID($existingChampionCardID)
            && !HasNoAbilities($field[$existingChampionIdx])) {
             MZMove($player, $mzCard, "myMaterial");
             return;
@@ -1213,12 +1279,14 @@ function DoMaterialize($player, $mzCard) {
             }
         }
 
-        // Tristan, Shadowreaver (4upufooz13) — Tristan Lineage: when she levels up, draw 2 cards
-        // The new champion is already on the field; check if the lineage contains Shadowreaver
+        // Tristan, Shadowreaver (4upufooz13) / Mordred, Fated Luminary (KqBosnU7pU) — Lineage:
+        // "can level up into champions of the same base level. When he/she does, draw two cards."
+        // Only a SAME-base-level level-up draws (see $sameBaseLevelLevelUp above).
+        // The new champion is already on the field; check if the lineage contains the lineage card
         $field = &GetField($player);
         for($tli = 0; $tli < count($field); ++$tli) {
             if(!$field[$tli]->removed && PropertyContains(EffectiveCardType($field[$tli]), "CHAMPION") && $field[$tli]->Controller == $player) {
-                if(ChampionHasInLineage($player, "4upufooz13") || ChampionHasInLineage($player, "KqBosnU7pU")) {
+                if($sameBaseLevelLevelUp && (ChampionHasInLineage($player, "4upufooz13") || ChampionHasInLineage($player, "KqBosnU7pU"))) {
                     Draw($player, amount: 2);
                 }
                 break;
@@ -1489,24 +1557,15 @@ function DoMaterialize($player, $mzCard) {
     // Domains tagged with NO_UPKEEP (via Right of Realm) skip this trigger.
     DomainMaterializeSacrifice($player);
 
-    // Craggy Fatestone (h8n1520m2d): [Guo Jia Bonus] whenever opponent materializes a card
-    // with memory cost 0, put a buff counter on Craggy Fatestone
-    {
-        $matMemCost = $resolvedMaterializeMemoryCost;
-        if($matMemCost !== null && $matMemCost == 0) {
-            $opponent = ($player == 1) ? 2 : 1;
-            if(IsGuoJiaBonus($opponent)) {
-                global $playerID;
-                $oppZone = $opponent == $playerID ? "myField" : "theirField";
-                $oppField = GetZone($oppZone);
-                for($ci = 0; $ci < count($oppField); ++$ci) {
-                    if(!$oppField[$ci]->removed && $oppField[$ci]->CardID === "h8n1520m2d" && !HasNoAbilities($oppField[$ci])) {
-                        AddCounters($opponent, $oppZone . "-" . $ci, "buff", 1);
-                    }
-                }
-            }
-        }
-    }
+    // Craggy Fatestone (h8n1520m2d): whenever an opponent materializes a card with memory cost 0,
+    // put a buff counter on Craggy Fatestone. (No Guo Jia Bonus gate on THIS clause -- only the
+    // card's separate second [REST] transform clause is printed as [Guo Jia Bonus]; that gate
+    // lives on activateAbilityAbilities/activateAbilityPrereqs["h8n1520m2d:0"] in
+    // GeneratedMacroCode.php and is untouched by this helper.) Covers the from-material-zone /
+    // champion-lineage path here; MoveEffectStackCardToField() (GameLogic.php) calls the same
+    // helper for the from-hand-via-effect-stack path. The two materialize paths are mutually
+    // exclusive per the telemetry comments on both call sites, so no double-fire guard is needed.
+    CraggyFatestoneMaterializeTrigger($player, $resolvedMaterializeMemoryCost);
 
     // Telemetry: only reached on a successful materialize (every early return above skips it).
     // Covers the from-material-zone / champion-lineage path; MoveEffectStackCardToField()

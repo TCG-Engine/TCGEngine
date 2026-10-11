@@ -1,0 +1,16 @@
+{
+    "name": "minister-of-ceremony-east-rest-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:40:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7gz0j8p4sx"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["7gz0j8p4sx"],
+        "mechanics": ["targeting", "damage", "condition"],
+        "rulesClauses": [
+            "[REST]: As a Spell, deal 3 damage to target unit. Activate this ability only at slow speed and only if your Shifting Currents face East."
+        ]
+    }
+}

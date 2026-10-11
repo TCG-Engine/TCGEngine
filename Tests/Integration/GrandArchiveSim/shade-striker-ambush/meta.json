@@ -1,0 +1,17 @@
+{
+    "name": "Shade Striker's printed Ambush lets it retaliate for another ally (root-cause keyword-parser fix)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T18:34:54+00:00",
+    "createdBy": "Claude",
+    "notes": "Regression fixture for a real, previously-reported engine bug: Shade Striker's printed keyword 'Ambush' (Comprehensive Rules: \"This unit may retaliate against attackers while it isn't defending.\") was completely unwired. Root cause was NOT card-specific: Data/ProcessKeywordsGA.php's recognized-keyword list omitted 'Ambush' entirely, so the generic keyword parser never emitted a HasKeyword_Ambush() entry for ANY card, printed or not. CombatLogic.php's GetRetaliatorOptions() worked around that gap with a hardcoded whitelist of five CardIDs (Sinister Mindreaver, Guan Yu Prime Exemplar, Cloaked Executioner, Lurching Rogue, Aquaveil Ambusher) plus a TurnEffect 'AMBUSH' check for temporary grants -- Shade Striker's CardID was in neither, so its printed Ambush never functioned. Fixed at the root: added 'Ambush' to Data/ProcessKeywordsGA.php's keyword list and regenerated GeneratedKeywordCode.php (confirmed live: all five previously-whitelisted cards AND Shade Striker now get a HasKeyword_Ambush() entry from the existing generic parser, including the comma-separated 'Ambush, Retort 2' / 'Ambush, Retort 2, Stealth' lines on Guan Yu and Aquaveil Ambusher, already handled by the sibling multi-keyword-per-line parser fix -- no card needed a hardcoded fallback). CombatLogic.php's whitelist was replaced with a generic HasAmbush() helper (mirroring the HasTaunt()/HasKeyword_Taunt() pattern already used elsewhere) that checks HasKeyword_Ambush() first, then the TurnEffect grant and the two pre-existing conditional static grants (Gloamspire Mantle, Changban) that were already generic. This fixture proves Shade Striker's Ambush actually works: player 1 controls Giant Tortoise (power 1/life 6, the attack's actual target) and Shade Striker (power 2/life 3, not itself being attacked) on its field. Both players' pregame starting champion auto-occupies field slot 0, so the seeded units land at myField-1/myField-2. Player 2's Giant Tortoise attacks player 1's Giant Tortoise; verified live (via --verbose decision-queue dump) that the resulting Retaliate MZMAYCHOOSE offers BOTH myField-1 (the actual defender) and myField-2 (Shade Striker, via Ambush) as retaliator options -- proving Ambush is actually granting the extra option, not just leaving the normal single-defender retaliation untouched. Choosing Shade Striker (myField-2) resolves combat with Shade Striker dealing its own printed 2 POWER to the attacker (asserted: p2Field-1 Damage=2, not Giant Tortoise's 1 POWER) and resting as the retaliation cost (asserted: p1Field-2 Status=1, Damage=0 since it was never the target), while the actually-attacked Giant Tortoise still takes the attacker's own combat damage (asserted: p1Field-1 Damage=1) and stays ready since it did not retaliate (asserted: p1Field-1 Status=2).",
+    "testedCards": [
+        "hVvsKqWsMl"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["hVvsKqWsMl"],
+        "mechanics": ["combat", "status", "damage"],
+        "rulesClauses": [
+            "Ambush (This unit may retaliate against attackers while it isn't defending.)"
+        ]
+    }
+}

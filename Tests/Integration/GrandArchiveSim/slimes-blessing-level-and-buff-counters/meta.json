@@ -1,0 +1,29 @@
+{
+    "name": "slimes-blessing-level-and-buff-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T03:42:28+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Slime's Blessing (ioxgugw9r9, ACTION): \"[Class Bonus] This card costs 1 less to activate. Choose up to three units. Put a level counter on each chosen champion and a buff counter on each chosen Slime ally.\" Correct behavior when the player stops before three picks (\"up to three\"): the counters for the units already chosen are still applied. FIXED (was: declining the 3rd pick with PASS silently lost every counter). Root cause: SlimesBlessingAskTarget() queued the paired CUSTOM 'SlimesBlessingChoose' decision without dontSkipOnPass, and Core/DecisionQueueController.php ExecuteStaticMethods() skips a CUSTOM handler outright when the preceding answer was 'PASS' unless the decision carries dontSkipOnPass, so the handler's own PASS branch (SlimesBlessingResolve) was dead code on the decline path; the 'exactly 3 picks' path worked only because the handler calls SlimesBlessingResolve() itself after a real, non-PASS answer. Fix: that AddDecision call now passes dontSkipOnPass:1 (the same flag Custom/MaterializeLogic.php sets on its FINISHPAYMATERIALIZE decisions). Fixture: Slime's Blessing is played from hand; the champion (level counter) and a Red Slime ally (buff counter) are chosen, then the third pick is declined with PASS. Slime's Blessing is WIND, not native to Spirit of Fire, so the champion's Subcards are patched with Spirit of Wind to unlock element access. The [Class Bonus] cost-reduction clause is out of scope.",
+    "testedCards": [
+        "ioxgugw9r9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ioxgugw9r9"
+        ],
+        "mechanics": [
+            "targeting",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Choose up to three units. Put a level counter on each chosen champion and a buff counter on each chosen Slime ally."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. SlimesBlessingAskTarget() queued the CUSTOM 'SlimesBlessingChoose' decision without dontSkipOnPass, so when the player declined before picking three units (MZMAYCHOOSE answered PASS) ExecuteStaticMethods() skipped the handler and SlimesBlessingResolve() never applied the level/buff counters for the already-chosen units (live trace on HEAD: after picks myField-0, myField-1 and a PASS, the handler was never invoked, both Counters stayed [] and the queue drained). Fix: pass dontSkipOnPass:1 on that AddDecision call so the handler's existing PASS branch runs SlimesBlessingResolve().",
+        "affectedFunction": "Custom/GameLogic.php SlimesBlessingAskTarget() AddDecision(..., \"CUSTOM\", \"SlimesBlessingChoose\", 1, dontSkipOnPass:1)",
+        "fixCommit": "07f62cfa"
+    }
+}

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "Declining quest counters recovers 3 damage from the champion (5 -> 2)"
+    }
+]

@@ -1,0 +1,4 @@
+[
+    {"step":2,"type":"card_property_equals","mzId":"myField-0","property":"Damage","value":"3","semantic":true,"label":"[REST] deals 3 damage to the chosen target, only allowed while facing East"},
+    {"step":2,"type":"card_property_equals","mzId":"myField-1","property":"Status","value":"1","semantic":true,"label":"Minister of Ceremony rests to pay its own activation cost"}
+]

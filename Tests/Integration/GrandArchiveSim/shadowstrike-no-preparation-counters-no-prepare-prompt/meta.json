@@ -1,0 +1,25 @@
+{
+    "name": "shadowstrike-no-preparation-counters-no-prepare-prompt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:19:37+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "o191zv86la"
+    ],
+    "notes": "Shadowstrike (o191zv86la, UMBRA ATTACK, reserve 2, printed power 4): \"Prepare X. X can't be 0. Shadowstrike gets +X POWER. [Class Bonus] If Shadowstrike was prepared, it has unblockable.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA); player 1 controls a Swift Recruit (Intercept) so blockability is observable. Shadowstrike is played for real (10002 FSM play + two reserve payments, 100 answers) and attacks player 1's champion. The champion has 0 preparation counters, so Prepare X cannot be paid: no YES/NO or X prompt is ever queued (per-step dump: the queue goes straight from the last reserve payment to the attack-target choice), printed 4 POWER, not prepared so blockable (interceptor offered and declined), 4 damage. Fixed in Custom/GeneratedAbilityOverrides.php: a hand-authored $cardActivatedAbilities['o191zv86la:0'] queues a YES/NO 'Pay Prepare X?' then (on YES) a NUMBERCHOOSE for X in 1..preparation counters, removes X counters, sets wasPrepared=YES (GA_TagPreparedAttack then tags the intent PREPARED) and adds the 'o191zv86la_POWER_<X>' TurnEffect that ObjectCurrentPower() already read.",
+    "semanticCoverage": {
+        "testedCards": [
+            "o191zv86la"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Prepare X. X can't be 0.",
+            "[Class Bonus] If Shadowstrike was prepared, it has unblockable."
+        ]
+    }
+}

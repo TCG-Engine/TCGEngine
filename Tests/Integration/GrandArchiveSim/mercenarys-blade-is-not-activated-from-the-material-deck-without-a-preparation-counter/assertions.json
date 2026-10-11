@@ -1,0 +1,17 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myMaterial",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "label": "Mercenary's Blade is still in the material deck",
+        "semantic": true
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true
+    }
+]

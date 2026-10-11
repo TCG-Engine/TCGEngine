@@ -1,0 +1,22 @@
+{
+    "name": "slime-king-unplayable-with-only-two-distinct-slime-elements",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:19:42+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "f0ymeslfpw"
+    ],
+    "notes": "Slime King (f0ymeslfpw): the mandatory banish-three-Slimes-with-different-elements additional cost must be payable or the card cannot be activated. Graveyard = Red Slime, Red Slime, Storm Slime: three Slime allies but only TWO distinct elements (FIRE, ARCANE), so playing Slime King from hand is refused up front -- activateCardPrereqs['f0ymeslfpw:0'] (generated play prereq) fails with the flash message 'Slime King requires 3 Slime allies with different elements in your graveyard.' Nothing is banished, no reserve cost is paid, Slime King stays in hand. (The new DoActivateCard branch re-checks the same condition defensively.) Negative-path complement of slime-king-additional-cost-banishes-three-distinct-slimes. The 10002 click itself reports success to the runner (the engine just refuses silently with the flash), so the proof is the unchanged zones plus the flash message.",
+    "semanticCoverage": {
+        "testedCards": [
+            "f0ymeslfpw"
+        ],
+        "mechanics": [
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, banish three Slime ally cards each with different elements from your graveyard."
+        ]
+    }
+}

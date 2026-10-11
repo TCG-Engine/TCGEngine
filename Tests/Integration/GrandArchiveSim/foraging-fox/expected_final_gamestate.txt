@@ -1,5 +1,5 @@
 1
-85
+0
 53
 b0ssellm84
 izf4wdsbz9
@@ -119,7 +119,7 @@ b0ssellm84
 cl1mvb9q96
 2
 LMyKyVC2O9 2 1 0 1 - - - -1
-h8n1520m2d 2 1 0 1 - - - -1
+h8n1520m2d 2 1 0 1 - eyJidWZmIjoxfQ== - -1
 3
 LMyKyVC2O9 2 2 0 2 vz4kc558yx-ALLY_ACTIVATED - - -1
 xd4kv0akqr 2 2 0 2 ENTERED_THIS_TURN - - -1
@@ -181,13 +181,13 @@ wsycqp2l90
 2
 MAIN
 
-
-{"mzID":"myField-2","amount":1,"ignoreCost":false,"mzIDCardID":"b0ssellm84","activationSourceZone":"myHand","wasPrepared":"NO","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","FatestoneOfRevelationsFirst":"myHand-0","chosen":"myTempZone-4","revealedMZ":"myTempZone-4"}
-0
-{"ActivateCardCalls":{"1":2,"2":2},"ActivateCard":{"1":{"h8n1520m2d":1,"rWhFC8XBaH":1},"2":{"xd4kv0akqr":1,"b0ssellm84":1}},"CardActivatedCalls":{"1":2,"2":2},"CardActivated":{"1":{"h8n1520m2d":1,"rWhFC8XBaH":1},"2":{"xd4kv0akqr":1,"b0ssellm84":1}},"EnterCalls":{"1":1,"2":2},"Enter":{"1":{"h8n1520m2d":1},"2":{"xd4kv0akqr":1,"b0ssellm84":1}},"DrawCalls":{"2":2},"Draw":{"2":2},"RevealCalls":{"2":1}}
-1
-{"ActivateCardCalls":{"2":1},"ActivateCard":{"2":{"b0ssellm84":1}},"ReserveCard":{"2":{"izf4wdsbz9":1,"re911j7fo4":1}},"ReserveCardCommitted":{"2":{"izf4wdsbz9":1,"re911j7fo4":1}},"ReserveActionCommitted":{"2":{"izf4wdsbz9":1,"re911j7fo4":1}},"CardActivatedCalls":{"2":1},"CardActivated":{"2":{"b0ssellm84":1}},"EnterCalls":{"2":1},"Enter":{"2":{"b0ssellm84":1}},"RevealCalls":{"2":1}}
-0
 -
 -
-{"cards":{"2":{"izf4wdsbz9":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":1,"discarded":0,"activated":0},"re911j7fo4":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":1,"discarded":0,"activated":0},"b0ssellm84":{"drawn":0,"drawnToMemory":0,"materialized":1,"reserved":0,"discarded":0,"activated":0}}},"turns":[],"cur":{"2":{"reserveSpent":2,"cardsPlayed":1}},"combatEvents":[]}
+-
+-
+-
+-
+-
+-
+-
+-

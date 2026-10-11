@@ -1,0 +1,8 @@
+[
+    {"step":7,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":1,"semantic":true,"label":"The Training Dummy was still killed"},
+    {"step":7,"type":"zone_count","zone":"myDeck","viewerPlayerID":2,"value":10,"semantic":true,"label":"The opponent's deck is untouched"},
+    {"step":7,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":10,"semantic":true,"label":"Player 1's deck is untouched"},
+    {"step":7,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":2,"value":0,"semantic":true,"label":"The opponent's graveyard is empty: nothing was milled"},
+    {"step":7,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Player 1's graveyard holds only the resolved Drenching Finish"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,21 @@
+{
+    "name": "flamme-sorcel-discarding-a-card-with-an-omens-cost-draws-another",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:16:42+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "j6er6z99sv"
+    ],
+    "notes": "Flamme Sorcel: draw, discard a card; the discarded card has the same reserve cost as one of the omens, so draw another card.",
+    "semanticCoverage": {
+        "testedCards": [
+            "j6er6z99sv"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "omen",
+            "condition"
+        ],
+        "rulesClauses": []
+    }
+}

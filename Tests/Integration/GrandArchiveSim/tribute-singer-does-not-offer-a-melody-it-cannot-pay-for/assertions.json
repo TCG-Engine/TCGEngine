@@ -1,0 +1,34 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "No card was taken into the hand for free"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myTempZone",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The five revealed cards left the temp zone"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 19,
+        "semantic": true,
+        "label": "Five cards back on the bottom of the deck"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

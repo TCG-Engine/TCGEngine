@@ -70,5 +70,13 @@
         "cardID": "YES",
         "chkInput": [],
         "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "PASS",
+        "chkInput": [],
+        "inputText": ""
     }
 ]

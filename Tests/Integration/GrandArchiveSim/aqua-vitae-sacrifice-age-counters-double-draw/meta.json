@@ -1,0 +1,17 @@
+{
+    "name": "aqua-vitae-sacrifice-age-counters-double-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Aqua Vitae is seeded directly onto the field with 3 age counters already on it (its own Sacrifice ability doesn't care how it got there). ActivatedAbilityCost's 'sacrifice self' dispatch (GameLogic.php ~6454, case 'y5ttkat9hr') stores the object's 'age' Counters value into the 'ageCounters' decision-queue variable BEFORE removing it; activateAbilityAbilities['y5ttkat9hr:0'] (GeneratedMacroCode.php) reads that variable and draws a second card only when it is >= 3. Verified live: hand goes from 7 to 9 (two cards drawn). Paired with the negative fixture aqua-vitae-no-age-bonus-single-draw (0 age counters, only 1 card drawn) to prove the condition actually gates the second draw rather than it always firing.",
+    "testedCards": [
+        "y5ttkat9hr"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["y5ttkat9hr"],
+        "mechanics": ["draw-discard", "counter", "condition"],
+        "rulesClauses": [
+            "Sacrifice Aqua Vitae: Draw a card. Then if there were three or more age counters on Aqua Vitae, draw an additional card."
+        ]
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "imperial-spy-onkill-prepare",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T18:46:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l6gt7lh9v2"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["l6gt7lh9v2"],
+        "mechanics": ["counter", "status"],
+        "rulesClauses": [
+            "On Kill: Put a preparation counter on your champion."
+        ]
+    }
+}

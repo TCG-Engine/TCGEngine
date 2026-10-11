@@ -1,0 +1,6 @@
+[
+    {"step":6,"type":"card_property_equals","mzId":"p2Field-0","property":"Counters","value":"{\"_champCombatDamageDealtThisTurn\":2}","semantic":true,"label":"Declining puts no preparation counter (only the combat-damage bookkeeping counter exists)"},
+    {"step":6,"type":"zone_count","zone":"theirMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"Only the 2 reserve payments for Betraying Blade itself reached memory: nothing extra was paid"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"2","semantic":true,"label":"The 2-POWER attack still hit player 1's champion"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

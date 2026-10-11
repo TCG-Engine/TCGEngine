@@ -1,0 +1,23 @@
+{
+    "name": "Craggy Fatestone: the transform is refused while it holds only one buff counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:28:06+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "h8n1520m2d"
+    ],
+    "notes": "Guo Jia lineage is present, but Craggy Fatestone holds ONE buff counter: 'Activate this ability only if there are two or more buff counters', so the click is a no-op - it stays Craggy Fatestone and is not rested (the REST cost was not spent).",
+    "semanticCoverage": {
+        "testedCards": [
+            "h8n1520m2d"
+        ],
+        "mechanics": [
+            "cost",
+            "condition",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Activate this ability only if there are two or more buff counters on Craggy Fatestone."
+        ]
+    }
+}

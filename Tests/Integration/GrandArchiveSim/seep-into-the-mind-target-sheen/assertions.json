@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Seep Into the Mind resolved off the EffectStack into the graveyard"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myGraveyard-0",
+        "property": "CardID",
+        "value": "7mHiO4YySz",
+        "semantic": true,
+        "label": "The graveyard card is Seep Into the Mind itself, not a stranded/unrelated entry"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "property": "Counters",
+        "value": "{\"sheen\":3}",
+        "semantic": true,
+        "label": "The targeted opponent unit received three sheen counters"
+    }
+]

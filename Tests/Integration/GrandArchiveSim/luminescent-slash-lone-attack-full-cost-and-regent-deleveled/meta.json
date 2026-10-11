@@ -1,0 +1,29 @@
+{
+    "name": "luminescent-slash-lone-attack-full-cost-and-regent-deleveled",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:09+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "y8BNOi4rwD",
+        "XPl2UAO9se"
+    ],
+    "notes": "Luminescent Slash (y8BNOi4rwD, LUXEM WARRIOR/SWORD attack, reserve 5, power 6): \"[Mordred Bonus] This card costs 2 less to activate for each other attack card you've activated this turn. [Mordred Bonus] Luminescent Slash gets +2 POWER for each other attack card you've activated this turn.\" Mordred, Aurelian Regent (XPl2UAO9se, level 3, LUXEM): \"Whenever you activate a luxem element card, delevel Mordred.\" The champion is patched to Aurelian Regent (lineage Flawless Blade, Burnished Avenger, Spirit of Water). With no other attack card activated this turn Luminescent Slash costs its full FIVE reserve payments and deals 6; activating it (a luxem card) deleveles the champion: Mordred, Aurelian Regent goes back to the material deck and the champion becomes Mordred, Flawless Blade.",
+    "semanticCoverage": {
+        "testedCards": [
+            "y8BNOi4rwD",
+            "XPl2UAO9se"
+        ],
+        "mechanics": [
+            "cost",
+            "combat",
+            "condition",
+            "trigger",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Mordred Bonus] costs 2 less for each OTHER attack card activated this turn (none: full printed cost 5).",
+            "[Mordred Bonus] +2 POWER for each other attack card activated this turn (none: printed 6).",
+            "Aurelian Regent: whenever you activate a luxem element card, delevel Mordred."
+        ]
+    }
+}

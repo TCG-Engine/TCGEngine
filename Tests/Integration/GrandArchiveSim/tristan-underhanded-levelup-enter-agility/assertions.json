@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"bjlwabipl6","semantic":true,"label":"The real level-up into Tristan, Underhanded completed"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"[]","semantic":true,"label":"Declining puts no preparation counter on Tristan"},
+    {"step":4,"type":"card_property_equals","mzId":"p1GlobalEffects-1","property":"CardID","value":"AGILITY_3","semantic":true,"label":"Declining grants agility 3 for this turn (global effect AGILITY_3)"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

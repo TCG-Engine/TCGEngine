@@ -1,0 +1,9 @@
+{
+    "name": "bauble-of-scarcity-makes-each-player-discard-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T16:20:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "24ansclpqc"
+    ]
+}

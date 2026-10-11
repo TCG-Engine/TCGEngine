@@ -1,0 +1,21 @@
+{
+    "name": "exalted-card-is-not-playable-without-an-advanced-element",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:30+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "bupi7VU4of"
+    ],
+    "notes": "Control: an EXALTED card cannot be played by a champion with no advanced element.",
+    "semanticCoverage": {
+        "testedCards": [
+            "bupi7VU4of"
+        ],
+        "mechanics": [
+            "element-requirement"
+        ],
+        "rulesClauses": [
+            "Exalted element requirement"
+        ]
+    }
+}

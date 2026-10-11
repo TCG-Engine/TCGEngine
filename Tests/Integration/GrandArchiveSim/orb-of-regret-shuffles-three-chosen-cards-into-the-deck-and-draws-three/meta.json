@@ -1,0 +1,9 @@
+{
+    "name": "orb-of-regret-shuffles-three-chosen-cards-into-the-deck-and-draws-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T16:42:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "BY0E8si926"
+    ]
+}

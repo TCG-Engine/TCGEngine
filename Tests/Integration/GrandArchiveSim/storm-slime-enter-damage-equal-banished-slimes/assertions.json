@@ -1,0 +1,4 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"2","semantic":true,"label":"Storm Slime's On Enter deals damage equal to the 2 Slime cards in the controller's own banishment"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

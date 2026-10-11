@@ -1,0 +1,25 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Cyclical Breeze finished resolving and is in the graveyard; it was not offered (or returned) as its own target"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Nothing came back to the hand (8 cards - Breeze - 4 paid)"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

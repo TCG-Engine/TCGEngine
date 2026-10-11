@@ -1,0 +1,17 @@
+{
+    "name": "twinstar-tonic-sacrifice-starcall-copy",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Twinstar Tonic is seeded directly onto the field (Brewing isn't the clause under test). activateAbilityAbilities['yBDxSHkT1s:0'] (GeneratedMacroCode.php) calls AddGlobalEffects($player, 'yBDxSHkT1s') -- a permanent marker ($foreverEffects['yBDxSHkT1s']=true, GameLogic.php ~18266, so it is never auto-expired at end of turn/phase like most global effects). The 'for the rest of the game, may copy that starcalled activation' consumer half (GameLogic.php ~16552, checked every time the player starcalls, via GlobalEffectCount($player,'yBDxSHkT1s')) is a downstream reader of this same flag and out of scope for this fixture -- the flag itself, set once by Sacrificing Twinstar Tonic and meant to persist for the rest of the game, is what this card's own ability is directly responsible for. Verified live: p1GlobalEffects gains a 'yBDxSHkT1s' entry, and Twinstar Tonic itself moves to the graveyard.",
+    "testedCards": [
+        "yBDxSHkT1s"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["yBDxSHkT1s"],
+        "mechanics": ["targeting", "trigger", "condition"],
+        "rulesClauses": [
+            "Sacrifice Twinstar Tonic: For the rest of the game, whenever you starcall a card, you may copy that activation."
+        ]
+    }
+}

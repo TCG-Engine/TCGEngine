@@ -1,0 +1,25 @@
+{
+    "name": "shadeblood-coating-banish-grants-on-hit-preparation",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:57+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "nd8dy77ikm"
+    ],
+    "notes": "Shadeblood Coating (nd8dy77ikm, UMBRA REGALIA/ACCESSORY, memory 0): \"Banish CARDNAME: Up to three target units you control gain 'On Hit: Put a preparation counter on your champion' until end of turn.\" The champion's Subcards are patched with Tristan, Shadowdancer for UMBRA access; two Dungeon Guides are seeded on player 1's field. Shadeblood is materialized for real in the materialize phase; its banish ability (the opportunity window offers 'myField-3@Activate-0@nd8dy77ikm') asks for up to three targets in a chain of MZMAYCHOOSEs (champion, first Dungeon Guide, then PASS) and tags each with the nd8dy77ikm_ONHIT turn effect, which CombatLogic.php's on-hit processing converts into AddPrepCounter(). Then the CHOSEN Dungeon Guide attacks the opposing champion and its hit puts exactly one preparation counter on player 1's champion; the NON-chosen Dungeon Guide's later hit adds nothing.",
+    "semanticCoverage": {
+        "testedCards": [
+            "nd8dy77ikm"
+        ],
+        "mechanics": [
+            "trigger",
+            "targeting",
+            "counter",
+            "cost",
+            "status"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Up to three target units you control gain \"On Hit: Put a preparation counter on your champion\" until end of turn."
+        ]
+    }
+}

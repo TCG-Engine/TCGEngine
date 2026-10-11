@@ -1,0 +1,23 @@
+{
+    "name": "manxome-armoire-ciel-bonus-banish-swaps-an-omen-for-a-card-from-hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:57:04+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "fm894uc4ij"
+    ],
+    "notes": "[Ciel Bonus] Banish Manxome Armoire: return one of your omens to hand, then banish a card from hand with an omen counter on it.",
+    "semanticCoverage": {
+        "testedCards": [
+            "fm894uc4ij"
+        ],
+        "mechanics": [
+            "cost",
+            "omen",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] Banish Manxome Armoire: Return one of your omens to your hand. If you do, banish a card from your hand and put an omen counter on it."
+        ]
+    }
+}

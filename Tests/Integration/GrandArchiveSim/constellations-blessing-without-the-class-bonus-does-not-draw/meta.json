@@ -1,0 +1,22 @@
+{
+    "name": "constellations-blessing-without-the-class-bonus-does-not-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:21:59+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "nypwwnirjk"
+    ],
+    "notes": "The champion is not a Ranger.",
+    "semanticCoverage": {
+        "testedCards": [
+            "nypwwnirjk"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Draw a card."
+        ]
+    }
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "CardID",
+        "value": "h8n1520m2d",
+        "label": "A rested Craggy Fatestone does not transform",
+        "semantic": true
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "Status",
+        "value": "1",
+        "label": "... and stays rested",
+        "semantic": true
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true
+    }
+]

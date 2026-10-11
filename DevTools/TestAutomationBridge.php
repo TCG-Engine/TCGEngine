@@ -516,6 +516,15 @@ function BridgeExpandDecisionSpecChoices($rawSpec) {
     }
   }
 
+  // Compound selector ("myField-3@Activate-0@Draw"): picks one of several abilities on a card and is
+  // offered literally, so it must neither be treated as a zone name nor have an index appended.
+  if (str_contains($zoneOrCard, '@')) {
+    $baseObject = MZResolveObject(explode('@', $zoneOrCard, 2)[0]);
+    if (!is_object($baseObject) || !empty($baseObject->removed)) return [];
+    if (!BridgeDecisionChoiceMatchesFilters($baseObject, $filters)) return [];
+    return [$zoneOrCard];
+  }
+
   if (preg_match('/^(.+)-(\d+)$/', $zoneOrCard, $matches)) {
     $zoneName = $matches[1];
     $index = intval($matches[2]);
@@ -2850,6 +2859,12 @@ function BridgeStartSelfplayGame($root, $gameName, $seed, $deckTextP1, $deckText
     $memoryOnlyResolved = (function_exists('GamestateUsesMemoryStorage') && GamestateUsesMemoryStorage());
   } else {
     $memoryOnlyResolved = in_array($memoryOnlyRaw, ['1', 'true', 'yes', 'on'], true);
+  }
+  // Memory-only needs the root's in-memory (APCu) gamestate storage. Without it (a CLI PHP with no APCu
+  // extension) the game has nowhere to live, so it plays from the disk draft dir instead of failing with
+  // "Draft game not found".
+  if ($memoryOnlyResolved && !function_exists('apcu_fetch')) {
+    $memoryOnlyResolved = false;
   }
 
   if (!$memoryOnlyResolved) {

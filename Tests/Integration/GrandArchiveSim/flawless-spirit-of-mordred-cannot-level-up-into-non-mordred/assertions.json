@@ -1,0 +1,8 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"cXEI5vo6iG","semantic":true,"label":"The champion is still Flawless Spirit of Mordred: the level-up into Tristan, Underhanded was refused"},
+    {"step":5,"type":"zone_count","zone":"myMaterial","viewerPlayerID":1,"value":2,"semantic":true,"label":"The material deck keeps both level 1 champions"},
+    {"step":5,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":0,"semantic":true,"label":"The level-up memory cost was not spent (nothing banished)"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":9,"semantic":true,"label":"Hand 9 = 7 + 1 seeded memory card returned by recollection + 1 turn draw: the memory card was never spent"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-0","property":"Status","value":"2","semantic":true,"label":"The champion is awake and unchanged"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

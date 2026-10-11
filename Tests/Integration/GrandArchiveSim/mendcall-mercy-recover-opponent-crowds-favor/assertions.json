@@ -1,0 +1,4 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"2","semantic":true,"label":"Opponent's level-2 champion recovers 3*2=6, from 8 damage down to 2"},
+    {"step":5,"type":"card_property_equals","mzId":"p1GlobalEffects-0","property":"CardID","value":"gpmJdGYqoC","semantic":true,"label":"Targeting the opponent grants the activator the Crowd's Favor status"}
+]

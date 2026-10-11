@@ -1,0 +1,41 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myVersions-0",
+        "property": "Version",
+        "value": "1<v0>MAIN<v0>1<v0><v0>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v0><v0>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v0>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0>OWCdWq3mXY<v1>WI2owxIw0z<v1>KqBosnU7pU<v1>XPl2UAO9se<v1>efTHWeXscP<v1>QCUld5Xidm<v1>clS3E0HrZL<v0>tafqldAGRF<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>1<v0><v0><v0><v0>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v0><v0><v0>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0>OWCdWq3mXY<v1>WI2owxIw0z<v1>KqBosnU7pU<v1>XPl2UAO9se<v1>efTHWeXscP<v1>QCUld5Xidm<v1>clS3E0HrZL<v0>tafqldAGRF<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v0><v0><v0><v0>{\"mzID\":\"myField-0\",\"isImbued\":\"NO\",\"amount\":7}<v0><v0>{}<v0>2<v0>{}<v0>76<v0>{\"cards\":{\"1\":{\"em6eEh9q8y\":{\"drawn\":5,\"drawnToMemory\":0,\"materialized\":0,\"reserved\":0,\"discarded\":0,\"activated\":0},\"px60u5n1do\":{\"drawn\":2,\"drawnToMemory\":0,\"materialized\":0,\"reserved\":0,\"discarded\":0,\"activated\":0}},\"2\":{\"px60u5n1do\":{\"drawn\":6,\"drawnToMemory\":0,\"materialized\":0,\"reserved\":0,\"discarded\":0,\"activated\":0},\"em6eEh9q8y\":{\"drawn\":1,\"drawnToMemory\":0,\"materialized\":0,\"reserved\":0,\"discarded\":0,\"activated\":0}}},\"turns\":[],\"cur\":[],\"combatEvents\":[]}"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myVersions-0",
+        "property": "Version",
+        "value": "1<v0>MAIN<v0>1<v0><v0>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v0><v0>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v0>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0>OWCdWq3mXY<v1>WI2owxIw0z<v1>KqBosnU7pU<v1>XPl2UAO9se<v1>efTHWeXscP<v1>QCUld5Xidm<v1>clS3E0HrZL<v0>tafqldAGRF<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>1<v0><v0><v0><v0>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v0><v0><v0>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0>OWCdWq3mXY<v1>WI2owxIw0z<v1>KqBosnU7pU<v1>XPl2UAO9se<v1>efTHWeXscP<v1>QCUld5Xidm<v1>clS3E0HrZL<v0>tafqldAGRF<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v0><v0><v0><v0>{\"mzID\":\"myField-0\",\"isImbued\":\"NO\",\"amount\":7}<v0><v0>{}<v0>2<v0>{}<v0>76<v0>{\"cards\":{\"1\":{\"em6eEh9q8y\":{\"drawn\":5,\"drawnToMemory\":0,\"materialized\":0,\"reserved\":0,\"discarded\":0,\"activated\":0},\"px60u5n1do\":{\"drawn\":2,\"drawnToMemory\":0,\"materialized\":0,\"reserved\":0,\"discarded\":0,\"activated\":0}},\"2\":{\"px60u5n1do\":{\"drawn\":6,\"drawnToMemory\":0,\"materialized\":0,\"reserved\":0,\"discarded\":0,\"activated\":0},\"em6eEh9q8y\":{\"drawn\":1,\"drawnToMemory\":0,\"materialized\":0,\"reserved\":0,\"discarded\":0,\"activated\":0}}},\"turns\":[],\"cur\":[],\"combatEvents\":[]}",
+        "semantic": true,
+        "label": "A refused graveyard click does not overwrite the undo snapshot saved by the previous real action (read after the engine re-loads the state)"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing moved: the hand is still empty"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Champion + Dungeon Guide only: the refused click did nothing"
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

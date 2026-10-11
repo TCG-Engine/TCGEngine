@@ -1,0 +1,24 @@
+{
+    "name": "tristan-shadowdancer-levelup-enter-summon-shadows-prep",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:24+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "he6kd7hocc"
+    ],
+    "notes": "Tristan, Shadowdancer (he6kd7hocc, CHAMPION, level 3): \"On Enter: Summon two Ominous Shadow tokens and put a preparation counter on Tristan.\" The starting champion is patched to Tristan, Hired Blade (level 2, the required predecessor), then a real level-up in the materialize phase (3 memory cards paid) fires enterAbilities[\"he6kd7hocc:0\"], which runs MZAddZone() twice for the Ominous Shadow token (gveirpdm44, a phantasia ally) and AddCounters(preparation, 1) on the new champion.",
+    "semanticCoverage": {
+        "testedCards": [
+            "he6kd7hocc"
+        ],
+        "mechanics": [
+            "trigger",
+            "token",
+            "counter"
+        ],
+        "rulesClauses": [
+            "On Enter: Summon two Ominous Shadow tokens.",
+            "On Enter: Put a preparation counter on Tristan."
+        ]
+    }
+}

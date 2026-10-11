@@ -1,0 +1,24 @@
+{
+    "name": "tristan-underhanded-levelup-enter-prep-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:18+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "bjlwabipl6"
+    ],
+    "notes": "Tristan, Underhanded (bjlwabipl6, CHAMPION, level 1): \"On Enter: You may put a preparation counter on Tristan. If you don't, you gain agility 3 for this turn.\" The starting champion is the Material-section level-0 Spirit of Wind (WIND, so no lineage patch is needed); player 1 ends turn 1, player 2 ends turn 2, and in player 1's materialize phase the real level-up into Tristan, Underhanded is chosen (its 1-point memory cost is paid from one seeded memory card), so enterAbilities[\"bjlwabipl6:0\"] fires for real. It queues a YES/NO; answering YES runs AddPrepCounter() and puts one preparation counter on the new champion, and (unlike the NO branch, see tristan-underhanded-levelup-enter-agility) no AGILITY_3 global effect appears.",
+    "semanticCoverage": {
+        "testedCards": [
+            "bjlwabipl6"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: You may put a preparation counter on Tristan.",
+            "If you do (answer YES), you do not gain agility 3."
+        ]
+    }
+}

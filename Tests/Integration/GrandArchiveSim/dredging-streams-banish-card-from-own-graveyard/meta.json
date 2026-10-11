@@ -1,0 +1,23 @@
+{
+    "name": "dredging-streams-banish-card-from-own-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:41+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "wmt0x5zado"
+    ],
+    "notes": "Dredging Streams (wmt0x5zado, WATER CLERIC SPELL action, reserve 2): \"Banish target card from a graveyard.\" A Dungeon Guide is seeded in each player's graveyard and Dredging Streams is played for real (2 reserve payments); the target prompt (cardActivatedAbilities[\"wmt0x5zado:0\"]) lists the cards of both graveyards, player 1's own is chosen and moves to player 1's banishment.",
+    "semanticCoverage": {
+        "testedCards": [
+            "wmt0x5zado"
+        ],
+        "mechanics": [
+            "targeting",
+            "zone-movement",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Banish target card from a graveyard (own graveyard)."
+        ]
+    }
+}

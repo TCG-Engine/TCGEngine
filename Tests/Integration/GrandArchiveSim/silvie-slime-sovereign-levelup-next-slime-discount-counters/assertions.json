@@ -1,0 +1,7 @@
+[
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":7,"semantic":true,"label":"Only ONE reserve-payment click (not the printed 3) was needed to finish playing Red Slime, proving the -2 reserve-cost discount actually applied"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"mdwbkuhtjm","semantic":true,"label":"The real champion level-up into Silvie, Slime Sovereign completed"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"mttsvbgl6f","semantic":true,"label":"Red Slime actually entered the field"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"buff\":2}","semantic":true,"label":"Red Slime entered with 2 additional buff counters from Silvie, Slime Sovereign's On Enter clause"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

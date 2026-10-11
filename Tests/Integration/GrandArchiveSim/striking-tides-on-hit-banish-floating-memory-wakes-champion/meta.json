@@ -1,0 +1,27 @@
+{
+    "name": "striking-tides-on-hit-banish-floating-memory-wakes-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:59+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qrxQGA1pc6"
+    ],
+    "notes": "Striking Tides (qrxQGA1pc6, WATER WARRIOR/SWORD attack, reserve 3, power 4): \"[Mordred Bonus] On Hit: You may banish a card with floating memory from your graveyard. If you do, wake up your champion.\" The champion is Mordred, Flawless Blade (level 2: attack cards in the graveyard have floating memory); the graveyard holds a Dungeon Guide (no floating memory) and a Pierce the Heavens (an attack card -> floating memory). Striking Tides is played for real on turn 3, hits player 2's champion for 4, the YES/NO is answered YES, the non-floating Dungeon Guide is rejected as a choice and the Pierce the Heavens is banished: the champion (rested by attacking) wakes up.",
+    "semanticCoverage": {
+        "testedCards": [
+            "qrxQGA1pc6"
+        ],
+        "mechanics": [
+            "combat",
+            "trigger",
+            "zone-movement",
+            "status",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Mordred Bonus] On Hit: You may banish a card with floating memory from your graveyard.",
+            "If you do, wake up your champion.",
+            "Only a card with floating memory is a legal choice."
+        ]
+    }
+}

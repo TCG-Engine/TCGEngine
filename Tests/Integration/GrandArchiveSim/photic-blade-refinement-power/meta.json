@@ -1,0 +1,16 @@
+{
+    "name": "photic-blade-refinement-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:51:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NRBO0nVMdl"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["NRBO0nVMdl"],
+        "mechanics": ["counter"],
+        "rulesClauses": [
+            "CARDNAME gets +1 POWER for each refinement counter on it."
+        ]
+    }
+}

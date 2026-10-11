@@ -1,0 +1,23 @@
+{
+    "name": "Mist Resonance without a Melody this turn: allies still assign combat damage with their power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:35:37+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "hw8dxKAnMX"
+    ],
+    "notes": "Same as the Harmonize fixture but no Melody card was activated this turn, so Harmonize is off: the Dungeon Guide still assigns 1 (its power) even though Mist Resonance gave it +1 LIFE.",
+    "semanticCoverage": {
+        "testedCards": [
+            "hw8dxKAnMX"
+        ],
+        "mechanics": [
+            "condition",
+            "combat",
+            "status"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Harmonize -- If you've activated a Melody card this turn, allies you control assign damage with their life stat instead of power stat until end of turn."
+        ]
+    }
+}

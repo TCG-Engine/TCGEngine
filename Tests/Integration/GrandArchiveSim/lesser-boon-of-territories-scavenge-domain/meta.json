@@ -1,0 +1,23 @@
+{
+    "name": "lesser-boon-of-territories-scavenge-domain",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T20:43:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZpM7gliLxm"
+    ],
+    "notes": "Engine fix coverage: playCardAbilities[\"ZpM7gliLxm:0\"] was unreachable before bf25c65c for the same reason as qtzsekkjn3 (see vainglory-retribution-play-card-trigger).",
+    "semanticCoverage": {
+        "testedCards": [
+            "ZpM7gliLxm"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On play, scavenge (reveal top 10, may take one matching card) for a Domain card."
+        ]
+    }
+}

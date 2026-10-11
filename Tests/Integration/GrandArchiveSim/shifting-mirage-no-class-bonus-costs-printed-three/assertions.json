@@ -1,0 +1,11 @@
+[
+    {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"After TWO payments the card still has not resolved without the Class Bonus (cost stays at the printed 3)"},
+    {"step":3,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"Shifting Mirage is still unresolved after two payments (no discount without the Class Bonus)"},
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"Exactly THREE reserve cards were paid: the full printed cost with the Class Bonus inactive"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"hmjr33ijq6","semantic":true,"label":"Shifting Mirage resolved after the third payment"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":4,"semantic":true,"label":"Hand 8 - the played card - 3 reserve payments = 4"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"vz4kc558yx-ACTION_ACTIVATED\",\"STEALTH\"]","semantic":true,"label":"The opponent declined to pay (2): the caster's champion gains STEALTH until end of turn"},
+    {"step":5,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"No Ominous Shadow token: the [Tristan Bonus] is inactive"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-0","property":"TurnEffects","value":"[]","semantic":true,"label":"The opponent's champion gains nothing"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

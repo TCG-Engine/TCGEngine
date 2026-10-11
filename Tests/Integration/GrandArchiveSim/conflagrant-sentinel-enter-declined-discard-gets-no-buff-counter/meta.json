@@ -1,0 +1,20 @@
+{
+    "name": "conflagrant-sentinel-enter-declined-discard-gets-no-buff-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:12:06+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "puyzn48srd"
+    ],
+    "notes": "Conflagrant Sentinel: the On Enter discard is declined, so there is no buff counter.",
+    "semanticCoverage": {
+        "testedCards": [
+            "puyzn48srd"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-choice-decline"
+        ],
+        "rulesClauses": []
+    }
+}

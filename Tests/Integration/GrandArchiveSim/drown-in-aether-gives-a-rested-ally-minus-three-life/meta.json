@@ -1,0 +1,20 @@
+{
+    "name": "drown-in-aether-gives-a-rested-ally-minus-three-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:16:50+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "gnfbp3g8iw"
+    ],
+    "notes": "Drown in Aether: target rested ally gets -3 LIFE until end of turn.",
+    "semanticCoverage": {
+        "testedCards": [
+            "gnfbp3g8iw"
+        ],
+        "mechanics": [
+            "targeting",
+            "stat-change"
+        ],
+        "rulesClauses": []
+    }
+}

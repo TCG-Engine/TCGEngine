@@ -1,0 +1,17 @@
+{
+    "name": "bathe-in-light-recover-delayed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:13:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d9zax2g20h"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["d9zax2g20h"],
+        "mechanics": ["damage", "recover"],
+        "rulesClauses": [
+            "Recover 4.",
+            "At the beginning of your next recollection phase, Recover 4."
+        ]
+    }
+}

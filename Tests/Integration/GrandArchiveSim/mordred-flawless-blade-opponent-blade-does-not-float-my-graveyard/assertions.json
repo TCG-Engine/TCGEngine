@@ -1,0 +1,8 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"OWCdWq3mXY","semantic":true,"label":"Player 1's level-up into Mordred, Burnished Avenger completed"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"The seeded memory card paid the cost (it was banished): no floating payment was offered"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"Player 1's Striking Tides stays in the graveyard (the opponent's Flawless Blade does not float it)"},
+    {"step":3,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Player 1's graveyard still holds the attack card"},
+    {"step":3,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the memory card was banished"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

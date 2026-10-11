@@ -1,0 +1,17 @@
+{
+    "name": "storm-slime-enter-damage-equal-banished-slimes",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T03:34:06+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Storm Slime (blqryebvwj, ALLY): \"Pride 3. On Enter: As a Spell, deal damage to target unit equal to the number of Slime cards in your banishment. [Class Bonus] On Death: You may banish two cards at random from your memory. If you do, draw two cards.\" The On Enter clause (enterAbilities['blqryebvwj:0'] -> customDQHandlers['blqryebvwj:0:Enter-1'], GeneratedCode/GeneratedMacroCode.php) counts Slime-subtype cards currently in the controller's own myBanish zone and queues an MZCHOOSE among all units on both fields (both champions plus Storm Slime itself, once materialized), then calls DealDamage() for exactly that count. Two Red Slime copies (mttsvbgl6f, SLIME subtype) are seeded directly into myBanish as the damage-count fodder -- banishment, not graveyard/field, so there's no concern about their own On Death trigger firing. Storm Slime's element is ARCANE, not native to the 'Spirit of Fire' starting champion, so the champion's Subcards are patched with a real ARCANE champion (Lorraine, Arclight Saber) purely to unlock element access. Storm Slime is played for real from hand via FSM so its Enter trigger genuinely fires; player 2's champion (theirField-0, confirmed live to resolve to p2Field-0) takes exactly 2 damage, proving the count-based damage clause. The separate [Class Bonus] On Death clause (allyDestroyedAbilities['blqryebvwj:0']) is a different trigger (gated behind Class Bonus, with a random memory-banish sub-effect) and out of scope here.",
+    "testedCards": [
+        "blqryebvwj"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["blqryebvwj"],
+        "mechanics": ["damage", "targeting", "zone-movement", "trigger"],
+        "rulesClauses": [
+            "On Enter: As a Spell, deal damage to target unit equal to the number of Slime cards in your banishment."
+        ]
+    }
+}

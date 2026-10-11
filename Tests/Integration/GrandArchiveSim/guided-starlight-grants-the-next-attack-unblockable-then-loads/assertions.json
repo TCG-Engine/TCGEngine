@@ -1,0 +1,27 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"b0iz7wm7ow_UNBLOCKABLE\",\"vz4kc558yx-ACTION_ACTIVATED\"]",
+        "semantic": true,
+        "label": "The champion's next attack gains the unblockable-unless-(3) effect"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Subcards",
+        "value": "[\"b0iz7wm7ow\"]",
+        "semantic": true,
+        "label": "Guided Starlight is loaded into the Aetherwing"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

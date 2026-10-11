@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "cardID": "h8n1520m2d",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The revealed Craggy Fatestone from the top five is put into memory"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 12,
+        "semantic": true,
+        "label": "The remaining 4 looked-at cards return to the deck (bottom), net -1 for the revealed card"
+    }
+]

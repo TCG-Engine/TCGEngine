@@ -1,0 +1,16 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"On Enter banishes the Striking Tides and tags it with the Warrior's permission tag"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Banish-0","property":"TurnEffects","value":"[\"_warriorFaeRealm\"]","semantic":true,"label":"The banished card carries only the first-stage permission tag during the banishing turn"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Banish-0","property":"TurnEffects","value":"[\"_warriorFaeRealm\",\"_warriorFaeRealmLater\"]","semantic":true,"label":"The permission tag survives the end of the banishing turn and the 'a turn has ended' stamp is added"},
+    {"step":8,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"The banished card is still in banishment at the start of the later turn"},
+    {"step":9,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":0,"semantic":true,"label":"Clicking the banished card on the later turn starts a real activation: it leaves banishment"},
+    {"step":9,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"No reserve payment has been made yet when the activation starts (cost is still owed)"},
+    {"step":11,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"After TWO payments the Sword attack has not resolved yet (printed cost 3)"},
+    {"step":12,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"Exactly THREE reserve payments were made (printed cost)"},
+    {"step":13,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"0","semantic":true,"label":"The attacker's own champion is rejected as the attack target (nothing changed)"},
+    {"step":14,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"4","semantic":true,"label":"The activated Striking Tides hits the opposing champion for 4"},
+    {"step":14,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"The activated Sword attack ends in the graveyard"},
+    {"step":14,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":0,"semantic":true,"label":"Nothing is left in banishment after the later-turn activation"},
+    {"step":14,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"eRcqucBKhX","semantic":true,"label":"The Warrior is still on the field (the permission condition 'as long as you control' held throughout)"},
+    {"step":14,"type":"decision_queue_empty","player":"all"}
+]

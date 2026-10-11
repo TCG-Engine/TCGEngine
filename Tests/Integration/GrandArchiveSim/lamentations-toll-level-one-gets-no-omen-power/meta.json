@@ -1,0 +1,23 @@
+{
+    "name": "lamentations-toll-level-one-gets-no-omen-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:29:52+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "1t3dvor61i"
+    ],
+    "notes": "Control: Ciel, Loyal Valet is level 1.",
+    "semanticCoverage": {
+        "testedCards": [
+            "1t3dvor61i"
+        ],
+        "mechanics": [
+            "level-gate",
+            "omen",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Level 2+]"
+        ]
+    }
+}

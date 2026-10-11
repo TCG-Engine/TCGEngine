@@ -1,0 +1,4 @@
+[
+    {"step":1,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":9,"semantic":true,"label":"With 3+ age counters, Sacrifice draws TWO cards (7 -> 9)"},
+    {"step":1,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"y5ttkat9hr","semantic":true,"label":"Sacrifice moves Aqua Vitae itself to the graveyard"}
+]

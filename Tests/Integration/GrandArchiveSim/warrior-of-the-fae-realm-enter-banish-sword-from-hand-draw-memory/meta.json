@@ -1,0 +1,26 @@
+{
+    "name": "warrior-of-the-fae-realm-enter-banish-sword-from-hand-draw-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:35+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "eRcqucBKhX"
+    ],
+    "notes": "Warrior of the Fae Realm (eRcqucBKhX, NORM WARRIOR/FAIRY ALLY, reserve 3, Stealth): \"On Enter: You may banish a Sword attack card from your hand or memory. If you do, draw a card into your memory. As long as you control CARDNAME, you may activate the banished card on a later turn.\" A Striking Tides (a Sword attack card) is seeded in hand next to the Warrior, which is played for real (3 reserve payments): the Sword attack in hand is offered, banished (tagged _warriorFaeRealm) and a card is drawn directly into memory (memory 3 payments + 1 = 4, hand unchanged by the draw).",
+    "semanticCoverage": {
+        "testedCards": [
+            "eRcqucBKhX"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "draw-discard",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: You may banish a Sword attack card from your hand or memory.",
+            "If you do, draw a card into your memory.",
+            "The banished card is tagged so it may be activated later."
+        ]
+    }
+}

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **359**
-Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2128**
+Cards linked to an existing fixture: **934**
+Implemented cards in an official starter deck: **619**
+Implemented cards still needing semantic coverage: **1571**
 
 ## Mechanic groups
 
@@ -26,53 +26,53 @@ Implemented cards still needing semantic coverage: **2128**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
-| Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
-| Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
-| Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
-| Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
-| Corhazi Courier (`YqQsXwEvv5`) | ALLY | 1 | targeting, damage, draw-discard, status, combat, condition | Zander Pantheon Starter | — |
-| Extraction Incision (`zthwm68lgo`) | ATTACK | 1 | targeting, counter, status, combat, condition | Zander Pantheon Starter | — |
-| Rending Flames (`soO3hjaVfN`) | ATTACK | 1 | damage, zone-movement, combat, trigger, condition | Zander Pantheon Starter | — |
-| Zander, Deft Executor (`fc4ic5fmaa`) | CHAMPION | 1 | zone-movement, counter, combat, trigger, condition | Zander Pantheon Starter | — |
-| Cleansing Reunion (`xpnjvt9y59`) | ACTION | 1 | cost, targeting, status, condition | Lorraine Pantheon Starter | — |
-| Convalescent Tonic (`l8ao8bls6g`) | ITEM | 1 | cost, recover, draw-discard, zone-movement | Arisanna Pantheon Starter | — |
-| Corhazi Lightblade (`2Ch1Gp3jEL`) | ALLY | 1 | damage, combat, trigger, condition | Zander Pantheon Starter | — |
-| Elyan, Lustre Loyalty (`2jgiM0p4dt`) | UNIQUE,ALLY | 1 | recover, status, trigger, condition | Zander Pantheon Starter | — |
-| Hasty Messenger (`DsiRzt0trX`) | ALLY | 1 | draw-discard, combat, trigger, condition | Kongming Pantheon Starter, Zander Pantheon Starter | — |
-| Insignia of the Corhazi (`52u81v4c0z`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger | Zander Pantheon Starter | — |
-| Lightveil Agent (`jcaLgesx0e`) | ALLY | 1 | recover, counter, status, trigger | Zander Pantheon Starter | — |
-| Lorraine, Spirit Ruler (`n2TKqNaODR`) | CHAMPION | 1 | cost, targeting, zone-movement, trigger | Lorraine Pantheon Starter | — |
-| Orb of Choking Fumes (`llQe0cg4xJ`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Zander Pantheon Starter | — |
-| Starlit Apothecary (`ShQkyQMBCT`) | UNIQUE,DOMAIN | 1 | cost, targeting, token, condition | Arisanna Pantheon Starter | — |
-| Templar of the Eternal (`peyG8Hfgqt`) | ALLY | 1 | damage, prevention, zone-movement, counter | Lorraine Pantheon Starter | — |
-| Altruistic Blacksmith (`Pd4hj3sveV`) | ALLY | 1 | token, combat, trigger | Lorraine Pantheon Starter | — |
-| Aqua Vitae (`y5ttkat9hr`) | ITEM | 1 | draw-discard, counter, condition | Arisanna Pantheon Starter | — |
-| Buoyant Driftguard (`TrK2lroxkz`) | ALLY | 1 | targeting, trigger, condition | Arisanna Pantheon Starter | — |
-| Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
-| Corhazi Infiltrator (`VAFTR5taNG`) | ALLY | 1 | zone-movement, status, trigger | Zander Pantheon Starter | — |
-| Covert Manipulator (`A1jfgrWpiN`) | ALLY | 1 | targeting, trigger, condition | Zander Pantheon Starter | — |
-| Drawn Blade (`eSAIP7mx9z`) | REGALIA,WEAPON | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
-| Gem of Searing Flame (`v1jaidvvz2`) | REGALIA,ITEM | 1 | targeting, damage, trigger | Kongming Pantheon Starter | — |
-| Lunar Seer (`qjt0ooffy4`) | ALLY | 1 | cost, zone-movement, condition | Arisanna Pantheon Starter | — |
-| Lurking Assailant (`uq2r6v374c`) | ALLY | 1 | status, combat, condition | Lorraine Pantheon Starter, Zander Pantheon Starter | — |
-| Mendcall Mercy (`2RKjpzEFV6`) | ACTION | 1 | cost, targeting, condition | Arisanna Pantheon Starter | — |
-| Minister of Ceremony (`7gz0j8p4sx`) | ALLY | 1 | targeting, damage, condition | Kongming Pantheon Starter | — |
-| Photic Blade (`NRBO0nVMdl`) | REGALIA,WEAPON | 1 | recover, counter, trigger | Zander Pantheon Starter | — |
-| Piquant Shieldbearer (`Cvvvxlf0hi`) | ALLY | 1 | status, combat, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
-| Scorching Imperilment (`aj7pz79wsp`) | PHANTASIA | 1 | cost, draw-discard, condition | Zander Pantheon Starter | — |
-| Strike of Singularity (`AMv1u54B2s`) | ATTACK | 1 | damage, combat, condition | Zander Pantheon Starter | — |
-| Tactful Sergeant (`7UXGwC7lSO`) | ALLY | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
-| Twinstar Tonic (`yBDxSHkT1s`) | ITEM | 1 | targeting, trigger, condition | Arisanna Pantheon Starter | — |
-| Uncover the Plot (`4zkTRt8qXn`) | ACTION | 1 | targeting, draw-discard, condition | Zander Pantheon Starter | — |
-| Veiling Breeze (`KoF3AMSlUe`) | ACTION | 1 | damage, prevention, condition | Lorraine Pantheon Starter | — |
-| Verdure of Preservation (`wCAIuvPOAT`) | UNIQUE,PHANTASIA | 1 | zone-movement, trigger, condition | Kongming Pantheon Starter | — |
-| Weaken Resistance (`bb3oeup7oq`) | ACTION | 1 | cost, targeting, damage | Kongming Pantheon Starter | — |
-| Wisp's Protection (`OmWFVRUr8I`) | ACTION | 1 | targeting, damage, prevention | Lorraine Pantheon Starter | — |
-| Zander, Prepared Scout (`T3CIBknts0`) | CHAMPION | 1 | zone-movement, counter, trigger | Zander Pantheon Starter | — |
-| Astromech Attendant (`mloejozihs`) | ALLY | 1 | draw-discard, trigger | Arisanna Pantheon Starter | — |
-| Bathe in Light (`d9zax2g20h`) | ACTION | 1 | damage, recover | Zander Pantheon Starter | — |
-| Beacon Knight (`sucwQ9or0n`) | ALLY | 1 | counter, trigger | Lorraine Pantheon Starter | — |
-| Besieged Slash (`Dkq7QnrGJI`) | ATTACK | 1 | cost, condition | Lorraine Pantheon Starter | — |
-| Bolstering Tempest (`PwHub76Fw4`) | ACTION | 1 | cost, targeting | Lorraine Pantheon Starter | — |
-| Cunning Broker (`oy34bro89w`) | ALLY | 1 | draw-discard, status | Zander Pantheon Starter | — |
+| Rescue the Heir (`t0240ykvj0`) | ACTION | 2 | cost, targeting, zone-movement, condition | — | save-the-heir |
+| Glassgale Flock (`KRNYwHCOVM`) | PHANTASIA | 2 | token, trigger, condition | — | glassgale-flock-pays-two-rests-and-summons-a-memorite-shardwing, glassgale-flock-with-a-shardwing-already-pays-but-summons-nothing |
+| Lesser Boon of Zerusa (`UC9byG4aD5`) | LESSER BOON | 2 | cost, counter, condition | — | lesser-boon-of-zerusa-costs-one-more-each-time-it-is-activated |
+| Baleful Oblation (`oye74ibwo8`) | ACTION | 2 | cost, damage | — | baleful-oblation-ciel-bonus-and-effect |
+| Incarnate Majesty (`7dl5j4lx6x`) | ACTION | 2 | cost, zone-movement | — | incarnate-majesty-banish-spirit |
+| Lesser Boon of Bullets (`UI0lAtGQBb`) | LESSER BOON | 2 | cost, condition | — | lesser-boon-of-bullets-pays-two-and-materializes-a-bullet |
+| VelTech QA Tester (`2XWNCcPN6o`) | ALLY | 2 | cost, trigger | — | veltech-qa-tester-can-be-played-from-hand-and-enters-the-field |
+| Cardiac Vessel (`5xjzPh6l2M`) | UNIQUE,PHANTASIA | 3 | cost, damage, draw-discard, trigger, condition | — | — |
+| Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |
+| Stellarion Shift (`ms2x2v4qe3`) | ACTION | 3 | targeting, damage, prevention, draw-discard, zone-movement, status, condition | — | — |
+| Vengeful Paramour (`4vjkezn49t`) | ALLY | 1 | cost, targeting, damage, trigger, condition | — | rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter |
+| Morgan, Soul Guide (`ka5av43ehj`) | UNIQUE,ALLY | 1 | damage, prevention, recover, condition | — | yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally, yuan-shao-refused-with-only-two-unique-opposing-allies |
+| Rosewinged Hollow (`6S1LLrBfBU`) | ALLY | 1 | targeting, zone-movement, counter, condition | — | rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter |
+| Seaside Rangefinder (`5qyee9vkp8`) | ALLY | 1 | targeting, zone-movement, status, condition | — | seaside-rangefinder-graveyard-ability-pays-two-banishes-itself-and-makes-a-unit-distant, seaside-rangefinder-graveyard-ability-refused-without-the-ranger-class |
+| Steel Slug (`ao8bki6fxx`) | REGALIA,ITEM | 1 | targeting, zone-movement, combat, condition | — | lesser-boon-of-bullets-pays-two-and-materializes-a-bullet |
+| Synthetic Core (`w0y6isxy5l`) | REGALIA,ITEM | 1 | zone-movement, token, trigger, condition | — | synthetic-core-smoke |
+| Escharotomy (`CIU4gT14EE`) | ACTION | 1 | cost, targeting, recover | — | escharotomy-prevents-recover, escharotomy-recover |
+| Fatestone of Progress (`2sn7hlyrkw`) | ITEM | 3 | counter, trigger, condition | — | — |
+| Lesser Boon of Allurement (`JuKoCVIvCG`) | LESSER BOON | 3 | cost, draw-discard, condition | — | — |
+| Restorative Flame (`ek7r2d7uz4`) | ACTION | 1 | damage, recover, zone-movement | — | restorative-flame-banishes-three-fire-cards-one-by-one-and-recovers-six |
+| Aenean Flux Generator (`oCqKBEPemA`) | ITEM | 2 | targeting, damage, draw-discard, trigger | — | — |
+| Gawain, Chivalrous Thief (`du50pcescf`) | UNIQUE,ALLY | 1 | draw-discard, condition | — | plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant, yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally, yuan-shao-refused-with-only-two-unique-opposing-allies |
+| Intricate Longbow (`1a49w5gmf7`) | REGALIA,WEAPON | 1 | combat, condition | — | molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow |
+| Lesser Boon of Rosen (`fJJBJ9M4c4`) | LESSER BOON | 1 | status, token | — | lesser-boon-of-rosen-pays-three-summons-a-powercell-once-only |
+| Molten Arrow (`mvfcd0ukk6`) | ITEM | 1 | targeting, zone-movement | — | molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow |
+| Parcenet, Royal Maid (`xxoo7dl5j4`) | UNIQUE,ALLY | 1 | targeting, status | — | yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally |
+| PlasmaTech Blaster (`PAymR7JsNp`) | ITEM | 1 | status, condition | — | plasmatech-blaster-pays-three-rests-and-makes-the-linked-ranger-distant |
+| Pouvoir Absolu (`OylAWd6Tew`) | ACTION | 1 | zone-movement, counter | — | pouvoir-absolu-banishes-ten-cards-with-omen-counters-and-lets-you-activate-them |
+| Scars of Old (`lD0sK81PZT`) | ACTION | 1 | draw-discard, counter | — | scars-of-old-buff-counters, scars-of-old-draw-discard |
+| Sneaky Raccoon (`jH6F9XYrL5`) | ALLY | 1 | status, condition | — | sneaky-raccoon-stealth |
+| Tabula of Salvage (`9cy4wipw4k`) | REGALIA,ITEM | 1 | targeting, zone-movement | — | tabula-of-salvage-puts-chosen-graveyard-cards-on-the-bottom-of-the-deck |
+| Yuan Shao, Crown General (`x8o84m37ti`) | UNIQUE,ALLY | 1 | targeting, condition | — | yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally, yuan-shao-refused-with-only-two-unique-opposing-allies |
+| Lesser Boon of Rakko (`V8aPGgLyh5`) | LESSER BOON | 1 | draw-discard | — | lesser-boon-of-rakko-pays-three-each-time-and-only-twice |
+| Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
+| Oasis Trading Post (`uy4xippor7`) | DOMAIN | 3 | token | — | — |
+| Recurring Aethercharge (`MG8QoeZBXY`) | ACTION | 1 | unclassified | — | recurring-aethercharge-graveyard-ability-pays-three-and-loads-into-the-aetherwing |
+| Trained Birdroid (`84lj40Kyhv`) | ALLY | 2 | status, combat, trigger | — | — |
+| Quadrille's Gryphon (`84e2rfex54`) | ALLY | 2 | counter, trigger | — | — |
+| Aenean Guttering Flames (`JGQ9LO5DFv`) | PHANTASIA | 2 | cost, damage, draw-discard, trigger, condition | — | — |
+| Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |
+| Cao Cao, Aspirant of Chaos (`d5og6z31q9`) | UNIQUE,ALLY | 2 | cost, damage, zone-movement, status, combat, trigger, condition | — | — |
+| Coiled Fatestone (`ulh4lplwqe`) | ITEM | 2 | damage, draw-discard, counter, trigger, condition | — | — |
+| Combustible Potion (`GPsEkAfDjy`) | ITEM | 2 | cost, targeting, damage, draw-discard, trigger, condition | — | — |
+| Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
+| Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
+| Diffusive Block (`o7eanl1gxr`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
+| Dusklight Communion (`5upufyoz23`) | UNIQUE,PHANTASIA | 2 | cost, targeting, zone-movement, trigger, condition | — | — |
+| Dynasty Chancellor (`do1blsupu0`) | ALLY | 2 | draw-discard, zone-movement, combat, trigger, condition | — | — |
+| Endura, Reimagined (`X7rh3Yi26A`) | REGALIA,ITEM | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | — | — |
+| Gloamspire Prowler (`igpck2z4rs`) | ALLY | 2 | cost, recover, draw-discard, trigger, condition | — | — |

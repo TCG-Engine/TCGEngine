@@ -1,0 +1,22 @@
+{
+    "name": "rhongomiant-spellshroud-own-spell-cannot-target-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:01:57+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "clS3E0HrZL"
+    ],
+    "notes": "Rhongomiant, Grove's Spire (clS3E0HrZL, EXALTED/NORM WARRIOR REGALIA/WEAPON): \"Spellshroud (Objects with spellshroud can't be targeted by spells.)\" -- the first, unconditional keyword; only its two [Mordred Bonus] clauses are conditional. Literal rules reading (comprehensive rules, Keywords > Spellshroud: \"This can't be targeted by spells\"; no \"opponent's\" qualifier, and FilterSpellshroudTargets() is controller-agnostic): the holder's controller's OWN spell cannot target it either. Player 1 plays its own Fracturize on its own turn with Rhongomiant and a Mirrordepth's Blade: only the Blade is offered, answering myField-1 is refused.",
+    "semanticCoverage": {
+        "testedCards": [
+            "clS3E0HrZL"
+        ],
+        "mechanics": [
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "Spellshroud: objects with spellshroud can't be targeted by spells."
+        ]
+    }
+}

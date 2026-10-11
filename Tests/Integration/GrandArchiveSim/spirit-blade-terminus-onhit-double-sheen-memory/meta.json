@@ -1,0 +1,18 @@
+{
+    "name": "Spirit Blade: Terminus's On Hit trigger -- prepared attack doubles Fractured Memories' sheen and moves Terminus to memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T00:00:00+00:00",
+    "createdBy": "Claude",
+    "notes": "A prior fixture (spirit-blade-terminus-prepare, a legacy recorded-game fixture) already exercises Terminus's Prepare 1 cost-payment/activation path, but stops without proving its own On Hit trigger. This fixture is a fresh, minimal DevTools batch fixture isolating that On Hit branch. Terminus's element is CRUX (an advanced element), so the champion is patched directly to Merlin, Brilliant Vestige (2TCyILvBYa, itself CRUX) -- an already-leveled precondition, not retesting that card's own Enter here -- to satisfy the element requirement. A preparation counter is seeded directly onto the champion so the printed 'Prepare 1' additional cost can actually be paid, and Fractured Memories (UAJGQFbXjs) is seeded into myMastery with 3 sheen counters (deliberately below the 4-sheen threshold for Terminus's own +1 POWER/4-sheen static bonus, so the POWER math stays irrelevant to this fixture) so the On Hit 'double the sheen counters' branch has a real amount to double. ATTACK cards can't be activated by the game's first player on turn 1 (CanActivateAttackCardNow/IsFirstTurnAttackLocked in GameLogic.php), so player 1 ends turn 1 first and player 2 plays Terminus on their own turn 1 instead (same shape as thieving-cut-prepare-onhit-draw). Answering YES to 'Pay Prepare 1?' removes the preparation counter and stores wasPrepared=YES; the On Hit macro (onHitAbilities['XsxmnGZxKz:0'] in GeneratedMacroCode.php) reads that variable back and, only because it is YES, calls AddSheenToMastery() (doubling sheen from 3 to 6) and MZMove()s Terminus into myMemory instead of its default post-combat destination. myMemory's final count of 3 (rather than 1) is the 2 cards paid for Terminus's own 2-reserve activation cost plus Terminus itself -- Grand Archive sends spent reserve cards to memory, not the graveyard, which is why that baseline isn't 0.",
+    "testedCards": [
+        "XsxmnGZxKz"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["XsxmnGZxKz"],
+        "mechanics": ["combat", "counter", "condition", "zone-movement"],
+        "rulesClauses": [
+            "Prepare 1 (You may remove a preparation counter from your champion as you activate this card.)",
+            "On Hit: If Terminus was prepared, double the amount of sheen counters on your Fractured Memories and put Terminus into its owner's memory."
+        ]
+    }
+}

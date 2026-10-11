@@ -1,0 +1,18 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "Windrider Vanguard wakes up (Status 1 -> 2) at the beginning of the controller's end phase, purely from Vigor -- no targeted ability touched it."
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "CardID",
+        "value": "JEOxGQppTE"
+    }
+]

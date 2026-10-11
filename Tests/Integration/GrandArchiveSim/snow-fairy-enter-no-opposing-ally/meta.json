@@ -1,0 +1,23 @@
+{
+    "name": "snow-fairy-enter-no-opposing-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:55+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4s0c9XgLg7"
+    ],
+    "notes": "Snow Fairy (4s0c9XgLg7): \"Rest target ally you don't control.\" Player 2 controls only its champion, so there is no legal target: no prompt appears and Snow Fairy simply enters.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4s0c9XgLg7"
+        ],
+        "mechanics": [
+            "trigger",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: Rest target ally you don't control (no legal target when the opponent controls no ally)."
+        ]
+    }
+}

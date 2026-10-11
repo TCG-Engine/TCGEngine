@@ -1,0 +1,21 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "kINobk9KQA",
+        "semantic": true,
+        "label": "Clarent, Reimagined was materialized onto the field even though the banish offer was declined"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myMaterial",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only Clarent, Sword of Peace is left in the material deck (nothing was banished)"
+    }
+]

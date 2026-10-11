@@ -1,0 +1,22 @@
+{
+    "name": "grande-aiguille-with-only-one-ally-omen-has-base-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:19:31+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "6ihv6hbvye"
+    ],
+    "notes": "Ciel Bonus threshold.",
+    "semanticCoverage": {
+        "testedCards": [
+            "6ihv6hbvye"
+        ],
+        "mechanics": [
+            "static-modifier",
+            "omen"
+        ],
+        "rulesClauses": [
+            "two or more ally omens"
+        ]
+    }
+}

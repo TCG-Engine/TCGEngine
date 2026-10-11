@@ -1,0 +1,26 @@
+{
+    "name": "frostsworn-paladin-enter-decline-banish",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:15+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "rpOaAjgtue"
+    ],
+    "notes": "Frostsworn Paladin (rpOaAjgtue): \"On Enter: You may banish a card with floating memory from your graveyard. If you do, draw a card and put a buff counter on CARDNAME.\" Same setup as frostsworn-paladin-enter-banish-floating-draw-buff, but the MZMAYCHOOSE is answered PASS: the graveyard card stays, no card is drawn and no buff counter is placed.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rpOaAjgtue"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "draw-discard",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: You MAY banish a card with floating memory from your graveyard (optional).",
+            "If you don't, no card is drawn and no buff counter is put on Frostsworn Paladin."
+        ]
+    }
+}

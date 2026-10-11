@@ -1,0 +1,17 @@
+{
+    "name": "shriveling-vines-end-phase-two-wither-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T18:40:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Champion patched to Diao Chan, Idyll Corsage (d7l6i5thdy) for IsClassBonusActive([\"CLERIC\"]) (the printed \"[Class Bonus] Costs 2 less\" clause -- not itself asserted here, since the card is seeded directly onto the field rather than cast) and TERA unlock (Shriveling Vines's own element is TERA). Shriveling Vines's trigger logic lives in GrandArchiveSim/Custom/GameLogic.php EndPhase() (~10860, confirmed 0 hits for the card ID in GeneratedMacroCode.php), so the card is seeded directly onto the field via setup rather than scripting its own materialize/cast sequence -- only the field-resident end-phase trigger itself is under test. Two valid non-champion non-token objects are seeded on the opponent's field. A single ending of turn 1 ('myHealth-0!CustomInput!Pass') reaches player 1's own end phase directly (turn 1 needs no opponent PASS or materialize-offer decline first). Because more than 1 valid target exists, the engine queues an MZCHOOSE (\"Put_2_wither_counters_on_opponent_object_(Shriveling_Vines)\"); choosing one applies AddCounters($turnPlayer, $validTargets[0], \"wither\", 2) to it, while the other seeded opponent object is left completely untouched (Counters stays []) -- proving the effect targets exactly the chosen object, not every eligible one.",
+    "testedCards": [
+        "6gt6zkly69"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["6gt6zkly69"],
+        "mechanics": ["counter", "targeting", "trigger"],
+        "rulesClauses": [
+            "At the beginning of your end phase, put two wither counters on target non-champion non-token object you don't control."
+        ]
+    }
+}

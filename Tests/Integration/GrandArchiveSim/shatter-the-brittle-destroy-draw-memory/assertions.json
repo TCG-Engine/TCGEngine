@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "h8n1520m2d",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The targeted Craggy Fatestone is destroyed into its controller's graveyard"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "The target's controller draws a card into memory (2 reserve-paid + 1 from Shatter the Brittle)"
+    }
+]

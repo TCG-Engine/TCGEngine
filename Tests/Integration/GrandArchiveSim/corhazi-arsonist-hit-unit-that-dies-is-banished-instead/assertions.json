@@ -1,0 +1,35 @@
+[
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"DAMAGED_SINCE_LAST_TURN\",\"HIT_BY_0ejcyuvuxn\"]",
+        "semantic": true,
+        "label": "The Dungeon Guide hit by Corhazi Arsonist is marked HIT_BY_0ejcyuvuxn"
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "zone": "theirBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The hit Dungeon Guide, finished off by Ignite the Soul, was banished instead of dying"
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing reached the opponent's graveyard"
+    },
+    {
+        "step": 15,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

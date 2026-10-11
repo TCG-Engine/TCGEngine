@@ -1,0 +1,7 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"4s0c9XgLg7","semantic":true,"label":"Snow Fairy entered the field (played for real, so its On Enter fired)"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-1","property":"Status","value":"1","semantic":true,"label":"The targeted opposing ally is now rested"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"FROZEN_BY_SNOW_FAIRY\"]","semantic":true,"label":"The target carries the freeze marker the wake up phase honours"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-0","property":"Status","value":"2","semantic":true,"label":"The opposing champion (not an ally) is untouched"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

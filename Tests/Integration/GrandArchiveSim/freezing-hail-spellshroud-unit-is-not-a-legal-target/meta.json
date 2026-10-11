@@ -1,0 +1,20 @@
+{
+    "name": "freezing-hail-spellshroud-unit-is-not-a-legal-target",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:07:57+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "SrBA7h2a1N"
+    ],
+    "notes": "Freezing Hail: the opposing Aquamirage Whisper (printed spellshroud) is refused as the target and the Dungeon Guide is chosen instead. The spell builds its target list without its own spellshroud filter; the central filter in OnCardActivated removes the spellshroud unit.",
+    "semanticCoverage": {
+        "testedCards": [
+            "SrBA7h2a1N"
+        ],
+        "mechanics": [
+            "spellshroud",
+            "target-filter"
+        ],
+        "rulesClauses": []
+    }
+}

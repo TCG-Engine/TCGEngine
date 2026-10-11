@@ -1,0 +1,54 @@
+[
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Opponent keeps the champion and the awake ally only"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "The remaining ally is the awake Dungeon Guide (neither rested ally survived)"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "The survivor was awake, so it was never a legal target"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Both rested allies were destroyed"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "Seven reserve payments"
+    },
+    {
+        "step": 10,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

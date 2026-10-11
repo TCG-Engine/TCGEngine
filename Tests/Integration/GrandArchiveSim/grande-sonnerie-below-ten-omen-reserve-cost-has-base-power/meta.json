@@ -1,0 +1,22 @@
+{
+    "name": "grande-sonnerie-below-ten-omen-reserve-cost-has-base-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:19:41+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "s4b2mkh1xm"
+    ],
+    "notes": "Ciel Bonus threshold.",
+    "semanticCoverage": {
+        "testedCards": [
+            "s4b2mkh1xm"
+        ],
+        "mechanics": [
+            "static-modifier",
+            "omen"
+        ],
+        "rulesClauses": [
+            "total reserve cost of your omens is 10 or greater"
+        ]
+    }
+}

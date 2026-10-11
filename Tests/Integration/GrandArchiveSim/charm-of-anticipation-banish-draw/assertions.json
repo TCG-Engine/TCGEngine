@@ -1,0 +1,67 @@
+[
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": 2
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-7",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "CardID",
+        "value": "vkL2RFh0yM",
+        "semantic": true,
+        "label": "Charm of Anticipation is banished as the ability's own cost."
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Player 1's hand grows from 7 to 8, proving the ability's \"Draw a card\" effect resolved."
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1
+    }
+]

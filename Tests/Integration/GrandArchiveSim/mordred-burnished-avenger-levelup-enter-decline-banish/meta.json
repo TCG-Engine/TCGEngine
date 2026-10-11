@@ -1,0 +1,23 @@
+{
+    "name": "mordred-burnished-avenger-levelup-enter-decline-banish",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:30+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "OWCdWq3mXY"
+    ],
+    "notes": "Mordred, Burnished Avenger (OWCdWq3mXY): \"you MAY banish it\". The YES/NO is answered NO: the revealed Striking Tides is not banished (so it carries no activation permission) and ends up in player 1's hand through the normal draw step.",
+    "semanticCoverage": {
+        "testedCards": [
+            "OWCdWq3mXY"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "You MAY banish the revealed attack card (declining leaves it on top of the deck)."
+        ]
+    }
+}

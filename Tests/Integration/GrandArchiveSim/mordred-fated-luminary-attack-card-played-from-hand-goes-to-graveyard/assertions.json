@@ -1,0 +1,7 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"qrxQGA1pc6","semantic":true,"label":"The Striking Tides played from hand is in the graveyard after combat"},
+    {"step":8,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Graveyard holds exactly the attack card"},
+    {"step":8,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":0,"semantic":true,"label":"Nothing was banished: the attack was not ephemeral"},
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"4","semantic":true,"label":"The attack itself resolved for 4"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

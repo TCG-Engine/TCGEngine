@@ -1,0 +1,35 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "CardID",
+        "value": "9ox7u6wzh9",
+        "label": "Varuckan Soulknife entered the field from the material deck",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "label": "The three fire cards left the graveyard",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "label": "... into the banishment",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true
+    }
+]

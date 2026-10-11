@@ -1,0 +1,16 @@
+{
+    "name": "merlin-memorite-vassal-enter-mastery-summon-blade",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T13:54:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6R8XmWoKLn"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["6R8XmWoKLn"],
+        "mechanics": ["cost", "counter", "token", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: You gain the Fractured Memories mastery. Then you may pay (2). If you do, summon a Memorite Blade token."
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "striking-tides-on-hit-requires-mordred-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:02+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qrxQGA1pc6"
+    ],
+    "notes": "Striking Tides (qrxQGA1pc6): the banish/wake clause is a \"[Mordred Bonus]\". With a non-Mordred champion (the plain Spirit of Water) and a March On (an attack card with printed Floating Memory) in the graveyard, the attack hits for 4 but no prompt appears: the graveyard card stays and the champion stays rested.",
+    "semanticCoverage": {
+        "testedCards": [
+            "qrxQGA1pc6"
+        ],
+        "mechanics": [
+            "combat",
+            "trigger",
+            "condition",
+            "status"
+        ],
+        "rulesClauses": [
+            "The On Hit banish/wake clause is a [Mordred Bonus]: no prompt for a non-Mordred champion."
+        ]
+    }
+}

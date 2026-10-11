@@ -1,0 +1,65 @@
+[
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "jnsl7ddcgw",
+        "semantic": true,
+        "label": "The refused click leaves Frost Shard in the graveyard (it is not moved to hand or onto the stack)"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Graveyard unchanged"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Hand still empty: the card was not moved there"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "EffectStack",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was put on the effect stack for the unpayable activation"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 7
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true,
+        "label": "No payment prompts were queued"
+    },
+    {
+        "step": 1,
+        "type": "flash_message_contains",
+        "value": "not enough cards to pay its reserve cost",
+        "semantic": true,
+        "label": "The refusal reason is the unaffordable reserve cost"
+    }
+]

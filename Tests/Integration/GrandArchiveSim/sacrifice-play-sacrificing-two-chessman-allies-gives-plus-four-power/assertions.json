@@ -1,0 +1,26 @@
+[
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 2,
+        "property": "Damage",
+        "value": "6",
+        "semantic": true,
+        "label": "Base 2 POWER +2 for each of the two sacrificed Pawn Pieces = 6 damage to the opposing champion"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Two of the three Pawn Pieces were sacrificed: the champion and the commanded Pawn Piece remain"
+    },
+    {
+        "step": 10,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

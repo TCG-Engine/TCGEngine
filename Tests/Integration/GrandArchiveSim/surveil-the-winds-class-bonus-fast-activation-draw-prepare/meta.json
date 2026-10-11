@@ -1,0 +1,25 @@
+{
+    "name": "surveil-the-winds-class-bonus-fast-activation-draw-prepare",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:17+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "xt6uaz6a7g"
+    ],
+    "notes": "Surveil the Winds (xt6uaz6a7g, WIND slow action, reserve 2): \"[Class Bonus] Fast Activation (You may activate this card at fast speed.) Draw a card, then put a preparation counter on your champion.\" With an ASSASSIN champion (Tristan, Hired Blade) the card is listed in $cbFastActivationCards (Custom/OpportunityLogic.php), so when player 2 plays a Dungeon Guide on its own turn player 1 is offered Surveil in the priority window and plays it for real (2 reserve payments): Draw(1) then AddPrepCounter(). It resolves before the Dungeon Guide's own On Enter prompt, which player 2 then declines.",
+    "semanticCoverage": {
+        "testedCards": [
+            "xt6uaz6a7g"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "counter",
+            "condition",
+            "status"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Fast Activation: you may activate this card at fast speed.",
+            "Draw a card, then put a preparation counter on your champion."
+        ]
+    }
+}

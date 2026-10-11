@@ -1,0 +1,44 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "label": "Player 1 banished two of their three graveyard cards",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "label": "Player 2 banished two of their own three graveyard cards",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "label": "Player 2's two cards went to player 2's banishment",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "label": "Player 1's banishment holds the two banished cards plus Spirit of Purity itself (the Lineage Release cost)",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true
+    }
+]

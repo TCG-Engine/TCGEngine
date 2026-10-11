@@ -1,0 +1,6 @@
+[
+    {"step":13,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":6,"semantic":true,"label":"6 reserve payments in total = 3 for Dauntless Assault + THREE for Luminescent Slash (5 - 2)"},
+    {"step":13,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"12","semantic":true,"label":"4 (Dauntless Assault) + 8 (Luminescent Slash: printed 6 + 2) damage"},
+    {"step":13,"type":"card_property_equals","mzId":"p1Graveyard-1","property":"CardID","value":"y8BNOi4rwD","semantic":true,"label":"Luminescent Slash resolved into the graveyard"},
+    {"step":13,"type":"decision_queue_empty","player":"all"}
+]

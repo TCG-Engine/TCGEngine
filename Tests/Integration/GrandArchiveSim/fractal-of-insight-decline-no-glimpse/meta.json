@@ -1,0 +1,17 @@
+{
+    "name": "fractal-of-insight-decline-no-glimpse",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Negative-path companion to fractal-of-insight-rest-glimpse-2 (same deck/setup, reusing its first four steps). Fractal of Insight (rp5k1vt1cn) is played from hand and its On Enter YESNO ('Rest_Fractal_of_Insight?') is answered NO this time. customDQHandlers['rp5k1vt1cn:0:Enter-1'] (GeneratedMacroCode.php) short-circuits on the else branch: Fractal of Insight is never exhausted (Status stays 2, awake) and Glimpse(2) is never called, so no MZREARRANGE decision is queued at all -- the deck's top card remains px60u5n1do, the same card that was on top before the decision (confirmed via direct probe against this deck/seed), unlike the YES fixture where the top card changes to em6eEh9q8y as a direct result of Glimpse(2) actually running.",
+    "testedCards": [
+        "rp5k1vt1cn"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["rp5k1vt1cn"],
+        "mechanics": ["condition", "trigger"],
+        "rulesClauses": [
+            "On Enter: You may rest CARDNAME. If you do, glimpse 2. (declining leaves CARDNAME awake and skips the glimpse)"
+        ]
+    }
+}

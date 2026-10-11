@@ -1,0 +1,25 @@
+{
+    "name": "drenching-finish-class-bonus-on-kill-opponent-mills-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:03+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "en3DD836cp"
+    ],
+    "notes": "Drenching Finish (en3DD836cp, WATER WARRIOR/SWORD attack, reserve 2, power 2): \"[Class Bonus] On Kill: Target player puts the top three cards of their deck into their graveyard.\" Player 1's champion is Mordred, Burnished Avenger (a WARRIOR, so the Class Bonus holds). On turn 3 Drenching Finish is played for real and aimed at player 2's Training Dummy (2 life): the 2 damage kills it, the On Kill asks for a target player (the champions are offered) and player 2's champion is chosen: exactly three cards move from the top of player 2's deck to player 2's graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "en3DD836cp"
+        ],
+        "mechanics": [
+            "combat",
+            "trigger",
+            "zone-movement",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Kill: Target player puts the top three cards of their deck into their graveyard."
+        ]
+    }
+}

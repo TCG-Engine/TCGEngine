@@ -1,0 +1,29 @@
+{
+    "name": "Capacitance X Psycho can be activated from the material deck in the main phase and enters rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T00:37:25+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "FjklZcbjPV"
+    ],
+    "notes": "Lorraine lineage with six arcane cards banished: clicking Capacitance X Psycho in the material deck puts it onto the field rested. The materialize phase only offers this clause to a player who takes part in the ordinary materialize (declining it skips the offer), so the card is also activatable by clicking it in the material deck during the main phase.",
+    "semanticCoverage": {
+        "testedCards": [
+            "FjklZcbjPV"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition",
+            "status"
+        ],
+        "rulesClauses": [
+            "[Lorraine Bonus] As long as there are six or more arcane element cards in your banishment, you may activate this card from your material deck. If you do, it enters the field rested."
+        ]
+    },
+    "engineBug": {
+        "status": "fixed",
+        "summary": "FIXED. Capacitance X Psycho could only be activated from the material deck through the materialize-phase offer, which a declined ordinary materialize skips; it had no main-phase activation.",
+        "affectedFunction": "Custom/MaterializeLogic.php GAEventideSpearMaterialActivatable/GAVaruckanMaterialActivatable/GACapacitanceMaterialActivatable; Custom/GameLogic.php FSM myMaterial case",
+        "fixCommit": "cd2bf7f3"
+    }
+}

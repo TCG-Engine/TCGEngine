@@ -1,0 +1,52 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myBanish-2",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"KONGMING_NORTH\",\"KONGMING_TURN_2\"]",
+        "semantic": true,
+        "label": "Through the opponent's turn the North card is still tagged as playable"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myBanish-5",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"KONGMING_WEST\",\"KONGMING_TURN_2\"]",
+        "semantic": true,
+        "label": "Through the opponent's turn the West card is still tagged as playable"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myBanish-2",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[]",
+        "semantic": true,
+        "label": "At the beginning of the next turn (the owner's recollection phase) the tag is gone"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myBanish-5",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[]",
+        "semantic": true,
+        "label": "At the beginning of the next turn the West tag is gone"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myBanish-2",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "The card itself stays banished"
+    }
+]

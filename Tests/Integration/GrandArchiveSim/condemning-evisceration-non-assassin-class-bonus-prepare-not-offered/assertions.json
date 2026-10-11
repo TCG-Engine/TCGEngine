@@ -1,0 +1,54 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1}",
+        "label": "Prepare 1 is a [Class Bonus]: a non-Assassin champion is never offered it; counter untouched",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Intent-0",
+        "property": "TurnEffects",
+        "value": "[]",
+        "label": "Not PREPARED",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "CardID",
+        "value": "LMyKyVC2O9",
+        "label": "The champion is Spirit of Fire (class SPIRIT)",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "4",
+        "label": "Only the printed 4 damage",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 2,
+        "value": 0,
+        "label": "No banish offer",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "No Prepare prompt or banish prompt was queued",
+        "semantic": true
+    }
+]

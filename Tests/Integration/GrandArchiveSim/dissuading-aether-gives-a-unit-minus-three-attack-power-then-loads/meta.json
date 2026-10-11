@@ -1,0 +1,23 @@
+{
+    "name": "dissuading-aether-gives-a-unit-minus-three-attack-power-then-loads",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:21:56+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "bx25s7kiln"
+    ],
+    "notes": "Played from hand outside combat (Reaction timing is not exercised).",
+    "semanticCoverage": {
+        "testedCards": [
+            "bx25s7kiln"
+        ],
+        "mechanics": [
+            "debuff",
+            "load",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target unit's attacks get -3 POWER until end of turn. Then you may load Dissuading Aether into an Aetherwing weapon you control."
+        ]
+    }
+}

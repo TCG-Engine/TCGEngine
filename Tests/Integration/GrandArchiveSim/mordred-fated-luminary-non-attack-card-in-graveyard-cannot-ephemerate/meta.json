@@ -1,0 +1,22 @@
+{
+    "name": "mordred-fated-luminary-non-attack-card-in-graveyard-cannot-ephemerate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:19+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "KqBosnU7pU"
+    ],
+    "notes": "Mordred, Fated Luminary (KqBosnU7pU): \"Attack cards in your graveyard have ... Ephemerate\". A Dungeon Guide (an ally) in the graveyard is not an attack card: clicking it does nothing (no payment is requested, it stays in the graveyard).",
+    "semanticCoverage": {
+        "testedCards": [
+            "KqBosnU7pU"
+        ],
+        "mechanics": [
+            "condition",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Only ATTACK cards in the graveyard gain Ephemerate."
+        ]
+    }
+}

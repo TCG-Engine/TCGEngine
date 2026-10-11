@@ -1,0 +1,16 @@
+{
+    "name": "prismspire-scepter-merlin-bonus-enter-sheen-opponent",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T13:54:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mgesApvmwS"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["mgesApvmwS"],
+        "mechanics": ["targeting", "trigger", "condition"],
+        "rulesClauses": [
+            "[Merlin Bonus] On Enter: As a Spell, put two sheen counters on target champion you don't control."
+        ]
+    }
+}

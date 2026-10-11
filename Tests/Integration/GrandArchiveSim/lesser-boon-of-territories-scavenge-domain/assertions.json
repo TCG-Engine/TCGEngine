@@ -1,0 +1,142 @@
+[
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": 2
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "CardID",
+        "value": "ZpM7gliLxm"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "AOMXEGeSQk"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "AOMXEGeSQk"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-2",
+        "property": "CardID",
+        "value": "AOMXEGeSQk"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1TempZone-1",
+        "property": "CardID",
+        "value": "AOMXEGeSQk"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1TempZone-2",
+        "property": "CardID",
+        "value": "AOMXEGeSQk"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1TempZone-3",
+        "property": "CardID",
+        "value": "AOMXEGeSQk"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1TempZone-4",
+        "property": "CardID",
+        "value": "AOMXEGeSQk"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1TempZone-5",
+        "property": "CardID",
+        "value": "AOMXEGeSQk"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1TempZone-6",
+        "property": "CardID",
+        "value": "AOMXEGeSQk"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1TempZone-7",
+        "property": "CardID",
+        "value": "AOMXEGeSQk"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1TempZone-8",
+        "property": "CardID",
+        "value": "AOMXEGeSQk"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Playing Lesser Boon of Territories fires its on-play trigger (playCardAbilities[\"ZpM7gliLxm:0\"]) and adds a scavenged Domain card to hand: after paying its 3 reserve cost hand would sit at 4, but the scavenged card brings it to 5"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3
+    }
+]

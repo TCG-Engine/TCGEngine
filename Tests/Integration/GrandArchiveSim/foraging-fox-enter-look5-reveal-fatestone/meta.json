@@ -1,0 +1,17 @@
+{
+    "name": "foraging-fox-enter-look5-reveal-fatestone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Foraging Fox (b0ssellm84, GeneratedMacroCode.php enterAbilities[\"b0ssellm84:0\"] moves the top 5 deck cards to myTempZone and offers an MZMAYCHOOSE of any FATESTONE candidates found; customDQHandlers[\"b0ssellm84:0:Enter-1\"] moves the chosen card to memory then calls ForagingFoxChooseBottom to return the rest): \"On Enter: Look at the top five cards of your deck. You may reveal a Fatestone card from among them and put it into your memory. Put the rest on the bottom of your deck in any order.\" Foraging Fox is patched into a known hand slot and a Craggy Fatestone is patched into deck position 2 (within the top five) so the fixture doesn't depend on shuffle luck for either. Fox is materialized for real via FSM play (not a raw zone-seed) so its genuine Enter() fires. Verified live: after choosing to reveal the Craggy Fatestone (myTempZone-2) and rearranging the remaining 4 filler cards to the bottom, the Craggy Fatestone is in memory and the deck count returns to 12 (net -1 for the revealed card that left the deck). Break/restore verified: commenting out the MZMove(...,\"myMemory\") call makes the fixture fail (Fatestone never leaves the deck) and restoring it passes again.",
+    "testedCards": [
+        "b0ssellm84"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["b0ssellm84"],
+        "mechanics": ["zone-movement", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: Look at the top five cards of your deck. You may reveal a Fatestone card from among them and put it into your memory. Put the rest on the bottom of your deck in any order."
+        ]
+    }
+}

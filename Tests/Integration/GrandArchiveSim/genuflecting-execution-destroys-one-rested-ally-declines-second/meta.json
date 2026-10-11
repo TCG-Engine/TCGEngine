@@ -1,0 +1,22 @@
+{
+    "name": "genuflecting-execution-destroys-one-rested-ally-declines-second",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:38:05+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "iqzaNLhqk4"
+    ],
+    "notes": "Genuflecting Execution (iqzaNLhqk4): the player destroys one rested ally then declines the optional second target.",
+    "semanticCoverage": {
+        "testedCards": [
+            "iqzaNLhqk4"
+        ],
+        "mechanics": [
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Destroy up to two target rested allies."
+        ]
+    }
+}

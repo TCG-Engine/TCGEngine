@@ -1,0 +1,10 @@
+[
+    {"step":6,"type":"card_property_equals","mzId":"p2Field-0","property":"Counters","value":"{\"preparation\":3}","label":"X can't be 0: answering 0 pays nothing (3 counters still there) and re-asks","semantic":true},
+    {"step":7,"type":"card_property_equals","mzId":"p2Field-0","property":"Counters","value":"{\"preparation\":3}","label":"X can't exceed the champion's 3 preparation counters: answering 9 pays nothing and re-asks","semantic":true},
+    {"step":7,"type":"computed_power_equals","mzId":"p2Intent-0","value":4,"label":"No +X POWER was added by either illegal answer (printed 4)","semantic":true},
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-0","property":"Counters","value":"{\"preparation\":1}","label":"X=2 accepted: 2 counters removed, 1 left","semantic":true},
+    {"step":8,"type":"computed_power_equals","mzId":"p2Intent-0","value":6,"label":"Shadowstrike gets +2 POWER: 4 + 2 = 6","semantic":true},
+    {"step":9,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"6","label":"The attack deals 4 + X = 6 damage","semantic":true},
+    {"step":9,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"0","label":"Prepared => unblockable: Swift Recruit never offered","semantic":true},
+    {"step":9,"type":"decision_queue_empty","player":"all","label":"Nothing pending (no interceptor prompt)","semantic":true}
+]

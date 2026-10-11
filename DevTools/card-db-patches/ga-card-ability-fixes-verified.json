@@ -1,0 +1,22 @@
+{
+  "root": "GrandArchiveSim",
+  "description": "GrandArchiveSim card-ability data fixes already confirmed in generated code (Cleansing Reunion, Strike of Singularity)",
+  "ops": [
+    {
+      "id": "cleansing-reunion-macro",
+      "type": "set-macro",
+      "cardId": "xpnjvt9y59",
+      "fromMacro": "Enter",
+      "toMacro": "CardActivated",
+      "why": "ACTION card authored under 'Enter'; OnCardActivated() only dispatches $cardActivatedAbilities, so the effect never ran."
+    },
+    {
+      "id": "strike-of-singularity-tag",
+      "type": "replace-text",
+      "cardId": "AMv1u54B2s",
+      "from": "soO3hjaVfN_DOUBLE",
+      "to": "AMv1u54B2s_DOUBLE",
+      "why": "OnAttack tagged Rending Flames' card id (copy-paste); the damage-doubling clause read the wrong tag and never fired."
+    }
+  ]
+}

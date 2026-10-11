@@ -1,0 +1,25 @@
+{
+    "name": "condemning-evisceration-prepare-1-declined-no-banish-offer",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "r84E55KBLM"
+    ],
+    "notes": "Condemning Evisceration (r84E55KBLM, EXALTED/WATER ASSASSIN ATTACK, reserve 2, printed power 4): \"[Class Bonus] Prepare 1. On Champion Hit: If Condemning Evisceration was prepared, you may banish a card with floating memory from your graveyard. If you do, deal 4 damage to the hit champion.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with extra lineage cards to unlock the card's element; ATTACK cards cannot be played by the first player on turn 1, so player 1 ends turn 1 and player 2 plays the card with real actions (10002 FSM play, 100 reserve payments / YES-NO answer / attack target). Return to the Archive (Floating Memory) is seeded in player 2's graveyard. Player 2 declines Prepare 1: not prepared, so the On Champion Hit offers no banish at all and deals only the printed 4.",
+    "semanticCoverage": {
+        "testedCards": [
+            "r84E55KBLM"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Prepare 1.",
+            "On Champion Hit: If Condemning Evisceration was prepared, you may banish a card with floating memory from your graveyard."
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "key-slime-pudding-banish-slime-ally-enters-boosted",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:21:19+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "notes": "Key Slime Pudding (4wuq20gvcg, REGALIA/ITEM, memory cost 0): \"Banish CARDNAME: Until end of turn, Slime allies that enter the field under your control enter with an additional buff counter on them.\" Key Slime Pudding is genuinely MATERIALIZED from the material deck at the start of player 1's turn 3 (the setup only adds it to myMaterial); the Slime/ally cards are played from hand with real FSM plays and reserve payments. Happy path: after materializing, passing the BREC window and activating the ability from the main phase (mode 10001 Activate:0), the Banish cost is paid (Pudding moves to the banishment zone, off the field) and the per-player global effect is set; Red Slime (a plain Slime ally, reserve 3) is then played for real and enters with exactly one buff counter (it prints none). Before the activation no such effect exists. FIXED ENGINE BUG context: the ability used to be filed under $cardActivatedAbilities with a 0 ability count, so it was never offered and the click silently did nothing (see key-slime-pudding-banish-offered-in-opportunity-window).",
+    "testedCards": [
+        "4wuq20gvcg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4wuq20gvcg"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Until end of turn, Slime allies that enter the field under your control enter with an additional buff counter on them."
+        ]
+    }
+}

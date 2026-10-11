@@ -1,0 +1,25 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "One card went to the bottom of the deck and one was drawn into memory: memory is back to 3 (the Capacitance itself entered memory when paid)"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 13,
+        "semantic": true,
+        "label": "The deck is back to its starting size: one card on the bottom, one drawn"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

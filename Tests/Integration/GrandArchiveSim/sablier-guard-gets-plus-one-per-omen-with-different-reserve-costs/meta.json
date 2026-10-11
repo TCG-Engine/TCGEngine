@@ -1,0 +1,22 @@
+{
+    "name": "sablier-guard-gets-plus-one-per-omen-with-different-reserve-costs",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:19:43+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "tu7jvjf2gh"
+    ],
+    "notes": "Sablier Guard counts omens by distinct reserve cost.",
+    "semanticCoverage": {
+        "testedCards": [
+            "tu7jvjf2gh"
+        ],
+        "mechanics": [
+            "static-modifier",
+            "omen"
+        ],
+        "rulesClauses": [
+            "Sablier Guard gets +1 POWER and +1 LIFE for each omen you have with different reserve costs."
+        ]
+    }
+}

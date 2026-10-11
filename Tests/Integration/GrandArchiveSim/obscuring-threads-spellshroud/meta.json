@@ -1,0 +1,17 @@
+{
+    "name": "obscuring-threads-spellshroud",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Obscuring Threads (ff8jchay4s, GeneratedMacroCode.php cardActivatedAbilities[\"ff8jchay4s:0\"] builds the MZMAYCHOOSE target list of FATESTONE/FATEBOUND objects on either field; customDQHandlers[\"ff8jchay4s:0:CardActivated-1\"] calls AddTurnEffect($chosen, \"SPELLSHROUD\")): \"Up to one target Fatestone or Fatebound object gains spellshroud until end of turn.\" A Craggy Fatestone item is seeded onto the field as the target. Verified live: the target's TurnEffects goes from [\"ENTERED_THIS_TURN\"] to [\"ENTERED_THIS_TURN\",\"SPELLSHROUD\"]. Break/restore verified: commenting out the AddTurnEffect() call makes the fixture fail (no SPELLSHROUD applied) and restoring it passes again. (Floating Memory is a separate reusable keyword mechanic already covered by other fixtures and not re-verified here.)",
+    "testedCards": [
+        "ff8jchay4s"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ff8jchay4s"],
+        "mechanics": ["targeting", "status"],
+        "rulesClauses": [
+            "Up to one target Fatestone or Fatebound object gains spellshroud until end of turn."
+        ]
+    }
+}

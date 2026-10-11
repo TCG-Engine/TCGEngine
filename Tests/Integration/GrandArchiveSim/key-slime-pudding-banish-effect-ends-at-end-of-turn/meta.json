@@ -1,0 +1,22 @@
+{
+    "name": "key-slime-pudding-banish-effect-ends-at-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:13:40+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "notes": "Key Slime Pudding (4wuq20gvcg, REGALIA/ITEM, memory cost 0): \"Banish CARDNAME: Until end of turn, Slime allies that enter the field under your control enter with an additional buff counter on them.\" Key Slime Pudding is genuinely MATERIALIZED from the material deck at the start of player 1's turn 3 (the setup only adds it to myMaterial); the Slime/ally cards are played from hand with real FSM plays and reserve payments. \"Until end of turn\" boundary: after the main-phase Banish activation the extra-buff global effect exists, and once player 1 ends the turn (player 2's turn begins) it is gone from player 1's global effects, so Slime allies entering on later turns get no extra counter. (Proved through the global-effect zone; the counter-on-enter consumer is covered by key-slime-pudding-banish-slime-ally-enters-boosted.)",
+    "testedCards": [
+        "4wuq20gvcg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4wuq20gvcg"
+        ],
+        "mechanics": [
+            "condition",
+            "status"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Until end of turn, Slime allies that enter the field under your control enter with an additional buff counter on them."
+        ]
+    }
+}

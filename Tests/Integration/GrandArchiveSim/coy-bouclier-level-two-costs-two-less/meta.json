@@ -1,0 +1,20 @@
+{
+    "name": "coy-bouclier-level-two-costs-two-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:12:11+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "vo1qr9bkme"
+    ],
+    "notes": "Coy Bouclier at champion level 2: costs 2 less (3 reserve payments instead of 5).",
+    "semanticCoverage": {
+        "testedCards": [
+            "vo1qr9bkme"
+        ],
+        "mechanics": [
+            "cost-modification",
+            "level-gate"
+        ],
+        "rulesClauses": []
+    }
+}

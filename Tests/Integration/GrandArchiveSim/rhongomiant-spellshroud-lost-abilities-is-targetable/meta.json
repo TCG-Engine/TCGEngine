@@ -1,0 +1,22 @@
+{
+    "name": "rhongomiant-spellshroud-lost-abilities-is-targetable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:01:59+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "clS3E0HrZL"
+    ],
+    "notes": "Rhongomiant, Grove's Spire (clS3E0HrZL, EXALTED/NORM WARRIOR REGALIA/WEAPON): \"Spellshroud (Objects with spellshroud can't be targeted by spells.)\" -- the first, unconditional keyword; only its two [Mordred Bonus] clauses are conditional. Condition boundary: Spellshroud is a printed ability, so a Rhongomiant that has lost all abilities (NO_ABILITIES override, seeded in setup rather than produced by a real effect -- only indirect proof of the real loses-all-abilities path) is targetable again: player 2's Fracturize offers theirField-1 and choosing it succeeds.",
+    "semanticCoverage": {
+        "testedCards": [
+            "clS3E0HrZL"
+        ],
+        "mechanics": [
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "An object that loses all abilities loses Spellshroud and can be targeted by spells."
+        ]
+    }
+}

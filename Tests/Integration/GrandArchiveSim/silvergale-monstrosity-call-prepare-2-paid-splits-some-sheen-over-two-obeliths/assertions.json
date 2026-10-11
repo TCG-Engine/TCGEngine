@@ -1,0 +1,37 @@
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 2,
+        "property": "Counters",
+        "value": "{\"sheen\":1}",
+        "semantic": true,
+        "label": "The existing Obelith received 1 sheen"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "myField-2",
+        "viewerPlayerID": 2,
+        "property": "Counters",
+        "value": "{\"sheen\":3}",
+        "semantic": true,
+        "label": "The summoned Obelith received 3 sheen"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "myMastery-0",
+        "viewerPlayerID": 2,
+        "property": "Counters",
+        "value": "{\"sheen\":1}",
+        "semantic": true,
+        "label": "The remaining sheen stays on Fractured Memories (\"any amount\")"
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

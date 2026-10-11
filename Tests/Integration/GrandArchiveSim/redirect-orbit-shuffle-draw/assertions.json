@@ -1,0 +1,9 @@
+[
+    {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":5,"semantic":true,"label":"Before choosing a card, hand still holds its pre-shuffle count"},
+    {"step":3,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"Before choosing a card, deck still holds its original count"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":4,"semantic":true,"label":"Choosing a hand card removes it from hand"},
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":6,"semantic":true,"label":"The chosen card is shuffled into the deck (deck grows by one)"},
+    {"step":5,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"Declining ends the loop: exactly one card (the count chosen) is drawn back out of the deck"},
+    {"step":5,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"The drawn card lands in MEMORY, not hand -- hand count stays at 4 while memory grows by exactly one"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":4,"semantic":true,"label":"Hand is unaffected by the final draw -- it goes to memory, not hand"}
+]

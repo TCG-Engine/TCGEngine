@@ -1,0 +1,23 @@
+{
+    "name": "gloamspire-headhunter-on-ally-hit-pay-three-saves-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:08+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "r278evrcdz"
+    ],
+    "notes": "Gloamspire Headhunter (r278evrcdz, UMBRA ALLY, ASSASSIN/AUTOMATON, Stealth): \"[Class Bonus] On Ally Hit: Destroy the hit ally unless its controller pays (3).\" Player 2's champion is patched to Tristan, Hired Blade (ASSASSIN) for the Class Bonus; a Headhunter is seeded on its field (already on the field, as Stealth and the on-hit trigger need no enter event) and attacks player 1's Dungeon Guide on player 2's turn (player 1 declines retaliation). onHitAbilities['r278evrcdz:0'] -> GloamspireHeadhunterOnHit() asks the HIT ally's controller (player 1, who has 7+ cards) whether to pay (3). Answering YES queues three ReserveCard payments from player 1's hand (cards move to memory) and the hit Dungeon Guide is NOT destroyed.",
+    "semanticCoverage": {
+        "testedCards": [
+            "r278evrcdz"
+        ],
+        "mechanics": [
+            "combat",
+            "condition",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Ally Hit: Destroy the hit ally unless its controller pays (3)."
+        ]
+    }
+}

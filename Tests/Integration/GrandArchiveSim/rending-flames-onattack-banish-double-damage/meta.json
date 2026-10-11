@@ -1,0 +1,16 @@
+{
+    "name": "rending-flames-onattack-banish-double-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T18:56:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "soO3hjaVfN"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["soO3hjaVfN"],
+        "mechanics": ["damage", "zone-movement", "combat", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may banish three fire element cards from your graveyard. If you do, CARDNAME gains \"If this attack would deal damage, it deals double that damage instead.\""
+        ]
+    }
+}

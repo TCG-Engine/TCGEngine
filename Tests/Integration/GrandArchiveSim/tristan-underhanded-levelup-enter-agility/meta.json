@@ -1,0 +1,23 @@
+{
+    "name": "tristan-underhanded-levelup-enter-agility",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:20+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "bjlwabipl6"
+    ],
+    "notes": "Tristan, Underhanded (bjlwabipl6): \"On Enter: You may put a preparation counter on Tristan. If you don't, you gain agility 3 for this turn.\" Same real level-up as tristan-underhanded-levelup-enter-prep-counter, but the YES/NO is answered NO: GainAgility($player, 3) adds the AGILITY_3 global effect (the beginning-of-end-phase memory-return itself is the shared agility mechanism, already covered by nimble-court-assassin-enter-agility) and no preparation counter is put on Tristan.",
+    "semanticCoverage": {
+        "testedCards": [
+            "bjlwabipl6"
+        ],
+        "mechanics": [
+            "trigger",
+            "status",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: If you do not put a preparation counter on Tristan, you gain agility 3 for this turn."
+        ]
+    }
+}

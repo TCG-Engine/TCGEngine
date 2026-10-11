@@ -1,0 +1,27 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "x8bd7ozuj6",
+        "semantic": true,
+        "label": "The champion levelled up into Vanitas, Obliviate Schemer"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "The four enlighten counters were removed (pre-fix the champion levelled up for free)"
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

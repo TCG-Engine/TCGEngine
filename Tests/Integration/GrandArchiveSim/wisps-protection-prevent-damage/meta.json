@@ -1,0 +1,22 @@
+{
+    "name": "wisps-protection-prevent-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T23:35:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OmWFVRUr8I"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OmWFVRUr8I"
+        ],
+        "mechanics": [
+            "targeting",
+            "damage",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "Prevent the next 4+X damage that would be dealt to target unit this turn, where X is the amount of regalia on the field."
+        ]
+    }
+}

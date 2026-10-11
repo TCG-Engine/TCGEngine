@@ -1,0 +1,34 @@
+[
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 3,
+        "semantic": true,
+        "label": "Declined: both fire cards stay in the graveyard (plus the resolved Smashing Force)"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 2,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was banished"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 2,
+        "value": 3,
+        "semantic": true,
+        "label": "Player 1's champion, Scepter and Forest Cake are all untouched"
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {"step":7,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only Ignition Draw itself is in the graveyard"},
+    {"step":7,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Exactly the chosen Aethercharge cards are banished (1)"},
+    {"step":7,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"No looked-at card is left stranded in the temp zone"},
+    {"step":7,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":18,"semantic":true,"label":"Deck size: 19 minus the banished cards"},
+    {"step":7,"type":"card_property_equals","mzId":"myBanish-0","viewerPlayerID":1,"property":"CardID","value":"ra9950o14t","semantic":true,"label":"Banished card #1 is the chosen Aethercharge"},
+    {"step":7,"type":"card_property_equals","mzId":"myDeck-13","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom-of-deck slot 1 of 5 holds the card in the order chosen on the rearrange prompt"},
+    {"step":7,"type":"card_property_equals","mzId":"myDeck-14","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom-of-deck slot 2 of 5 holds the card in the order chosen on the rearrange prompt"},
+    {"step":7,"type":"card_property_equals","mzId":"myDeck-15","viewerPlayerID":1,"property":"CardID","value":"0w5bp5nuae","semantic":true,"label":"Bottom-of-deck slot 3 of 5 holds the card in the order chosen on the rearrange prompt"},
+    {"step":7,"type":"card_property_equals","mzId":"myDeck-16","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom-of-deck slot 4 of 5 holds the card in the order chosen on the rearrange prompt"},
+    {"step":7,"type":"card_property_equals","mzId":"myDeck-17","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom-of-deck slot 5 of 5 holds the card in the order chosen on the rearrange prompt"},
+    {"step":7,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":4,"semantic":true,"label":"Hand after playing Ignition Draw and paying 3 reserve"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

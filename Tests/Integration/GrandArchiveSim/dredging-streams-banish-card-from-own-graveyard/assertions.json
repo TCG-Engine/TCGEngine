@@ -1,0 +1,8 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Banish-0","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The targeted card from player 1's own graveyard was banished"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"wmt0x5zado","semantic":true,"label":"Dredging Streams itself resolved into the graveyard (the target left it)"},
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Player 1's graveyard holds only the resolved Dredging Streams"},
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":2,"value":1,"semantic":true,"label":"The opponent's graveyard card was not touched"},
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"Exactly the 2 reserve payments went to memory"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

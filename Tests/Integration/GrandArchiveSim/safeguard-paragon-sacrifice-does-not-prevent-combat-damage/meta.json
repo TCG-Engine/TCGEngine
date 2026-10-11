@@ -1,0 +1,24 @@
+{
+    "name": "safeguard-paragon-sacrifice-does-not-prevent-combat-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:28+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "apu7wiw3cl"
+    ],
+    "notes": "Safeguard Paragon (apu7wiw3cl): \"Prevent the next 4 NON-COMBAT damage\". Player 2's Dungeon Guide attacks player 1's champion on player 2's turn; in the attack's priority window player 1 sacrifices the Paragon (every unit gets the PREVENT_NONCOMBAT_4 shield) but the 1 combat damage is not prevented: the champion takes it and keeps the whole shield.",
+    "semanticCoverage": {
+        "testedCards": [
+            "apu7wiw3cl"
+        ],
+        "mechanics": [
+            "prevention",
+            "damage",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "The prevention applies to NON-COMBAT damage only: combat damage is still dealt."
+        ]
+    }
+}

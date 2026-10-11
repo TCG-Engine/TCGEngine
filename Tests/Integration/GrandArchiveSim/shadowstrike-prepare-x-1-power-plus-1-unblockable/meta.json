@@ -1,0 +1,27 @@
+{
+    "name": "shadowstrike-prepare-x-1-power-plus-1-unblockable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:18:56+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "o191zv86la"
+    ],
+    "notes": "Shadowstrike (o191zv86la, UMBRA ATTACK, reserve 2, printed power 4): \"Prepare X. X can't be 0. Shadowstrike gets +X POWER. [Class Bonus] If Shadowstrike was prepared, it has unblockable.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA); player 1 controls a Swift Recruit (Intercept) so blockability is observable. Shadowstrike is played for real (10002 FSM play + two reserve payments, 100 answers) and attacks player 1's champion. Champion has 3 preparation counters; Prepare X with X=1 (lower boundary): exactly 1 counter removed (2 left), POWER 4+1=5, 5 damage, still PREPARED so unblockable. Fixed in Custom/GeneratedAbilityOverrides.php: a hand-authored $cardActivatedAbilities['o191zv86la:0'] queues a YES/NO 'Pay Prepare X?' then (on YES) a NUMBERCHOOSE for X in 1..preparation counters, removes X counters, sets wasPrepared=YES (GA_TagPreparedAttack then tags the intent PREPARED) and adds the 'o191zv86la_POWER_<X>' TurnEffect that ObjectCurrentPower() already read.",
+    "semanticCoverage": {
+        "testedCards": [
+            "o191zv86la"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition",
+            "power"
+        ],
+        "rulesClauses": [
+            "Prepare X. X can't be 0.",
+            "Shadowstrike gets +X POWER.",
+            "[Class Bonus] If Shadowstrike was prepared, it has unblockable."
+        ]
+    }
+}

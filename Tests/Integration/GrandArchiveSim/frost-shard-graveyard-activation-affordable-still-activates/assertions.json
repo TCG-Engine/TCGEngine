@@ -1,0 +1,56 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Both payers were spent on the reserve cost 2"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Two cards were reserved"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "jnsl7ddcgw",
+        "semantic": true,
+        "label": "Frost Shard resolved and was banished: the affordable graveyard activation is not refused"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "EffectStack",
+        "viewerPlayerID": 1,
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "Frost Shard dealt its 2 damage to the opposing champion"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

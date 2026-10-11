@@ -1,0 +1,5 @@
+[
+    {"step":6,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"semantic":true,"label":"Hand: 7 - 1 shuffled away + 1 drawn (declining the 2nd offer still draws for the 1 card shuffled)","value":7},
+    {"step":6,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"Deck: 5 + 1 shuffled in - 1 drawn = 5"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

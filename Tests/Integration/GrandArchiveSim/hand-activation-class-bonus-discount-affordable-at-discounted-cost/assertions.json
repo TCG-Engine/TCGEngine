@@ -1,0 +1,52 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Both payers were spent: the activation cost the discounted 2, not the printed 3"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Exactly two cards were reserved (the Class Bonus discount applied)"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "EffectStack",
+        "viewerPlayerID": 1,
+        "value": 0
+    },
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "yhu0djqlp8",
+        "semantic": true,
+        "label": "Lead with Force resolved to the graveyard: the discounted activation was not refused"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 8
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

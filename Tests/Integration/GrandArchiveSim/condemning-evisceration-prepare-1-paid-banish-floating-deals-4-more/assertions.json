@@ -1,0 +1,72 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1}",
+        "label": "Prepare 1 is only a pending YES/NO",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "[]",
+        "label": "Prepare 1 paid",
+        "semantic": true
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Intent-0",
+        "property": "TurnEffects",
+        "value": "[\"PREPARED\"]",
+        "label": "Tagged PREPARED",
+        "semantic": true
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "4",
+        "label": "Combat damage 4 dealt; the optional banish offer is pending",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "8",
+        "label": "Banished a floating-memory card: 4 more damage (8 total)",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "CardID",
+        "value": "aIbBhTilEN",
+        "label": "Return to the Archive was banished from the graveyard",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "label": "Only Condemning Evisceration itself remains in the graveyard",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "Nothing pending",
+        "semantic": true
+    }
+]

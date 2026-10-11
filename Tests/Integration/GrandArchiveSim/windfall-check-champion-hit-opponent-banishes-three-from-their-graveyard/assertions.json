@@ -1,0 +1,26 @@
+[
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "label": "The opponent banished three of their four graveyard cards",
+        "semantic": true
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 2,
+        "value": 3,
+        "label": "... into their own banishment",
+        "semantic": true
+    },
+    {
+        "step": 12,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true
+    }
+]

@@ -1,0 +1,54 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":3}",
+        "label": "Declined: all 3 counters remain",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Intent-0",
+        "property": "TurnEffects",
+        "value": "[]",
+        "label": "Not PREPARED",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "21",
+        "label": "16 + 5 = 21 damage counters, but the champion survives: Final Stroke was not prepared",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "CardID",
+        "value": "zhh43i1eaa",
+        "label": "The champion is still on the field",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "label": "Nothing was destroyed",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "Nothing pending",
+        "semantic": true
+    }
+]

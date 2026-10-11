@@ -1,0 +1,19 @@
+{
+    "name": "acquiescing-rejection-draw-two-not-negated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T19:31:58+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Acquiescing Rejection's activated ability (cardActivatedAbilities[\"qwtprd5b5r:0\"], GeneratedMacroCode.php) calls QueueNegateActivation($player, [\"excludeController\" => $player], \"banish\", -1, \"NegateActivationDrawChoice\") -- the excludeController filter means it can only ever target an activation it does not control, so player 1 activates Escharotomy (CIU4gT14EE, FIRE, reserve 1) as the bait (player 1's champion Subcards patched with Spirit of Fire, LMyKyVC2O9, for FIRE access). Player 2 controls Acquiescing Rejection and takes the resulting fast-opportunity window instead of passing (same shape as incapacitate-negate-action-activation). Its own reserve cost (printed 4) is reduced to 3 by [Class Bonus] (ClassBonusActivateCostReduction, GameLogic.php ~18624, gated on IsClassBonusActive($player, [\"CLERIC\"])) -- since the engine's starting-champion selection always prefers a level-0 Material champion (GetStartingChampionChoices, GameLogic.php ~1042), Diao Chan, Enchantress (CLERIC) never lands on myField-0 by itself and is instead seeded directly as a second field object purely as the Class Bonus source (same technique as other Class-Bonus-source seeds elsewhere in this file). customDQHandlers[\"NegateActivationDrawChoice\"] (OpportunityLogic.php ~538) asks Escharotomy's controller (player 1) 'Let opponent draw two to prevent negate?'; answering YES runs Draw($negatingPlayer=2, 2) and skips NegateCardActivation entirely, so Escharotomy stays on the effect stack and resolves its own 'Target player cannot recover' ability normally afterward (observed via the CANT_RECOVER global effect and Escharotomy landing in graveyard, not banish).",
+    "testedCards": [
+        "qwtprd5b5r"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qwtprd5b5r"],
+        "mechanics": ["targeting", "cost", "draw-discard", "condition", "counter"],
+        "rulesClauses": [
+            "[Class Bonus] Costs 1 less.",
+            "Negate target card activation you don't control unless its controller has you draw two cards.",
+            "Banish the card that had its activation negated this way. (negative branch only -- not negated here)"
+        ]
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:19:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "k8bwlx70qj",
+        "u73yv2nbvj",
+        "tf5f2n38g0"
+    ],
+    "notes": "Genbu, Black Tortoise (both printings) and Seiryuu, Azure Dragon (tf5f2n38g0): regression pin -- the pre-existing Spellshroud holders still block spells. Genbu, Black Tortoise (both printings) and Seiryuu, Azure Dragon (tf5f2n38g0) (k8bwlx70qj, u73yv2nbvj, tf5f2n38g0): \"**Spellshroud**, **Taunt**\" -- these are in HasSpellshroud()'s hard-coded ID list (Custom/GameLogic.php), unchanged by the printed-Spellshroud sweep fix; this fixture pins that their behaviour is identical: player 2 controls the holder(s) plus a Dungeon Guide; player 1 plays Liturgy of Corruption (\"Put a buff counter on target ally ...\", a NORM Spell): the target prompt offers ONLY the Dungeon Guide, each holder answer is refused (expectFailure) and the legal answer resolves.",
+    "semanticCoverage": {
+        "testedCards": [
+            "k8bwlx70qj",
+            "u73yv2nbvj",
+            "tf5f2n38g0"
+        ],
+        "mechanics": [
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "Spellshroud: objects with spellshroud can't be targeted by spells."
+        ]
+    }
+}

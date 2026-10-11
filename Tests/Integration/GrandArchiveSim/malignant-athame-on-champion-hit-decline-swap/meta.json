@@ -1,0 +1,25 @@
+{
+    "name": "malignant-athame-on-champion-hit-decline-swap",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:12+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "0dr40tfllk"
+    ],
+    "notes": "Malignant Athame (0dr40tfllk, UMBRA REGALIA/WEAPON, power 1, durability 2): \"[Class Bonus] On Champion Hit: You may have that opponent swap the cards in their hand and memory. Then if there are four or more cards in their memory, deal 2 unpreventable damage to the hit champion.\" The champion is patched to Tristan, Shadowdancer (ASSASSIN, UMBRA); the Athame is materialized for real in the materialize phase, then the champion attacks with it (champion attack -> choose the Athame as the weapon -> target the opposing champion), so onHitAbilities['0dr40tfllk:0'] -> MalignantAthameOnHit() fires for real and asks YES/NO. The opponent holds 8 cards in hand and 0 in memory when hit. Answering NO keeps the opponent's 8 cards in hand and 0 in memory, and since memory has fewer than four cards the follow-up 2 unpreventable damage does not happen: only the 1 combat damage lands.",
+    "semanticCoverage": {
+        "testedCards": [
+            "0dr40tfllk"
+        ],
+        "mechanics": [
+            "trigger",
+            "condition",
+            "damage",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "You may have that opponent swap the cards in their hand and memory (declined).",
+            "Then if there are four or more cards in their memory, deal 2 unpreventable damage (not satisfied)."
+        ]
+    }
+}

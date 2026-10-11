@@ -1,0 +1,44 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "1",
+        "label": "Charge the Soul, activated from the graveyard, dealt 1 damage",
+        "semantic": true
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "label": "Manabolt's 2 and Charge the Soul's 1 reserve payments went into memory",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "label": "Both spells rest in the graveyard again",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "1",
+        "label": "A second click is refused: the permission was spent",
+        "semantic": true
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true
+    }
+]

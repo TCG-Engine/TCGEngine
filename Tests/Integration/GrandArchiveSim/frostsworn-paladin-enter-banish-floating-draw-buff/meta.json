@@ -1,0 +1,26 @@
+{
+    "name": "frostsworn-paladin-enter-banish-floating-draw-buff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:14+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "rpOaAjgtue"
+    ],
+    "notes": "Frostsworn Paladin (rpOaAjgtue, WATER ALLY, reserve 3): \"Intercept. On Enter: You may banish a card with floating memory from your graveyard. If you do, draw a card and put a buff counter on Frostsworn Paladin.\" The champion is patched to Mordred, Flawless Blade (level 2; its static ability gives attack cards in the graveyard floating memory) and a Striking Tides (an attack card) is seeded in the graveyard. The Paladin is played from hand for real (3 reserve payments), so enterAbilities[\"rpOaAjgtue:0\"] fires: the graveyard attack card is offered, banished, a card is drawn and the Paladin gets exactly one buff counter.",
+    "semanticCoverage": {
+        "testedCards": [
+            "rpOaAjgtue"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "draw-discard",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: You may banish a card with floating memory from your graveyard.",
+            "If you do, draw a card and put a buff counter on Frostsworn Paladin."
+        ]
+    }
+}

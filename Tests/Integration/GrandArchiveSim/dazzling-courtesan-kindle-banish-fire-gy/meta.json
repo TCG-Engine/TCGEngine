@@ -1,0 +1,21 @@
+{
+    "name": "dazzling-courtesan-kindle-banish-fire-gy",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T19:16:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "znk6g5o8ys"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "znk6g5o8ys"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Kindle 3 (You may banish up to three fire element cards from your graveyard as you activate this card. Each one pays for (1) of this card's cost.)"
+        ]
+    }
+}

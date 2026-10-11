@@ -1,0 +1,4 @@
+[
+    {"step":4,"type":"decision_queue_empty","player":"all"},
+    {"step":4,"type":"card_property_equals","mzId":"p2Intent-0","property":"CardID","value":"Dkq7QnrGJI","semantic":true,"label":"[Class Bonus] Besieged Slash costs 2 less to activate when the opponent controls 3+ units (activationCostModifierAbilities[\"Dkq7QnrGJI:0\"]) -- only 1 rep of the reserve decision was needed (not 3) before the mandatory attack-card target selection succeeded"}
+]

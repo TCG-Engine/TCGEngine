@@ -1,0 +1,24 @@
+{
+    "name": "flawless-spirit-of-mordred-enter-draw-seven-glimpse-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:24+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "cXEI5vo6iG"
+    ],
+    "notes": "Flawless Spirit of Mordred (cXEI5vo6iG, CHAMPION level 0, WATER SPIRIT): \"On Enter: Draw seven cards, then glimpse 4.\" Both players start with it as their champion, so the enter fires for each at game start. Player 1's Enter (draw 7 + glimpse prompt) is already resolved when the fixture starts; player 2's Enter fires FOR REAL during the replay once player 1 has answered its glimpse (the pregame hand-off in PREGAME_RESOLVE_STARTING_CHAMPION_ENTER): player 2 draws exactly seven cards and is asked to glimpse 4 (arrange the top four cards). Answering with two cards on top and two on the bottom (a Dungeon Guide and a Fairy Whispers on top, two Fairy Whispers at the bottom) reorders player 2's deck accordingly.",
+    "semanticCoverage": {
+        "testedCards": [
+            "cXEI5vo6iG"
+        ],
+        "mechanics": [
+            "trigger",
+            "draw-discard",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "On Enter: Draw seven cards.",
+            "Then glimpse 4: look at the top four cards and put them back on the top or bottom in any order."
+        ]
+    }
+}

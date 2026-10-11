@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"bjlwabipl6","semantic":true,"label":"The real level-up into Tristan, Underhanded completed"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"{\"preparation\":1}","semantic":true,"label":"Answering YES puts exactly one preparation counter on Tristan"},
+    {"step":4,"type":"card_property_equals","mzId":"p1GlobalEffects-1","property":"CardID","value":"","semantic":true,"label":"No AGILITY_3 global effect exists (only the LEVELED_UP_THIS_TURN bookkeeping effect at index 0): the \"if you do not\" branch was not taken"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,11 @@
+[
+    {"step":2,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"2","semantic":true,"label":"Clicking a banished Seething Intercession card when the activation is legal deals the 2 unpreventable damage additional cost to the activator's champion"},
+    {"step":2,"type":"zone_count","zone":"myBanish","viewerPlayerID":2,"value":0,"semantic":true,"label":"The card left banishment for the effect stack"},
+    {"step":2,"type":"zone_count","zone":"EffectStack","viewerPlayerID":2,"value":1,"semantic":true,"label":"The activation is on the effect stack"},
+    {"step":5,"type":"zone_count","zone":"myMemory","viewerPlayerID":2,"value":3},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":2,"value":5},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"4","semantic":true,"label":"The legally activated banished Striking Tides resolves and deals its 4 damage"},
+    {"step":6,"type":"card_exists","zone":"myGraveyard","cardID":"qrxQGA1pc6","viewerPlayerID":2,"semantic":true,"label":"The resolved card ends in the graveyard"},
+    {"step":6,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"2"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

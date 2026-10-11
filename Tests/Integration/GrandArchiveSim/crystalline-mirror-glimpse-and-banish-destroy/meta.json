@@ -1,0 +1,18 @@
+{
+    "name": "crystalline-mirror-glimpse-and-banish-destroy",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T19:39:46+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Crystalline Mirror (9agwj4f15j, REGALIA/ITEM, CLERIC): (1) 'Whenever a phantasia enters the field under your control, glimpse 1' lives directly in FieldAfterAdd (Custom/GameLogic.php ~8613-8623) and fires synchronously for any field-add while Crystalline Mirror is out, no Class Bonus needed. Two Hydrating Fractals (LAfJuHgUbm, WATER PHANTASIA, no On Enter/passive text) are seeded onto the field BEFORE Crystalline Mirror so their entry doesn't trigger it; a third is played from hand AFTER Crystalline Mirror is out, which is the real, observable trigger event this fixture proves -- its Glimpse 1 MZREARRANGE response deliberately sends the glimpsed card to the BOTTOM (not a Top no-op) so the resulting deck reorder (myDeck-0 changes, myDeck-12 gets the moved card) is an unambiguous, distinguishing signal that the trigger actually ran. (2) '[Class Bonus] Banish CARDNAME: Destroy target item with memory cost 0 or reserve cost 3 or less. Activate only if you control 3+ phantasias' is activateAbilityAbilities['9agwj4f15j:0'] (GeneratedMacroCode.php:2516) gated by activateAbilityPrereqs['9agwj4f15j:0'] (IsClassBonusActive(CLERIC) && count(phantasias)>=3, :2537). Its own 'Banish self' cost (ActivatedAbilityCost's '9agwj4f15j' case, GameLogic.php ~6290-6324) runs before the ability body (comment: 'Pay non-reserve costs...before the opponent gets priority'), so Crystalline Mirror is already off the field when its own myField ITEM search runs (can't self-target). myField-0 is patched directly to Diao Chan, Enchantress (00xbh8oc00, CLERIC) with Subcards=[Spirit of Water, tafqldAGRF] so IsClassBonusActive(CLERIC) is satisfied by a literal on-field champion match while WATER element access is preserved via lineage; patchMzId never triggers Enter(), so Diao Chan's own On Enter never fires and leaves no stray decision. Beastbond Ears (JPcFmCpdiF, REGALIA/ITEM, memory cost 0, purely passive text, no activated ability of its own) is seeded onto the opponent's field as the destroy target -- deliberately chosen over an item with its own activated ability (e.g. Grand Crusader's Ring's 'Banish: Draw a card'), since that would open a real 'Take a fast action?' AbilityOpportunity choice for player 2 (confirmed empirically) requiring an extra explicit decline. After activating (myField-3!CustomInput!Activate:0), a pending MZCHOOSE targets the item (theirField-1); answering it destroys it (moved to the opponent's banish zone) while Crystalline Mirror itself sits in player 1's own banish zone from its activation cost.",
+    "testedCards": [
+        "9agwj4f15j"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["9agwj4f15j"],
+        "mechanics": ["trigger", "condition", "cost", "targeting", "zone-movement", "counter"],
+        "rulesClauses": [
+            "Whenever a phantasia enters the field under your control, glimpse 1.",
+            "[Class Bonus] Banish CARDNAME: Destroy target item with memory cost 0 or reserve cost 3 or less. Activate only if you control 3+ phantasias."
+        ]
+    }
+}

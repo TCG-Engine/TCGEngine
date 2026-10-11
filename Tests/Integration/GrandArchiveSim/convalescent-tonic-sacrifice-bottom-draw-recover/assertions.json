@@ -1,0 +1,7 @@
+[
+    {"step":2,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"2","semantic":true,"label":"Recover 3 removes 3 of the champion's 5 damage counters"},
+    {"step":2,"type":"card_property_equals","mzId":"p1Deck-3","property":"CardID","value":"px60u5n1do","semantic":true,"label":"The first chosen hand card ends up on the bottom of the deck"},
+    {"step":2,"type":"card_property_equals","mzId":"p1Deck-4","property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"The second chosen hand card ends up on the bottom of the deck"},
+    {"step":2,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"Deck count is unchanged -- 2 cards bottomed, 2 drawn back"},
+    {"step":2,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"l8ao8bls6g","semantic":true,"label":"Sacrifice moves Convalescent Tonic itself to the graveyard"}
+]

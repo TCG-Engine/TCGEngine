@@ -1,0 +1,22 @@
+{
+    "name": "heirloom-of-materia-draw-ability-pays-three-and-banishes-itself",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:32+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "sZlDgmVTD7"
+    ],
+    "notes": "Second ability: (3), Banish self (shares the Natura/Spectra/Libra cost case): draw a card into your memory.",
+    "semanticCoverage": {
+        "testedCards": [
+            "sZlDgmVTD7"
+        ],
+        "mechanics": [
+            "cost",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "(3), Banish CARDNAME: Draw a card into your memory."
+        ]
+    }
+}

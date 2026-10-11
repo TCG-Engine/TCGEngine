@@ -1,0 +1,41 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-2",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "m4MTDKWvyR",
+        "semantic": true,
+        "label": "Jinzhuo returned to the field"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-2",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "...rested"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "No quest counters: nothing was scavenged"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Jinzhuo left the banishment"
+    }
+]

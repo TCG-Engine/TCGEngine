@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "CardID",
+        "value": "4vZN8JlY2k",
+        "semantic": true,
+        "label": "Quiet Refraction resolved off the EffectStack onto the field for real (reserve cost is 2, confirmed by only two ReserveCard payments being required)"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "On Enter drew a card into memory"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myMastery-0",
+        "property": "Counters",
+        "value": "{\"sheen\":2}",
+        "semantic": true,
+        "label": "On Enter put two sheen counters on Fractured Memories"
+    }
+]

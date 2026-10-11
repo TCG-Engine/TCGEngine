@@ -1,0 +1,8 @@
+[
+    {"step":10,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":5,"semantic":true,"label":"Exactly FIVE reserve payments: no other attack card was activated, so no discount"},
+    {"step":10,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"6","semantic":true,"label":"Luminescent Slash dealt its printed 6 (no +2 without another attack card)"},
+    {"step":10,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"WI2owxIw0z","semantic":true,"label":"Activating the luxem Luminescent Slash deleveled Mordred: Aurelian Regent -> Flawless Blade"},
+    {"step":10,"type":"card_property_equals","mzId":"p1Field-0","property":"Subcards","value":"[\"OWCdWq3mXY\",\"tafqldAGRF\"]","semantic":true,"label":"The lineage shifted down one level"},
+    {"step":10,"type":"zone_count","zone":"myMaterial","viewerPlayerID":1,"value":8,"semantic":true,"label":"The demoted Mordred, Aurelian Regent went back to the material deck (7 -> 8)"},
+    {"step":10,"type":"decision_queue_empty","player":"all"}
+]

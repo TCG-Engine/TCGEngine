@@ -1,0 +1,10 @@
+[
+    {"step":3,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":5,"semantic":true,"label":"The spell itself plus ALL FOUR revealed Specters are in the graveyard"},
+    {"step":3,"type":"card_property_equals","mzId":"myGraveyard-1","viewerPlayerID":1,"property":"CardID","value":"zyEMI5XNHt","semantic":true,"label":"Specter #1 in the graveyard"},
+    {"step":3,"type":"card_property_equals","mzId":"myGraveyard-2","viewerPlayerID":1,"property":"CardID","value":"PiZqM1q9ly","semantic":true,"label":"Specter #2 in the graveyard"},
+    {"step":3,"type":"card_property_equals","mzId":"myGraveyard-3","viewerPlayerID":1,"property":"CardID","value":"zyEMI5XNHt","semantic":true,"label":"Specter #3 in the graveyard"},
+    {"step":3,"type":"card_property_equals","mzId":"myGraveyard-4","viewerPlayerID":1,"property":"CardID","value":"PiZqM1q9ly","semantic":true,"label":"Specter #4 in the graveyard"},
+    {"step":3,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"No revealed card is left stranded in the temp zone"},
+    {"step":3,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":13,"semantic":true,"label":"Deck: 17 minus the four Specters, nothing was put on the bottom"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

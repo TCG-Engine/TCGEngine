@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "CardID",
+        "value": "dPP9I4nVn0",
+        "semantic": true,
+        "label": "Champion leveled up for real into Merlin, Amethyst's Glow"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "property": "Counters",
+        "value": "{\"sheen\":2}",
+        "semantic": true,
+        "label": "On Enter put two sheen counters on the targeted opposing champion"
+    }
+]

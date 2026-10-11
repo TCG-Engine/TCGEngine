@@ -1,0 +1,47 @@
+[
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Obelith Escort resolved off the EffectStack into the graveyard"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myGraveyard-0",
+        "property": "CardID",
+        "value": "3uqgjoBQ9G",
+        "semantic": true,
+        "label": "The graveyard card is Obelith Escort itself, not a stranded/unrelated entry"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Declining Prepare 2 summoned exactly one Memorite Obelith token"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "CardID",
+        "value": "fdnlbJm3hr",
+        "semantic": true,
+        "label": "The summoned token is a Memorite Obelith"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "Counters",
+        "value": "{\"sheen\":1}",
+        "semantic": true,
+        "label": "The token has one sheen counter (base clause, Prepare 2 declined)"
+    }
+]

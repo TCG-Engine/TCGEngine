@@ -1,0 +1,22 @@
+{
+    "name": "collapsing-trap-memory-alt-cost-without-a-counter-is-not-offered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T15:06:29+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "v2214upufo"
+    ],
+    "notes": "Without a preparation counter the memory copy of Collapsing Trap is not offered.",
+    "semanticCoverage": {
+        "testedCards": [
+            "v2214upufo"
+        ],
+        "mechanics": [
+            "alternate-cost",
+            "memory-activation"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If it's not your turn, you may remove a preparation counter from your champion to activate this card from your memory without paying its reserve cost."
+        ]
+    }
+}

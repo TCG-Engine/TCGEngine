@@ -1,0 +1,22 @@
+{
+    "name": "Eventide Spear cannot be activated from the material deck against only one rested unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T00:37:12+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "xjkdokzfd9"
+    ],
+    "notes": "The opponent controls one rested and one awake unit: the click is a no-op.",
+    "semanticCoverage": {
+        "testedCards": [
+            "xjkdokzfd9"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as an opponent controls two or more rested units, you may activate this card from your material deck."
+        ]
+    }
+}

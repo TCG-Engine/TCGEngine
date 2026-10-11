@@ -1,0 +1,18 @@
+{
+    "name": "fated-keepsake-enter-draw-and-prevent-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Fated Keepsake (vi1uyifw6s): \"On Enter: Draw a card. [Guo Jia Bonus] If your champion would take 7 or more damage while you control three or more Fatestone and/or Fatebound objects, prevent all but 6 of that damage.\" On Enter (GeneratedCode/GeneratedMacroCode.php enterAbilities[\"vi1uyifw6s:0\"]) is proven by materializing it for real via FSM play. The prevention clause (Custom/GameLogic.php ApplyFatedKeepsakePrevention(), called from CombatLogic.php's OnDealDamage() whenever amount>=7 and the damaged object is a CHAMPION) is proven with a real damage source: player 1 materializes Fated Keepsake (with Guo Jia as champion and 3 Craggy Fatestone items already on the field), ends their turn, and player 2 (with an ARCANE lineage unlock) casts the already-covered Arcane Blast (11 damage to target champion) at player 1's champion. Verified live: player 1's champion takes exactly 6 damage instead of 11. Break/restore verified independently for both clauses: commenting out Draw() in the On Enter closure fails the draw assertion; commenting out the `return min($amount, 6)` in ApplyFatedKeepsakePrevention lets the full 11 damage through (both restored afterward and the fixture passes again).",
+    "testedCards": [
+        "vi1uyifw6s"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["vi1uyifw6s"],
+        "mechanics": ["draw-discard", "damage", "prevention", "condition", "trigger"],
+        "rulesClauses": [
+            "On Enter: Draw a card.",
+            "[Guo Jia Bonus] If your champion would take 7 or more damage while you control three or more Fatestone and/or Fatebound objects, prevent all but 6 of that damage."
+        ]
+    }
+}

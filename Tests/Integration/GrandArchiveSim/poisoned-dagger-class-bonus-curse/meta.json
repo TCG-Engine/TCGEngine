@@ -1,0 +1,17 @@
+{
+    "name": "poisoned-dagger-class-bonus-curse",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T22:19:26+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Poisoned Dagger (0D6AfZyKXh, GeneratedMacroCode.php activateAbilityAbilities[\"0D6AfZyKXh:0\"] / customDQHandlers[\"0D6AfZyKXh:0:ActivateAbility-1\"]): \"[REST], Banish CARDNAME: Deal 1 damage to target unit. Class Bonus: Until end of turn, if that unit were to take damage, it takes that much damage plus 1 instead.\" The dagger's own default template object enters with Status=1 (rested), matching its separate 'enters the field rested' clause -- since this fixture seeds it directly via BridgeAddToZone (bypassing that On Enter), Status is explicitly patched to 2 (ready) so the [REST] activation prereq (activateAbilityPrereqs requires Status==2) is payable. The champion is patched directly to Merlin, Memorite Vassal (ASSASSIN class) so IsClassBonusActive(player, [\"ASSASSIN\"]) is true. Activating the ability targets the opponent's champion: verified live it takes 1 damage and gains the 0D6AfZyKXh-CURSED TurnEffect tag (the Class Bonus's 'damage taken +1' curse marker). Break/restore verified: commenting out the DealDamage() call in ActivateAbility-1 leaves the champion undamaged and the fixture fails; restoring it passes again.",
+    "testedCards": [
+        "0D6AfZyKXh"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["0D6AfZyKXh"],
+        "mechanics": ["targeting", "damage", "zone-movement", "status", "condition"],
+        "rulesClauses": [
+            "[REST], Banish CARDNAME: Deal 1 damage to target unit. Class Bonus: Until end of turn, if that unit were to take damage, it takes that much damage plus 1 instead."
+        ]
+    }
+}

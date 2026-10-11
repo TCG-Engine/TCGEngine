@@ -1,0 +1,26 @@
+{
+    "name": "fishing-accident-prepare-2-declined-ally-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "RRx0KK6g6D"
+    ],
+    "notes": "Fishing Accident (RRx0KK6g6D, WATER ASSASSIN ACTION, Fast, reserve 1): \"Prepare 2. Rest target ally. If Fishing Accident was prepared, put that ally on the bottom of its owner's deck instead.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with the lineage cards needed for the card's element. Player 1 ends turn 1; player 2 activates the card with real actions (10002 FSM play, a 'Take a fast action?' confirmation because the card is Fast, 100 reserve payments, player 1's PASS in the opportunity window, then the YES/NO answer and target choice). Player 1 controls a Dungeon Guide (p1Field-1) as the target; the champion holds 2 preparation counters. Player 2 declines Prepare 2: the Dungeon Guide is only rested (Status 1) and stays on player 1's field; counters untouched.",
+    "semanticCoverage": {
+        "testedCards": [
+            "RRx0KK6g6D"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "condition",
+            "targeting",
+            "rest"
+        ],
+        "rulesClauses": [
+            "Prepare 2.",
+            "Rest target ally."
+        ]
+    }
+}

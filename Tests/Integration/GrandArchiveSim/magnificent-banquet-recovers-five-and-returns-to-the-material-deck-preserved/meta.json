@@ -1,0 +1,20 @@
+{
+    "name": "magnificent-banquet-recovers-five-and-returns-to-the-material-deck-preserved",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:14:06+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "TQoTD8eGQH"
+    ],
+    "notes": "Magnificent Banquet: recover 5, then put it into its owner's material deck.",
+    "semanticCoverage": {
+        "testedCards": [
+            "TQoTD8eGQH"
+        ],
+        "mechanics": [
+            "recover",
+            "return-to-material-deck"
+        ],
+        "rulesClauses": []
+    }
+}

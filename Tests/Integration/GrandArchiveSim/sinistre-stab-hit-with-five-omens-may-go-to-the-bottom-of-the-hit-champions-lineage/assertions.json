@@ -1,0 +1,36 @@
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "viewerPlayerID": 1,
+        "property": "Subcards",
+        "value": "[\"e1xj8mqr2o\"]",
+        "semantic": true,
+        "label": "Five omens, YES: Sinistre Stab is on the bottom of the HIT champion's lineage"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "viewerPlayerID": 1,
+        "property": "Subcards",
+        "value": "[\"nn48ne8a05\"]",
+        "semantic": true,
+        "label": "Your own lineage is unchanged"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The Stab left the graveyard"
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

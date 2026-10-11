@@ -1,0 +1,9 @@
+[
+    {"step":9,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"uoQGe5xGDQ","semantic":true,"label":"Arrow Trap was activated and paid for (it reached the graveyard)"},
+    {"step":9,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"[]","semantic":true,"label":"Prepare 1 was paid: the champion's preparation counter was removed"},
+    {"step":9,"type":"zone_count","zone":"theirField","viewerPlayerID":1,"value":1,"semantic":true,"label":"[Class Bonus] The prepared Arrow Trap destroyed the attacking Dungeon Guide (opponent field is just their champion)"},
+    {"step":9,"type":"card_property_equals","mzId":"p2Graveyard-0","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The destroyed attacker is in its OWNER's graveyard"},
+    {"step":9,"type":"zone_count","zone":"theirHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"It was destroyed instead of returned: the opponent's hand did not grow (8)"},
+    {"step":9,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"0","semantic":true,"label":"The attack was cancelled: player 1's champion took no damage"},
+    {"step":9,"type":"decision_queue_empty","player":"all"}
+]

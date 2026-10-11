@@ -1,0 +1,26 @@
+{
+    "name": "strike-from-the-mist-prepare-2-declined-interceptor-offered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "DHn9J7gX6g"
+    ],
+    "notes": "Strike from the Mist (DHn9J7gX6g, WATER ASSASSIN ATTACK, reserve 2, printed power 2): \"Prepare 2. [Class Bonus] As long as Strike from the Mist was prepared, it can't be intercepted.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with extra lineage cards to unlock the card's element; ATTACK cards cannot be played by the first player on turn 1, so player 1 ends turn 1 and player 2 plays the card with real actions (10002 FSM play, 100 reserve payments / YES-NO answer / attack target). Player 1 controls a Swift Recruit (Intercept ally, p1Field-1) so interceptability is observable (an interceptor prompt is queued for player 1 exactly when the attack is interceptable). Player 2 declines Prepare 2: not prepared, so player 1 is offered Swift Recruit as an interceptor (declines with PASS) and the champion takes 2.",
+    "semanticCoverage": {
+        "testedCards": [
+            "DHn9J7gX6g"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition",
+            "intercept"
+        ],
+        "rulesClauses": [
+            "Prepare 2.",
+            "[Class Bonus] As long as Strike from the Mist was prepared, it can't be intercepted."
+        ]
+    }
+}

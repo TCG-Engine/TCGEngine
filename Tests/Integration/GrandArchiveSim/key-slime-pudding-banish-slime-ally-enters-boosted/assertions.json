@@ -1,0 +1,10 @@
+[
+    {"step":4,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"4wuq20gvcg","semantic":true,"label":"Key Slime Pudding was materialized onto the field and is still there before the ability is used"},
+    {"step":4,"type":"zone_count","zone":"myGlobalEffects","viewerPlayerID":1,"value":0,"semantic":true,"label":"No extra-buff effect exists before the ability is activated"},
+    {"step":5,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"4wuq20gvcg","semantic":true,"label":"The Banish cost is paid: Key Slime Pudding is in the banishment zone"},
+    {"step":5,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the champion remains on the field (Pudding left the field)"},
+    {"step":5,"type":"card_exists","zone":"myGlobalEffects","viewerPlayerID":1,"cardID":"4wuq20gvcg","semantic":true,"label":"Activating sets the extra-buff global effect for the controller"},
+    {"step":9,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"buff\":1}","semantic":true,"label":"Red Slime entered with exactly one buff counter (the additional one; it prints none)"},
+    {"step":9,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"mttsvbgl6f","semantic":true,"label":"Red Slime is on the field"},
+    {"step":9,"type":"decision_queue_empty","player":"all","semantic":true,"label":"The play fully resolved"}
+]

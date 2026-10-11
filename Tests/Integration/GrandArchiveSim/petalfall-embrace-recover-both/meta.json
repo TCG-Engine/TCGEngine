@@ -1,0 +1,16 @@
+{
+    "name": "petalfall-embrace-recover-both",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:23:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uDWTjGarSL"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["uDWTjGarSL"],
+        "mechanics": ["recover"],
+        "rulesClauses": [
+            "Each player recovers 8+LV."
+        ]
+    }
+}

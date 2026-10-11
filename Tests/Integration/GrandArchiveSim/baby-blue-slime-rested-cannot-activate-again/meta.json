@@ -1,0 +1,23 @@
+{
+    "name": "baby-blue-slime-rested-cannot-activate-again",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:17:10+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "notes": "Baby Blue Slime (9ggfiy38t2, WATER ALLY, TAMER/ANIMAL/SLIME, reserve 2, POWER 1 / LIFE 2): \"[Class Bonus] CARDNAME gets +1 LIFE. [REST]: Prevent the next 2 damage that would be dealt to another target Slime ally you control this turn.\" Baby Blue Slime is played for real from hand (FSM play + 2 reserve payments); WATER is unlocked by patching a Nico lineage into the champion and the deck is colorless so no fast-spell windows interrupt the flow. FIXED ENGINE BUG context: the REST body used to be registered in $cardActivatedAbilities (the play-effect dictionary) with a 0 ability count, so merely PLAYING Baby Blue Slime queued a free target prompt (no REST paid) and the ability could never be activated later; it is now a real $activateAbilityAbilities[\"9ggfiy38t2:0\"] with a prereq and the ally auto-rest as the [REST] cost. Negative path (cost): [REST] can only be paid by an awake ally. Baby Blue Slime is activated once (main phase) to shield the first Red Slime; a second activation attempt in the same turn, with a second legal Red Slime still available, does nothing: no target prompt, no second shield and Baby Blue Slime stays rested.",
+    "testedCards": [
+        "9ggfiy38t2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9ggfiy38t2"
+        ],
+        "mechanics": [
+            "cost",
+            "status",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "[REST]: Prevent the next 2 damage that would be dealt to another target Slime ally you control this turn."
+        ]
+    }
+}

@@ -1,0 +1,6 @@
+[
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-3","property":"Damage","value":"1","semantic":true,"label":"The only legal ally target (the unstealthed Dungeon Guide) took the attacker's 1 damage"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"0","semantic":true,"label":"Shimmercloak Assassin was never a legal target"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-2","property":"Damage","value":"0","semantic":true,"label":"Gloamspire Headhunter was never a legal target"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

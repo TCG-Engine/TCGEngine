@@ -1,0 +1,4 @@
+[    {"step":7,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"durability\":3,\"_overrides\":{\"NO_ABILITIES\":true,\"type\":\"PHANTASIA\",\"subtypes\":\"CLERIC,FRACTAL\",\"classes\":\"CLERIC\",\"granted_keywords\":[\"Reservable\"],\"FRACTURIZED\":true}}","semantic":true,"label":"BOUNDARY: a Rhongomiant that has lost all abilities (NO_ABILITIES seeded in setup) no longer has Spellshroud: the opposing Fracturize offered it and the choice succeeded"},
+    {"step":7,"type":"card_property_equals","mzId":"p2Graveyard-0","property":"CardID","value":"cpvn96659y","semantic":true,"label":"Fracturize resolved into player 2's graveyard"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,6 @@
+[
+    {"step":6,"type":"card_property_equals","mzId":"p2Field-1","property":"Damage","value":"1","semantic":true,"label":"Kindling Flare resolved with X = 0 Herbs sacrificed: 1 damage dealt to the chosen unit"},
+    {"step":6,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"The 2 reserve cost was paid (two cards moved to memory)"},
+    {"step":6,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":3,"semantic":true,"label":"No Herb was sacrificed (champion + both Herbs remain)"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

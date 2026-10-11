@@ -1,0 +1,23 @@
+{
+    "name": "flawless-spirit-of-mordred-levels-up-into-mordred",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:26+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "cXEI5vo6iG"
+    ],
+    "notes": "Flawless Spirit of Mordred (cXEI5vo6iG): same setup as flawless-spirit-of-mordred-cannot-level-up-into- non-mordred, but the real level-up goes into Mordred, Burnished Avenger (memory cost 1), which the Spirit's restriction allows: the champion becomes Burnished Avenger with the Spirit in its lineage.",
+    "semanticCoverage": {
+        "testedCards": [
+            "cXEI5vo6iG"
+        ],
+        "mechanics": [
+            "condition",
+            "zone-movement",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Flawless Spirit of Mordred can level up into a \"Mordred\" champion."
+        ]
+    }
+}

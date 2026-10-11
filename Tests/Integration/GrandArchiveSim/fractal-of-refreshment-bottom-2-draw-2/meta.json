@@ -1,0 +1,17 @@
+{
+    "name": "fractal-of-refreshment-bottom-2-draw-2",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Fractal of Refreshment (cxqf8rr452, PHANTASIA/CLERIC, element WATER) is played from hand like a normal permanent (no EffectStack priority pass needed). Its own element is WATER, so the champion is patched with both CardID=00xbh8oc00 (Diao Chan, Enchantress, CLERIC) and Subcards=[tafqldAGRF] (Spirit of Water, WATER) for permanent element access -- patching CardID alone (as in the NORM-element fractal-of-insight/unstable-fractal fixtures) is not enough for a WATER card; confirmed live that omitting the Subcards patch makes the FSM play action silently no-op (the card never leaves hand or enters the field). Paying the 3-reserve cost (Custom/GameLogic.php's reserve-cost flow, which moves paid hand cards into myMemory as this game's resource mechanic) happens BEFORE the On Enter fires, so by the time enterAbilities['cxqf8rr452:0'] (GeneratedMacroCode.php, comment 'Memory Refresh') runs, memory already contains the 2 seeded water cards (x7u6wzh973, Frostbinder Apostle) plus whatever water cards were paid as reserve (verified live: one of the 3 reserve-paid hand cards is itself another copy of cxqf8rr452, which is also WATER element, so it briefly becomes an eligible reveal candidate too, though this fixture's two actual picks target only the two originally-seeded Frostbinder Apostles, confirmed by direct probe of the exact myMemory-0 index at each step). customDQHandlers['FractalRefreshPick'] (Custom/GameLogic.php) repeatedly offers an MZMAYCHOOSE ('Reveal_and_bottom_a_water_card?') re-scanning ZoneSearch('myMemory', WATER) fresh each time; picking 'myMemory-0' twice reveals-and-bottoms both seeded Frostbinder Apostles (MZMove to myDeck, appended at the bottom). A 3rd action explicitly declines ('-') the remaining offer (of an 'up to three' allowance) with 2 more real water-candidates still available in memory at that point, proving the decline path (not just an empty-candidates short-circuit) correctly stops the loop and fires DrawIntoMemory($player, 2) -- drawing exactly as many cards as were revealed (not 3, not 0). The non-water Dungeon Guide (em6eEh9q8y, NORM) seeded into memory alongside the water cards was never once offered as a candidate at any step, confirmed by reading every MZMAYCHOOSE's candidate string in the decision queue during a step-by-step probe.",
+    "testedCards": [
+        "cxqf8rr452"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["cxqf8rr452"],
+        "mechanics": ["cost", "trigger", "zone-movement", "draw-discard", "condition", "limit"],
+        "rulesClauses": [
+            "On Enter: You may reveal up to three water element cards from your memory and put them on the bottom of your deck in any order. Then draw that many cards into your memory."
+        ]
+    }
+}

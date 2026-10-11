@@ -1,0 +1,23 @@
+{
+    "name": "hand-activation-class-bonus-discount-affordable-at-discounted-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:21:26+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "yhu0djqlp8"
+    ],
+    "notes": "Lead with Force (yhu0djqlp8, printed reserve 3, [Class Bonus] costs 1 less) with the champion patched to a MAGE/TAMER Nameless Champion: the Class Bonus is active, so the activation costs 2 and the two other hand cards are enough. The affordability gate must use the actual calculated cost (CalculateActivationReserveCost), not the printed cost, or this hand would be refused. Pins that a discounted activation is not over-refused.",
+    "semanticCoverage": {
+        "testedCards": [
+            "yhu0djqlp8"
+        ],
+        "mechanics": [
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs (1) less to activate.",
+            "Reserve cost is paid by sending cards from your hand to memory."
+        ]
+    }
+}

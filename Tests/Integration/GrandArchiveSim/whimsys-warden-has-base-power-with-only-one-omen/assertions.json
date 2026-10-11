@@ -1,0 +1,10 @@
+[
+    {
+        "step": 1,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 1,
+        "semantic": true,
+        "label": "With only one omen Whimsy's Warden keeps its base POWER"
+    }
+]

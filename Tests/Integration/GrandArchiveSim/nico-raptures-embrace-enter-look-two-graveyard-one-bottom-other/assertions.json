@@ -1,0 +1,10 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"myField-0","viewerPlayerID":1,"property":"CardID","value":"29lqrve8fz","semantic":true,"label":"Nico, Rapture's Embrace is the champion (leveled up from Spirit of Water, a water element card in its lineage)"},
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Exactly the one chosen card is in the graveyard"},
+    {"step":4,"type":"card_property_equals","mzId":"myGraveyard-0","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"The card the player chose is in the graveyard"},
+    {"step":4,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"No looked-at card is left stranded in the temp zone"},
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":13,"semantic":true,"label":"Deck: 15 minus the graveyard card minus the draw-phase draw"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-12","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The other looked-at card is on the very bottom of the deck"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"Hand: 7 + the draw-phase draw"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

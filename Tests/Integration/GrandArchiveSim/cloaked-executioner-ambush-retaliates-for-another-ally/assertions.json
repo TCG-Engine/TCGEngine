@@ -1,0 +1,7 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-1","property":"Damage","value":"2","semantic":true,"label":"The attacker took the Executioner's own 2 POWER (not the defender's 1)"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-2","property":"Status","value":"1","semantic":true,"label":"The Executioner rested as the cost of retaliating via Ambush"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-2","property":"Damage","value":"0","semantic":true,"label":"The Executioner took no damage: it was never the defender"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"1","semantic":true,"label":"The actual defender still took the attacker's 1 damage"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

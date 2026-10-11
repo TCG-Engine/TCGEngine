@@ -1,0 +1,27 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 2,
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "The level-3 target takes 2 damage even though the level-1 target was declined"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "The declining player's own champion was not damaged"
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

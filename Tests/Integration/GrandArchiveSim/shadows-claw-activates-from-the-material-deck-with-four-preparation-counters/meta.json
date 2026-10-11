@@ -1,0 +1,23 @@
+{
+    "name": "Shadow's Claw can be activated from the material deck with four or more preparation counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:36:51+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "vm4kj3q2sv"
+    ],
+    "notes": "Clicking Shadow's Claw in the material deck during the main phase puts it onto the field when the champion holds four preparation counters. The counters are a condition, not a cost: all four stay on the champion.",
+    "semanticCoverage": {
+        "testedCards": [
+            "vm4kj3q2sv"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition",
+            "counter"
+        ],
+        "rulesClauses": [
+            "As long as you have four or more preparation counters on your champion, you may activate this card from your material deck."
+        ]
+    }
+}

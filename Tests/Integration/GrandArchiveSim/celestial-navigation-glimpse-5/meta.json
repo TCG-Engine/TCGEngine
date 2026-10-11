@@ -1,0 +1,17 @@
+{
+    "name": "celestial-navigation-glimpse-5",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Celestial Navigation is ASTRA, an advanced element -- without unlocking it, playing the card from hand silently no-ops, so the champion is CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, CLERIC/ASTRA). cardActivatedAbilities['QAU8WVUZM0:0'] calls Glimpse($player, 5), which queues an MZREARRANGE decision with param 'Top=<cardIDs>;Bottom=<cardIDs>' listing the top 5 deck cards; the response submitted is that exact string verbatim (a no-op reorder). Verified live: an earlier probe with a garbage response string ('PROBE') instead of the real MZREARRANGE param caused the deck to empty out entirely (0 cards) and extra memory/hand churn, proving the MZREARRANGE decision really is gating deck contents -- the real response keeps the deck at its original 5 cards in their original order, distinguishing 'looked and put back' from any accidental removal.",
+    "testedCards": [
+        "QAU8WVUZM0"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["QAU8WVUZM0"],
+        "mechanics": ["zone-movement"],
+        "rulesClauses": [
+            "Glimpse 5. (Look at that many cards from the top of your deck. Put those cards back on the top or on the bottom of your deck in any order.)"
+        ]
+    }
+}

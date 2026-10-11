@@ -1,0 +1,5 @@
+[    {"step":12,"type":"card_exists","zone":"p1Banish","cardID":"clS3E0HrZL","semantic":true,"label":"Heartsong Reclamation (\"Destroy all regalia you don't control\", no target) destroyed Rhongomiant despite Spellshroud: the regalia ends in its owner's banishment"},
+    {"step":12,"type":"zone_count","zone":"p1Field","value":1,"semantic":true,"label":"Only player 1's champion remains on the field"},
+    {"step":12,"type":"card_property_equals","mzId":"p2Graveyard-0","property":"CardID","value":"d253WtyIXr","semantic":true,"label":"Heartsong Reclamation resolved into player 2's graveyard"},
+    {"step":12,"type":"decision_queue_empty","player":"all"}
+]

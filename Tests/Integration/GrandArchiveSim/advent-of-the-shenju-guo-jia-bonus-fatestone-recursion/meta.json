@@ -1,0 +1,17 @@
+{
+    "name": "advent-of-the-shenju-guo-jia-bonus-fatestone-recursion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-30T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Advent of the Shenju (c53tomoaw3, ACTION/TAMER/FATEBOUND/SPELL): \"[Guo Jia Bonus] Put target Fatestone card from your banishment onto the field. If that card is a regalia, put five quest counters on your champion.\" This printed clause had ZERO dispatch-table registration anywhere -- confirmed by grepping every 'c53tomoaw3' occurrence in GeneratedCode/GeneratedMacroCode.php before this fix: only the card's separate reveal-triggered memory-banish ability (revealAbilities/customDQHandlers) existed there, a pure CardEditor ability-database data gap (this environment has no reachable local MySQL or CARD_CODE_REMOTE_CONFIG/local connection file to author the missing row directly). Implemented as a hand-authored GrandArchiveSim/Custom/GameLogic.php cardActivatedAbilities[\"c53tomoaw3:0\"] entry (ACTION cards resolve their play through this table, matching the Unity's Gale/uUWsgLmyTk precedent already in that file) plus a customDQHandlers[\"c53tomoaw3:0:GuoJiaBonus-1\"] MZCHOOSE follow-up -- additive only, since GeneratedMacroCode.php has no competing entry for either key, so nothing is clobbered on regeneration. This fixture covers the non-regalia branch: with a Guo Jia champion (j6dkdoxyqt) on the field and Craggy Fatestone (h8n1520m2d, plain ITEM, TAMER/FATESTONE, NOT regalia) seeded in banishment, the card is played for real from hand (FSM), its 4-reserve cost is paid for real, and the resulting MZCHOOSE is answered by picking the banished Craggy Fatestone. Verified live: Craggy Fatestone ends up on the field (myField-1) and leaves the banishment (myBanish count 0), while the champion's Counters stay empty ('[]') since a non-regalia target grants no quest counters. Break/restore verified two ways: (1) forcing $newObj = null (disabling the MZMove) makes THIS fixture fail with 'Expected card h8n1520m2d to exist in myField', and restoring passes again; (2) commenting out the AddQuestCounters(...) call inside the 'if($isRegalia)' branch does NOT affect this fixture (it stays green, as expected -- this fixture never exercises that branch) but does break the sibling advent-of-the-shenju-guo-jia-bonus-regalia-quest-counters fixture, confirming the two fixtures together exercise both sub-effects of the clause.",
+    "testedCards": [
+        "c53tomoaw3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["c53tomoaw3"],
+        "mechanics": ["condition", "targeting", "zone-movement"],
+        "rulesClauses": [
+            "[Guo Jia Bonus] Put target Fatestone card from your banishment onto the field."
+        ]
+    }
+}

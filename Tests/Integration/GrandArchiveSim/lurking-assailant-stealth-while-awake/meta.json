@@ -1,0 +1,16 @@
+{
+    "name": "lurking-assailant-stealth-while-awake",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T18:50:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uq2r6v374c"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["uq2r6v374c"],
+        "mechanics": ["status", "combat", "condition"],
+        "rulesClauses": [
+            "CARDNAME has stealth as long as it's awake."
+        ]
+    }
+}

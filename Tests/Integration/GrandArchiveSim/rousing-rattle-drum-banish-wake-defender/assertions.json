@@ -1,0 +1,20 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "The defending Cheerful Slime wakes up (Status 1 -> 2)"
+    },
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "nxm05jkjxg",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Rousing Rattle Drum banishes itself as its own activation cost"
+    }
+]

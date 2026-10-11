@@ -1,0 +1,24 @@
+{
+    "name": "snow-fairy-enter-rests-target-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:53+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4s0c9XgLg7"
+    ],
+    "notes": "Snow Fairy (4s0c9XgLg7, WATER MAGE/FAIRY ALLY, reserve 3, Stealth): \"On Enter: Rest target ally you don't control. That ally doesn't wake up during its controller's wake up phase as long as you control CARDNAME.\" Player 2's Dungeon Guide stands awake on its field; Snow Fairy is played for real (3 reserve payments) and the only legal target (the opposing Dungeon Guide) is chosen: it becomes rested and receives the FROZEN_BY_SNOW_FAIRY turn effect that the wake-up phase honours.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4s0c9XgLg7"
+        ],
+        "mechanics": [
+            "trigger",
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "On Enter: Rest target ally you don't control.",
+            "That ally doesn't wake up during its controller's wake up phase as long as you control Snow Fairy (it is marked frozen)."
+        ]
+    }
+}

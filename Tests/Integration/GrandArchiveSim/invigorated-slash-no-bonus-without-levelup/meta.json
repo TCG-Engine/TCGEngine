@@ -1,0 +1,23 @@
+{
+    "name": "invigorated-slash-no-bonus-without-levelup",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:08+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "W1g0hNzXAC"
+    ],
+    "notes": "Invigorated Slash (W1g0hNzXAC): the +2 POWER needs a level-up THIS turn. Same lineage as invigorated-slash-plus-two-power-after-champion-leveled-up, but the materialize offer is declined: the attack deals only its printed 2.",
+    "semanticCoverage": {
+        "testedCards": [
+            "W1g0hNzXAC"
+        ],
+        "mechanics": [
+            "condition",
+            "combat",
+            "damage"
+        ],
+        "rulesClauses": [
+            "The +2 POWER needs a level-up THIS turn."
+        ]
+    }
+}

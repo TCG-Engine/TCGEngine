@@ -1,0 +1,18 @@
+{
+    "name": "frostnip-pirouette-selective-wither-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T18:15:28+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Frostnip Pirouette's [Diao Chan Bonus] cost modifier (activationCostModifierAbilities[\"x79cuuw5vo:0\"], GeneratedMacroCode.php ~9076) reduces its printed 4-reserve cost by 2 when IsDiaoChanBonus($player) is true (same champion patch technique as frostlorn-caress-four-wither-counters -- Diao Chan, Enchantress with Spirit of Water kept in Subcards for WATER unlock), net cost 2. Frostnip Pirouette is seeded directly into hand. cardActivatedAbilities[\"x79cuuw5vo:0\"] (~23003) offers an MZMULTICHOOSE (min 0) of every non-champion object on either field; customDQHandlers[\"FrostnipPirouetteWitherLoop\"] (Custom/CardDQHandlers.php ~5636) puts exactly 1 wither counter on each object actually present in the player's selection. Three eligible objects are seeded: two on the opponent's field (Dungeon Guide, Fluffy Shopkeep) and one Dungeon Guide on the player's OWN field. Only the two opponent objects are included in the MZMULTICHOOSE response (\"theirField-1&theirField-2\"), leaving the player's own Dungeon Guide unselected -- proving the wither counter lands only on objects the player actually chose, not on every eligible non-champion object on the board.",
+    "testedCards": [
+        "x79cuuw5vo"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["x79cuuw5vo"],
+        "mechanics": ["counter", "cost", "targeting"],
+        "rulesClauses": [
+            "[Diao Chan Bonus] This card costs 2 less.",
+            "Choose any amount of non-champion objects and put a wither counter on each."
+        ]
+    }
+}

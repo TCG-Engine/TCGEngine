@@ -1,0 +1,45 @@
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "{\"9tmr8iel1m_used\":1,\"level\":1}",
+        "semantic": true,
+        "label": "The ability drew a card and put exactly one level counter (and is marked used)"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "Paying (6) does not rest the champion: it stays awake"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "13 seeded - 6 reserved + 1 drawn; the second activation (affordable) was refused and cost nothing"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Exactly six reserve payments"
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,11 @@
+[
+    {"step":7,"type":"zone_count","zone":"theirDeck","viewerPlayerID":1,"value":16,"semantic":true,"label":"Opponent deck: top four looked at, one banished, three put back (one fewer than before the cast)"},
+    {"step":7,"type":"zone_count","zone":"theirBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Exactly one of the four cards is banished"},
+    {"step":7,"type":"card_property_equals","mzId":"theirBanish-0","viewerPlayerID":1,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"The chosen card is banished (from the OPPONENT deck)"},
+    {"step":7,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"No looked-at card is left stranded in the caster temp zone"},
+    {"step":7,"type":"card_property_equals","mzId":"theirDeck-13","viewerPlayerID":1,"property":"CardID","value":"ra9950o14t","semantic":true,"label":"Bottom-of-opponent-deck slot 1 of 3: the unbanished looked-at card in the order the caster chose"},
+    {"step":7,"type":"card_property_equals","mzId":"theirDeck-14","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom-of-opponent-deck slot 2 of 3: the unbanished looked-at card in the order the caster chose"},
+    {"step":7,"type":"card_property_equals","mzId":"theirDeck-15","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom-of-opponent-deck slot 3 of 3: the unbanished looked-at card in the order the caster chose"},
+    {"step":7,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Peer the Depths itself resolved into the caster graveyard"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

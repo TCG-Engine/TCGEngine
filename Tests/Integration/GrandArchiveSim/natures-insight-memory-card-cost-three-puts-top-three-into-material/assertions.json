@@ -1,0 +1,84 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMaterial",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "The memory card plus the top three deck cards"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myMaterial-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Material slot 1: the revealed memory card"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myMaterial-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Material slot 2: first deck card"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myMaterial-2",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "n8wyfG9hbY",
+        "semantic": true,
+        "label": "Material slot 3: second deck card"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myMaterial-3",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Material slot 4: third deck card"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 14,
+        "semantic": true,
+        "label": "Exactly three cards left the deck"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "ra9950o14t",
+        "semantic": true,
+        "label": "The marker is the new top card: X = 3 (the revealed memory card's reserve cost) cards were moved, not one"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "The three paid cards; the revealed card left memory"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

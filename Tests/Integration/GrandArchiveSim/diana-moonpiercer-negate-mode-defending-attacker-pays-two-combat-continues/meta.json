@@ -1,0 +1,24 @@
+{
+    "name": "Diana, Moonpiercer negate mode: the attacker pays (2) and the combat continues",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:17:35+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "v3vfjtwm7g"
+    ],
+    "notes": "Same setup as the decline fixture, but the attacking player pays (2) (two cards from hand into memory): combat continues and the Dungeon Guide deals its 1 damage to Diana.",
+    "semanticCoverage": {
+        "testedCards": [
+            "v3vfjtwm7g"
+        ],
+        "mechanics": [
+            "trigger",
+            "combat",
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Then if Diana is defending, end the combat phase unless the attacking player pays (2)."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "band-of-burning-verdict-play-without-tamer-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-30T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Positive-fix fixture for Band of Burning Verdict's (7mmve2l328, REGALIA/ITEM/TAMER accessory) first defect. GeneratedCode/GeneratedMacroCode.php activateCardPrereqs['7mmve2l328:0'] used to wrongly require IsClassBonusActive($player,['TAMER']) AND an Animal/Beast ally already on the field just to legally PLAY this card from hand, even though neither condition is a printed restriction on materializing it -- both belong only to the card's separate '[Class Bonus] [REST]:' activated ability. This fixture deliberately sets up NEITHER: the starting champion is the deck's plain default (no Tamer lineage patch) and no Animal/Beast ally is anywhere on the field, only Band of Burning Verdict itself in hand. Verified live: a single FSM play action (mode=10002, myHand-0!FSM!) succeeds -- the card lands on myField-1 and its On Enter draws a card (deck 3 -> 2, hand 8 -> 7) -- proving the illegal play-block is gone. Fixed via a no-op override of activateCardPrereqs['7mmve2l328:0'] (unconditionally legal) in GrandArchiveSim/Custom/GeneratedAbilityOverrides.php.\n\nBreak/restore verified: with GrandArchiveSim/Custom/GameLogic.php, GrandArchiveSim/Custom/CustomInput.php and GrandArchiveSim/Custom/GeneratedAbilityOverrides.php reverted to their pre-fix (HEAD) content, this fixture's single FSM play action structurally succeeds as a no-op engine response but the step-1 zone_count(myDeck)==2 assertion fails (reports 'got 3') because the old generated prereq rejects the play outright before anything happens; restoring the three files makes it pass again.",
+    "testedCards": [
+        "7mmve2l328"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["7mmve2l328"],
+        "mechanics": ["cost", "trigger"],
+        "rulesClauses": [
+            "On Enter: Draw a card."
+        ]
+    }
+}

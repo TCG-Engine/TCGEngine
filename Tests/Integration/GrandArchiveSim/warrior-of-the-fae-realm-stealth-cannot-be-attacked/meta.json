@@ -1,0 +1,23 @@
+{
+    "name": "warrior-of-the-fae-realm-stealth-cannot-be-attacked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:32+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "eRcqucBKhX"
+    ],
+    "notes": "Warrior of the Fae Realm (eRcqucBKhX): \"Stealth\". Player 2 attacks with a Dungeon Guide; the attack-target prompt lists only player 1's champion and answering with the Warrior is rejected, so the attack is aimed at the champion.",
+    "semanticCoverage": {
+        "testedCards": [
+            "eRcqucBKhX"
+        ],
+        "mechanics": [
+            "combat",
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "Stealth: this unit can't be targeted by attacks."
+        ]
+    }
+}

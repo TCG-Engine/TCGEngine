@@ -1,0 +1,10 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-1","property":"Counters","value":"[]","semantic":true,"label":"The refused answers left Suzaku, Vermillion Phoenix (42mdt7ge5d) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-2","property":"Counters","value":"[]","semantic":true,"label":"The refused answers left Suzaku, Vermillion Phoenix (h57jayq7l2) untouched: Spellshroud stops the opposing Liturgy of Corruption from targeting it"},
+    {"step":5,"type":"card_property_equals","mzId":"p2Field-3","property":"Counters","value":"[]","semantic":true,"label":"The refused answers did not apply Liturgy of Corruption to the Dungeon Guide either (prompt still pending)"},
+    {"step":6,"type":"card_property_equals","mzId":"p2Field-1","property":"Counters","value":"[]","semantic":true,"label":"Suzaku, Vermillion Phoenix (42mdt7ge5d) is unaffected by the resolved Liturgy of Corruption"},
+    {"step":6,"type":"card_property_equals","mzId":"p2Field-2","property":"Counters","value":"[]","semantic":true,"label":"Suzaku, Vermillion Phoenix (h57jayq7l2) is unaffected by the resolved Liturgy of Corruption"},
+    {"step":6,"type":"card_property_equals","mzId":"p2Field-3","property":"Counters","value":"{\"buff\":1}","semantic":true,"label":"The only legal target, Dungeon Guide, received the buff counter"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"BZMKfFZ22T","semantic":true,"label":"Liturgy of Corruption resolved into player 1's graveyard"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,6 @@
+[
+    {"step":6,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":2,"semantic":true,"label":"Draw three cards empties 3 more cards from the deck (5 -> 2)"},
+    {"step":6,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":3,"semantic":true,"label":"Discard two cards, plus the resolved Pyretic Prognosis itself, land in the graveyard"},
+    {"step":6,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":5,"semantic":true,"label":"Net hand size after playing, paying 3 reserve, drawing 3, and discarding 2"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

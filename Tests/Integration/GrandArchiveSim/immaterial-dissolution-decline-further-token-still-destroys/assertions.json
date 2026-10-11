@@ -1,0 +1,5 @@
+[
+    {"step":8,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":2,"semantic":true,"label":"The chosen token (Blightroot) was destroyed even though the second offer was declined: champion + the unchosen Fraysia remain"},
+    {"step":8,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"soporhlq2k","semantic":true,"label":"The remaining token is the unchosen Fraysia"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

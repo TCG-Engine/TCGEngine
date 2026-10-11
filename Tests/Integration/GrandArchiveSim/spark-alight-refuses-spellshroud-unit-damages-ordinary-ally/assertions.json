@@ -1,0 +1,27 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "Genbu (spellshroud) took no damage -- it was not a legal target"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "theirField-2",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "The ordinary Dungeon Guide took the damage"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

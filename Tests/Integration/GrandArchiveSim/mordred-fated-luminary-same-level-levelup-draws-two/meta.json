@@ -1,0 +1,24 @@
+{
+    "name": "mordred-fated-luminary-same-level-levelup-draws-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:13+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "KqBosnU7pU"
+    ],
+    "notes": "Mordred, Fated Luminary (KqBosnU7pU, CHAMPION level 3, EXALTED/NORM): \"Mordred can level up into champions of the same base level. When he does, draw two cards.\" The champion is patched to Fated Luminary (level 3) and performs a REAL same-level level-up into Mordred, Aurelian Regent (level 3, memory cost 3): the engine offers it (ChampionCanSameLevelUp) and draws two cards -- the hand ends at 10 = 7 + 1 turn draw + 2.",
+    "semanticCoverage": {
+        "testedCards": [
+            "KqBosnU7pU"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Mordred can level up into champions of the same base level.",
+            "When he does, draw two cards."
+        ]
+    }
+}

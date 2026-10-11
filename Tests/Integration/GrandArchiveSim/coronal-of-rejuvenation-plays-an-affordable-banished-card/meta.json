@@ -1,0 +1,20 @@
+{
+    "name": "coronal-of-rejuvenation-plays-an-affordable-banished-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T16:28:50+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "uvgflagxbb"
+    ],
+    "notes": "Coronal of Rejuvenation with a payable banished Dungeon Guide: REST, play it, pay its 3 reserve cost, it enters the field.",
+    "semanticCoverage": {
+        "testedCards": [
+            "uvgflagxbb"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "activate-from-banishment"
+        ],
+        "rulesClauses": []
+    }
+}

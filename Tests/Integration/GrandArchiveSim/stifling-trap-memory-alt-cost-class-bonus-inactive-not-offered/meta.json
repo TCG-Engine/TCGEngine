@@ -1,0 +1,22 @@
+{
+    "name": "stifling-trap-memory-alt-cost-class-bonus-inactive-not-offered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:51:53+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "z5exbwdp7q"
+    ],
+    "notes": "Stifling Trap (z5exbwdp7q): \"[Class Bonus] If it's not your turn, you may remove two preparation counters from your champion to activate this card from your memory without paying its reserve cost.\" Class Bonus inactive. Player 1's champion is Vanitas, Obliviate Schemer (CLERIC, WIND element, so the WIND card itself is still activatable -- the only missing requirement is the ASSASSIN class bonus) with 2 preparation counters. Stifling Trap sits in memory; a Fairy Whispers in hand keeps player 1's windows open (same flow as the other negative controls). When player 2's Dungeon Guide opens the window, player 1's offered options are only the hand card (live: MZMAYCHOOSE=myHand-7), and answering with myMemory-0 is rejected. A rejected click can be a no-op, so the state is asserted: counters, memory and graveyard are unchanged.",
+    "semanticCoverage": {
+        "testedCards": [
+            "z5exbwdp7q"
+        ],
+        "mechanics": [
+            "cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If it's not your turn, you may remove two preparation counters from your champion to activate this card from your memory without paying its reserve cost."
+        ]
+    }
+}

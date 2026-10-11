@@ -135,10 +135,12 @@ class DecisionQueueController {
                         MZMove($player, $source, $destination);
                         break;
                     case "CUSTOM":
-                        if($lastDecision == "PASS" && !$decision->DontSkipOnPass) break;
                         global $customDQHandlers;
                         $parts = explode("|", $decision->Param);
                         $handlerName = array_shift($parts);
+                        // Optional per-game hook: handlers that handle a declined (PASS) choice themselves, queued by code the game cannot edit (generated card bodies) without dontSkipOnPass.
+                        // Absent elsewhere, so every other game skips exactly as before.
+                        if($lastDecision == "PASS" && !$decision->DontSkipOnPass && !(function_exists('GameCustomHandlerRunsOnPass') && GameCustomHandlerRunsOnPass((string)$handlerName))) break;
                         // Optional per-game hook (SWUSim: the game-log source context — a card-named
                         // continuation re-establishes which ability is resolving). Absent elsewhere.
                         if (function_exists('GameBeforeCustomHandler')) GameBeforeCustomHandler(intval($player), (string)$handlerName, (string)$decision->Param);
@@ -232,6 +234,8 @@ class DecisionQueueController {
         // apart from the field separator. Anything living in the param (OPTIONCHOOSE / YESNO option
         // labels, the ~BUDGET~ and ~REQ~ side channels) must still be underscored by its caller.
         $tooltip = str_replace(' ', '_', $tooltip);
+        // Optional per-game normalisation of the option list (e.g. dropping duplicate targets).
+        if(function_exists('GameNormalizeDecisionParam')) $param = GameNormalizeDecisionParam($type, $param);
         $playerQueue = &GetDecisionQueue($player);
         $insertIndex = 0;
         for($i = 0; $i < count($playerQueue); $i++) {
@@ -317,7 +321,8 @@ class DecisionQueueController {
                     $numChoices += 1;
                 }
             } else {
-                // Whole zone - count all cards
+                // Whole zone - count all cards (an empty option list names no zone: zero choices, not a fatal count(null))
+                if($spec['zone'] === '' || $spec['zone'] === null) continue;
                 $numChoices += MZZoneCount($spec['zone']);
             }
         }
@@ -331,6 +336,7 @@ class DecisionQueueController {
                 $obj = MZResolveObject($spec['original']);
                 if ($obj !== null && !(isset($obj->removed) && $obj->removed)) return $spec['original'];
             } else {
+                if ($spec['zone'] === '' || $spec['zone'] === null) continue;
                 if (MZZoneCount($spec['zone']) > 0) return $spec['zone'] . '-0';
             }
         }
@@ -510,20 +516,45 @@ class DecisionQueueController {
     }
     
     public static function CleanupRemovedCards() {
+        // Optional per-sim hook: a sim can name specific objects (by UniqueID) whose physical
+        // splice below should be skipped this pass -- flagged ->removed as normal, just left in
+        // place a while longer -- because something still needs a stable view of them as a
+        // "removed but not yet purged" phantom. E.g. GrandArchiveSim protects a card destroyed
+        // moments before an on-attack/on-hit/on-kill trigger needs to find it (and whatever
+        // follow-up decisions that trigger queues), without affecting any OTHER object's cleanup
+        // timing. Absent for sims that define no such hook (function_exists is a no-op); an empty
+        // or non-array return is treated as "nothing protected".
+        $protectedUniqueIDs = [];
+        if (function_exists('GetProtectedRemovedCardUniqueIDs')) {
+            $hookResult = GetProtectedRemovedCardUniqueIDs();
+            if (is_array($hookResult)) $protectedUniqueIDs = $hookResult;
+        }
         // Multi-seat apps generate GetAllCompactableZones (every seat's zones); GetAllZones only names
         // my/their — two seats — and must stay as-is because it is also the RNG hash material.
         $allZones = function_exists('GetAllCompactableZones') ? GetAllCompactableZones() : GetAllZones();
         foreach ($allZones as $zoneName) {
             $zone = &GetZone($zoneName);
             if (!is_array($zone)) continue;
-            
-            // Physically remove cards marked as removed (reverse iteration to safely splice)
+
+            // Physically remove cards marked as removed (reverse iteration to safely splice),
+            // except one whose UniqueID is protected -- it keeps its slot, everything else around
+            // it still compacts normally.
             for ($i = count($zone) - 1; $i >= 0; $i--) {
                 if (isset($zone[$i]) && method_exists($zone[$i], 'Removed') && $zone[$i]->Removed()) {
+                    if (!empty($protectedUniqueIDs) && isset($zone[$i]->UniqueID) && in_array(intval($zone[$i]->UniqueID), $protectedUniqueIDs, true)) {
+                        continue;
+                    }
                     array_splice($zone, $i, 1);
+                    // Optional per-sim hook: every element after $i just shifted down one slot, so
+                    // any positional mzID a sim already handed out for this zone (e.g. a pending
+                    // MZCHOOSE computed while the departing object still occupied its slot) is now
+                    // stale. The sim decides what, if anything, to re-index. Absent for sims that
+                    // define no such hook (function_exists is a no-op), so their behavior is
+                    // byte-identical to before.
+                    if (function_exists('GameOnZoneElementSpliced')) GameOnZoneElementSpliced($zoneName, $i);
                 }
             }
-            
+
             // Rebuild mzIndex values and indexed properties for remaining cards
             for ($i = 0; $i < count($zone); $i++) {
                 if (isset($zone[$i])) {

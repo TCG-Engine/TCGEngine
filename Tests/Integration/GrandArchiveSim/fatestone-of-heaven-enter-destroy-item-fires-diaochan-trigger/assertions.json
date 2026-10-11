@@ -1,0 +1,7 @@
+[
+    {"step":6,"type":"card_exists","zone":"theirBanish","viewerPlayerID":1,"cardID":"h8n1520m2d","semantic":true,"label":"Diao Chan's trigger banishes the destroyed Craggy Fatestone (not left in the graveyard), proving the trigger fired"},
+    {"step":6,"type":"card_exists","zone":"theirField","viewerPlayerID":1,"cardID":"yn78t73w1p","semantic":true,"label":"Diao Chan's trigger summons a Flowerbud token to the destroyed object's controller (the opponent)"},
+    {"step":6,"type":"zone_count","zone":"theirBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Exactly the destroyed Craggy Fatestone was banished by Diao Chan's trigger"},
+    {"step":6,"type":"zone_count","zone":"theirGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"The destroyed Craggy Fatestone is not sitting in the graveyard -- it was picked up by AllyDestroyed()'s trigger dispatch and moved to banish instead"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

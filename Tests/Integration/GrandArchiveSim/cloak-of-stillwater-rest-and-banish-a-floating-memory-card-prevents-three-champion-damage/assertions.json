@@ -1,0 +1,46 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "Cloak of Stillwater is rested by its [REST] cost"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myBanish-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "3oda2ha4dk",
+        "semantic": true,
+        "label": "The floating-memory Fast Cure was banished as a cost"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"PREVENT_CHAMP_3\"]",
+        "semantic": true,
+        "label": "The next 3 damage to the champion is prevented"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The graveyard card left"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

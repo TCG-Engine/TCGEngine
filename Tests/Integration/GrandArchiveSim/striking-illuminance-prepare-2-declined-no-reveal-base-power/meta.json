@@ -1,0 +1,26 @@
+{
+    "name": "striking-illuminance-prepare-2-declined-no-reveal-base-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:43:36+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "2lukkhisu5"
+    ],
+    "notes": "Striking Illuminance (2lukkhisu5, LUXEM ASSASSIN ATTACK, reserve 2, printed power 4): \"Prepare 2. Whenever you reveal a luxem element card from your memory, Striking Illuminance gets +1 POWER. On Attack: If Striking Illuminance was prepared, reveal all cards in your memory.\" Player 2's champion is Tristan, Shadowdancer (ASSASSIN, UMBRA) patched in with extra lineage cards to unlock the card's element; ATTACK cards cannot be played by the first player on turn 1, so player 1 ends turn 1 and player 2 plays the card with real actions (10002 FSM play, 100 reserve payments / YES-NO answer / attack target). Player 2's memory is seeded with two Bathe in Light (LUXEM) before play; the two reserve payments add two NORM cards, so the reveal covers 4 memory cards of which exactly 2 are luxem. Player 2 declines Prepare 2: no reveal, no +POWER: printed 4 damage, counters untouched.",
+    "semanticCoverage": {
+        "testedCards": [
+            "2lukkhisu5"
+        ],
+        "mechanics": [
+            "cost",
+            "counter",
+            "combat",
+            "condition",
+            "power"
+        ],
+        "rulesClauses": [
+            "Prepare 2.",
+            "On Attack: If Striking Illuminance was prepared, reveal all cards in your memory."
+        ]
+    }
+}

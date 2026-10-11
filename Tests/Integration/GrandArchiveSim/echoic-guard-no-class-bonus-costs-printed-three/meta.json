@@ -1,0 +1,24 @@
+{
+    "name": "echoic-guard-no-class-bonus-costs-printed-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:31:42+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "gn1b2sbrq9"
+    ],
+    "notes": "Echoic Guard (gn1b2sbrq9, printed reserve 3): negative case. The champion is the level-0 Spirit of Wind (class SPIRIT, not GUARDIAN) carrying a Tonoris, Creation's Will lineage card so the NEOS card is playable, but the Class Bonus is inactive: all THREE reserve cards are paid before the target prompt (unresolved after two, resolved after the third: memory 3, hand 4); the Dungeon Guide still gets PREVENT_ALL_2 and the copy payment is declined.",
+    "semanticCoverage": {
+        "testedCards": [
+            "gn1b2sbrq9"
+        ],
+        "mechanics": [
+            "cost",
+            "prevention",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate. (inactive: no discount)",
+            "Prevent the next 2 damage that would be dealt to target ally this turn."
+        ]
+    }
+}

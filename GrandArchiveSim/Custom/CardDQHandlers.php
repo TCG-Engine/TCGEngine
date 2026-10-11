@@ -15,6 +15,7 @@ function ProvokeObstinanceChooseNext($player) {
 }
 
 $customDQHandlers["ProvokeObstinanceApply"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         DecisionQueueController::ClearVariable("ProvokeObstinanceCount");
         return;
@@ -139,7 +140,7 @@ $customDQHandlers["HsaWNAsmAQ_OptionA"] = function($player, $parts, $lastDecisio
         $chosen = 1;
     }
     DecisionQueueController::StoreVariable("BF_chosen", "$chosen");
-    $maxChoices = IsClassBonusActive($player) ? 2 : 1;
+    $maxChoices = IsClassBonusActive($player, CardClasses("HsaWNAsmAQ")) ? 2 : 1; // Bestial Frenzy [Class Bonus]
     if($chosen < $maxChoices) {
         $beasts = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["BEAST"]);
         if(!empty($beasts)) {
@@ -155,7 +156,7 @@ $customDQHandlers["HsaWNAsmAQ_OptionA"] = function($player, $parts, $lastDecisio
 
 $customDQHandlers["HsaWNAsmAQ_OptionB"] = function($player, $parts, $lastDecision) {
     $chosen = intval(DecisionQueueController::GetVariable("BF_chosen"));
-    $maxChoices = IsClassBonusActive($player) ? 2 : 1;
+    $maxChoices = IsClassBonusActive($player, CardClasses("HsaWNAsmAQ")) ? 2 : 1; // Bestial Frenzy [Class Bonus]
     if($lastDecision === "YES") {
         $beasts = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["BEAST"]);
         if(!empty($beasts)) {
@@ -699,19 +700,32 @@ $customDQHandlers["FerventLancerBanish"] = function($player, $parts, $lastDecisi
     }
 };
 
-// Molten Arrow GY ability: banish 3 fire GY cards sequentially, then load into bow
-$customDQHandlers["MoltenArrowGYBanish1"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "") return;
-    MZMove($player, $lastDecision, "myBanish");
-    DecisionQueueController::CleanupRemovedCards();
+// Molten Arrow GY ability: banish 3 fire GY cards sequentially, then load into bow.
+// The arrow's own graveyard index is kept in "MoltenArrowGYMZ" and moved down whenever a banished card sat below it (the graveyard closes up after each banish);
+// the arrow itself is the one card that cannot pay for its own ability, but other copies of it are fire cards like any other.
+function MoltenArrowFireGraveyardChoices($player) {
+    $arrowMZ = DecisionQueueController::GetVariable("MoltenArrowGYMZ");
     $fireGY = [];
     $gy = GetZone("myGraveyard");
     for($gi = 0; $gi < count($gy); ++$gi) {
-        if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE"
-            && $gy[$gi]->CardID !== "mvfcd0ukk6") {
+        if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE" && "myGraveyard-" . $gi !== $arrowMZ) {
             $fireGY[] = "myGraveyard-" . $gi;
         }
     }
+    return $fireGY;
+}
+function MoltenArrowBanishFireCard($player, $banishedMZ) {
+    $arrowMZ = DecisionQueueController::GetVariable("MoltenArrowGYMZ");
+    $banishedIdx = intval(explode("-", $banishedMZ)[1]);
+    $arrowIdx = intval(explode("-", $arrowMZ)[1]);
+    MZMove($player, $banishedMZ, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    if($banishedIdx < $arrowIdx) DecisionQueueController::StoreVariable("MoltenArrowGYMZ", "myGraveyard-" . ($arrowIdx - 1));
+}
+$customDQHandlers["MoltenArrowGYBanish1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MoltenArrowBanishFireCard($player, $lastDecision);
+    $fireGY = MoltenArrowFireGraveyardChoices($player);
     if(count($fireGY) < 2) return;
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fireGY), 1, tooltip:"Banish_fire_card_2_of_3");
     DecisionQueueController::AddDecision($player, "CUSTOM", "MoltenArrowGYBanish2", 1);
@@ -719,16 +733,8 @@ $customDQHandlers["MoltenArrowGYBanish1"] = function($player, $parts, $lastDecis
 
 $customDQHandlers["MoltenArrowGYBanish2"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
-    MZMove($player, $lastDecision, "myBanish");
-    DecisionQueueController::CleanupRemovedCards();
-    $fireGY = [];
-    $gy = GetZone("myGraveyard");
-    for($gi = 0; $gi < count($gy); ++$gi) {
-        if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE"
-            && $gy[$gi]->CardID !== "mvfcd0ukk6") {
-            $fireGY[] = "myGraveyard-" . $gi;
-        }
-    }
+    MoltenArrowBanishFireCard($player, $lastDecision);
+    $fireGY = MoltenArrowFireGraveyardChoices($player);
     if(count($fireGY) < 1) return;
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fireGY), 1, tooltip:"Banish_fire_card_3_of_3");
     DecisionQueueController::AddDecision($player, "CUSTOM", "MoltenArrowGYBanish3", 1);
@@ -736,8 +742,7 @@ $customDQHandlers["MoltenArrowGYBanish2"] = function($player, $parts, $lastDecis
 
 $customDQHandlers["MoltenArrowGYBanish3"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
-    MZMove($player, $lastDecision, "myBanish");
-    DecisionQueueController::CleanupRemovedCards();
+    MoltenArrowBanishFireCard($player, $lastDecision);
     // Now load Molten Arrow from GY into an unloaded Bow
     $arrowMZ = DecisionQueueController::GetVariable("MoltenArrowGYMZ");
     $bows = GetUnloadedBows($player);
@@ -1323,11 +1328,12 @@ $customDQHandlers["WujiSacrifice"] = function($player, $params, $lastDecision) {
 };
 
 $customDQHandlers["WujiMill"] = function($player, $params, $lastDecision) {
-    $target = ($lastDecision === "YES") ? $player : (($player == 1) ? 2 : 1);
-    $deck = &GetDeck($target);
-    for($i = 0; $i < 3 && count($deck) > 0; ++$i) {
-        MZMove($target, "myDeck-0", "myGraveyard");
-    }
+    // "Target player puts the top three cards of their deck into their graveyard." A loop of
+    // MZMove($target, "myDeck-0", "myGraveyard") only ever moved the top card (Remove() just flags the slot removed, so
+    // "myDeck-0" re-resolved to the same removed slot); MillCards() is the engine's mill helper (mills distinct slots,
+    // honours Purging Tempest / Sasha banish redirects).
+    if($lastDecision === "YES") MillCards($player, "myDeck", "myGraveyard", 3);
+    else MillCards($player, "theirDeck", "theirGraveyard", 3);
 };
 
 $customDQHandlers["RuinousPillarsDestroy"] = function($player, $params, $lastDecision) {
@@ -1590,10 +1596,13 @@ function PairedMindsChoose($player) {
 
 function PairedMindsFinish($player) {
     // Put remaining TempZone cards on bottom of deck
+    // MZMoveTopOfZone, not a loop of MZMove($player, "myTempZone-0", ...): MZMove only flags the slot removed, so
+    // "myTempZone-0" kept resolving to the same removed slot and only the first remaining card went to the bottom
+    // (the rest stayed stranded in myTempZone).
     $tempRemaining = ZoneSearch("myTempZone");
     $n = count($tempRemaining);
     for($i = 0; $i < $n; ++$i) {
-        MZMove($player, "myTempZone-0", "myDeck");
+        MZMoveTopOfZone($player, "myTempZone", "myDeck");
     }
     // [Class Bonus] if unique ally, next Horse ally costs 2 less
     if(IsClassBonusActive($player, ["WARRIOR"])) {
@@ -1632,10 +1641,11 @@ function EruptingRhapsodyContinue($player, $banishedCount) {
         return;
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $fireGY), 1, tooltip:"Banish_a_fire_card_from_graveyard?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "EruptingRhapsodyPick|$banishedCount", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EruptingRhapsodyPick|$banishedCount", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["EruptingRhapsodyPick"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $banishedCount = intval($parts[0]);
     if($lastDecision == "-" || $lastDecision == "") {
         EruptingRhapsodyFinalize($player, $banishedCount);
@@ -1709,18 +1719,22 @@ $customDQHandlers["LightweaverRevealDmg"] = function($player, $parts, $lastDecis
  * @param int $banishedCount Number of arcane cards banished so far
  */
 function AdventStormcallerBanishLoop($player, $banishedCount) {
+    // ZoneSearch() does not skip slots flagged removed: without this splice a card banished on the previous pass was offered again (picking it
+    // banished nothing but still counted toward the 2-damage-per-banished-card total).
+    DecisionQueueController::CleanupRemovedCards();
     $arcaneTmp = ZoneSearch("myTempZone", cardElements: ["ARCANE"]);
     if(empty($arcaneTmp)) {
         AdventStormcallerDamagePhase($player, $banishedCount);
         return;
     }
+    // dontSkipOnPass: declining ("any amount") must still run the handler, otherwise the damage phase and the rearrange never happen.
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $arcaneTmp), 1, tooltip:"Banish_an_arcane_card?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "AdventBanishPick|$banishedCount", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AdventBanishPick|$banishedCount", 1, "", 1);
 }
 
 $customDQHandlers["AdventBanishPick"] = function($player, $parts, $lastDecision) {
     $banishedCount = intval($parts[0]);
-    if($lastDecision == "-" || $lastDecision == "") {
+    if($lastDecision == "-" || $lastDecision == "" || $lastDecision == "PASS") {
         AdventStormcallerDamagePhase($player, $banishedCount);
         return;
     }
@@ -1837,6 +1851,7 @@ $customDQHandlers["PrismaticEdgeFire"] = function($player, $parts, $lastDecision
 $customDQHandlers["HarnessManaLoop"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     MZMove($player, $lastDecision, "myMemory");
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $hand = ZoneSearch("myHand");
     if(!empty($hand)) {
         $handStr = implode("&", $hand);
@@ -1876,6 +1891,7 @@ $customDQHandlers["SanctumOfEsotericTruth1"] = function($player, $parts, $lastDe
     // Put first card on bottom of deck
     MZMove($player, $lastDecision, "myDeck");
     // Choose second card
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $handAndMemory = array_merge(ZoneSearch("myHand"), ZoneSearch("myMemory"));
     if(!empty($handAndMemory)) {
         $choices = implode("&", $handAndMemory);
@@ -2038,7 +2054,7 @@ function AssembleAncientsSacrifice($player, $count) {
     }
     $domainStr = implode("&", $domains);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $domainStr, 1, "Sacrifice_a_domain?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "AssembleAncientsSacChoice|$count", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AssembleAncientsSacChoice|$count", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["AssembleAncientsSacChoice"] = function($player, $parts, $lastDecision) {
@@ -2071,6 +2087,19 @@ $customDQHandlers["NavCompass_Discard"] = function($player, $parts, $lastDecisio
 };
 
 // --- Portside Pirate (6p3p5iqigc) DQ handler ---
+// Judas, Claret Intercessor (AbjQkcN57S): the "Sacrifice another ally" activation cost.
+$customDQHandlers["JudasSacrificeCost"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+// Lucenia's Reign (zrvvwz3ww9): the "Discard a Chessman Command card" activation cost.
+$customDQHandlers["LuceniaDiscardCost"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoDiscardCard($player, $lastDecision);
+};
+
 $customDQHandlers["PortsidePirateBanish"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $hadFloating = HasFloatingMemory(GetZoneObject($lastDecision));
@@ -2080,6 +2109,7 @@ $customDQHandlers["PortsidePirateBanish"] = function($player, $parts, $lastDecis
 
 // --- Smashing Force (88rx6p3p5i) helpers ---
 function SmashingForceBanishStart($player) {
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $fireCards = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
     if(count($fireCards) < 2) return;
     $fireStr = implode("&", $fireCards);
@@ -2092,6 +2122,7 @@ $customDQHandlers["SmashingForceBanish1"] = function($player, $parts, $lastDecis
     $hadFloating = HasFloatingMemory(GetZoneObject($lastDecision));
     MZMove($player, $lastDecision, "myBanish");
     if($hadFloating) NicoOnFloatingMemoryBanished($player);
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $fireCards2 = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
     if(empty($fireCards2)) return;
     $fireStr2 = implode("&", $fireCards2);
@@ -2114,7 +2145,7 @@ $customDQHandlers["SmashingForceBanish2"] = function($player, $parts, $lastDecis
     );
     foreach($allItems as $mzI) {
         $iObj = GetZoneObject($mzI);
-        if(CardCost_memory($iObj->CardID) == 0 || CardCost_reserve($iObj->CardID) <= 4) {
+        if(ItemLowCostMatches($iObj->CardID, 4)) {
             $validTargets[] = $mzI;
         }
     }
@@ -2317,7 +2348,7 @@ function SwoopingTalonsMode2($player) {
     $allItems = array_merge(ZoneSearch("myField", ["ITEM", "REGALIA"]), ZoneSearch("theirField", ["ITEM", "REGALIA"]));
     foreach($allItems as $mzI) {
         $iObj = GetZoneObject($mzI);
-        if(CardCost_memory($iObj->CardID) == 0 || CardCost_reserve($iObj->CardID) <= 4) {
+        if(ItemLowCostMatches($iObj->CardID, 4)) {
             $validItems[] = $mzI;
         }
     }
@@ -2994,12 +3025,18 @@ $customDQHandlers["ThreeOfDiamondsGraveyard"] = function($player, $parts, $lastD
 $customDQHandlers["HuangZhongDistant"] = function($player, $parts, $lastDecision) {
     // $parts[0] = mzID of Huang Zhong
     $mzID = $parts[0];
-    global $playerID;
-    $player = GetController($mzID);
-    // Make all Ranger units on field distant
+    // GetController() does not exist in this engine (fatal "undefined function" after the cost was paid): the controller is on the zone object.
+    $huangObj = GetZoneObject($mzID);
+    if($huangObj === null || $huangObj->removed) return;
+    $player = $huangObj->Controller;
+    // Make all Ranger units (allies AND the champion) you control distant
     $rangerAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["RANGER"]);
     foreach($rangerAllies as $rangerMZ) {
         BecomeDistant($player, $rangerMZ);
+    }
+    foreach(ZoneSearch("myField", ["CHAMPION"]) as $champMZ) {
+        $champObj = GetZoneObject($champMZ);
+        if($champObj !== null && !$champObj->removed && PropertyContains(EffectiveCardClasses($champObj), "RANGER")) BecomeDistant($player, $champMZ);
     }
     // Return Huang Zhong to memory
     MZMove($player, $mzID, "myMemory");
@@ -3236,6 +3273,8 @@ $customDQHandlers["ConeOfFrostStep"] = function($player, $parts, $lastDecision) 
     $step = intval($parts[0]);
     $sourceMZ = $parts[1];
     $level = PlayerLevel($player);
+    // Each level's "up to one target" is its own effect: declining one still lets the higher levels run
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
 
     if($step == 1) {
         // Step 1: present first target choice (Level 1+)
@@ -3247,7 +3286,7 @@ $customDQHandlers["ConeOfFrostStep"] = function($player, $parts, $lastDecision) 
         if(!empty($targets)) {
             $tStr = implode("&", $targets);
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $tStr, 1, "Deal_2_damage_to_target_(Cone_of_Frost_1)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|2|" . $sourceMZ, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|2|" . $sourceMZ, 1, dontSkipOnPass:1);
         }
     } elseif($step == 2) {
         // Process first target choice
@@ -3264,7 +3303,7 @@ $customDQHandlers["ConeOfFrostStep"] = function($player, $parts, $lastDecision) 
             if(!empty($targets)) {
                 $tStr = implode("&", $targets);
                 DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $tStr, 1, "Deal_2_damage_to_target_(Cone_of_Frost_2)");
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|3|" . $sourceMZ, 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|3|" . $sourceMZ, 1, dontSkipOnPass:1);
             }
         }
     } elseif($step == 3) {
@@ -3282,7 +3321,7 @@ $customDQHandlers["ConeOfFrostStep"] = function($player, $parts, $lastDecision) 
             if(!empty($targets)) {
                 $tStr = implode("&", $targets);
                 DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $tStr, 1, "Deal_2_damage_to_target_(Cone_of_Frost_3)");
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|4|" . $sourceMZ, 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|4|" . $sourceMZ, 1, dontSkipOnPass:1);
             }
         }
     } elseif($step == 4) {
@@ -3299,6 +3338,10 @@ $customDQHandlers["FierySwingBanish"] = function($player, $parts, $lastDecision)
     $sourceMZ = $parts[0];
     $count = intval($parts[1]);
 
+    // Declining a further banish ("up to six") ends the loop; the bonus for what was already banished must still be applied
+    $declined = ($lastDecision === "PASS");
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
+
     // Process previous choice
     if($lastDecision !== "-" && $lastDecision !== "") {
         MZMove($player, $lastDecision, "myBanish");
@@ -3306,12 +3349,13 @@ $customDQHandlers["FierySwingBanish"] = function($player, $parts, $lastDecision)
     }
 
     // Check if we can banish more (max 6)
-    if($count < 6) {
+    if($count < 6 && !$declined) {
+        DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
         $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
         if(!empty($fireGY)) {
             $fireStr = implode("&", $fireGY);
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $fireStr, 1, "Banish_fire_card_from_GY?_(" . $count . "/6_banished)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "FierySwingBanish|" . $sourceMZ . "|" . $count, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "FierySwingBanish|" . $sourceMZ . "|" . $count, 1, dontSkipOnPass:1);
             return;
         }
     }
@@ -3738,6 +3782,7 @@ $customDQHandlers["FractalOfRainMill"] = function($player, $parts, $lastDecision
 
 // Suffocating Miasma recollection: debuff chosen ally or deal 2 unpreventable to champion
 $customDQHandlers["SuffocatingMiasmaRecollection"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         AddCounters($player, $lastDecision, "debuff", 1);
     } else {
@@ -3780,17 +3825,28 @@ $customDQHandlers["MusicboxActivate"] = function($player, $parts, $lastDecision)
     MusicboxActivateCard($player, $lastDecision);
 };
 
+// The banished card is validated (activation gates, prerequisites, reserve affordability) BEFORE it is moved to the hand: moving it first and then being refused used to leave it in the hand for free.
 function MusicboxActivateCard($player, $banishedMZ) {
-    $handObj = MZMove($player, $banishedMZ, "myHand");
-    $hand = &GetHand($player);
-    $handIdx = count($hand) - 1;
-    ActivateCard($player, "myHand-" . $handIdx, false);
+    return ActivateBanishedCard($player, $banishedMZ);
+}
+
+// The Musicbox cards (banished by it) the player could actually begin activating right now.
+function MusicboxActivatableCards($player) {
+    $banish = GetZone("myBanish");
+    $cards = [];
+    for($bi = 0; $bi < count($banish); ++$bi) {
+        if($banish[$bi]->removed || !isset($banish[$bi]->Counters['_musicbox'])) continue;
+        if(ActivationRefusedBeforeStart($player, $banish[$bi], false, true)) continue;
+        $cards[] = "myBanish-" . $bi;
+    }
+    return $cards;
 }
 
 // Sinister Mindreaver: continue after first memory pick
 function SinisterMindreaverContinue($player, $pick1) {
     if($pick1 === "-" || $pick1 === "" || $pick1 === "PASS") return;
     MZMove($player, $pick1, "theirGraveyard");
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $oppMemory2 = ZoneSearch("theirMemory");
     if(!empty($oppMemory2)) {
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $oppMemory2), 1, "Discard_another_from_memory?");
@@ -3802,6 +3858,7 @@ function SinisterMindreaverContinue($player, $pick1) {
 }
 
 $customDQHandlers["SinisterMindreaverPick2"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $opponent = ($player == 1) ? 2 : 1;
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         MZMove($player, $lastDecision, "theirGraveyard");
@@ -3868,12 +3925,15 @@ $customDQHandlers["ShiftingMiragePay"] = function($player, $parts, $lastDecision
         ReserveCard($player);
         return;
     }
+    // Stored relative to the paying opponent (this handler's $player), not the caster.
     $champMZ = DecisionQueueController::GetVariable("ShiftingMirageChampion");
-    if(!empty($champMZ)) AddTurnEffect($champMZ, "STEALTH");
+    if(!empty($champMZ)) AddTurnEffect(NormalizeMZForPlayerPerspective($player, $champMZ), "STEALTH");
 };
 
 $customDQHandlers["GloamspireHeadhunterPay"] = function($player, $parts, $lastDecision) {
+    // Stored relative to the hit ally's controller (this handler's $player), not the attacker.
     $target = DecisionQueueController::GetVariable("GloamspireHeadhunterTarget");
+    if(!empty($target)) $target = NormalizeMZForPlayerPerspective($player, $target);
     if($lastDecision === "YES") {
         if(count(GetHand($player)) < 3) {
             if(!empty($target)) {
@@ -3945,11 +4005,18 @@ function GalestreamInsightPutRestOnBottom($player) {
 }
 
 function GalestreamInsightResolve($player) {
-    $deck = GetDeck($player);
+    $deck = &GetDeck($player);
     $lookCount = min(6, count($deck));
     if($lookCount <= 0) return;
+    // A loop of MZMove($player, "myDeck-0", "myTempZone") does NOT work: Remove() only flags the slot
+    // removed (no splice), so "myDeck-0" resolves to the same removed slot every iteration after the
+    // first and MZMove's "already removed" guard silently no-ops -- only the top card was ever looked
+    // at. Pull the cards off the live deck with array_shift() instead (same shape as EventideLureEnter
+    // and Glimpse()).
     for($i = 0; $i < $lookCount; ++$i) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        $topObj = array_shift($deck);
+        if($topObj === null) break;
+        MZAddZone($player, "myTempZone", $topObj->CardID, $topObj);
     }
     $candidates = ZoneSearch("myTempZone", cardSubtypes: ["SPELL"]);
     if(empty($candidates)) {
@@ -3958,7 +4025,7 @@ function GalestreamInsightResolve($player) {
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $candidates), 1,
         tooltip:"Reveal_a_Spell_card_to_put_into_memory?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "GalestreamInsightReveal", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GalestreamInsightReveal", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["GalestreamInsightReveal"] = function($player, $parts, $lastDecision) {
@@ -3970,6 +4037,7 @@ $customDQHandlers["GalestreamInsightReveal"] = function($player, $parts, $lastDe
 };
 
 function DusksoulStoneActivated($player) {
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $myGY = ZoneSearch("myGraveyard");
     $theirGY = ZoneSearch("theirGraveyard");
     if(empty($myGY) && empty($theirGY)) return;
@@ -3983,6 +4051,9 @@ $customDQHandlers["DusksoulStoneBanishStart"] = function($player, $parts, $lastD
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $gyRef = strpos($lastDecision, "theirGraveyard-") === 0 ? "theirGraveyard" : "myGraveyard";
     MZMove($player, $lastDecision, "myBanish");
+    // Splice the banished slot out now: ZoneSearch() below must see the final graveyard indices, or the
+    // second MZMAYCHOOSE lists a stale slot (the removed card's) and every later "-N" is off by one.
+    DecisionQueueController::CleanupRemovedCards();
     $remaining = ZoneSearch($gyRef);
     if(empty($remaining)) return;
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $remaining), 1,
@@ -4020,7 +4091,8 @@ $customDQHandlers["StandBeforeTheQueenPay"] = function($player, $parts, $lastDec
         ReserveCard($player);
         return;
     }
-    if(!empty($target)) AddTurnEffect($target, "STEALTH");
+    // Stored relative to the paying opponent (this handler's $player), not the ambient player at store time.
+    if(!empty($target)) AddTurnEffect(NormalizeMZForPlayerPerspective($player, $target), "STEALTH");
 };
 
 $customDQHandlers["BlastshotPumpChoose"] = function($player, $parts, $lastDecision) {
@@ -4081,6 +4153,7 @@ function AegisOfDawnTrigger($player) {
 
 function RadiantOriginGuardianTrigger($sourceMZ, $amount) {
     if(intval($amount) < 4) return;
+    if($sourceMZ === null || $sourceMZ === "") return; // source-less damage (a card effect with no unit behind it)
     $sourceObj = GetZoneObject($sourceMZ);
     if($sourceObj === null || $sourceObj->removed || HasNoAbilities($sourceObj)) return;
     if(!PropertyContains(EffectiveCardType($sourceObj), "ALLY") && !PropertyContains(EffectiveCardType($sourceObj), "CHAMPION")) return;
@@ -4305,7 +4378,11 @@ $customDQHandlers["KindlingFlareSacHerb"] = function($player, $parts, $lastDecis
     $herbCount = intval(DecisionQueueController::GetVariable("kindlingHerbCount"));
 
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
-        // Player declined — done sacrificing, queue reserve payments
+        // Player declined — done sacrificing, queue reserve payments.
+        // This branch is reached with lastDecision == "PASS" (the queue site passes dontSkipOnPass),
+        // and ExecuteStaticMethods() would skip every unflagged CUSTOM queued below while that
+        // value is current -- PASSPARAMETER resets it so the reserve payments actually run.
+        DecisionQueueController::AddDecision($player, "PASSPARAMETER", "-", 100);
         for($i = 0; $i < $reserveCost; ++$i) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
         }
@@ -4324,7 +4401,7 @@ $customDQHandlers["KindlingFlareSacHerb"] = function($player, $parts, $lastDecis
     $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
     if(!empty($herbs)) {
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $herbs), 100, tooltip:"Sacrifice_another_Herb?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "KindlingFlareSacHerb|$reserveCost", 100);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "KindlingFlareSacHerb|$reserveCost", 100, dontSkipOnPass:1);
     } else {
         // No more herbs — queue reserve payments
         for($i = 0; $i < $reserveCost; ++$i) {
@@ -4373,6 +4450,7 @@ $customDQHandlers["BlazingBowmanBanish"] = function($player, $parts, $lastDecisi
 // Modulating Cadence (p5p0azskw4): reveal Harmony/Melody from TempZone, rest to bottom
 // ============================================================================
 $customDQHandlers["ModulatingCadenceReveal"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         Reveal($player, revealedMZ: $lastDecision);
         MZMove($player, $lastDecision, "myHand");
@@ -4387,6 +4465,7 @@ $customDQHandlers["ModulatingCadenceBottom"] = function($player, $parts, $lastDe
 // Lost in Thought (egbscxwjbq): iterative floating memory banish from GY
 // ============================================================================
 $customDQHandlers["LostInThoughtBanish"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $banished = intval($parts[0]);
 
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
@@ -4401,10 +4480,11 @@ $customDQHandlers["LostInThoughtBanish"] = function($player, $parts, $lastDecisi
     $banished++;
 
     // Check for more floating memory cards in graveyard
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $floatingGY = ZoneSearch("myGraveyard", floatingMemoryOnly: true);
     if(!empty($floatingGY)) {
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $floatingGY), 1, tooltip:"Banish_another_floating_memory_card?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "LostInThoughtBanish|$banished", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "LostInThoughtBanish|$banished", 1, dontSkipOnPass:1);
     } else {
         // No more — draw for all banished
         if($banished > 0) Draw($player, $banished);
@@ -4426,6 +4506,7 @@ $customDQHandlers["PurifiedShotBanish"] = function($player, $parts, $lastDecisio
     $remaining--;
 
     if($remaining > 0) {
+        DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
         $oppGY = ZoneSearch("theirGraveyard");
         if(!empty($oppGY)) {
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $oppGY), 1, tooltip:"Banish_another_card_from_opponent_graveyard?");
@@ -4503,9 +4584,11 @@ function LureTheAbyssExecute($player) {
     $deck = &GetDeck($player);
     if(empty($deck)) return;
     $count = min(4, count($deck));
-    // Move top N cards to TempZone for reveal
+    // Move top N cards to TempZone for reveal. MZMoveTopOfZone, not a loop of MZMove($player, "myDeck-0", ...):
+    // MZMove only flags the slot removed, so "myDeck-0" would keep resolving to the same removed slot and only
+    // the first card would ever be revealed.
     for($i = 0; $i < $count; $i++) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        MZMoveTopOfZone($player, "myDeck", "myTempZone");
     }
     // Now separate Specters from non-Specters
     $tempCards = ZoneSearch("myTempZone");
@@ -4582,6 +4665,7 @@ $customDQHandlers["PrimalWhipBuff"] = function($player, $parts, $lastDecision) {
 // Orb of Regret (BY0E8si926): shuffle up to 3 cards from hand into deck, draw that many
 // ============================================================================
 $customDQHandlers["OrbOfRegretShuffle"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $iteration = intval($parts[0]);
     $count = intval(DecisionQueueController::GetVariable("OrbOfRegretCount"));
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
@@ -4612,7 +4696,7 @@ $customDQHandlers["OrbOfRegretShuffle"] = function($player, $parts, $lastDecisio
     }
     $handStr = implode("&", $hand);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $handStr, 1, tooltip:"Shuffle_another_card_into_deck?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "OrbOfRegretShuffle|" . ($iteration + 1), 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "OrbOfRegretShuffle|" . ($iteration + 1), 1, dontSkipOnPass:1);
 };
 
 // ============================================================================
@@ -4631,7 +4715,7 @@ function RedirectOrbitChoose($player, $count) {
     $choiceStr = implode("&", $choices);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choiceStr, 1,
         tooltip:"Shuffle_a_card_from_hand_or_memory_into_deck?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "RedirectOrbitStep|" . $count, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RedirectOrbitStep|" . $count, 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["RedirectOrbitStep"] = function($player, $parts, $lastDecision) {
@@ -4825,10 +4909,11 @@ function PurificationCursePick($player) {
     }
     $options = implode("&", $tempMZs);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $options, 1, "Choose_Curse_to_discard");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "PurificationCurse1", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PurificationCurse1", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["PurificationCurse1"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $tempZone = &GetTempZone($player);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         while(count($tempZone) > 0) array_pop($tempZone);
@@ -4851,13 +4936,14 @@ $customDQHandlers["PurificationCurse1"] = function($player, $parts, $lastDecisio
     if(!empty($remaining)) {
         $options = implode("&", $remaining);
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $options, 1, "Choose_another_Curse_to_discard");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "PurificationCurse2", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "PurificationCurse2", 1, dontSkipOnPass:1);
     } else {
         while(count($tempZone) > 0) array_pop($tempZone);
     }
 };
 
 $customDQHandlers["PurificationCurse2"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $tempZone = &GetTempZone($player);
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         $chosenObj = GetZoneObject($lastDecision);
@@ -4936,7 +5022,7 @@ function BerthaLookFinish($player) {
     if(!empty($validActions)) {
         $actionStr = implode("&", $validActions);
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $actionStr, 1, tooltip:"Activate_a_Ranger_action_for_free?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "BerthaChooseAction", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BerthaChooseAction", 1, dontSkipOnPass:1);
     } else {
         // No valid actions — shuffle rest to bottom of deck
         BerthaPutRestOnBottom($player);
@@ -4987,6 +5073,9 @@ function BerthaPutRestOnBottom($player) {
 // ============================================================================
 function LiquidAmnesiaBanish($player, $memRef, $remaining) {
     if($remaining <= 0) return;
+    // ZoneSearch() does not skip slots flagged removed: without this splice the card banished on the previous pass stayed in the candidate list,
+    // so a later "random" pick could land on it (a no-op) and fewer than the printed number of cards were banished.
+    DecisionQueueController::CleanupRemovedCards();
     $memCards = ZoneSearch($memRef);
     if(empty($memCards)) return;
     // Pick random card from memory
@@ -5554,7 +5643,10 @@ $customDQHandlers["WeightOfLookingUpBanish"] = function($player, $parts, $lastDe
 $customDQHandlers["PiccardaStaticCost"] = function($player, $parts, $lastDecision) {
     $reserveCost = max(0, intval($parts[0] ?? 0));
     $remainingStatic = max(0, intval($parts[1] ?? 0));
-    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+    // "up to four": declining (PASS) ends the optional static-counter removal and the rest of the
+    // reserve cost is paid normally -- it must not re-offer the same prompt.
+    $declinedStatic = ($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS");
+    if(!$declinedStatic) {
         $obj = GetZoneObject($lastDecision);
         if($obj !== null && !$obj->removed && intval($obj->Controller ?? 0) === intval($player)
             && GetCounterCount($obj, "static") > 0) {
@@ -5564,7 +5656,7 @@ $customDQHandlers["PiccardaStaticCost"] = function($player, $parts, $lastDecisio
         }
     }
 
-    if($reserveCost > 0 && $remainingStatic > 0) {
+    if(!$declinedStatic && $reserveCost > 0 && $remainingStatic > 0) {
         $staticSources = [];
         foreach(GetField($player) as $fieldObj) {
             if($fieldObj === null || $fieldObj->removed) continue;
@@ -5573,11 +5665,17 @@ $customDQHandlers["PiccardaStaticCost"] = function($player, $parts, $lastDecisio
         }
         if(!empty($staticSources)) {
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $staticSources), 100, tooltip:"Remove_a_static_counter_to_pay_1?");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "PiccardaStaticCost|" . $reserveCost . "|" . $remainingStatic, 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PiccardaStaticCost|" . $reserveCost . "|" . $remainingStatic, 100, dontSkipOnPass:1);
             return;
         }
     }
 
+    // The player declined (lastDecision == "PASS", reachable because the queue sites pass
+    // dontSkipOnPass): reset it so the unflagged ReserveCard / EffectStackOpportunity CUSTOMs queued
+    // below are not skipped (same idiom as KindleProcess).
+    if($lastDecision === "PASS") {
+        DecisionQueueController::AddDecision($player, "PASSPARAMETER", "-", 100);
+    }
     for($i = 0; $i < $reserveCost; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
@@ -5780,7 +5878,7 @@ function StabilizingCapacitanceLoop($player, $count) {
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $memCards, 1,
         tooltip:"Put_a_card_from_memory_on_bottom_of_deck?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "StabilizingCapacitancePick|$count", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StabilizingCapacitancePick|$count", 1, dontSkipOnPass:1);
 }
 
 function StabilizingCapacitanceFinish($player, $count) {
@@ -5794,6 +5892,7 @@ function StabilizingCapacitanceFinish($player, $count) {
 }
 
 $customDQHandlers["StabilizingCapacitancePick"] = function($player, $params, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $count = intval($params[0]);
     if($lastDecision === "-" || $lastDecision === "") {
         StabilizingCapacitanceFinish($player, $count);
@@ -5857,6 +5956,7 @@ function RegalInquisitionStep($player) {
 }
 
 $customDQHandlers["RegalInquisitionDiscard"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $selectedSources = [];
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         foreach(explode("&", $lastDecision) as $tempChoice) {
@@ -6130,6 +6230,7 @@ $customDQHandlers["DianaL2WeaponChosen"] = function($player, $parts, $lastDecisi
 };
 
 $customDQHandlers["DianaL2LoadChoice"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $round = intval($parts[0]);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         // Done loading — draw into memory for each card loaded
@@ -6169,7 +6270,7 @@ $customDQHandlers["DianaL2LoadChoice"] = function($player, $parts, $lastDecision
     }
     $targetStr = implode("&", $targets);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Load_another_Aethercharge");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "DianaL2LoadChoice|2", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DianaL2LoadChoice|2", 1, dontSkipOnPass:1);
 };
 
 // ============================================================================
@@ -6329,10 +6430,11 @@ function SalamandersBreathBanishLoop($player, $maxBanish, $banishedSoFar) {
     DecisionQueueController::StoreVariable("SB_banished", strval($banishedSoFar));
     $fireStr = implode("&", $fireGY);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $fireStr, 1, tooltip:"Banish_fire_card_for_+1_power");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SalamandersBanish", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SalamandersBanish", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["SalamandersBanish"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $maxRemaining = intval(DecisionQueueController::GetVariable("SB_maxRemaining"));
     $banished = intval(DecisionQueueController::GetVariable("SB_banished"));
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
@@ -6619,7 +6721,7 @@ $customDQHandlers["ViridescentAetherstreakModeA"] = function($player, $parts, $l
         $targets = ViridescentAetherstreakTargets($player);
         if(!empty($targets)) {
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1, tooltip:"Choose_up_to_one_target_unit");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ViridescentAetherstreakTargetA", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ViridescentAetherstreakTargetA", 1, dontSkipOnPass:1);
             return;
         }
     }
@@ -6657,8 +6759,18 @@ $customDQHandlers["ViridescentAetherstreakModeC"] = function($player, $parts, $l
 };
 
 $customDQHandlers["ViridescentAetherstreakLoad"] = function($player, $parts, $lastDecision) {
+    // VAE_source is the zone slot the card was activated from (a hand slot); by the time the mode resolves the card is in the graveyard, so that
+    // slot is stale (empty, or some other card) and the load silently did nothing. Load the copy that is actually in the graveyard.
     $sourceMZ = DecisionQueueController::GetVariable("VAE_source");
-    if($lastDecision !== "-" && $lastDecision !== "" && $sourceMZ !== null && $sourceMZ !== "") {
+    $sourceObj = ($sourceMZ !== null && $sourceMZ !== "") ? GetZoneObject($sourceMZ) : null;
+    if($sourceObj === null || $sourceObj->removed || $sourceObj->CardID !== "pc0y3xneg7") {
+        $sourceMZ = null;
+        $gy = GetZone("myGraveyard");
+        for($gi = count($gy) - 1; $gi >= 0; --$gi) {
+            if(!$gy[$gi]->removed && $gy[$gi]->CardID === "pc0y3xneg7") { $sourceMZ = "myGraveyard-" . $gi; break; }
+        }
+    }
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS" && $sourceMZ !== null) {
         LoadArrowIntoBow($player, $sourceMZ, $lastDecision);
     }
     ViridescentAetherstreakFinalize($player);
@@ -6682,6 +6794,7 @@ function MalevolentVowFinish($player) {
 }
 
 $customDQHandlers["MalevolentVow1"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         DoDiscardCard($player, $lastDecision);
         DecisionQueueController::CleanupRemovedCards();
@@ -6691,7 +6804,7 @@ $customDQHandlers["MalevolentVow1"] = function($player, $parts, $lastDecision) {
         if(!empty($hand)) {
             $handStr = implode("&", $hand);
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $handStr, 1, tooltip:"Discard_a_card_(Malevolent_Vow_2/3)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "MalevolentVow2", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "MalevolentVow2", 1, dontSkipOnPass:1);
             return;
         }
     }
@@ -6708,7 +6821,7 @@ $customDQHandlers["MalevolentVow2"] = function($player, $parts, $lastDecision) {
         if(!empty($hand)) {
             $handStr = implode("&", $hand);
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $handStr, 1, tooltip:"Discard_a_card_(Malevolent_Vow_3/3)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "MalevolentVow3", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "MalevolentVow3", 1, dontSkipOnPass:1);
             return;
         }
     }
@@ -7057,9 +7170,8 @@ function SpiritOfPurityBanishLoop($player, $targetPlayer, $remaining) {
         }
         return;
     }
-    global $playerID;
-    $gravZone = $targetPlayer == $playerID ? "myGraveyard" : "theirGraveyard";
-    $gy = ZoneSearch($gravZone);
+    // The target player's own graveyard, written in THEIR frame (they make the choice).
+    $gy = ZoneSearch("myGraveyard", forPlayer: $targetPlayer);
     if(empty($gy)) {
         if($targetPlayer === $player) {
             $opponent = ($player == 1) ? 2 : 1;
@@ -7162,7 +7274,7 @@ function SacredEngulfmentBanishLoop($player, $banishedCount) {
     }
     $fireStr = implode("&", $fireGY);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $fireStr, 1, tooltip:"Banish_a_fire_card_from_GY?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SacredEngulfmentProcess|$banishedCount", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SacredEngulfmentProcess|$banishedCount", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["SacredEngulfmentProcess"] = function($player, $parts, $lastDecision) {
@@ -7242,6 +7354,7 @@ function GaiasBlessingBanishLoop($player, $remaining, $materialMZ) {
         ActivateCard($player, "myHand-" . $handIdx, true);
         return;
     }
+    DecisionQueueController::CleanupRemovedCards(); // the move above only flags the slot: offer exact indexes
     $animalBeastGY = ZoneSearch("myGraveyard", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
     if(empty($animalBeastGY)) {
         GaiasBlessingBanishLoop($player, 0, $materialMZ);
@@ -7563,8 +7676,10 @@ function IgnitionDrawStart($player) {
     $deck = &GetDeck($player);
     $n = min(6, count($deck));
     if($n == 0) return;
+    // MZMoveTopOfZone, not a loop of MZMove($player, "myDeck-0", ...): MZMove only flags the slot removed, so
+    // "myDeck-0" would keep resolving to the same removed slot and only the top card would be looked at.
     for($i = 0; $i < $n; $i++) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        MZMoveTopOfZone($player, "myDeck", "myTempZone");
     }
     DecisionQueueController::StoreVariable("IgnitionDraw_BanishCount", "0");
     DecisionQueueController::StoreVariable("IgnitionDraw_TotalRevealed", strval($n));
@@ -7590,7 +7705,8 @@ function IgnitionDrawChooseStep($player) {
     }
     $targetStr = implode("&", $aethercharges);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, "Banish_an_Aethercharge_card?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "IgnitionDrawBanishChoice", 1);
+    // dontSkipOnPass: declining ("up to two") must still run the handler so the looked-at cards go to the bottom
+    DecisionQueueController::AddDecision($player, "CUSTOM", "IgnitionDrawBanishChoice", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["IgnitionDrawBanishChoice"] = function($player, $parts, $lastDecision) {
@@ -7611,6 +7727,10 @@ $customDQHandlers["IgnitionDrawBanishChoice"] = function($player, $parts, $lastD
     }
     $count = intval(DecisionQueueController::GetVariable("IgnitionDraw_BanishCount") ?? "0");
     DecisionQueueController::StoreVariable("IgnitionDraw_BanishCount", strval($count + 1));
+    // Splice the banished card out of myTempZone before re-offering the rest: without this the next prompt lists
+    // stale "myTempZone-N" slots (the banished card's slot is still occupied by its removed phantom, so every
+    // later index is one too high once the zone is cleaned up and the prompt banishes the WRONG card).
+    DecisionQueueController::CleanupRemovedCards();
     IgnitionDrawChooseStep($player);
 };
 
@@ -7705,44 +7825,6 @@ $customDQHandlers["ChessmanSacrifice"] = function($player, $parts, $lastDecision
     DecisionQueueController::StoreVariable("chessmanSacrificeWasQueen", $isQueen ? "YES" : "NO");
     DoSacrificeFighter($player, $lastDecision);
     DecisionQueueController::CleanupRemovedCards();
-};
-
-// SacrificePlayCost1: first sacrifice for Sacrifice Play (1jmQ9XSLph).
-$customDQHandlers["SacrificePlayCost1"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
-        DecisionQueueController::StoreVariable("sacrificePlayCount", "0");
-        return;
-    }
-    DoSacrificeFighter($player, $lastDecision);
-    DecisionQueueController::CleanupRemovedCards();
-    // Offer second sacrifice
-    $awakeChessman = [];
-    $myField = GetZone("myField");
-    for($fi = 0; $fi < count($myField); ++$fi) {
-        if(!$myField[$fi]->removed && PropertyContains(EffectiveCardType($myField[$fi]), "ALLY")
-           && PropertyContains(EffectiveCardSubtypes($myField[$fi]), "CHESSMAN")
-           && isset($myField[$fi]->Status) && $myField[$fi]->Status == 2) {
-            $awakeChessman[] = "myField-" . $fi;
-        }
-    }
-    if(!empty($awakeChessman)) {
-        $sacStr = implode("&", $awakeChessman);
-        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $sacStr, 100, tooltip:"Sacrifice_a_second_awake_Chessman_ally?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "SacrificePlayCost2", 100);
-    } else {
-        DecisionQueueController::StoreVariable("sacrificePlayCount", "1");
-    }
-};
-
-// SacrificePlayCost2: second sacrifice for Sacrifice Play.
-$customDQHandlers["SacrificePlayCost2"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
-        DecisionQueueController::StoreVariable("sacrificePlayCount", "1");
-        return;
-    }
-    DoSacrificeFighter($player, $lastDecision);
-    DecisionQueueController::CleanupRemovedCards();
-    DecisionQueueController::StoreVariable("sacrificePlayCount", "2");
 };
 
 // BriarSpindleWakeup: wake each Chessman ally you control (ability 0 effect).
@@ -7961,6 +8043,7 @@ $customDQHandlers["SunderingMoonPreventTarget"] = function($player, $parts, $las
 };
 
 $customDQHandlers["FoundPowerDiscard1"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $discarded = intval(DecisionQueueController::GetVariable("FoundPowerDiscarded") ?? "0");
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         DoDiscardCard($player, $lastDecision);
@@ -7975,7 +8058,7 @@ $customDQHandlers["FoundPowerDiscard1"] = function($player, $parts, $lastDecisio
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $hand), 1,
         tooltip:"Discard_a_card?_(Found_Power_2/2)");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "FoundPowerDiscard2", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FoundPowerDiscard2", 1, dontSkipOnPass:1);
 };
 
 $customDQHandlers["FoundPowerDiscard2"] = function($player, $parts, $lastDecision) {
@@ -7990,6 +8073,7 @@ $customDQHandlers["FoundPowerDiscard2"] = function($player, $parts, $lastDecisio
 
 // Spirit Blade: Dispersion — choose Sword weapons to strip durability + banish
 $customDQHandlers["SpiritBladeChooseSword"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     global $playerID;
     $totalDurability = intval($parts[0] ?? 0);
 
@@ -8035,7 +8119,7 @@ $customDQHandlers["SpiritBladeChooseSword"] = function($player, $parts, $lastDec
     if(!empty($swords)) {
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $swords), 1,
             tooltip:"Choose_another_Sword_weapon_(Spirit_Blade:_Dispersion)");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "SpiritBladeChooseSword|$totalDurability", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SpiritBladeChooseSword|$totalDurability", 1, dontSkipOnPass:1);
     } else {
         // No more swords — proceed to split damage
         if($totalDurability > 0) {
@@ -8108,6 +8192,7 @@ $customDQHandlers["EtherealysPromiseBanish"] = function($player, $parts, $lastDe
 // Castling (tFOpmUdi2W): up to 2 Chessman allies gain SS, taunt, +2 LIFE
 // ============================================================================
 $customDQHandlers["CastlingFirstTarget"] = function($player, $parts, $lastDecision) {
+    $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     $first = $lastDecision;
     if($first !== "-" && $first !== "" && $first !== "PASS") {
         AddTurnEffect($first, "SPELLSHROUD_NEXT_TURN");
@@ -8141,6 +8226,18 @@ function SinistreStabCommitToLineage($player, $targetPlayer) {
             $iObj->TurnEffects[] = "CURSE_TO_LINEAGE";
         }
         AddToChampionLineage($targetPlayer, "e1xj8mqr2o");
+        return;
+    }
+    // The optional "put it on the hit champion's lineage" is answered after combat damage, by which time the Stab has already left the intent for the graveyard: take it from there.
+    $graveyard = GetZone("myGraveyard");
+    for($gi = count($graveyard) - 1; $gi >= 0; --$gi) {
+        if($graveyard[$gi]->removed || $graveyard[$gi]->CardID !== "e1xj8mqr2o") continue;
+        MZMove($player, "myGraveyard-" . $gi, "myBanish");
+        DecisionQueueController::CleanupRemovedCards();
+        $banish = &GetBanish($player);
+        $last = count($banish) - 1;
+        if($last >= 0 && $banish[$last]->CardID === "e1xj8mqr2o") { $banish[$last]->removed = true; DecisionQueueController::CleanupRemovedCards(); }
+        AddToChampionLineage($targetPlayer, "e1xj8mqr2o");
         break;
     }
 }
@@ -8154,6 +8251,8 @@ function SinistreStabOnHit($player) {
     if($hitTarget === null || $hitTarget === "" || $hitTarget === "-") return;
     $hitObj = GetZoneObject($hitTarget);
     if($hitObj === null || !PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) return;
+    // The combat variables are cleared before the optional choice is answered: remember whose champion was hit now.
+    DecisionQueueController::StoreVariable("SinistreStabHitPlayer", strval($hitObj->Controller));
     DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
         tooltip:"Put_Sinistre_Stab_on_hit_champion's_lineage?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "SinistreStabChoice", 1);
@@ -8161,11 +8260,9 @@ function SinistreStabOnHit($player) {
 
 $customDQHandlers["SinistreStabChoice"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
-    $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
-    if($hitTarget === null || $hitTarget === "" || $hitTarget === "-") return;
-    $hitObj = GetZoneObject($hitTarget);
-    if($hitObj === null || !PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) return;
-    SinistreStabCommitToLineage($player, $hitObj->Controller);
+    $hitPlayer = intval(DecisionQueueController::GetVariable("SinistreStabHitPlayer"));
+    if($hitPlayer !== 1 && $hitPlayer !== 2) return;
+    SinistreStabCommitToLineage($player, $hitPlayer);
 };
 
 function EventideLurePutRestOnBottom($player) {
@@ -8176,11 +8273,21 @@ function EventideLurePutRestOnBottom($player) {
 }
 
 function EventideLureEnter($player) {
-    $deck = GetDeck($player);
+    $deck = &GetDeck($player);
     $lookCount = min(5, count($deck));
     if($lookCount <= 0) return;
+    // NOTE: a loop of MZMove($player, "myDeck-0", "myTempZone") does NOT work here -- Remove()
+    // (ZoneClasses.php) only sets $obj->removed = true and never splices/reindexes the underlying
+    // array, so "myDeck-0" (a literal array-index lookup, GetZoneObject()) keeps resolving to the
+    // SAME now-removed slot on every iteration after the first, silently no-oping via MZMove's own
+    // "already removed" guard. That left this look-at-the-top-five effect only ever examining the
+    // single actual top card of the deck. Fixed to use array_shift() on the live deck reference
+    // instead, exactly like the proven Glimpse() implementation (GameLogic.php ~15643-15647) uses
+    // for the same "pull N cards off the top into myTempZone" shape.
     for($i = 0; $i < $lookCount; ++$i) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        $topObj = array_shift($deck);
+        if($topObj === null) break;
+        MZAddZone($player, "myTempZone", $topObj->CardID, $topObj);
     }
     $candidates = ZoneSearch("myTempZone", ["PHANTASIA"]);
     if(empty($candidates)) {
@@ -8189,7 +8296,7 @@ function EventideLureEnter($player) {
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $candidates), 1,
         tooltip:"Reveal_a_phantasia_card_to_put_into_memory?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "EventideLureReveal", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EventideLureReveal", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["EventideLureReveal"] = function($player, $parts, $lastDecision) {
@@ -8226,7 +8333,7 @@ function LustrousSlimeRevealLoop($player, $mzID) {
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1,
         tooltip:"Reveal_a_Slime_card_from_memory?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "LustrousSlimeReveal|$mzID", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LustrousSlimeReveal|$mzID", 1, dontSkipOnPass:1);
 }
 
 function LustrousSlimeEnter($player) {
@@ -8332,13 +8439,15 @@ function RecruitmentOfficerOnFoster($player) {
     $deck = &GetDeck($player);
     $n = min(5, count($deck));
     if($n == 0) return;
+    // MZMoveTopOfZone, not a loop of MZMove($player, "myDeck-0", ...): MZMove only flags the slot removed, so
+    // "myDeck-0" would keep resolving to the same removed slot and only the top card would be looked at.
     for($i = 0; $i < $n; ++$i) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        MZMoveTopOfZone($player, "myDeck", "myTempZone");
     }
     $allies = ZoneSearch("myTempZone", ["ALLY"]);
     if(!empty($allies)) {
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $allies), 1, tooltip:"Reveal_an_ally_and_put_into_hand?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "RecruitmentOfficerPick", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "RecruitmentOfficerPick", 1, dontSkipOnPass:1);
     } else {
         RecruitmentOfficerCleanup($player);
     }
@@ -8479,8 +8588,10 @@ function NicoRapturesEmbraceEnter($player) {
     $deck = &GetDeck($player);
     $n = min(2, count($deck));
     if($n == 0) return;
+    // MZMoveTopOfZone, not a loop of MZMove($player, "myDeck-0", ...): MZMove only flags the slot removed, so
+    // "myDeck-0" would keep resolving to the same removed slot and only the top card would be looked at.
     for($i = 0; $i < $n; ++$i) {
-        MZMove($player, "myDeck-0", "myTempZone");
+        MZMoveTopOfZone($player, "myDeck", "myTempZone");
     }
     $tempCards = ZoneSearch("myTempZone");
     if(count($tempCards) <= 1) {
@@ -8527,7 +8638,7 @@ function ArondightBanishLoop($player, $arondightMZ, $banishedSoFar) {
     DecisionQueueController::StoreVariable("ArondightMZ", $arondightMZ);
     DecisionQueueController::StoreVariable("ArondightBanished", strval($banishedSoFar));
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $floatingMZ), 1, tooltip:"Banish_floating_memory_card_from_GY?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ArondightBanishChoice", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ArondightBanishChoice", 1, dontSkipOnPass:1);
 }
 
 $customDQHandlers["ArondightBanishChoice"] = function($player, $parts, $lastDecision) {

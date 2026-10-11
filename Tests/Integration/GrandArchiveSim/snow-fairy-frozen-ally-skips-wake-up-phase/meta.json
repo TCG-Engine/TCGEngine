@@ -1,0 +1,24 @@
+{
+    "name": "snow-fairy-frozen-ally-skips-wake-up-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:54+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "4s0c9XgLg7"
+    ],
+    "notes": "Snow Fairy (4s0c9XgLg7): \"That ally doesn't wake up during its controller's wake up phase as long as you control CARDNAME.\" Player 2 controls two rested-looking Dungeon Guides after Snow Fairy's On Enter: one was rested by Snow Fairy, the other was simply seeded rested (control). Both players pass through a full round; in player 2's SECOND turn wake up phase the control ally wakes up while the Snow Fairy target stays rested and keeps its freeze.",
+    "semanticCoverage": {
+        "testedCards": [
+            "4s0c9XgLg7"
+        ],
+        "mechanics": [
+            "status",
+            "condition",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "That ally doesn't wake up during its controller's wake up phase as long as you control Snow Fairy.",
+            "A merely rested ally still wakes up normally (control)."
+        ]
+    }
+}

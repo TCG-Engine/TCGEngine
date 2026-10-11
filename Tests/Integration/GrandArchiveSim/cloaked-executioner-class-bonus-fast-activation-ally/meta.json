@@ -1,0 +1,23 @@
+{
+    "name": "cloaked-executioner-class-bonus-fast-activation-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:20+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "itwys9kf4r"
+    ],
+    "notes": "Cloaked Executioner (itwys9kf4r, WIND ALLY, reserve 2, power 2 / life 1): \"[Class Bonus] Fast Activation. Ambush.\" An ally is normally slow; with an ASSASSIN champion it is listed in $cbFastActivationCards (Custom/OpportunityLogic.php), so player 1 is offered it in the priority window after player 2 plays a Dungeon Guide on its own turn and plays it for real (2 reserve payments): it enters player 1's field while it is player 2's turn. Ambush is covered by cloaked-executioner-ambush-retaliates-for-another-ally.",
+    "semanticCoverage": {
+        "testedCards": [
+            "itwys9kf4r"
+        ],
+        "mechanics": [
+            "condition",
+            "status",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Fast Activation: you may activate this card at fast speed."
+        ]
+    }
+}

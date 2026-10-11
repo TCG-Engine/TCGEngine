@@ -1,0 +1,24 @@
+{
+    "name": "gildas-ability-usable-again-after-waking-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T14:22:44+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "g99PIuhU0O"
+    ],
+    "notes": "Gildas, Faesworn Monarch (g99PIuhU0O): \"Stealth, Vigor\" + \"[Mordred Bonus] (2), [REST]: Prevent the next 4 damage ...\". Control for the rested-reactivation fix (gildas-rested-ability-cannot-be-reactivated): the new awake requirement must not lock the ability out for good. Gildas is used in the main phase (2 reserve cards paid, rested), player 1 ends the turn and Vigor wakes Gildas up (Status 2); player 2 attacks the champion with a 6-power Dungeon Guide and in the attack's priority window the AWAKE Gildas is offered and activated a second time via 'myField-1@Activate-0@Prevent' (a second (2) is paid -- 4 reserve cards in total), the champion is the target and takes only 2 of the 6 damage, and Gildas is rested again.",
+    "semanticCoverage": {
+        "testedCards": [
+            "g99PIuhU0O"
+        ],
+        "mechanics": [
+            "cost",
+            "status",
+            "condition",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "[REST] cost: a unit can only pay [REST] if it is awake (an already rested Gildas must not be activatable again)."
+        ]
+    }
+}

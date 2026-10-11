@@ -1,0 +1,62 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Declining the optional song banish leaves both Harmony/Melody cards in the graveyard"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The full 4-reserve cost was paid from the hand (declining the song discount does not skip the payment)"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Three hand cards went to memory as reserve payments"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "myField-6",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "vxzsjRxMIn",
+        "semantic": true,
+        "label": "ZENA resolved onto the field after the declined alternate cost and the opportunity window"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "ZENA is on the field"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Both songs are still in the graveyard"
+    },
+    {
+        "step": 10,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

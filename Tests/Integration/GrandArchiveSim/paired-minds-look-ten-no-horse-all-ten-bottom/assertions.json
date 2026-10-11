@@ -1,0 +1,18 @@
+[
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only Paired Minds itself is in the graveyard"},
+    {"step":4,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"No looked-at card is left stranded in the temp zone"},
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":24,"semantic":true,"label":"Deck size"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-0","viewerPlayerID":1,"property":"CardID","value":"ra9950o14t","semantic":true,"label":"The 11th card (marker) is the new top card: exactly ten were looked at"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":4,"semantic":true,"label":"Hand after playing Paired Minds, paying 3 reserve and taking the Horse (if any)"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-14","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom-of-deck slot 1 of 10: unrevealed looked-at card, original relative order"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-15","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom-of-deck slot 2 of 10: unrevealed looked-at card, original relative order"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-16","viewerPlayerID":1,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"Bottom-of-deck slot 3 of 10: unrevealed looked-at card, original relative order"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-17","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom-of-deck slot 4 of 10: unrevealed looked-at card, original relative order"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-18","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom-of-deck slot 5 of 10: unrevealed looked-at card, original relative order"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-19","viewerPlayerID":1,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"Bottom-of-deck slot 6 of 10: unrevealed looked-at card, original relative order"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-20","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom-of-deck slot 7 of 10: unrevealed looked-at card, original relative order"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-21","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"Bottom-of-deck slot 8 of 10: unrevealed looked-at card, original relative order"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-22","viewerPlayerID":1,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"Bottom-of-deck slot 9 of 10: unrevealed looked-at card, original relative order"},
+    {"step":4,"type":"card_property_equals","mzId":"myDeck-23","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Bottom-of-deck slot 10 of 10: unrevealed looked-at card, original relative order"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

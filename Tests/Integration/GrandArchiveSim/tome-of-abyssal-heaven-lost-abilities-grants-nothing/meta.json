@@ -1,0 +1,22 @@
+{
+    "name": "tome-of-abyssal-heaven-lost-abilities-grants-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T20:19:00+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "igmC01eEZn"
+    ],
+    "notes": "Tome of Abyssal Heaven: a Tome that lost all abilities grants no spellshroud. Tome of Abyssal Heaven (igmC01eEZn): \"Other objects you control have spellshroud.\" Boundary: the static grant is an ability, so a Tome that has lost all abilities (NO_ABILITIES override, seeded as setup state -- only indirect proof of the real loses-all-abilities path) grants nothing: player 1's Fracturize offers the Mirrordepth's Blade and choosing it succeeds.",
+    "semanticCoverage": {
+        "testedCards": [
+            "igmC01eEZn"
+        ],
+        "mechanics": [
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "An object that loses all abilities loses what its abilities grant: a Tome without abilities gives no spellshroud."
+        ]
+    }
+}

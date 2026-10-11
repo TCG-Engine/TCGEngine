@@ -1,0 +1,29 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Band of Burning Verdict is legally played from hand with no Tamer champion and no Animal/Beast ally anywhere -- its On Enter draws a card, reducing the deck from 3 to 2"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "CardID",
+        "value": "7mmve2l328",
+        "semantic": true,
+        "label": "Band of Burning Verdict actually materializes onto the field -- the fixed activateCardPrereqs no longer blocks the play"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "Band of Burning Verdict leaves the hand, dropping the hand from 8 to 7"
+    }
+]

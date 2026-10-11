@@ -1,0 +1,6 @@
+[
+    {"step":5,"type":"card_exists","zone":"myGlobalEffects","viewerPlayerID":1,"cardID":"4wuq20gvcg","semantic":true,"label":"The extra-buff effect is active (so the missing counter below is due to the Slime restriction)"},
+    {"step":10,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"[]","semantic":true,"label":"The non-Slime ally Dungeon Guide enters with no counters"},
+    {"step":10,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"em6eEh9q8y","semantic":true,"label":"Dungeon Guide is on the field"},
+    {"step":10,"type":"decision_queue_empty","player":"all","semantic":true,"label":"The play fully resolved"}
+]

@@ -1,0 +1,23 @@
+{
+    "name": "stifling-trap-memory-alt-cost-one-counter-not-offered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T19:51:54+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "z5exbwdp7q"
+    ],
+    "notes": "Stifling Trap (z5exbwdp7q): \"[Class Bonus] If it's not your turn, you may remove two preparation counters from your champion to activate this card from your memory without paying its reserve cost.\" Cannot afford either payment. Player 1's champion is Tristan, Hired Blade (ASSASSIN, Class Bonus active) but has only ONE preparation counter (the cost needs two) and there is no Stifling Trap in hand to pay reserve with. A Fairy Whispers in hand keeps player 1's windows open; when player 2's Dungeon Guide opens the window player 1's offered options are only the hand card (live: MZMAYCHOOSE=myHand-7) and answering with myMemory-0 is rejected. A rejected click can be a no-op, so the state is asserted: the single counter, memory and graveyard are unchanged.",
+    "semanticCoverage": {
+        "testedCards": [
+            "z5exbwdp7q"
+        ],
+        "mechanics": [
+            "cost",
+            "condition",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If it's not your turn, you may remove two preparation counters from your champion to activate this card from your memory without paying its reserve cost."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "key-slime-pudding-banish-non-slime-ally-enters-unboosted",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T15:21:20+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "notes": "Key Slime Pudding (4wuq20gvcg, REGALIA/ITEM, memory cost 0): \"Banish CARDNAME: Until end of turn, Slime allies that enter the field under your control enter with an additional buff counter on them.\" Key Slime Pudding is genuinely MATERIALIZED from the material deck at the start of player 1's turn 3 (the setup only adds it to myMaterial); the Slime/ally cards are played from hand with real FSM plays and reserve payments. Negative path: only SLIME allies get the counter. After the Banish activation (effect set, Pudding banished) a Dungeon Guide (a Human Mage ally, not a Slime) is played for real and its \"You may banish two cards at random from your memory\" On Enter is declined; it enters with no counters at all.",
+    "testedCards": [
+        "4wuq20gvcg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4wuq20gvcg"
+        ],
+        "mechanics": [
+            "condition",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Banish CARDNAME: Until end of turn, Slime allies that enter the field under your control enter with an additional buff counter on them."
+        ]
+    }
+}

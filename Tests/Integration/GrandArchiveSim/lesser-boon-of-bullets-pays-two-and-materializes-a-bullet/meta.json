@@ -1,0 +1,10 @@
+{
+    "name": "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T16:19:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UI0lAtGQBb",
+        "ao8bki6fxx"
+    ]
+}

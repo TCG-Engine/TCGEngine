@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "Powered Defender takes the 1 real damage from Charge the Soul"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "CardID",
+        "value": "qzzadf9q1v",
+        "semantic": true,
+        "label": "Whenever Powered Defender is dealt damage, summon a Powercell token (dealDamageAbilities[\"z07nau5sw9:0\"] dispatch fires and creates the token)"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Champion + Powered Defender + the newly summoned Powercell token"
+    }
+]

@@ -1,0 +1,10 @@
+{
+    "name": "restorative-flame-banishes-three-fire-cards-one-by-one-and-recovers-six",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T16:42:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ek7r2d7uz4",
+        "mttsvbgl6f"
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "name": "mirrordepths-blade-on-banish-put-top-card-into-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:29+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "efTHWeXscP"
+    ],
+    "notes": "Mirrordepth's Blade (efTHWeXscP, WATER WARRIOR REGALIA/WEAPON SWORD, memory cost 0, power 1, durability 2): \"On Banish: Look at the top card of your deck. You may put it into your graveyard.\" The weapon is materialized for real in the turn-3 materialize phase and used for two weapon attacks: one on turn 3 (durability 2 -> 1, nothing triggers) and one on turn 5 (durability 1 -> 0): a weapon with no durability counters is destroyed, and a regalia card that would go to the graveyard is banished instead, so the On Banish trigger fires: the top card of the deck is offered and answering with it puts that card into the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "efTHWeXscP"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "counter",
+            "combat"
+        ],
+        "rulesClauses": [
+            "A weapon attack removes a durability counter (2 -> 1) and nothing triggers while it stays on the field.",
+            "On Banish: Look at the top card of your deck. You may put it into your graveyard (the weapon is banished when its last durability counter is lost)."
+        ]
+    }
+}

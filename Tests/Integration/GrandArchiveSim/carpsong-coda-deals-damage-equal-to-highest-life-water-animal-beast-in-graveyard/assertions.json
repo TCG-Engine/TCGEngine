@@ -1,0 +1,17 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "viewerPlayerID": 1,
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "3 damage: the highest life among the water Animal/Beast allies in the graveyard (Jueying, Shadowmare)"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

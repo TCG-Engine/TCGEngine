@@ -1,0 +1,21 @@
+{
+    "name": "bolstering-tempest-human-ally-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T23:35:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PwHub76Fw4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PwHub76Fw4"
+        ],
+        "mechanics": [
+            "cost",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Any amount of target Human allies get +3POWER until end of turn."
+        ]
+    }
+}

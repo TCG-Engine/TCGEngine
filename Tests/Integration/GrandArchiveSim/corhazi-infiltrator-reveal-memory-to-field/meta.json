@@ -1,0 +1,16 @@
+{
+    "name": "corhazi-infiltrator-reveal-memory-to-field",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T18:47:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "VAFTR5taNG"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["VAFTR5taNG"],
+        "mechanics": ["zone-movement", "status", "trigger"],
+        "rulesClauses": [
+            "[Class Bonus] [Element Bonus] Whenever you reveal CARDNAME from your memory, you may put a card named CARDNAME from your memory onto the field."
+        ]
+    }
+}

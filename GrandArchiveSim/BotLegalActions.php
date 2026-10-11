@@ -160,11 +160,17 @@ function GABotLegalActions($gameName, $player) {
             $input = function_exists('GoldfishResolveDecisionInput') ? GoldfishResolveDecisionInput($pending, $front) : null;
             $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $input !== null ? $input : '-'];
         } elseif ($type === 'MZMAYCHOOSE' || $type === 'MZCHOOSE') {
-            // Opportunity windows and other optional/May choices: decline. Any other MZCHOOSE
-            // shape we don't specifically recognize falls back to PASS too, rather than guessing
-            // a target — an unrecognized required choice will surface as a stalled decision queue,
-            // which is the safe failure mode (see the error_log below).
-            $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => 'PASS'];
+            // Opportunity windows and other optional/May choices: decline. A required MZCHOOSE cannot be
+            // declined (GameValidateDecisionAnswer refuses PASS while it has a candidate), so answer it with
+            // its first resolvable candidate; only when there is none fall back to PASS.
+            $choice = false;
+            if ($type === 'MZCHOOSE') {
+                foreach (array_filter(explode('&', $param)) as $token) {
+                    $resolved = GABotResolveChoiceToken($pending, $token);
+                    if ($resolved) { $choice = $resolved; break; }
+                }
+            }
+            $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $choice !== false ? $choice : 'PASS'];
         } else {
             $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => 'PASS'];
             error_log("GABot: unrecognized decision type '$type' (param='$param') for seat $pending — defaulting to PASS.");
@@ -185,6 +191,11 @@ function GABotLegalActions($gameName, $player) {
     foreach ($hand as $i => $obj) {
         if ($obj === null || !empty($obj->removed)) continue;
         if (function_exists('CanActivateCardForSelection') && CanActivateCardForSelection($player, $obj, false)) {
+            // The engine refuses a hand click it cannot start or pay for (ActionMap -> ActivationRefusedBeforeStart:
+            // pre-announcement gates, mandatory additional costs, unaffordable reserve cost). Offering such a
+            // click would only produce a no-op the controller then has to exclude and retry, so skip it here
+            // (the flash message the check sets is preserved).
+            if (function_exists('ActivationRefusedBeforeStart') && ActivationRefusedBeforeStart($player, $obj, false, true)) continue;
             $actions[] = ['playerID' => $player, 'mode' => 10002, 'cardID' => "myHand-$i!FSM!"];
         }
     }

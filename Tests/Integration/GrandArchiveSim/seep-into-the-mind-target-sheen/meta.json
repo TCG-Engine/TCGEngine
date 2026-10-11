@@ -1,0 +1,16 @@
+{
+    "name": "seep-into-the-mind-target-sheen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-29T14:45:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7mHiO4YySz"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["7mHiO4YySz"],
+        "mechanics": ["targeting", "draw-discard", "counter", "condition"],
+        "rulesClauses": [
+            "Target opponent puts three sheen counters on a unit they control."
+        ]
+    }
+}

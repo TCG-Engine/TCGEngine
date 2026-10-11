@@ -1,0 +1,9 @@
+[
+    {"step":10,"type":"zone_count","zone":"myMemory","viewerPlayerID":2,"value":1,"semantic":true,"label":"\"Returns it to its OWNER's memory\": the controlled-but-opponent-owned Dungeon Guide went to PLAYER 2's memory"},
+    {"step":10,"type":"card_property_equals","mzId":"myMemory-0","viewerPlayerID":2,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"...it is the Dungeon Guide"},
+    {"step":10,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"It did NOT go to the controller's (player 1) memory"},
+    {"step":10,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Controller field is just the champion (ally gone, Bygone Days sacrificed)"},
+    {"step":10,"type":"card_property_equals","mzId":"myGraveyard-0","viewerPlayerID":1,"property":"CardID","value":"wXNDSNQ2x2","semantic":true,"label":"Bygone Days is in the controller graveyard"},
+    {"step":10,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":1,"semantic":true,"label":"The owner's own field is untouched (champion only)"},
+    {"step":10,"type":"decision_queue_empty","player":"all"}
+]

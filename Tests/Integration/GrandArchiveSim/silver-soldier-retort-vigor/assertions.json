@@ -1,0 +1,7 @@
+[
+    {"step":1,"type":"card_property_equals","mzId":"p1Field-1","property":"Status","value":"2","viewerPlayerID":1,"semantic":true,"label":"Silver Soldier's Vigor wakes it up at the beginning of its controller's end phase, even as turn control passes to the opponent"},
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-1","property":"Damage","value":"5","viewerPlayerID":1,"semantic":true,"label":"Silver Soldier's Retort 2 adds +2 to its printed 3 POWER while retaliating, dealing 5 damage instead of 3"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"Status","value":"1","viewerPlayerID":1,"semantic":true,"label":"Retaliating rests Silver Soldier (the cost of retaliating, since it does not have Steadfast)"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"1","viewerPlayerID":1,"semantic":true,"label":"Silver Soldier still takes the attacker's own combat damage (Giant Tortoise's printed 1 POWER)"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

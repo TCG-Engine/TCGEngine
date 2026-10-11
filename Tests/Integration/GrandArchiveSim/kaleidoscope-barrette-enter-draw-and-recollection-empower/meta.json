@@ -1,0 +1,18 @@
+{
+    "name": "kaleidoscope-barrette-enter-draw-and-recollection-empower",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-27T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "REPLACES an earlier version of this fixture (from the parallel Diao Chan batch-4 work) whose 'On Enter: Draw a card' proof was a confirmed silent fake-pass, same root cause as scepter-of-fascination-enter-draw-and-diao-chan-wake: the card was seeded directly onto the field via the 'zone' setup primitive, which never calls Enter() (confirmed by reading ZoneAccessors.php/GameLogic.php). Independently confirmed by disabling enterAbilities['qktid6zlyt:0']'s Draw() call and re-running the OLD fixture: it still passed. The recollection-phase empower half of the OLD fixture was genuinely fine (independently confirmed the case 'qktid6zlyt' block in Custom/GameLogic.php is really what's exercised) -- only the On-Enter draw needed fixing.\n\nFixed the same way as scepter-of-fascination: 'patchMzId'=>'myHand-6' overwrites an already-hand-resident filler card's CardID to Kaleidoscope Barrette's own ID (REGALIA cards seeded via 'zone'=>'myHand' get silently redirected to myMaterial by HandAddReplacement, GameLogic.php ~17777, confirmed empirically), then it's played for real via mode 10002 FSM, firing the genuine Enter() -> enterAbilities['qktid6zlyt:0'] closure. Kaleidoscope Barrette is TERA element, so the starting champion (Spirit of Fire) is patched with a TERA Subcards entry for element access (patchMzId never calls Enter(), so nothing about that patch's own on-enter fires). Two Unstable Fractal (PHANTASIA) objects are seeded onto player 1's own field (N=2, below the 4+ 'reveal top card into material deck preserved' threshold, per the guide's stated minimum bar of proving the empower-X clause itself). Player 1 plays the Barrette, then ends turn 1; player 2 ends their own turn 1, advancing into player 1's turn 3, where the recollection-phase trigger (Custom/GameLogic.php ~9491-9499) resolves automatically as part of the phase transition; player 1 then declines the turn-3 MAT-phase materialize offer (mode 100, 'PASS') to advance into MAIN, where the recollection phase's EMPOWERED TurnEffects become observable.\n\nIndependently re-verified break/restore on THIS version for BOTH clauses: disabling the On Enter Draw() call makes the fixture fail (hand slot stays empty / final-snapshot mismatch instead of showing a newly-drawn card); disabling the recollection-phase case body makes it fail (TurnEffects stays empty instead of EMPOWERED); restoring either passes again.",
+    "testedCards": [
+        "qktid6zlyt"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qktid6zlyt"],
+        "mechanics": ["draw-discard", "zone-movement", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: Draw a card.",
+            "At the beginning of your recollection phase, empower X, where X is the amount of phantasias you control."
+        ]
+    }
+}

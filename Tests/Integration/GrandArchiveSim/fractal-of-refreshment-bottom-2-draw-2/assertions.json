@@ -1,0 +1,148 @@
+[
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "CardID",
+        "value": "cxqf8rr452"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-3",
+        "property": "CardID",
+        "value": "c9p4lpnvx7"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-2",
+        "property": "CardID",
+        "value": "cxqf8rr452"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-3",
+        "property": "CardID",
+        "value": "x7u6wzh973"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-4",
+        "property": "CardID",
+        "value": "cxqf8rr452",
+        "semantic": true,
+        "label": "Declining the 3rd reveal offer (having already revealed exactly 2 water cards) fired DrawIntoMemory(2) -- this is the deck's actual pre-draw top card (confirmed via direct probe), now drawn into memory as the first of the 2 cards"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-5",
+        "property": "CardID",
+        "value": "x7u6wzh973",
+        "semantic": true,
+        "label": "The 2nd card drawn into memory -- the deck's actual pre-draw 2nd-from-top card (confirmed via direct probe), proving 'draw that many cards into your memory' drew exactly as many as were revealed-and-bottomed, not a fixed or different amount"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 4
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 6
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Deck-11",
+        "property": "CardID",
+        "value": "x7u6wzh973",
+        "semantic": true,
+        "label": "The first revealed water card (a Frostbinder Apostle originally seeded in memory) was put on the bottom of the deck"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Deck-12",
+        "property": "CardID",
+        "value": "x7u6wzh973",
+        "semantic": true,
+        "label": "The second revealed water card was also put on the bottom of the deck (last position), confirming both selections landed on the bottom, not just discarded or left in place"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 13
+    }
+]

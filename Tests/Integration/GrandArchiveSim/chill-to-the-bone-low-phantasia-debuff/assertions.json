@@ -1,0 +1,130 @@
+[
+    {
+        "step": 13,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\"]"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"p00ghqhcpb-2\"]",
+        "semantic": true,
+        "label": "The attacker is tagged with the LOW-phantasia debuff variant (p00ghqhcpb-2, not -4) because its caster controlled 0 phantasias"
+    },
+    {
+        "step": 13,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": -1,
+        "semantic": true,
+        "label": "Dungeon Guide's printed POWER (1) minus 2 = -1, proving the -2 POWER clause actually reduces combat-relevant power, not just tags a cosmetic flag"
+    },
+    {
+        "step": 13,
+        "type": "computed_life_equals",
+        "mzId": "p1Field-1",
+        "value": 1,
+        "semantic": true,
+        "label": "Dungeon Guide's printed LIFE (3) minus 2 = 1, proving the -2 LIFE clause is also applied"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "p00ghqhcpb"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"WAS_ATTACKED\"]"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-7",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 8
+    }
+]

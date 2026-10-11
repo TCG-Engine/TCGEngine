@@ -1,0 +1,22 @@
+{
+    "name": "rhongomiant-mordred-bonus-plus-four-power-at-influence-eight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:47+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "clS3E0HrZL"
+    ],
+    "notes": "Rhongomiant, Grove's Spire (clS3E0HrZL, REGALIA/WEAPON, printed power 2): \"[Mordred Bonus] As long as an opponent has influence eight or more, CARDNAME gets +4 POWER. (A player's influence is equal to the total amount of cards in their hand and memory.)\" Player 1's champion is Mordred, Burnished Avenger and Rhongomiant is materialized for real (2 memory cards) in the turn-3 materialize phase; player 2 holds 8 cards in hand (7 + its turn draw), so the weapon's computed power is 2 + 4 = 6.",
+    "semanticCoverage": {
+        "testedCards": [
+            "clS3E0HrZL"
+        ],
+        "mechanics": [
+            "condition",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Mordred Bonus] As long as an opponent has influence eight or more, Rhongomiant gets +4 POWER (influence = cards in hand + memory)."
+        ]
+    }
+}

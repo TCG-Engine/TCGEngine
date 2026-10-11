@@ -1,0 +1,60 @@
+[
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": 1
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "{\"wither\":2}",
+        "semantic": true,
+        "label": "Shriveling Vines's end-phase trigger put exactly 2 wither counters on the chosen opponent object (theirField-1)"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "The other eligible opponent object (theirField-2, not chosen) received NO wither counters -- proving the trigger targets exactly one chosen object, not every eligible one"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-7",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 8
+    }
+]

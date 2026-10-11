@@ -1,0 +1,23 @@
+{
+    "name": "Mercenary's Blade cannot be activated from the material deck without a preparation counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:36:56+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "k0xhi5jnsl"
+    ],
+    "notes": "An Assassin champion with no preparation counter cannot pay the cost: the click is a no-op.",
+    "semanticCoverage": {
+        "testedCards": [
+            "k0xhi5jnsl"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "cost",
+            "counter"
+        ],
+        "rulesClauses": [
+            "You may remove a preparation counter from your champion to activate this card from your material deck."
+        ]
+    }
+}

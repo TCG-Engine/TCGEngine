@@ -1,0 +1,22 @@
+{
+    "name": "Capacitance X Psycho cannot be activated from the material deck with only five arcane cards banished",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T00:37:27+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "FjklZcbjPV"
+    ],
+    "notes": "Five arcane cards are one short: the click is a no-op.",
+    "semanticCoverage": {
+        "testedCards": [
+            "FjklZcbjPV"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Lorraine Bonus] As long as there are six or more arcane element cards in your banishment, you may activate this card from your material deck."
+        ]
+    }
+}

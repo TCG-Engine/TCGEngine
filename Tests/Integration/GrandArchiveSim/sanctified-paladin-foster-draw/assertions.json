@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"FOSTERED\"]",
+        "semantic": true,
+        "label": "Sanctified Paladin is now recognized as fosterable and becomes fostered"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 10,
+        "semantic": true,
+        "label": "On Foster: Draw two cards fires (7 starting + 1 normal draw + 2 from On Foster)"
+    }
+]

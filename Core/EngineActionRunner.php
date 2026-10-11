@@ -410,6 +410,12 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
   $chkInput = $action['chkInput'];
   $inputText = $action['inputText'];
 
+  // Optional, game-owned seam: seed PHP's native generator (rand / array_rand / shuffle) from the game state before the action runs, so card code written with native randomness is
+  // reproducible on undo and replay the way EngineRandomInt() is. Games that do not define the hook are unchanged.
+  if (function_exists('GameSeedNativeRandom')) {
+    GameSeedNativeRandom();
+  }
+
   $result = [
     'success' => true,
     'message' => '',
@@ -1190,6 +1196,17 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     if ($result['recordAction'] && RegressionIsRecordingActive($folderPath, $gameName)) {
       RegressionRecordAction($folderPath, $gameName, $action);
     }
+  }
+
+  // Optional per-game hook: this action is now fully processed and the engine is idle again
+  // (whatever cascaded from it -- Opportunity windows, effect-stack resolutions -- has either
+  // finished or is genuinely waiting on a player, not mid-flight). A game that marks specific
+  // objects as temporarily exempt from DecisionQueueController::CleanupRemovedCards() during some
+  // in-progress activity (see GrandArchiveSim's ProtectRemovedCardUniqueID()) uses this as a
+  // backstop point to clear any such marks that should have already been cleared. Absent for games
+  // that define no such hook.
+  if (function_exists('EngineActionSettled')) {
+    EngineActionSettled();
   }
 
   return $result;

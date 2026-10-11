@@ -1,0 +1,22 @@
+{
+    "name": "hand-activation-exactly-affordable-still-activates",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-03T16:21:25+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "em6eEh9q8y"
+    ],
+    "notes": "Positive pin for the hand-activation affordability gate: the same Dungeon Guide (reserve 3) with EXACTLY three other cards in hand is still activatable, pays three cards into memory and resolves onto the field. The refusal must not over-refuse at the exact boundary.",
+    "semanticCoverage": {
+        "testedCards": [
+            "em6eEh9q8y"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "A card whose reserve cost cannot be paid cannot be activated (the activation is illegal and changes nothing)."
+        ]
+    }
+}

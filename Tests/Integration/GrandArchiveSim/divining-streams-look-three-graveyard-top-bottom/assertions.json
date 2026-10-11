@@ -1,0 +1,10 @@
+[
+    {"step":7,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":2,"semantic":true,"label":"The spell itself plus the one card put into the graveyard"},
+    {"step":7,"type":"card_property_equals","mzId":"myGraveyard-1","viewerPlayerID":1,"property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"The chosen card is in the graveyard"},
+    {"step":7,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"No looked-at card is left stranded in the temp zone"},
+    {"step":7,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":15,"semantic":true,"label":"Deck: 13 + 3 looked-at, minus the graveyard card"},
+    {"step":7,"type":"card_property_equals","mzId":"myDeck-0","viewerPlayerID":1,"property":"CardID","value":"px60u5n1do","semantic":true,"label":"The card chosen for \"on top of your deck\" is the top card of the deck"},
+    {"step":7,"type":"card_property_equals","mzId":"myDeck-14","viewerPlayerID":1,"property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"The remaining looked-at card is on the bottom of the deck"},
+    {"step":7,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":4,"semantic":true,"label":"Hand after playing Divining Streams and paying 3 reserve"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

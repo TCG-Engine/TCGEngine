@@ -1,0 +1,23 @@
+{
+    "name": "dredging-streams-floating-memory-not-offered-below-level-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:44+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "wmt0x5zado"
+    ],
+    "notes": "Dredging Streams (wmt0x5zado): the Floating Memory clause is \"[Level 2+]\". The champion is Mordred, Burnished Avenger (level 1): the level-up into Mordred, Flawless Blade (memory cost 2) never offers the graveyard Dredging Streams -- both seeded memory cards are banished instead and Dredging Streams stays in the graveyard.",
+    "semanticCoverage": {
+        "testedCards": [
+            "wmt0x5zado"
+        ],
+        "mechanics": [
+            "cost",
+            "condition",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Floating Memory applies only if your champion is level 2 or higher (a level 1 champion cannot float it)."
+        ]
+    }
+}

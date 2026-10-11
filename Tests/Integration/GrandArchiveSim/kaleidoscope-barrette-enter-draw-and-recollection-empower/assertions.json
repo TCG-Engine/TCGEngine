@@ -1,0 +1,109 @@
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"qktid6zlyt\",\"EMPOWERED\",\"EMPOWER_PLUS_2\"]",
+        "semantic": true,
+        "label": "At the beginning of player 1's own recollection phase (their real turn 3), the champion gained EMPOWERED/EMPOWER_PLUS_2 -- proving the recollection-phase trigger (Custom/GameLogic.php ~9491-9499, case 'qktid6zlyt') ran and Empower()'d by the phantasia count (2, from the two seeded Unstable Fractal). Independently confirmed by disabling that case body and observing this fixture then fails with TurnEffects staying empty."
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-3",
+        "property": "CardID",
+        "value": "qktid6zlyt"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-3",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-3",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-3",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-3",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-6",
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "A genuinely NEW card now occupies the hand slot Kaleidoscope Barrette itself was overwritten into and then left (by being played) -- proving its 'On Enter: Draw a card' fired as a real replayed action (enterAbilities['qktid6zlyt:0'], Draw($player,1)), not merely baked into a pre-captured snapshot. Independently confirmed by disabling that closure and observing this fixture then fails with the slot staying empty."
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-7",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 4
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 8
+    }
+]

@@ -1,0 +1,17 @@
+{
+    "name": "another-beginning-materialize-free-regalia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T22:19:26+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Another Beginning (Akf4kIBApN, GeneratedMacroCode.php cardActivatedAbilities[\"Akf4kIBApN:0\"] / customDQHandlers[\"Akf4kIBApN:0:CardActivated-1\"]): \"Materialize a regalia card with memory cost 0 from your material deck.\" Poisoned Dagger (0D6AfZyKXh, memory cost 0) is seeded in Material. Playing Another Beginning (3 reserve, paid from hand) offers an MZCHOOSE limited to memory-cost-0 regalia in material; choosing myMaterial-0 calls Materialize() directly, bypassing the card's own printed cost. Verified live: Poisoned Dagger lands on the field with ENTERED_THIS_TURN. Break/restore verified: commenting out the Materialize() call in the CardActivated-1 handler leaves the dagger in material and the fixture fails; restoring it passes again.",
+    "testedCards": [
+        "Akf4kIBApN"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Akf4kIBApN"],
+        "mechanics": ["cost"],
+        "rulesClauses": [
+            "Materialize a regalia card with memory cost 0 from your material deck."
+        ]
+    }
+}

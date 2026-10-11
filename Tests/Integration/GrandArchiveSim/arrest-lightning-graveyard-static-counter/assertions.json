@@ -1,6 +1,44 @@
 [
-  {"step":4,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"9e3B8EHQak","semantic":true,"label":"Arrest Lightning banishes itself as the graveyard activation cost"},
-  {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"The graveyard ability costs exactly one reserve"},
-  {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"static\":1}","semantic":true,"label":"The targeted Arcane object receives one static counter"},
-  {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"Arrest Lightning no longer remains in the graveyard"}
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "cardID": "9e3B8EHQak",
+        "semantic": true,
+        "label": "Arrest Lightning banishes itself as the graveyard activation cost"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The graveyard ability costs exactly one reserve (it used to be free: the queued ReserveCard was popped as if it were the answer)"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "Counters",
+        "value": "{\"static\":1}",
+        "semantic": true,
+        "label": "The targeted Arcane object receives one static counter"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Arrest Lightning no longer remains in the graveyard"
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
 ]

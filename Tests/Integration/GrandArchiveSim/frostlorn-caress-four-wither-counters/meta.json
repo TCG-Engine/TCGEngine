@@ -1,0 +1,18 @@
+{
+    "name": "frostlorn-caress-four-wither-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T18:13:02+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Frostlorn Caress's [Diao Chan Bonus] cost modifier (activationCostModifierAbilities[\"4tqbok1g9w:0\"], GeneratedMacroCode.php ~8183) reduces its printed 5-reserve cost by 3 when IsDiaoChanBonus($player) is true. The starting champion (Spirit of Water) is CardID-patched to Diao Chan, Enchantress (00xbh8oc00, the deck's own level-1 champion) with Subcards patched to keep Spirit of Water (tafqldAGRF) in the lineage so WATER stays unlocked (Diao Chan, Enchantress's own element is NORM) -- ChampionHasInLineage(\"00xbh8oc00\") is then satisfied directly by the champion object's own CardID, so the net cost is 5-3=2. Frostlorn Caress is seeded directly into hand (myHand-7) since the shared wither-batch deck's Main is non-FAST filler only (Dungeon Guide/Fluffy Shopkeep -- Fairy Whispers is FAST and would trigger a recurring Opportunity prompt). Because the deck has zero FAST cards, EffectStackOpportunity's own fallback (OpportunityLogic.php ~1167: QueueEffectStackOpportunityRound finds no playable fast cards for either player and calls ResolveTopOfEffectStack() immediately) resolves the spell the instant the 2nd reserve payment completes -- no PASS actions are needed. cardActivatedAbilities[\"4tqbok1g9w:0\"] (~15648) then offers an MZCHOOSE of ALLY objects on either field (only the opponent's seeded Dungeon Guide, em6eEh9q8y, qualifies as a non-champion object); customDQHandlers[\"4tqbok1g9w:0:CardActivated-1\"] (~32767) calls AddCounters($player, $chosen, \"wither\", 4) on the chosen target.",
+    "testedCards": [
+        "4tqbok1g9w"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["4tqbok1g9w"],
+        "mechanics": ["counter", "cost", "targeting"],
+        "rulesClauses": [
+            "[Diao Chan Bonus] This card costs 3 less to activate.",
+            "Put four wither counters on target non-champion object."
+        ]
+    }
+}

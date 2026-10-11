@@ -1,0 +1,24 @@
+{
+    "name": "mordred-burnished-avenger-inherited-first-attack-costs-two-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:07:32+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "OWCdWq3mXY"
+    ],
+    "notes": "Mordred, Burnished Avenger (OWCdWq3mXY): \"[Mordred Bonus] Inherited Effect -- As long as Mordred has leveled up this turn, the first attack card you activate this turn costs 2 less to activate.\" (CalculateActivationReserveCost: ChampionHasInLineage(OWCdWq3mXY) + the LEVELED_UP_THIS_TURN global effect + no attack card activated yet.) The champion is patched to Burnished Avenger (level 1) and performs a REAL level-up into Mordred, Flawless Blade (2 memory cards): the effect is inherited because Burnished Avenger is in the lineage. Striking Tides (printed reserve 3) is then activated and needs exactly ONE reserve payment.",
+    "semanticCoverage": {
+        "testedCards": [
+            "OWCdWq3mXY"
+        ],
+        "mechanics": [
+            "cost",
+            "combat",
+            "condition",
+            "damage"
+        ],
+        "rulesClauses": [
+            "[Mordred Bonus] Inherited Effect: as long as Mordred has leveled up this turn, the first attack card you activate this turn costs 2 less to activate."
+        ]
+    }
+}

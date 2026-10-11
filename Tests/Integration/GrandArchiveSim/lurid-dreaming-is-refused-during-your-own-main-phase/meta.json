@@ -1,0 +1,21 @@
+{
+    "name": "lurid-dreaming-is-refused-during-your-own-main-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:38:26+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "ps8unuy20m"
+    ],
+    "notes": "Control.",
+    "semanticCoverage": {
+        "testedCards": [
+            "ps8unuy20m"
+        ],
+        "mechanics": [
+            "timing"
+        ],
+        "rulesClauses": [
+            "Activate this card only during an opponent's end phase."
+        ]
+    }
+}

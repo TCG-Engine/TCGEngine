@@ -1,0 +1,18 @@
+{
+    "name": "glimmering-refusal-negate-banish",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-26T19:50:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Glimmering Refusal's activated ability (cardActivatedAbilities[\"fp773yotth:0\"], GeneratedMacroCode.php ~18188) counts the caster's own PHANTASIA cards on myField and calls QueueNegateActivation($player, [], \"banish\", count($phantasias)) -- X = 2 phantasias (two Scorching Imperilment, aj7pz79wsp, seeded onto player 2's own field). The bait activation is Mastermind Scheme (9lbewemius, ACTION, NORM, reserve 6, no targeting of its own) rather than the usual Escharotomy specifically so its controller (player 1) is down to only 1 payable hand card by the time Glimmering Refusal's negate resolves. NegateActivationResolve (OpportunityLogic.php ~388) checks CountAvailableReservePayments($controller) < $payAmount (1 < 2) and, since that's true, calls NegateCardActivation(..., \"banish\") SYNCHRONOUSLY as part of resolving the same MZCHOOSE target-selection action -- no deferred YES/NO round-trip. This deliberately avoids a genuine engine race confirmed while investigating Acquiescing Rejection's negative path (see the comment above this fixture in create-prd-ability-fixtures.php): when a negate is deferred to a later YESNO decision for the target's controller, customDQHandlers[\"PostResolutionCheck\"] resolves the target's own natural ability in the same action-processing chain before that later decision can ever be answered, making the eventual NegateCardActivation call a no-op. The insufficient-funds branch exercised here is unaffected because it negates immediately, so this is still a fully legitimate real-world proof of \"negate unless pay (X); they couldn't pay, so negate + banish happens.\"",
+    "testedCards": [
+        "fp773yotth"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["fp773yotth"],
+        "mechanics": ["targeting", "cost", "counter", "zone-movement"],
+        "rulesClauses": [
+            "Negate target card activation unless its controller pays (X), where X is the amount of phantasias you control.",
+            "Banish the card that had its activation negated this way."
+        ]
+    }
+}

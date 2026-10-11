@@ -1,0 +1,18 @@
+{
+    "name": "expel-the-departed-destroy-phantasia-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Expel the Departed (9wxcgpy069): \"[Level 2+] This card costs 1 less to activate. Destroy up to one target phantasia. If you control two or more Fatestone and/or Fatebound objects, draw a card.\" The GENERATED dispatch table entry for this card's resolution (GeneratedCode/GeneratedMacroCode.php customDQHandlers[\"9wxcgpy069:0:CardActivated-1\"]) is DEAD CODE for this card: Custom/GeneratedAbilityOverrides.php (loaded after GeneratedMacroCode.php via MatchHooks.php, so its assignment wins) reassigns the exact same dispatch key to route the destroy through the shared AllyDestroyed() dispatcher instead of a raw OnLeaveField()+MZMove(). This fixture's break/restore was verified against Custom/GeneratedAbilityOverrides.php, the actually-live implementation -- editing the generated file's copy of this key has no effect on behavior (confirmed empirically: a debug probe placed in the generated closure never fires). An opponent's phantasia (Unstable Fractal, 2o82fwl22v) is seeded as the destroy target, and two Craggy Fatestone items are seeded on this player's own field to satisfy the 'control 2+ Fatestone/Fatebound objects' draw condition. Verified live: the Unstable Fractal moves to the opponent's graveyard and the deck count drops by 1 (draw). Break/restore verified against GeneratedAbilityOverrides.php: commenting out AllyDestroyed()/Draw() makes the fixture fail and restoring it passes again.",
+    "testedCards": [
+        "9wxcgpy069"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["9wxcgpy069"],
+        "mechanics": ["cost", "targeting", "draw-discard", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Destroy up to one target phantasia.",
+            "If you control two or more Fatestone and/or Fatebound objects, draw a card."
+        ]
+    }
+}

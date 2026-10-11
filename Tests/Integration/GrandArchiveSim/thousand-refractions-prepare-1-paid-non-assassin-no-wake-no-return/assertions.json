@@ -1,0 +1,63 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "[]",
+        "label": "Prepare 1 paid by the non-Assassin champion",
+        "semantic": true
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Intent-0",
+        "property": "TurnEffects",
+        "value": "[\"PREPARED\"]",
+        "label": "Tagged PREPARED",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "CardID",
+        "value": "LMyKyVC2O9",
+        "label": "The champion is Spirit of Fire (class SPIRIT)",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Status",
+        "value": "1",
+        "label": "No [Class Bonus]: the champion is NOT woken up",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "XLbCBxla8K",
+        "label": "No [Class Bonus]: the card is NOT returned to hand",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "label": "Hand unchanged",
+        "semantic": true
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "label": "Nothing pending",
+        "semantic": true
+    }
+]

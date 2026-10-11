@@ -1,0 +1,23 @@
+{
+    "name": "betraying-blade-class-bonus-floating-memory-levelup",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:07:41+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "qwxvzfkpaj"
+    ],
+    "notes": "Betraying Blade (qwxvzfkpaj): \"[Class Bonus] Floating Memory (While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)\" The champion is patched to Tristan, Underhanded (ASSASSIN) so the Class Bonus holds; Betraying Blade is seeded in the graveyard with one real memory card. The real level-up into Tristan, Hired Blade (memory cost 2) offers the floating payment (QueueMaterializeFloatingPaymentChoice): picking the graveyard card banishes it for 1 and the remaining point is paid by banishing the memory card.",
+    "semanticCoverage": {
+        "testedCards": [
+            "qwxvzfkpaj"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Floating Memory: while paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost."
+        ]
+    }
+}

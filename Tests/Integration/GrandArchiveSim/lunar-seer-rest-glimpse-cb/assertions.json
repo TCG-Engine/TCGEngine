@@ -1,0 +1,4 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-1","property":"Status","value":"1","semantic":true,"label":"Activating Rest exhausts Lunar Seer as its cost"},
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"Glimpse only looks and reorders the top of the deck -- deck count is unchanged"}
+]

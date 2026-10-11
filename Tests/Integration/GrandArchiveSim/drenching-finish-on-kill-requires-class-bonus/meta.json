@@ -1,0 +1,23 @@
+{
+    "name": "drenching-finish-on-kill-requires-class-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:05+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "en3DD836cp"
+    ],
+    "notes": "Drenching Finish (en3DD836cp): the On Kill is a \"[Class Bonus]\". With the plain Spirit of Water (class SPIRIT, not WARRIOR) as champion the Training Dummy still dies but no player is asked for and no card is milled.",
+    "semanticCoverage": {
+        "testedCards": [
+            "en3DD836cp"
+        ],
+        "mechanics": [
+            "combat",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "The On Kill is a [Class Bonus]: no mill without a WARRIOR champion."
+        ]
+    }
+}

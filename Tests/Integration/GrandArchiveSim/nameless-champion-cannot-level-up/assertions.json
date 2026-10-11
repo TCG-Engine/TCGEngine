@@ -1,0 +1,30 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "9tmr8iel1m",
+        "semantic": true,
+        "label": "Nameless Champion is still the champion"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The 2-memory level-up cost was not paid"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMaterial",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Kongming, Erudite Strategist is still in the material deck"
+    }
+]

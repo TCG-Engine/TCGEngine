@@ -1,0 +1,65 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Three reserve payments plus Huang Zhong returned to memory"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Champion, Hidden Longbowman and Dungeon Guide remain: Huang Zhong left the field"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "CardID",
+        "value": "bx4k3akqx7",
+        "semantic": true,
+        "label": "Hidden Longbowman is field-1 after Huang Zhong left"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"DISTANT\"]",
+        "semantic": true,
+        "label": "The Ranger ally became distant"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"DISTANT\"]",
+        "semantic": true,
+        "label": "The Ranger champion became distant (Ranger units, not only allies)"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-2",
+        "viewerPlayerID": 1,
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]",
+        "semantic": true,
+        "label": "The non-Ranger ally did not become distant"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

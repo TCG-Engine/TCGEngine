@@ -1,0 +1,22 @@
+{
+    "name": "vigil-rempart-class-bonus-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:19:44+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "pc3zpkw43o"
+    ],
+    "notes": "Class Bonus static +2 POWER.",
+    "semanticCoverage": {
+        "testedCards": [
+            "pc3zpkw43o"
+        ],
+        "mechanics": [
+            "static-modifier",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Vigil Rempart gets +2 POWER."
+        ]
+    }
+}

@@ -1,0 +1,73 @@
+1
+0
+3
+em6eEh9q8y
+em6eEh9q8y
+em6eEh9q8y
+3
+em6eEh9q8y
+em6eEh9q8y
+em6eEh9q8y
+0
+1
+h8n1520m2d - -
+0
+0
+0
+0
+3
+em6eEh9q8y
+em6eEh9q8y
+em6eEh9q8y
+7
+em6eEh9q8y
+em6eEh9q8y
+em6eEh9q8y
+em6eEh9q8y
+em6eEh9q8y
+em6eEh9q8y
+em6eEh9q8y
+3
+LMyKyVC2O9 2 1 0 1 - - WyJVQUY2TnI3R1VFIl0= 1
+d7l6i5thdy 2 1 0 1 ENTERED_THIS_TURN - - 3
+al6pqkmgmz 2 1 0 1 ENTERED_THIS_TURN - - 5
+2
+LMyKyVC2O9 2 2 0 2 - - - 2
+yn78t73w1p 2 2 0 2 ENTERED_THIS_TURN - - 6
+0
+0
+3
+em6eEh9q8y
+em6eEh9q8y
+em6eEh9q8y
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0:1<v0>MAIN<v0>1<v0><v0>al6pqkmgmz<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0><v0>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0><v0>LMyKyVC2O9<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>WyJVQUY2TnI3R1VFIl0=<v2>1<v1>d7l6i5thdy<v2>2<v2>1<v2>0<v2>1<v2>ENTERED_THIS_TURN<v2>-<v2>-<v2>3<v0><v0><v0><v0>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0><v0>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0><v0>LMyKyVC2O9<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v1>h8n1520m2d<v2>2<v2>2<v2>0<v2>2<v2>ENTERED_THIS_TURN<v2>-<v2>-<v2>4<v0><v0><v0><v0>{"mzID":"myField-1","isImbued":"NO","amount":7}<v0><v0>{"EnterCalls":{"1":1,"2":1},"Enter":{"1":{"d7l6i5thdy":1},"2":{"h8n1520m2d":1}}}<v0>4<v0>{"EnterCalls":{"1":1,"2":1},"Enter":{"1":{"d7l6i5thdy":1},"2":{"h8n1520m2d":1}}}<v0>60<v0>{"cards":{"1":{"em6eEh9q8y":{"drawn":7,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}},"2":{"em6eEh9q8y":{"drawn":7,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[],"cur":[],"combatEvents":[]}
+0
+
+
+1
+1
+1
+MAIN
+
+-
+-
+-
+-
+-
+-
+-
+
+
+-

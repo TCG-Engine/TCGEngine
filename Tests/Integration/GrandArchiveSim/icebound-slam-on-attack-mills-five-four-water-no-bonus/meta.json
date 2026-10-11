@@ -1,0 +1,25 @@
+{
+    "name": "icebound-slam-on-attack-mills-five-four-water-no-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T15:33:46+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "6fxxgmuesd"
+    ],
+    "notes": "Icebound Slam (6fxxgmuesd) played by player 2 (turn 2: the opening player can't activate attack cards on turn 1) with a WATER lineage; no Class Bonus, so it costs its printed 7. Deck top after player 2's turn-start draw: five cards: four Spirit of Water (WATER) and a Dungeon Guide then Charge the Soul (marker: must be the new top card). On Attack mills five; only four water cards -> no bonus (3 damage). Pre-fix the generated body milled with a loop of MZMove(myDeck-0), so only ONE card was milled (graveyard 2, deck 18, 3 damage).",
+    "semanticCoverage": {
+        "testedCards": [
+            "6fxxgmuesd"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "mill",
+            "condition",
+            "power-modifier",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "On Attack: Put the top five cards of your deck into your graveyard. Then if there are five or more water element cards in your graveyard, Icebound Slam gets +5 POWER."
+        ]
+    }
+}

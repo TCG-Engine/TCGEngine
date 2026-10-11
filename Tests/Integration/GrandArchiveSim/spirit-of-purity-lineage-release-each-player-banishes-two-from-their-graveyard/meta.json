@@ -1,0 +1,22 @@
+{
+    "name": "Spirit of Purity Lineage Release: each player banishes two cards from their own graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-10T19:21:57+00:00",
+    "createdBy": "Claude",
+    "testedCards": [
+        "FUCJA8IAMi"
+    ],
+    "notes": "Spirit of Purity sits in the champion's inner lineage and its Lineage Release is activated. Each player is asked, in their own frame, to banish two cards from their own graveyard (3 seeded each): player 1 then player 2 each end with one card left.",
+    "semanticCoverage": {
+        "testedCards": [
+            "FUCJA8IAMi"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Lineage Release -- Each player banishes two cards from their graveyard."
+        ]
+    }
+}

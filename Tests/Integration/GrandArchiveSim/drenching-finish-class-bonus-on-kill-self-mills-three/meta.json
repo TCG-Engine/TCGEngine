@@ -1,0 +1,25 @@
+{
+    "name": "drenching-finish-class-bonus-on-kill-self-mills-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T19:08:04+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "en3DD836cp"
+    ],
+    "notes": "Drenching Finish (en3DD836cp): \"Target player puts the top three cards of THEIR deck into their graveyard.\" Same flow as drenching-finish-class-bonus-on-kill-opponent-mills-three but player 1's own champion is chosen: three cards leave the top of player 1's deck (player 2's deck is untouched).",
+    "semanticCoverage": {
+        "testedCards": [
+            "en3DD836cp"
+        ],
+        "mechanics": [
+            "combat",
+            "trigger",
+            "zone-movement",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Target player may be yourself: you put the top three cards of YOUR deck into your graveyard."
+        ]
+    }
+}

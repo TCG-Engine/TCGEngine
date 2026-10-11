@@ -1,0 +1,22 @@
+{
+    "name": "restoring-embers-influence-five-recovers-without-drawing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-04T16:36:27+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "FnTT1G4OQg"
+    ],
+    "notes": "Restoring Embers (FnTT1G4OQg): one extra card in hand makes influence five, so the champion recovers 4 and nothing is drawn.",
+    "semanticCoverage": {
+        "testedCards": [
+            "FnTT1G4OQg"
+        ],
+        "mechanics": [
+            "healing",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Recover 4. Then if your influence is four or less, draw a card into your memory."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "portentous-tanggu-enter-quest-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T00:00:00+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Portentous Tanggu (mb3iqw3kc6, GeneratedMacroCode.php enterAbilities[\"mb3iqw3kc6:0\"]): \"[Guo Jia Bonus] On Enter: Put a quest counter on your champion. (Apply this effect only if your champion is Guo Jia.)\" Materialized for real from hand with a Guo Jia champion already on the field. Verified live: champion Counters go from {} to {\"quest\":1}. Break/restore verified: commenting out AddQuestCounters() makes the fixture fail and restoring it passes again. Note: materializing this card required paying a 3-reserve cost via activationCostModifierAbilities[\"mb3iqw3kc6:0\"], which unconditionally forces the activation cost to 3 for ANY activation of this CardID (not narrowly scoped to its separate printed '(3), Banish CARDNAME: Draw a card into your memory' activated ability) -- not flagged as a bug here since it didn't block proving the On Enter clause, but worth a second look if Portentous Tanggu's real deckbuilding cost ever looks wrong.",
+    "testedCards": [
+        "mb3iqw3kc6"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["mb3iqw3kc6"],
+        "mechanics": ["condition", "counter", "trigger"],
+        "rulesClauses": [
+            "[Guo Jia Bonus] On Enter: Put a quest counter on your champion."
+        ]
+    }
+}

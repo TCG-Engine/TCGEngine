@@ -18,9 +18,7 @@ n8wyfG9hbY
 0
 0
 0
-8
-px60u5n1do
-n8wyfG9hbY
+6
 px60u5n1do
 n8wyfG9hbY
 n8wyfG9hbY
@@ -37,12 +35,14 @@ em6eEh9q8y
 px60u5n1do
 2
 LMyKyVC2O9 2 1 0 1 - - - 1
-0z2snsdwmx 2 1 0 1 ENTERED_THIS_TURN~ENTERED_THIS_TURN - - 3
+0z2snsdwmx 1 1 0 1 ENTERED_THIS_TURN - - 3
 1
 LMyKyVC2O9 2 2 0 2 - - - 2
 0
 0
-0
+2
+px60u5n1do
+n8wyfG9hbY
 0
 4
 DpHDGaX2Pn

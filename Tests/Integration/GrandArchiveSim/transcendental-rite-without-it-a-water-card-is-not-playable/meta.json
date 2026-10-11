@@ -1,0 +1,21 @@
+{
+    "name": "transcendental-rite-without-it-a-water-card-is-not-playable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-05T21:45:28+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "tAiiMGZJXp"
+    ],
+    "notes": "Control: without the Rite a FIRE-only champion cannot play a WATER card.",
+    "semanticCoverage": {
+        "testedCards": [
+            "tAiiMGZJXp"
+        ],
+        "mechanics": [
+            "element-enablement"
+        ],
+        "rulesClauses": [
+            "All basic elements are enabled for you until end of turn."
+        ]
+    }
+}

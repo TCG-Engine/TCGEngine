@@ -1,0 +1,24 @@
+{
+    "name": "dusksoul-stone-materialize-additional-cost-banish-two-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-02T18:08:02+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "u25fuv184p"
+    ],
+    "notes": "Dusksoul Stone (u25fuv184p, UMBRA REGALIA/BAUBLE, memory 0): \"As an additional cost to materialize this card, banish two ally cards from a single graveyard.\" MaterializeLogic.php's MATERIALIZE decision queues an MZCHOOSE over ally cards in a graveyard that holds at least two of them (here player 1's own graveyard, or player 2's), then a second pick restricted to the same graveyard (DusksoulStoneMaterializeCost / ...Finish). The Stone is materialized for real in the materialize phase (champion Subcards patched with Tristan, Shadowdancer for UMBRA); a non-ally graveyard card (Fairy Whispers) is rejected as a choice, two Dungeon Guide ally cards are banished, and the Stone enters.",
+    "semanticCoverage": {
+        "testedCards": [
+            "u25fuv184p"
+        ],
+        "mechanics": [
+            "cost",
+            "zone-movement",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As an additional cost to materialize this card, banish two ally cards from a single graveyard."
+        ]
+    }
+}

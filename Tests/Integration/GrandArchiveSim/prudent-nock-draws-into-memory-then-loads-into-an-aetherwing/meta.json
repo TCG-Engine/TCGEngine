@@ -1,0 +1,22 @@
+{
+    "name": "prudent-nock-draws-into-memory-then-loads-into-an-aetherwing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-07T13:21:53+00:00",
+    "createdBy": "Claude Sonnet 5.5",
+    "testedCards": [
+        "0w5bp5nuae"
+    ],
+    "notes": "Optional load answered YES.",
+    "semanticCoverage": {
+        "testedCards": [
+            "0w5bp5nuae"
+        ],
+        "mechanics": [
+            "draw-into-memory",
+            "load"
+        ],
+        "rulesClauses": [
+            "Draw a card into your memory. Then you may load Prudent Nock into an Aetherwing weapon you control."
+        ]
+    }
+}

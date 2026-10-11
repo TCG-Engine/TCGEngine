@@ -1,0 +1,18 @@
+{
+    "name": "journeys-beginning-draw-and-quest-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-28T15:21:45+00:00",
+    "createdBy": "Claude Sonnet 5",
+    "notes": "Journey's Beginning (8ofid087a6, GeneratedMacroCode.php cardActivatedAbilities[\"8ofid087a6:0\"]): \"Draw a card. [Guo Jia Bonus] Put a quest counter on your champion.\" The starting champion (myField-0) is patched directly to Guo Jia, Chosen Disciple (j6dkdoxyqt) via patchMzId so IsGuoJiaBonus() reads true, without separately re-testing the real champion level-up flow. Journey's Beginning is played from hand (myHand-1!FSM! with this deck/seed) and its 3-reserve cost is paid with 3 Dungeon Guide from hand (moved to memory); both players then PASS the resulting EffectStack opportunity window (GrandArchiveSim/Custom/OpportunityLogic.php) so the activated ability actually resolves instead of leaving it stuck on the stack. Verified live: champion's Counters go from {} to {\"quest\":1}, and the deck count drops by exactly 1 (draw). Break/restore verified: commenting out the Draw()+AddQuestCounters() body makes the fixture fail (deck count stays 13, no quest counter) and restoring it passes again.",
+    "testedCards": [
+        "8ofid087a6"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["8ofid087a6"],
+        "mechanics": ["draw-discard", "counter", "condition"],
+        "rulesClauses": [
+            "Draw a card.",
+            "[Guo Jia Bonus] Put a quest counter on your champion."
+        ]
+    }
+}

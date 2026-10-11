@@ -1,0 +1,159 @@
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "CardID",
+        "value": "eg771cn2q1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-3",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-4",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-2",
+        "property": "CardID",
+        "value": "LAfJuHgUbm",
+        "semantic": true,
+        "label": "The one phantasia among the stacked top 5 (Hydrating Fractal, LAfJuHgUbm, at original top-5 slot 3) was revealed and moved into memory by EventideLureEnter/EventideLureReveal, not left in the deck"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myDeck-8",
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Bottom-of-deck slot 1 of 4: the first non-phantasia top-5 filler card (original slot 1) landed on the bottom"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myDeck-9",
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Bottom-of-deck slot 2 of 4: the second non-phantasia top-5 filler card (original slot 2) landed on the bottom, preserving relative order"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myDeck-10",
+        "property": "CardID",
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "Bottom-of-deck slot 3 of 4: the third non-phantasia top-5 filler card (original slot 4, after the removed phantasia) landed on the bottom, preserving relative order"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myDeck-11",
+        "property": "CardID",
+        "value": "px60u5n1do",
+        "semantic": true,
+        "label": "Bottom-of-deck slot 4 of 4: the fourth non-phantasia top-5 filler card (original slot 5) landed on the bottom, preserving relative order -- the deck's remaining composition (12 cards) is exactly the original 13 minus the one revealed phantasia"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 12,
+        "semantic": true,
+        "label": "Deck shrank by exactly 1 (13 -> 12): only the revealed phantasia left the deck permanently; the other 4 looked-at cards were returned to the bottom"
+    }
+]

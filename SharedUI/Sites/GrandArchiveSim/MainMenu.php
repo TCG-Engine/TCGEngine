@@ -1241,6 +1241,16 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
     "label": "Tristan Re:Collection, Shadowdancer",
     "group": "Re:Collection",
     "text": "# Main\n4 Exploit Vulnerability\n4 Idle Thoughts\n3 Incapacitate\n1 Mastermind Scheme\n4 Sable Remnant\n3 Slice and Dice\n2 Thieving Cut\n2 Arrow Trap\n4 Betraying Blade\n3 Cloaked Executioner\n4 Shimmercloak Assassin\n4 Sirocco Operative\n2 Stifling Trap\n4 Surveil the Winds\n2 Gloamspire Headhunter\n3 Grim Foreboding\n2 Haunting Demise\n3 Shadow Resonance\n3 Shadowstrike\n3 Shifting Mirage\n\n# Material\n1 Spirit of Wind\n1 Tristan, Underhanded\n1 Tristan, Hired Blade\n1 Tristan, Shadowdancer\n1 Assassin's Mantle\n1 Curved Dagger\n1 Life Essence Amulet\n1 Poisoned Dagger\n1 Gearstride Gloves\n1 Dusksoul Stone\n1 Malignant Athame\n1 Shadeblood Coating"
+  },
+  {
+    "label": "Mordred Re:Collection, Aurelian Regent",
+    "group": "Re:Collection",
+    "text": "# Main\n4 Warrior of the Fae Realm\n3 Trickster of the Fae Realm\n4 Snow Fairy\n2 Dungeon Guide\n4 Frostsworn Paladin\n2 Safeguard Paragon\n4 Gildas, Faesworn Monarch\n4 Savage Slash\n2 Invigorated Slash\n2 Sudden Steel\n4 Striking Tides\n2 Regulus Blitz\n3 Dauntless Assault\n3 Luminescent Slash\n2 Inspiring Call\n2 Deflecting Edge\n2 Freezing Hail\n3 Frostbind\n2 Dredging Streams\n4 Drenching Finish\n2 Lakereaving Chill\n\n# Material\n1 Flawless Spirit of Mordred\n1 Mordred, Burnished Avenger\n1 Mordred, Flawless Blade\n1 Mordred, Fated Luminary\n1 Mordred, Aurelian Regent\n1 Mirrordepth's Blade\n1 Sword of Seeking\n1 Drawn Blade\n1 Dummy Trainer\n1 Safeguard Amulet\n1 Tariff Ring\n1 Rhongomiant, Grove's Spire"
+  },
+  {
+    "label": "Merlin Re:Collection, Brilliant Vestige",
+    "group": "Re:Collection",
+    "text": "# Main\n1 Another Beginning\n1 Converge Reflections\n4 Crystalline Reality\n4 Dormouse Informant\n4 Return to the Archive\n4 Find the Lost\n4 Gentle Respite\n4 Obelith Escort\n2 Overlapping Visages\n4 Protect Her At All Costs\n3 Undeniable Truth\n4 Quiet Refraction\n3 Seep Into the Mind\n4 Shattered Hope\n3 Stand Before the Queen\n4 Will to Save\n1 Duality's Convergence\n1 Materialize the Soul\n2 Possessed Reaping\n3 Spirit Blade: Terminus\n\n# Material\n1 Spirit of Water\n1 Merlin, Memorite Vassal\n1 Merlin, Amethyst's Glow\n1 Merlin, Brilliant Vestige\n1 Prismspire Scepter\n1 Shardforged Blade\n1 Life Essence Amulet\n1 Poisoned Dagger\n1 Assassin's Mantle\n1 Proto Key Crest\n1 Tariff Ring\n1 Luminous Quartz"
   }
 ];
 
