@@ -711,8 +711,8 @@ DECK
     ->endTurn()
     ->endTurn(2)->target('myMaterial-0')
     ->tested('Diao Chan, Enchantress')
-    ->expectProperty('p1Field-0', 'CardID', '00xbh8oc00', step: 1)
-    ->expectProperty('p1Field-0', 'Counters', '{"glimmer":2}', 'Diao Chan, Enchantress\'s On Enter (enterAbilities["00xbh8oc00:0"]) put exactly two glimmer counters on herself as the seeded starting champion', step: 1)
+    ->expectProperty('p1Field-0', 'CardID', '00xbh8oc00', 'The level-up into Diao Chan, Enchantress completed', step: 3)
+    ->expectProperty('p1Field-0', 'Counters', '{"glimmer":2}', "Diao Chan, Enchantress's On Enter (enterAbilities[\"00xbh8oc00:0\"]) put exactly two glimmer counters on herself when she levelled up into the champion slot", step: 3)
     ->register();
 
 // --- Dormouse Informant (aWjXOw4mVK): On Enter, if your champion has no preparation counters, put one on them. ---
