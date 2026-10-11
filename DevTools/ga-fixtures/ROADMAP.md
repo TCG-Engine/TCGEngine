@@ -199,3 +199,25 @@ verified by regenerating and comparing by meaning.
 2. Drift fixtures: investigated per fixture; scenarios now match the committed files. (done)
 3. Phase 3 scope: all 1,542 cards, batched by element. (decided)
 4. Auto-generated fixtures: limited to scaffolding and the tiny keyword/vanilla set (see Phase 4). Open.
+
+
+## Progress log
+
+### Phase 3a (Fire), started 2026-10-11
+- 125 cards covered so far (uncovered cards 1,548 -> 1,423); Fire went from 236 to about 120 uncovered. Done: damage/destroy/draw/
+  distant/imbue/sweep spells, the 11 attack cards, items, phantasias, domains and boons, and about 45 allies (static
+  modifiers, On Enter, On Attack, On Death, activated). Files: `fire-spells.php`, `fire-attacks.php`, `fire-allies.php`,
+  `fire-items.php`.
+- Engine bugs found by the new fixtures and fixed (each has a regression fixture): Fling Food and Shield Fragmentation never paid
+  their sacrifice cost; Fireblooded Oath never paid its graveyard-banish cost; Absolving Flames banished one card instead of four;
+  Searing Rebuke dealt its Class Bonus damage on resolution instead of when damage is prevented; Peppered Chef tagged a stale slot
+  after its sacrifice; five "+N POWER until end of turn" buffs (Blazing Bowman, Ash Filcher, Tricky Chimps, Stolid Vanguard, Primal
+  Whip) never applied; Scorchfire Assassin's per-counter buffs did not stack; Leran and Where Futures Stir end-phase effects only
+  ran in the goldfish helper. Open: Molten Impact sacrifices at resolution instead of as a cost.
+- Authoring loop that works at about 25 cards per batch: draft a bare `castSpell` scenario, run `DevTools/ga-autoplay.php` to see
+  the real prompt order, write the scenario with those answers, `DevTools/ga-fixture-try.py` to settle priority windows, and
+  `dump-fixture-state.php` when an assertion fails. New scenario verbs: `observe()`, `reachTurnThree()`, `attack()`,
+  `expectPower/expectLife/expectCardExists`.
+- Not yet done in Fire: remaining allies (about 60: Cardistry hearts, Kindle/Imbue costs, stealth/ranged keywords, Pride allies),
+  weapons, regalia items, champions and the ten odd actions (Attune with Flames, Oppressive Presence, Suffocating Ash,
+  Tether in Flames, Surge Protector, Suzaku's Command, Innervate Fury, Feu Awakening, Molten Echo, Ignis Deus).

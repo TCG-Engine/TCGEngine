@@ -188,3 +188,12 @@ assertion is not checking what its label claims (wrong step, wrong zone, unreach
 - A decision-queue-empty check proves nothing about an effect; pair it with the card that moved, the counter that appeared or the
   damage that was dealt. The audit counts any non-queue assertion as observable evidence.
 - Seeded weapons enter with their printed durability counters.
+
+## Finding the real prompt order
+
+Do not guess it. Write the scenario as just `->seed('myHand', 'Card')->play('Card')`, generate it with
+`php DevTools/create-prd-ability-fixtures.php --fixture=<slug>` and run `php DevTools/ga-autoplay.php --test=<slug>`: it replays the
+recorded actions, then answers every further prompt (first option, YES for YESNO, PASS for priority windows; `--activate` takes
+the first offered ability) and prints each prompt, the answer and the final board. `python3 DevTools/ga-fixture-try.py
+DevTools/ga-fixtures/<file>.php <slug>...` regenerates scenarios and picks the castSpell priority window that the generator
+accepts. `dump-fixture-state.php` shows the decision queue after every recorded action when an assertion fails.
