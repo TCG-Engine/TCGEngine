@@ -9,16 +9,19 @@
  *
  * A fixture that is not in HEAD yet (a brand-new scenario) is regenerated and left in place.
  *
- * Usage: php DevTools/verify-ga-scenarios.php [slug ...]
+ * Usage: php DevTools/verify-ga-scenarios.php [--keep] [slug ...]
+ * With --keep the regenerated files are left in place; restore them afterwards with
+ *   git checkout -- Tests/Integration/GrandArchiveSim
  * Exit status is 1 when any fixture differs.
  */
 $repoRoot = dirname(__DIR__);
 $fixtureRoot = 'Tests/Integration/GrandArchiveSim';
 
-$slugs = array_slice($argv, 1);
+$keep = in_array('--keep', $argv, true);   // compare only; leave regenerated files in place (restore once afterwards, e.g. when running slugs in parallel)
+$slugs = array_values(array_filter(array_slice($argv, 1), fn($a) => !str_starts_with($a, '--')));
 if (empty($slugs)) {
     foreach (glob(__DIR__ . '/ga-fixtures/*.php') as $file) {
-        if (basename($file) === 'Scenario.php') continue;
+        if (in_array(basename($file), ['Scenario.php', 'decks.php'], true)) continue;
         if (preg_match_all("/gaScenario\\('((?:[^'\\\\]|\\\\.)+)'\\)/", file_get_contents($file), $m)) {
             foreach ($m[1] as $slug) $slugs[] = stripslashes($slug);
         }
@@ -38,7 +41,7 @@ foreach ($slugs as $slug) {
     if (strpos($log, '[OK] Fixture passes verification') === false) {
         $failures[$slug] = ['generator verification failed'];
         echo "FAIL  $slug (generator verification failed)\n";
-        shell_exec('cd ' . escapeshellarg($repoRoot) . ' && git checkout -- ' . escapeshellarg($dir) . ' 2>/dev/null');
+        if (!$keep) shell_exec('cd ' . escapeshellarg($repoRoot) . ' && git checkout -- ' . escapeshellarg($dir) . ' 2>/dev/null');
         continue;
     }
     if (!$existedInHead) {
@@ -60,7 +63,7 @@ foreach ($slugs as $slug) {
             $differs[] = $file;
         }
     }
-    shell_exec('cd ' . escapeshellarg($repoRoot) . ' && git checkout -- ' . escapeshellarg($dir) . ' 2>/dev/null');
+    if (!$keep) shell_exec('cd ' . escapeshellarg($repoRoot) . ' && git checkout -- ' . escapeshellarg($dir) . ' 2>/dev/null');
     if ($differs) {
         $failures[$slug] = $differs;
         echo "DIFF  $slug: " . implode(', ', $differs) . "\n";

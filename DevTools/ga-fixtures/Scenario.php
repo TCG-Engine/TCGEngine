@@ -20,6 +20,8 @@
  * may exist, and register() fails loudly unless they are identical.
  */
 
+require_once __DIR__ . '/decks.php';
+
 // A hand holds this many cards after the opening draw; the first card seeded into myHand is therefore myHand-7.
 const GA_SCENARIO_STARTING_HAND = 7;
 
@@ -30,6 +32,7 @@ class GaScenario {
     private array $actions = [];
     private array $assertions = [];
     private array $testedCards = [];
+    private ?array $testedOverride = null;
     private array $meta = [];
     // player => [cardName => hand index] for cards seeded into myHand, and the next free hand index.
     private array $handIndex = [];
@@ -41,7 +44,9 @@ class GaScenario {
 
     // ---- card names ------------------------------------------------------------------------
 
+    // A card name, or '#<cardID>' for a card whose name is ambiguous in the card data (more than one printing).
     public static function id(string $cardName): string {
+        if (str_starts_with($cardName, '#')) return substr($cardName, 1);
         static $loaded = false;
         if (!$loaded) {
             EngineLoadRootRuntime('GrandArchiveSim');
@@ -56,8 +61,14 @@ class GaScenario {
 
     // The shared 5-card material deck with four copies of $mainCardName and filler (the deck most spell fixtures use).
     public function standardDeck(string $mainCardName): self {
-        $this->deck = "# Material\n1 Spirit of Fire\n1 Lorraine, Wandering Warrior\n1 Clarent, Sword of Peace\n1 Backup Charger\n1 Purifying Thurible\n"
-            . "# Main\n4 {$mainCardName}\n4 Dungeon Guide\n4 Fairy Whispers\n4 Fluffy Shopkeep";
+        return $this->deckTemplate('standard', $mainCardName);
+    }
+
+    // A named deck from decks.php with $mainCardName in its leading main-deck slot.
+    public function deckTemplate(string $template, string $mainCardName): self {
+        global $gaDeckTemplates;
+        if (!isset($gaDeckTemplates[$template])) throw new RuntimeException("GaScenario[{$this->slug}]: unknown deck template '{$template}'");
+        $this->deck = str_replace('{MAIN}', $mainCardName, $gaDeckTemplates[$template]);
         return $this;
     }
 
@@ -70,8 +81,9 @@ class GaScenario {
 
     // Patch a player's starting champion. $lineage names lineage cards (unlocks an advanced element), $level
     // sets its level, $damage its damage, $classes an overridden class list ("MAGE"). Only what is passed is set.
-    public function champion(array $lineage = [], ?int $level = null, ?int $damage = null, ?string $classes = null, int $player = 1): self {
+    public function champion(array $lineage = [], ?int $level = null, ?int $damage = null, ?string $classes = null, int $player = 1, ?string $cardName = null): self {
         $props = [];
+        if ($cardName !== null) $props['CardID'] = self::id($cardName);
         if (!empty($lineage)) $props['Subcards'] = array_map([self::class, 'id'], $lineage);
         $counters = [];
         if ($level !== null) $counters['level'] = $level;
@@ -101,7 +113,39 @@ class GaScenario {
         return $this;
     }
 
-    // Escape hatch for setup the builder has no verb for (patch, globalEffect, deckTop, dqVariables, ...).
+    // Set properties on an object already on the board (for example another champion or a field card).
+    public function patch(string $mzId, array $properties, int $player = 1): self {
+        $this->setup[] = ['player' => $player, 'patchMzId' => $mzId, 'setProperties' => $properties];
+        return $this;
+    }
+
+    // Place the named cards on TOP of a player's deck (the first listed becomes the top card).
+    public function deckTop(array $cardNames, int $player = 1): self {
+        $this->setup[] = ['player' => $player, 'deckTop' => array_map([self::class, 'id'], $cardNames)];
+        return $this;
+    }
+
+    // Move every live object out of a zone (default destination myBanish) to reach e.g. an empty-hand precondition.
+    public function emptyZone(string $zone, int $player = 1, ?string $destZone = null): self {
+        $row = ['player' => $player, 'emptyZone' => $zone];
+        if ($destZone !== null) $row['destZone'] = $destZone;
+        $this->setup[] = $row;
+        return $this;
+    }
+
+    // Set a per-player global effect flag that is normally only reachable through a real game event.
+    public function globalEffect(string $effect, int $player = 1): self {
+        $this->setup[] = ['player' => $player, 'globalEffect' => $effect];
+        return $this;
+    }
+
+    // Store decision-queue variables (combat state and the like) that an ability reads.
+    public function dqVariables(array $variables, int $player = 1): self {
+        $this->setup[] = ['player' => $player, 'dqVariables' => $variables];
+        return $this;
+    }
+
+    // Escape hatch for setup the builder has no verb for.
     public function rawSetup(array $row): self {
         $this->setup[] = $row;
         return $this;
@@ -121,6 +165,16 @@ class GaScenario {
         }
         $this->testedCards[self::id($cardName)] = true;
         return $this->act($player, 10002, 'myHand-' . $this->handIndex[$player][$cardName] . '!FSM!');
+    }
+
+    // Click a hand slot directly (for a card that came from the opening hand rather than a seed).
+    public function playSlot(int $slot, int $player = 1): self {
+        return $this->act($player, 10002, 'myHand-' . $slot . '!FSM!');
+    }
+
+    // Any other action row: $mode is the engine input mode (100 answer, 10001 turn buttons, 10002 FSM click, ...).
+    public function action(int $player, int $mode, string $card): self {
+        return $this->act($player, $mode, $card);
     }
 
     // Pay $n reserve costs (each answer banishes the first hand card into memory).
@@ -193,6 +247,12 @@ class GaScenario {
         return $this->expect(['type' => 'zone_count', 'zone' => $zone, 'viewerPlayerID' => $viewer, 'value' => $count], $label, $step);
     }
 
+    // Override the tested cards (by '#<id>' or name) when they are not simply the cards the scenario plays.
+    public function tested(string ...$cards): self {
+        $this->testedOverride = array_map([self::class, 'id'], $cards);
+        return $this;
+    }
+
     // ---- meta.json ---------------------------------------------------------------------------
 
     public function notes(string $notes): self {
@@ -212,7 +272,7 @@ class GaScenario {
     public function build(): array {
         if ($this->deck === '') throw new RuntimeException("GaScenario[{$this->slug}]: no deck");
         $def = [
-            'testedCards' => array_keys($this->testedCards),
+            'testedCards' => $this->testedOverride ?? array_map('strval', array_keys($this->testedCards)),
             'deck' => $this->deck,
             'setup' => $this->setup,
             'actions' => $this->actions,
@@ -249,14 +309,26 @@ function gaRegisterFixture(string $slug, array $def): void {
     global $fixtures;
     if (isset($fixtures[$slug])) {
         foreach (['testedCards', 'deck', 'setup', 'actions'] as $key) {
-            if (($fixtures[$slug][$key] ?? null) !== ($def[$key] ?? null)) {
+            $inlineValue = $fixtures[$slug][$key] ?? ($key === 'setup' ? [] : null); // a definition without 'setup' means no setup rows
+            if (gaCanonical($inlineValue) !== gaCanonical($def[$key] ?? null)) {
                 fwrite(STDERR, "ga-fixtures: scenario '{$slug}' differs from the inline definition in '{$key}'\n");
                 fwrite(STDERR, "  inline:   " . json_encode($fixtures[$slug][$key] ?? null) . "\n");
                 fwrite(STDERR, "  scenario: " . json_encode($def[$key] ?? null) . "\n");
+                // GA_SCENARIO_COLLECT=1 (migration tooling) reports every mismatch and keeps the inline definition.
+                if (getenv('GA_SCENARIO_COLLECT')) return;
                 exit(1);
             }
         }
         // Identical: keep the scenario's version (it may carry assertions).
     }
     $fixtures[$slug] = $def;
+}
+
+// Key order is not significant in a setup/action row: sort associative arrays so two equal rows compare equal.
+function gaCanonical($value) {
+    if (!is_array($value)) return $value;
+    $isList = array_is_list($value);
+    $out = array_map('gaCanonical', $value);
+    if (!$isList) ksort($out);
+    return $out;
 }
