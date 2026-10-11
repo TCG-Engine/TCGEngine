@@ -1,0 +1,34 @@
+{
+  "root": "GrandArchiveSim",
+  "description": "Lorraine Pantheon Starter: author the two cards that have no ability rows (UNVERIFIED against generated output; see README)",
+  "ops": [
+    {
+      "id": "charm-of-anticipation",
+      "type": "author-if-absent",
+      "cardId": "vkL2RFh0yM",
+      "why": "Banish CARDNAME: Draw a card, only with Crowd's Favor. Currently a hand-written stand-in in GameLogic.php.",
+      "abilities": [
+        {
+          "macroName": "ActivateAbility",
+          "abilityCode": "$mzID = DecisionQueueController::GetVariable(\"mzID\");\nMZMove($player, $mzID, \"myBanish\");\nDraw($player, 1);",
+          "prereqCode": "return GlobalEffectCount($player, \"gpmJdGYqoC\") > 0;",
+          "abilityName": "Banish, Draw a card"
+        }
+      ]
+    },
+    {
+      "id": "unitys-gale",
+      "type": "author-if-absent",
+      "cardId": "uUWsgLmyTk",
+      "why": "Target ally +3 LIFE, delayed Crowd's Favor. Target offer only; the continuation handler stays hand-written.",
+      "abilities": [
+        {
+          "macroName": "CardActivated",
+          "abilityCode": "$targets = array_merge(ZoneSearch(\"myField\", [\"ALLY\"]), ZoneSearch(\"theirField\", [\"ALLY\"]));\n$targets = FilterSpellshroudTargets($targets);\nif(empty($targets)) return;\n$targetStr = implode(\"&\", $targets);\nDecisionQueueController::AddDecision($player, \"MZCHOOSE\", $targetStr, 1, \"\");\nDecisionQueueController::AddDecision($player, \"CUSTOM\", \"uUWsgLmyTk:0:Target-1\", 1);",
+          "prereqCode": null,
+          "abilityName": "Target ally +3 LIFE, delayed Crowd's Favor"
+        }
+      ]
+    }
+  ]
+}
