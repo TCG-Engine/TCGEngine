@@ -395,3 +395,98 @@ gaScenario('blazing-bowman-enter-banishes-a-fire-card-for-plus-two-power')
     ->expectZoneCount('myBanish', 1, 1, 'The fire card was banished from the graveyard')
     ->covers(['on-enter', 'banish', 'stat-change'], 'On Enter: You may banish a fire element card from your graveyard. If you do, CARDNAME gets +2 [POWER] until end of turn.')
     ->register();
+
+// =====================================================================================================================
+// Batch 2
+// =====================================================================================================================
+
+gaScenario('five-of-hearts-enters-the-field-rested')
+    ->standardDeck('Five of Hearts')
+    ->readyFor('Five of Hearts')
+    ->seed('myHand', 'Five of Hearts')
+    ->castSpell('Five of Hearts', pay: 5)
+    ->expectProperty('p1Field-1', 'Status', '1', 'Hindered: Five of Hearts enters the field rested')
+    ->expectDqEmpty()
+    ->covers(['keyword', 'status'], 'Hindered (This ally enters the field rested.)')
+    ->register();
+
+gaScenario('flamebound-draug-enter-becomes-ephemeral')
+    ->standardDeck('Flamebound Draug')
+    ->readyFor('Flamebound Draug')
+    ->seed('myHand', 'Flamebound Draug')
+    ->castSpell('Flamebound Draug', pay: 3)
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","EPHEMERAL"]', 'On Enter: it became ephemeral')
+    ->expectDqEmpty()
+    ->covers(['on-enter', 'ephemeral'], 'On Enter: Flamebound Draug becomes ephemeral.')
+    ->register();
+
+gaScenario('cell-handler-class-bonus-enter-weakens-a-beast-and-summons-nothing-for-a-non-automaton')
+    ->standardDeck('Cell Handler')
+    ->readyFor('Cell Handler', classBonus: true)
+    ->seed('myField', 'Capricious Lynx')
+    ->seed('myHand', 'Cell Handler')
+    ->castSpell('Cell Handler', pay: 2, target: 'myField-1')
+    ->expectPower('p1Field-1', 2, '[Class Bonus] On Enter: the Beast ally got -1 POWER: 3 - 1')
+    ->expectZoneCount('myField', 3, 1, 'No Powercell: the Lynx is not an Automaton (champion, Lynx, Cell Handler)')
+    ->expectDqEmpty()
+    ->covers(['on-enter', 'stat-change', 'condition', 'class-bonus'], '[Class Bonus] On Enter: Up to one target Animal or Beast ally you control loses pride and gets -1 [POWER] until end of turn. If that ally is an Automaton, summon a Powercell token rested.')
+    ->register();
+
+gaScenario('cell-handler-class-bonus-enter-on-an-automaton-summons-a-powercell')
+    ->standardDeck('Cell Handler')
+    ->readyFor('Cell Handler', classBonus: true)
+    ->seed('myField', 'Engineered Slime')
+    ->seed('myHand', 'Cell Handler')
+    ->castSpell('Cell Handler', pay: 2, target: 'myField-1')
+    ->expectZoneCount('myField', 4, 1, 'The Engineered Slime is an Automaton Beast: a Powercell was summoned (champion, Slime, Cell Handler, Powercell)')
+    ->expectDqEmpty()
+    ->covers(['on-enter', 'summon', 'condition', 'class-bonus'], 'If that ally is an Automaton, summon a Powercell token rested.')
+    ->register();
+
+gaScenario('prodigious-burstmage-class-bonus-death-draws-then-discards')
+    ->standardDeck('Undeniable Truth')
+    ->readyFor('Prodigious Burstmage', classBonus: true)
+    ->seed('myField', 'Prodigious Burstmage')
+    ->seed('myHand', 'Undeniable Truth')
+    ->play('Undeniable Truth')->target('myField-1')->pay(1)
+    ->answer(1, 'myHand-0')
+    ->tested('Prodigious Burstmage')
+    ->expectZoneCount('myGraveyard', 3, 1, 'Undeniable Truth, the Burstmage and the discarded card are in the graveyard')
+    ->expectDqEmpty()
+    ->covers(['on-death', 'draw-discard', 'class-bonus'], '[Class Bonus] On Death: Draw a card, then discard a card.')
+    ->register();
+
+gaScenario('ashwick-cremator-class-bonus-end-phase-with-an-empty-hand-damages-each-champion')
+    ->standardDeck('Ashwick Cremator')
+    ->readyFor('Ashwick Cremator', classBonus: true)
+    ->emptyZone('myHand', destZone: 'myBanish')
+    ->seed('myField', 'Ashwick Cremator')
+    ->endTurn()
+    ->tested('Ashwick Cremator')
+    ->expectDamage('p1Field-0', 2, '[Class Bonus] Empty hand at the end phase: your champion takes 2')
+    ->expectDamage('p2Field-0', 2, '...and so does the opposing champion')
+    ->covers(['trigger', 'damage', 'condition', 'class-bonus'], '[Class Bonus] At the beginning of your end phase, if you have no cards in your hand, deal 2 damage to each champion.')
+    ->register();
+
+gaScenario('ashwick-cremator-class-bonus-end-phase-with-cards-in-hand-does-nothing')
+    ->standardDeck('Ashwick Cremator')
+    ->readyFor('Ashwick Cremator', classBonus: true)
+    ->seed('myField', 'Ashwick Cremator')
+    ->endTurn()
+    ->tested('Ashwick Cremator')
+    ->expectDamage('p1Field-0', 0, 'Cards in hand: no damage to your champion')
+    ->expectDamage('p2Field-0', 0, '...or the opposing champion')
+    ->covers(['trigger', 'condition', 'class-bonus'], '[Class Bonus] At the beginning of your end phase, if you have no cards in your hand, deal 2 damage to each champion.')
+    ->register();
+
+gaScenario('smoldering-cook-sacrifices-a-food-to-deal-three-damage-to-a-champion')
+    ->standardDeck('Smoldering Cook')
+    ->readyFor('Smoldering Cook')
+    ->seed('myField', 'Smoldering Cook')
+    ->seed('myField', 'Forest Cake')
+    ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->target('theirField-0')
+    ->tested('Smoldering Cook')
+    ->expectDamage('p2Field-0', 3, '[REST], Sacrifice a Food item: 3 damage to the target champion')
+    ->expectProperty('p1Field-1', 'Status', '1', 'Smoldering Cook is rested (the [REST] cost)')
+    ->covers(['activated-ability', 'damage', 'additional-cost-sacrifice'], '[REST], Sacrifice a Food item: Deal 3 damage to target champion.')
+    ->register();

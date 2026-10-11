@@ -1,0 +1,22 @@
+{
+    "name": "prodigious-burstmage-class-bonus-death-draws-then-discards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:25:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l64yfOVhkp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l64yfOVhkp"
+        ],
+        "mechanics": [
+            "on-death",
+            "draw-discard",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Death: Draw a card, then discard a card."
+        ]
+    }
+}

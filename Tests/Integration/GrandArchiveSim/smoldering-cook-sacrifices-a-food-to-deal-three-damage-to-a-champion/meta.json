@@ -1,0 +1,22 @@
+{
+    "name": "smoldering-cook-sacrifices-a-food-to-deal-three-damage-to-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:25:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "HtxzN0sQCJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "HtxzN0sQCJ"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "damage",
+            "additional-cost-sacrifice"
+        ],
+        "rulesClauses": [
+            "[REST], Sacrifice a Food item: Deal 3 damage to target champion."
+        ]
+    }
+}

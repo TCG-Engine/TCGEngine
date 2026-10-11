@@ -1,0 +1,22 @@
+{
+    "name": "ashwick-cremator-class-bonus-end-phase-with-cards-in-hand-does-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:25:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xwtkzqxfab"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xwtkzqxfab"
+        ],
+        "mechanics": [
+            "trigger",
+            "condition",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your end phase, if you have no cards in your hand, deal 2 damage to each champion."
+        ]
+    }
+}

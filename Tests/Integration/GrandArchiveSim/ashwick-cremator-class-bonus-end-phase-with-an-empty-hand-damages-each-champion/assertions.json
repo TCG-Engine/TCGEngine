@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "[Class Bonus] Empty hand at the end phase: your champion takes 2"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "...and so does the opposing champion"
+    }
+]

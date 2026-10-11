@@ -1,0 +1,21 @@
+{
+    "name": "flamebound-draug-enter-becomes-ephemeral",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:24:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lz5escwkb1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lz5escwkb1"
+        ],
+        "mechanics": [
+            "on-enter",
+            "ephemeral"
+        ],
+        "rulesClauses": [
+            "On Enter: Flamebound Draug becomes ephemeral."
+        ]
+    }
+}

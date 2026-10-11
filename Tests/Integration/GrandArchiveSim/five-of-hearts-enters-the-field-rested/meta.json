@@ -1,0 +1,21 @@
+{
+    "name": "five-of-hearts-enters-the-field-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:24:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "idq4ih00rq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "idq4ih00rq"
+        ],
+        "mechanics": [
+            "keyword",
+            "status"
+        ],
+        "rulesClauses": [
+            "Hindered (This ally enters the field rested.)"
+        ]
+    }
+}
