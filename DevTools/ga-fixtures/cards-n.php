@@ -71,7 +71,7 @@ gaScenario('neos-sight-eight-objects-memory-draw')
     ->seed('myField', 'Dungeon Guide')
     ->seed('myField', 'Dungeon Guide')
     ->seed('myHand', 'Neos Sight')
-    ->play('Neos Sight')->pass(1)
+    ->castSpell('Neos Sight', window: 'me')
     ->expectDqEmpty()
     ->expectZoneCount('myMemory', 1, 1, 'controlling 8+ objects also draws a card into memory')
     ->register();
@@ -87,7 +87,7 @@ gaScenario('nimble-court-assassin-enter-agility')
     ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
     ->champion(lineage: ['Kongming, Fel Eidolon'])
     ->seed('myHand', 'Nimble Court Assassin')
-    ->play('Nimble Court Assassin')->pay(5)
+    ->castSpell('Nimble Court Assassin', pay: 5)
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ALLY_ACTIVATED"]')
     ->expectProperty('p1Field-1', 'CardID', 'i2vPUpbPEl')
@@ -158,7 +158,7 @@ DECK
     ->champion(cardName: 'Kongming, Fel Eidolon', lineage: ['Spirit of Water'])
     ->seed('myHand', 'Naia, Diviner of Fortunes')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Hidden Longbowman', 'Charge the Soul'])
-    ->play('Naia, Diviner of Fortunes')->pay(3)->target('myTempZone-2')
+    ->castSpell('Naia, Diviner of Fortunes', pay: 3, target: 'myTempZone-2')
     ->register();
 
 // top three: DG, FS, Fairy Whispers (a Spell, 3rd) -> banished and tagged so it can be activated while Naia is controlled
@@ -175,7 +175,7 @@ DECK
     ->champion(cardName: 'Kongming, Fel Eidolon', lineage: ['Spirit of Water'])
     ->seed('myHand', 'Naia, Diviner of Fortunes')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Fairy Whispers', 'Charge the Soul'])
-    ->play('Naia, Diviner of Fortunes')->pay(3)->target('myTempZone-2')
+    ->castSpell('Naia, Diviner of Fortunes', pay: 3, target: 'myTempZone-2')
     ->register();
 
 // --- Nature's Appeal (oj0oh7pjoq): "Reveal the top LV cards of your deck. Put one of those cards into your hand and another into your material deck preserved. Put the rest on the bottom of
@@ -197,7 +197,7 @@ DECK
     ->champion(cardName: 'Kongming, Fel Eidolon')
     ->seed('myHand', 'Nature\'s Appeal')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Fairy Whispers', 'Charge the Soul'])
-    ->play('Nature\'s Appeal')->pay(2)->target('myTempZone-2')
+    ->castSpell('Nature\'s Appeal', pay: 2, target: 'myTempZone-2')
     ->rejects(1, 'myTempZone-2', 'the card already put into hand is no longer offered for the material deck')
     ->target('myTempZone-1')
     ->register();
@@ -223,7 +223,7 @@ DECK
     ->seed('myMemory', 'Dungeon Guide')
     ->seed('myHand', 'Nature\'s Insight')
     ->deckTop(['Fluffy Shopkeep', 'Fairy Whispers', 'Dungeon Guide', 'Charge the Soul'])
-    ->play('Nature\'s Insight')->pay(3)->target('myMemory-0')
+    ->castSpell('Nature\'s Insight', pay: 3, target: 'myMemory-0')
     ->register();
 
 // --- Nameless Champion (9tmr8iel1m): "This champion can't level up. (6): Draw a card and put a level counter on Nameless Champion. Activate this ability only once." The cost is six reserve (no rest) and the ability works exactly
@@ -322,7 +322,7 @@ DECK
     ->champion(lineage: ['Tristan, Shadowdancer'], classes: 'GUARDIAN')
     ->seed('myField', 'Dungeon Guide', player: 2)
     ->seed('myHand', 'Nocturne\'s Oblivion')
-    ->play('Nocturne\'s Oblivion')->pay(3)->target('theirField-1')
+    ->castSpell('Nocturne\'s Oblivion', pay: 3, target: 'theirField-1')
     ->expectZoneCount('theirField', 1, 1, 'Player 2 only has their champion left')
     ->expectZoneCount('myBanish', 1, 1, 'Nocturne\'s Oblivion banished itself')
     ->expectZoneCount('myGraveyard', 0, 1, 'It is not left in the graveyard')

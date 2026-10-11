@@ -62,9 +62,10 @@ Exit met: no inline fixture definitions; drift list empty. Suite 1493/1493, GABo
 
 Each step collapses an existing family and is proven with the guard and verifier. Order by payoff and certainty.
 
-1. **`castSpell(card, pay:, window:, target:, expect:)`** with `expect` builders (`damage(n)`, `destroyed`, `moved(zone)`,
-   `drew(n)`, `counter(name, n)`). Pilot on the 25 damage fixtures plus the 3 Thunderclap ones (~3 lines each), then roll
-   to the ~190 spell-shaped fixtures.
+1. **`castSpell(card, pay:, window:, target:)`**. DONE 2026-10-11: added and applied to all 379 single-line
+   `play`/`pay`/`pass`/`target` chains (28 damage fixtures first, then every other scenario file); the full verifier
+   still matches HEAD for 1,260 of 1,261 (the one miss was a stale slug in my list). The `expect` builders
+   (`damage(n)`, `destroyed`, `moved(zone)`, `drew(n)`, `counter(name, n)`) are folded into step 6 with the derived `covers()`.
 2. **Printed-cost family** (67 `…-pays-its-printed-cost`): `costFodder()` helper plus a table of (card, cost).
 3. **Spellshroud family** (20 `…-spell-cannot-target-it`): one table of (spell, target zone).
 4. **Declined-optional family** ("decline first target still offers second", ~15): `declines(step)` verb.

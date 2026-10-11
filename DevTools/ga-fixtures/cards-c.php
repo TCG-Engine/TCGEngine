@@ -18,7 +18,7 @@ gaScenario('corhazi-arsonist-prepare-stealth')
     ->standardDeck('Corhazi Arsonist')
     ->patch('myField-0', ['Counters' => ['preparation' => 1]])
     ->seed('myHand', 'Corhazi Arsonist')
-    ->play('Corhazi Arsonist')->pay(3)
+    ->castSpell('Corhazi Arsonist', pay: 3)
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->passBoth()
     ->expectProperty('p1Field-1', 'Status', '2', 'Corhazi Arsonist is awake before its ability is activated', step: 4)
     ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","STEALTH"]', 'Corhazi Arsonist gains stealth until end of turn')
@@ -58,7 +58,7 @@ gaScenario('coriolis-ward-prevent-level')
     ->standardDeck('Coriolis Ward')
     ->champion(lineage: ['Spirit of Water'])
     ->seed('myHand', 'Coriolis Ward')
-    ->play('Coriolis Ward')->pay(1)->passBoth()->target('myField-0')
+    ->castSpell('Coriolis Ward', pay: 1, window: 'both', target: 'myField-0')
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED","PREVENT_ALL_1"]', 'With champion level 0, the prevention amount is the base 1+0=1')
     ->expectDqEmpty()
     ->register();
@@ -148,7 +148,7 @@ gaScenario('creative-shock-draw-discard')
 gaScenario('creative-tinder-draw-discard')
     ->standardDeck('Creative Tinder')
     ->seed('myHand', 'Creative Tinder')
-    ->play('Creative Tinder')->pay(4)
+    ->castSpell('Creative Tinder', pay: 4)
     ->expectZoneCount('myHand', 5, 1, 'Net hand change of +1 after drawing two and discarding one')
     ->expectZoneCount('myGraveyard', 2, 1, 'Creative Tinder and the discarded card are both in the graveyard')
     ->expectDqEmpty()
@@ -171,7 +171,7 @@ gaScenario('crimson-vein-recover-counter')
     ->champion(lineage: ['Dante, Hemomancer'], damage: 5)
     ->seed('myField', 'Crimson Vein')
     ->seed('myHand', 'Harmonious Mantra')
-    ->play('Harmonious Mantra')->pay(2)
+    ->castSpell('Harmonious Mantra', pay: 2)
     ->tested('Crimson Vein')
     ->register();
 
@@ -187,7 +187,7 @@ gaScenario('creeping-torment-lineage')
     ->standardDeck('Creeping Torment')
     ->champion(lineage: ['Tristan, Shadowreaver'])
     ->seed('myHand', 'Creeping Torment')
-    ->play('Creeping Torment')->pay(1)->target('myField-0')
+    ->castSpell('Creeping Torment', pay: 1, target: 'myField-0')
     ->register();
 
 // --- Cryogenic Ritual: sacrifice an ally to summon a Core Fractal token ---
@@ -332,7 +332,7 @@ gaScenario('caretaker-drone-class-bonus-death-glimpse')
     ->champion(classes: 'CLERIC')
     ->seed('myField', 'Caretaker Drone')
     ->seed('myHand', 'Undeniable Truth')
-    ->play('Undeniable Truth')->target('myField-1')
+    ->castSpell('Undeniable Truth', target: 'myField-1')
     ->answer(1, 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=')->pay(1)
     ->tested('Caretaker Drone')
     ->register();
@@ -350,7 +350,7 @@ gaScenario('careful-study-enlighten-counters')
     ->seed('myHand', 'Fairy Whispers')
     ->seed('myHand', 'Fairy Whispers')
     ->seed('myHand', 'Careful Study')
-    ->play('Careful Study')->pay(8)
+    ->castSpell('Careful Study', pay: 8)
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'Counters', '{"enlighten":5}')
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED"]')
@@ -373,7 +373,7 @@ gaScenario('cremation-ritual-sacrifice-draw')
     ->deckTemplate('rai-windslice', 'Dungeon Guide')
     ->seed('myField', 'Dungeon Guide')
     ->seed('myHand', 'Cremation Ritual')
-    ->play('Cremation Ritual')->pay(3)->target('myField-1')
+    ->castSpell('Cremation Ritual', pay: 3, target: 'myField-1')
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED"]')
     ->expectProperty('p1Graveyard-0', 'CardID', 'Pr48kXnasw')
@@ -403,7 +403,7 @@ gaScenario('crystal-of-empowerment-banish-level')
     ->deckTemplate('rai-windslice', 'Dungeon Guide')
     ->seed('myField', 'Crystal of Empowerment')
     ->seed('myHand', 'Scry the Skies')
-    ->play('Scry the Skies')->pay(1)
+    ->castSpell('Scry the Skies', pay: 1)
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')
     ->tested('Crystal of Empowerment')
     ->register();
@@ -418,7 +418,7 @@ gaScenario('crystal-of-empowerment-banish-level')
 gaScenario('crusader-of-aesa-enters-rested')
     ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
     ->seed('myHand', 'Crusader of Aesa')
-    ->play('Crusader of Aesa')->pay(3)->passBoth()
+    ->castSpell('Crusader of Aesa', pay: 3, window: 'both')
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ALLY_ACTIVATED"]')
     ->expectProperty('p1Field-1', 'CardID', '2Q60hBYO3i')
@@ -443,7 +443,7 @@ gaScenario('cavalier-rescue-target-turn-effect')
     ->deck($fillerDeck)
     ->seed('myField', 'Dungeon Guide', properties: ['TurnEffects' => []])
     ->seed('myHand', 'Cavalier Rescue')
-    ->play('Cavalier Rescue')->pay(3)->target('myField-1')
+    ->castSpell('Cavalier Rescue', pay: 3, target: 'myField-1')
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED"]')
     ->expectProperty('p1Field-1', 'TurnEffects', '["75uhspxqme"]', 'Playing Cavalier Rescue fires its on-play trigger (playCardAbilities["75uhspxqme:0"], only reachable via QueuePlayCardTriggeredAbility() from OnCardActivated()) and tags the target ally with the +3 LIFE turn effect')
@@ -632,7 +632,7 @@ gaScenario('celestial-navigation-glimpse-5')
     ->deck(GA_ARISANNA_BASE_DECK)
     ->champion(cardName: 'Arisanna, Astral Zenith')
     ->seed('myHand', 'Celestial Navigation')
-    ->play('Celestial Navigation')->pay(2)
+    ->castSpell('Celestial Navigation', pay: 2)
     ->answer(1, 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY,px60u5n1do;Bottom=')
     ->expectZoneCount('myDeck', 5, 1, 'Glimpse 5 only looks and reorders the top of the deck -- deck count is unchanged')
     ->expectProperty('p1Deck-0', 'CardID', 'em6eEh9q8y', 'Reordered response is honored -- deck top slot matches the submitted Top= order')
@@ -1402,7 +1402,7 @@ DECK
     )
     ->champion(lineage: ['Spirit of Water'], level: 3)
     ->seed('myHand', 'Cone of Frost')
-    ->play('Cone of Frost')->pay(3)->pass(1)->target('theirField-0')
+    ->castSpell('Cone of Frost', pay: 3, window: 'me', target: 'theirField-0')
     ->register();
 
 // Clarent, Reimagined (kINobk9KQA): "[Lorraine Bonus] While paying for this card's memory cost, you may banish a card named Clarent, Sword of Peace and up
@@ -1453,7 +1453,7 @@ DECK
     ->patch('myField-1', ['Counters' => ['sheen' => 1]])
     ->seed('myField', 'Fluffy Shopkeep')
     ->seed('myHand', 'Crystal Accretion')
-    ->play('Crystal Accretion')->pay(2)
+    ->castSpell('Crystal Accretion', pay: 2)
     ->register();
 
 // Crystallized Anthem (XfAJlQt9hH): "Prevent the next 2 damage that would be dealt to each unit you control this turn. ..."
@@ -1474,7 +1474,7 @@ DECK
     ->champion(lineage: ['Mordred, Fated Luminary'], classes: 'ASSASSIN')
     ->seed('myField', 'Dungeon Guide')
     ->seed('myHand', 'Crystallized Anthem')
-    ->play('Crystallized Anthem')->pay(2)
+    ->castSpell('Crystallized Anthem', pay: 2)
     ->register();
 
 // Castling (tFOpmUdi2W): "Until end of turn, up to two target Chessman allies gain spellshroud and taunt, and get +2 LIFE." Declining the first target (PASS) used to skip CastlingFirstTarget, so the second target was never offered.
@@ -1497,7 +1497,7 @@ DECK
     ->seed('myField', 'Pawn Piece')
     ->seed('myField', 'Pawn Piece')
     ->seed('myHand', 'Castling')
-    ->play('Castling')->pay(4)->pass(1)->target('myField-2')
+    ->castSpell('Castling', pay: 4, window: 'me', target: 'myField-2')
     ->register();
 
 // Notes carried over from the original definition:
@@ -1590,7 +1590,7 @@ DECK
     ->champion(classes: 'GUARDIAN')
     ->seed('myField', 'Clarent, Sword of Peace')
     ->seed('myHand', 'Cell Forging')
-    ->play('Cell Forging')->pay(3)->pass(1)
+    ->castSpell('Cell Forging', pay: 3, window: 'me')
     ->register();
 
 // Conflagrant Sentinel (puyzn48srd): "On Enter: You may discard a card. If you do, put a buff counter on it."
@@ -1608,7 +1608,7 @@ DECK
     )
     ->champion(classes: 'GUARDIAN')
     ->seed('myHand', 'Conflagrant Sentinel')
-    ->play('Conflagrant Sentinel')->pay(4)
+    ->castSpell('Conflagrant Sentinel', pay: 4)
     ->register();
 
 gaScenario('conflagrant-sentinel-enter-declined-discard-gets-no-buff-counter')
@@ -1623,7 +1623,7 @@ DECK
     )
     ->champion(classes: 'GUARDIAN')
     ->seed('myHand', 'Conflagrant Sentinel')
-    ->play('Conflagrant Sentinel')->pay(3)->pass(1)
+    ->castSpell('Conflagrant Sentinel', pay: 3, window: 'me')
     ->register();
 
 // Charge the Soul (ra9950o14t): "Deal 1 damage to target unit. Then you may load it into an Aetherwing weapon you control."
@@ -1641,7 +1641,7 @@ DECK
     )
     ->champion(classes: 'RANGER')
     ->seed('myHand', 'Charge the Soul')
-    ->play('Charge the Soul')->pay(1)->target('theirField-0')
+    ->castSpell('Charge the Soul', pay: 1, target: 'theirField-0')
     ->register();
 
 // Coy Bouclier (vo1qr9bkme): "[Level 2+] This card costs 2 less to activate." (5 -> 3 reserve payments)
@@ -1659,7 +1659,7 @@ DECK
     )
     ->champion(level: 2, classes: 'GUARDIAN')
     ->seed('myHand', 'Coy Bouclier')
-    ->play('Coy Bouclier')->pay(3)
+    ->castSpell('Coy Bouclier', pay: 3)
     ->register();
 
 // Corsair Captain (4e1gqwah01): "Ranged 2 (as long as this unit is distant, its attacks get +2 POWER). [Class Bonus] Floating Memory."
@@ -2121,7 +2121,7 @@ gaScenario('convergent-beam-without-fractal-deals-one-damage')
 DECK
     )
     ->seed('myHand', 'Convergent Beam')
-    ->play('Convergent Beam')->pay(2)->target('theirField-0')
+    ->castSpell('Convergent Beam', pay: 2, target: 'theirField-0')
     ->register();
 
 gaScenario('convergent-beam-with-a-fractal-deals-three-damage')
@@ -2136,7 +2136,7 @@ DECK
     )
     ->seed('myHand', 'Convergent Beam')
     ->seed('myField', 'Core Fractal')
-    ->play('Convergent Beam')->pay(2)->target('theirField-0')
+    ->castSpell('Convergent Beam', pay: 2, target: 'theirField-0')
     ->tested('Convergent Beam', 'Core Fractal')
     ->register();
 
@@ -2162,7 +2162,7 @@ DECK
     ->endTurn()->pass(1)->pass(1)
     ->endTurn(2)->pass(1)->pass(1)->pass(1)
     ->action(1, 10002, 'myField-1!FSM!')->target('theirField-1')->passBoth()
-    ->play('Ignite the Soul')->pay(1)->pass(1)->target('theirField-1')
+    ->castSpell('Ignite the Soul', pay: 1, window: 'me', target: 'theirField-1')
     ->tested('Corhazi Arsonist', 'Ignite the Soul')
     ->register();
 
@@ -2184,7 +2184,7 @@ DECK
     ->seed('myHand', 'Carpsong Coda')
     ->seed('myGraveyard', 'Baby Blue Slime')
     ->seed('myGraveyard', 'Jueying, Shadowmare')
-    ->play('Carpsong Coda')->pay(2)->target('theirField-0')
+    ->castSpell('Carpsong Coda', pay: 2, target: 'theirField-0')
     ->register();
 
 // Convoking Slime (b1w1mvu68a): "[Class Bonus] At the beginning of your recollection phase, summon a copy of CARDNAME rested." The recollection-phase loop re-read count($field) every iteration, so each new copy
@@ -2246,7 +2246,7 @@ DECK
     )
     ->patch('myField-0', ['CardID' => 'enxi6tshtu', 'Subcards' => ['tafqldAGRF'], 'Counters' => ['level' => 7, 'enlighten' => 3, '_overrides' => ['classes' => 'MAGE', 'element' => 'WATER']]])
     ->seed('myHand', 'Cone of Frost')
-    ->play('Cone of Frost')->pay(2)->pass(1)->target('theirField-0')
+    ->castSpell('Cone of Frost', pay: 2, window: 'me', target: 'theirField-0')
     ->register();
 
 // An Action card sits in the graveyard only once it has finished resolving; while it resolves its own effect cannot see it. Cyclical Breeze (3cmrkv3y16): "Return target wind element Spell card from your graveyard
@@ -2262,7 +2262,7 @@ gaScenario('cyclical-breeze-cannot-return-itself-while-resolving')
 DECK
     )
     ->seed('myHand', 'Cyclical Breeze')
-    ->play('Cyclical Breeze')->pay(4)
+    ->castSpell('Cyclical Breeze', pay: 4)
     ->expectZoneCount('myGraveyard', 1, 1, 'Cyclical Breeze finished resolving and is in the graveyard; it was not offered (or returned) as its own target')
     ->expectZoneCount('myHand', 3, 1, 'Nothing came back to the hand (8 cards - Breeze - 4 paid)')
     ->expectDqEmpty()

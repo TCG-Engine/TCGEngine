@@ -16,7 +16,7 @@ gaScenario('dwarf-stars-glow-damage')
     ->standardDeck('Dwarf Star\'s Glow')
     ->lineage('Arisanna, Astral Zenith')
     ->seed('myHand', 'Dwarf Star\'s Glow')
-    ->play('Dwarf Star\'s Glow')->pay(2)->target('theirField-0')
+    ->castSpell('Dwarf Star\'s Glow', pay: 2, target: 'theirField-0')
     ->expectDamage('p2Field-0', 2, 'The targeted opponent champion takes 2 damage')
     ->expectDqEmpty()
     ->register();
@@ -31,7 +31,7 @@ gaScenario('cosmic-bolt-damage')
     ->standardDeck('Cosmic Bolt')
     ->lineage('Arisanna, Astral Zenith')
     ->seed('myHand', 'Cosmic Bolt')
-    ->play('Cosmic Bolt')->pay(3)->target('theirField-0')
+    ->castSpell('Cosmic Bolt', pay: 3, target: 'theirField-0')
     ->register();
 
 // --- Ignite the Soul: deal 1 damage to target unit ---
@@ -43,7 +43,7 @@ gaScenario('cosmic-bolt-damage')
 gaScenario('ignite-the-soul-damage')
     ->standardDeck('Ignite the Soul')
     ->seed('myHand', 'Ignite the Soul')
-    ->play('Ignite the Soul')->pay(1)->passBoth()->target('theirField-0')
+    ->castSpell('Ignite the Soul', pay: 1, window: 'both', target: 'theirField-0')
     ->expectDamage('p2Field-0', 1, 'The targeted opponent champion takes 1 damage')
     ->expectDqEmpty()
     ->register();
@@ -59,7 +59,7 @@ gaScenario('entrenched-fortress-enter-damage')
     ->standardDeck('Entrenched Fortress')
     ->lineage('Kongming, Fel Eidolon')
     ->seed('myHand', 'Entrenched Fortress')
-    ->play('Entrenched Fortress')->pay(3)->target('theirField-0')
+    ->castSpell('Entrenched Fortress', pay: 3, target: 'theirField-0')
     ->register();
 
 // --- Cometfall: deal 3 damage to all non-Astra units ---
@@ -74,7 +74,7 @@ gaScenario('cometfall-sweep-damage')
     ->standardDeck('Cometfall')
     ->lineage('Arisanna, Astral Zenith')
     ->seed('myHand', 'Cometfall')
-    ->play('Cometfall')->pay(5)
+    ->castSpell('Cometfall', pay: 5)
     ->expectDamage('p1Field-0', 3, 'Our own champion takes the 3-damage sweep too, since it\'s non-Astra')
     ->expectDamage('p2Field-0', 3, 'The opponent\'s champion takes the 3-damage sweep')
     ->expectDqEmpty()
@@ -89,7 +89,7 @@ gaScenario('aenean-frostlance-damage')
     ->standardDeck('Aenean Frostlance')
     ->lineage('Spirit of Water')
     ->seed('myHand', 'Aenean Frostlance')
-    ->play('Aenean Frostlance')->pay(3)->target('theirField-0')
+    ->castSpell('Aenean Frostlance', pay: 3, target: 'theirField-0')
     ->expectDamage('p2Field-0', 2, 'The targeted opponent champion takes 2 damage')
     ->expectDqEmpty()
     ->register();
@@ -103,14 +103,14 @@ gaScenario('focused-flames-damage')
     ->standardDeck('Focused Flames')
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Focused Flames')
-    ->play('Focused Flames')->pay(2)->target('theirField-1')
+    ->castSpell('Focused Flames', pay: 2, target: 'theirField-1')
     ->register();
 
 // --- Juggle Knives: deal 1 damage to target champion ---
 gaScenario('juggle-knives-damage-champion')
     ->standardDeck('Juggle Knives')
     ->seed('myHand', 'Juggle Knives')
-    ->play('Juggle Knives')->pay(2)->passBoth()->target('theirField-0')
+    ->castSpell('Juggle Knives', pay: 2, window: 'both', target: 'theirField-0')
     ->register();
 
 // --- Lightweaver's Assault: reveal memory, split damage equal to cards revealed ---
@@ -120,7 +120,7 @@ gaScenario('lightweavers-assault-split-damage')
     ->seed('myMemory', 'Fairy Whispers')
     ->seed('myMemory', 'Fairy Whispers')
     ->seed('myHand', 'Lightweaver\'s Assault')
-    ->play('Lightweaver\'s Assault')->pay(4)->target('theirField-0:6')
+    ->castSpell('Lightweaver\'s Assault', pay: 4, target: 'theirField-0:6')
     ->register();
 
 // --- Mark the Target: deal 1 damage to target unit ---
@@ -128,7 +128,7 @@ gaScenario('mark-the-target-damage')
     ->standardDeck('Mark the Target')
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Mark the Target')
-    ->play('Mark the Target')->pay(1)->passBoth()->target('theirField-1')
+    ->castSpell('Mark the Target', pay: 1, window: 'both', target: 'theirField-1')
     ->register();
 
 // --- Nascent Blast: deal 3 damage to target unit ---
@@ -136,7 +136,7 @@ gaScenario('nascent-blast-damage')
     ->standardDeck('Nascent Blast')
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Nascent Blast')
-    ->play('Nascent Blast')->pay(3)->passBoth()->target('theirField-1')
+    ->castSpell('Nascent Blast', pay: 3, window: 'both', target: 'theirField-1')
     ->register();
 
 // --- Planted Explosive: deal 2 damage to target unit (not prepared) ---
@@ -144,14 +144,14 @@ gaScenario('planted-explosive-damage')
     ->standardDeck('Planted Explosive')
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Planted Explosive')
-    ->play('Planted Explosive')->pay(2)->passBoth()->target('theirField-1')
+    ->castSpell('Planted Explosive', pay: 2, window: 'both', target: 'theirField-1')
     ->register();
 
 // --- Clumsy Apprentice: On Enter, deal 2 damage to your champion, draw a card ---
 gaScenario('clumsy-apprentice-enter-damage-draw')
     ->standardDeck('Clumsy Apprentice')
     ->seed('myHand', 'Clumsy Apprentice')
-    ->play('Clumsy Apprentice')->pay(2)
+    ->castSpell('Clumsy Apprentice', pay: 2)
     ->register();
 
 // --- Solar Pinnacle: deal 2 damage to target unit, Empower 2 ---
@@ -159,7 +159,7 @@ gaScenario('solar-pinnacle-damage-empower')
     ->standardDeck('Solar Pinnacle')
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Solar Pinnacle')
-    ->play('Solar Pinnacle')->pay(2)->target('theirField-1')
+    ->castSpell('Solar Pinnacle', pay: 2, target: 'theirField-1')
     ->register();
 
 // --- Umbra Sight: Draw a card; may draw into memory + curse lineage for damage ---
@@ -173,7 +173,7 @@ gaScenario('umbra-sight-curse-lineage-damage')
     ->standardDeck('Umbra Sight')
     ->lineage('Tristan, Shadowdancer')
     ->seed('myHand', 'Umbra Sight')
-    ->play('Umbra Sight')->pass(1)->target('YES')
+    ->castSpell('Umbra Sight', window: 'me', target: 'YES')
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'Subcards', '["he6kd7hocc","f15joh300z"]', 'Umbra Sight is put on the bottom of the champion\'s lineage')
     ->expectDamage('p1Field-0', 2, '2 unpreventable damage per curse in lineage (1 curse x 2)')
@@ -193,7 +193,7 @@ gaScenario('umbral-tithe-memory-damage')
     ->seed('myMemory', 'Dungeon Guide')
     ->seed('myMemory', 'Dungeon Guide')
     ->seed('myHand', 'Umbral Tithe')
-    ->play('Umbral Tithe')->pay(5)
+    ->castSpell('Umbral Tithe', pay: 5)
     ->register();
 
 // Negative twin of 'purge-in-flames-damage': the champion's class does not match, so the [Class Bonus] must NOT apply.
@@ -203,7 +203,7 @@ gaScenario('purge-in-flames-without-the-class-bonus-deals-two-damage')
     ->seed('myHand', 'Fairy Whispers')
     ->seed('myHand', 'Fairy Whispers')
     ->seed('myHand', 'Purge in Flames')
-    ->play('Purge in Flames')->pay(8)
+    ->castSpell('Purge in Flames', pay: 8)
     ->register();
 // --- Mend Flesh: Damage 25+ discount + Recover 8 ---
 // Mend Flesh is an EXIA (advanced element) ACTION card, so the starting champion's Subcards
@@ -230,7 +230,7 @@ gaScenario('leeching-bolt-damage-recover')
     ->standardDeck('Leeching Bolt')
     ->champion(lineage: ['Kongming, Fel Eidolon'], level: 2, damage: 5)
     ->seed('myHand', 'Leeching Bolt')
-    ->play('Leeching Bolt')->pay(2)->passBoth()->target('theirField-0')
+    ->castSpell('Leeching Bolt', pay: 2, window: 'both', target: 'theirField-0')
     ->expectDamage('p2Field-0', 2, 'The opponent\'s champion takes damage equal to our champion\'s level (2)')
     ->expectDamage('p1Field-0', 3, 'Recover 2 reduces our champion\'s pre-existing 5 damage down to 3')
     ->expectDqEmpty()
@@ -245,7 +245,7 @@ gaScenario('fireball-scaling-damage')
     ->standardDeck('Fireball')
     ->champion(level: 2)
     ->seed('myHand', 'Fireball')
-    ->play('Fireball')->pay(4)->pass(2)->target('theirField-0')
+    ->castSpell('Fireball', pay: 4, window: 'opp', target: 'theirField-0')
     ->expectDamage('p2Field-0', 3, 'Base 1 damage plus our champion\'s 2 level counters = 3')
     ->expectDqEmpty()
     ->register();
@@ -261,7 +261,7 @@ gaScenario('give-bath-remove-damage')
     ->champion(lineage: ['Spirit of Water'])
     ->seed('theirField', 'Dungeon Guide', properties: ['Damage' => 2])
     ->seed('myHand', 'Give Bath')
-    ->play('Give Bath')->pay(2)->target('theirField-1')
+    ->castSpell('Give Bath', pay: 2, target: 'theirField-1')
     ->expectDamage('p2Field-1', 0, 'All 2 pre-existing damage is removed from the targeted ally')
     ->expectDqEmpty()
     ->register();
@@ -272,7 +272,7 @@ gaScenario('flourishing-qi-damage')
     ->champion(lineage: ['Silvie, Slime Sovereign'], level: 2)
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Flourishing Qi')
-    ->play('Flourishing Qi')->pay(4)->target('theirField-1')
+    ->castSpell('Flourishing Qi', pay: 4, target: 'theirField-1')
     ->register();
 
 // --- Purge in Flames: deal 2 damage to all units except your champion ---
@@ -283,7 +283,7 @@ gaScenario('purge-in-flames-damage')
     ->seed('myHand', 'Fairy Whispers')
     ->seed('myHand', 'Fairy Whispers')
     ->seed('myHand', 'Purge in Flames')
-    ->play('Purge in Flames')->pay(8)
+    ->castSpell('Purge in Flames', pay: 8)
     ->register();
 
 // --- Cone of Frost: level-conditional multi-target damage (Level 1+ step) ---
@@ -302,7 +302,7 @@ gaScenario('cone-of-frost-level1-damage')
     ->standardDeck('Cone of Frost')
     ->champion(lineage: ['Spirit of Water'], level: 1)
     ->seed('myHand', 'Cone of Frost')
-    ->play('Cone of Frost')->pay(3)->target('myField-0')
+    ->castSpell('Cone of Frost', pay: 3, target: 'myField-0')
     ->register();
 
 // --- Relentless Outburst: for every 6 damage counters on your champion, deal 1 damage to all other units ---
@@ -324,6 +324,6 @@ gaScenario('relentless-outburst-damage-burst')
     ->champion(lineage: ['Dante, Hemomancer'], damage: 6)
     ->seed('myField', 'Dungeon Guide')
     ->seed('myHand', 'Relentless Outburst')
-    ->play('Relentless Outburst')->pay(3)->target('theirField-0')
+    ->castSpell('Relentless Outburst', pay: 3, target: 'theirField-0')
     ->register();
 

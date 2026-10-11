@@ -127,7 +127,7 @@ gaScenario('elucidate-plans-prep-counters')
     ->standardDeck('Elucidate Plans')
     ->champion(lineage: ['Zander, Blinding Steel'])
     ->seed('myHand', 'Elucidate Plans')
-    ->play('Elucidate Plans')->pay(2)->passBoth()
+    ->castSpell('Elucidate Plans', pay: 2, window: 'both')
     ->expectProperty('p1Field-0', 'Counters', '{"preparation":2}', 'Elucidate Plans puts 2 preparation counters on the champion')
     ->expectDqEmpty()
     ->register();
@@ -139,7 +139,7 @@ gaScenario('elucidate-plans-prep-counters')
 gaScenario('exploit-vulnerability-draw')
     ->standardDeck('Exploit Vulnerability')
     ->seed('myHand', 'Exploit Vulnerability')
-    ->play('Exploit Vulnerability')->pay(2)->passBoth()
+    ->castSpell('Exploit Vulnerability', pay: 2, window: 'both')
     ->expectZoneCount('myDeck', 8, 1, 'Activating draws a card, reducing the deck by one')
     ->expectDqEmpty()
     ->register();
@@ -163,7 +163,7 @@ gaScenario('essence-crucible-enter-draw')
 gaScenario('evasive-maneuvers-prevent-2')
     ->standardDeck('Evasive Maneuvers')
     ->seed('myHand', 'Evasive Maneuvers')
-    ->play('Evasive Maneuvers')->pay(1)->passBoth()->target('myField-0')
+    ->castSpell('Evasive Maneuvers', pay: 1, window: 'both', target: 'myField-0')
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED","EVASIVE_MANEUVERS_2"]', 'The targeted champion is protected by an EVASIVE_MANEUVERS_2 shield')
     ->expectDqEmpty()
     ->register();
@@ -222,7 +222,7 @@ gaScenario('everlonging-thorns-debuff')
     ->champion(lineage: ['Silvie, Slime Sovereign'])
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Everlonging Thorns')
-    ->play('Everlonging Thorns')->pay(1)->passBoth()->target('theirField-1')
+    ->castSpell('Everlonging Thorns', pay: 1, window: 'both', target: 'theirField-1')
     ->register();
 
 // --- Emberslash: On Attack, may discard a card to draw a card ---
@@ -266,7 +266,7 @@ gaScenario('eminent-commander-class-bonus-combat-damage-discount')
     ->patch('myField-0', ['Subcards' => ['pNiyaGlIe7'], 'Counters' => ['_champCombatDamageDealtThisTurn' => 3]])
     ->seed('myField', 'Jin, Fate Defiant')
     ->seed('myHand', 'Eminent Commander')
-    ->play('Eminent Commander')->pay(2)->pass(1)
+    ->castSpell('Eminent Commander', pay: 2, window: 'me')
     ->register();
 
 // --- Executioner's Spear: [Jin Bonus] On Kill, put a durability counter on itself ---
@@ -360,7 +360,7 @@ gaScenario('essence-of-blizzards-brew-sacrifice-damage')
 gaScenario('empowering-harmony-level')
     ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
     ->seed('myHand', 'Empowering Harmony')
-    ->play('Empowering Harmony')->pay(2)
+    ->castSpell('Empowering Harmony', pay: 2)
     ->register();
 
 // --- Endura, Scepter of Ignition: [REST] remove an enlighten counter, deal 1 damage to target unit ---
@@ -384,7 +384,7 @@ gaScenario('endura-scepter-rest-damage')
     ->seed('myField', 'Endura, Scepter of Ignition')
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Scry the Skies')
-    ->play('Scry the Skies')->pay(1)
+    ->castSpell('Scry the Skies', pay: 1)
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->target('theirField-1')
     ->tested('Endura, Scepter of Ignition')
     ->expectDqEmpty()
@@ -445,7 +445,7 @@ gaScenario('enervating-decay-target-destroy-recover')
     ->champion(lineage: ['Kongming, Fel Eidolon'], damage: 5)
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Enervating Decay')
-    ->play('Enervating Decay')->pay(4)->target('theirField-1')
+    ->castSpell('Enervating Decay', pay: 4, target: 'theirField-1')
     ->expectDqEmpty()
     ->expectDamage('p1Field-0', 2, 'Playing Enervating Decay fires its on-play trigger (playCardAbilities["jh9s424gjr:0"]): the champion\'s pre-existing 5 damage drops to 2, i.e. RecoverChampion() healed exactly the destroyed ally\'s HP')
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED"]')
@@ -488,7 +488,7 @@ gaScenario('elyan-lustre-loyalty-recover-power')
     ->champion(cardName: 'Zander, Blinding Steel', damage: 10)
     ->seed('myField', 'Elyan, Lustre Loyalty')
     ->seed('myHand', 'Bathe in Light')
-    ->play('Bathe in Light')->pay(2)
+    ->castSpell('Bathe in Light', pay: 2)
     ->tested('Elyan, Lustre Loyalty')
     ->register();
 
@@ -615,7 +615,7 @@ DECK
     ->patch('myDeck-2', ['CardID' => 'LAfJuHgUbm'])
     ->patch('myDeck-3', ['CardID' => 'em6eEh9q8y'])
     ->patch('myDeck-4', ['CardID' => 'px60u5n1do'])
-    ->play('Eventide Lure')->pay(2)->target('myTempZone-2')
+    ->castSpell('Eventide Lure', pay: 2, target: 'myTempZone-2')
     ->expectDqEmpty()
     ->expectProperty('p1Field-1', 'CardID', 'eg771cn2q1')
     ->expectProperty('p1Field-1', 'Status', '2')
@@ -686,7 +686,7 @@ gaScenario('ethereal-slime-class-bonus-enter-banish-tamer-draw-buff')
     ->champion(cardName: 'Silvie, With the Pack', lineage: ['Lorraine, Crux Knight'])
     ->seed('myMaterial', 'Fated Keepsake')
     ->seed('myHand', 'Ethereal Slime')
-    ->play('Ethereal Slime')->pay(2)->target('myMaterial-4')
+    ->castSpell('Ethereal Slime', pay: 2, target: 'myMaterial-4')
     ->register();
 
 // --- Echoic Guard: [Class Bonus] makes it cost exactly 2 (printed 3 - 1); prevents the next 2 damage to the target ally ---
@@ -771,7 +771,7 @@ gaScenario('excalibur-reflected-edge-printed-spellshroud-spell-cannot-target-it'
     ->seed('myField', 'Excalibur, Reflected Edge', player: 2)
     ->seed('myField', 'Mirrordepth\'s Blade', player: 2)
     ->seed('myHand', 'Fracturize')
-    ->play('Fracturize')->pay(2)
+    ->castSpell('Fracturize', pay: 2)
     ->rejects(1, 'theirField-1', 'Excalibur, Reflected Edge (u1a1s4ys44) has spellshroud: not a legal target for the opposing Fracturize')
     ->target('theirField-2')
     ->tested('Excalibur, Reflected Edge')
@@ -812,7 +812,7 @@ DECK
     ->patch('myDeck-2', ['CardID' => 'LAfJuHgUbm'])
     ->patch('myDeck-3', ['CardID' => 'em6eEh9q8y'])
     ->patch('myDeck-4', ['CardID' => 'px60u5n1do'])
-    ->play('Eventide Lure')->pay(2)->pass(1)
+    ->castSpell('Eventide Lure', pay: 2, window: 'me')
     ->expectZoneCount('myDeck', 13, 1, 'All five looked-at cards go back on the bottom of the deck (8 remaining + 5 = 13)')
     ->expectZoneCount('myMemory', 2, 1, 'Declining the reveal puts nothing into memory')
     ->expectDqEmpty()
@@ -848,7 +848,7 @@ DECK
     )
     ->seed('myHand', 'Enhance Hearing')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Fairy Whispers', 'Charge the Soul'])
-    ->play('Enhance Hearing')->pay(3)->target('myTempZone-2')
+    ->castSpell('Enhance Hearing', pay: 3, target: 'myTempZone-2')
     ->register();
 
 gaScenario('enhance-hearing-look-three-decline-all-three-bottom')
@@ -863,7 +863,7 @@ DECK
     )
     ->seed('myHand', 'Enhance Hearing')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Fairy Whispers', 'Charge the Soul'])
-    ->play('Enhance Hearing')->pay(3)->pass(1)
+    ->castSpell('Enhance Hearing', pay: 3, window: 'me')
     ->register();
 
 // Erupting Rhapsody (dBAdWMoPEz): "Banish any amount of fire element cards from your graveyard. Your champion gets +1 level until

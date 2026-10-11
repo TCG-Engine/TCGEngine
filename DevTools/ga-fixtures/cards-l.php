@@ -41,7 +41,7 @@ gaScenario('luminous-surge-buff-recover')
     ->standardDeck('Luminous Surge')
     ->champion(lineage: ['Zander, Blinding Steel'], damage: 5)
     ->seed('myHand', 'Luminous Surge')
-    ->play('Luminous Surge')->pay(2)->target('myField-0')
+    ->castSpell('Luminous Surge', pay: 2, target: 'myField-0')
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED","KOqdA7G6by_NEXT_3"]', 'Target champion\'s next attack this turn gets +3 power')
     ->expectDamage('p1Field-0', 2, 'Recover 3 reduces the champion\'s pre-existing 5 damage down to 2')
     ->expectDqEmpty()
@@ -438,7 +438,7 @@ gaScenario('lesser-boon-of-territories-scavenge-domain')
 DECK
     )
     ->seed('myHand', 'Lesser Boon of Territories')
-    ->play('Lesser Boon of Territories')->pay(3)->target('myTempZone-0')
+    ->castSpell('Lesser Boon of Territories', pay: 3, target: 'myTempZone-0')
     ->register();
 
 // --- Lightveil Agent: whenever you recover, put a buff counter on CARDNAME ---
@@ -455,7 +455,7 @@ gaScenario('lightveil-agent-recover-buff-counter')
     ->champion(cardName: 'Zander, Blinding Steel', damage: 4)
     ->seed('myField', 'Lightveil Agent')
     ->seed('myHand', 'Bathe in Light')
-    ->play('Bathe in Light')->pay(2)
+    ->castSpell('Bathe in Light', pay: 2)
     ->tested('Lightveil Agent')
     ->expectDqEmpty()
     ->expectDamage('p1Field-0', 0)
@@ -693,7 +693,7 @@ gaScenario('lustrous-slime-enter-reveal-buff')
     ->champion(lineage: ['Zander, Blinding Steel'])
     ->seed('myMemory', 'Red Slime')
     ->seed('myHand', 'Lustrous Slime')
-    ->play('Lustrous Slime')->pay(2)->target('myMemory-0')
+    ->castSpell('Lustrous Slime', pay: 2, target: 'myMemory-0')
     ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', 'Lustrous Slime\'s On Enter puts exactly 1 buff counter on itself for the 1 Slime card revealed from memory')
     ->expectDqEmpty()
     ->register();
@@ -801,7 +801,7 @@ gaScenario('luminescent-slash-lone-attack-full-cost-and-regent-deleveled')
     ->seed('myHand', 'Luminescent Slash')
     ->endTurn()
     ->endTurn(2)->pass(1)
-    ->play('Luminescent Slash')->pay(5)->target('theirField-0')
+    ->castSpell('Luminescent Slash', pay: 5, target: 'theirField-0')
     ->tested('Luminescent Slash', 'Mordred, Aurelian Regent')
     ->expectZoneCount('myMemory', 5, 1, 'Exactly FIVE reserve payments: no other attack card was activated, so no discount')
     ->expectDamage('p2Field-0', 6, 'Luminescent Slash dealt its printed 6 (no +2 without another attack card)')
@@ -836,7 +836,7 @@ gaScenario('luminescent-slash-after-another-attack-costs-two-less-and-gets-plus-
     ->seed('myHand', 'Luminescent Slash')
     ->endTurn()
     ->endTurn(2)->pass(1)
-    ->play('Dauntless Assault')->pay(3)->target('theirField-0')
+    ->castSpell('Dauntless Assault', pay: 3, target: 'theirField-0')
     ->playSlot(4)->pay(3)->target('theirField-0')
     ->tested('Luminescent Slash')
     ->expectZoneCount('myMemory', 6, 1, '6 reserve payments in total = 3 for Dauntless Assault + THREE for Luminescent Slash (5 - 2)')
@@ -900,7 +900,7 @@ DECK
     )
     ->seed('myHand', 'Lure the Abyss')
     ->deckTop(['Dungeon Guide', 'Mourning Veilbound', 'Fluffy Shopkeep', 'Night Barker'])
-    ->play('Lure the Abyss')->pay(2)
+    ->castSpell('Lure the Abyss', pay: 2)
     ->register();
 
 // none of the top four is a Specter: all four go to the bottom (before the fix only the top card moved)
@@ -916,7 +916,7 @@ DECK
     )
     ->seed('myHand', 'Lure the Abyss')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Dungeon Guide', 'Fluffy Shopkeep'])
-    ->play('Lure the Abyss')->pay(2)
+    ->castSpell('Lure the Abyss', pay: 2)
     ->register();
 
 gaScenario('lure-the-abyss-reveal-four-all-specters-all-to-graveyard')
@@ -931,7 +931,7 @@ DECK
     )
     ->seed('myHand', 'Lure the Abyss')
     ->deckTop(['Mourning Veilbound', 'Night Barker', 'Mourning Veilbound', 'Night Barker'])
-    ->play('Lure the Abyss')->pay(2)
+    ->castSpell('Lure the Abyss', pay: 2)
     ->register();
 
 // PLAYER 2 seating (perspective check): the stack sits under player 2's turn-start draw (a filler Dungeon Guide)
@@ -969,7 +969,7 @@ DECK
     ->champion(cardName: 'Kongming, Fel Eidolon')
     ->seed('myHand', 'Lucia, Reclaimed Blight')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Fairy Whispers', 'Dungeon Guide', 'Fairy Whispers', 'Fluffy Shopkeep', 'Charge the Soul'])
-    ->play('Lucia, Reclaimed Blight')->pay(2)->target('myDeck-4')
+    ->castSpell('Lucia, Reclaimed Blight', pay: 2, target: 'myDeck-4')
     ->register();
 
 gaScenario('lucia-reclaimed-blight-enter-look-six-decline-all-six-bottom')
@@ -985,7 +985,7 @@ DECK
     ->champion(cardName: 'Kongming, Fel Eidolon')
     ->seed('myHand', 'Lucia, Reclaimed Blight')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Fairy Whispers', 'Dungeon Guide', 'Fairy Whispers', 'Fluffy Shopkeep', 'Charge the Soul'])
-    ->play('Lucia, Reclaimed Blight')->pay(2)->pass(1)
+    ->castSpell('Lucia, Reclaimed Blight', pay: 2, window: 'me')
     ->register();
 
 // no Spell card among the top six: no prompt, all six to the bottom
@@ -1002,7 +1002,7 @@ DECK
     ->champion(cardName: 'Kongming, Fel Eidolon')
     ->seed('myHand', 'Lucia, Reclaimed Blight')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Dungeon Guide', 'Fluffy Shopkeep', 'Dungeon Guide', 'Fluffy Shopkeep', 'Charge the Soul'])
-    ->play('Lucia, Reclaimed Blight')->pay(2)
+    ->castSpell('Lucia, Reclaimed Blight', pay: 2)
     ->register();
 
 // PLAYER 2 seating (perspective check): the stack sits under player 2's turn-start draw (a filler Dungeon Guide)

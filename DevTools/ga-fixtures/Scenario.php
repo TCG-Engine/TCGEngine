@@ -168,6 +168,27 @@ class GaScenario {
         return $this->act($player, 10002, 'myHand-' . $this->handIndex[$player][$cardName] . '!FSM!');
     }
 
+    // The whole "cast a seeded spell" sequence in one statement: play it, pay $pay reserve, pass the priority
+    // window the engine opens before the effect resolves, then answer the target prompt.
+    //   $window: ''     no window (the effect resolves straight after the cost)
+    //            'both' caster passes, then opponent passes
+    //            'me'   only the caster passes   'opp' only the opponent passes
+    //   $target: mzID (or other literal answer) for the pending target/choice, or null when there is none.
+    public function castSpell(string $cardName, int $pay = 0, string $window = '', ?string $target = null, int $player = 1): self {
+        $other = $player === 1 ? 2 : 1;
+        $this->play($cardName, $player);
+        if ($pay > 0) $this->pay($pay, $player);
+        switch ($window) {
+            case '': break;
+            case 'both': $this->pass($player)->pass($other); break;
+            case 'me': $this->pass($player); break;
+            case 'opp': $this->pass($other); break;
+            default: throw new RuntimeException("GaScenario[{$this->slug}]: castSpell window '{$window}' must be '', 'both', 'me' or 'opp'");
+        }
+        if ($target !== null) $this->answer($player, $target);
+        return $this;
+    }
+
     // Click a hand slot directly (for a card that came from the opening hand rather than a seed).
     public function playSlot(int $slot, int $player = 1): self {
         return $this->act($player, 10002, 'myHand-' . $slot . '!FSM!');

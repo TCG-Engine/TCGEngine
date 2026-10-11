@@ -18,7 +18,7 @@ gaScenario('reclaim-return-ally')
     ->champion(lineage: ['Spirit of Wind'])
     ->seed('myField', 'Dungeon Guide')
     ->seed('myHand', 'Reclaim')
-    ->play('Reclaim')->pay(2)->passBoth()->target('myField-1')
+    ->castSpell('Reclaim', pay: 2, window: 'both', target: 'myField-1')
     ->register();
 
 // --- Ruinous Pillars of Qidao: Class Bonus On Enter Empower 2 + draw ---
@@ -36,7 +36,7 @@ gaScenario('ruinous-pillars-of-qidao-enter-empower')
     ->champion(lineage: ['Kongming, Fel Eidolon'])
     ->seed('myField', 'Kongming, Fel Eidolon')
     ->seed('myHand', 'Ruinous Pillars of Qidao')
-    ->play('Ruinous Pillars of Qidao')->pay(3)
+    ->castSpell('Ruinous Pillars of Qidao', pay: 3)
     ->expectProperty('p1Field-0', 'TurnEffects', '["pmx99jrukm","EMPOWERED","EMPOWER_PLUS_2"]', 'On Enter empowers the first champion by 2')
     ->expectZoneCount('myDeck', 8, 1, 'On Enter also draws a card, reducing the deck by one')
     ->expectDqEmpty()
@@ -50,7 +50,7 @@ gaScenario('ruinous-pillars-of-qidao-enter-empower')
 gaScenario('rocket-jump-distant')
     ->standardDeck('Rocket Jump')
     ->seed('myHand', 'Rocket Jump')
-    ->play('Rocket Jump')->pay(5)->pass(2)->target('myField-0')
+    ->castSpell('Rocket Jump', pay: 5, window: 'opp', target: 'myField-0')
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED","DISTANT"]', 'The targeted champion becomes distant')
     ->expectDqEmpty()
     ->register();
@@ -75,7 +75,7 @@ DECK
     )
     ->champion(lineage: ['Spirit of Wind'])
     ->seed('myHand', 'Rally the Peasants')
-    ->play('Rally the Peasants')->pay(3)->passBoth()
+    ->castSpell('Rally the Peasants', pay: 3, window: 'both')
     ->answer(1, 'ToHand=acmde97dbu;Reveal=acmde97dbu,acmde97dbu,acmde97dbu;')
     ->register();
 
@@ -86,7 +86,7 @@ gaScenario('reposition-distant')
     ->standardDeck('Reposition')
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Reposition')
-    ->play('Reposition')->pay(1)->passBoth()->target('theirField-1')
+    ->castSpell('Reposition', pay: 1, window: 'both', target: 'theirField-1')
     ->register();
 
 // --- Retold Fortune: discard up to one Spell, if you do draw a card ---
@@ -96,14 +96,14 @@ gaScenario('retold-fortune-discard-draw')
     ->standardDeck('Retold Fortune')
     ->seed('myHand', 'Expel the Departed')
     ->seed('myHand', 'Retold Fortune')
-    ->play('Retold Fortune')->pay(2)->passBoth()->target('myHand-5')
+    ->castSpell('Retold Fortune', pay: 2, window: 'both', target: 'myHand-5')
     ->register();
 
 // --- Regenerate: draw a card into memory ---
 gaScenario('regenerate-draw')
     ->standardDeck('Regenerate')
     ->seed('myHand', 'Regenerate')
-    ->play('Regenerate')->pay(2)
+    ->castSpell('Regenerate', pay: 2)
     ->register();
 
 // --- Revitalizing Cleanse: recover X (water cards in memory), draw a card ---
@@ -117,7 +117,7 @@ gaScenario('revitalizing-cleanse-recover-draw')
     ->seed('myMemory', 'Water Barrier')
     ->seed('myMemory', 'Tsunami of Nanyue')
     ->seed('myHand', 'Revitalizing Cleanse')
-    ->play('Revitalizing Cleanse')->pay(5)
+    ->castSpell('Revitalizing Cleanse', pay: 5)
     ->register();
 
 // --- Rumble Coordinator: Vigor -- wakes up at the beginning of your end phase ---
@@ -189,7 +189,7 @@ gaScenario('rising-tides-class-bonus-level3-draw-memory')
     ->champion(cardName: 'Lorraine, Arclight Saber', lineage: ['Spirit of Water'])
     ->seed('myField', 'Kongming, Fel Eidolon')
     ->seed('myHand', 'Rising Tides')
-    ->play('Rising Tides')->pay(2)
+    ->castSpell('Rising Tides', pay: 2)
     ->expectZoneCount('myMemory', 3, 1, '[Class Bonus][Level 3+] draws 1 card into memory (2 pregame-default memory cards + 1 from this ability)')
     ->expectDqEmpty()
     ->register();
@@ -228,7 +228,7 @@ gaScenario('rousing-slam-class-bonus-level-2-on-attack-vigor-taunt')
 gaScenario('rebellious-bull-enters-rested')
     ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
     ->seed('myHand', 'Rebellious Bull')
-    ->play('Rebellious Bull')->pay(5)
+    ->castSpell('Rebellious Bull', pay: 5)
     ->register();
 
 // --- Rai, Archmage: Inherited Effect -- first Mage action card each turn, put an enlighten counter on champion ---
@@ -502,7 +502,7 @@ gaScenario('roots-of-tomorrow-preserve-draw')
     ->deck(GA_KONGMING_BASE_DECK)
     ->champion(lineage: ['Kongming, Fel Eidolon'])
     ->seed('myHand', 'Roots of Tomorrow')
-    ->play('Roots of Tomorrow')->pay(1)
+    ->castSpell('Roots of Tomorrow', pay: 1)
     ->register();
 
 // --- Ritai Berserker: +1 POWER while Shifting Currents face North ---
@@ -715,7 +715,7 @@ DECK
     )
     ->seed('myField', 'Hydrating Fractal')
     ->seed('myHand', 'Refracting Missile')
-    ->play('Refracting Missile')->pay(3)->target('theirField-0')
+    ->castSpell('Refracting Missile', pay: 3, target: 'theirField-0')
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED"]')
     ->expectProperty('p1Graveyard-0', 'CardID', '6ffqsuo6gb')
@@ -852,7 +852,7 @@ gaScenario('rhongomiant-spellshroud-own-spell-cannot-target-it')
     ->seed('myField', 'Rhongomiant, Grove\'s Spire')
     ->seed('myField', 'Mirrordepth\'s Blade')
     ->seed('myHand', 'Fracturize')
-    ->play('Fracturize')->pay(2)
+    ->castSpell('Fracturize', pay: 2)
     ->rejects(1, 'myField-1', 'Spellshroud also stops the controller\'s own spell from targeting Rhongomiant')
     ->target('myField-2')
     ->tested('Rhongomiant, Grove\'s Spire')
@@ -969,7 +969,7 @@ gaScenario('radiant-origin-trials-printed-omnishroud-spell-cannot-target-them')
     ->seed('myField', 'Radiant Origin of Warrior', player: 2)
     ->seed('myField', 'Ominous Shadow', player: 2)
     ->seed('myHand', 'Disenchant')
-    ->play('Disenchant')->pay(2)
+    ->castSpell('Disenchant', pay: 2)
     ->rejects(1, 'theirField-1', 'Radiant Origin of Assassin (T5ZEoIRdZr) has spellshroud: not a legal target for the opposing Disenchant')
     ->rejects(1, 'theirField-2', 'Radiant Origin of Cleric (XSgcay9ZB7) has spellshroud: not a legal target for the opposing Disenchant')
     ->rejects(1, 'theirField-3', 'Radiant Origin of Guardian (yT32RI6pqt) has spellshroud: not a legal target for the opposing Disenchant')
@@ -1173,7 +1173,7 @@ gaScenario('redirect-orbit-decline-still-draws-into-memory')
     ->deckTemplate('clarent-windslice', 'Dungeon Guide')
     ->champion(cardName: 'Arisanna, Astral Zenith')
     ->seed('myHand', 'Redirect Orbit')
-    ->play('Redirect Orbit')->pay(3)->pass(1)
+    ->castSpell('Redirect Orbit', pay: 3, window: 'me')
     ->expectZoneCount('myMemory', 3, 1, 'One card drawn into memory for the one card shuffled in (memory 2 + 1)')
     ->expectZoneCount('myHand', 4, 1, 'Hand shrank by the one card shuffled away')
     ->expectZoneCount('myDeck', 5, 1, 'Deck: 5 + 1 shuffled in - 1 drawn into memory = 5')
@@ -1364,7 +1364,7 @@ DECK
     ->seed('myHand', 'Reduce to Ash')
     ->seed('myField', 'Scepter of Lumina', player: 2)
     ->seed('myField', 'Forest Cake', player: 2)
-    ->play('Reduce to Ash')->pay(3)
+    ->castSpell('Reduce to Ash', pay: 3)
     ->rejects(1, 'theirField-1', 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target')
     ->target('theirField-2')
     ->register();
@@ -1383,7 +1383,7 @@ DECK
     ->seed('myHand', 'Rapid Combustion')
     ->seed('myField', 'Scepter of Lumina', player: 2)
     ->seed('myField', 'Forest Cake', player: 2)
-    ->play('Rapid Combustion')->pay(4)
+    ->castSpell('Rapid Combustion', pay: 4)
     ->rejects(1, 'theirField-1', 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target')
     ->target('theirField-2')
     ->register();
@@ -1404,7 +1404,7 @@ DECK
     )
     ->patch('myField-0', ['Counters' => ['_overrides' => ['classes' => 'RANGER'], 'level' => 1]])
     ->seed('myHand', 'Reveal the Hidden')
-    ->play('Reveal the Hidden')->pay(2)
+    ->castSpell('Reveal the Hidden', pay: 2)
     ->expectZoneCount('myDeck', 12, 1, 'The [Level 1+] draw happened')
     ->expectZoneCount('myHand', 6, 1, 'Eight cards, minus Reveal the Hidden, minus two paid, plus one drawn')
     ->expectDqEmpty()
@@ -1462,7 +1462,7 @@ DECK
     )
     ->champion(lineage: ['Mordred, Fated Luminary'], classes: 'CLERIC')
     ->seed('myHand', 'Regal Inquisition')
-    ->play('Regal Inquisition')->pay(2)->pass(1)
+    ->castSpell('Regal Inquisition', pay: 2, window: 'me')
     ->expectZoneCount('myTempZone', 0, 1, 'The staged copies of the opponent\'s hand and memory were cleared')
     ->expectZoneCount('theirHand', 7, 1, 'Nothing was discarded from the opponent\'s hand')
     ->expectDqEmpty()
@@ -2022,7 +2022,7 @@ DECK
     )
     ->champion(lineage: ['Ciel, Mirage\'s Grave', 'Sinistre Stab'], classes: 'GUARDIAN')
     ->seed('myHand', 'Reverse Affliction')
-    ->play('Reverse Affliction')->pay(1)->target('myTempZone-0')
+    ->castSpell('Reverse Affliction', pay: 1, target: 'myTempZone-0')
     ->register();
 
 // Rhesus Eradication (KgjL9uCqm6): "Deal LV+X damage to target unit, where X is two times the amount of Elysian objects you control." The handler read $damageAmount (undefined): 0 damage.
@@ -2043,7 +2043,7 @@ DECK
     ->seed('myHand', 'Rhesus Eradication')
     ->champion(cardName: 'Dante, Hemomancer')
     ->seed('myField', 'Elysian Orphan')
-    ->play('Rhesus Eradication')->pay(2)->pass(1)->target('theirField-0')
+    ->castSpell('Rhesus Eradication', pay: 2, window: 'me', target: 'theirField-0')
     ->register();
 
 // Recurring Aethercharge (MG8QoeZBXY): "[Class Bonus] (3): Load this card from your graveyard into an Aetherwing weapon you control." Salamander's Breath is the Aetherwing.

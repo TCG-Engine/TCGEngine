@@ -13,7 +13,7 @@ gaScenario('otherworldly-possessions-enlighten')
     ->seed('myField', 'Dungeon Guide')
     ->seed('myGraveyard', 'Fairy Whispers')
     ->seed('myHand', 'Otherworldly Possessions')
-    ->play('Otherworldly Possessions')->pay(5)->passBoth()
+    ->castSpell('Otherworldly Possessions', pay: 5, window: 'both')
     ->register();
 
 // --- Optical Control: choose a card type on enter ---
@@ -83,7 +83,7 @@ gaScenario('opening-cut-class-bonus-memory-power')
     ->seed('myHand', 'Opening Cut')
     ->endTurn()
     ->endTurn(2)->pass(1)
-    ->play('Opening Cut')->pay(1)
+    ->castSpell('Opening Cut', pay: 1)
     ->action(1, 10002, 'myField-0!FSM!')->target('theirField-0')->answer(2, '-')
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'Status', '1')
@@ -212,7 +212,7 @@ gaScenario('obstinate-cragback-printed-spellshroud-spell-cannot-target-it')
     ->seed('myField', '#WZKo8sYPxS', player: 2)
     ->seed('myField', 'Dungeon Guide', player: 2)
     ->seed('myHand', 'Liturgy of Corruption')
-    ->play('Liturgy of Corruption')->pay(2)
+    ->castSpell('Liturgy of Corruption', pay: 2)
     ->rejects(1, 'theirField-1', 'Obstinate Cragback (40oe1wf79p) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
     ->rejects(1, 'theirField-2', 'Obstinate Cragback (WZKo8sYPxS) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
     ->target('theirField-3')
@@ -270,7 +270,7 @@ DECK
     ->seed('myMastery', 'Phantasmagoria', properties: ['Counters' => ['haunt' => 2]])
     ->seed('myHand', 'Overflow the Barrow')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Fairy Whispers', 'Charge the Soul'])
-    ->play('Overflow the Barrow')->pay(1)
+    ->castSpell('Overflow the Barrow', pay: 1)
     ->register();
 
 // Ombreux Chevalier (crv1etn4g3): "On Enter: Return one of your omens to your hand. If you do, banish a card from your hand and put an omen counter on it."

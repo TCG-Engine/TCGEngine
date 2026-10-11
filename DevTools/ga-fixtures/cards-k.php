@@ -164,7 +164,7 @@ gaScenario('krustallan-distiller-class-bonus-brewed-draw')
     ->champion(cardName: 'Arisanna, Master Alchemist', lineage: ['Nico, Rapture\'s Embrace'])
     ->globalEffect('BREWED_POTION')
     ->seed('myHand', 'Krustallan Distiller')
-    ->play('Krustallan Distiller')->pay(3)
+    ->castSpell('Krustallan Distiller', pay: 3)
     ->expectZoneCount('myMemory', 4, 1, '[Class Bonus] On Enter draws into memory since a Potion was brewed this turn')
     ->register();
 
@@ -241,7 +241,7 @@ gaScenario('key-slime-pudding-banish-slime-ally-enters-boosted')
     ->endTurn()
     ->endTurn(2)->target('myMaterial-3')->pass(1)
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')
-    ->play('Red Slime')->pay(3)
+    ->castSpell('Red Slime', pay: 3)
     ->tested('Key Slime Pudding')
     ->register();
 
@@ -257,7 +257,7 @@ gaScenario('key-slime-pudding-banish-extra-counter-adds-to-green-slime-enter-cou
     ->endTurn()
     ->endTurn(2)->target('myMaterial-3')->pass(1)
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')
-    ->play('Green Slime')->pay(3)
+    ->castSpell('Green Slime', pay: 3)
     ->tested('Key Slime Pudding', 'Green Slime')
     ->register();
 
@@ -325,7 +325,7 @@ gaScenario('kraal-stonescale-tyrant-printed-spellshroud-spell-cannot-target-it')
     ->seed('myField', 'Kraal, Stonescale Tyrant', player: 2)
     ->seed('myField', 'Dungeon Guide', player: 2)
     ->seed('myHand', 'Liturgy of Corruption')
-    ->play('Liturgy of Corruption')->pay(2)
+    ->castSpell('Liturgy of Corruption', pay: 2)
     ->rejects(1, 'theirField-1', 'Kraal, Stonescale Tyrant (572j3oda2h) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
     ->target('theirField-2')
     ->tested('Kraal, Stonescale Tyrant')
@@ -404,7 +404,7 @@ DECK
     ->champion(cardName: 'Guo Jia, Chosen Disciple')
     ->seed('myHand', 'Kind Beastcaller')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Fairy Whispers', 'Fluffy Shopkeep', 'Baby Green Slime', 'Charge the Soul'])
-    ->play('Kind Beastcaller')->pay(3)->target('myTempZone-4')
+    ->castSpell('Kind Beastcaller', pay: 3, target: 'myTempZone-4')
     ->register();
 
 gaScenario('kind-beastcaller-enter-look-five-decline-all-five-bottom')
@@ -420,7 +420,7 @@ DECK
     ->champion(cardName: 'Guo Jia, Chosen Disciple')
     ->seed('myHand', 'Kind Beastcaller')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Fairy Whispers', 'Fluffy Shopkeep', 'Baby Green Slime', 'Charge the Soul'])
-    ->play('Kind Beastcaller')->pay(3)->pass(1)
+    ->castSpell('Kind Beastcaller', pay: 3, window: 'me')
     ->register();
 
 // Fluffy Shopkeep is an Animal ally, so only Dungeon Guide (not an Animal/Beast) and Fairy Whispers (a spell) are used here
@@ -437,7 +437,7 @@ DECK
     ->champion(cardName: 'Guo Jia, Chosen Disciple')
     ->seed('myHand', 'Kind Beastcaller')
     ->deckTop(['Dungeon Guide', 'Fairy Whispers', 'Dungeon Guide', 'Fairy Whispers', 'Dungeon Guide', 'Charge the Soul'])
-    ->play('Kind Beastcaller')->pay(3)
+    ->castSpell('Kind Beastcaller', pay: 3)
     ->register();
 
 // --- Kongming, Erudite Strategist (0i139x5eub): "On Enter: Banish the top card of your deck. Until the beginning of your next turn, you may play it as long as your Shifting Currents face North.

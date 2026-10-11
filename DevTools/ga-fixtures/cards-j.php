@@ -134,7 +134,7 @@ DECK
     )
     ->champion(cardName: 'Jin, Undying Resolve', damage: 27)
     ->seed('myHand', 'Nascent Blast')
-    ->play('Nascent Blast')->pay(3)->target('myField-0')
+    ->castSpell('Nascent Blast', pay: 3, target: 'myField-0')
     ->tested('Jin, Undying Resolve')
     ->expectProperty('myField-0', 'CardID', 'c4yrrtv7o1', 'Jin, Undying Resolve stays on the field despite lethal damage')
     ->expectDamage('myField-0', 30, 'Damage (30) exceeds life (28) but immortality prevents destruction')
@@ -259,5 +259,5 @@ DECK
     )
     ->seed('myHand', 'Juggle Knives')
     ->champion(classes: 'ASSASSIN')
-    ->play('Juggle Knives')->pay(2)->target('theirField-0')
+    ->castSpell('Juggle Knives', pay: 2, target: 'theirField-0')
     ->register();

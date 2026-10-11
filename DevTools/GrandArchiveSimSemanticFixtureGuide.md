@@ -85,7 +85,7 @@ gaScenario('thunderclap-level-three-costs-two-less')
     ->champion(level: 3)
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Thunderclap')
-    ->play('Thunderclap')->pay(2)->passBoth()->target('theirField-1')
+    ->castSpell('Thunderclap', pay: 2, window: 'both', target: 'theirField-1')
     ->expectZoneCount('myMemory', 2, 1, 'At level 3+ the card costs 2 less')
     ->expectProperty('p2Graveyard-0', 'CardID', 'em6eEh9q8y', 'The ally was destroyed')
     ->expectDqEmpty()
@@ -96,7 +96,8 @@ gaScenario('thunderclap-level-three-costs-two-less')
 
 - **Names, not IDs or slots.** `seed('myHand', 'Name')` records which hand slot the card lands in, and
   `play('Name')` uses it. `champion(lineage:, level:, damage:, classes:)` patches the starting champion.
-- **Actions.** `play`, `pay(n)`, `pass(p)`, `passBoth()`, `answer(p, mz)`, `target(mz)`, `endTurn()`,
+- **Actions.** `castSpell(card, pay:, window:, target:)` is `play` + `pay` + the priority window (`'both'`,
+  `'me'`, `'opp'` or none) + the target answer in one statement; use the pieces (`play`, `pay(n)`, `pass(p)`, `passBoth()`, `answer(p, mz)`, `target(mz)`, `endTurn()`) when a fixture needs steps in between,
   and `rejects(p, mz, label)` for a deliberately illegal answer (the negative path).
   `rawSetup()` / `rawAction()` are escape hatches for anything without a verb.
 - **Expectations** default to the last action's step: `expectDamage`, `expectProperty`,

@@ -8,7 +8,7 @@
 gaScenario('harvest-herbs-gather')
     ->standardDeck('Harvest Herbs')
     ->seed('myHand', 'Harvest Herbs')
-    ->play('Harvest Herbs')->pay(1)
+    ->castSpell('Harvest Herbs', pay: 1)
     ->register();
 
 // --- Harmonious Mantra: Recover 3 ---
@@ -18,14 +18,14 @@ gaScenario('harmonious-mantra-recover')
     ->standardDeck('Harmonious Mantra')
     ->champion(damage: 5)
     ->seed('myHand', 'Harmonious Mantra')
-    ->play('Harmonious Mantra')->pay(2)
+    ->castSpell('Harmonious Mantra', pay: 2)
     ->register();
 
 // --- Heighten Spellcraft: Empower 3 ---
 gaScenario('heighten-spellcraft-empower')
     ->standardDeck('Heighten Spellcraft')
     ->seed('myHand', 'Heighten Spellcraft')
-    ->play('Heighten Spellcraft')->pay(1)->passBoth()
+    ->castSpell('Heighten Spellcraft', pay: 1, window: 'both')
     ->register();
 
 // --- Honorable Vanguard: Floating Memory pays a champion level-up's memory cost from graveyard ---
@@ -116,7 +116,7 @@ gaScenario('hemorrhaging-rend-damage20-cleave')
     ->seed('myField', 'Dungeon Guide', player: 2)
     ->endTurn()
     ->endTurn(2)->pass(1)
-    ->play('Hemorrhaging Rend')->pay(4)
+    ->castSpell('Hemorrhaging Rend', pay: 4)
     ->action(1, 10002, 'myField-0!FSM!')
     ->expectDamage('theirField-0', 4, 'Cleave hits the opponent\'s champion for Hemorrhaging Rend\'s 4 power')
     ->expectZoneCount('myField', 1, 2, 'Cleave simultaneously hits Dungeon Guide (3 life) for the same 4 damage, killing it -- proving the attack hit ALL of the opponent\'s units, not just the one chosen target')
@@ -159,7 +159,7 @@ gaScenario('hypothermia-target-rested-ally-life')
     ->champion(lineage: ['Spirit of Water'])
     ->seed('theirField', 'Dungeon Guide', properties: ['Status' => 1])
     ->seed('myHand', 'Hypothermia')
-    ->play('Hypothermia')->pay(2)->target('theirField-1')
+    ->castSpell('Hypothermia', pay: 2, target: 'theirField-1')
     ->register();
 
 // --- Hurricane Sweep: [Class Bonus] Efficiency + Cleave ---
@@ -193,7 +193,7 @@ DECK
     ->seed('myHand', 'Hurricane Sweep')
     ->endTurn()
     ->endTurn(2)->pass(1)
-    ->play('Hurricane Sweep')->pay(3)
+    ->castSpell('Hurricane Sweep', pay: 3)
     ->action(1, 10002, 'myField-0!FSM!')->target('theirField-0')->answer(2, '-')
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'Status', '1')
@@ -254,7 +254,7 @@ gaScenario('halcyon-animus-materialize-regalia')
     ->deck(GA_LORRAINE_PANTHEON_DECK)
     ->champion(cardName: 'Lorraine, Spirit Ruler')
     ->seed('myHand', 'Halcyon Animus')
-    ->play('Halcyon Animus')->pay(3)->passBoth()->target('myMaterial-6')
+    ->castSpell('Halcyon Animus', pay: 3, window: 'both', target: 'myMaterial-6')
     ->expectDqEmpty()
     ->expectProperty('p1Field-1', 'CardID', 'yj2rJBREH8', 'The chosen material-deck regalia lands on the field.')
     ->register();
@@ -348,7 +348,7 @@ gaScenario('heavenly-drake-printed-spellshroud-spell-cannot-target-it')
     ->seed('myField', '#loSCQzxqi1', player: 2)
     ->seed('myField', 'Dungeon Guide', player: 2)
     ->seed('myHand', 'Liturgy of Corruption')
-    ->play('Liturgy of Corruption')->pay(2)
+    ->castSpell('Liturgy of Corruption', pay: 2)
     ->rejects(1, 'theirField-1', 'Heavenly Drake (jej8y91lkg) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
     ->rejects(1, 'theirField-2', 'Heavenly Drake (loSCQzxqi1) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
     ->target('theirField-3')

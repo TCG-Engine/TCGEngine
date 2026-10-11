@@ -11,7 +11,7 @@
 gaScenario('guerrilla-advantage-prep-counters')
     ->standardDeck('Guerrilla Advantage')
     ->seed('myHand', 'Guerrilla Advantage')
-    ->play('Guerrilla Advantage')->pay(4)
+    ->castSpell('Guerrilla Advantage', pay: 4)
     ->expectProperty('p1Field-0', 'Counters', '{"preparation":2}', 'Guerrilla Advantage puts 2 preparation counters on the champion')
     ->expectZoneCount('myMemory', 4, 1, 'Without the discount condition, the full 4-reserve cost is paid')
     ->expectDqEmpty()
@@ -46,7 +46,7 @@ gaScenario('gentle-respite-draw')
     ->seed('theirHand', 'Dungeon Guide')
     ->seed('theirHand', 'Dungeon Guide')
     ->seed('myHand', 'Gentle Respite')
-    ->play('Gentle Respite')->pay(3)
+    ->castSpell('Gentle Respite', pay: 3)
     ->register();
 
 // --- Giant Tortoise: vanilla stat check ---
@@ -58,7 +58,7 @@ gaScenario('giant-tortoise-vanilla-stats')
     ->deckTemplate('lorraine-windslice', 'Dungeon Guide')
     ->champion(lineage: ['Nico, Rapture\'s Embrace'])
     ->seed('myHand', 'Giant Tortoise')
-    ->play('Giant Tortoise')->pay(4)
+    ->castSpell('Giant Tortoise', pay: 4)
     ->register();
 
 // --- Gray Wolf: Pride 2 (won't attack unless champion is level 2+) ---
@@ -97,7 +97,7 @@ gaScenario('gaias-songbird-class-bonus-enter-reveal-beast')
     ->champion(lineage: ['Silvie, Loved by All'])
     ->patch('myDeck-0', ['CardID' => 'hJ2xh9lNMR'])
     ->seed('myHand', 'Gaia\'s Songbird')
-    ->play('Gaia\'s Songbird')->pay(1)
+    ->castSpell('Gaia\'s Songbird', pay: 1)
     ->register();
 
 // --- Greater Boon of Shou: As gained, draw a card (Zw0T2GmowK) ---
@@ -361,7 +361,7 @@ gaScenario('green-slime-on-enter-two-buff-counters')
     ->deckTemplate('clarent-windslice', 'Dungeon Guide')
     ->champion(lineage: ['Spirit of Wind'])
     ->seed('myHand', 'Green Slime')
-    ->play('Green Slime')->pay(3)
+    ->castSpell('Green Slime', pay: 3)
     ->register();
 
 // --- Green Slime: [Class Bonus] On Leave: transfer its buff counters to target ally ---
@@ -473,7 +473,7 @@ DECK
     )
     ->champion(lineage: ['Spirit of Water'], damage: 5)
     ->seed('myHand', 'Gather Slimes')
-    ->play('Gather Slimes')->pay(2)->target('myTempZone-0')
+    ->castSpell('Gather Slimes', pay: 2, target: 'myTempZone-0')
     ->answer(1, 'Bottom=0hsncz1fz2,zgcxyky280,zgcxyky280,9ggfiy38t2')
     ->register();
 
@@ -677,7 +677,7 @@ gaScenario('grim-foreboding-tristan-bonus-shadow-phantasia-power-agility')
     ->seed('myField', 'Ominous Shadow')
     ->seed('myField', 'Dungeon Guide')
     ->seed('myHand', 'Grim Foreboding')
-    ->play('Grim Foreboding')->pay(3)
+    ->castSpell('Grim Foreboding', pay: 3)
     ->register();
 
 // --- Gildas, Faesworn Monarch: [Mordred Bonus] (2), [REST]: prevent the next 4 damage to target unit this turn ---
@@ -956,7 +956,7 @@ gaScenario('genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells')
     ->seed('myField', 'Seiryuu, Azure Dragon', player: 2)
     ->seed('myField', 'Dungeon Guide', player: 2)
     ->seed('myHand', 'Liturgy of Corruption')
-    ->play('Liturgy of Corruption')->pay(2)
+    ->castSpell('Liturgy of Corruption', pay: 2)
     ->rejects(1, 'theirField-1', 'Genbu, Black Tortoise (k8bwlx70qj) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
     ->rejects(1, 'theirField-2', 'Genbu, Black Tortoise (u73yv2nbvj) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
     ->rejects(1, 'theirField-3', 'Seiryuu, Azure Dragon (tf5f2n38g0) has spellshroud: not a legal target for the opposing Liturgy of Corruption')
@@ -986,7 +986,7 @@ gaScenario('galestream-insight-look-six-reveal-spell-rest-bottom')
     ->patch('myDeck-3', ['CardID' => 'em6eEh9q8y'])
     ->patch('myDeck-4', ['CardID' => '6ffqsuo6gb'])
     ->patch('myDeck-5', ['CardID' => 'px60u5n1do'])
-    ->play('Galestream Insight')->pay(4)->target('myTempZone-2')
+    ->castSpell('Galestream Insight', pay: 4, target: 'myTempZone-2')
     ->register();
 
 // the ONLY spell is the sixth card from the top (Refracting Missile): it can only be offered if all six were looked at
@@ -1001,7 +1001,7 @@ gaScenario('galestream-insight-look-six-deep-spell-offered')
     ->patch('myDeck-3', ['CardID' => 'px60u5n1do'])
     ->patch('myDeck-4', ['CardID' => 'em6eEh9q8y'])
     ->patch('myDeck-5', ['CardID' => '6ffqsuo6gb'])
-    ->play('Galestream Insight')->pay(4)->target('myTempZone-5')
+    ->castSpell('Galestream Insight', pay: 4, target: 'myTempZone-5')
     ->register();
 
 // Notes carried over from the original definition:
@@ -1015,7 +1015,7 @@ gaScenario('galestream-insight-look-six-decline-bottoms-all-six')
     ->patch('myDeck-3', ['CardID' => 'em6eEh9q8y'])
     ->patch('myDeck-4', ['CardID' => '6ffqsuo6gb'])
     ->patch('myDeck-5', ['CardID' => 'px60u5n1do'])
-    ->play('Galestream Insight')->pay(4)->pass(1)
+    ->castSpell('Galestream Insight', pay: 4, window: 'me')
     ->register();
 
 // PLAYER 2 seating (perspective check): the same top-six stack sits under player 2's turn-start draw (deck slots 1..6)
@@ -1043,7 +1043,7 @@ gaScenario('galestream-insight-look-six-no-spell-bottoms-all-six')
     ->patch('myDeck-3', ['CardID' => 'px60u5n1do'])
     ->patch('myDeck-4', ['CardID' => 'em6eEh9q8y'])
     ->patch('myDeck-5', ['CardID' => 'px60u5n1do'])
-    ->play('Galestream Insight')->pay(4)
+    ->castSpell('Galestream Insight', pay: 4)
     ->register();
 
 gaScenario('genuflecting-execution-destroys-two-rested-allies')
@@ -1125,7 +1125,7 @@ DECK
     ->champion(lineage: ['Silvie, Loved by All'])
     ->seed('myHand', 'Gaia\'s Songbird')
     ->deckTop(['Dungeon Guide', 'Fluffy Shopkeep', 'Fairy Whispers', 'Gray Wolf', 'Charge the Soul'])
-    ->play('Gaia\'s Songbird')->pay(1)
+    ->castSpell('Gaia\'s Songbird', pay: 1)
     ->register();
 
 gaScenario('ghastly-corrosion-refuses-memory-only-item-destroys-low-reserve-item')
@@ -1141,7 +1141,7 @@ DECK
     ->seed('myHand', 'Ghastly Corrosion')
     ->seed('myField', 'Scepter of Lumina', player: 2)
     ->seed('myField', 'Forest Cake', player: 2)
-    ->play('Ghastly Corrosion')->pay(4)
+    ->castSpell('Ghastly Corrosion', pay: 4)
     ->rejects(1, 'theirField-1', 'Scepter of Lumina has memory cost 1 and no reserve cost: not a legal target')
     ->target('theirField-2')
     ->register();
@@ -1162,7 +1162,7 @@ DECK
     )
     ->champion(classes: 'ASSASSIN')
     ->seed('myHand', 'Gleaming Smolder')
-    ->play('Gleaming Smolder')->pay(3)
+    ->castSpell('Gleaming Smolder', pay: 3)
     ->expectZoneCount('myHand', 5, 1, 'Eight cards, minus Smolder, minus two paid, plus one drawn, minus one discarded')
     ->expectZoneCount('myGraveyard', 2, 1, 'Gleaming Smolder and the discarded card')
     ->expectZoneCount('myDeck', 12, 1, 'One card was drawn')
@@ -1178,7 +1178,7 @@ gaScenario('gaias-songbird-without-the-class-bonus-does-not-reveal')
     ->champion(lineage: ['Silvie, Loved by All'])
     ->patch('myDeck-0', ['CardID' => 'hJ2xh9lNMR'])
     ->seed('myHand', 'Gaia\'s Songbird')
-    ->play('Gaia\'s Songbird')->pay(1)
+    ->castSpell('Gaia\'s Songbird', pay: 1)
     ->register();
 
 // Grave Gateau (FQigf17dCr): "[REST], Sacrifice CARDNAME: Put a buff counter on target Specter ally."
@@ -1300,7 +1300,7 @@ gaScenario('golden-measure-patisserie-enter-with-no-allies-does-not-crash')
 DECK
     )
     ->seed('myHand', 'Golden Measure Patisserie')
-    ->play('Golden Measure Patisserie')->pay(3)
+    ->castSpell('Golden Measure Patisserie', pay: 3)
     ->register();
 
 // Grande Aiguille (6ihv6hbvye): "[Ciel Bonus] As long as you have two or more ally omens, Grande Aiguille gets +1 POWER."
@@ -1389,7 +1389,7 @@ DECK
     )
     ->seed('myHand', 'Guarded Dissipation')
     ->seed('myField', 'Cheap Sword')
-    ->play('Guarded Dissipation')->pay(2)->target('myField-0')
+    ->castSpell('Guarded Dissipation', pay: 2, target: 'myField-0')
     ->tested('Guarded Dissipation', 'Cheap Sword')
     ->register();
 

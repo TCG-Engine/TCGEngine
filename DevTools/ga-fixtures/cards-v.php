@@ -101,7 +101,7 @@ gaScenario('violet-haze-distant-lineage')
     ->champion(lineage: ['Tristan, Shadowdancer'])
     ->seed('myField', 'Dungeon Guide')
     ->seed('myHand', 'Violet Haze')
-    ->play('Violet Haze')->pay(2)->pass(1)->target('myField-0')
+    ->castSpell('Violet Haze', pay: 2, window: 'me', target: 'myField-0')
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'TurnEffects', '["DISTANT","vz4kc558yx-ACTION_ACTIVATED"]', 'Champion becomes distant')
     ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT"]', 'All units you control become distant, not just the champion')
@@ -129,7 +129,7 @@ gaScenario('vertus-gaias-roar-class-bonus-enter-power-buff')
     ->seed('myGraveyard', 'Gray Wolf')
     ->seed('myField', 'Gray Wolf')
     ->seed('myHand', 'Vertus, Gaia\'s Roar')
-    ->play('Vertus, Gaia\'s Roar')->pay(4)
+    ->castSpell('Vertus, Gaia\'s Roar', pay: 4)
     ->register();
 
 // --- Vainglory Retribution: playCardAbilities dispatch coverage (qtzsekkjn3) ---
@@ -173,7 +173,7 @@ gaScenario('veiling-breeze-prevent-champion-damage')
     ->deck(GA_LORRAINE_PANTHEON_DECK)
     ->seed('myMemory', 'Diablerie')
     ->seed('myHand', 'Veiling Breeze')
-    ->play('Veiling Breeze')->pay(1)->passBoth()->target('myMemory-0')
+    ->castSpell('Veiling Breeze', pay: 1, window: 'both', target: 'myMemory-0')
     ->expectDqEmpty()
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED","KoF3AMSlUe-1"]', 'The champion gains the KoF3AMSlUe-1 turn effect (1 = the number of wind cards revealed).')
     ->register();
@@ -240,7 +240,7 @@ gaScenario('verdant-slime-on-enter-no-regalia-two-buff')
     ->deckTemplate('clarent-windslice', 'Dungeon Guide')
     ->champion(lineage: ['Kongming, Fel Eidolon'])
     ->seed('myHand', 'Verdant Slime')
-    ->play('Verdant Slime')->pay(2)
+    ->castSpell('Verdant Slime', pay: 2)
     ->register();
 
 // --- Viridescent Aetherstreak (pc0y3xneg7): "[Class Bonus] This card costs 1 less to activate. Choose two - up to one target unit becomes distant; prevent the next 2 damage to each distant unit; load this card into an Aetherwing weapon."
@@ -307,7 +307,7 @@ DECK
     ->champion(lineage: ['Kongming, Fel Eidolon'])
     ->seed('myField', 'Alkahest', player: 2)
     ->seed('myHand', 'Verdant Slime')
-    ->play('Verdant Slime')->pay(2)->pass(1)
+    ->castSpell('Verdant Slime', pay: 2, window: 'me')
     ->register();
 
 // Notes carried over from the original definition:
@@ -568,7 +568,7 @@ DECK
     ->seed('myHand', 'Voltaic Sphere')
     ->champion(cardName: 'Rai, Storm Seer')
     ->seed('myField', 'Surged Coordinator', player: 2)
-    ->play('Voltaic Sphere')->pay(2)->target('theirField-1')
+    ->castSpell('Voltaic Sphere', pay: 2, target: 'theirField-1')
     ->expectZoneCount('theirGraveyard', 1, 1, 'The 4-life ally took 5 damage and died (3 would not have killed it)')
     ->expectDqEmpty()
     ->register();
@@ -585,7 +585,7 @@ DECK
     )
     ->seed('myHand', 'Voltaic Sphere')
     ->champion(cardName: 'Rai, Storm Seer')
-    ->play('Voltaic Sphere')->pay(2)->target('theirField-0')
+    ->castSpell('Voltaic Sphere', pay: 2, target: 'theirField-0')
     ->register();
 
 // Notes carried over from the original definition:
@@ -606,7 +606,7 @@ DECK
     ->seed('myGraveyard', 'Voltaic Sphere')
     ->seed('myHand', 'Voltaic Sphere')
     ->action(1, 10002, 'myGraveyard-0!FSM!')
-    ->play('Voltaic Sphere')->pay(1)->target('theirField-0')
+    ->castSpell('Voltaic Sphere', pay: 1, target: 'theirField-0')
     ->register();
 
 // VelTech QA Tester (2XWNCcPN6o): playing it from hand crashed in its own cost modifier (the card being activated was offered as the discount source, an object without GetMZID()).
@@ -622,7 +622,7 @@ DECK
     )
     ->champion(classes: 'WARRIOR')
     ->seed('myHand', 'VelTech QA Tester')
-    ->play('VelTech QA Tester')->pay(3)->pass(1)
+    ->castSpell('VelTech QA Tester', pay: 3, window: 'me')
     ->register();
 
 // Notes carried over from the original definition:
