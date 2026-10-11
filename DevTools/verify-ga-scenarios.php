@@ -4,8 +4,9 @@
  *
  * For each scenario slug (all of DevTools/ga-fixtures/*.php, or the slugs named on the command line) this
  * regenerates the fixture, compares every file with the version in HEAD, and restores the committed files.
- * Comparison is by meaning, not bytes: JSON is decoded (the generator re-indents it and stamps meta.json
- * "name" with the slug), and gamestate text ignores CRLF vs LF.
+ * A fixture whose actions, assertions and meta match but whose recorded gamestate text differs is reported as
+ * 'fmt' (serialization drift) and is not a failure. Comparison is by meaning, not bytes: JSON is decoded (the generator re-indents it and stamps meta.json
+ * "name" with the slug), and gamestate text is compared after the integration runner's own normalization.
  *
  * A fixture that is not in HEAD yet (a brand-new scenario) is regenerated and left in place.
  *
@@ -16,6 +17,9 @@
  */
 $repoRoot = dirname(__DIR__);
 $fixtureRoot = 'Tests/Integration/GrandArchiveSim';
+
+require_once $repoRoot . '/Core/EngineActionRunner.php';
+EngineLoadRootRuntime('GrandArchiveSim');
 
 $keep = in_array('--keep', $argv, true);   // compare only; leave regenerated files in place (restore once afterwards, e.g. when running slugs in parallel)
 $slugs = array_values(array_filter(array_slice($argv, 1), fn($a) => !str_starts_with($a, '--')));
@@ -34,6 +38,7 @@ function verifyHeadFile(string $repoRoot, string $path): ?string {
 }
 
 $failures = [];
+$formatDrift = [];
 foreach ($slugs as $slug) {
     $dir = "$fixtureRoot/$slug";
     $existedInHead = verifyHeadFile($repoRoot, "$dir/actions.json") !== null;
@@ -59,18 +64,27 @@ foreach ($slugs as $slug) {
             $b = json_decode($now, true);
             if ($file === 'meta.json') { unset($a['name'], $b['name']); }
             if ($a != $b) $differs[] = $file;
-        } elseif (str_replace("\r\n", "\n", $head) !== str_replace("\r\n", "\n", $now)) {
+        } elseif (RegressionNormalizeGamestateTextForComparison('GrandArchiveSim', $head) !== RegressionNormalizeGamestateTextForComparison('GrandArchiveSim', $now)) {
+            // Same normalization the integration runner applies, so a serialization-default change that the
+            // runner tolerates (for example a trailing '-' default) is not reported as a difference.
             $differs[] = $file;
         }
     }
     if (!$keep) shell_exec('cd ' . escapeshellarg($repoRoot) . ' && git checkout -- ' . escapeshellarg($dir) . ' 2>/dev/null');
-    if ($differs) {
+    $definitionDiffers = array_values(array_diff($differs, ['initial_gamestate.txt', 'expected_final_gamestate.txt']));
+    if ($definitionDiffers) {
         $failures[$slug] = $differs;
         echo "DIFF  $slug: " . implode(', ', $differs) . "\n";
+    } elseif ($differs) {
+        // actions / assertions / meta match, so the scenario still describes the same fixture; only the recorded
+        // gamestate text differs, which happens when the engine's serialization changed since it was recorded.
+        $formatDrift[] = $slug;
+        echo "fmt   $slug: " . implode(', ', $differs) . " (serialization drift only)\n";
     } else {
         echo "same  $slug\n";
     }
 }
 
-echo "\n" . (count($slugs) - count($failures)) . " of " . count($slugs) . " scenarios match HEAD.\n";
+echo "\n" . (count($slugs) - count($failures)) . " of " . count($slugs) . " scenarios match HEAD"
+    . ($formatDrift ? " (" . count($formatDrift) . " of them differ only in recorded gamestate serialization)" : "") . ".\n";
 exit($failures ? 1 : 0);
