@@ -284,4 +284,8 @@ verified by regenerating and comparing by meaning.
   - The new discard additional cost listed the activated card itself as a discard choice, and Plutus / Dichroic Scorch / Firetuned Automaton lost the card if there was nothing to discard (refusal gate added).
 - New findings (not fixed, need a decision): (1) 14 "EXALTED,FIRE" cards (Alizarin Longbowman, Queen's Cinderhog, Blaze Alight, Suffocating Ash, Tyrannical Denigration, Lavastorm, ...) are not "fire element"
   to ~33 exact `CardElement(...) === "FIRE"` comparisons: Kindle payment, fire discards, fire-source unpreventable damage, fire ally death triggers. (2) Abilities printed "Activate only at slow speed"
-  (14 cards) are offered and usable in fast response windows: Gloamspire's draw resolved from the end-of-turn window. (3) Eight of Hearts / Duchess "Activate this ability only once" is offered again in the same window.
+  (14 cards) are offered and usable in fast response windows: Gloamspire's draw resolved from the end-of-turn window. (3) (fixed afterwards) the Cardistry "Activate this ability only once" restriction was missing on Duchess and six other Cardistry cards. The full list is in `ENGINE-FINDINGS.md`.
+
+### Phase 3a (Fire) -- wrap-up (2026-10-11)
+- Fire is at 1,174 covered cards overall; 15 Fire cards remain and all need a bonus champion or a harder setup (see `ENGINE-FINDINGS.md`, section 4).
+- `ENGINE-FINDINGS.md` is the whole-picture review of the engine bugs found so far: what was fixed, the six behaviour-wide items that need a decision, and the cards whose text is not implemented.

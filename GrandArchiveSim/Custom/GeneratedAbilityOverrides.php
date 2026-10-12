@@ -1975,7 +1975,14 @@ $cardActivatedPrereqs["wpbhigka5a:0"] = function($player, $mzID) {
 // Duchess, Six of Hearts (qzv380ujf5) Cardistry: "Banish a fire element action card with reserve cost 2 or less from your graveyard. If you do, copy it and you may activate that copy without paying its reserve cost."
 // The generated handler pushed a bare stdClass onto the hand and activated it, which fatals in MZMove ("Call to undefined method stdClass::Remove()") -- using the ability crashed the engine. It also compared the
 // element to exactly "FIRE", so Exalted fire actions ("EXALTED,FIRE": Blaze Alight, Lavastorm, ...) were never offered. The copy is now a proper temporary card activated with its cost ignored.
+// "Activate this ability only once": the generated body never recorded the use (every other Cardistry card sets cardistry_used and has the matching prereq), so it could be activated repeatedly.
+$activateAbilityPrereqs["qzv380ujf5:0"] = function($player, $mzID, $abilityIndex) { //Cardistry prereq
+  $sourceObject = GetZoneObject($mzID);
+  return $sourceObject !== null && !isset($sourceObject->Counters['cardistry_used']);
+};
 $activateAbilityAbilities["qzv380ujf5:0"] = function($player) { //Cardistry
+  $usedObj = &GetZoneObject(DecisionQueueController::GetVariable("mzID"));
+  if($usedObj !== null) $usedObj->Counters['cardistry_used'] = 1;
   $validGY = [];
   foreach(GetZone("myGraveyard") as $gi => $gyObj) {
       if($gyObj->removed) continue;
@@ -2004,6 +2011,24 @@ $activateAbilityAbilities["waf8urrqtj:0"] = function($player) { //Draw
       if(GetInfluence($drawingPlayer) < 7) DrawIntoMemory($drawingPlayer, 1);
   }
 };
+// "Activate this ability only once" (Cardistry): the generated bodies of Two of Spades, Three of Spades, Two of Diamonds, Four of Hearts, Five of Spades, Five of Hearts and Five of Diamonds never recorded the use (every other
+// Cardistry card sets cardistry_used and has the matching prereq), so those abilities could be activated again and again. The original bodies are wrapped to record the use and a prereq refuses a second activation.
+foreach(["e8ygl32jef", "o09csnorqv", "mzwTQzuXZa", "xgax8bbjqj", "i9hf5lhl5f", "idq4ih00rq", "Zq4iWqdjGp"] as $gaCardistryOnceID) {
+    $gaCardistryOnceKey = $gaCardistryOnceID . ":0";
+    if(!isset($activateAbilityAbilities[$gaCardistryOnceKey])) continue;
+    $gaCardistryOnceBody = $activateAbilityAbilities[$gaCardistryOnceKey];
+    $activateAbilityAbilities[$gaCardistryOnceKey] = function($player) use ($gaCardistryOnceBody) {
+        $usedObj = &GetZoneObject(DecisionQueueController::GetVariable("mzID"));
+        if($usedObj !== null) $usedObj->Counters['cardistry_used'] = 1;
+        return $gaCardistryOnceBody($player);
+    };
+    $gaCardistryOncePrereq = $activateAbilityPrereqs[$gaCardistryOnceKey] ?? null;
+    $activateAbilityPrereqs[$gaCardistryOnceKey] = function($player, $mzID, $abilityIndex) use ($gaCardistryOncePrereq) {
+        $sourceObject = GetZoneObject($mzID);
+        if($sourceObject === null || isset($sourceObject->Counters['cardistry_used'])) return false;
+        return $gaCardistryOncePrereq === null ? true : $gaCardistryOncePrereq($player, $mzID, $abilityIndex);
+    };
+}
 // Oppressive Presence's generated prereq had the test inverted (HasOpportunity() || your own turn -> refuse), so the card was refused in the one window it is meant for -- the opponent's recollection opportunity -- and nothing else offers it.
 $activateCardPrereqs["j9hjjvkyyr:0"] = function($player, $mzID, $ignoreCost) {
     if(GetCurrentPhase() !== "BREC" || GetTurnPlayer() == $player) { SetFlashMessage("Oppressive Presence can only be activated during an opponent's recollection phase."); return false; }

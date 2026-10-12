@@ -40,7 +40,7 @@ xgax8bbjqj
 n8wyfG9hbY
 3
 LMyKyVC2O9 2 1 0 1 - - - 1
-xgax8bbjqj 2 1 0 1 ENTERED_THIS_TURN - - 3
+xgax8bbjqj 2 1 0 1 ENTERED_THIS_TURN eyJjYXJkaXN0cnlfdXNlZCI6MX0= - 3
 rufki4o41y 2 1 0 1 ENTERED_THIS_TURN - - 4
 1
 LMyKyVC2O9 2 2 0 2 - - - 2
@@ -69,7 +69,7 @@ LeyUk5auEP
 0
 0
 2
-MZMAYCHOOSE myField-1@Activate-0@Cardistry&myField-2@Activate-0@Cardistry 100 Take_a_fast_action? 0
+MZMAYCHOOSE myField-2@Activate-0@Cardistry 100 Take_a_fast_action? 0
 CUSTOM OpportunityWindowFirstResponse 100  1
 0
 1
