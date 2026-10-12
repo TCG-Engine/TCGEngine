@@ -1,0 +1,23 @@
+{
+    "name": "impact-hammer-class-bonus-power-and-the-attacking-unit-takes-three-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:31:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "chsbalegbs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "chsbalegbs"
+        ],
+        "mechanics": [
+            "static-ability",
+            "triggered-ability",
+            "damage",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Whenever a unit uses this weapon for an attack, deal 3 damage to it. [Class Bonus] CARDNAME gets +1 [POWER]."
+        ]
+    }
+}

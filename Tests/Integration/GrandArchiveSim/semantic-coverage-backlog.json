@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-11T23:30:22+00:00",
+    "generatedAt": "2026-10-12T00:55:09+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1095,
+        "cardsWithExistingFixtures": 1102,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1382,
+        "cardsNeedingSemanticCoverage": 1375,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1725,23 +1725,6 @@
             "priority": 23
         },
         {
-            "cardId": "smw3rrii17",
-            "name": "Forgelight Scepter",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "doo4sk9q9e",
             "name": "Fortifying Aroma",
             "type": "ACTION",
@@ -2507,22 +2490,6 @@
             "mechanics": [
                 "cost",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "fzcyfrzrpl",
-            "name": "Heatwave Generator",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3477,27 +3444,6 @@
             "priority": 15
         },
         {
-            "cardId": "9f92917r84",
-            "name": "Dragon's Dawn",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "draw-discard",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "QFWIbwV25T",
             "name": "Draught Dodge",
             "type": "ACTION",
@@ -3594,26 +3540,6 @@
             "priority": 15
         },
         {
-            "cardId": "nrvth9vyz1",
-            "name": "Everflame Staff",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "bfg5ubeczk",
             "name": "Extorting Blackjack",
             "type": "ATTACK",
@@ -3662,25 +3588,6 @@
                 "damage",
                 "prevention",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "j4lx6xwr42",
-            "name": "Firetongue",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -7362,24 +7269,6 @@
         {
             "cardId": "ntnm81369o",
             "name": "Huaji of Abyssal Fall",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "chsbalegbs",
-            "name": "Impact Hammer",
             "type": "REGALIA,WEAPON",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -11426,23 +11315,6 @@
             "mechanics": [
                 "draw-discard",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "ly4wiffei7",
-            "name": "Forgelight Blade",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -39816,6 +39688,29 @@
             "priority": 43
         },
         {
+            "cardId": "smw3rrii17",
+            "name": "Forgelight Scepter",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "forgelight-scepter-even-opponent-memory-deals-no-damage-at-their-end-phase",
+                "forgelight-scepter-odd-opponent-memory-deals-two-unpreventable-damage-at-their-end-phase"
+            ],
+            "semanticFixtures": [
+                "forgelight-scepter-even-opponent-memory-deals-no-damage-at-their-end-phase",
+                "forgelight-scepter-odd-opponent-memory-deals-two-unpreventable-damage-at-their-end-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "40xhntos3d",
             "name": "Ghastly Corrosion",
             "type": "ACTION",
@@ -40381,6 +40276,26 @@
             "priority": 42
         },
         {
+            "cardId": "fzcyfrzrpl",
+            "name": "Heatwave Generator",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting"
+            ],
+            "existingFixtures": [
+                "heatwave-generator-recollection-gives-an-ally-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "heatwave-generator-recollection-gives-an-ally-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "7dl5j4lx6x",
             "name": "Incarnate Majesty",
             "type": "ACTION",
@@ -40928,6 +40843,55 @@
             "priority": 35
         },
         {
+            "cardId": "9f92917r84",
+            "name": "Dragon's Dawn",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "draw-discard",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dragons-dawn-class-bonus-on-attack-discards-a-fire-card-for-power-and-damages-your-champion"
+            ],
+            "semanticFixtures": [
+                "dragons-dawn-class-bonus-on-attack-discards-a-fire-card-for-power-and-damages-your-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "nrvth9vyz1",
+            "name": "Everflame Staff",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "everflame-staff-banish-with-three-refinement-counters-deals-four-damage-to-a-champion"
+            ],
+            "semanticFixtures": [
+                "everflame-staff-banish-with-three-refinement-counters-deals-four-damage-to-a-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "yorsltrnu3",
             "name": "Explosive Concoction",
             "type": "ITEM",
@@ -40993,6 +40957,29 @@
             ],
             "semanticFixtures": [
                 "firebloom-flourish-class-bonus-damages-the-opposing-champion-at-recollection"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "j4lx6xwr42",
+            "name": "Firetongue",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "firetongue-class-bonus-on-attack-banishing-a-fire-card-adds-a-durability-counter"
+            ],
+            "semanticFixtures": [
+                "firetongue-class-bonus-on-attack-banishing-a-fire-card-adds-a-durability-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42904,6 +42891,28 @@
                 "ignited-stab-prepare-1-declined-base-power",
                 "ignited-stab-prepare-1-paid-non-assassin-no-class-bonus",
                 "ignited-stab-prepare-1-paid-plus-2-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "chsbalegbs",
+            "name": "Impact Hammer",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "impact-hammer-class-bonus-power-and-the-attacking-unit-takes-three-damage"
+            ],
+            "semanticFixtures": [
+                "impact-hammer-class-bonus-power-and-the-attacking-unit-takes-three-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44892,6 +44901,27 @@
             ],
             "semanticFixtures": [
                 "focal-intensity-deals-one-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "ly4wiffei7",
+            "name": "Forgelight Blade",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "forgelight-blade-enter-deals-four-damage-to-your-champion-and-class-bonus-adds-power"
+            ],
+            "semanticFixtures": [
+                "forgelight-blade-enter-deals-four-damage-to-your-champion-and-class-bonus-adds-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -244,3 +244,12 @@ verified by regenerating and comparing by meaning.
   - Abnegation's conditional Ephemerate has no "activation negated this turn" tracker.
   - `[Class Bonus] Kindle` is not gated on the class bonus (Silent Firebrand, Burning Aethercharge, Glowering Conflagration).
   - Molten Impact sacrifices at resolution rather than as a cost.
+  - Weapon On Attack closures receive the ATTACKER's mz as `$mzID`, so a "CARDNAME" in a weapon's On Attack body points at the wrong
+    object. Firetongue (durability counter went on the champion) and Dragon's Dawn (+2 POWER / On Champion Hit draw tagged the champion)
+    are fixed with `$customDQHandlers` overrides that use `GetCombatWeapon()`. Other weapons checked so far were correct.
+
+### Phase 3a (Fire) -- weapons and regalia (2026-10-11)
+- `fire-regalia.php`: Firetongue, Impact Hammer, Forgelight Blade, Dragon's Dawn, Heatwave Generator, Forgelight Scepter (odd and even
+  memory) and Everflame Staff. The Dragon's Dawn "discard went to banish" worry was test setup (an unanswered prompt); the card goes to the graveyard.
+- Still to do in Fire: remaining regalia (Beastsoul Visage, Blast Shield, Fanned Synchron, Infernal Vessel, Mantle of the Abyss, Sigil of
+  Budding Embers, Bombard Flarecannon, Contraband Revolver, Lacuna's Grasp), 8 champions, ~12 odd actions, ~15 allies, ~19 uniques.

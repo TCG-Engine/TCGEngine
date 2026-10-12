@@ -1,0 +1,24 @@
+{
+    "name": "dragons-dawn-class-bonus-on-attack-discards-a-fire-card-for-power-and-damages-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:31:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9f92917r84"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9f92917r84"
+        ],
+        "mechanics": [
+            "on-attack",
+            "discard",
+            "damage",
+            "stat-change",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may discard a fire element card and have CARDNAME deal 2 unpreventable damage to your champion. If you do, this attack gets +2 [POWER] and gains \"On Champion Hit: Draw a card.\""
+        ]
+    }
+}

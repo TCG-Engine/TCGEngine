@@ -1,0 +1,11 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "Odd memory (1): 2 unpreventable damage to their champion"
+    }
+]

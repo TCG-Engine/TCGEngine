@@ -1,0 +1,23 @@
+{
+    "name": "everflame-staff-banish-with-three-refinement-counters-deals-four-damage-to-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:32:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nrvth9vyz1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nrvth9vyz1"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish-self",
+            "damage",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Banish CARDNAME: As a Spell, deal 4 damage to target champion. Activate this ability only if there are three or more refinement counters on CARDNAME."
+        ]
+    }
+}

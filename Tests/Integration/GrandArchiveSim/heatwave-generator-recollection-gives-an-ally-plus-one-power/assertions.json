@@ -1,0 +1,10 @@
+[
+    {
+        "step": 4,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 2,
+        "semantic": true,
+        "label": "Recollection phase: the ally got +1 POWER until end of turn"
+    }
+]
