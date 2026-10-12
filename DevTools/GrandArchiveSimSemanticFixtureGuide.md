@@ -194,6 +194,11 @@ activated") ends in a no-op by design. The builder now tracks hand slots itself 
 plays and `pay()`s; playing a name that is not in the modelled hand is a builder error), but draws and discards are not modelled, so
 run the audit on any scenario that plays a second card.
 
+Triage of the existing suite (Oct 2026): 588 fixtures show a no-op, most of them a trailing `PASS` or an `observe()`. Of the ~20 with a
+non-trailing click that does nothing, every one is a redundant click that a pending prompt swallowed (a play click while a fast-action
+window or target prompt is open; the next `answer()` then does the real work) and the fixtures' positive assertions still prove the
+effect. Only a *negative* assertion (`expectDamage 0`, "unchanged") can hide a dead step, which is where the audit matters.
+
 ## Pitfalls found while upgrading old fixtures
 
 - A `pass(1)` after paying is only a priority pass when a window actually opens. When a prompt (for example Glimpse) is already
