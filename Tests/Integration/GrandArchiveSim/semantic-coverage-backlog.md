@@ -1,7 +1,7 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1193**
+Cards linked to an existing fixture: **1185**
 Implemented cards in an official starter deck: **619**
 Implemented cards still needing semantic coverage: **1292**
 
@@ -26,20 +26,12 @@ Implemented cards still needing semantic coverage: **1292**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Think Deep (`xw9w6y7vtz`) | ACTION | 2 | cost, zone-movement, condition | — | think-deep-glimpses-two-then-mills-up-to-two |
 | Cardiac Vessel (`5xjzPh6l2M`) | UNIQUE,PHANTASIA | 3 | cost, damage, draw-discard, trigger, condition | — | — |
 | Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |
 | Stellarion Shift (`ms2x2v4qe3`) | ACTION | 3 | targeting, damage, prevention, draw-discard, zone-movement, status, condition | — | — |
-| Conjure Downpour (`r0zadf9q1w`) | ACTION | 1 | draw-discard, combat, trigger, condition | — | conjure-downpour-attacks-get-minus-two-power |
-| Sudden Snow (`dxAEI20h8F`) | ACTION | 1 | draw-discard, zone-movement, status, condition | — | sudden-snow-banishes-a-floating-memory-card-to-draw |
 | Fatestone of Progress (`2sn7hlyrkw`) | ITEM | 3 | counter, trigger, condition | — | — |
 | Lesser Boon of Allurement (`JuKoCVIvCG`) | LESSER BOON | 3 | cost, draw-discard, condition | — | — |
-| Pearled Prayer (`HLcmZLe7Xr`) | ACTION | 1 | recover, draw-discard, condition | — | pearled-prayer-main-phase-recovers-seven |
-| Shroud in Mist (`DBJ4DuLABr`) | ACTION | 1 | cost, status, condition | — | shroud-in-mist-gives-units-stealth |
-| Song of Frost (`t1cn1tzgcx`) | ACTION | 1 | cost, zone-movement, condition | — | song-of-frost-ends-the-combat-phase-of-an-attack |
-| Storm of Thorns (`39i1f0ht2t`) | ACTION | 1 | damage, prevention, condition | — | storm-of-thorns-prevents-one-damage-to-units-you-control |
 | Aenean Flux Generator (`oCqKBEPemA`) | ITEM | 2 | targeting, damage, draw-discard, trigger | — | — |
-| Dynastic Whirlpool (`8ydxeQcp50`) | ACTION | 1 | condition | — | dynastic-whirlpool-mills-fifteen-from-each-opponent |
 | Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
 | Oasis Trading Post (`uy4xippor7`) | DOMAIN | 3 | token | — | — |
 | Trained Birdroid (`84lj40Kyhv`) | ALLY | 2 | status, combat, trigger | — | — |
@@ -76,3 +68,11 @@ Implemented cards still needing semantic coverage: **1292**
 | Dorumegian Foundry (`CzwVavXMQU`) | DOMAIN | 2 | cost, counter, token, trigger | — | — |
 | Enveloping Soulmist (`kYG1EDltdI`) | ACTION | 2 | cost, counter, status, condition | — | — |
 | Escape the Wreckage (`q2svd53zc9`) | ACTION | 2 | targeting, draw-discard, zone-movement, condition | — | — |
+| Flowing Oubli (`vcxw3yh2t4`) | ACTION | 2 | cost, zone-movement, counter, condition | — | — |
+| Focusing Gem (`SpENiP3jbN`) | REGALIA,ITEM | 2 | cost, zone-movement, status, condition | — | — |
+| Gemini Starbearer (`NyPQW7hkAq`) | ALLY | 2 | targeting, damage, token, trigger | — | — |
+| Horn of Beastcalling (`6e7lRnczfL`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, condition | — | — |
+| Merciless Toss (`ZIU4bH6D9q`) | ACTION | 2 | cost, targeting, damage, condition | — | — |
+| Merlin, Surreal Figment (`P8RBSywC30`) | UNIQUE,ALLY | 2 | targeting, counter, combat, trigger | — | — |
+| Mob Vantage (`bBI0TC54pV`) | ACTION | 2 | cost, draw-discard, status, condition | — | — |
+| Oneiric Key (`pY1TImPn8g`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, counter, trigger | — | — |

@@ -2,10 +2,10 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T13:43:09+00:00",
+    "generatedAt": "2026-10-12T13:43:17+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1193,
+        "cardsWithExistingFixtures": 1185,
         "cardsInStarterDecks": 619,
         "cardsNeedingSemanticCoverage": 1292,
         "mechanics": {
@@ -26,25 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "xw9w6y7vtz",
-            "name": "Think Deep",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [
-                "think-deep-glimpses-two-then-mills-up-to-two"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 43
-        },
         {
             "cardId": "5xjzPh6l2M",
             "name": "Cardiac Vessel",
@@ -105,46 +86,6 @@
             "priority": 35
         },
         {
-            "cardId": "r0zadf9q1w",
-            "name": "Conjure Downpour",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [
-                "conjure-downpour-attacks-get-minus-two-power"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 34
-        },
-        {
-            "cardId": "dxAEI20h8F",
-            "name": "Sudden Snow",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [
-                "sudden-snow-banishes-a-floating-memory-card-to-draw"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 34
-        },
-        {
             "cardId": "2sn7hlyrkw",
             "name": "Fatestone of Progress",
             "type": "ITEM",
@@ -179,82 +120,6 @@
             "priority": 33
         },
         {
-            "cardId": "HLcmZLe7Xr",
-            "name": "Pearled Prayer",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [
-                "pearled-prayer-main-phase-recovers-seven"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 33
-        },
-        {
-            "cardId": "DBJ4DuLABr",
-            "name": "Shroud in Mist",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [
-                "shroud-in-mist-gives-units-stealth"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 33
-        },
-        {
-            "cardId": "t1cn1tzgcx",
-            "name": "Song of Frost",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [
-                "song-of-frost-ends-the-combat-phase-of-an-attack"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 33
-        },
-        {
-            "cardId": "39i1f0ht2t",
-            "name": "Storm of Thorns",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [
-                "storm-of-thorns-prevents-one-damage-to-units-you-control"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 33
-        },
-        {
             "cardId": "oCqKBEPemA",
             "name": "Aenean Flux Generator",
             "type": "ITEM",
@@ -271,23 +136,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 32
-        },
-        {
-            "cardId": "8ydxeQcp50",
-            "name": "Dynastic Whirlpool",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [
-                "dynastic-whirlpool-mills-fifteen-from-each-opponent"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 31
         },
         {
             "cardId": "PboHrwPZgP",
@@ -2169,6 +2017,23 @@
                 "targeting",
                 "draw-discard",
                 "trigger"
+            ],
+            "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 23
+        },
+        {
+            "cardId": "xw9w6y7vtz",
+            "name": "Think Deep",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6037,6 +5902,24 @@
             "priority": 14
         },
         {
+            "cardId": "r0zadf9q1w",
+            "name": "Conjure Downpour",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 14
+        },
+        {
             "cardId": "1vt1cn1tzg",
             "name": "Covenant of Thorns",
             "type": "REGALIA,ITEM",
@@ -8584,6 +8467,24 @@
                 "targeting",
                 "damage",
                 "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 14
+        },
+        {
+            "cardId": "dxAEI20h8F",
+            "name": "Sudden Snow",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -12111,6 +12012,23 @@
             "priority": 13
         },
         {
+            "cardId": "HLcmZLe7Xr",
+            "name": "Pearled Prayer",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 13
+        },
+        {
             "cardId": "rRfRKqCBqF",
             "name": "Perfusive Envelopment",
             "type": "PHANTASIA",
@@ -12978,6 +12896,23 @@
             "priority": 13
         },
         {
+            "cardId": "DBJ4DuLABr",
+            "name": "Shroud in Mist",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 13
+        },
+        {
             "cardId": "uhaao91ee1",
             "name": "Shu Frontliner",
             "type": "ALLY",
@@ -13071,6 +13006,23 @@
             "mechanics": [
                 "counter",
                 "trigger",
+                "condition"
+            ],
+            "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 13
+        },
+        {
+            "cardId": "t1cn1tzgcx",
+            "name": "Song of Frost",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -13275,6 +13227,23 @@
             "mechanics": [
                 "status",
                 "combat",
+                "condition"
+            ],
+            "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 13
+        },
+        {
+            "cardId": "39i1f0ht2t",
+            "name": "Storm of Thorns",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
                 "condition"
             ],
             "existingFixtures": [],
@@ -19529,6 +19498,21 @@
             "listenerCount": 0,
             "mechanics": [
                 "token"
+            ],
+            "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 11
+        },
+        {
+            "cardId": "8ydxeQcp50",
+            "name": "Dynastic Whirlpool",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
