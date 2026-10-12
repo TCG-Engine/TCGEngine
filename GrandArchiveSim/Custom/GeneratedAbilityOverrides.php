@@ -2072,6 +2072,33 @@ $customDQHandlers["FrigidBashPaid"] = function($payer, $parts, $lastDecision) {
   $mz = FindFieldMzByUniqueID(intval($parts[0] ?? 0));
   if($mz !== "") AddTurnEffect($mz, "SKIP_WAKEUP");
 };
+// Hailfinch (3XV4QlQXfy): "[Class Bonus] On Hit: You may remove a buff counter from CARDNAME. If you do, rest the hit object and it doesn't wake up during its controller's next wake up phase."
+// The generated body asked YESNO and read CombatTarget in the answer handler, but the combat variables are only restored while the trigger itself resolves, so the answer found no target: the buff counter
+// was removed and the hit object was never rested. The hit object and Hailfinch are frozen by unique id when the trigger resolves.
+$onHitAbilities["3XV4QlQXfy:0"] = function($player) {
+  if(!IsClassBonusActive($player, ["TAMER"])) return;
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  $hailObj = GetZoneObject($mzID);
+  if($hailObj === null || GetCounterCount($hailObj, "buff") <= 0) return;
+  $target = DecisionQueueController::GetVariable("CombatTarget");
+  if($target === null || $target === "-" || $target === "") return;
+  $targetObj = GetZoneObject($target);
+  if($targetObj === null) return;
+  DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Remove_buff_counter_to_rest_hit_object?");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "HailfinchHitChoice|" . intval($hailObj->UniqueID ?? 0) . "|" . intval($targetObj->UniqueID ?? 0), 1);
+};
+$customDQHandlers["HailfinchHitChoice"] = function($player, $parts, $lastDecision) {
+  if($lastDecision !== "YES") return;
+  $hailMZ = FindFieldMzByUniqueID(intval($parts[0] ?? 0));
+  if($hailMZ === "") return;
+  $hailObj = GetZoneObject($hailMZ);
+  if($hailObj === null || GetCounterCount($hailObj, "buff") <= 0) return;
+  RemoveCounters($player, $hailMZ, "buff", 1);
+  $targetMZ = FindFieldMzByUniqueID(intval($parts[1] ?? 0));
+  if($targetMZ === "") return;
+  RestCard($player, $targetMZ);
+  AddTurnEffect($targetMZ, "SKIP_WAKEUP");
+};
 // Oppressive Presence's generated prereq had the test inverted (HasOpportunity() || your own turn -> refuse), so the card was refused in the one window it is meant for -- the opponent's recollection opportunity -- and nothing else offers it.
 $activateCardPrereqs["j9hjjvkyyr:0"] = function($player, $mzID, $ignoreCost) {
     if(GetCurrentPhase() !== "BREC" || GetTurnPlayer() == $player) { SetFlashMessage("Oppressive Presence can only be activated during an opponent's recollection phase."); return false; }

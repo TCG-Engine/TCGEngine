@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T14:07:47+00:00",
+    "generatedAt": "2026-10-12T14:17:42+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1272,
+        "cardsWithExistingFixtures": 1289,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1205,
+        "cardsNeedingSemanticCoverage": 1188,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -300,25 +300,6 @@
             "priority": 25
         },
         {
-            "cardId": "do1blsupu0",
-            "name": "Dynasty Chancellor",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "X7rh3Yi26A",
             "name": "Endura, Reimagined",
             "type": "REGALIA,ITEM",
@@ -443,26 +424,6 @@
             "mechanics": [
                 "targeting",
                 "token",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "flzvpkc0ni",
-            "name": "Moontide Illusionist",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
                 "combat",
                 "trigger",
                 "condition"
@@ -4247,25 +4208,6 @@
             "priority": 15
         },
         {
-            "cardId": "4a87hk0bkh",
-            "name": "Splashing Spearguard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "44eld1c5ac",
             "name": "Surging Undertow",
             "type": "ACTION",
@@ -4898,24 +4840,6 @@
                 "cost",
                 "targeting",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "c9p4lpnvx7",
-            "name": "Awakened Deacon",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -6113,42 +6037,6 @@
             "priority": 14
         },
         {
-            "cardId": "3XV4QlQXfy",
-            "name": "Hailfinch",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "05qzzadf9q",
-            "name": "Hailstorm Guard",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "prevention",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "VmCVxy9J9J",
             "name": "Hardy Veteran",
             "type": "ALLY",
@@ -6680,24 +6568,6 @@
                 "targeting",
                 "zone-movement",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "rqjnvhf26m",
-            "name": "Mistsworn Magister",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -7293,24 +7163,6 @@
                 "combat",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "w1d0uc5dxZ",
-            "name": "Shademist Priestess",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "status",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9653,23 +9505,6 @@
             "priority": 13
         },
         {
-            "cardId": "4kj3q2svdv",
-            "name": "Eternal Dreamer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "taug52u81v",
             "name": "Eternal Magistrate",
             "type": "ALLY",
@@ -11693,23 +11528,6 @@
             "priority": 13
         },
         {
-            "cardId": "Bzy2hRKUmR",
-            "name": "Seafaring Mercenary",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "2m31946aki",
             "name": "Seal the Past",
             "type": "ACTION",
@@ -12475,23 +12293,6 @@
             "priority": 13
         },
         {
-            "cardId": "8lrj52215u",
-            "name": "Vaporjet Shieldbearer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "4dpp2s3neh",
             "name": "Veiled Oracle",
             "type": "ALLY",
@@ -13054,22 +12855,6 @@
             "priority": 12
         },
         {
-            "cardId": "TScoOwz80U",
-            "name": "Aquaveil Ambusher",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "EKiMJfgvSI",
             "name": "Ardus, Floodborne Deacon",
             "type": "UNIQUE,ALLY",
@@ -13406,22 +13191,6 @@
             "priority": 12
         },
         {
-            "cardId": "9asvHr4bsz",
-            "name": "Brookside Scout",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "rfnrow8iop",
             "name": "Buried Grief",
             "type": "ACTION",
@@ -13749,22 +13518,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "zGlZDatGXe",
-            "name": "Croaking Webfoot",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
                 "zone-movement"
             ],
             "existingFixtures": [],
@@ -16494,22 +16247,6 @@
             "priority": 12
         },
         {
-            "cardId": "sm68d3we64",
-            "name": "Sunken Battle Priest",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "zcvq77mdgd",
             "name": "Sword of Shadows",
             "type": "REGALIA,WEAPON",
@@ -16934,22 +16671,6 @@
             "mechanics": [
                 "cost",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "lbhW6j1bJN",
-            "name": "Waterfall Sage",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -18179,21 +17900,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "0r7j97g2zh",
-            "name": "Evercurrent Raider",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -35730,6 +35436,31 @@
             "priority": 45
         },
         {
+            "cardId": "do1blsupu0",
+            "name": "Dynasty Chancellor",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dynasty-chancellor-deluge-three-on-death-draws-a-card",
+                "dynasty-chancellor-with-two-water-cards-on-death-does-not-draw"
+            ],
+            "semanticFixtures": [
+                "dynasty-chancellor-deluge-three-on-death-draws-a-card",
+                "dynasty-chancellor-with-two-water-cards-on-death-does-not-draw"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "gn1b2sbrq9",
             "name": "Echoic Guard",
             "type": "ACTION",
@@ -35820,6 +35551,32 @@
             ],
             "semanticFixtures": [
                 "redslime-ondeath-sweep-stack-order-choice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "flzvpkc0ni",
+            "name": "Moontide Illusionist",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "moontide-illusionist-imbued-on-death-puts-the-top-two-cards-into-the-graveyard",
+                "moontide-illusionist-not-imbued-on-death-mills-nothing"
+            ],
+            "semanticFixtures": [
+                "moontide-illusionist-imbued-on-death-puts-the-top-two-cards-into-the-graveyard",
+                "moontide-illusionist-not-imbued-on-death-mills-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39440,6 +39197,31 @@
             "priority": 35
         },
         {
+            "cardId": "4a87hk0bkh",
+            "name": "Splashing Spearguard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "splashing-spearguard-imbued-enter-mills-two-from-the-target-player",
+                "splashing-spearguard-not-imbued-enter-does-nothing"
+            ],
+            "semanticFixtures": [
+                "splashing-spearguard-imbued-enter-mills-two-from-the-target-player",
+                "splashing-spearguard-not-imbued-enter-does-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "coxpnjvt9y",
             "name": "Suffocating Miasma",
             "type": "PHANTASIA",
@@ -39926,6 +39708,30 @@
             ],
             "semanticFixtures": [
                 "ash-filcher-class-bonus-attack-banishes-a-fire-card-for-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "c9p4lpnvx7",
+            "name": "Awakened Deacon",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "awakened-deacon-class-bonus-floating-memory-pays-a-memory-cost",
+                "awakened-deacon-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "awakened-deacon-class-bonus-floating-memory-pays-a-memory-cost",
+                "awakened-deacon-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41168,6 +40974,52 @@
             "priority": 34
         },
         {
+            "cardId": "3XV4QlQXfy",
+            "name": "Hailfinch",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hailfinch-class-bonus-on-hit-removes-a-buff-counter-to-rest-the-hit-champion",
+                "hailfinch-declining-keeps-the-buff-counter-and-the-champion-awake"
+            ],
+            "semanticFixtures": [
+                "hailfinch-class-bonus-on-hit-removes-a-buff-counter-to-rest-the-hit-champion",
+                "hailfinch-declining-keeps-the-buff-counter-and-the-champion-awake"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "05qzzadf9q",
+            "name": "Hailstorm Guard",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "prevention",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "hailstorm-guard-class-bonus-prevents-the-next-champion-damage-and-mills-that-many"
+            ],
+            "semanticFixtures": [
+                "hailstorm-guard-class-bonus-prevents-the-next-champion-damage-and-mills-that-many"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "jntoa4h8re",
             "name": "Halocline Scout",
             "type": "ALLY",
@@ -41626,6 +41478,30 @@
             ],
             "semanticFixtures": [
                 "march-hare-element-bonus-banished-from-the-graveyard-to-pay-a-cost-it-enters-the-field"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "rqjnvhf26m",
+            "name": "Mistsworn Magister",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mistsworn-magister-deluge-three-on-death-puts-two-enlighten-counters-on-your-champion",
+                "mistsworn-magister-with-two-water-cards-on-death-adds-no-counters"
+            ],
+            "semanticFixtures": [
+                "mistsworn-magister-deluge-three-on-death-puts-two-enlighten-counters-on-your-champion",
+                "mistsworn-magister-with-two-water-cards-on-death-adds-no-counters"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42272,6 +42148,32 @@
                 "shackled-theurgist-p2-controlled-opponent-declines-sacrifice-returns-ephemeral",
                 "shackled-theurgist-p2-controlled-opponent-has-no-ally-returns-ephemeral",
                 "shackled-theurgist-p2-controlled-opponent-sacrifices-own-ally-stays-dead"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "w1d0uc5dxZ",
+            "name": "Shademist Priestess",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "shademist-priestess-declining-keeps-the-damage",
+                "shademist-priestess-floating-memory-pays-a-memory-cost",
+                "shademist-priestess-recovers-one-when-an-opposing-source-damages-your-champion"
+            ],
+            "semanticFixtures": [
+                "shademist-priestess-declining-keeps-the-damage",
+                "shademist-priestess-floating-memory-pays-a-memory-cost",
+                "shademist-priestess-recovers-one-when-an-opposing-source-damages-your-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43662,6 +43564,27 @@
             ],
             "semanticFixtures": [
                 "escharotomy-prevents-recover"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "4kj3q2svdv",
+            "name": "Eternal Dreamer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "eternal-dreamer-class-bonus-on-attack-glimpses-its-power"
+            ],
+            "semanticFixtures": [
+                "eternal-dreamer-class-bonus-on-attack-glimpses-its-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45267,6 +45190,29 @@
             "priority": 33
         },
         {
+            "cardId": "Bzy2hRKUmR",
+            "name": "Seafaring Mercenary",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "seafaring-mercenary-class-bonus-floating-memory-pays-a-memory-cost",
+                "seafaring-mercenary-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "seafaring-mercenary-class-bonus-floating-memory-pays-a-memory-cost",
+                "seafaring-mercenary-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "eirpdm44nt",
             "name": "Seaside Ringleader",
             "type": "ALLY",
@@ -45753,6 +45699,31 @@
             "priority": 33
         },
         {
+            "cardId": "8lrj52215u",
+            "name": "Vaporjet Shieldbearer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "vaporjet-shieldbearer-class-bonus-on-hit-may-mill-the-top-card",
+                "vaporjet-shieldbearer-declining-keeps-the-top-card-on-the-deck",
+                "vaporjet-shieldbearer-without-the-class-bonus-does-not-look-at-the-top-card"
+            ],
+            "semanticFixtures": [
+                "vaporjet-shieldbearer-class-bonus-on-hit-may-mill-the-top-card",
+                "vaporjet-shieldbearer-declining-keeps-the-top-card-on-the-deck",
+                "vaporjet-shieldbearer-without-the-class-bonus-does-not-look-at-the-top-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "4qc47amgpp",
             "name": "Verita, Queen of Hearts",
             "type": "UNIQUE,ALLY",
@@ -46042,6 +46013,28 @@
             "priority": 32
         },
         {
+            "cardId": "TScoOwz80U",
+            "name": "Aquaveil Ambusher",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status"
+            ],
+            "existingFixtures": [
+                "aquaveil-ambusher-class-bonus-costs-two-less",
+                "aquaveil-ambusher-without-the-class-bonus-costs-full-price"
+            ],
+            "semanticFixtures": [
+                "aquaveil-ambusher-class-bonus-costs-two-less",
+                "aquaveil-ambusher-without-the-class-bonus-costs-full-price"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "fMv7tIOZwL",
             "name": "Aqueous Enchanting",
             "type": "ACTION",
@@ -46268,6 +46261,26 @@
             "priority": 32
         },
         {
+            "cardId": "9asvHr4bsz",
+            "name": "Brookside Scout",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "brookside-scout-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "brookside-scout-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "lwabipl6gt",
             "name": "Calamity Cannon",
             "type": "ACTION",
@@ -46404,6 +46417,26 @@
             ],
             "semanticFixtures": [
                 "convoking-slime-recollection-summons-exactly-one-rested-copy"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "zGlZDatGXe",
+            "name": "Croaking Webfoot",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "croaking-webfoot-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "croaking-webfoot-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48279,6 +48312,30 @@
             "priority": 32
         },
         {
+            "cardId": "sm68d3we64",
+            "name": "Sunken Battle Priest",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "sunken-battle-priest-class-bonus-gives-other-ephemeral-allies-plus-one-power",
+                "sunken-battle-priest-does-not-buff-allies-that-are-not-ephemeral",
+                "sunken-battle-priest-without-the-class-bonus-gives-no-power"
+            ],
+            "semanticFixtures": [
+                "sunken-battle-priest-class-bonus-gives-other-ephemeral-allies-plus-one-power",
+                "sunken-battle-priest-does-not-buff-allies-that-are-not-ephemeral",
+                "sunken-battle-priest-without-the-class-bonus-gives-no-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "42mdt7ge5d",
             "name": "Suzaku, Vermillion Phoenix",
             "type": "ALLY",
@@ -48617,6 +48674,28 @@
             "semanticFixtures": [
                 "water-herbs-mills-two-and-class-bonus-gathers",
                 "water-herbs-without-the-class-bonus-does-not-gather"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "lbhW6j1bJN",
+            "name": "Waterfall Sage",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "waterfall-sage-class-bonus-on-attack-cascade-one-empowers-one",
+                "waterfall-sage-without-the-class-bonus-does-not-cascade"
+            ],
+            "semanticFixtures": [
+                "waterfall-sage-class-bonus-on-attack-cascade-one-empowers-one",
+                "waterfall-sage-without-the-class-bonus-does-not-cascade"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49065,6 +49144,25 @@
             "semanticFixtures": [
                 "emberwrath-witch-ephemerate-from-the-graveyard-enters-ephemeral",
                 "emberwrath-witch-is-sacrificed-at-the-beginning-of-your-end-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "0r7j97g2zh",
+            "name": "Evercurrent Raider",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "evercurrent-raider-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "evercurrent-raider-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

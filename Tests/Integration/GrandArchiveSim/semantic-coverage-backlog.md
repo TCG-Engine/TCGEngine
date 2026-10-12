@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1272**
+Cards linked to an existing fixture: **1289**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1205**
+Implemented cards still needing semantic coverage: **1188**
 
 ## Mechanic groups
 
@@ -41,7 +41,6 @@ Implemented cards still needing semantic coverage: **1205**
 | Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
 | Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
 | Dusklight Communion (`5upufyoz23`) | UNIQUE,PHANTASIA | 2 | cost, targeting, zone-movement, trigger, condition | — | — |
-| Dynasty Chancellor (`do1blsupu0`) | ALLY | 2 | draw-discard, zone-movement, combat, trigger, condition | — | — |
 | Endura, Reimagined (`X7rh3Yi26A`) | REGALIA,ITEM | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | — | — |
 | Gloamspire Prowler (`igpck2z4rs`) | ALLY | 2 | cost, recover, draw-discard, trigger, condition | — | — |
 | Hunt, Weiss King (`Y6PZntlVDl`) | UNIQUE,ALLY | 2 | cost, targeting, draw-discard, counter, combat, condition | — | — |
@@ -49,7 +48,6 @@ Implemented cards still needing semantic coverage: **1205**
 | Labyrinth, Jeweled Opus (`A58xZJJMz6`) | UNIQUE,PHANTASIA | 2 | cost, targeting, draw-discard, status, condition | — | — |
 | Lunar Conduit (`0yetaebjlw`) | REGALIA,ITEM | 2 | cost, targeting, damage, counter, trigger | — | — |
 | Maiden of Waning Bloom (`xkzLY4vWMk`) | PHANTASIA,ALLY | 2 | targeting, token, combat, trigger, condition | — | — |
-| Moontide Illusionist (`flzvpkc0ni`) | ALLY | 2 | cost, zone-movement, status, combat, trigger, condition | — | — |
 | Nightmare Coil (`3fe3c97s71`) | ACTION | 2 | damage, draw-discard, status, trigger, condition | — | — |
 | Overlord Mk III (`sl7ddcgw05`) | UNIQUE,ALLY | 2 | cost, draw-discard, zone-movement, counter, combat, condition | — | — |
 | Queen's Gambit (`NGAy4rNwUo`) | UNIQUE,PHANTASIA | 2 | cost, draw-discard, token, trigger, condition | — | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **1205**
 | Merlin, Surreal Figment (`P8RBSywC30`) | UNIQUE,ALLY | 2 | targeting, counter, combat, trigger | — | — |
 | Mob Vantage (`bBI0TC54pV`) | ACTION | 2 | cost, draw-discard, status, condition | — | — |
 | Oneiric Key (`pY1TImPn8g`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, counter, trigger | — | — |
+| Peaceful Reunion (`wr42i6eifn`) | ACTION | 2 | targeting, zone-movement, combat, condition | — | — |
+| Pristine Scourge (`kugriwszxr`) | ACTION | 2 | cost, targeting, draw-discard, condition | — | — |

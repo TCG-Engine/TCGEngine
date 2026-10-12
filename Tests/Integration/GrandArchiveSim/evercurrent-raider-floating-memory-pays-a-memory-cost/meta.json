@@ -1,0 +1,22 @@
+{
+    "name": "evercurrent-raider-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:09:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0r7j97g2zh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0r7j97g2zh"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory**"
+        ]
+    }
+}

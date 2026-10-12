@@ -1,0 +1,29 @@
+[
+    {
+        "step": 14,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "flzvpkc0ni",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Illusionist died"
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Only Spark Alight and the Illusionist: not imbued, nothing milled"
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 9,
+        "semantic": true,
+        "label": "The deck is untouched"
+    }
+]

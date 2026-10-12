@@ -1,0 +1,29 @@
+[
+    {
+        "step": 14,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "flzvpkc0ni",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The imbued Illusionist died"
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Spark Alight, the Illusionist and the two milled cards"
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "On Death (imbued): the top two cards left the deck"
+    }
+]

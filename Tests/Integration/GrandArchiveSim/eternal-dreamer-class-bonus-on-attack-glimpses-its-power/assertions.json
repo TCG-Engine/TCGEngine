@@ -1,0 +1,11 @@
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "myDeck-0",
+        "property": "CardID",
+        "value": "n8wyfG9hbY",
+        "semantic": true,
+        "label": "Glimpse 2 (the Dreamer's power): the two cards were put back in the order chosen"
+    }
+]

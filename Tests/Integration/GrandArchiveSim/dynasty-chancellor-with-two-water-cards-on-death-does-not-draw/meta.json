@@ -1,0 +1,22 @@
+{
+    "name": "dynasty-chancellor-with-two-water-cards-on-death-does-not-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:10:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "do1blsupu0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "do1blsupu0"
+        ],
+        "mechanics": [
+            "on-death",
+            "deluge",
+            "condition"
+        ],
+        "rulesClauses": [
+            "***Deluge 3*** -- **On Death:** If you have three or more water element cards in your graveyard, draw a card."
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"lbhW6j1bJN\",\"EMPOWERED\",\"EMPOWER_PLUS_1\"]",
+        "semantic": true,
+        "label": "Cascade 1: Empower 1 went on the champion"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"cascade\":1}",
+        "semantic": true,
+        "label": "The Sage's cascade counter advanced to 1"
+    }
+]

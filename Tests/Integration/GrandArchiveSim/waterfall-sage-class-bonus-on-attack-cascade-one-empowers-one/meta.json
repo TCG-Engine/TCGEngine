@@ -1,0 +1,23 @@
+{
+    "name": "waterfall-sage-class-bonus-on-attack-cascade-one-empowers-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:11:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lbhW6j1bJN"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lbhW6j1bJN"
+        ],
+        "mechanics": [
+            "on-attack",
+            "class-bonus",
+            "cascade",
+            "empower"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack**: **Cascade**-- 1-- **Empower 1**. 2-- **Empower 2**. 3-- This attack gets +3[POWER]."
+        ]
+    }
+}

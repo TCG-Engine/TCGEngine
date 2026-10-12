@@ -1,0 +1,23 @@
+{
+    "name": "sunken-battle-priest-class-bonus-gives-other-ephemeral-allies-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:13:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sm68d3we64"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sm68d3we64"
+        ],
+        "mechanics": [
+            "static-ability",
+            "class-bonus",
+            "ephemeral",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Other **ephemeral** allies you control get +1[POWER]."
+        ]
+    }
+}

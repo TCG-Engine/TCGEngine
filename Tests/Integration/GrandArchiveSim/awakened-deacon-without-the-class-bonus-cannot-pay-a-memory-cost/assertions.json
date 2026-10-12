@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Awakened Deacon stays in the graveyard: its Floating Memory needs the class bonus"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myMaterial",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "No memory could be paid, so no champion was materialized"
+    }
+]

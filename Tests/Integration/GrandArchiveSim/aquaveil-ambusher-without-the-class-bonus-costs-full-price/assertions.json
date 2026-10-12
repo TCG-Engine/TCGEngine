@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "TScoOwz80U",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "No Class Bonus: the full cost 5 was paid"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Five cards were paid"
+    }
+]
