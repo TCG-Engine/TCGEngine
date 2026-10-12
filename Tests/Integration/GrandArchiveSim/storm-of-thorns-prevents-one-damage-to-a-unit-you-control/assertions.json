@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "39i1f0ht2t",
+        "value": 1,
+        "semantic": true,
+        "label": "Damage to your units is reduced this turn"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "Surging Bolt would deal 3: 1 of it was prevented"
+    }
+]

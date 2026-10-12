@@ -1,0 +1,29 @@
+[
+    {
+        "step": 18,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "r0zadf9q1w",
+        "value": 1,
+        "semantic": true,
+        "label": "Attacks get -2 POWER until end of turn"
+    },
+    {
+        "step": 18,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"WAS_ATTACKED\"]",
+        "semantic": true,
+        "label": "The attack was declared against the champion"
+    },
+    {
+        "step": 18,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "The 1 POWER attack got -2 POWER and dealt no damage"
+    }
+]

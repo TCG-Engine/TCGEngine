@@ -309,3 +309,14 @@ gaScenario('moontide-illusionist-not-imbued-on-death-mills-nothing')
     ->tested('Moontide Illusionist')
     ->covers(['imbue', 'on-death', 'condition'], '**Imbue 2**', '**On Death**: If Moontide Illusionist was **imbued**, put the top two cards of your deck into your graveyard.')
     ->register();
+
+// ---- Floating Memory on actions (plain, then [Class Bonus] with a negative twin) ----
+$gaFloatClause = '**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*';
+$gaFloatCbClause = '[Class Bonus] **Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost. Apply this effect only if your champion\'s class matches this card\'s class.)*';
+foreach (['Castling Boon' => 'castling-boon', 'Freezing Steel' => 'freezing-steel', 'Fracturize' => 'fracturize', 'Nipping Kicker' => 'nipping-kicker', 'Primordial Ritual' => 'primordial-ritual', 'Spalling Cleanse' => 'spalling-cleanse', 'Weight of Looking Up' => 'weight-of-looking-up'] as $gaFloatCard => $gaFloatSlug) {
+    gaFloatingPays($gaFloatSlug . '-floating-memory-pays-a-memory-cost', $gaFloatCard, $gaFloatClause);
+}
+foreach (['Mire Reparation' => ['mire-reparation', 'GUARDIAN'], 'Refreshing Charge' => ['refreshing-charge', 'RANGER'], 'Storm of Thorns' => ['storm-of-thorns', 'GUARDIAN'], 'Tidal Tirade' => ['tidal-tirade', 'GUARDIAN'], 'Weaving Manastream' => ['weaving-manastream', 'RANGER']] as $gaFloatCard => [$gaFloatSlug, $gaFloatClass]) {
+    gaFloatingPays($gaFloatSlug . '-class-bonus-floating-memory-pays-a-memory-cost', $gaFloatCard, $gaFloatCbClause, $gaFloatClass);
+    gaFloatingPays($gaFloatSlug . '-without-the-class-bonus-cannot-pay-a-memory-cost', $gaFloatCard, $gaFloatCbClause, 'MAGE', false);
+}

@@ -1,0 +1,24 @@
+{
+    "name": "surging-undertow-class-bonus-mills-three-and-makes-a-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:21:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "44eld1c5ac"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "44eld1c5ac"
+        ],
+        "mechanics": [
+            "mill",
+            "distant",
+            "deluge",
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "Put the top three cards of your deck into your graveyard. Then if there are three or more water element cards in your graveyard, choose a unit and it becomes **distant**."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "nipping-kicker-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:18:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UBB1DWYDeS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UBB1DWYDeS"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    }
+}

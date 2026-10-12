@@ -1,0 +1,22 @@
+{
+    "name": "genbus-command-gives-a-beast-ally-plus-three-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:24:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jjwp945rlb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jjwp945rlb"
+        ],
+        "mechanics": [
+            "stat-change",
+            "life",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target Beast ally gets +3 [LIFE] until end of turn."
+        ]
+    }
+}

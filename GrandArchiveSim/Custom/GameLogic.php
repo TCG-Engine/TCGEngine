@@ -2915,8 +2915,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    //1.3 Declaring Costs — Innervate Agility (v43ehjdu50) and Innervate Fury (wpbhigka5a): mandatory delevel + recover 5
-    if(in_array($obj->CardID, ["v43ehjdu50", "wpbhigka5a"], true) && !$ignoreCost) {
+    //1.3 Declaring Costs — Innervate Agility (v43ehjdu50), Innervate Fury (wpbhigka5a) and Innervate Knowledge (pcescfpwak): mandatory delevel + recover 5
+    if(in_array($obj->CardID, ["v43ehjdu50", "wpbhigka5a", "pcescfpwak"], true) && !$ignoreCost) {
         $canDelevel = false;
         $field = GetField($player);
         foreach($field as $fieldObj) {

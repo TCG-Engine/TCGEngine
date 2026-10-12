@@ -1,0 +1,21 @@
+{
+    "name": "spectral-diffusion-gives-the-champion-spellshroud",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:26:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lathqgiqgi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lathqgiqgi"
+        ],
+        "mechanics": [
+            "spellshroud",
+            "ephemeral"
+        ],
+        "rulesClauses": [
+            "Your champion and **ephemeral** objects you control gain **spellshroud** until end of turn."
+        ]
+    }
+}

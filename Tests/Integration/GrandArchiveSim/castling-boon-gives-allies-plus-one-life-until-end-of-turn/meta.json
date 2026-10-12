@@ -1,0 +1,21 @@
+{
+    "name": "castling-boon-gives-allies-plus-one-life-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:19:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v0yuddp71s"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v0yuddp71s"
+        ],
+        "mechanics": [
+            "stat-change",
+            "life"
+        ],
+        "rulesClauses": [
+            "Allies you control get +1[LIFE] until end of turn."
+        ]
+    }
+}

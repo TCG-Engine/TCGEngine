@@ -1,0 +1,21 @@
+{
+    "name": "conjure-downpour-gives-attacks-minus-two-power-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:26:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "r0zadf9q1w"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "r0zadf9q1w"
+        ],
+        "mechanics": [
+            "stat-change",
+            "attack"
+        ],
+        "rulesClauses": [
+            "Until end of turn, whenever a unit attacks, that attack gets -2 [POWER]."
+        ]
+    }
+}

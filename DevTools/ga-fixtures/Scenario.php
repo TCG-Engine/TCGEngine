@@ -299,6 +299,11 @@ class GaScenario {
         return $this->expect(['type' => 'card_property_equals', 'mzId' => $mzId, 'property' => $property, 'value' => $value], $label, $step);
     }
 
+    // A per-player global effect id (card id of an "until end of turn" effect) is registered $count times.
+    public function expectGlobalEffect(int $player, string $effect, ?string $label = null, int $count = 1, ?int $step = null): self {
+        return $this->expect(['type' => 'global_effect_present', 'player' => $player, 'effect' => $effect, 'value' => $count], $label, $step);
+    }
+
     public function expectDamage(string $mzId, int $damage, ?string $label = null, ?int $step = null): self {
         return $this->expectProperty($mzId, 'Damage', strval($damage), $label, $step);
     }

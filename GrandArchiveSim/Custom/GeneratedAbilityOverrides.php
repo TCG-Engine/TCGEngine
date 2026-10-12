@@ -1965,13 +1965,16 @@ foreach(["vm5kt3q2sv", "nvx7mnu1xh", "PR4OkzJBVr", "j9hjjvkyyr"] as $gaRecollect
 }
 // Innervate Fury (wpbhigka5a): "As an additional cost to activate this card, delevel your champion and recover 5." Innervate Agility had the cost wired in (GameLogic.php, InnervateAgilityActivationCost) and a prereq; its sibling had neither, so
 // Fury cast for its reserve cost alone, with no delevel and no recover, from a level 1 champion. The cost block now covers both cards; this is Agility's prereq: a champion with no lineage cannot pay it.
-$cardActivatedPrereqs["wpbhigka5a:0"] = function($player, $mzID) {
-    foreach(GetField($player) as $fieldObj) {
-        if($fieldObj->removed || !PropertyContains(EffectiveCardType($fieldObj), "CHAMPION") || ($fieldObj->Controller ?? 0) != $player) continue;
-        return !empty(is_array($fieldObj->Subcards) ? $fieldObj->Subcards : []);
-    }
-    return false;
-};
+// Innervate Knowledge (pcescfpwak) has the identical additional cost and was missing the same wiring.
+foreach(["wpbhigka5a:0", "pcescfpwak:0"] as $gaInnervateKey) {
+    $cardActivatedPrereqs[$gaInnervateKey] = function($player, $mzID) {
+        foreach(GetField($player) as $fieldObj) {
+            if($fieldObj->removed || !PropertyContains(EffectiveCardType($fieldObj), "CHAMPION") || ($fieldObj->Controller ?? 0) != $player) continue;
+            return !empty(is_array($fieldObj->Subcards) ? $fieldObj->Subcards : []);
+        }
+        return false;
+    };
+}
 // Duchess, Six of Hearts (qzv380ujf5) Cardistry: "Banish a fire element action card with reserve cost 2 or less from your graveyard. If you do, copy it and you may activate that copy without paying its reserve cost."
 // The generated handler pushed a bare stdClass onto the hand and activated it, which fatals in MZMove ("Call to undefined method stdClass::Remove()") -- using the ability crashed the engine. It also compared the
 // element to exactly "FIRE", so Exalted fire actions ("EXALTED,FIRE": Blaze Alight, Lavastorm, ...) were never offered. The copy is now a proper temporary card activated with its cost ignored.

@@ -1,0 +1,22 @@
+{
+    "name": "conjure-downpour-with-fewer-than-four-memory-cards-does-not-draw-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:28:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "r0zadf9q1w"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "r0zadf9q1w"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "memory-threshold",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Memory 4+] Draw a card into your memory."
+        ]
+    }
+}

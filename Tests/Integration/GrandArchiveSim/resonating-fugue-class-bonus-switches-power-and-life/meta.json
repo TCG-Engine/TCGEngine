@@ -1,0 +1,22 @@
+{
+    "name": "resonating-fugue-class-bonus-switches-power-and-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:20:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "optpu3fubb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "optpu3fubb"
+        ],
+        "mechanics": [
+            "stat-change",
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "Switch the power and life stat of target Animal or Beast ally you control until end of turn."
+        ]
+    }
+}

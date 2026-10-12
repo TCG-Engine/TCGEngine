@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"hzPvtli28c\",\"EMPOWERED\",\"EMPOWER_PLUS_1\",\"vz4kc558yx-ACTION_ACTIVATED\"]",
+        "semantic": true,
+        "label": "Empower 1 plus the until-end-of-turn Suited Spell trigger"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Drew a card: 8 - 1 cast - 4 paid + 1"
+    }
+]

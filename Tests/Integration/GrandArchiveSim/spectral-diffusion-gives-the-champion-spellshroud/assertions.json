@@ -1,0 +1,11 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"SPELLSHROUD\",\"vz4kc558yx-ACTION_ACTIVATED\"]",
+        "semantic": true,
+        "label": "Your champion has spellshroud until end of turn"
+    }
+]

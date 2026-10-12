@@ -1,0 +1,20 @@
+{
+    "name": "storm-of-thorns-prevents-one-damage-to-a-unit-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:26:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "39i1f0ht2t"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "39i1f0ht2t"
+        ],
+        "mechanics": [
+            "prevent-damage"
+        ],
+        "rulesClauses": [
+            "If damage would be dealt to a unit you control this turn, prevent 1 of that damage. If the damage prevented had a unit as its source, deal 1 damage to that unit."
+        ]
+    }
+}

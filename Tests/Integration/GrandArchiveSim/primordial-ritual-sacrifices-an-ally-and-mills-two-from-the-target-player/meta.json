@@ -1,0 +1,24 @@
+{
+    "name": "primordial-ritual-sacrifices-an-ally-and-mills-two-from-the-target-player",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:20:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4mcnqsm3n9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4mcnqsm3n9"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sacrifice",
+            "mill",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice an ally.",
+            "Target player puts the top two cards of their deck into their graveyard."
+        ]
+    }
+}

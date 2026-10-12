@@ -1,0 +1,21 @@
+{
+    "name": "return-to-the-depths-prevents-all-but-one-of-the-next-champion-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:24:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fNlJ0MaxiI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fNlJ0MaxiI"
+        ],
+        "mechanics": [
+            "prevent-damage",
+            "champion"
+        ],
+        "rulesClauses": [
+            "The next time damage would be dealt to your champion this turn, prevent all but 1 of that damage."
+        ]
+    }
+}

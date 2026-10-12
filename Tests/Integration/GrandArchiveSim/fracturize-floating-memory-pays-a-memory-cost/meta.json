@@ -1,0 +1,22 @@
+{
+    "name": "fracturize-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:18:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cpvn96659y"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cpvn96659y"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    }
+}

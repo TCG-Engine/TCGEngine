@@ -1,0 +1,20 @@
+[
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Think Deep itself and the one card milled from the top of the deck"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "One card left the deck"
+    }
+]

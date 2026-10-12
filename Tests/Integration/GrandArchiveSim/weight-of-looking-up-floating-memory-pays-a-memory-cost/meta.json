@@ -1,0 +1,22 @@
+{
+    "name": "weight-of-looking-up-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:18:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i1BCY4T5fL"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i1BCY4T5fL"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    }
+}

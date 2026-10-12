@@ -48,6 +48,7 @@ against these lists and lists the known gaps.
 | Repeated `MZMove($player, "myDeck-0", ...)` | MZMove only flags a slot removed, so every pass of a loop after the first moved nothing (Breakwater Cadet milled 1 of 2; about 20 generated abilities: mill N, look at the top N, banish 4, draw to memory). New opt-in generator module `SkipRemovedMZMoves=myDeck,theirDeck` (zzGameCodeGenerator.php + GrandArchiveSim schema): a flagged deck slot is skipped to the next live one. Other schemas generate byte-identical code. Needs `php zzGameCodeGenerator.php rootName=GrandArchiveSim` after deploy. |
 
 | Hailfinch | [Class Bonus] On Hit asked its YESNO and then read `CombatTarget` in the answer handler, but the combat variables are only restored while the trigger itself resolves. The buff counter was removed and the hit object was never rested. Override freezes Hailfinch and the hit object by unique id (`HailfinchHitChoice`); no other generated `:OnHit-N` answer handler reads the combat variables. |
+| Innervate Knowledge | Same gap as Innervate Fury: "As an additional cost, delevel your champion and recover 5" was never paid (and a champion with no lineage could still cast it). Added to the shared cost block and prereq. |
 | Frigid Bash | The [Class Bonus] On Hit ("doesn't wake up ... unless that player pays (2)") was never implemented; only the cost reduction existed. Override queues the controller's pay-or-skip choice; fixtures for paying and declining. |
 
 ### Decided and fixed after review
@@ -60,6 +61,10 @@ against these lists and lists the known gaps.
 | Item | Decision |
 |---|---|
 | Spellshroud also stops your own spells | Keep. Suzaku's Command's Shenju clause stays unreachable (every Shenju has Spellshroud). |
+
+### Open: target-dependent cost reductions
+- Slipstream Vault is in the flat Class Bonus discount table (`GameLogic.php`, "costs 1 less (if targets unique ally)"), so it is discounted even when it targets a non-unique ally. Coronation Ceremony shows the right shape (CalculateActivationReserveCost + `CoronationCeremonyChoice`); Astral Seal ("targets an activation of a card with the same name as a banished card") and Spectral Haunting ("targets a Specter") need the same look when their elements are covered. The Slipstream Vault fixture uses a unique ally so it does not depend on the bug.
+- Genbu's Command: the "If that ally is a Shenju, recover 6" clause is unreachable (every Shenju has Spellshroud and the action is a Spell), same as Suzaku's Command. No fixture for the clause.
 
 ### Decided: do as its own batch later
 | Item | Decision |

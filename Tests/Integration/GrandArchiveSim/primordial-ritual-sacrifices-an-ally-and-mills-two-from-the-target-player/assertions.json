@@ -1,0 +1,29 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "L0RmNaDzhk",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The sacrificed ally is in the graveyard"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The target player put the top two cards of their deck into their graveyard"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Only Primordial Ritual and the sacrificed ally: our deck is untouched"
+    }
+]
