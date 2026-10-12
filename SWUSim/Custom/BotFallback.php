@@ -454,6 +454,10 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 }
                 $guides = $ctx['_guides'] ?? _SWUBotGuides($ctx);
                 $score = ($best ?? 0.0) + (in_array(strval($action['cardID'] ?? ''), $guides['attackFirst'], true) ? $W['attackFirst'] : 0.0);
+                // Feature 'enablerfirst' (Bug Report game 1647080): an On Attack "next unit you play this phase" grant is worth what it adds
+                // to the payoff in hand — and the go-wide guide may start its line with this swing (SWUBotAggroMaxUnitsPick).
+                if (SWUBotFeatureOn('enablerfirst')) $score += _SWUBotAttackEnablerBonus($seat, strval($att['cardID'] ?? ''), $W);
+                if ($guides['maxUnits'] === strval($action['cardID'] ?? '')) $score += $W['maxUnits'];
                 // Feature 'healwaste' (p42): a Restore N attack with less than N damage on my base wastes the restore — it waits, by what it wastes,
                 // while an enemy unit is ready to hit my base first (owner: "sometimes best to let the opponent attack first when you have 0
                 // damage on base if you can restore 1 or 2 after their hit"). Rule 8 still sends it before the round ends.
@@ -1913,24 +1917,43 @@ function _SWUBotDiscountOrderBonus(int $seat, array $action, string $cid): float
 
 function _SWUBotEnablerFirstBonus(int $seat, array $action, string $cid, array $W): float {
     $text = strval(CardText($cid));
-    // The grant must come from PLAYING this card (When Played). "On Attack" / "When Defeated" versions of the same
-    // sentence say nothing about which card to play first.
+    // The grant must come from PLAYING this card (When Played). A "When Defeated" version says nothing about which card
+    // to play first; the "On Attack" version orders an attack instead (_SWUBotAttackEnablerBonus below).
     if (!preg_match('/When Played/i', $text)) return 0.0;
     if (!preg_match('/next unit you play this phase(.*?)\./is', $text, $m)) return 0.0;
-    $clause = $m[1];
+    $i = intval(substr(SWUBotActionMz($action), strlen('myHand-')));
+    $self = GetHand($seat)[$i] ?? null;
+    if ($self === null) return 0.0;
+    $left = SWUTotalPaymentCapacity($seat) - intval(SWUComputePlayCost($seat, $self));
+    return _SWUBotNextUnitGrantGain($seat, $m[1], $left, $W, fn($j) => $j !== $i);
+}
+
+// The ON ATTACK half of the same grant (feature 'enablerfirst'; Bug Report game 1647080: "bot did not attack with
+// Neel before playing Tarpals"). ASH_248 Neel is "When Played/On Attack", so a Neel already in play arms the grant
+// again by attacking — the swing goes BEFORE the payoff is played, and is worth what the grant adds to it. The
+// attack spends nothing, so the payoff only has to fit the whole capacity. $inHand narrows the payoffs (the go-wide
+// guide passes its chosen subset).
+// Zero when a "enters play ready" grant is already armed (a Neel played or swung this phase): his handler keeps ONE
+// flag, and a unit cannot enter "more ready" — a "costs N less" grant stacks (SEC_110 adds one discount per attack).
+function _SWUBotAttackEnablerBonus(int $seat, string $cid, array $W, ?callable $inHand = null): float {
+    if (!preg_match('/([^\n:]*):[^\n:]*?next unit you play this phase(.*?)\./i', strval(CardText($cid)), $m)) return 0.0;
+    if (stripos($m[1], 'On Attack') === false) return 0.0;   // the trigger that carries the grant must be the attack's own
+    if (stripos($m[2], 'enters play ready') !== false && GlobalEffectCount($seat, 'SWU_ASH248_READY') > 0) return 0.0;
+    return _SWUBotNextUnitGrantGain($seat, $m[2], SWUTotalPaymentCapacity($seat), $W, $inHand ?? fn($j) => true);
+}
+
+// What a "the next unit you play this phase <clause>" grant is worth: the best ELIGIBLE payoff in hand that is still
+// affordable out of $left resources. Shared by the When Played and On Attack halves of 'enablerfirst'.
+function _SWUBotNextUnitGrantGain(int $seat, string $clause, int $left, array $W, callable $inHand): float {
     $readies = stripos($clause, 'enters play ready') !== false;
     $cheaper = preg_match('/costs (\d+) resource/i', $clause, $c) ? intval($c[1]) : 0;
     if (!$readies && $cheaper <= 0) return 0.0;
     // A condition this cannot evaluate ("if it shares a keyword with a friendly unit") — do not guess.
     if (preg_match('/\bif\b/i', $clause)) return 0.0;
     $maxPower = preg_match('/with (\d+) or less power/i', $clause, $p) ? intval($p[1]) : PHP_INT_MAX;
-    $i = intval(substr(SWUBotActionMz($action), strlen('myHand-')));
-    $self = GetHand($seat)[$i] ?? null;
-    if ($self === null) return 0.0;
-    $left = SWUTotalPaymentCapacity($seat) - intval(SWUComputePlayCost($seat, $self));
     $best = 0.0;
     foreach (GetHand($seat) as $j => $o) {
-        if ($j === $i || $o === null || !empty($o->removed)) continue;
+        if (!$inHand($j) || $o === null || !empty($o->removed)) continue;
         $pid = strval($o->CardID ?? '');
         if (!str_contains(strval(CardType($pid)), 'Unit')) continue;
         $power = intval(CardPower($pid));

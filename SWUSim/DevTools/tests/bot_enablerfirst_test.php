@@ -252,4 +252,132 @@ $act(1, 10002, $j4);
 $dealt = 30 - SWUBaseRemainingHp(2);
 $check($dealt === 4, 'J: 4 damage at the enemy base (1 printed +2 Ahsoka +1 Experience); got ' . json_encode($dealt));
 
+// ══ Bug Report game 1647080 — THE "ON ATTACK" HALF OF THE SAME GRANT ════════════════════════════════
+// "bot did not attack with Neel before playing Tarpals". Round 2, seat 2 = ASH_009 Ahsoka, hyper aggro, 3
+// resources. Neel was played in round 1 and is READY; Captain Tarpals, Death Space Skirmisher and Luke
+// Skywalker are in hand; the opponent has claimed the initiative. Neel's grant is "When Played/ON ATTACK", so
+// attacking with him arms it again: Neel attacks -> Tarpals enters READY -> Ahsoka's Action (+2/+0) -> Tarpals
+// swings for 4. The bot played Tarpals first, so he entered exhausted and the grant had nothing left to ready.
+// Root cause: 'enablerfirst' read the When Played half only — the scorer's attack case priced Neel's swing as a
+// 1-power poke (0.6), and the go-wide guide (4.0 hyper aggro) named Tarpals, the most units it could play.
+$NEEL_ATTACK = 'myGroundArena-0!FSM!';
+$reported1647080 = function () use ($build) {
+    $build(function ($b) {
+        $b->MyLeader('ASH_009');
+        $b->MyBase('HMW_031');                          // the reported base: it sets which hand cards pay an aspect penalty
+        $b->FillResourcesForPlayer(1, 'SOR_095', 3);
+        $b->WithGroundUnitForPlayer(1, 'ASH_248');      // Neel, READY — myGroundArena-0
+        $b->WithSpaceUnitForPlayer(1, 'ASH_201');       // Open Circle Ace, ready
+        $b->WithCardInHandForPlayer(1, 'HMW_254');      // myHand-0: Captain Tarpals, the payoff
+        $b->WithCardInHandForPlayer(1, 'JTL_217');      // myHand-1: Death Space Skirmisher (3 power — not eligible)
+        $b->WithCardInHandForPlayer(1, 'HMW_208');      // myHand-2: Luke Skywalker
+        $b->WithInitiativePlayerBeing(2);
+        $b->WithInitiativeClaimed();
+    });
+};
+$attackScore = function (string $style, string $mz, array $disabled = []) use ($botCtx) {
+    SWUBotSetDisabledFeatures($disabled);
+    $ctx = $botCtx($style);
+    $s = null;
+    foreach ($ctx['actions'] as $i => $a) if (strval($a['cardID']) === $mz) { $s = SWUBotScoreAction($ctx, $a, $i); break; }
+    SWUBotSetDisabledFeatures([]);
+    return $s;
+};
+
+// K) THE REPORTED SHAPE — every style attacks with Neel before playing Tarpals.
+foreach (array_merge(['normal'], $MAXUNITS_STYLES) as $st) {
+    $reported1647080();
+    $offeredK = $ids($botCtx($st)['actions']);
+    $check(in_array($NEEL_ATTACK, $offeredK, true) && in_array($TARPALS, $offeredK, true),
+        "K/$st fixture: Neel's attack and Tarpals' play are both on offer; got " . json_encode($offeredK));
+    [$pickK, $kindK] = $pickOf($st);
+    $check($pickK === $NEEL_ATTACK, "K/$st: Neel attacks BEFORE Tarpals is played; picked " . json_encode($pickK) . " ($kindK)");
+}
+$reported1647080();
+$check(_SWUBotGuides($botCtx('hyperaggro'))['maxUnits'] === $NEEL_ATTACK,
+    'K: the go-wide guide starts its line with the enabler attack; got ' . json_encode(_SWUBotGuides($botCtx('hyperaggro'))['maxUnits']));
+
+// L) the reported mistake is still there with the feature off — so K cannot pass vacuously.
+foreach ($MAXUNITS_STYLES as $st) {
+    $reported1647080();
+    [$pickL] = $pickOf($st, 1, 'no-enablerfirst');
+    $check($pickL === $TARPALS, "L/$st: @no-enablerfirst plays Tarpals first, the reported mistake; picked " . json_encode($pickL));
+}
+
+// M) CONTROL — the grant is ALREADY ARMED (a Neel was played this phase). Arming it again readies nothing more,
+// so the attack is worth exactly what it was and the guide still names a play.
+$reported1647080();
+AddGlobalEffects(1, 'SWU_ASH248_READY');
+$mOn = $attackScore('hyperaggro', $NEEL_ATTACK); $mOff = $attackScore('hyperaggro', $NEEL_ATTACK, ['enablerfirst']);
+$check($mOn !== null && abs($mOn - $mOff) < 1e-9, 'M: grant already armed -> no ordering bonus: ' . json_encode([$mOn, $mOff]));
+$check(SWUBotActionKind(['cardID' => strval(_SWUBotGuides($botCtx('hyperaggro'))['maxUnits'])]) === 'play',
+    'M: and the guide names a play; got ' . json_encode(_SWUBotGuides($botCtx('hyperaggro'))['maxUnits']));
+
+// N) CONTROL — no eligible payoff in hand (Death Space Skirmisher has 3 power), so the attack gets no bonus.
+$build(function ($b) {
+    $b->MyLeader('ASH_009');
+    $b->MyBase('HMW_031');
+    $b->FillResourcesForPlayer(1, 'SOR_095', 3);
+    $b->WithGroundUnitForPlayer(1, 'ASH_248');
+    $b->WithCardInHandForPlayer(1, 'JTL_217');
+    $b->WithInitiativePlayerBeing(2);
+    $b->WithInitiativeClaimed();
+});
+$nOn = $attackScore('hyperaggro', $NEEL_ATTACK); $nOff = $attackScore('hyperaggro', $NEEL_ATTACK, ['enablerfirst']);
+$check($nOn !== null && abs($nOn - $nOff) < 1e-9, 'N: no eligible payoff -> no ordering bonus: ' . json_encode([$nOn, $nOff]));
+$check(_SWUBotGuides($botCtx('hyperaggro'))['maxUnits'] === 'myHand-0!FSM!',
+    'N: and the guide still names the unit play; got ' . json_encode(_SWUBotGuides($botCtx('hyperaggro'))['maxUnits']));
+
+// O) CONTROL — the payoff is unaffordable (0 resources): the grant would expire unused.
+$build(function ($b) {
+    $b->MyLeader('ASH_009');
+    $b->WithGroundUnitForPlayer(1, 'ASH_248');
+    $b->WithCardInHandForPlayer(1, 'HMW_254');
+    $b->WithInitiativePlayerBeing(2);
+    $b->WithInitiativeClaimed();
+});
+$oOn = $attackScore('hyperaggro', $NEEL_ATTACK); $oOff = $attackScore('hyperaggro', $NEEL_ATTACK, ['enablerfirst']);
+$check($oOn !== null && abs($oOn - $oOff) < 1e-9, 'O: payoff unaffordable -> no ordering bonus: ' . json_encode([$oOn, $oOff]));
+
+// P) THE "COSTS LESS" GRANT — SEC_110 GNK Power Droid ("On Attack: The next unit you play this phase costs 1
+// resource less") is priced as the resource it saves, like the When Played half.
+$build(function ($b) {
+    $b->MyLeader('ASH_009');
+    $b->FillResourcesForPlayer(1, 'SOR_095', 3);
+    $b->WithGroundUnitForPlayer(1, 'SEC_110');
+    $b->WithCardInHandForPlayer(1, 'HMW_254');
+    $b->WithInitiativePlayerBeing(2);
+    $b->WithInitiativeClaimed();
+});
+$Wn = SWUBotWeights('normal', 1);
+$pOn = $attackScore('normal', $NEEL_ATTACK); $pOff = $attackScore('normal', $NEEL_ATTACK, ['enablerfirst']);
+$check($pOn !== null && abs(($pOn - $pOff) - $Wn['develop']) < 1e-9,
+    'P: GNK Power Droid\'s attack is worth the 1 resource it saves: ' . json_encode([$pOn, $pOff, $Wn['develop']]));
+
+// R) CONTROL — the grant must be the ATTACK's own trigger. LAW_058 ("When Played: Deal 1 damage to a base. / When
+// Defeated: The next unit you play this phase costs 1 resource less.") arms nothing by attacking.
+$build(function ($b) {
+    $b->MyLeader('ASH_009');
+    $b->FillResourcesForPlayer(1, 'SOR_095', 3);
+    $b->WithGroundUnitForPlayer(1, 'LAW_058');
+    $b->WithCardInHandForPlayer(1, 'HMW_254');
+    $b->WithInitiativePlayerBeing(2);
+    $b->WithInitiativeClaimed();
+});
+$rOn = $attackScore('normal', $NEEL_ATTACK); $rOff = $attackScore('normal', $NEEL_ATTACK, ['enablerfirst']);
+$check($rOn !== null && abs($rOn - $rOff) < 1e-9, 'R: a When Defeated grant is not the attack\'s: ' . json_encode([$rOn, $rOff]));
+
+// Q) THE WHOLE LINE on hyper aggro — Neel attacks, then Tarpals enters READY.
+$reported1647080();
+[$q1] = $pickOf('hyperaggro');
+$check($q1 === $NEEL_ATTACK, 'Q: the turn starts with Neel\'s attack; got ' . json_encode($q1));
+$act(1, 10002, $NEEL_ATTACK);   // the enemy board is empty: the attack goes to the base without a target prompt
+$check(GlobalEffectCount(1, 'SWU_ASH248_READY') > 0, "Q: Neel's On Attack armed the grant");
+[$q2] = $pickOf('hyperaggro');
+$check($q2 === $TARPALS, 'Q: then Tarpals; got ' . json_encode($q2));
+$act(1, 10002, $TARPALS);
+$tarpalsQ = null;
+foreach (SWUBotUnits(1) as $u) if ($u['cardID'] === 'HMW_254') $tarpalsQ = $u;
+$check($tarpalsQ !== null && $tarpalsQ['ready'], 'Q: Tarpals entered play READY; got ' . json_encode($tarpalsQ['ready'] ?? null));
+
 bot_test_finish();

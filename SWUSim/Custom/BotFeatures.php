@@ -111,7 +111,12 @@ const SWU_BOT_PART9_FEATURES = ['nogift'];
 // inert for every aggro seat and the order was decided by where the cards sat in hand (measured both ways on the
 // reported board). The guide now puts an enabler in its own subset first, under the same switch — '@no-enablerfirst'
 // and '@no-p10' turn off BOTH halves, so they stay one A/B.
-// Guard: SWUSim/DevTools/tests/bot_enablerfirst_test.php (A-E the scorer half, F-J the guide half).
+// ⚠ THIRD HALF, added 2026-10-12 from Bug Report game 1647080: "bot did not attack with Neel before playing Tarpals".
+// Neel's grant is "When Played/ON ATTACK", and both halves above read When Played only — a Neel already in play
+// scored his swing as a 1-power poke while the go-wide guide named Tarpals. An attack whose On Attack arms the grant
+// for an affordable payoff now carries the same price (_SWUBotAttackEnablerBonus), and the guide starts its line with
+// that swing when the payoff is in its subset. Same switch.
+// Guard: SWUSim/DevTools/tests/bot_enablerfirst_test.php (A-E the scorer half, F-J the guide half, K-R the attack half).
 const SWU_BOT_PART10_FEATURES = ['enablerfirst'];
 
 // Part 11 (2026-09-23): 'mgkeep' — THE FIRST MIDRANGE RULE THIS ENGINE HAS. Owner ruling 2026-09-23 (6):
